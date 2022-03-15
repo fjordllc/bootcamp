@@ -37,23 +37,17 @@
       .thread-list-item-meta
         .thread-list-item-meta__items
           .thread-list-item-meta__item(v-if='!question.wip')
-            time.a-meta(
-              :datetime='question.published_at_date_time',
-              pubdate='pubdate'
-            )
+            time.a-meta
               span.a-meta__label
                 | 公開
               span.a-meta__value
-                | {{ question.published_at }}
+                | {{ publishedAt }}
           .thread-list-item-meta__item(v-if='!question.wip')
-            time.a-meta(
-              :datetime='question.updated_at_date_time',
-              pubdate='pubdate'
-            )
+            time.a-meta
               span.a-meta__label
                 | 更新
               span.a-meta__value
-                | {{ question.updated_at }}
+                | {{ updatedAt }}
           .thread-list-item-meta__item(v-if='question.answers.size > 0')
             .thread-list-item-comment
               .thread-list-item-comment__label
@@ -73,11 +67,23 @@
       .stamp__content.is-icon 決
 </template>
 <script>
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
+
 export default {
   props: {
     question: { type: Object, required: true }
   },
   computed: {
+    updatedAt() {
+      return dayjs(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    publishedAt() {
+      return dayjs(this.question.published_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
+    },
     roleClass() {
       return `is-${this.question.user.primary_role}`
     },

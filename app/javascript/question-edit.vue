@@ -21,10 +21,7 @@
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.long_name }}
             .thread-header-metas__meta(v-if='!question.wip')
-              time.a-meta(
-                :datetime='question.published_at_date_time',
-                pubdate='pubdate'
-              )
+              time.a-meta
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
@@ -33,10 +30,7 @@
               .a-meta
                 span.a-meta__label
                   | 更新
-                time.thread_header_date-value(
-                  :datetime='question.updated_at_date_time',
-                  pubdate='pubdate'
-                )
+                time.a-meta__value
                   | {{ updatedAt }}
       .thread-header__row
         .thread-header-title(:class='question.wip ? "is-wip" : ""')
