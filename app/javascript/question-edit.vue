@@ -13,22 +13,33 @@
       .thread-header__row
         .thread-header-metas
           .thread-header-metas__start
+            .thread-header-metas__meta(v-if='question.wip')
+              .a-meta
+                span.a-meta__value
+                  | 質問作成中
             .thread-header-metas__meta
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.long_name }}
-            .thread-header-metas__meta
+            .thread-header-metas__meta(v-if='!question.wip')
+              time.a-meta
+                span.a-meta__label
+                  | 公開
+                span.a-meta__value
+                  | {{ publishedAt }}
+            .thread-header-metas__meta(v-if='!question.wip')
               .a-meta
-                time.thread_header_date-value(
-                  :datetime='updatedAtISO8601',
-                  pubdate='pubdate'
-                )
+                span.a-meta__label
+                  | 更新
+                time.a-meta__value
                   | {{ updatedAt }}
       .thread-header__row
-        .thread-header-title
+        .thread-header-title(:class='question.wip ? "is-wip" : ""')
           .thread-header-title__label.is-solved.is-success(
             v-if='question.correct_answer !== null'
           )
             | 解決済
+          .thread-header-title__label.is-wip(v-else-if='question.wip')
+            | WIP
           .thread-header-title__label.is-solved.is-danger(v-else)
             | 未解決
           h1.thread-header-title__title
@@ -153,10 +164,27 @@
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
-                button.a-button.is-md.is-warning.is-block(
-                  @click='updateQuestion',
+                button.a-button.is-md.is-primary.is-block(
+                  @click='updateQuestion(true)',
                   :disabled='!validation',
                   type='button'
+                )
+                  | WIP
+              li.card-main-actions__item
+                button.a-button.is-md.is-warning.is-block(
+                  @click='updateQuestion(false)',
+                  :disabled='!validation',
+                  type='button'
+                )(
+                  v-if='question.wip'
+                )
+                  | 質問を公開
+                button.a-button.is-md.is-warning.is-block(
+                  @click='updateQuestion(false)',
+                  :disabled='!validation',
+                  type='button'
+                )(
+                  v-else
                 )
                   | 更新する
               li.card-main-actions__item
@@ -221,11 +249,13 @@ export default {
     }
   },
   computed: {
-    updatedAtISO8601() {
-      return dayjs(this.question.updated_at).format()
-    },
     updatedAt() {
       return dayjs(this.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    publishedAt() {
+      return dayjs(this.question.published_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
     },
     practiceTitle() {
       const { practices, question, practiceId } = this
@@ -300,7 +330,8 @@ export default {
         return val !== this[key]
       })
     },
-    updateQuestion() {
+    updateQuestion(wip) {
+      this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
         // 表示しないとユーザーが更新されていないと不安に感じる
@@ -313,7 +344,8 @@ export default {
         question: {
           title,
           description,
-          practice_id: practiceId
+          practice_id: practiceId,
+          wip
         }
       }
       fetch(`/api/questions/${this.question.id}`, {
@@ -332,6 +364,7 @@ export default {
             this[key] = val
           })
           this.finishEditing(true)
+          this.$emit('afterUpdateQuestion')
         })
         .catch((error) => {
           console.warn(error)
