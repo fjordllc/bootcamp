@@ -4,7 +4,6 @@ require 'application_system_test_case'
 
 class Notification::QuestionsTest < ApplicationSystemTestCase
   setup do
-    @notice_text = 'hatsunoさんから質問がありました。'
     @notice_kind = Notification.kinds['came_question']
     @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
@@ -16,15 +15,12 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       fill_in('question[title]', with: 'メンターに質問！！')
       fill_in('question[description]', with: '通知行ってますか？')
     end
-    first('.select2-selection--single').click
-    find('li', text: '[Mac OS X] OS X Mountain Lionをクリーンインストールする').click
     click_button '登録する'
     assert_text '質問を作成しました。'
 
     visit_with_auth '/notifications', 'mentormentaro'
-
     within first('.thread-list-item.is-unread') do
-      assert_text @notice_text
+      assert_text 'hatsunoさんから質問「メンターに質問！！」が投稿されました。'
     end
 
     assert_equal @notified_count + @mentor_count, Notification.where(kind: @notice_kind).size
@@ -36,17 +32,11 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       fill_in('question[title]', with: '皆さんに質問！！')
       fill_in('question[description]', with: '通知行ってますか？')
     end
-    first('.select2-selection--single').click
-    find('li', text: '[Mac OS X] OS X Mountain Lionをクリーンインストールする').click
     click_button '登録する'
-    logout
+    assert_text '質問を作成しました。'
 
-    login_user users(:mentormentaro).login_name, 'testtest'
-    # 通知メッセージが非表示項目でassert_textでは取得できないため、findでvisible指定
-    # 存在時、findは複数取得してエラーになるためassert_raisesにて検証
-    assert_raises Capybara::ElementNotFound do
-      find('mentormentaroさんから質問がありました。', visible: false)
-    end
-    logout
+    visit '/notifications'
+    assert_selector '.page-header__title', text: '通知'
+    assert_no_text 'mentormentaroさんから質問「皆さんに質問！！」が投稿されました。'
   end
 end

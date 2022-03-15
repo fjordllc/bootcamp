@@ -10,13 +10,7 @@
       - Notification::TARGETS_TO_KINDS.each_key do |target|
         li.page-tabs__item
           = link_to notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip do
-            - if target == :mention
-              | #{t('notification.mention')} （#{Cache.mentioned_notification_count(current_user)}）
-              - if Cache.mentioned_and_unread_notification_count(current_user).positive?
-                .page-tabs__item-count.a-notification-count
-                  = Cache.mentioned_and_unread_notification_count(current_user)
-            - else
-              = t("notification.#{target}")
-              - if ensure_notifications?(target)
-                .page-tabs__item-count.a-notification-count
-                  = current_user.notifications.by_target(target).unreads.latest_of_each_link.size
+            = t("notification.#{target}")
+            - if ensure_notifications?(target)
+              .page-tabs__item-count.a-notification-count
+                = current_user.notifications.by_target(target).unreads.latest_of_each_link.size

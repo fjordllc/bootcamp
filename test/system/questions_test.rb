@@ -109,7 +109,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'komagata'
     assert_text 'yameoさんが退会しました。'
-    assert_text 'kimuraさんから質問がありました。'
+    assert_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
 
     visit_with_auth '/questions', 'kimura'
     click_on 'タイトルtest'
@@ -122,7 +122,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'komagata'
     assert_text 'yameoさんが退会しました。'
-    assert_no_text 'kimuraさんから質問がありました。'
+    assert_no_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
   end
 
   test 'admin can update and delete any questions' do

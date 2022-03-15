@@ -90,8 +90,8 @@ talk23:
   unreplied: false
 
 talk24:
-    user: twitterinvalid
-    unreplied: false
+  user: twitterinvalid
+  unreplied: false
 
 talk25:
   user: enchomaemae
