@@ -18,7 +18,7 @@
         @click='copyCommentURLToClipboard(comment.id)'
       )
         | {{ updatedAt }}
-    .thread-comment__description.js-target-blank.is-long-text(
+    .thread-comment__description.js-target-blank.a-long-text.is-md(
       v-html='markdownDescription'
     )
     reaction(
@@ -65,7 +65,7 @@
       .a-markdown-input__inner.js-tabs__content(
         v-bind:class='{ "is-active": isActive("preview") }'
       )
-        .is-long-text.a-markdown-input__preview(
+        .a-long-text.is-md.a-markdown-input__preview(
           :id='`js-comment-preview-${this.comment.id}`'
         )
     .card-footer

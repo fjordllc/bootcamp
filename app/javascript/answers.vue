@@ -48,7 +48,7 @@
           .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("preview") }'
           )
-            #new-comment-preview.is-long-text.a-markdown-input__preview
+            #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
         .card-footer
           .card-main-actions
             .card-main-actions__items

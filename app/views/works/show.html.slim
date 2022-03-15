@@ -34,7 +34,7 @@ header.page-header
             h1.thread-header-title
               span.thread-header-title__title
                 = @work.title
-        .thread__description.js-target-blank.is-long-text
+        .thread__description.js-target-blank
           - if @work.thumbnail.attached?
             p
               = image_tag @work.thumbnail_url, alt: @work.title

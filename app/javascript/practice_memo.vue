@@ -2,7 +2,7 @@
 .a-card
   div(v-if='!editing')
     .card-body(v-if='memo')
-      .js-target-blank.is-long-text(v-html='markdownMemo')
+      .js-target-blank.a-long-text.is-md(v-html='markdownMemo')
     .thread-list(v-else)
       .thread-list__inner
         .container
@@ -45,7 +45,7 @@
       .a-markdown-input__inner.is-preview.js-tabs__content(
         :class='{ "is-active": isActive("preview") }'
       )
-        .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
+        .a-long-text.a-markdown-input__preview(v-html='markdownMemo')
     .card-footer
       .card-main-actions
         .card-main-actions__items
