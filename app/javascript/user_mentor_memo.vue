@@ -4,7 +4,7 @@ section.a-card.is-memo.is-only-mentor
     h2.card-header__title
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
-    .js-target-blank.is-long-text(v-html='markdownMemo')
+    .js-target-blank.a-long-text.is-md(v-html='markdownMemo')
     .o-empty-message(v-if='memo.length === 0')
       .o-empty-message__icon
         i.far.fa-sad-tear
@@ -44,7 +44,7 @@ section.a-card.is-memo.is-only-mentor
       .a-markdown-input__inner.is-preview.js-tabs__content(
         :class='{ "is-active": isActive("preview") }'
       )
-        .is-long-text.a-markdown-input__preview(v-html='markdownMemo')
+        .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
   .card-footer(v-show='editing')
     .card-main-actions
       .card-main-actions__items

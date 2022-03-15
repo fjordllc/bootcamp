@@ -7,7 +7,7 @@
       .thread-comment__title
         .thread-comment__title-link.a-placeholder
       .thread-comment__created-at.a-placeholder
-    .thread-comment__description.is-long-text.a-placeholder
+    .thread-comment__description.a-long-text.is-md.a-placeholder
       p
       p
       p
