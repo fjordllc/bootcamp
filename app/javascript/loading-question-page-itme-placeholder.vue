@@ -22,7 +22,7 @@
     .thread__tags
     .thread__body
       .thread-question__body
-        .thread__description.is-long-text.a-placeholder
+        .thread__description.a-long-text.is-md.a-placeholder
           p
           p
           p

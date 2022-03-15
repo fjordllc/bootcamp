@@ -574,7 +574,7 @@ class ReportsTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
-    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+    assert_selector '.js-preview.a-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
   end
@@ -585,7 +585,7 @@ class ReportsTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
-    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+    assert_selector '.js-preview.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
   end
@@ -596,7 +596,7 @@ class ReportsTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
-    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+    assert_selector '.js-preview.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
   end
