@@ -1,7 +1,7 @@
 - content_for :extra_body_classes, 'welcome'
 - title '料金'
 
-- trial_period = Campaign.trial_period
+- trial_period = Campaign.current_trial_period
 
 - example_start_at = Time.current.strftime('%-m月%-d日10時10分10秒')
 - example_end_at = (Time.current + trial_period.days - 1).strftime('%-m月%-d日10時10分9秒')
