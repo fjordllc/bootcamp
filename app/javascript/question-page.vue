@@ -7,7 +7,8 @@
       :question='question',
       :answerCount='answerCount',
       :isAnswerCountUpdated='isAnswerCountUpdated',
-      :currentUser='currentUser'
+      :currentUser='currentUser',
+      @afterUpdateQuestion='fetchQuestion(questionId)'
     )
     a#comments.a-anchor
     answers(

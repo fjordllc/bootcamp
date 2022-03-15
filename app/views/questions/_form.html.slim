@@ -32,11 +32,8 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
+        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
         = f.submit nil, class: 'a-button is-lg is-warning is-block'
-      - case params[:action]
-      - when 'new', 'create'
-        li.form-actions__item
+      li.form-actions__item
           = link_to 'キャンセル', questions_path, class: 'a-button is-md is-secondary'
-      - when 'edit', 'update'
-        li.form-actions__item.is-sub
-          = link_to 'キャンセル', question_path, class: 'a-button is-md is-secondary is-block'
