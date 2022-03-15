@@ -1,26 +1,22 @@
 .footprints
   display: flex
+  gap: .75rem
   margin-top: 1.5rem
 
 .footprints__title
   +text-block(.875rem 2rem, 600 right)
-  flex: 0 0 4.75rem
-  padding-right: 1rem
   +media-breakpoint-down(sm)
     flex: 0 0 auto
 
 .footprints__items
-  flex: 100
+  flex: 1
   display: flex
-  +margin(horizontal, -.25rem)
-  margin-bottom: -.5rem
+  gap: .5rem
   flex-wrap: wrap
 
 .footprints-item
   display: flex
   align-items: center
-  +margin(horizontal, .25rem)
-  margin-bottom: .5rem
 
 .footprints-item__checker-icon
   +size(2rem)
