@@ -34,18 +34,14 @@ class Campaign < ApplicationRecord
       Campaign.order(end_at: :desc).first.title
     end
 
-    def trial_period
-      campaign = Campaign.order(end_at: :desc).first
-      return if Campaign.nil?
-
-      today_campaign? ? campaign.trial_period : 3
+    def current_trial_period
+      today_campaign? ? Campaign.order(end_at: :desc).first.trial_period : 3
     end
 
-    def target_user?(join_date:, current_time: Time.current)
-      return if recently_campaign.nil?
-      return unless recently_campaign.cover?(join_date)
-
-      (join_date..(join_date + trial_period.days - 1.minute)).cover?(current_time)
+    def user_trial_period(join_date)
+      Campaign.find_each do |camp|
+        return camp.trial_period if (camp.start_at..camp.end_at).cover?(join_date)
+      end
     end
   end
 

@@ -1,4 +1,4 @@
-- trial_period = Campaign.trial_period
+- trial_period = Campaign.user_trial_period(current_user.created_at)
 
 .columns
   .container.is-md
@@ -17,8 +17,7 @@
               p
                 | この度はフィヨルドブートキャンプに入会いただきありがとうございます。
                 br
-                / 入会日時をテストで作り込むのが困難なため、テストではありえない日数の777日の条件で分岐させる
-                - if Campaign.target_user?(join_date: current_user.created_at) || trial_period == 777
+                - if trial_period
                   | お試し期間延長のキャンペーンが適用されているので、
                   | 入会から
                   strong
