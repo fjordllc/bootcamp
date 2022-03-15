@@ -73,7 +73,7 @@
 
     .thread__body
       .thread-question__body(v-if='!editing')
-        .thread__description.js-target-blank.is-long-text(
+        .thread__description.js-target-blank.a-long-text.is-md(
           v-html='markdownDescription'
         )
         reaction(
@@ -159,7 +159,7 @@
                 .form-tabs-item__markdown.js-tabs__content(
                   :class='{ "is-active": isActive("preview") }'
                 )
-                  #js-question-preview.js-preview.is-long-text.form-tabs-item__preview
+                  #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
 
           .card-main-actions
             ul.card-main-actions__items
