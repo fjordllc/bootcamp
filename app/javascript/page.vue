@@ -47,7 +47,7 @@
                   | 更新
                 span.a-meta__value
                   | {{ page.updated_at }}
-            .thread-list-item-meta__item
+            .thread-list-item-meta__item(v-if='page.last_updated_user')
               .thread-list-item-meta__user
                 .a-meta
                   | by
