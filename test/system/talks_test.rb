@@ -124,14 +124,6 @@ class TalksTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんのメモ'
   end
 
-  test 'Display number of comments, detail of lastest comment user' do
-    visit_with_auth '/talks', 'komagata'
-    assert_text 'コメント'
-    assert_text '(1)'
-    assert_text '2019年01月02日(水) 00:00'
-    assert_selector '.thread-list-item-comment', text: '(hajime)'
-  end
-
   test 'Displays a list of the 10 most recent reports' do
     user = users(:hajime)
     visit_with_auth '/talks', 'komagata'
