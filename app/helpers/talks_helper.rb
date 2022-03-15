@@ -1,4 +1,4 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 module TalksHelper
   def unreplied_index_path(resource)
