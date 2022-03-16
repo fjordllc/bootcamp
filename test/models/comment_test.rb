@@ -20,4 +20,20 @@ class CommentTest < ActiveSupport::TestCase
     commentable = comment.commentable
     assert_equal "/reports/#{commentable.id}#comment_#{comment.id}", comment.path
   end
+
+  test 'do not send notification if you post a mention in talks' do
+    kimura = users(:kimura)
+    kimura_talk = talks(:talk7)
+
+    Comment.create!(
+      user: kimura,
+      commentable: kimura_talk,
+      description: '@hatsuno test'
+    )
+
+    assert_not users(:hatsuno).notifications.exists?(
+      kind: 'mentioned',
+      sender: kimura
+    )
+  end
 end
