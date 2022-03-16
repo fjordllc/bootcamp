@@ -93,6 +93,7 @@ class ArticlesTest < ApplicationSystemTestCase
     end
 
     visit_with_auth articles_url, 'kimura'
+    find('.pagination__item .is-last').click
     assert_text @article3.title
     assert_no_text 'WIP'
     assert_no_text '執筆中'
