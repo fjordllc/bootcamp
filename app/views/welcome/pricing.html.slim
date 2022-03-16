@@ -33,7 +33,7 @@
             | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
       .welcome-small-section
         h2.welcome-small-sections__title
-          - if Campaign.today_is_campaign?
+          - if Campaign.today_campaign?
             | キャンペーン中につき、
           - else
             = image_tag 'pjord-face.svg',
@@ -46,7 +46,7 @@
             | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
             = trial_period
             | 日間のお試し期間を用意しています
-            - if Campaign.today_is_campaign?
+            - if Campaign.today_campaign?
               | （現在、キャンペーン中のためお試し期間を延長しています）
             | 。その
             = trial_period
