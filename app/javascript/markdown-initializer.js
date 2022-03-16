@@ -8,6 +8,7 @@ import MarkdownOption from './markdown-it-option'
 import UserIconRenderer from './user-icon-renderer'
 import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
 import MarkdownItHeadings from './markdown-it-headings'
+import MarkDownItContainerMessage from './markdown-it-container-message'
 
 export default class {
   replace(selector) {
@@ -33,6 +34,7 @@ export default class {
     md.use(MarkdownItLinkingImage)
     md.use(MarkdownItTaskLists)
     md.use(MarkdownItHeadings)
+    md.use(MarkDownItContainerMessage)
 
     return md.render(text)
   }
