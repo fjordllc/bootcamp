@@ -9,6 +9,7 @@ import MarkdownItUserIcon from './markdown-it-user-icon'
 import MarkdownOption from './markdown-it-option'
 import UserIconRenderer from './user-icon-renderer'
 import autosize from 'autosize'
+import MarkDownItContainerMessage from './markdown-it-container-message'
 
 export default class {
   static initialize(selector) {
@@ -68,7 +69,8 @@ export default class {
           MarkdownItEmoji,
           MarkdownItMention,
           MarkdownItUserIcon,
-          MarkdownItTaskLists
+          MarkdownItTaskLists,
+          MarkDownItContainerMessage
         ],
         markdownOptions: MarkdownOption
       })
