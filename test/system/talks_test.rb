@@ -123,4 +123,15 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '相談部屋テストメモ'
     assert_no_text 'kimuraさんのメモ'
   end
+
+  test 'Displays a list of the 10 most recent reports' do
+    user = users(:hajime)
+    visit_with_auth '/talks', 'komagata'
+    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    assert_text 'ユーザーの日報'
+    page.find('#reports_list').click
+    user.reports.first(10).each do |report|
+      assert_text report.title
+    end
+  end
 end
