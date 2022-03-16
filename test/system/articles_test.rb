@@ -126,13 +126,6 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'show pagination' do
-    Article.delete_all
-    user = users(:komagata)
-    number_of_pages = Article.page(1).limit_value + 1
-    number_of_pages.times do
-      Article.create(title: 'test title', body: 'test body', user_id: user.id, wip: false, published_at: Time.current)
-    end
-
     visit_with_auth articles_url, 'komagata'
     find 'nav.pagination'
   end
