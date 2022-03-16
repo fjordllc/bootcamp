@@ -41,6 +41,8 @@ module Mentioner
   end
 
   def notify_mentions(receivers)
+    return nil if instance_of?(Comment) && commentable.instance_of?(Talk) # protect mention in talk
+
     receivers.each do |receiver|
       NotificationFacade.mentioned(self, receiver) if sender != receiver
     end
