@@ -1,5 +1,7 @@
 <template lang="pug">
 div
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
   div(v-if='answers === null')
     loadingListPlaceholder
     .thread-list.a-card
@@ -15,6 +17,8 @@ div
         :key='answer.id',
         :answer='answer'
       )
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 
 <script>
