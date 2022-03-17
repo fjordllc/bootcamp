@@ -127,3 +127,9 @@ commentOfTalk:
   commentable: talk1 (Talk)
   description: "これは相談部屋の会話です。"
   updated_at: "2019-01-02 00:00:00 JST"
+
+commentOfTalk2:
+  user: hajime
+  commentable: talk9 (Talk)
+  description: "これは相談部屋の会話です。"
+  updated_at: "2019-01-02 00:00:00 JST"
