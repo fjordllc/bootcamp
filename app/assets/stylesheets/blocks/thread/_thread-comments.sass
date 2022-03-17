@@ -59,17 +59,8 @@
 
 .thread-comment__body
   min-height: 5rem
-  +position(relative)
-  // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
-  &::after
-    margin-left: -1.4375rem
-  .thread-comment.is-no-user-icon &::before,
-  .thread-comment.is-no-user-icon &::after
-    content: none
-  +media-breakpoint-down(sm)
-    &::before,
-    &::after
-      content: none
+  position: relative
+  overflow: hidden
 
 .thread-comment__description
   +padding(vertical, 1rem)
