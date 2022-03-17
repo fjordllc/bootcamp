@@ -33,6 +33,11 @@ namespace :bootcamp do
     )
   end
 
+  desc 'Disconnect all DB user.'
+  task disconnect_all_user: :environment do
+    ActiveRecord::Base.connection.execute "SELECT pid FROM pg_stat_activity WHERE datname = 'bootcamp_staging'"
+  end
+
   namespace :oneshot do
     desc 'Cloud Build Task'
     task cloudbuild: :environment do
