@@ -45,6 +45,7 @@ steps:
       - RAILS_MASTER_KEY=$_RAILS_MASTER_KEY
     args:
       - bin/rails
+      - 'bootcamp:disconnect_all_user'
       - 'db:reset'
     id: DB_Migrate
     waitFor:
