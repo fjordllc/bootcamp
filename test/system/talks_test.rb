@@ -142,12 +142,10 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'Display number of comments, detail of lastest comment user' do
-    visit_with_auth '/talks?target=mentor', 'komagata'
-    find('#talks.loaded', wait: 10)
+    visit_with_auth '/talks', 'komagata'
     assert_text 'コメント'
     assert_text '(1)'
-    assert_selector 'img[class="a-user-icon"]'
     assert_text '2019年01月02日(水) 00:00'
-    assert_text 'メンター'
+    assert_selector '.thread-list-item-comment', text: '(hajime)'
   end
 end
