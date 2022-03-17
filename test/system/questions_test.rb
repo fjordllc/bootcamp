@@ -312,6 +312,6 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'show number of unanswered questions' do
     visit_with_auth questions_path(practice_id: practices(:practice1).id), 'komagata'
-    assert_selector '#not-solved-count', text: Question.not_solved.where(practice_id: practices(:practice1).id).size
+    assert_selector '#not-solved-count', text: Question.not_solved.not_wip.where(practice_id: practices(:practice1).id).size
   end
 end
