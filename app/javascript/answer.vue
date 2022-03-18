@@ -8,11 +8,11 @@
         :class='[roleClass, daimyoClass]'
       )
   .a-card(v-if='!editing')
+    .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
+      .answer-badge__icon
+        i.fas.fa-star
+      .answer-badge__label ベストアンサー
     .thread-comment__body
-      .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
-        .answer-badge__icon
-          i.fas.fa-star
-        .answer-badge__label ベストアンサー
       header.thread-comment__body-header
         h2.thread-comment__title
           a.thread-comment__title-link(:href='answer.user.url', itemprop='url')
