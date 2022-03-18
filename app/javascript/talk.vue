@@ -28,13 +28,9 @@
               .thread-list-item-comment__label
                 | 〜 {{ talk.lastCommentTime }}
               .thread-list-item-comment__label(
-                v-if='talk.lastCommentUser.mentor'
+                v-if='talk.lastCommentUser.admin'
               )
-                | (メンター)
-              .thread-list-item-comment__label(
-                v-else-if='talk.lastCommentUser.admin'
-              )
-                | (アドミン)
+                | (管理者)
               .thread-list-item-comment__label(v-else)
                 | ({{ user.login_name }})
 </template>
