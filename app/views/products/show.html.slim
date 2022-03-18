@@ -1,4 +1,4 @@
-- title "#{@product.practice.title}の提出物"
+- title @product.practice.title
 - category = @product.category(current_user.course)
 
 = render '/shared/modal_learning_completion',
@@ -109,9 +109,9 @@ header.page-header
             - if @product.wip?
               .thread__warning-message
                 | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
-            .thread__description.js-target-blank.is-long-text.js-markdown-view
+            .thread__description.js-target-blank.a-long-text.is-md.js-markdown-view
               =  @product.practice.goal
-            .thread__description.js-target-blank.is-long-text.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
+            .thread__description.js-target-blank.a-long-text.is-md.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
               =  @product.body
             = render 'reactions/reactions', reactionable: @product
 

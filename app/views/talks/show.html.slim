@@ -17,7 +17,7 @@ header.page-header
                 h1.thread-header-title
                   = title
             .thread__body
-              .thread__description.is-long-text
+              .thread__description.a-long-text.is-md
                 p
                   | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
                   | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
@@ -37,18 +37,24 @@ header.page-header
                           = member.login_name
         a#comments.a-anchor
         #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
-      .is-only-mentor(class="#{current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
-        - if current_user.admin?
+      - if current_user.admin?
+        .col-xl-5.col-xs-12
           .side-tabs
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
+            input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-1 for='side-tabs-1'
                     | ユーザーメモ
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#reports_list for='side-tabs-2'
+                    | ユーザーの日報
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .user-info
                   = render 'users/user_secret_attributes', user: @user
                   = render 'users/metas', user: @user
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
+              .side-tabs-contents__item#side-tabs-content-2
+                #js-reports(data-user-id="#{@user.id}" data-limit="10")

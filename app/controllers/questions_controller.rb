@@ -44,10 +44,11 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user = current_user
+    @question.wip = params[:commit] == 'WIP'
     if @question.save
       create_mentors_watch
       notify_to_chat(@question)
-      redirect_to @question, notice: '質問を作成しました。'
+      redirect_to @question, notice: notice_message(@question)
     else
       render :new
     end
@@ -73,14 +74,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(
-      :title,
-      :description,
-      :user_id,
-      :resolve,
-      :practice_id,
-      :tag_list
-    )
+    params.require(:question).permit(:title, :description, :user_id, :resolve, :practice_id, :tag_list)
   end
 
   def notify_to_chat(question)
@@ -115,5 +109,11 @@ class QuestionsController < ApplicationController
         user_id: mentor.id
       }
     end
+  end
+
+  def notice_message(question)
+    return '質問をWIPとして保存しました。' if question.wip?
+
+    '質問を作成しました。'
   end
 end

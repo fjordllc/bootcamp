@@ -68,7 +68,7 @@
             h2.card-header__title
               = Practice.human_attribute_name :description
           .practice-content__body.is-practice
-            .js-markdown-view.js-target-blank.is-long-text
+            .js-markdown-view.js-target-blank.a-long-text.is-md
               = @practice.description
           footer.card-footer
             .card-main-actions
@@ -110,7 +110,7 @@
             h2.card-header__title
               = Practice.human_attribute_name :goal
           .practice-content__body.is-goal
-            .js-markdown-view.js-target-blank.is-long-text
+            .js-markdown-view.js-target-blank.a-long-text.is-md
               = @practice.goal
             - if !current_user.adviser? && @practice.open_product?
               = render '/practices/practice_content_notice'
@@ -133,14 +133,14 @@
                 | 終了条件をクリアしたら完了にしてください。
 
         - if current_user.admin_or_mentor?
-          section.a-card
+          section.a-card.is-only-mentor
             header.card-header
               h2.card-header__title
                 = Practice.human_attribute_name :memo
             .practice-content__body.is-memo
-              .js-markdown-view.js-target-blank.is-long-text
+              .js-markdown-view.js-target-blank.a-long-text.is-md
                 = @practice.memo
-          section.a-card
+          section.a-card.is-only-mentor
             header.card-header
               h2.card-header__title 管理者・メンター用メニュー
             footer.card-footer

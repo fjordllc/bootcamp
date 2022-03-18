@@ -13,6 +13,6 @@ class CampaignTest < ActiveSupport::TestCase
 
   test 'today is campaign?' do
     campaign = campaigns(:campaign1)
-    assert_equal Campaign.today_is_campaign?, (campaign.start_at..campaign.end_at).cover?(Time.current)
+    assert_equal Campaign.today_campaign?, (campaign.start_at..campaign.end_at).cover?(Time.current)
   end
 end

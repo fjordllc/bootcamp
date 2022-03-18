@@ -38,6 +38,8 @@ header.page-header
             = render 'users/pages/wip_pages', user: current_user
           - if current_user.reports.wip.present?
             = render 'users/reports/wip_reports', user: current_user
+          - if current_user.questions.wip.present?
+            = render 'users/questions/wip_questions', user: current_user
           - if current_user.products.wip.present?
             = render 'users/products/wip_products', user: current_user
           - if current_user.active_practices.present?
@@ -54,7 +56,7 @@ header.page-header
                 h2.card-header__title
                   | 卒業後のゴール
               .card-body
-                .a-long-text
+                .a-long-text.is-md
                   = simple_format(current_user.after_graduation_hope)
               .card-footer
                 .card-footer__footer-link
@@ -62,7 +64,7 @@ header.page-header
                     | 内容を更新
           - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
             = render 'job_seeking_users', users: @job_seeking_users
-          - if current_user.total_learning_time.positive? || !current_user.mentor?
+          - if current_user.student_or_trainee?
             #js-grass(data-user-id="#{current_user.id}")
           - if current_user.github_account.present?
             = render 'users/github_grass', user: current_user

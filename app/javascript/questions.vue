@@ -83,6 +83,7 @@ export default {
       history.pushState(null, null, this.newURL)
       this.questions = null
       this.getQuestions()
+      window.scrollTo(0, 0)
     },
     getQuestions() {
       fetch(this.questionsAPI, {

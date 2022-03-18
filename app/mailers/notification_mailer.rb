@@ -70,7 +70,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   def came_question
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/questions/#{@question.id}")
-    mail to: @user.email, subject: "[bootcamp] #{@question.user.login_name}さんから質問がありました。"
+    mail to: @user.email, subject: "[bootcamp] #{@question.user.login_name}さんから質問「#{@question.title}」が投稿されました。"
   end
 
   # required params: report, receiver

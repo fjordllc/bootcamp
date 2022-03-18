@@ -44,6 +44,11 @@
 
 .thread__description
   padding: 1.25rem 2rem
+  &.a-long-text
+    +media-breakpoint-up(md)
+      font-size: .9375rem
+    +media-breakpoint-down(sm)
+      font-size: .8125rem
   +media-breakpoint-down(sm)
     padding: .75rem
   & + .thread__description,
