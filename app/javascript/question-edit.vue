@@ -71,43 +71,45 @@
         tagsParamName='question[tag_list]'
       )
 
-    .thread__body
-      .thread-question__body(v-if='!editing')
+    .thread__body(v-if='!editing')
+      .thread-question__body
         .thread__description.js-target-blank.a-long-text.is-md(
           v-html='markdownDescription'
         )
+      .thread-question__reactions
         reaction(
           :reactionable='question',
           :currentUser='currentUser',
           :reactionableId='`Question_${question.id}`'
         )
-        footer.card-footer(
-          v-if='currentUser.id === question.user.id || isRole("mentor")'
-        )
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
-                  @click='startEditing'
-                )
-                  i#new.fas.fa-pen
-                  | 内容修正
-              li.card-main-actions__item.is-sub
-                // - vue.jsでDELETE methodのリンクを作成する方法が、
-                // - 見つからなかったので、
-                // - いい実装方法ではないが、
-                // - Rails特定の属性(data-confirm, data-method)を付与して、
-                // - 確認ダイアログとDELETE methodのリンクを実装する
-                a.js-delete.card-main-actions__muted-action(
-                  :href='`/questions/${question.id}`',
-                  data-confirm='本当によろしいですか？',
-                  data-method='delete'
-                )
-                  | 削除する
-            .card-footer__notice(v-show='displayedUpdateMessage')
-              p
-                | 質問を更新しました
-      .thread-form(v-show='editing')
+      footer.card-footer(
+        v-if='currentUser.id === question.user.id || isRole("mentor")'
+      )
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+                @click='startEditing'
+              )
+                i#new.fas.fa-pen
+                | 内容修正
+            li.card-main-actions__item.is-sub
+              // - vue.jsでDELETE methodのリンクを作成する方法が、
+              // - 見つからなかったので、
+              // - いい実装方法ではないが、
+              // - Rails特定の属性(data-confirm, data-method)を付与して、
+              // - 確認ダイアログとDELETE methodのリンクを実装する
+              a.js-delete.card-main-actions__muted-action(
+                :href='`/questions/${question.id}`',
+                data-confirm='本当によろしいですか？',
+                data-method='delete'
+              )
+                | 削除する
+          .card-footer__notice(v-show='displayedUpdateMessage')
+            p
+              | 質問を更新しました
+    .thread__body(v-show='editing')
+      .thread-form
         form.form(name='question')
           .form__items
             .form-item
