@@ -1,12 +1,11 @@
 import Choices from 'choices.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const choices = new Choices('#js-company-select', {
+  return new Choices('#js-company-select', {
     removeItemButton: true,
     searchResultLimit: 10,
     searchPlaceholderValue: '検索ワード',
     noResultsText: '一致する情報は見つかりません',
     itemSelectText: '選択'
   })
-  return choices
 })
