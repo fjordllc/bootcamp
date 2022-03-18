@@ -33,7 +33,8 @@ class Notification < ApplicationRecord
     chose_correct_answer: 14,
     consecutive_sad_report: 15,
     assigned_as_checker: 16,
-    product_update: 17
+    product_update: 17,
+    graduated: 18
   }
 
   scope :unreads, -> { where(read: false) }
@@ -260,6 +261,17 @@ class Notification < ApplicationRecord
         sender: product.user,
         link: Rails.application.routes.url_helpers.polymorphic_path(product),
         message: "#{product.user.login_name}さんの提出物が更新されました",
+        read: false
+      )
+    end
+
+    def graduated(sender, receiver)
+      Notification.create!(
+        kind: kinds[:graduated],
+        user: receiver,
+        sender: sender,
+        link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+        message: "#{sender.login_name}さんが卒業しました。",
         read: false
       )
     end
