@@ -14,12 +14,4 @@ header.page-header
 
 .page-body
   .container.is-md
-    - if @questions.present?
-      .thread-list.a-card
-        = render partial: 'questions/question', collection: @questions, as: :question
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.far.fa-sad-tear
-        p.o-empty-message__text
-          | 質問はまだありません。
+    #js-users-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag] data-user-id=params[:user_id]
