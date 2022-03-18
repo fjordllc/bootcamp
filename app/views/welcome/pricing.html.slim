@@ -3,10 +3,6 @@
 
 - trial_period = Campaign.current_trial_period
 
-- example_start_at = Time.current.strftime('%-m月%-d日10時10分10秒')
-- example_end_at = (Time.current + trial_period.days - 1).strftime('%-m月%-d日10時10分9秒')
-- example_pay_at = (Time.current + trial_period.days).strftime('%-m月%-d日10時10分10秒')
-
 .welcome-page-header
   .container.is-xl
     h1.welcome-page-header__title
@@ -65,21 +61,21 @@
             = trial_period
             | 日間）になります。
             | 例えば
-            = example_start_at
+            = Campaign.example_start_at
             | にフィヨルドブートキャンプを利用開始したとすると、
             | そこから
             = trial_period
             | 日後の
-            = example_end_at
+            = Campaign.example_end_at
             | がお試し期間終了のタイミングになります。
             | その後
-            = example_pay_at
+            = Campaign.example_pay_at
             | に最初の1ヶ月分の料金が引き落とされます。
           table.welcome-trial-period-table.is-hidden-sm-down
             tr
-              th = example_start_at
-              th.trial_end = example_end_at
-              th = example_pay_at
+              th = Campaign.example_start_at
+              th.trial_end = Campaign.example_end_at
+              th = Campaign.example_pay_at
             tr
               td お試し期間
               td.trial_end
@@ -90,14 +86,14 @@
 
           table.welcome-trial-period-table.is-hidden-md-up
             tr
-              th = example_start_at
+              th = Campaign.example_start_at
               td お試し期間
             tr
-              th.trial_end = example_end_at
+              th.trial_end = Campaign.example_end_at
               td.trial_end
                 | お試し期間終了時刻
                 br
                 | 無料退会期限
             tr
-              th = example_pay_at
+              th = Campaign.example_pay_at
               td 初回引き落とし

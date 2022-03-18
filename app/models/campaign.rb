@@ -38,6 +38,18 @@ class Campaign < ApplicationRecord
       today_campaign? ? Campaign.order(end_at: :desc).first.trial_period : 3
     end
 
+    def example_start_at
+      Time.current.strftime('%-m月%-d日10時10分10秒')
+    end
+
+    def example_end_at
+      (Time.current + current_trial_period.days - 1).strftime('%-m月%-d日10時10分9秒')
+    end
+
+    def example_pay_at
+      (Time.current + current_trial_period.days).strftime('%-m月%-d日10時10分10秒')
+    end
+
     def user_trial_period(join_date)
       Campaign.find_each do |camp|
         return camp.trial_period if (camp.start_at..camp.end_at).cover?(join_date)
