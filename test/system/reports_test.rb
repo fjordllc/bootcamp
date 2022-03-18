@@ -574,7 +574,7 @@ class ReportsTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
-    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+    assert_selector '.js-preview.a-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
   end
@@ -585,7 +585,7 @@ class ReportsTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
-    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+    assert_selector '.js-preview.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
   end
@@ -596,7 +596,7 @@ class ReportsTest < ApplicationSystemTestCase
     within('form[name=report]') do
       fill_in('report[description]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
     end
-    assert_selector '.js-preview.is-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
+    assert_selector '.js-preview.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
       assert_selector 'h1', text: 'h1'
     end
   end
@@ -634,5 +634,58 @@ class ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth report_path(reports(:report32)), 'komagata'
     assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です'
+  end
+
+  test 'notify to chat after create a report' do
+    visit_with_auth '/reports/new', 'kimura'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+
+    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '提出'
+    end
+
+    assert_text '日報を保存しました。'
+    assert_text Time.current.strftime('%Y年%m月%d日')
+    assert_text 'Watch中'
+    assert_match 'Message to Discord.', mock_log.to_s
+  end
+
+  test 'celebrating one hundred reports' do
+    user = users(:nippounashi)
+    99.times do |i|
+      Report.create!(
+        user_id: user.id,
+        title: "日報タイトル #{i + 1}",
+        reported_on: (99 - i).days.ago,
+        emotion: 'happy',
+        no_learn: true,
+        wip: false,
+        description: "日報の内容 #{i + 1}"
+      )
+    end
+    visit_with_auth '/reports/new', 'nippounashi'
+    within('form[name=report]') do
+      fill_in('report[title]', with: '100回目の日報')
+      fill_in('report[description]', with: '日報の内容 100')
+      fill_in('report[reported_on]', with: Time.current)
+
+      check '学習時間は無し', allow_label_click: true
+    end
+
+    click_button '提出'
+    assert_text 'おめでとう！'
+    assert_text '100日目の日報を提出しました。'
   end
 end

@@ -88,3 +88,7 @@ talk22:
 talk23:
   user: discordinvalid
   unreplied: false
+
+talk24:
+    user: twitterinvalid
+    unreplied: false

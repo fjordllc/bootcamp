@@ -115,6 +115,7 @@ export default {
           (pageNumber === 1 ? '' : `&page=${pageNumber}`) +
           `&word=${this.word}`
       )
+      window.scrollTo(0, 0)
     }
   }
 }

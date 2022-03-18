@@ -159,6 +159,7 @@ export default {
         url.searchParams.set('page', pageNumber)
       }
       history.pushState(history.state, '', url)
+      window.scrollTo(0, 0)
     }
   }
 }

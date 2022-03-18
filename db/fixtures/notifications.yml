@@ -58,7 +58,10 @@ notification_questioned:
   kind: 6
   user: komagata
   sender: sotugyou
-  message: sotugyouさんから質問がありました。
+  message: sotugyouさんから質問「injectとreduce」が投稿されました。
+  link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
+  read: false
+
 notification_first_report:
   user: komagata
   sender: hajime
@@ -103,6 +106,9 @@ notification_create_page:
   user: hatsuno
   sender: komagata
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
+  link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"
+  read: false
+
 notification_following_report:
   user: muryou
   sender: kensyu
