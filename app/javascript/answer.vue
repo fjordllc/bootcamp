@@ -7,7 +7,7 @@
         :title='answer.user.icon_title',
         :class='[roleClass, daimyoClass]'
       )
-  .a-card(v-if='!editing')
+  .a-card.is-answer(v-if='!editing')
     .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
       .answer-badge__icon
         i.fas.fa-star
@@ -64,7 +64,7 @@
           )
             button.card-main-actions__muted-action(@click='deleteAnswer')
               | 削除する
-  .a-card(v-show='editing')
+  .a-card.is-answer(v-show='editing')
     .thread-comment-form__form
       .a-form-tabs.js-tabs
         .a-form-tabs__tab.js-tabs__tab(
