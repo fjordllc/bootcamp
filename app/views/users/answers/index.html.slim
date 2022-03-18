@@ -14,14 +14,4 @@ header.page-header
 
 .page-body
   .container.is-md
-    / - if @answers.present?
-    /   .thread-list.a-card
-    /     = render partial: 'users/answers/answer', collection: @answers, as: :answer
-    / - else
-    /   .o-empty-message
-    /     .o-empty-message__icon
-    /       i.far.fa-sad-tear
-    /     p.o-empty-message__text
-    /       | 回答はまだありません。
-    / #js-users-answers data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag] data-user-id="#{params[:user_id]}"
-    #js-users-answers data-empty-message="" data-selected-tag="" data-user-id="#{params[:user_id]}"
+    #js-users-answers data-user-id="#{params[:user_id]}"
