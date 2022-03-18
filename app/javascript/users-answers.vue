@@ -91,20 +91,20 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-          .then((response) => {
-            return response.json()
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.answers = []
+          json.answers.forEach((r) => {
+            this.answers.push(r)
+            console.log(this.answers)
           })
-          .then((json) => {
-            this.answers = []
-            json.answers.forEach((r) => {
-              this.answers.push(r)
-              console.log(this.answers)
-            })
-            this.totalPages = parseInt(json.totalPages)
-          })
-          .catch((error) => {
-            console.warn(error)
-          })
+          this.totalPages = parseInt(json.totalPages)
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     }
   }
 }
