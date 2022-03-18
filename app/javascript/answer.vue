@@ -7,31 +7,33 @@
         :title='answer.user.icon_title',
         :class='[roleClass, daimyoClass]'
       )
-  .thread-comment__body.a-card(v-if='!editing')
-    .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
-      .answer-badge__icon
-        i.fas.fa-star
-      .answer-badge__label ベストアンサー
-    header.thread-comment__body-header
-      h2.thread-comment__title
-        a.thread-comment__title-link(:href='answer.user.url', itemprop='url')
-          | {{ answer.user.login_name }}
-      time.thread-comment__created-at(
-        :class='{ "is-active": activating }',
-        :datetime='answerCreatedAt',
-        pubdate='pubdate',
-        @click='copyAnswerURLToClipboard(answer.id)'
+  .a-card(v-if='!editing')
+    .thread-comment__body
+      .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
+        .answer-badge__icon
+          i.fas.fa-star
+        .answer-badge__label ベストアンサー
+      header.thread-comment__body-header
+        h2.thread-comment__title
+          a.thread-comment__title-link(:href='answer.user.url', itemprop='url')
+            | {{ answer.user.login_name }}
+        time.thread-comment__created-at(
+          :class='{ "is-active": activating }',
+          :datetime='answerCreatedAt',
+          pubdate='pubdate',
+          @click='copyAnswerURLToClipboard(answer.id)'
+        )
+          | {{ updatedAt }}
+      .thread-comment__description.js-target-blank.a-long-text.is-md(
+        v-html='markdownDescription'
       )
-        | {{ updatedAt }}
-    .thread-comment__description.js-target-blank.a-long-text.is-md(
-      v-html='markdownDescription'
-    )
-    reaction(
-      v-bind:reactionable='answer',
-      v-bind:currentUser='currentUser',
-      v-bind:questionUser='questionUser',
-      v-bind:reactionableId='reactionableId'
-    )
+    .thread-comment__reactions
+      reaction(
+        v-bind:reactionable='answer',
+        v-bind:currentUser='currentUser',
+        v-bind:questionUser='questionUser',
+        v-bind:reactionableId='reactionableId'
+      )
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
@@ -62,46 +64,47 @@
           )
             button.card-main-actions__muted-action(@click='deleteAnswer')
               | 削除する
-  .thread-comment-form__form.a-card(v-show='editing')
-    .a-form-tabs.js-tabs
-      .a-form-tabs__tab.js-tabs__tab(
-        v-bind:class='{ "is-active": isActive("answer") }',
-        @click='changeActiveTab("answer")'
-      )
-        | コメント
-      .a-form-tabs__tab.js-tabs__tab(
-        v-bind:class='{ "is-active": isActive("preview") }',
-        @click='changeActiveTab("preview")'
-      )
-        | プレビュー
-    .a-markdown-input.js-markdown-parent
-      .a-markdown-input__inner.js-tabs__content(
-        v-bind:class='{ "is-active": isActive("answer") }'
-      )
-        textarea.a-text-input.a-markdown-input__textarea(
-          v-model='description',
-          :id='`js-comment-${this.answer.id}`',
-          :data-preview='`#js-comment-preview-${this.answer.id}`',
-          name='answer[description]'
+  .a-card(v-show='editing')
+    .thread-comment-form__form
+      .a-form-tabs.js-tabs
+        .a-form-tabs__tab.js-tabs__tab(
+          v-bind:class='{ "is-active": isActive("answer") }',
+          @click='changeActiveTab("answer")'
         )
-      .a-markdown-input__inner.js-tabs__content(
-        v-bind:class='{ "is-active": isActive("preview") }'
-      )
-        .js-preview.a-long-text.is-md.a-markdown-input__preview(
-          :id='`js-comment-preview-${this.answer.id}`'
+          | コメント
+        .a-form-tabs__tab.js-tabs__tab(
+          v-bind:class='{ "is-active": isActive("preview") }',
+          @click='changeActiveTab("preview")'
         )
-    .card-footer
-      .card-main-actions
-        .card-main-actions__items
-          .card-main-actions__item
-            button.a-button.is-md.is-warning.is-block(
-              @click='updateAnswer',
-              v-bind:disabled='!validation'
-            )
-              | 保存する
-          .card-main-actions__item
-            button.a-button.is-md.is-secondary.is-block(@click='cancel')
-              | キャンセル
+          | プレビュー
+      .a-markdown-input.js-markdown-parent
+        .a-markdown-input__inner.js-tabs__content(
+          v-bind:class='{ "is-active": isActive("answer") }'
+        )
+          textarea.a-text-input.a-markdown-input__textarea(
+            v-model='description',
+            :id='`js-comment-${this.answer.id}`',
+            :data-preview='`#js-comment-preview-${this.answer.id}`',
+            name='answer[description]'
+          )
+        .a-markdown-input__inner.js-tabs__content(
+          v-bind:class='{ "is-active": isActive("preview") }'
+        )
+          .js-preview.a-long-text.is-md.a-markdown-input__preview(
+            :id='`js-comment-preview-${this.answer.id}`'
+          )
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button.a-button.is-md.is-warning.is-block(
+                @click='updateAnswer',
+                v-bind:disabled='!validation'
+              )
+                | 保存する
+            .card-main-actions__item
+              button.a-button.is-md.is-secondary.is-block(@click='cancel')
+                | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
