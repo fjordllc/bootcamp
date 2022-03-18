@@ -336,4 +336,24 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal '[bootcamp] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
     assert_match(/2回連続/, email.body.to_s)
   end
+
+  test 'graduated' do
+    user = users(:sotugyou)
+    mentor = users(:mentormentaro)
+    mailer = NotificationMailer.with(
+      sender: user,
+      receiver: mentor
+    ).graduated
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[bootcamp] sotugyouさんが卒業しました。', email.subject
+    assert_match(/卒業/, email.body.to_s)
+  end
 end
