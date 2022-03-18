@@ -31,10 +31,8 @@
             .thread-list-item-meta__item
               a.a-user-name {{ answer.question.user.long_name }}
             .thread-list-item-meta__item
-              time.a-meta(
-                :datetime='answer.question.updated_at.datetime'
-              ) {{ answer.question.updated_at.locale }}
-      .answer-badge(v-if="answer.type == 'CorrectAnswer'")
+              time.a-meta(:datetime='answer.question.updated_at.datetime') {{ answer.question.updated_at.locale }}
+      .answer-badge(v-if='answer.type == "CorrectAnswer"')
         .answer-badge__icon
           i.fas.fa-star
         .answer-badge__label ベストアンサー
