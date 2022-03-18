@@ -177,7 +177,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     fill_in 'answer[description]', with: 'アンサーテスト'
     click_button 'コメントする'
-    within '.thread-comment__body' do
+    within '.a-card.is-answer' do
       assert_text '内容修正'
       assert_text 'ベストアンサーにする'
       assert_text '削除する'
@@ -185,7 +185,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth questions_path, 'komagata'
     click_on 'テストの質問タイトル'
-    within '.thread-comment__body' do
+    within '.a-card.is-answer' do
       assert_text '内容修正'
       assert_text 'ベストアンサーにする'
       assert_text '削除する'
@@ -193,7 +193,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth questions_path, 'hatsuno'
     click_on 'テストの質問タイトル'
-    within '.thread-comment__body' do
+    within '.a-card.is-answer' do
       assert_no_text '内容修正'
       assert_no_text 'ベストアンサーにする'
       assert_no_text '削除する'
