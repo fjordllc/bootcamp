@@ -138,7 +138,7 @@ class TalksTest < ApplicationSystemTestCase
   test 'talks unreplied page displays when admin logined ' do
     url = '/talks/unreplied'
     visit_with_auth '/', 'komagata'
-    click_link "相談"
+    click_link '相談'
     assert_equal url, current_path
   end
 
