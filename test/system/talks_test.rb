@@ -134,4 +134,12 @@ class TalksTest < ApplicationSystemTestCase
       assert_text report.title
     end
   end
+
+  test 'talks unreplied page displays when admin logined ' do
+    url = '/talks/unreplied'
+    visit_with_auth '/', 'komagata'
+    click_link "相談"
+    assert_equal url, current_path
+  end
+
 end
