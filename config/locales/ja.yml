@@ -220,6 +220,12 @@ ja:
           started: 着手
           submitted: 提出
           complete: 完了
+    errors:
+      models:
+        campaign:
+          attributes:
+            end_at:
+              format: "は%{shortest_end_at}以降を入力してください。"
   target:
     student_and_trainee: 現役生
     student: 現役生
