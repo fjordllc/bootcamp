@@ -141,5 +141,4 @@ class TalksTest < ApplicationSystemTestCase
     click_link '相談'
     assert_equal url, current_path
   end
-
 end
