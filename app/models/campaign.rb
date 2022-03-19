@@ -65,6 +65,6 @@ class Campaign < ApplicationRecord
     return if diff >= period
 
     shortest_end_at = start_at + period
-    errors.add(:end_at, "は#{I18n.l(shortest_end_at, format: :short)}以降を入力してください。")
+    errors.add(:end_at, :format, shortest_end_at: I18n.l(shortest_end_at, format: :short))
   end
 end
