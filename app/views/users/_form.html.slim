@@ -1,6 +1,6 @@
+- if from == :new
+  = javascript_include_tag 'https://js.stripe.com/v3/'
 = form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
-  - if from == :new
-    = javascript_include_tag 'https://js.stripe.com/v3/'
   = f.hidden_field :adviser
   = f.hidden_field :trainee
   = f.hidden_field :company_id
@@ -8,13 +8,10 @@
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
   .form__items
-
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
-
     - if from == :edit
       = render 'users/form/mail_notification', f: f
-
     = render 'users/form/name', f: f, user: user
     = render 'users/form/kana_name', f: f, user: user
     = render 'users/form/avatar', f: f, user: user
