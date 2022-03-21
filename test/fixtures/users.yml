@@ -580,3 +580,108 @@ otameshi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current %>
   created_at: <%= Time.current %>
+
+enchomaemae:
+  login_name: enchomaemae
+  email: enchomaemae@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 延長 前々
+  name_kana: エンチョウ マエマエ
+  github_account: enchomaemae
+  discord_account: enchomaemae#1234
+  twitter_account: enchomaemae
+  facebook_url: http://www.facebook.com/enchomaemae
+  blog_url: http://enchomaemae.org
+  description: "早始・遅始さんよりも前のキャンペーンで入会しました。お試し期間は5日間です。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-03-25 00:00:00"
+  created_at: "2021-03-25 00:00:00"
+
+enchomaeyo:
+  login_name: enchomaeyo
+  email: enchomaeyo@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 延長 前代
+  name_kana: エンチョウ マエヨ
+  github_account: enchomaeyo
+  discord_account: enchomaeyo#1234
+  twitter_account: enchomaeyo
+  facebook_url: http://www.facebook.com/enchomaeyo
+  blog_url: http://enchomaeyo.org
+  description: "お試し延長キャンペーン直前に入会してしまいました。お試し期間は3日間です。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-08-19 23:59:59"
+  created_at: "2021-08-19 23:59:59"
+
+enchohayashi:
+  login_name: enchohayashi
+  email: enchohayashi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 延長 早始
+  name_kana: エンチョウ ハヤシ
+  github_account: enchohayashi
+  discord_account: enchohayashi#1234
+  twitter_account: enchohayashi
+  facebook_url: http://www.facebook.com/otameshi
+  blog_url: http://otameshi.org
+  description: "お試し延長キャンペーンの開始と同時に入会しました。お試し期間は7日間です。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-08-20 00:00:00"
+  created_at: "2021-08-20 00:00:00"
+
+enchoososhi:
+  login_name: enchoososhi
+  email: enchoososhi@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 延長 遅始
+  name_kana: エンチョウ オソシ
+  github_account: enchoososhi
+  discord_account: enchoososhi#1234
+  twitter_account: enchoososhi
+  facebook_url: http://www.facebook.com/enchoososhi
+  blog_url: http://enchoososhi.org
+  description: "お試し延長キャンペーンの終了間際に入会しました。お試し期間は7日間です。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-08-31 23:59:00"
+  created_at: "2021-08-31 23:59:00"
+
+enchoowata:
+  login_name: enchoowata
+  email: enchoowata@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 延長 終和太
+  name_kana: エンチョウ オワタ
+  github_account: enchoowata
+  discord_account: enchoowata#1234
+  twitter_account: enchoowata
+  facebook_url: http://www.facebook.com/enchoowata
+  blog_url: http://enchoowata.org
+  description: "お試し延長キャンペーン終了直後に入会しました。お試し期間は3日間です。"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: "2021-09-01 00:00:00"
+  created_at: "2021-09-01 00:00:00"
