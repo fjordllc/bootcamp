@@ -38,7 +38,7 @@
         .answer-badge__label ベストアンサー
 </template>
 <script>
-import dayjs from "dayjs"
+import dayjs from 'dayjs'
 
 export default {
   props: {
@@ -46,7 +46,9 @@ export default {
   },
   computed: {
     updatedAt() {
-      return dayjs(this.answer.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+      return dayjs(this.answer.question.updated_at).format(
+        'YYYY年MM月DD日(dd) HH:mm'
+      )
     },
     answerCreatedAt: function () {
       return dayjs(this.answer.question.created_at).format()
