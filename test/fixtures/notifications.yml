@@ -165,3 +165,11 @@ notification_consecutive_sad_report:
   message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
   read: false
+
+notification_graduated:
+  kind: 18
+  user: mentormentaro
+  sender: sotugyou
+  message: sotugyouさんが卒業しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:sotugyou) %>"
+  read: false
