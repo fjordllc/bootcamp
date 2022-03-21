@@ -33,7 +33,7 @@ export default {
     usersAnswer: UsersAnswer
   },
   props: {
-    usersPath: { type: String, default: '', required: false }
+    usersPath: { type: String, default: null, required: false }
   },
   data() {
     return {
