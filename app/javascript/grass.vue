@@ -3,6 +3,8 @@
   header.card-header.is-sm
     h2.card-header__title
       | 学習時間
+    h2.card-header__title(v-if='currentUser.primary_role === "graduate"')
+      | <button @click='close'>非表示</button>
   .user-grass
     .user-grass-nav
       .user-grass-nav__previous(@click='onPrevYearMonth')
@@ -22,6 +24,7 @@ import dayjs from 'dayjs'
 
 export default {
   props: {
+    currentUser: { type: Object, required: true },
     userId: { type: String, required: true }
   },
   data() {
@@ -38,6 +41,9 @@ export default {
     this.canvas = document.getElementById('grass')
 
     this.load(dayjs().format(this.serverFormat))
+  },
+  beforeDestroy() {
+    document.cookie = `user_grass=${JSON.stringify(this.userId)}`
   },
   methods: {
     getPrevYearMonth(yearMonth) {
@@ -138,6 +144,10 @@ export default {
       }
       ctx.strokeText('0 h', sampleStartX - 23, sampleStartY + 8.5)
       ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
+    },
+    close() {
+      this.$destroy()
+      this.$el.parentNode.removeChild(this.$el)
     }
   }
 }
