@@ -31,18 +31,26 @@
             .thread-list-item-meta__item
               a.a-user-name {{ answer.question.user.long_name }}
             .thread-list-item-meta__item
-              time.a-meta(:datetime='answer.question.updated_at.datetime') {{ answer.question.updated_at.locale }}
+              time.a-meta(:datetime='answerCreatedAt', pubdate='pubdate') {{ updatedAt }}
       .answer-badge(v-if='answer.type == "CorrectAnswer"')
         .answer-badge__icon
           i.fas.fa-star
         .answer-badge__label ベストアンサー
 </template>
 <script>
+import dayjs from "dayjs"
+
 export default {
   props: {
     answer: { type: Object, required: true }
   },
   computed: {
+    updatedAt() {
+      return dayjs(this.answer.question.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
+    },
+    answerCreatedAt: function () {
+      return dayjs(this.answer.question.created_at).format()
+    },
     roleClass() {
       return `is-${this.answer.question.user.primary_role}`
     },
