@@ -131,4 +131,11 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.with(report: report, receiver: receiver).consecutive_sad_report
   end
+
+  def graduated
+    sender = User.find(ActiveRecord::FixtureSet.identify(:sotugyou))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    NotificationMailer.with(sender: sender, receiver: receiver).graduated
+  end
 end
