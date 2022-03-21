@@ -199,4 +199,14 @@ class HomeTest < ApplicationSystemTestCase
       assert_no_text '就職関係かつ直近イベントの表示テスト用'
     end
   end
+
+  test 'hide user grass for graduate' do
+    visit_with_auth '/', 'kimura'
+    assert_no_text '非表示'
+
+    visit_with_auth '/', 'sotugyou'
+    assert_text '非表示'
+    click_button '非表示'
+    assert_no_text '学習時間'
+  end
 end
