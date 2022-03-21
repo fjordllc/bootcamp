@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='answerClass')
+.thread-list-item(:class='questionClass')
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='question.user.url')
