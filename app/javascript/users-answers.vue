@@ -11,14 +11,14 @@ div
     p.o-empty-message__text
       | 回答はまだありません。
   .thread-list.a-card(v-else)
-    .thread-list__items
-      usersAnswer(
-        v-for='answer in answers',
-        :key='answer.id',
-        :answer='answer'
-      )
+    usersAnswer(
+      v-for='answer in answers',
+      :key='answer.id',
+      :answer='answer'
+    )
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
+
 </template>
 
 <script>
@@ -91,20 +91,20 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.answers = []
-          json.answers.forEach((r) => {
-            this.answers.push(r)
-            console.log(this.answers)
+          .then((response) => {
+            return response.json()
           })
-          this.totalPages = parseInt(json.totalPages)
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+          .then((json) => {
+            this.answers = []
+            json.answers.forEach((r) => {
+              this.answers.push(r)
+              console.log(this.answers)
+            })
+            this.totalPages = parseInt(json.totalPages)
+          })
+          .catch((error) => {
+            console.warn(error)
+          })
     }
   }
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='answer.question.correct_answer ? "is-solved" : ""')
+.thread-list-item(:class='answerClass')
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='answer.question.user.url')
@@ -17,11 +17,11 @@
               :href='answer.question.url',
               itemprop='url'
             ) {{ answer.question.title }}
-    .thread-list-item__row(v-if='answer.question.practice')
-      .thread-list-item-meta
-        .thread-list-item-meta__items
-          .thread-list-item-meta__item
-            .thread-list-item-sub-title {{ answer.question.practice.title }}
+      .thread-list-item__row(v-if='answer.question.practice')
+        .thread-list-item-meta
+          .thread-list-item-meta__items
+            .thread-list-item-meta__item
+              .thread-list-item-sub-title {{ answer.question.practice.title }}
       .thread-list-item__row
         .thread-list-item__summary
           p {{ answer.description }}
@@ -48,6 +48,13 @@ export default {
     },
     daimyoClass() {
       return { 'is-daimyo': this.answer.question.user.daimyo }
+    },
+    answerClass() {
+      if (this.answer.has_correct_answer) {
+        return 'is-solved'
+      } else {
+        return ''
+      }
     }
   }
 }
