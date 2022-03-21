@@ -1,12 +1,12 @@
 json.talks do
   json.array! @users_talks do |talk|
     json.partial! "api/talks/talk", talk: talk
-    json.hasAnyComments talk.comments.present?
+    json.has_any_comments talk.comments.present?
     if talk.comments.present?
-      json.numberOfComments talk.comments.size
-      json.lastCommentUser talk.comments.last.user
-      json.lastCommentUserIcon talk.comments.last.user.avatar_url
-      json.lastCommentTime l talk.comments.last.updated_at
+      json.number_of_comments talk.comments.size
+      json.last_comment_user talk.comments.last.user
+      json.last_comment_user_icon talk.comments.last.user.avatar_url
+      json.last_commented_at l talk.comments.last.updated_at
     end
   end
 end
