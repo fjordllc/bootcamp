@@ -227,14 +227,19 @@
 
   .message
     padding: 1em 1.25em 1em 2.75em
-    background-color: $warning-shade
     border-radius: .25rem
     +margin(vertical, 1.5em 2em)
+    background-color: $warning-shade
     color: $warning-text
     &::before
       +fa(fas '\f06a')
       +position(absolute, left .25em, top .25em)
       +text-block(1.5em, $warning)
+    &.alert
+      background-color: $danger-shade
+      color: $danger-text
+      &::before
+        color: $danger
 
   *:first-child
     margin-top: 0
