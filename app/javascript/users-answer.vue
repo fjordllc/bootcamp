@@ -30,7 +30,7 @@
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               a.a-user-name(:href='`/users/${answer.question.user.id}`')
-               | {{ answer.question.user.long_name }}
+                | {{ answer.question.user.long_name }}
             .thread-list-item-meta__item
               time.a-meta(:datetime='answerCreatedAt', pubdate='pubdate') {{ updatedAt }}
       .answer-badge(v-if='answer.type == "CorrectAnswer"')
