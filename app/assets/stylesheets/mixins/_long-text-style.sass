@@ -235,11 +235,32 @@
       +fa(fas '\f06a')
       +position(absolute, left .25em, top .25em)
       +text-block(1.5em, $warning)
-    &.alert
+    &.alert,
+    &.danger
       background-color: $danger-shade
       color: $danger-text
       &::before
         color: $danger
+    &.warning
+      background-color: $warning-shade
+      color: $warning-text
+      &::before
+        color: $warning
+    &.info
+      background-color: $info-shade
+      color: $info-text
+      &::before
+        color: $info
+    &.primary
+      background-color: $primary-shade
+      color: $primary-text
+      &::before
+        color: $primary
+    &.success
+      background-color: $success-shade
+      color: $success-text
+      &::before
+        color: $success
 
   *:first-child
     margin-top: 0
