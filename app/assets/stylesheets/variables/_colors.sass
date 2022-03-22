@@ -2,11 +2,14 @@ $main: #4638a0
 $accent: #ffbe0a
 $base: white
 $background: #ececec
+
+// background
 $background-shade: #d6d6d6
 $background-tint: #eceeef
 $background-more-tint: #f7f7f9
 $hover-background: $background-more-tint
 
+// text
 $default-text: #403f47
 $reversal-text: white
 $muted-text: #9da4a7
@@ -22,11 +25,13 @@ $side-tint: #4e6165
 $side-shade: #3a228a
 $side-active: $accent
 
+// border
 $border: #e6e6e6
 $border-shade: #d7d7d7
 $border-more-shade: #cacaca
 $border-more-more-shade: #c1c1c1
 $welcome-card-border: #5a5f60
+$input-border: #c1c5b9
 
 // Welcome Colors
 $welcome-default-text: #333738
@@ -40,6 +45,8 @@ $welcome-pink: #ef6085
 $stamp-color: #ed5151
 $badge-color: #e54724
 
+// UI colors
+
 $primary: #3383d6
 $secondary: $base
 $success: #54a739
@@ -48,12 +55,15 @@ $warning: #fabd17
 $danger: #f54667
 $disabled: #c7c6c6
 
-$danger-shade: #fff1f4
+//$danger-shade: #fff1f4
+$danger-shade: tint($danger, 90%)
+
 
 $success-text: shade($success, 60%)
 $success-shade: tint($success, 90%)
 
-$input-border: #c1c5b9
+$warning-text: shade($warning, 60%)
+$warning-shade: tint($warning, 90%)
 
 =default-link
   transition: color .2s ease-in
