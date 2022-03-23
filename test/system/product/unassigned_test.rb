@@ -28,7 +28,7 @@ class Product::UnassignedTest < ApplicationSystemTestCase
                        .unassigned
                        .unchecked
                        .not_wip
-                       .order_for_not_wip_list_ascending
+                       .order_for_not_wip_list
                        .first
       assert_text newest_product.body
     end

@@ -27,7 +27,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       newest_product = Product
                        .unchecked
                        .not_wip
-                       .order_for_not_wip_list_descinding
+                       .order_for_not_wip_list
                        .first
       assert_text newest_product.body
     end
@@ -48,10 +48,10 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     # 提出日の降順で並んでいることを検証する
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal "#{newest_product.practice.title}の提出物", titles.first
-    assert_equal newest_product.user.login_name, names.first
-    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
-    assert_equal oldest_product.user.login_name, names.last
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.first
+    assert_equal oldest_product.user.login_name, names.first
+    assert_equal "#{newest_product.practice.title}の提出物", titles.last
+    assert_equal newest_product.user.login_name, names.last
   end
 
   test 'not display products in listing unchecked if unchecked products all checked' do
