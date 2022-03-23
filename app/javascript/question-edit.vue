@@ -171,6 +171,7 @@
                 )
                   | WIP
               li.card-main-actions__item
+<<<<<<< HEAD
                 button.a-button.is-md.is-warning.is-block(
                   @click='updateQuestion(false)',
                   :disabled='!validation',
@@ -179,11 +180,24 @@
                   v-if='question.wip'
                 )
                   | 質問を公開
+=======
+>>>>>>> 0db62ecaa (Merge branch 'main' into bug/docs-do-not-display-properly)
                 button.a-button.is-md.is-warning.is-block(
                   @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
                 )(
+<<<<<<< HEAD
+=======
+                  v-if='question.wip'
+                )
+                  | 質問を公開
+                button.a-button.is-md.is-warning.is-block(
+                  @click='updateQuestion(false)',
+                  :disabled='!validation',
+                  type='button'
+                )(
+>>>>>>> 0db62ecaa (Merge branch 'main' into bug/docs-do-not-display-properly)
                   v-else
                 )
                   | 更新する

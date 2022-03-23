@@ -49,10 +49,18 @@
           v-bind:class='{ "is-active": isActive("comment") }',
           @click='changeActiveTab("comment")'
         )
+<<<<<<< HEAD
           | コメント
         .a-form-tabs__tab.js-tabs__tab(
           v-bind:class='{ "is-active": isActive("preview") }',
           @click='changeActiveTab("preview")'
+=======
+      .a-markdown-input__inner.js-tabs__content(
+        v-bind:class='{ "is-active": isActive("preview") }'
+      )
+        .a-long-text.is-md.a-markdown-input__preview(
+          :id='`js-comment-preview-${this.comment.id}`'
+>>>>>>> 0db62ecaa (Merge branch 'main' into bug/docs-do-not-display-properly)
         )
           | プレビュー
       .a-markdown-input.js-markdown-parent
