@@ -1,2 +1,3 @@
-.common-page-body.js-markdown-view.is-long-text
-  = Page.find_by(slug: slug)&.body
+- if Page.find_by(slug: slug).present?
+  div(class="#{defined?(classes) ? classes : ''}" id="#{defined?(id) ? id : ''}")
+    = Page.find_by(slug: slug).body
