@@ -6,7 +6,7 @@ class API::ProductsController < API::BaseController
   def index
     @products = Product
                 .list
-                .order_for_list
+                .order_for_not_wip_list
                 .page(params[:page])
   end
 end
