@@ -1,6 +1,5 @@
 json.(answer, :id, :description, :created_at, :updated_at, :type, :question_id)
 json.has_correct_answer answer.question.correct_answer.present?
-json.updated_at answer.question.updated_at
 json.question do
   json.partial! 'api/questions/question', question: answer.question
 end

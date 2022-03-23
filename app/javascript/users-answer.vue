@@ -32,7 +32,7 @@
               a.a-user-name(:href='`/users/${answer.question.user.id}`')
                 | {{ answer.question.user.long_name }}
             .thread-list-item-meta__item
-              time.a-meta(:datetime='answerCreatedAt', pubdate='pubdate') {{ updatedAt }}
+              time.a-meta(:datetime='answer.updated_at', pubdate='pubdate') {{ updatedAt }}
       .answer-badge(v-if='answer.type == "CorrectAnswer"')
         .answer-badge__icon
           i.fas.fa-star
@@ -47,12 +47,7 @@ export default {
   },
   computed: {
     updatedAt() {
-      return dayjs(this.answer.question.updated_at).format(
-        'YYYY年MM月DD日(dd) HH:mm'
-      )
-    },
-    answerCreatedAt: function () {
-      return dayjs(this.answer.question.created_at).format()
+      return dayjs(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
     roleClass() {
       return `is-${this.answer.question.user.primary_role}`
