@@ -3,8 +3,8 @@
   header.card-header.is-sm
     h2.card-header__title
       | 学習時間
-    h2.card-header__title(v-if='currentUser.primary_role === "graduate"')
-      | <button @click='close'>非表示</button>
+    .card-header__action(v-if='currentUser.primary_role === "graduate"')
+      | <button @click='close' class='a-button is-xs is-muted-borderd'>非表示</button>
   .user-grass
     .user-grass-nav
       .user-grass-nav__previous(@click='onPrevYearMonth')
