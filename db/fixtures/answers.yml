@@ -28,9 +28,9 @@ answer6:
   user: machida
   question: question6
 
-  <% 7.upto(50) do |i| %>
+<% 7.upto(50) do |i| %>
 answer<%= i %>:
   description: ページャー確認用のデモ回答です。
   user: komagata
   question: question1
-  <% end %>
+<% end %>
