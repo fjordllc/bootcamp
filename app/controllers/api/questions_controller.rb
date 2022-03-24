@@ -14,7 +14,7 @@ class API::QuestionsController < API::BaseController
         Question.not_solved
       end
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
-    questions = params[:user_id].present? ? questions.where(user_id: params[:user_id]) : questions
+    questions = params[:user_id].present? ? Question.where(user_id: params[:user_id]) : questions
     questions = questions.tagged_with(params[:tag]) if params[:tag]
     @questions = questions
                  .with_avatar
