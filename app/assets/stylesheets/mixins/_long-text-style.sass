@@ -26,10 +26,6 @@
   word-break: break-all
   +media-breakpoint-down(sm)
     font-size: $mobile-font-size
-  >*:first-child
-    margin-top: 0
-  >*:last-child
-    margin-bottom: 0
   h1
     +text-block(1.875em 1.466 0 .75em, 600 $main-text)
     padding-bottom: .25em
@@ -213,7 +209,7 @@
   iframe
     display: block
     max-width: 100%
-    +margin(vertical, 1.5em 2em)
+    +margin(vertical, 1.5em)
     +margin(horizontal, auto)
   code
     word-break: break-all
@@ -225,3 +221,48 @@
       margin-top: 1em
     *:last-child
       margin-bottom: 0
+
+  div
+    position: relative
+
+  .message
+    padding: 1em 1.25em 1em 2.75em
+    border-radius: .25rem
+    +margin(vertical, 1.5em 2em)
+    background-color: $warning-shade
+    color: $warning-text
+    &::before
+      +fa(fas '\f06a')
+      +position(absolute, left .25em, top .25em)
+      +text-block(1.5em, $warning)
+    &.alert,
+    &.danger
+      background-color: $danger-shade
+      color: $danger-text
+      &::before
+        color: $danger
+    &.warning
+      background-color: $warning-shade
+      color: $warning-text
+      &::before
+        color: $warning
+    &.info
+      background-color: $info-shade
+      color: $info-text
+      &::before
+        color: $info
+    &.primary
+      background-color: $primary-shade
+      color: $primary-text
+      &::before
+        color: $primary
+    &.success
+      background-color: $success-shade
+      color: $success-text
+      &::before
+        color: $success
+
+  *:first-child
+    margin-top: 0
+  *:last-child
+    margin-bottom: 0
