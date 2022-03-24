@@ -144,7 +144,7 @@ class TalksTest < ApplicationSystemTestCase
   test 'Displays users talks page when user loged in ' do
     visit_with_auth '/', 'kimura'
     click_link '相談'
-    assert_text "kimuraさんの相談部屋"
+    assert_text 'kimuraさんの相談部屋'
   end
 
   test 'Display number of comments, detail of lastest comment user' do
