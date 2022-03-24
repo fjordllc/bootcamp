@@ -2,7 +2,7 @@
 .a-card
   div(v-if='!editing')
     .card-body(v-if='memo')
-      .js-target-blank.a-long-text.is-md(v-html='markdownMemo')
+      .a-long-text.is-md(v-html='markdownMemo')
     .thread-list(v-else)
       .thread-list__inner
         .container
