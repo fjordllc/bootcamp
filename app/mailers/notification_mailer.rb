@@ -159,4 +159,12 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     subject = "[bootcamp] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
     mail to: @user.email, subject: subject
   end
+
+  # required params: sender, receiver
+  def graduated
+    @user = @receiver
+    @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:graduated])
+    subject = "[bootcamp] #{@sender.login_name}さんが卒業しました。"
+    mail to: @user.email, subject: subject
+  end
 end

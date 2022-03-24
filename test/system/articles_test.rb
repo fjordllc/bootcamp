@@ -42,14 +42,14 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text 'ブログ記事作成'
 
     visit new_article_path
-    assert_text '管理者としてログインしてください'
+    assert_text '管理者・メンターとしてログインしてください'
   end
 
   test "can't update article" do
     visit_with_auth articles_url, 'kimura'
 
     visit edit_article_path(@article)
-    assert_text '管理者としてログインしてください'
+    assert_text '管理者・メンターとしてログインしてください'
   end
 
   test 'save article with WIP' do
@@ -101,5 +101,28 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on @article3.title
     assert_text @article3.title
     assert_text @article3.body
+  end
+
+  test 'mentor can create article' do
+    visit_with_auth new_article_url, 'mentormentaro'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[body]', with: @article.body
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+  end
+
+  test 'mentor can see WIP label on index and show' do
+    visit_with_auth articles_path, 'mentormentaro'
+    assert_text 'WIP'
+    assert_text '執筆中'
+
+    click_on @article3.title
+    assert_text 'WIP'
+    assert_text '執筆中'
+    assert_selector 'head', visible: false do
+      assert_selector "meta[name='robots'][content='none']", visible: false
+    end
   end
 end
