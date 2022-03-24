@@ -141,6 +141,12 @@ class TalksTest < ApplicationSystemTestCase
     assert_equal '/talks/unreplied', current_path
   end
 
+  test 'Displays users talks page when user loged in ' do
+    visit_with_auth '/', 'kimura'
+    click_link '相談'
+    assert_text "kimuraさんの相談部屋"
+  end
+
   test 'Display number of comments, detail of lastest comment user' do
     visit_with_auth '/talks', 'komagata'
     within('.thread-list-item-comment') do
