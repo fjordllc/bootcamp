@@ -48,7 +48,7 @@ class Product < ApplicationRecord
                { user: :company },
                { checks: { user: { avatar_attachment: :blob } } })
   }
-  scope :order_for_list, -> { order(created_at: :asc, id: :asc) }
+  scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
   scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
 
