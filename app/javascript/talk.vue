@@ -16,6 +16,23 @@
               itemprop='url'
             )
               | {{ user.long_name }} さんの相談部屋
+      hr.thread-list-item__row-separator(v-if='talk.has_any_comments')
+      .thread-list-item__row(v-if='talk.has_any_comments')
+        .thread-list-item-meta__items
+          .thread-list-item-meta__item
+            .thread-list-item-comment
+              .thread-list-item-comment__label
+                | コメント ({{ talk.number_of_comments }})
+              .thread-list-item-comment__user-icons
+                img.a-user-icon(:src='talk.last_comment_user_icon')
+              .thread-list-item-comment__label
+                | 〜 {{ talk.last_commented_at }}
+              .thread-list-item-comment__label(
+                v-if='talk.last_comment_user.admin'
+              )
+                | (管理者)
+              .thread-list-item-comment__label(v-else)
+                | ({{ user.login_name }})
 </template>
 <script>
 import UserIcon from './user-icon'

@@ -123,3 +123,11 @@ notification_chose_correct_answer:
   message: hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。
   link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
+
+notification_graduated:
+  kind: 18
+  user: mentormentaro
+  sender: sotugyou
+  message: sotugyouさんが卒業しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:sotugyou) %>"
+  read: false

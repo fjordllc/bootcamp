@@ -66,7 +66,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
   test 'The number of unreplied comments is displayed in the global navigation and unreplied tab of the talks room' do
     visit_with_auth '/talks/unreplied', 'komagata'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks']") do
+      within(:css, "a[href='/talks/unreplied']") do
         assert_selector '.global-nav__item-count.a-notification-count.is-only-mentor', count: 1
       end
     end
@@ -81,7 +81,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
 
     visit '/talks/unreplied'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks'") do
+      within(:css, "a[href='/talks/unreplied'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end

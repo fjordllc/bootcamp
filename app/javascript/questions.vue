@@ -33,7 +33,8 @@ export default {
   },
   props: {
     emptyMessage: { type: String, required: true },
-    selectedTag: { type: String, required: true }
+    selectedTag: { type: String, required: true },
+    userId: { type: String, default: null, required: false }
   },
   data() {
     return {
@@ -47,6 +48,7 @@ export default {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
       if (this.selectedTag) params.set('tag', this.selectedTag)
+      if (this.userId) params.set('user_id', this.userId)
       return params
     },
     newURL() {

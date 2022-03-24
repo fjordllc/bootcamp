@@ -148,4 +148,38 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit "/admin/users/#{user.id}/edit"
     assert_text '追加タグ'
   end
+
+  test 'does not display advisor in the list of trial period users' do
+    start = Time.current - 20.years
+    seven_days_later = Time.current + 7.days
+    visit_with_auth new_admin_campaign_path, 'komagata'
+    within 'form[name=campaign]' do
+      fill_in 'campaign[start_at]', with: Time.zone.parse(start.to_s)
+      fill_in 'campaign[end_at]', with: Time.zone.parse(seven_days_later.to_s)
+      fill_in 'campaign[title]', with: 'テスト用キャンペーン'
+      click_button '内容を保存'
+    end
+    assert_text 'お試し延長を作成しました。'
+    visit_with_auth '/admin/users?target=campaign', 'komagata'
+    within('.page-body') do
+      assert_no_text 'アドバイザー'
+    end
+  end
+
+  test 'display advisor in lists other than the list of trial period users' do
+    start = Time.current - 20.years
+    seven_days_later = Time.current + 7.days
+    visit_with_auth new_admin_campaign_path, 'komagata'
+    within 'form[name=campaign]' do
+      fill_in 'campaign[start_at]', with: Time.zone.parse(start.to_s)
+      fill_in 'campaign[end_at]', with: Time.zone.parse(seven_days_later.to_s)
+      fill_in 'campaign[title]', with: 'テスト用キャンペーン'
+      click_button '内容を保存'
+    end
+    assert_text 'お試し延長を作成しました。'
+    visit_with_auth '/admin/users?target=adviser', 'komagata'
+    within('.page-body') do
+      assert_text 'アドバイザー'
+    end
+  end
 end

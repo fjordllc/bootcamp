@@ -134,4 +134,21 @@ class TalksTest < ApplicationSystemTestCase
       assert_text report.title
     end
   end
+
+  test 'talks unreplied page displays when admin logined ' do
+    visit_with_auth '/', 'komagata'
+    click_link '相談'
+    assert_equal '/talks/unreplied', current_path
+  end
+
+  test 'Display number of comments, detail of lastest comment user' do
+    visit_with_auth '/talks', 'komagata'
+    within('.thread-list-item-comment') do
+      assert_text 'コメント'
+      assert_selector 'img[class="a-user-icon"]'
+      assert_text '(1)'
+      assert_text '2019年01月02日(水) 00:00'
+      assert_text '(hajime)'
+    end
+  end
 end
