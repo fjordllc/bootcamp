@@ -49,7 +49,7 @@ class Product < ApplicationRecord
                { checks: { user: { avatar_attachment: :blob } } })
   }
   scope :order_for_list, -> { order(created_at: :asc, id: :asc) }
-  scope :order_for_not_wip_list, -> { order(published_at: :asc, id: :asc) }
+  scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
 
   def self.add_latest_commented_at
