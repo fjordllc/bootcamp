@@ -44,7 +44,7 @@ module SearchHelper
     searchable.instance_of?(User) && searchable.talk.present?
   end
 
-  def have_no_wip?(searchable)
+  def no_wip?(searchable)
     searchable.is_a?(Practice) || searchable.is_a?(Answer) || searchable.is_a?(User) || searchable.is_a?(Comment)
   end
 end
