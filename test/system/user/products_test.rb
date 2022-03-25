@@ -20,12 +20,12 @@ class User::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth "/users/#{user.id}/products", 'komagata'
 
-    # 提出日の昇順で並んでいることを検証する
+    # 作成日の降順で並んでいることを検証する
     titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal "#{oldest_product.practice.title}の提出物", titles.first
-    assert_equal oldest_product.user.login_name, names.first
-    assert_equal "#{newest_product.practice.title}の提出物", titles.last
-    assert_equal newest_product.user.login_name, names.last
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
   end
 end
