@@ -95,7 +95,7 @@ export default {
       }
     },
     searchableClass() {
-      if (this.searchable.have_no_wip) {
+      if (this.searchable.no_wip) {
         return `is-${this.searchable.model_name}`
       } else if (this.searchable.wip) {
         return `is-wip is-${this.searchable.model_name}`
