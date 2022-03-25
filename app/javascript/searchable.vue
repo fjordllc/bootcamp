@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list-item(:class='modelName')
+.thread-list-item(:class='searchableClass')
   .thread-list-item__inner
     .thread-list-item__label(v-if='searchable.is_comment_or_answer')
       | {{ searchable.model_name_with_i18n }}
@@ -10,6 +10,8 @@
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
+          .thread-list-item-title__icon.is-wip(v-if='searchable.wip')
+            | WIP
           .thread-list-item-title__title
             a.thread-list-item-title__link(:href='searchable.url')
               | {{ searchable.title }}
@@ -90,6 +92,15 @@ export default {
         )
       } else {
         return this.searchable.summary
+      }
+    },
+    searchableClass() {
+      if (this.searchable.have_no_wip) {
+        return `is-${this.searchable.model_name}`
+      } else if (this.searchable.wip) {
+        return `is-wip is-${this.searchable.model_name}`
+      } else {
+        return `is-${this.searchable.model_name}`
       }
     }
   }
