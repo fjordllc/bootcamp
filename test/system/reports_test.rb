@@ -693,7 +693,11 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: ":::message \"></div><a href=\"javascript:alert('XSS');\">クリックしてね</a><div class=\"\nここにメッセージが入ります。\n:::")
+      fill_in('report[description]', with: <<~TEXT)
+        :::message "></div><a href="javascript:alert('XSS');">クリックしてね</a><div class="
+        ここにメッセージが入ります。
+        :::
+      TEXT
       fill_in('report[reported_on]', with: Time.current)
       check '学習時間は無し', allow_label_click: true
     end
@@ -706,7 +710,11 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: ":::message success\nここにメッセージが入ります。\n:::")
+      fill_in('report[description]', with: <<~TEXT)
+        :::message success
+        ここにメッセージが入ります。
+        :::
+      TEXT
       fill_in('report[reported_on]', with: Time.current)
       check '学習時間は無し', allow_label_click: true
     end
