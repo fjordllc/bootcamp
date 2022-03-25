@@ -693,12 +693,26 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: ":::message \"></div><a href=\"javascript:alert('XSS');\">クリックしてね</a><div class=\"\nメッセージ\n:::")
+      fill_in('report[description]', with: ":::message \"></div><a href=\"javascript:alert('XSS');\">クリックしてね</a><div class=\"\nここにメッセージが入ります。\n:::")
       fill_in('report[reported_on]', with: Time.current)
-
       check '学習時間は無し', allow_label_click: true
     end
     click_button '提出'
+    assert_text 'ここにメッセージが入ります。'
     assert_no_text 'クリックしてね'
+  end
+
+  test 'should accept genuine class name' do
+    visit_with_auth '/reports/new', 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: ":::message success\nここにメッセージが入ります。\n:::")
+      fill_in('report[reported_on]', with: Time.current)
+      check '学習時間は無し', allow_label_click: true
+    end
+    click_button '提出'
+    within(:css, '.success') do
+      assert_text 'ここにメッセージが入ります。'
+    end
   end
 end
