@@ -43,7 +43,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   end
 
   test 'products order on self assigned tab' do
-    wd = ["日", "月", "火", "水", "木", "金", "土"]
+    wd = %w[日 月 火 水 木 金 土]
 
     oldest_product = products(:product15)
     newest_product = products(:product64)
@@ -52,8 +52,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     # 提出日の降順で並んでいることを検証する
     published_at_list = all('.thread-list-item__row .a-meta').map(&:text)
 
-    assert_equal "提出日#{oldest_product.published_at.strftime("%Y年%m月%d日(#{wd[Time.now.wday+1]}) %H:%M")}", published_at_list[0].gsub(/(\n)/,"")
-    assert_equal "提出日#{newest_product.published_at.strftime("%Y年%m月%d日(#{wd[Time.now.wday]}) %H:%M")}", published_at_list[-2].gsub(/(\n)/,"")
+    assert_equal "提出日#{oldest_product.published_at.strftime("%Y年%m月%d日(#{wd[Time.current.wday + 1]}) %H:%M")}", published_at_list[0].gsub(/(\n)/, '')
+    assert_equal "提出日#{newest_product.published_at.strftime("%Y年%m月%d日(#{wd[Time.current.wday]}) %H:%M")}", published_at_list[-2].gsub(/(\n)/, '')
   end
 
   test 'not display products in listing self-assigned if self-assigned products all checked' do
