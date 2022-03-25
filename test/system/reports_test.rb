@@ -711,7 +711,7 @@ class ReportsTest < ApplicationSystemTestCase
       check '学習時間は無し', allow_label_click: true
     end
     click_button '提出'
-    within(:css, '.success') do
+    within('.success') do
       assert_text 'ここにメッセージが入ります。'
     end
   end
