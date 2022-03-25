@@ -43,25 +43,17 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   end
 
   test 'products order on self assigned tab' do
-    checker = users(:komagata)
-    # id順で並べたときの最初と最後の提出物を、コメントの日付順・提出日順で見たときに最新と最古になるように入れ替える
-    # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-    Product.update_all(created_at: 3.days.ago, published_at: 3.days.ago, checker_id: checker.id) # rubocop:disable Rails/SkipsModelValidations
-    Product.unchecked.limit(Product.count - Product.default_per_page).delete_all
-    newest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).first
-    newest_product.update(published_at: 1.day.ago)
-    oldest_product = Product.self_assigned_product(checker.id).unchecked.reorder(:id).last
-    oldest_product.update(commented_at: Time.current, published_at: Time.current)
+    wd = ["日", "月", "火", "水", "木", "金", "土"]
 
-    visit_with_auth '/products/self_assigned', 'komagata'
+    oldest_product = products(:product15)
+    newest_product = products(:product64)
 
-    # 作成日の降順で並んでいることを検証する
-    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
-    names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal "#{newest_product.practice.title}の提出物", titles.first
-    assert_equal newest_product.user.login_name, names.first
-    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
-    assert_equal oldest_product.user.login_name, names.last
+    visit_with_auth '/products/self_assigned', 'machida'
+    # 提出日の降順で並んでいることを検証する
+    published_at_list = all('.thread-list-item__row .a-meta').map(&:text)
+
+    assert_equal "提出日#{oldest_product.published_at.strftime("%Y年%m月%d日(#{wd[Time.now.wday+1]}) %H:%M")}", published_at_list[0].gsub(/(\n)/,"")
+    assert_equal "提出日#{newest_product.published_at.strftime("%Y年%m月%d日(#{wd[Time.now.wday]}) %H:%M")}", published_at_list[-2].gsub(/(\n)/,"")
   end
 
   test 'not display products in listing self-assigned if self-assigned products all checked' do
