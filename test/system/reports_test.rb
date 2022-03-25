@@ -688,4 +688,17 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text 'おめでとう！'
     assert_text '100日目の日報を提出しました。'
   end
+
+  test 'should ignore unexpected class name to prevent XSS attack' do
+    visit_with_auth '/reports/new', 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: ":::message \"></div><a href=\"javascript:alert('XSS');\">クリックしてね</a><div class=\"\nメッセージ\n:::")
+      fill_in('report[reported_on]', with: Time.current)
+
+      check '学習時間は無し', allow_label_click: true
+    end
+    click_button '提出'
+    assert_no_text 'クリックしてね'
+  end
 end
