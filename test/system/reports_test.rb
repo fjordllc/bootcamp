@@ -689,7 +689,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '100日目の日報を提出しました。'
   end
 
-  test 'should ignore unexpected class name to prevent XSS attack' do
+  test 'should ignore invalid class name to prevent XSS attack' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
@@ -706,7 +706,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_text 'クリックしてね'
   end
 
-  test 'should accept genuine class name' do
+  test 'should accept valid class name' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
