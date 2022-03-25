@@ -356,6 +356,9 @@ product62:
   practice: practice45
   user: kimura
   body: 「自分の担当」かつ「未返信」の提出物
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+  published_at: <%= 1.day.ago %>
   wip: false
   checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
 
@@ -363,6 +366,9 @@ product63:
   practice: practice46
   user: kimura
   body: 「自分の担当」かつ「返信済み」の提出物
+  created_at: <%= 2.day.ago %>
+  updated_at: <%= 2.day.ago %>
+  published_at: <%= 2.day.ago %>
   wip: false
   checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
 
@@ -370,6 +376,9 @@ product64:
   practice: practice10
   user: kimura
   body: 担当者のいる提出物です。
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  published_at: <%= Time.current %>
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
 
 product65:
