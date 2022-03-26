@@ -5,7 +5,14 @@ class Practices::QuestionsController < ApplicationController
 
   def index
     @practice = Practice.find(params[:practice_id])
-    questions = @practice.questions
+    questions =
+      if params[:solved].present?
+        @practice.questions.solved
+      elsif params[:not_solved].present?
+        @practice.questions.not_solved
+      else
+        @practice.questions
+      end
     @questions = questions
                  .with_avatar
                  .includes(:answers, :tags, :correct_answer, user: :company)
