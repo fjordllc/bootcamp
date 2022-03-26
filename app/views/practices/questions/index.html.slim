@@ -4,8 +4,30 @@
 = render '/practices/page_header', title: title, category: category
 = render 'page_tabs', resource: @practice
 
+nav.tab-nav
+  .container.is-xs-horizontal-padding-0
+    ul.tab-nav__items
+      li.tab-nav__item
+        = link_to '全ての質問', polymorphic_path([@practice, :questions], all: 'true'), class: "tab-nav__item-link #{params[:solved].present? || params[:not_solved].present? ? '' : 'is-active'}"
+      li.tab-nav__item
+        = link_to '解決済み', polymorphic_path([@practice, :questions], solved: 'true'), class: "tab-nav__item-link #{params[:all].blank? && params[:solved].present? && params[:not_solved].blank? ? 'is-active' : ''}"
+      li.tab-nav__item
+        = link_to '未解決', polymorphic_path([@practice, :questions], not_solved: 'true'), class: "tab-nav__item-link #{params[:all].blank? && params[:solved].blank? && params[:not_solved].present? ? 'is-active' : ''}"
+
 .page-body
   .container.is-md
     - if @questions.present?
       .thread-list.a-card
         = render partial: 'questions/question', collection: @questions, as: :question
+    - else
+      .o-empty-message
+        - if params[:solved]
+          .o-empty-message__icon
+            i.far.fa-sad-tear
+          p.o-empty-message__text
+            | 解決済みの質問はまだありません。
+        - elsif params[:not_solved]
+          .o-empty-message__icon
+            i.far.fa-smile
+          p.o-empty-message__text
+            | 未解決の質問はありません。
