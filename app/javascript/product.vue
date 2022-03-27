@@ -187,6 +187,9 @@ export default {
     return { formatDistance }
   },
   computed: {
+    updatedAt() {
+      return Date.parse(this.product.updated_at_date_time)
+    },
     roleClass() {
       return `is-${this.product.user.primary_role}`
     },
@@ -259,6 +262,15 @@ export default {
           this.product.mentor_last_commented_at_date_time ||
         this.product.comments.size === 0
       )
+    }
+  },
+  methods: {
+    untilNextElapsedDays(n) {
+      console.log(this.practiceTitle)
+      console.log(new Date(this.product.published_at_date_time))
+      console.log(new Date())
+      console.log(new Date(Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)))
+      return  ((Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)) - Date.now())/1000 / 60 / 60
     }
   }
 }
