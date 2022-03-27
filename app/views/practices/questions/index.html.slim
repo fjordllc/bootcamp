@@ -26,7 +26,7 @@ nav.tab-nav
             i.far.fa-sad-tear
           p.o-empty-message__text
             | 解決済みの質問はまだありません。
-        - elsif params[:not_solved]
+        - else        
           .o-empty-message__icon
             i.far.fa-smile
           p.o-empty-message__text
