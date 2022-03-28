@@ -722,5 +722,5 @@ class ReportsTest < ApplicationSystemTestCase
     within('.success') do
       assert_text 'ここにメッセージが入ります。'
     end
-
+  end
 end
