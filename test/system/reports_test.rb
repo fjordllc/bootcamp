@@ -689,6 +689,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '100日目の日報を提出しました。'
   end
 
+<<<<<<< HEAD
   test 'should ignore invalid class name to prevent XSS attack' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
@@ -722,5 +723,9 @@ class ReportsTest < ApplicationSystemTestCase
     within('.success') do
       assert_text 'ここにメッセージが入ります。'
     end
+
+  test 'mentors can see reports　page if products published_at is nil' do
+    visit_with_auth "/reports/#{reports(:report18).id}", 'mentormentaro'
+    assert_text '2020年06月01日 の日報'
   end
 end
