@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class API::ProductsTest < ActionDispatch::IntegrationTest
+  fixtures :products
+
   test 'GET /api/products.json' do
     get api_products_path(format: :json)
     assert_response :unauthorized
@@ -41,5 +43,15 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     get api_products_self_assigned_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
+  end
+
+  test ' should return products in order ' do
+    token = create_token('machida', 'testtest')
+    get api_products_self_assigned_index_path(format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+
+    expected = products(:product15, :product63, :product62, :product64).map { |product| product.practice.title }
+    actual = response.parsed_body['products'].map { |product| product['practice']['title'] }
+    assert_equal expected, actual
   end
 end
