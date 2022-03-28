@@ -5,6 +5,7 @@ require 'application_system_test_case'
 class Product::CheckerTest < ApplicationSystemTestCase
   test 'be person on charge at comment on product of there are not person on charge' do
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'machida'
+
     def assigned_product_count
       text[/自分の担当 （(\d+)）/, 1].to_i
     end
@@ -14,10 +15,16 @@ class Product::CheckerTest < ApplicationSystemTestCase
     [
       '担当者がいない提出物の場合、担当者になる',
       '自分が担当者の場合、担当者のまま'
-    ].each do |comment|
+    ].each_with_index do |comment, index|
       visit "/products/#{products(:product1).id}"
       post_comment(comment)
-      assert_text 'コメントを投稿しました'
+      if index.zero?
+        assert_text '担当になりました。'
+      else
+        assert_text 'コメントを投稿しました'
+      end
+
+      assert_text '担当から外れる'
 
       visit '/products/unchecked?target=unchecked_no_replied'
       assert_equal before_comment + 1, assigned_product_count

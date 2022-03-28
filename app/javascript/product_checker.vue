@@ -1,5 +1,5 @@
 <template lang="pug">
-button(
+button#js-assignment.is-block(
   v-if='!checkerId || checkerId == currentUserId',
   :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
   @click='check'
