@@ -24,7 +24,7 @@
           @click='copyAnswerURLToClipboard(answer.id)'
         )
           | {{ updatedAt }}
-      .thread-comment__description.js-target-blank.a-long-text.is-md(
+      .thread-comment__description.a-long-text.is-md(
         v-html='markdownDescription'
       )
     .thread-comment__reactions
