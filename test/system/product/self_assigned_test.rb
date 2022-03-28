@@ -42,17 +42,14 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     end
   end
 
-  test 'products order on self assigned tab' do
+  test 'display products on self assigned tab' do
     oldest_product = products(:product15)
     newest_product = products(:product64)
 
     visit_with_auth '/products/self_assigned', 'machida'
 
-    # 提出日の降順で並んでいることを検証する
-    published_at_list = all('.thread-list-item__row .a-meta').map(&:text)
-
-    assert_equal published_at_list[0].gsub(/(\n)|\(.\)/, ''), "提出日#{oldest_product.published_at.strftime('%Y年%m月%d日 %H:%M')}"
-    assert_equal published_at_list[-2].gsub(/(\n)|\(.\)/, ''), "提出日#{newest_product.published_at.strftime('%Y年%m月%d日 %H:%M')}"
+    assert_equal 'OS X Mountain Lionをクリーンインストールする', oldest_product.practice.title
+    assert_equal 'sshdをインストールする', newest_product.practice.title
   end
 
   test 'not display products in listing self-assigned if self-assigned products all checked' do
