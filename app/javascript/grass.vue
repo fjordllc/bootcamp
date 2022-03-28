@@ -3,8 +3,10 @@
   header.card-header.is-sm
     h2.card-header__title
       | 学習時間
-    .card-header__action(v-if='currentUser.primary_role === "graduate"')
-      | <button @click='close' class='a-button is-xs is-muted-borderd'>非表示</button>
+    .card-header__action(
+      v-if='currentUser.primary_role === "graduate" && isDashboard'
+    )
+      | <button @click='hideGrass' class='a-button is-xs is-muted-borderd'>非表示</button>
   .user-grass
     .user-grass-nav
       .user-grass-nav__previous(@click='onPrevYearMonth')
@@ -33,6 +35,11 @@ export default {
       serverFormat: 'YYYY-MM-DD',
       prevYearMonth: null,
       currentYearMonth: null
+    }
+  },
+  computed: {
+    isDashboard() {
+      return location.pathname === '/'
     }
   },
   mounted() {
@@ -145,9 +152,9 @@ export default {
       ctx.strokeText('0 h', sampleStartX - 23, sampleStartY + 8.5)
       ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
     },
-    close() {
+    hideGrass() {
       this.$destroy()
-      this.$el.parentNode.removeChild(this.$el)
+      this.$el.remove()
     }
   }
 }
