@@ -2,31 +2,31 @@
 .thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
   .thread-list-item__strip-label(v-if='unassigned || unchecked')
     .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
-      v-if='isLatestProductSubmittedJustAday'
+      v-if='isAllSubmittedProducts(1)'
     )
       | 1日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isLatestProductSubmittedJust2days'
+      v-else-if='isAllSubmittedProducts(2)'
     )
       | 2日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isLatestProductSubmittedJust3days'
+      v-else-if='isAllSubmittedProducts(3)'
     )
       | 3日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isLatestProductSubmittedJust4days'
+      v-else-if='isAllSubmittedProducts(4)'
     )
       | 4日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isLatestProductSubmittedJust5days'
+      v-else-if='isAllSubmittedProducts(5)'
     )
       | 5日経過
     .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isLatestProductSubmittedJust6days'
+      v-else-if='isAllSubmittedProducts(6)'
     )
       | 6日経過
     .thread-list-item__elapsed-days.is-reply-deadline.is-only-mentor(
-      v-else-if='isLatestProductSubmittedOver7days'
+      v-else-if='isAllSubmittedProducts(7)'
     )
       | 7日以上経過
   .thread-list-item__inner
@@ -147,37 +147,7 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    latestProductSubmittedJustAday: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedJust2days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedJust3days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedJust4days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedJust5days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedJust6days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedOver7days: {
+    allSubmittedProducts: {
       type: Object,
       required: false,
       default: null
@@ -201,55 +171,6 @@ export default {
         ? `★${this.product.practice.title}の提出物`
         : `${this.product.practice.title}の提出物`
     },
-    isLatestProductSubmittedJustAday() {
-      if (this.latestProductSubmittedJustAday !== null) {
-        return this.product.id === this.latestProductSubmittedJustAday.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedJust2days() {
-      if (this.latestProductSubmittedJust2days !== null) {
-        return this.product.id === this.latestProductSubmittedJust2days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedJust3days() {
-      if (this.latestProductSubmittedJust3days !== null) {
-        return this.product.id === this.latestProductSubmittedJust3days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedJust4days() {
-      if (this.latestProductSubmittedJust4days !== null) {
-        return this.product.id === this.latestProductSubmittedJust4days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedJust5days() {
-      if (this.latestProductSubmittedJust5days !== null) {
-        return this.product.id === this.latestProductSubmittedJust5days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedJust6days() {
-      if (this.latestProductSubmittedJust6days !== null) {
-        return this.product.id === this.latestProductSubmittedJust6days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedOver7days() {
-      if (this.latestProductSubmittedOver7days !== null) {
-        return this.product.id === this.latestProductSubmittedOver7days.id
-      } else {
-        return false
-      }
-    },
     unassigned() {
       return location.pathname === '/products/unassigned'
     },
@@ -271,6 +192,13 @@ export default {
       console.log(new Date())
       console.log(new Date(Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)))
       return  Math.ceil(((Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)) - Date.now())/1000 / 60 / 60)
+    },
+    isAllSubmittedProducts(n) {
+      if (this.allSubmittedProducts[n] !== null) {
+        return this.product.id === this.allSubmittedProducts[n].id
+      } else {
+        return false
+      }
     }
   }
 }
