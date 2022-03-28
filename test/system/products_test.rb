@@ -485,9 +485,4 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '6日経過：1件'
     assert_text '7日以上経過：5件'
   end
-
-  test 'mentors can see reports　page if prodacts published_at is nil' do
-    visit_with_auth "/reports/#{reports(:report18).id}", 'mentormentaro'
-    assert_text '2020年06月01日 の日報'
-  end
 end
