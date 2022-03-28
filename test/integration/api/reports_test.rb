@@ -24,4 +24,15 @@ class API::ReportsTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
+
+  test 'GET /api/reports.json?user_id=984742968' do
+    user = users(:with_hyphen)
+    get api_reports_path(user_id: user.id, format: :json)
+    assert_response :unauthorized
+
+    token = create_token('kimura', 'testtest')
+    get api_reports_path(user_id: user.id, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+  end
 end
