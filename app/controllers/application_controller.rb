@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def set_host_for_disk_storage
     return unless %i[local test].include? Rails.application.config.active_storage.service
 
-    ActiveStorage::Current.host = request.base_url
+    ActiveStorage::Current.url_options = request.base_url
   end
 
   def require_card
