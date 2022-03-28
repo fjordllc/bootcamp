@@ -282,3 +282,13 @@ report34:
     最新から10日前の日報です
   reported_on: <%= Time.current - 11.day %>
   created_at: <%= Time.current - 11.day %>
+
+<% 35.upto(70) do |i| %>
+report<%= i %>:
+  user: with_hyphen
+  title: 日報<%= i %>
+  emotion: 2
+  description: |-
+    頑張れませんでした
+  reported_on: <%= Time.now - 1.year + i.day %>
+<% end %>

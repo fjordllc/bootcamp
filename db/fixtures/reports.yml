@@ -302,3 +302,13 @@ report<%= i + 31 %>:
     - テスト
   reported_on: <%= Time.now - 1.month + i.day %>
 <% end %>
+
+<% 37.upto(70) do |i| %>
+report<%= i %>:
+  user: with_hyphen
+  title: 日報<%= i %>
+  emotion: 2
+  description: |-
+    頑張れませんでした
+  reported_on: <%= Time.now - 1.year + i.day %>
+<% end %>
