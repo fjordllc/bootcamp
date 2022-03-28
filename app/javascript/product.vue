@@ -270,7 +270,7 @@ export default {
       console.log(new Date(this.product.published_at_date_time))
       console.log(new Date())
       console.log(new Date(Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)))
-      return  ((Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)) - Date.now())/1000 / 60 / 60
+      return  Math.ceil(((Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)) - Date.now())/1000 / 60 / 60)
     }
   }
 }
