@@ -9,8 +9,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'show listing articles' do
-    login_user 'komagata', 'testtest'
-    visit_with_auth articles_url
+    visit_with_auth articles_url, 'komagata'
     assert_text 'ブログ記事一覧'
   end
 
