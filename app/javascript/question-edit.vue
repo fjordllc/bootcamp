@@ -73,9 +73,7 @@
 
     .thread__body(v-if='!editing')
       .thread-question__body
-        .thread__description.js-target-blank.a-long-text.is-md(
-          v-html='markdownDescription'
-        )
+        .thread__description.a-long-text.is-md(v-html='markdownDescription')
       .thread-question__reactions
         reaction(
           :reactionable='question',
