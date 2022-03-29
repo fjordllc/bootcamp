@@ -228,13 +228,54 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_selector '.thread-list-item', count: 25
   end
 
-  test 'mentor create a question' do
-    visit_with_auth new_question_path, 'komagata'
+  test "mentor's watch-button is automatically on when new question is published" do
+    visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'メンターのみ投稿された質問が"Watch中"になるテスト'
       fill_in 'question[description]', with: 'メンターのみ投稿された質問が"Watch中"になるテスト'
       click_button '登録する'
     end
+    visit_with_auth questions_path, 'komagata'
+    click_link 'メンターのみ投稿された質問が"Watch中"になるテスト'
+    assert_text 'kimura (Kimura Tadasi)'
+    assert_text 'Watch中'
+  end
+
+  test "mentor's watch-button is not automatically on when new question is created as WIP" do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
+    end
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+    visit_with_auth questions_path, 'komagata'
+    click_link 'WIPタイトル'
+    assert_text 'kimura (Kimura Tadasi)'
+    assert_no_text 'Watch中'
+  end
+
+  test "mentor's watch-button is automatically on when WIP question is updated as published" do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
+    end
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+    visit questions_path
+    click_link 'WIPタイトル'
+    assert_text 'kimura (Kimura Tadasi)'
+    click_button '内容修正'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: '更新されたタイトル'
+      fill_in 'question[description]', with: '更新された本文'
+    end
+    click_button '質問を公開'
+    assert_text '質問を更新しました'
+    visit_with_auth questions_path, 'komagata'
+    click_link '更新されたタイトル'
+    assert_text 'kimura (Kimura Tadasi)'
     assert_text 'Watch中'
   end
 
