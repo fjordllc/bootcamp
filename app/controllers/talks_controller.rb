@@ -9,7 +9,7 @@ class TalksController < ApplicationController
 
   def index
     @target = params[:target]
-    @target = 'student_and_trainee' unless API::TalksController::TARGETS.include?(@target)
+    @target = 'all' unless API::TalksController::TARGETS.include?(@target)
   end
 
   def show; end
