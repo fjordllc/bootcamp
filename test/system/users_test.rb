@@ -317,6 +317,6 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'not show grass hide button for graduates' do
     visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
-    assert_no_text '非表示'
+    assert_not has_button? '非表示'
   end
 end
