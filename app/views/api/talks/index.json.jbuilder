@@ -1,6 +1,6 @@
 json.talks do
   json.array! @users_talks do |talk|
-    json.partial! "api/talks/talk", talk: talk
+    json.partial! 'api/talks/talk', talk: talk
     json.has_any_comments talk.comments.present?
     if talk.comments.present?
       json.number_of_comments talk.comments.size
@@ -12,4 +12,4 @@ json.talks do
 end
 
 json.target t("target.#{@target}")
-json.totalPages @users_talks.total_pages
+json.totalPages @users_talks.total_pages if @users_talks.respond_to? :total_pages

@@ -1,5 +1,10 @@
 <template lang="pug">
 .talks
+  #talks.container.is-md
+    input#search-talks-form.search-talks-form.a-text-input(
+      v-model.trim='searchTalksWord',
+      placeholder='検索ワード'
+    )
   #talks.container.is-md.loading(v-if='!loaded')
     loadingListPlaceholder
   .o-empty-message(v-else-if='talks.length === 0')
@@ -8,22 +13,37 @@
     p.o-empty-message__text
       | 未返信の相談部屋はありません
   #talks.container.is-md.loaded(v-else)
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .thread-list.a-card
-      talk(
-        v-for='talk in talks',
-        :key='talk.id',
-        :user='talk.user',
-        :talk='talk'
-      )
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+    .talk-list(v-show='!showSearchedTalks')
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
+      .thread-list.a-card
+        talk(
+          v-for='talk in talks',
+          :key='talk.id',
+          :user='talk.user',
+          :talk='talk'
+        )
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
+    .searched-talk-list(v-show='showSearchedTalks')
+      .o-empty-message(v-if='searchedTalks.length === 0')
+        .o-empty-message__icon
+          i.far.fa-sad-tear
+        p.o-empty-message__text
+          | 一致する相談部屋はありません
+      .thread-list.a-card(v-else)
+        talk(
+          v-for='talk in searchedTalks',
+          :key='talk.id',
+          :user='talk.user',
+          :talk='talk'
+        )
 </template>
 <script>
 import Talk from './talk.vue'
 import LoadingListPlaceholder from './loading-list-placeholder.vue'
 import Pager from './pager.vue'
+import { debounce } from 'lodash'
 
 export default {
   components: {
@@ -36,7 +56,10 @@ export default {
       talks: [],
       currentPage: this.pageParam(),
       loaded: false,
-      totalPages: null
+      totalPages: null,
+      searchTalksWord: '',
+      searchedTalks: [],
+      showSearchedTalks: false
     }
   },
   computed: {
@@ -53,7 +76,11 @@ export default {
     },
     newParams() {
       const params = new URL(location.href).searchParams
-      params.set('page', this.currentPage)
+      if (this.validateSearchTalksWord()) {
+        params.set('search_word', this.searchTalksWord)
+      } else {
+        params.set('page', this.currentPage)
+      }
       return params
     },
     pagerProps() {
@@ -68,9 +95,14 @@ export default {
       return `${location.pathname}?${this.newParams}`
     }
   },
+  watch: {
+    searchTalksWord() {
+      this.searchTalks()
+    }
+  },
   created() {
     this.currentPage = this.pageParam()
-    this.getTalks()
+    this.setupTalks()
   },
   methods: {
     pageParam() {
@@ -81,15 +113,15 @@ export default {
     clickCallback(pageNum) {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
-      this.getTalks()
+      this.setupTalks()
       window.scrollTo(0, 0)
     },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    getTalks() {
-      fetch(this.url, {
+    async fetchTalksResource() {
+      const talksResource = await fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -99,20 +131,43 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
+      return talksResource.json()
+    },
+    setupTalks() {
+      this.fetchTalksResource()
         .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.talks = []
-          json.talks.forEach((talk) => {
-            this.talks.push(talk)
-          })
-          this.totalPages = json.totalPages
+          this.talks.splice(0, this.talks.length, ...response.talks)
+          this.totalPages = response.totalPages
           this.loaded = true
         })
-        .catch((error) => {
-          console.warn(error)
+        .catch((error) => console.warn(error))
+    },
+    searchTalks: debounce(function () {
+      this.showSearchedTalks = false
+      if (!this.validateSearchTalksWord()) return
+
+      this.loaded = false
+      this.setupSearchedTalks()
+      this.showSearchedTalks = true
+    }, 500),
+    validateSearchTalksWord() {
+      if (this.searchTalksWord.match(/^[\w-]+$/)) {
+        return this.searchTalksWord.length >= 3
+      } else {
+        return this.searchTalksWord.length >= 2
+      }
+    },
+    setupSearchedTalks() {
+      this.fetchTalksResource()
+        .then((response) => {
+          this.searchedTalks.splice(
+            0,
+            this.searchedTalks.length,
+            ...response.talks
+          )
+          this.loaded = true
         })
+        .catch((error) => console.warn(error))
     }
   }
 }
