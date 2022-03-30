@@ -16,6 +16,7 @@ class HomeController < ApplicationController
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
         @students_and_trainees = User.students_and_trainees.with_attached_avatar.includes(:company)
         display_events_on_dashboard
+        display_welcome_message_for_adviser
         set_required_fields
         render aciton: :index
       end
@@ -52,5 +53,10 @@ class HomeController < ApplicationController
     cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
     @events_coming_soon = Event.where(start_at: today_to_tomorrow).or(Event.where(start_at: tomorrow_to_day_after_tomorrow)).where.not(id: cookies_ids)
     @events_coming_soon_except_job_hunting = @events_coming_soon.where.not(job_hunting: true)
+  end
+
+  def display_welcome_message_for_adviser
+    cookie_for_welcome_message = cookies[:confirmed_welcome_message]
+    @welcome_message_first_time = cookie_for_welcome_message
   end
 end
