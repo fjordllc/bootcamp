@@ -2,7 +2,7 @@
 
 class Comment::AfterUpdateCallback
   def after_update(comment)
-    return unless comment.commentable.instance_of?(Product)
+    return if comment.commentable.instance_of?(Product)
 
     update_last_commented_at(comment)
     update_commented_at(comment)
