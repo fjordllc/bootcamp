@@ -17,7 +17,10 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              time.a-meta(datetime="#{product.published_at.to_datetime}")
+              - if product.published_at.nil?
+                time.a-meta(datetime="#{product.created_at.to_datetime}")
+              - else
+                time.a-meta(datetime="#{product.published_at.to_datetime}")
                 = l product.published_at
                 = 'の提出物'
       - if product.comments.any?
