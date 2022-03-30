@@ -723,4 +723,11 @@ class ReportsTest < ApplicationSystemTestCase
       assert_text 'ここにメッセージが入ります。'
     end
   end
+
+  test 'mentors can see reports page if products published_at is nil' do
+    visit_with_auth '/reports/unchecked', 'mentormentaro'
+    click_link 'テストのnippou'
+    assert_text '2020年06月01日 の日報'
+    assert_text '今日は1時間学習しました。'
+  end
 end
