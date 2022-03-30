@@ -6,7 +6,22 @@ class API::AnswersController < API::BaseController
   before_action :set_available_emojis, only: %i[index create]
 
   def index
-    @answers = question.answers.order(created_at: :asc)
+    if params[:question_id].present?
+      @answers = question.answers.order(created_at: :asc)
+    else
+      user = User.find(params[:user_id])
+      @answers = user.answers.includes(
+        {
+          question: [
+            :correct_answer,
+            { user: [:company, { avatar_attachment: :blob }] },
+            :practice,
+            :tag_taggings,
+            :tags
+          ]
+        }
+      ).order(created_at: :desc).page(params[:page])
+    end
   end
 
   def create
