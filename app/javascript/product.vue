@@ -190,11 +190,12 @@ export default {
       console.log(this.practiceTitle)
       console.log(new Date(this.product.published_at_date_time))
       console.log(new Date())
+      console.log((new Date() - Date.parse(n))/ 1000 / 60 / 60 / 24) // new Dateを基準にした経過日数を計算
       console.log(new Date(Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)))
       return  Math.ceil(((Date.parse(this.product.published_at_date_time) + (24 * 3600 * (n+1) * 1000)) - Date.now())/1000 / 60 / 60)
     },
     isAllSubmittedProducts(n) {
-      if (this.allSubmittedProducts[n] !== null) {
+      if (this.allSubmittedProducts[n] !== undefined) {
         return this.product.id === this.allSubmittedProducts[n].id
       } else {
         return false
