@@ -1,18 +1,22 @@
 <template lang="pug">
 .talks
-  #talks.container.is-md
-    input#search-talks-form.search-talks-form.a-text-input(
-      v-model.trim='searchTalksWord',
-      placeholder='検索ワード'
-    )
-  #talks.container.is-md.loading(v-if='!loaded')
+  .talk-search.form
+    .form__items
+      .form-item.is-inline-md-up
+        label.a-form-label
+          | 絞り込み
+        input#js-talk-search-input.talk-search__text-input.a-text-input(
+          v-model.trim='searchTalksWord',
+          placeholder='ユーザーID、ユーザー名、読み方、Discord ID'
+        )
+  #talks.loading(v-if='!loaded')
     loadingListPlaceholder
   .o-empty-message(v-else-if='talks.length === 0')
     .o-empty-message__icon
       i.far.fa-smile
     p.o-empty-message__text
       | 未返信の相談部屋はありません
-  #talks.container.is-md.loaded(v-else)
+  #talks.loaded(v-else)
     .talk-list(v-show='!showSearchedTalks')
       nav.pagination(v-if='totalPages > 1')
         pager(v-bind='pagerProps')
