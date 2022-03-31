@@ -115,8 +115,7 @@ export default {
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {
-            this.allSubmittedProducts =
-              json.all_submitted_products
+            this.allSubmittedProducts = json.all_submitted_products
           }
           this.totalPages = json.total_pages
           this.products = []
