@@ -137,7 +137,6 @@
       )
 </template>
 <script>
-import { formatDistance } from 'date-fns'
 import ProductChecker from './product_checker'
 export default {
   components: {
@@ -152,9 +151,6 @@ export default {
       required: false,
       default: null
     }
-  },
-  data() {
-    return { formatDistance }
   },
   computed: {
     updatedAt() {
