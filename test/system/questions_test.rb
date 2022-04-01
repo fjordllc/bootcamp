@@ -314,4 +314,38 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth questions_path(practice_id: practices(:practice1).id), 'komagata'
     assert_selector '#not-solved-count', text: Question.not_solved.not_wip.where(practice_id: practices(:practice1).id).size
   end
+
+  test 'notify to chat after publish a question' do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'タイトル'
+      fill_in 'question[description]', with: '本文'
+    end
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '登録する'
+    end
+
+    assert_text '質問を作成しました。'
+    assert_match 'Message to Discord.', mock_log.to_s
+  end
+
+  test 'should not notify to chat after wip a question' do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'WIPタイトル'
+      fill_in 'question[description]', with: 'WIP本文'
+    end
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button 'WIP'
+    end
+
+    assert_text '質問をWIPとして保存しました。'
+    assert_no_match 'Message to Discord.', mock_log.to_s
+  end
 end

@@ -1,4 +1,5 @@
 - title 'ブログ記事一覧'
+= render '/head/fontawsome'
 
 .articles
   header.articles__header
@@ -31,3 +32,4 @@
                           = l(article.created_at)
                         - else
                           = l(article.published_at)
+      = paginate @articles

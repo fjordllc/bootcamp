@@ -57,7 +57,7 @@
 
     .thread__body
       = render('event_meta', event: event)
-      .thread__description.js-target-blank.a-long-text.is-md.js-markdown-view
+      .thread__description.a-long-text.is-md.js-markdown-view
         = event.description
       - unless event.wip?
         = render 'events/participation', event: event
