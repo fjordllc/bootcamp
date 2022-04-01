@@ -187,10 +187,13 @@ export default {
   },
   methods: {
     untilNextElapsedDays(product) {
+      const elapsedTimes = this.calcElapsedTimes(product)
+      return Math.floor((Math.ceil(elapsedTimes) - elapsedTimes) * 24)
+    },
+    calcElapsedTimes(product) {
       const time =
         product.published_at_date_time || product.created_at_date_time
-      const elapsedTimes = (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
-      return Math.floor((Math.ceil(elapsedTimes) - elapsedTimes) * 24)
+      return (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
     },
     isAllSubmittedProducts(n) {
       if (this.allSubmittedProducts[n] !== undefined) {
