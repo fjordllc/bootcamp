@@ -10,7 +10,7 @@ class API::AnswersController < API::BaseController
       @answers = question.answers.order(created_at: :asc)
     else
       user = User.find(params[:user_id])
-      @answers = user.answers.includes(
+      @answers = user.answers.where(user_id: params[:user_id]).includes(
         {
           question: [
             :correct_answer,

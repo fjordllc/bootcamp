@@ -28,7 +28,7 @@ export default {
     usersAnswer: UsersAnswer
   },
   props: {
-    usersPath: { type: String, default: null, required: false }
+    userId: { type: String, required: true }
   },
   data() {
     return {
@@ -41,6 +41,7 @@ export default {
     newParams() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
+      params.set('user_id', this.userId)
       return params
     },
     newURL() {
@@ -48,8 +49,7 @@ export default {
     },
     usersAnswersAPI() {
       const params = this.newParams
-      const usersPath = this.usersPath
-      return `/api/${usersPath}answers.json?${params}`
+      return `/api/answers.json?${params}`
     },
     pagerProps() {
       return {

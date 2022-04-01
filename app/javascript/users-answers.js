@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       render: (h) =>
         h(UsersAnswers, {
           props: {
-            usersPath: `users/${userId}/`
+            userId
           }
         })
     }).$mount(selector)
