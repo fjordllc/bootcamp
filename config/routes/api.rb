@@ -30,9 +30,9 @@ Rails.application.routes.draw do
       resources :companies, only: %i(index)
       resources :worried, only: %i(index)
     end
-    resources :users, only: %i(index show update) do
-      resources :answers, only: %i(index), controller: "answers"
-    end
+    # resources :users, only: %i(index show update) do
+    #   resources :answers, only: %i(index), controller: "answers"
+    # end
     resources :user_icon_urls, only: %i(index)
     get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/
     resources :practices, only: %i(index show update) do
