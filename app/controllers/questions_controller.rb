@@ -47,7 +47,6 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.save
       create_mentors_watch
-      notify_to_chat(@question)
       redirect_to @question, notice: notice_message(@question)
     else
       render :new
@@ -75,10 +74,6 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :description, :user_id, :resolve, :practice_id, :tag_list)
-  end
-
-  def notify_to_chat(question)
-    ChatNotifier.message("質問：#{question.title}が作成されました。\r#{question_url(question)}")
   end
 
   def set_watch

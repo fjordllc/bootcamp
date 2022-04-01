@@ -8,12 +8,10 @@ class ArticlesTest < ApplicationSystemTestCase
     @article3 = articles(:article3)
   end
 
-  # 仮デザインなので一時的に無効化
-  # test 'show listing articles' do
-  #   login_user 'komagata', 'testtest'
-  #   visit_with_auth articles_url
-  #   assert_text 'ブログ記事一覧'
-  # end
+  test 'show listing articles' do
+    visit_with_auth articles_url, 'komagata'
+    assert_text 'ブログ記事一覧'
+  end
 
   test 'create article' do
     visit_with_auth new_article_url, 'komagata'
@@ -124,5 +122,17 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector 'head', visible: false do
       assert_selector "meta[name='robots'][content='none']", visible: false
     end
+  end
+
+  test 'show pagination' do
+    Article.delete_all
+    user = users(:komagata)
+    number_of_pages = Article.page(1).limit_value + 1
+    number_of_pages.times do
+      Article.create(title: 'test title', body: 'test body', user_id: user.id, wip: false, published_at: Time.current)
+    end
+
+    visit_with_auth articles_url, 'komagata'
+    find 'nav.pagination'
   end
 end

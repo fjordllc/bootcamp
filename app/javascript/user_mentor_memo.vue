@@ -4,7 +4,7 @@ section.a-card.is-memo.is-only-mentor
     h2.card-header__title
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
-    .js-target-blank.a-long-text.is-md(v-html='markdownMemo')
+    .a-long-text.is-md(v-html='markdownMemo')
     .o-empty-message(v-if='memo.length === 0')
       .o-empty-message__icon
         i.far.fa-sad-tear
