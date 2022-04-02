@@ -15,7 +15,7 @@ class Comment::AfterCreateCallback
       update_unreplied(comment)
     end
 
-    return if comment.commentable.instance_of?(Product)
+    return unless comment.commentable.instance_of?(Product)
 
     create_checker_id(comment)
     update_last_commented_at(comment)

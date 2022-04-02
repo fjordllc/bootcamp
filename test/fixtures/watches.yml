@@ -21,7 +21,3 @@ event<%= i %>_watch_kimura:
    user: kimura
    watchable: event<%= i %> (Event)
 <% end %>
-
-practice3_watch_mentormentaro:
-   user: mentormentaro
-   watchable: practice3(Practice)

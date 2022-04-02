@@ -36,20 +36,4 @@ class CommentTest < ActiveSupport::TestCase
       sender: kimura
     )
   end
-
-  test 'do not notify puroduct submitted when comment on watched practices products' do
-    mentormentaro = users(:mentormentaro)
-    kimura = users(:kimura)
-    # watches = watches(:practice3_watch_mentormentaro)
-    kimura_product = products(:product8)
-    Comment.create!(
-      user: mentormentaro,
-      commentable: kimura_product,
-      description: 'コメントしました。'
-    )
-    assert_not mentormentaro.notifications.exists?(
-      user: mentormentaro,
-      sender: kimura
-    )
-  end
 end
