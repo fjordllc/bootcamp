@@ -122,13 +122,13 @@ class Product < ApplicationRecord
   def self.self_assigned_no_replied_products(current_user_id)
     no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
     Product.where(id: no_replied_product_ids)
-           .order(commented_at: :desc, published_at: :desc)
+           .order(commented_at: :desc, published_at: :asc)
   end
 
   def self.unchecked_no_replied_products(current_user_id)
     no_replied_products_ids = unchecked_no_replied_products_ids(current_user_id)
     Product.where(id: no_replied_products_ids)
-           .order(created_at: :desc)
+           .order(published_at: :asc, id: :asc)
   end
 
   def completed?(user)
