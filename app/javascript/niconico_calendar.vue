@@ -56,7 +56,14 @@
                   :src='`/images/emotion/${date.emotion}.svg`',
                   :alt='date.emotion'
                 )
-            .niconico-calendar__day-inner(v-else)
+            a.niconico-calendar__day-inner(
+              v-else-if='isPastDate(date.date)',
+              :href='`/reports/new?reported_on=${calendarYear}-${calendarMonth}-${date.date}`'
+            )
+              .niconico-calendar__day-label {{ date.date }}
+              .niconico-calendar__day-value
+                i.fas.fa-minus(v-if='date.date')
+            a.niconico-calendar__day-inner(v-else)
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value
                 i.fas.fa-minus(v-if='date.date')
@@ -247,6 +254,14 @@ export default {
       const params = new URLSearchParams(location.search)
       params.set('niconico_calendar', `${year}-${month}`)
       history.replaceState(history.state, '', `?${params}${location.hash}`)
+    },
+    isPastDate(date) {
+      if (this.calendarYear > this.currentYear) return false
+      if (this.calendarYear < this.currentYear) return true
+      if (this.calendarMonth > this.currentMonth) return false
+      if (this.calendarMonth < this.currentMonth) return true
+      if (date > this.today) return false
+      return true
     }
   }
 }
