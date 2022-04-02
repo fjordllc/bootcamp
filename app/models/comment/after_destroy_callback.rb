@@ -2,7 +2,7 @@
 
 class Comment::AfterDestroyCallback
   def after_destroy(comment)
-    return if comment.commentable.instance_of?(Product)
+    return unless comment.commentable.instance_of?(Product)
 
     delete_last_commented_at(comment.commentable.id)
     delete_commented_at(comment)
