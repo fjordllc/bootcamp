@@ -89,15 +89,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   end
 
   test 'display no-replied products if click on no-replied-button' do
-    checker = users(:komagata)
-    practice = practices(:practice47)
-    user = users(:kimura)
-    product = Product.create!(
-      body: 'test',
-      user: user,
-      practice: practice,
-      checker_id: checker.id
-    )
+    product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
