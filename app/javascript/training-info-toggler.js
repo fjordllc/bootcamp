@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const elements = document.getElementsByClassName('form')
   for (const element of elements) {
-    const checkbox = element.querySelector('input.training-info-toggler-checkbox')
+    const checkbox = element.querySelector(
+      'input.training-info-toggler-checkbox'
+    )
     const dateInput = element.querySelector('input.training-info-toggler-date')
     const trainingInfoArea = element.querySelector('div.training-info-toggler')
 
