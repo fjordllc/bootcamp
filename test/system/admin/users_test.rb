@@ -182,4 +182,38 @@ class Admin::UsersTest < ApplicationSystemTestCase
       assert_text 'アドバイザー'
     end
   end
+
+  test 'hide training end date if user is not trainee' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user.id), 'komagata'
+    assert has_unchecked_field?('user_trainee', visible: false)
+    assert has_no_field?('user_training_ends_on')
+  end
+
+  test 'show training end date if user is trainee' do
+    user = users(:kensyu)
+    visit_with_auth edit_admin_user_path(user.id), 'komagata'
+    assert has_checked_field?('user_trainee', visible: false)
+    assert has_field?('user_training_ends_on')
+  end
+
+  test 'update value of training end date' do
+    user = users(:kensyu)
+    training_ends_on = Date.current.next_year
+    visit_with_auth edit_admin_user_path(user.id), 'komagata'
+    fill_in 'user_training_ends_on', with: training_ends_on
+    click_on '更新する'
+    visit_with_auth edit_admin_user_path(user.id), 'komagata'
+    assert has_field?('user_training_ends_on', with: training_ends_on)
+  end
+
+  test 'reset value of training end date when unchecked' do
+    user = users(:kensyu)
+    visit_with_auth edit_admin_user_path(user.id), 'komagata'
+    uncheck 'user_trainee', allow_label_click: true
+    assert has_unchecked_field?('user_trainee', visible: false)
+    check 'user_trainee', allow_label_click: true
+    assert has_checked_field?('user_trainee', visible: false)
+    assert has_field?('user_training_ends_on', with: '')
+  end
 end

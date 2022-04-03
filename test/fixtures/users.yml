@@ -288,6 +288,7 @@ kensyu:
   experience: rails
   organization: 研修大学
   trainee: true
+  training_ends_on: "2022-04-01"
   free: true
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
