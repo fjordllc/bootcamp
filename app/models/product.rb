@@ -48,7 +48,6 @@ class Product < ApplicationRecord
                { user: :company },
                { checks: { user: { avatar_attachment: :blob } } })
   }
-  scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
   scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
 
@@ -122,7 +121,7 @@ class Product < ApplicationRecord
   def self.self_assigned_no_replied_products(current_user_id)
     no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
     Product.where(id: no_replied_product_ids)
-           .order(commented_at: :desc, published_at: :asc)
+           .order(published_at: :asc, id: :asc)
   end
 
   def self.unchecked_no_replied_products(current_user_id)
