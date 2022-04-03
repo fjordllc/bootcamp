@@ -29,7 +29,7 @@ class CurrentUserController < ApplicationController
       :experience, :prefecture_code, :company_id,
       :nda, :avatar, :trainee,
       :mail_notification, :job_seeker, :tag_list,
-      :after_graduation_hope
+      :after_graduation_hope, :training_ends_on
     )
   end
 
