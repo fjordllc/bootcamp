@@ -57,7 +57,7 @@
                   :alt='date.emotion'
                 )
             a.niconico-calendar__day-inner(
-              v-else-if='isPastDate(date.date)',
+              v-else-if='date.date && isPastDate(date.date)',
               :href='`/reports/new?reported_on=${calendarYear}-${calendarMonth}-${date.date}`'
             )
               .niconico-calendar__day-label {{ date.date }}
