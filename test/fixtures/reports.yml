@@ -142,16 +142,16 @@ report17:
     mentormentaroです、メンターです。
     今日は1時間学習しました。
   practices: practice1
-  reported_on: "2020-06-01"
-  created_at: "2020-06-01 17:00:00"
+  reported_on: "2022-04-01"
+  created_at: "2022-04-01 17:00:00"
 
 report18:
   user: daimyo
   title: テストのnippou
   description: |-
     今日は1時間学習しました。
-  reported_on: "2020-06-01"
-  created_at: "2020-06-01 18:00:00"
+  reported_on: "2022-04-01"
+  created_at: "2022-04-01 18:00:00"
 
 report19:
   user: hatsuno
@@ -191,14 +191,14 @@ report23:
   title: フォローされた日報
   description:
     フォローされました。
-  reported_on: "2020-11-10"
+  reported_on: "2022-03-31"
 
 report24:
   user: daimyo
   title: 検索用の日報
   description:
     ユーザーネームで検索できるよ
-  reported_on: "2020-11-20"
+  reported_on: "2022-03-31"
 
 report25:
   user: hatsuno
