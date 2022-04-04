@@ -82,36 +82,34 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert has_field?('user_training_ends_on', with: training_ends_on)
   end
 
-  test 'mentors and advisors and graduates add company registration' do
+  test 'mentors advisors graduates admin can register their companies' do
     visit_with_auth '/current_user/edit', 'mentormentaro'
     assert_text '企業'
     within '.choices__inner' do
       assert_text '所属なし'
     end
-    assert_text '企業で利用しているアドバイザー、研修生は登録。'
-    assert_text '就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。'
 
     visit_with_auth '/current_user/edit', 'advijirou'
     assert_text '企業'
     within '.choices__inner' do
       assert_text '所属なし'
     end
-    assert_text '企業で利用しているアドバイザー、研修生は登録。'
-    assert_text '就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。'
 
     visit_with_auth '/current_user/edit', 'sotugyou'
     assert_text '企業'
     within '.choices__inner' do
       assert_text '所属なし'
     end
-    assert_text '企業で利用しているアドバイザー、研修生は登録。'
-    assert_text '就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。'
+
+    visit_with_auth '/current_user/edit', 'komagata'
+    assert_text '企業'
+    within '.choices__inner' do
+      assert_text 'Fjord Inc.'
+    end
   end
 
-  test 'not mentors and advisors and graduates not add company registration' do
+  test 'not mentors advisors graduates admin can not register their companies' do
     visit_with_auth '/current_user/edit', 'kimura'
     assert_no_text '所属なし'
-    assert_no_text '企業で利用しているアドバイザー、研修生は登録。'
-    assert_no_text '就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。'
   end
 end

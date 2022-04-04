@@ -43,7 +43,7 @@
     .form__items
       = render 'users/form/password', f: f, from: from
 
-  - if user.mentor? || user.adviser? || user.graduated_on?
+  - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
       = render 'users/form/company', f: f
 
@@ -61,7 +61,6 @@
         | 以下管理者のみ操作ができます
       = render 'users/form/course', f: f
       = render 'users/form/job_seeking', f: f
-      = render 'users/form/company', f: f
       = render 'users/form/retire', f: f
       = render 'users/form/graduate', f: f
 
