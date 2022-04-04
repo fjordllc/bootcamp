@@ -9,7 +9,10 @@ class API::Talks::UnrepliedController < API::BaseController
                  .order(updated_at: :desc)
     @talks =
       if params[:search_word]
-        @talks.search_by_user_keywords(params[:search_word])
+        @talks.merge(
+          User.search_by_keywords({ word: params[:search_word] })
+              .unscope(where: :retired_on)
+        )
       else
         @talks.page(params[:page]).per(PAGER_NUMBER)
       end

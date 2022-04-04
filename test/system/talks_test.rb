@@ -185,12 +185,57 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1
   end
 
+  test 'incremental search by twitter_account' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimuratwitter'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by facebook_url' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimurafacebook'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by blog_url' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimurablog.org'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by github_account' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimuragithub'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
   test 'incremental search by discord_account' do
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimuradiscord'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by description' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: '木村さんに似ているとよく言われます。'
     assert_text 'さんの相談部屋', count: 1
   end
 

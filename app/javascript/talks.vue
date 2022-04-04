@@ -7,7 +7,7 @@
           | 絞り込み
         input#js-talk-search-input.talk-search__text-input.a-text-input(
           v-model.trim='searchTalksWord',
-          placeholder='ユーザーID、ユーザー名、読み方、Discord ID'
+          placeholder='ユーザーID、ユーザー名、読み方、Discord ID など'
         )
   #talks.loading(v-if='!loaded')
     loadingListPlaceholder
