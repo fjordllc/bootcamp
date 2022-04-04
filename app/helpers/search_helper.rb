@@ -43,9 +43,4 @@ module SearchHelper
   def talk?(searchable)
     searchable.instance_of?(User) && searchable.talk.present?
   end
-
-  def can_be_wip?(searchable)
-    class_names = [Announcement, Event, Page, Product, Question, Report]
-    class_names.any? { |class_name| searchable.is_a?(class_name) }
-  end
 end
