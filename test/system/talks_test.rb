@@ -260,6 +260,17 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1 # users(:yameo)
   end
 
+  test 'incremental search for unreplied' do
+    users(:kimura).talk.update!(unreplied: true)
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+
+    visit '/talks/unreplied'
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 1 # users(:kimura)
+  end
+
   test 'switch between normal list and searched list' do
     visit_with_auth '/talks', 'komagata'
     assert_selector '.talk-list'

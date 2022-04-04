@@ -7,12 +7,14 @@ class API::TalksController < API::BaseController
   def index
     @target = params[:target]
     @target = 'all' unless TARGETS.include?(@target)
-    @users_talks = Talk.required_list_data(@target).order(updated_at: :desc)
-    @users_talks =
+    @talks = Talk.eager_load(user: [:company, { avatar_attachment: :blob }])
+                 .merge(User.users_role(@target))
+                 .order(updated_at: :desc)
+    @talks =
       if params[:search_word]
-        @users_talks.search_by_user_keywords(params[:search_word])
+        @talks.search_by_user_keywords(params[:search_word])
       else
-        @users_talks.page(params[:page]).per(PAGER_NUMBER)
+        @talks.page(params[:page]).per(PAGER_NUMBER)
       end
   end
 end
