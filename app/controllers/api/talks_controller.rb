@@ -8,13 +8,17 @@ class API::TalksController < API::BaseController
     @target = params[:target]
     @target = 'all' unless TARGETS.include?(@target)
     @talks = Talk.eager_load(user: [:company, { avatar_attachment: :blob }])
-                 .merge(User.users_role(@target))
                  .order(updated_at: :desc)
     @talks =
       if params[:search_word]
-        @talks.search_by_user_keywords(params[:search_word])
+        @talks.merge(
+          User.search_by_keywords({ word: params[:search_word] })
+              .unscope(where: :retired_on)
+              .users_role(@target)
+        )
       else
-        @talks.page(params[:page]).per(PAGER_NUMBER)
+        @talks.merge(User.users_role(@target))
+              .page(params[:page]).per(PAGER_NUMBER)
       end
   end
 end
