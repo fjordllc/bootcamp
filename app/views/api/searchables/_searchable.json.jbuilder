@@ -5,7 +5,7 @@ json.model_name document.class.to_s.tableize.singularize
 json.model_name_with_i18n t("activerecord.models.#{document.class.to_s.tableize.singularize}")
 json.summary searchable_summary(filtered_message(searchable), 90, params[:word])
 json.updated_at searchable.updated_at
-if searchable.has_attribute?(:wip)
+if searchable.respond_to?(:wip)
   json.wip searchable.wip
 end
 if searchable.respond_to?(:user)
