@@ -730,4 +730,9 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '2020年06月01日 の日報'
     assert_text '今日は1時間学習しました。'
   end
+
+  test 'open new report with a past date' do
+    visit_with_auth '/reports/new?reported_on=2022-1-1', 'komagata'
+    assert_equal '2022-01-01', find('#report_reported_on').value
+  end
 end

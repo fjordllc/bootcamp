@@ -144,6 +144,21 @@ class HomeTest < ApplicationSystemTestCase
     assert_current_path(/niconico_calendar=#{1.month.ago.strftime('%Y-%m')}/)
   end
 
+  test 'set a link to the new report form at today on Nico Nico calendar' do
+    visit_with_auth "/?niconico_calendar=#{Time.current.strftime('%Y-%m')}", 'hajime'
+    assert_link(href: "/reports/new?reported_on=#{Time.current.strftime('%Y-%-m-%-d')}")
+  end
+
+  test 'set a link to the new report form at past date on Nico Nico calendar' do
+    visit_with_auth '/?niconico_calendar=2022-03', 'hajime'
+    assert_link(href: '/reports/new?reported_on=2022-3-1')
+  end
+
+  test 'no link to the new report on future dates in the Nico Nico calendar' do
+    visit_with_auth "/?niconico_calendar=#{Time.current.next_month.strftime('%Y-%m')}", 'hajime'
+    assert_no_link(href: "/reports/new?reported_on=#{Time.current.next_month.strftime('%Y-%-m-%-d')}")
+  end
+
   test 'show the grass for student' do
     assert users(:kimura).student?
     visit_with_auth '/', 'kimura'
