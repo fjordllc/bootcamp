@@ -48,10 +48,16 @@ class TalksTest < ApplicationSystemTestCase
     assert_text "#{user.login_name} (#{user.name}) さんの相談部屋"
   end
 
+  test 'admin can access user talk page from talks page' do
+    talks(:talk7).update!(updated_at: Time.current) # user: kimura
+    visit_with_auth '/talks', 'komagata'
+    click_link 'kimura (Kimura Tadasi) さんの相談部屋'
+    assert_selector '.page-header__title', text: 'kimuraさんの相談部屋'
+  end
+
   test 'a talk room is removed from unreplied tab when admin comments there' do
     user = users(:with_hyphen)
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -106,16 +112,14 @@ class TalksTest < ApplicationSystemTestCase
     assert_no_text 'ユーザー公開情報'
 
     logout
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ユーザー非公開情報'
     assert_text 'ユーザー公開情報'
   end
 
   test 'update memo' do
     user = users(:kimura)
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'kimuraさんのメモ'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '相談部屋テストメモ'
@@ -126,8 +130,7 @@ class TalksTest < ApplicationSystemTestCase
 
   test 'Displays a list of the 10 most recent reports' do
     user = users(:hajime)
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ユーザーの日報'
     page.find('#reports_list').click
     user.reports.first(10).each do |report|
