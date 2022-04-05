@@ -2,12 +2,12 @@
 button(
   v-if='!checkerId || checkerId == currentUserId',
   :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
-  @click='check'
+  @click='checkInCharge'
 )
   i(
     v-if='!checkerId || checkerId == currentUserId',
-    :class='["fas", id ? "fa-times" : "fa-hand-paper"]',
-    @click='check'
+    :class='["fas", productCheckerId ? "fa-times" : "fa-hand-paper"]',
+    @click='checkInCharge'
   )
   | {{ buttonLabel }}
 .a-button.is-sm.is-block.thread-list-item__assignee-button.is-only-mentor(
@@ -19,10 +19,15 @@ button(
     | {{ this.name }}
 </template>
 <script>
+<<<<<<< HEAD
 import toast from 'toast'
+=======
+import toast from './toast'
+import checkable from './checkable.js'
+>>>>>>> a9d264089 (Vuexを使って実装)
 
 export default {
-  mixins: [toast],
+  mixins: [toast, checkable],
   props: {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
@@ -33,40 +38,38 @@ export default {
   },
   data() {
     return {
-      id: this.checkerId,
       name: this.checkerName
     }
   },
   computed: {
+    productCheckerId() {
+      return this.$store.getters.productCheckerId
+    },
     buttonLabel() {
-      return this.id ? '担当から外れる' : '担当する'
+      return this.productCheckerId ? '担当から外れる' : '担当する'
     },
     url() {
       return `/api/products/checker`
     }
+  },
+  mounted() {
+    this.$store.dispatch('setProduct', {
+      productId: this.productId
+    })
   },
   methods: {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    check() {
-      const params = {
-        product_id: this.productId,
-        current_user_id: this.currentUserId,
-        checker_id: this.checkerId
-      }
-      fetch(this.url, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
+    checkInCharge() {
+      this.checker(
+        this.productId,
+        this.currentUserId,
+        '/api/products/checker',
+        'PATCH',
+        this.token()
+      )
         .then((response) => {
           return response.json()
         })
