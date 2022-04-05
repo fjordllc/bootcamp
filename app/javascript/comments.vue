@@ -213,15 +213,7 @@ export default {
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
-          const assignmentButton = document.getElementById('js-assignment')
-          if (
-            assignmentButton !== null &&
-            assignmentButton.textContent === '担当する'
-          ) {
-            assignmentButton.click()
-          } else {
-            this.toast('コメントを投稿しました！')
-          }
+          this.toast('コメントを投稿しました！')
         })
         .catch((error) => {
           console.warn(error)
