@@ -15,7 +15,7 @@
           th.admin-table__label.actions
             | リンク
           th.admin-table__label.actions
-            | 操作
+            | 編集
       tbody.admin-table__items
         tr.admin-table__item(
           v-for='company in companies',
