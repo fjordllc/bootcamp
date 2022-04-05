@@ -314,4 +314,9 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=trainee', 'senpai'
     assert_text '自社研修生'
   end
+
+  test 'not show grass hide button for graduates' do
+    visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
+    assert_not has_button? '非表示'
+  end
 end
