@@ -61,6 +61,13 @@ class Comment::AfterCreateCallback
     @watch.save!
   end
 
+  def create_checker_id(comment)
+    return nil unless comment.user.mentor?
+
+    product = comment.commentable
+    product.checker_id = comment.sender.id unless product.checker_id?
+  end
+
   def delete_product_cache(product_id)
     Rails.cache.delete "/model/product/#{product_id}/last_commented_user"
   end
