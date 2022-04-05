@@ -8,8 +8,10 @@ class Practices::QuestionsController < ApplicationController
     questions =
       if params[:solved].present?
         @practice.questions.solved
-      else
+      elsif params[:not_solved].present?
         @practice.questions.not_solved
+      else
+        @practice.questions
       end
     @questions = questions
                  .with_avatar
