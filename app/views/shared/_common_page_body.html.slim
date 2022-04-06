@@ -1,3 +1,4 @@
-- if Page.find_by(slug: slug).present?
+- common_page = Page.find_by(slug: slug)
+- if common_page
   div(class="#{defined?(classes) ? classes : ''}" id="#{defined?(id) ? id : ''}")
-    = Page.find_by(slug: slug).body
+    = common_page.body
