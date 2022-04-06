@@ -50,12 +50,12 @@ export default {
     },
     url() {
       return (
-          '/api/products/' +
-          (this.params.tag ? `tags/${this.params.tag}` : '') +
-          `?page=${this.currentPage}` +
-          (this.params.target ? `&target=${this.params.target}` : '') +
-          (this.params.watch ? `&watch=${this.params.watch}` : '') +
-          (this.companyID ? `&company_id=${this.companyID}` : '')
+        '/api/products/' +
+        (this.params.tag ? `tags/${this.params.tag}` : '') +
+        `?page=${this.currentPage}` +
+        (this.params.target ? `&target=${this.params.target}` : '') +
+        (this.params.watch ? `&watch=${this.params.watch}` : '') +
+        (this.companyID ? `&company_id=${this.companyID}` : '')
       )
     },
     pagerProps() {
@@ -89,32 +89,32 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-          .then((response) => {
-            return response.json()
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.products = []
+          json.products.forEach((product) => {
+            this.products.push(product)
           })
-          .then((json) => {
-            this.products = []
-            json.products.forEach((product) => {
-              this.products.push(product)
-            })
-            this.currentProduct = json.currentProduct
-            this.currentTarget = json.target
-            this.currentTag = json.tag
-            this.totalPages = json.total_pages
-          })
-          .catch((error) => {
-            console.warn(error)
-          })
+          this.currentProduct = json.currentProduct
+          this.currentTarget = json.target
+          this.currentTag = json.tag
+          this.totalPages = json.total_pages
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
     getParams() {
       const params = {}
       location.search
-          .slice(1)
-          .split('&')
-          .forEach((query) => {
-            const queryArr = query.split('=')
-            params[queryArr[0]] = queryArr[1]
-          })
+        .slice(1)
+        .split('&')
+        .forEach((query) => {
+          const queryArr = query.split('=')
+          params[queryArr[0]] = queryArr[1]
+        })
       if (location.pathname.match(/tags/)) {
         const tag = location.pathname.split('/').pop()
         params.tag = tag
@@ -130,13 +130,13 @@ export default {
     newUrl(pageNumber) {
       if (this.params.target) {
         return (
-            location.pathname +
-            `?target=${this.params.target}` +
-            (pageNumber === 1 ? '' : `&page=${pageNumber}`)
+          location.pathname +
+          `?target=${this.params.target}` +
+          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
         )
       } else {
         return (
-            location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
+          location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
         )
       }
     }
