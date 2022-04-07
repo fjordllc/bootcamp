@@ -1,24 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const elements = document.getElementsByClassName('form')
-  for (const element of elements) {
-    const checkbox = element.querySelector(
-      'input.training-info-toggler-checkbox'
-    )
-    const dateInput = element.querySelector('input.training-info-toggler-date')
-    const trainingInfoArea = element.querySelector('div.training-info-toggler')
+  const checkbox = document.querySelector(
+    'input.training-info-toggler-checkbox'
+  )
+  const dateInput = document.querySelector('input.training-info-toggler-date')
+  const trainingInfoBlock = document.querySelector('div.training-info-block')
 
-    if (checkbox.checked === true) {
-      trainingInfoArea.style.display = 'block'
-    } else {
+  if (checkbox) {
+    if (checkbox.checked === false) {
       dateInput.value = ''
-      trainingInfoArea.style.display = 'none'
+      trainingInfoBlock.style.display = 'none'
+    } else {
+      trainingInfoBlock.style.display = 'block'
     }
     checkbox.addEventListener('change', () => {
       if (checkbox.checked === true) {
-        trainingInfoArea.style.display = 'block'
+        trainingInfoBlock.style.display = 'block'
       } else {
         dateInput.value = ''
-        trainingInfoArea.style.display = 'none'
+        trainingInfoBlock.style.display = 'none'
       }
     })
   }
