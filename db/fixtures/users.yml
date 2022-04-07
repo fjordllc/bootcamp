@@ -6,7 +6,7 @@ komagata:
   name: Komagata Masaki
   name_kana: コマガタ マサキ
   twitter_account: komagata
-  facebook_url: http://www.facebook.com/komagata1111
+  facebook_url: https://www.facebook.com/fjordllc
   github_account: komagata
   blog_url: http://komagata.org
   company: company1
@@ -55,7 +55,7 @@ sotugyou_with_job:
   name: 卒業 就職済美
   name_kana: ソツギョウ シュウショクズミ
   twitter_account: sotugyou_with_job
-  facebook_url: http://www.facebook.com/sotugyou_with_job
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://sotugyou_with_job.example.com/
   description: "卒業です。卒業しちゃいました。就職は希望していません。"
   course: course1
@@ -77,7 +77,7 @@ sotugyou:
   name: 卒業 太郎
   name_kana: ソツギョウ タロウ
   twitter_account: sotugyou
-  facebook_url: http://www.facebook.com/sotugyou
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://sotugyou.example.com/
   description: "卒業です。卒業しちゃいました。"
   course: course1
@@ -97,7 +97,7 @@ advijirou:
   name: アドバイ 次郎
   name_kana: アドバイ ジロウ
   twitter_account: advijirou
-  facebook_url: http://www.facebook.com/advijirou
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://advijirou.example.com
   description: "アドバイ次郎です。アドバイザーです。"
   adviser: true
@@ -114,7 +114,7 @@ yameo:
   name: 辞目 辞目夫
   name_kana: ヤメ ヤメオ
   twitter_account: yameo
-  facebook_url: http://www.facebook.com/yameo
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://yameo.org
   description: "退会しました。就職希望はしてました"
   course: course1
@@ -137,7 +137,7 @@ mentormentaro:
   name: メンタ 麺太郎
   name_kana: メンタ メンタロウ
   twitter_account: mentormentaro
-  facebook_url: http://www.facebook.com/mentormentaro
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://mentor.com
   description: "メンタ麺太郎です。メンターです。"
   course: course1
@@ -159,7 +159,7 @@ kimura:
   name_kana: キムラ タダシ
   discord_account: kimura#1234
   twitter_account: kimura
-  facebook_url: http://www.facebook.com/kimura
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://kimura.org
   description: "木村です。"
   course: course1
@@ -180,7 +180,7 @@ hatsuno:
   name: Hatsuno Shinji
   name_kana: ハツノ シンジ
   twitter_account: hatsuno
-  facebook_url: http://www.facebook.com/hatsuno
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://hatsuno.org
   description: "初野です。課金しています。"
   customer_id: "cus_12345678"
@@ -204,7 +204,7 @@ hajime:
   name: Hajime Tayo
   name_kana: ハジメ タヨ
   twitter_account: hajime
-  facebook_url: http://www.facebook.com/hajime
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://hajime.org
   description: "始です。"
   course: course1
@@ -227,7 +227,7 @@ muryou:
   discord_account: muryou#2222
   twitter_account: muryou
   times_url: https://discord.com/channels/715806612824260640/123456789000000010
-  facebook_url: http://www.facebook.com/muryou
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://muryou.org
   description: "無料の助です。趣味は野良犬剣法です。"
   course: course1
@@ -251,7 +251,7 @@ kensyu:
   github_account: kensyu
   twitter_account: kensyu
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
-  facebook_url: http://www.facebook.com/kensyu
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://kensyu.org
   company: company2
   description: "研修聖子です。"
@@ -277,7 +277,7 @@ senpai:
   github_account: senpai
   twitter_account: senpai
   times_url: https://discord.com/channels/715806612824260640/123456789000000012
-  facebook_url: http://www.facebook.com/senpai
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://senpai.org
   company: company2
   description: "研修聖子の会社の先輩エンジニアです。アドバイザーです。"
@@ -300,7 +300,7 @@ kananashi: #name_kanaを持たないユーザー
   github_account: kananashi
   twitter_account: kananashi
   times_url: https://discord.com/channels/715806612824260640/123456789000000013
-  facebook_url: http://www.facebook.com/kananashi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://kananashi.org
   description: "読み方のカナが無いユーザーです"
   course: course1
@@ -322,7 +322,7 @@ osnashi: #osを持たないユーザー
   github_account: osnashi
   twitter_account: osnashi
   times_url: https://discord.com/channels/715806612824260640/123456789000000014
-  facebook_url: http://www.facebook.com/osnashi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://osnashi.org
   description: "OSが無いユーザーです"
   course: course1
@@ -343,7 +343,7 @@ jobseeker: #就活希望するユーザー
   github_account: jobseeker
   twitter_account: jobseeker
   times_url: https://discord.com/channels/715806612824260640/123456789000000015
-  facebook_url: http://www.facebook.com/exmaple
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://example.org
   description: "フィヨルドからの就職希望してます！"
   course: course1
@@ -364,7 +364,7 @@ daimyo: # 大名エンジニアカレッジに通うユーザー
   discord_account: daimyo#9999
   github_account: daimyo
   twitter_account: daimyo
-  facebook_url: http://www.facebook.com/daimyo
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://example.org
   company: company4
   description: "大名エンジニアカレッジで学んでいます."
@@ -384,7 +384,7 @@ nippounashi: # 日報を投稿していないユーザー
   name_kana: ニッポウ　ナシ
   discord_account: nippounashi#0001
   twitter_account: nippounashi
-  facebook_url: http://www.facebook.com/nippounashi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://nippounashiorg
   description: "日報がないユーザーです。"
   course: course1
@@ -406,7 +406,7 @@ with_hyphen:
   github_account: *login_name
   discord_account: with_hyphen#1234
   twitter_account: with_hyphen
-  facebook_url: http://www.facebook.com/with-hyphen
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://with-hyphen.org
   description: "ログインネームにハイフン(-)を利用しているユーザーです。"
   course: course1
@@ -427,7 +427,7 @@ sumi:
   github_account: sumi
   discord_account: sumi#1234
   twitter_account: sumi
-  facebook_url: http://www.facebook.com/sumi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://sumi.org
   description: "testユーザーです。"
   course: course1
@@ -450,7 +450,7 @@ nobu:
   github_account: nobu
   discord_account: nobu#1234
   twitter_account: nobu
-  facebook_url: http://www.facebook.com/nobu
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://nobu.org
   description: "testユーザーです。"
   course: course1
@@ -471,7 +471,7 @@ rie:
   github_account: rie
   discord_account: rie#1234
   twitter_account: rie
-  facebook_url: http://www.facebook.com/rie
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://rie.org
   description: "testユーザーです。"
   course: course1
@@ -492,7 +492,7 @@ take:
   github_account: take
   discord_account: take#1234
   twitter_account: take
-  facebook_url: http://www.facebook.com/take
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://take.org
   description: "testユーザーです。"
   course: course1
@@ -513,7 +513,7 @@ kunimi:
   github_account: kunimi
   discord_account: kunimi#1234
   twitter_account: kunimi
-  facebook_url: http://www.facebook.com/kunimi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://kunimi.org
   description: "testユーザーです。"
   course: course1
@@ -534,7 +534,7 @@ tomo:
   github_account: tomo
   discord_account: tomo#1234
   twitter_account: tomo
-  facebook_url: http://www.facebook.com/tomo
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://tomo.org
   description: "testユーザーです。"
   course: course1
@@ -555,7 +555,7 @@ akiyosi:
   github_account: akiyosi
   discord_account: akiyosi#1234
   twitter_account: akiyosi
-  facebook_url: http://www.facebook.com/akiyosi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://akiyosi.org
   description: "testユーザーです。"
   course: course1
@@ -576,7 +576,7 @@ tomomi:
   github_account: tomomi
   discord_account: tomomi#1234
   twitter_account: tomomi
-  facebook_url: http://www.facebook.com/tomomi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://tomomi.org
   description: "testユーザーです。"
   course: course1
@@ -597,7 +597,7 @@ ogaoga:
   github_account: ogaoga
   discord_account: ogaoga#1234
   twitter_account: ogaoga
-  facebook_url: http://www.facebook.com/ogaoga
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://ogaoga.org
   description: "testユーザーです。"
   course: course1
@@ -618,7 +618,7 @@ take8:
   github_account: take8
   discord_account: take8#1234
   twitter_account: take8
-  facebook_url: http://www.facebook.com/take8
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://take8.org
   description: "testユーザーです。"
   course: course1
@@ -641,7 +641,7 @@ fujiyasu:
   github_account: fujiyasu
   discord_account: fujiyasu#1234
   twitter_account: fujiyasu
-  facebook_url: http://www.facebook.com/fujiyasu
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://fujiyasu.org
   description: "testユーザーです。"
   course: course1
@@ -660,7 +660,7 @@ adminonly: # adminのroleだけを持ったユーザー
   name: アドミン 能美代
   name_kana: アドミン ノミヨ
   twitter_account: adminonly
-  facebook_url: http://www.facebook.com/adminonly
+  facebook_url: https://www.facebook.com/fjordllc
   github_account: adminonly
   blog_url: http://adminonly.org
   description: "管理者権限のみを持つユーザーです(メンターではない)"
@@ -685,7 +685,7 @@ daimyo-adviser: # 大名エンジニアカレッジのアドバイザー
   discord_account: daimyo-adviser#9999
   github_account: daimyo-adviser
   twitter_account: daimyo-adviser
-  facebook_url: http://www.facebook.com/senpai
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://senpai.org
   company: company4
   description: "大名エンジニアカレッジからきました。アドバイザーをしています。"
@@ -708,7 +708,7 @@ daimyo-kensyu: # 大名エンジニアカレッジの研修生
   discord_account: daimyo-kensyu#9999
   github_account: daimyo-kensyu
   twitter_account: daimyo-kensyu
-  facebook_url: http://www.facebook.com/kensyu
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://kensyu.org
   company: company4
   description: "大名エンジニアカレッジの研修生です"
@@ -732,7 +732,7 @@ daimyo-adviser: # 大名エンジニアカレッジのアドバイザー
   discord_account: daimyo-adviser#9999
   github_account: daimyo-adviser
   twitter_account: daimyo-adviser
-  facebook_url: http://www.facebook.com/adviser
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://adviser.org
   company: company4
   description: "大名エンジニアカレッジのアドバイザーです"
@@ -755,7 +755,7 @@ daimyo-mentor: # 大名エンジニアカレッジのメンター
   discord_account: daimyo-mentor#9999
   github_account: daimyo-mentor
   twitter_account: daimyo-mentor
-  facebook_url: http://www.facebook.com/daimyo-mentor
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://mentor.org
   company: company4
   description: "大名エンジニアカレッジのメンターです"
@@ -778,7 +778,7 @@ daimyo-sotugyou: # 大名エンジニアカレッジの卒業生
   discord_account: daimyo-sotugyou#9999
   github_account: daimyo-sotugyou
   twitter_account: daimyo-sotugyou
-  facebook_url: http://www.facebook.com/daimyo-sotugyou
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://sotugyou.org
   company: company4
   description: "大名エンジニアカレッジの卒業生です"
@@ -802,7 +802,7 @@ kensyuowata:
   github_account: kensyuowata
   twitter_account: kensyuowata
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
-  facebook_url: http://www.facebook.com/kensyuowata
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://kensyuowata.org
   company: company2
   description: "研修終太です。"
@@ -851,7 +851,7 @@ tatenoicon: # アイコンが長方形のユーザー
   discord_account: tatenoicon#0001
   github_account: tatenoicon
   twitter_account: tatenoicon
-  facebook_url: http://www.facebook.com/tatenoicon
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://tatenoicon.org
   description: "アイコンが長方形のユーザーです。"
   course: course1
@@ -873,7 +873,7 @@ thuynga: # アイコンが小さい画像のユーザー
   discord_account: nga#5675
   github_account: nga20167304
   twitter_account: NgaValin
-  facebook_url: http://www.facebook.com/nga.dt251193/
+  facebook_url: https://www.facebook.com/fjordllc
   company: アクトインディ
   description: "ガーです。"
   course: course1
@@ -893,7 +893,7 @@ sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
   name: 卒業 アドバイザー
   name_kana: ソツギョウ アドバイザー
   twitter_account: sotugyou-adviser
-  facebook_url: http://www.facebook.com/sotugyou-adviser
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://sotugyou-adviser.example.com/
   description: "区分が卒業生ではない卒業したユーザーです"
   course: course1
@@ -942,7 +942,7 @@ otameshi:
   github_account: otameshi
   discord_account: otameshi#1234
   twitter_account: otameshi
-  facebook_url: http://www.facebook.com/otameshi
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://otameshi.org
   description: "testユーザーです。お試し延長期間テスト用。"
   course: course1
@@ -964,7 +964,7 @@ discordinvalid: #Discord IDが不正なユーザー
   github_account: discordinvalid
   twitter_account: discordinvalid
   times_url: https://discord.com/channels/715806612824260640/123456789000000014
-  facebook_url: http://www.facebook.com/discordinvalid
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://discordinvalid.org
   description: "Discord IDが不正なユーザーです"
   course: course1
@@ -985,7 +985,7 @@ twitterinvalid: #Twitter IDが不正なユーザー
   github_account: twitterinvalid
   twitter_account: twit-ter
   times_url: https://discord.com/channels/715806612824260640/123456789000000114
-  facebook_url: http://www.facebook.com/twitterinvalid
+  facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://twitterinvalid.org
   description: "Twitter IDが不正なユーザーです"
   course: course1

@@ -114,7 +114,7 @@ export default {
         return response.json()
       })
       .then((json) => {
-        json.forEach((c) => {
+        json.answers.forEach((c) => {
           this.answers.push(c)
         })
 
