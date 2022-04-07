@@ -14,6 +14,14 @@
     )
       | 7日以上経過
   .thread-list-item__inner
+    .thread-list-item__user
+      a.a-user-name(:href='product.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
+          :title='product.user.icon_title',
+          :alt='product.user.icon_title',
+          :src='product.user.avatar_url',
+          :class='[roleClass, daimyoClass]'
+        )
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
@@ -116,14 +124,6 @@
         :currentUserId='currentUserId',
         :productId='product.id'
       )
-    .thread-list-item__user
-      a.a-user-name(:href='product.user.url')
-        img.thread-list-item__user-icon.a-user-icon(
-          :title='product.user.icon_title',
-          :alt='product.user.icon_title',
-          :src='product.user.avatar_url',
-          :class='[roleClass, daimyoClass]'
-        )
 </template>
 <script>
 import ProductChecker from './product_checker'
