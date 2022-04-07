@@ -24,9 +24,6 @@
             .thread-list-item-meta__item
               .thread-list-item-sub-title
                 | {{ page.practice.title }}
-            .thread-list-item-meta__item(v-if='page.commentsSize > 0')
-              .a-meta
-                | コメント（{{ page.commentsSize }}）
 
       .thread-list-item__row
         .thread-list-item-meta
@@ -47,7 +44,7 @@
                   | 更新
                 span.a-meta__value
                   | {{ page.updated_at }}
-            .thread-list-item-meta__item
+            .thread-list-item-meta__item(v-if='page.last_updated_user')
               .thread-list-item-meta__user
                 a.thread-list-item-meta__icon-link(
                   :href='page.last_updated_user.url'
@@ -60,6 +57,9 @@
                   )
                 a.a-user-name(:href='page.last_updated_user.url')
                   | {{ page.last_updated_user.login_name }}
+            .thread-list-item-meta__item(v-if='page.commentsSize > 0')
+              .a-meta
+                | コメント（{{ page.commentsSize }}）
 
       .thread-list-item__row(v-if='page.tags.length > 0')
         .thread-list-item-tags
