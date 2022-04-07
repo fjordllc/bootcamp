@@ -65,9 +65,9 @@ export default {
     summary() {
       let description = this.answer.description
       description =
-          description.length <= 90
-              ? description
-              : description.substring(0, 90) + '...'
+        description.length <= 90
+          ? description
+          : description.substring(0, 90) + '...'
       return description
     }
   }
