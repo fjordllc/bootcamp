@@ -243,7 +243,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text 'コメント数表示テスト用の質問'
     element = all('.thread-list-item').find { |component| component.has_text?('コメント数表示テスト用の質問') }
     within element do
-      assert_selector '.thread-list-item-comment__count', text: '（1）'
+      assert_selector '.a-meta', text: '（1）'
     end
   end
 
