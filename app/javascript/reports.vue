@@ -4,7 +4,7 @@ div(v-if='limit')
     .card-header.is-sm
       h2.card-header__title
         | 直近の日報
-    .thread-list__items.has-no-author-image
+    .thread-list__items
       report(
         v-for='report in reports',
         :key='report.id',
