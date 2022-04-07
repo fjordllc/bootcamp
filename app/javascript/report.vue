@@ -1,6 +1,14 @@
 <template lang="pug">
 .thread-list-item(:class='wipClass')
   .thread-list-item__inner
+    .thread-list-item__user
+      a.thread-header__author(:href='report.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
+          :src='report.user.avatar_url',
+          :title='report.user.login_name',
+          :alt='report.user.login_name',
+          :class='[roleClass, daimyoClass]'
+        )
     .thread-list-item__rows
       .thread-list-item__row
         header.thread-list-item-title
@@ -68,14 +76,6 @@
       .stamp__content.is-user-name
         .stamp__content-inner
           | {{ report.checkUserName }}
-    .thread-list-item__user
-      a.thread-header__author(:href='report.user.url')
-        img.thread-list-item__user-icon.a-user-icon(
-          :src='report.user.avatar_url',
-          :title='report.user.login_name',
-          :alt='report.user.login_name',
-          :class='[roleClass, daimyoClass]'
-        )
 </template>
 
 <script>

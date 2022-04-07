@@ -9,7 +9,7 @@
             - if report.wip?
               .thread-list-item-title__icon.is-wip WIP
             h2.thread-list-item-title__title(itemprop='name')
-              = link_to report, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
+              = link_to report, itemprop: 'url', class: 'thread-list-item-title__link a-text-link js-unconfirmed-link' do
                 - if report.user.daimyo?
                   | ★
                 = report.title
@@ -34,7 +34,10 @@
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              = link_to report.user.login_name, report.user, class: 'a-user-name'
+              .thread-list-item-name
+                = link_to report.user, class: 'a-user-name' do
+                  = report.user.login_name
+            .thread-list-item-meta__item
               time.a-meta(datetime="#{report.reported_on.to_datetime}")
                 = l report.reported_on
                 = 'の日報'
