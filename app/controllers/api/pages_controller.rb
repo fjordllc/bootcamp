@@ -9,6 +9,7 @@ class API::PagesController < API::BaseController
                            { last_updated_user: { avatar_attachment: :blob } })
                  .order(updated_at: :desc)
                  .page(params[:page])
+    @pages = @pages.where(practice_id: params[:practice_id]) if params[:practice_id]
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
   end
 

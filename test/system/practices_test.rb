@@ -232,4 +232,30 @@ class PracticesTest < ApplicationSystemTestCase
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
     end
   end
+
+  test 'show/hide memo for mentor' do
+    practice = practices(:practice2)
+    visit_with_auth "/practices/#{practice.id}", 'komagata'
+    assert_text 'メンター向けメモ'
+    find(:css, '#checkbox-mentor-mode').set(false)
+    assert_no_text 'メンター向けメモ'
+  end
+
+  test 'show/hide menu for mentor' do
+    practice = practices(:practice2)
+    visit_with_auth "/practices/#{practice.id}", 'komagata'
+    assert_text '管理者・メンター用メニュー'
+    find(:css, '#checkbox-mentor-mode').set(false)
+    assert_no_text '管理者・メンター用メニュー'
+  end
+
+  test 'add all questions to questions tab on practices page and display all questions default' do
+    practice = practices(:practice1)
+    visit_with_auth "/practices/#{practice.id}/questions", 'komagata'
+    assert_text '質問 （11）'
+    assert_text '全ての質問'
+    assert_text '解決済み'
+    assert_text '未解決'
+    assert_equal practice.questions.length, 11
+  end
 end

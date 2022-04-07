@@ -123,4 +123,38 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '相談部屋テストメモ'
     assert_no_text 'kimuraさんのメモ'
   end
+
+  test 'Displays a list of the 10 most recent reports' do
+    user = users(:hajime)
+    visit_with_auth '/talks', 'komagata'
+    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    assert_text 'ユーザーの日報'
+    page.find('#reports_list').click
+    user.reports.first(10).each do |report|
+      assert_text report.title
+    end
+  end
+
+  test 'talks unreplied page displays when admin logined ' do
+    visit_with_auth '/', 'komagata'
+    click_link '相談'
+    assert_equal '/talks/unreplied', current_path
+  end
+
+  test 'Displays users talks page when user loged in ' do
+    visit_with_auth '/', 'kimura'
+    click_link '相談'
+    assert_text 'kimuraさんの相談部屋'
+  end
+
+  test 'Display number of comments, detail of lastest comment user' do
+    visit_with_auth '/talks', 'komagata'
+    within('.thread-list-item-comment') do
+      assert_text 'コメント'
+      assert_selector 'img[class="a-user-icon"]'
+      assert_text '(1)'
+      assert_text '2019年01月02日(水) 00:00'
+      assert_text '(hajime)'
+    end
+  end
 end

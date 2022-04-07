@@ -36,6 +36,4 @@ tables = %i[
   talks
 ]
 
-tables.each do |table|
-  ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', table
-end
+ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

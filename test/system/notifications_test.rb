@@ -169,20 +169,20 @@ class NotificationsTest < ApplicationSystemTestCase
                         created_at: '2040-01-18 06:06:42',
                         kind: 'mentioned',
                         link: '/reports/20400118',
-                        user: users(:mentormentaro),
+                        user: users(:kananashi),
                         sender: users(:machida))
 
-    visit_with_auth '/notifications', 'mentormentaro'
+    visit_with_auth '/notifications', 'kananashi'
     assert_selector '.header-notification-count', text: '1'
 
     20.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
                           kind: 'mentioned',
                           link: "/reports/#{n}",
-                          user: users(:mentormentaro),
+                          user: users(:kananashi),
                           sender: users(:machida))
     end
-    visit_with_auth '/notifications', 'mentormentaro'
+    visit_with_auth '/notifications', 'kananashi'
     assert_selector '.header-notification-count', text: '21'
   end
 
@@ -312,17 +312,6 @@ class NotificationsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text "mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
-  end
-
-  test 'show the total number of mentions on the mentioned tab' do
-    user = users(:kimura)
-    expected_total_number_of_mentions = user.notifications.by_target(:mention).latest_of_each_link.size
-
-    visit_with_auth '/notifications', user.login_name
-
-    within '.page-tabs__item', text: 'メンション' do
-      assert_text format('メンション （%d）', expected_total_number_of_mentions)
-    end
   end
 
   test 'show the number of unread mentions on the badge of the mentioned tab' do

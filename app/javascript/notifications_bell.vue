@@ -9,6 +9,7 @@ li.header-links__item(v-bind:class='hasCountClass')
         .header-notification-count.a-notification-count.test-notification-count(
           v-show='notificationExist'
         ) {{ this.notificationCount }}
+        .header-notification-count.is-loading(v-if='loading')
         i.fas.fa-bell
         .header-links__link-label 通知
   input#header-notification-pc.a-toggle-checkbox(
@@ -48,7 +49,8 @@ dayjs.extend(relativeTime)
 export default {
   data() {
     return {
-      notifications: []
+      notifications: [],
+      loading: false
     }
   },
   computed: {
@@ -64,6 +66,7 @@ export default {
     }
   },
   created() {
+    this.loading = true
     fetch(`/api/notifications.json?status=unread`, {
       method: 'GET',
       headers: {
@@ -82,6 +85,9 @@ export default {
       })
       .catch((error) => {
         console.warn(error)
+      })
+      .finally(() => {
+        this.loading = false
       })
   },
   methods: {

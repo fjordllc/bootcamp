@@ -175,3 +175,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
 talk_discordinvalid:
   user: discordinvalid
   unreplied: false
+
+talk_twitterinvalid:
+  user: twitterinvalid
+  unreplied: false

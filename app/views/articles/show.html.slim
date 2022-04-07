@@ -24,7 +24,7 @@
                 - else
                   = l(@article.published_at)
         .article__body
-          .js-markdown-view.is-long-text
+          .js-markdown-view.a-long-text.is-md
             = @article.body
           - if admin_login?
             .article__actions

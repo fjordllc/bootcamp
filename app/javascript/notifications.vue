@@ -115,6 +115,7 @@ export default {
         null,
         location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
+      window.scrollTo(0, 0)
     },
     getPageValueFromParameter: function () {
       const url = location.href

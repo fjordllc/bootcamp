@@ -25,9 +25,9 @@ class Page < ApplicationRecord
 
   before_validation :empty_slug_to_nil
 
-  def self.search_by_slug_or_id(params)
+  def self.search_by_slug_or_id!(params)
     attr_name = params.start_with?(/[a-z]/) ? :slug : :id
-    Page.find_by(attr_name => params)
+    Page.find_by!(attr_name => params)
   end
 
   private

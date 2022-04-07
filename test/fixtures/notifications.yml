@@ -82,7 +82,7 @@ notification_questioned:
   kind: 6
   user: komagata
   sender: sotugyou
-  message: sotugyouさんから質問がありました。
+  message: sotugyouさんから質問「injectとreduce」が投稿されました。
   link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question2) %>"
   read: false
 
@@ -164,4 +164,12 @@ notification_consecutive_sad_report:
   sender: hajime
   message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
+  read: false
+
+notification_graduated:
+  kind: 18
+  user: mentormentaro
+  sender: sotugyou
+  message: sotugyouさんが卒業しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:sotugyou) %>"
   read: false

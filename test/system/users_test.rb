@@ -117,6 +117,12 @@ class UsersTest < ApplicationSystemTestCase
       nippounashi
       with_hyphen
       discordinvalid
+      twitterinvalid
+      enchomaemae
+      enchomaeyo
+      enchohayashi
+      enchoososhi
+      enchoowata
     ].each do |name|
       users(name).touch # rubocop:disable Rails/SkipsModelValidations
     end
@@ -253,5 +259,64 @@ class UsersTest < ApplicationSystemTestCase
   test 'not show daily report download button' do
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
     assert_no_text '日報一括ダウンロード'
+  end
+
+  test 'show link to talk room when logined as admin' do
+    kimura = users(:kimura)
+    visit_with_auth "/users/#{kimura.id}", 'komagata'
+    assert_text 'プロフィール'
+    assert_link '相談部屋', href: "/talks/#{kimura.talk.id}"
+  end
+
+  test 'should not show link to talk room of admin even if logined as admin' do
+    machida = users(:machida)
+    visit_with_auth "/users/#{machida.id}", 'komagata'
+    assert_text 'プロフィール'
+    assert_no_link '相談部屋'
+  end
+
+  test 'should not show link to talk room when logined as no-admin' do
+    hatsuno = users(:hatsuno)
+    visit_with_auth "/users/#{hatsuno.id}", 'kimura'
+    assert_text 'プロフィール'
+    assert_no_link '相談部屋'
+  end
+
+  test 'show trainees for adviser' do
+    visit_with_auth "/users/#{users(:kensyu).id}", 'senpai'
+    assert_text '自社研修生'
+    assert_no_text 'フォローする'
+    assert_no_text '登録情報変更'
+  end
+
+  test 'show students' do
+    visit_with_auth "/users/#{users(:kensyu).id}", 'hatsuno'
+    assert_no_text '自社研修生'
+    assert_text 'フォローする'
+    assert_no_text '登録情報変更'
+  end
+
+  test 'show no trainees for adviser' do
+    visit_with_auth "/users/#{users(:hatsuno).id}", 'senpai'
+    assert_no_text '自社研修生'
+    assert_text 'フォローする'
+    assert_no_text '登録情報変更'
+  end
+
+  test 'show myself' do
+    visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
+    assert_no_text '自社研修生'
+    assert_no_text 'フォローする'
+    assert_text '登録情報変更'
+  end
+
+  test 'show users trainees for adviser' do
+    visit_with_auth '/users?target=trainee', 'senpai'
+    assert_text '自社研修生'
+  end
+
+  test 'not show grass hide button for graduates' do
+    visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
+    assert_not has_button? '非表示'
   end
 end

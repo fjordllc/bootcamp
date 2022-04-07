@@ -1,7 +1,6 @@
 .form-item
   = f.label :name_kana, class: 'a-form-label is-required'
   = f.text_field :name_kana, class: 'a-text-input', placeholder: 'コマガタ マサキ'
-  - unless user.adviser?
-    .a-form-help
-      p
-        | 名前（ニックネーム）の読み方をカタカナで入力してください。
+  .a-form-help
+    p
+      | 名前（ニックネーム）の読み方をカタカナで入力してください。

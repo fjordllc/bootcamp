@@ -123,6 +123,7 @@ export default {
       this.currentPage = pageNum
       history.pushState(null, null, this.newURL)
       this.getReports()
+      window.scrollTo(0, 0)
     },
     async getReports() {
       const response = await fetch(this.reportsAPI, {

@@ -1,0 +1,11 @@
+body
+  .choices__inner
+    display: inline-flex
+    align-items: center
+    +padding(vertical, 0)
+    background-color: #fafafa
+    border-color: $input-border
+  .choices.is-focused .choices__inner
+    background-color: $base
+  .choices[data-type*=select-one] .choices__inner
+    padding-bottom: 0

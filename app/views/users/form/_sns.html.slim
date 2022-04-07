@@ -1,3 +1,4 @@
+.a-anchor#form-discord-account
 .form-item
   = f.label :discord_account, class: 'a-form-label'
   .form-item__mention-input
@@ -21,6 +22,7 @@
           | こちら
         span.a-help
           i.fas.fa-question
+.a-anchor#form-github-account
 .form-item
   = f.label :github_account, class: 'a-form-label'
   .form-item__mention-input
@@ -46,6 +48,7 @@
   = f.text_field :facebook_url, class: 'a-text-input', placeholder: 'https://www.facebook.com/komagata1111'
   .a-form-help
     p ID ではなく URL を入力。
+.a-anchor#form-blog-url
 .form-item
   = f.label :blog_url, class: 'a-form-label'
   = f.text_field :blog_url, class: 'a-text-input', placeholder: 'https://docs.komagata.org/'

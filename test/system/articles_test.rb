@@ -8,12 +8,10 @@ class ArticlesTest < ApplicationSystemTestCase
     @article3 = articles(:article3)
   end
 
-  # 仮デザインなので一時的に無効化
-  # test 'show listing articles' do
-  #   login_user 'komagata', 'testtest'
-  #   visit_with_auth articles_url
-  #   assert_text 'ブログ記事一覧'
-  # end
+  test 'show listing articles' do
+    visit_with_auth articles_url, 'komagata'
+    assert_text 'ブログ記事一覧'
+  end
 
   test 'create article' do
     visit_with_auth new_article_url, 'komagata'
@@ -42,14 +40,14 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text 'ブログ記事作成'
 
     visit new_article_path
-    assert_text '管理者としてログインしてください'
+    assert_text '管理者・メンターとしてログインしてください'
   end
 
   test "can't update article" do
     visit_with_auth articles_url, 'kimura'
 
     visit edit_article_path(@article)
-    assert_text '管理者としてログインしてください'
+    assert_text '管理者・メンターとしてログインしてください'
   end
 
   test 'save article with WIP' do
@@ -101,5 +99,40 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on @article3.title
     assert_text @article3.title
     assert_text @article3.body
+  end
+
+  test 'mentor can create article' do
+    visit_with_auth new_article_url, 'mentormentaro'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[body]', with: @article.body
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+  end
+
+  test 'mentor can see WIP label on index and show' do
+    visit_with_auth articles_path, 'mentormentaro'
+    assert_text 'WIP'
+    assert_text '執筆中'
+
+    click_on @article3.title
+    assert_text 'WIP'
+    assert_text '執筆中'
+    assert_selector 'head', visible: false do
+      assert_selector "meta[name='robots'][content='none']", visible: false
+    end
+  end
+
+  test 'show pagination' do
+    Article.delete_all
+    user = users(:komagata)
+    number_of_pages = Article.page(1).limit_value + 1
+    number_of_pages.times do
+      Article.create(title: 'test title', body: 'test body', user_id: user.id, wip: false, published_at: Time.current)
+    end
+
+    visit_with_auth articles_url, 'komagata'
+    find 'nav.pagination'
   end
 end

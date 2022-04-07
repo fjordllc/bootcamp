@@ -177,11 +177,21 @@ class NotificationFacade
 
   def self.assigned_as_checker(product, receiver)
     Notification.assigned_as_checker(product, receiver)
-    return unless receiver.mail_notification? && !receiver.retired_on?
+    return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       product: product,
       receiver: receiver
     ).assigned_as_checker.deliver_later(wait: 5)
+  end
+
+  def self.graduated(sender, receiver)
+    Notification.graduated(sender, receiver)
+    return unless receiver.mail_notification? && !receiver.retired?
+
+    NotificationMailer.with(
+      sender: sender,
+      receiver: receiver
+    ).graduated.deliver_later(wait: 5)
   end
 end

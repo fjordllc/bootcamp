@@ -130,13 +130,6 @@ class User < ApplicationRecord
   validates :description, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
-  validates :twitter_account,
-            length: { maximum: 15 },
-            format: {
-              allow_blank: true,
-              with: /\A\w+\z/,
-              message: 'は英文字と_（アンダースコア）のみが使用できます'
-            }
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :times_url,
@@ -186,6 +179,13 @@ class User < ApplicationRecord
                 allow_blank: true,
                 with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
                 message: 'は「ユーザー名#４桁の数字」で入力してください'
+              }
+    validates :twitter_account,
+              length: { maximum: 15 },
+              format: {
+                allow_blank: true,
+                with: /\A\w+\z/,
+                message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
   end
 

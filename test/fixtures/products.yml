@@ -376,3 +376,9 @@ product65:
   practice: practice6
   user: kimura
   body: プラクティス完了メッセージ未表示の提出物です。
+
+product66:
+  practice: practice6
+  user: daimyo
+  body: publish_atがnilの提出物です。
+  published_at: nil

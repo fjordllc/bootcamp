@@ -42,4 +42,14 @@ class Check::ProductsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert_text '提出物でcomment+確認OKにするtest'
   end
+
+  test 'comment and check product by mentor' do
+    visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
+    fill_in 'new_comment[description]', with: '提出物でcomment+確認OKにするtest'
+    page.accept_confirm do
+      click_on '確認OKにする'
+    end
+    assert_text '確認済'
+    assert_text '提出物でcomment+確認OKにするtest'
+  end
 end

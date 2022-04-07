@@ -2,7 +2,7 @@
 
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
-  before_action :require_admin_login, except: %i[index show]
+  before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
     @articles = list_articles
@@ -56,11 +56,8 @@ class ArticlesController < ApplicationController
   end
 
   def list_articles
-    if admin_or_mentor_login?
-      Article.all.order(created_at: :desc)
-    else
-      Article.all.where(wip: false).order(created_at: :desc)
-    end
+    articles = Article.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
+    admin_or_mentor_login? ? articles : articles.where(wip: false)
   end
 
   def article_params

@@ -3,7 +3,7 @@
   .categories-item__header
     .categories-item__title.a-placeholder
   .categories-item__description
-    .is-long-text.a-placeholder
+    .a-long-text.is-md.a-placeholder
       p
   .categories-item__body
     .category-practices

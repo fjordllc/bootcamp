@@ -1,7 +1,6 @@
 .form-item
   = f.label :name, class: 'a-form-label is-required'
   = f.text_field :name, class: 'a-text-input', placeholder: '駒形 真幸'
-  - unless user.adviser?
-    .a-form-help
-      p
-        | フィヨルドブートキャンプでは、本名を名乗る必要はありません。この情報はフィヨルドブートキャンプ内で公開されます。本名を公開したくない場合はニックネームを入力してください。
+  .a-form-help
+    p
+      | フィヨルドブートキャンプでは、本名を名乗る必要はありません。この情報はフィヨルドブートキャンプ内で公開されます。本名を公開したくない場合はニックネームを入力してください。

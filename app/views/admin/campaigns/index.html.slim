@@ -12,8 +12,7 @@ header.page-header
               i.fa.fa-plus
               | お試し延長作成
 
-.page-tools
-  = render 'admin/admin_page_tabs'
+= render 'admin/admin_page_tabs'
 
 .page-main
   header.page-main-header
@@ -32,6 +31,8 @@ header.page-header
               th.admin-table__label
                 | タイトル
               th.admin-table__label
+                | お試し期間
+              th.admin-table__label
                 | 開始日
               th.admin-table__label
                 | 終了日
@@ -45,9 +46,12 @@ header.page-header
                     | 終了
                 td.admin-table__item-value
                   = campaign.title
-                td.admin-table__item-value
+                td.admin-table__item-value.is-text-align-right
+                  = campaign.trial_period
+                  | 日
+                td.admin-table__item-value.is-text-align-right
                   | #{l campaign.start_at}
-                td.admin-table__item-value
+                td.admin-table__item-value.is-text-align-right
                   | #{l campaign.end_at}
                 td.admin-table__item-value.is-text-align-center
                   ul.is-inline-buttons

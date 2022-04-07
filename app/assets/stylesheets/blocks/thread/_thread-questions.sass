@@ -59,16 +59,7 @@
 .thread-question__body
   min-height: 5rem
   +position(relative)
-  // +balloon-tail(left $base .75rem 1rem, false, top 1.5rem)
-  &::after
-    margin-left: -1.4375rem
-  .thread-question.is-no-user-icon &::before,
-  .thread-question.is-no-user-icon &::after
-    content: none
-  +media-breakpoint-down(sm)
-    &::before,
-    &::after
-      content: none
+  overflow: hidden
 
 .thread-question__description
   +padding(vertical, 1rem)

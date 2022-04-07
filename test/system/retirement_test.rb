@@ -46,6 +46,21 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text 'ログインができません'
   end
 
+  test 'enables retirement regardless of validity of twitter id' do
+    user = users(:twitterinvalid)
+    visit_with_auth new_retirement_path, 'twitterinvalid'
+    choose 'とても悪い', visible: false
+    click_on '退会する'
+    page.accept_confirm
+    assert_text '退会処理が完了しました'
+    assert_equal Date.current, user.reload.retired_on
+    assert_equal 'twitterinvalidさんが退会しました。', users(:komagata).notifications.last.message
+    assert_equal 'twitterinvalidさんが退会しました。', users(:machida).notifications.last.message
+
+    login_user 'twitterinvalid', 'testtest'
+    assert_text 'ログインができません'
+  end
+
   test 'delete unchecked products when the user retired' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'muryou'
     within('form[name=product]') do

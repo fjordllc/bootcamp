@@ -44,4 +44,12 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert_text '日報でcomment+確認OKにするtest'
   end
+
+  test 'comment and check report by mentor' do
+    visit_with_auth "/reports/#{reports(:report20).id}", 'mentormentaro'
+    fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
+    click_button '確認OKにする'
+    assert_text '確認済'
+    assert_text '日報でcomment+確認OKにするtest'
+  end
 end

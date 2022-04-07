@@ -1,4 +1,4 @@
-.a-anchor#after_graduation_hope
+.a-anchor#form-after-graduation-hope
 .form-item
   = f.label :after_graduation_hope, 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを教えてください', class: 'a-form-label'
   = f.text_area :after_graduation_hope, class: 'a-text-input is-sm', placeholder: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
@@ -22,7 +22,7 @@
       li
         | 地元の石川に貢献するような Web アプリケーションを自分で開発し起業する。
 
-= render '/shared/modal', id: 'modal-after-graduation', title: '🧑‍⚕️ 卒業した自分はどうなっていたいか'
+= render '/shared/modal', id: 'modal-after-graduation', modal_title: '🧑‍⚕️ 卒業した自分はどうなっていたいか'
   .modal__description.is-md
     .a-long-text
       p

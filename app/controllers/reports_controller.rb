@@ -141,7 +141,17 @@ class ReportsController < ApplicationController
   end
 
   def flash_contents(report)
-    { notify_help: !report.wip? && report.sad? }
+    { notify_help: !report.wip? && report.sad?,
+      celebrate_report_count: celebrating_count(report) }
+  end
+
+  CELEBRATING_COUNTS = [100].freeze
+
+  def celebrating_count(report)
+    return nil if report.wip
+
+    report_count = current_user.reports.count
+    CELEBRATING_COUNTS.find { |count| count == report_count }
   end
 
   def set_watch

@@ -22,7 +22,9 @@
               :href='`${category.edit_admin_category_path}`'
             )
               i.fas.fa-pen
-          .is-long-text(v-html='markdownDescription(category.description)')
+          .a-long-text.is-md(
+            v-html='markdownDescription(category.description)'
+          )
         .categories-item__body
           .category-practices.js-category-practices
             courses-practice(

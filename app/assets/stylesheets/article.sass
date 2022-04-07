@@ -2,6 +2,7 @@
 @import /blocks/base/body
 @import /blocks/footer/footer
 @import /blocks/shared/flash
+@import /blocks/shared/pagination
 
 .articles__header
   margin-bottom: 1rem
@@ -113,7 +114,7 @@
 
 .article__body
   margin-top: 1.5rem
-  &.is-long-text
+  &.a-long-text
     +media-breakpoint-up(md)
       font-size: 1rem
     +media-breakpoint-down(sm)
