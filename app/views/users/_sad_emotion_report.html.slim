@@ -5,9 +5,8 @@
         | 2回連続
         = image_tag Report.faces['sad'], id: 'sad', alt: 'sad', class: 'card-header__title-emotion-image'
         | のユーザー
-    .card-list
-      .card-list__items
+    .thread-list
+      .thread-list__items
         - users.each do |user|
           - if user.depressed?
-            .card-list__item
-              = render partial: 'reports/report', collection: user.reports.order(reported_on: :desc).limit(1), as: :report
+            = render partial: 'reports/report', collection: user.reports.order(reported_on: :desc).limit(1), as: :report

@@ -9,25 +9,28 @@
           i.fas.fa-angle-down
         .thread-list-item__user
           = render 'users/icon', user: user, image_class: 'thread-list-item__user-icon'
-        header.thread-list-item-title
-          h2.thread-list-item-title__title(itemprop='name')
-            = link_to user, itemprop: 'url', class: 'thread-list-item-title__link' do
-              | #{user.login_name} （#{user.name}）
 
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            - if user.reports.present?
-              .thread-list-item-meta__item
-                = link_to user_reports_path(user), class: 'thread-list-item-meta__item-link' do
-                  | 日報一覧（#{user.reports.count}）
-            - if user.products.present?
-              .thread-list-item-meta__item
-                = link_to user_products_path(user), class: 'thread-list-item-meta__item-link' do
-                  | 提出物一覧（#{user.products.count}）
-            - if user.works.present?
-              .thread-list-item-meta__item
-                = link_to user_portfolio_path(user), class: 'thread-list-item-meta__item-link' do
-                  | ポートフォリオ（#{user.works.count}）
+        .thread-list-item__rows
+          .thread-list-item__row
+            header.thread-list-item-title
+              h2.thread-list-item-title__title(itemprop='name')
+                = link_to user, itemprop: 'url', class: 'thread-list-item-title__link a-text-link' do
+                  | #{user.login_name} （#{user.name}）
+          .thread-list-item__row
+            .thread-list-item-meta
+              .thread-list-item-meta__items
+                - if user.reports.present?
+                  .thread-list-item-meta__item
+                    = link_to user_reports_path(user), class: 'thread-list-item-meta__item-link a-text-link' do
+                      | 日報一覧（#{user.reports.count}）
+                - if user.products.present?
+                  .thread-list-item-meta__item
+                    = link_to user_products_path(user), class: 'thread-list-item-meta__item-link a-text-link' do
+                      | 提出物一覧（#{user.products.count}）
+                - if user.works.present?
+                  .thread-list-item-meta__item
+                    = link_to user_portfolio_path(user), class: 'thread-list-item-meta__item-link a-text-link' do
+                      | ポートフォリオ（#{user.works.count}）
 
       input.a-toggle-checkbox(id="show-user-detail-#{user.id}" type='checkbox')
       .thread-list-item__user-detail
