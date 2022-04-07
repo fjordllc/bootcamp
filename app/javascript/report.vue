@@ -45,29 +45,28 @@
             .thread-list-item-meta__item
               a.a-user-name(:href='report.user.url') {{ report.user.long_name }}
             .thread-list-item-meta__item
-              time.a-meta {{ report.reportedOn }}
-                | の日報
+              time.a-meta
+                | {{ report.reportedOn }}の日報
       hr.thread-list-item__row-separator(v-if='report.hasAnyComments')
       .thread-list-item__row(v-if='report.hasAnyComments')
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | コメント
-                .thread-list-item-comment__count
-                  | ({{ report.numberOfComments }})
-                .thread-list-item-comment__user-icons
-                  comment-user-icon(
-                    v-for='comment in report.comments',
-                    :key='comment.id',
-                    :comment='comment'
-                  )
-                time.a-meta(
-                  datetime='report.lastCommentDatetime',
-                  pubdate='\'pubdate\''
+              .a-meta
+                | コメント（{{ report.numberOfComments }}）
+            .thread-list-item-meta__item
+              .thread-list-item-comment__user-icons
+                comment-user-icon(
+                  v-for='comment in report.comments',
+                  :key='comment.id',
+                  :comment='comment'
                 )
-                  | 〜 {{ report.lastCommentDate }}
+            .thread-list-item-meta__item
+              time.a-meta(
+                datetime='report.lastCommentDatetime',
+                pubdate='\'pubdate\''
+              )
+                | 〜 {{ report.lastCommentDate }}
     .stamp.stamp-approve(v-if='this.report.hasCheck')
       h2.stamp__content.is-title
         | 確認済

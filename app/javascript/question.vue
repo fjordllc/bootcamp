@@ -19,11 +19,13 @@
               :href='question.url',
               itemprop='url'
             ) {{ question.title }}
+
       .thread-list-item__row(v-if='question.practice')
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               .thread-list-item-sub-title {{ question.practice.title }}
+
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -33,6 +35,7 @@
             .thread-list-item-meta__item
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.long_name }}
+
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -49,11 +52,8 @@
                 span.a-meta__value
                   | {{ updatedAt }}
             .thread-list-item-meta__item(v-if='question.answers.size > 0')
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | 回答・コメント
-                .thread-list-item-comment__count
-                  | （{{ question.answers.size }}）
+              .a-meta
+                | 回答・コメント（{{ question.answers.size }}）
 
       .thread-list-item__row(v-if='question.tags.length > 0')
         .thread-list-item-tags
