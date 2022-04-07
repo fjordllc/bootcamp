@@ -63,7 +63,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを教えてください'
   end
 
-  test 'hide training end date if user is not trainee' do
+  test 'should not show training end date if user is not trainee' do
     visit_with_auth edit_current_user_path, 'kimura'
     assert has_no_field?('user_training_ends_on')
   end

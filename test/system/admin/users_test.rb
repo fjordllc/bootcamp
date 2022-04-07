@@ -183,7 +183,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     end
   end
 
-  test 'hide training end date if user is not trainee' do
+  test 'should not show training end date if user is not trainee' do
     user = users(:kimura)
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
     assert has_unchecked_field?('user_trainee', visible: false)
