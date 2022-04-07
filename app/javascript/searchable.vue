@@ -36,7 +36,9 @@
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
-            .thread-list-item-meta__item(v-if='isRole("admin") && canDisplayTalk')
+            .thread-list-item-meta__item(
+              v-if='isRole("admin") && canDisplayTalk'
+            )
               a.a-text-link(:href='talkUrl')
                 | 相談部屋
 </template>
