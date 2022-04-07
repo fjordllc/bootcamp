@@ -1,6 +1,12 @@
 <template lang="pug">
 .thread-list-item(:class='notification.read ? "is-read" : "is-unread"')
   .thread-list-item__inner
+    .thread-list-item__user
+      img.thread-list-item__user-icon.a-user-icon(
+        :title='notification.sender.icon_title',
+        :src='notification.sender.avatar_url',
+        :class='[roleClass, daimyoClass]'
+      )
     .thread-list-item__rows
       .thread-list-item__row
         .thread-list-item-title
@@ -20,12 +26,6 @@
           .thread-list-item-meta__items
             .thread-list-item-meta__item
               time.a-meta(:datetime='notification.created_at') {{ formattedCreatedAtInJapanese }}
-    .thread-list-item__user
-      img.thread-list-item__user-icon.a-user-icon(
-        :title='notification.sender.icon_title',
-        :src='notification.sender.avatar_url',
-        :class='[roleClass, daimyoClass]'
-      )
 </template>
 <script>
 import dayjs from 'dayjs'
