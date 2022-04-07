@@ -58,9 +58,6 @@ export default {
     }
   },
   computed: {
-    modelName() {
-      return `is-${this.searchable.model_name}`
-    },
     userUrl() {
       return `/users/${this.searchable.user_id}`
     },
