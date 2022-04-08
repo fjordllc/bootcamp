@@ -235,9 +235,11 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: 'メンターのみ投稿された質問が"Watch中"になるテスト'
       click_button '登録する'
     end
+    assert_text '質問を作成しました。'
+
     visit_with_auth questions_path, 'komagata'
     click_link 'メンターのみ投稿された質問が"Watch中"になるテスト'
-    assert_text 'kimura (Kimura Tadasi)'
+    assert_text '削除する'
     assert_text 'Watch中'
   end
 
@@ -246,12 +248,13 @@ class QuestionsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'WIPタイトル'
       fill_in 'question[description]', with: 'WIP本文'
+      click_button 'WIP'
     end
-    click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
+
     visit_with_auth questions_path, 'komagata'
     click_link 'WIPタイトル'
-    assert_text 'kimura (Kimura Tadasi)'
+    assert_text '削除する'
     assert_no_text 'Watch中'
   end
 
@@ -260,22 +263,24 @@ class QuestionsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'WIPタイトル'
       fill_in 'question[description]', with: 'WIP本文'
+      click_button 'WIP'
     end
-    click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
+
     visit questions_path
     click_link 'WIPタイトル'
-    assert_text 'kimura (Kimura Tadasi)'
+    assert_text '削除する'
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
       fill_in 'question[description]', with: '更新された本文'
+      click_button '質問を公開'
     end
-    click_button '質問を公開'
     assert_text '質問を更新しました'
+
     visit_with_auth questions_path, 'komagata'
     click_link '更新されたタイトル'
-    assert_text 'kimura (Kimura Tadasi)'
+    assert_text '削除する'
     assert_text 'Watch中'
   end
 
