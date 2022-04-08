@@ -66,14 +66,6 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
-      // .then(() => {
-      //   this.$store.dispatch('setProduct', {
-      //     productId: productId
-      //   })
-      // })
-      // .catch((error) => {
-      //   console.warn(error)
-      // })
     }
   }
 }

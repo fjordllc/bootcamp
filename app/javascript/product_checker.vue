@@ -34,16 +34,23 @@ export default {
     currentUserId: { type: String, required: true },
     productId: { type: Number, required: true },
     checkableType: { type: String, required: false, default: null },
-    checkerAvatar: { type: String, required: false, default: null }
+    checkerAvatar: { type: String, required: false, default: null },
+    parentComponent: { type: String, required: true }
   },
   data() {
     return {
-      name: this.checkerName
+      id: this.checkerId,
+      name: this.checkerName,
+      parent: this.parentComponent
     }
   },
   computed: {
     productCheckerId() {
-      return this.$store.getters.productCheckerId
+      if (this.parent === 'product') {
+        return this.id
+      } else {
+        return this.$store.getters.productCheckerId
+      }
     },
     buttonLabel() {
       return this.productCheckerId ? '担当から外れる' : '担当する'
