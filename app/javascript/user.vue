@@ -21,7 +21,9 @@
             .thread-list-item__rows
               .thread-list-item__row
                 .thread-list-item-title
-                  a.thread-list-item-title__title.is-lg.a-text-link(:href='user.url')
+                  a.thread-list-item-title__title.is-lg.a-text-link(
+                    :href='user.url'
+                  )
                     | {{ loginName }}
                   a(
                     v-if='user.company && user.company.logo_url',
@@ -35,9 +37,7 @@
                       .a-meta
                         | {{ user.name }}
                     .thread-list-item-meta__item
-                      a.a-meta(:href='user.times_url')(
-                        v-if='user.times_url'
-                      )
+                      a.a-meta(:href='user.times_url')(v-if='user.times_url')
                         .a-meta__icon
                           i.fa-brands.fa-discord
                         | {{ user.discord_account }}
