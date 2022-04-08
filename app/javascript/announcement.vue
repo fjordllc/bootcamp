@@ -15,7 +15,7 @@
           .thread-list-item-title__icon.is-wip(v-if='announcement.wip')
             | WIP
           h2.thread-list-item-title__title
-            a.thread-list-item-title__link(:href='announcement.url')
+            a.thread-list-item-title__link.a-text-link(:href='announcement.url')
               | {{ announcement.title }}
       .thread-list-item__row
         a.a-user-name(:href='announcement.user.url')

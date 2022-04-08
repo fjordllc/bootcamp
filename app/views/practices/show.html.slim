@@ -25,7 +25,7 @@
                   span.a-meta__value
                     = convert_to_ceiled_hour(learning_minute_statistic.median)
                 span.a-help
-                  i.fas.fa-question
+                  i.fa-solid.fa-question
               = render 'shared/modal', id: 'learning_minute', title: '所要時間の目安'
                 .modal__description.is-md
                   .a-short-text
@@ -75,7 +75,7 @@
               ul.card-main-actions__items
                 li.card-main-actions__item
                   = link_to new_question_path(practice_id: params[:id]), class: 'a-button is-md is-primary is-block' do
-                    i.fas.fa-question-circle
+                    i.fa-solid.fa-question-circle
                     | 質問する
 
         - if @practice.reference_books.exists?
@@ -148,7 +148,7 @@
                 ul.card-main-actions__items
                   li.card-main-actions__item
                     = link_to edit_practice_path(@practice), class: 'a-button is-md is-secondary is-block' do
-                      i.fas.fa-pen
+                      i.fa-solid.fa-pen
                       | 編集
 
       nav.page-nav

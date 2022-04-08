@@ -15,7 +15,7 @@
         .thread-list-item-title
           .thread-list-item-title__icon.is-wip(v-if='page.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link(:href='page.url', itemprop='url')
+            a.thread-list-item-title__link.a-text-link(:href='page.url', itemprop='url')
               | {{ page.title }}
 
       .thread-list-item__row(v-if='page.practice')
@@ -64,7 +64,7 @@
       .thread-list-item__row(v-if='page.tags.length > 0')
         .thread-list-item-tags
           .thread-list-item-tags__label
-            i.fas.fa-tags
+            i.fa-solid.fa-tags
           ul.thread-list-item-tags__items
             li.thread-list-item-tags__item(v-for='tag in page.tags')
               a.thread-list-item-tags__item-link(:href='tag.url') {{ tag.name }}
