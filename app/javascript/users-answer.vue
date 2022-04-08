@@ -24,7 +24,7 @@
               .thread-list-item-sub-title {{ answer.question.practice.title }}
       .thread-list-item__row
         .thread-list-item__summary
-          p {{ answer.description }}
+          p {{ summary }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -61,6 +61,14 @@ export default {
       } else {
         return ''
       }
+    },
+    summary() {
+      let description = this.answer.description
+      description =
+        description.length <= 90
+          ? description
+          : description.substring(0, 90) + '...'
+      return description
     }
   }
 }
