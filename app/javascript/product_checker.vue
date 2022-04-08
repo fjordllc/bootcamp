@@ -67,7 +67,7 @@ export default {
         this.productId,
         this.currentUserId,
         '/api/products/checker',
-        'PATCH',
+        this.productCheckerId ? 'DELETE' : 'PATCH',
         this.token()
       )
         .then((response) => {
