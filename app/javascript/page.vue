@@ -15,7 +15,10 @@
         .thread-list-item-title
           .thread-list-item-title__icon.is-wip(v-if='page.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link.a-text-link(:href='page.url', itemprop='url')
+            a.thread-list-item-title__link.a-text-link(
+              :href='page.url',
+              itemprop='url'
+            )
               | {{ page.title }}
 
       .thread-list-item__row(v-if='page.practice')
