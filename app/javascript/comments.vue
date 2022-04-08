@@ -221,7 +221,10 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
-      if (this.productCheckerId === null) {
+      if (
+        this.commentableType === 'Product' &&
+        this.productCheckerId === null
+      ) {
         this.checkProduct(
           this.commentableId,
           this.currentUserId,
