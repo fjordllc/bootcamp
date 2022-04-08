@@ -16,18 +16,18 @@
           - if current_user == report.user
             .thread-list-item-title__end
               label.thread-list-item-actions__trigger(for="#{report.id}")
-                i.fas.fa-ellipsis-h
+                i.fa-solid.fa-ellipsis-h
               .thread-list-item-actions
                 input.a-toggle-checkbox(type="checkbox" id=="#{report.id}")
                 .thread-list-item-actions__inner
                   ul.thread-list-item-actions__items
                     li.thread-list-item-actions__item
                       = link_to edit_report_path(report), class: 'thread-list-item-actions__action' do
-                        i.fas.fa-pen
+                        i.fa-solid.fa-pen
                         | 内容変更
                     li.thread-list-item-actions__item
                       = link_to new_report_path(id: report), class: 'thread-list-item-actions__action' do
-                        i.fas.fa-copy
+                        i.fa-solid.fa-copy
                         | コピー
                   label.a-overlay(for="#{report.id}")
       .thread-list-item__row

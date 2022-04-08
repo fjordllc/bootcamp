@@ -6,7 +6,7 @@
     .users
       .row(v-if='users === null')
         .empty
-          .fas.fa-spinner.fa-pulse
+          .fa-solid.fa-spinner.fa-pulse
           |
           | ロード中
       .row(v-else-if='users.length !== 0')
@@ -19,7 +19,7 @@
       .row(v-else)
         .o-empty-message
           .o-empty-message__icon
-            i.far.fa-smile
+            i.fa-regular.fa-smile
           p.o-empty-message__text
             | {{ generationID }}期のユーザー一覧はありません
   nav.pagination(v-if='totalPages > 1')

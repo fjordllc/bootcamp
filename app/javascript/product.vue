@@ -29,7 +29,7 @@
           .thread-list-item-title__start
             .thread-list-item-title__icon.is-wip(v-if='product.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link.js-unconfirmed-link(
+            a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
               :href='product.url',
               itemprop='url'
             )

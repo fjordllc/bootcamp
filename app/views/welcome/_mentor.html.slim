@@ -11,18 +11,18 @@ section.welcome-member
         - if defined?(github_id)
           li.welcome-member__sns-item
             = link_to "https://github.com/#{github_id}", class: 'welcome-member__sns-item-link' do
-              i.fab.fa-github-alt
+              i.fa-brands.fa-github-alt
         - if defined?(blog_url)
           li.welcome-member__sns-item
             = link_to blog_url, class: 'welcome-member__sns-item-link' do
-              i.fas.fa-home
+              i.fa-solid.fa-home
         - if defined?(twitter_id)
           li.welcome-member__sns-item
             = link_to "https://twitter.com/#{twitter_id}", class: 'welcome-member__sns-item-link' do
-              i.fab.fa-twitter
+              i.fa-brands.fa-twitter
         - if defined?(facebook_id)
           li.welcome-member__sns-item
             = link_to "https://www.facebook.com/#{facebook_id}", class: 'welcome-member__sns-item-link' do
-              i.fab.fa-facebook-square
+              i.fa-brands.fa-facebook-square
   .welcome-member__body
     = yield

@@ -9,8 +9,8 @@
             li = login_name
   .reactions__dropdown.js-reaction-dropdown
     .reactions__dropdown-toggle.js-reaction-dropdown-toggle
-      i.fas.fa-plus.reactions__dropdown-toggle-plus
-      i.fas.fa-smile
+      i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
+      i.fa-solid.fa-smile
     ul.reactions__items.test-inline-block.js-reaction(hidden=true)
       - Reaction.emojis.each do |kind, emoji|
         li.reactions__item.test-inline-block[*reaction_attributes_all(reactionable, kind)]

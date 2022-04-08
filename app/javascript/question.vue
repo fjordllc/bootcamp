@@ -15,7 +15,7 @@
           .thread-list-item-title__icon.is-wip(v-if='question.wip')
             | WIP
           h1.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link(
+            a.thread-list-item-title__link.a-text-link(
               :href='question.url',
               itemprop='url'
             ) {{ question.title }}
@@ -58,7 +58,7 @@
       .thread-list-item__row(v-if='question.tags.length > 0')
         .thread-list-item-tags
           .thread-list-item-tags__label
-            i.fas.fa-tags
+            i.fa-solid.fa-tags
           ul.thread-list-item-tags__items
             li.thread-list-item-tags__item(v-for='tag in question.tags')
               a.thread-list-item-tags__item-link(:href='tag.url') {{ tag.name }}

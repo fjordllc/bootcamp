@@ -26,7 +26,7 @@
           | {{ coursesCategory.slug }}
         td.admin-table__item-value.is-text-align-center.is-grab
           span.js-grab.a-grab
-            i.fas.fa-align-justify
+            i.fa-solid.fa-align-justify
 </template>
 <script>
 import draggable from 'vuedraggable'

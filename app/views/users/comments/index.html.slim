@@ -10,8 +10,7 @@ header.page-header
             = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
               | ユーザー一覧
 
-.page-tools
-  = render 'users/page_tabs', user: @user
+= render 'users/page_tabs', user: @user
 
 .page-body
   .container.is-md
@@ -23,6 +22,6 @@ header.page-header
     - else
       .o-empty-message
         .o-empty-message__icon
-          i.far.fa-sad-tear
+          i.fa-regular.fa-sad-tear
         p.o-empty-message__text
           | コメントはまだありません。

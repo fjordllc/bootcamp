@@ -18,8 +18,8 @@
     .reactions__dropdown-toggle.js-reaction-dropdown-toggle(
       @click='dropdownToggle()'
     )
-      i.fas.fa-plus.reactions__dropdown-toggle-plus
-      i.fas.fa-smile
+      i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
+      i.fa-solid.fa-smile
     ul.reactions__items.test-inline-block.js-reaction(v-if='dropdown')
       li.reactions__item.test-inline-block(
         v-for='emoji in availableEmojis',

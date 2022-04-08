@@ -7,7 +7,7 @@ header.page-header
         .page-header-actions__items
           .page-header-actions__item
             = link_to new_question_path, class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-plus
+              i.fa-regular.fa-plus
               | 質問する
 
 = form_with url: questions_path, method: 'get', local: true
@@ -38,9 +38,9 @@ header.page-header
         #js-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag]
       - if @tags.any?
         .two-columns__column.is-sub
-          nav.page-tags-nav
-            header.page-tags-nav__header
-              h2.page-tags-nav__title
+          nav.page-tags-nav.a-card
+            header.card-header.is-sm
+              h2.card-header__title
                 | タグ一覧
             .page-tags-nav__body
               ul.page-tags-nav__items

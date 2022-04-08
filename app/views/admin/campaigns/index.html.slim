@@ -9,7 +9,7 @@ header.page-header
         .page-header-actions__items
           .page-header-actions__item
             = link_to new_admin_campaign_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa.fa-plus
+              i.fa-regular.fa-plus
               | お試し延長作成
 
 = render 'admin/admin_page_tabs'
@@ -58,4 +58,4 @@ header.page-header
                     li
                       - if (nil..campaign.end_at).cover? Time.current
                         = link_to edit_admin_campaign_path(campaign), class: 'a-button is-sm is-secondary is-icon' do
-                          i.fas.fa-pen
+                          i.fa-solid.fa-pen

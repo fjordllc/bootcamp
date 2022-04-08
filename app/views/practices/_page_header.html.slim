@@ -8,7 +8,7 @@ header.page-header
           - if current_user.admin?
             li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
               = link_to new_practice_path, class: 'a-button is-md is-secondary is-block' do
-                i.fas.fa-plus
+                i.fa-regular.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
             = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
