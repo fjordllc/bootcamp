@@ -14,7 +14,7 @@
     :currentUser='currentUser',
     :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
     @delete='deleteComment',
-    @update='updateComment',
+    @update='updateComment'
   )
   .thread-comment-form
     .thread-comment__author
