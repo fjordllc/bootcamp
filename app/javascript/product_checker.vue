@@ -63,29 +63,13 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     checkInCharge() {
-      this.checker(
+      this.checkProduct(
         this.productId,
         this.currentUserId,
         '/api/products/checker',
         this.productCheckerId ? 'DELETE' : 'PATCH',
         this.token()
       )
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          if (json.message) {
-            alert(json.message)
-          } else {
-            this.id = json.checker_id
-            this.name = json.checker_name
-            if (this.buttonLabel === '担当する') {
-              this.toast('担当から外れました。')
-            } else {
-              this.toast('担当になりました。')
-            }
-          }
-        })
     }
   }
 }
