@@ -11,23 +11,27 @@ class Product::CheckerTest < ApplicationSystemTestCase
 
     before_comment = assigned_product_count
 
-    [
-      '担当者がいない提出物の場合、担当者になる',
-      '自分が担当者の場合、担当者のまま'
-    ].each do |comment|
-      visit "/products/#{products(:product1).id}"
-      post_comment(comment)
-      assert_text 'コメントを投稿しました'
+    visit "/products/#{products(:product1).id}"
 
-      visit '/products/unchecked?target=unchecked_no_replied'
-      assert_equal before_comment + 1, assigned_product_count
-    end
+    post_comment('担当者がいない提出物の場合、担当者になる')
+    assert_text '担当になりました。'
+    assert_text 'コメントを投稿しました'
+    assert_text '担当から外れる'
+
+    post_comment('自分が担当者の場合、担当者のまま')
+    assert_text 'コメントを投稿しました'
+    assert_text '担当から外れる'
+
+    visit '/products/unchecked?target=unchecked_no_replied'
+    assert_equal before_comment + 1, assigned_product_count
   end
 
   test 'be not person on charge at comment on product of there are person on charge' do
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     product = find('.thread-list-item', match: :first)
     product.click_button '担当する'
+    assert_text '担当から外れる'
+
     show_product_path = product.find_link(href: /products/)[:href]
     logout
 
