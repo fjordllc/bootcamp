@@ -22,8 +22,6 @@ class API::Products::UncheckedController < API::BaseController
                 end
                 # binding.irb
     @all_submitted_products = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
-    p '*' * 100
-    pp @all_submitted_products[0].pluck(:published_at)
   end
 
   private
