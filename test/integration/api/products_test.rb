@@ -45,7 +45,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  test ' should return products in order ' do
+  test 'should return products in order ' do
     token = create_token('machida', 'testtest')
     get api_products_self_assigned_index_path(format: :json),
         headers: { 'Authorization' => "Bearer #{token}" }
