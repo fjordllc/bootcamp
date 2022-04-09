@@ -109,6 +109,7 @@ export default {
         .then(() => {
           this.watchId = null
           this.watchLabel = 'Watch'
+          this.toast('Bookmarkを削除しました')
         })
         .then(() => {
           this.$emit('update-index')
