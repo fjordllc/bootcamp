@@ -18,7 +18,7 @@ class ProductCallbacks
   end
 
   def after_save(product)
-    unless product.wip || product.last_commented_user || product.comments.blank?
+    unless product.wip
       notify_to_watching_mentor(product)
       if product.user.trainee?
         send_notification(
