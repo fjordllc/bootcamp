@@ -40,7 +40,18 @@
                 | 提出日（{{ product.created_at }}）
             .thread-list-item-meta__item
               time.a-meta(v-if='product.updated_at')
-                | 更新（{{ product.updated_at }}）
+                span.a-meta__label 更新
+                | {{ product.updated_at }}
+            .thread-list-item-meta__item(
+              v-if='(product.selectedTab = unassigned)'
+            )
+              time.a-meta(v-if='untilNextElapsedDays(product) < 1')
+                span.a-meta__label 次の経過日数まで
+                | 1時間未満
+              time.a-meta(v-else-if='calcElapsedTimes(product) < 7')
+                span.a-meta__label 次の経過日数まで
+                | 約{{ untilNextElapsedDays(product) }}時間
+
       hr.thread-list-item__row-separator(v-if='product.comments.size > 0')
       .thread-list-item__row(v-if='product.comments.size > 0')
         .thread-list-item-meta

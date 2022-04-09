@@ -64,13 +64,19 @@ product<%= i %>:
   published_at: <%= 7.day.ago.to_formatted_s(:db) %>
   created_at: <%= 7.day.ago.to_formatted_s(:db) %>
 <% end %>
-# product1:
-#   practice: practice1
-#   user: mentormentaro
-#   body: テストの提出物1です。
-#   published_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
-#   created_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
+product51:
+  practice: practice1
+  user: mentormentaro
+  body: テストの提出物1です。
+  published_at: <%= 23.hour.ago.to_formatted_s(:db) %>
+  created_at: <%= 23.hour.ago.to_formatted_s(:db) %>
 
+product52:
+  practice: practice2
+  user: mentormentaro
+  body: テストの提出物です。
+  published_at: <%= 47.hour.ago.to_formatted_s(:db) %>
+  created_at: <%= 47.hour.ago.to_formatted_s(:db) %>
 # product2:
 #   practice: practice1
 #   user: kimura
