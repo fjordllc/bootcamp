@@ -1,34 +1,5 @@
 <template lang="pug">
 .thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
-  .thread-list-item__strip-label(v-if='unassigned || unchecked')
-    .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
-      v-if='isAllSubmittedProducts(1)'
-    )
-      | 1日経過
-    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isAllSubmittedProducts(2)'
-    )
-      | 2日経過
-    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isAllSubmittedProducts(3)'
-    )
-      | 3日経過
-    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isAllSubmittedProducts(4)'
-    )
-      | 4日経過
-    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isAllSubmittedProducts(5)'
-    )
-      | 5日経過
-    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isAllSubmittedProducts(6)'
-    )
-      | 6日経過
-    .thread-list-item__elapsed-days.is-reply-deadline.is-only-mentor(
-      v-else-if='isAllSubmittedProducts(7)'
-    )
-      | 7日以上経過
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='product.user.url')
@@ -145,12 +116,7 @@ export default {
   props: {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true },
-    allSubmittedProducts: {
-      type: Object,
-      required: false,
-      default: null
-    }
+    currentUserId: { type: String, required: true }
   },
   computed: {
     updatedAt() {
@@ -190,13 +156,6 @@ export default {
       const time =
         product.published_at_date_time || product.created_at_date_time
       return (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
-    },
-    isAllSubmittedProducts(n) {
-      if (this.allSubmittedProducts[n] !== undefined) {
-        return this.product.id === this.allSubmittedProducts[n].id
-      } else {
-        return false
-      }
     }
   }
 }
