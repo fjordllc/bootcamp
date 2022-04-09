@@ -8,5 +8,7 @@ class API::ProductsController < API::BaseController
                 .list
                 .ascending_by_date_of_publishing_and_id
                 .page(params[:page])
+    @all_submitted_products = @products
+                              .group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
   end
 end

@@ -11,6 +11,15 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
+    .thread-list.a-card(v-if='allSubmittedProducts === null')
+      .thread-list__items
+        product(
+          v-for='product in products',
+          :key='product.id',
+          :product='product',
+          :currentUserId='currentUserId',
+          :isMentor='isMentor'
+        )
     template(v-for='(allSubmittedProduct, index) in allSubmittedProducts')
       .thread-list.a-card
         h2 {{ index }}日経過
