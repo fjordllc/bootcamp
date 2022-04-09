@@ -7,7 +7,8 @@ class API::Products::UncheckedController < API::BaseController
     @target = 'unchecked_all' unless target_allowlist.include?(@target)
     @products = case @target
                 when 'unchecked_all'
-                  Product.unchecked
+                # p '*' * 100
+                  pp Product.unchecked
                          .not_wip
                          .list
                          .ascending_by_date_of_publishing_and_id
@@ -19,9 +20,10 @@ class API::Products::UncheckedController < API::BaseController
                          .list
                          .page(params[:page])
                 end
-    @all_submitted_products = @products
-                              .group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
-                              .transform_values(&:first)
+                # binding.irb
+    @all_submitted_products = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
+    p '*' * 100
+    pp @all_submitted_products[0].pluck(:published_at)
   end
 
   private

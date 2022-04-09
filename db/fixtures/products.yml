@@ -1,152 +1,219 @@
 <% now = Time.current %>
 <% today = Time.zone.today %>
-product1:
-  practice: practice1
-  user: mentormentaro
-  body: テストの提出物1です。
-  published_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
-
-product2:
-  practice: practice1
-  user: kimura
-  body: テストの提出物2です。
-  published_at: <%= (now - 60 * 60 * 24 * 2).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 2).to_formatted_s(:db) %>
-
-product3:
-  practice: practice2
-  user: sotugyou
-  body: 確認済みの提出物
-  published_at: <%= (now - 60 * 60 * 24 * 3).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 3).to_formatted_s(:db) %>
-
-product4:
-  practice: practice2
-  user: mentormentaro
-  body: テストの提出物4です。
-  published_at: <%= (now - 60 * 60 * 24 * 4).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 4).to_formatted_s(:db) %>
-
-product5:
-  practice: practice2
-  user: kimura
-  body: テストの提出物5です。
-  published_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
-
-product6:
-  practice: practice3
-  user: sotugyou
-  body: 確認待ちの提出物
-  published_at: <%= (now - 60 * 60 * 24 * 6).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 6).to_formatted_s(:db) %>
-
-product7:
-  practice: practice3
-  user: mentormentaro
-  body: テストの提出物7です。
-  published_at: <%= (now - 60 * 60 * 24 * 7).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 7).to_formatted_s(:db) %>
-
-product8:
-  practice: practice3
-  user: kimura
-  body: テストの提出物8です。
-  published_at: <%= (now - 60 * 60 * 24 * 8).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 8).to_formatted_s(:db) %>
-
-product9:
-  practice: practice4
-  user: mentormentaro
-  body: テストの提出物9です。
-  published_at: <%= (now - 60 * 60 * 24 * 9).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 9).to_formatted_s(:db) %>
-
-product10:
-  practice: practice4
-  user: kimura
-  body: テストの提出物10です。
-  published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
-
-product11:
-  practice: practice2
+<% (1..2).each do |i| %>
+product<%= 0 + i %>:
+  practice: practice<%= 0 + i %>
   user: hatsuno
-  body: テストの提出物11です。
-  published_at: <%= (now - 60 * 60 * 24 * 11).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 11).to_formatted_s(:db) %>
-
-product12:
-  practice: practice5
-  user: mentormentaro
-  body: リアクションテスト
-  published_at: <%= (now - 60 * 60 * 24 * 12).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 12).to_formatted_s(:db) %>
-
-product13:
-  practice: practice1
-  user: kensyu
-  body: 研修の提出物です。
-  published_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
-
-product14:
-  practice: practice1
-  user: daimyo
-  body: 研修の提出物です。
-  published_at: <%= (now - 60 * 60 * 24 * 14).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 14).to_formatted_s(:db) %>
-
-<% (15..60).each do |i| %>
+  body: <%= 0 %>日前の提出物です。
+  published_at: <%= 0.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 0.day.ago.to_formatted_s(:db) %>
+<% end %>
+<% (3..4).each do |i| %>
 product<%= i %>:
-  practice: practice<%= i - 14 %>
-  user: with_hyphen
-  body: テストの提出物<%= i %>です。
-  published_at: <%= (now - i).to_formatted_s(:db) %>
-  created_at: <%= (now - i).to_formatted_s(:db) %>
-<% end %>
-
-product61:
-  practice: practice1
-  user: sumi
-  body: テストの提出物61です。
-  published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
-
-product62:
-  practice: practice1
-  user: take8
-  body: テストの提出物62です。
-  published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
-
-product63:
-  practice: practice6
-  user: kimura
-  body: プラクティス完了メッセージ未表示の提出物です。
-
-product64:
-  practice: practice6
-  user: daimyo
-  body: publish_atがnilの提出物です。
-  published_at: nil
-
-<% (0..2).each do |i| %>
-  <% (0..3).each do |n| %>
-product<%= 65 + i*4+n %>:
-  practice: practice<%= 4 + i*4+n %>
+  practice: practice<%= i %>
   user: hatsuno
-  body: <%= i+1 %>日前の提出物です。
-  published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
-  created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
-  <% end %>
+  body: <%= 1 %>日前の提出物です。
+  published_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
 <% end %>
-
-<% (0..3).each do |i| %>
-product<%= 68 + i %>:
-  practice: practice<%= 16 + i %>
+<% (5..6).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i %>
   user: hatsuno
-  body: <%= i+1 %>日前の提出物です。
-  published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
-  created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+  body: <%= 2 %>日前の提出物です。
+  published_at: <%= 2.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 2.day.ago.to_formatted_s(:db) %>
 <% end %>
+<% (7..8).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i %>
+  user: hatsuno
+  body: <%= 3 %>日前の提出物です。
+  published_at: <%= 3.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 3.day.ago.to_formatted_s(:db) %>
+<% end %>
+<% (9..10).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i %>
+  user: hatsuno
+  body: <%= 4 %>日前の提出物です。
+  published_at: <%= 4.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 4.day.ago.to_formatted_s(:db) %>
+<% end %>
+<% (11..12).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i %>
+  user: hatsuno
+  body: <%= 5 %>日前の提出物です。
+  published_at: <%= 5.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 5.day.ago.to_formatted_s(:db) %>
+<% end %>
+<% (13..14).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i %>
+  user: hatsuno
+  body: <%= 6 %>日前の提出物です。
+  published_at: <%= 6.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 6.day.ago.to_formatted_s(:db) %>
+<% end %>
+<% (15..50).each do |i| %>
+product<%= i %>:
+  practice: practice<%= i %>
+  user: hatsuno
+  body: <%= 7 %>日前の提出物です。
+  published_at: <%= 7.day.ago.to_formatted_s(:db) %>
+  created_at: <%= 7.day.ago.to_formatted_s(:db) %>
+<% end %>
+# product1:
+#   practice: practice1
+#   user: mentormentaro
+#   body: テストの提出物1です。
+#   published_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 1).to_formatted_s(:db) %>
+
+# product2:
+#   practice: practice1
+#   user: kimura
+#   body: テストの提出物2です。
+#   published_at: <%= (now - 60 * 60 * 24 * 2).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 2).to_formatted_s(:db) %>
+
+# product3:
+#   practice: practice2
+#   user: sotugyou
+#   body: 確認済みの提出物
+#   published_at: <%= (now - 60 * 60 * 24 * 3).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 3).to_formatted_s(:db) %>
+
+# product4:
+#   practice: practice2
+#   user: mentormentaro
+#   body: テストの提出物4です。
+#   published_at: <%= (now - 60 * 60 * 24 * 4).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 4).to_formatted_s(:db) %>
+
+# product5:
+#   practice: practice2
+#   user: kimura
+#   body: テストの提出物5です。
+#   published_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+
+# product6:
+#   practice: practice3
+#   user: sotugyou
+#   body: 確認待ちの提出物
+#   published_at: <%= (now - 60 * 60 * 24 * 6).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 6).to_formatted_s(:db) %>
+
+# product7:
+#   practice: practice3
+#   user: mentormentaro
+#   body: テストの提出物7です。
+#   published_at: <%= (now - 60 * 60 * 24 * 7).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 7).to_formatted_s(:db) %>
+
+# product8:
+#   practice: practice3
+#   user: kimura
+#   body: テストの提出物8です。
+#   published_at: <%= (now - 60 * 60 * 24 * 8).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 8).to_formatted_s(:db) %>
+
+# product9:
+#   practice: practice4
+#   user: mentormentaro
+#   body: テストの提出物9です。
+#   published_at: <%= (now - 60 * 60 * 24 * 9).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 9).to_formatted_s(:db) %>
+
+# product10:
+#   practice: practice4
+#   user: kimura
+#   body: テストの提出物10です。
+#   published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+
+# product11:
+#   practice: practice2
+#   user: hatsuno
+#   body: テストの提出物11です。
+#   published_at: <%= (now - 60 * 60 * 24 * 11).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 11).to_formatted_s(:db) %>
+
+# product12:
+#   practice: practice5
+#   user: mentormentaro
+#   body: リアクションテスト
+#   published_at: <%= (now - 60 * 60 * 24 * 12).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 12).to_formatted_s(:db) %>
+
+# product13:
+#   practice: practice1
+#   user: kensyu
+#   body: 研修の提出物です。
+#   published_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
+
+# product14:
+#   practice: practice1
+#   user: daimyo
+#   body: 研修の提出物です。
+#   published_at: <%= (now - 60 * 60 * 24 * 14).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 14).to_formatted_s(:db) %>
+
+# <% (15..60).each do |i| %>
+# product<%= i %>:
+#   practice: practice<%= i - 14 %>
+#   user: with_hyphen
+#   body: テストの提出物<%= i %>です。
+#   published_at: <%= (now - i).to_formatted_s(:db) %>
+#   created_at: <%= (now - i).to_formatted_s(:db) %>
+# <% end %>
+
+# product61:
+#   practice: practice1
+#   user: sumi
+#   body: テストの提出物61です。
+#   published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+#   created_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+
+# product62:
+#   practice: practice1
+#   user: take8
+#   body: テストの提出物62です。
+#   published_at: <%= (now - 60 * 60 * 24 * 10).to_formatted_s(:db) %>
+
+# product63:
+#   practice: practice6
+#   user: kimura
+#   body: プラクティス完了メッセージ未表示の提出物です。
+#   wip: true
+#   published_at: nil
+
+# product64:
+#   practice: practice6
+#   user: daimyo
+#   body: published_atがnilの提出物です。
+#   wip: true
+#   published_at: nil
+
+# <% (0..2).each do |i| %>
+#   <% (0..3).each do |n| %>
+# product<%= 65 + i*4+n %>:
+#   practice: practice<%= 4 + i*4+n %>
+#   user: hatsuno
+#   body: <%= i+1 %>日前の提出物です。
+#   published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+#   created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+#   <% end %>
+# <% end %>
+
+# <% (0..3).each do |i| %>
+# product<%= 68 + i %>:
+#   practice: practice<%= 16 + i %>
+#   user: hatsuno
+#   body: <%= i+1 %>日前の提出物です。
+#   published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+#   created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
+# <% end %>
