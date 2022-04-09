@@ -39,7 +39,8 @@ class HomeController < ApplicationController
       after_graduation_hope: current_user.after_graduation_hope,
       discord_account: current_user.discord_account,
       github_account: current_user.github_account,
-      blog_url: current_user.blog_url
+      blog_url: current_user.blog_url,
+      graduated_on: current_user.graduated_on
     )
   end
 
