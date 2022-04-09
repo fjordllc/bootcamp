@@ -11,20 +11,21 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
-        product(
-          v-for='product in products',
-          :key='product.id',
-          :product='product',
-          :currentUserId='currentUserId',
-          :isMentor='isMentor',
-          :allSubmittedProducts='allSubmittedProducts'
-        )
-      unconfirmed-links-open-button(
-        v-if='isMentor && selectedTab != "all"',
-        :label='`${unconfirmedLinksName}の提出物を一括で開く`'
-      )
+    template(v-for='(allSubmittedProduct, index) in allSubmittedProducts')
+      .thread-list.a-card
+        h2 {{ index }}日経過
+        .thread-list__items
+          product(
+            v-for='product in allSubmittedProduct',
+            :key='product.id',
+            :product='product',
+            :currentUserId='currentUserId',
+            :isMentor='isMentor'
+          )
+    unconfirmed-links-open-button(
+      v-if='isMentor && selectedTab != "all"',
+      :label='`${unconfirmedLinksName}の提出物を一括で開く`'
+    )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>

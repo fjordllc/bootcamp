@@ -11,7 +11,6 @@ class API::Products::UnassignedController < API::BaseController
                 .ascending_by_date_of_publishing_and_id
     @all_submitted_products = @products
                               .group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
-                              .transform_values(&:first)
   end
 
   def counts
