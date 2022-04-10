@@ -11,7 +11,7 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card(v-if='allSubmittedProducts === null')
+    .thread-list.a-card(v-if='productsGroupedByElapsedDays === null')
       .thread-list__items
         product(
           v-for='product in products',
@@ -20,12 +20,12 @@
           :currentUserId='currentUserId',
           :isMentor='isMentor'
         )
-    template(v-for='hoge in allSubmittedProducts')
+    template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
       .thread-list.a-card
-        h2 {{ hoge.key }}日経過
+        h2 {{ product_n_days_passed.elapsed_days }}日経過
         .thread-list__items
           product(
-            v-for='product in hoge.products',
+            v-for='product in product_n_days_passed.products',
             :key='product.id',
             :product='product',
             :currentUserId='currentUserId',
@@ -64,7 +64,7 @@ export default {
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false,
-      allSubmittedProducts: null,
+      productsGroupedByElapsedDays: null,
       params: this.getParams()
     }
   },
@@ -125,7 +125,7 @@ export default {
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {
-            this.allSubmittedProducts = json.all_submitted_products
+            this.productsGroupedByElapsedDays = json.products_grouped_by_elapsed_days
           }
           this.totalPages = json.total_pages
           this.products = []

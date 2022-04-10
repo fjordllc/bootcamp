@@ -4,9 +4,9 @@ json.products do
   end
 end
 
-json.all_submitted_products do
-  json.array! @all_submitted_products do |key, products|
-    json.key key
+json.products_grouped_by_elapsed_days do
+  json.array! @products_grouped_by_elapsed_days do |elapsed_days, products|
+    json.elapsed_days elapsed_days
     json.products do
       json.array! products do |product|
         json.partial! "api/products/product", product: product
