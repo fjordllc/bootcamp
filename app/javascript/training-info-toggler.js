@@ -7,11 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (checkbox) {
     if (checkbox.checked === false) {
-      dateInput.value = ''
       trainingInfoBlock.style.display = 'none'
-    } else {
-      trainingInfoBlock.style.display = 'block'
     }
+
     checkbox.addEventListener('change', () => {
       if (checkbox.checked === true) {
         trainingInfoBlock.style.display = 'block'
