@@ -125,7 +125,8 @@ export default {
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {
-            this.productsGroupedByElapsedDays = json.products_grouped_by_elapsed_days
+            this.productsGroupedByElapsedDays =
+              json.products_grouped_by_elapsed_days
           }
           this.totalPages = json.total_pages
           this.products = []
