@@ -20,12 +20,12 @@
           :currentUserId='currentUserId',
           :isMentor='isMentor'
         )
-    template(v-for='(allSubmittedProduct, index) in allSubmittedProducts')
+    template(v-for='hoge in allSubmittedProducts')
       .thread-list.a-card
-        h2 {{ index }}日経過
+        h2 {{ hoge.key }}日経過
         .thread-list__items
           product(
-            v-for='product in allSubmittedProduct',
+            v-for='product in hoge.products',
             :key='product.id',
             :product='product',
             :currentUserId='currentUserId',
