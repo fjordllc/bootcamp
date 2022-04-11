@@ -18,6 +18,12 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '管理者としてログインしてください'
   end
 
+  test 'user who is not logged in cannot access talks page' do
+    user = users(:kimura)
+    visit "/talks/#{user.talk.id}"
+    assert_text 'ログインしてください'
+  end
+
   test 'cannot access other users talk page' do
     visited_user = users(:hatsuno)
     visit_user = users(:mentormentaro)
