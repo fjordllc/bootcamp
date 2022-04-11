@@ -22,12 +22,20 @@
         )
     template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
       .thread-list.a-card
-        // is-reply-warning  5日
-        // is-reply-alert 6日
-        // is-reply-deadline 7日以上
-        // それ以外はクラス無し
-        header.card-header.a-elapsed-days
-          h2 {{ product_n_days_passed.elapsed_days }}日経過（10）
+        header.card-header.a-elapsed-days.is-reply-warning(
+          v-if='product_n_days_passed.elapsed_days === 5'
+        )
+          h2 {{ product_n_days_passed.elapsed_days }}日経過
+        header.card-header.a-elapsed-days.is-reply-alert(
+          v-else-if='product_n_days_passed.elapsed_days === 6'
+        )
+          h2 {{ product_n_days_passed.elapsed_days }}日経過
+        header.card-header.a-elapsed-days.is-reply-deadline(
+          v-else-if='product_n_days_passed.elapsed_days === 7'
+        )
+          h2 {{ product_n_days_passed.elapsed_days }}日以上経過
+        header.card-header.a-elapsed-days(v-else)
+          h2 {{ product_n_days_passed.elapsed_days }}日経過
         .thread-list__items
           product(
             v-for='product in product_n_days_passed.products',

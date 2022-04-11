@@ -150,3 +150,11 @@ product<%= 68 + i %>:
   published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
   created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
 <% end %>
+
+product67:
+  practice: practice2
+  user: take8
+  body: 1時間未満と表示される提出物
+  created_at: <%= 23.hour.ago %>
+  updated_at: <%= 23.hour.ago %>
+  published_at: <%= 23.hour.ago %>
