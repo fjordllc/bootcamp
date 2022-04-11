@@ -1,0 +1,25 @@
+body .a-elapsed-days
+  letter-spacing: .125em
+  text-indent: .125em
+  margin: -1px
+  background-color: $base
+  border: solid 1px $border-shade
+  >*
+    width: 100%
+  +media-breakpoint-up(md)
+    +text-block(1rem 1.4, 600 center)
+    padding: .5rem 1rem
+  +media-breakpoint-down(sm)
+    +text-block(.875rem 1.4, 600 center)
+    padding: .5rem .75rem
+  &.is-reply-warning
+    background-color: $warning
+    border-color: #d09a0e
+  &.is-reply-alert
+    background-color: #ff7500
+    color: $reversal-text
+    border-color: #d06305
+  &.is-reply-deadline
+    background-color: $danger
+    color: $reversal-text
+    border-color: #b50f38
