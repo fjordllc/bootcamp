@@ -14,12 +14,9 @@ class Product::CheckerTest < ApplicationSystemTestCase
     visit "/products/#{products(:product1).id}"
 
     post_comment('担当者がいない提出物の場合、担当者になる')
-    assert_text '担当になりました。'
-    assert_text 'コメントを投稿しました'
     assert_text '担当から外れる'
 
     post_comment('自分が担当者の場合、担当者のまま')
-    assert_text 'コメントを投稿しました'
     assert_text '担当から外れる'
 
     visit '/products/unchecked?target=unchecked_no_replied'
