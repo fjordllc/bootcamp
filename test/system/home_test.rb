@@ -146,14 +146,14 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'set a link to the new report form at today on Nico Nico calendar' do
     visit_with_auth "/?niconico_calendar=#{Time.current.strftime('%Y-%m')}", 'hajime'
-    find('.niconico-calendar').click_on "#{Time.current.day}"
+    find('.niconico-calendar').click_on Time.current.day.to_s
     assert_current_path("/reports/new?reported_on=#{Time.current.strftime('%Y-%-m-%-d')}")
   end
 
   test 'set a link to the new report form at past date on Nico Nico calendar' do
     visit_with_auth '/?niconico_calendar=2022-03', 'hajime'
-    find('.niconico-calendar').click_on "1"
-    assert_current_path("/reports/new?reported_on=2022-3-1")
+    find('.niconico-calendar').click_on '1'
+    assert_current_path('/reports/new?reported_on=2022-3-1')
   end
 
   test 'no link to the new report on future dates in the Nico Nico calendar' do
