@@ -18,13 +18,14 @@
           :currentUserId='currentUserId',
           :isMentor='isMentor'
         )
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 
 <script>
 import Pager from 'pager.vue'
 import Product from 'product.vue'
+
 export default {
   components: {
     product: Product,
@@ -45,16 +46,10 @@ export default {
     }
   },
   computed: {
-    targetName() {
-      return this.currentTag || this.currentTarget
-    },
     url() {
       return (
         '/api/products/' +
-        (this.params.tag ? `tags/${this.params.tag}` : '') +
         `?page=${this.currentPage}` +
-        (this.params.target ? `&target=${this.params.target}` : '') +
-        (this.params.watch ? `&watch=${this.params.watch}` : '') +
         (this.companyID ? `&company_id=${this.companyID}` : '')
       )
     },
@@ -97,9 +92,6 @@ export default {
           json.products.forEach((product) => {
             this.products.push(product)
           })
-          this.currentProduct = json.currentProduct
-          this.currentTarget = json.target
-          this.currentTag = json.tag
           this.totalPages = json.total_pages
         })
         .catch((error) => {
