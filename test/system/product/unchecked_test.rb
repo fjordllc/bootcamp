@@ -133,4 +133,16 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     assert_link '未完了一覧'
   end
+
+  test 'display elapsed days label' do
+    visit_with_auth '/products/unchecked', 'komagata'
+    assert_text '0日経過'
+
+    login_user 'komagata', 'testtest'
+    visit '/products/unchecked?page=2'
+    assert_text '0日経過'
+    assert_text '5日経過'
+    assert_text '6日経過'
+    assert_text '7日以上経過'
+  end
 end
