@@ -82,7 +82,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'ブログURLを登録してください。'
   end
 
-  test 'not show messages of after_graduation_hope for gradueted user' do
+  test 'not show message of after_graduation_hope for graduated user' do
     visit_with_auth '/', 'sotugyou'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
