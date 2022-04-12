@@ -1,6 +1,6 @@
 .form-item
   = f.label :course_id, class: 'a-form-label is-required'
   .a-button.is-md.is-secondary.is-select.is-block
-    = f.collection_select :course_id, Course.order(:created_at), :id, :title
+    = f.collection_select :course_id, Course.order(:created_at), :id, :title, {}
   .a-form-help
     p コースの一覧は#{link_to 'こちら', courses_path, trget: '_blank'}
