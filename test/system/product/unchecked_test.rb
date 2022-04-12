@@ -136,11 +136,11 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
   test 'display elapsed days label' do
     visit_with_auth '/products/unchecked', 'komagata'
-    assert_text '0日経過'
+    assert_text '今日提出'
 
     login_user 'komagata', 'testtest'
     visit '/products/unchecked?page=2'
-    assert_text '0日経過'
+    assert_text '今日提出'
     assert_text '5日経過'
     assert_text '6日経過'
     assert_text '7日以上経過'
