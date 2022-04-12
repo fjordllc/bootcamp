@@ -15,6 +15,7 @@ class RetirementController < ApplicationController
       UserMailer.retire(user).deliver_now
       destroy_subscription
       notify_to_admins
+      notify_to_mentors
       logout
       redirect_to retirement_url
     else
@@ -35,6 +36,12 @@ class RetirementController < ApplicationController
   def notify_to_admins
     User.admins.each do |admin_user|
       NotificationFacade.retired(current_user, admin_user)
+    end
+  end
+
+  def notify_to_mentors
+    User.mentor.each do |mentor_user|
+      NotificationFacade.retired(current_user, mentor_user)
     end
   end
 end
