@@ -7,4 +7,14 @@ class Practice::QuestionsTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practices(:practice1).id}/questions", 'hatsuno'
     assert_equal 'OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
+
+  test 'show a WIP question on the all questions list ' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/questions", 'hatsuno'
+    assert_text 'wipテスト用の質問(wip中)'
+  end
+
+  test 'not show a WIP question on the unsolved questions list ' do
+    visit_with_auth "/practices/#{practices(:practice1).id}/questions?not_solved=true", 'hatsuno'
+    assert_no_text 'wipテスト用の質問(wip中)'
+  end
 end
