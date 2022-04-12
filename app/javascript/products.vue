@@ -22,8 +22,12 @@
         )
     template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
       .thread-list.a-card
+        header.card-header.a-elapsed-days(
+          v-if='product_n_days_passed.elapsed_days === 0'
+        )
+          h2 今日提出
         header.card-header.a-elapsed-days.is-reply-warning(
-          v-if='product_n_days_passed.elapsed_days === 5'
+          v-else-if='product_n_days_passed.elapsed_days === 5'
         )
           h2 {{ product_n_days_passed.elapsed_days }}日経過
         header.card-header.a-elapsed-days.is-reply-alert(
