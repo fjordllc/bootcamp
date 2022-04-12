@@ -224,6 +224,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
       select 'iOSプログラマー', from: 'user[course_id]'
     end
     click_on '更新する'
-    assert_equal 'iOSプログラマー', User.find(user.id).course.title
+    assert_equal 'iOSプログラマー', user.reload.course.title
   end
 end
