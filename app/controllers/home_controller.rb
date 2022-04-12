@@ -40,7 +40,7 @@ class HomeController < ApplicationController
       discord_account: current_user.discord_account,
       github_account: current_user.github_account,
       blog_url: current_user.blog_url,
-      graduated?: current_user.graduated?
+      graduated: current_user.graduated?
     )
   end
 
