@@ -130,9 +130,6 @@ export default {
     currentUserId: { type: String, required: true }
   },
   computed: {
-    updatedAt() {
-      return Date.parse(this.product.updated_at_date_time)
-    },
     roleClass() {
       return `is-${this.product.user.primary_role}`
     },

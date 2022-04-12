@@ -131,27 +131,16 @@ product64:
   body: publish_atがnilの提出物です。
   published_at: nil
 
-<% (0..2).each do |i| %>
-  <% (0..3).each do |n| %>
-product<%= 65 + i*4+n %>:
-  practice: practice<%= 4 + i*4+n %>
-  user: hatsuno
-  body: <%= i+1 %>日前の提出物です。
-  published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
-  created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
-  <% end %>
-<% end %>
-
-<% (0..3).each do |i| %>
-product<%= 68 + i %>:
-  practice: practice<%= 16 + i %>
+<% (1..4).each do |i| %>
+product<%= 64 + i %>:
+  practice: practice<%= 3 + i %>
   user: hatsuno
   body: <%= i+1 %>日前の提出物です。
   published_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
   created_at: <%= (i+1).day.ago.to_formatted_s(:db) %>
 <% end %>
 
-product67:
+product70:
   practice: practice2
   user: take8
   body: 1時間未満と表示される提出物
