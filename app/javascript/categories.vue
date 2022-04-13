@@ -21,12 +21,12 @@
               a.a-button.is-sm.is-secondary.is-icon.spec-edit(
                 :href='`/admin/categories/${category.id}/edit`'
               )
-                i.fas.fa-pen
+                i.fa-solid.fa-pen
             li
               a.a-button.is-sm.is-danger.is-icon.js-delete(
                 @click='destroy(category)'
               )
-                i.fas.fa-trash-alt
+                i.fa-solid.fa-trash-alt
 </template>
 <script>
 export default {

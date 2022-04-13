@@ -2,7 +2,6 @@
   display: flex
   align-items: center
   justify-content: space-between
-  +text-block(.875rem 1.5, 600)
   +media-breakpoint-down(sm)
     flex-direction: column
     align-items: flex-start
@@ -44,6 +43,8 @@
   +text-block(.875rem 1.5, 600)
   width: 100%
   flex-basis: 100%
+  &.is-lg
+    +text-block(1rem)
 
 .thread-list-item-title__link
   word-break: break-all

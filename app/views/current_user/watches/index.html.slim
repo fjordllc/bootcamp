@@ -1,12 +1,12 @@
 - title 'Watch中'
+
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
         | ダッシュボード
 
-.page-tools
-  = render 'home/page_tabs', user: @user
+= render 'home/page_tabs', user: @user
 
 .page-body
   - if @watches.present?
@@ -14,6 +14,6 @@ header.page-header
   - else
     .o-empty-message
       .o-empty-message__icon
-        i.far.fa-sad-tear
+        i.fa-regular.fa-sad-tear
       p.o-empty-message__text
         | Watch中はまだありません。

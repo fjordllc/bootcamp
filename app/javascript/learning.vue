@@ -3,18 +3,18 @@
   ul.card-main-actions__items
     li.card-main-actions__item(v-if='submission')
       a.a-button.is-md.is-primary.is-block.test-product(:href='productLink')
-        i.fas.fa-file
+        i.fa-solid.fa-file
         | {{ productLabel }}
     li.card-main-actions__item(v-if='complete')
       button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
-        i.fas.fa-check
+        i.fa-solid.fa-check
         | 完了しています
     li.card-main-actions__item(v-else)
       label#js-complete.a-button.is-md.is-warning.is-block(
         @click='pushComplete',
         for='modal-learning_completion'
       )
-        i.fas.fa-check
+        i.fa-solid.fa-check
         | 完了
 </template>
 <script>

@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-main-header-actions__item
   button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal')
-    i.fas.fa-cog
+    i.fa-solid.fa-cog
     | タグ名変更
   modal(
     @closeModal='closeModal',

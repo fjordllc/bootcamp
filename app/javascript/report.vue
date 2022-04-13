@@ -15,14 +15,14 @@
           .thread-list-item-title__start
             .thread-list-item-title__icon.is-wip(v-if='report.wip') WIP
             h2.thread-list-item-title__title
-              a.thread-list-item-title__link.js-unconfirmed-link(
+              a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='report.url'
               ) {{ report.user.daimyo ? "★" + report.title : report.title }}
             .thread-list-item-title__end(
               v-if='currentUserId == report.user.id'
             )
               label.thread-list-item-actions__trigger(:for='report.id')
-                i.fas.fa-ellipsis-h
+                i.fa-solid.fa-ellipsis-h
               .thread-list-item-actions
                 input.a-toggle-checkbox(type='checkbox', :id='report.id')
                 .thread-list-item-actions__inner
@@ -31,11 +31,11 @@
                       a.thread-list-item-actions__action(
                         :href='report.editURL'
                       )
-                        i.fas.fa-pen
+                        i.fa-solid.fa-pen
                         | 内容変更
                     li.thread-list-item-actions__item
                       a.thread-list-item-actions__action(:href='report.newURL')
-                        i.fas.fa-copy
+                        i.fa-solid.fa-copy
                         | コピー
                   label.a-overlay(:for='report.id')
 

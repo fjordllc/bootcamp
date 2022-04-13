@@ -10,7 +10,7 @@
       .thread-list-item__row
         .thread-list-item-title
           h1.thread-list-item-title__title(itemprop='name')
-            = link_to question, itemprop: 'url', class: 'thread-list-item-title__link' do
+            = link_to question, itemprop: 'url', class: 'thread-list-item-title__link a-text-link' do
               = question.title
       - if question.practice
         .thread-list-item__row
@@ -35,7 +35,7 @@
         .thread-list-item__row
           .thread-list-item-tags
             .thread-list-item-tags__label
-              i.fas.fa-tags
+              i.fa-solid.fa-tags
             ul.thread-list-item-tags__items
               - question.tags.each do |tag|
                 li.thread-list-item-tags__item

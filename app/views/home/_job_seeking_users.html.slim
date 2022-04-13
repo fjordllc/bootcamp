@@ -29,7 +29,7 @@
                     = link_to user_portfolio_path(user), class: 'thread-list-item-meta__item-link a-text-link' do
                       | ポートフォリオ（#{user.works.count}）
         label.thread-list-item__show-user-detail(for="show-user-detail-#{user.id}")
-          i.fas.fa-angle-down
+          i.fa-solid.fa-angle-down
       input.a-toggle-checkbox(id="show-user-detail-#{user.id}" type='checkbox')
       .thread-list-item__user-detail
         .thread-list-item__user-description.a-short-text

@@ -4,7 +4,7 @@
 .container(v-else-if='notifications.length === 0')
   .o-empty-message
     .o-empty-message__icon
-      i.far.fa-smile
+      i.fa-regular.fa-smile
     p.o-empty-message__text(v-if='isUnreadPage')
       | 未読の通知はありません
     p.o-empty-message__text(v-else)

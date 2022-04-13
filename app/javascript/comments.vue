@@ -65,7 +65,7 @@
                 @click='commentAndCheck',
                 :disabled='!validation || buttonDisabled'
               )
-                i.fas.fa-check
+                i.fa-solid.fa-check
                 | 確認OKにする
 </template>
 <script>

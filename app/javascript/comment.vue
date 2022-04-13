@@ -37,7 +37,7 @@
             button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
               @click='editComment'
             )
-              i.fas.fa-pen
+              i.fa-solid.fa-pen
               | 編集
           li.card-main-actions__item.is-sub
             button.card-main-actions__muted-action(@click='deleteComment')

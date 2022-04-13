@@ -7,7 +7,7 @@ section.a-card.is-memo.is-only-mentor
     .a-long-text.is-md(v-html='markdownMemo')
     .o-empty-message(v-if='memo.length === 0')
       .o-empty-message__icon
-        i.far.fa-sad-tear
+        i.fa-regular.fa-sad-tear
       .o-empty-message__text
         | ユーザーメモはまだありません。
   footer.card-footer(v-if='!editing')
@@ -17,7 +17,7 @@ section.a-card.is-memo.is-only-mentor
           button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(
             @click='editMemo'
           )
-            i.fas.fa-pen
+            i.fa-solid.fa-pen
             | 編集
   .form-tabs.js-tabs(v-show='editing')
     .form-tabs__tab.js-tabs__tab(
