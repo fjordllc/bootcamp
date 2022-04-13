@@ -152,7 +152,7 @@ class TalksTest < ApplicationSystemTestCase
 
   test 'Display number of comments, detail of lastest comment user' do
     visit_with_auth '/talks?target=student_and_trainee', 'komagata'
-    within('.thread-list-item-comment') do
+    within('.thread-list-item-meta') do
       assert_text 'コメント'
       assert_selector 'img[class="a-user-icon"]'
       assert_text '(1)'
