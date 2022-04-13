@@ -33,9 +33,7 @@
                   .a-meta
                     | 〜 {{ talk.last_commented_at }}
                 .thread-list-item-meta__item
-                  .a-meta(
-                    v-if='talk.last_comment_user.admin'
-                  )
+                  .a-meta(v-if='talk.last_comment_user.admin')
                     | （管理者）
                   .a-meta(v-else)
                     | （{{ user.login_name }}）
