@@ -27,31 +27,22 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       newest_product = Product
                        .unchecked
                        .not_wip
-                       .order_for_not_wip_list
+                       .ascending_by_date_of_publishing_and_id
                        .first
       assert_text newest_product.body
     end
   end
 
   test 'products order on unchecked tab' do
-    # id順で並べたときの最初と最後の提出物を、提出日順で見たときに最新と最古になるように入れ替える
-    Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
-    # 最古の提出物を画面上で判定するため、提出物を1ページ内に収める
-    Product.unchecked.not_wip.limit(Product.count - Product.default_per_page).delete_all
-    newest_product = Product.unchecked.not_wip.reorder(:id).first
-    newest_product.update(published_at: Time.current)
-    oldest_product = Product.unchecked.not_wip.reorder(:id).last
-    oldest_product.update(published_at: 2.days.ago)
+    oldest_product = products(:product14)
+    newest_product = products(:product26)
 
+    # 提出日の昇順で並んでいることを検証する
     visit_with_auth '/products/unchecked', 'komagata'
+    assert_equal 'OS X Mountain Lionをクリーンインストールする', oldest_product.practice.title
 
-    # 提出日の降順で並んでいることを検証する
-    titles = all('.thread-list-item-title__title').map { |t| t.text.gsub('★', '') }
-    names = all('.thread-list-item-meta .a-user-name').map(&:text)
-    assert_equal "#{newest_product.practice.title}の提出物", titles.first
-    assert_equal newest_product.user.login_name, names.first
-    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
-    assert_equal oldest_product.user.login_name, names.last
+    visit_with_auth '/products/unchecked?page=2', 'komagata'
+    assert_equal 'sshdでパスワード認証を禁止にする', newest_product.practice.title
   end
 
   test 'not display products in listing unchecked if unchecked products all checked' do
@@ -89,15 +80,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   end
 
   test 'display no-replied products if click on no-replied-button' do
-    checker = users(:komagata)
-    practice = practices(:practice47)
-    user = users(:kimura)
-    product = Product.create!(
-      body: 'test',
-      user: user,
-      practice: practice,
-      checker_id: checker.id
-    )
+    product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
