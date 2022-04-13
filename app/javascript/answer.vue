@@ -10,7 +10,7 @@
   .a-card.is-answer(v-if='!editing')
     .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
       .answer-badge__icon
-        i.fas.fa-star
+        i.fa-solid.fa-star
       .answer-badge__label ベストアンサー
     .thread-comment__body
       header.thread-comment__body-header
@@ -43,7 +43,7 @@
             button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
               @click='editAnswer'
             )
-              i.fas.fa-pen
+              i.fa-solid.fa-pen
               | 内容修正
           li.card-main-actions__item(
             v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor"))'

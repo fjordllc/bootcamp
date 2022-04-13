@@ -34,7 +34,7 @@
             = render 'learning_time_fields', f: learning_time
           .form-item__add-times
             = link_to_add_association f, :learning_times, class: 'a-button is-md is-primary' do
-              i.fas.fa-plus
+              i.fa-regular.fa-plus
               | 学習時間追加
 
         .checkboxes
@@ -47,7 +47,7 @@
             label.a-form-help-link.is-muted-text(for='modal-progress')
               span.a-form-help-link__label 詳しく
               span.a-help
-                i.fas.fa-question
+                i.fa-solid.fa-question
 
   .form__items
     .form-item
@@ -84,7 +84,7 @@
           label.a-form-help-link.is-muted-text(for='modal-wip')
             span.a-form-help-link__label 詳しく
             span.a-help
-              i.fas.fa-question
+              i.fa-solid.fa-question
 
       li.form-actions__item.is-main.has-help
         - if report.new_record? || report.wip?

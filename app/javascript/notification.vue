@@ -16,7 +16,7 @@
             )
               | 未読
             h2.thread-list-item-title__title(itemprop='name')
-              a.thread-list-item-title__link.js-unconfirmed-link(
+              a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='notification.path',
                 itemprop='url'
               )

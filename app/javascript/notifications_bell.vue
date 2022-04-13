@@ -10,7 +10,7 @@ li.header-links__item(v-bind:class='hasCountClass')
           v-show='notificationExist'
         ) {{ this.notificationCount }}
         .header-notification-count.is-loading(v-if='loading')
-        i.fas.fa-bell
+        i.fa-solid.fa-bell
         .header-links__link-label 通知
   input#header-notification-pc.a-toggle-checkbox(
     v-if='notificationExist',

@@ -5,7 +5,7 @@
   .container(v-else-if='searchables.length === 0')
     .o-empty-message
       .o-empty-message__icon
-        i.far.fa-sad-tear
+        i.fa-regular.fa-sad-tear
       p.o-empty-message__text
         | '{{ word }}'に一致する情報は見つかりませんでした。
   .container.is-md(v-else)

@@ -22,9 +22,10 @@
 
 .users-item__header-inner
   display: flex
+  gap: 1rem
 
-.users-item__header-start
-  margin-right: 1rem
+.users-item__header-end
+  flex: 1
 
 .users-item__user-icon-image
   background-color: $base
@@ -44,11 +45,6 @@
     color: $danger
     margin-left: .25em
     font-size: .75em
-
-.users-item__name-link
-  color: $main-text
-  display: block
-  +hover-link
 
 .users-item__body
   padding: .75rem 1rem 0

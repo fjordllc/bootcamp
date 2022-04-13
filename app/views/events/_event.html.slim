@@ -34,8 +34,8 @@
               #js-watch-toggle(data-watchable-id="#{@event.id}", data-watchable-type='Event')
           .thread-header-actions__end
             .thread-header-actions__action
-              = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block' do
-                i.fas.fa-copy#copy
+              = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
+                i.fa-solid.fa-copy
                 | コピー
 
     - if event.wip?
@@ -68,7 +68,7 @@
             ul.card-main-actions__items
               li.card-main-actions__item
                 = link_to edit_event_path(event), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
-                  i.fas.fa-pen#new
+                  i.fa-solid.fa-pen#new
                   | 内容修正
               li.card-main-actions__item.is-sub
                 = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do

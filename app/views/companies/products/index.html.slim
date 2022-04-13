@@ -5,8 +5,7 @@ header.page-header
       h2.page-header__title
         = @company.name
 
-.page-tools
-  = render 'companies/tabs', company: @company
+= render 'companies/tabs', company: @company
 
 .page-body
   .container.is-md

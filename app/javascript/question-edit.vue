@@ -7,7 +7,7 @@
         .a-count-badge__label
           | 回答
         .a-count-badge__value.is-counting(v-if='!isAnswerCountUpdated')
-          i.fas.fa-spinner
+          i.fa-solid.fa-spinner
         .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
       .thread-header__row
@@ -89,7 +89,7 @@
               button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
                 @click='startEditing'
               )
-                i#new.fas.fa-pen
+                i#new.fa-solid.fa-pen
                 | 内容修正
             li.card-main-actions__item.is-sub
               // - vue.jsでDELETE methodのリンクを作成する方法が、
@@ -115,7 +115,7 @@
                 | プラクティス
               .select-practices(v-if='practices === null')
                 .empty
-                  .fas.fa-spinner.fa-pulse
+                  .fa-solid.fa-spinner.fa-pulse
                   | ロード中
               .select-practices(v-show='practices !== null')
                 select.js-select2(

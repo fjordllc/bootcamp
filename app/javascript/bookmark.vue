@@ -7,7 +7,7 @@
       .thread-list-item__row
         .thread-list-item-title
           .thread-list-item-title__title
-            a.thread-list-item-title__link(:href='bookmark.url')
+            a.thread-list-item-title__link.a-text-link(:href='bookmark.url')
               | {{ bookmark.title }}
       .thread-list-item__row
         .thread-list-item__summary
