@@ -20,7 +20,7 @@ class ProductCallbacks
   def after_save(product)
     unless product.wip
       notify_to_watching_mentor(product)
-      if product.user.trainee?
+      if product.user.trainee? && product.user.company
         send_notification(
           product: product,
           receivers: product.user.company.advisers,
@@ -28,7 +28,7 @@ class ProductCallbacks
         )
       end
       if product.published_at.nil?
-        if product.user.trainee?
+        if product.user.trainee? && product.user.company
           create_watch(
             watchers: product.user.company.advisers,
             watchable: product
