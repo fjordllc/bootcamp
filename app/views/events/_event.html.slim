@@ -34,8 +34,8 @@
               #js-watch-toggle(data-watchable-id="#{@event.id}", data-watchable-type='Event')
           .thread-header-actions__end
             .thread-header-actions__action
-              = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block' do
-                i.fa-solid.fa-copy#copy
+              = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
+                i.fa-solid.fa-copy
                 | コピー
 
     - if event.wip?
