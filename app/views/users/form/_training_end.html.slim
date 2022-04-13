@@ -1,12 +1,12 @@
 .form-item
   ruby:
-    if user.admin?
-      help_text = '研修終了予定日を入力。'
-    else
-      help_text = '研修終了日は後から変更ができます。
-      研修終了日が明確でない場合は、現時点での予定の日にちを入力し、
-      明確になりましたら更新、もしくはフィヨルドへ連絡をお願いします。'
-    end
+    help_text = if user.admin?
+                '研修終了予定日を入力。'
+                else
+                  '研修終了日は後から変更ができます。
+                  研修終了日が明確でない場合は、現時点での予定の日にちを入力し、
+                  明確になりましたら更新、もしくはフィヨルドへ連絡をお願いします。'
+                end
   = f.label :training_ends_on, class: 'a-form-label'
   = f.date_field :training_ends_on, class: 'a-text-input training-info-date'
   .a-form-help
