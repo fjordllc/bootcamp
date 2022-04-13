@@ -11,7 +11,8 @@
       所属企業を登録することで研修生の日報、提出物の通知が飛ぶようになります。'
     elsif user.graduated_on?
       help_text = 'もし良かったら所属企業を登録してください。
-      所属企業の登録は必須ではありません。'
+      所属企業の登録は必須ではありません。
+      所属企業がない場合は管理者にご連絡をお願いします。'
     end
   = f.label '所属企業', class: 'a-form-label'
   .is-md.is-secondary.is-select.is-block
