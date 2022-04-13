@@ -1,9 +1,20 @@
 .form-item
-  = f.label :company, class: 'a-form-label'
+  ruby:
+    if user.admin?
+      help_text = '企業で利用しているアドバイザー、研修生は登録。<br>
+      就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。'
+    elsif user.mentor?
+      help_text = 'もし良かったら所属企業を登録してください。<br>
+      所属企業がない場合は管理者にご連絡をお願いします。'
+    elsif user.adviser?
+      help_text = '所属企業を登録してください。研修でお使いいただいている場合は、
+      所属企業を登録することで研修生の日報、提出物の通知が飛ぶようになります。'
+    elsif user.graduated_on?
+      help_text = 'もし良かったら所属企業を登録してください。
+      所属企業の登録は必須ではありません。'
+    end
+  = f.label '所属企業', class: 'a-form-label'
   .is-md.is-secondary.is-select.is-block
     = f.collection_select :company_id, all_companies_with_empty, :id, :name, {}, { id: 'js-choices-single-select' }
   .a-form-help
-    p
-      | 企業で利用しているアドバイザー、研修生は登録。
-      br
-      | 就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。
+    p = help_text.html_safe
