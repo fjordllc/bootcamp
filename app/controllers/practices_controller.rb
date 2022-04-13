@@ -10,6 +10,7 @@ class PracticesController < ApplicationController
   def show
     @categories = @practice.categories
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
+    @common_page = Page.find_by(slug: 'practice_common_description')
   end
 
   def new
