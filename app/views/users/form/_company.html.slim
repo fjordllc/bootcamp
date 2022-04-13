@@ -1,10 +1,10 @@
 .form-item
   ruby:
     if user.admin?
-      help_text = '企業で利用しているアドバイザー、研修生は登録。<br>
+      help_text = '企業で利用しているアドバイザー、研修生は登録。
       就職した卒業生、メンターは個人情報にあたるため、希望者のみ登録。'
     elsif user.mentor?
-      help_text = 'もし良かったら所属企業を登録してください。<br>
+      help_text = 'もし良かったら所属企業を登録してください。
       所属企業がない場合は管理者にご連絡をお願いします。'
     elsif user.adviser?
       help_text = '所属企業を登録してください。研修でお使いいただいている場合は、
@@ -17,4 +17,5 @@
   .is-md.is-secondary.is-select.is-block
     = f.collection_select :company_id, all_companies_with_empty, :id, :name, {}, { id: 'js-choices-single-select' }
   .a-form-help
-    p = help_text.html_safe
+    p
+      = help_text
