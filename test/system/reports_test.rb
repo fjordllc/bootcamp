@@ -79,9 +79,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'create a report without company as trainee' do
-    user = users(:nocompanykensyu)
-
-    visit_with_auth '/reports/new', 'kensyu'
+    visit_with_auth '/reports/new', 'nocompanykensyu'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
       fill_in('report[description]', with: 'test')
