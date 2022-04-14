@@ -62,4 +62,23 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'senpai'
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを教えてください'
   end
+
+  test 'should not show training end date if user is not trainee' do
+    visit_with_auth edit_current_user_path, 'kimura'
+    assert has_no_field?('user_training_ends_on')
+  end
+
+  test 'show training end date if user is trainee' do
+    visit_with_auth edit_current_user_path, 'kensyu'
+    assert has_field?('user_training_ends_on')
+  end
+
+  test 'update value of training end date' do
+    training_ends_on = Date.current.next_year
+    visit_with_auth edit_current_user_path, 'kensyu'
+    fill_in 'user_training_ends_on', with: training_ends_on
+    click_on '更新する'
+    visit_with_auth edit_current_user_path, 'kensyu'
+    assert has_field?('user_training_ends_on', with: training_ends_on)
+  end
 end
