@@ -12,9 +12,9 @@
     :key='comment.id',
     :comment='comment',
     :currentUser='currentUser',
-    :id='"comment_" + comment.id',
+    :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
     @delete='deleteComment',
-    @update='updateComment'
+    @update='updateComment',
   )
   .thread-comment-form
     .thread-comment__author
