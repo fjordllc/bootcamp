@@ -123,6 +123,7 @@ class UsersTest < ApplicationSystemTestCase
       enchohayashi
       enchoososhi
       enchoowata
+      nocompanykensyu
     ].each do |name|
       users(name).touch # rubocop:disable Rails/SkipsModelValidations
     end
