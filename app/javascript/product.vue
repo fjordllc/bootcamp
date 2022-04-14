@@ -62,6 +62,7 @@
             .thread-list-item-meta__item
               .a-meta
                 | コメント（{{ product.comments.size }}）
+            .thread-list-item-meta__item
               .thread-list-item-comment__user-icons
                 a.thread-list-item-comment__user-icon(
                   :href='user.url',
