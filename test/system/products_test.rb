@@ -487,8 +487,8 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '7日以上経過：5件'
   end
 
-  test 'no campany trainee create product' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'no-company-kensyu'
+  test 'no company trainee create product' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'nocompanykensyu'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
