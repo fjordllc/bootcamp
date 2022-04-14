@@ -116,18 +116,10 @@ export default {
       window.scrollTo(0, 0)
     },
     newUrl(pageNumber) {
-      if (this.params.target) {
-        return (
-          location.pathname +
-          `?target=${this.params.target}` +
-          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
-        )
-      } else {
         return (
           location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
         )
       }
-    }
   }
 }
 </script>
