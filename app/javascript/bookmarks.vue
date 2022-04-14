@@ -2,14 +2,14 @@
 .page-body
   .container(v-if='!loaded')
     .empty
-      .fas.fa-spinner.fa-pulse
+      .fa-solid.fa-spinner.fa-pulse
       |
       | ロード中
   .container.is-md(v-else)
     .thread-list-tools(v-if='bookmarks.length === 0')
       .o-empty-message
         .o-empty-message__icon
-          i.far.fa-sad-tear
+          i.fa-regular.fa-sad-tear
         p.o-empty-message__text
           | ブックマークしているものはありません。
     .thread-list-tools(v-else)

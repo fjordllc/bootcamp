@@ -7,7 +7,7 @@ div
     .thread-list.a-card
   .o-empty-message(v-else-if='answers.length === 0')
     .o-empty-message__icon
-      i.far.fa-sad-tear
+      i.fa-regular.fa-sad-tear
     p.o-empty-message__text
       | 回答はまだありません。
   .thread-list.a-card(v-else)

@@ -10,14 +10,13 @@ class API::Products::UncheckedController < API::BaseController
                   Product.unchecked
                          .not_wip
                          .list
-                         .order_for_not_wip_list
+                         .ascending_by_date_of_publishing_and_id
                          .page(params[:page])
                 when 'unchecked_no_replied'
                   Product.unchecked_no_replied_products(current_user.id)
                          .unchecked
                          .not_wip
                          .list
-                         .order_for_not_wip_list
                          .page(params[:page])
                 end
     @latest_product_submitted_just_5days = @products.find { |product| product.elapsed_days == 5 }

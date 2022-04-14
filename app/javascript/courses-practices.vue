@@ -21,7 +21,7 @@
             a.categories-item__edit-link(
               :href='`${category.edit_admin_category_path}`'
             )
-              i.fas.fa-pen
+              i.fa-solid.fa-pen
           .a-long-text.is-md(
             v-html='markdownDescription(category.description)'
           )

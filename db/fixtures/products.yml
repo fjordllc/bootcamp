@@ -118,7 +118,8 @@ product62:
   practice: practice1
   user: take8
   body: テストの提出物62です。
-  published_at: <%= (now - 60 * 60 * 24 * 10).to_s(:db) %>
+  published_at: <%= 10.day.ago.to_s(:db) %>
+  created_at: <%= 10.day.ago.to_s(:db) %>
 
 product63:
   practice: practice6

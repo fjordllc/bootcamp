@@ -37,19 +37,19 @@
               :title='"アドバイザーサインアップURL"',
               :href='company.adviser_sign_up_url'
             )
-              i.fas.fa-user-plus
+              i.fa-solid.fa-user-plus
           td.admin-table__item-value.is-text-align-center
             ul.is-inline-buttons
               li
                 a.a-button.is-sm.is-secondary.is-icon(
                   :href='`/admin/companies/${company.id}/edit`'
                 )
-                  i.fas.fa-pen
+                  i.fa-solid.fa-pen
               li
                 a.a-button.is-sm.is-danger.is-icon.js-delete(
                   @click='destroy(company)'
                 )
-                  i.fas.fa-trash-alt
+                  i.fa-solid.fa-trash-alt
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>

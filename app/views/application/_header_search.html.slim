@@ -3,6 +3,6 @@
     = select_tag 'document_type', options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type]), id: select_id
   = text_field_tag 'word', params[:word], class: 'a-xs-text-input header-search__text-input', id: text_field_id, placeholder: '検索ワード'
   button.a-button.is-sm.is-secondary.is-icon.header-search__submit(id="#{submit_id}" type='submit')
-    i.fas.fa-search
+    i.fa-solid.fa-search
     span
       | 検索

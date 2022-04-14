@@ -1,20 +1,28 @@
 <template lang="pug">
 .thread-list-item(:class='wipClass')
   .thread-list-item__inner
+    .thread-list-item__user
+      a.thread-header__author(:href='report.user.url')
+        img.thread-list-item__user-icon.a-user-icon(
+          :src='report.user.avatar_url',
+          :title='report.user.login_name',
+          :alt='report.user.login_name',
+          :class='[roleClass, daimyoClass]'
+        )
     .thread-list-item__rows
       .thread-list-item__row
         header.thread-list-item-title
           .thread-list-item-title__start
             .thread-list-item-title__icon.is-wip(v-if='report.wip') WIP
             h2.thread-list-item-title__title
-              a.thread-list-item-title__link.js-unconfirmed-link(
+              a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='report.url'
               ) {{ report.user.daimyo ? "★" + report.title : report.title }}
             .thread-list-item-title__end(
               v-if='currentUserId == report.user.id'
             )
               label.thread-list-item-actions__trigger(:for='report.id')
-                i.fas.fa-ellipsis-h
+                i.fa-solid.fa-ellipsis-h
               .thread-list-item-actions
                 input.a-toggle-checkbox(type='checkbox', :id='report.id')
                 .thread-list-item-actions__inner
@@ -23,11 +31,11 @@
                       a.thread-list-item-actions__action(
                         :href='report.editURL'
                       )
-                        i.fas.fa-pen
+                        i.fa-solid.fa-pen
                         | 内容変更
                     li.thread-list-item-actions__item
                       a.thread-list-item-actions__action(:href='report.newURL')
-                        i.fas.fa-copy
+                        i.fa-solid.fa-copy
                         | コピー
                   label.a-overlay(:for='report.id')
 
@@ -37,29 +45,28 @@
             .thread-list-item-meta__item
               a.a-user-name(:href='report.user.url') {{ report.user.long_name }}
             .thread-list-item-meta__item
-              time.a-meta {{ report.reportedOn }}
-                | の日報
+              time.a-meta
+                | {{ report.reportedOn }}の日報
       hr.thread-list-item__row-separator(v-if='report.hasAnyComments')
       .thread-list-item__row(v-if='report.hasAnyComments')
         .thread-list-item-meta
           .thread-list-item-meta__items
             .thread-list-item-meta__item
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | コメント
-                .thread-list-item-comment__count
-                  | ({{ report.numberOfComments }})
-                .thread-list-item-comment__user-icons
-                  comment-user-icon(
-                    v-for='comment in report.comments',
-                    :key='comment.id',
-                    :comment='comment'
-                  )
-                time.a-meta(
-                  datetime='report.lastCommentDatetime',
-                  pubdate='\'pubdate\''
+              .a-meta
+                | コメント（{{ report.numberOfComments }}）
+            .thread-list-item-meta__item
+              .thread-list-item-comment__user-icons
+                comment-user-icon(
+                  v-for='comment in report.comments',
+                  :key='comment.id',
+                  :comment='comment'
                 )
-                  | 〜 {{ report.lastCommentDate }}
+            .thread-list-item-meta__item
+              time.a-meta(
+                datetime='report.lastCommentDatetime',
+                pubdate='\'pubdate\''
+              )
+                | 〜 {{ report.lastCommentDate }}
     .stamp.stamp-approve(v-if='this.report.hasCheck')
       h2.stamp__content.is-title
         | 確認済
@@ -68,14 +75,6 @@
       .stamp__content.is-user-name
         .stamp__content-inner
           | {{ report.checkUserName }}
-    .thread-list-item__user
-      a.thread-header__author(:href='report.user.url')
-        img.thread-list-item__user-icon.a-user-icon(
-          :src='report.user.avatar_url',
-          :title='report.user.login_name',
-          :alt='report.user.login_name',
-          :class='[roleClass, daimyoClass]'
-        )
 </template>
 
 <script>

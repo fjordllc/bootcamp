@@ -48,10 +48,16 @@ class TalksTest < ApplicationSystemTestCase
     assert_text "#{user.login_name} (#{user.name}) さんの相談部屋"
   end
 
+  test 'admin can access user talk page from talks page' do
+    talks(:talk7).update!(updated_at: Time.current) # user: kimura
+    visit_with_auth '/talks', 'komagata'
+    click_link 'kimura (Kimura Tadasi) さんの相談部屋'
+    assert_selector '.page-header__title', text: 'kimuraさんの相談部屋'
+  end
+
   test 'a talk room is removed from unreplied tab when admin comments there' do
     user = users(:with_hyphen)
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
     end
@@ -106,16 +112,14 @@ class TalksTest < ApplicationSystemTestCase
     assert_no_text 'ユーザー公開情報'
 
     logout
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ユーザー非公開情報'
     assert_text 'ユーザー公開情報'
   end
 
   test 'update memo' do
     user = users(:kimura)
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'kimuraさんのメモ'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: '相談部屋テストメモ'
@@ -126,8 +130,7 @@ class TalksTest < ApplicationSystemTestCase
 
   test 'Displays a list of the 10 most recent reports' do
     user = users(:hajime)
-    visit_with_auth '/talks', 'komagata'
-    click_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ユーザーの日報'
     page.find('#reports_list').click
     user.reports.first(10).each do |report|
@@ -148,13 +151,201 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'Display number of comments, detail of lastest comment user' do
-    visit_with_auth '/talks', 'komagata'
-    within('.thread-list-item-comment') do
+    visit_with_auth '/talks?target=student_and_trainee', 'komagata'
+    within('.thread-list-item-meta') do
       assert_text 'コメント'
       assert_selector 'img[class="a-user-icon"]'
-      assert_text '(1)'
+      assert_text '（1）'
       assert_text '2019年01月02日(水) 00:00'
-      assert_text '(hajime)'
+      assert_text '（hajime）'
     end
+  end
+
+  test 'incremental search by login_name' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimuramitai'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by name' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'Kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'Kimura Mitai'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by name_kana' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'キムラ'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'キムラ ミタイ'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by twitter_account' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimuratwitter'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by facebook_url' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimurafacebook'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by blog_url' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimurablog.org'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by github_account' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimuragithub'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by discord_account' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: 'kimuradiscord'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search by description' do
+    visit_with_auth '/talks', 'komagata'
+    assert_text 'さんの相談部屋', count: 20
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+    fill_in 'js-talk-search-input', with: '木村さんに似ているとよく言われます。'
+    assert_text 'さんの相談部屋', count: 1
+  end
+
+  test 'incremental search for student_or_trainee' do
+    users(:kimuramitai).update!(mentor: true)
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+
+    visit '/talks?target=student_and_trainee'
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 1 # users(:kimura)
+  end
+
+  test 'incremental search for mentor' do
+    users(:kimuramitai).update!(login_name: 'mentorkimura')
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'mentor'
+    assert_text 'さんの相談部屋', count: 2
+
+    visit '/talks?target=mentor'
+    fill_in 'js-talk-search-input', with: 'mentor'
+    assert_text 'さんの相談部屋', count: 1 # users(:mentormentaro)
+  end
+
+  test 'incremental search for graduated' do
+    users(:kimuramitai).update!(login_name: 'sotugyoukimura')
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'sotugyou'
+    assert_text 'さんの相談部屋', count: 3
+
+    visit '/talks?target=graduate'
+    fill_in 'js-talk-search-input', with: 'sotugyou'
+    assert_text 'さんの相談部屋', count: 2 # users(:sotugyou, :sotugyou_with_job)
+  end
+
+  test 'incremental search for adviser' do
+    users(:kimuramitai).update!(login_name: 'advikimura')
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'advi'
+    assert_text 'さんの相談部屋', count: 2
+
+    visit '/talks?target=adviser'
+    fill_in 'js-talk-search-input', with: 'advi'
+    assert_text 'さんの相談部屋', count: 1 # users(:advijirou)
+  end
+
+  test 'incremental search for trainee' do
+    users(:kimuramitai).update!(login_name: 'kensyukimura')
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'kensyu'
+    assert_text 'さんの相談部屋', count: 3
+
+    visit '/talks?target=trainee'
+    fill_in 'js-talk-search-input', with: 'kensyu'
+    assert_text 'さんの相談部屋', count: 2 # users(:kensyu, :kensyuowata)
+  end
+
+  test 'incremental search for retired' do
+    users(:kimuramitai).update!(login_name: 'yameokimura')
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'yameo'
+    assert_text 'さんの相談部屋', count: 2
+
+    visit '/talks?target=retired'
+    fill_in 'js-talk-search-input', with: 'yameo'
+    assert_text 'さんの相談部屋', count: 1 # users(:yameo)
+  end
+
+  test 'incremental search for unreplied' do
+    users(:kimura).talk.update!(unreplied: true)
+    visit_with_auth '/talks', 'komagata'
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 2
+
+    visit '/talks/unreplied'
+    fill_in 'js-talk-search-input', with: 'kimura'
+    assert_text 'さんの相談部屋', count: 1 # users(:kimura)
+  end
+
+  test 'switch between normal list and searched list' do
+    visit_with_auth '/talks', 'komagata'
+    assert_selector '.talk-list'
+    assert_no_selector '.searched-talk-list'
+
+    # /^[\w-]+$/ の場合は3文字以上、それ以外は2文字以上で検索結果を表示
+    fill_in 'js-talk-search-input', with: 'kim'
+    assert_no_selector '.talk-list'
+    assert_selector '.searched-talk-list'
+
+    fill_in 'js-talk-search-input', with: 'ki'
+    assert_selector '.talk-list'
+    assert_no_selector '.searched-talk-list'
+
+    fill_in 'js-talk-search-input', with: 'キム'
+    assert_no_selector '.talk-list'
+    assert_selector '.searched-talk-list'
+
+    fill_in 'js-talk-search-input', with: 'キ'
+    assert_selector '.talk-list'
+    assert_no_selector '.searched-talk-list'
+  end
+
+  test 'show no talks message when no talks found' do
+    visit_with_auth '/talks', 'komagata'
+
+    fill_in 'js-talk-search-input', with: 'hoge'
+    assert_text '一致する相談部屋はありません'
   end
 end

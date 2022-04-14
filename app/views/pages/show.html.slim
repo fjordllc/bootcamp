@@ -8,7 +8,7 @@ header.page-header
         ul.page-header-actions__items
           li.page-header-actions__item
             = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-plus
+              i.fa-regular.fa-plus
               | Doc作成
           li.page-header-actions__item
             = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
@@ -102,7 +102,7 @@ header.page-header
             ul.card-main-actions__items
               li.card-main-actions__item
                 = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
-                  i.fas.fa-pen
+                  i.fa-solid.fa-pen
                   | 内容変更
               - if admin_or_mentor_login? || current_user == @page.user
                 li.card-main-actions__item.is-sub

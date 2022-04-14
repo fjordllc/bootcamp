@@ -8,7 +8,7 @@ header.page-header
           - if current_user&.admin?
             li.page-header-actions__item
               = link_to new_course_path, class: 'a-button is-md is-secondary is-block' do
-                i.fas.fa-plus
+                i.fa-regular.fa-plus
                 | コース作成
 
 .page-body
@@ -22,6 +22,6 @@ header.page-header
         - else
           .o-empty-message
               .o-empty-message__icon
-                i.far.fa-sad-tear
+                i.fa-regular.fa-sad-tear
               p.o-empty-message__text
                 | 公開コースはありません。

@@ -18,28 +18,34 @@
                   :class='[roleClass, daimyoClass]'
                 )
           .users-item__header-end
-            .users-item__name
-              a.users-item__name-link(:href='user.url')
-                | {{ loginName }}
-              a(
-                v-if='user.company && user.company.logo_url',
-                :href='user.company.url'
-              )
-                img.user-item__company-logo(:src='user.company.logo_url')
-            ul.users-item-names
-              li.users-item-names__item
-                .users-item-names__ful-name
-                  | {{ user.name }}
-              li.users-item-names__item(v-if='user.discord_account')
-                .users-item-names__chat
-                  .users-item-names__chat-label
-                    i.fab.fa-discord
-                  a.users-item-names__chat-value(:href='user.times_url')(
-                    v-if='user.times_url'
+            .thread-list-item__rows
+              .thread-list-item__row
+                .thread-list-item-title
+                  a.thread-list-item-title__title.is-lg.a-text-link(
+                    :href='user.url'
                   )
-                    | {{ user.discord_account }}
-                  span.users-item-names__chat-value(v-else)
-                    | {{ user.discord_account }}
+                    | {{ loginName }}
+                  a(
+                    v-if='user.company && user.company.logo_url',
+                    :href='user.company.url'
+                  )
+                    img.user-item__company-logo(:src='user.company.logo_url')
+              .thread-list-item__row
+                .thread-list-item-meta
+                  .thread-list-item-meta__items
+                    .thread-list-item-meta__item
+                      .a-meta
+                        | {{ user.name }}
+                    .thread-list-item-meta__item
+                      a.a-meta(:href='user.times_url')(v-if='user.times_url')
+                        .a-meta__icon
+                          i.fa-brands.fa-discord
+                        | {{ user.discord_account }}
+                      .a-meta(v-else)
+                        .a-meta__icon
+                          i.fa-brands.fa-discord
+                        | {{ user.discord_account }}
+
         user-sns(:user='user')
       .users-item__body
         .users-item__description.a-short-text
@@ -55,7 +61,7 @@
               v-if='currentUser.id != user.id && currentUser.adviser && user.company && currentUser.company_id == user.company.id'
             )
               .a-button.is-disabled.is-md.is-block
-                i.fas.fa-check
+                i.fa-solid.fa-check
                 span
                   | 自社研修生
             li.card-main-actions__item(v-else-if='currentUser.id != user.id')

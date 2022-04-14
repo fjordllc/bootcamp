@@ -126,7 +126,7 @@ header.page-header
                           = f.submit '提出する', class: 'a-button is-md is-warning is-block'
                     li.card-main-actions__item
                       = link_to edit_product_path(@product), class: 'card-main-actions_action a-button is-md is-secondary is-block' do
-                        i.fas.fa-pen
+                        i.fa-solid.fa-pen
                         | 内容修正
                     li.card-main-actions__item.is-sub
                       = link_to @product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
@@ -183,7 +183,7 @@ header.page-header
                       .container
                         .o-empty-message
                           .o-empty-message__icon
-                            i.far.fa-sad-tear
+                            i.fa-regular.fa-sad-tear
                           .o-empty-message__text
                             | 日報はまだありません。
               .side-tabs-contents__item#side-tabs-content-2

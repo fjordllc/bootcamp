@@ -84,6 +84,7 @@ ja:
         job_seeker: 就職を希望する
         github_collaborator: GitHubチーム
         tag_list: タグ
+        training_ends_on: 研修終了日
       course:
         title: タイトル
         description: 詳細

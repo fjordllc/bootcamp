@@ -13,11 +13,11 @@
         v-if='!oldestMonth()',
         @click='previousMonth'
       )
-        i.fas.fa-angle-left
+        i.fa-solid.fa-angle-left
       .niconico-calendar-nav__previous.is-blank(v-else)
       .niconico-calendar-nav__year--month {{ calendarYear }}年{{ calendarMonth }}月
       .niconico-calendar-nav__next(v-if='!newestMonth()', @click='nextMonth')
-        i.fas.fa-angle-right
+        i.fa-solid.fa-angle-right
       .niconico-calendar-nav__next.is-blank(v-else)
     table.niconico-calendar
       thead.niconico-calendar__header
@@ -59,7 +59,7 @@
             .niconico-calendar__day-inner(v-else)
               .niconico-calendar__day-label {{ date.date }}
               .niconico-calendar__day-value
-                i.fas.fa-minus(v-if='date.date')
+                i.fa-solid.fa-minus(v-if='date.date')
 </template>
 
 <script>

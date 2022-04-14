@@ -15,7 +15,11 @@
         .thread-list-item-title
           .thread-list-item-title__icon.is-wip(v-if='page.wip') WIP
           h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link(:href='page.url', itemprop='url') {{ page.title }}
+            a.thread-list-item-title__link.a-text-link(
+              :href='page.url',
+              itemprop='url'
+            )
+              | {{ page.title }}
 
       .thread-list-item__row(v-if='page.practice')
         .thread-list-item-meta
@@ -23,12 +27,6 @@
             .thread-list-item-meta__item
               .thread-list-item-sub-title
                 | {{ page.practice.title }}
-            .thread-list-item-meta__item(v-if='page.commentsSize > 0')
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | コメント
-                .thread-list-item-comment__count
-                  | （{{ page.commentsSize }}）
 
       .thread-list-item__row
         .thread-list-item-meta
@@ -47,7 +45,10 @@
               time.a-meta(:datetime='page.updated_at.to_datetime')
                 span.a-meta__label
                   | 更新
-                | {{ page.updated_at }} by
+                span.a-meta__value
+                  | {{ page.updated_at }}
+            .thread-list-item-meta__item(v-if='page.last_updated_user')
+              .thread-list-item-meta__user
                 a.thread-list-item-meta__icon-link(
                   :href='page.last_updated_user.url'
                 )
@@ -57,14 +58,16 @@
                     :src='page.last_updated_user.avatar_url',
                     :class='[roleClassLastUpdatedUser, daimyoClass]'
                   )
-                .thread-list-item-name
-                  a.a-user-name(:href='page.last_updated_user.url')
-                    | {{ page.last_updated_user.login_name }}
+                a.a-user-name(:href='page.last_updated_user.url')
+                  | {{ page.last_updated_user.login_name }}
+            .thread-list-item-meta__item(v-if='page.commentsSize > 0')
+              .a-meta
+                | コメント（{{ page.commentsSize }}）
 
       .thread-list-item__row(v-if='page.tags.length > 0')
         .thread-list-item-tags
           .thread-list-item-tags__label
-            i.fas.fa-tags
+            i.fa-solid.fa-tags
           ul.thread-list-item-tags__items
             li.thread-list-item-tags__item(v-for='tag in page.tags')
               a.thread-list-item-tags__item-link(:href='tag.url') {{ tag.name }}
