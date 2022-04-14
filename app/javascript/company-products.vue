@@ -107,10 +107,6 @@ export default {
           const queryArr = query.split('=')
           params[queryArr[0]] = queryArr[1]
         })
-      if (location.pathname.match(/tags/)) {
-        const tag = location.pathname.split('/').pop()
-        params.tag = tag
-      }
       return params
     },
     paginateClickCallback(pageNumber) {
