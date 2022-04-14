@@ -1,48 +1,44 @@
 <template lang="pug">
 .page-body
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-  .container
-    .products
-      .row(v-if='products === null')
-        .empty
-          .fas.fa-spinner.fa-pulse
-          |
-          | ロード中
-      .row(v-else-if='products.length !== 0')
+  .container(v-if='products.length === 0')
+    .o-empty-message
+      .o-empty-message__icon
+        i.far.fa-smile
+      p.o-empty-message__text
+        | {{ title }}はありません
+  .container.is-md(v-else)
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .thread-list.a-card
+      .thread-list__items
         product(
           v-for='product in products',
           :key='product.id',
           :product='product',
-          :currentProduct='currentProduct'
+          :currentUserId='currentUserId',
+          :isMentor='isMentor'
         )
-      .row(v-else)
-        .o-empty-message
-          .o-empty-message__icon
-            i.far.fa-sad-tear
-          p.o-empty-message__text
-            | {{ targetName }}の提出物はありません
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
+
 <script>
 import Pager from 'pager.vue'
 import Product from 'product.vue'
-
 export default {
   components: {
     product: Product,
     pager: Pager
   },
   props: {
-    companyID: { type: String, required: true }
+    companyID: { type: String, required: true },
+    title: { type: String, required: true },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true }
   },
   data() {
     return {
-      products: null,
-      currentProduct: null,
-      currentTarget: null,
-      currentTag: null,
+      products: [],
       currentPage: Number(this.getParams().page) || 1,
       totalPages: 0,
       params: this.getParams()
@@ -104,7 +100,7 @@ export default {
             this.currentProduct = json.currentProduct
             this.currentTarget = json.target
             this.currentTag = json.tag
-            this.totalPages = json.totalPages
+            this.totalPages = json.total_pages
           })
           .catch((error) => {
             console.warn(error)
@@ -127,7 +123,7 @@ export default {
     },
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
-      this.getUsers()
+      this.getProducts()
       history.pushState(null, null, this.newUrl(pageNumber))
       window.scrollTo(0, 0)
     },

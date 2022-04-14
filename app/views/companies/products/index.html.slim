@@ -8,9 +8,4 @@ header.page-header
 = render 'companies/tabs', company: @company
 
 .page-body
-  .container.is-md
-    = paginate @products
-    - if @products.present?
-      .thread-list.a-card
-        = render partial: 'products/product', collection: @products, as: :product
-    = paginate @products
+#js-company-products(company-id="#{@company.id}" data-title="#{title}" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
