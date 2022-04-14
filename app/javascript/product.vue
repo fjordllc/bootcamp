@@ -1,18 +1,5 @@
 <template lang="pug">
 .thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
-  .thread-list-item__strip-label(v-if='unassigned || unchecked')
-    .thread-list-item__elapsed-days.is-reply-warning.is-only-mentor(
-      v-if='isLatestProductSubmittedJust5days'
-    )
-      | 5日経過
-    .thread-list-item__elapsed-days.is-reply-alert.is-only-mentor(
-      v-else-if='isLatestProductSubmittedJust6days'
-    )
-      | 6日経過
-    .thread-list-item__elapsed-days.is-reply-deadline.is-only-mentor(
-      v-else-if='isLatestProductSubmittedOver7days'
-    )
-      | 7日以上経過
   .thread-list-item__inner
     .thread-list-item__user
       a.a-user-name(:href='product.user.url')
@@ -53,7 +40,17 @@
                 | 提出日（{{ product.created_at }}）
             .thread-list-item-meta__item
               time.a-meta(v-if='product.updated_at')
-                | 更新（{{ product.updated_at }}）
+                span.a-meta__label 更新
+                | {{ product.updated_at }}
+            .thread-list-item-meta__item(
+              v-if='(product.selectedTab = unassigned)'
+            )
+              time.a-meta(v-if='untilNextElapsedDays(product) < 1')
+                span.a-meta__label 次の経過日数まで
+                | 1時間未満
+              time.a-meta(v-else-if='calcElapsedTimes(product) < 7')
+                span.a-meta__label 次の経過日数まで
+                | 約{{ untilNextElapsedDays(product) }}時間
 
       hr.thread-list-item__row-separator(v-if='product.comments.size > 0')
       .thread-list-item__row(v-if='product.comments.size > 0')
@@ -131,22 +128,7 @@ export default {
   props: {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true },
-    latestProductSubmittedJust5days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedJust6days: {
-      type: Object,
-      required: false,
-      default: null
-    },
-    latestProductSubmittedOver7days: {
-      type: Object,
-      required: false,
-      default: null
-    }
+    currentUserId: { type: String, required: true }
   },
   computed: {
     roleClass() {
@@ -160,27 +142,6 @@ export default {
         ? `★${this.product.practice.title}の提出物`
         : `${this.product.practice.title}の提出物`
     },
-    isLatestProductSubmittedJust5days() {
-      if (this.latestProductSubmittedJust5days !== null) {
-        return this.product.id === this.latestProductSubmittedJust5days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedJust6days() {
-      if (this.latestProductSubmittedJust6days !== null) {
-        return this.product.id === this.latestProductSubmittedJust6days.id
-      } else {
-        return false
-      }
-    },
-    isLatestProductSubmittedOver7days() {
-      if (this.latestProductSubmittedOver7days !== null) {
-        return this.product.id === this.latestProductSubmittedOver7days.id
-      } else {
-        return false
-      }
-    },
     unassigned() {
       return location.pathname === '/products/unassigned'
     },
@@ -193,6 +154,17 @@ export default {
           this.product.mentor_last_commented_at_date_time ||
         this.product.comments.size === 0
       )
+    }
+  },
+  methods: {
+    untilNextElapsedDays(product) {
+      const elapsedTimes = this.calcElapsedTimes(product)
+      return Math.floor((Math.ceil(elapsedTimes) - elapsedTimes) * 24)
+    },
+    calcElapsedTimes(product) {
+      const time =
+        product.published_at_date_time || product.created_at_date_time
+      return (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
     }
   }
 }
