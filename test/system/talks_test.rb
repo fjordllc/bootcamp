@@ -155,9 +155,9 @@ class TalksTest < ApplicationSystemTestCase
     within('.thread-list-item-meta') do
       assert_text 'コメント'
       assert_selector 'img[class="a-user-icon"]'
-      assert_text '(1)'
+      assert_text '（1）'
       assert_text '2019年01月02日(水) 00:00'
-      assert_text '(hajime)'
+      assert_text '（hajime）'
     end
   end
 

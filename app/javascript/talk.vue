@@ -24,7 +24,7 @@
               .thread-list-item-meta__items
                 .thread-list-item-meta__item
                   .a-meta
-                    | コメント ({{ talk.number_of_comments }})
+                    | コメント（{{ talk.number_of_comments }}）
                 .thread-list-item-meta__item
                   .thread-list-item-comment__user-icons
                     .thread-list-item-comment__user-icon
