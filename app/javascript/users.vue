@@ -5,7 +5,7 @@
   .users__items
     .row(v-if='users === null')
       .empty
-        .fas.fa-spinner.fa-pulse
+        .fa-solid.fa-spinner.fa-pulse
         |
         | ロード中
     .row(v-else-if='users.length !== 0')
@@ -18,7 +18,7 @@
     .row(v-else)
       .o-empty-message
         .o-empty-message__icon
-          i.far.fa-sad-tear
+          i.fa-regular.fa-sad-tear
         p.o-empty-message__text
           | {{ targetName }}のユーザーはいません
   nav.pagination(v-if='totalPages > 1')

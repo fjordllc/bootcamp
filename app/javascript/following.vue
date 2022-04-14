@@ -2,11 +2,11 @@
 details.following(ref='followingDetailsRef')
   summary.following__summary
     span.a-button.is-warning.is-md.is-block(v-if='following && watching')
-      i.fas.fa-check
+      i.fa-solid.fa-check
       span
         | コメントあり
     span.a-button.is-warning.is-md.is-block(v-else-if='following && !watching')
-      i.fas.fa-check
+      i.fa-solid.fa-check
       span
         | コメントなし
     span.a-button.is-secondary.is-md.is-block(v-else)

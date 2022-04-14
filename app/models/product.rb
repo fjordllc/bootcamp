@@ -49,8 +49,8 @@ class Product < ApplicationRecord
                { checks: { user: { avatar_attachment: :blob } } })
   }
   scope :order_for_list, -> { order(created_at: :desc, id: :desc) }
-  scope :order_for_not_wip_list, -> { order(published_at: :desc, id: :desc) }
-  scope :order_for_self_assigned_list, -> { order(commented_at: :desc, published_at: :desc) }
+  scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
+  scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
 
   def self.add_latest_commented_at
     Product.all.includes(:comments).find_each do |product|
@@ -122,13 +122,13 @@ class Product < ApplicationRecord
   def self.self_assigned_no_replied_products(current_user_id)
     no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
     Product.where(id: no_replied_product_ids)
-           .order(commented_at: :desc, published_at: :desc)
+           .order(published_at: :asc, id: :asc)
   end
 
   def self.unchecked_no_replied_products(current_user_id)
     no_replied_products_ids = unchecked_no_replied_products_ids(current_user_id)
     Product.where(id: no_replied_products_ids)
-           .order(created_at: :desc)
+           .order(published_at: :asc, id: :asc)
   end
 
   def completed?(user)

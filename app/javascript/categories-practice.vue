@@ -16,7 +16,7 @@ draggable.draggable-items(
           | {{ practice.title }}
       .category-practices-item__grab
         span.a-grab.js-grab
-          i.fas.fa-align-justify
+          i.fa-solid.fa-align-justify
 </template>
 <script>
 import draggable from 'vuedraggable'

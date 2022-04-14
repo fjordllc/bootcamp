@@ -1,5 +1,6 @@
 .a-meta
-  +text-block(1em 1.4, $muted-text flex)
+  +text-block(1em 1.5, $muted-text flex)
+  align-items: center
   flex-wrap: wrap
   +media-breakpoint-up(md)
     font-size: .8125rem
@@ -34,4 +35,7 @@ a.a-meta
   &::after
     content: ":"
     display: inline-flex
-    +margin(horizontal, .25em)
+    +margin(horizontal, .125em)
+
+.a-meta__icon
+  margin-right: .125em

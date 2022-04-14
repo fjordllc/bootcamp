@@ -1,22 +1,22 @@
-- title @user.login_name
+- title "#{@user.login_name}のポートフォリオ"
+
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        = @user.login_name
       .page-header-actions
         ul.page-header-actions__items
           - if current_user == @user
             li.page-header-actions__item
               = link_to new_work_path, class: 'a-button is-md is-warning is-block' do
-                i.fas.fa-plus
+                i.fa-regular.fa-plus
                 | 作品を追加
           li.page-header-actions__item
             = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
               | ユーザー一覧
 
-.page-tools
-  = render 'users/page_tabs', user: @user
+= render 'users/page_tabs', user: @user
 
 .page-body
   .container
@@ -35,5 +35,5 @@ header.page-header
         - if current_user == @user
           li.page-body-actions__item
             = link_to new_work_path, class: 'a-button is-lg is-warning is-block' do
-              i.fas.fa-plus
+              i.fa-regular.fa-plus
               | 作品を追加

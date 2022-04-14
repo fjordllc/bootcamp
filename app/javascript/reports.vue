@@ -4,7 +4,7 @@ div(v-if='limit')
     .card-header.is-sm
       h2.card-header__title
         | 直近の日報
-    .thread-list__items.has-no-author-image
+    .thread-list__items
       report(
         v-for='report in reports',
         :key='report.id',
@@ -17,7 +17,7 @@ div(v-else)
   .reports(v-else-if='reports.length === 0')
     .o-empty-message
       .o-empty-message__icon
-        i.far.fa-sad-tear
+        i.fa-regular.fa-sad-tear
       .o-empty-message__text
         | 日報はまだありません。
   .reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
@@ -36,7 +36,7 @@ div(v-else)
       pager(v-bind='pagerProps')
   .o-empty-message(v-else)
     .o-empty-message__icon
-      i.far.fa-smile
+      i.fa-regular.fa-smile
     p.o-empty-message__text
       | 未チェックの日報はありません
 </template>

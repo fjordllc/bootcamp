@@ -10,7 +10,7 @@
       .thread-list-item__row
         .thread-list-item-title
           h1.thread-list-item-title__title(itemprop='name')
-            = link_to question, itemprop: 'url', class: 'thread-list-item-title__link' do
+            = link_to question, itemprop: 'url', class: 'thread-list-item-title__link a-text-link' do
               = question.title
       - if question.practice
         .thread-list-item__row
@@ -29,16 +29,13 @@
                 = l question.updated_at
             - if question.answers.present?
               .thread-list-item-meta__item
-                .thread-list-item-comment
-                  .thread-list-item-comment__label
-                    | 回答・コメント
-                  .thread-list-item-comment__count
-                    | （#{question.answers.size}）
+                .a-meta
+                  | 回答・コメント（#{question.answers.size}）
       - if question.tags.present?
         .thread-list-item__row
           .thread-list-item-tags
             .thread-list-item-tags__label
-              i.fas.fa-tags
+              i.fa-solid.fa-tags
             ul.thread-list-item-tags__items
               - question.tags.each do |tag|
                 li.thread-list-item-tags__item

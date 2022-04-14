@@ -13,7 +13,7 @@
       .thread-list-item__row
         .thread-list-item-title
           h1.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link(
+            a.thread-list-item-title__link.a-text-link(
               :href='answer.question.url',
               itemprop='url'
             ) {{ answer.question.title }}
@@ -24,7 +24,7 @@
               .thread-list-item-sub-title {{ answer.question.practice.title }}
       .thread-list-item__row
         .thread-list-item__summary
-          p {{ answer.description }}
+          p {{ summary }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -35,7 +35,7 @@
               time.a-meta(:datetime='answer.updated_at', pubdate='pubdate') {{ updatedAt }}
       .answer-badge(v-if='answer.type == "CorrectAnswer"')
         .answer-badge__icon
-          i.fas.fa-star
+          i.fa-solid.fa-star
         .answer-badge__label ベストアンサー
 </template>
 <script>
@@ -61,6 +61,14 @@ export default {
       } else {
         return ''
       }
+    },
+    summary() {
+      let description = this.answer.description
+      description =
+        description.length <= 90
+          ? description
+          : description.substring(0, 90) + '...'
+      return description
     }
   }
 }

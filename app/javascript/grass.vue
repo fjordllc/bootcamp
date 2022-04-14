@@ -10,13 +10,13 @@
   .user-grass
     .user-grass-nav
       .user-grass-nav__previous(@click='onPrevYearMonth')
-        i.fas.fa-angle-left
+        i.fa-solid.fa-angle-left
       .user-grass-nav__year--month {{ prevYearMonth && prevYearMonth.format(clientFormat) }} 〜 {{ currentYearMonth && currentYearMonth.format(clientFormat) }}
       .user-grass-nav__next(
         v-if='!isLatestYearMonth(currentYearMonth)',
         @click='onNextYearMonth'
       )
-        i.fas.fa-angle-right
+        i.fa-solid.fa-angle-right
       .user-grass-nav__next.is-blank(v-else)
     canvas#grass.a-grass(width='650px', height='130px')
 </template>

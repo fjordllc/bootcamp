@@ -11,7 +11,7 @@
       .thread-list-item__row
         .thread-list-item-title
           .thread-list-item-title__title
-            a.thread-list-item-title__link(:href='searchable.url')
+            a.thread-list-item-title__link.a-text-link(:href='searchable.url')
               | {{ searchable.title }}
       .thread-list-item__row
         .thread-list-item__summary
@@ -36,8 +36,11 @@
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
-            a(v-if='isRole("admin") && canDisplayTalk', :href='talkUrl')
-              | 相談部屋
+            .thread-list-item-meta__item(
+              v-if='isRole("admin") && canDisplayTalk'
+            )
+              a.a-text-link(:href='talkUrl')
+                | 相談部屋
 </template>
 <script>
 import dayjs from 'dayjs'
