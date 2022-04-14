@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_02_144426) do
+ActiveRecord::Schema.define(version: 2022_03_28_133239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -482,6 +482,7 @@ ActiveRecord::Schema.define(version: 2022_03_02_144426) do
     t.string "times_url"
     t.text "after_graduation_hope"
     t.boolean "notified_retirement", default: false, null: false
+    t.date "training_ends_on"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
