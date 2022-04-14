@@ -19,9 +19,7 @@ class API::Products::UncheckedController < API::BaseController
                          .list
                          .page(params[:page])
                 end
-    @latest_product_submitted_just_5days = @products.find { |product| product.elapsed_days == 5 }
-    @latest_product_submitted_just_6days = @products.find { |product| product.elapsed_days == 6 }
-    @latest_product_submitted_over_7days = @products.find { |product| product.elapsed_days >= 7 }
+    @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
   end
 
   private

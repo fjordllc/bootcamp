@@ -11,22 +11,47 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
+    .thread-list.a-card(v-if='productsGroupedByElapsedDays === null')
       .thread-list__items
         product(
           v-for='product in products',
           :key='product.id',
           :product='product',
           :currentUserId='currentUserId',
-          :isMentor='isMentor',
-          :latestProductSubmittedJust5days='latestProductSubmittedJust5days',
-          :latestProductSubmittedJust6days='latestProductSubmittedJust6days',
-          :latestProductSubmittedOver7days='latestProductSubmittedOver7days'
+          :isMentor='isMentor'
         )
-      unconfirmed-links-open-button(
-        v-if='isMentor && selectedTab != "all"',
-        :label='`${unconfirmedLinksName}の提出物を一括で開く`'
-      )
+    template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
+      .thread-list.a-card
+        header.card-header.a-elapsed-days(
+          v-if='product_n_days_passed.elapsed_days === 0'
+        )
+          h2 今日提出
+        header.card-header.a-elapsed-days.is-reply-warning(
+          v-else-if='product_n_days_passed.elapsed_days === 5'
+        )
+          h2 {{ product_n_days_passed.elapsed_days }}日経過
+        header.card-header.a-elapsed-days.is-reply-alert(
+          v-else-if='product_n_days_passed.elapsed_days === 6'
+        )
+          h2 {{ product_n_days_passed.elapsed_days }}日経過
+        header.card-header.a-elapsed-days.is-reply-deadline(
+          v-else-if='product_n_days_passed.elapsed_days === 7'
+        )
+          h2 {{ product_n_days_passed.elapsed_days }}日以上経過
+        header.card-header.a-elapsed-days(v-else)
+          h2 {{ product_n_days_passed.elapsed_days }}日経過
+        .thread-list__items
+          product(
+            v-for='product in product_n_days_passed.products',
+            :key='product.id',
+            :product='product',
+            :currentUserId='currentUserId',
+            :isMentor='isMentor'
+          )
+    unconfirmed-links-open-button(
+      v-if='isMentor && selectedTab != "all"',
+      :label='`${unconfirmedLinksName}の提出物を一括で開く`'
+    )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
@@ -56,9 +81,7 @@ export default {
       totalPages: 0,
       currentPage: Number(this.getPageValueFromParameter()) || 1,
       loaded: false,
-      latestProductSubmittedJust5days: null,
-      latestProductSubmittedJust6days: null,
-      latestProductSubmittedOver7days: null,
+      productsGroupedByElapsedDays: null,
       params: this.getParams()
     }
   },
@@ -119,12 +142,8 @@ export default {
             location.pathname === '/products/unassigned' ||
             location.pathname === '/products/unchecked'
           ) {
-            this.latestProductSubmittedJust5days =
-              json.latest_product_submitted_just_5days
-            this.latestProductSubmittedJust6days =
-              json.latest_product_submitted_just_6days
-            this.latestProductSubmittedOver7days =
-              json.latest_product_submitted_over_7days
+            this.productsGroupedByElapsedDays =
+              json.products_grouped_by_elapsed_days
           }
           this.totalPages = json.total_pages
           this.products = []
