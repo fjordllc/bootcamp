@@ -47,7 +47,7 @@
   - if admin_login? || user.trainee?
     .form__items.training-info-block
       h3.form__items-title 研修情報
-      = render 'users/form/training_end', f: f, user: current_user
+      = render 'users/form/training_end', f: f
 
   - if admin_login?
     .form__items
