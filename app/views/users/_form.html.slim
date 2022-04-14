@@ -45,7 +45,7 @@
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
-      = render 'users/form/company', f: f, user: current_user
+      = render 'users/form/company', f: f, user: user
 
   - if from == :new && user.student?
     = render 'users/form/card'
