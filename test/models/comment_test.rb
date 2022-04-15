@@ -53,12 +53,21 @@ class CommentTest < ActiveSupport::TestCase
       sender: users(:mentormentaro),
       message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
     )
-    comment.update!(description: '提出物のコメントupdate')
+  end
 
-    assert_not users(:kimura).notifications.exists?(
-      kind: 'watching',
-      sender: users(:mentormentaro)
-    )
-    # assert NotificationFacade.watching_notification(watchable, watcher, comment)
+  test 'when update' do
+    comment = comments(:nantoka)
+    # 数が変わっていないことをテストする　
+    assert_difference -> { users(:kimura).notifications.where(kind: 'watching', sender: users(:mentormentaro)).count }, 0 do
+      comment.update!(description: '提出物のコメントupdate')
+    end
+  end
+
+  test 'when destroy' do
+    comment = comments(:nantoka)
+    # 数が変わっていないことをテストする　
+    assert_difference -> { users(:kimura).notifications.where(kind: 'watching', sender: users(:mentormentaro)).count }, 0 do
+      comment.destroy!
+    end
   end
 end
