@@ -136,7 +136,7 @@ class ArticlesTest < ApplicationSystemTestCase
     find 'nav.pagination'
   end
 
-  test "can't see edit and delete buttons" do
+  test "general user can't see edit and delete buttons" do
     visit_with_auth article_path(@article), 'kimura'
     assert_no_text '内容修正'
     assert_no_text '削除'
