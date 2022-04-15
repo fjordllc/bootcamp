@@ -7,19 +7,19 @@ nav.global-nav
         li.global-nav-links__item
           = link_to announcements_path, class: "global-nav-links__link #{current_link(/^announcements/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-bullhorn
+              i.fa-solid.fa-bullhorn
             .global-nav-links__link-label お知らせ
         li.global-nav-links__item
           - anchor = "category-#{current_user.category_active_or_unstarted_practice.id}" if current_user.category_active_or_unstarted_practice.present?
           = link_to course_practices_path(current_user.course, anchor: anchor), class: "global-nav-links__link #{current_link(/^(courses-practices|practices)-/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-book
+              i.fa-solid.fa-book
             .global-nav-links__link-label プラクティス
         li.global-nav-links__item
           - report_link = admin_or_mentor_login? ? reports_unchecked_index_path : reports_path
           = link_to report_link, class: "global-nav-links__link #{current_link(/^reports/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-pen
+              i.fa-solid.fa-pen
             - if admin_or_mentor_login? && Cache.unchecked_report_count.positive?
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Cache.unchecked_report_count
@@ -29,7 +29,7 @@ nav.global-nav
             - products_link = admin_or_mentor_login? ? products_unassigned_index_path : products_path
             = link_to products_link, class: "global-nav-links__link #{current_link(/^products/)}" do
               .global-nav-links__link-icon
-                i.fas.fa-fw.fa-hand-paper
+                i.fa-solid.fa-hand-paper
               - if admin_or_mentor_login? && Cache.unassigned_product_count.positive?
                 .global-nav__item-count.a-notification-count.is-only-mentor
                   = Cache.unassigned_product_count
@@ -37,7 +37,7 @@ nav.global-nav
         li.global-nav-links__item
           = link_to questions_path, class: "global-nav-links__link #{current_link(/^questions/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-question
+              i.fa-solid.fa-comments-question-check
             - if Question.not_solved.not_wip.count.positive?
               .global-nav__item-count.a-notification-count
                 = Question.not_solved.not_wip.count
@@ -45,22 +45,22 @@ nav.global-nav
         li.global-nav-links__item
           = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-file
+              i.fa-solid.fa-file
             .global-nav-links__link-label Docs
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link(/^users-(index|show)/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-users
+              i.fa-solid.fa-users
             .global-nav-links__link-label ユーザー
         li.global-nav-links__item
           = link_to events_path, class: "global-nav-links__link #{current_link(/^events/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-fw.fa-beer
+              i.fa-solid.fa-beer
             .global-nav-links__link-label イベント
         li.global-nav-links__item
           = link_to '/pages/help', class: "global-nav-links__link #{(@page&.slug == 'help') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
-              i.fas.fa-hands-helping
+              i.fa-solid.fa-hands-helping
             .global-nav-links__link-label ヘルプ
         li.global-nav-links__item
           = link_to unreplied_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do

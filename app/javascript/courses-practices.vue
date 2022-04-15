@@ -8,8 +8,7 @@
         v-for='category in containsPractices',
         :key='category.id'
       )
-        a.categories-item__anchor(:id='`category-${category.id}`')
-        header.categories-item__header
+        header.categories-item__header(:id='`category-${category.id}`')
           h2.categories-item__title
             | {{ category.name }}
             span.stamp.is-circle.is-solved(
@@ -21,7 +20,7 @@
             a.categories-item__edit-link(
               :href='`${category.edit_admin_category_path}`'
             )
-              i.fas.fa-pen
+              i.fa-solid.fa-pen
           .a-long-text.is-md(
             v-html='markdownDescription(category.description)'
           )

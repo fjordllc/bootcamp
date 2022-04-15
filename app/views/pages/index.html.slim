@@ -2,28 +2,31 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
-              i.fas.fa-plus
-              | Doc作成
+      .page-main-header__start
+        h1.page-header__title
+          = title
+      .page-main-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
+                i.fa-regular.fa-plus
+                | Doc作成
 
 -  if @tag.present?
   .page-optional-header
     .container
       .page-optional-header__inner
-        h2.page-optional-header__title
-          | タグ 「#{@tag.name}」
-          = link_to pages_path, class: 'page-body__optional-title-cancel' do
-            i.fas.fa-times.fa-fw
-      - if admin_login?
-         .page-main-header__end
-            .page-main-header-actions
-              .page-main-header-actions__items
-                #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
+        .page-main-header__start
+          h2.page-optional-header__title
+            | タグ 「#{@tag.name}」
+            = link_to pages_path, class: 'page-body__optional-title-cancel' do
+              i.fa-solid.fa-times.fa-fw
+        - if admin_login?
+          .page-main-header__end
+              .page-main-header-actions
+                .page-main-header-actions__items
+                  #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
 .page-body
   .container.is-xl
     .two-columns
@@ -32,9 +35,9 @@ header.page-header
 
       - if Page.all_tags.any?
         .two-columns__column.is-sub
-          nav.page-tags-nav
-            header.page-tags-nav__header
-              h2.page-tags-nav__title
+          nav.page-tags-nav.a-card
+            header.card-header.is-sm
+              h2.card-header__title
                 | タグ一覧
             .page-tags-nav__body
               ul.page-tags-nav__items

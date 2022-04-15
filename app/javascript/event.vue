@@ -13,12 +13,14 @@
           .thread-list-item-title__icon.is-wip(v-if='event.wip') WIP
           .thread-list-item-title__icon.is-ended(v-else-if='event.ended') 終了
           h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link(:href='event.url', itemprop='url')
+            a.thread-list-item-title__link.a-text-link(
+              :href='event.url',
+              itemprop='url'
+            )
               | {{ event.title }}
       .thread-list-item__row
-        .thread-list-item-name
-          a.a-user-name(:href='event.user.url')
-            | {{ event.user.long_name }}
+        a.a-user-name(:href='event.user.url')
+          | {{ event.user.long_name }}
       .thread-list-item__row
         .thread-list-item-meta
           .thread-list-item-meta__items
@@ -29,23 +31,14 @@
                 span.a-meta__value
                   | {{ event.start_at_localized }}
             .thread-list-item-meta__item
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | 参加者
-                .thread-list-item-comment__count
-                  | （{{ event.participants_count }}名 / {{ event.capacity }}名）
+              .a-meta
+                | 参加者（{{ event.participants_count }}名 / {{ event.capacity }}名）
             .thread-list-item-meta__item(v-if='event.waitlist_count > 0')
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | 補欠者
-                .thread-list-item-comment__count
-                  | ({{ event.waitlist_count }}名)
+              .a-meta
+                | 補欠者（{{ event.waitlist_count }}名）
             .thread-list-item-meta__item(v-if='event.comments_count > 0')
-              .thread-list-item-comment
-                .thread-list-item-comment__label
-                  | コメント
-                .thread-list-item-comment__count
-                  | （{{ event.comments_count }}）
+              .a-meta
+                | コメント（{{ event.comments_count }}）
 </template>
 
 <script>

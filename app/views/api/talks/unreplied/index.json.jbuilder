@@ -1,7 +1,2 @@
-json.talks do
-  json.array! @talks do |talk|
-    json.partial! "api/talks/talk", talk: talk
-  end
-end
-
-json.totalPages @talks.total_pages
+json.partial! 'api/talks/talks', talks: @talks
+json.totalPages @talks.total_pages if @talks.respond_to? :total_pages

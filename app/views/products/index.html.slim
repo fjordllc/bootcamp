@@ -7,7 +7,6 @@ header.page-header
         = title
 
 - if current_user.admin? || current_user.mentor?
-  .page-tools
-    = render 'products/tabs'
+  = render 'products/tabs'
 
 #js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")

@@ -1,5 +1,5 @@
 .card-header
-  border-bottom: solid 1px $background
+  border-bottom: solid 1px $border-tint
   padding: .75rem 1.25rem
   display: flex
   align-items: center
@@ -8,6 +8,8 @@
     padding: .5rem .75rem
   &.is-sm
     +padding(vertical, .625rem)
+    .a-button.is-xs
+      +margin(vertical, -.25rem)
   &:first-child
     +border-radius(top, .25rem)
   & + .a-form-tabs

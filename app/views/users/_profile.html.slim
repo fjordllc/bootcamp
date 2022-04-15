@@ -6,20 +6,21 @@
       - if user.daimyo?
         | ★
       = user.login_name
-    h2.user-profile__full-name
-      | #{user.name}
-      span.user-profile__kana-full-name
-        | （#{user.name_kana}）
-    ul.users-item-names
-      li.users-item-names__item
-        .users-item-names__chat
-          .users-item-names__chat-label
-            i.fab.fa-discord
+    .thread-list-item-meta
+      .thread-list-item-meta__items
+        .thread-list-item-meta__item
+          .a-meta
+            | #{user.name}（#{user.name_kana}）
+        .thread-list-item-meta__item
           - if user.times_url?
-            = link_to user.times_url, class: 'users-item-names__chat-value' do
+            = link_to user.times_url, class: 'a-meta' do
+              .a-meta__icon
+                i.fab.fa-discord
               = user.discord_account.presence || 'Discord未設定'
           - else
-            span.users-item-names__chat-value
+            .a-meta
+              .a-meta__icon
+                i.fab.fa-discord
               = user.discord_account.presence || 'Discord未設定'
     = render 'users/sns', user: user
     - if admin_login?
@@ -27,8 +28,8 @@
         ul.form-actions__items
           li.form-actions__item.is-main
             = link_to user_reports_path(user, format: :md), class: 'a-button is-md is-primary is-block' do
-              i.fas.fa-cloud-download-alt
+              i.fa-solid.fa-cloud-download-alt
               | 日報一括ダウンロード
-  - if user.company.present? && user.company.logo.attached?
+  - if user.company.present?
     = link_to company_path(user.company) do
       = image_tag user.company.logo_url, class: 'user-profile__company-logo'

@@ -1,28 +1,22 @@
 .tab-nav
   border-bottom: solid 1px $background-shade
-  &:not(:last-child)
-    margin-bottom: 1.5rem
 
 .tab-nav__items
   display: flex
+  gap: .5rem
   +padding(vertical, .875rem)
+  gap: .5rem
   overflow-x: auto
   overflow-y: hidden
 
 .tab-nav__item
-  margin-right: .375rem
-  +media-breakpoint-down(sm)
-    +margin(horizontal, .25rem)
-  &:last-child
-    +media-breakpoint-up(md)
-      margin-right: 0
+  flex: 0 0 7rem
 
 .tab-nav__item-link
   +block-link
   +text-block(.75rem 2.3, $semi-muted-text center nowrap)
   background-color: $background-shade
   border-radius: 20rem
-  width: 7rem
   transition: all.2s ease-out
   &:hover
     background-color: shade($background-shade, 10%)

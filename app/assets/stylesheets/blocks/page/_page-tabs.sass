@@ -2,36 +2,24 @@
   background-color: $background-shade
   padding-top: .5rem
   border-top: solid 1px $border-shade
-  border-bottom: solid 1px $border-more-more-shade
+  border-bottom: solid 1px $border-more-shade
   .sort-nav + &
     border-top: solid 1px $border-more-more-shade
-  +media-breakpoint-down(sm)
-    >.container
-      +padding(horizontal, 0)
   .page-header + &
     border-top: solid 1px $border-more-shade
-  .page-tools &:last-child
-    border-bottom: none
-
 
 .page-tabs__items
   display: flex
-  +margin(horizontal, -.125rem)
+  gap: .25rem
   +top(1px)
-  +media-breakpoint-down(sm)
-    +margin(horizontal, 0)
-    +padding(horizontal, .5rem)
-    -webkit-overflow-scrolling: touch
-    overflow-x: auto
-    overflow-y: visible
+  -webkit-overflow-scrolling: touch
+  overflow-x: auto
+  overflow-y: visible
 
 .page-tabs__item
-  +padding(horizontal, .125rem)
   +media-breakpoint-up(md)
     min-width: 8.5rem
   +media-breakpoint-down(sm)
-    +padding(horizontal, 0)
-    +margin(horizontal, .125rem)
     min-width: 7rem
 
 .page-tabs__item-link
@@ -40,10 +28,10 @@
   align-items: center
   justify-content: center
   height: 2.75rem
-  background-color: #dedede
+  background-color: #dfdfe5
   +padding(horizontal, 1em)
   +border-radius(top, .25rem)
-  border: solid 1px $border-more-more-shade
+  border: solid 1px $border-more-shade
   +position(relative)
   transition: all .2s ease-out
   +media-breakpoint-down(sm)

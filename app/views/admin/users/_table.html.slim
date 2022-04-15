@@ -69,7 +69,7 @@
               = link_to user.customer_url,
                 class: 'a-button is-sm is-success is-icon',
                 target: '_blank', rel: 'noopener' do
-                i.fas.fa-credit-card
+                i.fa-solid.fa-credit-card
             - else
               | -
           td.admin-table__item-value.is-text-align-center
@@ -79,7 +79,7 @@
                 target: '_blank',
                 rel: 'noopener',
                 data: { 'subscription-id': user.subscription_id } do
-                i.fas.fa-spinner.fa-pulse
+                i.fa-solid.fa-spinner.fa-pulse
             - else
               | -
           td.admin-table__item-value.is-text-align-center
@@ -91,21 +91,21 @@
           td.admin-table__item-value.is-text-align-center
             - if user.github_collaborator?
               = link_to 'https://github.com/orgs/fjordllc/people', class: 'a-button is-sm is-warning is-icon', target: '_blank', rel: 'noopener' do
-                i.fab.fa-github-alt
+                i.fa-brands.fa-github-alt
             - else
               .a-button.is-sm.is-disabled.is-icon
-                i.fab.fa-github-alt
+                i.fa-brands.fa-github-alt
             - if user.retired_on? && user.github_collaborator?
               .admin-table__item-block-link-container
                 = link_to edit_admin_user_path(user, anchor: 'external-services') do
                   | 外部サービス設定変更
           td.admin-table__item-value.is-text-align-center
             = link_to edit_admin_user_path(user), id: "edit-#{user.id}", class: 'a-button is-sm is-secondary is-icon' do
-              i.fas.fa-pen
+              i.fa-solid.fa-pen
           td.admin-table__item-value.is-text-align-center
             - if user.id != current_user.id
               = link_to admin_user_path(user), method: :delete, id: "delete-#{user.id}", class: 'a-button is-sm is-danger is-icon', data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
-                i.fas.fa-trash-alt
+                i.fa-solid.fa-trash-alt
 
 .a-card
   header.card-header

@@ -1,23 +1,19 @@
 .form-item__radio-buttons
   margin-top: .5rem
   &.is-half
-    margin-bottom: -.5rem
     display: flex
     flex-wrap: wrap
-    +margin(horizontal, -.5rem)
+    gap: 1rem
   &.is-inline
-    margin-bottom: -.5rem
     display: flex
     flex-wrap: wrap
-    +margin(horizontal, -.5rem)
 
 .form-radio-button
   .form-item__radio-buttons.is-half &
     flex: 0 0 50%
     max-width: 50%
-    +padding(horizontal, .5rem)
     +media-breakpoint-down(sm)
-      flex: 100%
+      flex: 0 0 100%
       max-width: 100%
   .form-item__radio-buttons.is-inline &
     +padding(horizontal, .5rem)

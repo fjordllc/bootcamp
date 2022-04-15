@@ -3,16 +3,20 @@
   header.card-header.is-sm
     h2.card-header__title
       | 学習時間
+    .card-header__action(
+      v-if='currentUser.primary_role === "graduate" && isDashboard'
+    )
+      | <button @click='hideGrass' class='a-button is-xs is-muted-borderd'>非表示</button>
   .user-grass
     .user-grass-nav
       .user-grass-nav__previous(@click='onPrevYearMonth')
-        i.fas.fa-angle-left
+        i.fa-solid.fa-angle-left
       .user-grass-nav__year--month {{ prevYearMonth && prevYearMonth.format(clientFormat) }} 〜 {{ currentYearMonth && currentYearMonth.format(clientFormat) }}
       .user-grass-nav__next(
         v-if='!isLatestYearMonth(currentYearMonth)',
         @click='onNextYearMonth'
       )
-        i.fas.fa-angle-right
+        i.fa-solid.fa-angle-right
       .user-grass-nav__next.is-blank(v-else)
     canvas#grass.a-grass(width='650px', height='130px')
 </template>
@@ -22,6 +26,7 @@ import dayjs from 'dayjs'
 
 export default {
   props: {
+    currentUser: { type: Object, required: true },
     userId: { type: String, required: true }
   },
   data() {
@@ -32,12 +37,20 @@ export default {
       currentYearMonth: null
     }
   },
+  computed: {
+    isDashboard() {
+      return location.pathname === '/'
+    }
+  },
   mounted() {
     this.prevYearMonth = this.getPrevYearMonth()
     this.currentYearMonth = this.getCurrentYearMonth()
     this.canvas = document.getElementById('grass')
 
     this.load(dayjs().format(this.serverFormat))
+  },
+  beforeDestroy() {
+    document.cookie = `user_grass=${JSON.stringify(this.userId)}`
   },
   methods: {
     getPrevYearMonth(yearMonth) {
@@ -138,6 +151,10 @@ export default {
       }
       ctx.strokeText('0 h', sampleStartX - 23, sampleStartY + 8.5)
       ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
+    },
+    hideGrass() {
+      this.$destroy()
+      this.$el.remove()
     }
   }
 }

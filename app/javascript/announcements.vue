@@ -5,7 +5,7 @@
   .container(v-else-if='announcements.length === 0')
     .o-empty-message
       .o-empty-message__icon
-        i.far.fa-smile
+        i.fa-regular.fa-smile
       p.o-empty-message__text
         | {{ title }}はありません
   .container.is-md(v-else)

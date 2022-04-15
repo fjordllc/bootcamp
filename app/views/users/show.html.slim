@@ -13,14 +13,13 @@ header.page-header
           - if current_user == @user
             li.page-header-actions__item
               = link_to edit_current_user_path, class: 'a-button is-md is-secondary is-block' do
-                i.fas.fa-pen
+                i.fa-solid.fa-pen
                 | 登録情報変更
           li.page-header-actions__item
             = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
               | ユーザー一覧
 
-.page-tools
-  = render 'users/page_tabs', user: @user
+= render 'users/page_tabs', user: @user
 
 .page-body
   - if current_user == @user
@@ -71,7 +70,7 @@ header.page-header
                   - elsif current_user != @user && current_user.adviser? && current_user.company_id == @user.company_id && @user.trainee
                     li.card-main-actions__item
                       .a-button.is-disabled.is-md.is-block
-                        i.fas.fa-check
+                        i.fa-solid.fa-check
                         span
                           | 自社研修生
                   - else

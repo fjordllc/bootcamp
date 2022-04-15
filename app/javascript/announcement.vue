@@ -15,29 +15,26 @@
           .thread-list-item-title__icon.is-wip(v-if='announcement.wip')
             | WIP
           h2.thread-list-item-title__title
-            a.thread-list-item-title__link(:href='announcement.url')
+            a.thread-list-item-title__link.a-text-link(
+              :href='announcement.url'
+            )
               | {{ announcement.title }}
       .thread-list-item__row
-        .thread-list-item-name
-          a.a-user-name(:href='announcement.user.url')
-            | {{ announcement.user.long_name }}
+        a.a-user-name(:href='announcement.user.url')
+          | {{ announcement.user.long_name }}
       .thread-list-item__row
         .thread-list-item-meta__items
           .thread-list-item-meta__item
-            .thread-list-item-meta(v-if='announcement.wip')
-              .a-meta
-                | {{ title }}作成中
-            .thread-list-item-meta(v-else)
-              time.a-meta(datetime='announcement.published_at_date_time')
-                span.span.a-meta__label
-                  | 公開
+            .a-meta(v-if='announcement.wip')
+              | {{ title }}作成中
+            time.a-meta(datetime='announcement.published_at_date_time')(v-else)
+              span.a-meta__label
+                | 公開
+              span.a-meta__value
                 | {{ announcement.published_at }}
           .thread-list-item-meta__item
-            .thread-list-item-comment
-              .thread-list-item-comment__label
-                | コメント
-              .thread-list-item-comment__count
-                | （{{ announcement.commentsSize }}）
+            .a-meta
+              | コメント（{{ announcement.commentsSize }}）
 </template>
 <script>
 export default {

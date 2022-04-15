@@ -33,8 +33,8 @@
               #js-watch-toggle(data-watchable-id="#{@announcement.id}", data-watchable-type='Announcement')
           .thread-header-actions__end
             .thread-header-actions__action
-              = link_to new_announcement_path(id: announcement), class: 'a-button is-sm is-secondary is-block' do
-                i.fas.fa-copy#copy
+              = link_to new_announcement_path(id: announcement), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
+                i.fa-solid.fa-copy
                 | コピー
 
     .thread__body
@@ -51,7 +51,7 @@
             - else
               li.card-main-actions__item
                 = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
-                  i.fas.fa-pen#new
+                  i.fa-solid.fa-pen#new
                   | 内容修正
             - if admin_or_mentor_login? || @announcement.user_id == current_user.id
               li.card-main-actions__item.is-sub

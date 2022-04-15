@@ -13,7 +13,7 @@ header.page-header
           - if current_user.admin_or_mentor?
             li.page-header-actions__item.is-only-mentor
               = link_to new_practice_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
-                i.fas.fa-plus
+                i.fa-regular.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
             = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
@@ -27,8 +27,7 @@ header.page-header
           - @categories.each do |category|
             - if category.practices.present?
               .categories-item.practices
-                a.categories-item__anchor(id="category-#{category.id}")
-                header.categories-item__header
+                header.categories-item__header(id="category-#{category.id}")
                   h2.categories-item__title
                     = category.name
                 .categories-item__description

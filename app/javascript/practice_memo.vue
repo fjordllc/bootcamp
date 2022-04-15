@@ -8,7 +8,7 @@
         .container
           .o-empty-message
             .o-empty-message__icon
-              i.far.fa-sad-tear
+              i.fa-regular.fa-sad-tear
             .o-empty-message__text
               | プラクティスメモはまだありません。
     footer.card-footer
@@ -18,7 +18,7 @@
             button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
               @click='editMemo'
             )
-              i.fas.fa-pen
+              i.fa-solid.fa-pen
               | 編集
   div(v-show='editing')
     .form-tabs.js-tabs

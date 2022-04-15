@@ -248,4 +248,21 @@ class PracticesTest < ApplicationSystemTestCase
     find(:css, '#checkbox-mentor-mode').set(false)
     assert_no_text '管理者・メンター用メニュー'
   end
+
+  test 'add all questions to questions tab on practices page and display all questions default' do
+    practice = practices(:practice1)
+    visit_with_auth "/practices/#{practice.id}/questions", 'komagata'
+    assert_text '質問 （11）'
+    assert_text '全ての質問'
+    assert_text '解決済み'
+    assert_text '未解決'
+    assert_equal practice.questions.length, 11
+  end
+
+  test 'show common description on each page' do
+    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
+    assert_text '困った時は'
+    visit "/practices/#{practices(:practice2).id}"
+    assert_text '困った時は'
+  end
 end

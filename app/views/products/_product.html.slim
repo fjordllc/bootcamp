@@ -9,7 +9,7 @@
             - if product.wip?
               .thread-list-item-title__icon.is-wip WIP
             h2.thread-list-item-title__title(itemprop='name')
-              = link_to product, itemprop: 'url', class: 'thread-list-item-title__link js-unconfirmed-link' do
+              = link_to product, itemprop: 'url', class: 'thread-list-item-title__link a-text-link js-unconfirmed-link' do
                 - if product.user.daimyo?
                   | ★
                 | #{product.practice.title}の提出物
@@ -27,37 +27,39 @@
                 time.a-meta(datetime="#{product.published_at.to_datetime}")
                   span.a-meta__label
                     | 提出日
-                  = l product.published_at
+                  span.a-meta__value
+                    = l product.published_at
               - else
                 time.a-meta(datetime="#{product.created_at.to_datetime}")
                   span.a-meta__label
                     | 提出日
-                  = l product.created_at
+                  span.a-meta__value
+                    = l product.created_at
 
             - if product.updated_at.present?
               .thread-list-item-meta__item
                 time.a-meta(datetime="#{product.updated_at.to_datetime}")
                   span.a-meta__label
                     | 更新
-                  = l product.updated_at
+                  span.a-meta__value
+                    = l product.updated_at
       - if product.comments.any?
         .thread-list-item__row
           .thread-list-item-meta
             .thread-list-item-meta__items
               .thread-list-item-meta__item
-                .thread-list-item-comment
-                  .thread-list-item-comment__label
-                    | コメント
-                  .thread-list-item-comment__count
-                    | （#{product.comments.size}）
-                  .thread-list-item-comment__user-icons
-                    = render partial: 'users/icon',
-                      collection: product.commented_users.distinct,
-                      locals: { link_class: 'thread-list-item-comment__user-icon', image_class: 'a-user-icon' },
-                      as: :user,
-                      cached: true
-                  time.a-meta(datetime="#{product.commented_users.last.created_at.to_datetime}")
-                    | 〜 #{l product.comments.last.created_at, format: :date_and_time}
+                .a-meta
+                  | コメント（#{product.comments.size}）
+              .thread-list-item-meta__item
+                .thread-list-item-comment__user-icons
+                  = render partial: 'users/icon',
+                    collection: product.commented_users.distinct,
+                    locals: { link_class: 'thread-list-item-comment__user-icon', image_class: 'a-user-icon' },
+                    as: :user,
+                    cached: true
+              .thread-list-item-meta__item
+                time.a-meta(datetime="#{product.commented_users.last.created_at.to_datetime}")
+                  | 〜 #{l product.comments.last.created_at, format: :date_and_time}
       - if !current_user.adviser? && product.practice.open_product?
         .thread-list-item__row
           .thread-list-item-meta
