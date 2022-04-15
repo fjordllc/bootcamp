@@ -1,11 +1,11 @@
 .category-practices-item
   padding: .75rem 1rem
-  border-bottom: solid 1px $background
+  border-bottom: solid 1px $border
   +position(relative)
   &:last-child
     border-bottom: none
-  &:nth-child(odd)
-    background-color: #fafafa
+  &:nth-child(even)
+    background-color: $background-more-tint
   +media-breakpoint-down(sm)
     flex-wrap: wrap
     padding: .5rem .75rem .75rem
