@@ -71,7 +71,7 @@ class ReportsTest < ApplicationSystemTestCase
     report = reports(:report10)
     visit_with_auth "/reports/#{report.id}", 'hajime'
     click_link '内容修正'
-    first('.select2-selection__choice__remove').click
+    first('.choices__button').click
 
     click_button '内容変更'
     assert_no_text 'Terminalの基礎を覚える'
@@ -130,24 +130,24 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'equal practices order in practices and new report' do
     visit_with_auth '/reports/new', 'komagata'
-    first('.select2-selection--multiple').click
-    report_practices = page.all('.select2-results__option').map(&:text)
+    first('.choices__inner').click
+    report_practices = page.all('.choices__item--choice').map(&:text)
     current_user = users(:komagata)
     category_ids = current_user.course.category_ids
     assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).count
-    assert_match(/OS X Mountain Lionをクリーンインストールする$/, first('.select2-results__option').text)
-    assert_match(/sslの基礎を理解する$/, all('.select2-results__option').last.text)
+    assert_match(/OS X Mountain Lionをクリーンインストールする/, first('.choices__item--choice').text)
+    assert_match(/sslの基礎を理解する/, all('.choices__item--choice').last.text)
   end
 
   test 'equal practices order in practices and edit report' do
     visit_with_auth "/reports/#{reports(:report1).id}/edit", 'komagata'
-    first('.select2-selection--multiple').click
-    report_practices = page.all('.select2-results__option').map(&:text)
+    first('.choices__inner').click
+    report_practices = page.all('.choices__item--choice').map(&:text)
     current_user = users(:komagata)
     category_ids = current_user.course.category_ids
     assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).count
-    assert_match(/OS X Mountain Lionをクリーンインストールする$/, first('.select2-results__option').text)
-    assert_match(/sslの基礎を理解する$/, all('.select2-results__option').last.text)
+    assert_match(/OS X Mountain Lionをクリーンインストールする/, first('.choices__item--choice').text)
+    assert_match(/sslの基礎を理解する/, all('.choices__item--choice').last.text)
   end
 
   test 'issue #360 duplicate' do
