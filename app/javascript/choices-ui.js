@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  const elementMultipleSelect = document.getElementById('js-choices-multiple-select')
+  const elementMultipleSelect = document.getElementById(
+    'js-choices-multiple-select'
+  )
   if (elementMultipleSelect) {
     return new Choices(elementMultipleSelect, {
       removeItemButton: true,
