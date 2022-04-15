@@ -36,4 +36,29 @@ class CommentTest < ActiveSupport::TestCase
       sender: kimura
     )
   end
+
+  test 'notify when comment on product' do
+    # watchable = products(:product8)
+    # watcher = users(:mentormentaro)
+    # comment = comments(:comment40)
+
+    comment =
+      Comment.create!(
+        user: users(:mentormentaro),
+        commentable: products(:product8),
+        description: '提出物のコメントcreate'
+      )
+    assert users(:kimura).notifications.exists?(
+      kind: 'watching',
+      sender: users(:mentormentaro),
+      message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
+    )
+    comment.update!(description: '提出物のコメントupdate')
+
+    assert_not users(:kimura).notifications.exists?(
+      kind: 'watching',
+      sender: users(:mentormentaro)
+    )
+    # assert NotificationFacade.watching_notification(watchable, watcher, comment)
+  end
 end
