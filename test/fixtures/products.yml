@@ -393,10 +393,7 @@ product66:
   published_at: nil
 
 product67:
-  practice: practice11
-  user: kimura
-  body: 長い名前のメンターIDのテスト用です。
-  created_at: <%= 1.day.ago %>
-  updated_at: <%= 1.day.ago %>
-  published_at: <%= 1.day.ago %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:komagata) %>"
+  practice: practice45
+  user: with_hyphen
+  body: テストの提出物67です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:long-id-mentor) %>"

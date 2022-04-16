@@ -292,3 +292,11 @@ report<%= i %>:
     頑張れませんでした
   reported_on: <%= Time.now - 1.year + i.day %>
 <% end %>
+
+report71:
+  user: hajime
+  title: "名前の長いメンター用"
+  description:
+    "名前の長いメンター用"
+  reported_on: "2022-04-16"
+  created_at: "2017-04-16 00:00:00"
