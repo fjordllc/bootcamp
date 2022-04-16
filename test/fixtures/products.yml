@@ -393,7 +393,7 @@ product66:
   published_at: nil
 
 product67:
-  practice: practice45
+  practice: practice2
   user: with_hyphen
   body: テストの提出物67です。
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:long-id-mentor) %>"
