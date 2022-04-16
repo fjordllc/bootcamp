@@ -123,7 +123,7 @@ comment<%= i + 19 %>:
 <% end %>
 
 comment21:
-  user: long-id-mentor
+  user: longidmentor
   commentable: product67 (Product)
   description: "長い名前のメンターのコメント"
 
