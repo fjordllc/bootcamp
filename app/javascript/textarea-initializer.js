@@ -10,6 +10,7 @@ import MarkdownOption from './markdown-it-option'
 import UserIconRenderer from './user-icon-renderer'
 import autosize from 'autosize'
 import MarkDownItContainerMessage from './markdown-it-container-message'
+import MarkDownItContainerDetails from './markdown-it-container-details'
 
 export default class {
   static initialize(selector) {
@@ -70,7 +71,8 @@ export default class {
           MarkdownItMention,
           MarkdownItUserIcon,
           MarkdownItTaskLists,
-          MarkDownItContainerMessage
+          MarkDownItContainerMessage,
+          MarkDownItContainerDetails
         ],
         markdownOptions: MarkdownOption
       })
