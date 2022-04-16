@@ -122,6 +122,16 @@ comment<%= i + 19 %>:
   updated_at: <%= Time.current + i.minute %>
 <% end %>
 
+comment21:
+  user: long-id-mentor
+  commentable: product67 (Product)
+  description: "長い名前のメンターのコメント"
+
+comment22:
+  user: long-id-mentor
+  commentable: report1 (Report)
+  description: "長い名前のメンターのコメント"
+
 commentOfTalk:
   user: komagata
   commentable: talk1 (Talk)
