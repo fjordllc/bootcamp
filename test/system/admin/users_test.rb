@@ -226,4 +226,11 @@ class Admin::UsersTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_equal 'iOSプログラマー', user.reload.course.title
   end
+
+  test 'general user cannot change user course' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'kimura'
+    assert_current_path('/')
+    assert_text '管理者としてログインしてください'
+  end
 end
