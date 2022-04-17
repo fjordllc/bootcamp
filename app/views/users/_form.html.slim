@@ -52,6 +52,7 @@
   - if admin_login?
     .form__items
       h3.form__items-title 以下管理者のみ操作ができます
+      = render 'users/form/course', f: f
       = render 'users/form/job_seeking', f: f
       = render 'users/form/company', f: f
       = render 'users/form/retire', f: f
