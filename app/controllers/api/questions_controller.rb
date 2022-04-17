@@ -11,7 +11,7 @@ class API::QuestionsController < API::BaseController
       elsif params[:all].present?
         Question.all
       else
-        Question.not_solved
+        Question.not_solved.not_wip
       end
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     questions = params[:user_id].present? ? Question.where(user_id: params[:user_id]) : questions
