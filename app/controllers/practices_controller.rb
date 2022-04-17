@@ -11,6 +11,7 @@ class PracticesController < ApplicationController
     @categories = @practice.categories
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @common_page = Page.find_by(slug: 'practice_common_description')
+    @common_page = nil if @common_page&.wip?
   end
 
   def new
