@@ -252,7 +252,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    visit_with_auth questions_path, 'komagata'
+    visit_with_auth questions_path(all: 'true'), 'komagata'
     click_link 'WIPタイトル'
     assert_text '削除する'
     assert_no_text 'Watch中'
@@ -267,7 +267,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    visit questions_path
+    visit questions_path(all: 'true')
     click_link 'WIPタイトル'
     assert_text '削除する'
     click_button '内容修正'
