@@ -339,13 +339,19 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
   end
 
-  test 'show a WIP question on the Q&A list page' do
-    visit_with_auth questions_path, 'kimura'
+  test 'show a WIP question on the All Q&A list page' do
+    visit_with_auth questions_path(all: 'true'), 'kimura'
     assert_text 'wipテスト用の質問(wip中)'
     element = all('.thread-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
     within element do
       assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
     end
+  end
+
+  test 'not show a WIP question on the unsolved Q&A list page' do
+    visit_with_auth questions_path, 'kimura'
+    assert_no_text 'wipテスト用の質問(wip中)'
+    assert_text '未解決の質問一覧'
   end
 
   test "visit user profile page when clicked on user's name on question" do
