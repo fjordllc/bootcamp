@@ -5,11 +5,5 @@ class Companies::ProductsController < ApplicationController
 
   def index
     @company = Company.find(params[:company_id])
-    @products = Product
-                .includes(:user)
-                .where(users: { company: @company })
-                .list
-                .order_for_list
-                .page(params[:page])
   end
 end
