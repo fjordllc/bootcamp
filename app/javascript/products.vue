@@ -27,7 +27,7 @@
         )
           h2 今日提出
           .countproductsgroupedby(v-if='selectedTab === "unassigned"')
-            | {{ countProductsGroupedBy(product_n_days_passed) }}）
+            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
         header.card-header.a-elapsed-days.is-reply-warning(
           v-else-if='product_n_days_passed.elapsed_days === 5'
         )
