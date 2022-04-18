@@ -257,11 +257,11 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'mentorkimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'mentor'
-    assert_text 'さんの相談部屋', count: 2
+    assert_text 'さんの相談部屋', count: 3
 
     visit '/talks?target=mentor'
     fill_in 'js-talk-search-input', with: 'mentor'
-    assert_text 'さんの相談部屋', count: 1 # users(:mentormentaro)
+    assert_text 'さんの相談部屋', count: 2 # users(:mentormentaro) users(:'long-id-mentor')
   end
 
   test 'incremental search for graduated' do
