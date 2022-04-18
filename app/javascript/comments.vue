@@ -17,6 +17,7 @@
     @update='updateComment'
   )
   .thread-comment-form
+    #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
       img.thread-comment__user-icon.a-user-icon(
         :src='currentUser.avatar_url',
