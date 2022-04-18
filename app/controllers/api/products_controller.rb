@@ -4,7 +4,7 @@ class API::ProductsController < API::BaseController
   before_action :require_login_for_api, only: :index
 
   def index
-    @company = Company.find(params[:company_id])
+    @company = Company.find(params[:company_id]) if params[:company_id]
     @products = Product
                 .list
                 .ascending_by_date_of_publishing_and_id
