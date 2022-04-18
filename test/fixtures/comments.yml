@@ -113,6 +113,16 @@ comment19:
   commentable: report7 (Report)
   description: "@kimura 2つ目のメンションありの未読通知を発生させる"
 
+comment21:
+  user: long-id-mentor
+  commentable: product67 (Product)
+  description: "長い名前のメンターのコメント"
+
+comment22:
+  user: long-id-mentor
+  commentable: report71 (Report)
+  description: "長い名前のメンターのコメント"
+
 <% (1..20).each do |i| %>
 comment<%= i + 19 %>:
   user: komagata
@@ -121,16 +131,6 @@ comment<%= i + 19 %>:
   created_at: <%= Time.current + i.minute %>
   updated_at: <%= Time.current + i.minute %>
 <% end %>
-
-comment21:
-  user: longidmentor
-  commentable: product67 (Product)
-  description: "長い名前のメンターのコメント"
-
-comment22:
-  user: long-id-mentor
-  commentable: report71 (Report)
-  description: "長い名前のメンターのコメント"
 
 commentOfTalk:
   user: komagata
