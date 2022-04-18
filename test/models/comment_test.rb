@@ -37,7 +37,7 @@ class CommentTest < ActiveSupport::TestCase
     )
   end
 
-  test 'notify only commented when comment on product' do
+  test 'not notify watch mentor product of submitted when comment on product' do
     Comment.create!(
       user: users(:mentormentaro),
       commentable: products(:product8),
@@ -55,7 +55,7 @@ class CommentTest < ActiveSupport::TestCase
     )
   end
 
-  test 'not notify when update comment on product' do
+  test 'watch mentor not notify submitted when comment on product' do
     comment = comments(:comment14)
     # 数が変わっていない(通知は来ないことをテスト)
     assert_difference -> { users(:sotugyou).notifications.where(kind: 'watching', sender: users(:mentormentaro)).count }, 0 do
