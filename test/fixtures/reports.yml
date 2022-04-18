@@ -294,7 +294,7 @@ report<%= i %>:
 <% end %>
 
 report71:
-  user: hajime
+  user: kimuramitai
   title: "名前の長いメンター用"
   description:
     "名前の長いメンター用"
