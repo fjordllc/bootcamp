@@ -135,7 +135,7 @@ class SignUpTest < ApplicationSystemTestCase
   end
 
   test 'sign up as trainee' do
-    visit '/users/new?role=trainee&company_id=#{companies(:company_2).id}'
+    visit '/users/new?role=trainee'
 
     email = 'natsumi@example.com'
 
