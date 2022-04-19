@@ -7,11 +7,19 @@ export default (md) => {
       const  detailsTitle = detailsInfo ? `${detailsInfo[1]}` : ''
       if (tokens[idx].nesting === 1) {
         // opening tag
-        return '<details><summary>' + detailsTitle + '</summary>\n'
+        return '<details><summary>' + escapeHTML(detailsTitle) + '</summary>\n'
       } else {
         // closing tag
         return '</details>\n'
       }
     }
   })
+}
+
+function escapeHTML(string){
+  return string.replace(/&/g, '&lt;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, "&#x27;");
 }
