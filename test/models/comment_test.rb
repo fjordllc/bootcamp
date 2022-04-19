@@ -37,7 +37,7 @@ class CommentTest < ActiveSupport::TestCase
     )
   end
 
-  test 'not notify watch mentor product of submitted when comment on product' do
+  test 'not notify mentor watching product of submitted when comment on product' do
     Comment.create!(
       user: users(:mentormentaro),
       commentable: products(:product8),
