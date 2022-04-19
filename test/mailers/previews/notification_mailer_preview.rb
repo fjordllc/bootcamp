@@ -23,10 +23,10 @@ class NotificationMailerPreview < ActionMailer::Preview
 
   def mentioned
     report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
-    comment = report.comments.first
+    mentionable = Comment.find(ActiveRecord::FixtureSet.identify(:comment9))
     receiver = report.user
 
-    NotificationMailer.with(comment: comment, receiver: receiver).mentioned
+    NotificationMailer.with(mentionable: mentionable, receiver: receiver).mentioned
   end
 
   def submitted
@@ -110,7 +110,7 @@ class NotificationMailerPreview < ActionMailer::Preview
 
   def moved_up_event_waiting_user
     event = Event.find(ActiveRecord::FixtureSet.identify(:event3))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hajime))
 
     NotificationMailer.with(
       event: event,
