@@ -150,6 +150,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      select 'テスト企業', from: 'user[company_id]', visible: :all
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
       check '利用規約に同意', allow_label_click: true
     end
