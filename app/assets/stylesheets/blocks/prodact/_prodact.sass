@@ -1,0 +1,19 @@
+.prodact
+  .a-watch-button.is-inactive,
+  .a-bookmark-button.is-inactive
+    color: $semi-muted-text
+    background-color: $background-shade
+
+  +position(relative)
+  +margin(horizontal, auto)
+  +media-breakpoint-up(md)
+    width: $thread-max-width
+    max-width: 100%
+    padding-left: 5rem
+    margin-bottom: 2rem
+  +media-breakpoint-down(sm)
+    margin-top: 1.5rem
+    margin-bottom: 1rem
+
+.prodact__inner
+  +position(relative)
