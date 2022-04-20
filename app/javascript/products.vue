@@ -25,31 +25,36 @@
         header.card-header.a-elapsed-days(
           v-if='product_n_days_passed.elapsed_days === 0'
         )
-          h2 今日提出
-          .countproductsgroupedby(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          h2.card-header__title
+            | 今日提出
+            span.card-header__count(v-if='selectedTab === "unassigned"')
+              | （{{ countProductsGroupedBy(product_n_days_passed) }}）
         header.card-header.a-elapsed-days.is-reply-warning(
           v-else-if='product_n_days_passed.elapsed_days === 5'
         )
-          h2 {{ product_n_days_passed.elapsed_days }}日経過
-          .countproductsgroupedby(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          h2.card-header__title
+            | {{ product_n_days_passed.elapsed_days }}日経過
+            span.card-header__count(v-if='selectedTab === "unassigned"')
+              | （{{ countProductsGroupedBy(product_n_days_passed) }}）
         header.card-header.a-elapsed-days.is-reply-alert(
           v-else-if='product_n_days_passed.elapsed_days === 6'
         )
-          h2 {{ product_n_days_passed.elapsed_days }}日経過
-          .countproductsgroupedby(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          h2.card-header__title
+            | {{ product_n_days_passed.elapsed_days }}日経過
+            span.card-header__count(v-if='selectedTab === "unassigned"')
+              | （{{ countProductsGroupedBy(product_n_days_passed) }}）
         header.card-header.a-elapsed-days.is-reply-deadline(
           v-else-if='product_n_days_passed.elapsed_days === 7'
         )
-          h2 {{ product_n_days_passed.elapsed_days }}日以上経過
-          .countproductsgroupedby(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          h2.card-header__title
+            | {{ product_n_days_passed.elapsed_days }}日以上経過
+            span.card-header__count(v-if='selectedTab === "unassigned"')
+              | （{{ countProductsGroupedBy(product_n_days_passed) }}）
         header.card-header.a-elapsed-days(v-else)
-          h2 {{ product_n_days_passed.elapsed_days }}日経過
-          .countproductsgroupedby(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          h2.card-header__title
+            | {{ product_n_days_passed.elapsed_days }}日経過
+            span.card-header__count(v-if='selectedTab === "unassigned"')
+              | （{{ countProductsGroupedBy(product_n_days_passed) }}）
         .thread-list__items
           product(
             v-for='product in product_n_days_passed.products',
