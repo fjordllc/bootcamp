@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Following from './following.vue'
+import Following from 'following.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const followings = document.querySelectorAll('.js-following')

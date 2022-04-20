@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import UserIcon from './user-icon'
+import UserIcon from 'user-icon'
 
 export default {
   components: {

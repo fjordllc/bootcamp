@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import PracticeMemo from './practice_memo.vue'
+import PracticeMemo from 'practice_memo.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-practice-memo'

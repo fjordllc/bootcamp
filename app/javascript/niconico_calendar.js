@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import NiconicoCalendar from './niconico_calendar'
+import NiconicoCalendar from 'niconico_calendar'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-niconico_calendar'

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import WorriedUsers from './worried-users.vue'
+import WorriedUsers from 'worried-users.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-worried-users'

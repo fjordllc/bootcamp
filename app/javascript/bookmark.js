@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import BookmarkButton from './bookmark-button.vue'
+import BookmarkButton from 'bookmark-button.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-bookmark'

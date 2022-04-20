@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import Searchable from './searchable.vue'
-import Pager from './pager.vue'
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
+import Searchable from 'searchable.vue'
+import Pager from 'pager.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 export default {
   components: {
     searchable: Searchable,

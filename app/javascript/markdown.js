@@ -1,4 +1,4 @@
-import MarkdownInitializer from './markdown-initializer'
+import MarkdownInitializer from 'markdown-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '.js-markdown-view'

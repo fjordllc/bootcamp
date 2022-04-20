@@ -71,13 +71,13 @@
                 | 確認OKにする
 </template>
 <script>
-import Comment from './comment.vue'
-import TextareaInitializer from './textarea-initializer'
-import CommentPlaceholder from './comment-placeholder'
-import confirmUnload from './confirm-unload'
-import toast from './toast'
-import role from './role'
-import checkable from './checkable.js'
+import Comment from 'comment.vue'
+import TextareaInitializer from 'textarea-initializer'
+import CommentPlaceholder from 'comment-placeholder'
+import confirmUnload from 'confirm-unload'
+import toast from 'toast'
+import role from 'role'
+import checkable from 'checkable.js'
 
 export default {
   components: {

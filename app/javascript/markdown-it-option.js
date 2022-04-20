@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import Prism from 'prismjs'
-import './prism-languages'
+import 'prism-languages'
 
 export default {
   html: true,
