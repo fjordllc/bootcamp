@@ -1,11 +1,52 @@
 body
   .choices__inner
-    display: inline-flex
-    align-items: center
-    +padding(vertical, 0)
     background-color: #fafafa
     border-color: $input-border
-  .choices.is-focused .choices__inner
-    background-color: $base
-  .choices[data-type*=select-one] .choices__inner
-    padding-bottom: 0
+    padding: .25rem
+    border-radius: 4px
+    .choices.is-focused &
+      background-color: $base
+    .choices[data-type*=select-one] &
+      +padding(vertical, 0)
+      display: flex
+
+  .choices__list--single
+    padding: .25rem 2.5rem .25rem .5rem
+    display: flex
+    align-items: center
+    .choices__item
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
+
+  .choices__list--multiple
+    .choices__item,
+    .choices__item[data-deletable]
+      display: inline-flex
+      white-space: nowrap
+      align-items: center
+      border-color: $main
+      color: $main-text
+      background-color: $main-shade
+      border-radius: 4px
+      height: 1.75rem
+      padding: 0 0 0 .5rem
+      margin: .125rem
+      &.is-highlighted
+        border-color: $main
+        color: $main-text
+        background-color: $main-shade
+
+  .choices__button
+    .choices[data-type*=select-multiple] &,
+    .choices[data-type*=text] &
+      border-left-color: $main
+      color: $main-text
+      height: 100%
+      background-image: $choices-icon-cross
+      margin: 0 0 0 .5rem
+      width: 1.75rem
+      transition: all .2s ease-out
+      &:hover
+        background-color: $main
+        background-image: $choices-icon-cross-inverse
