@@ -26,14 +26,18 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @report = Report.new(reported_on: Date.current)
+    year, month, day = params[:reported_on].scan(/\d+/).map(&:to_i) if params[:reported_on]
+    @report = if Date.valid_date?(year, month, day)
+                Report.new(reported_on: params[:reported_on].to_date)
+              else
+                Report.new(reported_on: Date.current)
+              end
     @report.learning_times.build
 
     return unless params[:id]
 
     report              = current_user.reports.find(params[:id])
     @report.title       = report.title
-    @report.reported_on = Date.current
     @report.emotion = report.emotion
     @report.description = "<!-- #{report.reported_on} の日報をコピー -->\n" + report.description
     @report.practices   = report.practices
