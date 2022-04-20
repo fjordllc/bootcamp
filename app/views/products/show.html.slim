@@ -42,77 +42,94 @@ header.page-header
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
-        .thread
-          .thread__inner.a-card
-            header.thread-header
-              #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
-              .thread-header__row
-                .thread-header-metas
-                  .thread-header-metas__start
-                    .thread-header-metas__meta
+
+        .prodact
+          .prodact__inner
+            #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
+            header.prodact-header
+              .prodact-header__start
+                = render 'users/icon', user: @product.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
+              .prodact-header__end
+                .thread-header__row
+                  h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
+                    span.thread-header-title__title
+                      - if @product.user.daimyo?
+                        | ★
                       = link_to @product.user, class: 'a-user-name' do
                         = @product.user.long_name
-                  .thread-header-metas__end
-                    .thread-header-metas__meta
-                      - length = @product.comments.length
-                      a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                        | コメント（
-                        span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                          = length
-                        | ）
-              .thread-header__row
-                h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
-                  - if @product.wip?
-                    span.thread-header-title__label
-                      | WIP
-                  span.thread-header-title__title
-                    - if @product.user.daimyo?
-                      | ★
-                    | #{link_to @product.practice.title, @product.practice, class: 'thread-header-title__link'}の提出物
-              .thread-header__row
-                .thread-header-metas
-                  .thread-header-metas__start
-                    .thread-header-metas__meta
-                      .a-meta
-                        - if @product.wip?
-                          .a-meta__value
-                            | 提出物作成中
-                        - elsif @product.published_at.present?
-                          span.a-meta__label
-                            | 提出日
-                          time.a-meta__value(datetime="#{@product.published_at.to_datetime}")
-                            = l @product.published_at
-                        - else
-                          span.a-meta__label
-                            | 提出日
-                          time.a-meta__value(datetime="#{@product.created_at.to_datetime}")
-                            = l @product.created_at
-
-                    - if @product.updated_at.present?
+                      br
+                      - if @product.wip?
+                        span.a-title-label
+                          | WIP
+                      | #{link_to @product.practice.title, @product.practice, class: 'thread-header-title__link'}の提出物
+                .thread-header__row
+                  .thread-header-metas
+                    .thread-header-metas__start
                       .thread-header-metas__meta
                         .a-meta
-                          span.a-meta__label
-                            | 更新
-                          time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
-                            = l @product.updated_at
+                          - if @product.wip?
+                            .a-meta__value
+                              | 提出物作成中
+                          - elsif @product.published_at.present?
+                            span.a-meta__label
+                              | 提出日
+                            time.a-meta__value(datetime="#{@product.published_at.to_datetime}")
+                              = l @product.published_at
+                          - else
+                            span.a-meta__label
+                              | 提出日
+                            time.a-meta__value(datetime="#{@product.created_at.to_datetime}")
+                              = l @product.created_at
 
-              .thread-header__row
-                .thread-header-actions
-                  .thread-header-actions__start
-                    .thread-header-actions__action
-                      #js-watch-toggle(data-watchable-id="#{@product.id}", data-watchable-type='Product')
-                    .thread-header-actions__action
-                      #js-bookmark(data-bookmarkable-id="#{@product.id}", data-bookmarkable-type='Product')
-                  .thread-header-actions__end
-                    .thread-header-actions__action
-                      = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
+                      - if @product.updated_at.present?
+                        .thread-header-metas__meta
+                          .a-meta
+                            span.a-meta__label
+                              | 更新
+                            time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
+                              = l @product.updated_at
+
+                      .thread-header-metas__meta
+                        - length = @product.comments.length
+                        a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                          | コメント（
+                          span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                            = length
+                          | ）
+
+                .thread-header__row
+                  .thread-header-actions
+                    .thread-header-actions__start
+                      .thread-header-actions__action
+                        #js-watch-toggle(data-watchable-id="#{@product.id}", data-watchable-type='Product')
+                      .thread-header-actions__action
+                        #js-bookmark(data-bookmarkable-id="#{@product.id}", data-bookmarkable-type='Product')
+                    .thread-header-actions__end
+                      .thread-header-actions__action
+                        = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
+
+
+        .thread.has-no-author
+          .thread__inner.a-card
+            header.card-header
+              h2.card-header__title
+                | プラクティスのゴール
+            .thread__description
+              .a-long-text.is-md.js-markdown-view
+                =  @product.practice.goal
+
+
+        .thread.has-no-author
+          .thread__inner.a-card
+            header.card-header
+              h2.card-header__title
+                | 提出物
             - if @product.wip?
               .thread__warning-message
                 | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
-            .thread__description.a-long-text.is-md.js-markdown-view
-              =  @product.practice.goal
-            .thread__description.a-long-text.is-md.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
-              =  @product.body
+            .thread__description
+              .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
+                =  @product.body
             = render 'reactions/reactions', reactionable: @product
 
             - if @product.user == current_user || admin_or_mentor_login?
@@ -151,7 +168,6 @@ header.page-header
               .thread-prev-next__item
                 = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'thread-prev-next__item-link is-index'
 
-          = render 'users/icon', user: @product.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         = render 'footprints/footprints', footprints: @footprints
 
