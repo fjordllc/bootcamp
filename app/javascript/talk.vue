@@ -12,7 +12,7 @@
         .thread-list-item-title
           h2.thread-list-item-title__title(itemprop='name')
             a.thread-list-item-title__link.a-text-link(
-              :href='`/talks/${talk.id}`',
+              :href='`/talks/${talk.id}#latest-comment`',
               itemprop='url'
             )
               | {{ user.long_name }} さんの相談部屋
