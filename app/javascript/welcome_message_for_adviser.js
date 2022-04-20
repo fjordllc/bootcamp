@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector(selector)
 
     button.addEventListener('click', () => {
-      document.querySelector('.welcome_message_columns_for_adviser').remove()
+      document.querySelector('.js-welcome_message').remove()
       saveCookie()
     })
   } else {
