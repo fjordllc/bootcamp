@@ -38,8 +38,8 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import validateTagName from './validate-tag-name'
-import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
+import validateTagName from 'validate-tag-name'
+import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
 
 export default {
   name: 'Tags',

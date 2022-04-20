@@ -57,10 +57,10 @@
               | キャンセル
 </template>
 <script>
-import TextareaInitializer from './textarea-initializer'
-import MarkdownInitializer from './markdown-initializer'
-import confirmUnload from './confirm-unload'
-import toast from './toast'
+import TextareaInitializer from 'textarea-initializer'
+import MarkdownInitializer from 'markdown-initializer'
+import confirmUnload from 'confirm-unload'
+import toast from 'toast'
 
 export default {
   mixins: [confirmUnload, toast],

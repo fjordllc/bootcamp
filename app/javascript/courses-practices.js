@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import CoursesPractices from './courses-practices.vue'
+import CoursesPractices from 'courses-practices.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-courses-practices'

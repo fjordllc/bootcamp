@@ -73,7 +73,7 @@
               a.thread-list-item-tags__item-link(:href='tag.url') {{ tag.name }}
 </template>
 <script>
-import UserIcon from './user-icon.vue'
+import UserIcon from 'user-icon.vue'
 
 export default {
   components: {

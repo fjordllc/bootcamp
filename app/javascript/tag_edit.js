@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import TagEditButton from './tag-edit-button.vue'
+import TagEditButton from 'tag-edit-button.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-tag-edit'

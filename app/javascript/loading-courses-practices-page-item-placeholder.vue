@@ -12,7 +12,7 @@
       )
 </template>
 <script>
-import LoadingCoursesPracticesPageUserIconItemPlaceholder from './loading-cources-practices-page-user-icon-item-placeholder.vue'
+import LoadingCoursesPracticesPageUserIconItemPlaceholder from 'loading-cources-practices-page-user-icon-item-placeholder.vue'
 
 export default {
   components: {

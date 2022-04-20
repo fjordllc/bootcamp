@@ -72,10 +72,10 @@
 </template>
 
 <script>
-import Product from './product.vue'
-import unconfirmedLinksOpenButton from './unconfirmed_links_open_button.vue'
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
-import Pager from './pager.vue'
+import Product from 'product.vue'
+import unconfirmedLinksOpenButton from 'unconfirmed_links_open_button.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder.vue'
+import Pager from 'pager.vue'
 
 export default {
   components: {

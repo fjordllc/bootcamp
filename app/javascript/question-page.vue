@@ -21,9 +21,9 @@
     )
 </template>
 <script>
-import QuestionEdit from './question-edit.vue'
-import Answers from './answers.vue'
-import LoadingQuestionPagePlaceholder from './loading-question-page-placeholder.vue'
+import QuestionEdit from 'question-edit.vue'
+import Answers from 'answers.vue'
+import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
 
 export default {
   components: {

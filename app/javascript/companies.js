@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Companies from './companies.vue'
+import Companies from 'companies.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-companies'

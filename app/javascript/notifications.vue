@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import Notification from './notification.vue'
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
-import Pager from './pager.vue'
-import UnconfirmedLinksOpenButton from './unconfirmed_links_open_button'
+import Notification from 'notification.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder.vue'
+import Pager from 'pager.vue'
+import UnconfirmedLinksOpenButton from 'unconfirmed_links_open_button'
 
 export default {
   components: {

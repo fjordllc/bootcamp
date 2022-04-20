@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Tags from './tags.vue'
+import Tags from 'tags.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const pageTagsElm = document.getElementById('js-page-tags')

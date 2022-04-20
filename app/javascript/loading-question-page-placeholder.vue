@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import LoadingQuestionPageItemPlaceholder from './loading-question-page-itme-placeholder.vue'
+import LoadingQuestionPageItemPlaceholder from 'loading-question-page-itme-placeholder.vue'
 
 export default {
   components: {

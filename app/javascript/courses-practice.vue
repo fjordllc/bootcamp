@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import PracticeUserIcon from './practice-user-icon.vue'
+import PracticeUserIcon from 'practice-user-icon.vue'
 
 export default {
   components: {

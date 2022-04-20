@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Announcements from './announcements.vue'
+import Announcements from 'announcements.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-announcements'

@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import Pager from './pager'
-import toast from './toast'
+import Pager from 'pager'
+import toast from 'toast'
 
 export default {
   components: {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Check from './check.vue'
-import store from './check-store.js'
+import Check from 'check.vue'
+import store from 'check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const check = document.getElementById('js-check')

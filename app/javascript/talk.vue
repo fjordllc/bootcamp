@@ -39,7 +39,7 @@
                     | （{{ user.login_name }}）
 </template>
 <script>
-import UserIcon from './user-icon'
+import UserIcon from 'user-icon'
 export default {
   components: {
     'user-icon': UserIcon

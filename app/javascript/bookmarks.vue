@@ -38,8 +38,8 @@
         pager(v-bind='pagerProps')
 </template>
 <script>
-import Bookmark from './bookmark.vue'
-import Pager from './pager.vue'
+import Bookmark from 'bookmark.vue'
+import Pager from 'pager.vue'
 
 export default {
   components: {
