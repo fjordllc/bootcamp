@@ -30,6 +30,8 @@
   th,
   td
     border: solid 1px $border-shade
+  td
+    height: 3rem
 
 .niconico-calendar__header
   background-color: $background-tint
@@ -66,8 +68,11 @@
 
 a.niconico-calendar__day-inner
   transition: all .2s ease-out
+  cursor: pointer
   &:hover
     background-color: rgba($warning, .1)
+    box-shadow: $warning 0 0 0 1px inset
+    position: relative
 
 .niconico-calendar__day-label
   +text-block(.625rem 1, center $default-text)
