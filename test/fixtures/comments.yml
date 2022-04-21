@@ -116,15 +116,15 @@ comment19:
 comment40:
   user: long-id-mentor
   commentable: product67 (Product)
-  description: "長い名前のメンターのコメント"
+  description: "長い名前のメンター"
 
 comment41:
   user: long-id-mentor
   commentable: report71 (Report)
-  description: "長い名前のメンターのコメント"
+  description: "長い名前のメンター"
 
-<% (1..20).each do |i| %>
-comment<%= i + 19 %>:
+<% 20.upto(39) do |i| %>
+comment<%= i %>:
   user: komagata
   commentable: product11 (Product)
   description: <%= "提出物のコメント#{i}です。" %>
