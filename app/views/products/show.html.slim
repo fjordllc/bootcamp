@@ -18,22 +18,20 @@ header.page-header
               class: 'a-button is-md is-secondary is-block is-back' do
               | プラクティス一覧
           - if current_user.admin?
-            li.page-header-actions__item
+            li.page-header-actions__item.is-only-mentor
               = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | 未完了一覧
 
 = render 'page_tabs', resource: @product.practice
 
 .page-body
+
   - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
-    .a-page-alert
-      .container.is-md
-        .a-page-alert__inner
-          .a-short-text
-            p
-              | 7日以内にメンターがレビューしますので、次のプラクティスにお進みください。
-              br
-              | もし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。
+    = render 'message_for_after_submission'
+
+  - if @product.wip?
+    = render 'message_for_wip'
+
   //
     [TODO]完了Tweetの正式リリース後にコメントを外す
     - if @product.user == current_user && @learning&.complete?
@@ -43,130 +41,10 @@ header.page-header
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
 
-        .prodact
-          .prodact__inner
-            #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
-            header.prodact-header
-              .prodact-header__start
-                = render 'users/icon', user: @product.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
-              .prodact-header__end
-                .thread-header__row
-                  h1.thread-header-title(class="#{@product.wip? ? 'is-wip' : ''}")
-                    span.thread-header-title__title
-                      - if @product.user.daimyo?
-                        | ★
-                      = link_to @product.user, class: 'a-user-name' do
-                        = @product.user.long_name
-                      br
-                      - if @product.wip?
-                        span.a-title-label
-                          | WIP
-                      | #{link_to @product.practice.title, @product.practice, class: 'thread-header-title__link'}の提出物
-                .thread-header__row
-                  .thread-header-metas
-                    .thread-header-metas__start
-                      .thread-header-metas__meta
-                        .a-meta
-                          - if @product.wip?
-                            .a-meta__value
-                              | 提出物作成中
-                          - elsif @product.published_at.present?
-                            span.a-meta__label
-                              | 提出日
-                            time.a-meta__value(datetime="#{@product.published_at.to_datetime}")
-                              = l @product.published_at
-                          - else
-                            span.a-meta__label
-                              | 提出日
-                            time.a-meta__value(datetime="#{@product.created_at.to_datetime}")
-                              = l @product.created_at
-
-                      - if @product.updated_at.present?
-                        .thread-header-metas__meta
-                          .a-meta
-                            span.a-meta__label
-                              | 更新
-                            time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
-                              = l @product.updated_at
-
-                      .thread-header-metas__meta
-                        - length = @product.comments.length
-                        a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                          | コメント（
-                          span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                            = length
-                          | ）
-
-                .thread-header__row
-                  .thread-header-actions
-                    .thread-header-actions__start
-                      .thread-header-actions__action
-                        #js-watch-toggle(data-watchable-id="#{@product.id}", data-watchable-type='Product')
-                      .thread-header-actions__action
-                        #js-bookmark(data-bookmarkable-id="#{@product.id}", data-bookmarkable-type='Product')
-                    .thread-header-actions__end
-                      .thread-header-actions__action
-                        = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
-
-
-        .thread.has-no-author
-          .thread__inner.a-card
-            header.card-header
-              h2.card-header__title
-                | プラクティスのゴール
-            .thread__description
-              .a-long-text.is-md.js-markdown-view
-                =  @product.practice.goal
-
-
-        .thread.has-no-author
-          .thread__inner.a-card
-            header.card-header
-              h2.card-header__title
-                | 提出物
-            - if @product.wip?
-              .thread__warning-message
-                | まだ提出されていません。<br class='is-hidden-md-up'>完成したら「提出する」をクリック！
-            .thread__description
-              .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@product.id}" data-taskable-type='Product' data-taskable="#{@product.taskable?(current_user).to_s}")
-                =  @product.body
-            = render 'reactions/reactions', reactionable: @product
-
-            - if @product.user == current_user || admin_or_mentor_login?
-              .card-footer
-                .card-main-actions
-                  ul.card-main-actions__items
-                    - if @product.wip?
-                      li.card-main-actions__item
-                        = form_with model: @product, local: true do |f|
-                          = f.hidden_field :body
-                          = f.submit '提出する', class: 'a-button is-md is-warning is-block'
-                    li.card-main-actions__item
-                      = link_to edit_product_path(@product), class: 'card-main-actions_action a-button is-md is-secondary is-block' do
-                        i.fa-solid.fa-pen
-                        | 内容修正
-                    li.card-main-actions__item.is-sub
-                      = link_to @product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                        | 削除する
-
-            - if (@product.user.daimyo? && staff_login?) || admin_or_mentor_login?
-              #js-check(data-checkable-id="#{@product.id}"
-                        data-checkable-type='Product'
-                        data-checkable-label="#{Product.model_name.human}"
-                        data-checker-id="#{@product.checker_id}"
-                        data-checker-name="#{@product.checker_name}"
-                        data-checker-avatar="#{@product.checker_avatar}"
-                        data-current-user-id="#{current_user.id}")
-
-          .thread-prev-next
-            .thread-prev-next__item
-              = link_to @product.practice, class: 'thread-prev-next__item-link is-index' do
-                | プラクティスに戻る
-            - if current_user.mentor?
-              .thread-prev-next__item
-                = link_to '提出物・自分の担当', products_self_assigned_index_path, class: 'thread-prev-next__item-link is-index'
-              .thread-prev-next__item
-                = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'thread-prev-next__item-link is-index'
+        .product
+          = render 'product_header', product: @product
+          = render 'product_practice_goal', product: @product
+          = render 'product_body', product: @product
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         = render 'footprints/footprints', footprints: @footprints
