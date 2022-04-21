@@ -98,8 +98,9 @@ header.page-header
             = render 'reports/learning_times', report: @report
 
             .thread__body
-              .thread__description.a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
-                = @report.description
+              .thread__description
+                .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
+                  = @report.description
               = render 'reactions/reactions', reactionable: @report
 
             - if @report.user_id == current_user.id

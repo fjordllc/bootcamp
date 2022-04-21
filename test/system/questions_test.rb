@@ -312,7 +312,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
+    assert_selector '.a-title-label.is-wip', text: 'WIP'
   end
 
   test 'update a WIP question as published' do
@@ -324,7 +324,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '更新された本文'
     end
     click_button '質問を公開'
-    assert_selector '.thread-header-title__label.is-solved.is-danger', text: '未解決'
+    assert_selector '.a-title-label.is-solved.is-danger', text: '未解決'
   end
 
   test 'update a published question as WIP' do
@@ -336,7 +336,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
+    assert_selector '.a-title-label.is-wip', text: 'WIP'
   end
 
   test 'show a WIP question on the All Q&A list page' do

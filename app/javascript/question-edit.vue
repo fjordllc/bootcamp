@@ -34,13 +34,13 @@
                   | {{ updatedAt }}
       .thread-header__row
         .thread-header-title(:class='question.wip ? "is-wip" : ""')
-          .thread-header-title__label.is-solved.is-success(
+          .a-title-label.is-solved.is-success(
             v-if='question.correct_answer !== null'
           )
             | 解決済
-          .thread-header-title__label.is-wip(v-else-if='question.wip')
+          .a-title-label.is-wip(v-else-if='question.wip')
             | WIP
-          .thread-header-title__label.is-solved.is-danger(v-else)
+          .a-title-label.is-solved.is-danger(v-else)
             | 未解決
           h1.thread-header-title__title
             | {{ title }}
