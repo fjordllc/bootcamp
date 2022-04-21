@@ -40,7 +40,7 @@
           li.card-main-actions__item(
             v-if='answer.user.id == currentUser.id || isRole("admin")'
           )
-            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+            button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
               @click='editAnswer'
             )
               i.fa-solid.fa-pen
@@ -48,14 +48,14 @@
           li.card-main-actions__item(
             v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor"))'
           )
-            button.card-main-actions__action.a-button.is-md.is-primary.is-block(
+            button.card-main-actions__action.a-button.is-sm.is-primary.is-block(
               @click='makeToBestAnswer'
             )
               | ベストアンサーにする
           li.card-main-actions__item(
             v-if='hasCorrectAnswer && answer.type == "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor"))'
           )
-            button.card-main-actions__action.a-button.is-md.is-muted.is-block(
+            button.card-main-actions__action.a-button.is-sm.is-muted.is-block(
               @click='cancelBestAnswer'
             )
               | ベストアンサーを取り消す
@@ -97,13 +97,13 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button.a-button.is-md.is-warning.is-block(
+              button.a-button.is-sm.is-warning.is-block(
                 @click='updateAnswer',
                 v-bind:disabled='!validation'
               )
                 | 保存する
             .card-main-actions__item
-              button.a-button.is-md.is-secondary.is-block(@click='cancel')
+              button.a-button.is-sm.is-secondary.is-block(@click='cancel')
                 | キャンセル
 </template>
 <script>

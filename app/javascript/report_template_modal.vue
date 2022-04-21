@@ -34,12 +34,12 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item(v-if='!isTemplateRegisteredProp')
-            button.a-button.is-primary.is-md.is-block(
+            button.a-button.is-primary.is-sm.is-block(
               :disabled='!validation',
               @click.prevent='registerTemplate'
             ) 登録
           li.card-main-actions__item(v-else)
-            button.a-button.is-primary.is-md.is-block(
+            button.a-button.is-primary.is-sm.is-block(
               :disabled='!validation',
               @click.prevent='updateTemplate'
             ) 変更

@@ -51,7 +51,7 @@
                   | 内容修正
             - else
               li.card-main-actions__item
-                = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
+                = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
                   i.fa-solid.fa-pen#new
                   | 内容修正
             - if admin_or_mentor_login? || @announcement.user_id == current_user.id

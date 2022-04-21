@@ -18,95 +18,7 @@ header.page-header
   .container.is-lg
     article.doc
 
-      header.doc-header
-        .doc-header__end
-          .thread-header__row
-            - if @page.practice.present?
-              = link_to @page.practice, class: 'a-category-link' do
-                = @page.practice.title
-            h1.doc-header__title(class="#{@page.wip? ? 'is-wip' : ''}")
-              - if @page.wip?
-                span.a-title-label
-                  | WIP
-              | #{@page.title}
-
-          .thread-header__row
-            .thread-header-metas
-              .thread-header-metas__start
-                .thread-header-metas
-                  - if @page.wip?
-                    .thread-header-metas__meta
-                      .a-meta
-                        span.a-meta__label
-                          | Doc作成中
-                        span.a-meta__value
-                          = render 'users/icon',
-                            user: @page.user,
-                            link_class: 'thread-header__user-icon-link',
-                            image_class: 'thread-header__user-icon'
-                          = link_to @page.user, class: 'a-user-name' do
-                            | #{@page.user.login_name}
-                  - elsif @page.published_at.present?
-                    .thread-header-metas__meta
-                      .a-meta
-                        span.a-meta__label
-                          | 公開
-                        .a-meta__value
-                          time(datetime="#{@page.published_at.to_datetime}")
-                            | #{l @page.published_at}
-                          = render 'users/icon',
-                            user: @page.user,
-                            link_class: 'thread-header__user-icon-link',
-                            image_class: 'thread-header__user-icon'
-                          = link_to @page.user, class: 'a-user-name' do
-                            | #{@page.user.login_name}
-
-                  - if @page.last_updated_user.present?
-                    .thread-header-metas__meta
-                      .a-meta
-                        span.a-meta__label
-                          | 更新
-                        span.a-meta__value
-                          time(datetime="#{@page.updated_at.to_datetime}")
-                            | #{l @page.updated_at}
-                          = render 'users/icon',
-                            user: @page.last_updated_user,
-                            link_class: 'thread-header__user-icon-link',
-                            image_class: 'thread-header__user-icon'
-                          = link_to @page.last_updated_user, class: 'a-user-name' do
-                            | #{@page.last_updated_user.login_name}
-
-              .thread-header-metas__end
-                .thread-header-metas
-                  .thread-header-metas__meta
-                    - length = @page.comments.length
-                    a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                      | コメント（
-                      span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                        = length
-                      | ）
-                  - if @page.slug.present?
-                      .thread-header-metas__meta
-                        .a-slug
-                          = @page.slug
-
-          .thread-header__row
-            .thread-header-actions
-              .thread-header-actions__start
-                .thread-header-actions__action
-                  #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
-                .thread-header-actions__action
-                  #js-bookmark(data-bookmarkable-id="#{@page.id}", data-bookmarkable-type='Page')
-
-          .thread-header__row
-            .doc-header__tags
-              #js-page-tags(
-                data-tags-initial-value="#{@page.tag_list.join(',')}"
-                data-tags-param-name='page[tag_list]'
-                data-tags-input-id='page_tag_list'
-                data-page-id="#{@page.id}"
-              )
-
+      = render 'doc_header', page: @page
       .thread.has-no-author
         .thread__inner.a-card
           .thread__description
@@ -117,7 +29,7 @@ header.page-header
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item
-                  = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
+                  = link_to [:edit, @page], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
                     i.fa-solid.fa-pen
                     | 内容変更
                 - if admin_or_mentor_login? || current_user == @page.user

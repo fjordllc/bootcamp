@@ -1,35 +1,36 @@
-.product-header
+.page-content-header
   +media-breakpoint-up(md)
     display: flex
-    margin-bottom: 2rem
+    margin-bottom: 1.25rem
   .a-user-name
     +media-breakpoint-down(sm)
       display: block
       text-align: center
       margin-bottom: .5rem
 
-.product-header__start
+.page-content-header__start
   +media-breakpoint-up(md)
     flex: 0 0 5rem
 
-.product-header__end
+.page-content-header__end
   +media-breakpoint-up(md)
     flex: 1
   +media-breakpoint-down(sm)
-    margin-top: .5rem
+    .page-content-header__start + &
+      margin-top: .5rem
 
-.product-header__user
+.page-content-header__user
   +media-breakpoint-down(sm)
     display: flex
     justify-content: center
 
-.product-header__user-link
+.page-content-header__user-link
   +block-link
 
-.product-header__user-icon
+.page-content-header__user-icon
   +size(3.5rem)
 
-.product-header__title
+.page-content-header__title
   font-feature-settings: "palt"
   letter-spacing: .02em
   +text-block(1em 1.45, 700 $main)
@@ -52,8 +53,15 @@
     +media-breakpoint-down(sm)
       +position(relative, top .5em)
 
-.product-header__title-link
+.page-content-header__title-link
   +hover-link
   color: $main
-  .product-header__title.is-wip &
+  .page-content-header__title.is-wip &
     color: $muted-text
+
+.page-content-header__tags
+  margin-top: .75rem
+
+.page-content-header__row
+  &:not(:last-child)
+    margin-bottom: .5rem
