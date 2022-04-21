@@ -2,6 +2,11 @@
   +media-breakpoint-up(md)
     display: flex
     margin-bottom: 2rem
+  .a-user-name
+    +media-breakpoint-down(sm)
+      display: block
+      text-align: center
+      margin-bottom: .5rem
 
 .product-header__start
   +media-breakpoint-up(md)
@@ -28,7 +33,6 @@
   font-feature-settings: "palt"
   letter-spacing: .02em
   +text-block(1em 1.45, 700 $main)
-  display: flex
   padding-bottom: .25rem
   border-bottom: solid 1px $border-shade
   +media-breakpoint-up(md)
@@ -40,6 +44,13 @@
     word-break: break-all
   &.is-wip
     color: $muted-text
+  .a-title-label
+    display: inline-flex
+    vertical-align: top
+    +media-breakpoint-up(md)
+      +position(relative, top .75em)
+    +media-breakpoint-down(sm)
+      +position(relative, top .5em)
 
 .product-header__title-link
   +hover-link
