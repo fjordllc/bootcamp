@@ -38,8 +38,9 @@
                 | コピー
 
     .thread__body
-      .thread__description.a-long-text.is-md.js-markdown-view
-        = announcement.description
+      .thread__description
+        .a-long-text.is-md.js-markdown-view
+          = announcement.description
       = render 'reactions/reactions', reactionable: @announcement
       .card-footer
         .card-main-actions
