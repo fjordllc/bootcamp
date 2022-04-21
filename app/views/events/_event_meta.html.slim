@@ -6,18 +6,14 @@
           | 会場
         dd.event-meta__item-value.location
           = auto_link(event.location)
-      .event-meta__item
-        dt.event-meta__item-label
-          | 定員
-        dd.event-meta__item-value
-          | #{event.capacity}名
+          | （定員 #{event.capacity}名）
       .event-meta__item
         dt.event-meta__item-label
           | 開催日時
         dd.event-meta__item-value
           span.event-meta__item-value-main
             = event.period
-          = link_to google_calendar_url(event), class: 'a-button is-sm is-primary' do
+          = link_to google_calendar_url(event), class: 'a-button is-xs is-primary' do
             | Googleカレンダーに追加
       .event-meta__item
         dt.event-meta__item-label
