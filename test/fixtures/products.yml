@@ -393,7 +393,13 @@ product66:
   published_at: nil
 
 product67:
-  practice: practice54
+  practice: practice1
   user: kimuramitai
-  body: テストの提出物67です。
+  body: テストの確認済みの提出物67です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+
+product68:
+  practice: practice1
+  user: kimuramitai
+  body: テストの未確認だけど、担当になっている提出物68です。
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
