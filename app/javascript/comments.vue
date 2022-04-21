@@ -54,7 +54,7 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
                 @click='createComment',
                 :disabled='!validation || buttonDisabled'
               )
@@ -62,7 +62,7 @@
             .card-main-actions__item.is-only-mentor(
               v-if='isRole("mentor") && commentType && !checkId'
             )
-              button.a-button.is-md.is-danger.is-block(
+              button.a-button.is-sm.is-danger.is-block(
                 @click='commentAndCheck',
                 :disabled='!validation || buttonDisabled'
               )

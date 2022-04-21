@@ -1,21 +1,21 @@
-header.product-header
+header.page-content-header
   #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
-  .product-header__start
-    .product-header__user
-      = render 'users/icon', user: @product.user, link_class: 'product-header__user-link', image_class: 'product-header__user-icon'
-  .product-header__end
-    .thread-header__row
+  .page-content-header__start
+    .page-content-header__user
+      = render 'users/icon', user: @product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+  .page-content-header__end
+    .page-content-header__row
       = link_to @product.user, class: 'a-user-name' do
         = @product.user.long_name
-      h1.product-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
+      h1.page-content-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
         - if @product.user.daimyo?
           | ★
         - if @product.wip?
           span.a-title-label
             | WIP
-        | #{link_to @product.practice.title, @product.practice, class: 'product-header__title-link'}の提出物
+        | #{link_to @product.practice.title, @product.practice, class: 'page-content-header__title-link'}の提出物
 
-    .thread-header__row
+    .page-content-header__row
       .thread-header-metas
         .thread-header-metas__start
           .thread-header-metas__meta
@@ -50,7 +50,7 @@ header.product-header
                 = length
               | ）
 
-    .thread-header__row
+    .page-content-header__row
       .thread-header-actions
         .thread-header-actions__start
           .thread-header-actions__action

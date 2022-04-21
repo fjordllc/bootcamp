@@ -86,7 +86,7 @@
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item
-              button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+              button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
                 @click='startEditing'
               )
                 i#new.fa-solid.fa-pen
@@ -164,14 +164,14 @@
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
-                button.a-button.is-md.is-primary.is-block(
+                button.a-button.is-sm.is-primary.is-block(
                   @click='updateQuestion(true)',
                   :disabled='!validation',
                   type='button'
                 )
                   | WIP
               li.card-main-actions__item
-                button.a-button.is-md.is-warning.is-block(
+                button.a-button.is-sm.is-warning.is-block(
                   @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
@@ -179,7 +179,7 @@
                   v-if='question.wip'
                 )
                   | 質問を公開
-                button.a-button.is-md.is-warning.is-block(
+                button.a-button.is-sm.is-warning.is-block(
                   @click='updateQuestion(false)',
                   :disabled='!validation',
                   type='button'
@@ -188,7 +188,7 @@
                 )
                   | 更新する
               li.card-main-actions__item
-                button.a-button.is-md.is-secondary.is-block(
+                button.a-button.is-sm.is-secondary.is-block(
                   @click='cancel',
                   type='button'
                 )

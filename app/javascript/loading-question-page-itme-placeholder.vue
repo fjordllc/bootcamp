@@ -39,5 +39,5 @@
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
-                .a-button.is-md.is-block.a-placeholder
+                .a-button.is-sm.is-block.a-placeholder
 </template>

@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to user_portfolio_path(@work.user), class: 'a-button is-md is-secondary is-block' do
+            = link_to user_portfolio_path(@work.user), class: 'a-button is-sm is-secondary is-block' do
               | ポートフォリオ
 
 .page-body
@@ -44,12 +44,12 @@ header.page-header
           ul.card-main-actions__items
             - if @work.url.present?
               li.card-main-actions__item
-                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
+                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
                   i.fa-solid.fa-globe
                   | URL
             - if @work.repository.present?
               li.card-main-actions__item
-                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
+                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
                   i.fa-brands.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_or_mentor_login?
@@ -57,7 +57,7 @@ header.page-header
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item
-                  = link_to edit_work_path(@work), class: 'a-button is-md is-secondary is-block' do
+                  = link_to edit_work_path(@work), class: 'a-button is-sm is-secondary is-block' do
                     i.fa-solid.fa-pen
                     | 内容修正
                 li.card-main-actions__item.is-sub
