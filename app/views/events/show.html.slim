@@ -16,6 +16,38 @@ header.page-header
             = link_to events_path, class: 'a-button is-md is-secondary is-block is-back' do
               | イベント一覧
 
+- if @event.wip?
+  .a-page-notice.is-danger
+    .container.is-lg
+      .a-page-notice__inner
+        p
+          | 公開されるまでお待ちください。
+- elsif !@event.opening?
+  - if @event.wip?
+    .a-page-notice.is-danger
+      .container.is-lg
+        .a-page-notice__inner
+          p
+            | 公開されるまでお待ちください。
+  - elsif @event.before_opening?
+    .a-page-notice.is-danger
+      .container.is-lg
+        .a-page-notice__inner
+          p
+            | 募集開始までお待ち下さい。
+  - elsif @event.closing?
+    .a-page-notice.is-muted
+      .container.is-lg
+        .a-page-notice__inner
+          p
+            | 募集受付は終了しました。
+  - else
+    .a-page-notice.is-muted
+      .container.is-lg
+        .a-page-notice__inner
+          p
+            | イベントは終了しました。
+
 .page-body
   .container.is-lg
     = render 'event', event: @event

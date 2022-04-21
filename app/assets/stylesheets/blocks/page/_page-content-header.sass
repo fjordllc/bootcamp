@@ -1,7 +1,18 @@
 .page-content-header
+  +position(relative)
+  +margin(horizontal, auto)
   +media-breakpoint-up(md)
     display: flex
     margin-bottom: 1.25rem
+    width: $thread-max-width
+    max-width: 100%
+  .a-watch-button.is-inactive,
+  .a-bookmark-button.is-inactive
+    color: $semi-muted-text
+    background-color: $background-shade
+  .a-title-label
+    color: $semi-muted-text
+    background-color: $background-shade
   .a-user-name
     +media-breakpoint-down(sm)
       display: block
@@ -38,11 +49,13 @@
   border-bottom: solid 1px $border-shade
   +media-breakpoint-up(md)
     font-size: 1.5rem
-    margin-top: .25rem
+    &:not(:forst-child)
+      margin-top: .25rem
   +media-breakpoint-down(sm)
     font-size: 1.125rem
-    margin-top: .125rem
     word-break: break-all
+    &:not(:forst-child)
+      margin-top: .125rem
   &.is-wip
     color: $muted-text
   .a-title-label
