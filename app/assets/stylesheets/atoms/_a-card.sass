@@ -21,6 +21,20 @@
     max-width: 100%
     +media-breakpoint-down(sm)
       +margin(horizontal, 1rem)
+  &.is-toggle
+    label
+        cursor: pointer
+    > input:not(:checked) + * + *
+      display: none
+    > input:not(:checked) + *
+      border-bottom: none
+    > input:checked + * + *
+      display: block
+    > input:not(:checked) + * .is-hidden-then-unchecked
+      display: none
+    > input:checked + * .is-hidden-then-checked
+      display: none
+
 
 .a-card-notice
   p

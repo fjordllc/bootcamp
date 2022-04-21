@@ -16,7 +16,11 @@
     margin-top: -1px
 
 .card-header__title
-  +text-block(1rem 1.4, 600)
+  +text-block(1em 1.4, 600)
+  +media-breakpoint-up(md)
+    font-size: 1rem
+  +media-breakpoint-down(sm)
+    font-size: .875rem
   .card-header.is-sm &
     font-size: .875rem
 
