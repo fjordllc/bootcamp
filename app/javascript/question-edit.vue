@@ -62,7 +62,7 @@
               )
                 | Raw
     .thread-category
-      a.thread-category__link(:href='`/practices/${practiceId}`')
+      a.a-category-link(:href='`/practices/${practiceId}`')
         | {{ practiceTitle }}
     .thread__tags
       tags(
