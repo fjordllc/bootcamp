@@ -113,12 +113,12 @@ comment19:
   commentable: report7 (Report)
   description: "@kimura 2つ目のメンションありの未読通知を発生させる"
 
-comment21:
+comment40:
   user: long-id-mentor
   commentable: product67 (Product)
   description: "長い名前のメンターのコメント"
 
-comment22:
+comment41:
   user: long-id-mentor
   commentable: report71 (Report)
   description: "長い名前のメンターのコメント"
