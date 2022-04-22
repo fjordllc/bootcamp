@@ -7,13 +7,13 @@ class Footprint::AnnouncementsTest < ApplicationSystemTestCase
     announce = users(:komagata).announcements.first
     visit_with_auth announcement_path(announce), 'kimura'
     assert_text '見たよ'
-    assert page.has_css?('.footprints-item__checker-icon.is-kimura')
+    assert page.has_css?('.a-user-icon.is-kimura')
   end
 
   test 'should not footpoint with my own announcement' do
     announce = users(:komagata).announcements.first
     visit_with_auth announcement_path(announce), 'komagata'
     assert_no_text '見たよ'
-    assert_not page.has_css?('.footprints-item__checker-icon.is-komagata')
+    assert_not page.has_css?('.a-user-icon.is-komagata')
   end
 end
