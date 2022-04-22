@@ -1,7 +1,7 @@
 import Choices from 'choices.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const element = document.getElementById('js-company-select')
+  const element = document.getElementById('js-choices-single-select')
   if (element) {
     return new Choices(element, {
       removeItemButton: true,
