@@ -84,7 +84,7 @@ class PagesTest < ApplicationSystemTestCase
     end
 
     click_on '保存'
-    assert find('.thread__user-icon')[:title].start_with?('kimura')
+    assert find('.thread-header__user-icon')[:title].start_with?('kimura')
     assert_equal 'komagata', find('.a-user-name').text
   end
 
