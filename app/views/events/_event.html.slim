@@ -73,7 +73,7 @@
           - event.participants.each do |participant|
             li.footprints-item
               = link_to participant do
-                = image_tag participant.avatar_url, title: participant.icon_title, class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+                = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
 
 - if event.waitlist.count.positive?
   .thread.waitlist.has-no-author
@@ -87,4 +87,4 @@
             li.footprints-item
               = render 'users/icon',
                 user: wait_user,
-                image_class: 'footprints-item__checker-icon'
+                image_class: 'is-sm'
