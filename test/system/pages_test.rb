@@ -163,7 +163,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'show last updated user icon' do
     visit_with_auth "/pages/#{pages(:page7).id}", 'hajime'
-    within '.thread-header__user-icon-link' do
+    within '.a-meta.is-updater' do
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
     end
   end

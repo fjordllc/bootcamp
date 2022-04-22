@@ -16,7 +16,7 @@ header.page-content-header
           .thread-header-metas
             - if page.wip?
               .thread-header-metas__meta
-                .a-meta
+                .a-meta.is-creator
                   span.a-meta__label
                     | Doc作成中
                   span.a-meta__value
@@ -28,7 +28,7 @@ header.page-content-header
                       | #{page.user.login_name}
             - elsif page.published_at.present?
               .thread-header-metas__meta
-                .a-meta
+                .a-meta.is-updater
                   span.a-meta__label
                     | 公開
                   .a-meta__value
