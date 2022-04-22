@@ -82,6 +82,12 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'ブログURLを登録してください。'
   end
 
+  test 'not show message of after_graduation_hope for graduated user' do
+    visit_with_auth '/', 'sotugyou'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
+  end
+
   test 'not show messages of required field' do
     user = users(:hatsuno)
     # hatsuno の未入力項目を登録
@@ -142,6 +148,23 @@ class HomeTest < ApplicationSystemTestCase
     go_back
     find('.niconico-calendar-nav').assert_text 1.month.ago.strftime('%Y年%-m月')
     assert_current_path(/niconico_calendar=#{1.month.ago.strftime('%Y-%m')}/)
+  end
+
+  test 'set a link to the new report form at today on Nico Nico calendar' do
+    visit_with_auth "/?niconico_calendar=#{Time.current.strftime('%Y-%m')}", 'hajime'
+    find('.niconico-calendar').click_on Time.current.day.to_s
+    assert_current_path("/reports/new?reported_on=#{Time.current.strftime('%Y-%-m-%-d')}")
+  end
+
+  test 'set a link to the new report form at past date on Nico Nico calendar' do
+    visit_with_auth '/?niconico_calendar=2022-03', 'hajime'
+    find('.niconico-calendar').click_on '1'
+    assert_current_path('/reports/new?reported_on=2022-3-1')
+  end
+
+  test 'no link to the new report on future dates in the Nico Nico calendar' do
+    visit_with_auth "/?niconico_calendar=#{Time.current.next_month.strftime('%Y-%m')}", 'hajime'
+    assert_no_link(href: "/reports/new?reported_on=#{Time.current.next_month.strftime('%Y-%-m-%-d')}")
   end
 
   test 'show the grass for student' do

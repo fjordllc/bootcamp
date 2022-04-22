@@ -252,7 +252,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    visit_with_auth questions_path, 'komagata'
+    visit_with_auth questions_path(all: 'true'), 'komagata'
     click_link 'WIPタイトル'
     assert_text '削除する'
     assert_no_text 'Watch中'
@@ -267,7 +267,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    visit questions_path
+    visit questions_path(all: 'true')
     click_link 'WIPタイトル'
     assert_text '削除する'
     click_button '内容修正'
@@ -312,7 +312,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
+    assert_selector '.a-title-label.is-wip', text: 'WIP'
   end
 
   test 'update a WIP question as published' do
@@ -324,7 +324,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '更新された本文'
     end
     click_button '質問を公開'
-    assert_selector '.thread-header-title__label.is-solved.is-danger', text: '未解決'
+    assert_selector '.a-title-label.is-solved.is-danger', text: '未解決'
   end
 
   test 'update a published question as WIP' do
@@ -336,16 +336,22 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_selector '.thread-header-title__label.is-wip', text: 'WIP'
+    assert_selector '.a-title-label.is-wip', text: 'WIP'
   end
 
-  test 'show a WIP question on the Q&A list page' do
-    visit_with_auth questions_path, 'kimura'
+  test 'show a WIP question on the All Q&A list page' do
+    visit_with_auth questions_path(all: 'true'), 'kimura'
     assert_text 'wipテスト用の質問(wip中)'
     element = all('.thread-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
     within element do
       assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
     end
+  end
+
+  test 'not show a WIP question on the unsolved Q&A list page' do
+    visit_with_auth questions_path, 'kimura'
+    assert_no_text 'wipテスト用の質問(wip中)'
+    assert_text '未解決の質問一覧'
   end
 
   test "visit user profile page when clicked on user's name on question" do

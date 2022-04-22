@@ -5,8 +5,6 @@
       tr.admin-table__labels
         th.admin-table__label
           | 名前
-        th.admin-table__label
-          | URLスラッグ
         th.admin-table__label.handle
           | 並び順
     draggable.admin-table__items(
@@ -22,8 +20,6 @@
       )
         td.admin-table__item-value
           | {{ coursesCategory.category.name }}
-        td.admin-table__item-value
-          | {{ coursesCategory.slug }}
         td.admin-table__item-value.is-text-align-center.is-grab
           span.js-grab.a-grab
             i.fa-solid.fa-align-justify
