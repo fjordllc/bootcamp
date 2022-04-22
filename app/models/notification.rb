@@ -264,17 +264,6 @@ class Notification < ApplicationRecord
         read: false
       )
     end
-
-    def graduated(sender, receiver)
-      Notification.create!(
-        kind: kinds[:graduated],
-        user: receiver,
-        sender: sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-        message: "#{sender.login_name}さんが卒業しました。",
-        read: false
-      )
-    end
   end
 
   def unread?
