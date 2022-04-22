@@ -2,8 +2,9 @@ header.page-content-header
   .page-content-header__end
     .page-content-header__row
       - if page.practice.present?
-        = link_to page.practice, class: 'a-category-link' do
-          = page.practice.title
+        .page-content-header__before-title
+          = link_to page.practice, class: 'a-category-link' do
+            = page.practice.title
       h1.page-content-header__title(class="#{page.wip? ? 'is-wip' : ''}")
         - if page.wip?
           span.a-title-label
