@@ -16,6 +16,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    abstract_notifier (0.3.1)
     actioncable (6.1.4.4)
       actionpack (= 6.1.4.4)
       activesupport (= 6.1.4.4)
@@ -522,6 +523,7 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
+  abstract_notifier
   active_decorator
   active_flag
   active_storage_validations
