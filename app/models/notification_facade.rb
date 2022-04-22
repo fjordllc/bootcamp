@@ -186,7 +186,7 @@ class NotificationFacade
   end
 
   def self.graduated(sender, receiver)
-    Notification.graduated(sender, receiver)
+    ActivityNotifier.with(sender: sender, receiver: receiver).graduated.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
