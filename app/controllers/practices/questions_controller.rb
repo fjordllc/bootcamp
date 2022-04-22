@@ -9,7 +9,7 @@ class Practices::QuestionsController < ApplicationController
       if params[:solved].present?
         @practice.questions.solved
       elsif params[:not_solved].present?
-        @practice.questions.not_solved
+        @practice.questions.not_solved.not_wip
       else
         @practice.questions
       end

@@ -265,4 +265,18 @@ class PracticesTest < ApplicationSystemTestCase
     visit "/practices/#{practices(:practice2).id}"
     assert_text '困った時は'
   end
+
+  test 'not show common description block when practice_common_description is wip' do
+    pages(:page10).update!(wip: true) # practice_common_description
+    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
+    assert_selector '.page-header__title', text: 'OS X Mountain Lionをクリーンインストールする'
+    assert_no_selector '.common-page-body', text: '困った時は'
+  end
+
+  test 'not show common description block when practice_common_description does not exist' do
+    pages(:page10).delete # practice_common_description
+    visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
+    assert_selector '.page-header__title', text: 'OS X Mountain Lionをクリーンインストールする'
+    assert_no_selector '.common-page-body', text: '困った時は'
+  end
 end

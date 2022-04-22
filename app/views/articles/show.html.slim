@@ -26,7 +26,7 @@
         .article__body
           .js-markdown-view.a-long-text.is-md
             = @article.body
-          - if admin_login?
+          - if admin_or_mentor_login?
             .article__actions
               ul
                 li

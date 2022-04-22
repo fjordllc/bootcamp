@@ -1,16 +1,16 @@
 $main: #4638a0
 $accent: #ffbe0a
 $base: white
-$background: #ececec
+$background: #efeff3
 
 // background
-$background-shade: #d6d6d6
+$background-shade: #d5d5d8
 $background-tint: #eceeef
-$background-more-tint: #f7f7f9
+$background-more-tint: #f9f9fa
 $hover-background: $background-more-tint
 
 // text
-$default-text: #403f47
+$default-text: #565461
 $reversal-text: white
 $muted-text: #9da4a7
 $semi-muted-text: #898998
@@ -19,18 +19,20 @@ $main-text: #3c3282
 $link-text: #2e2088
 
 $side: $main
-$side-border: #6b4eca
+$side-border: rgba(black, .175)
 $side-tint: #4e6165
 $side-shade: #3a228a
 $side-active: $accent
 
 // border
-$border: #e6e6e6
-$border-shade: #d7d7d7
-$border-more-shade: #cacaca
-$border-more-more-shade: #c1c1c1
+$border: #e1e2e5
+$border-tint: $background
+$border-shade: #d2d2d8
+$border-more-shade: #c6c7cd
+$border-more-more-shade: #b8b8c0
 $welcome-card-border: #5a5f60
 $input-border: #c1c5b9
+$input-background: #fafafa
 
 // Welcome Colors
 $welcome-default-text: #333738
@@ -68,6 +70,9 @@ $primary-shade: tint($primary, 90%)
 
 $warning-text: shade($warning, 60%)
 $warning-shade: tint($warning, 90%)
+
+$main-text: shade($main, 10%)
+$main-shade: tint($main, 90%)
 
 =default-link
   transition: color .2s ease-in

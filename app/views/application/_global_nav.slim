@@ -62,12 +62,11 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-hands-helping
             .global-nav-links__link-label ヘルプ
-        - if admin_login? || student_login?
-          li.global-nav-links__item
-            = link_to unreplied_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
-              .global-nav-links__link-icon
-                i.fa-solid.fa-comment-alt-smile
-              - if admin_or_mentor_login? && Talk.unreplied.count.positive?
-                .global-nav__item-count.a-notification-count.is-only-mentor
-                  = Talk.unreplied.count
-              .global-nav-links__link-label 相談
+        li.global-nav-links__item
+          = link_to unreplied_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
+            .global-nav-links__link-icon
+              i.fa-solid.fa-comment-alt-smile
+            - if admin_or_mentor_login? && Talk.unreplied.count.positive?
+              .global-nav__item-count.a-notification-count.is-only-mentor
+                = Talk.unreplied.count
+            .global-nav-links__link-label 相談

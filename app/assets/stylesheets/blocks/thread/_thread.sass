@@ -8,6 +8,8 @@
     margin-bottom: 2rem
     &.is-header-author
       margin-top: 3rem
+    &.has-no-author
+      padding-left: 0
   +media-breakpoint-down(sm)
     margin-top: 1.5rem
     margin-bottom: 1rem
@@ -16,19 +18,10 @@
       padding-left: 0
 
 .thread__body
-  border-top: $background solid 1px
+  border-top: solid 1px $border-tint
 
 .thread__inner
   +position(relative)
-  // +balloon-tail(left $base .625rem .75rem, false, top 2rem)
-  +media-breakpoint-down(sm)
-    &::before,
-    &::after
-      content: none
-  .thread.is-page &
-    &::before,
-    &::after
-      content: none
 
 .thread__user-link
   +position(absolute, left 0, top 0)
@@ -53,7 +46,7 @@
     padding: .75rem
   & + .thread__description,
   .thread-header + &
-    border-top: solid 1px $background
+    border-top: solid 1px $border-tint
 
 .thread__warning-message
   background-color: $warning

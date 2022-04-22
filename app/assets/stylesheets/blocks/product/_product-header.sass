@@ -1,0 +1,59 @@
+.product-header
+  +media-breakpoint-up(md)
+    display: flex
+    margin-bottom: 2rem
+  .a-user-name
+    +media-breakpoint-down(sm)
+      display: block
+      text-align: center
+      margin-bottom: .5rem
+
+.product-header__start
+  +media-breakpoint-up(md)
+    flex: 0 0 5rem
+
+.product-header__end
+  +media-breakpoint-up(md)
+    flex: 1
+  +media-breakpoint-down(sm)
+    margin-top: .5rem
+
+.product-header__user
+  +media-breakpoint-down(sm)
+    display: flex
+    justify-content: center
+
+.product-header__user-link
+  +block-link
+
+.product-header__user-icon
+  +size(3.5rem)
+
+.product-header__title
+  font-feature-settings: "palt"
+  letter-spacing: .02em
+  +text-block(1em 1.45, 700 $main)
+  padding-bottom: .25rem
+  border-bottom: solid 1px $border-shade
+  +media-breakpoint-up(md)
+    font-size: 1.5rem
+    margin-top: .125rem
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
+    margin-top: .125rem
+    word-break: break-all
+  &.is-wip
+    color: $muted-text
+  .a-title-label
+    display: inline-flex
+    vertical-align: top
+    +media-breakpoint-up(md)
+      +position(relative, top .75em)
+    +media-breakpoint-down(sm)
+      +position(relative, top .5em)
+
+.product-header__title-link
+  +hover-link
+  color: $main
+  .product-header__title.is-wip &
+    color: $muted-text

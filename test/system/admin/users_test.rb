@@ -216,4 +216,21 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_checked_field?('user_trainee', visible: false)
     assert has_field?('user_training_ends_on', with: '')
   end
+
+  test 'admin can change user course' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'machida'
+    within 'form[name=user]' do
+      select 'iOSプログラマー', from: 'user[course_id]'
+    end
+    click_on '更新する'
+    assert_equal 'iOSプログラマー', user.reload.course.title
+  end
+
+  test 'general user cannot change user course' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'kimura'
+    assert_current_path('/')
+    assert_text '管理者としてログインしてください'
+  end
 end
