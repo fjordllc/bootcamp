@@ -13,7 +13,7 @@
           th.admin-table__label
             | ウェブサイト
           th.admin-table__label.actions
-            | リンク
+            | アドバイザー招待
           th.admin-table__label.actions
             | 編集
       tbody.admin-table__items
