@@ -17,6 +17,7 @@ class Notification::GraduationTest < ApplicationSystemTestCase
     # kimura が一番上に表示されるようにソート
     path = 'admin/users?direction=desc&order_by=updated_at&target=student_and_trainee'
     visit_with_auth path, 'komagata'
+
     accept_confirm do
       first('.a-button.is-sm.is-primary', text: '卒業').click
     end
