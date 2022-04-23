@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class TalksController < ApplicationController
+  before_action :require_login, only: %i[show]
+  before_action :require_admin_login, only: %i[index]
   before_action :set_talk, only: %i[show]
   before_action :set_user, only: %i[show]
   before_action :set_members, only: %i[show]
-  before_action :require_admin_login, only: %i[index]
   before_action :allow_show_talk_page_only_admin, only: %i[show]
 
   def index
