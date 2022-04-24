@@ -79,8 +79,7 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'create a report without company as trainee' do
-    user = users(:kensyu)
-    user.update!(company: nil)
+    user = users(:nocompanykensyu)
 
     visit_with_auth '/reports/new', 'kensyu'
     within('form[name=report]') do
