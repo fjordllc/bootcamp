@@ -240,7 +240,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'confirmed show welcome message' do
     visit_with_auth '/', 'advijirou'
-    click_button '読みました'
+    click_button '閉じる'
     visit '/'
     assert_no_text 'ようこそ'
   end
