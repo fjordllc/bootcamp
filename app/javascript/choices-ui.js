@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       noResultsText: '一致する情報は見つかりません',
       itemSelectText: '選択',
       shouldSort: false,
+      resetScrollPosition: false,
       renderSelectedChoices: 'always'
     })
   }
