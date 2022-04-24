@@ -69,8 +69,6 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問を編集できるかのテスト'
       fill_in 'question[description]', with: '編集できれば期待通りの動作'
       first('.choices__inner').click
-      find('.choices__list--dropdown').click
-      find('.choices__list').click
       find('#choices--js-choices-single-select-item-choice-52', text: 'iOSへのビルドと固有の問題').click
       click_button '登録する'
     end
