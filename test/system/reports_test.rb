@@ -78,23 +78,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
   end
 
-  test 'create a report without company as trainee' do
-    visit_with_auth '/reports/new', 'kensyu'
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
-    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
-    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
-    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
-
-    click_button '提出'
-    assert_text '日報を保存しました。'
-  end
-
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
