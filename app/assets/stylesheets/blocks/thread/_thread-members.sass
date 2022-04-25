@@ -1,14 +1,16 @@
+.thread-members
+  background: $base
+  padding: .75rem 1rem
+  border-radius: .25rem
+  border: solid 1px $border-shade
+
 .thread-members__title
-  +text-block(.8125rem 1.4)
+  +text-block(.8125rem 1.4, 600)
 
 .thread-members__items
   display: flex
   gap: .75rem
   flex-wrap: wrap
-  +media-breakpoint-up(md)
-    margin-top: .75rem
-  +media-breakpoint-down(sm)
-    margin-top: .5rem
 
 .thread-members__item
   display: flex

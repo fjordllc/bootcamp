@@ -25,21 +25,22 @@ header.page-header
                     p
                       | ここは#{@user.login_name}さんと管理者のみが閲覧することのできる相談部屋です。
                       | 就職に関することや受講に関することなど、何か相談したいことがある場合にお気軽にコメントをしてください。
-              .page-content-header__row
-                hr.a-horizontal-dashed
-              .page-content-header__row
-                .thread-members
-                  h2.thread-members__title
-                    | 相談部屋にアクセスできるメンバー
-                  ul.thread-members__items
-                    - @members.each do |member|
-                      li.thread-members__item
-                        = render 'users/icon',
-                          user: member,
-                          link_class: 'thread-members__user-icon-link',
-                          image_class: 'thread-members__user-icon'
-                        = link_to user_path(member.id), class: 'a-user-name' do
-                          = member.login_name
+
+          .thread
+            .thread__inner.a-card
+              .card-header.is-sm
+                h2.thread-members__title
+                  | 相談部屋にアクセスできるメンバー
+              .thread__description
+                ul.thread-members__items
+                  - @members.each do |member|
+                    li.thread-members__item
+                      = render 'users/icon',
+                        user: member,
+                        link_class: 'thread-members__user-icon-link',
+                        image_class: 'thread-members__user-icon'
+                      = link_to user_path(member.id), class: 'a-user-name' do
+                        = member.login_name
         #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
       - if current_user.admin?
         .col-xl-5.col-xs-12
