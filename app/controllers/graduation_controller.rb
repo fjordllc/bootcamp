@@ -21,6 +21,8 @@ class GraduationController < ApplicationController
   end
 
   def notify_to_mentors(user)
-    User.mentor.each { |mentor| NotificationFacade.graduated(user, mentor) }
+    User.mentor.each do |mentor|
+      ActivityDelivery.with(sender: user, receiver: mentor).notify(:graduated)
+    end
   end
 end
