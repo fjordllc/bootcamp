@@ -10,14 +10,16 @@
   .a-bookmark-button.is-inactive
     color: $semi-muted-text
     background-color: $background-shade
-  .a-title-label
-    color: $semi-muted-text
-    background-color: $background-shade
   .a-user-name
     +media-breakpoint-down(sm)
       display: block
       text-align: center
       margin-bottom: .5rem
+  .a-count-badge
+    +media-breakpoint-up(md)
+      +position(absolute, right 0, top -.75rem)
+    +media-breakpoint-down(sm)
+      +position(absolute, right 0, top 0)
 
 .page-content-header__start
   +media-breakpoint-up(md)

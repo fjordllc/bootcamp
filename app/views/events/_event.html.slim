@@ -4,7 +4,7 @@
       .page-content-header__row
         h1.page-content-header__title(class="#{event.wip? ? 'is-wip' : ''}")
           - if event.wip?
-            span.a-title-label
+            span.a-title-label.is-wip
               | WIP
           span.thread-header-title__title
             = event.title
