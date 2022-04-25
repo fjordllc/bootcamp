@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container(v-if='!loaded')
-      loadingListPlaceholder
+    loadingListPlaceholder
   .container(v-if='products.length === 0')
     .o-empty-message
       .o-empty-message__icon
