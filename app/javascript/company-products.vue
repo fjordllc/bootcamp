@@ -1,5 +1,7 @@
 <template lang="pug">
 .page-body
+  .container(v-if='!loaded')
+      loadingListPlaceholder
   .container(v-if='products.length === 0')
     .o-empty-message
       .o-empty-message__icon
@@ -25,10 +27,12 @@
 <script>
 import Pager from 'pager.vue'
 import Product from 'product.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 
 export default {
   components: {
     product: Product,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   props: {
@@ -39,6 +43,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       products: [],
       currentPage: Number(this.getParams().page) || 1,
       totalPages: 0,
@@ -93,6 +98,7 @@ export default {
             this.products.push(product)
           })
           this.totalPages = json.total_pages
+          this.loaded = true
         })
         .catch((error) => {
           console.warn(error)
