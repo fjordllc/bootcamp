@@ -57,6 +57,7 @@ GEM
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
     active_decorator (1.4.0)
       activesupport
+    active_delivery (0.4.4)
     active_flag (1.5.2)
       activerecord (>= 5)
     active_storage_validations (0.9.6)
@@ -525,6 +526,7 @@ PLATFORMS
 DEPENDENCIES
   abstract_notifier
   active_decorator
+  active_delivery
   active_flag
   active_storage_validations
   acts-as-taggable-on
