@@ -12,7 +12,7 @@ header.page-content-header
         - if @product.user.daimyo?
           | ★
         - if @product.wip?
-          span.a-title-label
+          span.a-title-label.is-wip
             | WIP
         | #{link_to @product.practice.title, @product.practice, class: 'page-content-header__title-link'}の提出物
 

@@ -1,8 +1,10 @@
 <template lang="pug">
-.thread
-  userIcon(:user='question.user', blockClassSuffix='thread')
-  .thread__inner.a-card
-    .thread-header.has-count
+.question
+  header.page-content-header
+    .page-content-header__start
+      .page-content-header__user
+        userIcon(:user='question.user', blockClassSuffix='page-content-header')
+    .page-content-header__end
       a.a-count-badge(href='#comments')
         .a-count-badge__label
           | 回答
@@ -10,7 +12,23 @@
           i.fa-solid.fa-spinner
         .a-count-badge__value(:class='answerCount === 0 ? "is-zero" : ""')
           | {{ answerCount }}
-      .thread-header__row
+
+      .page-content-header__row
+        .page-content-header__before-title
+          a.a-category-link(:href='`/practices/${practiceId}`')
+            | {{ practiceTitle }}
+        h1.page-content-header__title(:class='question.wip ? "is-wip" : ""')
+          span.a-title-label.is-solved.is-success(
+            v-if='question.correct_answer !== null'
+          )
+            | 解決済
+          span.a-title-label.is-wip(v-else-if='question.wip')
+            | WIP
+          span.a-title-label.is-solved.is-danger(v-else)
+            | 未解決
+          | {{ title }}
+
+      .page-content-header__row
         .thread-header-metas
           .thread-header-metas__start
             .thread-header-metas__meta(v-if='question.wip')
@@ -32,19 +50,8 @@
                   | 更新
                 time.a-meta__value
                   | {{ updatedAt }}
-      .thread-header__row
-        .thread-header-title(:class='question.wip ? "is-wip" : ""')
-          .a-title-label.is-solved.is-success(
-            v-if='question.correct_answer !== null'
-          )
-            | 解決済
-          .a-title-label.is-wip(v-else-if='question.wip')
-            | WIP
-          .a-title-label.is-solved.is-danger(v-else)
-            | 未解決
-          h1.thread-header-title__title
-            | {{ title }}
-      .thread-header__row
+
+      .page-content-header__row
         .thread-header-actions
           .thread-header-actions__start
             .thread-header-actions__action
@@ -61,17 +68,17 @@
                 target='_blank'
               )
                 | Raw
-    .thread-category
-      a.a-category-link(:href='`/practices/${practiceId}`')
-        | {{ practiceTitle }}
-    .thread__tags
-      tags(
-        :tagsInitialValue='question.tag_list',
-        :questionId='question.id',
-        tagsParamName='question[tag_list]'
-      )
 
-    .thread__body(v-if='!editing')
+      .page-content-header__row
+        .page-content-header__tags
+          tags(
+            :tagsInitialValue='question.tag_list',
+            :questionId='question.id',
+            tagsParamName='question[tag_list]'
+          )
+
+  .thread.has-no-author
+    .thread__inner.a-card(v-if='!editing')
       .thread-question__body
         .thread__description.a-long-text.is-md(v-html='markdownDescription')
       .thread-question__reactions
@@ -106,7 +113,7 @@
           .card-footer__notice(v-show='displayedUpdateMessage')
             p
               | 質問を更新しました
-    .thread__body(v-show='editing')
+    .thread__inner.a-card(v-show='editing')
       .thread-form
         form.form(name='question')
           .form__items

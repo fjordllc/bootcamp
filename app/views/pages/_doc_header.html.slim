@@ -7,7 +7,7 @@ header.page-content-header
             = page.practice.title
       h1.page-content-header__title(class="#{page.wip? ? 'is-wip' : ''}")
         - if page.wip?
-          span.a-title-label
+          span.a-title-label.is-wip
             | WIP
         | #{page.title}
 
