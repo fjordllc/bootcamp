@@ -132,7 +132,7 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:hajime)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ユーザーの日報'
-    page.find('#reports_list').click
+    page.find('#side-tabs-nav-2').click
     user.reports.first(10).each do |report|
       assert_text report.title
     end
