@@ -3,9 +3,11 @@
   +margin(horizontal, auto)
   +media-breakpoint-up(md)
     display: flex
-    margin-bottom: 1.25rem
     width: $thread-max-width
     max-width: 100%
+    margin-bottom: 2rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
   .a-watch-button.is-inactive,
   .a-bookmark-button.is-inactive
     color: $semi-muted-text
@@ -84,3 +86,16 @@
 .page-content-header__row
   &:not(:last-child)
     margin-bottom: .5rem
+  .a-horizontal-dashed
+    margin-bottom: 1rem
+
+.page-content-header__description
+  +media-breakpoint-up(md)
+    +padding(vertical, .25rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, .25rem)
+  &.a-long-text
+    +media-breakpoint-up(md)
+      font-size: .9375rem
+    +media-breakpoint-down(sm)
+      font-size: .8125rem
