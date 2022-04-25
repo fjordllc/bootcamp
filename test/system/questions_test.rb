@@ -51,7 +51,8 @@ class QuestionsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'テストの質問（修正）'
       fill_in 'question[description]', with: 'テストの質問です。（修正）'
-      select 'sshdでパスワード認証を禁止にする', from: 'question[practice]'
+      find('.choices__inner').click
+      find('#choices--js-choices-single-select-item-choice-44', text: 'sshdでパスワード認証を禁止にする').click
       click_button '更新する'
     end
     assert_text '質問を更新しました'
@@ -78,7 +79,8 @@ class QuestionsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問でも'
       fill_in 'question[description]', with: '編集できる'
-      select 'iOSへのビルドと固有の問題', from: 'question[practice]'
+      find('.choices__inner').click
+      find('#choices--js-choices-single-select-item-choice-52', text: 'iOSへのビルドと固有の問題').click
       click_button '更新する'
     end
     assert_text '質問を更新しました'
