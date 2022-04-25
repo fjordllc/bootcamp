@@ -62,7 +62,7 @@ Rails.application.routes.draw do
       resource :checker, only: %i(update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
-    resources :products, only: %i(index)
+    resources :products, only: %i(index show)
     namespace :categories_practices do
       resources :position, only: %i(update)
     end

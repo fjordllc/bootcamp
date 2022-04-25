@@ -80,7 +80,7 @@ export default new Vuex.Store({
     },
     setProduct({ commit }, { productId }) {
       const meta = document.querySelector('meta[name="csrf-token"]')
-      fetch(`/api/products.json/?id=${productId}`, {
+      fetch(`/api/products/${productId}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -92,10 +92,10 @@ export default new Vuex.Store({
           return response.json()
         })
         .then((json) => {
-          if (json.products[0].checker_id !== null) {
+          if (json.products.checker_id !== null) {
             commit('setProduct', {
-              productId: json.products[0].id,
-              productCheckerId: json.products[0].checker_id
+              productId: json.products.id,
+              productCheckerId: json.products.checker_id
             })
           } else {
             commit('setProduct', {
