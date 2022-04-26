@@ -1,4 +1,4 @@
-.event
+.event.page-content
   header.page-content-header
     .page-content-header__end
       .page-content-header__row
@@ -38,11 +38,9 @@
                 i.fa-solid.fa-copy
                 | コピー
 
-      .page-content-header__row
-        = render('event_meta', event: event)
+  = render('event_meta', event: event)
 
-.thread.has-no-author
-  .thread__inner.a-card
+  .a-card
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
@@ -63,9 +61,8 @@
               = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                 | 削除する
 
-- unless event.wip?
-  .thread.participants.has-no-author
-    .thread__inner.a-card
+  - unless event.wip?
+    .a-card
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
@@ -76,9 +73,8 @@
               = link_to participant do
                 = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
 
-- if event.waitlist.count.positive?
-  .thread.waitlist.has-no-author
-    .thread__inner.a-card
+  - if event.waitlist.count.positive?
+    .a-card
       header.card-header.is-sm
         h1.card-header__title
           | 補欠者（#{event.waitlist.count}名）

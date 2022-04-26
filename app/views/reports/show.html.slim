@@ -28,14 +28,13 @@ header.page-header
   .container.is-xxxl
     .row.is-jc:c
       .col-xl-7.col-xs-12
-        .report
+        .report.page-content
           header.page-content-header
             #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
             .page-content-header__start
               .page-content-header__user
                 = render 'users/icon', user: @report.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
             .page-content-header__end
-
               .page-content-header__row
                 .page-content-header__before-title
                   = link_to @report.user, class: 'a-user-name', title: @report.user.name do
@@ -102,46 +101,45 @@ header.page-header
                             = link_to practice, class: 'tag-links__item-link' do
                               = practice.title
 
-          .thread.has-no-author
-            .thread__inner.a-card
-              .card__header
-                = render 'reports/learning_times', report: @report
-              .thread__body
-                .thread__description
-                  .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
-                    = @report.description
-                = render 'reactions/reactions', reactionable: @report
+          .a-card
+            .card__header
+              = render 'reports/learning_times', report: @report
+            .thread__body
+              .thread__description
+                .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
+                  = @report.description
+              = render 'reactions/reactions', reactionable: @report
 
-              - if @report.user_id == current_user.id
-                .card-footer
-                  .card-main-actions
-                    ul.card-main-actions__items
-                      li.card-main-actions__item
-                        = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
-                          i.fa-solid.fa-pen#new
-                          | 内容修正
-                      li.card-main-actions__item.is-sub
-                        = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                          span#delete
-                            | 削除する
+            - if @report.user_id == current_user.id
+              .card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
+                        i.fa-solid.fa-pen#new
+                        | 内容修正
+                    li.card-main-actions__item.is-sub
+                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                        span#delete
+                          | 削除する
 
-              - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
-                #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
+            - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
+              #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
-            .page-content-prev-next
-              .page-content-prev-next__item
-                - if @report.previous
-                  = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
-                    i.fa-solid.fa-angle-left
-                    | 前の日報
-              .page-content-prev-next__item
-                = link_to user_reports_path(@report.user_id), class: 'page-content-prev-next__item-link is-index' do
-                  | 日報一覧
-              .page-content-prev-next__item
-                - if @report.next
-                  = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
-                    | 次の日報
-                    i.fa-solid.fa-angle-right
+          .page-content-prev-next
+            .page-content-prev-next__item
+              - if @report.previous
+                = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
+                  i.fa-solid.fa-angle-left
+                  | 前の日報
+            .page-content-prev-next__item
+              = link_to user_reports_path(@report.user_id), class: 'page-content-prev-next__item-link is-index' do
+                | 日報一覧
+            .page-content-prev-next__item
+              - if @report.next
+                = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
+                  | 次の日報
+                  i.fa-solid.fa-angle-right
 
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
 
