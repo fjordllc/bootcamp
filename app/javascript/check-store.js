@@ -92,10 +92,10 @@ export default new Vuex.Store({
           return response.json()
         })
         .then((json) => {
-          if (json.products.checker_id !== null) {
+          if (json.checker_id !== null) {
             commit('setProduct', {
-              productId: json.products.id,
-              productCheckerId: json.products.checker_id
+              productId: json.id,
+              productCheckerId: json.checker_id
             })
           } else {
             commit('setProduct', {
