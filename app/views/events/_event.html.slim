@@ -62,7 +62,7 @@
                 | 削除する
 
   - unless event.wip?
-    .a-card
+    .a-card.participants
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
@@ -74,7 +74,7 @@
                 = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
 
   - if event.waitlist.count.positive?
-    .a-card
+    .a-card.waitlist
       header.card-header.is-sm
         h1.card-header__title
           | 補欠者（#{event.waitlist.count}名）
