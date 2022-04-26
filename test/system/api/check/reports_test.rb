@@ -31,7 +31,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
       click_button '日報を確認'
     end
     click_button '日報の確認を取り消す'
-    within('.page-content"') do
+    within('.page-content') do
       assert_no_text '確認済'
     end
     assert_button '日報を確認'
