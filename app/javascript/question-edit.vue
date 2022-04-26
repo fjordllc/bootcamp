@@ -113,93 +113,93 @@
           p
             | 質問を更新しました
 
-    .a-card(v-show='editing')
-      .thread-form
-        form.form(name='question')
-          .form__items
-            .form-item
-              label.a-form-label
-                | プラクティス
-              .select-practices(v-if='practices === null')
-                .empty
-                  .fa-solid.fa-spinner.fa-pulse
-                  | ロード中
-              .select-practices(v-show='practices !== null')
-                select.js-select2(
-                  v-model='edited.practiceId',
-                  v-select2,
-                  name='question[practice]'
-                )
-                  option(
-                    v-for='practice in practices',
-                    :key='practice.id',
-                    :value='practice.id'
-                  ) {{ practice.categoryAndPracticeName }}
-            .form-item
-              .a-form-label
-                | タイトル
-              input.a-text-input(
-                v-model='edited.title',
-                name='question[title]'
+  .a-card(v-show='editing')
+    .thread-form
+      form.form(name='question')
+        .form__items
+          .form-item
+            label.a-form-label
+              | プラクティス
+            .select-practices(v-if='practices === null')
+              .empty
+                .fa-solid.fa-spinner.fa-pulse
+                | ロード中
+            .select-practices(v-show='practices !== null')
+              select.js-select2(
+                v-model='edited.practiceId',
+                v-select2,
+                name='question[practice]'
               )
-            .form-item
-              .form-tabs.js-tabs
-                .form-tabs__tab.js-tabs__tab(
-                  :class='{ "is-active": isActive("question") }',
-                  @click='changeActiveTab("question")'
+                option(
+                  v-for='practice in practices',
+                  :key='practice.id',
+                  :value='practice.id'
+                ) {{ practice.categoryAndPracticeName }}
+          .form-item
+            .a-form-label
+              | タイトル
+            input.a-text-input(
+              v-model='edited.title',
+              name='question[title]'
+            )
+          .form-item
+            .form-tabs.js-tabs
+              .form-tabs__tab.js-tabs__tab(
+                :class='{ "is-active": isActive("question") }',
+                @click='changeActiveTab("question")'
+              )
+                | 質問文
+              .form-tabs__tab.js-tabs__tab(
+                :class='{ "is-active": isActive("preview") }',
+                @click='changeActiveTab("preview")'
+              )
+                | プレビュー
+            .form-tabs-item__markdown-parent.js-markdown-parent
+              .form-tabs-item__markdown.js-tabs__content(
+                :class='{ "is-active": isActive("question") }'
+              )
+                textarea#js-question-content.a-text-input.form-tabs-item__textarea(
+                  v-model='edited.description',
+                  data-preview='#js-question-preview',
+                  name='question[description]'
                 )
-                  | 質問文
-                .form-tabs__tab.js-tabs__tab(
-                  :class='{ "is-active": isActive("preview") }',
-                  @click='changeActiveTab("preview")'
-                )
-                  | プレビュー
-              .form-tabs-item__markdown-parent.js-markdown-parent
-                .form-tabs-item__markdown.js-tabs__content(
-                  :class='{ "is-active": isActive("question") }'
-                )
-                  textarea#js-question-content.a-text-input.form-tabs-item__textarea(
-                    v-model='edited.description',
-                    data-preview='#js-question-preview',
-                    name='question[description]'
-                  )
-                .form-tabs-item__markdown.js-tabs__content(
-                  :class='{ "is-active": isActive("preview") }'
-                )
-                  #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
+              .form-tabs-item__markdown.js-tabs__content(
+                :class='{ "is-active": isActive("preview") }'
+              )
+                #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
 
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block(
-                  @click='updateQuestion(true)',
-                  :disabled='!validation',
-                  type='button'
-                )
-                  | WIP
-              li.card-main-actions__item
-                button.a-button.is-sm.is-warning.is-block(
-                  @click='updateQuestion(false)',
-                  :disabled='!validation',
-                  type='button'
-                )(
-                  v-if='question.wip'
-                )
-                  | 質問を公開
-                button.a-button.is-sm.is-warning.is-block(
-                  @click='updateQuestion(false)',
-                  :disabled='!validation',
-                  type='button'
-                )(
-                  v-else
-                )
-                  | 更新する
-              li.card-main-actions__item
-                button.a-button.is-sm.is-secondary.is-block(
-                  @click='cancel',
-                  type='button'
-                )
-                  | キャンセル
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              button.a-button.is-sm.is-primary.is-block(
+                @click='updateQuestion(true)',
+                :disabled='!validation',
+                type='button'
+              )
+                | WIP
+            li.card-main-actions__item
+              button.a-button.is-sm.is-warning.is-block(
+                @click='updateQuestion(false)',
+                :disabled='!validation',
+                type='button'
+              )(
+                v-if='question.wip'
+              )
+                | 質問を公開
+              button.a-button.is-sm.is-warning.is-block(
+                @click='updateQuestion(false)',
+                :disabled='!validation',
+                type='button'
+              )(
+                v-else
+              )
+                | 更新する
+            li.card-main-actions__item
+              button.a-button.is-sm.is-secondary.is-block(
+                @click='cancel',
+                type='button'
+              )
+                | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'
