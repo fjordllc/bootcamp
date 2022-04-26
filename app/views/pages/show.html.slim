@@ -16,107 +16,29 @@ header.page-header
 
 .page-body
   .container.is-lg
-    article.thread.is-page
-      .thread__inner.a-card
-        header.thread-header.has-count
-          .thread-header__row
-            .thread-header-metas
-              .thread-header-metas__start
-                - if @page.wip?
-                  .thread-header-metas__meta
-                    .thread-header__wip
-                      | WIP
-                  .thread-header-metas__meta
-                    .a-meta
-                      span.a-meta__label
-                        | Doc作成中
-                      span.a-meta__value
-                        = render 'users/icon',
-                          user: @page.user,
-                          link_class: 'thread-header__user-icon-link',
-                          image_class: 'thread-header__user-icon'
-                        = link_to @page.user, class: 'a-user-name' do
-                          | #{@page.user.login_name}
-                - elsif @page.published_at.present?
-                  .thread-header-metas__meta
-                    .a-meta
-                      span.a-meta__label
-                        | 公開
-                      time.a-meta__value(datetime="#{@page.published_at.to_datetime}")
-                        | #{l @page.published_at}
+    article.doc
 
-                - if @page.last_updated_user.present?
-                  .thread-header-metas__meta
-                    .a-meta
-                      span.a-meta__label
-                        | 更新
-                      time.a-meta__value(datetime="#{@page.updated_at.to_datetime}")
-                        | #{l @page.updated_at} by
-                        = render 'users/icon',
-                          user: @page.last_updated_user,
-                          link_class: 'thread-header__user-icon-link',
-                          image_class: 'thread-header__user-icon'
-                        = link_to @page.last_updated_user, class: 'a-user-name' do
-                          | #{@page.last_updated_user.login_name}
-                .thread-header-metas__meta
-                  - length = @page.comments.length
-                  a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
-                    | コメント（
-                    span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
-                      = length
-                    | ）
-              - if @page.slug.present?
-                .thread-header-metas__end
-                  .thread-header-metas__meta
-                    .a-slug
-                      = @page.slug
-          .thread-header__row
-            h1.thread-header-title(class="#{@page.wip? ? 'is-wip' : ''}")
-              span.thread-header-title__title
-                | #{@page.title}
-          .thread-header__row
-            .thread-header-actions
-              .thread-header-actions__start
-                .thread-header-actions__action
-                  #js-watch-toggle(data-watchable-id="#{@page.id}", data-watchable-type='Page')
-                .thread-header-actions__action
-                  #js-bookmark(data-bookmarkable-id="#{@page.id}", data-bookmarkable-type='Page')
-        - if @page.practice.present?
-          .thread-category
-            = link_to @page.practice, class: 'thread-category__link' do
-              = @page.practice.title
-
-        .thread__tags
-          #js-page-tags(
-            data-tags-initial-value="#{@page.tag_list.join(',')}"
-            data-tags-param-name='page[tag_list]'
-            data-tags-input-id='page_tag_list'
-            data-page-id="#{@page.id}"
-          )
-        .thread__body
+      = render 'doc_header', page: @page
+      .thread.has-no-author
+        .thread__inner.a-card
           .thread__description
             .a-long-text.is-md.js-markdown-view
               = @page.body
           = render 'reactions/reactions', reactionable: @page
-        footer.card-footer
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                = link_to [:edit, @page], class: 'card-main-actions__action a-button is-md is-secondary is-block' do
-                  i.fa-solid.fa-pen
-                  | 内容変更
-              - if admin_or_mentor_login? || current_user == @page.user
-                li.card-main-actions__item.is-sub
-                  = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                    | 削除する
-      .thread-prev-next
-        .thread-prev-next__item
-          = link_to :pages, class: 'thread-prev-next__item-link is-index' do
-            | 一覧に戻る
+          footer.card-footer
+            .card-main-actions
+              ul.card-main-actions__items
+                li.card-main-actions__item
+                  = link_to [:edit, @page], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                    i.fa-solid.fa-pen
+                    | 内容変更
+                - if admin_or_mentor_login? || current_user == @page.user
+                  li.card-main-actions__item.is-sub
+                    = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                      | 削除する
+        .page-content-prev-next
+          .page-content-prev-next__item
+            = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
+              | 一覧に戻る
 
-        = render 'users/icon',
-          user: @page.user,
-          link_class: 'thread__user-link',
-          image_class: 'thread__user-icon'
-    a#comments.a-anchor
     #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")

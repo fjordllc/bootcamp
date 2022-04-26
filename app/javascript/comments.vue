@@ -7,15 +7,16 @@
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
           | コメント（{{ commentLimit }}）をもっと見る
-  comment(
-    v-for='(comment, index) in comments',
-    :key='comment.id',
-    :comment='comment',
-    :currentUser='currentUser',
-    :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
-    @delete='deleteComment',
-    @update='updateComment'
-  )
+  .thread-comments__items
+    comment(
+      v-for='(comment, index) in comments',
+      :key='comment.id',
+      :comment='comment',
+      :currentUser='currentUser',
+      :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
+      @delete='deleteComment',
+      @update='updateComment'
+    )
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
@@ -54,7 +55,7 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
                 @click='createComment',
                 :disabled='!validation || buttonDisabled'
               )
@@ -62,7 +63,7 @@
             .card-main-actions__item.is-only-mentor(
               v-if='isRole("mentor") && commentType && !checkId'
             )
-              button.a-button.is-md.is-danger.is-block(
+              button.a-button.is-sm.is-danger.is-block(
                 @click='commentAndCheck',
                 :disabled='!validation || buttonDisabled'
               )

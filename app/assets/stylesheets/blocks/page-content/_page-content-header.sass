@@ -1,0 +1,108 @@
+.page-content-header
+  +position(relative)
+  +margin(horizontal, auto)
+  +media-breakpoint-up(md)
+    display: flex
+    width: $thread-max-width
+    max-width: 100%
+    margin-bottom: 1.5rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 1.25rem
+  .a-watch-button.is-inactive,
+  .a-bookmark-button.is-inactive
+    color: $semi-muted-text
+    background-color: $background-shade
+  .a-count-badge
+    +media-breakpoint-up(md)
+      +position(absolute, right 0, top -.75rem)
+    +media-breakpoint-down(sm)
+      +position(absolute, right 0, top 0)
+
+.page-content-header__start
+  +media-breakpoint-up(md)
+    flex: 0 0 5rem
+
+.page-content-header__end
+  +media-breakpoint-up(md)
+    flex: 1
+  +media-breakpoint-down(sm)
+    .page-content-header__start + &
+      margin-top: .5rem
+
+.page-content-header__user
+  +media-breakpoint-down(sm)
+    display: flex
+    justify-content: center
+
+.page-content-header__user-link
+  +block-link
+
+.page-content-header__user-icon
+  +size(3.5rem)
+
+.page-content-header__before-title
+  gap: .25rem
+  +media-breakpoint-up(md)
+    display: inline-flex
+    margin-bottom: .125rem
+  +media-breakpoint-down(md)
+    display: flex
+    justify-content: center
+    text-align: center
+    margin-bottom: .5rem
+  .a-user-name,
+  .a-meta,
+  .a-category-link
+    font-size: .75rem
+
+.page-content-header__title
+  font-feature-settings: "palt"
+  letter-spacing: .02em
+  +text-block(1em 1.45, 700 $main)
+  padding-bottom: .25rem
+  border-bottom: solid 1px $border-shade
+  display: flex
+  +media-breakpoint-up(md)
+    font-size: 1.5rem
+    &:not(:forst-child)
+      margin-top: .25rem
+  +media-breakpoint-down(sm)
+    font-size: 1.125rem
+    word-break: break-all
+    &:not(:forst-child)
+      margin-top: .125rem
+  &.is-wip
+    color: $muted-text
+  .a-title-label
+    display: inline-flex
+    vertical-align: top
+    +media-breakpoint-up(md)
+      +position(relative, top .75em)
+    +media-breakpoint-down(sm)
+      +position(relative, top .5em)
+
+.page-content-header__title-link
+  +hover-link
+  color: $main
+  .page-content-header__title.is-wip &
+    color: $muted-text
+
+.page-content-header__tags
+  margin-top: .75rem
+
+.page-content-header__row
+  &:not(:last-child)
+    margin-bottom: .5rem
+  .a-horizontal-dashed
+    margin-bottom: 1rem
+
+.page-content-header__description
+  +media-breakpoint-up(md)
+    +padding(vertical, .25rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, .25rem)
+  &.a-long-text
+    +media-breakpoint-up(md)
+      font-size: .9375rem
+    +media-breakpoint-down(sm)
+      font-size: .8125rem

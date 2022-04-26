@@ -23,7 +23,7 @@
 
 .card-main-actions__item
   +media-breakpoint-up(md)
-    flex: 0 0 16rem
+    flex: 0 0 12rem
     max-width: calc(50% - .375rem)
     &.is-sub
       +position(absolute, right 0, bottom 0)
@@ -35,6 +35,6 @@
 
 .card-main-actions__muted-action
   +hover-link-reversal
-  +text-block(.875rem 1.4, $muted-text)
+  +text-block(.8125rem 1.4, $muted-text)
   &:hover
     color: $danger
