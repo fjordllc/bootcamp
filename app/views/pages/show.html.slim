@@ -36,9 +36,9 @@ header.page-header
                   li.card-main-actions__item.is-sub
                     = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                       | 削除する
-        .thread-prev-next
-          .thread-prev-next__item
-            = link_to :pages, class: 'thread-prev-next__item-link is-index' do
+        .page-content-prev-next
+          .page-content-prev-next__item
+            = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
               | 一覧に戻る
 
     #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")

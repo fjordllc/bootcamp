@@ -53,9 +53,9 @@ header.page-header
                     | #{@report.title}
 
               .page-content-header__row
-                .thread-header-metas
-                  .thread-header-metas__start
-                    .thread-header-metas__meta
+                .page-content-header-metas
+                  .page-content-header-metas__start
+                    .page-content-header-metas__meta
                       .a-meta
                         = l @report.reported_on
                         | （
@@ -67,8 +67,8 @@ header.page-header
                           .a-meta
                             | （#{l @report.published_at} 提出）
 
-                  .thread-header-metas__end
-                    .thread-header-metas__meta
+                  .page-content-header-metas__end
+                    .page-content-header-metas__meta
                       - length = @report.comments.length
                       a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                         | コメント（
@@ -128,18 +128,18 @@ header.page-header
               - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
                 #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
-            .thread-prev-next
-              .thread-prev-next__item
+            .page-content-prev-next
+              .page-content-prev-next__item
                 - if @report.previous
-                  = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
+                  = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
                     i.fa-solid.fa-angle-left
                     | 前の日報
-              .thread-prev-next__item
-                = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
+              .page-content-prev-next__item
+                = link_to user_reports_path(@report.user_id), class: 'page-content-prev-next__item-link is-index' do
                   | 日報一覧
-              .thread-prev-next__item
+              .page-content-prev-next__item
                 - if @report.next
-                  = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
+                  = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
                     | 次の日報
                     i.fa-solid.fa-angle-right
 
