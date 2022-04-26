@@ -12,7 +12,6 @@ import autosize from 'autosize'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 
-
 export default class {
   static initialize(selector) {
     const meta = document.querySelector('meta[name="csrf-token"]')
