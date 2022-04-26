@@ -1,5 +1,5 @@
 <template lang="pug">
-.question
+.question.page-content
   header.page-content-header
     .page-content-header__start
       .page-content-header__user
@@ -77,129 +77,126 @@
             tagsParamName='question[tag_list]'
           )
 
-  .thread.has-no-author
-    .thread__inner.a-card(v-if='!editing')
-      .thread-question__body
-        .thread__description.a-long-text.is-md(v-html='markdownDescription')
-      .thread-question__reactions
-        reaction(
-          :reactionable='question',
-          :currentUser='currentUser',
-          :reactionableId='`Question_${question.id}`'
-        )
-      footer.card-footer(
-        v-if='currentUser.id === question.user.id || isRole("mentor")'
+  .a-card(v-if='!editing')
+    .thread-question__body
+      .thread__description.a-long-text.is-md(v-html='markdownDescription')
+    .thread-question__reactions
+      reaction(
+        :reactionable='question',
+        :currentUser='currentUser',
+        :reactionableId='`Question_${question.id}`'
       )
+    footer.card-footer(
+      v-if='currentUser.id === question.user.id || isRole("mentor")'
+    )
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
+              @click='startEditing'
+            )
+              i#new.fa-solid.fa-pen
+              | 内容修正
+          li.card-main-actions__item.is-sub
+            // - vue.jsでDELETE methodのリンクを作成する方法が、
+            // - 見つからなかったので、
+            // - いい実装方法ではないが、
+            // - Rails特定の属性(data-confirm, data-method)を付与して、
+            // - 確認ダイアログとDELETE methodのリンクを実装する
+            a.js-delete.card-main-actions__muted-action(
+              :href='`/questions/${question.id}`',
+              data-confirm='本当によろしいですか？',
+              data-method='delete'
+            )
+              | 削除する
+        .card-footer__notice(v-show='displayedUpdateMessage')
+          p
+            | 質問を更新しました
+
+  .a-card(v-show='editing')
+    .thread-form
+      form.form(name='question')
+        .form__items
+          .form-item
+            label.a-form-label
+              | プラクティス
+            .select-practices(v-if='practices === null')
+              .empty
+                .fa-solid.fa-spinner.fa-pulse
+                | ロード中
+            .select-practices(v-show='practices !== null')
+              select.js-select2(
+                v-model='edited.practiceId',
+                v-select2,
+                name='question[practice]'
+              )
+                option(
+                  v-for='practice in practices',
+                  :key='practice.id',
+                  :value='practice.id'
+                ) {{ practice.categoryAndPracticeName }}
+          .form-item
+            .a-form-label
+              | タイトル
+            input.a-text-input(v-model='edited.title', name='question[title]')
+          .form-item
+            .form-tabs.js-tabs
+              .form-tabs__tab.js-tabs__tab(
+                :class='{ "is-active": isActive("question") }',
+                @click='changeActiveTab("question")'
+              )
+                | 質問文
+              .form-tabs__tab.js-tabs__tab(
+                :class='{ "is-active": isActive("preview") }',
+                @click='changeActiveTab("preview")'
+              )
+                | プレビュー
+            .form-tabs-item__markdown-parent.js-markdown-parent
+              .form-tabs-item__markdown.js-tabs__content(
+                :class='{ "is-active": isActive("question") }'
+              )
+                textarea#js-question-content.a-text-input.form-tabs-item__textarea(
+                  v-model='edited.description',
+                  data-preview='#js-question-preview',
+                  name='question[description]'
+                )
+              .form-tabs-item__markdown.js-tabs__content(
+                :class='{ "is-active": isActive("preview") }'
+              )
+                #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
+
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item
-              button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
-                @click='startEditing'
+              button.a-button.is-sm.is-primary.is-block(
+                @click='updateQuestion(true)',
+                :disabled='!validation',
+                type='button'
               )
-                i#new.fa-solid.fa-pen
-                | 内容修正
-            li.card-main-actions__item.is-sub
-              // - vue.jsでDELETE methodのリンクを作成する方法が、
-              // - 見つからなかったので、
-              // - いい実装方法ではないが、
-              // - Rails特定の属性(data-confirm, data-method)を付与して、
-              // - 確認ダイアログとDELETE methodのリンクを実装する
-              a.js-delete.card-main-actions__muted-action(
-                :href='`/questions/${question.id}`',
-                data-confirm='本当によろしいですか？',
-                data-method='delete'
+                | WIP
+            li.card-main-actions__item
+              button.a-button.is-sm.is-warning.is-block(
+                @click='updateQuestion(false)',
+                :disabled='!validation',
+                type='button'
+              )(
+                v-if='question.wip'
               )
-                | 削除する
-          .card-footer__notice(v-show='displayedUpdateMessage')
-            p
-              | 質問を更新しました
-    .thread__inner.a-card(v-show='editing')
-      .thread-form
-        form.form(name='question')
-          .form__items
-            .form-item
-              label.a-form-label
-                | プラクティス
-              .select-practices(v-if='practices === null')
-                .empty
-                  .fa-solid.fa-spinner.fa-pulse
-                  | ロード中
-              .select-practices(v-show='practices !== null')
-                select.js-select2(
-                  v-model='edited.practiceId',
-                  v-select2,
-                  name='question[practice]'
-                )
-                  option(
-                    v-for='practice in practices',
-                    :key='practice.id',
-                    :value='practice.id'
-                  ) {{ practice.categoryAndPracticeName }}
-            .form-item
-              .a-form-label
-                | タイトル
-              input.a-text-input(
-                v-model='edited.title',
-                name='question[title]'
+                | 質問を公開
+              button.a-button.is-sm.is-warning.is-block(
+                @click='updateQuestion(false)',
+                :disabled='!validation',
+                type='button'
+              )(
+                v-else
               )
-            .form-item
-              .form-tabs.js-tabs
-                .form-tabs__tab.js-tabs__tab(
-                  :class='{ "is-active": isActive("question") }',
-                  @click='changeActiveTab("question")'
-                )
-                  | 質問文
-                .form-tabs__tab.js-tabs__tab(
-                  :class='{ "is-active": isActive("preview") }',
-                  @click='changeActiveTab("preview")'
-                )
-                  | プレビュー
-              .form-tabs-item__markdown-parent.js-markdown-parent
-                .form-tabs-item__markdown.js-tabs__content(
-                  :class='{ "is-active": isActive("question") }'
-                )
-                  textarea#js-question-content.a-text-input.form-tabs-item__textarea(
-                    v-model='edited.description',
-                    data-preview='#js-question-preview',
-                    name='question[description]'
-                  )
-                .form-tabs-item__markdown.js-tabs__content(
-                  :class='{ "is-active": isActive("preview") }'
-                )
-                  #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
-
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block(
-                  @click='updateQuestion(true)',
-                  :disabled='!validation',
-                  type='button'
-                )
-                  | WIP
-              li.card-main-actions__item
-                button.a-button.is-sm.is-warning.is-block(
-                  @click='updateQuestion(false)',
-                  :disabled='!validation',
-                  type='button'
-                )(
-                  v-if='question.wip'
-                )
-                  | 質問を公開
-                button.a-button.is-sm.is-warning.is-block(
-                  @click='updateQuestion(false)',
-                  :disabled='!validation',
-                  type='button'
-                )(
-                  v-else
-                )
-                  | 更新する
-              li.card-main-actions__item
-                button.a-button.is-sm.is-secondary.is-block(
-                  @click='cancel',
-                  type='button'
-                )
-                  | キャンセル
+                | 更新する
+            li.card-main-actions__item
+              button.a-button.is-sm.is-secondary.is-block(
+                @click='cancel',
+                type='button'
+              )
+                | キャンセル
 </template>
 <script>
 import Reaction from './reaction.vue'

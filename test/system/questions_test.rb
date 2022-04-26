@@ -128,7 +128,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'admin can update and delete any questions' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'komagata'
-    within '.thread__inner' do
+    within '.page-content' do
       assert_text '内容修正'
       assert_text '削除'
     end
@@ -137,7 +137,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'not admin or not question author can not delete any questions' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'hatsuno'
-    within '.thread__inner' do
+    within '.page-content' do
       assert_no_text '内容修正'
       assert_no_text '削除'
     end

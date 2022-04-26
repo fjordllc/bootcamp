@@ -1,29 +1,28 @@
-.thread.has-no-author
-  .thread__inner.a-card
-    header.card-header.is-sm
-      h2.card-header__title
-        | 提出物
-    .thread__description
-      .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
-        =  product.body
-    = render 'reactions/reactions', reactionable: product
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 提出物
+  .thread__description
+    .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
+      =  product.body
+  = render 'reactions/reactions', reactionable: product
 
-    - if product.user == current_user || admin_or_mentor_login?
-      .card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            - if product.wip?
-              li.card-main-actions__item
-                = form_with model: product, local: true do |f|
-                  = f.hidden_field :body
-                  = f.submit '提出する', class: 'a-button is-sm is-warning is-block'
+  - if product.user == current_user || admin_or_mentor_login?
+    .card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          - if product.wip?
             li.card-main-actions__item
-              = link_to edit_product_path(product), class: 'card-main-actions_action a-button is-sm is-secondary is-block' do
-                i.fa-solid.fa-pen
-                | 内容修正
-            li.card-main-actions__item.is-sub.is-only-mentor
-              = link_to product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                | 削除する
+              = form_with model: product, local: true do |f|
+                = f.hidden_field :body
+                = f.submit '提出する', class: 'a-button is-sm is-warning is-block'
+          li.card-main-actions__item
+            = link_to edit_product_path(product), class: 'card-main-actions_action a-button is-sm is-secondary is-block' do
+              i.fa-solid.fa-pen
+              | 内容修正
+          li.card-main-actions__item.is-sub.is-only-mentor
+            = link_to product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+              | 削除する
 
     - if (product.user.daimyo? && staff_login?) || admin_or_mentor_login?
       #js-check(data-checkable-id="#{product.id}"
@@ -34,12 +33,12 @@
                 data-checker-avatar="#{product.checker_avatar}"
                 data-current-user-id="#{current_user.id}")
 
-  .page-content-prev-next
-    .page-content-prev-next__item
-      = link_to product.practice, class: 'page-content-prev-next__item-link is-index' do
-        | プラクティスに戻る
-    - if current_user.mentor?
-      .page-content-prev-next__item.is-only-mentor
-        = link_to '提出物・自分の担当', products_self_assigned_index_path, class: 'page-content-prev-next__item-link is-index'
-      .page-content-prev-next__item.is-only-mentor
-        = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'page-content-prev-next__item-link is-index'
+.page-content-prev-next
+  .page-content-prev-next__item
+    = link_to product.practice, class: 'page-content-prev-next__item-link is-index' do
+      | プラクティスに戻る
+  - if current_user.mentor?
+    .page-content-prev-next__item.is-only-mentor
+      = link_to '提出物・自分の担当', products_self_assigned_index_path, class: 'page-content-prev-next__item-link is-index'
+    .page-content-prev-next__item.is-only-mentor
+      = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'page-content-prev-next__item-link is-index'

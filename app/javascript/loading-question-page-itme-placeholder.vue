@@ -18,7 +18,6 @@
           .thread-header-actions__end
             .thread-header-actions__action
               .a-button.is-sm.is-secondary.is-block.a-placeholder
-    .thread__tags
     .thread__body
       .thread-question__body
         .thread__description.a-long-text.is-md.a-placeholder
