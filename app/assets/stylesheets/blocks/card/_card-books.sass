@@ -16,6 +16,7 @@
   padding: .75rem 1rem
   +media-breakpoint-up(md)
     +flex-link
+    gap: 1rem
   +media-breakpoint-down(sm)
     +block-link
     overflow: hidden
@@ -23,7 +24,6 @@
 .card-books-item__start
   +media-breakpoint-up(md)
     flex: 0 0 4rem
-    margin-right: 1.5rem
   +media-breakpoint-down(sm)
     float: left
     margin-right: 1rem
@@ -39,7 +39,7 @@
   justify-content: center
 
 .card-books-item__title
-  +text-block(1rem 1.4, $default-text)
+  +text-block(.875rem 1.4, $default-text 600)
   transition: all .2s ease-out
   .a-badge
     +position(relative, top -.125em)
@@ -50,7 +50,7 @@
   color: $main-text
 
 .card-books-item__price
-  +text-block(.875rem 1.4 .5em, $default-text)
+  +text-block(.75rem 1.4 .25rem, $default-text)
 
 .card-books-item__image
   max-height: 100%
@@ -63,4 +63,4 @@
 .card-books-item__description
   font-size: .75rem
   color: $semi-muted-text
-  margin-top: .5em
+  margin-top: .25rem

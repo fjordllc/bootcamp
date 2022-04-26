@@ -7,15 +7,16 @@
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
           | コメント（{{ commentLimit }}）をもっと見る
-  comment(
-    v-for='(comment, index) in comments',
-    :key='comment.id',
-    :comment='comment',
-    :currentUser='currentUser',
-    :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
-    @delete='deleteComment',
-    @update='updateComment'
-  )
+  .thread-comments__items
+    comment(
+      v-for='(comment, index) in comments',
+      :key='comment.id',
+      :comment='comment',
+      :currentUser='currentUser',
+      :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
+      @delete='deleteComment',
+      @update='updateComment'
+    )
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
