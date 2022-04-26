@@ -91,11 +91,11 @@ export default new Vuex.Store({
         .then((response) => {
           return response.json()
         })
-        .then((json) => {
-          if (json.checker_id !== null) {
+        .then((product) => {
+          if (product.checker_id !== null) {
             commit('setProduct', {
-              productId: json.id,
-              productCheckerId: json.checker_id
+              productId: product.id,
+              productCheckerId: product.checker_id
             })
           } else {
             commit('setProduct', {
