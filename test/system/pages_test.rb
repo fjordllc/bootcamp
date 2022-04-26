@@ -87,7 +87,7 @@ class PagesTest < ApplicationSystemTestCase
     within '.a-meta.is-creator' do
       assert find('.thread-header__user-icon')[:title].start_with?('kimura')
     end
-    within '.a-meta.is-updator' do
+    within '.a-meta.is-updater' do
       assert_equal 'komagata', find('.a-user-name').text
     end
   end
