@@ -1,34 +1,23 @@
 .learning-times
-  border-top: solid 1px $border
+  display: flex
+  gap: .5rem
   +media-breakpoint-up(md)
-    +padding(vertical, .75rem)
-    +padding(horizontal, 2rem)
-    display: flex
+    padding: .75rem 1.25rem
   +media-breakpoint-down(sm)
-    +padding(vertical, .5rem)
-    +padding(horizontal, 1rem)
+    padding: .5rem .75rem
 
 .learning-times__header
   display: flex
   align-items: center
-  +media-breakpoint-up(md)
-    white-space: nowrap
-    margin-right: .5rem
-  +media-breakpoint-down(sm)
-    margin-bottom: .25rem
-
-.learning-times__title
+  white-space: nowrap
   +text-block(.8125rem 1.4, 600)
-
-.learning-times__total-time
-  +text-block(.8125rem 1.4, 600 block)
-  margin-left: .25rem
+  gap: .25rem
 
 .learning-times__items
   display: flex
   flex-wrap: wrap
 
 .learning-times__item
-  +text-block(.8125rem 1.4)
+  +text-block(.8125rem 1.4, $semi-muted-text)
   &:not(:last-child)::after
     content: "、"

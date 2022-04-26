@@ -29,7 +29,7 @@ header.page-content-header
                       | #{page.user.login_name}
             - elsif page.published_at.present?
               .thread-header-metas__meta
-                .a-meta.is-updater
+                .a-meta.is-creator
                   span.a-meta__label
                     | 公開
                   .a-meta__value
@@ -44,7 +44,7 @@ header.page-content-header
 
             - if page.last_updated_user.present?
               .thread-header-metas__meta
-                .a-meta.is-creator
+                .a-meta.is-updater
                   span.a-meta__label
                     | 更新
                   span.a-meta__value
