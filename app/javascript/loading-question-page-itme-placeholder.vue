@@ -5,7 +5,7 @@
   .thread__inner.a-card.is-loading
     .thread-header
       .thread-header__row
-        .thread-header-metas.a-placeholder
+        .page-content-header-metas.a-placeholder
       .thread-header__row
         .thread-header-title.a-placeholder
       .thread-header__row
@@ -18,7 +18,6 @@
           .thread-header-actions__end
             .thread-header-actions__action
               .a-button.is-sm.is-secondary.is-block.a-placeholder
-    .thread-category
     .thread__tags
     .thread__body
       .thread-question__body
@@ -39,5 +38,5 @@
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item
-                .a-button.is-md.is-block.a-placeholder
+                .a-button.is-sm.is-block.a-placeholder
 </template>

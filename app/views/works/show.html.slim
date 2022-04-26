@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to user_portfolio_path(@work.user), class: 'a-button is-md is-secondary is-block' do
+            = link_to user_portfolio_path(@work.user), class: 'a-button is-sm is-secondary is-block' do
               | ポートフォリオ
 
 .page-body
@@ -19,12 +19,12 @@ header.page-header
           = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'a-user-name-link' do
             = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "a-user-name-icon a-user-icon is-#{@work.user.primary_role}"
           .thread-header__row
-            .thread-header-metas
-              .thread-header-metas__start
-                .thread-header-metas__meta
+            .page-content-header-metas
+              .page-content-header-metas__start
+                .page-content-header-metas__meta
                   = link_to @work.user, class: 'a-user-name' do
                     = @work.user.login_name
-                .thread-header-metas__meta
+                .page-content-header-metas__meta
                   .a-meta
                     .a-meta__label
                       | 登録日
@@ -38,18 +38,18 @@ header.page-header
           - if @work.thumbnail.attached?
             p
               = image_tag @work.thumbnail_url, alt: @work.title
-          .js-markdown-view
+          .a-long-text.is-md.js-markdown-view
             = @work.description
         .card-footer
           ul.card-main-actions__items
             - if @work.url.present?
               li.card-main-actions__item
-                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
+                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
                   i.fa-solid.fa-globe
                   | URL
             - if @work.repository.present?
               li.card-main-actions__item
-                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-md is-secondary is-block' do
+                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
                   i.fa-brands.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_or_mentor_login?
@@ -57,7 +57,7 @@ header.page-header
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item
-                  = link_to edit_work_path(@work), class: 'a-button is-md is-secondary is-block' do
+                  = link_to edit_work_path(@work), class: 'a-button is-sm is-secondary is-block' do
                     i.fa-solid.fa-pen
                     | 内容修正
                 li.card-main-actions__item.is-sub

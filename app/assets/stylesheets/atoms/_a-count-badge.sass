@@ -1,15 +1,18 @@
 .a-count-badge
-  +text-block(1.5rem 1, center)
+  +text-block(1.25rem 1, center)
   border: solid 1px $border-shade
   vertical-align: middle
   border-radius: .25rem
-  min-width: 2.25em
   overflow: hidden
   background-color: $base
   transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    display: flex
+  +media-breakpoint-down(sm)
+    display: block
+    min-width: 2.25em
 
 a.a-count-badge
-  display: block
   text-decoration: none
   &:hover
     background-color: $background-more-tint
@@ -18,16 +21,30 @@ a.a-count-badge
   font-size: .625rem
   color: $default-text
   padding: .25em
-  border-bottom: solid 1px $border-shade
+  +media-breakpoint-up(md)
+    border-right: solid 1px $border-shade
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 2rem
+  +media-breakpoint-down(sm)
+    border-bottom: solid 1px $border-shade
 
 .a-count-badge__value
   font-size: 1em
   font-weight: 700
-  padding: .0625em .125em .1875em
-  line-height: .9375
-  height: 1.125em
   color: $danger
   transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    min-width: 2rem
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: .125em
+  +media-breakpoint-down(sm)
+    padding: .0625em .125em .1875em
+    line-height: .9375
+    height: 1.125em
   &.is-zero
     color: $muted-text
   &.is-counting

@@ -1,17 +1,25 @@
-.thread
-  .thread__inner.a-card
-    header.thread-header
-      .thread-header__row
-        .thread-header-metas
-          .thread-header-metas__start
-            .thread-header-metas__meta
+.event
+  header.page-content-header
+    .page-content-header__end
+      .page-content-header__row
+        h1.page-content-header__title(class="#{event.wip? ? 'is-wip' : ''}")
+          - if event.wip?
+            span.a-title-label.is-wip
+              | WIP
+          span.thread-header-title__title
+            = event.title
+      .page-content-header__row
+        .page-content-header-metas
+          .page-content-header-metas__start
+            .page-content-header-metas__meta
               = link_to event.user, class: 'a-user-name' do
                 = event.user.long_name
-            .thread-header-metas__meta
+            .page-content-header-metas__meta
               .a-meta
                 time.a-meta__value(datetime="#{event.created_at.to_datetime}" pubdate='pubdate')
                   = l event.updated_at
-            .thread-header-metas__meta
+          .page-content-header-metas__end
+            .page-content-header-metas__meta
               - length = event.comments.length
               a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                 | コメント（
@@ -19,15 +27,7 @@
                   = length
                 | ）
 
-      .thread-header__row
-        h1.thread-header-title
-          - if event.wip?
-            span.a-title-label
-              | WIP
-          span.thread-header-title__title
-            = event.title
-
-      .thread-header__row
+      .page-content-header__row
         .thread-header-actions
           .thread-header-actions__start
             .thread-header-actions__action
@@ -38,64 +38,48 @@
                 i.fa-solid.fa-copy
                 | コピー
 
-    - if event.wip?
-      .event-status
-        | 公開されるまでお待ちください。
-    - elsif !event.opening?
-      - if event.wip?
-        .event-status.is-not-shown
-          | 公開されるまでお待ちください。
-      - elsif event.before_opening?
-        .event-status.is-not-opened
-          | 募集開始までお待ち下さい。
-      - elsif event.closing?
-        .event-status.is-closed
-          | 募集受付は終了しました。
-      - else
-        .event-status.is-ended
-          | イベントは終了しました。
+      .page-content-header__row
+        = render('event_meta', event: event)
 
-    .thread__body
-      = render('event_meta', event: event)
-      .thread__description.a-long-text.is-md.js-markdown-view
-        = event.description
-      - unless event.wip?
-        = render 'events/participation', event: event
-      = render 'reactions/reactions', reactionable: event
-      - if admin_or_mentor_login? || event.user_id == current_user.id
-        .card-footer
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                = link_to edit_event_path(event), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
-                  i.fa-solid.fa-pen#new
-                  | 内容修正
-              li.card-main-actions__item.is-sub
-                = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                  | 削除する
-
-  = render 'users/icon',
-    user: event.user,
-    link_class: 'thread__user-link',
-    image_class: 'thread__user-icon'
+.thread.has-no-author
+  .thread__inner.a-card
+    .card-header.is-sm
+      h2.card-header__title
+        | イベント内容
+    .thread__description.a-long-text.is-md.js-markdown-view
+      = event.description
+    - unless event.wip?
+      = render 'events/participation', event: event
+    = render 'reactions/reactions', reactionable: event
+    - if admin_or_mentor_login? || event.user_id == current_user.id
+      .card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to edit_event_path(event), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
+                i.fa-solid.fa-pen#new
+                | 内容修正
+            li.card-main-actions__item.is-sub
+              = link_to event_path(event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                | 削除する
 
 - unless event.wip?
-  .thread.participants
+  .thread.participants.has-no-author
     .thread__inner.a-card
-      header.card-header
-        h1.card-header__title
+      header.card-header.is-sm
+        h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
       .card-body
         ul.footprints__items
           - event.participants.each do |participant|
             li.footprints-item
               = link_to participant do
-                = image_tag participant.avatar_url, title: participant.icon_title, class: "footprints-item__checker-icon a-user-icon is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+                = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
 
 - if event.waitlist.count.positive?
-  .thread.waitlist
+  .thread.waitlist.has-no-author
     .thread__inner.a-card
-      header.card-header
+      header.card-header.is-sm
         h1.card-header__title
           | 補欠者（#{event.waitlist.count}名）
       .card-body
@@ -104,4 +88,4 @@
             li.footprints-item
               = render 'users/icon',
                 user: wait_user,
-                image_class: 'footprints-item__checker-icon'
+                image_class: 'is-sm'

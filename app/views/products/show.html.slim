@@ -38,7 +38,7 @@ header.page-header
       = render 'completion_message', practice: @product.practice
 
   .container.is-xxxl
-    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-jc:c' : ''}")
+    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-gutter-width-32 is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
 
         .product

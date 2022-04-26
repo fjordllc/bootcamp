@@ -15,7 +15,7 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
-            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+            button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
               @click='editMemo'
             )
               i.fa-solid.fa-pen
@@ -50,10 +50,10 @@
       .card-main-actions
         .card-main-actions__items
           .card-main-actions__item
-            button.a-button.is-md.is-warning.is-block(@click='updateMemo')
+            button.a-button.is-sm.is-warning.is-block(@click='updateMemo')
               | 保存する
           .card-main-actions__item
-            button.a-button.is-md.is-secondary.is-block(@click='cancel')
+            button.a-button.is-sm.is-secondary.is-block(@click='cancel')
               | キャンセル
 </template>
 <script>

@@ -1,3 +1,2 @@
-.thread-comments-container
-  .thread-comments
-    = render partial: 'comment', collection: comments.order(:created_at), as: :comment
+.thread-comments
+  = render partial: 'comment', collection: comments.order(:created_at), as: :comment

@@ -30,8 +30,8 @@
       li.event-main-actions__item
         - if event.capacity > event.participants.count
           // TODO helprtにしてわかりやすくしたい↑
-          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-lg is-block' do
+          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-md is-block' do
             | 参加申込
         - else
-          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: '補欠としてイベント参加申込をします。よろしいですか?' }, class: 'a-button is-warning is-lg is-block' do
+          = link_to event_participations_path(event_id: event), method: :post, data: { confirm: '補欠としてイベント参加申込をします。よろしいですか?' }, class: 'a-button is-warning is-md is-block' do
             | 補欠登録
