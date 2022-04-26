@@ -29,22 +29,22 @@
           | {{ title }}
 
       .page-content-header__row
-        .thread-header-metas
-          .thread-header-metas__start
-            .thread-header-metas__meta(v-if='question.wip')
+        .page-content-header-metas
+          .page-content-header-metas__start
+            .page-content-header-metas__meta(v-if='question.wip')
               .a-meta
                 span.a-meta__value
                   | 質問作成中
-            .thread-header-metas__meta
+            .page-content-header-metas__meta
               a.a-user-name(:href='`/users/${question.user.id}`')
                 | {{ question.user.long_name }}
-            .thread-header-metas__meta(v-if='!question.wip')
+            .page-content-header-metas__meta(v-if='!question.wip')
               time.a-meta
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
                   | {{ publishedAt }}
-            .thread-header-metas__meta(v-if='!question.wip')
+            .page-content-header-metas__meta(v-if='!question.wip')
               .a-meta
                 span.a-meta__label
                   | 更新

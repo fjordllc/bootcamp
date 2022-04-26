@@ -29,16 +29,16 @@ header.page-header
           .thread
             .thread__inner.a-card
               .card-header.is-sm
-                h2.thread-members__title
+                h2.page-content-members__title
                   | 相談部屋にアクセスできるメンバー
               .thread__description
-                ul.thread-members__items
+                ul.page-content-members__items
                   - @members.each do |member|
-                    li.thread-members__item
+                    li.page-content-members__item
                       = render 'users/icon',
                         user: member,
-                        link_class: 'thread-members__user-icon-link',
-                        image_class: 'thread-members__user-icon'
+                        link_class: 'page-content-members__user-icon-link',
+                        image_class: 'page-content-members__user-icon'
                       = link_to user_path(member.id), class: 'a-user-name' do
                         = member.login_name
         #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")

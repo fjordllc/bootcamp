@@ -12,11 +12,11 @@ header.page-content-header
         | #{page.title}
 
     .page-content-header__row
-      .thread-header-metas
-        .thread-header-metas__start
-          .thread-header-metas
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas
             - if page.wip?
-              .thread-header-metas__meta
+              .page-content-header-metas__meta
                 .a-meta.is-creator
                   span.a-meta__label
                     | Doc作成中
@@ -28,7 +28,7 @@ header.page-content-header
                     = link_to page.user, class: 'a-user-name' do
                       | #{page.user.login_name}
             - elsif page.published_at.present?
-              .thread-header-metas__meta
+              .page-content-header-metas__meta
                 .a-meta.is-creator
                   span.a-meta__label
                     | 公開
@@ -43,7 +43,7 @@ header.page-content-header
                       | #{page.user.login_name}
 
             - if page.last_updated_user.present?
-              .thread-header-metas__meta
+              .page-content-header-metas__meta
                 .a-meta.is-updater
                   span.a-meta__label
                     | 更新
@@ -57,9 +57,9 @@ header.page-content-header
                     = link_to page.last_updated_user, class: 'a-user-name' do
                       | #{page.last_updated_user.login_name}
 
-        .thread-header-metas__end
-          .thread-header-metas
-            .thread-header-metas__meta
+        .page-content-header-metas__end
+          .page-content-header-metas
+            .page-content-header-metas__meta
               - length = page.comments.length
               a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                 | コメント（
@@ -67,7 +67,7 @@ header.page-content-header
                   = length
                 | ）
             - if page.slug.present?
-                .thread-header-metas__meta
+                .page-content-header-metas__meta
                   .a-slug
                     = page.slug
 

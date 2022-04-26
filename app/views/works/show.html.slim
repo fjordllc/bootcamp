@@ -19,12 +19,12 @@ header.page-header
           = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'a-user-name-link' do
             = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "a-user-name-icon a-user-icon is-#{@work.user.primary_role}"
           .thread-header__row
-            .thread-header-metas
-              .thread-header-metas__start
-                .thread-header-metas__meta
+            .page-content-header-metas
+              .page-content-header-metas__start
+                .page-content-header-metas__meta
                   = link_to @work.user, class: 'a-user-name' do
                     = @work.user.login_name
-                .thread-header-metas__meta
+                .page-content-header-metas__meta
                   .a-meta
                     .a-meta__label
                       | 登録日

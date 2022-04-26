@@ -17,13 +17,13 @@
               | WIP
           = announcement.title
       .page-content-header__row
-        .thread-header-metas
-          .thread-header-metas__start
-            .thread-header-metas__meta
+        .page-content-header-metas
+          .page-content-header-metas__start
+            .page-content-header-metas__meta
               = link_to announcement.user, class: 'a-user-name' do
                 = announcement.user.long_name
-          .thread-header-metas__end
-            .thread-header-metas__meta
+          .page-content-header-metas__end
+            .page-content-header-metas__meta
               - length = @announcement.comments.length
               a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                 | コメント（
