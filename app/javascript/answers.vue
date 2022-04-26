@@ -3,19 +3,20 @@
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
   h2.thread-comments__title 回答・コメント
-  answer(
-    v-for='answer in answers',
-    :key='answer.id',
-    :answer='answer',
-    :currentUser='currentUser',
-    :id='"answer_" + answer.id',
-    :questionUser='questionUser',
-    :hasCorrectAnswer='hasCorrectAnswer',
-    @delete='deleteAnswer',
-    @makeToBestAnswer='makeToBestAnswer',
-    @cancelBestAnswer='cancelBestAnswer',
-    @update='updateAnswer'
-  )
+  .thread-comments__items
+    answer(
+      v-for='answer in answers',
+      :key='answer.id',
+      :answer='answer',
+      :currentUser='currentUser',
+      :id='"answer_" + answer.id',
+      :questionUser='questionUser',
+      :hasCorrectAnswer='hasCorrectAnswer',
+      @delete='deleteAnswer',
+      @makeToBestAnswer='makeToBestAnswer',
+      @cancelBestAnswer='cancelBestAnswer',
+      @update='updateAnswer'
+    )
   .thread-comment-form
     .thread-comment__author
       img.thread-comment__user-icon.a-user-icon(

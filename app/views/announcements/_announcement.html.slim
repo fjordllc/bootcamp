@@ -1,21 +1,28 @@
-.thread
-  .thread__inner.a-card
-    header.thread-header.has-count
-      .thread-header__row
+.announcement
+  header.page-content-header
+    .page-content-header__start
+      .page-content-header__user
+        = render 'users/icon',
+          user: announcement.user,
+          link_class: 'page-content-header__user-link',
+          image_class: 'page-content-header__user-icon'
+    .page-content-header__end
+      .page-content-header__row
+        .page-content-header__before-title
+          time.a-meta(datetime="#{announcement.created_at.to_datetime}" pubdate='pubdate')
+            = l announcement.updated_at
+        h1.page-content-header__title(class="#{announcement.wip? ? 'is-wip' : ''}")
+          - if announcement.wip?
+            span.a-title-label.is-wip
+              | WIP
+          = announcement.title
+      .page-content-header__row
         .thread-header-metas
           .thread-header-metas__start
-            - if announcement.wip?
-              .thread-header-metas__meta
-                span.thread-header__wip
-                  | WIP
             .thread-header-metas__meta
               = link_to announcement.user, class: 'a-user-name' do
                 = announcement.user.long_name
-            .thread-header-metas__meta
-              time.a-meta(datetime="#{announcement.created_at.to_datetime}" pubdate='pubdate')
-                span.a-meta__label
-                  | 書いた日
-                = l announcement.updated_at
+          .thread-header-metas__end
             .thread-header-metas__meta
               - length = @announcement.comments.length
               a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
@@ -23,10 +30,7 @@
                 span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                   = length
                 | ）
-      .thread-header__row
-        h1.thread-header-title(class="#{announcement.wip? ? 'is-wip' : ''}")
-          = announcement.title
-      .thread-header__row
+      .page-content-header__row
         .thread-header-actions
           .thread-header-actions__start
             .thread-header-actions__action
@@ -37,30 +41,26 @@
                 i.fa-solid.fa-copy
                 | コピー
 
-    .thread__body
-      .thread__description
-        .a-long-text.is-md.js-markdown-view
-          = announcement.description
-      = render 'reactions/reactions', reactionable: @announcement
-      .card-footer
-        .card-main-actions
-          ul.card-main-actions__items(class="#{announcement.published_at ? 'is-sub-actions' : ''}")
-            - if announcement.published_at
-              li.card-main-actions__item.is-sub
-                = link_to edit_announcement_path(announcement), class: 'card-main-actions__muted-action' do
-                  | 内容修正
-            - else
-              li.card-main-actions__item
-                = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
-                  i.fa-solid.fa-pen#new
-                  | 内容修正
-            - if admin_or_mentor_login? || @announcement.user_id == current_user.id
-              li.card-main-actions__item.is-sub
-                = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                  span#delete
-                  | 削除する
-
-  = render 'users/icon',
-    user: announcement.user,
-    link_class: 'thread__user-link',
-    image_class: 'thread__user-icon'
+.thread.has-no-author
+  .thread__inner.a-card
+    .thread__description
+      .a-long-text.is-md.js-markdown-view
+        = announcement.description
+    = render 'reactions/reactions', reactionable: @announcement
+    .card-footer
+      .card-main-actions
+        ul.card-main-actions__items(class="#{announcement.published_at ? 'is-sub-actions' : ''}")
+          - if announcement.published_at
+            li.card-main-actions__item.is-sub
+              = link_to edit_announcement_path(announcement), class: 'card-main-actions__muted-action' do
+                | 内容修正
+          - else
+            li.card-main-actions__item
+              = link_to edit_announcement_path(announcement), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
+                i.fa-solid.fa-pen#new
+                | 内容修正
+          - if admin_or_mentor_login? || @announcement.user_id == current_user.id
+            li.card-main-actions__item.is-sub
+              = link_to announcement_path(announcement), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                span#delete
+                | 削除する
