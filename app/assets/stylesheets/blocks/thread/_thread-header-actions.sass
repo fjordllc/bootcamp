@@ -8,8 +8,11 @@
 .thread-header-actions__start,
 .thread-header-actions__end
   display: flex
-  flex: 1
   gap: .5rem
+  +media-breakpoint-up(md)
+    flex: 1
+  +media-breakpoint-down(sm)
+    flex: 0 0 100%
 
 .thread-header-actions__start
   +media-breakpoint-down(sm)
