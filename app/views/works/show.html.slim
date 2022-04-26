@@ -38,7 +38,7 @@ header.page-header
           - if @work.thumbnail.attached?
             p
               = image_tag @work.thumbnail_url, alt: @work.title
-          .js-markdown-view
+          .a-long-text.is-md.js-markdown-view
             = @work.description
         .card-footer
           ul.card-main-actions__items
