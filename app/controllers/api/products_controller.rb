@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::ProductsController < API::BaseController
-  before_action :require_staff_login_for_api, only: %i[index show]
+  before_action :require_login_for_api, only: %i[index show]
 
   def index
     @company = Company.find(params[:company_id]) if params[:company_id]
