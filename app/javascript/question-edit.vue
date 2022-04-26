@@ -138,10 +138,7 @@
           .form-item
             .a-form-label
               | タイトル
-            input.a-text-input(
-              v-model='edited.title',
-              name='question[title]'
-            )
+            input.a-text-input(v-model='edited.title', name='question[title]')
           .form-item
             .form-tabs.js-tabs
               .form-tabs__tab.js-tabs__tab(
