@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Users from './users.vue'
+import Users from 'users.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-users'

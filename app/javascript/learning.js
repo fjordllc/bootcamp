@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Learning from './learning.vue'
+import Learning from 'learning.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const learning = document.getElementById('js-learning')

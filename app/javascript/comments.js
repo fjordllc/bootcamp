@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Comments from './comments.vue'
-import store from './check-store.js'
+import Comments from 'comments.vue'
+import store from 'check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-comments'

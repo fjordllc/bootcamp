@@ -33,7 +33,7 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import validateTagName from './validate-tag-name'
+import validateTagName from 'validate-tag-name'
 
 export default {
   components: { VueTagsInput },

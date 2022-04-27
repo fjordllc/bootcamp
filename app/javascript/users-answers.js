@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import UsersAnswers from './users-answers.vue'
+import UsersAnswers from 'users-answers.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-users-answers'

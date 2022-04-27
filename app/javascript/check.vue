@@ -32,8 +32,8 @@
 </template>
 <script>
 import 'whatwg-fetch'
-import ProductChecker from './product_checker'
-import checkable from './checkable.js'
+import ProductChecker from 'product_checker'
+import checkable from 'checkable.js'
 
 export default {
   components: {

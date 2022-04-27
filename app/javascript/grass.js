@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Grass from './grass'
+import Grass from 'grass'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-grass'

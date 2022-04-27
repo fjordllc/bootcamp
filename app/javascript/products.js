@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Products from './products.vue'
+import Products from 'products.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-products'

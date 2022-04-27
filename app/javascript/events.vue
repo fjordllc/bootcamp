@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Event from './event'
-import Pager from './pager'
+import Event from 'event'
+import Pager from 'pager'
 
 export default {
   components: {

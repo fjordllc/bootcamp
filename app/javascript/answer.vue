@@ -107,13 +107,13 @@
                 | キャンセル
 </template>
 <script>
-import Reaction from './reaction.vue'
-import MarkdownInitializer from './markdown-initializer'
-import TextareaInitializer from './textarea-initializer'
-import confirmUnload from './confirm-unload'
+import Reaction from 'reaction.vue'
+import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from 'textarea-initializer'
+import confirmUnload from 'confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import role from './role'
+import role from 'role'
 dayjs.locale(ja)
 
 export default {

@@ -120,7 +120,7 @@
       )
 </template>
 <script>
-import ProductChecker from './product_checker'
+import ProductChecker from 'product_checker'
 export default {
   components: {
     'product-checker': ProductChecker

@@ -60,11 +60,11 @@
                 | コメントする
 </template>
 <script>
-import Answer from './answer.vue'
-import TextareaInitializer from './textarea-initializer'
-import CommentPlaceholder from './comment-placeholder'
-import confirmUnload from './confirm-unload'
-import toast from './toast'
+import Answer from 'answer.vue'
+import TextareaInitializer from 'textarea-initializer'
+import CommentPlaceholder from 'comment-placeholder'
+import confirmUnload from 'confirm-unload'
+import toast from 'toast'
 
 export default {
   components: {

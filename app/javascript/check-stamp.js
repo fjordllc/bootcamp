@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import CheckStamp from './check-stamp.vue'
-import store from './check-store.js'
+import CheckStamp from 'check-stamp.vue'
+import store from 'check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const checkStamp = document.getElementById('js-check-stamp')

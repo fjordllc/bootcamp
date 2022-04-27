@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import LearningStatus from './learning-status.vue'
+import LearningStatus from 'learning-status.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const learningStatuses = document.querySelectorAll('.js-learning-status')
