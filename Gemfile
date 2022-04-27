@@ -16,6 +16,7 @@ gem 'webpacker', '~> 5.0'
 # not default
 gem 'abstract_notifier'
 gem 'active_decorator'
+gem 'active_delivery'
 gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
