@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Notifications from './notifications.vue'
+import Notifications from 'notifications.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-notifications'

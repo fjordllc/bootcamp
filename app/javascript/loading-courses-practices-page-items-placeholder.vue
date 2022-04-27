@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import LoadingCoursesPracticesPageItemPlaceholder from './loading-courses-practices-page-item-placeholder.vue'
+import LoadingCoursesPracticesPageItemPlaceholder from 'loading-courses-practices-page-item-placeholder.vue'
 
 export default {
   components: {

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import ReportTemplate from './report_template.vue'
+import ReportTemplate from 'report_template.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-report-template'

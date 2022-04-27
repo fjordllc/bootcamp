@@ -12,8 +12,8 @@
   )
 </template>
 <script>
-import Modal from './tag-edit-modal.vue'
-import toast from './toast'
+import Modal from 'tag-edit-modal.vue'
+import toast from 'toast'
 
 export default {
   components: {

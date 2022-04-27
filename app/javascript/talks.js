@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Talks from './talks.vue'
+import Talks from 'talks.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-talks'

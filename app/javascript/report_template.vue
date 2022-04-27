@@ -18,9 +18,9 @@
     )
 </template>
 <script>
-import Modal from './report_template_modal.vue'
-import toast from './toast'
-import TextareaInitializer from './textarea-initializer'
+import Modal from 'report_template_modal.vue'
+import toast from 'toast'
+import TextareaInitializer from 'textarea-initializer'
 
 export default {
   components: {

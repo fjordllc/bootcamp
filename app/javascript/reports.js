@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Reports from './reports.vue'
+import Reports from 'reports.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-reports'

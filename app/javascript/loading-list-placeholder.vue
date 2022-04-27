@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import LoadingListItemPlaceholder from './loading-list-item-placeholder.vue'
+import LoadingListItemPlaceholder from 'loading-list-item-placeholder.vue'
 
 export default {
   components: {

@@ -57,9 +57,9 @@ section.a-card.is-memo.is-only-mentor
 </template>
 
 <script>
-import TextareaInitializer from './textarea-initializer'
-import MarkdownInitializer from './markdown-initializer'
-import confirmUnload from './confirm-unload'
+import TextareaInitializer from 'textarea-initializer'
+import MarkdownInitializer from 'markdown-initializer'
+import confirmUnload from 'confirm-unload'
 
 export default {
   mixins: [confirmUnload],

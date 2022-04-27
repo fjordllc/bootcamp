@@ -47,8 +47,8 @@
             .card-main-actions__muted-action(@click.prevent='closeModal') キャンセル
 </template>
 <script>
-import MarkdownInitializer from './markdown-initializer'
-import TextareaInitializer from './textarea-initializer'
+import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from 'textarea-initializer'
 
 export default {
   props: {

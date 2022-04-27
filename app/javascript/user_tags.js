@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Tags from './tags.vue'
+import Tags from 'tags.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.getElementById('js-user-tags')

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import UserMentorMemo from './user_mentor_memo.vue'
+import UserMentorMemo from 'user_mentor_memo.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-user-mentor-memo'

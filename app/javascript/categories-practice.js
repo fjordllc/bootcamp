@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import CategoriesPractice from './categories-practice.vue'
+import CategoriesPractice from 'categories-practice.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '.js-admin-category-practice'

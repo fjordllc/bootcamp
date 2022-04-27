@@ -199,17 +199,17 @@
                 | キャンセル
 </template>
 <script>
-import Reaction from './reaction.vue'
-import WatchToggle from './watch-toggle.vue'
-import BookmarkButton from './bookmark-button.vue'
-import MarkdownInitializer from './markdown-initializer'
-import TextareaInitializer from './textarea-initializer'
-import Tags from './question_tags.vue'
-import UserIcon from './user-icon.vue'
-import confirmUnload from './confirm-unload'
+import Reaction from 'reaction.vue'
+import WatchToggle from 'watch-toggle.vue'
+import BookmarkButton from 'bookmark-button.vue'
+import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from 'textarea-initializer'
+import Tags from 'question_tags.vue'
+import UserIcon from 'user-icon.vue'
+import confirmUnload from 'confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import role from './role'
+import role from 'role'
 dayjs.locale(ja)
 
 export default {

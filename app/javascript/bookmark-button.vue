@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import toast from './toast'
+import toast from 'toast'
 
 export default {
   mixins: [toast],
