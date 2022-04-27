@@ -53,7 +53,7 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button#js-shortcut-post-comment.a-button.is-sm.is-warning.is-block(
+              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
                 @click='createAnswer',
                 :disabled='!validation || buttonDisabled'
               )

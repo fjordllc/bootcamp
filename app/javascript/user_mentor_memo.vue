@@ -49,7 +49,7 @@ section.a-card.is-memo.is-only-mentor
     .card-main-actions
       .card-main-actions__items
         .card-main-actions__item
-          button.a-button.is-sm.is-warning.is-block(@click='updateMemo')
+          button.a-button.is-sm.is-primary.is-block(@click='updateMemo')
             | 保存する
         .card-main-actions__item
           button.a-button.is-sm.is-secondary.is-block(@click='cancel')
