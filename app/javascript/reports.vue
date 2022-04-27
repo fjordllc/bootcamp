@@ -58,6 +58,10 @@ export default {
       type: String,
       default: null
     },
+    companyId: {
+      type: String,
+      default: null
+    },
     limit: {
       type: String,
       default: null
@@ -80,6 +84,9 @@ export default {
       params.set('page', this.currentPage)
       if (this.userId) {
         params.set('user_id', this.userId)
+      }
+      if (this.companyId) {
+        params.set('company_id', this.companyId)
       }
       if (this.limit) {
         params.set('limit', this.limit)
