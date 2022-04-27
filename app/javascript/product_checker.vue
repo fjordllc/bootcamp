@@ -19,7 +19,6 @@ button(
     | {{ this.name }}
 </template>
 <script>
-
 import toast from 'toast'
 import checkable from './checkable.js'
 
