@@ -12,6 +12,8 @@
     display: inline-block
     &:not(:first-child)
       margin-left: .5em
+  .header-anchor + .a-user-emoji-link
+    margin-left: 0
   .a-user-emoji
     +size(1.8em)
     object-fit: cover
@@ -21,3 +23,5 @@
     border: none !important
     margin-left: 0 !important
     margin-right: 0 !important
+  .articles & .a-user-emoji-link
+    pointer-events: none

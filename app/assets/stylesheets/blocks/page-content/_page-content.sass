@@ -1,5 +1,8 @@
 .page-content
-  margin-bottom: 1.5rem
   width: $thread-max-width
   max-width: 100%
   +margin(horizontal, auto)
+  +media-breakpoint-up(md)
+    margin-bottom: 2.5rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 2rem
