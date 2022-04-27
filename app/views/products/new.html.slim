@@ -10,10 +10,10 @@ header.page-header
     .page-body__row
       .container.is-lg
         .a-card
-          .card-header
+          .card-header.is-sm
             h2.card-header__title
               = Practice.human_attribute_name :goal
-          .practice-content__body.is-goal.js-markdown-view.a-long-text
+          .practice-content__body.is-goal.js-markdown-view.a-long-text.is-md
             = @product.practice.goal
     .page-body__row
       .container.is-xxl

@@ -75,7 +75,7 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button.a-button.is-sm.is-warning.is-block(
+              button.a-button.is-sm.is-primary.is-block(
                 @click='updateComment',
                 v-bind:disabled='!validation'
               )

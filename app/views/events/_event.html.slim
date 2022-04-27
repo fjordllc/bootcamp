@@ -7,6 +7,7 @@
             span.a-title-label.is-wip
               | WIP
           = event.title
+
       .page-content-header__row
         .page-content-header-metas
           .page-content-header-metas__start
@@ -66,11 +67,18 @@
         h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
       .card-body
-        ul.user-icons__items
-          - event.participants.each do |participant|
-            li.user-icons-item
-              = link_to participant do
-                = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+        - if event.participants.present?
+          ul.user-icons__items
+            - event.participants.each do |participant|
+              li.user-icons-item
+                = link_to participant do
+                  = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+        - else
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            p.o-empty-message__text
+              | 参加者はまだいません。
 
   - if event.waitlist.count.positive?
     .a-card.waitlist
