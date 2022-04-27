@@ -212,7 +212,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     click_on '更新する'
     visit_with_auth user_path(user.id), 'kensyu'
     assert has_no_field?('user_training_ends_on')
-  end  
+  end
 
   test 'update value of training end date' do
     user = users(:kensyu)
