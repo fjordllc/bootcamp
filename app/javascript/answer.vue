@@ -48,7 +48,7 @@
           li.card-main-actions__item(
             v-if='!hasCorrectAnswer && answer.type != "CorrectAnswer" && (currentUser.id === questionUser.id || isRole("mentor"))'
           )
-            button.card-main-actions__action.a-button.is-sm.is-primary.is-block(
+            button.card-main-actions__action.a-button.is-sm.is-warning.is-block(
               @click='makeToBestAnswer'
             )
               | ベストアンサーにする
@@ -97,7 +97,7 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button.a-button.is-sm.is-warning.is-block(
+              button.a-button.is-sm.is-primary.is-block(
                 @click='updateAnswer',
                 v-bind:disabled='!validation'
               )

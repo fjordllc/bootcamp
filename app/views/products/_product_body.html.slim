@@ -15,7 +15,7 @@
             li.card-main-actions__item
               = form_with model: product, local: true do |f|
                 = f.hidden_field :body
-                = f.submit '提出する', class: 'a-button is-sm is-warning is-block'
+                = f.submit '提出する', class: 'a-button is-sm is-primary is-block'
           li.card-main-actions__item
             = link_to edit_product_path(product), class: 'card-main-actions_action a-button is-sm is-secondary is-block' do
               i.fa-solid.fa-pen

@@ -5,15 +5,17 @@
   gap: .5rem
 
 .tag-links__item-link
-  +text-block(.6875rem 1.45, block $main)
+  +text-block(.6875rem 1.45, block $muted-text)
   background-color: transparent
-  border: solid 1px $main
+  border: solid 1px $muted-text
   padding: .1875rem .625rem
   border-radius: 2rem
   transition: all .2s ease-in
   text-decoration: none
   &:hover
-    background-color: rgba($main, .2)
+    background-color: rgba($base, .7)
+    color: $semi-muted-text
+    border-color: $semi-muted-text
 
 .tag-links__item-edit
   +text-block(.75rem 1.4, $main block)

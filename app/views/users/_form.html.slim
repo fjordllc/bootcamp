@@ -109,9 +109,9 @@
     .form-actions
       ul.form-actions__items
         li.form-actions__item.is-main
-          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block is-disabled js-agreements-submit'
+          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-primary is-block is-disabled js-agreements-submit'
   - else
     .form-actions
       ul.form-actions__items
         li.form-actions__item.is-main
-          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-warning is-block'
+          = f.submit user_submit_label(user, from), id: 'user_submit', class: 'a-button is-lg is-primary is-block'
