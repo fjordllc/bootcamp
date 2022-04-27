@@ -43,13 +43,12 @@ header.page-header
                   - if @report.emotion.present?
                     .thread-header__emotion
                       = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
-                  h1.thread-header-title__title
-                    - if @report.wip?
-                      span.a-title-label.is-wip
-                        | WIP
-                    - if @report.user.daimyo?
-                      | ★
-                    | #{@report.title}
+                  - if @report.wip?
+                    span.a-title-label.is-wip
+                      | WIP
+                  - if @report.user.daimyo?
+                    | ★
+                  | #{@report.title}
 
               .page-content-header__row
                 .page-content-header-metas
