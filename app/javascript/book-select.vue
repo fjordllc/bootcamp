@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  multiselect(
+  multiselect.book(
     v-model='value',
     :options='options',
     placeholder='',
@@ -53,15 +53,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.multiselect--active {
-  overflow-y: scroll;
-}
-.multiselect {
-  position: initial;
-}
-.multiselect__input {
-  display: initial;
-}
-</style>
