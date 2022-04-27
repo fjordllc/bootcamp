@@ -32,6 +32,7 @@ tables = %i[
   products
   questions
   reactions
+  regular_events
   watches
   works
   talks
