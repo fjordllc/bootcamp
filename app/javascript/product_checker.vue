@@ -19,12 +19,9 @@ button(
     | {{ this.name }}
 </template>
 <script>
-<<<<<<< HEAD
+
 import toast from 'toast'
-=======
-import toast from './toast'
 import checkable from './checkable.js'
->>>>>>> a9d264089 (Vuexを使って実装)
 
 export default {
   mixins: [toast, checkable],
