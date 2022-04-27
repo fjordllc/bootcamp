@@ -12,32 +12,35 @@ header.page-header
               | ポートフォリオ
 
 .page-body
-  .container
-    .thread.is-header-author
-      .thread__inner.a-card
-        header.thread-header
-          = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'a-user-name-link' do
-            = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "a-user-name-icon a-user-icon is-#{@work.user.primary_role}"
-          .thread-header__row
+  .container.is-lg
+    .page-content.work
+      header.page-content-header
+        .page-content-header__start
+          = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'page-content-header__user-link' do
+            = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "page-content-header__user-icon a-user-icon is-#{@work.user.primary_role}"
+        .page-content-header__end
+          .page-content-header__row
+            .page-content-header__before-title
+              = link_to @work.user, class: 'a-user-name' do
+                = @work.user.login_name
+            h1.page-content-header__title
+              span.thread-header-title__title
+                = @work.title
+          .page-content-header__row
             .page-content-header-metas
               .page-content-header-metas__start
-                .page-content-header-metas__meta
-                  = link_to @work.user, class: 'a-user-name' do
-                    = @work.user.login_name
                 .page-content-header-metas__meta
                   .a-meta
                     .a-meta__label
                       | 登録日
                     time.a-meta__value(datetime="#{@work.created_at.to_datetime}" pubdate='pubdate')
                       = l @work.created_at
-          .thread-header__row
-            h1.thread-header-title
-              span.thread-header-title__title
-                = @work.title
-        .thread__description
+
+      .a-card
+        .card-eyecatch
           - if @work.thumbnail.attached?
-            p
-              = image_tag @work.thumbnail_url, alt: @work.title
+            = image_tag @work.thumbnail_url, alt: @work.title
+        .thread__description
           .a-long-text.is-md.js-markdown-view
             = @work.description
         .card-footer
