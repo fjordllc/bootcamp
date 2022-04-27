@@ -510,7 +510,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
   end
 
-  test 'trainee must select company ' do
+  test 'trainee must select company' do
     user = users(:kensyu)
     user.company_id = nil
     assert user.invalid?
