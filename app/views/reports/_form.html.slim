@@ -78,27 +78,26 @@
   .form-actions.is-report
     ul.form-actions__items
       li.form-actions__item.is-main.has-help
-        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
         .form-actions__item-help
           | まだ書いてる途中
           label.a-form-help-link.is-muted-text(for='modal-wip')
             span.a-form-help-link__label 詳しく
             span.a-help
               i.fa-solid.fa-question
-
       li.form-actions__item.is-main.has-help
         - if report.new_record? || report.wip?
-          = f.submit '提出', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+          = f.submit '提出', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
         - else
-          = f.submit '内容変更', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+          = f.submit '内容変更', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
         .form-actions__item-help
           | 日報完成
       li.form-actions__item.is-sub.has-help
         - case params[:action]
         - when 'new', 'create'
-          = link_to 'キャンセル', reports_path, class: 'a-button is-md is-secondary is-block'
+          = link_to 'キャンセル', reports_path, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
-          = link_to 'キャンセル', report_path, class: 'a-button is-md is-secondary is-block'
+          = link_to 'キャンセル', report_path, class: 'a-button is-sm is-text'
 
 = render '/shared/modal', id: 'modal-progress', modal_title: '学習時間は無しとは？'
   .modal__description.is-md

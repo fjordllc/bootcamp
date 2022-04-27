@@ -29,7 +29,7 @@
     .form-actions(v-if='tagsEditable')
       ul.form-actions__items
         li.form-actions__item.is-main
-          button.a-button.is-warning.is-block.is-md(@click='updateTag')
+          button.a-button.is-primary.is-block.is-md(@click='updateTag')
             | 保存する
         li.form-actions__item
           button.a-button.is-secondary.is-block.is-sm(@click='cancel')
