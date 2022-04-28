@@ -277,6 +277,16 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "organizers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "regular_event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["regular_event_id"], name: "index_organizers_on_regular_event_id"
+    t.index ["user_id", "regular_event_id"], name: "index_organizers_on_user_id_and_regular_event_id", unique: true
+    t.index ["user_id"], name: "index_organizers_on_user_id"
+  end
+
   create_table "pages", id: :serial, force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
@@ -555,6 +565,8 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
+  add_foreign_key "organizers", "regular_events"
+  add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
