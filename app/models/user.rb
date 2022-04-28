@@ -120,6 +120,10 @@ class User < ApplicationRecord
            through: :passive_relationships,
            source: :follower
 
+  has_many :organize_regular_events,
+           through: :organizers,
+           source: :regular_event
+
   has_one_attached :avatar
 
   before_create UserCallbacks.new

@@ -23,6 +23,8 @@ class RegularEvent < ApplicationRecord
   end
 
   belongs_to :user
+  has_many :organizers, dependent: :destroy
+  has_many :users, through: :organizers
   has_many :watches, as: :watchable, dependent: :destroy
 
   columns_for_keyword_search :title, :description
