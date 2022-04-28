@@ -1,21 +1,18 @@
 .form-item
-  ruby:
-    if user.admin?
-      help_text = 'フィヨルドを選択。'
-    elsif user.mentor?
-      help_text = 'もし良かったら所属企業を登録してください。
-      所属企業がない場合は管理者にご連絡をお願いします。'
-    elsif user.adviser?
-      help_text = '所属企業を登録してください。研修でお使いいただいている場合は、
-      所属企業を登録することで研修生の日報、提出物の通知が飛ぶようになります。'
-    elsif user.graduated_on?
-      help_text = 'もし良かったら所属企業を登録してください。
-      所属企業の登録は必須ではありません。
-      所属企業がない場合は管理者にご連絡をお願いします。'
-    end
   = f.label '所属企業', class: 'a-form-label'
   .is-md.is-secondary.is-select.is-block
     = f.collection_select :company_id, all_companies_with_empty, :id, :name, {}, { id: 'js-choices-single-select' }
   .a-form-help
-    p
-      = help_text
+    - if user.admin?
+      p フィヨルドを選択。
+    - elsif user.mentor?
+      p もし良かったら所属企業を登録してください。
+        所属企業がない場合は管理者にご連絡をお願いします。
+    - elsif user.adviser?
+      p 所属企業を登録してください。研修でお使いいただいている場合は、
+        所属企業を登録することで研修生の日報、提出物の通知が飛ぶようになります。
+    - elsif user.graduated_on?
+      p もし良かったら所属企業を登録してください。
+        所属企業の登録は必須ではありません。
+        所属企業がない場合は管理者にご連絡をお願いします。
+    end
