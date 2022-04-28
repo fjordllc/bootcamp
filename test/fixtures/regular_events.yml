@@ -1,0 +1,10 @@
+regular_event1:
+  title: "チェリー本輪読会"
+  description: "チェリー本輪読会を開催します。"
+  wday: "火曜日"
+  start_at: "18:00"
+  end_at: "19:00"
+  finished: false
+  hold_national_holiday: false
+  user: kimura
+  
