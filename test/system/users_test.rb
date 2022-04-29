@@ -104,28 +104,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'show inactive users only to mentors' do
-    %i[
-      kimura
-      hatsuno
-      hajime
-      muryou
-      kensyu
-      kananashi
-      osnashi
-      jobseeker
-      daimyo
-      nippounashi
-      with_hyphen
-      discordinvalid
-      twitterinvalid
-      enchomaemae
-      enchomaeyo
-      enchohayashi
-      enchoososhi
-      enchoowata
-    ].each do |name|
-      users(name).touch # rubocop:disable Rails/SkipsModelValidations
-    end
+    User.inactive_students_and_trainees.each(&:touch)
 
     visit_with_auth '/', 'komagata'
     assert_no_text '1ヶ月以上ログインのないユーザー'
