@@ -24,6 +24,7 @@ class EventsController < ApplicationController
     @event.user = current_user
     set_wip
     if @event.save
+      Newspaper.publish(:event_create, @event)
       redirect_to @event, notice: notice_message(@event)
     else
       render :new

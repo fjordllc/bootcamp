@@ -279,6 +279,7 @@ GEM
       digest
       net-protocol
       timeout
+    newspaper (0.1.0)
     nio4r (2.5.8)
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
@@ -559,6 +560,7 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
+  newspaper
   oauth2
   omniauth (~> 1.9.1)
   omniauth-github (~> 1.4.0)
