@@ -37,4 +37,11 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/admin/companies', 'komagata'
     assert_selector 'nav.pagination', count: 2
   end
+
+  test 'delete company' do
+    visit_with_auth "/admin/companies/#{companies(:company1).id}/edit", 'komagata'
+    click_on '削除'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '企業を削除しました。'
+  end
 end
