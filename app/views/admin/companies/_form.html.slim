@@ -30,3 +30,5 @@
         = f.submit nil, class: 'a-button is-lg is-block is-primary'
       li.form-actions__item.is-sub
         = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'
+      li.form-actions__item.is-sub
+        = link_to '削除', admin_company_path(company), data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。'}, method: :delete, class: 'a-button is-sm is-text'
