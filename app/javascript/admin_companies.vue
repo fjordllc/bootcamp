@@ -24,7 +24,8 @@
           v-if='companies'
         )
           td.admin-table__item-value
-            | {{ company.name }}
+            a(:href='`/companies/${company.id}`')
+              | {{ company.name }}
           td.admin-table__item-value.is-text-align-center
             img.admin-table__item-logo-image(
               v-if='company.logo_url',
