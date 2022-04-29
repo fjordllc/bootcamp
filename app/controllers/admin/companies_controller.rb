@@ -29,7 +29,15 @@ class Admin::CompaniesController < AdminController
     end
   end
 
-  def destroy; end
+  def destroy
+    @company = Company.find(params[:id])
+
+    if @company.destroy
+      redirect_to admin_companies_url, notice: '企業を削除しました。'
+    else
+      head :bad_request
+    end
+  end
 
   private
 
