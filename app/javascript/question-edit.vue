@@ -281,7 +281,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     fetchPractices() {
-      fetch('/api/practices.json', {
+      fetch('/api/practices.json?scoped_by_user=true', {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
