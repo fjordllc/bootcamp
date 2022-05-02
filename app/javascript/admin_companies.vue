@@ -14,6 +14,8 @@
             | ウェブサイト
           th.admin-table__label.actions
             | アドバイザー招待
+          th
+            | 研修生招待リンク
           th.admin-table__label.actions
             | 編集
       tbody.admin-table__items
@@ -39,6 +41,11 @@
               :href='company.adviser_sign_up_url'
             )
               i.fa-solid.fa-user-plus
+          td
+            a(
+              :title='"研修生サインアップURL"',
+              :href='company.trainee_sign_up_url'
+            )
           td.admin-table__item-value.is-text-align-center
             ul.is-inline-buttons
               li
