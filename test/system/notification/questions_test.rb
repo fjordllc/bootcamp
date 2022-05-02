@@ -19,7 +19,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
 
     visit_with_auth '/notifications', 'mentormentaro'
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'hatsunoさんから質問「メンターに質問！！」が投稿されました。'
     end
 

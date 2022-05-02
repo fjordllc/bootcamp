@@ -4,23 +4,22 @@
       h2.card-header__title
         | 1ヶ月以上ログインのないユーザー
         = "(#{users.size})"
-    .thread-list
-      .thread-list__items
-        - users.each do |user|
-          .thread-list-item
-            .thread-list-item__inner
-              .thread-list-item__user
-                = render 'users/icon', user: user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
-              .thread-list-item__rows
-                .thread-list-item__row
-                  .thread-list-item-title
-                    h2.thread-list-item-title__title(itemprop='name')
-                      = link_to user, itemprop: 'url', class: 'thread-list-item-title__link a-text-link' do
-                        | #{user.login_name} （#{user.name}）
-                .thread-list-item__row
-                  .thread-list-item-meta
-                    time.a-meta
-                      span.a-meta__label
-                        = User.human_attribute_name :updated_at
-                      span.a-meta__value
-                        = l user.updated_at
+    .card-list.has-scroll
+      - users.each do |user|
+        .card-list-item
+          .card-list-item__inner
+            .card-list-item__user
+              = render 'users/icon', user: user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'
+            .card-list-item__rows
+              .card-list-item__row
+                .card-list-item-title
+                  h2.card-list-item-title__title(itemprop='name')
+                    = link_to user, itemprop: 'url', class: 'card-list-item-title__link a-text-link' do
+                      | #{user.login_name} （#{user.name}）
+              .card-list-item__row
+                .card-list-item-meta
+                  time.a-meta
+                    span.a-meta__label
+                      = User.human_attribute_name :updated_at
+                    span.a-meta__value
+                      = l user.updated_at

@@ -8,20 +8,19 @@
         :class='[roleClass, daimyoClass]'
       )
   .a-card(v-if='!editing')
-    .thread-comment__body
-      header.thread-comment__body-header
-        h2.thread-comment__title
-          a.thread-comment__title-link(:href='comment.user.url')
-            | {{ comment.user.login_name }}
-        time.thread-comment__created-at(
-          :class='{ "is-active": activating }',
-          :datetime='commentableCreatedAt',
-          @click='copyCommentURLToClipboard(comment.id)'
-        )
-          | {{ updatedAt }}
-      .thread-comment__description.a-long-text.is-md(
-        v-html='markdownDescription'
+    header.card-header
+      h2.thread-comment__title
+        a.thread-comment__title-link(:href='comment.user.url')
+          | {{ comment.user.login_name }}
+      time.thread-comment__created-at(
+        :class='{ "is-active": activating }',
+        :datetime='commentableCreatedAt',
+        @click='copyCommentURLToClipboard(comment.id)'
       )
+        | {{ updatedAt }}
+    .thread-comment__description.a-long-text.is-md(
+      v-html='markdownDescription'
+    )
     .thread-comment__reactions
       reaction(
         v-bind:reactionable='comment',

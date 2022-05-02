@@ -75,9 +75,10 @@
             header.card-header
               h2.card-header__title
                 = Practice.human_attribute_name :description
-            .practice-content__body.is-practice
-              .js-markdown-view.a-long-text.is-md
-                = @practice.description
+            .card-body.is-practice
+              .card__description
+                .js-markdown-view.a-long-text.is-md
+                  = @practice.description
               = render 'shared/common_page_body',
                 common_page: @common_page,
                 classes: 'common-page-body js-markdown-view a-long-text is-md'
@@ -120,11 +121,12 @@
             header.card-header
               h2.card-header__title
                 = Practice.human_attribute_name :goal
-            .practice-content__body.is-goal
-              .js-markdown-view.a-long-text.is-md
-                = @practice.goal
-              - if !current_user.adviser? && @practice.open_product?
-                = render '/practices/practice_content_notice'
+            .card-body.is-goal
+              .card__description
+                .js-markdown-view.a-long-text.is-md
+                  = @practice.goal
+                - if !current_user.adviser? && @practice.open_product?
+                  = render '/practices/practice_content_notice'
             footer.card-footer
               #js-learning(data-practice-id="#{@practice.id}")
               - if @practice.submission
@@ -148,9 +150,10 @@
               header.card-header
                 h2.card-header__title
                   = Practice.human_attribute_name :memo
-              .practice-content__body.is-memo
-                .js-markdown-view.a-long-text.is-md
-                  = @practice.memo
+              .card-body.is-memo
+                .card__description
+                  .js-markdown-view.a-long-text.is-md
+                    = @practice.memo
 
             .a-card.is-only-mentor
               header.card-header

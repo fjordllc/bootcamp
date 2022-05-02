@@ -1,10 +1,10 @@
 <template lang="pug">
 div(v-if='limit')
-  .thread-list.a-card
+  .card-list.a-card
     .card-header.is-sm
       h2.card-header__title
         | 直近の日報
-    .thread-list__items
+    .card-list__items
       report(
         v-for='report in reports',
         :key='report.id',
@@ -23,8 +23,8 @@ div(v-else)
   .reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
+    .card-list.a-card
+      .card-list__items
         report(
           v-for='report in reports',
           :key='report.id',

@@ -23,7 +23,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'sotugyou'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text @notice_text
     end
 

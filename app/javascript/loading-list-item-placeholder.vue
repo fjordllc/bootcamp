@@ -1,13 +1,13 @@
 <template lang="pug">
-.thread-list-item
-  .thread-list-item__inner
-    .thread-list-item__user
-      .thread-list-item__user-icon.a-user-icon.a-placeholder
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title.a-placeholder
-      .thread-list-item__row
-        .thread-list-item-meta__items.a-placeholder
-          .thread-list-item-meta__item
-          .thread-list-item-meta__item
+.card-list-item
+  .card-list-item__inner
+    .card-list-item__user
+      .card-list-item__user-icon.a-user-icon.a-placeholder
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title.a-placeholder
+      .card-list-item__row
+        .card-list-item-meta__items.a-placeholder
+          .card-list-item-meta__item
+          .card-list-item-meta__item
 </template>

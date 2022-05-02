@@ -1,9 +1,10 @@
 .card-header
   border-bottom: solid 1px $border-tint
-  padding: .75rem 1.25rem
   display: flex
   align-items: center
   justify-content: space-between
+  +media-breakpoint-up(md)
+    padding: .75rem 1rem
   +media-breakpoint-down(sm)
     padding: .5rem .75rem
   &.is-sm

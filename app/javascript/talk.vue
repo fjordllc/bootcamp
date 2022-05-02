@@ -1,38 +1,38 @@
 <template lang="pug">
-.thread-list-item
-  .thread-list-item__inner
-    .thread-list-item__user
+.card-list-item
+  .card-list-item__inner
+    .card-list-item__user
       user-icon(
         :user='user',
-        link_class='a-user-name',
-        blockClassSuffix='thread-list-item'
+        link_class='card-list-item__user-link',
+        blockClassSuffix='card-list-item'
       )
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link.a-text-link(
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          h2.card-list-item-title__title(itemprop='name')
+            a.card-list-item-title__link.a-text-link(
               :href='`/talks/${talk.id}#latest-comment`',
               itemprop='url'
             )
               | {{ user.long_name }} さんの相談部屋
-      hr.thread-list-item__row-separator(v-if='talk.has_any_comments')
-      .thread-list-item__row(v-if='talk.has_any_comments')
-        .thread-list-item-meta__items
-          .thread-list-item-meta__item
-            .thread-list-item-meta
-              .thread-list-item-meta__items
-                .thread-list-item-meta__item
+      hr.card-list-item__row-separator(v-if='talk.has_any_comments')
+      .card-list-item__row(v-if='talk.has_any_comments')
+        .card-list-item-meta__items
+          .card-list-item-meta__item
+            .card-list-item-meta
+              .card-list-item-meta__items
+                .card-list-item-meta__item
                   .a-meta
                     | コメント（{{ talk.number_of_comments }}）
-                .thread-list-item-meta__item
-                  .thread-list-item-comment__user-icons
-                    .thread-list-item-comment__user-icon
+                .card-list-item-meta__item
+                  .card-list-item-comment__user-icons
+                    .card-list-item-comment__user-icon
                       img.a-user-icon(:src='talk.last_comment_user_icon')
-                .thread-list-item-meta__item
+                .card-list-item-meta__item
                   .a-meta
                     | 〜 {{ talk.last_commented_at }}
-                .thread-list-item-meta__item
+                .card-list-item-meta__item
                   .a-meta(v-if='talk.last_comment_user.admin')
                     | （管理者）
                   .a-meta(v-else)

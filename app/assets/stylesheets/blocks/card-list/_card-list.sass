@@ -1,0 +1,13 @@
+.card-list
+  &.has-scroll
+    max-height: 25rem
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+  .completed-practices-progress + &
+    border-top: solid 1px $border-tint
+
+.card-list-tools + .card-list
+  margin-top: 1rem
+
+.card-list__message
+  +padding(vertical, 2rem)

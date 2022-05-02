@@ -490,7 +490,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth reports_path, 'kimura'
     precede = reports(:report24).title
     succeed = reports(:report23).title
-    within '.thread-list__items' do
+    within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
   end
@@ -500,7 +500,7 @@ class ReportsTest < ApplicationSystemTestCase
     precede = reports(:report18).title
     succeed = reports(:report17).title
 
-    within '.thread-list__items' do
+    within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
   end

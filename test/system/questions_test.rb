@@ -224,9 +224,9 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit questions_path(solved: 'true')
 
-    assert_selector '.thread-list-item', count: 25
+    assert_selector '.card-list-item', count: 25
     first('.pagination__item-link', text: '2').click
-    assert_selector '.thread-list-item', count: 25
+    assert_selector '.card-list-item', count: 25
   end
 
   test "mentor's watch-button is automatically on when new question is published" do
@@ -288,7 +288,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'show number of comments' do
     visit_with_auth questions_path, 'kimura'
     assert_text 'コメント数表示テスト用の質問'
-    element = all('.thread-list-item').find { |component| component.has_text?('コメント数表示テスト用の質問') }
+    element = all('.card-list-item').find { |component| component.has_text?('コメント数表示テスト用の質問') }
     within element do
       assert_selector '.a-meta', text: '（1）'
     end
@@ -343,9 +343,9 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'show a WIP question on the All Q&A list page' do
     visit_with_auth questions_path(all: 'true'), 'kimura'
     assert_text 'wipテスト用の質問(wip中)'
-    element = all('.thread-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
+    element = all('.card-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
     within element do
-      assert_selector '.thread-list-item-title__icon.is-wip', text: 'WIP'
+      assert_selector '.card-list-item-title__icon.is-wip', text: 'WIP'
     end
   end
 

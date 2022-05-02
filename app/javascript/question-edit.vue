@@ -78,8 +78,9 @@
           )
 
   .a-card(v-if='!editing')
-    .thread-question__body
-      .thread__description.a-long-text.is-md(v-html='markdownDescription')
+    .card-body
+      .card__description
+        .a-long-text.is-md(v-html='markdownDescription')
     .thread-question__reactions
       reaction(
         :reactionable='question',

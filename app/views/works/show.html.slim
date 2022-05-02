@@ -24,8 +24,7 @@ header.page-header
               = link_to @work.user, class: 'a-user-name' do
                 = @work.user.login_name
             h1.page-content-header__title
-              span.thread-header-title__title
-                = @work.title
+              = @work.title
           .page-content-header__row
             .page-content-header-metas
               .page-content-header-metas__start
@@ -40,7 +39,7 @@ header.page-header
         .card-eyecatch
           - if @work.thumbnail.attached?
             = image_tag @work.thumbnail_url, alt: @work.title
-        .thread__description
+        .card__description
           .a-long-text.is-md.js-markdown-view
             = @work.description
         .card-footer

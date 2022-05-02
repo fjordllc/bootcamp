@@ -2,8 +2,8 @@
 .thread-comment
   .thread-comment__author
     .thread-comment__user-icon.a-user-icon.a-placeholder
-  .thread-comment__body.a-card.is-loading
-    .thread-comment__body-header
+  .a-card.is-loading
+    .card-header
       .thread-comment__title
         .thread-comment__title-link.a-placeholder
       .thread-comment__created-at.a-placeholder
