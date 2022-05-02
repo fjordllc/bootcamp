@@ -16,7 +16,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
 
   test '.notify(:graduated)' do
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 3 do
-      ActivityDelivery.notify(:graduated, **@params, sync: true)
+      ActivityDelivery.notify!(:graduated, **@params)
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 3 do
