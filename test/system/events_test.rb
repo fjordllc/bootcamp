@@ -49,6 +49,7 @@ class EventsTest < ApplicationSystemTestCase
       end
     end
     assert_text 'イベントを作成しました。'
+    assert_text 'Watch中'
   end
 
   test 'create copy event' do

@@ -3,7 +3,7 @@
   .card-main-actions
     ul.card-main-actions__items
       li.card-main-actions__item
-        button.thread-unconfirmed-links-form__action.a-button.is-block.is-md.is-secondary(
+        button.thread-unconfirmed-links-form__action.a-button.is-block.is-sm.is-secondary(
           @click='openUnconfirmedItems()'
         ) {{ label }}
 </template>

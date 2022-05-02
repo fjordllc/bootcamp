@@ -7,15 +7,16 @@
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
           | コメント（{{ commentLimit }}）をもっと見る
-  comment(
-    v-for='(comment, index) in comments',
-    :key='comment.id',
-    :comment='comment',
-    :currentUser='currentUser',
-    :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
-    @delete='deleteComment',
-    @update='updateComment'
-  )
+  .thread-comments__items
+    comment(
+      v-for='(comment, index) in comments',
+      :key='comment.id',
+      :comment='comment',
+      :currentUser='currentUser',
+      :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
+      @delete='deleteComment',
+      @update='updateComment'
+    )
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
@@ -54,7 +55,7 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button#js-shortcut-post-comment.a-button.is-md.is-primary.is-block(
+              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
                 @click='createComment',
                 :disabled='!validation || buttonDisabled'
               )
@@ -62,7 +63,7 @@
             .card-main-actions__item.is-only-mentor(
               v-if='isRole("mentor") && commentType && !checkId'
             )
-              button.a-button.is-md.is-danger.is-block(
+              button.a-button.is-sm.is-danger.is-block(
                 @click='commentAndCheck',
                 :disabled='!validation || buttonDisabled'
               )
@@ -70,13 +71,13 @@
                 | 確認OKにする
 </template>
 <script>
-import Comment from './comment.vue'
-import TextareaInitializer from './textarea-initializer'
-import CommentPlaceholder from './comment-placeholder'
-import confirmUnload from './confirm-unload'
-import toast from './toast'
-import role from './role'
-import checkable from './checkable.js'
+import Comment from 'comment.vue'
+import TextareaInitializer from 'textarea-initializer'
+import CommentPlaceholder from 'comment-placeholder'
+import confirmUnload from 'confirm-unload'
+import toast from 'toast'
+import role from 'role'
+import checkable from 'checkable.js'
 
 export default {
   components: {
@@ -121,6 +122,9 @@ export default {
     },
     daimyoClass() {
       return { 'is-daimyo': this.currentUser.daimyo }
+    },
+    productCheckerId() {
+      return this.$store.getters.productCheckerId
     }
   },
   created() {
@@ -217,6 +221,18 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
+      if (
+        this.commentableType === 'Product' &&
+        this.productCheckerId === null
+      ) {
+        this.checkProduct(
+          this.commentableId,
+          this.currentUserId,
+          '/api/products/checker',
+          'PATCH',
+          this.token()
+        )
+      }
     },
     deleteComment(id) {
       fetch(`/api/comments/${id}.json`, {

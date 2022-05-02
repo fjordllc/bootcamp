@@ -9,8 +9,8 @@
       )
 </template>
 <script>
-import Company from './company.vue'
-import UserIcon from './user-icon'
+import Company from 'company.vue'
+import UserIcon from 'user-icon'
 
 export default {
   components: {

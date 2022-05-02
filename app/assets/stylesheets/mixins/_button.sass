@@ -12,6 +12,8 @@
   align-items: center
   justify-content: center
   transition: all .2s ease-out
+  *
+    cursor: pointer
   &.is-block
     display: flex
     width: 100%
@@ -23,6 +25,8 @@
   &:disabled
     cursor: default
     pointer-events: none
+    *
+      cursor: default
   &.is-select
     select
       +size(100%)

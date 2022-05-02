@@ -1,16 +1,15 @@
 .practice-first-actions
+  width: 100%
   +media-breakpoint-up(md)
     display: flex
-    margin-bottom: 1.5rem
-  +media-breakpoint-down(sm)
-    margin-bottom: 1rem
 
 .practice-first-actions__start
   flex: 1
 
 .practice-first-actions__end
-  min-width: 6rem
+  +media-breakpoint-up(md)
+    min-width: 6rem
+  +media-breakpoint-down(sm)
+    width: 100%
   .is-inactive
     background-color: $background-shade
-  +media-breakpoint-down(sm)
-    margin-top: .75rem

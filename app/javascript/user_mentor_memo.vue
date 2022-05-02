@@ -14,7 +14,7 @@ section.a-card.is-memo.is-only-mentor
     .card-main-actions
       .card-main-actions__items
         .card-main-actions__item
-          button.card-footer-actions__action.a-button.is-md.is-secondary.is-block(
+          button.card-footer-actions__action.a-button.is-sm.is-secondary.is-block(
             @click='editMemo'
           )
             i.fa-solid.fa-pen
@@ -49,17 +49,17 @@ section.a-card.is-memo.is-only-mentor
     .card-main-actions
       .card-main-actions__items
         .card-main-actions__item
-          button.a-button.is-md.is-warning.is-block(@click='updateMemo')
+          button.a-button.is-sm.is-primary.is-block(@click='updateMemo')
             | 保存する
         .card-main-actions__item
-          button.a-button.is-md.is-secondary.is-block(@click='cancel')
+          button.a-button.is-sm.is-secondary.is-block(@click='cancel')
             | キャンセル
 </template>
 
 <script>
-import TextareaInitializer from './textarea-initializer'
-import MarkdownInitializer from './markdown-initializer'
-import confirmUnload from './confirm-unload'
+import TextareaInitializer from 'textarea-initializer'
+import MarkdownInitializer from 'markdown-initializer'
+import confirmUnload from 'confirm-unload'
 
 export default {
   mixins: [confirmUnload],

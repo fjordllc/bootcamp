@@ -33,7 +33,7 @@
 <script>
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import bookmarkButton from './bookmark-button.vue'
+import bookmarkButton from 'bookmark-button.vue'
 dayjs.locale(ja)
 export default {
   components: {

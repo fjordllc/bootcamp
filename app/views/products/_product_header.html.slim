@@ -1,23 +1,25 @@
-header.product-header
+header.page-content-header
   #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
-  .product-header__start
-    .product-header__user
-      = render 'users/icon', user: @product.user, link_class: 'product-header__user-link', image_class: 'product-header__user-icon'
-  .product-header__end
-    .thread-header__row
-      = link_to @product.user, class: 'a-user-name' do
-        = @product.user.long_name
-      h1.product-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
+  .page-content-header__start
+    .page-content-header__user
+      = render 'users/icon', user: @product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+  .page-content-header__end
+    .page-content-header__row
+      .page-content-header__before-title
+        = link_to @product.user, class: 'a-user-name' do
+          = @product.user.long_name
+      h1.page-content-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
         - if @product.user.daimyo?
           | ★
         - if @product.wip?
-          span.a-title-label
+          span.a-title-label.is-wip
             | WIP
-        | #{link_to @product.practice.title, @product.practice, class: 'product-header__title-link'}の提出物
-    .thread-header__row
-      .thread-header-metas
-        .thread-header-metas__start
-          .thread-header-metas__meta
+        | #{link_to @product.practice.title, @product.practice, class: 'page-content-header__title-link'}の提出物
+
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas__meta
             .a-meta
               - if @product.wip?
                 .a-meta__value
@@ -34,14 +36,15 @@ header.product-header
                   = l @product.created_at
 
           - if @product.updated_at.present?
-            .thread-header-metas__meta
+            .page-content-header-metas__meta
               .a-meta
                 span.a-meta__label
                   | 更新
                 time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
                   = l @product.updated_at
 
-          .thread-header-metas__meta
+        .page-content-header-metas__end
+          .page-content-header-metas__meta
             - length = @product.comments.length
             a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
               | コメント（
@@ -49,7 +52,7 @@ header.product-header
                 = length
               | ）
 
-    .thread-header__row
+    .page-content-header__row
       .thread-header-actions
         .thread-header-actions__start
           .thread-header-actions__action

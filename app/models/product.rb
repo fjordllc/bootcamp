@@ -164,7 +164,7 @@ class Product < ApplicationRecord
   def save_checker(current_user_id)
     return false if other_checker_exists?(current_user_id)
 
-    self.checker_id = checker_id ? nil : current_user_id
+    self.checker_id = current_user_id
     Cache.delete_self_assigned_no_replied_product_count(current_user_id)
     save!
   end
@@ -195,5 +195,35 @@ class Product < ApplicationRecord
     is_replied_by_checker_current = checker_id == current_commented_user_id
 
     is_replied_by_checker_previous != is_replied_by_checker_current
+  end
+
+  def create_checker_id(comment)
+    return nil unless comment.user.mentor?
+
+    update_columns(checker_id: comment.user.id) unless checker_id? # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def update_last_commented_at(comment)
+    if comment
+      if comment.user.mentor
+        update_columns(mentor_last_commented_at: comment.updated_at) # rubocop:disable Rails/SkipsModelValidations
+      elsif comment.user == user
+        update_columns(self_last_commented_at: comment.updated_at) # rubocop:disable Rails/SkipsModelValidations
+      end
+    else
+      update_columns(mentor_last_commented_at: nil, self_last_commented_at: nil) # rubocop:disable Rails/SkipsModelValidations
+    end
+  end
+
+  def update_commented_at(comment)
+    update_columns(commented_at: comment&.updated_at) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def delete_last_commented_at
+    update_last_commented_at(comments.last)
+  end
+
+  def delete_commented_at
+    update_commented_at(comments.last)
   end
 end

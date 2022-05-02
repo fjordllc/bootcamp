@@ -23,25 +23,37 @@ header.page-header
           strong
             | #{@report.interval}日
           | ぶりの日報です
+
 .page-body
   .container.is-xxxl
     .row.is-jc:c
       .col-xl-7.col-xs-12
-        .thread
-          .thread__inner.a-card
-            header.thread-header
-              #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
-              .thread-header__row
-                .thread-header-metas
-                  .thread-header-metas__start
-                    - if @report.wip?
-                      .thread-header-metas__meta
-                        .thread-header__wip
-                          | WIP
-                    .thread-header-metas__meta
-                      = link_to @report.user, class: 'a-user-name', title: @report.user.name do
-                        = @report.user.login_name
-                    .thread-header-metas__meta
+        .report.page-content
+          header.page-content-header
+            #js-check-stamp(data-checkable-id="#{@report.id}" data-checkable-type='Report')
+            .page-content-header__start
+              .page-content-header__user
+                = render 'users/icon', user: @report.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+            .page-content-header__end
+              .page-content-header__row
+                .page-content-header__before-title
+                  = link_to @report.user, class: 'a-user-name', title: @report.user.name do
+                    = @report.user.login_name
+                h1.page-content-header__title(class="#{@report.wip? ? 'is-wip' : ''}")
+                  - if @report.emotion.present?
+                    span.thread-header__emotion
+                      = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
+                  - if @report.wip?
+                    span.a-title-label.is-wip
+                      | WIP
+                  - if @report.user.daimyo?
+                    | ★
+                  | #{@report.title}
+
+              .page-content-header__row
+                .page-content-header-metas
+                  .page-content-header-metas__start
+                    .page-content-header-metas__meta
                       .a-meta
                         = l @report.reported_on
                         | （
@@ -49,29 +61,20 @@ header.page-header
                           = @report.number
                         | ）
                         = 'の日報' unless @report.first?
-                    - if @report.published_at.present?
-                      .thread-header-metas__meta
-                        .a-meta
-                          .a-meta__label
-                            | 提出日
-                          = l @report.published_at
-                    .thread-header-metas__meta
+                        - if @report.published_at.present?
+                          .a-meta
+                            | （#{l @report.published_at} 提出）
+
+                  .page-content-header-metas__end
+                    .page-content-header-metas__meta
                       - length = @report.comments.length
                       a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                         | コメント（
                         span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                           = length
                         | ）
-              .thread-header__row
-                .thread-header-title(class="#{@report.wip? ? 'is-wip' : ''}")
-                  - if @report.emotion.present?
-                    .thread-header__emotion
-                      = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
-                  h1.thread-header-title__title
-                    - if @report.user.daimyo?
-                      | ★
-                    | #{@report.title}
-              .thread-header__row
+
+              .page-content-header__row
                 .thread-header-actions
                   .thread-header-actions__start
                     .thread-header-actions__action
@@ -86,17 +89,20 @@ header.page-header
                           | コピー
                     .thread-header-actions__action
                       = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
-            - if @report.practices.present?
-              .thread__tags
-                .tag-links
-                  ul.tag-links__items
-                    - @report.practices.eager_load(:categories).order('categories.position ASC, categories_practices.position ASC').each do |practice|
-                      li.tag-links__item
-                        = link_to practice, class: 'tag-links__item-link' do
-                          = practice.title
 
-            = render 'reports/learning_times', report: @report
+              - if @report.practices.present?
+                .page-content-header__row
+                  .page-content-header__tags
+                    .tag-links
+                      ul.tag-links__items
+                        - @report.practices.eager_load(:categories).order('categories.position ASC, categories_practices.position ASC').each do |practice|
+                          li.tag-links__item
+                            = link_to practice, class: 'tag-links__item-link' do
+                              = practice.title
 
+          .a-card
+            .card__header
+              = render 'reports/learning_times', report: @report
             .thread__body
               .thread__description
                 .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
@@ -108,7 +114,7 @@ header.page-header
                 .card-main-actions
                   ul.card-main-actions__items
                     li.card-main-actions__item
-                      = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-md is-secondary is-block', id: 'js-shortcut-edit' do
+                      = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
                         i.fa-solid.fa-pen#new
                         | 内容修正
                     li.card-main-actions__item.is-sub
@@ -119,21 +125,20 @@ header.page-header
             - if (@report.user.daimyo? && staff_login?) || admin_or_mentor_login?
               #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
 
-          .thread-prev-next
-            .thread-prev-next__item
+          .page-content-prev-next
+            .page-content-prev-next__item
               - if @report.previous
-                = link_to @report.previous, class: 'thread-prev-next__item-link is-prev' do
+                = link_to @report.previous, class: 'page-content-prev-next__item-link is-prev' do
                   i.fa-solid.fa-angle-left
                   | 前の日報
-            .thread-prev-next__item
-              = link_to user_reports_path(@report.user_id), class: 'thread-prev-next__item-link is-index' do
+            .page-content-prev-next__item
+              = link_to user_reports_path(@report.user_id), class: 'page-content-prev-next__item-link is-index' do
                 | 日報一覧
-            .thread-prev-next__item
+            .page-content-prev-next__item
               - if @report.next
-                = link_to @report.next, class: 'thread-prev-next__item-link is-next' do
+                = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
                   | 次の日報
                   i.fa-solid.fa-angle-right
-          = render 'users/icon', user: @report.user, link_class: 'thread__user-link', image_class: 'thread__user-icon'
 
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
 

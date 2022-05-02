@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Searchables from './searchables.vue'
+import Searchables from 'searchables.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-searchables'

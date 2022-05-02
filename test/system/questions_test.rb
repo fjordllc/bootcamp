@@ -68,7 +68,8 @@ class QuestionsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問を編集できるかのテスト'
       fill_in 'question[description]', with: '編集できれば期待通りの動作'
-      select 'iOSへのビルドと固有の問題', from: 'question[practice_id]'
+      first('.choices__inner').click
+      find('#choices--js-choices-single-select-item-choice-52', text: 'iOSへのビルドと固有の問題').click
       click_button '登録する'
     end
     assert_text '質問を作成しました。'
@@ -128,7 +129,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'admin can update and delete any questions' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'komagata'
-    within '.thread__inner' do
+    within '.page-content' do
       assert_text '内容修正'
       assert_text '削除'
     end
@@ -137,7 +138,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'not admin or not question author can not delete any questions' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'hatsuno'
-    within '.thread__inner' do
+    within '.page-content' do
       assert_no_text '内容修正'
       assert_no_text '削除'
     end

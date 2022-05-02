@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import watch from './watch.vue'
-import Pager from './pager.vue'
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
+import watch from 'watch.vue'
+import Pager from 'pager.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 
 export default {
   components: {

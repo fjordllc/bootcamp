@@ -1,18 +1,14 @@
 .event-meta
   +media-breakpoint-up(md)
-    font-size: .875rem
-  +media-breakpoint-down(sm)
     font-size: .8125rem
-  padding: 1.25rem 2rem
   +media-breakpoint-down(sm)
-    padding: .75rem
-  &:not(:last-child)
-    padding-bottom: 0
+    font-size: .75rem
 
 .event-meta__inner
-  padding: .75em 1em
-  background-color: $background-more-tint
-  border: solid $border-shade 1px
+  +media-breakpoint-up(md)
+    padding: .75rem 1.5rem
+  +media-breakpoint-down(sm)
+    padding: .5rem .75rem
 
 .event-meta__item
   line-height: 1.5
@@ -20,13 +16,13 @@
     display: flex
     align-items: center
   &:not(:first-child)
-    margin-top: .5em
-    padding-top: .5em
-    border-top: dashed $border-shade 1px
+    margin-top: .5rem
+    padding-top: .5rem
+    border-top: solid $border-tint 1px
 
 .event-meta__item-label
   flex-basis: 5em
-  margin-right: .5em
+  margin-right: .75em
   white-space: nowrap
   font-weight: 600
   +media-breakpoint-up(md)

@@ -17,28 +17,14 @@ class Comment::AfterCreateCallback
 
     return unless comment.commentable.instance_of?(Product)
 
-    create_checker_id(comment)
-    update_last_commented_at(comment)
-    update_commented_at(comment)
+    comment.commentable.create_checker_id(comment)
+    comment.commentable.update_last_commented_at(comment)
+    comment.commentable.update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
     delete_assigned_and_unreplied_product_count_cache(comment)
   end
 
   private
-
-  def update_last_commented_at(comment)
-    product = Product.find(comment.commentable.id)
-    if comment.user.mentor
-      product.mentor_last_commented_at = comment.updated_at
-    elsif comment.user == product.user
-      product.self_last_commented_at = comment.updated_at
-    end
-    product.save!
-  end
-
-  def update_commented_at(comment)
-    comment.commentable.update!(commented_at: comment.updated_at)
-  end
 
   def notify_comment(comment)
     NotificationFacade.came_comment(

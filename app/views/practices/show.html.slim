@@ -10,10 +10,10 @@
     [TODO]完了Tweetの正式リリース後にコメントを外す
     - if @practice.learning(current_user)&.complete?
       = render '/products/completion_message', practice: @practice
-  .container.is-xl
-    .practice-contents
-      .practice-contents__inner
-        header.practice-contents__header
+  .container.is-xxl
+    .row.is-gutter-width-32
+      .col-lg-8.col-xs-12
+        .practice.page-content
           - learning_minute_statistic = @practice.learning_minute_statistic
           - if learning_minute_statistic
             /! <p>所要時間の目安: #{convert_to_ceiled_hour(learning_minute_statistic.median)}</p>
@@ -38,134 +38,144 @@
                       | すでに学習した経験があってすぐに完了することができたりなど、
                       | 人によっては時間のかかり方は様々です。この数字はあくまで一つの目安として捉えてください。
               #js-annotation-modal
-          h1.practice-contents__title
-            = @practice.title
-        .practice-first-actions
-          .practice-first-actions__start
-            - status = @practice.status_by_learnings(current_user.learnings)
-            .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+          header.page-content-header
+            .page-content-header__end
+              .page-content-header__row
+                h1.page-content-header__title
+                  = @practice.title
 
-          - if current_user.mentor? && @practice.submission
-            .practice-first-actions__end.is-only-mentor
-              #js-watch-toggle(data-watchable-id="#{@practice.id}", data-watchable-type='Practice')
+              - if @practice.last_updated_user.present?
+                .page-content-header__row
+                  .practice-contents__pub-date
+                    .a-meta
+                      .a-meta__label
+                        | 更新
+                      .a-meta__value
+                        | #{l @practice.updated_at} by
+                        = render 'users/icon',
+                          user: @practice.last_updated_user,
+                          link_class: 'thread-header__user-icon-link',
+                          image_class: 'thread-header__user-icon'
+                        = link_to @practice.last_updated_user, class: 'a-user-name' do
+                          = @practice.last_updated_user.login_name
 
-        - if @practice.last_updated_user.present?
-          .practice-contents__pub-date
-            .a-meta
-              .a-meta__label
-                | 更新
-              .a-meta__value
-                | #{l @practice.updated_at} by
-                = render 'users/icon',
-                  user: @practice.last_updated_user,
-                  link_class: 'thread-header__user-icon-link',
-                  image_class: 'thread-header__user-icon'
-                = link_to @practice.last_updated_user, class: 'a-user-name' do
-                  = @practice.last_updated_user.login_name
+              .page-content-header__row
+                .thread-header-actions
+                  .thread-header-actions__start
+                    .practice-first-actions
+                      .practice-first-actions__start
+                        - status = @practice.status_by_learnings(current_user.learnings)
+                        .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
+                  - if current_user.mentor? && @practice.submission
+                    .thread-header-actions__end
+                      .practice-first-actions__end.is-only-mentor
+                        #js-watch-toggle(data-watchable-id="#{@practice.id}", data-watchable-type='Practice')
 
-        section.a-card
-          header.card-header
-            h2.card-header__title
-              = Practice.human_attribute_name :description
-          .practice-content__body.is-practice
-            .js-markdown-view.a-long-text.is-md
-              = @practice.description
-            = render 'shared/common_page_body',
-              common_page: @common_page,
-              classes: 'common-page-body js-markdown-view a-long-text is-md'
-          footer.card-footer
-            .card-main-actions
-              ul.card-main-actions__items
-                li.card-main-actions__item
-                  = link_to new_question_path(practice_id: params[:id]), class: 'a-button is-md is-primary is-block' do
-                    i.fa-solid.fa-question-circle
-                    | 質問する
-
-        - if @practice.reference_books.exists?
-          section.a-card
+          .a-card
             header.card-header
               h2.card-header__title
-                | 参考書籍
-            .card-books
-              .card-books__items
-                - @practice.reference_books.each do |book|
-                  .card-books-item
-                    = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__inner' do
-                      .card-books-item__start
-                        .card-books-item__cover-container
-                          = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
-                      .card-books-item__end
-                        h3.card-books-item__title
-                          - if book.must_read
-                            span.a-badge.is-danger.is-sm
-                              | 必読
-                          span.card-books-item__title-label
-                            = book.title
-                        p.card-books-item__price
-                          = number_to_currency(book.price, unit: '円（税込）')
-                        - if book.description
-                          .card-books-item__description
-                            .a-short-text
-                              = simple_format(book.description)
-
-        section.a-card
-          header.card-header
-            h2.card-header__title
-              = Practice.human_attribute_name :goal
-          .practice-content__body.is-goal
-            .js-markdown-view.a-long-text.is-md
-              = @practice.goal
-            - if !current_user.adviser? && @practice.open_product?
-              = render '/practices/practice_content_notice'
-          footer.card-footer
-            #js-learning(data-practice-id="#{@practice.id}")
-            - if @practice.submission
-              .card-footer__alert
-                = link_to '提出の前に、提出時の注意点を確認しよう',
-                  'https://bootcamp.fjord.jp/pages/info-for-product',
-                  target: '_blank',
-                  rel: 'noopener'
-              .card-footer__description
-                | 提出物を作成し提出し、メンターから確認をもらったら
-                br
-                | このプラクティスを完了にしてください。
-            - else
-              .card-footer__description
-                | このプラクティスに提出物はありません。
-                br
-                | 終了条件をクリアしたら完了にしてください。
-
-        - if current_user.admin_or_mentor?
-          section.a-card.is-only-mentor
-            header.card-header
-              h2.card-header__title
-                = Practice.human_attribute_name :memo
-            .practice-content__body.is-memo
+                = Practice.human_attribute_name :description
+            .practice-content__body.is-practice
               .js-markdown-view.a-long-text.is-md
-                = @practice.memo
-          section.a-card.is-only-mentor
-            header.card-header
-              h2.card-header__title 管理者・メンター用メニュー
+                = @practice.description
+              = render 'shared/common_page_body',
+                common_page: @common_page,
+                classes: 'common-page-body js-markdown-view a-long-text is-md'
             footer.card-footer
               .card-main-actions
                 ul.card-main-actions__items
                   li.card-main-actions__item
-                    = link_to edit_practice_path(@practice), class: 'a-button is-md is-secondary is-block' do
-                      i.fa-solid.fa-pen
-                      | 編集
+                    = link_to new_question_path(practice_id: params[:id]), class: 'a-button is-sm is-secondary is-block' do
+                      i.fa-solid.fa-question-circle
+                      | 質問する
 
-      nav.page-nav
-        header.page-nav__header
-          h2.page-nav__title
-            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: 'page-nav__title-link' do
-              = category.name
-        ul.page-nav__items
-          - category.practices.each do |practice|
-            li.page-nav__item
-              = link_to practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}" do
-                span.page-nav__item-link-inner
-                  = practice.title
+          - if @practice.reference_books.exists?
+            .a-card
+              header.card-header
+                h2.card-header__title
+                  | 参考書籍
+              .card-books
+                .card-books__items
+                  - @practice.reference_books.each do |book|
+                    .card-books-item
+                      = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__inner' do
+                        .card-books-item__start
+                          .card-books-item__cover-container
+                            = image_tag book.cover_url, class: 'card-books-item__image', alt: book.title
+                        .card-books-item__end
+                          h3.card-books-item__title
+                            - if book.must_read
+                              span.a-badge.is-danger.is-sm
+                                | 必読
+                            span.card-books-item__title-label
+                              = book.title
+                          p.card-books-item__price
+                            = number_to_currency(book.price, unit: '円（税込）')
+                          - if book.description
+                            .card-books-item__description
+                              .a-short-text
+                                = simple_format(book.description)
+
+          .a-card
+            header.card-header
+              h2.card-header__title
+                = Practice.human_attribute_name :goal
+            .practice-content__body.is-goal
+              .js-markdown-view.a-long-text.is-md
+                = @practice.goal
+              - if !current_user.adviser? && @practice.open_product?
+                = render '/practices/practice_content_notice'
+            footer.card-footer
+              #js-learning(data-practice-id="#{@practice.id}")
+              - if @practice.submission
+                .card-footer__alert
+                  = link_to '提出の前に、提出時の注意点を確認しよう',
+                    'https://bootcamp.fjord.jp/pages/info-for-product',
+                    target: '_blank',
+                    rel: 'noopener'
+                .card-footer__description
+                  | 提出物を作成し提出し、メンターから確認をもらったら
+                  br
+                  | このプラクティスを完了にしてください。
+              - else
+                .card-footer__description
+                  | このプラクティスに提出物はありません。
+                  br
+                  | 終了条件をクリアしたら完了にしてください。
+
+          - if current_user.admin_or_mentor?
+            .a-card.is-only-mentor
+              header.card-header
+                h2.card-header__title
+                  = Practice.human_attribute_name :memo
+              .practice-content__body.is-memo
+                .js-markdown-view.a-long-text.is-md
+                  = @practice.memo
+
+            .a-card.is-only-mentor
+              header.card-header
+                h2.card-header__title 管理者・メンター用メニュー
+              footer.card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to edit_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
+                        i.fa-solid.fa-pen
+                        | 編集
+
+      .col-lg-4.col-xs-12
+        nav.page-nav
+          header.page-nav__header
+            h2.page-nav__title
+              = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+                class: 'page-nav__title-link' do
+                = category.name
+          ul.page-nav__items
+            - category.practices.each do |practice|
+              li.page-nav__item
+                = link_to practice_path(practice), class: "page-nav__item-link #{@practice == practice ? 'is-current' : ''}" do
+                  span.page-nav__item-link-inner
+                    = practice.title
 
 .sticky-message
   p

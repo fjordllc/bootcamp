@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import AdminCompanies from './admin_companies.vue'
+import AdminCompanies from 'admin_companies.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-admin-companies'

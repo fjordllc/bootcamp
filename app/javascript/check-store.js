@@ -9,14 +9,18 @@ export default new Vuex.Store({
     userName: null,
     createdAt: null,
     checkableId: null,
-    checkableType: null
+    checkableType: null,
+    productId: null,
+    productCheckerId: null
   },
   getters: {
     checkId: (state) => state.checkId,
     userName: (state) => state.userName,
     createdAt: (state) => state.createdAt,
     checkableId: (state) => state.checkableId,
-    checkableType: (state) => state.checkableType
+    checkableType: (state) => state.checkableType,
+    productId: (state) => state.productId,
+    productCheckerId: (state) => state.productCheckerId
   },
   mutations: {
     setCheckable(
@@ -28,6 +32,10 @@ export default new Vuex.Store({
       state.createdAt = createdAt
       state.checkableId = checkableId
       state.checkableType = checkableType
+    },
+    setProduct(state, { productId, productCheckerId }) {
+      state.productId = productId
+      state.productCheckerId = productCheckerId
     }
   },
   actions: {
@@ -63,6 +71,36 @@ export default new Vuex.Store({
               userName: null,
               checkableId: checkableId,
               checkableType: checkableType
+            })
+          }
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    },
+    setProduct({ commit }, { productId }) {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      fetch(`/api/products/${productId}.json`, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+        },
+        credentials: 'same-origin'
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((product) => {
+          if (product.checker_id !== null) {
+            commit('setProduct', {
+              productId: product.id,
+              productCheckerId: product.checker_id
+            })
+          } else {
+            commit('setProduct', {
+              productId: productId,
+              productCheckerId: null
             })
           }
         })

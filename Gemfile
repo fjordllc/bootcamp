@@ -14,7 +14,9 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 
 # not default
+gem 'abstract_notifier'
 gem 'active_decorator'
+gem 'active_delivery'
 gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
@@ -36,6 +38,7 @@ gem 'meta-tags'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
+gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-github', '~> 1.4.0'

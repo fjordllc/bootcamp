@@ -1,7 +1,7 @@
 import Choices from 'choices.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const element = document.getElementById('js-company-select')
+  const element = document.getElementById('js-choices-single-select')
   if (element) {
     return new Choices(element, {
       removeItemButton: true,
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       noResultsText: '一致する情報は見つかりません',
       itemSelectText: '選択',
       shouldSort: false,
+      resetScrollPosition: false,
       renderSelectedChoices: 'always'
     })
   }

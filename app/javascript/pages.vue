@@ -17,9 +17,9 @@ div
 </template>
 
 <script>
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
-import Pager from './pager.vue'
-import page from './page.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder.vue'
+import Pager from 'pager.vue'
+import page from 'page.vue'
 export default {
   components: {
     loadingListPlaceholder: LoadingListPlaceholder,

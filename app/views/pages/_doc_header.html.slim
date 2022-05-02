@@ -1,0 +1,89 @@
+header.page-content-header
+  .page-content-header__end
+    .page-content-header__row
+      - if page.practice.present?
+        .page-content-header__before-title
+          = link_to page.practice, class: 'a-category-link' do
+            = page.practice.title
+      h1.page-content-header__title(class="#{page.wip? ? 'is-wip' : ''}")
+        - if page.wip?
+          span.a-title-label.is-wip
+            | WIP
+        | #{page.title}
+
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas
+            - if page.wip?
+              .page-content-header-metas__meta
+                .a-meta.is-creator
+                  span.a-meta__label
+                    | Doc作成中
+                  span.a-meta__value
+                    = render 'users/icon',
+                      user: page.user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to page.user, class: 'a-user-name' do
+                      | #{page.user.login_name}
+            - elsif page.published_at.present?
+              .page-content-header-metas__meta
+                .a-meta.is-creator
+                  span.a-meta__label
+                    | 公開
+                  .a-meta__value
+                    time(datetime="#{page.published_at.to_datetime}")
+                      | #{l page.published_at}
+                    = render 'users/icon',
+                      user: page.user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to page.user, class: 'a-user-name' do
+                      | #{page.user.login_name}
+
+            - if page.last_updated_user.present?
+              .page-content-header-metas__meta
+                .a-meta.is-updater
+                  span.a-meta__label
+                    | 更新
+                  span.a-meta__value
+                    time(datetime="#{page.updated_at.to_datetime}")
+                      | #{l page.updated_at}
+                    = render 'users/icon',
+                      user: page.last_updated_user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to page.last_updated_user, class: 'a-user-name' do
+                      | #{page.last_updated_user.login_name}
+
+        .page-content-header-metas__end
+          .page-content-header-metas
+            .page-content-header-metas__meta
+              - length = page.comments.length
+              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                | コメント（
+                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                  = length
+                | ）
+            - if page.slug.present?
+                .page-content-header-metas__meta
+                  .a-slug
+                    = page.slug
+
+    .page-content-header__row
+      .thread-header-actions
+        .thread-header-actions__start
+          .thread-header-actions__action
+            #js-watch-toggle(data-watchable-id="#{page.id}", data-watchable-type='Page')
+          .thread-header-actions__action
+            #js-bookmark(data-bookmarkable-id="#{page.id}", data-bookmarkable-type='Page')
+
+    .page-content-header__row
+      .page-content-header__tags
+        #js-page-tags(
+          data-tags-initial-value="#{page.tag_list.join(',')}"
+          data-tags-param-name='page[tag_list]'
+          data-tags-input-id='page_tag_list'
+          data-page-id="#{page.id}"
+        )

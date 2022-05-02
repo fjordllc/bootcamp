@@ -1,14 +1,15 @@
 import MarkdownIt from 'markdown-it'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
-import MarkdownItMention from './markdown-it-mention'
-import MarkdownItUserIcon from './markdown-it-user-icon'
-import MarkdownItLinkingImage from './markdown-it-linking-image'
-import MarkdownOption from './markdown-it-option'
-import UserIconRenderer from './user-icon-renderer'
-import MarkdownItTaskListsInitializer from './markdown-it-task-lists-initializer'
-import MarkdownItHeadings from './markdown-it-headings'
-import MarkDownItContainerMessage from './markdown-it-container-message'
+import MarkdownItMention from 'markdown-it-mention'
+import MarkdownItUserIcon from 'markdown-it-user-icon'
+import MarkdownItLinkingImage from 'markdown-it-linking-image'
+import MarkdownOption from 'markdown-it-option'
+import UserIconRenderer from 'user-icon-renderer'
+import MarkdownItTaskListsInitializer from 'markdown-it-task-lists-initializer'
+import MarkdownItHeadings from 'markdown-it-headings'
+import MarkDownItContainerMessage from 'markdown-it-container-message'
+import MarkDownItContainerDetails from 'markdown-it-container-details'
 
 export default class {
   replace(selector) {
@@ -35,6 +36,7 @@ export default class {
     md.use(MarkdownItTaskLists)
     md.use(MarkdownItHeadings)
     md.use(MarkDownItContainerMessage)
+    md.use(MarkDownItContainerDetails)
 
     return md.render(text)
   }

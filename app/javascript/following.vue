@@ -1,15 +1,15 @@
 <template lang="pug">
 details.following(ref='followingDetailsRef')
   summary.following__summary
-    span.a-button.is-warning.is-md.is-block(v-if='following && watching')
+    span.a-button.is-warning.is-sm.is-block(v-if='following && watching')
       i.fa-solid.fa-check
       span
         | コメントあり
-    span.a-button.is-warning.is-md.is-block(v-else-if='following && !watching')
+    span.a-button.is-warning.is-sm.is-block(v-else-if='following && !watching')
       i.fa-solid.fa-check
       span
         | コメントなし
-    span.a-button.is-secondary.is-md.is-block(v-else)
+    span.a-button.is-secondary.is-sm.is-block(v-else)
       | {{ buttonLabel }}
   .following__dropdown.a-dropdown
     ul.a-dropdown__items

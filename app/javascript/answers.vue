@@ -1,9 +1,9 @@
 <template lang="pug">
 .thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
-.thread-comments-container(v-else)
-  h2.thread-comments-container__title 回答・コメント
-  .thread-comments
+.thread-comments(v-else)
+  h2.thread-comments__title 回答・コメント
+  .thread-comments__items
     answer(
       v-for='answer in answers',
       :key='answer.id',
@@ -17,54 +17,54 @@
       @cancelBestAnswer='cancelBestAnswer',
       @update='updateAnswer'
     )
-    .thread-comment-form
-      .thread-comment__author
-        img.thread-comment__user-icon.a-user-icon(
-          :src='currentUser.avatar_url',
-          :title='currentUser.icon_title'
+  .thread-comment-form
+    .thread-comment__author
+      img.thread-comment__user-icon.a-user-icon(
+        :src='currentUser.avatar_url',
+        :title='currentUser.icon_title'
+      )
+    .thread-comment-form__form.a-card
+      .a-form-tabs.js-tabs
+        .a-form-tabs__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("answer") }',
+          @click='changeActiveTab("answer")'
         )
-      .thread-comment-form__form.a-card
-        .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab(
-            :class='{ "is-active": isActive("answer") }',
-            @click='changeActiveTab("answer")'
+          | コメント
+        .a-form-tabs__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("preview") }',
+          @click='changeActiveTab("preview")'
+        )
+          | プレビュー
+      .a-markdown-input.js-markdown-parent
+        .a-markdown-input__inner.js-tabs__content(
+          :class='{ "is-active": isActive("answer") }'
+        )
+          textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
+            v-model='description',
+            name='answer[description]',
+            data-preview='#new-comment-preview',
+            @input='editAnswer'
           )
-            | コメント
-          .a-form-tabs__tab.js-tabs__tab(
-            :class='{ "is-active": isActive("preview") }',
-            @click='changeActiveTab("preview")'
-          )
-            | プレビュー
-        .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.js-tabs__content(
-            :class='{ "is-active": isActive("answer") }'
-          )
-            textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
-              v-model='description',
-              name='answer[description]',
-              data-preview='#new-comment-preview',
-              @input='editAnswer'
-            )
-          .a-markdown-input__inner.js-tabs__content(
-            :class='{ "is-active": isActive("preview") }'
-          )
-            #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
-        .card-footer
-          .card-main-actions
-            .card-main-actions__items
-              .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-md.is-warning.is-block(
-                  @click='createAnswer',
-                  :disabled='!validation || buttonDisabled'
-                )
-                  | コメントする
+        .a-markdown-input__inner.js-tabs__content(
+          :class='{ "is-active": isActive("preview") }'
+        )
+          #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
+      .card-footer
+        .card-main-actions
+          .card-main-actions__items
+            .card-main-actions__item
+              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
+                @click='createAnswer',
+                :disabled='!validation || buttonDisabled'
+              )
+                | コメントする
 </template>
 <script>
-import Answer from './answer.vue'
-import TextareaInitializer from './textarea-initializer'
-import CommentPlaceholder from './comment-placeholder'
-import confirmUnload from './confirm-unload'
-import toast from './toast'
+import Answer from 'answer.vue'
+import TextareaInitializer from 'textarea-initializer'
+import CommentPlaceholder from 'comment-placeholder'
+import confirmUnload from 'confirm-unload'
+import toast from 'toast'
 
 export default {
   components: {

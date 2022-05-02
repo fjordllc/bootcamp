@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Events from './events.vue'
+import Events from 'events.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-events'

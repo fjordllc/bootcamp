@@ -2,15 +2,15 @@
 .card-main-actions
   ul.card-main-actions__items
     li.card-main-actions__item(v-if='submission')
-      a.a-button.is-md.is-primary.is-block.test-product(:href='productLink')
+      a.a-button.is-sm.is-primary.is-block.test-product(:href='productLink')
         i.fa-solid.fa-file
         | {{ productLabel }}
     li.card-main-actions__item(v-if='complete')
-      button.a-button.is-md.is-secondary.is-block.is-disabled.test-completed
+      button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
         i.fa-solid.fa-check
         | 完了しています
     li.card-main-actions__item(v-else)
-      label#js-complete.a-button.is-md.is-warning.is-block(
+      label#js-complete.a-button.is-sm.is-warning.is-block(
         @click='pushComplete',
         for='modal-learning_completion'
       )

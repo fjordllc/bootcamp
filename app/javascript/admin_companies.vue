@@ -13,9 +13,9 @@
           th.admin-table__label
             | ウェブサイト
           th.admin-table__label.actions
-            | リンク
+            | アドバイザー招待
           th.admin-table__label.actions
-            | 操作
+            | 編集
       tbody.admin-table__items
         tr.admin-table__item(
           v-for='company in companies',
@@ -45,18 +45,13 @@
                   :href='`/admin/companies/${company.id}/edit`'
                 )
                   i.fa-solid.fa-pen
-              li
-                a.a-button.is-sm.is-danger.is-icon.js-delete(
-                  @click='destroy(company)'
-                )
-                  i.fa-solid.fa-trash-alt
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
 
 <script>
-import Pager from './pager'
-import toast from './toast'
+import Pager from 'pager'
+import toast from 'toast'
 
 export default {
   components: {

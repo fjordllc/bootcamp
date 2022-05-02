@@ -7,7 +7,6 @@ class GraduationController < ApplicationController
     if @user.update(graduated_on: Date.current)
       Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
 
-      notify_to_chat(@user)
       notify_to_mentors(@user)
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
@@ -21,14 +20,9 @@ class GraduationController < ApplicationController
     @user = User.find(params[:user_id])
   end
 
-  def notify_to_chat(user)
-    ChatNotifier.message(
-      "#{user.login_name}さんが卒業しました。",
-      webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL']
-    )
-  end
-
   def notify_to_mentors(user)
-    User.mentor.each { |mentor| NotificationFacade.graduated(user, mentor) }
+    User.mentor.each do |mentor|
+      ActivityDelivery.with(sender: user, receiver: mentor).notify(:graduated)
+    end
   end
 end
