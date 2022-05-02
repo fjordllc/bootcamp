@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
       searchResultLimit: 10,
       searchPlaceholderValue: '検索ワード',
       noResultsText: '一致する情報は見つかりません',
-      itemSelectText: '選択'
+      itemSelectText: '選択',
+      shouldSort: false
     })
   }
 
