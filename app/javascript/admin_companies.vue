@@ -42,10 +42,7 @@
             )
               i.fa-solid.fa-user-plus
           td
-            a(
-              :title='"研修生サインアップURL"',
-              :href='company.trainee_sign_up_url'
-            )
+            a(:title='"研修生サインアップURL"', :href='company.trainee_sign_up_url')
           td.admin-table__item-value.is-text-align-center
             ul.is-inline-buttons
               li
