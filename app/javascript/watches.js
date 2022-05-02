@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Watches from './watches.vue'
+import Watches from 'watches.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-watches'

@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Products from './products.vue'
+import Products from 'products.vue'
+import store from './check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-products'
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMentor = products.getAttribute('data-mentor-login')
     const currentUserId = products.getAttribute('data-current-user-id')
     new Vue({
+      store,
       render: (h) =>
         h(Products, {
           props: {

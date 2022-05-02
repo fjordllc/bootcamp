@@ -21,19 +21,20 @@
           :checkerAvatar='checkerAvatar',
           :currentUserId='currentUserId',
           :productId='checkableId',
-          :checkableType='checkableType'
+          :checkableType='checkableType',
+          :parentComponent='"check"'
         )
       li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
         button#js-shortcut-check.is-block(
-          :class='checkId ? "card-main-actions__muted-action" : "a-button is-md is-danger"',
+          :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"',
           @click='checkSad'
         )
           | {{ buttonLabel }}
 </template>
 <script>
 import 'whatwg-fetch'
-import ProductChecker from './product_checker'
-import checkable from './checkable.js'
+import ProductChecker from 'product_checker'
+import checkable from 'checkable.js'
 
 export default {
   components: {

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Pages from './pages.vue'
+import Pages from 'pages.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-practices-pages'

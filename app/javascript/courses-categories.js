@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import CoursesCategories from './courses-categories.vue'
+import CoursesCategories from 'courses-categories.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-courses-categories'

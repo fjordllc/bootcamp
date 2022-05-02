@@ -4,19 +4,20 @@
   border-bottom: solid 1px $border-tint
   +media-breakpoint-up(md)
     +position(sticky, top 0)
+    height: $header-height__md-up
   +media-breakpoint-down(sm)
     position: relative
+    height: $header-height__sm-down
   .switch
     margin-left: 1rem
+  .container
+    height: 100%
 
 .header__container
   display: flex
   justify-content: space-between
   align-items: center
-  +media-breakpoint-up(md)
-    height: 3.125rem
-  +media-breakpoint-down(sm)
-    height: 2.75rem
+  height: 100%
 
 .header__start
   display: flex

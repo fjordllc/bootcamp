@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import CoursesPractice from './courses-practice.vue'
-import MarkdownInitializer from './markdown-initializer'
-import role from './role'
-import LoadingCoursesPracticesPagePlaceholder from './loading-courses-practices-page-placeholder'
+import CoursesPractice from 'courses-practice.vue'
+import MarkdownInitializer from 'markdown-initializer'
+import role from 'role'
+import LoadingCoursesPracticesPagePlaceholder from 'loading-courses-practices-page-placeholder'
 
 export default {
   components: {

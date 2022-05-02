@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import NotificationsBell from './notifications_bell.vue'
+import NotificationsBell from 'notifications_bell.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const notificationsBell = document.querySelector('#js-notifications-bell')

@@ -7,13 +7,13 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
     product = users(:mentormentaro).products.first
     visit_with_auth product_path(product), 'komagata'
     assert_text '見たよ'
-    assert page.has_css?('.footprints-item__checker-icon.is-komagata')
+    assert page.has_css?('.a-user-icon.is-komagata')
   end
 
   test 'should not footpoint with my own product' do
     product = users(:mentormentaro).products.first
     visit_with_auth product_path(product), 'mentormentaro'
     assert_no_text '見たよ'
-    assert_not page.has_css?('.footprints-item__checker-icon.is-mentormentaro')
+    assert_not page.has_css?('.a-user-icon.is-mentormentaro')
   end
 end

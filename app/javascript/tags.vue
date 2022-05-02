@@ -29,17 +29,17 @@
     .form-actions(v-if='tagsEditable')
       ul.form-actions__items
         li.form-actions__item.is-main
-          button.a-button.is-warning.is-block.is-md(@click='updateTag')
+          button.a-button.is-primary.is-sm.is-block(@click='updateTag')
             | 保存する
         li.form-actions__item
-          button.a-button.is-secondary.is-block.is-sm(@click='cancel')
+          button.a-button.is-sm.is-text(@click='cancel')
             | キャンセル
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input'
-import validateTagName from './validate-tag-name'
-import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
+import validateTagName from 'validate-tag-name'
+import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
 
 export default {
   name: 'Tags',

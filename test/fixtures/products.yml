@@ -391,3 +391,15 @@ product66:
   user: daimyo
   body: publish_atがnilの提出物です。
   published_at: nil
+
+product67:
+  practice: practice3
+  user: kimuramitai
+  body: 確認済みの提出物67です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+
+product68:
+  practice: practice5
+  user: kimuramitai
+  body: 未確認だけど、担当になっている提出物68です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"

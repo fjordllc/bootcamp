@@ -41,10 +41,10 @@ div(v-else)
       | 未チェックの日報はありません
 </template>
 <script>
-import Report from './report.vue'
-import UnconfirmedLink from './unconfirmed_link.vue'
-import LoadingListPlaceholder from './loading-list-placeholder.vue'
-import Pager from './pager.vue'
+import Report from 'report.vue'
+import UnconfirmedLink from 'unconfirmed_link.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder.vue'
+import Pager from 'pager.vue'
 
 export default {
   components: {

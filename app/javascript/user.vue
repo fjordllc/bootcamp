@@ -60,7 +60,7 @@
             li.card-main-actions__item(
               v-if='currentUser.id != user.id && currentUser.adviser && user.company && currentUser.company_id == user.company.id'
             )
-              .a-button.is-disabled.is-md.is-block
+              .a-button.is-disabled.is-sm.is-block
                 i.fa-solid.fa-check
                 span
                   | 自社研修生
@@ -73,14 +73,14 @@
             li.card-main-actions__item.is-only-admin(
               v-if='currentUser.admin && user.talkUrl'
             )
-              a.a-button.is-secondary.is-md.is-block(:href='user.talkUrl')
+              a.a-button.is-secondary.is-sm.is-block(:href='user.talkUrl')
                 | 相談部屋
 </template>
 <script>
-import Following from './following.vue'
-import UserSns from './user-sns.vue'
-import UserTags from './user-tags.vue'
-import UserPracticeProgress from './user-practice-progress.vue'
+import Following from 'following.vue'
+import UserSns from 'user-sns.vue'
+import UserTags from 'user-tags.vue'
+import UserPracticeProgress from 'user-practice-progress.vue'
 
 export default {
   components: {

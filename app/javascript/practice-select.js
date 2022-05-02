@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import PracticeSelect from './practice-select.vue'
+import PracticeSelect from 'practice-select.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-practice-select'

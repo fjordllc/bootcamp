@@ -152,7 +152,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'admin user can publish wip announcement' do
     announcement = announcements(:announcement_wip)
     visit_with_auth announcement_path(announcement), 'komagata'
-    within '.thread__inner' do
+    within '.announcement' do
       click_link '内容修正'
     end
     assert has_no_button? '作成'
@@ -163,7 +163,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test "general user can't publish wip announcement" do
     announcement = announcements(:announcement_wip)
     visit_with_auth announcement_path(announcement), 'kimura'
-    within '.thread__inner' do
+    within '.announcement' do
       click_link '内容修正'
     end
     assert has_no_button? '作成'
@@ -174,7 +174,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'adimin user can publish submitted announcement' do
     announcement = announcements(:announcement1)
     visit_with_auth announcement_path(announcement), 'komagata'
-    within '.thread__inner' do
+    within '.announcement' do
       click_link '内容修正'
     end
     assert has_no_button? '作成'
@@ -185,7 +185,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'general user can publish submitted announcement' do
     announcement = announcements(:announcement1)
     visit_with_auth announcement_path(announcement), 'kimura'
-    within '.thread__inner' do
+    within '.announcement' do
       click_link '内容修正'
     end
     assert has_no_button? '作成'
@@ -196,7 +196,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'general user can copy submitted announcement' do
     announcement = announcements(:announcement1)
     visit_with_auth announcement_path(announcement), 'kimura'
-    within '.thread__inner' do
+    within '.announcement' do
       assert_text 'コピー'
     end
   end
@@ -204,7 +204,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'general user can copy wip announcement' do
     announcement = announcements(:announcement_wip)
     visit_with_auth announcement_path(announcement), 'kimura'
-    within '.thread__inner' do
+    within '.announcement' do
       assert_text 'コピー'
     end
   end

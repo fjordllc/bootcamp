@@ -68,6 +68,12 @@
           - user.roles.each do |role|
             li
               = t "target.#{role}"
+    - if user.trainee?
+      .user-metas__item
+        .user-metas__item-label
+          = User.human_attribute_name :training_ends_on
+        .user-metas__item-value
+          = l user.training_ends_on.to_date
     - if user.graduated_on.present?
       .user-metas__item
         .user-metas__item-label

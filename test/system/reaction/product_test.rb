@@ -11,8 +11,8 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
 
   test 'reaction to product' do
     visit_with_auth product_path(products(:product12)), 'machida'
-    first('.thread__inner .js-reaction-dropdown-toggle').click
-    first(".thread__inner .js-reaction-dropdown li[data-reaction-kind='eyes']").click
+    first('.js-reaction-dropdown-toggle').click
+    first(".js-reaction-dropdown li[data-reaction-kind='eyes']").click
 
     using_wait_time 5 do
       assert_text "🎉1\n👀2"
@@ -21,8 +21,8 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
 
   test 'delete reaction of product on dropdown' do
     visit_with_auth product_path(products(:product12)), 'machida'
-    first('.thread__inner .js-reaction-dropdown-toggle').click
-    first(".thread__inner .js-reaction-dropdown li[data-reaction-kind='tada']").click
+    first('.js-reaction-dropdown-toggle').click
+    first(".js-reaction-dropdown li[data-reaction-kind='tada']").click
 
     using_wait_time 5 do
       assert_text '👀1'
@@ -31,7 +31,7 @@ class Reaction::ProductsTest < ApplicationSystemTestCase
 
   test 'delete reaction of product on fotter' do
     visit_with_auth product_path(products(:product12)), 'machida'
-    first(".thread__inner .js-reaction li[data-reaction-kind='tada']").click
+    first(".js-reaction li[data-reaction-kind='tada']").click
 
     using_wait_time 5 do
       assert_text '👀1'

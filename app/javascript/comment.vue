@@ -34,7 +34,7 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
-            button.card-main-actions__action.a-button.is-md.is-secondary.is-block(
+            button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
               @click='editComment'
             )
               i.fa-solid.fa-pen
@@ -75,24 +75,24 @@
         .card-main-actions
           .card-main-actions__items
             .card-main-actions__item
-              button.a-button.is-md.is-warning.is-block(
+              button.a-button.is-sm.is-primary.is-block(
                 @click='updateComment',
                 v-bind:disabled='!validation'
               )
                 | 保存する
             .card-main-actions__item
-              button.a-button.is-md.is-secondary.is-block(@click='cancel')
+              button.a-button.is-sm.is-secondary.is-block(@click='cancel')
                 | キャンセル
 </template>
 <script>
-import Reaction from './reaction.vue'
-import MarkdownInitializer from './markdown-initializer'
-import TextareaInitializer from './textarea-initializer'
-import confirmUnload from './confirm-unload'
+import Reaction from 'reaction.vue'
+import MarkdownInitializer from 'markdown-initializer'
+import TextareaInitializer from 'textarea-initializer'
+import confirmUnload from 'confirm-unload'
 import autosize from 'autosize'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import role from './role'
+import role from 'role'
 
 dayjs.locale(ja)
 

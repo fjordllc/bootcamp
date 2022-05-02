@@ -533,9 +533,10 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'select box shows the practices that belong to a user course' do
     visit_with_auth reports_path, 'kimura'
-    find('#select2-practice_id-container').click
-    selects_size = users(:kimura).course.practices.size + 1
-    assert_selector '.select2-results__option', count: selects_size
+    find('.choices__inner').click
+    page_practices = page.all('.choices__item--choice').map(&:text).size
+    course_practices = users(:kimura).course.practices.size + 1
+    assert_equal page_practices, course_practices
   end
 
   test 'show number of comments' do

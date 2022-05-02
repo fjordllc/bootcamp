@@ -45,11 +45,11 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     assert_equal 'sshdでパスワード認証を禁止にする', newest_product.practice.title
   end
 
-  test 'display elapsed days label' do
+  test 'display elapsed days label and number of products' do
     visit_with_auth '/products/unassigned', 'komagata'
-    assert_text '今日提出'
-    assert_text '5日経過'
-    assert_text '6日経過'
-    assert_text '7日以上経過'
+    assert_text '7日以上経過（6）'
+    assert_text '6日経過（1）'
+    assert_text '5日経過（1）'
+    assert_text '今日提出（48）'
   end
 end

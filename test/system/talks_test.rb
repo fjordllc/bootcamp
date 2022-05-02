@@ -18,6 +18,12 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '管理者としてログインしてください'
   end
 
+  test 'user who is not logged in cannot access talks page' do
+    user = users(:kimura)
+    visit "/talks/#{user.talk.id}"
+    assert_text 'ログインしてください'
+  end
+
   test 'cannot access other users talk page' do
     visited_user = users(:hatsuno)
     visit_user = users(:mentormentaro)
@@ -132,7 +138,7 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:hajime)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ユーザーの日報'
-    page.find('#reports_list').click
+    page.find('#side-tabs-nav-2').click
     user.reports.first(10).each do |report|
       assert_text report.title
     end
@@ -257,11 +263,11 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'mentorkimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'mentor'
-    assert_text 'さんの相談部屋', count: 2
+    assert_text 'さんの相談部屋', count: 3
 
     visit '/talks?target=mentor'
     fill_in 'js-talk-search-input', with: 'mentor'
-    assert_text 'さんの相談部屋', count: 1 # users(:mentormentaro)
+    assert_text 'さんの相談部屋', count: 2 # users(:mentormentaro) users(:'long-id-mentor')
   end
 
   test 'incremental search for graduated' do

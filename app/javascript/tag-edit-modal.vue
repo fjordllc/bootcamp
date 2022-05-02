@@ -12,7 +12,7 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item.is-main
-            button.a-button.is-primary.is-md.is-block(
+            button.a-button.is-primary.is-sm.is-block(
               :disabled='validation',
               @click.prevent='updateTag'
             )

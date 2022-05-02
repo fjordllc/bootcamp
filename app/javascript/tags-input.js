@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import TagsInput from './tags-input.vue'
+import TagsInput from 'tags-input.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const tagsInputElm = document.getElementById('js-tags-input')

@@ -38,19 +38,19 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
       - if admin_or_mentor_login? && announcement.new_record?
         li.form-actions__item.is-main.is-help
-          = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+          = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       - elsif admin_or_mentor_login? || announcement.published_at
         li.form-actions__item.is-main.is-help
-          = f.submit '公開', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+          = f.submit '公開', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
-          = link_to 'キャンセル', announcements_path, class: 'a-button is-md is-secondary is-block'
+          = link_to 'キャンセル', announcements_path, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
-          = link_to 'キャンセル', announcement_path, class: 'a-button is-md is-secondary is-block'
+          = link_to 'キャンセル', announcement_path, class: 'a-button is-sm is-text'
     - unless admin_or_mentor_login? || announcement.published_at
       .form-actions__description.a-short-text
         p

@@ -1,7 +1,7 @@
 .reactions
   display: flex
   justify-content: space-between
-  border-top: 1px solid $border
+  border-top: 1px solid $border-tint
   position: relative
   user-select: none
 
@@ -32,15 +32,15 @@
   justify-content: center
   padding: 0 9px
   background-color: $base
-  border-right: 1px solid $border-shade
+  border-right: 1px solid $border-tint
   transition: all .2s ease-out
   position: relative
   +media-breakpoint-down(sm)
     width: 20%
     height: 2.75rem
-    border-bottom: 1px solid $border-shade
+    border-bottom: 1px solid $border-tint
   &.is-reacted
-    background-color: #f7f7f7
+    background-color: #fafafa
   &:hover
     background-color: #f2f2f2
   @media (pointer: fine)
@@ -91,7 +91,7 @@
   cursor: pointer
   align-items: center
   justify-content: center
-  border-left: 1px solid $border-shade
+  border-left: 1px solid $border-tint
   &:hover
     background: #f2f2f2
 

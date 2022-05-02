@@ -84,8 +84,12 @@ class PagesTest < ApplicationSystemTestCase
     end
 
     click_on '保存'
-    assert find('.thread__user-icon')[:title].start_with?('kimura')
-    assert_equal 'komagata', find('.a-user-name').text
+    within '.a-meta.is-creator' do
+      assert find('.thread-header__user-icon')[:title].start_with?('kimura')
+    end
+    within '.a-meta.is-updater' do
+      assert_equal 'komagata', find('.a-user-name').text
+    end
   end
 
   test 'non-administrator cannot change doc user' do
@@ -163,7 +167,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'show last updated user icon' do
     visit_with_auth "/pages/#{pages(:page7).id}", 'hajime'
-    within '.thread-header__user-icon-link' do
+    within '.a-meta.is-updater' do
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
     end
   end

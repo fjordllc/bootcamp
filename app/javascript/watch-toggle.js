@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import WatchToggle from './watch-toggle.vue'
+import WatchToggle from 'watch-toggle.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const watchToggle = document.getElementById('js-watch-toggle')

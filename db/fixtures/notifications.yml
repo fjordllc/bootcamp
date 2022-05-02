@@ -124,6 +124,14 @@ notification_chose_correct_answer:
   link: "/questions/<%= ActiveRecord::FixtureSet.identify(:question12) %>"
   read: false
 
+notification_consecutive_sad_report:
+  kind: 15
+  user: komagata
+  sender: hajime
+  message: hajimeさんが2回連続でsadアイコンの日報を提出しました。
+  link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report16) %>"
+  read: false
+
 notification_graduated:
   kind: 18
   user: mentormentaro

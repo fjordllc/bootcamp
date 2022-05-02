@@ -23,7 +23,7 @@
             @click='createMemo'
           )
             | 作成
-          button.a-button.is-md.is-warning.is-block(
+          button.a-button.is-md.is-primary.is-block(
             v-else,
             @click='updateMemo'
           )

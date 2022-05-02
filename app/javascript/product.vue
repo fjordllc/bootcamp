@@ -116,11 +116,12 @@
         :checkerName='product.checker_name',
         :checkerAvatar='product.checker_avatar',
         :currentUserId='currentUserId',
-        :productId='product.id'
+        :productId='product.id',
+        :parentComponent='"product"'
       )
 </template>
 <script>
-import ProductChecker from './product_checker'
+import ProductChecker from 'product_checker'
 export default {
   components: {
     'product-checker': ProductChecker

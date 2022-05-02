@@ -47,7 +47,7 @@
 <script>
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import role from './role'
+import role from 'role'
 dayjs.locale(ja)
 export default {
   mixins: [role],
