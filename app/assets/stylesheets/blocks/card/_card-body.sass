@@ -1,9 +1,20 @@
 .card-body
-  padding: 1rem
-  font-size: .8125rem
-  +media-breakpoint-down(sm)
-    padding: .75rem
+  &:not(:first-child)
+    border-top: solid 1px $border-tint
   &:not(:last-child)
       border-bottom: solid 1px $border-tint
+
+.card__description
+  overflow: hidden
   p
     +text-block(1em 1.6)
+  +media-breakpoint-up(md)
+    padding: 1rem 1.25rem
+    font-size: .8125rem
+  +media-breakpoint-down(sm)
+    padding: .75rem
+  &.a-long-text
+    +media-breakpoint-up(md)
+      font-size: .9375rem
+    +media-breakpoint-down(sm)
+      font-size: .8125rem

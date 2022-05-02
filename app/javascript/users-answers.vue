@@ -4,13 +4,13 @@ div
     pager(v-bind='pagerProps')
   div(v-if='answers === null')
     loadingListPlaceholder
-    .thread-list.a-card
+    .card-list.a-card
   .o-empty-message(v-else-if='answers.length === 0')
     .o-empty-message__icon
       i.fa-regular.fa-sad-tear
     p.o-empty-message__text
       | 回答はまだありません。
-  .thread-list.a-card(v-else)
+  .card-list.a-card(v-else)
     usersAnswer(v-for='answer in answers', :key='answer.id', :answer='answer')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')

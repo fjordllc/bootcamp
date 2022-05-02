@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (allOpenButton) {
     allOpenButton.addEventListener('click', () => {
       const links = document.querySelectorAll(
-        '.thread-list-item .js-unconfirmed-link'
+        '.card-list-item .js-unconfirmed-link'
       )
       links.forEach((link) => {
         window.open(link.href, '_target', 'noopener')

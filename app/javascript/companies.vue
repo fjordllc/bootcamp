@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
   .container.is-lg
-    .thread-list.a-card
+    .card-list.a-card
       company(
         v-for='company in companies',
         :key='company.id',

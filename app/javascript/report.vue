@@ -1,67 +1,67 @@
 <template lang="pug">
-.thread-list-item(:class='wipClass')
-  .thread-list-item__inner
-    .thread-list-item__user
-      a.thread-header__author(:href='report.user.url')
-        img.thread-list-item__user-icon.a-user-icon(
+.card-list-item(:class='wipClass')
+  .card-list-item__inner
+    .card-list-item__user
+      a.card-list-item__user-link(:href='report.user.url')
+        img.card-list-item__user-icon.a-user-icon(
           :src='report.user.avatar_url',
           :title='report.user.login_name',
           :alt='report.user.login_name',
           :class='[roleClass, daimyoClass]'
         )
-    .thread-list-item__rows
-      .thread-list-item__row
-        header.thread-list-item-title
-          .thread-list-item-title__start
-            .thread-list-item-title__icon.is-wip(v-if='report.wip') WIP
-            h2.thread-list-item-title__title
-              a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
+    .card-list-item__rows
+      .card-list-item__row
+        header.card-list-item-title
+          .card-list-item-title__start
+            .card-list-item-title__icon.is-wip(v-if='report.wip') WIP
+            h2.card-list-item-title__title
+              a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='report.url'
               ) {{ report.user.daimyo ? "★" + report.title : report.title }}
-            .thread-list-item-title__end(
+            .card-list-item-title__end(
               v-if='currentUserId == report.user.id'
             )
-              label.thread-list-item-actions__trigger(:for='report.id')
+              label.card-list-item-actions__trigger(:for='report.id')
                 i.fa-solid.fa-ellipsis-h
-              .thread-list-item-actions
+              .card-list-item-actions
                 input.a-toggle-checkbox(type='checkbox', :id='report.id')
-                .thread-list-item-actions__inner
-                  ul.thread-list-item-actions__items
-                    li.thread-list-item-actions__item
-                      a.thread-list-item-actions__action(
+                .card-list-item-actions__inner
+                  ul.card-list-item-actions__items
+                    li.card-list-item-actions__item
+                      a.card-list-item-actions__action(
                         :href='report.editURL'
                       )
                         i.fa-solid.fa-pen
                         | 内容変更
-                    li.thread-list-item-actions__item
-                      a.thread-list-item-actions__action(:href='report.newURL')
+                    li.card-list-item-actions__item
+                      a.card-list-item-actions__action(:href='report.newURL')
                         i.fa-solid.fa-copy
                         | コピー
                   label.a-overlay(:for='report.id')
 
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               a.a-user-name(:href='report.user.url') {{ report.user.long_name }}
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               time.a-meta
                 | {{ report.reportedOn }}の日報
-      hr.thread-list-item__row-separator(v-if='report.hasAnyComments')
-      .thread-list-item__row(v-if='report.hasAnyComments')
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      hr.card-list-item__row-separator(v-if='report.hasAnyComments')
+      .card-list-item__row(v-if='report.hasAnyComments')
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               .a-meta
                 | コメント（{{ report.numberOfComments }}）
-            .thread-list-item-meta__item
-              .thread-list-item-comment__user-icons
+            .card-list-item-meta__item
+              .card-list-item-comment__user-icons
                 comment-user-icon(
                   v-for='comment in report.comments',
                   :key='comment.id',
                   :comment='comment'
                 )
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               time.a-meta(
                 datetime='report.lastCommentDatetime',
                 pubdate='\'pubdate\''

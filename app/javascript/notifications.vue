@@ -12,7 +12,7 @@
 #notifications.container.is-md.loaded(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
-  .thread-list.a-card
+  .card-list.a-card
     notification(
       v-for='notification in notifications',
       :key='notification.id',

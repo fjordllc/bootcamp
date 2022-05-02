@@ -19,7 +19,7 @@ header.page-header
     .doc.page-content
       = render 'doc_header', page: @page
       .a-card
-        .thread__description
+        .card__description
           .a-long-text.is-md.js-markdown-view
             = @page.body
         = render 'reactions/reactions', reactionable: @page

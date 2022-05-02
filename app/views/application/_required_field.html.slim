@@ -13,4 +13,4 @@
       ul.card-list__items
         - @required_fields.errors.each do |error|
           li.card-list__item
-            = link_to error.message, edit_current_user_path(anchor: anchor_to_required_field(error.attribute)), class: "card-list__item-link is-#{error.attribute}"
+            = link_to error.message, edit_current_user_path(anchor: anchor_to_required_field(error.attribute)), class: "card-list__item-link a-text-link is-#{error.attribute}"

@@ -1,37 +1,37 @@
 <template lang="pug">
-.thread-list-item(:class='answerClass')
-  .thread-list-item__inner
-    .thread-list-item__user
-      a.a-user-name(:href='answer.question.user.url')
-        img.thread-list-item__user-icon.a-user-icon(
+.card-list-item(:class='answerClass')
+  .card-list-item__inner
+    .card-list-item__user
+      a.card-list-item__user-link(:href='answer.question.user.url')
+        img.card-list-item__user-icon.a-user-icon(
           :title='answer.question.user.icon_title',
           :alt='answer.question.user.icon_title',
           :src='answer.question.user.avatar_url',
           :class='[roleClass, daimyoClass]'
         )
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          h1.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link.a-text-link(
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          h1.card-list-item-title__title(itemprop='name')
+            a.card-list-item-title__link.a-text-link(
               :href='answer.question.url',
               itemprop='url'
             ) {{ answer.question.title }}
-      .thread-list-item__row(v-if='answer.question.practice')
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
-              .thread-list-item-sub-title {{ answer.question.practice.title }}
-      .thread-list-item__row
-        .thread-list-item__summary
+      .card-list-item__row(v-if='answer.question.practice')
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
+              .card-list-item-sub-title {{ answer.question.practice.title }}
+      .card-list-item__row
+        .card-list-item__summary
           p {{ summary }}
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               a.a-user-name(:href='`/users/${answer.question.user.id}`')
                 | {{ answer.question.user.long_name }}
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               time.a-meta(:datetime='answer.updated_at', pubdate='pubdate') {{ updatedAt }}
       .answer-badge(v-if='answer.type == "CorrectAnswer"')
         .answer-badge__icon

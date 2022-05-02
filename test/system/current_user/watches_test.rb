@@ -29,9 +29,9 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
   test 'watch index checkbox test' do
     login_user 'kimura', 'testtest'
     visit '/current_user/watches'
-    assert_no_selector '.thread-list-item__option'
+    assert_no_selector '.card-list-item__option'
     find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.thread-list-item__option'
+    assert_selector '.card-list-item__option'
   end
 
   test 'watch index page watchbutton test' do
@@ -42,7 +42,7 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
     visit '/current_user/watches'
     assert_text '作業週1日目'
     find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.thread-list-item__option'
+    assert_selector '.card-list-item__option'
     first('#watch-button').click
     wait_for_watch_change
     assert_no_text '作業週1日目'

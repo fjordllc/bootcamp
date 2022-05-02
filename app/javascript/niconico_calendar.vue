@@ -4,69 +4,72 @@
     h2.card-header__title
       | ニコニコカレンダー
   .card-body(v-if='!loaded')
-    | ロード中
+    .card__description
+      | ロード中
   .card-body(v-else-if='reports.length === 0')
-    | 日報はありません。
+    .card__description
+      | 日報はありません。
   .card-body(v-else)
-    .niconico-calendar-nav
-      .niconico-calendar-nav__previous(
-        v-if='!oldestMonth()',
-        @click='previousMonth'
-      )
-        i.fa-solid.fa-angle-left
-      .niconico-calendar-nav__previous.is-blank(v-else)
-      .niconico-calendar-nav__year--month {{ calendarYear }}年{{ calendarMonth }}月
-      .niconico-calendar-nav__next(v-if='!newestMonth()', @click='nextMonth')
-        i.fa-solid.fa-angle-right
-      .niconico-calendar-nav__next.is-blank(v-else)
-    table.niconico-calendar
-      thead.niconico-calendar__header
-        tr
-          th.niconico-calendar__header-day.is-sunday
-            | 日
-          th.niconico-calendar__header-day
-            | 月
-          th.niconico-calendar__header-day
-            | 火
-          th.niconico-calendar__header-day
-            | 水
-          th.niconico-calendar__header-day
-            | 木
-          th.niconico-calendar__header-day
-            | 金
-          th.niconico-calendar__header-day.is-saturday
-            | 土
-      tbody.niconico-calendar__body(
-        v-for='week in calendarWeeks',
-        :key='week.id'
-      )
-        tr.niconico-calendar__week
-          td.niconico-calendar__day(
-            v-for='date in week.value',
-            :key='date.weekDay',
-            :class='[emotionClass(date), todayClass(date)]'
-          )
-            a.niconico-calendar__day-inner(
-              v-if='date.id',
-              :href='`/reports/${date.id}`'
+    .card__description
+      .niconico-calendar-nav
+        .niconico-calendar-nav__previous(
+          v-if='!oldestMonth()',
+          @click='previousMonth'
+        )
+          i.fa-solid.fa-angle-left
+        .niconico-calendar-nav__previous.is-blank(v-else)
+        .niconico-calendar-nav__year--month {{ calendarYear }}年{{ calendarMonth }}月
+        .niconico-calendar-nav__next(v-if='!newestMonth()', @click='nextMonth')
+          i.fa-solid.fa-angle-right
+        .niconico-calendar-nav__next.is-blank(v-else)
+      table.niconico-calendar
+        thead.niconico-calendar__header
+          tr
+            th.niconico-calendar__header-day.is-sunday
+              | 日
+            th.niconico-calendar__header-day
+              | 月
+            th.niconico-calendar__header-day
+              | 火
+            th.niconico-calendar__header-day
+              | 水
+            th.niconico-calendar__header-day
+              | 木
+            th.niconico-calendar__header-day
+              | 金
+            th.niconico-calendar__header-day.is-saturday
+              | 土
+        tbody.niconico-calendar__body(
+          v-for='week in calendarWeeks',
+          :key='week.id'
+        )
+          tr.niconico-calendar__week
+            td.niconico-calendar__day(
+              v-for='date in week.value',
+              :key='date.weekDay',
+              :class='[emotionClass(date), todayClass(date)]'
             )
-              .niconico-calendar__day-label {{ date.date }}
-              .niconico-calendar__day-value
-                img.niconico-calendar__emotion-image(
-                  :src='`/images/emotion/${date.emotion}.svg`',
-                  :alt='date.emotion'
-                )
-            a.niconico-calendar__day-inner(
-              v-else-if='date.date && isPastDate(date.date)',
-              :href='`/reports/new?reported_on=${calendarYear}-${calendarMonth}-${date.date}`'
-            )
-              .niconico-calendar__day-label {{ date.date }}
-              .niconico-calendar__day-value
-                i.fas.fa-minus(v-if='date.date')
-            .niconico-calendar__day-inner(v-else)
-              .niconico-calendar__day-label {{ date.date }}
-              .niconico-calendar__day-value
-                i.fa-solid.fa-minus(v-if='date.date')
+              a.niconico-calendar__day-inner(
+                v-if='date.id',
+                :href='`/reports/${date.id}`'
+              )
+                .niconico-calendar__day-label {{ date.date }}
+                .niconico-calendar__day-value
+                  img.niconico-calendar__emotion-image(
+                    :src='`/images/emotion/${date.emotion}.svg`',
+                    :alt='date.emotion'
+                  )
+              a.niconico-calendar__day-inner(
+                v-else-if='date.date && isPastDate(date.date)',
+                :href='`/reports/new?reported_on=${calendarYear}-${calendarMonth}-${date.date}`'
+              )
+                .niconico-calendar__day-label {{ date.date }}
+                .niconico-calendar__day-value
+                  i.fas.fa-minus(v-if='date.date')
+              .niconico-calendar__day-inner(v-else)
+                .niconico-calendar__day-label {{ date.date }}
+                .niconico-calendar__day-value
+                  i.fa-solid.fa-minus(v-if='date.date')
 </template>
 
 <script>

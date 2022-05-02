@@ -1,0 +1,93 @@
+.card-list-item-title
+  display: flex
+  align-items: center
+  justify-content: space-between
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    align-items: flex-start
+
+.card-list-item-title__icon
+  +text-block(.75rem, inline-flex $semi-muted-text nowrap 400)
+  margin-top: .25rem
+  +padding(horizontal, .5rem)
+  height: 1.125rem
+  margin-right: .5rem
+  border-radius: .75rem
+  align-self: flex-start
+  align-items: center
+  justify-content: center
+  +media-breakpoint-down(sm)
+    float: left
+  &.is-wip
+    background-color: $background-tint
+  &.is-unread
+    background-color: $danger
+    color: $reversal-text
+    font-size: .625rem
+  &.is-ended
+    background-color: #bbbbbb
+    color: $reversal-text
+  &.is-report
+    background-color: #7f6fb7
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-practice
+    background-color: #79bcc3
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-question
+    background-color: #de9172
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-page
+    background-color: #9fc593
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-announcement
+    background-color: #f7cd5b
+    color: $default-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-event
+    background-color: #ef9da8
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-product
+    background-color: #909b3c
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+  &.is-user
+    background-color: #7cbd9c
+    color: $reversal-text
+    font-size: .625rem
+    width: 3.25rem
+
+.card-list-item-title__start
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: center
+    flex: 1
+  +media-breakpoint-down(sm)
+    width: 100%
+
+.card-list-item-title__end
+  align-self: flex-start
+
+.card-list-item-title__title
+  +text-block(.875rem 1.5, 600)
+  width: 100%
+  flex-basis: 100%
+  &.is-lg
+    +text-block(1rem)
+
+.card-list-item-title__link
+  word-break: break-all
+  .card-list-item.is-wip &,
+  .card-list-item.is-read &
+    color: $muted-text

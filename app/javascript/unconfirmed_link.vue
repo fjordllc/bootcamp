@@ -15,7 +15,7 @@ export default {
   methods: {
     openUnconfirmedItems() {
       const links = document.querySelectorAll(
-        '.thread-list-item .js-unconfirmed-link'
+        '.card-list-item .js-unconfirmed-link'
       )
       links.forEach((link) => {
         window.open(link.href, '_target', 'noopener')
