@@ -3,10 +3,13 @@
   .form__items
     .form-item
       .row
-        .col-lg-9.col-xs-12
-          .form-item
-            = f.label :title, class: 'a-form-label'
-            = f.text_field :title, class: 'a-text-input js-warning-form'
+        .col-md-6.col-xs-12
+          = f.label :title, class: 'a-form-label'
+          = f.text_field :title, class: 'a-text-input js-warning-form'
+        .col-md-3.col-xs-6
+          = f.label :user, class: 'a-form-label'
+          .select-users
+            = f.select(:user_id, User.admins.or(User.mentor).pluck(:login_name, :id).sort, { include_blank: (article.user || current_user).login_name }, { id: 'js-choices-single-select' })
 
     .form-item
       .row.js-markdown-parent
