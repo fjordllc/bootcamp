@@ -60,14 +60,14 @@
                           = @practice.last_updated_user.login_name
 
               .page-content-header__row
-                .thread-header-actions
-                  .thread-header-actions__start
+                .page-content-header-actions
+                  .page-content-header-actions__start
                     .practice-first-actions
                       .practice-first-actions__start
                         - status = @practice.status_by_learnings(current_user.learnings)
                         .js-learning-status(data-practice-id="#{@practice.id}" data-status="#{status}" data-submission="#{@practice.submission}")
                   - if current_user.mentor? && @practice.submission
-                    .thread-header-actions__end
+                    .page-content-header-actions__end
                       .practice-first-actions__end.is-only-mentor
                         #js-watch-toggle(data-watchable-id="#{@practice.id}", data-watchable-type='Practice')
 

@@ -11,14 +11,14 @@
       .page-content-header__row
         .page-content-header__title.a-placeholder
       .page-content-header__row
-        .thread-header-actions
-          .thread-header-actions__start
-            .thread-header-actions__action
+        .page-content-header-actions
+          .page-content-header-actions__start
+            .page-content-header-actions__action
               .a-button.is-sm.is-block.a-placeholder
-            .thread-header-actions__action
+            .page-content-header-actions__action
               .a-button.is-sm.is-block.a-placeholder
-          .thread-header-actions__end
-            .thread-header-actions__action
+          .page-content-header-actions__end
+            .page-content-header-actions__action
               .a-button.is-sm.is-secondary.is-block.a-placeholder
   .a-card.is-loading
     .card-body

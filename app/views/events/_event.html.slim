@@ -28,12 +28,12 @@
                 | ）
 
       .page-content-header__row
-        .thread-header-actions
-          .thread-header-actions__start
-            .thread-header-actions__action
+        .page-content-header-actions
+          .page-content-header-actions__start
+            .page-content-header-actions__action
               #js-watch-toggle(data-watchable-id="#{@event.id}", data-watchable-type='Event')
-          .thread-header-actions__end
-            .thread-header-actions__action
+          .page-content-header-actions__end
+            .page-content-header-actions__action
               = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
                 i.fa-solid.fa-copy
                 | コピー
