@@ -9,7 +9,7 @@
         .col-md-3.col-xs-6
           = f.label :user, class: 'a-form-label'
           .select-users
-            = f.select(:user_id, User.admins.or(User.mentor).pluck(:login_name, :id).sort, { include_blank: (article.user || current_user).login_name }, { id: 'js-choices-single-select' })
+            = f.select(:user_id, contributor, { include_blank: (article.user || current_user).login_name }, { id: 'js-choices-single-select' })
 
     .form-item
       .row.js-markdown-parent
