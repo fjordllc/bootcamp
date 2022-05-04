@@ -14,7 +14,10 @@
       .answer-badge__label ベストアンサー
     header.card-header
       h2.thread-comment__title
-        a.thread-comment__title-link(:href='answer.user.url', itemprop='url')
+        a.thread-comment__title-link.a-text-link(
+          :href='answer.user.url',
+          itemprop='url'
+        )
           | {{ answer.user.login_name }}
       time.thread-comment__created-at(
         :class='{ "is-active": activating }',
@@ -23,9 +26,8 @@
         @click='copyAnswerURLToClipboard(answer.id)'
       )
         | {{ updatedAt }}
-    .thread-comment__description.a-long-text.is-md(
-      v-html='markdownDescription'
-    )
+    .thread-comment__description
+      .a-long-text.is-md(v-html='markdownDescription')
     .thread-comment__reactions
       reaction(
         v-bind:reactionable='answer',

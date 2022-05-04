@@ -7,12 +7,13 @@
       .thread-comment__title
         .thread-comment__title-link.a-placeholder
       .thread-comment__created-at.a-placeholder
-    .thread-comment__description.a-long-text.is-md.a-placeholder
-      p
-      p
-      p
-      p
-      p
-      p
+    .thread-comment__description
+      .a-long-text.is-md.a-placeholder
+        p
+        p
+        p
+        p
+        p
+        p
 </template>
 <script></script>

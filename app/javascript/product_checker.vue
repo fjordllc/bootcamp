@@ -10,9 +10,7 @@ button(
     @click='checkInCharge'
   )
   | {{ buttonLabel }}
-.a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor(
-  v-else
-)
+.a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor(v-else)
   span.card-list-item__assignee-image
     img.a-user-icon(:src='checkerAvatar', width='20', length='20')
   span.card-list-item__assignee-name

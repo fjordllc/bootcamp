@@ -44,8 +44,9 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
-    .card__description.a-long-text.is-md.js-markdown-view
-      = event.description
+    .card__description
+      .a-long-text.is-md.js-markdown-view
+        = event.description
     - unless event.wip?
       = render 'events/participation', event: event
     = render 'reactions/reactions', reactionable: event

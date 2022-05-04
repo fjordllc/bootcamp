@@ -77,7 +77,7 @@
                 = Practice.human_attribute_name :description
             .card-body.is-practice
               .card__description
-                .js-markdown-view.a-long-text.is-md
+                .a-long-text.is-md.js-markdown-view
                   = @practice.description
               = render 'shared/common_page_body',
                 common_page: @common_page,
@@ -123,7 +123,7 @@
                 = Practice.human_attribute_name :goal
             .card-body.is-goal
               .card__description
-                .js-markdown-view.a-long-text.is-md
+                .a-long-text.is-md.js-markdown-view
                   = @practice.goal
                 - if !current_user.adviser? && @practice.open_product?
                   = render '/practices/practice_content_notice'
@@ -152,7 +152,7 @@
                   = Practice.human_attribute_name :memo
               .card-body.is-memo
                 .card__description
-                  .js-markdown-view.a-long-text.is-md
+                  .a-long-text.is-md.js-markdown-view
                     = @practice.memo
 
             .a-card.is-only-mentor

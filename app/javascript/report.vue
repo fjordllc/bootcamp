@@ -18,9 +18,7 @@
               a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='report.url'
               ) {{ report.user.daimyo ? "★" + report.title : report.title }}
-            .card-list-item-title__end(
-              v-if='currentUserId == report.user.id'
-            )
+            .card-list-item-title__end(v-if='currentUserId == report.user.id')
               label.card-list-item-actions__trigger(:for='report.id')
                 i.fa-solid.fa-ellipsis-h
               .card-list-item-actions
@@ -28,9 +26,7 @@
                 .card-list-item-actions__inner
                   ul.card-list-item-actions__items
                     li.card-list-item-actions__item
-                      a.card-list-item-actions__action(
-                        :href='report.editURL'
-                      )
+                      a.card-list-item-actions__action(:href='report.editURL')
                         i.fa-solid.fa-pen
                         | 内容変更
                     li.card-list-item-actions__item

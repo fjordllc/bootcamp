@@ -15,9 +15,7 @@
           .card-list-item-title__icon.is-wip(v-if='announcement.wip')
             | WIP
           h2.card-list-item-title__title
-            a.card-list-item-title__link.a-text-link(
-              :href='announcement.url'
-            )
+            a.card-list-item-title__link.a-text-link(:href='announcement.url')
               | {{ announcement.title }}
       .card-list-item__row
         a.a-user-name(:href='announcement.user.url')

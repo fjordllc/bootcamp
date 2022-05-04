@@ -29,9 +29,7 @@
             .card-list-item-meta__item
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
-            .card-list-item-meta__item(
-              v-if='searchable.is_comment_or_answer'
-            )
+            .card-list-item-meta__item(v-if='searchable.is_comment_or_answer')
               .a-meta
                 | （
                 a.a-user-name(:href='documentAuthorUserUrl')
