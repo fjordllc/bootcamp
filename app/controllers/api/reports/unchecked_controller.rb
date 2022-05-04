@@ -5,4 +5,10 @@ class API::Reports::UncheckedController < API::BaseController
   def index
     @reports = Report.unchecked.not_wip.list.page(params[:page])
   end
+
+  def counts
+    @reports = Report
+               .unchecked
+               .not_wip
+  end
 end
