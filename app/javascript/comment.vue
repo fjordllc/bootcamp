@@ -10,7 +10,7 @@
   .a-card(v-if='!editing')
     header.card-header
       h2.thread-comment__title
-        a.thread-comment__title-link(:href='comment.user.url')
+        a.thread-comment__title-link.a-text-link(:href='comment.user.url')
           | {{ comment.user.login_name }}
       time.thread-comment__created-at(
         :class='{ "is-active": activating }',
@@ -18,9 +18,8 @@
         @click='copyCommentURLToClipboard(comment.id)'
       )
         | {{ updatedAt }}
-    .thread-comment__description.a-long-text.is-md(
-      v-html='markdownDescription'
-    )
+    .thread-comment__description
+      .a-long-text.is-md(v-html='markdownDescription')
     .thread-comment__reactions
       reaction(
         v-bind:reactionable='comment',
