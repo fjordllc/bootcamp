@@ -1,44 +1,42 @@
 <template lang="pug">
-.thread-list-item(:class='searchableClass')
-  .thread-list-item__inner
-    .thread-list-item__label(v-if='searchable.is_comment_or_answer')
+.card-list-item(:class='searchableClass')
+  .card-list-item__inner
+    .card-list-item__label(v-if='searchable.is_comment_or_answer')
       | {{ searchable.model_name_with_i18n }}
-      .thread-list-item__label-option
+      .card-list-item__label-option
         | コメント
-    .thread-list-item__label(v-else)
+    .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          .thread-list-item-title__icon.is-wip(v-if='searchable.wip')
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          .card-list-item-title__icon.is-wip(v-if='searchable.wip')
             | WIP
-          .thread-list-item-title__title
-            a.thread-list-item-title__link.a-text-link(:href='searchable.url')
+          .card-list-item-title__title
+            a.card-list-item-title__link.a-text-link(:href='searchable.url')
               | {{ searchable.title }}
-      .thread-list-item__row
-        .thread-list-item__summary
+      .card-list-item__row
+        .card-list-item__summary
           p(v-html='summary')
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item(
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item(
               v-if='!["practice", "page", "user"].includes(searchable.model_name)'
             )
               a.a-user-name(:href='userUrl')
                 | {{ searchable.login_name }}
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}
-            .thread-list-item-meta__item(
-              v-if='searchable.is_comment_or_answer'
-            )
+            .card-list-item-meta__item(v-if='searchable.is_comment_or_answer')
               .a-meta
                 | （
                 a.a-user-name(:href='documentAuthorUserUrl')
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}
                 | ）
-            .thread-list-item-meta__item(
+            .card-list-item-meta__item(
               v-if='isRole("admin") && canDisplayTalk'
             )
               a.a-text-link(:href='talkUrl')

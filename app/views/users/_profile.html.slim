@@ -6,12 +6,12 @@
       - if user.daimyo?
         | ★
       = user.login_name
-    .thread-list-item-meta
-      .thread-list-item-meta__items
-        .thread-list-item-meta__item
+    .card-list-item-meta
+      .card-list-item-meta__items
+        .card-list-item-meta__item
           .a-meta
             | #{user.name}（#{user.name_kana}）
-        .thread-list-item-meta__item
+        .card-list-item-meta__item
           - if user.times_url?
             = link_to user.times_url, class: 'a-meta' do
               .a-meta__icon

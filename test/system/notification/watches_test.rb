@@ -22,13 +22,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'kimura'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
     end
 
     visit_with_auth '/notifications', 'machida'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
     end
   end
@@ -52,13 +52,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'kimura'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。"
     end
 
     visit_with_auth '/notifications', 'komagata'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。"
     end
   end

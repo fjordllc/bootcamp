@@ -22,7 +22,7 @@ module NotificationHelper
   def exists_unread_notification?(message)
     visit notifications_path(status: 'unread')
     wait_for_vuejs_再利用禁止 # 通知一覧はVueでREST APIを利用して表示しているため # rubocop:disable Naming/AsciiIdentifiers
-    exists = page.has_selector?('span.thread-list-item-title__link-label',
+    exists = page.has_selector?('span.card-list-item-title__link-label',
                                 text: message)
     go_back
     exists
@@ -31,7 +31,7 @@ module NotificationHelper
   def link_to_page_by_unread_notification(message)
     visit notifications_path(status: 'unread')
     wait_for_vuejs_再利用禁止 # 通知一覧はVueでREST APIを利用して表示しているため # rubocop:disable Naming/AsciiIdentifiers
-    click_link message, class: 'thread-list-item-title__link'
+    click_link message, class: 'card-list-item-title__link'
   end
 
   def make_write_report_notification_message(user_login_name, report_title)

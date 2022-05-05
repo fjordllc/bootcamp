@@ -4,12 +4,13 @@ section.a-card.is-memo.is-only-mentor
     h2.card-header__title
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
-    .a-long-text.is-md(v-html='markdownMemo')
-    .o-empty-message(v-if='memo.length === 0')
-      .o-empty-message__icon
-        i.fa-regular.fa-sad-tear
-      .o-empty-message__text
-        | ユーザーメモはまだありません。
+    .card__description
+      .a-long-text.is-md(v-html='markdownMemo')
+      .o-empty-message(v-if='memo.length === 0')
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | ユーザーメモはまだありません。
   footer.card-footer(v-if='!editing')
     .card-main-actions
       .card-main-actions__items
@@ -31,20 +32,21 @@ section.a-card.is-memo.is-only-mentor
     )
       | プレビュー
   .card-body(v-show='editing')
-    .a-markdown-input.js-markdown-parent
-      .a-markdown-input__inner.is-editor.js-tabs__content(
-        :class='{ "is-active": isActive("memo") }'
-      )
-        textarea.a-text-input.a-markdown-input__textarea(
-          :id='`js-user-mentor-memo`',
-          data-preview='#user-mentor-memo-preview',
-          v-model='memo',
-          name='user[memo]'
+    .card__description
+      .a-markdown-input.js-markdown-parent
+        .a-markdown-input__inner.is-editor.js-tabs__content(
+          :class='{ "is-active": isActive("memo") }'
         )
-      .a-markdown-input__inner.is-preview.js-tabs__content(
-        :class='{ "is-active": isActive("preview") }'
-      )
-        .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
+          textarea.a-text-input.a-markdown-input__textarea(
+            :id='`js-user-mentor-memo`',
+            data-preview='#user-mentor-memo-preview',
+            v-model='memo',
+            name='user[memo]'
+          )
+        .a-markdown-input__inner.is-preview.js-tabs__content(
+          :class='{ "is-active": isActive("preview") }'
+        )
+          .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
   .card-footer(v-show='editing')
     .card-main-actions
       .card-main-actions__items

@@ -17,7 +17,7 @@ header.page-header
   .container.is-md
     = paginate @comments
     - if @comments.present?
-      .thread-list.a-card
+      .card-list.a-card
         = render 'comments', comments: @comments
       = paginate @comments
     - else

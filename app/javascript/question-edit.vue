@@ -52,17 +52,17 @@
                   | {{ updatedAt }}
 
       .page-content-header__row
-        .thread-header-actions
-          .thread-header-actions__start
-            .thread-header-actions__action
+        .page-content-header-actions
+          .page-content-header-actions__start
+            .page-content-header-actions__action
               WatchToggle(:watchableId='question.id', watchableType='Question')
-            .thread-header-actions__action
+            .page-content-header-actions__action
               BookmarkButton(
                 :bookmarkableId='question.id',
                 bookmarkableType='Question'
               )
-          .thread-header-actions__end
-            .thread-header-actions__action
+          .page-content-header-actions__end
+            .page-content-header-actions__action
               a.a-button.is-sm.is-secondary.is-block(
                 :href='`/questions/${question.id}.md`',
                 target='_blank'
@@ -78,8 +78,9 @@
           )
 
   .a-card(v-if='!editing')
-    .thread-question__body
-      .thread__description.a-long-text.is-md(v-html='markdownDescription')
+    .card-body
+      .card__description
+        .a-long-text.is-md(v-html='markdownDescription')
     .thread-question__reactions
       reaction(
         :reactionable='question',

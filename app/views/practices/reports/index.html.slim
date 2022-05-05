@@ -8,7 +8,7 @@
   .container.is-md
     = paginate @reports
     - if @reports.present?
-      .thread-list.a-card
+      .card-list.a-card
         = render partial: 'reports/report', collection: @reports, as: :report
       = paginate @reports
     - else

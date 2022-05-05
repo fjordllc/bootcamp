@@ -2,10 +2,11 @@
   background-color: $danger-shade
   border: solid 1px $danger
   margin-bottom: 1.25rem
-  padding: 1rem 1.5rem
   max-width: 30rem
   +margin(horizontal, auto)
   border-radius: .25rem
+  +media-breakpoint-up(md)
+    padding: 1rem 1.5rem
   +media-breakpoint-down(sm)
     padding: .875rem 1rem
 
@@ -18,6 +19,5 @@
   +text-block(.8125rem 1.6 0 .2em, $danger-text)
   +media-breakpoint-down(sm)
     font-size: .75rem
-
   &:last-child
     margin-bottom: 0

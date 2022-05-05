@@ -1,9 +1,3 @@
-.card-list
-  &.is-completed
-    max-height: 25rem
-    overflow-y: auto
-    -webkit-overflow-scrolling: touch
-
 .card-list__deacription
   padding: .75rem 1rem
   p
@@ -26,35 +20,10 @@
   .card-list__deacription + &
     border-top: dotted .0625rem $border-tint
 
-.card-list__item:not(:last-child)
-  border-bottom: dotted .0625rem $border-tint
+.card-list__item
+  padding: .5rem 1rem
+  &:not(:last-child)
+    border-bottom: solid .0625rem $border-tint
 
 .card-list__item-link
-  +text-block(.8125rem 1.6, block $main)
-  padding: .5rem 1rem
-  text-decoration: none
-  transition: all .2s ease-out
-  &:hover
-    background-color: $background-more-tint
-  .card-list.is-completed &::before
-    +fa(fas '\f00c')
-  .card-list.is-active &::before,
-  .card-list.is-wip &::before
-    +fa(fas '\f060')
-  .card-list.is-reauired &::before
-    +fa(fas '\f12a')
-  .card-list.is-completed &,
-  .card-list.is-active &,
-  .card-list.is-wip &,
-  .card-list.is-reauired &
-    +position(relative)
-    padding-left: 2.25rem
-  &::before
-    +size(1em)
-    color: $accent
-    +position(absolute, left 1rem, top .75rem)
-    display: flex
-    align-items: center
-    justify-content: center
-  .a-meta
-    margin-top: .25em
+  +text-block(.8125rem 1.6, $main)

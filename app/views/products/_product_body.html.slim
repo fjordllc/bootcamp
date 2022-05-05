@@ -2,7 +2,7 @@
   header.card-header.is-sm
     h2.card-header__title
       | 提出物
-  .thread__description
+  .card__description
     .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
       =  product.body
   = render 'reactions/reactions', reactionable: product

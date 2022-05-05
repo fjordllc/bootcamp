@@ -2,9 +2,14 @@
   header.card-header.is-sm
     h2.card-header__title
       | 進行中のプラクティス
-  .card-list.is-active
-    .card-list__items
-      - user.active_practices.each do |practice|
-        .card-list__item
-          = link_to practice, class: 'card-list__item-link' do
-            = practice.title
+  .card-list
+    - user.active_practices.each do |practice|
+      .card-list-item
+        .card-list-item__inner
+          .card-list-item__rows
+            .card-list-item__row
+              .card-list-item-title
+                .card-list-item-title__start
+                  .card-list-item-title__title
+                    = link_to practice, class: 'card-list-item-title__link a-text-link' do
+                      = practice.title

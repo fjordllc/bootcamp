@@ -1,27 +1,27 @@
 <template lang="pug">
-.thread-list-item(:class='isWatchClassName')
-  .thread-list-item__inner
-    .thread-list-item__label
+.card-list-item(:class='isWatchClassName')
+  .card-list-item__inner
+    .card-list-item__label
       | {{ watch.model_name_with_i18n }}
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          .thread-list-item-title__title
-            a.thread-list-item-title__link.a-text-link(:href='watch.url')
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          .card-list-item-title__title
+            a.card-list-item-title__link.a-text-link(:href='watch.url')
               | {{ watch.title }}
-      .thread-list-item__row
-        .thread-list-item__summary
+      .card-list-item__row
+        .card-list-item__summary
           p {{ watch.summary }}
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               a.a-user-name(:href='userUrl')
                 | {{ watch.edit_user.login_name }}
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               time.a-meta(:datetime='watch.updated_at')
                 | {{ createdAt }}
-    .thread-list-item__option(v-if='checked')
+    .card-list-item__option(v-if='checked')
       watchToggle(
         :checked='checked',
         :watchableType='watch.watchable_type',
