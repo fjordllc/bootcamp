@@ -41,8 +41,8 @@ header.page-header
                     = @report.user.login_name
                 h1.page-content-header__title(class="#{@report.wip? ? 'is-wip' : ''}")
                   - if @report.emotion.present?
-                    span.thread-header__emotion
-                      = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'thread-header__emotion-image'
+                    span.page-content-header__emotion
+                      = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'page-content-header__emotion-image'
                   - if @report.wip?
                     span.a-title-label.is-wip
                       | WIP
@@ -75,19 +75,19 @@ header.page-header
                         | ）
 
               .page-content-header__row
-                .thread-header-actions
-                  .thread-header-actions__start
-                    .thread-header-actions__action
+                .page-content-header-actions
+                  .page-content-header-actions__start
+                    .page-content-header-actions__action
                       #js-watch-toggle(data-watchable-id="#{@report.id}", data-watchable-type='Report')
-                    .thread-header-actions__action
+                    .page-content-header-actions__action
                       #js-bookmark(data-bookmarkable-id="#{@report.id}", data-bookmarkable-type='Report')
-                  .thread-header-actions__end
+                  .page-content-header-actions__end
                     - if @report.user_id == current_user.id
-                      .thread-header-actions__action
+                      .page-content-header-actions__action
                         = link_to new_report_path(id: @report), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
                           i.fa-solid.fa-copy
                           | コピー
-                    .thread-header-actions__action
+                    .page-content-header-actions__action
                       = link_to 'Raw', report_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'
 
               - if @report.practices.present?
@@ -103,8 +103,8 @@ header.page-header
           .a-card
             .card__header
               = render 'reports/learning_times', report: @report
-            .thread__body
-              .thread__description
+            .card-body
+              .card__description
                 .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
                   = @report.description
               = render 'reactions/reactions', reactionable: @report
@@ -170,12 +170,12 @@ header.page-header
                   = render 'users/metas', user: @report.user
                 #js-user-mentor-memo(data-user-id='#{@report.user_id}')
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
-                .thread-list.a-card
+                .card-list.a-card
                   - if @products.present?
                     - @products.each do |product|
                       = render partial: 'product', locals: { product: product }
                   - else
-                    .thread-list__inner
+                    .card-list__message
                       .container
                         .o-empty-message
                           .o-empty-message__icon

@@ -24,7 +24,7 @@ class Notification::GraduationTest < ApplicationSystemTestCase
     logout
 
     visit_with_auth '/notifications', 'mentormentaro'
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'kimuraさんが卒業しました。'
     end
   end

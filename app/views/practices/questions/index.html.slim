@@ -17,7 +17,7 @@ nav.tab-nav
 .page-body
   .container.is-md
     - if @questions.present?
-      .thread-list.a-card
+      .card-list.a-card
         = render partial: 'questions/question', collection: @questions, as: :question
     - else
       .o-empty-message

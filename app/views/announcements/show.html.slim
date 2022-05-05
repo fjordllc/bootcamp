@@ -17,6 +17,5 @@ header.page-header
 .page-body
   .container.is-lg
     = render 'announcement', announcement: @announcement
-    a#comments.a-anchor
     #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
     = render 'footprints/footprints', footprints: @footprints

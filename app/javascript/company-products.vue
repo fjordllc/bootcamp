@@ -9,8 +9,8 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
+    .card-list.a-card
+      .card-list__items
         product(
           v-for='product in products',
           :key='product.id',

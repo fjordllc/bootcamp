@@ -3,21 +3,21 @@
   .container.is-md(v-if='!loaded')
     loadingListPlaceholder
   .container.is-md(v-else)
-    .thread-list-tools(v-if='watches.length')
+    .card-list-tools(v-if='watches.length')
       .form-item.is-inline
-        label.a-form-label(for='thread-list-tools__action')
+        label.a-form-label(for='card-list-tools__action')
           | 編集
         label.a-on-off-checkbox.is-sm
-          input#thread-list-tools__action(
+          input#card-list-tools__action(
             type='checkbox',
-            name='thread-list-tools__action',
+            name='card-list-tools__action',
             v-model='checked'
           )
           span#spec-edit-mode
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
+    .card-list.a-card
+      .card-list__items
         watch(
           v-for='watch in watches',
           :key='watch.id',

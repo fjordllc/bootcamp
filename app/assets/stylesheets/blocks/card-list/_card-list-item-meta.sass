@@ -1,30 +1,30 @@
-.thread-list-item-meta
+.card-list-item-meta
   .a-user-name,
   .a-meta
     font-size: .75rem
 
-.thread-list-item-meta__items
+.card-list-item-meta__items
   +text-block(.75rem 1.4, flex)
   flex-wrap: wrap
   gap: 0 .5rem
 
-.thread-list-item-meta__item
+.card-list-item-meta__item
   .a-user-icon
     +size(1rem)
 
-.thread-list-item-meta__item-note
+.card-list-item-meta__item-note
   +text-block(.75rem 1.4, $default-text)
   &::before
     content: "※"
     +position(relative, top -.0625em)
 
-.thread-list-item-meta__checkers
+.card-list-item-meta__checkers
   display: inline-block
   margin-left: .75rem
 
-.thread-list-item-meta__created-at
+.card-list-item-meta__created-at
   +text-block(.75rem 1.4, $muted-text)
 
-.thread-list-item-meta__user
+.card-list-item-meta__user
   display: flex
   gap: .25rem

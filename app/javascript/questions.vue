@@ -9,8 +9,8 @@ div
       i.fa-regular.fa-smile
     p.o-empty-message__text
       | {{ emptyMessage }}
-  .thread-list.a-card(v-else)
-    .thread-list__items
+  .card-list.a-card(v-else)
+    .card-list__items
       question(
         v-for='question in questions',
         :key='question.id',

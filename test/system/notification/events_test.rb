@@ -13,7 +13,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'hatsuno'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
     end
   end
@@ -29,7 +29,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'hatsuno'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "#{event.title}で、補欠から参加に繰り上がりました。"
     end
   end

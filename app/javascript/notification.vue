@@ -1,31 +1,31 @@
 <template lang="pug">
-.thread-list-item(:class='notification.read ? "is-read" : "is-unread"')
-  .thread-list-item__inner
-    .thread-list-item__user
-      img.thread-list-item__user-icon.a-user-icon(
+.card-list-item(:class='notification.read ? "is-read" : "is-unread"')
+  .card-list-item__inner
+    .card-list-item__user
+      img.card-list-item__user-icon.a-user-icon(
         :title='notification.sender.icon_title',
         :src='notification.sender.avatar_url',
         :class='[roleClass, daimyoClass]'
       )
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          .thread-list-item-title__start
-            .thread-list-item-title__icon.is-unread(
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          .card-list-item-title__start
+            .card-list-item-title__icon.is-unread(
               v-if='notification.read === false'
             )
               | 未読
-            h2.thread-list-item-title__title(itemprop='name')
-              a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
+            h2.card-list-item-title__title(itemprop='name')
+              a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='notification.path',
                 itemprop='url'
               )
-                span.thread-list-item-title__link-label
+                span.card-list-item-title__link-label
                   | {{ notification.message }}
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               time.a-meta(:datetime='notification.created_at')
                 | {{ formattedCreatedAtInJapanese }}
 </template>

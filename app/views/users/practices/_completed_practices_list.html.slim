@@ -1,17 +1,16 @@
-.card-list.is-completed
-  .card-list__items
-    - completed_learnings.each do |learning|
-      .thread-list-item
-        .thread-list-item__rows
-          .thread-list-item__row
-            .thread-list-item-title
-              h2.thread-list-item-title__title
-                = link_to learning.practice, class: 'thread-list-item-title__link a-text-link' do
-                  = learning.practice.title
-          .thread-list-item__row
-            .thread-list-item-meta
-              .a-meta
-                .a-meta__label
-                  | 完了日
-                .a-meta__value
-                  = l learning.updated_at.to_date
+.card-list.has-scroll
+  - completed_learnings.each do |learning|
+    .card-list-item
+      .card-list-item__rows
+        .card-list-item__row
+          .card-list-item-title
+            h2.card-list-item-title__title
+              = link_to learning.practice, class: 'card-list-item-title__link a-text-link' do
+                = learning.practice.title
+        .card-list-item__row
+          .card-list-item-meta
+            .a-meta
+              .a-meta__label
+                | 完了日
+              .a-meta__value
+                = l learning.updated_at.to_date

@@ -16,13 +16,13 @@ class Notification::PagesTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'hatsuno'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
     end
 
     visit_with_auth '/notifications', 'machida'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
     end
 
@@ -57,7 +57,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'machida'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにWIPのテストを投稿しました。'
     end
   end
