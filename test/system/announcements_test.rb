@@ -92,33 +92,33 @@ class AnnouncementsTest < ApplicationSystemTestCase
   test 'announcement notification receive only active users' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
-    fill_in 'announcement[title]', with: '現役生のみtest'
+    fill_in 'announcement[title]', with: '現役生にのみお知らせtest'
     fill_in 'announcement[description]', with: '内容test'
-    choose '現役生のみ', visible: false
+    find('label', text: '現役生のみ').click
 
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
     visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「現役生のみtest」'
+    assert_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'kimura'
-    assert_text 'お知らせ「現役生のみtest」'
+    assert_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'sotugyou'
-    assert_no_text 'お知らせ「現役生のみtest」'
+    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'advijirou'
-    assert_no_text 'お知らせ「現役生のみtest」'
+    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'yameo'
-    assert_no_text 'お知らせ「現役生のみtest」'
+    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'mentormentaro'
-    assert_no_text 'お知らせ「現役生のみtest」'
+    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
     visit_with_auth '/notifications', 'kensyu'
-    assert_no_text 'お知らせ「現役生のみtest」'
+    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
   end
 
   test 'announcement notifications are only recived by job seekers' do
@@ -126,7 +126,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '就活希望者のみお知らせします'
     fill_in 'announcement[description]', with: '合同説明会をやるのでぜひいらしてください！'
-    choose '就職希望者のみ', visible: false
+    find('label', text: '就職希望者のみ').click
 
     click_button '作成'
     assert_text 'お知らせを作成しました'
