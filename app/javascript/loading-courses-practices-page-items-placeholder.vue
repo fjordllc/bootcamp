@@ -5,7 +5,7 @@
   .categories-item__description
     .a-long-text.is-md.a-placeholder
       p
-  .categories-item__body
+  .categories-item__body.a-card.is-loading
     .category-practices
       loadingCoursesPracticesPageItemPlaceholder(
         v-for='num in itemCount',
