@@ -33,18 +33,16 @@ $checkbox-size: .875rem
     border-color: $primary
   label:hover::after
     text-decoration: none
-  label.is-checked
-    color: black
-  label.is-checked::before
+  input:checked + label,
+  .is-dammy label
+    color: $default-text
+  input:checked + label::before,
+  .is-dammy label::before
     background-color: $primary
     border-color: $primary
     +fa(fas "\f00c")
-  label.is-checked:hover::before
+  input:checked + label:hover::before
     border-color: $primary
-  label.is-checked::after
-      opacity: 1
-  input
-    opacity: 0
-    +position(absolute, left 0, top 0)
-    +size(0)
-    overflow: hidden
+  input:checked + label::after,
+  .is-dammy label::after
+    opacity: 1
