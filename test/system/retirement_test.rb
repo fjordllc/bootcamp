@@ -6,7 +6,7 @@ class RetirementTest < ApplicationSystemTestCase
   test 'retire user' do
     user = users(:kananashi)
     visit_with_auth new_retirement_path, 'kananashi'
-    choose '良い', visible: false
+    click_on '良い'
     click_on '退会する'
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
@@ -20,7 +20,7 @@ class RetirementTest < ApplicationSystemTestCase
 
     user = users(:osnashi)
     visit_with_auth new_retirement_path, 'osnashi'
-    choose '良い', visible: false
+    click_on '良い'
     click_on '退会する'
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
@@ -36,7 +36,7 @@ class RetirementTest < ApplicationSystemTestCase
   test 'enables retirement regardless of validity of discord id' do
     user = users(:discordinvalid)
     visit_with_auth new_retirement_path, 'discordinvalid'
-    choose 'とても悪い', visible: false
+    click_on 'とても悪い'
     click_on '退会する'
     page.accept_confirm
     assert_text '退会処理が完了しました'
@@ -52,7 +52,7 @@ class RetirementTest < ApplicationSystemTestCase
   test 'enables retirement regardless of validity of twitter id' do
     user = users(:twitterinvalid)
     visit_with_auth new_retirement_path, 'twitterinvalid'
-    choose 'とても悪い', visible: false
+    click_on 'とても悪い'
     click_on '退会する'
     page.accept_confirm
     assert_text '退会処理が完了しました'
@@ -76,7 +76,7 @@ class RetirementTest < ApplicationSystemTestCase
     click_on '退会手続き'
     check '受講したいカリキュラムを全て受講したから', allow_label_click: true
     fill_in 'user[retire_reason]', with: '辞' * 8
-    choose '良い', visible: false
+    click_on '良い'
     fill_in 'user[opinion]', with: 'ご意見'
     assert_difference 'Product.unchecked.count', -1 do
       page.accept_confirm '本当によろしいですか？' do
@@ -98,7 +98,7 @@ class RetirementTest < ApplicationSystemTestCase
     click_on '退会手続き'
     check '受講したいカリキュラムを全て受講したから', allow_label_click: true
     fill_in 'user[retire_reason]', with: '辞' * 8
-    choose '良い', visible: false
+    click_on '良い'
     fill_in 'user[opinion]', with: 'ご意見'
     assert_difference 'Report.wip.count', -1 do
       page.accept_confirm '本当によろしいですか？' do
