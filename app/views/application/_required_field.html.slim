@@ -12,5 +12,12 @@
             | が終わりましたら、以下の項目を埋めてください。
       ul.card-list__items
         - @required_fields.errors.each do |error|
-          li.card-list__item
-            = link_to error.message, edit_current_user_path(anchor: anchor_to_required_field(error.attribute)), class: "card-list__item-link a-text-link is-#{error.attribute}"
+          li.card-list-item
+            .card-list-item__inner
+              .card-list-item__icon.is-danger
+                i.fas.fa-exclamation-triangle
+              .card-list-item__rows
+                .card-list-item__row
+                  .card-list-item-title
+                    h3.card-list-item-title__title.is-sm
+                      = link_to error.message, edit_current_user_path(anchor: anchor_to_required_field(error.attribute)), class: "card-list-item-title__link  a-text-link is-#{error.attribute}"
