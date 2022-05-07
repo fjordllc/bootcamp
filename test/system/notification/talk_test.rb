@@ -59,7 +59,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
 
     within first('.card-list-item.is-unread') do
-      assert_text 'komagataさんからコメントが届きました。'
+      assert_text '相談部屋でkomagataさんからコメントがありました。'
     end
   end
 
