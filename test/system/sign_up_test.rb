@@ -150,6 +150,10 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-company-select-item-choice-2').click
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
       check '利用規約に同意', allow_label_click: true
     end
@@ -232,6 +236,10 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-company-select-item-choice-2').click
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
       check '利用規約に同意', allow_label_click: true
     end
