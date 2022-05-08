@@ -126,9 +126,8 @@
                 .fa-solid.fa-spinner.fa-pulse
                 | ロード中
             .select-practices(v-show='practices !== null')
-              select.js-select2(
+              select#js-choices-single-select(
                 v-model='edited.practiceId',
-                v-select2,
                 name='question[practice]'
               )
                 option(
@@ -211,6 +210,7 @@ import confirmUnload from 'confirm-unload'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 import role from 'role'
+import Choices from 'choices.js'
 dayjs.locale(ja)
 
 export default {
@@ -220,15 +220,6 @@ export default {
     tags: Tags,
     reaction: Reaction,
     userIcon: UserIcon
-  },
-  directives: {
-    select2: {
-      inserted(el) {
-        $(el).on('select2:select', () => {
-          el.dispatchEvent(new Event('change'))
-        })
-      }
-    }
   },
   mixins: [confirmUnload, role],
   props: {
@@ -267,7 +258,7 @@ export default {
 
       return practices === null
         ? question.practice.title
-        : practices.find((practice) => practice.id === practiceId).title
+        : practices.find((practice) => practice.id === Number(practiceId)).title
     },
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
@@ -307,6 +298,18 @@ export default {
             return practice
           })
         })
+        .then(() => {
+          const choices = document.getElementById('js-choices-single-select')
+          if (choices) {
+            return new Choices(choices, {
+              allowHTML: true,
+              searchResultLimit: 10,
+              searchPlaceholderValue: '検索ワード',
+              noResultsText: '一致する情報は見つかりません',
+              itemSelectText: '選択'
+            })
+          }
+        })
         .catch((error) => {
           console.warn(error)
         })
@@ -315,9 +318,6 @@ export default {
       this.editing = true
       this.$nextTick(() => {
         $(`.question-id-${this.question.id}`).trigger('input')
-      })
-      $('.js-select2').select2({
-        closeOnSelect: true
       })
     },
     finishEditing(hasUpdatedQuestion) {
