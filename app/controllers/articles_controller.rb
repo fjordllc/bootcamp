@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    @article.user = current_user
+    @article.user = current_user if @article.user.nil?
     set_wip_or_published_time
     if @article.save
       redirect_to redirect_url(@article), notice: notice_message(@article)
@@ -61,7 +61,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list)
+    params.require(:article).permit(:title, :body, :tag_list, :user_id)
   end
 
   def redirect_url(article)

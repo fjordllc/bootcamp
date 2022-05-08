@@ -160,6 +160,7 @@ ja:
       article:
         title: タイトル
         body: 本文
+        user: ユーザー
       work:
         title: タイトル
         description: 説明
