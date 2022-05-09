@@ -11,3 +11,25 @@
 
 .card-list__message
   +padding(vertical, 2rem)
+
+.card-list__deacription
+  padding: .75rem 1rem
+  p
+    +text-block(.8125rem 1.6)
+    +media-breakpoint-down(sm)
+      font-size: .75rem
+
+.card-list__notice
+  border: solid 1px $success
+  background-color: $success-shade
+  padding: .75rem 1rem
+  color: $success-text
+  +media-breakpoint-down(sm)
+    padding: .5rem .75rem
+  a
+    color: inherit
+    +hover-link-reversal
+
+.card-list__items
+  .card-list__deacription + &
+    border-top: dotted .0625rem $border-tint

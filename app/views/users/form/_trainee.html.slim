@@ -1,5 +1,5 @@
 .form-item
   .form-checkbox
-    label.form-checkbox__label
-      = f.check_box :trainee, class: 'form-checkbox__input training-info-toggler-checkbox'
+    = f.check_box :trainee, class: 'a-toggle-checkbox js-training-info-toggler-checkbox', id: 'checkbox_trainee'
+    = f.label :trainee, class: 'form-checkbox__label', for: 'checkbox_trainee' do
       = User.human_attribute_name :trainee
