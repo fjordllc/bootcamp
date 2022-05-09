@@ -1,0 +1,18 @@
+.welcome-article
+  height: 100%
+  border: solid 2px $welcome-card-border
+  border-radius: 4px
+
+.welcome-article__inner
+  display: block
+  height: 100%
+  text-decoration: none
+
+.welcome-article__body
+  padding: 1rem
+
+.welcome-article__title
+  +text-block(1rem 1.4, 700 $default-text)
+  text-decoration: none
+  .welcome-article__inner:hover &
+    text-decoration: underline
