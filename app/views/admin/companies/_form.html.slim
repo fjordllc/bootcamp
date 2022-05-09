@@ -22,7 +22,8 @@
           - else
             p 画像を選択
           = f.file_field :logo
-        .a-form-help
+      .a-form-help
+        p
           | 正方形に切り抜かれるので、正方形で加工したものをアップロードする必要があります。
   .form-actions
     ul.form-actions__items
@@ -31,5 +32,5 @@
       li.form-actions__item.is-sub
         = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'
       - unless company.id.nil?
-        li.form-actions__item.is-sub
-          = link_to '削除', admin_company_path(company), data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }, method: :delete, class: 'a-button is-sm is-text'
+        li.form-actions__item.is-muted
+          = link_to '削除', admin_company_path(company), data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }, method: :delete, class: 'a-button is-sm is-muted-text'

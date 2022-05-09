@@ -19,6 +19,7 @@
     align-items: flex-end
     justify-content: center
     flex-wrap: wrap
+    position: relative
     &.is-ais-flex-start
       align-items: flex-start
   +media-breakpoint-down(sm)
@@ -30,6 +31,13 @@
   &.is-sub
     +media-breakpoint-up(md)
       flex: 0 0 auto
+    +media-breakpoint-down(sm)
+      text-align: center
+  &.is-muted
+    +media-breakpoint-up(md)
+      +position(absolute, right 0, bottom 0)
+    +media-breakpoint-down(sm)
+      text-align: right
   &.is-help
     +media-breakpoint-down(sm)
       margin-bottom: 1rem
@@ -52,6 +60,10 @@
       margin-top: .75rem
     > *
       width: 100%
+    .a-button.is-text,
+    .a-button.is-muted-text
+      width: auto
+
 
 .form-actions__item-help
   +text-block(.8125rem 1, center)
