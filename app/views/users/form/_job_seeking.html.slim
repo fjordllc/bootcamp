@@ -2,6 +2,6 @@
   = f.label :job_seeking, class: 'a-form-label'
   ul.form-item__checkboxes
     li.form-checkbox
-      label.form-checkbox__label
-        = f.check_box :job_seeking, class: 'form-checkbox__input'
+      = f.check_box :job_seeking, class: 'a-toggle-checkbox'
+      = f.label :job_seeking, class: 'form-checkbox__label' do
         = User.human_attribute_name :job_seeking
