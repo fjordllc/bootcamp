@@ -153,7 +153,7 @@ class SignUpTest < ApplicationSystemTestCase
       first('.choices__inner').click
       find('.choices__list--dropdown').click
       find('.choices__list').click
-      find('#choices--js-company-select-item-choice-2').click
+      find('#choices--js-choices-single-select-item-choice-2').click
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
       check '利用規約に同意', allow_label_click: true
     end
@@ -239,7 +239,7 @@ class SignUpTest < ApplicationSystemTestCase
       first('.choices__inner').click
       find('.choices__list--dropdown').click
       find('.choices__list').click
-      find('#choices--js-company-select-item-choice-2').click
+      find('#choices--js-choices-single-select-item-choice-2').click
       check 'アンチハラスメントポリシーに同意', allow_label_click: true
       check '利用規約に同意', allow_label_click: true
     end
