@@ -1,5 +1,5 @@
 .form-item
   .form-checkbox
-    = f.check_box :adviser, class: 'a-toggle-checkbox'
-    = f.label :adviser, class: 'form-checkbox__label' do
+    = f.check_box :adviser, class: 'a-toggle-checkbox', id: 'checkbox_adviser'
+    = f.label :adviser, class: 'form-checkbox__label', for: 'checkbox_adviser' do
       = User.human_attribute_name :adviser
