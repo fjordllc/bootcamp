@@ -31,11 +31,6 @@
             = link_to article_path(34), class: 'a-welcome-button is-md' do
               | 中身を見てみる
 
-  section.welcome-section.is-about.is-yellow#about
-    .container.is-xl
-      h2.welcome-section__sub-title
-        | アドベントカレンダー
-      .welcome-section__description
-        p = link_to 'アドベントカレンダー', 'https://bootcamp.fjord.jp/articles/44'
-
+  = render 'welcome/articles'
+  hr.welcome-section__seperator
   = render 'welcome/administrator'
