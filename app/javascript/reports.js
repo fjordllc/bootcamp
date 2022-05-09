@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new Vue({
       render: (h) =>
         h(Reports, {
-          props: { userId: userId, limit: limit, companyId: companyId}
+          props: { userId: userId, limit: limit, companyId: companyId }
         })
     }).$mount(selector)
   }
