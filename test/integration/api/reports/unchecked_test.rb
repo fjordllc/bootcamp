@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class API::Reports::UncheckedTest < ActionDispatch::IntegrationTest
-  fixtures :products
+  fixtures :reports
 
   test 'GET /api/reports/unchecked/counts.txt' do
     get counts_api_reports_unchecked_index_path(format: :text)
