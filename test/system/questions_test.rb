@@ -62,34 +62,6 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text 'sshdでパスワード認証を禁止にする'
   end
 
-  test 'update question for practice without questioner\'s course' do
-    visit_with_auth edit_current_user_path, 'kimura'
-
-    visit new_question_path
-    within 'form[name=question]' do
-      fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問を編集できるかのテスト'
-      fill_in 'question[description]', with: '編集できれば期待通りの動作'
-      first('.choices__inner').click
-      find('#choices--js-choices-single-select-item-choice-55', text: 'iOSへのビルドと固有の問題').click
-      click_button '登録する'
-    end
-    assert_text '質問を作成しました。'
-
-    click_button '内容修正'
-    within 'form[name=question]' do
-      fill_in 'question[title]', with: '質問者のコースにはないプラクティスの質問でも'
-      fill_in 'question[description]', with: '編集できる'
-      find('.choices__inner').click
-      find('#choices--js-choices-single-select-item-choice-52', text: 'iOSへのビルドと固有の問題').click
-      click_button '更新する'
-    end
-    assert_text '質問を更新しました'
-
-    assert_text '質問者のコースにはないプラクティスの質問でも'
-    assert_text '編集できる'
-    assert_text 'iOSへのビルドと固有の問題'
-  end
-
   test 'delete a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
