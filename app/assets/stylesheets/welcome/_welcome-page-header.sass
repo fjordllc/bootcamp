@@ -1,22 +1,17 @@
 .welcome-page-header
-  background-color: #178bff
-  .container
-    display: flex
-    align-items: center
-    +media-breakpoint-up(md)
-      height: 5.125rem
-    +media-breakpoint-down(sm)
-      height: 3.5rem
+  background-color: $welcome-blue
+
+.welcome-page-header__inner
+  display: flex
+  align-items: center
+  +media-breakpoint-up(md)
+    height: 4.5rem
+  +media-breakpoint-down(sm)
+    height: 3.5rem
 
 .welcome-page-header__title
   +text-block(1em 1.4, 600 $reversal-text)
   +media-breakpoint-up(md)
-    font-size: 2rem
+    font-size: 1.75rem
   +media-breakpoint-down(sm)
     font-size: 1.5rem
-
-.welcome-page-header__title-image
-  +media-breakpoint-up(md)
-    +size(20rem auto)
-  +media-breakpoint-down(sm)
-    +size(14rem auto)

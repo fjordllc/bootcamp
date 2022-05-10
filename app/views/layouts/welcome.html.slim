@@ -27,9 +27,9 @@ html.is-application lang='ja'
     = render 'google_tag_manager_body'
     .wrapper
       = render 'flash'
-      main.main
+      .wrapper__main
         = render 'welcome/welcome_header'
-        .welcome-page
+        main.welcome-page
           = yield
       = render 'welcome/form'
       = render 'welcome/welcome_footer'
