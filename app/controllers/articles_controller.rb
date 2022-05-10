@@ -7,12 +7,12 @@ class ArticlesController < ApplicationController
   def index
     @articles = list_articles
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
-    render layout: 'article'
+    render layout: 'welcome'
   end
 
   def show
     if !@article.wip? || admin_or_mentor_login?
-      render layout: 'article'
+      render layout: 'welcome'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
     end
@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list, :user_id :thumbnail)
+    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail)
   end
 
   def redirect_url(article)
