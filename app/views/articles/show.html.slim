@@ -9,39 +9,38 @@
 .welcome-section
   .article
     .container.is-md
-      .a-card
-        .article__inner
-          header.article__header
-            - if @article.thumbnail.attached?
-              = image_tag @article.thumbnail_url
-            h1.article__title
-              - if @article.wip?
-                span.article__title-label
-                  | WIP
-              = @article.title
-            .article__metas
-              .article__meta
-                .article__author
-                  = image_tag @article.user.avatar_url
-                  = @article.user.login_name
-              .article__meta
-                .article__published-at
-                  - if @article.wip?
-                    = '執筆中'
-                  - elsif @article.published_at.nil?
-                    = l(@article.created_at)
-                  - else
-                    = l(@article.published_at)
-          .article__body
-            .js-markdown-view.a-long-text.is-md
-              = @article.body
-            - if admin_or_mentor_login?
-              .article__actions
-                ul
-                  li
-                    = link_to edit_article_path(@article), class: 'a-button is-secondary is-md is-block' do
-                      | 内容修正
-                  li
-                    = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'a-button is-secondary is-md is-block' do
-                      | 削除
+      .a-card.article__inner
+        header.article__header
+          h1.article__title
+            - if @article.wip?
+              span.article__title-label
+                | WIP
+            = @article.title
+          .article__metas
+            .article__meta
+              .article__author
+                = image_tag @article.user.avatar_url
+                = @article.user.login_name
+            .article__meta
+              .article__published-at
+                - if @article.wip?
+                  = '執筆中'
+                - elsif @article.published_at.nil?
+                  = l(@article.created_at)
+                - else
+                  = l(@article.published_at)
+          - if @article.thumbnail.attached?
+            = image_tag @article.thumbnail_url, class: 'article__image'
+        .article__body
+          .js-markdown-view.a-long-text.is-md
+            = @article.body
+          - if admin_or_mentor_login?
+            .article__actions
+              ul
+                li
+                  = link_to edit_article_path(@article), class: 'a-button is-secondary is-md is-block' do
+                    | 内容修正
+                li
+                  = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'a-button is-secondary is-md is-block' do
+                    | 削除
     = render 'ad'
