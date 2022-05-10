@@ -26,7 +26,7 @@
     - if user.student?
       = render 'users/form/job_seeker', f: f
     - if user.trainee?
-      = render 'users/form/company', f: f
+      = render 'users/form/company', f: f, user: user
   - if from == :edit
     .form__items
       h3.form__items-title パスワードの変更
