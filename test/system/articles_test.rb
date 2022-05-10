@@ -10,7 +10,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'show listing articles' do
     visit_with_auth articles_url, 'komagata'
-    assert_text 'ブログ記事一覧'
+    assert_text 'ブログ'
     assert_selector ".articles"
   end
 

@@ -1,9 +1,6 @@
 body
   min-height: 100vh
   height: 100%
-  &.welcome
-    background-color: $base
-    color: $welcome-default-text
   &.is-piyo-background
     background-color: $main
     background-image: image_url('error-background-main-color.svg')
@@ -33,8 +30,6 @@ body
     height: auto
     min-height: 100vh
     overflow-y: visible
-    .main
-      flex: 1
   body.no-global-nav &
     margin-left: 0
   body.is-admin-page &
@@ -42,6 +37,10 @@ body
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
+
+.wrapper__main
+  flex: 1
+
 
 .columns
   .columns + &

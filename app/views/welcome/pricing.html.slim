@@ -1,14 +1,12 @@
 - content_for :extra_body_classes, 'welcome'
 - title '料金'
-
 - trial_period = Campaign.current_trial_period
 
 .welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      = image_tag 'pricing-page-title.svg',
-        alt: 'プログラミングスクールの料金',
-        class: 'welcome-page-header__title-image'
+  .container.is-xxl
+    .welcome-page-header__inner
+      h1.welcome-page-header__title
+        = title
 
 .welcome-sections
   section.welcome-section
