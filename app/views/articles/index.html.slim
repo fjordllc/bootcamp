@@ -8,32 +8,38 @@
         h1.articles__title
           = title
   .articles__body
-    .container.is-md
-      .a-card
-        .articles__items
+    .container.is-xxl
+      .articles__items
+        .row
           - @articles.each do |article|
-              .articles__item class=(article.wip? ? ' is-wip' : '')
-                = link_to article, class: 'articles__item-link' do
-                  - if article.thumbnail.attached?
-                    = image_tag article.thumbnail_url
-                  - else
-                    = image_tag("work-blank.svg")
-                  h2.articles__item-title
-                    - if article.wip?
-                      span.article__title-label.is-wip
-                        | WIP
-                    = article.title
-                  .articles__item-metas
-                    .articles__item-meta
-                      .articles__item-author
-                        = image_tag article.user.avatar_url
-                        = article.user.login_name
-                    .articles__item-meta
-                      .articles__item-published-at
-                        - if article.wip?
-                          = '執筆中'
-                        - elsif article.published_at.nil?
-                          = l(article.created_at)
-                        - else
-                          = l(article.published_at)
+            .col-lg-4.col-md-6.col-xs-12
+              .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
+                = link_to article, class: 'articles-item__link' do
+                  .articles-item__row
+                    - if article.thumbnail.attached?
+                      = image_tag article.thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
+                    - else
+                      = image_tag("work-blank.svg", class: 'articles-item__image', alt: "ブログ記事のブランクアイキャッチ画像")
+                  .articles-item__row
+                    h2.articles-item__title
+                      - if article.wip?
+                        span.article__title-label.is-wip
+                          | WIP
+                      = article.title
+                  .articles-item__row
+                    .articles-item__metas
+                      .articles-item__meta
+                        .articles-item__author
+                          = image_tag article.user.avatar_url
+                          = article.user.login_name
+                      .articles-item__meta
+                        .articles-item__published-at
+                          - if article.wip?
+                            = '執筆中'
+                          - elsif article.published_at.nil?
+                            = l(article.created_at)
+                          - else
+                            = l(article.published_at)
       = paginate @articles
+
+  = render 'ad'

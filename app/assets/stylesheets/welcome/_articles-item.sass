@@ -1,38 +1,37 @@
-@import common-imports
-@import /blocks/base/body
-@import /blocks/footer/footer
-@import /blocks/shared/flash
-@import /blocks/shared/pagination
+////////////////////
+// .articles-item
+////////////////////
 
-.articles__header
-  margin-bottom: 1rem
-
-.articles__title
-  +text-block(1.75rem 1.4, center 700)
-
-.articles__item:not(:first-child)
+.articles-item:not(:first-child)
   border-top: solid 1px $border
 
-.articles__item-link
+.articles-item__link
   +block-link
   padding: 1rem
   &:hover
-    .articles__item-title
+    .articles-item__title
       text-decoration: underline
 
-.articles__item-title
+.articles-item__row
+  &:not(:first-child)
+    margin-top: .5rem
+
+.articles-item__image
+  display: block
+  border-radius: 4px
+
+.articles-item__title
   +text-block(1.125rem 1.4, $default-text 700)
-  .articles__item.is-wip &
+  .articles-item.is-wip &
     color: $muted-text
 
-.articles__item-metas
+.articles-item__metas
   display: flex
-  margin-top: .5rem
 
-.articles__item-meta:not(:first-child)
+.articles-item__meta:not(:first-child)
   margin-left: .75rem
 
-.articles__item-author
+.articles-item__author
   display: flex
   align-items: center
   +text-block(.8125rem 1.4, $default-text)
@@ -42,7 +41,7 @@
     margin-right: .25rem
     border-radius: 50%
 
-.articles__item-published-at
+.articles-item__published-at
   +text-block(.8125rem 1.4, $semi-muted-text)
 
 

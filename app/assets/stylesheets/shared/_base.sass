@@ -14,23 +14,19 @@ body
       background-size: 72px
 
 .wrapper
-  +margin(horizontal, 5rem 0)
   min-height: 100vh
   scroll-behavior: smooth
   -webkit-overflow-scrolling: touch
-  +media-breakpoint-down(lg)
-    +margin(horizontal, 5rem 0)
   +media-breakpoint-up(md)
     display: flex
     flex-direction: column
   +media-breakpoint-down(sm)
     +margin(horizontal, 0)
     height: auto
-  body.is-test &
-    height: auto
-  body.is-edit-page &
-    margin-right: 0
-  body.welcome &
+  body.is-lerning &
+    +media-breakpoint-up(md)
+      margin-left: 5rem
+  body.is-welcome &
     display: flex
     flex-direction: column
     +margin(horizontal, 0)
