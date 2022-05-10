@@ -8,8 +8,9 @@ body
     background-color: $main
     background-image: image_url('error-background-main-color.svg')
     background-repeat: repeat
-    background-size: 80px
     overflow-y: auto
+    +media-breakpoint-up(md)
+      background-size: 80px
     +media-breakpoint-down(sm)
       background-size: 72px
 
@@ -17,22 +18,14 @@ body
   min-height: 100vh
   scroll-behavior: smooth
   -webkit-overflow-scrolling: touch
+  overflow-y: visible
+  height: auto
   +media-breakpoint-up(md)
     display: flex
     flex-direction: column
-  +media-breakpoint-down(sm)
-    +margin(horizontal, 0)
-    height: auto
   body.is-lerning &
     +media-breakpoint-up(md)
       margin-left: 5rem
-  body.is-welcome &
-    display: flex
-    flex-direction: column
-    +margin(horizontal, 0)
-    height: auto
-    min-height: 100vh
-    overflow-y: visible
   body.no-global-nav &
     margin-left: 0
   body.is-error-page &
@@ -41,7 +34,6 @@ body
 
 .wrapper__main
   flex: 1
-
 
 .columns
   .columns + &

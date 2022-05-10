@@ -49,13 +49,15 @@
     +padding(vertical, .375rem)
     +position(relative)
     transition: all .2s ease-out
+    span
+      +position(relative, 2)
     &::before
       transition: all .2s ease-out
       content: ""
       display: block
       +size(0 100%)
       background-color: rgba($welcome-yellow, .4)
-      +position(absolute, left 50%, bottom 0, top 0, -1)
+      +position(absolute, left 50%, bottom 0, top 0, 0)
       transform: translate(-50%, 0)
       opacity: 0
       border-radius: 2rem
@@ -87,8 +89,3 @@
     +padding(horizontal, 1rem)
     text-decoration: none
     border-bottom: solid 1px $border
-
-.welcome-header__home-link-image
-  transition: all .2s ease-out
-  .welcome-header__home-link:hover &
-    transform: scale(.95)
