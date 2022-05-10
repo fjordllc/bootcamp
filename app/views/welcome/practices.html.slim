@@ -15,7 +15,7 @@ section.welcome-section
             .col-xs-12.col-md-4
               .welcome-small-section
                 h3.welcome-small-section__title = category.name
-                table.welcome-table
+                table.welcome-table.a-card
                   - category.practices.each do |practice|
                     tr
                       td = practice.title
