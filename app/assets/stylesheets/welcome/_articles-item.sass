@@ -1,9 +1,6 @@
-////////////////////
-// .articles-item
-////////////////////
-
-.articles-item:not(:first-child)
-  border-top: solid 1px $border
+.articles-item
+  +media-breakpoint-up(md)
+    height: 100%
 
 .articles-item__link
   +block-link

@@ -4,9 +4,6 @@ body
   &.application
     +media-breakpoint-up(md)
       padding-top: $header-height__md-up
-  &.welcome
-    background-color: $base
-    color: $welcome-default-text
   &.is-piyo-background
     background-color: $main
     background-image: image_url('error-background-main-color.svg')
@@ -36,13 +33,15 @@ body
     height: auto
     min-height: 100vh
     overflow-y: visible
-    .main
-      flex: 1
   body.no-global-nav &
     margin-left: 0
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
+
+.wrapper__main
+  flex: 1
+
 
 .columns
   .columns + &
