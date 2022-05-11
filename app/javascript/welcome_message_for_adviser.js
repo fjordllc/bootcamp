@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const welcomeMessageCookie = document.cookie
-                                 .split('; ')
-                                 .find((row) => row.startsWith('confirmed_welcome_message'))
+    .split('; ')
+    .find((row) => row.startsWith('confirmed_welcome_message'))
 
   if (welcomeMessageCookie === undefined) {
     const selector = '.js-close-welcome-message'
