@@ -29,6 +29,7 @@ gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
 gem 'google-cloud-storage', '~> 1.25', require: false
+gem 'graphql'
 gem 'holiday_jp'
 gem 'jp_prefecture'
 gem 'jquery-rails'
@@ -75,6 +76,7 @@ group :development do
   # not default
   gem 'bullet'
   gem 'bundle_outdated_formatter'
+  gem 'graphiql-rails'
   gem 'letter_opener_web', '~> 1.0'
   gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0'

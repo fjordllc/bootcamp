@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  post "/graphql", to: "graphql#execute"
   root to: "home#index"
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
@@ -80,5 +81,8 @@ Rails.application.routes.draw do
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
   get "retire", to: "static_pages#retire"
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
 end
