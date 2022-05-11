@@ -9,8 +9,4 @@ header.page-header
 
 .page-body
   .container.is-md
-    = paginate @reports
-    - if @reports.present?
-      .card-list.a-card
-        = render partial: 'reports/report', collection: @reports, as: :report
-    = paginate @reports
+    #js-reports(company-id="#{@company.id}")
