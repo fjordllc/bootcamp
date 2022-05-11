@@ -57,7 +57,6 @@ class HomeController < ApplicationController
   end
 
   def display_welcome_message_for_adviser
-    cookie_for_welcome_message = cookies[:confirmed_welcome_message]
-    @welcome_message_first_time = cookie_for_welcome_message
+    @welcome_message_first_time = cookies[:confirmed_welcome_message]
   end
 end

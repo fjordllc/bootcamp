@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-  if (
-    document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('confirmed_welcome_message')) === undefined
-  ) {
+  const welcomeMessageCookie = document.cookie
+                                 .split('; ')
+                                 .find((row) => row.startsWith('confirmed_welcome_message'))
+
+  if (welcomeMessageCookie === undefined) {
     const selector = '.js-close-welcome-message'
     const button = document.querySelector(selector)
 
