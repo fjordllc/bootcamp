@@ -32,6 +32,8 @@ class TalksController < ApplicationController
   end
 
   def set_members
-    @members = User.where(id: [@talk.user_id] + User.admins.pluck(:id)).order(:id)
+    @members = User.where(id: User.admins.ids.push(@talk.user_id))
+                   .eager_load([:company, { avatar_attachment: :blob }])
+                   .order(:id)
   end
 end
