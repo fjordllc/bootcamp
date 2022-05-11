@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'confirmed_welcome_message=' +
       'confirmed_welcome_message' +
       ';max-age=' +
-      secondsFor30days
+      secondsFor30days +
+      ';path=/home'
   }
 })
