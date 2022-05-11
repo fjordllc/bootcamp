@@ -233,13 +233,9 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector 'h2.card-header__title', text: '学習時間'
   end
 
-  test 'show welcome message' do
+  test 'show and close welcome message' do
     visit_with_auth '/', 'advijirou'
     assert_text 'ようこそ'
-  end
-
-  test 'confirmed show welcome message' do
-    visit_with_auth '/', 'advijirou'
     click_button '閉じる'
     visit '/'
     assert_no_text 'ようこそ'
