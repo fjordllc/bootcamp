@@ -40,7 +40,9 @@ Rails.application.routes.draw do
     end
     resources :reports, only: %i(index)
     namespace "reports" do
-      resources :unchecked, only: %i(index)
+      resources :unchecked, only: %i(index) do
+        get 'counts', on: :collection
+      end
       resources :recents, only: %i(index)
     end
     resources :watches, only: %i(index)
