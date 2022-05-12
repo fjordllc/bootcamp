@@ -19,7 +19,7 @@
   .container.is-md
     = paginate @products
     - if @products.present?
-      .thread-list.a-card
+      .card-list.a-card
         = render partial: 'products/product',
           collection: @products,
           as: :product

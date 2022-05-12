@@ -25,6 +25,8 @@
       = render 'users/form/experience', f: f
     - if user.student?
       = render 'users/form/job_seeker', f: f
+    - if user.trainee?
+      = render 'users/form/company', f: f, user: user
   - if from == :edit
     .form__items
       h3.form__items-title パスワードの変更
@@ -41,6 +43,10 @@
     .form__items
       = render 'users/form/password', f: f, from: from
 
+  - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
+    .form__items
+      = render 'users/form/company', f: f, user: user
+
   - if from == :new && user.student?
     = render 'users/form/card'
 
@@ -51,10 +57,10 @@
 
   - if admin_login?
     .form__items
-      h3.form__items-title 以下管理者のみ操作ができます
+      h3.form__items-title
+        | 以下管理者のみ操作ができます
       = render 'users/form/course', f: f
       = render 'users/form/job_seeking', f: f
-      = render 'users/form/company', f: f
       = render 'users/form/retire', f: f
       = render 'users/form/graduate', f: f
 
@@ -91,15 +97,15 @@
         | 規約への同意をお願いします
       .form-item
         .form-actions__item-checkbox
-          label.form-checkbox__label
-            = check_box_tag :coc, 1, false, class: 'js-agreements-checkbox'
+          = check_box_tag :coc, 1, false, class: 'a-toggle-checkbox js-agreements-checkbox'
+          label.form-checkbox__label(for='coc')
             | アンチハラスメントポリシーに同意
           .a-form-help
             = link_to 'アンチハラスメントポリシーを確認（別タブで開きます）', coc_path, target: '_blank', rel: 'noopener'
       .form-item
         .form-actions__item-checkbox
-          label.form-checkbox__label
-            = check_box_tag :tos, 2, false, class: 'js-agreements-checkbox'
+          = check_box_tag :tos, 2, false, class: 'a-toggle-checkbox js-agreements-checkbox'
+          label.form-checkbox__label(for='tos')
             | 利用規約に同意
           .a-form-help
             = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'

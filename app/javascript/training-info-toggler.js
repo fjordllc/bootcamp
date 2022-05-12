@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const checkbox = document.querySelector(
-    'input.training-info-toggler-checkbox'
+    'input.js-training-info-toggler-checkbox'
   )
 
   if (checkbox !== null) {

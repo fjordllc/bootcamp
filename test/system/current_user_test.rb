@@ -81,4 +81,35 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth edit_current_user_path, 'kensyu'
     assert has_field?('user_training_ends_on', with: training_ends_on)
   end
+
+  test 'mentors advisors graduates admin can register their companies' do
+    visit_with_auth '/current_user/edit', 'mentormentaro'
+    assert_text '企業'
+    within '.choices__inner' do
+      assert_text '所属なし'
+    end
+
+    visit_with_auth '/current_user/edit', 'advijirou'
+    assert_text '企業'
+    within '.choices__inner' do
+      assert_text '所属なし'
+    end
+
+    visit_with_auth '/current_user/edit', 'sotugyou'
+    assert_text '企業'
+    within '.choices__inner' do
+      assert_text '所属なし'
+    end
+
+    visit_with_auth '/current_user/edit', 'komagata'
+    assert_text '企業'
+    within '.choices__inner' do
+      assert_text 'Fjord Inc.'
+    end
+  end
+
+  test 'not mentors advisors graduates admin can not register their companies' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    assert_no_text '所属なし'
+  end
 end

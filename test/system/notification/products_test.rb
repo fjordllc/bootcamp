@@ -14,7 +14,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'senpai'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "kensyuさんが「#{practices(:practice5).title}」の提出物を提出しました。"
     end
   end
@@ -31,7 +31,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'komagata'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'kimuraさんの提出物が更新されました'
     end
   end

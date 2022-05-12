@@ -10,7 +10,6 @@
       :currentUser='currentUser',
       @afterUpdateQuestion='fetchQuestion(questionId)'
     )
-    a#comments.a-anchor
     answers(
       :questionId='questionId',
       :questionUser='question.user',

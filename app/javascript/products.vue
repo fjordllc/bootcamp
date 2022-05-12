@@ -11,8 +11,8 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card(v-if='productsGroupedByElapsedDays === null')
-      .thread-list__items
+    .card-list.a-card(v-if='productsGroupedByElapsedDays === null')
+      .card-list__items
         product(
           v-for='product in products',
           :key='product.id',
@@ -21,7 +21,7 @@
           :isMentor='isMentor'
         )
     template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
-      .thread-list.a-card
+      .card-list.a-card
         header.card-header.a-elapsed-days(
           v-if='product_n_days_passed.elapsed_days === 0'
         )
@@ -55,7 +55,7 @@
             | {{ product_n_days_passed.elapsed_days }}日経過
             span.card-header__count(v-if='selectedTab === "unassigned"')
               | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-        .thread-list__items
+        .card-list__items
           product(
             v-for='product in product_n_days_passed.products',
             :key='product.id',

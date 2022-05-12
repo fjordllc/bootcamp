@@ -29,9 +29,9 @@
         .checkboxes
           ul.checkboxes__items
             li.checkboxes__item
+              = f.check_box :job_hunting, class: 'a-toggle-checkbox js-warning-form'
               = f.label :job_hunting do
                 | 就活関係のイベントの場合はチェック
-                = f.check_box :job_hunting, class: 'a-text-input js-warning-form'
   .form__items
     .form-item
       .row.js-markdown-parent

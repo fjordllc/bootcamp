@@ -28,12 +28,12 @@
                 | ）
 
       .page-content-header__row
-        .thread-header-actions
-          .thread-header-actions__start
-            .thread-header-actions__action
+        .page-content-header-actions
+          .page-content-header-actions__start
+            .page-content-header-actions__action
               #js-watch-toggle(data-watchable-id="#{@event.id}", data-watchable-type='Event')
-          .thread-header-actions__end
-            .thread-header-actions__action
+          .page-content-header-actions__end
+            .page-content-header-actions__action
               = link_to new_event_path(id: event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
                 i.fa-solid.fa-copy
                 | コピー
@@ -44,8 +44,9 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
-    .thread__description.a-long-text.is-md.js-markdown-view
-      = event.description
+    .card__description
+      .a-long-text.is-md.js-markdown-view
+        = event.description
     - unless event.wip?
       = render 'events/participation', event: event
     = render 'reactions/reactions', reactionable: event
@@ -67,18 +68,19 @@
         h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
       .card-body
-        - if event.participants.present?
-          ul.user-icons__items
-            - event.participants.each do |participant|
-              li.user-icons-item
-                = link_to participant do
-                  = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
-        - else
-          .o-empty-message
-            .o-empty-message__icon
-              i.fa-regular.fa-sad-tear
-            p.o-empty-message__text
-              | 参加者はまだいません。
+        .card__description
+          - if event.participants.present?
+            ul.user-icons__items
+              - event.participants.each do |participant|
+                li.user-icons-item
+                  = link_to participant do
+                    = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+          - else
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              p.o-empty-message__text
+                | 参加者はまだいません。
 
   - if event.waitlist.count.positive?
     .a-card.waitlist
@@ -86,9 +88,10 @@
         h1.card-header__title
           | 補欠者（#{event.waitlist.count}名）
       .card-body
-        ul.user-icons__items
-          - event.waitlist.each do |wait_user|
-            li.user-icons-item
-              = render 'users/icon',
-                user: wait_user,
-                image_class: 'a-user-icon is-sm'
+        .card__description
+          ul.user-icons__items
+            - event.waitlist.each do |wait_user|
+              li.user-icons-item
+                = render 'users/icon',
+                  user: wait_user,
+                  image_class: 'a-user-icon is-sm'

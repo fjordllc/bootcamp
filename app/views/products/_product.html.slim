@@ -1,25 +1,25 @@
-.thread-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.mentor? ? 'has-assigned' : ''}")
-  .thread-list-item__inner
-    .thread-list-item__user
-      = render 'users/icon', user: product.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          .thread-list-item-title__start
+.card-list-item(class="#{product.wip? ? 'is-wip' : ''} #{current_user.mentor? ? 'has-assigned' : ''}")
+  .card-list-item__inner
+    .card-list-item__user
+      = render 'users/icon', user: product.user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          .card-list-item-title__start
             - if product.wip?
-              .thread-list-item-title__icon.is-wip WIP
-            h2.thread-list-item-title__title(itemprop='name')
-              = link_to product, itemprop: 'url', class: 'thread-list-item-title__link a-text-link js-unconfirmed-link' do
+              .card-list-item-title__icon.is-wip WIP
+            h2.card-list-item-title__title(itemprop='name')
+              = link_to product, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
                 - if product.user.daimyo?
                   | ★
                 | #{product.practice.title}の提出物
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               = link_to product.user, class: 'a-user-name' do
                 = product.user.login_name
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               - if product.wip?
                 .a-meta
                   | 提出物作成中
@@ -37,35 +37,35 @@
                     = l product.created_at
 
             - if product.updated_at.present?
-              .thread-list-item-meta__item
+              .card-list-item-meta__item
                 time.a-meta(datetime="#{product.updated_at.to_datetime}")
                   span.a-meta__label
                     | 更新
                   span.a-meta__value
                     = l product.updated_at
       - if product.comments.any?
-        .thread-list-item__row
-          .thread-list-item-meta
-            .thread-list-item-meta__items
-              .thread-list-item-meta__item
+        .card-list-item__row
+          .card-list-item-meta
+            .card-list-item-meta__items
+              .card-list-item-meta__item
                 .a-meta
                   | コメント（#{product.comments.size}）
-              .thread-list-item-meta__item
-                .thread-list-item-comment__user-icons
+              .card-list-item-meta__item
+                .card-list-item-comment__user-icons
                   = render partial: 'users/icon',
                     collection: product.commented_users.distinct,
-                    locals: { link_class: 'thread-list-item-comment__user-icon', image_class: 'a-user-icon' },
+                    locals: { link_class: 'card-list-item-comment__user-icon', image_class: 'a-user-icon' },
                     as: :user,
                     cached: true
-              .thread-list-item-meta__item
+              .card-list-item-meta__item
                 time.a-meta(datetime="#{product.commented_users.last.created_at.to_datetime}")
                   | 〜 #{l product.comments.last.created_at, format: :date_and_time}
       - if !current_user.adviser? && product.practice.open_product?
-        .thread-list-item__row
-          .thread-list-item-meta
-            .thread-list-item-meta__items
-              .thread-list-item-meta__item
-                .thread-list-item-meta__item-note
+        .card-list-item__row
+          .card-list-item-meta
+            .card-list-item-meta__items
+              .card-list-item-meta__item
+                .card-list-item-meta__item-note
                   | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
     - if product.checks.any?
       .stamp.stamp-approve

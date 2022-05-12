@@ -66,6 +66,7 @@ ja:
         prefecture_code: お住まいの都道府県
         organization: 現在の所属組織
         company: 企業
+        company_id: 所属企業
         created_at: 開始日
         updated_at: 最終ログイン
         nda: 秘密保持契約
@@ -159,6 +160,7 @@ ja:
       article:
         title: タイトル
         body: 本文
+        user: ユーザー
       work:
         title: タイトル
         description: 説明

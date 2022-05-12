@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-list.a-card.is-loading
+.card-list.a-card.is-loading
   loadingListItemPlaceholder(v-for='num in itemCount', :key='num')
 </template>
 

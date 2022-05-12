@@ -45,7 +45,7 @@
   +media-breakpoint-up(md)
     display: inline-flex
     margin-bottom: .125rem
-  +media-breakpoint-down(md)
+  +media-breakpoint-down(sm)
     display: flex
     justify-content: center
     text-align: center
@@ -106,3 +106,16 @@
       font-size: .9375rem
     +media-breakpoint-down(sm)
       font-size: .8125rem
+
+.page-content-header__emotion
+  +size(1.75rem)
+  min-width: 1.75rem
+  display: flex
+  +media-breakpoint-up(md)
+    margin-right: .375em
+    +position(relative, top .25em)
+  +media-breakpoint-down(sm)
+    margin-right: .25em
+
+.page-content-header__emotion-image
+  +size(100%)

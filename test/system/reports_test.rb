@@ -78,26 +78,6 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
   end
 
-  test 'create a report without company as trainee' do
-    user = users(:kensyu)
-    user.update!(company: nil)
-
-    visit_with_auth '/reports/new', 'kensyu'
-    within('form[name=report]') do
-      fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'test')
-      fill_in('report[reported_on]', with: Time.current)
-    end
-
-    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
-    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
-    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
-    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
-
-    click_button '提出'
-    assert_text '日報を保存しました。'
-  end
-
   test 'create and update learning times in a report' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
@@ -490,7 +470,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth reports_path, 'kimura'
     precede = reports(:report24).title
     succeed = reports(:report23).title
-    within '.thread-list__items' do
+    within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
   end
@@ -500,7 +480,7 @@ class ReportsTest < ApplicationSystemTestCase
     precede = reports(:report18).title
     succeed = reports(:report17).title
 
-    within '.thread-list__items' do
+    within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
   end

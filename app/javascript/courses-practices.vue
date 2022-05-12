@@ -24,7 +24,7 @@
           .a-long-text.is-md(
             v-html='markdownDescription(category.description)'
           )
-        .categories-item__body
+        .categories-item__body.a-card
           .category-practices.js-category-practices
             courses-practice(
               v-for='practices in category.practices',

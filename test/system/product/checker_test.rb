@@ -25,7 +25,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
 
   test 'be not person on charge at comment on product of there are person on charge' do
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    product = find('.thread-list-item', match: :first)
+    product = find('.card-list-item', match: :first)
     product.click_button '担当する'
     assert_text '担当から外れる'
 

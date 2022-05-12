@@ -27,7 +27,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     user = users(:komagata)
     Announcement.create(title: 'test', description: 'test', user: user, wip: true)
     visit_with_auth '/announcements', 'kimura'
-    assert_selector '.thread-list-item-title__icon'
+    assert_selector '.card-list-item-title__icon'
     assert_text 'お知らせ作成中'
   end
 
@@ -94,7 +94,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '現役生にのみお知らせtest'
     fill_in 'announcement[description]', with: '内容test'
-    choose '現役生にのみお知らせ', visible: false
+    find('label', text: '現役生のみ').click
 
     click_button '作成'
     assert_text 'お知らせを作成しました'
@@ -126,7 +126,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '就活希望者のみお知らせします'
     fill_in 'announcement[description]', with: '合同説明会をやるのでぜひいらしてください！'
-    choose '就職希望者にのみお知らせ', visible: false
+    find('label', text: '就職希望者のみ').click
 
     click_button '作成'
     assert_text 'お知らせを作成しました'

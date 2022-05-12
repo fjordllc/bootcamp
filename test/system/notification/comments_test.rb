@@ -14,7 +14,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'machida'
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text 'komagataさんの日報「作業週1日目」へのコメントでkomagataさんからメンションがきました。'
     end
     assert_selector '.header-notification-count', text: '1'

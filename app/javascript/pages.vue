@@ -9,8 +9,8 @@ div
       i.fa-regular.fa-smile
     p.o-empty-message__text
       | Docはまだありません
-  .thread-list.a-card(v-else)
-    .thread-list__items
+  .card-list.a-card(v-else)
+    .card-list__items
       page(v-for='page in pages', :key='page.id', :page='page')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')

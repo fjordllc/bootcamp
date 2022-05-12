@@ -1,0 +1,36 @@
+.page-optional-header
+  +padding(vertical, .5rem)
+  border-bottom: solid 1px $border-shade
+  background-color: $background-semi-shade
+
+.page-optional-header__inner
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: center
+
+.page-optional-header__start
+  +media-breakpoint-up(md)
+    flex: 1
+
+.page-optional-header__title
+  +text-block(1em 1.4, center 600 flex)
+  align-items: center
+  +media-breakpoint-up(md)
+    font-size: 1rem
+  +media-breakpoint-down(sm)
+    font-size: 1rem
+
+.page-optional-header__title-cancel
+  margin-left: .5em
+  color: $background
+  font-size: .875rem
+  +flex-link
+  +size(1.5em)
+  background-color: $muted-text
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  transition: all .2s ease-out
+  &:hover
+    background-color: $primary
+    color: $reversal-text

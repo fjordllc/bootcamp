@@ -11,7 +11,7 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
+    .card-list.a-card
       searchable(
         v-for='searchable in searchables',
         :key='searchable.id',

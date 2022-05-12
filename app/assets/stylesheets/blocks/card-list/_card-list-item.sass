@@ -1,23 +1,27 @@
-.thread-list-item
+.card-list-item
   &:not(:last-child)
     border-bottom: solid 1px $border-tint
   +media-breakpoint-up(md)
-    padding: .75rem 1rem
-    min-height: 3.875rem
+    padding: .5rem 1rem
   +media-breakpoint-down(sm)
-    padding: .75rem
-    min-height: 3.5rem
+    padding: .5rem .75rem
 
-.thread-list-item__rows
+.card-list-item__icon
+  font-size: 1.25rem
+  margin-right: -.25rem
+  &.is-danger
+    color: $danger
+
+.card-list-item__rows
   flex: 1
 
-.products-self_assigned-index .thread-list-item__notresponded
+.products-self_assigned-index .card-list-item__notresponded
   +position(absolute, left -.25rem, top -.25rem, 2)
   +size(.5rem)
   border-radius: 50%
   background-color: $danger
 
-.thread-list-item__inner
+.card-list-item__inner
   +position(relative)
   display: flex
   position: relative
@@ -26,31 +30,31 @@
   +media-breakpoint-down(sm)
     gap: .75rem
 
-.thread-list-item__assignee
+.card-list-item__assignee
   +media-breakpoint-up(md)
     +position(absolute, right -.5rem, top -.25rem)
     width: 8rem
   +media-breakpoint-down(sm)
     margin-top: .75rem
 
-.thread-list-item__assignee-button.a-button
+.card-list-item__assignee-button.a-button
   border: dashed 1px $muted-text
   pointer-events: none
   color: $muted-text
   background-color: #f6f6f6
 
-.thread-list-item__assignee-image
+.card-list-item__assignee-image
   flex: 0 0 1.25rem
   margin-right: .375rem
   .a-user-icon
     +size(1.25rem)
 
-.thread-list-item__assignee-name
+.card-list-item__assignee-name
   display: block
   overflow: hidden
   text-overflow: ellipsis
 
-.thread-list-item__label
+.card-list-item__label
   border-radius: 50%
   background-color: $accent
   display: flex
@@ -62,32 +66,32 @@
     +size(3rem)
   +media-breakpoint-down(sm)
     +size(2.5rem)
-  .thread-list-item.is-report &
+  .card-list-item.is-report &
     background-color: #7f6fb7
     color: $reversal-text
-  .thread-list-item.is-practice &
+  .card-list-item.is-practice &
     background-color: #79bcc3
     color: $reversal-text
-  .thread-list-item.is-question &
+  .card-list-item.is-question &
     background-color: #de9172
     color: $reversal-text
-  .thread-list-item.is-page &
+  .card-list-item.is-page &
     background-color: #9fc593
     color: $reversal-text
-  .thread-list-item.is-announcement &
+  .card-list-item.is-announcement &
     background-color: #f7cd5b
     color: $default-text
-  .thread-list-item.is-event &
+  .card-list-item.is-event &
     background-color: #ef9da8
     color: $reversal-text
-  .thread-list-item.is-product &
+  .card-list-item.is-product &
     background-color: #909b3c
     color: $reversal-text
-  .thread-list-item.is-user &
+  .card-list-item.is-user &
     background-color: #7cbd9c
     color: $reversal-text
 
-.thread-list-item__label-option
+.card-list-item__label-option
   +position(absolute)
   +media-breakpoint-up(md)
     +position(left -.125rem, right -.125rem, bottom -.375rem)
@@ -100,33 +104,33 @@
   justify-content: center
   border: solid 1px
   border-radius: 1rem
-  .thread-list-item.is-report &
+  .card-list-item.is-report &
     color: #7f6fb7
-  .thread-list-item.is-practice &
+  .card-list-item.is-practice &
     color: #79bcc3
-  .thread-list-item.is-question &
+  .card-list-item.is-question &
     color: #de9172
-  .thread-list-item.is-page &
+  .card-list-item.is-page &
     color: #9fc593
-  .thread-list-item.is-announcement &
+  .card-list-item.is-announcement &
     color: #a9831c
     border-color: #f7cd5b
-  .thread-list-item.is-event &
+  .card-list-item.is-event &
     color: #ef9da8
-  .thread-list-item.is-product &
+  .card-list-item.is-product &
     color: #909b3c
-  .thread-list-item.is-user &
+  .card-list-item.is-user &
     color: #7cbd9c
 
-.thread-list-item__user-icon
+.card-list-item__user-icon
   +media-breakpoint-up(md)
-    +size(2.75rem)
+    +size(2.5rem)
   +media-breakpoint-down(sm)
     +size(2.25rem)
-  .thread-list-item.is-wip &
+  .card-list-item.is-wip &
     opacity: .6
 
-.thread-list-item__row-separator
+.card-list-item__row-separator
   border-top: dashed 1px $border
   height: 1px
   +media-breakpoint-up(md)
@@ -134,17 +138,17 @@
   +media-breakpoint-down(sm)
     +margin(vertical, .75rem .25rem)
 
-.thread-list-item__rows
+.card-list-item__rows
   flex: 1
 
-.thread-list-item__row
+.card-list-item__row
   &:not(:first-child)
     margin-top: .25rem
-  .thread-list-item.has-assigned &:first-child
+  .card-list-item.has-assigned &:first-child
     +media-breakpoint-up(md)
       padding-right: 8.5rem
 
-.thread-list-item__show-user-detail
+.card-list-item__show-user-detail
   +size(2.75rem)
   display: flex
   align-items: center
@@ -159,19 +163,19 @@
   &:hover
     opacity: .7
 
-.thread-list-item__user-detail
+.card-list-item__user-detail
   margin-top: 1rem
   display: none
   input:checked + &
     display: block
 
-.thread-list-item__user-description
+.card-list-item__user-description
   +media-breakpoint-up(md)
     font-size: .8125rem
   +media-breakpoint-down(sm)
     font-size: .75rem
 
-.thread-list-item__close-user-detail
+.card-list-item__close-user-detail
   margin-top: 1rem
   +text-block(.8125rem 1.4, flex $main)
   align-items: center
@@ -179,12 +183,12 @@
   +hover-link-reversal
   cursor: pointer
 
-.thread-list-item__summary
+.card-list-item__summary
   color: $muted-text
   p
     +text-block(.75rem 1.5)
 
-.thread-list-item__option
+.card-list-item__option
   +position(absolute, right 0, top 0)
   .a-button
     min-width: 4rem

@@ -33,7 +33,7 @@ header.page-header
                 .categories-item__description
                   .js-markdown-view.a-long-text.is-md
                     = category.description
-                .categories-item__body
+                .categories-item__body.a-card
                   .category-practices.js-category-practices
                     .js-admin-category-practice(data-categories-practices="#{category.categories_practices.to_json}" data-practices="#{category.practices.to_json}")
 

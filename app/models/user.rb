@@ -173,6 +173,10 @@ class User < ApplicationRecord
     validates :satisfaction, presence: true
   end
 
+  with_options if: -> { trainee? } do
+    validates :company_id, presence: true
+  end
+
   with_options if: -> { validation_context != :retirement } do
     validates :discord_account,
               format: {
