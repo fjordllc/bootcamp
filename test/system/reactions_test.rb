@@ -12,6 +12,18 @@ class ReactionsTest < ApplicationSystemTestCase
     end
   end
 
+  test 'post all new reactions for report' do
+    emojis = Reaction.emojis.filter { |key| key != 'smile' }
+    visit_with_auth report_path(reports(:report1)), 'komagata'
+    emojis.each do |key, value|
+      first('.card-body .js-reaction-dropdown-toggle').click
+      first(".card-body .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
+      using_wait_time 5 do
+        assert_text "#{value}1"
+      end
+    end
+  end
+
   test 'destroy reaction for report from dropdown' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     first('.card-body .js-reaction-dropdown-toggle').click
@@ -52,105 +64,6 @@ class ReactionsTest < ApplicationSystemTestCase
     first(".thread-comment .js-reaction li[data-reaction-kind='heart']").click
     using_wait_time 5 do
       assert_text '❤️1'
-    end
-  end
-
-  test 'post new reaction thumbsup for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='thumbsup']").click
-    using_wait_time 5 do
-      assert_text '👍1'
-    end
-  end
-
-  test 'post new reaction tada for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='tada']").click
-    using_wait_time 5 do
-      assert_text '🎉1'
-    end
-  end
-
-  test 'post new reaction heart for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='heart']").click
-    using_wait_time 5 do
-      assert_text '❤️1'
-    end
-  end
-
-  test 'post new reaction rocket for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='rocket']").click
-    using_wait_time 5 do
-      assert_text '🚀1'
-    end
-  end
-
-  test 'post new reaction eyes for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='eyes']").click
-    using_wait_time 5 do
-      assert_text '👀1'
-    end
-  end
-
-  test 'post new reaction hundred for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='hundred']").click
-    using_wait_time 5 do
-      assert_text '💯1'
-    end
-  end
-
-  test 'post new reaction flexed for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='flexed']").click
-    using_wait_time 5 do
-      assert_text '💪1'
-    end
-  end
-
-  test 'post new reaction okwoman for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='okwoman']").click
-    using_wait_time 5 do
-      assert_text '🙆‍♀️1'
-    end
-  end
-
-  test 'post new reaction loudlycrying for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='loudlycrying']").click
-    using_wait_time 5 do
-      assert_text '😭1'
-    end
-  end
-
-  test 'post new reaction raised_hands for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='raised_hands']").click
-    using_wait_time 5 do
-      assert_text '🙌1'
-    end
-  end
-
-  test 'post new reaction pray for report' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.thread__body .js-reaction-dropdown-toggle').click
-    first(".thread__body .js-reaction-dropdown li[data-reaction-kind='pray']").click
-    using_wait_time 5 do
-      assert_text '🙏1'
     end
   end
 end
