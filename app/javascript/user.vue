@@ -18,10 +18,10 @@
                   :class='[roleClass, daimyoClass]'
                 )
           .users-item__header-end
-            .thread-list-item__rows
-              .thread-list-item__row
-                .thread-list-item-title
-                  a.thread-list-item-title__title.is-lg.a-text-link(
+            .card-list-item__rows
+              .card-list-item__row
+                .card-list-item-title
+                  a.card-list-item-title__title.is-lg.a-text-link(
                     :href='user.url'
                   )
                     | {{ loginName }}
@@ -30,13 +30,13 @@
                     :href='user.company.url'
                   )
                     img.user-item__company-logo(:src='user.company.logo_url')
-              .thread-list-item__row
-                .thread-list-item-meta
-                  .thread-list-item-meta__items
-                    .thread-list-item-meta__item
+              .card-list-item__row
+                .card-list-item-meta
+                  .card-list-item-meta__items
+                    .card-list-item-meta__item
                       .a-meta
                         | {{ user.name }}
-                    .thread-list-item-meta__item
+                    .card-list-item-meta__item
                       a.a-meta(:href='user.times_url')(v-if='user.times_url')
                         .a-meta__icon
                           i.fa-brands.fa-discord

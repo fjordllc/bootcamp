@@ -201,4 +201,29 @@ class ArticlesTest < ApplicationSystemTestCase
 
     assert_no_text @article.title
   end
+
+  test 'can select a contributor and create the article' do
+    visit_with_auth new_article_path, 'komagata'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[body]', with: @article.body
+    find('.choices__inner').click
+    find('#choices--js-choices-single-select-item-choice-6', text: 'mentormentaro').click
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+    assert_text 'mentormentaro'
+  end
+
+  test 'can select a contributor and edit the article' do
+    visit_with_auth edit_article_path(@article), 'mentormentaro'
+    assert_text 'komagata'
+
+    find('.choices__inner').click
+    find('#choices--js-choices-single-select-item-choice-6', text: 'mentormentaro').click
+    click_on '更新する'
+
+    assert_text '記事を更新しました'
+    assert_text 'mentormentaro'
+  end
 end

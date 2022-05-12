@@ -72,9 +72,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     assert_text "タグ「#{update_tag_text}」のユーザー（1）"
 
     visit_with_auth pages_tag_path(tag.name), 'komagata'
-    has_no_selector?('thread-list-item')
+    has_no_selector?('card-list-item')
     visit_with_auth pages_tag_path(update_tag_text), 'komagata'
-    has_selector?('thread-list-item')
+    has_selector?('card-list-item')
   end
 
   test 'update tag with existing tag' do
@@ -96,9 +96,9 @@ class Question::TagsTest < ApplicationSystemTestCase
     assert_text "タグ「#{update_tag.name}」のユーザー（2）"
 
     visit_with_auth pages_tag_path(tag.name), 'komagata'
-    has_no_selector?('thread-list-item')
+    has_no_selector?('card-list-item')
     visit_with_auth pages_tag_path(update_tag.name), 'komagata'
-    has_selector?('thread-list-item')
+    has_selector?('card-list-item')
   end
 
   test 'update tag with same value' do

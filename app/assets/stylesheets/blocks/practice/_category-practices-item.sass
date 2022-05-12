@@ -1,9 +1,8 @@
 .category-practices-item
   padding: .75rem 1rem
-  border-bottom: solid 1px $border
   +position(relative)
-  &:last-child
-    border-bottom: none
+  &:not(:last-child)
+    border-bottom: solid 1px $border-tint
   &:nth-child(even)
     background-color: $background-more-tint
   +media-breakpoint-down(sm)

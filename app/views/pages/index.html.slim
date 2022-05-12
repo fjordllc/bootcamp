@@ -20,7 +20,7 @@ header.page-header
         .page-main-header__start
           h2.page-optional-header__title
             | タグ 「#{@tag.name}」
-            = link_to pages_path, class: 'page-body__optional-title-cancel' do
+            = link_to pages_path, class: 'page-optional-header__title-cancel' do
               i.fa-solid.fa-times.fa-fw
         - if admin_login?
           .page-main-header__end

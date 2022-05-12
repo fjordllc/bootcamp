@@ -88,7 +88,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'show input for retire date when checked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    check 'retire_checkbox', allow_label_click: true
+    check 'retire_checkbox', allow_label_click: true, visible: false
     assert_selector '#user_retired_on'
   end
 
@@ -102,9 +102,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'reset value of retire date when unchecked' do
     user = users(:yameo)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    uncheck 'retire_checkbox', allow_label_click: true
+    uncheck 'retire_checkbox', allow_label_click: true, visible: false
     assert has_unchecked_field?('retire_checkbox', visible: false)
-    check 'retire_checkbox', allow_label_click: true
+    check 'retire_checkbox', allow_label_click: true, visible: false
     assert has_field?('user_retired_on', with: '')
   end
 
@@ -118,7 +118,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'show input for graduation date when checked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    check 'graduation_checkbox', allow_label_click: true
+    check 'graduation_checkbox', allow_label_click: true, visible: false
     assert_selector '#user_graduated_on'
   end
 
@@ -132,9 +132,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'reset value of graduation date when unchecked' do
     user = users(:sotugyou)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    uncheck 'graduation_checkbox', allow_label_click: true
+    uncheck 'graduation_checkbox', allow_label_click: true, visible: false
     assert has_unchecked_field?('graduation_checkbox', visible: false)
-    check 'graduation_checkbox', allow_label_click: true
+    check 'graduation_checkbox', allow_label_click: true, visible: false
     assert has_field?('user_graduated_on', with: '')
   end
 
@@ -186,14 +186,14 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'should not show training end date if user is not trainee' do
     user = users(:kimura)
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
-    assert has_unchecked_field?('user_trainee', visible: false)
+    assert has_unchecked_field?('checkbox_trainee', visible: false)
     assert has_no_field?('user_training_ends_on')
   end
 
   test 'show training end date if user is trainee' do
     user = users(:kensyu)
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
-    assert has_checked_field?('user_trainee', visible: false)
+    assert has_checked_field?('checkbox_trainee', visible: false)
     assert has_field?('user_training_ends_on')
   end
 
@@ -210,10 +210,10 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'reset value of training end date when unchecked' do
     user = users(:kensyu)
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
-    uncheck 'user_trainee', allow_label_click: true
-    assert has_unchecked_field?('user_trainee', visible: false)
-    check 'user_trainee', allow_label_click: true
-    assert has_checked_field?('user_trainee', visible: false)
+    uncheck 'checkbox_trainee', allow_label_click: true, visible: false
+    assert has_unchecked_field?('checkbox_trainee', visible: false)
+    check 'checkbox_trainee', allow_label_click: true, visible: false
+    assert has_checked_field?('checkbox_trainee', visible: false)
     assert has_field?('user_training_ends_on', with: '')
   end
 

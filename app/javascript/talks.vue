@@ -20,7 +20,7 @@
     .talk-list(v-show='!showSearchedTalks')
       nav.pagination(v-if='totalPages > 1')
         pager(v-bind='pagerProps')
-      .thread-list.a-card
+      .card-list.a-card
         talk(
           v-for='talk in talks',
           :key='talk.id',
@@ -35,7 +35,7 @@
           i.far.fa-sad-tear
         p.o-empty-message__text
           | 一致する相談部屋はありません
-      .thread-list.a-card(v-else)
+      .card-list.a-card(v-else)
         talk(
           v-for='talk in searchedTalks',
           :key='talk.id',

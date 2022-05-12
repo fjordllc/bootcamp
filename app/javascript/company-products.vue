@@ -1,6 +1,8 @@
 <template lang="pug">
 .page-body
-  .container(v-if='products.length === 0')
+  .container(v-if='!loaded')
+    loadingListPlaceholder
+  .container(v-else-if='products.length === 0')
     .o-empty-message
       .o-empty-message__icon
         i.far.fa-smile
@@ -9,8 +11,8 @@
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
-    .thread-list.a-card
-      .thread-list__items
+    .card-list.a-card
+      .card-list__items
         product(
           v-for='product in products',
           :key='product.id',
@@ -25,10 +27,12 @@
 <script>
 import Pager from 'pager.vue'
 import Product from 'product.vue'
+import LoadingListPlaceholder from './loading-list-placeholder.vue'
 
 export default {
   components: {
     product: Product,
+    loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager
   },
   props: {
@@ -39,6 +43,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       products: [],
       currentPage: Number(this.getParams().page) || 1,
       totalPages: 0,
@@ -93,6 +98,7 @@ export default {
             this.products.push(product)
           })
           this.totalPages = json.total_pages
+          this.loaded = true
         })
         .catch((error) => {
           console.warn(error)

@@ -11,7 +11,8 @@
       ul.checkboxes__items
         = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
           li.checkboxes__item
-                = b.label { b.check_box + b.text }
+            = b.check_box(class: 'a-toggle-checkbox')
+            = b.label { b.text }
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
@@ -58,20 +59,20 @@
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
-          label
-            = f.check_box :submission
+          = f.check_box :submission, class: 'a-toggle-checkbox'
+          = f.label :submission
             | 提出物がある場合はチェック
         li.checkboxes__item
-          label
-            = f.check_box :open_product
+          = f.check_box :open_product, class: 'a-toggle-checkbox'
+          = f.label :open_product
             | OKをもらっていない人も提出物を見られるようにする場合はチェック
   .form-item
     = f.label :progress, class: 'a-form-label'
     .checkboxes
       ul.checkboxes__items
         li.checkboxes__item
-          label
-            = f.check_box :include_progress
+          = f.check_box :include_progress, class: 'a-toggle-checkbox'
+          = f.label :include_progress
             | 進捗の計算に含むようにする場合はチェック
   .form-item
     .row.js-markdown-parent

@@ -1,4 +1,4 @@
-.thread-list-item-actions__trigger
+.card-list-item-actions__trigger
   +size(2.25rem)
   display: flex
   align-items: center
@@ -12,24 +12,24 @@
   +media-breakpoint-down(sm)
     +position(absolute, left 0, top 2.75rem)
 
-.thread-list-item-actions__inner
+.card-list-item-actions__inner
   display: none
   +position(absolute, right -.5rem, top -.5rem, 3)
   input:checked + &
     display: block
 
-.thread-list-item-actions__items
+.card-list-item-actions__items
   +position(relative, 2)
   border: solid 1px $border
   width: 10rem
   border-radius: .25rem
   overflow: hidden
 
-.thread-list-item-actions__item
-  .thread-list-item-actions__item + &
+.card-list-item-actions__item
+  .card-list-item-actions__item + &
     border-top: dashed 1px $border
 
-.thread-list-item-actions__action
+.card-list-item-actions__action
   +text-block(.8125rem, $default-text)
   +flex-link
   align-items: center

@@ -87,9 +87,9 @@ class BookmarksTest < ApplicationSystemTestCase
 
   test 'edit bookmarks' do
     visit_with_auth current_user_bookmarks_path, 'kimura'
-    assert_no_selector '.thread-list-item__option'
+    assert_no_selector '.card-list-item__option'
     find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.thread-list-item__option'
+    assert_selector '.card-list-item__option'
   end
 
   test 'delete bookmark from bookmarks' do
@@ -98,7 +98,7 @@ class BookmarksTest < ApplicationSystemTestCase
     visit current_user_bookmarks_path
     assert_text '作業週1日目'
     find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.thread-list-item__option'
+    assert_selector '.card-list-item__option'
     first('#bookmark-button').click
     assert_no_text '作業週1日目'
     visit report_path(@report)

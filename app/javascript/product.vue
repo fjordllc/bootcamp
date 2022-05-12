@@ -1,48 +1,48 @@
 <template lang="pug">
-.thread-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
-  .thread-list-item__inner
-    .thread-list-item__user
-      a.a-user-name(:href='product.user.url')
-        img.thread-list-item__user-icon.a-user-icon(
+.card-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
+  .card-list-item__inner
+    .card-list-item__user
+      a.card-list-item__user-link(:href='product.user.url')
+        img.card-list-item__user-icon.a-user-icon(
           :title='product.user.icon_title',
           :alt='product.user.icon_title',
           :src='product.user.avatar_url',
           :class='[roleClass, daimyoClass]'
         )
-    .thread-list-item__rows
-      .thread-list-item__row
-        .thread-list-item-title
-          .thread-list-item__notresponded(v-if='notRespondedSign')
-          .thread-list-item-title__start
-            .thread-list-item-title__icon.is-wip(v-if='product.wip') WIP
-          h2.thread-list-item-title__title(itemprop='name')
-            a.thread-list-item-title__link.a-text-link.js-unconfirmed-link(
+    .card-list-item__rows
+      .card-list-item__row
+        .card-list-item-title
+          .card-list-item__notresponded(v-if='notRespondedSign')
+          .card-list-item-title__start
+            .card-list-item-title__icon.is-wip(v-if='product.wip') WIP
+          h2.card-list-item-title__title(itemprop='name')
+            a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
               :href='product.url',
               itemprop='url'
             )
               | {{ practiceTitle }}
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               a.a-user-name(:href='product.user.url')
                 | {{ product.user.login_name }}
-      .thread-list-item__row
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item(v-if='product.wip')
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item(v-if='product.wip')
               .a-meta 提出物作成中
-            .thread-list-item-meta__item(v-else-if='product.published_at')
+            .card-list-item-meta__item(v-else-if='product.published_at')
               time.a-meta
                 | 提出日（{{ product.published_at }}）
-            .thread-list-item-meta__item(v-else)
+            .card-list-item-meta__item(v-else)
               time.a-meta
                 | 提出日（{{ product.created_at }}）
-            .thread-list-item-meta__item
+            .card-list-item-meta__item
               time.a-meta(v-if='product.updated_at')
                 span.a-meta__label 更新
                 | {{ product.updated_at }}
-            .thread-list-item-meta__item(
+            .card-list-item-meta__item(
               v-if='(product.selectedTab = unassigned)'
             )
               time.a-meta(v-if='untilNextElapsedDays(product) < 1')
@@ -52,16 +52,16 @@
                 span.a-meta__label 次の経過日数まで
                 | 約{{ untilNextElapsedDays(product) }}時間
 
-      hr.thread-list-item__row-separator(v-if='product.comments.size > 0')
-      .thread-list-item__row(v-if='product.comments.size > 0')
-        .thread-list-item-meta
-          .thread-list-item-meta__items
-            .thread-list-item-meta__item
+      hr.card-list-item__row-separator(v-if='product.comments.size > 0')
+      .card-list-item__row(v-if='product.comments.size > 0')
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
               .a-meta
                 | コメント（{{ product.comments.size }}）
-            .thread-list-item-meta__item
-              .thread-list-item-comment__user-icons
-                a.thread-list-item-comment__user-icon(
+            .card-list-item-meta__item
+              .card-list-item-comment__user-icons
+                a.card-list-item-comment__user-icon(
                   :href='user.url',
                   v-for='user in product.comments.users'
                 )
@@ -72,7 +72,7 @@
                     :class='[roleClass, daimyoClass]'
                   )
 
-            .thread-list-item-meta__item(
+            .card-list-item-meta__item(
               v-if='product.self_last_commented_at_date_time && product.mentor_last_commented_at_date_time'
             )
               time.a-meta(
@@ -87,7 +87,7 @@
               )
                 | 〜 {{ product.mentor_last_commented_at }}（メンター）
 
-            .thread-list-item-meta__item(
+            .card-list-item-meta__item(
               v-else-if='product.self_last_commented_at_date_time || product.mentor_last_commented_at_date_time'
             )
               time.a-meta(v-if='product.self_last_commented_at_date_time')
@@ -108,7 +108,7 @@
       .stamp__content.is-user-name
         .stamp__content-inner
           | {{ product.checks.last_user_login_name }}
-    .thread-list-item__assignee.is-only-mentor(
+    .card-list-item__assignee.is-only-mentor(
       v-if='isMentor && product.checks.size == 0'
     )
       product-checker(

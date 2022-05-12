@@ -37,18 +37,19 @@ header.page-header
               ul.checkboxes__items
                 = f.collection_check_boxes :retire_reasons, User.retire_reasons.pairs, :second, :first, class: 'label-checkbox' do |b|
                   li.checkboxes__item
-                    = b.label { b.check_box + b.text }
+                    = b.check_box(class: 'a-toggle-checkbox')
+                    = b.label { b.text }
           .form-item
             = f.label :retire_reason, '上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください', class: 'a-form-label'
             = f.text_area :retire_reason, class: 'a-text-input is-md', placeholder: '上記を選んだ理由を教えてください。複数選んだ方は最も大きな理由を教えてください'
           .form-item
             = f.label :satisfaction, '全体の満足度を教えてください', class: 'a-form-label is-required'
-            ul.form-item__radio-buttons
+            ul.form-item__radios.is-half
               = f.collection_radio_buttons :satisfaction, User.satisfactions, :first, :first do |b|
-                li.form-radio-button
-                  label.form-radio-button__label
+                li.form-radio
+                  = b.radio_button(class: 'a-toggle-checkbox')
+                  label.form-radio__label(for="user_satisfaction_#{b.value}")
                     = t("activerecord.enums.user.satisfaction.#{b.text}")
-                    = b.radio_button
           .form-item
             = f.label :opinion, 'ご意見や改善すべきと感じた点がございましたらご自由にご記載ください', class: 'a-form-label'
             = f.text_area :opinion, class: 'a-text-input is-md', placeholder: 'ご意見や改善すべきと感じた点がございましたらご自由にご記載ください'

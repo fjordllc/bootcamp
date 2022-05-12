@@ -112,5 +112,6 @@
     h2.card-header__title
       | 全員のメアド
   .card-body
-    textarea.a-text-input
-      = @emails.join(',')
+    .card__description
+      textarea.a-text-input
+        = @emails.join(',')

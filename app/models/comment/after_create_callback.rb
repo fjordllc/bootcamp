@@ -30,7 +30,7 @@ class Comment::AfterCreateCallback
     NotificationFacade.came_comment(
       comment,
       comment.receiver,
-      "#{comment.sender.login_name}さんからコメントが届きました。"
+      "相談部屋で#{comment.sender.login_name}さんからコメントがありました。"
     )
   end
 

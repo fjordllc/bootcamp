@@ -17,18 +17,17 @@
       .form-item.is-sm
         label.a-form-label
           = f.label :emotion
-        ul.form-item__radio-buttons.is-inline.is-3-items
+        ul.form-item__radios.is-inline.is-3-items
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
-            li.form-radio-button.test-select-emotions
+            li.form-radio.test-select-emotions
               = b.radio_button(class: 'a-toggle-checkbox')
-              label.form-radio-button__label.is-lg for="report_emotion_#{b.value}"
+              label.form-radio__label.is-lg for="report_emotion_#{b.value}"
                 = image_tag b.text, id: b.value, alt: b.value, class: 'form-label__emotion-image'
-                span.form-radio-button__label-name
+                span.form-radio__label-name
                   = b.value
       .form-item
         label.a-form-label
           | 学習時間
-
         .form-item__lerning-times#js-learning-times
           = f.fields_for :learning_times do |learning_time|
             = render 'learning_time_fields', f: learning_time
@@ -40,12 +39,13 @@
         .checkboxes
           .checkboxes__items
             .checkboxes__item
+              = f.check_box :no_learn, class: 'a-toggle-checkbox js-no-practice-time'
               = f.label :no_learn, class: 'is-sm' do
-                = f.check_box :no_learn, class: 'js-no-practice-time'
                 = Report.human_attribute_name :no_learn
 
             label.a-form-help-link.is-muted-text(for='modal-progress')
-              span.a-form-help-link__label 詳しく
+              span.a-form-help-link__label
+                | 詳しく
               span.a-help
                 i.fa-solid.fa-question
 

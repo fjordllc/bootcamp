@@ -68,12 +68,12 @@ header.page-header
                     | ユーザーメモ
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                .thread-list.a-card
+                .card-list.a-card
                   - if @reports.present?
                     - @reports.each do |report|
                       = render partial: 'report', locals: { report: report }
                   - else
-                    .thread-list__inner
+                    .card-list__message
                       .container
                         .o-empty-message
                           .o-empty-message__icon

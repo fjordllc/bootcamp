@@ -13,23 +13,24 @@
           .card-header__title.is-sm
             | メモ
         .card-body
-          textarea.a-text-input(
-            ref='sendBody',
-            v-model='sendBody',
-            name='memo[body]'
-          )
-          button.a-button.is-md.is-primary.is-block(
-            v-if='!body',
-            @click='createMemo'
-          )
-            | 作成
-          button.a-button.is-md.is-primary.is-block(
-            v-else,
-            @click='updateMemo'
-          )
-            | 更新
-          button.a-button.is-md.is-danger.is-block(@click='deleteMemo')
-            | 削除
+          .card__description
+            textarea.a-text-input(
+              ref='sendBody',
+              v-model='sendBody',
+              name='memo[body]'
+            )
+            button.a-button.is-md.is-primary.is-block(
+              v-if='!body',
+              @click='createMemo'
+            )
+              | 作成
+            button.a-button.is-md.is-primary.is-block(
+              v-else,
+              @click='updateMemo'
+            )
+              | 更新
+            button.a-button.is-md.is-danger.is-block(@click='deleteMemo')
+              | 削除
       label.memo-form-modal__overlay(v-bind:for='date')
   .memo-body
     | {{ body }}

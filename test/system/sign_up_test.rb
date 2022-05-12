@@ -25,8 +25,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
@@ -50,8 +50,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     fill_stripe_element('4000 0000 0000 0069', '12 / 50', '111')
@@ -75,8 +75,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     fill_stripe_element('4000 0000 0000 0127', '12 / 50', '111')
@@ -100,8 +100,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     fill_stripe_element('4000 0000 0000 0002', '12 / 50', '111')
@@ -125,8 +125,8 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[description]', with: 'テスト春子です。'
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     click_button 'アドバイザー登録'
@@ -150,8 +150,12 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-choices-single-select-item-choice-2').click
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     click_button '参加する'
@@ -181,8 +185,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
@@ -206,8 +210,8 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[description]', with: 'テストふゆこです。'
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     click_button 'アドバイザー登録'
@@ -232,8 +236,12 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-choices-single-select-item-choice-2').click
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     click_button '参加する'
@@ -252,8 +260,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
     end
 
     fill_stripe_element('5555 5555 5555 4444', '12 / 50', '111')
@@ -280,8 +288,8 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       select 'Mac(Intel)', from: 'user[os]'
       select '未経験', from: 'user[experience]'
-      check 'アンチハラスメントポリシーに同意', allow_label_click: true
-      check '利用規約に同意', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
       tag_input = find('.ti-new-tag-input')
       tag_input.set tag
       tag_input.native.send_keys :return

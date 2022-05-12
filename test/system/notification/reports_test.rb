@@ -193,7 +193,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', mentor
 
-    within first('.thread-list-item.is-unread') do
+    within first('.card-list-item.is-unread') do
       assert_text "#{student}さんが2回連続でsadアイコンの日報を提出しました。"
     end
   end

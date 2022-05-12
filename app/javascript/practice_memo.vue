@@ -1,10 +1,10 @@
 <template lang="pug">
 .a-card
-  div(v-if='!editing')
-    .card-body(v-if='memo')
+  .card-body(v-if='!editing')
+    .card__description(v-if='memo')
       .a-long-text.is-md(v-html='markdownMemo')
-    .thread-list(v-else)
-      .thread-list__inner
+    .card-list(v-else)
+      .card-list__message
         .container
           .o-empty-message
             .o-empty-message__icon
@@ -20,7 +20,7 @@
             )
               i.fa-solid.fa-pen
               | 編集
-  div(v-show='editing')
+  .card-body(v-show='editing')
     .form-tabs.js-tabs
       .form-tabs__tab.js-tabs__tab(
         :class='{ "is-active": isActive("memo") }',
