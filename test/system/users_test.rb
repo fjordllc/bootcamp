@@ -318,14 +318,14 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'if the number of days it took to graduate is positive, the value is displayed.' do
     user = users(:sotugyou)
-    user.update!(created_at: Date.today - 1, graduated_on: Date.today, job: 'office_worker')
+    user.update!(created_at: Time.zone.today - 1, graduated_on: Time.zone.today, job: 'office_worker')
     visit_with_auth "/users/#{user.id}", 'sotugyou'
     assert_text '卒業 1日'
   end
 
   test 'if the number of days it took to graduate is negative, the value is not be displayed.' do
     user = users(:sotugyou)
-    user.update!(created_at: Date.today, graduated_on: Date.today - 1 , job: 'office_worker')
+    user.update!(created_at: Time.zone.today, graduated_on: Time.zone.today - 1, job: 'office_worker')
     visit_with_auth "/users/#{user.id}", 'sotugyou'
     assert_no_text '卒業 1日'
   end
