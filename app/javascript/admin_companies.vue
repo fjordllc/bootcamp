@@ -20,8 +20,7 @@
         tr.admin-table__item(
           v-for='company in companies',
           :key='company.id',
-          :id='`company_${company.id}`',
-          v-if='companies'
+          :id='`company_${company.id}`'
         )
           td.admin-table__item-value
             a(:href='`/companies/${company.id}`')
