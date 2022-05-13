@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import VueTagsInput from '@johmun/vue-tags-input'
+import VueTagsInput from '@sipec/vue3-tags-input'
 import validateTagName from 'validate-tag-name'
 import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
 

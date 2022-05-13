@@ -1105,13 +1105,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@johmun/vue-tags-input@^2.0.1":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@johmun/vue-tags-input/-/vue-tags-input-2.1.0.tgz#d265c00ecea092ecfcea21945f31c22a619e4862"
-  integrity sha512-Fdwfss/TqCqMJbGAkmlzKbcG/ia1MstYjhqPBj+zG7h/166tIcE1TIftUxhT9LZ+RWjRSG0EFA1UyaHQSr3k3Q==
-  dependencies:
-    vue "^2.6.10"
-
 "@jridgewell/resolve-uri@^3.0.3":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@jridgewell/resolve-uri/-/resolve-uri-3.0.4.tgz#b876e3feefb9c8d3aa84014da28b5e52a0640d72"
@@ -1204,6 +1197,13 @@
   dependencies:
     escape-string-regexp "^5.0.0"
     lodash.deburr "^4.1.0"
+
+"@sipec/vue3-tags-input@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@sipec/vue3-tags-input/-/vue3-tags-input-3.0.4.tgz#b7bf1aad2578e6da6967695802e99570798064ea"
+  integrity sha512-zE4OiFkWvlvvGT3FZQ9hRrvJW935VPW0fe4K03SxM5Q/UQZMqph763UHXTuyK1orWNQMTbDx9tKPLIMZTiDXLA==
+  dependencies:
+    vue "^3.0.0-beta.1"
 
 "@types/glob@^7.1.1":
   version "7.1.3"
@@ -2200,15 +2200,10 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219:
-  version "1.0.30001272"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001272.tgz"
-  integrity sha512-DV1j9Oot5dydyH1v28g25KoVm7l8MTxazwuiH3utWiAS6iL/9Nh//TGwqFEeqqN8nnWYQ8HHhUq+o4QPt9kvYw==
-
-caniuse-lite@^1.0.30001286:
-  version "1.0.30001309"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001309.tgz#e0ee78b9bec0704f67304b00ff3c5c0c768a9f62"
-  integrity sha512-Pl8vfigmBXXq+/yUz1jUwULeq9xhMJznzdc/xwl4WclDAuebcTHVefpz8lE/bMI+UN7TOkSSe7B7RnZd6+dzjA==
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219, caniuse-lite@^1.0.30001286:
+  version "1.0.30001340"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001340.tgz"
+  integrity sha512-jUNz+a9blQTQVu4uFcn17uAD8IDizPzQkIKh3LCJfg9BkyIqExYYdyc/ZSlWUSKb8iYiXxKsxbv4zYSvkqjrxw==
 
 case-sensitive-paths-webpack-plugin@^2.4.0:
   version "2.4.0"
@@ -8372,12 +8367,7 @@ vue-template-compiler@^2.6.14:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue@^2.6.10:
-  version "2.6.12"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
-  integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
-
-vue@^3.2.33:
+vue@^3.0.0-beta.1, vue@^3.2.33:
   version "3.2.33"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.33.tgz#7867eb16a3293a28c4d190a837bc447878bd64c2"
   integrity sha512-si1ExAlDUrLSIg/V7D/GgA4twJwfsfgG+t9w10z38HhL/HA07132pUQ2KuwAo8qbCyMJ9e6OqrmWrOCr+jW7ZQ==

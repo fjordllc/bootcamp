@@ -5,9 +5,9 @@
     "lint:prettier": "prettier app/javascript/**/*.{js,vue} --check"
   },
   "dependencies": {
-    "@johmun/vue-tags-input": "^2.0.1",
     "@rails/webpacker": "5.4.3",
     "@sindresorhus/slugify": "^2.1.0",
+    "@sipec/vue3-tags-input": "^3.0.4",
     "@vue/compat": "^3.2.33",
     "autosize": "^4.0.2",
     "choices.js": "^10.1.0",
