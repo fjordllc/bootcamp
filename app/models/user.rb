@@ -64,7 +64,8 @@ class User < ApplicationRecord
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
-  has_many :regular_event, dependent: :destroy
+  has_many :regular_events, dependent: :destroy
+  has_many :organizers, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
