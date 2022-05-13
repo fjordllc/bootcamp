@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   namespace :talks do
     resources :unreplied, only: %i(index)
   end
-  resources :talks, only: %i(index show)
+  resources :talks, only: %i(index show update)
   resources :questions, only: %i(index show new create destroy)
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
