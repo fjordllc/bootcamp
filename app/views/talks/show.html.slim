@@ -79,3 +79,6 @@ header.page-header
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
                 #js-reports(data-user-id="#{@user.id}" data-limit="10")
+              = form_with model: @user, local: true, url: :talk, class: 'form', html: { name: 'jobseeking' } do |f|
+                = render 'users/form/job_seeking', f: f
+                = f.submit user_submit_label(@user, :edit), id: 'user_submit', class: 'a-button is-lg is-primary is-block'
