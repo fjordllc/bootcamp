@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const allCoursesCategories = coursesCategories.getAttribute(
       'data-courses-categories'
     )
+
+
     new Vue({
       render: (h) =>
         h(CoursesCategories, {
@@ -16,5 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         })
     }).$mount(selector)
+
+
+//    const App = createApp(CoursesCategories)
+//    App.mount(selector);
+
+
   }
 })

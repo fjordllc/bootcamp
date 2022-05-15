@@ -8,21 +8,20 @@
         th.admin-table__label.handle
           | 並び順
     draggable.admin-table__items(
-      v-model='coursesCategories',
-      handle='.js-grab',
-      tag='tbody',
-      @start='start',
+      v-model='coursesCategories'
+      handle='.js-grab'
+      tag='tbody'
+      @start='start'
       @end='end'
+      item-key='id'
     )
-      tr.admin-table__item(
-        v-for='coursesCategory in coursesCategories',
-        :key='coursesCategory.id'
-      )
-        td.admin-table__item-value
-          | {{ coursesCategory.category.name }}
-        td.admin-table__item-value.is-text-align-center.is-grab
-          span.js-grab.a-grab
-            i.fa-solid.fa-align-justify
+      template(#item="{element}")
+        tr.admin-table__item
+          td.admin-table__item-value
+            | {{ element.category.name }}
+          td.admin-table__item-value.is-text-align-center.is-grab
+            span.js-grab.a-grab
+              i.fa-solid.fa-align-justify
 </template>
 <script>
 import draggable from 'vuedraggable'

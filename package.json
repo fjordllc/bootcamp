@@ -38,7 +38,7 @@
     "vue-loader": "^17.0.0",
     "vue-multiselect": "^2.1.6",
     "vue-template-compiler": "^2.6.14",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "vuejs-paginate": "^2.1.0",
     "vuex": "^3.1.1",
     "webpack": "^4.46.0",
