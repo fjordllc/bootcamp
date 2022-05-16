@@ -1,6 +1,9 @@
 body
   min-height: 100vh
   height: 100%
+  &.application
+    +media-breakpoint-up(md)
+      padding-top: $header-height__md-up
   &.welcome
     background-color: $base
     color: $welcome-default-text
@@ -28,8 +31,6 @@ body
     height: auto
   body.is-test &
     height: auto
-  body.is-edit-page &
-    margin-right: 0
   body.welcome &
     display: flex
     flex-direction: column
@@ -41,8 +42,6 @@ body
       flex: 1
   body.no-global-nav &
     margin-left: 0
-  body.is-admin-page &
-    margin-right: 0
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto

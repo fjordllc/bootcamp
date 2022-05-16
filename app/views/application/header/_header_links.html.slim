@@ -2,7 +2,7 @@
   ul.header-links__items
 
     li.header-links__search.is-hidden-sm-down
-      = render 'header_search', select_id: 'header-search-select', text_field_id: 'header-search-word', submit_id: 'test-search'
+      = render 'application/header/header_search', select_id: 'header-search-select', text_field_id: 'header-search-word', submit_id: 'test-search'
 
     li.header-links__item.is-hidden-md-up
       label.header-links__link.test-show-menu(for='header-search')
@@ -35,4 +35,4 @@
 
 = render '/shared/modal', id: 'header-search', modal_title: '検索'
   .modal__description.is-md
-    = render 'header_search', select_id: 'header-search-select-modal', text_field_id: 'header-search-word-modal', submit_id: 'test-search-modal'
+    = render 'application/header/header_search', select_id: 'header-search-select-modal', text_field_id: 'header-search-word-modal', submit_id: 'test-search-modal'

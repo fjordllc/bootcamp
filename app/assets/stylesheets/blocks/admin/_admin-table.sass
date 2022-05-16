@@ -43,7 +43,7 @@
 .admin-table__item
   transition: all .2s ease-out
   background-color: $base
-  .admin-table.is-all-user &.is-inactive
+  &.is-retired
     background-color: $background-tint
   &:last-child
     +border-radius(bottom, .25rem)
@@ -55,7 +55,6 @@
   &[draggable="false"]
     background-color: $base
     animation: grab-background-color 1.25s ease 0s 1 normal none running
-
 
 .admin-table__item-value
   padding: .375rem .75rem
