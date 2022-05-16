@@ -53,7 +53,7 @@
           td.admin-table__item-value
             = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do
               = image_tag user.avatar_url, title: user.icon_title, class: "admin-table__user-icon a-user-icon #{user.primary_role} #{user.daimyo? ? 'is-daimyo' : ''}"
-              - if !user.active?
+              - unless user.active?
                 span.a-badge.is-danger.is-xs
                   | 非アクティブ
               span.admin-table__user-login-name
