@@ -27,27 +27,35 @@
     tbody.admin-table__items
       - users.each do |user|
         - next if params[:target] == 'campaign' && user.adviser?
-        tr.admin-table__item class="#{user.retired_on? ? 'is-inactive' : '' }"
+        tr.admin-table__item class="#{user.retired_on? ? 'is-retired' : '' }"
           td.admin-table__item-value.is-text-align-center
             - if user.admin?
-              | 管理者
+              span.admin-table__role
+                | 管理者
             - if user.mentor?
-              | メンター
+              span.admin-table__role
+                | メンター
             - elsif user.adviser
-              | アドバイザー
+              span.admin-table__role
+                | アドバイザー
             - elsif user.trainee
-              | 研修生
+              span.admin-table__role
+                | 研修生
             - elsif user.retired_on?
-              | 退会
+              span.admin-table__role
+                | 退会
             - elsif user.graduated_on?
-              | 卒業生
-            - elsif user.active?
-              | 現役生
-            - elsif !user.active?
-              | 非アクティブ
+              span.admin-table__role
+                | 卒業生
+            - else
+              span.admin-table__role
+                | 現役生
           td.admin-table__item-value
             = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do
               = image_tag user.avatar_url, title: user.icon_title, class: "admin-table__user-icon a-user-icon #{user.primary_role} #{user.daimyo? ? 'is-daimyo' : ''}"
+              - if !user.active?
+                span.a-badge.is-danger.is-xs
+                  | 非アクティブ
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.name}）
