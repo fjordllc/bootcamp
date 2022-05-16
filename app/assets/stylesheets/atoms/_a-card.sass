@@ -1,8 +1,12 @@
 .a-card
-  background-color: $base
   border-radius: .25rem
-  border: solid 1px $border-shade
   +margin(horizontal, auto)
+  background-color: $base
+  border: solid 1px $border-shade
+  &.is-danger
+    border-color: $danger
+    color: $danger-text
+    background-color: $danger-shade
   +media-breakpoint-down(lg)
     &:not(:last-child)
       margin-bottom: 1rem
@@ -34,12 +38,6 @@
       display: none
     > input:checked + * .is-hidden-then-checked
       display: none
-
-
-.a-card-notice
-  p
-    font-size: 1rem
-    line-height: 1.5rem
 
 .a-card__alert
   padding: .5rem 1.25rem
