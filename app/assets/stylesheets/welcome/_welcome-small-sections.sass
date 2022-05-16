@@ -5,12 +5,9 @@
     margin-top: 2rem
   .welcome-child-section.is-unlimited &
     margin-bottom: 0
-    border: solid 2px $welcome-card-border
-    border-radius: .5rem
     padding: 3rem 1.5rem 1rem
     margin-top: 3.5rem
     +position(relative)
-    background-color: rgba($base, .8)
   .welcome-section.is-process &
     margin-bottom: 0
     height: auto
@@ -22,7 +19,7 @@
 .welcome-small-sections__title
   $height: 3.25rem
   $width: 20rem
-  +text-block(1.5rem 1.4 0 1.25em, 700 center flex $welcome-default-text)
+  +text-block(1.5rem 1.4 0 1.25em, 700 center flex $default-text)
   align-items: center
   justify-content: center
   font-feature-settings: "palt"
@@ -30,14 +27,11 @@
     font-size: 1rem
   .welcome-child-section.is-unlimited &
     font-size: 1.25rem
-    background-color: $base
     background-size: 1.75rem
-    border: solid 2px $welcome-card-border
     margin-bottom: 0
     +size($width $height)
     margin-left: $width / -2
     +position(absolute, left 50%, top $height / -2)
-    border-radius: .5rem
     +media-breakpoint-down(sm)
       $height: 2.75rem
       $width: 14rem
@@ -70,9 +64,7 @@
       +padding(horizontal, .5rem)
 
 .welcome-small-section__inner
-  background-color: rgba($base, .8)
   padding: 1.25rem 1.5rem 1.5rem
-  border-radius: .25rem
   height: 100%
   padding-bottom: 1rem
   .welcome-small-sections.is-about &
@@ -80,13 +72,6 @@
   .welcome-small-sections.is-unlimited &
     padding: 0
     background-color: transparent
-  .welcome-small-sections.is-conditions &
-    border: solid 2px $welcome-card-border
-  .welcome-child-section.is-cases &,
-  .welcome-child-section.is-tutorials &,
-  .welcome-section.is-finding-employment &,
-  .welcome-section.is-other &
-    border: dashed 2px $welcome-card-border
   .welcome-small-sections.is-wide &
     display: flex
 

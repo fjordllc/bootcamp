@@ -25,7 +25,9 @@ module BodyClassHelper
   def page_area
     if controller.controller_path.include?('admin/')
       'admin-page'
-    elsif qualified_controller_name.include?('welcome')
+    elsif qualified_controller_name.include?('welcome') ||
+          (qualified_controller_name.include?('articles') && (page_category == 'index-page' ||
+          page_category == 'show-page'))
       'welcome-page'
     else
       'learning-page'

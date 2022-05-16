@@ -4,7 +4,7 @@
     margin-top: 1.5rem
 
 .welcome-child-section__title
-  +text-block(1.5rem 1.45 0 .6em, 700 center $welcome-default-text)
+  +text-block(1.5rem 1.45 0 .6em, 700 center $default-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -33,11 +33,11 @@
   table
     width: 100%
     background-color: $base
-    border: solid 2px $welcome-card-border
+    border: solid 1px $border
     border-radius: .25rem
   tr
     &:not(:last-child)
-      border-bottom: solid 1px $welcome-card-border
+      border-bottom: solid 1px $border
   th,
   td
     +text-block(.8125rem 1.5)

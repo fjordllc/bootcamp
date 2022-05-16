@@ -1,0 +1,43 @@
+.bootcamp-ad
+  margin-top: 2rem
+  a.a-card
+    +block-link
+    color: $default-text
+  img
+    max-width: 100%
+    height: auto
+    display: block
+    margin-left: auto
+    margin-right: auto
+
+.bootcamp-ad__inner
+  +media-breakpoint-up(md)
+    padding: 1.25rem 2rem
+  +media-breakpoint-down(sm)
+    padding: 1rem 1rem
+
+.bootcamp-ad__header
+  border-bottom: solid 1px $border
+  padding-bottom: .25rem
+
+.bootcamp-ad__title
+  +text-block(1rem 1.4, 700)
+
+.bootcamp-ad__body
+  padding-top: 1em
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+  .bootcamp-ad__image
+    float: left
+    margin-right: 1rem
+    margin-bottom: .5rem
+    +size(4rem auto)
+    +position(relative, top .125rem)
+  .bootcamp-ad__image + *
+    margin-top: 0
+  .a-button
+    +media-breakpoint-up(md)
+      max-width: 20rem
+      +margin(horizontal, auto)

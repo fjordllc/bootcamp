@@ -4,47 +4,36 @@ body
   &.application
     +media-breakpoint-up(md)
       padding-top: $header-height__md-up
-  &.welcome
-    background-color: $base
-    color: $welcome-default-text
   &.is-piyo-background
     background-color: $main
     background-image: image_url('error-background-main-color.svg')
     background-repeat: repeat
-    background-size: 80px
     overflow-y: auto
+    +media-breakpoint-up(md)
+      background-size: 80px
     +media-breakpoint-down(sm)
       background-size: 72px
 
 .wrapper
-  +margin(horizontal, 5rem 0)
   min-height: 100vh
   scroll-behavior: smooth
   -webkit-overflow-scrolling: touch
-  +media-breakpoint-down(lg)
-    +margin(horizontal, 5rem 0)
+  overflow-y: visible
+  height: auto
   +media-breakpoint-up(md)
     display: flex
     flex-direction: column
-  +media-breakpoint-down(sm)
-    +margin(horizontal, 0)
-    height: auto
-  body.is-test &
-    height: auto
-  body.welcome &
-    display: flex
-    flex-direction: column
-    +margin(horizontal, 0)
-    height: auto
-    min-height: 100vh
-    overflow-y: visible
-    .main
-      flex: 1
+  body.is-lerning &
+    +media-breakpoint-up(md)
+      margin-left: 5rem
   body.no-global-nav &
     margin-left: 0
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
+
+.wrapper__main
+  flex: 1
 
 .columns
   .columns + &
