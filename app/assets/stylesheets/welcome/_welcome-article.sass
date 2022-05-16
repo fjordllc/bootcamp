@@ -1,5 +1,6 @@
 .welcome-article
   height: 100%
+  overflow: hidden
 
 .welcome-article__inner
   display: block
@@ -10,7 +11,11 @@
   padding: 1rem
 
 .welcome-article__title
-  +text-block(1rem 1.4, 700 $default-text)
+  +text-block(1.125rem 1.4, 700 $default-text)
   text-decoration: none
   .welcome-article__inner:hover &
     text-decoration: underline
+
+.welcome-article__description
+  margin-top: .75rem
+  +text-block(.875rem 1.6, $semi-muted-text)
