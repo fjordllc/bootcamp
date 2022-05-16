@@ -1,7 +1,9 @@
 .welcome-header-nav
-  +media-breakpoint-up(md)
+  +media-breakpoint-up(lg)
     height: 100%
     margin-left: 3rem
+  +media-breakpoint-only(md)
+    margin-left: 1.5rem
   +media-breakpoint-down(sm)
     display: none
     +position(fixed, left 0, top 0, bottom 0, 100)
@@ -24,7 +26,7 @@
     display: flex
     height: 100%
     align-items: center
-    gap: 1.75rem
+    gap: 1.25rem
   +media-breakpoint-down(sm)
     width: 15rem
     background-color: $base
@@ -41,19 +43,21 @@
 
 .welcome-header-nav__item-link
   +media-breakpoint-up(md)
-    +text-block(.875rem 1, $welcome-default-text 600 block)
+    +text-block(.875rem 1, $default-text 600 block)
     +padding(horizontal, .875rem)
     text-decoration: none
     +padding(vertical, .375rem)
     +position(relative)
     transition: all .2s ease-out
+    span
+      +position(relative, 2)
     &::before
       transition: all .2s ease-out
       content: ""
       display: block
       +size(0 100%)
       background-color: rgba($welcome-yellow, .4)
-      +position(absolute, left 50%, bottom 0, top 0, -1)
+      +position(absolute, left 50%, bottom 0, top 0, 0)
       transform: translate(-50%, 0)
       opacity: 0
       border-radius: 2rem
@@ -79,14 +83,9 @@
         border-radius: 2rem
         opacity: 1
   +media-breakpoint-down(sm)
-    +text-block(.875rem 1, $welcome-default-text 600 flex)
+    +text-block(.875rem 1, $default-text 600 flex)
     +size(100% 2.75rem)
     align-items: center
     +padding(horizontal, 1rem)
     text-decoration: none
     border-bottom: solid 1px $border
-
-.welcome-header__home-link-image
-  transition: all .2s ease-out
-  .welcome-header__home-link:hover &
-    transform: scale(.95)

@@ -1,6 +1,7 @@
 .welcome-section
-  +padding(vertical, 3rem)
   +position(relative)
+  +media-breakpoint-up(lg)
+    +padding(vertical, 3rem)
   +media-breakpoint-down(md)
     +padding(vertical, 2rem)
   &.has-no-padding-bottom
@@ -19,8 +20,11 @@
     th
       white-space: nowrap
 
+.welcome-section__seperator
+  border-top: solid 1px $border
+
 .welcome-section__title
-  +text-block(1.875rem 1.45 0 .3em, 700 center $welcome-default-text)
+  +text-block(1.875rem 1.45 0 .3em, 700 center $default-text)
   +media-breakpoint-down(sm)
     +text-block(1.125rem 1.3 0 1rem)
     +position(relative)
@@ -40,7 +44,7 @@
       background: linear-gradient(180deg, #fdb82e 0%, #fdb82e 50%, #ef6085 50%, #ef6085 100%)
 
 .welcome-section__sub-title
-  +text-block(1.25rem 1.45 0 .8em, 700 center $welcome-default-text)
+  +text-block(1.25rem 1.45 0 .8em, 700 center $default-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -119,7 +123,8 @@
       +margin(horizontal, 0)
 
 .welcome-section__actions
-  .welcome-small-sections + &
+  .welcome-small-sections + &,
+  .welcome-section__articles + &
     margin-top: 2rem
 
 .welcome-section__actions-items
