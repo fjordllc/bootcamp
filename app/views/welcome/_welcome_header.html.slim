@@ -30,7 +30,7 @@ header.welcome-header
             = link_to faq_path, class: 'welcome-header-nav__item-link' do
               span
                 | FAQ
-          - if !current_user
+          - unless current_user
             li.welcome-header-nav__item
               = link_to new_user_path, class: 'welcome-header-nav__item-link' do
                 | 参加登録
