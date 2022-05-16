@@ -21,7 +21,7 @@
                       - if article.thumbnail.attached?
                         = image_tag article.thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
                       - else
-                        = image_tag("work-blank.svg", class: 'articles-item__image', alt: "ブログ記事のブランクアイキャッチ画像")
+                        = image_tag('work-blank.svg', class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
                     .articles-item__row
                       h2.articles-item__title
                         - if article.wip?
