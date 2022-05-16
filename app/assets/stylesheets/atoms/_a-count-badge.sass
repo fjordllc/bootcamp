@@ -8,6 +8,7 @@
   transition: all .2s ease-out
   +media-breakpoint-up(md)
     display: flex
+    height: 1.75rem
   +media-breakpoint-down(sm)
     display: block
     min-width: 2.25em
@@ -20,15 +21,16 @@ a.a-count-badge
 .a-count-badge__label
   font-size: .625rem
   color: $default-text
-  padding: .25em
   +media-breakpoint-up(md)
     border-right: solid 1px $border-shade
     display: flex
     align-items: center
     justify-content: center
-    width: 2rem
+    width: auto
+    +padding(horizontal, .5rem)
   +media-breakpoint-down(sm)
     border-bottom: solid 1px $border-shade
+    +padding(vertical, .25rem)
 
 .a-count-badge__value
   font-size: 1em
