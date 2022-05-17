@@ -1,0 +1,26 @@
+.a-icon-square
+  $a-icon-square__bc: $base
+  +flex-link
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  color: $default-text
+  +size(100%)
+  +padding(horizontal, .5rem)
+  transition: all .2s ease-out
+  &:hover
+    background-color: shade($a-icon-square__bc, 12%)
+    +position(relative)
+  &:focus,
+  &:active
+    background-color: shade($a-icon-square__bc, 12%)
+    +position(relative)
+
+label.a-icon-square
+  cursor: pointer
+
+.a-icon-square__icon
+  +text-block(null, center block)
+
+.a-icon-square__label
+  +text-block(.385em 1.3 .5em -.83em, center block)

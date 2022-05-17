@@ -1,0 +1,23 @@
+
+=position-list($value1, $value2, $value3, $value4, $value5, $value6)
+  $values: $value1 $value2 $value3 $value4 $value5 $value6
+  @each $value in $values
+    @if optional_nth($value, 2)
+      #{nth($value, 1)}: nth($value, 2)
+    @else if unitless_number($value)
+      z-index: nth($value, 1)
+    @else
+      position: $value
+
+// +position(absolute, left 0, top 0, right 0, bottom 0, 2)
+=position($value1: null, $value2: null, $value3: null, $value4: null, $value5: null, $value6: null)
+  +position-list($value1, $value2, $value3, $value4, $value5, $value6)
+
+=top($position, $z-index: null)
+  +position(relative, top $position, $z-index)
+=bottom($position, $z-index: null)
+  +position(relative, bottom $position, $z-index)
+=left($position, $z-index: null)
+  +position(relative, left $position, $z-index)
+=right($position, $z-index: null)
+  +position(relative, right $position, $z-index: null)

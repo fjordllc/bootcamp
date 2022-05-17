@@ -1,0 +1,15 @@
+.m-article-header
+  margin-bottom: vr(13)
+  .m-article-meta
+    font-size: fz(3)
+    margin-top: 1em
+
+.m-article-header__row
+  .m-article-header__row + &
+    margin-top: .75rem
+
+.m-article-header__title
+  +media-breakpoint-up(md)
+    +text-block(fz(8) 1.4, 700)
+  +media-breakpoint-down(sm)
+    +text-block(fz(6) 1.4, 700)

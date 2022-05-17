@@ -1,0 +1,75 @@
+.a-button
+  +button-base
+
+  // color
+  &.is-primary
+    +button-color($primary)
+  &.is-secondary
+    +button-color($secondary)
+  &.is-info
+    +button-color($info)
+  &.is-success
+    +button-color($success)
+  &.is-warning
+    +button-color($warning)
+  &.is-danger
+    +button-color($danger)
+  &.is-disabled
+    +button-color($disabled)
+    pointer-events: none
+
+  // border-color
+  &.is-border-primary
+    +button-border-color($primary)
+  &.is-border-secondary
+    +button-border-color($muted-text)
+  &.is-border-info
+    +button-border-color($info)
+  &.is-border-success
+    +button-border-color($success)
+  &.is-border-warning
+    +button-border-color($warning)
+  &.is-border-danger
+    +button-border-color($danger)
+  &.is-border-disabled
+    +button-border-color($disabled)
+    pointer-events: none
+
+  // 3d-color
+  &.is-3d-primary
+    +button-3d-color($primary)
+  &.is-3d-secondary
+    +button-3d-color($secondary)
+  &.is-3d-info
+    +button-3d-color($info)
+  &.is-3d-success
+    +button-3d-color($success)
+  &.is-3d-warning
+    +button-3d-color($warning)
+  &.is-3d-danger
+    +button-3d-color($danger)
+  &.is-3d-disabled
+    +button-3d-color($disabled)
+    pointer-events: none
+
+  //size
+  &.is-xs
+    +button-size(fz(1), 1, 2em)
+    font-weight: 600
+  &.is-sm
+    +button-size(fz(2), 1.25, .6875)
+    font-weight: 600
+  &.is-md
+    +button-size(fz(3), 1, 2.75rem)
+    font-weight: 600
+  &.is-lg
+    +button-size(fz(5), 1, .4)
+    font-weight: 600
+  &.is-xl
+    +button-size(fz(6), .625, .2)
+    font-weight: 700
+
+  &.is-icon
+    +padding(horizontal, .5em)
+    i
+      font-size: 1.125em

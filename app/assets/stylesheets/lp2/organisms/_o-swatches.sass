@@ -1,0 +1,27 @@
+.o-swatches
+  flex: auto
+
+.o-swatches__header
+  padding: .75rem
+  text-transform: capitalize
+
+.o-swatches__title
+  margin-bottom: 50px
+  font-size: inherit
+  font-weight: 600
+
+.o-swatches__item
+  padding: 12px
+  display: block
+  font-weight: bold
+
+.o-swatches
+  @each $color, $value in colorMap($baseColors, 10)
+    .u-bgc-#{$color}
+      background-color: $value
+      color: if(luma($value) > 40, $default-text, $reversal-text)
+      &::before
+        content: "#{$value}"
+        font-family: monospace
+        float: right
+        text-transform: uppercase

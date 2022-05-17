@@ -1,0 +1,34 @@
+.m-lg-price
+  display: inline-flex
+  align-items: baseline
+  justify-content: center
+  +media-breakpoint-up(md)
+    +position(relative, top -.15em)
+  +media-breakpoint-down(sm)
+    flex-wrap: wrap
+
+.m-lg-price__time
+  font-size: .5em
+  font-weight: 700
+  +media-breakpoint-up(md)
+    +position(relative, top -.0625em)
+    margin-right: .25em
+  +media-breakpoint-down(sm)
+    flex-basis: 100%
+    margin-bottom: .5em
+
+.m-lg-price__unit
+  font-size: .8125em
+  align-self: flex-start
+
+.m-lg-price__number
+  +text-block(1em .75em, 700)
+  span
+    +margin(horizontal, -.0625em)
+    font-weight: 400
+
+.m-lg-price__tax
+  font-size: .375em
+  font-weight: 700
+  +position(relative, top -.0625em)
+  margin-left: .25em

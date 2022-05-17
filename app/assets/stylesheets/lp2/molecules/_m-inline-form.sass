@@ -1,0 +1,18 @@
+$m-inline-form-font-size: .875rem !default
+
+.m-inline-form
+  display: flex
+  font-size: $m-inline-form-font-size
+  .a-text-input,
+  .a-form-select
+    font-size: 1rem
+
+.m-inline-form__items
+  +flex-grid(1.5em)
+  margin-bottom: -1em
+  .m-inline-form-item
+    margin-bottom: 1em
+
+.m-inline-form__actions
+  .m-inline-form__items + &
+    margin-left: 1em

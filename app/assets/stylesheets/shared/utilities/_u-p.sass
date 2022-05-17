@@ -1,0 +1,47 @@
+$base-size: .25rem
+$size-count: 20
+$rem: strip_unit($rem)
+
+=generate-padding($breakpoint-scope: false, $base-size: $base-size, $size-count: $size-count)
+  @for $i from 0 through $size-count
+    $px: strip_unit($i * $base-size * $rem)
+    $padding: $i * $base-size
+    @if $breakpoint-scope == false
+      .u-p-#{$px}#{if($px != 0, px, null)}
+        padding: $padding
+      .u-pt-#{$px}#{if($px != 0, px, null)}
+        padding-top: $padding
+      .u-pr-#{$px}#{if($px != 0, px, null)}
+        padding-right: $padding
+      .u-pb-#{$px}#{if($px != 0, px, null)}
+        padding-bottom: $padding
+      .u-pl-#{$px}#{if($px != 0, px, null)}
+        padding-left: $padding
+      .u-pt-vr-#{$i}
+        padding-top: vr($i)
+      .u-pb-vr-#{$i}
+        padding-bottom: vr($i)
+    @else
+      .#{$breakpoint-scope}\:u-p-#{$px}#{if($px != 0, px, null)}
+        padding: $padding
+      .#{$breakpoint-scope}\:u-pt-#{$px}#{if($px != 0, px, null)}
+        padding-top: $padding
+      .#{$breakpoint-scope}\:u-pr-#{$px}#{if($px != 0, px, null)}
+        padding-right: $padding
+      .#{$breakpoint-scope}\:u-pb#{$px}#{if($px != 0, px, null)}
+        padding-bottom: $padding
+      .#{$breakpoint-scope}\:u-pl#{$px}#{if($px != 0, px, null)}
+        padding-left: $padding
+      .#{$breakpoint-scope}\:u-pt-vr-#{$i}
+        padding-top: vr($i)
+      .#{$breakpoint-scope}\:u-pb-vr-#{$i}
+        padding-bottom: vr($i)
+
++generate-padding(false)
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    +generate-padding($breakpoint)
+  +media-breakpoint-down(#{$breakpoint})
+    +generate-padding($breakpoint + "-down")
+  +media-breakpoint-up(#{$breakpoint})
+    +generate-padding($breakpoint + "-up")

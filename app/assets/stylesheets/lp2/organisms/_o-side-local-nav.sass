@@ -1,0 +1,21 @@
+.o-side-local-nav
+  +media-breakpoint-up(md)
+    border-right: solid 1px $border-shade
+  +media-breakpoint-down(sm)
+    margin: -2rem -1rem 0
+    background-color: #e7ebef
+  .m-list__item
+    +text-block(fz(3) 1.4)
+    &:not(:first-child)
+      +media-breakpoint-up(md)
+        margin-top: vr(4)
+      +media-breakpoint-down(sm)
+        .a-text-link
+          border-top: solid 1px $border
+  .a-text-link
+    color: $default-text
+    +media-breakpoint-down(sm)
+      +flex-link
+      +padding(horizontal, 1rem)
+      height: 2.75rem
+      align-items: center

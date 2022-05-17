@@ -1,5 +1,16 @@
 .welcome-page-header
-  background-color: $welcome-blue
+  background-color: $main
+  background-image: linear-gradient(45deg, $main, #4e66da)
+  position: relative
+  &::before
+    content: ""
+    display: block
+    background-image: image_url("lp/background.svg")
+    +position(absolute, left 0, bottom 0, right 0, top 0, 1)
+    background-repeat: repeat
+    background-size: 20rem
+    +size(100%)
+    opacity: .05
 
 .welcome-page-header__inner
   display: flex

@@ -1,0 +1,43 @@
+$base-size: .25rem
+$size-count: 20
+$rem: strip_unit($rem)
+
+=generate-height($breakpoint-scope: false, $base-size: $base-size, $size-count: $size-count)
+  @for $i from 0 through $size-count
+    $px: strip_unit($i * $base-size * $rem)
+    $height: $i * $base-size
+    @if $breakpoint-scope == false
+      .u-h-#{$px}#{if($px != 0, px, null)}
+        height: $height
+      .u-mxh-#{$px}#{if($px != 0, px, null)}
+        max-height: $height
+      .u-mih-#{$px}#{if($px != 0, px, null)}
+        min-height: $height
+      .u-h-vr-#{$i}
+        height: $height
+      .u-mxh-vr-#{$i}
+        max-height: $height
+      .u-mih-vr-#{$i}
+        min-height: $height
+    @else
+      .#{$breakpoint-scope}\:u-h-#{$px}#{if($px != 0, px, null)}
+        height: $height
+      .#{$breakpoint-scope}\:u-mah-#{$px}#{if($px != 0, px, null)}
+        max-height: $height
+      .#{$breakpoint-scope}\:u-mih-#{$px}#{if($px != 0, px, null)}
+        min-height: $height
+      .#{$breakpoint-scope}\:u-h-vr-#{$i}#{if($px != 0, px, null)}
+        height: $height
+      .#{$breakpoint-scope}\:u-mah-vr-#{$i}#{if($px != 0, px, null)}
+        max-height: $height
+      .#{$breakpoint-scope}\:u-mih-vr-#{$i}#{if($px != 0, px, null)}
+        min-height: $height
+
++generate-height(false)
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    +generate-height($breakpoint)
+  +media-breakpoint-down(#{$breakpoint})
+    +generate-height($breakpoint + "-down")
+  +media-breakpoint-up(#{$breakpoint})
+    +generate-height($breakpoint + "-up")

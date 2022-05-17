@@ -1,12 +1,9 @@
 section.welcome-section.is-administrator#administrator
   .container.is-xxl
     h2.welcome-section__title
-      = image_tag('administrator-title.svg', alt: '運営会社', class: 'welcome-section__title-image')
+      | 運営会社
     h3.welcome-section__sub-title
       | 株式会社フィヨルド
-    .welcome-section__description
-      p
-        | 東京の渋谷にある株式会社フィヨルドという会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
 
     // メンターのデータを入れた後、tempは削除
     = render 'welcome/mentors', mentors: mentors

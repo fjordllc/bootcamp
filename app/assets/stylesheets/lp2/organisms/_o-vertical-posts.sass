@@ -1,0 +1,23 @@
+.o-vertical-medias
+  .m-media-attributes__col
+    &:not(:first-child)
+      margin-left: 1em
+  .m-medias-media
+    font-size: 1.125rem
+    border: solid 1px $border
+  a.m-medias-media
+    +block-hover
+    &:hover
+      +position(relative)
+  .m-medias-media:first-child
+    +border-radius(top, .25rem)
+  .m-medias-media:last-child
+    +border-radius(bottom, .25rem)
+  .m-medias-media:not(:first-child)
+    margin-top: -1px
+  .m-media-attributes__list
+    font-size: .875rem
+  .m-media-attributes
+    padding: .75rem 1rem
+  .m-media-attributes__image
+    +size(4em)

@@ -1,0 +1,28 @@
+.a-form-select
+  height: 2.25rem
+  border: solid 1px $border
+  border-radius: .25rem
+  display: inline-flex
+  +position(relative)
+  background-color: #f8f8f8
+  transition: all .2s ease-out
+  &::before
+    +fa(fas "\f0d7")
+    +position(absolute, right 0, top 0, bottom 0)
+    display: flex
+    align-items: center
+    justify-content: center
+    padding-right: .75em
+  select
+    +size(100%)
+    cursor: pointer
+    padding: .5em 2em .5em .5em
+    +position(relative, 1)
+    transition: all .2s ease-out
+  &.is-block
+    display: flex
+    width: 100%
+  &:hover
+    border-color: $primary
+    box-shadow: 0 0 .25rem rgba($primary, .8)
+    background-color: $base

@@ -1,0 +1,17 @@
+@each $colorName, $value in colorMap($baseColors, 10)
+  .u-bgc-#{$colorName}
+    background-color: $value
+
+@each $colorName, $value in colorMap($baseColors, 10)
+  .u-c-#{$colorName}
+    color: $value
+  .hover:\u-c-#{$colorName}
+    &:hover
+      color: $value
+  .active:\u-c-#{$colorName}
+    &:hover
+      color: $value
+
+@each $colorName, $value in colorMap($baseColors, 10)
+  .u-bdc-#{$colorName}
+    border-color: $value

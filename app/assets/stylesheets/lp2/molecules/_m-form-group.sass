@@ -1,0 +1,22 @@
+.m-form-group
+  margin-bottom: -.5rem
+
+.m-form-group__items
+  display: flex
+  align-items: center
+  +margin(horizontal, -.25rem)
+  flex-wrap: wrap
+  margin-bottom: -.5rem
+  padding-bottom: .5rem
+
+.m-form-group__item
+  +padding(horizontal, .25rem)
+  display: flex
+  align-self: center
+  padding-bottom: .5rem
+  &.is-unit
+    align-self: flex-end
+    padding-right: .75em
+  &.is-symbol
+    align-self: center
+    +padding(horizontal, .5rem)

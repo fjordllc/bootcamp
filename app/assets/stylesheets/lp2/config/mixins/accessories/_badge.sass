@@ -1,0 +1,33 @@
+=badge-base
+  text-transform: none
+  display: inline-flex
+  border: solid 1px
+  border-radius: 1em
+  font-family: system-ui, sans-serif
+  white-space: nowrap
+  text-decoration: none
+  align-items: center
+  justify-content: center
+  vertical-align: middle
+  &:not(:first-child)
+    margin-left: .1875em
+  &:not(:last-child)
+    margin-right: .1875em
+
+=badge-color($color)
+  background-color: $color
+  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  color: $text-color
+  border-color: if(luma($color) > 80, shade($color, 18%), $color)
+
+=badge-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
+  font-size: $font-size
+  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  @if unitless_number($vertical)
+    $height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
+    line-height: calc(#{$height} - 2px)
+  @else
+    height: $vertical
+  body.is-ie11 &
+    @if unitless_number($vertical)
+      line-height: 1.4

@@ -1,0 +1,23 @@
+.m-basic-form
+  .m-form-item
+    &:not(:last-child)
+      margin-bottom: vr(6)
+  .m-check-list
+    margin-top: vr(1)
+  .a-form-label
+    +text-block(fz(3) 1.4)
+    margin-bottom: vr(1)
+
+.m-form-item__end
+  .a-form-help
+    +text-block(fz(2) 1.6 vr(2))
+
+.m-basic-form__items
+  margin-bottom: vr(6)
+
+.m-basic-form__actions
+  +flex-grid(1em, wrap, center)
+  .m-form-action
+    flex: 1
+    +media-breakpoint-up(md)
+      max-width: 20rem

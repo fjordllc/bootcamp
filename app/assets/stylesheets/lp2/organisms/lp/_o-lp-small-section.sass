@@ -1,0 +1,17 @@
+.o-lp-small-section__row
+  .o-lp-small-section__row + &
+    margin-top: 1rem
+
+.o-lp-small-section__title
+  +media-breakpoint-up(md)
+    +text-block(fz(6) 1.4, 700)
+  +media-breakpoint-down(sm)
+    +text-block(fz(5) 1.4, 700)
+
+.o-lp-small-section__price
+  text-align: center
+  .m-lg-price
+    +media-breakpoint-up(md)
+      +text-block(fz(9))
+    +media-breakpoint-down(sm)
+      +text-block(fz(8))

@@ -3,15 +3,25 @@
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 
-= render 'welcome/main_visual'
+= render '/lp/welcome/main_visual'
 //= render 'welcome/welcome_top_info'
+
+.t-lp__contents
+  .m-lp-content
+    .l-container
+      .m-lp-content__inner
+        .m-lp-content__body
+          = render '/lp/plus_strength'
 
 .welcome-sections
   = render 'welcome/campaign' if Campaign.today_campaign?
+  hr.welcome-section__seperator
   = render 'welcome/about'
   = render 'welcome/pricing'
   = render 'welcome/tutorials'
+  hr.welcome-section__seperator
   = render 'welcome/eligibility'
+  hr.welcome-section__seperator
   = render 'welcome/process'
 
   section.welcome-section.is-substance
@@ -37,3 +47,16 @@
   = render 'welcome/articles'
   hr.welcome-section__seperator
   = render 'welcome/administrator', mentors: @mentors
+
+.t-lp__contents
+  = render '/lp/welcome/features'
+  hr.a-hr-border
+  = render '/lp/welcome/mentors'
+  hr.a-hr-border
+  = render '/lp/welcome/articles'
+  hr.a-hr-border
+  = render '/lp/welcome/lerning_procedure'
+  hr.a-hr-border
+  = render '/lp/welcome/practices'
+  hr.a-hr-border
+  = render '/lp/welcome/price'

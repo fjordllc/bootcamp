@@ -1,0 +1,9 @@
+.o-static-page-body__inner
+  +media-breakpoint-up(md)
+    +padding(vertical, vr(16))
+  +media-breakpoint-down(sm)
+    +padding(vertical, vr(8))
+
+.o-static-page-body__row
+  .o-static-page-body__row + &
+    margin-top: vr(12)
