@@ -195,6 +195,14 @@ ja:
         end_at: 終了日時
         title: タイトル
         trial_period: お試し期間
+      regular_event:
+        title: タイトル
+        description: 詳細
+        start_at: 開始時間
+        end_at: 終了時間
+        wday: 開催日
+        open_end_at: 募集終了日時
+        organizer: 主催者
     enums:
       user:
         job:

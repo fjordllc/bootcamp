@@ -1,0 +1,61 @@
+.event.page-content
+  header.page-content-header
+    .page-content-header__end
+      .page-content-header__row
+        h1.page-content-header__title(class="#{regular_event.wip? ? 'is-wip' : ''}")
+          - if regular_event.wip?
+            span.a-title-label.is-wip
+              | WIP
+          = regular_event.title
+
+      .page-content-header__row
+        .page-content-header-metas
+          .page-content-header-metas__start
+            .page-content-header-metas__meta
+              = link_to regular_event.user, class: 'a-user-name' do
+                = regular_event.user.long_name
+            .page-content-header-metas__meta
+              .a-meta
+                time.a-meta__value(datetime="#{regular_event.created_at.to_datetime}" pubdate='pubdate')
+                  = l regular_event.updated_at
+          .page-content-header-metas__end
+            .page-content-header-metas__meta
+              - length = regular_event.comments.length
+              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                | コメント（
+                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                  = length
+                | ）
+
+      .page-content-header__row
+        .page-content-header-actions
+          .page-content-header-actions__start
+            .page-content-header-actions__action
+              #js-watch-toggle(data-watchable-id="#{@regular_event.id}", data-watchable-type='RegularEvent')
+          .page-content-header-actions__end
+            .page-content-header-actions__action
+              = link_to new_regular_event_path(id: regular_event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
+                i.fa-solid.fa-copy
+                | コピー
+
+  = render('regular_event_meta', regular_event: regular_event)
+
+  .a-card
+    .card-header.is-sm
+      h2.card-header__title
+        | イベント内容
+    .card__description
+      .a-long-text.is-md.js-markdown-view
+        = regular_event.description
+    = render 'reactions/reactions', reactionable: regular_event
+    - if admin_or_mentor_login? || regular_event.user_id == current_user.id
+      .card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to edit_regular_event_path(regular_event), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
+                i.fa-solid.fa-pen#new
+                | 内容修正
+            li.card-main-actions__item.is-sub
+              = link_to regular_event_path(regular_event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                | 削除する

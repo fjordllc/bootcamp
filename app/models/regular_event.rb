@@ -29,6 +29,10 @@ class RegularEvent < ApplicationRecord
 
   columns_for_keyword_search :title, :description
 
+  def organizers
+    users.with_attached_avatar.order('organizers.created_at')
+  end
+
   private
 
   def end_at_be_greater_than_start_at
