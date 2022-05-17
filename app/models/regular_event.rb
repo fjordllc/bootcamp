@@ -16,7 +16,7 @@ class RegularEvent < ApplicationRecord
   validates :end_at, presence: true
   validates :wday, presence: true
 
-  after_create EventCallbacks.new
+  after_create RegularEventCallbacks.new
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
