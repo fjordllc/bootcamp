@@ -1,0 +1,63 @@
+= render 'errors', object: regular_event
+= form_with model: regular_event, local: true, html: { name: 'regular_event' } do |f|
+  .form__items
+    .form__items-inner
+      .form-item
+        = f.label :title, class: 'a-form-label'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :organizer, class: 'a-form-label'
+        .select-users
+          = f.select(:user_ids, users_name, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })
+      .form-item
+        = f.label :wday, class: 'a-form-label'
+        = f.text_field :wday, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :start_at, class: 'a-form-label'
+        = f.time_field :start_at, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :end_at, class: 'a-form-label'
+        = f.time_field :end_at, class: 'a-text-input js-warning-form'
+
+      .form-item
+        .row.js-markdown-parent
+
+      .form-item
+        label.a-form-label
+          | 定期イベント内容
+        .checkboxes
+          ul.checkboxes__items
+            li.checkboxes__item
+              = f.check_box :hold_national_holiday, class: 'a-toggle-checkbox js-warning-form'
+              = f.label :hold_national_holiday do
+                | 祝日も開催する場合はチェック
+            li.checkboxes__item
+              = f.check_box :finished, class: 'a-toggle-checkbox js-warning-form'
+              = f.label :finished do
+                | イベントが終了した場合はチェック
+  .form__items
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'a-form-label'
+          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label
+            | プレビュー
+          .js-preview.a-long-text.markdown-form__preview
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit 'WIP', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        - if regular_event.new_record?
+          = f.submit '作成', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+        - else
+          = f.submit '内容変更', class: 'a-button is-lg is-warning is-block', id: 'js-shortcut-submit'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', regular_events_path, class: 'a-button is-md is-secondary is-block'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', regular_event_path, class: 'a-button is-md is-secondary is-block'
