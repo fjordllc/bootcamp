@@ -54,7 +54,8 @@ class RegularEventsController < ApplicationController
       :hold_national_holiday,
       :start_at,
       :end_at,
-      :wday
+      :wday,
+      user_ids: []
     )
   end
 
@@ -81,12 +82,11 @@ class RegularEventsController < ApplicationController
 
   def copy_regular_event(new_event)
     regular_event = RegularEvent.find(params[:id])
-    new_event.title       = regular_event.title
+    new_event.title = regular_event.title
     new_event.description = regular_event.description
     new_event.finished = regular_event.finished
     new_event.hold_national_holiday = regular_event.hold_national_holiday
     new_event.start_at = regular_event.start_at
-    new_event.start_at = regular_event.start_at    
     new_event.end_at = regular_event.end_at
     new_event.wday = regular_event.wday
 
