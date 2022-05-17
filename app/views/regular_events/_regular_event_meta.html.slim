@@ -1,0 +1,27 @@
+.event-meta.a-card
+  .event-meta__inner
+    dl.event-meta__items
+      .event-meta__item
+        dt.event-meta__item-label
+          | 主催者
+        dd.event-meta__item-value
+          ul.user-icons__items
+            - regular_event.organizers.each do |organizer|
+              li.user-icons-item
+                = link_to organizer do
+                  = image_tag organizer.avatar_url, title: organizer.icon_title, class: "a-user-icon is-sm is-#{organizer.login_name} is-#{organizer.primary_role}", alt: organizer.login_name
+      .event-meta__item
+        dt.event-meta__item-label
+          | 開催日
+        dd.event-meta__item-value
+          | #{regular_event.wday}
+      .event-meta__item
+        dt.event-meta__item-label
+          | 開催時間
+        dd.event-meta__item-value
+          | #{l regular_event.start_at, format: :time_only} 〜 #{l regular_event.end_at, format: :time_only}
+      .event-meta__item
+        dt.event-meta__item-label
+          | 祝日
+        dd.event-meta__item-value
+          | #{regular_event.hold_national_holiday ? '開催します' : '開催しません'}
