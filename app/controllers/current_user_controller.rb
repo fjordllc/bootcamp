@@ -19,7 +19,7 @@ class CurrentUserController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(
+    user_attribute = [
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
       :description, :job_seeking, :discord_account,
@@ -30,7 +30,9 @@ class CurrentUserController < ApplicationController
       :nda, :avatar, :trainee,
       :mail_notification, :job_seeker, :tag_list,
       :after_graduation_hope, :training_ends_on
-    )
+    ]
+    user_attribute.push(:retired_on, :graduated_on, :free, :github_collaborator) if current_user.admin?
+    params.require(:user).permit(user_attribute)
   end
 
   def set_user
