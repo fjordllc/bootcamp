@@ -17,11 +17,17 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then(() => {
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
           this.$store.dispatch('setCheckable', {
             checkableId: checkableId,
             checkableType: checkableType
           })
+          if (json.message) {
+            this.toast(json.message)
+          }
         })
         .catch((error) => {
           console.warn(error)
