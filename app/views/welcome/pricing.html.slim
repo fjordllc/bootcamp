@@ -14,10 +14,16 @@ ruby:
   .container.is-md
     .welcome-small-section
       .welcome-small-sections__title
-        h2.welcome-section__price
-          .welcome-section__price-period 月額
-          .welcome-section__price-number 29,800
-          .welcome-section__price-unit 円
+        .o-lp-price
+          .m-lg-price
+            .m-lg-price__time
+              | 月額
+            .m-lg-price__unit
+              i.fas.fa-yen-sign
+            .m-lg-price__number
+              | 29<span>,</span>800
+            .m-lg-price__tax
+              | 税込
       .welcome-section__description
         p
           | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。

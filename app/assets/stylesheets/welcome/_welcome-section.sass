@@ -6,11 +6,6 @@
     +padding(vertical, 2rem)
   &.has-no-padding-bottom
     padding-bottom: 0
-  &.is-pricing
-    background-color: tint($welcome-pink, 40%)
-    +padding(vertical, 2.25rem)
-    +media-breakpoint-down(md)
-      +padding(vertical, 2rem)
   &.is-substance
     background-color: #b4dbfd
     +padding(vertical, 2.25rem)
@@ -19,9 +14,6 @@
   .tos
     th
       white-space: nowrap
-
-.welcome-section__seperator
-  border-top: solid 1px $border
 
 .welcome-section__title
   color: $default-text
@@ -54,32 +46,6 @@
     font-size: 1rem
   &.is-reversal
     color: $reversal-text
-
-.welcome-section__price
-  display: flex
-  justify-content: center
-  margin-top: .25em
-  &.is-index
-    +margin(vertical, .25em .75em)
-  +media-breakpoint-up(md)
-    font-size: 1.75rem
-  +media-breakpoint-down(sm)
-    font-size: 1.375rem
-
-.welcome-section__price-number
-  font-size: 2.5em
-  +margin(horizontal, .125em)
-  font-family: 'Lato', sans-serif
-
-.welcome-section__price-period
-  font-size: 1em
-  align-self: flex-start
-  margin-top: .25em
-
-.welcome-section__price-unit
-  font-size: 1em
-  align-self: flex-end
-  margin-bottom: .25em
 
 .welcome-section__title-image
   max-width: 33rem

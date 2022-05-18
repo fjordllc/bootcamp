@@ -12,51 +12,51 @@
       .m-lp-content__inner
         .m-lp-content__body
           = render '/lp/plus_strength'
-
-.welcome-sections
+  - if Campaign.today_campaign?
+    hr.a-hr-border
   = render 'welcome/campaign' if Campaign.today_campaign?
-  hr.welcome-section__seperator
-  = render 'welcome/about'
-  = render 'welcome/pricing'
+  hr.a-hr-border
+  = render '/lp/welcome/features'
+  hr.a-hr-border
+  = render '/lp/welcome/price'
+  hr.a-hr-border
   = render 'welcome/tutorials'
-  hr.welcome-section__seperator
+  hr.a-hr-border
   = render 'welcome/eligibility'
-  hr.welcome-section__seperator
+  hr.a-hr-border
   = render 'welcome/process'
 
   section.welcome-section.is-substance
     .container.is-xxl
-      h2.welcome-section__title
-        | フィヨルドブートキャンプの<br>中身を見てみよう！
-      .welcome-section__description
-        p
-          | 実際にどうやって学習を進めるの？
-          | 学習アプリってどんな画面？
-          | わからないときはどうやって質問するの？
-          | どんなイベントが開催されてる？
-          | 学習アプリを受講者が開発してるって本当？
-          | ...などについて書いています。
-          | これを読めば、フィヨルドブートキャンプに入会するとどんなことが
-          | 待っているかわかりますので、ぜひ見てみてください。
-      .welcome-section__actions
-        .welcome-section__actions-items
-          .welcome-section__actions-item
-            = link_to article_path(34), class: 'a-welcome-button is-md' do
-              | 中身を見てみる
+      .m-lp-content__header
+        h2.m-lp-content__title
+          | フィヨルドブートキャンプの<br>中身を見てみよう！
+      .m-lp-content__body
+        .m-lp-content__row
+          .welcome-section__description
+            p
+              | 実際にどうやって学習を進めるの？
+              | 学習アプリってどんな画面？
+              | わからないときはどうやって質問するの？
+              | どんなイベントが開催されてる？
+              | 学習アプリを受講者が開発してるって本当？
+              | ...などについて書いています。
+              | これを読めば、フィヨルドブートキャンプに入会するとどんなことが
+              | 待っているかわかりますので、ぜひ見てみてください。
+        .m-lp-content__row
+          .welcome-section__actions
+            .welcome-section__actions-items
+              .welcome-section__actions-item
+                = link_to article_path(34), class: 'a-welcome-button is-md' do
+                  | 中身を見てみる
 
-  = render 'welcome/articles'
-  hr.welcome-section__seperator
+  = render '/lp/welcome/articles'
+  hr.a-hr-border
   = render 'welcome/administrator', mentors: @mentors
 
 .t-lp__contents
-  = render '/lp/welcome/features'
-  hr.a-hr-border
   = render '/lp/welcome/mentors'
-  hr.a-hr-border
-  = render '/lp/welcome/articles'
   hr.a-hr-border
   = render '/lp/welcome/lerning_procedure'
   hr.a-hr-border
   = render '/lp/welcome/practices'
-  hr.a-hr-border
-  = render '/lp/welcome/price'

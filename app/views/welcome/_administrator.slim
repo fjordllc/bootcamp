@@ -1,12 +1,15 @@
 section.welcome-section.is-administrator#administrator
   .container.is-xxl
-    h2.welcome-section__title
-      | 運営会社
-    h3.welcome-section__sub-title
-      | 株式会社フィヨルド
-
+    .m-lp-content__header
+      h2.m-lp-content__title
+        | メンター・顧問が
+        br
+        | 全力でバックアップ
+      h3.m-lp-content__sub-title
+        | 全員現役プログラマー、自慢のメンバーです
     // メンターのデータを入れた後、tempは削除
     = render 'welcome/mentors', mentors: mentors
+
 
     section.welcome-child-section
       h3.welcome-child-section__title
