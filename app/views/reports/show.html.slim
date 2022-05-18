@@ -37,8 +37,8 @@ header.page-header
             .page-content-header__end
               .page-content-header__row
                 .page-content-header__before-title
-                  = link_to @report.user, class: 'a-user-name', title: @report.user.name do
-                    = @report.user.login_name
+                  = link_to @report.user, class: 'a-user-name' do
+                    = @report.user.long_name
                 h1.page-content-header__title(class="#{@report.wip? ? 'is-wip' : ''}")
                   - if @report.emotion.present?
                     span.page-content-header__emotion
