@@ -19,7 +19,7 @@ class API::ChecksController < API::BaseController
       @check.save!
       render json: {}, status: :created
     else
-      render json: { message: "この日報は確認済です。" }, status: :unprocessable_entity
+      render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
     end
   end
 
