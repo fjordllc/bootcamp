@@ -52,4 +52,24 @@ class Check::ReportsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert_text '日報でcomment+確認OKにするtest'
   end
+
+  test 'display error message when checking confirmed report' do
+    using_session :mentormentaro do
+      visit_with_auth "/reports/#{reports(:report15).id}", 'mentormentaro'
+    end
+
+    using_session :komagata do
+      visit_with_auth "/reports/#{reports(:report15).id}", 'komagata'
+    end
+
+    using_session :mentormentaro do
+      click_button '日報を確認'
+      assert_text '確認済'
+    end
+
+    using_session :komagata do
+      click_button '日報を確認'
+      assert_text 'この日報は確認済です'
+    end
+  end
 end
