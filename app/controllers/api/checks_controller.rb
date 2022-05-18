@@ -10,18 +10,22 @@ class API::ChecksController < API::BaseController
   end
 
   def create
-    @check = Check.new(
-      user: current_user,
-      checkable: checkable
-    )
+    if checkable.checks.empty?
+      @check = Check.new(
+        user: current_user,
+        checkable: checkable
+      )
 
-    @check.save!
-    head :created
+      @check.save!
+      render json: {}, status: :created
+    else
+      render json: { message: "この日報は確認済です。" }, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @check = Check.find(params[:id]).destroy
-    head :no_content
+    render json: {}, status: :ok
   end
 
   private
