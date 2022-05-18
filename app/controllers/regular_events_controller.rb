@@ -22,8 +22,9 @@ class RegularEventsController < ApplicationController
   def create
     @regular_event = RegularEvent.new(regular_event_params)
     @regular_event.user = current_user
+    set_wip
     if @regular_event.save
-      redirect_to @regular_event, notice: notice_message
+      redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :new
     end
@@ -32,8 +33,9 @@ class RegularEventsController < ApplicationController
   def edit; end
 
   def update
+    set_wip
     if @regular_event.update(regular_event_params)
-      redirect_to @regular_event, notice: notice_message
+      redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :edit
     end
@@ -71,12 +73,16 @@ class RegularEventsController < ApplicationController
     @regular_event.footprints.create_or_find_by(user: current_user) if @regular_event.user != current_user
   end
 
-  def notice_message
+  def set_wip
+    @regular_event.wip = (params[:commit] == 'WIP')
+  end
+
+  def notice_message(regular_event)
     case params[:action]
     when 'create'
-      '定期イベントを作成しました。'
+      regular_event.wip? ? '定期イベントをWIPとして保存しました。' : '定期イベントを作成しました。'
     when 'update'
-      '定期イベントを更新しました。'
+      regular_event.wip? ? '定期イベントをWIPとして保存しました。' : '定期イベントを更新しました。'
     end
   end
 
