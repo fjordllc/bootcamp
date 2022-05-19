@@ -364,8 +364,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '卒業済'
   end
 
-  test 'change job seeking flag when click update button after checked job seeking' do
-    Capybara.disable_animation = true
+  test 'change job seeking flag when click toggle button' do
     user = users(:jobseeker)
 
     visit_with_auth talk_path(user.talk), 'komagata'
