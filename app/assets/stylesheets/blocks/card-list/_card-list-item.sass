@@ -1,10 +1,11 @@
 .card-list-item
+  position: relative
   &:not(:last-child)
     border-bottom: solid 1px $border-tint
   +media-breakpoint-up(md)
-    padding: .5rem 1rem
+    padding: .75rem 1rem
   +media-breakpoint-down(sm)
-    padding: .5rem .75rem
+    padding: .75rem
 
 .card-list-item__icon
   font-size: 1.25rem
@@ -32,10 +33,10 @@
 
 .card-list-item__assignee
   +media-breakpoint-up(md)
-    +position(absolute, right -.5rem, top -.25rem)
+    +position(absolute, right .5rem, top .5rem)
     width: 8rem
   +media-breakpoint-down(sm)
-    margin-top: .75rem
+    margin-top: .5rem
 
 .card-list-item__assignee-button.a-button
   border: dashed 1px $muted-text

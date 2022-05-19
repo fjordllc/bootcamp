@@ -1,0 +1,24 @@
+aside.bootcamp-ad
+  .container.is-md
+    = link_to root_path, class: 'a-card' do
+      .bootcamp-ad__inner
+        header.bootcamp-ad__header
+          h3.bootcamp-ad__title
+            | 現場の即戦力になれるプログラミングスクール
+        .bootcamp-ad__body.a-short-text
+          = image_tag 'pjord-face.svg',
+            alt: 'フィヨルドブートキャンプのキャラクターピヨルドの顔画像',
+            class: 'bootcamp-ad__image'
+          p
+            | フィヨルドブートキャンプは、
+            | プログラマーとして就職を目指せるスキルを
+            | 「プロの現場でプラス戦力として数えられるプログラマー」とし、
+            | それを身につけることを目標とした
+            | オンラインプログラミングスクールです。
+            br
+            | プログラミング未経験からスタートして、
+            | HTML、CSS、Linux、Ruby、Rails、JavaScript、チーム開発を経て、
+            | 自作サービスを公開するまでのカリキュラムを用意しています。
+          p
+            button.a-button.is-primary.is-lg.is-block
+              | 詳細はこちら

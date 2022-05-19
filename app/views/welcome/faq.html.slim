@@ -1,8 +1,9 @@
 - content_for :extra_body_classes, 'welcome'
 - title 'FAQ'
 
-.welcome-page-header
-  .container.is-xl
-    h1.welcome-page-header__title
-      = image_tag('faq-page-title.svg', class: 'welcome-page-header__title-image')
+header.welcome-page-header
+  .container.is-xxl
+    .welcome-page-header__inner
+      h1.welcome-page-header__title
+        | FAQ
 = render 'faq'

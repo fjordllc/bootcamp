@@ -1,0 +1,42 @@
+.articles-item
+  +media-breakpoint-up(md)
+    height: 100%
+
+.articles-item__link
+  +block-link
+  padding: 1rem
+  &:hover
+    .articles-item__title
+      text-decoration: underline
+
+.articles-item__row
+  &:not(:first-child)
+    margin-top: .5rem
+
+.articles-item__image
+  display: block
+  border-radius: 4px
+
+.articles-item__title
+  +text-block(1.125rem 1.4, $default-text 700)
+  .articles-item.is-wip &
+    color: $muted-text
+
+.articles-item__metas
+  display: flex
+
+.articles-item__meta:not(:first-child)
+  margin-left: .75rem
+
+.articles-item__author
+  display: flex
+  align-items: center
+  +text-block(.8125rem 1.4, $default-text)
+  img
+    +size(1.125rem)
+    object-fit: cover
+    margin-right: .25rem
+    border-radius: 50%
+
+.articles-item__published-at
+  +text-block(.8125rem 1.4, $semi-muted-text)

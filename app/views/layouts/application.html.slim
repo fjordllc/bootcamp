@@ -26,16 +26,16 @@ html.is-application lang='ja'
     = stylesheet_link_tag 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap', media: 'all'
     = render '/head/fontawsome'
     = content_for(:head_last) if content_for?(:head_last)
-  body#body class="#{body_class}"
+  body.application.is-lerning#body class="#{body_class}"
     = render 'google_tag_manager_body'
     - if display_global_nav?
       = render 'global_nav'
     .wrapper
       - if display_header?
-        = render 'header'
+        = render 'application/header/header'
       = render 'flash'
       main.page
         = yield
       - if display_footer?
-        = render 'footer'
+        = render 'application/footer/footer'
     = any_login_here if defined?(AnyLogin)

@@ -1,0 +1,57 @@
+section.welcome-section.is-articles#articles
+  .container.is-xxl
+    h2.welcome-section__title
+      | 注目のブログ記事
+    .welcome-section__description
+      p
+        | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
+        | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
+        | ぜひ、検討材料にご活用ください。
+    .welcome-section__articles
+      .row.is-gutter-width-32
+        .col-xs-12.col-md-4
+          .welcome-article.a-card
+            = link_to 'https://bootcamp.fjord.jp/articles/38', class: 'welcome-article__inner' do
+              = image_tag 'articles/article-38.png', class: 'welcome-article__image'
+              .welcome-article__body
+                h3.welcome-article__title
+                  | 「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しました
+                .welcome-article__description
+                  p
+                    | 「ゼロからわかるRuby超入門」著者五十嵐さん本人による講義動画を製作しました。
+                    | フィヨルドブートキャンプに入会した方は全員見ることができます。
+                    | 1章あたりおよそ1時間の講義で、環境構築以外の2章〜11章の講義動画があります。
+
+        .col-xs-12.col-md-4
+          .welcome-article.a-card
+            = link_to 'https://bootcamp.fjord.jp/articles/46', class: 'welcome-article__inner' do
+              = image_tag 'articles/article-46.png', class: 'welcome-article__image'
+              .welcome-article__body
+                h3.welcome-article__title
+                  | 卒業生の kasumi さん、ima1zumi さんにインタビューをしました
+                .welcome-article__description
+                  p
+                    | 株式会社永和システムマネジメントさんに就職したフィヨルドブートキャンプの卒業生、
+                    | kasumi さんと ima1zumi さんにインタビューをさせていただきました。
+                    | フィヨルドブートキャンプで大変だったこと、今プログラマーになって役立っていることなどを
+                    | 聞かせていただきました。
+
+        .col-xs-12.col-md-4
+          .welcome-article.a-card
+            = link_to 'https://bootcamp.fjord.jp/articles/44', class: 'welcome-article__inner' do
+              = image_tag 'articles/article-44.png', class: 'welcome-article__image'
+              .welcome-article__body
+                h3.welcome-article__title
+                  | フィヨルドブートキャンプアドベントカレンダー
+                .welcome-article__description
+                  p
+                    | 毎年12月は受講生、メンター、アドバイザー...フィヨルドブートキャンプコミュニティに関わっているみんなで
+                    | クリスマスに向けてブログ記事を書く、というのが毎年恒例です。
+                    | フィヨルドブートキャンプコミュニティに関わるみんなの記事が一気に見れるので、
+                    | フィヨルドブートキャンプの中のことがよくわかります。
+
+    .welcome-section__actions
+      .welcome-section__actions-items
+        .welcome-section__actions-item
+          = link_to articles_path, class: 'a-welcome-button is-md' do
+            | ブログ記事一覧
