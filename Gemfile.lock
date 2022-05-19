@@ -444,6 +444,13 @@ GEM
     slim_lint (0.22.1)
       rubocop (>= 0.78.0)
       slim (>= 3.0, < 5.0)
+    slimcop (0.17.0)
+      slimi (>= 0.5.1)
+      templatecop
+    slimi (0.7.2)
+      temple
+      thor
+      tilt
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -473,6 +480,10 @@ GEM
     strings-ansi (0.2.0)
     stripe (7.1.0)
     syntax_suggest (0.0.1)
+    templatecop (0.3.0)
+      parallel
+      parser
+      rubocop (>= 0.87)
     temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.11)
@@ -593,6 +604,7 @@ DEPENDENCIES
   selenium-webdriver
   slim-rails
   slim_lint
+  slimcop
   sorcery (~> 0.16.2)
   sorcery-jwt
   spring

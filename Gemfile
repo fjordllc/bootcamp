@@ -88,6 +88,7 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'slim_lint'
   gem 'view_source_map'
+  gem 'slimcop'
 end
 
 group :test do
