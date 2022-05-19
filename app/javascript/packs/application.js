@@ -75,6 +75,7 @@ import '../users-answers.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
+import '../regular-events.js'
 import VueMounter from '../VueMounter.js'
 const vueMounter = new VueMounter()
 vueMounter.mount()

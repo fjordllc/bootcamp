@@ -1,0 +1,17 @@
+- title '定期イベント'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | 定期イベント作成
+
+= render 'events/tabs'
+
+#js-regular-events
