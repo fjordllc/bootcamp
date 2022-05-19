@@ -365,23 +365,19 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'change job seeking flag when click update button after checked job seeking' do
+    Capybara.disable_animation = true
     user = users(:jobseeker)
+
     visit_with_auth talk_path(user.talk), 'komagata'
 
-    element_input = find(:xpath, "//*[@id='user_job_seeking']", :visible => false)
+    #binding.pry
+    #save_and_open_page
 
-    if not element_input.selected? then
-      element_label = element_input.find(:xpath, 'following-sibling::label')
-      element_label.set(true) # Expected false to be truthy.
-      # 参考 https://selenium-world.net/trouble-shooting/3069/
-    end
+    page.find(:xpath,"//*[@id='seeking-flag']/label[1]").click
+    find(:css, '.a-on-off-checkbox.is-md').click
 
-    #page.all('label[for="user_job_seeking"]', visible: false)[1].click # チェックが入らない allow_label_click: trueをつけると、Invalid option(s) :allow_label_click
-    # 参考:https://qiita.com/eitches/items/af11003941c26db30f9b#%EF%BC%92%E5%80%8B%E7%9B%AE%E4%BB%A5%E9%99%8D%E3%81%AF%E9%85%8D%E5%88%97%E3%81%8B%E3%82%89%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99
+    visit_with_auth '/', 'komagata'
 
-    #check 'user_job_seeking', allow_label_click: true, visible: false #チェックが入らないのでassertの結果がExpected false to be truthy.
-    click_button '更新する'
-
-    assert user.job_seeking
+    assert_equal 'jobseeker （就活 のぞむ）', find(:css, '#body > div.wrapper > main > div.page-body > div > div > div > div:nth-child(2) > div.a-card.is-only-mentor.is-only-adviser > div > div:nth-child(1) > div.card-list-item__inner > div.card-list-item__rows > div:nth-child(1) > header > h2 > a', visible: false).text
   end
 end
