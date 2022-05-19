@@ -108,17 +108,17 @@
       .stamp__content.is-user-name
         .stamp__content-inner
           | {{ product.checks.last_user_login_name }}
-    .card-list-item__assignee.is-only-mentor(
-      v-if='isMentor && product.checks.size == 0'
+  .card-list-item__assignee.is-only-mentor(
+    v-if='isMentor && product.checks.size == 0'
+  )
+    product-checker(
+      :checkerId='product.checker_id',
+      :checkerName='product.checker_name',
+      :checkerAvatar='product.checker_avatar',
+      :currentUserId='currentUserId',
+      :productId='product.id',
+      :parentComponent='"product"'
     )
-      product-checker(
-        :checkerId='product.checker_id',
-        :checkerName='product.checker_name',
-        :checkerAvatar='product.checker_avatar',
-        :currentUserId='currentUserId',
-        :productId='product.id',
-        :parentComponent='"product"'
-      )
 </template>
 <script>
 import ProductChecker from 'product_checker'
