@@ -31,6 +31,12 @@
   @else
     @return null
 
+@function rem($value)
+  @if number($value) and unit($value) == "rem"
+    @return true
+  @else
+    @return null
+
 @function em($value)
   @if number($value) and unit($value) == "em"
     @return true
