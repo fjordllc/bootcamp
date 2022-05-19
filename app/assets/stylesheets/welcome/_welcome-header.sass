@@ -1,5 +1,6 @@
 .welcome-header
   $border-height: .625rem
+  background-color: $base
   +position(relative)
   padding-bottom: calc(#{$border-height} * 3)
   &::before
@@ -32,9 +33,14 @@
     height: 2.75rem
 
 .welcome-header__home
-  +size(3.125rem)
+  +size(3rem)
   +media-breakpoint-down(sm)
     +size(2rem)
+
+.welcome-header__home-link-image
+  transition: all .2s ease-out
+  .welcome-header__home-link:hover &
+    transform: scale(.95)
 
 .welcome-header__login
   +position(absolute, right 0, top 50%)

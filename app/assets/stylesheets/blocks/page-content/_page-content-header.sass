@@ -16,7 +16,8 @@
     +media-breakpoint-up(md)
       +position(absolute, right 0, top -.75rem)
     +media-breakpoint-down(sm)
-      +position(absolute, right 0, top 0)
+      float: right
+      margin-left: .5rem
 
 .page-content-header__start
   +media-breakpoint-up(md)
@@ -61,9 +62,8 @@
   +text-block(1em 1.45, 700 $main)
   padding-bottom: .25rem
   border-bottom: solid 1px $border-shade
-  display: flex
   +media-breakpoint-up(md)
-    font-size: 1.5rem
+    font-size: 1.625rem
     &:not(:forst-child)
       margin-top: .25rem
   +media-breakpoint-down(sm)

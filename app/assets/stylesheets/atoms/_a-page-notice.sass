@@ -14,6 +14,11 @@
 
 .a-page-notice__inner
   +padding(vertical, .5rem)
+  +media-breakpoint-up(md)
+    text-align: center
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .75rem
   &.has-close
     padding: 0
     position: relative
