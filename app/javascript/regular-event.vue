@@ -26,11 +26,10 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               time.a-meta(:datetime='regularEvent.start_at')
-              time.a-meta(:datetime='regularEvent.end_at')
                 span.a-meta__label
                   | 開催日時
                 span.a-meta__value
-                  | {{ regularEvent.start_at_localized }} 〜 {{ regularEvent.end_at_localized }}
+                  | {{ regularEvent.wday }} {{ regularEvent.start_at_localized }} 〜 {{ regularEvent.end_at_localized }}
             .card-list-item-meta__item(v-if='regularEvent.comments_count > 0')
               .a-meta
                 | コメント（{{ regularEvent.comments_count }}）
