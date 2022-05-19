@@ -6,6 +6,8 @@
     padding: .5rem .75rem
   &:last-child
     +border-radius(bottom, .25rem)
+  .card-body + &
+    border-top: none
 
 .card-footer__description
   +text-block(.75rem 1.4 .5rem, center $muted-text)
