@@ -20,11 +20,11 @@
   hr.a-hr-border
   = render '/lp/welcome/price'
   hr.a-hr-border
-  = render 'welcome/tutorials'
+  = render '/lp/welcome/practices'
   hr.a-hr-border
   = render 'welcome/eligibility'
   hr.a-hr-border
-  = render 'welcome/process'
+  = render '/lp/welcome/lerning_procedure'
 
   section.welcome-section.is-substance
     .container.is-xxl
@@ -52,11 +52,7 @@
 
   = render '/lp/welcome/articles'
   hr.a-hr-border
-  = render 'welcome/administrator', mentors: @mentors
-
 .t-lp__contents
+  = render 'welcome/administrator', mentors: @mentors
   = render '/lp/welcome/mentors'
-  hr.a-hr-border
-  = render '/lp/welcome/lerning_procedure'
-  hr.a-hr-border
-  = render '/lp/welcome/practices'
+  = render 'welcome/administrator'
