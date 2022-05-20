@@ -35,7 +35,6 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントを作成しました。'
-    assert_text 'Watch中'
   end
 
   test 'update regular event' do

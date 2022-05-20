@@ -5,7 +5,7 @@ require 'test_helper'
 class RegularEventTest < ActiveSupport::TestCase
   test '#organizers' do
     regular_event = regular_events(:regular_event1)
-    organizers = users(:kimura)
+    organizers = users(:komagata)
     assert_includes regular_event.organizers, organizers
   end
 
