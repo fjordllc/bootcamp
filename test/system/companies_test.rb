@@ -26,11 +26,4 @@ class CompaniesTest < ApplicationSystemTestCase
       assert_link 'Techブログ', href: 'https://tech.sample.com'
     end
   end
-
-  test 'show link to companies list page' do
-    visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
-    within '.page-header-actions__item' do
-      assert_link '企業一覧', href: companies_path
-    end
-  end
 end
