@@ -129,7 +129,7 @@ class ReportsController < ApplicationController
   end
 
   def set_categories
-    @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order('categories_practices.position ASC')
+    @categories = Category.eager_load(:practices).where.not(practices: { id: nil }).order('categories_practices.position')
   end
 
   def set_wip

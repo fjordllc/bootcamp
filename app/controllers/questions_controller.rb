@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
       Category
       .eager_load(:practices)
       .where.not(practices: { id: nil })
-      .order('categories_practices.position ASC')
+      .order('categories_practices.position')
   end
 
   def question_params
