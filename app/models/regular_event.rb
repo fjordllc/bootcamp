@@ -5,8 +5,6 @@ class RegularEvent < ApplicationRecord
   include Commentable
   include Footprintable
   include Reactionable
-  include Watchable
-  include Searchable
 
   validates :title, presence: true
   validates :description, presence: true
@@ -16,8 +14,6 @@ class RegularEvent < ApplicationRecord
   validates :end_at, presence: true
   validates :wday, presence: true
 
-  after_create RegularEventCallbacks.new
-
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
@@ -25,9 +21,6 @@ class RegularEvent < ApplicationRecord
   belongs_to :user
   has_many :organizers, dependent: :destroy
   has_many :users, through: :organizers
-  has_many :watches, as: :watchable, dependent: :destroy
-
-  columns_for_keyword_search :title, :description
 
   def organizers
     users.with_attached_avatar.order('organizers.created_at')
