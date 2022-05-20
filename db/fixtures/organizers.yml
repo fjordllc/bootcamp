@@ -3,5 +3,41 @@ organizer1:
   regular_event: regular_event1
 
 organizer2:
-  user: kimura
+  user: machida
   regular_event: regular_event1
+
+organizer3:
+  user: komagata
+  regular_event: regular_event2
+
+organizer4:
+  user: machida
+  regular_event: regular_event2
+
+organizer5:
+  user: komagata
+  regular_event: regular_event3
+
+organizer6:
+  user: machida
+  regular_event: regular_event3
+
+organizer7:
+  user: kimura
+  regular_event: regular_event4
+
+organizer8:
+  user: kimura
+  regular_event: regular_event5
+
+organizer9:
+  user: kimura
+  regular_event: regular_event6
+
+organizer10:
+  user: kimura
+  regular_event: regular_event7
+
+organizer11:
+  user: kimura
+  regular_event: regular_event8
