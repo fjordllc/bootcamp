@@ -323,7 +323,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '卒業 1日'
   end
 
-  test 'if the number of days it took to graduate is negative, the value is not be displayed.' do
+  test 'if the number of days it took to graduate is negative, the value is not displayed.' do
     user = users(:sotugyou)
     user.update!(created_at: Time.zone.today, graduated_on: Time.zone.today - 1, job: 'office_worker')
     visit_with_auth "/users/#{user.id}", 'sotugyou'
