@@ -176,19 +176,17 @@
                 | WIP
             li.card-main-actions__item
               button.a-button.is-sm.is-primary.is-block(
+                v-if='question.wip',
                 @click='updateQuestion(false)',
                 :disabled='!validation',
                 type='button'
-              )(
-                v-if='question.wip'
               )
                 | 質問を公開
               button.a-button.is-sm.is-primary.is-block(
+                v-else,
                 @click='updateQuestion(false)',
                 :disabled='!validation',
                 type='button'
-              )(
-                v-else
               )
                 | 更新する
             li.card-main-actions__item.is-sub
