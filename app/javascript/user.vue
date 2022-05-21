@@ -37,7 +37,7 @@
                       .a-meta
                         | {{ user.name }}
                     .card-list-item-meta__item
-                      a.a-meta(v-if='user.times_url' :href='user.times_url')
+                      a.a-meta(v-if='user.times_url', :href='user.times_url')
                         .a-meta__icon
                           i.fa-brands.fa-discord
                         | {{ user.discord_account }}
