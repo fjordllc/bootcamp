@@ -87,4 +87,49 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
     assert_no_selector '.page-tabs__item-count.a-notification-count'
   end
+
+  test 'The number of unreplied comments is not displayed in the global navigation when mentor visit page' do
+    visit_with_auth root_path, 'mentormentaro'
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
+
+    talk_id = users(:with_hyphen).talk.id
+    visit_with_auth "/talks/#{talk_id}", 'komagata'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+
+    visit_with_auth root_path, 'mentormentaro'
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
+  end
+
+  test 'The number of unreplied comments is not displayed in the global navigation when advisor visit page' do
+    visit_with_auth root_path, 'advijirou'
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
+
+    talk_id = users(:with_hyphen).talk.id
+    visit_with_auth "/talks/#{talk_id}", 'komagata'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+
+    visit_with_auth root_path, 'advijirou'
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
+  end
+
+  test 'The number of unreplied comments is not displayed in the global navigation when student visit page' do
+    visit_with_auth root_path, 'kimura'
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
+
+    talk_id = users(:with_hyphen).talk.id
+    visit_with_auth "/talks/#{talk_id}", 'komagata'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+
+    visit_with_auth root_path, 'kimura'
+    assert_no_selector '.page-tabs__item-count.a-notification-count'
+  end
 end
