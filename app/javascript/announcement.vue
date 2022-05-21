@@ -25,7 +25,7 @@
           .card-list-item-meta__item
             .a-meta(v-if='announcement.wip')
               | {{ title }}作成中
-            time.a-meta(v-else datetime='announcement.published_at_date_time')
+            time.a-meta(v-else, datetime='announcement.published_at_date_time')
               span.a-meta__label
                 | 公開
               span.a-meta__value

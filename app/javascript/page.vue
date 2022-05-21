@@ -34,7 +34,10 @@
             .card-list-item-meta__item
               .a-meta(v-if='page.wip')
                 | Doc作成中
-              time.a-meta(v-else-if='page.published_at' :datetime='page.published_at.to_datetime')
+              time.a-meta(
+                v-else-if='page.published_at',
+                :datetime='page.published_at.to_datetime'
+              )
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
