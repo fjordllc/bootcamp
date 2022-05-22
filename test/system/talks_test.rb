@@ -369,7 +369,7 @@ class TalksTest < ApplicationSystemTestCase
 
     visit_with_auth talk_path(user.talk), 'komagata'
 
-    check "就職活動中", allow_label_click: true
+    check '就職活動中', allow_label_click: true
     assert user.reload.job_seeking
   end
 end
