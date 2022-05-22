@@ -375,4 +375,22 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問をWIPとして保存しました。'
     assert_no_match 'Message to Discord.', mock_log.to_s
   end
+
+  test 'link to the question should appear and work correctly' do
+    visit_with_auth new_question_path, 'kimura'
+    fill_in 'question[title]', with: 'Questionに関連プラクティスを指定'
+    fill_in 'question[description]', with: 'Questionに関連プラクティスを指定'
+
+    click_button '登録する'
+    assert_text 'Questionに関連プラクティスを指定'
+
+    visit questions_path
+    within first('.card-list-item-title__title') do
+      assert_text 'Questionに関連プラクティスを指定'
+    end
+    within first('.card-list-item-sub-title') do
+      assert_text 'OS X Mountain Lionをクリーンインストールする'
+    end
+    assert_link 'OS X Mountain Lionをクリーンインストールする'
+  end
 end
