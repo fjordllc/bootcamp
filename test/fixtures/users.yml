@@ -416,7 +416,6 @@ jobseeker: #就活希望するユーザー
   facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://example.org
   description: "フィヨルドからの就職希望してます！"
-  os: mac
   course: course1
   job: office_worker
   experience: rails

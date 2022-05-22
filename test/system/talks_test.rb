@@ -365,16 +365,11 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'change job seeking flag when click toggle button' do
-    user = users(:jobseeker)
+    user = users(:hajime) # job_seekerはos:を持っていないためエラーになる
 
     visit_with_auth talk_path(user.talk), 'komagata'
 
     check "就職活動中", allow_label_click: true
-    save_and_open_page
-    visit_with_auth '/', 'komagata'
     assert user.reload.job_seeking
-
-    #assert_equal 'jobseeker （就活 のぞむ）', find(:css, '#body > div.wrapper > main > div.page-body > div > div > div > div:nth-child(2) > div.a-card.is-only-mentor.is-only-adviser > div > div:nth-child(1) > div.card-list-item__inner > div.card-list-item__rows > div:nth-child(1) > header > h2 > a', visible: false).text
-    save_and_open_page
   end
 end
