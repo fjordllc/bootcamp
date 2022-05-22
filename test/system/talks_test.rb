@@ -369,14 +369,12 @@ class TalksTest < ApplicationSystemTestCase
 
     visit_with_auth talk_path(user.talk), 'komagata'
 
-    #binding.pry
-    #save_and_open_page
-
-    page.find(:xpath,"//*[@id='seeking-flag']/label[1]").click
-    find(:css, '.a-on-off-checkbox.is-md').click
-
+    check "就職活動中", allow_label_click: true
+    save_and_open_page
     visit_with_auth '/', 'komagata'
+    assert user.reload.job_seeking
 
-    assert_equal 'jobseeker （就活 のぞむ）', find(:css, '#body > div.wrapper > main > div.page-body > div > div > div > div:nth-child(2) > div.a-card.is-only-mentor.is-only-adviser > div > div:nth-child(1) > div.card-list-item__inner > div.card-list-item__rows > div:nth-child(1) > header > h2 > a', visible: false).text
+    #assert_equal 'jobseeker （就活 のぞむ）', find(:css, '#body > div.wrapper > main > div.page-body > div > div > div > div:nth-child(2) > div.a-card.is-only-mentor.is-only-adviser > div > div:nth-child(1) > div.card-list-item__inner > div.card-list-item__rows > div:nth-child(1) > header > h2 > a', visible: false).text
+    save_and_open_page
   end
 end
