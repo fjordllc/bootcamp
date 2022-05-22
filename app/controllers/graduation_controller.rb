@@ -8,9 +8,9 @@ class GraduationController < ApplicationController
       Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
 
       notify_to_mentors(@user)
-      redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
+      redirect_to @redirect_url, notice: 'ユーザー情報を更新しました。'
     else
-      redirect_to admin_users_url, alert: 'ユーザー情報の更新に失敗しました'
+      redirect_to @redirect_url, alert: 'ユーザー情報の更新に失敗しました'
     end
   end
 
@@ -18,6 +18,7 @@ class GraduationController < ApplicationController
 
   def set_user
     @user = User.find(params[:user_id])
+    @redirect_url = params[:redirect_url].presence || admin_users_url
   end
 
   def notify_to_mentors(user)
