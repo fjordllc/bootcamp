@@ -12,7 +12,7 @@ class API::PracticesController < API::BaseController
     @categories = @categories
                   .eager_load(:practices)
                   .where.not(practices: { id: nil })
-                  .order('categories.position ASC, categories_practices.position ASC')
+                  .order('categories_practices.position')
   end
 
   def update
