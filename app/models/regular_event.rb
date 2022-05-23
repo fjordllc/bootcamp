@@ -32,6 +32,6 @@ class RegularEvent < ApplicationRecord
     diff = end_at - start_at
     return unless diff <= 0
 
-    errors.add(:end_at, ': 定期イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+    errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
   end
 end
