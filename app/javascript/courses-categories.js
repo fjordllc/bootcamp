@@ -1,20 +1,20 @@
-import Vue from 'vue'
-import CoursesCategories from 'courses-categories.vue'
+import Sortable from 'sortablejs'
+import Bootcamp from 'bootcamp'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '#js-courses-categories'
-  const coursesCategories = document.querySelector(selector)
-  if (coursesCategories) {
-    const allCoursesCategories = coursesCategories.getAttribute(
-      'data-courses-categories'
-    )
-    new Vue({
-      render: (h) =>
-        h(CoursesCategories, {
-          props: {
-            allCoursesCategories: allCoursesCategories
-          }
+  const element = document.querySelector('#js-category-sortable')
+  if (!element) { return null }
+
+  Sortable.create(element, {
+    handle: '.js-grab',
+    onEnd(event) {
+      const id = event.item.dataset.courses_category_id
+      const params = { insert_at: event.newIndex + 1 }
+
+      Bootcamp.patch(`/api/courses_categories/${id}/position.json`, params)
+        .catch((error) => {
+          console.warn(error)
         })
-    }).$mount(selector)
-  }
+    }
+  })
 })

@@ -30,6 +30,7 @@
     "pug-plain-loader": "^1.0.0",
     "select2": "^4.0.7-rc.0",
     "set-value": "^4.0.1",
+    "sortablejs": "^1.15.0",
     "sweetalert2": "^11.1.5",
     "textarea-markdown": "^1.2.9",
     "tributejs": "^5.1.3",
