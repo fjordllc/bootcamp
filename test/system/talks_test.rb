@@ -355,6 +355,15 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '一致する相談部屋はありません'
   end
 
+  test 'push guraduation button in talk room when admin logined' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    accept_confirm do
+      click_link '卒業'
+    end
+    assert_text '卒業済'
+  end
+
   test 'admin can see tabs on user talk page' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
