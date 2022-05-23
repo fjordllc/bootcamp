@@ -37,6 +37,22 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text '定期イベントを作成しました。'
   end
 
+  test 'create copy regular event' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'komagata'
+    click_link 'コピー'
+    assert_text '定期イベントをコピーしました'
+    within 'form[name=regular_event]' do
+      fill_in 'regular_event[start_at]', with: Time.current.next_day
+      fill_in 'regular_event[end_at]', with: Time.current.next_day + 2.hours
+      click_button '作成'
+    end
+    assert_text '定期イベントを作成しました。'
+    assert_text regular_event.title
+    assert_text regular_event.description
+    assert_text regular_event.wday
+  end
+
   test 'update regular event' do
     visit_with_auth edit_regular_event_path(regular_events(:regular_event1)), 'komagata'
     within 'form[name=regular_event]' do

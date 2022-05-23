@@ -95,6 +95,7 @@ class RegularEventsController < ApplicationController
     new_event.start_at = regular_event.start_at
     new_event.end_at = regular_event.end_at
     new_event.wday = regular_event.wday
+    new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'
   end
