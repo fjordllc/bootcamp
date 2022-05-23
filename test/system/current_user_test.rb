@@ -165,10 +165,10 @@ class CurrentUserTest < ApplicationSystemTestCase
     user = users(:komagata)
 
     visit_with_auth '/current_user/edit', 'komagata'
-    check 'GitHubチーム', allow_label_click: true
+    uncheck 'GitHubチーム', allow_label_click: true
 
     click_on '更新する'
 
-    assert user.reload.github_collaborator
+    assert_not user.reload.github_collaborator
   end
 end
