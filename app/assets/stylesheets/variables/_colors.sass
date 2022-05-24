@@ -84,6 +84,18 @@ $main-shade: tint($main, 90%)
   &:active
     color: #b3430b
 
+=muted-link
+  transition: color .2s ease-in
+  color: $muted-text
+  &:link
+    color: $muted-text
+  &:visited
+    color: $muted-text
+  &:hover
+    color: $danger
+  &:active
+    color: $danger
+
 $luma-contrast-bright-color: $default-text
 $luma-contrast-dark-color: $reversal-text
 $button-checked-color: $danger
