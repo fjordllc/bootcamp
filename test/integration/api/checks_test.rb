@@ -42,21 +42,21 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     post api_checks_path(format: :json),
          params: { checkable_type: @check2.checkable_type, checkable_id: @check2.checkable_id },
          headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :created
+    assert_response :unprocessable_entity
 
     # adviser login
     token = create_token('advijirou', 'testtest')
     post api_checks_path(format: :json),
          params: { checkable_type: @check3.checkable_type, checkable_id: @check3.checkable_id },
          headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :created
+    assert_response :unprocessable_entity
 
     # mentor login
     token = create_token('mentormentaro', 'testtest')
     post api_checks_path(format: :json),
          params: { checkable_type: @check4.checkable_type, checkable_id: @check4.checkable_id },
          headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :created
+    assert_response :unprocessable_entity
   end
 
   test 'DELETE /api/checks/1234.json' do
@@ -73,18 +73,18 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     token = create_token('komagata', 'testtest')
     delete api_check_path(@check2.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :ok
 
     # adviser login
     token = create_token('advijirou', 'testtest')
     delete api_check_path(@check3.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :ok
 
     # mentor login
     token = create_token('mentormentaro', 'testtest')
     delete api_check_path(@check4.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :ok
   end
 end
