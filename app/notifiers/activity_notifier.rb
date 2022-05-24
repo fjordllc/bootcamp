@@ -40,7 +40,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。!",
+      body: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
       kind: :assigned_as_checker,
       sender: product.sender,
       receiver: receiver,
