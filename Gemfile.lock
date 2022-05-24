@@ -360,9 +360,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails-i18n (7.0.1)
+    rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
-      railties (>= 6.0.0, < 8)
+      railties (>= 6.0.0, < 7)
     rails_autolink (1.1.6)
       rails (> 3.1)
     railties (6.1.4.4)
@@ -573,7 +573,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rack-user_agent
   rails (~> 6.1.4.4)
-  rails-i18n
+  rails-i18n (~> 6.0.0)
   rails_autolink
   ransack
   rollbar
