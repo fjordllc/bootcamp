@@ -1,8 +1,23 @@
 .form-item
   = f.label :os, '学習に使うマシン・OS', class: 'a-form-label is-required'
-  .a-button.is-md.is-secondary.is-select.is-block
-    - options = options_for_select(User.os.map { |k, _| [t("activerecord.enums.user.os.#{k}"), k] }, selected: f.object.os)
-    = f.select :os, options, include_blank: '- 選択してください -'
+  ul.form-item__radios
+    li.form-radio
+      = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
+      label.form-radio__label(for='mac')
+        = t('activerecord.enums.user.os.mac')
+    li.form-radio
+      = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
+      label.form-radio__label(for='mac_m1')
+        = t('activerecord.enums.user.os.mac_m1')
+    li.form-radio
+      = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
+      label.form-radio__label(for='linux')
+        = t('activerecord.enums.user.os.linux')
+    li.form-radio
+      = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
+      label.form-radio__label(for='windows_wsl2')
+        = t('activerecord.enums.user.os.windows_wsl2')
+
   .a-form-help.is-important
     h2
       | M1 Mac or Intel Mac

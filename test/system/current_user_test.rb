@@ -112,4 +112,16 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'kimura'
     assert_no_text '所属なし'
   end
+
+  test 'update os' do
+    kimura = users(:kimura)
+    visit_with_auth '/current_user/edit', 'kimura'
+    find('label', text: 'Linux').click
+
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
+
+    visit_with_auth "/users/#{kimura.id}", 'komagata'
+    assert_text 'Linux'
+  end
 end
