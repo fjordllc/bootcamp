@@ -26,7 +26,7 @@ export default {
             checkableType: checkableType
           })
           if (json.message) {
-            this.toast(json.message)
+            this.toast(json.message, 'error')
           }
         })
         .catch((error) => {
