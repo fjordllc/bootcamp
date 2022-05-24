@@ -60,7 +60,6 @@
     @if $lh
       @if rem($lh)
         line-height: $lh
-        content: "#{$lh}"
       @else
         @if em($lh)
           $lh: strip_unit($lh)
