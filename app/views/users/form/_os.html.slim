@@ -1,65 +1,85 @@
 .form-item
-  = f.label :os, '学習に使うマシン・OS', class: 'a-form-label is-required'
-  ul.form-item__radios
-    li.form-radio
-      = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
-      label.form-radio__label(for='mac')
-        = t('activerecord.enums.user.os.mac')
-    li.form-radio
-      = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
-      label.form-radio__label(for='mac_m1')
-        = t('activerecord.enums.user.os.mac_m1')
-    li.form-radio
-      = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
-      label.form-radio__label(for='linux')
-        = t('activerecord.enums.user.os.linux')
-    li.form-radio
-      = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
-      label.form-radio__label(for='windows_wsl2')
-        = t('activerecord.enums.user.os.windows_wsl2')
+  = f.label :os, '学習に使うマシン・OS を選択してください', class: 'a-form-label is-required'
+  .form-item__groups
+    .form-item-group
+      .form-item-group__header
+        .form-item-group__title
+          | Mac
+      .form-item-group__body
+        ul.form-item__radios.is-half
+          li.form-radio
+            = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
+            label.form-radio__label(for='mac')
+             .image-check
+                = image_tag('signup/os/intel', class: 'image-check__image')
+                .image-check__name
+                  = t('activerecord.enums.user.os.mac')
+          li.form-radio
+            = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
+            label.form-radio__label(for='mac_m1')
+             .image-check
+                = image_tag('signup/os/m1', class: 'image-check__image')
+                .image-check__name
+                  = t('activerecord.enums.user.os.mac_m1')
+        .form-item-group__help
+          label.a-form-help-link.is-danger(for='modal-mac')
+            span.a-form-help-link__label
+              | Intel or M1 の調べ方
+            span.a-help
+              i.fa-solid.fa-question
 
-  .a-form-help.is-important
-    h2
-      | M1 Mac or Intel Mac
-    p
-      | Mac には現在 Apple M1 チップを採用しているものと、
-      | Intel の CPU を採用しているものがあります。
-      | どちらの Mac をお使いかで手順が異なるプラクティスがあります。
-      | アドバイスをする際にその情報が必要なため、お答えいただいております。
-      br
-      label.a-form-help-link.is-danger(for='modal-mac')
-        span.a-form-help-link__label
-          | M1 Mac or Intel Mac? の調べ方
-        span.a-help
-          i.fa-solid.fa-question
-    hr.a-horizontal-dashed
-    h2
-      | Windows(WSL2)
-    p
-      | Windows で学習をする場合、WSL2 という
-      | Windows 上で Linux を動作させる仕組みをを使います。
-      | WSL2 を使うには、学習に使うパソコンが Hyper-V に
-      | 対応していることが必要です。
-      | お持ちのパソコンが Hyper-V に対応しているかどうかを
-      | 下記の方法でご確認ください。
-      br
-      label.a-form-help-link.is-danger(for='modal-win')
-        span.a-form-help-link__label
-          | Hyper-V 対応の調べ方
-        span.a-help
-          i.fa-solid.fa-question
-    hr.a-horizontal-dashed
-    h2
-      | Linux
-    p
-      | Linux 経験者であれば Linux で学習を行うことは可能ですが、
-      | Linux であるがために学習が進まなかった場合にサポートが
-      | できない場合がありますのでご注意ください。
+    .form-item-group
+      .form-item-group__header
+        .form-item-group__title
+          | Windows
+      .form-item-group__body
+        ul.form-item__radios.is-half
+          li.form-radio
+            = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
+            label.form-radio__label(for='windows_wsl2')
+             .image-check
+                = image_tag('signup/os/windows', class: 'image-check__image')
+                .image-check__name
+                  = t('activerecord.enums.user.os.windows_wsl2')
+        .form-item-group__help
+          label.a-form-help-link.is-danger(for='modal-win')
+            span.a-form-help-link__label
+              | WAL2とは？
+            span.a-help
+              i.fa-solid.fa-question
+
+    .form-item-group
+      .form-item-group__header
+        .form-item-group__title
+          | Linux
+      .form-item-group__body
+        ul.form-item__radios.is-half
+          li.form-radio
+            = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
+            label.form-radio__label(for='linux')
+             .image-check
+                = image_tag('signup/os/linux', class: 'image-check__image')
+                .image-check__name
+                  = t('activerecord.enums.user.os.linux')
+        .form-item-group__help
+          label.a-form-help-link.is-danger(for='modal-linux')
+            span.a-form-help-link__label
+              | 注意
+            span.a-help
+              i.fa-solid.fa-question
+
 = render '/shared/modal',
   id: 'modal-mac',
-  modal_title: '🍏 M1 Mac or Intel Mac? の調べ方'
+  modal_title: 'Mac で学習をする場合'
   .modal__description.is-md
-    .a-short-text
+    .a-long-text
+      p
+        | Mac には現在 Apple M1 チップを採用しているものと、
+        | Intel の CPU を採用しているものがあります。
+        | どちらの Mac をお使いかで手順が異なるプラクティスがあります。
+        | アドバイスをする際にその情報が必要なため、お答えいただいてます。
+      h2
+        | 自分の Mac は M1 Mac なのか、もしくは Intel Mac なのか？の調べ方
       p
         | Mac の画面の左上にあるリンゴマーク > 「この Mac について」の順に選択します。
       p
@@ -67,27 +87,55 @@
       p
         | すると、このようなポップアップウインドウが表示されます。
       p
-        | 矢印で示した部分に、
-        br
-        | 「チップ」という項目があり、「Apple M1」 とあれば、M1 Mac です。
-        br
-        | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、Intel Mac です。
-      p
         = image_tag 'signup/about-mac-popup.jpg',
           alt: 'この Mac についてのポップアップウインドウのキャプチャ'
+      p
+        | 矢印で示した部分に、
+      ul
+        li
+          | 「チップ」という項目があり、「Apple M1」 とあれば、<b>M1 Mac</b> です。
+        li
+          | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、<b>Intel Mac</b> です。
+
 = render '/shared/modal',
   id: 'modal-win',
-  modal_title: 'Hyper-V対応の調べ方'
+  modal_title: 'Windows で学習をする場合'
   .modal__description.is-md
-    .a-short-text
-      p スタートボタンの右にある検索欄に「タスクマネージャー」を入力してタスクマネージャーを立ち上げます。
-      p = image_tag 'https://i.gyazo.com/53e17941316c04a75dbd7b953ccc7a3a.png'
-      p 「パフォーマンス」タブを選択します。
-      p 右下の「仮想化」の部分が「有効」になっていればHyper-Vに対応しています。
-      p = image_tag 'https://i.gyazo.com/de5e34f289843201d2246be964c26864.png'
+    .a-long-text
+      p
+        | Windows で学習をする場合、WSL2 という
+        | Windows 上で Linux を動作させる仕組みをを使います。
+        | WSL2 を使うには、学習に使うパソコンが Hyper-V に
+        | 対応していることが必要です。
+        | お持ちのパソコンが Hyper-V に対応しているかどうかを
+        | 下記の方法でご確認ください。
+      h2
+        | Hyper-V対応の調べ方
+      p
+        | スタートボタンの右にある検索欄に「タスクマネージャー」を入力してタスクマネージャーを立ち上げます。
+      p
+        = image_tag 'https://i.gyazo.com/53e17941316c04a75dbd7b953ccc7a3a.png'
+      p
+        | 「パフォーマンス」タブを選択します。
+      p
+        | 右下の「仮想化」の部分が「有効」になっていればHyper-Vに対応しています。
+      p
+        = image_tag 'https://i.gyazo.com/de5e34f289843201d2246be964c26864.png'
       p
         span(style="color:red")
           | 「無効」になっている場合でもパソコンが対応してれば
           | 設定で有効にできる場合があります。
-      p 詳細は下記のページを参考にしてください。
-      p = link_to 'WSL2が使えるマシンとは？', 'https://bootcamp.fjord.jp/articles/15', target: :blank
+      p
+        | 詳細は下記のページを参考にしてください。
+      p
+        = link_to 'WSL2が使えるマシンとは？', 'https://bootcamp.fjord.jp/articles/15', target: :blank
+
+= render '/shared/modal',
+  id: 'modal-linux',
+  modal_title: 'Linux で学習をする場合'
+  .modal__description.is-md
+    .a-long-text
+      p
+        | Linux 経験者であれば Linux で学習を行うことは可能ですが、
+        | Linux であるがために学習が進まなかった場合にサポートが
+        | できない場合がありますのでご注意ください。
