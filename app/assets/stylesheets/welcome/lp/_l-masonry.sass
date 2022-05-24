@@ -1,0 +1,17 @@
+.l-masonry
+  +media-breakpoint-up(xl)
+    +masonry(3, 2rem)
+  +media-breakpoint-down(lg)
+    +masonry(2, 2rem)
+  +media-breakpoint-down(sm)
+    +masonry(1, 1rem)
+
+//
+  .l-masonry
+    +media-breakpoint-up(md)
+      +masonry(3, vr(8))
+
+  .l-masonry__item
+    &:not(:first-child)
+      +media-breakpoint-down(sm)
+        margin-top: vr(3)

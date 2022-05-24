@@ -1,9 +1,23 @@
-=masonry($column-count, $column-gap)
-  column-count: $column-count
-  column-gap: $column-gap
-  margin-bottom: calc(#{$column-gap} * -1)
+=masonry($columns: 3, $gutter: 2rem)
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  gap: $gutter
+  align-items: flex-start
+  margin-bottom: calc(#{$gutter} * -1)
   > *
-    margin-bottom: $column-gap
-    -webkit-column-break-inside: avoid
-    page-break-inside: avoid
-    break-inside: avoid
+    width: calc((100% / #{$columns}) - (((#{$columns} - 1) * #{$gutter}) / #{$columns}))
+    @if $columns > 1
+      margin-bottom: $gutter
+    @else
+      margin-bottom: 0
+//
+  =masonry($column-count, $column-gap)
+    column-count: $column-count
+    column-gap: $column-gap
+    margin-bottom: calc(#{$column-gap} * -1)
+    > *
+      margin-bottom: $column-gap
+      -webkit-column-break-inside: avoid
+      page-break-inside: avoid
+      break-inside: avoid

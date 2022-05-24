@@ -64,6 +64,7 @@ import '../bookmarks-edit-button.js'
 import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
 import '../modal-switcher.js'
+import '../masonry.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'

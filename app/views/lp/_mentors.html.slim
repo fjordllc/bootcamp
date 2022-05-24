@@ -1,7 +1,7 @@
 .o-lp-mentors
   .m-lp-content__row
-    .l-masonry
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+    .l-masonry.js-masonry
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '駒形 真幸',
                                    job: 'プログラマー',
                                    image: 'komagata.jpg',
@@ -13,7 +13,7 @@
             | #{link_to '株式会社フィヨルド', 'https://fjord.jp/'}の代表兼プログラマー。
             | Rubyが大好きで#{link_to '怖話'}、#{link_to 'フィヨルドブートキャンプ', 'https://bootcamp.fjord.jp/'}などを開発している。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '伊藤 淳一',
                                    job: 'プログラマー',
                                    image: 'ito.jpg',
@@ -30,7 +30,7 @@
             | 2017年11月に『#{link_to 'プロを目指す人のためのRuby入門', 'https://gihyo.jp/book/2017/978-4-7741-9397-7'}』を出版。
             | 電子書籍『#{link_to 'Everyday Rails - RSpecによるRailsテスト入門', 'https://leanpub.com/everydayrailsrspec-jp/'}』の翻訳者でもある。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '五十嵐 邦明',
                                    job: 'プログラマー',
                                    image: 'igarasi.png',
@@ -57,7 +57,7 @@
             | 『#{link_to 'パーフェクトRuby on Rails', 'https://www.amazon.co.jp/dp/B00P0UR1RU'}』、
             | 『#{link_to 'RubyとRailsの学習ガイド', 'https://booth.pm/ja/items/1312664'}』ほか。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '前田 直樹',
                                    job: 'プログラマー',
                                    image: 'maeda.jpg',
@@ -68,7 +68,7 @@
             | #{link_to '株式会社ソニックガーデン', 'https://www.sonicgarden.jp/'}所属のプログラマー。
             | VimでRubyのコードが書ける日々が幸せです。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '田中 勇一',
                                    job: 'プログラマー',
                                    image: 'tanaka.jpg',
@@ -80,7 +80,7 @@
             | プログラマとしては10年超、フリーランスとしては6年超。
             | 主にスタートアップ系企業を顧客として開発やレビュー業務をしています。名付け重要。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '柏 夏美',
                                    job: 'プログラマー',
                                    image: 'kasiwa.png',
@@ -90,7 +90,7 @@
             | #{link_to '株式会社ARROWS', 'https://arrowsinc.com/'}に所属。Railsを使った自社サービスの開発保守の担当プログラマ。
             | Rails Girls Tokyo にコーチとして参加経験あり。好きなRubyメソッドはmapです。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '角谷 信太郎',
                                    job: 'プログラマー',
                                    image: 'kakutani.jpg',
@@ -124,7 +124,7 @@
             | #{link_to '『アジャイルサムライ』', 'https://tatsu-zine.com/books/agile-samurai-ja'}、
             | #{link_to '『アジャイルな見積りと計画づくり』', 'https://www.amazon.co.jp/dp/4839924023'}など。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '多田 亜希',
                                    job: 'プログラマー',
                                    image: 'tadaaki.jpg',
@@ -138,7 +138,7 @@
             | また、業務やイベントでプログラミング未経験の方、学生インターン、
             | 新卒入社社員や実務経験の浅い社員に対してプログラミング研修を行なってきました。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '井上 夏樹',
                                    job: 'プログラマー',
                                    image: 'inoue.jpg',
@@ -150,7 +150,7 @@
             | 東京の会社でマイクロサービスの設計・開発やアーキテクチャ改善などをやっています。
             | 好きなRubyのメソッドはKernel.#pです。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '岡嵜 雄平',
                                    job: 'プログラマー',
                                    image: 'yuuu.png',
@@ -164,7 +164,7 @@
             | 過去には#{link_to 'Rails Girls Fukuoka 2nd', 'http://railsgirls.com/fukuoka.html'}のコーチや
             | #{link_to 'RubyKaigi 2019', 'https://rubykaigi.org/2019/'}のローカルオーガナイザーもしていました。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '吉次 孝太',
                                    job: 'プログラマー',
                                    image: 'yoshitsugu.jpg',
@@ -178,7 +178,7 @@
             | 技術自体ももちろんのこと、より効率よく継続的に学習ができるための方法論にも興味あり。
             | 好きなメソッドはString#each_grapheme_clusterです。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '深井 海斗',
                                    job: 'プログラマー',
                                    image: 'kaito.jpg',
@@ -192,7 +192,7 @@
             | #{link_to '平成.rb', 'https://heiseirb.connpass.com/'}の運営に携わっていたことがあります。
             | 好きなRubyのメソッドはEnumerable#all?です。
 
-      .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '梅本 祥平',
                                    job: 'プログラマー',
                                    image: 'cafedomancer.jpg',
@@ -205,7 +205,7 @@
             | 普段は Rails を中心とした技術支援を業務として行っている。
             | フィヨルドブートキャンプでは受講生の方とのペアプロやモブプロを主に担当。
 
-      .l-masonry__item.md-up:u-col-4.sm-down:u-col-12
+      .l-masonry__item.js-masonry__item
         = render 'lp/welcome/mentor', name: '町田 哲平',
                                    job: 'デザイナー',
                                    image: 'machida.jpg',
