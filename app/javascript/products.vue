@@ -155,7 +155,8 @@ export default {
         .then((json) => {
           if (
             location.pathname === '/products/unassigned' ||
-            location.pathname === '/products/unchecked'
+            location.pathname === '/products/unchecked' ||
+            location.pathname === '/'
           ) {
             this.productsGroupedByElapsedDays =
               json.products_grouped_by_elapsed_days
