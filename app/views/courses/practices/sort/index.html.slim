@@ -35,7 +35,21 @@ header.page-header
                     = category.description
                 .categories-item__body.a-card
                   .category-practices.js-category-practices
-                    .js-admin-category-practice(data-categories-practices="#{category.categories_practices.to_json}" data-practices="#{category.practices.to_json}")
+                    .js-admin-category-practice
+                      - category.categories_practices.each do |categories_practice|
+                        .category-practices-item.js-practice(
+                          data-categories_practice_id="#{categories_practice.id}"
+                          data-practice_id="#{categories_practice.practice.id}"
+                        )
+                          a.category-practices-item__anchor
+                          header.category-practices-item__header
+                            .category-practices-item__title
+                              .category-practices-item__title-link
+                                | #{categories_practice.practice.position}　
+                                = categories_practice.practice.title
+                            .category-practices-item__grab
+                              span.a-grab.js-grab
+                                i.fa-solid.fa-align-justify
 
         nav.page-nav
           ul.page-nav__items

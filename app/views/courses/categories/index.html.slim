@@ -9,9 +9,22 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | コース一覧
-
+            = link_to 'コース一覧',
+              courses_path,
+              class: 'a-button is-md is-secondary is-block is-back'
 .page-body
   .container.is-lg
-    #js-courses-categories(data-courses-categories="#{@courses_categories.to_json(include: :category)}")
+    .admin-table.is-grab
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label 名前
+            th.admin-table__label.handle 並び順
+        tbody.admin-table__items#js-category-sortable
+          - @courses_categories.each do |courses_category|
+            tr.admin-table__item(data-courses_category_id="#{courses_category.id}")
+              td.admin-table__item-value
+                = courses_category.category.name
+              td.admin-table__item-value.is-text-align-center.is-grab
+                span.js-grab.a-grab
+                  i.fa-solid.fa-align-justify
