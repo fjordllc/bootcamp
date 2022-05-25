@@ -11,14 +11,14 @@
             = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
             label.form-radio__label(for='mac')
              .image-check
-                = image_tag('signup/os/intel', class: 'image-check__image')
+                = image_tag('signup/os/intel.svg', class: 'image-check__image')
                 .image-check__name
                   = t('activerecord.enums.user.os.mac')
           li.form-radio
             = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
             label.form-radio__label(for='mac_m1')
              .image-check
-                = image_tag('signup/os/m1', class: 'image-check__image')
+                = image_tag('signup/os/m1.svg', class: 'image-check__image')
                 .image-check__name
                   = t('activerecord.enums.user.os.mac_m1')
         .form-item-group__help
@@ -38,7 +38,7 @@
             = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
             label.form-radio__label(for='windows_wsl2')
              .image-check
-                = image_tag('signup/os/windows', class: 'image-check__image')
+                = image_tag('signup/os/windows.svg', class: 'image-check__image')
                 .image-check__name
                   = t('activerecord.enums.user.os.windows_wsl2')
         .form-item-group__help
@@ -58,7 +58,7 @@
             = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
             label.form-radio__label(for='linux')
              .image-check
-                = image_tag('signup/os/linux', class: 'image-check__image')
+                = image_tag('signup/os/linux.svg', class: 'image-check__image')
                 .image-check__name
                   = t('activerecord.enums.user.os.linux')
         .form-item-group__help
