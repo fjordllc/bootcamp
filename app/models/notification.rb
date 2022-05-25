@@ -232,17 +232,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def consecutive_sad_report(report, receiver)
-      Notification.create!(
-        kind: kinds[:consecutive_sad_report],
-        user: receiver,
-        sender: report.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(report),
-        message: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
-        read: false
-      )
-    end
-
     def assigned_as_checker(product, receiver)
       Notification.create!(
         kind: 16,
