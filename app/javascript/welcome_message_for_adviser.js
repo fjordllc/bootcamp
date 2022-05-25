@@ -3,14 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     .split('; ')
     .find((row) => row.startsWith('confirmed_welcome_message'))
 
-  if (welcomeMessageCookie === undefined) {
-    const selector = '.js-close-welcome-message'
-    const button = document.querySelector(selector)
+  const selector = '.js-close-welcome-message'
+  const button = document.querySelector(selector)
 
-    button.addEventListener('click', () => {
-      document.querySelector('.js-welcome-message').remove()
-      saveCookie()
-    })
+  if (welcomeMessageCookie === undefined) {
+    if (button) {
+      button.addEventListener('click', () => {
+        document.querySelector('.js-welcome-message').remove()
+        saveCookie()
+      })
+    }
   } else {
     saveCookie()
   }
