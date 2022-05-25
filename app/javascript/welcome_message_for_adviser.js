@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const selector = '.js-close-welcome-message'
   const button = document.querySelector(selector)
-  if (!button) { return null }
+  if (!button) {
+    return null
+  }
 
   if (welcomeMessageCookie === undefined) {
     button.addEventListener('click', () => {
