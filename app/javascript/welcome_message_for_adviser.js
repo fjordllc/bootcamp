@@ -5,14 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const selector = '.js-close-welcome-message'
   const button = document.querySelector(selector)
+  if (!button) { return null }
 
   if (welcomeMessageCookie === undefined) {
-    if (button) {
-      button.addEventListener('click', () => {
-        document.querySelector('.js-welcome-message').remove()
-        saveCookie()
-      })
-    }
+    button.addEventListener('click', () => {
+      document.querySelector('.js-welcome-message').remove()
+      saveCookie()
+    })
   } else {
     saveCookie()
   }
