@@ -18,4 +18,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def consecutive_sad_report(params = {})
+    params.merge!(@params)
+    report = params[:report]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
+      kind: :consecutive_sad_report,
+      sender: report.sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
+      read: false
+    )
+  end
 end
