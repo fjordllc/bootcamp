@@ -65,8 +65,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
     assert_text 'ページを更新しました。'
 
     visit_with_auth '/notifications', 'machida'
-    sleep(10)
-    save_screenshot('/Users/home-folder/fjordllc/bootcamp/tmp/screenshots/screenshot.png')
+
     within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにWIPのテストを投稿しました。'
     end
