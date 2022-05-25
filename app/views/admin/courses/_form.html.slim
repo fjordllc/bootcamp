@@ -27,8 +27,8 @@
         .checkboxes
           ul.checkboxes__items
             = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
-              = b.check_box(class: 'a-toggle-checkbox')
               li.checkboxes__item
+                = b.check_box(class: 'a-toggle-checkbox')
                 = b.label { b.text }
   .form-actions
     ul.form-actions__items
