@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::PagesTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'Only students and mentors are notified' do
     visit_with_auth '/pages', 'komagata'
     click_link 'Doc作成'
@@ -56,7 +65,8 @@ class Notification::PagesTest < ApplicationSystemTestCase
     assert_text 'ページを更新しました。'
 
     visit_with_auth '/notifications', 'machida'
-
+    sleep(10)
+    save_screenshot('/Users/home-folder/fjordllc/bootcamp/tmp/screenshots/screenshot.png')
     within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにWIPのテストを投稿しました。'
     end
