@@ -35,7 +35,7 @@ section.m-medias-media.a-card
                     i.fbc-icon-facebook
               - if defined?(qiita_id)
                 li.m-inline-icon-list__item
-                  = link_to "https://qiita.com/#{qiita_id}", class: "a-sns-icon-square-link is-qiita" do
+                  = link_to "https://qiita.com/#{qiita_id}", class: 'a-sns-icon-square-link is-qiita' do
                     i.fbc-icon-qiita
   .m-medias-media__col
     .m-media-attributes__body
@@ -45,7 +45,7 @@ section.m-medias-media.a-card
     - if defined?(books)
       .m-inline-books
         ul.m-inline-books__items
-          - books.each do | id, book |
+          - books.each do |id, book|
             li.m-inline-books__item
               = link_to book[:url], class: 'm-inline-books__item-link', target: '_blank', rel: 'noopener' do
                 = image_tag("books/#{id}.jpg", class: 'm-inline-books__item-image', alt: book[:name])
