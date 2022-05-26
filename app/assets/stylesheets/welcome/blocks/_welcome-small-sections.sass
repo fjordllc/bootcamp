@@ -93,16 +93,20 @@
       margin: 0 auto .75rem
 
 .welcome-small-section__title
-  +text-block(1.125rem 1.4 0 .7em, 600 center)
   font-feature-settings: "palt"
+  font-weight: 700
+  text-align: center
+  +media-breakpoint-up(md)
+    +text-block(fz(4) 1.5)
+    &:not(:last-child)
+      margin-bottom: vr(3)
   +media-breakpoint-down(sm)
-    font-size: 1rem
-  &:last-child
-    margin-bottom: 0
+    +text-block(fz(3) 1.5)
+    &:not(:last-child)
+      margin-bottom: vr(2)
   .welcome-small-sections.is-wide &
     text-align: left
     margin-bottom: .5em
-    font-size: 1.25rem
     +media-breakpoint-down(sm)
       text-align: center
 
@@ -122,14 +126,17 @@
   &:not(:last-child)
     margin-bottom: 1rem
   p
-    +text-block(.875rem 1.6 0 1.2em)
+    +media-breakpoint-up(md)
+      +text-block(.875rem 1.6)
+      &:not(:last-child)
+        margin-bottom:vr(4)
     +media-breakpoint-down(sm)
-      font-size: .75rem
+      +text-block(.75rem 1.6)
+      &:not(:last-child)
+        margin-bottom:vr(3)
   a
     color: #0098f9
     +hover-link-reversal
-  p:last-child
-    margin-bottom: 0
 
 .welcome-small-section__actions-items
   +media-breakpoint-up(md)

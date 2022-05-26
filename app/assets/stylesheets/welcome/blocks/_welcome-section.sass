@@ -61,7 +61,13 @@
   &.is-reversal
     color: $reversal-text
   p
-    +text-block(1em 1.6 0 1.2em)
+    +media-breakpoint-up(md)
+      +text-block(1rem 1.6)
+      margin-bottom: 1.25rem
+    +media-breakpoint-down(sm)
+      +text-block(.875rem 1.6)
+      margin-bottom: 1.125rem
+
   h3
     +text-block(1.25em 1.45 0 .5em, 700)
   ul,

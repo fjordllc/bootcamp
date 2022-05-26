@@ -27,8 +27,9 @@
   align-items: center
 
 .welcome-page-header__title
-  +text-block(1em 1.4, 600 $reversal-text)
+  font-weight: 700
+  color: $reversal-text
   +media-breakpoint-up(md)
-    font-size: 1.75rem
+    +text-block(1.75rem 1.4)
   +media-breakpoint-down(sm)
-    font-size: 1.25rem
+    +text-block(1.25rem 1.4)

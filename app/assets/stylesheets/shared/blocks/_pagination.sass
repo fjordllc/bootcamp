@@ -47,3 +47,9 @@
   .pagination__item.is-active &
     background-color: $main
     color: $reversal-text
+
+.users__items + .pagination
+  +media-breakpoint-up(md)
+    margin-top: 1rem
+  +media-breakpoint-down(sm)
+    margin-top: .5rem

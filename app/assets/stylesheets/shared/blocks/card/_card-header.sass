@@ -17,13 +17,12 @@
     margin-top: -1px
 
 .card-header__title
-  +text-block(1em 1.4, 600)
   +media-breakpoint-up(md)
-    font-size: 1rem
+    +text-block(1rem 1.4, 600)
   +media-breakpoint-down(sm)
-    font-size: .875rem
+    +text-block(.875rem 1.4, 600)
   .card-header.is-sm &
-    font-size: .875rem
+    +text-block(.875rem 1.4, 600)
 
 .card-header__count
   font-weight: 400
@@ -38,9 +37,14 @@
   +position(relative, top -.125em)
 
 .card-header__sub-title
-  +text-block(.8125rem 1.4)
+  +media-breakpoint-up(md)
+    +text-block(.8125rem 1.4)
   +media-breakpoint-down(sm)
+<<<<<<< HEAD
     font-size: .75rem
 
 .card-header__action
   display: flex
+=======
+    +text-block(.75rem 1.4)
+>>>>>>> 65a995394 (WIP)
