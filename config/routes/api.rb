@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     resources :courses_categories, only: %i() do
       resource :position, only: %i(update), controller: "courses_categories/position"
     end
+    resources :categories_practices, only: %i() do
+      resource :position, only: %i(update), controller: "categories_practices/position"
+    end
     resources :notifications, only: %i(index)
     resources :subscriptions, only: %i(index)
     resources :comments, only: %i(index create update destroy)
@@ -65,9 +68,6 @@ Rails.application.routes.draw do
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show)
-    namespace :categories_practices do
-      resources :position, only: %i(update)
-    end
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
     resources :niconico_calendars, only: %i(show)

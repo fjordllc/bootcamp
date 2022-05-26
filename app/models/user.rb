@@ -571,7 +571,7 @@ class User < ApplicationRecord
   end
 
   def practices
-    course.practices.order('categories.position', 'practices.position')
+    course.practices.order('courses_categories.position', 'practices.position')
   end
 
   def update_mentor_memo(new_memo)

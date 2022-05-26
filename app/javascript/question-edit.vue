@@ -176,19 +176,17 @@
                 | WIP
             li.card-main-actions__item
               button.a-button.is-sm.is-primary.is-block(
+                v-if='question.wip',
                 @click='updateQuestion(false)',
                 :disabled='!validation',
                 type='button'
-              )(
-                v-if='question.wip'
               )
                 | 質問を公開
               button.a-button.is-sm.is-primary.is-block(
+                v-else,
                 @click='updateQuestion(false)',
                 :disabled='!validation',
                 type='button'
-              )(
-                v-else
               )
                 | 更新する
             li.card-main-actions__item.is-sub
@@ -281,7 +279,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     fetchPractices() {
-      fetch('/api/practices.json', {
+      fetch('/api/practices.json?scoped_by_user=true', {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -306,7 +304,8 @@ export default {
               searchResultLimit: 10,
               searchPlaceholderValue: '検索ワード',
               noResultsText: '一致する情報は見つかりません',
-              itemSelectText: '選択'
+              itemSelectText: '選択',
+              shouldSort: false
             })
           }
         })

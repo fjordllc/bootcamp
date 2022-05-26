@@ -41,8 +41,17 @@
   &.is-text
     background: none
     border: none
+    font-weight: 400
     +hover-link-reversal
     +default-link
+    height: auto !important
+    padding: 0 !important
+  &.is-muted-text
+    background: none
+    border: none
+    font-weight: 400
+    +hover-link-reversal
+    +muted-link
     height: auto !important
     padding: 0 !important
 
@@ -50,7 +59,7 @@
   &.is-xxs,
   &.is-xxs input[type="submit"]
     +button-size(.625rem, 1, 1.4rem)
-    font-weight: 300
+    font-weight: 400
   &.is-xs,
   &.is-xs input[type="submit"]
     +button-size(.75rem, 1, 1.7rem)
@@ -58,15 +67,12 @@
   &.is-sm,
   &.is-sm input[type="submit"]
     +button-size(.75rem, 1.25, 2rem)
-    font-weight: 600
   &.is-md,
   &.is-md input[type="submit"]
     +button-size(.8125rem, 1.5, 2.375rem)
-    font-weight: 600
   &.is-lg,
   &.is-lg input[type="submit"]
     +button-size(1rem, 1, 2.75rem)
-    font-weight: 600
   &.is-xl,
   &.is-xl input[type="submit"]
     +button-size(1.25rem, 1, 57px)
