@@ -1,24 +1,24 @@
-import Vue from 'vue'
-import CategoriesPractice from 'categories-practice.vue'
+import Sortable from 'sortablejs'
+import Bootcamp from 'bootcamp'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selector = '.js-admin-category-practice'
-  const categories = document.querySelectorAll(selector)
-  if (categories) {
-    for (let i = 0; i < categories.length; i++) {
-      const categoriesPractices = categories[i].getAttribute(
-        'data-categories-practices'
-      )
-      const categoryPractices = categories[i].getAttribute('data-practices')
-      new Vue({
-        render: (h) =>
-          h(CategoriesPractice, {
-            props: {
-              categoriesPractices: JSON.parse(categoriesPractices),
-              categoryPractices: JSON.parse(categoryPractices)
-            }
-          })
-      }).$mount(selector)
-    }
+  const elements = document.querySelectorAll('.js-admin-category-practice')
+  if (!elements) {
+    return null
   }
+
+  elements.forEach((element) => {
+    Sortable.create(element, {
+      handle: '.js-grab',
+      onEnd(event) {
+        const id = event.item.dataset.categories_practice_id
+        const params = { insert_at: event.newIndex + 1 }
+        const url = `/api/categories_practices/${id}/position.json`
+
+        Bootcamp.patch(url, params).catch((error) => {
+          console.warn(error)
+        })
+      }
+    })
+  })
 })

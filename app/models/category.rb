@@ -7,7 +7,6 @@ class Category < ApplicationRecord
   has_many :practices, through: :categories_practices
   validates :name, presence: true
   validates :slug, presence: true
-  acts_as_list
 
   def self.category(practice:, course:)
     categories = practice.categories

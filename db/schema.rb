@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_28_133239) do
+ActiveRecord::Schema.define(version: 2022_04_18_054838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,9 +101,7 @@ ActiveRecord::Schema.define(version: 2022_03_28_133239) do
     t.string "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "position"
     t.text "description"
-    t.index ["position"], name: "index_categories_on_position"
   end
 
   create_table "categories_practices", force: :cascade do |t|
