@@ -43,7 +43,7 @@ class Admin::UsersController < AdminController
       @user = User.find(params[:id])
     else
       @user = User.find(Talk.find(params[:id]).user_id)
-      self.job_seek_update
+      job_seek_update
     end
   end
 
