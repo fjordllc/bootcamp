@@ -89,5 +89,5 @@ header.page-header
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
                 #js-reports(data-user-id="#{@user.id}" data-limit="10")
-            = form_with model: [@user, :admin], local: true, class: 'form', html: { name: 'jobseeking' } do |f|
+            = form_with model: [:admin, @user], local: true, url: admin_user_path, class: 'form', html: { name: 'jobseeking' } do |f|
               = render 'talks/seeking_switch', f: f
