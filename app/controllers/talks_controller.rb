@@ -3,8 +3,8 @@
 class TalksController < ApplicationController
   before_action :require_login, only: %i[show]
   before_action :require_admin_login, only: %i[index]
-  before_action :set_talk, only: %i[show update]
-  before_action :set_user, only: %i[show update]
+  before_action :set_talk, only: %i[show]
+  before_action :set_user, only: %i[show]
   before_action :set_members, only: %i[show]
   before_action :allow_show_talk_page_only_admin, only: %i[show]
 
@@ -14,14 +14,6 @@ class TalksController < ApplicationController
   end
 
   def show; end
-
-  def update
-    if @user.update(user_params)
-      redirect_to talk_url, notice: "#{@user.login_name}の就職活動中の情報を更新しました。"
-    else
-      redirect_to talk_url, alert: "#{@user.login_name}の就職活動中の情報を更新できませんでした。"
-    end
-  end
 
   private
 
@@ -43,9 +35,5 @@ class TalksController < ApplicationController
     @members = User.where(id: User.admins.ids.push(@talk.user_id))
                    .eager_load([:company, { avatar_attachment: :blob }])
                    .order(:id)
-  end
-
-  def user_params
-    params.require(:user).permit(:job_seeking)
   end
 end
