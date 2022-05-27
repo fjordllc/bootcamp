@@ -39,7 +39,12 @@ class Admin::UsersController < AdminController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    if Talk.find_by(id: params[:id]).nil?
+      @user = User.find(params[:id])
+    else
+      @user = User.find(Talk.find(params[:id]).user_id)
+      self.job_seek_update
+    end
   end
 
   def user_params
@@ -56,5 +61,13 @@ class Admin::UsersController < AdminController
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on
     )
+  end
+
+  def job_seek_update
+    if @user.update(user_params)
+      redirect_to talk_url, notice: "#{@user.login_name}の就職活動中の情報を更新しました。"
+    else
+      redirect_to talk_url, alert: "#{@user.login_name}の就職活動中の情報を更新できませんでした。"
+    end
   end
 end
