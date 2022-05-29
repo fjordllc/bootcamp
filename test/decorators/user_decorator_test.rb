@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class UserDecoratorTest < ActiveSupport::TestCase
+  include ActionView::TestCase::Behavior
+
   def setup
     ActiveDecorator::ViewContext.push(controller.view_context)
     @user1 = ActiveDecorator::Decorator.instance.decorate(users(:komagata))
