@@ -8,7 +8,7 @@
         i.fa-regular.fa-smile
       p.o-empty-message__text
         | {{ title }}はありません
-  div(:class="contentClassName")(v-else)
+  div(:class='contentClassName')(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .card-list.a-card(v-if='productsGroupedByElapsedDays === null')
@@ -21,7 +21,9 @@
           :isMentor='isMentor'
         )
     template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
-      .card-list.a-card(v-if='(!isDashboard || isDashboard && product_n_days_passed.elapsed_days >= 5)')
+      .card-list.a-card(
+        v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)'
+      )
         header.card-header.a-elapsed-days(
           v-if='product_n_days_passed.elapsed_days === 0'
         )
