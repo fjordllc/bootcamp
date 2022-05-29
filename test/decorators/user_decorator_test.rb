@@ -7,7 +7,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
     ActiveDecorator::ViewContext.push(controller.view_context)
     @user1 = ActiveDecorator::Decorator.instance.decorate(users(:komagata))
     @user2 = ActiveDecorator::Decorator.instance.decorate(users(:hajime))
-    @user3 =  ActiveDecorator::Decorator.instance.decorate(users(:sotugyou))
+    @user3 = ActiveDecorator::Decorator.instance.decorate(users(:sotugyou))
   end
 
   test 'staff_roles' do
