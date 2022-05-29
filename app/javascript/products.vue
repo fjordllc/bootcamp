@@ -21,7 +21,7 @@
           :isMentor='isMentor'
         )
     template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
-      .card-list.a-card
+      .card-list.a-card(v-if='(!isDashboard || isDashboard && product_n_days_passed.elapsed_days >= 5)')
         header.card-header.a-elapsed-days(
           v-if='product_n_days_passed.elapsed_days === 0'
         )
@@ -127,7 +127,10 @@ export default {
       }
     },
     contentClassName() {
-      return location.pathname === '/' ? 'is-md' : 'container is-md'
+      return this.isDashboard ? 'is-md' : 'container is-md'
+    },
+    isDashboard() {
+      return location.pathname === '/'
     }
   },
   created() {
