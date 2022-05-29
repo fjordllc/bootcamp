@@ -245,4 +245,33 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'komagata'
     assert_no_text 'ようこそ'
   end
+
+  test 'mentor can check the number of days elapsed for products.' do
+    visit_with_auth '/', 'mentormentaro'
+    assert_text '7日以上経過（6）'
+    assert_text '6日経過（1）'
+    assert_text '5日経過（1）'
+    assert_text '今日提出（48）'
+  end
+
+  test 'mentor can see a button to open to open all unassigned products' do
+    visit_with_auth '/', 'mentormentaro'
+    assert_button '未アサインの提出物を一括で開く'
+  end
+
+  test 'click on open all unassigned submissions button' do
+    visit_with_auth '/', 'mentormentaro'
+
+    click_button '未アサインの提出物を一括で開く'
+
+    within_window(windows.last) do
+      newest_product = Product
+                       .unassigned
+                       .unchecked
+                       .not_wip
+                       .ascending_by_date_of_publishing_and_id
+                       .first
+      assert_text newest_product.body
+    end
+  end
 end
