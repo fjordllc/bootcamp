@@ -8,7 +8,7 @@
         i.fa-regular.fa-smile
       p.o-empty-message__text
         | {{ title }}はありません
-  .container.is-md(v-else)
+  div(:class="contentClassName")(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .card-list.a-card(v-if='productsGroupedByElapsedDays === null')
@@ -125,6 +125,9 @@ export default {
         pageRange: 5,
         clickHandle: this.paginateClickCallback
       }
+    },
+    contentClassName() {
+      return location.pathname === '/' ? 'is-md' : 'container is-md'
     }
   },
   created() {
