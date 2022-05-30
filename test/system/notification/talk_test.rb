@@ -87,4 +87,34 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
     assert_no_selector '.page-tabs__item-count.a-notification-count'
   end
+
+  test 'The number of unreplied comments is not displayed in the global navigation when mentor visit page' do
+    user = users(:mentormentaro)
+    visit_with_auth root_path, 'mentormentaro'
+    within(:css, '.global-nav') do
+      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
+        assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
+      end
+    end
+  end
+
+  test 'The number of unreplied comments is not displayed in the global navigation when advisor visit page' do
+    user = users(:advijirou)
+    visit_with_auth root_path, 'advijirou'
+    within(:css, '.global-nav') do
+      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
+        assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
+      end
+    end
+  end
+
+  test 'The number of unreplied comments is not displayed in the global navigation when student visit page' do
+    user = users(:kimura)
+    visit_with_auth root_path, 'kimura'
+    within(:css, '.global-nav') do
+      within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
+        assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
+      end
+    end
+  end
 end
