@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     resources :reports, only: %i(index), controller: "companies/reports"
     resources :products, only: %i(index), controller: "companies/products"
   end
+  resources :books, except: %i(show)
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
