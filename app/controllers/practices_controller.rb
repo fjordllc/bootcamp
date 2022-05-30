@@ -2,8 +2,7 @@
 
 class PracticesController < ApplicationController
   before_action :require_login
-  before_action :require_admin_login, only: %i[new create]
-  before_action :require_admin_or_mentor_login, only: %i[edit update]
+  before_action :require_admin_or_mentor_login, only: %i[new create edit update]
   before_action :set_course, only: %i[new]
   before_action :set_practice, only: %i[show edit update]
 

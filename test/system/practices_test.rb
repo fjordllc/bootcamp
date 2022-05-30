@@ -81,6 +81,34 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text 'プラクティスを作成しました'
   end
 
+  test 'create practice as a mentor' do
+    visit_with_auth '/practices/new', 'mentormentaro'
+    within 'form[name=practice]' do
+      fill_in 'practice[title]', with: 'メンター: テストプラクティス'
+      check categories(:category1).name, allow_label_click: true
+      fill_in 'practice[description]', with: 'テストの内容です'
+      within '#reference_books' do
+        click_link '書籍を追加'
+        fill_in 'タイトル', with: 'テストの参考書籍タイトル'
+        fill_in '価格', with: '1234'
+        fill_in 'URL', with: 'テストの参考書籍ASIN'
+        find('.reference-books-form-item__must-read').click
+        fill_in '説明', with: 'テストの参考書籍説明'
+        find('.reference-books-form__delete-link').click # delete
+        click_link '書籍を追加'
+        fill_in 'タイトル', with: 'テストの参考書籍タイトル2'
+        fill_in '価格', with: '1234'
+        fill_in 'URL', with: 'http://example.com'
+        find('.reference-books-form-item__must-read').click
+        fill_in '説明', with: 'テストの参考書籍説明'
+      end
+      fill_in 'practice[goal]', with: 'テストのゴールの内容です'
+      fill_in 'practice[memo]', with: 'テストのメンター向けメモの内容です'
+      click_button '登録する'
+    end
+    assert_text 'プラクティスを作成しました'
+  end
+
   test 'update practice' do
     practice = practices(:practice2)
     product = products(:product3)
