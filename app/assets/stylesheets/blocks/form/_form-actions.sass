@@ -80,3 +80,16 @@
   margin-top: 1em
   font-size: .8125rem
   text-align: center
+
+.form-actions__delete
+  text-align: right
+  +media-breakpoint-up(md)
+    margin-top: .5rem
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
+
+.form-actions__delete-link
+  +hover-link-reversal
+  +text-block(.875rem 1.4, $muted-text)
+  &:hover
+    color: $danger
