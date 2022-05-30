@@ -208,4 +208,38 @@ class PagesTest < ApplicationSystemTestCase
     end
     assert_link 'Linuxのファイル操作の基礎を覚える'
   end
+
+  test 'notify to chat after create a page' do
+    visit_with_auth new_page_path, 'kimura'
+    within('.form') do
+      fill_in('page[title]', with: 'test')
+      fill_in('page[body]', with: 'test')
+    end
+
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '内容を保存'
+    end
+
+    assert_text 'ページを作成しました'
+    assert_text 'Watch中'
+    assert_match 'Message to Discord.', mock_log.to_s
+  end
+
+  test 'notify to chat after update a page' do
+    target_page = pages(:page5)
+    visit_with_auth edit_page_path(target_page), 'kimura'
+
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '内容を保存'
+    end
+
+    assert_text 'ページを更新しました'
+    assert_match 'Message to Discord.', mock_log.to_s
+  end
 end
