@@ -400,9 +400,9 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
     t.time "start_at", null: false
     t.time "end_at", null: false
     t.text "wday", null: false
+    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "wip", default: false, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
