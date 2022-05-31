@@ -28,6 +28,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
 
   test 'enrollment_period' do
     assert_equal "<span> #{@user2.elapsed_days}日目 </span><a href=\"/generations/#{@user2.generation}\">#{@user2.generation}期生</a>", @user2.enrollment_period
-    assert_equal "<span> (#{l @user3.graduated_on}卒業 #{@user3.elapsed_days}日) </span><a href=\"/generations/#{@user3.generation}\">#{@user2.generation}期生</a>", @user3.enrollment_period
+    assert_equal "<span> (#{l @user3.graduated_on}卒業 #{@user3.elapsed_days}日) </span><a href=\"/generations/#{@user3.generation}\">#{@user2.generation}期生</a>",
+                 @user3.enrollment_period
   end
 end
