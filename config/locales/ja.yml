@@ -197,6 +197,7 @@ ja:
         trial_period: お試し期間
       regular_event:
         title: タイトル
+        user_ids: 主催者
         description: 詳細
         start_at: 開始時間
         end_at: 終了時間

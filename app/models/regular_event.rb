@@ -7,12 +7,13 @@ class RegularEvent < ApplicationRecord
   include Reactionable
 
   validates :title, presence: true
-  validates :description, presence: true
-  validates :finished, inclusion: { in: [true, false] }
-  validates :hold_national_holiday, inclusion: { in: [true, false] }
+  validates :user_ids, presence: true
+  validates :wday, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
-  validates :wday, presence: true
+  validates :finished, inclusion: { in: [true, false] }
+  validates :hold_national_holiday, inclusion: { in: [true, false] }
+  validates :description, presence: true
 
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
