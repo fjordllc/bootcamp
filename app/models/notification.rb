@@ -54,17 +54,6 @@ class Notification < ApplicationRecord
   after_destroy NotificationCallbacks.new
 
   class << self
-    def came_comment(comment, receiver, message)
-      Notification.create!(
-        kind: kinds[:came_comment],
-        user: receiver,
-        sender: comment.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
-        message: message,
-        read: false
-      )
-    end
-
     def checked(check)
       Notification.create!(
         kind: kinds[:checked],
