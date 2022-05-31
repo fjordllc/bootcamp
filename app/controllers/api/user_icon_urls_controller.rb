@@ -8,7 +8,7 @@ class API::UserIconUrlsController < API::BaseController
   private
 
   def article_before_action?
-    false
+    true
   end
 
   def set_user_icon
