@@ -13,6 +13,6 @@ class API::UserIconUrlsController < API::BaseController
 
   def set_user_icon
     users = User.with_attached_avatar
-    logged_in? ? users : users.select {|test| !(test.avatar.blank?) }
+    logged_in? ? users : users.select {|user| !(user.avatar.blank?) }
   end
 end
