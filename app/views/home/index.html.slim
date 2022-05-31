@@ -40,7 +40,7 @@ header.page-header
           - if current_user.mentor?
             #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
 
-          - if current_user.pages.wip.present? || current_user.reports.wip.present? || current_user.questions.wip.present? || current_user.products.wip.present?
+          - if current_user.pages.wip.present? || current_user.reports.wip.present? || current_user.questions.wip.present? || current_user.products.wip.present? || current_user.announcements.wip.present?
             = render 'wip_items'
 
           - if current_user.active_practices.present?

@@ -11,3 +11,5 @@
       = render 'users/questions/wip_questions', user: current_user
     - if current_user.products.wip.present?
       = render 'users/products/wip_products', user: current_user
+    - if current_user.announcements.wip.present?
+      = render 'users/announcements/wip_announcements', user: current_user
