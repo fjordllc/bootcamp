@@ -9,6 +9,7 @@ class CreateRegularEvents < ActiveRecord::Migration[6.1]
       t.time :start_at, null: false
       t.time :end_at, null: false
       t.text :wday, null: false
+      t.boolean :wip, null: false, default: false
 
       t.timestamps
     end
