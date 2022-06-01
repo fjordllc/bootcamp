@@ -18,13 +18,17 @@ export default {
         body: JSON.stringify(params)
       })
         .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
           this.$store.dispatch('setCheckable', {
             checkableId: checkableId,
             checkableType: checkableType
           })
+          if (!response.ok) {
+            return response.json()
+          } else {
+            return response
+          }
+        })
+        .then((json) => {
           if (json.message) {
             this.toast(json.message, 'error')
           }
