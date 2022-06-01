@@ -359,7 +359,7 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     accept_confirm do
-      click_link '卒業'
+      click_link '卒業にする'
     end
     assert_text '卒業済'
   end

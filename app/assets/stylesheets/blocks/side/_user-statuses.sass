@@ -1,0 +1,26 @@
+.user-statuses
+  border: solid 1px $border-shade
+  padding: .75rem 1rem
+  background-color: $base
+  border-bottom: none
+  & + .a-card
+    border-radius: 0 0 4px 4px
+
+.user-statuses__actions
+  display: flex
+  align-items: center
+  gap: .75rem
+
+.user-statuses__title
+  +text-block(.8125rem 1.4, 600)
+
+.user-statuses__items
+  flex: 1
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  gap: .75rem
+
+.user-statuses__item
+  flex: 1
+  max-width: 15rem
