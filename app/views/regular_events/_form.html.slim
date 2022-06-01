@@ -19,17 +19,14 @@
         = f.time_field :end_at, class: 'a-text-input js-warning-form'
       .form-item
         label.a-form-label
-          | 定期イベント内容
+          | 祝日の開催
         .checkboxes
           ul.checkboxes__items
             li.checkboxes__item
               = f.check_box :hold_national_holiday, class: 'a-toggle-checkbox js-warning-form'
               = f.label :hold_national_holiday do
                 | 祝日も開催する場合はチェック
-            li.checkboxes__item
-              = f.check_box :finished, class: 'a-toggle-checkbox js-warning-form'
-              = f.label :finished do
-                | イベントが終了した場合はチェック
+
   .form__items
     .form-item
       .row.js-markdown-parent
@@ -40,6 +37,18 @@
           .a-form-label
             | プレビュー
           .js-preview.a-long-text.markdown-form__preview
+
+  .form__items
+    .form__items-inner
+      .form-item
+        label.a-form-label
+          | イベントが終了した場合
+        .checkboxes
+          ul.checkboxes__items
+            li.checkboxes__item
+              = f.check_box :finished, class: 'a-toggle-checkbox js-warning-form'
+              = f.label :finished do
+                | イベントが終了した場合はチェック
 
   .form-actions
     ul.form-actions__items

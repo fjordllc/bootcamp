@@ -5,10 +5,13 @@
   max-width: 100%
 
 .thread-comments__title
-  +text-block(1.125rem 1.45 0 1.5rem, flex 600)
   align-items: center
+  display: flex
+  font-weight: 700
+  +media-breakpoint-up(md)
+    +text-block(1.125rem 1.45 0 1.5rem)
   +media-breakpoint-down(sm)
-    margin-bottom: 1rem
+    +text-block(1rem 1.45 0 1rem)
 
 .thread-comments__title-count
   +text-block(.875rem 1, 600 flex)
