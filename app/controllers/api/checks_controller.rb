@@ -17,7 +17,7 @@ class API::ChecksController < API::BaseController
       )
 
       @check.save!
-      render json: {}, status: :created
+      head :created
     else
       render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class API::ChecksController < API::BaseController
 
   def destroy
     @check = Check.find(params[:id]).destroy
-    render json: {}, status: :ok
+    head :no_content
   end
 
   private

@@ -73,18 +73,18 @@ class API::ChecksTest < ActionDispatch::IntegrationTest
     token = create_token('komagata', 'testtest')
     delete api_check_path(@check2.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :ok
+    assert_response :no_content
 
     # adviser login
     token = create_token('advijirou', 'testtest')
     delete api_check_path(@check3.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :ok
+    assert_response :no_content
 
     # mentor login
     token = create_token('mentormentaro', 'testtest')
     delete api_check_path(@check4.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :ok
+    assert_response :no_content
   end
 end
