@@ -19,4 +19,8 @@ module HomeHelper
       blog_url: 'form-blog-url'
     }[attribute]
   end
+
+  def wip_present?(user)
+    user.pages.wip.present? || user.reports.wip.present? || user.questions.wip.present? || user.products.wip.present? || user.announcements.wip.present? || user.events.wip.present?
+  end
 end
