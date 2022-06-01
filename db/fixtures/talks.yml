@@ -179,3 +179,7 @@ talk_discordinvalid:
 talk_twitterinvalid:
   user: twitterinvalid
   unreplied: false
+
+talk_nocompanykensyu:
+  user: nocompanykensyu
+  unreplied: false
