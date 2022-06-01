@@ -7,6 +7,14 @@
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
           | コメント（{{ commentLimit }}）をもっと見る
+  h2.thread-comments__title(v-if='commentableType === "RegularEvent" || commentableType === "Event"')
+    | 質問・連絡・コメント
+  h2.thread-comments__title(v-else-if='commentableType === "Announcement" || commentableType === "Page"')
+    | 質問・コメント
+  h2.thread-comments__title(v-else-if='commentableType === "Talk"')
+    | 連絡・返信
+  h2.thread-comments__title(v-else)
+    | コメント
   .thread-comments__items
     comment(
       v-for='(comment, index) in comments',
