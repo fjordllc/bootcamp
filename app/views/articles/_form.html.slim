@@ -26,6 +26,12 @@
     .form-item
       .row
         .col-md-6.col-xs-12
+          = f.label :summary, class: 'a-form-label'
+          = f.text_field :summary, class: 'a-text-input'
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
           = f.label :tag_list, 'タグを入力してください（カンマ区切り）',
             class: 'a-form-label'
           = f.text_field :tag_list, class: 'a-text-input js-warning-form'
