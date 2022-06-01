@@ -61,15 +61,21 @@ header.page-header
                 .user-info
                   = render 'users/user_secret_attributes', user: @user
                   = render 'users/metas', user: @user
+                .user-statuses
+                  .user-statuses__items
+                    .user-statuses__item
+                      = link_to 'ユーザー情報変更', edit_admin_user_path(@talk.user), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+                    .user-statuses__item
+                    .user-statuses__item
+                      .graduation_button
+                        - if @user.graduated_on?
+                          .a-button.is-sm.is-disabled.is-block
+                            | 卒業済
+                        - else
+                          = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/talks/#{@talk.id}"),
+                                  method: :patch,
+                                  data: { confirm: '本当によろしいですか？' },
+                                  class: 'a-button is-sm is-danger is-block'
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
                 #js-reports(data-user-id="#{@user.id}" data-limit="10")
-            .graduation_button
-              - if @user.graduated_on?
-                .a-button.is-sm.is-disabled
-                  | 卒業済
-              - else
-                = link_to '卒業', user_graduation_path(@user, redirect_url: "/talks/#{@talk.id}"),
-                        method: :patch,
-                        data: { confirm: '本当によろしいですか？' },
-                        class: 'a-button is-sm is-primary'
