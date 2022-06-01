@@ -87,15 +87,6 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
     t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
   end
 
-  create_table "campaigns", force: :cascade do |t|
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.string "title", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "trial_period"
-  end
-  
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
     t.integer "price", null: false
@@ -103,6 +94,15 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.string "title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "trial_period"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
