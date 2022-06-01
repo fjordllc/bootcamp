@@ -4,13 +4,16 @@
     align-items: center
     cursor: pointer
     transition: all .2s ease-out
+    gap: .25rem
     *
       cursor: pointer
 
 .a-switch__label
   +media-breakpoint-up(md)
-    +text-block(.75rem 1.4, $muted-text center)
-    margin-right: .5em
+    +text-block(.75rem 1.4, center 600)
+    &.is-muted
+      font-weight: 400
+      color: $muted-text
     .a-help
       +position(relative, top -1px)
     &:hover
