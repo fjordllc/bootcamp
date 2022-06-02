@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedTab = products.getAttribute('data-selected-tab')
     const isMentor = products.getAttribute('data-mentor-login')
     const currentUserId = products.getAttribute('data-current-user-id')
+    const checkerId = products.getAttribute('data-checker-id')
     new Vue({
       store,
       render: (h) =>
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
             title: title,
             selectedTab: selectedTab,
             isMentor: isMentor === 'true',
-            currentUserId: currentUserId
+            currentUserId: currentUserId,
+            checkerId: checkerId
           }
         })
     }).$mount(selector)
