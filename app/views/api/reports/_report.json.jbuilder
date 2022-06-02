@@ -1,5 +1,5 @@
 json.id report.id
-json.title truncate(report.title, {length: 46, escape: false})
+json.title report.title
 json.reportedOn l(report.reported_on)
 json.url report_url(report)
 json.editURL edit_report_path(report)
