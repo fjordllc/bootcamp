@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
     t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
   end
 
+  create_table "books", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "price", null: false
+    t.string "page_url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
+  end
+
   create_table "campaigns", force: :cascade do |t|
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
@@ -311,6 +320,16 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
+  create_table "practices_books", force: :cascade do |t|
+    t.bigint "practice_id"
+    t.bigint "book_id"
+    t.boolean "must_read", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_practices_books_on_book_id"
+    t.index ["practice_id"], name: "index_practices_books_on_practice_id"
+  end
+
   create_table "practices_reports", id: false, force: :cascade do |t|
     t.integer "practice_id", null: false
     t.integer "report_id", null: false
@@ -359,18 +378,6 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
     t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
-  end
-
-  create_table "reference_books", force: :cascade do |t|
-    t.string "title", null: false
-    t.integer "price", null: false
-    t.string "page_url", null: false
-    t.bigint "practice_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "must_read", default: false, null: false
-    t.text "description"
-    t.index ["practice_id"], name: "index_reference_books_on_practice_id"
   end
 
   create_table "report_templates", force: :cascade do |t|
@@ -525,11 +532,12 @@ ActiveRecord::Schema.define(version: 2022_04_18_054838) do
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
+  add_foreign_key "practices_books", "books"
+  add_foreign_key "practices_books", "practices"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
-  add_foreign_key "reference_books", "practices"
   add_foreign_key "report_templates", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"

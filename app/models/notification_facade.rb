@@ -166,7 +166,7 @@ class NotificationFacade
   end
 
   def self.consecutive_sad_report(report, receiver)
-    Notification.consecutive_sad_report(report, receiver)
+    ActivityNotifier.with(report: report, receiver: receiver).consecutive_sad_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

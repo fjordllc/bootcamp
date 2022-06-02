@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::ReportsTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'the first daily report notification is sent only to current students and mentors' do
     report = users(:muryou).reports.create!(
       title: '初日報です',
