@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::TalkTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'Admin receive a notification when someone comments on a talk room' do
     talk_id = users(:kimura).talk.id
     visit_with_auth "/talks/#{talk_id}", 'kimura'
