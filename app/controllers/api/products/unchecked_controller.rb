@@ -19,6 +19,7 @@ class API::Products::UncheckedController < API::BaseController
                          .list
                          .page(params[:page])
                 end
+    @products = @products.where(checker_id: params[:checker_id]) if params[:checker_id].present?
     @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
   end
 
