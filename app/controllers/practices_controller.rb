@@ -2,8 +2,7 @@
 
 class PracticesController < ApplicationController
   before_action :require_login
-  before_action :require_admin_login, only: %i[new create]
-  before_action :require_admin_or_mentor_login, only: %i[edit update]
+  before_action :require_admin_or_mentor_login, only: %i[new create edit update]
   before_action :set_course, only: %i[new]
   before_action :set_practice, only: %i[show edit update]
 
@@ -53,7 +52,7 @@ class PracticesController < ApplicationController
       :ogp_image,
       :memo,
       category_ids: [],
-      reference_books_attributes: %i[id title price page_url must_read cover description _destroy]
+      practices_books_attributes: %i[id book_id must_read _destroy]
     )
   end
 

@@ -1,0 +1,25 @@
+.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+  .card-books-item
+    .a-card
+      .card-books-item__inner
+        .card-books-item__start
+          = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__cover-container' do
+            = image_tag book.cover_url, title: book.title, alt: book.title, class: 'card-books-item__image'
+        .card-books-item__end
+          h2.card-books-item__title
+            = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'card-books-item__title-link' do
+              span.card-books-item__title-label
+                = book.title
+          p.card-books-item__price
+            = number_to_currency(book.price, unit: '円（税込）')
+          - if book.description
+            .card-books-item__description
+              .a-short-text
+                = simple_format(book.description)
+      - if current_user.admin_or_mentor?
+        footer.card-footer.is-only-mentor
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_book_path(book), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                  | 編集

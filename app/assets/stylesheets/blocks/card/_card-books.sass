@@ -10,15 +10,36 @@
     flex: 0 0 50%
     &:nth-child(odd)
       border-right: solid 1px $border-tint
+  .card-books &
+    &:not(:first-child)
+      border-top: solid 1px $border
+    +media-breakpoint-up(md)
+      flex: 0 0 50%
+      &:nth-child(odd)
+        border-right: solid 1px $border
+      &:nth-child(2)
+        border-top: none
+  .row &
+    height: 100%
+    +media-breakpoint-up(md)
+      padding-bottom: 1.5rem
+    +media-breakpoint-down(sm)
+      padding-bottom: 1rem
+  .a-card
+    height: 100%
 
 .card-books-item__inner
-  +size(100%)
   padding: .75rem 1rem
+  text-decoration: none
+  .card-books &
+    +size(100%)
   +media-breakpoint-up(md)
     +flex-link
     gap: 1rem
+    display: flex
+    align-items: flex-start
   +media-breakpoint-down(sm)
-    +block-link
+    display: block
     overflow: hidden
 
 .card-books-item__start
@@ -45,9 +66,16 @@
     +position(relative, top -.125em)
     margin-right: .5em
 
-.card-books-item__inner:hover .card-books-item__title-label
-  text-decoration: underline
-  color: $main-text
+.card-books-item__title-link
+  text-decoration: none
+  .card-books-item__title-label
+    +hover-link-reversal
+    color: $main-text
+
+a.card-books-item__inner:hover
+  .card-books-item__title-label
+    text-decoration: underline
+    color: $main-text
 
 .card-books-item__price
   +text-block(.75rem 1.4 .25rem, $default-text)
