@@ -24,7 +24,8 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              .card-list-item-sub-title {{ question.practice.title }}
+              a.card-list-item-sub-title(:href='practiceUrl')
+                | {{ question.practice.title }}
 
       .card-list-item__row
         .card-list-item-meta
@@ -90,6 +91,9 @@ export default {
       } else {
         return ''
       }
+    },
+    practiceUrl() {
+      return `/practices/${this.question.practice.id}`
     }
   }
 }

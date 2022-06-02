@@ -25,7 +25,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              .card-list-item-sub-title
+              a.card-list-item-sub-title(:href='practiceUrl')
                 | {{ page.practice.title }}
 
       .card-list-item__row
@@ -84,6 +84,9 @@ export default {
     },
     daimyoClass() {
       return { 'is-daimyo': this.page.user.daimyo }
+    },
+    practiceUrl() {
+      return `/practices/${this.page.practice.id}`
     }
   }
 }
