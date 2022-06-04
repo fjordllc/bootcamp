@@ -43,8 +43,8 @@ class RegularEventsTest < ApplicationSystemTestCase
     click_link 'コピー'
     assert_text '定期イベントをコピーしました'
     within 'form[name=regular_event]' do
-      fill_in 'regular_event[start_at]', with: Time.current.next_day
-      fill_in 'regular_event[end_at]', with: Time.current.next_day + 2.hours
+      fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
+      fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       click_button '作成'
     end
     assert_text '定期イベントを作成しました。'
