@@ -25,8 +25,8 @@ class Question < ApplicationRecord
   validates :user, presence: true
   validates :published_at, presence: true, if: :will_be_published?
 
-  scope :solved, -> { where(id: CorrectAnswer.pluck(:question_id)) }
-  scope :not_solved, -> { where.not(id: CorrectAnswer.pluck(:question_id)) }
+  scope :solved, -> { where(id: CorrectAnswer.select(:question_id)) }
+  scope :not_solved, -> { where.not(id: CorrectAnswer.select(:question_id)) }
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
 
