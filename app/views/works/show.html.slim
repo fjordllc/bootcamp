@@ -39,9 +39,10 @@ header.page-header
         .card-eyecatch
           - if @work.thumbnail.attached?
             = image_tag @work.thumbnail_url, alt: @work.title
-        .card__description
-          .a-long-text.is-md.js-markdown-view
-            = @work.description
+        .card-body
+          .card__description
+            .a-long-text.is-md.js-markdown-view
+              = @work.description
         .card-footer
           ul.card-main-actions__items
             - if @work.url.present?
