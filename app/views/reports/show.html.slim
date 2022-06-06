@@ -101,13 +101,13 @@ header.page-header
                               = practice.title
 
           .a-card
-            .card__header
+            .card-header.is-sm
               = render 'reports/learning_times', report: @report
             .card-body
               .card__description
                 .a-long-text.is-md.js-markdown-view(data-taskable-id="#{@report.id}" data-taskable-type='Report' data-taskable="#{@report.taskable?(current_user).to_s}")
                   = @report.description
-              = render 'reactions/reactions', reactionable: @report
+            = render 'reactions/reactions', reactionable: @report
 
             - if @report.user_id == current_user.id
               .card-footer

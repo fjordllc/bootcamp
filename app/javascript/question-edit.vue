@@ -81,12 +81,11 @@
     .card-body
       .card__description
         .a-long-text.is-md(v-html='markdownDescription')
-    .thread-question__reactions
-      reaction(
-        :reactionable='question',
-        :currentUser='currentUser',
-        :reactionableId='`Question_${question.id}`'
-      )
+    reaction(
+      :reactionable='question',
+      :currentUser='currentUser',
+      :reactionableId='`Question_${question.id}`'
+    )
     footer.card-footer(
       v-if='currentUser.id === question.user.id || isRole("mentor")'
     )
