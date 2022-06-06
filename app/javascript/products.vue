@@ -91,7 +91,7 @@ export default {
     selectedTab: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    checkerId:  { type: String, required: false, default: null}
+    checkerId: { type: String, required: false, default: null }
   },
   data() {
     return {
