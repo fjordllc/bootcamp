@@ -90,7 +90,8 @@ export default {
     title: { type: String, required: true },
     selectedTab: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: String, required: true },
+    checkerId:  { type: String, required: false, default: 0}
   },
   data() {
     return {
@@ -110,6 +111,7 @@ export default {
           ? ''
           : '/' + this.selectedTab.replace('-', '_')) +
         `?page=${this.currentPage}` +
+        (this.checkerId ? `&checker_id=${this.checkerId}` : '') +
         (this.params.target ? `&target=${this.params.target}` : '')
       )
     },
@@ -215,6 +217,7 @@ export default {
           params[queryArr[0]] = queryArr[1]
         })
       return params
+      debugger;
     },
     countProductsGroupedBy({ elapsed_days: elapsedDays }) {
       const element = this.productsGroupedByElapsedDays.find(
