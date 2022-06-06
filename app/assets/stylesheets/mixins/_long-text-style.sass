@@ -267,6 +267,16 @@
       &::before
         color: $success
 
+  ul.contains-task-list
+    list-style: none
+    margin-left: 0
+
+  li.task-list-item
+    position: relative
+    padding-left: 1.375em
+    .task-list-item-checkbox
+      +position(absolute, top .5em, left 0)
+
   *:first-child
     margin-top: 0
   *:last-child
