@@ -42,9 +42,10 @@
                 | コピー
 
   .a-card
-    .card__description
-      .a-long-text.is-md.js-markdown-view
-        = announcement.description
+    .card-body
+      .card__description
+        .a-long-text.is-md.js-markdown-view
+          = announcement.description
     = render 'reactions/reactions', reactionable: @announcement
     .card-footer
       .card-main-actions
