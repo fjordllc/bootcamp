@@ -91,7 +91,7 @@ export default {
     selectedTab: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    checkerId:  { type: String, required: false, default: 0}
+    checkerId:  { type: String, required: false, default: null}
   },
   data() {
     return {
@@ -217,7 +217,6 @@ export default {
           params[queryArr[0]] = queryArr[1]
         })
       return params
-      debugger;
     },
     countProductsGroupedBy({ elapsed_days: elapsedDays }) {
       const element = this.productsGroupedByElapsedDays.find(
