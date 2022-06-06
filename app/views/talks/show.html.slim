@@ -6,6 +6,9 @@ header.page-header
       h2.page-header__title
         = title
 
+- if admin_login?
+  = render 'users/page_tabs', user: @user
+
 .page-body
   .container.is-xxxl
     .row.is-jc:c
