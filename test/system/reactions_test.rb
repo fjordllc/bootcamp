@@ -5,8 +5,8 @@ require 'application_system_test_case'
 class ReactionsTest < ApplicationSystemTestCase
   test 'post new reaction smile for report' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.card-body .js-reaction-dropdown-toggle').click
-    first(".card-body .js-reaction-dropdown li[data-reaction-kind='smile']").click
+    first('.report .js-reaction-dropdown-toggle').click
+    first(".report .js-reaction-dropdown li[data-reaction-kind='smile']").click
     using_wait_time 5 do
       assert_text '😄2'
     end
@@ -16,8 +16,8 @@ class ReactionsTest < ApplicationSystemTestCase
     emojis = Reaction.emojis.filter { |key| key != 'smile' }
     visit_with_auth report_path(reports(:report1)), 'komagata'
     emojis.each do |key, value|
-      first('.card-body .js-reaction-dropdown-toggle').click
-      first(".card-body .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
+      first('.report .js-reaction-dropdown-toggle').click
+      first(".report .js-reaction-dropdown li[data-reaction-kind='#{key}']").click
       using_wait_time 5 do
         assert_text "#{value}1"
       end
@@ -26,8 +26,8 @@ class ReactionsTest < ApplicationSystemTestCase
 
   test 'destroy reaction for report from dropdown' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.card-body .js-reaction-dropdown-toggle').click
-    first(".card-body .js-reaction-dropdown li[data-reaction-kind='thumbsup']").click
+    first('.report .js-reaction-dropdown-toggle').click
+    first(".report .js-reaction-dropdown li[data-reaction-kind='thumbsup']").click
     using_wait_time 5 do
       refute_text '👍1'
     end
@@ -35,7 +35,7 @@ class ReactionsTest < ApplicationSystemTestCase
 
   test 'destroy reaction for report from footer' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
-    first('.card-body .js-reaction li.is-reacted').click
+    first('.report .js-reaction li.is-reacted').click
     using_wait_time 5 do
       refute_text '👍1'
     end
