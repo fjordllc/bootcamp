@@ -11,9 +11,9 @@ class RetirementTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
     assert_equal Date.current, user.reload.retired_on
-    assert_equal 'kananashiさんが退会しました。', users(:komagata).notifications.last.message
-    assert_equal 'kananashiさんが退会しました。', users(:machida).notifications.last.message
-    assert_equal 'kananashiさんが退会しました。', users(:mentormentaro).notifications.last.message
+    assert_equal '😢kananashiさんが退会しました。', users(:komagata).notifications.last.message
+    assert_equal '😢kananashiさんが退会しました。', users(:machida).notifications.last.message
+    assert_equal '😢kananashiさんが退会しました。', users(:mentormentaro).notifications.last.message
 
     login_user 'kananashi', 'testtest'
     assert_text 'ログインができません'
@@ -25,9 +25,9 @@ class RetirementTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
     assert_equal Date.current, user.reload.retired_on
-    assert_equal 'osnashiさんが退会しました。', users(:komagata).notifications.last.message
-    assert_equal 'osnashiさんが退会しました。', users(:machida).notifications.last.message
-    assert_equal 'osnashiさんが退会しました。', users(:mentormentaro).notifications.last.message
+    assert_equal '😢osnashiさんが退会しました。', users(:komagata).notifications.last.message
+    assert_equal '😢osnashiさんが退会しました。', users(:machida).notifications.last.message
+    assert_equal '😢osnashiさんが退会しました。', users(:mentormentaro).notifications.last.message
 
     login_user 'osnashi', 'testtest'
     assert_text 'ログインができません'
@@ -41,9 +41,9 @@ class RetirementTest < ApplicationSystemTestCase
     page.accept_confirm
     assert_text '退会処理が完了しました'
     assert_equal Date.current, user.reload.retired_on
-    assert_equal 'discordinvalidさんが退会しました。', users(:komagata).notifications.last.message
-    assert_equal 'discordinvalidさんが退会しました。', users(:machida).notifications.last.message
-    assert_equal 'discordinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
+    assert_equal '😢discordinvalidさんが退会しました。', users(:komagata).notifications.last.message
+    assert_equal '😢discordinvalidさんが退会しました。', users(:machida).notifications.last.message
+    assert_equal '😢discordinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
 
     login_user 'discordinvalid', 'testtest'
     assert_text 'ログインができません'
@@ -57,9 +57,9 @@ class RetirementTest < ApplicationSystemTestCase
     page.accept_confirm
     assert_text '退会処理が完了しました'
     assert_equal Date.current, user.reload.retired_on
-    assert_equal 'twitterinvalidさんが退会しました。', users(:komagata).notifications.last.message
-    assert_equal 'twitterinvalidさんが退会しました。', users(:machida).notifications.last.message
-    assert_equal 'twitterinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
+    assert_equal '😢twitterinvalidさんが退会しました。', users(:komagata).notifications.last.message
+    assert_equal '😢twitterinvalidさんが退会しました。', users(:machida).notifications.last.message
+    assert_equal '😢twitterinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
 
     login_user 'twitterinvalid', 'testtest'
     assert_text 'ログインができません'
