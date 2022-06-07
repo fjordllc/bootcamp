@@ -10,7 +10,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{sender.login_name}さんが卒業しました。",
+      body: "🎉️️️#{sender.login_name}さんが卒業しました！",
       kind: :graduated,
       sender: sender,
       receiver: receiver,
