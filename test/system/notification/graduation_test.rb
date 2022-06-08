@@ -25,7 +25,7 @@ class Notification::GraduationTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'mentormentaro'
     within first('.card-list-item.is-unread') do
-      assert_text '🎉️️️kimuraさんが卒業しました！'
+      assert_text '🎉️ ️️kimuraさんが卒業しました！'
     end
   end
 end
