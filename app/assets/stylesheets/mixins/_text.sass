@@ -29,3 +29,9 @@
 
 =open-face($color: black)
   text-shadow: $color 1px 1px 0, $color -1px -1px 0, $color -1px 1px 0, $color 1px -1px 0, $color 0px 1px 0, $color 0 -1px 0, $color -1px 0 0, $color 1px 0 0
+
+=line-clamp($line-clamp: 2)
+  display: -webkit-box
+  -webkit-line-clamp: $line-clamp
+  overflow: hidden
+  -webkit-box-orient: vertical
