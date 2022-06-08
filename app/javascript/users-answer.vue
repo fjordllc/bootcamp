@@ -21,7 +21,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              .card-list-item-sub-title {{ answer.question.practice.title }}
+              .a-meta.is-practice {{ answer.question.practice.title }}
       .card-list-item__row
         .card-list-item__summary
           p {{ summary }}
