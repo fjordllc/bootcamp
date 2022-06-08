@@ -264,7 +264,8 @@ class CommentsTest < ApplicationSystemTestCase
     find('#js-new-comment').set('test')
     click_button 'コメントする'
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
-    commentPreview = find('#new-comment-preview')
-    refute commentPreview.has_selector?('p')
+    within('#new-comment-preview') do
+      assert_no_text :all, 'test'
+    end
   end
 end
