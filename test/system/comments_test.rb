@@ -258,4 +258,13 @@ class CommentsTest < ApplicationSystemTestCase
     assert_no_text old_comments
     assert_text '提出物のコメント13です。'
   end
+
+  test 'clear preview after posting new comment for report' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
+    find('#js-new-comment').set('test')
+    click_button 'コメントする'
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    commentPreview = find('#new-comment-preview')
+    refute commentPreview.has_selector?('p')
+  end
 end
