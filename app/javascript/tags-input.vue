@@ -76,7 +76,13 @@ export default {
     //     console.warn(error)
     //   })
 
-    const init = new Choices('.tags-input')
+    const init = new Choices('.tags-input', {
+      removeItemButton: true,
+      editItems: true,
+      duplicateItemsAllowed: false,
+      addItemText: 'Enterを押して追加',
+      uniqueItemText: '同じタグは追加できません'
+    })
   },
   // methods: {
   //   update(newTags) {
