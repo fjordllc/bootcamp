@@ -137,7 +137,7 @@ class Notification < ApplicationRecord
         user: receiver,
         sender: report.sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(report),
-        message: "🎉#{report.user.login_name}さんがはじめての日報を書きました！",
+        message: "🎉 #{report.user.login_name}さんがはじめての日報を書きました！",
         read: false
       )
     end
@@ -161,7 +161,7 @@ class Notification < ApplicationRecord
         user: receiver,
         sender: sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-        message: "😢#{sender.login_name}さんが退会しました。",
+        message: "😢 #{sender.login_name}さんが退会しました。",
         read: false
       )
     end
