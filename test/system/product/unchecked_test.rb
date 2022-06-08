@@ -133,4 +133,58 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     assert_link '未完了一覧'
   end
+
+  test 'display products in listing unchecked if unchecked products all checked' do
+    checker = users(:komagata)
+    practice = practices(:practice47)
+    user = users(:mentormentaro)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    click_button '提出物を確認'
+    visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
+    assert_no_text product.practice.title
+  end
+
+  test "show only mentor's products if you select a mentor in products unchecked all" do
+    user = users(:kimura)
+    practice = practices(:practice47)
+    checker = users(:komagata)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+
+    visit_with_auth '/products/unchecked', 'mentormentaro'
+    find('.choices__list').click
+    find('#choices--js-choices-single-select-item-choice-2', text: 'komagata').click
+    find('.pill-nav__item-link', text: '全て').click
+    assert_current_path("/products/unchecked?checker_id=#{product.checker_id}&target=unchecked_all")
+    assert_selector '.card-list-item__assignee-name', text: 'komagata'
+  end
+
+  test "show only mentor's products if you select a mentor in products unchecked no replied" do
+    user = users(:kimura)
+    practice = practices(:practice47)
+    checker = users(:komagata)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+
+    visit_with_auth '/products/unchecked', 'mentormentaro'
+    find('.choices__list').click
+    find('#choices--js-choices-single-select-item-choice-2', text: 'komagata').click
+    find('.pill-nav__item-link', text: '未返信').click
+    assert_current_path("/products/unchecked?checker_id=#{product.checker_id}&target=unchecked_no_replied")
+    assert_selector '.card-list-item__assignee-name', text: 'komagata'
+  end
 end
