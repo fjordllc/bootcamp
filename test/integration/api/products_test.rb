@@ -28,6 +28,17 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test 'GET /api/products/unchecked.json?checker_id=534981761' do
+    checker = users(:mentormentaro)
+    get api_products_unchecked_index_path(checker_id: checker.id, format: :json)
+    assert_response :unauthorized
+
+    token = create_token('mentormentaro', 'testtest')
+    get api_products_unchecked_index_path(checker_id: checker.id, format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+  end
+
   test 'GET /api/products/self_assigned.json' do
     get api_products_self_assigned_index_path(format: :json)
     assert_response :unauthorized
