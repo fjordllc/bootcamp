@@ -1,7 +1,6 @@
 <template lang="pug">
 div
-  input.tags-input(type='text')
-  input(type='hidden', :value='tagsValue', :name='tagsParamName')
+  input.tags-input(type='text', :name='tagsParamName')
   //-
     vue-tags-input(
       v-model='inputTag',
