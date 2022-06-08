@@ -134,22 +134,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_link '未完了一覧'
   end
 
-  test 'display products in listing unchecked if unchecked products all checked' do
-    checker = users(:komagata)
-    practice = practices(:practice47)
-    user = users(:mentormentaro)
-    product = Product.create!(
-      body: 'test',
-      user: user,
-      practice: practice,
-      checker_id: checker.id
-    )
-    visit_with_auth "/products/#{product.id}", 'komagata'
-    click_button '提出物を確認'
-    visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
-    assert_no_text product.practice.title
-  end
-
   test "show only mentor's products if you select a mentor in products unchecked all" do
     user = users(:kimura)
     practice = practices(:practice47)
