@@ -56,6 +56,9 @@ export default {
       return this.$store.getters.checkId
     },
     buttonLabel() {
+      if (this.checkId) {
+        this.toast('日報を確認済みにしました。')
+      }
       return (
         this.checkableLabel + (this.checkId ? 'の確認を取り消す' : 'を確認')
       )
