@@ -195,17 +195,11 @@ export default {
       window.scrollTo(0, 0)
     },
     newUrl(pageNumber) {
-      if (this.params.target) {
-        return (
-          location.pathname +
-          `?target=${this.params.target}` +
-          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
-        )
-      } else {
-        return (
-          location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
-        )
-      }
+      const params = new URL(location.href).searchParams
+      if (pageNumber !== 1) params.set('page', pageNumber);
+      if (this.params.target) params.set('target', this.params.target);
+      if (this.params.checker_id) params.set('checker_id', this.params.checker_id);
+      return `${location.pathname}?${params}`
     },
     getParams() {
       const params = {}
