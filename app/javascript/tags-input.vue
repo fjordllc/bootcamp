@@ -1,96 +1,102 @@
 <template lang="pug">
 div
-  vue-tags-input(
-    v-model='inputTag',
-    :tags='tags',
-    :autocomplete-items='filteredTags',
-    @tags-changed='update',
-    placeholder='',
-    @before-adding-tag='validateTagName'
-  )
-  input(type='hidden', :value='tagsValue', :name='tagsParamName')
-  div(v-if='headIsSharpOrOctothorpe(inputTag)')
-    | 先頭の記号は無視されます
+  input.tags-input(type='text')
+
+  //-
+    vue-tags-input(
+      v-model='inputTag',
+      :tags='tags',
+      :autocomplete-items='filteredTags',
+      @tags-changed='update',
+      placeholder='',
+      @before-adding-tag='validateTagName'
+    )
+    input(type='hidden', :value='tagsValue', :name='tagsParamName')
+    div(v-if='headIsSharpOrOctothorpe(inputTag)')
+      | 先頭の記号は無視されます
 </template>
 
 <script>
-import VueTagsInput from '@johmun/vue-tags-input'
-import validateTagName from 'validate-tag-name'
-import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
+// import VueTagsInput from '@johmun/vue-tags-input'
+import Choices from 'choices.js'
+// import validateTagName from 'validate-tag-name'
+// import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
 
 export default {
-  components: { VueTagsInput },
-  mixins: [validateTagName, headIsSharpOrOctothorpe],
-  props: {
-    tagsInitialValue: { type: String, required: true },
-    tagsParamName: { type: String, required: true },
-    taggableType: { type: String, required: true }
-  },
-  data() {
-    return {
-      inputTag: '',
-      tags: [],
-      tagsValue: '',
-      autocompleteTags: []
-    }
-  },
-  computed: {
-    filteredTags() {
-      return this.autocompleteTags.filter((tag) => {
-        return (
-          tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
-        )
-      })
-    }
-  },
+  // components: { VueTagsInput },
+  // mixins: [validateTagName, headIsSharpOrOctothorpe],
+  // props: {
+  //   tagsInitialValue: { type: String, required: true },
+  //   tagsParamName: { type: String, required: true },
+  //   taggableType: { type: String, required: true }
+  // },
+  // data() {
+  //   return {
+  //     inputTag: '',
+  //     tags: [],
+  //     tagsValue: '',
+  //     autocompleteTags: []
+  //   }
+  // },
+  // computed: {
+  //   filteredTags() {
+  //     return this.autocompleteTags.filter((tag) => {
+  //       return (
+  //         tag.text.toLowerCase().indexOf(this.inputTag.toLowerCase()) !== -1
+  //       )
+  //     })
+  //   }
+  // },
   mounted() {
-    this.tagsValue = this.tagsInitialValue
-    this.tags = this.parseTags(this.tagsInitialValue)
+    // this.tagsValue = this.tagsInitialValue
+    // this.tags = this.parseTags(this.tagsInitialValue)
+    //
+    // fetch(`/api/tags.json?taggable_type=${this.taggableType}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'X-Requested-With': 'XMLHttpRequest'
+    //   },
+    //   credentials: 'same-origin',
+    //   redirect: 'manual'
+    // })
+    //   .then((response) => {
+    //     return response.json()
+    //   })
+    //   .then((json) => {
+    //     const suggestions = json.map((tag) => {
+    //       return {
+    //         text: tag.value
+    //       }
+    //     })
+    //
+    //     this.autocompleteTags.length = 0
+    //     this.autocompleteTags.push(...suggestions)
+    //   })
+    //   .catch((error) => {
+    //     console.warn(error)
+    //   })
 
-    fetch(`/api/tags.json?taggable_type=${this.taggableType}`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        const suggestions = json.map((tag) => {
-          return {
-            text: tag.value
-          }
-        })
-
-        this.autocompleteTags.length = 0
-        this.autocompleteTags.push(...suggestions)
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+    const init = new Choices('.tags-input')
   },
-  methods: {
-    update(newTags) {
-      this.tags = newTags
-      this.tagsValue = this.joinTags(newTags)
-    },
-    joinTags(value) {
-      return value.map((tag) => tag.text).join(',')
-    },
-    parseTags(value) {
-      if (value === '') return []
-
-      return value.split(',').map((value) => {
-        return {
-          text: value,
-          tiClasses: ['ti-valid']
-        }
-      })
-    }
-  }
+  // methods: {
+  //   update(newTags) {
+  //     this.tags = newTags
+  //     this.tagsValue = this.joinTags(newTags)
+  //   },
+  //   joinTags(value) {
+  //     return value.map((tag) => tag.text).join(',')
+  //   },
+  //   parseTags(value) {
+  //     if (value === '') return []
+  //
+  //     return value.split(',').map((value) => {
+  //       return {
+  //         text: value,
+  //         tiClasses: ['ti-valid']
+  //       }
+  //     })
+  //   }
+  // }
 }
 </script>
 
