@@ -558,6 +558,7 @@ DEPENDENCIES
   listen
   mentionable (~> 0.2.1)
   meta-tags
+  mini_magick
   minitest-ci
   minitest-retry
   net-imap
