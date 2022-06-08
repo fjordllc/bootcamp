@@ -389,7 +389,7 @@ class QuestionsTest < ApplicationSystemTestCase
     within first('.card-list-item-title__title') do
       assert_text 'Questionに関連プラクティスを指定'
     end
-    within first('.card-list-item-sub-title') do
+    within first('.a-meta.is-practice') do
       assert_text 'Linuxのファイル操作の基礎を覚える'
     end
     assert_link 'Linuxのファイル操作の基礎を覚える'

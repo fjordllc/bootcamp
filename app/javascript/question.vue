@@ -24,7 +24,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              a.card-list-item-sub-title(:href='practiceUrl')
+              a.a-meta.is-practice(:href='practiceUrl')
                 | {{ question.practice.title }}
 
       .card-list-item__row
