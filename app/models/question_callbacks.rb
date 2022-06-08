@@ -19,7 +19,7 @@ class QuestionCallbacks
 
   def notify_to_chat(question)
     ChatNotifier.message(<<~TEXT)
-      #{question.user.login_name}さんが質問：「#{question.title}」を作成しました。
+      質問：「#{question.title}」を#{question.user.login_name}さんが作成しました。
       https://bootcamp.fjord.jp/questions/#{question.id}
     TEXT
   end
