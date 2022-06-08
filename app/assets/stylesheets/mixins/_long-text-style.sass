@@ -281,3 +281,34 @@
     margin-top: 0
   *:last-child
     margin-bottom: 0
+
+  // header-anchor
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+    scroll-snap-align: start
+    scroll-snap-stop: always
+    position: relative
+    outline-style: none
+    &:hover
+      .header-anchor
+        opacity: 1
+
+  .header-anchor
+    display: flex
+    +text-block(.75rem, 400)
+    float: left
+    +position(absolute)
+    margin-left: -1.5rem
+    text-decoration: none !important
+    +size(1.5rem 100%)
+    align-items: center
+    justify-content: center
+    transition: all .2s ease-out
+    opacity: 0
+    &:link,
+    &:visited
+      color: $main
