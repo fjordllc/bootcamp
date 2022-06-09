@@ -9,7 +9,7 @@ export default class VueMounter {
           const name = element.dataset.vue
           const props = this._convertProps(element.dataset)
 
-          import(`/${name}.vue`).then((module) => {
+          import(`./${name}.vue`).then((module) => {
             new Vue({
               render: (h) => h(module.default, { props: props })
             }).$mount(`[data-vue="${name}"]`)
