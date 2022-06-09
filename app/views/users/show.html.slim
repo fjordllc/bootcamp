@@ -86,5 +86,14 @@ header.page-header
           - if @user.completed_practices.present?
             - cache [@user, @completed_learnings] do
               = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
+          - if admin_login?
+            - if @user.graduated?
+              .a-button.is-sm.is-disabled.is-block
+                | 卒業済
+            - else
+              = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
+                method: :patch,
+                data: { confirm: '本当によろしいですか？' },
+                class: 'a-button is-sm is-danger is-block'
 
         .col-xs-12.col-lg-5.col-xxl-6
