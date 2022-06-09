@@ -166,6 +166,7 @@ ja:
         title: タイトル
         body: 本文
         user: ユーザー
+        summary: サマリー
       work:
         title: タイトル
         description: 説明
