@@ -227,4 +227,37 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text '記事を更新しました'
     assert_text 'mentormentaro'
   end
+
+  test 'Summary text is used for meta description' do
+    visit_with_auth new_article_url, 'komagata'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[summary]', with: 'サマリー１'
+    fill_in 'article[body]', with: @article.body
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+    assert_selector "meta[name='description'][content='サマリー１']", visible: false
+    assert_selector "meta[property='og:description'][content='サマリー１']", visible: false
+    assert_selector "meta[name='twitter:description'][content='サマリー１']", visible: false
+
+    visit articles_path
+    assert_text 'サマリー１'
+  end
+
+  test 'If there is no summary text, the fixed text is used for meta description' do
+    visit_with_auth new_article_url, 'komagata'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[body]', with: @article.body
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+    assert_selector "meta[name='description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+    assert_selector "meta[property='og:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+    assert_selector "meta[name='twitter:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+
+    visit articles_path
+    assert_no_text '現場の即戦力になれるプログラミングスクール。'
+  end
 end
