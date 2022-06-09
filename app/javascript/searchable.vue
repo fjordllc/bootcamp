@@ -34,8 +34,7 @@
                 | （
                 a.a-user-name(:href='documentAuthorUserUrl')
                   | {{ searchable.document_author_login_name }}
-                | &nbsp;{{ searchable.model_name_with_i18n }}
-                | ）
+                | &nbsp;{{ searchable.model_name_with_i18n }}）
             .card-list-item-meta__item(
               v-if='isRole("admin") && canDisplayTalk'
             )
