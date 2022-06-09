@@ -88,4 +88,14 @@ class AnswersTest < ApplicationSystemTestCase
     visit_with_auth '/notifications?status=unread', 'sotugyou'
     assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
   end
+
+  test 'clear preview after posting comment for question' do
+    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
+    find('#js-new-comment').set('test')
+    click_button 'コメントする'
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    within('#new-comment-preview') do
+      assert_no_text :all, 'test'
+    end
+  end
 end

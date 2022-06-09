@@ -169,6 +169,7 @@ export default {
         .then((json) => {
           this.answers.push(json)
           this.description = ''
+          this.clearPreview('new-comment-preview')
           this.tab = 'answer'
           this.buttonDisabled = false
           this.resizeTextarea()
@@ -275,6 +276,12 @@ export default {
     editAnswer() {
       if (this.description.length > 0) {
         this.editing = true
+      }
+    },
+    clearPreview(elementId) {
+      const parent = document.getElementById(elementId)
+      while (parent.lastChild) {
+        parent.removeChild(parent.lastChild)
       }
     }
   }
