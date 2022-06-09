@@ -39,13 +39,10 @@ class PageCallbacks
       protocol: 'https'
     )
 
-    ChatNotifier.notify(
-      title: page.title,
-      title_url: page_url,
-      description: page.body,
-      user: page.user,
-      webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
-    )
+    ChatNotifier.message(<<~TEXT)
+      Docs：「#{page.title}」が作成されました。
+      #{page_url}
+    TEXT
   end
 
   def create_author_watch(page)
