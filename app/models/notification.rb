@@ -232,17 +232,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def assigned_as_checker(product, receiver)
-      Notification.create!(
-        kind: 16,
-        user: receiver,
-        sender: product.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(product),
-        message: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
-        read: false
-      )
-    end
-
     def product_update(product, receiver)
       Notification.create!(
         kind: 17,
