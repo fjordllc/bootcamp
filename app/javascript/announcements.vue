@@ -36,7 +36,7 @@ export default {
   },
   props: {
     title: { type: String, required: true },
-    currentUserId: { type: Number, required: true }
+    currentUserId: { type: String, required: true }
   },
   data() {
     return {
