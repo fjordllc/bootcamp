@@ -15,6 +15,8 @@
           th.admin-table__label.actions
             | アドバイザー招待
           th.admin-table__label.actions
+            | 研修生招待リンク
+          th.admin-table__label.actions
             | 編集
       tbody.admin-table__items
         tr.admin-table__item(
@@ -37,6 +39,12 @@
             a.a-button.is-sm.is-secondary.is-icon(
               :title='"アドバイザーサインアップURL"',
               :href='company.adviser_sign_up_url'
+            )
+              i.fa-solid.fa-user-plus
+          td.admin-table__item-value.is-text-align-center
+            a.a-button.is-sm.is-secondary.is-icon(
+              :title='"研修生サインアップURL"',
+              :href='company.trainee_sign_up_url'
             )
               i.fa-solid.fa-user-plus
           td.admin-table__item-value.is-text-align-center
