@@ -176,7 +176,7 @@ class NotificationFacade
   end
 
   def self.assigned_as_checker(product, receiver)
-    Notification.assigned_as_checker(product, receiver)
+    ActivityNotifier.with(product: product, receiver: receiver).assigned_as_checker.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

@@ -33,4 +33,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def assigned_as_checker(params = {})
+    params.merge!(@params)
+    product = params[:product]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
+      kind: :assigned_as_checker,
+      sender: product.sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(product),
+      read: false
+    )
+  end
 end
