@@ -12,4 +12,12 @@ module CompanyDecorator
       token: ENV['TOKEN'] || 'token'
     )
   end
+
+  def trainee_sign_up_url
+    new_user_url(
+      role: 'trainee',
+      company_id: id,
+      token: ENV['TOKEN'] || 'token'
+    )
+  end
 end
