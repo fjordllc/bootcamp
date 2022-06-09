@@ -1,0 +1,8 @@
+.a-card.is-only-mentor
+  header.card-header
+    h2.card-header__title
+      = Practice.human_attribute_name :memo
+  .card-body.is-memo
+    .card__description
+      .a-long-text.is-md.js-markdown-view
+        = practice.memo

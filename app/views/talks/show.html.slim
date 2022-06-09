@@ -30,16 +30,17 @@ header.page-header
                 .card-header.is-sm
                   h2.page-content-members__title
                     | 相談部屋にアクセスできるメンバー
-                .card__description
-                  ul.page-content-members__items
-                    - @members.each do |member|
-                      li.page-content-members__item
-                        = render 'users/icon',
-                          user: member,
-                          link_class: 'page-content-members__user-icon-link',
-                          image_class: 'page-content-members__user-icon'
-                        = link_to user_path(member.id), class: 'a-user-name' do
-                          = member.login_name
+                .card-body
+                  .card__description
+                    ul.page-content-members__items
+                      - @members.each do |member|
+                        li.page-content-members__item
+                          = render 'users/icon',
+                            user: member,
+                            link_class: 'page-content-members__user-icon-link',
+                            image_class: 'page-content-members__user-icon'
+                          = link_to user_path(member.id), class: 'a-user-name' do
+                            = member.login_name
 
         #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
 
