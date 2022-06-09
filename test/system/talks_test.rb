@@ -354,4 +354,16 @@ class TalksTest < ApplicationSystemTestCase
     fill_in 'js-talk-search-input', with: 'hoge'
     assert_text '一致する相談部屋はありません'
   end
+
+  test 'admin can see tabs on user talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    has_css?('page-tabs')
+  end
+
+  test 'non-admin user cannot see tabs on user talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+    has_no_css?('page-tabs')
+  end
 end
