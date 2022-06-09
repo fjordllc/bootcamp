@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (checkbox !== null) {
     const dateInput = document.querySelector('input.training-info-date')
-    const trainingInfoBlock = document.querySelector('div.training-info-block')
+    const trainingInfoBlock = document.querySelector('.js-training-info-block')
 
     if (checkbox.checked === false) {
       trainingInfoBlock.style.display = 'none'
