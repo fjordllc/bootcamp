@@ -329,4 +329,13 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{user.id}", 'sotugyou'
     assert_no_text '卒業 1日'
   end
+
+  test 'push guraduation button in user page when admin logined' do
+    user = users(:kimura)
+    visit_with_auth "/users/#{user.id}", 'komagata'
+    accept_confirm do
+      click_link '卒業にする'
+    end
+    assert_text '卒業済'
+  end
 end
