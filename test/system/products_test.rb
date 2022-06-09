@@ -486,4 +486,16 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '6日経過：1件'
     assert_text '7日以上経過：5件'
   end
+
+  test 'no company trainee create product' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'nocompanykensyu'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    click_button '提出する'
+    assert_text '提出日'
+    assert_text Time.zone.now.strftime('%Y年%m月%d日')
+    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
+    assert_text 'Watch中'
+  end
 end
