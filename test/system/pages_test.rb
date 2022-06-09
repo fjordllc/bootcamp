@@ -189,4 +189,23 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth "/pages/#{slug}", 'kimura'
     assert_text 'ActiveRecord::RecordNotFound'
   end
+
+  test 'link to the practice should appear and work correctly' do
+    visit_with_auth new_page_path, 'kimura'
+    fill_in 'page[title]', with: 'Docに関連プラクティスを指定'
+    fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
+    first('.select2-container').click
+    find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
+    click_button '内容を保存'
+    assert_text 'Linuxのファイル操作の基礎を覚える'
+
+    visit pages_path
+    within first('.card-list-item-title__title') do
+      assert_text 'Docに関連プラクティスを指定'
+    end
+    within first('.a-meta.is-practice') do
+      assert_text 'Linuxのファイル操作の基礎を覚える'
+    end
+    assert_link 'Linuxのファイル操作の基礎を覚える'
+  end
 end

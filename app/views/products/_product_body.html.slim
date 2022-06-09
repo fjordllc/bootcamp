@@ -2,9 +2,10 @@
   header.card-header.is-sm
     h2.card-header__title
       | 提出物
-  .card__description
-    .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
-      =  product.body
+  .card-body
+    .card__description
+      .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
+        =  product.body
   = render 'reactions/reactions', reactionable: product
 
   - if product.user == current_user || admin_or_mentor_login?

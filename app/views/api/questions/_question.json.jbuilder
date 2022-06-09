@@ -15,6 +15,7 @@ end
 
 json.practice do
   json.title question.practice.title
+  json.id question.practice.id
 end if question.practice
 
 json.answers do

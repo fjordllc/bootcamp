@@ -1,0 +1,18 @@
+.a-card
+  header.card-header
+    h2.card-header__title
+      = Practice.human_attribute_name :description
+  .card-body.is-practice
+    .card__description
+      .a-long-text.is-md.js-markdown-view
+        = practice.description
+      = render 'shared/common_page_body',
+        common_page: @common_page,
+        classes: 'common-page-body js-markdown-view a-long-text is-md'
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to new_question_path(practice_id: params[:id]), class: 'a-button is-sm is-secondary is-block' do
+            i.fa-solid.fa-question-circle
+            | 質問する
