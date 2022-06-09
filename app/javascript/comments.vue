@@ -313,7 +313,7 @@ export default {
     },
     clearPreview(elementId) {
       const parent = document.getElementById(elementId)
-      while(parent.lastChild){
+      while (parent.lastChild) {
         parent.removeChild(parent.lastChild)
       }
     }
