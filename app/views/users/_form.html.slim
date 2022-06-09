@@ -52,8 +52,7 @@
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
       = render 'users/form/training_end', f: f
-      - if admin_login?
-        = render 'users/form/company', f: f, user: user
+      = render 'users/form/company', f: f, user: user
 
   - if admin_login?
     .form__items
