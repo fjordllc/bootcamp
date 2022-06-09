@@ -42,7 +42,7 @@
     .form__items
       = render 'users/form/password', f: f, from: from
 
-  - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
+  - unless user.trainee?
     .form__items
       = render 'users/form/company', f: f, user: user
 
