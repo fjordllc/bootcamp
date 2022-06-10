@@ -90,7 +90,7 @@ notification_first_report:
   kind: 7
   user: komagata
   sender: hajime
-  message: hajimeさんがはじめての日報を書きました！
+  message: 🎉 hajimeさんがはじめての日報を書きました！
   link: "/reports/<%= ActiveRecord::FixtureSet.identify(:report10) %>"
   read: false
 
@@ -106,7 +106,7 @@ notification_retired:
   kind: 9
   user: komagata
   sender: yameo
-  message: yameoさんが退会しました。
+  message: 😢 yameoさんが退会しました。
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
   read: false
 
@@ -170,6 +170,6 @@ notification_graduated:
   kind: 18
   user: mentormentaro
   sender: sotugyou
-  message: sotugyouさんが卒業しました。
+  message: 🎉 sotugyouさんが卒業しました。
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:sotugyou) %>"
   read: false
