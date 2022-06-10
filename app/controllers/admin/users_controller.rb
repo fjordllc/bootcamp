@@ -20,6 +20,8 @@ class Admin::UsersController < AdminController
   def edit; end
 
   def update
+    only_job_seek_update && return if user_params.keys.one? && user_params.key?('job_seeking')
+
     if @user.update(user_params)
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
@@ -39,12 +41,11 @@ class Admin::UsersController < AdminController
   private
 
   def set_user
-    if Talk.find_by(id: params[:id]).nil?
-      @user = User.find(params[:id])
-    else
-      @user = User.find(Talk.find(params[:id]).user_id)
-      job_seek_update
-    end
+    @user = if Talk.find_by(id: params[:id]).nil?
+              User.find(params[:id])
+            else
+              User.find(Talk.find(params[:id]).user_id)
+            end
   end
 
   def user_params
@@ -63,7 +64,7 @@ class Admin::UsersController < AdminController
     )
   end
 
-  def job_seek_update
+  def only_job_seek_update
     if @user.update(user_params)
       redirect_to talk_url, notice: "#{@user.login_name}の就職活動中の情報を更新しました。"
     else

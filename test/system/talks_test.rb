@@ -377,7 +377,7 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'change job seeking flag when click toggle button' do
-    user = users(:hajime) # job_seekerはos:を持っていないためエラーになる
+    user = users(:hajime)
 
     visit_with_auth talk_path(user.talk), 'komagata'
 
