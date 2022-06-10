@@ -530,4 +530,12 @@ class UserTest < ActiveSupport::TestCase
     reports = User.depressed_reports(user_ids)
     assert_equal 0, reports.size
   end
+
+  test '#wip_owned?' do
+    user = users(:machida)
+    assert_not user.wip_owned?
+
+    Report.create!(user_id: user.id, title: 'WIP test', description: 'WIP test', wip: true, reported_on: Time.current)
+    assert user.wip_owned?
+  end
 end
