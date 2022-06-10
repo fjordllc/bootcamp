@@ -2,12 +2,14 @@
 
 - set_meta_tags description: @article.summary if @article.summary.present?
 
-- if @article.thumbnail.attached?
-  - set_meta_tags(og: { image: @article.thumbnail_url, url: request.url })
-  - set_meta_tags(twitter: { image: @article.thumbnail_url, url: request.url })
-- else
-  - set_meta_tags(og: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
-  - set_meta_tags(twitter: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
+ruby:
+  if @article.thumbnail.attached?
+    set_meta_tags(og: { image: @article.thumbnail_url, url: request.url })
+    set_meta_tags(twitter: { image: @article.thumbnail_url, url: request.url })
+  else
+    set_meta_tags(og: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
+    set_meta_tags(twitter: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
+  end
 
 .welcome-page-header
   .container.is-xxl
