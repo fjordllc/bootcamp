@@ -502,7 +502,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'update published_at when update product content after wips submitted product' do
     product = products(:product5)
     product_published_at = product.published_at
- 
+
     visit_with_auth "/products/#{product.id}", 'kimura'
     click_button '提出する'
 
