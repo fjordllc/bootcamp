@@ -20,7 +20,7 @@ export default {
   components: {
     event: Event,
     pager: Pager,
-    loadingListPlaceholder: LoadingListPlaceholder,
+    loadingListPlaceholder: LoadingListPlaceholder
   },
   data() {
     return {
