@@ -498,4 +498,24 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     assert_text 'Watch中'
   end
+
+  test 'update published_at when update product content after wips submitted product' do
+    product = products(:product5)
+    product_published_at = product.published_at
+ 
+    visit_with_auth "/products/#{product.id}", 'kimura'
+    click_button '提出する'
+
+    assert product.reload.published_at > product_published_at
+  end
+
+  test 'not update published_at when update product content after submitted product' do
+    product = products(:product12)
+    product_published_at = product.published_at
+
+    visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
+    click_button '提出する'
+
+    assert product.reload.published_at = product_published_at
+  end
 end
