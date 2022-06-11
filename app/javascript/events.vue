@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
-    | ロード中
+  .container.is-md(v-if='!loaded')
+    loadingListPlaceholder
   .container.is-md(v-else)
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
@@ -14,11 +14,13 @@
 <script>
 import Event from 'event'
 import Pager from 'pager'
+import LoadingListPlaceholder from 'loading-list-placeholder'
 
 export default {
   components: {
     event: Event,
-    pager: Pager
+    pager: Pager,
+    loadingListPlaceholder: LoadingListPlaceholder,
   },
   data() {
     return {
