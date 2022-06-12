@@ -300,3 +300,19 @@ report<%= i %>:
     頑張れませんでした
   reported_on: <%= Time.now - 1.year + i.day %>
 <% end %>
+
+report72:
+  user: kensyu
+  title: "悲しい顔アイコンの日報1"
+  emotion: 1
+  description: |-
+    難しかったです
+  reported_on: "2022-06-01"
+
+report73:
+  user: kensyu
+  title: "悲しい顔アイコンの日報2"
+  emotion: 1
+  description: |-
+    やっぱり難しいです。
+  reported_on: "2022-06-03"

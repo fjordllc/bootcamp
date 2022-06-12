@@ -367,6 +367,24 @@ class User < ApplicationRecord
     def tags
       unretired.all_tag_counts(order: 'count desc, name asc')
     end
+
+    def depressed_reports(ids)
+      consecutive_depressed_reports =
+        reports_by_user(ids).values.select do |reports|
+          reports.size >= DEPRESSED_SIZE && reports.first(DEPRESSED_SIZE).all?(&:sad?)
+        end
+
+      consecutive_depressed_reports.flat_map(&:first)
+    end
+
+    private
+
+    def reports_by_user(ids)
+      Report.where(user_id: ids)
+            .preload([:comments, { checks: { user: { avatar_attachment: :blob } } }])
+            .order(reported_on: :desc)
+            .group_by(&:user_id)
+    end
   end
 
   def retired_three_months_ago_and_notification_not_sent?
