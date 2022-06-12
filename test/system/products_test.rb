@@ -305,7 +305,7 @@ class ProductsTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_current_path('/products?page=2')
+    assert_current_path('/products?_login_name=komagata&page=2')
   end
 
   test 'specify the page number in the URL' do
