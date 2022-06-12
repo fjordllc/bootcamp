@@ -48,4 +48,20 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def came_comment(params = {})
+    params.merge!(@params)
+    comment = params[:comment]
+    receiver = params[:receiver]
+    message = params[:message]
+
+    notification(
+      body: message,
+      kind: :came_comment,
+      receiver: receiver,
+      sender: comment.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
+      read: false
+    )
+  end
 end
