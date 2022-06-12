@@ -369,12 +369,9 @@ class User < ApplicationRecord
     end
 
     def depressed_reports(ids)
-      consecutive_depressed_reports =
-        reports_by_user(ids).values.select do |reports|
-          reports.size >= DEPRESSED_SIZE && reports.first(DEPRESSED_SIZE).all?(&:sad?)
-        end
-
-      consecutive_depressed_reports.flat_map(&:first)
+      reports_by_user(ids).values.filter_map do |reports|
+        reports.first if reports.size >= DEPRESSED_SIZE && reports.first(DEPRESSED_SIZE).all?(&:sad?)
+      end
     end
 
     private
