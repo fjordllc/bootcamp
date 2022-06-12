@@ -63,6 +63,7 @@ import Pager from 'pager'
 import toast from 'toast'
 
 export default {
+  name: 'AdminCompanies',
   components: {
     pager: Pager
   },
