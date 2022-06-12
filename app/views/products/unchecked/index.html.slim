@@ -13,7 +13,7 @@ nav.sort-nav
       .sort-nav__inner
         = label_tag :checker_id, 'メンターで絞り込む', class: 'sort-nav__label'
         .sort-nav__select
-          = select_tag :checker_id, options_from_collection_for_select(User.mentor, :id, :login_name, selected: params[:checker_id]), include_blank: '全ての提出物を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+          = select_tag :checker_id, options_from_collection_for_select(User.mentor.order(:login_name), :id, :login_name, selected: params[:checker_id]), include_blank: '全ての提出物を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
 = render 'nav', checker_id: @checker_id
 
 .page-body
