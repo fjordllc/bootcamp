@@ -7,7 +7,7 @@
           :title='product.user.icon_title',
           :alt='product.user.icon_title',
           :src='product.user.avatar_url',
-          :class='[roleClass, daimyoClass]'
+          :class='[roleClass]'
         )
     .card-list-item__rows
       .card-list-item__row
@@ -69,7 +69,7 @@
                     :title='user.icon_title',
                     :alt='user.icon_title',
                     :src='user.avatar_url',
-                    :class='[roleClass, daimyoClass]'
+                    :class='[roleClass]'
                   )
 
             .card-list-item-meta__item(
@@ -135,13 +135,8 @@ export default {
     roleClass() {
       return `is-${this.product.user.primary_role}`
     },
-    daimyoClass() {
-      return { 'is-daimyo': this.product.user.daimyo }
-    },
     practiceTitle() {
-      return this.product.user.daimyo
-        ? `★${this.product.practice.title}の提出物`
-        : `${this.product.practice.title}の提出物`
+      return `${this.product.practice.title}の提出物`
     },
     unassigned() {
       return location.pathname === '/products/unassigned'
