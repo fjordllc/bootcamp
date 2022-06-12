@@ -9,8 +9,6 @@ header.page-content-header
         = link_to @product.user, class: 'a-user-name' do
           = @product.user.long_name
       h1.page-content-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
-        - if @product.user.daimyo?
-          | ★
         - if @product.wip?
           span.a-title-label.is-wip
             | WIP
