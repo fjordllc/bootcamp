@@ -5,7 +5,7 @@
       img.thread-comment__user-icon.a-user-icon(
         :src='answer.user.avatar_url',
         :title='answer.user.icon_title',
-        :class='[roleClass, daimyoClass]'
+        :class='[roleClass]'
       )
   .a-card.is-answer(v-if='!editing')
     .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
@@ -151,9 +151,6 @@ export default {
     },
     roleClass: function () {
       return `is-${this.answer.user.primary_role}`
-    },
-    daimyoClass: function () {
-      return { 'is-daimyo': this.answer.user.daimyo }
     },
     validation: function () {
       return this.description.length > 0

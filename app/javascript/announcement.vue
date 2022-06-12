@@ -7,7 +7,7 @@
           :title='announcement.user.icon_title',
           :alt='announcement.user.icon_title',
           :src='announcement.user.avatar_url',
-          :class='[roleClass, daimyoClass]'
+          :class='[roleClass]'
         )
     .card-list-item__rows
       .card-list-item__row
@@ -44,9 +44,6 @@ export default {
   computed: {
     roleClass() {
       return `is-${this.announcement.user.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.announcement.user.daimyo }
     }
   }
 }

@@ -5,7 +5,7 @@
       img.card-list-item__user-icon.a-user-icon(
         :title='notification.sender.icon_title',
         :src='notification.sender.avatar_url',
-        :class='[roleClass, daimyoClass]'
+        :class='[roleClass]'
       )
     .card-list-item__rows
       .card-list-item__row
@@ -46,9 +46,6 @@ export default {
     },
     roleClass() {
       return `is-${this.notification.sender.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.notification.sender.daimyo }
     }
   }
 }
