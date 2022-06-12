@@ -1,4 +1,4 @@
-- if users.any?(&:depressed?)
+- if reports.present?
   .a-card.is-only-mentor
     header.card-header
       h2.card-header__title
@@ -6,6 +6,4 @@
         = image_tag Report.faces['sad'], id: 'sad', alt: 'sad', class: 'card-header__title-emotion-image'
         | のユーザー
     .card-list
-      - users.each do |user|
-        - if user.depressed?
-          = render partial: 'reports/report', collection: user.reports.order(reported_on: :desc).limit(1), as: :report
+      = render partial: 'reports/report', collection: reports, as: :report
