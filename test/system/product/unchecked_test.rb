@@ -151,6 +151,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     find('.pill-nav__item-link', text: '全て').click
     assert_current_path("/products/unchecked?checker_id=#{product.checker_id}&target=unchecked_all")
     assert_selector '.card-list-item__assignee-name', text: 'komagata'
+    assert_no_selector '.card-list-item__assignee-name', text: 'machida'
   end
 
   test "show only mentor's products if you select a mentor in products unchecked no replied" do
@@ -170,5 +171,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     find('.pill-nav__item-link', text: '未返信').click
     assert_current_path("/products/unchecked?checker_id=#{product.checker_id}&target=unchecked_no_replied")
     assert_selector '.card-list-item__assignee-name', text: 'komagata'
+    assert_no_selector '.card-list-item__assignee-name', text: 'machida'
   end
 end
