@@ -6,7 +6,7 @@ export default class VueMounter {
   }
 
   addComponent(component) {
-    const name = this._camelCase(component.name)
+    const name = component.name
     this.components[name] = component
   }
 
