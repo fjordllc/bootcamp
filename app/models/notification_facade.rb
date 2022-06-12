@@ -2,7 +2,7 @@
 
 class NotificationFacade
   def self.came_comment(comment, receiver, message)
-    Notification.came_comment(comment, receiver, message)
+    ActivityNotifier.with(comment: comment, receiver: receiver, message: message).came_comment.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
