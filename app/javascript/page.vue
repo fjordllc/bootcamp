@@ -57,7 +57,7 @@
                     :title='page.last_updated_user.icon_title',
                     :alt='page.last_updated_user.icon_title',
                     :src='page.last_updated_user.avatar_url',
-                    :class='[roleClassLastUpdatedUser, daimyoClass]'
+                    :class='[roleClassLastUpdatedUser]'
                   )
                 a.a-user-name(:href='page.last_updated_user.url')
                   | {{ page.last_updated_user.login_name }}
