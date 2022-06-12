@@ -75,3 +75,9 @@ import '../users-answers.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
+import VueMounter from '../VueMounter.js'
+import Hello from '../hello.vue'
+
+const mounter = new VueMounter()
+mounter.addComponent(Hello)
+mounter.mount()
