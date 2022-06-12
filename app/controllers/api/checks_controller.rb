@@ -10,13 +10,15 @@ class API::ChecksController < API::BaseController
   end
 
   def create
-    @check = Check.new(
-      user: current_user,
-      checkable: checkable
-    )
-
-    @check.save!
-    head :created
+    if checkable.checks.empty?
+      @check = Check.create!(
+        user: current_user,
+        checkable: checkable
+      )
+      head :created
+    else
+      render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
+    end
   end
 
   def destroy
