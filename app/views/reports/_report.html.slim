@@ -10,8 +10,6 @@
               .card-list-item-title__icon.is-wip WIP
             h2.card-list-item-title__title(itemprop='name')
               = link_to report, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
-                - if report.user.daimyo?
-                  | ★
                 = report.title
           - if current_user == report.user
             .card-list-item-title__end
