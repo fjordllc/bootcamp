@@ -547,10 +547,6 @@ class User < ApplicationRecord
     participate_events.include?(event)
   end
 
-  def daimyo?
-    company&.name == 'DAIMYO Engineer College'
-  end
-
   def register_github_account(id, account_name)
     self.github_account = account_name
     self.github_id = id
