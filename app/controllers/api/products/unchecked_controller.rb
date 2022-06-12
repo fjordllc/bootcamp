@@ -6,7 +6,7 @@ class API::Products::UncheckedController < API::BaseController
     @target = params[:target]
     @target = 'unchecked_all' unless target_allowlist.include?(@target)
     @checker_id = params[:checker_id]
-    params[:checker_id].present? ? commenter_id = @checker_id : commenter_id = current_user.id
+    commenter_id = params[:checker_id].present? ? @checker_id : current_user.id
     @products = case @target
                 when 'unchecked_all'
                   Product.unchecked
