@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'hello',
+  name: 'Hello',
   props: {
     id: { type: Number, required: true }
   }
