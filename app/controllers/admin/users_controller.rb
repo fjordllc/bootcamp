@@ -2,6 +2,7 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
+  before_action :only_job_seek_update, only: %i[update], if: :only_job_seeking? 
 
   def index
     @direction = params[:direction] || 'desc'
@@ -20,8 +21,6 @@ class Admin::UsersController < AdminController
   def edit; end
 
   def update
-    only_job_seek_update && return if user_params.keys.one? && user_params.key?('job_seeking')
-
     if @user.update(user_params)
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
@@ -70,5 +69,9 @@ class Admin::UsersController < AdminController
     else
       redirect_to talk_url, alert: "#{@user.login_name}の就職活動中の情報を更新できませんでした。"
     end
+  end
+
+  def only_job_seeking?
+    user_params.keys.one? && user_params.key?('job_seeking')
   end
 end
