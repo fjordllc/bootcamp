@@ -2,6 +2,7 @@
 
 class GraduationController < ApplicationController
   before_action :set_user, only: %i[update]
+  before_action :set_redirect_url, only: %i[update]
 
   def update
     if @user.update(graduated_on: Date.current)
@@ -18,6 +19,9 @@ class GraduationController < ApplicationController
 
   def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def set_redirect_url
     @redirect_url = params[:redirect_url].presence || admin_users_url
   end
 
