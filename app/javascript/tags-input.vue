@@ -81,7 +81,11 @@ export default {
       editItems: true,
       duplicateItemsAllowed: false,
       addItemText: 'Enterを押して追加',
-      uniqueItemText: '同じタグは追加できません'
+      uniqueItemText: '同じタグは追加できません',
+      addItemFilter: (value) => {
+        return this.validateTagName(value)
+      },
+      customAddItemText: 'スペースを含むタグ、「ドット、#、＃、♯」が1つだけのタグは作成できません'
     })
   },
   methods: {
@@ -101,6 +105,17 @@ export default {
           tiClasses: ['ti-valid']
         }
       })
+    },
+    validateTagName(value) {
+      // eslint-disable-next-line no-irregular-whitespace
+      if (/[ 　]/.test(value) || value === '.') {
+        return false
+      } else if(/^[#＃♯]/.test(value)) {
+        if (value.length === 1) {
+          return false
+        }
+      }
+      return true
     }
   }
 }
