@@ -27,7 +27,7 @@ class ProductTest < ActiveSupport::TestCase
   test 'adviser watches trainee product when trainee remove wip of product' do
     trainee = users(:kensyu)
     adviser = users(:senpai)
-    practice = practices(:practice2)
+    practice = practices(:practice3)
     product = Product.new(
       body: 'test',
       user: trainee,
