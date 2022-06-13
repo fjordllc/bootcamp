@@ -281,4 +281,30 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_match(/ogp\.png$/, ogp_twitter_content)
     assert_match(/ogp\.png$/, ogp_othter_content)
   end
+
+  test 'display user icon when not logged in' do
+    visit_with_auth '/current_user/edit', 'komagata'
+
+    attach_file 'user[avatar]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
+    click_on '更新する'
+
+    find('.test-show-menu').click
+    click_link 'ログアウト'
+
+    visit_with_auth new_article_url, 'machida'
+    fill_in 'article[title]', with: 'test'
+    fill_in 'article[body]', with: ':@komagata:'
+
+    click_on '登録する'
+
+    click_link 'プラクティス'
+
+    find('.test-show-menu').click
+    click_link 'ログアウト'
+
+    visit articles_path
+    click_on 'test'
+
+    assert_selector "img[src$='komagata.jpg']"
+  end
 end
