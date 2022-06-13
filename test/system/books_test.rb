@@ -6,6 +6,7 @@ class BooksTest < ApplicationSystemTestCase
   test 'show listing books' do
     visit_with_auth '/books', 'komagata'
     assert_equal '参考書籍 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert has_link?(practices(:practice1).title, href: practice_path(practices(:practice1)))
   end
 
   test 'create book' do
