@@ -228,7 +228,11 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text 'mentormentaro'
   end
 
+<<<<<<< HEAD
   test 'Summary text is used for meta description' do
+=======
+  test 'display user icon when not logged in' do
+>>>>>>> 24fba0fd3 (ESLintを通した)
     visit_with_auth new_article_url, 'komagata'
 
     fill_in 'article[title]', with: @article.title
