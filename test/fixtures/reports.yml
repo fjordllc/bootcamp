@@ -194,7 +194,7 @@ report23:
   reported_on: "2022-03-31"
 
 report24:
-  user: daimyo
+  user: kimura
   title: 検索用の日報
   description:
     ユーザーネームで検索できるよ
