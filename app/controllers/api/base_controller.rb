@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class API::BaseController < ApplicationController
-  before_action :require_login_for_api, unless: :is_before_articles_contoroller?
+  before_action :require_login_for_api, if: :not_before_user_icon_urls_controller?
 
-  def is_before_articles_contoroller?
-    Rails.application.routes.recognize_path(request.referer)[:controller] == 'articles'
+  def not_before_user_icon_urls_controller?
+    true
   end
 end
