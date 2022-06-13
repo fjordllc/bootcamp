@@ -34,7 +34,7 @@ class API::ReportsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  test 'GET /api/reports.json?company_id=362477616' do
+  test 'GET /api/reports.json?company_id=1022975240' do
     company = companies(:company4)
     get api_reports_path(company_id: company.id, format: :json)
     assert_response :unauthorized
