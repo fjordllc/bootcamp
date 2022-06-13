@@ -2,7 +2,7 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
-  before_action :only_job_seek_update, only: %i[update], if: :only_job_seeking? 
+  before_action :only_job_seek_update, only: %i[update], if: :only_job_seeking?
 
   def index
     @direction = params[:direction] || 'desc'
