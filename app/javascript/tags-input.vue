@@ -1,6 +1,8 @@
 <template lang="pug">
 div
-  input.tags-input(type='text', :name='tagsParamName')
+  input.tags-input(type='text', :name='tagsParamName', v-model='inputTag')
+  div(v-if='headIsSharpOrOctothorpe(inputTag)')
+    | 先頭の記号は無視されます
   //-
     vue-tags-input(
       v-model='inputTag',
@@ -19,11 +21,12 @@ div
 // import VueTagsInput from '@johmun/vue-tags-input'
 import Choices from 'choices.js'
 // import validateTagName from 'validate-tag-name'
-// import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
+import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
 
 export default {
 //   components: { VueTagsInput },
 //   mixins: [validateTagName, headIsSharpOrOctothorpe],
+  mixins: [headIsSharpOrOctothorpe],
   props: {
     tagsInitialValue: { type: String, required: true },
     tagsParamName: { type: String, required: true },
@@ -31,7 +34,7 @@ export default {
   },
   data() {
     return {
-      //     inputTag: '',
+      inputTag: '',
       tags: [],
       tagsValue: '',
       autocompleteTags: []
