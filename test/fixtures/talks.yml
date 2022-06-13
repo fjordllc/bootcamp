@@ -58,69 +58,65 @@ talk15:
   unreplied: false
 
 talk16:
-  user: daimyo
-  unreplied: false
-
-talk17:
   user: nippounashi
   unreplied: false
 
-talk18:
+talk17:
   user: with_hyphen
   unreplied: true
 
-talk19:
+talk18:
   user: kensyuowata
   unreplied: false
 
-talk20:
+talk19:
   user: adminonly
   unreplied: false
 
-talk21:
+talk20:
   user: otameshi
   unreplied: false
 
-talk22:
+talk21:
   user: sotugyou_with_job
   unreplied: false
 
-talk23:
+talk22:
   user: discordinvalid
   unreplied: false
 
-talk24:
+talk23:
   user: twitterinvalid
   unreplied: false
 
-talk25:
+talk24:
   user: enchomaemae
   unreplied: false
 
-talk26:
+talk25:
   user: enchomaeyo
   unreplied: false
 
-talk27:
+talk26:
   user: enchohayashi
   unreplied: false
 
-talk28:
+talk27:
   user: enchoososhi
   unreplied: false
 
-talk29:
+talk28:
   user: enchoowata
   unreplied: false
 
-talk30:
+talk29:
   user: kimuramitai
   unreplied: false
 
-talk31:
+talk30:
   user: long-id-mentor
   unreplied: false
 
-talk32:
+talk31:
   user: nocompanykensyu
   unreplied: false
