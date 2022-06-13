@@ -39,7 +39,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
     # 提出日の昇順で並んでいることを検証する
     visit_with_auth '/products/unchecked', 'komagata'
-    assert_equal 'OS X Mountain Lionをクリーンインストールする', oldest_product.practice.title
+    assert_equal 'Terminalの基礎を覚える', oldest_product.practice.title
 
     visit_with_auth '/products/unchecked?page=2', 'komagata'
     assert_equal 'sshdでパスワード認証を禁止にする', newest_product.practice.title
