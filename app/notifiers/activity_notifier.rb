@@ -56,11 +56,11 @@ class ActivityNotifier < ApplicationNotifier
     message = params[:message]
 
     notification(
+      body: message,
       kind: :came_comment,
-      user: receiver,
+      receiver: receiver,
       sender: comment.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
-      message: message,
       read: false
     )
   end
