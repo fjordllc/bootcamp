@@ -3,35 +3,38 @@
 require 'test_helper'
 
 class DiscordNotifierTest < ActiveSupport::TestCase
+  include AbstractNotifier::TestHelper
+
   setup do
-    @params = {
+    AbstractNotifier::Testing::Driver.clear
+  end
+
+  teardown do
+    AbstractNotifier::Testing::Driver.clear
+  end
+
+  test '.graduated' do
+    params = {
       body: 'test message',
       sender: users(:kimura),
       name: 'bob',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
-  end
 
-  test '.graduated' do
-    notification = DiscordNotifier.graduated(@params)
+    expected = {
+      body: 'kimuraさんが卒業しました。',
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
-      notification.notify_now
+    assert_notifications_sent 2, **expected do
+      DiscordNotifier.graduated(params).notify_now
+      DiscordNotifier.with(params).graduated.notify_now
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      notification.notify_later
-    end
-
-    # Parameterized
-    notification = DiscordNotifier.with(@params).graduated
-
-    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
-      notification.notify_now
-    end
-
-    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      notification.notify_later
+    assert_notifications_enqueued 2, **expected do
+      DiscordNotifier.graduated(params).notify_later
+      DiscordNotifier.with(params).graduated.notify_later
     end
   end
 end
