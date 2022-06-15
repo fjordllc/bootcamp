@@ -15,8 +15,6 @@ class HomeController < ApplicationController
         display_events_on_dashboard
         display_welcome_message_for_adviser
         set_required_fields
-        @depressed_reports = User.depressed_reports(User.students_and_trainees.select(:id))
-
         render aciton: :index
       end
     else
