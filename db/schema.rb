@@ -277,6 +277,16 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "organizers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "regular_event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["regular_event_id"], name: "index_organizers_on_regular_event_id"
+    t.index ["user_id", "regular_event_id"], name: "index_organizers_on_user_id_and_regular_event_id", unique: true
+    t.index ["user_id"], name: "index_organizers_on_user_id"
+  end
+
   create_table "pages", id: :serial, force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
@@ -379,6 +389,21 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
     t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
+  create_table "regular_events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.boolean "finished", null: false
+    t.boolean "hold_national_holiday", null: false
+    t.time "start_at", null: false
+    t.time "end_at", null: false
+    t.text "wday", null: false
+    t.boolean "wip", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
   create_table "report_templates", force: :cascade do |t|
@@ -529,6 +554,8 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
   add_foreign_key "learning_times", "reports"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
+  add_foreign_key "organizers", "regular_events"
+  add_foreign_key "organizers", "users"
   add_foreign_key "pages", "practices"
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
@@ -539,6 +566,7 @@ ActiveRecord::Schema.define(version: 2022_05_31_063021) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
+  add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
