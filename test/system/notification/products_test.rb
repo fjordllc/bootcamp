@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::ProductsTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'send adviser a notification when trainee create product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice5).id}", 'kensyu'
 
