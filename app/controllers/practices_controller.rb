@@ -22,7 +22,7 @@ class PracticesController < ApplicationController
   def create
     @practice = Practice.new(practice_params)
     if @practice.save
-      ChatNotifier.message("プラクティス：「#{@practice.title}」を作成しました。\r#{url_for(@practice)}")
+      ChatNotifier.message("プラクティス：「#{@practice.title}」を#{current_user.login_name}さんが作成しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを作成しました。'
     else
       render :new
@@ -32,7 +32,7 @@ class PracticesController < ApplicationController
   def update
     @practice.last_updated_user = current_user
     if @practice.update(practice_params)
-      ChatNotifier.message("プラクティス：「#{@practice.title}」を編集しました。\r#{url_for(@practice)}")
+      ChatNotifier.message("プラクティス：「#{@practice.title}」を#{current_user.login_name}さんが編集しました。\r#{url_for(@practice)}")
       redirect_to @practice, notice: 'プラクティスを更新しました。'
     else
       render :edit

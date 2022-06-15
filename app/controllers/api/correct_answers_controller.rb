@@ -8,7 +8,7 @@ class API::CorrectAnswersController < API::BaseController
     @answer = @question.answers.find(params[:answer_id])
     @answer.type = 'CorrectAnswer'
     if @answer.save
-      ChatNotifier.message("質問「#{@answer.question.title}」のベストアンサーが選ばれました。\r#{url_for(@answer.question)}")
+      ChatNotifier.message("質問：「#{@answer.question.title}」のベストアンサーが選ばれました。\r#{url_for(@answer.question)}")
       render json: @answer
     else
       head :bad_request
