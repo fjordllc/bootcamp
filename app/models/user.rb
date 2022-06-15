@@ -378,7 +378,7 @@ class User < ApplicationRecord
 
     def reports_by_user(ids)
       Report.where(user_id: ids)
-            .preload([:comments, { checks: { user: { avatar_attachment: :blob } } }])
+            .preload([:comments, { user: [:company, { avatar_attachment: :blob }] }, { checks: { user: { avatar_attachment: :blob } } }])
             .order(reported_on: :desc)
             .group_by(&:user_id)
     end

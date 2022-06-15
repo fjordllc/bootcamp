@@ -83,5 +83,5 @@ header.page-header
           - if current_user.student_or_trainee?
             #js-niconico_calendar(data-user-id="#{current_user.id}")
           - if current_user.mentor?
-            = render 'users/sad_emotion_report', reports: @depressed_reports
+            = render 'users/sad_emotion_report', reports: User.depressed_reports(User.students_and_trainees.select(:id))
             = render 'users/inactive_users', users: @inactive_students
