@@ -25,6 +25,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Commentable
   include Footprintable
   include Reactionable
+  include Watchable
 
   enum category: {
     reading_circle: 0,
@@ -55,6 +56,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :users, through: :organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
+  has_many :watches, as: :watchable, dependent: :destroy
 
   def organizers
     users.with_attached_avatar.order('organizers.created_at')
