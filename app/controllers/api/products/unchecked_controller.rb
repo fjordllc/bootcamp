@@ -6,7 +6,6 @@ class API::Products::UncheckedController < API::BaseController
     @target = params[:target]
     @target = 'unchecked_all' unless target_allowlist.include?(@target)
     @checker_id = params[:checker_id]
-    commenter_id = params[:checker_id].present? ? @checker_id : current_user.id
     @products = case @target
                 when 'unchecked_all'
                   Product.unchecked
@@ -15,13 +14,13 @@ class API::Products::UncheckedController < API::BaseController
                          .ascending_by_date_of_publishing_and_id
                          .page(params[:page])
                 when 'unchecked_no_replied'
-                  Product.unchecked_no_replied_products(commenter_id)
+                  Product.unchecked_no_replied_products(current_user.id)
                          .unchecked
                          .not_wip
                          .list
                          .page(params[:page])
                 end
-    @products = @products.where(checker_id: commenter_id) if params[:checker_id].present?
+    @products = @products.where(checker_id: @checker_id) if @checker_id.present?
     @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
   end
 
