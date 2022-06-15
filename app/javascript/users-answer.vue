@@ -21,7 +21,9 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              .a-meta.is-practice {{ answer.question.practice.title }}
+              a.a-meta.is-practice(
+                :href='`/practices/${answer.question.practice.id}`'
+              ) {{ answer.question.practice.title }}
       .card-list-item__row
         .card-list-item__summary
           p {{ summary }}
