@@ -27,7 +27,7 @@
       li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
         button#js-shortcut-check.is-block(
           :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"',
-          @click='checkSad'
+          @click='confirm'
         )
           | {{ buttonLabel }}
 </template>
@@ -80,7 +80,7 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    checkSad() {
+    confirm() {
       if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
         if (
           window.confirm(
