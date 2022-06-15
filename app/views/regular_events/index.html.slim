@@ -1,4 +1,4 @@
-- title 'イベント'
+- title '定期イベント'
 
 header.page-header
   .container
@@ -8,10 +8,10 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to new_event_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
-              | イベント作成
+              | 定期イベント作成
 
 = render 'events/tabs'
 
-#js-events
+#js-regular-events

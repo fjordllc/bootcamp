@@ -1,0 +1,81 @@
+regular_event1:
+  title: 開発MTG
+  description: 開発MTGを開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 15, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  wday: 水曜日
+  user: komagata
+
+regular_event2:
+  title: 質問・雑談タイム
+  description: 質問・雑談タイムを開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
+  wday: 月曜日
+  user: machida
+
+regular_event3:
+  title: 自作サービス進捗報告会
+  description: 自作サービス進捗報告会を開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  wday: 水曜日
+  user: komagata
+
+regular_event4:
+  title: チェリー本輪読会
+  description: チェリー本輪読会を開催します
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 19, 0, 0) %>
+  wday: 火曜日
+  user: kimura
+
+regular_event5:
+  title: Everyday Rails輪読会
+  description: Everyday Rails輪読会を開催します
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
+  wday: 土曜日
+  user: komagata
+
+regular_event6:
+  title: Ruby超入門輪読会
+  description: Ruby超入門輪読会を開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
+  wday: 火曜日
+  user: komagata
+
+regular_event7:
+  title: 独習Git輪読会
+  description: 独習Git輪読会を開催します
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  wday: 水曜日
+  user: komagata
+
+<% (8..26).each do |i| %>
+event<%= i %>:
+  title: 定期イベント<%= i %>
+  description: <%= i %>番目の定期イベントです。
+  wday: 月曜日
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  finished: true
+  hold_national_holiday: true
+  user: komagata
+<% end %>
