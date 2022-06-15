@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return new Choices(element, {
       removeItemButton: true,
       allowHTML: true,
-      searchResultLimit: 10,
+      searchResultLimit: 20,
       searchPlaceholderValue: '検索ワード',
       noResultsText: '一致する情報は見つかりません',
       itemSelectText: '選択',
