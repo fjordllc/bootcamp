@@ -64,4 +64,20 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def submitted(params = {})
+    params.merge!(@params)
+    subject = params[:subject]
+    receiver = params[:receiver]
+    message = params[:message]
+
+    notification(
+      body: message,
+      kind: :submitted,
+      sender: subject.user,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(subject),
+      read: false
+    )
+  end
 end

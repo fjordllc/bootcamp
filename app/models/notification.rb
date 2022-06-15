@@ -76,17 +76,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def submitted(subject, receiver, message)
-      Notification.create!(
-        kind: kinds[:submitted],
-        user: receiver,
-        sender: subject.user,
-        link: Rails.application.routes.url_helpers.polymorphic_path(subject),
-        message: message,
-        read: false
-      )
-    end
-
     def came_answer(answer)
       Notification.create!(
         kind: kinds[:answered],
