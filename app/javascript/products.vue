@@ -1,12 +1,12 @@
 <template lang="pug">
-.products(v-if='!loaded')
+.page-content.products(v-if='!loaded')
   loadingListPlaceholder
 .o-empty-message(v-else-if='products.length === 0')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
     | {{ title }}はありません
-.products(v-else)
+.page-content.products(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .a-card(v-if='productsGroupedByElapsedDays === null')
