@@ -26,7 +26,7 @@ main.page-main
                     class: "a-button is-sm is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
 
   .page-body
-    .container
+    .container.is-md
       nav.pill-nav
         .container
           ul.pill-nav__items
