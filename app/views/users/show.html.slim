@@ -91,9 +91,16 @@ header.page-header
               .a-button.is-sm.is-disabled.is-block
                 | 卒業済
             - else
-              = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
-                method: :patch,
-                data: { confirm: '本当によろしいですか？' },
-                class: 'a-button is-sm is-danger is-block'
+              .a-card.is-only-mentor
+                .card-header.is-sm
+                  h2.card-header__title
+                    | ステータス変更
+                .user-statuses
+                  .user-statuses__items
+                    .user-statuses__item
+                      = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
+                        method: :patch,
+                        data: { confirm: '本当によろしいですか？' },
+                        class: 'a-button is-sm is-danger is-block'
 
         .col-xs-12.col-lg-5.col-xxl-6
