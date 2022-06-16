@@ -4,8 +4,8 @@ class Book < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
 
   COVER_SIZE = '100x150>'
-  has_many :practices, through: :practices_books
   has_many :practices_books, dependent: :destroy
+  has_many :practices, through: :practices_books
   has_one_attached :cover
   validates :title, presence: true
   validates :price, presence: true, numericality: { only_integer: true }
