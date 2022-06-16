@@ -146,7 +146,7 @@ class NotificationFacade
   end
 
   def self.create_page(page, receiver)
-    Notification.create_page(page, receiver)
+    ActivityNotifier.with(page: page, receiver: receiver).create_page.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
