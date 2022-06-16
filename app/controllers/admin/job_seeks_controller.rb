@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::JobSeeksController < ApplicationController
   before_action :set_user, only: %i[update]
 
