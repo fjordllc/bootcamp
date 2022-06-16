@@ -19,7 +19,6 @@ class GraduationController < ApplicationController
 
   def set_user
     @user = User.find(params[:user_id])
-    @redirect_url = params[:redirect_url].presence || admin_users_url
   end
 
   def set_redirect_url
