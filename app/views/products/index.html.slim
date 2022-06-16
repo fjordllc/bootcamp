@@ -9,4 +9,6 @@ header.page-header
 - if current_user.admin? || current_user.mentor?
   = render 'products/tabs'
 
-  #js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+  .page-body
+    .container.is-md
+      #js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")

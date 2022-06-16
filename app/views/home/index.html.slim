@@ -3,7 +3,8 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title = title
+      h2.page-header__title
+        = title
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
@@ -17,7 +18,7 @@ header.page-header
 
 = render 'page_tabs', user: current_user
 
-.page-body
+.page-body.is-dash-board
   - if @events_coming_soon.present? && current_user.job_seeker
     #events_on_dashboard.confirmed_event
       .page-notices
@@ -36,21 +37,11 @@ header.page-header
       .row
         .col-xs-12.col-xl-6.col-xxl-6
           = render partial: 'announcements'
+          - if current_user.mentor?
+            #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
 
           - if current_user.pages.wip.present? || current_user.reports.wip.present? || current_user.questions.wip.present? || current_user.products.wip.present?
-            .a-card
-              header.card-header.is-sm
-                h2.card-header__title
-                  | WIPで保存中
-              .card-list
-                - if current_user.pages.wip.present?
-                  = render 'users/pages/wip_pages', user: current_user
-                - if current_user.reports.wip.present?
-                  = render 'users/reports/wip_reports', user: current_user
-                - if current_user.questions.wip.present?
-                  = render 'users/questions/wip_questions', user: current_user
-                - if current_user.products.wip.present?
-                  = render 'users/products/wip_products', user: current_user
+            = render 'wip_items'
 
           - if current_user.active_practices.present?
             = render '/users/practices/active_practices', user: current_user
@@ -62,18 +53,7 @@ header.page-header
           - if current_user.student_or_trainee?
             = render 'required_field', user: current_user
           - if current_user.after_graduation_hope?
-            .a-card
-              header.card-header.is-sm
-                h2.card-header__title
-                  | 卒業後のゴール
-              .card-body
-                .card__description
-                  .a-long-text.is-md
-                    = simple_format(current_user.after_graduation_hope)
-              .card-footer
-                .card-footer__footer-link
-                  = link_to edit_current_user_path(anchor: 'form-after-graduation-hope'), class: 'card-footer__footer-text-link' do
-                    | 内容を更新
+            = render 'after_graduation_hope', user: current_user
           - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
             = render 'job_seeking_users', users: @job_seeking_users
           - if current_user.student_or_trainee? && !cookies[:user_grass]
