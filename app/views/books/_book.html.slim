@@ -17,9 +17,8 @@
               .a-short-text
                 = simple_format(book.description)
           ul
-            - if book.practices_books.exists?
-              - book.practices_books.each do |practice_book|
-                - practice = practice_book.practice
+            - if book.practices.exists?
+              - book.practices.each do |practice|
                 li
                   = link_to practice.title, practice_path(practice)
       - if current_user.admin_or_mentor?
