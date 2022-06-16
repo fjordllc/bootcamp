@@ -69,7 +69,7 @@ regular_event7:
   user: komagata
 
 <% (8..26).each do |i| %>
-event<%= i %>:
+regular_event<%= i %>:
   title: 定期イベント<%= i %>
   description: <%= i %>番目の定期イベントです。
   wday: 月曜日
