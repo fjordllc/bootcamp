@@ -18,7 +18,6 @@ tables = %i[
   courses
   courses_categories
   events
-  organizers
   followings
   reports
   learning_times
@@ -33,10 +32,11 @@ tables = %i[
   products
   questions
   reactions
-  regular_events
   watches
   works
   talks
+  regular_events
+  organizers
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
