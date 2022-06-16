@@ -20,7 +20,9 @@ div(v-else)
         i.fa-regular.fa-sad-tear
       .o-empty-message__text
         | 日報はまだありません。
-  .page-content.reports(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
+  .page-content.reports(
+    v-else-if='reports.length > 0 || !isUncheckedReportsPage'
+  )
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .card-list.a-card
