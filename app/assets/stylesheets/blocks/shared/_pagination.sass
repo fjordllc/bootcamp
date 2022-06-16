@@ -3,12 +3,13 @@
   &:first-child
     +media-breakpoint-up(md)
       margin-bottom: 1rem
-      margin-top: -.75rem
     +media-breakpoint-down(sm)
       margin-bottom: .5rem
-      margin-top: -.25rem
-    .pill-nav + .page-body &
-      margin-top: 0
+    .page-content:first-child &
+      +media-breakpoint-up(md)
+        margin-top: -.5rem
+      +media-breakpoint-down(sm)
+        margin-top: -.25rem
   &:not(:first-child)
     +media-breakpoint-up(md)
       margin-top: 1rem
