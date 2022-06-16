@@ -1,14 +1,13 @@
 <template lang="pug">
 #notifications.container.is-md.loaing(v-if='!loaded')
   loadingListPlaceholder
-.container(v-else-if='notifications.length === 0')
-  .o-empty-message
-    .o-empty-message__icon
-      i.fa-regular.fa-smile
-    p.o-empty-message__text(v-if='isUnreadPage')
-      | 未読の通知はありません
-    p.o-empty-message__text(v-else)
-      | 通知はありません
+.o-empty-message(v-else-if='notifications.length === 0')
+  .o-empty-message__icon
+    i.fa-regular.fa-smile
+  p.o-empty-message__text(v-if='isUnreadPage')
+    | 未読の通知はありません
+  p.o-empty-message__text(v-else)
+    | 通知はありません
 #notifications.container.is-md.loaded(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')

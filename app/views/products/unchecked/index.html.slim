@@ -7,15 +7,17 @@ header.page-header
         = title
 
 = render 'products/tabs'
-nav.sort-nav
-  = form_with url: products_unchecked_index_path, local: true, method: 'get'
-    .container.is-md
-      .sort-nav__inner
-        = label_tag :checker_id, 'メンターで絞り込む', class: 'sort-nav__label'
-        .sort-nav__select
-          = select_tag :checker_id, options_from_collection_for_select(User.mentor.order(:login_name), :id, :login_name, selected: params[:checker_id]), include_blank: '全ての提出物を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
-= render 'nav', checker_id: @checker_id
 
 .page-body
   .container.is-md
+
+    .page-filter.form
+      = form_with url: products_unchecked_index_path, local: true, method: 'get'
+        .form__items
+          .form-item.is-inline-md-up
+            = label_tag :checker_id, 'メンターで絞り込む', class: 'a-form-label'
+            = select_tag :checker_id, options_from_collection_for_select(User.mentor.order(:login_name), :id, :login_name, selected: params[:checker_id]), include_blank: '全ての提出物を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select', class: 'a-text-input'
+
+    = render 'nav', checker_id: @checker_id
+
     #js-products(data-title="#{title}" data-selected-tab="unchecked" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}" data-checker-id="#{params[:checker_id]}")
