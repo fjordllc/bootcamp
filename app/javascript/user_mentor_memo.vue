@@ -1,6 +1,6 @@
 <template lang="pug">
 section.a-card.is-memo.is-only-mentor
-  header.card-header.is-sm(v-if='!editing && !productsMode')
+  header.card-header.is-sm(v-if='!productsMode')
     h2.card-header__title
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
@@ -20,42 +20,43 @@ section.a-card.is-memo.is-only-mentor
           )
             i.fa-solid.fa-pen
             | 編集
-  .form-tabs.js-tabs(v-show='editing')
-    .form-tabs__tab.js-tabs__tab(
-      :class='{ "is-active": isActive("memo") }',
-      @click='changeActiveTab("memo")'
-    )
-      | メモ
-    .form-tabs__tab.js-tabs__tab(
-      :class='{ "is-active": isActive("preview") }',
-      @click='changeActiveTab("preview")'
-    )
-      | プレビュー
-  .card-body(v-show='editing')
-    .card__description
-      .a-markdown-input.js-markdown-parent
-        .a-markdown-input__inner.is-editor.js-tabs__content(
-          :class='{ "is-active": isActive("memo") }'
-        )
-          textarea.a-text-input.a-markdown-input__textarea(
-            :id='`js-user-mentor-memo`',
-            data-preview='#user-mentor-memo-preview',
-            v-model='memo',
-            name='user[memo]'
+  .a-card__inner(v-show='editing')
+    .card-body
+      .card__form
+        .form-tabs.js-tabs
+          .form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("memo") }',
+            @click='changeActiveTab("memo")'
           )
-        .a-markdown-input__inner.is-preview.js-tabs__content(
-          :class='{ "is-active": isActive("preview") }'
-        )
-          .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
-  .card-footer(v-show='editing')
-    .card-main-actions
-      .card-main-actions__items
-        .card-main-actions__item
-          button.a-button.is-sm.is-primary.is-block(@click='updateMemo')
-            | 保存する
-        .card-main-actions__item
-          button.a-button.is-sm.is-secondary.is-block(@click='cancel')
-            | キャンセル
+            | メモ
+          .form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("preview") }',
+            @click='changeActiveTab("preview")'
+          )
+            | プレビュー
+        .a-markdown-input.js-markdown-parent(v-show='editing')
+          .a-markdown-input__inner.is-editor.js-tabs__content(
+            :class='{ "is-active": isActive("memo") }'
+          )
+            textarea.a-text-input.a-markdown-input__textarea(
+              :id='`js-user-mentor-memo`',
+              data-preview='#user-mentor-memo-preview',
+              v-model='memo',
+              name='user[memo]'
+            )
+          .a-markdown-input__inner.is-preview.js-tabs__content(
+            :class='{ "is-active": isActive("preview") }'
+          )
+            .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
+    .card-footer(v-show='editing')
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-sm.is-primary.is-block(@click='updateMemo')
+              | 保存する
+          .card-main-actions__item
+            button.a-button.is-sm.is-secondary.is-block(@click='cancel')
+              | キャンセル
 </template>
 
 <script>

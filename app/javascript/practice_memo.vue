@@ -1,16 +1,17 @@
 <template lang="pug">
 .a-card
-  .card-body(v-if='!editing')
-    .card__description(v-if='memo')
-      .a-long-text.is-md(v-html='markdownMemo')
-    .card-list(v-else)
-      .card-list__message
-        .container
-          .o-empty-message
-            .o-empty-message__icon
-              i.fa-regular.fa-sad-tear
-            .o-empty-message__text
-              | プラクティスメモはまだありません。
+  .a-card__inner(v-if='!editing')
+    .card-body
+      .card__description(v-if='memo')
+        .a-long-text.is-sm(v-html='markdownMemo')
+      .card-list(v-else)
+        .card-list__message
+          .container
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              .o-empty-message__text
+                | プラクティスメモはまだありません。
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
@@ -20,32 +21,34 @@
             )
               i.fa-solid.fa-pen
               | 編集
-  .card-body(v-show='editing')
-    .form-tabs.js-tabs
-      .form-tabs__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("memo") }',
-        @click='changeActiveTab("memo")'
-      )
-        | メモ
-      .form-tabs__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("preview") }',
-        @click='changeActiveTab("preview")'
-      )
-        | プレビュー
-    .a-markdown-input.js-markdown-parent
-      .a-markdown-input__inner.is-editor.js-tabs__content(
-        :class='{ "is-active": isActive("memo") }'
-      )
-        textarea.a-text-input.a-markdown-input__textarea(
-          :id='`js-practice-memo`',
-          data-preview='#practice-memo-preview',
-          v-model='memo',
-          name='practice[memo]'
-        )
-      .a-markdown-input__inner.is-preview.js-tabs__content(
-        :class='{ "is-active": isActive("preview") }'
-      )
-        .a-long-text.a-markdown-input__preview(v-html='markdownMemo')
+  .a-card__inner(v-show='editing')
+    .card-body
+      .card__form
+        .form-tabs.js-tabs
+          .form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("memo") }',
+            @click='changeActiveTab("memo")'
+          )
+            | メモ
+          .form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("preview") }',
+            @click='changeActiveTab("preview")'
+          )
+            | プレビュー
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.is-editor.js-tabs__content(
+            :class='{ "is-active": isActive("memo") }'
+          )
+            textarea.a-text-input.a-markdown-input__textarea(
+              :id='`js-practice-memo`',
+              data-preview='#practice-memo-preview',
+              v-model='memo',
+              name='practice[memo]'
+            )
+          .a-markdown-input__inner.is-preview.js-tabs__content(
+            :class='{ "is-active": isActive("preview") }'
+          )
+            .a-long-text.is-sm.a-markdown-input__preview(v-html='markdownMemo')
     .card-footer
       .card-main-actions
         .card-main-actions__items
