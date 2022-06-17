@@ -9,7 +9,6 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: '質問相談タイム'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
-      fill_in 'regular_event[wday]', with: '平日'
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
@@ -26,7 +25,6 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
-      fill_in 'regular_event[wday]', with: '火曜日'
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '予習不要です'
@@ -58,7 +56,6 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
-      fill_in 'regular_event[wday]', with: '火曜日（修正）'
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       fill_in 'regular_event[description]', with: '予習不要です（修正）'
