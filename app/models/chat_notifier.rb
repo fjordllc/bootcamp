@@ -4,10 +4,10 @@ class ChatNotifier
   def self.message(
     message,
     username: 'ピヨルド',
-    webhook_url: 'https://discordapp.com/api/webhooks/987204651801792584/oKZkNcevfH_94Vbs6-aZZ9XZD9IlCGvrqGgsjV6W1p9zynHLIQDYQSfiobDnKnVYguNx'
+    webhook_url: ENV['DISCORD_NOTICE_WEBHOOK_URL']
   )
 
-    if Rails.env.development?
+    if Rails.env.production?
       Discord::Notifier.message(message, username: username, url: webhook_url)
     else
       Rails.logger.info 'Message to Discord.'
