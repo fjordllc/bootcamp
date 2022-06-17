@@ -4,9 +4,15 @@ require 'application_system_test_case'
 
 class Notification::QuestionsTest < ApplicationSystemTestCase
   setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
     @notice_kind = Notification.kinds['came_question']
     @notified_count = Notification.where(kind: @notice_kind).size
     @mentor_count = User.mentor.size
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
   end
 
   test 'mentor receive notification when question is posted' do
