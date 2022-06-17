@@ -14,7 +14,7 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 
 # not default
-gem 'abstract_notifier'
+gem 'abstract_notifier', '~> 0.3.2'
 gem 'active_decorator'
 gem 'active_delivery'
 gem 'active_flag'

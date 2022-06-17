@@ -64,7 +64,6 @@ import '../pages.js'
 import '../questions.js'
 import '../tag_edit.js'
 import '../talks.js'
-import '../admin_companies.js'
 import '../company-users.js'
 import '../generation-users.js'
 import '../learning-completion-message.js'
@@ -75,6 +74,12 @@ import '../users-answers.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
+import '../regular-events.js'
 import VueMounter from '../VueMounter.js'
-const vueMounter = new VueMounter()
-vueMounter.mount()
+import Hello from '../hello.vue'
+import AdminCompanies from '../admin_companies.vue'
+
+const mounter = new VueMounter()
+mounter.addComponent(Hello)
+mounter.addComponent(AdminCompanies)
+mounter.mount()

@@ -10,7 +10,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{sender.login_name}さんが卒業しました。",
+      body: "🎉️ ️️#{sender.login_name}さんが卒業しました！",
       kind: :graduated,
       sender: sender,
       receiver: receiver,
@@ -30,6 +30,53 @@ class ActivityNotifier < ApplicationNotifier
       sender: report.sender,
       receiver: receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
+      read: false
+    )
+  end
+
+  def assigned_as_checker(params = {})
+    params.merge!(@params)
+    product = params[:product]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
+      kind: :assigned_as_checker,
+      sender: product.sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(product),
+      read: false
+    )
+  end
+
+  def came_comment(params = {})
+    params.merge!(@params)
+    comment = params[:comment]
+    receiver = params[:receiver]
+    message = params[:message]
+
+    notification(
+      body: message,
+      kind: :came_comment,
+      receiver: receiver,
+      sender: comment.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
+      read: false
+    )
+  end
+
+  def submitted(params = {})
+    params.merge!(@params)
+    subject = params[:subject]
+    receiver = params[:receiver]
+    message = params[:message]
+
+    notification(
+      body: message,
+      kind: :submitted,
+      sender: subject.user,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(subject),
       read: false
     )
   end

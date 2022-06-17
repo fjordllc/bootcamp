@@ -52,4 +52,24 @@ class Check::ProductsTest < ApplicationSystemTestCase
     assert_text '確認済'
     assert_text '提出物でcomment+確認OKにするtest'
   end
+
+  test 'display error message when checking confirmed product' do
+    using_session :mentormentaro do
+      visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
+    end
+
+    using_session :komagata do
+      visit_with_auth "/products/#{products(:product1).id}", 'komagata'
+    end
+
+    using_session :mentormentaro do
+      click_button '提出物を確認'
+      assert_text '確認済'
+    end
+
+    using_session :komagata do
+      click_button '提出物を確認'
+      assert_text 'この提出物は確認済です'
+    end
+  end
 end

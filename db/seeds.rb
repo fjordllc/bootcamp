@@ -2,6 +2,10 @@
 
 require 'active_record/fixtures'
 
+# 依存関係を考慮した順番に読み込む
+#
+# デフォルトではアルファベット順になってしまうため、
+# 下記のように手動で順番を指定している。
 tables = %i[
   acts_as_taggable_on/taggings
   acts_as_taggable_on/tags
@@ -35,6 +39,8 @@ tables = %i[
   watches
   works
   talks
+  regular_events
+  organizers
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

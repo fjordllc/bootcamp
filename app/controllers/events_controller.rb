@@ -2,12 +2,13 @@
 
 class EventsController < ApplicationController
   before_action :require_login
-  before_action :set_event, only: %i[show edit update destroy]
-  before_action :set_footprints, only: %i[show]
+  before_action :set_event, only: %i[edit update destroy]
 
   def index; end
 
   def show
+    @event = Event.with_avatar.find(params[:id])
+    @footprints = @event.footprints.with_avatar.order(created_at: :desc)
     footprint!
   end
 
@@ -66,10 +67,6 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.find(params[:id])
-  end
-
-  def set_footprints
-    @footprints = @event.footprints.with_avatar.order(created_at: :desc)
   end
 
   def footprint!

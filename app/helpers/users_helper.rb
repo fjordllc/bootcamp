@@ -58,4 +58,8 @@ module UsersHelper
       'is-mid'
     end
   end
+
+  def users_name
+    User.pluck(:login_name, :id).sort
+  end
 end

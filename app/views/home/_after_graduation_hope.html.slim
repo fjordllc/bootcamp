@@ -1,0 +1,12 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 卒業後のゴール
+  .card-body
+    .card__description
+      .a-long-text.is-md
+        = simple_format(user.after_graduation_hope)
+  .card-footer
+    .card-footer__footer-link
+      = link_to edit_current_user_path(anchor: 'form-after-graduation-hope'), class: 'card-footer__footer-text-link' do
+        | 内容を更新

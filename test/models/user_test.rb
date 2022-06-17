@@ -515,4 +515,19 @@ class UserTest < ActiveSupport::TestCase
     user.company_id = nil
     assert user.invalid?
   end
+
+  test '.depressed_reports' do
+    no_depressed_user_id = users(:kimura).id
+    depressed_user_id = users(:kensyu).id
+    user_ids = [no_depressed_user_id, depressed_user_id]
+
+    reports = User.depressed_reports(user_ids)
+    assert_equal 1, reports.size
+
+    depressed_user_reports = Report.where(user_id: depressed_user_id)
+                                   .order(reported_on: :desc)
+    depressed_user_reports.first.update(emotion: 'happy')
+    reports = User.depressed_reports(user_ids)
+    assert_equal 0, reports.size
+  end
 end

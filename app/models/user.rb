@@ -64,6 +64,8 @@ class User < ApplicationRecord
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_many :regular_events, dependent: :destroy
+  has_many :organizers, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
@@ -118,6 +120,10 @@ class User < ApplicationRecord
   has_many :followers,
            through: :passive_relationships,
            source: :follower
+
+  has_many :organize_regular_events,
+           through: :organizers,
+           source: :regular_event
 
   has_one_attached :avatar
 
@@ -366,6 +372,21 @@ class User < ApplicationRecord
 
     def tags
       unretired.all_tag_counts(order: 'count desc, name asc')
+    end
+
+    def depressed_reports(ids)
+      reports_by_user(ids).values.filter_map do |reports|
+        reports.first if reports.size >= DEPRESSED_SIZE && reports.first(DEPRESSED_SIZE).all?(&:sad?)
+      end
+    end
+
+    private
+
+    def reports_by_user(ids)
+      Report.where(user_id: ids)
+            .preload([:comments, { user: [:company, { avatar_attachment: :blob }] }, { checks: { user: { avatar_attachment: :blob } } }])
+            .order(reported_on: :desc)
+            .group_by(&:user_id)
     end
   end
 

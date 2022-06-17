@@ -53,7 +53,7 @@ nav.global-nav
               i.fa-solid.fa-users
             .global-nav-links__link-label ユーザー
         li.global-nav-links__item
-          = link_to events_path, class: "global-nav-links__link #{current_link(/^events/)}" do
+          = link_to events_path, class: "global-nav-links__link #{current_link(/events|regular_events/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-beer
             .global-nav-links__link-label イベント

@@ -54,17 +54,6 @@ class Notification < ApplicationRecord
   after_destroy NotificationCallbacks.new
 
   class << self
-    def came_comment(comment, receiver, message)
-      Notification.create!(
-        kind: kinds[:came_comment],
-        user: receiver,
-        sender: comment.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(comment.commentable),
-        message: message,
-        read: false
-      )
-    end
-
     def checked(check)
       Notification.create!(
         kind: kinds[:checked],
@@ -83,17 +72,6 @@ class Notification < ApplicationRecord
         sender: mentionable.sender,
         link: mentionable.path,
         message: "#{mentionable.where_mention}で#{mentionable.sender.login_name}さんからメンションがきました。",
-        read: false
-      )
-    end
-
-    def submitted(subject, receiver, message)
-      Notification.create!(
-        kind: kinds[:submitted],
-        user: receiver,
-        sender: subject.user,
-        link: Rails.application.routes.url_helpers.polymorphic_path(subject),
-        message: message,
         read: false
       )
     end
@@ -137,7 +115,7 @@ class Notification < ApplicationRecord
         user: receiver,
         sender: report.sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(report),
-        message: "#{report.user.login_name}さんがはじめての日報を書きました！",
+        message: "🎉 #{report.user.login_name}さんがはじめての日報を書きました！",
         read: false
       )
     end
@@ -161,7 +139,7 @@ class Notification < ApplicationRecord
         user: receiver,
         sender: sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-        message: "#{sender.login_name}さんが退会しました。",
+        message: "😢 #{sender.login_name}さんが退会しました。",
         read: false
       )
     end
@@ -228,17 +206,6 @@ class Notification < ApplicationRecord
         sender: answer.receiver,
         link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
         message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
-        read: false
-      )
-    end
-
-    def assigned_as_checker(product, receiver)
-      Notification.create!(
-        kind: 16,
-        user: receiver,
-        sender: product.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(product),
-        message: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
         read: false
       )
     end

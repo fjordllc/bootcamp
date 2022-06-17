@@ -58,12 +58,12 @@ class ArticlesController < ApplicationController
   end
 
   def list_articles
-    articles = Article.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
+    articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
     admin_or_mentor_login? ? articles : articles.where(wip: false)
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail)
+    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary)
   end
 
   def redirect_url(article)

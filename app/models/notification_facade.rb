@@ -2,7 +2,7 @@
 
 class NotificationFacade
   def self.came_comment(comment, receiver, message)
-    Notification.came_comment(comment, receiver, message)
+    ActivityNotifier.with(comment: comment, receiver: receiver, message: message).came_comment.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
@@ -36,7 +36,7 @@ class NotificationFacade
   end
 
   def self.submitted(subject, receiver, message)
-    Notification.submitted(subject, receiver, message)
+    ActivityNotifier.with(subject: subject, receiver: receiver, message: message).submitted.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
@@ -176,7 +176,7 @@ class NotificationFacade
   end
 
   def self.assigned_as_checker(product, receiver)
-    Notification.assigned_as_checker(product, receiver)
+    ActivityNotifier.with(product: product, receiver: receiver).assigned_as_checker.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
