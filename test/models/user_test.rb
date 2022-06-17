@@ -531,11 +531,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, reports.size
   end
 
-  test '#wip_owned?' do
+  test '#own_wip?' do
     user = users(:machida)
-    assert_not user.wip_owned?
+    assert_not user.own_wip?
 
     Report.create!(user_id: user.id, title: 'WIP test', description: 'WIP test', wip: true, reported_on: Time.current)
-    assert user.wip_owned?
+    assert user.own_wip?
   end
 end
