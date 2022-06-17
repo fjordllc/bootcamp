@@ -8,4 +8,6 @@ header.page-header
 
 = render 'products/tabs'
 
-#js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+.page-body
+  .container.is-md
+    #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")

@@ -13,6 +13,6 @@ export default MarkdownItRegexp(mentionRegexp, (match) => {
   } else {
     return `<a href="${
       match[0] === '@mentor' ? `/users?target=mentor` : `/users/${match[1]}`
-    }">${match[0]}</a>`
+    }" class="mention-link">${match[0]}</a>`
   }
 })

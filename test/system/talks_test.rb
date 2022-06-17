@@ -296,11 +296,11 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'kensyukimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kensyu'
-    assert_text 'さんの相談部屋', count: 3
+    assert_text 'さんの相談部屋', count: 4
 
     visit '/talks?target=trainee'
     fill_in 'js-talk-search-input', with: 'kensyu'
-    assert_text 'さんの相談部屋', count: 2 # users(:kensyu, :kensyuowata)
+    assert_text 'さんの相談部屋', count: 3 # users(:nocompanykensyu, :kensyu, :kensyuowata)
   end
 
   test 'incremental search for retired' do
@@ -353,5 +353,26 @@ class TalksTest < ApplicationSystemTestCase
 
     fill_in 'js-talk-search-input', with: 'hoge'
     assert_text '一致する相談部屋はありません'
+  end
+
+  test 'push guraduation button in talk room when admin logined' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    accept_confirm do
+      click_link '卒業にする'
+    end
+    assert_text '卒業済'
+  end
+
+  test 'admin can see tabs on user talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    has_css?('page-tabs')
+  end
+
+  test 'non-admin user cannot see tabs on user talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+    has_no_css?('page-tabs')
   end
 end

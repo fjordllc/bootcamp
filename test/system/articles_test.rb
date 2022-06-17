@@ -227,4 +227,58 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text '記事を更新しました'
     assert_text 'mentormentaro'
   end
+
+  test 'Summary text is used for meta description' do
+    visit_with_auth new_article_url, 'komagata'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[summary]', with: 'サマリー１'
+    fill_in 'article[body]', with: @article.body
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+    assert_selector "meta[name='description'][content='サマリー１']", visible: false
+    assert_selector "meta[property='og:description'][content='サマリー１']", visible: false
+    assert_selector "meta[name='twitter:description'][content='サマリー１']", visible: false
+
+    visit articles_path
+    assert_text 'サマリー１'
+  end
+
+  test 'If there is no summary text, the fixed text is used for meta description' do
+    visit_with_auth new_article_url, 'komagata'
+
+    fill_in 'article[title]', with: @article.title
+    fill_in 'article[body]', with: @article.body
+    click_on '登録する'
+
+    assert_text '記事を作成しました'
+    assert_selector "meta[name='description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+    assert_selector "meta[property='og:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+    assert_selector "meta[name='twitter:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+
+    visit articles_path
+    assert_no_text '現場の即戦力になれるプログラミングスクール。'
+  end
+
+  test 'can set it as an OGP image by uploading an eye-catching image' do
+    visit_with_auth edit_article_path(@article), 'komagata'
+    attach_file 'article[thumbnail]', 'test/fixtures/files/articles/ogp_images/test.jpg', make_visible: true
+    click_button '更新する'
+
+    visit "/articles/#{@article.id}"
+    meta = find('meta[name="twitter:image"]', visible: false)
+    content = meta.native['content']
+    assert_match(/test\.jpg$/, content)
+  end
+
+  test 'if there is no featured image, the default image is set as the OGP image' do
+    visit_with_auth "/articles/#{@article.id}", 'komagata'
+    ogp_twitter = find('meta[name="twitter:image"]', visible: false)
+    ogp_twitter_content = ogp_twitter.native['content']
+    ogp_othter = find('meta[property="og:image"]', visible: false)
+    ogp_othter_content = ogp_othter.native['content']
+    assert_match(/ogp\.png$/, ogp_twitter_content)
+    assert_match(/ogp\.png$/, ogp_othter_content)
+  end
 end

@@ -1,6 +1,15 @@
 import Vue from 'vue'
 
 export default class VueMounter {
+  constructor() {
+    this.components = {}
+  }
+
+  addComponent(component) {
+    const name = component.name
+    this.components[name] = component
+  }
+
   mount() {
     document.addEventListener('DOMContentLoaded', () => {
       const elements = document.querySelectorAll('[data-vue]')
@@ -8,12 +17,11 @@ export default class VueMounter {
         elements.forEach((element) => {
           const name = element.dataset.vue
           const props = this._convertProps(element.dataset)
+          const component = this.components[name]
 
-          import(`./${name}.vue`).then((module) => {
-            new Vue({
-              render: (h) => h(module.default, { props: props })
-            }).$mount(`[data-vue="${name}"]`)
-          })
+          new Vue({
+            render: (h) => h(component, { props: props })
+          }).$mount(`[data-vue="${name}"]`)
         })
       }
     })

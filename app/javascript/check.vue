@@ -35,12 +35,13 @@
 import 'whatwg-fetch'
 import ProductChecker from 'product_checker'
 import checkable from 'checkable.js'
+import toast from './toast'
 
 export default {
   components: {
     'product-checker': ProductChecker
   },
-  mixins: [checkable],
+  mixins: [checkable, toast],
   props: {
     checkableId: { type: Number, required: true },
     checkableType: { type: String, required: true },

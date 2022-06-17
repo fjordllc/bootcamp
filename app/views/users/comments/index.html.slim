@@ -1,10 +1,10 @@
-- title "#{@user.login_name}のコメント一覧"
+- title "#{@user.login_name} コメント"
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        = @user.login_name
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
