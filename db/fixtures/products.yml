@@ -93,7 +93,7 @@ product13:
 
 <% (14..60).each do |i| %>
 product<%= i %>:
-  practice: practice<%= i - 14 %>
+  practice: practice<%= i - 12 %>
   user: with_hyphen
   body: テストの提出物<%= i %>です。
   published_at: <%= (now - i).to_formatted_s(:db) %>
