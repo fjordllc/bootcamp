@@ -65,6 +65,21 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
+  def came_question(params = {})
+    params.merge!(@params)
+    question = params[:question]
+    receiver = params[:reciever]
+
+    notification(
+      body: "#{question.user.login_name}さんから質問「#{question.title}」が投稿されました。",
+      kind: :came_question,
+      reciever: reciever,
+      sender: question.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(question),
+      read: false
+    )
+  end
+
   def submitted(params = {})
     params.merge!(@params)
     subject = params[:subject]
