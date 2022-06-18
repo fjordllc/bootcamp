@@ -12,6 +12,11 @@
                   = image_tag organizer.avatar_url, title: organizer.icon_title, class: "a-user-icon is-sm is-#{organizer.login_name} is-#{organizer.primary_role}", alt: organizer.login_name
       .event-meta__item
         dt.event-meta__item-label
+          | 定期開催日
+        dd.event-meta__item-value
+          | ここに定期開催日が入る
+      .event-meta__item
+        dt.event-meta__item-label
           | 開催時間
         dd.event-meta__item-value
           | #{l regular_event.start_at, format: :time_only} 〜 #{l regular_event.end_at, format: :time_only}
