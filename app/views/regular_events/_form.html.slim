@@ -9,6 +9,15 @@
         = f.label :organizer, class: 'a-form-label'
         = f.select(:user_ids, users_name, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })
       .form-item
+        label.a-form-label
+          | 定期開催日
+        = f.fields_for :regular_event_repeat_rules do |regular_event_repeat_rule|
+          = render 'regular_event_repeat_rule_fields', f: regular_event_repeat_rule
+        .form-item__add-times
+            = link_to_add_association f, :regular_event_repeat_rules, class: 'a-button is-md is-primary' do
+              i.fa-regular.fa-plus
+              | 定期開催日追加
+      .form-item
         = f.label :start_at, class: 'a-form-label'
         = f.time_field :start_at, class: 'a-text-input js-warning-form'
       .form-item

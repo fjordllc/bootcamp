@@ -13,6 +13,7 @@ class RegularEventsController < ApplicationController
 
   def new
     @regular_event = RegularEvent.new
+    @regular_event.regular_event_repeat_rules.build
 
     return unless params[:id]
 
@@ -56,7 +57,8 @@ class RegularEventsController < ApplicationController
       :hold_national_holiday,
       :start_at,
       :end_at,
-      user_ids: []
+      user_ids: [],
+      regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
   end
 
