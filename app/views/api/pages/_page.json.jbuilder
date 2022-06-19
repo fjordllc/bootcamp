@@ -25,5 +25,5 @@ json.commentsSize page.comments.size
 
 json.tags page.tags.each do |tag|
   json.name tag.name
-  json.url pages_url(tag: tag.name, all: true)
+  json.url pages_url(tag: tag.name)
 end

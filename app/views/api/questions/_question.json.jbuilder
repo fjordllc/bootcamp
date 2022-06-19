@@ -24,6 +24,5 @@ end
 
 json.tags question.tags.each do |tag|
   json.name tag.name
-  json.url questions_url(tag: tag.name, all: true)
+  json.url questions_url(tag: tag.name)
 end
-

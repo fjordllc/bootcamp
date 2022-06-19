@@ -21,7 +21,6 @@ export default {
   },
   props: {
     title: { type: String, required: true },
-    solved: { type: String, required: true },
     currentUserId: { type: String, required: true }
   },
   data() {
