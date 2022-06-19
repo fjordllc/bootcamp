@@ -6,5 +6,5 @@ json.reports @reports do |report|
   end
 end
 
-json.current_user_id current_user.id
+json.currentUserId current_user.id
 json.totalPages @reports.total_pages
