@@ -25,6 +25,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('毎週')
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '予習不要です'
@@ -41,6 +43,8 @@ class RegularEventsTest < ApplicationSystemTestCase
     click_link 'コピー'
     assert_text '定期イベントをコピーしました'
     within 'form[name=regular_event]' do
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('毎週')
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       click_button '作成'
@@ -62,6 +66,35 @@ class RegularEventsTest < ApplicationSystemTestCase
       click_button '内容変更'
     end
     assert_text '定期イベントを更新しました。'
+  end
+
+  test 'create and update frequency and day_of_the_week in a regular event' do
+    visit_with_auth new_regular_event_path, 'komagata'
+    within 'form[name=regular_event]' do
+      fill_in 'regular_event[title]', with: 'チェリー本輪読会'
+      first('.choices__inner').click
+      find('#choices--js-choices-multiple-select-item-choice-1').click
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('毎週')
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('月曜日')
+      fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
+      fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
+      fill_in 'regular_event[description]', with: '予習不要です'
+      assert_difference 'RegularEvent.count', 1 do
+        click_button '作成'
+      end
+    end
+    assert_text '定期イベントを作成しました。'
+
+    click_link '内容修正'
+    click_link '定期開催日追加'
+
+    within 'form[name=regular_event]' do
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('第2')
+      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('水曜日')
+      assert_difference 'RegularEventRepeatRule.count', 1 do
+        click_button '内容変更'
+      end
+    end
   end
 
   test 'destroy regular event' do

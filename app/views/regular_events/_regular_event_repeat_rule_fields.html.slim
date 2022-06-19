@@ -1,15 +1,15 @@
 .form-item__times
   .nested-fields.form-item__times-inner
-    .form-item__times-items.regular_event_repeat_rule
+    .form-item__times-items.regular-event-repeat-rule
       .form-item__time
         = f.label :frequency, class: 'form-item__time-label'
-        .form-selects.regular_event_repeat_rule__frequency
+        .form-selects.regular-event-repeat-rule__frequency
           .form-selects__item
             .a-button.is-md.is-secondary.is-select.is-block
               = f.select :frequency, RegularEvent::FREQUENCY_LIST, {}, class: 'js-warning-form'
       .form-item__time
         = f.label :day_of_the_week, class: 'form-item__time-label'
-        .form-selects.regular_event_repeat_rule__day_of_the_week
+        .form-selects.regular-event-repeat-rule__day-of-the-week
           .form-selects__item
             .a-button.is-md.is-secondary.is-select.is-block
               = f.select :day_of_the_week, RegularEvent::DAY_OF_THE_WEEK_LIST, {}, class: 'js-warning-form'
