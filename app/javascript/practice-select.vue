@@ -62,7 +62,10 @@ export default {
     },
     submit() {
       this.$nextTick(() => {
-        location.href = `${location.pathname}?all=true&solved=${this.solved}&practice_id=${this.selected.id}&title=${this.selected.title}`
+        const newUrl = new URL(location.href)
+        newUrl.searchParams.set('practice_id', this.selected.id)
+        newUrl.searchParams.set('title', this.selected.title)
+        location.href = newUrl
       })
     }
   }
