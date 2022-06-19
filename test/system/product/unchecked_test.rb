@@ -79,13 +79,32 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_text product.practice.title
   end
 
-  test 'display no-replied products if click on no-replied-button' do
+  test 'display no-comment products if click on no-replied-button' do
+    product = products(:product8)
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
+    assert_text product.practice.title
+  end
+
+  test 'display products last commented by submitter if click on no-replied-button' do
     product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_equal 'kimura', product.comments.last.user.login_name
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     assert_text product.practice.title
+    assert_selector '.card-list-item-meta__item', text: '提出者'
+  end
+
+  test 'not display products last commented by mentor if click on no-replied-button' do
+    product = products(:product8)
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
+    fill_in('new_comment[description]', with: 'test')
+    click_button 'コメントする'
+    assert_equal 'mentormentaro', product.comments.last.user.login_name
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
+    assert_no_text product.practice.title
+    assert_no_selector '.card-list-item-meta__item', text: 'メンター'
   end
 
   test 'display no-replied products if click on unchecked-all-button' do
