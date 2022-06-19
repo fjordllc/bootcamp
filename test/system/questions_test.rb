@@ -7,17 +7,17 @@ class QuestionsTest < ApplicationSystemTestCase
   include TagHelper
 
   test 'show listing unsolved questions' do
-    visit_with_auth questions_path, 'kimura'
+    visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_equal '未解決の質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing solved questions' do
-    visit_with_auth questions_path(solved: 'true'), 'kimura'
+    visit_with_auth questions_path(target: 'solved'), 'kimura'
     assert_equal '解決済みの質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing all questions' do
-    visit_with_auth questions_path(all: 'true'), 'kimura'
+    visit_with_auth questions_path, 'kimura'
     assert_equal '全ての質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
@@ -160,14 +160,14 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'Question display 25 items correctly' do
-    visit_with_auth questions_path(solved: 'true'), 'kimura'
+    visit_with_auth questions_path(target: 'solved'), 'kimura'
     50.times do |n|
       q = Question.create(title: "順番ばらつきテスト#{n}", description: "答え#{n}", user_id: 253_826_460, practice_id: 315_059_988)
       Answer.create(description: '正しい答え', user_id: 253_826_460, question_id: q.id, type: 'CorrectAnswer')
       Answer.create(description: '正しい答え2', user_id: 253_826_460, question_id: q.id)
     end
 
-    visit questions_path(solved: 'true')
+    visit questions_path(target: 'solved')
 
     assert_selector '.card-list-item', count: 25
     first('.pagination__item-link', text: '2').click
@@ -198,7 +198,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    visit_with_auth questions_path(all: 'true'), 'komagata'
+    visit_with_auth questions_path, 'komagata'
     click_link 'WIPタイトル'
     assert_text '削除する'
     assert_no_text 'Watch中'
@@ -213,7 +213,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    visit questions_path(all: 'true')
+    visit questions_path
     click_link 'WIPタイトル'
     assert_text '削除する'
     click_button '内容修正'
@@ -286,7 +286,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'show a WIP question on the All Q&A list page' do
-    visit_with_auth questions_path(all: 'true'), 'kimura'
+    visit_with_auth questions_path, 'kimura'
     assert_text 'wipテスト用の質問(wip中)'
     element = all('.card-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
     within element do
@@ -295,7 +295,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'not show a WIP question on the unsolved Q&A list page' do
-    visit_with_auth questions_path, 'kimura'
+    visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_no_text 'wipテスト用の質問(wip中)'
     assert_text '未解決の質問一覧'
   end

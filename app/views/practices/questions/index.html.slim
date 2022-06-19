@@ -8,11 +8,11 @@ nav.tab-nav
   .container.is-xs-horizontal-padding-0
     ul.tab-nav__items
       li.tab-nav__item
-        = link_to '全ての質問', polymorphic_path([@practice, :questions], all: 'true'), class: "tab-nav__item-link #{params[:solved].present? || params[:not_solved].present? ? '' : 'is-active'}"
+        = link_to '全ての質問', practice_questions_path(@practice), class: "tab-nav__item-link #{params[:target].blank? ? 'is-active' : ''}"
       li.tab-nav__item
-        = link_to '解決済み', polymorphic_path([@practice, :questions], solved: 'true'), class: "tab-nav__item-link #{params[:all].blank? && params[:solved].present? && params[:not_solved].blank? ? 'is-active' : ''}"
+        = link_to '解決済み', practice_questions_path(@practice, target: 'solved'), class: "tab-nav__item-link #{params[:target] == 'solved' ? 'is-active' : ''}"
       li.tab-nav__item
-        = link_to '未解決', polymorphic_path([@practice, :questions], not_solved: 'true'), class: "tab-nav__item-link #{params[:all].blank? && params[:solved].blank? && params[:not_solved].present? ? 'is-active' : ''}"
+        = link_to '未解決', practice_questions_path(@practice, target: 'not_solved'), class: "tab-nav__item-link #{params[:target] == 'not_solved' ? 'is-active' : ''}"
 
 .page-body
   .container.is-md
@@ -21,12 +21,13 @@ nav.tab-nav
         = render partial: 'questions/question', collection: @questions, as: :question
     - else
       .o-empty-message
-        - if params[:solved]
+        - case params[:target]
+        - when 'solved'
           .o-empty-message__icon
             i.fa-regular.fa-sad-tear
           p.o-empty-message__text
             | 解決済みの質問はまだありません。
-        - else
+        - when 'not_solved'
           .o-empty-message__icon
             i.fa-regular.fa-smile
           p.o-empty-message__text

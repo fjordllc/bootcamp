@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         h(PracticeSelect, {
           props: {
             title: title,
-            solved: practiceSelect.dataset.solved ?? '',
             currentUserId: practiceSelect.dataset.currentUserId
           }
         })

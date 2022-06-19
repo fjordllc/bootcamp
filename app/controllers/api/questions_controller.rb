@@ -6,12 +6,13 @@ class API::QuestionsController < API::BaseController
 
   def index
     questions =
-      if params[:solved].present?
+      case params[:target]
+      when 'solved'
         Question.solved
-      elsif params[:all].present?
-        Question.all
-      else
+      when 'not_solved'
         Question.not_solved.not_wip
+      else
+        Question.all
       end
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     questions = params[:user_id].present? ? Question.where(user_id: params[:user_id]) : questions
