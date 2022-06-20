@@ -43,4 +43,8 @@ module SearchHelper
   def talk?(searchable)
     searchable.instance_of?(User) && searchable.talk.present?
   end
+
+  def user?(searchable)
+    searchable.instance_of?(User)
+  end
 end
