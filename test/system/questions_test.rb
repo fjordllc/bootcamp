@@ -148,9 +148,10 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'select box shows the practices that belong to a user course' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
-    find('.multiselect').click
-    selects_size = users(:kimura).course.practices.size + 1
-    assert_selector '.multiselect__element', count: selects_size
+    find('.choices__inner').click
+    page_practices = page.all('.choices__item--choice').map(&:text).size
+    course_practices = users(:kimura).course.practices.size + 1
+    assert_equal page_practices, course_practices
   end
 
   test 'select practice title when push question button on practice page' do
