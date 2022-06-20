@@ -5,6 +5,14 @@
       | {{ searchable.model_name_with_i18n }}
       .card-list-item__label-option
         | コメント
+    .card-list-item__user(v-else-if='searchable.is_user')
+      a.card-list-item__user-link(:href='searchable.url')
+        img.card-list-item__user-icon.a-user-icon(
+          :src='searchable.avatar_url',
+          :title='searchable.title',
+          :alt='searchable.title',
+          :class='[roleClass, daimyoClass]'
+        )
     .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .card-list-item__rows
@@ -97,6 +105,12 @@ export default {
       } else {
         return `is-${this.searchable.model_name}`
       }
+    },
+    roleClass: function () {
+      return `is-${this.searchable.primary_role}`
+    },
+    daimyoClass: function () {
+      return { 'is-daimyo': this.searchable.daimyo }
     }
   }
 }
