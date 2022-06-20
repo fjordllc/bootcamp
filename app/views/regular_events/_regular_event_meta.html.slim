@@ -25,3 +25,8 @@
           | 祝日
         dd.event-meta__item-value
           | #{regular_event.hold_national_holiday ? '開催します' : '開催しません'}
+      .event-meta__item
+        dt.event-meta__item-label
+          | 次回開催日
+        dd.event-meta__item-value
+          = regular_event.next_event_date
