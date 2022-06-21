@@ -177,17 +177,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def create_page(page, reciever)
-      Notification.create!(
-        kind: kinds[:create_pages],
-        user: reciever,
-        sender: page.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(page),
-        message: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
-        read: false
-      )
-    end
-
     def following_report(report, receiver)
       Notification.create!(
         kind: kinds[:following_report],
