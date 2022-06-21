@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::PagesTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'Only students and mentors are notified' do
     visit_with_auth '/pages', 'komagata'
     click_link 'Doc作成'

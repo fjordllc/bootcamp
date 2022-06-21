@@ -80,4 +80,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def create_page(params = {})
+    params.merge!(@params)
+    page = params[:page]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
+      kind: :create_pages,
+      sender: page.sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(page),
+      read: false
+    )
+  end
 end
