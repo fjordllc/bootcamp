@@ -253,4 +253,38 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '5日経過（1）'
     assert_no_text '今日提出（48）'
   end
+
+  test "show my wip's announcement on dashboard" do
+    visit_with_auth '/', 'komagata'
+    assert_text 'WIPで保存中'
+    within '.card-list-item.is-announcement' do
+      assert_text 'お知らせ'
+      find_link 'wipのお知らせ'
+      assert_text I18n.l announcements(:announcement_wip).updated_at
+    end
+  end
+
+  test "show my wip's event on dashboard" do
+    visit_with_auth '/', 'kimura'
+    click_link 'イベント'
+    click_link 'イベント作成'
+    fill_in 'event[title]', with: 'WIPのイベント'
+    fill_in 'event[location]', with: 'オンライン'
+    fill_in 'event[capacity]', with: 100
+    fill_in 'event[start_at]', with: Time.current.next_month
+    fill_in 'event[end_at]', with:  Time.current.next_month + 1.hour
+    fill_in 'event[open_start_at]', with: Time.current
+    fill_in 'event[open_end_at]', with: Time.current + 20.days
+    fill_in 'event[description]', with: 'WIPイベント本文'
+    click_button 'WIP'
+
+    visit '/'
+    assert_text 'WIPで保存中'
+    within '.card-list-item.is-event' do
+      assert_text 'イベント'
+      find_link 'WIPのイベント'
+      event = Event.find_by(title: 'WIPのイベント')
+      assert_text I18n.l event.updated_at
+    end
+  end
 end
