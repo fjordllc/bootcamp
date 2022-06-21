@@ -82,8 +82,7 @@ export default {
   },
   props: {
     report: { type: Object, required: true },
-    // issue #2625 を修正すれば、required: true にし、defaultはいらなくなる
-    currentUserId: { type: Number, required: false, default: null }
+    currentUserId: { type: Number, required: true }
   },
   computed: {
     roleClass() {
