@@ -631,6 +631,11 @@ class User < ApplicationRecord
     Cache.delete_mentioned_and_unread_notification_count(id)
   end
 
+  def own_wip?
+    wip_contents = pages.wip + reports.wip + questions.wip + products.wip + announcements.wip + events.wip
+    wip_contents.present?
+  end
+
   private
 
   def password_required?
