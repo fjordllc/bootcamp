@@ -11,7 +11,7 @@
           :src='searchable.avatar_url',
           :title='searchable.title',
           :alt='searchable.title',
-          :class='[roleClass, daimyoClass]'
+          :class='[roleClass]'
         )
     .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
@@ -108,9 +108,6 @@ export default {
     },
     roleClass: function () {
       return `is-${this.searchable.primary_role}`
-    },
-    daimyoClass: function () {
-      return { 'is-daimyo': this.searchable.daimyo }
     }
   }
 }

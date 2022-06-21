@@ -22,5 +22,4 @@ json.is_user user?(searchable)
 if user?(searchable)
   json.avatar_url searchable.avatar_url
   json.primary_role searchable.primary_role
-  json.daimyo searchable.daimyo?
 end
