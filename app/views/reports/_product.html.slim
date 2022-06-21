@@ -10,8 +10,6 @@
               .card-list-item-title__icon.is-wip WIP
             h2.card-list-item-title__title(itemprop="name")
               = link_to product, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
-                - if product.user.daimyo?
-                  | ★
                 = product.title
       .card-list-item__row
         .card-list-item-meta

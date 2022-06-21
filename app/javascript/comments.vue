@@ -34,7 +34,7 @@
     .thread-comment__author
       img.thread-comment__user-icon.a-user-icon(
         :src='currentUser.avatar_url',
-        :class='[roleClass, daimyoClass]',
+        :class='[roleClass]',
         :title='currentUser.icon_title'
       )
     .thread-comment-form__form.a-card
@@ -131,9 +131,6 @@ export default {
     },
     roleClass() {
       return `is-${this.currentUser.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.currentUser.daimyo }
     },
     productCheckerId() {
       return this.$store.getters.productCheckerId

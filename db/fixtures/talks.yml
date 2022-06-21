@@ -58,10 +58,6 @@ talk_jobseeker:
   user: jobseeker
   unreplied: false
 
-talk_daimyo:
-  user: daimyo
-  unreplied: false
-
 talk_nippounashi:
   user: nippounashi
   unreplied: false
@@ -116,26 +112,6 @@ talk_fujiyasu:
 
 talk_adminonly:
   user: adminonly
-  unreplied: false
-
-talk_daimyo-adviser:
-  user: daimyo-adviser
-  unreplied: false
-
-talk_daimyo-kensyu:
-  user: daimyo-kensyu
-  unreplied: false
-
-talk_daimyo-kensyu:
-  user: daimyo-kensyu
-  unreplied: false
-
-talk_daimyo-mentor:
-  user: daimyo-mentor
-  unreplied: false
-
-talk_daimyo-sotugyou:
-  user: daimyo-sotugyou
   unreplied: false
 
 talk_kensyuowata:
