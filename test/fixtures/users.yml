@@ -424,27 +424,6 @@ jobseeker: #就活希望するユーザー
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
 
-daimyo: # 大名エンジニアカレッジに通うユーザー
-  login_name: daimyo
-  email: daimyo@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
-  salt: zW3kQ9ubsxQQtzzzs4ap
-  name: 大名 太郎
-  name_kana: ダイミョウ タロウ
-  discord_account: daimyo#9999
-  github_account: daimyo
-  twitter_account: daimyo
-  facebook_url: https://www.facebook.com/fjordllc
-  blog_url: http://example.org
-  company: company4
-  description: "大名エンジニアカレッジで学んでいます."
-  course: course1
-  job: office_worker
-  experience: rails
-  unsubscribe_email_token: OSZi0f_nJ3xG9crUPQ9ukQ
-  updated_at: "2020-01-01 00:00:13"
-  created_at: "2020-01-01 00:00:13"
-
 nippounashi: # 日報を投稿していないユーザー
   login_name: nippounashi
   email: nippounashi@fjord.jp

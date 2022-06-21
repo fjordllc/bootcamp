@@ -7,7 +7,7 @@
           :title='page.user.icon_title',
           :alt='page.user.icon_title',
           :src='page.user.avatar_url',
-          :class='[roleClassPublishedUser, daimyoClass]'
+          :class='[roleClassPublishedUser]'
         )
 
     .card-list-item__rows
@@ -57,7 +57,7 @@
                     :title='page.last_updated_user.icon_title',
                     :alt='page.last_updated_user.icon_title',
                     :src='page.last_updated_user.avatar_url',
-                    :class='[roleClassLastUpdatedUser, daimyoClass]'
+                    :class='[roleClassLastUpdatedUser]'
                   )
                 a.a-user-name(:href='page.last_updated_user.url')
                   | {{ page.last_updated_user.login_name }}
@@ -81,9 +81,6 @@ export default {
     },
     roleClassLastUpdatedUser() {
       return `is-${this.page.last_updated_user.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.page.user.daimyo }
     },
     practiceUrl() {
       return `/practices/${this.page.practice.id}`

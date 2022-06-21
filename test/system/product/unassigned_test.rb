@@ -41,7 +41,7 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     visit_with_auth '/products/unassigned', 'komagata'
 
     # 提出日の昇順で並んでいることを検証する
-    assert_equal 'OS X Mountain Lionをクリーンインストールする', oldest_product.practice.title
+    assert_equal 'Terminalの基礎を覚える', oldest_product.practice.title
     assert_equal 'sshdでパスワード認証を禁止にする', newest_product.practice.title
   end
 

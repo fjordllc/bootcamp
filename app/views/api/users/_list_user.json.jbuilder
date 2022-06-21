@@ -4,7 +4,6 @@ json.url user_url(user)
 json.updated_at l(user.updated_at)
 json.active user.active?
 json.avatar_url user.avatar_url
-json.daimyo user.daimyo?
 json.student user.student?
 json.card user.card?
 json.job_name t("activerecord.enums.user.job.#{user.job}")

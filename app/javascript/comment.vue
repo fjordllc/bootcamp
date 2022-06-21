@@ -5,7 +5,7 @@
       img.thread-comment__user-icon.a-user-icon(
         :src='comment.user.avatar_url',
         :title='comment.user.icon_title',
-        :class='[roleClass, daimyoClass]'
+        :class='[roleClass]'
       )
   .a-card(v-if='!editing')
     header.card-header
@@ -125,9 +125,6 @@ export default {
     },
     roleClass() {
       return `is-${this.comment.user.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.comment.user.daimyo }
     },
     validation() {
       return this.description.length > 0

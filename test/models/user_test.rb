@@ -376,10 +376,10 @@ class UserTest < ActiveSupport::TestCase
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
     kimura.follow(hatsuno, watch: true)
-    daimyo = users(:daimyo)
-    daimyo.follow(hatsuno, watch: true)
+    hajime = users(:hajime)
+    hajime.follow(hatsuno, watch: true)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
-    daimyo.unfollow(hatsuno)
+    hajime.unfollow(hatsuno)
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 

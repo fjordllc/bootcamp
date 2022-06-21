@@ -53,7 +53,7 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_equal expected, actual
   end
 
-  test 'GET /api/products.json?company_id=362477616' do
+  test 'GET /api/products.json?company_id=1022975240' do
     company = companies(:company4)
     get api_products_path(company_id: company.id, format: :json)
     assert_response :unauthorized
