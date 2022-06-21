@@ -1,5 +1,5 @@
 json.id question.id
-json.title truncate(question.title, {length: 46, escape: false})
+json.title question.title
 json.url question_url(question)
 json.has_correct_answer question.correct_answer.present?
 json.wip question.wip
