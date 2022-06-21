@@ -222,6 +222,7 @@ export default {
         .then(async (comment) => {
           this.comments.push(comment)
           this.description = ''
+          this.clearPreview('new-comment-preview')
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
@@ -317,6 +318,12 @@ export default {
     editComment() {
       if (this.description.length > 0) {
         this.editing = true
+      }
+    },
+    clearPreview(elementId) {
+      const parent = document.getElementById(elementId)
+      while (parent.lastChild) {
+        parent.removeChild(parent.lastChild)
       }
     }
   }
