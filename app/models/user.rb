@@ -631,9 +631,9 @@ class User < ApplicationRecord
     Cache.delete_mentioned_and_unread_notification_count(id)
   end
 
-  def own_wip?
-    wip_contents = pages.wip + reports.wip + questions.wip + products.wip + announcements.wip + events.wip
-    wip_contents.present?
+  def wip_exists?
+    pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
+      products.wip.exists? || announcements.wip.exists? || events.wip.exists?
   end
 
   private
