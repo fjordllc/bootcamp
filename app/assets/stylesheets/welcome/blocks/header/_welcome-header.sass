@@ -1,20 +1,9 @@
 .welcome-header
-  $border-height: .625rem
   background-color: $base
   +position(relative)
   box-shadow: rgba(black, .2) 0 2px 1px
   +media-breakpoint-down(sm)
-    $border-height: .5rem
     +position(relative)
-    padding-bottom: calc(#{$border-height} * 3)
-    &::before
-      content: ""
-      +size(100% calc(#{$border-height} * 3))
-      background-color: $welcome-orange
-      +position(absolute, left 0, bottom 0)
-      border-top: solid $border-height $welcome-yellow
-      border-bottom: solid $border-height $welcome-pink
-      box-shadow: rgba(black, .2) 0 2px 1px
 
 .welcome-header__inner
   height: 4rem
