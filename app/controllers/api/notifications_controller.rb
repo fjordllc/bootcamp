@@ -11,6 +11,7 @@ class API::NotificationsController < API::BaseController
 
     @notifications = Notification.from(latest_notifications, :notifications) # latest_notifications のクエリで指定している ORDER BY の順序を他と混ぜないようにするため、from を使ってサブクエリとした
                                  .order(created_at: :desc)
+                                 .includes(:sender)
     @notifications = params[:page] ? @notifications.page(params[:page]) : @notifications
   end
 end
