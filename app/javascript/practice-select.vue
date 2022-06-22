@@ -63,6 +63,7 @@ export default {
     submit() {
       this.$nextTick(() => {
         const newUrl = new URL(location.href)
+        newUrl.searchParams.delete('page')
         newUrl.searchParams.set('practice_id', this.selected.id)
         newUrl.searchParams.set('title', this.selected.title)
         location.href = newUrl
