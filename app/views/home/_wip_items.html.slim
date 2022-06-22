@@ -3,13 +3,13 @@
     h2.card-header__title
       | WIPで保存中
   .card-list
-    - if current_user.pages.wip.present?
+    - if current_user.pages.wip.exists?
       = render 'users/pages/wip_pages', user: current_user
-    - if current_user.reports.wip.present?
+    - if current_user.reports.wip.exists?
       = render 'users/reports/wip_reports', user: current_user
-    - if current_user.questions.wip.present?
+    - if current_user.questions.wip.exists?
       = render 'users/questions/wip_questions', user: current_user
-    - if current_user.products.wip.present?
+    - if current_user.products.wip.exists?
       = render 'users/products/wip_products', user: current_user
     - if current_user.announcements.wip.present?
       = render 'users/announcements/wip_announcements', user: current_user
