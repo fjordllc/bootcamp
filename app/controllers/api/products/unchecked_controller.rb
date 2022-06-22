@@ -5,7 +5,7 @@ class API::Products::UncheckedController < API::BaseController
   def index
     @target = params[:target]
     @target = 'unchecked_all' unless target_allowlist.include?(@target)
-    @checker_id = params[:checker_id]
+    checker_id = params[:checker_id]
     @products = case @target
                 when 'unchecked_all'
                   Product.unchecked
@@ -20,7 +20,7 @@ class API::Products::UncheckedController < API::BaseController
                          .list
                          .page(params[:page])
                 end
-    @products = @products.where(checker_id: @checker_id) if @checker_id.present?
+    @products = @products.where(checker_id: checker_id) if checker_id.present?
     @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
   end
 
