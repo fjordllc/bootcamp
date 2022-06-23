@@ -129,7 +129,7 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_text '削除する'
     end
 
-    visit_with_auth questions_path, 'komagata'
+    visit_with_auth questions_path(target: 'not_solved'), 'komagata'
     click_on 'テストの質問タイトル'
     within '.a-card.is-answer' do
       assert_text '内容修正'
@@ -137,7 +137,7 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_text '削除する'
     end
 
-    visit_with_auth questions_path, 'hatsuno'
+    visit_with_auth questions_path(target: 'not_solved'), 'hatsuno'
     click_on 'テストの質問タイトル'
     within '.a-card.is-answer' do
       assert_no_text '内容修正'
@@ -147,7 +147,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'select box shows the practices that belong to a user course' do
-    visit_with_auth questions_path, 'kimura'
+    visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     find('.multiselect').click
     selects_size = users(:kimura).course.practices.size + 1
     assert_selector '.multiselect__element', count: selects_size
@@ -183,7 +183,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問を作成しました。'
 
-    visit_with_auth questions_path, 'komagata'
+    visit_with_auth questions_path(target: 'not_solved'), 'komagata'
     click_link 'メンターのみ投稿された質問が"Watch中"になるテスト'
     assert_text '削除する'
     assert_text 'Watch中'
@@ -224,14 +224,14 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問を更新しました'
 
-    visit_with_auth questions_path, 'komagata'
+    visit_with_auth questions_path(target: 'not_solved'), 'komagata'
     click_link '更新されたタイトル'
     assert_text '削除する'
     assert_text 'Watch中'
   end
 
   test 'show number of comments' do
-    visit_with_auth questions_path, 'kimura'
+    visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_text 'コメント数表示テスト用の質問'
     element = all('.card-list-item').find { |component| component.has_text?('コメント数表示テスト用の質問') }
     within element do
@@ -301,7 +301,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test "visit user profile page when clicked on user's name on question" do
-    visit_with_auth questions_path, 'kimura'
+    visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_text '質問のタブの作り方'
     click_link 'hatsuno (Hatsuno Shinji)', match: :first
     assert_text 'プロフィール'
@@ -309,7 +309,7 @@ class QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'show number of unanswered questions' do
-    visit_with_auth questions_path(practice_id: practices(:practice1).id), 'komagata'
+    visit_with_auth questions_path(practice_id: practices(:practice1).id, target: 'not_solved'), 'komagata'
     assert_selector '#not-solved-count', text: Question.not_solved.not_wip.where(practice_id: practices(:practice1).id).size
   end
 
@@ -356,7 +356,7 @@ class QuestionsTest < ApplicationSystemTestCase
     click_button '登録する'
     assert_text 'Questionに関連プラクティスを指定'
 
-    visit questions_path
+    visit questions_path(target: 'not_solved')
     within first('.card-list-item-title__title') do
       assert_text 'Questionに関連プラクティスを指定'
     end
