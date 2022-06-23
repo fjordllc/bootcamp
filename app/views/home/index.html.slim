@@ -37,20 +37,16 @@ header.page-header
       .row
         .col-xs-12.col-xl-6.col-xxl-6
           = render partial: 'announcements'
-          - if current_user.mentor?
-            #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-
+          - if current_user.bookmarks.present?
+            = render 'bookmarks', user: current_user
           - if current_user.wip_exists?
             = render 'wip_items'
-
+          - if current_user.mentor?
+            #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
           - if current_user.active_practices.present?
             = render '/users/practices/active_practices', user: current_user
-
           - if current_user.completed_practices.present?
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
-
-          - if current_user.bookmarks.present?
-            = render 'bookmarks'
 
         .col-xs-12.col-xl-6.col-xxl-6
           - if current_user.student_or_trainee?
