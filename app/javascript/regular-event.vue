@@ -10,10 +10,14 @@
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
-          .card-list-item-title__icon.is-wip(v-if='regularEvent.wip') WIP
-          .card-list-item-title__icon.is-ended(
+          .a-list-item-badge.is-wip(v-if='regularEvent.wip')
+            span
+              | WIP
+          .a-list-item-badge.is-ended(
             v-else-if='regularEvent.finished'
-          ) 終了
+          )
+            span
+              | 終了
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='regularEvent.url',

@@ -1,11 +1,7 @@
 <template lang="pug">
 .card-list-item(:class='searchableClass')
   .card-list-item__inner
-    .card-list-item__label(v-if='searchable.is_comment_or_answer')
-      | {{ searchable.model_name_with_i18n }}
-      .card-list-item__label-option
-        | コメント
-    .card-list-item__user(v-else-if='searchable.is_user')
+    .card-list-item__user(v-if='searchable.is_user')
       a.card-list-item__user-link(:href='searchable.url')
         img.card-list-item__user-icon.a-user-icon(
           :src='searchable.avatar_url',
@@ -18,8 +14,15 @@
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
-          .card-list-item-title__icon.is-wip(v-if='searchable.wip')
-            | WIP
+          .a-list-item-badge.is-wip(v-if='searchable.wip')
+            span
+              | WIP
+          .a-list-item-badge.is-serchable(v-if='searchable.is_comment_or_answer')
+            span
+              | コメント
+          .a-list-item-badge.is-serchable(v-else-if='searchable.is_user')
+            span
+              | ユーザー
           .card-list-item-title__title
             a.card-list-item-title__link.a-text-link(:href='searchable.url')
               | {{ searchable.title }}
