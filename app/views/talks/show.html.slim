@@ -76,6 +76,8 @@ header.page-header
                     .user-statuses__item
                       = link_to 'ユーザー情報変更', edit_admin_user_path(@talk.user), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
                     .user-statuses__item
+                      = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
+                        = render 'talks/seeking_switch', f: f
                     .user-statuses__item
                       .graduation_button
                         - if @user.graduated_on?
@@ -89,5 +91,3 @@ header.page-header
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
                 #js-reports(data-user-id="#{@user.id}" data-limit="10")
-            = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
-              = render 'talks/seeking_switch', f: f
