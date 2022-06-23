@@ -15,7 +15,7 @@
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
-            .card-list-item-meta__item
+            .card-list-item-meta__item(v-if='watch.edit_user')
               a.a-user-name(:href='userUrl')
                 | {{ watch.edit_user.login_name }}
             .card-list-item-meta__item
@@ -48,7 +48,11 @@ export default {
       return `is-${this.watch.watch_class_name}`
     },
     userUrl() {
-      return `/users/${this.watch.edit_user.id}`
+      if (this.watch.edit_user) {
+        return `/users/${this.watch.edit_user.id}`
+      } else {
+        return null
+      }
     },
     createdAt() {
       return dayjs(this.watch.created_at).format('YYYY年MM月DD日(dd) HH:mm')
