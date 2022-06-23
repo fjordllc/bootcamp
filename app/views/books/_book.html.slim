@@ -27,15 +27,6 @@
             - book.practices.each do |practice|
               li.tag-links__item
                 = link_to practice.title, practice_path(practice), class: 'tag-links__item-link'
-            - book.practices.each do |practice|
-              li.tag-links__item
-                = link_to practice.title, practice_path(practice), class: 'tag-links__item-link'
-            - book.practices.each do |practice|
-              li.tag-links__item
-                = link_to practice.title, practice_path(practice), class: 'tag-links__item-link'
-            - book.practices.each do |practice|
-              li.tag-links__item
-                = link_to practice.title, practice_path(practice), class: 'tag-links__item-link'
     - if current_user.admin_or_mentor?
       footer.card-footer.is-only-mentor
         .card-main-actions
