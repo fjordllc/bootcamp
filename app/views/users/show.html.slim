@@ -102,7 +102,7 @@ header.page-header
                         method: :patch,
                         data: { confirm: '本当によろしいですか？' },
                         class: 'a-button is-sm is-danger is-block'
-              = form_with model: [:admin, @user], local: true, url: admin_job_seek_path, class: 'form', html: { name: 'jobseeking' } do |f|
+              = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
                 = render 'talks/seeking_switch', f: f
 
         .col-xs-12.col-lg-5.col-xxl-6
