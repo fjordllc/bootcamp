@@ -91,16 +91,9 @@ product13:
   published_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 13).to_formatted_s(:db) %>
 
-product14:
-  practice: practice1
-  user: daimyo
-  body: 研修の提出物です。
-  published_at: <%= (now - 60 * 60 * 24 * 14).to_formatted_s(:db) %>
-  created_at: <%= (now - 60 * 60 * 24 * 14).to_formatted_s(:db) %>
-
-<% (15..60).each do |i| %>
+<% (14..60).each do |i| %>
 product<%= i %>:
-  practice: practice<%= i - 14 %>
+  practice: practice<%= i - 12 %>
   user: with_hyphen
   body: テストの提出物<%= i %>です。
   published_at: <%= (now - i).to_formatted_s(:db) %>
@@ -127,7 +120,7 @@ product63:
 
 product64:
   practice: practice6
-  user: daimyo
+  user: kensyu
   body: publish_atがnilの提出物です。
   published_at: nil
 

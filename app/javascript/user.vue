@@ -15,7 +15,7 @@
                   :title='user.icon_title',
                   :alt='user.icon_title',
                   :src='user.avatar_url',
-                  :class='[roleClass, daimyoClass]'
+                  :class='[roleClass]'
                 )
           .users-item__header-end
             .card-list-item__rows
@@ -95,9 +95,7 @@ export default {
   },
   computed: {
     loginName() {
-      return this.user.daimyo
-        ? '★' + this.user.login_name
-        : this.user.login_name
+      return this.user.login_name
     },
     userDescParagraphs() {
       let description = this.user.description
@@ -115,9 +113,6 @@ export default {
     },
     roleClass() {
       return `is-${this.user.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.user.daimyo }
     }
   }
 }

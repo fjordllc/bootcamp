@@ -7,7 +7,7 @@
           :title='answer.question.user.icon_title',
           :alt='answer.question.user.icon_title',
           :src='answer.question.user.avatar_url',
-          :class='[roleClass, daimyoClass]'
+          :class='[roleClass]'
         )
     .card-list-item__rows
       .card-list-item__row
@@ -53,9 +53,6 @@ export default {
     },
     roleClass() {
       return `is-${this.answer.question.user.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.answer.question.user.daimyo }
     },
     answerClass() {
       if (this.answer.has_correct_answer) {

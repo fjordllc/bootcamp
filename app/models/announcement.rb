@@ -27,4 +27,6 @@ class Announcement < ApplicationRecord
   validates :target, presence: true
 
   columns_for_keyword_search :title, :description
+
+  scope :wip, -> { where(wip: true) }
 end

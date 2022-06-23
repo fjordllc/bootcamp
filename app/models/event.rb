@@ -40,6 +40,8 @@ class Event < ApplicationRecord
 
   columns_for_keyword_search :title, :description
 
+  scope :wip, -> { where(wip: true) }
+
   def opening?
     Time.current.between?(open_start_at, open_end_at)
   end

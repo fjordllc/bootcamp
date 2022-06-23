@@ -375,4 +375,13 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
     has_no_css?('page-tabs')
   end
+
+  test 'change job seeking flag when click toggle button' do
+    user = users(:hajime)
+
+    visit_with_auth talk_path(user.talk), 'komagata'
+
+    check '就職活動中', allow_label_click: true
+    assert user.reload.job_seeking
+  end
 end
