@@ -7,10 +7,6 @@ class Bookmark < ApplicationRecord
   validates :user_id, uniqueness: { scope: %i[bookmarkable_id bookmarkable_type] }
 
   def display_date
-    if bookmarkable_type == 'Report'
-      bookmarkable.reported_on
-    else
-      bookmarkable.created_at
-    end
+    bookmarkable_type == 'Report' ? bookmarkable.reported_on : bookmarkable.created_at
   end
 end
