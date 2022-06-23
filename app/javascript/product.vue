@@ -14,7 +14,9 @@
         .card-list-item-title
           .card-list-item__notresponded(v-if='notRespondedSign')
           .card-list-item-title__start
-            .card-list-item-title__icon.is-wip(v-if='product.wip') WIP
+            .a-list-item-badge.is-wip(v-if='product.wip')
+              span
+                | WIP
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
               :href='product.url',

@@ -319,7 +319,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text 'wipテスト用の質問(wip中)'
     element = all('.card-list-item').find { |component| component.has_text?('wipテスト用の質問(wip中)') }
     within element do
-      assert_selector '.card-list-item-title__icon.is-wip', text: 'WIP'
+      assert_selector '.a-list-item-badge.is-wip', text: 'WIP'
     end
   end
 

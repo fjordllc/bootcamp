@@ -12,8 +12,9 @@
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
-          .card-list-item-title__icon.is-wip(v-if='question.wip')
-            | WIP
+          .a-list-item-badge.is-wip(v-if='question.wip')
+            span
+              | WIP
           h1.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='question.url',
