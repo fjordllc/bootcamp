@@ -110,4 +110,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def first_report(params = {})
+    params.merge!(@params)
+    report = params[:report]
+    receiver = params[:receiver]
+
+    notification(
+      body: "🎉 #{report.user.login_name}さんがはじめての日報を書きました！",
+      kind: :first_report,
+      receiver: receiver,
+      sender: report.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
+      read: false
+    )
+  end
 end
