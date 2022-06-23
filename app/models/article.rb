@@ -22,7 +22,7 @@ class Article < ApplicationRecord
 
   def thumbnail_url
     if thumbnail.attached?
-      thumbnail.variant(resize: THUMBNAIL_SIZE).service_url
+      thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
       image_url('/images/articles/thumbnails/default.png')
     end
