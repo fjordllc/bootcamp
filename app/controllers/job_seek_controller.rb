@@ -5,6 +5,8 @@ class JobSeekController < ApplicationController
   before_action :set_redirect_url, only: %i[update]
 
   def update
+    return unless current_user.admin?
+
     if @user.update(user_params)
       redirect_to @redirect_url, notice: "#{@user.login_name}の就職活動中の情報を更新しました。"
     else
