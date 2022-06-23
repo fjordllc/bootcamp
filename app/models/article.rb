@@ -16,10 +16,6 @@ class Article < ApplicationRecord
   paginates_per 10
   acts_as_taggable
 
-  def resize_thumbnail!
-    thumbnail.variant(resize: THUMBNAIL_SIZE).processed if thumbnail.attached?
-  end
-
   def thumbnail_url
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
