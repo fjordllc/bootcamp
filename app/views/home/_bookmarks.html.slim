@@ -4,3 +4,7 @@
       | 最新のブックマーク
   .card-list
     = render partial: 'bookmark', collection: @bookmarks
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to current_user_bookmarks_path, class: 'card-footer__footer-text-link' do
+        | 全てのブックマーク（#{user.bookmarks.length}）
