@@ -27,7 +27,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     user = users(:komagata)
     Announcement.create(title: 'test', description: 'test', user: user, wip: true)
     visit_with_auth '/announcements', 'kimura'
-    assert_selector '.card-list-item-title__icon'
+    assert_selector '.a-list-item-badge'
     assert_text 'お知らせ作成中'
   end
 
