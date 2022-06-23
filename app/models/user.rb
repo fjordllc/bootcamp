@@ -547,10 +547,6 @@ class User < ApplicationRecord
     participate_events.include?(event)
   end
 
-  def daimyo?
-    company&.name == 'DAIMYO Engineer College'
-  end
-
   def register_github_account(id, account_name)
     self.github_account = account_name
     self.github_id = id
@@ -633,6 +629,11 @@ class User < ApplicationRecord
     target_notifications ||= notifications
     target_notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
     Cache.delete_mentioned_and_unread_notification_count(id)
+  end
+
+  def wip_exists?
+    pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
+      products.wip.exists? || announcements.wip.exists? || events.wip.exists?
   end
 
   private

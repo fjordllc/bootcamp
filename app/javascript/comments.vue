@@ -34,7 +34,7 @@
     .thread-comment__author
       img.thread-comment__user-icon.a-user-icon(
         :src='currentUser.avatar_url',
-        :class='[roleClass, daimyoClass]',
+        :class='[roleClass]',
         :title='currentUser.icon_title'
       )
     .thread-comment-form__form.a-card
@@ -132,9 +132,6 @@ export default {
     roleClass() {
       return `is-${this.currentUser.primary_role}`
     },
-    daimyoClass() {
-      return { 'is-daimyo': this.currentUser.daimyo }
-    },
     productCheckerId() {
       return this.$store.getters.productCheckerId
     }
@@ -225,6 +222,7 @@ export default {
         .then(async (comment) => {
           this.comments.push(comment)
           this.description = ''
+          this.clearPreview('new-comment-preview')
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
@@ -320,6 +318,12 @@ export default {
     editComment() {
       if (this.description.length > 0) {
         this.editing = true
+      }
+    },
+    clearPreview(elementId) {
+      const parent = document.getElementById(elementId)
+      while (parent.lastChild) {
+        parent.removeChild(parent.lastChild)
       }
     }
   }

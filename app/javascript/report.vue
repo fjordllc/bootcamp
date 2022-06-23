@@ -7,7 +7,7 @@
           :src='report.user.avatar_url',
           :title='report.user.login_name',
           :alt='report.user.login_name',
-          :class='[roleClass, daimyoClass]'
+          :class='[roleClass]'
         )
     .card-list-item__rows
       .card-list-item__row
@@ -17,7 +17,7 @@
             h2.card-list-item-title__title
               a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='report.url'
-              ) {{ report.user.daimyo ? '★' + report.title : report.title }}
+              ) {{ report.title }}
             .card-list-item-title__end(v-if='currentUserId == report.user.id')
               label.card-list-item-actions__trigger(:for='report.id')
                 i.fa-solid.fa-ellipsis-h
@@ -82,15 +82,11 @@ export default {
   },
   props: {
     report: { type: Object, required: true },
-    // issue #2625 を修正すれば、required: true にし、defaultはいらなくなる
-    currentUserId: { type: Number, required: false, default: null }
+    currentUserId: { type: Number, required: true }
   },
   computed: {
     roleClass() {
       return `is-${this.report.user.primary_role}`
-    },
-    daimyoClass() {
-      return { 'is-daimyo': this.report.user.daimyo }
     },
     wipClass() {
       return { 'is-wip': this.report.wip }

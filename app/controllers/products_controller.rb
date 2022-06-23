@@ -53,6 +53,7 @@ class ProductsController < ApplicationController
   def update
     @product = find_my_product
     @practice = @product.practice
+    @product.published_at = nil if @product.published_at? && @product.wip
     set_wip
     update_published_at
     if @product.update(product_params)
@@ -73,7 +74,7 @@ class ProductsController < ApplicationController
   private
 
   def update_published_at
-    return if @product.wip
+    return if @product.wip || @product.published_at?
 
     @product.published_at = Time.current
   end

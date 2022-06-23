@@ -103,8 +103,8 @@ product13:
   published_at: <%= 12.day.ago %>
 
 product14:
-  practice: practice1
-  user: daimyo
+  practice: practice2
+  user: kensyu
   body: 研修の提出物です。
   created_at: <%= 13.day.ago %>
   updated_at: <%= 13.day.ago %>
@@ -388,7 +388,7 @@ product65:
 
 product66:
   practice: practice6
-  user: daimyo
+  user: hajime
   body: publish_atがnilの提出物です。
   published_at: nil
 
