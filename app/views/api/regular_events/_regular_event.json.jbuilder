@@ -7,4 +7,12 @@ json.finished regular_event.finished
 json.comments_count regular_event.comments.size
 json.url regular_event_url(regular_event)
 json.user regular_event.user, partial: "api/users/user", as: :user
-json.organizers regular_event.organizers
+json.organizers regular_event.organizers do |organizer|
+  json.id organizer.id
+  json.avatar_url organizer.avatar_url
+  json.icon_title organizer.icon_title
+  json.primary_role organizer.primary_role
+  json.login_name organizer.login_name
+  json.long_name organizer.long_name
+  json.url organizer.url
+end
