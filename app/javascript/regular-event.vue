@@ -23,8 +23,12 @@
             )
               | {{ regularEvent.title }}
       .card-list-item__row
-        a.a-user-name(:href='regularEvent.user.url')
-          | {{ regularEvent.user.long_name }}
+        a.a-user-name(
+          v-for='organizer in regularEvent.organizers',
+          :key='organizer.id',
+          :href='`/users/${organizer.id}`'
+        )
+          | {{ organizer.login_name }} ({{ organizer.name }})
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
