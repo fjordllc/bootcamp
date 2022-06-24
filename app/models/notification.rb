@@ -98,17 +98,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def came_question(question, receiver)
-      Notification.create!(
-        kind: kinds[:came_question],
-        user: receiver,
-        sender: question.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(question),
-        message: "#{question.user.login_name}さんから質問「#{question.title}」が投稿されました。",
-        read: false
-      )
-    end
-
     def first_report(report, receiver)
       Notification.create!(
         kind: kinds[:first_report],
