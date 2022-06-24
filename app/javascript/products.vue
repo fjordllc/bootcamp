@@ -1,12 +1,12 @@
 <template lang="pug">
-.products(v-if='!loaded')
+.page-content.products(v-if='!loaded')
   loadingListPlaceholder
 .o-empty-message(v-else-if='products.length === 0')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
     | {{ title }}はありません
-.products(v-else)
+.page-content.products(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
   .a-card(v-if='productsGroupedByElapsedDays === null')
@@ -90,7 +90,8 @@ export default {
     title: { type: String, required: true },
     selectedTab: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: String, required: true },
+    checkerId: { type: String, required: false, default: null }
   },
   data() {
     return {
@@ -110,6 +111,7 @@ export default {
           ? ''
           : '/' + this.selectedTab.replace('-', '_')) +
         `?page=${this.currentPage}` +
+        (this.checkerId ? `&checker_id=${this.checkerId}` : '') +
         (this.params.target ? `&target=${this.params.target}` : '')
       )
     },
@@ -193,17 +195,12 @@ export default {
       window.scrollTo(0, 0)
     },
     newUrl(pageNumber) {
-      if (this.params.target) {
-        return (
-          location.pathname +
-          `?target=${this.params.target}` +
-          (pageNumber === 1 ? '' : `&page=${pageNumber}`)
-        )
-      } else {
-        return (
-          location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
-        )
-      }
+      const params = new URL(location.href).searchParams
+      if (pageNumber !== 1) params.set('page', pageNumber)
+      if (this.params.target) params.set('target', this.params.target)
+      if (this.params.checker_id)
+        params.set('checker_id', this.params.checker_id)
+      return `${location.pathname}?${params}`
     },
     getParams() {
       const params = {}
