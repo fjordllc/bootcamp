@@ -71,35 +71,6 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を削除しました。'
   end
 
-  test 'delete question with notification' do
-    visit_with_auth '/questions', 'kimura'
-    click_link '質問する'
-    fill_in 'question[title]', with: 'タイトルtest'
-    fill_in 'question[description]', with: '内容test'
-
-    assert_difference -> { Question.count }, 1 do
-      click_button '登録する'
-      assert_text '質問を作成しました。'
-    end
-
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'yameoさんが退会しました。'
-    assert_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
-
-    visit_with_auth '/questions', 'kimura'
-    click_on 'タイトルtest'
-    assert_difference -> { Question.count }, -1 do
-      accept_confirm do
-        click_link '削除する'
-      end
-      assert_text '質問を削除しました。'
-    end
-
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'yameoさんが退会しました。'
-    assert_no_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
-  end
-
   test 'admin can update and delete any questions' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'komagata'
