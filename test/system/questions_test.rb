@@ -365,4 +365,10 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_link 'Linuxのファイル操作の基礎を覚える'
   end
+
+  test 'show confirm dialog before delete' do
+    visit_with_auth question_path(questions(:question8)), 'kimura'
+    confirm_dialog = dismiss_confirm { click_link '削除する' }
+    assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
+  end
 end
