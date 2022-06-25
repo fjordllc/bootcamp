@@ -6,9 +6,10 @@ class Practices::QuestionsController < ApplicationController
   def index
     @practice = Practice.find(params[:practice_id])
     questions =
-      if params[:solved].present?
+      case params[:target]
+      when 'solved'
         @practice.questions.solved
-      elsif params[:not_solved].present?
+      when 'not_solved'
         @practice.questions.not_solved.not_wip
       else
         @practice.questions

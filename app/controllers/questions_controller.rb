@@ -11,12 +11,13 @@ class QuestionsController < ApplicationController
 
   def index
     questions =
-      if params[:solved].present?
+      case params[:target]
+      when 'solved'
         Question.solved
-      elsif params[:all].present?
-        Question.all
+      when 'not_solved'
+        Question.not_solved.not_wip
       else
-        Question.not_solved
+        Question.all
       end
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
     @tags = questions.all_tags
@@ -80,12 +81,13 @@ class QuestionsController < ApplicationController
   end
 
   def questions_property
-    if params[:all] == 'true'
-      QuestionsProperty.new('全ての質問', '質問はありません。')
-    elsif params[:solved] == 'true'
+    case params[:target]
+    when 'solved'
       QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はありません。')
-    else
+    when 'not_solved'
       QuestionsProperty.new('未解決の質問一覧', '未解決の質問はありません。')
+    else
+      QuestionsProperty.new('全ての質問', '質問はありません。')
     end
   end
 
