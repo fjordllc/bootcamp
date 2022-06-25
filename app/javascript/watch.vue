@@ -15,9 +15,9 @@
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
-            .card-list-item-meta__item(v-if='watch.edit_user')
+            .card-list-item-meta__item(v-if='watch.created_user')
               a.a-user-name(:href='userUrl')
-                | {{ watch.edit_user.login_name }}
+                | {{ watch.created_user.login_name }}
             .card-list-item-meta__item
               time.a-meta(:datetime='watch.updated_at')
                 | {{ createdAt }}
@@ -48,8 +48,8 @@ export default {
       return `is-${this.watch.watch_class_name}`
     },
     userUrl() {
-      if (this.watch.edit_user) {
-        return `/users/${this.watch.edit_user.id}`
+      if (this.watch.created_user) {
+        return `/users/${this.watch.created_user.id}`
       } else {
         return null
       }
