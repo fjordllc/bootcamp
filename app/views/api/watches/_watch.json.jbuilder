@@ -2,7 +2,7 @@ json.id watch.id
 json.watchable_id watch.watchable_id
 json.watchable_type watch.watchable_type
 json.user watch.user
-json.edit_user created_user(matched_document(watch.watchable))
+json.created_user created_user(matched_document(watch.watchable))
 json.created_at matched_document(watch.watchable).created_at
 json.updated_at matched_document(watch.watchable).updated_at
 json.url searchable_url(watch.watchable)
