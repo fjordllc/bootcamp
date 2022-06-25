@@ -16,7 +16,7 @@ header.page-header
       .sort-nav__inner
         = label_tag :practice_id, 'プラクティスで絞り込む', class: 'sort-nav__label'
         .sort-nav__select
-          #js-practice-select data-solved=params[:solved] data-current-user-id=current_user.id
+          #js-practice-select data-current-user-id=current_user.id
   = render 'questions/tabs'
 
 - if @tag.present?
@@ -47,4 +47,4 @@ header.page-header
                 - Question.all.all_tags.each do |tag|
                   - if tag.present?
                     li.page-tags-nav__item
-                      = link_to tag.name, questions_tag_path(tag.name, all: 'true'), class: 'page-tags-nav__item-link'
+                      = link_to tag.name, questions_tag_path(tag.name), class: 'page-tags-nav__item-link'
