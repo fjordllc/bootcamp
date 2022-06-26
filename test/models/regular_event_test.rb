@@ -63,6 +63,6 @@ class RegularEventTest < ActiveSupport::TestCase
     participant = regular_event_participations(:regular_event_participation1).user
 
     regular_event.cancel_participation(participant)
-    refute regular_event.regular_event_participations.find_by(user_id: participant.id)
+    assert_not regular_event.regular_event_participations.find_by(user_id: participant.id)
   end
 end

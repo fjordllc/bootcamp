@@ -6,5 +6,6 @@ class CreateRegularEventParticipations < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    add_index :regular_event_participations, %i[user_id regular_event_id], unique: true, name: 'index_user_id_and_regular_event_id'
   end
 end
