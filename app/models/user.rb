@@ -60,6 +60,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :participations, dependent: :destroy
+  has_many :regular_event_participations, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
@@ -124,6 +125,10 @@ class User < ApplicationRecord
 
   has_many :organize_regular_events,
            through: :organizers,
+           source: :regular_event
+
+  has_many :participate_regular_events,
+           through: :regular_event_participations,
            source: :regular_event
 
   has_one_attached :avatar
@@ -554,7 +559,8 @@ class User < ApplicationRecord
   end
 
   def participating?(event)
-    participate_events.include?(event)
+    method_name = "participate_#{event.class.name.underscore.pluralize}"
+    send(method_name).include?(event)
   end
 
   def register_github_account(id, account_name)

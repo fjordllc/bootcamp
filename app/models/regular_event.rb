@@ -56,6 +56,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :users, through: :organizers
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
+  has_many :regular_event_participations, dependent: :destroy
+  has_many :participations,
+           through: :regular_event_participations,
+           source: :user
   has_many :watches, as: :watchable, dependent: :destroy
 
   def organizers
@@ -119,6 +123,11 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
         repeat_rule.day_of_the_week == tomorrow.wday && repeat_rule.frequency == convert_date_into_week(tomorrow.day)
       end
     end.include?(true)
+  end
+
+  def cancel_participation(user)
+    regular_event_participation = regular_event_participations.find_by(user_id: user.id)
+    regular_event_participation.destroy
   end
 
   class << self

@@ -1,0 +1,15 @@
+- if current_user.participating?(regular_event)
+  .event-main-actions.is-participationed
+    .event-main-actions__description
+      p
+        | 参加登録しています。
+    ul.event-main-actions__items
+      li.event-main-actions__item
+        = link_to regular_event_participation_path(regular_event_id: regular_event), method: :delete, data: { confirm: 'イベントの参加をキャンセルします。よろしいですか?' }, class: 'event-main-actions__item-cancel' do
+          | 参加を取り消す
+- else
+  .event-main-actions.is-unparticipationed.is-available
+    ul.event-main-actions__items
+      li.event-main-actions__item
+        = link_to regular_event_participations_path(regular_event_id: regular_event), method: :post, data: { confirm: 'イベント参加申込をします。よろしいですか?' }, class: 'a-button is-primary is-md is-block' do
+          | 参加申込

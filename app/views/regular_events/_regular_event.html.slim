@@ -47,6 +47,8 @@
     .card__description
       .a-long-text.is-md.js-markdown-view
         = regular_event.description
+    - unless regular_event.wip?
+      = render 'regular_events/participation', regular_event: regular_event
     = render 'reactions/reactions', reactionable: regular_event
     - if admin_or_mentor_login? || regular_event.user_id == current_user.id
       .card-footer
