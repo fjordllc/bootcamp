@@ -18,7 +18,8 @@ import LoadingCoursesPracticesPageItemPlaceholder from 'loading-courses-practice
 
 export default {
   components: {
-    loadingCoursesPracticesPageItemPlaceholder: LoadingCoursesPracticesPageItemPlaceholder
+    loadingCoursesPracticesPageItemPlaceholder:
+      LoadingCoursesPracticesPageItemPlaceholder
   },
   data() {
     return {

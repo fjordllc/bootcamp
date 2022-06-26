@@ -11,9 +11,7 @@
       .card-list-item__row
         .card-list-item-title
           .card-list-item-title__start
-            .a-list-item-badge.is-unread(
-              v-if='notification.read === false'
-            )
+            .a-list-item-badge.is-unread(v-if='notification.read === false')
               span
                 | 未読
             h2.card-list-item-title__title(itemprop='name')

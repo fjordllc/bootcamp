@@ -13,9 +13,7 @@
           .a-list-item-badge.is-wip(v-if='regularEvent.wip')
             span
               | WIP
-          .a-list-item-badge.is-ended(
-            v-else-if='regularEvent.finished'
-          )
+          .a-list-item-badge.is-ended(v-else-if='regularEvent.finished')
             span
               | 終了
           h2.card-list-item-title__title(itemprop='name')

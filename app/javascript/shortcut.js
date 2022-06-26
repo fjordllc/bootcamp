@@ -1,6 +1,6 @@
 import hotkeys from 'hotkeys-js'
 
-hotkeys.filter = function(event) {
+hotkeys.filter = function (event) {
   const tagName = (event.target || event.srcElement).tagName
   hotkeys.setScope(
     /^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other'
@@ -14,7 +14,7 @@ function isMac() {
 
 const ctrl = isMac() ? '⌘' : 'ctrl'
 
-hotkeys(`${ctrl}+s`, 'input', function(event, handler) {
+hotkeys(`${ctrl}+s`, 'input', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
   const button = document.querySelector('#js-shortcut-wip')
@@ -23,7 +23,7 @@ hotkeys(`${ctrl}+s`, 'input', function(event, handler) {
   }
 })
 
-hotkeys(`${ctrl}+enter`, 'input', function(event, handler) {
+hotkeys(`${ctrl}+enter`, 'input', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
   const button = document.querySelector(
@@ -34,7 +34,7 @@ hotkeys(`${ctrl}+enter`, 'input', function(event, handler) {
   }
 })
 
-hotkeys(`${ctrl}+e`, 'all', function(event, handler) {
+hotkeys(`${ctrl}+e`, 'all', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
   const button = document.querySelector('#js-shortcut-edit')
@@ -43,7 +43,7 @@ hotkeys(`${ctrl}+e`, 'all', function(event, handler) {
   }
 })
 
-hotkeys(`${ctrl}+b`, 'all', function(event, handler) {
+hotkeys(`${ctrl}+b`, 'all', function (event, handler) {
   console.log(handler.key)
   event.preventDefault()
   const button = document.querySelector('#js-shortcut-check')

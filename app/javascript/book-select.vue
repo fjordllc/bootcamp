@@ -37,7 +37,7 @@ export default {
             name: JSON.parse(this.bookSelected)[1]
           }
         : { id: '', name: '本を選んでください' }
-    this.options = JSON.parse(this.books).map(function(book) {
+    this.options = JSON.parse(this.books).map(function (book) {
       return { id: book[0], name: book[1] }
     })
   },
