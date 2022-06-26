@@ -375,17 +375,23 @@ class User < ApplicationRecord
     end
 
     def depressed_reports(ids)
-      reports_by_user(ids).values.filter_map do |reports|
-        reports.first if reports.size >= DEPRESSED_SIZE && reports.first(DEPRESSED_SIZE).all?(&:sad?)
+      last_depressed_size_reports_by_user(ids).values.filter_map do |reports|
+        reports.first if reports.size == DEPRESSED_SIZE
       end
     end
 
     private
 
-    def reports_by_user(ids)
-      Report.where(user_id: ids)
-            .preload([:comments, { user: [:company, { avatar_attachment: :blob }] }, { checks: { user: { avatar_attachment: :blob } } }])
-            .order(reported_on: :desc)
+    def last_depressed_size_reports_by_user(ids)
+      with_rownum = Report.select('*, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY reported_on DESC) rownum')
+                          .where(user_id: ids)
+
+      Report.select('*')
+            .from(with_rownum, :with_rownum)
+            .where('with_rownum.rownum <= ?', DEPRESSED_SIZE)
+            .where('with_rownum.emotion = ?', Report.emotions[:sad])
+            .with_avatar
+            .preload([:comments, { user: { avatar_attachment: :blob } }, { checks: { user: { avatar_attachment: :blob } } }])
             .group_by(&:user_id)
     end
   end
