@@ -15,10 +15,10 @@ export default {
     blockClassSuffix: { type: String, required: true }
   },
   computed: {
-    blockClass: function() {
+    blockClass: function () {
       return `${this.blockClassSuffix}__`
     },
-    roleClass: function() {
+    roleClass: function () {
       return `is-${this.user.primary_role}`
     }
   }

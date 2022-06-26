@@ -17,7 +17,9 @@
           .a-list-item-badge.is-wip(v-if='searchable.wip')
             span
               | WIP
-          .a-list-item-badge.is-serchable(v-if='searchable.is_comment_or_answer')
+          .a-list-item-badge.is-serchable(
+            v-if='searchable.is_comment_or_answer'
+          )
             span
               | コメント
           .a-list-item-badge.is-serchable(v-else-if='searchable.is_user')
@@ -109,7 +111,7 @@ export default {
         return `is-${this.searchable.model_name}`
       }
     },
-    roleClass: function() {
+    roleClass: function () {
       return `is-${this.searchable.primary_role}`
     }
   }
