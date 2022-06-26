@@ -54,8 +54,7 @@ import LoadingCoursesPracticesPagePlaceholder from 'loading-courses-practices-pa
 export default {
   components: {
     'courses-practice': CoursesPractice,
-    loadingCoursesPracticesPagePlaceholder:
-      LoadingCoursesPracticesPagePlaceholder
+    loadingCoursesPracticesPagePlaceholder: LoadingCoursesPracticesPagePlaceholder
   },
   mixins: [role],
   props: {
@@ -69,9 +68,9 @@ export default {
     }
   },
   computed: {
-    markdownDescription: function () {
+    markdownDescription: function() {
       const markdownInitializer = new MarkdownInitializer()
-      return function (description) {
+      return function(description) {
         return markdownInitializer.render(description)
       }
     },

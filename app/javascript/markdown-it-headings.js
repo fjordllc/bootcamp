@@ -10,6 +10,6 @@ const options = {
   slugify: (s) => slugify(s)
 }
 
-export default function (md) {
+export default function(md) {
   return plugin(md, options)
 }

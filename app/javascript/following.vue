@@ -88,7 +88,7 @@ export default {
       }
     },
     url: () => {
-      return function (isWatch) {
+      return function(isWatch) {
         return this.following
           ? `/api/followings/${this.userId}?watch=${isWatch}`
           : `/api/followings?watch=${isWatch}`

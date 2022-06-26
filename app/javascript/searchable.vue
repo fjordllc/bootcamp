@@ -109,7 +109,7 @@ export default {
         return `is-${this.searchable.model_name}`
       }
     },
-    roleClass: function () {
+    roleClass: function() {
       return `is-${this.searchable.primary_role}`
     }
   }

@@ -45,14 +45,14 @@ export default {
     }
   },
   computed: {
-    displayedEmojis: function () {
-      const emojis = this.reactionable.reaction_count.filter(function (el) {
+    displayedEmojis: function() {
+      const emojis = this.reactionable.reaction_count.filter(function(el) {
         return el.count !== 0
       }, this)
       return emojis
     }
   },
-  created: function () {
+  created: function() {
     this.availableEmojis = window.availableEmojis
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    createReaction: function (kind) {
+    createReaction: function(kind) {
       const params = {
         reactionable_id: this.reactionableId,
         kind: kind
@@ -104,8 +104,8 @@ export default {
           console.warn(error)
         })
     },
-    destroyReaction: function (kind) {
-      const clickedReaction = this.reactionable.reaction.find(function (el) {
+    destroyReaction: function(kind) {
+      const clickedReaction = this.reactionable.reaction.find(function(el) {
         return el.user_id === this.currentUser.id && el.kind === kind
       }, this)
 
@@ -149,25 +149,25 @@ export default {
           console.warn(error)
         })
     },
-    footerReaction: function (kind) {
+    footerReaction: function(kind) {
       this.isReacted(kind)
         ? this.destroyReaction(kind)
         : this.createReaction(kind)
     },
-    dropdownReaction: function (kind) {
+    dropdownReaction: function(kind) {
       this.footerReaction(kind)
       this.dropdownToggle()
     },
-    dropdownToggle: function () {
+    dropdownToggle: function() {
       this.dropdown = !this.dropdown
     },
-    isReacted: function (kind) {
+    isReacted: function(kind) {
       function findkind(element) {
         return element.kind === kind
       }
       const id = this.reactionable.reaction_count.findIndex(findkind)
       const reaction = this.reactionable.reaction_count[id].login_names.filter(
-        function (el) {
+        function(el) {
           return el === this.currentUser.login_name
         },
         this

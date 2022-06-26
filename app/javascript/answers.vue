@@ -91,17 +91,17 @@ export default {
     }
   },
   computed: {
-    validation: function () {
+    validation: function() {
       return this.description.length > 0
     },
-    hasCorrectAnswer: function () {
+    hasCorrectAnswer: function() {
       return this.answers.some((answer) => answer.type === 'CorrectAnswer')
     },
-    baseUrl: function () {
+    baseUrl: function() {
       return '/api/answers'
     }
   },
-  created: function () {
+  created: function() {
     fetch(`/api/answers.json?question_id=${this.questionId}`, {
       method: 'GET',
       headers: {
@@ -136,13 +136,13 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function (tab) {
+    isActive: function(tab) {
       return this.tab === tab
     },
-    changeActiveTab: function (tab) {
+    changeActiveTab: function(tab) {
       this.tab = tab
     },
-    createAnswer: function () {
+    createAnswer: function() {
       if (this.description.length < 1) {
         return null
       }
@@ -180,7 +180,7 @@ export default {
           console.warn(error)
         })
     },
-    deleteAnswer: function (id) {
+    deleteAnswer: function(id) {
       fetch(`${this.baseUrl}/${id}.json`, {
         method: 'DELETE',
         headers: {
@@ -217,7 +217,7 @@ export default {
       })
       updatedAnswer.description = description
     },
-    requestSolveQuestion: function (id, isCancel) {
+    requestSolveQuestion: function(id, isCancel) {
       const params = {
         question_id: this.questionId
       }
@@ -234,10 +234,10 @@ export default {
         body: JSON.stringify(params)
       })
     },
-    findAnswerById: function (id) {
+    findAnswerById: function(id) {
       return this.answers.find((answer) => answer.id === id)
     },
-    makeToBestAnswer: function (id) {
+    makeToBestAnswer: function(id) {
       this.requestSolveQuestion(id, false)
         .then((response) => {
           return response.json()
@@ -251,7 +251,7 @@ export default {
           console.warn(error)
         })
     },
-    cancelBestAnswer: function (id) {
+    cancelBestAnswer: function(id) {
       this.requestSolveQuestion(id, true)
         .then(() => {
           this.findAnswerById(id).type = ''
@@ -262,14 +262,14 @@ export default {
           console.warn(error)
         })
     },
-    updateAnswerCount: function () {
+    updateAnswerCount: function() {
       this.$emit('updateAnswerCount', this.answers.length)
     },
-    setDefaultTextareaSize: function () {
+    setDefaultTextareaSize: function() {
       const textarea = document.getElementById('js-new-comment')
       this.defaultTextareaSize = textarea.scrollHeight
     },
-    resizeTextarea: function () {
+    resizeTextarea: function() {
       const textarea = document.getElementById('js-new-comment')
       textarea.style.height = `${this.defaultTextareaSize}px`
     },
