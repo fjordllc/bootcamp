@@ -146,7 +146,7 @@ export default {
         })
         .catch((error) => console.warn(error))
     },
-    searchTalks: debounce(function () {
+    searchTalks: debounce(function() {
       this.showSearchedTalks = false
       if (!this.validateSearchTalksWord()) return
 

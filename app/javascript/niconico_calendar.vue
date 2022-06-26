@@ -129,7 +129,7 @@ export default {
       let value = []
       let id = 1
       let weekDay = 0
-      this.calendarDates.forEach(function (date, i, ary) {
+      this.calendarDates.forEach(function(date, i, ary) {
         !date ? (date = { weekDay: weekDay }) : (date.weekDay = weekDay)
         value.push(date)
         weekDay++

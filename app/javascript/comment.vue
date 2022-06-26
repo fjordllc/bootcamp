@@ -163,7 +163,7 @@ export default {
     },
     editComment() {
       this.editing = true
-      this.$nextTick(function () {
+      this.$nextTick(function() {
         const textarea = document.querySelector(
           `#js-comment-${this.comment.id}`
         )

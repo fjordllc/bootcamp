@@ -139,30 +139,30 @@ export default {
     }
   },
   computed: {
-    markdownDescription: function () {
+    markdownDescription: function() {
       const markdownInitializer = new MarkdownInitializer()
       return markdownInitializer.render(this.description)
     },
-    answerCreatedAt: function () {
+    answerCreatedAt: function() {
       return dayjs(this.answer.question.created_at).format()
     },
-    updatedAt: function () {
+    updatedAt: function() {
       return dayjs(this.answer.updated_at).format('YYYY年MM月DD日(dd) HH:mm')
     },
-    roleClass: function () {
+    roleClass: function() {
       return `is-${this.answer.user.primary_role}`
     },
     validation: function () {
-      return this.description.length > 0
+    return this.description.length > 0
     },
-    reactionableId: function () {
+    reactionableId: function() {
       return `Answer_${this.answer.id}`
     }
   },
-  created: function () {
+  created: function() {
     this.description = this.answer.description
   },
-  mounted: function () {
+  mounted: function() {
     TextareaInitializer.initialize(`#js-comment-${this.answer.id}`)
 
     const answerAnchor = location.hash
@@ -177,33 +177,33 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    isActive: function (tab) {
+    isActive: function(tab) {
       return this.tab === tab
     },
-    changeActiveTab: function (tab) {
+    changeActiveTab: function(tab) {
       this.tab = tab
     },
-    cancel: function () {
+    cancel: function() {
       this.description = this.answer.description
       this.editing = false
     },
-    editAnswer: function () {
+    editAnswer: function() {
       this.editing = true
-      this.$nextTick(function () {
+      this.$nextTick(function() {
         $(`.answer-id-${this.answer.id}`).trigger('input')
       })
     },
-    makeToBestAnswer: function () {
+    makeToBestAnswer: function() {
       if (window.confirm('本当に宜しいですか？')) {
         this.$emit('makeToBestAnswer', this.answer.id)
       }
     },
-    cancelBestAnswer: function () {
+    cancelBestAnswer: function() {
       if (window.confirm('本当に宜しいですか？')) {
         this.$emit('cancelBestAnswer', this.answer.id)
       }
     },
-    updateAnswer: function () {
+    updateAnswer: function() {
       if (this.description.length < 1) {
         return null
       }
@@ -229,7 +229,7 @@ export default {
           console.warn(error)
         })
     },
-    deleteAnswer: function () {
+    deleteAnswer: function() {
       if (window.confirm('削除してよろしいですか？')) {
         this.$emit('delete', this.answer.id)
       }

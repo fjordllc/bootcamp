@@ -68,7 +68,7 @@ export default {
     }
   },
   created() {
-    window.onpopstate = function () {
+    window.onpopstate = function() {
       location.replace(location.href)
     }
     this.getBookmarks()

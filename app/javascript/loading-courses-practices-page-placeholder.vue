@@ -20,10 +20,8 @@ import LoadingCoursesPracticesPageNavItemPlaceholder from 'loading-cources-pract
 
 export default {
   components: {
-    loadingCoursesPracticesPageItemsPlaceholder:
-      LoadingCoursesPracticesPageItemsPlaceholder,
-    loadingCoursesPracticesPageNavItemPlaceholder:
-      LoadingCoursesPracticesPageNavItemPlaceholder
+    loadingCoursesPracticesPageItemsPlaceholder: LoadingCoursesPracticesPageItemsPlaceholder,
+    loadingCoursesPracticesPageNavItemPlaceholder: LoadingCoursesPracticesPageNavItemPlaceholder
   },
   data() {
     return {

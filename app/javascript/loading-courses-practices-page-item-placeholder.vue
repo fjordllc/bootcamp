@@ -16,8 +16,7 @@ import LoadingCoursesPracticesPageUserIconItemPlaceholder from 'loading-cources-
 
 export default {
   components: {
-    loadingCoursesPracticesPageUserIconItemPlaceholder:
-      LoadingCoursesPracticesPageUserIconItemPlaceholder
+    loadingCoursesPracticesPageUserIconItemPlaceholder: LoadingCoursesPracticesPageUserIconItemPlaceholder
   },
   data() {
     return {

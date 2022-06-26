@@ -78,13 +78,13 @@ export default {
   },
   created() {
     // ブラウザバック・フォワードした時に画面を読み込ませる
-    window.onpopstate = function () {
+    window.onpopstate = function() {
       location.replace(location.href)
     }
     this.getNotificationsPerPage()
   },
   methods: {
-    getNotificationsPerPage: function () {
+    getNotificationsPerPage: function() {
       fetch(this.url, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
@@ -106,7 +106,7 @@ export default {
           console.warn(error)
         })
     },
-    paginateClickCallback: function (pageNumber) {
+    paginateClickCallback: function(pageNumber) {
       this.currentPage = pageNumber
       this.getNotificationsPerPage()
       history.pushState(
@@ -116,7 +116,7 @@ export default {
       )
       window.scrollTo(0, 0)
     },
-    getPageValueFromParameter: function () {
+    getPageValueFromParameter: function() {
       const url = location.href
       const results = url.match(/\?page=(\d+)/)
       if (!results) return null

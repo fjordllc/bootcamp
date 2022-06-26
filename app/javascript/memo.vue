@@ -51,10 +51,10 @@ export default {
   },
   computed: {},
   watch: {
-    body: function () {
+    body: function() {
       this.checked = false
     },
-    checked: function () {
+    checked: function() {
       if (this.checked === false) {
         this.sendBody = ''
       } else {
@@ -62,7 +62,7 @@ export default {
       }
     }
   },
-  created: function () {
+  created: function() {
     if (!(this.memo === undefined)) {
       this.id = this.memo.id
       this.sendBody = this.memo.body
@@ -74,7 +74,7 @@ export default {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    createMemo: function () {
+    createMemo: function() {
       if (this.sendBody.length < 1) {
         return null
       }
@@ -108,7 +108,7 @@ export default {
           console.warn(error)
         })
     },
-    updateMemo: function () {
+    updateMemo: function() {
       if (this.sendBody.length < 1) {
         return null
       }
@@ -146,7 +146,7 @@ export default {
           console.warn(error)
         })
     },
-    deleteMemo: function () {
+    deleteMemo: function() {
       fetch(`/api/memos/${this.id}.json`, {
         method: 'DELETE',
         headers: {
