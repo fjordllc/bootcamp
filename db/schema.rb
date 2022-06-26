@@ -416,6 +416,7 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["regular_event_id"], name: "index_regular_event_participations_on_regular_event_id"
+    t.index ["user_id", "regular_event_id"], name: "index_user_id_and_regular_event_id", unique: true
     t.index ["user_id"], name: "index_regular_event_participations_on_user_id"
   end
 
