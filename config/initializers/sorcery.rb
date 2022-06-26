@@ -57,7 +57,7 @@ Rails.application.config.sorcery.configure do |config|
   # will register the time of last user logout, every logout.
   # Default: `true`
   #
-  # config.register_logout_time =
+  config.register_logout_time = false
 
   # will register the time of last user action, every action.
   # Default: `true`
