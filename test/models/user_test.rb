@@ -517,18 +517,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '.depressed_reports' do
-    no_depressed_user_id = users(:kimura).id
-    depressed_user_id = users(:kensyu).id
-    user_ids = [no_depressed_user_id, depressed_user_id]
-
-    reports = User.depressed_reports(user_ids)
-    assert_equal 1, reports.size
-
-    depressed_user_reports = Report.where(user_id: depressed_user_id)
-                                   .order(reported_on: :desc)
-    depressed_user_reports.first.update(emotion: 'happy')
-    reports = User.depressed_reports(user_ids)
-    assert_equal 0, reports.size
+    assert_equal 1, User.depressed_reports.size
   end
 
   test '#wip_exists?' do
@@ -537,5 +526,11 @@ class UserTest < ActiveSupport::TestCase
 
     Report.create!(user_id: user.id, title: 'WIP test', description: 'WIP test', wip: true, reported_on: Time.current)
     assert user.wip_exists?
+  end
+
+  test '#raw_last_sad_report_id' do
+    assert_equal \
+      users(:komagata).reports.order(reported_on: :desc).limit(1).pick(:id),
+      users(:komagata).raw_last_sad_report_id
   end
 end
