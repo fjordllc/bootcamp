@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# if Rails.env.development?
-#   require "rack-mini-profiler"
-#
-#   # initialization is skjjjkkkipped so trigger it
-#   Rack::MiniProfilerRails.initialize!(Rails.application)
-# end
+if Rails.env.development?
+  require "rack-mini-profiler"
+
+  # initialization is skpped so trigger it
+  Rack::MiniProfilerRails.initialize!(Rails.application)
+end
