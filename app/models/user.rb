@@ -375,11 +375,7 @@ class User < ApplicationRecord
     end
 
     def depressed_reports
-      ids = User.where(
-        retired_on: nil,
-        graduated_on: nil,
-        sad_streak: true
-      ).pluck(:last_sad_report_id)
+      ids = User.where(sad_streak: true).pluck(:last_sad_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
 
