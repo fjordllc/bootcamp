@@ -90,7 +90,6 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    assert_equal 'kimura', product.comments.last.user.login_name
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     assert_text product.practice.title
     assert_selector '.card-list-item-meta__item', text: '提出者'

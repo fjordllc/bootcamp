@@ -43,14 +43,7 @@ namespace :bootcamp do
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
 
-      User.all.each(&:create_talk!)
-
-      if ENV['DB_NAME'] == 'bootcamp_staging'
-        Article.where(wip: false).where(published_at: nil).find_each do |article|
-          article.published_at = article.created_at
-          article.save!(validate: false)
-        end
-      end
+      User.order(:id).each(&:update_sad_streak)
 
       puts '== END   Cloud Build Task =='
     end
