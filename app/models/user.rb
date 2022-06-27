@@ -374,10 +374,9 @@ class User < ApplicationRecord
       unretired.all_tag_counts(order: 'count desc, name asc')
     end
 
-    def depressed_reports(ids)
-      reports_by_user(ids).values.filter_map do |reports|
-        reports.first if reports.size >= DEPRESSED_SIZE && reports.first(DEPRESSED_SIZE).all?(&:sad?)
-      end
+    def depressed_reports
+      ids = User.where(sad_streak: true).pluck(:last_sad_report_id)
+      Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
 
     private
@@ -530,6 +529,7 @@ class User < ApplicationRecord
 
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
+
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed.url
     else
@@ -556,6 +556,20 @@ class User < ApplicationRecord
   def depressed?
     reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
     reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)
+  end
+
+  def raw_last_sad_report_id
+    reports.where(emotion: 'sad')
+           .order(reported_on: :desc)
+           .limit(1)
+           .pluck(:id)
+           .try(:first)
+  end
+
+  def update_sad_streak
+    self.sad_streak = depressed?
+    self.last_sad_report_id = raw_last_sad_report_id
+    save!(validate: false)
   end
 
   def follow(other_user, watch:)
