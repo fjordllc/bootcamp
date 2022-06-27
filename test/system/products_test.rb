@@ -518,4 +518,21 @@ class ProductsTest < ApplicationSystemTestCase
 
     assert product.reload.published_at = product_published_at
   end
+
+  test 'products order on all tab' do
+    # 最新の提出物を画面上で判定するため、提出物を1ページ内に収める
+    Product.limit(Product.count - Product.default_per_page).delete_all
+    newest_product = Product.order(published_at: :desc, id: :asc).first
+    oldest_product = Product.order(published_at: :desc, id: :asc).last
+
+    visit_with_auth '/products', 'komagata'
+
+    # 提出日の新しい順で並んでいることを検証する
+    titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
+    names = all('.card-list-item-meta .a-user-name').map(&:text)
+    assert_equal "#{newest_product.practice.title}の提出物", titles.first
+    assert_equal newest_product.user.login_name, names.first
+    assert_equal "#{oldest_product.practice.title}の提出物", titles.last
+    assert_equal oldest_product.user.login_name, names.last
+  end
 end
