@@ -131,226 +131,271 @@ product17:
   practice: practice3
   user: with_hyphen
   body: テストの提出物17です。
+  published_at: <%= 3.day.ago %>
 
 product18:
   practice: practice4
   user: with_hyphen
   body: テストの提出物18です。
+  published_at: <%= 3.day.ago %>
 
 product19:
   practice: practice5
   user: with_hyphen
   body: テストの提出物19です。
+  published_at: <%= 3.day.ago %>
 
 product20:
   practice: practice6
   user: with_hyphen
   body: テストの提出物20です。
+  published_at: <%= 3.day.ago %>
 
 product21:
   practice: practice7
   user: with_hyphen
   body: テストの提出物21です。
+  published_at: <%=3.day.ago %>
 
 product22:
   practice: practice8
   user: with_hyphen
   body: テストの提出物22です。
+  published_at: <%= 3.day.ago %>
 
 product23:
   practice: practice9
   user: with_hyphen
   body: テストの提出物23です。
+  published_at: <%= 3.day.ago %>
 
 product24:
   practice: practice10
   user: with_hyphen
   body: テストの提出物24です。
+  published_at: <%= 2.day.ago %>
 
 product25:
   practice: practice11
   user: with_hyphen
   body: テストの提出物25です。
+  published_at: <%= 1.day.ago %>
 
 product26:
   practice: practice12
   user: with_hyphen
   body: テストの提出物26です。
+  published_at: <%= 3.day.ago %>
 
 product27:
   practice: practice13
   user: with_hyphen
   body: テストの提出物27です。
+  published_at: <%= 3.day.ago %>
 
 product28:
   practice: practice14
   user: with_hyphen
   body: テストの提出物28です。
+  published_at: <%= 3.day.ago %>
 
 product29:
   practice: practice15
   user: with_hyphen
   body: テストの提出物29です。
+  published_at: <%= 2.day.ago %>
 
 product30:
   practice: practice16
   user: with_hyphen
   body: テストの提出物30です。
+  published_at: <%= 1.day.ago %>
 
 product31:
   practice: practice17
   user: with_hyphen
   body: テストの提出物31です。
+  published_at: <%= 3.day.ago %>
 
 product32:
   practice: practice18
   user: with_hyphen
   body: テストの提出物32です。
+  published_at: <%= 3.day.ago %>
 
 product33:
   practice: practice19
   user: with_hyphen
   body: テストの提出物33です。
+  published_at: <%= 3.day.ago %>
 
 product34:
   practice: practice20
   user: with_hyphen
   body: テストの提出物34です。
+  published_at: <%= 2.day.ago %>
 
 product35:
   practice: practice21
   user: with_hyphen
   body: テストの提出物35です。
+  published_at: <%= 1.day.ago %>
 
 product36:
   practice: practice22
   user: with_hyphen
   body: テストの提出物36です。
+  published_at: <%= 3.day.ago %>
 
 product37:
   practice: practice23
   user: with_hyphen
   body: テストの提出物37です。
+  published_at: <%= 3.day.ago %>
 
 product38:
   practice: practice24
   user: with_hyphen
   body: テストの提出物38です。
+  published_at: <%= 3.day.ago %>
 
 product39:
   practice: practice25
   user: with_hyphen
   body: テストの提出物39です。
+  published_at: <%= 2.day.ago %>
 
 product40:
   practice: practice26
   user: with_hyphen
   body: テストの提出物40です。
+  published_at: <%= 1.day.ago %>
 
 product41:
   practice: practice27
   user: with_hyphen
   body: テストの提出物41です。
+  published_at: <%= 3.day.ago %>
 
 product42:
   practice: practice28
   user: with_hyphen
   body: テストの提出物42です。
+  published_at: <%= 3.day.ago %>
 
 product43:
   practice: practice29
   user: with_hyphen
   body: テストの提出物43です。
+  published_at: <%= 3.day.ago %>
 
 product44:
   practice: practice30
   user: with_hyphen
   body: テストの提出物44です。
+  published_at: <%= 3.day.ago %>
 
 product45:
   practice: practice31
   user: with_hyphen
   body: テストの提出物45です。
+  published_at: <%= 3.day.ago %>
 
 product46:
   practice: practice32
   user: with_hyphen
   body: テストの提出物46です。
+  published_at: <%= 2.day.ago %>
 
 product47:
   practice: practice33
   user: with_hyphen
   body: テストの提出物47です。
+  published_at: <%= 1.day.ago %>
 
 product48:
   practice: practice34
   user: with_hyphen
   body: テストの提出物48です。
+  published_at: <%= 3.day.ago %>
 
 product49:
   practice: practice35
   user: with_hyphen
   body: テストの提出物49です。
+  published_at: <%= 3.day.ago %>
 
 product50:
   practice: practice36
   user: with_hyphen
   body: テストの提出物50です。
+  published_at: <%= 3.day.ago %>
 
 product51:
   practice: practice37
   user: with_hyphen
   body: テストの提出物51です。
+  published_at: <%= 3.day.ago %>
 
 product52:
   practice: practice38
   user: with_hyphen
   body: テストの提出物52です。
+  published_at: <%= 3.day.ago %>
 
 product53:
   practice: practice39
   user: with_hyphen
   body: テストの提出物53です。
+  published_at: <%= 2.day.ago %>
 
 product54:
   practice: practice40
   user: with_hyphen
   body: テストの提出物54です。
+  published_at: <%= 1.day.ago %>
 
 product55:
   practice: practice41
   user: with_hyphen
   body: テストの提出物55です。
+  published_at: <%= 3.day.ago %>
 
 product56:
   practice: practice42
   user: with_hyphen
   body: テストの提出物56です。
+  published_at: <%= 3.day.ago %>
 
 product57:
   practice: practice43
   user: with_hyphen
   body: テストの提出物57です。
+  published_at: <%= 3.day.ago %>
 
 product58:
   practice: practice44
   user: with_hyphen
   body: テストの提出物58です。
+  published_at: <%= 3.day.ago %>
 
 product59:
   practice: practice45
   user: with_hyphen
   body: テストの提出物59です。
+  published_at: <%= 3.day.ago %>
 
 product60:
   practice: practice46
   user: with_hyphen
   body: テストの提出物60です。
+  published_at: <%= 2.day.ago %>
 
 product61:
   practice: practice46
   user: mentormentaro
   body: 提出物の検索結果テスト用
+  published_at: <%= 1.day.ago %>
 
 product62:
   practice: practice45
