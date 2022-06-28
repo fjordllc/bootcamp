@@ -184,6 +184,7 @@ report22:
   title: 卒業生による日報
   description:
     卒業しました。
+  emotion: 1
   practices: practice2
   reported_on: "2020-09-10"
   created_at: "2020-09-10 01:00:00"
@@ -214,6 +215,7 @@ report26:
   title: 卒業の翌日の日報
   description:
     「前の日報」をクリックすれば、前日の日報にちゃんと行ける
+  emotion: 1
   reported_on: "2020-09-11"
   created_at: "2020-09-11 01:00:00"
 
@@ -222,6 +224,7 @@ report27:
   title: 卒業の前日(遡って日報を作成)
   description:
     遡って作成しましたが、卒業の前日の分の日報です。
+  emotion: 1
   reported_on: "2020-09-09"
   created_at: "2020-09-12 01:00:00"
 
