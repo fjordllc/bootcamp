@@ -550,7 +550,8 @@ DEPENDENCIES
   capybara!
   cocoon
   commonmarker
-  data_migrate
+  data_migrate (>= 8.0.0rc1)
+  dead_end
   diffy
   discord-notifier
   google-cloud-storage (~> 1.25)
