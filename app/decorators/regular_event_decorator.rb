@@ -4,10 +4,9 @@ MAX_DAYS_OF_NEXT_EVENT_COUNT = 35
 
 module RegularEventDecorator
   def holding_cycles
-    repeat_rules = regular_event_repeat_rules.pluck(:frequency, :day_of_the_week)
     repeat_rules.map do |repeat_rule|
-      holding_frequency = RegularEvent::FREQUENCY_LIST.find { |frequency| frequency[1] == repeat_rule[0] }[0]
-      holding_day_of_the_week = RegularEvent::DAY_OF_THE_WEEK_LIST.find { |day_of_the_week| day_of_the_week[1] == repeat_rule[1] }[0]
+      holding_frequency = RegularEvent::FREQUENCY_LIST.find { |frequency| frequency[1] == repeat_rule[:frequency] }[0]
+      holding_day_of_the_week = RegularEvent::DAY_OF_THE_WEEK_LIST.find { |day_of_the_week| day_of_the_week[1] == repeat_rule[:day_of_the_week] }[0]
       holding_frequency + holding_day_of_the_week
     end.join(',')
   end
@@ -17,31 +16,60 @@ module RegularEventDecorator
   end
 
   def filtered_canditates_of_next_event_date
-    repeat_rules = regular_event_repeat_rules.pluck(:frequency, :day_of_the_week)
-    today = Time.zone.today
-    nth_week_of_month = calc_week_of_month(today)
-    canditates_of_next_event_date = (1..MAX_DAYS_OF_NEXT_EVENT_COUNT).map { |n| today + n }
-
     repeat_rules.map do |repeat_rule|
-      if (repeat_rule[0]).zero?
-        canditates_of_next_event_date.find { |date| date.wday == repeat_rule[1] }
+      if (repeat_rule[:frequency]).zero?
+        canditates_of_next_event_date.find { |date| date.wday == repeat_rule[:day_of_the_week] }
       else
-        canditates_of_next_event_date.find { |date| date.wday == repeat_rule[1] && calc_week_of_month(date) == nth_week_of_month }
+        canditate_of_next_event_date_with_frequency(repeat_rule)
       end
     end
   end
 
+  def canditates_of_next_event_date
+    today = Time.zone.today
+    (1..MAX_DAYS_OF_NEXT_EVENT_COUNT).map { |n| today + n }
+  end
+
+  def canditate_of_next_event_date_with_frequency(repeat_rule)
+    canditate = canditates_of_next_event_date.find { |date| date.wday == repeat_rule[:day_of_the_week] && calc_week_of_month(date) == repeat_rule[:frequency] }
+
+    if canditate.nil?
+      canditates_of_next_event_date.find { |date| date.wday == repeat_rule[:day_of_the_week] && calc_week_of_month(date) == repeat_rule[:frequency] + 1 }
+    else
+      canditate
+    end
+  end
+
+  def repeat_rules
+    regular_event_repeat_rules.map do |repeat_rule|
+      { frequency: repeat_rule.frequency, day_of_the_week: repeat_rule.day_of_the_week }
+    end
+  end
+
   def calc_week_of_month(date)
-    first_week_of_this_month = (date - (date.day - 1)).cweek
+    first_week_of_month = (date - (date.day - 1)).cweek
     this_week = date.cweek
 
     # 年末年始の対応
-    if this_week < first_week_of_this_month
+    if this_week < first_week_of_month
       return calc_week_of_month(date - 7) + 1 if date.month == 12
 
       return this_week
     end
 
-    this_week - first_week_of_this_month + 1
+    this_week - first_week_of_month + 1
+  end
+
+  # 以下は後続のPRで使うためのメソッドのため、現時点では使用しない
+  # https://github.com/fjordllc/bootcamp/issues/4915 を参照
+  def event_date?
+    today = Time.zone.today
+    repeat_rules.map do |repeat_rule|
+      if (repeat_rule[:frequency]).zero?
+        repeat_rule[:day_of_the_week] == today.wday
+      else
+        repeat_rule[:day_of_the_week] == today.wday && repeat_rule[:frequency] == calc_week_of_month(today)
+      end
+    end.include?(true)
   end
 end

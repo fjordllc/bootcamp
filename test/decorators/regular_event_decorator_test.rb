@@ -15,6 +15,6 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
   end
 
   test 'next_event_date' do
-    assert_equal "次回の開催日は #{l @regular_event.filtered_canditates_of_next_event_date.compact.min} です" , @regular_event.next_event_date
+    assert_equal "次回の開催日は #{l @regular_event.filtered_canditates_of_next_event_date.compact.min} です", @regular_event.next_event_date
   end
 end
