@@ -34,4 +34,11 @@ class BookmarkTest < ActiveSupport::TestCase
     Bookmark.create(user: user, bookmarkable: page)
     assert_not Bookmark.new(user: user, bookmarkable: page).valid?
   end
+
+  test '#display_date' do
+    assert_equal I18n.l(bookmarks(:bookmark30).bookmarkable.created_at), I18n.l(bookmarks(:bookmark30).display_date)
+    assert_equal I18n.l(bookmarks(:bookmark29).bookmarkable.created_at), I18n.l(bookmarks(:bookmark29).display_date)
+    assert_equal I18n.l(bookmarks(:bookmark28).bookmarkable.created_at), I18n.l(bookmarks(:bookmark28).display_date)
+    assert_equal I18n.l(bookmarks(:bookmark27).bookmarkable.reported_on), I18n.l(bookmarks(:bookmark27).display_date)
+  end
 end
