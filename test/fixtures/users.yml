@@ -113,6 +113,8 @@ sotugyou:
   job_seeker: true
   graduated_on: "2015-01-01"
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
+  sad_streak: true
+  last_sad_report_id: <%= ActiveRecord::FixtureSet.identify(:report27) %>
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
 
