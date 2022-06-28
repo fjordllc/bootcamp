@@ -375,7 +375,11 @@ class User < ApplicationRecord
     end
 
     def depressed_reports
-      ids = User.where(sad_streak: true).pluck(:last_sad_report_id)
+      ids = User.where(
+        retired_on: nil,
+        graduated_on: nil,
+        sad_streak: true
+      ).pluck(:last_sad_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
 
@@ -530,6 +534,7 @@ class User < ApplicationRecord
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
 
+    return image_url default_image_path
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed.url
     else
