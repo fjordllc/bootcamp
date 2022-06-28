@@ -5,9 +5,13 @@
         = f.label '参考書籍', class: 'a-form-label'
         = f.hidden_field :book_id, value: ''
         - if f.index != 'new_practices_books'
-          .js-book-select(data-selected-book=[@practice.practices_books[f.index.to_i]&.book&.id, @practice.practices_books[f.index.to_i]&.book&.title] data-books=all_books)
+          //= select_tag :book_id, options_from_collection_for_select(all_books, :first, :last), include_blank: '本を選んでください', id: 'js-choices-single-select'
+          .js-book-select(data-selected-book=[@practice.practices_books[f.index.to_i]&.book&.id, @practice.practices_books[f.index.to_i]&.book&.title] data-books=all_books), id: 'js-book-select'
         - else
-          .js-book-select(data-selected-book=[] data-books=all_books)
+          //= f.collection_select :book_id, all_books, :first, :last, {}, { id: 'js-book-select' }
+          //- binding.pry
+          //.js-choiceis-book-select(data-selected-book=[] data-books=all_books), id: 'js-book-select'
+          = select_tag :book_id, options_from_collection_for_select(all_books, :first, :last), id: 'js-book-select'
       .reference-books-form-item.is-inline
         = f.label '必読', class: 'a-form-label'
         label.a-on-off-checkbox.is-sm.reference-books-form-item__must-read
