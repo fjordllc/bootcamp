@@ -1,0 +1,24 @@
+# Pull Request #4182 Update rails 7.0.2.2 の完了後、ActiveStorage::FixtureSet.blob を使うように変更する
+# companies
+company1_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/1.jpg" %>
+
+company2_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/2.jpg" %>
+
+company3_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/3.jpg" %>
+
+company4_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/4.jpg" %>
+
+# users
+hatsuno_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/hatsuno.jpg" %>
+
+komagata_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/komagata.jpg" %>
+
+machida_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg" %>
+
+mentormentaro_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mentormentaro.jpg" %>
+
+mineo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mineo.jpg" %>
+
+tanaka_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/tanaka.jpg" %>
+
+yameo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/yameo.jpg" %>
