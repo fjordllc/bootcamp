@@ -353,9 +353,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.4)
       loofah (~> 2.19, >= 2.19.1)
-    rails-i18n (6.0.0)
+    rails-i18n (7.0.3)
       i18n (>= 0.7, < 2)
-      railties (>= 6.0.0, < 7)
+      railties (>= 6.0.0, < 8)
     rails_autolink (1.1.6)
       rails (> 3.1)
     railties (7.0.2.3)
@@ -584,7 +584,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rack-user_agent
   rails (= 7.0.2.3)
-  rails-i18n (~> 6.0.0)
+  rails-i18n
   rails_autolink
   ransack
   react-rails
