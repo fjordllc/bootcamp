@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   $('.reference-books-form__add').on('cocoon:after-insert', () => {
     const elements = document.querySelectorAll('#js-book-select')
-    const element = elements[elements.length- 1]
+    const element = elements[elements.length - 1]
     if (element) {
       return new Choices(element, {
         removeItemButton: true,
