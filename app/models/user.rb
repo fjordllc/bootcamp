@@ -249,7 +249,7 @@ class User < ApplicationRecord
   }
   scope :inactive_students_and_trainees, lambda {
     where(
-      updated_at: Date.new..1.month.ago,
+      last_activity_at: Date.new..1.month.ago,
       admin: false,
       mentor: false,
       adviser: false,
