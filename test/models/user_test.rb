@@ -446,16 +446,16 @@ class UserTest < ActiveSupport::TestCase
       user: user,
       practice: practice1,
       status: :complete,
-      created_at: (today - 2.weeks).to_fs(:db),
-      updated_at: (today - 2.weeks).to_fs(:db)
+      created_at: (today - 2.weeks).to_formatted_s(:db),
+      updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
     Learning.create!(
       user: user,
       practice: practice2,
       status: :complete,
-      created_at: (today - (2.weeks + 1.day)).to_fs(:db),
-      updated_at: (today - (2.weeks + 1.day)).to_fs(:db)
+      created_at: (today - (2.weeks + 1.day)).to_formatted_s(:db),
+      updated_at: (today - (2.weeks + 1.day)).to_formatted_s(:db)
     )
 
     worried_users = User.delayed.order(completed_at: :asc)
@@ -472,8 +472,8 @@ class UserTest < ActiveSupport::TestCase
       user: user,
       practice: Practice.first,
       status: :complete,
-      created_at: (today - (2.weeks - 1.day)).to_fs(:db),
-      updated_at: (today - (2.weeks - 1.day)).to_fs(:db)
+      created_at: (today - (2.weeks - 1.day)).to_formatted_s(:db),
+      updated_at: (today - (2.weeks - 1.day)).to_formatted_s(:db)
     )
 
     worried_users = User.delayed.order(completed_at: :asc)
@@ -490,8 +490,8 @@ class UserTest < ActiveSupport::TestCase
       user: user,
       practice: practice1,
       status: :complete,
-      created_at: (today - 2.weeks).to_fs(:db),
-      updated_at: (today - 2.weeks).to_fs(:db)
+      created_at: (today - 2.weeks).to_formatted_s(:db),
+      updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
     worried_users = User.delayed.order(completed_at: :asc)
