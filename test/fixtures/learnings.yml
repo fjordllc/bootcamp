@@ -114,6 +114,6 @@ learning<%= i + 18 %>:
   user: <%= [:jobseeker, :muryou][i] %>
   practice: practice1
   status: "complete"
-  created_at: <%= (today - (2.weeks - 1.day) - i.day).to_s(:db) %>
-  updated_at: <%= (today - (2.weeks - 1.day) - i.day).to_s(:db) %>
+  created_at: <%= (today - (2.weeks - 1.day) - i.day).to_fs(:db) %>
+  updated_at: <%= (today - (2.weeks - 1.day) - i.day).to_fs(:db) %>
 <% end %>
