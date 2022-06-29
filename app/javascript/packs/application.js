@@ -38,7 +38,6 @@ import '../categories.js'
 import '../categories-practice.js'
 import '../notifications.js'
 import '../products.js'
-import '../announcements.js'
 import '../courses-categories.js'
 import '../courses-practices.js'
 import '../no_learn.js'
@@ -77,8 +76,10 @@ import '../regular-events.js'
 import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
 import AdminCompanies from '../components/admin_companies.vue'
+import Announcements from '../announcements.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
 mounter.addComponent(AdminCompanies)
+mounter.addComponent(Announcements)
 mounter.mount()

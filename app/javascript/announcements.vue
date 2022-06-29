@@ -29,6 +29,7 @@ import Announcement from 'announcement.vue'
 import Pager from 'pager.vue'
 
 export default {
+  name: 'Announcements',
   components: {
     loadingListPlaceholder: LoadingListPlaceholder,
     announcement: Announcement,
@@ -36,7 +37,7 @@ export default {
   },
   props: {
     title: { type: String, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: Number, required: true }
   },
   data() {
     return {
