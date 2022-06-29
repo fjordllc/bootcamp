@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_25_064850) do
+ActiveRecord::Schema.define(version: 2022_06_29_154015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -521,6 +521,7 @@ ActiveRecord::Schema.define(version: 2022_06_25_064850) do
     t.date "training_ends_on"
     t.boolean "sad_streak", default: false, null: false
     t.integer "last_sad_report_id"
+    t.datetime "last_activity_at"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
