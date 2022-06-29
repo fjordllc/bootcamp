@@ -9,6 +9,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: '質問相談タイム'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
+      choose 'regular_event_category_2'
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
@@ -78,5 +79,31 @@ class RegularEventsTest < ApplicationSystemTestCase
       click_link '削除'
     end
     assert_text '定期イベントを削除しました。'
+  end
+
+  test 'show the category of the regular event on regular events list' do
+    RegularEvent.destroy_all
+
+    visit_with_auth '/regular_events/new', 'komagata'
+    5.times do |value|
+      fill_in 'regular_event[title]', with: '定期イベント・カテゴリーのテスト'
+      first('.choices__inner').click
+      find('#choices--js-choices-multiple-select-item-choice-1').click
+      choose "regular_event_category_#{value}"
+      fill_in 'regular_event[wday]', with: '木曜日'
+      fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
+      fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
+      fill_in 'regular_event[description]', with: '定期イベント・カテゴリーのテストです'
+      click_button '作成'
+    end
+
+    visit '/regular_events'
+    within '.card-list.a-card' do
+      assert_text '輪読会'
+      assert_text '雑談'
+      assert_text '質問'
+      assert_text 'MTG'
+      assert_text 'その他'
+    end
   end
 end
