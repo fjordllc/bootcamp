@@ -520,10 +520,13 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'products order on all tab' do
+    Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     # 最新の提出物を画面上で判定するため、提出物を1ページ内に収める
     Product.limit(Product.count - Product.default_per_page).delete_all
-    newest_product = Product.order(published_at: :desc, id: :asc).first
-    oldest_product = Product.order(published_at: :desc, id: :asc).last
+    newest_product = Product.reorder(:id).first
+    newest_product.update(published_at: Time.current)
+    oldest_product = Product.reorder(:id).last
+    oldest_product.update(published_at: 2.days.ago)
 
     visit_with_auth '/products', 'komagata'
 

@@ -50,6 +50,6 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     assert_text '7日以上経過（6）'
     assert_text '6日経過（1）'
     assert_text '5日経過（1）'
-    assert_text '今日提出（3）'
+    assert_text '今日提出（48）'
   end
 end
