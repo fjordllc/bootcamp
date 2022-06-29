@@ -32,7 +32,7 @@
                 .a-meta
                   | コメント（#{product.comments.size}）
               .card-list-item-meta__item
-                .card-list-item-comment__user-icons
+                .card-list-item__user-icons
                   = render partial: 'comments/user_icons', collection: product.comments.commented_users, as: :user
               .card-list-item-meta__item
                 time.a-meta(datetime="#{product.comments.last.updated_at.to_datetime}" pubdate='pubdate')
