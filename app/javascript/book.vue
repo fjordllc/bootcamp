@@ -28,10 +28,7 @@
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item
-              a(
-                class='card-main-actions__action a-button is-sm is-secondary is-block',
-                href='#'
-              )
+              a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(href='#')
                 | 編集
 </template>
 <script>
