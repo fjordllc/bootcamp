@@ -25,7 +25,7 @@
 
 <script>
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Announcement from 'announcement.vue'
+import Announcement from 'components/announcement.vue'
 import Pager from 'pager.vue'
 
 export default {
