@@ -413,6 +413,7 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "category", default: 0, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
