@@ -98,17 +98,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def first_report(report, receiver)
-      Notification.create!(
-        kind: kinds[:first_report],
-        user: receiver,
-        sender: report.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(report),
-        message: "🎉 #{report.user.login_name}さんがはじめての日報を書きました！",
-        read: false
-      )
-    end
-
     def watching_notification(watchable, receiver, comment)
       watchable_user = watchable.user
       sender = comment.user
