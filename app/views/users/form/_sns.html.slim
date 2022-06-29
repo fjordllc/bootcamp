@@ -24,18 +24,23 @@
 
 .form-item#form-github-account
   = f.label :github_account, class: 'a-form-label'
-  .form-item__mention-input
-    = f.text_field :github_account, class: 'a-text-input', placeholder: 'komagata', disabled: true
-  .a-form-help
-    - if f.object.github_id?
-      = link_to connection_git_hub_path, method: :delete, class: 'a-form-help-link is-muted-text' do
-        | GitHub との連携を解除する
-    - else
-      = link_to '/auth/github', class: 'a-form-help-link is-danger' do
-        | GitHub と連携する
+  - if f.object.github_id?
+    .form-item__mention-input
+      = f.text_field :github_account, class: 'a-text-input', disabled: true
+  - if f.object.github_id?
+    .a-form-help
+      p
+        | GitHub アカウントは登録されています。（
+        = link_to connection_git_hub_path, method: :delete, class: 'a-form-help-link is-muted-text' do
+          | GitHub アカウントの登録を解除する
+        | ）
+  - else
+    = link_to '/auth/github', class: 'a-button is-sm is-primary' do
+      p
+        | GitHub アカウントを登録する
   .a-form-help
     p
-      | GitHub と連携をすると、GitHub アカウントでログインができるようになります。
+      | GitHub アカウントを登録すると、GitHub アカウントを使ってワンクリックでログインができるようになります。
 .form-item
   = f.label :twitter_account, class: 'a-form-label'
   .form-item__mention-input
