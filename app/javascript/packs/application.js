@@ -75,7 +75,7 @@ import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../regular-events.js'
 import VueMounter from '../VueMounter.js'
-import Hello from '../hello.vue'
+import Hello from '../components/hello.vue'
 import AdminCompanies from '../components/admin_companies.vue'
 
 const mounter = new VueMounter()
