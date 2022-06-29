@@ -9,6 +9,10 @@
         = f.label :organizer, class: 'a-form-label'
         = f.select(:user_ids, users_name, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })
       .form-item
+        - %w[輪読会 雑談 質問 MTG その他].each_with_index do |category, i|
+          = f.radio_button :category, i
+          = f.label :category, category, value: i
+      .form-item
         = f.label :wday, class: 'a-form-label'
         = f.text_field :wday, class: 'a-text-input js-warning-form'
       .form-item
