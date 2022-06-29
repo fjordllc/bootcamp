@@ -11,10 +11,9 @@
       .card-list-item__row
         .card-list-item-title
           .card-list-item-title__start
-            .card-list-item-title__icon.is-unread(
-              v-if='notification.read === false'
-            )
-              | 未読
+            .a-list-item-badge.is-unread(v-if='notification.read === false')
+              span
+                | 未読
             h2.card-list-item-title__title(itemprop='name')
               a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='notification.path',
