@@ -65,6 +65,21 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
+  def came_question(params = {})
+    params.merge!(@params)
+    question = params[:question]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{question.user.login_name}さんから質問「#{question.title}」が投稿されました。",
+      kind: :came_question,
+      receiver: receiver,
+      sender: question.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(question),
+      read: false
+    )
+  end
+
   def submitted(params = {})
     params.merge!(@params)
     subject = params[:subject]
@@ -92,6 +107,21 @@ class ActivityNotifier < ApplicationNotifier
       sender: page.sender,
       receiver: receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(page),
+      read: false
+    )
+  end
+
+  def first_report(params = {})
+    params.merge!(@params)
+    report = params[:report]
+    receiver = params[:receiver]
+
+    notification(
+      body: "🎉 #{report.user.login_name}さんがはじめての日報を書きました！",
+      kind: :first_report,
+      receiver: receiver,
+      sender: report.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(report),
       read: false
     )
   end

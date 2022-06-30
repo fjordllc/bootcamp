@@ -5,6 +5,7 @@ class Products::UncheckedController < ApplicationController
   def index
     @target = params[:target]
     @target = 'unchecked_all' unless target_allowlist.include?(@target)
+    @checker_id = params[:checker_id]
   end
 
   private

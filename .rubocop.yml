@@ -20,6 +20,7 @@ Metrics/ClassLength:
     - app/models/user.rb
     - app/models/product.rb
     - app/models/report.rb
+    - app/notifiers/activity_notifier.rb
 
 AllCops:
   Exclude:

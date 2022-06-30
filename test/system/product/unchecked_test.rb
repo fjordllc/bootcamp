@@ -79,13 +79,32 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_text product.practice.title
   end
 
-  test 'display no-replied products if click on no-replied-button' do
+  test 'display no-comment products if click on no-replied-button' do
+    product = products(:product8)
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
+    assert_text product.practice.title
+  end
+
+  test 'display products last commented by submitter if click on no-replied-button' do
     product = products(:product8)
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_equal 'kimura', product.comments.last.user.login_name
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     assert_text product.practice.title
+    assert_selector '.card-list-item-meta__item', text: '提出者'
+  end
+
+  test 'not display products last commented by mentor if click on no-replied-button' do
+    product = products(:product8)
+    visit_with_auth "/products/#{product.id}", 'mentormentaro'
+    fill_in('new_comment[description]', with: 'test')
+    click_button 'コメントする'
+    assert_equal 'mentormentaro', product.comments.last.user.login_name
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
+    assert_no_text product.practice.title
+    assert_no_selector '.card-list-item-meta__item', text: 'メンター'
   end
 
   test 'display no-replied products if click on unchecked-all-button' do
@@ -132,5 +151,45 @@ class Product::UncheckedTest < ApplicationSystemTestCase
   test 'button name is incomplete list' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     assert_link '未完了一覧'
+  end
+
+  test "show only mentor's products if you select a mentor in products unchecked all" do
+    user = users(:kimura)
+    practice = practices(:practice47)
+    checker = users(:komagata)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+
+    visit_with_auth '/products/unchecked', 'mentormentaro'
+    find('.choices__list').click
+    find('#choices--js-choices-single-select-item-choice-2', text: 'komagata').click
+    find('.pill-nav__item-link', text: '全て').click
+    assert_current_path("/products/unchecked?checker_id=#{product.checker_id}&target=unchecked_all")
+    assert_selector '.card-list-item__assignee-name', text: 'komagata'
+    assert_no_selector '.card-list-item__assignee-name', text: 'machida'
+  end
+
+  test "show only mentor's products if you select a mentor in products unchecked no replied" do
+    user = users(:kimura)
+    practice = practices(:practice47)
+    checker = users(:komagata)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+
+    visit_with_auth '/products/unchecked', 'mentormentaro'
+    find('.choices__list').click
+    find('#choices--js-choices-single-select-item-choice-2', text: 'komagata').click
+    find('.pill-nav__item-link', text: '未返信').click
+    assert_current_path("/products/unchecked?checker_id=#{product.checker_id}&target=unchecked_no_replied")
+    assert_selector '.card-list-item__assignee-name', text: 'komagata'
+    assert_no_selector '.card-list-item__assignee-name', text: 'machida'
   end
 end

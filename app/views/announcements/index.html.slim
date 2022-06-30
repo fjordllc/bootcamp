@@ -11,4 +11,4 @@ header.page-header
             = link_to new_announcement_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
               | お知らせ作成
-#js-announcements(data-title="#{title}" data-current-user-id="#{current_user.id}")
+div(data-vue="Announcements" data-vue-title="#{title}" data-vue-current-user-id:number="#{current_user.id}")

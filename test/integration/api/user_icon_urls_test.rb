@@ -6,8 +6,9 @@ class API::UserIconUrlsTest < ActionDispatch::IntegrationTest
   fixtures :users
 
   test 'GET /api/user_icon_urls.json' do
+    # require_login_for_apiをskipしているため、tokenなしでもokを確認
     get api_user_icon_urls_path(format: :json)
-    assert_response :unauthorized
+    assert_response :ok
 
     token = create_token('kimura', 'testtest')
     get api_user_icon_urls_path(format: :json),
