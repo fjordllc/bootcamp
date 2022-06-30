@@ -8,7 +8,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'show listing unsolved questions' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
-    assert_equal '未解決の質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '未解決のQ&A | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing solved questions' do
@@ -298,7 +298,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'not show a WIP question on the unsolved Q&A list page' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
     assert_no_text 'wipテスト用の質問(wip中)'
-    assert_text '未解決の質問一覧'
+    assert_text '未解決のQ&A'
   end
 
   test "visit user profile page when clicked on user's name on question" do
