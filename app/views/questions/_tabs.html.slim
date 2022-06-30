@@ -2,13 +2,13 @@
   .container
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to polymorphic_path(:questions, practice_id: params[:practice_id], title: params[:title]), class: "page-tabs__item-link #{params[:all].present? || params[:solved].present? ? '' : 'is-active'}" do
+        = link_to questions_path(target: 'not_solved', practice_id: params[:practice_id]), class: "page-tabs__item-link #{params[:target] == 'not_solved' ? 'is-active' : ''}" do
           | 未解決
           - if Question.not_solved.not_wip.size.positive? && current_user.admin_or_mentor?
             .page-tabs__item-count.a-notification-count
               #not-solved-count
                 = params[:practice_id].present? ? Question.not_solved.not_wip.where(practice_id: params[:practice_id]).size : Question.not_solved.not_wip.size
       li.page-tabs__item
-        = link_to '解決済み', polymorphic_path(:questions, solved: 'true', practice_id: params[:practice_id], title: params[:title]), class: "page-tabs__item-link #{params[:solved].present? ? 'is-active' : ''}"
+        = link_to '解決済み', questions_path(target: 'solved', practice_id: params[:practice_id]), class: "page-tabs__item-link #{params[:target] == 'solved' ? 'is-active' : ''}"
       li.page-tabs__item
-        = link_to '全ての質問', polymorphic_path(:questions, all: 'true', practice_id: params[:practice_id], title: params[:title]), class: "page-tabs__item-link #{params[:all].present? && params[:solved].blank? ? 'is-active' : ''}"
+        = link_to '全ての質問', questions_path(practice_id: params[:practice_id], title: params[:title]), class: "page-tabs__item-link #{params[:target] == 'not_solved' || params[:target] == 'solved' ? '' : 'is-active'}"

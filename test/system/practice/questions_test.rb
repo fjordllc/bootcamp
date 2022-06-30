@@ -14,7 +14,7 @@ class Practice::QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'not show a WIP question on the unsolved questions list ' do
-    visit_with_auth "/practices/#{practices(:practice1).id}/questions?not_solved=true", 'hatsuno'
+    visit_with_auth "/practices/#{practices(:practice1).id}/questions?target=not_solved", 'hatsuno'
     assert_no_text 'wipテスト用の質問(wip中)'
     assert_selector('a.tab-nav__item-link.is-active', text: '未解決')
   end

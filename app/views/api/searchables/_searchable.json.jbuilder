@@ -18,3 +18,8 @@ end
 if talk?(searchable)
   json.talk_id searchable.talk.id
 end
+json.is_user user?(searchable)
+if user?(searchable)
+  json.avatar_url searchable.avatar_url
+  json.primary_role searchable.primary_role
+end

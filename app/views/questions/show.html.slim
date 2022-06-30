@@ -11,7 +11,7 @@ header.page-header
               i.fa-regular.fa-plus
               | 質問する
           li.page-header-actions__item
-            = link_to questions_path, class: 'a-button is-md is-secondary is-block is-back' do
+            = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
               | Q&A一覧
 
 #js-question(

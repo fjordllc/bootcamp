@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to questions_path, class: 'a-button is-md is-secondary is-block is-back' do
+            = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
               | Q&A一覧
 
 .a-page-notice.page-notice

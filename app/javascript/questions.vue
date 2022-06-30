@@ -33,7 +33,7 @@ export default {
   },
   props: {
     emptyMessage: { type: String, required: true },
-    selectedTag: { type: String, required: true },
+    selectedTag: { type: String, default: null, required: false },
     userId: { type: String, default: null, required: false }
   },
   data() {

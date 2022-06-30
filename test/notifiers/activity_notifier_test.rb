@@ -3,8 +3,8 @@
 require 'test_helper'
 
 class ActivityNotifierTest < ActiveSupport::TestCase
-  setup do
-    @params = {
+  test '#graduated' do
+    params = {
       kind: :graduated,
       body: 'test message',
       sender: users(:kimura),
@@ -12,10 +12,8 @@ class ActivityNotifierTest < ActiveSupport::TestCase
       link: '/example',
       read: false
     }
-  end
 
-  test '#graduated' do
-    notification = ActivityNotifier.graduated(@params)
+    notification = ActivityNotifier.graduated(params)
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now
@@ -55,6 +53,12 @@ class ActivityNotifierTest < ActiveSupport::TestCase
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       notification.notify_later
+    end
+  end
+
+  test '#first_report' do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityNotifier.with(report: reports(:report10), receiver: users(:kimura)).first_report.notify_now
     end
   end
 end

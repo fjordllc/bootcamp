@@ -7,7 +7,9 @@
         .card-list-item-title
           .card-list-item-title__start
             - if product.wip?
-              .card-list-item-title__icon.is-wip WIP
+              .a-list-item-badge.is-wip
+                span
+                  | WIP
             h2.card-list-item-title__title(itemprop="name")
               = link_to product, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
                 = product.title

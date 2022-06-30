@@ -42,9 +42,22 @@
           = f.text_field :tag_list, class: 'a-text-input js-warning-form'
 
     .form-item
-      = f.label :thumbnail, 'サムネイル画像を登録してください', class: 'a-label'
-      = f.file_field :thumbnail
-
+      .row
+        .col-md-6.col-xs-12
+          = f.label :thumbnail, 'サムネイル画像を登録してください',
+            class: 'a-form-label'
+          .form-item-file-input.js-file-input.a-file-input.is-thumbnail
+            label.js-file-input__preview
+              - if article.thumbnail.attached?
+                = image_tag article.thumbnail
+                p 画像を変更
+              - else
+                p 画像を選択
+              = f.file_field :thumbnail
+          .a-form-help
+            p
+              | ここにアップロードした画像が、TwitterでTweet、Facebookで投稿した際に表示される画像として使われます。
+              | 画像サイズは必ず 1200px × 630xpx でお願いします。
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

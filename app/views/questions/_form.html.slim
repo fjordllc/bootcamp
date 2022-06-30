@@ -36,4 +36,4 @@
       li.form-actions__item.is-main
         = f.submit nil, class: 'a-button is-lg is-primary is-block'
       li.form-actions__item
-          = link_to 'キャンセル', questions_path, class: 'a-button is-sm is-secondary'
+        = link_to 'キャンセル', questions_path(target: 'not_solved'), class: 'a-button is-sm is-secondary'

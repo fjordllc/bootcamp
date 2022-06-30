@@ -4,9 +4,7 @@ export default class {
     if (textareas.length === 0) {
       return null
     }
-    if (!window.signedIn) {
-      return null
-    }
+
     const response = await fetch('/api/user_icon_urls', {
       method: 'GET',
       credentials: 'same-origin',
