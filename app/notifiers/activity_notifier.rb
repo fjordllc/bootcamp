@@ -125,4 +125,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def post_announcement(params = {})
+    params.merge!(@params)
+    announce = params[:announce]
+    receiver = params[:receiver]
+
+    notification(
+      body: "お知らせ「#{announce.title}」",
+      kind: :announced,
+      sender: announce.user,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(announce),
+      read: false
+    )
+  end
 end
