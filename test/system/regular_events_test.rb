@@ -50,7 +50,6 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text '定期イベントを作成しました。'
     assert_text regular_event.title
     assert_text regular_event.description
-    assert_text regular_event.wday
   end
 
   test 'update regular event' do
