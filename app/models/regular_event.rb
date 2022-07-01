@@ -21,6 +21,7 @@ class RegularEvent < ApplicationRecord
   belongs_to :user
   has_many :organizers, dependent: :destroy
   has_many :users, through: :organizers
+  has_many :regular_event_repeat_rules, dependent: :destroy
 
   def organizers
     users.with_attached_avatar.order('organizers.created_at')
