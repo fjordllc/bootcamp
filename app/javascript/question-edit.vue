@@ -129,6 +129,8 @@
                 v-model='edited.practiceId',
                 name='question[practice]'
               )
+                option(value='')
+                  | プラクティス選択なし
                 option(
                   v-for='practice in practices',
                   :key='practice.id',
@@ -251,7 +253,7 @@ export default {
       )
     },
     practiceTitle() {
-      if (this.practiceId !== null) {
+      if (this.practiceId !== '' || undefined) {
         const { practices, question, practiceId } = this
 
         return practices === null
@@ -307,6 +309,7 @@ export default {
           const choices = document.getElementById('js-choices-single-select')
           if (choices) {
             return new Choices(choices, {
+              removeItemButton: true,
               allowHTML: true,
               searchResultLimit: 20,
               searchPlaceholderValue: '検索ワード',
@@ -350,7 +353,8 @@ export default {
         return
       }
 
-      const { title, description, practiceId } = this.edited
+      const { title, description } = this.edited
+      const practiceId = this.edited.practiceId || null
       const params = {
         question: {
           title,
