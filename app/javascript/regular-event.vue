@@ -45,7 +45,7 @@
                 span.a-meta__label
                   | 開催日時
                 span.a-meta__value
-                  | {{ regularEvent.wday }} {{ regularEvent.start_at_localized }} 〜 {{ regularEvent.end_at_localized }}
+                  | {{ regularEvent.start_at_localized }} 〜 {{ regularEvent.end_at_localized }}
             .card-list-item-meta__item(v-if='regularEvent.comments_count > 0')
               .a-meta
                 | コメント（{{ regularEvent.comments_count }}）

@@ -8,7 +8,6 @@ class RegularEvent < ApplicationRecord
 
   validates :title, presence: true
   validates :user_ids, presence: true
-  validates :wday, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
   validates :finished, inclusion: { in: [true, false] }
