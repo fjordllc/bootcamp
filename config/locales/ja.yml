@@ -212,6 +212,7 @@ ja:
         end_at: 終了時間
         open_end_at: 募集終了日時
         organizer: 主催者
+        regular_event_repeat_rules: 定期開催日
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
