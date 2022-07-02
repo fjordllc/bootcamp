@@ -372,4 +372,16 @@ class QuestionsTest < ApplicationSystemTestCase
     confirm_dialog = dismiss_confirm { click_link '削除する' }
     assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
   end
+
+  test 'create a question with not choice practice' do
+    visit_with_auth new_question_path, 'kimura'
+    click_button 'Remove item'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'プラクティス指定のないテストの質問'
+      fill_in 'question[description]', with: 'プラクティス指定のないテストの質問です。'
+      click_button '登録する'
+    end
+    assert_text '質問を作成しました。'
+    assert_text 'プラクティス指定のないテストの質問'
+  end
 end
