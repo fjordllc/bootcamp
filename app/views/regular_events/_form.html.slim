@@ -8,6 +8,7 @@
       .form-item
         = f.label :organizer, class: 'a-form-label'
         = f.select(:user_ids, users_name, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })
+      / TODO 定期開催日のCSSは機能追加が完了してから対応する
       .form-item
         label.a-form-label
           | 定期開催日
