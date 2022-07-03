@@ -73,15 +73,16 @@ import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../regular-events.js'
-import '../books.js'
 
 import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
 import AdminCompanies from '../components/admin_companies.vue'
 import Announcements from '../components/announcements.vue'
+import Books from '../components/books.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
 mounter.addComponent(AdminCompanies)
 mounter.addComponent(Announcements)
+mounter.addComponent(Books)
 mounter.mount()

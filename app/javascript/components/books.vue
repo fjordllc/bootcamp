@@ -21,9 +21,10 @@
           | 登録されている本はありません
 </template>
 <script>
-import Book from 'book.vue'
+import Book from './book'
 
 export default {
+  name: 'Books',
   components: {
     book: Book
   },
