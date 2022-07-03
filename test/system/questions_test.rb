@@ -13,7 +13,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'show listing solved questions' do
     visit_with_auth questions_path(target: 'solved'), 'kimura'
-    assert_equal '解決済みの質問一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '解決済みのQ&A | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'show listing all questions' do

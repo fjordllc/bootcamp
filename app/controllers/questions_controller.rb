@@ -83,7 +83,7 @@ class QuestionsController < ApplicationController
   def questions_property
     case params[:target]
     when 'solved'
-      QuestionsProperty.new('解決済みの質問一覧', '解決済みの質問はありません。')
+      QuestionsProperty.new('解決済みのQ&A', '解決済みのQ&Aはありません。')
     when 'not_solved'
       QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
     else
