@@ -45,7 +45,6 @@ class Product < ApplicationRecord
     with_avatar
       .preload(:practice,
                :comments,
-               { user: :company },
                { checks: { user: { avatar_attachment: :blob } } })
   }
   scope :order_for_list, -> { order(created_at: :desc, id: :desc) }

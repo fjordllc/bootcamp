@@ -7,7 +7,7 @@ class API::TalksController < API::BaseController
   def index
     @target = params[:target]
     @target = 'all' unless TARGETS.include?(@target)
-    @talks = Talk.eager_load(user: [:company, { avatar_attachment: :blob }])
+    @talks = Talk.eager_load(user: { avatar_attachment: :blob })
                  .order(updated_at: :desc, id: :asc)
     @talks =
       if params[:search_word]

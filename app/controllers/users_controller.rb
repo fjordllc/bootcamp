@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
-             .preload(:company, :avatar_attachment, :course, :taggings)
+             .preload(:avatar_attachment, :course, :taggings)
              .unretired
              .order(updated_at: :desc)
 
