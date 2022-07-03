@@ -53,13 +53,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
 
     within first('.card-list-item.is-unread') do
-      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。"
+      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんが回答しました。"
     end
 
     visit_with_auth '/notifications', 'komagata'
 
     within first('.card-list-item.is-unread') do
-      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんがコメントしました。"
+      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんが回答しました。"
     end
   end
 end
