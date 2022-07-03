@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       books: null,
-      currentUser: null,
+      currentUser: null
     }
   },
   created() {
@@ -56,17 +56,17 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-          .then((response) => {
-            return response.json()
-          })
-          .then((json) => {
-            this.books = json.books
-            this.currentUser = json.currentUser
-          })
-          .catch((error) => {
-            console.warn(error)
-          })
-    },
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) => {
+          this.books = json.books
+          this.currentUser = json.currentUser
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    }
   }
 }
 </script>
