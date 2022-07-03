@@ -24,6 +24,10 @@
               .card-books-item__description(v-if='book.description')
                 .a-short-text
                   | {{ book.description }}
+      .card-books-item__practices.tag-links
+        ul.tag-links__items
+          li.tag-links__item
+            a.tag-links__item-link
       footer.card-footer.is-only-mentor(v-if='currentUser.admin || currentUser.mentor')
         .card-main-actions
           ul.card-main-actions__items
