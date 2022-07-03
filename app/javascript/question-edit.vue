@@ -15,7 +15,10 @@
 
       .page-content-header__row
         .page-content-header__before-title
-          a.a-category-link(:href='`/practices/${practiceId}`', v-if='practiceId !== null')
+          a.a-category-link(
+            :href='`/practices/${practiceId}`',
+            v-if='practiceId !== null'
+          )
             | {{ practiceTitle }}
         h1.page-content-header__title(:class='question.wip ? "is-wip" : ""')
           span.a-title-label.is-solved.is-success(
@@ -257,8 +260,9 @@ export default {
         const { practices, question, practiceId } = this
 
         return practices === null
-            ? question.practice.title
-            : practices.find((practice) => practice.id === Number(practiceId)).title
+          ? question.practice.title
+          : practices.find((practice) => practice.id === Number(practiceId))
+              .title
       } else {
         return ''
       }
@@ -285,7 +289,9 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getPracticeId() {
-      return this.question.practice === undefined ? null : this.question.practice.id
+      return this.question.practice === undefined
+        ? null
+        : this.question.practice.id
     },
     fetchPractices() {
       fetch('/api/practices.json?scoped_by_user=true', {
