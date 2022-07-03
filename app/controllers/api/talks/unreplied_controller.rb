@@ -4,7 +4,7 @@ class API::Talks::UnrepliedController < API::BaseController
   PAGER_NUMBER = 20
 
   def index
-    @talks = Talk.eager_load(user: [:company, { avatar_attachment: :blob }])
+    @talks = Talk.eager_load(user: { avatar_attachment: :blob })
                  .unreplied
                  .order(updated_at: :desc, id: :asc)
     @talks =
