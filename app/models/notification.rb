@@ -90,12 +90,14 @@ class Notification < ApplicationRecord
     def watching_notification(watchable, receiver, comment)
       watchable_user = watchable.user
       sender = comment.user
+      link = Rails.application.routes.url_helpers.polymorphic_path(watchable)
+      action = link.start_with?('/questions') ? '回答' : 'コメント'
       Notification.create!(
         kind: kinds[:watching],
         user: receiver,
         sender: sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
-        message: "#{watchable_user.login_name}さんの【 #{watchable.notification_title} 】に#{comment.user.login_name}さんがコメントしました。",
+        link: link,
+        message: "#{watchable_user.login_name}さんの【 #{watchable.notification_title} 】に#{comment.user.login_name}さんが#{action}しました。",
         read: false
       )
     end
