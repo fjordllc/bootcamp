@@ -17,9 +17,21 @@ export default {
     company: Company,
     'user-icon': UserIcon
   },
+  props: {
+    target: {
+      type: String,
+      required: false,
+      default: 'all'
+    }
+  },
   data() {
     return {
       companies: []
+    }
+  },
+  computed: {
+    url() {
+      return `/api/users/companies?target=${this.target}`
     }
   },
   created() {
@@ -31,7 +43,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getCompaniesPage() {
-      fetch('/api/users/companies', {
+      fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
