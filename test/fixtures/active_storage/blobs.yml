@@ -1,4 +1,6 @@
-# Pull Request #4182 Update rails 7.0.2.2 の完了後、ActiveStorage::FixtureSet.blob を使うように変更する
+# Pull Request #4182(https://github.com/fjordllc/bootcamp/pull/4182) で Rails 7 への移行完了後、
+# ActiveStorage::FixtureSet.blob を使うように変更する
+
 # companies
 company1_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/1.jpg" %>
 
