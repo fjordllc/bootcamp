@@ -1,5 +1,5 @@
-.form-item#seeking-flag
-  = f.label :job_seeking, class: 'a-form-label'
-  label.a-on-off-checkbox.is-md
+.form-item.is-inline.is-centered#seeking-flag
+  = f.label :job_seeking, class: 'a-form-label is-sm'
+  label.a-on-off-checkbox.is-sm
     = f.check_box :job_seeking, onchange: 'this.form.submit()', class: 'is-job -seeking-checkbox'
     span#checkbox-seeking-flag
