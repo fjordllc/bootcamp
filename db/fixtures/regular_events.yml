@@ -7,6 +7,7 @@ regular_event1:
   end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
   wday: 水曜日
   user: komagata
+  category: 3
 
 regular_event2:
   title: 質問・雑談タイム
@@ -17,6 +18,7 @@ regular_event2:
   end_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
   wday: 月曜日
   user: machida
+  category: 2
 
 regular_event3:
   title: 自作サービス進捗報告会
@@ -27,6 +29,7 @@ regular_event3:
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
   wday: 水曜日
   user: komagata
+  category: 3
 
 regular_event4:
   title: チェリー本輪読会
@@ -78,4 +81,5 @@ regular_event<%= i %>:
   finished: true
   hold_national_holiday: true
   user: komagata
+  category: 1
 <% end %>
