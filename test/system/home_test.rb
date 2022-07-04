@@ -303,10 +303,10 @@ class HomeTest < ApplicationSystemTestCase
     visit '/'
     assert_text '最新のブックマーク'
     find_link pages(:page1).title
-    assert_text I18n.l pages(:page1).created_at, format: :ymdw_jp
+    assert_text I18n.l pages(:page1).created_at, format: :long
     reports.each do |report|
       find_link reports(report).title
-      assert_text I18n.l reports(report).reported_on, format: :ymdw_jp
+      assert_text I18n.l reports(report).reported_on, format: :long
     end
   end
 
