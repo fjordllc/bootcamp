@@ -1,7 +1,7 @@
 <template lang="pug">
 .card-list-item(:class='{ "is-wip": regularEvent.wip }')
   .card-list-item__inner
-    .card-list-item__user
+    .card-list-item__label
       | {{ readableCategory }}
     .card-list-item__rows
       .card-list-item__row
