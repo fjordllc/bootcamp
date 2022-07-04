@@ -36,7 +36,7 @@ ActiveSupport.on_load(:action_dispatch_system_test_case) do
 end
 
 # Rails 7 の ActiveStorage::FixtureSet.blob と同様の機能を実装
-# Pull Request #4182 「Update rails 7.0.2.2」の完了後に削除する
+# Pull Request #4182(https://github.com/fjordllc/bootcamp/pull/4182) でRails 7 への移行完了後に削除する
 # => test/fixtures/active_storage/blobs.yml でActiveStorage::FixtureSet.blob を使うように変更する
 module BlobFixtureSet
   def fixture(filename:, **attributes)
