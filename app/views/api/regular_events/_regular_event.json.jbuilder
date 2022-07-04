@@ -8,3 +8,4 @@ json.comments_count regular_event.comments.size
 json.url regular_event_url(regular_event)
 json.user regular_event.user, partial: "api/users/user", as: :user
 json.organizers regular_event.organizers, partial: "api/users/user", as: :user
+json.category regular_event.category

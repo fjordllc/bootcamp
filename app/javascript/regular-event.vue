@@ -2,11 +2,7 @@
 .card-list-item(:class='{ "is-wip": regularEvent.wip }')
   .card-list-item__inner
     .card-list-item__user
-      user-icon(
-        :user='regularEvent.user',
-        link_class='card-list-item__user-link',
-        blockClassSuffix='card-list-item'
-      )
+      | {{ readableCategory }}
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -60,6 +56,21 @@ export default {
   },
   props: {
     regularEvent: { type: Object, required: true }
+  },
+  computed: {
+    readableCategory() {
+      if (this.regularEvent.category === 0) {
+        return '輪読会'
+      } else if (this.regularEvent.category === 1) {
+        return '雑談'
+      } else if (this.regularEvent.category === 2) {
+        return '質問'
+      } else if (this.regularEvent.category === 3) {
+        return 'MTG'
+      } else {
+        return 'その他'
+      }
+    }
   }
 }
 </script>
