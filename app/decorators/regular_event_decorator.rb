@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-MAX_DAYS_OF_NEXT_EVENT_COUNT = 35
+DAYS_OF_THE_WEEK_COUNT = 7
 
 module RegularEventDecorator
   def holding_cycles
@@ -12,17 +12,7 @@ module RegularEventDecorator
   end
 
   def next_event_date
-    "次回の開催日は #{l filtered_canditates_of_next_event_date.compact.min} です"
-  end
-
-  def filtered_canditates_of_next_event_date
-    repeat_rules.map do |repeat_rule|
-      if (repeat_rule[:frequency]).zero?
-        canditates_of_next_event_date.find { |date| date.wday == repeat_rule[:day_of_the_week] }
-      else
-        canditate_of_next_event_date_with_frequency(repeat_rule)
-      end
-    end
+    "次回の開催日は #{l canditates_next_event_date.compact.min} です"
   end
 
   def repeat_rules
@@ -31,35 +21,46 @@ module RegularEventDecorator
     end
   end
 
-  def canditates_of_next_event_date
+  def canditates_next_event_date
     today = Time.zone.today
-    (1..MAX_DAYS_OF_NEXT_EVENT_COUNT).map { |n| today + n }
+    this_month_first_day = Date.new(today.year, today.mon, 1)
+    next_month_first_day = this_month_first_day.next_month
+
+    canditates = repeat_rules.map do |repeat_rule|
+      [
+        canditate_next_event_date(this_month_first_day, repeat_rule),
+        canditate_next_event_date(next_month_first_day, repeat_rule)
+      ]
+    end.flatten
+    canditates.compact.select { |canditate| canditate > Time.zone.today }.sort
   end
 
-  def canditate_of_next_event_date_with_frequency(repeat_rule)
-    canditate = canditates_of_next_event_date.find { |date| date.wday == repeat_rule[:day_of_the_week] && calc_week_of_month(date) == repeat_rule[:frequency] }
-
-    if canditate.nil?
-      canditates_of_next_event_date.find { |date| date.wday == repeat_rule[:day_of_the_week] && calc_week_of_month(date) == repeat_rule[:frequency] + 1 }
+  def canditate_next_event_date(first_day, repeat_rule)
+    if (repeat_rule[:frequency]).zero?
+      specific_next_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
     else
-      canditate
+      date = (repeat_rule[:frequency] - 1) * DAYS_OF_THE_WEEK_COUNT + repeat_rule[:day_of_the_week] - first_day.wday + 1
+      date += DAYS_OF_THE_WEEK_COUNT if repeat_rule[:day_of_the_week] < first_day.wday
+      Date.new(first_day.year, first_day.mon, date)
     end
   end
 
-  def calc_week_of_month(date)
-    first_week = (date - (date.day - 1)).cweek
-    this_week = date.cweek
-
-    # 年末年始の対応
-    if this_week < first_week
-      return calc_week_of_month(date - 7) + 1 if date.month == 12
-
-      return this_week
+  def specific_next_day_of_the_week(repeat_rule)
+    case repeat_rule[:day_of_the_week]
+    when 0
+      0.days.ago.next_occurring(:sunday).to_date
+    when 1
+      0.days.ago.next_occurring(:monday).to_date
+    when 2
+      0.days.ago.next_occurring(:tuesday).to_date
+    when 3
+      0.days.ago.next_occurring(:wednesday).to_date
+    when 4
+      0.days.ago.next_occurring(:thursday).to_date
+    when 5
+      0.days.ago.next_occurring(:friday).to_date
+    when 6
+      0.days.ago.next_occurring(:saturday).to_date
     end
-
-    # 月始まりで2週目にカウントされないようにする
-    return 1 if date.day <= 7
-
-    this_week - first_week + 1
   end
 end
