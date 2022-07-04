@@ -26,6 +26,7 @@ komagata:
   last_sad_report_id: <%= ActiveRecord::FixtureSet.identify(:report28) %>
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
+  last_activity_at: "2014-01-01 00:00:01"
 
 machida:
   login_name: machida
@@ -50,6 +51,7 @@ machida:
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
+  last_activity_at: "2014-01-01 00:00:02"
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -73,6 +75,7 @@ adminonly: # adminのroleだけを持ったユーザー
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-02-01 00:00:30"
   created_at: "2021-02-01 00:00:30"
+  last_activity_at: "2021-02-01 00:00:30"
 
 sotugyou_with_job:
   login_name: sotugyou-with-job
@@ -95,6 +98,7 @@ sotugyou_with_job:
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwj
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
+  last_activity_at: "2014-01-01 00:00:03"
 
 sotugyou:
   login_name: sotugyou
@@ -117,6 +121,7 @@ sotugyou:
   last_sad_report_id: <%= ActiveRecord::FixtureSet.identify(:report27) %>
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
+  last_activity_at: "2014-01-01 00:00:03"
 
 advijirou:
   login_name: advijirou
@@ -134,6 +139,7 @@ advijirou:
   unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
   updated_at: "2014-01-01 00:00:04"
   created_at: "2014-01-01 00:00:04"
+  last_activity_at: "2014-01-01 00:00:04"
 
 yameo:
   login_name: yameo
@@ -158,6 +164,7 @@ yameo:
   retire_reason: "内容が難しかった"
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
+  last_activity_at: "2014-01-01 00:00:05"
 
 mentormentaro:
   login_name: mentormentaro
@@ -179,6 +186,7 @@ mentormentaro:
   unsubscribe_email_token: -PmtH0Rmh36FIPhbxzkMGA
   updated_at: "2014-01-01 00:00:06"
   created_at: "2014-01-01 00:00:06"
+  last_activity_at: "2014-01-01 00:00:06"
 
 kimura:
   login_name: kimura
@@ -201,6 +209,7 @@ kimura:
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
   mentor_memo: "kimuraさんのメモ"
 
 hatsuno:
@@ -226,6 +235,7 @@ hatsuno:
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"
+  last_activity_at: "2014-01-01 00:00:08"
 
 hajime:
   login_name: hajime
@@ -247,6 +257,7 @@ hajime:
   unsubscribe_email_token: iHzoJxKvrBeGGT6DjAJgJQ
   updated_at: "2014-01-01 00:00:09"
   created_at: "2014-01-01 00:00:09"
+  last_activity_at: "2014-01-01 00:00:09"
 
 muryou:
   login_name: muryou
@@ -270,6 +281,7 @@ muryou:
   unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
+  last_activity_at: "2014-01-01 00:00:10"
 
 kensyu:
   login_name: kensyu
@@ -297,6 +309,7 @@ kensyu:
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+  last_activity_at: "2014-01-01 00:00:11"
 
 senpai:
   login_name: senpai
@@ -321,6 +334,7 @@ senpai:
   unsubscribe_email_token: E8ycg7ahXNYj5bPA9Ic7aw
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  last_activity_at: "2014-01-01 00:00:12"
 
 kananashi: #name_kanaを持たないユーザー
   login_name: kananashi
@@ -342,6 +356,7 @@ kananashi: #name_kanaを持たないユーザー
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  last_activity_at: "2014-01-01 00:00:12"
 
 osnashi: #osを持たないユーザー
   login_name: osnashi
@@ -363,6 +378,7 @@ osnashi: #osを持たないユーザー
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  last_activity_at: "2014-01-01 00:00:12"
 
 discordinvalid: #Discord IDが不正なユーザー
   login_name: discordinvalid
@@ -384,6 +400,7 @@ discordinvalid: #Discord IDが不正なユーザー
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  last_activity_at: "2014-01-01 00:00:12"
 
 twitterinvalid: #Twitter IDが不正なユーザー
   login_name: twitterinvalid
@@ -405,6 +422,7 @@ twitterinvalid: #Twitter IDが不正なユーザー
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
+  last_activity_at: "2020-01-01 00:00:12"
 
 jobseeker: #就活希望するユーザー
   login_name: jobseeker
@@ -427,6 +445,7 @@ jobseeker: #就活希望するユーザー
   unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
+  last_activity_at: "2020-01-01 00:00:12"
 
 nippounashi: # 日報を投稿していないユーザー
   login_name: nippounashi
@@ -448,6 +467,7 @@ nippounashi: # 日報を投稿していないユーザー
   unsubscribe_email_token: QV8qOjwxrYxqh6P_Q9C82M
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
+  last_activity_at: "2014-01-01 00:00:10"
 
 with_hyphen:
   login_name: &login_name with-hyphen
@@ -469,6 +489,7 @@ with_hyphen:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:17"
   created_at: "2021-01-01 00:00:17"
+  last_activity_at: "2021-01-01 00:00:17"
 
 kensyuowata: # 研修が終わったユーザー
   login_name: kensyuowata
@@ -496,6 +517,7 @@ kensyuowata: # 研修が終わったユーザー
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+  last_activity_at: "2014-01-01 00:00:11"
 
 taikai: # 退会直後のユーザー
   login_name: taikai
@@ -519,6 +541,7 @@ taikai: # 退会直後のユーザー
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2021-12-10 00:00:11"
   created_at: "2021-12-10 00:00:11"
+  last_activity_at: "2021-12-10 00:00:11"
 
 taikai3: # 退会3ヶ月後のユーザー
   login_name: taikai3
@@ -543,6 +566,7 @@ taikai3: # 退会3ヶ月後のユーザー
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2021-12-10 00:00:11"
   created_at: "2021-12-10 00:00:11"
+  last_activity_at: "2021-12-10 00:00:11"
 
 otameshi:
   login_name: otameshi
@@ -564,6 +588,7 @@ otameshi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current %>
   created_at: <%= Time.current %>
+  last_activity_at: <%= Time.current %>
 
 enchomaemae:
   login_name: enchomaemae
@@ -585,6 +610,7 @@ enchomaemae:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-03-25 00:00:00"
   created_at: "2021-03-25 00:00:00"
+  last_activity_at: "2021-03-25 00:00:00"
 
 enchomaeyo:
   login_name: enchomaeyo
@@ -606,6 +632,7 @@ enchomaeyo:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-08-19 23:59:59"
   created_at: "2021-08-19 23:59:59"
+  last_activity_at: "2021-08-19 23:59:59"
 
 enchohayashi:
   login_name: enchohayashi
@@ -627,6 +654,7 @@ enchohayashi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-08-20 00:00:00"
   created_at: "2021-08-20 00:00:00"
+  last_activity_at: "2021-08-20 00:00:00"
 
 enchoososhi:
   login_name: enchoososhi
@@ -648,6 +676,7 @@ enchoososhi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-08-31 23:59:00"
   created_at: "2021-08-31 23:59:00"
+  last_activity_at: "2021-08-31 23:59:00"
 
 enchoowata:
   login_name: enchoowata
@@ -669,6 +698,7 @@ enchoowata:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-09-01 00:00:00"
   created_at: "2021-09-01 00:00:00"
+  last_activity_at: "2021-09-01 00:00:00"
 
 kimuramitai:
   login_name: kimuramitai
@@ -692,6 +722,7 @@ kimuramitai:
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2022-03-28 00:00:01"
   created_at: "2022-03-28 00:00:01"
+  last_activity_at: "2022-03-28 00:00:01"
 
 long-id-mentor:
   login_name: long-id-mentor
@@ -713,6 +744,7 @@ long-id-mentor:
   mentor: true
   updated_at: "2022-04-15 00:00:01"
   created_at: "2022-04-15 00:00:01"
+  last_activity_at: "2022-04-15 00:00:01"
 
 nocompanykensyu: # 所属企業のない研修生
   login_name: nocompanykensyu
@@ -736,3 +768,4 @@ nocompanykensyu: # 所属企業のない研修生
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+  last_activity_at: "2014-01-01 00:00:11"

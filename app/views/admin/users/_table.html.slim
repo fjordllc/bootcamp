@@ -13,8 +13,9 @@
           = render 'sort_column', order_by: 'company_id', direction: direction, target: @target
         th.admin-table__label Discord
         th.admin-table__label
-          | 最終アクセス
-          = render 'sort_column', order_by: 'updated_at', direction: direction, target: @target
+          |
+          = User.human_attribute_name :last_activity_at
+          = render 'sort_column', order_by: 'last_activity_at', direction: direction, target: @target
         th.admin-table__label
           | 登録日時
           = render 'sort_column', order_by: 'created_at', direction: direction, target: @target
@@ -69,7 +70,7 @@
           td.admin-table__item-value.is-text-align-center
             = user.discord_account.presence || '-'
           td.admin-table__item-value.is-text-align-center
-            = l user.updated_at
+            = l user.last_activity_at
           td.admin-table__item-value.is-text-align-center
             = l user.created_at
           td.admin-table__item-value.is-text-align-center

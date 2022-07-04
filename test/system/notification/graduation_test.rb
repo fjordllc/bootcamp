@@ -13,9 +13,9 @@ class Notification::GraduationTest < ApplicationSystemTestCase
   end
 
   test 'notify mentor when student graduate' do
-    users(:kimura).update!(updated_at: Time.current)
+    users(:kimura).update!(last_activity_at: Time.current)
     # kimura が一番上に表示されるようにソート
-    path = 'admin/users?direction=desc&order_by=updated_at&target=student_and_trainee'
+    path = 'admin/users?direction=desc&order_by=last_activity_at&target=student_and_trainee'
     visit_with_auth path, 'komagata'
 
     accept_confirm do

@@ -20,6 +20,6 @@
                 .card-list-item-meta
                   time.a-meta
                     span.a-meta__label
-                      = User.human_attribute_name :updated_at
+                      = User.human_attribute_name :last_activity_at
                     span.a-meta__value
-                      = l user.updated_at
+                      = l user.last_activity_at

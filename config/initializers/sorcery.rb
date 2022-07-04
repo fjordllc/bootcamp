@@ -4,7 +4,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:remember_me, :reset_password, :jwt]
+Rails.application.config.sorcery.submodules = [:remember_me, :reset_password, :jwt, :activity_logging]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -52,17 +52,22 @@ Rails.application.config.sorcery.configure do |config|
   # will register the time of last user login, every login.
   # Default: `true`
   #
-  # config.register_login_time =
+  config.register_login_time = false
 
   # will register the time of last user logout, every logout.
   # Default: `true`
   #
-  # config.register_logout_time =
+  config.register_logout_time = false
 
   # will register the time of last user action, every action.
   # Default: `true`
   #
   # config.register_last_activity_time =
+
+  # Will register the source ip address of last user login, every login.
+  # Default: `true`
+  #
+  config.register_last_ip_address = false
 
   # -- external --
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce, :slack] .

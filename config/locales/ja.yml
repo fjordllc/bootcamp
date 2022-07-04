@@ -87,6 +87,7 @@ ja:
         github_collaborator: GitHubチーム
         tag_list: タグ
         training_ends_on: 研修終了日
+        last_activity_at: 最終活動日時
       course:
         title: タイトル
         description: 詳細
