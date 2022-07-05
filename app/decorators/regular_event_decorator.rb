@@ -37,7 +37,7 @@ module RegularEventDecorator
 
   def canditate_next_event_date(first_day, repeat_rule)
     if (repeat_rule[:frequency]).zero?
-      specific_next_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
+      next_specific_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
     else
       date = (repeat_rule[:frequency] - 1) * DAYS_OF_THE_WEEK_COUNT + repeat_rule[:day_of_the_week] - first_day.wday + 1
       date += DAYS_OF_THE_WEEK_COUNT if repeat_rule[:day_of_the_week] < first_day.wday
@@ -45,7 +45,7 @@ module RegularEventDecorator
     end
   end
 
-  def specific_next_day_of_the_week(repeat_rule)
+  def next_specific_day_of_the_week(repeat_rule)
     case repeat_rule[:day_of_the_week]
     when 0
       0.days.ago.next_occurring(:sunday).to_date
