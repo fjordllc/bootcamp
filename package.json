@@ -22,6 +22,7 @@
     "markdown-it-anchor": "^8.4.1",
     "markdown-it-container": "^3.0.0",
     "markdown-it-emoji": "^1.4.0",
+    "markdown-it-link-attributes": "^4.0.0",
     "markdown-it-regexp": "^0.4.0",
     "markdown-it-task-lists": "^2.1.1",
     "mem": "^4.0.0",
