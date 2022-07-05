@@ -63,6 +63,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
+      find('label', text: '主催者').click
+      choose 'regular_event_category_0'
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('第2')
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('水曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
