@@ -15,5 +15,5 @@
               = link_to bookmark.bookmarkable.user, class: 'a-user-name' do
                 = bookmark.bookmarkable.user.name
             .card-list-item-meta__item
-              time.a-meta(datetime= bookmark.display_date)
-                = l bookmark.display_date, format: :long
+              time.a-meta(datetime= bookmark.reported_on_or_created_at)
+                = l bookmark.reported_on_or_created_at, format: :long

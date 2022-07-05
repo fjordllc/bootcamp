@@ -10,10 +10,10 @@ class BookmarkDecoratorTest < ActiveSupport::TestCase
     @bookmark27 = ActiveDecorator::Decorator.instance.decorate(bookmarks(:bookmark27))
   end
 
-  test '#display_date' do
-    assert_equal I18n.l(bookmarks(:bookmark30).bookmarkable.created_at), I18n.l(@bookmark30.display_date)
-    assert_equal I18n.l(bookmarks(:bookmark29).bookmarkable.created_at), I18n.l(@bookmark29.display_date)
-    assert_equal I18n.l(bookmarks(:bookmark28).bookmarkable.created_at), I18n.l(@bookmark28.display_date)
-    assert_equal I18n.l(bookmarks(:bookmark27).bookmarkable.reported_on), I18n.l(@bookmark27.display_date)
+  test '#reported_on_or_created_at' do
+    assert_equal I18n.l(bookmarks(:bookmark30).bookmarkable.created_at), I18n.l(@bookmark30.reported_on_or_created_at)
+    assert_equal I18n.l(bookmarks(:bookmark29).bookmarkable.created_at), I18n.l(@bookmark29.reported_on_or_created_at)
+    assert_equal I18n.l(bookmarks(:bookmark28).bookmarkable.created_at), I18n.l(@bookmark28.reported_on_or_created_at)
+    assert_equal I18n.l(bookmarks(:bookmark27).bookmarkable.reported_on), I18n.l(@bookmark27.reported_on_or_created_at)
   end
 end
