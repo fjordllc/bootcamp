@@ -847,3 +847,24 @@ kyuukai:
   hibernated_at: "2020-01-01 00:00:00"
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
+
+sotsugyoukigyoshozoku:
+  login_name: sotsugyoukigyoshozoku
+  email: sotsugyoukigyoshozoku@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 卒業 企業所属
+  name_kana: ソツギョウ キギョウショゾク
+  twitter_account: sotsugyoukigyoshozoku
+  blog_url: https://sotsugyoukigyoshozoku.example.com/
+  company: company2
+  description: "卒業した後に、企業に所属しました。"
+  course: course1
+  os: mac
+  experience: rails
+  graduated_on: "2022-07-04"
+  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
+  sad_streak: true
+  updated_at: "2022-07-01 00:00:00"
+  created_at: "2022-07-01 00:00:00"
+  last_activity_at: "2022-07-01 00:00:00"
