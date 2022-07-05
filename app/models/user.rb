@@ -534,7 +534,6 @@ class User < ApplicationRecord
   def avatar_url
     default_image_path = '/images/users/avatars/default.png'
 
-    return image_url default_image_path
     if avatar.attached?
       avatar.variant(resize: AVATAR_SIZE).processed.url
     else
