@@ -13,6 +13,15 @@ header.page-header
 
 = render 'users/page_tabs', user: @user
 
+- if current_user.mentor?
+  nav.tab-nav
+    .container.is-xs-horizontal-padding-0
+      ul.tab-nav__items
+        li.tab-nav__item
+          = link_to '全て', user_products_path(@user), class: "tab-nav__item-link #{params[:target].nil? ? 'is-active' : ''}"
+        li.tab-nav__item
+          = link_to '自分の担当', user_products_path(@user, target: 'checked_by_current_mentor'), class: "tab-nav__item-link #{params[:target] == 'checked_by_current_mentor' ? 'is-active' : ''}"
+
 .page-body
   .container.is-md
     - if @products.present?

@@ -14,7 +14,11 @@ class Users::ProductsController < ApplicationController
   end
 
   def set_products
-    @products = user.products.list.order_for_list
+    if params[:target] == 'checked_by_current_mentor'
+      @products = user.products.where(checker_id: current_user.id).list.order_for_list
+    else
+      @products = user.products.list.order_for_list
+    end
   end
 
   def user
