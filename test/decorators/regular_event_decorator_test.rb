@@ -24,17 +24,17 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     assert_equal [{ frequency: 0, day_of_the_week: 0 }], @regular_event.repeat_rules
   end
 
-  test 'canditates_next_event_date' do
+  test 'possible_next_event_dates' do
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal [Date.new(2022, 6, 5)], @regular_event.canditates_next_event_date
+      assert_equal [Date.new(2022, 6, 5)], @regular_event.possible_next_event_dates
     end
   end
 
-  test 'canditate_next_event_date' do
+  test 'possible_next_event_date' do
     repeat_rule = { frequency: 0, day_of_the_week: 0 }
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       first_day = Time.zone.today
-      assert_equal Date.new(2022, 6, 5), @regular_event.canditate_next_event_date(first_day, repeat_rule)
+      assert_equal Date.new(2022, 6, 5), @regular_event.possible_next_event_date(first_day, repeat_rule)
     end
   end
 

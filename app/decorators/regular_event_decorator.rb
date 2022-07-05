@@ -12,7 +12,7 @@ module RegularEventDecorator
   end
 
   def next_event_date
-    "次回の開催日は #{l canditates_next_event_date.compact.min} です"
+    "次回の開催日は #{l possible_next_event_dates.compact.min} です"
   end
 
   def repeat_rules
@@ -21,21 +21,21 @@ module RegularEventDecorator
     end
   end
 
-  def canditates_next_event_date
+  def possible_next_event_dates
     today = Time.zone.today
     this_month_first_day = Date.new(today.year, today.mon, 1)
     next_month_first_day = this_month_first_day.next_month
 
     canditates = repeat_rules.map do |repeat_rule|
       [
-        canditate_next_event_date(this_month_first_day, repeat_rule),
-        canditate_next_event_date(next_month_first_day, repeat_rule)
+        possible_next_event_date(this_month_first_day, repeat_rule),
+        possible_next_event_date(next_month_first_day, repeat_rule)
       ]
     end.flatten
     canditates.compact.select { |canditate| canditate > Time.zone.today }.sort
   end
 
-  def canditate_next_event_date(first_day, repeat_rule)
+  def possible_next_event_date(first_day, repeat_rule)
     if (repeat_rule[:frequency]).zero?
       next_specific_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
     else
