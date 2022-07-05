@@ -38,10 +38,10 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test 'specific_next_day_of_the_week' do
+  test 'next_specific_day_of_the_week' do
     repeat_rule = { frequency: 0, day_of_the_week: 0 }
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal Date.new(2022, 6, 5), @regular_event.specific_next_day_of_the_week(repeat_rule)
+      assert_equal Date.new(2022, 6, 5), @regular_event.next_specific_day_of_the_week(repeat_rule)
     end
   end
 end
