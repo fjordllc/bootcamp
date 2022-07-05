@@ -1,6 +1,6 @@
-- is_question = (@watchable.class.model_name.name == 'Question')
-- anchor_prefix = is_question ? 'answer_' : 'comment_'
-- action = is_question ? '回答' : 'コメント'
+- is_question = (@watchable.class.model_name.name == 'Question'),
+  anchor_prefix = is_question ? 'answer_' : 'comment_',
+  action = is_question ? '回答' : 'コメント'
 = render 'notification_mailer_template',
   title: "#{@watchable.notification_title}に#{@comment.user.login_name}さんが#{action}しました。",
   link_url: notification_url(@notification, anchor: "#{anchor_prefix}#{@comment.id}"),
