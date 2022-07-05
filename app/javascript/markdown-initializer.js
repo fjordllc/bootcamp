@@ -10,6 +10,7 @@ import MarkdownItTaskListsInitializer from 'markdown-it-task-lists-initializer'
 import MarkdownItHeadings from 'markdown-it-headings'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
+import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 
 export default class {
   replace(selector) {
@@ -37,6 +38,15 @@ export default class {
     md.use(MarkdownItHeadings)
     md.use(MarkDownItContainerMessage)
     md.use(MarkDownItContainerDetails)
+    md.use(MarkDownItLinkAttributes, {
+      matcher(href) {
+        return !href.startsWith("http://localhost:3000")      
+      },
+      attrs: {
+        target: "_blank",
+        rel: "noopener",
+      },
+    })
 
     return md.render(text)
   }
