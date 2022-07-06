@@ -14,7 +14,7 @@ class Users::ProductsController < ApplicationController
   end
 
   def set_products
-    if params[:target] == 'checked_by_current_mentor'
+    if params[:target] == 'self_assigned'
       @products = user.products.where(checker_id: current_user.id).list.order_for_list
     else
       @products = user.products.list.order_for_list
