@@ -41,6 +41,7 @@ ja:
       reference_book: 参考書籍
       campaign: お試し延長
       book: 参考書籍
+      regular_event: 定期イベント
     attributes:
       user:
         login_name: アカウント
