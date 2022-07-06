@@ -1,29 +1,28 @@
 <template lang="pug">
 .page-body
   .container(v-if='!loaded')
-    .empty
-      .fa-solid.fa-spinner.fa-pulse
-      | ロード中
+    .fa-solid.fa-spinner.fa-pulse
+    | ロード中
   .container.is-md(v-else)
-    .card-list-tools(v-if='bookmarks.length === 0')
-      .o-empty-message
-        .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
-        p.o-empty-message__text
-          | ブックマークしているものはありません。
-    .card-list-tools(v-else)
-      .form-item.is-inline
-        label.a-form-label(for='card-list-tools__action')
-          | 編集
-        label.a-on-off-checkbox.is-sm
-          input#card-list-tools__action(
-            type='checkbox',
-            name='card-list-tools__action',
-            v-model='checked'
-          )
-          span#spec-edit-mode
+    .o-empty-message(v-if='bookmarks.length === 0')
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      p.o-empty-message__text
+        | ブックマークしているものはありません。
+    div(v-else)
       nav.pagination(v-if='totalPages > 1')
         pager(v-bind='pagerProps')
+      .card-list-tools
+        .form-item.is-inline
+          label.a-form-label(for='card-list-tools__action')
+            | 編集
+          label.a-on-off-checkbox.is-sm
+            input#card-list-tools__action(
+              type='checkbox',
+              name='card-list-tools__action',
+              v-model='checked'
+            )
+            span#spec-edit-mode
       .card-list.a-card
         .card-list__items
           bookmark(
