@@ -20,7 +20,7 @@ header.page-header
         li.tab-nav__item
           = link_to '全て', user_products_path(@user), class: "tab-nav__item-link #{params[:target].nil? ? 'is-active' : ''}"
         li.tab-nav__item
-          = link_to '自分の担当', user_products_path(@user, target: 'checked_by_current_mentor'), class: "tab-nav__item-link #{params[:target] == 'checked_by_current_mentor' ? 'is-active' : ''}"
+          = link_to '自分の担当', user_products_path(@user, target: 'self_assigned'), class: "tab-nav__item-link #{params[:target] == 'self_assigned' ? 'is-active' : ''}"
 
 .page-body
   .container.is-md
