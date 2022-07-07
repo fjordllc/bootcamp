@@ -2,15 +2,18 @@
   .companies-item
     .companies-item__inner.a-card
       header.companies-item__header
-        h2.companies-item__name
-          = link_to company.name, company, class: 'companies-item__name-link'
-        .companies-item__icon
-          = link_to company do
-            = image_tag company.logo_url, title: company.name, alt: company.name, class: 'companies-item__user-icon-image a-user-icon is-studentn'
-
+        .companies-item__header-inner
+          .companies-item__header-start
+            .companies-item__icon
+              = link_to company do
+                = image_tag company.logo_url, title: company.name, alt: company.name, class: 'companies-item__user-icon-image a-user-icon'
+          .companies-item__header-end
+            .card-list-item__rows
+              .card-list-item__row
+                h2.companies-item__name
+                  = link_to company.name, company, class: 'companies-item__name-link'
+        = render 'links', company: company
       .companies-item__body
-        .companies-item__body-row
-          = render 'links', company: company
         .companies-item__body-row
           = render 'user_counts', users: company.users
         .companies-item__body-row
