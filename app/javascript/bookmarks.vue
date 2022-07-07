@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
+  .container.is-md(v-if='!loaded')
     .fa-solid.fa-spinner.fa-pulse
     | ロード中
   .container.is-md(v-else)
