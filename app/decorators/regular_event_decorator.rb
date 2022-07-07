@@ -39,6 +39,7 @@ module RegularEventDecorator
     if (repeat_rule[:frequency]).zero?
       next_specific_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
     else
+      # 次の第n X曜日の日付を計算する
       date = (repeat_rule[:frequency] - 1) * DAYS_OF_THE_WEEK_COUNT + repeat_rule[:day_of_the_week] - first_day.wday + 1
       date += DAYS_OF_THE_WEEK_COUNT if repeat_rule[:day_of_the_week] < first_day.wday
       Date.new(first_day.year, first_day.mon, date)
