@@ -3,6 +3,8 @@
   .container.is-md(v-if='!loaded')
     loadingListPlaceholder
   .container.is-md(v-else)
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
     .card-list-tools(v-if='watches.length')
       .form-item.is-inline
         label.a-form-label(for='card-list-tools__action')
@@ -14,8 +16,6 @@
             v-model='checked'
           )
           span#spec-edit-mode
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
     .card-list.a-card
       .card-list__items
         watch(

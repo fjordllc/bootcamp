@@ -6,7 +6,7 @@ class User < ApplicationRecord
   include Searchable
 
   authenticates_with_sorcery!
-  VALID_SORT_COLUMNS = %w[id login_name company_id updated_at created_at report comment asc desc].freeze
+  VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = '88x88>'
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
@@ -238,10 +238,10 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
-  scope :active, -> { where(updated_at: 1.month.ago..Float::INFINITY) }
+  scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, lambda {
     where(
-      updated_at: Date.new..1.month.ago,
+      last_activity_at: Date.new..1.month.ago,
       adviser: false,
       retired_on: nil,
       graduated_on: nil
@@ -249,7 +249,7 @@ class User < ApplicationRecord
   }
   scope :inactive_students_and_trainees, lambda {
     where(
-      updated_at: Date.new..1.month.ago,
+      last_activity_at: Date.new..1.month.ago,
       admin: false,
       mentor: false,
       adviser: false,
@@ -264,7 +264,7 @@ class User < ApplicationRecord
       adviser: false,
       graduated_on: nil,
       retired_on: nil
-    ).order(updated_at: :desc)
+    ).order(last_activity_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
   scope :trainees, -> { where(trainee: true) }
@@ -300,7 +300,7 @@ class User < ApplicationRecord
   scope :desc_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
-      .order(updated_at: :desc)
+      .order(last_activity_at: :desc)
       .tagged_with(tag_name)
   }
   scope :search_by_keywords_scope, -> { unretired }
@@ -362,7 +362,7 @@ class User < ApplicationRecord
       when 'adviser'
         advisers
       when 'inactive'
-        inactive.order(:updated_at)
+        inactive.order(:last_activity_at)
       when 'trainee'
         trainees
       else
@@ -398,7 +398,7 @@ class User < ApplicationRecord
   end
 
   def away?
-    updated_at <= 10.minutes.ago
+    last_activity_at <= 10.minutes.ago
   end
 
   def completed_percentage
@@ -423,7 +423,7 @@ class User < ApplicationRecord
   end
 
   def active?
-    updated_at > 1.month.ago
+    last_activity_at > 1.month.ago
   end
 
   def checked_product_of?(*practices)

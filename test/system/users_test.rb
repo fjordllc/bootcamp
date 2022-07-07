@@ -77,16 +77,25 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text 'Terminalの基礎を覚える'
   end
 
-  test 'show last active date only to mentors' do
+  test 'show last active date and time of access user only to mentors' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
-      visit_with_auth '/', 'kimura'
+      visit_with_auth login_path, 'kimura'
+    end
+
+    travel_to Time.zone.local(2014, 1, 1, 1, 0, 0) do
+      visit login_path
+    end
+
+    travel_to Time.zone.local(2014, 1, 1, 2, 0, 0) do
+      visit logout_path
     end
 
     visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
-    assert_text '最終ログイン'
+    assert_text '最終活動日時'
+    assert_text '2014年01月01日(水) 01:00'
 
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
-    assert_no_text '最終ログイン'
+    assert_no_text '最終活動日時'
   end
 
   test 'show inactive message on users page' do
@@ -104,13 +113,15 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'show inactive users only to mentors' do
-    User.inactive_students_and_trainees.each(&:touch)
+    User.inactive_students_and_trainees.each do |user|
+      user.update_columns(last_activity_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
+    end
 
     visit_with_auth '/', 'komagata'
     assert_no_text '1ヶ月以上ログインのないユーザー'
 
     users(:kimura).update!(
-      updated_at: Time.zone.local(2020, 1, 1, 0, 0, 0)
+      last_activity_at: Time.zone.local(2020, 1, 1, 0, 0, 0)
     )
 
     visit_with_auth '/', 'komagata'
@@ -337,5 +348,12 @@ class UsersTest < ApplicationSystemTestCase
       click_link '卒業にする'
     end
     assert_text '卒業済'
+  end
+
+  test 'change job seeking flag when click toggle button' do
+    user = users(:hajime)
+    visit_with_auth user_path(user.id), 'komagata'
+    check '就職活動中', allow_label_click: true
+    assert user.reload.job_seeking
   end
 end

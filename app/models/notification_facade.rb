@@ -55,7 +55,7 @@ class NotificationFacade
   end
 
   def self.post_announcement(announce, receiver)
-    Notification.post_announcement(announce, receiver)
+    ActivityNotifier.with(announce: announce, receiver: receiver).post_announcement.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
