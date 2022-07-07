@@ -12,7 +12,6 @@ class UserSessionsController < ApplicationController
         logout
         redirect_to retire_path
       else
-        save_updated_at(@user)
         redirect_back_or_to root_url, notice: 'ログインしました。'
       end
     else
@@ -27,10 +26,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    if current_user
-      save_updated_at(current_user)
-      logout
-    end
+    logout if current_user
     redirect_to root_url, notice: 'ログアウトしました。'
   end
 
@@ -48,7 +44,6 @@ class UserSessionsController < ApplicationController
         redirect_to retire_path
       else
         session[:user_id] = user.id
-        save_updated_at(user)
         redirect_back_or_to root_url, notice: 'サインインしました。'
       end
     else
@@ -63,11 +58,4 @@ class UserSessionsController < ApplicationController
     redirect_to root_path
   end
   # rubocop:enable Metrics/MethodLength
-
-  private
-
-  def save_updated_at(user)
-    user.updated_at = Time.current
-    user.save(validate: false)
-  end
 end

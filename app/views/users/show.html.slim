@@ -60,9 +60,6 @@ header.page-header
                   - if current_user == @user
                     li.card-main-actions__item
                       = link_to '登録情報変更', edit_current_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
-                  - elsif admin_login?
-                    li.card-main-actions__item
-                      = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
                   - elsif current_user != @user && current_user.adviser? && current_user.company_id == @user.company_id && @user.trainee
                     li.card-main-actions__item
                       .a-button.is-disabled.is-sm.is-block
@@ -87,20 +84,23 @@ header.page-header
             - cache [@user, @completed_learnings] do
               = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
           - if admin_login?
-            - if @user.graduated?
-              .a-button.is-sm.is-disabled.is-block
-                | 卒業済
-            - else
-              .a-card.is-only-mentor
-                .card-header.is-sm
-                  h2.card-header__title
-                    | ステータス変更
-                .user-statuses
-                  .user-statuses__items
-                    .user-statuses__item
+            .a-card.is-only-mentor
+              .card-header.is-sm
+                h2.card-header__title
+                  | ステータス変更
+              .user-statuses
+                .user-statuses__items
+                  .user-statuses__item
+                    = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+                  .user-statuses__item
+                    = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
+                      = render 'talks/seeking_switch', f: f
+                  .user-statuses__item
+                    - if @user.graduated?
+                      .a-button.is-sm.is-disabled.is-block
+                        | 卒業済
+                    - else
                       = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
                         method: :patch,
                         data: { confirm: '本当によろしいですか？' },
                         class: 'a-button is-sm is-danger is-block'
-
-        .col-xs-12.col-lg-5.col-xxl-6

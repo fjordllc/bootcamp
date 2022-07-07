@@ -87,17 +87,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def post_announcement(announce, receiver)
-      Notification.create!(
-        kind: kinds[:announced],
-        user: receiver,
-        sender: announce.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(announce),
-        message: "お知らせ「#{announce.title}」",
-        read: false
-      )
-    end
-
     def watching_notification(watchable, receiver, comment)
       watchable_user = watchable.user
       sender = comment.user
