@@ -34,7 +34,7 @@ regular_event_repeat_rule7:
   regular_event: regular_event7
 
 <% (8..26).each do |i| %>
-regular_event_repeat_rule4<%= i %>:
+regular_event_repeat_rule<%= i %>:
   frequency: 0
   day_of_the_week: 0
   regular_event: regular_event<%= i %>
