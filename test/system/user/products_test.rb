@@ -11,14 +11,14 @@ class User::ProductsTest < ApplicationSystemTestCase
   test 'show self assigned products to mentor' do
     self_assigned_products_url = "/users/#{users(:with_hyphen).id}/products?target=self_assigned"
     visit_with_auth self_assigned_products_url, 'komagata'
-    assert_no_text "#{products(:product16).practice.title}"
+    assert_no_text products(:product16).practice.title
 
     visit_with_auth "/products/#{products(:product16).id}", 'komagata'
     click_button '担当する'
     assert_text '担当から外れる'
 
     visit_with_auth self_assigned_products_url, 'komagata'
-    assert_text "#{products(:product16).practice.title}"
+    assert_text products(:product16).practice.title
   end
 
   test 'products order' do

@@ -14,11 +14,11 @@ class Users::ProductsController < ApplicationController
   end
 
   def set_products
-    if params[:target] == 'self_assigned'
-      @products = user.products.where(checker_id: current_user.id).list.order_for_list
-    else
-      @products = user.products.list.order_for_list
-    end
+    @products = if params[:target] == 'self_assigned'
+                  user.products.where(checker_id: current_user.id).list.order_for_list
+                else
+                  user.products.list.order_for_list
+                end
   end
 
   def user
