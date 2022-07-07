@@ -1,25 +1,6 @@
 # frozen_string_literal: true
 
 class RegularEvent < ApplicationRecord
-  FREQUENCY_LIST = [
-    ['毎週', 0],
-    ['第1', 1],
-    ['第2', 2],
-    ['第3', 3],
-    ['第4', 4],
-    ['第5', 5]
-  ].freeze
-
-  DAY_OF_THE_WEEK_LIST = [
-    ['日曜日', 0],
-    ['月曜日', 1],
-    ['火曜日', 2],
-    ['水曜日', 3],
-    ['木曜日', 4],
-    ['金曜日', 5],
-    ['土曜日', 6]
-  ].freeze
-
   include WithAvatar
   include Commentable
   include Footprintable
