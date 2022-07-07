@@ -1,0 +1,11 @@
+- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
+
+.container
+  .error-message.a-card.is-borderd
+    header.retire-message__header
+      h1.retire-message__title
+        | 休会処理が完了しました
+    .retire-message__body
+      p ご利用ありがとうございました。
+      p 休会から復帰する場合は<strong>info@fjord.jp</strong>まで復帰したい旨をご連絡ください。
+      p = link_to 'Fjord Boot Camp', welcome_path

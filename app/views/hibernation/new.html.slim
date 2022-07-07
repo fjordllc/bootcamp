@@ -1,0 +1,60 @@
+- title '休会手続き'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__title
+        = title
+
+.auth-form.is-sign-up.is-in-app
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title 休会手続き
+    .auth-form__body
+      .important-message
+        header.important-message__header
+          h2.important-message__title
+            | 休会についての注意
+        .important-message__body
+          .a-long-text.is-md
+            p
+              | 仕事の都合で長期間フィヨルドブートキャンプを利用できないなどの場合に
+              | 休会をすることができます。<br>
+              | 休会することで利用料金の引き落としは停止されますが、
+            p
+              | その期間フィヨルドブートキャンプを利用することができなくなります。
+              | 休会したまま復帰せずに<strong>３ヶ月</strong>が経過すると自動的に退会となります。<br>
+              | 退会するとこれまでの日報や提出物などのデータが削除されますのでお気をつけください。
+            p
+              | 休会と復帰は<strong>３回まで</strong>可能です。
+            p
+              | 休会から復帰する場合は<strong>info@fjord.jp</strong>まで復帰したい旨をご連絡ください。
+      - if @hibernation.errors.any?
+        = render 'errors', object: @hibernation
+      = form_with model: @hibernation,
+        url: hibernation_path,
+        local: true,
+        method: :post,
+        html: { name: 'hibernation' },
+        class: 'form' do |f|
+        .form__items
+          .form-item
+            = f.label :scheduled_return_on,
+              class: 'a-form-label is-required'
+            = f.date_field :scheduled_return_on,
+              class: 'a-text-input'
+          .form-item
+            = f.label :reason, '休会の理由を教えてください',
+              class: 'a-form-label is-required'
+            = f.text_area :reason,
+              placeholder: '休会の理由を教えてください',
+              class: 'a-text-input is-md'
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              = link_to 'キャンセル', :back,
+                class: 'a-button is-md is-secondary is-block'
+            li.form-actions__item.is-main
+              = f.submit '休会する',
+                class: 'a-button is-md is-danger is-block',
+                data: { confirm: '本当によろしいですか？' }
