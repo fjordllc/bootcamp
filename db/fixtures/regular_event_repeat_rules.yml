@@ -1,7 +1,7 @@
 regular_event_repeat_rule1:
-  regular_event: regular_event1
   frequency: 0
   day_of_the_week: 0
+  regular_event: regular_event1
 
 regular_event_repeat_rule2:
   frequency: 1
