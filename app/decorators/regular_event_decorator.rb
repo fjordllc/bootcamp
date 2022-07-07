@@ -1,12 +1,31 @@
 # frozen_string_literal: true
 
-DAYS_OF_THE_WEEK_COUNT = 7
-
 module RegularEventDecorator
+  DAYS_OF_THE_WEEK_COUNT = 7
+
+  FREQUENCY_LIST = [
+    ['毎週', 0],
+    ['第1', 1],
+    ['第2', 2],
+    ['第3', 3],
+    ['第4', 4],
+    ['第5', 5]
+  ].freeze
+
+  DAY_OF_THE_WEEK_LIST = [
+    ['日曜日', 0],
+    ['月曜日', 1],
+    ['火曜日', 2],
+    ['水曜日', 3],
+    ['木曜日', 4],
+    ['金曜日', 5],
+    ['土曜日', 6]
+  ].freeze
+
   def holding_cycles
     repeat_rules.map do |repeat_rule|
-      holding_frequency = RegularEvent::FREQUENCY_LIST.find { |frequency| frequency[1] == repeat_rule[:frequency] }[0]
-      holding_day_of_the_week = RegularEvent::DAY_OF_THE_WEEK_LIST.find { |day_of_the_week| day_of_the_week[1] == repeat_rule[:day_of_the_week] }[0]
+      holding_frequency = FREQUENCY_LIST.find { |frequency| frequency[1] == repeat_rule[:frequency] }[0]
+      holding_day_of_the_week = DAY_OF_THE_WEEK_LIST.find { |day_of_the_week| day_of_the_week[1] == repeat_rule[:day_of_the_week] }[0]
       holding_frequency + holding_day_of_the_week
     end.join(',')
   end
