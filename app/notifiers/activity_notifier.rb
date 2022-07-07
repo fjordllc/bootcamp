@@ -155,4 +155,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def hibernated(params = {})
+    params.merge!(@params)
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{sender.login_name}さんが休会しました。",
+      kind: :hibernated,
+      sender: sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      read: false
+    )
+  end
 end

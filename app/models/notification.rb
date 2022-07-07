@@ -34,7 +34,8 @@ class Notification < ApplicationRecord
     consecutive_sad_report: 15,
     assigned_as_checker: 16,
     product_update: 17,
-    graduated: 18
+    graduated: 18,
+    hibernated: 19
   }
 
   scope :unreads, -> { where(read: false) }

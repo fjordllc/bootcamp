@@ -66,6 +66,7 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :regular_events, dependent: :destroy
   has_many :organizers, dependent: :destroy
+  has_many :hibernations, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
@@ -267,6 +268,7 @@ class User < ApplicationRecord
     ).order(last_activity_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
+  scope :admins_and_mentors, -> { admins.or(mentor) }
   scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, lambda {
