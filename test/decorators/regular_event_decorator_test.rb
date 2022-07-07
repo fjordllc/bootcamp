@@ -20,10 +20,6 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test 'repeat_rules' do
-    assert_equal [{ frequency: 0, day_of_the_week: 0 }], @regular_event.repeat_rules
-  end
-
   test 'possible_next_event_dates' do
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal [Date.new(2022, 6, 5)], @regular_event.possible_next_event_dates
