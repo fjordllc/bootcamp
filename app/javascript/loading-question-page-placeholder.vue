@@ -1,7 +1,6 @@
 <template lang="pug">
-.page-body
-  .container.is-lg
-    loadingQuestionPageItemPlaceholder(v-for='num in itemCount', :key='num')
+div
+  loadingQuestionPageItemPlaceholder(v-for='num in itemCount', :key='num')
 </template>
 
 <script>
