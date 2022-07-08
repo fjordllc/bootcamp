@@ -32,8 +32,8 @@ class TalksController < ApplicationController
   end
 
   def set_members
-    @members = User.where(id: User.admins.ids.push(@talk.user_id))
-                   .eager_load([:company, { avatar_attachment: :blob }])
+    @members = User.with_attached_avatar
+                   .where(id: User.admins.ids.push(@talk.user_id))
                    .order(:id)
   end
 end
