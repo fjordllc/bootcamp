@@ -26,6 +26,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Footprintable
   include Reactionable
 
+  enum category: {
+    book_club: 0,
+    chat: 1,
+    question: 2,
+    meeting: 3,
+    others: 4
+  }
+
   validates :title, presence: true
   validates :user_ids, presence: true
   validates :start_at, presence: true
