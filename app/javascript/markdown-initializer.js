@@ -40,12 +40,16 @@ export default class {
     md.use(MarkDownItContainerDetails)
     md.use(MarkDownItLinkAttributes, {
       matcher(href) {
-        return !href.startsWith("http://localhost:3000")      
+        return !(
+          href.startsWith(location.origin) ||
+          href.startsWith('/') ||
+          href.startsWith('#')
+        )
       },
       attrs: {
-        target: "_blank",
-        rel: "noopener",
-      },
+        target: '_blank',
+        rel: 'noopener'
+      }
     })
 
     return md.render(text)

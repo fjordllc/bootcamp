@@ -14,22 +14,22 @@ class MarkdownLinkTest < ApplicationSystemTestCase
     first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
     first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
-    assert_equal find("a", text:"http://www.google.co.jp")[:href], "http://www.google.co.jp/"
-    assert_equal find("a", text:"http://www.google.co.jp")[:target], "_blank"
+    assert_equal find('a', text: 'http://www.google.co.jp')[:href], 'http://www.google.co.jp/'
+    assert_equal find('a', text: 'http://www.google.co.jp')[:target], '_blank'
   end
 
   test 'internal link on same tab' do
     visit_with_auth 'reports/new', 'kimura'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title')
-      fill_in('report[description]', with: 'http://localhost:3000/reports')
+      fill_in('report[description]', with: (current_host + ":#{Capybara.current_session.server.port}"))
     end
     first('.learning-time').all('.learning-time__started-at select')[0].select('07')
     first('.learning-time').all('.learning-time__started-at select')[1].select('30')
     first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
     first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
-    assert_equal find("a", text:"http://localhost:3000/reports")[:href], "http://localhost:3000/reports"
-    assert_not_equal find("a", text:"http://localhost:3000/reports")[:target], "_blank"
+    assert_equal find('a', text: current_host)[:href], (current_host + ":#{Capybara.current_session.server.port}/")
+    assert_not_equal find('a', text: current_host)[:target], '_blank'
   end
 end
