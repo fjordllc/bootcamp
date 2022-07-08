@@ -44,6 +44,7 @@ json.comments do
       json.avatar_url user.avatar_url
       json.url user.url
       json.icon_title user.icon_title
+      json.primary_role user.primary_role
     end
   end
 end
