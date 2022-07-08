@@ -19,7 +19,7 @@ class API::QuestionsController < API::BaseController
     questions = questions.tagged_with(params[:tag]) if params[:tag]
     @questions = questions
                  .with_avatar
-                 .includes(:practice, :answers, :tags, :correct_answer, user: :company)
+                 .includes(:practice, :answers, :tags, :correct_answer)
                  .order(updated_at: :desc, id: :desc)
                  .page(params[:page])
   end

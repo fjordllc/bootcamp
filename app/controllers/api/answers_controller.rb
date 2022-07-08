@@ -14,7 +14,7 @@ class API::AnswersController < API::BaseController
         {
           question: [
             :correct_answer,
-            { user: [:company, { avatar_attachment: :blob }] },
+            { user: { avatar_attachment: :blob } },
             :practice,
             :tag_taggings,
             :tags
