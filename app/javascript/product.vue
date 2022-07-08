@@ -71,7 +71,7 @@
                     :title='user.icon_title',
                     :alt='user.icon_title',
                     :src='user.avatar_url',
-                    :class='[roleClass]'
+                    :class='[`is-${user.primary_role}`]'
                   )
 
             .card-list-item-meta__item(
