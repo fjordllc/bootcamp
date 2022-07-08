@@ -542,4 +542,35 @@ class UserTest < ActiveSupport::TestCase
       users(:komagata).reports.order(reported_on: :desc).limit(1).pick(:id),
       users(:komagata).raw_last_sad_report_id
   end
+  test 'students人数が整合する' do
+    # User.count = 33
+    # User.mentor.count = 4 ①
+    # User.admins.count = 3　②
+    # User.admins.mentor.count = 2　①と②で2度カウントしている分
+    # User.advisers.count = 2
+    # User.graduated.count = 2　③
+    # User.retired.count = 4　④
+    # User.trainees.count = 3　⑤
+    # User.trainees.graduated.count = 0　③と⑤で2度カウントしている分
+    # User.trainees.retired.count = 1　④と⑤で2度カウントしている分
+    assert_equal 33 - (4 + 3 - 2 + 2 + 2 + 4 + 3 + 0 - 1), User.students.count
+  end
+
+  test 'students_and_trainees人数が整合する' do
+    # User.students.count = 18
+    # User.trainees.count = 3
+    # User.trainees.graduated.count = 0
+    # User.trainees.retired.count = 1
+    assert_equal 18 + 3 - (0 + 1), User.students_and_trainees.count
+  end
+
+  test '企業の現役生数が整合する' do
+    assert_equal 1, User.students_and_trainees.where(company_id: 1022975240).count
+  end
+
+  test '研修が終わるとstudents_and_traineesメソッドにカウントされない' do
+    users(:kensyu).update!(retired_on: "2022-07-01")
+
+    assert_equal 0, User.students_and_trainees.where(company_id: 1022975240).count
+  end
 end
