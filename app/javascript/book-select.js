@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const elements = document.querySelectorAll('#js-book-select')
   for (let i = 0; i < bookSelectCount; i++) {
     const choicesElements = new Choices(elements[i], {
-      removeItemButton: true,
       allowHTML: true,
       searchResultLimit: 20,
       searchPlaceholderValue: '検索ワード',
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const element = elements[elements.length - 1]
     if (element) {
       return new Choices(element, {
-        removeItemButton: true,
         allowHTML: true,
         searchResultLimit: 20,
         searchPlaceholderValue: '検索ワード',
