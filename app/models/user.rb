@@ -382,15 +382,6 @@ class User < ApplicationRecord
       ).pluck(:last_sad_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
-
-    private
-
-    def reports_by_user(ids)
-      Report.where(user_id: ids)
-            .preload([:comments, { user: [:company, { avatar_attachment: :blob }] }, { checks: { user: { avatar_attachment: :blob } } }])
-            .order(reported_on: :desc)
-            .group_by(&:user_id)
-    end
   end
 
   def retired_three_months_ago_and_notification_not_sent?
