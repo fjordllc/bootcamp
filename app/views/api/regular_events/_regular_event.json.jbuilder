@@ -8,4 +8,4 @@ json.url regular_event_url(regular_event)
 json.user regular_event.user, partial: "api/users/user", as: :user
 json.organizers regular_event.organizers, partial: "api/users/user", as: :user
 json.holding_cycles regular_event.holding_cycles
-json.category regular_event.category
+json.category t("activerecord.enums.regular_event.category.#{regular_event.category}")

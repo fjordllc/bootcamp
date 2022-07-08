@@ -13,13 +13,14 @@
         label.a-form-label
           | カテゴリー
         ul.block-checks.sm-down:is-3-items
-          - %w[輪読会 雑談 質問 MTG その他].each_with_index do |category, i|
+          - RegularEvent.categories.keys.each_with_index do |category, i|
             li.block-checks__item
               .a-block-check.is-radio
                 = f.radio_button :category, i, class: 'a-toggle-checkbox'
                 = f.label :category, category, value: i, class: 'a-block-check__label' do
                   span.a-block-check__name
-                    = category
+                    = t "activerecord.enums.regular_event.category.#{category}"
+
       .form-item
         label.a-form-label
           | 定期開催日
