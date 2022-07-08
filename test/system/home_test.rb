@@ -287,4 +287,32 @@ class HomeTest < ApplicationSystemTestCase
       assert_text I18n.l event.updated_at
     end
   end
+
+  test 'show the five latest bookmarks on dashboard' do
+    visit_with_auth "/questions/#{questions(:question1).id}", 'machida'
+    find('#bookmark-button').click
+    visit "/pages/#{pages(:page1).id}"
+    find('#bookmark-button').click
+    reports = %i[report68 report69 report70 report71]
+    reports.each do |report|
+      visit "/reports/#{reports(report).id}"
+      find('#bookmark-button').click
+    end
+    assert_text 'Bookmarkしました！'
+
+    visit '/'
+    assert_text '最新のブックマーク'
+    find_link pages(:page1).title
+    assert_text I18n.l pages(:page1).created_at, format: :long
+    reports.each do |report|
+      find_link reports(report).title
+      assert_text I18n.l reports(report).reported_on, format: :long
+    end
+  end
+
+  test 'not show bookmarks on dashboard when the user has no bookmarks' do
+    visit_with_auth '/', 'machida'
+    assert_current_path '/?_login_name=machida'
+    assert_no_text '最新のブックマーク'
+  end
 end

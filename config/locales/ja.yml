@@ -9,6 +9,7 @@ ja:
       short: '%Y/%m/%d'
       md: '%m月%d日'
       sm: '%m/%d'
+      long: '%Y年%m月%d日(%a)'
   time:
     formats:
       default: '%Y年%m月%d日(%a) %H:%M'
@@ -18,6 +19,7 @@ ja:
       date_and_time: '%m月%d日%H:%M'
       year_only: '%Y'
       mdw_unique: '%-m/%-d(%a)'
+      long: '%Y年%m月%d日(%a)'
   activerecord:
     models:
       user: ユーザー
