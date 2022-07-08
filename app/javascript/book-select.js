@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookSelectCount = document.querySelectorAll('#js-book-select').length
   const elements = document.querySelectorAll('#js-book-select')
   for (let i = 0; i < bookSelectCount; i++) {
-    const choicesElements = new Choices(elements[i], {
+    // eslint-disable-next-line no-new
+    new Choices(elements[i], {
       allowHTML: true,
       searchResultLimit: 20,
       searchPlaceholderValue: '検索ワード',
@@ -12,9 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
       itemSelectText: '選択',
       shouldSort: false
     })
-    if (bookSelectCount === i) {
-      return choicesElements
-    }
   }
   $('.reference-books-form__add').on('cocoon:after-insert', () => {
     const elements = document.querySelectorAll('#js-book-select')
