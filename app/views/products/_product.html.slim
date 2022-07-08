@@ -51,10 +51,10 @@
                 .a-meta
                   | コメント（#{product.comments.size}）
               .card-list-item-meta__item
-                .card-list-item-comment__user-icons
+                .card-list-item__user-icons
                   = render partial: 'users/icon',
                     collection: product.commented_users.distinct,
-                    locals: { link_class: 'card-list-item-comment__user-icon', image_class: 'a-user-icon' },
+                    locals: { link_class: 'card-list-item__user-icon', image_class: 'a-user-icon' },
                     as: :user,
                     cached: true
               .card-list-item-meta__item

@@ -53,7 +53,7 @@
               .a-meta
                 | コメント（{{ report.numberOfComments }}）
             .card-list-item-meta__item
-              .card-list-item-comment__user-icons
+              .card-list-item__user-icons
                 comment-user-icon(
                   v-for='comment in report.comments',
                   :key='comment.id',
