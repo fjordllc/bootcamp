@@ -7,7 +7,6 @@
     .reference-books-form__items
       .reference-books-form-item
         = f.label '参考書籍', class: 'a-form-label'
-        = f.hidden_field :book_id, value: all_books
         = f.collection_select :book_id, all_books, :first, :last, {}, { id: 'js-book-select' }
       .reference-books-form-item.is-inline
         = f.label '必読', class: 'a-form-label'
