@@ -31,7 +31,24 @@ module RegularEventDecorator
   end
 
   def next_event_date
+    return '開催終了' if finished
+    return '本日開催' if event_day?
+
     "次回の開催日は #{l possible_next_event_dates.compact.min} です"
+  end
+
+  def event_day?
+    now = Time.zone.now
+    is_the_day_of_the_event = regular_event_repeat_rules.map do |repeat_rule|
+      if repeat_rule.frequency.zero?
+        repeat_rule.day_of_the_week == now.wday
+      else
+        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == calc_week_of_month(now)
+      end
+    end.include?(true)
+    event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
+
+    is_the_day_of_the_event && (now < event_start_time)
   end
 
   def possible_next_event_dates
@@ -49,7 +66,7 @@ module RegularEventDecorator
   end
 
   def possible_next_event_date(first_day, repeat_rule)
-    if (repeat_rule[:frequency]).zero?
+    if repeat_rule.frequency.zero?
       next_specific_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
     else
       # 次の第n X曜日の日付を計算する
