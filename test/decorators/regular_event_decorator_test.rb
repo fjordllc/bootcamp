@@ -8,6 +8,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
   def setup
     ActiveDecorator::ViewContext.push(controller.view_context)
     @regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event1))
+    @regular_event_repeat_rule = ActiveDecorator::Decorator.instance.decorate(regular_event_repeat_rules(:regular_event_repeat_rule1))
   end
 
   test 'holding_cycles' do
@@ -18,6 +19,24 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal '次回の開催日は 2022年06月05日 です', @regular_event.next_event_date
     end
+
+    travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
+      assert_equal '本日開催', @regular_event.next_event_date
+    end
+
+    travel_to Time.zone.local(2022, 6, 5, 15, 30, 0) do
+      assert_equal '次回の開催日は 2022年06月12日 です', @regular_event.next_event_date
+    end
+  end
+
+  test 'event_day?' do
+    travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
+      assert_equal true, @regular_event.event_day?
+    end
+
+    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
+      assert_equal false, @regular_event.event_day?
+    end
   end
 
   test 'possible_next_event_dates' do
@@ -27,17 +46,15 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
   end
 
   test 'possible_next_event_date' do
-    repeat_rule = { frequency: 0, day_of_the_week: 0 }
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       first_day = Time.zone.today
-      assert_equal Date.new(2022, 6, 5), @regular_event.possible_next_event_date(first_day, repeat_rule)
+      assert_equal Date.new(2022, 6, 5), @regular_event.possible_next_event_date(first_day, @regular_event_repeat_rule)
     end
   end
 
   test 'next_specific_day_of_the_week' do
-    repeat_rule = { frequency: 0, day_of_the_week: 0 }
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal Date.new(2022, 6, 5), @regular_event.next_specific_day_of_the_week(repeat_rule)
+      assert_equal Date.new(2022, 6, 5), @regular_event.next_specific_day_of_the_week(@regular_event_repeat_rule)
     end
   end
 end
