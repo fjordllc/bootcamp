@@ -62,7 +62,7 @@ regular_event7:
   user: komagata
 
 <% (8..26).each do |i| %>
-event<%= i %>:
+regular_event<%= i %>:
   title: 定期イベント<%= i %>
   description: <%= i %>番目の定期イベントです。
   start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
