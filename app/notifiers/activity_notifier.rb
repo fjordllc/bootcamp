@@ -171,4 +171,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def signed_up(params = {})
+    params.merge!(@params)
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "🎉 #{sender.login_name}さんが新しく入会しました！",
+      kind: :signed_up,
+      sender: sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      read: false
+    )
+  end
 end
