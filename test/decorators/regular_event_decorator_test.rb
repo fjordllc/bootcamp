@@ -8,6 +8,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
   def setup
     ActiveDecorator::ViewContext.push(controller.view_context)
     @regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event1))
+    @finished_regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event8))
     @regular_event_repeat_rule = ActiveDecorator::Decorator.instance.decorate(regular_event_repeat_rules(:regular_event_repeat_rule1))
   end
 
@@ -26,6 +27,10 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
 
     travel_to Time.zone.local(2022, 6, 5, 15, 30, 0) do
       assert_equal '次回の開催日は 2022年06月12日 です', @regular_event.next_event_date
+    end
+
+    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
+      assert_equal '開催終了', @finished_regular_event.next_event_date
     end
   end
 
