@@ -43,12 +43,29 @@ module RegularEventDecorator
       if repeat_rule.frequency.zero?
         repeat_rule.day_of_the_week == now.wday
       else
-        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == calc_week_of_month(now)
+        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == calc_week_of_month(now.to_date)
       end
     end.include?(true)
     event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
 
     is_the_day_of_the_event && (now < event_start_time)
+  end
+
+  def calc_week_of_month(date)
+    first_week = (date - (date.day - 1)).cweek
+    this_week = date.cweek
+
+    # 年末年始の対応
+    if this_week < first_week
+      return calc_week_of_month(date - 7) + 1 if date.month == 12
+
+      return this_week
+    end
+
+    # 月始まりで2週目にカウントされないようにする
+    return 1 if date.day <= 7
+
+    this_week - first_week + 1
   end
 
   def possible_next_event_dates
