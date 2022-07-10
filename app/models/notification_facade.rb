@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class NotificationFacade
-  def self.came_comment(comment, receiver, message)
-    ActivityNotifier.with(comment: comment, receiver: receiver, message: message).came_comment.notify_now
+  def self.came_comment(comment, receiver, message, link)
+    ActivityNotifier.with(comment: comment, receiver: receiver, message: message, link: link).came_comment.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
