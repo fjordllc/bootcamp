@@ -959,3 +959,18 @@ kyuukai:
   hibernated_at: "2020-01-01 00:00:00"
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
+
+neverlogin: # 1度もログインしたことがないユーザー
+  login_name: neverlogin
+  email: neverlogin@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 根場亜　呂具印
+  name_kana:  ネバー　ログイン
+  description: "ユーザー登録後、1度もログインしていないユーザーです。"
+  course: course1
+  os: mac
+  experience: rails
+  free: true
+  updated_at: "2022-07-11 00:00:00"
+  created_at: "2022-07-11 00:00:00"
