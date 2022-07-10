@@ -333,6 +333,8 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "show my wip's question's date on dashboard" do
+    Bookmark.destroy_all
+
     visit_with_auth '/', 'kimura'
     assert_text 'WIPで保存中'
     within '.card-list-item.is-question' do
@@ -341,6 +343,8 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test "show my wip's product's date on dashboard" do
+    Bookmark.destroy_all
+
     visit_with_auth '/', 'kimura'
     assert_text 'WIPで保存中'
     within '.card-list-item.is-product' do
