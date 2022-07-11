@@ -1,24 +1,22 @@
 <template lang="pug">
 .books
-  .books__items
-    .row(v-if='books === null')
-      .empty
-        .fa-solid.fa-spinner.fa-pulse
-        |
-        | ロード中
-    .row(v-else-if='books.length !== 0')
+  .empty(v-if='books === null')
+    .fa-solid.fa-spinner.fa-pulse
+    |
+    | ロード中
+  .books__items(v-else-if='books.length !== 0')
+    .row
       book(
         v-for='book in books',
         :key='book.id',
         :book='book',
         :currentUser='currentUser'
       )
-    .row(v-else)
-      .o-empty-message
-        .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
-        p.o-empty-message__text
-          | 登録されている本はありません
+  .o-empty-message(v-else)
+    .o-empty-message__icon
+      i.fa-regular.fa-sad-tear
+    p.o-empty-message__text
+      | 登録されている本はありません
 </template>
 <script>
 import Book from './book'
