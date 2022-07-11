@@ -52,7 +52,8 @@ module RegularEventDecorator
   end
 
   def calc_week_of_month(date)
-    first_week = (date - (date.day - 1)).cweek
+    first_day_of_the_month = date - (date.day - 1)
+    first_week = first_day_of_the_month.cweek
     this_week = date.cweek
 
     # 年末年始の対応
@@ -64,6 +65,8 @@ module RegularEventDecorator
 
     # 月始まりで2週目にカウントされないようにする
     return 1 if date.day <= 7
+
+    return this_week - first_week if date.wday < first_day_of_the_month.wday
 
     this_week - first_week + 1
   end
@@ -79,7 +82,7 @@ module RegularEventDecorator
         possible_next_event_date(next_month_first_day, repeat_rule)
       ]
     end.flatten
-    possible_dates.compact.select { |possible_date| possible_date >= Time.zone.today }.sort
+    possible_dates.compact.select { |possible_date| possible_date > Time.zone.today }.sort
   end
 
   def possible_next_event_date(first_day, repeat_rule)
