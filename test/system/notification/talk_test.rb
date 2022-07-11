@@ -26,8 +26,10 @@ class Notification::TalkTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'machida'
 
     within first('.card-list-item.is-unread') do
-      assert_text 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。'
+      click_link 'kimuraさんの相談部屋でkimuraさんからコメントが届きました。'
     end
+
+    assert_current_path(/#latest-comment$/, url: true)
   end
 
   test 'Admin except myself receive a notification when other admin comments on a talk room' do
@@ -68,8 +70,10 @@ class Notification::TalkTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
 
     within first('.card-list-item.is-unread') do
-      assert_text '相談部屋でkomagataさんからコメントがありました。'
+      click_link '相談部屋でkomagataさんからコメントがありました。'
     end
+
+    assert_current_path(/#latest-comment$/, url: true)
   end
 
   test 'The number of unreplied comments is displayed in the global navigation and unreplied tab of the talks room' do
