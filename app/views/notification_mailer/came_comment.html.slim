@@ -1,2 +1,2 @@
-= render 'notification_mailer_template', title: @message, link_url: notification_url(@notification, anchor: "comment_#{@comment.id}"), link_text: 'コメントへ' do
+= render 'notification_mailer_template', title: @message, link_url: notification_url(@notification, anchor: 'latest-comment'), link_text: 'コメントへ' do
   = md2html(@comment.description)
