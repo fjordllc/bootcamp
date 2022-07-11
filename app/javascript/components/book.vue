@@ -30,8 +30,7 @@
                 | {{ book.price.toLocaleString() }}円（税込）
             card-books-item__row(v-if='book.description')
               .card-books-item__description
-                .a-short-text
-                  | {{ book.description }}
+                .a-short-text(v-html='simpleFormat(book.description)')
     .card-books-item__practices
       .tag-links
         ul.tag-links__items
@@ -55,6 +54,18 @@ export default {
   props: {
     book: { type: Object, required: true },
     currentUser: { type: Object, required: true }
+  },
+  methods: {
+    simpleFormat: function (str) {
+      str = str.replace(/\r\n?/, "\n");
+      str = $.trim(str);
+      if (str.length > 0) {
+        str = str.replace(/\n\n+/g, '</p><p>');
+        str = str.replace(/\n/g, '<br />');
+        str = '<p>' + str + '</p>';
+      }
+      return str;
+    }
   }
 }
 </script>
