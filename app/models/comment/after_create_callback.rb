@@ -105,7 +105,7 @@ class Comment::AfterCreateCallback
     ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
       相談部屋にて#{comment.user.login_name}さんからコメントがありました。
       本文： #{comment.description}
-      URL： https://bootcamp.fjord.jp/talks/#{comment.commentable_id}
+      URL： https://bootcamp.fjord.jp/talks/#{comment.commentable_id}#latest-comment
     TEXT
   end
 end
