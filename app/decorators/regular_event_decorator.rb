@@ -73,13 +73,13 @@ module RegularEventDecorator
     this_month_first_day = Date.new(today.year, today.mon, 1)
     next_month_first_day = this_month_first_day.next_month
 
-    canditates = regular_event_repeat_rules.map do |repeat_rule|
+    possible_dates = regular_event_repeat_rules.map do |repeat_rule|
       [
         possible_next_event_date(this_month_first_day, repeat_rule),
         possible_next_event_date(next_month_first_day, repeat_rule)
       ]
     end.flatten
-    canditates.compact.select { |canditate| canditate > Time.zone.today }.sort
+    possible_dates.compact.select { |possible_date| possible_date >= Time.zone.today }.sort
   end
 
   def possible_next_event_date(first_day, repeat_rule)
@@ -94,7 +94,7 @@ module RegularEventDecorator
   end
 
   def next_specific_day_of_the_week(repeat_rule)
-    case repeat_rule[:day_of_the_week]
+    case repeat_rule.day_of_the_week
     when 0
       0.days.ago.next_occurring(:sunday).to_date
     when 1
