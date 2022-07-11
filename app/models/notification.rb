@@ -100,17 +100,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def retired(sender, receiver)
-      Notification.create!(
-        kind: kinds[:retired],
-        user: receiver,
-        sender: sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-        message: "😢 #{sender.login_name}さんが退会しました。",
-        read: false
-      )
-    end
-
     def three_months_after_retirement(sender, receiver)
       Notification.create!(
         kind: kinds[:retired],

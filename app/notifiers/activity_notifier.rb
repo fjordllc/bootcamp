@@ -140,4 +140,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def retired(params = {})
+    params.merge!(@params)
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "😢 #{sender.login_name}さんが退会しました。",
+      kind: :retired,
+      sender: sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      read: false
+    )
+  end
 end
