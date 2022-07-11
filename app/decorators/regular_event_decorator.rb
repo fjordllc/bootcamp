@@ -30,11 +30,15 @@ module RegularEventDecorator
     end.join(',')
   end
 
-  def next_event_date
+  def next_holding_date
     return '開催終了' if finished
     return '本日開催' if event_day?
 
-    "次回の開催日は #{l possible_next_event_dates.compact.min} です"
+    "次回の開催日は #{l next_event_date} です"
+  end
+
+  def next_event_date
+    possible_next_event_dates.compact.min
   end
 
   def event_day?
