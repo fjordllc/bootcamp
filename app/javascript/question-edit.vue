@@ -256,15 +256,15 @@ export default {
       )
     },
     practiceTitle() {
-      if (this.practiceId !== '' || undefined) {
+      if (this.practiceId === '' || this.practiceId === undefined || this.practiceId === null) {
+        return ''
+      } else {
         const { practices, question, practiceId } = this
 
         return practices === null
-          ? question.practice.title
-          : practices.find((practice) => practice.id === Number(practiceId))
-              .title
-      } else {
-        return ''
+            ? question.practice.title
+            : practices.find((practice) => practice.id === Number(practiceId))
+                .title
       }
     },
     markdownDescription() {
