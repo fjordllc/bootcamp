@@ -95,8 +95,8 @@ export default {
     },
     practiceUrl() {
       return this.question.practice === undefined
-          ? null
-          : `/practices/${this.question.practice.id}`
+        ? null
+        : `/practices/${this.question.practice.id}`
     }
   }
 }
