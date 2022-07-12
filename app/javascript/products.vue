@@ -33,26 +33,26 @@
       header.card-header.a-elapsed-days.is-reply-warning(
         v-else-if='product_n_days_passed.elapsed_days === 5'
       )
-        h2.card-header__title
+        h2.card-header__title#5days-elapsed
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-alert(
         v-else-if='product_n_days_passed.elapsed_days === 6'
       )
-        h2.card-header__title
+        h2.card-header__title#6days-elapsed
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-deadline(
         v-else-if='product_n_days_passed.elapsed_days === 7'
       )
-        h2.card-header__title
+        h2.card-header__title#7days-elapsed
           | {{ product_n_days_passed.elapsed_days }}日以上経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days(v-else)
-        h2.card-header__title
+        h2.card-header__title(:id='[elapsedDaysId(product_n_days_passed.elapsed_days)]')
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
@@ -65,6 +65,12 @@
             :currentUserId='currentUserId',
             :isMentor='isMentor'
           )
+  elapsedDays(
+    v-if='selectedTab === "unassigned"',
+    :productsGroupedByElapsedDays='productsGroupedByElapsedDays',
+    :countProductsGroupedBy='countProductsGroupedBy',
+    @transition='moveLocation'
+  )
   unconfirmed-links-open-button(
     v-if='isMentor && selectedTab != "all" && !isDashboard',
     :label='`${unconfirmedLinksName}の提出物を一括で開く`'
@@ -78,13 +84,15 @@ import Product from 'product.vue'
 import unconfirmedLinksOpenButton from 'unconfirmed_links_open_button.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
+import elapsedDays from 'elapsed_days.vue'
 
 export default {
   components: {
     product: Product,
     'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
     loadingListPlaceholder: LoadingListPlaceholder,
-    pager: Pager
+    pager: Pager,
+    elapsedDays,
   },
   props: {
     title: { type: String, required: true },
@@ -224,7 +232,13 @@ export default {
         (el) => el.elapsed_days === elapsedDays
       )
       return element === undefined ? 0 : element.products.length
-    }
+    },
+    moveLocation(elapsedDays) {
+      location.href = `#${elapsedDays}days-elapsed`
+    },
+    elapsedDaysId(elapsedDays) {
+      return `${elapsedDays}days-elapsed`
+    },
   }
 }
 </script>
