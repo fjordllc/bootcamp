@@ -63,7 +63,7 @@
                 | コメント（{{ product.comments.size }}）
             .card-list-item-meta__item
               .card-list-item__user-icons
-                a.card-list-item__user-icon(
+                a.card-list-item__user-icons-icon(
                   :href='user.url',
                   v-for='user in product.comments.users'
                 )
