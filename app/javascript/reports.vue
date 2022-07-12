@@ -15,9 +15,7 @@
     pager(v-bind='pagerProps')
   .reports.is-md(v-if='reports === null')
     loadingListPlaceholder
-  .card-list.a-card(
-    v-else-if='reports.length > 0 || !isUncheckedReportsPage'
-  )
+  .card-list.a-card(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
     .card-list__items
       report(
         v-for='report in reports',
