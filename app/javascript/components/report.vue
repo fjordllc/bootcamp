@@ -1,7 +1,7 @@
 <template lang="pug">
 .card-list-item(:class='wipClass')
   .card-list-item__inner
-    .card-list-item__user
+    .card-list-item__user(v-if='userIcon')
       a.card-list-item__user-link(:href='report.user.url')
         img.card-list-item__user-icon.a-user-icon(
           :src='report.user.avatar_url',
@@ -91,6 +91,11 @@ export default {
     report: { type: Object, required: true },
     currentUserId: { type: Number, required: true }
   },
+  data() {
+    return {
+      userIcon: true
+    }
+  },
   computed: {
     roleClass() {
       return `is-${this.report.user.primary_role}`
@@ -100,6 +105,18 @@ export default {
     },
     emotionImg() {
       return `/images/emotion/${this.report.emotion}.svg`
+    }
+  },
+  created () {
+    const currentPath = location.pathname
+    const regex = /\/reports\/\d+/
+    if (regex.test(currentPath)){
+      this.showUserIcon()
+    }
+  },
+  methods: {
+    showUserIcon() {
+      this.userIcon = false
     }
   }
 }
