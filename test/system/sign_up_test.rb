@@ -23,7 +23,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       fill_in 'user[after_graduation_hope]', with: '起業したいです'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
@@ -48,7 +48,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
@@ -73,7 +73,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
@@ -98,7 +98,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
@@ -148,7 +148,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       first('.choices__inner').click
       find('.choices__list--dropdown').click
@@ -183,7 +183,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
@@ -234,7 +234,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       first('.choices__inner').click
       find('.choices__list--dropdown').click
@@ -258,7 +258,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
@@ -286,7 +286,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
-      find('label', text: 'Mac(Intel)').click
+      find('label', text: 'Mac（Intel チップ）').click
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
