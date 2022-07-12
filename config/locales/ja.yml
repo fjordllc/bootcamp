@@ -217,9 +217,9 @@ ja:
           unemployed: 働いていない
         os:
           windows_wsl2: Windows(WSL2)
-          mac: Mac(Intel)
+          mac: Mac (Intel チップ)
           linux: Linux
-          mac_m1: Mac(M1 chip)
+          mac_m1: Mac (Apple チップ)
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
