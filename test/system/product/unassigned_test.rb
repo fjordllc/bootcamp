@@ -47,9 +47,15 @@ class Product::UnassignedTest < ApplicationSystemTestCase
 
   test 'display elapsed days label and number of products' do
     visit_with_auth '/products/unassigned', 'komagata'
-    assert_text '7日以上経過（6）'
-    assert_text '6日経過（1）'
-    assert_text '5日経過（1）'
+    within '.is-reply-deadline' do
+      assert_text '7日以上経過（6）'
+    end
+    within '.is-reply-alert' do
+      assert_text '6日経過（1）'
+    end
+    within '.is-reply-warning' do
+      assert_text '5日経過（1）'
+    end
     assert_text '今日提出（48）'
   end
 end
