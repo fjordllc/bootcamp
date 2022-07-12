@@ -21,3 +21,11 @@ event<%= i %>_watch_kimura:
    user: kimura
    watchable: event<%= i %> (Event)
 <% end %>
+   
+practice1_watch_mentormentaro:
+   user: mentormentaro
+   watchable: practice1 (Practice)
+
+page1_page_mentormentaro:
+   user: mentormentaro
+   watchable: page1 (Page)
