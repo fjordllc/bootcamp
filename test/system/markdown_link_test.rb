@@ -19,21 +19,23 @@ class MarkdownLinkTest < ApplicationSystemTestCase
   end
 
   test 'internal link on same tab' do
+    current_origin = "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}"
     visit_with_auth 'reports/new', 'kimura'
     within('form[name=report]') do
       fill_in('report[title]', with: 'internal link test')
-      fill_in('report[description]', with: (current_host + ":#{Capybara.current_session.server.port}"))
+      fill_in('report[description]', with: current_origin)
     end
     first('.learning-time').all('.learning-time__started-at select')[0].select('07')
     first('.learning-time').all('.learning-time__started-at select')[1].select('30')
     first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
     first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
-    assert_equal find('a', text: current_host)[:href], (current_host + ":#{Capybara.current_session.server.port}/")
-    assert_not_equal find('a', text: current_host)[:target], '_blank'
+    assert_equal find('a', text: current_origin)[:href], "#{current_origin}/"
+    assert_not_equal find('a', text: current_origin)[:target], '_blank'
   end
 
   test 'relative link on same tab' do
+    current_origin = "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}"
     visit_with_auth 'reports/new', 'kimura'
     within('form[name=report]') do
       fill_in('report[title]', with: 'relative link test')
@@ -44,7 +46,7 @@ class MarkdownLinkTest < ApplicationSystemTestCase
     first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
     first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
-    assert_equal find('a', text: 'relative_link')[:href], (current_host + ":#{Capybara.current_session.server.port}/reports")
+    assert_equal find('a', text: 'relative_link')[:href], "#{current_origin}/reports"
     assert_not_equal find('a', text: 'relative_link')[:target], '_blank'
   end
 
