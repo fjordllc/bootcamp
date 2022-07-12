@@ -9,11 +9,11 @@
             target='_blank',
             rel='noopener'
           )
-          img.card-books-item__image(
-            :title='book.title',
-            :alt='book.title',
-            :src='book.coverUrl'
-          )
+            img.card-books-item__image(
+              :title='book.title',
+              :alt='book.title',
+              :src='book.coverUrl'
+            )
         .card-books-item__end
           .card-books-item__rows
             .card-books-item__row
