@@ -49,4 +49,16 @@ class CurrentUser::WatchesTest < ApplicationSystemTestCase
     visit report_path(report)
     assert_text 'Watch'
   end
+
+  test 'list watching practice and another' do
+    visit_with_auth '/current_user/watches', 'mentormentaro'
+
+    assert_text 'OS X Mountain Lionをクリーンインストールする'
+    assert_text 'description...'
+    assert_no_text 'mentormentaro'
+
+    assert_text 'test1'
+    assert_text 'testtest'
+    assert_text 'komagata'
+  end
 end
