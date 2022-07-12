@@ -107,10 +107,10 @@ export default {
       return `/images/emotion/${this.report.emotion}.svg`
     }
   },
-  created () {
+  created() {
     const currentPath = location.pathname
     const regex = /\/reports\/\d+/
-    if (regex.test(currentPath)){
+    if (regex.test(currentPath)) {
       this.showUserIcon()
     }
   },
