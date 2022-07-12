@@ -23,8 +23,8 @@
                   target='_blank',
                   rel='noopener'
                 )
-                span.card-books-item__title-label
-                  | {{ book.title }}
+                  span.card-books-item__title-label
+                    | {{ book.title }}
             .card-books-item__row
               p.card-books-item__price
                 | {{ book.price.toLocaleString() }}円（税込）
