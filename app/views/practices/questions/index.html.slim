@@ -5,7 +5,7 @@
 = render 'page_tabs', resource: @practice
 
 nav.tab-nav
-  .container.is-xs-horizontal-padding-0
+  .container
     ul.tab-nav__items
       li.tab-nav__item
         = link_to '全ての質問', practice_questions_path(@practice), class: "tab-nav__item-link #{params[:target] == 'not_solved' || params[:target] == 'solved' ? '' : 'is-active'}"
