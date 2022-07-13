@@ -37,7 +37,7 @@
                       v-for='organizer in regularEvent.organizers',
                       :key='organizer.id',
                       :user='organizer',
-                      link_class='card-list-item__user-icon',
+                      link_class='card-list-item__user-icons-icon',
                       blockClassSuffix='card-list-item'
                     )
             .card-list-item-meta__item
