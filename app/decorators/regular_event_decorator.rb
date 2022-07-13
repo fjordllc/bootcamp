@@ -8,8 +8,7 @@ module RegularEventDecorator
     ['第1', 1],
     ['第2', 2],
     ['第3', 3],
-    ['第4', 4],
-    ['第5', 5]
+    ['第4', 4]
   ].freeze
 
   DAY_OF_THE_WEEK_LIST = [
