@@ -87,7 +87,8 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     link = "/#{@watchable.class.name.downcase.pluralize}/#{@watchable.id}"
     @notification = @user.notifications.find_by(link: link)
-    subject = "[bootcamp] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんがコメントしました。"
+    action = @watchable.instance_of?(Question) ? '回答' : 'コメント'
+    subject = "[bootcamp] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんが#{action}しました。"
     mail to: @user.email, subject: subject
   end
 
