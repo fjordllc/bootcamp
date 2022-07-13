@@ -20,12 +20,10 @@
   +media-breakpoint-down(sm)
     font-size: .75rem
   &.has-close
-    padding: 0
     position: relative
     display: flex
-    align-items: center
   p
-    +text-block(1em 1.4, $reversal-text center)
+    +text-block(1em 1.4, $reversal-text)
     +media-breakpoint-up(md)
       font-size: .875rem
     +media-breakpoint-down(sm)
@@ -61,5 +59,7 @@
   opacity: .6
   transition: all .2s ease-out
   margin-left: .5rem
+  transform: translateX(1rem)
+  +margin(vertical,  -.5rem)
   &:hover
     opacity: 1
