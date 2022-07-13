@@ -9,10 +9,12 @@
 .page-tabs__items
   display: flex
   gap: .25rem
-  +top(1px)
+  transform: translateY(1px)
   -webkit-overflow-scrolling: touch
   overflow-x: auto
   overflow-y: visible
+  +margin(horizontal,  -1rem)
+  +padding(horizontal, 1rem)
 
 .page-tabs__item
   +media-breakpoint-up(md)
