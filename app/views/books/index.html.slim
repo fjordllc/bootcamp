@@ -15,4 +15,4 @@ header.page-header
 
 .page-body
   .container
-    div(data-vue="Books")
+    div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}")

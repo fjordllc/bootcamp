@@ -10,7 +10,8 @@
         v-for='book in books',
         :key='book.id',
         :book='book',
-        :currentUser='currentUser'
+        :isAdmin='isAdmin',
+        :isMentor='isMentor'
       )
   .o-empty-message(v-else)
     .o-empty-message__icon
@@ -26,10 +27,13 @@ export default {
   components: {
     book: Book
   },
+  props: {
+    isAdmin: { type: Boolean, required: true },
+    isMentor: { type: Boolean, required: true }
+  },
   data() {
     return {
       books: null,
-      currentUser: null
     }
   },
   created() {
@@ -59,7 +63,6 @@ export default {
         })
         .then((json) => {
           this.books = json.books
-          this.currentUser = json.currentUser
         })
         .catch((error) => {
           console.warn(error)

@@ -40,7 +40,7 @@
           )
             a.tag-links__item-link(:href='practice.practicePath')
               | {{ practice.title }}
-    footer.card-footer.is-only-mentor(v-if='currentUser.adminOrMentor')
+    footer.card-footer.is-only-mentor(v-if='isAdmin || isMentor')
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
@@ -53,7 +53,8 @@
 export default {
   props: {
     book: { type: Object, required: true },
-    currentUser: { type: Object, required: true }
+    isAdmin: { type: Boolean, required: true },
+    isMentor: { type: Boolean, required: true }
   },
   methods: {
     simpleFormat: function (str) {
