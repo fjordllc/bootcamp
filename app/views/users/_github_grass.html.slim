@@ -1,7 +1,8 @@
 .a-card
   .card-header.is-sm
     h2.card-header__title GitHub
-  .user-grass__loading
+
   .user-grass
     = link_to user_github_url(user), target: '_blank', rel: 'noopener', class: 'user-grass__link' do
       .js-github-grass(data-name="#{user.github_account}")
+      = image_tag('loading/github-grass-loading.svg', class: 'user-grass__image is-loading js-user-grass__loading')

@@ -2,7 +2,8 @@
   padding: 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
-  svg
+  svg,
+  .user-grass__image
     font-size: .625rem
     max-width: 100%
     +margin(vertical, -1.75rem)
@@ -12,6 +13,8 @@
       +margin(vertical, 0)
     +media-breakpoint-up(lg)
       +margin(vertical, -.75rem)
+    &.is-loading
+      animation: loadingNow .5s ease infinite alternate
 
 .user-grass-nav
   font-size: .875rem
