@@ -263,12 +263,7 @@ export default {
       ) {
         return ''
       } else {
-        const { practices, question, practiceId } = this
-
-        return practices === null
-          ? question.practice.title
-          : practices.find((practice) => practice.id === Number(practiceId))
-              .title
+        return this.question.practice.title
       }
     },
     markdownDescription() {
@@ -282,7 +277,6 @@ export default {
   },
   created() {
     this.fetchPractices()
-    this.practiceId = this.getPracticeId()
   },
   mounted() {
     TextareaInitializer.initialize(`#js-question-content`)
@@ -363,8 +357,7 @@ export default {
         return
       }
 
-      const { title, description } = this.edited
-      const practiceId = this.edited.practiceId || null
+      const { title, description, practiceId } = this.edited
       const params = {
         question: {
           title,

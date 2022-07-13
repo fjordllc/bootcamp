@@ -373,14 +373,14 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
   end
 
-  test 'show a question with not choice practice' do
+  test 'show a question without choosing practice' do
     question = questions(:question14)
     visit_with_auth question_path(question), 'kimura'
     assert_no_selector('.a-category-link')
     assert_text 'プラクティスを選択せずに登録したテストの質問'
   end
 
-  test 'create a question with not choice practice' do
+  test 'create a question without choosing practice' do
     visit_with_auth new_question_path, 'kimura'
 
     within 'form[name=question]' do
@@ -394,7 +394,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text 'プラクティス指定のないテストの質問'
   end
 
-  test 'update a question with not choice practice' do
+  test 'update a question without choosing practice' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
 
