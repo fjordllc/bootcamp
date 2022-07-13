@@ -13,11 +13,26 @@ header.page-header
 
 = render 'users/page_tabs', user: @user
 
+- if current_user.mentor?
+  nav.pill-nav
+    .container
+      ul.pill-nav__items
+        li.pill-nav__item
+          = link_to '全て', user_products_path(@user), class: "pill-nav__item-link #{params[:target].nil? ? 'is-active' : ''}"
+        li.pill-nav__item
+          = link_to '自分の担当', user_products_path(@user, target: 'self_assigned'), class: "pill-nav__item-link #{params[:target] == 'self_assigned' ? 'is-active' : ''}"
+
 .page-body
   .container.is-md
     - if @products.present?
       .card-list.a-card
         = render partial: 'products/product', collection: @products, as: :product
+    - elsif params[:target] == 'self_assigned'
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | 担当した提出物はまだありません。
     - else
       .o-empty-message
         .o-empty-message__icon
