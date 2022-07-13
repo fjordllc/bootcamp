@@ -51,7 +51,7 @@ export default class VueMounter {
       return Number(value)
     } else if (type === 'boolean') {
       const v = value.toLowerCase()
-      if (v === 'false' || v === 'nil' || v === "") {
+      if (v === 'false' || v === 'nil' || v === '') {
         return false
       } else {
         return true
