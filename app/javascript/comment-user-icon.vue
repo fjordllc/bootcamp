@@ -1,5 +1,5 @@
 <template lang="pug">
-a.card-list-item__user-icon(:href='`/users/${user_id}`')
+a.card-list-item__user-icons-icon(:href='`/users/${user_id}`')
   img.a-user-icon(:src='comment.user_icon')
 </template>
 

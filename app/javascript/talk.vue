@@ -27,7 +27,7 @@
                     | コメント（{{ talk.number_of_comments }}）
                 .card-list-item-meta__item
                   .card-list-item__user-icons
-                    .card-list-item__user-icon
+                    .card-list-item__user-icons-icon
                       img.a-user-icon(:src='talk.last_comment_user_icon')
                 .card-list-item-meta__item
                   .a-meta

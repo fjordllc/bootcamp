@@ -1,9 +1,21 @@
 <template lang="pug">
-div(v-if='limit')
-  .card-list.a-card
-    .card-header.is-sm
-      h2.card-header__title
-        | 直近の日報
+.card-list.a-card(v-if='limit')
+  .card-header.is-sm
+    h2.card-header__title
+      | 直近の日報
+  .card-list__items
+    report(
+      v-for='report in reports',
+      :key='report.id',
+      :report='report',
+      :current-user-id='currentUserId'
+    )
+.page-content.reports(v-else)
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
+  .reports.is-md(v-if='reports === null')
+    loadingListPlaceholder
+  .card-list.a-card(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
     .card-list__items
       report(
         v-for='report in reports',
@@ -11,36 +23,19 @@ div(v-if='limit')
         :report='report',
         :current-user-id='currentUserId'
       )
-div(v-else)
-  .reports.is-md(v-if='reports === null')
-    loadingListPlaceholder
-  .page-content.reports(v-else-if='reports.length === 0')
-    .o-empty-message
-      .o-empty-message__icon
-        i.fa-regular.fa-sad-tear
-      .o-empty-message__text
-        | 日報はまだありません。
-  .page-content.reports(
-    v-else-if='reports.length > 0 || !isUncheckedReportsPage'
-  )
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .card-list.a-card
-      .card-list__items
-        report(
-          v-for='report in reports',
-          :key='report.id',
-          :report='report',
-          :current-user-id='currentUserId'
-        )
-      unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-  .o-empty-message(v-else)
+    unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
+  .o-empty-message(v-else-if='reports.length === 0 || isUncheckedReportsPage')
     .o-empty-message__icon
       i.fa-regular.fa-smile
     p.o-empty-message__text
       | 未チェックの日報はありません
+  .o-empty-message(v-else)
+    .o-empty-message__icon
+      i.fa-regular.fa-sad-tear
+    .o-empty-message__text
+      | 日報はまだありません。
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 <script>
 import Report from 'report.vue'
