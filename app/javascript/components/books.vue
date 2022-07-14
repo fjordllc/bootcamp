@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      books: null,
+      books: null
     }
   },
   created() {
