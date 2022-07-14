@@ -96,6 +96,13 @@ class UsersTest < ApplicationSystemTestCase
 
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
     assert_no_text '最終活動日時'
+
+    visit_with_auth "/users/#{users(:neverlogin).id}", 'komagata'
+    assert_text '最終活動日時'
+    assert_no_text '2022年07月11日(月) 09:00'
+
+    visit_with_auth "/users/#{users(:neverlogin).id}", 'hatsuno'
+    assert_no_text '最終活動日時'
   end
 
   test 'show inactive message on users page' do

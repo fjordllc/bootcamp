@@ -389,7 +389,7 @@ class User < ApplicationRecord
   end
 
   def away?
-    last_activity_at <= 10.minutes.ago
+    last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
   def completed_percentage
@@ -414,7 +414,7 @@ class User < ApplicationRecord
   end
 
   def active?
-    last_activity_at > 1.month.ago
+    last_activity_at && (last_activity_at > 1.month.ago)
   end
 
   def checked_product_of?(*practices)
