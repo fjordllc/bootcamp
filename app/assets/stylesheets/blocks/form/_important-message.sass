@@ -1,5 +1,7 @@
 .important-message
   border: solid 2px $danger
+  border-radius: .25rem
+  overflow: hidden
   & + form
     margin-top: 2rem
 
@@ -9,9 +11,8 @@
   background-color: $danger-shade
 
 .important-message__title
-  +text-block(.875rem 1.4)
+  +text-block(.875rem 1.4, 700 $danger-text)
 
 .important-message__body
   padding: .75rem 1rem
-  font-size: .875rem
   background-color: $danger-shade
