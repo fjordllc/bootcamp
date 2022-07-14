@@ -50,7 +50,12 @@ export default class VueMounter {
     if (type === 'number') {
       return Number(value)
     } else if (type === 'boolean') {
-      return Boolean(value)
+      const v = value.toLowerCase()
+      if (v === 'false' || v === 'nil' || v === '') {
+        return false
+      } else {
+        return true
+      }
     } else if (type === 'json') {
       return JSON.parse(value)
     } else if (type === 'string') {

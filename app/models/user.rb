@@ -66,6 +66,7 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :regular_events, dependent: :destroy
   has_many :organizers, dependent: :destroy
+  has_many :hibernations, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
@@ -215,6 +216,8 @@ class User < ApplicationRecord
 
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
+  scope :hibernated, -> { where.not(hibernated_at: nil) }
+  scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
@@ -225,6 +228,7 @@ class User < ApplicationRecord
       mentor: false,
       adviser: false,
       graduated_on: nil,
+      hibernated_at: nil,
       retired_on: nil
     )
   }
@@ -234,6 +238,7 @@ class User < ApplicationRecord
       mentor: false,
       adviser: false,
       trainee: false,
+      hibernated_at: nil,
       retired_on: nil,
       graduated_on: nil
     )
@@ -243,6 +248,7 @@ class User < ApplicationRecord
     where(
       last_activity_at: Date.new..1.month.ago,
       adviser: false,
+      hibernated_at: nil,
       retired_on: nil,
       graduated_on: nil
     )
@@ -253,6 +259,7 @@ class User < ApplicationRecord
       admin: false,
       mentor: false,
       adviser: false,
+      hibernated_at: nil,
       retired_on: nil,
       graduated_on: nil
     )
@@ -263,10 +270,12 @@ class User < ApplicationRecord
     active.where(
       adviser: false,
       graduated_on: nil,
+      hibernated_at: nil,
       retired_on: nil
     ).order(last_activity_at: :desc)
   }
   scope :admins, -> { where(admin: true) }
+  scope :admins_and_mentors, -> { admins.or(mentor) }
   scope :trainees, -> { where(trainee: true) }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, lambda {
@@ -275,6 +284,7 @@ class User < ApplicationRecord
       mentor: false,
       adviser: false,
       trainee: false,
+      hibernated_at: nil,
       retired_on: nil,
       job_seeker: true
     )
@@ -376,20 +386,12 @@ class User < ApplicationRecord
 
     def depressed_reports
       ids = User.where(
+        hibernated_at: nil,
         retired_on: nil,
         graduated_on: nil,
         sad_streak: true
       ).pluck(:last_sad_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
-    end
-
-    private
-
-    def reports_by_user(ids)
-      Report.where(user_id: ids)
-            .preload([:comments, { user: [:company, { avatar_attachment: :blob }] }, { checks: { user: { avatar_attachment: :blob } } }])
-            .order(reported_on: :desc)
-            .group_by(&:user_id)
     end
   end
 
@@ -398,7 +400,7 @@ class User < ApplicationRecord
   end
 
   def away?
-    last_activity_at <= 10.minutes.ago
+    last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
   def completed_percentage
@@ -423,7 +425,7 @@ class User < ApplicationRecord
   end
 
   def active?
-    last_activity_at > 1.month.ago
+    last_activity_at && (last_activity_at > 1.month.ago)
   end
 
   def checked_product_of?(*practices)
@@ -513,6 +515,10 @@ class User < ApplicationRecord
 
   def adviser_or_mentor?
     adviser? || mentor?
+  end
+
+  def hibernated?
+    hibernated_at?
   end
 
   def retired?

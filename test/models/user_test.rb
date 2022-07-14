@@ -8,6 +8,11 @@ class UserTest < ActiveSupport::TestCase
     assert users(:machida).admin?
   end
 
+  test '#hibernated?' do
+    assert users(:kyuukai).hibernated?
+    assert_not users(:hatsuno).hibernated?
+  end
+
   test '#retired?' do
     assert users(:yameo).retired?
     assert_not users(:komagata).retired?
@@ -25,6 +30,10 @@ class UserTest < ActiveSupport::TestCase
 
     travel_to Time.zone.local(2014, 2, 2, 0, 0, 0) do
       assert_not users(:machida).active?
+    end
+
+    travel_to Time.zone.local(2022, 7, 11, 0, 0, 0) do
+      assert_not users(:neverlogin).active?
     end
   end
 

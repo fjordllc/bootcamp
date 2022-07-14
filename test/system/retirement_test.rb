@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class RetirementTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'retire user' do
     user = users(:kananashi)
     visit_with_auth new_retirement_path, 'kananashi'

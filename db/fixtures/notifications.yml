@@ -139,3 +139,11 @@ notification_graduated:
   message: 🎉 sotugyouさんが卒業しました。
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:sotugyou) %>"
   read: false
+
+notification_hibernated:
+  kind: 19
+  user: mentormentaro
+  sender: hatsuno
+  message: hatsunoさんが休会しました。
+  link: "/users/<%= ActiveRecord::FixtureSet.identify(:hatsuno) %>"
+  read: false

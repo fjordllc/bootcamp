@@ -18,13 +18,13 @@
             = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
             label.form-radio__label(for='mac_m1')
              .image-check
-                = image_tag('signup/os/m1.svg', class: 'image-check__image')
+                = image_tag('signup/os/apple.svg', class: 'image-check__image')
                 .image-check__name
                   = t('activerecord.enums.user.os.mac_m1')
         .form-item-group__help
           label.a-form-help-link.is-danger(for='modal-mac')
             span.a-form-help-link__label
-              | Intel or M1 の調べ方
+              | Intel チップ or Apple チップ の調べ方
             span.a-help
               i.fa-solid.fa-question
 
@@ -74,12 +74,12 @@
   .modal__description.is-md
     .a-long-text
       p
-        | Mac には現在 Apple M1 チップを採用しているものと、
-        | Intel の CPU を採用しているものがあります。
+        | Mac には現在 Apple チップを採用しているものと、
+        | Intel チップを採用しているものがあります。
         | どちらの Mac をお使いかで手順が異なるプラクティスがあります。
         | アドバイスをする際にその情報が必要なため、お答えいただいてます。
       h2
-        | 自分の Mac は M1 Mac なのか、もしくは Intel Mac なのか？の調べ方
+        | 自分の Mac はどっちなのか？の調べ方
       p
         | Mac の画面の左上にあるリンゴマーク > 「この Mac について」の順に選択します。
       p
@@ -93,9 +93,9 @@
         | 矢印で示した部分に、
       ul
         li
-          | 「チップ」という項目があり、「Apple M1」 とあれば、<b>M1 Mac</b> です。
+          | 「チップ」という項目があり、「Apple」含む文字が表示されていれば（例: Apple M1、Apple M2）、<b>Apple チップ</b> です。
         li
-          | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、<b>Intel Mac</b> です。
+          | 「プロセッサ」という項目があり、そこに「Intel」とありましたら、<b>Intel チップ</b> です。
 
 = render '/shared/modal',
   id: 'modal-win',

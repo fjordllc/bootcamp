@@ -28,7 +28,7 @@ class API::UsersController < API::BaseController
              .preload(:company, :avatar_attachment, :course, :tags)
              .order(updated_at: :desc)
 
-    @users = @users.unretired unless @company
+    @users = @users.unhibernated.unretired unless @company
   end
 
   def show; end

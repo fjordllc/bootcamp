@@ -39,6 +39,8 @@ header.page-header
                 .user-data__main
                   = render 'users/profile', user: @user
                 .user-data__sub
+                  - if admin_or_mentor_login? && @user.hibernated?
+                    = render 'users/hibernation_info', user: @user
                   - if admin_or_mentor_login? && @user.retired?
                     = render 'users/retire_info', user: @user
                   - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?

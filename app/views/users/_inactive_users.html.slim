@@ -22,4 +22,5 @@
                     span.a-meta__label
                       = User.human_attribute_name :last_activity_at
                     span.a-meta__value
-                      = l user.last_activity_at
+                      - if user.last_activity_at?
+                        = l user.last_activity_at

@@ -8,12 +8,4 @@ header.page-header
 
 = render 'home/page_tabs', user: @user
 
-.page-body
-  - if @watches.present?
-    #js-watches
-  - else
-    .o-empty-message
-      .o-empty-message__icon
-        i.fa-regular.fa-sad-tear
-      p.o-empty-message__text
-        | Watch中はまだありません。
+#js-watches

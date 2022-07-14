@@ -1,0 +1,91 @@
+- title '休会手続き'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__title
+        = title
+
+.auth-form.is-sign-up.is-in-app
+  - if @hibernation.errors.any?
+    = render 'errors', object: @hibernation
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title 休会手続き
+    .auth-form__body
+      .important-message
+        header.important-message__header
+          h2.important-message__title
+            | 休会についての注意
+        .important-message__body
+          .a-long-text.is-sm
+            p
+              | 仕事の都合や家庭の事情などで長期間フィヨルドブートキャンプを利用できない場合に
+              | 休会をすることができます。
+            p
+              | 休会をすることで利用料金の引き落としは停止されますが、
+              | その期間フィヨルドブートキャンプを利用することができなくなります。
+            p
+              | 休会したまま復帰せずに<strong class='a-text is-danger'>３ヶ月</strong>が経過すると自動的に退会となります。
+              | 今休会を行い復帰を行わなかった場合は、３ヶ月後の「#{l(Time.current.since(3.months), format: :long)}」の
+              | 休会処理が完了した時間に退会処理が行われます。
+            p
+              | 退会をするとこれまでの日報や提出物、分報チャンネルなどのデータが削除されてしまいます。
+              | 念のため、休会期限に余裕を持ったタイミング（期限の１日前くらいまで）で復帰をするようお願いします。
+            p
+              | 休会と復帰は<strong class='a-text is-danger'>３回まで</strong>行うことができます。
+            p
+              | 休会から復帰する場合は <strong class='a-text is-danger'>info@fjord.jp</strong> まで復帰する旨をご連絡ください。
+      = form_with model: @hibernation,
+        url: hibernation_path,
+        local: true,
+        method: :post,
+        html: { name: 'hibernation' },
+        class: 'form' do |f|
+        .form__items
+          //
+            休会についての注意を実装したら表示する
+            .form-item
+              label.a-form-label.is-required
+                | 休会についての注意を読みましたか？
+              .block-checks.is-2-items
+                .block-checks__item
+                  .a-block-check.is-checkbox
+                    input.a-toggle-checkbox#aaa(type='checkbox')
+                    label.a-block-check__label(for='aaa')
+                      | 読みました
+          .form-item
+            = f.label :scheduled_return_on,
+              class: 'a-form-label is-required'
+            = f.date_field :scheduled_return_on,
+              class: 'a-text-input'
+            .a-form-help
+              p
+                | 休会期間は最長3ヶ月です（#{l(Time.current.since(3.months), format: :year_and_date)}まで）。
+                | 明確な日を指定できない場合は、大体の年月日の入力をお願いします。
+          //
+            分報チャンネル名の項目を実装したら表示する
+            .form-item
+              label.a-form-label
+                | 分報チャンネル名
+              input.a-text-input(type='text' placeholder='📝 machida のつぶやき')
+              .a-form-help
+                p
+                  | 休会の期間、分報チャンネルが削除されないようにします。
+                  | 分報をお持ちの場合はチャンネル名を入力してください。
+                  | 事情により分報チャンネルが消えてしまう場合がありますことをご了承ください。
+          .form-item
+            = f.label :reason, '休会の理由を教えてください',
+              class: 'a-form-label is-required'
+            = f.text_area :reason,
+              placeholder: '仕事がXX月まで繁忙期で残業と休日出勤が続き、学習の時間を確保できなくなるため。',
+              class: 'a-text-input is-sm'
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              = link_to 'キャンセル', :back,
+                class: 'a-button is-md is-secondary is-block'
+            li.form-actions__item.is-main
+              = f.submit '休会する',
+                class: 'a-button is-md is-danger is-block',
+                data: { confirm: '本当によろしいですか？' }

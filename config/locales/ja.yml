@@ -9,6 +9,7 @@ ja:
       short: '%Y/%m/%d'
       md: '%m月%d日'
       sm: '%m/%d'
+      long: '%Y年%m月%d日(%a)'
   time:
     formats:
       default: '%Y年%m月%d日(%a) %H:%M'
@@ -16,8 +17,10 @@ ja:
       time_only: '%H:%M'
       date_only: '%m月%d日'
       date_and_time: '%m月%d日%H:%M'
+      year_and_date: '%Y年%m月%d日'
       year_only: '%Y'
       mdw_unique: '%-m/%-d(%a)'
+      long: '%Y年%m月%d日(%a)'
   activerecord:
     models:
       user: ユーザー
@@ -75,6 +78,7 @@ ja:
         adviser: アドバイザー
         trainee: 研修生
         job_seeking: 就職活動中
+        hibernated_at: 休会日時
         retired_on: 退会日
         free: 無料
         avatar: ユーザーアイコン
@@ -88,6 +92,10 @@ ja:
         tag_list: タグ
         training_ends_on: 研修終了日
         last_activity_at: 最終活動日時
+      hibernation:
+        reason: 休会の理由
+        scheduled_return_on: 復帰予定日
+        returned_at: 復帰日時
       course:
         title: タイトル
         description: 詳細
@@ -215,9 +223,9 @@ ja:
           unemployed: 働いていない
         os:
           windows_wsl2: Windows(WSL2)
-          mac: Mac(Intel)
+          mac: Mac（Intel チップ）
           linux: Linux
-          mac_m1: Mac(M1 chip)
+          mac_m1: Mac（Apple チップ）
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
@@ -253,6 +261,7 @@ ja:
     graduate: 卒業生
     adviser: アドバイザー
     all: 全員
+    hibernated: 休会
     retired: 退会
     inactive: 非アクティブ
     year_end_party: 忘年会

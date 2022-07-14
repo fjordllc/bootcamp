@@ -96,7 +96,7 @@ class NotificationFacade
   end
 
   def self.retired(sender, receiver)
-    Notification.retired(sender, receiver)
+    ActivityNotifier.with(sender: sender, receiver: receiver).retired.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
@@ -194,5 +194,16 @@ class NotificationFacade
       sender: sender,
       receiver: receiver
     ).graduated.deliver_later(wait: 5)
+  end
+
+  def self.hibernated(sender, receiver)
+    ActivityNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
+    DiscordNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
+    return unless receiver.mail_notification?
+
+    NotificationMailer.with(
+      sender: sender,
+      receiver: receiver
+    ).hibernated.deliver_later(wait: 5)
   end
 end

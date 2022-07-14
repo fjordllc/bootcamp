@@ -70,7 +70,8 @@
           td.admin-table__item-value.is-text-align-center
             = user.discord_account.presence || '-'
           td.admin-table__item-value.is-text-align-center
-            = l user.last_activity_at
+            - if user.last_activity_at?
+              = l user.last_activity_at
           td.admin-table__item-value.is-text-align-center
             = l user.created_at
           td.admin-table__item-value.is-text-align-center

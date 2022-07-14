@@ -14,12 +14,10 @@ class Notification::GraduationTest < ApplicationSystemTestCase
 
   test 'notify mentor when student graduate' do
     users(:kimura).update!(last_activity_at: Time.current)
-    # kimura が一番上に表示されるようにソート
-    path = 'admin/users?direction=desc&order_by=last_activity_at&target=student_and_trainee'
-    visit_with_auth path, 'komagata'
 
+    visit_with_auth user_path(users(:kimura)), 'komagata'
     accept_confirm do
-      first('.a-button.is-sm.is-primary', text: '卒業').click
+      find('.a-button.is-sm.is-danger.is-block', text: '卒業にする').click
     end
     logout
 
