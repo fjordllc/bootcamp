@@ -266,8 +266,9 @@ export default {
         const { practices, question, practiceId } = this
 
         return practices === null
-            ? question.practice.title
-            : practices.find((practice) => practice.id === Number(practiceId)).title
+          ? question.practice.title
+          : practices.find((practice) => practice.id === Number(practiceId))
+              .title
       }
     },
     markdownDescription() {
