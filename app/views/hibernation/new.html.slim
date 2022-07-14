@@ -27,7 +27,7 @@ header.page-header
               | その期間フィヨルドブートキャンプを利用することができなくなります。
             p
               | 休会したまま復帰せずに<strong class='a-text is-danger'>３ヶ月</strong>が経過すると自動的に退会となります。
-              | 今休会を行い復帰を行わなかった場合は、３ヶ月後の「#{l(Time.current.since(3.month), format: :long)}」の
+              | 今休会を行い復帰を行わなかった場合は、３ヶ月後の「#{l(Time.current.since(3.months), format: :long)}」の
               | 休会処理が完了した時間に退会処理が行われます。
             p
               | 退会をするとこれまでの日報や提出物、分報チャンネルなどのデータが削除されてしまいます。
@@ -61,7 +61,7 @@ header.page-header
               class: 'a-text-input'
             .a-form-help
               p
-                | 休会期間は最長3ヶ月です（#{l(Time.current.since(3.month))} まで）。
+                | 休会期間は最長3ヶ月です（#{l(Time.current.since(3.months), format: :year_and_date)}まで）。
                 | 明確な日を指定できない場合は、大体の年月日の入力をお願いします。
           //
             分報チャンネル名の項目を実装したら表示する
