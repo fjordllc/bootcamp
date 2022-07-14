@@ -26,6 +26,10 @@ class UserTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2014, 2, 2, 0, 0, 0) do
       assert_not users(:machida).active?
     end
+
+    travel_to Time.zone.local(2022, 7, 11, 0, 0, 0) do
+      assert_not users(:neverlogin).active?
+    end
   end
 
   test '#prefecture_name' do
