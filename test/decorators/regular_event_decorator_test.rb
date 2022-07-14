@@ -55,7 +55,6 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     assert_equal 2, @regular_event.calc_week_of_month(Date.new(2022, 6, 8))
     assert_equal 3, @regular_event.calc_week_of_month(Date.new(2022, 6, 15))
     assert_equal 4, @regular_event.calc_week_of_month(Date.new(2022, 6, 22))
-    assert_equal 5, @regular_event.calc_week_of_month(Date.new(2022, 6, 29))
   end
 
   test 'possible_next_event_dates' do
