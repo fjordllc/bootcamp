@@ -28,7 +28,7 @@
             .card-books-item__row
               p.card-books-item__price
                 | {{ book.price.toLocaleString() }}円（税込）
-            card-books-item__row(v-if='book.description')
+            .card-books-item__row(v-if='book.description')
               .card-books-item__description
                 .a-short-text(v-html='simpleFormat(book.description)')
     .card-books-item__practices
