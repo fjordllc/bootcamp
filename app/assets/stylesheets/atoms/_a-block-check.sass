@@ -1,0 +1,50 @@
+.a-block-check__label-name
+  +text-block(.75rem 1.4, block center)
+
+.a-block-check__label
+  background-color: $input-background
+  height: 100%
+  min-height: 2.5rem
+  +text-block(.8125rem 1.45, flex center)
+  align-items: center
+  justify-content: center
+  border: solid 1px $input-border
+  padding: .5rem 1.25rem .5rem 2rem
+  cursor: pointer
+  border-radius: .25rem
+  transition: all .2s ease-in
+  +position(relative)
+  &:hover
+    background-color: $base
+  input:checked + &
+    background-color: $warning-shade
+    border-color: $warning
+    color: $warning-text
+    font-weight: 600
+  .a-block-check &::before
+    display: block
+    +position(absolute, left .75rem, top 50%)
+    transform: translateY(-50%)
+
+  .a-block-check.is-radio &::before
+    content: ''
+    +size(.875rem)
+    border: solid 1px $input-border
+    border-radius: 50%
+    background-color: $base
+  .a-block-check.is-radio input:checked + &::before
+    border-color: $primary
+    background-color: $primary
+    box-shadow: inset 0 0 0 2px $base
+
+  .a-block-check.is-checkbox &::before
+    content: ''
+    +size(.875rem)
+    border: solid 1px $input-border
+    border-radius: 3px
+    background-color: $base
+  .a-block-check.is-checkbox input:checked + &::before
+    border-color: $primary
+    background-color: $primary
+    +fa(fas "\f00c")
+    color: $reversal-text

@@ -62,8 +62,8 @@
               .a-meta
                 | コメント（{{ product.comments.size }}）
             .card-list-item-meta__item
-              .card-list-item-comment__user-icons
-                a.card-list-item-comment__user-icon(
+              .card-list-item__user-icons
+                a.card-list-item__user-icons-icon(
                   :href='user.url',
                   v-for='user in product.comments.users'
                 )
@@ -71,7 +71,7 @@
                     :title='user.icon_title',
                     :alt='user.icon_title',
                     :src='user.avatar_url',
-                    :class='[roleClass]'
+                    :class='[`is-${user.primary_role}`]'
                   )
 
             .card-list-item-meta__item(

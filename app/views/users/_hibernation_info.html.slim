@@ -1,0 +1,29 @@
+.user-metas.is-only-mentor
+  h2.user-metas__title
+    | 休会情報（非公開）
+  .user-metas__items
+    .user-metas__item
+      .user-metas__item-label 最後に休会した日時
+      .user-metas__item-value
+        = l user.hibernated_at
+    - user.hibernations.each_with_index do |hibernation, i|
+      - number = i + 1
+      .user-metas__item
+        .user-metas__item-label
+          = Hibernation.human_attribute_name :scheduled_return_on
+          = number
+        .user-metas__item-value
+          = l hibernation.scheduled_return_on
+      .user-metas__item
+        .user-metas__item-label
+          = Hibernation.human_attribute_name :reason
+          = number
+        .user-metas__item-value
+          = hibernation.reason
+      .user-metas__item
+        .user-metas__item-label
+          = Hibernation.human_attribute_name :returned_at
+          = number
+        .user-metas__item-value
+          - if hibernation.returned_at?
+            = l hibernation.returned_at

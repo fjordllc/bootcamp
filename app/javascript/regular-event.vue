@@ -23,11 +23,23 @@
             )
               | {{ regularEvent.title }}
       .card-list-item__row
-        a.a-user-name(:href='regularEvent.user.url')
-          | {{ regularEvent.user.long_name }}
-      .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
+            .card-list-item-meta__item(
+              v-if='regularEvent.organizers.length > 0'
+            )
+              .a-meta
+                .a-meta__label
+                  | 主催
+                .a-meta__value
+                  .card-list-item__user-icons
+                    user-icon(
+                      v-for='organizer in regularEvent.organizers',
+                      :key='organizer.id',
+                      :user='organizer',
+                      link_class='card-list-item__user-icons-icon',
+                      blockClassSuffix='card-list-item'
+                    )
             .card-list-item-meta__item
               time.a-meta(:datetime='regularEvent.start_at')
                 span.a-meta__label

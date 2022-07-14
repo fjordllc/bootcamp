@@ -47,4 +47,8 @@ module SearchHelper
   def user?(searchable)
     searchable.instance_of?(User)
   end
+
+  def created_user(searchable)
+    searchable.respond_to?(:user) ? searchable.user : nil
+  end
 end

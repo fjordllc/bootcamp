@@ -16,7 +16,7 @@ class Practices::QuestionsController < ApplicationController
       end
     @questions = questions
                  .with_avatar
-                 .includes(:answers, :tags, :correct_answer, user: :company)
+                 .includes(:answers, :tags, :correct_answer)
                  .order(updated_at: :desc, id: :desc)
   end
 end

@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
   def create
     @user = login(params[:user][:login], params[:user][:password], params[:remember])
     if @user
-      if @user.retired_on?
+      if @user.retired_on? || @user.hibernated?
         logout
         redirect_to retire_path
       else

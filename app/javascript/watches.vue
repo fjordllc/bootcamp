@@ -3,30 +3,36 @@
   .container.is-md(v-if='!loaded')
     loadingListPlaceholder
   .container.is-md(v-else)
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .card-list-tools(v-if='watches.length')
-      .form-item.is-inline
-        label.a-form-label(for='card-list-tools__action')
-          | 編集
-        label.a-on-off-checkbox.is-sm
-          input#card-list-tools__action(
-            type='checkbox',
-            name='card-list-tools__action',
-            v-model='checked'
+    .o-empty-message(v-if='watches.length === 0')
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      p.o-empty-message__text
+        | Watchしているものはまだありません。
+    div(v-else)
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
+      .card-list-tools(v-if='watches.length')
+        .form-item.is-inline
+          label.a-form-label(for='card-list-tools__action')
+            | 編集
+          label.a-on-off-checkbox.is-sm
+            input#card-list-tools__action(
+              type='checkbox',
+              name='card-list-tools__action',
+              v-model='checked'
+            )
+            span#spec-edit-mode
+      .card-list.a-card
+        .card-list__items
+          watch(
+            v-for='watch in watches',
+            :key='watch.id',
+            :watch='watch',
+            :checked='checked',
+            @updateIndex='updateIndex'
           )
-          span#spec-edit-mode
-    .card-list.a-card
-      .card-list__items
-        watch(
-          v-for='watch in watches',
-          :key='watch.id',
-          :watch='watch',
-          :checked='checked',
-          @updateIndex='updateIndex'
-        )
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
 </template>
 
 <script>
