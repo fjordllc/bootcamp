@@ -1,0 +1,13 @@
+hibernation1:
+  user: kyuukai
+  scheduled_return_on: 2030-01-01
+  reason: 仕事が繁忙期で忙しいため
+  returned_at: 2022-02-01 00:00:00
+  created_at: 2022-01-10 00:00:01
+
+hibernation2:
+  user: kyuukai
+  scheduled_return_on: 2035-01-01
+  reason: 学習時間が取れないため
+  returned_at: 202l-09-01 00:00:00
+  created_at: 2022-01-10 00:00:02

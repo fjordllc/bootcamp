@@ -138,4 +138,11 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.with(sender: sender, receiver: receiver).graduated
   end
+
+  def hibernated
+    sender = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    NotificationMailer.with(sender: sender, receiver: receiver).hibernated
+  end
 end
