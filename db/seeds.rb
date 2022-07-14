@@ -41,6 +41,7 @@ tables = %i[
   talks
   regular_events
   organizers
+  hibernations
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

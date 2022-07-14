@@ -160,6 +160,10 @@ talk_nocompanykensyu:
   user: nocompanykensyu
   unreplied: false
 
+talk_kyuukai:
+  user: kyuukai
+  unreplied: false
+
 talk_neverlogin:
   user: neverlogin
   unreplied: false

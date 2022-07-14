@@ -8,6 +8,11 @@ class UserTest < ActiveSupport::TestCase
     assert users(:machida).admin?
   end
 
+  test '#hibernated?' do
+    assert users(:kyuukai).hibernated?
+    assert_not users(:hatsuno).hibernated?
+  end
+
   test '#retired?' do
     assert users(:yameo).retired?
     assert_not users(:komagata).retired?
