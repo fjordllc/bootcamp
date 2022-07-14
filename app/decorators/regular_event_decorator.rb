@@ -42,7 +42,7 @@ module RegularEventDecorator
 
   def event_day?
     now = Time.zone.now
-    is_the_day_of_the_event = regular_event_repeat_rules.map do |repeat_rule|
+    event_day = regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
         repeat_rule.day_of_the_week == now.wday
       else
@@ -51,7 +51,7 @@ module RegularEventDecorator
     end.include?(true)
     event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
 
-    is_the_day_of_the_event && (now < event_start_time)
+    event_day && (now < event_start_time)
   end
 
   def calc_week_of_month(date)
