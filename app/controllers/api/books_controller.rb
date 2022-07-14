@@ -2,6 +2,6 @@
 
 class API::BooksController < API::BaseController
   def index
-    @books = Book.all
+    @books = Book.with_attached_cover.includes(:practices)
   end
 end
