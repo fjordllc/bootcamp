@@ -78,6 +78,7 @@ ja:
         adviser: アドバイザー
         trainee: 研修生
         job_seeking: 就職活動中
+        hibernated_at: 休会日時
         retired_on: 退会日
         free: 無料
         avatar: ユーザーアイコン
@@ -260,6 +261,7 @@ ja:
     graduate: 卒業生
     adviser: アドバイザー
     all: 全員
+    hibernated: 休会
     retired: 退会
     inactive: 非アクティブ
     year_end_party: 忘年会
