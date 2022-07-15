@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch((error) => {
           console.warn(error)
         })
+        .then(() => {
+          document.querySelector('.js-user-grass__loading').remove()
+        })
     })
   }
 })
