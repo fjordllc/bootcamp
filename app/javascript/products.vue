@@ -31,28 +31,34 @@
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-warning(
-        v-else-if='product_n_days_passed.elapsed_days === 5'
+        v-else-if='product_n_days_passed.elapsed_days === 5',
+        id='5days-elapsed'
       )
-        h2.card-header__title#5days-elapsed
+        h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-alert(
-        v-else-if='product_n_days_passed.elapsed_days === 6'
+        v-else-if='product_n_days_passed.elapsed_days === 6',
+        id='6days-elapsed'
       )
-        h2.card-header__title#6days-elapsed
+        h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-deadline(
-        v-else-if='product_n_days_passed.elapsed_days === 7'
+        v-else-if='product_n_days_passed.elapsed_days === 7',
+        id='7days-elapsed'
       )
-        h2.card-header__title#7days-elapsed
+        h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日以上経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      header.card-header.a-elapsed-days(v-else)
-        h2.card-header__title(:id='[elapsedDaysId(product_n_days_passed.elapsed_days)]')
+      header.card-header.a-elapsed-days(
+        v-else,
+        :id='[elapsedDaysId(product_n_days_passed.elapsed_days)]'
+      )
+        h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
@@ -69,7 +75,6 @@
     v-if='selectedTab === "unassigned"',
     :productsGroupedByElapsedDays='productsGroupedByElapsedDays',
     :countProductsGroupedBy='countProductsGroupedBy',
-    @transition='moveLocation'
   )
   unconfirmed-links-open-button(
     v-if='isMentor && selectedTab != "all" && !isDashboard',
@@ -232,9 +237,6 @@ export default {
         (el) => el.elapsed_days === elapsedDays
       )
       return element === undefined ? 0 : element.products.length
-    },
-    moveLocation(elapsedDays) {
-      location.href = `#${elapsedDays}days-elapsed`
     },
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
