@@ -36,10 +36,6 @@ module RegularEventDecorator
     "次回の開催日は #{l next_event_date} です"
   end
 
-  def next_event_date
-    possible_next_event_dates.compact.min
-  end
-
   def event_day?
     now = Time.zone.now
     event_day = regular_event_repeat_rules.map do |repeat_rule|
@@ -55,10 +51,10 @@ module RegularEventDecorator
   end
 
   def convert_date_into_week(date)
-    (date/7.0).ceil
+    (date / 7.0).ceil
   end
 
-  def possible_next_event_dates
+  def next_event_date
     today = Time.zone.today
     this_month_first_day = Date.new(today.year, today.mon, 1)
     next_month_first_day = this_month_first_day.next_month
@@ -69,7 +65,7 @@ module RegularEventDecorator
         possible_next_event_date(next_month_first_day, repeat_rule)
       ]
     end.flatten
-    possible_dates.compact.select { |possible_date| possible_date > Time.zone.today }.sort
+    possible_dates.compact.select { |possible_date| possible_date > Time.zone.today }.min
   end
 
   def possible_next_event_date(first_day, repeat_rule)
