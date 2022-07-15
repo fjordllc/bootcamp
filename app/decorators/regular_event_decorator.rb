@@ -46,7 +46,7 @@ module RegularEventDecorator
       if repeat_rule.frequency.zero?
         repeat_rule.day_of_the_week == now.wday
       else
-        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == calc_week_of_month(now.to_date)
+        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == convert_date_into_week(now.day)
       end
     end.include?(true)
     event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
@@ -54,24 +54,8 @@ module RegularEventDecorator
     event_day && (now < event_start_time)
   end
 
-  def calc_week_of_month(date)
-    first_day_of_the_month = date - (date.day - 1)
-    first_week = first_day_of_the_month.cweek
-    this_week = date.cweek
-
-    # 年末年始の対応
-    if this_week < first_week
-      return calc_week_of_month(date - 7) + 1 if date.month == 12
-
-      return this_week
-    end
-
-    # 月始まりで2週目にカウントされないようにする
-    return 1 if date.day <= 7
-
-    return this_week - first_week if date.wday < first_day_of_the_month.wday
-
-    this_week - first_week + 1
+  def convert_date_into_week(date)
+    (date/7.0).ceil
   end
 
   def possible_next_event_dates
