@@ -34,12 +34,6 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test 'next_event_date' do
-    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal Date.new(2022, 6, 5), @finished_regular_event.next_event_date
-    end
-  end
-
   test 'event_day?' do
     travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
       assert_equal true, @regular_event.event_day?
@@ -50,16 +44,16 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test 'calc_week_of_month' do
-    assert_equal 1, @regular_event.calc_week_of_month(Date.new(2022, 6, 1))
-    assert_equal 2, @regular_event.calc_week_of_month(Date.new(2022, 6, 8))
-    assert_equal 3, @regular_event.calc_week_of_month(Date.new(2022, 6, 15))
-    assert_equal 4, @regular_event.calc_week_of_month(Date.new(2022, 6, 22))
+  test 'convert_date_into_week' do
+    assert_equal 1, @regular_event.convert_date_into_week(1)
+    assert_equal 2, @regular_event.convert_date_into_week(8)
+    assert_equal 3, @regular_event.convert_date_into_week(15)
+    assert_equal 4, @regular_event.convert_date_into_week(22)
   end
 
-  test 'possible_next_event_dates' do
+  test 'next_event_date' do
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal [Date.new(2022, 6, 5)], @regular_event.possible_next_event_dates
+      assert_equal Date.new(2022, 6, 5), @regular_event.next_event_date
     end
   end
 
