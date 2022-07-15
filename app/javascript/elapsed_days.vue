@@ -1,15 +1,18 @@
 <template lang="pug">
-ol
-  .elapsed-days__list(v-for='product_n_days_passed in productsGroupedByElapsedDays')
-    li(
+ol.elapsed-days__list
+  li.elapsed-days__content(
+    v-for='product_n_days_passed in productsGroupedByElapsedDays',
+    :key='product_n_days_passed.id'
+  )
+    a(
       v-if='product_n_days_passed.elapsed_days === 7',
-      @click='transition(product_n_days_passed.elapsed_days)'
+      href='#7days-elapsed'
     )
       | {{ product_n_days_passed.elapsed_days }}日以上経過
       | ({{ countProductsGroupedBy(product_n_days_passed) }})
-    li(
+    a(
       v-else-if='product_n_days_passed.elapsed_days >= 1',
-      @click='transition(product_n_days_passed.elapsed_days)'
+      :href='elementId(product_n_days_passed.elapsed_days)'
     )
       | {{ product_n_days_passed.elapsed_days }}日経過
       | ({{ countProductsGroupedBy(product_n_days_passed) }})
@@ -23,8 +26,8 @@ export default {
     countProductsGroupedBy: { type: Function, required: true }
   },
   methods: {
-    transition(elapsedDays) {
-      this.$emit('transition', elapsedDays)
+    elementId(elapsedDays) {
+      return `#${elapsedDays}days-elapsed`
     }
   }
 }
