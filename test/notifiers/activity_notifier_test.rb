@@ -81,4 +81,16 @@ class ActivityNotifierTest < ActiveSupport::TestCase
       notification.notify_now
     end
   end
+
+  test '#signed_up' do
+    notification = ActivityNotifier.with(sender: users(:hajime), receiver: users(:mentormentaro)).signed_up
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
 end
