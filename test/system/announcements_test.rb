@@ -208,5 +208,4 @@ class AnnouncementsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '別の人がお知らせを更新していたので更新できませんでした。'
   end
-
 end
