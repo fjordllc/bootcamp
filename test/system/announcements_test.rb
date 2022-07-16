@@ -191,4 +191,22 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせを作成しました。'
     assert_text 'Watch中'
   end
+
+  test 'update_previous_remains_when_conflict_to_update_announcement' do
+    announcement = announcements(:announcement_wip)
+    visit_with_auth announcement_path(announcement), 'komagata'
+    click_link '内容修正'
+    fill_in 'announcement[description]', with: '先の人が更新'
+    Capybara.session_name = :later
+    visit_with_auth announcement_path(announcement), 'kimura'
+    click_link '内容修正'
+    fill_in 'announcement[description]', with: '後の人が更新'
+    Capybara.session_name = :default
+    click_button 'WIP'
+    assert_text 'お知らせをWIPとして保存しました。'
+    Capybara.session_name = :later
+    click_button 'WIP'
+    assert_text '別の人がお知らせを更新していたので更新できませんでした。'
+  end
+
 end
