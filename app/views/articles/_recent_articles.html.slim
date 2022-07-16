@@ -1,0 +1,22 @@
+.a-card
+  header
+    h2
+      | 最新記事
+  div
+    - @recent_articles.each do |recent_article|
+      = link_to recent_article, class: 'articles-item__link' do
+        .row
+          .col-xl-4
+            - if recent_article.thumbnail.attached?
+              = image_tag recent_article.thumbnail.variant(resize: '200x105>').processed.url, class: 'articles-item__image', alt: "ブログ記事「#{recent_article.title}」のアイキャッチ画像"
+            - else
+              = image_tag 'work-blank.svg', class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像'
+          .col-xl-8
+            h2.articles-item__title
+              = recent_article.title
+            .articles-item__row
+              .articles-item__metas
+                .articles-item__meta
+                  .articles-item__author
+                    = image_tag recent_article.user.avatar_url
+                    = recent_article.user.login_name

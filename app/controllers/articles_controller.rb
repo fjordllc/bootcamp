@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @recent_articles = Article.where.not(published_at: nil, wip: true).order(published_at: :desc).limit(10)
     if !@article.wip? || admin_or_mentor_login?
       render layout: 'welcome'
     else
