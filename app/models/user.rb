@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   enum os: {
     mac: 0,
-    mac_m1: 2,
+    mac_apple: 2,
     linux: 1,
     windows_wsl2: 3
   }, _prefix: true

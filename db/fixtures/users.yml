@@ -429,7 +429,7 @@ sumi:
   description: "testユーザーです。"
   course: course1
   job: office_worker
-  os: mac_m1
+  os: mac_apple
   experience: html_css
   job_seeker: true
   job_seeking: true
@@ -497,7 +497,7 @@ take:
   description: "testユーザーです。"
   course: course1
   job: vacation
-  os: mac_m1
+  os: mac_apple
   experience: rails
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:21"
@@ -653,7 +653,7 @@ fujiyasu:
   description: "testユーザーです。"
   course: course1
   job: unemployed
-  os: mac_m1
+  os: mac_apple
   experience: inexperienced
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:28"
