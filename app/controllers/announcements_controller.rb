@@ -29,8 +29,9 @@ class AnnouncementsController < ApplicationController
 
   def update
     set_wip
-    if params['announcement']['updated_at'] != Announcement.find(params[:id]).updated_at.to_s
-      original_updated_at
+    if Time.zone.parse(params['announcement']['updated_at']).utc.floor != Announcement.find(params[:id]).updated_at.utc.floor
+
+      entered_announcement
 
       flash.now[:alert] = '別の人がお知らせを更新していたので更新できませんでした。'
       render :edit and return
@@ -60,7 +61,7 @@ class AnnouncementsController < ApplicationController
 
   private
 
-  def original_updated_at
+  def entered_announcement
     @announcement.assign_attributes(updated_at: params['announcement']['updated_at'], \
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
