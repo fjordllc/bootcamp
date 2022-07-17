@@ -34,3 +34,22 @@ end
 ActiveSupport.on_load(:action_dispatch_system_test_case) do
   ActionDispatch::SystemTesting::Server.silence_puma = true
 end
+
+# Rails 7 の ActiveStorage::FixtureSet.blob と同様の機能を実装
+# Pull Request #4182(https://github.com/fjordllc/bootcamp/pull/4182) でRails 7 への移行完了後に削除する
+# => test/fixtures/active_storage/blobs.yml でActiveStorage::FixtureSet.blob を使うように変更する
+module BlobFixtureSet
+  def fixture(filename:, **attributes)
+    blob = new(
+      filename: filename,
+      key: generate_unique_secure_token
+    )
+    io = Rails.root.join("test/fixtures/files/#{filename}").open
+    blob.unfurl(io)
+    blob.assign_attributes(attributes)
+    blob.upload_without_unfurling(io)
+
+    blob.attributes.transform_values { |values| values.is_a?(Hash) ? values.to_json : values }.compact.to_json
+  end
+end
+ActiveStorage::Blob.extend BlobFixtureSet
