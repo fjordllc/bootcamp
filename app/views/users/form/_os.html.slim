@@ -15,12 +15,12 @@
                 .image-check__name
                   = t('activerecord.enums.user.os.mac')
           li.form-radio
-            = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
-            label.form-radio__label(for='mac_m1')
+            = f.radio_button :os, 'mac_apple', id: 'mac_apple', class: 'a-toggle-checkbox'
+            label.form-radio__label(for='mac_apple')
              .image-check
                 = image_tag('signup/os/apple.svg', class: 'image-check__image')
                 .image-check__name
-                  = t('activerecord.enums.user.os.mac_m1')
+                  = t('activerecord.enums.user.os.mac_apple')
         .form-item-group__help
           label.a-form-help-link.is-danger(for='modal-mac')
             span.a-form-help-link__label

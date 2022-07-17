@@ -225,7 +225,7 @@ ja:
           windows_wsl2: Windows(WSL2)
           mac: Mac（Intel チップ）
           linux: Linux
-          mac_m1: Mac（Apple チップ）
+          mac_apple: Mac（Apple チップ）
         study_place:
           local: フィヨルドブートキャンプオフィス
           remote: 自宅
