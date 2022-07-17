@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((text) => {
           grass.innerHTML = text
         })
+        .then(() => {
+          document
+            .querySelector('.js-github-grass + .js-user-grass__loading')
+            .remove()
+        })
         .catch((error) => {
           console.warn(error)
         })
