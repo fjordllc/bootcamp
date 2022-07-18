@@ -37,7 +37,7 @@ module RegularEventDecorator
   end
 
   def event_day?
-    now = Time.zone.now
+    now = Time.current
     event_day = regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
         repeat_rule.day_of_the_week == now.wday
