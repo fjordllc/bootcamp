@@ -61,3 +61,23 @@
             li.card-main-actions__item.is-sub
               = link_to regular_event_path(regular_event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                 | 削除する
+
+  - unless regular_event.wip?
+    .a-card.participants
+      header.card-header.is-sm
+        h2.card-header__title
+          | 参加者（#{regular_event.participants.count}名）
+      .card-body
+        .card__description
+          - if regular_event.participants.present?
+            ul.user-icons__items
+              - regular_event.participants.each do |participant|
+                li.user-icons-item
+                  = link_to participant do
+                    = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+          - else
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              p.o-empty-message__text
+                | 参加者はまだいません。

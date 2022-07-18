@@ -21,6 +21,8 @@ class RegularEvents::ParticipationsController < ApplicationController
   end
 
   def create_watch
+    return if @regular_event.watched?(current_user)
+
     watch = Watch.new(
       user: current_user,
       watchable: @regular_event

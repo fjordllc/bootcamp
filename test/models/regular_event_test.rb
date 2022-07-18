@@ -65,4 +65,14 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event.cancel_participation(participant)
     assert_not regular_event.regular_event_participations.find_by(user_id: participant.id)
   end
+
+  test '#watched' do
+    regular_event = regular_events(:regular_event1)
+    user = users(:kimura)
+    assert_not regular_event.watched?(user)
+
+    watch = Watch.new(user: user, watchable: regular_event)
+    watch.save
+    assert regular_event.watched?(user)
+  end
 end
