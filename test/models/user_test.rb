@@ -543,35 +543,15 @@ class UserTest < ActiveSupport::TestCase
       users(:komagata).raw_last_sad_report_id
   end
 
-  test 'number_of_students_matches' do
-    # User.count = 33
-    # User.mentor.count = 4 ①
-    # User.admins.count = 3　②
-    # User.admins.mentor.count = 2　①と②で2度カウントしている分
-    # User.advisers.count = 2
-    # User.graduated.count = 2　③
-    # User.retired.count = 4　④
-    # User.trainees.count = 3　⑤
-    # User.trainees.graduated.count = 0　③と⑤で2度カウントしている分
-    # User.trainees.retired.count = 1　④と⑤で2度カウントしている分
-    assert_equal 33 - (4 + 3 - 2 + 2 + 2 + 4 + 3 + 0 - 1), User.students.size
-  end
-
-  test 'number_of_students_and_trainees_matches' do
-    # User.students.count = 18
-    # User.trainees.count = 3
-    # User.trainees.graduated.count = 0
-    # User.trainees.retired.count = 1
-    assert_equal 18 + 3 - (0 + 1), User.students_and_trainees.size
-  end
-
-  test 'number_of_students_and_trainees_in_the_company_matches' do
-    assert_equal 1, User.students_and_trainees.where(company_id: 1_022_975_240).size
-  end
-
-  test 'retired_trainees_are_not_counted' do
+  test 'students_and_trainees_method_does_not_include_retired_trainee' do
+    target = User.students_and_trainees
+    assert_includes(target, users(:kensyu))
     users(:kensyu).update!(retired_on: '2022-07-01')
+    assert_not_includes(target, users(:kensyu))
+  end
 
-    assert_equal 0, User.students_and_trainees.where(company_id: 1_022_975_240).size
+  test 'students_and_trainees_method_does_not_include_graduates' do
+    target = User.students_and_trainees
+    assert_not_includes(target, users(:sotugyou_with_job))
   end
 end
