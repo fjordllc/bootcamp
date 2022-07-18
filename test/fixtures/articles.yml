@@ -24,3 +24,19 @@ article4:
   body: 本文４
   user: komagata
   wip: false
+
+article5:
+  title: タイトル５
+  body: 本文５
+  user: komagata
+  wip: true
+  published_at: "2022-01-05 00:00:00"
+
+<% (6..13).each do |i| %>
+event<%= i %>:
+  title: "タイトル<%= i %>"
+  body: "本文<%= i %>"
+  user: komagata
+  wip: false
+  published_at: "2021-12-31 <%= i %>:00:00"
+<% end %>
