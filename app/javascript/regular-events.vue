@@ -34,7 +34,9 @@ export default {
   },
   computed: {
     url() {
-      return `/api/regular_events?page=${this.currentPage}`
+      const params = new URL(location.href).searchParams
+      params.set('page', this.currentPage)
+      return `/api/regular_events?${params}`
     },
     pagerProps() {
       return {

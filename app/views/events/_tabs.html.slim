@@ -5,5 +5,5 @@
         = link_to events_path, class: "page-tabs__item-link #{current_link(/^events/)}" do
           | イベント
       li.page-tabs__item
-        = link_to regular_events_path, class: "page-tabs__item-link #{current_link(/^regular_events/)}" do
+        = link_to regular_events_path(target: 'not_finished'), class: "page-tabs__item-link #{current_link(/^regular_events/)}" do
           | 定期イベント
