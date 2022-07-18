@@ -25,7 +25,10 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              a.a-meta.is-practice(:href='practiceUrl')
+              a.a-meta.is-practice(
+                :href='practiceUrl',
+                v-if='practiceUrl !== null'
+              )
                 | {{ question.practice.title }}
 
       .card-list-item__row
@@ -91,7 +94,9 @@ export default {
       }
     },
     practiceUrl() {
-      return `/practices/${this.question.practice.id}`
+      return this.question.practice === undefined
+        ? null
+        : `/practices/${this.question.practice.id}`
     }
   }
 }
