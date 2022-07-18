@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RegularEvent < ApplicationRecord
+class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   DAYS_OF_THE_WEEK_COUNT = 7
 
   FREQUENCY_LIST = [
