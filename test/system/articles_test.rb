@@ -307,4 +307,21 @@ class ArticlesTest < ApplicationSystemTestCase
 
     assert_selector "img[src$='komagata.jpg']"
   end
+
+  test 'display recent 10 articles on article page' do
+    visit article_path @article
+    assert_equal page.all('.articles-item__link').count, 10
+
+    assert_no_text 'タイトル３'
+    assert_no_text 'タイトル５'
+    assert_no_text 'タイトル6'
+
+    within all('.articles-item__link')[8] do
+      assert_text 'タイトル8'
+    end
+
+    within all('.articles-item__link')[9] do
+      assert_text 'タイトル7'
+    end
+  end
 end
