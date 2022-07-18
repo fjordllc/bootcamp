@@ -116,7 +116,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'user can participate in an regular event' do
     regular_event = regular_events(:regular_event1)
     visit_with_auth regular_event_path(regular_event), 'kimura'
-    assert_difference 'regular_event.participations.count', 1 do
+    assert_difference 'regular_event.participants.count', 1 do
       accept_confirm do
         click_link '参加申込'
       end
@@ -127,7 +127,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'user can cancel regular event' do
     regular_event = regular_events(:regular_event1)
     visit_with_auth regular_event_path(regular_event), 'hatsuno'
-    assert_difference 'regular_event.participations.count', -1 do
+    assert_difference 'regular_event.participants.count', -1 do
       accept_confirm do
         click_link '参加を取り消す'
       end
