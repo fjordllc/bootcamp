@@ -6,12 +6,12 @@
         .form-selects.regular-event-repeat-rule__frequency
           .form-selects__item
             .a-button.is-md.is-secondary.is-select.is-block
-              = f.select :frequency, RegularEventDecorator::FREQUENCY_LIST, {}, class: 'js-warning-form'
+              = f.select :frequency, RegularEvent::FREQUENCY_LIST, {}, class: 'js-warning-form'
       .form-item__time
         = f.label :day_of_the_week, class: 'form-item__time-label'
         .form-selects.regular-event-repeat-rule__day-of-the-week
           .form-selects__item
             .a-button.is-md.is-secondary.is-select.is-block
-              = f.select :day_of_the_week, RegularEventDecorator::DAY_OF_THE_WEEK_LIST, {}, class: 'js-warning-form'
+              = f.select :day_of_the_week, RegularEvent::DAY_OF_THE_WEEK_LIST, {}, class: 'js-warning-form'
     .form-item__times-action
       = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
