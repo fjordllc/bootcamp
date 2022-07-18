@@ -57,7 +57,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :regular_event_repeat_rules, dependent: :destroy
   accepts_nested_attributes_for :regular_event_repeat_rules, allow_destroy: true
   has_many :regular_event_participations, dependent: :destroy
-  has_many :participations,
+  has_many :participants,
            through: :regular_event_participations,
            source: :user
   has_many :watches, as: :watchable, dependent: :destroy
@@ -128,6 +128,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def cancel_participation(user)
     regular_event_participation = regular_event_participations.find_by(user_id: user.id)
     regular_event_participation.destroy
+  end
+
+  def watched?(user)
+    watches.exists?(user_id: user.id)
   end
 
   class << self
