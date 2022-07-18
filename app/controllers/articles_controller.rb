@@ -11,7 +11,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @recent_articles = Article.where(wip: false).where.not(published_at: nil).order(published_at: :desc).limit(10)
+    @recent_articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
+                              .where(wip: false).where.not(published_at: nil).order(published_at: :desc).limit(10)
     if !@article.wip? || admin_or_mentor_login?
       render layout: 'welcome'
     else
