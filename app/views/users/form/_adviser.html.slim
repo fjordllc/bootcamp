@@ -1,5 +1,6 @@
-.form-item
-  .form-checkbox
-    = f.check_box :adviser, class: 'a-toggle-checkbox', id: 'checkbox_adviser'
-    = f.label :adviser, class: 'form-checkbox__label', for: 'checkbox_adviser' do
-      = User.human_attribute_name :adviser
+.block-checks.is-1-item
+  .block-checks__item
+    .a-block-check.is-checkbox
+      = f.check_box :adviser, class: 'a-toggle-checkbox', id: 'checkbox_adviser'
+      = f.label :adviser, class: 'a-block-check__label is-ta-left', for: 'checkbox_adviser' do
+        = User.human_attribute_name :adviser

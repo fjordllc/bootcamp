@@ -1,13 +1,16 @@
 .form
   .form__items
     .form-item
-      .form-item__checkboxes
-        .form-checkbox.is-dammy
-          .form-checkbox__label
-            | キャンペーン適用
+      .block-checks.is-1-item
+        .block-checks__item
+          .a-block-check.is-checkbox.is-dammy
+            input.a-toggle-checkbox(type='radio' checked='checked')
+            .a-block-check__label.is-ta-left
+              | キャンペーン適用
       .a-form-help
         p
           | #{Campaign.current_title} のお試し期間延長が適用され、
           em
             | 通常 3日間 のお試し期間が #{Campaign.current_trial_period}日間&nbsp;
           | になります。
+    .form-item
