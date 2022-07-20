@@ -308,20 +308,29 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector "img[src$='komagata.jpg']"
   end
 
-  test 'display recent 10 articles on article page' do
+  test 'WIP articles are not included in recent articles' do
     visit article_path @article
-    assert_equal page.all('.articles-item__link').count, 10
 
     assert_no_text 'タイトル３'
     assert_no_text 'タイトル５'
-    assert_no_text 'タイトル6'
+  end
 
-    within all('.articles-item__link')[8] do
-      assert_text 'タイトル8'
+  test 'display recent 10 articles on article page' do
+    Article.delete_all
+    11.times do |i|
+      Article.create(
+        title: "test title #{i}",
+        body: 'test body',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2021-12-31 #{i}:00:00"
+      )
     end
-
-    within all('.articles-item__link')[9] do
-      assert_text 'タイトル7'
-    end
+    visit article_path Article.last.id
+    titles = all('.articles-item__link .articles-item__title').map(&:text)
+    assert_equal 'test title 10', titles.first
+    assert_equal 'test title 1', titles.last
+    assert_no_text 'test title 0'
+    assert_equal all('.articles-item__link').count, 10
   end
 end
