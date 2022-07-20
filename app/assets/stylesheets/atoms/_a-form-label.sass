@@ -9,3 +9,27 @@
       transform: scale(.7)
   &.is-sm
     +text-block(.75rem 1.5)
+
+.form-item__label-checkbox
+  +position(relative)
+  .a-form-label
+    display: inline-block
+    margin-bottom: 0
+    padding-left: .75em
+    cursor: pointer
+    &::before
+      content: ''
+      display: block
+      +size(.875rem)
+      border: solid 1px #bbbbbb
+      border-radius: .1875rem
+      +position(absolute, left 0, top 50%)
+      margin-top: -.4375rem
+      box-shadow: rgba(black, .1) 0 1px 2px inset
+      background-color: $base
+  input:checked + .a-form-label::after
+    +fa(fas '\f00c')
+    +text-block(.75rem .875rem, center block #4193e9)
+    +size(.875rem)
+    +position(absolute, left 0, top 50%)
+    margin-top: -.4375rem

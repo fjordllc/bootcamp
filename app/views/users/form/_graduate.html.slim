@@ -1,8 +1,9 @@
-.form-item.js-date-input-toggler
-  .form-item__label-checkbox
-    = check_box_tag :graduation_checkbox, 1, false, class: 'js-date-input-toggler-checkbox'
-    = f.label :graduated_on, class: 'a-form-label', for: 'graduation_checkbox' do
-      | 卒業
-  .form-item__inline-form-item.js-date-input-toggler-date-area
-    .a-form-label = User.human_attribute_name :graduated_on
-    = f.date_field :graduated_on, class: 'a-text-input js-date-input-toggler-date'
+.block-checks.is-1-item
+  .block-checks__item
+    .a-block-check.is-checkbox.js-date-input-toggler
+      = check_box_tag :graduation_checkbox, 1, false, class: 'a-toggle-checkbox js-date-input-toggler-checkbox'
+      .a-block-check__label.is-ta-left.has-input
+        = f.label :graduated_on, class: '', for: 'graduation_checkbox' do
+          | 卒業済
+        .form-item__inline-form-item.js-date-input-toggler-date-area
+          = f.date_field :graduated_on, class: 'a-text-input js-date-input-toggler-date'

@@ -17,14 +17,15 @@
       .form-item.is-sm
         label.a-form-label
           = f.label :emotion
-        ul.form-item__radios.is-inline.is-3-items
+        ul.block-checks.is-3-items.is-inline
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
-            li.form-radio.test-select-emotions
-              = b.radio_button(class: 'a-toggle-checkbox')
-              label.form-radio__label.is-lg for="report_emotion_#{b.value}"
-                = image_tag b.text, id: b.value, alt: b.value, class: 'form-label__emotion-image'
-                span.form-radio__label-name
-                  = b.value
+            li.block-checks__item.test-select-emotions
+              .a-block-check.is-radio
+                = b.radio_button(class: 'a-toggle-checkbox')
+                label.a-block-check__label.has-image for="report_emotion_#{b.value}"
+                  = image_tag b.text, id: b.value, alt: b.value, class: 'a-block-check__image'
+                  span.a-block-check__name
+                    = b.value
       .form-item
         label.a-form-label
           | 学習時間

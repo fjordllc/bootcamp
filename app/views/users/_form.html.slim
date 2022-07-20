@@ -59,9 +59,19 @@
       h3.form__items-title
         | 以下管理者のみ操作ができます
       = render 'users/form/course', f: f
-      = render 'users/form/job_seeking', f: f
-      = render 'users/form/retire', f: f
-      = render 'users/form/graduate', f: f
+
+      .form-item-block
+        .form-item-block__inner
+          header.form-item-block__header
+            .form-item-block__title
+              | ユーザーステータス
+          .form-item-block__items
+            .form-item-block__item
+              = render 'users/form/job_seeking', f: f
+            .form-item-block__item
+              = render 'users/form/retire', f: f
+            .form-item-block__item
+              = render 'users/form/graduate', f: f
 
       .form-item-block
         .form-item-block__inner
@@ -92,23 +102,28 @@
 
   - if from == :new
     .form__items
-      h3.a-form-label.is-required
+      h3.form__items-title
         | 規約への同意をお願いします
       .form-item
-        .form-actions__item-checkbox
-          = check_box_tag :coc, 1, false, class: 'a-toggle-checkbox js-agreements-checkbox'
-          label.form-checkbox__label(for='coc')
-            | アンチハラスメントポリシーに同意
-          .a-form-help
-            = link_to 'アンチハラスメントポリシーを確認（別タブで開きます）', coc_path, target: '_blank', rel: 'noopener'
+        ul.block-checks.is-1-item
+          li.block-checks__item
+            .a-block-check.is-checkbox
+              = check_box_tag :coc, 1, false, class: 'a-toggle-checkbox js-agreements-checkbox'
+              label.a-block-check__label.is-ta-left(for='coc')
+                | アンチハラスメントポリシーに同意
+        .a-form-help
+          = link_to 'アンチハラスメントポリシーを確認（別タブで開きます）', coc_path, target: '_blank', rel: 'noopener'
       .form-item
-        .form-actions__item-checkbox
-          = check_box_tag :tos, 2, false, class: 'a-toggle-checkbox js-agreements-checkbox'
-          label.form-checkbox__label(for='tos')
-            | 利用規約に同意
-          .a-form-help
-            = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
-            = link_to 'プライバシーポリシーを確認（別タブで開きます）', pp_path, target: '_blank', rel: 'noopener'
+        ul.block-checks.is-1-item
+          li.block-checks__item
+            .a-block-check.is-checkbox
+              = check_box_tag :tos, 2, false, class: 'a-toggle-checkbox js-agreements-checkbox'
+              label.a-block-check__label.is-ta-left(for='tos')
+                | 利用規約に同意
+        .a-form-help
+          = link_to '利用規約を確認（別タブで開きます）', tos_path, target: '_blank', rel: 'noopener'
+        .a-form-help
+          = link_to 'プライバシーポリシーを確認（別タブで開きます）', pp_path, target: '_blank', rel: 'noopener'
 
   - if from == :new
     .form-actions
