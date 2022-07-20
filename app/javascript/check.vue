@@ -104,9 +104,6 @@ export default {
           this.token()
         )
       }
-      if (!this.checkId) {
-        this.toast('日報を確認済みにしました。')
-      }
     }
   }
 }
