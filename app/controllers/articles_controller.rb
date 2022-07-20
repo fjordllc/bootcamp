@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
 
   def list_recent_articles
     Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
-           .where(wip: false).where.not(published_at: nil).order(published_at: :desc).limit(10)
+           .where(wip: false).order(published_at: :desc).limit(10)
   end
 
   def article_params
