@@ -1,0 +1,37 @@
+.form-item__add-times
+  +media-breakpoint-up(md)
+    margin-top: -.125rem
+  +media-breakpoint-down(sm)
+    margin-top: -1.25rem
+
+.form-item__times-inner
+  margin-bottom: 1rem
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: flex-end
+
+.form-item__times-items
+  display: flex
+  +media-breakpoint-down(sm)
+    gap: 1rem
+
+.form-item__time
+  display: flex
+  flex-direction: column
+  margin-right: 1rem
+  +media-breakpoint-down(sm)
+    margin-right: 0
+    flex-basis: 50%
+
+.form-item__time-label
+  +text-block(.75rem 1.4 0 .5rem, block)
+
+.form-item__times-action
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
+    display: flex
+    justify-content: flex-end
+
+.form-item__times-action
+  #tasks .form-item:first-child &
+    display: none

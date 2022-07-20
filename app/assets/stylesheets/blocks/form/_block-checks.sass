@@ -1,5 +1,4 @@
 .block-checks
-  margin-top: .5rem
   display: flex
   flex-wrap: wrap
   gap: .5rem
@@ -7,6 +6,8 @@
 .block-checks__item
   flex: 1
   max-width: 20rem
+  .block-checks.is-1-item &
+    max-width: 100%
   .block-checks.is-2-items &
     flex: 0 0 calc((100% - .5rem) / 2)
     max-width: calc((100% - .5rem) / 2)

@@ -1,6 +1,3 @@
-.a-block-check__label-name
-  +text-block(.75rem 1.4, block center)
-
 .a-block-check__label
   background-color: $input-background
   height: 100%
@@ -9,13 +6,23 @@
   align-items: center
   justify-content: center
   border: solid 1px $input-border
-  padding: .5rem 1.25rem .5rem 2rem
+  padding: .5rem 1.25rem .5rem 2.25rem
   cursor: pointer
   border-radius: .25rem
   transition: all .2s ease-in
   +position(relative)
   &:hover
     background-color: $base
+  &.has-image
+    flex-direction: column
+  &.is-ta-left
+    justify-content: flex-start
+    text-align: left
+  &.has-input
+    flex-wrap: wrap
+    label
+      flex: 0 0 100%
+      cursor: pointer
   input:checked + &
     background-color: $warning-shade
     border-color: $warning
@@ -25,7 +32,13 @@
     display: block
     +position(absolute, left .75rem, top 50%)
     transform: translateY(-50%)
+  .form-item-block__item &
+    border: none
+    border-radius: none
+  &.is-dammy
+    pointer-events: none
 
+  // radio
   .a-block-check.is-radio &::before
     content: ''
     +size(.875rem)
@@ -36,7 +49,7 @@
     border-color: $primary
     background-color: $primary
     box-shadow: inset 0 0 0 2px $base
-
+  // checkbox
   .a-block-check.is-checkbox &::before
     content: ''
     +size(.875rem)
@@ -48,3 +61,17 @@
     background-color: $primary
     +fa(fas "\f00c")
     color: $reversal-text
+
+.a-block-check__name
+  +text-block(.875rem 1, block center)
+
+.a-block-check__image
+  +size(2rem)
+  &.is-lg
+    +size(2.5rem)
+  & + .a-block-check__name
+    margin-top: .5rem
+
+.a-block-check__account
+  margin-left: .25em
+  font-weight: 400
