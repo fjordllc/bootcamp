@@ -81,5 +81,6 @@ Rails.application.routes.draw do
     resources :talks, only: %i(index)
     resources :generations, only: %i(show)
     resources :regular_events, only: %i(index)
+    resources :books, only: %i(index)
   end
 end
