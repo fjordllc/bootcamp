@@ -27,7 +27,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Reactionable
 
   enum category: {
-    book_club: 0,
+    reading_circle: 0,
     chat: 1,
     question: 2,
     meeting: 3,

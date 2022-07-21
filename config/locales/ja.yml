@@ -253,7 +253,7 @@ ja:
           complete: 完了
       regular_event:
         category:
-          book_club: 輪読会
+          reading_circle: 輪読会
           chat: 雑談
           question: 質問
           meeting: MTG
