@@ -52,7 +52,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[title]', with: 'テストの質問（修正）'
       fill_in 'question[description]', with: 'テストの質問です。（修正）'
       find('.choices__inner').click
-      find('#choices--js-choices-single-select-item-choice-11', text: 'sshdでパスワード認証を禁止にする').click
+      find('#choices--js-choices-single-select-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
       click_button '更新する'
     end
     assert_text '質問を更新しました'
@@ -371,5 +371,43 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth question_path(questions(:question8)), 'kimura'
     confirm_dialog = dismiss_confirm { click_link '削除する' }
     assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
+  end
+
+  test 'show a question without choosing practice' do
+    question = questions(:question14)
+    visit_with_auth question_path(question), 'kimura'
+    assert_no_selector('.a-category-link')
+    assert_text 'プラクティスを選択せずに登録したテストの質問'
+  end
+
+  test 'create a question without choosing practice' do
+    visit_with_auth new_question_path, 'kimura'
+
+    within 'form[name=question]' do
+      click_button 'Remove item'
+      fill_in 'question[title]', with: 'プラクティス指定のないテストの質問'
+      fill_in 'question[description]', with: 'プラクティス指定のないテストの質問です。'
+      click_button '登録する'
+    end
+    assert_text '質問を作成しました。'
+    assert_no_selector('.a-category-link')
+    assert_text 'プラクティス指定のないテストの質問'
+  end
+
+  test 'update a question without choosing practice' do
+    question = questions(:question8)
+    visit_with_auth question_path(question), 'kimura'
+
+    click_button '内容修正'
+    within 'form[name=question]' do
+      click_button 'Remove item'
+      fill_in 'question[title]', with: 'テストの質問（修正）'
+      fill_in 'question[description]', with: 'テストの質問です。（修正）'
+      click_button '更新する'
+    end
+    assert_text '質問を更新しました'
+    assert_selector '.a-category-link', text: ''
+    assert_text 'テストの質問（修正）'
+    assert_text 'テストの質問です。（修正）'
   end
 end

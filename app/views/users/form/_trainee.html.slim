@@ -1,5 +1,6 @@
-.form-item
-  .form-checkbox
-    = f.check_box :trainee, class: 'a-toggle-checkbox js-training-info-toggler-checkbox', id: 'checkbox_trainee'
-    = f.label :trainee, class: 'form-checkbox__label', for: 'checkbox_trainee' do
-      = User.human_attribute_name :trainee
+.block-checks.is-1-item
+  .block-checks__item
+    .a-block-check.is-checkbox
+      = f.check_box :trainee, class: 'a-toggle-checkbox js-training-info-toggler-checkbox', id: 'checkbox_trainee'
+      = f.label :trainee, class: 'a-block-check__label is-ta-left', for: 'checkbox_trainee' do
+        = User.human_attribute_name :trainee
