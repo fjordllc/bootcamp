@@ -1,14 +1,7 @@
 <template lang="pug">
 .card-list-item(:class='{ "is-wip": regularEvent.wip }')
   .card-list-item__inner
-    // is-reading-circle
-    // is-chat
-    // is-question
-    // is-meeting
-    // is-others
-    // 上記のclassを以下の `.card-list-item__label` に付ける（注: アンスコは使わずハイフンを使う）
-    // 例 `.card-list-item__label.is-chat`
-    .card-list-item__label
+    .card-list-item__label(:class='[categoryClass]')
       | {{ regularEvent.category }}
     .card-list-item__rows
       .card-list-item__row
@@ -63,6 +56,11 @@ export default {
   },
   props: {
     regularEvent: { type: Object, required: true }
-  }
+  },
+  computed: {
+    categoryClass() {
+      return `is-${this.regularEvent.category_class}`
+    }
+  },
 }
 </script>
