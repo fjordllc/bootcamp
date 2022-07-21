@@ -15,7 +15,10 @@
 
       .page-content-header__row
         .page-content-header__before-title
-          a.a-category-link(:href='`/practices/${practiceId}`')
+          a.a-category-link(
+            :href='`/practices/${practiceId}`',
+            v-if='practiceId !== null'
+          )
             | {{ practiceTitle }}
         h1.page-content-header__title(:class='question.wip ? "is-wip" : ""')
           span.a-title-label.is-solved.is-success(
@@ -129,6 +132,8 @@
                 v-model='edited.practiceId',
                 name='question[practice]'
               )
+                option(value='')
+                  | プラクティス選択なし
                 option(
                   v-for='practice in practices',
                   :key='practice.id',
@@ -229,11 +234,11 @@ export default {
     return {
       title: this.question.title,
       description: this.question.description,
-      practiceId: this.question.practice.id,
+      practiceId: this.getPracticeId(),
       edited: {
         title: this.question.title,
         description: this.question.description,
-        practiceId: this.question.practice.id
+        practiceId: this.getPracticeId()
       },
       editing: false,
       displayedUpdateMessage: false,
@@ -251,11 +256,20 @@ export default {
       )
     },
     practiceTitle() {
-      const { practices, question, practiceId } = this
+      if (
+        this.practiceId === '' ||
+        this.practiceId === undefined ||
+        this.practiceId === null
+      ) {
+        return ''
+      } else {
+        const { practices, question, practiceId } = this
 
-      return practices === null
-        ? question.practice.title
-        : practices.find((practice) => practice.id === Number(practiceId)).title
+        return practices === null
+          ? question.practice.title
+          : practices.find((practice) => practice.id === Number(practiceId))
+              .title
+      }
     },
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
@@ -276,6 +290,11 @@ export default {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
+    },
+    getPracticeId() {
+      return this.question.practice === undefined
+        ? null
+        : this.question.practice.id
     },
     fetchPractices() {
       fetch('/api/practices.json?scoped_by_user=true', {
@@ -299,6 +318,7 @@ export default {
           const choices = document.getElementById('js-choices-single-select')
           if (choices) {
             return new Choices(choices, {
+              removeItemButton: true,
               allowHTML: true,
               searchResultLimit: 20,
               searchPlaceholderValue: '検索ワード',

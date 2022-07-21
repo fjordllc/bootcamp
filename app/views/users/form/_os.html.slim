@@ -6,21 +6,21 @@
         .form-item-group__title
           | Mac
       .form-item-group__body
-        ul.form-item__radios.is-half
-          li.form-radio
-            = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
-            label.form-radio__label(for='mac')
-             .image-check
-                = image_tag('signup/os/intel.svg', class: 'image-check__image')
-                .image-check__name
+        ul.block-checks.is-2-items
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
+              label.a-block-check__label.has-image(for='mac')
+                = image_tag('signup/os/intel.svg', class: 'a-block-check__image is-lg')
+                span.a-block-check__name
                   = t('activerecord.enums.user.os.mac')
-          li.form-radio
-            = f.radio_button :os, 'mac_m1', id: 'mac_m1', class: 'a-toggle-checkbox'
-            label.form-radio__label(for='mac_m1')
-             .image-check
-                = image_tag('signup/os/apple.svg', class: 'image-check__image')
-                .image-check__name
-                  = t('activerecord.enums.user.os.mac_m1')
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :os, 'mac_apple', id: 'mac_apple', class: 'a-toggle-checkbox'
+              label.a-block-check__label.has-image(for='mac_apple')
+                = image_tag('signup/os/apple.svg', class: 'a-block-check__image is-lg')
+                span.a-block-check__name
+                  = t('activerecord.enums.user.os.mac_apple')
         .form-item-group__help
           label.a-form-help-link.is-danger(for='modal-mac')
             span.a-form-help-link__label
@@ -33,13 +33,13 @@
         .form-item-group__title
           | Windows
       .form-item-group__body
-        ul.form-item__radios.is-half
-          li.form-radio
-            = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
-            label.form-radio__label(for='windows_wsl2')
-             .image-check
-                = image_tag('signup/os/windows.svg', class: 'image-check__image')
-                .image-check__name
+        ul.block-checks.is-2-items
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
+              label.a-block-check__label.has-image(for='windows_wsl2')
+                = image_tag('signup/os/windows.svg', class: 'a-block-check__image is-lg')
+                span.a-block-check__name
                   = t('activerecord.enums.user.os.windows_wsl2')
         .form-item-group__help
           label.a-form-help-link.is-danger(for='modal-win')
@@ -53,13 +53,13 @@
         .form-item-group__title
           | Linux
       .form-item-group__body
-        ul.form-item__radios.is-half
-          li.form-radio
-            = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
-            label.form-radio__label(for='linux')
-             .image-check
-                = image_tag('signup/os/linux.svg', class: 'image-check__image')
-                .image-check__name
+        ul.block-checks.is-2-items
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
+              label.a-block-check__label.has-image(for='linux')
+                = image_tag('signup/os/linux.svg', class: 'a-block-check__image is-lg')
+                span.a-block-check__name
                   = t('activerecord.enums.user.os.linux')
         .form-item-group__help
           label.a-form-help-link.is-danger(for='modal-linux')

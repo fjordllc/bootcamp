@@ -54,6 +54,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
+      fill_in 'user[login_name]', with: ''
       fill_in 'user[login_name]', with: 'komagata'
       click_on '更新する'
     end
@@ -102,6 +103,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'reset value of retire date when unchecked' do
     user = users(:yameo)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert has_checked_field?('retire_checkbox', visible: false)
     uncheck 'retire_checkbox', allow_label_click: true, visible: false
     assert has_unchecked_field?('retire_checkbox', visible: false)
     check 'retire_checkbox', allow_label_click: true, visible: false

@@ -1,7 +1,11 @@
-.form-item
-  .form-checkbox
-    = f.check_box :github_collaborator, class: 'a-toggle-checkbox'
-    = f.label :github_collaborator, class: 'form-checkbox__label' do
-      = User.human_attribute_name :github_collaborator
-      span.form-checkbox__label-account
-        | (@#{user.github_account})
+.block-checks.is-1-item
+  .block-checks__item
+    .a-block-check.is-checkbox
+      = f.check_box :github_collaborator, class: 'a-toggle-checkbox'
+      = f.label :github_collaborator, class: 'a-block-check__label is-ta-left' do
+        = User.human_attribute_name :github_collaborator
+        span.a-block-check__account
+          - if user.github_account.present?
+            | （@#{user.github_account}）
+          - else
+            | （アカウント未設定）
