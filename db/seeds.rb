@@ -45,4 +45,3 @@ tables = %i[
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
-Bootcamp::Setup.attachment
