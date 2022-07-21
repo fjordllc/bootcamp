@@ -78,9 +78,11 @@ import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
 import AdminCompanies from '../components/admin_companies.vue'
 import Announcements from '../components/announcements.vue'
+import Books from '../components/books.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
 mounter.addComponent(AdminCompanies)
 mounter.addComponent(Announcements)
+mounter.addComponent(Books)
 mounter.mount()
