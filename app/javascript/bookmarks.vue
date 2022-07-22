@@ -1,8 +1,7 @@
 <template lang="pug">
 .page-body
   .container.is-md(v-if='!loaded')
-    .fa-solid.fa-spinner.fa-pulse
-    | ロード中
+    loadingListPlaceholder
   .container.is-md(v-else)
     .o-empty-message(v-if='bookmarks.length === 0')
       .o-empty-message__icon
@@ -38,11 +37,13 @@
 <script>
 import Bookmark from 'bookmark.vue'
 import Pager from 'pager.vue'
+import LoadingListPlaceholder from 'loading-list-placeholder'
 
 export default {
   components: {
     bookmark: Bookmark,
-    pager: Pager
+    pager: Pager,
+    loadingListPlaceholder: LoadingListPlaceholder
   },
   data() {
     return {
