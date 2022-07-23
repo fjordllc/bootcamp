@@ -25,8 +25,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
-      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('毎週')
-      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('月曜日')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '予習不要です'
@@ -44,8 +44,8 @@ class RegularEventsTest < ApplicationSystemTestCase
     click_link 'コピー'
     assert_text '定期イベントをコピーしました'
     within 'form[name=regular_event]' do
-      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('毎週')
-      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('月曜日')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       click_button '作成'
@@ -61,8 +61,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
-      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__frequency select')[0].select('第2')
-      first('.regular-event-repeat-rule').all('.regular-event-repeat-rule__day-of-the-week select')[0].select('水曜日')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('第2')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('水曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       fill_in 'regular_event[description]', with: '予習不要です（修正）'
