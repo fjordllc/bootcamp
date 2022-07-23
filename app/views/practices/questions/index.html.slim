@@ -16,19 +16,4 @@ nav.tab-nav
 
 .page-body
   .container.is-md
-    - if @questions.present?
-      .card-list.a-card
-        = render partial: 'questions/question', collection: @questions, as: :question
-    - else
-      .o-empty-message
-        - case params[:target]
-        - when 'solved'
-          .o-empty-message__icon
-            i.fa-regular.fa-sad-tear
-          p.o-empty-message__text
-            | 解決済みの質問はまだありません。
-        - when 'not_solved'
-          .o-empty-message__icon
-            i.fa-regular.fa-smile
-          p.o-empty-message__text
-            | 未解決の質問はありません。
+    <div data-vue='Questions' data-vue-empty-message="#{@empty_message}" data-vue-practice-id="#{params[:practice_id]}" />

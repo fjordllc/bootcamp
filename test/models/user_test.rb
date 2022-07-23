@@ -555,4 +555,3 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:sotugyou_with_job))
   end
 end
- 
