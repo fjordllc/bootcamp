@@ -24,10 +24,3 @@ article4:
   body: 本文４
   user: komagata
   wip: false
-
-article5:
-  title: タイトル５
-  body: 本文５
-  user: komagata
-  wip: true
-  published_at: "2022-01-05 00:00:00"

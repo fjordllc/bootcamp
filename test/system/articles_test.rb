@@ -309,10 +309,25 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'WIP articles are not included in recent articles' do
-    visit article_path @article
+    wip_article1 = Article.create(
+      title: '未公開の記事',
+      body: '一度も公開したことがないWIP記事',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article2 = Article.create(
+      title: '非公開の記事',
+      body: '一度公開した後にWIPに戻した記事',
+      user: users(:komagata),
+      wip: true,
+      published_at: '2022-01-03 00:00:00'
+    )
 
-    assert_no_text 'タイトル３'
-    assert_no_text 'タイトル５'
+    visit article_path articles(:article2)
+
+    assert_no_text wip_article1.title
+    assert_no_text wip_article2.title
+    assert_text @article.title
   end
 
   test 'display recent 10 articles on article page' do
@@ -326,8 +341,10 @@ class ArticlesTest < ApplicationSystemTestCase
         published_at: "2021-12-31 #{i}:00:00"
       )
     end
+
     visit article_path Article.last.id
     titles = all('.articles-item__link .articles-item__title').map(&:text)
+
     assert_equal 'test title 10', titles.first
     assert_equal 'test title 1', titles.last
     assert_no_text 'test title 0'
