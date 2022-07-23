@@ -11,4 +11,4 @@
       li.page-tabs__item
         = link_to '解決済み', questions_path(target: 'solved', practice_id: params[:practice_id]), class: "page-tabs__item-link #{params[:target] == 'solved' ? 'is-active' : ''}"
       li.page-tabs__item
-        = link_to '全ての質問', questions_path(practice_id: params[:practice_id], title: params[:title]), class: "page-tabs__item-link #{params[:target] == 'not_solved' || params[:target] == 'solved' ? '' : 'is-active'}"
+        = link_to '全て', questions_path(practice_id: params[:practice_id], title: params[:title]), class: "page-tabs__item-link #{params[:target] == 'not_solved' || params[:target] == 'solved' ? '' : 'is-active'}"
