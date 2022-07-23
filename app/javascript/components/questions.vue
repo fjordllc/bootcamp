@@ -26,6 +26,7 @@ import Pager from 'pager.vue'
 import Question from 'question.vue'
 
 export default {
+  name: 'Questions',
   components: {
     loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
@@ -34,7 +35,8 @@ export default {
   props: {
     emptyMessage: { type: String, required: true },
     selectedTag: { type: String, default: null, required: false },
-    userId: { type: String, default: null, required: false }
+    userId: { type: String, default: null, required: false },
+    practiceId: { type: String, default: null, required: false }
   },
   data() {
     return {
@@ -49,6 +51,7 @@ export default {
       params.set('page', this.currentPage)
       if (this.selectedTag) params.set('tag', this.selectedTag)
       if (this.userId) params.set('user_id', this.userId)
+      if (this.practiceId) params.set('practice_id', this.practiceId)
       return params
     },
     newURL() {

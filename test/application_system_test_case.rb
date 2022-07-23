@@ -16,7 +16,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ReportHelper
   include CommentHelper
 
-  if true #ENV['HEADED']
+  if ENV['HEADED']
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
