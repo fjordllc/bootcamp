@@ -16,9 +16,9 @@
     .company-counts__item
       .company-counts__item-inner
         dt.company-counts__item-label
-          | 研修生
+          | 現役生
         dd.company-counts__item-value
-          = users.unretired.trainees.size
+          = users.students_and_trainees.size
     - unless users.admins.size.zero?
       .company-counts__item
         .company-counts__item-inner

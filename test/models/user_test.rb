@@ -542,4 +542,16 @@ class UserTest < ActiveSupport::TestCase
       users(:komagata).reports.order(reported_on: :desc).limit(1).pick(:id),
       users(:komagata).raw_last_sad_report_id
   end
+
+  test 'students_and_trainees_method_does_not_include_retired_trainee' do
+    target = User.students_and_trainees
+    assert_includes(target, users(:kensyu))
+    users(:kensyu).update!(retired_on: '2022-07-01')
+    assert_not_includes(target, users(:kensyu))
+  end
+
+  test 'students_and_trainees_method_does_not_include_graduates' do
+    target = User.students_and_trainees
+    assert_not_includes(target, users(:sotugyou_with_job))
+  end
 end
