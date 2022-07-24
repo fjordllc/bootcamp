@@ -171,4 +171,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def mentioned(params = {})
+    params.merge!(@params)
+    mentionable = params[:mentionable]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{mentionable.where_mention}で#{mentionable.sender.login_name}さんからメンションがきました。",
+      kind: :mentioned,
+      receiver: receiver,
+      sender: mentionable.sender,
+      link: mentionable.path,
+      read: false
+    )
+  end
 end
