@@ -19,6 +19,7 @@ class ProductCallbacks
 
   def after_save(product)
     unless product.wip
+      product.change_learning_status(:submitted)
       notify_to_watching_mentor(product)
       if product.user.trainee? && product.user.company
         send_notification(
@@ -26,15 +27,12 @@ class ProductCallbacks
           receivers: product.user.company.advisers,
           message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
         )
-      end
-      if product.published_at.nil?
-        if product.user.trainee? && product.user.company
+        if product.published_at.nil?
           create_watch(
             watchers: product.user.company.advisers,
             watchable: product
           )
         end
-        product.change_learning_status(:submitted)
       end
     end
 
