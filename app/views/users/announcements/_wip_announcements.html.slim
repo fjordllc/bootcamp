@@ -5,8 +5,9 @@
         .card-list-item__row
           .card-list-item-title
             .card-list-item-title__start
-              .card-list-item-title__icon.is-announcement
-                | お知らせ
+              .a-list-item-badge.is-announcement
+                span
+                  | お知らせ
               .card-list-item-title__title
                 = link_to announcement.title, announcement, class: 'card-list-item-title__link a-text-link'
         .card-list-item__row
