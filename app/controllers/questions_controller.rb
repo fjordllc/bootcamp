@@ -87,7 +87,7 @@ class QuestionsController < ApplicationController
     when 'not_solved'
       QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
     else
-      QuestionsProperty.new('全てのQ&A', '質問はありません。')
+      QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
     end
   end
 
