@@ -27,7 +27,7 @@
               - length = @announcement.comments.length
               a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                 | コメント（
-                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                span#comment_count(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                   = length
                 | ）
       .page-content-header__row
