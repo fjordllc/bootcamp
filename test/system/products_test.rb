@@ -90,8 +90,8 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
-  test 'create product change status submitted' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+  test 'should change status and messages after initial submission' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'hatsuno'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -100,6 +100,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit "/practices/#{practices(:practice6).id}"
     assert_equal first('.test-product').text, '提出物へ'
+    find_button(class: 'is-submitted', disabled: true).has_css?('.is-active')
   end
 
   test 'update product' do
