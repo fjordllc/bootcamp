@@ -173,13 +173,12 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'show comment count' do
     visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
-    assert_text "コメント（\n1\n）"
 
     fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
 
     visit current_path
-    assert_text "コメント（\n2\n）"
+    assert_selector '#comment_count', text: '2'
   end
 
   test 'watching is automatically displayed when admin create new announcement' do
