@@ -6,6 +6,14 @@ require 'supports/mention_helper'
 module Mention
   class QuestionsTest < ApplicationSystemTestCase
     include MentionHelper
+    setup do
+      @delivery_mode = AbstractNotifier.delivery_mode
+      AbstractNotifier.delivery_mode = :normal
+    end
+
+    teardown do
+      AbstractNotifier.delivery_mode = @delivery_mode
+    end
 
     test 'mention from a question' do
       post_mention = lambda { |description|

@@ -6,6 +6,14 @@ require 'supports/mention_helper'
 module Mention
   class ProductsTest < ApplicationSystemTestCase
     include MentionHelper
+    setup do
+      @delivery_mode = AbstractNotifier.delivery_mode
+      AbstractNotifier.delivery_mode = :normal
+    end
+
+    teardown do
+      AbstractNotifier.delivery_mode = @delivery_mode
+    end
 
     test 'mention from a production' do
       post_mention = lambda { |body|
@@ -18,9 +26,7 @@ module Mention
       }
 
       %w[hatsuno with-hyphen].each do |mention_target_login_name|
-        assert exists_unread_mention_notification_after_posting_mention?(
-          'kimura', mention_target_login_name, post_mention
-        )
+        assert exists_unread_mention_notification_after_posting_mention?('kimura', mention_target_login_name, post_mention)
         Product.last.destroy
       end
     end

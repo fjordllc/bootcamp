@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::CommentsTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'recieve only one notificaiton if you send two mentions in one comment' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
 
