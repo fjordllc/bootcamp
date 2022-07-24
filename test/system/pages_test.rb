@@ -156,13 +156,13 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'show comment count' do
     visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
-    assert_text "コメント（\n0\n）"
+    assert_selector '#comment_count', text: 0
 
     fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
 
     visit current_path
-    assert_text "コメント（\n1\n）"
+    assert_selector '#comment_count', text: 1
   end
 
   test 'show last updated user icon' do

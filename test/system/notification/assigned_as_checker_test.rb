@@ -12,6 +12,10 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
+  def deliveries
+    ActionMailer::Base.deliveries
+  end
+
   test 'notify mentor when assigned as checker' do
     visit_with_auth "/products/#{products(:product1).id}/edit", 'komagata'
     select 'machida', from: 'product_checker_id'
@@ -23,8 +27,10 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
       assert_text "mentormentaroさんの提出物「#{products(:product1).practice.title}」の提出物の担当になりました。"
     end
 
-    last_mail = ActionMailer::Base.deliveries.last
-    assert_equal "[bootcamp] mentormentaroさんの提出物#{products(:product1).title}の担当になりました。", last_mail.subject
+    sleep 0.2 until deliveries.count.positive?
+
+    expected = "[bootcamp] mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
+    assert_equal expected, deliveries.last.subject
   end
 
   test 'not notice self assigned as checker' do

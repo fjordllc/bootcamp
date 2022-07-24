@@ -7,8 +7,7 @@ header.page-content-header
             = page.practice.title
       h1.page-content-header__title(class="#{page.wip? ? 'is-wip' : ''}")
         - if page.wip?
-          span.a-title-label.is-wip
-            | WIP
+          span.a-title-label.is-wip WIP
         | #{page.title}
 
     .page-content-header__row
@@ -63,7 +62,7 @@ header.page-content-header
               - length = page.comments.length
               a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
                 | コメント（
-                span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                span#comment_count(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
                   = length
                 | ）
 
