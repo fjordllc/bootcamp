@@ -90,7 +90,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
-  test 'should change status and messages after initial submission' do
+  test 'should change messages when submit product' do
     visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'hatsuno'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
@@ -100,7 +100,34 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit "/practices/#{practices(:practice6).id}"
     assert_equal first('.test-product').text, '提出物へ'
-    find_button(class: 'is-submitted', disabled: true).has_css?('.is-active')
+  end
+
+  test 'should change learning status when change wip status' do
+    product = products(:product5)
+    product_path = "/products/#{product.id}"
+    practice_path = "/practices/#{product.practice.id}"
+
+    visit_with_auth "#{product_path}/edit", 'kimura'
+    click_button '提出する'
+    visit practice_path
+
+    assert find_button(class: 'is-submitted', disabled: true).matches_css?('.is-active')
+
+    products(:product8).change_learning_status(:started)
+    visit "#{product_path}/edit"
+    click_button 'WIP'
+    visit practice_path
+
+    assert find_button(class: 'is-unstarted', disabled: true).matches_css?('.is-active')
+
+    products(:product8).change_learning_status(:submitted)
+    visit product_path
+    click_button '提出する'
+    visit "#{product_path}/edit"
+    click_button 'WIP'
+    visit practice_path
+
+    assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
   end
 
   test 'update product' do
