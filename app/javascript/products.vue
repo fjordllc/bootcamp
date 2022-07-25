@@ -200,10 +200,13 @@ export default {
       if (this.params.target) params.set('target', this.params.target)
       if (this.params.checker_id)
         params.set('checker_id', this.params.checker_id)
-      if (params.get('page') || params.get('target') || params.get('checker_id'))
+      if (
+        params.get('page') ||
+        params.get('target') ||
+        params.get('checker_id')
+      )
         return `${location.pathname}?${params}`
-      else
-        return location.pathname
+      else return location.pathname
     },
     getParams() {
       const params = {}
