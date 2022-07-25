@@ -18,8 +18,9 @@ class ProductCallbacks
   end
 
   def after_save(product)
+    update_learning_status(product)
+
     unless product.wip
-      product.change_learning_status(:submitted)
       notify_to_watching_mentor(product)
       if product.user.trainee? && product.user.company
         send_notification(
@@ -78,5 +79,15 @@ class ProductCallbacks
       receivers: mentors,
       message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
     )
+  end
+
+  def update_learning_status(product)
+    if product.wip
+      started_practice = product.user.learnings.map(&:status).include?('started')
+      status = started_practice ? :unstarted : :started
+    else
+      status = :submitted
+    end
+    product.change_learning_status status
   end
 end
