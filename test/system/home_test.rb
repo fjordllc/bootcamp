@@ -6,7 +6,7 @@ class HomeTest < ApplicationSystemTestCase
   test 'GET / without sign in' do
     logout
     visit '/'
-    assert_equal 'FBC', title
+    assert_equal 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'GET /' do
