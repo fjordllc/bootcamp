@@ -14,14 +14,14 @@
             | {{ company.name }}
           span.group-company-name__label-option
             | {{ company.description }}
-  .m-user-icons
-    .m-user-icons__items
-      .m-user-icons__item(v-for='user in company.users', :key='user.id')
-        a.m-user-icons__item-link(:href='user.url')
+  .a-user-icons
+    .a-user-icons__items
+      .a-user-icons__item(v-for='user in company.users', :key='user.id')
+        a.a-user-icons__item-link(:href='user.url')
           img(
             :src='user.avatar_url',
             :title='user.icon_title',
-            :class='`m-user-icons__item-icon a-user-icon is-${user.primary_role}`'
+            :class='`a-user-icons__item-icon a-user-icon is-${user.primary_role}`'
           )
 </template>
 <script>
