@@ -64,11 +64,12 @@
   border-bottom: solid 1px $border-shade
   +media-breakpoint-up(md)
     font-size: 1.625rem
+    word-wrap: break-word
     &:not(:forst-child)
       margin-top: .25rem
   +media-breakpoint-down(sm)
     font-size: 1.125rem
-    word-wrap: break-word
+    word-break: break-all
     &:not(:forst-child)
       margin-top: .125rem
   &.is-wip
