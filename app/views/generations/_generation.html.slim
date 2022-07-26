@@ -7,6 +7,6 @@
             | #{generation.number}期生
           date.user-group__date
             | #{l generation.start_date.to_date} ~ #{l generation.end_date.to_date}
-    .m-user-icons
-      .m-user-icons__items
+    .a-user-icons
+      .a-user-icons__items
         = render partial: 'generations/user', collection: generation.users, as: :user

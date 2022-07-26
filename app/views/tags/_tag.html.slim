@@ -10,6 +10,6 @@
           | #{tag.name}
         span.user-group__count
           | （#{tag.count}）
-  .m-user-icons
-    .m-user-icons__items
+  .a-user-icons
+    .a-user-icons__items
       = render partial: 'tags/user', collection: User.desc_tagged_with(tag.name), as: :user
