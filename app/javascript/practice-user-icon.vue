@@ -1,8 +1,8 @@
 <template lang="pug">
-.m-user-icons__item
-  a.m-user-icons__item-link(:href='startedStudent.user_link')
+.a-user-icons__item
+  a.a-user-icons__item-link(:href='startedStudent.user_link')
     img(
-      :class='`m-user-icons__item-icon a-user-icon ${activeOrInactive} is-${startedStudent.primary_role}`',
+      :class='`a-user-icons__item-icon a-user-icon ${activeOrInactive} is-${startedStudent.primary_role}`',
       :src='startedStudent.avatar_url',
       :title='`${startedStudent.icon_title}`'
     )
