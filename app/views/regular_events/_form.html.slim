@@ -13,7 +13,7 @@
         label.a-form-label
           | カテゴリー
         ul.block-checks.sm-down:is-3-items
-          - RegularEvent.categories.keys.each do |category|
+          - RegularEvent.categories.each_key do |category|
             li.block-checks__item
               .a-block-check.is-radio
                 = f.radio_button :category, category, class: 'a-toggle-checkbox'
