@@ -31,6 +31,10 @@ export default {
         .then((json) => {
           if (json.message) {
             this.toast(json.message, 'error')
+          } else {
+            if (!this.checkId) {
+              this.toast('日報を確認済みにしました。')
+            }
           }
         })
         .catch((error) => {
