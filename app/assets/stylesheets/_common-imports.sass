@@ -3,70 +3,68 @@
 ////////////
 // functions
 ////////////
-@import "variables/text-inputs-list"
-@import "functions/math"
-@import "functions/number"
-@import "functions/list"
-@import "functions/text"
-@import "functions/color"
-@import "functions/assign-inputs"
-@import "functions/position"
-@import "functions/border"
+@import "config/variables/text-inputs-list"
+@import "config/functions/math"
+@import "config/functions/number"
+@import "config/functions/list"
+@import "config/functions/text"
+@import "config/functions/color"
+@import "config/functions/assign-inputs"
+@import "config/functions/position"
+@import "config/functions/border"
 
 ////////////
 // variables
 ////////////
-@import "variables/colors"
-@import "variables/welcome-colors"
-@import "variables/layout"
-@import "variables/fonts"
-@import "variables/choices"
+@import "config/variables/colors"
+@import "config/variables/welcome-colors"
+@import "config/variables/layout"
+@import "config/variables/fonts"
+@import "config/variables/choices"
 
 ////////////
 // mixins
 ////////////
-@import "mixins/override"
-@import "mixins/size"
-@import "mixins/position"
-@import "mixins/text"
-@import "mixins/border-radius"
-@import "mixins/link"
-@import "mixins/margin-padding"
-@import "mixins/word-wrap"
-@import "mixins/grid/grid-framework"
-@import "mixins/grid/grid"
-@import "mixins/break-points"
-@import "mixins/grid"
-@import "mixins/border"
-@import "mixins/font-awsome"
-@import "mixins/placeholder"
+@import "config/mixins/override"
+@import "config/mixins/size"
+@import "config/mixins/position"
+@import "config/mixins/text"
+@import "config/mixins/border-radius"
+@import "config/mixins/link"
+@import "config/mixins/margin-padding"
+@import "config/mixins/word-wrap"
+@import "config/mixins/grid/grid-framework"
+@import "config/mixins/grid/grid"
+@import "config/mixins/break-points"
+@import "config/mixins/grid"
+@import "config/mixins/border"
+@import "config/mixins/font-awsome"
+@import "config/mixins/placeholder"
 
-@import "mixins/long-text-style"
-@import "mixins/short-text-style"
-@import "mixins/button"
-@import "mixins/badge"
-@import "mixins/user-role"
-@import "mixins/practice-color"
+@import "config/mixins/long-text-style"
+@import "config/mixins/short-text-style"
+@import "config/mixins/button"
+@import "config/mixins/badge"
+@import "config/mixins/user-role"
+@import "config/mixins/practice-color"
 
 ////////////
 // initializers
 ////////////
+
 @import "initializers/ress"
 @import "initializers/reset"
 
-//////////////////////////////
-// helpers
-//////////////////////////////
+////////////
+// modules
+////////////
 
 @import choices.js/public/assets/styles/choices.min.css
 @import "modules/**/*"
-@import "helpers/**/*"
 
-//////////////////////////////
+////////////
 // style
-//////////////////////////////
+////////////
 
-@import "shared/**/*"
-@import "github"
 @import "atoms/**/*"
-@import "molecules/**/*"
+@import "shared/**/*"

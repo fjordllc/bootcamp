@@ -15,8 +15,8 @@
   .category-practices-item__learning-time(v-if='practiceTime')
     | <!--- 所要時間の目安: {{ convertToHourMinute(practiceTime.median) }} --->
     | <!--- （平均: {{ convertToHourMinute(practiceTime.average) }}） --->
-  .m-user-icons(v-if='practices.started_students.length')
-    .m-user-icons__items
+  .a-user-icons(v-if='practices.started_students.length')
+    .a-user-icons__items
       practice-user-icon(
         v-for='startedStudent in practices.started_students',
         :key='startedStudent.id',
