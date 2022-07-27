@@ -5,6 +5,11 @@
     -webkit-overflow-scrolling: touch
   .completed-practices-progress + &
     border-top: solid 1px $border-tint
+  .side-tabs-contents__item &
+    +media-breakpoint-up(md)
+      max-height: calc(100vh - 6rem)
+      overflow-y: auto
+      -webkit-overflow-scrolling: touch
 
 .card-list__message
   +padding(vertical, 2rem)
