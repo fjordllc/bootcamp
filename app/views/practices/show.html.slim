@@ -6,10 +6,8 @@
 = render 'page_tabs', resource: @practice
 
 .page-body
-  //
-    [TODO]完了Tweetの正式リリース後にコメントを外す
-    - if @practice.learning(current_user)&.complete?
-      = render '/products/completion_message', practice: @practice
+  - if @practice.learning(current_user)&.complete?
+    = render '/products/completion_message', practice: @practice
   .container.is-xxl
     .row.is-gutter-width-32
       .col-lg-8.col-xs-12
