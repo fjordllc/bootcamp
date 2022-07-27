@@ -21,20 +21,8 @@ class ProductCallbacks
     update_learning_status(product)
 
     unless product.wip
-      notify_to_watching_mentor(product)
-      if product.user.trainee? && product.user.company
-        send_notification(
-          product: product,
-          receivers: product.user.company.advisers,
-          message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
-        )
-        if product.published_at.nil?
-          create_watch(
-            watchers: product.user.company.advisers,
-            watchable: product
-          )
-        end
-      end
+      notify_watching_mentors(product)
+      notify_watching_advisers(product)
     end
 
     Cache.delete_unchecked_product_count
@@ -64,13 +52,23 @@ class ProductCallbacks
     Notification.where(link: "/products/#{product.id}").destroy_all
   end
 
-  def notify_to_watching_mentor(product)
+  def notify_watching_mentors(product)
     practice = Practice.find(product.practice_id)
     mentor_ids = practice.watches.where.not(user_id: product.user_id).pluck(:user_id)
     mentors = User.where(id: mentor_ids)
     send_notification(
       product: product,
       receivers: mentors,
+      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+    )
+  end
+
+  def notify_watching_advisers(product)
+    return unless product.user.trainee? && product.user.company
+
+    send_notification(
+      product: product,
+      receivers: product.user.company.advisers,
       message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
     )
   end
