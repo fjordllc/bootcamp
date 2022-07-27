@@ -42,6 +42,7 @@ class ProductsController < ApplicationController
     @product.practice = @practice
     @product.user = current_user
     set_wip
+    add_watchers
     update_published_at
     if @product.save
       redirect_to @product, notice: notice_message(@product, :create)
@@ -55,6 +56,7 @@ class ProductsController < ApplicationController
     @practice = @product.practice
     @product.published_at = nil if @product.published_at? && @product.wip
     set_wip
+    add_watchers
     update_published_at
     if @product.update(product_params)
       redirect_to @product, notice: notice_message(@product, :update)
@@ -77,6 +79,14 @@ class ProductsController < ApplicationController
     return if @product.wip || @product.published_at?
 
     @product.published_at = Time.current
+  end
+
+  def add_watchers
+    return if @product.wip || @product.published_at?
+
+    @product.user.company.advisers.each do |adviser|
+      Watch.create!(user: adviser, watchable: @product)
+    end
   end
 
   def find_product

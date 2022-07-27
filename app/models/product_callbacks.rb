@@ -60,12 +60,6 @@ class ProductCallbacks
     end
   end
 
-  def create_watch(watchers:, watchable:)
-    watchers.each do |watcher|
-      Watch.create!(user: watcher, watchable: watchable)
-    end
-  end
-
   def delete_notification(product)
     Notification.where(link: "/products/#{product.id}").destroy_all
   end
