@@ -16,6 +16,13 @@
 .card-list-item__rows
   flex: 1
 
+.card-list-item__thumbnail-image
+  height: 2.5rem
+  width: 4.5rem
+  object-fit: cover
+  border-radius: 4px
+  vertical-align: bottom
+
 .card-list-item__user-icons
   display: flex
   flex-wrap: wrap
@@ -32,6 +39,9 @@
   display: flex
   position: relative
   gap: .75rem
+
+a.card-list-item__inner
+  +flex-link
 
 .card-list-item__assignee
   +media-breakpoint-up(md)
