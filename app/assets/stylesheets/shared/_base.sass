@@ -51,16 +51,6 @@ body
   .columns + &
     margin-top: 1.5rem
 
-[class*=a-button]
-  &[class*=-secondary]
-    border: solid 1px #c1c5b9
-  &[class*=-primary]:disabled
-    background-color: $primary
-    cursor: default
-
-[class*=a-button]:not(input)
-  +padding(vertical, 0)
-
 .page
   body.is-auth-page &
     padding-top: 2rem
@@ -69,4 +59,4 @@ textarea
   overflow-anchor: none
 
 p
-  word-break: break-all
+  word-wrap: break-word

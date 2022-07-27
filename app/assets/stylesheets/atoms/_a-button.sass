@@ -160,3 +160,13 @@ input[type="button"]
     font-size: .9375rem
   &.is-signup
     background-color: $welcome-orange
+
+[class*=a-button]:not(input)
+  +padding(vertical, 0)
+
+[class*=a-button]
+  &[class*=-secondary]
+    border: solid 1px #c1c5b9
+  &[class*=-primary]:disabled
+    background-color: $primary
+    cursor: default
