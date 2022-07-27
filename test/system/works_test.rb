@@ -50,7 +50,7 @@ class WorksTest < ApplicationSystemTestCase
   test 'destroy my work' do
     visit_with_auth work_path(works(:work1)), 'kimura'
     accept_confirm do
-      click_link '削除'
+      click_link '削除する'
     end
     assert_text 'ポートフォリオから作品を削除しました'
   end
@@ -66,7 +66,7 @@ class WorksTest < ApplicationSystemTestCase
   test 'admin can destroy a work' do
     visit_with_auth work_path(works(:work1)), 'komagata'
     accept_confirm do
-      click_link '削除'
+      click_link '削除する'
     end
     assert_text 'ポートフォリオから作品を削除しました'
   end
@@ -78,6 +78,6 @@ class WorksTest < ApplicationSystemTestCase
 
   test "user can't destroy other user's work" do
     visit_with_auth work_path(works(:work2)), 'kimura'
-    assert_no_text '削除'
+    assert_no_text '削除する'
   end
 end
