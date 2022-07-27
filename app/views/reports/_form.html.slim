@@ -21,7 +21,7 @@
             li.block-checks__item.test-select-emotions
               .a-block-check.is-radio
                 = b.radio_button(class: 'a-toggle-checkbox')
-                label.a-block-check__label.has-image for="report_emotion_#{b.value}"
+                label.a-block-check__label.has-icon for="report_emotion_#{b.value}"
                   = image_tag b.text, id: b.value, alt: b.value, class: 'a-block-check__image'
                   span.a-block-check__name
                     = b.value

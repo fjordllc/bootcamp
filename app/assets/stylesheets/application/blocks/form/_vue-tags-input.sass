@@ -1,5 +1,12 @@
 .vue-tags-input
   max-width: 100% !important
 
-.ti-input
-  border-radius: 4px
+body .vue-tags-input
+  .ti-input
+    border-radius: 4px
+    background-color: $input-background
+    border-color: $input-border
+    transition: all .2s ease-out
+    &:hover
+      background-color: $input-hover-background
+      border-color: $input-hover-border
