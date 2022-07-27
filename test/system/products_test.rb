@@ -271,6 +271,20 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
   end
 
+  test "should add to trainer's watching list when trainee submits product" do
+    users(:senpai).watches.delete_all
+
+    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
+    within('form[name=product]') do
+      fill_in('product[body]', with: '研修生が提出物を提出すると、その企業のアドバイザーのWatch中に登録される')
+    end
+    click_button '提出する'
+    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
+
+    visit_with_auth '/current_user/watches', 'senpai'
+    assert_text '研修生が提出物を提出すると、その企業のアドバイザーのWatch中に登録される'
+  end
+
   test 'products order on all tab' do
     Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
     # 最新と最古の提出物を画面上で判定するため、提出物を1ページ内に収める
