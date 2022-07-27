@@ -15,14 +15,8 @@
         = f.label :reported_on, class: 'a-form-label'
         = f.date_field :reported_on, class: 'a-text-input'
       .form-item.is-sm
-<<<<<<< HEAD
-        label.a-form-label
-          = f.label :emotion
-        ul.block-checks.is-3-items.is-inline
-=======
         = f.label :emotion, class: 'a-form-label'
-        ul.form-item__radios.is-inline.is-3-items
->>>>>>> 6f4840748 (定期イベントのカテゴリーのデザイン)
+        ul.block-checks.is-3-items.is-inline
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
             li.block-checks__item.test-select-emotions
               .a-block-check.is-radio
