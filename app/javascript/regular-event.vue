@@ -59,8 +59,10 @@ export default {
   },
   computed: {
     categoryClass() {
-      return this.regularEvent.category_class === 'reading_circle' ? 'is-reading-circle' : `is-${this.regularEvent.category_class}`
+      return this.regularEvent.category_class === 'reading_circle'
+        ? 'is-reading-circle'
+        : `is-${this.regularEvent.category_class}`
     }
-  },
+  }
 }
 </script>
