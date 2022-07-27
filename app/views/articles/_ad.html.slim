@@ -5,10 +5,10 @@ aside.bootcamp-ad
         | 現場の即戦力になれるプログラミングスクール
     .card-body
       .card__description
+        = image_tag 'pjord-face.svg',
+          alt: 'フィヨルドブートキャンプのキャラクターピヨルドの顔画像',
+          class: 'bootcamp-ad__image'
         .a-short-text
-          = image_tag 'pjord-face.svg',
-            alt: 'フィヨルドブートキャンプのキャラクターピヨルドの顔画像',
-            class: 'bootcamp-ad__image'
           p
             | フィヨルドブートキャンプは、
             | プログラマーとして就職を目指せるスキルを
@@ -19,6 +19,6 @@ aside.bootcamp-ad
             | プログラミング未経験からスタートして、
             | HTML、CSS、Linux、Ruby、Rails、JavaScript、チーム開発を経て、
             | 自作サービスを公開するまでのカリキュラムを用意しています。
-          p
-            button.a-button.is-primary.is-lg.is-block
-              | 詳細はこちら
+    .card-footer
+      button.a-button.is-primary.is-lg.is-block
+        | 詳細はこちら

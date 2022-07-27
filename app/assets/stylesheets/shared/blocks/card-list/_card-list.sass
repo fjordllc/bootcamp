@@ -35,3 +35,11 @@
 .card-list__items
   .card-list__deacription + &
     border-top: dotted .0625rem $border-tint
+  &.is-md-only-2-items
+    +media-breakpoint-only(md)
+      display: flex
+      flex-wrap: wrap
+      .card-list-item
+        flex: 0 0 50%
+        &:nth-child(odd)
+          border-right: solid 1px $border-tint
