@@ -82,6 +82,7 @@ class ProductsController < ApplicationController
   end
 
   def add_watchers
+    return unless @product.user.trainee? && @product.user.company
     return if @product.wip || @product.published_at?
 
     @product.user.company.advisers.each do |adviser|
