@@ -19,8 +19,8 @@ ruby:
 .welcome-section
   .article
     .container.is-xxl
-      .row
-        .col-xl-8.col-xs-12
+      .row.is-gutter-width-32
+        .col-xl-8.col-lg-8.col-xs-12
           .a-card.article__inner
             header.article__header
               h1.article__title
@@ -55,6 +55,6 @@ ruby:
                     li
                       = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'a-button is-secondary is-md is-block' do
                         | 削除
-        .col-xl-4.col-xs-12
+        .col-xl-4.col-lg-4.col-xs-12
           = render 'recent_articles'
           = render 'ad'
