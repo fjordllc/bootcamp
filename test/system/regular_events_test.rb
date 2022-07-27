@@ -10,7 +10,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
       find('label', text: '主催者').click
-      choose 'regular_event_category_2'
+      find('label', text: '質問').click
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
@@ -64,7 +64,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
       find('label', text: '主催者').click
-      choose 'regular_event_category_0'
+      find('label', text: '輪読会').click
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('第2')
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('水曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
@@ -87,13 +87,13 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'show the category of the regular event on regular events list' do
     RegularEvent.destroy_all
 
-    5.times do |value|
+    RegularEvent.categories.each_key do |category|
       visit_with_auth '/regular_events/new', 'komagata'
       fill_in 'regular_event[title]', with: '定期イベント・カテゴリーのテスト'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
       find('label', text: '主催者').click
-      choose "regular_event_category_#{value}"
+      find('label', text: I18n.t("activerecord.enums.regular_event.category.#{category}")).click
       fill_in 'regular_event[wday]', with: '木曜日'
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
