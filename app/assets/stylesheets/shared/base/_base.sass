@@ -1,0 +1,14 @@
+html
+  font-family: $basic-serif
+  color: $default-text
+  &.is-application
+    +media-breakpoint-up(md)
+      scroll-padding-top: 3.75rem
+
+.columns
+  .columns + &
+    margin-top: 1.5rem
+
+.page
+  body.is-auth-page &
+    padding-top: 2rem

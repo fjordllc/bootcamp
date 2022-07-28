@@ -1,0 +1,20 @@
+.wrapper
+  min-height: 100vh
+  scroll-behavior: smooth
+  -webkit-overflow-scrolling: touch
+  overflow-y: visible
+  height: auto
+  +media-breakpoint-up(md)
+    display: flex
+    flex-direction: column
+  body.is-application &
+    +media-breakpoint-up(md)
+      margin-left: 5rem
+  body.no-global-nav &
+    margin-left: 0
+  body.is-error-page &
+    padding-top: 4rem
+    overflow-y: auto
+
+.wrapper__main
+  flex: 1
