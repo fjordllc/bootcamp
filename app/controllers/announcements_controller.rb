@@ -17,7 +17,7 @@ class AnnouncementsController < ApplicationController
     return unless params[:id]
 
     announcement = Announcement.find(params[:id])
-    @announcement.title       = announcement.title
+    @announcement.title = announcement.title
     @announcement.description = announcement.description
     @announcement.target = announcement.target
     flash.now[:notice] = 'お知らせをコピーしました。'
@@ -25,15 +25,6 @@ class AnnouncementsController < ApplicationController
 
   def edit
     @announcement.user_id = current_user.id
-  end
-
-  def update
-    set_wip
-    if @announcement.update(announcement_params)
-      redirect_to @announcement, notice: notice_message(@announcement)
-    else
-      render :edit
-    end
   end
 
   def create
@@ -44,6 +35,19 @@ class AnnouncementsController < ApplicationController
       redirect_to @announcement, notice: notice_message(@announcement)
     else
       render :new
+    end
+  end
+
+  def update
+    set_wip
+    if params['announcement']['updated_at'] != Announcement.find(params[:id]).updated_at.to_s
+      flash.now[:alert] = '別の人がお知らせを更新していたので更新できませんでした。'
+      render :edit and return
+    end
+    if @announcement.update(announcement_params)
+      redirect_to @announcement, notice: notice_message(@announcement)
+    else
+      render :edit
     end
   end
 
