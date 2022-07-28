@@ -32,10 +32,8 @@ header.page-header
   - if @product.wip?
     = render 'message_for_wip'
 
-  //
-    [TODO]完了Tweetの正式リリース後にコメントを外す
-    - if @product.user == current_user && @learning&.complete?
-      = render 'completion_message', practice: @product.practice
+  - if @product.user == current_user && @learning&.complete?
+    = render 'completion_message', practice: @product.practice
 
   .container.is-xxxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-gutter-width-32 is-jc:c' : ''}")
