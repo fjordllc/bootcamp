@@ -1,11 +1,11 @@
 .stamp
-  border: solid 1px $stamp-color
+  border: solid 1px $stamp
   border-radius: .75rem
   pointer-events: none
   +size(4rem 3.5rem)
   +position(absolute, right -.25rem, top 0)
   transform: rotate(25deg)
-  +text-block(.625rem 1, block center $stamp-color 400)
+  +text-block(.625rem 1, block center $stamp 400)
   font-feature-settings: "palt"
   letter-spacing: 0
   +media-breakpoint-down(sm)
@@ -36,7 +36,7 @@
     +size(100% 32%)
   &.is-created-at
     +size(100% 36%)
-    +border(vertical, solid 1px $stamp-color)
+    +border(vertical, solid 1px $stamp)
 
 .stamp__content-inner
   max-width: 100%
