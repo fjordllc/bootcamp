@@ -10,6 +10,7 @@
               .a-list-item-badge.is-wip
                 span
                   | WIP
+            img.niconico-calendar__emotion-image src="/images/emotion/#{report.emotion}.svg" alt=report.emotion
             h2.card-list-item-title__title(itemprop='name')
               = link_to report, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
                 = report.title
