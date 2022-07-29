@@ -35,7 +35,8 @@ namespace :bootcamp do
 
   desc 'Disconnect all DB user.'
   task disconnect_all_user: :environment do
-    ActiveRecord::Base.connection.execute "SELECT pid FROM pg_stat_activity WHERE datname = 'bootcamp_staging'"
+    sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'bootcamp_staging' and application_name = 'bin/rails'"
+    ActiveRecord::Base.connection.execute sql
   end
 
   namespace :oneshot do

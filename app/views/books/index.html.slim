@@ -15,5 +15,4 @@ header.page-header
 
 .page-body
   .container
-    .row
-      = render partial: 'books/book', collection: @books, as: :book
+    div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}")

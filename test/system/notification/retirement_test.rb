@@ -14,11 +14,7 @@ class Notification::RetirementTest < ApplicationSystemTestCase
 
   test 'notify admins and mentors when a user retire' do
     visit_with_auth notifications_path, 'komagata'
-    within first('.card-list-item') do
-      assert_no_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
-    end
-
-    visit_with_auth notifications_path, 'machida'
+    find('#notifications.loaded', wait: 10)
     within first('.card-list-item') do
       assert_no_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
     end
@@ -30,11 +26,7 @@ class Notification::RetirementTest < ApplicationSystemTestCase
     assert_text '退会処理が完了しました'
 
     visit_with_auth notifications_path, 'komagata'
-    within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
-    end
-
-    visit_with_auth notifications_path, 'machida'
+    find('#notifications.loaded', wait: 10)
     within first('.card-list-item.is-unread') do
       assert_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
     end

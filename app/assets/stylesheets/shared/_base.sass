@@ -1,9 +1,21 @@
+html
+  font-family: $basic-serif
+  color: $default-text
+  &.is-application
+    +media-breakpoint-up(md)
+      scroll-padding-top: 3.75rem
+
 body
   min-height: 100vh
   height: 100%
-  &.application
+  &.is-application
+    background-color: $background
     +media-breakpoint-up(md)
       padding-top: $header-height__md-up
+  &.is-welcome
+    background-color: $background
+  &.is-completion
+    background-color: $completion
   &.is-piyo-background
     background-color: $main
     background-image: image_url('error-background-main-color.svg')
@@ -39,16 +51,6 @@ body
   .columns + &
     margin-top: 1.5rem
 
-[class*=a-button]
-  &[class*=-secondary]
-    border: solid 1px #c1c5b9
-  &[class*=-primary]:disabled
-    background-color: $primary
-    cursor: default
-
-[class*=a-button]:not(input)
-  +padding(vertical, 0)
-
 .page
   body.is-auth-page &
     padding-top: 2rem
@@ -57,4 +59,4 @@ textarea
   overflow-anchor: none
 
 p
-  word-break: break-all
+  word-wrap: break-word

@@ -4,9 +4,7 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[edit update destroy]
   before_action :require_admin_or_mentor_login, only: %i[new create edit update]
 
-  def index
-    @books = Book.all
-  end
+  def index; end
 
   def new
     @book = Book.new
