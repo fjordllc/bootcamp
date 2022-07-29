@@ -23,7 +23,7 @@ div
 <script>
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
-import Question from 'question.vue'
+import Question from 'components/question.vue'
 
 export default {
   name: 'Questions',
