@@ -206,7 +206,7 @@ export default {
         params.get('checker_id')
       )
         return `${location.pathname}?${params}`
-      else return location.pathname
+      return location.pathname
     },
     getParams() {
       const params = {}
