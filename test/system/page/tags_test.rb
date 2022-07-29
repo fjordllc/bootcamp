@@ -64,7 +64,7 @@ class Page::TagsTest < ApplicationSystemTestCase
     assert_text 'タグ 「上級者」'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    assert_text '質問はありません。'
+    assert_text 'Q&Aはありません。'
     visit_with_auth questions_tag_path(update_tag_text, all: 'true'), 'komagata'
     assert_text "タグ「#{update_tag_text}」のQ&A（1）"
 
@@ -90,7 +90,7 @@ class Page::TagsTest < ApplicationSystemTestCase
     assert_text 'タグ 「中級者」'
 
     visit_with_auth questions_tag_path(tag.name, all: 'true'), 'komagata'
-    assert_text '質問はありません。'
+    assert_text 'Q&Aはありません。'
     visit_with_auth questions_tag_path(update_tag.name, all: 'true'), 'komagata'
     assert_text "タグ「#{update_tag.name}」のQ&A（2）"
 
