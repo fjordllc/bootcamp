@@ -9,7 +9,8 @@ class API::NotificationsController < API::BaseController
                                        .by_read_status(status)
                                        .latest_of_each_link
 
-    @notifications = Notification.from(latest_notifications, :notifications) # latest_notifications のクエリで指定している ORDER BY の順序を他と混ぜないようにするため、from を使ってサブクエリとした
+    @notifications = Notification.with_avatar
+                                 .from(latest_notifications, :notifications) # latest_notifications のクエリで指定している ORDER BY の順序を他と混ぜないようにするため、from を使ってサブクエリとした
                                  .order(created_at: :desc)
     @notifications = params[:page] ? @notifications.page(params[:page]) : @notifications
   end
