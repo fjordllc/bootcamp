@@ -18,7 +18,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'show listing all questions' do
     visit_with_auth questions_path, 'kimura'
-    assert_equal '全てのQ&A | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '全てのQ&A | FBC', title
   end
 
   test 'show a resolved qestion' do
