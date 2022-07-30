@@ -17,7 +17,7 @@ class Book < ApplicationRecord
   def cover_url
     default_image_path = '/images/books/covers/default.svg'
     if cover.attached?
-      cover.variant(resize: COVER_SIZE)
+      cover.variant(resize: COVER_SIZE).processed.url
     else
       image_url default_image_path
     end
