@@ -325,9 +325,11 @@ class ArticlesTest < ApplicationSystemTestCase
 
     visit article_path articles(:article2)
 
-    assert_no_text wip_article1.title
-    assert_no_text wip_article2.title
-    assert_text @article.title
+    within '.card-list' do
+      assert_no_text wip_article1.title
+      assert_no_text wip_article2.title
+      assert_text @article.title
+    end
   end
 
   test 'display recent 10 articles on article page' do
@@ -343,11 +345,13 @@ class ArticlesTest < ApplicationSystemTestCase
     end
 
     visit article_path Article.last.id
-    titles = all('.articles-item__link .articles-item__title').map(&:text)
+    titles = all('.card-list-item-title').map(&:text)
 
-    assert_equal 'test title 10', titles.first
-    assert_equal 'test title 1', titles.last
-    assert_no_text 'test title 0'
-    assert_equal all('.articles-item__link').count, 10
+    within '.card-list' do
+      assert_equal 'test title 10', titles.first
+      assert_equal 'test title 1', titles.last
+      assert_no_text 'test title 0'
+      assert_equal all('.card-list-item').count, 10
+    end
   end
 end
