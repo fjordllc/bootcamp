@@ -33,7 +33,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     click_button '日報の確認を取り消す'
 
     assert_button '日報を確認'
-    assert_no_css 'stamp__content is-title'
+    assert_no_css 'stamp stamp-approve'
   end
 
   test 'comment and check report' do

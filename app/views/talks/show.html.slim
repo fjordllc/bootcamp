@@ -51,7 +51,7 @@ header.page-header
                           = link_to user_path(member.id), class: 'a-user-name' do
                             = member.login_name
 
-        #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
+        #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id:number="#{current_user.id}")
 
       - if current_user.admin?
         .col-xl-5.col-xs-12
@@ -90,5 +90,4 @@ header.page-header
                                   class: 'a-button is-sm is-danger is-block'
                 #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
-                //#js-reports(data-user-id="#{@user.id}" data-limit="10")
-                div(data-vue="Reports" data-vue-user-id="#{@user.id}" data-limit="10")
+                div(data-vue="Reports" data-vue-user-id:number="#{@user.id}" data-limit="10")
