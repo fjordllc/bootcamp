@@ -3,6 +3,7 @@
 class AnnouncementsController < ApplicationController
   before_action :require_login
   before_action :set_announcement, only: %i[show edit update destroy]
+  before_action :rewrite_announcement, only: %i[update]
   before_action :set_footprints, only: %i[show]
 
   def index; end
@@ -29,13 +30,7 @@ class AnnouncementsController < ApplicationController
 
   def update
     set_wip
-    if Time.zone.parse(params['announcement']['updated_at']).utc.floor != Announcement.find(params[:id]).updated_at.utc.floor
 
-      entered_announcement
-
-      flash.now[:alert] = '別の人がお知らせを更新していたので更新できませんでした。'
-      render :edit and return
-    end
     if @announcement.update(announcement_params)
       redirect_to @announcement, notice: notice_message(@announcement)
     else
@@ -60,13 +55,6 @@ class AnnouncementsController < ApplicationController
   end
 
   private
-
-  def entered_announcement
-    @announcement.assign_attributes(updated_at: params['announcement']['updated_at'], \
-                                    title: params['announcement']['title'], \
-                                    description: params['announcement']['description'], \
-                                    target: params['announcement']['target'])
-  end
 
   def footprint!
     @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
@@ -95,5 +83,25 @@ class AnnouncementsController < ApplicationController
     when 'update'
       announcement.wip? ? 'お知らせをWIPとして保存しました。' : 'お知らせを更新しました。'
     end
+  end
+
+  def rewrite_announcement
+    return unless conflict
+
+    set_entered_announcement
+
+    flash.now[:alert] = '別の人がお知らせを更新していたので更新できませんでした。'
+    render :edit and return
+  end
+
+  def conflict
+    Time.zone.parse(params['announcement']['updated_at']).utc.floor != Announcement.find(params[:id]).updated_at.utc.floor
+  end
+
+  def set_entered_announcement
+    @announcement.assign_attributes(updated_at: params['announcement']['updated_at'], \
+                                    title: params['announcement']['title'], \
+                                    description: params['announcement']['description'], \
+                                    target: params['announcement']['target'])
   end
 end
