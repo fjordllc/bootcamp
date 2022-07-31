@@ -31,7 +31,7 @@ header.page-header
   .container.is-xl
     .two-columns
       .two-columns__column.is-main
-        #js-pages(data-selected-tag="#{params[:tag]}")
+        div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}")
 
       - if Page.all_tags.any?
         .two-columns__column.is-sub
