@@ -17,17 +17,18 @@ div
 </template>
 
 <script>
-import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Pager from 'pager.vue'
-import page from 'page.vue'
+import LoadingListPlaceholder from '../loading-list-placeholder'
+import Pager from '../pager'
+import page from './page'
 export default {
+  name: 'Pages',
   components: {
     loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
     page: page
   },
   props: {
-    practiceId: { type: String, default: null, required: false },
+    practiceId: { type: Number, default: null, required: false },
     selectedTag: { type: String, required: true }
   },
   data() {

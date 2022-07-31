@@ -58,7 +58,6 @@ import '../worried-users.js'
 import '../report_template.js'
 import '../subscription-status.js'
 import '../new-event-date-set.js'
-import '../pages.js'
 import '../questions.js'
 import '../tag_edit.js'
 import '../talks.js'
@@ -79,10 +78,12 @@ import Hello from '../components/hello.vue'
 import AdminCompanies from '../components/admin_companies.vue'
 import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
+import Pages from '../components/pages.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
 mounter.addComponent(AdminCompanies)
 mounter.addComponent(Announcements)
 mounter.addComponent(Books)
+mounter.addComponent(Pages)
 mounter.mount()
