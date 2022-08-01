@@ -151,4 +151,9 @@ class RetirementTest < ApplicationSystemTestCase
     assert_no_text '学習時間を取ることが難しくなったから'
     assert_no_text '学ぶ意欲が落ちたから'
   end
+
+  test 'GET /retirement' do
+    visit '/retirement'
+    assert_equal 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
 end
