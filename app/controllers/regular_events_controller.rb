@@ -13,6 +13,7 @@ class RegularEventsController < ApplicationController
 
   def new
     @regular_event = RegularEvent.new
+    @regular_event.regular_event_repeat_rules.build
 
     return unless params[:id]
 
@@ -56,8 +57,8 @@ class RegularEventsController < ApplicationController
       :hold_national_holiday,
       :start_at,
       :end_at,
-      :wday,
-      user_ids: []
+      user_ids: [],
+      regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
   end
 
@@ -94,7 +95,6 @@ class RegularEventsController < ApplicationController
     new_event.hold_national_holiday = regular_event.hold_national_holiday
     new_event.start_at = regular_event.start_at
     new_event.end_at = regular_event.end_at
-    new_event.wday = regular_event.wday
     new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'

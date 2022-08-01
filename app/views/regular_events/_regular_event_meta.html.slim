@@ -12,9 +12,9 @@
                   = image_tag organizer.avatar_url, title: organizer.icon_title, class: "a-user-icon is-sm is-#{organizer.login_name} is-#{organizer.primary_role}", alt: organizer.login_name
       .event-meta__item
         dt.event-meta__item-label
-          | 開催日
+          | 定期開催日
         dd.event-meta__item-value
-          | #{regular_event.wday}
+          = regular_event.holding_cycles
       .event-meta__item
         dt.event-meta__item-label
           | 開催時間
@@ -25,3 +25,8 @@
           | 祝日
         dd.event-meta__item-value
           | #{regular_event.hold_national_holiday ? '開催します' : '開催しません'}
+      .event-meta__item
+        dt.event-meta__item-label
+          | 次回開催日
+        dd.event-meta__item-value
+          = regular_event.next_holding_date

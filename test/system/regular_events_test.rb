@@ -9,7 +9,6 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: '質問相談タイム'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
-      fill_in 'regular_event[wday]', with: '平日'
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
@@ -26,7 +25,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
-      fill_in 'regular_event[wday]', with: '火曜日'
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '予習不要です'
@@ -35,6 +35,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントを作成しました。'
+    assert_text '毎週月曜日'
   end
 
   test 'create copy regular event' do
@@ -43,6 +44,8 @@ class RegularEventsTest < ApplicationSystemTestCase
     click_link 'コピー'
     assert_text '定期イベントをコピーしました'
     within 'form[name=regular_event]' do
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       click_button '作成'
@@ -50,7 +53,6 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text '定期イベントを作成しました。'
     assert_text regular_event.title
     assert_text regular_event.description
-    assert_text regular_event.wday
   end
 
   test 'update regular event' do
@@ -59,13 +61,15 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
-      fill_in 'regular_event[wday]', with: '火曜日（修正）'
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('第2')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('水曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('21:00')
       fill_in 'regular_event[description]', with: '予習不要です（修正）'
       click_button '内容変更'
     end
     assert_text '定期イベントを更新しました。'
+    assert_text '第2水曜日'
   end
 
   test 'destroy regular event' do
