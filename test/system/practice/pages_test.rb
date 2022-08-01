@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Practice::PagesTest < ApplicationSystemTestCase
   test 'show listing pages' do
     visit_with_auth "/practices/#{practices(:practice1).id}/pages", 'hatsuno'
-    assert_equal 'OS X Mountain Lionをクリーンインストールする | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'OS X Mountain Lionをクリーンインストールする | FBC', title
   end
 
   test 'show last updated user icon and role' do

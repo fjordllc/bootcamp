@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Mentor::HomeTest < ApplicationSystemTestCase
   test 'GET /mentor' do
     visit_with_auth '/mentor', 'komagata'
-    assert_equal 'メンターページ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'メンターページ | FBC', title
     assert_no_text 'jobseeker (就活 のぞむ)'
     assert_text 'muryou (Muryou Nosuke)'
   end
