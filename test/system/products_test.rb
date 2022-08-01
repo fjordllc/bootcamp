@@ -287,14 +287,6 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button' do
-    (Product.default_per_page - Product.count + 1).times do |n|
-      Product.create!(
-        body: 'test',
-        user: users(:hajime),
-        practice: practices("practice#{n + 1}".to_sym)
-      )
-    end
-
     visit_with_auth '/products', 'komagata'
     within first('.pagination') do
       find('a', text: '2').click
@@ -303,17 +295,10 @@ class ProductsTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_current_path('/products?_login_name=komagata&page=2')
+    assert_current_path('/products?page=2')
   end
 
   test 'specify the page number in the URL' do
-    (Product.default_per_page - Product.count + 1).times do |n|
-      Product.create!(
-        body: 'test',
-        user: users(:hajime),
-        practice: practices("practice#{n + 1}".to_sym)
-      )
-    end
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     all('.pagination .is-active').each do |active_button|
@@ -323,18 +308,13 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'clicking the browser back button will show the previous page' do
-    (Product.default_per_page - Product.count + 1).times do |n|
-      Product.create!(
-        body: 'test',
-        user: users(:hajime),
-        practice: practices("practice#{n + 1}".to_sym)
-      )
-    end
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
       find('a', text: '1').click
     end
+    assert_current_path('/products')
+
     page.go_back
     assert_current_path('/products?page=2')
     all('.pagination .is-active').each do |active_button|
