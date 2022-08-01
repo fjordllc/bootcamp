@@ -307,4 +307,51 @@ class ArticlesTest < ApplicationSystemTestCase
 
     assert_selector "img[src$='komagata.jpg']"
   end
+
+  test 'WIP articles are not included in recent articles' do
+    wip_article1 = Article.create(
+      title: '未公開の記事',
+      body: '一度も公開したことがないWIP記事',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article2 = Article.create(
+      title: '非公開の記事',
+      body: '一度公開した後にWIPに戻した記事',
+      user: users(:komagata),
+      wip: true,
+      published_at: '2022-01-03 00:00:00'
+    )
+
+    visit article_path articles(:article2)
+
+    within '.card-list' do
+      assert_no_text wip_article1.title
+      assert_no_text wip_article2.title
+      assert_text @article.title
+    end
+  end
+
+  test 'display recent 10 articles on article page' do
+    Article.delete_all
+    11.times do |i|
+      Article.create(
+        title: "test title #{i}",
+        body: 'test body',
+        user: users(:komagata),
+        wip: false,
+        published_at: "2021-12-31 #{i}:00:00"
+      )
+    end
+
+    visit article_path Article.last.id
+    titles = all('.card-list-item-title').map(&:text)
+
+    within '.card-list' do
+      assert_equal 'test title 10', titles.first
+      assert_equal 'test title 1', titles.last
+      assert_no_text 'test title 0'
+      assert_equal all('.card-list-item').count, 10
+    end
+  end
 end
