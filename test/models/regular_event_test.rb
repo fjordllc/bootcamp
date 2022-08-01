@@ -15,7 +15,7 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test 'event_day?' do
+  test '#event_day?' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
       assert_equal true, regular_event.event_day?
@@ -26,7 +26,7 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-  test 'convert_date_into_week' do
+  test '#convert_date_into_week' do
     regular_event = regular_events(:regular_event1)
     assert_equal 1, regular_event.convert_date_into_week(1)
     assert_equal 2, regular_event.convert_date_into_week(8)
@@ -34,14 +34,14 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_equal 4, regular_event.convert_date_into_week(22)
   end
 
-  test 'next_event_date' do
+  test '#next_event_date' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal Date.new(2022, 6, 5), regular_event.next_event_date
     end
   end
 
-  test 'possible_next_event_date' do
+  test '#possible_next_event_date' do
     regular_event = regular_events(:regular_event1)
     regular_event_repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
@@ -50,7 +50,7 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-  test 'next_specific_day_of_the_week' do
+  test '#next_specific_day_of_the_week' do
     regular_event = regular_events(:regular_event1)
     regular_event_repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do

@@ -11,11 +11,11 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     @finished_regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event8))
   end
 
-  test 'holding_cycles' do
+  test '#holding_cycles' do
     assert_equal '毎週日曜日', @regular_event.holding_cycles
   end
 
-  test 'next_holding_date' do
+  test '#next_holding_date' do
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal '次回の開催日は 2022年06月05日 です', @regular_event.next_holding_date
     end
