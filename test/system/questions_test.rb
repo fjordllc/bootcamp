@@ -8,12 +8,12 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'show listing unsolved questions' do
     visit_with_auth questions_path(target: 'not_solved'), 'kimura'
-    assert_equal '未解決のQ&A | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '未解決のQ&A | FBC', title
   end
 
   test 'show listing solved questions' do
     visit_with_auth questions_path(target: 'solved'), 'kimura'
-    assert_equal '解決済みのQ&A | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '解決済みのQ&A | FBC', title
   end
 
   test 'show listing all questions' do
@@ -30,7 +30,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'show a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    assert_equal 'テストの質問 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'テストの質問 | FBC', title
   end
 
   test 'create a question' do
