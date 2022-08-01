@@ -20,7 +20,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[bootcamp] komagataさんからコメントが届きました。', email.subject
+    assert_equal '[FBC] komagataさんからコメントが届きました。', email.subject
     assert_match(/コメント/, email.body.to_s)
   end
 
@@ -36,7 +36,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[bootcamp] sotugyouさんの学習週1日目を確認しました。', email.subject
+    assert_equal '[FBC] sotugyouさんの学習週1日目を確認しました。', email.subject
     assert_match(/確認/, email.body.to_s)
   end
 
@@ -56,7 +56,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[bootcamp] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
+    assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
     assert_match(/メンション/, email.body.to_s)
   end
 
@@ -77,7 +77,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal "[bootcamp] sotugyouさんが「#{product.title}」を提出しました。", email.subject
+    assert_equal "[FBC] sotugyouさんが「#{product.title}」を提出しました。", email.subject
     assert_match(/提出/, email.body.to_s)
   end
 
@@ -93,7 +93,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[bootcamp] komagataさんから回答がありました。', email.subject
+    assert_equal '[FBC] komagataさんから回答がありました。', email.subject
     assert_match(/回答/, email.body.to_s)
   end
 
@@ -113,7 +113,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[bootcamp] お知らせ「お知らせ1」', email.subject
+    assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
     assert_match(/お知らせ/, email.body.to_s)
   end
 
@@ -133,7 +133,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[bootcamp] sotugyouさんから質問「injectとreduce」が投稿されました。', email.subject
+    assert_equal '[FBC] sotugyouさんから質問「injectとreduce」が投稿されました。', email.subject
     assert_match(/質問/, email.body.to_s)
   end
 
@@ -153,7 +153,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[bootcamp] hajimeさんがはじめての日報を書きました！', email.subject
+    assert_equal '[FBC] hajimeさんがはじめての日報を書きました！', email.subject
     assert_match(/はじめて/, email.body.to_s)
   end
 
@@ -173,7 +173,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['hatsuno@fjord.jp'], email.to
-    assert_equal '[bootcamp] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
+    assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
     assert_match(/Bootcamp/, email.body.to_s)
   end
 
@@ -194,7 +194,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[bootcamp] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。', email.subject
+    assert_equal '[FBC] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。', email.subject
   end
 
   test 'retired' do
@@ -213,7 +213,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[bootcamp] yameoさんが退会しました。', email.subject
+    assert_equal '[FBC] yameoさんが退会しました。', email.subject
     assert_match(/退会/, email.body.to_s)
   end
 
@@ -233,7 +233,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[bootcamp] kensyuowataさんが退会してから3カ月が経過しました。', email.subject
+    assert_equal '[FBC] kensyuowataさんが退会してから3カ月が経過しました。', email.subject
     assert_match(/退会/, email.body.to_s)
   end
 
@@ -253,7 +253,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['senpai@fjord.jp'], email.to
-    assert_equal '[bootcamp] kensyuさんが日報【 研修の日報 】を書きました！', email.subject
+    assert_equal '[FBC] kensyuさんが日報【 研修の日報 】を書きました！', email.subject
     assert_match(/日報/, email.body.to_s)
   end
 
@@ -273,7 +273,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['hajime@fjord.jp'], email.to
-    assert_equal '[bootcamp] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
+    assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
     assert_match(/イベント/, email.body.to_s)
   end
 
@@ -293,7 +293,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['muryou@fjord.jp'], email.to
-    assert_equal '[bootcamp] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
+    assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
     assert_match(/日報/, email.body.to_s)
   end
 
@@ -313,7 +313,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['advijirou@example.com'], email.to
-    assert_equal '[bootcamp] hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。', email.subject
+    assert_equal '[FBC] hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。', email.subject
     assert_match(/回答/, email.body.to_s)
   end
 
@@ -333,7 +333,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[bootcamp] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
     assert_match(/2回連続/, email.body.to_s)
   end
 
@@ -353,7 +353,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['mentormentaro@fjord.jp'], email.to
-    assert_equal '[bootcamp] sotugyouさんが卒業しました。', email.subject
+    assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
     assert_match(/卒業/, email.body.to_s)
   end
 end
