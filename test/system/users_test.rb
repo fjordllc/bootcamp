@@ -363,4 +363,9 @@ class UsersTest < ApplicationSystemTestCase
     check '就職活動中', allow_label_click: true
     assert user.reload.job_seeking
   end
+
+  test 'GET /users/new' do
+    visit '/users/new'
+    assert_equal 'フィヨルドブートキャンプ参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
 end

@@ -19,4 +19,9 @@ class HibernationTest < ApplicationSystemTestCase
       assert_text '休会処理が完了しました'
     end
   end
+
+  test 'GET /hibernation' do
+    visit '/hibernation'
+    assert_equal 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
 end
