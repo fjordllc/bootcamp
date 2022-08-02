@@ -22,7 +22,10 @@ class ProductCallbacks
 
     unless product.wip
       notify_watching_mentors(product)
-      notify_watching_advisers(product)
+      if product.user.trainee? && product.user.company
+        create_advisers_watch(product)
+        notify_watching_advisers(product)
+      end
     end
 
     Cache.delete_unchecked_product_count
@@ -40,6 +43,13 @@ class ProductCallbacks
 
   def create_author_watch(product)
     Watch.create!(user: product.user, watchable: product)
+  end
+
+  def create_advisers_watch(product)
+    product.user.company.advisers.each do |adviser|
+      target = { user: adviser, watchable: product }
+      Watch.create! target unless Watch.exists? target
+    end
   end
 
   def send_notification(product:, receivers:, message:)
@@ -64,8 +74,6 @@ class ProductCallbacks
   end
 
   def notify_watching_advisers(product)
-    return unless product.user.trainee? && product.user.company
-
     send_notification(
       product: product,
       receivers: product.user.company.advisers,
