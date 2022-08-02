@@ -24,3 +24,9 @@ mineo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mine
 tanaka_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/tanaka.jpg" %>
 
 yameo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/yameo.jpg" %>
+
+komagata_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/komagata.jpg" %>
+
+machida_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg" %>
+
+kimuramitai_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/default.jpg" %>
