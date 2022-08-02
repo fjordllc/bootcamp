@@ -12,6 +12,12 @@ class Scheduler::DailyController < SchedulerController
         end
       end
     end
+
+    if RegularEvent.tomorrow_events.present?
+      RegularEvent.tomorrow_events.each do |regular_event|
+        NotificationFacade.tomorrow_regular_event(regular_event)
+      end
+    end
     head :ok
   end
 end
