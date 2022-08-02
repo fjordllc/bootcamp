@@ -96,22 +96,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_specific_day_of_the_week(repeat_rule)
-    case repeat_rule.day_of_the_week
-    when 0
-      0.days.ago.next_occurring(:sunday).to_date
-    when 1
-      0.days.ago.next_occurring(:monday).to_date
-    when 2
-      0.days.ago.next_occurring(:tuesday).to_date
-    when 3
-      0.days.ago.next_occurring(:wednesday).to_date
-    when 4
-      0.days.ago.next_occurring(:thursday).to_date
-    when 5
-      0.days.ago.next_occurring(:friday).to_date
-    when 6
-      0.days.ago.next_occurring(:saturday).to_date
-    end
+    day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
+    0.days.ago.next_occurring(day_of_the_week_symbol).to_date
   end
 
   def tomorrow_event?
