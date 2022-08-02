@@ -93,6 +93,10 @@ ja:
         tag_list: タグ
         training_ends_on: 研修終了日
         last_activity_at: 最終活動日時
+        profile_image: プロフィール画像
+        profile_name: プロフィール名
+        profile_job: 職業
+        profile_text: プロフィール文
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日
