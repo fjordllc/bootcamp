@@ -3,6 +3,12 @@
 require 'application_system_test_case'
 
 class UsersTest < ApplicationSystemTestCase
+  test 'show listing all users' do
+    visit_with_auth users_path, 'kimura'
+    assert_equal '全てのユーザー | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_selector 'h2.page-header__title', text: 'ユーザー'
+  end
+
   test 'show profile' do
     visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
     assert_equal 'hatsuno | FBC', title
