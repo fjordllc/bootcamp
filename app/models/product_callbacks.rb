@@ -74,12 +74,12 @@ class ProductCallbacks
   end
 
   def update_learning_status(product)
-    if product.wip
-      started_practice = product.user.learnings.map(&:status).include?('started')
-      status = started_practice ? :unstarted : :started
-    else
-      status = :submitted
-    end
+    status = if product.wip
+               started_practice = product.user.learnings.map(&:status).include?('started')
+               started_practice ? :unstarted : :started
+             else
+               :submitted
+             end
     product.change_learning_status status
   end
 end
