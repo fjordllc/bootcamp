@@ -86,15 +86,15 @@ class AnnouncementsController < ApplicationController
   end
 
   def rewrite_announcement
-    return unless conflict
+    return unless conflict?
 
     set_entered_announcement
 
     flash.now[:alert] = '別の人がお知らせを更新していたので更新できませんでした。'
-    render :edit and return
+    render :edit
   end
 
-  def conflict
+  def conflict?
     Time.zone.parse(params['announcement']['updated_at']).utc.floor != Announcement.find(params[:id]).updated_at.utc.floor
   end
 

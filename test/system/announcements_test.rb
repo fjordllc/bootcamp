@@ -192,7 +192,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
-  test 'update_previous_remains_when_conflict_to_update_announcement' do
+  test 'previous update remains when conflict to update announcement' do
     announcement = announcements(:announcement_wip)
     visit_with_auth announcement_path(announcement), 'komagata'
     click_link '内容修正'
