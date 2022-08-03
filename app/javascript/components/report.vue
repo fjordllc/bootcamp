@@ -89,12 +89,8 @@ export default {
   },
   props: {
     report: { type: Object, required: true },
-    currentUserId: { type: Number, required: true }
-  },
-  data() {
-    return {
-      userIcon: true
-    }
+    currentUserId: { type: Number, required: true },
+    userIcon: { type: Boolean }
   },
   computed: {
     roleClass() {
@@ -105,18 +101,6 @@ export default {
     },
     emotionImg() {
       return `/images/emotion/${this.report.emotion}.svg`
-    }
-  },
-  created() {
-    const currentPath = location.pathname
-    const regex = /\/reports\/\d+/
-    if (regex.test(currentPath)) {
-      this.showUserIcon()
-    }
-  },
-  methods: {
-    showUserIcon() {
-      this.userIcon = false
     }
   }
 }
