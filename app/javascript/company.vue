@@ -21,6 +21,7 @@
           img(
             :src='user.avatar_url',
             :title='user.icon_title',
+            :data-login-name='user.login_name',
             :class='`a-user-icons__item-icon a-user-icon is-${user.primary_role}`'
           )
 </template>
