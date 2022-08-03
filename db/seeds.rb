@@ -39,8 +39,8 @@ tables = %i[
   watches
   works
   talks
-  regular_event_repeat_rules
   regular_events
+  regular_event_repeat_rules
   organizers
   hibernations
 ]
