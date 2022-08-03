@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class CoursesTest < ApplicationSystemTestCase
   test 'show listing courses' do
     visit_with_auth '/courses', 'mentormentaro'
-    assert_equal 'コース一覧 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'コース一覧 | FBC', title
   end
 
   test 'create course' do

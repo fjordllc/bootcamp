@@ -188,7 +188,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'show listing unread notification' do
     visit_with_auth '/notifications?status=unread', 'hatsuno'
-    assert_equal '通知 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '通知 | FBC', title
   end
 
   test 'non-mentor can not see a button to open all unread notifications' do

@@ -16,18 +16,18 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'GET /pages' do
     visit_with_auth '/pages', 'kimura'
-    assert_equal 'Docs | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'Docs | FBC', title
     assert_no_selector 'nav.pagination'
   end
 
   test 'show page' do
     visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
-    assert_equal 'test1 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'test1 | FBC', title
   end
 
   test 'show edit page' do
     visit_with_auth "/pages/#{pages(:page2).id}/edit", 'kimura'
-    assert_equal 'ページ編集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'ページ編集 | FBC', title
   end
 
   test 'page has a comment form ' do
