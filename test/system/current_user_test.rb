@@ -171,4 +171,20 @@ class CurrentUserTest < ApplicationSystemTestCase
 
     assert_not user.reload.github_collaborator
   end
+
+  test 'general users cannot update their profiles' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    assert_no_text 'プロフィール'
+    assert_no_text 'プロフィール画像'
+    assert_no_text 'プロフィール名'
+    assert_no_text 'プロフィール文'
+  end
+
+  test 'mentors can update their profiles' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    assert_text 'プロフィール'
+    assert_text 'プロフィール画像'
+    assert_text 'プロフィール名'
+    assert_text 'プロフィール文'
+  end
 end
