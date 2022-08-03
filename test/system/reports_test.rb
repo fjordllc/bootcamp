@@ -635,4 +635,9 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(reports(:report1)), 'komagata'
     assert_no_selector('.card-list-item__user')
   end
+
+  test 'display user icon in reports' do
+    visit_with_auth reports_path, 'komagata'
+    assert_selector('.card-list-item__user')
+  end
 end
