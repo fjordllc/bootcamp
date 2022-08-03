@@ -94,7 +94,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       find('#choices--js-choices-multiple-select-item-choice-1').click
       find('label', text: '主催者').click
       find('label', text: I18n.t("activerecord.enums.regular_event.category.#{category}")).click
-      fill_in 'regular_event[wday]', with: '木曜日'
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('木曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '定期イベント・カテゴリーのテストです'
