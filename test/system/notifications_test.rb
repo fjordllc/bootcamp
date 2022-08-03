@@ -14,7 +14,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     if ActionMailer::Base.deliveries.present?
       last_mail = ActionMailer::Base.deliveries.last
-      assert_not_equal '[Bootcamp] kimuraさんからコメントが届きました。', last_mail.subject
+      assert_not_equal '[FBC] kimuraさんからコメントが届きました。', last_mail.subject
     end
   end
 

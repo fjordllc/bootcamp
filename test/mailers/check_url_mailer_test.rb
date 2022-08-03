@@ -13,7 +13,7 @@ class CheckUrlMailerTest < ActionMailer::TestCase
 
     mail = CheckUrlMailer.notify_error_url(page_error_url, practice_error_url).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
-    assert_equal '[BootCamp Admin] リンク切れ報告', mail.subject
+    assert_equal '[FBC Admin] リンク切れ報告', mail.subject
     assert_equal ['info@fjord.jp'], mail.to
     assert_equal ['noreply@bootcamp.fjord.jp'], mail.from
     assert_match(/リンク切れがありました。/, mail.body.to_s)
