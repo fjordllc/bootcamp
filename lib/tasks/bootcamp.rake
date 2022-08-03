@@ -39,6 +39,16 @@ namespace :bootcamp do
     ActiveRecord::Base.connection.execute sql
   end
 
+  desc 'Validate all users.'
+  task validate_all_users: :environment do
+    User.order(:id).each do |user|
+      next if user.valid?
+
+      puts "Invalid user: #{user.id}, #{user.login_name}"
+      puts user.errors.full_messages
+    end
+  end
+
   namespace :oneshot do
     desc 'Cloud Build Task'
     task cloudbuild: :environment do
