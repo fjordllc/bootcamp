@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Report::UncheckedTest < ApplicationSystemTestCase
   test 'show listing unchecked reports' do
     visit_with_auth '/reports/unchecked', 'komagata'
-    assert_equal '未チェックの日報 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '未チェックの日報 | FBC', title
   end
 
   test 'non-staff user can not see listing unchecked reports' do

@@ -50,4 +50,9 @@ class SignInTest < ApplicationSystemTestCase
     visit '/users'
     assert_equal root_path, current_path
   end
+
+  test 'GET /login' do
+    visit '/login'
+    assert_equal 'ログイン | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
 end

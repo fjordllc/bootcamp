@@ -354,4 +354,9 @@ class ArticlesTest < ApplicationSystemTestCase
       assert_equal all('.card-list-item').count, 10
     end
   end
+
+  test 'GET /articles/{article_id}' do
+    visit "/articles/#{@article.id}"
+    assert_equal 'タイトル１ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
 end

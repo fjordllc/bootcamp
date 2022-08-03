@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class CurrentUser::WatchesTest < ApplicationSystemTestCase
   test 'show current_user watches when current_user is student' do
     visit_with_auth '/current_user/watches', 'kimura'
-    assert_equal 'Watch中 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'Watch中 | FBC', title
   end
 
   # 画面上では更新の完了がわからないため、やむを得ずsleepする
