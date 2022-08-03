@@ -30,8 +30,6 @@ class CoursesTest < ApplicationSystemTestCase
   end
 
   test 'show published courses' do
-    visit_with_auth '/courses', 'mentormentaro'
-    assert_no_text courses(:course1).title
     visit_with_auth "/admin/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
       find(:css, '#checkbox-published-course').set(true)
