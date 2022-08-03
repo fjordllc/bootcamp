@@ -29,7 +29,7 @@ class Notification::AssignedAsCheckerTest < ApplicationSystemTestCase
 
     sleep 0.2 until deliveries.count.positive?
 
-    expected = "[bootcamp] mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
+    expected = "[FBC] mentormentaroさんの提出物#{products(:product1).title}の担当になりました。"
     assert_equal expected, deliveries.last.subject
   end
 
