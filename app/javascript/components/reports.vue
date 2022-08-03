@@ -8,7 +8,8 @@
       v-for='report in reports',
       :key='report.id',
       :report='report',
-      :current-user-id='currentUserId'
+      :current-user-id='currentUserId',
+      :user-icon='displayUserIcon'
     )
 .page-content.reports(v-else)
   nav.pagination(v-if='totalPages > 1')
@@ -21,7 +22,8 @@
         v-for='report in reports',
         :key='report.id',
         :report='report',
-        :current-user-id='currentUserId'
+        :current-user-id='currentUserId',
+        :user-icon='displayUserIcon'
       )
     unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
   .o-empty-message(v-else-if='reports.length === 0 || isUncheckedReportsPage')
@@ -63,6 +65,9 @@ export default {
     limit: {
       type: String,
       default: null
+    },
+    displayUserIcon: {
+      type: Boolean
     }
   },
   data() {
