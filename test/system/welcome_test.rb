@@ -52,4 +52,35 @@ class WelcomeTest < ApplicationSystemTestCase
     visit '/coc'
     assert_equal 'アンチハラスメントポリシー | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
+
+  test 'mentors can update their profiles' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
+    fill_in 'user[profile_name]', with: '駒形 真幸'
+    fill_in 'user[profile_job]', with: 'プログラマー'
+    fill_in 'user[profile_text]', with: '[株式会社フィヨルド](https://fjord.jp)の代表兼プログラマー。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
+    click_button '更新する'
+    logout
+    visit '/welcome'
+    assert_selector 'img[src*="komagata.jpg"]'
+    assert_text '駒形 真幸'
+    assert_text 'プログラマー'
+    assert_text '株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+  end
+
+  test 'administrator can update profiles of mentors' do
+    user = users(:machida)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
+    fill_in 'user[profile_name]', with: '駒形 真幸'
+    fill_in 'user[profile_job]', with: 'プログラマー'
+    fill_in 'user[profile_text]', with: '[株式会社フィヨルド](https://fjord.jp)の代表兼プログラマー。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
+    click_button '更新する'
+    logout
+    visit '/welcome'
+    assert_selector 'img[src*="komagata.jpg"]'
+    assert_text '駒形 真幸'
+    assert_text 'プログラマー'
+    assert_text '株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+  end
 end
