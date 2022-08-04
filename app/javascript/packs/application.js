@@ -78,6 +78,7 @@ import Reports from '../components/reports.vue'
 import Users from '../components/users.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
+import Footprints from '../components/footprints.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -91,6 +92,7 @@ mounter.addComponent(Reports)
 mounter.addComponent(Users)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
+mounter.addComponent(Footprints)
 mounter.mount()
 
 // Support component names relative to this directory:
