@@ -23,4 +23,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--no-sandbox')
     end
   end
+
+  teardown do
+    ActionMailer::Base.deliveries.clear
+  end
 end

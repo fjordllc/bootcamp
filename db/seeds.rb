@@ -40,6 +40,7 @@ tables = %i[
   works
   talks
   regular_events
+  regular_event_repeat_rules
   organizers
   hibernations
 ]

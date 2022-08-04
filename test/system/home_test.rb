@@ -11,7 +11,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'GET /' do
     visit_with_auth '/', 'komagata'
-    assert_equal 'ダッシュボード | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'ダッシュボード | FBC', title
   end
 
   test 'verify message presence of github_account registration' do

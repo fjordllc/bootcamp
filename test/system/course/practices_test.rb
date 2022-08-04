@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Course::PracticesTest < ApplicationSystemTestCase
   test 'show listing practices' do
     visit_with_auth "/courses/#{courses(:course1).id}/practices", 'kimura'
-    assert_equal 'Rails Webプログラマーコース | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'Rails Webプログラマーコース | FBC', title
   end
 
   test 'show/hide the progress of others' do
