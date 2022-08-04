@@ -143,7 +143,7 @@ header.page-header
 
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
 
-        = render 'footprints/footprints', footprints: @footprints
+        div(data-vue='Footprints')
 
       .col-xl-5.col-xs-12
         - if current_user.mentor? || current_user.admin?
