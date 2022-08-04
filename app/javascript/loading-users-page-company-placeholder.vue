@@ -10,7 +10,10 @@
           span.group-company-name__label-option.a-placeholder
   .a-user-icons
     .a-user-icons__items
-      loadingUsersPageCompanyUserIconPlaceholder(v-for='num in userIconCount', :key='num')
+      loadingUsersPageCompanyUserIconPlaceholder(
+        v-for='num in userIconCount',
+        :key='num'
+      )
 </template>
 
 <script>
@@ -18,7 +21,8 @@ import LoadingUsersPageCompanyUserIconPlaceholder from 'loading-users-page-compa
 
 export default {
   components: {
-    loadingUsersPageCompanyUserIconPlaceholder: LoadingUsersPageCompanyUserIconPlaceholder
+    loadingUsersPageCompanyUserIconPlaceholder:
+      LoadingUsersPageCompanyUserIconPlaceholder
   },
   data() {
     return {
