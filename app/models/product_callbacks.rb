@@ -18,13 +18,13 @@ class ProductCallbacks
   end
 
   def after_save(product)
-    update_learning_status(product)
+    update_learning_status product
 
     unless product.wip
-      notify_watching_mentors(product)
+      notify_watching_mentors product
       if product.user.trainee? && product.user.company
-        create_advisers_watch(product)
-        notify_watching_advisers(product)
+        create_advisers_watch product
+        notify_watching_advisers product
       end
     end
 
