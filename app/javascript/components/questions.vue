@@ -35,8 +35,8 @@ export default {
   props: {
     emptyMessage: { type: String, required: true },
     selectedTag: { type: String, default: null, required: false },
-    userId: { type: String, default: null, required: false },
-    practiceId: { type: String, default: null, required: false }
+    userId: { type: Number, default: null, required: false },
+    practiceId: { type: Number, default: null, required: false }
   },
   data() {
     return {
