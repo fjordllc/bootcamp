@@ -96,8 +96,8 @@ class RegularEventsController < ApplicationController
     new_event.hold_national_holiday = regular_event.hold_national_holiday
     new_event.start_at = regular_event.start_at
     new_event.end_at = regular_event.end_at
-    new_event.user_ids = regular_event.organizers.map(&:id)
     new_event.category = regular_event.category
+    new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'
   end
