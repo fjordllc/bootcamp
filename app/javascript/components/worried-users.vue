@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import WorriedUser from 'components/worried-user.vue'
+import WorriedUser from './worried-user'
 
 export default {
   name: 'WorriedUsers',
