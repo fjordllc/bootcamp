@@ -14,7 +14,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
     if ActionMailer::Base.deliveries.present?
       last_mail = ActionMailer::Base.deliveries.last
-      assert_not_equal '[Bootcamp] kimuraさんからコメントが届きました。', last_mail.subject
+      assert_not_equal '[FBC] kimuraさんからコメントが届きました。', last_mail.subject
     end
   end
 
@@ -188,7 +188,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'show listing unread notification' do
     visit_with_auth '/notifications?status=unread', 'hatsuno'
-    assert_equal '通知 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal '通知 | FBC', title
   end
 
   test 'non-mentor can not see a button to open all unread notifications' do

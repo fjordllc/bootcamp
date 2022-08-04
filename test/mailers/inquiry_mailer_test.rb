@@ -10,7 +10,7 @@ class InquiryMailerTest < ActionMailer::TestCase
       body: "お問い合わせ内容\nあああ\nいいい\nううう"
     )
     mail = InquiryMailer.incoming(inquiry)
-    assert_equal '[Bootcamp] お問い合わせ', mail.subject
+    assert_equal '[FBC] お問い合わせ', mail.subject
     assert_equal ['info@fjord.jp'], mail.to
     assert_equal ['noreply@bootcamp.fjord.jp'], mail.from
     assert_equal ['komagata@example.com'], mail.reply_to

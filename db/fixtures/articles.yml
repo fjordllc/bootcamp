@@ -56,7 +56,30 @@ article3:
   user: komagata
   wip: true
 
-<% (4..20).each do |id| %>
+article4:
+  title: Debianでzshを使う
+  body: |-
+    Debian Basterのデフォルトのシェルはbashですが、フレームワークも豊富なzshを使うと便利です。
+    ## [](https://bootcamp.fjord.jp/articles/17#zsh)zshのインストール
+    インストールする。
+    ```
+    $ sudo apt install zsh -y
+    ```
+    zshのPATHを確認する。
+    ```
+    $ which zsh
+    /bin/usr/zsh
+    ```
+    デフォルトシェルを変更する。
+    ```
+    $ chsh -s /usr/bin/zsh
+    ```
+    シェルを再起動したらzshになってます。設定ファイルは`~/.zshrc`になるので、自由に設定しましょう。zsh設定については奥が深過ぎるのでこのエントリーではここで終わりにしておきます。
+  user: komagata
+  wip: true
+  published_at: "2022-04-04 00:00:00"
+
+<% (5..20).each do |id| %>
 article<%= id %>:
   title: test title<%= id %>
   body: |-

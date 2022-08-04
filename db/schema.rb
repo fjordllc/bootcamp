@@ -401,6 +401,15 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
+  create_table "regular_event_repeat_rules", force: :cascade do |t|
+    t.bigint "regular_event_id"
+    t.integer "frequency", null: false
+    t.integer "day_of_the_week", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["regular_event_id"], name: "index_regular_event_repeat_rules_on_regular_event_id"
+  end
+
   create_table "regular_events", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
@@ -409,10 +418,9 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.boolean "hold_national_holiday", null: false
     t.time "start_at", null: false
     t.time "end_at", null: false
-    t.text "wday", null: false
-    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "wip", default: false, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
@@ -581,6 +589,7 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
+  add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "talks", "users"

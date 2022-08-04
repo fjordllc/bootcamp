@@ -4,7 +4,7 @@ module MetaTagsHelper
   # rubocop:disable Metrics/MethodLength
   def default_meta_tags
     {
-      site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+      site: 'FBC',
       reverse: true,
       charset: 'utf-8',
       description: '現場の即戦力になれるプログラミングスクール。',

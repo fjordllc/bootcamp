@@ -210,9 +210,12 @@ ja:
         description: 詳細
         start_at: 開始時間
         end_at: 終了時間
-        wday: 開催日
         open_end_at: 募集終了日時
         organizer: 主催者
+        regular_event_repeat_rules: 定期開催日
+      regular_event_repeat_rule:
+        frequency: 開催頻度
+        day_of_the_week: 曜日
     enums:
       user:
         job:
@@ -310,6 +313,6 @@ ja:
     following_report: フォロー中
   notification_mailer:
     three_months_after_retirement:
-      subject: '[bootcamp] %{user}さんが退会してから3カ月が経過しました。'
+      subject: '[FBC] %{user}さんが退会してから3カ月が経過しました。'
       retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
   retire_notice: '%{user}さんが退会してから3カ月が経過しました。'

@@ -68,7 +68,7 @@
                 | コメント（{{ page.commentsSize }}）
 </template>
 <script>
-import UserIcon from 'user-icon.vue'
+import UserIcon from '../user-icon'
 
 export default {
   components: {

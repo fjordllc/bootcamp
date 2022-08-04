@@ -5,37 +5,37 @@ require 'application_system_test_case'
 class ProductsTest < ApplicationSystemTestCase
   test 'see my product' do
     visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
-    assert_equal "#{products(:product1).practice.title} | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product1).practice.title} | FBC", title
   end
 
   test 'admin can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
-    assert_equal "#{products(:product1).practice.title} | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product1).practice.title} | FBC", title
   end
 
   test 'adviser can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'advijirou'
-    assert_equal "#{products(:product1).practice.title} | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product1).practice.title} | FBC", title
   end
 
   test 'graduate can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'sotugyou'
-    assert_equal "#{products(:product1).practice.title} | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product1).practice.title} | FBC", title
   end
 
   test "user who completed the practice can see the other user's product" do
     visit_with_auth "/products/#{products(:product1).id}", 'kimura'
-    assert_equal "#{products(:product1).practice.title} | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product1).practice.title} | FBC", title
   end
 
   test "can see other user's product if it is permitted" do
     visit_with_auth "/products/#{products(:product3).id}", 'hatsuno'
-    assert_equal "#{products(:product3).practice.title} | FJORD BOOT CAMP（フィヨルドブートキャンプ）", title
+    assert_equal "#{products(:product3).practice.title} | FBC", title
   end
 
   test "can not see other user's product if it isn't permitted" do
     visit_with_auth "/products/#{products(:product1).id}", 'hatsuno'
-    assert_not_equal '提出物 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_not_equal '提出物 | FBC', title
     assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
   end
 
@@ -287,14 +287,6 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button' do
-    (Product.default_per_page - Product.count + 1).times do |n|
-      Product.create!(
-        body: 'test',
-        user: users(:hajime),
-        practice: practices("practice#{n + 1}".to_sym)
-      )
-    end
-
     visit_with_auth '/products', 'komagata'
     within first('.pagination') do
       find('a', text: '2').click
@@ -303,17 +295,10 @@ class ProductsTest < ApplicationSystemTestCase
     all('.pagination .is-active').each do |active_button|
       assert active_button.has_text? '2'
     end
-    assert_current_path('/products?_login_name=komagata&page=2')
+    assert_current_path('/products?page=2')
   end
 
   test 'specify the page number in the URL' do
-    (Product.default_per_page - Product.count + 1).times do |n|
-      Product.create!(
-        body: 'test',
-        user: users(:hajime),
-        practice: practices("practice#{n + 1}".to_sym)
-      )
-    end
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     all('.pagination .is-active').each do |active_button|
@@ -323,18 +308,13 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'clicking the browser back button will show the previous page' do
-    (Product.default_per_page - Product.count + 1).times do |n|
-      Product.create!(
-        body: 'test',
-        user: users(:hajime),
-        practice: practices("practice#{n + 1}".to_sym)
-      )
-    end
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
       find('a', text: '1').click
     end
+    assert_current_path('/products')
+
     page.go_back
     assert_current_path('/products?page=2')
     all('.pagination .is-active').each do |active_button|

@@ -5,7 +5,6 @@ regular_event1:
   hold_national_holiday: false
   start_at: <%= Time.zone.local(2020, 1, 1, 15, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
-  wday: 水曜日
   user: komagata
 
 regular_event2:
@@ -15,7 +14,6 @@ regular_event2:
   hold_national_holiday: false
   start_at: <%= Time.zone.local(2020, 1, 1, 16, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
-  wday: 月曜日
   user: machida
 
 regular_event3:
@@ -25,7 +23,6 @@ regular_event3:
   hold_national_holiday: false
   start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
-  wday: 水曜日
   user: komagata
 
 regular_event4:
@@ -35,7 +32,6 @@ regular_event4:
   hold_national_holiday: true
   start_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 19, 0, 0) %>
-  wday: 火曜日
   user: kimura
 
 regular_event5:
@@ -45,7 +41,6 @@ regular_event5:
   hold_national_holiday: true
   start_at: <%= Time.zone.local(2020, 1, 1, 17, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 18, 0, 0) %>
-  wday: 土曜日
   user: komagata
 
 regular_event6:
@@ -55,7 +50,6 @@ regular_event6:
   hold_national_holiday: false
   start_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
-  wday: 火曜日
   user: komagata
 
 regular_event7:
@@ -65,14 +59,12 @@ regular_event7:
   hold_national_holiday: false
   start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
-  wday: 水曜日
   user: komagata
 
 <% (8..26).each do |i| %>
-event<%= i %>:
+regular_event<%= i %>:
   title: 定期イベント<%= i %>
   description: <%= i %>番目の定期イベントです。
-  wday: 月曜日
   start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
   finished: true

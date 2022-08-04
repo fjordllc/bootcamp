@@ -1,0 +1,41 @@
+regular_event_repeat_rule1:
+  frequency: 0
+  day_of_the_week: 0
+  regular_event: regular_event1
+
+regular_event_repeat_rule2:
+  frequency: 1
+  day_of_the_week: 1
+  regular_event: regular_event2
+
+regular_event_repeat_rule3:
+  frequency: 2
+  day_of_the_week: 1
+  regular_event: regular_event3
+
+regular_event_repeat_rule4:
+  frequency: 3
+  day_of_the_week: 2
+  regular_event: regular_event4
+
+regular_event_repeat_rule5:
+  frequency: 2
+  day_of_the_week: 3
+  regular_event: regular_event5
+
+regular_event_repeat_rule6:
+  frequency: 4
+  day_of_the_week: 1
+  regular_event: regular_event6
+
+regular_event_repeat_rule7:
+  frequency: 0
+  day_of_the_week: 3
+  regular_event: regular_event7
+
+<% (8..26).each do |i| %>
+regular_event_repeat_rule<%= i %>:
+  frequency: 0
+  day_of_the_week: 0
+  regular_event: regular_event<%= i %>
+<% end %>

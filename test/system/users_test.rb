@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class UsersTest < ApplicationSystemTestCase
   test 'show profile' do
     visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
-    assert_equal 'hatsuno | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'hatsuno | FBC', title
   end
 
   test 'autolink profile when url is included' do
@@ -362,5 +362,10 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth user_path(user.id), 'komagata'
     check '就職活動中', allow_label_click: true
     assert user.reload.job_seeking
+  end
+
+  test 'GET /users/new' do
+    visit '/users/new'
+    assert_equal 'フィヨルドブートキャンプ参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 end
