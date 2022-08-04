@@ -76,6 +76,7 @@ import WatchToggle from '../components/watch-toggle.vue'
 import UserMentorMemo from '../components/user_mentor_memo.vue'
 import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
+import Footprints from '../components/footprints.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
@@ -93,6 +94,7 @@ mounter.addComponent(WatchToggle)
 mounter.addComponent(UserMentorMemo)
 mounter.addComponent(UserRecentReports)
 mounter.addComponent(Talks)
+mounter.addComponent(Footprints)
 mounter.mount()
 
 // Support component names relative to this directory:
