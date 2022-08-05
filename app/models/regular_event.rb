@@ -40,7 +40,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     validate :end_at_be_greater_than_start_at
   end
 
-  scope :holding, -> { where.not(finished: true) }
+  scope :holding, -> { where(finished: false) }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
