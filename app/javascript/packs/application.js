@@ -14,7 +14,6 @@ import '../learning-status.js'
 import '../check.js'
 import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
-import '../reports.js'
 import '../comments.js'
 import '../notifications_bell.js'
 import '../question-page.js'
@@ -78,6 +77,7 @@ import AdminCompanies from '../components/admin_companies.vue'
 import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
 import Pages from '../components/pages.vue'
+import Reports from '../components/reports.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -85,4 +85,5 @@ mounter.addComponent(AdminCompanies)
 mounter.addComponent(Announcements)
 mounter.addComponent(Books)
 mounter.addComponent(Pages)
+mounter.addComponent(Reports)
 mounter.mount()
