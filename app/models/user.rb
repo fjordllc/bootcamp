@@ -156,10 +156,10 @@ class User < ApplicationRecord
                      }
 
   validates :profile_image, attached: true,
-                     content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif],
-                       message: 'はPNG, JPG, GIF形式にしてください'
-                     }, if: :mentor?
+                            content_type: {
+                              in: %w[image/png image/jpg image/jpeg image/gif],
+                              message: 'はPNG, JPG, GIF形式にしてください'
+                            }, if: :mentor?
 
   with_options if: -> { mentor? }, presence: true do
     validates :profile_name
