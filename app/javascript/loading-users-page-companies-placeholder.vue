@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  LoadingUsersPageCompanyPlaceholder(v-for='num in companyCount', :key='num')
+  loadingUsersPageCompanyPlaceholder(v-for='num in companyCount', :key='num')
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import LoadingUsersPageCompanyPlaceholder from 'loading-users-page-company-place
 
 export default {
   components: {
-    LoadingUsersPageCompanyPlaceholder: LoadingUsersPageCompanyPlaceholder
+    loadingUsersPageCompanyPlaceholder: LoadingUsersPageCompanyPlaceholder
   },
   data() {
     return {
