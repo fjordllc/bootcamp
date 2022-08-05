@@ -2,7 +2,7 @@
 .page-body
   .container.is-lg
     .card-list.a-card.is-loading(v-if='!loaded')
-      LoadingUsersPageCompaniesPlaceholder
+      loadingUsersPageCompaniesPlaceholder
     .card-list.a-card(v-else)
       company(
         v-for='company in companies',
@@ -17,7 +17,7 @@ import LoadingUsersPageCompaniesPlaceholder from 'loading-users-page-companies-p
 export default {
   components: {
     company: Company,
-    LoadingUsersPageCompaniesPlaceholder: LoadingUsersPageCompaniesPlaceholder
+    loadingUsersPageCompaniesPlaceholder: LoadingUsersPageCompaniesPlaceholder
   },
   props: {
     target: {
