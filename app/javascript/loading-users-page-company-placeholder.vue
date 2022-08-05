@@ -10,19 +10,19 @@
           span.group-company-name__label-option.a-placeholder
   .a-user-icons
     .a-user-icons__items
-      loadingUsersPageCompanyUserIconPlaceholder(
+      loadingUserIconPlaceholder(
         v-for='num in userIconCount',
         :key='num'
       )
 </template>
 
 <script>
-import LoadingUsersPageCompanyUserIconPlaceholder from 'loading-users-page-company-user-icon-placeholder.vue'
+import LoadingUserIconPlaceholder from 'loading-user-icon-placeholder.vue'
 
 export default {
   components: {
-    loadingUsersPageCompanyUserIconPlaceholder:
-      LoadingUsersPageCompanyUserIconPlaceholder
+    loadingUserIconPlaceholder:
+      LoadingUserIconPlaceholder
   },
   data() {
     return {

@@ -6,22 +6,22 @@
     .practice-status.category-practices-item__status.a-placeholder
   .a-user-icons
     .a-user-icons__items
-      loadingCoursesPracticesPageUserIconItemPlaceholder(
-        v-for='num in itemCount',
+      loadingUserIconPlaceholder(
+        v-for='num in userIconCount',
         :key='num'
       )
 </template>
 <script>
-import LoadingCoursesPracticesPageUserIconItemPlaceholder from 'loading-cources-practices-page-user-icon-item-placeholder.vue'
+import LoadingUserIconPlaceholder from 'loading-user-icon-placeholder.vue'
 
 export default {
   components: {
-    loadingCoursesPracticesPageUserIconItemPlaceholder:
-      LoadingCoursesPracticesPageUserIconItemPlaceholder
+    loadingUserIconPlaceholder:
+      LoadingUserIconPlaceholder
   },
   data() {
     return {
-      itemCount: 3
+      userIconCount: 3
     }
   }
 }
