@@ -38,12 +38,13 @@
     pager(v-bind='pagerProps')
 </template>
 <script>
-import Report from 'report.vue'
-import UnconfirmedLink from 'unconfirmed_link.vue'
-import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Pager from 'pager.vue'
+import Report from 'components/report'
+import UnconfirmedLink from '../unconfirmed_link'
+import LoadingListPlaceholder from '../loading-list-placeholder'
+import Pager from '../pager'
 
 export default {
+  name: 'Reports',
   components: {
     report: Report,
     'unconfirmed-link': UnconfirmedLink,
@@ -52,11 +53,11 @@ export default {
   },
   props: {
     userId: {
-      type: String,
+      type: Number,
       default: null
     },
     companyId: {
-      type: String,
+      type: Number,
       default: null
     },
     limit: {
