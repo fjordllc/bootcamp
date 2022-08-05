@@ -16,7 +16,8 @@ header.page-header
 
 .page-body
   .container.is-md
-    #js-reports(data-user-id="#{current_user.id}")
+    //#js-reports(data-user-id="#{current_user.id}")
+    div(data-vue="Reports" data-vue-user-id="#{current_user.id}")
     - if current_user.reports.present?
       .form-actions
         ul.form-actions__items
