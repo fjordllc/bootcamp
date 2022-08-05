@@ -14,4 +14,5 @@ header.page-header
 
 .page-body
   .container.is-md
-    #js-reports(company-id="#{@company.id}")
+    //#js-reports(company-id="#{@company.id}")
+    div(data-vue="Reports" data-vue-company-id="#{@company.id}")
