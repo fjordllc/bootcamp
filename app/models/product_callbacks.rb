@@ -23,8 +23,8 @@ class ProductCallbacks
     unless product.wip
       notify_watching_mentors product
       if product.user.trainee? && product.user.company
+        notify_advisers product
         create_advisers_watch product
-        notify_watching_advisers product
       end
     end
 
@@ -73,7 +73,7 @@ class ProductCallbacks
     )
   end
 
-  def notify_watching_advisers(product)
+  def notify_advisers(product)
     send_notification(
       product: product,
       receivers: product.user.company.advisers,
