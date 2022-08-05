@@ -167,3 +167,7 @@ talk_kyuukai:
 talk_neverlogin:
   user: neverlogin
   unreplied: false
+
+talk_sotsugyoukigyoshozoku:
+  user: sotsugyoukigyoshozoku
+  unreplied: false
