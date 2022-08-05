@@ -6,18 +6,14 @@
     .practice-status.category-practices-item__status.a-placeholder
   .a-user-icons
     .a-user-icons__items
-      loadingUserIconPlaceholder(
-        v-for='num in userIconCount',
-        :key='num'
-      )
+      loadingUserIconPlaceholder(v-for='num in userIconCount', :key='num')
 </template>
 <script>
 import LoadingUserIconPlaceholder from 'loading-user-icon-placeholder.vue'
 
 export default {
   components: {
-    loadingUserIconPlaceholder:
-      LoadingUserIconPlaceholder
+    loadingUserIconPlaceholder: LoadingUserIconPlaceholder
   },
   data() {
     return {
