@@ -160,6 +160,18 @@ class User < ApplicationRecord
                        message: 'はPNG, JPG, GIF形式にしてください'
                      }
 
+  validates :profile_image, attached: true,
+                     content_type: {
+                       in: %w[image/png image/jpg image/jpeg image/gif],
+                       message: 'はPNG, JPG, GIF形式にしてください'
+                     }, if: :mentor?
+
+  with_options if: -> { mentor? }, presence: true do
+    validates :profile_name
+    validates :profile_job
+    validates :profile_text
+  end
+
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
@@ -205,14 +217,6 @@ class User < ApplicationRecord
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
   end
-
-  with_options if: -> { mentor? }, presence: true do
-    validates :profile_image
-    validates :profile_name
-    validates :profile_job
-    validates :profile_text
-  end
-
   flag :retire_reasons, %i[
     done
     necessity
