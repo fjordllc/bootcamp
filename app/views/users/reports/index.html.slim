@@ -18,4 +18,5 @@ header.page-header
 
 .page-body
   .container.is-md
-    #js-reports data-user-id="#{params[:user_id]}"
+    //#js-reports data-user-id="#{params[:user_id]}"
+    div(data-vue="Reports" data-vue-user-id="#{params[:user_id]}")

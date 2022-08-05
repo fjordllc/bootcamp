@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import CommentUserIcon from 'comment-user-icon.vue'
+import CommentUserIcon from '../comment-user-icon'
 
 export default {
   components: {
