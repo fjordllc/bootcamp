@@ -8,6 +8,7 @@ header.page-header.is-border-bottom-none
         ul.page-header-actions__items
 
 = render '/users/lg_page_tabs'
+= render 'users_tabs'
 
 main.page-main
   header.page-main-header
@@ -15,4 +16,5 @@ main.page-main
       .page-main-header__inner
         h1.page-main-header__title
           = title
-  #js-companies
+          | （#{t("target.#{@target}")}）
+  #js-companies(data-target="#{@target}")
