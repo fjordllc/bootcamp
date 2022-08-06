@@ -191,6 +191,13 @@ export default {
           })
           this.loaded = true
         })
+        .then(() => {
+          const hash = location.hash.slice(1)
+          const element = document.getElementById(hash)
+          if (element) {
+            element.scrollIntoView()
+          }
+        })
         .catch((error) => {
           console.warn(error)
         })
