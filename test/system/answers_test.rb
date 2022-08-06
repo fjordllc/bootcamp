@@ -93,6 +93,7 @@ class AnswersTest < ApplicationSystemTestCase
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     find('#js-new-comment').set('test')
     click_button 'コメントする'
+    find('.thread-comment__description > div > p', text: 'test')
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     within('#new-comment-preview') do
       assert_no_text :all, 'test'
