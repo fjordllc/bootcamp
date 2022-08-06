@@ -94,7 +94,7 @@ class AnswersTest < ApplicationSystemTestCase
     find('#js-new-comment').set('test')
     click_button 'コメントする'
     find('.thread-comment__description > div > p', text: 'test')
-    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    find('.a-form-tabs__tab.js-tabs__tab', text: 'プレビュー').click
     within('#new-comment-preview') do
       assert_no_text :all, 'test'
     end
