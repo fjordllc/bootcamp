@@ -58,4 +58,23 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     end
     assert_text '今日提出（48）'
   end
+
+  test 'show elapsed days links that jump to elements on the same page' do
+    Product.create!(
+      body: '提出物を作成しました',
+      user: users(:hatsuno),
+      practice: practices(:practice6),
+      created_at: 1.day.ago,
+      updated_at: 1.day.ago,
+      published_at: 1.day.ago
+    )
+
+    visit_with_auth '/products/unassigned', 'komagata'
+    within '.elapsed-days__list' do
+      assert_link('7日以上経過', href: '#7days-elapsed')
+      assert_link('6日経過', href: '#6days-elapsed')
+      assert_link('1日経過', href: '#1days-elapsed')
+      assert_no_link '0日経過'
+    end
+  end
 end
