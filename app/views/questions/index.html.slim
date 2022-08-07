@@ -37,7 +37,7 @@ header.page-header
   .container.is-xl
     .two-columns
       .two-columns__column.is-main
-        #js-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag]
+        div(data-vue='Questions' data-vue-empty-message="#{@questions_property.empty_message}" data-vue-selected-tag="#{params[:tag]}")
       - if @tags.any?
         .two-columns__column.is-sub
           nav.page-tags-nav.a-card
