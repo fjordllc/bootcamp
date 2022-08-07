@@ -36,7 +36,7 @@ class ProductsTest < ApplicationSystemTestCase
   test "can not see other user's product if it isn't permitted" do
     visit_with_auth "/products/#{products(:product1).id}", 'hatsuno'
     assert_not_equal '提出物 | FBC', title
-    assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
+    assert_text 'プラクティスを修了するまで他の人の提出物は見れません。'
   end
 
   test 'can not see tweet button when current_user does not complete a practice' do

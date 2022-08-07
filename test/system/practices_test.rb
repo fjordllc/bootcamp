@@ -183,7 +183,7 @@ class PracticesTest < ApplicationSystemTestCase
 
     practice = practices(:practice2)
     visit "/practices/#{practice.id}"
-    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。" do
+    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか修了すると新しいプラクティスを開始できます。" do
       first('.js-started').click
     end
   end

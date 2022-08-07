@@ -112,7 +112,7 @@ class ProductsController < ApplicationController
   def check_permission!
     return if policy(find_product).show? || find_practice&.open_product?
 
-    redirect_to root_path, alert: 'プラクティスを完了するまで他の人の提出物は見れません。'
+    redirect_to root_path, alert: 'プラクティスを修了するまで他の人の提出物は見れません。'
   end
 
   def product_params

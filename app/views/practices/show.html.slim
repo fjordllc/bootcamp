@@ -95,12 +95,12 @@
                 .card-footer__description
                   | 提出物を作成し提出し、メンターから確認をもらったら
                   br
-                  | このプラクティスを完了にしてください。
+                  | このプラクティスを修了にしてください。
               - else
                 .card-footer__description
                   | このプラクティスに提出物はありません。
                   br
-                  | 終了条件をクリアしたら完了にしてください。
+                  | 終了条件をクリアしたら修了にしてください。
 
           - if current_user.admin_or_mentor?
             = render 'practice_memo', practice: @practice
