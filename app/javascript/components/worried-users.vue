@@ -22,9 +22,10 @@
 </template>
 
 <script>
-import WorriedUser from 'worried-user.vue'
+import WorriedUser from 'components/worried-user.vue'
 
 export default {
+  name: 'WorriedUsers',
   components: {
     worriedUser: WorriedUser
   },
