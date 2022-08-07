@@ -83,12 +83,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text 'Terminalの基礎を覚える'
   end
 
-  test 'show course link' do
-    course = courses(:course1)
-    visit_with_auth "/users/#{users(:kimura).id}", 'kimura'
-    assert_link course.title, href: course_practices_path(course)
-  end
-
   test 'show last active date and time of access user only to mentors' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       visit_with_auth login_path, 'kimura'
