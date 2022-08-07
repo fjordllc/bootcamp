@@ -37,6 +37,13 @@
             .card-list-item-meta__item(
               v-if='!["practice", "page", "user"].includes(searchable.model_name)'
             )
+              a.a-img-user-icon(:href='userUrl')
+                img.user-icon.a-user-icon(
+                  :src='searchable.avatar_url',
+                  :title='searchable.icon_title',
+                  :alt='searchable.icon_title',
+                  :class='roleClass'
+                )
               a.a-user-name(:href='userUrl')
                 | {{ searchable.login_name }}
             .card-list-item-meta__item
