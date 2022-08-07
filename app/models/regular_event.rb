@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RegularEvent < ApplicationRecord
+class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   DAYS_OF_THE_WEEK_COUNT = 7
 
   FREQUENCY_LIST = [
@@ -39,6 +39,8 @@ class RegularEvent < ApplicationRecord
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
+
+  scope :holding, -> { where(finished: false) }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -96,6 +98,24 @@ class RegularEvent < ApplicationRecord
   def next_specific_day_of_the_week(repeat_rule)
     day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
     0.days.ago.next_occurring(day_of_the_week_symbol).to_date
+  end
+
+  def tomorrow_event?
+    tomorrow = Time.current.next_day
+    regular_event_repeat_rules.map do |repeat_rule|
+      if repeat_rule.frequency.zero?
+        repeat_rule.day_of_the_week == tomorrow.wday
+      else
+        repeat_rule.day_of_the_week == tomorrow.wday && repeat_rule.frequency == convert_date_into_week(tomorrow.day)
+      end
+    end.include?(true)
+  end
+
+  class << self
+    def tomorrow_events
+      holding_events = RegularEvent.holding
+      holding_events.select(&:tomorrow_event?)
+    end
   end
 
   private

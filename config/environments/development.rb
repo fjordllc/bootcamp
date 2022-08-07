@@ -88,4 +88,6 @@ Rails.application.configure do
 
   config.rack_dev_mark.enable = true
   config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right-bottom')]
+
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

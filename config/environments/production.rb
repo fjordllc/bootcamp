@@ -133,4 +133,7 @@ Rails.application.configure do
    AnyLogin.setup do |config|
      config.enabled = false
    end
+   
+   Rails.application.routes.default_url_options[:host] = ENV["APP_HOST_NAME"]
+   Rails.application.routes.default_url_options[:protocol] = 'https'
 end
