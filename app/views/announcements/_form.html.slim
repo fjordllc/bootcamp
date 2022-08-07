@@ -37,6 +37,7 @@
             = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
             label.a-block-check__label(for='job_seekers')
               | 就職希望者のみ
+  = f.hidden_field :updated_at
 
   .form-actions
     ul.form-actions__items
