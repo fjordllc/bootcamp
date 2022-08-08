@@ -69,7 +69,7 @@
             :isMentor='isMentor'
           )
   elapsedDays(
-    v-if='selectedTab === "unassigned"',
+    v-if='!isDashboard && selectedTab === "unassigned"',
     :productsGroupedByElapsedDays='productsGroupedByElapsedDays',
     :countProductsGroupedBy='countProductsGroupedBy'
   )
