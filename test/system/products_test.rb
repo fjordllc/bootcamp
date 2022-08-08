@@ -421,6 +421,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '直近の日報'
     assert_text 'プラクティスメモ'
     assert_text 'ユーザーメモ'
+    assert_selector '.side-tabs-nav__item-link', text: '提出物'
   end
 
   test 'students can not see block for mentors' do
@@ -428,6 +429,7 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text '直近の日報'
     assert_no_text 'プラクティスメモ'
     assert_no_text 'ユーザーメモ'
+    assert_no_selector '.side-tabs-nav__item-link', text: '提出物'
   end
 
   test 'display the user memos after click on user-memos tab' do
