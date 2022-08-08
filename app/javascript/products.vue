@@ -151,6 +151,10 @@ export default {
     }
   },
   created() {
+    window.onpopstate = () => {
+      this.currentPage = Number(this.getPageValueFromParameter()) || 1
+      this.getProductsPerPage()
+    }
     this.getProductsPerPage()
   },
   methods: {
