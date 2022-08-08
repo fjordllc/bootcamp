@@ -21,7 +21,7 @@
                 :href='report.url'
               )
                 img.card-list-item-title__emotion-image(
-                  :src='`/images/emotion/${report.emotion}.svg`',
+                  :src='emotionImg',
                   :alt='report.emotion'
                 )
                 | {{ report.title }}
@@ -97,6 +97,9 @@ export default {
     },
     wipClass() {
       return { 'is-wip': this.report.wip }
+    },
+    emotionImg() {
+      return `/images/emotion/${this.report.emotion}.svg`
     }
   }
 }
