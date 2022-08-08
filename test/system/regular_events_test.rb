@@ -85,30 +85,22 @@ class RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'show the category of the regular event on regular events list' do
-    RegularEvent.destroy_all
-
-    RegularEvent.categories.each_key do |category|
-      visit_with_auth '/regular_events/new', 'komagata'
-      fill_in 'regular_event[title]', with: '定期イベント・カテゴリーのテスト'
-      first('.choices__inner').click
-      find('#choices--js-choices-multiple-select-item-choice-1').click
-      find('label', text: '主催者').click
-      find('label', text: I18n.t("activerecord.enums.regular_event.category.#{category}")).click
-      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
-      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('木曜日')
-      fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
-      fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
-      fill_in 'regular_event[description]', with: '定期イベント・カテゴリーのテストです'
-      click_button '作成'
-      assert_text '定期イベントを作成しました。'
-    end
+    visit_with_auth '/regular_events/new', 'komagata'
+    fill_in 'regular_event[title]', with: '定期イベント・カテゴリーのテスト'
+    first('.choices__inner').click
+    find('#choices--js-choices-multiple-select-item-choice-1').click
+    find('label', text: '主催者').click
+    find('label', text: 'その他').click
+    first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+    first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('木曜日')
+    fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
+    fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
+    fill_in 'regular_event[description]', with: '定期イベント・カテゴリーのテストです'
+    click_button '作成'
+    assert_text '定期イベントを作成しました。'
 
     visit '/regular_events'
     within '.card-list.a-card' do
-      assert_text '輪読会'
-      assert_text '雑談'
-      assert_text '質問'
-      assert_text 'MTG'
       assert_text 'その他'
     end
   end
