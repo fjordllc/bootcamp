@@ -31,21 +31,21 @@
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-warning(
-        v-else-if='product_n_days_passed.elapsed_days === 5'id='5days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
       )
         h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-alert(
-        v-else-if='product_n_days_passed.elapsed_days === 6'id='6days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
       )
         h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日経過
           span.card-header__count(v-if='selectedTab === "unassigned"')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days.is-reply-deadline(
-        v-else-if='product_n_days_passed.elapsed_days === 7'id='7days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
       )
         h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日以上経過
