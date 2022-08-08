@@ -16,3 +16,8 @@
       max-width: 100%
   .block-checks.is-3-items &
     width: calc((100% - 1rem) / 3)
+    flex: 0 0 calc((100% - 1rem) / 3)
+  .block-checks.sm-down\:is-3-items &
+    +media-breakpoint-down(sm)
+      width: calc((100% - 1rem) / 3)
+      flex: 0 0 calc((100% - 1rem) / 3)

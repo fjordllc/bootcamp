@@ -10,11 +10,7 @@
   cursor: pointer
   border-radius: .25rem
   transition: all .2s ease-in
-  +position(relative)
-  &:hover
-    background-color: $base
-  &.has-image
-    flex-direction: column
+  position: relative
   &.is-ta-left
     justify-content: flex-start
     text-align: left
@@ -23,11 +19,13 @@
     label
       flex: 0 0 100%
       cursor: pointer
+  &:hover
+    background-color: $input-hover-background
+    border-color: $input-hover-border
   input:checked + &
-    background-color: $warning-shade
-    border-color: $warning
-    color: $warning-text
-    font-weight: 600
+    background-color: $input-selected-background
+    border-color: $input-selected-border
+    color: $input-selected-text
   .a-block-check &::before
     display: block
     +position(absolute, left .75rem, top 50%)
@@ -63,14 +61,13 @@
     color: $reversal-text
 
 .a-block-check__name
-  +text-block(.875rem 1, block center)
+  +text-block(.875rem 1.4, block center)
 
 .a-block-check__image
   +size(2rem)
-  &.is-lg
-    +size(2.5rem)
-  & + .a-block-check__name
-    margin-top: .5rem
+  .a-block-check__label.has-icon &
+    +size(1.75rem)
+    margin-right: .5rem
 
 .a-block-check__account
   margin-left: .25em
