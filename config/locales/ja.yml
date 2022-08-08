@@ -41,6 +41,7 @@ ja:
       reference_book: 参考書籍
       campaign: お試し延長
       book: 参考書籍
+      regular_event: 定期イベント
     attributes:
       user:
         login_name: アカウント
@@ -250,6 +251,13 @@ ja:
           started: 着手
           submitted: 提出
           complete: 完了
+      regular_event:
+        category:
+          reading_circle: 輪読会
+          chat: 雑談
+          question: 質問
+          meeting: MTG
+          others: その他
     errors:
       models:
         campaign:

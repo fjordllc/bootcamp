@@ -10,23 +10,24 @@
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :os, 'mac', id: 'mac', class: 'a-toggle-checkbox'
-              label.a-block-check__label.has-image(for='mac')
-                = image_tag('signup/os/intel.svg', class: 'a-block-check__image is-lg')
+              label.a-block-check__label.has-icon.is-ta-left(for='mac')
+                = image_tag('signup/os/intel.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.mac')
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :os, 'mac_apple', id: 'mac_apple', class: 'a-toggle-checkbox'
-              label.a-block-check__label.has-image(for='mac_apple')
-                = image_tag('signup/os/apple.svg', class: 'a-block-check__image is-lg')
+              label.a-block-check__label.has-icon.is-ta-left(for='mac_apple')
+                = image_tag('signup/os/apple.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.mac_apple')
         .form-item-group__help
-          label.a-form-help-link.is-danger(for='modal-mac')
-            span.a-form-help-link__label
-              | Intel チップ or Apple チップ の調べ方
-            span.a-help
-              i.fa-solid.fa-question
+          .a-form-help
+            label.a-form-help-link.is-danger(for='modal-mac')
+              span.a-form-help-link__label
+                | Intel チップ or Apple チップ の調べ方
+              span.a-help
+                i.fa-solid.fa-question
 
     .form-item-group
       .form-item-group__header
@@ -37,16 +38,17 @@
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :os, 'windows_wsl2', id: 'windows_wsl2', class: 'a-toggle-checkbox'
-              label.a-block-check__label.has-image(for='windows_wsl2')
-                = image_tag('signup/os/windows.svg', class: 'a-block-check__image is-lg')
+              label.a-block-check__label.has-icon.is-ta-left(for='windows_wsl2')
+                = image_tag('signup/os/windows.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.windows_wsl2')
         .form-item-group__help
-          label.a-form-help-link.is-danger(for='modal-win')
-            span.a-form-help-link__label
-              | WSL2とは？
-            span.a-help
-              i.fa-solid.fa-question
+          .a-form-help
+            label.a-form-help-link.is-danger(for='modal-win')
+              span.a-form-help-link__label
+                | WSL2とは？
+              span.a-help
+                i.fa-solid.fa-question
 
     .form-item-group
       .form-item-group__header
@@ -57,16 +59,17 @@
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :os, 'linux', id: 'linux', class: 'a-toggle-checkbox'
-              label.a-block-check__label.has-image(for='linux')
-                = image_tag('signup/os/linux.svg', class: 'a-block-check__image is-lg')
+              label.a-block-check__label.has-icon.is-ta-left(for='linux')
+                = image_tag('signup/os/linux.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.linux')
         .form-item-group__help
-          label.a-form-help-link.is-danger(for='modal-linux')
-            span.a-form-help-link__label
-              | 注意
-            span.a-help
-              i.fa-solid.fa-question
+          .a-form-help
+            label.a-form-help-link.is-danger(for='modal-linux')
+              span.a-form-help-link__label
+                | Linuxで学習をする際の注意
+              span.a-help
+                i.fa-solid.fa-question
 
 = render '/shared/modal',
   id: 'modal-mac',

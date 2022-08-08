@@ -9,7 +9,7 @@ $background-shade: #d6d6de
 $background-semi-shade: #e0e0e4
 $background-tint: #eceeef
 $background-more-tint: #f9f9fa
-$hover-background: $background-more-tint
+$background-more-more-tint: #fbfbfb
 
 // text
 $default-text: #42404e
@@ -32,8 +32,6 @@ $border-tint: $background
 $border-shade: #d2d2d8
 $border-more-shade: #c6c7cd
 $border-more-more-shade: #b8b8c0
-$input-border: #c1c5b9
-$input-background: #fafafa
 
 // Welcome Colors
 $welcome-blue: #178bff
@@ -64,14 +62,31 @@ $success-shade: tint($success, 90%)
 $info-text: shade($info, 60%)
 $info-shade: tint($info, 90%)
 
-$primary-text: shade($primary, 60%)
+$primary-text: shade($primary, 40%)
 $primary-shade: tint($primary, 90%)
+$primary-more-shade: tint($primary, 60%)
 
 $warning-text: shade($warning, 60%)
 $warning-shade: tint($warning, 90%)
 
 $main-text: shade($main, 10%)
 $main-shade: tint($main, 90%)
+
+// input
+$input-border: $border-shade
+$input-background: $background-more-more-tint
+
+$input-hover-border: $border-more-more-shade
+$input-hover-background: $base
+
+$input-selected-background: $primary-shade
+$input-selected-border: $primary
+$input-selected-text: $primary-text
+
+$input-focus-background: $base
+$input-focus-border: $primary
+$input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
+
 
 =default-link
   transition: color .2s ease-in

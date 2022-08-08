@@ -13,14 +13,13 @@
   .field_with_errors &
     border-color: #e1a7b6
     background-color: #fefafb
+  &:hover
+    background-color: $input-hover-background
+    border-color: $input-hover-border
   &:focus
-    background-color: $base
-    border-color: tint($primary, 20%)
-    box-shadow: rgba(black, .07) 0 .0625rem .0625rem inset, rgba($primary, .4) 0 0 1px 2px
-  &.is-inputed
-    border-style: dashed
-  &.is-align-center
-    text-align: center
+    background-color: $input-focus-background
+    border-color: $input-focus-border
+    box-shadow: $input-focus-shadow
   &:disabled
     color: #999
     background-color: #dedede
