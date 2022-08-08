@@ -17,7 +17,7 @@
       .user-metas__item-label
         | コース
       .user-metas__item-value
-        = user.course.title
+        = link_to user.course.title, course_practices_path(user.course), target: '_blank', rel: 'noopener'
     .user-metas__item
       .user-metas__item-label
         | 日報
