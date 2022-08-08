@@ -4,10 +4,7 @@ ol.elapsed-days__list
     v-for='product_n_days_passed in productsGroupedByElapsedDays',
     :key='product_n_days_passed.id'
   )
-    a(
-      v-if='product_n_days_passed.elapsed_days === 7',
-      href='#7days-elapsed'
-    )
+    a(v-if='product_n_days_passed.elapsed_days === 7', href='#7days-elapsed')
       | {{ product_n_days_passed.elapsed_days }}日以上経過
       | ({{ countProductsGroupedBy(product_n_days_passed) }})
     a(
@@ -16,7 +13,6 @@ ol.elapsed-days__list
     )
       | {{ product_n_days_passed.elapsed_days }}日経過
       | ({{ countProductsGroupedBy(product_n_days_passed) }})
-
 </template>
 
 <script>
