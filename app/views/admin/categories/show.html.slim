@@ -1,0 +1,50 @@
+- title @category.name
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        | 管理ページ
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_category_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | カテゴリー作成
+
+= render 'admin/admin_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title
+          = title
+  .page-body
+    .container.is-md
+      div
+        | URLスラッグ
+      div
+        = @category.slug
+      div
+        | 詳細
+      div
+        = @category.description
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label
+                | プラクティス
+              / th.admin-table__label
+              /   | 操作
+          tbody.admin-table__items
+            - @category.practices.each do |practice|
+              tr.admin-table__item(id="practice_#{practice.id}")
+                td.admin-table__item-value
+                  = link_to practice.title, practice_path(practice)
+                / td.admin-table__item-value.is-text-align-center
+                /   ul.is-inline-buttons
+                /     li
+                /       = link_to edit_practice_path(practice), class: 'a-button is-sm is-secondary is-icon' do
+                /         i.fa-solid.fa-pen
