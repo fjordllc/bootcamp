@@ -9,7 +9,7 @@ VCR.configure do |c|
   c.hook_into :webmock
 
   c.default_cassette_options = {
-    record: :new_episodes,
+    record: :once,
     match_requests_on: %i[method path query body]
   }
 

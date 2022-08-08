@@ -8,20 +8,21 @@ class UserSessionsController < ApplicationController
   def create
     @user = login(params[:user][:login], params[:user][:password], params[:remember])
     if @user
-      if @user.retired_on? || @user.hibernated?
+      if @user.retired_on?
         logout
-        redirect_to retire_path
+        flash.now[:alert] = '退会したユーザーです。'
+        render 'new'
+      elsif @user.hibernated?
+        logout
+        flash.now[:alert] = '休会中です。休会復帰ページから手続きをお願いします。'
+        render 'new'
       else
         redirect_back_or_to root_url, notice: 'ログインしました。'
       end
     else
       logout
-      @user = User.new(
-        login_name: params[:user][:login_name],
-        password: params[:user][:password]
-      )
       flash.now[:alert] = 'ユーザー名かパスワードが違います。'
-      render 'new', notice: 'ログアウトしました。'
+      render 'new'
     end
   end
 

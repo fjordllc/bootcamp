@@ -12,7 +12,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in('user[password]', with: 'testtest')
     end
     click_button 'ログイン'
-    assert_equal '/', current_path
+    assert_text 'ログインしました。'
   end
 
   test 'sign in with email' do
@@ -22,7 +22,7 @@ class SignInTest < ApplicationSystemTestCase
       fill_in('user[password]', with: 'testtest')
     end
     click_button 'ログイン'
-    assert_equal '/', current_path
+    assert_text 'ログインしました。'
   end
 
   test 'sign in with wrong password' do
@@ -32,27 +32,26 @@ class SignInTest < ApplicationSystemTestCase
       fill_in('user[password]', with: 'xxxxxxxx')
     end
     click_button 'ログイン'
-    assert_equal '/user_sessions', current_path
     assert_text 'ユーザー名かパスワードが違います。'
   end
 
   test 'sign in with retire account' do
-    logout
     visit '/login'
     within('#sign-in-form') do
       fill_in('user[login]', with: 'yameo')
-      fill_in('user[password]', with: 'yameo@example.com')
+      fill_in('user[password]', with: 'testtest')
     end
     click_button 'ログイン'
-    assert_equal '/user_sessions', current_path
-    assert_text 'ユーザー名かパスワードが違います。'
-
-    visit '/users'
-    assert_equal root_path, current_path
+    assert_text '退会したユーザーです。'
   end
 
-  test 'GET /login' do
+  test 'sign in with hibernated account' do
     visit '/login'
-    assert_equal 'ログイン | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'kyuukai')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text '休会中です。休会復帰ページから手続きをお願いします。'
   end
 end
