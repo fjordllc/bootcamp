@@ -21,7 +21,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'finish a practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}", 'komagata'
     find('#js-complete').click
-    assert_not has_link? '完了'
+    assert_not has_link? '修了'
   end
 
   test "show [提出物を作る] or [提出物] link if user don't have to submit product" do
