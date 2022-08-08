@@ -11,22 +11,6 @@ header.page-header
     header.auth-form__header
       h1.auth-form__title 退会手続き
     .auth-form__body
-      .important-message
-        header.important-message__header
-          h2.important-message__title
-            | 休会についての注意
-        .important-message__body
-          .a-long-text.is-md
-            ul
-              li
-                | 休会をする場合は、
-                = link_to '休会の手続き', '/pages/suspension_of_membership'
-                | をご確認ください。この手続を行わないと、休会にはなりませんのでご注意ください 。
-              li
-                | あなたの分報チャンネルは休会の申し出があった場合は、3ヶ月経過するまでは残りますが、もし休会の申し出がなく退会された場合はすぐに削除されてしまいます。もし、復帰までに3ヶ月以上かかる場合は、3ヶ月が経過する前に <code>info@fjord.jp</code> 宛にご連絡をお願いいたします。ご連絡をいただいた場合でも、事情により分報チャンネルが消えてしまう場合がありますことをご了承ください。
-              li
-                | 休会の場合でも退会手続きが完了した時点で、まだOKになっていないメンターとのやりとりの途中の提出物が消えてしまいます。途中のやりとりや成果物を手元に残すなどをお願いします。
-
       - if current_user.errors.any?
         = render 'errors', object: current_user
       = form_with model: current_user, local: true, url: retirement_path, method: :post, class: 'form' do |f|

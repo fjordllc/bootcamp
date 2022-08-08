@@ -12,10 +12,10 @@ class Subscription
     Stripe::Subscription.retrieve(id)
   end
 
-  def create(customer_id, idempotency_key = SecureRandom.uuid)
+  def create(customer_id, idempotency_key = SecureRandom.uuid, trial: 3)
     Stripe::Subscription.create({
                                   customer: customer_id,
-                                  trial_end: 3.days.since.to_i,
+                                  trial_end: trial.days.since.to_i,
                                   items: [{ plan: Plan.standard_plan.id }]
                                 }, {
                                   idempotency_key: idempotency_key

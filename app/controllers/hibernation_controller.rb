@@ -26,7 +26,7 @@ class HibernationController < ApplicationController
   private
 
   def hibernation_params
-    params.require(:hibernation).permit(:reason, :scheduled_return_on)
+    params.require(:hibernation).permit(:reason, :scheduled_return_on, :returned_on)
   end
 
   def update_hibernated_at!
@@ -35,6 +35,8 @@ class HibernationController < ApplicationController
   end
 
   def destroy_subscription!
+    return nil unless Rails.env.production?
+
     Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
   end
 

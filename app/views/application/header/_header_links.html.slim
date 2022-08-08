@@ -1,23 +1,23 @@
 .header-links.is-user-links
   ul.header-links__items
-
     li.header-links__search.is-hidden-sm-down
-      = render 'application/header/header_search', select_id: 'header-search-select', text_field_id: 'header-search-word', submit_id: 'test-search'
-
+      = render 'application/header/header_search',
+        select_id: 'header-search-select',
+        text_field_id: 'header-search-word',
+        submit_id: 'test-search'
     li.header-links__item.is-hidden-md-up
       label.header-links__link.test-show-menu(for='header-search')
         .header-notification-icon
           i.fa-solid.fa-search
-        .header-links__link-label
-          | 検索
-
+        .header-links__link-label 検索
     - if current_user
       li.header-links__item
         label.header-links__link.test-show-menu(for='header-menu')
           .header-current-user
-            = image_tag current_user.avatar_url, title: current_user.icon_title, class: "header-current-user__icon a-user-icon is-#{current_user.primary_role}"
-          .header-links__link-label
-            | Me
+            = image_tag current_user.avatar_url,
+              title: current_user.icon_title,
+              class: "header-current-user__icon a-user-icon is-#{current_user.primary_role}"
+          .header-links__link-label Me
         input.a-toggle-checkbox#header-menu(type='checkbox')
         .header-dropdown
           label.header-dropdown__background(for='header-menu')
@@ -35,4 +35,7 @@
 
 = render '/shared/modal', id: 'header-search', modal_title: '検索'
   .modal__description.is-md
-    = render 'application/header/header_search', select_id: 'header-search-select-modal', text_field_id: 'header-search-word-modal', submit_id: 'test-search-modal'
+    = render 'application/header/header_search',
+      select_id: 'header-search-select-modal',
+      text_field_id: 'header-search-word-modal',
+      submit_id: 'test-search-modal'

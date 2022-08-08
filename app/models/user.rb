@@ -686,6 +686,28 @@ class User < ApplicationRecord
     avatar.attach(io: File.open(image.path), filename: id)
   end
 
+  def last_hibernation
+    return nil if hibernations.size.zero?
+
+    hibernations.order(:created_at).last
+  end
+
+  def update_last_returned_at!
+    hibernation = last_hibernation
+    hibernation.returned_at = Date.current
+    hibernation.save!(validate: false)
+  end
+
+  def comeback!
+    update_last_returned_at!
+
+    subscription = Subscription.new.create(customer_id, trial: 0)
+
+    self.hibernated_at = nil
+    self.subscription_id = subscription['id']
+    save!(validate: false)
+  end
+
   private
 
   def password_required?

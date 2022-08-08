@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
   resource :hibernation, only: %i(show new create), controller: "hibernation"
+  resource :comeback, only: %i(new create), controller: "comeback"
   resource :current_user, only: %i(edit update), controller: "current_user" do
     resource :password, only: %i(edit update), controller: "current_user/password"
   end
@@ -84,6 +85,5 @@ Rails.application.routes.draw do
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
-  get "retire", to: "static_pages#retire"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

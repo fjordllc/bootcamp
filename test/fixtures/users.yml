@@ -835,8 +835,8 @@ kyuukai:
   facebook_url: https://www.facebook.com/fjordllc
   blog_url: https://example.com/kyuukai
   description: "キュウカイです。休会しています。"
-  customer_id: "cus_12345678"
-  subscription_id: "sub_12345678"
+  customer_id: cus_12345678
+  subscription_id: sub_12345678
   course: course1
   job: office_worker
   os: mac
