@@ -13,7 +13,7 @@ tr.admin-table__item
     img.admin-table__user-icon(src='/images/emotion/sad.svg')
 </template>
 <script>
-import UserIcon from 'user-icon'
+import UserIcon from '../user-icon'
 
 export default {
   components: {
