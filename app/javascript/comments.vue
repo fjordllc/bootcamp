@@ -187,10 +187,7 @@ export default {
           this.loadedComment =
             this.commentLimit + this.commentOffset >= this.commentTotalCount
           if (this.loadedComment === false) {
-            const commentLimit = this.commentLimit
-            this.commentLimit =
-              this.commentTotalCount - (this.commentLimit + this.commentOffset)
-            this.commentOffset = commentLimit
+            this.commentOffset = this.commentLimit
           }
         })
     },
