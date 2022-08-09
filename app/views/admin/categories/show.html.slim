@@ -20,6 +20,9 @@ header.page-header
       .page-main-header__inner
         h1.page-main-header__title
           = title
+          .categories-item__edit
+            = link_to edit_admin_category_path(@category), class: 'categories-item__edit-link'
+              i.fa-solid.fa-pen
   .page-body
     .container.is-md
       div
@@ -36,15 +39,15 @@ header.page-header
             tr.admin-table__labels
               th.admin-table__label
                 | プラクティス
-              / th.admin-table__label
-              /   | 操作
+              th.admin-table__label
+                | 操作
           tbody.admin-table__items
             - @category.practices.each do |practice|
               tr.admin-table__item(id="practice_#{practice.id}")
                 td.admin-table__item-value
                   = link_to practice.title, practice_path(practice)
-                / td.admin-table__item-value.is-text-align-center
-                /   ul.is-inline-buttons
-                /     li
-                /       = link_to edit_practice_path(practice), class: 'a-button is-sm is-secondary is-icon' do
-                /         i.fa-solid.fa-pen
+                td.admin-table__item-value.is-text-align-center
+                  ul.is-inline-buttons
+                    li
+                      = link_to edit_practice_path(practice), class: 'a-button is-sm is-secondary is-icon' do
+                        i.fa-solid.fa-pen
