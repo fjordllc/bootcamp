@@ -15,6 +15,11 @@ class ProductsController < ApplicationController
                        .limit(10)
                        .includes(:comments, :checks)
                        .order(reported_on: :DESC)
+    @products = @product.user
+                        .products
+                        .limit(10)
+                        .not_wip
+                        .order(published_at: :DESC)
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @footprints = find_footprints
