@@ -152,44 +152,44 @@ export default {
     },
     showComments() {
       fetch(
-        `/api/comments.json?commentable_type=${this.commentableType}&` +
+          `/api/comments.json?commentable_type=${this.commentableType}&` +
           `commentable_id=${this.commentableId}&comment_limit=${this.commentLimit}&` +
           `comment_offset=${this.commentOffset}`,
-        {
-          method: 'GET',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          },
-          credentials: 'same-origin',
-          redirect: 'manual'
-        }
+          {
+            method: 'GET',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin',
+            redirect: 'manual'
+          }
       )
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          json.comments.forEach((c) => {
-            this.comments.unshift(c)
+          .then((response) => {
+            return response.json()
           })
-          this.commentTotalCount = json.comment_total_count
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-        .finally(() => {
-          if (this.loaded === false) {
-            this.loaded = true
-            this.$nextTick(() => {
-              TextareaInitializer.initialize('#js-new-comment')
-              this.setDefaultTextareaSize()
+          .then((json) => {
+            json.comments.forEach((c) => {
+              this.comments.unshift(c)
             })
-          }
-          this.loadedComment =
-            this.commentLimit + this.commentOffset >= this.commentTotalCount
-          if (this.loadedComment === false) {
-            this.commentOffset = this.commentLimit
-          }
-        })
+            this.commentTotalCount = json.comment_total_count
+          })
+          .catch((error) => {
+            console.warn(error)
+          })
+          .finally(() => {
+            if (this.loaded === false) {
+              this.loaded = true
+              this.$nextTick(() => {
+                TextareaInitializer.initialize('#js-new-comment')
+                this.setDefaultTextareaSize()
+              })
+            }
+            this.loadedComment =
+                this.commentLimit + this.commentOffset >= this.commentTotalCount
+            if (this.loadedComment === false) {
+              this.commentOffset += this.commentLimit
+            }
+          })
     },
     createComment() {
       if (this.description.length < 1) {
@@ -213,31 +213,31 @@ export default {
         redirect: 'manual',
         body: JSON.stringify(params)
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then(async (comment) => {
-          this.comments.push(comment)
-          this.description = ''
-          this.clearPreview('new-comment-preview')
-          this.tab = 'comment'
-          this.buttonDisabled = false
-          this.resizeTextarea()
-          this.toast('コメントを投稿しました！')
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+          .then((response) => {
+            return response.json()
+          })
+          .then(async (comment) => {
+            this.comments.push(comment)
+            this.description = ''
+            this.clearPreview('new-comment-preview')
+            this.tab = 'comment'
+            this.buttonDisabled = false
+            this.resizeTextarea()
+            this.toast('コメントを投稿しました！')
+          })
+          .catch((error) => {
+            console.warn(error)
+          })
       if (
-        this.commentableType === 'Product' &&
-        this.productCheckerId === null
+          this.commentableType === 'Product' &&
+          this.productCheckerId === null
       ) {
         this.checkProduct(
-          this.commentableId,
-          this.currentUserId,
-          '/api/products/checker',
-          'PATCH',
-          this.token()
+            this.commentableId,
+            this.currentUserId,
+            '/api/products/checker',
+            'PATCH',
+            this.token()
         )
       }
     },
@@ -251,16 +251,16 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then(() => {
-          this.comments.forEach((comment, i) => {
-            if (comment.id === id) {
-              this.comments.splice(i, 1)
-            }
+          .then(() => {
+            this.comments.forEach((comment, i) => {
+              if (comment.id === id) {
+                this.comments.splice(i, 1)
+              }
+            })
           })
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+          .catch((error) => {
+            console.warn(error)
+          })
     },
     updateComment(description, id) {
       const updatedComment = this.comments.find((comment) => {
@@ -278,18 +278,18 @@ export default {
     },
     commentAndCheck() {
       if (
-        this.commentableType === 'Product' &&
-        !window.confirm('提出物を確認済にしてよろしいですか？')
+          this.commentableType === 'Product' &&
+          !window.confirm('提出物を確認済にしてよろしいですか？')
       ) {
         return null
       } else {
         this.createComment()
         this.check(
-          this.commentableType,
-          this.commentableId,
-          '/api/checks',
-          'POST',
-          this.token()
+            this.commentableType,
+            this.commentableId,
+            '/api/checks',
+            'POST',
+            this.token()
         )
       }
     },
@@ -304,13 +304,13 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
-        .catch((error) => {
-          console.warn(error)
-          return null
-        })
+          .then((response) => {
+            return response.json()
+          })
+          .catch((error) => {
+            console.warn(error)
+            return null
+          })
     },
     editComment() {
       if (this.description.length > 0) {
