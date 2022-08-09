@@ -152,6 +152,22 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
+    showRemainingComments: function () {
+      const commentRemaining = this.commentTotalCount - this.commentOffset
+
+      if (commentRemaining > this.defaultCommentAdd) {
+        this.nextCommentAmount = `${this.defaultCommentAdd} / ${commentRemaining}`
+      } else {
+        this.nextCommentAmount = commentRemaining
+      }
+    },
+    calcCommentIncrement: function () {
+      this.loadedComment =
+          this.commentLimit + this.commentOffset >= this.commentTotalCount
+      if (this.loadedComment === false) {
+        this.commentOffset += this.commentLimit
+      }
+    },
     showComments() {
       fetch(
           `/api/comments.json?commentable_type=${this.commentableType}&` +
@@ -186,18 +202,8 @@ export default {
                 this.setDefaultTextareaSize()
               })
             }
-            this.loadedComment =
-                this.commentLimit + this.commentOffset >= this.commentTotalCount
-            if (this.loadedComment === false) {
-              this.commentOffset += this.commentLimit
-            }
-              const commentRemaining = this.commentTotalCount - this.commentOffset
-
-              if (commentRemaining > this.defaultCommentAdd) {
-                this.nextCommentAmount = `${this.defaultCommentAdd} / ${commentRemaining}`
-              } else {
-                this.nextCommentAmount = commentRemaining
-              }
+            this.calcCommentIncrement()
+            this.showRemainingComments()
           })
     },
     createComment() {
