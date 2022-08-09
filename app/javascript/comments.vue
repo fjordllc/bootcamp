@@ -6,7 +6,7 @@
     .thread-comments-more__inner
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
-          | コメント（{{ commentLimit }}）をもっと見る
+          | 次のコメント（ {{nextCommentAmount}} ）
   h2.thread-comments__title(
     v-if='commentableType === "RegularEvent" || commentableType === "Event"'
   )
@@ -116,7 +116,9 @@ export default {
       commentLimit: 8,
       commentOffset: 0,
       commentTotalCount: null,
-      loadedComment: false
+      loadedComment: false,
+      nextCommentAmount: null,
+      defaultCommentAdd: 8
     }
   },
   computed: {
@@ -189,6 +191,13 @@ export default {
             if (this.loadedComment === false) {
               this.commentOffset += this.commentLimit
             }
+              const commentRemaining = this.commentTotalCount - this.commentOffset
+
+              if (commentRemaining > this.defaultCommentAdd) {
+                this.nextCommentAmount = `${this.defaultCommentAdd} / ${commentRemaining}`
+              } else {
+                this.nextCommentAmount = commentRemaining
+              }
           })
     },
     createComment() {
