@@ -89,13 +89,24 @@ class Notification < ApplicationRecord
       )
     end
 
-    def chose_correct_answer(answer, receiver)
+    def following_report(report, receiver)
       Notification.create!(
-        kind: kinds[:chose_correct_answer],
+        kind: kinds[:following_report],
         user: receiver,
-        sender: answer.receiver,
-        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-        message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
+        sender: report.sender,
+        link: Rails.application.routes.url_helpers.polymorphic_path(report),
+        message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
+        read: false
+      )
+    end
+
+    def product_update(product, receiver)
+      Notification.create!(
+        kind: 17,
+        user: receiver,
+        sender: product.user,
+        link: Rails.application.routes.url_helpers.polymorphic_path(product),
+        message: "#{product.user.login_name}さんの提出物が更新されました",
         read: false
       )
     end
