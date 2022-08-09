@@ -201,4 +201,20 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def retired(params = {})
+    params.merge!(@params)
+    answer = params[:answer]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sener.login_name}さんの回答がベストアンサーに選ばれました。",
+      kind: :chose_correct_answer,
+      sender: sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      read: false
+    )
+  end
+
 end
