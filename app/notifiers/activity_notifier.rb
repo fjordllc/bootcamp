@@ -202,32 +202,19 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-  def following_report(params = {})
+  def retired(params = {})
     params.merge!(@params)
-    report = params[:report]
+    answer = params[:answer]
     receiver = params[:receiver]
 
     notification(
-      body: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
-      kind: :following_report,
+      body: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sener.login_name}さんの回答がベストアンサーに選ばれました。",
+      kind: :chose_correct_answer,
+      sender: sender,
       receiver: receiver,
-      sender: report.sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(report),
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
   end
 
-  def came_answer(params = {})
-    params.merge!(@params)
-    answer = params[:answer]
-
-    notification(
-      body: "#{answer.user.login_name}さんから回答がありました。",
-      kind: :answered,
-      receiver: answer.receiver,
-      sender: answer.sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-      read: false
-    )
-  end
 end
