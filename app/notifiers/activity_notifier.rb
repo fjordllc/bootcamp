@@ -202,7 +202,6 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-<<<<<<< HEAD
   def following_report(params = {})
     params.merge!(@params)
     report = params[:report]
@@ -219,9 +218,6 @@ class ActivityNotifier < ApplicationNotifier
   end
 
   def came_answer(params = {})
-=======
-  def chose_correct_answer(params = {})
->>>>>>> メソッド名を修正した
     params.merge!(@params)
     answer = params[:answer]
 
@@ -245,7 +241,7 @@ class ActivityNotifier < ApplicationNotifier
       kind: :retired,
       sender: sender,
       receiver: receiver,
-      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       read: false
     )
   end
