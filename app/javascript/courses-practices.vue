@@ -14,7 +14,7 @@
             span.stamp.is-circle.is-solved(
               v-if='category.completed_all_practices === true'
             )
-              | 完了
+              | 修了
         .categories-item__description
           .categories-item__edit.is-only-mentor(v-if='isRole("admin")')
             a.categories-item__edit-link(
