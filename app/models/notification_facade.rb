@@ -156,7 +156,7 @@ class NotificationFacade
   end
 
   def self.chose_correct_answer(answer, receiver)
-    ActivityNotifier.with(answer: answer, receiver: receiver).came_question.notify_now
+    ActivityNotifier.with(answer: answer, receiver: receiver).chose_correct_answer.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
