@@ -118,7 +118,7 @@ export default {
       commentTotalCount: null,
       loadedComment: false,
       nextCommentAmount: null,
-      defaultCommentAdd: 8
+      incrementCommentSize: 8
     }
   },
   computed: {
@@ -152,20 +152,20 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    showRemainingComments: function () {
-      const commentRemaining = this.commentTotalCount - this.commentOffset
-
-      if (commentRemaining > this.defaultCommentAdd) {
-        this.nextCommentAmount = `${this.defaultCommentAdd} / ${commentRemaining}`
-      } else {
-        this.nextCommentAmount = commentRemaining
-      }
-    },
     calcCommentIncrement: function () {
       this.loadedComment =
         this.commentLimit + this.commentOffset >= this.commentTotalCount
-      if (this.loadedComment === false) {
+      if (!this.loadedComment) {
         this.commentOffset += this.commentLimit
+      }
+    },
+    showNextCommentsAmount: function () {
+      const commentRemaining = this.commentTotalCount - this.commentOffset
+
+      if (commentRemaining > this.incrementCommentSize) {
+        this.nextCommentAmount = `${this.incrementCommentSize} / ${commentRemaining}`
+      } else {
+        this.nextCommentAmount = commentRemaining
       }
     },
     showComments() {
@@ -203,7 +203,7 @@ export default {
             })
           }
           this.calcCommentIncrement()
-          this.showRemainingComments()
+          this.showNextCommentsAmount()
         })
     },
     createComment() {
