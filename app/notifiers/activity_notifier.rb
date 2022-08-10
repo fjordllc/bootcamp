@@ -202,7 +202,7 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-  def retired(params = {})
+  def chose_correct_answer(params = {})
     params.merge!(@params)
     answer = params[:answer]
     receiver = params[:receiver]
@@ -216,5 +216,4 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
-
 end
