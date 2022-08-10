@@ -1,82 +1,84 @@
 <template lang="pug">
-.page-content.products(v-if='!loaded')
+.page-content(v-if='!loaded')
   loadingListPlaceholder
 .o-empty-message(v-else-if='products.length === 0')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
     | {{ title }}はありません
-.page-content.products(v-else)
+.page-content.is-products(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
-  .a-card(v-if='productsGroupedByElapsedDays === null')
-    .card-list
-      .card-list__items
-        product(
-          v-for='product in products',
-          :key='product.id',
-          :product='product',
-          :currentUserId='currentUserId',
-          :isMentor='isMentor'
+  .page-body__columns
+    .page-body__column.is-main
+      .a-card(v-if='productsGroupedByElapsedDays === null')
+        .card-list
+          .card-list__items
+            product(
+              v-for='product in products',
+              :key='product.id',
+              :product='product',
+              :currentUserId='currentUserId',
+              :isMentor='isMentor'
+            )
+      template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
+        .a-card(
+          v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)'
         )
-  template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
-    .a-card(
-      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)'
-    )
-      header.card-header.a-elapsed-days(
-        v-if='product_n_days_passed.elapsed_days === 0'
-      )
-        h2.card-header__title
-          | 今日提出
-          span.card-header__count(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      header.card-header.a-elapsed-days.is-reply-warning(
-        v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
-      )
-        h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
-          span.card-header__count(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      header.card-header.a-elapsed-days.is-reply-alert(
-        v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
-      )
-        h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
-          span.card-header__count(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      header.card-header.a-elapsed-days.is-reply-deadline(
-        v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
-      )
-        h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日以上経過
-          span.card-header__count(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      header.card-header.a-elapsed-days(
-        v-else,
-        :id='[elapsedDaysId(product_n_days_passed.elapsed_days)]'
-      )
-        h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
-          span.card-header__count(v-if='selectedTab === "unassigned"')
-            | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      .card-list(:class='listClassName')
-        .card-list__items
-          product(
-            v-for='product in product_n_days_passed.products',
-            :key='product.id',
-            :product='product',
-            :currentUserId='currentUserId',
-            :isMentor='isMentor'
+          header.card-header.a-elapsed-days(
+            v-if='product_n_days_passed.elapsed_days === 0'
           )
-  elapsedDays(
-    v-if='!isDashboard && selectedTab === "unassigned"',
-    :productsGroupedByElapsedDays='productsGroupedByElapsedDays',
-    :countProductsGroupedBy='countProductsGroupedBy'
-  )
-  unconfirmed-links-open-button(
-    v-if='isMentor && selectedTab != "all" && !isDashboard',
-    :label='`${unconfirmedLinksName}の提出物を一括で開く`'
-  )
+            h2.card-header__title
+              | 今日提出
+              span.card-header__count(v-if='selectedTab === "unassigned"')
+                | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          header.card-header.a-elapsed-days.is-reply-warning(
+            v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
+          )
+            h2.card-header__title
+              | {{ product_n_days_passed.elapsed_days }}日経過
+              span.card-header__count(v-if='selectedTab === "unassigned"')
+                | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          header.card-header.a-elapsed-days.is-reply-alert(
+            v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
+          )
+            h2.card-header__title
+              | {{ product_n_days_passed.elapsed_days }}日経過
+              span.card-header__count(v-if='selectedTab === "unassigned"')
+                | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          header.card-header.a-elapsed-days.is-reply-deadline(
+            v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
+          )
+            h2.card-header__title
+              | {{ product_n_days_passed.elapsed_days }}日以上経過
+              span.card-header__count(v-if='selectedTab === "unassigned"')
+                | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          header.card-header.a-elapsed-days(
+            v-else,
+            :id='[elapsedDaysId(product_n_days_passed.elapsed_days)]'
+          )
+            h2.card-header__title
+              | {{ product_n_days_passed.elapsed_days }}日経過
+              span.card-header__count(v-if='selectedTab === "unassigned"')
+                | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          .card-list(:class='listClassName')
+            .card-list__items
+              product(
+                v-for='product in product_n_days_passed.products',
+                :key='product.id',
+                :product='product',
+                :currentUserId='currentUserId',
+                :isMentor='isMentor'
+              )
+      unconfirmed-links-open-button(
+        v-if='isMentor && selectedTab != "all" && !isDashboard',
+        :label='`${unconfirmedLinksName}の提出物を一括で開く`'
+      )
+    elapsedDays(
+      v-if='!isDashboard && selectedTab === "unassigned"',
+      :productsGroupedByElapsedDays='productsGroupedByElapsedDays',
+      :countProductsGroupedBy='countProductsGroupedBy'
+    )
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
