@@ -202,6 +202,7 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
+<<<<<<< HEAD
   def following_report(params = {})
     params.merge!(@params)
     report = params[:report]
@@ -218,6 +219,9 @@ class ActivityNotifier < ApplicationNotifier
   end
 
   def came_answer(params = {})
+=======
+  def chose_correct_answer(params = {})
+>>>>>>> メソッド名を修正した
     params.merge!(@params)
     answer = params[:answer]
 
@@ -242,67 +246,6 @@ class ActivityNotifier < ApplicationNotifier
       sender: sender,
       receiver: receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-      read: false
-    )
-  end
-
-  def checked(params = {})
-    params.merge!(@params)
-    check = params[:check]
-    receiver = params[:receiver]
-
-    notification(
-      body: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
-      kind: :checked,
-      receiver: receiver,
-      sender: check.sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
-      read: false
-    )
-  end
-
-  def trainee_report(params = {})
-    params.merge!(@params)
-    report = params[:report]
-    receiver = params[:receiver]
-
-    notification(
-      body: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
-      kind: :trainee_report,
-      receiver: receiver,
-      sender: report.sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(report),
-      read: false
-    )
-  end
-
-  def product_update(params = {})
-    params.merge!(@params)
-    product = params[:product]
-    receiver = params[:receiver]
-
-    notification(
-      body: "#{product.user.login_name}さんの提出物が更新されました",
-      kind: :product_update,
-      receiver: receiver,
-      sender: product.sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(product),
-      read: false
-    )
-  end
-
-  def watching_notification(params = {})
-    params.merge!(@params)
-    watchable = params[:watchable]
-    receiver = params[:receiver]
-    sender = params[:comment].user
-    action = watchable.instance_of?(Question) ? '回答' : 'コメント'
-    notification(
-      body: "#{watchable.user.login_name}さんの【 #{watchable.notification_title} 】に#{sender.login_name}さんが#{action}しました。",
-      kind: :watching,
-      receiver: receiver,
-      sender: sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
       read: false
     )
   end
