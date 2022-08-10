@@ -244,19 +244,35 @@ class CommentsTest < ApplicationSystemTestCase
     assert_selector 'span.mention', text: 'mentor'
   end
 
-  test 'clicking "see more comments" will display old comments' do
+  test 'text change "see more comments" button by remaining comment amount' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
-    assert_no_text '提出物のコメント1です。'
-    old_comments = find('.a-button.is-lg.is-text.is-block').text
-    assert_text old_comments
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '次のコメント（ 8 / 12 ）'
+
+    find('.a-button.is-lg.is-text.is-block').click
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '次のコメント（ 4 ）'
+
+    find('.a-button.is-lg.is-text.is-block').click
+    assert_no_selector '.a-button.is-lg.is-text.is-block'
+  end
+
+  test 'comments added 8 or within the last 8' do
+    visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
+
+    assert_text '提出物のコメント20です'
     assert_text '提出物のコメント13です。'
+    assert_no_text '提出物のコメント12です。'
 
-    click_button old_comments
+    find('.a-button.is-lg.is-text.is-block').click
+    assert_text '提出物のコメント20です'
+    assert_text '提出物のコメント12です。'
+    assert_text '提出物のコメント5です。'
+    assert_no_text '提出物のコメント4です。'
 
+    find('.a-button.is-lg.is-text.is-block').click
+    assert_text '提出物のコメント20です'
+    assert_text '提出物のコメント4です。'
     assert_text '提出物のコメント1です。'
-    assert_no_text old_comments
-    assert_text '提出物のコメント13です。'
   end
 
   test 'clear preview after posting new comment for report' do
