@@ -40,7 +40,7 @@
   border-bottom: solid 1px $border-tint
   &.is-active
     .page-nav__item-link
-      color: $input-selected-text
+      color: $default-text
       font-weight: 700
   &.is-current
     +page-nav-current($input-selected-background, #c6e2ff, $input-selected-text, true)
@@ -55,7 +55,7 @@
     border-top: none
     border-bottom: solid 1px $border-tint
     .page-nav__item-link
-      background-color: $background-shade
+      background-color: $background-semi-shade
       color: $muted-text
       pointer-events: none
   &:last-child
