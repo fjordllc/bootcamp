@@ -70,7 +70,7 @@ class Product::UnassignedTest < ApplicationSystemTestCase
     )
 
     visit_with_auth '/products/unassigned', 'komagata'
-    within '.elapsed-days__list' do
+    within '.elapsed-days' do
       assert_link('7日以上経過', href: '#7days-elapsed')
       assert_link('6日経過', href: '#6days-elapsed')
       assert_link('1日経過', href: '#1days-elapsed')
