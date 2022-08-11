@@ -99,7 +99,7 @@ ja:
         returned_at: 復帰日時
       course:
         title: タイトル
-        description: 詳細
+        description: 説明
         created_at: 作成日時
         updated_at: 更新日時
       practice:
