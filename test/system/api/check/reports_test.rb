@@ -19,6 +19,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     accept_alert do
       click_button '日報を確認'
     end
+    assert_text '日報を確認済みにしました'
     assert has_button? '日報の確認を取り消す'
     visit reports_path
     assert_text '確認済'
@@ -42,6 +43,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
     click_button '確認OKにする'
     assert_text '確認済'
+    assert_text '日報を確認済みにしました'
     assert_text '日報でcomment+確認OKにするtest'
   end
 
@@ -50,6 +52,7 @@ class Check::ReportsTest < ApplicationSystemTestCase
     fill_in 'new_comment[description]', with: '日報でcomment+確認OKにするtest'
     click_button '確認OKにする'
     assert_text '確認済'
+    assert_text '日報を確認済みにしました'
     assert_text '日報でcomment+確認OKにするtest'
   end
 
