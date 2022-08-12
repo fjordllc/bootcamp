@@ -3,7 +3,9 @@
 class WelcomeController < ApplicationController
   layout 'welcome'
 
-  def index; end
+  def index
+    @mentors = User.with_attached_profile_image.where(mentor: true)
+  end
 
   def pricing; end
 
