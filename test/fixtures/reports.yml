@@ -31,6 +31,7 @@ report3:
 report4:
   user: machida
   title: "Fjord Bootcamp で Bootstrap のバージョン更新"
+  emotion: 2
   description: |-
     Fjord Bootcamp で Bootstrap のバージョン更新を行った他、デザインの微調整を行いました。
   reported_on: "2017-01-01"
@@ -38,6 +39,7 @@ report4:
 report5:
   user: sotugyou
   title: "学習週1日目"
+  emotion: 2
   description: |-
     今日は　Rubyの基礎 を学習しました。
   reported_on: "2017-01-01"
@@ -45,6 +47,7 @@ report5:
 report6:
   user: sotugyou
   title: "学習週2日目"
+  emotion: 2
   description: |-
     今日は　Railsの基礎 を学習しました。
   reported_on: "2017-01-02"
@@ -52,6 +55,7 @@ report6:
 report7:
   user: sotugyou
   title: "学習週3日目"
+  emotion: 2
   description: |-
     今日は　RSpecの基礎 を学習しました。
   reported_on: "2017-01-03"
@@ -59,6 +63,7 @@ report7:
 report8:
   user: mentormentaro
   title: テストの日報
+  emotion: 2
   description: |-
     いろいろやりました。
   reported_on: "2017-01-01"
@@ -66,6 +71,7 @@ report8:
 report9:
   user: sotugyou
   title: WIPの日報
+  emotion: 2
   description: |-
     WIP
   reported_on: "2019-01-01"
@@ -84,6 +90,7 @@ report10:
 report11:
   user: kensyu
   title: 研修の日報
+  emotion: 2
   description:
     研修を行いました。
   reported_on: "2019-01-01"
@@ -91,12 +98,14 @@ report11:
 sotugyou:
   user: sotugyou
   title: テストの日報
+  emotion: 2
   description: いろいろやりました
   reported_on: "2018-02-01"
 
 report12:
   user: mentormentaro
   title: 検索結果確認用-C
+  emotion: 2
   description:
     今年で150歳でーす
   reported_on: "2020-01-01"
@@ -106,6 +115,7 @@ report12:
 report13:
   user: mentormentaro
   title: 検索結果確認用-A
+  emotion: 2
   description:
     きたるべき20世紀
   reported_on: "1900-01-01"
@@ -115,6 +125,7 @@ report13:
 report14:
   user: mentormentaro
   title: 検索結果確認用-B
+  emotion: 2
   description:
     あれから100年か
   reported_on: "2000-01-01"
@@ -140,6 +151,7 @@ report16:
 report17:
   user: mentormentaro
   title: 1時間だけ学習
+  emotion: 2
   description: |-
     mentormentaroです、メンターです。
     今日は1時間学習しました。
@@ -150,6 +162,7 @@ report17:
 report18:
   user: kensyu
   title: テストのnippou
+  emotion: 2
   description: |-
     今日は1時間学習しました。
   reported_on: "2022-04-01"
@@ -174,6 +187,7 @@ report20:
 report21:
   user: sotugyou
   title: "学習週4日目"
+  emotion: 2
   description: |-
     今日は　Vueの基礎 を学習しました。
   practices: practice1
@@ -192,6 +206,7 @@ report22:
 report23:
   user: kensyu
   title: フォローされた日報
+  emotion: 2
   description:
     フォローされました。
   reported_on: "2022-03-31"
@@ -199,6 +214,7 @@ report23:
 report24:
   user: kimura
   title: 検索用の日報
+  emotion: 2
   description:
     ユーザーネームで検索できるよ
   reported_on: "2022-03-31"
@@ -206,6 +222,7 @@ report24:
 report25:
   user: hatsuno
   title: 検索用の日報
+  emotion: 2
   description:
     ユーザーネームで検索できるよ
   reported_on: "2020-11-20"
@@ -256,6 +273,7 @@ report30:
 report31:
   user: kananashi
   title: 最新のwipの日報
+  emotion: 2
   description: |-
     最新のwipの日報です
   reported_on: <%= Time.current %>
@@ -265,6 +283,7 @@ report31:
 report32:
   user: kananashi
   title: wipを除いた最新の日報
+  emotion: 2
   description: |-
     wipを除いた最新の日報です
   reported_on: <%= Time.current - 1.day %>
@@ -284,6 +303,7 @@ report33:
 report34:
   user: kananashi
   title: 最新から10日前の日報
+  emotion: 2
   description: |-
     最新から10日前の日報です
   reported_on: <%= Time.current - 11.day %>
@@ -292,6 +312,7 @@ report34:
 report71:
   user: kimuramitai
   title: "名前の長いメンター用"
+  emotion: 2
   description:
     "名前の長いメンター用"
   reported_on: "2022-04-16"
