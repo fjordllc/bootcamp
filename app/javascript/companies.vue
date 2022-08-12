@@ -1,7 +1,9 @@
 <template lang="pug">
 .page-body
   .container.is-lg
-    .card-list.a-card
+    .card-list.a-card.is-loading(v-if='!loaded')
+      loadingUsersPageCompaniesPlaceholder
+    .card-list.a-card(v-else)
       company(
         v-for='company in companies',
         :key='company.id',
@@ -10,16 +12,29 @@
 </template>
 <script>
 import Company from 'company.vue'
-import UserIcon from 'user-icon'
+import LoadingUsersPageCompaniesPlaceholder from 'loading-users-page-companies-placeholder.vue'
 
 export default {
   components: {
     company: Company,
-    'user-icon': UserIcon
+    loadingUsersPageCompaniesPlaceholder: LoadingUsersPageCompaniesPlaceholder
+  },
+  props: {
+    target: {
+      type: String,
+      required: false,
+      default: 'all'
+    }
   },
   data() {
     return {
-      companies: []
+      companies: [],
+      loaded: false
+    }
+  },
+  computed: {
+    url() {
+      return `/api/users/companies?target=${this.target}`
     }
   },
   created() {
@@ -31,7 +46,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getCompaniesPage() {
-      fetch('/api/users/companies', {
+      fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

@@ -11,6 +11,18 @@
       / TODO 定期開催日のCSSは機能追加が完了してから対応する
       .form-item
         label.a-form-label
+          | カテゴリー
+        ul.block-checks.sm-down:is-3-items
+          - RegularEvent.categories.each_key do |category|
+            li.block-checks__item
+              .a-block-check.is-radio
+                = f.radio_button :category, category, class: 'a-toggle-checkbox'
+                = f.label :category, value: category, class: 'a-block-check__label' do
+                  span.a-block-check__name
+                    = t "activerecord.enums.regular_event.category.#{category}"
+
+      .form-item
+        label.a-form-label
           | 定期開催日
         = f.fields_for :regular_event_repeat_rules do |regular_event_repeat_rule|
           = render 'regular_event_repeat_rule_fields', f: regular_event_repeat_rule

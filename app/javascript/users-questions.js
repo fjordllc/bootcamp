@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Questions from 'questions.vue'
+import Questions from 'components/questions.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const selector = '#js-users-questions'

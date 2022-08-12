@@ -5,18 +5,19 @@ class Practices::QuestionsController < ApplicationController
 
   def index
     @practice = Practice.find(params[:practice_id])
-    questions =
-      case params[:target]
-      when 'solved'
-        @practice.questions.solved
-      when 'not_solved'
-        @practice.questions.not_solved.not_wip
-      else
-        @practice.questions
-      end
-    @questions = questions
-                 .with_avatar
-                 .includes(:answers, :tags, :correct_answer)
-                 .order(updated_at: :desc, id: :desc)
+    @empty_message = empty_message
+  end
+
+  private
+
+  def empty_message
+    case params[:target]
+    when 'solved'
+      '解決済みのQ&Aはありません。'
+    when 'not_solved'
+      '未解決のQ&Aはありません。'
+    else
+      '質問はありません。'
+    end
   end
 end

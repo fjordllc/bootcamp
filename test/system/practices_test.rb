@@ -21,7 +21,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'finish a practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}", 'komagata'
     find('#js-complete').click
-    assert_not has_link? '完了'
+    assert_not has_link? '修了'
   end
 
   test "show [提出物を作る] or [提出物] link if user don't have to submit product" do
@@ -183,7 +183,7 @@ class PracticesTest < ApplicationSystemTestCase
 
     practice = practices(:practice2)
     visit "/practices/#{practice.id}"
-    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか完了すると新しいプラクティスを開始できます。" do
+    accept_alert "すでに着手しているプラクティスがあります。\n提出物を提出するか修了すると新しいプラクティスを開始できます。" do
       first('.js-started').click
     end
   end

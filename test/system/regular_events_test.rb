@@ -9,6 +9,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: '質問相談タイム'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
+      find('label', text: '主催者').click
+      find('label', text: '質問').click
       fill_in 'regular_event[start_at]', with: Time.zone.parse('16:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('17:00')
       fill_in 'regular_event[description]', with: '質問相談タイムです'
@@ -61,6 +63,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
+      find('label', text: '主催者').click
+      find('label', text: '輪読会').click
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('第2')
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('水曜日')
       fill_in 'regular_event[start_at]', with: Time.zone.parse('20:00')
@@ -78,5 +82,26 @@ class RegularEventsTest < ApplicationSystemTestCase
       click_link '削除'
     end
     assert_text '定期イベントを削除しました。'
+  end
+
+  test 'show the category of the regular event on regular events list' do
+    visit_with_auth '/regular_events/new', 'komagata'
+    fill_in 'regular_event[title]', with: '定期イベント・カテゴリーのテスト'
+    first('.choices__inner').click
+    find('#choices--js-choices-multiple-select-item-choice-1').click
+    find('label', text: '主催者').click
+    find('label', text: 'その他').click
+    first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+    first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('木曜日')
+    fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
+    fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
+    fill_in 'regular_event[description]', with: '定期イベント・カテゴリーのテストです'
+    click_button '作成'
+    assert_text '定期イベントを作成しました。'
+
+    visit '/regular_events'
+    within '.card-list.a-card' do
+      assert_text 'その他'
+    end
   end
 end

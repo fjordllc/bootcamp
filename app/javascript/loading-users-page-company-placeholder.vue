@@ -1,13 +1,18 @@
 <template lang="pug">
-.category-practices-item
-  .category-practices-item__header
-    .category-practices-item__title
-      .category-practices-item__title-link.a-placeholder
-    .practice-status.category-practices-item__status.a-placeholder
+.user-group
+  header.user-group__header
+    h2.group-company-name
+      .group-company-name__link
+        span.group-company-name__icon
+          .group-company-name__icon-image.a-placeholder
+        span.group-company-name__name
+          span.group-company-name__label.a-placeholder
+          span.group-company-name__label-option.a-placeholder
   .a-user-icons
     .a-user-icons__items
       loadingUserIconPlaceholder(v-for='num in userIconCount', :key='num')
 </template>
+
 <script>
 import LoadingUserIconPlaceholder from 'loading-user-icon-placeholder.vue'
 
@@ -17,7 +22,7 @@ export default {
   },
   data() {
     return {
-      userIconCount: 3
+      userIconCount: 16
     }
   }
 }

@@ -116,7 +116,7 @@ class CurrentUserTest < ApplicationSystemTestCase
   test 'update os' do
     kimura = users(:kimura)
     visit_with_auth '/current_user/edit', 'kimura'
-    find('label', text: 'Linux').click
+    first('label', text: 'Linux').click
 
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました。'
