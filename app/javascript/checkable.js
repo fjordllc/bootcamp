@@ -33,10 +33,10 @@ export default {
             this.toast(json.message, 'error')
           } else {
             if (!this.checkId) {
-              if(checkableType == 'Product'){
+              if(checkableType === 'Product'){
                 this.toast('提出物を確認済みにしました。')
               }
-              else if(checkableType == 'Report'){
+              else if(checkableType === 'Report'){
                 this.toast('日報を確認済みにしました。')
               }
             }
