@@ -546,6 +546,9 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.integer "last_sad_report_id"
     t.datetime "last_activity_at"
     t.datetime "hibernated_at"
+    t.string "profile_name"
+    t.string "profile_job"
+    t.text "profile_text"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
