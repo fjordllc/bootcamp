@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_05_085844) do
+ActiveRecord::Schema.define(version: 2022_08_02_141028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -537,6 +537,9 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.integer "last_sad_report_id"
     t.datetime "last_activity_at"
     t.datetime "hibernated_at"
+    t.string "profile_name"
+    t.string "profile_job"
+    t.text "profile_text"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

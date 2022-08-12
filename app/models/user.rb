@@ -127,6 +127,7 @@ class User < ApplicationRecord
            source: :regular_event
 
   has_one_attached :avatar
+  has_one_attached :profile_image
 
   before_create UserCallbacks.new
   after_create UserCallbacks.new
@@ -198,6 +199,13 @@ class User < ApplicationRecord
                 with: /\A\w+\z/,
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
+  end
+
+  with_options if: -> { mentor? }, presence: true do
+    validates :profile_image
+    validates :profile_name
+    validates :profile_job
+    validates :profile_text
   end
 
   flag :retire_reasons, %i[

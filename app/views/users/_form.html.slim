@@ -54,6 +54,14 @@
       = render 'users/form/training_end', f: f
       = render 'users/form/company', f: f, user: user
 
+  - if user.mentor?
+    .form__items
+      h3.form__items-title プロフィール
+      = render 'users/form/profile_image', f: f
+      = render 'users/form/profile_name', f: f
+      = render 'users/form/profile_job', f: f
+      = render 'users/form/profile_text', f: f
+
   - if admin_login?
     .form__items
       h3.form__items-title

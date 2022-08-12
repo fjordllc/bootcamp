@@ -18,6 +18,7 @@ class HomeController < ApplicationController
         render aciton: :index
       end
     else
+      @mentors = User.with_attached_profile_image.where(mentor: true)
       render template: 'welcome/index', layout: 'welcome'
     end
   end
