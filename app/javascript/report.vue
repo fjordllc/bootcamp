@@ -19,7 +19,12 @@
             h2.card-list-item-title__title
               a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='report.url'
-              ) {{ report.title }}
+              )
+                img.card-list-item-title__emotion-image(
+                  :src='emotionImg',
+                  :alt='report.emotion'
+                )
+                | {{ report.title }}
             .card-list-item-title__end(v-if='currentUserId == report.user.id')
               label.card-list-item-actions__trigger(:for='report.id')
                 i.fa-solid.fa-ellipsis-h
@@ -92,6 +97,9 @@ export default {
     },
     wipClass() {
       return { 'is-wip': this.report.wip }
+    },
+    emotionImg() {
+      return `/images/emotion/${this.report.emotion}.svg`
     }
   }
 }
