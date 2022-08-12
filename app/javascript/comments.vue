@@ -152,14 +152,12 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    calcCommentIncrement: function () {
+    displayMoreComments() {
       this.loadedComment =
         this.commentLimit + this.commentOffset >= this.commentTotalCount
       if (!this.loadedComment) {
         this.commentOffset += this.commentLimit
       }
-    },
-    showNextCommentsAmount: function () {
       const commentRemaining = this.commentTotalCount - this.commentOffset
 
       if (commentRemaining > this.incrementCommentSize) {
@@ -190,6 +188,7 @@ export default {
             this.comments.unshift(c)
           })
           this.commentTotalCount = json.comment_total_count
+          this.displayMoreComments()
         })
         .catch((error) => {
           console.warn(error)
@@ -202,8 +201,6 @@ export default {
               this.setDefaultTextareaSize()
             })
           }
-          this.calcCommentIncrement()
-          this.showNextCommentsAmount()
         })
     },
     createComment() {
