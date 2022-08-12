@@ -55,7 +55,9 @@ class Admin::UsersController < AdminController
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
       :job_seeker, :github_collaborator,
-      :officekey_permission, :tag_list, :training_ends_on
+      :officekey_permission, :tag_list, :training_ends_on,
+      :profile_image, :profile_name, :profile_job,
+      :profile_text
     )
   end
 end

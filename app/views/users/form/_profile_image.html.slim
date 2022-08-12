@@ -1,0 +1,10 @@
+.form-item
+  = f.label :profile_image, class: 'a-form-label is-required'
+  .form-item-file-input.js-file-input.a-file-input.is-square
+    label.js-file-input__preview
+      - if f.object.profile_image.attached?
+        = image_tag f.object.profile_image
+        p 画像を変更
+      - else
+        p 画像を選択
+      = f.file_field :profile_image
