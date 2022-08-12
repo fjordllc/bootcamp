@@ -71,7 +71,7 @@ export default {
         unstarted: '未着手',
         started: '着手',
         submitted: '提出',
-        complete: '完了'
+        complete: '修了'
       }[learningStatus]
     }
   }

@@ -1,12 +1,8 @@
 <template lang="pug">
 .card-list-item(:class='{ "is-wip": regularEvent.wip }')
   .card-list-item__inner
-    .card-list-item__user
-      user-icon(
-        :user='regularEvent.user',
-        link_class='card-list-item__user-link',
-        blockClassSuffix='card-list-item'
-      )
+    .card-list-item__label(:class='[categoryClass]')
+      | {{ regularEvent.category }}
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -60,6 +56,13 @@ export default {
   },
   props: {
     regularEvent: { type: Object, required: true }
+  },
+  computed: {
+    categoryClass() {
+      return this.regularEvent.category_class === 'reading_circle'
+        ? 'is-reading-circle'
+        : `is-${this.regularEvent.category_class}`
+    }
   }
 }
 </script>

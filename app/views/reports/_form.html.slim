@@ -15,14 +15,13 @@
         = f.label :reported_on, class: 'a-form-label'
         = f.date_field :reported_on, class: 'a-text-input'
       .form-item.is-sm
-        label.a-form-label
-          = f.label :emotion
+        = f.label :emotion, class: 'a-form-label'
         ul.block-checks.is-3-items.is-inline
           = f.collection_radio_buttons :emotion, Report.faces, :first, :second do |b|
             li.block-checks__item.test-select-emotions
               .a-block-check.is-radio
                 = b.radio_button(class: 'a-toggle-checkbox')
-                label.a-block-check__label.has-image for="report_emotion_#{b.value}"
+                label.a-block-check__label.has-icon for="report_emotion_#{b.value}"
                   = image_tag b.text, id: b.value, alt: b.value, class: 'a-block-check__image'
                   span.a-block-check__name
                     = b.value

@@ -29,7 +29,7 @@ module SearchHelper
       if policy(commentable).show? || commentable.practice.open_product?
         searchable.description
       else
-        '該当プラクティスを完了するまで他の人の提出物へのコメントは見れません。'
+        '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
       end
     else
       searchable.description

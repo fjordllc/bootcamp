@@ -32,23 +32,23 @@ body
       text-overflow: ellipsis
       white-space: nowrap
       align-items: center
-      border-color: $main
-      color: $main-text
-      background-color: $main-shade
+      border-color: $input-selected-border
+      color: $input-selected-text
+      background-color: $input-selected-background
       border-radius: 4px
       line-height: calc(1.75rem - .125rem)
       height: 1.75rem
-      padding: 0 2rem 0 .25rem
+      padding: 0 2.25rem 0 .5rem
       margin: .125rem
       &.is-highlighted
-        border-color: $main
-        color: $main-text
-        background-color: $main-shade
+        border-color: $input-selected-border
+        color: $input-selected-text
+        background-color: $input-selected-background
 
   .choices[data-type*=select-multiple] .choices__button,
   .choices[data-type*=text] .choices__button
-    border-left-color: $main
-    color: $main-text
+    border-left-color: $input-selected-border
+    color: $input-selected-text
     height: 100%
     background-image: $choices-icon-cross
     margin: 0 0 0 .5rem
@@ -56,7 +56,7 @@ body
     +position(absolute, right 0, top 0)
     transition: all .2s ease-out
     &:hover
-      background-color: $main
+      background-color: $primary-more-shade
       background-image: $choices-icon-cross-inverse
 
 .choices__list--dropdown .choices__item, .choices__list[aria-expanded] .choices__item

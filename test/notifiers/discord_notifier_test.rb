@@ -37,4 +37,31 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       DiscordNotifier.with(params).graduated.notify_later
     end
   end
+
+  test '.tomorrow_regular_event' do
+    params = {
+      event: regular_events(:regular_event1),
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    expected = {
+      body: "⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+      【イベントのお知らせ】
+      明日 07月31日（日）に開催されるイベントです！
+      --------------------------------------------
+      開発MTG
+      時間: 15:00 〜 16:00
+      詳細: http://localhost:3000/regular_events/459650222
+      --------------------------------------------\n⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️",
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    travel_to Time.zone.local(2022, 7, 30, 0, 0, 0) do
+      assert_notifications_sent 2, **expected do
+        DiscordNotifier.tomorrow_regular_event(params).notify_now
+        DiscordNotifier.with(params).tomorrow_regular_event.notify_now
+      end
+    end
+  end
 end

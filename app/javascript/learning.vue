@@ -8,14 +8,14 @@
     li.card-main-actions__item(v-if='complete')
       button.a-button.is-sm.is-secondary.is-block.is-disabled.test-completed
         i.fa-solid.fa-check
-        | 完了しています
+        | 修了しています
     li.card-main-actions__item(v-else)
       label#js-complete.a-button.is-sm.is-warning.is-block(
         @click='pushComplete',
         for='modal-learning_completion'
       )
         i.fa-solid.fa-check
-        | 完了
+        | 修了
 </template>
 <script>
 import 'whatwg-fetch'

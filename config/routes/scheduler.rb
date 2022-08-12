@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :scheduler do
     resource :statistic, only: %i(show), controller: "statistic"
     resource :link_checker, only: %i(show), controller: "link_checker"
+    resource :validator, only: %i(show), controller: "validator"
     resource :daily, only: %i(show), controller: "daily"
   end
 end

@@ -36,7 +36,7 @@ class ProductsTest < ApplicationSystemTestCase
   test "can not see other user's product if it isn't permitted" do
     visit_with_auth "/products/#{products(:product1).id}", 'hatsuno'
     assert_not_equal '提出物 | FBC', title
-    assert_text 'プラクティスを完了するまで他の人の提出物は見れません。'
+    assert_text 'プラクティスを修了するまで他の人の提出物は見れません。'
   end
 
   test 'can not see tweet button when current_user does not complete a practice' do
@@ -90,8 +90,8 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
-  test 'create product change status submitted' do
-    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+  test 'should change messages when submit product' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'hatsuno'
     within('form[name=product]') do
       fill_in('product[body]', with: 'test')
     end
@@ -100,6 +100,34 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit "/practices/#{practices(:practice6).id}"
     assert_equal first('.test-product').text, '提出物へ'
+  end
+
+  test 'should change learning status when change wip status' do
+    product = products(:product5)
+    product_path = "/products/#{product.id}"
+    practice_path = "/practices/#{product.practice.id}"
+
+    visit_with_auth "#{product_path}/edit", 'kimura'
+    click_button '提出する'
+    visit practice_path
+
+    assert find_button(class: 'is-submitted', disabled: true).matches_css?('.is-active')
+
+    products(:product8).change_learning_status(:started)
+    visit "#{product_path}/edit"
+    click_button 'WIP'
+    visit practice_path
+
+    assert find_button(class: 'is-unstarted', disabled: true).matches_css?('.is-active')
+
+    products(:product8).change_learning_status(:submitted)
+    visit product_path
+    click_button '提出する'
+    visit "#{product_path}/edit"
+    click_button 'WIP'
+    visit practice_path
+
+    assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
   end
 
   test 'update product' do
@@ -241,6 +269,20 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'komagata'
     assert_no_text "kensyuさんが「#{practices(:practice3).title}」の提出物を提出しました。"
+  end
+
+  test "should add to trainer's watching list when trainee submits product" do
+    users(:senpai).watches.delete_all
+
+    visit_with_auth "/products/new?practice_id=#{practices(:practice3).id}", 'kensyu'
+    within('form[name=product]') do
+      fill_in('product[body]', with: '研修生が提出物を提出すると、その企業のアドバイザーのWatch中に登録される')
+    end
+    click_button '提出する'
+    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
+
+    visit_with_auth '/current_user/watches', 'senpai'
+    assert_text '研修生が提出物を提出すると、その企業のアドバイザーのWatch中に登録される'
   end
 
   test 'products order on all tab' do

@@ -18,23 +18,13 @@ class ProductCallbacks
   end
 
   def after_save(product)
+    update_learning_status product
+
     unless product.wip
-      notify_to_watching_mentor(product)
+      notify_watching_mentors product
       if product.user.trainee? && product.user.company
-        send_notification(
-          product: product,
-          receivers: product.user.company.advisers,
-          message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
-        )
-      end
-      if product.published_at.nil?
-        if product.user.trainee? && product.user.company
-          create_watch(
-            watchers: product.user.company.advisers,
-            watchable: product
-          )
-        end
-        product.change_learning_status(:submitted)
+        notify_advisers product
+        create_advisers_watch product
       end
     end
 
@@ -55,15 +45,16 @@ class ProductCallbacks
     Watch.create!(user: product.user, watchable: product)
   end
 
-  def send_notification(product:, receivers:, message:)
-    receivers.each do |receiver|
-      NotificationFacade.submitted(product, receiver, message)
+  def create_advisers_watch(product)
+    product.user.company.advisers.each do |adviser|
+      target = { user: adviser, watchable: product }
+      Watch.create! target unless Watch.exists? target
     end
   end
 
-  def create_watch(watchers:, watchable:)
-    watchers.each do |watcher|
-      Watch.create!(user: watcher, watchable: watchable)
+  def send_notification(product:, receivers:, message:)
+    receivers.each do |receiver|
+      NotificationFacade.submitted(product, receiver, message)
     end
   end
 
@@ -71,7 +62,7 @@ class ProductCallbacks
     Notification.where(link: "/products/#{product.id}").destroy_all
   end
 
-  def notify_to_watching_mentor(product)
+  def notify_watching_mentors(product)
     practice = Practice.find(product.practice_id)
     mentor_ids = practice.watches.where.not(user_id: product.user_id).pluck(:user_id)
     mentors = User.where(id: mentor_ids)
@@ -80,5 +71,23 @@ class ProductCallbacks
       receivers: mentors,
       message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
     )
+  end
+
+  def notify_advisers(product)
+    send_notification(
+      product: product,
+      receivers: product.user.company.advisers,
+      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+    )
+  end
+
+  def update_learning_status(product)
+    status = if product.wip
+               started_practice = product.user.learnings.map(&:status).include?('started')
+               started_practice ? :unstarted : :started
+             else
+               :submitted
+             end
+    product.change_learning_status status
   end
 end

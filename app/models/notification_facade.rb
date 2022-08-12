@@ -206,4 +206,8 @@ class NotificationFacade
       receiver: receiver
     ).hibernated.deliver_later(wait: 5)
   end
+
+  def self.tomorrow_regular_event(event)
+    DiscordNotifier.with(event: event).tomorrow_regular_event.notify_now
+  end
 end

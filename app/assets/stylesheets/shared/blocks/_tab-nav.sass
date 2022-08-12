@@ -1,10 +1,14 @@
 .tab-nav
+  +padding(vertical, .875rem)
   border-bottom: solid 1px $background-shade
+  .page-main-header + &
+    border-bottom: none
+    padding-bottom: 0
+
 
 .tab-nav__items
   display: flex
   gap: .5rem
-  +padding(vertical, .875rem)
   overflow-x: auto
   overflow-y: hidden
   +margin(horizontal,  -1rem)
