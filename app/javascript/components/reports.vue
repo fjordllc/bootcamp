@@ -67,7 +67,8 @@ export default {
       default: null
     },
     displayUserIcon: {
-      type: Boolean
+      type: Boolean,
+      default: true
     }
   },
   data() {

@@ -161,7 +161,7 @@ header.page-header
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                div(data-vue="Reports" data-vue-user-id:number="#{@report.user.id}" data-vue-limit="10" data-display-user-icon="")
+                div(data-vue="Reports" data-vue-user-id:number="#{@report.user.id}" data-vue-limit="10" data-vue-display-user-icon:boolean="false")
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
                 .user-info
                   = render 'users/user_secret_attributes', user: @report.user
@@ -181,7 +181,7 @@ header.page-header
                           .o-empty-message__text
                             | 提出物はまだありません。
         - else
-          div(data-vue="Reports" data-vue-user-id:number="#{@report.user.id}" data-vue-limit="10" data-display-user-icon="")
+          div(data-vue="Reports" data-vue-user-id:number="#{@report.user.id}" data-vue-limit="10" data-vue-display-user-icon:boolean="false")
 
 - if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true
