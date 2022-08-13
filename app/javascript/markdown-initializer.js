@@ -11,6 +11,7 @@ import MarkdownItHeadings from 'markdown-it-headings'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
+import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 
 export default class {
   replace(selector) {
@@ -51,7 +52,7 @@ export default class {
         rel: 'noopener'
       }
     })
-
+    md.use(MarkDownItContainerSpeak)
     return md.render(text)
   }
 }
