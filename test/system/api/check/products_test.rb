@@ -12,7 +12,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_button '提出物を確認'
     assert_text '確認済'
-    assert_text '提出物を確認済みにしました'
     assert has_button? '提出物の確認を取り消す'
   end
 
@@ -20,7 +19,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_button '提出物を確認'
     assert_text '確認済'
-    assert_text '提出物を確認済みにしました'
     assert has_button? '提出物の確認を取り消す'
 
     visit_with_auth "/practices/#{products(:product1).practice.id}", 'mentormentaro'
@@ -42,7 +40,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
       click_on '確認OKにする'
     end
     assert_text '確認済'
-    assert_text '提出物を確認済みにしました'
     assert_text '提出物でcomment+確認OKにするtest'
   end
 
@@ -53,7 +50,6 @@ class Check::ProductsTest < ApplicationSystemTestCase
       click_on '確認OKにする'
     end
     assert_text '確認済'
-    assert_text '提出物を確認済みにしました'
     assert_text '提出物でcomment+確認OKにするtest'
   end
 
