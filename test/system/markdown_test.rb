@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
-  test 'speak brock test' do
+  test 'speak block test' do
     visit_with_auth new_page_path, 'komagata'
     fill_in 'page[title]', with: 'インタビュー'
     fill_in 'page[body]', with: ":::speak @mentormentaro\n## 質問\nあああ\nいいい\n:::"
