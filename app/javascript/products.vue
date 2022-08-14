@@ -33,6 +33,7 @@
               | 今日提出
               span.card-header__count(v-if='selectedTab === "unassigned"')
                 | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          //- prettier-ignore: need space between v-else-if and id
           header.card-header.a-elapsed-days.is-reply-warning(
             v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
           )
@@ -40,6 +41,7 @@
               | {{ product_n_days_passed.elapsed_days }}日経過
               span.card-header__count(v-if='selectedTab === "unassigned"')
                 | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          //- prettier-ignore: need space between v-else-if and id
           header.card-header.a-elapsed-days.is-reply-alert(
             v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
           )
@@ -47,6 +49,7 @@
               | {{ product_n_days_passed.elapsed_days }}日経過
               span.card-header__count(v-if='selectedTab === "unassigned"')
                 | （{{ countProductsGroupedBy(product_n_days_passed) }}）
+          //- prettier-ignore: need space between v-else-if and id
           header.card-header.a-elapsed-days.is-reply-deadline(
             v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
           )
