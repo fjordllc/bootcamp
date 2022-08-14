@@ -25,8 +25,9 @@
         .a-card(
           v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)'
         )
+          //- prettier-ignore: need space between v-if and id
           header.card-header.a-elapsed-days(
-            v-if='product_n_days_passed.elapsed_days === 0'
+            v-if='product_n_days_passed.elapsed_days === 0', id='0days-elapsed'
           )
             h2.card-header__title
               | 今日提出

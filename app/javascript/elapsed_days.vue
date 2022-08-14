@@ -2,52 +2,40 @@
 nav.page-body__column.is-sub
   .page-nav.a-card
     ol.page-nav__items.elapsed-days
-      li.page-nav__item.is-reply-deadline.is-active
-        a.page-nav__item-link
-          | 7日以上経過 （1）
-      li.page-nav__item.is-reply-alert.is-inactive
-        a.page-nav__item-link
-          | 6日経過 （0）
-      li.page-nav__item.is-reply-warning.is-active
-        a.page-nav__item-link
-          | 5日経過 （1）
-      li.page-nav__item.is-inactive
-        a.page-nav__item-link
-          | 4日経過 （0）
-      li.page-nav__item.is-active
-        a.page-nav__item-link
-          | 3日経過 （1）
-      li.page-nav__item.is-active
-        a.page-nav__item-link
-          | 2日経過 （1）
-      li.page-nav__item.is-active
-        a.page-nav__item-link
-          | 今日提出 （1）
-
-    //
-      - 7日以上経過の `li` に `.is-reply-deadline` を付ける
-      - 6日経過の `li` に `.is-reply-alert` を付ける
-      - 5日経過の `li` に `.is-reply-warning` を付ける
-      - 提出物が 0 だったら li に `.is-inactive` を付ける
-      - 提出物が 1 以上だったら li に `.is-active` を付ける
-
-    //
-      ol.page-nav__items.elapsed-days
-        li.page-nav__item(
-          v-for='product_n_days_passed in productsGroupedByElapsedDays',
-          :key='product_n_days_passed.id'
-        )
-          a.page-nav__item-link(class='')(v-if='product_n_days_passed.elapsed_days === 7', href='#7days-elapsed')
-            span.page-nav__item-link-inner
-              | {{ product_n_days_passed.elapsed_days }}日以上経過
-              | ({{ countProductsGroupedBy(product_n_days_passed) }})
-          a.page-nav__item-link(
-            v-else-if='product_n_days_passed.elapsed_days >= 1',
-            :href='elementId(product_n_days_passed.elapsed_days)'
-          )
-            span.page-nav__item-link-inner
-              | {{ product_n_days_passed.elapsed_days }}日経過
-              | ({{ countProductsGroupedBy(product_n_days_passed) }})
+      li.page-nav__item.is-reply-deadline(
+        :class='activeClass(countProductsByElapsedDays(7))'
+      )
+        a.page-nav__item-link(href='#7days-elapsed')
+          span.page-nav__item-link-inner
+            | 7日以上経過
+            | ({{ countProductsByElapsedDays(7) }})
+      li.page-nav__item.is-reply-alert(
+        :class='activeClass(countProductsByElapsedDays(6))'
+      )
+        a.page-nav__item-link(href='#6days-elapsed')
+          span.page-nav__item-link-inner
+            | 6日経過
+            | ({{ countProductsByElapsedDays(6) }})
+      li.page-nav__item.is-reply-warning(
+        :class='activeClass(countProductsByElapsedDays(5))'
+      )
+        a.page-nav__item-link(href='#5days-elapsed')
+          span.page-nav__item-link-inner
+            | 5日経過
+            | ({{ countProductsByElapsedDays(5) }})
+      li.page-nav__item(
+        v-for='passedDay in [4, 3, 2, 1]',
+        :class='activeClass(countProductsByElapsedDays(passedDay))'
+      )
+        a.page-nav__item-link(:href='"#" + passedDay + "days-elapsed"')
+          span.page-nav__item-link-inner
+            | {{ passedDay }}日経過
+            | ({{ countProductsByElapsedDays(passedDay) }})
+      li.page-nav__item(:class='activeClass(countProductsByElapsedDays(0))')
+        a.page-nav__item-link(href='#0days-elapsed')
+          span.page-nav__item-link-inner
+            | 今日提出
+            | ({{ countProductsByElapsedDays(0) }})
 </template>
 
 <script>
@@ -57,8 +45,16 @@ export default {
     countProductsGroupedBy: { type: Function, required: true }
   },
   methods: {
-    elementId(elapsedDays) {
-      return `#${elapsedDays}days-elapsed`
+    countProductsByElapsedDays(elapsedDays) {
+      const productsGroup = this.productsGroupedByElapsedDays.find(
+        (product) => product.elapsed_days === elapsedDays
+      )
+      if (productsGroup) return this.countProductsGroupedBy(productsGroup)
+      return this.countProductsGroupedBy(0)
+    },
+    activeClass(quantity) {
+      if (quantity) return `is-active`
+      return `is-inactive`
     }
   }
 }
