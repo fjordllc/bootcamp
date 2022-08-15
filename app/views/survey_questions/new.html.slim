@@ -1,0 +1,24 @@
+- title 'アンケート'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+= render 'tabs'
+
+.page-body
+  .container
+    .page-header__inner
+      h2(style="font-size: 1.5rem;")
+        | 質問作成
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to survey_questions_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | 質問一覧
+
+.page-body
+  .container
+    = render  'form', survey_question: @survey_question, linear_scale: @linear_scale, radio_button: @radio_button, check_box: @check_box

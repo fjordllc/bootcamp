@@ -1,0 +1,7 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to 'アンケート', '#', class: "page-tabs__item-link"
+      li.page-tabs__item
+        = link_to '質問', '#', class: "page-tabs__item-link #{current_link(/^survey_questions/)}"
