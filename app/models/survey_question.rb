@@ -10,8 +10,8 @@ class SurveyQuestion < ApplicationRecord
   accepts_nested_attributes_for :check_box, allow_destroy: true
 
   enum question_format: {
-    text_field: 0,
-    text_area: 1,
+    text_area: 0,
+    text_field: 1,
     radio_button: 2,
     check_box: 3,
     linear_scale: 4

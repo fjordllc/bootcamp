@@ -19,3 +19,8 @@ header.page-header
             = link_to new_survey_question_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
               | 新規作成
+    - @survey_questions.each do |survey_question|
+      div
+        = survey_question.question_title
+        = link_to '編集', edit_survey_question_path(survey_question)
+
