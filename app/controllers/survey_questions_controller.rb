@@ -3,7 +3,9 @@
 class SurveyQuestionsController < ApplicationController
   before_action :set_survey_question, only: %i[edit update]
 
-  def index; end
+  def index
+    @survey_questions = SurveyQuestion.all
+  end
 
   def new
     @survey_question = SurveyQuestion.new

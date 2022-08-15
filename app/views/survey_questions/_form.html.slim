@@ -23,13 +23,13 @@
         ul.block-checks.is-3-items
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'text_field', id: 'text_field', class: 'a-toggle-checkbox'
-              label.a-block-check__label(for='text_field')
+              = f.radio_button :question_format, 'text_area', id: 'text_area', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='text_area')
                 | 段落
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'text_area', id: 'text_area', class: 'a-toggle-checkbox'
-              label.a-block-check__label(for='text_area')
+              = f.radio_button :question_format, 'text_field', id: 'text_field', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='text_field')
                 | 記述式
           li.block-checks__item
             .a-block-check.is-radio
