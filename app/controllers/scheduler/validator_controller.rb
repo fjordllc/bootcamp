@@ -14,6 +14,9 @@ class Scheduler::ValidatorController < SchedulerController
       end
     end
 
-    render plain: output.join("\n")
+    message = output.join("\n")
+    DiscordNotifier.with(body: message).invalid_user.notify_now
+
+    render plain: message
   end
 end
