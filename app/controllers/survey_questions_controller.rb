@@ -19,7 +19,7 @@ class SurveyQuestionsController < ApplicationController
     @survey_question.user_id = current_user.id
 
     if @survey_question.save
-      redirect_to survey_questions_path
+      redirect_to survey_questions_path, notice: '質問を保存しました。'
     else
       render action: :new
     end
@@ -31,7 +31,7 @@ class SurveyQuestionsController < ApplicationController
 
   def update
     if @survey_question.update(survey_question_params)
-      redirect_to survey_questions_path
+      redirect_to survey_questions_path, notice: '質問を保存しました。'
     else
       render action: :edit
     end
