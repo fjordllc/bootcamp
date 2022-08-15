@@ -1,0 +1,21 @@
+- title 'アンケート'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+= render 'tabs'
+
+.page-body
+  .container
+    .page-header__inner
+      h2(style="font-size: 1.5rem;")
+        | 質問
+      .page-header-actions
+        ul.page-header-actions__items
+          li.page-header-actions__item
+            = link_to new_survey_question_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | 新規作成

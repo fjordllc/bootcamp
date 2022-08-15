@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
   resources :articles
+  resources :survey_questions, except: %i(show destroy)
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
