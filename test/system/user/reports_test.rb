@@ -10,7 +10,7 @@ class User::ReportsTest < ApplicationSystemTestCase
 
   test 'show listing reports when there is no report' do
     visit_with_auth "/users/#{users(:nippounashi).id}/reports", 'hatsuno'
-    assert_text "日報はまだありません。"
+    assert_text '日報はまだありません。'
   end
 
   test 'cannot access other users download reports' do
