@@ -16,4 +16,6 @@ class SurveyQuestion < ApplicationRecord
     check_box: 3,
     linear_scale: 4
   }, _prefix: true
+
+  validates :question_title, presence: true
 end
