@@ -2,6 +2,7 @@
 
 class SurveyQuestionsController < ApplicationController
   before_action :set_survey_question, only: %i[edit update]
+  before_action :require_admin_or_mentor_login
 
   def index
     @survey_questions = SurveyQuestion.all
