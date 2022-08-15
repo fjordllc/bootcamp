@@ -237,8 +237,14 @@ ja:
         title_of_reason_for_choice: 選択した理由タイトル
         description_of_reason_for_choice: 選択した理由説明
       linear_scale:
+        start_of_scale: 最初の目盛ラベル
+        end_of_scale: 最後の目盛ラベル
         title_of_reason_for_choice: 選択した理由タイトル
         description_of_reason_for_choice: 選択した理由説明
+      radio_button/radio_button_choices:
+        choices: 選択肢
+      check_box/check_box_choices:
+        choices: 選択肢
     enums:
       user:
         job:

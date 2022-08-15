@@ -32,8 +32,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const reasonForChoiceRequired = document.getElementById(
     'survey_question_linear_scale_attributes_reason_for_choice_required'
   )
+  const switchIsHidden = (radioButtonChoice) => {
+    if (
+      radioButtonChoice.value === 'text_field' ||
+      radioButtonChoice.value === 'text_area'
+    ) {
+      radioButtonElements.forEach((radioButtonElement) => {
+        radioButtonElement.classList.add('is-hidden')
+      })
+      checkBoxElements.forEach((checkBoxElement) => {
+        checkBoxElement.classList.add('is-hidden')
+      })
+      linearScaleElements.forEach((linearScaleElement) => {
+        linearScaleElement.classList.add('is-hidden')
+      })
+    } else if (radioButtonChoice.value === 'radio_button') {
+      radioButtonElements.forEach((radioButtonElement) => {
+        radioButtonElement.classList.remove('is-hidden')
+      })
+      checkBoxElements.forEach((checkBoxElement) => {
+        checkBoxElement.classList.add('is-hidden')
+      })
+      linearScaleElements.forEach((linearScaleElement) => {
+        linearScaleElement.classList.add('is-hidden')
+      })
+    } else if (radioButtonChoice.value === 'check_box') {
+      radioButtonElements.forEach((radioButtonElement) => {
+        radioButtonElement.classList.add('is-hidden')
+      })
+      checkBoxElements.forEach((checkBoxElement) => {
+        checkBoxElement.classList.remove('is-hidden')
+      })
+      linearScaleElements.forEach((linearScaleElement) => {
+        linearScaleElement.classList.add('is-hidden')
+      })
+    } else if (radioButtonChoice.value === 'linear_scale') {
+      radioButtonElements.forEach((radioButtonElement) => {
+        radioButtonElement.classList.add('is-hidden')
+      })
+      checkBoxElements.forEach((checkBoxElement) => {
+        checkBoxElement.classList.add('is-hidden')
+      })
+      linearScaleElements.forEach((linearScaleElement) => {
+        linearScaleElement.classList.remove('is-hidden')
+      })
+    }
+  }
 
   radioButtonChoices.forEach((radioButtonChoice) => {
+    radioButtonChoice.checked && switchIsHidden(radioButtonChoice)
     radioButtonChoice.addEventListener('change', () => {
       const removeFieldsElements = document.querySelectorAll('.remove_fields')
       removeFieldsElements.forEach((removeFieldsElement) => {
@@ -48,50 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       startOfScale.value = ''
       endOfScale.value = ''
       reasonForChoiceRequired.checked = false
-      if (
-        radioButtonChoice.value === 'text_field' ||
-        radioButtonChoice.value === 'text_area'
-      ) {
-        radioButtonElements.forEach((radioButtonElement) => {
-          radioButtonElement.classList.add('is-hidden')
-        })
-        checkBoxElements.forEach((checkBoxElement) => {
-          checkBoxElement.classList.add('is-hidden')
-        })
-        linearScaleElements.forEach((linearScaleElement) => {
-          linearScaleElement.classList.add('is-hidden')
-        })
-      } else if (radioButtonChoice.value === 'radio_button') {
-        radioButtonElements.forEach((radioButtonElement) => {
-          radioButtonElement.classList.remove('is-hidden')
-        })
-        checkBoxElements.forEach((checkBoxElement) => {
-          checkBoxElement.classList.add('is-hidden')
-        })
-        linearScaleElements.forEach((linearScaleElement) => {
-          linearScaleElement.classList.add('is-hidden')
-        })
-      } else if (radioButtonChoice.value === 'check_box') {
-        radioButtonElements.forEach((radioButtonElement) => {
-          radioButtonElement.classList.add('is-hidden')
-        })
-        checkBoxElements.forEach((checkBoxElement) => {
-          checkBoxElement.classList.remove('is-hidden')
-        })
-        linearScaleElements.forEach((linearScaleElement) => {
-          linearScaleElement.classList.add('is-hidden')
-        })
-      } else if (radioButtonChoice.value === 'linear_scale') {
-        radioButtonElements.forEach((radioButtonElement) => {
-          radioButtonElement.classList.add('is-hidden')
-        })
-        checkBoxElements.forEach((checkBoxElement) => {
-          checkBoxElement.classList.add('is-hidden')
-        })
-        linearScaleElements.forEach((linearScaleElement) => {
-          linearScaleElement.classList.remove('is-hidden')
-        })
-      }
+      switchIsHidden(radioButtonChoice)
     })
   })
 })
