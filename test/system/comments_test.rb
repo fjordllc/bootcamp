@@ -263,8 +263,9 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#js-new-comment').set('test')
     click_button 'コメントする'
-    all('.a-form-tabs__tab.js-tabs__tab')[1].click
-    assert_selector '.a-markdown-input__inner.js-tabs__content.is-active'
+    assert_text 'test'
+    find('.a-form-tabs__tab.js-tabs__tab', text: 'プレビュー').click
+    assert_selector '.a-form-tabs__tab.is-active', text: 'プレビュー'
     within('#new-comment-preview') do
       assert_no_text :all, 'test'
     end
