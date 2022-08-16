@@ -17,7 +17,6 @@ class ProductsController < ApplicationController
                        .order(reported_on: :DESC)
     @products = @product.user
                         .products
-                        .limit(10)
                         .not_wip
                         .order(published_at: :DESC)
     @practice = find_practice
