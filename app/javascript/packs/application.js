@@ -14,7 +14,6 @@ import '../learning-status.js'
 import '../check.js'
 import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
-import '../reports.js'
 import '../comments.js'
 import '../notifications_bell.js'
 import '../question-page.js'
@@ -78,6 +77,7 @@ import Books from '../components/books.vue'
 import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
+import Reports from '../components/reports.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -87,4 +87,5 @@ mounter.addComponent(Books)
 mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
+mounter.addComponent(Reports)
 mounter.mount()
