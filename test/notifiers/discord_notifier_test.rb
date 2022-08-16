@@ -64,4 +64,21 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test '.invaid_user' do
+    params = {
+      body: 'test message',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    assert_notifications_sent 2, **params do
+      DiscordNotifier.invalid_user(params).notify_now
+      DiscordNotifier.with(params).invalid_user.notify_now
+    end
+
+    assert_notifications_enqueued 2, **params do
+      DiscordNotifier.invalid_user(params).notify_later
+      DiscordNotifier.with(params).invalid_user.notify_later
+    end
+  end
 end
