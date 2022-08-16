@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import CommentUserIcon from '../comment-user-icon'
+import CommentUserIcon from 'comment-user-icon'
 
 export default {
   components: {
