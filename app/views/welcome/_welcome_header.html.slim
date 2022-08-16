@@ -39,7 +39,7 @@ header.welcome-header
               = link_to course_practices_path(current_user.course), class: 'welcome-header-nav__item-link' do
                 | プラクティス
             - else
-              = link_to '/login', class: 'welcome-header-nav__item-link' do
+              = link_to login_path, class: 'welcome-header-nav__item-link' do
                 | ログイン
 
         label.welcome-header-nav__overlay(for='welcome-mobile-nav')
@@ -48,5 +48,5 @@ header.welcome-header
           = link_to course_practices_path(current_user.course), class: 'welcome-header__login-link' do
             | プラクティス
         - else
-          = link_to '/login', class: 'welcome-header__login-link' do
+          = link_to login_path, class: 'welcome-header__login-link' do
             | ログイン
