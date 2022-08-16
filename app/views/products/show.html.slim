@@ -91,17 +91,8 @@ header.page-header
                 #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
               .side-tabs-contents__item#side-tabs-content-4
                 .card-list.a-card
-                  - if @products.present?
-                    - @products.each do |product|
-                      = render partial: 'product', locals: { product: product }
-                  - else
-                    .card-list__message
-                      .container
-                        .o-empty-message
-                          .o-empty-message__icon
-                            i.fa-regular.fa-sad-tear
-                          .o-empty-message__text
-                            | 提出物はまだありません。
+                  - @products.each do |product|
+                    = render partial: 'product', locals: { product: product }
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
