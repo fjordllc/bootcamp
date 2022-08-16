@@ -14,7 +14,8 @@ class UserSessionsController < ApplicationController
         render 'new'
       elsif @user.hibernated?
         logout
-        flash.now[:alert] = "休会中です。#{view_context.link_to '休会復帰ページ', new_comeback_path}から手続きをお願いします。".html_safe
+        link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
+        flash.now[:alert] = "休会中です。#{link}から手続きをお願いします。"
         render 'new'
       else
         redirect_back_or_to root_url, notice: 'ログインしました。'
