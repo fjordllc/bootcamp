@@ -465,11 +465,11 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '保存する'
   end
 
-  test 'display a list of the 10 most recent products' do
+  test 'display a list of products in side-column' do
     user = users(:kimura)
     visit_with_auth "/products/#{products(:product2).id}", 'mentormentaro'
     page.find('#side-tabs-nav-4').click
-    products = user.products.not_wip.first(10)
+    products = user.products.not_wip
     products.each do |product|
       assert_text "#{product.practice.title}の提出物"
     end
