@@ -35,7 +35,9 @@ header.page-header
             p
               | 休会と復帰は<strong class='a-text is-danger'>３回まで</strong>行うことができます。
             p
-              | 休会から復帰する場合は <strong class='a-text is-danger'>info@fjord.jp</strong> まで復帰する旨をご連絡ください。
+              | 休会から復帰する場合は #{link_to '休会からの復帰ページ', new_comeback_path} からお手続きをしてください。
+              br
+              | 休会からの復帰ページのリンクは、<strong class='a-text is-danger'>トップページのフッター</strong>にあります。
       = form_with model: @hibernation,
         url: hibernation_path,
         local: true,
