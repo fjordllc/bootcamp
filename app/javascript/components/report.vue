@@ -1,7 +1,7 @@
 <template lang="pug">
 .card-list-item(:class='wipClass')
   .card-list-item__inner
-    .card-list-item__user(v-if='userIcon')
+    .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='report.user.url')
         img.card-list-item__user-icon.a-user-icon(
           :src='report.user.avatar_url',
@@ -90,7 +90,7 @@ export default {
   props: {
     report: { type: Object, required: true },
     currentUserId: { type: Number, required: true },
-    userIcon: { type: Boolean }
+    displayUserIcon: { type: Boolean }
   },
   computed: {
     roleClass() {
