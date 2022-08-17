@@ -11,7 +11,8 @@ export default (md) => {
         return `<div class="speak">
                   <div class="speak__speaker">
                     <a href="/users/${speakerName}" class="a-user-emoji-link">
-                      <img class="js-user-icon a-user-emoji" data-user="${speakerName}" width="40" height="40">
+                      <img class="js-user-icon a-user-emoji" data-user="${speakerName}">
+                      <spanv class="speak__speaker-name">${speakerName}</span>
                     </a>
                   </div>
                   <div class="speak__body">`

@@ -21,6 +21,26 @@
         >ul
           list-style-type: square
 
+=speak
+  .speak
+    +margin(vertical, 1.5em 2em)
+  .speak__speaker
+    >a
+      display: flex
+      align-items: center
+      gap: .5rem
+      text-decoration: none
+      color: $default-text
+    >a:hover
+      .speak__speaker-name
+        text-decoration: underline
+  .speak__speaker-name
+    flex: 1
+    +text-block(1.125em 1.6, 700)
+    text-decoration: none
+  .speak__body
+    margin-top: .5rem
+
 =long-text-style($pc-font-size: 1rem, $mobile-font-size: .8125rem, $background: $base, $font: $default-text)
   font-size: $pc-font-size
   word-wrap: break-word
@@ -276,6 +296,8 @@
     padding-left: 1.375em
     .task-list-item-checkbox
       +position(absolute, top .5em, left 0)
+
+  +speak
 
   *:first-child
     margin-top: 0
