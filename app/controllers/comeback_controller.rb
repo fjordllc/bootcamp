@@ -12,10 +12,12 @@ class ComebackController < ApplicationController
         @user.comeback!
         redirect_to root_url, notice: '休会から復帰しました。'
       else
+        @user = User.new
         flash.now[:alert] = '休会していないユーザーです。'
         render 'new'
       end
     else
+      @user = User.new
       flash.now[:alert] = 'メールアドレスかパスワードが違います。'
       render 'new'
     end
