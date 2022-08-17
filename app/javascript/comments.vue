@@ -6,7 +6,7 @@
     .thread-comments-more__inner
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
-          | コメント（{{ commentLimit }}）をもっと見る
+          | 次のコメント（ {{ nextCommentAmount }} ）
   h2.thread-comments__title(
     v-if='commentableType === "RegularEvent" || commentableType === "Event"'
   )
@@ -116,7 +116,9 @@ export default {
       commentLimit: 8,
       commentOffset: 0,
       commentTotalCount: null,
-      loadedComment: false
+      loadedComment: false,
+      nextCommentAmount: null,
+      incrementCommentSize: 8
     }
   },
   computed: {
@@ -150,6 +152,20 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
+    displayMoreComments() {
+      this.loadedComment =
+        this.commentLimit + this.commentOffset >= this.commentTotalCount
+      if (!this.loadedComment) {
+        this.commentOffset += this.commentLimit
+      }
+      const commentRemaining = this.commentTotalCount - this.commentOffset
+
+      if (commentRemaining > this.incrementCommentSize) {
+        this.nextCommentAmount = `${this.incrementCommentSize} / ${commentRemaining}`
+      } else {
+        this.nextCommentAmount = commentRemaining
+      }
+    },
     showComments() {
       fetch(
         `/api/comments.json?commentable_type=${this.commentableType}&` +
@@ -172,6 +188,7 @@ export default {
             this.comments.unshift(c)
           })
           this.commentTotalCount = json.comment_total_count
+          this.displayMoreComments()
         })
         .catch((error) => {
           console.warn(error)
@@ -183,14 +200,6 @@ export default {
               TextareaInitializer.initialize('#js-new-comment')
               this.setDefaultTextareaSize()
             })
-          }
-          this.loadedComment =
-            this.commentLimit + this.commentOffset >= this.commentTotalCount
-          if (this.loadedComment === false) {
-            const commentLimit = this.commentLimit
-            this.commentLimit =
-              this.commentTotalCount - (this.commentLimit + this.commentOffset)
-            this.commentOffset = commentLimit
           }
         })
     },
