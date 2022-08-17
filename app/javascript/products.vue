@@ -59,7 +59,7 @@
                 | （{{ countProductsGroupedBy(product_n_days_passed) }}）
           header.card-header.a-elapsed-days(
             v-else,
-            :id='[elapsedDaysId(product_n_days_passed.elapsed_days)]'
+            :id='elapsedDaysId(product_n_days_passed.elapsed_days)'
           )
             h2.card-header__title
               | {{ product_n_days_passed.elapsed_days }}日経過
