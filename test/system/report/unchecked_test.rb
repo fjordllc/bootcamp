@@ -8,7 +8,7 @@ class Report::UncheckedTest < ApplicationSystemTestCase
     assert_equal '未チェックの日報 | FBC', title
   end
 
-  test 'show listing unchecked reports when there is no unchecked reports' do
+  test 'display a message when there are no unchecked reports' do
     Report.unchecked.destroy_all
 
     visit_with_auth '/reports/unchecked', 'komagata'
