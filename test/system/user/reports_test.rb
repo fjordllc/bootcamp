@@ -8,7 +8,7 @@ class User::ReportsTest < ApplicationSystemTestCase
     assert_equal 'hatsuno 日報 | FBC', title
   end
 
-  test 'show listing reports when there is no report' do
+  test 'display a message when user has no reports' do
     visit_with_auth "/users/#{users(:nippounashi).id}/reports", 'hatsuno'
     assert_text '日報はまだありません。'
   end
