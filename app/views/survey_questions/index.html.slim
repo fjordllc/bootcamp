@@ -46,8 +46,8 @@ header.page-header
             td(style="border: 1px solid black; padding: 5px 15px;")
               = survey_question.question_title
             td(style="border: 1px solid black; padding: 5px 15px;")
-              = "作成: #{survey_question.created_at.strftime("%Y年%-m月%-d日 (#{%w(日 月 火 水 木 金 土)[survey_question.created_at.wday]})")}"
+              = "作成: #{survey_question.created_at.strftime("%Y年%-m月%-d日 (#{%w[日 月 火 水 木 金 土][survey_question.created_at.wday]})")}"
             td(style="border: 1px solid black; padding: 5px 15px;")
-              = "作成: #{survey_question.updated_at.strftime("%Y年%-m月%-d日 (#{%w(日 月 火 水 木 金 土)[survey_question.updated_at.wday]})")}"
+              = "作成: #{survey_question.updated_at.strftime("%Y年%-m月%-d日 (#{%w[日 月 火 水 木 金 土][survey_question.updated_at.wday]})")}"
             td(style="border: 1px solid black; padding: 5px 15px;")
               = link_to '編集', edit_survey_question_path(survey_question), class: 'a-button is-sm is-text'
