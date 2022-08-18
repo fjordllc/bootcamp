@@ -76,6 +76,7 @@ class UsersController < ApplicationController
   def create_free_user!
     if @user.save
       UserMailer.welcome(@user).deliver_now
+      notify_to_mentors(@user)
       notify_to_chat(@user)
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
@@ -115,6 +116,7 @@ class UsersController < ApplicationController
 
       if @user.save
         UserMailer.welcome(@user).deliver_now
+        notify_to_mentors(@user)
         notify_to_chat(@user)
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
@@ -123,6 +125,12 @@ class UsersController < ApplicationController
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
+
+  def notify_to_mentors(user)
+    User.mentor.each do |mentor_user|
+      NotificationFacade.signed_up(user, mentor_user)
+    end
+  end
 
   def notify_to_chat(user)
     ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
