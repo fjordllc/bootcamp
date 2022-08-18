@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
       removeFieldsElements.forEach((removeFieldsElement) => {
         removeFieldsElement.click()
       })
-      radioButtonTitleOfReasonForChoice.value = ''
-      radioButtonDescriptionOfReasonForChoice.value = ''
-      checkBoxTitleOfReasonForChoice.value = ''
-      checkBoxDescriptionOfReasonForChoice.value = ''
-      linearScaleTitleOfReasonForChoice.value = ''
-      linearScaleDescriptionOfReasonForChoice.value = ''
-      startOfScale.value = ''
-      endOfScale.value = ''
+      radioButtonTitleOfReasonForChoice.value = null
+      radioButtonDescriptionOfReasonForChoice.value = null
+      checkBoxTitleOfReasonForChoice.value = null
+      checkBoxDescriptionOfReasonForChoice.value = null
+      linearScaleTitleOfReasonForChoice.value = null
+      linearScaleDescriptionOfReasonForChoice.value = null
+      startOfScale.value = null
+      endOfScale.value = null
       reasonForChoiceRequired.checked = false
       switchIsHidden(radioButtonChoice)
     })
