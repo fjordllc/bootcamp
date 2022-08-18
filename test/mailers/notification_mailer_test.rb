@@ -214,6 +214,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] yameoさんが退会しました。', email.subject
+    assert_match(/選択入力の退会理由/, email.body.to_s)
     assert_match(/退会/, email.body.to_s)
   end
 
