@@ -356,4 +356,32 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
     assert_match(/卒業/, email.body.to_s)
   end
+
+  test 'signed up' do
+    user = users(:hajime)
+    mentor = users(:mentormentaro)
+    Notification.create!(
+      kind: 20,
+      sender: user,
+      user: mentor,
+      message: '🎉 hajimeさんが新しく入会しました！',
+      link: "/users/#{user.id}",
+      read: false
+    )
+    mailer = NotificationMailer.with(
+      sender: user,
+      receiver: mentor
+    ).signed_up
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_match(/入会/, email.body.to_s)
+  end
 end

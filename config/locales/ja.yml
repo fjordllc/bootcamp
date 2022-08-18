@@ -134,7 +134,7 @@ ja:
       category:
         name: 名前
         slug: URLスラッグ
-        description: 詳細
+        description: 説明
       report:
         title: タイトル
         practice: プラクティス

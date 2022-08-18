@@ -46,4 +46,16 @@ class DiscordNotifier < ApplicationNotifier
       webhook_url: webhook_url
     )
   end
+
+  def invalid_user(params = {})
+    params.merge!(@params)
+    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
+    body = params[:body].slice(0, 2000) # Discord API restriction
+
+    notification(
+      body: body,
+      name: 'ピヨルド',
+      webhook_url: webhook_url
+    )
+  end
 end
