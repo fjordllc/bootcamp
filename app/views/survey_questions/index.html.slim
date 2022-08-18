@@ -7,7 +7,6 @@ header.page-header
         = title
 
 = render 'tabs'
-
 .page-body
   .container
     .page-header__inner
@@ -19,7 +18,36 @@ header.page-header
             = link_to new_survey_question_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
               | 新規作成
-    - @survey_questions.each do |survey_question|
-      div
-        = survey_question.question_title
-        = link_to '編集', edit_survey_question_path(survey_question)
+    table
+      thead
+        tr
+          th(style="border: 1px solid black; padding: 5px 15px;")
+            | 質問形式
+          th(style="border: 1px solid black; padding: 5px 15px;")
+            | 質問タイトル
+          th(style="border: 1px solid black; padding: 5px 15px;")
+            | 作成日
+          th(style="border: 1px solid black; padding: 5px 15px;")
+            | 更新日
+      tbody
+        - @survey_questions.each do |survey_question|
+          tr
+            td(style="border: 1px solid black; padding: 5px 15px;")
+              - if survey_question.question_format == 'text_area'
+                | 段落
+              - if survey_question.question_format == 'text_field'
+                | 記述式
+              - if survey_question.question_format == 'radio_button'
+                | ラジオボタン
+              - if survey_question.question_format == 'check_box'
+                | チェックボックス
+              - if survey_question.question_format == 'linear_scale'
+                | 均等目盛
+            td(style="border: 1px solid black; padding: 5px 15px;")
+              = survey_question.question_title
+            td(style="border: 1px solid black; padding: 5px 15px;")
+              = "作成: #{survey_question.created_at.strftime("%Y年%-m月%-d日 (#{["日", "月", "火", "水", "木", "金", "土"][survey_question.created_at.wday]})")}"
+            td(style="border: 1px solid black; padding: 5px 15px;")
+              = "更新: #{survey_question.updated_at.strftime("%Y年%-m月%-d日 (#{["日", "月", "火", "水", "木", "金", "土"][survey_question.updated_at.wday]})")}"
+            td(style="border: 1px solid black; padding: 5px 15px;")
+              = link_to '編集', edit_survey_question_path(survey_question), class: 'a-button is-sm is-text'
