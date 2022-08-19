@@ -12,6 +12,7 @@
                   | WIP
             h2.card-list-item-title__title(itemprop="name")
               = link_to report, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
+                = image_tag("emotion/#{report.emotion}.svg", alt: report.emotion, class: 'card-list-item-title__emotion-image')
                 = report.title
       .card-list-item__row
         .card-list-item-meta
