@@ -26,7 +26,7 @@ class NotificationFacade
   end
 
   def self.mentioned(mentionable, receiver)
-    Notification.mentioned(mentionable, receiver)
+    ActivityNotifier.with(mentionable: mentionable, receiver: receiver).mentioned.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

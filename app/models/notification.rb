@@ -67,17 +67,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def mentioned(mentionable, receiver)
-      Notification.create!(
-        kind: kinds[:mentioned],
-        user: receiver,
-        sender: mentionable.sender,
-        link: mentionable.path,
-        message: "#{mentionable.where_mention}で#{mentionable.sender.login_name}さんからメンションがきました。",
-        read: false
-      )
-    end
-
     def came_answer(answer)
       Notification.create!(
         kind: kinds[:answered],
