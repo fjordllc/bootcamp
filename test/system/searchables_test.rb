@@ -79,7 +79,7 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text 'テストの日報'
   end
 
-  test 'show user name and updated time' do
+  test 'show user icon, name and updated time in report' do
     visit_with_auth '/', 'hatsuno'
     within('form[name=search]') do
       select '日報'
@@ -88,6 +88,7 @@ class SearchablesTest < ApplicationSystemTestCase
     find('#test-search').click
     assert_text 'mentormentaro'
     assert_css '.a-meta'
+    assert_css 'img.card-list-item-meta__icon.a-user-icon'
     assert_no_text 'テストの回答'
   end
 
@@ -154,5 +155,28 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find('#test-search').click
     assert_text '相談部屋'
+  end
+
+  test 'show icon and go profile page when click icon' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: '提出物のコメントです。'
+    end
+    find('#test-search').click
+    assert find('img.card-list-item-meta__icon.a-user-icon')['src'].include?('komagata.png')
+
+    find('img.card-list-item-meta__icon.a-user-icon').click
+    assert_selector 'h1.user-profile__login-name', text: 'komagata'
+  end
+
+  test 'disappear icon when search user' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'hajime'
+    end
+    find('#test-search').click
+    assert_no_css 'img.card-list-item-meta__icon.a-user-icon'
   end
 end
