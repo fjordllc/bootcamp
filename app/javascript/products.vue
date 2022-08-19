@@ -89,18 +89,18 @@
 
 <script>
 import Product from 'product.vue'
-import unconfirmedLinksOpenButton from 'unconfirmed_links_open_button.vue'
+import UnconfirmedLinksOpenButton from 'unconfirmed_links_open_button.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
-import elapsedDays from 'elapsed_days.vue'
+import ElapsedDays from 'elapsed_days.vue'
 
 export default {
   components: {
     product: Product,
-    'unconfirmed-links-open-button': unconfirmedLinksOpenButton,
+    'unconfirmed-links-open-button': UnconfirmedLinksOpenButton,
     loadingListPlaceholder: LoadingListPlaceholder,
     pager: Pager,
-    elapsedDays
+    elapsedDays: ElapsedDays
   },
   props: {
     title: { type: String, required: true },
