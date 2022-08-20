@@ -6,10 +6,6 @@ class Campaign < ApplicationRecord
 
   # TODO: Rails 7に更新後、 `ComparisonValidator` を使うように直す。
   # refs: https://github.com/rails/rails/pull/40095
-  # validates :end_at, greater_than: :start_at
-  with_options if: -> { start_at && end_at && trial_period } do
-    validate :end_at_be_greater_than_trial_period
-  end
 
   validates :title, presence: true
   validates :trial_period, presence: true, numericality: { greater_than_or_equal_to: 4 }
@@ -55,16 +51,5 @@ class Campaign < ApplicationRecord
         return camp.trial_period if (camp.start_at..camp.end_at).cover?(join_date)
       end
     end
-  end
-
-  private
-
-  def end_at_be_greater_than_trial_period
-    diff = end_at - start_at
-    period = trial_period.days - 1.minute
-    return if diff >= period
-
-    shortest_end_at = start_at + period
-    errors.add(:end_at, :format, shortest_end_at: I18n.l(shortest_end_at, format: :short))
   end
 end
