@@ -3,7 +3,7 @@
   .card-header.is-sm
     h2.card-header__title
       | 直近の日報
-  .card-list__items
+  .card-list__items(v-if='reports && reports.length > 0')
     report(
       v-for='report in reports',
       :key='report.id',
@@ -11,6 +11,11 @@
       :current-user-id='currentUserId',
       :display-user-icon='displayUserIcon'
     )
+  .o-empty-message(v-else)
+    .o-empty-message__icon
+      i.fa-regular.fa-sad-tear
+    .o-empty-message__text
+      | 日報はまだありません。
 .page-content.reports(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
