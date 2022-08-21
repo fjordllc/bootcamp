@@ -27,7 +27,6 @@ class CampaignsTest < ApplicationSystemTestCase
       click_button '内容を保存'
     end
     assert_text 'お試し延長を作成しました。'
-    assert_text '終了日時の入力値がお試し日数を満たすケース'
     assert_text '6日'
     assert_text '2021年12月10日(金) 00:00'
     assert_text '2021年12月15日(水) 23:58'
