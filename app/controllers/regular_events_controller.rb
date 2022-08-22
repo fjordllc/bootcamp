@@ -3,12 +3,10 @@
 class RegularEventsController < ApplicationController
   before_action :require_login
   before_action :set_regular_event, only: %i[show edit update destroy]
-  before_action :set_footprints, only: %i[show]
 
   def index; end
 
-  def show
-    footprint!
+  def show;
   end
 
   def new
@@ -66,14 +64,6 @@ class RegularEventsController < ApplicationController
 
   def set_regular_event
     @regular_event = RegularEvent.find(params[:id])
-  end
-
-  def set_footprints
-    @footprints = @regular_event.footprints.with_avatar.order(created_at: :desc)
-  end
-
-  def footprint!
-    @regular_event.footprints.create_or_find_by(user: current_user) if @regular_event.user != current_user
   end
 
   def set_wip
