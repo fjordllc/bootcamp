@@ -23,10 +23,16 @@ class API::UsersController < API::BaseController
         User.users_role(@target)
       end
 
-    @users = target_users
-             .page(params[:page]).per(PAGER_NUMBER)
-             .preload(:company, :avatar_attachment, :course, :tags)
-             .order(updated_at: :desc)
+    @users =
+      if params[:search_word]
+        target_users.search_by_keywords( {word: params[:search_word]})
+      else
+        target_users
+          .page(params[:page]).per(PAGER_NUMBER)
+          .preload(:company, :avatar_attachment, :course, :tags)
+          .order(updated_at: :desc)
+      end
+
 
     @users = @users.unhibernated.unretired unless @company
   end

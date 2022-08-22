@@ -1,31 +1,56 @@
 <template lang="pug">
 .users
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+  .page-filter.form(v-if='users.length !== 0 && isAll')
+    .form__items
+      .form-item.is-inline-md-up
+        label.a-form-label
+          | 絞り込み
+        input#js-user-search-input.a-text-input(
+          v-model.trim='searchUsersWord',
+          placeholder='ユーザー名、読み方、Discord ID、GitHub ID など'
+        )
   .users__items
-    .row(v-if='users === null')
+    .row(v-if='!loaded')
       .empty
         .fa-solid.fa-spinner.fa-pulse
         |
         | ロード中
     .row(v-else-if='users.length !== 0')
-      user(
-        v-for='user in users',
-        :key='user.id',
-        :user='user',
-        :currentUser='currentUser')
+      .user-list(v-show='!showSearchedUsers')
+        nav.pagination(v-if='totalPages > 1')
+          pager(v-bind='pagerProps')
+        user(
+          v-for='user in users',
+          :key='user.id',
+          :user='user',
+          :currentUser='currentUser'
+        )
+        nav.pagination(v-if='totalPages > 1')
+          pager(v-bind='pagerProps')
+      .searched-user-list(v-show='showSearchedUsers')
+        .o-empty-message(v-if='searchedUsers.length === 0')
+          .o-empty-message__icon
+            i.far.fa-sad-tear
+          p.o-empty-message__text
+            | 一致するユーザーはいません
+        .card-list.a-card(v-else)
+          user(
+            v-for=' user in searchedUsers',
+            :key='user.id',
+            :user='user',
+            :currentUser='currentUser'
+          )
     .row(v-else)
       .o-empty-message
         .o-empty-message__icon
           i.fa-regular.fa-sad-tear
         p.o-empty-message__text
           | {{ targetName }}のユーザーはいません
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
 </template>
 <script>
 import User from './user.vue'
 import Pager from '../pager.vue'
+import { debounce } from 'lodash'
 
 export default {
   name: 'Users',
@@ -35,13 +60,17 @@ export default {
   },
   data() {
     return {
-      users: null,
+      users: [],
       currentUser: null,
       currentTarget: null,
       currentTag: null,
       currentPage: Number(this.getParams().page) || 1,
       totalPages: 0,
-      params: this.getParams()
+      params: this.getParams(),
+      searchUsersWord: '',
+      showSearchedUsers: false,
+      searchedUsers: [],
+      loaded: false
     }
   },
   computed: {
@@ -49,12 +78,14 @@ export default {
       return this.currentTag || this.currentTarget
     },
     url() {
+      const params = this.addParams()
       return (
         '/api/users/' +
         (this.params.tag ? `tags/${this.params.tag}` : '') +
         `?page=${this.currentPage}` +
         (this.params.target ? `&target=${this.params.target}` : '') +
-        (this.params.watch ? `&watch=${this.params.watch}` : '')
+        (this.params.watch ? `&watch=${this.params.watch}` : '') +
+        (params ? `&${params}` : '')
       )
     },
     pagerProps() {
@@ -64,21 +95,29 @@ export default {
         pageRange: 5,
         clickHandle: this.paginateClickCallback
       }
+    },
+    isAll() {
+      return location.search !== '?target=followings'
+    }
+  },
+  watch: {
+    searchUsersWord() {
+      this.searchUsers()
     }
   },
   created() {
     window.onpopstate = function () {
       location.replace(location.href)
     }
-    this.getUsers()
+    this.setupUsers()
   },
   methods: {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    getUsers() {
-      fetch(this.url, {
+    async fetchUsersResource() {
+      const usersResource = await fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -88,18 +127,17 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
+      return usersResource.json()
+    },
+    setupUsers() {
+      this.fetchUsersResource()
         .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          this.users = []
-          json.users.forEach((user) => {
-            this.users.push(user)
-          })
-          this.currentUser = json.currentUser
-          this.currentTarget = json.target
-          this.currentTag = json.tag
-          this.totalPages = json.totalPages
+          this.users.splice(0, this.users.length, ...response.users)
+          this.currentUser = response.currentUser
+          this.currentTarget = response.target
+          this.currentTag = response.tag
+          this.totalPages = response.totalPages
+          this.loaded = true
         })
         .catch((error) => {
           console.warn(error)
@@ -122,7 +160,7 @@ export default {
     },
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
-      this.getUsers()
+      this.setupUsers()
       history.pushState(null, null, this.newUrl(pageNumber))
       window.scrollTo(0, 0)
     },
@@ -138,6 +176,32 @@ export default {
           location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
         )
       }
+    },
+    validateSearchUsersWord() {
+      if (this.searchUsersWord.match(/^[\w-]+$/))
+        return this.searchUsersWord.length >= 3
+      return this.searchUsersWord.length >= 2
+    },
+    searchUsers: debounce( function () {
+      this.showSearchedUsers = false
+      if (!this.validateSearchUsersWord()) return
+      this.setupSearchedUsers()
+      this.showSearchedUsers = true
+    }, 500),
+    setupSearchedUsers() {
+      this.loaded = false
+      this.fetchUsersResource()
+        .then((response) => {
+          this.searchedUsers.splice(0, this.searchedUsers.length, ...response.users)
+          this.loaded = true
+        })
+        .catch((error) => console.warn(error))
+    },
+    addParams() {
+      if (!this.validateSearchUsersWord()) return
+      const params = new URL(location.origin).searchParams
+      params.set('search_word', this.searchUsersWord)
+      return params
     }
   }
 }
