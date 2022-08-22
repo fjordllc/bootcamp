@@ -403,3 +403,11 @@ product68:
   user: kimuramitai
   body: 未確認だけど、担当になっている提出物68です。
   checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+
+product69:
+  practice: practice1
+  user: muryou
+  body: 直近の日報がないテストの提出物69です。
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+  published_at: <%= 1.day.ago %>
