@@ -8,8 +8,6 @@ class ReportsController < ApplicationController
   before_action :set_my_report, only: %i[edit update destroy]
   before_action :set_checks, only: %i[show]
   before_action :set_check, only: %i[show]
-  before_action :set_footprints, only: %i[show]
-  before_action :set_footprint, only: %i[show]
   before_action :set_user, only: %i[show]
   before_action :set_categories, only: %i[create update]
   before_action :set_watch, only: %i[show]
@@ -18,7 +16,6 @@ class ReportsController < ApplicationController
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
-    footprint!
     respond_to do |format|
       format.html
       format.md
@@ -83,10 +80,6 @@ class ReportsController < ApplicationController
 
   private
 
-  def footprint!
-    @report.footprints.create_or_find_by(user: current_user) if @report.user != current_user
-  end
-
   def report_params
     params.require(:report).permit(
       :title,
@@ -121,14 +114,6 @@ class ReportsController < ApplicationController
 
   def set_checks
     @checks = report.checks.order(created_at: :desc)
-  end
-
-  def set_footprint
-    @footprint = Footprint.new
-  end
-
-  def set_footprints
-    @footprints = @report.footprints.with_avatar.order(created_at: :desc)
   end
 
   def set_categories

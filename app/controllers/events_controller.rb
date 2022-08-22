@@ -8,8 +8,6 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.with_avatar.find(params[:id])
-    @footprints = @event.footprints.with_avatar.order(created_at: :desc)
-    footprint!
   end
 
   def new
@@ -67,10 +65,6 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.find(params[:id])
-  end
-
-  def footprint!
-    @event.footprints.create_or_find_by(user: current_user) if @event.user != current_user
   end
 
   def set_wip

@@ -16,9 +16,7 @@ class ProductsController < ApplicationController
                         .order(published_at: :DESC)
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
-    @footprints = find_footprints
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
-    footprint!
     respond_to do |format|
       format.html
       format.md
@@ -96,16 +94,6 @@ class ProductsController < ApplicationController
     else
       current_user.products.find(params[:id])
     end
-  end
-
-  def find_footprints
-    @product.footprints.with_avatar.order(created_at: :desc)
-  end
-
-  def footprint!
-    return unless @product.user != current_user
-
-    @product.footprints.create_or_find_by(user: current_user)
   end
 
   def check_permission!

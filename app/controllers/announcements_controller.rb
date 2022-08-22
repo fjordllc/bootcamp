@@ -3,8 +3,11 @@
 class AnnouncementsController < ApplicationController
   before_action :require_login
   before_action :set_announcement, only: %i[show edit update destroy]
+<<<<<<< HEAD
   before_action :rewrite_announcement, only: %i[update]
   before_action :set_footprints, only: %i[show]
+=======
+>>>>>>> 足あとのVueコンポーネントとAPIを作成
 
   def index; end
 
@@ -55,14 +58,6 @@ class AnnouncementsController < ApplicationController
   end
 
   private
-
-  def footprint!
-    @announcement.footprints.create_or_find_by(user: current_user) if @announcement.user != current_user
-  end
-
-  def set_footprints
-    @footprints = @announcement.footprints.with_avatar.order(created_at: :desc)
-  end
 
   def announcement_params
     params.require(:announcement).permit(:title, :description, :target)
