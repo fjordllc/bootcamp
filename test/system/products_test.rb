@@ -430,6 +430,14 @@ class ProductsTest < ApplicationSystemTestCase
     assert_no_text 'ユーザーメモ'
   end
 
+  test 'display recently reports' do
+    visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
+    within first('.side-tabs .card-list-item') do
+      assert_selector 'img[alt="happy"]'
+      assert_text '1時間だけ学習'
+    end
+  end
+
   test 'display the user memos after click on user-memos tab' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
     find('#side-tabs-nav-3').click
