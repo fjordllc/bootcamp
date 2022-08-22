@@ -451,6 +451,14 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '学習日は今日以前の日付にしてください'
   end
 
+  test 'display recently reports' do
+    visit_with_auth report_path(reports(:report10)), 'mentormentaro'
+    within first('.side-tabs .card-list-item') do
+      assert_selector 'img[alt="happy"]'
+      assert_text '今日は頑張りました'
+    end
+  end
+
   test 'display list of submission when mentor is access' do
     visit_with_auth report_path(reports(:report5)), 'komagata'
     assert_text '提出物'
