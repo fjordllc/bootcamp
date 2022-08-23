@@ -7,6 +7,8 @@ class API::UsersController < API::BaseController
   PAGER_NUMBER = 20
 
   def index
+    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
+
     target_users =
       if @target == 'followings'
         current_user.followees_list(watch: @watch)
@@ -18,14 +20,11 @@ class API::UsersController < API::BaseController
         User.users_role(@target)
       end
 
-    @users =
-      if params[:search_word]
-        target_users.search_by_keywords({ word: params[:search_word] })
-      else
-        target_users.page(params[:page]).per(PAGER_NUMBER)
-                    .preload(:company, :avatar_attachment, :course, :tags)
-                    .order(updated_at: :desc)
-      end
+    @users = target_users.page(params[:page]).per(PAGER_NUMBER)
+                         .preload(:company, :avatar_attachment, :course, :tags)
+                         .order(updated_at: :desc)
+
+    @users = target_users.search_by_keywords({ word: params[:search_word] }) if params[:search_word]
 
     @users = @users.unhibernated.unretired unless @company
   end
@@ -58,7 +57,6 @@ class API::UsersController < API::BaseController
     @tag = params[:tag]
     @company = params[:company_id]
     @target = params[:target]
-    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
     @watch = params[:watch]
   end
 
