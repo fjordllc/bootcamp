@@ -2,16 +2,11 @@
 
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
+  before_action :set_targets, only: %i[index]
   before_action :require_login_for_api
   PAGER_NUMBER = 20
 
   def index
-    @tag = params[:tag]
-    @target = params[:target]
-    @company = params[:company_id]
-    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
-    @watch = params[:watch]
-
     target_users =
       if @target == 'followings'
         current_user.followees_list(watch: @watch)
@@ -25,14 +20,12 @@ class API::UsersController < API::BaseController
 
     @users =
       if params[:search_word]
-        target_users.search_by_keywords( {word: params[:search_word]})
+        target_users.search_by_keywords({ word: params[:search_word] })
       else
-        target_users
-          .page(params[:page]).per(PAGER_NUMBER)
-          .preload(:company, :avatar_attachment, :course, :tags)
-          .order(updated_at: :desc)
+        target_users.page(params[:page]).per(PAGER_NUMBER)
+                    .preload(:company, :avatar_attachment, :course, :tags)
+                    .order(updated_at: :desc)
       end
-
 
     @users = @users.unhibernated.unretired unless @company
   end
@@ -59,6 +52,14 @@ class API::UsersController < API::BaseController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_targets
+    @tag = params[:tag]
+    @company = params[:company_id]
+    @target = params[:target]
+    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
+    @watch = params[:watch]
   end
 
   def user_params
