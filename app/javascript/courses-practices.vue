@@ -2,8 +2,8 @@
 .page-body__inner.is-md(v-if='categories === null')
   loadingCoursesPracticesPagePlaceholder
 .page-body__inner(v-else)
-  .categories-items
-    .categories-items__inner
+  .page-body__columns
+    .page-body__column.is-main
       .categories-item.practices(
         v-for='category in containsPractices',
         :key='category.id'
@@ -34,15 +34,16 @@
               :learnings='learnings',
               :currentUser='currentUser'
             )
-    nav.page-nav
-      ul.page-nav__items
-        li.page-nav__item(
-          v-for='category in containsPractices',
-          :key='category.id'
-        )
-          a.page-nav__item-link(:href='`practices#category-${category.id}`')
-            span.page-nav__item-link-inner
-              | {{ category.name }}
+    .page-body__column.is-sub
+      nav.page-nav.a-card
+        ul.page-nav__items
+          li.page-nav__item(
+            v-for='category in containsPractices',
+            :key='category.id'
+          )
+            a.page-nav__item-link(:href='`practices#category-${category.id}`')
+              span.page-nav__item-link-inner
+                | {{ category.name }}
 </template>
 
 <script>

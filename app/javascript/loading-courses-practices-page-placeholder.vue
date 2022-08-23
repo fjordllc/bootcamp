@@ -1,17 +1,18 @@
 <template lang="pug">
 .page-body__inner
-  .categories-items
-    .categories-items__inner
+  .page-body__columns
+    .page-body__column.is-main
       loadingCoursesPracticesPageItemsPlaceholder(
         v-for='num in itemCount',
         :key='num'
       )
-    .page-nav
-      .page-nav__items
-        loadingCoursesPracticesPageNavItemPlaceholder(
-          v-for='num in pageNavItemCount',
-          :key='num'
-        )
+    .page-body__column.is-sub
+      .page-nav.a-card
+        .page-nav__items
+          loadingCoursesPracticesPageNavItemPlaceholder(
+            v-for='num in pageNavItemCount',
+            :key='num'
+          )
 </template>
 
 <script>

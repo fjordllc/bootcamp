@@ -47,9 +47,21 @@ class Product::UnassignedTest < ApplicationSystemTestCase
 
   test 'display elapsed days label and number of products' do
     visit_with_auth '/products/unassigned', 'komagata'
-    assert_text '7日以上経過（6）'
-    assert_text '6日経過（1）'
-    assert_text '5日経過（1）'
-    assert_text '今日提出（48）'
+    within '.page-body__column.is-main' do
+      assert_text '7日以上経過（6）'
+      assert_text '6日経過（1）'
+      assert_text '5日経過（1）'
+      assert_text '今日提出（48）'
+    end
+  end
+
+  test 'show elapsed days links that jump to elements on the same page' do
+    visit_with_auth '/products/unassigned', 'komagata'
+    within '.page-nav__items.elapsed-days' do
+      assert_link('7日以上経過', href: '#7days-elapsed')
+      assert has_selector?('li.is-active', text: '7日以上経過')
+      assert_link('1日経過', href: '#1days-elapsed')
+      assert has_selector?('li.is-inactive', text: '1日経過')
+    end
   end
 end
