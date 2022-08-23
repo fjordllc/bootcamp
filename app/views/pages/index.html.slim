@@ -29,12 +29,12 @@ header.page-header
                   #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
 .page-body
   .container.is-xl
-    .two-columns
-      .two-columns__column.is-main
+    .page-body__columns
+      .page-body__column.is-main
         div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}")
 
       - if Page.all_tags.any?
-        .two-columns__column.is-sub
+        .page-body__column.is-sub
           nav.page-tags-nav.a-card
             header.card-header.is-sm
               h2.card-header__title
