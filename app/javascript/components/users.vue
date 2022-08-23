@@ -35,7 +35,7 @@
             | 一致するユーザーはいません
         .card-list.a-card(v-else)
           user(
-            v-for=' user in searchedUsers',
+            v-for='user in searchedUsers',
             :key='user.id',
             :user='user',
             :currentUser='currentUser'
@@ -182,7 +182,7 @@ export default {
         return this.searchUsersWord.length >= 3
       return this.searchUsersWord.length >= 2
     },
-    searchUsers: debounce( function () {
+    searchUsers: debounce(function () {
       this.showSearchedUsers = false
       if (!this.validateSearchUsersWord()) return
       this.setupSearchedUsers()
@@ -192,7 +192,11 @@ export default {
       this.loaded = false
       this.fetchUsersResource()
         .then((response) => {
-          this.searchedUsers.splice(0, this.searchedUsers.length, ...response.users)
+          this.searchedUsers.splice(
+            0,
+            this.searchedUsers.length,
+            ...response.users
+          )
           this.loaded = true
         })
         .catch((error) => console.warn(error))
