@@ -8,13 +8,6 @@ class Report::UncheckedTest < ApplicationSystemTestCase
     assert_equal '未チェックの日報 | FBC', title
   end
 
-  test 'display a message when there are no unchecked reports' do
-    Report.unchecked.destroy_all
-
-    visit_with_auth '/reports/unchecked', 'komagata'
-    assert_text '未チェックの日報はありません'
-  end
-
   test 'non-staff user can not see listing unchecked reports' do
     visit_with_auth '/reports/unchecked', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
