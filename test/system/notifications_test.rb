@@ -5,6 +5,15 @@ require 'application_system_test_case'
 class NotificationsTest < ApplicationSystemTestCase
   include ActiveJob::TestHelper
 
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'do not send mail if user deny mail' do
     visit_with_auth "/reports/#{reports(:report8).id}", 'kimura'
     within('.thread-comment-form__form') do
