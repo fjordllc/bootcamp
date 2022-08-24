@@ -17,7 +17,7 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_link 'お試し延長作成'
   end
 
-  test 'new campaign can be created even if end_at is before start_at + trial_period ' do
+  test 'new campaign cannot be created' do
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse('2021-12-10 00:00')
@@ -26,10 +26,8 @@ class CampaignsTest < ApplicationSystemTestCase
       fill_in 'campaign[trial_period]', with: 6
       click_button '内容を保存'
     end
-    assert_text 'お試し延長を作成しました。'
-    assert_text '6日'
-    assert_text '2021年12月10日(金) 00:00'
-    assert_text '2021年12月15日(水) 23:58'
+    assert_text '入力内容にエラーがありました'
+    assert_text '終了日時は2021/12/15 23:59以降を入力してください。'
   end
 
   test 'new campaign can be created' do
