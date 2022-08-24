@@ -1,26 +1,32 @@
 <template lang="pug">
 .user-icons
-  .empty(v-if='footprints === null')
+  h3.user-icons__title(v-if='!loaded')
     .fa-solid.fa-spinner.fa-pulse
     |
     | ロード中
   h3.user-icons__title(v-else-if='footprintTotalCount !== 0')
     | 見たよ
-  ul.user-icons__items
+  ul.user-icons__items(v-if='footprintTotalCount < 10')
     footprint(
-      v-for='footprint in displayOnPage',
-      :key='footprint.key'
+      v-for='footprint in footprints',
+      :key='footprint.key',
+      :footprint='footprint'
+    )
+  ul.user-icons__items(v-else-if='footprintTotalCount > 10 && isDisplay')
+    footprint(
+      v-for='footprint in limitedDisplayOnPage',
+      :key='footprint.key',
       :footprint='footprint'
     )
   .page-content-prev-next__item-link(
-    v-if='(footprintTotalCount > 3) && isDisplay',
-    @click="showRemainingFootprints"
-    )
-    | その他{{ (footprintTotalCount - 3) }}人
-  ul.user-icons__items(v-else)
+    v-if='footprintTotalCount > 10 && isDisplay',
+    @click='showRemainingFootprints'
+  )
+    | その他{{ footprintTotalCount - 10 }}人
+  ul.user-icons__items(v-else-if='footprintTotalCount > 10 && !isDisplay')
     footprint(
-      v-for='footprint in displayAfterClickingOnLink',
-      :key='footprint.key'
+      v-for='footprint in footprints',
+      :key='footprint.key',
       :footprint='footprint'
     )
 </template>
@@ -30,17 +36,18 @@ import Footprint from './footprint'
 export default {
   name: 'Footprints',
   components: {
-    footprint: Footprint,
+    footprint: Footprint
   },
   props: {
     footprintableId: { type: String, required: true },
-    footprintableType: { type: String, required: true },
+    footprintableType: { type: String, required: true }
   },
   data() {
     return {
       footprints: [],
       isDisplay: true,
-      footprintTotalCount: null
+      footprintTotalCount: null,
+      loaded: null
     }
   },
   computed: {
@@ -50,11 +57,8 @@ export default {
       params.set('footprintableId', this.footprintableId)
       return `/api/footprints.json?footprintable_type=${this.footprintableType}&footprintable_id=${this.footprintableId}`
     },
-    displayOnPage() {
-      return this.footprints.slice(0, 3)
-    },
-    displayAfterClickingOnLink() {
-      return this.footprints.slice(3)
+    limitedDisplayOnPage() {
+      return this.footprints.slice(0, 10)
     }
   },
   created() {
@@ -69,8 +73,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getFootprints() {
-      fetch(this.url,
-      {
+      fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -89,6 +92,7 @@ export default {
             this.footprints.push(footprint)
           })
           this.footprintTotalCount = json.footprint_total_count
+          this.loaded = true
         })
         .catch((error) => {
           console.warn(error)
@@ -99,4 +103,4 @@ export default {
     }
   }
 }
-</script> 
+</script>
