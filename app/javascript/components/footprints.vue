@@ -1,14 +1,11 @@
 <template lang="pug">
 .user-icons(v-if='!loaded')
     .fa-solid.fa-spinner.fa-pulse
-    |
     | ロード中
 .user-icons(v-else)
   h3.user-icons__title
     | 見たよ
-  ul.user-icons__items(
-    v-if='footprintTotalCount < 10 || footprintTotalCount === 10'
-  )
+  ul.user-icons__items(v-if='footprintTotalCount < 10')
     footprint(
       v-for='footprint in footprints',
       :key='footprint.key',
