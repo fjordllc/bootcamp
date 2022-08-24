@@ -1,9 +1,11 @@
 = render 'notification_mailer_template', title: "#{@sender.login_name}さんが退会しました。", link_url: notification_url(@notification), link_text: "#{@sender.login_name}さんのページへ" do
-  h1(style='margin-top: 1em; border-left: solid 6px #4638a0; padding: 0 0 0 1rem; font-size: 1.5em; border-bottom: none; color: #444444;') 退会理由
-  ul
-    - @sender.retire_reasons.each do |reason|
-      li
-        = md2html(t("active_flag.user.retire_reasons.#{reason}"))
-  h1(style='margin-top: 1em; border-left: solid 6px #4638a0; padding: 0 0 0 1rem; font-size: 1.5em; border-bottom: none; color: #444444;')
-    = User.human_attribute_name('retire_reason')
-  = md2html(@sender.retire_reason)
+  .a-long-text
+    h2
+      | 退会理由
+    ul
+      - @sender.retire_reasons.each do |reason|
+        li
+          = md2html(t("active_flag.user.retire_reasons.#{reason}"))
+    h2
+      = User.human_attribute_name('retire_reason')
+    = md2html(@sender.retire_reason)
