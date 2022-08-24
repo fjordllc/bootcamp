@@ -66,4 +66,10 @@ jobs:
       run: bundle exec rails db:setup
 
     - name: Run tests
-      run: bundle exec rails test:all
+      run: MINITEST_REPORTER=JUnitReporter bundle exec rails test
+
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: always() # always run even if the previous step fails
+      with:
+        report_paths: '**/test/reports/TEST-*.xml'

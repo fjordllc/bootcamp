@@ -90,6 +90,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'minitest-retry'
+  gem 'minitest-reporters'
   gem 'selenium-webdriver'
   gem 'vcr', github: 'vcr/vcr'
   gem 'webdrivers'

@@ -92,6 +92,7 @@ GEM
       activerecord (>= 4.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ansi (1.5.0)
     any_login (1.4.4)
       rails (>= 4.2.7)
     ast (2.4.2)
@@ -258,6 +259,11 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.15.0)
+    minitest-reporters (1.5.0)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     minitest-retry (0.2.2)
       minitest (>= 5.0)
     msgpack (1.4.4)
@@ -556,6 +562,7 @@ DEPENDENCIES
   listen
   mentionable (~> 0.2.1)
   meta-tags
+  minitest-reporters
   minitest-retry
   net-imap
   net-pop

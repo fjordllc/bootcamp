@@ -6,6 +6,7 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'minitest/mock'
 require 'minitest/retry'
+require 'minitest/reporters'
 require 'supports/api_helper'
 require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
@@ -14,6 +15,7 @@ Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
 Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
+Minitest::Reporters.use!
 Selenium::WebDriver.logger.ignore(:browser_options) # TODO: Remove it when capybara-3.36.0 greater is released.
 
 class ActiveSupport::TestCase
