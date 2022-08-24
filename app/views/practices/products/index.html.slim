@@ -1,7 +1,7 @@
-- title @practice.title
+- title "#{@practice.title}の提出物"
 - category = @practice.category(current_user.course)
 
-= render '/practices/page_header', title: title, category: category
+= render '/practices/page_header', title: @practice.title, category: category
 = render 'page_tabs', resource: @practice
 
 .page-body
