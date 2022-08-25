@@ -57,8 +57,8 @@ class Campaign < ApplicationRecord
   end
 
   def end_at_cannot_be_greater_than_start_at
-    if start_at > end_at
-      errors.add(:end_at, :format, shortest_end_at: I18n.l(start_at, format: :short))
-    end
+    return if end_at > start_at
+
+    errors.add(:end_at, :format, shortest_end_at: I18n.l(start_at, format: :short))
   end
 end
