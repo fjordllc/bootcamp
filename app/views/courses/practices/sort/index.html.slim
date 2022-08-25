@@ -22,8 +22,8 @@ header.page-header
 .page-body.js-users-visibility
   .container.is-xl
     .page-body__inner
-      .categories-items
-        .categories-items__inner
+      .page-body__columns
+        .page-body__column.is-main
           - @categories.each do |category|
             - if category.practices.present?
               .categories-item.practices
@@ -51,7 +51,7 @@ header.page-header
                               span.a-grab.js-grab
                                 i.fa-solid.fa-align-justify
 
-        nav.page-nav
+        nav.page-nav.a-card
           ul.page-nav__items
             - @categories.each do |category|
               - if category.practices.present?

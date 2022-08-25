@@ -12,7 +12,8 @@
     tbody.admin-table__items
       tr.admin-table__item(v-for='category in categories', :key='category.id')
         td.admin-table__item-value
-          | {{ category.name }}
+          a(:href='`/admin/categories/${category.id}`')
+            | {{ category.name }}
         td.admin-table__item-value
           | {{ category.slug }}
         td.admin-table__item-value.is-text-align-center
