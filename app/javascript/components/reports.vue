@@ -16,7 +16,7 @@
     pager(v-bind='pagerProps')
   .reports.is-md(v-if='reports === null')
     loadingListPlaceholder
-  .card-list.a-card(v-else-if='reports.length > 0 || !isUncheckedReportsPage')
+  .card-list.a-card(v-else-if='reports.length > 0')
     .card-list__items
       report(
         v-for='report in reports',
@@ -26,7 +26,7 @@
         :display-user-icon='displayUserIcon'
       )
     unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
-  .o-empty-message(v-else-if='reports.length === 0 || isUncheckedReportsPage')
+  .o-empty-message(v-else-if='reports.length === 0 && isUncheckedReportsPage')
     .o-empty-message__icon
       i.fa-regular.fa-smile
     p.o-empty-message__text
