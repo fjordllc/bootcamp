@@ -15,4 +15,17 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_css "a[href='/users/mentormentaro']"
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
+
+  test 'user profile image markdown test' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'レポート'
+    fill_in 'page[body]', with: ":@mentormentaro: \n すみません、これも確認していただけませんか？"
+
+    click_button '内容を保存'
+
+    assert_css '.a-long-text.is-md.js-markdown-view'
+    assert_css '.speak'
+    assert_css "a[href='/users/mentormentaro']"
+    assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
+  end
 end
