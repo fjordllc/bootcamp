@@ -1,11 +1,8 @@
 .page-nav
   +position(right 0, top 3.5rem)
-  flex: 1
   position: sticky
-  background-color: $base
-  border: solid 1px #dadada
-  border-radius: .25rem
   transition: opacity .2s ease-in
+  overflow: hidden
   +media-breakpoint-down(md)
     display: none
 
@@ -25,27 +22,53 @@
   text-overflow: ellipsis
 
 .page-nav__items
-  max-height: calc(100vh - .25rem)
+  max-height: calc(100vh - 8.5rem)
   overflow-y: auto
+
+=page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
+  +position(relative, 1)
+  border: solid 1px $border-color
+  border-width: 1px 0
+  margin-top: -1px
+  .page-nav__item-link
+    background-color: $background-color
+    color: $text-color
+    @if $pointer-events-none == true
+      pointer-events: none
 
 .page-nav__item
   border-bottom: solid 1px $border-tint
+  &.is-active
+    .page-nav__item-link
+      color: $default-text
+      font-weight: 700
+  &.is-current
+    +page-nav-current($input-selected-background, #c6e2ff, $input-selected-text, true)
+  &.is-reply-warning
+    +page-nav-current($warning, #d09a0e, $default-text, false)
+  &.is-reply-alert
+    +page-nav-current(#ff7500, #d06305, $reversal-text, false)
+  &.is-reply-deadline
+    +page-nav-current($danger, #b50f38, $reversal-text, false)
+  &.is-inactive
+    position: static
+    border-top: none
+    border-bottom: solid 1px $border-tint
+    .page-nav__item-link
+      background-color: $background-semi-shade
+      color: $muted-text
+      pointer-events: none
   &:last-child
     border-bottom: none
 
 .page-nav__item-link
-  padding: .5rem .75rem
-  +text-block(.8125rem 1.4, block $muted-text)
+  padding: .75rem
+  +text-block(.8125rem 1.4, block $semi-muted-text)
   +block-link
   transition: all .1s ease-in
   background-color: transparent
   .page-nav__item:last-child &
     +border-radius(bottom, .25rem)
   &:hover
-    color: $main-text
+    color: $primary-text
     text-decoration: underline
-  &.is-current
-    pointer-events: none
-    font-weight: 600
-    background-color: $background-more-tint
-    color: $default-text

@@ -12,12 +12,16 @@
   +media-breakpoint-up(lg)
     display: flex
     gap: 1.5rem
+    position: relative
 
 .page-body__column
   &.is-main
     flex: 1
+    +margin(horizontal,  auto)
   &.is-sub
-    flex: 0 0 14rem
+    flex: 0 0 20rem
+    &.is-sm
+      flex: 0 0 14rem
 
 .page-body__description
   +short-text-style

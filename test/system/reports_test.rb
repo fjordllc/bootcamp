@@ -384,6 +384,8 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth reports_path, 'kimura'
     precede = reports(:report24).title
     succeed = reports(:report23).title
+    assert_text '検索用の日報'
+    assert_text 'フォローされた日報'
     within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
@@ -629,5 +631,15 @@ class ReportsTest < ApplicationSystemTestCase
   test 'open new report with a past date' do
     visit_with_auth '/reports/new?reported_on=2022-1-1', 'komagata'
     assert_equal '2022-01-01', find('#report_reported_on').value
+  end
+
+  test 'hide user icon from recent reports in report show' do
+    visit_with_auth report_path(reports(:report1)), 'komagata'
+    assert_no_selector('.card-list-item__user')
+  end
+
+  test 'display user icon in reports' do
+    visit_with_auth reports_path, 'komagata'
+    assert_selector('.card-list-item__user')
   end
 end
