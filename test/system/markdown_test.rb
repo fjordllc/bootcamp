@@ -24,7 +24,6 @@ class MarkdownTest < ApplicationSystemTestCase
     click_button '内容を保存'
 
     assert_css '.a-long-text.is-md.js-markdown-view'
-    assert_css '.speak'
     assert_css "a[href='/users/mentormentaro']"
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
