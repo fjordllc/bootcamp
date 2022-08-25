@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Practice::SortTest < ApplicationSystemTestCase
   test 'admin user can access practices sort page' do
     visit_with_auth course_sort_index_path(courses(:course1).id), 'komagata'
-    within('.categories-items__inner') do
+    within('.page-body__column.is-main') do
       assert_selector '.js-grab'
     end
   end

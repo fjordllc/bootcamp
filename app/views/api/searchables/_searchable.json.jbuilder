@@ -9,6 +9,9 @@ json.wip searchable.respond_to?(:wip?) ? searchable.wip? : false
 if searchable.respond_to?(:user)
   json.login_name searchable.user.login_name
   json.user_id searchable.user.id
+  json.avatar_url searchable.user.avatar_url
+  json.icon_title searchable.user.icon_title
+  json.primary_role searchable.user.primary_role
 end
 json.is_comment_or_answer comment_or_answer?(searchable)
 if comment_or_answer?(searchable)

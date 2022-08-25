@@ -37,8 +37,16 @@
             .card-list-item-meta__item(
               v-if='!["practice", "page", "user"].includes(searchable.model_name)'
             )
-              a.a-user-name(:href='userUrl')
-                | {{ searchable.login_name }}
+              .card-list-item-meta__user
+                a.card-list-item-meta__icon-link(:href='userUrl')
+                  img.card-list-item-meta__icon.a-user-icon(
+                    :src='searchable.avatar_url',
+                    :title='searchable.icon_title',
+                    :alt='searchable.icon_title',
+                    :class='roleClass'
+                  )
+                a.a-user-name(:href='userUrl')
+                  | {{ searchable.login_name }}
             .card-list-item-meta__item
               time.a-meta(:datetime='searchable.updated_at', pubdate='pubdate')
                 | {{ updatedAt }}

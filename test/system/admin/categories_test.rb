@@ -8,6 +8,12 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
     assert_equal '管理ページ | FBC', title
   end
 
+  test 'show category page' do
+    visit_with_auth admin_category_path(categories(:category2)), 'komagata'
+    assert_equal 'Mac OS X | FBC', title
+    first('.card-list-item').assert_text 'OS X Mountain Lionをクリーンインストールする'
+  end
+
   test 'create category' do
     visit_with_auth '/admin/categories/new', 'komagata'
     within 'form[name=category]' do

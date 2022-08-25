@@ -1,0 +1,84 @@
+- title @category.name
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        | 管理ページ
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_category_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | カテゴリー作成
+
+= render 'admin/admin_page_tabs'
+
+.page-main
+  .page-body
+    .container.is-xxxl
+      .row.is-jc:c
+        .col-xl-7.col-xs-12
+          .page-content.category
+            header.page-content-header
+              .page-content-header__end
+                .page-content-header__row
+                  h1.page-content-header__title
+                    = title
+                .page-content-header__row
+                  .page-content-header-metas
+                    .page-content-header-metas__start
+                      .page-content-header-metas__meta
+                        .a-meta
+                          .a-meta__label
+                            | URLスラッグ
+                          .a-meta__value
+                            = @category.slug
+            .a-card
+              .card-header.is-sm
+                h2.card-header__title
+                  | 説明
+              .card-body
+                .card__description
+                  .a-long-text.is-md.js-markdown-view
+                    = @category.description
+                .card-footer
+                  .card-main-actions
+                    ul.card-main-actions__items
+                      li.card-main-actions__item
+                        = link_to edit_admin_category_path(@category), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                          i.fa-solid.fa-pen
+                          | 編集
+            .page-content-prev-next
+              .page-content-prev-next__item
+              .page-content-prev-next__item
+                = link_to admin_categories_path, class: 'page-content-prev-next__item-link is-index' do
+                  | カテゴリー一覧
+              .page-content-prev-next__item
+        .col-xl-5.col-xs-12
+          .card-list.a-card
+            .card-header.is-sm
+              h2.card-header__title
+                | プラクティス
+                | （#{@category.practices.count}）
+            - if @category.practices.present?
+              .card-list__items
+                - @category.practices.each do |practice|
+                  .card-list-item(id="practice_#{practice.id}")
+                    .card-list-item__inner
+                      .card-list-item__rows
+                        .card-list-item__row
+                          header.card-list-item-title
+                            .card-list-item-title__start
+                              h3.card-list-item-title__title
+                                = link_to practice.title, practice_path(practice), class: 'card-list-item-title__link a-text-link'
+                            .card-list-item-title__end
+                              = link_to edit_practice_path(practice), class: 'a-button is-xs is-secondary is-icon' do
+                                i.fa-solid.fa-pen
+            - else
+              .card-list__message
+                .o-empty-message
+                  .o-empty-message__icon
+                    i.fa-regular.fa-sad-tear
+                  .o-empty-message__text
+                    | 紐づくプラクティスはありません。
