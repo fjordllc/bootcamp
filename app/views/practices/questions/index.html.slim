@@ -1,4 +1,4 @@
-- title @practice.title + 'に関するQ&A'
+- title "#{@practice.title}に関するQ&A"
 - category = @practice.category(current_user.course)
 
 = render '/practices/page_header', title: title, category: category
