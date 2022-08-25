@@ -17,6 +17,18 @@ class CampaignsTest < ApplicationSystemTestCase
     assert_link 'お試し延長作成'
   end
 
+  test 'new campaign cannot be created if start_at is greater than end_at' do
+    visit_with_auth new_admin_campaign_path, 'komagata'
+    within 'form[name=campaign]' do
+      fill_in 'campaign[start_at]', with: Time.zone.parse('2021-12-10 00:00')
+      fill_in 'campaign[end_at]', with: Time.zone.parse('2021-12-09 23:59')
+      fill_in 'campaign[trial_period]', with: 6
+      click_button '内容を保存'
+    end
+    assert_text '入力内容にエラーがありました'
+    assert_text '終了日時は2021/12/10 00:00以降を入力してください。'
+  end
+
   test 'new campaign can be created even if end_at is before start_at + trial_period ' do
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
