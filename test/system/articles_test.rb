@@ -240,9 +240,6 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector "meta[name='description'][content='サマリー１']", visible: false
     assert_selector "meta[property='og:description'][content='サマリー１']", visible: false
     assert_selector "meta[name='twitter:description'][content='サマリー１']", visible: false
-
-    visit articles_path
-    assert_text 'サマリー１'
   end
 
   test 'If there is no summary text, the fixed text is used for meta description' do
