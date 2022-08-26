@@ -8,7 +8,7 @@ class Campaign < ApplicationRecord
   # refs: https://github.com/rails/rails/pull/40095
   # validates :end_at, greater_than: :start_at
   with_options if: -> { start_at && end_at && trial_period } do
-    validate :end_at_cannot_be_greater_than_start_at
+    validate :start_at_cannot_be_greater_than_end_at
   end
   validates :title, presence: true
   validates :trial_period, presence: true, numericality: { greater_than_or_equal_to: 4 }
@@ -56,7 +56,7 @@ class Campaign < ApplicationRecord
     end
   end
 
-  def end_at_cannot_be_greater_than_start_at
+  def start_at_cannot_be_greater_than_end_at
     return if end_at > start_at
 
     errors.add(:end_at, :format, shortest_end_at: I18n.l(start_at, format: :short))
