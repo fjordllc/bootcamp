@@ -235,8 +235,7 @@ export default {
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
-          if (this.currentUser.primary_role == 'mentor') {
-            console.log(this.productCheckerId)
+          if (this.currentUser.primary_role === 'mentor') {
             if (this.productCheckerId) {
               this.toast('コメントを投稿しました！')
             }
