@@ -222,6 +222,9 @@ class User < ApplicationRecord
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
+  scope :same_company, lambda { |user|
+    where(company_id: user.company_id)
+  }
   scope :students_and_trainees, lambda {
     where(
       admin: false,
