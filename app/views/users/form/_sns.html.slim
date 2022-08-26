@@ -10,7 +10,7 @@
           | こちら
         span.a-help
           i.fa-solid.fa-question
-.form-item
+.form-item#times-url
   = f.label :times_url, class: 'a-form-label'
   = f.text_field :times_url, class: 'a-text-input', placeholder: 'https://discord.com/channels/715806612824260640/123456789012345678'
   .a-form-help
@@ -67,13 +67,13 @@
       p
         = image_tag('help/discord-account.jpg', alt: 'Discord のアカウントの調べ方')
 
-= render '/shared/modal', id: 'modal-times-url', modal_title: '分報チャンネルの URL の調べ方'
+= render '/shared/modal', id: 'modal-times-url', modal_title: '分報チャンネル URL の調べ方'
   .modal__description.is-md
     .a-short-text
       p
         | ブラウザで
-        a(href='https://discord.com/channels/715806612824260640' target='_blank' rel='noopener noreferrer')
-          | フィヨルドブートキャンプの Discord
+        = link_to 'https://discord.com/channels/715806612824260640', target: '_blank', rel: 'noopener noreferrer' do
+          | フィヨルドブートキャンプの Discord サーバー
         | を開き、自分の分報チャンネルを選択します（command + k でチャンネルを検索できます）。
       p
         | 自分の分報チャンネルが開かれた状態で、ブラウザのアドレスバーに表示されている URL をコピーしてください。
