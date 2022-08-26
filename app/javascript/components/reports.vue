@@ -11,11 +11,13 @@
       :current-user-id='currentUserId',
       :display-user-icon='displayUserIcon'
     )
-  .o-empty-message(v-else)
-    .o-empty-message__icon
-      i.fa-regular.fa-sad-tear
-    .o-empty-message__text
-      | 日報はまだありません。
+  .card-body(v-else)
+    .card__description
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | 日報はまだありません。
 .page-content.reports(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
