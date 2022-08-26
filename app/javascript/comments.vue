@@ -235,7 +235,10 @@ export default {
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
-          this.toast('コメントを投稿しました！')
+          this.checkable.checkProduct()
+          if (this.productCheckerId) {
+            this.toast('コメントを投稿しました！')
+          }
         })
         .catch((error) => {
           console.warn(error)
