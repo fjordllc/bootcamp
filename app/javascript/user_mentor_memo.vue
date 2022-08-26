@@ -10,7 +10,7 @@ section.a-card.is-memo.is-only-mentor
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
           | ユーザーメモはまだありません。
-      .a-long-text.is-md(v-else v-html='markdownMemo')
+      .a-long-text.is-md(v-else, v-html='markdownMemo')
   footer.card-footer(v-if='!editing')
     .card-main-actions
       .card-main-actions__items
