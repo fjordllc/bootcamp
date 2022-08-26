@@ -116,6 +116,6 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     assert_equal ["#{practice.title}の提出物"], titles
     assert_equal [user.login_name], names
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
-    assert_text 'レビューを担当する未返信の提出物はありません'
+    assert_text '未返信の担当提出物はありません'
   end
 end
