@@ -13,31 +13,7 @@ header.page-header
     header.auth-form__header
       h1.auth-form__title 休会手続き
     .auth-form__body
-      .important-message
-        header.important-message__header
-          h2.important-message__title
-            | 休会についての注意
-        .important-message__body
-          .a-long-text.is-sm
-            p
-              | 仕事の都合や家庭の事情などで長期間フィヨルドブートキャンプを利用できない場合に
-              | 休会をすることができます。
-            p
-              | 休会をすることで利用料金の引き落としは停止されますが、
-              | その期間フィヨルドブートキャンプを利用することができなくなります。
-            p
-              | 休会したまま復帰せずに<strong class='a-text is-danger'>３ヶ月</strong>が経過すると自動的に退会となります。
-              | 今休会を行い復帰を行わなかった場合は、３ヶ月後の「#{l(Time.current.since(3.months), format: :long)}」の
-              | 休会処理が完了した時間に退会処理が行われます。
-            p
-              | 退会をするとこれまでの日報や提出物、分報チャンネルなどのデータが削除されてしまいます。
-              | 念のため、休会期限に余裕を持ったタイミング（期限の１日前くらいまで）で復帰をするようお願いします。
-            p
-              | 休会と復帰は<strong class='a-text is-danger'>３回まで</strong>行うことができます。
-            p
-              | 休会から復帰する場合は #{link_to '休会からの復帰ページ', new_comeback_path} からお手続きをしてください。
-              br
-              | 休会からの復帰ページのリンクは、<strong class='a-text is-danger'>トップページのフッター</strong>にあります。
+      = render 'message'
       = form_with model: @hibernation,
         url: hibernation_path,
         local: true,
@@ -65,23 +41,44 @@ header.page-header
               p
                 | 休会期間は最長3ヶ月です（#{l(Time.current.since(3.months), format: :year_and_date)}まで）。
                 | 明確な日を指定できない場合は、大体の年月日の入力をお願いします。
-          //
-            分報チャンネル名の項目を実装したら表示する
-            .form-item
-              label.a-form-label
-                | 分報チャンネル名
-              input.a-text-input(type='text' placeholder='📝 machida のつぶやき')
-              .a-form-help
-                p
-                  | 休会の期間、分報チャンネルが削除されないようにします。
-                  | 分報をお持ちの場合はチャンネル名を入力してください。
-                  | 事情により分報チャンネルが消えてしまう場合がありますことをご了承ください。
           .form-item
             = f.label :reason, '休会の理由を教えてください',
               class: 'a-form-label is-required'
             = f.text_area :reason,
               placeholder: '仕事がXX月まで繁忙期で残業と休日出勤が続き、学習の時間を確保できなくなるため。',
               class: 'a-text-input is-sm'
+
+          - if current_user.times_url?
+            .form-item
+              label.a-form-label
+                | 分報チャンネル URL
+              .form-link-block
+                = link_to current_user.times_url, class: 'form-link-block__link a-text-link' do
+                  = current_user.times_url
+              .a-form-help
+                p
+                  | 休会の期間、分報チャンネルが削除されないようにします。
+                  | 事情により分報チャンネルが消えてしまう場合がありますことをご了承ください。
+                p
+                  | 念のため、登録している分報チャンネルの URL が正しいものかご確認をお願いします。
+                  | もし、分報チャンネルの URL に誤りがあった場合は、
+                  = link_to edit_current_user_path(anchor: 'times-url') do
+                    | こちら
+                  | のページの「分報 URL」欄に正しい分報チャンネルの URL を登録してください。
+          - else
+            .form-item
+              label.a-form-label
+                | 分報チャンネル
+              .important-message
+                .important-message__body
+                  .a-short-text.is-sm
+                    p
+                      | 分報チャンネルが登録されていません。
+                      | 休会期間中、分報チャンネルが削除されないようにする場合は
+                      = link_to edit_current_user_path(anchor: 'times-url') do
+                        | こちら
+                      | のページの「分報 URL」欄に分報チャンネルの URL を登録してください。
+
         .form-actions
           ul.form-actions__items
             li.form-actions__item.is-main
