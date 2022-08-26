@@ -351,4 +351,34 @@ class HomeTest < ApplicationSystemTestCase
       assert_text I18n.l products(:product5).updated_at
     end
   end
+
+  test 'show trainee lists for adviser' do
+    assert users(:advijirou).adviser?
+    visit_with_auth '/', 'advijirou'
+    assert_selector 'h2.card-header__title', text: '研修生'
+  end
+
+  test 'not show trainee lists for student' do
+    assert users(:kimura).student?
+    visit_with_auth '/', 'kimura'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
+
+  test 'not show trainee lists for trainee' do
+    assert users(:kensyu).trainee?
+    visit_with_auth '/', 'kensyu'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
+
+  test 'not show trainee lists for mentor' do
+    assert users(:mentormentaro).mentor?
+    visit_with_auth '/', 'mentormentaro'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
+
+  test 'not show trainee lists for admin' do
+    assert users(:komagata).admin?
+    visit_with_auth '/', 'komagata'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
 end
