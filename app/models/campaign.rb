@@ -10,6 +10,7 @@ class Campaign < ApplicationRecord
   with_options if: -> { start_at && end_at && trial_period } do
     validate :start_at_cannot_be_greater_than_end_at
   end
+
   validates :title, presence: true
   validates :trial_period, presence: true, numericality: { greater_than_or_equal_to: 4 }
 
@@ -55,7 +56,7 @@ class Campaign < ApplicationRecord
       end
     end
   end
-
+  
   private
 
   def start_at_cannot_be_greater_than_end_at
