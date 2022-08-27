@@ -53,6 +53,7 @@ header.page-header
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
             input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-4 type='radio' name='side-tabs-contents'
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
@@ -64,6 +65,9 @@ header.page-header
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
                     | ユーザーメモ
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
+                    | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 .card-list.a-card
@@ -85,6 +89,10 @@ header.page-header
                   = render 'users/user_secret_attributes', user: @product.user
                   = render 'users/metas', user: @product.user
                 #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
+              .side-tabs-contents__item#side-tabs-content-4
+                .card-list.a-card
+                  - @products.each do |product|
+                    = render partial: 'product', locals: { product: product }
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
