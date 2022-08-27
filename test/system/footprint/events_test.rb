@@ -31,9 +31,6 @@ class Footprint::EventsTest < ApplicationSystemTestCase
     visit_with_auth event_path(event), 'hajime'
     visit_with_auth event_path(event), 'muryou'
     visit_with_auth event_path(event), 'sotugyou'
-    visit_with_auth event_path(event), 'adminonly'
-    visit_with_auth event_path(event), 'sotugyou-with-job'
-    visit_with_auth event_path(event), 'kensyu'
     assert_text '見たよ'
     assert page.has_css?('.page-content-prev-next__item-link')
   end

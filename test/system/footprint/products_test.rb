@@ -18,7 +18,7 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'show link if there are more than ten footprints' do
-    users(:komagata).products.first
+    product = users(:komagata).products.first
     visit_with_auth "/products/#{products(:product3).id}", 'hatsuno'
     visit_with_auth "/products/#{products(:product3).id}", 'kimura'
     visit_with_auth "/products/#{products(:product3).id}", 'machida'
@@ -35,7 +35,11 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'has no link if there are less than ten footprints' do
+<<<<<<< HEAD
     users(:komagata).products.first
+=======
+    product = users(:komagata).products.first
+>>>>>>> 1f6f334ad... 足あとのリンクの有無のテストを追加
     visit_with_auth "/products/#{products(:product3).id}", 'kimura'
     visit_with_auth "/products/#{products(:product3).id}", 'machida'
     visit_with_auth "/products/#{products(:product3).id}", 'osnashi'
