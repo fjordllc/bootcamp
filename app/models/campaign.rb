@@ -56,6 +56,8 @@ class Campaign < ApplicationRecord
     end
   end
 
+  private
+
   def start_at_cannot_be_greater_than_end_at
     return if end_at > start_at
 
