@@ -357,11 +357,6 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.card-header__title', text: '研修生'
   end
 
-  test 'not show trainee lists for adviser' do
-    visit_with_auth '/', 'advijirou'
-    assert_no_selector 'h2.card-header__title', text: '研修生'
-  end
-
   test 'not show trainee lists for student' do
     visit_with_auth '/', 'kimura'
     assert_no_selector 'h2.card-header__title', text: '研修生'
