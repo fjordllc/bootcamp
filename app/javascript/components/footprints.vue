@@ -6,7 +6,7 @@
     | ロード中
   h3.user-icons__title(v-else-if='footprintTotalCount !== 0')
     | 見たよ
-  ul.user-icons__items(v-if='footprintTotalCount < 10')
+  ul.user-icons__items(v-if='footprintTotalCount < 10 || footprintTotalCount === 10')
     footprint(
       v-for='footprint in footprints',
       :key='footprint.key',
@@ -18,7 +18,7 @@
       :key='footprint.key',
       :footprint='footprint'
     )
-  .page-content-prev-next__item-link(
+  .page-content-prev-next__item-link( 
     v-if='footprintTotalCount > 10 && isDisplay',
     @click='showRemainingFootprints'
   )
