@@ -14,4 +14,9 @@ header.page-header
 
 .page-body
   .container.is-md
-    #js-users-questions data-empty-message=@questions_property.empty_message data-selected-tag=params[:tag] data-user-id=params[:user_id]
+    div(
+        data-vue='Questions'
+        data-vue-empty-message="#{@questions_property.empty_message}
+        "data-vue-selected-tag="#{params[:tag]}"
+        data-vue-user-id:number="#{params[:user_id]}"
+      )
