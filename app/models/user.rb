@@ -222,6 +222,12 @@ class User < ApplicationRecord
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
+  scope :same_company, lambda { |user|
+    where(company_id: user.company_id)
+  }
+  scope :my_subordinates, lambda { |user|
+    same_company(user).students_and_trainees
+  }
   scope :students_and_trainees, lambda {
     where(
       admin: false,
@@ -658,6 +664,10 @@ class User < ApplicationRecord
   def wip_exists?
     pages.wip.exists? || reports.wip.exists? || questions.wip.exists? ||
       products.wip.exists? || announcements.wip.exists? || events.wip.exists?
+  end
+
+  def belongs_company_and_adviser?
+    adviser? && !company.nil?
   end
 
   private
