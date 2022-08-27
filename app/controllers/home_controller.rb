@@ -12,6 +12,7 @@ class HomeController < ApplicationController
         @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
         @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
         @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
+        @training_subordinates = User.with_attached_avatar.my_subordinates(current_user).includes(:reports, :products, :comments)
         display_events_on_dashboard
         display_welcome_message_for_adviser
         set_required_fields
