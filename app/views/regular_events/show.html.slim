@@ -32,4 +32,4 @@ header.page-header
   .container.is-lg
     = render 'regular_event', regular_event: @regular_event
     #js-comments(data-commentable-id="#{@regular_event.id}" data-commentable-type='RegularEvent' data-current-user-id="#{current_user.id}")
-    div(data-vue='Footprints' data-vue-footprintable_id="#{@regular_event.id}" data-vue-footprintable_type='RegularEvent')
+    div(data-vue='Footprints' data-vue-footprintable-id="#{@regular_event.id}" data-vue-footprintable-type='RegularEvent')
