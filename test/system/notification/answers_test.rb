@@ -7,6 +7,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
     @notice_text = 'komagataさんから回答がありました。'
+    @notice_best_answer_text = 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
   end
@@ -15,24 +16,22 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test "admin can resolve user's question" do
+  test "receive a notification when I got my question's answer" do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
-    assert_text 'ベストアンサーにする'
-    accept_alert do
-      click_button 'ベストアンサーにする'
+    within('.thread-comment-form__form') do
+      fill_in('answer[description]', with: 'reduceも使ってみては？')
     end
-    assert_no_text 'ベストアンサーにする'
-  end
+    click_button 'コメントする'
+    assert_text '回答を投稿しました！'
 
-  test 'delete best answer' do
-    visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
-    accept_alert do
-      click_button 'ベストアンサーにする'
+    visit_with_auth '/notifications', 'sotugyou'
+
+    within first('.card-list-item.is-unread') do
+      assert_text @notice_text
     end
-    accept_alert do
-      click_button 'ベストアンサーを取り消す'
-    end
-    assert_text 'ベストアンサーにする'
+
+    visit_with_auth '/', 'komagata'
+    refute_text @notice_text
   end
 
   test 'notify watchers of best answer' do
@@ -44,19 +43,19 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     # Watcherに通知される
     visit_with_auth '/notifications?status=unread', 'kimura'
     within first('.card-list-item.is-unread') do
-      assert_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
+      assert_text @notice_best_answer_text
     end
 
     # Watchしていない回答者には通知されない
     visit_with_auth '/notifications?status=unread', 'komagata'
     within first('.card-list-item.is-unread') do
-      assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
+      assert_no_text @notice_best_answer_text
     end
 
     # 質問者には通知されない
     visit_with_auth '/notifications?status=unread', 'sotugyou'
     within first('.card-list-item.is-unread') do
-      assert_no_text 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
+      assert_no_text @notice_best_answer_text
     end
   end
 end
