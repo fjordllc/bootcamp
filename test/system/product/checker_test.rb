@@ -63,4 +63,18 @@ class Product::CheckerTest < ApplicationSystemTestCase
     assert_text 'コメントを投稿しました'
     assert_nil Product.find(old_product.id).checker_id
   end
+
+  test "when mentor comment and confirm a product, there're different toasts" do
+    unchecked_product = products(:product1)
+
+    visit_with_auth product_url(unchecked_product), 'machida'
+
+    post_comment 'toast check'
+    assert_text 'コメントを投稿しました'
+
+    fill_in 'new_comment[description]', with: 'taost check'
+    click_button '確認OKにする'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '提出物を確認済みにしました'
+  end
 end
