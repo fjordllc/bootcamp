@@ -203,7 +203,7 @@ export default {
           }
         })
     },
-    createComment() {
+    createComment({ toast = null }) {
       if (this.description.length < 1) {
         return null
       }
@@ -243,7 +243,7 @@ export default {
               this.toast('コメントを投稿しました！')
             }
           } else {
-            this.toast('コメントを投稿しました！')
+            this.toast(toast ?? 'コメントを投稿しました！')
           }
         })
         .catch((error) => {
@@ -304,7 +304,7 @@ export default {
       ) {
         return null
       } else {
-        this.createComment()
+        this.createComment({ toast: '提出物を確認済みにしました。'})
         this.check(
           this.commentableType,
           this.commentableId,
