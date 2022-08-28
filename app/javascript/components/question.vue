@@ -56,8 +56,10 @@
                   | 更新
                 span.a-meta__value
                   | {{ updatedAt }}
-            .card-list-item-meta__item(v-if='question.answers.size > 0')
-              .a-meta
+            .card-list-item-meta__item
+              .a-meta(
+                :class='[zeroComment]'
+              )
                 | 回答・コメント（{{ question.answers.size }}）
     .stamp.is-circle.is-solved(v-if='question.has_correct_answer')
       .stamp__content.is-icon 解
@@ -83,6 +85,11 @@ export default {
     },
     roleClass() {
       return `is-${this.question.user.primary_role}`
+    },
+    zeroComment() {
+      return {
+        'is-danger': this.question.answers.size === 0
+      }
     },
     questionClass() {
       if (this.question.has_correct_answer) {
