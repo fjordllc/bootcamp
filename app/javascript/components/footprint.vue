@@ -1,11 +1,11 @@
 <template lang="pug">
-.user-icons__item
+li.user-icons__item
   a.user-icons__item-link(:href='`${footprint.user.url}`')
-    img.card-list-item__user-icon.a-user-icon(
+    img.a-user-icon.is-sm(
       :title='footprint.user.icon_title',
       :alt='footprint.user.icon_title',
       :src='footprint.user.avatar_url',
-      :class='[roleClass]'
+      :class='[`is-${this.footprint.user.login_name} is-${this.footprint.user.primary_role}`]'
     )
 </template>
 <script>
@@ -14,8 +14,8 @@ export default {
     footprint: { type: Object, required: true }
   },
   computed: {
-  	roleClass() {
-      return `is-${this.footprint.user.primary_role}`
+    roleClass() {
+      return `is-${this.footprint.user.login_name.primary_role}`
     }
   }
 }
