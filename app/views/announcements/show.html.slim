@@ -18,4 +18,4 @@ header.page-header
   .container.is-lg
     = render 'announcement', announcement: @announcement
     #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
-    div(data-vue='Footprints' data-vue-footprintable_id="#{@announcement.id}" data-vue-footprintable_type='Announcement')
+    div(data-vue='Footprints' data-vue-footprintable-id="#{@announcement.id}" data-vue-footprintable-type='Announcement')
