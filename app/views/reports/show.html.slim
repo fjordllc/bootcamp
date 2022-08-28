@@ -43,6 +43,9 @@ header.page-header
                   - if @report.emotion.present?
                     span.page-content-header__emotion
                       = image_tag Report.faces[@report.emotion], id: @report.emotion, alt: @report.emotion, class: 'page-content-header__emotion-image'
+                  - if @report.user.trainee?
+                    = link_to company_path(@report.user.company) do
+                      = image_tag @report.user.company.logo_url, class: 'user-profile__company-logo'
                   - if @report.wip?
                     span.a-title-label.is-wip
                       | WIP
