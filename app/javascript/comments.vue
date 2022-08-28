@@ -235,7 +235,10 @@ export default {
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
-          if (this.currentUser.roles.includes('mentor')) {
+          if (
+            this.currentUser.roles.includes('mentor') &&
+            this.commentableType === 'Product'
+          ) {
             if (this.productCheckerId) {
               this.toast('コメントを投稿しました！')
             }
