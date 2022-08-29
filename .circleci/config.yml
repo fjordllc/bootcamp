@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.0-note
+      - image: cimg/ruby:3.1.0-node
     steps:
       - checkout
       - ruby/install-deps
