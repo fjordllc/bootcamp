@@ -12,7 +12,6 @@ jobs:
       - checkout
       - ruby/install-deps
       - node/install-packages:
-          cache-key: yarn.lock
           pkg-manager: yarn
   checking:
     docker:
@@ -45,7 +44,6 @@ jobs:
       - checkout
       - ruby/install-deps
       - node/install-packages:
-          cache-key: yarn.lock
           pkg-manager: yarn
       - run:
           name: Wait for DB
