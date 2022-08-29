@@ -43,14 +43,11 @@ jobs:
       - run:
           name: Test Setup
           command: |
-            cp config/application.example.yml config/application.yml
-            psql -U circleci -q -d project_name_test -f db/structure.sql -h localhost -p 5432
-            bundle exec rake assets:precompile
+            bundle exec rails db:setup
 
       - run:
           name: Run Tests
           command: |
-            bundle exec rails db:setup
             bundle exec rails test:all
 
       # collect reports
