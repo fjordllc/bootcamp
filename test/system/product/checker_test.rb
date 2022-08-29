@@ -72,9 +72,10 @@ class Product::CheckerTest < ApplicationSystemTestCase
     post_comment 'toast check'
     assert_text 'コメントを投稿しました'
 
-    fill_in 'new_comment[description]', with: 'taost check'
-    click_button '確認OKにする'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm do
+      fill_in 'new_comment[description]', with: 'taost check'
+      click_button '確認OKにする'
+    end
     assert_text '提出物を確認済みにしました'
   end
 end
