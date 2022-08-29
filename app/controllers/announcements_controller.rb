@@ -3,17 +3,11 @@
 class AnnouncementsController < ApplicationController
   before_action :require_login
   before_action :set_announcement, only: %i[show edit update destroy]
-<<<<<<< HEAD
   before_action :rewrite_announcement, only: %i[update]
-  before_action :set_footprints, only: %i[show]
-=======
->>>>>>> 足あとのVueコンポーネントとAPIを作成
 
   def index; end
 
-  def show
-    footprint!
-  end
+  def show; end
 
   def new
     @announcement = Announcement.new(target: 'students')

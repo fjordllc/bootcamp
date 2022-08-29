@@ -14,8 +14,11 @@ export default {
     footprint: { type: Object, required: true }
   },
   computed: {
-    roleClass() {
-      return `is-${this.footprint.user.login_name.primary_role}`
+    loginNameClass() {
+      return `is-${this.footprint.user.login_name}`
+    },
+    primaryRoleClass() {
+      return `is-${this.footprint.user.primary_role}`
     }
   }
 }
