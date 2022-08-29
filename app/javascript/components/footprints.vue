@@ -7,25 +7,19 @@
   h3.user-icons__title
     | 見たよ
   ul.user-icons__items(
-    v-if='footprintTotalCount < 10 || footprintTotalCount === 10'
+    v-if='tenOrLessFootprints || (moreThanTenFoorptints && isDisplay)'
   )
-    footprint(
-      v-for='footprint in footprints',
-      :key='footprint.key',
-      :footprint='footprint'
-    )
-  ul.user-icons__items(v-else-if='footprintTotalCount > 10 && isDisplay')
     footprint(
       v-for='footprint in limitedDisplayOnPage',
       :key='footprint.key',
       :footprint='footprint'
     )
   .page-content-prev-next__item-link(
-    v-if='footprintTotalCount > 10 && isDisplay',
+    v-if='moreThanTenFoorptints && isDisplay',
     @click='showRemainingFootprints'
   )
-    | その他{{ footprintTotalCount - 10 }}人
-  ul.user-icons__items(v-else-if='footprintTotalCount > 10 && !isDisplay')
+    | その他{{ numberOfRemainingFootprints }}人
+  ul.user-icons__items(v-else-if='moreThanTenFoorptints && !isDisplay')
     footprint(
       v-for='footprint in footprints',
       :key='footprint.key',
@@ -61,6 +55,16 @@ export default {
     },
     limitedDisplayOnPage() {
       return this.footprints.slice(0, 10)
+    },
+    tenOrLessFootprints() {
+      // 名前大丈夫そ？
+        return this.footprintTotalCount <= 10
+    },
+    moreThanTenFoorptints() {
+      return this.footprintTotalCount > 10
+    },
+    numberOfRemainingFootprints() {
+      return this.footprintTotalCount - 10
     }
   },
   created() {
