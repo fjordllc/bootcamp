@@ -10,11 +10,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = find_product
-    @reports = @product.user
-                       .reports
-                       .limit(10)
-                       .includes(:comments, :checks)
-                       .order(reported_on: :DESC)
     @products = @product.user
                         .products
                         .not_wip

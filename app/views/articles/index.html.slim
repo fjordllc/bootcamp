@@ -43,7 +43,4 @@
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
-                    .articles-item__row
-                      - if article.summary?
-                        = article.summary
         = paginate @articles
