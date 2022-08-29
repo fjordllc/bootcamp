@@ -26,15 +26,15 @@ jobs:
     docker:
       - image: cimg/ruby:3.1.0-browsers
         environment:
-          POSTGRES_USER: user
-          POSTGRES_DB: user_test
+          POSTGRES_USER: userb
+          POSTGRES_DB: bootcamp_test
           POSTGRES_PASSWORD: ""
       - image: cimg/postgres:14.4
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
-      PGUSER: user
+      PGUSER: usera
       PGPASSWORD: ""
       RAILS_ENV: test
     parallelism: 3
