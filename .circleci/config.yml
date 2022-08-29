@@ -26,7 +26,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.1.0-browsers
         environment:
-          POSTGRES_USER: userb
+          POSTGRES_USER: circleci-demo-ruby
           POSTGRES_DB: bootcamp_test
           POSTGRES_PASSWORD: ""
       - image: cimg/postgres:14.4
@@ -34,7 +34,7 @@ jobs:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
-      PGUSER: usera
+      PGUSER: circleci-demo-ruby
       PGPASSWORD: ""
       RAILS_ENV: test
     parallelism: 3
