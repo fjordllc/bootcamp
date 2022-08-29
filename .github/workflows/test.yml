@@ -35,12 +35,6 @@ jobs:
           --health-retries 5
 
     steps:
-      # Make sure you put workflow kit action on top of all the steps 
-      - name: Collect Workflow Telemetry
-        uses: runforesight/foresight-workflow-kit-action@v1
-        with:
-          api_key: 142ccd68-f3bf-4645-88c8-8e125c23031b
-    
       - name: Set Timezone
         uses: szenius/set-timezone@v1.0
         with:
@@ -73,19 +67,4 @@ jobs:
         run: bundle exec rails db:setup
 
       - name: Run tests
-        run: MINITEST_REPORTER=JUnitReporter bundle exec rails test:all
-
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v3
-        if: always() # always run even if the previous step fails
-        with:
-          report_paths: '**/test/reports/TEST-*.xml'
-
-      # Make sure you put test kit action after your test execution step 
-      - name: Analyze Test and/or Coverage Results
-        uses: runforesight/foresight-test-kit-action@v1
-        with:
-          api_key: 142ccd68-f3bf-4645-88c8-8e125c23031b
-          test_format: JUNIT
-          test_framework: JUNIT
-          test_path: '**/test/reports/TEST-*.xml'
+        run: bundle exec rails test:all
