@@ -57,9 +57,7 @@
                 span.a-meta__value
                   | {{ updatedAt }}
             .card-list-item-meta__item
-              .a-meta(
-                :class='[zeroComment]'
-              )
+              .a-meta(:class='[urgentClass]')
                 | 回答・コメント（{{ question.answers.size }}）
     .stamp.is-circle.is-solved(v-if='question.has_correct_answer')
       .stamp__content.is-icon 解
@@ -83,12 +81,15 @@ export default {
         'YYYY年MM月DD日(dd) HH:mm'
       )
     },
+    hasAnswers() {
+      return this.question.answers.size > 0
+    },
     roleClass() {
       return `is-${this.question.user.primary_role}`
     },
-    zeroComment() {
+    urgentClass() {
       return {
-        'is-danger': this.question.answers.size === 0
+        'is-danger': !this.hasAnswers
       }
     },
     questionClass() {
