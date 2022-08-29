@@ -54,7 +54,7 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Test
-          command: 'bundle exec rails test'
+          command: 'bundle exec rails test:all'
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
