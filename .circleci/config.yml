@@ -1,98 +1,61 @@
-version: 2
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.8.0
+  node: circleci/node@5.0.2
+  browser-tools: circleci/browser-tools@1.3.0
+
 jobs:
   build:
     docker:
-       - image: circleci/ruby:3.1.0-node-browsers
-         environment:
-           DATABASE_URL: 'postgres://user@localhost:5432/user_test'
-           RAILS_ENV: test
+      # Specify the Ruby version you desire here
+      - image: cimg/ruby:3.1-browsers
 
-       - image: circleci/postgres:10.3-alpine
-         environment:
-           POSTGRES_USER: user
-           POSTGRES_DB: user_test
-    working_directory: ~/repo
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: cimg/postgres:10.20
+        environment:
+          POSTGRES_USER: user
+          POSTGRES_DB: user_test
+          POSTGRES_PASSWORD: ""
+
     environment:
-      TZ: "Asia/Tokyo"
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: user
+      PGPASSWORD: ""
+      RAILS_ENV: test
+      CC_TEST_REPORTER_ID: some_long_token
+      COVERAGE: true
 
     steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-
-      - run: sudo apt-get install -y fonts-ipafont-gothic fonts-ipafont-mincho
-
-      - run: gem install bundler
+      - ruby/install-deps
 
       - run:
-          name: install dependencies
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Test Setup
           command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle --clean
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+            cp config/application.example.yml config/application.yml
+            psql -U circleci -q -d project_name_test -f db/structure.sql -h localhost -p 5432
+            bundle exec rake assets:precompile
 
       - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
-
-      - run:
-          name: Update Chromedriver
+          name: Run Tests
           command: |
-            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get --only-upgrade install google-chrome-stable
+            bundle exec rails db:setup
+            bundle exec rails test:all
 
-      - restore_cache:
-          keys:
-            - rails-yarn-{{ checksum "yarn.lock" }}
-            - rails-yarn-
-
-      - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
-
-      - save_cache:
-          paths:
-            - ~/.cache/yarn
-          key: rails-yarn-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: rubocop
-          command: |
-            bundle exec rubocop
-
-      - run:
-          command: FAIL_ON_ERROR=1 bundle exec rake traceroute
-          when: always
-
-      - run:
-          name: Lint
-          command: |
-            bundle exec slim-lint app/views -c config/slim_lint.yml
-            bin/yarn lint
-
-      - run:
-          name: Test
-          command: |
-            bundle exec rake db:schema:load
-            bin/rails test:all
-
+      # collect reports
       - store_test_results:
-          path: tmp/test-results
+          path: /tmp/test-results
       - store_artifacts:
-          path: tmp/screenshots
-          destination: screenshots
-
-workflows:
-  version: 2
-
-  workflow:
-    jobs:
-      - build
+          path: /tmp/test-results
+          destination: test-results
