@@ -51,7 +51,7 @@ jobs:
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
           name: Database setup
-          command: 'bundle exec rails db:schema:load --trace'
+          command: 'bundle exec rails db:setup'
       - run:
           name: Test
           command: 'bundle exec rails test'
