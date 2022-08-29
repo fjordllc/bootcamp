@@ -5,7 +5,7 @@ li.user-icons__item
       :title='footprint.user.icon_title',
       :alt='footprint.user.icon_title',
       :src='footprint.user.avatar_url',
-      :class='[`is-${this.footprint.user.login_name} is-${this.footprint.user.primary_role}`]'
+      :class='[loginNameClass, primaryRoleClass]'
     )
 </template>
 <script>
@@ -14,8 +14,11 @@ export default {
     footprint: { type: Object, required: true }
   },
   computed: {
-    roleClass() {
-      return `is-${this.footprint.user.login_name.primary_role}`
+    loginNameClass() {
+      return `is-${this.footprint.user.login_name}`
+    },
+    primaryRoleClass() {
+      return `is-${this.footprint.user.primary_role}`
     }
   }
 }
