@@ -16,6 +16,7 @@ class HibernationController < ApplicationController
     if @hibernation.save
       update_hibernated_at!
       destroy_subscription!
+      notify_to_mentors_and_admins
       logout
       redirect_to hibernation_path
     else
@@ -42,7 +43,7 @@ class HibernationController < ApplicationController
 
   def notify_to_mentors_and_admins
     User.admins_and_mentors.each do |admin_or_mentor|
-      NotificationFacade.retired(current_user, admin_or_mentor)
+      NotificationFacade.hibernated(current_user, admin_or_mentor)
     end
   end
 end
