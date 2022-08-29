@@ -29,7 +29,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
-      - image: cimg/postgres:14.4.0
+      - image: cimg/postgres:14.4
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
