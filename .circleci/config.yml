@@ -4,22 +4,33 @@ orbs:
   ruby: circleci/ruby@1.8.0
   node: circleci/node@5.0.2
   browser-tools: circleci/browser-tools@1.3.0
-
 jobs:
   build:
     docker:
-      # Specify the Ruby version you desire here
+      - image: cimg/ruby:3.1.0-note
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          cache-key: yarn.lock
+          pkg-manager: yarn
+  checking:
+    docker:
+      - image: 'cimg/ruby:3.1.0-node'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
+  test:
+    docker:
       - image: cimg/ruby:3.1.0-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: cimg/postgres:10.20
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: user_test
           POSTGRES_PASSWORD: ""
-
+      - image: cimg/postgres:14.4
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -27,32 +38,34 @@ jobs:
       PGUSER: user
       PGPASSWORD: ""
       RAILS_ENV: test
-      CC_TEST_REPORTER_ID: some_long_token
-      COVERAGE: true
-
+    parallelism: 3
     steps:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - checkout
       - ruby/install-deps
-
+      - node/install-packages:
+          cache-key: yarn.lock
+          pkg-manager: yarn
       - run:
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
+          name: Wait for DB
+          command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
       - run:
-          name: Test Setup
-          command: |
-            bundle exec rails db:setup
-
+          name: Database setup
+          command: 'bundle exec rails db:schema:load --trace'
       - run:
-          name: Run Tests
-          command: |
-            bundle exec rails test:all
-
-      # collect reports
+          name: Test
+          command: 'bundle exec rails test'
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - checking
+      - test:
+          requires:
+            - build
