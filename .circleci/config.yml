@@ -9,7 +9,7 @@ jobs:
   build:
     docker:
       # Specify the Ruby version you desire here
-      - image: cimg/ruby:3.1-browsers
+      - image: cimg/ruby:3.1.0-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
