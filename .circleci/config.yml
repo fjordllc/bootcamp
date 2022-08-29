@@ -26,17 +26,18 @@ jobs:
     docker:
       - image: cimg/ruby:3.1.0-browsers
         environment:
-          POSTGRES_USER: circleci-demo-ruby
-          POSTGRES_DB: bootcamp_test
-          POSTGRES_PASSWORD: ""
-      - image: cimg/postgres:14.4
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_test
+      - image: cimg/postgres:14.4.0
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
-      PGUSER: circleci-demo-ruby
-      PGPASSWORD: ""
+      PGUSER: postgres
+      PGPASSWORD: "postgres"
       RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
     parallelism: 3
     steps:
       - browser-tools/install-chrome
