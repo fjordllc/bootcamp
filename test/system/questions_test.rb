@@ -240,6 +240,16 @@ class QuestionsTest < ApplicationSystemTestCase
     end
   end
 
+  test "show number of comments when comments don't exist" do
+    visit_with_auth questions_path(target: 'not_solved'), 'kimura'
+    assert_text 'テストの質問'
+
+    element = all('.card-list-item').find { |component| component.has_text?('テストの質問') }
+    within element do
+      assert_selector '.a-meta.is-danger', text: '（0）'
+    end
+  end
+
   test 'create a WIP question' do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do

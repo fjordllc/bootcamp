@@ -56,8 +56,8 @@
                   | 更新
                 span.a-meta__value
                   | {{ updatedAt }}
-            .card-list-item-meta__item(v-if='question.answers.size > 0')
-              .a-meta
+            .card-list-item-meta__item
+              .a-meta(:class='[urgentClass]')
                 | 回答・コメント（{{ question.answers.size }}）
     .stamp.is-circle.is-solved(v-if='question.has_correct_answer')
       .stamp__content.is-icon 解
@@ -81,8 +81,16 @@ export default {
         'YYYY年MM月DD日(dd) HH:mm'
       )
     },
+    hasAnswers() {
+      return this.question.answers.size > 0
+    },
     roleClass() {
       return `is-${this.question.user.primary_role}`
+    },
+    urgentClass() {
+      return {
+        'is-danger': !this.hasAnswers
+      }
     },
     questionClass() {
       if (this.question.has_correct_answer) {
