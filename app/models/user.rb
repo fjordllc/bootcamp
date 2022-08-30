@@ -225,7 +225,7 @@ class User < ApplicationRecord
   scope :same_company, lambda { |user|
     where(company_id: user.company_id)
   }
-  scope :my_subordinates, lambda { |user|
+  scope :collegue_trainees, lambda { |user|
     same_company(user).students_and_trainees
   }
   scope :students_and_trainees, lambda {
