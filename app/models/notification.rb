@@ -125,17 +125,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def following_report(report, receiver)
-      Notification.create!(
-        kind: kinds[:following_report],
-        user: receiver,
-        sender: report.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(report),
-        message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
-        read: false
-      )
-    end
-
     def chose_correct_answer(answer, receiver)
       Notification.create!(
         kind: kinds[:chose_correct_answer],
