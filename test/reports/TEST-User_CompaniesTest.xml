@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='157.658575' skipped='0' failures='0' errors='0' name="User::CompaniesTest" assertions='44' tests='6' timestamp="2022-08-30T19:21:48+09:00">
+  <testcase time='64.061224' file="test/system/user/companies_test.rb" name="test_show_companies_with_users" assertions='3'>
+  </testcase>
+  <testcase time='68.850015' file="test/system/user/companies_test.rb" name="test_show_all_users_belonging_to_each_company" assertions='19'>
+  </testcase>
+  <testcase time='7.823330' file="test/system/user/companies_test.rb" name="test_show_trainee_belonging_to_each_company" assertions='6'>
+  </testcase>
+  <testcase time='5.846668' file="test/system/user/companies_test.rb" name="test_show_adviser_belonging_to_each_company" assertions='5'>
+  </testcase>
+  <testcase time='5.780118' file="test/system/user/companies_test.rb" name="test_show_graduate_belonging_to_each_company" assertions='5'>
+  </testcase>
+  <testcase time='5.297220' file="test/system/user/companies_test.rb" name="test_show_mentor_belonging_to_each_company" assertions='6'>
+  </testcase>
+</testsuite>
