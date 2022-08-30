@@ -13,7 +13,7 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-  checking:
+  check:
     docker:
       - image: 'cimg/ruby:3.1.0-node'
     steps:
@@ -22,6 +22,17 @@ jobs:
       - ruby/rubocop-check:
           format: progress
           label: Inspecting with Rubocop
+      - run:
+          name: Slim Lint
+          command: bundle exec slim-lint app/views -c config/slim_lint.yml
+      - run:
+          name: Traceroute
+          command: FAIL_ON_ERROR=1 bundle exec rake traceroute
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Lint
+          command: bin/yarn lint
   test:
     docker:
       - image: cimg/ruby:3.1.0-browsers
@@ -30,6 +41,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
       - image: cimg/postgres:14.4
+    resource_class: large
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -38,6 +50,8 @@ jobs:
       PGPASSWORD: "postgres"
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+      TZ: Asia/Tokyo
+      PARALLEL_WORKERS: 2
     parallelism: 3
     steps:
       - browser-tools/install-chrome
@@ -54,9 +68,13 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Test
-          command: 'bundle exec rails test:all'
+          command: |
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            bundle exec rails test $TESTFILES
+          no_output_timeout: 30m
+          when: always
       - store_test_results:
-          path: /tmp/test-results
+          path: test/reports
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
@@ -64,7 +82,7 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - checking
+      - check
       - test:
           requires:
             - build
