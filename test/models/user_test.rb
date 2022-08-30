@@ -571,8 +571,8 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(target, users(:kensyuowata))
   end
 
-  test 'my_subordinates_method_includes_only_trainees_belonging_the_same_company' do
-    target = User.my_subordinates(users(:senpai))
+  test 'collegue_trainees_method_includes_only_trainees_belonging_the_same_company' do
+    target = User.collegue_trainees(users(:senpai))
     assert_includes(target, users(:kensyu))
     assert_not_includes(target, users(:kensyuowata))
   end
