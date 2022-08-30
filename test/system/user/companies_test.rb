@@ -14,7 +14,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/users/companies', 'kimura'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '全員')
-    assert_text '企業別ユーザー一覧（全員）'
+    assert_text '企業別（全員）'
     assert_selector('.group-company-name__label', text: 'Fjord Inc.')
     within first('.a-user-icons__items') do
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['data-login-name'], 'komagata'
@@ -30,7 +30,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
 
     click_link '全員'
 
-    assert_text '企業別ユーザー一覧（全員）'
+    assert_text '企業別（全員）'
     assert_selector('.group-company-name__label', text: 'Fjord Inc.')
     within first('.a-user-icons__items') do
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['data-login-name'], 'komagata'
@@ -49,7 +49,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/users/companies', 'kimura'
     click_link '研修生'
 
-    assert_text '企業別ユーザー一覧（研修生）'
+    assert_text '企業別（研修生）'
     assert_selector('a.tab-nav__item-link.is-active', text: '研修生')
     assert_no_selector('.group-company-name__label', text: 'Fjord Inc.')
     assert_selector('.group-company-name__label', text: 'root inc.')
@@ -61,7 +61,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/users/companies', 'kimura'
     click_link 'アドバイザー'
 
-    assert_text '企業別ユーザー一覧（アドバイザー）'
+    assert_text '企業別（アドバイザー）'
     assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
     assert_no_selector('.group-company-name__label', text: 'Fjord Inc.')
     assert_selector('.group-company-name__label', text: 'root inc.')
@@ -72,7 +72,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/users/companies', 'kimura'
     click_link '卒業生'
 
-    assert_text '企業別ユーザー一覧（卒業生）'
+    assert_text '企業別（卒業生）'
     assert_selector('a.tab-nav__item-link.is-active', text: '卒業生')
     assert_no_selector('.group-company-name__label', text: 'Fjord Inc.')
     assert_selector('.group-company-name__label', text: 'root inc.')
@@ -83,7 +83,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth '/users/companies', 'kimura'
     click_link 'メンター'
 
-    assert_text '企業別ユーザー一覧（メンター）'
+    assert_text '企業別（メンター）'
     assert_selector('a.tab-nav__item-link.is-active', text: 'メンター')
     assert_selector('.group-company-name__label', text: 'Fjord Inc.')
     assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['data-login-name'], 'komagata'
