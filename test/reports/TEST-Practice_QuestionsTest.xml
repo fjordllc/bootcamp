@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='125.352722' skipped='0' failures='0' errors='0' name="Practice::QuestionsTest" assertions='4' tests='3' timestamp="2022-08-30T20:13:26+09:00">
-  <testcase time='60.509259' file="test/system/practice/questions_test.rb" name="test_show_listing_questions" assertions='1'>
-  </testcase>
-  <testcase time='60.698054' file="test/system/practice/questions_test.rb" name="test_not_show_a_WIP_question_on_the_unsolved_questions_list_" assertions='2'>
-  </testcase>
-  <testcase time='4.145409' file="test/system/practice/questions_test.rb" name="test_show_a_WIP_question_on_the_all_questions_list_" assertions='1'>
-  </testcase>
-</testsuite>
