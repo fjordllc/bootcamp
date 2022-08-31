@@ -11,6 +11,6 @@ class AttachmentsTest < ApplicationSystemTestCase
 
   test 'attachment company icons in reports' do
     visit_with_auth '/reports/49764969', 'kensyu'
-    assert find('img.user-profile__company-logo')['src'].include?('2.png')
+    assert find('img.page-content-header__company-logo')['src'].include?('2.png')
   end
 end
