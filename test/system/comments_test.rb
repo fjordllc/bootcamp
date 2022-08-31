@@ -286,4 +286,28 @@ class CommentsTest < ApplicationSystemTestCase
       assert_no_text :all, 'test'
     end
   end
+
+  test 'when mentor confirm a product with comment' do
+    unconfirmed_product = products(:product1)
+    visit_with_auth product_url(unconfirmed_product), 'machida'
+
+    accept_confirm do
+      fill_in 'new_comment[description]', with: 'comment test'
+      click_button '確認OKにする'
+    end
+    assert_text '提出物を確認済みにしました'
+    assert_text 'comment test'
+  end
+
+  test 'when mentor confirm a report with comment' do
+    visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
+    assert_text '確認OKにする'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'comment test')
+    end
+    click_button '確認OKにする'
+
+    assert_text '日報を確認済みにしました'
+    assert_text 'comment test'
+  end
 end
