@@ -5,11 +5,14 @@
 .welcome-page-header
   .container.is-xxl
     .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
-        - if current_user.mentor?
+      .welcome-page-header__start
+        h1.welcome-page-header__title
+          = title
+      - if current_user.mentor?
+        .welcome-page-header__end
           = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
-            | +ブログ記事作成
+            i.fas.fa-plus
+            | ブログ記事作成
 
 .welcome-page-body
   .articles
