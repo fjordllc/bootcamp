@@ -21,17 +21,6 @@ header.page-header
         html: { name: 'hibernation' },
         class: 'form' do |f|
         .form__items
-          //
-            休会についての注意を実装したら表示する
-            .form-item
-              label.a-form-label.is-required
-                | 休会についての注意を読みましたか？
-              .block-checks.is-2-items
-                .block-checks__item
-                  .a-block-check.is-checkbox
-                    input.a-toggle-checkbox#aaa(type='checkbox')
-                    label.a-block-check__label(for='aaa')
-                      | 読みました
           .form-item
             = f.label :scheduled_return_on,
               class: 'a-form-label is-required'
@@ -78,6 +67,17 @@ header.page-header
                       = link_to edit_current_user_path(anchor: 'times-url') do
                         | こちら
                       | のページの「分報 URL」欄に分報チャンネルの URL を登録してください。
+
+
+          .form-item
+            label.a-form-label.is-required
+              | 休会についての注意を読みましたか？
+            .block-checks.is-1-item.is-centered
+              .block-checks__item
+                .a-block-check.is-checkbox
+                  input.a-toggle-checkbox#aaa(type='checkbox')
+                  label.a-block-check__label(for='aaa')
+                    | 読みました
 
         .form-actions
           ul.form-actions__items
