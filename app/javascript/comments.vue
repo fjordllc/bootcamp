@@ -203,7 +203,7 @@ export default {
           }
         })
     },
-    createComment({ toast = null }) {
+    createComment({ toast }) {
       if (this.description.length < 1) {
         return null
       }
@@ -304,7 +304,7 @@ export default {
       ) {
         return null
       } else {
-        this.createComment({ toast: '提出物を確認済みにしました。' })
+        this.createComment({ toast: this.toastMessage() })
         this.check(
           this.commentableType,
           this.commentableId,
