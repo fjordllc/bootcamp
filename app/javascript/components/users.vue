@@ -1,51 +1,53 @@
 <template lang="pug">
 .users
   .page-filter.form(v-if='users.length !== 0 && isAll')
-    .form__items
-      .form-item.is-inline-md-up
-        label.a-form-label
-          | 絞り込み
-        input#js-user-search-input.a-text-input(
-          v-model.trim='searchUsersWord',
-          placeholder='ユーザー名、読み方、Discord ID、GitHub ID など'
-        )
-  .users__items
-    .row(v-if='!loaded')
-      .empty
-        .fa-solid.fa-spinner.fa-pulse
-        |
-        | ロード中
-    .row(v-else-if='users.length !== 0')
-      .user-list(v-show='!showSearchedUsers')
-        nav.pagination(v-if='totalPages > 1')
-          pager(v-bind='pagerProps')
-        user(
-          v-for='user in users',
-          :key='user.id',
-          :user='user',
-          :currentUser='currentUser'
-        )
-        nav.pagination(v-if='totalPages > 1')
-          pager(v-bind='pagerProps')
-      .searched-user-list(v-show='showSearchedUsers')
-        .o-empty-message(v-if='searchedUsers.length === 0')
-          .o-empty-message__icon
-            i.far.fa-sad-tear
-          p.o-empty-message__text
-            | 一致するユーザーはいません
-        .card-list.a-card(v-else)
-          user(
-            v-for='user in searchedUsers',
-            :key='user.id',
-            :user='user',
-            :currentUser='currentUser'
+    .container.is-md.has-no-x-padding
+      .form__items
+        .form-item.is-inline-md-up
+          label.a-form-label
+            | 絞り込み
+          input#js-user-search-input.a-text-input(
+            v-model.trim='searchUsersWord',
+            placeholder='ユーザー名、読み方、Discord ID、GitHub ID など'
           )
-    .row(v-else)
-      .o-empty-message
-        .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
-        p.o-empty-message__text
-          | {{ targetName }}のユーザーはいません
+  .page-content.is-users
+    .users__items
+      .row(v-if='!loaded')
+        .loading
+          .fa-solid.fa-spinner.fa-pulse
+          | ロード中
+      div(v-else-if='users.length !== 0')
+        .user-list(v-show='!showSearchedUsers')
+          nav.pagination(v-if='totalPages > 1')
+            pager(v-bind='pagerProps')
+          .row
+            user(
+              v-for='user in users',
+              :key='user.id',
+              :user='user',
+              :currentUser='currentUser'
+            )
+          nav.pagination(v-if='totalPages > 1')
+            pager(v-bind='pagerProps')
+        .searched-user-list(v-show='showSearchedUsers')
+          .o-empty-message(v-if='searchedUsers.length === 0')
+            .o-empty-message__icon
+              i.far.fa-sad-tear
+            p.o-empty-message__text
+              | 一致するユーザーはいません
+          div(v-else)
+            user(
+              v-for='user in searchedUsers',
+              :key='user.id',
+              :user='user',
+              :currentUser='currentUser'
+            )
+      .row(v-else)
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          p.o-empty-message__text
+            | {{ targetName }}のユーザーはいません
 </template>
 <script>
 import User from './user.vue'
