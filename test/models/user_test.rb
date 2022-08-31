@@ -555,25 +555,28 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:sotugyou_with_job))
   end
 
+  test '#belongs_company?' do
+    assert users(:kensyu).belongs_company?
+    assert_not users(:kimura).belongs_company?
+  end
+
   test '#belongs_company_and_adviser?' do
-    trainee = users(:kensyu)
-    adviser = users(:advijirou)
-    adviser_belonging_company = users(:senpai)
-
-    assert_not trainee.belongs_company_and_adviser?
-    assert_not adviser.belongs_company_and_adviser?
-    assert adviser_belonging_company.belongs_company_and_adviser?
+    assert_not users(:kensyu).belongs_company_and_adviser?
+    assert_not users(:advijirou).belongs_company_and_adviser?
+    assert users(:senpai).belongs_company_and_adviser?
   end
 
-  test 'same_company_method_includes_users_belonging_the_same_company' do
-    target = User.same_company(users(:senpai))
-    assert_includes(target, users(:kensyu))
+  test '#collegues' do
+    target = users(:kensyu).collegues
     assert_includes(target, users(:kensyuowata))
+    assert_nil users(:kimura).collegues
   end
 
-  test 'collegue_trainees_method_includes_only_trainees_belonging_the_same_company' do
-    target = User.collegue_trainees(users(:senpai))
+  test '#collegue_trainees' do
+    target = users(:senpai).collegue_trainees
     assert_includes(target, users(:kensyu))
-    assert_not_includes(target, users(:kensyuowata))
+
+    assert_nil users(:kimura).collegue_trainees
+    assert_nil users(:advijirou).collegue_trainees
   end
 end
