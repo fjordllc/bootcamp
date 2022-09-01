@@ -99,7 +99,10 @@ export default {
       }
     },
     isAll() {
-      return location.search !== '?target=followings'
+      return (
+        location.pathname === '/users' &&
+        location.search !== '?target=followings'
+      )
     }
   },
   watch: {
