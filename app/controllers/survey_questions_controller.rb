@@ -19,7 +19,8 @@ class SurveyQuestionsController < ApplicationController
 
   def create
     @survey_question = SurveyQuestion.new(survey_question_params)
-    @survey_question.user_id = current_user.id
+    @survey_question.creator_id = current_user.id
+    @survey_question.updater_id = current_user.id
     switch_initialization
 
     if @survey_question.save
@@ -29,11 +30,10 @@ class SurveyQuestionsController < ApplicationController
     end
   end
 
-  def edit
-    @survey_question.user_id = current_user.id
-  end
+  def edit; end
 
   def update
+    @survey_question.updater_id = current_user.id
     switch_initialization
     if @survey_question.update(survey_question_params)
       redirect_to survey_questions_path, notice: '質問を保存しました。'
