@@ -216,6 +216,7 @@ import Choices from 'choices.js'
 dayjs.locale(ja)
 
 export default {
+  name: 'QuestionEdit',
   components: {
     WatchToggle: WatchToggle,
     BookmarkButton: BookmarkButton,
