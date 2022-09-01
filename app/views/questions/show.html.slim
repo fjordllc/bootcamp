@@ -14,7 +14,4 @@ header.page-header
             = link_to questions_path(target: 'not_solved'), class: 'a-button is-md is-secondary is-block is-back' do
               | Q&A一覧
 
-#js-question(
-  data-current-user-id="#{current_user.id}"
-  data-question-id="#{@question.id}"
-)
+div(data-vue="QuestionPage" data-vue-current-user-id="#{current_user.id}" data-vue-question-id="#{@question.id}")
