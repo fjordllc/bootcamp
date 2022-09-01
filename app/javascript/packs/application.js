@@ -16,7 +16,6 @@ import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
 import '../comments.js'
 import '../notifications_bell.js'
-import '../question-page.js'
 import '../category-select.js'
 import '../grass.js'
 import '../fileinput.js'
@@ -78,6 +77,8 @@ import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Reports from '../components/reports.vue'
+import QuestionPage from '../components/question-page.vue'
+import QuestionEdit from '../components/question-edit.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -88,4 +89,6 @@ mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
 mounter.addComponent(Reports)
+mounter.addComponent(QuestionPage)
+mounter.addComponent(QuestionEdit)
 mounter.mount()
