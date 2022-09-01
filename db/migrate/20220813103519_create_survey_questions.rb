@@ -5,7 +5,8 @@ class CreateSurveyQuestions < ActiveRecord::Migration[6.1]
       t.text :question_description
       t.integer :question_format, default: 0
       t.boolean :answer_required, default: false
-      t.references :user, foreign_key: true
+      t.references :creator, foreign_key: { to_table: :users }
+      t.references :updater, foreign_key: { to_table: :users }
       t.timestamps
     end
   end
