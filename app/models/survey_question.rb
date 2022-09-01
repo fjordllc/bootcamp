@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SurveyQuestion < ApplicationRecord
-  belongs_to :creator, class_name: 'User'
-  belongs_to :updater, class_name: 'User'
+  belongs_to :creator, class_name: 'User', optional: true
+  belongs_to :updater, class_name: 'User', optional: true
   has_one :linear_scale, dependent: :destroy
   accepts_nested_attributes_for :linear_scale, allow_destroy: true
   has_one :radio_button, dependent: :destroy

@@ -20,7 +20,6 @@ class SurveyQuestionsController < ApplicationController
   def create
     @survey_question = SurveyQuestion.new(survey_question_params)
     @survey_question.creator_id = current_user.id
-    @survey_question.updater_id = current_user.id
     switch_initialization
 
     if @survey_question.save

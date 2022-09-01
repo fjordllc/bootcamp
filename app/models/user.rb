@@ -64,7 +64,6 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :watches, dependent: :destroy
   has_many :articles, dependent: :destroy
-  has_many :survey_questions, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :regular_events, dependent: :destroy
   has_many :organizers, dependent: :destroy
@@ -133,6 +132,18 @@ class User < ApplicationRecord
   has_many :participate_regular_events,
            through: :regular_event_participations,
            source: :regular_event
+
+  has_many :create_questions,
+           class_name: 'SurveyQuestion',
+           foreign_key: 'creator_id',
+           inverse_of: 'user',
+           dependent: :destroy
+
+  has_many :update_questions,
+           class_name: 'SurveyQuestion',
+           foreign_key: 'updater_id',
+           inverse_of: 'user',
+           dependent: :destroy
 
   has_one_attached :avatar
   has_one_attached :profile_image
