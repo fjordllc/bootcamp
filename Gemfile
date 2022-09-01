@@ -40,7 +40,7 @@ gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'newspaper'
 gem 'oauth2'
-gem 'omniauth', '~> 1.9.1'
+gem 'omniauth', '~> 1.9.2'
 gem 'omniauth-github', '~> 1.4.0'
 gem 'pg'
 gem 'postmark-rails'
