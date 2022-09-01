@@ -89,7 +89,7 @@ export default {
     },
     urgentClass() {
       return {
-        'is-danger': !this.hasAnswers
+        'is-important': !this.hasAnswers
       }
     },
     questionClass() {

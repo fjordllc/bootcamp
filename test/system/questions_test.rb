@@ -246,7 +246,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     element = all('.card-list-item').find { |component| component.has_text?('テストの質問') }
     within element do
-      assert_selector '.a-meta.is-danger', text: '（0）'
+      assert_selector '.a-meta.is-important', text: '（0）'
     end
   end
 
