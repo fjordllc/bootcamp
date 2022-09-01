@@ -449,6 +449,13 @@ class UsersTest < ApplicationSystemTestCase
     assert_text 'Kimura Tadasi', count: 1
   end
 
+  test 'incremental search by facebook_url' do
+    visit_with_auth '/users', 'komagata'
+    assert_equal 20, all('.users-item').length
+    fill_in 'js-user-search-input', with: 'kimurafacebook'
+    assert_text 'Kimura Mitai', count: 1
+  end
+
   test 'incremental search by description' do
     visit_with_auth '/users', 'komagata'
     assert_equal 20, all('.users-item').length
