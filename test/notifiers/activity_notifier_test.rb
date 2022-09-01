@@ -74,6 +74,18 @@ class ActivityNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  test '#hibernated' do
+    notification = ActivityNotifier.with(sender: users(:kimura), receiver: users(:komagata)).hibernated
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
+
   test '#retired' do
     notification = ActivityNotifier.with(sender: users(:kimura), receiver: users(:komagata)).retired
 
