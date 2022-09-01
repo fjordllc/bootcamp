@@ -136,13 +136,13 @@ class User < ApplicationRecord
   has_many :create_questions,
            class_name: 'SurveyQuestion',
            foreign_key: 'creator_id',
-           inverse_of: 'user',
+           inverse_of: 'creator',
            dependent: :destroy
 
   has_many :update_questions,
            class_name: 'SurveyQuestion',
            foreign_key: 'updater_id',
-           inverse_of: 'user',
+           inverse_of: 'updater',
            dependent: :destroy
 
   has_one_attached :avatar
