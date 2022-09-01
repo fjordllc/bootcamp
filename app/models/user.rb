@@ -660,16 +660,12 @@ class User < ApplicationRecord
       products.wip.exists? || announcements.wip.exists? || events.wip.exists?
   end
 
-  def belongs_company?
-    !company.nil?
-  end
-
   def belongs_company_and_adviser?
-    adviser? && belongs_company?
+    adviser? && company_id?
   end
 
   def collegues
-    company.users if belongs_company?
+    company.users if company_id?
   end
 
   def collegue_trainees
