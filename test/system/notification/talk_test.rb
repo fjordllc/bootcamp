@@ -91,8 +91,10 @@ class Notification::TalkTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました'
 
     visit '/talks/unreplied'
+    assert_text '未返信の相談部屋はありません'
     within(:css, '.global-nav') do
       within(:css, "a[href='/talks/unreplied'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
