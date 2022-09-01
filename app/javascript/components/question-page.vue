@@ -18,11 +18,12 @@
       @cancelSolveQuestion='cancelSolveQuestion')
 </template>
 <script>
-import QuestionEdit from 'question-edit.vue'
+import QuestionEdit from 'components/question-edit.vue'
 import Answers from 'answers.vue'
 import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
 
 export default {
+  name: 'QuestionPage',
   components: {
     LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
     /* app/javascript/loading-question-page-placeholder.vue */
