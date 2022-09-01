@@ -1,5 +1,9 @@
 .page-content
   header.page-content-header
+    .page-content-header__start
+      .page-content-header__category
+        .page-content-header__category-icon(class="is-#{regular_event.category.gsub('_', '-')}")
+          = t("activerecord.enums.regular_event.category.#{regular_event.category}")
     .page-content-header__end
       .page-content-header__row
         h1.page-content-header__title(class="#{regular_event.wip? ? 'is-wip' : ''}")
