@@ -530,6 +530,9 @@ class UsersTest < ApplicationSystemTestCase
     visit '/users/tags'
     assert has_no_field? 'js-user-search-input'
 
+    visit '/users/tags/猫'
+    assert has_no_field? 'js-user-search-input'
+
     visit '/users?target=followings'
     assert has_no_field? 'js-user-search-input'
 
