@@ -189,6 +189,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'not show welcome message' do
     visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
     click_button '着手'
+    assert_selector '.is-started.is-active'
     visit '/'
     assert_no_text 'ようこそ'
   end
