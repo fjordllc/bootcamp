@@ -555,11 +555,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:sotugyou_with_job))
   end
 
-  test '#belongs_company?' do
-    assert users(:kensyu).belongs_company?
-    assert_not users(:kimura).belongs_company?
-  end
-
   test '#belongs_company_and_adviser?' do
     assert_not users(:kensyu).belongs_company_and_adviser?
     assert_not users(:advijirou).belongs_company_and_adviser?
