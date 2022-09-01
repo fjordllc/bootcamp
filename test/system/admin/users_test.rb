@@ -235,4 +235,22 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_current_path('/')
     assert_text '管理者としてログインしてください'
   end
+
+  test 'administrator cannot update profiles of general users' do
+    user = users(:kimura)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_no_text 'プロフィール'
+    assert_no_text 'プロフィール画像'
+    assert_no_text 'プロフィール名'
+    assert_no_text 'プロフィール文'
+  end
+
+  test 'administrator can update profiles of mentors' do
+    user = users(:machida)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'プロフィール'
+    assert_text 'プロフィール画像'
+    assert_text 'プロフィール名'
+    assert_text 'プロフィール文'
+  end
 end

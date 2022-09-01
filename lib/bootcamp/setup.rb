@@ -8,12 +8,23 @@ module Bootcamp
       end
 
       def attachment
+        attach_mentor_profile_image!
         attach_user_avatar!
         attach_company_logo!
         attach_book_cover!
       end
 
       private
+
+      def attach_mentor_profile_image!
+        mentors = User.where(mentor: true)
+        mentors.each do |mentor|
+          filename =
+            File.exist?(Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{mentor.login_name}.jpg")) ? "#{mentor.login_name}.jpg" : 'default.jpg'
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
+          mentor.profile_image.attach(io: File.open(path), filename: filename)
+        end
+      end
 
       def attach_user_avatar!
         User.all.each do |user|

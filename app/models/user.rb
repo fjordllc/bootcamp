@@ -127,6 +127,7 @@ class User < ApplicationRecord
            source: :regular_event
 
   has_one_attached :avatar
+  has_one_attached :profile_image
 
   before_create UserCallbacks.new
   after_create UserCallbacks.new
@@ -153,6 +154,18 @@ class User < ApplicationRecord
                        in: %w[image/png image/jpg image/jpeg image/gif],
                        message: 'はPNG, JPG, GIF形式にしてください'
                      }
+
+  validates :profile_image, attached: true,
+                            content_type: {
+                              in: %w[image/png image/jpg image/jpeg image/gif],
+                              message: 'はPNG, JPG, GIF形式にしてください'
+                            }, if: :mentor?
+
+  with_options if: -> { mentor? }, presence: true do
+    validates :profile_name
+    validates :profile_job
+    validates :profile_text
+  end
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -199,7 +212,6 @@ class User < ApplicationRecord
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
   end
-
   flag :retire_reasons, %i[
     done
     necessity

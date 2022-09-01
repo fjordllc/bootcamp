@@ -27,6 +27,9 @@ komagata:
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
   last_activity_at: "2014-01-01 00:00:01"
+  profile_name: "駒形 真幸"
+  profile_job: "プログラマー"
+  profile_text: "株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
 
 machida:
   login_name: machida
@@ -52,6 +55,9 @@ machida:
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
   last_activity_at: "2014-01-01 00:00:02"
+  profile_name: "町田 哲平"
+  profile_job: "デザイナー"
+  profile_text: "株式会社フィヨルドのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -723,6 +729,9 @@ kimuramitai:
   updated_at: "2022-03-28 00:00:01"
   created_at: "2022-03-28 00:00:01"
   last_activity_at: "2022-03-28 00:00:01"
+  profile_name: "キムラ ミタイ"
+  profile_job: "プログラマー"
+  profile_text: "木村さんに似ているとよく言われます。"
 
 long-id-mentor:
   login_name: long-id-mentor
