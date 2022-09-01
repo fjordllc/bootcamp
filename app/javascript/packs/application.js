@@ -16,7 +16,6 @@ import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
 import '../comments.js'
 import '../notifications_bell.js'
-import '../question-page.js'
 import '../category-select.js'
 import '../grass.js'
 import '../fileinput.js'
@@ -78,6 +77,8 @@ import UserMentorMemo from '../components/user_mentor_memo.vue'
 import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
 import Footprints from '../components/footprints.vue'
+import QuestionPage from '../components/question-page.vue'
+import QuestionEdit from '../components/question-edit.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
@@ -96,6 +97,8 @@ mounter.addComponent(UserMentorMemo)
 mounter.addComponent(UserRecentReports)
 mounter.addComponent(Talks)
 mounter.addComponent(Footprints)
+mounter.addComponent(QuestionPage)
+mounter.addComponent(QuestionEdit)
 mounter.mount()
 
 // Support component names relative to this directory:
