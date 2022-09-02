@@ -242,7 +242,9 @@ export default {
             if (this.productCheckerId) {
               this.toast('コメントを投稿しました！')
             }
-          } else this.toast('コメントを投稿しました！')
+          } else {
+            this.toast('コメントを投稿しました！')
+          }
         })
         .catch((error) => {
           console.warn(error)
