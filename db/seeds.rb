@@ -43,6 +43,7 @@ tables = %i[
   regular_event_repeat_rules
   organizers
   hibernations
+  footprints
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
