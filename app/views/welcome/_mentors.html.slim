@@ -17,4 +17,4 @@ section.welcome-child-section
                 = mentor.profile_text
               p
                 - mentor.related_books.each do |related_book|
-                  = link_to image_tag(related_book.cover, alt: related_book.title), related_book.url, target: :_blank, rel: "noopener noreferrer" if related_book.cover.attached?
+                  = link_to image_tag(related_book.cover, alt: related_book.title), related_book.url, target: :_blank, rel: 'noopener noreferrer' if related_book.cover.attached?
