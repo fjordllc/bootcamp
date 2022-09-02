@@ -52,7 +52,9 @@ class ProductsTest < ApplicationSystemTestCase
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     find('label.card-main-actions__muted-action').click
+    assert_no_text '喜びを Tweet する！'
     visit current_path
+    assert_text '修了 Tweet する'
     assert_no_text '喜びを Tweet する！'
   end
 
@@ -461,8 +463,9 @@ class ProductsTest < ApplicationSystemTestCase
     find('#side-tabs-nav-3').click
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
+    assert_selector '.is-editor.is-active'
     find('.form-tabs__tab', text: 'プレビュー').click
-    assert_text 'プレビューができます。'
+    assert_selector '.is-preview.is-active'
   end
 
   test 'can update user-memos' do
@@ -501,6 +504,8 @@ class ProductsTest < ApplicationSystemTestCase
 
     assignee_buttons = all('.a-button.is-block.is-secondary.is-sm', text: '担当する')
     assignee_buttons.first.click
+    assert_selector '.a-button.is-warning'
+    assert_text '担当になりました'
     assert_text '担当から外れる'
 
     unassigned_tab.click
