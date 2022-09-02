@@ -1,0 +1,11 @@
+.form-item
+  label.a-form-label
+    | 関わった書籍
+  .row#reference_books
+    = f.fields_for :related_books do |related_book|
+      = render 'users/form/related_book_fields', f: related_book
+    .col-xs-12.reference-books-form__add
+       = link_to_add_association f, :related_books, partial: 'users/form/related_book_fields', class: 'a-button is-md is-primary' do
+        i.fa-regular.fa-plus
+        span
+          | 書籍を追加

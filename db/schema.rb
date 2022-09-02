@@ -427,11 +427,20 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.boolean "hold_national_holiday", null: false
     t.time "start_at", null: false
     t.time "end_at", null: false
+    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "wip", default: false, null: false
     t.integer "category", default: 0, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
+  end
+
+  create_table "related_books", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_related_books_on_user_id"
   end
 
   create_table "report_templates", force: :cascade do |t|
@@ -606,6 +615,7 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_events", "users"
+  add_foreign_key "related_books", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
