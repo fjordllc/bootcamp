@@ -221,6 +221,10 @@ ja:
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
+      related_book:
+        title: タイトル
+        url: URL
+        cover: 表紙画像
     enums:
       user:
         job:
