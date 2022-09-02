@@ -133,13 +133,13 @@ class User < ApplicationRecord
            through: :regular_event_participations,
            source: :regular_event
 
-  has_many :create_questions,
+  has_many :survey_questions_about_creator,
            class_name: 'SurveyQuestion',
            foreign_key: 'creator_id',
            inverse_of: 'creator',
            dependent: :destroy
 
-  has_many :update_questions,
+  has_many :survey_questions_about_updater,
            class_name: 'SurveyQuestion',
            foreign_key: 'updater_id',
            inverse_of: 'updater',
