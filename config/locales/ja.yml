@@ -225,6 +225,8 @@ ja:
         title: タイトル
         url: URL
         cover: 表紙画像
+      related_books:
+        cover: 表紙画像
     enums:
       user:
         job:
