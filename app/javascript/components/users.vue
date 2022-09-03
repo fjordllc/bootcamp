@@ -25,7 +25,7 @@
     pager(v-bind='pagerProps')
 </template>
 <script>
-import User from '../user'
+import User from './user'
 import Pager from '../pager'
 
 export default {
