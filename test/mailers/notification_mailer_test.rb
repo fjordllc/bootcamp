@@ -408,7 +408,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kimuraさんが休会しました。', email.subject
     assert_match(/休会/, email.body.to_s)
   end
