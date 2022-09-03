@@ -76,7 +76,7 @@ import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Reports from '../components/reports.vue'
-import Users from '../components/users'
+import Users from '../components/users.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
