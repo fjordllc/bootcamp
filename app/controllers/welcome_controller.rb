@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   layout 'welcome'
 
   def index
-    @mentors = User.with_attached_profile_image.where(mentor: true).includes(related_books: { cover_attachment: :blob })
+    @mentors = User.with_attached_profile_image.mentor.includes(related_books: { cover_attachment: :blob })
   end
 
   def pricing; end
