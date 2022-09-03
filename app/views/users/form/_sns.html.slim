@@ -59,6 +59,12 @@
   .a-form-help
     p URL を入力。
 
+.form-item
+  = f.label :feed_url, class: 'a-form-label'
+  = f.text_field :feed_url, class: 'a-text-input', placeholder: 'https://docs.komagata.org/rss'
+  .a-form-help
+    p URL を入力。
+
 = render '/shared/modal', id: 'modal-discord-account', modal_title: 'Discord のアカウントの調べ方'
   .modal__description.is-md
     .a-short-text

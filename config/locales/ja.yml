@@ -53,6 +53,7 @@ ja:
         twitter_account: Twitterアカウント
         facebook_url: Facebook URL
         blog_url: ブログURL
+        feed_url: フィードURL
         github_account: GitHubアカウント
         discord_account: Discordアカウント
         times_url: 分報チャンネル URL
