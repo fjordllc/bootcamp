@@ -77,7 +77,7 @@ header.page-header
                 .user-info
                   = render 'users/user_secret_attributes', user: @product.user
                   = render 'users/metas', user: @product.user
-                #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
+                div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@product.user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-4
                 .card-list.a-card
                   - @products.each do |product|
