@@ -33,7 +33,7 @@
 <script>
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
-import watchToggle from 'watch-toggle.vue'
+import watchToggle from './components/watch-toggle'
 dayjs.locale(ja)
 export default {
   components: {
