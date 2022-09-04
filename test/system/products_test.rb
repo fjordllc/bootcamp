@@ -504,8 +504,6 @@ class ProductsTest < ApplicationSystemTestCase
 
     assignee_buttons = all('.a-button.is-block.is-secondary.is-sm', text: '担当する')
     assignee_buttons.first.click
-    assert_selector '.a-button.is-warning'
-    assert_text '担当になりました'
     assert_text '担当から外れる'
 
     unassigned_tab.click
