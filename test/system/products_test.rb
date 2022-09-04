@@ -459,13 +459,14 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'can preview editing of user-memos' do
-    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    visit_with_auth "/products/#{products(:product6).id}", 'komagata'
     find('#side-tabs-nav-3').click
+    assert_text 'ユーザーメモはまだありません。'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
-    assert_selector '.is-editor.is-active'
     find('.form-tabs__tab', text: 'プレビュー').click
-    assert_selector '.is-preview.is-active'
+    assert_no_text 'ユーザーメモはまだありません'
+    assert_text 'プレビューができます'
   end
 
   test 'can update user-memos' do
