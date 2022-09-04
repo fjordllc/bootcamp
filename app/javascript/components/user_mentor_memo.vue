@@ -64,7 +64,7 @@ import MarkdownInitializer from '../markdown-initializer'
 import confirmUnload from '../confirm-unload'
 
 export default {
-  name:'UserMentorMemo',
+  name: 'UserMentorMemo',
   mixins: [confirmUnload],
   props: {
     userId: { type: Number, required: true },
