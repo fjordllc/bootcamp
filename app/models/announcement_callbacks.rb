@@ -17,9 +17,13 @@ class AnnouncementCallbacks
   private
 
   def after_first_publish(announce)
-    DiscordNotifier.with(announce: announce).post_announcement.notify_now
+    notify_to_chat(announce)
     send_notification(announce)
     announce.update(published_at: Time.current)
+  end
+
+  def notify_to_chat(announce)
+    DiscordNotifier.with(announce: announce).post_announcement.notify_now
   end
 
   def send_notification(announce)
