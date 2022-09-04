@@ -83,6 +83,7 @@ import UserTags from '../user-tags'
 import UserPracticeProgress from '../user-practice-progress'
 
 export default {
+  name: 'User',
   components: {
     following: Following,
     'user-sns': UserSns,
