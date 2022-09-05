@@ -53,6 +53,7 @@ header.page-header
             input.a-toggle-checkbox#side-tabs-1 type='radio' name='side-tabs-contents' checked='checked'
             input.a-toggle-checkbox#side-tabs-2 type='radio' name='side-tabs-contents'
             input.a-toggle-checkbox#side-tabs-3 type='radio' name='side-tabs-contents'
+            input.a-toggle-checkbox#side-tabs-4 type='radio' name='side-tabs-contents'
             .side-tabs-nav
               .side-tabs-nav__items
                 .side-tabs-nav__item
@@ -64,20 +65,12 @@ header.page-header
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
                     | ユーザーメモ
+                .side-tabs-nav__item
+                  label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
+                    | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                .card-list.a-card
-                  - if @reports.present?
-                    - @reports.each do |report|
-                      = render partial: 'report', locals: { report: report }
-                  - else
-                    .card-list__message
-                      .container
-                        .o-empty-message
-                          .o-empty-message__icon
-                            i.fa-regular.fa-sad-tear
-                          .o-empty-message__text
-                            | 日報はまだありません。
+                div(data-vue="Reports" data-vue-user-id:number="#{@product.user.id}" data-vue-limit="10" data-vue-display-user-icon:boolean="false")
               .side-tabs-contents__item#side-tabs-content-2
                 #js-practice-memo(data-practice-id="#{@product.practice_id}")
               .side-tabs-contents__item#side-tabs-content-3
@@ -85,6 +78,10 @@ header.page-header
                   = render 'users/user_secret_attributes', user: @product.user
                   = render 'users/metas', user: @product.user
                 #js-user-mentor-memo(data-user-id="#{@product.user.id}" data-products-mode="#{true}")
+              .side-tabs-contents__item#side-tabs-content-4
+                .card-list.a-card
+                  - @products.each do |product|
+                    = render partial: 'product', locals: { product: product }
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message

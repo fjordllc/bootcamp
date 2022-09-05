@@ -258,6 +258,8 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.15.0)
+    minitest-ci (3.4.0)
+      minitest (>= 5.0.6)
     minitest-retry (0.2.2)
       minitest (>= 5.0)
     msgpack (1.4.4)
@@ -293,7 +295,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.9.1)
+    omniauth (1.9.2)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
     omniauth-github (1.4.0)
@@ -326,7 +328,7 @@ GEM
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
-    rack (2.2.3.1)
+    rack (2.2.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-dev-mark (0.7.9)
@@ -556,13 +558,14 @@ DEPENDENCIES
   listen
   mentionable (~> 0.2.1)
   meta-tags
+  minitest-ci
   minitest-retry
   net-imap
   net-pop
   net-smtp
   newspaper
   oauth2
-  omniauth (~> 1.9.1)
+  omniauth (~> 1.9.2)
   omniauth-github (~> 1.4.0)
   pg
   postmark-rails

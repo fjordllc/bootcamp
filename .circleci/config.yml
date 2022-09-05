@@ -1,0 +1,88 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.8.0
+  node: circleci/node@5.0.2
+  browser-tools: circleci/browser-tools@1.3.0
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.1.0-node
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+  check:
+    docker:
+      - image: 'cimg/ruby:3.1.0-node'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
+      - run:
+          name: Slim Lint
+          command: bundle exec slim-lint app/views -c config/slim_lint.yml
+      - run:
+          name: Traceroute
+          command: FAIL_ON_ERROR=1 bundle exec rake traceroute
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Lint
+          command: bin/yarn lint
+  test:
+    docker:
+      - image: cimg/ruby:3.1.0-browsers
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_test
+      - image: cimg/postgres:14.4
+    resource_class: large
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: "postgres"
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+      TZ: Asia/Tokyo
+      PARALLEL_WORKERS: 2
+    parallelism: 3
+    steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Wait for DB
+          command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
+      - run:
+          name: Database setup
+          command: 'bundle exec rails db:setup'
+      - run:
+          name: Test
+          command: |
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            bundle exec rails test $TESTFILES
+          no_output_timeout: 30m
+          when: always
+      - store_test_results:
+          path: test/reports
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - check
+      - test:
+          requires:
+            - build

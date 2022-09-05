@@ -87,7 +87,7 @@ class RetirementTest < ApplicationSystemTestCase
     fill_in 'user[retire_reason]', with: '辞' * 8
     find('label', text: 'とても良い').click
     fill_in 'user[opinion]', with: 'ご意見'
-    assert_difference 'Product.unchecked.count', -1 do
+    assert_difference 'Product.unchecked.count', -2 do
       page.accept_confirm '本当によろしいですか？' do
         click_on '退会する'
       end

@@ -21,6 +21,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
+      driver_option.add_argument('--disable-dev-shm-usage')
     end
   end
 
