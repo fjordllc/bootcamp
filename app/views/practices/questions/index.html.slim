@@ -1,7 +1,7 @@
-- title @practice.title
+- title "#{@practice.title}に関するQ&A"
 - category = @practice.category(current_user.course)
 
-= render '/practices/page_header', title: title, category: category
+= render '/practices/page_header', title: @practice.title, category: category
 = render 'page_tabs', resource: @practice
 
 nav.tab-nav

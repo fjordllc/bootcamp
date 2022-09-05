@@ -126,7 +126,7 @@ class NotificationFacade
   end
 
   def self.following_report(report, receiver)
-    Notification.following_report(report, receiver)
+    ActivityNotifier.with(report: report, receiver: receiver).following_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

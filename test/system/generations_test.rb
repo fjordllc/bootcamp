@@ -20,5 +20,7 @@ class GenerationsTest < ApplicationSystemTestCase
     assert_text 'ユーザー一覧'
     assert_link "#{users(:kimura).generation}期生"
     assert_text '2014年01月01日 ~ 2014年03月31日'
+    assert_equal '期生別ユーザー一覧 | FBC', title
+    assert_selector 'h1', text: '期一覧'
   end
 end
