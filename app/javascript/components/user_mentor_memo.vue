@@ -68,7 +68,7 @@ export default {
   mixins: [confirmUnload],
   props: {
     userId: { type: Number, required: true },
-    productsMode: { type: Boolean, required: true }
+    productsMode: { type: Boolean, required: false }
   },
   data() {
     return {

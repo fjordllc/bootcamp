@@ -73,7 +73,7 @@ header.page-header
                       .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}" data-is-watching="#{current_user.watching?(@user)}")
         .col-xs-12.col-lg-6.col-xxl-6
           - if admin_or_mentor_login?
-            div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}" data-vue-products-mode:boolean="#{true}")
+            div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}")
           - unless @user.total_learning_time.zero? || @user.mentor?
             #js-grass(data-user-id="#{@user.id}")
           - if @user.github_account.present?
