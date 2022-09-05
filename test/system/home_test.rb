@@ -351,4 +351,14 @@ class HomeTest < ApplicationSystemTestCase
       assert_text I18n.l products(:product5).updated_at
     end
   end
+
+  test 'show trainee lists for adviser belonging a company' do
+    visit_with_auth '/', 'senpai'
+    assert_selector 'h2.card-header__title', text: '研修生'
+  end
+
+  test 'not show trainee lists for student' do
+    visit_with_auth '/', 'kimura'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
 end

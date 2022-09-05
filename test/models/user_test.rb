@@ -554,4 +554,23 @@ class UserTest < ActiveSupport::TestCase
     target = User.students_and_trainees
     assert_not_includes(target, users(:sotugyou_with_job))
   end
+
+  test '#belongs_company_and_adviser?' do
+    assert_not users(:kensyu).belongs_company_and_adviser?
+    assert_not users(:advijirou).belongs_company_and_adviser?
+    assert users(:senpai).belongs_company_and_adviser?
+  end
+
+  test '#collegues' do
+    target = users(:kensyu).collegues
+    assert_includes(target, users(:kensyuowata))
+    assert_nil users(:kimura).collegues
+  end
+
+  test '#collegue_trainees' do
+    target = users(:senpai).collegue_trainees
+    assert_includes(target, users(:kensyu))
+    assert_nil users(:kimura).collegue_trainees
+    assert_nil users(:advijirou).collegue_trainees
+  end
 end
