@@ -66,4 +66,28 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
     assert_text "作成: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
     assert_text "更新: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
   end
+
+  test 'display a list of questions' do
+    visit_with_auth '/survey_questions', 'komagata'
+    assert_text '段落'
+    assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
+    assert_text "作成: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
+    assert_text "更新: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
+  end
+
+  test 'edit question' do
+    visit_with_auth '/survey_questions', 'komagata'
+    assert_text '段落'
+    assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
+    assert_text "作成: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
+    assert_text "更新: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
+    click_on '編集'
+    fill_in 'survey_question[question_title]', with: '一番辛かったプラクティスは何ですか？'
+    choose '記述式', allow_label_click: true
+    click_button '保存'
+    assert_text '記述式'
+    assert_text '一番辛かったプラクティスは何ですか？'
+    assert_text "作成: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
+    assert_text "更新: #{Time.zone.today.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][Time.zone.today.wday]})")}"
+  end
 end
