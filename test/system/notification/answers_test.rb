@@ -4,7 +4,13 @@ require 'application_system_test_case'
 
 class Notification::AnswersTest < ApplicationSystemTestCase
   setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
     @notice_text = 'komagataさんから回答がありました。'
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
   end
 
   test "receive a notification when I got my question's answer" do
