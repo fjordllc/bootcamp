@@ -35,6 +35,35 @@
     display: flex
     justify-content: center
 
+.page-content-header__category
+  +media-breakpoint-down(sm)
+    display: flex
+    justify-content: center
+
+.page-content-header__category-icon
+  +size(3.5rem)
+  border-radius: 50%
+  display: flex
+  align-items: center
+  justify-content: center
+  +text-block(.875rem 1, 600)
+  // regular_events
+  &.is-meeting
+    background-color: #7f6fb7
+    color: $reversal-text
+  &.is-reading-circle
+    background-color: #79bcc3
+    color: $reversal-text
+  &.is-question
+    background-color: #de9172
+    color: $reversal-text
+  &.is-chat
+    background-color: #9fc593
+    color: $reversal-text
+  &.is-others
+    background-color: #f7cd5b
+    color: $default-text
+
 .page-content-header__user-link
   +block-link
 

@@ -65,7 +65,9 @@ Rails.application.routes.draw do
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
-  resources :regular_events
+  resources :regular_events do
+    resources :participations, only: %i(create destroy), controller: "regular_events/participations"
+  end
   resources :companies, only: %i(index show) do
     resources :users, only: %i(index), controller: "companies/users"
     resources :reports, only: %i(index), controller: "companies/reports"

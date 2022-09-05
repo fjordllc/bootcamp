@@ -25,6 +25,7 @@ class RegularEventsController < ApplicationController
     @regular_event.user = current_user
     set_wip
     if @regular_event.save
+      Newspaper.publish(:event_create, @regular_event)
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :new
