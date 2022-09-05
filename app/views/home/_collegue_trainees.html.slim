@@ -1,0 +1,6 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 研修生
+  .card-list
+    = render partial: 'collegue_trainee', collection: collegue_trainees, as: :user

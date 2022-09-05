@@ -666,6 +666,18 @@ class User < ApplicationRecord
       products.wip.exists? || announcements.wip.exists? || events.wip.exists?
   end
 
+  def belongs_company_and_adviser?
+    adviser? && company_id?
+  end
+
+  def collegues
+    company.users if company_id?
+  end
+
+  def collegue_trainees
+    collegues.students_and_trainees if belongs_company_and_adviser?
+  end
+
   private
 
   def password_required?
