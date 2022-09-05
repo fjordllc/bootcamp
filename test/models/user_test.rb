@@ -570,7 +570,6 @@ class UserTest < ActiveSupport::TestCase
   test '#collegue_trainees' do
     target = users(:senpai).collegue_trainees
     assert_includes(target, users(:kensyu))
-
     assert_nil users(:kimura).collegue_trainees
     assert_nil users(:advijirou).collegue_trainees
   end
