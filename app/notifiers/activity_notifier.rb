@@ -216,4 +216,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def three_months_after_retirement(params = {})
+    params.merge!(@params)
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#%7Bsender.id%7D",
+      kind: :retired,
+      sender: sender,
+      receiver: receiver,
+      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
+      read: false
+    )
+  end
 end
