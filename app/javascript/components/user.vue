@@ -77,10 +77,10 @@
                 | 相談部屋
 </template>
 <script>
-import Following from '../following'
-import UserSns from '../user-sns'
-import UserTags from '../user-tags'
-import UserPracticeProgress from '../user-practice-progress'
+import Following from '../following.js'
+import UserSns from '../user-sns.vue'
+import UserTags from '../user-tags.vue'
+import UserPracticeProgress from '../user-practice-progress.vue'
 
 export default {
   name: 'User',
