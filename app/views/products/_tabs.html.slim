@@ -3,18 +3,19 @@
     ul.page-tabs__items
       li.page-tabs__item
         = link_to '全て', products_path, class: "page-tabs__item-link #{current_link(/^products-index/)}"
-      li.page-tabs__item.is-only-mentor
-        = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^products-unchecked-index/)}" do
-          | 未完了 （#{Cache.unchecked_product_count}）
-      li.page-tabs__item.is-only-mentor
-        = link_to products_unassigned_index_path, class: "page-tabs__item-link #{current_link(/^products-unassigned-index/)}", id: 'test-unassigned-tab' do
-          | 未アサイン
-          - if Cache.unassigned_product_count.positive?
-            .page-tabs__item-count.a-notification-count#test-unassigned-counter
-              = Cache.unassigned_product_count
-      li.page-tabs__item.is-only-mentor
-        = link_to products_self_assigned_index_path, class: "page-tabs__item-link #{current_link(/^products-self_assigned-index/)}" do
-          | 自分の担当 （#{Product.self_assigned_product(current_user.id).unchecked.size}）
-          - if Cache.self_assigned_no_replied_product_count(current_user.id).positive?
-            .page-tabs__item-count.a-notification-count.is-only-mentor
-              = Cache.self_assigned_no_replied_product_count(current_user.id)
+      - if current_user.admin? || current_user.mentor?
+        li.page-tabs__item
+          = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^products-unchecked-index/)}" do
+            | 未完了 （#{Cache.unchecked_product_count}）
+        li.page-tabs__item
+          = link_to products_unassigned_index_path, class: "page-tabs__item-link #{current_link(/^products-unassigned-index/)}", id: 'test-unassigned-tab' do
+            | 未アサイン
+            - if Cache.unassigned_product_count.positive?
+              .page-tabs__item-count.a-notification-count#test-unassigned-counter
+                = Cache.unassigned_product_count
+        li.page-tabs__item
+          = link_to products_self_assigned_index_path, class: "page-tabs__item-link #{current_link(/^products-self_assigned-index/)}" do
+            | 自分の担当 （#{Product.self_assigned_product(current_user.id).unchecked.size}）
+            - if Cache.self_assigned_no_replied_product_count(current_user.id).positive?
+              .page-tabs__item-count.a-notification-count.is-only-mentor
+                = Cache.self_assigned_no_replied_product_count(current_user.id)
