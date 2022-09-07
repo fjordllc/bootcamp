@@ -290,6 +290,8 @@ class CommentsTest < ApplicationSystemTestCase
   test 'when mentor confirm a product with comment' do
     unconfirmed_product = products(:product1)
     visit_with_auth product_url(unconfirmed_product), 'machida'
+    click_button '担当する'
+    assert_button '担当から外れる'
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'
