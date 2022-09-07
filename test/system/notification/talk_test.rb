@@ -44,7 +44,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_text 'test'
 
     visit '/notifications'
-    assert_text '通知'
+    assert_selector '.page-header__title', text: '通知'
 
     within first('.card-list-item.is-unread') do
       assert_no_text 'kimuraさんの相談部屋でkomagataさんからコメントが届きました。'
@@ -107,7 +107,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
   test 'The number of unreplied comments is not displayed in the global navigation when mentor visit page' do
     user = users(:mentormentaro)
     visit_with_auth root_path, 'mentormentaro'
-    assert_text 'ダッシュボード'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     within(:css, '.global-nav') do
       within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
@@ -118,7 +118,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
   test 'The number of unreplied comments is not displayed in the global navigation when advisor visit page' do
     user = users(:advijirou)
     visit_with_auth root_path, 'advijirou'
-    assert_text 'ダッシュボード'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     within(:css, '.global-nav') do
       within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
@@ -129,7 +129,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
   test 'The number of unreplied comments is not displayed in the global navigation when student visit page' do
     user = users(:kimura)
     visit_with_auth root_path, 'kimura'
-    assert_text 'ダッシュボード'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     within(:css, '.global-nav') do
       within(:css, "a[href='/talks/#{user.talk.id}#latest-comment'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
