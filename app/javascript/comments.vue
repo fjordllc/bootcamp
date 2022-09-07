@@ -203,7 +203,7 @@ export default {
           }
         })
     },
-    createComment({ toast }) {
+    createComment({ toastMessage = null }) {
       if (this.description.length < 1) {
         return null
       }
@@ -235,16 +235,7 @@ export default {
           this.tab = 'comment'
           this.buttonDisabled = false
           this.resizeTextarea()
-          if (
-            this.currentUser.roles.includes('mentor') &&
-            this.commentableType === 'Product'
-          ) {
-            if (this.productCheckerId) {
-              this.toast('コメントを投稿しました！')
-            }
-          } else {
-            this.toast(toast ?? 'コメントを投稿しました！')
-          }
+          this.displayToast(toastMessage)
         })
         .catch((error) => {
           console.warn(error)
@@ -304,7 +295,7 @@ export default {
       ) {
         return null
       } else {
-        this.createComment({ toast: this.toastMessage() })
+        this.createComment({ toastMessage: this.toastMessage() })
         this.check(
           this.commentableType,
           this.commentableId,
