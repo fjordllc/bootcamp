@@ -127,7 +127,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '1ヶ月以上ログインがありません'
 
     visit_with_auth '/users', 'hatsuno'
-    assert_text 'ユーザー'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_selector 'div.users-item.inactive'
     assert_no_text '1ヶ月以上ログインがありません'
   end
@@ -138,7 +138,7 @@ class UsersTest < ApplicationSystemTestCase
     end
 
     visit_with_auth '/', 'komagata'
-    assert_text 'ダッシュボード'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     assert_no_text '1ヶ月以上ログインのないユーザー'
 
     users(:kimura).update!(
@@ -149,18 +149,18 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '1ヶ月以上ログインのないユーザー'
 
     visit_with_auth '/', 'hatsuno'
-    assert_text 'ダッシュボード'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     assert_no_text '1ヶ月以上ログインのないユーザー'
   end
 
   test 'student access control' do
     visit_with_auth '/users', 'kimura'
-    assert_text 'ユーザー'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_text '全員'
     assert_no_text '就職活動中'
 
     visit 'users?target=retired'
-    assert_text 'ユーザー'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_text '退会'
   end
 
@@ -170,7 +170,7 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
 
     visit 'users?target=retired'
-    assert_text 'ユーザー'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_text '退会'
   end
 
@@ -207,7 +207,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector '.is-started.is-active'
 
     visit '/'
-    assert_text 'ダッシュボード'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     assert_no_text 'ようこそ'
   end
 
@@ -255,7 +255,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'show times link on user list page' do
     visit_with_auth '/users', 'hatsuno'
-    assert_text 'ユーザー'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
 
     kimura = users(:kimura)
@@ -272,7 +272,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'not admin cannot see link to talk on user list page' do
     visit_with_auth '/users', 'kimura'
-    assert_text 'ユーザー'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_link '相談部屋'
   end
 
