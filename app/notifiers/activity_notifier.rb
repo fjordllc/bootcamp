@@ -230,4 +230,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def checked(params = {})
+    params.merge!(@params)
+    check = params[:check]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
+      kind: :checked,
+      receiver: receiver,
+      sender: check.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
+      read: false
+    )
+  end
 end
