@@ -89,7 +89,6 @@ class Notification < ApplicationRecord
       )
     end
 
->>>>>>> a90935a66 (確認通知を[abstract_notifier]に置き換えた)
     def watching_notification(watchable, receiver, comment)
       watchable_user = watchable.user
       sender = comment.user
