@@ -198,7 +198,6 @@ class NotificationFacade
 
   def self.hibernated(sender, receiver)
     ActivityNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
-    DiscordNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
     return unless receiver.mail_notification?
 
     NotificationMailer.with(
