@@ -62,7 +62,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
 
     within first('.card-list-item.is-unread') do
-      assert_text "komagataさんが「#{practices(:practice47).title}」の提出物を確認しました。"
+      assert_text "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。"
     end
   end
 end
