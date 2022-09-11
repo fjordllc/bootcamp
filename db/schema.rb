@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_05_085844) do
+ActiveRecord::Schema.define(version: 2022_09_11_042216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -337,7 +337,6 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.boolean "include_progress", default: true, null: false
     t.text "memo"
     t.integer "last_updated_user_id"
-    t.integer "position"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
