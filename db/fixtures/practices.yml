@@ -3,7 +3,6 @@ practice1:
   description: "description..."
   goal: "OS X Mountain Lionをクリーンインストールする"
   memo: "「OS X Mountain Lionをクリーンインストールする」のメンターメモ"
-  categories: category2
   submission: true
   open_product: false
 
@@ -11,7 +10,6 @@ practice2:
   title: "Terminalの基礎を覚える"
   description: "description..."
   goal: "goal..."
-  categories: category4
   submission: true
   open_product: true
 
@@ -37,21 +35,18 @@ practice3:
     - CPUとメモリの違いを把握しているかチェックする。
     - 理解が浅いと感じたら突っ込みを入れてもいい。
 
-  categories: category2
 
 practice4:
   title: "Debianをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
 
 practice5:
   title: "Linuxのファイル操作の基礎を覚える"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
   submission: true
 
 practice6:
@@ -59,7 +54,6 @@ practice6:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
   submission: true
 
 practice7:
@@ -67,322 +61,276 @@ practice7:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category8
 
 practice8:
   title: "viのチュートリアルをやる"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category8
 
 practice9:
   title: "sudoをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
 
 practice10:
   title: "sshdをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
 
 practice11:
   title: "リモートのサーバーにsshで鍵を使ってログインする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
 
 practice12:
   title: "sshdでパスワード認証を禁止にする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
 
 practice13:
   title: "sshdでrootでのログインを禁止にする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category4
 
 practice14:
   title: "telnetを使ってget, postを試し、HTTPの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category16
 
 practice15:
   title: "HTTPのrequestとresponse、headerとbodyを理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category16
 
 practice16:
   title: "nginxをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category15
 
 practice17:
   title: "nginxにネームベースのVirtualHostを使ってサイトを作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category15
 
 practice18:
   title: "sslの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category16
 
 practice19:
   title: "nginxで自己認証した証明書を使ったssl対応サイトを作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category15
 
 practice20:
   title: "sqlの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category7
 
 practice21:
   title: "mysqlをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category7
 
 practice22:
   title: "mysql, mysqladminコマンドでユーザー、データベース、テーブルを作成する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category7
 
 practice23:
   title: "rubyをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice24:
   title: "rbenvをインストールする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice25:
   title: "rbenvで複数バージョンのrubyを切り替えれるようにする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice26:
   title: "「プログラミング入門 - Rubyを使って」をやる"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice27:
   title: "「プログラミング入門 - Rubyを使って」をgithubにpushする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category11
 
 practice28:
   title: "「プログラミング入門 - Rubyを使って」のテストをtestunitで書く"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category9
 
 practice29:
   title: "rubygemsの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice30:
   title: "gemコマンドを使ってgemのインストール、更新、削除をする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice31:
   title: "rakeの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice32:
   title: "rakeでCプログラムをコンパイルするRakefileを書く"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category5
 
 practice33:
   title: "Getting Started with RailsにしたがってRailsアプリを作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice34:
   title: "ActionControllerを理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice35:
   title: "ActionViewを理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice36:
   title: "ActiveRecordを理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice37:
   title: "ActiveSupportを理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice38:
   title: "Railsのroutesを理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice39:
   title: "Railsのi18nの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice40:
   title: "deviseを使ってユーザー認証を作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice41:
   title: "deviseを使ってTwitter認証を作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice42:
   title: "exception_notificationを使ってエラーのメール通知機能を作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice43:
   title: "paperclipを使って画像アップロード機能を作る"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice44:
   title: "TDDの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category9
 
 practice45:
   title: "unittestの基礎を理解する"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category9
 
 practice46:
   title: "rspecを使ってRailsアプリのテストを書く"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category9
 
 practice47:
   title: "capybaraを使ってrequest specを書く"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category9
 
 practice48:
   title: "Try Gitをやる"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category11
 
 practice49:
   title: "unicornを使ってrailsアプリを動かす"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice50:
   title: "capistranoを使ってrailsアプリをデプロイする"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category6
 
 practice51:
   title: "iOSプログラミング入門"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category13
 
 practice52:
   title: "Unityのインストール"
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category17
   include_progress: false
 
 practice53:
@@ -390,7 +338,6 @@ practice53:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category18
   include_progress: false
 
 practice54:
@@ -398,7 +345,6 @@ practice54:
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category19
   include_progress: false
 
 practice55:
@@ -406,13 +352,11 @@ practice55:
   description: "ユーザーネーム（最終更新者）で検索できるよ"
   goal: "goal..."
   memo: "memo for mentors..."
-  categories: category20
   last_updated_user: komagata
 
 practice56:
   title: "Unityでのテスト"
   description: "ユーザーネーム（最終更新者）で検索できるよ"
   goal: "goal..."
-  categories: category21
   include_progress: false
   last_updated_user: machida
