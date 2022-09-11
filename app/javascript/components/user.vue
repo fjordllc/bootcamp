@@ -77,7 +77,7 @@
                 | 相談部屋
 </template>
 <script>
-import Following from '../following.js'
+import Following from '../following.vue'
 import UserSns from '../user-sns.vue'
 import UserTags from '../user-tags.vue'
 import UserPracticeProgress from '../user-practice-progress.vue'
