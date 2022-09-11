@@ -16,6 +16,7 @@ class HibernationController < ApplicationController
     if @hibernation.save
       update_hibernated_at!
       destroy_subscription!
+      notify_to_chat
       notify_to_mentors_and_admins
       logout
       redirect_to hibernation_path
@@ -45,5 +46,9 @@ class HibernationController < ApplicationController
     User.admins_and_mentors.each do |admin_or_mentor|
       NotificationFacade.hibernated(current_user, admin_or_mentor)
     end
+  end
+
+  def notify_to_chat
+    DiscordNotifier.with(sender: current_user).hibernated.notify_now
   end
 end
