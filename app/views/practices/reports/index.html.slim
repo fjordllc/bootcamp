@@ -6,14 +6,4 @@
 
 .page-body
   .container.is-md
-    = paginate @reports
-    - if @reports.present?
-      .card-list.a-card
-        = render partial: 'reports/report', collection: @reports, as: :report
-      = paginate @reports
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
-        .o-empty-message__text
-          | 日報はまだありません。
+    div(data-vue="Reports" data-vue-practice-id:number="#{@practice.id}")
