@@ -40,7 +40,6 @@ import '../products.js'
 import '../courses-categories.js'
 import '../courses-practices.js'
 import '../no_learn.js'
-import '../users.js'
 import '../watches.js'
 import '../searchables.js'
 import '../niconico_calendar.js'
@@ -77,6 +76,8 @@ import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Reports from '../components/reports.vue'
+import Users from '../components/users.vue'
+import User from '../components/user.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -87,4 +88,6 @@ mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
 mounter.addComponent(Reports)
+mounter.addComponent(Users)
+mounter.addComponent(User)
 mounter.mount()
