@@ -54,9 +54,8 @@ class NotificationFacade
     NotificationMailer.with(answer: answer).came_answer.deliver_later(wait: 5)
   end
 
-  def self.post_announcement(announce, receiver, first_call)
+  def self.post_announcement(announce, receiver)
     ActivityNotifier.with(announce: announce, receiver: receiver).post_announcement.notify_now
-    DiscordNotifier.with(announce: announce).post_announcement.notify_now if first_call
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
