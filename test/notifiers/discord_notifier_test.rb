@@ -81,4 +81,29 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       DiscordNotifier.with(params).invalid_user.notify_later
     end
   end
+
+  test '.hibernated' do
+    params = {
+      body: 'test message',
+      sender: users(:kimura),
+      name: 'bob',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    expected = {
+      body: 'kimuraさんが休会しました。',
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    assert_notifications_sent 2, **expected do
+      DiscordNotifier.hibernated(params).notify_now
+      DiscordNotifier.with(params).hibernated.notify_now
+    end
+
+    assert_notifications_enqueued 2, **expected do
+      DiscordNotifier.hibernated(params).notify_later
+      DiscordNotifier.with(params).hibernated.notify_later
+    end
+  end
 end
