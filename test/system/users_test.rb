@@ -30,6 +30,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'graduation date is displayed' do
     visit_with_auth "/users/#{users(:mentormentaro).id}", 'komagata'
+    assert_text 'mentormentaro'
     assert_no_text '卒業日'
 
     visit "/users/#{users(:sotugyou).id}"
@@ -40,6 +41,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:yameo).id}", 'komagata'
     assert_text '退会日'
     visit "/users/#{users(:sotugyou).id}"
+    assert_text 'sotugyou'
     assert_no_text '退会日'
   end
 
@@ -47,11 +49,13 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:yameo).id}", 'komagata'
     assert_text '退会理由'
     visit "/users/#{users(:sotugyou).id}"
+    assert_text 'sotugyou'
     assert_no_text '退会理由'
   end
 
   test "retire reason isn't displayed when login user isn't admin" do
     visit_with_auth "/users/#{users(:yameo).id}", 'kimura'
+    assert_text 'yameo'
     assert_no_text '退会理由'
   end
 
@@ -101,6 +105,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '2014年01月01日(水) 01:00'
 
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
+    assert_text 'kimura'
     assert_no_text '最終活動日時'
 
     visit_with_auth "/users/#{users(:neverlogin).id}", 'komagata'
@@ -108,6 +113,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_text '2022年07月11日(月) 09:00'
 
     visit_with_auth "/users/#{users(:neverlogin).id}", 'hatsuno'
+    assert_text 'neverlogin'
     assert_no_text '最終活動日時'
   end
 
@@ -121,6 +127,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '1ヶ月以上ログインがありません'
 
     visit_with_auth '/users', 'hatsuno'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_selector 'div.users-item.inactive'
     assert_no_text '1ヶ月以上ログインがありません'
   end
@@ -131,6 +138,7 @@ class UsersTest < ApplicationSystemTestCase
     end
 
     visit_with_auth '/', 'komagata'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     assert_no_text '1ヶ月以上ログインのないユーザー'
 
     users(:kimura).update!(
@@ -141,15 +149,18 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '1ヶ月以上ログインのないユーザー'
 
     visit_with_auth '/', 'hatsuno'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     assert_no_text '1ヶ月以上ログインのないユーザー'
   end
 
   test 'student access control' do
     visit_with_auth '/users', 'kimura'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_text '全員'
     assert_no_text '就職活動中'
 
     visit 'users?target=retired'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_text '退会'
   end
 
@@ -159,6 +170,7 @@ class UsersTest < ApplicationSystemTestCase
     assert find_link('就職活動中')
 
     visit 'users?target=retired'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_text '退会'
   end
 
@@ -187,9 +199,15 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'not show welcome message' do
-    visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
+    visit_with_auth '/', 'hatsuno'
+    assert_text 'ようこそ'
+
+    visit practice_path(practices(:practice1).id)
     click_button '着手'
+    assert_selector '.is-started.is-active'
+
     visit '/'
+    assert_selector '.page-header__title', text: 'ダッシュボード'
     assert_no_text 'ようこそ'
   end
 
@@ -218,6 +236,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth root_path, 'hatsuno'
     visit user_path(users(:hajime).id)
     find('.niconico-calendar-nav__previous').click
+    assert_text 'hajime'
     assert_no_selector '.niconico-calendar__day.is-today'
   end
 
@@ -225,6 +244,7 @@ class UsersTest < ApplicationSystemTestCase
     kimura = users(:kimura)
 
     visit_with_auth "/users/#{kimura.id}", 'hatsuno'
+    assert_text 'kimura'
     assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
 
     kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
@@ -235,6 +255,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'show times link on user list page' do
     visit_with_auth '/users', 'hatsuno'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
 
     kimura = users(:kimura)
@@ -251,6 +272,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'not admin cannot see link to talk on user list page' do
     visit_with_auth '/users', 'kimura'
+    assert_selector '.page-header__title', text: 'ユーザー'
     assert_no_link '相談部屋'
   end
 
@@ -320,6 +342,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'not show grass hide button for graduates' do
     visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
+    assert_text 'sotugyou'
     assert_not has_button? '非表示'
   end
 
@@ -337,6 +360,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'user_training_ends_on', with: training_ends_on
     click_on '更新する'
     visit_with_auth user_path(user.id), 'kensyu'
+    assert_text 'kensyu'
     assert has_no_field?('user_training_ends_on')
   end
 
@@ -351,6 +375,7 @@ class UsersTest < ApplicationSystemTestCase
     user = users(:sotugyou)
     user.update!(created_at: Time.zone.today, graduated_on: Time.zone.today - 1, job: 'office_worker')
     visit_with_auth "/users/#{user.id}", 'sotugyou'
+    assert_text 'sotugyou'
     assert_no_text '卒業 1日'
   end
 
