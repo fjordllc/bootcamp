@@ -69,6 +69,10 @@ export default {
       type: Number,
       default: null
     },
+    practiceId: {
+      type: Number,
+      default: null
+    },
     limit: {
       type: String,
       default: null
@@ -98,6 +102,9 @@ export default {
       }
       if (this.companyId) {
         params.set('company_id', this.companyId)
+      }
+      if (this.practiceId) {
+        params.set('practice_id', this.practiceId)
       }
       if (this.limit) {
         params.set('limit', this.limit)
