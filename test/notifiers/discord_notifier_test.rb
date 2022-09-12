@@ -42,8 +42,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     params = {
       body: 'test message',
       announce: announcements(:announcement1),
-      name: 'bob',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+      name: 'bob'
     }
 
     expected = {
