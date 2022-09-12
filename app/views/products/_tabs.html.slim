@@ -3,7 +3,7 @@
     ul.page-tabs__items
       li.page-tabs__item
         = link_to '全て', products_path, class: "page-tabs__item-link #{current_link(/^products-index/)}"
-      - if current_user.admin? || current_user.mentor?
+      - if admin_or_mentor_login?
         li.page-tabs__item
           = link_to products_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^products-unchecked-index/)}" do
             | 未完了 （#{Cache.unchecked_product_count}）
