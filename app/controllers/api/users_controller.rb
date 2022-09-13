@@ -30,6 +30,8 @@ class API::UsersController < API::BaseController
                          .order(updated_at: :desc)
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
+
+    check_users_to_display
   end
 
   def show; end
@@ -50,11 +52,19 @@ class API::UsersController < API::BaseController
     users
   end
 
+  def check_users_to_display
+    if @target == 'hibernated' || @target == 'retired' || @company
+      @users
+    else
+      @users = @users.unhibernated.unretired
+    end
+  end
+
   def target_allowlist
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.push('all') if @company
-    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
   end
 

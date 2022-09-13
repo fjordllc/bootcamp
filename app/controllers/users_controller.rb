@@ -28,6 +28,8 @@ class UsersController < ApplicationController
              .preload(:avatar_attachment, :course, :taggings)
              .order(updated_at: :desc)
 
+    check_users_to_display
+
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
@@ -71,10 +73,18 @@ class UsersController < ApplicationController
 
   private
 
+  def check_users_to_display
+    if @target == 'hibernated' || @target == 'retired'
+      @users
+    else
+      @users = @users.unhibernated.unretired
+    end
+  end
+
   def target_allowlist
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
-    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
   end
 
