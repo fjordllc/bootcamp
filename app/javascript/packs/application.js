@@ -91,3 +91,8 @@ mounter.addComponent(Reports)
 mounter.addComponent(Users)
 mounter.addComponent(User)
 mounter.mount()
+
+// Support component names relative to this directory:
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
