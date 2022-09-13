@@ -24,7 +24,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     fill_in 'hibernation[reason]', with: 'テストのため'
     accept_confirm do
       click_button '休会する'
-     end
+    end
     assert_text '休会処理が完了しました'
 
     visit_with_auth notifications_path, 'komagata'
@@ -46,7 +46,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     fill_in 'hibernation[reason]', with: 'テストのため'
     accept_confirm do
       click_button '休会する'
-     end
+    end
     assert_text '休会処理が完了しました'
 
     visit_with_auth notifications_path, 'komagata'
@@ -68,7 +68,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     fill_in 'hibernation[reason]', with: 'テストのため'
     accept_confirm do
       click_button '休会する'
-     end
+    end
     assert_text '休会処理が完了しました'
 
     visit_with_auth notifications_path, 'komagata'
