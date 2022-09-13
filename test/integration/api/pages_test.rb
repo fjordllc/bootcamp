@@ -34,4 +34,11 @@ class API::PagesTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
+
+  test 'GET /api/pages?page=99999' do
+    # TODO: ここの書き方がわからない
+    get api_pages_path(:page, 1),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :missing
+  end
 end
