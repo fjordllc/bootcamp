@@ -2,12 +2,12 @@ import React from 'react'
 import useSWR from 'swr'
 import AdminCourse from 'components/AdminCourse'
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function AdminCourses() {
   const { data, error } = useSWR('/api/courses.json', fetcher)
-  if (error) return "An error has occurred.";
-  if (!data) return "Loading...";
+  if (error) return 'An error has occurred.'
+  if (!data) return 'Loading...'
   const courses = data.courses
 
   return (
