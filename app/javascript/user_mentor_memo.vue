@@ -5,12 +5,12 @@ section.a-card.is-memo.is-only-mentor
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
     .card__description
-      .a-long-text.is-md(v-html='markdownMemo')
       .o-empty-message(v-if='memo.length === 0')
         .o-empty-message__icon
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
           | ユーザーメモはまだありません。
+      .a-long-text.is-md(v-else, v-html='markdownMemo')
   footer.card-footer(v-if='!editing')
     .card-main-actions
       .card-main-actions__items

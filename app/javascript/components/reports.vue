@@ -3,7 +3,7 @@
   .card-header.is-sm
     h2.card-header__title
       | 直近の日報
-  .card-list__items
+  .card-list__items(v-if='reports && reports.length > 0')
     report(
       v-for='report in reports',
       :key='report.id',
@@ -11,6 +11,13 @@
       :current-user-id='currentUserId',
       :display-user-icon='displayUserIcon'
     )
+  .card-body(v-else)
+    .card__description
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | 日報はまだありません。
 .page-content.reports(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
@@ -62,6 +69,10 @@ export default {
       type: Number,
       default: null
     },
+    practiceId: {
+      type: Number,
+      default: null
+    },
     limit: {
       type: String,
       default: null
@@ -91,6 +102,9 @@ export default {
       }
       if (this.companyId) {
         params.set('company_id', this.companyId)
+      }
+      if (this.practiceId) {
+        params.set('practice_id', this.practiceId)
       }
       if (this.limit) {
         params.set('limit', this.limit)

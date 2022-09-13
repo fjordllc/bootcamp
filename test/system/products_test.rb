@@ -52,7 +52,9 @@ class ProductsTest < ApplicationSystemTestCase
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     find('label.card-main-actions__muted-action').click
+    assert_no_text '喜びを Tweet する！'
     visit current_path
+    assert_text '修了 Tweet する'
     assert_no_text '喜びを Tweet する！'
   end
 
@@ -459,6 +461,7 @@ class ProductsTest < ApplicationSystemTestCase
   test 'can preview editing of user-memos' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
     find('#side-tabs-nav-3').click
+    assert_text 'kimuraさんのメモ'
     click_button '編集'
     fill_in 'js-user-mentor-memo', with: 'プレビューができます。'
     find('.form-tabs__tab', text: 'プレビュー').click
@@ -557,5 +560,15 @@ class ProductsTest < ApplicationSystemTestCase
     click_button '提出する'
 
     assert product.reload.published_at = product_published_at
+  end
+
+  test 'hide user icon from recent reports in product show' do
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    assert_no_selector('.card-list-item__user')
+  end
+
+  test 'product show without recent reports' do
+    visit_with_auth "/products/#{products(:product69).id}", 'komagata'
+    assert_text '日報はまだありません。'
   end
 end

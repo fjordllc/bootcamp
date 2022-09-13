@@ -1,5 +1,9 @@
 .page-content
   header.page-content-header
+    .page-content-header__start
+      .page-content-header__category
+        .page-content-header__category-icon(class="is-#{regular_event.category.tr('_', '-')}")
+          = t("activerecord.enums.regular_event.category.#{regular_event.category}")
     .page-content-header__end
       .page-content-header__row
         h1.page-content-header__title(class="#{regular_event.wip? ? 'is-wip' : ''}")
@@ -30,6 +34,8 @@
       .page-content-header__row
         .page-content-header-actions
           .page-content-header-actions__start
+            .page-content-header-actions__action
+              #js-watch-toggle(data-watchable-id="#{@regular_event.id}", data-watchable-type='RegularEvent')
           .page-content-header-actions__end
             .page-content-header-actions__action
               = link_to new_regular_event_path(id: regular_event), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
@@ -45,6 +51,8 @@
     .card__description
       .a-long-text.is-md.js-markdown-view
         = regular_event.description
+    - unless regular_event.wip?
+      = render 'regular_events/participation', regular_event: regular_event
     = render 'reactions/reactions', reactionable: regular_event
     - if admin_or_mentor_login? || regular_event.user_id == current_user.id
       .card-footer
@@ -57,3 +65,23 @@
             li.card-main-actions__item.is-sub
               = link_to regular_event_path(regular_event), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                 | 削除する
+
+  - unless regular_event.wip?
+    .a-card.participants
+      header.card-header.is-sm
+        h2.card-header__title
+          | 参加者（#{regular_event.participants.count}名）
+      .card-body
+        .card__description
+          - if regular_event.participants.present?
+            ul.user-icons__items
+              - regular_event.participants.each do |participant|
+                li.user-icons-item
+                  = link_to participant do
+                    = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+          - else
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              p.o-empty-message__text
+                | 参加者はまだいません。

@@ -384,4 +384,18 @@ class TalksTest < ApplicationSystemTestCase
     check '就職活動中', allow_label_click: true
     assert user.reload.job_seeking
   end
+
+  test 'hide user icon from recent reports in talk show' do
+    user = users(:hajime)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    page.find('#side-tabs-nav-2').click
+    assert_no_selector('.card-list-item__user')
+  end
+
+  test 'talk show without recent reports' do
+    user = users(:muryou)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    page.find('#side-tabs-nav-2').click
+    assert_text '日報はまだありません。'
+  end
 end

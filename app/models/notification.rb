@@ -67,17 +67,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def came_answer(answer)
-      Notification.create!(
-        kind: kinds[:answered],
-        user: answer.receiver,
-        sender: answer.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-        message: "#{answer.user.login_name}さんから回答がありました。",
-        read: false
-      )
-    end
-
     def watching_notification(watchable, receiver, comment)
       watchable_user = watchable.user
       sender = comment.user
@@ -132,6 +121,17 @@ class Notification < ApplicationRecord
         sender: report.sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(report),
         message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
+         read: false
+      )
+    end
+
+    def chose_correct_answer(answer, receiver)
+      Notification.create!(
+        kind: kinds[:chose_correct_answer],
+        user: receiver,
+        sender: answer.receiver,
+        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+        message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
         read: false
       )
     end

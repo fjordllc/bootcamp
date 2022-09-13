@@ -77,12 +77,13 @@
                 | 相談部屋
 </template>
 <script>
-import Following from 'following.vue'
-import UserSns from 'user-sns.vue'
-import UserTags from 'user-tags.vue'
-import UserPracticeProgress from 'user-practice-progress.vue'
+import Following from '../following.vue'
+import UserSns from '../user-sns.vue'
+import UserTags from '../user-tags.vue'
+import UserPracticeProgress from '../user-practice-progress.vue'
 
 export default {
+  name: 'User',
   components: {
     following: Following,
     'user-sns': UserSns,

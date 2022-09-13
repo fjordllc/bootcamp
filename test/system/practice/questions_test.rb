@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Practice::QuestionsTest < ApplicationSystemTestCase
   test 'show listing questions' do
     visit_with_auth "/practices/#{practices(:practice1).id}/questions", 'hatsuno'
-    assert_equal 'OS X Mountain Lionをクリーンインストールする | FBC', title
+    assert_equal 'OS X Mountain Lionをクリーンインストールするに関するQ&A | FBC', title
   end
 
   test 'show a WIP question on the all questions list ' do

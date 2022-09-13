@@ -4,10 +4,16 @@ require 'application_system_test_case'
 
 class Notification::AnswersTest < ApplicationSystemTestCase
   setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
     @notice_text = 'komagataさんから回答がありました。'
     @notice_best_answer_text = 'sotugyouさんの質問【 injectとreduce 】でkomagataさんの回答がベストアンサーに選ばれました。'
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
   end
 
   teardown do
