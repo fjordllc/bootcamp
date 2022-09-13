@@ -38,12 +38,6 @@ class TalksTest < ApplicationSystemTestCase
     assert_text "#{visited_user.login_name}さんの相談部屋"
   end
 
-  test 'non-admin user can access their own talk page' do
-    user = users(:kimura)
-    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
-    assert_selector '.page-header__title', text: '相談部屋'
-  end
-
   test 'a talk room is shown up on unreplied tab when users except admin comments there' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
@@ -65,6 +59,12 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     click_link 'kimura (Kimura Tadasi) さんの相談部屋'
     assert_selector '.page-header__title', text: 'kimura'
+  end
+
+  test 'non-admin user can access their own talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+    assert_selector '.page-header__title', text: '相談部屋'
   end
 
   test 'a talk room is removed from unreplied tab when admin comments there' do
