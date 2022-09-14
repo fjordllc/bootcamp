@@ -23,12 +23,12 @@ class Footprint::EventsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @event.id,
-        footprintable_type: "Event"
+        footprintable_type: 'Event'
       )
     end
 
     visit_with_auth event_path(@event), 'komagata'
-    assert_text 'その他1人'
+    assert_css '.user-icons__more'
   end
 
   test 'has no link if there are less than ten footprints' do
@@ -37,12 +37,12 @@ class Footprint::EventsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @event.id,
-        footprintable_type: "Event"
+        footprintable_type: 'Event'
       )
     end
 
     visit_with_auth event_path(@event), 'komagata'
-    assert_no_text 'その他'
+    assert_no_css '.user-icons__more'
   end
 
   test 'click on the link to view the rest of footprints' do
@@ -51,14 +51,13 @@ class Footprint::EventsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @event.id,
-        footprintable_type: "Event"
+        footprintable_type: 'Event'
       )
     end
 
     visit_with_auth event_path(@event), 'komagata'
-    assert_text 'その他1人'
 
-    find('.page-content-prev-next__item-link', text: 'その他1人').click
-    assert_no_text 'その他1人'
+    find('.user-icons__more').click
+    assert_no_css '.user-icons__more'
   end
 end
