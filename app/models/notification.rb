@@ -114,7 +114,6 @@ class Notification < ApplicationRecord
       )
     end
 
-<<<<<<< HEAD
     def chose_correct_answer(answer, receiver)
       Notification.create!(
         kind: kinds[:chose_correct_answer],
@@ -122,7 +121,10 @@ class Notification < ApplicationRecord
         sender: answer.receiver,
         link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
         message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
-=======
+        read: false
+      )
+    end
+
     def following_report(report, receiver)
       Notification.create!(
         kind: kinds[:following_report],
@@ -130,7 +132,6 @@ class Notification < ApplicationRecord
         sender: report.sender,
         link: Rails.application.routes.url_helpers.polymorphic_path(report),
         message: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
->>>>>>> 79f6fde1f... ベストアンサーの通知をabstract_notifierに置換した
         read: false
       )
     end
