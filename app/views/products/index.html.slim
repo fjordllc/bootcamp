@@ -6,7 +6,7 @@ header.page-header
       h2.page-header__title
         = title
 
-- if admin_or_mentor_login? || adviser_login?
+- if staff_login?
   = render 'products/tabs'
 
   .page-body
