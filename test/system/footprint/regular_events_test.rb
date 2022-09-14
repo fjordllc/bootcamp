@@ -24,7 +24,7 @@ class Footprint::RegularEventsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @regular_event.id,
-        footprintable_type: "RegularEvent"
+        footprintable_type: 'RegularEvent'
       )
     end
 
@@ -38,7 +38,7 @@ class Footprint::RegularEventsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @regular_event.id,
-        footprintable_type: "RegularEvent"
+        footprintable_type: 'RegularEvent'
       )
     end
 
@@ -52,7 +52,7 @@ class Footprint::RegularEventsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @regular_event.id,
-        footprintable_type: "RegularEvent"
+        footprintable_type: 'RegularEvent'
       )
     end
 

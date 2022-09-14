@@ -23,7 +23,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @report.id,
-        footprintable_type: "Report"
+        footprintable_type: 'Report'
       )
     end
 
@@ -37,7 +37,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @report.id,
-        footprintable_type: "Report"
+        footprintable_type: 'Report'
       )
     end
 
@@ -51,7 +51,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
       Footprint.create(
         user_id: user.id,
         footprintable_id: @report.id,
-        footprintable_type: "Report"
+        footprintable_type: 'Report'
       )
     end
 
