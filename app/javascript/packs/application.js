@@ -23,7 +23,6 @@ import '../fileinput.js'
 import '../reaction.js'
 import '../practice_memo.js'
 import '../card.js'
-import '../watch-toggle.js'
 import '../js-select2.js'
 import '../warning.js'
 import '../date-input-toggler'
@@ -42,7 +41,6 @@ import '../courses-practices.js'
 import '../no_learn.js'
 import '../searchables.js'
 import '../niconico_calendar.js'
-import '../user_mentor_memo.js'
 import '../mentor-mode.js'
 import '../bookmark.js'
 import '../bookmarks.js'
@@ -78,6 +76,8 @@ import Reports from '../components/reports.vue'
 import Users from '../components/users.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
+import WatchToggle from '../components/watch-toggle.vue'
+import UserMentorMemo from '../components/user_mentor_memo.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -91,6 +91,8 @@ mounter.addComponent(Reports)
 mounter.addComponent(Users)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
+mounter.addComponent(WatchToggle)
+mounter.addComponent(UserMentorMemo)
 mounter.mount()
 
 // Support component names relative to this directory:
