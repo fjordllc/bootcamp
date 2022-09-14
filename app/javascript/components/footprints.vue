@@ -1,8 +1,8 @@
 <template lang="pug">
 .user-icons(v-if='!loaded')
-    .fa-solid.fa-spinner.fa-pulse
-    |
-    | ロード中
+  .fa-solid.fa-spinner.fa-pulse
+  |
+  | ロード中
 .user-icons(v-else)
   h3.user-icons__title
     | 見たよ
@@ -57,8 +57,7 @@ export default {
       return this.footprints.slice(0, 10)
     },
     tenOrLessFootprints() {
-      // 名前大丈夫そ？
-        return this.footprintTotalCount <= 10
+      return this.footprintTotalCount <= 10
     },
     moreThanTenFoorptints() {
       return this.footprintTotalCount > 10
