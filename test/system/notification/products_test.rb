@@ -28,7 +28,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'update product notificationmessage' do
+  test 'update product notification message' do
     product = products(:product2)
 
     visit_with_auth "/products/#{product.id}/edit", 'kimura'
@@ -45,7 +45,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'checked product notificationmessage' do
+  test 'checked product notification message' do
     checker = users(:komagata)
     practice = practices(:practice47)
     user = users(:kimura)
