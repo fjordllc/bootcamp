@@ -5,7 +5,7 @@ header.page-header
     .page-header__inner
       h2.page-header__title
         - if current_user.admin?
-          | #{@user.login_name}
+          = @user.login_name
         - else
           | 相談部屋
       - if current_user.admin?
