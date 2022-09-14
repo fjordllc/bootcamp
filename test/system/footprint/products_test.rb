@@ -57,7 +57,7 @@ class Footprint::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth product_path(@product), 'komagata'
 
-    find('.page-content-prev-next__item-link', text: 'その他1人').click
+    find('.user-icons__more', text: 'その他1人').click
     assert_no_text 'その他1人'
   end
 end

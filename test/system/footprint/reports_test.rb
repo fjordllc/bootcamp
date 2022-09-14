@@ -6,7 +6,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
   setup do
     @report = reports(:report1)
   end
-  
+
   test 'should be create footprint in /reports/:id' do
     visit_with_auth report_path(@report), 'sotugyou'
     assert_css '.a-user-icon.is-sotugyou'
@@ -58,7 +58,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(@report), 'komagata'
     assert_text 'その他1人'
 
-    find('.page-content-prev-next__item-link', text: 'その他1人').click
+    find('.user-icons__more', text: 'その他1人').click
     assert_no_text 'その他1人'
   end
 end

@@ -58,7 +58,7 @@ class Footprint::EventsTest < ApplicationSystemTestCase
     visit_with_auth event_path(@event), 'komagata'
     assert_text 'その他1人'
 
-    find('.page-content-prev-next__item-link', text: 'その他1人').click
+    find('.user-icons__more', text: 'その他1人').click
     assert_no_text 'その他1人'
   end
 end

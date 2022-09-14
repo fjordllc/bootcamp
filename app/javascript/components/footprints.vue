@@ -14,7 +14,7 @@
       :key='footprint.key',
       :footprint='footprint'
     )
-  .page-content-prev-next__item-link(
+  .user-icons__more(
     v-if='moreThanTenFoorptints && isDisplay',
     @click='showRemainingFootprints'
   )
