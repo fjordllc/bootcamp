@@ -28,7 +28,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
     end
 
     visit_with_auth report_path(@report), 'komagata'
-    assert_text 'その他1人'
+    assert_css '.user-icons__more'
   end
 
   test 'has no link if there are ten or less footprints' do
@@ -42,7 +42,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
     end
 
     visit_with_auth report_path(@report), 'komagata'
-    assert_no_text 'その他'
+    assert_no_css '.user-icons__more'
   end
 
   test 'click on the link to view the rest of footprints' do
@@ -58,7 +58,7 @@ class Footprint::ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(@report), 'komagata'
     assert_text 'その他1人'
 
-    find('.user-icons__more', text: 'その他1人').click
-    assert_no_text 'その他1人'
+    find('.user-icons__more').click
+    assert_no_css '.user-icons__more'
   end
 end
