@@ -4,8 +4,6 @@ class Learning < ApplicationRecord
   enum status: { unstarted: 0, started: 1, submitted: 2, complete: 3 }
   belongs_to :user, touch: true
   belongs_to :practice
-  after_save LearningCallbacks.new
-  after_destroy LearningCallbacks.new
 
   validates :user_id, presence: true
   validates :practice_id,

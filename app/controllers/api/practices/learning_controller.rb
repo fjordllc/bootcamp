@@ -29,6 +29,7 @@ class API::Practices::LearningController < API::BaseController
     status = learning.new_record? ? :created : :ok
 
     if learning.save
+      Newspaper.publish(:learning_create, learning.user)
       notify_to_chat_for_employment_counseling(learning) if status == :created && learning.practice.title == '就職相談部屋を作る'
       head status
     else
