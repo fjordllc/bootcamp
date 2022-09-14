@@ -107,7 +107,6 @@ class RegularEventsTest < ApplicationSystemTestCase
     end
   end
 
-<<<<<<< HEAD
   test 'show participation link during opening' do
     regular_event = regular_events(:regular_event1)
     visit_with_auth regular_event_path(regular_event), 'kimura'
