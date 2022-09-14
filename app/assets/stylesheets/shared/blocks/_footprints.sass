@@ -1,19 +1,31 @@
 .user-icons
-  display: flex
-  gap: .75rem
   margin-top: 1.5rem
+  +media-breakpoint-up(md)
+    display: flex
+    gap: .75rem
 
 .user-icons__title
-  +text-block(.875rem 2rem, 600 right)
+  +media-breakpoint-up(md)
+    text-align: right
+    +text-block(.875rem 2rem, 600 nowrap)
   +media-breakpoint-down(sm)
-    flex: 0 0 auto
+    +text-block(.875rem 1.4, 600 nowrap)
 
 .user-icons__items
-  flex: 1
   display: flex
   gap: .5rem
   flex-wrap: wrap
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
 
 .user-icons-item
   display: flex
   align-items: center
+
+.user-icons__more
+  +text-block(.8125rem 1.4, block $main nowrap)
+  +hover-link-reversal
+  +media-breakpoint-up(md)
+    align-self: center
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
