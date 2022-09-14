@@ -28,7 +28,7 @@ class DiscordNotifier < ApplicationNotifier
 
   def post_announcement(params = {})
     params.merge!(@params)
-    webhook_url = ENV['DISCORD_ALL_WEBHOOK_URL'] || Rails.application.secrets[:webhook][:all]
+    webhook_url = Rails.application.secrets[:webhook][:all]
 
     path = Rails.application.routes.url_helpers.polymorphic_path(params[:announce])
     url = "https://bootcamp.fjord.jp#{path}"
