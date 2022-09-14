@@ -1,7 +1,6 @@
-nav.tab-nav
-  .container
-    ul.tab-nav__items
-      li.tab-nav__item
-        = link_to '開催中', regular_events_path(target: 'not_finished'), class: (params[:target] == 'not_finished' ? ['is-active'] : []) << 'tab-nav__item-link'
-      li.tab-nav__item
-        = link_to '全て', regular_events_path, class: (params[:target] == 'not_finished' ? [] : ['is-active']) << 'tab-nav__item-link'
+nav.pill-nav
+  ul.pill-nav__items
+    li.pill-nav__item
+      = link_to '開催中', regular_events_path(target: 'not_finished'), class: (params[:target] == 'not_finished' ? ['is-active'] : []) << 'pill-nav__item-link'
+    li.pill-nav__item
+      = link_to '全て', regular_events_path, class: (params[:target] == 'not_finished' ? [] : ['is-active']) << 'pill-nav__item-link'
