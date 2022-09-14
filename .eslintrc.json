@@ -1,9 +1,13 @@
 {
   "extends": [
-    "plugin:vue/recommended",
     "eslint:recommended",
     "standard",
+    "plugin:vue/recommended",
+    "plugin:react/jsx-runtime",
     "prettier"
+  ],
+  "plugins": [
+    "react"
   ],
   "env": {
     "jquery": true,
@@ -21,9 +25,14 @@
     "ecmaVersion": 2020
   },
   "rules": {
-    "no-unused-vars": ["error", {
-      "args": "all",
-      "argsIgnorePattern": "^_"
-    }]
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "all",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "react/jsx-uses-react": "error",   
+    "react/jsx-uses-vars": "error" 
   }
 }
