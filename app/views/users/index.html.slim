@@ -42,7 +42,7 @@ main.page-main
     .container
       .page-body__columns
         .page-body__column.is-main
-          #js-users
+          div(data-vue='Users')
         .page-body__column.is-sub.is-sm.is-hidden-lg-down
           = render '/users/random_tags'
   - unless params[:tag]

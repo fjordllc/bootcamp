@@ -36,11 +36,12 @@
 </template>
 
 <script>
-import watch from 'watch.vue'
+import watch from 'components/watch.vue'
 import Pager from 'pager.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 
 export default {
+  name: 'Watches',
   components: {
     watch: watch,
     loadingListPlaceholder: LoadingListPlaceholder,

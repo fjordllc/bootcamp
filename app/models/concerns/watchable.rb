@@ -23,6 +23,8 @@ module Watchable
       "「#{self[:title]}」のQ&A"
     when Event
       "「#{self[:title]}」のイベント"
+    when RegularEvent
+      "「#{self[:title]}」の定期イベント"
     when Page
       "「#{self[:title]}」のDocs"
     when Announcement
@@ -32,7 +34,7 @@ module Watchable
 
   def body
     case self
-    when Question, Event, Report, Announcement
+    when Question, Event, RegularEvent, Report, Announcement
       self[:description]
     else
       self[:body]

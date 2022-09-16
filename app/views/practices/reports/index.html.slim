@@ -1,19 +1,9 @@
-- title @practice.title
+- title "#{@practice.title}に関する日報"
 - category = @practice.category(current_user.course)
 
-= render '/practices/page_header', title: title, category: category
+= render '/practices/page_header', title: @practice.title, category: category
 = render 'page_tabs', resource: @practice
 
 .page-body
   .container.is-md
-    = paginate @reports
-    - if @reports.present?
-      .card-list.a-card
-        = render partial: 'reports/report', collection: @reports, as: :report
-      = paginate @reports
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
-        .o-empty-message__text
-          | 日報はまだありません。
+    div(data-vue="Reports" data-vue-practice-id:number="#{@practice.id}")

@@ -4,10 +4,16 @@
 .welcome-page-header__inner
   display: flex
   align-items: center
+  justify-content: space-between
   +media-breakpoint-up(md)
     height: 4.5rem
   +media-breakpoint-down(sm)
     height: 3.5rem
+
+.welcome-page-header__start
+  flex: 1
+  display: flex
+  align-items: center
 
 .welcome-page-header__title
   +text-block(1em 1.4, 600 $reversal-text)

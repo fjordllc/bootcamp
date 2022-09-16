@@ -57,4 +57,22 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_equal Date.new(2022, 6, 5), regular_event.next_specific_day_of_the_week(regular_event_repeat_rule)
     end
   end
+
+  test '#cancel_participation' do
+    regular_event = regular_events(:regular_event1)
+    participant = regular_event_participations(:regular_event_participation1).user
+
+    regular_event.cancel_participation(participant)
+    assert_not regular_event.regular_event_participations.find_by(user_id: participant.id)
+  end
+
+  test '#watched' do
+    regular_event = regular_events(:regular_event1)
+    user = users(:kimura)
+    assert_not regular_event.watched?(user)
+
+    watch = Watch.new(user: user, watchable: regular_event)
+    watch.save
+    assert regular_event.watched?(user)
+  end
 end

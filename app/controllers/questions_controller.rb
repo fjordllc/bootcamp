@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
         Question.all
       end
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
-    @tags = questions.all_tags
+    @tags = Question.all.all_tags
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
     questions = questions.tagged_with(params[:tag]) if params[:tag]
     @questions = questions
