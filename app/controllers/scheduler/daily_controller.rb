@@ -6,7 +6,6 @@ class Scheduler::DailyController < SchedulerController
     User.retired.find_each do |retired_user|
       if retired_user.retired_three_months_ago_and_notification_not_sent?
         User.admins.each do |admin_user|
-          ActivityNotifier.three_months_after_retirement(sender: retired_user, receiver: admin_user)
           NotificationFacade.three_months_after_retirement(retired_user, admin_user)
           retired_user.update!(notified_retirement: true)
         end
