@@ -236,7 +236,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#%7Bsender.id%7D",
+      body: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#{sender.id}",
       kind: :retired,
       sender: sender,
       receiver: receiver,
