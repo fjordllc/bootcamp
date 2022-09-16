@@ -3,6 +3,16 @@
 require 'application_system_test_case'
 
 class Notification::AfterRetirementTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+    @notice_text = 'komagataさんから回答がありました。'
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'three months have passed since user retired' do
     visit_with_auth '/scheduler/daily', 'komagata'
     visit '/notifications'
