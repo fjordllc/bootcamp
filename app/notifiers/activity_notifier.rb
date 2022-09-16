@@ -229,7 +229,8 @@ class ActivityNotifier < ApplicationNotifier
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       read: false
     )
-    
+  end
+  
   def three_months_after_retirement(params = {})
     params.merge!(@params)
     sender = params[:sender]
