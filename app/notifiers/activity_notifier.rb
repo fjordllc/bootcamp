@@ -217,6 +217,20 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
+  def came_answer(params = {})
+    params.merge!(@params)
+    answer = params[:answer]
+
+    notification(
+      body: "#{answer.user.login_name}さんから回答がありました。",
+      kind: :answered,
+      receiver: answer.receiver,
+      sender: answer.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      read: false
+    )
+  end
+  
   def three_months_after_retirement(params = {})
     params.merge!(@params)
     sender = params[:sender]
