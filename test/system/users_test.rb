@@ -578,4 +578,22 @@ class UsersTest < ApplicationSystemTestCase
     user = users(:hajime)
     assert_match(/#{user.id}\.png$/, img.native['src'])
   end
+
+  test 'mentor can see retired and hibernated tabs' do
+    visit_with_auth '/users', 'mentormentaro'
+    has_link?('休会')
+    has_link?('退会')
+  end
+
+  test 'admin can see retired and hibernated tabs' do
+    visit_with_auth '/users', 'komagata'
+    has_link?('休会')
+    has_link?('退会')
+  end
+
+  test 'if the user is not admin or mentor, the user cannot see retired and hibernated tabs' do
+    visit_with_auth '/users', 'sotugyou'
+    has_no_link?('休会')
+    has_no_link?('退会')
+  end
 end
