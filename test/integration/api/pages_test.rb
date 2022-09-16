@@ -36,8 +36,9 @@ class API::PagesTest < ActionDispatch::IntegrationTest
   end
 
   test 'GET /api/pages?page=99999' do
-    # TODO: ここの書き方がわからない
-    get api_pages_path(:page, 1),
+    # TODO: ここの書き方がわからないです
+    token = create_token('kimura', 'testtest')
+    get api_pages_path(:page, 99999),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :missing
   end
