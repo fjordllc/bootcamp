@@ -19,6 +19,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントをWIPとして保存しました。'
+    assert_text 'Watch中'
   end
 
   test 'create regular event' do
@@ -38,6 +39,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     end
     assert_text '定期イベントを作成しました。'
     assert_text '毎週月曜日'
+    assert_text 'Watch中'
   end
 
   test 'create copy regular event' do
@@ -103,5 +105,42 @@ class RegularEventsTest < ApplicationSystemTestCase
     within '.card-list.a-card' do
       assert_text 'その他'
     end
+  end
+
+  test 'show participation link during opening' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'kimura'
+    assert_link '参加申込'
+  end
+
+  test 'user can participate in an regular event' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'kimura'
+    assert_difference 'regular_event.participants.count', 1 do
+      accept_confirm do
+        click_link '参加申込'
+      end
+      assert_text '参加登録しました。'
+    end
+  end
+
+  test 'user can cancel regular event' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'hatsuno'
+    assert_difference 'regular_event.participants.count', -1 do
+      accept_confirm do
+        click_link '参加を取り消す'
+      end
+      assert_text '参加を取り消しました。'
+    end
+  end
+
+  test 'turn on the watch when attend an regular event' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'kimura'
+    accept_confirm do
+      click_link '参加申込'
+    end
+    assert_text 'Watch中'
   end
 end

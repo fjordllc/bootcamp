@@ -32,6 +32,7 @@ class Admin::UsersController < AdminController
     # 制限をかけておく
     redirect_to admin_users_url, alert: '自分自身を削除する場合、退会から処理を行ってください。' if current_user.id == params[:id]
     user = User.find(params[:id])
+    Newspaper.publish(:learning_destroy, user)
     user.destroy
     redirect_to admin_users_url, notice: "#{user.name} さんを削除しました。"
   end

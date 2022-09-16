@@ -46,7 +46,7 @@ header.page-header
                 | タグ一覧
             .page-tags-nav__body
               ul.page-tags-nav__items
-                - Question.all.all_tags.each do |tag|
+                - @tags.each do |tag|
                   - if tag.present?
                     li.page-tags-nav__item
                       = link_to tag.name, questions_tag_path(tag.name), class: 'page-tags-nav__item-link'

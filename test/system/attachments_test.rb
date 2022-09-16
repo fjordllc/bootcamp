@@ -8,4 +8,10 @@ class AttachmentsTest < ApplicationSystemTestCase
     visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
     assert find('img.user-profile__user-icon-image')['src'].include?('komagata.png')
   end
+
+  test 'attachment company icons in reports' do
+    report = reports(:report11)
+    visit_with_auth "/reports/#{report.id}", 'kensyu'
+    assert find('img.page-content-header__company-logo')['src'].include?('2.png')
+  end
 end
