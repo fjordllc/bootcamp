@@ -10,7 +10,12 @@
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'display: inline-block の挙動の調査を進めた'
         .a-form-help
-          p 後で探しやすくなるタイトルがオススメ
+          p
+            |日報のタイトルはあとで振り返りやすいタイトルを付けてください。<br>
+             「今日はここまでやった」「今日はこんなことを感じた」という概要をタイトルに含めておけば、あとで読みかえしたいときにぱっと目的の日報にたどり着けます。<br>
+              それだけでなく、他の受講生があなたの日報を参考にしたいときにも「あ、この日報を読めば何か手がかりが得られるかも」ということがタイトルから把握できます。<br>
+              自分自身のため、そして他の受講生のために、わかりやすい日報タイトルを付けましょう。<br>
+              gitのようなソースコード管理ツールを使ったことがある人は、未来の自分自身へ向けたコミットメッセージだと考えると良いと思います。<br>
       .form-item
         = f.label :reported_on, class: 'a-form-label'
         = f.date_field :reported_on, class: 'a-text-input'
