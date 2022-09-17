@@ -7,6 +7,11 @@
         :title='comment.user.icon_title',
         :class='[roleClass]'
       )
+    a(
+    v-if='comment.user.company && comment.user.company.logo_url && comment.user.adviser',
+    :href='comment.user.company.url'
+    )
+      img.user-item__company-logo(:src='comment.user.company.logo_url')
   .a-card(v-if='!editing')
     header.card-header
       h2.thread-comment__title
