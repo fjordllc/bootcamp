@@ -230,7 +230,7 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
-  
+
   def three_months_after_retirement(params = {})
     params.merge!(@params)
     sender = params[:sender]
