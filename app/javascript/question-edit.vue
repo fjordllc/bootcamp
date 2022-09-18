@@ -202,7 +202,7 @@
 </template>
 <script>
 import Reaction from 'reaction.vue'
-import WatchToggle from 'watch-toggle.vue'
+import WatchToggle from './components/watch-toggle.vue'
 import BookmarkButton from 'bookmark-button.vue'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
