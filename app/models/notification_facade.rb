@@ -13,7 +13,7 @@ class NotificationFacade
   end
 
   def self.checked(check)
-    Notification.checked(check)
+    ActivityNotifier.with(check: check, receiver: check.receiver).checked.notify_now
     receiver = check.receiver
     return unless receiver.mail_notification? && !receiver.retired?
 
