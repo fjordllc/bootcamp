@@ -31,7 +31,7 @@ class API::UsersController < API::BaseController
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
 
-    check_users_to_display
+    @users = @users.unhibernated.unretired unless @company || check_target_if_hibernated_or_retired
   end
 
   def show; end
@@ -58,6 +58,10 @@ class API::UsersController < API::BaseController
     else
       @users = @users.unhibernated.unretired
     end
+  end
+
+  def check_target_if_hibernated_or_retired
+    true if @target == 'hibernated' || @target == 'retired'
   end
 
   def target_allowlist
