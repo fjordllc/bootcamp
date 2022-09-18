@@ -254,7 +254,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       kind: :trainee_report,
-      user: receiver,
+      receiver: receiver,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
       read: false
