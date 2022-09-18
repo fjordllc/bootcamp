@@ -34,7 +34,7 @@
         .page-content-header-actions
           .page-content-header-actions__start
             .page-content-header-actions__action
-              #js-watch-toggle(data-watchable-id="#{@announcement.id}", data-watchable-type='Announcement')
+              div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@announcement.id}" data-vue-watchable-type='Announcement')
           .page-content-header-actions__end
             .page-content-header-actions__action
               = link_to new_announcement_path(id: announcement), class: 'a-button is-sm is-secondary is-block', id: 'copy' do
