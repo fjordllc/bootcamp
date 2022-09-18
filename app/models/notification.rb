@@ -67,6 +67,17 @@ class Notification < ApplicationRecord
       )
     end
 
+    def came_answer(answer)
+      Notification.create!(
+        kind: kinds[:answered],
+        user: answer.receiver,
+        sender: answer.sender,
+        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+        message: "#{answer.user.login_name}さんから回答がありました。",
+        read: false
+      )
+    end
+
     def watching_notification(watchable, receiver, comment)
       watchable_user = watchable.user
       sender = comment.user
