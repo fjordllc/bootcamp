@@ -68,7 +68,7 @@
           .card-main-actions__items
             .card-main-actions__item
               button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
-                @click='createComment',
+                @click='postComment',
                 :disabled='!validation || buttonDisabled'
               )
                 | コメントする
@@ -240,18 +240,6 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
-      if (
-        this.commentableType === 'Product' &&
-        this.productCheckerId === null
-      ) {
-        this.checkProduct(
-          this.commentableId,
-          this.currentUserId,
-          '/api/products/checker',
-          'PATCH',
-          this.token()
-        )
-      }
     },
     deleteComment(id) {
       fetch(`/api/comments/${id}.json`, {
@@ -304,6 +292,20 @@ export default {
           this.token()
         )
       }
+    },
+    postComment() {
+      this.createComment({ toastMessage: null })
+      if (
+        this.commentableType === 'Product' &&
+        this.productCheckerId === null && this.checkId === null) {
+          this.checkProduct(
+            this.commentableId,
+            this.currentUserId,
+            '/api/products/checker',
+            'PATCH',
+            this.token()
+            )
+          }
     },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {
