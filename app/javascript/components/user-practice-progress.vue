@@ -14,7 +14,6 @@
 </template>
 <script>
 export default {
-  name: 'UserPracticeProgress',
   props: {
     user: { type: Object, required: true }
   },
