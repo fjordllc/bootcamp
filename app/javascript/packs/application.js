@@ -76,6 +76,7 @@ import Reports from '../components/reports.vue'
 import Users from '../components/users.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
+import UserPracticeProgress from '../components/user-practice-progress.vue'
 import WatchToggle from '../components/watch-toggle.vue'
 import UserMentorMemo from '../components/user_mentor_memo.vue'
 
@@ -91,6 +92,7 @@ mounter.addComponent(Reports)
 mounter.addComponent(Users)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
+mounter.addComponent(UserPracticeProgress)
 mounter.addComponent(WatchToggle)
 mounter.addComponent(UserMentorMemo)
 mounter.mount()
