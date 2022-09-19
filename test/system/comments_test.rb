@@ -301,6 +301,19 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'comment test'
   end
 
+  test 'when mentor confirm unassigned product with comment' do
+    unassigned_product = products(:product1)
+    visit_with_auth product_url(unassigned_product), 'machida'
+    assert_button '担当する'
+
+    accept_confirm do
+      fill_in 'new_comment[description]', with: 'comment test'
+      click_button '確認OKにする'
+    end
+    assert_text '提出物を確認済みにしました'
+    assert_text 'comment test'
+  end
+
   test 'when mentor confirm a report with comment' do
     visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
     assert_text '確認OKにする'
