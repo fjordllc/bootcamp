@@ -30,6 +30,7 @@ class API::AnswersController < API::BaseController
     @answer.user = current_user
     if @answer.save
       Newspaper.publish(:answer_create, @answer)
+      Newspaper.publish(:answer_notify_to_watching_users, @answer)
       render :create, status: :created
     else
       head :bad_request
