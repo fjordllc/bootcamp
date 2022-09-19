@@ -294,12 +294,8 @@ export default {
       }
     },
     postComment() {
-      this.createComment({ toastMessage: null })
-      if (
-        this.commentableType === 'Product' &&
-        this.productCheckerId === null &&
-        this.checkId === null
-      ) {
+      this.createComment({})
+      if (this.isUnassignedAndUnchekedProduct) {
         this.checkProduct(
           this.commentableId,
           this.currentUserId,
