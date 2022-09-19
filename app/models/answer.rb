@@ -10,6 +10,7 @@ class Answer < ApplicationRecord
   alias sender user
 
   after_create AnswerCallbacks.new
+  after_save AnswerCallbacks.new
 
   validates :description, presence: true
   validates :user, presence: true
