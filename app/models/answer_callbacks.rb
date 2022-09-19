@@ -2,7 +2,6 @@
 
 class AnswerCallbacks
   def after_create(answer)
-    create_watch(answer)
     notify_to_watching_user(answer)
   end
 
@@ -41,17 +40,5 @@ class AnswerCallbacks
       receiver = User.find(receiver_id)
       NotificationFacade.chose_correct_answer(answer, receiver)
     end
-  end
-
-  def create_watch(answer)
-    question = Question.find(answer.question_id)
-
-    return if question.watches.pluck(:user_id).include?(answer.sender.id)
-
-    @watch = Watch.new(
-      user: answer.sender,
-      watchable: question
-    )
-    @watch.save!
   end
 end
