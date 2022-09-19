@@ -325,4 +325,16 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text '日報を確認済みにしました'
     assert_text 'comment test'
   end
+
+  test ' company logo appear when adviser post comment ' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    assert_text 'test'
+    click_button 'コメントする'
+    assert_text 'test'
+    assert find('img.user-item__company-logo')['src'].include?('2.png')
+  end
 end
