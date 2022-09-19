@@ -12,6 +12,5 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:learning_create, learning_cache_destroyer)
   Newspaper.subscribe(:learning_destroy, learning_cache_destroyer)
 
-  answer_cache_destroyer = AnswerCacheDestroyer.new
-  Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
+  Newspaper.subscribe(:answer_destroy, AnswerCacheDestroyer.new)
 end
