@@ -297,15 +297,17 @@ export default {
       this.createComment({ toastMessage: null })
       if (
         this.commentableType === 'Product' &&
-        this.productCheckerId === null && this.checkId === null) {
-          this.checkProduct(
-            this.commentableId,
-            this.currentUserId,
-            '/api/products/checker',
-            'PATCH',
-            this.token()
-            )
-          }
+        this.productCheckerId === null &&
+        this.checkId === null
+      ) {
+        this.checkProduct(
+          this.commentableId,
+          this.currentUserId,
+          '/api/products/checker',
+          'PATCH',
+          this.token()
+        )
+      }
     },
     async fetchUncheckedProducts(page) {
       return fetch(`/api/products/unchecked?page=${page}`, {
