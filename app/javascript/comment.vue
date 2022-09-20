@@ -8,7 +8,7 @@
         :class='[roleClass]'
       )
     a.thread-comment__company-link(
-      v-if='comment.user.company && comment.user.company.logo_url && comment.user.adviser',
+      v-if='comment.user.company && comment.user.adviser',
       :href='comment.user.company.url'
     )
       img.thread-comment__company-logo(:src='comment.user.company.logo_url')
@@ -34,7 +34,7 @@
         | {{ updatedAt }}
     .thread-comment__description
       a.thread-comment__company-link.is-hidden-md-up(
-        v-if='comment.user.company && comment.user.company.logo_url && comment.user.adviser',
+        v-if='comment.user.company && comment.user.adviser',
         :href='comment.user.company.url'
       )
         img.thread-comment__company-logo(:src='comment.user.company.logo_url')
