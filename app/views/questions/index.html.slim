@@ -12,14 +12,6 @@ header.page-header
               | 質問する
 
 = render 'questions/tabs'
-= form_with url: questions_path, method: 'get', local: true
-  nav.sort-nav
-    .container.is-md
-      .sort-nav__inner
-        = hidden_field_tag :target, params[:target]
-        = label_tag :practice_id, 'プラクティスで絞り込む', class: 'sort-nav__label'
-        .sort-nav__select
-          = select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
 
 - if @tag.present?
   header.page-main-header
@@ -34,19 +26,27 @@ header.page-header
               .page-main-header-actions__items
                 #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
 .page-body
-  .container.is-xl
-    .page-body__columns
-      .page-body__column.is-main
-        div(data-vue='Questions' data-vue-empty-message="#{@questions_property.empty_message}" data-vue-selected-tag="#{params[:tag]}")
-      - if @tags.any?
-        .page-body__column.is-sub
-          nav.page-tags-nav.a-card
-            header.card-header.is-sm
-              h2.card-header__title
-                | タグ一覧
-            .page-tags-nav__body
-              ul.page-tags-nav__items
-                - @tags.each do |tag|
-                  - if tag.present?
-                    li.page-tags-nav__item
-                      = link_to tag.name, questions_tag_path(tag.name), class: 'page-tags-nav__item-link'
+  nav.page-filter.form
+    .container.is-md
+      = form_with url: questions_path, method: 'get', local: true
+        .form-item.is-inline-md-up
+          = hidden_field_tag :target, params[:target]
+          = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+          = select_tag :practice_id, options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]), include_blank: '全ての質問を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+  .page-content.is-questions
+    .container.is-xl
+      .page-body__columns
+        .page-body__column.is-main
+          div(data-vue='Questions' data-vue-empty-message="#{@questions_property.empty_message}" data-vue-selected-tag="#{params[:tag]}")
+        - if @tags.any?
+          .page-body__column.is-sub
+            nav.page-tags-nav.a-card
+              header.card-header.is-sm
+                h2.card-header__title
+                  | タグ一覧
+              .page-tags-nav__body
+                ul.page-tags-nav__items
+                  - @tags.each do |tag|
+                    - if tag.present?
+                      li.page-tags-nav__item
+                        = link_to tag.name, questions_tag_path(tag.name), class: 'page-tags-nav__item-link'
