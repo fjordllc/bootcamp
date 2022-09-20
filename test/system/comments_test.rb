@@ -335,6 +335,6 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
-    assert find('img.user-item__company-logo')['src'].include?('2.png')
+    assert find('img.thread-comment__company-logo')['src'].include?('2.png')
   end
 end
