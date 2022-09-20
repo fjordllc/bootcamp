@@ -8,7 +8,7 @@ class API::CorrectAnswersController < API::BaseController
     @answer = @question.answers.find(params[:answer_id])
     @answer.type = 'CorrectAnswer'
     if @answer.save
-      Newspaper.publish(:answer_destroy, @answer)
+      Newspaper.publish(:answer_create, @answer)
       ChatNotifier.message("質問：「#{@answer.question.title}」のベストアンサーが選ばれました。\r#{url_for(@answer.question)}")
       render json: @answer
     else
@@ -19,7 +19,7 @@ class API::CorrectAnswersController < API::BaseController
   def update
     answer = @question.answers.find(params[:answer_id])
     answer.update!(type: '')
-    Newspaper.publish(:answer_destroy, answer)
+    Newspaper.publish(:answer_update, answer)
   end
 
   private
