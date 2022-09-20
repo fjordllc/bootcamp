@@ -1,21 +1,21 @@
-.reference-books-form
+.books-form
   border: solid 1px $border-more-shade
   background-color: $background-shade
   border-radius: .25rem
-  .reference-books-form + &
+  .books-form + &
     margin-top: 2rem
   .choices.is-open
     z-index: 3
 
-.reference-books-form__header
+.books-form__header
   position: relative
 
-.reference-books-form__delete
+.books-form__delete
   +position(absolute, right 0, top 0)
   +size(2.5rem)
   transform: translate(25%, -25%)
 
-.reference-books-form__delete-link
+.books-form__delete-link
   border: solid 1px $border-more-more-shade
   font-size: 1.25rem
   color: $muted-text
@@ -30,13 +30,13 @@
     color: $danger
     border-color: $danger
 
-.reference-books-form__items
+.books-form__items
   +media-breakpoint-up(md)
-    padding: 1rem 1.5rem 1.25rem
+    padding: 1rem
   +media-breakpoint-down(sm)
-    padding: .75rem 1rem 1rem
+    padding: .75rem
 
-.reference-books-form__add
+.books-form__add
   .a-button
     min-width: 12rem
     +media-breakpoint-down(sm)

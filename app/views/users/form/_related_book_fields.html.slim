@@ -1,19 +1,17 @@
-.col-xl-4.col-md-6.col-xs-12.nested-fields
-  .reference-books-form
-    .reference-books-form__header
-      .reference-books-form__delete
-        = link_to_remove_association f, class: 'reference-books-form__delete-link' do
+.col-xs-12.nested-fields
+  .books-form
+    .books-form__header
+      .books-form__delete
+        = link_to_remove_association f, class: 'books-form__delete-link' do
           i.fas.fa-times
-    .reference-books-form__items
-      .reference-books-form-item
+    .books-form__items
+      .books-form-item
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input'
-    .reference-books-form__items
-      .reference-books-form-item
+      .books-form-item
         = f.label :url, class: 'a-form-label'
         = f.text_field :url, class: 'a-text-input'
-    .reference-books-form__items
-      .reference-books-form-item
+      .books-form-item
         = f.label :cover, class: 'a-form-label'
         .form-item-file-input.js-file-input.a-file-input.is-book
           label.js-file-input__preview

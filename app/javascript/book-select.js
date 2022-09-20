@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       shouldSort: false
     })
   }
-  $('.reference-books-form__add').on('cocoon:after-insert', () => {
+  $('.books-form__add').on('cocoon:after-insert', () => {
     const elements = document.querySelectorAll('#js-book-select')
     const element = elements[elements.length - 1]
     if (element) {
