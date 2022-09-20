@@ -282,7 +282,7 @@ export default {
       }
     },
     postComment() {
-      this.createComment({})
+      this.createComment()
       if (this.isUnassignedAndUnchekedProduct) {
         this.checkProduct(
           this.commentableId,
