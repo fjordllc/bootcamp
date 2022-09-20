@@ -9,7 +9,6 @@ class Answer < ApplicationRecord
   belongs_to :question, touch: false
   alias sender user
 
-  after_create AnswerCallbacks.new
   after_save AnswerCallbacks.new
   after_destroy AnswerCallbacks.new
 
