@@ -34,12 +34,4 @@ class API::PagesTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
-
-  test 'GET /api/pages?page=9999' do
-    token = create_token('kimura', 'testtest')
-    get api_pages_path,
-        headers: { 'Authorization' => "Bearer #{token}" },
-        params: { page: '9999' }
-    assert_response :missing
-  end
 end
