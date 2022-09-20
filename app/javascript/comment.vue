@@ -7,14 +7,21 @@
         :title='comment.user.icon_title',
         :class='[roleClass]'
       )
-    a(
+    a.thread-comment__company-link(
       v-if='comment.user.company && comment.user.company.logo_url && comment.user.adviser',
       :href='comment.user.company.url'
     )
-      img.user-item__company-logo(:src='comment.user.company.logo_url')
+      img.thread-comment__company-logo(:src='comment.user.company.logo_url')
   .a-card(v-if='!editing')
     header.card-header
       h2.thread-comment__title
+        a.thread-comment__title-user-link.is-hidden-md-up(:href='comment.user.url')
+          img.thread-comment__title-user-icon.a-user-icon(
+            :src='comment.user.avatar_url',
+            :title='comment.user.icon_title',
+            :class='[roleClass]'
+          )
+
         a.thread-comment__title-link.a-text-link(:href='comment.user.url')
           | {{ comment.user.login_name }}
       time.thread-comment__created-at(
@@ -24,6 +31,11 @@
       )
         | {{ updatedAt }}
     .thread-comment__description
+      a.thread-comment__company-link.is-hidden-md-up(
+        v-if='comment.user.company && comment.user.company.logo_url && comment.user.adviser',
+        :href='comment.user.company.url'
+      )
+        img.thread-comment__company-logo(:src='comment.user.company.logo_url')
       .a-long-text.is-md(v-html='markdownDescription')
     .thread-comment__reactions
       reaction(

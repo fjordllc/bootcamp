@@ -22,10 +22,26 @@
   +media-breakpoint-down(sm)
     margin-bottom: .25ren
 
+.thread-comment__title-user-icon
+  +media-breakpoint-up(md)
+    display: none
+  +media-breakpoint-down(sm)
+    width: 1.5rem
+    display: inline-block
+    vertical-align: middle
+    margin-right: .25rem
+
 .thread-comment__title-link
-  height: 100%
-  display: flex
-  align-items: center
+  +media-breakpoint-up(md)
+    height: 100%
+    display: flex
+    align-items: center
+  +media-breakpoint-down(sm)
+    display: inline-block
+    max-width: 6rem
+    overflow: hidden
+    text-overflow: ellipsis
+    vertical-align: middle
   &.a-placeholder
     width: 15%
     height: 1.4em
@@ -53,9 +69,22 @@
   +size(3.5rem)
   object-fit: cover
   border-radius: 50%
-  +position(absolute, left 0, top 0)
   +media-breakpoint-down(sm)
     display: none
+
+.thread-comment__company-logo
+  +size(3.5rem)
+  object-fit: cover
+  border-radius: .25rem
+  border: solid 1px $border
+  background-color: white
+  +media-breakpoint-up(md)
+    margin-top: .5rem
+  +media-breakpoint-down(sm)
+    +size(2.25rem)
+    float: right
+    margin-left: .75rem
+    margin-bottom: .5rem
 
 .thread-comment__created-at
   display: block
