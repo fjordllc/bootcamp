@@ -6,15 +6,4 @@ section.welcome-child-section
       - mentors.each do |mentor|
         - if mentor.profile_image && mentor.profile_name && mentor.profile_job && mentor.profile_text
           .col-xs-12.col-md-6.col-lg-4
-            = render 'welcome/mentor', name: mentor.profile_name,
-                                       job: mentor.profile_job,
-                                       image: mentor.profile_image,
-                                       github_id: mentor.github_account,
-                                       blog_url: mentor.blog_url,
-                                       twitter_id: mentor.twitter_account,
-                                       facebook_url: mentor.facebook_url do
-              p.a-long-text.is-md.js-markdown-view
-                = mentor.profile_text
-              p
-                - mentor.related_books.each do |related_book|
-                  = link_to image_tag(related_book.cover, alt: related_book.title), related_book.url, target: :_blank, rel: 'noopener noreferrer' if related_book.cover.attached?
+            = render 'welcome/mentor', mentor: mentor
