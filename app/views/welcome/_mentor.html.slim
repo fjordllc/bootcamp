@@ -36,5 +36,5 @@ section.welcome-member.a-card
         - mentor.related_books.each do |related_book|
           - if related_book.cover.attached?
             li.welcome-member-books__item
-              = link_to  related_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
+              = link_to related_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
                 = image_tag(related_book.cover, alt: related_book.title, class: 'welcome-member-books__item-image')
