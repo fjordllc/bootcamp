@@ -1,14 +1,13 @@
 .welcome-member
   padding: 1.25rem 1.5rem 1.5rem
-  height: 100%
+  +media-breakpoint-up(md)
+    height: 100%
   +media-breakpoint-down(sm)
     height: auto
 
 .welcome-member__header
   display: flex
   align-items: flex-start
-  +media-breakpoint-down(sm)
-    display: block
 
 .welcome-member__start
   flex: 0 0 4.5rem
@@ -21,30 +20,15 @@
   width: 100%
   border-radius: .25rem
   margin-right: 1rem
-  +media-breakpoint-down(sm)
-    +size(5rem)
-    margin: 0 auto .75rem
-    display: block
 
 .welcome-member__name
   +text-block(1.25rem 1.45, 600)
-  +media-breakpoint-down(sm)
-    font-size: 1rem
-    display: flex
-    justify-content: center
-    align-items: baseline
-    margin-bottom: .125rem
 
 .welcome-member__job
   +text-block(.75rem 1.45, 400)
-  +media-breakpoint-down(sm)
-    text-align: center
 
 .welcome-member__sns
   display: flex
-  +media-breakpoint-down(sm)
-    justify-content: center
-    align-items: baseline
 
 .welcome-member__sns-item
   padding-right: .75rem
@@ -58,19 +42,3 @@
 .welcome-member__body
   margin-top: .5rem
   font-size: .875rem
-  a
-    color: #2e6cab
-    +hover-link-reversal
-  p
-    line-height: 1.5
-  img
-    width: 6.25rem
-    float: right
-    margin-left: 1rem
-    margin-bottom: .75rem
-  .has-3-books
-    width: 8.25rem
-  .has-a-book
-    width: 5rem
-  .has-5-books
-    width: 10rem

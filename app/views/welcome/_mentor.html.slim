@@ -1,28 +1,40 @@
 section.welcome-member.a-card
   .welcome-member__header
-    .welcome-member__start
-      = image_tag(image, class: 'welcome-member__image', alt: "#{name}のアイコン画像") if image.attached?
+    - if mentor.profile_image.attached?
+      .welcome-member__start
+        = image_tag(mentor.profile_image, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
     .welcome-member__end
-      h3.welcome-member__name
-        = name
-      p.welcome-member__job
-        = job
+      - if mentor.profile_name.present?
+        h3.welcome-member__name
+          = mentor.profile_name
+      - if mentor.profile_job.present?
+        p.welcome-member__job
+          = mentor.profile_job
       ul.welcome-member__sns
-        - unless github_id.nil?
+        - if mentor.github_account.present?
           li.welcome-member__sns-item
-            = link_to "https://github.com/#{github_id}", class: 'welcome-member__sns-item-link' do
+            = link_to "https://github.com/#{mentor.github_account}", class: 'welcome-member__sns-item-link' do
               i.fa-brands.fa-github-alt
-        - unless blog_url.nil?
+        - if mentor.blog_url.present?
           li.welcome-member__sns-item
-            = link_to blog_url, class: 'welcome-member__sns-item-link' do
+            = link_to mentor.blog_url, class: 'welcome-member__sns-item-link' do
               i.fa-solid.fa-home
-        - unless twitter_id.nil?
+        - if mentor.twitter_account.present?
           li.welcome-member__sns-item
-            = link_to "https://twitter.com/#{twitter_id}", class: 'welcome-member__sns-item-link' do
+            = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'welcome-member__sns-item-link' do
               i.fa-brands.fa-twitter
-        - unless facebook_url.nil?
+        - if mentor.facebook_url.present?
           li.welcome-member__sns-item
-            = link_to facebook_url, class: 'welcome-member__sns-item-link' do
+            = link_to mentor.facebook_url, class: 'welcome-member__sns-item-link' do
               i.fa-brands.fa-facebook-square
   .welcome-member__body
-    = yield
+    .a-long-text.is-md.js-markdown-view
+      = mentor.profile_text
+  - if mentor.related_books.present?
+    .welcome-member-books
+      ul.welcome-member-books__items
+        - mentor.related_books.each do |related_book|
+          - if related_book.cover.attached?
+            li.welcome-member-books__item
+              = link_to  related_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
+                = image_tag(related_book.cover, alt: related_book.title, class: 'welcome-member-books__item-image')
