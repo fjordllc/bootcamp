@@ -326,7 +326,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'comment test'
   end
 
-  test ' company logo appear when adviser post comment ' do
+  test ' company logo appear when adviser belongs to the company post comment ' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
