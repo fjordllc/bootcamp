@@ -74,7 +74,7 @@ header.page-header
             .block-checks.is-1-item.is-centered
               .block-checks__item
                 .a-block-check.is-checkbox
-                  input.a-toggle-checkbox#aaa(type='checkbox')
+                  input.a-toggle-checkbox.js-hibernation-agreements-checkbox#aaa(type='checkbox')
                   label.a-block-check__label(for='aaa')
                     | 読みました
 
@@ -85,5 +85,5 @@ header.page-header
                 class: 'a-button is-md is-secondary is-block'
             li.form-actions__item.is-main
               = f.submit '休会する',
-                class: 'a-button is-md is-danger is-block',
+                class: 'a-button is-md is-block js-hibernation-agreements-submit is-disabled',
                 data: { confirm: '本当によろしいですか？' }
