@@ -15,7 +15,9 @@
   .a-card(v-if='!editing')
     header.card-header
       h2.thread-comment__title
-        a.thread-comment__title-user-link.is-hidden-md-up(:href='comment.user.url')
+        a.thread-comment__title-user-link.is-hidden-md-up(
+          :href='comment.user.url'
+        )
           img.thread-comment__title-user-icon.a-user-icon(
             :src='comment.user.avatar_url',
             :title='comment.user.icon_title',
