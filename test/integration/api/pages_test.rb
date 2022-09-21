@@ -34,4 +34,13 @@ class API::PagesTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
   end
+
+  test 'GET /api/pages.json?page=9999' do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      token = create_token('kimura', 'testtest')
+      get api_pages_path,
+          headers: { 'Authorization' => "Bearer #{token}" },
+          params: { page: '9999' }
+    end
+  end
 end

@@ -13,7 +13,7 @@ class API::PagesController < API::BaseController
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
     raise ActiveRecord::RecordNotFound if @pages.empty?
 
-    render 'index.json'
+    # render 'index.json'
   end
 
   def update
