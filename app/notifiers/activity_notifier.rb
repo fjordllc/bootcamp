@@ -283,11 +283,11 @@ class ActivityNotifier < ApplicationNotifier
     sender = params[:comment].user
     action = watchable.instance_of?(Question) ? '回答' : 'コメント'
     notification(
+      body: "#{watchable.user.login_name}さんの【 #{watchable.notification_title} 】に#{sender.login_name}さんが#{action}しました。",
       kind: :watching,
-      user: receiver,
+      receiver: receiver,
       sender: sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
-      body: "#{watchable.user.login_name}さんの【 #{watchable.notification_title} 】に#{sender.login_name}さんが#{action}しました。",
       read: false
     )
   end
