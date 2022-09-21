@@ -28,7 +28,7 @@ class UsersController < ApplicationController
              .preload(:avatar_attachment, :course, :taggings)
              .order(updated_at: :desc)
 
-    @users = @users.unhibernated.unretired unless check_target_if_hibernated_or_retired
+    @users = @users.unhibernated.unretired unless hibernated_or_retired_target?
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -73,8 +73,8 @@ class UsersController < ApplicationController
 
   private
 
-  def check_target_if_hibernated_or_retired
-    true if @target == 'hibernated' || @target == 'retired'
+  def hibernated_or_retired_target?
+    @target == 'hibernated' || @target == 'retired'
   end
 
   def target_allowlist

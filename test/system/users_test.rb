@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class UsersTest < ApplicationSystemTestCase
-  setup do
-    @hibernated_url = '/users?target=hibernated'
-    @retired_url = '/users?target=retired'
-  end
-
   test 'show listing all users' do
     visit_with_auth users_path, 'kimura'
     assert_equal '全てのユーザー | FBC', title
@@ -586,19 +581,19 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'mentor can see retired and hibernated tabs' do
     visit_with_auth '/users', 'mentormentaro'
-    assert_link '休会', href: @hibernated_url
-    assert_link '退会', href: @retired_url
+    assert_link '休会', href: '/users?target=hibernated'
+    assert_link '退会', href: '/users?target=retired'
   end
 
   test 'admin can see retired and hibernated tabs' do
     visit_with_auth '/users', 'komagata'
-    assert_link '休会', href: @hibernated_url
-    assert_link '退会', href: @retired_url
+    assert_link '休会', href: '/users?target=hibernated'
+    assert_link '退会', href: '/users?target=retired'
   end
 
   test 'if the user is not admin or mentor, the user cannot see retired and hibernated tabs' do
     visit_with_auth '/users', 'sotugyou'
-    assert_no_link '休会', href: @hibernated_url
-    assert_no_link '退会', href: @retired_url
+    assert_no_link '休会', href: '/users?target=hibernated'
+    assert_no_link '退会', href: '/users?target=retired'
   end
 end
