@@ -7,47 +7,53 @@ header.page-header
         = title
 
 = render 'tabs'
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 質問
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_survey_question_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | 新規作成
 .page-body
   .container
-    .page-header__inner
-      h2(style="font-size: 1.5rem;")
-        | 質問
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to new_survey_question_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | 新規作成
-    table
-      thead
-        tr
-          th(style="border: 1px solid black; padding: 5px 15px;")
-            | 質問形式
-          th(style="border: 1px solid black; padding: 5px 15px;")
-            | 質問タイトル
-          th(style="border: 1px solid black; padding: 5px 15px;")
-            | 作成日
-          th(style="border: 1px solid black; padding: 5px 15px;")
-            | 更新日
-      tbody
-        - @survey_questions.each do |survey_question|
+    .admin-table
+      table.admin-table__table
+        thead.admin-table__header
           tr
-            td(style="border: 1px solid black; padding: 5px 15px;")
-              - if survey_question.question_format == 'text_area'
-                | 段落
-              - if survey_question.question_format == 'text_field'
-                | 記述式
-              - if survey_question.question_format == 'radio_button'
-                | ラジオボタン
-              - if survey_question.question_format == 'check_box'
-                | チェックボックス
-              - if survey_question.question_format == 'linear_scale'
-                | 均等目盛
-            td(style="border: 1px solid black; padding: 5px 15px;")
-              = survey_question.question_title
-            td(style="border: 1px solid black; padding: 5px 15px;")
-              = "作成: #{l survey_question.created_at, format: :long}"
-            td(style="border: 1px solid black; padding: 5px 15px;")
-              = "更新: #{l survey_question.updated_at, format: :long}"
-            td(style="border: 1px solid black; padding: 5px 15px;")
-              = link_to '編集', edit_survey_question_path(survey_question), class: 'a-button is-sm is-text'
+            th.admin-table__label
+              | 質問形式
+            th.admin-table__label
+              | 質問タイトル
+            th.admin-table__label
+              | 作成日
+            th.admin-table__label
+              | 更新日
+        tbody
+          - @survey_questions.each do |survey_question|
+            tr
+              td
+                - if survey_question.question_format == 'text_area'
+                  | 段落
+                - if survey_question.question_format == 'text_field'
+                  | 記述式
+                - if survey_question.question_format == 'radio_button'
+                  | ラジオボタン
+                - if survey_question.question_format == 'check_box'
+                  | チェックボックス
+                - if survey_question.question_format == 'linear_scale'
+                  | 均等目盛
+              td
+                = survey_question.question_title
+              td
+                = "作成: #{l survey_question.created_at, format: :long}"
+              td
+                = "更新: #{l survey_question.updated_at, format: :long}"
+              td
+                = link_to '編集', edit_survey_question_path(survey_question), class: 'a-button is-sm is-text'
