@@ -14,4 +14,4 @@ header.page-header
 
 .page-body
   .container.is-md
-    #js-users-answers data-user-id="#{params[:user_id]}"
+    div(data-vue="UsersAnswers" data-vue-user-id:number="#{params[:user_id]}")
