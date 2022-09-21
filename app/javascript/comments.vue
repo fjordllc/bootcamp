@@ -6,7 +6,7 @@
     .thread-comments-more__inner
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
-          | 次のコメント（ {{ nextCommentAmount }} ）
+          | 前のコメント（ {{ nextCommentAmount }} ）
   h2.thread-comments__title(
     v-if='commentableType === "RegularEvent" || commentableType === "Event"'
   )
