@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_05_085844) do
+ActiveRecord::Schema.define(version: 2022_09_11_042216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,7 +332,6 @@ ActiveRecord::Schema.define(version: 2022_07_05_085844) do
     t.datetime "updated_at"
     t.text "goal"
     t.integer "category_id"
-    t.integer "position"
     t.boolean "submission", default: false, null: false
     t.boolean "open_product", default: false, null: false
     t.boolean "include_progress", default: true, null: false
