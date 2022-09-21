@@ -15,6 +15,7 @@ tables = %i[
   articles
   bookmarks
   categories
+  categories_practices
   checks
   comments
   companies
