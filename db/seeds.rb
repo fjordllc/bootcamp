@@ -15,7 +15,6 @@ tables = %i[
   articles
   bookmarks
   categories
-  categories_practices
   checks
   comments
   companies
@@ -31,6 +30,7 @@ tables = %i[
   notifications
   participations
   practices
+  categories_practices
   pages
   books
   practices_books
