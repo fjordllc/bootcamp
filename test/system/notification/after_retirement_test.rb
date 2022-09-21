@@ -7,12 +7,10 @@ class Notification::AfterRetirementTest < ApplicationSystemTestCase
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
     @notice_text = 'komagataさんから回答がありました。'
-    ENV['DISCORD_ALL_WEBHOOK_URL'] = 'https://example.com/'
   end
 
   teardown do
     AbstractNotifier.delivery_mode = @delivery_mode
-    ENV['DISCORD_ALL_WEBHOOK_URL'] = nil
   end
 
   test 'three months have passed since user retired' do

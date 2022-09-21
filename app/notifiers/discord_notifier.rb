@@ -43,7 +43,7 @@ class DiscordNotifier < ApplicationNotifier
   def tomorrow_regular_event(params = {})
     params.merge!(@params)
     event = params[:event]
-    webhook_url = params[:webhook_url] || ENV['DISCORD_ALL_WEBHOOK_URL']
+    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
     day_of_the_week = %w[日 月 火 水 木 金 土]
     event_date = event.next_event_date
 
