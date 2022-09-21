@@ -57,7 +57,6 @@ import '../company-users.js'
 import '../generation-users.js'
 import '../learning-completion-message.js'
 import '../choices-ui.js'
-import '../users-answers.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
@@ -73,6 +72,7 @@ import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Reports from '../components/reports.vue'
 import Users from '../components/users.vue'
+import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
@@ -89,6 +89,7 @@ mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
 mounter.addComponent(Reports)
 mounter.addComponent(Users)
+mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
