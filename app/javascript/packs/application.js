@@ -53,7 +53,6 @@ import '../report_template.js'
 import '../subscription-status.js'
 import '../new-event-date-set.js'
 import '../tag_edit.js'
-import '../talks.js'
 import '../company-users.js'
 import '../generation-users.js'
 import '../learning-completion-message.js'
@@ -78,6 +77,7 @@ import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
 import UserMentorMemo from '../components/user_mentor_memo.vue'
+import Talks from '../components/talks.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Hello)
@@ -93,6 +93,7 @@ mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
 mounter.addComponent(UserMentorMemo)
+mounter.addComponent(Talks)
 mounter.mount()
 
 // Support component names relative to this directory:
