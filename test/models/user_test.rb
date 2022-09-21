@@ -573,4 +573,17 @@ class UserTest < ActiveSupport::TestCase
     assert_nil users(:kimura).collegue_trainees
     assert_nil users(:advijirou).collegue_trainees
   end
+
+  test '#rename_avatar_and_strip_exif' do
+    path = Rails.root.join('test/fixtures/files/users/avatars/contain_exif.jpg')
+    user = users(:kimura)
+    user.avatar.attach(io: File.open(path), filename: 'contain_exif.jpg')
+    user.rename_avatar_and_strip_exif
+
+    image = MiniMagick::Image.read(user.avatar.download)
+    assert image.exif.empty?
+    assert user.avatar.filename, user.id
+
+    user.avatar.purge
+  end
 end
