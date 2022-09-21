@@ -38,7 +38,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     end
   end
 
-  test '.post_announcement' do
+  test '.announce' do
     params = {
       body: 'test message',
       announce: announcements(:announcement1),
@@ -52,13 +52,13 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     }
 
     assert_notifications_sent 2, **expected do
-      DiscordNotifier.post_announcement(params).notify_now
-      DiscordNotifier.with(params).post_announcement.notify_now
+      DiscordNotifier.announce(params).notify_now
+      DiscordNotifier.with(params).announce.notify_now
     end
 
     assert_notifications_enqueued 2, **expected do
-      DiscordNotifier.post_announcement(params).notify_later
-      DiscordNotifier.with(params).post_announcement.notify_later
+      DiscordNotifier.announce(params).notify_later
+      DiscordNotifier.with(params).announce.notify_later
     end
   end
 
