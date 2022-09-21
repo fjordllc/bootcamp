@@ -23,7 +23,7 @@ class AnnouncementCallbacks
   end
 
   def notify_to_chat(announce)
-    DiscordNotifier.with(announce: announce).post_announcement.notify_now
+    DiscordNotifier.with(announce: announce).announce.notify_now
   end
 
   def send_notification(announce)

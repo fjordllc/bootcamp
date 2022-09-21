@@ -26,7 +26,7 @@ class DiscordNotifier < ApplicationNotifier
     )
   end
 
-  def post_announcement(params = {})
+  def announce(params = {})
     params.merge!(@params)
     webhook_url = Rails.application.secrets[:webhook][:all]
 
