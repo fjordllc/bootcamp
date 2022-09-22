@@ -4,7 +4,10 @@ header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        - if current_user.admin?
+          = @user.login_name
+        - else
+          | 相談部屋
       - if current_user.admin?
         .page-header-actions
           ul.page-header-actions__items
@@ -88,6 +91,6 @@ header.page-header
                                   method: :patch,
                                   data: { confirm: '本当によろしいですか？' },
                                   class: 'a-button is-sm is-danger is-block'
-                #js-user-mentor-memo(data-user-id="#{@user.id}" data-products-mode="#{true}")
+                div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
                 div(data-vue="Reports" data-vue-user-id:number="#{@user.id}" data-vue-limit="10" data-vue-display-user-icon:boolean="false")

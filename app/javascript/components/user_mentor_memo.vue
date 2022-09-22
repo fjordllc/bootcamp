@@ -59,15 +59,16 @@ section.a-card.is-memo.is-only-mentor
 </template>
 
 <script>
-import TextareaInitializer from 'textarea-initializer'
-import MarkdownInitializer from 'markdown-initializer'
-import confirmUnload from 'confirm-unload'
+import TextareaInitializer from '../textarea-initializer'
+import MarkdownInitializer from '../markdown-initializer'
+import confirmUnload from '../confirm-unload'
 
 export default {
+  name: 'UserMentorMemo',
   mixins: [confirmUnload],
   props: {
-    userId: { type: String, required: true },
-    productsMode: { type: Boolean, required: true }
+    userId: { type: Number, required: true },
+    productsMode: { type: Boolean, required: false }
   },
   data() {
     return {

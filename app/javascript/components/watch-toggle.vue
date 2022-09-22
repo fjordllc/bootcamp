@@ -7,9 +7,10 @@
 </template>
 <script>
 import 'whatwg-fetch'
-import toast from 'toast'
+import toast from '../toast'
 
 export default {
+  name: 'WatchToggle',
   mixins: [toast],
   props: {
     watchableId: { type: Number, required: true },

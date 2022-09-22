@@ -44,12 +44,13 @@ div
         )
 </template>
 <script>
-import Talk from 'talk.vue'
+import Talk from 'components/talk.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
 import { debounce } from 'lodash'
 
 export default {
+  name: 'Talks',
   components: {
     talk: Talk,
     loadingListPlaceholder: LoadingListPlaceholder,

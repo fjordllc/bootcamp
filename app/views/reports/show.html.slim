@@ -79,7 +79,7 @@ header.page-header
                 .page-content-header-actions
                   .page-content-header-actions__start
                     .page-content-header-actions__action
-                      #js-watch-toggle(data-watchable-id="#{@report.id}", data-watchable-type='Report')
+                      div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@report.id}" data-vue-watchable-type='Report')
                     .page-content-header-actions__action
                       #js-bookmark(data-bookmarkable-id="#{@report.id}", data-bookmarkable-type='Report')
                   .page-content-header-actions__end
@@ -169,7 +169,7 @@ header.page-header
                 .user-info
                   = render 'users/user_secret_attributes', user: @report.user
                   = render 'users/metas', user: @report.user
-                #js-user-mentor-memo(data-user-id='#{@report.user_id}')
+                div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@report.user_id}")
               .side-tabs-contents__item#side-tabs-content-3.is-only-mentor
                 .card-list.a-card
                   - if @products.present?

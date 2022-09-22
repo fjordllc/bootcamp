@@ -30,6 +30,7 @@ tables = %i[
   notifications
   participations
   practices
+  categories_practices
   pages
   books
   practices_books
