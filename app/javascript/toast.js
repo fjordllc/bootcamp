@@ -23,7 +23,7 @@ export default {
     },
     displayToast(toastMessage) {
       if (this.isMentorsCommentToProducts) {
-        if (this.productCheckerId) {
+        if (this.productCheckerId || this.checkId) {
           this.toast(this.confirmOrCommentMessage(toastMessage))
         }
       } else {
