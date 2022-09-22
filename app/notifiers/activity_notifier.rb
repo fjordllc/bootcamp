@@ -271,7 +271,7 @@ class ActivityNotifier < ApplicationNotifier
       kind: :product_update,
       receiver: receiver,
       sender: product.sender,
-      link:  Rails.application.routes.url_helpers.polymorphic_path(product),
+      link: Rails.application.routes.url_helpers.polymorphic_path(product),
       read: false
     )
   end
