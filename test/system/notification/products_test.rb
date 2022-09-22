@@ -28,7 +28,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'update product notificationmessage' do
+  test 'update product notification message' do
     product = products(:product2)
 
     visit_with_auth "/products/#{product.id}/edit", 'kimura'
@@ -42,6 +42,27 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     within first('.card-list-item.is-unread') do
       assert_text 'kimuraさんの提出物が更新されました'
+    end
+  end
+
+  test 'checked product notification message' do
+    checker = users(:komagata)
+    practice = practices(:practice47)
+    user = users(:kimura)
+    product = Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    click_button '提出物を確認'
+    assert_text '提出物を確認済みにしました。'
+
+    visit_with_auth '/notifications', 'kimura'
+
+    within first('.card-list-item.is-unread') do
+      assert_text "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。"
     end
   end
 end

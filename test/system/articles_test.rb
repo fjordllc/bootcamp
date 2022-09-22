@@ -280,9 +280,9 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'display user icon when not logged in' do
-    visit_with_auth '/current_user/edit', 'komagata'
+    visit_with_auth '/current_user/edit', 'hatsuno'
 
-    attach_file 'user[avatar]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
+    attach_file 'user[avatar]', Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg'), make_visible: true
     click_on '更新する'
 
     find('.test-show-menu').click
@@ -290,7 +290,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     visit_with_auth new_article_url, 'machida'
     fill_in 'article[title]', with: 'test'
-    fill_in 'article[body]', with: ':@komagata:'
+    fill_in 'article[body]', with: ':@hatsuno:'
 
     click_on '登録する'
 
@@ -302,7 +302,8 @@ class ArticlesTest < ApplicationSystemTestCase
     visit articles_path
     click_on 'test'
 
-    assert_selector "img[src$='komagata.jpg']"
+    assert_selector "img[src$='#{users(:hatsuno).id}']"
+    users(:hatsuno).avatar.purge
   end
 
   test 'WIP articles are not included in recent articles' do
