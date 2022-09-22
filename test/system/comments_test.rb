@@ -247,10 +247,10 @@ class CommentsTest < ApplicationSystemTestCase
   test 'text change "see more comments" button by remaining comment amount' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
-    assert_selector '.a-button.is-lg.is-text.is-block', text: '次のコメント（ 8 / 12 ）'
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 8 / 12 ）'
 
     find('.a-button.is-lg.is-text.is-block').click
-    assert_selector '.a-button.is-lg.is-text.is-block', text: '次のコメント（ 4 ）'
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 4 ）'
 
     find('.a-button.is-lg.is-text.is-block').click
     assert_no_selector '.a-button.is-lg.is-text.is-block'
