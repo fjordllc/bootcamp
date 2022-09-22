@@ -260,4 +260,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def product_update(params = {})
+    params.merge!(@params)
+    product = params[:product]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{product.user.login_name}さんの提出物が更新されました",
+      kind: :product_update,
+      receiver: receiver,
+      sender: product.sender,
+      link:  Rails.application.routes.url_helpers.polymorphic_path(product),
+      read: false
+    )
+  end
 end
