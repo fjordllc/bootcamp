@@ -71,15 +71,16 @@
   +size(3.5rem)
 
 .page-content-header__company-logo
-  +size(3.5rem)
   background-color: $base
   object-fit: contain
   border-radius: .25rem
   border: solid 1px $border
   +media-breakpoint-up(md)
+    +size(3.5rem)
     margin-top: .5rem
   +media-breakpoint-down(sm)
-    +position(absolute, right 0, top 0)
+    +size(2.75rem)
+    +position(absolute, left 0, top 0)
 
 .page-content-header__before-title
   gap: .25rem

@@ -12,6 +12,7 @@ body
     background-color: $background
     +media-breakpoint-up(md)
       padding-top: $header-height__md-up
+      min-height: calc(100vh - #{$header-height__md-up})
   &.is-welcome
     background-color: $background
   &.is-completion
