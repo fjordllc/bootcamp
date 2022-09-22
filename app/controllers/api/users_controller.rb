@@ -2,11 +2,15 @@
 
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
-  before_action :set_targets, only: %i[index]
   before_action :require_login_for_api
   PAGER_NUMBER = 20
 
   def index
+    @tag = params[:tag]
+    @company = params[:company_id]
+    @target = params[:target]
+    @watch = params[:watch]
+
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
 
     target_users =
@@ -51,13 +55,6 @@ class API::UsersController < API::BaseController
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def set_targets
-    @tag = params[:tag]
-    @company = params[:company_id]
-    @target = params[:target]
-    @watch = params[:watch]
   end
 
   def user_params
