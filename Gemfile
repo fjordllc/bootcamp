@@ -63,7 +63,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # not default
-  gem 'dead_end'
+  gem 'syntax_suggest'
   gem 'pry-byebug'
   gem 'traceroute'
 end
