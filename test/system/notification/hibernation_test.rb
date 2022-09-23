@@ -22,6 +22,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     visit_with_auth new_hibernation_path, 'kimura'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
     fill_in 'hibernation[reason]', with: 'テストのため'
+    find('.is-checkbox').click
     accept_confirm do
       click_button '休会する'
     end
@@ -44,6 +45,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     visit_with_auth new_hibernation_path, 'kensyu'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
     fill_in 'hibernation[reason]', with: 'テストのため'
+    find('.is-checkbox').click
     accept_confirm do
       click_button '休会する'
     end
@@ -66,6 +68,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     visit_with_auth new_hibernation_path, 'senpai'
     fill_in 'hibernation[scheduled_return_on]', with: Time.current.next_month
     fill_in 'hibernation[reason]', with: 'テストのため'
+    find('.is-checkbox').click
     accept_confirm do
       click_button '休会する'
     end
