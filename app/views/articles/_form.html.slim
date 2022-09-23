@@ -58,13 +58,18 @@
             p
               | ここにアップロードした画像が、TwitterでTweet、Facebookで投稿した際に表示される画像として使われます。
               | 画像サイズは必ず 1200px × 630xpx でお願いします。
-              
+
     - if params[:action] == 'edit'
       .form-item
         .row
           .col-md-6.col-xs-12
             = f.label :published_at, '記事公開日時', class: 'a-form-label'
-            = f.datetime_field :published_at, class: 'a-text-input js-warning-form'
+            = f.datetime_field :published_at, class: 'a-text-input js-warning-form', id: 'date_time_input_field'
+            .a-form-help
+              p
+                | WIPで保存した場合は、記事公開日時は保存されません。
+          #js-current-date-time-input-button
+            | 現在の日時
 
   .form-actions
     ul.form-actions__items
