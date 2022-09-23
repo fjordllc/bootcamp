@@ -67,7 +67,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary)
+    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary, :published_at)
   end
 
   def redirect_url(article)
