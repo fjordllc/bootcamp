@@ -79,7 +79,7 @@ class ArticlesController < ApplicationController
       @article.wip = true
     else
       @article.wip = false
-      @article.published_at = Time.current
+      @article.published_at = Time.current.beginning_of_minute
     end
   end
 
