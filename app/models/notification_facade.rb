@@ -229,4 +229,14 @@ class NotificationFacade
       receiver: receiver
     ).update_regular_event.deliver_later(wait: 5)
   end
+
+  def self.a_week_after_last_answer(question, receiver)
+    ActivityNotifier.with(question: question, receiver: receiver).a_week_after_last_answer.notify_now
+    return unless receiver.mail_notification? && !receiver.retired?
+
+    NotificationMailer.with(
+      question: question,
+      receiver: receiver
+    ).a_week_after_last_answer.deliver_later(wait: 5)
+  end
 end
