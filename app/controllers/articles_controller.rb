@@ -23,7 +23,9 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
-  def edit; end
+  def edit
+    @article.published_at = Time.current.beginning_of_minute if @article.published_at.nil?
+  end
 
   def create
     @article = Article.new(article_params)
