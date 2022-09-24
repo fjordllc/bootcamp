@@ -28,7 +28,7 @@ class API::BookmarksController < API::BaseController
 
   def destroy
     Bookmark.find(params[:id]).destroy
-    head :no_content
+    redirect_to root_path
   end
 
   private

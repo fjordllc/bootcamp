@@ -8,6 +8,8 @@
           h2.card-list-item-title__title
             = link_to bookmark.bookmarkable, class: 'card-list-item-title__link a-text-link' do
               = bookmark.bookmarkable.title
+          = link_to api_bookmark_path(bookmark.id), method: :delete, class: 'a-button is-md' do
+            | 削除
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
