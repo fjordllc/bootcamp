@@ -14,10 +14,6 @@ class AnnouncementCallbacks
     after_first_publish(announce)
   end
 
-  def after_destroy(announce)
-    delete_notification(announce)
-  end
-
   private
 
   def after_first_publish(announce)
@@ -41,10 +37,6 @@ class AnnouncementCallbacks
       "お知らせ：「#{announce.title}」\r#{url}",
       webhook_url: ENV['DISCORD_ALL_WEBHOOK_URL']
     )
-  end
-
-  def delete_notification(announce)
-    Notification.where(link: "/announcements/#{announce.id}").destroy_all
   end
 
   def create_author_watch(announce)
