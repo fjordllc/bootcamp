@@ -322,4 +322,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def a_week_after_last_answer(params = {})
+    params.merge!(@params)
+    question = params[:question]
+    receiver = params[:receiver]
+
+    notification(
+      body: "Q&A「#{question.title}」のベストアンサーがまだ選ばれていません。",
+      kind: :a_week_after_last_answer,
+      receiver: receiver,
+      sender: question.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(question),
+      read: false
+    )
+  end
 end
