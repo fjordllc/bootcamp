@@ -42,7 +42,7 @@ class API::BookmarksTest < ActionDispatch::IntegrationTest
     token = create_token('komagata', 'testtest')
     delete api_bookmark_path(bookmark.id, format: :json),
            headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :no_content
+    assert_response :found
   end
 
   test 'POST question' do
