@@ -30,11 +30,11 @@ section.welcome-member.a-card
   .welcome-member__body
     .a-long-text.is-md.js-markdown-view
       = mentor.profile_text
-  - if mentor.related_books.present?
+  - if mentor.mentor_involved_books.present?
     .welcome-member-books
       ul.welcome-member-books__items
-        - mentor.related_books.each do |related_book|
-          - if related_book.cover.attached?
+        - mentor.mentor_involved_books.each do |mentor_involved_book|
+          - if mentor_involved_book.cover.attached?
             li.welcome-member-books__item
-              = link_to related_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
-                = image_tag(related_book.cover, alt: related_book.title, class: 'welcome-member-books__item-image')
+              = link_to mentor_involved_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
+                = image_tag(mentor_involved_book.cover, alt: mentor_involved_book.title, class: 'welcome-member-books__item-image')

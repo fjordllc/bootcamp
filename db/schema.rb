@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_09_11_042216) do
+=======
+ActiveRecord::Schema.define(version: 2022_09_26_085032) do
+>>>>>>> fca355fc4 (モデル名の修正)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +278,15 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.index ["date"], name: "index_memos_on_date", unique: true
   end
 
+  create_table "mentor_involved_books", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_mentor_involved_books_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "kind", default: 0, null: false
     t.bigint "user_id"
@@ -434,15 +447,6 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
-  create_table "related_books", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_related_books_on_user_id"
-  end
-
   create_table "report_templates", force: :cascade do |t|
     t.bigint "user_id"
     t.text "description"
@@ -597,6 +601,7 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
+  add_foreign_key "mentor_involved_books", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
@@ -615,7 +620,6 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_events", "users"
-  add_foreign_key "related_books", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
