@@ -328,11 +328,7 @@ class CommentsTest < ApplicationSystemTestCase
 
   test ' company logo appear when adviser belongs to the company post comment ' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
-    end
-    all('.a-form-tabs__tab.js-tabs__tab')[1].click
-    assert_text 'test'
+    find('#js-new-comment').set('test')
     click_button 'コメントする'
     assert_text 'test'
     assert find('img.thread-comment__company-logo')['src'].include?('2.png')
