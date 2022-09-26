@@ -39,7 +39,7 @@ class API::AnswersController < API::BaseController
 
   def update
     if @answer.update(answer_params)
-      Newspaper.publish(:answer_update, @answer)
+      Newspaper.publish(:answer_save, @answer)
       head :ok
     else
       head :bad_request

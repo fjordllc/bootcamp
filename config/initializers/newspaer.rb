@@ -14,6 +14,5 @@ Rails.configuration.to_prepare do
 
   answer_cache_destroyer = AnswerCacheDestroyer.new
   Newspaper.subscribe(:answer_save, answer_cache_destroyer)
-  Newspaper.subscribe(:answer_update, answer_cache_destroyer)
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
 end
