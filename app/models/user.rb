@@ -67,8 +67,8 @@ class User < ApplicationRecord
   has_many :regular_events, dependent: :destroy
   has_many :organizers, dependent: :destroy
   has_many :hibernations, dependent: :destroy
-  has_many :related_books, dependent: :destroy
-  accepts_nested_attributes_for :related_books, allow_destroy: true
+  has_many :mentor_involved_books, dependent: :destroy
+  accepts_nested_attributes_for :mentor_involved_books, allow_destroy: true
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
