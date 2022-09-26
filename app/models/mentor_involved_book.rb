@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RelatedBook < ApplicationRecord
+class MentorInvolvedBook < ApplicationRecord
   belongs_to :user
   has_one_attached :cover
 

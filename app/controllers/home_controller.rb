@@ -19,7 +19,7 @@ class HomeController < ApplicationController
         render aciton: :index
       end
     else
-      @mentors = User.with_attached_profile_image.mentor.includes(related_books: { cover_attachment: :blob })
+      @mentors = User.with_attached_profile_image.mentor.includes(mentor_involved_books: { cover_attachment: :blob })
       render template: 'welcome/index', layout: 'welcome'
     end
   end
