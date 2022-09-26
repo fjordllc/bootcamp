@@ -34,6 +34,17 @@ class Question < ApplicationRecord
 
   mentionable_as :description
 
+  class << self
+    def send_notifications
+      Question.not_solved.each do |not_solved_question|
+        # WIP-------------------------------------------------
+        if !not_solved_question.answers.empty? && not_solved_question.answers.last.updated_at.day + 7 == Time.current.day
+          NotificationFacade.a_week_after_last_answer(not_solved_question, not_solved_question.user)
+        end
+      end
+    end
+  end
+
   private
 
   def will_be_published?
