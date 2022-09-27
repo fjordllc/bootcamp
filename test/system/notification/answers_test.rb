@@ -36,7 +36,7 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     visit '/notifications'
 
     within first('.card-list-item.is-unread') do
-      assert_text 'Q&A「テストの質問」のベストaアンサーがまだ選ばれていません。'
+      assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
   end
 end
