@@ -270,6 +270,15 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "latest_articles", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.string "summary"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "learning_minute_statistics", force: :cascade do |t|
     t.bigint "practice_id"
     t.integer "average", null: false
