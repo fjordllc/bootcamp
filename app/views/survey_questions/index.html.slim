@@ -58,5 +58,5 @@ header.page-header
               td.admin-table__item-value
                 = "更新: #{l survey_question.updated_at, format: :long}"
               td.admin-table__item-value.is-text-align-center
-                = link_to edit_survey_question_path(survey_question), class: 'a-button is-sm is-secondary is-icon' do
+                = link_to edit_survey_question_path(survey_question), class: 'a-button is-sm is-secondary is-icon', id: 'edit_icon' do
                   i.fa-solid.fa-pen
