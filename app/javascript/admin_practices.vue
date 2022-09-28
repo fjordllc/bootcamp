@@ -32,7 +32,7 @@
           ul.is-inline-buttons
             li
               a.a-button.is-sm.is-secondary.is-icon.spec-edit(
-                :href='`/admin/practices/${practice.id}/edit`'
+                :href='`/practices/${practice.id}/edit`'
               )
                 i.fa-solid.fa-pen
             li
