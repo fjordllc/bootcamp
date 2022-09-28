@@ -18,7 +18,7 @@
     tbody.admin-table__items
       tr.admin-table__item(v-for='practice in practices', :key='practice.id')
         td.admin-table__item-value
-          a(:href='`practices/${practice.id}`')
+          a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
         td.admin-table__item-value
           | {{ practice.category_id }}
