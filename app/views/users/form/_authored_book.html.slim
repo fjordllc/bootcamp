@@ -1,7 +1,7 @@
 .form-item
   label.a-form-label
     | 関わった書籍
-  .row#reference_books
+  .row
     = f.fields_for :authored_books do |authored_book|
       = render 'users/form/authored_book_fields', f: authored_book
     .col-xs-12.books-form__add
