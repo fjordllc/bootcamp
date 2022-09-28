@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_09_11_042216) do
-=======
-ActiveRecord::Schema.define(version: 2022_09_26_085032) do
->>>>>>> fca355fc4 (モデル名の修正)
+ActiveRecord::Schema.define(version: 2022_09_28_064241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +76,15 @@ ActiveRecord::Schema.define(version: 2022_09_26_085032) do
     t.datetime "published_at"
     t.text "summary"
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "authored_books", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_authored_books_on_user_id"
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -276,15 +281,6 @@ ActiveRecord::Schema.define(version: 2022_09_26_085032) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_memos_on_date", unique: true
-  end
-
-  create_table "mentor_involved_books", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_mentor_involved_books_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -595,13 +591,13 @@ ActiveRecord::Schema.define(version: 2022_09_26_085032) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "announcements", "users"
   add_foreign_key "articles", "users"
+  add_foreign_key "authored_books", "users"
   add_foreign_key "categories_practices", "categories"
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
-  add_foreign_key "mentor_involved_books", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
