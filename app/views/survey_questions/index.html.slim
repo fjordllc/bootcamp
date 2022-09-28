@@ -22,7 +22,7 @@ header.page-header
                   i.fa-regular.fa-plus
                   | 新規作成
 .page-body
-  .container
+  .container.is-xxl
     .admin-table
       table.admin-table__table
         thead.admin-table__header
@@ -35,10 +35,12 @@ header.page-header
               | 作成日
             th.admin-table__label
               | 更新日
-        tbody
+            th.admin-table__label
+              | 操作
+        tbody.admin-table__items
           - @survey_questions.each do |survey_question|
-            tr
-              td
+            tr.admin-table__item
+              td.admin-table__item-value.is-text-align-center
                 - if survey_question.question_format == 'text_area'
                   | 段落
                 - if survey_question.question_format == 'text_field'
@@ -49,11 +51,12 @@ header.page-header
                   | チェックボックス
                 - if survey_question.question_format == 'linear_scale'
                   | 均等目盛
-              td
+              td.admin-table__item-value
                 = survey_question.question_title
-              td
+              td.admin-table__item-value
                 = "作成: #{l survey_question.created_at, format: :long}"
-              td
+              td.admin-table__item-value
                 = "更新: #{l survey_question.updated_at, format: :long}"
-              td
-                = link_to '編集', edit_survey_question_path(survey_question), class: 'a-button is-sm is-text'
+              td.admin-table__item-value.is-text-align-center
+                = link_to edit_survey_question_path(survey_question), class: 'a-button is-sm is-secondary is-icon' do
+                  i.fa-solid.fa-pen
