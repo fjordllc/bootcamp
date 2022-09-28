@@ -484,9 +484,9 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.boolean "hold_national_holiday", null: false
     t.time "start_at", null: false
     t.time "end_at", null: false
-    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "wip", default: false, null: false
     t.integer "category", default: 0, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
@@ -619,6 +619,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.string "profile_name"
     t.string "profile_job"
     t.text "profile_text"
+    t.string "feed_url"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

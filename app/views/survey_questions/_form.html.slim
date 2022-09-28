@@ -4,10 +4,10 @@
     .form__items-inner
       .form-item
         = f.label :question_title, class: 'a-form-label is-required'
-        = f.text_field :question_title, class: 'a-text-input js-warning-form'
+        = f.text_field :question_title, class: 'a-text-input js-warning-form', placeholder: '現在の学習に対するモチベーションを教えてください。'
       .form-item
         = f.label :question_description, class: 'a-form-label'
-        = f.text_area :question_description, class: 'a-text-input js-warning-form'
+        = f.text_area :question_description, class: 'a-text-input js-warning-form', placeholder: '現在の学習に対するモチベーションを教えてください。'
       .form-item
         label.a-form-label
           | 回答必須
@@ -20,7 +20,7 @@
       .form-item
         label.a-form-label.is-required
           | 質問形式
-        ul.block-checks.is-3-items
+        ul.block-checks.is-2-items
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :question_format, 'text_area', id: 'text_area', class: 'a-toggle-checkbox'
@@ -46,62 +46,11 @@
               = f.radio_button :question_format, 'linear_scale', id: 'linear_scale', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='linear_scale')
                 | 均等目盛
-      = f.fields_for :radio_button do |i|
-        .form-item.is-hidden.radio_button
-          label.a-form-label.is-required
-            | 選択肢
-          = i.fields_for :radio_button_choices do |radio_button_choice|
-            = render 'radio_button_choice_fields', f: radio_button_choice
-          .form-item__add-times
-            = link_to_add_association i, :radio_button_choices, class: 'a-button is-md is-primary' do
-              i.fa-regular.fa-plus
-              | 追加
-        .form-item.is-hidden.radio_button
-          = i.label :title_of_reason_for_choice, class: 'a-form-label is-required'
-          = i.text_field :title_of_reason_for_choice, class: 'a-text-input js-warning-form'
-        .form-item.is-hidden.radio_button
-          = i.label :description_of_reason_for_choice, class: 'a-form-label'
-          = i.text_area :description_of_reason_for_choice, class: 'a-text-input js-warning-form'
-      = f.fields_for :check_box do |i|
-        .form-item.is-hidden.check_box
-          label.a-form-label.is-required
-            | 選択肢
-          = i.fields_for :check_box_choices do |check_box_choice|
-            = render 'check_box_choice_fields', f: check_box_choice
-          .form-item__add-times
-            = link_to_add_association i, :check_box_choices, class: 'a-button is-md is-primary' do
-              i.fa-regular.fa-plus
-              | 追加
-        .form-item.is-hidden.check_box
-          = i.label :title_of_reason_for_choice, class: 'a-form-label is-required'
-          = i.text_field :title_of_reason_for_choice, class: 'a-text-input js-warning-form'
-        .form-item.is-hidden.check_box
-          = i.label :description_of_reason_for_choice, class: 'a-form-label'
-          = i.text_area :description_of_reason_for_choice, class: 'a-text-input js-warning-form'
-      = f.fields_for :linear_scale do |i|
-        .form-item.is-hidden.linear_scale
-          label.a-form-label.is-required
-            | 目盛ラベル
-          div(style="display: flex; align-items: center;")
-            div(style="margin-right: 20px") 1
-            = i.text_field :start_of_scale, class: 'a-text-input js-warning-form'
-          div(style="margin: 10px 0;") ↓
-          div(style="display: flex; align-items: center;")
-            div(style="margin-right: 10px") 10
-            = i.text_field :end_of_scale, class: 'a-text-input js-warning-form'
-        .form-item.is-hidden.linear_scale
-          .checkboxes
-            ul.checkboxes__items
-              li.checkboxes__item
-                = i.check_box :reason_for_choice_required, class: 'a-toggle-checkbox js-warning-form'
-                = i.label :reason_for_choice_required do
-                  | 選択した理由が必要な場合はチェック
-        .form-item.is-hidden.linear_scale
-          = i.label :title_of_reason_for_choice, class: 'a-form-label is-required'
-          = i.text_field :title_of_reason_for_choice, class: 'a-text-input js-warning-form'
-        .form-item.is-hidden.linear_scale
-          = i.label :description_of_reason_for_choice, class: 'a-form-label'
-          = i.text_area :description_of_reason_for_choice, class: 'a-text-input js-warning-form'
+
+      = render 'form_radio_button', f: f
+      = render 'form_check_box', f: f
+      = render 'form_linear_scale', f: f
+
       .form-actions
         ul.form-actions__items
           li.form-actions__item.is-main
