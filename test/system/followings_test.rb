@@ -11,7 +11,7 @@ class FollowingsTest < ApplicationSystemTestCase
   teardown do
     AbstractNotifier.delivery_mode = @delivery_mode
   end
-  
+
   setup do
     @hatsuno = users(:hatsuno)
     @kimura = users(:kimura)
