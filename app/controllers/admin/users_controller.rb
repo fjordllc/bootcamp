@@ -56,7 +56,7 @@ class Admin::UsersController < AdminController
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on,
       :profile_image, :profile_name, :profile_job,
-      :profile_text, mentor_involved_books_attributes: %i[id title url cover _destroy]
+      :profile_text, authored_books_attributes: %i[id title url cover _destroy]
     )
   end
 end
