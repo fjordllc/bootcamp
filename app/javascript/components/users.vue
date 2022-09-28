@@ -52,7 +52,18 @@
 <script>
 import User from './user.vue'
 import Pager from '../pager.vue'
-import { debounce } from 'lodash'
+
+const debounce = (func, wait) => {
+  let timerId
+  return function (...args) {
+    if (timerId) {
+      clearTimeout(timerId)
+    }
+    timerId = setTimeout(() => {
+      func.apply(this, args)
+    }, wait)
+  }
+}
 
 export default {
   name: 'Users',
