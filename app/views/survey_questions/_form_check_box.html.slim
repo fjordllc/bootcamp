@@ -1,0 +1,17 @@
+= f.fields_for :check_box do |i|
+  .form__items.is-hidden.check_box
+    .form-item
+      label.a-form-label.is-required
+        | チェックボックスの選択肢
+      = i.fields_for :check_box_choices do |check_box_choice|
+        = render 'check_box_choice_fields', f: check_box_choice
+      .form-item__add-choice
+        = link_to_add_association i, :check_box_choices, class: 'a-button is-md is-primary' do
+          i.fa-regular.fa-plus
+          | 選択肢を追加
+    .form-item.is-hidden.check_box
+      = i.label :title_of_reason_for_choice, class: 'a-form-label is-required'
+      = i.text_field :title_of_reason_for_choice, class: 'a-text-input js-warning-form', placeholder: 'その他を選択した場合、その他の内容について具体的に教えてください。'
+    .form-item.is-hidden.check_box
+      = i.label :description_of_reason_for_choice, class: 'a-form-label'
+      = i.text_area :description_of_reason_for_choice, class: 'a-text-input js-warning-form'
