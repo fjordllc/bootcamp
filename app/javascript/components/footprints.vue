@@ -19,7 +19,7 @@
     @click='showRemainingFootprints'
   )
     | その他{{ numberOfRemainingFootprints }}人
-  ul.user-icons__items(v-else-if='moreThanTenFoorptints && !isDisplay')
+  ul.user-icons__items(v-if='moreThanTenFoorptints && !isDisplay')
     footprint(
       v-for='footprint in footprints',
       :key='footprint.key',
@@ -88,9 +88,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
+        .then((response) => response.json())
         .then((json) => {
           this.footprints = []
           json.footprints.forEach((footprint) => {
