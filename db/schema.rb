@@ -174,6 +174,9 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -189,6 +192,14 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "featured_entries", force: :cascade do |t|
+    t.string "featureable_type", null: false
+    t.bigint "featureable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["featureable_type", "featureable_id"], name: "index_featured_entries_on_featureable"
   end
 
   create_table "followings", force: :cascade do |t|

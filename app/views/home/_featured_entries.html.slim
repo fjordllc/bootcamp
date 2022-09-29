@@ -1,0 +1,11 @@
+.thread-list-item
+  .thread-list-item__inner
+    .thread-list-item__author
+      = render 'users/icon', user: featured_entry.featureable.user, link_class: 'a-user-name', image_class: 'thread-list-item__user-icon'
+    header.thread-list-item-title
+      h2.thread-list-item-title__title(itemprop='name')
+        = link_to featured_entry.featureable, itemprop: 'url', class: 'thread-list-item-title__link' do
+          = featured_entry.featureable.title
+    .thread-list-item-meta
+      time.a-meta(datetime="#{featured_entry.featureable.reported_on.to_datetime}" pubdate='pubdate')
+        = l featured_entry.featureable.reported_on
