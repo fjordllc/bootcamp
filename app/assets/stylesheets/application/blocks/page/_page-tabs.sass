@@ -1,10 +1,6 @@
 .page-tabs
-  background-color: $background-shade
-  padding-top: .5rem
-  border-top: solid 1px $border-shade
-  border-bottom: solid 1px $border-more-shade
-  .sort-nav + &
-    border-top: solid 1px $border-more-more-shade
+  background-color: $base
+  border-bottom: solid 1px $border-shade
 
 .page-tabs__items
   display: flex
@@ -27,22 +23,23 @@
   +text-block(.825rem 1, $semi-muted-text 600 nowrap)
   align-items: center
   justify-content: center
-  height: 2.75rem
   background-color: $background-semi-shade
-  +padding(horizontal, 1em)
+  +padding(horizontal, 1rem)
   +border-radius(top, .25rem)
-  border: solid 1px $border-more-shade
+  border: solid 1px $border-shade
   +position(relative)
   transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    height: 2.5rem
   +media-breakpoint-down(sm)
+    height: 2.75rem
     font-size: .75rem
   &:hover
     background-color: $background
   &.is-active
     background-color: $background
-    border-color: $border-more-more-shade
     border-bottom-color: $background
-    color: $main-text
+    color: $default-text
   &.is-inactive
     pointer-events: none
     color: $muted-text
