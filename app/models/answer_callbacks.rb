@@ -3,35 +3,13 @@
 class AnswerCallbacks
   def after_create(answer)
     create_watch(answer)
-    notify_to_watching_user(answer)
   end
 
   def after_save(answer)
     notify_correct_answer(answer) if answer.saved_change_to_attribute?('type', to: 'CorrectAnswer')
-
-    Cache.delete_not_solved_question_count
-  end
-
-  def after_destroy(_answer)
-    Cache.delete_not_solved_question_count
   end
 
   private
-
-  def notify_to_watching_user(answer)
-    question = Question.find(answer.question_id)
-    mention_user_ids = answer.new_mention_users.ids
-
-    return unless question.try(:watched?)
-
-    watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
-    watcher_ids.each do |watcher_id|
-      if watcher_id != answer.sender.id && !mention_user_ids.include?(watcher_id)
-        watcher = User.find_by(id: watcher_id)
-        NotificationFacade.watching_notification(question, watcher, answer)
-      end
-    end
-  end
 
   def notify_correct_answer(answer)
     question = answer.question

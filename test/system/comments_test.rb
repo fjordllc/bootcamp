@@ -247,10 +247,10 @@ class CommentsTest < ApplicationSystemTestCase
   test 'text change "see more comments" button by remaining comment amount' do
     visit_with_auth product_path(users(:hatsuno).products.first.id), 'komagata'
 
-    assert_selector '.a-button.is-lg.is-text.is-block', text: '次のコメント（ 8 / 12 ）'
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 8 / 12 ）'
 
     find('.a-button.is-lg.is-text.is-block').click
-    assert_selector '.a-button.is-lg.is-text.is-block', text: '次のコメント（ 4 ）'
+    assert_selector '.a-button.is-lg.is-text.is-block', text: '前のコメント（ 4 ）'
 
     find('.a-button.is-lg.is-text.is-block').click
     assert_no_selector '.a-button.is-lg.is-text.is-block'
@@ -292,6 +292,19 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth product_url(unconfirmed_product), 'machida'
     click_button '担当する'
     assert_button '担当から外れる'
+
+    accept_confirm do
+      fill_in 'new_comment[description]', with: 'comment test'
+      click_button '確認OKにする'
+    end
+    assert_text '提出物を確認済みにしました'
+    assert_text 'comment test'
+  end
+
+  test 'when mentor confirm unassigned product with comment' do
+    unassigned_product = products(:product1)
+    visit_with_auth product_url(unassigned_product), 'machida'
+    assert_button '担当する'
 
     accept_confirm do
       fill_in 'new_comment[description]', with: 'comment test'

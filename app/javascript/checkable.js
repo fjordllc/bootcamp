@@ -1,4 +1,13 @@
 export default {
+  computed: {
+    isUnassignedAndUnchekedProduct() {
+      return (
+        this.commentableType === 'Product' &&
+        this.productCheckerId === null &&
+        this.checkId === null
+      )
+    }
+  },
   methods: {
     check(checkableType, checkableId, url, method, token) {
       const params = {
