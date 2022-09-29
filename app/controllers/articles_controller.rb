@@ -69,7 +69,11 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary, :published_at)
+    if params[:commit] == 'WIP'
+      params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary)
+    else
+      params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary, :published_at)
+    end
   end
 
   def redirect_url(article)
