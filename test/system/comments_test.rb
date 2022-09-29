@@ -326,7 +326,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'comment test'
   end
 
-  test ' company logo appear when adviser belongs to the company post comment ' do
+  test 'company logo appear when adviser belongs to the company post comment' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
     find('#js-new-comment').set('test')
     click_button 'コメントする'
