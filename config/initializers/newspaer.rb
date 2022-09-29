@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.configuration.to_prepare do
   Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
@@ -15,6 +17,6 @@ Rails.configuration.to_prepare do
   answer_cache_destroyer = AnswerCacheDestroyer.new
   Newspaper.subscribe(:answer_save, answer_cache_destroyer)
   Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
-  
+
   Newspaper.subscribe(:user_create, SignUpNotifier.new)
 end
