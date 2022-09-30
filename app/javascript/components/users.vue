@@ -35,7 +35,7 @@
               i.far.fa-sad-tear
             p.o-empty-message__text
               | 一致するユーザーはいません
-          div(v-else)
+          .row(v-else)
             user(
               v-for='user in searchedUsers',
               :key='user.id',
