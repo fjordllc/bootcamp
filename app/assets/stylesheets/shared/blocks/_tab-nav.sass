@@ -1,10 +1,9 @@
 .tab-nav
   +padding(vertical, .875rem)
-  border-bottom: solid 1px $background-shade
+  border-bottom: solid 1px $border
   .page-main-header + &
     border-bottom: none
     padding-bottom: 0
-
 
 .tab-nav__items
   display: flex
@@ -20,11 +19,11 @@
 .tab-nav__item-link
   +block-link
   +text-block(.75rem 2.3, $semi-muted-text center nowrap)
-  background-color: $background-shade
+  background-color: $background-semi-shade
   border-radius: 20rem
   transition: all.2s ease-out
   &:hover
-    background-color: shade($background-shade, 10%)
+    background-color: shade($background-semi-shade, 10%)
     color: $default-text
   &.is-active
     background-color: $accent
