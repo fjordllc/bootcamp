@@ -228,8 +228,8 @@ ja:
       authored_books:
         cover: 表紙画像
       survey_question:
-        question_title: 質問タイトル
-        question_description: 質問説明
+        title: 質問タイトル
+        description: 質問説明
       radio_button:
         title_of_reason_for_choice: 選択した理由タイトル
         description_of_reason_for_choice: 選択した理由説明

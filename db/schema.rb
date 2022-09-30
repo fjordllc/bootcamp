@@ -514,9 +514,9 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   end
 
   create_table "survey_questions", force: :cascade do |t|
-    t.string "question_title"
-    t.text "question_description"
-    t.integer "question_format", default: 0
+    t.string "title"
+    t.text "description"
+    t.integer "format", default: 0
     t.boolean "answer_required", default: false
     t.bigint "creator_id"
     t.bigint "updater_id"

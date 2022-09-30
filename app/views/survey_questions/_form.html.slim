@@ -3,11 +3,11 @@
   .form__items
     .form__items-inner
       .form-item
-        = f.label :question_title, class: 'a-form-label is-required'
-        = f.text_field :question_title, class: 'a-text-input js-warning-form', placeholder: '現在の学習に対するモチベーションを教えてください。'
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '現在の学習に対するモチベーションを教えてください。'
       .form-item
-        = f.label :question_description, class: 'a-form-label'
-        = f.text_area :question_description, class: 'a-text-input js-warning-form', placeholder: '複数選択可。'
+        = f.label :description, class: 'a-form-label'
+        = f.text_area :description, class: 'a-text-input js-warning-form', placeholder: '複数選択可。'
       .form-item
         label.a-form-label
           | 回答必須
@@ -23,27 +23,27 @@
         ul.block-checks.is-2-items
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'text_area', id: 'text_area', class: 'a-toggle-checkbox'
+              = f.radio_button :format, 'text_area', id: 'text_area', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='text_area')
                 | 段落
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'text_field', id: 'text_field', class: 'a-toggle-checkbox'
+              = f.radio_button :format, 'text_field', id: 'text_field', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='text_field')
                 | 記述式
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'radio_button', id: 'radio_button', class: 'a-toggle-checkbox'
+              = f.radio_button :format, 'radio_button', id: 'radio_button', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='radio_button')
                 | ラジオボタン
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'check_box', id: 'check_box', class: 'a-toggle-checkbox'
+              = f.radio_button :format, 'check_box', id: 'check_box', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='check_box')
                 | チェックボックス
           li.block-checks__item
             .a-block-check.is-radio
-              = f.radio_button :question_format, 'linear_scale', id: 'linear_scale', class: 'a-toggle-checkbox'
+              = f.radio_button :format, 'linear_scale', id: 'linear_scale', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='linear_scale')
                 | 均等目盛
 

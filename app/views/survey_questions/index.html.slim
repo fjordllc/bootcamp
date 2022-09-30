@@ -41,18 +41,18 @@ header.page-header
           - @survey_questions.each do |survey_question|
             tr.admin-table__item
               td.admin-table__item-value.is-text-align-center
-                - if survey_question.question_format == 'text_area'
+                - if survey_question.format == 'text_area'
                   | 段落
-                - if survey_question.question_format == 'text_field'
+                - if survey_question.format == 'text_field'
                   | 記述式
-                - if survey_question.question_format == 'radio_button'
+                - if survey_question.format == 'radio_button'
                   | ラジオボタン
-                - if survey_question.question_format == 'check_box'
+                - if survey_question.format == 'check_box'
                   | チェックボックス
-                - if survey_question.question_format == 'linear_scale'
+                - if survey_question.format == 'linear_scale'
                   | 均等目盛
               td.admin-table__item-value
-                = survey_question.question_title
+                = survey_question.title
               td.admin-table__item-value
                 = "作成: #{l survey_question.created_at, format: :long}"
               td.admin-table__item-value
