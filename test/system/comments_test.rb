@@ -331,6 +331,6 @@ class CommentsTest < ApplicationSystemTestCase
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
     assert_text 'test'
-    assert find('img.thread-comment__company-logo')['src'].include?('2.png')
+    assert_equal '2.png', File.basename(find('img.thread-comment__company-logo')['src'])
   end
 end
