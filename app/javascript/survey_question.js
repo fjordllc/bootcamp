@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const radioButtonChoices = document.getElementsByName(
-    'survey_question[question_format]'
+    'survey_question[format]'
   )
   const radioButtonElements = document.querySelectorAll('.radio_button')
   const checkBoxElements = document.querySelectorAll('.check_box')

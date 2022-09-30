@@ -4,7 +4,7 @@ class LinearScale < ApplicationRecord
   belongs_to :survey_question
   before_save :normalize_blank_values
 
-  with_options if: -> { survey_question.question_format == 'linear_scale' }, presence: true do
+  with_options if: -> { survey_question.format == 'linear_scale' }, presence: true do
     validates :start_of_scale
     validates :end_of_scale
     validates :title_of_reason_for_choice

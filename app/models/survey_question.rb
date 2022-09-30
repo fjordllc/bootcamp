@@ -10,7 +10,7 @@ class SurveyQuestion < ApplicationRecord
   has_one :check_box, dependent: :destroy
   accepts_nested_attributes_for :check_box, allow_destroy: true
 
-  enum question_format: {
+  enum format: {
     text_area: 0,
     text_field: 1,
     radio_button: 2,
@@ -18,5 +18,5 @@ class SurveyQuestion < ApplicationRecord
     linear_scale: 4
   }, _prefix: true
 
-  validates :question_title, presence: true
+  validates :title, presence: true
 end

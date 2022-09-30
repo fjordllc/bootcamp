@@ -1,7 +1,7 @@
 survey_question1:
-  question_title: "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？"
-  question_description: "フィヨルドブートキャンプの学習を通して、どんなことを学んだか教えてください。"
-  question_format: "text_area"
+  title: "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？"
+  description: "フィヨルドブートキャンプの学習を通して、どんなことを学んだか教えてください。"
+  format: "text_area"
   answer_required: false
   creator: komagata
   created_at: <%= Time.zone.today %>

@@ -7,7 +7,7 @@ class CheckBox < ApplicationRecord
   validates_associated :check_box_choices
   before_save :normalize_blank_values
 
-  with_options if: -> { survey_question.question_format == 'check_box' }, presence: true do
+  with_options if: -> { survey_question.format == 'check_box' }, presence: true do
     validates :check_box_choices
     validates :title_of_reason_for_choice
   end

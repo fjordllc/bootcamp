@@ -7,7 +7,7 @@ class RadioButton < ApplicationRecord
   validates_associated :radio_button_choices
   before_save :normalize_blank_values
 
-  with_options if: -> { survey_question.question_format == 'radio_button' }, presence: true do
+  with_options if: -> { survey_question.format == 'radio_button' }, presence: true do
     validates :radio_button_choices
     validates :title_of_reason_for_choice
   end
