@@ -3,6 +3,7 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
   Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
+  Newspaper.subscribe(:answer_create, AnswererWatcher.new)
 
   sad_streak_updater = SadStreakUpdater.new
   Newspaper.subscribe(:report_create, sad_streak_updater)
@@ -12,4 +13,8 @@ Rails.configuration.to_prepare do
   learning_cache_destroyer = LearningCacheDestroyer.new
   Newspaper.subscribe(:learning_create, learning_cache_destroyer)
   Newspaper.subscribe(:learning_destroy, learning_cache_destroyer)
+
+  answer_cache_destroyer = AnswerCacheDestroyer.new
+  Newspaper.subscribe(:answer_save, answer_cache_destroyer)
+  Newspaper.subscribe(:answer_destroy, answer_cache_destroyer)
 end

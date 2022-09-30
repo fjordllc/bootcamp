@@ -189,10 +189,10 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test '研修生が初めて提出した時だけ、企業のアドバイザーに通知する' do
+  test '研修生が日報を作成し提出した時、企業のアドバイザーに通知する' do
     kensyu_login_name = 'kensyu'
     advisor_login_name = 'senpai'
-    title = '研修生が初めて提出した時だけ、'
+    title = '研修生が日報を作成し提出した時'
     description = 'アドバイザーに通知を飛ばす'
     notification_message = make_write_report_notification_message(
       kensyu_login_name, title
