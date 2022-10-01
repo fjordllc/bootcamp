@@ -361,4 +361,21 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'kimura'
     assert_no_selector 'h2.card-header__title', text: '研修生'
   end
+
+  test 'delete bookmark for latest bookmarks on dashboard' do
+    visit_with_auth '/', 'kimura'
+
+    reports = %i[report68 report69 report70 report71]
+    reports.each do |report|
+      visit "/reports/#{reports(report).id}"
+      find('#bookmark-button').click
+    end
+    assert_text 'Bookmarkしました！'
+
+    visit '/'
+    find('#bookmark_edit').click
+    first('.bookmark-delete-button').click
+    assert_text 'Bookmarkを削除しました。'
+    assert_no_text '名前の長いメンター用'
+  end
 end
