@@ -282,4 +282,13 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text 'yameoさんが退会しました。'
     assert_no_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
   end
+
+  test 'notify to questioner when a week has passed since last answer' do
+    visit_with_auth '/scheduler/daily', 'kimura'
+    visit '/notifications'
+
+    within first('.card-list-item.is-unread') do
+      assert_text 'Q&A「最後の回答から1週間経過した時に質問者に通知するテスト用」のベストアンサーがまだ選ばれていません。'
+    end
+  end
 end
