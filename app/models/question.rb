@@ -35,9 +35,16 @@ class Question < ApplicationRecord
   mentionable_as :description
 
   class << self
+    def notify_of_pending
+      Question.not_solved_and_a_week_has_passed.each do |not_solved_question|
+        NotificationFacade.a_week_after_last_answer(not_solved_question, not_solved_question.user)
+      end
+    end
+
     def not_solved_and_a_week_has_passed
       not_solved.select do |not_solved_question|
         next if not_solved_question.answers.empty?
+
         not_solved_question.a_week_after_last_answer?
       end
     end
