@@ -30,13 +30,4 @@ class Notification::AnswersTest < ApplicationSystemTestCase
     visit_with_auth '/', 'komagata'
     refute_text @notice_text
   end
-
-  test 'a week have passed since last answer' do
-    visit_with_auth '/scheduler/daily', 'kimura'
-    visit '/notifications'
-
-    within first('.card-list-item.is-unread') do
-      assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
-    end
-  end
 end

@@ -29,7 +29,8 @@ answer_for_comment_count:
   question: question_for_comment_count
 
 last_answer:
-  description: 最後の回答から1週間経ってベストアンサーが決まっていない時、質問者に通知するテスト用の回答です。
+  description: 最後の回答から1週間経過した時に質問者に通知するテスト用
   user: machida
-  question: question8
-  updated_at: <%= Time.current - 1.week %>
+  question: question15
+  created_at: <%= Date.current - 1.week %>
+  updated_at: <%= Date.current - 1.week %>
