@@ -17,7 +17,8 @@ class AnnouncementCallbacks
   private
 
   def after_first_publish(announce)
-    announce.update(published_at: Time.current)
+    notify_to_chat(announce)
+    send_notification(announce)
   end
 
   def create_author_watch(announce)
