@@ -14,4 +14,5 @@ header.page-header
 = render 'admin/admin_page_tabs'
 
 .page-body
-  div(data-vue="AdminCompanies")
+  .container.is-lg
+    = react_component 'AdminCompanies'
