@@ -436,12 +436,12 @@ class NotificationMailerTest < ActionMailer::TestCase
 
   test 'a_week_after_last_answer' do
     user = users(:kimura)
-    question = questions(:question8)
+    question = questions(:question15)
     Notification.create!(
       kind: 21,
       sender: user,
       user: user,
-      message: 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。',
+      message: 'Q&A「最後の回答から1週間経過した時に質問者に通知するテスト用」のベストアンサーがまだ選ばれていません。',
       link: "/questions/#{question.id}",
       read: false
     )
@@ -458,7 +458,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんの質問【 テストの質問 】のベストアンサーがまだ選ばれていません。', email.subject
+    assert_equal '[FBC] kimuraさんの質問【 最後の回答から1週間経過した時に質問者に通知するテスト用 】のベストアンサーがまだ選ばれていません。', email.subject
     assert_match(/まだ選ばれていません/, email.body.to_s)
   end
 end
