@@ -132,6 +132,6 @@ question15:
   title: 最後の回答から1週間経過した時に質問者に通知するテスト用
   description: 最後の回答から1週間経過した時に質問者に通知するテスト用
   user: kimura
-  created_at: <%= Date.current - 1.week %>
-  published_at: <%= Date.current - 1.week %>
-  updated_at: <%= Date.current - 1.week %>
+  created_at: <%= Date.current.to_time - 1.week %>
+  published_at: <%= Date.current.to_time - 1.week %>
+  updated_at: <%= Date.current.to_time - 1.week %>
