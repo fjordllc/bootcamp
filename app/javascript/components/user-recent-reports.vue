@@ -8,8 +8,7 @@
       v-for='report in reports',
       :key='report.id',
       :report='report',
-      :current-user-id='currentUserId',
-      :display-user-icon='displayUserIcon'
+      :current-user-id='currentUserId'
     )
   .card-body(v-else)
     .card__description
@@ -29,8 +28,7 @@
         v-for='report in reports',
         :key='report.id',
         :report='report',
-        :current-user-id='currentUserId',
-        :display-user-icon='displayUserIcon'
+        :current-user-id='currentUserId'
       )
     unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
   .o-empty-message(v-else-if='reports.length === 0 && isUncheckedReportsPage')
@@ -76,10 +74,6 @@ export default {
     limit: {
       type: String,
       default: null
-    },
-    displayUserIcon: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
