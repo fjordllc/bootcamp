@@ -18,8 +18,6 @@
         .o-empty-message__text
           | 日報はまだありません。
 .page-content.reports(v-else)
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
   .reports.is-md(v-if='reports === null')
     loadingListPlaceholder
   .card-list.a-card(v-else-if='reports.length > 0')
@@ -41,22 +39,18 @@
       i.fa-regular.fa-sad-tear
     .o-empty-message__text
       | 日報はまだありません。
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
 </template>
 <script>
 import Report from 'components/report.vue'
 import UnconfirmedLink from 'unconfirmed_link.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Pager from 'pager.vue'
 
 export default {
   name: 'UserRecentReports',
   components: {
     report: Report,
     'unconfirmed-link': UnconfirmedLink,
-    loadingListPlaceholder: LoadingListPlaceholder,
-    pager: Pager
+    loadingListPlaceholder: LoadingListPlaceholder
   },
   props: {
     userId: {
@@ -79,8 +73,6 @@ export default {
   data() {
     return {
       reports: null,
-      currentPage: this.pageParam(),
-      totalPages: null,
       currentUserId: null
     }
   },
@@ -90,7 +82,6 @@ export default {
     },
     newParams() {
       const params = new URL(location.href).searchParams
-      params.set('page', this.currentPage)
       if (this.userId) {
         params.set('user_id', this.userId)
       }
@@ -115,35 +106,12 @@ export default {
       } else {
         return `/api/reports.json?${params}`
       }
-    },
-    pagerProps() {
-      return {
-        initialPageNumber: this.currentPage,
-        pageCount: this.totalPages,
-        pageRange: 9,
-        clickHandle: this.clickCallback
-      }
     }
   },
   created() {
-    window.onpopstate = () => {
-      this.currentPage = this.pageParam()
-      this.getReports()
-    }
     this.getReports()
   },
   methods: {
-    pageParam() {
-      const url = new URL(location.href)
-      const page = url.searchParams.get('page')
-      return parseInt(page || 1)
-    },
-    clickCallback(pageNum) {
-      this.currentPage = pageNum
-      history.pushState(null, null, this.newURL)
-      this.getReports()
-      window.scrollTo(0, 0)
-    },
     async getReports() {
       const response = await fetch(this.reportsAPI, {
         method: 'GET',
@@ -154,7 +122,6 @@ export default {
       const json = await response.json().catch((error) => console.warn(error))
       this.reports = json.reports
       this.currentUserId = json.currentUserId
-      this.totalPages = parseInt(json.totalPages)
     }
   }
 }
