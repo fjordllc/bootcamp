@@ -15,11 +15,15 @@ class API::BookmarksController < API::BaseController
   end
 
   def create
-    @bookmark = Bookmark.create!(
+    @bookmark = Bookmark.new(
       user: current_user,
       bookmarkable: bookmarkable
     )
-    render status: :created, json: @bookmark
+    if @bookmark.save
+      render status: :created, json: @bookmark
+    else
+      head :bad_request
+    end
   end
 
   def destroy
