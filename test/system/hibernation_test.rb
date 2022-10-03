@@ -32,7 +32,7 @@ class HibernationTest < ApplicationSystemTestCase
       fill_in('hibernation[reason]', with: 'test')
     end
 
-    find('.is-checkbox').click
+    check 'is-checkbox'
     click_on '休会する'
     page.driver.browser.switch_to.alert.accept
     assert_text '復帰予定日を入力してください'
