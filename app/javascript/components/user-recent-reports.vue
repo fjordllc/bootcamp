@@ -1,5 +1,5 @@
 <template lang="pug">
-.card-list.a-card(v-if='limit')
+.card-list.a-card
   .card-header.is-sm
     h2.card-header__title
       | 直近の日報
@@ -17,57 +17,23 @@
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
           | 日報はまだありません。
-.page-content.reports(v-else)
-  .reports.is-md(v-if='reports === null')
-    loadingListPlaceholder
-  .card-list.a-card(v-else-if='reports.length > 0')
-    .card-list__items
-      report(
-        v-for='report in reports',
-        :key='report.id',
-        :report='report',
-        :current-user-id='currentUserId'
-      )
-    unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
-  .o-empty-message(v-else-if='reports.length === 0 && isUncheckedReportsPage')
-    .o-empty-message__icon
-      i.fa-regular.fa-smile
-    p.o-empty-message__text
-      | 未チェックの日報はありません
-  .o-empty-message(v-else)
-    .o-empty-message__icon
-      i.fa-regular.fa-sad-tear
-    .o-empty-message__text
-      | 日報はまだありません。
 </template>
 <script>
 import Report from 'components/report.vue'
-import UnconfirmedLink from 'unconfirmed_link.vue'
-import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 
 export default {
   name: 'UserRecentReports',
   components: {
-    report: Report,
-    'unconfirmed-link': UnconfirmedLink,
-    loadingListPlaceholder: LoadingListPlaceholder
+    report: Report
   },
   props: {
     userId: {
       type: Number,
       default: null
     },
-    companyId: {
-      type: Number,
-      default: null
-    },
-    practiceId: {
-      type: Number,
-      default: null
-    },
     limit: {
-      type: String,
-      default: null
+      type: Number,
+      default: 10
     }
   },
   data() {
@@ -77,19 +43,10 @@ export default {
     }
   },
   computed: {
-    isUncheckedReportsPage() {
-      return location.pathname.includes('unchecked')
-    },
     newParams() {
       const params = new URL(location.href).searchParams
       if (this.userId) {
         params.set('user_id', this.userId)
-      }
-      if (this.companyId) {
-        params.set('company_id', this.companyId)
-      }
-      if (this.practiceId) {
-        params.set('practice_id', this.practiceId)
       }
       if (this.limit) {
         params.set('limit', this.limit)
@@ -101,11 +58,7 @@ export default {
     },
     reportsAPI() {
       const params = this.newParams
-      if (this.isUncheckedReportsPage) {
-        return `/api/reports/unchecked.json?${params}`
-      } else {
-        return `/api/reports.json?${params}`
-      }
+      return `/api/reports.json?${params}`
     }
   },
   created() {
