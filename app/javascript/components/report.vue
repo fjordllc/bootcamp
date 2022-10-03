@@ -79,6 +79,7 @@
 import CommentUserIcon from 'comment-user-icon'
 
 export default {
+  name: 'Report',
   components: {
     'comment-user-icon': CommentUserIcon
   },
