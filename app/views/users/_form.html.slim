@@ -48,7 +48,7 @@
   - if from == :new && user.student?
     = render 'users/form/card'
 
-  - if admin_login? || user.trainee?
+  - if ( admin_login? && user.trainee? ) || user.trainee?
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
       = render 'users/form/training_end', f: f
