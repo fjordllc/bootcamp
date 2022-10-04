@@ -21,7 +21,7 @@ class NotificationFacade
   end
 
   def self.product_update(product, receiver)
-    Notification.product_update(product, receiver)
+    ActivityNotifier.with(product: product, receiver: receiver).product_update.notify_now
     return if receiver.retired?
   end
 
