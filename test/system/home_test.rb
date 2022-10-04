@@ -373,7 +373,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_text 'Bookmarkしました！'
 
     visit '/'
-    find('#bookmark_edit').click
+    check '編集'
     first('.bookmark-delete-button').click
     assert_text 'Bookmarkを削除しました。'
     assert_no_text '名前の長いメンター用'
