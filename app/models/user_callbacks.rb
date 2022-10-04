@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class UserCallbacks
-  def before_create(user)
-    user.unsubscribe_email_token = SecureRandom.urlsafe_base64
-  end
-
   def after_create(user)
     user.create_talk!
   end
