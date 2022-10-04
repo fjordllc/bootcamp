@@ -17,7 +17,7 @@ class AnnouncementCallbacks
   private
 
   def after_first_publish(announce)
-    notify_to_chat(announce)
+    DiscordNotifier.with(announce: announce).post_announcement.notify_now
     send_notification(announce)
     announce.update(published_at: Time.current)
   end
@@ -29,14 +29,8 @@ class AnnouncementCallbacks
     end
   end
 
-  def notify_to_chat(announce)
-    path = Rails.application.routes.url_helpers.polymorphic_path(announce)
-    url = "https://bootcamp.fjord.jp#{path}"
-
-    ChatNotifier.message(
-      "お知らせ：「#{announce.title}」\r#{url}",
-      webhook_url: ENV['DISCORD_ALL_WEBHOOK_URL']
-    )
+  def delete_notification(announce)
+    Notification.where(link: "/announcements/#{announce.id}").destroy_all
   end
 
   def create_author_watch(announce)
