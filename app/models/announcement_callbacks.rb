@@ -33,10 +33,6 @@ class AnnouncementCallbacks
     end
   end
 
-  def delete_notification(announce)
-    Notification.where(link: "/announcements/#{announce.id}").destroy_all
-  end
-
   def create_author_watch(announce)
     Watch.create!(user: announce.user, watchable: announce)
   end
