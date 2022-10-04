@@ -10,7 +10,14 @@
         = f.label :title, class: 'a-form-label'
         = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'display: inline-block の挙動の調査を進めた'
         .a-form-help
-          p 後で探しやすくなるタイトルがオススメ
+          p
+            | 日報のタイトルはあとで振り返りやすいタイトルを付けてください。
+            label.a-form-help-link.is-muted-text(for='modal-title')
+              span.a-form-help-link__label
+                | 日報のタイトルの付け方
+              span.a-help
+                i.fa-solid.fa-question
+
       .form-item
         = f.label :reported_on, class: 'a-form-label'
         = f.date_field :reported_on, class: 'a-text-input'
@@ -135,3 +142,24 @@
       p
         | 日報も同じで、WIP はどんなに間違ったことを書いてても問題なしです。
         | 途中経過を人前に晒すことに慣れてしまいましょう💪
+
+= render '/shared/modal', id: 'modal-title', modal_title: '日報のタイトルの付け方'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | 日報のタイトルはあとで振り返りやすいタイトルを付けてください。
+      p
+        | 「今日はここまでやった」「今日はこんなことを感じた」という概要をタイトルに含めておけば、
+        | あとで読みかえしたいときにぱっと目的の日報にたどり着けます。
+      p
+        | それだけでなく、他の受講生があなたの日報を参考にしたいときにも、
+        | 「あ、この日報を読めば何か手がかりが得られるかも」ということが
+        | タイトルから把握できます。
+      p
+        | 自分自身のため、そして他の受講生のために、わかりやすい日報タイトルを付けましょう。
+        | gitのようなソースコード管理ツールを使ったことがある人は、
+        | 未来の自分自身へ向けたコミットメッセージだと考えると良いです。
+      p
+        | 例: CSS初級に苦戦中、display: inline-block の理解を深めた
+        br
+        | 例: ついに HTML の課題提出！CSS のドキュメントを読み始める
