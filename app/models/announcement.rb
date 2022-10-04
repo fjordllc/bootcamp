@@ -20,7 +20,6 @@ class Announcement < ApplicationRecord
 
   after_create AnnouncementCallbacks.new
   after_update AnnouncementCallbacks.new
-  after_destroy AnnouncementCallbacks.new
 
   validates :title, presence: true
   validates :description, presence: true
