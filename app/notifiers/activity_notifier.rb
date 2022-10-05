@@ -275,7 +275,7 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
-  
+
   def watching_notification(params = {})
     params.merge!(@params)
     watchable = params[:watchable]
