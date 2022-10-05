@@ -15,10 +15,11 @@
 </template>
 
 <script>
-import RegularEvent from 'regular-event'
-import Pager from 'pager'
+import RegularEvent from 'components/regular-event.vue'
+import Pager from 'pager.vue'
 
 export default {
+  name: 'RegularEvents',
   components: {
     regularEvent: RegularEvent,
     pager: Pager
