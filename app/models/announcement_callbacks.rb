@@ -17,20 +17,7 @@ class AnnouncementCallbacks
   private
 
   def after_first_publish(announce)
-    notify_to_chat(announce)
-    send_notification(announce)
     announce.update(published_at: Time.current)
-  end
-
-  def notify_to_chat(announce)
-    DiscordNotifier.with(announce: announce).announced.notify_now
-  end
-
-  def send_notification(announce)
-    target_users = User.announcement_receiver(announce.target)
-    target_users.each do |target|
-      NotificationFacade.post_announcement(announce, target) if announce.sender != target
-    end
   end
 
   def create_author_watch(announce)
