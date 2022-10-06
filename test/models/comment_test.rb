@@ -3,6 +3,15 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test '.commented_users' do
     report = reports(:report4)
     users = report.comments.commented_users
