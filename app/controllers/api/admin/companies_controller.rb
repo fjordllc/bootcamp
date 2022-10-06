@@ -2,9 +2,11 @@
 
 class API::Admin::CompaniesController < API::Admin::BaseController
   def index
+    per = params[:per] || 25
     @companies = Company.with_attached_logo
                         .order(:id)
                         .page(params[:page])
+                        .per(per)
   end
 
   def destroy
