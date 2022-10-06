@@ -19,7 +19,7 @@
           | 日報はまだありません。
 </template>
 <script>
-import Report from 'components/report.vue'
+import Report from './report.vue'
 
 export default {
   name: 'UserRecentReports',
