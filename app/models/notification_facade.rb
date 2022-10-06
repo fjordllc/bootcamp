@@ -85,7 +85,7 @@ class NotificationFacade
   end
 
   def self.watching_notification(watchable, receiver, comment)
-    Notification.watching_notification(watchable, receiver, comment)
+    ActivityNotifier.with(watchable: watchable, receiver: receiver, comment: comment).watching_notification.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

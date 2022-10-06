@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::WatchesTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test '日報作成者がコメントをした際、ウォッチ通知が飛ばないバグの再現' do
     watches(:report1_watch_kimura)
     # コメントを投稿しても自動的にウォッチがONになる

@@ -4,6 +4,15 @@ require 'application_system_test_case'
 
 class FollowingsTest < ApplicationSystemTestCase
   setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
+  setup do
     @hatsuno = users(:hatsuno)
     @kimura = users(:kimura)
   end
