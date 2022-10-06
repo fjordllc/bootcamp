@@ -60,7 +60,6 @@ import '../choices-ui.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
-import '../regular-events.js'
 
 import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
@@ -71,6 +70,7 @@ import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Reports from '../components/reports.vue'
+import RegularEvents from '../components/regular-events.vue'
 import Users from '../components/users.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
@@ -88,6 +88,7 @@ mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
 mounter.addComponent(Reports)
+mounter.addComponent(RegularEvents)
 mounter.addComponent(Users)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)

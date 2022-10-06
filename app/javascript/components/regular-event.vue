@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import UserIcon from 'user-icon'
+import UserIcon from 'user-icon.vue'
 
 export default {
   components: {
