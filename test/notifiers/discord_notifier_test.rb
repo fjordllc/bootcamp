@@ -38,6 +38,30 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  test '.announced' do
+    params = {
+      body: 'test message',
+      announce: announcements(:announcement1),
+      name: 'bob'
+    }
+
+    expected = {
+      body: "お知らせ：「お知らせ1」\rhttps://bootcamp.fjord.jp/announcements/395315747",
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/all'
+    }
+
+    assert_notifications_sent 2, **expected do
+      DiscordNotifier.announced(params).notify_now
+      DiscordNotifier.with(params).announced.notify_now
+    end
+
+    assert_notifications_enqueued 2, **expected do
+      DiscordNotifier.announced(params).notify_later
+      DiscordNotifier.with(params).announced.notify_later
+    end
+  end
+
   test '.tomorrow_regular_event' do
     params = {
       event: regular_events(:regular_event1),

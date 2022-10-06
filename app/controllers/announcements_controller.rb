@@ -51,6 +51,7 @@ class AnnouncementsController < ApplicationController
 
   def destroy
     @announcement.destroy
+    Newspaper.publish(:announcement_destroy, @announcement)
     redirect_to announcements_path, notice: 'お知らせを削除しました'
   end
 
