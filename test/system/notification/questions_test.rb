@@ -106,8 +106,8 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[description]', with: '公開本文'
     end
     click_button '登録する'
-    assert_text '公開タイトル'
     assert_text '質問を作成しました。'
+    assert_text '公開タイトル'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
