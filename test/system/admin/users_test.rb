@@ -81,7 +81,8 @@ class Admin::UsersTest < ApplicationSystemTestCase
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
-    assert_equal('Fjord Inc.', first('span', text: 'kensyu（Kensyu Seiko）').ancestor('tr').find(:xpath, 'td[4]').text)
+    visit "/users/#{user.id}"
+    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
   test 'update advisor with company' do
@@ -94,8 +95,8 @@ class Admin::UsersTest < ApplicationSystemTestCase
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
-    find('a', text: '全員').click
-    assert_equal('Fjord Inc.', first('span', text: 'senpai（Senpai Ichiro）').ancestor('tr').find(:xpath, 'td[4]').text)
+    visit "/users/#{user.id}"
+    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
   test 'delete user' do
