@@ -32,4 +32,14 @@ class API::BookmarkTest < ApplicationSystemTestCase
     assert_text 'Bookmark'
     assert_text 'Bookmarkを削除しました'
   end
+
+  test 'turn on/off bookmark button on page' do
+    visit_with_auth "/pages/#{pages(:page12).id}", 'kimura'
+    find('#bookmark-button.is-inactive').click
+    assert_text 'Bookmark中'
+    assert_text 'Bookmarkしました！'
+    find('#bookmark-button.is-active').click
+    assert_text 'Bookmark'
+    assert_text 'Bookmarkを削除しました'
+  end
 end

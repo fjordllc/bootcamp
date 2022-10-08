@@ -101,3 +101,9 @@ page11:
   body: test
   user: long-id-mentor
   published_at: "2022-04-15 00:00:00"
+
+page12:
+  title: ブックマークボタンのテスト用
+  body: ブックマークボタンのテストです。
+  user: kimura
+  published_at: "2022-10-08 00:00:00"
