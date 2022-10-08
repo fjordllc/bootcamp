@@ -51,7 +51,11 @@ class Question < ApplicationRecord
   end
 
   def a_week_after_last_answer?
-    answers.last.updated_at.since(1.week) == Date.current.to_time
+    last_answer.created_at.since(1.week) == Date.current.to_time
+  end
+
+  def last_answer
+    answers.max_by { |answer| answer.created_at }
   end
 
   private
