@@ -347,7 +347,7 @@ report73:
 report74:
   user: kimura
   title: "ブックマークボタンのテスト用"
-  emotion: 1
+  emotion: 2
   description: |-
     ブックマークボタンのテストです。
-  reported_on: "2022-10-08"
+  reported_on: "2022-10-01"
