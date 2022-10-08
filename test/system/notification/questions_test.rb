@@ -284,11 +284,28 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
   end
 
   test 'notify to questioner when a week has passed since last answer' do
+    questioner = users(:kimura)
+    answerer = users(:komagata)
+    question = Question.create!(
+      title: '一週間前の質問',
+      description: 'テスト',
+      user: questioner,
+      created_at: Date.current.to_time - 1.week,
+      updated_at: Date.current.to_time - 1.week,
+      published_at: Date.current.to_time - 1.week
+    )
+    Answer.create!(
+      description: '最後の回答',
+      user: answerer,
+      question: question,
+      created_at: Date.current.to_time - 1.week,
+      updated_at: Date.current.to_time - 1.week
+    )
     visit_with_auth '/scheduler/daily', 'kimura'
     visit '/notifications'
 
     within first('.card-list-item.is-unread') do
-      assert_text 'Q&A「最後の回答から1週間経過した時に質問者に通知するテスト用」のベストアンサーがまだ選ばれていません。'
+      assert_text 'Q&A「一週間前の質問」のベストアンサーがまだ選ばれていません。'
     end
   end
 end
