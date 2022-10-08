@@ -343,3 +343,11 @@ report73:
   description: |-
     やっぱり難しいです。
   reported_on: "2022-06-03"
+
+report74:
+  user: kimura
+  title: "ブックマークボタンのテスト用"
+  emotion: 1
+  description: |-
+    ブックマークボタンのテストです。
+  reported_on: "2022-10-08"
