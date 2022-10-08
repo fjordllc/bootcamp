@@ -411,3 +411,8 @@ product69:
   created_at: <%= 2.day.ago %>
   updated_at: <%= 2.day.ago %>
   published_at: <%= 2.day.ago %>
+
+product70:
+  practice: practice11
+  user: kimura
+  body: ブックマークボタンのテストです。

@@ -127,3 +127,8 @@ question14:
   user: kimura
   created_at: "2022-01-16"
   published_at: "2022-01-16"
+
+question15:
+  title: ブックマークボタンのテスト用の質問
+  description: ブックマークボタンのテスト用の質問です。
+  user: kimura
