@@ -38,7 +38,7 @@ class Scheduler::DailyController < SchedulerController
       end
     end
 
-    Question.notify_of_pending if Question.not_solved_and_a_week_has_passed.present?
+    Question.notify_questioner_to_choose_correct_answer if Question.not_solved_and_a_week_has_passed.present?
     head :ok
   end
 end

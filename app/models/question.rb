@@ -35,7 +35,7 @@ class Question < ApplicationRecord
   mentionable_as :description
 
   class << self
-    def notify_of_pending
+    def notify_questioner_to_choose_correct_answer
       Question.not_solved_and_a_week_has_passed.each do |not_solved_question|
         NotificationFacade.a_week_after_last_answer(not_solved_question, not_solved_question.user)
       end
