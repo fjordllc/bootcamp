@@ -1,6 +1,13 @@
 <template lang="pug">
 .card-list-item
   .card-list-item__inner
+    .card-list-item__user
+      a.card-list-item__user-link(:href='latestArticle.user.url')
+        img.card-list-item__user-icon.a-user-icon(
+          :title='latestArticle.user.icon_title',
+          :alt='latestArticle.user.icon_title',
+          :src='latestArticle.user.avatar_url',
+        )
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -22,8 +29,10 @@
             .card-list-item-meta__item
               time.a-meta
                 | {{publishedAt}}
-    .card-list-item__image
-      | 画像
+    .latest-article__thumbnail
+      img.latest-article__thumbnail-image(
+        :src='latestArticle.thumbnailUrl'
+      )
 </template>
 
 <script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_28_064241) do
+ActiveRecord::Schema.define(version: 2022_10_04_122143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,6 +277,8 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.datetime "published_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_latest_articles_on_user_id"
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
@@ -672,6 +674,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "check_boxes", "survey_questions"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
+  add_foreign_key "latest_articles", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
