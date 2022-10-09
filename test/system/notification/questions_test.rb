@@ -105,12 +105,11 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[title]', with: '公開タイトル'
       fill_in 'question[description]', with: '公開本文'
     end
-    click_button '登録する'
-    assert_text '質問を作成しました。'
-    assert_text '公開タイトル'
-
+    find('input[value="登録する"]').click
+    find('.flash__message', text: '質問を作成しました。')
+    find('.page-content-header__title', text: '公開タイトル')
     visit_with_auth '/notifications?status=unread', 'komagata'
-    assert_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
+    find('.card-list-item-title__link-label', text: 'kimuraさんから質問「公開タイトル」が投稿されました。')
   end
 
   test 'should not notify when a WIP question was updated' do
