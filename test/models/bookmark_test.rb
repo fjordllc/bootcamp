@@ -8,6 +8,7 @@ class BookmarkTest < ActiveSupport::TestCase
     report = reports(:report1)
 
     Bookmark.create(user: user, bookmarkable: report)
+    assert Bookmark.exists?(user: user, bookmarkable: report)
     assert_not Bookmark.new(user: user, bookmarkable: report).valid?
   end
 
@@ -16,6 +17,7 @@ class BookmarkTest < ActiveSupport::TestCase
     question = questions(:question1)
 
     Bookmark.create(user: user, bookmarkable: question)
+    assert Bookmark.exists?(user: user, bookmarkable: question)
     assert_not Bookmark.new(user: user, bookmarkable: question).valid?
   end
 
@@ -24,6 +26,7 @@ class BookmarkTest < ActiveSupport::TestCase
     product = products(:product1)
 
     Bookmark.create(user: user, bookmarkable: product)
+    assert Bookmark.exists?(user: user, bookmarkable: product)
     assert_not Bookmark.new(user: user, bookmarkable: product).valid?
   end
 
@@ -32,6 +35,7 @@ class BookmarkTest < ActiveSupport::TestCase
     page = pages(:page1)
 
     Bookmark.create(user: user, bookmarkable: page)
+    assert Bookmark.exists?(user: user, bookmarkable: page)
     assert_not Bookmark.new(user: user, bookmarkable: page).valid?
   end
 end
