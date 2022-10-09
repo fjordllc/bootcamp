@@ -55,7 +55,7 @@ class Question < ApplicationRecord
   end
 
   def last_answer
-    answers.max_by { |answer| answer.created_at }
+    answers.max_by(&:created_at)
   end
 
   private
