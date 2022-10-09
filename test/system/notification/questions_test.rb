@@ -108,6 +108,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     find('input[value="登録する"]').click
     find('.flash__message', text: '質問を作成しました。')
     find('.page-content-header__title', text: '公開タイトル')
+
     visit_with_auth '/notifications?status=unread', 'komagata'
     find('.card-list-item-title__link-label', text: 'kimuraさんから質問「公開タイトル」が投稿されました。')
   end
