@@ -33,7 +33,6 @@ export default {
   },
   props: {
     practices: { type: Object, required: true },
-    category: { type: Object, required: true },
     learnings: { type: Array, required: true },
     currentUser: { type: Object, required: true, default: null }
   },
