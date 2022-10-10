@@ -30,7 +30,6 @@
               v-for='practices in category.practices',
               :key='practices.id',
               :practices='practices',
-              :category='category',
               :learnings='learnings',
               :currentUser='currentUser'
             )
