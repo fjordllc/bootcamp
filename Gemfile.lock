@@ -104,7 +104,7 @@ GEM
     bootsnap (1.10.3)
       msgpack (~> 1.2)
     builder (3.2.4)
-    bullet (7.0.1)
+    bullet (7.0.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     bundle_outdated_formatter (0.7.0)
