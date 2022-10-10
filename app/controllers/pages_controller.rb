@@ -84,7 +84,7 @@ class PagesController < ApplicationController
   def set_categories
     @categories =
       Category
-      .eager_load(:practices)
+      .eager_load(:practices, :categories_practices)
       .where.not(practices: { id: nil })
       .order('categories_practices.position')
   end
