@@ -22,9 +22,11 @@
             | {{ practice.title }}
         td.admin-table__item-value
           | {{ `カテゴリー` }}
-        td.admin-table__item-value
-          a(:href='`/practices/${practice.id}/products`')
-            | {{ practice.products.size }}
+        td.admin-table__item-value(v-if='practice.submission')
+            a(:href='`/practices/${practice.id}/products`')
+              | {{ practice.products.size }}
+        td.admin-table__item-value(v-else)
+            | {{ `提出物不要` }}
         td.admin-table__item-value
           a(:href='`/practices/${practice.id}/reports`')
             | {{ practice.reports.size }}
