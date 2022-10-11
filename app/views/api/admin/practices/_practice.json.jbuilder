@@ -1,6 +1,6 @@
 json.id practice.id
 json.title practice.title
-json.description practice.description
+json.submission practice.submission
 
 # json.categories do
 #   json.name practice.category_name.name
