@@ -31,6 +31,11 @@ export default {
     }
   },
   computed: {
+    url() {
+      const params = new URL(location.href).searchParams
+      params.set('page', this.currentPage)
+      return `/api/latest_articles?${params}`
+    },
     pagerProps() {
       return {
         initialPageNumber: this.currentPage,
@@ -45,7 +50,7 @@ export default {
   },
   methods: {
     getLatestArticles() {
-      fetch('/api/latest_articles', {
+      fetch(this.url, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',

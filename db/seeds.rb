@@ -24,6 +24,7 @@ tables = %i[
   events
   followings
   reports
+  latest_articles
   learning_times
   learnings
   memos
