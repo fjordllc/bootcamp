@@ -52,18 +52,7 @@
 <script>
 import User from './user.vue'
 import Pager from '../pager.vue'
-
-const debounce = (func, wait) => {
-  let timerId
-  return function (...args) {
-    if (timerId) {
-      clearTimeout(timerId)
-    }
-    timerId = setTimeout(() => {
-      func.apply(this, args)
-    }, wait)
-  }
-}
+import Debounce from '../debounce.js'
 
 export default {
   name: 'Users',
@@ -198,7 +187,7 @@ export default {
         return this.searchUsersWord.length >= 3
       return this.searchUsersWord.length >= 2
     },
-    searchUsers: debounce(function () {
+    searchUsers: Debounce.debounce(function () {
       this.showSearchedUsers = false
       if (!this.validateSearchUsersWord()) return
       this.setupSearchedUsers()
