@@ -23,11 +23,14 @@
         td.admin-table__item-value
           | {{ `カテゴリー` }}
         td.admin-table__item-value
-          | {{ practice.products.size }}
+          a(:href='`/practices/${practice.id}/products`')
+            | {{ practice.products.size }}
         td.admin-table__item-value
-          | {{ practice.reports.size }}
+          a(:href='`/practices/${practice.id}/reports`')
+            | {{ practice.reports.size }}
         td.admin-table__item-value
-          | {{ practice.questions.size }}
+          a(:href='`/practices/${practice.id}/questions`')
+            | {{ practice.questions.size }}
         td.admin-table__item-value.is-text-align-center
           a(:href='`/practices/${practice.id}/edit`')
             | {{ `編集` }}
