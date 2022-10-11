@@ -21,19 +21,20 @@
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
         td.admin-table__item-value
-          | {{ practice.category_id }}
+          | {{ `カテゴリー` }}
         td.admin-table__item-value
-          | {{ `提出物不要` }}
+          | {{ practice.products.size }}
         td.admin-table__item-value
-          | {{ `日報一覧` }}
+          | {{ practice.reports.size }}
         td.admin-table__item-value
-          | {{ `Q&A数` }}
+          | {{ practice.questions.size }}
         td.admin-table__item-value.is-text-align-center
           a(:href='`/practices/${practice.id}/edit`')
             | {{ `編集` }}
 </template>
 <script>
 export default {
+
   props: {
     allAdminPractices: { type: String, required: true }
   },
@@ -42,34 +43,45 @@ export default {
       practices: JSON.parse(this.allAdminPractices)
     }
   },
+  computed: {
+    url() {
+      return `/api/admin/practices`
+    }
+  },
+  created() {
+    window.onpopstate = () => {
+      this.getPractices()
+    }
+    this.getPractices()
+  },
   methods: {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
     },
-    destroy(practice) {
-      if (window.confirm('本当によろしいですか？')) {
-        fetch(`/api/practices/${practice.id}.json`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual'
+    getPractices() {
+      fetch(this.url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then((response) => {
+          return response.json()
         })
-          .then((response) => {
-            if (response.ok) {
-              this.practices = this.practices.filter(
-                (v) => v.id !== practice.id
-              )
-            }
+        .then((json) => {
+          this.practices = []
+          json.practices.forEach((r) => {
+            this.practices.push(r)
           })
-          .catch((error) => {
-            console.warn(error)
-          })
-      }
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     }
   }
 }
