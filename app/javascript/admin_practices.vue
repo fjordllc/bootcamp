@@ -21,7 +21,7 @@
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
         td.admin-table__item-value
-          | {{ `カテゴリー` }}
+          | {{ practice.categories_practice.size }}
         td.admin-table__item-value(v-if='practice.submission')
             a(:href='`/practices/${practice.id}/products`')
               | {{ practice.products.size }}
