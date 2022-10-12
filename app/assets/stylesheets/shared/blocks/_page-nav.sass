@@ -37,7 +37,7 @@
       pointer-events: none
 
 .page-nav__item
-  border-bottom: solid 1px $border-tint
+  border-bottom: solid 1px $border
   &.is-active
     .page-nav__item-link
       color: $default-text
@@ -52,7 +52,6 @@
     +page-nav-current($danger, #b50f38, $reversal-text, false)
   &.is-inactive
     position: static
-    border-top: none
     border-top: solid 1px $border-shade
     border-bottom: solid 1px $border-tint
     .page-nav__item-link
@@ -64,7 +63,7 @@
 
 .page-nav__item-link
   padding: .75rem
-  +text-block(.8125rem 1.4, block $semi-muted-text)
+  +text-block(.8125rem 1.4, $semi-muted-text)
   +block-link
   transition: all .1s ease-in
   background-color: transparent
