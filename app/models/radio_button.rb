@@ -9,11 +9,11 @@ class RadioButton < ApplicationRecord
 
   with_options if: -> { survey_question.format == 'radio_button' }, presence: true do
     validates :radio_button_choices
-    validates :title_of_reason_for_choice
+    validates :title_of_reason
   end
 
   def normalize_blank_values
-    %i[title_of_reason_for_choice description_of_reason_for_choice].each do |att|
+    %i[title_of_reason description_of_reason].each do |att|
       self[att] = nil if self[att].blank?
     end
   end

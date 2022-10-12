@@ -10,8 +10,8 @@
           i.fa-regular.fa-plus
           | 選択肢を追加
     .form-item.is-hidden.radio_button
-      = i.label :title_of_reason_for_choice, class: 'a-form-label is-required'
-      = i.text_field :title_of_reason_for_choice, class: 'a-text-input js-warning-form', placeholder: 'その他を選択した場合、その他の内容について具体的に教えてください。'
+      = i.label :title_of_reason, class: 'a-form-label is-required'
+      = i.text_field :title_of_reason, class: 'a-text-input js-warning-form', placeholder: 'その他を選択した場合、その他の内容について具体的に教えてください。'
     .form-item.is-hidden.radio_button
-      = i.label :description_of_reason_for_choice, class: 'a-form-label'
-      = i.text_area :description_of_reason_for_choice, class: 'a-text-input js-warning-form'
+      = i.label :description_of_reason, class: 'a-form-label'
+      = i.text_area :description_of_reason, class: 'a-text-input js-warning-form'
