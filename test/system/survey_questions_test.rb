@@ -57,8 +57,8 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
     visit_with_auth '/survey_questions/new', 'komagata'
     fill_in 'survey_question[title]', with: 'フィヨルドブートキャンプを親しい友人や家族にお薦めする可能性はどれくらいありますか？'
     choose '均等目盛', allow_label_click: true
-    fill_in 'survey_question[linear_scale_attributes][start_of_scale]', with: 'お薦めしない'
-    fill_in 'survey_question[linear_scale_attributes][end_of_scale]', with: 'お薦めする'
+    fill_in 'survey_question[linear_scale_attributes][first]', with: 'お薦めしない'
+    fill_in 'survey_question[linear_scale_attributes][last]', with: 'お薦めする'
     fill_in 'survey_question[linear_scale_attributes][title_of_reason]', with: 'そのように回答された理由を詳しく教えてください。'
     click_button '保存'
     assert_text '均等目盛'
