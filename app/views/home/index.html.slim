@@ -47,7 +47,7 @@ header.page-header
             = render '/users/practices/active_practices', user: current_user
           - if current_user.completed_practices.present?
             = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
-          - if current_user.belongs_company_and_adviser?
+          - if current_user.belongs_company_and_adviser? && @collegue_trainees.present?
             = render 'collegue_trainees', collegue_trainees: @collegue_trainees
 
         .col-xs-12.col-xl-6.col-xxl-6
