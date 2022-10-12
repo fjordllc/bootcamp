@@ -361,4 +361,9 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'kimura'
     assert_no_selector 'h2.card-header__title', text: '研修生'
   end
+
+  test 'not show trainee lists for adviser when adviser does not have same company trainees' do
+    visit_with_auth '/', 'advisernocolleguetrainee'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
 end

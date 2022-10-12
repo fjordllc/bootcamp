@@ -128,3 +128,7 @@ talk32:
 talk33:
   user: sotsugyoukigyoshozoku
   unreplied: false
+
+talk_advisernocolleguetrainee:
+  user: advisernocolleguetrainee
+  unreplied: false
