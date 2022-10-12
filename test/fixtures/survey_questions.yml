@@ -3,6 +3,6 @@ survey_question1:
   description: "フィヨルドブートキャンプの学習を通して、どんなことを学んだか教えてください。"
   format: "text_area"
   answer_required: false
-  creator: komagata
+  user: komagata
   created_at: <%= Time.zone.today %>
   updated_at: <%= Time.zone.today %>
