@@ -1,16 +1,16 @@
 <template lang="pug">
-  .page-body
-    .container.is-md
-      nav.pagination(v-if='totalPages > 1')
-        pager(v-bind='pagerProps')
-      .card-list.a-card
-        latestArticle(
-          v-for='latestArticle in latestArticles',
-          :key='latestArticle.id',
-          :latestArticle='latestArticle'
-        )
-      nav.pagination(v-if='totalPages > 1')
-        pager(v-bind='pagerProps')
+.page-body
+  .container.is-md
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .card-list.a-card
+      latestArticle(
+        v-for='latestArticle in latestArticles',
+        :key='latestArticle.id',
+        :latestArticle='latestArticle'
+      )
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 
 <script>

@@ -6,7 +6,7 @@
         img.card-list-item__user-icon.a-user-icon(
           :title='latestArticle.user.icon_title',
           :alt='latestArticle.user.icon_title',
-          :src='latestArticle.user.avatar_url',
+          :src='latestArticle.user.avatar_url'
         )
     .card-list-item__rows
       .card-list-item__row
@@ -22,17 +22,15 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               .a-meta
-                | {{latestArticle.summary}}
+                | {{ latestArticle.summary }}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
               time.a-meta
-                | {{publishedAt}}
+                | {{ publishedAt }}
     .latest-article__thumbnail
-      img.latest-article__thumbnail-image(
-        :src='latestArticle.thumbnailUrl'
-      )
+      img.latest-article__thumbnail-image(:src='latestArticle.thumbnailUrl')
 </template>
 
 <script>
