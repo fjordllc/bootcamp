@@ -980,3 +980,20 @@ sotsugyoukigyoshozoku:
   updated_at: "2022-07-01 00:00:00"
   created_at: "2022-07-01 00:00:00"
   last_activity_at: "2022-07-01 00:00:00"
+
+advisernocolleguetrainee:
+  login_name: advisernocolleguetrainee
+  email: advisernocolleguetrainee@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: あどばいざ 同僚いない子
+  name_kana: アドバイザ ドウリョウイナイコ
+  twitter_account: advisernocolleguetrainee
+  facebook_url: https://www.facebook.com/fjordllc
+  blog_url: http://advisernocolleguetrainee.example.com
+  adviser: true
+  course: course1
+  unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
+  updated_at: "2014-01-01 00:00:04"
+  created_at: "2014-01-01 00:00:04"
+  last_activity_at: "2014-01-01 00:00:04"

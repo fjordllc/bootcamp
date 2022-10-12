@@ -171,3 +171,7 @@ talk_neverlogin:
 talk_sotsugyoukigyoshozoku:
   user: sotsugyoukigyoshozoku
   unreplied: false
+
+talk_advisernocolleguetrainee:
+  user: advisernocolleguetrainee
+  unreplied: false
