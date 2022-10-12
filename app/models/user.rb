@@ -70,6 +70,7 @@ class User < ApplicationRecord
   has_many :hibernations, dependent: :destroy
   has_many :authored_books, dependent: :destroy
   accepts_nested_attributes_for :authored_books, allow_destroy: true
+  has_many :survey_questions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
@@ -132,18 +133,6 @@ class User < ApplicationRecord
   has_many :participate_regular_events,
            through: :regular_event_participations,
            source: :regular_event
-
-  has_many :survey_questions_about_creator,
-           class_name: 'SurveyQuestion',
-           foreign_key: 'creator_id',
-           inverse_of: 'creator',
-           dependent: :destroy
-
-  has_many :survey_questions_about_updater,
-           class_name: 'SurveyQuestion',
-           foreign_key: 'updater_id',
-           inverse_of: 'updater',
-           dependent: :destroy
 
   has_one_attached :avatar
   has_one_attached :profile_image

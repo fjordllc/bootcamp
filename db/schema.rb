@@ -518,12 +518,10 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.text "description"
     t.integer "format", default: 0
     t.boolean "answer_required", default: false
-    t.bigint "creator_id"
-    t.bigint "updater_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["creator_id"], name: "index_survey_questions_on_creator_id"
-    t.index ["updater_id"], name: "index_survey_questions_on_updater_id"
+    t.index ["user_id"], name: "index_survey_questions_on_user_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -684,8 +682,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
-  add_foreign_key "survey_questions", "users", column: "creator_id"
-  add_foreign_key "survey_questions", "users", column: "updater_id"
+  add_foreign_key "survey_questions", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
 end
