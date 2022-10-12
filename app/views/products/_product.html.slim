@@ -26,13 +26,13 @@
               - elsif product.published_at.present?
                 time.a-meta(datetime="#{product.published_at.to_datetime}")
                   span.a-meta__label
-                    | 提出日
+                    | 提出
                   span.a-meta__value
                     = l product.published_at
               - else
                 time.a-meta(datetime="#{product.created_at.to_datetime}")
                   span.a-meta__label
-                    | 提出日
+                    | 提出
                   span.a-meta__value
                     = l product.created_at
 
