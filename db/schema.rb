@@ -294,8 +294,8 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   end
 
   create_table "linear_scales", force: :cascade do |t|
-    t.string "start_of_scale"
-    t.string "end_of_scale"
+    t.string "first"
+    t.string "last"
     t.boolean "reason_for_choice_required", default: false
     t.string "title_of_reason"
     t.text "description_of_reason"

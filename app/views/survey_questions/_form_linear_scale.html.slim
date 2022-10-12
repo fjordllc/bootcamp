@@ -9,7 +9,7 @@
             .form-added-choice__label.is-count
               | 1
           .form-added-choice__col.is-main
-            = i.text_field :start_of_scale, class: 'a-text-input js-warning-form', placeholder: 'お薦めしない'
+            = i.text_field :first, class: 'a-text-input js-warning-form', placeholder: 'お薦めしない'
             .a-form-help
               p
                 | 1 はネガティブな評価を設定（例: 悪かった）。
@@ -22,7 +22,7 @@
             .form-added-choice__label.is-count
               | 10
           .form-added-choice__col.is-main
-            = i.text_field :end_of_scale, class: 'a-text-input js-warning-form', placeholder: 'お薦めできる'
+            = i.text_field :last, class: 'a-text-input js-warning-form', placeholder: 'お薦めできる'
             .a-form-help
               p
                 | 10 はポジティブな評価を設定（例: 良かった）。

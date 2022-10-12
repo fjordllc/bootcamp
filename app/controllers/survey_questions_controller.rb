@@ -49,7 +49,7 @@ class SurveyQuestionsController < ApplicationController
   def survey_question_params
     params.require(:survey_question).permit(:title, :description, :format, :answer_required,
                                             linear_scale_attributes:
-                                              %i[id start_of_scale end_of_scale reason_for_choice_required] +
+                                              %i[id first last reason_for_choice_required] +
                                               %i[title_of_reason description_of_reason],
                                             radio_button_attributes:
                                               %i[id title_of_reason description_of_reason] +

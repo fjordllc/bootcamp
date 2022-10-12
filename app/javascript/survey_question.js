@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'survey_question_linear_scale_attributes_description_of_reason'
   )
   const startOfScale = document.getElementById(
-    'survey_question_linear_scale_attributes_start_of_scale'
+    'survey_question_linear_scale_attributes_first'
   )
   const endOfScale = document.getElementById(
-    'survey_question_linear_scale_attributes_end_of_scale'
+    'survey_question_linear_scale_attributes_last'
   )
   const reasonForChoiceRequired = document.getElementById(
     'survey_question_linear_scale_attributes_reason_for_choice_required'
