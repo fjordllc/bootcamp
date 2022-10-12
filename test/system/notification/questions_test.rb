@@ -290,16 +290,16 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       title: '一週間前の質問',
       description: 'テスト',
       user: questioner,
-      created_at: Date.current.to_time - 1.week,
-      updated_at: Date.current.to_time - 1.week,
-      published_at: Date.current.to_time - 1.week
+      created_at: Time.current - 1.week,
+      updated_at: Time.current - 1.week,
+      published_at: Time.current - 1.week
     )
     Answer.create!(
       description: '最後の回答',
       user: answerer,
       question: question,
-      created_at: Date.current.to_time - 1.week,
-      updated_at: Date.current.to_time - 1.week
+      created_at: Time.current - 1.week,
+      updated_at: Time.current - 1.week
     )
     visit_with_auth '/scheduler/daily', 'kimura'
     visit '/notifications'
