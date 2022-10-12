@@ -2,7 +2,7 @@
   header.card-header.is-sm
     h2.card-header__title
       | 研修生の最新の日報
-  .card-list
+  .card-list.has-scroll
     = render partial: 'collegue_trainee_report', collection: @collegue_trainees_reports, as: :report
   footer.card-footer
     .card-footer__footer-link
