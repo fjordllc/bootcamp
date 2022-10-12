@@ -1,22 +1,16 @@
-.dashboard-contents-categories__item-title
-  font-feature-settings: "palt"
-  letter-spacing: .02em
-  +text-block(1em 1.45, 700 $main)
-  padding-bottom: .25rem
-  border-bottom: solid 1px $border-shade
-  +media-breakpoint-up(md)
-    font-size: 1.625rem
-    word-wrap: break-word
-    margin-bottom: 1rem
-  +media-breakpoint-down(sm)
-    font-size: 1.125rem
-    word-break: break-all
-    margin-bottom: .75rem
-
-.dashboard-contents-categories__items
+.dashboard-contents__cols
   display: flex
-  gap: 1rem
+  gap: .75rem
+  +media-breakpoint-down(sm)
+    flex-direction: column
 
-.dashboard-contents-categories__item
+.dashboard-contents__col
+  &.is-sub
+    max-width: 30rem
   &.is-main
     flex: 1
+
+.dashboard-contents__categories
+  display: flex
+  flex-direction: column
+  gap: .75rem
