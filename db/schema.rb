@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   end
 
   create_table "check_boxes", force: :cascade do |t|
-    t.string "title_of_reason_for_choice"
-    t.text "description_of_reason_for_choice"
+    t.string "title_of_reason"
+    t.text "description_of_reason"
     t.bigint "survey_question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -297,8 +297,8 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.string "start_of_scale"
     t.string "end_of_scale"
     t.boolean "reason_for_choice_required", default: false
-    t.string "title_of_reason_for_choice"
-    t.text "description_of_reason_for_choice"
+    t.string "title_of_reason"
+    t.text "description_of_reason"
     t.bigint "survey_question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -437,8 +437,8 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   end
 
   create_table "radio_buttons", force: :cascade do |t|
-    t.string "title_of_reason_for_choice"
-    t.text "description_of_reason_for_choice"
+    t.string "title_of_reason"
+    t.text "description_of_reason"
     t.bigint "survey_question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

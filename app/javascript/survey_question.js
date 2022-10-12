@@ -6,22 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkBoxElements = document.querySelectorAll('.check_box')
   const linearScaleElements = document.querySelectorAll('.linear_scale')
   const radioButtonTitleOfReasonForChoice = document.getElementById(
-    'survey_question_radio_button_attributes_title_of_reason_for_choice'
+    'survey_question_radio_button_attributes_title_of_reason'
   )
   const checkBoxTitleOfReasonForChoice = document.getElementById(
-    'survey_question_check_box_attributes_title_of_reason_for_choice'
+    'survey_question_check_box_attributes_title_of_reason'
   )
   const linearScaleTitleOfReasonForChoice = document.getElementById(
-    'survey_question_linear_scale_attributes_title_of_reason_for_choice'
+    'survey_question_linear_scale_attributes_title_of_reason'
   )
   const radioButtonDescriptionOfReasonForChoice = document.getElementById(
-    'survey_question_radio_button_attributes_description_of_reason_for_choice'
+    'survey_question_radio_button_attributes_description_of_reason'
   )
   const checkBoxDescriptionOfReasonForChoice = document.getElementById(
-    'survey_question_check_box_attributes_description_of_reason_for_choice'
+    'survey_question_check_box_attributes_description_of_reason'
   )
   const linearScaleDescriptionOfReasonForChoice = document.getElementById(
-    'survey_question_linear_scale_attributes_description_of_reason_for_choice'
+    'survey_question_linear_scale_attributes_description_of_reason'
   )
   const startOfScale = document.getElementById(
     'survey_question_linear_scale_attributes_start_of_scale'

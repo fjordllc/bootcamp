@@ -31,7 +31,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
     choose 'ラジオボタン', allow_label_click: true
     click_link '追加'
     find("input[name*='[choices]']").set('満足しています')
-    fill_in 'survey_question[radio_button_attributes][title_of_reason_for_choice]', with: '選択した理由を教えてください。'
+    fill_in 'survey_question[radio_button_attributes][title_of_reason]', with: '選択した理由を教えてください。'
     click_button '保存'
     assert_text 'ラジオボタン'
     assert_text 'フィヨルドブートキャンプの内容に対して、どのくらい満足していますか？'
@@ -45,7 +45,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
     choose 'チェックボックス', allow_label_click: true
     click_link '追加'
     find("input[name*='[choices]']").set('エンジニアとしてやっていけるか不安')
-    fill_in 'survey_question[check_box_attributes][title_of_reason_for_choice]', with: 'その他の内容を教えてください。'
+    fill_in 'survey_question[check_box_attributes][title_of_reason]', with: 'その他の内容を教えてください。'
     click_button '保存'
     assert_text 'チェックボックス'
     assert_text '就職についてどんな不安を抱えていますか？'
@@ -59,7 +59,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
     choose '均等目盛', allow_label_click: true
     fill_in 'survey_question[linear_scale_attributes][start_of_scale]', with: 'お薦めしない'
     fill_in 'survey_question[linear_scale_attributes][end_of_scale]', with: 'お薦めする'
-    fill_in 'survey_question[linear_scale_attributes][title_of_reason_for_choice]', with: 'そのように回答された理由を詳しく教えてください。'
+    fill_in 'survey_question[linear_scale_attributes][title_of_reason]', with: 'そのように回答された理由を詳しく教えてください。'
     click_button '保存'
     assert_text '均等目盛'
     assert_text 'フィヨルドブートキャンプを親しい友人や家族にお薦めする可能性はどれくらいありますか？'
