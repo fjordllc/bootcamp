@@ -20,13 +20,13 @@
   +media-breakpoint-up(md)
     margin-right: .5rem
   +media-breakpoint-down(sm)
-    margin-bottom: .25ren
+    display: flex
 
 .thread-comment__title-user-icon
   +media-breakpoint-up(md)
     display: none
   +media-breakpoint-down(sm)
-    width: 1.5rem
+    +size(1.5rem)
     display: inline-block
     vertical-align: middle
     margin-right: .25rem
@@ -38,6 +38,7 @@
     align-items: center
   +media-breakpoint-down(sm)
     display: inline-block
+    white-space: nowrap
     max-width: 6rem
     overflow: hidden
     text-overflow: ellipsis
