@@ -61,15 +61,25 @@
 
     - if params[:action] == 'edit'
       .form-item
-        .row
-          .col-md-6.col-xs-12
-            = f.label :published_at, '記事公開日時', class: 'a-form-label'
-            = f.datetime_field :published_at, class: 'a-text-input js-warning-form', id: 'date_time_input_field'
-            .a-form-help
-              p
-                | WIPで保存した場合は、記事公開日時は保存されません。
-          #js-current-date-time-input-button
-            | 現在の日時
+        .hidden-form-item
+          input.a-toggle-checkbox#toggle-published-at(type='checkbox')
+          .hidden-form-item__trigger
+            label.a-button.is-sm.is-secondary(for='toggle-published-at')
+              | 記事公開日時を変更
+          .hidden-form-item__target
+            .form-item
+              .row
+                .col-md-6.col-xs-12
+                  = f.label :published_at, '記事公開日時', class: 'a-form-label'
+                  .form-item__row
+                    .form-item__column
+                      = f.datetime_field :published_at, class: 'a-text-input js-warning-form', id: 'date_time_input_field'
+                    .form-item__column.is-action
+                      .a-button.is-md.is-primary#js-current-date-time-input-button
+                        | 現在の日時
+                  .a-form-help
+                    p
+                      | WIPで保存した場合は、記事公開日時は保存されません。
 
   .form-actions
     ul.form-actions__items
