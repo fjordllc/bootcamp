@@ -20,7 +20,12 @@
         td.admin-table__item-value
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
-        td.admin-table__item-value
+        button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal')
+          | {{ practice.categories_practice.size }}
+        modal(
+          @closeModal='closeModal',
+          v-if='showModal'
+        )
           | {{ practice.categories_practice.size }}
         td.admin-table__item-value(v-if='practice.submission')
             a(:href='`/practices/${practice.id}/products`')
@@ -38,14 +43,19 @@
             | {{ `編集` }}
 </template>
 <script>
-export default {
+import Modal from 'admin-practice-modal.vue'
 
+export default {
+  components: {
+    modal: Modal
+  },
   props: {
     allAdminPractices: { type: String, required: true }
   },
   data() {
     return {
-      practices: JSON.parse(this.allAdminPractices)
+      practices: JSON.parse(this.allAdminPractices),
+      showModal: false
     }
   },
   computed: {
@@ -60,6 +70,12 @@ export default {
     this.getPractices()
   },
   methods: {
+    openModal() {
+      this.showModal = true
+    },
+    closeModal() {
+      this.showModal = false
+    },
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
