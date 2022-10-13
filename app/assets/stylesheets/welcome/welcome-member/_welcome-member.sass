@@ -42,3 +42,20 @@
 .welcome-member__body
   margin-top: .5rem
   font-size: .875rem
+  &.is-temp
+    +text-block(.875rem 1.6)
+    img
+      width: 6.25rem
+      float: right
+      margin-left: 1rem
+      margin-bottom: 0.75rem
+      &.has-3-books
+        width: 8.25rem
+      &.has-5-books
+        width: 10rem
+    a
+      color: #2e6cab
+      text-decoration: underline
+      cursor: pointer
+    a:hover
+      text-decoration: none

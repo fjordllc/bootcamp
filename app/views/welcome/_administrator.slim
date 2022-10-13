@@ -8,7 +8,14 @@ section.welcome-section.is-administrator#administrator
       p
         | 東京の渋谷にある株式会社フィヨルドという会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
 
-    = render 'welcome/mentors', mentors: mentors
+    // メンターのデータを入れた後、tempは削除
+    - if Rails.env.production?
+      = render 'welcome/temp_mentors'
+    - else
+      = render 'welcome/mentors', mentors: mentors
+    - if current_user && current_user.admin?
+      | ↑古い表示 / ↓新しい表示
+      = render 'welcome/mentors', mentors: mentors
 
     section.welcome-child-section
       h3.welcome-child-section__title
