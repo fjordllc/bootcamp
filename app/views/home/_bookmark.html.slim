@@ -8,8 +8,6 @@
           h2.card-list-item-title__title
             = link_to bookmark.bookmarkable, class: 'card-list-item-title__link a-text-link' do
               = bookmark.bookmarkable.title
-          = link_to current_user_bookmark_path(bookmark.id), method: :delete, class: 'bookmark-delete-button a-button is-md' do
-            | 削除
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
@@ -19,3 +17,6 @@
             .card-list-item-meta__item
               time.a-meta(datetime= bookmark.reported_on_or_created_at)
                 = l bookmark.reported_on_or_created_at, format: :long
+    .card-list-item__option.js-bookmark-delete-button
+      = link_to current_user_bookmark_path(bookmark.id), method: :delete, class: 'a-button is-sm is-primary' do
+        | 削除
