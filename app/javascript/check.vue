@@ -71,8 +71,10 @@ export default {
       return sadEmotion !== null
     },
     checkHasComment() {
-      const comment = document.querySelector('.thread-comment')
-      return comment !== null
+      const numberOfComments = parseInt(
+        document.querySelector('a[href="#comments"] > span').innerHTML
+      )
+      return numberOfComments > 0
     }
   },
   methods: {
