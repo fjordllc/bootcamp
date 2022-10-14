@@ -83,4 +83,92 @@ class API::BookmarksTest < ActionDispatch::IntegrationTest
          headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :created
   end
+
+  test 'duplicate POST page' do
+    page = pages(:page1)
+    token = create_token('komagata', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: page.user_id,
+           bookmarkable_id: page.id,
+           bookmarkable_type: 'Page'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: page.user_id,
+           bookmarkable_id: page.id,
+           bookmarkable_type: 'Page'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :no_content
+  end
+
+  test 'duplicate POST product' do
+    product = products(:product1)
+    token = create_token('mentormentaro', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: product.user_id,
+           bookmarkable_id: product.id,
+           bookmarkable_type: 'Product'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: product.user_id,
+           bookmarkable_id: product.id,
+           bookmarkable_type: 'Product'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :no_content
+  end
+
+  test 'duplicate POST question' do
+    question = questions(:question1)
+    token = create_token('machida', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: question.user_id,
+           bookmarkable_id: question.id,
+           bookmarkable_type: 'Question'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: question.user_id,
+           bookmarkable_id: question.id,
+           bookmarkable_type: 'Question'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :no_content
+  end
+
+  test 'duplicate POST report' do
+    report = reports(:report4)
+    token = create_token('machida', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: report.user_id,
+           bookmarkable_id: report.id,
+           bookmarkable_type: 'Report'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: report.user_id,
+           bookmarkable_id: report.id,
+           bookmarkable_type: 'Report'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :no_content
+  end
 end
