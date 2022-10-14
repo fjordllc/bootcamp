@@ -78,20 +78,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def watching_notification(watchable, receiver, comment)
-      watchable_user = watchable.user
-      sender = comment.user
-      action = watchable.instance_of?(Question) ? '回答' : 'コメント'
-      Notification.create!(
-        kind: kinds[:watching],
-        user: receiver,
-        sender: sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
-        message: "#{watchable_user.login_name}さんの【 #{watchable.notification_title} 】に#{comment.user.login_name}さんが#{action}しました。",
-        read: false
-      )
-    end
-
     def three_months_after_retirement(sender, receiver)
       Notification.create!(
         kind: kinds[:retired],

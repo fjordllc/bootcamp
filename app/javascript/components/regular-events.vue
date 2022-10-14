@@ -1,25 +1,25 @@
 <template lang="pug">
-.page-body
-  .container(v-if='!loaded')
-    | ロード中
-  .container.is-md(v-else)
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .card-list.a-card
-      regularEvent(
-        v-for='regularEvent in regularEvents',
-        :key='regularEvent.id',
-        :regularEvent='regularEvent'
-      )
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+.page-content.loaing(v-if='!loaded')
+  | ロード中
+.page-content.loaded(v-else)
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
+  .card-list.a-card
+    regularEvent(
+      v-for='regularEvent in regularEvents',
+      :key='regularEvent.id',
+      :regularEvent='regularEvent'
+    )
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 
 <script>
-import RegularEvent from 'regular-event'
-import Pager from 'pager'
+import RegularEvent from 'components/regular-event.vue'
+import Pager from 'pager.vue'
 
 export default {
+  name: 'RegularEvents',
   components: {
     regularEvent: RegularEvent,
     pager: Pager
@@ -34,7 +34,9 @@ export default {
   },
   computed: {
     url() {
-      return `/api/regular_events?page=${this.currentPage}`
+      const params = new URL(location.href).searchParams
+      params.set('page', this.currentPage)
+      return `/api/regular_events?${params}`
     },
     pagerProps() {
       return {

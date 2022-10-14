@@ -71,6 +71,34 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました。'
   end
 
+  test 'update user with company' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    within 'form[name=user]' do
+      assert_text '所属企業'
+      find('.choices').click
+      first('.choices__item', text: 'Fjord Inc.').click
+      click_on '更新する'
+    end
+    assert_text 'ユーザー情報を更新しました。'
+    visit "/users/#{user.id}"
+    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+  end
+
+  test 'update advisor with company' do
+    user = users(:senpai)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    within 'form[name=user]' do
+      assert_text '所属企業'
+      find('.choices').click
+      first('.choices__item', text: 'Fjord Inc.').click
+      click_on '更新する'
+    end
+    assert_text 'ユーザー情報を更新しました。'
+    visit "/users/#{user.id}"
+    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+  end
+
   test 'delete user' do
     user = users(:kimura)
     visit_with_auth admin_users_path(target: 'student_and_trainee'), 'komagata'

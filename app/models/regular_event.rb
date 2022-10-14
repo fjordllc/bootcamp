@@ -45,6 +45,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
 
+  scope :not_finished, -> { where(finished: false) }
+
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end

@@ -60,7 +60,6 @@ import '../choices-ui.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
-import '../regular-events.js'
 
 import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
@@ -71,12 +70,14 @@ import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Reports from '../components/reports.vue'
+import RegularEvents from '../components/regular-events.vue'
 import Users from '../components/users.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
 import UserMentorMemo from '../components/user_mentor_memo.vue'
+import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
 
 const mounter = new VueMounter()
@@ -88,12 +89,14 @@ mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
 mounter.addComponent(Reports)
+mounter.addComponent(RegularEvents)
 mounter.addComponent(Users)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
 mounter.addComponent(UserMentorMemo)
+mounter.addComponent(UserRecentReports)
 mounter.addComponent(Talks)
 mounter.mount()
 
