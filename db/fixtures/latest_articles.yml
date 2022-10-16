@@ -31,6 +31,6 @@ latest_article<%= i %>:
   title: 最新の記事<%= i %>
   url: http://test<%= i %>/example
   summary: 最新の記事<%= i %>です。
-  published_at: <%= Time.zone.local(2022, 1, 5, 0, 0, 0) %>
+  published_at: <%= Time.zone.local(2022, 1, i, 0, 0, 0) %>
   user: komagata
 <% end %>
