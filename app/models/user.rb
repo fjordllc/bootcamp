@@ -154,6 +154,13 @@ class User < ApplicationRecord
               message: 'はDiscordのチャンネルURLを入力してください'
             }
 
+  validates :feed_url,
+            format: {
+              allow_blank: true,
+              with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+              message: 'は「http」または「https」から始まるURL形式で入力してください'
+            }
+
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   validates :avatar, attached: false,
