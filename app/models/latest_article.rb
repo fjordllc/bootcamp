@@ -9,6 +9,7 @@ class LatestArticle < ApplicationRecord
 
   validates :title, presence: true
   validates :url, presence: true
+  validates :published_at, presence: true
 
   def thumbnail_url
     if thumbnail.attached?
