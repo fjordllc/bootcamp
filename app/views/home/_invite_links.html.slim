@@ -1,0 +1,12 @@
+- if company.present?
+  .a-card
+    header.card-header.is-sm
+      h2.card-header__title
+        | 招待リンク
+    .card-list
+      .card-list-item
+        .card-list-item__inner
+          a href=company.adviser_sign_up_url アドバイザー
+      .card-list-item
+        .card-list-item__inner
+          a href=company.trainee_sign_up_url 研修生
