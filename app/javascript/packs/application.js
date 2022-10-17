@@ -60,6 +60,7 @@ import '../choices-ui.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
+import '../stylesheets/application.css'
 
 import VueMounter from '../VueMounter.js'
 import Hello from '../components/hello.vue'
