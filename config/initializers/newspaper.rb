@@ -24,8 +24,8 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:correct_answer_save, CorrectAnswerNotifier.new)
 
   Newspaper.subscribe(:user_create, SignUpNotifier.new)
-  announcement_notifier = AnnouncementNotifier.new
-  Newspaper.subscribe(:announcement_create, announcement_notifier)
-  Newspaper.subscribe(:announcement_update, announcement_notifier)
+  announcement_published_at_updater = AnnouncementPublishedAtUpdater.new
+  Newspaper.subscribe(:announcement_create, announcement_published_at_updater)
+  Newspaper.subscribe(:announcement_update, announcement_published_at_updater)
 
 end
