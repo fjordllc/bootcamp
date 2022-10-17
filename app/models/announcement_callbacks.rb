@@ -16,11 +16,6 @@ class AnnouncementCallbacks
 
   private
 
-  def after_first_publish(announce)
-    notify_to_chat(announce)
-    send_notification(announce)
-  end
-
   def create_author_watch(announce)
     Watch.create!(user: announce.user, watchable: announce)
   end
