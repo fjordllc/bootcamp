@@ -28,7 +28,6 @@ module MetaTagsHelper
   end
   # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
   def welcome_meta_tags
     welcome_meta_tags = default_meta_tags.dup
     welcome_meta_tags[:title] = title || nil
@@ -36,5 +35,4 @@ module MetaTagsHelper
     welcome_meta_tags[:twitter][:title] = title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
     welcome_meta_tags
   end
-  # rubocop:enable Metrics/MethodLength
 end
