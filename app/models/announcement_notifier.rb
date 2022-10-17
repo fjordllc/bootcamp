@@ -6,4 +6,5 @@ class AnnouncementNotifier
     target_users.each do |target|
       NotificationFacade.post_announcement(announce, target) if announce.sender != target
     end
+  end
 end
