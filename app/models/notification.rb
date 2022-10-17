@@ -78,17 +78,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def three_months_after_retirement(sender, receiver)
-      Notification.create!(
-        kind: kinds[:retired],
-        user: receiver,
-        sender: sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-        message: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#{sender.id}",
-        read: false
-      )
-    end
-
     def moved_up_event_waiting_user(event, receiver)
       Notification.create!(
         kind: kinds[:moved_up_event_waiting_user],
