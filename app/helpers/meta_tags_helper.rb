@@ -30,13 +30,13 @@ module MetaTagsHelper
 
   def welcome_meta_tags
     default_meta_tags.deep_merge({
-      title: title,
-      og: {
-        title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
-      },
-      twitter: {
-        title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
-      }
-    })
+                                   title: title,
+                                   og: {
+                                     title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+                                   },
+                                   twitter: {
+                                     title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+                                   }
+                                 })
   end
 end
