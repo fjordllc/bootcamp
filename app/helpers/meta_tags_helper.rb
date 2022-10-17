@@ -29,10 +29,14 @@ module MetaTagsHelper
   # rubocop:enable Metrics/MethodLength
 
   def welcome_meta_tags
-    welcome_meta_tags = default_meta_tags.dup
-    welcome_meta_tags[:title] = title || nil
-    welcome_meta_tags[:og][:title] = title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
-    welcome_meta_tags[:twitter][:title] = title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
-    welcome_meta_tags
+    default_meta_tags.deep_merge({
+      title: title,
+      og: {
+        title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+      },
+      twitter: {
+        title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+      }
+    })
   end
 end
