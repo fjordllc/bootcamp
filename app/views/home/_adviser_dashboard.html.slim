@@ -31,9 +31,9 @@
                 h2.dashboard-category__title
                   | #{current_user.company.name} の研修状況
               .dashboard-category__body
-                - if @collegue_trainees.present?
-                  .a-panels
-                    .a-panels__items
+                .a-panels
+                  .a-panels__items
+                    - if @collegue_trainees.present?
                       .a-panels__item
                         .a-panels
                           .a-panels__items
@@ -44,5 +44,12 @@
                           .a-panels__items
                             .a-panels__item
                               = render 'collegue_trainees_recent_reports'
-                - else
-                  | 現在、#{current_user.company.name}は研修を利用していません。
+                    - else
+                      .a-panels__item
+                        .a-panels
+                          | 現在、#{current_user.company.name}は研修を利用していません。
+                    .a-panels__item
+                      .a-panels
+                        .a-panels__items
+                          .a-panels__item
+                            = render 'invite_links', company: @belongs_company
