@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 json.id practice.id
 json.title practice.title
 json.submission practice.submission
+json.category_ids practice.category_ids
 
 json.products do
   json.size practice.products.size
@@ -17,8 +20,3 @@ end
 json.categories_practice do
   json.size practice.categories_practices.size
 end
-
-json.categories_practice do
-  json.name practice.categories_practices.name
-end
-

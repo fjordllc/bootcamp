@@ -5,76 +5,22 @@
       h2.card-header__title
         | 所属カテゴリー
     .card-body
-      label.a-form-label(for='tag_name')
-        | タグ名
-      input#tag_name.a-text-input(v-model='name', name='tag[name]')
-    footer.card-footer
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item.is-main
-            button.a-button.is-primary.is-sm.is-block(
-              :disabled='validation',
-              @click.prevent='updateTag'
-            )
-              | 変更
-          li.card-main-actions__item.is-sub
-            .card-main-actions__muted-action(@click.prevent='closeModal')
-              | キャンセル
+        | {{ `test` }}
+    //- .card-body(v-for='practice in practices' :key='practice.id')
+    //-     | {{ `test` }}
+    ul.card-main-actions__items
+      li.card-main-actions__item.is-main
+        button.a-button.is-primary.is-sm.is-block(@click.prevent='closeModal')
+          | 閉じる
 </template>
 <script>
 export default {
   props: {
-    id: { type: String, required: true },
-    nameProp: { type: String, required: true }
-  },
-  data() {
-    return {
-      name: '',
-      initialName: ''
-    }
-  },
-  computed: {
-    validation() {
-      return this.name === this.initialName || this.name === ''
-    }
-  },
-  mounted() {
-    this.name = this.nameProp
-    this.initialName = this.nameProp
+    practices: { type: Array, required: true }
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     closeModal() {
       this.$emit('closeModal')
-    },
-    updateTag() {
-      if (this.name === '' || this.name === this.initialName) {
-        return null
-      }
-      const params = {
-        tag: { name: this.name }
-      }
-      fetch(`/api/tags/${this.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then(() => {
-          this.$emit('updateTag', this.name)
-          this.closeModal()
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
     }
   }
 }
