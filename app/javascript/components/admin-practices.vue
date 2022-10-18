@@ -44,18 +44,16 @@
             | {{ `編集` }}
 </template>
 <script>
-import Modal from 'admin-practice-modal.vue'
+import Modal from './admin-practice-modal.vue'
 
 export default {
+  name: 'AdminPractices',
   components: {
     modal: Modal
   },
-  props: {
-    allAdminPractices: { type: String, required: true }
-  },
   data() {
     return {
-      practices: JSON.parse(this.allAdminPractices),
+      practices: [],
       showModal: false
     }
   },
@@ -92,9 +90,7 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
+        .then((response) => response.json())
         .then((json) => {
           this.practices = []
           json.practices.forEach((r) => {
