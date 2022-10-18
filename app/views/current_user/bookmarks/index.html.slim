@@ -7,4 +7,6 @@ header.page-header
 
 = render 'home/page_tabs', user: @user
 
-#js-bookmarks
+.page-body
+  .container.is-md
+    = react_component 'Bookmarks'
