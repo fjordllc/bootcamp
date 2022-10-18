@@ -43,7 +43,6 @@ import '../searchables.js'
 import '../niconico_calendar.js'
 import '../mentor-mode.js'
 import '../bookmark.js'
-import '../bookmarks.js'
 import '../events.js'
 import '../agreements.js'
 import '../incoming-events.js'
@@ -63,8 +62,6 @@ import '../welcome_message_for_adviser.js'
 import '../stylesheets/application.css'
 
 import VueMounter from '../VueMounter.js'
-import Hello from '../components/hello.vue'
-import AdminCompanies from '../components/admin_companies.vue'
 import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
 import Pages from '../components/pages.vue'
@@ -82,8 +79,6 @@ import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
 
 const mounter = new VueMounter()
-mounter.addComponent(Hello)
-mounter.addComponent(AdminCompanies)
 mounter.addComponent(Announcements)
 mounter.addComponent(Books)
 mounter.addComponent(Pages)
