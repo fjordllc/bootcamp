@@ -434,7 +434,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/定期イベント/, email.body.to_s)
   end
 
-  test 'a_week_after_last_answer' do
+  test 'not_yet_chosen_correct_answer' do
     user = users(:kimura)
     question = questions(:question8)
     Notification.create!(
@@ -448,7 +448,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     mailer = NotificationMailer.with(
       question: question,
       receiver: user
-    ).a_week_after_last_answer
+    ).not_yet_chosen_correct_answer
 
     perform_enqueued_jobs do
       mailer.deliver_later
