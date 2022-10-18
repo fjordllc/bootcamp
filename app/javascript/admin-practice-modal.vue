@@ -5,9 +5,7 @@
       h2.card-header__title
         | 所属カテゴリー
     .card-body
-        | {{ `test` }}
-    //- .card-body(v-for='practice in practices' :key='practice.id')
-    //-     | {{ `test` }}
+        | {{ practice.category_ids }}
     ul.card-main-actions__items
       li.card-main-actions__item.is-main
         button.a-button.is-primary.is-sm.is-block(@click.prevent='closeModal')
@@ -16,7 +14,7 @@
 <script>
 export default {
   props: {
-    practices: { type: Array, required: true }
+    practice: { type: Array, required: true }
   },
   methods: {
     closeModal() {
