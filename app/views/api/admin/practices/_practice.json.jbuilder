@@ -25,3 +25,9 @@ end
 json.categories_practice do
   json.size practice.categories_practices.size
 end
+
+# json.practice.category_ids do |category_id|
+#   json.name Category.find(category_ids.first).name
+# end
+
+# json.category_name Category.find(category_ids.first).name
