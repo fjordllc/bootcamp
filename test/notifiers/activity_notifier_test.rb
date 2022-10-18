@@ -121,8 +121,8 @@ class ActivityNotifierTest < ActiveSupport::TestCase
     end
   end
 
-  test '#a_week_after_last_answer' do
-    notification = ActivityNotifier.with(question: questions(:question8), receiver: users(:kimura)).a_week_after_last_answer
+  test '#not_yet_chosen_correct_answer' do
+    notification = ActivityNotifier.with(question: questions(:question8), receiver: users(:kimura)).not_yet_chosen_correct_answer
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now
