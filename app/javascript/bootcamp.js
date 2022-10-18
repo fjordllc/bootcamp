@@ -23,7 +23,6 @@ export default {
   },
 
   delete(path) {
-    console.log(headers())
     return fetch(path, {
       method: 'DELETE',
       headers: headers(),
