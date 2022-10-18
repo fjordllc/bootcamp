@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Admin::CategoriesController < AdminController
-  before_action :set_category, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[show edit update]
 
-  def index
-    @categories = Category.all
-  end
+  def index; end
 
   def show; end
 
@@ -31,11 +29,6 @@ class Admin::CategoriesController < AdminController
     else
       render action: 'edit'
     end
-  end
-
-  def destroy
-    @category.destroy
-    redirect_to admin_categories_url, notice: 'カテゴリーを削除しました。'
   end
 
   private
