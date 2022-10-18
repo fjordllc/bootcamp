@@ -13,7 +13,7 @@ section.welcome-section.is-administrator#administrator
       = render 'welcome/temp_mentors'
     - else
       = render 'welcome/mentors', mentors: mentors
-    - if current_user && current_user.admin?
+    - if current_user && current_user&.admin?
       | ↑古い表示 / ↓新しい表示
       = render 'welcome/mentors', mentors: mentors
 
