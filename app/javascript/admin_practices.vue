@@ -24,6 +24,7 @@
           | {{ practice.categories_practice.size }}
         modal(
           @closeModal='closeModal',
+          :practice='practice',
           v-if='showModal'
         )
           | {{ practice.categories_practice.size }}
