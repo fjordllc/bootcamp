@@ -82,6 +82,7 @@ import Footprints from '../components/footprints.vue'
 import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
+import AdminPractices from '../components/admin-practices.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
@@ -103,6 +104,7 @@ mounter.addComponent(Footprints)
 mounter.addComponent(QuestionPage)
 mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
+mounter.addComponent(AdminPractices)
 mounter.mount()
 
 // Support component names relative to this directory:
