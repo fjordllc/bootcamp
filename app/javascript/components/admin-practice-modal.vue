@@ -5,7 +5,7 @@
       h2.card-header__title
         | 所属カテゴリー
     .card-body
-        | {{ practice.category_ids }}
+        | {{ practice.category_names }}
     ul.card-main-actions__items
       li.card-main-actions__item.is-main
         button.a-button.is-primary.is-sm.is-block(@click.prevent='closeModal')
