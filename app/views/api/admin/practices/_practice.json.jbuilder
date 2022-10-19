@@ -3,7 +3,6 @@
 json.id practice.id
 json.title practice.title
 json.submission practice.submission
-json.category_ids practice.category_ids
 
 json.category_ids_names practice.category_ids do |category_id|
   json.category_id category_id
@@ -25,9 +24,3 @@ end
 json.categories_practice do
   json.size practice.categories_practices.size
 end
-
-# json.practice.category_ids do |category_id|
-#   json.name Category.find(category_ids.first).name
-# end
-
-# json.category_name Category.find(category_ids.first).name
