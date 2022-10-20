@@ -64,8 +64,10 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_text '企業別（アドバイザー）'
     assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
     assert_no_selector('.group-company-name__label', text: 'Fjord Inc.')
+    assert_selector('.group-company-name__label', text: 'ユーザの企業に登録しないで株式会社')
+    assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['data-login-name'], 'advisernocolleguetrainee'
     assert_selector('.group-company-name__label', text: 'root inc.')
-    assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['data-login-name'], 'senpai'
+    assert_equal all('.a-user-icons__item-icon.a-user-icon.is-adviser')[1]['data-login-name'], 'senpai'
   end
 
   test 'show graduate belonging to each company' do
