@@ -835,8 +835,8 @@ advisernocolleguetrainee:
   email: nocollegueadvisernocollegueadviser@example.com
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: あどばいざ 同僚いない子
-  name_kana: アドバイザ ドウリョウイナイコ
+  name: あどばいざ 同僚の研修生いない子
+  name_kana: アドバイザ ドウリョウノケンシュウセイイナイコ
   course: course1
   job: office_worker
   os: mac
