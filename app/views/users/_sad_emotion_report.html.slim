@@ -6,5 +6,4 @@
         = image_tag Report.faces['sad'], id: 'sad', alt: 'sad', class: 'card-header__title-emotion-image'
         | のユーザー
     .card-list
-        - reports.each do |report|
-          div(data-vue="Report" data-vue-report-id:number="#{report.id}")
+          div(data-vue="SadReports")

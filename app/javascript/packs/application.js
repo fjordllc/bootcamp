@@ -79,6 +79,7 @@ import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
 import Footprints from '../components/footprints.vue'
 import Report from '../components/report.vue'
+import SadReports from '../components/sad_reports.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
@@ -98,6 +99,7 @@ mounter.addComponent(UserRecentReports)
 mounter.addComponent(Talks)
 mounter.addComponent(Footprints)
 mounter.addComponent(Report)
+mounter.addComponent(SadReports)
 mounter.mount()
 
 // Support component names relative to this directory:
