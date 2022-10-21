@@ -7,12 +7,6 @@ class HomeController < ApplicationController
         logout
         redirect_to retire_path
       else
-        @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(3)
-        @bookmarks = current_user.bookmarks.order(created_at: :desc).limit(5).preload(bookmarkable: :user)
-        @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
-        @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
-        @job_seeking_users = User.with_attached_avatar.job_seeking.includes(:reports, :products, :works, :course, :company)
-        @collegue_trainees = current_user.collegue_trainees&.with_attached_avatar&.includes(:reports, :products, :comments)
         display_dashboard
         display_events_on_dashboard
         display_welcome_message_for_adviser
