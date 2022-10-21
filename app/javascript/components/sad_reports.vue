@@ -14,7 +14,7 @@ import Report from 'components/report.vue'
 export default {
   name: 'SadReports',
   components: {
-    report: Report,
+    report: Report
   },
   props: {
     displayUserIcon: {
