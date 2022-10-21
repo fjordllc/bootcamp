@@ -187,7 +187,7 @@ export default {
         return this.searchUsersWord.length >= 3
       return this.searchUsersWord.length >= 2
     },
-    searchUsers: Debounce.debounce(function () {
+    searchUsers: Debounce(function () {
       this.showSearchedUsers = false
       if (!this.validateSearchUsersWord()) return
       this.setupSearchedUsers()
