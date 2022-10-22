@@ -7,6 +7,10 @@ class Article < ApplicationRecord
   THUMBNAIL_SIZE = '1200x630>'
   has_one_attached :thumbnail
 
+  before_validation do
+    self.published_at = Time.current.beginning_of_minute if published_at.nil? && wip == false
+  end
+
   validates :title, presence: true
   validates :body, presence: true
   validates :thumbnail,
