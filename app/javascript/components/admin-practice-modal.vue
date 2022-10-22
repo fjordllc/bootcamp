@@ -5,7 +5,7 @@
       h2.card-header__title
         | 所属カテゴリー
     .card-body
-        | {{ practice.category_names }}
+        | {{ val.category_names}}
     ul.card-main-actions__items
       li.card-main-actions__item.is-main
         button.a-button.is-primary.is-sm.is-block(@click.prevent='closeModal')
@@ -13,8 +13,9 @@
 </template>
 <script>
 export default {
+  name: "AdminPracticeModal",
   props: {
-    practice: { type: Array, required: true }
+    val: { type: Array, required: false }
   },
   methods: {
     closeModal() {

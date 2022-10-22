@@ -20,11 +20,11 @@
         td.admin-table__item-value
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
-        button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal')
+        button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal(practice)')
           | {{ practice.categories_practice.size }}
         modal(
           @closeModal='closeModal',
-          :practice='practice',
+          :val='postPractice',
           v-if='showModal'
         )
           | {{ practice.categories_practice.size }}
@@ -44,12 +44,12 @@
             | {{ `編集` }}
 </template>
 <script>
-import Modal from './admin-practice-modal.vue'
+import adminPracticeModalVue from './admin-practice-modal.vue'
 
 export default {
   name: 'AdminPractices',
   components: {
-    modal: Modal
+    modal: adminPracticeModalVue
   },
   data() {
     return {
@@ -69,8 +69,9 @@ export default {
     this.getPractices()
   },
   methods: {
-    openModal() {
+    openModal(practice) {
       this.showModal = true
+      this.postPractice = practice
     },
     closeModal() {
       this.showModal = false
