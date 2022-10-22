@@ -4,8 +4,8 @@
     header.card-header.is-sm
       h2.card-header__title
         | 所属カテゴリー
-    .card-body
-        | {{ val.category_names}}
+    .card-body.new-line
+      | {{ categoryNames }}
     ul.card-main-actions__items
       li.card-main-actions__item.is-main
         button.a-button.is-primary.is-sm.is-block(@click.prevent='closeModal')
@@ -15,7 +15,12 @@
 export default {
   name: "AdminPracticeModal",
   props: {
-    val: { type: Array, required: false }
+    val: { type: Object, required: false }
+  },
+  computed: {
+    categoryNames: function() {
+      return this.val.category_names.join('\n')
+    }
   },
   methods: {
     closeModal() {
@@ -25,10 +30,7 @@ export default {
 }
 </script>
 <style>
-.content {
-  z-index: 2;
-  width: 50%;
-  padding: 1em;
-  background: #fff;
+.new-line {
+  white-space: pre-wrap;
 }
 </style>
