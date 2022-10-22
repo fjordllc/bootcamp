@@ -31,7 +31,7 @@ class API::UsersController < API::BaseController
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
 
-    @users = @users.unhibernated.unretired unless @company || hibernated_or_retired_target?
+    @users = @users.unhibernated.unretired unless @company || @target.in?(%w[hibernated retired])
   end
 
   def show; end
