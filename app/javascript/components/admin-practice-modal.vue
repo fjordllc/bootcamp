@@ -19,11 +19,6 @@ export default {
   props: {
     val: { type: Object, required: false }
   },
-  computed: {
-    categoryNames: function() {
-      return this.val.category_names.join('\n')
-    }
-  },
   methods: {
     closeModal() {
       this.$emit('closeModal')
