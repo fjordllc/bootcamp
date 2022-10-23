@@ -7,42 +7,43 @@ class UserDecoratorTest < ActiveSupport::TestCase
 
   def setup
     ActiveDecorator::ViewContext.push(controller.view_context)
-    @user1 = ActiveDecorator::Decorator.instance.decorate(users(:komagata))
-    @user2 = ActiveDecorator::Decorator.instance.decorate(users(:hajime))
-    @user3 = ActiveDecorator::Decorator.instance.decorate(users(:sotugyou))
-    @user4 = ActiveDecorator::Decorator.instance.decorate(users(:adminonly))
-    @user5 = ActiveDecorator::Decorator.instance.decorate(users(:advijirou))
-    @user6 = ActiveDecorator::Decorator.instance.decorate(users(:mentormentaro))
-    @user7 = ActiveDecorator::Decorator.instance.decorate(users(:kensyu))
+    @admin_mentor_user = ActiveDecorator::Decorator.instance.decorate(users(:komagata))
+    @student_user = ActiveDecorator::Decorator.instance.decorate(users(:hajime))
+    @graduated_user = ActiveDecorator::Decorator.instance.decorate(users(:sotugyou))
+    @admin_user = ActiveDecorator::Decorator.instance.decorate(users(:adminonly))
+    @adviser_user = ActiveDecorator::Decorator.instance.decorate(users(:advijirou))
+    @mentor_user = ActiveDecorator::Decorator.instance.decorate(users(:mentormentaro))
+    @trainee_user = ActiveDecorator::Decorator.instance.decorate(users(:kensyu))
   end
 
   test '#staff_roles' do
-    assert_equal '管理者、メンター', @user1.staff_roles
-    assert_equal '', @user2.staff_roles
+    assert_equal '管理者、メンター', @admin_mentor_user.staff_roles
+    assert_equal '', @student_user.staff_roles
   end
 
   test '#icon_title' do
-    assert_equal 'komagata (Komagata Masaki): 管理者、メンター', @user1.icon_title
-    assert_equal 'hajime (Hajime Tayo)', @user2.icon_title
+    assert_equal 'komagata (Komagata Masaki): 管理者、メンター', @admin_mentor_user.icon_title
+    assert_equal 'hajime (Hajime Tayo)', @student_user.icon_title
   end
 
   test '#long_name' do
-    assert_equal 'hajime (Hajime Tayo)', @user2.long_name
+    assert_equal 'hajime (Hajime Tayo)', @student_user.long_name
   end
 
   test '#enrollment_period' do
-    assert_equal "<span> #{@user2.elapsed_days}日目 </span><a href=\"/generations/#{@user2.generation}\">#{@user2.generation}期生</a>", @user2.enrollment_period
-    assert_equal "<span> (#{l @user3.graduated_on}卒業 #{@user3.elapsed_days}日) </span><a href=\"/generations/#{@user3.generation}\">#{@user2.generation}期生</a>",
-                 @user3.enrollment_period
+    assert_equal "<span> #{@student_user.elapsed_days}日目 </span><a href=\"/generations/#{@student_user.generation}\">#{@student_user.generation}期生</a>",
+                 @student_user.enrollment_period
+    assert_equal "<span> (#{l @graduated_user.graduated_on}卒業 #{@graduated_user.elapsed_days}日) </span><a href=\"/generations/#{@graduated_user.generation}\">#{@student_user.generation}期生</a>",
+                 @graduated_user.enrollment_period
   end
 
   test '#roles_to_s' do
-    assert_equal '管理者、メンター', @user1.roles_to_s
-    assert_equal '', @user2.roles_to_s
-    assert_equal '卒業生', @user3.roles_to_s
-    assert_equal '管理者', @user4.roles_to_s
-    assert_equal 'アドバイザー', @user5.roles_to_s
-    assert_equal 'メンター', @user6.roles_to_s
-    assert_equal '研修生', @user7.roles_to_s
+    assert_equal '管理者、メンター', @admin_mentor_user.roles_to_s
+    assert_equal '', @student_user.roles_to_s
+    assert_equal '卒業生', @graduated_user.roles_to_s
+    assert_equal '管理者', @admin_user.roles_to_s
+    assert_equal 'アドバイザー', @adviser_user.roles_to_s
+    assert_equal 'メンター', @mentor_user.roles_to_s
+    assert_equal '研修生', @trainee_user.roles_to_s
   end
 end
