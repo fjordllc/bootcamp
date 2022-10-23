@@ -13,8 +13,9 @@ class RadioButton < ApplicationRecord
   end
 
   def normalize_blank_values
-    %i[title_of_reason description_of_reason].each do |att|
-      self[att] = nil if self[att].blank?
+    columns = %i[title_of_reason description_of_reason]
+    columns.each do |column|
+      self[column] = nil if self[column].blank?
     end
   end
 end
