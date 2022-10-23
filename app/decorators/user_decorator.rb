@@ -33,6 +33,21 @@ module UserDecorator
                .join('、')
   end
 
+  def roles_to_s
+    return '' if roles.empty?
+
+    roles = [
+      { role: '管理者', value: admin },
+      { role: 'メンター', value: mentor },
+      { role: 'アドバイザー', value: adviser },
+      { role: '卒業生', value: graduated_on? },
+      { role: '研修生', value: trainee }
+    ]
+    roles.find_all { |v| v[:value] }
+         .map { |v| v[:role] }
+         .join('、')
+  end
+
   def icon_title
     ["#{login_name} (#{name})", staff_roles].reject(&:blank?)
                                             .join(': ')
