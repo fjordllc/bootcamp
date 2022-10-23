@@ -220,4 +220,8 @@ class NotificationFacade
       receiver: receiver
     ).signed_up.deliver_later(wait: 5)
   end
+
+  def self.product_review_not_completed(comment)
+    DiscordNotifier.with(comment: comment).product_review_not_completed.notify_now
+  end
 end
