@@ -7,8 +7,9 @@ class CheckBoxChoice < ApplicationRecord
   validates :choices, presence: true, if: -> { check_box.survey_question.format == 'check_box' }
 
   def normalize_blank_values
-    %i[choices].each do |att|
-      self[att] = nil if self[att].blank?
+    columns = %i[choices]
+    columns.each do |column|
+      self[column] = nil if self[column].blank?
     end
   end
 end

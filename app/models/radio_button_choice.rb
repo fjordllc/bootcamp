@@ -7,8 +7,9 @@ class RadioButtonChoice < ApplicationRecord
   validates :choices, presence: true, if: -> { radio_button.survey_question.format == 'radio_button' }
 
   def normalize_blank_values
-    %i[choices].each do |att|
-      self[att] = nil if self[att].blank?
+    columns = %i[choices]
+    columns.each do |column|
+      self[column] = nil if self[column].blank?
     end
   end
 end
