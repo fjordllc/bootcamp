@@ -23,10 +23,10 @@ class Scheduler::DailyController < SchedulerController
   end
 
   def notify_tomorrow_regular_event
-    if RegularEvent.tomorrow_events.present?
-      RegularEvent.tomorrow_events.each do |regular_event|
-        NotificationFacade.tomorrow_regular_event(regular_event)
-      end
+    return if RegularEvent.tomorrow_events.blank?
+
+    RegularEvent.tomorrow_events.each do |regular_event|
+      NotificationFacade.tomorrow_regular_event(regular_event)
     end
   end
 
