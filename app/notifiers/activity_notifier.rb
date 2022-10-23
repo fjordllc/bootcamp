@@ -176,9 +176,10 @@ class ActivityNotifier < ApplicationNotifier
     params.merge!(@params)
     sender = params[:sender]
     receiver = params[:receiver]
+    roles = sender.roles_to_s.empty? ? '' : "（#{sender.roles_to_s}）"
 
     notification(
-      body: "🎉 #{sender.login_name}さんが新しく入会しました！",
+      body: "🎉 #{sender.login_name}さん#{roles}が新しく入会しました！",
       kind: :signed_up,
       sender: sender,
       receiver: receiver,
