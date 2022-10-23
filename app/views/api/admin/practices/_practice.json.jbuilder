@@ -4,8 +4,10 @@ json.id practice.id
 json.title practice.title
 json.submission practice.submission
 
-category_names = practice.category_ids.map { |category_id| Category.find(category_id).name}
-json.category_names category_names
+json.category_ids_names practice.category_ids do |category_id|
+  json.category_id category_id
+  json.category_name Category.find(category_id).name
+end
 
 json.products do
   json.size practice.products.size
