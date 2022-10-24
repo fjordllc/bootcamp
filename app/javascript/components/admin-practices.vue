@@ -24,7 +24,7 @@
           | {{ practice.categories_practice.size }}
         modal(
           @closeModal='closeModal',
-          :val='postPractice',
+          :postPractice='postPractice',
           v-if='showModal'
         )
           | {{ practice.categories_practice.size }}

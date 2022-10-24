@@ -4,7 +4,7 @@
     header.card-header.is-sm
       h2.card-header__title
         | 所属カテゴリー
-    .card-body.new-line(v-for='category_id_name in val.category_ids_names')
+    .card-body.new-line(v-for='category_id_name in postPractice.category_ids_names')
       td.admin-table__item-value(@click.prevent='linkCategory(category_id_name.category_id)')
         | {{ category_id_name.category_name }}
     ul.card-main-actions__items
@@ -16,7 +16,7 @@
 export default {
   name: "AdminPracticeModal",
   props: {
-    val: { type: Object, required: false }
+    postPractice: { type: Object, required: false }
   },
   methods: {
     closeModal() {
