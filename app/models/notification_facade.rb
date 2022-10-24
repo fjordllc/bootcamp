@@ -106,7 +106,7 @@ class NotificationFacade
   end
 
   def self.three_months_after_retirement(sender, receiver)
-    Notification.three_months_after_retirement(sender, receiver)
+    ActivityNotifier.with(sender: sender, receiver: receiver).three_months_after_retirement.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

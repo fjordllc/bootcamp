@@ -32,6 +32,7 @@ class AnnouncementsController < ApplicationController
     set_wip
 
     if @announcement.update(announcement_params)
+      Newspaper.publish(:announcement_create, @announcement) if @announcement.saved_change_to_published_at?(from: nil)
       redirect_to @announcement, notice: notice_message(@announcement)
     else
       render :edit
@@ -43,6 +44,7 @@ class AnnouncementsController < ApplicationController
     @announcement.user_id = current_user.id
     set_wip
     if @announcement.save
+      Newspaper.publish(:announcement_create, @announcement) unless @announcement.wip?
       redirect_to @announcement, notice: notice_message(@announcement)
     else
       render :new
