@@ -74,6 +74,54 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせをWIPとして保存しました。'
   end
 
+  test 'create announcement with notification' do
+    visit_with_auth new_announcement_path, 'komagata'
+    fill_in 'announcement[title]', with: '公開お知らせ'
+    fill_in 'announcement[description]', with: '公開されるお知らせです。'
+    assert_difference 'Announcement.count', 1 do
+      click_button '作成'
+    end
+
+    visit_with_auth '/notifications', 'hatsuno'
+    assert_text 'お知らせ「公開お知らせ」'
+  end
+
+  test 'publish wip announcement with notification' do
+    announcement = announcements(:announcement_wip)
+    visit_with_auth announcement_path(announcement), 'komagata'
+    within '.announcement' do
+      click_link '内容修正'
+    end
+    click_button '公開'
+
+    visit_with_auth '/notifications', 'hatsuno'
+    assert_text 'お知らせ「wipのお知らせ」'
+  end
+
+  test 'update published announcement without notification' do
+    announcement = announcements(:announcement1)
+    visit_with_auth announcement_path(announcement), 'komagata'
+    within '.announcement' do
+      click_link '内容修正'
+    end
+    click_button '公開'
+
+    visit_with_auth '/notifications', 'hatsuno'
+    assert_no_text 'お知らせ「お知らせ1」'
+  end
+
+  test 'create wip announcement without notification' do
+    visit_with_auth new_announcement_path, 'komagata'
+    fill_in 'announcement[title]', with: '仮のお知らせ'
+    fill_in 'announcement[description]', with: 'まだWIPです。'
+    assert_difference 'Announcement.count', 1 do
+      click_button 'WIP'
+    end
+
+    visit_with_auth '/notifications', 'hatsuno'
+    assert_no_text 'お知らせ「仮のお知らせ」'
+  end
+
   test 'delete announcement with notification' do
     visit_with_auth '/announcements', 'komagata'
     click_link 'お知らせ作成'
