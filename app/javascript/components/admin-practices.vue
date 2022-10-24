@@ -20,7 +20,9 @@
         td.admin-table__item-value
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
-        button.a-button.is-sm.is-secondary.is-block(@click.prevent='openModal(practice)')
+        button.a-button.is-sm.is-secondary.is-block(
+          @click.prevent='openModal(practice)'
+        )
           | {{ practice.categories_practice.size }}
         modal(
           @closeModal='closeModal',
@@ -29,10 +31,10 @@
         )
           | {{ practice.categories_practice.size }}
         td.admin-table__item-value(v-if='practice.submission')
-            a(:href='`/practices/${practice.id}/products`')
-              | {{ practice.products.size }}
+          a(:href='`/practices/${practice.id}/products`')
+            | {{ practice.products.size }}
         td.admin-table__item-value(v-else)
-            | {{ `提出物不要` }}
+          | {{ `提出物不要` }}
         td.admin-table__item-value
           a(:href='`/practices/${practice.id}/reports`')
             | {{ practice.reports.size }}
