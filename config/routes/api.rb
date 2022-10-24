@@ -83,5 +83,6 @@ Rails.application.routes.draw do
     resources :regular_events, only: %i(index)
     resources :books, only: %i(index)
     resources :courses, only: %i(index)
+    resources :footprints, only: %i(index)
   end
 end
