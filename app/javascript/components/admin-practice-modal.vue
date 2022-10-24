@@ -16,14 +16,14 @@
 export default {
   name: "AdminPracticeModal",
   props: {
-    postPractice: { type: Object, required: false }
+    postPractice: { type: Object, required: true }
   },
   methods: {
     closeModal() {
       this.$emit('closeModal')
     },
-    linkCategory(category_id) {
-      window.location.href = `/admin/categories/${category_id}`
+    linkCategory(categoryId) {
+      window.location.href = `/admin/categories/${categoryId}`
     }
   }
 }
