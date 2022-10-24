@@ -5,8 +5,7 @@
       h2.card-header__title
         | 所属カテゴリー
     .card-body.new-line(v-for='category_id_name in val.category_ids_names')
-      td.admin-table__item-value
-        a(:href='`/categories/${category_id_name.category_id}`')
+      td.admin-table__item-value(@click.prevent='linkCategory(category_id_name.category_id)')
         | {{ category_id_name.category_name }}
     ul.card-main-actions__items
       li.card-main-actions__item.is-main
@@ -22,6 +21,9 @@ export default {
   methods: {
     closeModal() {
       this.$emit('closeModal')
+    },
+    linkCategory(category_id) {
+      window.location.href = `/admin/categories/${category_id}`
     }
   }
 }
