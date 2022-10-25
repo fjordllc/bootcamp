@@ -121,7 +121,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       DiscordNotifier.with(params).payment_failed.notify_later
     end
   end
-  
+
   test '.product_review_not_completed' do
     product = products(:product8)
     product.update!(checker_id: users(:komagata).id)
