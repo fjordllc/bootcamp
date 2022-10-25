@@ -110,7 +110,7 @@ header.page-header
                   = @report.description
             = render 'reactions/reactions', reactionable: @report
 
-            - if @report.user_id == current_user.id
+            - if @report.user_id == current_user.id || mentor_login?
               .card-footer
                 .card-main-actions
                   ul.card-main-actions__items
@@ -118,10 +118,11 @@ header.page-header
                       = link_to edit_report_path(@report), class: 'card-main-actions__action a-button is-sm is-secondary is-block', id: 'js-shortcut-edit' do
                         i.fa-solid.fa-pen#new
                         | 内容修正
-                    li.card-main-actions__item.is-sub
-                      = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                        span#delete
-                          | 削除する
+                    - if @report.user_id == current_user.id
+                      li.card-main-actions__item.is-sub
+                        = link_to report_path(@report), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                          span#delete
+                            | 削除する
 
             - if admin_or_mentor_login?
               #js-check(data-checkable-id="#{@report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
