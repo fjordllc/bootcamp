@@ -4,7 +4,7 @@ require 'test_helper'
 
 class WebhookTest < ActiveSupport::TestCase
   test '.construct_event' do
-    expected =  '12345'
+    expected = '12345'
 
     Stripe::Webhook.stub(:construct_event, { 'id' => expected }) do
       event = Webhook.construct_event(
