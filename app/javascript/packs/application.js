@@ -59,6 +59,7 @@ import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../stylesheets/application.css'
+import '../bookmarks-edit-button.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
