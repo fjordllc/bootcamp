@@ -44,7 +44,6 @@ class ReportsController < ApplicationController
 
   def edit
     @report.no_learn = true if @report.learning_times.empty?
-    @report.user = current_user
   end
 
   def create
