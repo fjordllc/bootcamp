@@ -86,7 +86,7 @@ class DiscordNotifier < ApplicationNotifier
 
   def product_review_not_completed(params = {})
     params.merge!(@params)
-    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
+    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
     comment = params[:comment]
     product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
 
