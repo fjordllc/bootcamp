@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_11_042216) do
+ActiveRecord::Schema.define(version: 2022_09_28_064241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.datetime "published_at"
     t.text "summary"
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "authored_books", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_authored_books_on_user_id"
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -400,15 +409,6 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
-  create_table "regular_event_repeat_rules", force: :cascade do |t|
-    t.bigint "regular_event_id"
-    t.integer "frequency", null: false
-    t.integer "day_of_the_week", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["regular_event_id"], name: "index_regular_event_repeat_rules_on_regular_event_id"
-  end
-
   create_table "regular_event_participations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "regular_event_id", null: false
@@ -417,6 +417,15 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.index ["regular_event_id"], name: "index_regular_event_participations_on_regular_event_id"
     t.index ["user_id", "regular_event_id"], name: "index_user_id_and_regular_event_id", unique: true
     t.index ["user_id"], name: "index_regular_event_participations_on_user_id"
+  end
+
+  create_table "regular_event_repeat_rules", force: :cascade do |t|
+    t.bigint "regular_event_id"
+    t.integer "frequency", null: false
+    t.integer "day_of_the_week", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["regular_event_id"], name: "index_regular_event_repeat_rules_on_regular_event_id"
   end
 
   create_table "regular_events", force: :cascade do |t|
@@ -546,6 +555,9 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
     t.integer "last_sad_report_id"
     t.datetime "last_activity_at"
     t.datetime "hibernated_at"
+    t.string "profile_name"
+    t.string "profile_job"
+    t.text "profile_text"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
@@ -579,6 +591,7 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "announcements", "users"
   add_foreign_key "articles", "users"
+  add_foreign_key "authored_books", "users"
   add_foreign_key "categories_practices", "categories"
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "hibernations", "users"
@@ -599,9 +612,9 @@ ActiveRecord::Schema.define(version: 2022_09_11_042216) do
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
   add_foreign_key "reactions", "users"
-  add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
+  add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "talks", "users"
