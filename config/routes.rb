@@ -73,6 +73,9 @@ Rails.application.routes.draw do
     resources :reports, only: %i(index), controller: "companies/reports"
     resources :products, only: %i(index), controller: "companies/products"
   end
+  namespace :stripe do
+    resource :webhook, only: %i(create)
+  end
   resources :books, except: %i(show)
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
