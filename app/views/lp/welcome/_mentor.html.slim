@@ -6,32 +6,36 @@ section.m-medias-media.a-card
     .m-media-attributes
       .m-media-attributes__col
         .m-media-attributes__row
-          .m-media-attributes__image
-            = image_tag("mentors/#{image}", class: '', alt: "#{name}のアイコン画像")
+          - if mentor.profile_image.attached?
+            .m-media-attributes__image
+              = image_tag(mentor.profile_image, class: '', alt: "#{mentor.profile_name}のアイコン画像")
+
       .m-media-attributes__col
         .m-media-attributes__row
           h2.m-media-attributes__title
-            span.m-left-image-content__title-first-option
-              = job
-            = name
+            - if mentor.profile_job.present?
+              span.m-left-image-content__title-first-option
+                = mentor.profile_job
+            - if mentor.profile_name.present?
+              = mentor.profile_name
         .m-media-attributes__row
           .m-inline-icon-list
             ul.m-inline-icon-list__items
-              - if defined?(github_id)
+              - if mentor.github_account.present?
                 li.m-inline-icon-list__item
-                  = link_to "https://github.com/#{github_id}", class: 'a-sns-icon-square-link is-github' do
+                  = link_to "https://github.com/#{mentor.github_account}", class: 'a-sns-icon-square-link is-github' do
                     i.fbc-icon-github
-              - if defined?(blog_url)
+              - if mentor.blog_url.present?
                 li.m-inline-icon-list__item
-                  = link_to blog_url, class: 'a-sns-icon-square-link is-blog' do
+                  = link_to mentor.blog_url, class: 'a-sns-icon-square-link is-blog' do
                     i.fbc-icon-blog
-              - if defined?(twitter_id)
+              - if mentor.twitter_account.present?
                 li.m-inline-icon-list__item
-                  = link_to "https://twitter.com/#{twitter_id}", class: 'a-sns-icon-square-link is-twitter' do
+                  = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'a-sns-icon-square-link is-twitter' do
                     i.fbc-icon-twitter
-              - if defined?(facebook_id)
+              - if mentor.facebook_url.present?
                 li.m-inline-icon-list__item
-                  = link_to "https://www.facebook.com/#{facebook_id}", class: 'a-sns-icon-square-link is-facebook' do
+                  = link_to mentor.facebook_url, class: 'a-sns-icon-square-link is-facebook' do
                     i.fbc-icon-facebook
               - if defined?(qiita_id)
                 li.m-inline-icon-list__item
@@ -39,13 +43,14 @@ section.m-medias-media.a-card
                     i.fbc-icon-qiita
   .m-medias-media__col
     .m-media-attributes__body
-      .a-long-text.is-sm
-        = yield
+      .a-long-text.is-sm.js-markdown-view
+        = mentor.profile_text
   .m-medias-media__col
-    - if defined?(books)
+    - if mentor.authored_books.present?
       .m-inline-books
         ul.m-inline-books__items
-          - books.each do |id, book|
-            li.m-inline-books__item
-              = link_to book[:url], class: 'm-inline-books__item-link', target: '_blank', rel: 'noopener' do
-                = image_tag("books/#{id}.jpg", class: 'm-inline-books__item-image', alt: book[:name])
+          - mentor.authored_books.each do |authored_book|
+            - if authored_book.cover.attached?
+              li.m-inline-books__item
+                = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'm-inline-books__item-link' do
+                  = image_tag(authored_book.cover, alt: authored_book.title, class: 'm-inline-books__item-image')

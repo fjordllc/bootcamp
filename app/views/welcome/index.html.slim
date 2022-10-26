@@ -14,7 +14,7 @@
           = render '/lp/plus_strength'
   - if Campaign.today_campaign?
     hr.a-hr-border
-  = render 'welcome/campaign' if Campaign.today_campaign?
+    = render 'welcome/campaign'
   hr.a-hr-border
   = render '/lp/welcome/features'
   hr.a-hr-border
@@ -28,6 +28,4 @@
   hr.a-hr-border
   = render '/lp/welcome/articles'
   hr.a-hr-border
-.t-lp__contents
-  = render 'welcome/administrator', mentors: @mentors
   = render '/lp/welcome/mentors'
