@@ -6,10 +6,7 @@ class RadioButton < ApplicationRecord
   has_many :radio_button_choices, dependent: :destroy
   accepts_nested_attributes_for :radio_button_choices, allow_destroy: true
   validates_associated :radio_button_choices
-  before_save do
-    columns = %i[title_of_reason description_of_reason]
-    normalize_blank!(columns)
-  end
+  before_save :normalize_blank_check_box_and_radio_button!
 
   with_options if: -> { survey_question.format == 'radio_button' }, presence: true do
     validates :radio_button_choices
