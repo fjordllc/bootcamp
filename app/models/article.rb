@@ -8,7 +8,7 @@ class Article < ApplicationRecord
   has_one_attached :thumbnail
 
   before_save do
-    self.published_at = Time.current.beginning_of_minute if published_at.nil? && wip == false
+    self.published_at = Time.zone.now if published_at.nil? && wip == false
   end
 
   validates :title, presence: true
