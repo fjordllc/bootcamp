@@ -7,12 +7,11 @@ class Article < ApplicationRecord
   THUMBNAIL_SIZE = '1200x630>'
   has_one_attached :thumbnail
 
-  before_save do
-    self.published_at = Time.zone.now if published_at.nil? && wip == false
-  end
+  before_validation :set_published_at, if: :will_be_published?
 
   validates :title, presence: true
   validates :body, presence: true
+  validates :published_at, presence: true, if: :will_be_published?
   validates :thumbnail,
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
@@ -26,5 +25,15 @@ class Article < ApplicationRecord
     else
       image_url('/images/articles/thumbnails/default.png')
     end
+  end
+
+  private
+
+  def will_be_published?
+    !wip && published_at.nil?
+  end
+
+  def set_published_at
+    self.published_at = Time.zone.now
   end
 end
