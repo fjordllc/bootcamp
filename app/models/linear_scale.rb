@@ -3,10 +3,7 @@
 class LinearScale < ApplicationRecord
   include SurveyQuestionFormat
   belongs_to :survey_question
-  before_save do
-    columns = %i[first last title_of_reason description_of_reason]
-    normalize_blank!(columns)
-  end
+  before_save :normalize_blank_linear_scale!
 
   with_options if: -> { survey_question.format == 'linear_scale' }, presence: true do
     validates :first
