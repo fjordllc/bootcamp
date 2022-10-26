@@ -5,9 +5,10 @@
       h2.card-header__title
         | タグ名変更
     .card-body
-      label.a-form-label(for='tag_name')
-        | タグ名
-      input#tag_name.a-text-input(v-model='name', name='tag[name]')
+      .card__description
+        label.a-form-label(for='tag_name')
+          | タグ名
+        input#tag_name.a-text-input(v-model='name', name='tag[name]')
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
@@ -79,11 +80,3 @@ export default {
   }
 }
 </script>
-<style>
-.content {
-  z-index: 2;
-  width: 50%;
-  padding: 1em;
-  background: #fff;
-}
-</style>
