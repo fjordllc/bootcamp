@@ -75,9 +75,11 @@
       .page-content-header__row
         .page-content-header__tags
           tags(
-            :tagsInitialValue='question.tag_list',
-            :questionId='question.id',
+            :tagsInitialValue='question.tag_list.join(",")',
+            :tagsTypeId='String(question.id)',
             tagsParamName='question[tag_list]'
+            tagsType='Question'
+            :tagsEditable='true'
           )
 
   .a-card(v-if='!editing')
@@ -206,7 +208,7 @@ import WatchToggle from './components/watch-toggle.vue'
 import BookmarkButton from 'bookmark-button.vue'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
-import Tags from 'question_tags.vue'
+import Tags from 'tags.vue'
 import UserIcon from 'user-icon.vue'
 import confirmUnload from 'confirm-unload'
 import dayjs from 'dayjs'
