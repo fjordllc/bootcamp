@@ -65,9 +65,6 @@ export default {
     }
   },
   created() {
-    window.onpopstate = () => {
-      this.getPractices()
-    }
     this.getPractices()
   },
   methods: {
