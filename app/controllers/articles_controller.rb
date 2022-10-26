@@ -67,11 +67,16 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    if params[:commit] == 'WIP'
-      params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary)
-    else
-      params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary, :published_at)
-    end
+    article_attributes = %i[
+      title
+      body
+      tag_list
+      user_id
+      thumbnail
+      summary
+    ]
+    article_attributes.push(:published_at) unless params[:commit] == 'WIP'
+    params.require(:article).permit(*article_attributes)
   end
 
   def redirect_url(article)
