@@ -105,4 +105,20 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       DiscordNotifier.with(params).invalid_user.notify_later
     end
   end
+
+  test '.payment_failed' do
+    params = {
+      body: 'test message'
+    }
+
+    assert_notifications_sent 2, **params do
+      DiscordNotifier.payment_failed(params).notify_now
+      DiscordNotifier.with(params).payment_failed.notify_now
+    end
+
+    assert_notifications_enqueued 2, **params do
+      DiscordNotifier.payment_failed(params).notify_later
+      DiscordNotifier.with(params).payment_failed.notify_later
+    end
+  end
 end
