@@ -16,8 +16,7 @@ section.m-medias-media.a-card
             - if mentor.profile_job.present?
               span.m-left-image-content__title-first-option
                 = mentor.profile_job
-            - if mentor.profile_name.present?
-              = mentor.profile_name
+            = mentor.profile_name if mentor.profile_name.present?
         .m-media-attributes__row
           .m-inline-icon-list
             ul.m-inline-icon-list__items
