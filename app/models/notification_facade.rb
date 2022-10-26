@@ -230,13 +230,13 @@ class NotificationFacade
     ).update_regular_event.deliver_later(wait: 5)
   end
 
-  def self.not_yet_chosen_correct_answer(question, receiver)
-    ActivityNotifier.with(question: question, receiver: receiver).not_yet_chosen_correct_answer.notify_now
+  def self.no_corrent_answer(question, receiver)
+    ActivityNotifier.with(question: question, receiver: receiver).no_corrent_answer.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
       question: question,
       receiver: receiver
-    ).not_yet_chosen_correct_answer.deliver_later(wait: 5)
+    ).no_corrent_answer.deliver_later(wait: 5)
   end
 end

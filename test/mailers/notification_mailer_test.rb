@@ -434,11 +434,11 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/定期イベント/, email.body.to_s)
   end
 
-  test 'not_yet_chosen_correct_answer' do
+  test 'no_corrent_answer' do
     user = users(:kimura)
     question = questions(:question8)
     Notification.create!(
-      kind: 21,
+      kind: 22,
       sender: user,
       user: user,
       message: 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。',
@@ -448,7 +448,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     mailer = NotificationMailer.with(
       question: question,
       receiver: user
-    ).not_yet_chosen_correct_answer
+    ).no_corrent_answer
 
     perform_enqueued_jobs do
       mailer.deliver_later
