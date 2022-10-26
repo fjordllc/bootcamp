@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   )
   const dateTimeField = document.getElementById('date_time_input_field')
   function reflectDateTime() {
-    const currentDateTime = dayjs().format('YYYY-MM-DD HH:mm')
+    const currentDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
     dateTimeField.value = currentDateTime
   }
   if (currentDateTimeButton) {

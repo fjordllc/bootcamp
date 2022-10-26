@@ -73,7 +73,7 @@
                   = f.label :published_at, '記事公開日時', class: 'a-form-label'
                   .form-item__row
                     .form-item__column
-                      = f.datetime_field :published_at, class: 'a-text-input js-warning-form', id: 'date_time_input_field'
+                      = f.datetime_field :published_at, class: 'a-text-input js-warning-form', id: 'date_time_input_field', step: '1'
                     .form-item__column.is-action
                       .a-button.is-md.is-primary#js-current-date-time-input-button
                         | 現在の日時
