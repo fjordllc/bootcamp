@@ -111,7 +111,7 @@ header.page-header
             = render 'reactions/reactions', reactionable: @report
 
             - if @report.user_id == current_user.id || mentor_login?
-              .card-footer
+              .card-footer(class="#{mentor_login? ? 'is-only-mentor':''}")
                 .card-main-actions
                   ul.card-main-actions__items
                     li.card-main-actions__item
