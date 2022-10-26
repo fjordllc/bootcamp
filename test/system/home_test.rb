@@ -378,4 +378,9 @@ class HomeTest < ApplicationSystemTestCase
     assert_text 'Bookmarkを削除しました。'
     assert_no_text '名前の長いメンター用'
   end
+
+  test 'not show trainee lists for adviser when adviser does not have same company trainees' do
+    visit_with_auth '/', 'advisernocolleguetrainee'
+    assert_no_selector 'h2.card-header__title', text: '研修生'
+  end
 end
