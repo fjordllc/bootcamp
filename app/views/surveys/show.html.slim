@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong User:
+  = @survey.user
+
+p
+  strong Title:
+  = @survey.title
+
+p
+  strong Expires at:
+  = @survey.expires_at
+
+p
+  strong Wip:
+  = @survey.wip
+
+=> link_to "Edit", edit_survey_path(@survey)
+'|
+=< link_to "Back", surveys_path
