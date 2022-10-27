@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_28_064241) do
+ActiveRecord::Schema.define(version: 2022_10_27_113437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -529,6 +529,16 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.index ["user_id"], name: "index_survey_questions_on_user_id"
   end
 
+  create_table "surveys", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "title"
+    t.datetime "expires_at"
+    t.boolean "wip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_surveys_on_user_id"
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -688,6 +698,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
   add_foreign_key "survey_questions", "users"
+  add_foreign_key "surveys", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
 end
