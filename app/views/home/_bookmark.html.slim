@@ -17,3 +17,6 @@
             .card-list-item-meta__item
               time.a-meta(datetime= bookmark.reported_on_or_created_at)
                 = l bookmark.reported_on_or_created_at, format: :long
+    .card-list-item__option.js-bookmark-delete-button
+      = link_to current_user_bookmark_path(bookmark.id), method: :delete, class: 'a-button is-sm is-primary' do
+        | 削除

@@ -72,4 +72,15 @@ class DiscordNotifier < ApplicationNotifier
       webhook_url: webhook_url
     )
   end
+
+  def payment_failed(params = {})
+    params.merge!(@params)
+    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
+
+    notification(
+      body: params[:body],
+      name: 'ピヨルド',
+      webhook_url: webhook_url
+    )
+  end
 end
