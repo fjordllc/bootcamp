@@ -250,10 +250,6 @@
   .a-long-text img {
     max-width: 100%;
     height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid #ececed;
   }
 
   @media (min-width: 48em) {
@@ -264,7 +260,6 @@
 
   @media (max-width: 47.9375em) {
     .a-long-text img {
-      max-width: 100% !important;
       max-height: 24rem;
     }
   }
@@ -503,8 +498,9 @@
     white-space: pre-wrap;
   }
 
-  img[data-emoji],
-  img[data-emo] {
+  .a-long-text img[data-emoji],
+  .a-long-text img[data-emo],
+  .a-long-text img.an1 {
     display: inline-block !important;
     border: none !important;
     vertical-align: text-bottom !important;

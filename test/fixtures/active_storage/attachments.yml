@@ -54,3 +54,18 @@ yameo_avatar:
   name: avatar
   record: yameo (User)
   blob: yameo_avatar_blob
+
+komagata_profile_image:
+  name: profile_image
+  record: komagata (User)
+  blob: komagata_profile_image_blob
+
+machida_profile_image:
+  name: profile_image
+  record: machida (User)
+  blob: machida_profile_image_blob
+
+kimuramitai_profile_image:
+  name: profile_image
+  record: kimuramitai (User)
+  blob: kimuramitai_profile_image_blob

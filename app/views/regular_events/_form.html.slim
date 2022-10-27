@@ -4,7 +4,7 @@
     .form__items-inner
       .form-item
         = f.label :title, class: 'a-form-label'
-        = f.text_field :title, class: 'a-text-input js-warning-form'
+        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'アジャイルサムライ輪読会'
       .form-item
         = f.label :organizer, class: 'a-form-label'
         = f.select(:user_ids, users_name, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })

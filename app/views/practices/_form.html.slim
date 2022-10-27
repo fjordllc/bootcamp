@@ -49,7 +49,7 @@
     .row#reference_books
       = f.fields_for :practices_books do |practices_book|
         = render 'practices_book_fields', f: practices_book
-      .col-xs-12.reference-books-form__add
+      .col-xs-12.books-form__add
         = link_to_add_association f, :practices_books, class: 'a-button is-md is-primary' do
           i.fa-regular.fa-plus
           span
