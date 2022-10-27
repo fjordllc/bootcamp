@@ -434,7 +434,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/定期イベント/, email.body.to_s)
   end
 
-  test 'no_corrent_answer' do
+  test 'no_correct_answer' do
     user = users(:kimura)
     question = questions(:question8)
     Notification.create!(
@@ -448,7 +448,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     mailer = NotificationMailer.with(
       question: question,
       receiver: user
-    ).no_corrent_answer
+    ).no_correct_answer
 
     perform_enqueued_jobs do
       mailer.deliver_later

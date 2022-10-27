@@ -195,9 +195,9 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   end
 
   # required params: question, receiver
-  def no_corrent_answer
+  def no_correct_answer
     @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@question.id}", kind: Notification.kinds[:no_corrent_answer])
+    @notification = @user.notifications.find_by(link: "/questions/#{@question.id}", kind: Notification.kinds[:no_correct_answer])
     subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
     mail to: @user.email, subject: subject
   end

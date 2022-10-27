@@ -121,8 +121,8 @@ class ActivityNotifierTest < ActiveSupport::TestCase
     end
   end
 
-  test '#no_corrent_answer' do
-    notification = ActivityNotifier.with(question: questions(:question8), receiver: users(:kimura)).no_corrent_answer
+  test '#no_correct_answer' do
+    notification = ActivityNotifier.with(question: questions(:question8), receiver: users(:kimura)).no_correct_answer
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now
