@@ -323,14 +323,14 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-  def no_corrent_answer(params = {})
+  def no_correct_answer(params = {})
     params.merge!(@params)
     question = params[:question]
     receiver = params[:receiver]
 
     notification(
       body: "Q&A「#{question.title}」のベストアンサーがまだ選ばれていません。",
-      kind: :no_corrent_answer,
+      kind: :no_correct_answer,
       receiver: receiver,
       sender: question.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(question),
