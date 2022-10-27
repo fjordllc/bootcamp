@@ -123,9 +123,8 @@ class DiscordNotifierTest < ActiveSupport::TestCase
   end
 
   test '.product_review_not_completed' do
-    product = products(:product8)
-    product.update!(checker_id: users(:komagata).id)
-    comment = Comment.create!(user: users(:kimura), commentable: product, description: '提出者による返信')
+    products(:product8).update!(checker_id: users(:komagata).id)
+    comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
 
     params = {
       comment: comment,
