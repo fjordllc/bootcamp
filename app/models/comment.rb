@@ -51,7 +51,7 @@ class Comment < ApplicationRecord
   end
 
   def five_days_since_the_last_comment_by_submitter?
-    created_at.since(5.days).to_date == Date.current && latest? && user == commentable.user
+    (created_at.since(5.days).to_date == Date.current) && latest? && (user == commentable.user)
   end
 
   private
