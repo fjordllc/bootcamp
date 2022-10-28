@@ -1,21 +1,23 @@
-= form_for @survey do |f|
-  - if @survey.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@survey.errors.count, "error")} prohibited this survey from being saved:"
-      ul
-        - @survey.errors.full_messages.each do |message|
-          li = message
+= render 'errors', object: survey
+= form_with model: survey, local: true do |f|
+  .form__items
+    .form__items-inner
+      .form-item
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_area :title, class: 'a-text-input js-warning-form', placeholder: 'FBCモチベーションに関するアンケート'
+      .form-item
+        = f.label :expires_at, class: 'a-form-label is-required'
+        = f.datetime_field :expires_at, class: 'a-text-input js-warning-form'
 
-  .field
-    = f.label :user
-    = f.text_field :user
-  .field
-    = f.label :title
-    = f.text_area :title
-  .field
-    = f.label :expires_at
-    = f.datetime_select :expires_at
-  .field
-    = f.label :wip
-    = f.check_box :wip
-  .actions = f.submit
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        = f.submit '保存', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', surveys_path, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', surveys_path, class: 'a-button is-sm is-text'

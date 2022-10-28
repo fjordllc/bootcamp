@@ -7,6 +7,7 @@ header.page-header
         = title
 
 = render 'tabs'
+
 .page-main
   header.page-main-header
     .container
@@ -22,5 +23,7 @@ header.page-header
                   i.fa-regular.fa-plus
                   | アンケート一覧
 
-== render "form"
+.page-body
+  .container.is-xxxl
+    = render "form", survey: @survey
 
