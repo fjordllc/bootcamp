@@ -88,6 +88,6 @@ class ProductCallbacks
              else
                :submitted
              end
-    product.change_learning_status status
+    product.change_learning_status status unless product.user.learnings.map(&:status).include?('complete')
   end
 end
