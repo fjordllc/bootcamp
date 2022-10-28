@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SurveysController < ApplicationController
   before_action :set_survey, only: %i[ show edit update destroy ]
 

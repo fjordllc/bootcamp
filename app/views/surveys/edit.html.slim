@@ -22,7 +22,9 @@ header.page-header
                   i.fa-regular.fa-plus
                   | アンケート一覧
 
-== render "form"
+.page-body
+  .container.is-md
+    = render "form"
 
 => link_to "Show", @survey
 '|

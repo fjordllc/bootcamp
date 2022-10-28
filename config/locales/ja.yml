@@ -229,6 +229,11 @@ ja:
         cover: 表紙画像
       authored_books:
         cover: 表紙画像
+      survey:
+        title: アンケートのタイトル
+        description: アンケートの説明
+        published_at: アンケート公開日
+        expires_at: 回答期限日
       survey_question:
         title: 質問タイトル
         description: 質問説明
