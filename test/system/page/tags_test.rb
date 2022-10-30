@@ -52,6 +52,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   test 'admin can edit tag' do
     # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
     Capybara.raise_server_errors = false
+
     tag = acts_as_taggable_on_tags('game')
     visit_with_auth pages_tag_path(tag.name, all: 'true'), 'komagata'
     assert_text('タグ名変更')
@@ -60,6 +61,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   test 'users except admin cannot edit tag' do
     # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
     Capybara.raise_server_errors = false
+
     tag = acts_as_taggable_on_tags('game')
     visit_with_auth pages_tag_path(tag.name, all: 'true'), 'kimura'
     assert_no_text('タグ名変更')
@@ -68,6 +70,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   test 'update tag with not existing tag' do
     # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
     Capybara.raise_server_errors = false
+
     tag = acts_as_taggable_on_tags('beginner')
     update_tag_text = '上級者'
 
@@ -96,6 +99,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   test 'update tag with existing tag' do
     # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
     Capybara.raise_server_errors = false
+    
     tag = acts_as_taggable_on_tags('beginner')
     update_tag = acts_as_taggable_on_tags('intermediate')
 
