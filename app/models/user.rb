@@ -70,6 +70,7 @@ class User < ApplicationRecord
   has_many :hibernations, dependent: :destroy
   has_many :authored_books, dependent: :destroy
   accepts_nested_attributes_for :authored_books, allow_destroy: true
+  has_many :surveys
   has_many :survey_questions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
