@@ -3,6 +3,14 @@
 require 'application_system_test_case'
 
 class User::TagsTest < ApplicationSystemTestCase
+  setup do
+    @raise_server_errors = Capybara.raise_server_errors
+  end
+
+  teardown do
+    Capybara.raise_server_errors = @raise_server_errors
+  end
+
   test 'search user by tag on user page' do
     user = users(:kimura)
 
@@ -85,6 +93,9 @@ class User::TagsTest < ApplicationSystemTestCase
   end
 
   test 'update tag with not existing tag' do
+    # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
+    Capybara.raise_server_errors = false
+
     tag = acts_as_taggable_on_tags('beginner')
     update_tag_text = '上級者'
 
@@ -106,6 +117,9 @@ class User::TagsTest < ApplicationSystemTestCase
   end
 
   test 'update tag with existing tag' do
+    # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
+    Capybara.raise_server_errors = false
+
     tag = acts_as_taggable_on_tags('beginner')
     update_tag = acts_as_taggable_on_tags('intermediate')
 
