@@ -4,7 +4,13 @@
     .form__items-inner
       .form-item
         = f.label :title, class: 'a-form-label is-required'
-        = f.text_area :title, class: 'a-text-input js-warning-form', placeholder: 'FBCモチベーションに関するアンケート'
+        = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'FBCモチベーションに関するアンケート'
+      .form-item
+        = f.label :description, class: 'a-form-label is-required'
+        = f.text_area :description, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :published_at, class: 'a-form-label is-required'
+        = f.datetime_field :published_at, class: 'a-text-input js-warning-form'
       .form-item
         = f.label :expires_at, class: 'a-form-label is-required'
         = f.datetime_field :expires_at, class: 'a-text-input js-warning-form'
