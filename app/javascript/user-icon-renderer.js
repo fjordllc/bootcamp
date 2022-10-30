@@ -21,7 +21,6 @@ export default class {
 
   _callbackFunc() {
     const DEFAULT_PROFILE_IMAGE_PATH = "/images/users/avatars/default.png"
-
     const elements = document.getElementsByClassName('js-user-icon')
     Array.from(elements).forEach((element) => {
       const loginName = element.dataset.user
