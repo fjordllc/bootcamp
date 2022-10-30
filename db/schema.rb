@@ -542,9 +542,11 @@ ActiveRecord::Schema.define(version: 2022_12_24_091715) do
 
   create_table "surveys", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.text "title"
-    t.datetime "expires_at"
-    t.boolean "wip"
+    t.string "title", limit: 255, null: false
+    t.text "description"
+    t.datetime "published_at", null: false
+    t.datetime "expires_at", null: false
+    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_surveys_on_user_id"
