@@ -12,8 +12,6 @@ class API::PagesController < API::BaseController
     @pages = @pages.where(practice_id: params[:practice_id]) if params[:practice_id]
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
     raise ActiveRecord::RecordNotFound if @pages.empty?
-
-    # render 'index.json'
   end
 
   def update
