@@ -657,4 +657,11 @@ class ReportsTest < ApplicationSystemTestCase
     find(:css, '#checkbox-mentor-mode').set(false)
     assert_no_text '内容修正'
   end
+
+  test 'mentor can edit reports written by others' do
+    visit_with_auth report_path(reports(:report1)), 'mentormentaro'
+    click_link '内容修正'
+    click_button '内容変更'
+    assert_text '日報を保存しました。'
+  end
 end
