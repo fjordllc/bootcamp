@@ -650,4 +650,11 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth reports_path, 'komagata'
     assert_selector('.card-list-item__user')
   end
+
+  test 'show edit button when mentor is logged in and menter mode is on in report detail page' do
+    visit_with_auth report_path(reports(:report1)), 'mentormentaro'
+    assert_text '内容修正'
+    find(:css, '#checkbox-mentor-mode').set(false)
+    assert_no_text '内容修正'
+  end
 end
