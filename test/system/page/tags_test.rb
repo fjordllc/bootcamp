@@ -10,7 +10,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   teardown do
     Capybara.raise_server_errors = @raise_server_errors
   end
-  
+
   test 'search pages by tag' do
     visit_with_auth pages_url, 'kimura'
     click_on 'Doc作成'
@@ -99,7 +99,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   test 'update tag with existing tag' do
     # 存在しないtagのpagesのapiにアクセスすると404エラーになるのを回避させている
     Capybara.raise_server_errors = false
-    
+
     tag = acts_as_taggable_on_tags('beginner')
     update_tag = acts_as_taggable_on_tags('intermediate')
 
