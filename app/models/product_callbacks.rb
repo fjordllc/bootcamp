@@ -88,11 +88,11 @@ class ProductCallbacks
       user_id: product.user.id,
       practice_id: product.practice.id
     )
-    status = if product.wip
+    status = if learning.status == 'complete'
+               :complete
+             elsif product.wip
                started_practice = status_check.include?('started')
                started_practice ? :unstarted : :started
-             elsif learning.status == 'complete'
-               :complete
              else
                :submitted
              end
