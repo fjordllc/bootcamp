@@ -4,6 +4,16 @@ header.page-header
     .page-header__inner
       h2.page-header__title
         | ダッシュボード
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to user_path(id: current_user.id), class: 'a-button is-md is-secondary is-block' do
+              i.fa-solid.fa-user
+              | マイプロフィール
+          .page-header-actions__item
+            = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | 日報作成
 
 = render 'home/page_tabs', user: @user
 
