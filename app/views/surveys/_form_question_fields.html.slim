@@ -1,0 +1,6 @@
+
+.form-added-question.nested-fields
+  .form-added-question__inner
+    .form-added-question__col.is-main
+        .select-questions
+          = f.select(:survey_question_ids, question_options_within_survey_question, { include_hidden: false }, { multiple: false, id: 'js-choices-multiple-select' })

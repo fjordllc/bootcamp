@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2022_12_24_091715) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -529,6 +530,15 @@ ActiveRecord::Schema.define(version: 2022_12_24_091715) do
     t.index ["user_id"], name: "reports_user_id"
   end
 
+  create_table "survey_question_listings", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.bigint "survey_question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_survey_question_listings_on_survey_id"
+    t.index ["survey_question_id"], name: "index_survey_question_listings_on_survey_question_id"
+  end
+
   create_table "survey_questions", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -711,6 +721,8 @@ ActiveRecord::Schema.define(version: 2022_12_24_091715) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "survey_question_listings", "survey_questions"
+  add_foreign_key "survey_question_listings", "surveys"
   add_foreign_key "survey_questions", "users"
   add_foreign_key "surveys", "users"
   add_foreign_key "talks", "users"
