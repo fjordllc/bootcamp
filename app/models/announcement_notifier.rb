@@ -2,7 +2,7 @@
 
 class AnnouncementNotifier
   def call(announce)
-    return if announce.wip? || !announce.published_at.nil?
+    return if announce.wip? || announce.published_at.present?
 
     announce.update(published_at: Time.current)
     DiscordNotifier.with(announce: announce).announced.notify_now
