@@ -291,11 +291,11 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'advikimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'advi'
-    assert_text 'さんの相談部屋', count: 2
+    assert_text 'さんの相談部屋', count: 3
 
     visit '/talks?target=adviser'
     fill_in 'js-talk-search-input', with: 'advi'
-    assert_text 'さんの相談部屋', count: 1 # users(:advijirou)
+    assert_text 'さんの相談部屋', count: 2 # users(:advijirou)
   end
 
   test 'incremental search for trainee' do
