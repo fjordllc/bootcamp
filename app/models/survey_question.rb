@@ -11,6 +11,8 @@ class SurveyQuestion < ApplicationRecord
   has_one :check_box, dependent: :destroy
   accepts_nested_attributes_for :check_box, allow_destroy: true
   validates_associated :check_box
+  has_many :survey_question_listings, dependent: :destroy
+  has_many :surveys, through: :survey_question_listings
 
   enum format: {
     text_area: 0,

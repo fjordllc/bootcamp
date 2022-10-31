@@ -231,8 +231,9 @@ ja:
       survey:
         title: アンケートのタイトル
         description: アンケートの説明
-        published_at: アンケート公開日
-        expires_at: 回答期限日
+        published_at: 回答受付開始日
+        expires_at: 回答受付終了日
+        questions: 質問
       survey_question:
         title: 質問タイトル
         description: 質問説明

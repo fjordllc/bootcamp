@@ -6,7 +6,7 @@
         = f.label :title, class: 'a-form-label is-required'
         = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'FBCモチベーションに関するアンケート'
       .form-item
-        = f.label :description, class: 'a-form-label is-required'
+        = f.label :description, class: 'a-form-label'
         = f.text_area :description, class: 'a-text-input js-warning-form'
       .form-item
         = f.label :published_at, class: 'a-form-label is-required'
@@ -14,6 +14,11 @@
       .form-item
         = f.label :expires_at, class: 'a-form-label is-required'
         = f.datetime_field :expires_at, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :questions, class: 'a-form-label'
+        .form-item__survey-questions
+          = f.fields_for :survey_question_ids do |survey_question_id|
+            = render 'form_question_fields', f: survey_question_id
 
   .form-actions
     ul.form-actions__items
