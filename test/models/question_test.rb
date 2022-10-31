@@ -26,11 +26,11 @@ class QuestionTest < ActiveSupport::TestCase
       description: '回答2',
       user: answerer,
       question: question,
-      created_at: Time.current - 6.day,
-      updated_at: Time.current - 6.day
+      created_at: Time.current - 6.days,
+      updated_at: Time.current - 6.days
     )
 
-    first_answer.update!(updated_at: Time.current - 5.day)
+    first_answer.update!(updated_at: Time.current - 5.days)
     assert_equal question.last_answer, last_answer
   end
 end
