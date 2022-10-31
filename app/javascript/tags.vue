@@ -24,7 +24,7 @@
           :name='tagsParamName',
           :id='tagsInputId'
         )
-    div(v-if='headIsSharpOrOctothorpe(inputTag)')
+    template(v-if='headIsSharpOrOctothorpe(inputTag)')
       | 先頭の記号は無視されます
     .form-actions(v-if='tagsEditable')
       ul.form-actions__items
