@@ -19,6 +19,7 @@ class RetirementController < ApplicationController
       logout
       redirect_to retirement_url
     else
+      current_user.retired_on = nil
       render :new
     end
   end
