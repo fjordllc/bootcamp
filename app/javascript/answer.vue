@@ -6,6 +6,10 @@
         :src='answer.user.avatar_url',
         :title='answer.user.icon_title',
         :class='[roleClass]')
+      a.thread-comment__company-link(
+        v-if='answer.user.company && answer.user.adviser',
+        :href='answer.user.company.url')
+        img.thread-comment__company-logo(:src='answer.user.company.logo_url')
   .a-card.is-answer(v-if='!editing')
     .answer-badge(v-if='hasCorrectAnswer && answer.type == "CorrectAnswer"')
       .answer-badge__icon
@@ -24,6 +28,10 @@
         @click='copyAnswerURLToClipboard(answer.id)')
         | {{ updatedAt }}
     .thread-comment__description
+      a.thread-comment__company-link.is-hidden-md-up(
+        v-if='answer.user.company && answer.user.adviser',
+        :href='answer.user.company.url')
+        img.thread-comment__company-logo(:src='answer.user.company.logo_url')
       .a-long-text.is-md(v-html='markdownDescription')
     .thread-comment__reactions
       reaction(
