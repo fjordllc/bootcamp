@@ -82,16 +82,14 @@ class ProductCallbacks
   end
 
   def update_learning_status(product)
-    status_check = product.user.learnings.map(&:status)
-
-    learning = Learning.find_or_initialize_by(
+    previous_learning = Learning.find_or_initialize_by(
       user_id: product.user.id,
       practice_id: product.practice.id
     )
-    status = if learning.status == 'complete'
+    status = if previous_learning.status == 'complete'
                :complete
              elsif product.wip
-               started_practice = status_check.include?('started')
+               started_practice = product.user.learnings.map(&:status).include?('started')
                started_practice ? :unstarted : :started
              else
                :submitted
