@@ -75,7 +75,8 @@
             :tagsTypeId='String(question.id)',
             tagsParamName='question[tag_list]',
             tagsType='Question',
-            :tagsEditable='true')
+            :tagsEditable='true'
+          )
 
   .a-card(v-if='!editing')
     .card-body
