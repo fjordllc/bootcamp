@@ -14,8 +14,7 @@ div
       question(
         v-for='question in questions',
         :key='question.id',
-        :question='question'
-      )
+        :question='question')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>

@@ -7,8 +7,7 @@
           :title='page.user.icon_title',
           :alt='page.user.icon_title',
           :src='page.user.avatar_url',
-          :class='[roleClassPublishedUser]'
-        )
+          :class='[roleClassPublishedUser]')
 
     .card-list-item__rows
       .card-list-item__row
@@ -19,8 +18,7 @@
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='page.url',
-              itemprop='url'
-            )
+              itemprop='url')
               | {{ page.title }}
 
       .card-list-item__row(v-if='page.practice')
@@ -38,8 +36,7 @@
                 | Doc作成中
               time.a-meta(
                 v-else-if='page.published_at',
-                :datetime='page.published_at.to_datetime'
-              )
+                :datetime='page.published_at.to_datetime')
                 span.a-meta__label
                   | 公開
                 span.a-meta__value
@@ -53,14 +50,12 @@
             .card-list-item-meta__item(v-if='page.last_updated_user')
               .card-list-item-meta__user
                 a.card-list-item-meta__icon-link(
-                  :href='page.last_updated_user.url'
-                )
+                  :href='page.last_updated_user.url')
                   img.card-list-item-meta__icon.a-user-icon(
                     :title='page.last_updated_user.icon_title',
                     :alt='page.last_updated_user.icon_title',
                     :src='page.last_updated_user.avatar_url',
-                    :class='[roleClassLastUpdatedUser]'
-                  )
+                    :class='[roleClassLastUpdatedUser]')
                 a.a-user-name(:href='page.last_updated_user.url')
                   | {{ page.last_updated_user.login_name }}
             .card-list-item-meta__item(v-if='page.commentsSize > 0')

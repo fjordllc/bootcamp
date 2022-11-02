@@ -19,8 +19,7 @@ pager(
   next-class='pagination__item is-next',
   next-link-class='pagination__item-link is-next',
   active-class='is-active',
-  disabled-class='is-disabled'
-)
+  disabled-class='is-disabled')
 </template>
 
 <script>

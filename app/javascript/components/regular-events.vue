@@ -8,8 +8,7 @@
     regularEvent(
       v-for='regularEvent in regularEvents',
       :key='regularEvent.id',
-      :regularEvent='regularEvent'
-    )
+      :regularEvent='regularEvent')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>

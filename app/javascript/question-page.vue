@@ -8,16 +8,14 @@
       :answerCount='answerCount',
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser',
-      @afterUpdateQuestion='fetchQuestion(questionId)'
-    )
+      @afterUpdateQuestion='fetchQuestion(questionId)')
     answers(
       :questionId='questionId',
       :questionUser='question.user',
       :currentUser='currentUser',
       @updateAnswerCount='updateAnswerCount',
       @solveQuestion='solveQuestion',
-      @cancelSolveQuestion='cancelSolveQuestion'
-    )
+      @cancelSolveQuestion='cancelSolveQuestion')
 </template>
 <script>
 import QuestionEdit from 'question-edit.vue'
