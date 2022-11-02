@@ -7,23 +7,20 @@
           :title='answer.question.user.icon_title',
           :alt='answer.question.user.icon_title',
           :src='answer.question.user.avatar_url',
-          :class='[roleClass]'
-        )
+          :class='[roleClass]')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
           h1.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='answer.question.url',
-              itemprop='url'
-            ) {{ answer.question.title }}
+              itemprop='url') {{ answer.question.title }}
       .card-list-item__row(v-if='answer.question.practice')
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
               a.a-meta.is-practice(
-                :href='`/practices/${answer.question.practice.id}`'
-              ) {{ answer.question.practice.title }}
+                :href='`/practices/${answer.question.practice.id}`') {{ answer.question.practice.title }}
       .card-list-item__row
         .card-list-item__summary
           p {{ summary }}

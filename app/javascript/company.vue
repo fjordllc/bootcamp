@@ -7,8 +7,7 @@
           img.group-company-name__icon-image(
             :title='company.name',
             :alt='company.name',
-            :src='company.logo_url'
-          )
+            :src='company.logo_url')
         span.group-company-name__name
           span.group-company-name__label
             | {{ company.name }}
@@ -22,8 +21,7 @@
             :src='user.avatar_url',
             :title='user.icon_title',
             :data-login-name='user.login_name',
-            :class='`a-user-icons__item-icon a-user-icon is-${user.primary_role}`'
-          )
+            :class='`a-user-icons__item-icon a-user-icon is-${user.primary_role}`')
 </template>
 <script>
 export default {

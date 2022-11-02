@@ -7,8 +7,7 @@ div
           | 絞り込み
         input#js-talk-search-input.a-text-input(
           v-model.trim='searchTalksWord',
-          placeholder='ユーザーID、ユーザー名、読み方、Discord ID など'
-        )
+          placeholder='ユーザーID、ユーザー名、読み方、Discord ID など')
   #talks.page-content.loading(v-if='!loaded')
     loadingListPlaceholder
   .o-empty-message(v-else-if='talks.length === 0')
@@ -25,8 +24,7 @@ div
           v-for='talk in talks',
           :key='talk.id',
           :user='talk.user',
-          :talk='talk'
-        )
+          :talk='talk')
       nav.pagination(v-if='totalPages > 1')
         pager(v-bind='pagerProps')
     .searched-talk-list(v-show='showSearchedTalks')
@@ -40,8 +38,7 @@ div
           v-for='talk in searchedTalks',
           :key='talk.id',
           :user='talk.user',
-          :talk='talk'
-        )
+          :talk='talk')
 </template>
 <script>
 import Talk from 'components/talk.vue'

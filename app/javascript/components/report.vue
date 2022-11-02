@@ -7,8 +7,7 @@
           :src='report.user.avatar_url',
           :title='report.user.login_name',
           :alt='report.user.login_name',
-          :class='[roleClass]'
-        )
+          :class='[roleClass]')
     .card-list-item__rows
       .card-list-item__row
         header.card-list-item-title
@@ -18,12 +17,10 @@
                 | WIP
             h2.card-list-item-title__title
               a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
-                :href='report.url'
-              )
+                :href='report.url')
                 img.card-list-item-title__emotion-image(
                   :src='emotionImg',
-                  :alt='report.emotion'
-                )
+                  :alt='report.emotion')
                 | {{ report.title }}
             .card-list-item-title__end(v-if='currentUserId == report.user.id')
               label.card-list-item-actions__trigger(:for='report.id')
@@ -62,13 +59,11 @@
                 comment-user-icon(
                   v-for='comment in report.comments',
                   :key='comment.id',
-                  :comment='comment'
-                )
+                  :comment='comment')
             .card-list-item-meta__item
               time.a-meta(
                 datetime='report.lastCommentDatetime',
-                pubdate='\'pubdate\''
-              )
+                pubdate='\'pubdate\'')
                 | 〜 {{ report.lastCommentDate }}
     .stamp.stamp-approve(v-if='this.report.hasCheck')
       h2.stamp__content.is-title

@@ -27,8 +27,7 @@
         :bookmarkableType='bookmark.modelName',
         :bookmarkableId='bookmark.bookmarkable_id',
         :bookmarkIndexId='bookmark.id',
-        @update-index='$listeners["updateIndex"]'
-      )
+        @update-index='$listeners["updateIndex"]')
 </template>
 <script>
 import dayjs from 'dayjs'

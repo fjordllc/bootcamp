@@ -22,13 +22,11 @@
           :currentUserId='currentUserId',
           :productId='checkableId',
           :checkableType='checkableType',
-          :parentComponent='"check"'
-        )
+          :parentComponent='"check"')
       li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
         button#js-shortcut-check.is-block(
           :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"',
-          @click='checkSad'
-        )
+          @click='checkSad')
           | {{ buttonLabel }}
 </template>
 <script>

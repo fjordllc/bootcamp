@@ -4,8 +4,7 @@
     h2.card-header__title
       | 学習時間
     .card-header__action(
-      v-if='currentUser.primary_role === "graduate" && isDashboard'
-    )
+      v-if='currentUser.primary_role === "graduate" && isDashboard')
       | <button @click='hideGrass' class='a-button is-xs is-muted-borderd'>非表示</button>
   .user-grass
     .user-grass-nav
@@ -14,8 +13,7 @@
       .user-grass-nav__year--month {{ prevYearMonth && prevYearMonth.format(clientFormat) }} 〜 {{ currentYearMonth && currentYearMonth.format(clientFormat) }}
       .user-grass-nav__next(
         v-if='!isLatestYearMonth(currentYearMonth)',
-        @click='onNextYearMonth'
-      )
+        @click='onNextYearMonth')
         i.fa-solid.fa-angle-right
       .user-grass-nav__next.is-blank(v-else)
     canvas#grass.a-grass(width='650px', height='130px')

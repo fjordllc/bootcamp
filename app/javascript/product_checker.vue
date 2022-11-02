@@ -2,13 +2,11 @@
 button(
   v-if='!checkerId || checkerId == currentUserId',
   :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
-  @click='checkInCharge'
-)
+  @click='checkInCharge')
   i(
     v-if='!checkerId || checkerId == currentUserId',
     :class='["fas", productCheckerId ? "fa-times" : "fa-hand-paper"]',
-    @click='checkInCharge'
-  )
+    @click='checkInCharge')
   | {{ buttonLabel }}
 .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor(v-else)
   span.card-list-item__assignee-image

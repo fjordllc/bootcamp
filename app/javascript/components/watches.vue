@@ -19,8 +19,7 @@
             input#card-list-tools__action(
               type='checkbox',
               name='card-list-tools__action',
-              v-model='checked'
-            )
+              v-model='checked')
             span#spec-edit-mode
       .card-list.a-card
         .card-list__items
@@ -29,8 +28,7 @@
             :key='watch.id',
             :watch='watch',
             :checked='checked',
-            @updateIndex='updateIndex'
-          )
+            @updateIndex='updateIndex')
       nav.pagination(v-if='totalPages > 1')
         pager(v-bind='pagerProps')
 </template>
