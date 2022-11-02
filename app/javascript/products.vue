@@ -19,12 +19,10 @@
               :key='product.id',
               :product='product',
               :currentUserId='currentUserId',
-              :isMentor='isMentor'
-            )
+              :isMentor='isMentor')
       template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
         .a-card(
-          v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)'
-        )
+          v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
           //- prettier-ignore: need space between v-if and id
           header.card-header.a-elapsed-days(
             v-if='product_n_days_passed.elapsed_days === 0', id='0days-elapsed'
@@ -59,8 +57,7 @@
                 | （{{ countProductsGroupedBy(product_n_days_passed) }}）
           header.card-header.a-elapsed-days(
             v-else,
-            :id='elapsedDaysId(product_n_days_passed.elapsed_days)'
-          )
+            :id='elapsedDaysId(product_n_days_passed.elapsed_days)')
             h2.card-header__title
               | {{ product_n_days_passed.elapsed_days }}日経過
               span.card-header__count(v-if='selectedTab === "unassigned"')
@@ -72,17 +69,14 @@
                 :key='product.id',
                 :product='product',
                 :currentUserId='currentUserId',
-                :isMentor='isMentor'
-              )
+                :isMentor='isMentor')
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
-        :label='`${unconfirmedLinksName}の提出物を一括で開く`'
-      )
+        :label='`${unconfirmedLinksName}の提出物を一括で開く`')
     elapsedDays(
       v-if='!isDashboard && selectedTab === "unassigned"',
       :productsGroupedByElapsedDays='productsGroupedByElapsedDays',
-      :countProductsGroupedBy='countProductsGroupedBy'
-    )
+      :countProductsGroupedBy='countProductsGroupedBy')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>

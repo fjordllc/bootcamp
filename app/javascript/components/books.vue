@@ -11,8 +11,7 @@
         :key='book.id',
         :book='book',
         :isAdmin='isAdmin',
-        :isMentor='isMentor'
-      )
+        :isMentor='isMentor')
   .o-empty-message(v-else)
     .o-empty-message__icon
       i.fa-regular.fa-sad-tear

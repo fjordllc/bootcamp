@@ -7,17 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < bookmarkDeleteButton.length; i++) {
       bookmarkDeleteButton[i].style.display = 'none'
     }
-  }
 
-  bookMarksEditButton.addEventListener('click', () => {
-    if (bookMarksEditButton.checked) {
-      for (let i = 0; i < bookmarkDeleteButton.length; i++) {
-        bookmarkDeleteButton[i].style.display = 'block'
+    bookMarksEditButton.addEventListener('click', () => {
+      if (bookMarksEditButton.checked) {
+        for (let i = 0; i < bookmarkDeleteButton.length; i++) {
+          bookmarkDeleteButton[i].style.display = 'block'
+        }
+      } else {
+        for (let i = 0; i < bookmarkDeleteButton.length; i++) {
+          bookmarkDeleteButton[i].style.display = 'none'
+        }
       }
-    } else {
-      for (let i = 0; i < bookmarkDeleteButton.length; i++) {
-        bookmarkDeleteButton[i].style.display = 'none'
-      }
-    }
-  })
+    })
+  }
 })

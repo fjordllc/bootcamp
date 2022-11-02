@@ -15,8 +15,7 @@
           li.card-main-actions__item.is-main
             button.a-button.is-primary.is-sm.is-block(
               :disabled='validation',
-              @click.prevent='updateTag'
-            )
+              @click.prevent='updateTag')
               | 変更
           li.card-main-actions__item.is-sub
             .card-main-actions__muted-action(@click.prevent='closeModal')

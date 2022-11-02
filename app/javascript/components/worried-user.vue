@@ -4,8 +4,7 @@ tr.admin-table__item
     user-icon(
       :user='worriedUser',
       link_class='a-user-name',
-      blockClassSuffix='admin-table'
-    )
+      blockClassSuffix='admin-table')
   td.admin-table__item-value.is-text-align-center
     a.a-user-name(:href='worriedUser.url')
       | {{ worriedUser.long_name }}
