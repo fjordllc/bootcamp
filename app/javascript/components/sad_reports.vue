@@ -5,8 +5,7 @@
     :key='report.id',
     :report='report',
     :current-user-id='currentUserId',
-    :display-user-icon='displayUserIcon'
-  )
+    :display-user-icon='displayUserIcon')
 </template>
 <script>
 import Report from 'components/report.vue'
