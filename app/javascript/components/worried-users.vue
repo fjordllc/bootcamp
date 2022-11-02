@@ -17,8 +17,7 @@
           worriedUser(
             v-for='worriedUser in worriedUsers',
             :key='worriedUser.id',
-            :worriedUser='worriedUser'
-          )
+            :worriedUser='worriedUser')
 </template>
 
 <script>

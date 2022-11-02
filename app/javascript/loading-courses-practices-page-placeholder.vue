@@ -4,15 +4,13 @@
     .page-body__column.is-main
       loadingCoursesPracticesPageItemsPlaceholder(
         v-for='num in itemCount',
-        :key='num'
-      )
+        :key='num')
     .page-body__column.is-sub
       .page-nav.a-card
         .page-nav__items
           loadingCoursesPracticesPageNavItemPlaceholder(
             v-for='num in pageNavItemCount',
-            :key='num'
-          )
+            :key='num')
 </template>
 
 <script>

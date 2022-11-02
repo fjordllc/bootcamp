@@ -17,13 +17,11 @@
         .page-content-header__before-title
           a.a-category-link(
             :href='`/practices/${practiceId}`',
-            v-if='practiceId !== null'
-          )
+            v-if='practiceId !== null')
             | {{ practiceTitle }}
         h1.page-content-header__title(:class='question.wip ? "is-wip" : ""')
           span.a-title-label.is-solved.is-success(
-            v-if='question.correct_answer !== null'
-          )
+            v-if='question.correct_answer !== null')
             | 解決済
           span.a-title-label.is-wip(v-else-if='question.wip')
             | WIP
@@ -62,14 +60,12 @@
             .page-content-header-actions__action
               BookmarkButton(
                 :bookmarkableId='question.id',
-                bookmarkableType='Question'
-              )
+                bookmarkableType='Question')
           .page-content-header-actions__end
             .page-content-header-actions__action
               a.a-button.is-sm.is-secondary.is-block(
                 :href='`/questions/${question.id}.md`',
-                target='_blank'
-              )
+                target='_blank')
                 | Raw
 
       .page-content-header__row
@@ -77,10 +73,9 @@
           tags(
             :tagsInitialValue='question.tag_list.join(",")',
             :tagsTypeId='String(question.id)',
-            tagsParamName='question[tag_list]'
-            tagsType='Question'
-            :tagsEditable='true'
-          )
+            tagsParamName='question[tag_list]',
+            tagsType='Question',
+            :tagsEditable='true')
 
   .a-card(v-if='!editing')
     .card-body
@@ -89,17 +84,14 @@
     reaction(
       :reactionable='question',
       :currentUser='currentUser',
-      :reactionableId='`Question_${question.id}`'
-    )
+      :reactionableId='`Question_${question.id}`')
     footer.card-footer(
-      v-if='currentUser.id === question.user.id || isRole("mentor")'
-    )
+      v-if='currentUser.id === question.user.id || isRole("mentor")')
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
             button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
-              @click='startEditing'
-            )
+              @click='startEditing')
               i#new.fa-solid.fa-pen
               | 内容修正
           li.card-main-actions__item.is-sub
@@ -111,8 +103,7 @@
             a.js-delete.card-main-actions__muted-action(
               :href='`/questions/${question.id}`',
               data-confirm='自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？',
-              data-method='delete'
-            )
+              data-method='delete')
               | 削除する
         .card-footer__notice(v-show='displayedUpdateMessage')
           p
@@ -132,15 +123,13 @@
             .select-practices(v-show='practices !== null')
               select#js-choices-single-select(
                 v-model='edited.practiceId',
-                name='question[practice]'
-              )
+                name='question[practice]')
                 option(value='')
                   | プラクティス選択なし
                 option(
                   v-for='practice in practices',
                   :key='practice.id',
-                  :value='practice.id'
-                ) {{ practice.categoryAndPracticeName }}
+                  :value='practice.id') {{ practice.categoryAndPracticeName }}
           .form-item
             .a-form-label
               | タイトル
@@ -149,26 +138,21 @@
             .form-tabs.js-tabs
               .form-tabs__tab.js-tabs__tab(
                 :class='{ "is-active": isActive("question") }',
-                @click='changeActiveTab("question")'
-              )
+                @click='changeActiveTab("question")')
                 | 質問文
               .form-tabs__tab.js-tabs__tab(
                 :class='{ "is-active": isActive("preview") }',
-                @click='changeActiveTab("preview")'
-              )
+                @click='changeActiveTab("preview")')
                 | プレビュー
             .form-tabs-item__markdown-parent.js-markdown-parent
               .form-tabs-item__markdown.js-tabs__content(
-                :class='{ "is-active": isActive("question") }'
-              )
+                :class='{ "is-active": isActive("question") }')
                 textarea#js-question-content.a-text-input.form-tabs-item__textarea(
                   v-model='edited.description',
                   data-preview='#js-question-preview',
-                  name='question[description]'
-                )
+                  name='question[description]')
               .form-tabs-item__markdown.js-tabs__content(
-                :class='{ "is-active": isActive("preview") }'
-              )
+                :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
 
         .card-main-actions
@@ -177,29 +161,25 @@
               button.a-button.is-sm.is-secondary.is-block(
                 @click='updateQuestion(true)',
                 :disabled='!validation',
-                type='button'
-              )
+                type='button')
                 | WIP
             li.card-main-actions__item
               button.a-button.is-sm.is-primary.is-block(
                 v-if='question.wip',
                 @click='updateQuestion(false)',
                 :disabled='!validation',
-                type='button'
-              )
+                type='button')
                 | 質問を公開
               button.a-button.is-sm.is-primary.is-block(
                 v-else,
                 @click='updateQuestion(false)',
                 :disabled='!validation',
-                type='button'
-              )
+                type='button')
                 | 更新する
             li.card-main-actions__item.is-sub
               button.card-main-actions__muted-action(
                 @click='cancel',
-                type='button'
-              )
+                type='button')
                 | キャンセル
 </template>
 <script>

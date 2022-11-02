@@ -7,13 +7,11 @@
           a.card-books-item__cover-container(
             :href='book.pageUrl',
             target='_blank',
-            rel='noopener'
-          )
+            rel='noopener')
             img.card-books-item__image(
               :title='book.title',
               :alt='book.title',
-              :src='book.coverUrl'
-            )
+              :src='book.coverUrl')
         .card-books-item__end
           .card-books-item__rows
             .card-books-item__row
@@ -21,8 +19,7 @@
                 a.card-books-item__title-link(
                   :href='book.pageUrl',
                   target='_blank',
-                  rel='noopener'
-                )
+                  rel='noopener')
                   span.card-books-item__title-label
                     | {{ book.title }}
             .card-books-item__row
@@ -36,8 +33,7 @@
         ul.tag-links__items
           li.tag-links__item(
             v-for='practice in book.practices',
-            :key='practice.id'
-          )
+            :key='practice.id')
             a.tag-links__item-link(:href='practice.practicePath')
               | {{ practice.title }}
     footer.card-footer.is-only-mentor(v-if='isAdmin || isMentor')
@@ -45,8 +41,7 @@
         ul.card-main-actions__items
           li.card-main-actions__item
             a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
-              :href='book.editBookPath'
-            )
+              :href='book.editBookPath')
               | 編集
 </template>
 <script>

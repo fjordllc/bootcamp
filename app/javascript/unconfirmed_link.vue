@@ -4,8 +4,7 @@
     ul.card-main-actions__items
       li.card-main-actions__item
         button.thread-unconfirmed-links-form__action.a-button.is-sm.is-block.is-secondary(
-          @click='openUnconfirmedItems()'
-        ) {{ label }}
+          @click='openUnconfirmedItems()') {{ label }}
 </template>
 <script>
 export default {

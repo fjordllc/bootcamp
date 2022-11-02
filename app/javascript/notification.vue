@@ -5,8 +5,7 @@
       img.card-list-item__user-icon.a-user-icon(
         :title='notification.sender.icon_title',
         :src='notification.sender.avatar_url',
-        :class='[roleClass]'
-      )
+        :class='[roleClass]')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -17,8 +16,7 @@
             h2.card-list-item-title__title(itemprop='name')
               a.card-list-item-title__link.a-text-link.js-unconfirmed-link(
                 :href='notification.path',
-                itemprop='url'
-              )
+                itemprop='url')
                 span.card-list-item-title__link-label
                   | {{ notification.message }}
       .card-list-item__row

@@ -14,8 +14,7 @@
       v-if='showModal',
       :editingTemplateProp='editingTemplate',
       :isTemplateRegisteredProp='isTemplateRegistered',
-      :templateIdProp='templateIdProp'
-    )
+      :templateIdProp='templateIdProp')
 </template>
 <script>
 import Modal from 'report_template_modal.vue'

@@ -9,8 +9,7 @@
     .category-practices
       loadingCoursesPracticesPageItemPlaceholder(
         v-for='num in itemCount',
-        :key='num'
-      )
+        :key='num')
 </template>
 
 <script>

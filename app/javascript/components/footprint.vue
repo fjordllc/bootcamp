@@ -5,8 +5,7 @@ li.user-icons__item
       :title='footprint.user.icon_title',
       :alt='footprint.user.icon_title',
       :src='footprint.user.avatar_url',
-      :class='[loginNameClass, primaryRoleClass]'
-    )
+      :class='[loginNameClass, primaryRoleClass]')
 </template>
 <script>
 export default {

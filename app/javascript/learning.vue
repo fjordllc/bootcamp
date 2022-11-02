@@ -12,8 +12,7 @@
     li.card-main-actions__item(v-else)
       label#js-complete.a-button.is-sm.is-warning.is-block(
         @click='pushComplete',
-        for='modal-learning_completion'
-      )
+        for='modal-learning_completion')
         i.fa-solid.fa-check
         | 修了
 </template>

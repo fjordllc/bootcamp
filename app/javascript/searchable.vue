@@ -7,8 +7,7 @@
           :src='searchable.avatar_url',
           :title='searchable.title',
           :alt='searchable.title',
-          :class='[roleClass]'
-        )
+          :class='[roleClass]')
     .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .card-list-item__rows
@@ -18,8 +17,7 @@
             span
               | WIP
           .a-list-item-badge.is-serchable(
-            v-if='searchable.is_comment_or_answer'
-          )
+            v-if='searchable.is_comment_or_answer')
             span
               | コメント
           .a-list-item-badge.is-serchable(v-else-if='searchable.is_user')
@@ -35,16 +33,14 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item(
-              v-if='!["practice", "page", "user"].includes(searchable.model_name)'
-            )
+              v-if='!["practice", "page", "user"].includes(searchable.model_name)')
               .card-list-item-meta__user
                 a.card-list-item-meta__icon-link(:href='userUrl')
                   img.card-list-item-meta__icon.a-user-icon(
                     :src='searchable.avatar_url',
                     :title='searchable.icon_title',
                     :alt='searchable.icon_title',
-                    :class='roleClass'
-                  )
+                    :class='roleClass')
                 a.a-user-name(:href='userUrl')
                   | {{ searchable.login_name }}
             .card-list-item-meta__item
@@ -57,8 +53,7 @@
                   | {{ searchable.document_author_login_name }}
                 | &nbsp;{{ searchable.model_name_with_i18n }}）
             .card-list-item-meta__item(
-              v-if='isRole("admin") && canDisplayTalk'
-            )
+              v-if='isRole("admin") && canDisplayTalk')
               a.a-text-link(:href='talkUrl')
                 | 相談部屋
 </template>

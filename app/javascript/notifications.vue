@@ -15,12 +15,10 @@
     notification(
       v-for='notification in notifications',
       :key='notification.id',
-      :notification='notification'
-    )
+      :notification='notification')
     unconfirmed-links-open-button(
       v-if='isMentor && isUnreadPage',
-      label='未読の通知を一括で開く'
-    )
+      label='未読の通知を一括で開く')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>

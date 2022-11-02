@@ -7,8 +7,7 @@
       aria-valuemin='0',
       :aria-valuenow='ariaValuenow()',
       role='progressbar',
-      :style='`width: ${roundedPercentage}`'
-    )
+      :style='`width: ${roundedPercentage}`')
   .completed-practices-progress__number
     | {{ completedPracticesProgressNumber() }}
 </template>

@@ -7,8 +7,7 @@
           :title='announcement.user.icon_title',
           :alt='announcement.user.icon_title',
           :src='announcement.user.avatar_url',
-          :class='[roleClass]'
-        )
+          :class='[roleClass]')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
