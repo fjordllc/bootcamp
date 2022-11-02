@@ -24,12 +24,12 @@ header.page-content-header
                   | 提出物作成中
               - elsif @product.published_at.present?
                 span.a-meta__label
-                  | 提出日
+                  | 提出
                 time.a-meta__value(datetime="#{@product.published_at.to_datetime}")
                   = l @product.published_at
               - else
                 span.a-meta__label
-                  | 提出日
+                  | 提出
                 time.a-meta__value(datetime="#{@product.created_at.to_datetime}")
                   = l @product.created_at
 

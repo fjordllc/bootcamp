@@ -1,0 +1,19 @@
+.dashboard-contents__cols
+  display: flex
+  gap: .75rem
+  +media-breakpoint-down(sm)
+    flex-direction: column
+
+.dashboard-contents__col
+  &.is-sub
+    +media-breakpoint-up(lg)
+      max-width: 30rem
+    +media-breakpoint-up(md)
+      flex: 1
+  &.is-main
+    flex: 1
+
+.dashboard-contents__categories
+  display: flex
+  flex-direction: column
+  gap: .75rem

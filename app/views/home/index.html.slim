@@ -27,42 +27,36 @@ header.page-header
     #events_on_dashboard.confirmed_event
       .page-notices
         = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
-  - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-    = render 'welcome_message'
-  - if current_user.adviser? && @welcome_message_first_time.blank?
-    = render 'welcome_message_for_adviser'
 
-  .columns
-    .container.is-xxl
-      .row
-        .col-xs-12.col-xl-6.col-xxl-6
-          = render partial: 'announcements'
-          - if current_user.bookmarks.present?
-            = render 'bookmarks', user: current_user
-          - if current_user.wip_exists?
-            = render 'wip_items'
-          - if current_user.mentor?
-            #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-          - if current_user.active_practices.present?
-            = render '/users/practices/active_practices', user: current_user
-          - if current_user.completed_practices.present?
-            = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
-          - if current_user.belongs_company_and_adviser? && @collegue_trainees.present?
-            = render 'collegue_trainees', collegue_trainees: @collegue_trainees
-
-        .col-xs-12.col-xl-6.col-xxl-6
-          - if current_user.student_or_trainee?
-            = render 'required_field', user: current_user
-          - if current_user.after_graduation_hope?
-            = render 'after_graduation_hope', user: current_user
-          - if (current_user.admin? || current_user.adviser?) && @job_seeking_users.present?
-            = render 'job_seeking_users', users: @job_seeking_users
-          - if current_user.student_or_trainee? && !cookies[:user_grass]
-            #js-grass(data-user-id="#{current_user.id}")
-          - if current_user.github_account.present?
-            = render 'users/github_grass', user: current_user
-          - if current_user.student_or_trainee?
-            #js-niconico_calendar(data-user-id="#{current_user.id}")
-          - if current_user.mentor?
-            = render 'users/sad_emotion_report', reports: User.depressed_reports
-            = render 'users/inactive_users', users: @inactive_students
+  - if current_user.adviser?
+    = render 'adviser_dashboard'
+  - elsif current_user.mentor?
+    = render 'mentor_dashboard'
+  - else
+    - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
+      = render 'welcome_message'
+    .columns
+      .container.is-xxl
+        .row
+          .col-xs-12.col-xl-6.col-xxl-6
+            - if @announcements.present?
+              = render partial: 'announcements'
+            - if current_user.bookmarks.present?
+              = render 'bookmarks', user: current_user
+            - if current_user.wip_exists?
+              = render 'wip_items'
+            - if current_user.active_practices.present?
+              = render '/users/practices/active_practices', user: current_user
+            - if current_user.completed_practices.present?
+              = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
+          .col-xs-12.col-xl-6.col-xxl-6
+            - if current_user.student_or_trainee?
+              = render 'required_field', user: current_user
+            - if current_user.after_graduation_hope?
+              = render 'after_graduation_hope', user: current_user
+            - if current_user.student_or_trainee? && !cookies[:user_grass]
+              #js-grass(data-user-id="#{current_user.id}")
+            - if current_user.github_account.present?
+              = render 'users/github_grass', user: current_user
+            - if current_user.student_or_trainee?
+              #js-niconico_calendar(data-user-id="#{current_user.id}")

@@ -34,10 +34,12 @@
               .a-meta 提出物作成中
             .card-list-item-meta__item(v-else-if='product.published_at')
               time.a-meta
-                | 提出日（{{ product.published_at }}）
+                span.a-meta__label 提出
+                | {{ product.published_at }}
             .card-list-item-meta__item(v-else)
               time.a-meta
-                | 提出日（{{ product.created_at }}）
+                span.a-meta__label 提出
+                | {{ product.created_at }}
             .card-list-item-meta__item
               time.a-meta(v-if='product.updated_at')
                 span.a-meta__label 更新
