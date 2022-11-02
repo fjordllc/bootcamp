@@ -6,10 +6,13 @@ class AnnouncementNotifier
 
     announce.update(published_at: Time.current)
     DiscordNotifier.with(announce: announce).announced.notify_now
+    Watch.create!(user: announce.user, watchable: announce)
 
     target_users = User.announcement_receiver(announce.target)
     target_users.each do |target|
-      NotificationFacade.post_announcement(announce, target) if announce.sender != target
+      next if announce.sender == target
+
+      NotificationFacade.post_announcement(announce, target)
     end
   end
 end
