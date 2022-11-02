@@ -8,8 +8,7 @@
             | 絞り込み
           input#js-user-search-input.a-text-input(
             v-model.trim='searchUsersWord',
-            placeholder='ユーザー名、読み方、Discord ID、GitHub ID など'
-          )
+            placeholder='ユーザー名、読み方、Discord ID、GitHub ID など')
   .page-content.is-users
     .users__items
       .row(v-if='!loaded')
@@ -25,8 +24,7 @@
               v-for='user in users',
               :key='user.id',
               :user='user',
-              :currentUser='currentUser'
-            )
+              :currentUser='currentUser')
           nav.pagination(v-if='totalPages > 1')
             pager(v-bind='pagerProps')
         .searched-user-list(v-show='showSearchedUsers')
@@ -40,8 +38,7 @@
               v-for='user in searchedUsers',
               :key='user.id',
               :user='user',
-              :currentUser='currentUser'
-            )
+              :currentUser='currentUser')
       .row(v-else)
         .o-empty-message
           .o-empty-message__icon
