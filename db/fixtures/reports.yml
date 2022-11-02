@@ -312,3 +312,13 @@ report<%= i %>:
     頑張れませんでした
   reported_on: <%= Time.now - 1.year + i.day %>
 <% end %>
+
+<% (1..15).each do |i| %>
+report<%= i + 71 %>:
+  user: <%= "marumarushain#{i}" %>
+  title: <%= "MaruMaru Inc.の研修生のテスト日報#{i}です" %>
+  emotion: 2
+  description: |-
+    MaruMaru Inc.で研修をしました。
+  reported_on: <%= Time.now - 1.month + i.day %>
+<% end %>
