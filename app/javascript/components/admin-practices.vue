@@ -21,9 +21,7 @@
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
         td.admin-table__item-value.is-text-align-right
-          .a-text-link(
-            @click.prevent='openModal(practice)'
-          )
+          .a-text-link(@click.prevent='openModal(practice)')
             | {{ practice.categories_practice.size }}
           modal(
             @closeModal='closeModal',
@@ -31,7 +29,9 @@
             v-if='showModal'
           )
             | {{ practice.categories_practice.size }}
-        td.admin-table__item-value.is-text-align-right(v-if='practice.submission')
+        td.admin-table__item-value.is-text-align-right(
+          v-if='practice.submission'
+        )
           a(:href='`/practices/${practice.id}/products`')
             | {{ practice.products.size }}
         td.admin-table__item-value.is-text-align-center(v-else)
@@ -46,7 +46,9 @@
         td.admin-table__item-value.is-text-align-center
           ul.is-inline-buttons
             li
-              a.a-button.is-sm.is-secondary.is-icon(:href='`/practices/${practice.id}/edit`')
+              a.a-button.is-sm.is-secondary.is-icon(
+                :href='`/practices/${practice.id}/edit`'
+              )
                 i.fa-solid.fa-pen
 </template>
 <script>

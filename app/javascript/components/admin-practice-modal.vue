@@ -4,9 +4,7 @@
     header.card-header.is-sm
       h2.card-header__title
         | 所属カテゴリー
-    .card-body(
-      v-for='category_id_name in postPractice.category_ids_names'
-    )
+    .card-body(v-for='category_id_name in postPractice.category_ids_names')
       .card__description
         table.admin-table__table
           tbody.admin-table__items
@@ -18,7 +16,9 @@
     footer.card-footer
       ul.card-main-actions__items
         li.card-main-actions__item.is-main
-          button.a-button.is-primary.is-sm.is-block(@click.prevent='closeModal')
+          button.a-button.is-primary.is-sm.is-block(
+            @click.prevent='closeModal'
+          )
             | 閉じる
 </template>
 <script>
