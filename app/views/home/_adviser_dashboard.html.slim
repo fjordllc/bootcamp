@@ -44,12 +44,14 @@
                           .a-panels__items
                             .a-panels__item
                               = render 'collegue_trainees_recent_reports'
+                      .a-panels__item
+                        .a-panels
+                          .a-panels__items
+                            .a-panels__item
+                              = render 'invite_links', company: @belongs_company
                     - else
                       .a-panels__item
                         .a-panels
                           | 現在、#{current_user.company.name}は研修を利用していません。
-                    .a-panels__item
-                      .a-panels
-                        .a-panels__items
-                          .a-panels__item
-                            = render 'invite_links', company: @belongs_company
+                          = link_to @belongs_company.trainee_sign_up_url, class: '' do
+                            | 研修生
