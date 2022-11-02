@@ -4,15 +4,15 @@
     thead.admin-table__header
       tr.admin-table__labels
         th.admin-table__label
-          | プラクティス名
+          | プラクティス
         th.admin-table__label
-          | 所属カテゴリー数
+          | 所属カテゴリー
         th.admin-table__label
-          | 提出物数
+          | 提出物
         th.admin-table__label
-          | 日報数
+          | 日報
         th.admin-table__label
-          | Q&A数
+          | Q&A
         th.admin-table__label.actions
           | 編集
     tbody.admin-table__items
@@ -20,30 +20,34 @@
         td.admin-table__item-value
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
-        button.a-button.is-sm.is-secondary.is-block(
-          @click.prevent='openModal(practice)'
-        )
-          | {{ practice.categories_practice.size }}
-        modal(
-          @closeModal='closeModal',
-          :postPractice='postPractice',
-          v-if='showModal'
-        )
-          | {{ practice.categories_practice.size }}
-        td.admin-table__item-value(v-if='practice.submission')
+        td.admin-table__item-value.is-text-align-right
+          .a-text-link(
+            @click.prevent='openModal(practice)'
+          )
+            | {{ practice.categories_practice.size }}
+          modal(
+            @closeModal='closeModal',
+            :postPractice='postPractice',
+            v-if='showModal'
+          )
+            | {{ practice.categories_practice.size }}
+        td.admin-table__item-value.is-text-align-right(v-if='practice.submission')
           a(:href='`/practices/${practice.id}/products`')
             | {{ practice.products.size }}
-        td.admin-table__item-value(v-else)
-          | {{ `提出物不要` }}
-        td.admin-table__item-value
+        td.admin-table__item-value.is-text-align-center(v-else)
+          span.admin-table__item-blank
+            | {{ `不要` }}
+        td.admin-table__item-value.is-text-align-right
           a(:href='`/practices/${practice.id}/reports`')
             | {{ practice.reports.size }}
-        td.admin-table__item-value
+        td.admin-table__item-value.is-text-align-right
           a(:href='`/practices/${practice.id}/questions`')
             | {{ practice.questions.size }}
         td.admin-table__item-value.is-text-align-center
-          a(:href='`/practices/${practice.id}/edit`')
-            | {{ `編集` }}
+          ul.is-inline-buttons
+            li
+              a.a-button.is-sm.is-secondary.is-icon(:href='`/practices/${practice.id}/edit`')
+                i.fa-solid.fa-pen
 </template>
 <script>
 import adminPracticeModalVue from './admin-practice-modal.vue'
