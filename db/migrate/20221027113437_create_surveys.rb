@@ -4,9 +4,8 @@ class CreateSurveys < ActiveRecord::Migration[6.1]
       t.references :user, null: false, foreign_key: true
       t.string :title, null: false, limit: 255
       t.text :description
-      t.datetime :published_at, null: false
-      t.datetime :expires_at, null: false
-      t.boolean :wip, null: false, default: false
+      t.datetime :start_at, null: false
+      t.datetime :end_at, null: false
 
       t.timestamps
     end
