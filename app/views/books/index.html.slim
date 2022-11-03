@@ -18,7 +18,6 @@ header.page-header
     .container.is-md
       = form_with url: books_path, method: 'get', local: true
       .form-item.is-inline-md-up
-        = hidden_field_tag :target, params[:target]
         = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
         = select_tag :practice_id,
                 options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]),
@@ -27,4 +26,4 @@ header.page-header
                 id: 'js-choices-single-select'
   .page-content.is-books
     .container
-      div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}")
+      div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}" data-vue-practice-id:number="#{params[:practice_id]}")
