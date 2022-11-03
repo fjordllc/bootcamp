@@ -28,11 +28,23 @@ export default {
   },
   props: {
     isAdmin: { type: Boolean, required: true },
-    isMentor: { type: Boolean, required: true }
+    isMentor: { type: Boolean, required: true },
+    practiceId: { type: Number, default: null, required: false }
   },
   data() {
     return {
-      books: null
+      books: null,
+    }
+  },
+  computed: {
+    newParams() {
+      const params = new URL(location.href).searchParams
+      if (this.practiceId) params.set('practice_id', this.practiceId)
+      return params
+    },
+    booksAPI() {
+      const params = this.newParams
+      return `/api/books.json?${params}`
     }
   },
   created() {
@@ -47,26 +59,29 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getBooks() {
-      fetch('/api/books', {
+      fetch(this.booksAPI, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': this.token(),
         },
         credentials: 'same-origin',
-        redirect: 'manual'
+        redirect: 'manual',
       })
-        .then((response) => {
-          return response.json()
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        this.books = []
+        json.books.forEach((r) => {
+          this.books.push(r)
         })
-        .then((json) => {
-          this.books = json.books
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    }
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
+    },
   }
 }
 </script>
