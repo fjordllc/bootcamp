@@ -10,15 +10,13 @@
           tbody.admin-table__items
             tr.admin-table__item
               td.admin-table__item-value.is-text-align-left(
-                @click.prevent='linkCategory(category_id_name.category_id)'
-              )
+                @click.prevent='linkCategory(category_id_name.category_id)')
                 | {{ category_id_name.category_name }}
     footer.card-footer
       ul.card-main-actions__items
         li.card-main-actions__item.is-main
           button.a-button.is-primary.is-sm.is-block(
-            @click.prevent='closeModal'
-          )
+            @click.prevent='closeModal')
             | 閉じる
 </template>
 <script>
