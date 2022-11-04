@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      books: null,
+      books: null
     }
   },
   computed: {
@@ -64,24 +64,24 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token(),
+          'X-CSRF-Token': this.token()
         },
         credentials: 'same-origin',
-        redirect: 'manual',
+        redirect: 'manual'
       })
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        this.books = []
-        json.books.forEach((r) => {
-          this.books.push(r)
+        .then((response) => {
+          return response.json()
         })
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
-    },
+        .then((json) => {
+          this.books = []
+          json.books.forEach((r) => {
+            this.books.push(r)
+          })
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    }
   }
 }
 </script>
