@@ -17,8 +17,7 @@
         :key='announcement.id',
         :title='title',
         :announcement='announcement',
-        :currentUser='currentUser'
-      )
+        :currentUser='currentUser')
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>

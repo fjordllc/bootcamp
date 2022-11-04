@@ -6,24 +6,20 @@
     .page-body__column.is-main
       .categories-item.practices(
         v-for='category in containsPractices',
-        :key='category.id'
-      )
+        :key='category.id')
         header.categories-item__header(:id='`category-${category.id}`')
           h2.categories-item__title
             | {{ category.name }}
             span.stamp.is-circle.is-solved(
-              v-if='category.completed_all_practices === true'
-            )
+              v-if='category.completed_all_practices === true')
               | 修了
         .categories-item__description
           .categories-item__edit.is-only-mentor(v-if='isRole("admin")')
             a.categories-item__edit-link(
-              :href='`${category.edit_admin_category_path}`'
-            )
+              :href='`${category.edit_admin_category_path}`')
               i.fa-solid.fa-pen
           .a-long-text.is-md(
-            v-html='markdownDescription(category.description)'
-          )
+            v-html='markdownDescription(category.description)')
         .categories-item__body.a-card
           .category-practices.js-category-practices
             courses-practice(
@@ -31,15 +27,13 @@
               :key='practices.id',
               :practices='practices',
               :learnings='learnings',
-              :currentUser='currentUser'
-            )
+              :currentUser='currentUser')
     .page-body__column.is-sub
       nav.page-nav.a-card
         ul.page-nav__items
           li.page-nav__item(
             v-for='category in containsPractices',
-            :key='category.id'
-          )
+            :key='category.id')
             a.page-nav__item-link(:href='`practices#category-${category.id}`')
               span.page-nav__item-link-inner
                 | {{ category.name }}

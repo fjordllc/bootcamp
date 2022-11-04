@@ -7,24 +7,20 @@
   h3.user-icons__title
     | 見たよ
   ul.user-icons__items(
-    v-if='tenOrLessFootprints || (moreThanTenFoorptints && isDisplay)'
-  )
+    v-if='tenOrLessFootprints || (moreThanTenFoorptints && isDisplay)')
     footprint(
       v-for='footprint in limitedDisplayOnPage',
       :key='footprint.key',
-      :footprint='footprint'
-    )
+      :footprint='footprint')
   .user-icons__more(
     v-if='moreThanTenFoorptints && isDisplay',
-    @click='showRemainingFootprints'
-  )
+    @click='showRemainingFootprints')
     | その他{{ numberOfRemainingFootprints }}人
   ul.user-icons__items(v-if='moreThanTenFoorptints && !isDisplay')
     footprint(
       v-for='footprint in footprints',
       :key='footprint.key',
-      :footprint='footprint'
-    )
+      :footprint='footprint')
 </template>
 <script>
 import Footprint from './footprint'

@@ -7,8 +7,7 @@
       company(
         v-for='company in companies',
         :key='company.id',
-        :company='company'
-      )
+        :company='company')
 </template>
 <script>
 import Company from 'company.vue'

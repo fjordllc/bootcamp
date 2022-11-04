@@ -7,8 +7,7 @@
           :title='question.user.icon_title',
           :alt='question.user.icon_title',
           :src='question.user.avatar_url',
-          :class='[roleClass]'
-        )
+          :class='[roleClass]')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -18,8 +17,7 @@
           h1.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='question.url',
-              itemprop='url'
-            ) {{ question.title }}
+              itemprop='url') {{ question.title }}
 
       .card-list-item__row(v-if='question.practice')
         .card-list-item-meta
@@ -27,8 +25,7 @@
             .card-list-item-meta__item
               a.a-meta.is-practice(
                 :href='practiceUrl',
-                v-if='practiceUrl !== null'
-              )
+                v-if='practiceUrl !== null')
                 | {{ question.practice.title }}
 
       .card-list-item__row

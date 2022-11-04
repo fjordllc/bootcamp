@@ -15,15 +15,13 @@
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='regularEvent.url',
-              itemprop='url'
-            )
+              itemprop='url')
               | {{ regularEvent.title }}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item(
-              v-if='regularEvent.organizers.length > 0'
-            )
+              v-if='regularEvent.organizers.length > 0')
               .a-meta
                 .a-meta__label
                   | 主催
@@ -34,8 +32,7 @@
                       :key='organizer.id',
                       :user='organizer',
                       link_class='card-list-item__user-icons-icon',
-                      blockClassSuffix='card-list-item'
-                    )
+                      blockClassSuffix='card-list-item')
             .card-list-item-meta__item
               time.a-meta(:datetime='regularEvent.start_at')
                 span.a-meta__label

@@ -4,8 +4,7 @@ a(:href='user.url', :class='`${blockClass}user-link`')
     :src='user.avatar_url',
     :alt='user.icon_title',
     :title='user.icon_title',
-    :class='[`${blockClass}user-icon`, "a-user-icon", roleClass]'
-  )
+    :class='[`${blockClass}user-icon`, "a-user-icon", roleClass]')
 </template>
 
 <script>

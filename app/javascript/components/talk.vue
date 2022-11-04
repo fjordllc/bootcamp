@@ -5,16 +5,14 @@
       user-icon(
         :user='user',
         link_class='card-list-item__user-link',
-        blockClassSuffix='card-list-item'
-      )
+        blockClassSuffix='card-list-item')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='`/talks/${talk.id}#latest-comment`',
-              itemprop='url'
-            )
+              itemprop='url')
               | {{ user.long_name }} さんの相談部屋
       hr.card-list-item__row-separator(v-if='talk.has_any_comments')
       .card-list-item__row(v-if='talk.has_any_comments')

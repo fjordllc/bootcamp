@@ -195,6 +195,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['kimura@fjord.jp'], email.to
     assert_equal '[FBC] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。', email.subject
+    assert_match(/コメント/, email.body.to_s)
   end
 
   test 'retired' do

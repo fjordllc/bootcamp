@@ -27,8 +27,7 @@
         :watchableType='watch.watchable_type',
         :watchableId='watch.watchable_id',
         :watchIndexId='watch.id',
-        @update-index='$listeners["updateIndex"]'
-      )
+        @update-index='$listeners["updateIndex"]')
 </template>
 <script>
 import dayjs from 'dayjs'

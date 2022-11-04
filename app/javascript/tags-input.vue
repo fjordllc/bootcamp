@@ -6,8 +6,7 @@ div
     :autocomplete-items='filteredTags',
     @tags-changed='update',
     placeholder='',
-    @before-adding-tag='validateTagName'
-  )
+    @before-adding-tag='validateTagName')
   input(type='hidden', :value='tagsValue', :name='tagsParamName')
   div(v-if='headIsSharpOrOctothorpe(inputTag)')
     | 先頭の記号は無視されます

@@ -8,8 +8,7 @@
     @updateTag='updateTag',
     v-if='showModal',
     :id='tagId',
-    :nameProp='tagName'
-  )
+    :nameProp='tagName')
 </template>
 <script>
 import Modal from 'tag-edit-modal.vue'

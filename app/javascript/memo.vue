@@ -5,8 +5,7 @@
     input.memo-form__toggle-checkbox(
       type='checkbox',
       v-bind:id='date',
-      v-model='checked'
-    )
+      v-model='checked')
     .memo-form-modal
       .memo-form-modal__inner.a-card
         .card-header
@@ -17,17 +16,14 @@
             textarea.a-text-input(
               ref='sendBody',
               v-model='sendBody',
-              name='memo[body]'
-            )
+              name='memo[body]')
             button.a-button.is-md.is-primary.is-block(
               v-if='!body',
-              @click='createMemo'
-            )
+              @click='createMemo')
               | 作成
             button.a-button.is-md.is-primary.is-block(
               v-else,
-              @click='updateMemo'
-            )
+              @click='updateMemo')
               | 更新
             button.a-button.is-md.is-danger.is-block(@click='deleteMemo')
               | 削除

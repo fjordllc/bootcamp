@@ -4,8 +4,7 @@
     img(
       :class='`a-user-icons__item-icon a-user-icon ${activeOrInactive} is-${startedStudent.primary_role}`',
       :src='startedStudent.avatar_url',
-      :title='`${startedStudent.icon_title}`'
-    )
+      :title='`${startedStudent.icon_title}`')
 </template>
 
 <script>
