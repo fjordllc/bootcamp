@@ -3,8 +3,7 @@
   .users-item
     .users-item__inner.a-card
       .users-item__inactive-message.is-only-mentor(
-        v-if='currentUser.mentor && user.student_or_trainee && !user.active'
-      )
+        v-if='currentUser.mentor && user.student_or_trainee && !user.active')
         | 1ヶ月以上ログインがありません
       header.users-item__header
         .users-item__header-inner
@@ -15,20 +14,17 @@
                   :title='user.icon_title',
                   :alt='user.icon_title',
                   :src='user.avatar_url',
-                  :class='[roleClass]'
-                )
+                  :class='[roleClass]')
           .users-item__header-end
             .card-list-item__rows
               .card-list-item__row
                 .card-list-item-title
                   a.card-list-item-title__title.is-lg.a-text-link(
-                    :href='user.url'
-                  )
+                    :href='user.url')
                     | {{ loginName }}
                   a(
                     v-if='user.company && user.company.logo_url',
-                    :href='user.company.url'
-                  )
+                    :href='user.company.url')
                     img.user-item__company-logo(:src='user.company.logo_url')
               .card-list-item__row
                 .card-list-item-meta
@@ -58,8 +54,7 @@
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item(
-              v-if='currentUser.id != user.id && currentUser.adviser && user.company && currentUser.company_id == user.company.id'
-            )
+              v-if='currentUser.id != user.id && currentUser.adviser && user.company && currentUser.company_id == user.company.id')
               .a-button.is-disabled.is-sm.is-block
                 i.fa-solid.fa-check
                 span
@@ -68,11 +63,9 @@
               following(
                 :isFollowing='user.isFollowing',
                 :userId='user.id',
-                :isWatching='user.isWatching'
-              )
+                :isWatching='user.isWatching')
             li.card-main-actions__item.is-only-admin(
-              v-if='currentUser.admin && user.talkUrl'
-            )
+              v-if='currentUser.admin && user.talkUrl')
               a.a-button.is-secondary.is-sm.is-block(:href='user.talkUrl')
                 | 相談部屋
 </template>

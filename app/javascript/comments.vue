@@ -8,12 +8,10 @@
         button.a-button.is-lg.is-text.is-block(@click='showComments')
           | 前のコメント（ {{ nextCommentAmount }} ）
   h2.thread-comments__title(
-    v-if='commentableType === "RegularEvent" || commentableType === "Event"'
-  )
+    v-if='commentableType === "RegularEvent" || commentableType === "Event"')
     | 質問・連絡・コメント
   h2.thread-comments__title(
-    v-else-if='commentableType === "Announcement" || commentableType === "Page"'
-  )
+    v-else-if='commentableType === "Announcement" || commentableType === "Page"')
     | 質問・コメント
   h2.thread-comments__title(v-else-if='commentableType === "Talk"')
     | 連絡・返信
@@ -27,41 +25,34 @@
       :currentUser='currentUser',
       :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
       @delete='deleteComment',
-      @update='updateComment'
-    )
+      @update='updateComment')
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
       img.thread-comment__user-icon.a-user-icon(
         :src='currentUser.avatar_url',
         :class='[roleClass]',
-        :title='currentUser.icon_title'
-      )
+        :title='currentUser.icon_title')
     .thread-comment-form__form.a-card
       .a-form-tabs.js-tabs
         .a-form-tabs__tab.js-tabs__tab(
           :class='{ "is-active": isActive("comment") }',
-          @click='changeActiveTab("comment")'
-        )
+          @click='changeActiveTab("comment")')
           | コメント
         .a-form-tabs__tab.js-tabs__tab(
           :class='{ "is-active": isActive("preview") }',
-          @click='changeActiveTab("preview")'
-        )
+          @click='changeActiveTab("preview")')
           | プレビュー
       .a-markdown-input.js-markdown-parent
         .a-markdown-input__inner.js-tabs__content(
-          :class='{ "is-active": isActive("comment") }'
-        )
+          :class='{ "is-active": isActive("comment") }')
           textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
             v-model='description',
             name='new_comment[description]',
             data-preview='#new-comment-preview',
-            @input='editComment'
-          )
+            @input='editComment')
         .a-markdown-input__inner.js-tabs__content(
-          :class='{ "is-active": isActive("preview") }'
-        )
+          :class='{ "is-active": isActive("preview") }')
           #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
       .card-footer
         .card-main-actions
@@ -69,16 +60,13 @@
             .card-main-actions__item
               button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
                 @click='postComment',
-                :disabled='!validation || buttonDisabled'
-              )
+                :disabled='!validation || buttonDisabled')
                 | コメントする
             .card-main-actions__item.is-only-mentor(
-              v-if='isRole("mentor") && commentType && !checkId'
-            )
+              v-if='isRole("mentor") && commentType && !checkId')
               button.a-button.is-sm.is-danger.is-block(
                 @click='commentAndCheck',
-                :disabled='!validation || buttonDisabled'
-              )
+                :disabled='!validation || buttonDisabled')
                 i.fa-solid.fa-check
                 | 確認OKにする
 </template>

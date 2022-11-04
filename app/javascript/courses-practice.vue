@@ -8,8 +8,7 @@
     a(
       :class='`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`',
       :href='`${practices.url}#learning-Status`',
-      v-if='isCurrentUser'
-    )
+      v-if='isCurrentUser')
       | {{ translate(practices.practice.id) }}
 
   .category-practices-item__learning-time(v-if='practiceTime')
@@ -20,8 +19,7 @@
       practice-user-icon(
         v-for='startedStudent in practices.started_students',
         :key='startedStudent.id',
-        :startedStudent='startedStudent'
-      )
+        :startedStudent='startedStudent')
 </template>
 
 <script>

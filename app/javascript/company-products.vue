@@ -18,8 +18,7 @@
           :key='product.id',
           :product='product',
           :currentUserId='currentUserId',
-          :isMentor='isMentor'
-        )
+          :isMentor='isMentor')
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>

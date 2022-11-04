@@ -3,16 +3,13 @@ html
   color: $default-text
   &.is-application
     +media-breakpoint-up(md)
-      scroll-padding-top: 3.75rem
+      scroll-padding-top: $header-height__md-up
 
 body
   min-height: 100vh
   height: 100%
   &.is-application
     background-color: $background
-    +media-breakpoint-up(md)
-      padding-top: $header-height__md-up
-      min-height: calc(100vh - #{$header-height__md-up})
   &.is-welcome
     background-color: $background
   &.is-completion
@@ -36,9 +33,10 @@ body
   +media-breakpoint-up(md)
     display: flex
     flex-direction: column
-  body.is-lerning &
+  &.is-application
     +media-breakpoint-up(md)
       margin-left: 5rem
+      padding-top: $header-height__md-up
   body.no-global-nav &
     margin-left: 0
   body.is-error-page &

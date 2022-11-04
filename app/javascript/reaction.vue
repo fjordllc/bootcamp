@@ -5,8 +5,7 @@
       v-for='emoji in displayedEmojis',
       v-bind:class='{ "is-reacted": isReacted(emoji.kind) }',
       @click='footerReaction(emoji.kind)',
-      :data-reaction-kind='emoji.kind'
-    )
+      :data-reaction-kind='emoji.kind')
       span.reactions__item-emoji.js-reaction-emoji
         | {{ emoji.value }}
       span.reactions__item-count.js-reaction-count
@@ -16,8 +15,7 @@
           | {{ login_name }}
   .reactions__dropdown.js-reaction-dropdown
     .reactions__dropdown-toggle.js-reaction-dropdown-toggle(
-      @click='dropdownToggle()'
-    )
+      @click='dropdownToggle()')
       i.fa-regular.fa-plus.reactions__dropdown-toggle-plus
       i.fa-solid.fa-smile
     ul.reactions__items.test-inline-block.js-reaction(v-if='dropdown')
@@ -25,8 +23,7 @@
         v-for='emoji in availableEmojis',
         v-bind:class='{ "is-reacted": isReacted(emoji.kind) }',
         :data-reaction-kind='emoji.kind',
-        @click='dropdownReaction(emoji.kind)'
-      )
+        @click='dropdownReaction(emoji.kind)')
         span.reactions__item-emoji.js-reaction-emoji
           | {{ emoji.value }}
 </template>

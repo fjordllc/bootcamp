@@ -13,8 +13,7 @@
         v-for='user in users',
         :key='user.id',
         :user='user',
-        :currentUser='currentUser'
-      )
+        :currentUser='currentUser')
     .row(v-else)
       .o-empty-message
         .o-empty-message__icon

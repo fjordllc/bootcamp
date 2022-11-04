@@ -7,28 +7,23 @@
     .a-form-tabs.js-tabs
       .a-form-tabs__tab.js-tabs__tab(
         v-bind:class='{ "is-active": isActive("template") }',
-        @click='changeActiveTab("template")'
-      )
+        @click='changeActiveTab("template")')
         | テンプレート
       .a-form-tabs__tab.js-tabs__tab(
         v-bind:class='{ "is-active": isActive("preview") }',
-        @click='changeActiveTab("preview")'
-      )
+        @click='changeActiveTab("preview")')
         | プレビュー
     .a-markdown-input.js-markdown-parent
       .a-markdown-input__inner.js-tabs__content(
-        v-bind:class='{ "is-active": isActive("template") }'
-      )
+        v-bind:class='{ "is-active": isActive("template") }')
         textarea.a-text-input.a-markdown-input__textare.has-max-height(
           :id='`js-template-content`',
           :data-preview='`#js-template-preview`',
           v-model='editingTemplate',
-          name='report_template[description]'
-        )
+          name='report_template[description]')
       .a-markdown-input__inner.js-tabs__content.a-long-text.is-md.a-markdown-input__preview(
         v-bind:class='{ "is-active": isActive("preview") }',
-        v-html='markdownDescription'
-      )
+        v-html='markdownDescription')
         #js-template-preview
     footer.card-footer
       .card-main-actions
@@ -36,13 +31,11 @@
           li.card-main-actions__item(v-if='!isTemplateRegisteredProp')
             button.a-button.is-primary.is-sm.is-block(
               :disabled='!validation',
-              @click.prevent='registerTemplate'
-            ) 登録
+              @click.prevent='registerTemplate') 登録
           li.card-main-actions__item(v-else)
             button.a-button.is-primary.is-sm.is-block(
               :disabled='!validation',
-              @click.prevent='updateTemplate'
-            ) 変更
+              @click.prevent='updateTemplate') 変更
           li.card-main-actions__item.is-sub
             .card-main-actions__muted-action(@click.prevent='closeModal') キャンセル
 </template>

@@ -9,8 +9,7 @@
       :key='report.id',
       :report='report',
       :current-user-id='currentUserId',
-      :display-user-icon='displayUserIcon'
-    )
+      :display-user-icon='displayUserIcon')
   .card-body(v-else)
     .card__description
       .o-empty-message
@@ -30,8 +29,7 @@
         :key='report.id',
         :report='report',
         :current-user-id='currentUserId',
-        :display-user-icon='displayUserIcon'
-      )
+        :display-user-icon='displayUserIcon')
     unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
   .o-empty-message(v-else-if='reports.length === 0 && isUncheckedReportsPage')
     .o-empty-message__icon

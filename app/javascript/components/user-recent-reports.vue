@@ -8,8 +8,7 @@
       v-for='report in reports',
       :key='report.id',
       :report='report',
-      :current-user-id='currentUserId'
-    )
+      :current-user-id='currentUserId')
   .card-body(v-else)
     .card__description
       .o-empty-message

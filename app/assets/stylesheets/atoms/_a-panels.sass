@@ -1,0 +1,9 @@
+.a-panels__items
+  display: grid
+  gap: .75rem
+  +media-breakpoint-up(lg)
+    grid-template: repeat(auto-fill, minmax(10rem, 1fr)) / repeat(auto-fill, minmax(23rem, 1fr))
+
+.a-panels__item
+  .a-card
+    +size(100%)

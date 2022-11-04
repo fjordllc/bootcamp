@@ -27,11 +27,11 @@ html.is-application lang='ja'
     = stylesheet_pack_tag 'application'
     = render '/head/fontawsome'
     = content_for(:head_last) if content_for?(:head_last)
-  body.is-application.is-lerning#body class="#{body_class}"
+  body.is-application#body class="#{body_class}"
     = render 'google_tag_manager_body'
     - if display_global_nav?
       = render 'global_nav'
-    .wrapper
+    .wrapper.is-application
       - if display_header?
         = render 'application/header/header'
       = render 'flash'

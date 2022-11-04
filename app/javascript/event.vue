@@ -5,8 +5,7 @@
       user-icon(
         :user='event.user',
         link_class='card-list-item__user-link',
-        blockClassSuffix='card-list-item'
-      )
+        blockClassSuffix='card-list-item')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -19,8 +18,7 @@
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='event.url',
-              itemprop='url'
-            )
+              itemprop='url')
               | {{ event.title }}
       .card-list-item__row
         a.a-user-name(:href='event.user.url')

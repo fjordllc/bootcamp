@@ -16,15 +16,13 @@
           :autocomplete-items='filteredTags',
           @tags-changed='update',
           placeholder='',
-          @before-adding-tag='validateTagName'
-        )
+          @before-adding-tag='validateTagName')
         input(
           type='hidden',
           :value='tagsValue',
           :name='tagsParamName',
-          :id='tagsInputId'
-        )
-    div(v-if='headIsSharpOrOctothorpe(inputTag)')
+          :id='tagsInputId')
+    template(v-if='headIsSharpOrOctothorpe(inputTag)')
       | 先頭の記号は無視されます
     .form-actions(v-if='tagsEditable')
       ul.form-actions__items

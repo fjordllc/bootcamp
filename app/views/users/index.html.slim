@@ -1,4 +1,7 @@
-- title '全てのユーザー'
+- if @target == 'followings'
+  - title 'フォロー中のユーザー一覧'
+- else
+  - title '全てのユーザー'
 
 header.page-header.is-border-bottom-none
   .container
