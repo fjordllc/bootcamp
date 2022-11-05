@@ -661,7 +661,12 @@ class ReportsTest < ApplicationSystemTestCase
   test 'mentor can edit reports written by others' do
     visit_with_auth report_path(reports(:report1)), 'mentormentaro'
     click_link '内容修正'
+    assert_no_text('変更された日報のタイトル')
+    within('form[name=report]') do
+      fill_in('report[title]', with: '変更された日報のタイトル')
+    end
     click_button '内容変更'
     assert_text '日報を保存しました。'
+    assert_text '変更された日報のタイトル'
   end
 end
