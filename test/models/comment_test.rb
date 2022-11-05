@@ -80,7 +80,7 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  test '.five_days_since_the_last_comment_by_submitter?' do
+  test '.days_paassed_since_the_last_comment_by_submitter?' do
     Comment.create!(
       user: users(:komagata),
       commentable: products(:product8),
@@ -95,6 +95,6 @@ class CommentTest < ActiveSupport::TestCase
       created_at: Time.current.ago(5.days)
     )
 
-    assert last_comment.five_days_since_the_last_comment_by_submitter?
+    assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(5.days)
   end
 end
