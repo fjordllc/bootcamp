@@ -64,7 +64,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_text '管理者・メンターとしてログインしてください'
   end
 
-  test 'select box to narrow down books by practices' do
+  test 'use select box to narrow down book by practices' do
     visit_with_auth books_path, 'kimura'
     find('.choices__inner').click
     page_practices = page.all('.choices__item--choice').map(&:text).size
