@@ -80,7 +80,7 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  test '.days_paassed_since_the_last_comment_by_submitter?' do
+  test '#certain_period_passed_since_the_last_comment_by_submitter?' do
     Comment.create!(
       user: users(:komagata),
       commentable: products(:product8),
