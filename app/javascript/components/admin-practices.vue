@@ -23,11 +23,6 @@
         td.admin-table__item-value.is-text-align-right
           .a-text-link(@click='openModal(practice)')
             | {{ practice.categories_practice.size }}
-          modal(
-            @closeModal='closeModal',
-            :postPractice='postPractice',
-            v-if='showModal')
-            | {{ practice.categories_practice.size }}
         td.admin-table__item-value.is-text-align-right(
           v-if='practice.submission')
           a(:href='`/practices/${practice.id}/products`')
@@ -47,6 +42,10 @@
               a.a-button.is-sm.is-secondary.is-icon(
                 :href='`/practices/${practice.id}/edit`')
                 i.fa-solid.fa-pen
+      modal(
+        @closeModal='closeModal',
+        :postPractice='postPractice',
+        v-if='showModal')
 </template>
 <script>
 import adminPracticeModalVue from './admin-practice-modal.vue'
