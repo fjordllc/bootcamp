@@ -15,7 +15,7 @@
         = f.label :expires_at, class: 'a-form-label is-required'
         = f.datetime_field :expires_at, class: 'a-text-input js-warning-form'
       .form-item
-        = f.label :questions, class: 'a-form-label'
+        = f.label :questions, class: 'a-form-label is-required'
         .form-item__survey-questions
           = f.fields_for :survey_question_ids do |survey_question_id|
             = render 'form_question_fields', f: survey_question_id

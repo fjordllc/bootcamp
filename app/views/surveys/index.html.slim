@@ -28,8 +28,6 @@ table
     tr
       th User
       th Title
-      th Expires at
-      th Wip
       th
       th
       th
@@ -39,8 +37,8 @@ table
       tr
         td = survey.user
         td = survey.title
-        td = survey.expires_at
-        td = survey.wip
+        td = survey.start_at
+        td = survey.end_at
         td = link_to "Show", survey
         td = link_to "Edit", edit_survey_path(survey)
         td = link_to "Destroy", survey, data: {confirm: "Are you sure?"}, method: :delete
