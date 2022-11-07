@@ -5,7 +5,7 @@ class Webhook
     def construct_event(
       payload:,
       signature:,
-      endpoint_secret:
+      endpoint_secret: secret
     )
 
       Stripe::Webhook.construct_event(
@@ -28,6 +28,12 @@ class Webhook
       else
         "#{base_url}test/payments/#{intent_id}"
       end
+    end
+
+    private
+
+    def secret
+      Rails.application.secrets['stripe']['endpoint_secret']
     end
   end
 end
