@@ -152,6 +152,19 @@ class ProductsTest < ApplicationSystemTestCase
     assert_text '提出物を更新しました。'
   end
 
+  test 'update product after checked' do
+    my_product = products(:product2)
+    others_product = products(:product15)
+    visit_with_auth "/products/#{my_product.id}/edit", 'kimura'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    click_button '提出する'
+
+    visit "/products/#{others_product.id}"
+    assert_current_path("/products/#{others_product.id}")
+  end
+
   test 'delete product' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
