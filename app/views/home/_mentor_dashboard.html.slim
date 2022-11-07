@@ -9,10 +9,7 @@
                 h2.dashboard-category__title
                   | 提出物状況
             .dashboard-category__body
-              .a-panels
-                .a-panels__items
-                  .a-panels__item
-                    #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+              #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
       .dashboard-contents__col.is-main
         .dashboard-contents__categories
           .dashboard-category
