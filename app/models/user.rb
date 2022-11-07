@@ -407,6 +407,8 @@ class User < ApplicationRecord
         inactive.order(:last_activity_at)
       when 'trainee'
         trainees
+      when 'retired'
+        retired
       else
         send(target)
       end
