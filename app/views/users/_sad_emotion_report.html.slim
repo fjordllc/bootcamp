@@ -6,4 +6,4 @@
         = image_tag Report.faces['sad'], id: 'sad', alt: 'sad', class: 'card-header__title-emotion-image'
         | のユーザー
     .card-list
-      = render partial: 'reports/report', collection: reports, as: :report
+          div(data-vue="SadReports")
