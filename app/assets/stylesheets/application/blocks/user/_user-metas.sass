@@ -6,11 +6,21 @@
   margin-bottom: -1px
   padding: .375rem .75rem
   +text-block(.75rem 1.4, 600)
-  background-color: $background
+  background-color: $background-shade
   position: relative
 
 .user-metas__items
   border: solid 1px $background-shade
+  .user-metas__items + &
+    border-top: none
+
+.user-metas__items-label
+  border-bottom: solid 1px $background-shade
+  padding: .25rem .75rem
+  +text-block(.75rem 1.4, 600)
+  background-color: $background
+  span
+    font-weight: 400
 
 .user-metas__item
   +text-block(.75rem 1.4, flex)

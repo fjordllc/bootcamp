@@ -1,17 +1,25 @@
 .header-dropdown__list
   ul.header-dropdown__items
     li.header-dropdown__item
-      = link_to root_path, class: 'header-dropdown__item-link' do
+      = link_to root_path,
+        class: 'header-dropdown__item-link' do
         | ダッシュボード
     li.header-dropdown__item
-      = link_to edit_current_user_path, class: 'header-dropdown__item-link' do
+      = link_to edit_current_user_path,
+        class: 'header-dropdown__item-link' do
         | 登録情報変更
     - if current_user.card?
         li.header-dropdown__item
-          = link_to 'お支払い情報', billing_portal_path, method: :post, class: 'header-dropdown__item-link'
+          = link_to 'お支払い情報',
+            billing_portal_path,
+            method: :post,
+            class: 'header-dropdown__item-link'
     li.header-dropdown__item
       = link_to logout_path, class: 'header-dropdown__item-link' do
         | ログアウト
     li.header-dropdown__item
+      = link_to new_hibernation_path, class: 'header-dropdown__item-link' do
+        | 休会手続き
+    li.header-dropdown__item
       = link_to new_retirement_path, class: 'header-dropdown__item-link' do
-        | 退会・休会手続き
+        | 退会手続き
