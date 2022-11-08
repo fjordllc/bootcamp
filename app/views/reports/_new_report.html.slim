@@ -1,6 +1,7 @@
-.page-header-actions
-  .page-header-actions__items
-    .page-header-actions__item
-      = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
-        i.fa-regular.fa-plus
-        | 日報作成
+- unless current_user.adviser?
+  .page-header-actions
+    .page-header-actions__items
+      .page-header-actions__item
+        = link_to new_report_path, class: 'a-button is-md is-secondary is-block' do
+          i.fa-regular.fa-plus
+          | 日報作成
