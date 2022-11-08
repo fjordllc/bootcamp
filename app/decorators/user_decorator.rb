@@ -13,6 +13,7 @@ module UserDecorator
     roles << :adviser if adviser?
     roles << :trainee if trainee?
     roles << :graduate if graduated_on?
+    roles << :retired if retired?
     roles << :student if roles.empty?
 
     roles
