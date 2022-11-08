@@ -6,6 +6,7 @@ class Users::GenerationsController < ApplicationController
 
   def index
     @target = params[:target]
+    @target = TARGETS
     # @target = 'student_and_trainee' unless target_allowlist.include?(@target)
     # @watch = params[:watch]
 
