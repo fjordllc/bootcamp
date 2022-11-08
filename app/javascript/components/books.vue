@@ -28,11 +28,23 @@ export default {
   },
   props: {
     isAdmin: { type: Boolean, required: true },
-    isMentor: { type: Boolean, required: true }
+    isMentor: { type: Boolean, required: true },
+    practiceId: { type: Number, default: null, required: false }
   },
   data() {
     return {
       books: null
+    }
+  },
+  computed: {
+    newParams() {
+      const params = new URL(location.href).searchParams
+      if (this.practiceId) params.set('practice_id', this.practiceId)
+      return params
+    },
+    booksAPI() {
+      const params = this.newParams
+      return `/api/books.json?${params}`
     }
   },
   created() {
@@ -47,7 +59,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getBooks() {
-      fetch('/api/books', {
+      fetch(this.booksAPI, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -61,7 +73,10 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.books = json.books
+          this.books = []
+          json.books.forEach((r) => {
+            this.books.push(r)
+          })
         })
         .catch((error) => {
           console.warn(error)

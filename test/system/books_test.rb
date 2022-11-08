@@ -63,4 +63,15 @@ class BooksTest < ApplicationSystemTestCase
     visit "/books/#{books(:book1).id}/edit"
     assert_text '管理者・メンターとしてログインしてください'
   end
+
+  test 'use select box to narrow down book by practices' do
+    visit_with_auth books_path, 'kimura'
+    find('.choices__inner').click
+    page_practices = page.all('.choices__item--choice').map(&:text).size
+    course_practices = users(:kimura).course.practices.size + 1
+    assert_equal page_practices, course_practices
+
+    find('#choices--js-choices-single-select-item-choice-2', text: 'OS X Mountain Lionをクリーンインストールする').click
+    assert_text 'OS X Mountain Lionをクリーンインストールする'
+  end
 end
