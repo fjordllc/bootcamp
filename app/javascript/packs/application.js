@@ -59,7 +59,6 @@ import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../stylesheets/application.css'
 import '../bookmarks-edit-button.js'
-import '../regular-events.js'
 import '../hibernation_agreements.js'
 
 import VueMounter from '../VueMounter.js'
