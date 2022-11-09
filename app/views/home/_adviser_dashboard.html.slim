@@ -35,25 +35,26 @@
                   .a-panels__items
                     - if @collegue_trainees.present?
                       .a-panels__item
-                        .a-panels
-                          .a-panels__items
-                            .a-panels__item
-                              = render 'collegue_trainees', collegue_trainees: @collegue_trainees
+                        = render 'collegue_trainees', collegue_trainees: @collegue_trainees
                       .a-panels__item
-                        .a-panels
-                          .a-panels__items
-                            .a-panels__item
-                              = render 'collegue_trainees_recent_reports'
-                      .a-panels__item
-                        .a-panels
-                          .a-panels__items
-                            .a-panels__item
-                              = render 'invite_trainee_link', company: @belongs_company
-                            .a-panels__item
-                              = render 'invite_adviser_link', company: @belongs_company
+                        = render 'collegue_trainees_recent_reports'
                     - else
                       .a-panels__item
                         .a-panels
-                          | 現在、#{current_user.company.name}は研修を利用していません。
-                          = link_to @belongs_company.trainee_sign_up_url, class: '' do
-                            | 研修生
+                          .a-panels__items
+                            .a-panels__item
+                              | 現在、#{current_user.company.name}は研修を利用していません。
+                              = link_to @belongs_company.trainee_sign_up_url, class: '' do
+                                | 研修生
+
+            .dashboard-category
+              header.dashboard-category__header
+                h2.dashboard-category__title
+                  | 招待リンク
+              .dashboard-category__body
+                .a-panels
+                  .a-panels__items
+                    .a-panels__item
+                      = render 'invite_trainee_link', company: @belongs_company
+                    .a-panels__item
+                      = render 'invite_adviser_link', company: @belongs_company
