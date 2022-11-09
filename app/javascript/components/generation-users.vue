@@ -25,16 +25,17 @@
     pager(v-bind='pagerProps')
 </template>
 <script>
-import User from './components/user.vue'
-import Pager from './pager.vue'
+import User from './user.vue'
+import Pager from '../pager.vue'
 
 export default {
+  name: 'GenerationUsers',
   components: {
     user: User,
     pager: Pager
   },
   props: {
-    generationID: { type: String, required: true }
+    generationID: { type: Number, required: true }
   },
   data() {
     return {
