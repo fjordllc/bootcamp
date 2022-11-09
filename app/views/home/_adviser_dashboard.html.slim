@@ -48,7 +48,9 @@
                         .a-panels
                           .a-panels__items
                             .a-panels__item
-                              = render 'invite_links', company: @belongs_company
+                              = render 'invite_trainee_link', company: @belongs_company
+                            .a-panels__item
+                              = render 'invite_adviser_link', company: @belongs_company
                     - else
                       .a-panels__item
                         .a-panels

@@ -1,0 +1,19 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | 社内メンターの招待
+  .card-body
+    .card__description
+      .a-short-text
+        p
+          | 研修生の社内メンターをこの学習アプリに招待することができます。
+          | 以下のリンクから登録をしますと、
+          | アドバイザーという role で登録され、
+          | 研修生の日報や提出物を確認、コメント投稿などをすることができるようになります。
+          | アドバイザーは利用料はかかりません。
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to company.adviser_sign_up_url, class: 'a-button is-sm is-block is-secondary', target: '_blank', rel: 'noopener' do
+            | 社内メンター招待リンク
