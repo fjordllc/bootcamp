@@ -8,6 +8,11 @@ class EventsTest < ApplicationSystemTestCase
     assert_link 'イベント作成'
   end
 
+  test 'show link to create new regular event' do
+    visit_with_auth events_path, 'komagata'
+    assert_link '定期イベント作成'
+  end
+
   test 'users except admin cannot publish a event' do
     visit_with_auth new_event_path, 'kimura'
     page.assert_no_selector("input[value='作成']")
