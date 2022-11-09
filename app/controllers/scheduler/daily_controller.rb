@@ -6,6 +6,7 @@ class Scheduler::DailyController < SchedulerController
     notify_certain_period_passed_after_retirement
     notify_tomorrow_regular_event
     notify_product_review_not_completed
+    notify_certain_period_passed_after_last_answer
     head :ok
   end
 
@@ -37,8 +38,9 @@ class Scheduler::DailyController < SchedulerController
         DiscordNotifier.with(comment: product_comment).product_review_not_completed.notify_now
       end
     end
+  end
 
+  def notify_certain_period_passed_after_last_answer
     Question.notify_questioner_to_choose_correct_answer if Question.not_solved_and_certain_period_has_passed.present?
-    head :ok
   end
 end
