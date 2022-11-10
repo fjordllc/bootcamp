@@ -485,7 +485,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only adviser when target is adviser' do
     visit_with_auth '/users?target=adviser', 'komagata'
-    assert_equal 2, all('.users-item').length
+    assert_equal 3, all('.users-item').length
     fill_in 'js-user-search-input', with: 'advijirou'
     assert_text 'アドバイ 次郎', count: 1
 
