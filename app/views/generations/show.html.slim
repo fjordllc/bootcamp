@@ -24,4 +24,4 @@ main.page-main
                 = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
                   | 期一覧
 
-  div(data-vue="GenerationUsers" data-vue-generation-id:number="#{@generation}")
+  #js-generation-users(generation-id="#{@generation}")
