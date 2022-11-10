@@ -6,6 +6,11 @@
     i.fa-regular.fa-smile
   p.o-empty-message__text
     | {{ title }}はありません
+.o-empty-message(v-else-if='isDashboard && isNotProduct5daysElapsed')
+  .o-empty-message__icon
+    i.fa-regular.fa-smile
+  p.o-empty-message__text
+    | 5日経過した提出物はありません
 div(:class='contentClassName')(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
@@ -154,6 +159,13 @@ export default {
     },
     isDashboard() {
       return location.pathname === '/'
+    },
+    isNotProduct5daysElapsed () {
+      const elapsedDays = []
+      this.productsGroupedByElapsedDays.forEach((h) => {
+        elapsedDays.push(h.elapsed_days)
+      })
+      return elapsedDays.every((day) => day < 5)
     }
   },
   created() {
