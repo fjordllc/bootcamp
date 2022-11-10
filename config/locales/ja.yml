@@ -230,6 +230,9 @@ ja:
       survey_question:
         title: 質問タイトル
         description: 質問説明
+        linear_scale: 均等目盛
+        radio_button: ラジオボタン
+        check_box: チェックボックス
       radio_button:
         title_of_reason: 選択した理由タイトル
         description_of_reason: 選択した理由説明
