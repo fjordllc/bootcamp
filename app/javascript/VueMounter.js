@@ -42,6 +42,7 @@ export default class VueMounter {
         const value = matches ? this._parse(props[key], type) : props[key]
 
         objects[propKey] = value
+        console.log(value)
       })
     return objects
   }
