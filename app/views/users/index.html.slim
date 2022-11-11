@@ -41,7 +41,8 @@ main.page-main
               - if admin_or_mentor_login?
                 span.is-only-mentor
                   |（#{@users.total_count}）
-  .page-body
+  .page-body.is-users
+    // TODO 暫定的な対応
     .container
       .page-body__columns
         .page-body__column.is-main

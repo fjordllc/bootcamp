@@ -7,10 +7,11 @@ class API::UsersController < API::BaseController
 
   def index
     @tag = params[:tag]
-    @target = params[:target]
     @company = params[:company_id]
-    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
+    @target = params[:target]
     @watch = params[:watch]
+
+    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
 
     target_users =
       if @target == 'followings'
@@ -23,10 +24,11 @@ class API::UsersController < API::BaseController
         User.users_role(@target)
       end
 
-    @users = target_users
-             .page(params[:page]).per(PAGER_NUMBER)
-             .preload(:company, :avatar_attachment, :course, :tags)
-             .order(updated_at: :desc)
+    @users = target_users.page(params[:page]).per(PAGER_NUMBER)
+                         .preload(:company, :avatar_attachment, :course, :tags)
+                         .order(updated_at: :desc)
+
+    @users = target_users.search_by_keywords({ word: params[:search_word] }) if params[:search_word]
 
     @users = @users.unhibernated.unretired unless @company
   end
