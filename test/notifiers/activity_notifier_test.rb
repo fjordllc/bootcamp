@@ -74,6 +74,18 @@ class ActivityNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  test '#hibernated' do
+    notification = ActivityNotifier.with(sender: users(:kimura), receiver: users(:komagata)).hibernated
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
+
   test '#retired' do
     notification = ActivityNotifier.with(sender: users(:kimura), receiver: users(:komagata)).retired
 
@@ -83,7 +95,10 @@ class ActivityNotifierTest < ActiveSupport::TestCase
   end
 
   test '#signed_up' do
-    notification = ActivityNotifier.with(sender: users(:hajime), receiver: users(:mentormentaro)).signed_up
+    notification = ActivityNotifier.with(sender: users(:hajime),
+                                         receiver: users(:mentormentaro),
+                                         # テストでは Decorator(user_decorator) のメソッドを参照できないため、user(:hajime).roles_to_s メソッドは使用せずに手動でロールを記述。
+                                         sender_roles: '').signed_up
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now

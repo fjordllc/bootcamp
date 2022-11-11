@@ -6,11 +6,11 @@
     i.fa-regular.fa-smile
   p.o-empty-message__text
     | {{ title }}はありません
-.page-content.is-products(v-else)
+div(:class='contentClassName')(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
-  .page-body__columns
-    .page-body__column.is-main
+  div(:class='columnsClassName')
+    div(:class='columnClassName')
       .a-card(v-if='productsGroupedByElapsedDays === null')
         .card-list
           .card-list__items
@@ -21,7 +21,7 @@
               :currentUserId='currentUserId',
               :isMentor='isMentor')
       template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
-        .a-card(
+        .a-card(:class='cardClassName')(
           v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
           //- prettier-ignore: need space between v-if and id
           header.card-header.a-elapsed-days(
@@ -62,7 +62,7 @@
               | {{ product_n_days_passed.elapsed_days }}日経過
               span.card-header__count(v-if='selectedTab === "unassigned"')
                 | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-          .card-list(:class='listClassName')
+          .card-list
             .card-list__items
               product(
                 v-for='product in product_n_days_passed.products',
@@ -140,8 +140,17 @@ export default {
         clickHandle: this.paginateClickCallback
       }
     },
-    listClassName() {
-      return this.isDashboard ? 'has-scroll' : ''
+    contentClassName() {
+      return this.isDashboard ? 'block' : 'page-content is-products'
+    },
+    columnsClassName() {
+      return this.isDashboard ? 'block' : 'page-body__columns'
+    },
+    columnClassName() {
+      return this.isDashboard ? 'block' : 'page-body__column is-main'
+    },
+    cardClassName() {
+      return this.isDashboard ? 'h-auto' : ''
     },
     isDashboard() {
       return location.pathname === '/'

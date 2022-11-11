@@ -83,4 +83,17 @@ class DiscordNotifier < ApplicationNotifier
       webhook_url: webhook_url
     )
   end
+
+  def product_review_not_completed(params = {})
+    params.merge!(@params)
+    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
+    comment = params[:comment]
+    product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
+
+    notification(
+      body: " ⚠️ #{product_checker_name}さんが担当の#{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。",
+      name: 'ピヨルド',
+      webhook_url: webhook_url
+    )
+  end
 end

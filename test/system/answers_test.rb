@@ -99,4 +99,15 @@ class AnswersTest < ApplicationSystemTestCase
       assert_no_text :all, 'test'
     end
   end
+
+  test 'the company logo is shown when an adviser who belongs to a company posts an answer' do
+    visit_with_auth "/questions/#{questions(:question2).id}", 'senpai'
+    within('.thread-comment-form__form') do
+      fill_in('answer[description]', with: 'test')
+    end
+    page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
+    click_button 'コメントする'
+    assert_text 'test'
+    assert_equal '2.png', File.basename(find('img.thread-comment__company-logo')['src'])
+  end
 end

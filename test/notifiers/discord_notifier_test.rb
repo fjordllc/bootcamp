@@ -121,4 +121,54 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       DiscordNotifier.with(params).payment_failed.notify_later
     end
   end
+
+  test '.product_review_not_completed' do
+    products(:product8).update!(checker_id: users(:komagata).id)
+    comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
+
+    params = {
+      comment: comment,
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    expected = {
+      body: ' ⚠️ komagataさんが担当のkimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。',
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+    assert_notifications_sent 2, **expected do
+      DiscordNotifier.product_review_not_completed(params).notify_now
+      DiscordNotifier.with(params).product_review_not_completed.notify_now
+    end
+
+    assert_notifications_enqueued 2, **expected do
+      DiscordNotifier.product_review_not_completed(params).notify_later
+      DiscordNotifier.with(params).product_review_not_completed.notify_later
+    end
+  end
+
+  test '.hibernated' do
+    params = {
+      body: 'test message',
+      sender: users(:kimura),
+      name: 'bob',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    expected = {
+      body: 'kimuraさんが休会しました。',
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    assert_notifications_sent 2, **expected do
+      DiscordNotifier.hibernated(params).notify_now
+      DiscordNotifier.with(params).hibernated.notify_now
+    end
+
+    assert_notifications_enqueued 2, **expected do
+      DiscordNotifier.hibernated(params).notify_later
+      DiscordNotifier.with(params).hibernated.notify_later
+    end
+  end
 end

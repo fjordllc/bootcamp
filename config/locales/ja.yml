@@ -55,7 +55,7 @@ ja:
         blog_url: ブログURL
         github_account: GitHubアカウント
         discord_account: Discordアカウント
-        times_url: 分報URL
+        times_url: 分報チャンネル URL
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
