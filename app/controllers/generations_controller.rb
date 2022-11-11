@@ -10,5 +10,6 @@ class GenerationsController < ApplicationController
 
   def index
     @generations = Generation.generations.reverse
+    @target = params[:target]
   end
 end
