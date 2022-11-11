@@ -1,8 +1,8 @@
 <template lang="pug">
 .page-body
-  .container(v-if='!loaded')
+  .container.is-md(v-if='!loaded')
     loadingListPlaceholder
-  .container(v-else-if='products.length === 0')
+  .container.is-md(v-else-if='products.length === 0')
     .o-empty-message
       .o-empty-message__icon
         i.far.fa-smile
