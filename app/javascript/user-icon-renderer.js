@@ -20,10 +20,13 @@ export default class {
   }
 
   _callbackFunc() {
+    const DEFAULT_PROFILE_IMAGE_PATH = '/images/users/avatars/default.png'
     const elements = document.getElementsByClassName('js-user-icon')
     Array.from(elements).forEach((element) => {
       const loginName = element.dataset.user
       if (element.src === '') element.src = this.urls[loginName]
+      if (this.urls[loginName] === undefined)
+        element.src = DEFAULT_PROFILE_IMAGE_PATH
     })
   }
 }
