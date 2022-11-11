@@ -18,6 +18,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @sender = params[:sender]
     @event = params[:event]
     @page = params[:page]
+    @regular_event = params[:regular_event]
   end
 
   # required params: comment, receiver, message
@@ -183,6 +184,13 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     roles = @sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"
     @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:signed_up])
     subject = "[FBC] #{@sender.login_name}さん#{roles}が新しく入会しました！"
+    mail to: @user.email, subject: subject
+  end
+
+    def update_regular_event
+    @user = @receiver
+    @notification = @user.notifications.find_by(link: "/regular_events/#{@regular_event.id}", kind: Notification.kinds[:regular_event])
+    subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
     mail to: @user.email, subject: subject
   end
 end
