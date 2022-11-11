@@ -14,7 +14,7 @@
       .flash__container
         label.flash__close(for='hide-flash')
         p.flash__message
-          = alert
+          = alert.html_safe
 - if current_user && current_user.login_name !~ /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i
   input.a-toggle-checkbox#hide-flash(type='checkbox')
   .flash.is-alert

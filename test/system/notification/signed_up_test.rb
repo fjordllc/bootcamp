@@ -35,7 +35,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
 
     visit_with_auth notifications_path, 'komagata'
     within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '🎉 harukoさんが新しく入会しました！'
+      assert_selector '.card-list-item-title__link-label', text: '🎉 harukoさん(アドバイザー)が新しく入会しました！'
     end
   end
 
@@ -69,7 +69,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
 
     visit_with_auth notifications_path, 'komagata'
     within first('.card-list-item.is-unread') do
-      assert_selector '.card-list-item-title__link-label', text: '🎉 natsumiさんが新しく入会しました！'
+      assert_selector '.card-list-item-title__link-label', text: '🎉 natsumiさん(研修生)が新しく入会しました！'
     end
   end
 

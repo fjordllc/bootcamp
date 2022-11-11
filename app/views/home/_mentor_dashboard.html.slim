@@ -9,10 +9,7 @@
                 h2.dashboard-category__title
                   | 提出物状況
             .dashboard-category__body
-              .a-panels
-                .a-panels__items
-                  .a-panels__item
-                    #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+              #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
       .dashboard-contents__col.is-main
         .dashboard-contents__categories
           .dashboard-category
@@ -53,7 +50,8 @@
                       .a-panels__item
                         #js-grass(data-user-id="#{current_user.id}")
                     - if current_user.github_account.present?
-                      = render 'users/github_grass', user: current_user
+                      .a-panels__item
+                        = render 'users/github_grass', user: current_user
                     - if current_user.active_practices.present?
                       .a-panels__item
                         = render '/users/practices/active_practices', user: current_user

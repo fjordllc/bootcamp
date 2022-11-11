@@ -650,4 +650,23 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth reports_path, 'komagata'
     assert_selector('.card-list-item__user')
   end
+
+  test 'show edit button when mentor is logged in and menter mode is on in report detail page' do
+    visit_with_auth report_path(reports(:report1)), 'mentormentaro'
+    assert_text '内容修正'
+    find(:css, '#checkbox-mentor-mode').set(false)
+    assert_no_text '内容修正'
+  end
+
+  test 'mentor can edit reports written by others' do
+    visit_with_auth report_path(reports(:report1)), 'mentormentaro'
+    click_link '内容修正'
+    assert_no_text('変更された日報のタイトル')
+    within('form[name=report]') do
+      fill_in('report[title]', with: '変更された日報のタイトル')
+    end
+    click_button '内容変更'
+    assert_text '日報を保存しました。'
+    assert_text '変更された日報のタイトル'
+  end
 end

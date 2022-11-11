@@ -16,7 +16,6 @@ import '../check-stamp.js'
 import '../unconfirmed-links-open.js'
 import '../comments.js'
 import '../notifications_bell.js'
-import '../question-page.js'
 import '../category-select.js'
 import '../grass.js'
 import '../fileinput.js'
@@ -60,6 +59,7 @@ import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../stylesheets/application.css'
 import '../bookmarks-edit-button.js'
+import '../hibernation_agreements.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
@@ -78,6 +78,9 @@ import UserMentorMemo from '../components/user_mentor_memo.vue'
 import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
 import Footprints from '../components/footprints.vue'
+import QuestionPage from '../components/question-page.vue'
+import QuestionEdit from '../components/question-edit.vue'
+import SadReports from '../components/sad_reports.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
@@ -96,6 +99,9 @@ mounter.addComponent(UserMentorMemo)
 mounter.addComponent(UserRecentReports)
 mounter.addComponent(Talks)
 mounter.addComponent(Footprints)
+mounter.addComponent(QuestionPage)
+mounter.addComponent(QuestionEdit)
+mounter.addComponent(SadReports)
 mounter.mount()
 
 // Support component names relative to this directory:

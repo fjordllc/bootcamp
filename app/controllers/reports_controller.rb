@@ -5,7 +5,8 @@ class ReportsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :require_login
   before_action :set_report, only: %i[show]
-  before_action :set_my_report, only: %i[edit update destroy]
+  before_action :set_my_report, only: %i[destroy]
+  before_action :set_editable_report, only: %i[edit update]
   before_action :set_checks, only: %i[show]
   before_action :set_check, only: %i[show]
   before_action :set_user, only: %i[show]
@@ -43,7 +44,6 @@ class ReportsController < ApplicationController
 
   def edit
     @report.no_learn = true if @report.learning_times.empty?
-    @report.user = current_user
   end
 
   def create
@@ -98,6 +98,10 @@ class ReportsController < ApplicationController
 
   def set_my_report
     @report = current_user.reports.find(params[:id])
+  end
+
+  def set_editable_report
+    @report = current_user.mentor? ? Report.find(params[:id]) : current_user.reports.find(params[:id])
   end
 
   def set_user

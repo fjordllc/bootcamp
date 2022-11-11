@@ -9,8 +9,6 @@ class Answer < ApplicationRecord
   belongs_to :question, touch: false
   alias sender user
 
-  after_save AnswerCallbacks.new
-
   validates :description, presence: true
   validates :user, presence: true
 

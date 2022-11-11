@@ -16,6 +16,8 @@ class HibernationController < ApplicationController
     if @hibernation.save
       update_hibernated_at!
       destroy_subscription!
+      notify_to_chat
+      notify_to_mentors_and_admins
       logout
       redirect_to hibernation_path
     else
@@ -26,7 +28,7 @@ class HibernationController < ApplicationController
   private
 
   def hibernation_params
-    params.require(:hibernation).permit(:reason, :scheduled_return_on)
+    params.require(:hibernation).permit(:reason, :scheduled_return_on, :returned_on)
   end
 
   def update_hibernated_at!
@@ -35,12 +37,18 @@ class HibernationController < ApplicationController
   end
 
   def destroy_subscription!
+    return nil unless Rails.env.production?
+
     Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
   end
 
   def notify_to_mentors_and_admins
     User.admins_and_mentors.each do |admin_or_mentor|
-      NotificationFacade.retired(current_user, admin_or_mentor)
+      NotificationFacade.hibernated(current_user, admin_or_mentor)
     end
+  end
+
+  def notify_to_chat
+    DiscordNotifier.with(sender: current_user).hibernated.notify_now
   end
 end
