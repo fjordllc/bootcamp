@@ -37,7 +37,7 @@ class Question < ApplicationRecord
   class << self
     def notify_certain_period_passed_after_last_answer
       return if Question.not_solved_and_certain_period_has_passed.blank?
-  
+
       Question.not_solved_and_certain_period_has_passed.each do |not_solved_question|
         NotificationFacade.no_correct_answer(not_solved_question, not_solved_question.user)
       end
