@@ -7,8 +7,6 @@ class Users::GenerationsController < ApplicationController
   def index
     @target = params[:target]
     @target = TARGETS
-    # @target = 'student_and_trainee' unless target_allowlist.include?(@target)
-    # @watch = params[:watch]
 
     target_users = User.users_role(@target)
 
@@ -18,11 +16,4 @@ class Users::GenerationsController < ApplicationController
              .unretired
              .order(updated_at: :desc)
   end
-
-  private
-
-  # def target_allowlist
-  #   target_allowlist.push('retired') if current_user.admin?
-  #   target_allowlist
-  # end
 end
