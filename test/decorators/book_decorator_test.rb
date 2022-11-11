@@ -9,7 +9,7 @@ class BookDecoratorTest < ActiveSupport::TestCase
   end
 
   test '#must_read_for_any_practices?' do
-    assert_equal true, @book1.must_read_for_any_practices?
-    assert_equal false, @book2.must_read_for_any_practices?
+    assert @book1.must_read_for_any_practices?
+    assert_not @book2.must_read_for_any_practices?
   end
 end
