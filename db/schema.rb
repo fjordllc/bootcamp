@@ -134,6 +134,24 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.index ["practice_id", "category_id"], name: "index_categories_practices_on_practice_id_and_category_id"
   end
 
+  create_table "check_box_choices", force: :cascade do |t|
+    t.bigint "check_box_id"
+    t.string "choices"
+    t.boolean "reason_for_choice_required"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["check_box_id"], name: "index_check_box_choices_on_check_box_id"
+  end
+
+  create_table "check_boxes", force: :cascade do |t|
+    t.string "title_of_reason"
+    t.text "description_of_reason"
+    t.bigint "survey_question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_question_id"], name: "index_check_boxes_on_survey_question_id"
+  end
+
   create_table "checks", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "checkable_id", null: false
@@ -279,6 +297,18 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.index ["user_id", "status"], name: "index_learnings_on_user_id_and_status"
   end
 
+  create_table "linear_scales", force: :cascade do |t|
+    t.string "first"
+    t.string "last"
+    t.boolean "reason_for_choice_required", default: false
+    t.string "title_of_reason"
+    t.text "description_of_reason"
+    t.bigint "survey_question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
+  end
+
   create_table "memos", force: :cascade do |t|
     t.date "date"
     t.string "body"
@@ -401,6 +431,24 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "radio_button_choices", force: :cascade do |t|
+    t.bigint "radio_button_id"
+    t.string "choices"
+    t.boolean "reason_for_choice_required"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["radio_button_id"], name: "index_radio_button_choices_on_radio_button_id"
+  end
+
+  create_table "radio_buttons", force: :cascade do |t|
+    t.string "title_of_reason"
+    t.text "description_of_reason"
+    t.bigint "survey_question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_question_id"], name: "index_radio_buttons_on_survey_question_id"
+  end
+
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id"
     t.string "reactionable_type"
@@ -468,6 +516,17 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "reports_user_id"
+  end
+
+  create_table "survey_questions", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "format", default: 0
+    t.boolean "answer_required", default: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_survey_questions_on_user_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -563,6 +622,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.string "profile_name"
     t.string "profile_job"
     t.text "profile_text"
+    t.string "feed_url"
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
@@ -599,10 +659,13 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "authored_books", "users"
   add_foreign_key "categories_practices", "categories"
   add_foreign_key "categories_practices", "practices"
+  add_foreign_key "check_box_choices", "check_boxes"
+  add_foreign_key "check_boxes", "survey_questions"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
+  add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
@@ -616,12 +679,15 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
+  add_foreign_key "radio_button_choices", "radio_buttons"
+  add_foreign_key "radio_buttons", "survey_questions"
   add_foreign_key "reactions", "users"
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "survey_questions", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
 end
