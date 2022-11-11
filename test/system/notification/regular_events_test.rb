@@ -26,5 +26,4 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       assert_text "定期イベント【#{regular_event.title}】が更新されました。"
     end
   end
-
 end
