@@ -35,6 +35,7 @@ class Generation < User
 
   def users
     @target = params[:target]
-    generation_users = User.with_attached_avatar.same_generations(start_date, end_date).users_role(@target)
+    generation_users = User.with_attached_avatar.same_generations(start_date, end_date)
+    @target == nil ? generation_users : generation_users.users_role(@target)
   end
 end
