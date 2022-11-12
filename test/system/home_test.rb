@@ -381,7 +381,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'not show trainee lists for adviser when adviser does not have same company trainees' do
     visit_with_auth '/', 'advisernocolleguetrainee'
-    assert_no_selector 'h2.card-header__title', text: '研修生'
+    assert_text '現在、ユーザの企業に登録しないで株式会社は研修を利用していません。研修生'
   end
 
   test 'show trainee reports to adviser belonging to the same company on dashboard' do
