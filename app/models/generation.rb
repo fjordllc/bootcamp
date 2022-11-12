@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Generation
+class Generation < User
   START_YEAR = 2013
 
   class << self
@@ -34,6 +34,7 @@ class Generation
   end
 
   def users
-    User.with_attached_avatar.same_generations(start_date, end_date)
+    @target = params[:target]
+    generation_users = User.with_attached_avatar.same_generations(start_date, end_date).users_role(@target)
   end
 end
