@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class Admin::PracticesTest < ApplicationSystemTestCase
   test 'show listing practices' do
-    visit_with_auth '/admin/practices', 'komagata'
+    visit_with_auth admin_practices_path, 'komagata'
     assert_equal '管理ページ | FBC', title
   end
 
