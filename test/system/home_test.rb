@@ -393,4 +393,13 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'kimura'
     assert_no_selector 'h2.card-header__title', text: '研修生の最新の日報'
   end
+
+  test 'display message if no Product after 5 days' do
+    visit_with_auth '/', 'komagata'
+    8.times do
+      click_button '担当する', match: :first
+      click_on 'ダッシュボード'
+    end
+    assert_text '5日経過した提出物はありません'
+  end
 end
