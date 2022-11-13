@@ -29,7 +29,7 @@
             | {{ practice.products.size }}
         td.admin-table__item-value.is-text-align-center(v-else)
           span.admin-table__item-blank
-            | {{ `不要` }}
+            | 不要
         td.admin-table__item-value.is-text-align-right
           a(:href='`/practices/${practice.id}/reports`')
             | {{ practice.reports.size }}
