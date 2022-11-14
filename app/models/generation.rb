@@ -33,9 +33,13 @@ class Generation < User
     (next_generation.start_date - 1).end_of_day
   end
 
-  def users
+  def filterd_users
     @target = params[:target]
     @target = 'all' if @target.nil?
-    generation_users = User.with_attached_avatar.same_generations(start_date, end_date).users_role(@target)
+    User.with_attached_avatar.same_generations(start_date, end_date).users_role(@target)
+  end
+
+  def users
+    User.with_attached_avatar.same_generations(start_date, end_date)
   end
 end
