@@ -18,9 +18,6 @@ class Announcement < ApplicationRecord
   belongs_to :user
   alias sender user
 
-  after_create AnnouncementCallbacks.new
-  after_update AnnouncementCallbacks.new
-
   validates :title, presence: true
   validates :description, presence: true
   validates :target, presence: true
