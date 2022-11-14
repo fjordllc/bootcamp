@@ -1,0 +1,19 @@
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  update_only_when_reviewer_approved:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+    - name: post approved pr event
+      run: |
+        curl -X POST https://fjord-choice.herokuapp.com/api/pulls \
+             -H 'Content-Type: application/json' \
+             -H 'Authorization: Token ${{ secrets.FJORD_CHOICE_TOKEN }}' \
+             -d '{"title": ${{ toJson(github.event.pull_request.title) }},
+                  "number": ${{ github.event.pull_request.number }},
+                  "state": ${{ toJson(github.event.pull_request.state) }},
+                  "reviewer_uids": ${{ toJson(github.event.pull_request.requested_reviewers.*.id) }}
+                  }'
