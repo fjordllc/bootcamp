@@ -6,16 +6,14 @@
         img.card-list-item__user-icon.a-user-icon(
           :title='latestArticle.user.icon_title',
           :alt='latestArticle.user.icon_title',
-          :src='latestArticle.user.avatar_url'
-        )
+          :src='latestArticle.user.avatar_url')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
           h2.card-list-item-title__title(itemprop='name')
             a.card-list-item-title__link.a-text-link(
               :href='latestArticle.url',
-              itemprop='url'
-            )
+              itemprop='url')
               | {{ latestArticle.title }}
       .card-list-item__row
         .card-list-item-meta

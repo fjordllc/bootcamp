@@ -7,14 +7,13 @@
       latestArticle(
         v-for='latestArticle in latestArticles',
         :key='latestArticle.id',
-        :latestArticle='latestArticle'
-      )
+        :latestArticle='latestArticle')
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
 
 <script>
-import LatestArticle from './latest-article'
+import LatestArticle from 'components/latest-article.vue'
 import Pager from '../pager.vue'
 
 export default {
