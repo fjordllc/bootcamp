@@ -16,6 +16,8 @@
           .card-books-item__rows
             .card-books-item__row
               h2.card-books-item__title
+                span.a-badge.is-danger.is-sm(v-if='book.mustRead')
+                  | 必読
                 a.card-books-item__title-link(
                   :href='book.pageUrl',
                   target='_blank',
