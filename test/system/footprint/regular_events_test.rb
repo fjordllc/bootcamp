@@ -6,16 +6,21 @@ class Footprint::RegularEventsTest < ApplicationSystemTestCase
   setup do
     @regular_event = regular_events(:regular_event1)
   end
+
   test 'should be create footprint in /regular_events/:id' do
     visit_with_auth regular_event_path(@regular_event), 'sotugyou'
-    assert_text '見たよ'
-    assert_css '.a-user-icon.is-sotugyou'
+    within '.user-icons' do
+      assert_text '見たよ'
+      assert_css '.a-user-icon.is-sotugyou'
+    end
   end
 
   test 'should not footpoint with my own regular event' do
-    visit_with_auth regular_event_path(@regular_event), 'sotugyou'
-    assert_no_text '見たよ'
-    assert_no_css '.a-user-icon.is-sotugyou'
+    visit_with_auth regular_event_path(@regular_event), 'komagata'
+    within '.user-icons' do
+      assert_no_text '見たよ'
+      assert_no_css '.a-user-icon.is-komagata'
+    end
   end
 
   test 'show link if there are more than ten footprints' do
