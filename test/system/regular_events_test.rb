@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class RegularEventsTest < ApplicationSystemTestCase
-  test 'show regular event as WIP' do
+  test 'create regular event as WIP' do
     visit_with_auth new_regular_event_path, 'komagata'
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: '質問相談タイム'
