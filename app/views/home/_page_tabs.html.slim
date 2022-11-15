@@ -4,11 +4,11 @@
       li.page-tabs__item
         = link_to root_path, class: "page-tabs__item-link #{current_page_tab_or_not('')}" do
           | ダッシュボード
-      - if !current_user.mentor? && !current_user.adviser? && !current_user.admin? || !user.reports.empty?
+      - if !staff_login? || !user.reports.empty?
         li.page-tabs__item
           = link_to current_user_reports_path, class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
             | 自分の日報 （#{user.reports.length}）
-      - if !current_user.mentor? && !current_user.adviser? && !current_user.admin? || !user.products.empty?
+      - if !staff_login? || !user.products.empty?
         li.page-tabs__item
           = link_to current_user_products_path, class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
             | 自分の提出物 （#{user.products.length}）
