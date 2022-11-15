@@ -35,8 +35,3 @@ export default {
   }
 }
 </script>
-<style>
-.new-line {
-  white-space: pre-wrap;
-}
-</style>
