@@ -10,6 +10,10 @@
           admin_users_path,
           class: "page-tabs__item-link #{current_link(/^admin-users/)}"
       li.page-tabs__item
+        = link_to 'プラクティス',
+          admin_practices_path,
+          class: "page-tabs__item-link #{current_link(/^admin-practices/)}"
+      li.page-tabs__item
         = link_to 'カテゴリー',
           admin_categories_path,
           class: "page-tabs__item-link #{current_link(/^admin-categories/)}"
