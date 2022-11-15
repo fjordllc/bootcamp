@@ -61,11 +61,6 @@ export default {
       showModal: false
     }
   },
-  computed: {
-    url() {
-      return `/api/admin/practices`
-    }
-  },
   created() {
     this.getPractices()
   },
@@ -82,7 +77,7 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getPractices() {
-      fetch(this.url, {
+      fetch(`/api/admin/practices`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
