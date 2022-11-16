@@ -26,4 +26,5 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:correct_answer_save, CorrectAnswerNotifier.new)
 
   Newspaper.subscribe(:user_create, SignUpNotifier.new)
+  Newspaper.subscribe(:regular_event_update, RegularEventUpdateNotifier.new)
 end

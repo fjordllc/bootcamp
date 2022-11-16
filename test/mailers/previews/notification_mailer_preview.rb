@@ -145,4 +145,11 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.with(sender: sender, receiver: receiver).hibernated
   end
+
+  def update_regular_event
+    regular_event = RegularEvent.find(ActiveRecord::FixtureSet.identify(:regular_event1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+
+    NotificationMailer.with(regular_event: regular_event, receiver: receiver).update_regular_event
+  end
 end
