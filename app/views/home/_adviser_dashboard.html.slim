@@ -43,9 +43,22 @@
                         .a-panels
                           .a-panels__items
                             .a-panels__item
-                              | 現在、#{current_user.company.name}は研修を利用していません。
-                              = link_to @belongs_company.trainee_sign_up_url, class: '' do
-                                | 研修生
+                              .a-short-text.is-sm
+                                p
+                                  | 現在、#{current_user.company.name}は研修を利用していません。
+                                ul
+                                  li
+                                    | 研修を行う際は、
+                                    = link_to @belongs_company.trainee_sign_up_url, class: '' do
+                                      | こちら
+                                    | から研修生をご登録ください。
+                                  li
+                                    | 研修内容や期間などについての
+                                    br
+                                    | お問い合わせは
+                                    = link_to unreplied_index_path(current_user.talk), class: '' do
+                                      | こちら
+                                    | からお願いいたします。
 
             .dashboard-category
               header.dashboard-category__header
