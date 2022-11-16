@@ -13,7 +13,6 @@ import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
-import MarkDownItNonImageFile from 'markdown-it-non-image-file'
 
 export default class {
   static initialize(selector) {
@@ -77,8 +76,7 @@ export default class {
           MarkDownItContainerMessage,
           MarkDownItContainerDetails,
           MarkDownItLinkAttributes,
-          MarkDownItContainerSpeak,
-          MarkDownItNonImageFile
+          MarkDownItContainerSpeak
         ],
         markdownOptions: MarkdownOption
       })
