@@ -34,6 +34,7 @@ class RegularEventsController < ApplicationController
   def update
     set_wip
     if @regular_event.update(regular_event_params)
+      Newspaper.publish(:regular_event_update, @regular_event)
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :edit
