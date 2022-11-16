@@ -7,30 +7,34 @@ class QuestionTest < ActiveSupport::TestCase
     questioner = users(:kimura)
     answerer = users(:komagata)
     question = Question.create!(
-      title: '一週間前の質問',
+      title: 'テストの質問',
       description: 'テスト',
       user: questioner,
-      created_at: Time.current - 1.week,
-      updated_at: Time.current - 1.week,
-      published_at: Time.current - 1.week
+      created_at: "2022-10-31",
+      updated_at: "2022-10-31",
+      published_at: "2022-10-31"
     )
     first_answer = Answer.create!(
-      description: '回答1',
+      description: '最初の回答',
       user: answerer,
       question: question,
-      created_at: Time.current - 1.week,
-      updated_at: Time.current - 1.week
+      created_at: "2022-11-01",
+      updated_at: "2022-11-01"
     )
 
     last_answer = Answer.create!(
-      description: '回答2',
+      description: '最後の回答',
       user: answerer,
       question: question,
-      created_at: Time.current - 6.days,
-      updated_at: Time.current - 6.days
+      created_at: "2022-11-02",
+      updated_at: "2022-11-02"
     )
 
-    first_answer.update!(updated_at: Time.current - 5.days)
-    assert_equal question.last_answer, last_answer
+    first_answer.update!(updated_at: "2022-11-03")
+
+    travel_to Time.zone.local(2022, 11, 4, 0, 0, 0) do
+      assert_not_equal question.last_answer, first_answer
+      assert_equal question.last_answer, last_answer
+    end
   end
 end
