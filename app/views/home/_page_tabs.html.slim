@@ -4,12 +4,14 @@
       li.page-tabs__item
         = link_to root_path, class: "page-tabs__item-link #{current_page_tab_or_not('')}" do
           | ダッシュボード
-      li.page-tabs__item
-        = link_to current_user_reports_path, class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
-          | 自分の日報 （#{user.reports.length}）
-      li.page-tabs__item
-        = link_to current_user_products_path, class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
-          | 自分の提出物 （#{user.products.length}）
+      - if !staff_login? || !user.reports.empty?
+        li.page-tabs__item
+          = link_to current_user_reports_path, class: "page-tabs__item-link #{current_page_tab_or_not('reports')}" do
+            | 自分の日報 （#{user.reports.length}）
+      - if !staff_login? || !user.products.empty?
+        li.page-tabs__item
+          = link_to current_user_products_path, class: "page-tabs__item-link #{current_page_tab_or_not('products')}" do
+            | 自分の提出物 （#{user.products.length}）
       li.page-tabs__item
         = link_to current_user_watches_path, class: "page-tabs__item-link #{current_page_tab_or_not('watches')}" do
           | Watch中
