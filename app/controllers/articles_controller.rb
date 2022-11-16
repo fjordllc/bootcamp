@@ -8,14 +8,14 @@ class ArticlesController < ApplicationController
   def index
     @articles = list_articles
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
-    render layout: 'welcome'
+    render layout: 'lp'
   end
 
   def show
     @mentor = @article.user
     @recent_articles = list_recent_articles
     if !@article.wip? || admin_or_mentor_login?
-      render layout: 'welcome'
+      render layout: 'lp'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
     end

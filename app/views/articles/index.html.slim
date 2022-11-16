@@ -2,22 +2,22 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 = render '/head/fontawsome'
 
-.welcome-page-header
-  .container.is-xxl
-    .welcome-page-header__inner
-      .welcome-page-header__start
-        h1.welcome-page-header__title
+.lp-page-header
+  .l-container.is-xxl
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
           = title
       - if current_user&.mentor?
-        .welcome-page-header__end
+        .lp-page-header__end
           = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
             i.fas.fa-plus
             | ブログ記事作成
 
-.welcome-page-body
+.lp-page-body
   .articles
     .articles__body
-      .container.is-xxl
+      .l-container.is-xxl
         .articles__items
           .row
             - @articles.each do |article|

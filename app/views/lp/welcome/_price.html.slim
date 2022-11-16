@@ -1,6 +1,6 @@
 section.m-lp-content.is-pricing#pricing
   .m-lp-content__inner
-    .container.is-xxl
+    .l-container.is-xxl
       .m-lp-content__header
         h2.m-lp-content__title
           | 料金
@@ -8,15 +8,15 @@ section.m-lp-content.is-pricing#pricing
           | 入会金無し・安心の月額課金
       .m-lp-content__body
         .m-lp-content__row
-          .o-lp-price
-            .m-lg-price
-              .m-lg-price__time
+          .a-lg-price
+            .a-lg-price__inner
+              .a-lg-price__time
                 | 月額
-              .m-lg-price__unit
+              .a-lg-price__unit
                 i.fas.fa-yen-sign
-              .m-lg-price__number
+              .a-lg-price__number
                 | 29<span>,</span>800
-              .m-lg-price__tax
+              .a-lg-price__tax
                 | 税込
         .m-lp-content__row
           .o-lp-features
@@ -24,53 +24,11 @@ section.m-lp-content.is-pricing#pricing
               .l-container
                 .l-grids
                   .l-grids__item.md-up:u-col-4.sm-down:u-col-12
-                    .welcome-small-section
-                      .welcome-small-section__inner.a-card
-                        .m-vertical-content
-                          .m-vertical-content__row
-                            = image_tag('trial.svg', class: 'welcome-small-section__icon')
-                          .m-vertical-content__row
-                            h3.m-vertical-content__title.welcome-small-section__title
-                              | 3日間のお試し期間が
-                              br
-                              | あります
-                          .m-vertical-content__row
-                            .m-vertical-content__body.welcome-small-section__description
-                              .a-short-text
-                                p
-                                  | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
+                    = render '/lp/welcome/pricing/pricing_1'
                   .l-grids__item.md-up:u-col-4.sm-down:u-col-12
-                    .welcome-small-section
-                      .welcome-small-section__inner.a-card
-                        .m-vertical-content
-                          .m-vertical-content__row
-                            = image_tag('https://via.placeholder.com/500', class: 'welcome-small-section__icon')
-                          .m-vertical-content__row
-                            h3.m-vertical-content__title.welcome-small-section__title
-                              | 入会金、初期費用は
-                              br
-                              | 一切ナシ
-                          .m-vertical-content__row
-                            .m-vertical-content__body.welcome-small-section__description
-                              .a-short-text
-                                p
-                                  | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
+                    = render '/lp/welcome/pricing/pricing_2'
                   .l-grids__item.md-up:u-col-4.sm-down:u-col-12
-                    .welcome-small-section
-                      .welcome-small-section__inner.a-card
-                        .m-vertical-content
-                          .m-vertical-content__row
-                            = image_tag('money.svg', class: 'welcome-small-section__icon')
-                          .m-vertical-content__row
-                            h3.m-vertical-content__title.welcome-small-section__title
-                              | 安心の
-                              br
-                              | 月額課金
-                          .m-vertical-content__row
-                            .m-vertical-content__body.welcome-small-section__description
-                              .a-short-text
-                                p
-                                  | どんな小さな羽さえもそよがぬ 弱い息のお話をせがむとは！でもこの哀れな声一つ三つあわせた舌に逆らえましょうか？居丈だかなプリマがまずは唱えるその宣告は「おはじめなさい」すこし優しげに二番手の希望
+                    = render '/lp/welcome/pricing/pricing_3'
         .m-lp-content__row
           .m-horizontal-buttons
             .m-horizontal-buttons__items

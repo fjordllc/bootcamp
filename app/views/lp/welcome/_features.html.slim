@@ -1,8 +1,40 @@
 section.m-lp-content.is-features#features
-  .container.is-xxl
+  .l-container
     .m-lp-content__inner
       .m-lp-content__header
         h2.m-lp-content__title
           | プラスの戦力を<br>育成するための取り組み
       .m-lp-content__body
-        = render '/lp/features'
+        .row.is-gutter-width-32
+          .col-xs-12.col-md-4
+            section.lp-small-section
+              .lp-small-section__inner.a-card
+                = image_tag('programmer.svg', class: 'lp-small-section__icon')
+                h3.lp-small-section__title
+                  | 現役プログラマーの<br>メンター
+                .lp-small-section__description
+                  p
+                    | メンターはアルバイトや講師を専門にしている人ではなく、実際にコードを書くことを仕事にしている現役のプログラマーです。現場目線でのアドバイス、OSSコミュニティの文化なども伝えていきます。
+
+          .col-xs-12.col-md-4
+            section.lp-small-section
+              .lp-small-section__inner.a-card
+                = image_tag('github.svg', class: 'lp-small-section__icon')
+                h3.lp-small-section__title
+                  | 仕事を想定したチーム開発と
+                  br
+                  | 自作サービスリリース
+                .lp-small-section__description
+                  p
+                    | Railsの使い方の前に、そもそものWebアプリの仕組みやLinuxの基礎など、現場で必要な知識を学べます。仕事と同じ形式でのチーム開発の実践を通してコミュニケーションの取り方や開発の進め方も学べます。
+          .col-xs-12.col-md-4
+            section.lp-small-section
+              .lp-small-section__inner.a-card
+                = image_tag('resume.svg', class: 'lp-small-section__icon')
+                h3.lp-small-section__title
+                  | プログラミングを楽しむ
+                  br
+                  | 色んな人がいるコミュニティ
+                .lp-small-section__description
+                  p
+                    | 学習の記録である日報、課題の提出物など、たくさんの成果物を得ることができます。それらの成果物は、履歴書や職務経歴書よりも確実なスキルの証明になり、就職に役立ちます。もちろん、実際の就活のアドバイスもします。

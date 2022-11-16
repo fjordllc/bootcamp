@@ -4,27 +4,27 @@ ruby:
   trial_period = Campaign.current_trial_period
   set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 
-.welcome-page-header
-  .container.is-xxl
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
+.lp-page-header
+  .l-container.is-xxl
+    .lp-page-header__inner
+      h1.lp-page-header__title
         = title
 
-.welcome-page-body
-  .container.is-md
-    .welcome-small-section
-      .welcome-small-sections__title
-        .o-lp-price
-          .m-lg-price
-            .m-lg-price__time
+.lp-page-body
+  .l-container.is-md
+    .lp-small-section
+      .lp-small-sections__title
+        .a-lg-price
+          .a-lg-price__inner
+            .a-lg-price__time
               | 月額
-            .m-lg-price__unit
+            .a-lg-price__unit
               i.fas.fa-yen-sign
-            .m-lg-price__number
+            .a-lg-price__number
               | 29<span>,</span>800
-            .m-lg-price__tax
+            .a-lg-price__tax
               | 税込
-      .welcome-section__description
+      .lp-section__description
         p
           | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
           | お試しだけの場合もクレジットカードの登録が必要になります。
@@ -32,16 +32,16 @@ ruby:
         p
           | お試し期間終了後に最初の1ヶ月分の料金の引き落としが発生します。
           | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
-    .welcome-small-section
-      h2.welcome-small-sections__title
+    .lp-small-section
+      h2.lp-small-sections__title
         - if Campaign.today_campaign?
           | キャンペーン中につき、
         - else
           = image_tag 'pjord-face.svg',
-            class: 'welcome-small-sections__title-icon'
+            class: 'lp-small-sections__title-icon'
         = trial_period
         | 日間のお試し期間
-      .welcome-section__description
+      .lp-section__description
         p
           | 月額29,800円は決して安い金額ではありません。
           | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
@@ -53,12 +53,12 @@ ruby:
           = trial_period
           | 日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
           | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
-    .welcome-small-section
-      h2.welcome-small-sections__title
+    .lp-small-section
+      h2.lp-small-sections__title
         = image_tag 'warning.svg',
-          alt: '注意！', class: 'welcome-small-sections__title-icon'
+          alt: '注意！', class: 'lp-small-sections__title-icon'
         | 料金引き落としのタイミング
-      .welcome-section__description
+      .lp-section__description
         p
           | 厳密にはお試し期間は
           = trial_period * 24

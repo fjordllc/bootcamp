@@ -5,16 +5,11 @@
 
 = render '/lp/welcome/main_visual'
 //= render 'welcome/welcome_top_info'
-
+- if Campaign.today_campaign?
+  = render '/lp/welcome/campaign'
+  hr.a-hr-border
 .t-lp__contents
-  .m-lp-content
-    .l-container
-      .m-lp-content__inner
-        .m-lp-content__body
-          = render '/lp/plus_strength'
-  - if Campaign.today_campaign?
-    hr.a-hr-border
-    = render 'welcome/campaign'
+  = render '/lp/welcome/plus_strength'
   hr.a-hr-border
   = render '/lp/welcome/features'
   hr.a-hr-border
@@ -22,7 +17,7 @@
   hr.a-hr-border
   = render '/lp/welcome/practices'
   hr.a-hr-border
-  = render 'welcome/eligibility'
+  = render '/lp/welcome/eligibility'
   hr.a-hr-border
   = render '/lp/welcome/lerning_procedure'
   hr.a-hr-border

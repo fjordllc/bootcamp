@@ -1,0 +1,38 @@
+doctype html
+html.is-application lang='ja'
+  - page_classes = content_for(:extra_body_classes).to_s
+  head
+    = render 'google_tag_manager_head'
+    meta content='IE=edge' http-equiv='X-UA-Compatible'
+    = display_meta_tags welcome_meta_tags
+    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'
+    = csrf_meta_tags
+    = render 'pwa'
+    = render 'favicons'
+    = render 'rollbar' if Rails.env.production?
+    = render 'current_user'
+    link(rel='manifest' href='/manifest.json')
+    = stylesheet_link_tag 'welcome', media: 'all'
+    = stylesheet_pack_tag 'application', media: 'all'
+    - if page_classes.include?('welcome-home')
+      link(rel='canonical' href='https://bootcamp.fjord.jp/')
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto+Mono:500', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'
+    = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp_s-narrow.min.css', media: 'all'
+    = stylesheet_link_tag 'https://i.icomoon.io/public/0fe9383927/FBC/style.css', media: 'all'
+    = render '/head/fontawsome'
+    = content_for(:head_last) if content_for?(:head_last)
+    - if defined?(@article) && @article.wip?
+      meta name="robots" content="none"
+  body.is-lp#body class="#{body_class}"
+    = render 'google_tag_manager_body'
+    .wrapper
+      = render 'flash'
+      .wrapper__main
+        = render '/lp/shared/lp_header'
+        main.welcome-page
+          = yield
+      = render '/lp/shared/lp_main_actions'
+      = render '/lp/shared/lp_footer'
+    = any_login_here if defined?(AnyLogin)

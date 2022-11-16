@@ -2,27 +2,27 @@
 - title '法人利用'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 
-.welcome-page-header
-  .container.is-xxl
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
+.lp-page-header
+  .l-container.is-xxl
+    .lp-page-header__inner
+      h1.lp-page-header__title
         = title
 
-.welcome-sections
-  section.welcome-section
-    .container.is-md
-      h2.welcome-section__title.has-border
+.lp-sections
+  section.lp-section
+    .l-container.is-md
+      h2.lp-section__title.has-border
         | 新人研修
-      .welcome-section__description
+      .lp-section__description
         p フィヨルドブートキャンプは会社の新人研修での利用もお勧めしています。
         p
           | 私たちのカリキュラムは「プログラマーとして就職するためのカリキュラム」ではありません。
           | 「現場のプラスの戦力になるためのカリキュラム」です。そこが新人研修にも最適な理由です。
-  section.welcome-section
-    .container.is-md
-      h2.welcome-section__title.has-border
+  section.lp-section
+    .l-container.is-md
+      h2.lp-section__title.has-border
           | 料金
-      .welcome-section__description
+      .lp-section__description
         p
           | 料金は一般の生徒の方と同じです。
         p
@@ -30,15 +30,15 @@
           | 法人の方はそちらを処理するか、法人名義のカードを直接使う方法もございます。
         p
           | 領収書の宛名など変更をご希望の方は info@fjord.jp までご連絡いただければ対応いたします。
-      .welcome-section__actions
-        .welcome-section__actions-items
-          .welcome-section__actions-item
-            = link_to '料金について詳しく', pricing_path, class: 'a-welcome-button is-md'
-  section.welcome-section
-    .container.is-md
-      h2.welcome-section__title.has-border
+      .lp-section__actions
+        .lp-section__actions-items
+          .lp-section__actions-item
+            = link_to '料金について詳しく', pricing_path, class: 'a-button is-lg is-primary is-block'
+  section.lp-section
+    .l-container.is-md
+      h2.lp-section__title.has-border
           | 先輩プログラマーも<br>メンターとして参加できる
-      .welcome-section__description
+      .lp-section__description
         p
           | 入会された生徒の方は私達がメンタリング・レビューを行いますが、
           | それだけですと社内の文化や独自のルールなどが身につかないかもしれません。
@@ -48,11 +48,11 @@
           | 弊社メンターと同じように先輩プログラマーのアカウントも使えますので是非ご活用ください。
         p
           | info@fjord.jpまでご連絡いただければ先輩プログラマー用の無料アカウントを発行いたします。
-  section.welcome-section
-    .container.is-md
-      h2.welcome-section__title.has-border
+  section.lp-section
+    .l-container.is-md
+      h2.lp-section__title.has-border
         | 必要なカリキュラムをチョイス
-      .welcome-section__description
+      .lp-section__description
         p
           | フィヨルドブートキャンプのカリキュラムは量が多く、全てやると半年〜1年以上かかってしまいます。
           | 会社毎に必要な部分をチョイスして学習することをお勧めします。
@@ -60,19 +60,19 @@
         ul
           li Linux、インフラ関連だけ重点的に学習する。
           li Railsとスクラムの実践的カリキュラムだけ学習する。
-  section.welcome-section
-    .container.is-md
-      h2.welcome-section__title.has-border
+  section.lp-section
+    .l-container.is-md
+      h2.lp-section__title.has-border
         | 複数人での研修がおすすめ
-      .welcome-section__description
+      .lp-section__description
         p
           | これまでの経験上、会社にとっても研修を受ける本人にとっても一人より二人以上で研修を受ける方が良いようです。
           | 進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりと、モチベーションが高まることが多いです。
-  section.welcome-section
-    .container.is-md
-      h2.welcome-section__title.has-border
+  section.lp-section
+    .l-container.is-md
+      h2.lp-section__title.has-border
         | 実績
-      .welcome-section__description
+      .lp-section__description
         p フィヨルドブートキャンプのプログラマー新人研修はこれまでも様々な企業様で使われております。
         ul
           li = link_to 'GMOペパボ様', 'https://pepabo.com/', target: 'blank', rel: 'noopener'

@@ -1,5 +1,5 @@
 .m-lp-content
-  .container.is-xxl
+  .l-container.is-xxl
     .m-lp-content__inner
       .m-lp-content__header
         h2.m-lp-content__title
@@ -8,16 +8,82 @@
           | 現場でプラスの戦力になることが目標
       .m-lp-content__body
         .m-lp-content__row
-          .welcome-section__description
+          .lp-section__description
             p
               | 最終課題は「自分で考えたWebサービスを作って公開」。
               | それに必要な、サーバの構築からバックエンド、フロントエンドも学べます。
               | それだけでなく、オンライン上での質問の仕方、チーム開発のやり方、ペアプログラミングのやり方、
               | ユーザー目線に立った Web サービスの考え方など、コードを書くこと以外の実践に必要なことも学べます。
         .m-lp-content__row
-          = render '/lp/practices'
+          .row.is-gutter-width-24.lp-small-sections__row
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('html.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | HTML
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('css.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | CSS
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('linux.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | Linux
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('ruby.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | Ruby
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('git.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | Git
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('rails.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | Ruby on Rails
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('js.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | JavaScript
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('vue-js.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | Vue.js
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('web-security.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | Webセキュリティ
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('team.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | チーム開発
+            .col-xs-6.col-lg-2.col-md-3
+              section.lp-small-section
+                .lp-small-section__inner.a-card
+                  = image_tag('original.svg', class: 'lp-small-section__icon')
+                  h3.lp-small-section__title
+                    | 自作サービス開発
         .m-lp-content__row
-          .welcome-section__actions
-            .welcome-section__actions-items
-              .welcome-section__actions-item
-                = link_to '学習内容一覧', practices_path, class: 'a-welcome-button is-md'
+          .lp-section__actions
+            .lp-section__actions-items
+              .lp-section__actions-item
+                = link_to '学習内容一覧', practices_path, class: 'a-button is-lg is-primary is-block'

@@ -1,0 +1,44 @@
+.a-lg-price
+  height: 1em
+  +media-breakpoint-up(md)
+    font-size: 5rem
+  +media-breakpoint-down(sm)
+    font-size: 4rem
+
+.a-lg-price__inner
+  +position(relative, top 50%)
+  transform: translateY(-50%)
+  align-items: baseline
+  justify-content: center
+  text-align: center
+  +media-breakpoint-up(md)
+    display: flex
+  +media-breakpoint-down(sm)
+    display: inline-flex
+    flex-wrap: wrap
+
+.a-lg-price__time
+  font-size: .5em
+  font-weight: 700
+  +media-breakpoint-up(md)
+    transform: translateY(-0.0625em)
+    margin-right: .25em
+  +media-breakpoint-down(sm)
+    flex-basis: 100%
+    margin-bottom: .5em
+
+.a-lg-price__unit
+  font-size: .8125em
+  align-self: flex-start
+
+.a-lg-price__number
+  +text-block(1em .75em, 700)
+  span
+    +margin(horizontal, -.0625em)
+    font-weight: 400
+
+.a-lg-price__tax
+  font-size: .375em
+  font-weight: 700
+  transform: translateY(-.0625em)
+  margin-left: .25em
