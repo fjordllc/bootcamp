@@ -3800,6 +3800,11 @@ file-uri-to-path@1.0.0:
   resolved "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz"
   integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
+filesize@^10.0.5:
+  version "10.0.5"
+  resolved "https://registry.yarnpkg.com/filesize/-/filesize-10.0.5.tgz#d77553eb00a525f4cc7983047d2197cda6fff321"
+  integrity sha512-qrzyt8gLh86nsyYiC3ibI5KyIYRCWg2yqIklYrWF4a0qNfekik4OQfn7AoPJG2hRrPMSlH6fET4VEITweZAzjA==
+
 fill-range@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/fill-range/-/fill-range-4.0.0.tgz"
@@ -5207,6 +5212,11 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+magic-bytes.js@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/magic-bytes.js/-/magic-bytes.js-1.0.13.tgz#b8e72e7c78900bf7be8647bb71098d4371b3c818"
+  integrity sha512-DiI8gdaLxnO4+H0WglSlDSCIQRff1L42ZhOVTuAbb0uwCFIVLM3J28oQ4XMX6LJmFTiqMV/ejYV8bc/eewwdmQ==
 
 make-dir@^2.0.0:
   version "2.1.0"
@@ -8505,10 +8515,12 @@ text-table@^0.2.0:
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
 textarea-markdown@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.3.2.tgz#974cfd32081a1e929c208bb756c48296967366a4"
-  integrity sha512-FKRzD04qeE32h/mRoYMZR5j8o3jHjyoACNSIbM5pvvWZI2WTxXWLbLZVKT3R6iQ27p45WxowNxpDc4grIDzmVw==
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.3.3.tgz#ee4a77715948286e3b80d5d56e1fe4f11c9cc3ff"
+  integrity sha512-Ni3q6svvN0XwHFbNesPcCAUNuzV69lcdTJ3S4BYxoR2/P80KtLdYdFmNalpt8pEi2+s6L43rxEuPBgltqHJY6Q==
   dependencies:
+    filesize "^10.0.5"
+    magic-bytes.js "^1.0.13"
     markdown-it "^12.3.2"
     whatwg-fetch "^2.0.3"
 
@@ -9069,7 +9081,7 @@ websocket-extensions@>=0.1.1:
 
 whatwg-fetch@^2.0.3:
   version "2.0.4"
-  resolved "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
   integrity sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
 
 which-boxed-primitive@^1.0.2:
