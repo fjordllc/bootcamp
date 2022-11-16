@@ -11,6 +11,8 @@
     +position(right .25rem, top .25rem)
   +media-breakpoint-down(sm)
     +position(right .125rem, top .125rem)
+  &.is-loading.a-notification-count
+    background-color: transparent
   &.is-loading::before
     content: ' .'
     color: $default-text
