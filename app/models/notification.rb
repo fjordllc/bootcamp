@@ -37,7 +37,7 @@ class Notification < ApplicationRecord
     graduated: 18,
     hibernated: 19,
     signed_up: 20,
-    regular_event: 21
+    regular_event_updated: 21
   }
 
   scope :unreads, -> { where(read: false) }

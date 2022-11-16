@@ -315,7 +315,7 @@ class ActivityNotifier < ApplicationNotifier
 
     notification(
       body: "定期イベント【#{regular_event.title}】が更新されました。",
-      kind: :regular_event,
+      kind: :regular_event_updated,
       receiver: receiver,
       sender: regular_event.user,
       link: Rails.application.routes.url_helpers.polymorphic_path(regular_event),

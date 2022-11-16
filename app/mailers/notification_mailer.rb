@@ -189,7 +189,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
 
   def update_regular_event
     @user = @receiver
-    @notification = @user.notifications.find_by(link: "/regular_events/#{@regular_event.id}", kind: Notification.kinds[:regular_event])
+    @notification = @user.notifications.find_by(link: "/regular_events/#{@regular_event.id}", kind: Notification.kinds[:regular_event_updated])
     subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
     mail to: @user.email, subject: subject
   end
