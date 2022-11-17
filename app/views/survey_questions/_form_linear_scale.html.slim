@@ -1,0 +1,41 @@
+= f.fields_for :linear_scale do |i|
+  .form__items.is-hidden.linear_scale
+    .form-item
+      label.a-form-label.is-required
+        | 目盛ラベル
+      .form-added-choice
+        .form-added-choice__inner
+          .form-added-choice__col
+            .form-added-choice__label.is-count
+              | 1
+          .form-added-choice__col.is-main
+            = i.text_field :first, class: 'a-text-input js-warning-form', placeholder: 'お薦めしない'
+            .a-form-help
+              p
+                | 1 はネガティブな評価を設定（例: 悪かった）。
+      .form-item__vertical-separator
+        .form-added-choice__label.is-count
+          i.fa-regular.fa-arrow-down
+      .form-added-choice
+        .form-added-choice__inner
+          .form-added-choice__col
+            .form-added-choice__label.is-count
+              | 10
+          .form-added-choice__col.is-main
+            = i.text_field :last, class: 'a-text-input js-warning-form', placeholder: 'お薦めできる'
+            .a-form-help
+              p
+                | 10 はポジティブな評価を設定（例: 良かった）。
+      .form-item__option.is-hidden.linear_scale
+        .checkboxes
+          ul.checkboxes__items
+            li.checkboxes__item
+              = i.check_box :reason_for_choice_required, class: 'a-toggle-checkbox js-warning-form'
+              = i.label :reason_for_choice_required do
+                | 選択した理由が必要な場合はチェック
+    .form-item.is-hidden.linear_scale
+      = i.label :title_of_reason, class: 'a-form-label is-required'
+      = i.text_field :title_of_reason, class: 'a-text-input js-warning-form', placeholder: '前問のように回答された理由を詳しく教えてください。'
+    .form-item.is-hidden.linear_scale
+      = i.label :description_of_reason, class: 'a-form-label'
+      = i.text_area :description_of_reason, class: 'a-text-input js-warning-form', placeholder: 'サービスのどのような点が改善されるとより高評価に近づくか、という観点からお書きください。'

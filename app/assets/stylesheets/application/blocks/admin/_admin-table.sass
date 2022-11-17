@@ -22,7 +22,7 @@
   +border(horizontal, solid 1px $background-semi-shade)
 
 .admin-table-item__title
-  +text-block(1.5rem 1.45, $side)
+  +text-block(1.5rem 1.45, $default-text)
 
 .admin-table__label
   +text-block(.75rem 1.4, $main center 600)
@@ -70,6 +70,9 @@
     +margin(horizontal, 0)
   &.is-grab
     padding: 0
+
+.admin-table__item-blank
+  +text-block(.75rem 1.45, $muted-text)
 
 .admin-table__item-logo-image
   border: solid 1px $border

@@ -4,7 +4,7 @@
   |
   | ロード中
 .user-icons(v-else)
-  h3.user-icons__title
+  h3.user-icons__title(v-if='footprints.length > 0')
     | 見たよ
   ul.user-icons__items(
     v-if='tenOrLessFootprints || (moreThanTenFoorptints && isDisplay)')

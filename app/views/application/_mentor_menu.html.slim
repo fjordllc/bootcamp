@@ -10,3 +10,8 @@
       = link_to new_article_path,
         class: 'header-dropdown__item-link' do
         | ブログ記事作成
+    - if Rails.env.development? || Rails.env.test?
+      li.header-dropdown__item
+        = link_to survey_questions_path,
+          class: 'header-dropdown__item-link' do
+          | アンケート
