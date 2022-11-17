@@ -33,7 +33,7 @@ section.welcome-member.a-card
   - if mentor.authored_books.present?
     .welcome-member-books
       ul.welcome-member-books__items
-        - mentor.authored_books.each do |authored_book|
+        - mentor.authored_books.order(:created_at).reverse_each do |authored_book|
           - if authored_book.cover.attached?
             li.welcome-member-books__item
               = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
