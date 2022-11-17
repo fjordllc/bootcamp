@@ -2,7 +2,7 @@ input.a-toggle-checkbox#mobile-nav(type='checkbox')
 nav.global-nav
   label.global-nav__background.a-overlay(for='mobile-nav')
   .global-nav__inner
-    .global-nav-links.is-contents-links
+    .global-nav-links
       ul.global-nav-links__items
         li.global-nav-links__item
           = link_to announcements_path, class: "global-nav-links__link #{current_link(/^announcements/)}" do
