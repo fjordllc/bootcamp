@@ -147,3 +147,11 @@ notification_hibernated:
   message: hatsunoさんが休会しました。
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:hatsuno) %>"
   read: false
+
+notification_regular_event_updated:
+  kind: 21
+  user: hatsuno
+  sender: komagata
+  message: "[FBC] 定期イベント【開発MTG】が更新されました。"
+  link: "/regular_events/<%= ActiveRecord::FixtureSet.identify(:regular_event1) %>"
+  read: false

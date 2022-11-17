@@ -1,0 +1,8 @@
+survey_question1:
+  title: "フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？"
+  description: "フィヨルドブートキャンプの学習を通して、どんなことを学んだか教えてください。"
+  format: "text_area"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

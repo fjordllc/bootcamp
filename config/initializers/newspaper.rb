@@ -6,8 +6,10 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
   Newspaper.subscribe(:announcement_destroy, AnnouncementNotificationDestroyer.new)
   Newspaper.subscribe(:answer_create, AnswererWatcher.new)
-  Newspaper.subscribe(:announcement_create, AnnouncementNotifier.new)
-  Newspaper.subscribe(:announcement_create, AnnouncementChatNotifier.new)
+
+  announcement_notifier = AnnouncementNotifier.new
+  Newspaper.subscribe(:announcement_create, announcement_notifier)
+  Newspaper.subscribe(:announcement_update, announcement_notifier)
 
   sad_streak_updater = SadStreakUpdater.new
   Newspaper.subscribe(:report_create, sad_streak_updater)
@@ -24,4 +26,5 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:correct_answer_save, CorrectAnswerNotifier.new)
 
   Newspaper.subscribe(:user_create, SignUpNotifier.new)
+  Newspaper.subscribe(:regular_event_update, RegularEventUpdateNotifier.new)
 end

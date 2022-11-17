@@ -12,4 +12,4 @@ end
 
 json.target t("target.#{@target}")
 json.tag @tag
-json.totalPages @users.total_pages
+json.totalPages @users.total_pages if @users.respond_to? :total_pages

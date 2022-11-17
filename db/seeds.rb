@@ -42,6 +42,7 @@ tables = %i[
   talks
   regular_events
   regular_event_repeat_rules
+  regular_event_participations
   organizers
   hibernations
   footprints

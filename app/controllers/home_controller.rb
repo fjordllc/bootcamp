@@ -3,16 +3,11 @@
 class HomeController < ApplicationController
   def index
     if current_user
-      if current_user.retired_on?
-        logout
-        redirect_to retire_path
-      else
-        display_dashboard
-        display_events_on_dashboard
-        display_welcome_message_for_adviser
-        set_required_fields
-        render aciton: :index
-      end
+      display_dashboard
+      display_events_on_dashboard
+      display_welcome_message_for_adviser
+      set_required_fields
+      render aciton: :index
     else
       @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob })
       render template: 'welcome/index', layout: 'welcome'

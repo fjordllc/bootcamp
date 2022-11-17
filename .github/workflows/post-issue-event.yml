@@ -1,0 +1,17 @@
+on:
+  issues:
+    types: [assigned, unassigned, labeled, unlabeled]
+
+jobs:
+  post_issue_event:
+    runs-on: ubuntu-latest
+    steps:
+    - name: post assigned issue event
+      run: |
+        curl -X POST https://fjord-choice.herokuapp.com/api/issues \
+             -H 'Content-Type: application/json' \
+             -H 'Authorization: Token ${{ secrets.FJORD_CHOICE_TOKEN }}' \
+             -d '{"number": ${{ github.event.issue.number }},
+                  "point": ${{ toJson(github.event.issue.labels.*.name) }},
+                  "assignee_uids": ${{ toJson(github.event.issue.assignees.*.id) }}
+                  }'
