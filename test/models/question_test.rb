@@ -10,27 +10,27 @@ class QuestionTest < ActiveSupport::TestCase
       title: 'テストの質問',
       description: 'テスト',
       user: questioner,
-      created_at: "2022-10-31",
-      updated_at: "2022-10-31",
-      published_at: "2022-10-31"
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31',
+      published_at: '2022-10-31'
     )
     first_answer = Answer.create!(
       description: '最初の回答',
       user: answerer,
       question: question,
-      created_at: "2022-11-01",
-      updated_at: "2022-11-01"
+      created_at: '2022-11-01',
+      updated_at: '2022-11-01'
     )
 
     last_answer = Answer.create!(
       description: '最後の回答',
       user: answerer,
       question: question,
-      created_at: "2022-11-02",
-      updated_at: "2022-11-02"
+      created_at: '2022-11-02',
+      updated_at: '2022-11-02'
     )
 
-    first_answer.update!(updated_at: "2022-11-03")
+    first_answer.update!(updated_at: '2022-11-03')
 
     travel_to Time.zone.local(2022, 11, 4, 0, 0, 0) do
       assert_not_equal question.last_answer, first_answer

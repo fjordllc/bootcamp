@@ -287,25 +287,33 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     questioner = users(:kimura)
     answerer = users(:komagata)
     question = Question.create!(
-      title: '一週間前の質問',
+      title: 'テストの質問',
       description: 'テスト',
       user: questioner,
-      created_at: Time.current - 1.week,
-      updated_at: Time.current - 1.week,
-      published_at: Time.current - 1.week
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31',
+      published_at: '2022-10-31'
     )
     Answer.create!(
       description: '最後の回答',
       user: answerer,
       question: question,
-      created_at: Time.current - 1.week,
-      updated_at: Time.current - 1.week
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31'
     )
-    visit_with_auth '/scheduler/daily', 'kimura'
-    visit '/notifications'
 
-    within first('.card-list-item.is-unread') do
-      assert_text 'Q&A「一週間前の質問」のベストアンサーがまだ選ばれていません。'
+    travel_to Time.zone.local(2022, 11, 6, 0, 0, 0) do
+      visit_with_auth '/scheduler/daily', 'kimura'
+      visit '/notifications'
+
+      assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+    end
+
+    travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
+      visit_with_auth '/scheduler/daily', 'kimura'
+      visit '/notifications'
+
+      assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
   end
 end
