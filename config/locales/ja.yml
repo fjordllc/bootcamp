@@ -50,12 +50,13 @@ ja:
         course_id: コース
         description: 自己紹介
         email: Email
-        twitter_account: Twitterアカウント
+        twitter_account: Twitter アカウント
         facebook_url: Facebook URL
-        blog_url: ブログURL
-        github_account: GitHubアカウント
-        discord_account: Discordアカウント
-        times_url: 分報チャンネル URL
+        blog_url: ブログ URL
+        feed_url: ブログのフィードURL
+        github_account: GitHub アカウント
+        discord_account: Discord アカウント
+        times_url: 分報URL
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード

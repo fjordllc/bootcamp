@@ -59,6 +59,18 @@
   .a-form-help
     p URL を入力。
 
+.form-item
+  = f.label :feed_url, class: 'a-form-label'
+  = f.text_field :feed_url, class: 'a-text-input', placeholder: 'https://docs.komagata.org/rss'
+  .a-form-help
+    p
+      | RSS ・ Atom の URL を入力。
+      label.a-form-help-link.is-danger(for='modal-feed-url')
+        span.a-form-help-link__label
+          | 調べ方
+        span.a-help
+          i.fa-solid.fa-question
+
 = render '/shared/modal', id: 'modal-discord-account', modal_title: 'Discord のアカウントの調べ方'
   .modal__description.is-md
     .a-short-text
@@ -79,3 +91,16 @@
         | 自分の分報チャンネルが開かれた状態で、ブラウザのアドレスバーに表示されている URL をコピーしてください。
       p
         = image_tag('help/discord-channel-url.png', alt: '分報チャンネルの URL の調べ方')
+
+= render '/shared/modal', id: 'modal-feed-url', modal_title: 'フィード URL の調べ方'
+  .modal__description.is-md
+    .a-short-text
+      p
+        = link_to 'https://berss.com/feed/', target: '_blank', rel: 'noopener noreferrer' do
+          | RSSフィード取得・検出ツール – RSSリスティング
+        | このページにアクセス。
+      p
+        | 自分のブログの URL (記事の URL ではなく、トップページ)を入力し、「検索スタートをクリック」。
+      p.is-ta-center
+        = link_to 'https://berss.com/feed/', target: '_blank', rel: 'noopener noreferrer' do
+          = image_tag('help/feed-url.png', alt: 'フィード URL の調べ方', width: '300')
