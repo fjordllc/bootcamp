@@ -6,6 +6,8 @@ class API::CommentsController < API::BaseController
 
   def index
     if params[:commentable_type].present?
+      return if commentable.comments.nil?
+
       @comments = commentable.comments.order(created_at: :desc)
       @comment_total_count = @comments.size
       @comments = @comments.limit(params[:comment_limit])
