@@ -80,9 +80,9 @@ class EventTest < ActiveSupport::TestCase
 
   test '#send_notification' do
     event = events(:event3)
-    user = users(:hatsuno)
+    user = users(:hajime)
     event.send_notification(user)
-    assert Notification.where(user: user, link: "/events/#{event.id}").exists?
+    assert Notification.where(user: user, sender: event.user, link: "/events/#{event.id}").exists?
   end
 
   test 'should be invalid when start_at >= end_at' do
