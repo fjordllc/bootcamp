@@ -22,26 +22,14 @@ header.page-header
                   i.fa-regular.fa-plus
                   | 新規作成
 
-
-table
-  thead
-    tr
-      th User
-      th Title
-      th
-      th
-      th
-
-  tbody
-    - @surveys.each do |survey|
-      tr
-        td = survey.user
-        td = survey.title
-        td = survey.start_at
-        td = survey.end_at
-        td = link_to "Show", survey
-        td = link_to "Edit", edit_survey_path(survey)
-        td = link_to "Destroy", survey, data: {confirm: "Are you sure?"}, method: :delete
-
-br
-
+.page-body
+  .container.is-md
+    - if @surveys.present?
+      .card-list.a-card
+        = render partial: 'surveys/survey', collection: @surveys, as: :survey
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | アンケートはまだありません。
