@@ -6,13 +6,6 @@
 = render 'welcome/main_visual'
 
 .welcome-sections
-  .home-banners.welcome-section.has-no-padding-bottom
-    .container.is-md
-      .home-banners__inner
-        = link_to 'https://bootcamp.fjord.jp/articles/50', rel: 'noopener', target: 'blank' do
-          = image_tag 'banners/rubykaigi_2022.png'
-
-.welcome-sections
   = render 'welcome/campaign' if Campaign.today_campaign?
   = render 'welcome/about'
   = render 'welcome/pricing'
