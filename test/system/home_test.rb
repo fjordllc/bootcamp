@@ -396,7 +396,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'display message if no Product after 5 days' do
     visit_with_auth '/', 'komagata'
-    8.times do
+    while has_button? '担当する'
       click_button '担当する', match: :first
       click_on 'ダッシュボード'
     end
