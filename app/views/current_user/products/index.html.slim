@@ -8,7 +8,7 @@ header.page-header
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to user_path(id: current_user.id), class: 'a-button is-md is-secondary is-block' do
+            = link_to current_user, class: 'a-button is-md is-secondary is-block' do
               i.fa-solid.fa-user
               | マイプロフィール
           - unless current_user.adviser?
