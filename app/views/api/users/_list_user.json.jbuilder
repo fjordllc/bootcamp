@@ -25,3 +25,5 @@ json.company do
     json.url company_url(user.company)
   end
 end
+
+

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Generation < User
+class Generation
   START_YEAR = 2013
 
   class << self
@@ -34,9 +34,10 @@ class Generation < User
   end
 
   def filterd_users
-    @target = params[:target]
-    @target = 'all' if @target.nil?
-    User.with_attached_avatar.same_generations(start_date, end_date).users_role(@target)
+    # @target = params[:target]
+    # @target = 'all' if @target.nil?
+    # byebug
+    User.with_attached_avatar.same_generations(start_date, end_date)
   end
 
   def users
