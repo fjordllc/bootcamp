@@ -10,8 +10,7 @@ class GenerationsController < ApplicationController
   end
 
   def index
+    @target = TARGETS.include?(params[:target]) ? params[:target] : TARGETS.first
     @generations = Generation.generations.reverse
-    @target = params[:target]
-    @target = TARGETS.first unless TARGETS.include?(@target)
   end
 end
