@@ -7,6 +7,7 @@ header.page-header
         = title
 
 = render 'tabs'
+
 .page-main
   header.page-main-header
     .container
@@ -19,13 +20,9 @@ header.page-header
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
                 = link_to surveys_path, class: 'a-button is-md is-secondary is-block' do
-                  i.fa-regular.fa-plus
+                  i.fa-regular
                   | アンケート一覧
 
 .page-body
-  .container.is-md
-    = render "form"
-
-=> link_to "Show", @survey
-'|
-=< link_to "Back", surveys_path
+  .container.is-xxxl
+    = render "form", survey: @survey

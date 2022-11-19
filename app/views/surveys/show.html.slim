@@ -1,21 +1,81 @@
-p#notice = notice
+- title 'アンケート'
 
-p
-  strong User:
-  = @survey.user
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
 
-p
-  strong Title:
-  = @survey.title
+= render 'tabs'
 
-p
-  strong Expires at:
-  = @survey.expires_at
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | #{@survey.title}
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to surveys_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  i.fa-regular
+                  | アンケート一覧
 
-p
-  strong Wip:
-  = @survey.wip
+.page-body
+  .container
+    = simple_format(@survey.description)
+    br
 
-=> link_to "Edit", edit_survey_path(@survey)
-'|
-=< link_to "Back", surveys_path
+    - @survey.survey_questions.each do |survey_question|
+      - if survey_question.answer_required
+          h2.a-form-label.is-required
+            = survey_question.title
+      - else
+          h2.a-form-label
+            = survey_question.title
+      p = simple_format(survey_question.description)
+      br
+
+      - if survey_question.format == 'text_area'
+        input.a-text-input type="textarea"
+      - if survey_question.format == 'text_field'
+        input.a-text-input type="text"
+      - if survey_question.format == 'radio_button'
+        - survey_question.radio_button.radio_button_choices.each do |choice|
+          input type="radio" name="#{choice.radio_button_id}"
+          = choice.choices
+          - if choice.reason_for_choice_required
+              h3.a-form-label.is-required
+                = survey_question.radio_button.title_of_reason
+              p = survey_question.radio_button.description_of_reason
+              input.a-text-input type="textarea"
+      - if survey_question.format == 'check_box'
+        - survey_question.check_box.check_box_choices.each do |choice|
+            input type="checkbox" name="#{choice.check_box_id}"
+            = choice.choices
+            - if choice.reason_for_choice_required
+                h3.a-form-label.is-required
+                  = survey_question.check_box.title_of_reason
+                p = survey_question.check_box.description_of_reason
+                input.a-text-input type="text"
+      - if survey_question.format == 'linear_scale'
+        = survey_question.linear_scale.first
+        - 10.times do |i|
+          |#{i + 1}
+          input type="radio" name="#{survey_question.linear_scale.id}"
+        = survey_question.linear_scale.last
+        - if survey_question.linear_scale.reason_for_choice_required
+            h3.a-form-label.is-required
+              = survey_question.linear_scale.title_of_reason
+            p = survey_question.linear_scale.description_of_reason
+            input.a-text-input type="textarea"
+
+.card-footer
+  .card-main-actions
+    ul.card-main-actions__items
+      li.card-main-actions__item
+        = link_to edit_survey_path(@survey), class: 'a-button is-md is-secondary is-block' do
+          i.fa-regular
+          | 編集
