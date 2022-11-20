@@ -1,4 +1,4 @@
-- if generation.filterd_users.present?
+- if generation.filterd_users.users_role(@target).present?
   .user-group
     header.user-group__header
       h2.user-group__title
@@ -9,4 +9,4 @@
             | #{l generation.start_date.to_date} ~ #{l generation.end_date.to_date}
     .a-user-icons
       .a-user-icons__items
-        = render partial: 'generations/user', collection: generation.filterd_users, as: :user
+        = render partial: 'generations/user', collection: generation.filterd_users.users_role(@target).order(:id), as: :user
