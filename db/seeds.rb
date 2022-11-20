@@ -46,6 +46,14 @@ tables = %i[
   organizers
   hibernations
   footprints
+  survey_questions
+  linear_scales
+  radio_buttons
+  radio_button_choices
+  check_boxes
+  check_box_choices
+  surveys
+  survey_question_listings
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
