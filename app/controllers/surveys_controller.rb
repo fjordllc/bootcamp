@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :set_survey, only: %i[ show edit update destroy ]
+  before_action :set_survey, only: %i[show edit update destroy]
   before_action :require_admin_or_mentor_login
 
   # GET /surveys or /surveys.json
@@ -10,8 +10,7 @@ class SurveysController < ApplicationController
   end
 
   # GET /surveys/1 or /surveys/1.json
-  def show
-  end
+  def show; end
 
   # GET /surveys/new
   def new
@@ -20,8 +19,7 @@ class SurveysController < ApplicationController
   end
 
   # GET /surveys/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /surveys or /surveys.json
   def create
@@ -75,5 +73,5 @@ class SurveysController < ApplicationController
     when 'update'
       survey.before_start?(survey.id) ? 'アンケートを受付前として保存しました。' : 'アンケートを更新しました。'
     end
-  end  
+  end
 end
