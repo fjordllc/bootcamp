@@ -8,9 +8,4 @@ class API::GenerationsController < API::BaseController
     generation = params[:id].to_i
     @users = Generation.new(generation).users.page(params[:page]).per(PAGER_NUMBER)
   end
-
-  def index
-    @target = params[:target]
-    @generations = Generation.generations.reverse
-  end
 end
