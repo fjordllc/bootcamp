@@ -51,4 +51,3 @@ survey_question6:
   user: komagata
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
-

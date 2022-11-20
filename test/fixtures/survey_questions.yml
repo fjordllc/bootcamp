@@ -6,3 +6,48 @@ survey_question1:
   user: komagata
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+
+survey_question2:
+  title: "フィヨルドブートキャンプの内容に対して、どのくらい満足していますか？"
+  description: "フィヨルドブートキャンプの内容に対して、どのくらい満足しているか教えてください。"
+  format: "radio_button"
+  answer_required: true
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question3:
+  title: "現在の学習に対するモチベーションを教えてください。"
+  description: "現在の学習に対して、どのくらいモチベーションがあるかを教えてください。"
+  format: "radio_button"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question4:
+  title: "一番辛かったプラクティスは何ですか？/どういうところが辛かったですか？"
+  description: "一番辛かったプラクティスがあれば、教えてください。また、どのような点が辛かったか教えてください。"
+  format: "text_field"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question5:
+  title: "就職についてどんな不安がありますか？"
+  description: "就職についてどんな不安があるか教えてください。"
+  format: "check_box"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question6:
+  title: "フィヨルドブートキャンプを親しい友人や家族におすすめする可能性はどのくらいありますか？"
+  description: "フィヨルドブートキャンプを親しい友人や家族におすすめする可能性はどのくらいあるか教えてください。"
+  format: "linear_scale"
+  answer_required: true
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
