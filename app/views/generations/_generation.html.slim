@@ -1,12 +1,14 @@
-- if generation.filterd_users.users_role(@target).present?
-  .user-group
-    header.user-group__header
-      h2.user-group__title
-        = link_to generation_path(id: generation.number), class: 'user-group__title-link'
-          span.user-group__title-label
-            | #{generation.number}期生
-          date.user-group__date
-            | #{l generation.start_date.to_date} ~ #{l generation.end_date.to_date}
-    .a-user-icons
-      .a-user-icons__items
-        = render partial: 'generations/user', collection: generation.filterd_users.users_role(@target).order(:id), as: :user
+- generation_users = generation.users.users_role(@target)
+- generation_users.unretired unless @target == 'retired'
+- if generation_users.present?
+    .user-group
+      header.user-group__header
+        h2.user-group__title
+          = link_to generation_path(id: generation.number), class: 'user-group__title-link'
+            span.user-group__title-label
+              | #{generation.number}期生
+            date.user-group__date
+              | #{l generation.start_date.to_date} ~ #{l generation.end_date.to_date}
+      .a-user-icons
+        .a-user-icons__items
+          = render partial: 'generations/user', collection: generation_users.order(:id), as: :user
