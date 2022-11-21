@@ -56,7 +56,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text '分報URLはDiscordのチャンネルURLを入力してください'
   end
 
-  test 'Do not show after graduation hope when advisor or mentor' do
+  test 'do not show after graduation hope when advisor or mentor' do
     visit_with_auth '/current_user/edit', 'hajime'
     assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを教えてください'
     visit_with_auth '/current_user/edit', 'senpai'
