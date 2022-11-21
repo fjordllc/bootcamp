@@ -282,4 +282,38 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text 'yameoさんが退会しました。'
     assert_no_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
   end
+
+  test 'notify to questioner when a week has passed since last answer' do
+    questioner = users(:kimura)
+    answerer = users(:komagata)
+    question = Question.create!(
+      title: 'テストの質問',
+      description: 'テスト',
+      user: questioner,
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31',
+      published_at: '2022-10-31'
+    )
+    Answer.create!(
+      description: '最後の回答',
+      user: answerer,
+      question: question,
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31'
+    )
+
+    travel_to Time.zone.local(2022, 11, 6, 0, 0, 0) do
+      visit_with_auth '/scheduler/daily', 'kimura'
+      visit '/notifications'
+
+      assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+    end
+
+    travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
+      visit_with_auth '/scheduler/daily', 'kimura'
+      visit '/notifications'
+
+      assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+    end
+  end
 end

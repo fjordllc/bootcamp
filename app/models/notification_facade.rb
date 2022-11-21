@@ -229,4 +229,14 @@ class NotificationFacade
       receiver: receiver
     ).update_regular_event.deliver_later(wait: 5)
   end
+
+  def self.no_correct_answer(question, receiver)
+    ActivityNotifier.with(question: question, receiver: receiver).no_correct_answer.notify_now
+    return unless receiver.mail_notification? && !receiver.retired?
+
+    NotificationMailer.with(
+      question: question,
+      receiver: receiver
+    ).no_correct_answer.deliver_later(wait: 5)
+  end
 end
