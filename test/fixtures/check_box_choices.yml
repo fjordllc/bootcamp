@@ -1,27 +1,27 @@
 check_box_choice1:
   check_box: check_box1
-  choices: "入りたい企業が見つかるか不安"
+  choices: "フィヨルドブートキャンプのホームページで調べた"
   reason_for_choice_required: false
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 check_box_choice2:
   check_box: check_box1
-  choices: "エンジニアとしてやっていけるか不安"
+  choices: "フィヨルドブートキャンプ以外の記事における評価を調べた"
   reason_for_choice_required: false
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 check_box_choice3:
   check_box: check_box1
-  choices: "望んでいる給料がもらえるか不安"
+  choices: "SNSで口コミを調べた"
   reason_for_choice_required: false
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 check_box_choice4:
   check_box: check_box1
-  choices: "自分でも就職できるか不安"
+  choices: "友人・知人・家族に聞いた"
   reason_for_choice_required: false
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
