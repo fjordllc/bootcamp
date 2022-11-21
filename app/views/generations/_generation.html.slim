@@ -1,5 +1,4 @@
-- generation_users = generation.users.users_role(@target)
-- generation_users.unretired unless @target == 'retired'
+- generation_users = @target == 'retired' ? generation.users.users_role(@target) : generation.users.users_role(@target).unretired
 - if generation_users.present?
     .user-group
       header.user-group__header
