@@ -23,4 +23,8 @@ class Answer < ApplicationRecord
   def path
     Rails.application.routes.url_helpers.polymorphic_path(question, anchor: anchor)
   end
+
+  def certain_period_has_passed?
+    created_at.since(1.week).to_date == Date.current
+  end
 end

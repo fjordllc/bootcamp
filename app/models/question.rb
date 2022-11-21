@@ -34,6 +34,28 @@ class Question < ApplicationRecord
 
   mentionable_as :description
 
+  class << self
+    def notify_certain_period_passed_after_last_answer
+      return if Question.not_solved_and_certain_period_has_passed.blank?
+
+      Question.not_solved_and_certain_period_has_passed.each do |not_solved_question|
+        NotificationFacade.no_correct_answer(not_solved_question, not_solved_question.user)
+      end
+    end
+
+    def not_solved_and_certain_period_has_passed
+      not_solved.select do |not_solved_question|
+        next if not_solved_question.answers.empty?
+
+        not_solved_question.last_answer.certain_period_has_passed?
+      end
+    end
+  end
+
+  def last_answer
+    answers.max_by(&:created_at)
+  end
+
   private
 
   def will_be_published?
