@@ -395,11 +395,12 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'display message if no Product after 5 days' do
-    visit_with_auth '/', 'komagata'
-    while has_button? '担当する'
-      click_button '担当する', match: :first
-      click_on 'ダッシュボード'
+    products = Product.all
+    user = users(:komagata)
+    products.map do |product|
+      product.update(checker_id: user.id) if product.elapsed_days >= 5
     end
+    visit_with_auth '/', 'komagata'
     assert_text '5日経過した提出物はありません'
   end
 end
