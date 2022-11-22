@@ -235,6 +235,7 @@ ja:
         start_at: 回答受付開始日
         end_at: 回答受付終了日
         questions: 質問
+        survey_question_listings: 質問
       survey_question:
         title: 質問タイトル
         description: 質問説明
