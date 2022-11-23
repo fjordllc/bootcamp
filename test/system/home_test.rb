@@ -395,7 +395,6 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'display message if no Product after 5 days' do
-    products = Product.all
     user = users(:komagata)
     products.map do |product|
       product.update(checker_id: user.id) if product.elapsed_days >= 5
