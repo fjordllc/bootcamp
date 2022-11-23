@@ -23,12 +23,12 @@ class GenerationsTest < ApplicationSystemTestCase
     assert_equal '期生別ユーザー一覧 | FBC', title
   end
 
-  test 'no retired fileter when login whitout admin' do
+  test 'no retired fileter when login without admin' do
     visit_with_auth '/generations', 'kimura'
     assert_no_text '退会'
   end
 
-  test 'users filter for generation' do
+  test 'all users filter for generation' do
     visit_with_auth '/generations', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '全員')
@@ -44,7 +44,9 @@ class GenerationsTest < ApplicationSystemTestCase
         assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
       end
     end
+  end
 
+  test 'trainee users filter for generation' do
     visit_with_auth '/generations?target=trainee', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '研修生')
@@ -55,7 +57,9 @@ class GenerationsTest < ApplicationSystemTestCase
         assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
       end
     end
+  end
 
+  test 'adviser users filter for generation' do
     visit_with_auth '/generations?target=adviser', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
@@ -66,7 +70,9 @@ class GenerationsTest < ApplicationSystemTestCase
         assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
       end
     end
+  end
 
+  test 'graduate users filter for generation' do
     visit_with_auth '/generations?target=graduate', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '卒業生')
@@ -77,7 +83,9 @@ class GenerationsTest < ApplicationSystemTestCase
         assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
       end
     end
+  end
 
+  test 'mentor users filter for generation' do
     visit_with_auth '/generations?target=mentor', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: 'メンター')
@@ -88,7 +96,9 @@ class GenerationsTest < ApplicationSystemTestCase
         assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
       end
     end
+  end
 
+  test 'retired users filter for generation' do
     visit_with_auth '/generations?target=retired', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '退会')
