@@ -9,4 +9,6 @@ class AuthoredBook < ApplicationRecord
                       in: %w[image/png image/jpg image/jpeg image/gif],
                       message: 'はPNG, JPG, GIF形式にしてください'
                     }
+
+  scope :sorted, -> { order(created_at: :desc) }
 end
