@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   layout 'welcome'
 
   def index
-    @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob }).order(:created_at)
+    @mentors = User.mentors
   end
 
   def pricing; end

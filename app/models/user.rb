@@ -363,6 +363,13 @@ class User < ApplicationRecord
     :description
   )
 
+  scope :mentors, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+  }
+
   class << self
     def notify_to_discord
       User.retired.find_each do |retired_user|
