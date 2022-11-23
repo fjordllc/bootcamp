@@ -28,12 +28,12 @@ class GenerationsTest < ApplicationSystemTestCase
     assert_no_text '退会'
   end
 
-  test 'show all users each generation' do
+  test 'users filter for generation' do
     visit_with_auth '/generations', 'komagata'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '全員')
     assert_text '期生別（全員）'
-    within all('.a-user-icons__items')[-1]do
+    within all('.a-user-icons__items').last do
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'komagata (Komagata Masaki): 管理者、メンター'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'kimura (Kimura Tadasi)'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
@@ -43,6 +43,58 @@ class GenerationsTest < ApplicationSystemTestCase
       all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
         assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
       end
+    end
+
+    visit_with_auth '/generations?target=trainee', 'komagata'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: '研修生')
+    assert_text '期生別（研修生）'
+    within all('.a-user-icons__items').last do
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
+      all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
+        assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+      end
+    end
+
+    visit_with_auth '/generations?target=adviser', 'komagata'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
+    assert_text '期生別（アドバイザー）'
+    within all('.a-user-icons__items').last do
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
+      all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
+        assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+      end
+    end
+
+    visit_with_auth '/generations?target=graduate', 'komagata'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: '卒業生')
+    assert_text '期生別（卒業生）'
+    within all('.a-user-icons__items').last do
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou-with-job (卒業 就職済美)'
+      all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
+        assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+      end
+    end
+
+    visit_with_auth '/generations?target=mentor', 'komagata'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: 'メンター')
+    assert_text '期生別（メンター）'
+    within all('.a-user-icons__items').last do
+      assert_equal all('.a-user-icons__item-icon.a-user-icon.is-mentor').last['title'], 'mentormentaro (メンタ 麺太郎): メンター'
+      all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
+        assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+      end
+    end
+
+    visit_with_auth '/generations?target=retired', 'komagata'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: '退会')
+    assert_text '期生別（退会）'
+    within all('.a-user-icons__items').last do
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'yameo (辞目 辞目夫)'
     end
   end
 end
