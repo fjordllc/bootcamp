@@ -13,7 +13,7 @@ jobs:
       - ruby/install-deps
       - node/install:
           install-yarn: true
-          node-version: '18.12.1'
+          node-version: '16.13.0'
       - node/install-packages:
           pkg-manager: yarn
   check:
@@ -33,7 +33,7 @@ jobs:
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute
       - node/install:
           install-yarn: true
-          node-version: '18.12.1'
+          node-version: '16.13.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -46,7 +46,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
-          NODE_OPTIONS: '--openssl-legacy-provider'
       - image: cimg/postgres:14.4
     resource_class: large
     environment:
@@ -67,7 +66,7 @@ jobs:
       - ruby/install-deps
       - node/install:
           install-yarn: true
-          node-version: '18.12.1'
+          node-version: '16.13.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
