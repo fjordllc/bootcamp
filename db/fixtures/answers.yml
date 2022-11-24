@@ -28,7 +28,14 @@ answer6:
   user: machida
   question: question6
 
-<% 7.upto(50) do |i| %>
+answer7:
+  description: 1週間前の質問に対する最後の回答です。
+  user: machida
+  question: question16
+  created_at: <%= Time.current - 1.week %>
+  updated_at: <%= Time.current - 1.week %>
+
+<% 8.upto(50) do |i| %>
 answer<%= i %>:
   description: ページャー確認用のデモ回答です。
   user: komagata
