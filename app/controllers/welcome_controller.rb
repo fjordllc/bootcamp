@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   layout 'welcome'
 
   def index
-    @mentors = User.mentors
+    @mentors = User.mentors_sorted_by_created_at
   end
 
   def pricing; end
