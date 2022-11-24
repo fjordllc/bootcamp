@@ -16,7 +16,6 @@ class SurveysTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'アンケート一覧'
 
     assert_text '【第1回】FBCモチベーションに関するアンケート'
-    wd = %w[日 月 火 水 木 金 土]
     has_text? '2020年01月01日(水) 00:00〜2020年01月01日(水) 23:59'
 
     assert_no_text '受付前'
@@ -62,7 +61,6 @@ class SurveysTest < ApplicationSystemTestCase
     click_on '保存'
     # 選択肢を追加するコード
     assert_text 'アンケートを更新しました。'
-    
     visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
     # assert_text 'フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。'
     # デザインが実装されてから書く
