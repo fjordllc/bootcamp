@@ -42,3 +42,12 @@ survey_question5:
   user: komagata
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+
+survey_question6:
+  title: "フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。"
+  description: "フィヨルドブートキャンプに対するご意見・ご要望をご自由にお書きください。"
+  format: "text_field"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

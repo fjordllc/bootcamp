@@ -16,9 +16,8 @@ class SurveysTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'アンケート一覧'
 
     assert_text '【第1回】FBCモチベーションに関するアンケート'
-    wd = ['日', '月', '火', '水', '木', '金', '土']
-    time = Time.current.last_year
-    has_text? "#{time.beginning_of_day.strftime("%Y年%m月%d日(#{wd[time.wday]})%H:%M")}〜#{time.end_of_day.strftime("%Y年%m月%d日(#{wd[time.wday]})%H:%M")}"
+    wd = %w[日 月 火 水 木 金 土]
+    has_text? '2020年01月01日(水) 00:00〜2020年01月01日(水) 23:59'
 
     assert_no_text '受付前'
     assert_no_text '受付中'
@@ -54,29 +53,19 @@ class SurveysTest < ApplicationSystemTestCase
     assert_text '受付前'
   end
 
-  test 'updating a survey' do
+  test 'updating a survey by adding a question' do
     visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
     click_on '編集'
 
     assert_selector 'h1', text: 'アンケート編集'
-    fill_in 'アンケートの説明', with: '説明を変更しました。'
+    click_on '質問を追加'
     click_on '保存'
-
+    # 選択肢を追加するコード
     assert_text 'アンケートを更新しました。'
     
     visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
-    assert_text '説明を変更しました。'
-  end
-
-  test 'adding a question to a survey' do
-    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
-    click_on '編集'
-
-    assert_selector 'h1', text: 'アンケート編集'
-    # 「質問を追加」ボタンが実装されてから書く
-    click_on '保存'
-
-    assert_text 'アンケートを更新しました。'
+    # assert_text 'フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。'
+    # デザインが実装されてから書く
   end
 
   test 'destroying a survey' do
@@ -90,22 +79,22 @@ class SurveysTest < ApplicationSystemTestCase
     assert_text 'アンケートを削除しました。'
   end
 
-  test 'not being able to visit the show page without admin account' do
+  test "can't visit the show page without admin account" do
     visit_with_auth '/surveys', 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
-  test 'not being able to visit a show page without admin account' do
+  test "can't visit a show page without admin account" do
     visit_with_auth "/surveys/#{surveys(:survey1).id}", 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
-  test 'not being able to visit an edit page without admin account' do
+  test "can't visit an edit page without admin account" do
     visit_with_auth "/surveys/#{surveys(:survey1).id}/edit", 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end
 
-  test 'not being able to visit a new page without admin account' do
+  test "can't visit a new page without admin account" do
     visit_with_auth '/surveys/new', 'hajime'
     assert_text '管理者・メンターとしてログインしてください'
   end

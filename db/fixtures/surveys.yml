@@ -2,17 +2,17 @@ survey1:
   title: "【第1回】FBCモチベーションに関するアンケート"
   description: "フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。ご協力いただけますと幸いです。個人情報は第三者に提供することはありません。ただし、個人が特定できないことに注意しながら、フィヨルドブートキャンプのブログ等で一部紹介させてもらうことがあります。"
   user: komagata
-  start_at: <%= Time.current.last_year.beginning_of_day %>
-  end_at: <%= Time.current.last_year.end_of_day %>
-  created_at: <%= Time.current.last_year %>
-  updated_at: <%= Time.current.last_year %>
+  start_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 23, 59) %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
 
 survey2:
   title: "【第2回】FBCモチベーションに関するアンケート"
   description: "フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。ご協力いただけますと幸いです。個人情報は第三者に提供することはありません。ただし、個人が特定できないことに注意しながら、フィヨルドブートキャンプのブログ等で一部紹介させてもらうことがあります。"
   user: komagata
   start_at: <%= Time.current.beginning_of_day %>
-  end_at: <%= Time.current.end_of_day %>
+  end_at: <%= Time.zone.local(2040, 1, 1, 23, 59) %>
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
@@ -20,7 +20,7 @@ survey3:
   title: "【第3回】FBCモチベーションに関するアンケート"
   description: "フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。ご協力いただけますと幸いです。個人情報は第三者に提供することはありません。ただし、個人が特定できないことに注意しながら、フィヨルドブートキャンプのブログ等で一部紹介させてもらうことがあります。"
   user: komagata
-  start_at: <%= Time.current.next_year.beginning_of_day %>
-  end_at: <%= Time.current.next_year.end_of_day %>
-  created_at: <%= Time.current.next_year %>
-  updated_at: <%= Time.current.next_year %>
+  start_at: <%= Time.zone.local(2050, 1, 1, 0, 0) %>
+  end_at: <%= Time.zone.local(2050, 1, 1, 23, 59) %>
+  created_at: <%= Time.zone.local(2050, 1, 1, 0, 0) %>
+  updated_at: <%= Time.zone.local(2050, 1, 1, 0, 0) %>
