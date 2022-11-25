@@ -1,30 +1,30 @@
-$checkbox-size: .875rem
+$radio-size: .875rem
 
-.checkboxes__items
+.radios__items
   display: flex
   flex-wrap: wrap
   column-gap: 1.5rem
   row-gap: .75rem
 
-.checkboxes__item
+.radios__item
   label
     +text-block(.875rem 1.4, block $semi-muted-text)
     +position(relative)
     +hover-link
     cursor: pointer
-    padding-left: calc(#{$checkbox-size} * 1.4)
+    padding-left: calc(#{$radio-size} * 1.4)
     &.is-sm
       font-size: .8125rem
     &::before
       content: ""
       text-decoration: none
-      +size($checkbox-size)
+      +size($radio-size)
       border: solid 1px $input-border
       display: block
       +position(absolute, left 0, top 50%)
       transform: translate(0, -50%)
       background-color: $base
-      border-radius: .1875rem
+      border-radius: 50%
       +text-block(.75rem 1, $reversal-text flex $reversal-text)
       align-items: center
       justify-content: center
@@ -34,16 +34,13 @@ $checkbox-size: .875rem
     border-color: $primary
   label:hover::after
     text-decoration: none
-  input:checked + label,
-  .is-dammy label
+  input:checked + label
     color: $default-text
-  input:checked + label::before,
-  .is-dammy label::before
+  input:checked + label::before
     background-color: $primary
     border-color: $primary
-    +fa(fas "\f00c")
+    box-shadow: $background 0 0 0 1px inset
   input:checked + label:hover::before
     border-color: $primary
-  input:checked + label::after,
-  .is-dammy label::after
+  input:checked + label::after
     opacity: 1
