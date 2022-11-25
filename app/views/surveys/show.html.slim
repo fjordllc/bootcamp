@@ -54,7 +54,7 @@ header.page-header
                             ul.radios__items
                               - survey_question.radio_button.radio_button_choices.each do |choice|
                                 li.radios__item
-                                  = f.radio_button choice.radio_button_id, choice.choices, id: "radio-#{choice.id}"
+                                  = f.radio_button choice.radio_button_id, choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox'
                                   = f.label "#{choice.radio_button_id}_#{choice.choices}", choice.choices, for: "radio-#{choice.id}"
                             - survey_question.radio_button.radio_button_choices.each do |choice|
                               - if choice.reason_for_choice_required
@@ -90,10 +90,10 @@ header.page-header
                             ul.linear-scale__points-items
                               - 10.times do |i|
                                 li.linear-scale__points-item
-                                  input.a-toggle-checkbox type="radio" name="#{survey_question.linear_scale.id}" id="linear-scale-#{survey_question.id}-#{i}"
-                                  = f.radio_button "#{survey_question.linear_scale.id}", for: "linear-scale-#{survey_question.id}-#{i}" do
+                                  = f.radio_button "#{survey_question.linear_scale.id}", i + 1, id: "linear-scale-#{survey_question.id}-#{i}", class: 'a-toggle-checkbox'
+                                  label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
                                     .linear-scale__point-number
-                                      | #{i + 1}
+                                      = i + 1
                           .linear-scale__label
                             = survey_question.linear_scale.last
                         - if survey_question.linear_scale.reason_for_choice_required
