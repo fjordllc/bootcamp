@@ -78,7 +78,8 @@
               - regular_event.participants.each do |participant|
                 li.user-icons-item
                   = link_to participant do
-                    = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name} is-#{participant.primary_role}", alt: participant.login_name
+                    span class="a-user-role is-#{participant.primary_role}"
+                      = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name}", alt: participant.login_name
           - else
             .o-empty-message
               .o-empty-message__icon
