@@ -18,7 +18,7 @@ header.page-header
         .page-content-header__start
           = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'page-content-header__user-link' do
             span class="a-user-role is-#{@work.user.primary_role}"
-              = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: "page-content-header__user-icon a-user-icon"
+              = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: 'page-content-header__user-icon a-user-icon'
         .page-content-header__end
           .page-content-header__row
             .page-content-header__before-title
