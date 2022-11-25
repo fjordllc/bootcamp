@@ -292,6 +292,12 @@ class User < ApplicationRecord
   }
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
+  scope :mentors_sorted_by_created_at, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+  }
   scope :working, lambda {
     active.where(
       adviser: false,
