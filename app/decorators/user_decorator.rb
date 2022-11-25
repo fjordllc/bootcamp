@@ -60,7 +60,6 @@ module UserDecorator
 
   def icon_classes(*classes)
     classes << 'a-user-icon'
-    classes << "is-#{primary_role}"
     classes.join(' ')
   end
 
