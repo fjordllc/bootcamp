@@ -46,6 +46,7 @@ tables = %i[
   organizers
   hibernations
   footprints
+  authored_books
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
