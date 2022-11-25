@@ -72,7 +72,7 @@
     "webpack-dev-server": "^4"
   },
   "engines": {
-    "node": "^18.12.1"
+    "node": "^16.13.0"
   },
   "license": "MIT"
 }
