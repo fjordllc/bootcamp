@@ -1,10 +1,7 @@
-.form-added-question.nested-fields
-  .form-added-question__inner
-    .form-added-question__col.is-main
-      .form-item
-        .form-selects
-            = f.select(:survey_question_id, question_options_within_survey_question, { include_hidden: false }, { multiple: false, id: 'js-choices-multiple-select' })
-
-    .form-added-question__col
-      .form-added-question__action
-      = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
+.survey-added-question.nested-fields
+  .survey-added-question__inner
+    .survey-added-question__col.is-main
+      = f.select(:survey_question_id, question_options_within_survey_question, { include_hidden: false }, { multiple: false, id: 'js-choices-multiple-select' })
+    .survey-added-question__col
+      .survey-added-question__action
+        = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
