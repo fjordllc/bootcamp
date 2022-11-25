@@ -1,3 +1,4 @@
 .a-user-icons__item
   = link_to user, class: 'a-user-icons__item-link' do
-    = image_tag user.avatar_url, title: user.icon_title, class: "a-user-icons__item-icon a-user-icon is-#{user.primary_role}"
+    span class="a-user-role is-#{user.primary_role}"
+      = image_tag user.avatar_url, title: user.icon_title, class: "a-user-icons__item-icon a-user-icon"
