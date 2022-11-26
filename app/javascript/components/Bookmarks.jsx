@@ -9,29 +9,42 @@ export default function Bookmarks() {
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
-  return (
-    <>
-      <div className="card-list-tools">
-        <div className="form-item is-inline">
-          <EditButton editable={editable} setEditable={setEditable} />
+  if (data.totalPages === 0){
+    return (
+      <>
+        <div className="o-empty-message">
+          <div className="o-empty-message__icon">
+            <i className="fa-regular fa-face-sad-tear" />
+            <p className="o-empty-message__text">ブックマークはまだありません。</p>
+          </div>
         </div>
-      </div>
-      <div className="card-list a-card">
-        <div className="card-list__items">
-          {data.bookmarks.map((bookmark) => {
-            return (
-              <Bookmark
-                key={bookmark.id}
-                bookmark={bookmark}
-                editable={editable}
-                setEditable={setEditable}
-              />
-            )
-          })}
+      </>
+    )
+  } else {
+    return (
+      <>
+        <div className="card-list-tools">
+          <div className="form-item is-inline">
+            <EditButton editable={editable} setEditable={setEditable} />
+          </div>
         </div>
-      </div>
-    </>
-  )
+        <div className="card-list a-card">
+          <div className="card-list__items">
+            {data.bookmarks.map((bookmark) => {
+              return (
+                <Bookmark
+                  key={bookmark.id}
+                  bookmark={bookmark}
+                  editable={editable}
+                  setEditable={setEditable}
+                />
+              )
+            })}
+          </div>
+        </div>
+      </>
+    )
+  }
 }
 
 const EditButton = ({ editable, setEditable }) => {
