@@ -395,11 +395,13 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'display message if no Product after 5 days' do
-    user = users(:komagata)
-    products.map do |product|
-      product.update(checker_id: user.id) if product.elapsed_days >= 5
+    Product.delete_all
+    user = users(:kimura)
+    practice = practices(:practice1)
+    Product.create(practice_id: practice.id, user_id: user.id, body: 'test body', published_at: Time.current.ago(1.day))
+    travel_to Time.current do
+      visit_with_auth '/', 'komagata'
+      assert_text '5日経過した提出物はありません'
     end
-    visit_with_auth '/', 'komagata'
-    assert_text '5日経過した提出物はありません'
   end
 end
