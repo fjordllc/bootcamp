@@ -136,3 +136,15 @@ talk34:
 talk_advisernocolleguetrainee:
   user: advisernocolleguetrainee
   unreplied: false
+
+talk_nobookmarks:
+  user: nobookmarks
+  unreplied: false
+
+talk_havealltypesofbookmarks:
+  user: havealltypesofbookmarks
+  unreplied: false
+
+talk_have_a_bookmark:
+  user: have_a_bookmark
+  unreplied: false
