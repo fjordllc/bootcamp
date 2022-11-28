@@ -33,8 +33,10 @@ class GenerationsTest < ApplicationSystemTestCase
 
     assert_selector('a.tab-nav__item-link.is-active', text: '全員')
     assert_text '期生別（全員）'
+    within all('.a-user-icons__items')[5] do
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'adminonly (アドミン 能美代): 管理者'
+    end
     within all('.a-user-icons__items').last do
-      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'komagata (Komagata Masaki): 管理者、メンター'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'kimura (Kimura Tadasi)'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
@@ -99,7 +101,7 @@ class GenerationsTest < ApplicationSystemTestCase
   end
 
   test 'retired users filter for generation' do
-    visit_with_auth '/generations?target=retired', 'komagata'
+    visit_with_auth '/generations?target=retired', 'adminonly'
 
     assert_selector('a.tab-nav__item-link.is-active', text: '退会')
     assert_text '期生別（退会）'
