@@ -33,7 +33,7 @@ class GenerationsTest < ApplicationSystemTestCase
 
     assert_selector('a.tab-nav__item-link.is-active', text: '全員')
     assert_text '期生別（全員）'
-    within all('.a-user-icons__items')[5] do
+    within all('.a-user-icons__items')[-3] do
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'adminonly (アドミン 能美代): 管理者'
     end
     within all('.a-user-icons__items').last do
