@@ -25,7 +25,7 @@ gem 'addressable'
 gem 'any_login'
 gem 'cocoon'
 gem 'commonmarker'
-gem 'data_migrate', '>= 8.0.0rc1'
+gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
 gem 'google-cloud-storage', '~> 1.25', require: false

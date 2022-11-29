@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_09_28_064241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,8 +81,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.string "title"
     t.string "url"
     t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_authored_books_on_user_id"
   end
 
@@ -138,8 +137,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.bigint "check_box_id"
     t.string "choices"
     t.boolean "reason_for_choice_required"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["check_box_id"], name: "index_check_box_choices_on_check_box_id"
   end
 
@@ -147,8 +146,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.string "title_of_reason"
     t.text "description_of_reason"
     t.bigint "survey_question_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["survey_question_id"], name: "index_check_boxes_on_survey_question_id"
   end
 
@@ -171,12 +170,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.datetime "updated_at", precision: nil
     t.string "commentable_type", default: "Report"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
-    t.index ["user_id"], name: "comment_user_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name"
     t.text "description"
     t.string "website"
     t.datetime "created_at", precision: nil
@@ -200,9 +198,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "events", force: :cascade do |t|
@@ -261,8 +256,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.text "reason", null: false
     t.date "scheduled_return_on", null: false
     t.date "returned_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_hibernations_on_user_id"
   end
 
@@ -316,8 +311,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.string "title_of_reason"
     t.text "description_of_reason"
     t.bigint "survey_question_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
   end
 
@@ -447,8 +442,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.bigint "radio_button_id"
     t.string "choices"
     t.boolean "reason_for_choice_required"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["radio_button_id"], name: "index_radio_button_choices_on_radio_button_id"
   end
 
@@ -456,8 +451,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.string "title_of_reason"
     t.text "description_of_reason"
     t.bigint "survey_question_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["survey_question_id"], name: "index_radio_buttons_on_survey_question_id"
   end
 
@@ -469,15 +464,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable_type_and_reactionable_id"
-    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable", unique: true
+    t.index ["user_id", "reactionable_id", "reactionable_type", "kind"], name: "index_reactions_on_reactionable_u_k", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
   create_table "regular_event_participations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "regular_event_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["regular_event_id"], name: "index_regular_event_participations_on_regular_event_id"
     t.index ["user_id", "regular_event_id"], name: "index_user_id_and_regular_event_id", unique: true
     t.index ["user_id"], name: "index_regular_event_participations_on_user_id"
@@ -487,8 +482,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.bigint "regular_event_id"
     t.integer "frequency", null: false
     t.integer "day_of_the_week", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["regular_event_id"], name: "index_regular_event_repeat_rules_on_regular_event_id"
   end
 
@@ -500,9 +495,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.boolean "hold_national_holiday", null: false
     t.time "start_at", null: false
     t.time "end_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.boolean "wip", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "category", default: 0, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
@@ -527,7 +522,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.datetime "published_at", precision: nil
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
-    t.index ["user_id"], name: "reports_user_id"
   end
 
   create_table "survey_question_listings", force: :cascade do |t|
@@ -545,8 +539,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.integer "format", default: 0
     t.boolean "answer_required", default: false
     t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_survey_questions_on_user_id"
   end
 
@@ -595,21 +589,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "login_name", limit: 255, null: false
-    t.string "email", limit: 255
-    t.string "crypted_password", limit: 255
-    t.string "salt", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "remember_me_token", limit: 255
-    t.datetime "remember_me_token_expires_at"
-    t.string "twitter_account", limit: 255
-    t.string "facebook_url", limit: 255
-    t.string "blog_url", limit: 255
+    t.string "login_name", null: false
+    t.string "email"
+    t.string "crypted_password"
+    t.string "salt"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "remember_me_token"
+    t.datetime "remember_me_token_expires_at", precision: nil
+    t.string "twitter_account"
+    t.string "facebook_url"
+    t.string "blog_url"
     t.integer "company_id"
     t.text "description"
-    t.datetime "accessed_at"
-    t.string "github_account", limit: 255
+    t.datetime "accessed_at", precision: nil
+    t.string "github_account"
     t.boolean "adviser", default: false, null: false
     t.boolean "nda", default: true, null: false
     t.string "reset_password_token"
@@ -624,33 +618,33 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_085844) do
     t.string "organization"
     t.integer "os"
     t.integer "experience"
-    t.boolean "free", default: false, null: false
-    t.boolean "trainee", default: false, null: false
     t.text "retire_reason"
-    t.boolean "job_seeking", default: false, null: false
+    t.boolean "trainee", default: false, null: false
+    t.boolean "free", default: false, null: false
     t.string "customer_id"
+    t.boolean "job_seeking", default: false, null: false
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
     t.integer "prefecture_code"
     t.boolean "job_seeker", default: false, null: false
-    t.boolean "github_collaborator", default: false, null: false
     t.string "github_id"
+    t.boolean "github_collaborator", default: false, null: false
+    t.string "name", default: "", null: false
+    t.string "name_kana", default: "", null: false
     t.integer "satisfaction"
     t.text "opinion"
     t.bigint "retire_reasons", default: 0, null: false
-    t.string "name", default: "", null: false
-    t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
-    t.string "discord_account"
     t.text "mentor_memo"
+    t.string "discord_account"
     t.string "times_url"
-    t.boolean "notified_retirement", default: false, null: false
     t.text "after_graduation_hope"
+    t.boolean "notified_retirement", default: false, null: false
     t.date "training_ends_on"
     t.boolean "sad_streak", default: false, null: false
     t.integer "last_sad_report_id"
-    t.datetime "last_activity_at"
-    t.datetime "hibernated_at"
+    t.datetime "last_activity_at", precision: nil
+    t.datetime "hibernated_at", precision: nil
     t.string "profile_name"
     t.string "profile_job"
     t.text "profile_text"
