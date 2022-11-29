@@ -19,6 +19,14 @@ class ApplicationController < ActionController::Base
     response.headers['Access-Control-Allow-Methods'] = '*'
   end
 
+  def staging?
+    ENV['DB_NAME'] == 'bootcamp_staging'
+  end
+
+  def test?
+    Rails.env.test?
+  end
+
   private
 
   def basic_auth
@@ -38,7 +46,11 @@ class ApplicationController < ActionController::Base
   def set_host_for_disk_storage
     return unless %i[local test].include? Rails.application.config.active_storage.service
 
-    ActiveStorage::Current.url_options = request.base_url
+    ActiveStorage::Current.url_options = {
+      protocol: request.protocol,
+      host: request.host,
+      port: request.port
+    }
   end
 
   def require_card
@@ -47,15 +59,5 @@ class ApplicationController < ActionController::Base
 
   def require_subscription
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
-  end
-
-  protected
-
-  def staging?
-    ENV['DB_NAME'] == 'bootcamp_staging'
-  end
-
-  def test?
-    Rails.env.test?
   end
 end
