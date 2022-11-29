@@ -15,7 +15,7 @@ class ArticleTest < ActiveSupport::TestCase
       user: users(:komagata),
       wip: false
     )
-    assert article.published_at
+    assert article.published_at?
   end
 
   test 'once articles published, value of the published_at can be kept at WIP.' do
@@ -54,6 +54,6 @@ class ArticleTest < ActiveSupport::TestCase
     article.update(
       wip: false
     )
-    assert article.published_at
+    assert article.published_at?
   end
 end
