@@ -43,7 +43,7 @@ class HomeController < ApplicationController
   end
 
   def display_dashboard
-    @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(3)
+    @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(5)
     @bookmarks = current_user.bookmarks.order(created_at: :desc).limit(5)
     @completed_learnings = current_user.learnings.where(status: 3).includes(:practice).order(updated_at: :desc)
     @inactive_students = User.with_attached_avatar.inactive_students_and_trainees.order(last_activity_at: :desc)
