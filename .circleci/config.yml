@@ -85,8 +85,7 @@ jobs:
       - store_test_results:
           path: test/reports
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+          path: tmp/screenshots
 workflows:
   build_and_test:
     jobs:
