@@ -6,7 +6,8 @@
         text_field_id: 'header-search-word',
         submit_id: 'test-search'
     li.header-links__item.is-hidden-md-up
-      label.header-links__link.test-show-menu(for='header-search')
+      .header-links__link.test-show-menu.js-modal-search-shown-trigger
+        // ↑これをクリックしたら`is-shown`が付く
         .header-notification-icon
           i.fa-solid.fa-search
         .header-links__link-label 検索
@@ -33,9 +34,18 @@
           .header-links__link-label Menu
       #js-notifications-bell
 
-= render '/shared/modal', id: 'header-search', modal_title: '検索'
-  .modal__description.is-md
-    = render 'application/header/header_search',
-      select_id: 'header-search-select-modal',
-      text_field_id: 'header-search-word-modal',
-      submit_id: 'test-search-modal'
+.modal#js-modal-search.is-hidden-md-up.is-shown
+  .modal__overlay.js-modal-search-hidden-trigger
+  // ↑これをクリックしたら`is-shown`が外れる
+  .modal-content
+    .modal-header
+      h2.modal-title
+        | 検索
+      .modal-header__close.js-modal-search-hidden-trigger
+      // ↑これをクリックしたら`is-shown`が外れる
+    .modal-body
+      .modal__description.is-md
+        = render 'application/header/header_search',
+          select_id: 'header-search-select-modal',
+          text_field_id: 'header-search-word-modal',
+          submit_id: 'test-search-modal'
