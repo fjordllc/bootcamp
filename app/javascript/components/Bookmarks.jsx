@@ -10,16 +10,7 @@ export default function Bookmarks() {
   if (!data) return <>ロード中…</>
 
   if (data.totalPages === 0){
-    return (
-      <>
-        <div className="o-empty-message">
-          <div className="o-empty-message__icon">
-            <i className="fa-regular fa-face-sad-tear" />
-            <p className="o-empty-message__text">ブックマークはまだありません。</p>
-          </div>
-        </div>
-      </>
-    )
+    return(<NoBookmarks />)
   } else {
     return (
       <>
@@ -46,6 +37,16 @@ export default function Bookmarks() {
     )
   }
 }
+
+const NoBookmarks = () => {
+  return (
+    <div className="o-empty-message">
+      <div className="o-empty-message__icon">
+        <i className="fa-regular fa-face-sad-tear" />
+        <p className="o-empty-message__text">ブックマークはまだありません。</p>
+      </div>
+    </div>
+  )};
 
 const EditButton = ({ editable, setEditable }) => {
   return (
