@@ -6,8 +6,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   test 'show empty message and icon when current user has no bookmarks' do
     visit_with_auth '/current_user/bookmarks', 'nobookmarks'
     assert_text 'ブックマークはまだありません。'
-    # tearアイコンが表示されることの確認は、fontawesomeの制約によりできないためスキップ
-    # assert_selector 'i.fa-regular.fa-face-sad-tear'
+    assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
 
@@ -47,8 +46,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
     first('#bookmark-button').click
 
     assert_text 'ブックマークはまだありません。'
-    # tearアイコンが表示されることの確認は、fontawesomeの制約によりできないためスキップ
-    # assert_selector 'i.fa-regular.fa-face-sad-tear'
+    assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
 end
