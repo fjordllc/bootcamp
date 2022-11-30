@@ -34,6 +34,6 @@ class Article < ApplicationRecord
   end
 
   def set_published_at
-    self.published_at = Time.zone.now
+    self.published_at = Time.current
   end
 end
