@@ -394,7 +394,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector 'h2.card-header__title', text: '研修生の最新の日報'
   end
 
-  test 'display message if no Product after 5 days' do
+  test 'display message if no product after 5 days' do
     Product.delete_all
     user = users(:kimura)
     practice = practices(:practice1)
