@@ -51,7 +51,6 @@ class HomeController < ApplicationController
     @collegue_trainees = current_user.collegue_trainees&.with_attached_avatar&.includes(:reports, :products, :comments)
     collegue_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.collegue_trainees&.with_attached_avatar)
     @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
-    @belongs_company = current_user.company
   end
 
   def display_events_on_dashboard
