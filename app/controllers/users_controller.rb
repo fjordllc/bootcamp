@@ -150,7 +150,7 @@ class UsersController < ApplicationController
       :os, :experience, :prefecture_code,
       :company_id, :nda, :avatar,
       :trainee, :adviser, :job_seeker,
-      :tag_list, :after_graduation_hope
+      :tag_list, :after_graduation_hope, :feed_url
     )
   end
 
