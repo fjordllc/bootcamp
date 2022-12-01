@@ -154,6 +154,13 @@ class User < ApplicationRecord
               message: 'はDiscordのチャンネルURLを入力してください'
             }
 
+  validates :feed_url,
+            format: {
+              allow_blank: true,
+              with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+              message: 'は「http://example.com」や「https://example.com」のようなURL形式で入力してください'
+            }
+
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   validates :avatar, attached: false,
@@ -285,6 +292,12 @@ class User < ApplicationRecord
   }
   scope :year_end_party, -> { where(retired_on: nil) }
   scope :mentor, -> { where(mentor: true) }
+  scope :mentors_sorted_by_created_at, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+  }
   scope :working, lambda {
     active.where(
       adviser: false,

@@ -31,7 +31,8 @@ class CurrentUserController < ApplicationController
       :nda, :avatar, :trainee,
       :mail_notification, :job_seeker, :tag_list,
       :after_graduation_hope, :training_ends_on, :profile_image,
-      :profile_name, :profile_job, :profile_text, { authored_books_attributes: %i[id title url cover _destroy] }
+      :profile_name, :profile_job, :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
+      :feed_url
     ]
     user_attribute.push(:retired_on, :graduated_on, :free, :github_collaborator) if current_user.admin?
     params.require(:user).permit(user_attribute)
