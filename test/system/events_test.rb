@@ -324,7 +324,6 @@ class EventsTest < ApplicationSystemTestCase
     within '.participants' do
       participants = all('img').map { |img| img['alt'] }
       assert_equal %w[kimura], participants
-      
     end
   end
 
