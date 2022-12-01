@@ -49,7 +49,7 @@
                                 ul
                                   li
                                     | 研修を行う際は、
-                                    = link_to current_user.belongs_company.trainee_sign_up_url, class: '' do
+                                    = link_to current_user.company.trainee_sign_up_url, class: '' do
                                       | こちら
                                     | から研修生をご登録ください。
                                   li
@@ -68,6 +68,6 @@
                 .a-panels
                   .a-panels__items
                     .a-panels__item
-                      = render 'invite_trainee_link', company: current_user.belongs_company
+                      = render 'invite_trainee_link', company: current_user.company
                     .a-panels__item
-                      = render 'invite_adviser_link', company: current_user.belongs_company
+                      = render 'invite_adviser_link', company: current_user.company
