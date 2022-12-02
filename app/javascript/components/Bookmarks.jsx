@@ -10,7 +10,7 @@ export default function Bookmarks() {
   if (!data) return <>ロード中…</>
 
   if (data.totalPages === 0){
-    return(<NoBookmarks />)
+    return <NoBookmarks />
   } else {
     return (
       <>
@@ -46,7 +46,8 @@ const NoBookmarks = () => {
         <p className="o-empty-message__text">ブックマークはまだありません。</p>
       </div>
     </div>
-  )};
+  )
+}
 
 const EditButton = ({ editable, setEditable }) => {
   return (
