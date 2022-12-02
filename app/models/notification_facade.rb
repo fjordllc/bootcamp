@@ -136,7 +136,10 @@ class NotificationFacade
   end
 
   def self.moved_up_event_waiting_user(event, receiver)
-    Notification.moved_up_event_waiting_user(event, receiver)
+    ActivityNotifier.with(
+      event: event,
+      receiver: receiver
+    ).moved_up_event_waiting_user.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class Notification::EventsTest < ApplicationSystemTestCase
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'waiting user receive notification when the event participant cancel' do
     event = events(:event3)
     visit_with_auth event_path(event), 'komagata'
