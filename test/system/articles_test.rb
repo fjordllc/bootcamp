@@ -357,4 +357,12 @@ class ArticlesTest < ApplicationSystemTestCase
     visit "/articles/#{@article.id}"
     assert_equal 'タイトル１ | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
+
+  test 'published_at can be changed' do
+    visit_with_auth edit_article_path(@article), 'komagata'
+    find('label.a-button.is-sm.is-secondary', text: '記事公開日時を変更').click
+    fill_in 'article[published_at]', with: Time.zone.parse('2021-12-24 23:59')
+    click_on '更新する'
+    assert_text '2021年12月24日(金) 23:59'
+  end
 end

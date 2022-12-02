@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.user = current_user if @article.user.nil?
-    set_wip_or_published_time
+    set_wip
     if @article.save
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    set_wip_or_published_time
+    set_wip
     if @article.update(article_params)
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
@@ -67,20 +67,24 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body, :tag_list, :user_id, :thumbnail, :summary)
+    article_attributes = %i[
+      title
+      body
+      tag_list
+      user_id
+      thumbnail
+      summary
+    ]
+    article_attributes.push(:published_at) unless params[:commit] == 'WIP'
+    params.require(:article).permit(*article_attributes)
   end
 
   def redirect_url(article)
     article.wip? ? edit_article_url(article) : article
   end
 
-  def set_wip_or_published_time
-    if params[:commit] == 'WIP'
-      @article.wip = true
-    else
-      @article.wip = false
-      @article.published_at = Time.current
-    end
+  def set_wip
+    @article.wip = params[:commit] == 'WIP'
   end
 
   def notice_message(article)
