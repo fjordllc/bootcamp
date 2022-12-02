@@ -393,4 +393,15 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'kimura'
     assert_no_selector 'h2.card-header__title', text: '研修生の最新の日報'
   end
+
+  test 'display message if no product after 5 days' do
+    Product.delete_all
+    user = users(:kimura)
+    practice = practices(:practice1)
+    Product.create(practice_id: practice.id, user_id: user.id, body: 'test body', published_at: Time.current.ago(1.day))
+    travel_to Time.current do
+      visit_with_auth '/', 'komagata'
+      assert_text '5日経過した提出物はありません'
+    end
+  end
 end
