@@ -404,4 +404,10 @@ class HomeTest < ApplicationSystemTestCase
       assert_text '5日経過した提出物はありません'
     end
   end
+
+  test 'show trainee and adviser invitation links when the user logged in as adviser and has belongs to company' do
+    visit_with_auth '/', 'senpai'
+    assert_text '研修生招待リンク'
+    assert_text '社内メンター招待リンク'
+  end
 end
