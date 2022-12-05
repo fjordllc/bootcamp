@@ -9,6 +9,7 @@ require 'minitest/retry'
 require 'supports/api_helper'
 require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
+require 'webmock/minitest'
 
 Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true

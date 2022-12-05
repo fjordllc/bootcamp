@@ -26,4 +26,34 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       assert_text "定期イベント【#{regular_event.title}】が更新されました。"
     end
   end
+
+  test 'notify_tommorrow_regular_event' do
+    event_info = <<~TEXT.chomp
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+      【イベントのお知らせ】
+      明日 07月31日（日）に開催されるイベントです！
+      --------------------------------------------
+      開発MTG
+      時間: 15:00 〜 16:00
+      詳細: http://localhost:3000/regular_events/459650222
+      --------------------------------------------
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    TEXT
+    params = {
+      url: 'https://discord.com/api/webhooks/0123456789/admin',
+      username: 'ピヨルド',
+      avatar_url: 'https://i.gyazo.com/7099977680d8d8c2d72a3f14ddf14cc6.png',
+      content: event_info
+    }
+
+    stub_message = stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
+                   .with(body: params,
+                         headers: { 'Content-Type' => 'application/json' })
+
+    travel_to Time.zone.local(2022, 7, 30, 0, 0, 0) do
+      visit_with_auth '/scheduler/daily', 'komagata'
+    end
+
+    assert_requested(stub_message)
+  end
 end
