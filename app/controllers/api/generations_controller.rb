@@ -2,7 +2,7 @@
 
 class API::GenerationsController < API::BaseController
   before_action :require_login
-  PAGER_NUMBER = 20
+  PAGER_NUMBER = 24
 
   def show
     generation = params[:id].to_i
