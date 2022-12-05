@@ -30,4 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
       renderSelectedChoices: 'always'
     })
   }
+
+  const elementAddedSelect = document.querySelector(
+    'js-choices-added-select'
+  )
+  if (elementAddedSelect) {
+    return new Choices(elementAddedSelect, {
+      removeItemButton: true,
+      allowHTML: true,
+      searchResultLimit: 20,
+      searchPlaceholderValue: '検索ワード',
+      noResultsText: '一致する情報は見つかりません',
+      itemSelectText: '選択',
+      shouldSort: false,
+      resetScrollPosition: false,
+      renderSelectedChoices: 'always'
+    })
+  }
 })
