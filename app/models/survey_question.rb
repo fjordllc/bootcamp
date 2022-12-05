@@ -23,4 +23,16 @@ class SurveyQuestion < ApplicationRecord
   }, _prefix: true
 
   validates :title, presence: true
+
+  def answer_required_choice_exists?(survey_question_id)
+    if self.format == 'radio_button'
+      SurveyQuestion.joins(radio_button: :radio_button_choices)
+                    .where(radio_button_choices: {reason_for_choice_required: true})
+                    .exists?(survey_question_id)
+    else
+      SurveyQuestion.joins(check_box: :check_box_choices)
+                    .where(check_box_choices: {reason_for_choice_required: true})
+                    .exists?(survey_question_id)
+    end
+  end
 end
