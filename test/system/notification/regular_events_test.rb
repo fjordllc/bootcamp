@@ -12,7 +12,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test 'Notify when a regular event change' do
+  test 'notify when a regular event change' do
     regular_event = regular_events(:regular_event1)
     visit_with_auth "/regular_events/#{regular_event.id}/edit", 'komagata'
     within('form[name=regular_event]') do
