@@ -8,7 +8,9 @@ class SurveysController < ApplicationController
     @surveys = Survey.all.order(end_at: :desc)
   end
 
-  def show; end
+  def show
+    @survey_questions = @survey.survey_questions
+  end
 
   def new
     @survey = Survey.new(start_at: Time.current.beginning_of_day, end_at: Time.current.end_of_day.strftime('%Y-%m-%dT-%H:%M'))
