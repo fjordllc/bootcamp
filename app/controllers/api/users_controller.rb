@@ -3,7 +3,7 @@
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
   before_action :require_login_for_api
-  PAGER_NUMBER = 20
+  PAGER_NUMBER = 24
 
   def index
     @tag = params[:tag]
