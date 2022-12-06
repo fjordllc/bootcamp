@@ -381,7 +381,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'not show trainee lists for adviser when adviser does not have same company trainees' do
     visit_with_auth '/', 'advisernocolleguetrainee'
-    assert_no_selector 'h2.card-header__title', text: '研修生'
+    assert_text '現在、ユーザの企業に登録しないで株式会社は研修を利用していません。'
   end
 
   test 'show trainee reports to adviser belonging to the same company on dashboard' do
@@ -403,5 +403,11 @@ class HomeTest < ApplicationSystemTestCase
       visit_with_auth '/', 'komagata'
       assert_text '5日経過した提出物はありません'
     end
+  end
+
+  test 'show trainee and adviser invitation links when the user logged in as adviser and has belongs to company' do
+    visit_with_auth '/', 'senpai'
+    assert_text '研修生招待リンク'
+    assert_text '社内メンター招待リンク'
   end
 end
