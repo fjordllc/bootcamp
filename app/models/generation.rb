@@ -8,8 +8,6 @@ class Generation
       (1..latest_generation_number).map { |n| Generation.new(n) }
     end
 
-    private
-
     def latest_generation_number
       now_time = Time.zone.now
       (now_time.year - START_YEAR) * 4 + (now_time.month + 2) / 3
