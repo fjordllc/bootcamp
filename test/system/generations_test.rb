@@ -18,8 +18,9 @@ class GenerationsTest < ApplicationSystemTestCase
   test 'show generations' do
     visit_with_auth generations_path, 'kimura'
     assert_text 'ユーザー一覧'
-    assert_link "#{users(:kimura).generation}期生"
-    assert_text '2014年01月01日 ~ 2014年03月31日'
+
+    latest_generation = Generation.latest_generation_number
+    assert_link "#{latest_generation}期生"
     assert_equal '期生別ユーザー一覧 | FBC', title
   end
 
