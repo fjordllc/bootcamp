@@ -1,8 +1,9 @@
 - title @practice.title
 - category = @practice.category(current_user.course)
+- include_must_read_books = @practice.include_must_read_books?
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
-= render '/practices/page_header', title: title, category: category
+= render '/practices/page_header', title: title, category: category, include_must_read_books: include_must_read_books
 = render 'page_tabs', resource: @practice
 
 .page-body
@@ -40,7 +41,10 @@
             .page-content-header__end
               .page-content-header__row
                 h1.page-content-header__title
-                  = @practice.title
+                  - if @practice.include_must_read_books?
+                    = '要書籍' + ' ' + @practice.title
+                  - else
+                    = @practice.title
 
               - if @practice.last_updated_user.present?
                 .page-content-header__row

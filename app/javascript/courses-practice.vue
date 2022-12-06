@@ -4,7 +4,7 @@
   header.category-practices-item__header
     .category-practices-item__title
       a.category-practices-item__title-link(:href='practices.url')
-        | {{ practices.practice.title }}
+        | {{ displayPracticeTitle(practices) }}
     a(
       :class='`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`',
       :href='`${practices.url}#learning-Status`',
@@ -70,6 +70,10 @@ export default {
         submitted: '提出',
         complete: '修了'
       }[learningStatus]
+    },
+    displayPracticeTitle(practices) {
+      const title = practices.practice.title
+      return practices.include_must_read_books ? `要書籍 ${title}` : title
     }
   }
 }
