@@ -16,16 +16,5 @@ main.page-main
       .page-main-header__inner
         h1.page-main-header__title
           = '期生別'
-          | （#{t("target.#{@target}")}）
-  .page-body
-    .container.is-lg
-      - if @generations.present?
-        .a-card
-          = render partial: 'generations/generation', collection: @generations, as: :generation
-      - else
-        .o-empty-message
-          .o-empty-message__icon
-            i.fa-regular.fa-smile
-          p.o-empty-message__text
-            = title
-            | はありません
+
+  #js-generations
