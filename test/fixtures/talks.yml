@@ -136,3 +136,9 @@ talk34:
 talk_advisernocolleguetrainee:
   user: advisernocolleguetrainee
   unreplied: false
+
+<% 1.upto(4) do |i| %>
+marumarushain<%= i %>: # ページネーション確認のためのユーザー
+  user: marumarushain<%= i %>
+  unreplied: false
+<% end %>
