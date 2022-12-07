@@ -1,7 +1,7 @@
 <template lang="pug">
 .a-user-icons__item
   a.a-user-icons__item-link(:href='startedStudent.user_link')
-    span(:class='`a-user-role is-${startedStudent.primary_role}`')
+    span(:class='["a-user-role", roleClass]')
       img(
         :class='`a-user-icons__item-icon a-user-icon ${activeOrInactive}`',
         :src='startedStudent.avatar_url',
@@ -17,6 +17,9 @@ export default {
     activeOrInactive() {
       const active = this.startedStudent.active
       return active ? 'active' : 'inactive'
+    },
+    roleClass() {
+      return `is-${this.startedStudent.primary_role}`
     }
   }
 }
