@@ -16,19 +16,20 @@
               itemprop='url')
               | {{ latestArticle.title }}
       .card-list-item__row
-        .card-list-item-meta
-          .card-list-item-meta__items
-            .card-list-item-meta__item
-              .a-meta
-                | {{ latestArticle.summary }}
+        .card-list-item__summary
+          p
+            | {{ latestArticle.summary }}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
               time.a-meta
                 | {{ publishedAt }}
-    .latest-article__thumbnail
-      img.latest-article__thumbnail-image(:src='latestArticle.thumbnailUrl')
+    .card-list-item__thumbnail
+      a.card-list-item__thumbnail-inner(
+        :href='latestArticle.url',
+        itemprop='url')
+        img.card-list-item__thumbnail-image(:src='latestArticle.thumbnailUrl')
 </template>
 
 <script>
