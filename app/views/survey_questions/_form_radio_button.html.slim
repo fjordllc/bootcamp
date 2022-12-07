@@ -5,7 +5,7 @@
         | ラジオボタンの選択肢
       = i.fields_for :radio_button_choices do |radio_button_choice|
         = render 'radio_button_choice_fields', f: radio_button_choice
-      .form-item__add-choice
+      .form-item__add-choice.js-add-choice
         = link_to_add_association i, :radio_button_choices, class: 'a-button is-md is-primary' do
           i.fa-regular.fa-plus
           | 選択肢を追加

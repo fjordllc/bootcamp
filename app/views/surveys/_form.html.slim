@@ -18,7 +18,7 @@
       .form-item__survey-questions
         = f.fields_for :survey_question_listings, include_id: false do |survey_question_listing|
           = render 'survey_question_listing_fields', f: survey_question_listing
-        .form-item__add-choice
+        .form-item__add-choice.js-add-choice
           = link_to_add_association f, :survey_question_listings, class: 'a-button is-md is-primary' do
             i.fa-regular.fa-plus
             | 質問を追加
