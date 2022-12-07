@@ -84,7 +84,7 @@ class TalksTest < ApplicationSystemTestCase
   test 'a list of current students is displayed' do
     visit_with_auth '/talks?target=student_and_trainee', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'kimura (Kimura Tadasi) さんの相談部屋'
+    assert_text 'hajime (Hajime Tayo) さんの相談部屋'
   end
 
   test 'a list of graduates is displayed' do
