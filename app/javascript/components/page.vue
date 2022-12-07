@@ -3,11 +3,11 @@
   .card-list-item__inner
     .card-list-item__user
       a.card-list-item__user-link(:href='page.user.url')
-        img.card-list-item__user-icon.a-user-icon(
-          :title='page.user.icon_title',
-          :alt='page.user.icon_title',
-          :src='page.user.avatar_url',
-          :class='[roleClassPublishedUser]')
+        span(:class='["a-user-role", roleClassPublishedUser]')
+          img.card-list-item__user-icon.a-user-icon(
+            :title='page.user.icon_title',
+            :alt='page.user.icon_title',
+            :src='page.user.avatar_url')
 
     .card-list-item__rows
       .card-list-item__row
