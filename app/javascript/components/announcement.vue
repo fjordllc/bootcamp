@@ -3,7 +3,7 @@
   .card-list-item__inner
     .card-list-item__user
       a.card-list-item__user-link(:href='announcement.user.url')
-        span(:class='`a-user-role ${roleClass}`')
+        span(:class='["a-user-role", roleClass]')
           img.card-list-item__user-icon.a-user-icon(
             :title='announcement.user.icon_title',
             :alt='announcement.user.icon_title',
