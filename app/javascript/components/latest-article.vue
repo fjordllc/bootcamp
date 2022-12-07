@@ -10,10 +10,11 @@
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
-          h2.card-list-item-title__title(itemprop='name')
+          h2.card-list-item-title__title
             a.card-list-item-title__link.a-text-link(
               :href='latestArticle.url',
-              itemprop='url')
+              target='_blank',
+              rel='noopener')
               | {{ latestArticle.title }}
       .card-list-item__row
         .card-list-item__summary
@@ -28,7 +29,8 @@
     .card-list-item__thumbnail
       a.card-list-item__thumbnail-inner(
         :href='latestArticle.url',
-        itemprop='url')
+        target='_blank',
+        rel='noopener')
         img.card-list-item__thumbnail-image(:src='latestArticle.thumbnailUrl')
 </template>
 
