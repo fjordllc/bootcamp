@@ -10,11 +10,11 @@
           .users-item__header-start
             .users-item__icon
               a(:href='user.url')
-                img.users-item__user-icon-image.a-user-icon(
-                  :title='user.icon_title',
-                  :alt='user.icon_title',
-                  :src='user.avatar_url',
-                  :class='[roleClass]')
+                span(:class='["a-user-role", roleClass]')
+                  img.users-item__user-icon-image.a-user-icon(
+                    :title='user.icon_title',
+                    :alt='user.icon_title',
+                    :src='user.avatar_url')
           .users-item__header-end
             .card-list-item__rows
               .card-list-item__row
