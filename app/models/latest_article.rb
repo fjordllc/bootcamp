@@ -15,7 +15,7 @@ class LatestArticle < ApplicationRecord
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
-      image_url('/images/latest_articles/thumbnails/default.png')
+      image_url('/images/latest_articles/thumbnails/blank.svg')
     end
   end
 end
