@@ -188,17 +188,6 @@ class NotificationFacade
     ).assigned_as_checker.deliver_later(wait: 5)
   end
 
-  def self.graduated(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).graduated.notify_now
-    DiscordNotifier.with(sender: sender, receiver: receiver).graduated.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).graduated.deliver_later(wait: 5)
-  end
-
   def self.hibernated(sender, receiver)
     ActivityNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
     return unless receiver.mail_notification?
