@@ -32,7 +32,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
 
     find('#spec-edit-mode').click
     assert_selector '#bookmark-button'
-    all('#bookmark-button').first.click
+    first('#bookmark-button').click
 
     assert_selector '.card-list-item', count: 3
     assert_no_text 'test1'
