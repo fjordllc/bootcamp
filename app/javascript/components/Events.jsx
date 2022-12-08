@@ -48,17 +48,13 @@ export default function Events() {
             />
           </nav>
         )}
-        <div className="card-list a-card">
-          <ul>
-            {data.events.map((event) => {
-              return (
-                <li key={event.id}>
-                  <Event event={event} />
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+        <ul className="card-list a-card">
+          {data.events.map((event) => {
+            return (
+              <Event event={event} key={event.id} />
+            )
+          })}
+        </ul>
         {data.total_pages > 1 && (
           <nav className="pagination">
             <Pagination
@@ -77,7 +73,7 @@ export default function Events() {
 
 function Event({ event }) {
   return (
-    <div className="card-list-item">
+    <li className="card-list-item">
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <UserIcon
@@ -136,6 +132,6 @@ function Event({ event }) {
           </div>
         </div>
       </div>
-    </div>
+    </li>
   )
 }

@@ -4,15 +4,11 @@ export default function LoadingListPlaceholder() {
   const itemCount = 8
   return (
     <div className="card-list a-card is-loading">
-      <ul>
-        {[...Array(itemCount)].map((_, index) => {
-          return (
-            <li key={index}>
-              <LoadingListItemPlaceholder />
-            </li>
-          )
-        })}
-      </ul>
+      {[...Array(itemCount)].map((_, index) => {
+        return (
+          <LoadingListItemPlaceholder key={index} />
+        )
+      })}
     </div>
   )
 }
