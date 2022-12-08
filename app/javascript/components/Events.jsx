@@ -38,15 +38,13 @@ export default function Events() {
     <div className="page-body">
       <div className="container is-md">
         {data.total_pages > 1 && (
-          <nav className="pagination">
-            <Pagination
-              sum={data.total_pages * per}
-              per={per}
-              neighbours={neighbours}
-              page={page}
-              onChange={e => handlePaginate(e.page)}
-            />
-          </nav>
+          <Pagination
+            sum={data.total_pages * per}
+            per={per}
+            neighbours={neighbours}
+            page={page}
+            onChange={e => handlePaginate(e.page)}
+          />
         )}
         <ul className="card-list a-card">
           {data.events.map((event) => {
@@ -56,15 +54,13 @@ export default function Events() {
           })}
         </ul>
         {data.total_pages > 1 && (
-          <nav className="pagination">
-            <Pagination
-              sum={data.total_pages * per}
-              per={per}
-              neighbours={neighbours}
-              page={page}
-              onChange={e => handlePaginate(e.page)}
-            />
-          </nav>
+          <Pagination
+            sum={data.total_pages * per}
+            per={per}
+            neighbours={neighbours}
+            page={page}
+            onChange={e => handlePaginate(e.page)}
+          />
         )}
       </div>
     </div>
