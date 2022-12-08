@@ -337,4 +337,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def moved_up_event_waiting_user(params = {})
+    params.merge!(@params)
+    event = params[:event]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{event.title}で、補欠から参加に繰り上がりました。",
+      kind: :moved_up_event_waiting_user,
+      receiver: receiver,
+      sender: event.user,
+      link: Rails.application.routes.url_helpers.polymorphic_path(event),
+      read: false
+    )
+  end
 end
