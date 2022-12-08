@@ -3,11 +3,11 @@
   .card-list-item__inner
     .card-list-item__user
       a.card-list-item__user-link(:href='answer.question.user.url')
-        img.card-list-item__user-icon.a-user-icon(
-          :title='answer.question.user.icon_title',
-          :alt='answer.question.user.icon_title',
-          :src='answer.question.user.avatar_url',
-          :class='[roleClass]')
+        span(:class='["a-user-role", roleClass]')
+          img.card-list-item__user-icon.a-user-icon(
+            :title='answer.question.user.icon_title',
+            :alt='answer.question.user.icon_title',
+            :src='answer.question.user.avatar_url')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
