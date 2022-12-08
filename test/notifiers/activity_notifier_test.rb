@@ -132,4 +132,16 @@ class ActivityNotifierTest < ActiveSupport::TestCase
       notification.notify_later
     end
   end
+
+  test '#moved_up_event_waiting_user' do
+    notification = ActivityNotifier.with(event: events(:event3), receiver: users(:hatsuno)).moved_up_event_waiting_user
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
 end

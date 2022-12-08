@@ -1,0 +1,22 @@
+- if company.present?
+  .a-card
+    header.card-header.is-sm
+      h2.card-header__title
+        | 研修生の招待
+    .card-body
+      .card__description
+        .a-short-text.is-sm
+          p
+            | 研修生を追加する場合は、以下のリンクから登録をお願いいたします。
+            | 以下のリンクから登録することで、#{current_user.company.name}所属の研修生として
+            | 登録されます。
+          p
+            | 研修生が履修をするプラクティスの選別についてなどは、
+            = link_to '相談部屋', talk_path(current_user.talk, anchor: 'latest-comment')
+            | からご相談ください。
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            = link_to company.trainee_sign_up_url, class: 'a-button is-sm is-block is-secondary', target: '_blank', rel: 'noopener' do
+              | 研修生招待リンク

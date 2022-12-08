@@ -80,17 +80,6 @@ class Notification < ApplicationRecord
       )
     end
 
-    def moved_up_event_waiting_user(event, receiver)
-      Notification.create!(
-        kind: kinds[:moved_up_event_waiting_user],
-        user: receiver,
-        sender: event.user,
-        link: Rails.application.routes.url_helpers.polymorphic_path(event),
-        message: "#{event.title}で、補欠から参加に繰り上がりました。",
-        read: false
-      )
-    end
-
     def chose_correct_answer(answer, receiver)
       Notification.create!(
         kind: kinds[:chose_correct_answer],

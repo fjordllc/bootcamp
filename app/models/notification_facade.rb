@@ -136,7 +136,10 @@ class NotificationFacade
   end
 
   def self.moved_up_event_waiting_user(event, receiver)
-    Notification.moved_up_event_waiting_user(event, receiver)
+    ActivityNotifier.with(
+      event: event,
+      receiver: receiver
+    ).moved_up_event_waiting_user.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
@@ -183,17 +186,6 @@ class NotificationFacade
       product: product,
       receiver: receiver
     ).assigned_as_checker.deliver_later(wait: 5)
-  end
-
-  def self.graduated(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).graduated.notify_now
-    DiscordNotifier.with(sender: sender, receiver: receiver).graduated.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).graduated.deliver_later(wait: 5)
   end
 
   def self.hibernated(sender, receiver)
