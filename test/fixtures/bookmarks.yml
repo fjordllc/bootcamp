@@ -16,22 +16,6 @@ bookmark<%= id %>:
   bookmarkable: report<%= id %> (Report)
 <% end %>
 
-bookmark_page:
-  user: havealltypesofbookmarks
-  bookmarkable: page1 (Page)
-
-bookmark_product:
-  user: havealltypesofbookmarks
-  bookmarkable: product1 (Product)
-
-bookmark_question:
-  user: havealltypesofbookmarks
-  bookmarkable: question1 (Question)
-
 bookmark_report:
-  user: havealltypesofbookmarks
-  bookmarkable: report1 (Report)
-
-one_bookmark:
-  user: have_a_bookmark
+  user: kimura
   bookmarkable: report1 (Report)
