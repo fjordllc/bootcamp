@@ -4,7 +4,19 @@ require 'application_system_test_case'
 
 class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   test 'show empty message and icon when current user has no bookmarks' do
-    visit_with_auth '/current_user/bookmarks', 'hatsuno'
+    user_without_bookmark = User.create!(
+      login_name: 'no-bookmarks',
+      email: 'no-bookmarks@fjord.jp',
+      password: 'testtest',
+      name: 'no-bookmarks',
+      name_kana: 'ブックマーク ナシ',
+      description: 'test',
+      course: courses(:course1),
+      job: 'office_worker',
+      os: 'mac',
+      experience: 'inexperienced'
+    )
+    visit_with_auth '/current_user/bookmarks', user_without_bookmark.login_name
     assert_text 'ブックマークはまだありません。'
     assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
