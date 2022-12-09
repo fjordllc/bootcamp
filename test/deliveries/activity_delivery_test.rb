@@ -40,4 +40,32 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**@params).notify(:graduated)
     end
   end
+
+  test '.notify(:came_comment)' do
+    comment = comments(:commentOfTalk)
+    commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
+
+    params = {
+      comment: comment,
+      receiver: comment.receiver,
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      link: "#{commentable_path}#latest-comment"
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+      ActivityDelivery.notify!(:came_comment, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.notify(:came_comment, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify!(:came_comment)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify(:came_comment)
+    end
+  end
 end
