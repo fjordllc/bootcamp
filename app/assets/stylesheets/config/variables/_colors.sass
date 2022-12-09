@@ -1,76 +1,69 @@
-$main: #4d3cbb
-$accent: #e9c730
+$main: hsl(248, 51%, 48%)
+$accent: hsl(44, 96%, 54%)
 $base: white
-$background: #f5f5fa
-$completion: #00a0dd
+$background: hsl(248, 33%, 97%)
+$completion: rgb(0, 160, 221)
 
 // background
-$background-shade: #d6d6de
-$background-semi-shade: #e0e0e4
-$background-tint: #eceeef
-$background-more-tint: #f9f9fa
-$background-more-more-tint: #fbfbfb
+$background-shade: hsl(248, 11%, 85%)
+$background-semi-shade: hsl(248, 7%, 89%)
+$background-tint: hsl(248, 9%, 93%)
+$background-more-tint: hsl(248, 9%, 98%)
+$background-more-more-tint: hsl(0, 0%, 98%)
 
 // text
-$default-text: #4f4f64
+$default-text: hsl(248, 12%, 35%)
 $reversal-text: white
-$muted-text: #9da4a7
-$semi-muted-text: #898998
-$placeholder-text: #bbbbbb
-$main-text: #3c3282
-$link-text: #2e2088
-
-$side: $main
-$side-border: rgba(black, .09)
-$side-tint: #4e6165
-$side-shade: #3a228a
-$side-active: $accent
+$muted-text: hsl(248, 5%, 64%)
+$semi-muted-text: hsl(248, 7%, 57%)
+$placeholder-text: hsl(0, 0%, 73%)
+$link-text: hsl(248, 62%, 33%)
 
 // border
-$border: #e1e2e5
+$side-border: rgba(black, .09)
+$border: hsl(248, 7%, 89%)
 $border-tint: $background
-$border-shade: #d2d2d8
-$border-more-shade: #c6c7cd
-$border-more-more-shade: #b8b8c0
+$border-shade: hsl(248, 7%, 84%)
+$border-more-shade: hsl(248, 7%, 79%)
+$border-more-more-shade: hsl(248, 6%, 74%)
 
 // Welcome Colors
-$welcome-blue: #178bff
-$welcome-light-blue: #d5f2ff
-$welcome-yellow: #faed00
-$welcome-orange: #fdb82e
-$welcome-pink: #ef6085
-
-$stamp-color: #ed5151
-$badge-color: #e54724
+$welcome-blue: hsl(210, 100%, 55%)
+$welcome-light-blue: hsl(199, 100%, 92%)
+$welcome-yellow: hsl(57, 100%, 49%)
+$welcome-orange: hsl(40, 98%, 59%)
+$welcome-pink: hsl(344, 80%, 66%)
 
 // UI colors
 
-$primary: #3383d6
+$primary: hsl(211, 67%, 52%)
 $secondary: $base
-$success: #4cad7c
-$info: #21b5d3
-$warning: #fabd17
-$danger: #f54667
-$disabled: #c7c6c6
+$success: hsl(150, 39%, 49%)
+$info: hsl(190, 73%, 48%)
+$warning: $accent
+$danger: hsl(349, 90%, 62%)
+$disabled: hsl(0, 1%, 78%)
+$stamp-color: hsl(0, 80%, 62%)
 
 $danger-text: shade($danger, 40%)
-$danger-shade: tint($danger, 90%)
+$danger-tint: tint($danger, 90%)
 
 $success-text: shade($success, 60%)
-$success-shade: tint($success, 90%)
+$success-tint: tint($success, 90%)
 
 $info-text: shade($info, 60%)
-$info-shade: tint($info, 90%)
+$info-tint: tint($info, 90%)
 
 $primary-text: shade($primary, 40%)
-$primary-shade: tint($primary, 90%)
-$primary-more-shade: tint($primary, 60%)
+$primary-tint: tint($primary, 90%)
+$primary-semi-tint: tint($primary, 60%)
 
 $warning-text: shade($warning, 60%)
-$warning-shade: tint($warning, 90%)
+$warning-tint: tint($warning, 90%)
 
 $main-text: shade($main, 10%)
-$main-shade: tint($main, 90%)
+$main-tint: tint($main, 90%)
+$main-shade: hsl(254, 60%, 34%)
 
 // input
 $input-border: $border-shade
@@ -79,7 +72,7 @@ $input-background: $background-more-more-tint
 $input-hover-border: $border-more-more-shade
 $input-hover-background: $base
 
-$input-selected-background: $primary-shade
+$input-selected-background: $primary-tint
 $input-selected-border: $primary
 $input-selected-text: $primary-text
 
@@ -94,11 +87,11 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
   &:link
     color: $link-text
   &:visited
-    color: #6f78b7
+    color: hsl(233, 33%, 58%)
   &:hover
-    color: #1c6ee2
+    color: hsl(215, 78%, 50%)
   &:active
-    color: #b3430b
+    color: hsl(20, 88%, 37%)
 
 =muted-link
   transition: color .2s ease-in
@@ -111,8 +104,3 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
     color: $danger
   &:active
     color: $danger
-
-$luma-contrast-bright-color: $default-text
-$luma-contrast-dark-color: $reversal-text
-$button-checked-color: $danger
-$button-checked-icon-color: $reversal-text
