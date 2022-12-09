@@ -8,12 +8,12 @@ module UserDecorator
   def roles
     roles = []
 
+    roles << :retired if retired?
     roles << :admin if admin?
     roles << :mentor if mentor?
     roles << :adviser if adviser?
-    roles << :trainee if trainee?
     roles << :graduate if graduated_on?
-    roles << :retired if retired?
+    roles << :trainee if trainee?
     roles << :student if roles.empty?
 
     roles
@@ -38,6 +38,7 @@ module UserDecorator
     return '' if roles.empty?
 
     roles = [
+      { role: '退会ユーザー', value: retired },
       { role: '管理者', value: admin },
       { role: 'メンター', value: mentor },
       { role: 'アドバイザー', value: adviser },
