@@ -4,14 +4,14 @@ require 'application_system_test_case'
 
 class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   test 'show empty message and icon when current user has no bookmarks' do
-    visit_with_auth '/current_user/bookmarks', 'nobookmarks'
+    visit_with_auth '/current_user/bookmarks', 'hatsuno'
     assert_text 'ブックマークはまだありません。'
     assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
 
   test 'show edit button and bookmarks when current user has bookmarks' do
-    visit_with_auth '/current_user/bookmarks', 'havealltypesofbookmarks'
+    visit_with_auth '/current_user/bookmarks', 'kimura'
 
     assert_selector 'label', text: '編集'
     assert_selector 'input#card-list-tools__action', visible: false
@@ -24,7 +24,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'can delete bookmarks when edit mode is active' do
-    visit_with_auth '/current_user/bookmarks', 'havealltypesofbookmarks'
+    visit_with_auth '/current_user/bookmarks', 'kimura'
 
     assert_selector '.card-list-item', count: 4
     assert_text 'test1'
@@ -39,7 +39,20 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'show empty state when all bookmarks are deleted' do
-    visit_with_auth '/current_user/bookmarks', 'have_a_bookmark'
+    user_with_one_bookmark = User.create!(
+      login_name: 'have-one-bookmark',
+      email: 'have-one-bookmark@fjord.jp',
+      password: 'testtest',
+      name: 'have-one-bookmark',
+      name_kana: 'ブックマーク イッケン',
+      description: 'test',
+      course: courses(:course1),
+      job: 'office_worker',
+      os: 'mac',
+      experience: 'inexperienced'
+    )
+    user_with_one_bookmark.bookmarks.create!(bookmarkable_id: reports(:report1).id, bookmarkable_type: 'Report')
+    visit_with_auth '/current_user/bookmarks', user_with_one_bookmark.login_name
 
     assert_selector '.card-list-item', count: 1
     find('#spec-edit-mode').click
