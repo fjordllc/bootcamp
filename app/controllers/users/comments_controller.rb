@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::CommentsController < ApplicationController
-  before_action :require_login
   before_action :set_user
   before_action :set_comments
 
