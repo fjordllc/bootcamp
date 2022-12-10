@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CoursesController < ApplicationController
-  before_action :require_login
   before_action :require_admin_login, except: %i[index]
 
   def index
