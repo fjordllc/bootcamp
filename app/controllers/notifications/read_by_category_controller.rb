@@ -2,7 +2,7 @@
 
 class Notifications::ReadByCategoryController < ApplicationController
   skip_before_action :require_login, raise: false
-  
+
   def create
     target = params[:target].presence&.to_sym
     notifications = current_user.notifications.by_target(target).unreads
