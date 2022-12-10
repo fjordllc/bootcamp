@@ -16,7 +16,7 @@ class Article < ApplicationRecord
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
 
-  paginates_per 10
+  paginates_per 24
   acts_as_taggable
 
   def thumbnail_url
