@@ -299,14 +299,14 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
       click_button '作成'
     end
-    accept_confirm do
+    accept_confirm(wait: 10) do
       click_link '参加申込'
     end
     assert_text '参加登録しました'
 
     visit_with_auth events_path, 'kimura'
     click_link '補欠者が繰り上がるイベント'
-    accept_confirm do
+    accept_confirm(wait: 10) do
       click_link '補欠登録'
     end
     assert_text '参加登録しました'
