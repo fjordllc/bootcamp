@@ -22,4 +22,11 @@ class GenerationTest < ActiveSupport::TestCase
     assert_includes Generation.new(32).users, users(:komagata)
     assert_not_includes Generation.new(33).users, users(:komagata)
   end
+
+  test '#target_users' do
+    assert_includes Generation.new(5).target_users('all'), users(:komagata)
+    assert_includes Generation.new(5).target_users('retired'), users(:yameo)
+    assert_not_includes Generation.new(5).target_users('retired'), users(:komagata)
+    assert_not_includes Generation.new(5).target_users('all'), users(:yameo)
+  end
 end

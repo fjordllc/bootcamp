@@ -1,0 +1,9 @@
+nav.tab-nav
+  .container
+    ul.tab-nav__items
+      - targets = %w[all trainee adviser graduate mentor]
+      - if current_user.admin?
+        - targets += %w[retired]
+      - targets.each do |target|
+        li.tab-nav__item(class="#{%w[retired].include?(target) ? 'is-only-mentor' : ''}")
+          = link_to t("target.#{target}"), generations_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
