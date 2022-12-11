@@ -26,7 +26,7 @@
       width: 15rem
   +media-breakpoint-down(sm)
     $global-nav-width-sm: 13rem
-    background-color: $side
+    background-color: $main
     +position(fixed, top 0, bottom 0, right auto, 1)
     transition: left .2s ease-out
     width: $global-nav-width-sm
@@ -68,7 +68,7 @@
     color: $reversal-text
     border-bottom: solid 1px $side-border
     &:hover
-      background-color: $side-shade
+      background-color: $main-shade
 
 .header-dropdown__footer
   +border-radius(bottom, .25rem)
@@ -94,7 +94,7 @@
     +media-breakpoint-up(md)
       background-color: $background-more-tint
     +media-breakpoint-down(sm)
-      background-color: $side-shade
+      background-color: $main-shade
   +media-breakpoint-up(md)
     &:not(:last-child)
       border-bottom: solid 1px $border-tint
