@@ -2,7 +2,7 @@
 
 class CheckCallbacks
   def after_create(check)
-    NotificationFacade.checked(check) if check.sender != check.receiver && check.checkable_type != 'Report'
+    ActivityDelivery.with(check: check, receiver: check.receiver).notify(:checked) if check.sender != check.receiver && check.checkable_type != 'Report'
 
     delete_report_cache(check)
     delete_product_cache(check)
