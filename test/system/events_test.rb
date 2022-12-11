@@ -317,7 +317,7 @@ class EventsTest < ApplicationSystemTestCase
 
     visit_with_auth events_path, 'komagata'
     click_link '補欠者が繰り上がるイベント'
-    accept_confirm do
+    accept_confirm(wait: 10) do
       click_link '参加を取り消す'
     end
     assert_text '参加を取り消しました'
