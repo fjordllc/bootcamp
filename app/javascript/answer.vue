@@ -17,6 +17,13 @@
       .answer-badge__label ベストアンサー
     header.card-header
       h2.thread-comment__title
+        a.thread-comment__title-user-link.is-hidden-md-up(
+          :href='answer.user.url')
+          img.thread-comment__title-user-icon.a-user-icon(
+            :src='answer.user.avatar_url',
+            :title='answer.user.icon_title',
+            :class='[roleClass]')
+
         a.thread-comment__title-link.a-text-link(
           :href='answer.user.url',
           itemprop='url')
