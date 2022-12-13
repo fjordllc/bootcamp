@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const addSwitchEvent = (triggers, modal) => {
     for (let i = 0; i < triggers.length; i++) {
-      triggers[i].addEventListener('click', (event) => {
-        event.target = switchModal(modal)
+      triggers[i].addEventListener('click', () => {
+        switchModal(modal)
       })
     }
   }
