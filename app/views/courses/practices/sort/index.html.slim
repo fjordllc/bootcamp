@@ -56,11 +56,12 @@ header.page-header
                               span.a-grab.js-grab
                                 i.fa-solid.fa-align-justify
 
-        nav.page-nav
-          ul.page-nav__items
-            - @categories.each do |category|
-              - if category.practices.present?
-                li.page-nav__item
-                  a.page-nav__item-link(href="#category-#{category.id}")
-                    span.page-nav__item-link-inner
-                      = category.name
+        .page-body__column.is-sub
+          nav.page-nav.a-card
+            ul.page-nav__items
+              - @categories.each do |category|
+                - if category.practices.present?
+                  li.page-nav__item
+                    a.page-nav__item-link(href="#category-#{category.id}")
+                      span.page-nav__item-link-inner
+                        = category.name

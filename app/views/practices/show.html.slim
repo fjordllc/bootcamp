@@ -42,9 +42,9 @@
               .page-content-header__row
                 h1.page-content-header__title
                   - if @practice.include_must_read_books?
-                    = "要書籍 #{@practice.title}"
-                  - else
-                    = @practice.title
+                    span.a-title-label.is-danger
+                      | 要書籍
+                  = @practice.title
 
               - if @practice.last_updated_user.present?
                 .page-content-header__row
