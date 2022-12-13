@@ -76,9 +76,4 @@ header.page-content-header
 
     .page-content-header__row
       .page-content-header__tags
-        #js-page-tags(
-          data-tags-initial-value="#{page.tag_list.join(',')}"
-          data-tags-param-name='page[tag_list]'
-          data-tags-input-id='page_tag_list'
-          data-page-id="#{page.id}"
-        )
+        = react_component('Tags/Tags', { tagsInitialValue: "#{page.tag_list.join(',')}", tagsParamName: 'page[tag_list]', tagsInputId: 'page_tag_list', tagsType: 'Page',tagsTypeId: "#{page.id}" })
