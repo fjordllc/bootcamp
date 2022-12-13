@@ -198,10 +198,6 @@ class NotificationFacade
     ).hibernated.deliver_later(wait: 5)
   end
 
-  def self.tomorrow_regular_event(event)
-    DiscordNotifier.with(event: event).tomorrow_regular_event.notify_now
-  end
-
   def self.signed_up(sender, receiver)
     ActivityNotifier.with(sender: sender, receiver: receiver, sender_roles: sender.roles_to_s).signed_up.notify_now
     return unless receiver.mail_notification? && !receiver.retired?

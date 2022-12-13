@@ -63,11 +63,8 @@ class DiscordNotifierTest < ActiveSupport::TestCase
   end
 
   test '.tomorrow_regular_event' do
-    params = {
-      event: regular_events(:regular_event1),
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-    event_info = <<~TEXT.chomp
+
+    message = <<~TEXT.chomp
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
       【イベントのお知らせ】
       明日 07月31日（日）に開催されるイベントです！
@@ -79,14 +76,24 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
 
+    params = {
+      body: message,
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
     expected = {
-      body: event_info,
+      body: message,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
     travel_to Time.zone.local(2022, 7, 30, 0, 0, 0) do
       assert_notifications_sent 2, **expected do
+        DiscordNotifier.tomorrow_regular_event(params).notify_now
+        DiscordNotifier.with(params).tomorrow_regular_event.notify_now
+      end
+
+      assert_notifications_enqueued 2, **expected do
         DiscordNotifier.tomorrow_regular_event(params).notify_now
         DiscordNotifier.with(params).tomorrow_regular_event.notify_now
       end
