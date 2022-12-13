@@ -6,7 +6,7 @@
         text_field_id: 'header-search-word',
         submit_id: 'test-search'
     li.header-links__item.is-hidden-md-up
-      .header-links__link.test-show-menu.js-modal-shown-trigger
+      .header-links__link.test-show-menu.js-modal-search-shown-trigger
         .header-notification-icon
           i.fa-solid.fa-search
         .header-links__link-label 検索
@@ -33,13 +33,13 @@
           .header-links__link-label Menu
       #js-notifications-bell
 
-.modal#js-modal.is-hidden-md-up
-  .modal__overlay.js-modal-hidden-trigger
+.modal#js-modal-search.is-hidden-md-up
+  .modal__overlay.js-modal-search-hidden-trigger
   .modal-content
     .modal-header
       h2.modal-title
         | 検索
-      .modal-header__close.js-modal-hidden-trigger
+      .modal-header__close.js-modal-search-hidden-trigger
     .modal-body
       .modal__description.is-md
         = render 'application/header/header_search',
