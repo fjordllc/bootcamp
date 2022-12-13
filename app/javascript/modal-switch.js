@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const hiddenTriggers = document.querySelectorAll('.js-modal-hidden-trigger')
 
   for (let i = 0; i < shownTriggers.length; i++) {
-    shownTriggers[i].onclick = function(event) {
+    shownTriggers[i].onclick = function (event) {
       event.target = toggleModal()
     }
   }
 
   for (let i = 0; i < hiddenTriggers.length; i++) {
-    hiddenTriggers[i].onclick = function(event) {
+    hiddenTriggers[i].onclick = function (event) {
       event.target = toggleModal()
     }
   }
