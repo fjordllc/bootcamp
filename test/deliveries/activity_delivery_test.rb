@@ -15,6 +15,15 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   end
 
   test '.notify(:graduated)' do
+    Notification.create!(
+      kind: Notification.kinds['graduated'],
+      user: users(:komagata),
+      sender: users(:kimura),
+      link: "/users/#{users(:kimura).id}",
+      message: "#{users(:kimura).login_name}さんがxxxxを確認しました。",
+      read: false
+    )
+
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 3 do
       ActivityDelivery.notify!(:graduated, **@params)
     end
