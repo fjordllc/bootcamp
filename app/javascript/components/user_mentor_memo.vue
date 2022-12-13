@@ -5,8 +5,13 @@ section.a-card.is-memo.is-only-mentor
       | メンター向けユーザーメモ
   .card-body(v-if='!editing')
     .card__description
-      .loading(v-if='loading')
-        | ローディング中
+      .a-long-text.is-md.a-placeholder(v-if='loading')
+        p
+        p
+        p
+        p
+        p
+        p
       .o-empty-message(v-else-if='memo.length === 0')
         .o-empty-message__icon
           i.fa-regular.fa-sad-tear
