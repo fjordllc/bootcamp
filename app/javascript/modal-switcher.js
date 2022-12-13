@@ -1,20 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.querySelector('.modal#js-modal')
-  const toggleModal = () => {
+  const modalSearch = document.querySelector('.modal#js-modal-search')
+  const modalSearchShownTriggers = document.querySelectorAll(
+    '.js-modal-search-shown-trigger'
+  )
+  const modalSearchHiddenTriggers = document.querySelectorAll(
+    '.js-modal-search-hidden-trigger'
+  )
+
+  const switchModal = (modal) => {
     modal.classList.toggle('is-shown')
   }
-  const shownTriggers = document.querySelectorAll('.js-modal-shown-trigger')
-  const hiddenTriggers = document.querySelectorAll('.js-modal-hidden-trigger')
 
-  for (let i = 0; i < shownTriggers.length; i++) {
-    shownTriggers[i].onclick = function (event) {
-      event.target = toggleModal()
+  const addSwitchEvent = (triggers, modal) => {
+    for (let i = 0; i < triggers.length; i++) {
+      triggers[i].addEventListener('click', (event) => {
+        event.target = switchModal(modal)
+      })
     }
   }
 
-  for (let i = 0; i < hiddenTriggers.length; i++) {
-    hiddenTriggers[i].onclick = function (event) {
-      event.target = toggleModal()
-    }
-  }
+  addSwitchEvent(modalSearchShownTriggers, modalSearch)
+  addSwitchEvent(modalSearchHiddenTriggers, modalSearch)
 })
