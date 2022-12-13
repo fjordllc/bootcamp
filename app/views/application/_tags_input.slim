@@ -1,1 +1,1 @@
-= react_component('Tags/TagsInput', { tagsInitialValue: taggable.tag_list.join(',').to_s, tagsParamName: "#{taggable.class.to_s.tableize.singularize}[tag_list]", taggableType: taggable.class.to_s.capitalize.to_s })
+= react_component('Tags/TagsInput', { tagsInitialValue: "#{taggable.tag_list.join(',')}", tagsParamName: "#{taggable.class.to_s.tableize.singularize}[tag_list]", taggableType: "#{taggable.class.to_s.capitalize}" })
