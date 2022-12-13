@@ -77,16 +77,16 @@
   background-color: $color
   $text-color: if(luma($color) > 50, $default-text, $reversal-text)
   color: $text-color
-  border-color: if(luma($color) > 80, shade($color, 18%), $color)
+  border-color: if(luma($color) > 80, saturate(darken($color, 18%), 2%), $color)
   &:focus,
   &:active
     box-shadow: 0 0 0 .1875rem rgba($color, .25)
   &:hover,
   &:focus,
   &:active
-    $button-color: darken($color, 10%)
+    $button-color: saturate(darken($color, 10%), 2%)
     background-color: $button-color
-    border-color: if(luma($color) > 80, shade($color, 24%), $color)
+    border-color: if(luma($color) > 80, saturate(darken($color, 24%), 2%), $color)
   &.is-disabled,
   &:disabled
     color: rgba($text-color, .4)
