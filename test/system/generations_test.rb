@@ -37,7 +37,7 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'adminonly (アドミン 能美代): 管理者'
     end
     within all('.a-user-icons__items').last do
-      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'kimura (Kimura Tadasi)'
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'marumarushain1 (marumarushain1)'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou-with-job (卒業 就職済美)'
