@@ -38,13 +38,13 @@ class GenerationsTest < ApplicationSystemTestCase
 
       assert_selector('a.tab-nav__item-link.is-active', text: '全員')
       assert_text '期生別（全員）'
-      assert_link "33期生"
-      assert_text "2021年01月01日 ~ 2021年03月31日"
+      assert_link '33期生'
+      assert_text '2021年01月01日 ~ 2021年03月31日'
       within all('.a-user-icons__items').first do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'adminonly (アドミン 能美代): 管理者'
       end
-      assert_link "5期生"
-      assert_text "2014年01月01日 ~ 2014年03月31日"
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'marumarushain1 (marumarushain1)'
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
@@ -64,8 +64,8 @@ class GenerationsTest < ApplicationSystemTestCase
 
       assert_selector('a.tab-nav__item-link.is-active', text: '研修生')
       assert_text '期生別（研修生）'
-      assert_link "5期生"
-      assert_text "2014年01月01日 ~ 2014年03月31日"
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
         all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
@@ -81,8 +81,8 @@ class GenerationsTest < ApplicationSystemTestCase
 
       assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
       assert_text '期生別（アドバイザー）'
-      assert_link "5期生"
-      assert_text "2014年01月01日 ~ 2014年03月31日"
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
         all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
@@ -98,8 +98,8 @@ class GenerationsTest < ApplicationSystemTestCase
 
       assert_selector('a.tab-nav__item-link.is-active', text: '卒業生')
       assert_text '期生別（卒業生）'
-      assert_link "5期生"
-      assert_text "2014年01月01日 ~ 2014年03月31日"
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou (卒業 太郎)'
         all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
@@ -115,8 +115,8 @@ class GenerationsTest < ApplicationSystemTestCase
 
       assert_selector('a.tab-nav__item-link.is-active', text: 'メンター')
       assert_text '期生別（メンター）'
-      assert_link "5期生"
-      assert_text "2014年01月01日 ~ 2014年03月31日"
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
         assert_equal all('.a-user-icons__item-icon.a-user-icon.is-mentor').last['title'], 'mentormentaro (メンタ 麺太郎): メンター'
         all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
@@ -132,8 +132,8 @@ class GenerationsTest < ApplicationSystemTestCase
 
       assert_selector('a.tab-nav__item-link.is-active', text: '退会')
       assert_text '期生別（退会）'
-      assert_link "5期生"
-      assert_text "2014年01月01日 ~ 2014年03月31日"
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'yameo (辞目 辞目夫)'
       end
