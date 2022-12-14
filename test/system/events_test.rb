@@ -287,45 +287,46 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'waiting user moves up when participant cancels event' do
-    visit_with_auth new_event_path, 'komagata'
-    within 'form[name=event]' do
-      travel_to Time.zone.local(2022, 12, 14, 16, 0, 0) do
+    travel_to Time.zone.local(2022, 12, 14, 16, 0, 0) do
+      visit_with_auth new_event_path, 'komagata'
+      within 'form[name=event]' do
         fill_in 'event[title]', with: '補欠者が繰り上がるイベント'
         fill_in 'event[description]', with: 'イベントの説明文'
         fill_in 'event[capacity]', with: 1
         fill_in 'event[location]', with: 'FJORDオフィス'
         fill_in 'event[start_at]', with: Time.current.next_day
         fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
-        fill_in 'event[open_start_at]', with: Time.current
+        fill_in 'event[open_start_at]', with: Time.current - 1.hours
         fill_in 'event[open_end_at]', with: Time.current + 2.hours
         click_button '作成'
       end
-    end
-    accept_confirm(wait: 10) do
-      click_link '参加申込'
-    end
-    assert_text '参加登録しました'
 
-    visit_with_auth events_path, 'kimura'
-    click_link '補欠者が繰り上がるイベント'
-    accept_confirm(wait: 10) do
-      click_link '補欠登録'
-    end
-    assert_text '参加登録しました'
-    within '.participants' do
-      participants = all('img').map { |img| img['alt'] }
-      assert_equal %w[komagata], participants
-    end
+      accept_confirm(wait: 10) do
+        click_link '参加申込'
+      end
+      assert_text '参加登録しました'
 
-    visit_with_auth events_path, 'komagata'
-    click_link '補欠者が繰り上がるイベント'
-    accept_confirm(wait: 10) do
-      click_link '参加を取り消す'
-    end
-    assert_text '参加を取り消しました'
-    within '.participants' do
-      participants = all('img').map { |img| img['alt'] }
-      assert_equal %w[kimura], participants
+      visit_with_auth events_path, 'kimura'
+      click_link '補欠者が繰り上がるイベント'
+      accept_confirm(wait: 10) do
+        click_link '補欠登録'
+      end
+      assert_text '参加登録しました'
+      within '.participants' do
+        participants = all('img').map { |img| img['alt'] }
+        assert_equal %w[komagata], participants
+      end
+
+      visit_with_auth events_path, 'komagata'
+      click_link '補欠者が繰り上がるイベント'
+      accept_confirm(wait: 10) do
+        click_link '参加を取り消す'
+      end
+      assert_text '参加を取り消しました'
+      within '.participants' do
+        participants = all('img').map { |img| img['alt'] }
+        assert_equal %w[kimura], participants
+      end
     end
   end
 
