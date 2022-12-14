@@ -10,7 +10,7 @@ class API::GenerationsController < API::BaseController
   end
 
   def index
-    result = Generation.generations.reverse
+    result = Generation.generations(params[:target]).reverse
     @generations = Kaminari.paginate_array(result).page(params[:page]).per(PAGER_NUMBER)
   end
 end

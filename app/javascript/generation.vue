@@ -28,7 +28,15 @@ export default {
       loadingGenerationsPageGenerationPlaceholder
   },
   props: {
-    generation: { type: Object, required: true }
+    generation: {
+      type: Object,
+      required: true
+    },
+    target: {
+      type: String,
+      required: false,
+      default: 'all'
+    }
   },
   data() {
     return {
@@ -38,7 +46,7 @@ export default {
   },
   computed: {
     generation_users_url() {
-      return `/api/generations/${this.generation.number}/users.json`
+      return `/api/generations/${this.generation.number}/users.json?target=${this.target}`
     },
     generation_url() {
       return `/generations/${this.generation.number}`

@@ -13,7 +13,8 @@
       generation(
         v-for='generation in generations',
         :key='generation.number',
-        :generation='generation')
+        :generation='generation',
+        :target='target')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
@@ -25,6 +26,13 @@ export default {
   components: {
     generation: Generation,
     pager: Pager
+  },
+  props: {
+    target: {
+      type: String,
+      required: false,
+      default: 'all'
+    }
   },
   data() {
     return {
@@ -44,7 +52,7 @@ export default {
       }
     },
     api_url() {
-      return `/api/generations.json?page=${this.currentPage}`
+      return `/api/generations.json?page=${this.currentPage}&target=${this.target}`
     }
   },
   created() {
