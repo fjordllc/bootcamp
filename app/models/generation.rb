@@ -4,8 +4,9 @@ class Generation
   START_YEAR = 2013
 
   class << self
-    def generations
-      (1..latest_generation_number).map { |n| Generation.new(n) }
+    def generations(target)
+      generations = (1..latest_generation_number).map { |n| Generation.new(n) }
+      generations.select { |generation| generation.target_users(target).any? }
     end
 
     def latest_generation_number

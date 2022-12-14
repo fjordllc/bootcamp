@@ -16,5 +16,5 @@ main.page-main
       .page-main-header__inner
         h1.page-main-header__title
           = '期生別'
-
-  #js-generations
+          | （#{t("target.#{@target}")}）
+  #js-generations(data-target="#{@target}")
