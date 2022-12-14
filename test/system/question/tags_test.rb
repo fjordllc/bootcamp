@@ -14,7 +14,7 @@ class Question::TagsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'tagテストの質問'
       fill_in 'question[description]', with: 'tagテストの質問です。'
-      tag_input = find('.ti-new-tag-input')
+      tag_input = find('.tagify__input')
       tag_list.each do |tag|
         tag_input.set tag
         tag_input.native.send_keys :return
@@ -34,7 +34,7 @@ class Question::TagsTest < ApplicationSystemTestCase
   test 'update tags without page transitions' do
     visit_with_auth question_path(questions(:question2)), 'komagata'
     find('.tag-links__item-edit').click
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :return
     click_on '保存'

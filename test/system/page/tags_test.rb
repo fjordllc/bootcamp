@@ -14,7 +14,7 @@ class Page::TagsTest < ApplicationSystemTestCase
     within 'form[name=page]' do
       fill_in 'page[title]', with: 'tagのテスト'
       fill_in 'page[body]', with: 'tagをつけます。空白とカンマはタグには使えません。'
-      tag_input = find('.ti-new-tag-input')
+      tag_input = find('.tagify__input')
       tag_list.each do |tag|
         tag_input.set tag
         tag_input.native.send_keys :return
@@ -34,7 +34,7 @@ class Page::TagsTest < ApplicationSystemTestCase
   test 'update tags without page transitions' do
     visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
     find('.tag-links__item-edit').click
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :return
     click_on '保存'

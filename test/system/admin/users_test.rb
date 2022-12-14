@@ -171,7 +171,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'edit user tag' do
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
     click_on '更新する'
