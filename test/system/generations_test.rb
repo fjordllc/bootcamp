@@ -47,9 +47,9 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_text "2014年01月01日 ~ 2014年03月31日"
       within all('.a-user-icons__items').last do
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'marumarushain1 (marumarushain1)'
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'nocompanykensyu (研修　会社無男)'
+        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
         assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou-with-job (卒業 就職済美)'
+        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou (卒業 太郎)'
         assert_equal all('.a-user-icons__item-icon.a-user-icon.is-mentor').last['title'], 'mentormentaro (メンタ 麺太郎): メンター'
         all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
           assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
@@ -101,7 +101,7 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link "5期生"
       assert_text "2014年01月01日 ~ 2014年03月31日"
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou-with-job (卒業 就職済美)'
+        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou (卒業 太郎)'
         all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
           assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
         end
