@@ -7,7 +7,10 @@
     display: none
 
 .page-nav__header
-  border-bottom: solid 1px $border-tint
+  border: solid 1px $border
+  border-bottom: none
+  background-color: $base
+  border-radius: .25rem .25rem 0 0
 
 .page-nav__title
   +text-block(.875rem 1.4, 600)
@@ -28,22 +31,30 @@
 =page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
   +position(relative, 1)
   border: solid 1px $border-color
-  border-width: 1px 0
-  margin-top: -1px
+  background-color: $background-color
   .page-nav__item-link
-    background-color: $background-color
+    background-color: transparent
     color: $text-color
     @if $pointer-events-none == true
       pointer-events: none
 
 .page-nav__item
-  border-bottom: solid 1px $border
+  background-color: $base
+  border: solid 1px $border
+  &:first-child
+    border-radius: .25rem .25rem 0 0
+  .page-nav__header + .page-nav__items &:first-child
+    border-radius: 0
+  &:last-child
+    border-radius: 0 0 .25rem .25rem
+  &:not(:first-child)
+    margin-top: -1px
   &.is-active
     .page-nav__item-link
       color: $default-text
       font-weight: 700
   &.is-current
-    +page-nav-current($input-selected-background, #c6e2ff, $input-selected-text, true)
+    +page-nav-current($primary-tint, $primary, $primary-text, true)
   &.is-reply-warning
     +page-nav-current($warning, #d09a0e, $default-text, false)
   &.is-reply-alert
@@ -52,14 +63,11 @@
     +page-nav-current($danger, #b50f38, $reversal-text, false)
   &.is-inactive
     position: static
-    border-top: solid 1px $border-shade
-    border-bottom: solid 1px $border-tint
+    border: solid 1px $border-more-shade
     .page-nav__item-link
       background-color: $background-semi-shade
       color: $muted-text
       pointer-events: none
-  &:last-child
-    border-bottom: none
 
 .page-nav__item-link
   padding: .75rem
@@ -67,8 +75,6 @@
   +block-link
   transition: all .1s ease-in
   background-color: transparent
-  .page-nav__item:last-child &
-    +border-radius(bottom, .25rem)
   &:hover
     color: $primary-text
     text-decoration: underline

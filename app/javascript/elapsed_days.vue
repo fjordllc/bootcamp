@@ -1,6 +1,6 @@
 <template lang="pug">
 nav.page-body__column.is-sub
-  .page-nav.a-card
+  .page-nav
     ol.page-nav__items.elapsed-days
       li.page-nav__item.is-reply-deadline(
         :class='activeClass(countProductsByElapsedDays(7))')
