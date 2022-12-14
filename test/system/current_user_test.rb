@@ -17,7 +17,7 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'update user tags' do
     visit_with_auth '/current_user/edit', 'komagata'
-    tag_input = find '.ti-new-tag-input'
+    tag_input = find '.tagify__input'
     tag_input.set 'タグ1'
     click_on '更新する'
     assert_text 'タグ1'
