@@ -1,5 +1,3 @@
 import token from './token'
 
-export {
-  token,
-}
+export { token }
