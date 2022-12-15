@@ -6,7 +6,7 @@
         v-for='num in itemCount',
         :key='num')
     .page-body__column.is-sub
-      .page-nav.a-card
+      .page-nav
         .page-nav__items
           loadingCoursesPracticesPageNavItemPlaceholder(
             v-for='num in pageNavItemCount',
