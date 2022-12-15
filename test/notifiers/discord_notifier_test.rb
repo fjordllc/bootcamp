@@ -67,16 +67,20 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       event: regular_events(:regular_event1),
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
-
-    expected = {
-      body: "⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    event_info = <<~TEXT.chomp
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
       【イベントのお知らせ】
       明日 07月31日（日）に開催されるイベントです！
       --------------------------------------------
       開発MTG
       時間: 15:00 〜 16:00
       詳細: http://localhost:3000/regular_events/459650222
-      --------------------------------------------\n⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️",
+      --------------------------------------------
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    TEXT
+
+    expected = {
+      body: event_info,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }

@@ -14,7 +14,7 @@ class Generation
     end
   end
 
-  attr_reader :number
+  attr_reader :number, :target
 
   def initialize(number)
     @number = number
@@ -35,5 +35,10 @@ class Generation
 
   def users
     User.with_attached_avatar.same_generations(start_date, end_date)
+  end
+
+  def target_users(target)
+    target_users = users.users_role(target)
+    target == 'retired' ? target_users : target_users.unretired
   end
 end
