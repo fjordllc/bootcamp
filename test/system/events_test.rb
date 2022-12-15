@@ -298,7 +298,7 @@ class EventsTest < ApplicationSystemTestCase
         fill_in 'event[location]', with: 'FJORDオフィス'
         fill_in 'event[start_at]', with: Time.current.next_day
         fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
-        fill_in 'event[open_start_at]', with: Time.current - 1.hours
+        fill_in 'event[open_start_at]', with: Time.current - 1.hour
         fill_in 'event[open_end_at]', with: Time.current + 2.hours
         click_button '作成'
       end
