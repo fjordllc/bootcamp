@@ -5,7 +5,7 @@
         = link_to users_path, class: "page-tabs__item-link #{'is-active' if users_current_page_tab?('users') && @target != 'followings'}" do
           | 全て
       li.page-tabs__item
-        = link_to generations_path, class: "page-tabs__item-link #{users_current_page_tab_or_not('generations')}" do
+        = link_to generations_path, class: "page-tabs__item-link #{current_page_tab_or_not('generations')}" do
           | 期生別
       li.page-tabs__item
         = link_to users_tags_path, class: "page-tabs__item-link #{users_current_page_tab_or_not('tags')} #{current_page_tab_or_not('tags')}" do
