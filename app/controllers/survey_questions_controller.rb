@@ -15,7 +15,6 @@ class SurveyQuestionsController < ApplicationController
     @check_box = @survey_question.build_check_box
     @radio_button_choices = @radio_button.radio_button_choices.build
     @check_box_choices = @check_box.check_box_choices.build
-    @survey = @survey_question.surveys.build
   end
 
   def create
