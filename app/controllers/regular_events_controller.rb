@@ -22,6 +22,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.save
       Newspaper.publish(:event_create, @regular_event)
+      set_all_users_to_participants if @regular_event.all
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :new
@@ -34,6 +35,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.update(regular_event_params)
       Newspaper.publish(:regular_event_update, @regular_event)
+      set_all_users_to_participants if @regular_event.all
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :edit
@@ -56,6 +58,7 @@ class RegularEventsController < ApplicationController
       :start_at,
       :end_at,
       :category,
+      :all,
       user_ids: [],
       regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
@@ -90,5 +93,24 @@ class RegularEventsController < ApplicationController
     new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'
+  end
+
+  def set_all_users_to_participants
+    User.students.each do |user|
+      next if @regular_event.regular_event_participations.exists?(user.id)
+
+      @regular_event.regular_event_participations.create(user: user)
+      create_watch(user)
+    end
+  end
+
+  def create_watch(user)
+    return if @regular_event.watched?(user)
+
+    watch = Watch.new(
+      user: user,
+      watchable: @regular_event
+    )
+    watch.save!
   end
 end
