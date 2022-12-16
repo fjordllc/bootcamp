@@ -69,6 +69,19 @@
               = f.label :finished do
                 | イベントが終了した場合はチェック
 
+  - if current_user.admin?
+    .form__items
+      .form__items-inner
+        .form-item 
+          label.a-form-label
+            | 全員参加イベント
+          .checkboxes
+            ul.checkboxes__items
+              li.checkboxes__item
+                = f.check_box :all, class: 'a-toggle-checkbox js-warning-form'
+                = f.label :all do 
+                  | 全員参加イベントの場合はチェック
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
