@@ -1,5 +1,3 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 survey_question_listing1:
   survey: survey1
   survey_question: survey_question1

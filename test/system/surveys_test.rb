@@ -7,8 +7,11 @@ class SurveysTest < ApplicationSystemTestCase
     visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
     assert_selector 'h1', text: '【第1回】FBCモチベーションに関するアンケート'
     assert_text 'フィヨルドブートキャンプでは満足度向上と質の高いサービスの提供に活かすためアンケートを実施しております。5分程度の簡単なアンケートです。'
-    # ラジオボタンや均等メモリなど、5種類の質問形式の質問が正常に表示されているかのテストを書く
-    # デザインが実装されてから書く
+    assert_text 'フィヨルドブートキャンプの学習を通して、どんなことを学びましたか？'
+    assert_text 'フィヨルドブートキャンプを最初に知ったきっかけは何ですか？'
+    assert_text 'フィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）'
+    assert_text 'なぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？'
+    assert_text 'フィヨルドブートキャンプの価格設定はどのように思いますか？'
   end
 
   test 'not displaying any badge if a survey which deadline is over' do
@@ -58,12 +61,13 @@ class SurveysTest < ApplicationSystemTestCase
 
     assert_selector 'h1', text: 'アンケート編集'
     click_on '質問を追加'
+    dropdown_list_box = first('.form-item__survey-questions').all('.survey-added-question')[5].select_option.find('.choices').all('.choices__item')
+    dropdown_list_box[6].select_option
     click_on '保存'
-    # 選択肢を追加するコード
+
     assert_text 'アンケートを更新しました。'
     visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
-    # assert_text 'フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。'
-    # デザインが実装されてから書く
+    assert_text 'フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。'
   end
 
   test 'destroying a survey' do
