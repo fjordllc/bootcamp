@@ -22,7 +22,7 @@ class SurveysTest < ApplicationSystemTestCase
     assert_text '「その他」と回答された方は、内容をお聞かせください。'
     required_answer_checkbox.select_option
     assert_no_text '「その他」と回答された方は、内容をお聞かせください。'
-    
+
     required_answer_radio_button = find('.survey-questions-item__radios').all('.radios__item')[4]
     required_answer_radio_button.select_option
     assert_text '「その他」と回答された方は、内容をお聞かせください。'
@@ -30,7 +30,7 @@ class SurveysTest < ApplicationSystemTestCase
     normal_radio_button.select_option
     assert_no_text '「その他」と回答された方は、内容をお聞かせください。'
 
-    required_answer_linear_scale  = find('.linear-scale__points-items').first('.linear-scale__points-item')
+    required_answer_linear_scale = find('.linear-scale__points-items').first('.linear-scale__points-item')
     required_answer_linear_scale.select_option
     assert_text 'そのように回答された理由を教えてください。'
   end
