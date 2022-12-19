@@ -282,16 +282,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'プロフィール文'
   end
 
-  test 'display special user attributes when administrator logined' do
-    user = users(:machida)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_text '特殊ユーザー属性'
-    assert_text 'アドバイザー'
-    assert_text '研修生'
-    assert_text '無料'
-    assert_text 'メンター'
-  end
-
   test 'administrator can set user’s special user attribute to mentor' do
     user = users(:advijirou)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
