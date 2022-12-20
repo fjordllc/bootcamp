@@ -1,5 +1,4 @@
-[![Test](https://github.com/fjordllc/bootcamp/actions/workflows/test.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/test.yml)
-[![Lint](https://github.com/fjordllc/bootcamp/actions/workflows/lint.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/lint.yml)
+[![CircleCI](https://circleci.com/gh/fjordllc/bootcamp.svg?style=shield)](https://app.circleci.com/pipelines/github/fjordllc/bootcamp)
 [![Create a release pull-request](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml/badge.svg)](https://github.com/fjordllc/bootcamp/actions/workflows/git-pr-release-action.yml)
 
 # Bootcamp
@@ -79,3 +78,4 @@ $ PROFILE=1 rails server
 - [Rake Taskの実装方法](https://github.com/fjordllc/bootcamp/wiki/Rake-Task%E3%81%AE%E5%AE%9F%E8%A3%85%E6%96%B9%E6%B3%95)
 - [Develop環境をDockerで動かす方法](doc/development_on_docker.md)
 - [通知機能](https://github.com/fjordllc/bootcamp/wiki/%E9%80%9A%E7%9F%A5%E6%A9%9F%E8%83%BD)
+- [gemを使った通知機能 · fjordllc/bootcamp Wiki](https://github.com/fjordllc/bootcamp/wiki/gem%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E9%80%9A%E7%9F%A5%E6%A9%9F%E8%83%BD)
