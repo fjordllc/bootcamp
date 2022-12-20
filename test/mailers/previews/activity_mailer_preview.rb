@@ -10,6 +10,13 @@ class ActivityMailerPreview < ActionMailer::Preview
     ActivityMailer.with(sender: sender, receiver: receiver).graduated
   end
 
+  def checked
+    report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
+    check = report.checks.first
+
+    ActivityMailer.with(check: check).checked
+  end
+
   def came_answer
     question = Question.find(ActiveRecord::FixtureSet.identify(:question2))
     answer = question.answers.first

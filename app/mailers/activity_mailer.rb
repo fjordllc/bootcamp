@@ -7,6 +7,7 @@ class ActivityMailer < ApplicationMailer
   before_action do
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
+    @check = params[:check] if params&.key?(:check)
     @announcement = params[:announcement] if params&.key?(:announcement)
     @question = params[:question] if params&.key?(:question)
   end
@@ -40,6 +41,17 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:graduated]
     )
     subject = "[FBC] #{@sender.login_name}さんが卒業しました。"
+    mail to: @user.email, subject: subject
+  end
+
+  # required params: check
+  def checked(args = {})
+    @check ||= args[:check]
+
+    @user = @check.receiver
+    link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
+    @notification = @user.notifications.find_by(link: link)
+    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
     mail to: @user.email, subject: subject
   end
 
