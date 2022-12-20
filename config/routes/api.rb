@@ -88,6 +88,6 @@ Rails.application.routes.draw do
     resources :books, only: %i(index)
     resources :courses, only: %i(index)
     resources :footprints, only: %i(index)
-    resources :latest_articles, only: %i(index)
+    resources :external_entries, only: %i(index)
   end
 end

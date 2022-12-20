@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class API::LatestArticlesController < API::BaseController
+class API::ExternalEntriesController < API::BaseController
   def index
-    @latest_articles = LatestArticle.with_attached_thumbnail.order(published_at: :desc).page(params[:page])
+    @external_entries = ExternalEntry.with_attached_thumbnail.order(published_at: :desc).page(params[:page])
   end
 end

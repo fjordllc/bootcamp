@@ -2,24 +2,24 @@
 .card-list-item
   .card-list-item__inner
     .card-list-item__user
-      a.card-list-item__user-link(:href='latestArticle.user.url')
+      a.card-list-item__user-link(:href='externalEntry.user.url')
         img.card-list-item__user-icon.a-user-icon(
-          :title='latestArticle.user.icon_title',
-          :alt='latestArticle.user.icon_title',
-          :src='latestArticle.user.avatar_url')
+          :title='externalEntry.user.icon_title',
+          :alt='externalEntry.user.icon_title',
+          :src='externalEntry.user.avatar_url')
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
           h2.card-list-item-title__title
             a.card-list-item-title__link.a-text-link(
-              :href='latestArticle.url',
+              :href='externalEntry.url',
               target='_blank',
               rel='noopener')
-              | {{ latestArticle.title }}
+              | {{ externalEntry.title }}
       .card-list-item__row
         .card-list-item__summary
           p
-            | {{ latestArticle.summary }}
+            | {{ externalEntry.summary }}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
@@ -28,10 +28,10 @@
                 | {{ publishedAt }}
     .card-list-item__thumbnail
       a.card-list-item__thumbnail-inner(
-        :href='latestArticle.url',
+        :href='externalEntry.url',
         target='_blank',
         rel='noopener')
-        img.card-list-item__thumbnail-image(:src='latestArticle.thumbnailUrl')
+        img.card-list-item__thumbnail-image(:src='externalEntry.thumbnailUrl')
 </template>
 
 <script>
@@ -41,11 +41,11 @@ dayjs.locale(ja)
 
 export default {
   props: {
-    latestArticle: { type: Object, required: true }
+    externalEntry: { type: Object, required: true }
   },
   computed: {
     publishedAt() {
-      return dayjs(this.latestArticle.published_at).format(
+      return dayjs(this.externalEntry.published_at).format(
         'YYYY年MM月DD日(dd) HH:mm'
       )
     }

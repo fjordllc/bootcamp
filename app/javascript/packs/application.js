@@ -67,7 +67,7 @@ import '../modal-switcher.js'
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
-import LatestArticles from '../components/latest-articles.vue'
+import ExternalEntries from '../components/latest-articles.vue'
 import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
@@ -90,7 +90,7 @@ import AdminPractices from '../components/admin-practices.vue'
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
 mounter.addComponent(Books)
-mounter.addComponent(LatestArticles)
+mounter.addComponent(ExternalEntries)
 mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)

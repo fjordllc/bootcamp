@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_04_122143) do
+ActiveRecord::Schema.define(version: 2022_12_19_111746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,17 @@ ActiveRecord::Schema.define(version: 2022_10_04_122143) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "external_entries", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.string "summary"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_external_entries_on_user_id"
+  end
+
   create_table "followings", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
@@ -268,17 +279,6 @@ ActiveRecord::Schema.define(version: 2022_10_04_122143) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "latest_articles", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
-    t.string "summary"
-    t.datetime "published_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_latest_articles_on_user_id"
   end
 
   create_table "learning_minute_statistics", force: :cascade do |t|
@@ -672,9 +672,9 @@ ActiveRecord::Schema.define(version: 2022_10_04_122143) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "external_entries", "users"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
-  add_foreign_key "latest_articles", "users"
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"

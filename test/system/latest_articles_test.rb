@@ -2,9 +2,9 @@
 
 require 'application_system_test_case'
 
-class LatestArticlesTest < ApplicationSystemTestCase
+class ExternalEntriesTest < ApplicationSystemTestCase
   test 'show listing articles' do
-    visit_with_auth latest_articles_url, 'komagata'
+    visit_with_auth external_entries_url, 'komagata'
     assert_text 'みんなのブログ'
     assert_selector '.card-list-item'
   end
