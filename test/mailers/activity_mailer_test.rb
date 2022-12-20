@@ -345,4 +345,53 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert ActionMailer::Base.deliveries.empty?
   end
+
+  test 'checked' do
+    check = checks(:procuct2_check_komagata)
+
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: check.receiver,
+      check: check
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を確認しました。', email.subject
+    assert_match(/確認/, email.body.to_s)
+  end
+
+  test 'checked with params' do
+    check = checks(:procuct2_check_komagata)
+
+    mailer = ActivityMailer.with(
+      sender: check.sender,
+      receiver: check.receiver,
+      check: check
+    ).checked
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を確認しました。', email.subject
+    assert_match(/確認/, email.body.to_s)
+  end
+
+  test 'checked with user who have been denied' do
+    check = checks(:procuct2_check_komagata)
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: users(:hajime),
+      check: check
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end
