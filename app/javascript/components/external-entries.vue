@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ExternalEntry from 'components/latest-article.vue'
+import ExternalEntry from 'components/external-entry.vue'
 import Pager from '../pager.vue'
 
 export default {
