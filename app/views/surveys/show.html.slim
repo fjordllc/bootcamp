@@ -33,7 +33,7 @@ header.page-header
         .survey-questions
           = form_with do |f|
             .survey-questions__items
-              - @survey.survey_questions.each do |survey_question|
+              - @survey_questions.each do |survey_question|
                 .survey-questions-item.a-card
                   .card__body
                     .card__description
