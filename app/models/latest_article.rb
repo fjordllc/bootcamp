@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LatestArticle < ApplicationRecord
+class ExternalEntry < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
 
   THUMBNAIL_SIZE = '88x88>'
@@ -15,7 +15,7 @@ class LatestArticle < ApplicationRecord
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
-      image_url('/images/latest_articles/thumbnails/blank.svg')
+      image_url('/images/external_entries/thumbnails/blank.svg')
     end
   end
 end

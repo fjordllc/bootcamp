@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class LatestArticlesController < ApplicationController
+class ExternalEntriesController < ApplicationController
   def index; end
 end

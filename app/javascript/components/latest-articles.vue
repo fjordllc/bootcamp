@@ -4,27 +4,27 @@
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
     .card-list.a-card
-      latestArticle(
-        v-for='latestArticle in latestArticles',
-        :key='latestArticle.id',
-        :latestArticle='latestArticle')
+      externalEntry(
+        v-for='externalEntry in externalEntries',
+        :key='externalEntry.id',
+        :externalEntry='externalEntry')
     nav.pagination(v-if='totalPages > 1')
       pager(v-bind='pagerProps')
 </template>
 
 <script>
-import LatestArticle from 'components/latest-article.vue'
+import ExternalEntry from 'components/latest-article.vue'
 import Pager from '../pager.vue'
 
 export default {
-  name: 'LatestArticles',
+  name: 'ExternalEntries',
   components: {
-    latestArticle: LatestArticle,
+    externalEntry: ExternalEntry,
     pager: Pager
   },
   data() {
     return {
-      latestArticles: [],
+      externalEntries: [],
       totalPages: 0,
       currentPage: this.getCurrentPage()
     }
@@ -33,7 +33,7 @@ export default {
     url() {
       const params = new URL(location.href).searchParams
       params.set('page', this.currentPage)
-      return `/api/latest_articles?${params}`
+      return `/api/external_entries?${params}`
     },
     pagerProps() {
       return {
@@ -45,10 +45,10 @@ export default {
     }
   },
   created() {
-    this.getLatestArticles()
+    this.getExternalEntries()
   },
   methods: {
-    getLatestArticles() {
+    getExternalEntries() {
       fetch(this.url, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
@@ -59,7 +59,7 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.latestArticles = json.latest_articles
+          this.externalEntries = json.external_entries
           this.totalPages = json.total_pages
         })
         .catch((error) => {
@@ -73,7 +73,7 @@ export default {
     },
     paginateClickCallback(pageNumber) {
       this.currentPage = pageNumber
-      this.getLatestArticles()
+      this.getExternalEntries()
 
       const url = new URL(location.href)
       if (pageNumber === 1) {

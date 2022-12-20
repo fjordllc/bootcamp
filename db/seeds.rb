@@ -22,9 +22,9 @@ tables = %i[
   courses
   courses_categories
   events
+  external_entries
   followings
   reports
-  latest_articles
   learning_times
   learnings
   memos

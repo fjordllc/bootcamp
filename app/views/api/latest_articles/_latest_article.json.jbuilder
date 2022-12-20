@@ -1,7 +1,6 @@
-json.(latest_article, :title, :url, :summary, :published_at)
-json.thumbnailUrl latest_article.thumbnail_url
+json.(external_entry, :title, :url, :summary, :published_at)
+json.thumbnailUrl external_entry.thumbnail_url
 
 json.user do
-  json.partial! 'api/users/user', user: latest_article.user
+  json.partial! 'api/users/user', user: external_entry.user
 end
-
