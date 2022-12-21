@@ -10,6 +10,7 @@ class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
     @check = params[:check] if params&.key?(:check)
     @announcement = params[:announcement] if params&.key?(:announcement)
     @question = params[:question] if params&.key?(:question)
+    @mentionable = params[:mentionable] if params&.key?(:mentionable)
   end
 
   # required params: sender, receiver
@@ -136,6 +137,21 @@ class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
     )
     subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
     message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: mentionable, receiver
+  def mentioned(args = {})
+    @mentionable ||= args[:mentionable]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @notification = @user.notifications.find_by(link: @mentionable.path)
+    subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
+    message = mail to: @user.email, subject: subject
+
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
