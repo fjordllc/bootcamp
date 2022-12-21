@@ -1,4 +1,4 @@
-function initializeFileInput (target) {
+function initializeFileInput(target) {
   const inputs = target.querySelectorAll('.js-file-input input')
   if (!inputs) {
     return null
@@ -28,7 +28,7 @@ function initializeFileInput (target) {
   })
 }
 
-function extractField (elements) {
+function extractField(elements) {
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i]
     if (element.classList && element.classList.contains('nested-fields')) {
