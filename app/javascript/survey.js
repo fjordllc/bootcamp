@@ -26,18 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
       )
       if (answerRequiredChoice.checked) {
         additionalQuestionField[0].classList.remove('is-hidden')
-      } else if (
-        !answerRequiredChoice.checked &&
-        answerRequiredChoice.type === 'checkbox'
-      ) {
+      } else if (answerRequiredChoice.type === 'checkbox') {
         const choicesInSameQuestion = document.getElementsByName(
           answerRequiredChoice.name
         )
         const checkBoxStatuses = []
-        choicesInSameQuestion.forEach((ChoiceInSameQuestion) => {
+        choicesInSameQuestion.forEach((choiceInSameQuestion) => {
           if (
-            ChoiceInSameQuestion.checked &&
-            ChoiceInSameQuestion.classList.contains('js-answer_required_choice')
+            choiceInSameQuestion.checked &&
+            choiceInSameQuestion.classList.contains('js-answer_required_choice')
           ) {
             checkBoxStatuses.push(true)
           } else {
