@@ -1,11 +1,10 @@
-function initializeFileInput(target) {
+function initializeFileInput (target) {
   const inputs = target.querySelectorAll('.js-file-input input')
   if (!inputs) {
     return null
   }
 
-  for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i]
+  inputs.forEach((input) => {
     input.addEventListener('change', (e) => {
       const file = e.target.files[0]
       const fileReader = new FileReader()
@@ -26,10 +25,10 @@ function initializeFileInput(target) {
       })
       fileReader.readAsDataURL(file)
     })
-  }
+  })
 }
 
-function extractField(elements) {
+function extractField (elements) {
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i]
     if (element.classList && element.classList.contains('nested-fields')) {
