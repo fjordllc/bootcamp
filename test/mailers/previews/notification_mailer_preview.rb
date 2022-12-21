@@ -22,6 +22,13 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(mentionable: mentionable, receiver: receiver).mentioned
   end
 
+  def checked
+    report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
+    check = report.checks.first
+
+    NotificationMailer.with(check: check).checked
+  end
+
   def submitted
     product = Product.find(ActiveRecord::FixtureSet.identify(:product3))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
