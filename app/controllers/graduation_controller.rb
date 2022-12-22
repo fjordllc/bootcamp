@@ -9,6 +9,7 @@ class GraduationController < ApplicationController
       Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
 
       notify_to_mentors(@user)
+      notify_to_chat(@user)
       redirect_to @redirect_url, notice: 'ユーザー情報を更新しました。'
     else
       redirect_to @redirect_url, alert: 'ユーザー情報の更新に失敗しました'
@@ -29,5 +30,9 @@ class GraduationController < ApplicationController
     User.mentor.each do |mentor|
       ActivityDelivery.with(sender: user, receiver: mentor).notify(:graduated)
     end
+  end
+
+  def notify_to_chat(user)
+    DiscordNotifier.with(sender: user).graduated.notify_now
   end
 end
