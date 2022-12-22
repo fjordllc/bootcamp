@@ -138,6 +138,10 @@ talk_otameshi:
   user: otameshi
   unreplied: false
 
+talk_registerthirty:
+  user: registration30days
+  unreplied: false
+
 talk_sotugyou-with-job:
   user: sotugyou_with_job
   unreplied: false

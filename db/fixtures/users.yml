@@ -869,6 +869,26 @@ otameshi:
   created_at: <%= Time.current %>
   last_activity_at: <%= Time.current %>
 
+registration30days:
+  login_name: thirty
+  email: thirty@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 入会 三十郎
+  name_kana: ニュウカイ サンジュウロウ
+  github_account: thirty
+  discord_account: thirty#1234
+  twitter_account: thirty
+  description: "入会30日経過したユーザーです"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  updated_at: <%= Time.current - 20.days %>
+  created_at: <%= Time.current - 30.days %>
+  last_activity_at: <%= Time.current - 10.days %>
+
 discordinvalid: #Discord IDが不正なユーザー
   login_name: discordinvalid
   email: discordinvalid@fjord.jp
