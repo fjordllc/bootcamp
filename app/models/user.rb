@@ -557,6 +557,10 @@ class User < ApplicationRecord
     hibernated_at?
   end
 
+  def registed_thirty_days_ago?
+    created_at.to_date == Time.current.ago(30.days).to_date
+  end
+
   def retired?
     retired_on?
   end
