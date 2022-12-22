@@ -615,4 +615,11 @@ class UserTest < ActiveSupport::TestCase
       assert_equal records.first.login_name, 'taikai3'
     end
   end
+
+  test 'after thirty days registration?' do
+    admin = users(:komagata)
+    student = users(:registration30days)
+    assert_not admin.after_thirty_days_registration?
+    assert student.after_thirty_days_registration?
+  end
 end
