@@ -415,4 +415,11 @@ class TalksTest < ApplicationSystemTestCase
     page.find('#side-tabs-nav-2').click
     assert_text '日報はまだありません。'
   end
+
+  test 'send to student after 30 days registration' do
+    user = users(:registration30days)
+    visit scheduler_send_message_path
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    assert_text 'ご登録から30日ほど経ちますが'
+  end
 end

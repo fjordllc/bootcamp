@@ -142,3 +142,12 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   user: marumarushain<%= i %>
   unreplied: false
 <% end %>
+
+talk_registerthirty:
+  user: registration30days
+  unreplied: false
+
+talk_registerfourty:
+  user: registration40days
+  unreplied: false
+
