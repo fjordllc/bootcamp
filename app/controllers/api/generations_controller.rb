@@ -8,4 +8,9 @@ class API::GenerationsController < API::BaseController
     generation = params[:id].to_i
     @users = Generation.new(generation).users.page(params[:page]).per(PAGER_NUMBER)
   end
+
+  def index
+    result = Generation.generations(params[:target]).reverse
+    @generations = Kaminari.paginate_array(result).page(params[:page]).per(PAGER_NUMBER)
+  end
 end
