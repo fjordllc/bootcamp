@@ -281,4 +281,16 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'プロフィール名'
     assert_text 'プロフィール文'
   end
+
+  test 'administrator can set user’s special user attribute to mentor' do
+    user = users(:advijirou)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_no_text 'メンター紹介用公開プロフィール'
+    check 'user_mentor', allow_label_click: true, visible: false
+    assert has_checked_field?('user_mentor', visible: false)
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'メンター紹介用公開プロフィール'
+  end
 end
