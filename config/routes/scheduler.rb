@@ -6,5 +6,8 @@ Rails.application.routes.draw do
     resource :link_checker, only: %i(show), controller: "link_checker"
     resource :validator, only: %i(show), controller: "validator"
     resource :daily, only: %i(show), controller: "daily"
+    namespace :daily do
+      resource :after_retirement, only: %i(show), controller: "after_retirement"
+    end
   end
 end
