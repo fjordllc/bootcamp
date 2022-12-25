@@ -44,17 +44,6 @@ class ActivityMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: check
-  def checked(args = {})
-    @check ||= args[:check]
-
-    @user = @check.receiver
-    link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
-    @notification = @user.notifications.find_by(link: link)
-    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    mail to: @user.email, subject: subject
-  end
-
   # required params: answer
   def came_answer(args = {})
     @answer = params&.key?(:answer) ? params[:answer] : args[:answer]
@@ -133,5 +122,21 @@ class ActivityMailer < ApplicationMailer
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
+  end
+
+  # required params: check, receiver
+  def checked(args = {})
+    @check ||= args[:check]
+    @receiver ||= args[:receiver]
+
+    return false unless @receiver.mail_notification?
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@user.id}",
+      kind: Notification.kinds[:checked]
+    )
+    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
+    mail to: @user.email, subject: subject
   end
 end
