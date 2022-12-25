@@ -265,6 +265,7 @@ class ActivityNotifier < ApplicationNotifier
   def checked(params = {})
     params.merge!(@params)
     check = params[:check]
+    sender = params[:sender]
     receiver = params[:receiver]
 
     notification(
