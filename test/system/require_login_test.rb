@@ -56,6 +56,12 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_text 'ログインしてください'
   end
 
+  test 'new_comeback_path' do
+    visit '/comeback/new'
+    assert_no_text 'ログインしてください'
+    assert_text '休会からの復帰'
+  end
+
   test 'company_products_path' do
     company = companies(:company1)
     visit "/companies/#{company.id}/products"
