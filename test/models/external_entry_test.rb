@@ -30,14 +30,4 @@ class ExternalEntryTest < ActiveSupport::TestCase
 
     assert ExternalEntry.save_rss_feed(user, mock)
   end
-
-  def vcr_options
-    {
-      record: :once,
-      match_requests_on: [
-        :method,
-        VCR.request_matchers.uri_without_param(:source)
-      ]
-    }
-  end
 end
