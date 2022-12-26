@@ -207,6 +207,7 @@ kimura:
   twitter_account: kimura
   facebook_url: https://www.facebook.com/fjordllc/kimura
   blog_url: http://kimura.org
+  feed_url: https://example.com/rss
   description: "木村です。"
   course: course1
   job: office_worker
