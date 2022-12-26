@@ -57,6 +57,7 @@ gem 'ransack'
 gem 'react-rails'
 gem 'recaptcha', '~> 5.12'
 gem 'rollbar'
+gem 'rss'
 gem 'ruby-openai'
 gem 'rubyzip'
 gem 'slim-rails'
@@ -65,7 +66,6 @@ gem 'sorcery-jwt'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'tzinfo', '~> 2.0', '>= 2.0.6'
-gem 'rss'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
