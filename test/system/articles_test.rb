@@ -269,7 +269,7 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector "meta[name='twitter:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
 
     visit articles_path
-    assert_no_text '現場の即戦力になれるプログラミングス�����ール。'
+    assert_no_text '現場の即戦力になれるプログラミングスクール。'
   end
 
   test 'can set it as an OGP image by uploading an eye-catching image' do
