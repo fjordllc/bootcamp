@@ -3,7 +3,6 @@
 class Scheduler::DailyController < SchedulerController
   def show
     User.notify_to_discord
-    notify_certain_period_passed_after_retirement
     notify_tomorrow_regular_event
     notify_product_review_not_completed
     Question.notify_certain_period_passed_after_last_answer
@@ -11,17 +10,6 @@ class Scheduler::DailyController < SchedulerController
   end
 
   private
-
-  def notify_certain_period_passed_after_retirement
-    User.retired.find_each do |retired_user|
-      if retired_user.retired_three_months_ago_and_notification_not_sent?
-        User.admins.each do |admin_user|
-          NotificationFacade.three_months_after_retirement(retired_user, admin_user)
-          retired_user.update!(notified_retirement: true)
-        end
-      end
-    end
-  end
 
   def notify_tomorrow_regular_event
     return if RegularEvent.tomorrow_events.blank?

@@ -14,7 +14,7 @@ class Notification::AfterRetirementTest < ApplicationSystemTestCase
   end
 
   test 'three months have passed since user retired' do
-    visit_with_auth '/scheduler/daily', 'komagata'
+    visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
     visit '/notifications'
 
     within first('.card-list-item.is-unread') do
