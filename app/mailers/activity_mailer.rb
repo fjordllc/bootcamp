@@ -5,6 +5,8 @@ class ActivityMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
   before_action do
+    @comment = params[:comment] if params&.key?(:comment)
+    @message = params[:message] if params&.key?(:message)
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
     @check = params[:check] if params&.key?(:check)
@@ -34,6 +36,18 @@ class ActivityMailer < ApplicationMailer
     )
     subject = "[FBC] #{@sender.login_name}さんが休会から復帰しました。"
     mail to: @user.email, subject: subject
+  end
+
+  # required params: comment, message, receiver
+  def came_comment(args = {})
+    @comment ||= args[:comment]
+    @message ||= args[:message]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
+    @notification = @user.notifications.find_by(link: link) || @user.notifications.find_by(link: "#{link}#latest-comment")
+    mail to: @user.email, subject: "[FBC] #{@message}"
   end
 
   # required params: sender, receiver
