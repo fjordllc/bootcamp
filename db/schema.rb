@@ -223,8 +223,8 @@ ActiveRecord::Schema.define(version: 2022_12_24_091715) do
   end
 
   create_table "external_entries", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
+    t.string "title", null: false
+    t.string "url", null: false
     t.string "summary"
     t.datetime "published_at"
     t.datetime "created_at", precision: 6, null: false
