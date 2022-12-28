@@ -52,6 +52,15 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       link: "#{commentable_path}#latest-comment"
     }
 
+    Notification.create!(
+      kind: Notification.kinds['came_comment'],
+      user: comment.receiver,
+      sender: comment.sender,
+      link: "#{commentable_path}#latest-comment",
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      read: false
+    )
+
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
       ActivityDelivery.notify!(:came_comment, **params)
     end

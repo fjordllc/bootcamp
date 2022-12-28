@@ -3,27 +3,6 @@
 require 'test_helper'
 
 class NotificationMailerTest < ActionMailer::TestCase
-  test 'came_comment' do
-    comment = comments(:comment9)
-    came_comment = notifications(:notification_commented)
-    mailer = NotificationMailer.with(
-      comment: comment,
-      receiver: came_comment.user,
-      message: "#{comment.user.login_name}さんからコメントが届きました。"
-    ).came_comment
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[FBC] komagataさんからコメントが届きました。', email.subject
-    assert_match(/コメント/, email.body.to_s)
-  end
-
   test 'checked' do
     check = checks(:report5_check_machida)
     mailer = NotificationMailer.with(check: check).checked
