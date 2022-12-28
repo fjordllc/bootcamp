@@ -8,16 +8,15 @@ class API::UsersController < API::BaseController
   def index
     @tag = params[:tag]
     @company = params[:company_id]
-    @target = params[:target]
     @watch = params[:watch]
 
-    @target = 'student_and_trainee' unless target_allowlist.include?(@target)
+    @target = target_allowlist.include?(params[:target]) ? params[:target] : 'student_and_trainee'
 
     target_users =
       if @target == 'followings'
         current_user.followees_list(watch: @watch)
-      elsif params[:tag]
-        User.tagged_with(params[:tag])
+      elsif @tag
+        User.tagged_with(@tag)
       elsif @company
         User.where(company_id: @company).users_role(@target)
       elsif @target == 'retired'
@@ -29,16 +28,8 @@ class API::UsersController < API::BaseController
     @users = target_users.page(params[:page]).per(PAGER_NUMBER)
                          .preload(:company, :avatar_attachment, :course, :tags)
                          .order(updated_at: :desc)
-    if params[:search_word]
-      @users = 
-        if @target == 'retired'
-          User.search_by_keywords({ word: params[:search_word] })
-              .unscope(where: :retired_on)
-              .users_role(@target)
-        else
-          target_users.search_by_keywords({ word: params[:search_word] })
-        end
-    end
+
+    @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
   end
 
   def show; end
@@ -52,6 +43,12 @@ class API::UsersController < API::BaseController
   end
 
   private
+
+  def search_for_users(target, target_users, search_word)
+    users = target_users.search_by_keywords({ word: search_word })
+    users = User.search_by_keywords({ word: search_word }).unscope(where: :retired_on).users_role(target) if target == 'retired'
+    users
+  end
 
   def target_allowlist
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
