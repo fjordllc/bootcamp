@@ -73,7 +73,7 @@ export default {
         submitted: '提出',
         complete: '修了'
       }[learningStatus]
-    },
+    }
   }
 }
 </script>
