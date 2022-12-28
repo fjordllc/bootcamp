@@ -24,4 +24,15 @@ class ActivityMailer < ApplicationMailer
     subject = "[FBC] #{@sender.login_name}さんが卒業しました。"
     mail to: @user.email, subject: subject
   end
+
+  # required params: answer
+  def came_answer(args = {})
+    @answer = params&.key?(:answer) ? params[:answer] : args[:answer]
+    @user = @answer.receiver
+    @notification = @user.notifications.find_by(link: "/questions/#{@answer.question.id}")
+    message = mail to: @user.email, subject: "[FBC] #{@answer.user.login_name}さんから回答がありました。"
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
 end
