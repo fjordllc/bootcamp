@@ -173,4 +173,36 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:create_page)
     end
   end
+
+  test '.notify(:first_report)' do
+    params = {
+      report: reports(:report10),
+      receiver: users(:komagata)
+    }
+
+    Notification.create!(
+      kind: Notification.kinds['first_report'],
+      user: users(:komagata),
+      sender: users(:hajime),
+      link: "/reports/#{reports(:report10).id}",
+      message: "🎉#{users(:hajime).login_name}さんがはじめての日報を書きました！",
+      read: false
+    )
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+      ActivityDelivery.notify!(:first_report, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.notify(:first_report, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify!(:first_report)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify(:first_report)
+    end
+  end
 end
