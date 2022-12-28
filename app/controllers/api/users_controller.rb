@@ -20,17 +20,25 @@ class API::UsersController < API::BaseController
         User.tagged_with(params[:tag])
       elsif @company
         User.where(company_id: @company).users_role(@target)
-      else
+      elsif @target == 'retired'
         User.users_role(@target)
+      else
+        User.users_role(@target).unhibernated.unretired
       end
 
     @users = target_users.page(params[:page]).per(PAGER_NUMBER)
                          .preload(:company, :avatar_attachment, :course, :tags)
                          .order(updated_at: :desc)
-
-    @users = target_users.search_by_keywords({ word: params[:search_word] }) if params[:search_word]
-
-    @users = @users.unhibernated.unretired unless @company
+    if params[:search_word]
+      @users = 
+        if @target == 'retired'
+          User.search_by_keywords({ word: params[:search_word] })
+              .unscope(where: :retired_on)
+              .users_role(@target)
+        else
+          target_users.search_by_keywords({ word: params[:search_word] })
+        end
+    end
   end
 
   def show; end

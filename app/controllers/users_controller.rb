@@ -17,14 +17,15 @@ class UsersController < ApplicationController
         current_user.followees_list(watch: @watch)
       elsif params[:tag]
         User.tagged_with(params[:tag])
-      else
+      elsif @target == 'retired'
         User.users_role(@target)
+      else
+        User.users_role(@target).unretired
       end
 
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
              .preload(:avatar_attachment, :course, :taggings)
-             .unretired
              .order(updated_at: :desc)
 
     @random_tags = User.tags.sample(20)
