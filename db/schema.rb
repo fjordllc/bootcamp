@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_28_064241) do
+ActiveRecord::Schema.define(version: 2022_12_24_091715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,18 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "external_entries", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.string "summary"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.string "thumbnail_image_url"
+    t.index ["user_id"], name: "index_external_entries_on_user_id"
   end
 
   create_table "followings", force: :cascade do |t|
@@ -661,6 +673,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "external_entries", "users"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
