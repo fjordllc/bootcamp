@@ -22,6 +22,7 @@ tables = %i[
   courses
   courses_categories
   events
+  external_entries
   followings
   reports
   learning_times
