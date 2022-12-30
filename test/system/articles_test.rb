@@ -51,20 +51,6 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text '管理者・メンターとしてログインしてください'
   end
 
-  test 'show articles without login' do
-    visit articles_url
-    assert_text 'ブログ'
-    assert_selector '.articles'
-    assert_no_text 'ログインしてください'
-  end
-
-  test 'show an article detail without login' do
-    visit article_path(@article)
-    assert_text @article.title
-    assert_selector '.article'
-    assert_no_text 'ログインしてください'
-  end
-
   test 'save article with WIP' do
     visit_with_auth new_article_path, 'komagata'
 
