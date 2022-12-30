@@ -42,7 +42,6 @@ ja:
       campaign: お試し延長
       book: 参考書籍
       regular_event: 定期イベント
-      talk: 相談
     attributes:
       user:
         login_name: アカウント

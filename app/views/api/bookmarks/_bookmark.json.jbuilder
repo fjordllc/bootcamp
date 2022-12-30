@@ -6,6 +6,7 @@ json.modelName bookmark.bookmarkable_type
 json.modelNameI18n t("activerecord.models.#{bookmarkable.class.to_s.tableize.singularize}")
 json.author bookmarkable.user.name
 json.authorUrl bookmarkable.user.url
+json.user bookmarkable.user, partial: "api/users/user", as: :user
 json.url polymorphic_url(bookmarkable)
 json.title bookmarkable_title
 json.created_at matched_document(bookmark.bookmarkable).created_at
