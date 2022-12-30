@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
+import UserIcon from './UserIcon';
 
 export default function Bookmarks() {
   const [editable, setEditable] = useState(false);
@@ -86,7 +87,17 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
   return (
     <div className={'card-list-item is-' + bookmark.bookmark_class_name}>
       <div className="card-list-item__inner">
-        <div className="card-list-item__label">{bookmark.modelNameI18n}</div>
+        {bookmark.modelName === 'Talk' ? (
+          <div className="card-list-item__user">
+            <UserIcon
+              user={bookmark.user}
+              blockClassSuffix='card-list-item'
+            />
+          </div>
+        ) : (
+          <div className="card-list-item__label">{bookmark.modelNameI18n}</div>
+        )
+        }
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
@@ -97,23 +108,27 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
               </div>
             </div>
           </div>
-          <div className="card-list-item__row">
-            <div className="card-list-item__summary">
-              <p>{bookmark.summary}</p>
-            </div>
-          </div>
-          <div className="card-list-item__row">
-            <div className="card-list-item-meta">
-              <div className="card-list-item-meta__item">
-                <a href={bookmark.authorUrl} className="a-user-name">{bookmark.author}</a>
+          {bookmark.modelName !== 'Talk' &&
+            <div>
+              <div className="card-list-item__row">
+                <div className="card-list-item__summary">
+                  <p>{bookmark.summary}</p>
+                </div>
               </div>
-              <div className="card-list-item-meta__item">
-                <time className="a-meta" dateTime={bookmark.updated_at}>
-                  {createdAt}
-                </time>
+              <div className="card-list-item__row">
+                <div className="card-list-item-meta">
+                  <div className="card-list-item-meta__item">
+                    <a href={bookmark.authorUrl} className="a-user-name">{bookmark.author}</a>
+                  </div>
+                  <div className="card-list-item-meta__item">
+                    <time className="a-meta" dateTime={bookmark.updated_at}>
+                      {createdAt}
+                    </time>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          }
         </div>
         {editable && (
           <DeleteButton id={bookmark.id} afterDelete={afterDelete} />
