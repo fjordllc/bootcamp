@@ -718,6 +718,7 @@ ActiveRecord::Schema.define(version: 2023_03_12_200635) do
     t.text "profile_text"
     t.string "feed_url"
     t.string "times_id", comment: "Snowflake ID"
+    t.boolean "sent_message_after_thrity_days", default: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

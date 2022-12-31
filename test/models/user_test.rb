@@ -622,4 +622,18 @@ class UserTest < ActiveSupport::TestCase
     assert_not admin.after_thirty_days_registration?
     assert student.after_thirty_days_registration?
   end
+
+  test 'sent message after 30 days?' do
+    target = users(:otameshi)
+    assert_not target.sent_message_after_thirty_days?
+  end
+
+  test 'message send target?' do
+    target = users(:registration30days)
+    nottarget = users(:registration40days)
+    otameshi = users(:otameshi)
+    assert target.message_send_target?
+    assert_not nottarget.message_send_target?
+    assert_not otameshi.message_send_target?
+  end
 end
