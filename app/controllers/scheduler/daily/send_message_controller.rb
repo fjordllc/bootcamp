@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Scheduler::SendMessageController < SchedulerController
+class Scheduler::Daily::SendMessageController < SchedulerController
   def show
     send_message_to_students_thirty_days_after_registration
     head :ok
