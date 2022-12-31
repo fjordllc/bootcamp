@@ -12,13 +12,14 @@ class Scheduler::SendMessageController < SchedulerController
     @komagata = User.find_by(login_name: 'komagata')
 
     User.students.find_each do |student|
-      next unless student.after_thirty_days_registration?
+      next unless student.message_send_target?
 
       @komagata.comments.create(
         description: I18n.t('send_message.description'),
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
+      student.update!(sent_message_after_thrity_days: true)
     end
   end
 end
