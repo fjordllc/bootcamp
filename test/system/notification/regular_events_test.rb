@@ -51,7 +51,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
                          headers: { 'Content-Type' => 'application/json' })
 
     travel_to Time.zone.local(2022, 7, 30, 0, 0, 0) do
-      visit_with_auth '/scheduler/daily', 'komagata'
+      visit_with_auth '/scheduler/daily/notify_tomorrow_regular_event', 'komagata'
     end
 
     assert_requested(stub_message)
