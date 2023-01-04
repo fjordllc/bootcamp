@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :set_survey, only: %i[show edit update destroy]
   before_action :require_admin_or_mentor_login
+  before_action :set_survey, only: %i[show edit update destroy]
 
   def index
-    @surveys = Survey.all.order(end_at: :desc)
+    @surveys = Survey.order(end_at: :desc)
   end
 
   def show
