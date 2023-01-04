@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const choices = Array.from(document.querySelectorAll('.js-questionnaire_choice'))
+  const choices = Array.from(
+    document.querySelectorAll('.js-questionnaire_choice')
+  )
 
   choices.forEach((choice) => {
     choice.addEventListener('click', () => {
