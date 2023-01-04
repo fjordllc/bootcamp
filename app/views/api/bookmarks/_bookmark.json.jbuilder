@@ -1,5 +1,5 @@
 bookmarkable = bookmark.bookmarkable
-bookmarkable_title = bookmark.bookmarkable_type == 'Talk' ? "#{bookmarkable.user.long_name}さんの相談部屋" : bookmarkable.title
+bookmarkable_title = bookmark.bookmarkable_type == 'Talk' ? "#{bookmarkable.user.long_name} さんの相談部屋" : bookmarkable.title
 json.id bookmark.id
 json.bookmarkable_id bookmark.bookmarkable_id
 json.modelName bookmark.bookmarkable_type
