@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const Choices = Array.from(document.querySelectorAll('.a-toggle-checkbox'))
+  const choices = Array.from(document.querySelectorAll('.js-questionnaire_choice'))
 
-  Choices.forEach((choice) => {
+  choices.forEach((choice) => {
     choice.addEventListener('click', () => {
       const additionalQuestionField = document.getElementsByName(
         `js-additional_question_${choice.name}`
