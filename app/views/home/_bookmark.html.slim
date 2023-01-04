@@ -8,7 +8,7 @@
           header.card-list-item-title
             h2.card-list-item-title__title
               = link_to bookmark.bookmarkable, class: 'card-list-item-title__link a-text-link' do
-                = "#{bookmark.bookmarkable.user.long_name}さんの相談部屋"
+                = "#{bookmark.bookmarkable.user.long_name} さんの相談部屋"
     - else
       .card-list-item__label
         = bookmark.bookmarkable.model_name.human
