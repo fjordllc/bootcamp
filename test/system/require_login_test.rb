@@ -6,44 +6,44 @@ require 'supports/login_assert_helper'
 class RequireLoginTest < ApplicationSystemTestCase
   include LoginAssertHelper
   test 'redirect to welcome page and show message when you visit login required pages without login' do
-    assert_login_required('/announcements')
-    assert_login_required('/books')
-    assert_login_required("/companies/#{companies(:company1).id}/products")
-    assert_login_required("/companies/#{companies(:company1).id}/reports")
-    assert_login_required("/companies/#{companies(:company1).id}/users")
-    assert_login_required('/companies')
-    assert_login_required("/courses/#{courses(:course1).id}/practices")
-    assert_login_required('/courses')
-    assert_login_required('/current_user/bookmarks')
-    assert_login_required('/current_user/password/edit')
-    assert_login_required('/current_user/products')
-    assert_login_required('/current_user/reports')
-    assert_login_required('/current_user/watches')
-    assert_login_required('/current_user/edit')
-    assert_login_required('/events')
-    assert_login_required('/generations')
-    assert_login_required('/notifications')
-    assert_login_required('/pages')
-    assert_login_required("/practices/#{practices(:practice1).id}/pages")
-    assert_login_required("/practices/#{practices(:practice1).id}/products")
-    assert_login_required("/practices/#{practices(:practice1).id}/questions")
-    assert_login_required("/practices/#{practices(:practice1).id}/reports")
-    assert_login_required("/practices/#{practices(:practice1).id}")
-    assert_login_required('/products')
-    assert_login_required('/questions')
-    assert_login_required('/regular_events')
-    assert_login_required('/reports')
-    assert_login_required('/searchables')
-    assert_login_required("/talks/#{talks(:talk8).id}")
-    assert_login_required("/users/#{users(:hatsuno).id}/answers")
-    assert_login_required("/users/#{users(:hatsuno).id}/comments")
-    assert_login_required('/users/companies')
-    assert_login_required("/users/#{users(:hatsuno).id}/products")
-    assert_login_required("/users/#{users(:hatsuno).id}/questions")
-    assert_login_required("/users/#{users(:hatsuno).id}/reports")
-    assert_login_required('/users/tags')
-    assert_login_required("/users/#{users(:hatsuno).id}/portfolio")
-    assert_login_required("/works/#{works(:work1).id}")
+    assert_login_required '/announcements'
+    assert_login_required '/books'
+    assert_login_required "/companies/#{companies(:company1).id}/products"
+    assert_login_required "/companies/#{companies(:company1).id}/reports"
+    assert_login_required "/companies/#{companies(:company1).id}/users"
+    assert_login_required '/companies'
+    assert_login_required "/courses/#{courses(:course1).id}/practices"
+    assert_login_required '/courses'
+    assert_login_required '/current_user/bookmarks'
+    assert_login_required '/current_user/password/edit'
+    assert_login_required '/current_user/products'
+    assert_login_required '/current_user/reports'
+    assert_login_required '/current_user/watches'
+    assert_login_required '/current_user/edit'
+    assert_login_required '/events'
+    assert_login_required '/generations'
+    assert_login_required '/notifications'
+    assert_login_required '/pages'
+    assert_login_required "/practices/#{practices(:practice1).id}/pages"
+    assert_login_required "/practices/#{practices(:practice1).id}/products"
+    assert_login_required "/practices/#{practices(:practice1).id}/questions"
+    assert_login_required "/practices/#{practices(:practice1).id}/reports"
+    assert_login_required "/practices/#{practices(:practice1).id}"
+    assert_login_required '/products'
+    assert_login_required '/questions'
+    assert_login_required '/regular_events'
+    assert_login_required '/reports'
+    assert_login_required '/searchables'
+    assert_login_required "/talks/#{talks(:talk8).id}"
+    assert_login_required "/users/#{users(:hatsuno).id}/answers"
+    assert_login_required "/users/#{users(:hatsuno).id}/comments"
+    assert_login_required '/users/companies'
+    assert_login_required "/users/#{users(:hatsuno).id}/products"
+    assert_login_required "/users/#{users(:hatsuno).id}/questions"
+    assert_login_required "/users/#{users(:hatsuno).id}/reports"
+    assert_login_required '/users/tags'
+    assert_login_required "/users/#{users(:hatsuno).id}/portfolio"
+    assert_login_required "/works/#{works(:work1).id}"
   end
 
   test 'can visit these pages without login' do
