@@ -12,8 +12,10 @@ class ExternalEntryTest < ActiveSupport::TestCase
     feed_url = ''
     assert_not ExternalEntry.parse_rss_feed(feed_url)
 
+    feed_url = 'https://example.com/rss'
+    assert_not ExternalEntry.parse_rss_feed(feed_url)
+
     VCR.use_cassette 'external_entry/fetch', vcr_options do
-      feed_url = 'https://example.com/rss'
       assert ExternalEntry.parse_rss_feed(feed_url)
     end
   end

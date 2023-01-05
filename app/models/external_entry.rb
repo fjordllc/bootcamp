@@ -15,9 +15,13 @@ class ExternalEntry < ApplicationRecord
 
   class << self
     def parse_rss_feed(feed_url)
-      return if feed_url.blank?
+      return nil if feed_url.blank?
 
-      RSS::Parser.parse(feed_url).items
+      begin
+        RSS::Parser.parse(feed_url).items
+      rescue OpenURI::HTTPError
+        nil
+      end
     end
 
     def save_rss_feed(user, rss_item)
