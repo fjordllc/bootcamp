@@ -40,6 +40,9 @@
             .page-content-header__end
               .page-content-header__row
                 h1.page-content-header__title
+                  - if @practice.include_must_read_books?
+                    span.a-title-label.is-danger
+                      | 要書籍
                   = @practice.title
 
               - if @practice.last_updated_user.present?

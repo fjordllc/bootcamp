@@ -1,5 +1,5 @@
 .a-title-label
-  +text-block(.5em 1, inline-flex nowrap 600)
+  +text-block(.5em 1, inline-flex nowrap 500)
   vertical-align: top
   background-color: #e9ebef
   +padding(horizontal, 1em)
@@ -16,10 +16,12 @@
     +position(top .375em)
   &.is-solved
     color: $reversal-text
-    &.is-success
-      background-color: $success
-    &.is-danger
-      background-color: $danger
   &.is-wip
     color: $semi-muted-text
     background-color: $background-semi-shade
+  &.is-success
+    color: $reversal-text
+    background-color: $success
+  &.is-danger
+    color: $reversal-text
+    background-color: $danger
