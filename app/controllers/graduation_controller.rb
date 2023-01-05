@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class GraduationController < ApplicationController
+  skip_before_action :require_login, raise: false
   before_action :set_user, only: %i[update]
   before_action :set_redirect_url, only: %i[update]
 

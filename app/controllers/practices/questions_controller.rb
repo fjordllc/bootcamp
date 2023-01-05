@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Practices::QuestionsController < ApplicationController
-  before_action :require_login
-
   def index
     @practice = Practice.find(params[:practice_id])
     @empty_message = empty_message

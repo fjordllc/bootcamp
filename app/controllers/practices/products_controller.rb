@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Practices::ProductsController < ApplicationController
-  before_action :require_login
-
   def index
     @practice = Practice.find(params[:practice_id])
     @products = Product
