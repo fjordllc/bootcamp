@@ -1,0 +1,36 @@
+- title 'アンケート'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+
+= render 'tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | アンケート一覧
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_survey_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | 新規作成
+
+.page-body
+  .container.is-md
+    - if @surveys.present?
+      .card-list.a-card
+        = render partial: 'surveys/survey', collection: @surveys, as: :survey
+    - else
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+          | アンケートはまだありません。

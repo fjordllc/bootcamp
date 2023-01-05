@@ -1,0 +1,58 @@
+$radio-size: .875rem
+
+.linear-scale
+  display: flex
+  align-items: center
+
+.linear-scale__label
+  +text-block(.8125rem 1.4)
+  &:first-child
+    margin-right: 1rem
+  &:last-child
+    margin-left: 1rem
+
+.linear-scale__points
+  flex: 1
+
+.linear-scale__points-items
+  display: flex
+  justify-content: space-between
+
+.linear-scale__point
+  display: flex
+  flex-direction: column
+  +text-block(.875rem 1.4, block $semi-muted-text)
+  +position(relative)
+  cursor: pointer
+  padding-bottom: $radio-size
+  width: 2.25rem
+  text-align: center
+  &::before
+    content: ""
+    text-decoration: none
+    +size($radio-size)
+    border: solid 1px $input-border
+    display: block
+    +position(absolute, left 50%, bottom 0)
+    transform: translate(-50%, 0)
+    background-color: $base
+    border-radius: 50%
+    +text-block(.75rem 1, $reversal-text flex $reversal-text)
+    align-items: center
+    justify-content: center
+    transition: all .2s ease-out
+  &:hover::before
+    background-color: rgba($primary, .4)
+    border-color: $primary
+  &:hover::after
+    text-decoration: none
+  input:checked + &
+    color: $default-text
+  input:checked + &::before
+    background-color: $primary
+    border-color: $primary
+    box-shadow: $background 0 0 0 1px inset
+  input:checked + &:hover::before
+    border-color: $primary
+  input:checked + &::after
+    opacity: 1
