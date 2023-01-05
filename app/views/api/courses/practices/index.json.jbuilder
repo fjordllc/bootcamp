@@ -7,6 +7,7 @@ json.categories @categories do |category|
   json.practices do
     json.array! category.practices do |practice|
       json.practice practice
+      json.include_must_read_books practice.include_must_read_books?
       json.url practice_path(practice)
       json.learning_minute_statistic practice.learning_minute_statistic
       json.started_students practice.started_students.each do |user|
