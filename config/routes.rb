@@ -48,6 +48,9 @@ Rails.application.routes.draw do
     resource :completion, only: %i(show), controller: "practices/completion"
   end
   resources :pages, param: :slug_or_id
+  namespace :notification do 
+    resource :redirector, only: %i(show), controller: "redirector"
+  end
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
