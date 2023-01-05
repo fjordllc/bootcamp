@@ -53,11 +53,16 @@ header.page-header
                           .survey-questions-item__radios.radios
                             ul.radios__items
                               - survey_question.radio_button.radio_button_choices.each do |choice|
-                                li.radios__item
-                                  = f.radio_button choice.radio_button_id, choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox'
-                                  = f.label "#{choice.radio_button_id}_#{choice.choices}", choice.choices, for: "radio-#{choice.id}"
+                                - if choice.reason_for_choice_required
+                                  li.radios__item
+                                    = f.radio_button survey_question.id, choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
+                                    = f.label "#{choice.radio_button_id}_#{choice.choices}", choice.choices, for: "radio-#{choice.id}"
+                                - else
+                                  li.radios__item
+                                    = f.radio_button survey_question.id, choice.choices, id: "radio-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice'
+                                    = f.label "#{choice.radio_button_id}_#{choice.choices}", choice.choices, for: "radio-#{choice.id}"
                           - if survey_question.answer_required_choice_exists?(survey_question.id)
-                            .survey-additional-question
+                            .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
                               = f.label survey_question.radio_button.title_of_reason, class: 'a-form-label is-required'
                               .survey-questions-item__description
                                 .a-long-text.is-sm
@@ -68,11 +73,16 @@ header.page-header
                         .survey-questions-item__checkboxes.checkboxes
                           ul.checkboxes__items
                             - survey_question.check_box.check_box_choices.each do |choice|
-                              li.checkboxes__item
-                                = f.check_box choice.choices, class: 'a-toggle-checkbox', id: "checkbox-#{choice.id}"
-                                = f.label choice.choices, for: "checkbox-#{choice.id}"
+                              - if choice.reason_for_choice_required
+                                li.checkboxes__item
+                                  = f.check_box choice.choices, id: "checkbox-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice', name: survey_question.id
+                                  = f.label choice.choices, for: "checkbox-#{choice.id}"
+                              - else
+                                li.checkboxes__item
+                                  = f.check_box choice.choices, id: "checkbox-#{choice.id}", class: 'a-toggle-checkbox js-questionnaire_choice', name: survey_question.id
+                                  = f.label choice.choices, for: "checkbox-#{choice.id}"
                         - if survey_question.answer_required_choice_exists?(survey_question.id)
-                          .survey-additional-question
+                          .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
                             = f.label :title_of_reason_for_checkbox, survey_question.check_box.title_of_reason, class: 'a-form-label is-required'
                             .survey-questions-item__description
                               .a-long-text.is-sm
@@ -87,15 +97,22 @@ header.page-header
                           .linear-scale__points
                             ul.linear-scale__points-items
                               - 10.times do |i|
-                                li.linear-scale__points-item
-                                  = f.radio_button survey_question.linear_scale.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}", class: 'a-toggle-checkbox'
-                                  label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
-                                    .linear-scale__point-number
-                                      = i + 1
+                                - if survey_question.linear_scale.reason_for_choice_required
+                                  li.linear-scale__points-item
+                                    = f.radio_button survey_question.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
+                                    label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
+                                      .linear-scale__point-number
+                                        = i + 1
+                                - else
+                                  li.linear-scale__points-item
+                                    = f.radio_button survey_question.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}", class: 'a-toggle-checkbox js-questionnaire_choice'
+                                    label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
+                                      .linear-scale__point-number
+                                        = i + 1
                           .linear-scale__label
                             = survey_question.linear_scale.last
                         - if survey_question.linear_scale.reason_for_choice_required
-                          .survey-additional-question
+                          .survey-additional-question.is-hidden name="js-additional_question_#{survey_question.id}"
                             = f.label :title_of_reason_for_linear_scale, survey_question.linear_scale.title_of_reason, class: 'a-form-label is-required'
                             .survey-questions-item__description
                               .a-long-text.is-sm

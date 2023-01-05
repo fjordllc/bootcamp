@@ -14,6 +14,27 @@ class SurveysTest < ApplicationSystemTestCase
     assert_text 'フィヨルドブートキャンプの価格設定はどのように思いますか？'
   end
 
+  test 'displaying added question when choices reason for answer are required are choosed' do
+    visit_with_auth "/surveys/#{surveys(:survey1).id}", 'komagata'
+    assert_selector 'h1', text: '【第1回】FBCモチベーションに関するアンケート'
+    required_answer_checkbox = find('.survey-questions-item__checkboxes').all('.checkboxes__item')[4]
+    required_answer_checkbox.select_option
+    assert_text '「その他」と回答された方は、内容をお聞かせください。'
+    required_answer_checkbox.select_option
+    assert_no_text '「その他」と回答された方は、内容をお聞かせください。'
+
+    required_answer_radio_button = find('.survey-questions-item__radios').all('.radios__item')[4]
+    required_answer_radio_button.select_option
+    assert_text '「その他」と回答された方は、内容をお聞かせください。'
+    normal_radio_button = find('.survey-questions-item__radios').all('.radios__item')[0]
+    normal_radio_button.select_option
+    assert_no_text '「その他」と回答された方は、内容をお聞かせください。'
+
+    required_answer_linear_scale = find('.linear-scale__points-items').first('.linear-scale__points-item')
+    required_answer_linear_scale.select_option
+    assert_text 'そのように回答された理由を教えてください。'
+  end
+
   test 'not displaying any badge if a survey which deadline is over' do
     visit_with_auth '/surveys', 'komagata'
     assert_selector 'h1', text: 'アンケート一覧'
