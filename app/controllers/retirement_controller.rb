@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RetirementController < ApplicationController
-  before_action :require_login, except: %i[show]
+  skip_before_action :require_login, raise: false, only: %i[show]
 
   def show; end
 
