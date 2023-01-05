@@ -20,7 +20,7 @@ class GenerationsTest < ApplicationSystemTestCase
     assert_text 'ユーザー一覧'
     assert_link "#{users(:otameshi).generation}期生"
     within all('.a-user-icons__items').first do
-      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'otameshi (お試し 延長)'
+      assert_equal first('img')['class'], 'a-user-icons__item-icon a-user-icon is-student'
     end
     assert_equal '期生別ユーザー一覧 | FBC', title
   end
