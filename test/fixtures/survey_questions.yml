@@ -6,3 +6,48 @@ survey_question1:
   user: komagata
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+
+survey_question2:
+  title: "フィヨルドブートキャンプを最初に知ったきっかけは何ですか？"
+  description: "フィヨルドブートキャンプを最初に知ったきっかけを教えてください。"
+  format: "radio_button"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question3:
+  title: "フィヨルドブートキャンプを知った後にとった行動は何でしたか？（当てはまるもの全て）"
+  description: "フィヨルドブートキャンプを知った後にとった行動について、当てはまるもの全てにチェックをしてください。"
+  format: "check_box"
+  answer_required: true
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question4:
+  title: "なぜ、他のスクールではなくフィヨルドブートキャンプを選びましたか？"
+  description: "他のスクールではなく、フィヨルドブートキャンプを選んでいただけた理由を詳細に教えてください。"
+  format: "text_field"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question5:
+  title: "フィヨルドブートキャンプの価格設定はどのように思いますか？"
+  description: "フィヨルドブートキャンプの価格設定についてお聞かせください。"
+  format: "linear_scale"
+  answer_required: true
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+survey_question6:
+  title: "フィヨルドブートキャンプに対してご意見・ご要望がございましたら、ご自由にお書きください。"
+  description: "フィヨルドブートキャンプに対するご意見・ご要望をご自由にお書きください。"
+  format: "text_field"
+  answer_required: false
+  user: komagata
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
