@@ -126,3 +126,9 @@ comment41:
   user: machida
   commentable: announcement1 (Announcement)
   description: "お知らせのコメントです。"
+
+commentOfTalk:
+  user: komagata
+  commentable: talk_komagata (Talk)
+  description: "これは相談部屋の会話です。"
+  updated_at: "2019-01-02 00:00:00 JST"
