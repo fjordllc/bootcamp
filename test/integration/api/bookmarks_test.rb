@@ -84,6 +84,19 @@ class API::BookmarksTest < ActionDispatch::IntegrationTest
     assert_response :created
   end
 
+  test 'POST talk' do
+    talk = talks(:talk2)
+    token = create_token('komagata', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: 'komagata',
+           bookmarkable_id: talk.id,
+           bookmarkable_type: 'Talk'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+  end
+
   test 'duplicate POST page' do
     page = pages(:page1)
     token = create_token('komagata', 'testtest')
@@ -167,6 +180,28 @@ class API::BookmarksTest < ActionDispatch::IntegrationTest
            user: report.user_id,
            bookmarkable_id: report.id,
            bookmarkable_type: 'Report'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :no_content
+  end
+
+  test 'duplicate POST talk' do
+    talk = talks(:talk1)
+    token = create_token('machida', 'testtest')
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: talk.user_id,
+           bookmarkable_id: talk.id,
+           bookmarkable_type: 'Talk'
+         },
+         headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :created
+
+    post api_bookmarks_path(format: :json),
+         params: {
+           user: talk.user_id,
+           bookmarkable_id: talk.id,
+           bookmarkable_type: 'Talk'
          },
          headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :no_content
