@@ -38,7 +38,6 @@ export default function TagsInput({
   return (
     <>
       <TagifyTags
-        className='w-full'
         settings={{
           validate: validateTagName,
           transformTag: transformHeadSharp
