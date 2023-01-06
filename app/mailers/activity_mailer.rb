@@ -19,7 +19,10 @@ class ActivityMailer < ApplicationMailer
 
     @user = @receiver
     link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    @notification = @user.notifications.find_by(link: link) || @user.notifications.find_by(link: "#{link}#latest-comment")
+    @link_url = notification_redirector_path(
+      link: link,
+      kind: Notification.kinds[:came_comment]
+    )
     mail to: @user.email, subject: "[FBC] #{@message}"
   end
 
