@@ -86,10 +86,11 @@ class ActivityNotifier < ApplicationNotifier
     subject = params[:subject]
     receiver = params[:receiver]
     message = params[:message]
+    kind = params[:kind]
 
     notification(
       body: message,
-      kind: :watching,
+      kind: kind,
       sender: subject.user,
       receiver: receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(subject),
