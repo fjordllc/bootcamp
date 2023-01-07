@@ -52,9 +52,9 @@ class ProductCallbacks
     end
   end
 
-  def send_notification(product:, receivers:, message:)
+  def send_notification(product:, receivers:, message:, kind:)
     receivers.each do |receiver|
-      NotificationFacade.submitted(product, receiver, message)
+      NotificationFacade.submitted(product, receiver, message, kind)
     end
   end
 
@@ -69,7 +69,8 @@ class ProductCallbacks
     send_notification(
       product: product,
       receivers: mentors,
-      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+      message: "#{product.user.login_name}さんが#{product.title}を提出しました。",
+      kind: :watching
     )
   end
 
@@ -77,7 +78,8 @@ class ProductCallbacks
     send_notification(
       product: product,
       receivers: product.user.company.advisers,
-      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+      message: "#{product.user.login_name}さんが#{product.title}を提出しました。",
+      kind: :submitted
     )
   end
 
