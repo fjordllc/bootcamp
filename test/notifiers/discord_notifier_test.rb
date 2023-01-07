@@ -63,7 +63,6 @@ class DiscordNotifierTest < ActiveSupport::TestCase
   end
 
   test '.tomorrow_regular_event' do
-
     message = <<~TEXT.chomp
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
       【イベントのお知らせ】
@@ -98,8 +97,8 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       end
 
       assert_notifications_enqueued 2, **expected do
-        DiscordNotifier.tomorrow_regular_event(params).notify_now
-        DiscordNotifier.with(params).tomorrow_regular_event.notify_now
+        DiscordNotifier.tomorrow_regular_event(params).notify_later
+        DiscordNotifier.with(params).tomorrow_regular_event.notify_later
       end
     end
   end
