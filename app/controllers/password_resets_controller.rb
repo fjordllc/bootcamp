@@ -2,6 +2,7 @@
 
 class PasswordResetsController < ApplicationController
   skip_before_action :require_login, raise: false
+  skip_before_action :require_current_student, raise: false
 
   def create
     @user = User.find_by(email: params[:email])

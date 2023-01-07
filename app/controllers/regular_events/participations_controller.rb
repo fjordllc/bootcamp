@@ -2,6 +2,7 @@
 
 class RegularEvents::ParticipationsController < ApplicationController
   skip_before_action :require_login, raise: false
+  skip_before_action :require_current_student, raise: false
   before_action :set_regular_event
 
   def create
