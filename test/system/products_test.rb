@@ -535,9 +535,12 @@ class ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
 
-    assert_text '5日経過：1件'
-    assert_text '6日経過：1件'
-    assert_text '7日以上経過：5件'
+    expected = <<~BODY
+      - 7日以上経過：5件
+      - 6日経過：1件
+      - 5日経過：1件
+    BODY
+    assert page.body.include?(expected)
   end
 
   test 'no company trainee create product' do
