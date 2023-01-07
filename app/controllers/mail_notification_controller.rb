@@ -2,6 +2,7 @@
 
 class MailNotificationController < ApplicationController
   skip_before_action :require_login, raise: false
+  skip_before_action :require_current_student, raise: false
 
   def update
     user = User.find_by(unsubscribe_email_token: params[:token])

@@ -2,6 +2,7 @@
 
 class HibernationController < ApplicationController
   skip_before_action :require_login, raise: false, only: %i[show]
+  skip_before_action :require_current_student, raise: false, only: %i[show]
 
   def show; end
 

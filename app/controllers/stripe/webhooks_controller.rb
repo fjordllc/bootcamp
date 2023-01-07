@@ -3,6 +3,7 @@
 class Stripe::WebhooksController < ApplicationController
   protect_from_forgery
   skip_before_action :require_login, raise: false
+  skip_before_action :require_current_student, raise: false
 
   def create
     event = Webhook.construct_event(

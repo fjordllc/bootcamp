@@ -3,6 +3,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
   skip_before_action :require_login, raise: false, only: %i[index show]
+  skip_before_action :require_current_student, raise: false, only: %i[index show]
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index

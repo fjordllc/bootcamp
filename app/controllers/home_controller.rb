@@ -2,6 +2,7 @@
 
 class HomeController < ApplicationController
   skip_before_action :require_login, raise: false
+  skip_before_action :require_current_student, raise: false
 
   def index
     if current_user

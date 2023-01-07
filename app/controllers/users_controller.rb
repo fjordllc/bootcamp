@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   skip_before_action :require_login, raise: false, only: %i[new create]
+  skip_before_action :require_current_student, raise: false, only: %i[new create]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
