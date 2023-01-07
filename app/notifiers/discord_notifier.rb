@@ -86,30 +86,4 @@ class DiscordNotifier < ApplicationNotifier
       webhook_url: webhook_url
     )
   end
-
-  private
-
-  def regular_events_info(events)
-    day_of_the_week = %w[日 月 火 水 木 金 土]
-    event_date = events.first.next_event_date
-    events_info = '--------------------------------------------'
-
-    events.each do |event|
-      events_info += <<~TEXT.chomp
-
-        #{event.title}
-        時間: #{event.start_at.strftime('%H:%M')} 〜 #{event.end_at.strftime('%H:%M')}
-        詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}
-        --------------------------------------------
-      TEXT
-    end
-
-    <<~TEXT.chomp
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-      【イベントのお知らせ】
-      明日 #{event_date.strftime("%m月%d日（#{day_of_the_week[event_date.wday]}）")}に開催されるイベントです！
-      #{events_info}
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-    TEXT
-  end
 end
