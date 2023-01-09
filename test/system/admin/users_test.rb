@@ -174,6 +174,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('追加タグ')
+    end
     click_on '更新する'
     visit "/admin/users/#{user.id}/edit"
     assert_text '追加タグ'

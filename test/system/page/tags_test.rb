@@ -19,6 +19,13 @@ class Page::TagsTest < ApplicationSystemTestCase
         tag_input.set tag
         tag_input.native.send_keys :return
       end
+
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        loop until tag_list.map do |tag|
+          page.has_text?(tag)
+        end.all?
+      end
+
       click_on '内容を保存'
     end
     click_on 'Docs', match: :first
