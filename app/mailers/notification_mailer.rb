@@ -54,6 +54,13 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
          subject: "[FBC] #{@report.user.login_name}さんがはじめての日報を書きました！"
   end
 
+  # required params: product, receiver, message
+  def submitted
+    @user = @receiver
+    @notification = @user.notifications.find_by(link: "/products/#{@product.id}")
+    mail to: @user.email, subject: "[FBC] #{@message}"
+  end
+
   # required params: watchable, receiver
   def watching_notification
     @sender = @watchable.user
