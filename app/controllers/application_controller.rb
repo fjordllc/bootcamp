@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
   before_action :require_login
-  before_action :require_current_student
+  before_action :refuse_retired_login
+  before_action :refuse_hibernated_login
 
   protected
 
@@ -48,17 +49,6 @@ class ApplicationController < ActionController::Base
 
   def require_subscription
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
-  end
-
-  def require_current_student
-    if current_user&.retired_on?
-      logout
-      redirect_to root_path, alert: '退会したユーザーです。'
-    elsif current_user&.hibernated?
-      logout
-      link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
-      redirect_to root_path, alert: "休会中です。#{link}から手続きをお願いします。"
-    end
   end
 
   protected

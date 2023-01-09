@@ -2,7 +2,8 @@
 
 class API::GenerationsController < API::BaseController
   before_action :require_login
-  before_action :require_current_student
+  before_action :refuse_retired_login
+  before_action :refuse_hibernated_login
   PAGER_NUMBER = 24
 
   def show
