@@ -19,6 +19,10 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     tag_input = find '.tagify__input'
     tag_input.set 'タグ1'
+    tag_input.native.send_keys :enter
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('タグ1')
+    end
     click_on '更新する'
     assert_text 'タグ1'
 
