@@ -11,7 +11,9 @@ module Authentication
                   :staff_login?,
                   :paid_login?,
                   :staff_or_paid_login?,
-                  :student_login?
+                  :student_login?,
+                  :hibernated_login?,
+                  :retired_login?
   end
 
   def admin_login?
@@ -46,6 +48,14 @@ module Authentication
     logged_in? && current_user.staff_or_paid?
   end
 
+  def hibernated_login?
+    logged_in? && current_user.hibernated?
+  end
+
+  def retired_login?
+    logged_in? && current_user.retired?
+  end
+
   def require_mentor_login
     return if mentor_login?
 
@@ -68,6 +78,21 @@ module Authentication
     return if staff_login?
 
     redirect_to root_path, alert: '管理者・アドバイザー・メンターとしてログインしてください'
+  end
+
+  def refuse_retired_login
+    return unless retired_login?
+
+    logout
+    redirect_to root_path, alert: '退会したユーザーです。'
+  end
+
+  def refuse_hibernated_login
+    return unless hibernated_login?
+
+    logout
+    link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
+    redirect_to root_path, alert: "休会中です。#{link}から手続きをお願いします。"
   end
 
   protected

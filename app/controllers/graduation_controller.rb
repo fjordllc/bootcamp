@@ -2,7 +2,8 @@
 
 class GraduationController < ApplicationController
   skip_before_action :require_login, raise: false
-  skip_before_action :require_current_student, raise: false
+  skip_before_action :refuse_retired_login, raise: false
+  skip_before_action :refuse_hibernated_login, raise: false
   before_action :set_user, only: %i[update]
   before_action :set_redirect_url, only: %i[update]
 
