@@ -9,9 +9,9 @@ module Authentication
                   :admin_or_mentor_login?,
                   :adviser_login?,
                   :staff_login?,
+                  :student_login?,
                   :paid_login?,
                   :staff_or_paid_login?,
-                  :student_login?,
                   :hibernated_login?,
                   :retired_login?
   end
