@@ -217,7 +217,10 @@ class ActivityMailer < ApplicationMailer
     @report ||= args[:report]
 
     @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
+    @link_url = notification_redirector_path(
+      link: "/reports/#{@report.id}",
+      kind: Notification.kinds[:first_report]
+    )
     mail to: @user.email,
          subject: "[FBC] #{@report.user.login_name}さんがはじめての日報を書きました！"
   end
