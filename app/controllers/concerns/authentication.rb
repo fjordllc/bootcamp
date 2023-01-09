@@ -12,8 +12,8 @@ module Authentication
                   :student_login?,
                   :paid_login?,
                   :staff_or_paid_login?,
-                  :hibernated_login?,
-                  :retired_login?
+                  :retired_login?,
+                  :hibernated_login?
   end
 
   def admin_login?
@@ -48,12 +48,12 @@ module Authentication
     logged_in? && current_user.staff_or_paid?
   end
 
-  def hibernated_login?
-    logged_in? && current_user.hibernated?
-  end
-
   def retired_login?
     logged_in? && current_user.retired?
+  end
+
+  def hibernated_login?
+    logged_in? && current_user.hibernated?
   end
 
   def require_mentor_login
