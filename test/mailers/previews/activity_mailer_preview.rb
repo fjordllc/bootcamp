@@ -12,15 +12,7 @@ class ActivityMailerPreview < ActionMailer::Preview
 
   def checked
     check = Check.find(ActiveRecord::FixtureSet.identify(:procuct2_check_komagata))
-    Notification.create!(
-      kind: Notification.kinds['checked'],
-      user: check.receiver,
-      sender: check.sender,
-      link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
-      message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
-      read: false
-    )
-    ActivityMailer.with(check: check).checked
+    ActivityMailer.with(receiver: check.receiver, check: check).checked
   end
 
   def came_answer
