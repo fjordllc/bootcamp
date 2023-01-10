@@ -6,6 +6,8 @@ class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
   fixtures :products
 
   test 'GET /api/products/unassigned/counts.txt' do
+    products(:product15).update_column(:checker_id, nil)  # rubocop:disable Rails/SkipsModelValidations
+
     get counts_api_products_unassigned_index_path(format: :text)
     assert_response :unauthorized
 
@@ -13,8 +15,12 @@ class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
     get counts_api_products_unassigned_index_path(format: :text),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_match '5日経過：1件', response.body
-    assert_match '6日経過：1件', response.body
-    assert_match '7日以上経過：6件', response.body
+
+    expected = <<~BODY
+      - 7日以上経過：6件
+      - 6日経過：2件
+      - 5日経過：1件
+    BODY
+    assert response.body.include?(expected)
   end
 end
