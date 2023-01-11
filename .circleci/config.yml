@@ -60,9 +60,9 @@ jobs:
       PARALLEL_WORKERS: 2
     parallelism: 3
     steps:
+      - checkout
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
-      - checkout
       - ruby/install-deps
       - node/install:
           install-yarn: true
@@ -97,3 +97,5 @@ workflows:
       - test:
           requires:
             - build
+
+# VS Code Extension Version: 1.5.1
