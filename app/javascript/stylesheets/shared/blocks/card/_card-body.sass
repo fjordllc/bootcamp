@@ -7,7 +7,6 @@
     border-top: none
 
 .card__description
-  overflow: hidden
   +media-breakpoint-up(md)
     padding: 1rem
   +media-breakpoint-down(sm)
@@ -17,3 +16,15 @@
       font-size: .9375rem
     +media-breakpoint-down(sm)
       font-size: .8125rem
+
+.card__message
+  text-align: center
+  &.is-notice
+    background-color: $success
+    color: $reversal-text
+  +media-breakpoint-up(md)
+    padding: .75rem 1rem
+    +text-block(.875rem 1.5)
+  +media-breakpoint-down(sm)
+    padding: .75rem
+    +text-block(.75rem 1.5)
