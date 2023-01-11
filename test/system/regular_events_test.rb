@@ -195,6 +195,6 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     assert_no_text '参加申込'
     assert_no_text '参加者'
-    assert_text 'この定期イベントは全員参加イベントで登録は必要ありません' # TODO: 文言はデザイン導入後に見直す
+    assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
   end
 end

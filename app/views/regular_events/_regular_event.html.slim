@@ -48,9 +48,13 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
+    - if regular_event.all
+      .card__message.is-notice
+        | この定期イベントは全員参加のため参加登録は不要です。
     .card__description
       .a-long-text.is-md.js-markdown-view
         = regular_event.description
+
     - unless regular_event.wip? || regular_event.all
       = render 'regular_events/participation', regular_event: regular_event
     = render 'reactions/reactions', reactionable: regular_event
@@ -86,6 +90,3 @@
                 i.fa-regular.fa-sad-tear
               p.o-empty-message__text
                 | 参加者はまだいません。
-  / TODO: 全員参加イベントであることの説明
-  - if regular_event.all
-    | この定期イベントは全員参加イベントで登録は必要ありません
