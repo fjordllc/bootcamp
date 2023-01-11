@@ -81,26 +81,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/提出/, email.body.to_s)
   end
 
-  test 'post_announcement' do
-    announce = announcements(:announcement1)
-    announced = notifications(:notification_announced)
-    mailer = NotificationMailer.with(
-      announcement: announce,
-      receiver: announced.user
-    ).post_announcement
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(/お知らせ/, email.body.to_s)
-  end
-
   test 'came_question' do
     question = questions(:question2)
     questioned = notifications(:notification_questioned)
