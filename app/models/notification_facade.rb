@@ -46,16 +46,6 @@ class NotificationFacade
     ).submitted.deliver_later(wait: 5)
   end
 
-  def self.post_announcement(announce, receiver)
-    ActivityNotifier.with(announce: announce, receiver: receiver).post_announcement.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      announcement: announce,
-      receiver: receiver
-    ).post_announcement.deliver_later(wait: 5)
-  end
-
   def self.came_question(question, receiver)
     ActivityNotifier.with(question: question, receiver: receiver).came_question.notify_now
     return unless receiver.mail_notification? && !receiver.retired?

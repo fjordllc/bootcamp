@@ -53,13 +53,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: "[FBC] #{@message}"
   end
 
-  # required params: announcement, receiver
-  def post_announcement
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/announcements/#{@announcement.id}")
-    mail to: @user.email, subject: "[FBC] お知らせ「#{@announcement.title}」"
-  end
-
   # required params: question, receiver
   def came_question
     @user = @receiver
