@@ -1,25 +1,18 @@
 <template lang="pug">
-a(:href='user.url', :class='`${blockClass}user-link`')
-  img(
-    :src='user.avatar_url',
-    :alt='user.icon_title',
-    :title='user.icon_title',
-    :class='[`${blockClass}user-icon`, "a-user-icon", roleClass]')
+.react-root
 </template>
-
 <script>
+import React from 'react'
+import { render } from 'react-dom'
+import UserIcon from 'components/UserIcon'
+
 export default {
   props: {
     user: { type: Object, required: true },
     blockClassSuffix: { type: String, required: true }
   },
-  computed: {
-    blockClass: function () {
-      return `${this.blockClassSuffix}__`
-    },
-    roleClass: function () {
-      return `is-${this.user.primary_role}`
-    }
+  mounted() {
+    render(<UserIcon user={this.user} blockClassSuffix={this.blockClassSuffix} />, this.$el)
   }
 }
 </script>
