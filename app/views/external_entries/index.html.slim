@@ -8,7 +8,7 @@ header.page-header
       = render 'reports/new_report'
 = render 'reports/tabs'
 
-- unless current_user.feed_url.present?
+- if current_user.feed_url.blank?
   .a-page-notice.is-danger
     .container.is-lg
       .a-page-notice__inner
