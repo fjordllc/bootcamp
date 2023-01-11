@@ -7,7 +7,10 @@ class ActivityMailer < ApplicationMailer
   before_action do
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
+    @announcement = params[:announcement] if params&.key?(:announcement)
   end
+
+  after_action :prevent_delivery
 
   # required params: sender, receiver
   def graduated(args = {})
@@ -37,5 +40,25 @@ class ActivityMailer < ApplicationMailer
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
+  end
+
+  # required params: announcement, receiver
+  def post_announcement(args = {})
+    @receiver ||= args[:receiver]
+    @announcement ||= args[:announcement]
+
+    @user = @receiver
+    @link_url = notification_redirector_path(
+      link: "/announcements/#{@announcement.id}",
+      kind: Notification.kinds[:announced]
+    )
+    subject = "[FBC] お知らせ「#{@announcement.title}」"
+    mail to: @user.email, subject: subject
+  end
+
+  private
+
+  def prevent_delivery
+    mail.perform_deliveries = @user.mail_notification? && !@user.retired?
   end
 end

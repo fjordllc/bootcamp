@@ -129,7 +129,7 @@ class ActivityNotifier < ApplicationNotifier
 
   def post_announcement(params = {})
     params.merge!(@params)
-    announce = params[:announce]
+    announce = params[:announcement]
     receiver = params[:receiver]
 
     notification(
