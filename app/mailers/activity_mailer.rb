@@ -29,7 +29,10 @@ class ActivityMailer < ApplicationMailer
   def came_answer(args = {})
     @answer = params&.key?(:answer) ? params[:answer] : args[:answer]
     @user = @answer.receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@answer.question.id}")
+    @link_url = notification_redirector_url(
+      link: "/questions/#{@answer.question.id}",
+      kind: Notification.kinds[:answered]
+    )
     message = mail to: @user.email, subject: "[FBC] #{@answer.user.login_name}さんから回答がありました。"
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
