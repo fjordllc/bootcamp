@@ -19,4 +19,15 @@ header.page-header
             | ブログのフィード URL の登録
           | をしてください。
 
+.container.is-md.mt-40
+  .a-long-text
+    p
+    .message.danger
+      p
+        | みんなのブログ機能は現在開発中です。近日リリース予定です。
+        | 今のうちに
+        = link_to edit_current_user_path(anchor: 'form-blog-feed') do
+          | ブログのフィード URL の登録
+        | をお願いします🙏
+
 div(data-vue="ExternalEntries")
