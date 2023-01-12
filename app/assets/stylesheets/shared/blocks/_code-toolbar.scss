@@ -44,7 +44,7 @@ pre.code-toolbar > .toolbar span {
   justify-content: center;
 	padding: 0 .5em;
 	background-color: #322931;
-  @include border-radius(top, .125rem)
+  @include border-radius(top, .125rem);
   text-decoration: none;
 }
 
