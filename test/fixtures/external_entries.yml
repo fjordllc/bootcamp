@@ -1,0 +1,36 @@
+external_entry1:
+  title: 最新の記事1
+  url: http://test1/example
+  summary: 最新の記事1です。
+  published_at: <%= Time.zone.local(2022, 1, 1, 0, 0, 0) %>
+  user: kimura
+
+external_entry2:
+  title: 最新の記事2
+  url: http://test2/example
+  summary: 最新の記事2です。
+  published_at: <%= Time.zone.local(2022, 1, 2, 0, 0, 0) %>
+  user: advijirou
+
+external_entry3:
+  title: 最新の記事3
+  url: http://test3/example
+  summary: 最新の記事3です。
+  published_at: <%= Time.zone.local(2022, 1, 3, 0, 0, 0) %>
+  user: mentormentaro
+
+external_entry4:
+  title: 最新の記事4
+  url: http://test4/example
+  summary: 最新の記事4です。
+  published_at: <%= Time.zone.local(2022, 1, 4, 0, 0, 0) %>
+  user: machida
+
+<% (5..26).each do |i| %>
+external_entry<%= i %>:
+  title: 最新の記事<%= i %>
+  url: http://test<%= i %>/example
+  summary: 最新の記事<%= i %>です。
+  published_at: <%= Time.zone.local(2022, 1, 5, 0, 0, 0) %>
+  user: komagata
+<% end %>

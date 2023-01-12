@@ -586,4 +586,27 @@ class UserTest < ActiveSupport::TestCase
 
     user.avatar.purge
   end
+
+  test '.retired_with_3_months_ago_and_notification_not_sent' do
+    target_ids = [
+      users(:taikai).id,
+      users(:taikai3).id
+    ]
+    targets = User.where(id: target_ids)
+    three_months_ago = Date.new(2022, 9, 1)
+    users(:taikai3).update_column(:retired_on, three_months_ago) # rubocop:disable Rails/SkipsModelValidations
+
+    travel_to Time.zone.local(2022, 12, 1, 7, 0, 0) do
+      expected_count = 2
+      users(:taikai).update_column(:retired_on, three_months_ago - 1.day) # rubocop:disable Rails/SkipsModelValidations
+      records = targets.retired_with_3_months_ago_and_notification_not_sent
+      assert_equal records.count, expected_count
+
+      expected_count = 1
+      users(:taikai).update_column(:retired_on, three_months_ago + 1.day) # rubocop:disable Rails/SkipsModelValidations
+      records = targets.retired_with_3_months_ago_and_notification_not_sent
+      assert_equal records.count, expected_count
+      assert_equal records.first.login_name, 'taikai3'
+    end
+  end
 end

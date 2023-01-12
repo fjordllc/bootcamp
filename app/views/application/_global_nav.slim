@@ -23,7 +23,7 @@ nav.global-nav
             - if admin_or_mentor_login? && Cache.unchecked_report_count.positive?
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Cache.unchecked_report_count
-            .global-nav-links__link-label 日報
+            .global-nav-links__link-label 日報・ブログ
         - if staff_login?
           li.global-nav-links__item
             - products_link = admin_or_mentor_login? ? products_unassigned_index_path : products_path

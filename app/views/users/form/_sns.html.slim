@@ -59,17 +59,20 @@
   .a-form-help
     p URL を入力。
 
-.form-item
-  = f.label :feed_url, class: 'a-form-label'
-  = f.text_field :feed_url, class: 'a-text-input', placeholder: 'https://docs.komagata.org/rss'
-  .a-form-help
-    p
-      | RSS ・ Atom の URL を入力。
-      label.a-form-help-link.is-danger(for='modal-feed-url')
-        span.a-form-help-link__label
-          | 調べ方
-        span.a-help
-          i.fa-solid.fa-question
+- unless @user.new_record?
+  .form-item#form-blog-feed
+    = f.label :feed_url, class: 'a-form-label'
+    = f.text_field :feed_url, class: 'a-text-input', placeholder: 'https://docs.komagata.org/rss'
+    .a-form-help
+      p
+        | ご自身のブログの RSS or Atom の URL を登録すると、
+        | みんなのブログに自分の記事も表示されるようになります。
+        br
+        label.a-form-help-link.is-danger(for='modal-feed-url')
+          span.a-form-help-link__label
+            | RSS ・ Atom の URL の調べ方
+          span.a-help
+            i.fa-solid.fa-question
 
 = render '/shared/modal', id: 'modal-discord-account', modal_title: 'Discord のアカウントの調べ方'
   .modal__description.is-md

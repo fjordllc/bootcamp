@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :surveys
   root to: "home#index"
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
@@ -48,6 +49,9 @@ Rails.application.routes.draw do
     resource :completion, only: %i(show), controller: "practices/completion"
   end
   resources :pages, param: :slug_or_id
+  namespace :notification do 
+    resource :redirector, only: %i(show), controller: "redirector"
+  end
   resources :notifications, only: %i(index show) do
     collection do
       resources :allmarks, only: %i(create), controller: "notifications/allmarks"
@@ -81,6 +85,7 @@ Rails.application.routes.draw do
   resources :books, except: %i(show)
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
+  resources :external_entries, only: %i(index)
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"

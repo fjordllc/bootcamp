@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WelcomeController < ApplicationController
+  skip_before_action :require_login, raise: false
+
   layout 'welcome'
 
   def index

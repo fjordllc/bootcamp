@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController
-  before_action :require_login
   before_action :set_regular_event, only: %i[show edit update destroy]
 
   def index; end

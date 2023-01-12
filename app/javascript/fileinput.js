@@ -4,8 +4,7 @@ function initializeFileInput(target) {
     return null
   }
 
-  for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i]
+  inputs.forEach((input) => {
     input.addEventListener('change', (e) => {
       const file = e.target.files[0]
       const fileReader = new FileReader()
@@ -26,7 +25,7 @@ function initializeFileInput(target) {
       })
       fileReader.readAsDataURL(file)
     })
-  }
+  })
 }
 
 function extractField(elements) {

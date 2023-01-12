@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::QuestionsController < ApplicationController
-  before_action :require_login
   QuestionsProperty = Struct.new(:title, :empty_message)
 
   def index

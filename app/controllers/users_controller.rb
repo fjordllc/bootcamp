@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :require_login, except: %i[new create]
+  skip_before_action :require_login, raise: false, only: %i[new create]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
@@ -17,14 +17,15 @@ class UsersController < ApplicationController
         current_user.followees_list(watch: @watch)
       elsif params[:tag]
         User.tagged_with(params[:tag])
-      else
+      elsif @target == 'retired'
         User.users_role(@target)
+      else
+        User.users_role(@target).unretired
       end
 
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
              .preload(:avatar_attachment, :course, :taggings)
-             .unretired
              .order(updated_at: :desc)
 
     @random_tags = User.tags.sample(20)

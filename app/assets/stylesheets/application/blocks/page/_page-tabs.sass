@@ -1,16 +1,19 @@
 .page-tabs
   background-color: $base
   border-bottom: solid 1px $border-shade
+  +position(relative, 2)
 
 .page-tabs__items
   display: flex
   gap: .25rem
   transform: translateY(1px)
   -webkit-overflow-scrolling: touch
-  overflow-x: auto
   overflow-y: visible
+  overflow-x: auto
   +margin(horizontal,  -1rem)
   +padding(horizontal, 1rem)
+  padding-top: .5rem
+  margin-top: -.5rem
 
 .page-tabs__item
   +media-breakpoint-up(md)
@@ -24,7 +27,7 @@
   align-items: center
   justify-content: center
   background-color: $background-semi-shade
-  +padding(horizontal, 1rem)
+  +padding(horizontal, 1.25rem)
   +border-radius(top, .25rem)
   border: solid 1px $border-shade
   +position(relative)
@@ -40,9 +43,11 @@
     background-color: $background
     border-bottom-color: $background
     color: $default-text
+  &.is-sm
+    font-size: .75rem
   &.is-inactive
     pointer-events: none
     color: $muted-text
 
 .page-tabs__item-count
-  +position(right .125rem, top .125rem)
+  +position(right -.25rem, top -.25rem)

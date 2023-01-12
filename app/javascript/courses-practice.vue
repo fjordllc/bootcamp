@@ -4,7 +4,10 @@
   header.category-practices-item__header
     .category-practices-item__title
       a.category-practices-item__title-link(:href='practices.url')
-        | {{ practices.practice.title }}
+        span.a-badge.is-danger.is-xs(v-if='practices.include_must_read_books')
+          | 要書籍
+        span.category-practices-item__title-link-label
+          | {{ practices.practice.title }}
     a(
       :class='`practice-status category-practices-item__status is-${statusByLearnings(practices.practice.id)}`',
       :href='`${practices.url}#learning-Status`',
