@@ -22,6 +22,7 @@ tables = %i[
   courses
   courses_categories
   events
+  external_entries
   followings
   reports
   learning_times
@@ -47,6 +48,14 @@ tables = %i[
   hibernations
   footprints
   authored_books
+  survey_questions
+  linear_scales
+  radio_buttons
+  radio_button_choices
+  check_boxes
+  check_box_choices
+  surveys
+  survey_question_listings
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

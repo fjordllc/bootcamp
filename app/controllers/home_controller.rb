@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  skip_before_action :require_login, raise: false
+
   def index
     if current_user
       display_dashboard

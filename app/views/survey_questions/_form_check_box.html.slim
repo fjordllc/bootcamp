@@ -5,7 +5,7 @@
         | チェックボックスの選択肢
       = i.fields_for :check_box_choices do |check_box_choice|
         = render 'check_box_choice_fields', f: check_box_choice
-      .form-item__add-choice
+      .form-item__add-choice.js-add-choice
         = link_to_add_association i, :check_box_choices, class: 'a-button is-md is-primary' do
           i.fa-regular.fa-plus
           | 選択肢を追加

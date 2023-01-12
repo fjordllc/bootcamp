@@ -11,6 +11,8 @@ class SurveyQuestion < ApplicationRecord
   has_one :check_box, dependent: :destroy
   accepts_nested_attributes_for :check_box, allow_destroy: true
   validates_associated :check_box
+  has_many :survey_question_listings, dependent: :destroy
+  has_many :surveys, through: :survey_question_listings
 
   enum format: {
     text_area: 0,
@@ -21,4 +23,16 @@ class SurveyQuestion < ApplicationRecord
   }, _prefix: true
 
   validates :title, presence: true
+
+  def answer_required_choice_exists?(survey_question_id)
+    if self.format == 'radio_button'
+      SurveyQuestion.joins(radio_button: :radio_button_choices)
+                    .where(radio_button_choices: { reason_for_choice_required: true })
+                    .exists?(survey_question_id)
+    else
+      SurveyQuestion.joins(check_box: :check_box_choices)
+                    .where(check_box_choices: { reason_for_choice_required: true })
+                    .exists?(survey_question_id)
+    end
+  end
 end

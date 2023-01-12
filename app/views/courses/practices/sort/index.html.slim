@@ -45,17 +45,23 @@ header.page-header
                           header.category-practices-item__header
                             .category-practices-item__title
                               .category-practices-item__title-link
-                                | #{categories_practice.position}
-                                = categories_practice.practice.title
+                                span.a-badge.is-dark-muted.is-xs
+                                  | #{categories_practice.position}
+                                - if categories_practice.practice.include_must_read_books?
+                                  span.a-badge.is-danger.is-xs
+                                    | 要書籍
+                                span.category-practices-item__title-link-label
+                                  = categories_practice.practice.title
                             .category-practices-item__grab
                               span.a-grab.js-grab
                                 i.fa-solid.fa-align-justify
 
-        nav.page-nav
-          ul.page-nav__items
-            - @categories.each do |category|
-              - if category.practices.present?
-                li.page-nav__item
-                  a.page-nav__item-link(href="#category-#{category.id}")
-                    span.page-nav__item-link-inner
-                      = category.name
+        .page-body__column.is-sub
+          nav.page-nav.a-card
+            ul.page-nav__items
+              - @categories.each do |category|
+                - if category.practices.present?
+                  li.page-nav__item
+                    a.page-nav__item-link(href="#category-#{category.id}")
+                      span.page-nav__item-link-inner
+                        = category.name

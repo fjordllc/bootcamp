@@ -3,7 +3,6 @@
 require 'tmpdir'
 
 class CurrentUser::ReportsController < ApplicationController
-  before_action :require_login
   before_action :set_user
   before_action :set_reports
 

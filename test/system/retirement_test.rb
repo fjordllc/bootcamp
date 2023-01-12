@@ -40,6 +40,25 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text '退会したユーザーです'
   end
 
+  test 'retire user with postmark error' do
+    logs = []
+    stub_warn_logger = ->(message) { logs << message }
+    Rails.logger.stub(:warn, stub_warn_logger) do
+      stub_postmark_error = ->(_user) { raise Postmark::InactiveRecipientError }
+      UserMailer.stub(:retire, stub_postmark_error) do
+        user = users(:kananashi)
+        visit_with_auth new_retirement_path, 'kananashi'
+        find('label', text: 'とても良い').click
+        click_on '退会する'
+        page.driver.browser.switch_to.alert.accept
+        assert_text '退会処理が完了しました'
+        assert_equal Date.current, user.reload.retired_on
+      end
+    end
+
+    assert_match '[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：', logs.to_s
+  end
+
   test 'enables retirement regardless of validity of discord id' do
     user = users(:discordinvalid)
     visit_with_auth new_retirement_path, 'discordinvalid'

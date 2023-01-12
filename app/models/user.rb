@@ -70,7 +70,9 @@ class User < ApplicationRecord
   has_many :hibernations, dependent: :destroy
   has_many :authored_books, dependent: :destroy
   accepts_nested_attributes_for :authored_books, allow_destroy: true
+  has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
+  has_many :external_entries, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
 
@@ -233,6 +235,11 @@ class User < ApplicationRecord
   scope :hibernated, -> { where.not(hibernated_at: nil) }
   scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
+  scope :retired_with_3_months_ago_and_notification_not_sent, lambda {
+    retired
+      .where('retired_on <= ?', Date.current.ago(3.months).to_date)
+      .where(notified_retirement: false)
+  }
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }

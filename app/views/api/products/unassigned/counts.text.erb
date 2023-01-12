@@ -2,14 +2,14 @@
 提出されてから日数が経っている提出物の数をお知らせします。
 https://bootcamp.fjord.jp/products/unassigned
 
-<% if @passed5 > 0 %>
-- 5日経過：<%= @passed5 %>件
+<% if @over7 > 0 %>
+- 7日以上経過：<%= @over7 %>件
 <% end %>
 <% if @passed6 > 0 %>
 - 6日経過：<%= @passed6 %>件
 <% end %>
-<% if @over7 > 0 %>
-- 7日以上経過：<%= @over7 %>件
+<% if @passed5 > 0 %>
+- 5日経過：<%= @passed5 %>件
 <% end %>
 
 <% else %>

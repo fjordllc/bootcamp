@@ -183,6 +183,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'admin access control' do
     visit_with_auth '/users', 'komagata'
     assert find_link('就職活動中')
+    assert find_link('退会')
     assert find_link('全員')
   end
 
@@ -488,6 +489,16 @@ class UsersTest < ApplicationSystemTestCase
     assert_equal 3, all('.users-item').length
     fill_in 'js-user-search-input', with: 'advijirou'
     assert_text 'アドバイ 次郎', count: 1
+
+    fill_in 'js-user-search-input', with: 'kimura'
+    assert_text '一致するユーザーはいません'
+  end
+
+  test 'search only retired when target is retired' do
+    visit_with_auth '/users?target=retired', 'komagata'
+    assert_equal 4, all('.users-item').length
+    fill_in 'js-user-search-input', with: 'yameo'
+    assert_text '辞目 辞目夫', count: 1
 
     fill_in 'js-user-search-input', with: 'kimura'
     assert_text '一致するユーザーはいません'

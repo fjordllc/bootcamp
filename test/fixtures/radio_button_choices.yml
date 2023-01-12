@@ -1,0 +1,34 @@
+radio_button_choice1:
+  radio_button: radio_button1
+  choices: "フィヨルドブートキャンプのケータイサイト（スマホ/携帯）"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice2:
+  radio_button: radio_button1
+  choices: "フィヨルドブートキャンプのホームページ（パソコン）"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice3:
+  radio_button: radio_button1
+  choices: "ブログ・SNS"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice4:
+  radio_button: radio_button1
+  choices: "友人・知人・家族のクチコミ"
+  reason_for_choice_required: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+radio_button_choice5:
+  radio_button: radio_button1
+  choices: "その他"
+  reason_for_choice_required: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

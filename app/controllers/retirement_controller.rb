@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RetirementController < ApplicationController
-  before_action :require_login, except: %i[show]
+  skip_before_action :require_login, raise: false, only: %i[show]
 
   def show; end
 
@@ -12,7 +12,12 @@ class RetirementController < ApplicationController
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
       user = current_user
-      UserMailer.retire(user).deliver_now
+      begin
+        UserMailer.retire(user).deliver_now
+      rescue Postmark::InactiveRecipientError => e
+        logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
+      end
+
       destroy_subscription
       notify_to_admins
       notify_to_mentors

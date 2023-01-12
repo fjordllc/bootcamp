@@ -1,0 +1,9 @@
+linear_scale1:
+  first: "安い"
+  last: "高い"
+  reason_for_choice_required: true
+  title_of_reason: "そのように回答された理由を教えてください。"
+  description_of_reason: "＊10点以外を選択された方は、サービスのどのような点が改善されると10点に近づくか、という観点からお書きください。"
+  survey_question: survey_question5
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

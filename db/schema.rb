@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_28_064241) do
+ActiveRecord::Schema.define(version: 2022_12_24_091715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,18 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "external_entries", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.string "summary"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.string "thumbnail_image_url"
+    t.index ["user_id"], name: "index_external_entries_on_user_id"
   end
 
   create_table "followings", force: :cascade do |t|
@@ -518,6 +530,15 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.index ["user_id"], name: "reports_user_id"
   end
 
+  create_table "survey_question_listings", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.bigint "survey_question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_survey_question_listings_on_survey_id"
+    t.index ["survey_question_id"], name: "index_survey_question_listings_on_survey_question_id"
+  end
+
   create_table "survey_questions", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -527,6 +548,17 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_survey_questions_on_user_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", limit: 255, null: false
+    t.text "description"
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -661,6 +693,7 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "external_entries", "users"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
@@ -687,7 +720,10 @@ ActiveRecord::Schema.define(version: 2022_09_28_064241) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "survey_question_listings", "survey_questions"
+  add_foreign_key "survey_question_listings", "surveys"
   add_foreign_key "survey_questions", "users"
+  add_foreign_key "surveys", "users"
   add_foreign_key "talks", "users"
   add_foreign_key "works", "users"
 end
