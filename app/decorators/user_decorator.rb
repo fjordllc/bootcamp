@@ -38,7 +38,7 @@ module UserDecorator
     return '' if roles.empty?
 
     roles = [
-      { role: '退会ユーザー', value: retired },
+      { role: '退会ユーザー', value: retired_on? },
       { role: '管理者', value: admin },
       { role: 'メンター', value: mentor },
       { role: 'アドバイザー', value: adviser },
