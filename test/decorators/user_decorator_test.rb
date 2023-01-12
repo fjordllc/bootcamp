@@ -14,6 +14,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
     @adviser_user = ActiveDecorator::Decorator.instance.decorate(users(:advijirou))
     @mentor_user = ActiveDecorator::Decorator.instance.decorate(users(:mentormentaro))
     @trainee_user = ActiveDecorator::Decorator.instance.decorate(users(:kensyu))
+    @retired_user = ActiveDecorator::Decorator.instance.decorate(users(:taikai))
   end
 
   test '#staff_roles' do
@@ -47,5 +48,6 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal 'アドバイザー', @adviser_user.roles_to_s
     assert_equal 'メンター', @mentor_user.roles_to_s
     assert_equal '研修生', @trainee_user.roles_to_s
+    assert_equal '退会ユーザー', @retired_user.roles_to_s
   end
 end
