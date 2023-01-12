@@ -66,7 +66,7 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.regular_event_participations.find_by(user_id: participant.id)
   end
 
-  test '#watched' do
+  test '#watched_by?' do
     regular_event = regular_events(:regular_event1)
     user = users(:kimura)
     assert_not regular_event.watched_by?(user)
