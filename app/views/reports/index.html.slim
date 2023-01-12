@@ -3,12 +3,11 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = title
+      .page-header__title
+        | 日報・ブログ
       = render 'reports/new_report'
 
-- if current_user.admin?
-  = render 'reports/tabs'
+= render 'reports/tabs'
 
 .page-body
   .container.is-md

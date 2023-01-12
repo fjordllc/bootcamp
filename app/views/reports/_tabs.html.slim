@@ -1,11 +1,19 @@
-.page-tabs.is-only-mentor
+.page-tabs
   .container
     ul.page-tabs__items
       li.page-tabs__item
-        = link_to '全て', reports_path, class: "page-tabs__item-link #{current_link(/^reports-index/)}"
+        = link_to reports_path, class: "page-tabs__item-link #{current_link(/^reports-index/)}" do
+          - if current_user.mentor? || current_user.admin?
+            | 全ての日報
+          - else
+            | 日報
+      - if current_user.mentor? || current_user.admin?
+        li.page-tabs__item
+          = link_to reports_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^reports-unchecked-index/)} is-sm" do
+            | 未チェックの日報
+            -  if Cache.unchecked_report_count.positive?
+              .page-tabs__item-count.a-notification-count
+                = Cache.unchecked_report_count
       li.page-tabs__item
-        = link_to reports_unchecked_index_path, class: "page-tabs__item-link #{current_link(/^reports-unchecked-index/)}" do
-          | 未チェック
-          -  if Cache.unchecked_report_count.positive?
-            .page-tabs__item-count.a-notification-count
-              = Cache.unchecked_report_count
+        = link_to external_entries_path, class: "page-tabs__item-link #{current_link(/^external_entries-index/)}" do
+          | みんなのブログ
