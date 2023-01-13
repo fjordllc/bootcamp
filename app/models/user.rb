@@ -561,12 +561,8 @@ class User < ApplicationRecord
     created_at.to_date >= Time.current.ago(30.days).to_date
   end
 
-  def sent_message_after_thirty_days?
-    sent_message_after_thirty_days == false
-  end
-
   def message_send_target?
-    student? && after_thirty_days_registration? && sent_message_after_thirty_days?
+    student? && after_thirty_days_registration? && !sent_message_after_thirty_days
   end
 
   def retired?
