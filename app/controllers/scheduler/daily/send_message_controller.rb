@@ -19,7 +19,7 @@ class Scheduler::Daily::SendMessageController < SchedulerController
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
-      student.update!(sent_message_after_thrity_days: true)
+      student.update!(sent_message_after_thirty_days: true)
     end
   end
 end

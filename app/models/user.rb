@@ -562,7 +562,7 @@ class User < ApplicationRecord
   end
 
   def sent_message_after_thirty_days?
-    sent_message_after_thrity_days == false
+    sent_message_after_thirty_days == false
   end
 
   def message_send_target?
