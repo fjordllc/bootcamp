@@ -1,19 +1,4 @@
-- title @user.login_name
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          - if current_user == @user
-            li.page-header-actions__item
-              = link_to edit_current_user_path, class: 'a-button is-md is-secondary is-block' do
-                i.fa-solid.fa-pen
-                | 登録情報変更
-          li.page-header-actions__item
-            = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | ユーザー一覧
+= render 'users/page_title', user: @user
 
 = render 'users/page_tabs', user: @user
 
