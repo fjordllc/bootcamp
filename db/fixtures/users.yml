@@ -865,7 +865,6 @@ otameshi:
   os: mac
   experience: ruby
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
-  sent_message_after_thirty_days: true
   updated_at: <%= Time.current %>
   created_at: <%= Time.current %>
   last_activity_at: <%= Time.current %>
