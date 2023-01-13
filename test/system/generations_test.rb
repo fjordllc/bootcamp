@@ -135,7 +135,7 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'yameo (辞目 辞目夫)'
+        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-retired')['title'], 'yameo (辞目 辞目夫)'
       end
     end
   end

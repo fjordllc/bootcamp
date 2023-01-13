@@ -27,7 +27,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_selector('.group-company-name__label', text: 'root inc.')
     within all('.a-user-icons__items')[2] do
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['data-login-name'], 'kensyu'
-      assert_equal all('.a-user-icons__item-icon.a-user-icon.is-trainee')[1]['data-login-name'], 'kensyuowata'
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-retired')['data-login-name'], 'kensyuowata'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['data-login-name'], 'senpai'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['data-login-name'], 'sotsugyoukigyoshozoku'
     end
@@ -47,7 +47,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_selector('.group-company-name__label', text: 'root inc.')
     within all('.a-user-icons__items')[2] do
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['data-login-name'], 'kensyu'
-      assert_equal all('.a-user-icons__item-icon.a-user-icon.is-trainee')[1]['data-login-name'], 'kensyuowata'
+      assert_equal first('.a-user-icons__item-icon.a-user-icon.is-retired')['data-login-name'], 'kensyuowata'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['data-login-name'], 'senpai'
       assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['data-login-name'], 'sotsugyoukigyoshozoku'
     end
@@ -62,7 +62,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     assert_no_selector('.group-company-name__label', text: 'Fjord Inc.')
     assert_selector('.group-company-name__label', text: 'root inc.')
     assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['data-login-name'], 'kensyu'
-    assert_equal all('.a-user-icons__item-icon.a-user-icon.is-trainee')[1]['data-login-name'], 'kensyuowata'
+    assert_equal first('.a-user-icons__item-icon.a-user-icon.is-retired')['data-login-name'], 'kensyuowata'
   end
 
   test 'show adviser belonging to each company' do
