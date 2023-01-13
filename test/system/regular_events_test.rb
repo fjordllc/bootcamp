@@ -108,7 +108,6 @@ class RegularEventsTest < ApplicationSystemTestCase
 
     visit_with_auth regular_events_path, 'hatsuno'
     click_on 'チェリー本輪読会', match: :first
-    # debugger
     click_on '内容修正', match: :first
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
