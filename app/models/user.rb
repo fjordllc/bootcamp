@@ -558,7 +558,9 @@ class User < ApplicationRecord
   end
 
   def after_thirty_days_registration?
-    created_at.to_date >= Time.current.ago(30.days).to_date
+    registration_date = created_at.to_date
+    thirty_days = Time.current.ago(29.days).to_date
+    registration_date.before? thirty_days
   end
 
   def message_send_target?
