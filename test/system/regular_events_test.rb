@@ -89,7 +89,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'edit by co-organizers' do
     visit_with_auth new_regular_event_path, 'hajime'
     within 'form[name=regular_event]' do
-      fill_in 'regular_event[title]', with: 'チェリー本輪読会'
+      fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-10').click
       find('#choices--js-choices-multiple-select-item-choice-11').click
@@ -107,10 +107,10 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
 
     visit_with_auth regular_events_path, 'hatsuno'
-    click_on 'チェリー本輪読会', match: :first
+    click_on 'ブルーベリー本輪読会', match: :first
     click_on '内容修正', match: :first
     within 'form[name=regular_event]' do
-      fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
+      fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会（修正）'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-2').click
       find('label', text: '主催者').click
