@@ -2,6 +2,8 @@
 //
 // Rows contain and clear the floats of your columns.
 
+@use "sass:math"
+
 .row
   +make-row
 
@@ -20,5 +22,5 @@
   @for $i from 0 through 16
     $gutter-size: $i * 4
     &.is-gutter-width-#{$gutter-size}
-      gap: #{$gutter-size / 16}rem
-      +make-grid-columns($grid-columns, #{$gutter-size / 16}rem)
+      gap: #{math.div($gutter-size, 16)}rem
+      +make-grid-columns($grid-columns, #{math.div($gutter-size, 16)}rem)

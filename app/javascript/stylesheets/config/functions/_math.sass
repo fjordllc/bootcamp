@@ -1,4 +1,6 @@
 // https://gist.github.com/voxpelli/6304812
+@use "sass:math"
+
 @function pi()
   @return 3.14159265359
 
@@ -15,31 +17,31 @@
     $prec2 : pow(10, $prec)
     $exponent: round($exponent * $prec2)
     $denominator: gcd($exponent, $prec2)
-    @return nthRoot(pow($base, $exponent / $denominator), $prec2 / $denominator, $prec)
+    @return nthRoot(pow($base, math.div($exponent, $denominator)), math.div($prec2, $denominator), $prec)
   $value: $base
   @if $exponent > 1
     @for $i from 2 through $exponent
       $value: $value * $base
   @else if $exponent < 1
     @for $i from 0 through -$exponent
-      $value: $value / $base
+      $value: math.div($value, $base)
   @return $value
 
 @function nthRoot($num, $n: 2, $prec: 12)
   // From: http://rosettacode.org/wiki/Nth_root#JavaScript
   $x: 1
   @for $i from 0 through $prec
-    $x: 1 / $n * (($n - 1) * $x + ($num / pow($x, $n - 1)))
+    $x: math.div(1, $n) * (($n - 1) * $x + math.div($num, pow($x, $n - 1)))
   @return $x
 
 @function ratio_calculation($n1, $n2, $n3)
-  @return ($n2 * $n3) / $n1
+  @return math.div($n2 * $n3, $n1)
 
 @function second_decimal_place_floor($num)
-  @return floor($num * 10) / 10
+  @return floor($num * 10) * 0.1
 
 @function second_decimal_place_ceil($num)
-  @return ceil($num * 10) / 10
+  @return ceil($num * 10) * 0.1
 
 @function second_decimal_place_round($num)
-  @return round($num * 10) / 10
+  @return round($num * 10) * 0.1

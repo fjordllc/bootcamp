@@ -1,3 +1,5 @@
+@use "sass:math"
+
 .welcome-small-sections
   .welcome-child-section__title + &
     margin-top: 1.5rem
@@ -30,15 +32,15 @@
     background-size: 1.75rem
     margin-bottom: 0
     +size($width $height)
-    margin-left: $width / -2
-    +position(absolute, left 50%, top $height / -2)
+    margin-left: math.div($width, -2)
+    +position(absolute, left 50%, top math.div($height, -2))
     +media-breakpoint-down(sm)
       $height: 2.75rem
       $width: 14rem
       font-size: 1.125rem
       +size($width $height)
-      margin-left: $width / -2
-      +position(absolute, left 50%, top $height / -2)
+      margin-left: math.div($width, -2)
+      +position(absolute, left 50%, top math.div($height, -2))
 
 .welcome-small-sections__title-icon
   +size(3rem)

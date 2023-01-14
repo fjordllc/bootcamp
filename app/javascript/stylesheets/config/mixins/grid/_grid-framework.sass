@@ -2,17 +2,20 @@
 //
 // Generate semantic grid columns with these mixins.
 
+@use "sass:list"
+@use "sass:math"
+
 =make-row($gutter: $grid-gutter-width)
   display: flex
   flex-wrap: wrap
   gap: $gutter
 
 =make-col-span($size, $columns: $grid-columns, $grid-gutter-width: 1rem)
-  $one-line-columns-count: $columns / $size
+  $one-line-columns-count: math.div($columns, $size)
   $gutter-count: $one-line-columns-count - 1
   $total-gutter-width: calc(#{$grid-gutter-width} * #{$gutter-count})
-  $column-margin: $total-gutter-width / $one-line-columns-count
+  $column-margin: list.slash($total-gutter-width, $one-line-columns-count)
 
-  flex: 0 0 calc(#{percentage($size / $columns)} - #{$column-margin})
-  width: calc(#{percentage($size / $columns)} - #{$column-margin})
-  max-width: calc(#{percentage($size / $columns)} - #{$column-margin})
+  flex: 0 0 calc(#{percentage(math.div($size, $columns))} - #{$column-margin})
+  width: calc(#{percentage(math.div($size, $columns))} - #{$column-margin})
+  max-width: calc(#{percentage(math.div($size, $columns))} - #{$column-margin})
