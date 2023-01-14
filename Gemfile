@@ -10,7 +10,6 @@ gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 6.0'
 gem 'rails', '~> 6.1.4.4'
-gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 
 # not default
