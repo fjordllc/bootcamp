@@ -18,13 +18,15 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       body: 'test message',
       sender: users(:kimura),
       name: 'bob',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+      admin_webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx',
+      mentor_webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
     expected = {
       body: 'kimuraさんが卒業しました。',
       name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+      admin_webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx',
+      mentor_webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
     assert_notifications_sent 2, **expected do
