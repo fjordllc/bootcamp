@@ -59,7 +59,11 @@ import '../choices-ui.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
-import '../stylesheets/application.css'
+
+import '../stylesheets/application.sass'
+import '../stylesheets/completion.sass'
+import '../stylesheets/welcome.sass'
+
 import '../bookmarks-edit-button.js'
 import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'

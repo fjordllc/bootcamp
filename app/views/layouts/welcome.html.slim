@@ -13,7 +13,7 @@ html.is-application lang='ja'
     = render 'rollbar' if Rails.env.production?
     = render 'current_user'
     link(rel='manifest' href='/manifest.json')
-    = stylesheet_link_tag 'welcome', media: 'all'
+    = stylesheet_pack_tag 'welcome', media: 'all'
     - if page_classes.include?('welcome-home')
       link(rel='canonical' href='https://bootcamp.fjord.jp/')
     = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto+Mono:500', media: 'all'
