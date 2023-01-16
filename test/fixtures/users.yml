@@ -920,20 +920,3 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   created_at: "2014-01-01 00:00:02"
   last_activity_at: "2014-01-01 00:00:02"
 <% end %>
-
-taikai: #退会したユーザーです
-  login_name: taikai
-  email: taikai@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
-  salt: zW3kQ9ubsxQQtzzzs4ap
-  name: Tai kai
-  name_kana: タイ カイ
-  course: course1
-  job: office_worker
-  os: mac
-  description: "タイカイです、退会しました。"
-  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
-  retired_on: "2022-12-20"
-  updated_at: "2022-07-21 00:00:00"
-  created_at: "2022-07-21 00:00:00"
-  last_activity_at: "2022-07-21 00:00:00"
