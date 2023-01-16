@@ -721,10 +721,10 @@ class User < ApplicationRecord
   def comeback!
     update_last_returned_at!
 
-#    subscription = Subscription.new.create(customer_id, trial: 0)
+    subscription = Subscription.new.create(customer_id, trial: 0)
 
     self.hibernated_at = nil
-#    self.subscription_id = subscription['id']
+    self.subscription_id = subscription['id']
     save!(validate: false)
   end
 

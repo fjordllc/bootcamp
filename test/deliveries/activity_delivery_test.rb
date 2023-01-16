@@ -42,7 +42,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:comebacked)' do
     params = {
       sender: users(:kimura),
-      receiver: users(:komagata),
+      receiver: users(:komagata)
     }
 
     Notification.create!(
