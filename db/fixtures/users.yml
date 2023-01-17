@@ -1005,6 +1005,7 @@ advisernocolleguetrainee:
   twitter_account: advisernocolleguetrainee
   facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://advisernocolleguetrainee.example.com
+  description: '同僚がいないアドバイザーです。'
   adviser: true
   course: course1
   unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
