@@ -22,7 +22,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     within 'form[name=announcement]' do
       fill_in 'announcement[title]', with: 'タイトル通知用の確認です'
       fill_in 'announcement[description]', with: 'お知らせ内容です'
-      choose '全員', allow_label_click: true
+      choose '全員（退会者を除く）', allow_label_click: true
       click_button '作成'
     end
     assert_text 'お知らせを作成しました。'
