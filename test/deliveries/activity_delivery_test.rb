@@ -24,19 +24,19 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       read: false
     )
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:graduated, **@params)
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.notify(:graduated, **@params)
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.with(**@params).notify!(:graduated)
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**@params).notify(:graduated)
     end
   end
