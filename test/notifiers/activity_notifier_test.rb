@@ -63,7 +63,7 @@ class ActivityNotifierTest < ActiveSupport::TestCase
   end
 
   test '#announcement' do
-    notification = ActivityNotifier.with(announce: announcements(:announcement1), receiver: users(:kimura)).post_announcement
+    notification = ActivityNotifier.with(announcement: announcements(:announcement1), receiver: users(:kimura)).post_announcement
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       notification.notify_now
