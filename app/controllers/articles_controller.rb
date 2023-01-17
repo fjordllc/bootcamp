@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @mentor = @article.user
     @recent_articles = list_recent_articles
     if !@article.wip? || admin_or_mentor_login?
       render layout: 'welcome'
