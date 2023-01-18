@@ -28,3 +28,5 @@ ignore_unreachable_actions:
   - reports#practice_options
   - home#pricing
   - any_login\/.*
+  - .*#recaptcha_enabled?
+  - .*#valid_recaptcha?
