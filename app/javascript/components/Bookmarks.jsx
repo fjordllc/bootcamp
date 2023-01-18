@@ -96,8 +96,7 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
           </div>
         ) : (
           <div className="card-list-item__label">{bookmark.modelNameI18n}</div>
-        )
-        }
+        )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
