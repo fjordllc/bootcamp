@@ -15,8 +15,8 @@ class API::ChecksController < API::BaseController
         user: current_user,
         checkable: checkable
       )
-      head :created
       Newspaper.publish(:check_create, @check)
+      head :created
     else
       render json: { message: "この#{checkable.class.model_name.human}は確認済です。" }, status: :unprocessable_entity
     end
