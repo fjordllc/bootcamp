@@ -53,6 +53,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       message: "#{users(:kimura).login_name}さんが休会から復帰しました！",
       read: false
     )
+
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:comebacked, **params)
     end
