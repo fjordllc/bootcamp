@@ -87,33 +87,9 @@ class RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'edit by co-organizers' do
-    visit_with_auth new_regular_event_path, 'hajime'
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'hajime'
     within 'form[name=regular_event]' do
-      fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会'
-      first('.choices__inner').click
-      find('#choices--js-choices-multiple-select-item-choice-10').click
-      find('#choices--js-choices-multiple-select-item-choice-11').click
-      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
-      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
-      fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
-      fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
-      fill_in 'regular_event[description]', with: '予習不要です'
-      assert_difference 'RegularEvent.count', 1 do
-        click_button '作成'
-      end
-    end
-    assert_text '定期イベントを作成しました。'
-    assert_text '毎週月曜日'
-    assert_text 'Watch中'
-
-    visit_with_auth regular_events_path, 'hatsuno'
-    click_on 'ブルーベリー本輪読会', match: :first
-    click_on '内容修正', match: :first
-    within 'form[name=regular_event]' do
-      fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会（修正）'
-      first('.choices__inner').click
-      find('#choices--js-choices-multiple-select-item-choice-2').click
-      find('label', text: '主催者').click
+      fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       find('label', text: '輪読会').click
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('第2')
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('水曜日')
