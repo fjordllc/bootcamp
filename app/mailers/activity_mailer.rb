@@ -20,7 +20,7 @@ class ActivityMailer < ApplicationMailer
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:comebacked]
     )
-    subject = "[FBC] #{@sender.login_name}さんが復帰しました。"
+    subject = "[FBC] #{@sender.login_name}さんが休会から復帰しました。"
     mail to: @user.email, subject: subject
   end
 

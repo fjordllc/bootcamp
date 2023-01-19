@@ -3,8 +3,8 @@
 require 'test_helper'
 
 class ActivityDeliveryTest < ActiveSupport::TestCase
-  setup do
-    @params = {
+  test '.notify(:graduated)' do
+    params = {
       kind: :graduated,
       body: 'test message',
       sender: users(:kimura),
@@ -12,9 +12,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       link: '/example',
       read: false
     }
-  end
 
-  test '.notify(:graduated)' do
     Notification.create!(
       kind: Notification.kinds['graduated'],
       user: users(:komagata),
@@ -25,11 +23,11 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     )
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
-      ActivityDelivery.notify!(:graduated, **@params)
+      ActivityDelivery.notify!(:graduated, **params)
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      ActivityDelivery.notify(:graduated, **@params)
+      ActivityDelivery.notify(:graduated, **params)
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
@@ -38,6 +36,37 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**@params).notify(:graduated)
+    end
+  end
+
+  test '.notify(:comebacked)' do
+    params = {
+      sender: users(:kimura),
+      receiver: users(:komagata),
+    }
+
+    Notification.create!(
+      kind: Notification.kinds['comebacked'],
+      user: users(:komagata),
+      sender: users(:kimura),
+      link: "/users/#{users(:kimura).id}",
+      message: "#{users(:kimura).login_name}さんが復帰しました",
+      read: false
+    )
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+      ActivityDelivery.notify!(:comebacked, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.notify(:comebacked, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify!(:comebacked)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify(:comebacked)
     end
   end
 end
