@@ -50,7 +50,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       user: users(:komagata),
       sender: users(:kimura),
       link: "/users/#{users(:kimura).id}",
-      message: "#{users(:kimura).login_name}さんが復帰しました",
+      message: "#{users(:kimura).login_name}さんが休会から復帰しました！",
       read: false
     )
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
