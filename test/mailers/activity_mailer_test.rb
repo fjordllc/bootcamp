@@ -38,4 +38,13 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] sotugyouさんが卒業しました。', email.subject
     assert_match(/卒業/, email.body.to_s)
   end
+
+  test 'graduated with user who have been denied' do
+    ActivityMailer.graduated(
+      sender: users(:sotugyou),
+      receiver: users(:hajime)
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end
