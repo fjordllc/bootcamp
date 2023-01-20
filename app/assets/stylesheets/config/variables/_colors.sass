@@ -77,12 +77,91 @@ $input-focus-background: $base
 $input-focus-border: $primary
 $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
 
+\:root
+  --main: #{$main}
+  --accent: #{$accent}
+  --base: #{$base}
+  --background: #{$background}
+  --completion: #{$completion}
+
+  // background
+  --background-shade: #{$background-shade}
+  --background-semi-shade: #{$background-semi-shade}
+  --background-tint: #{$background-tint}
+  --background-more-tint: #{$background-more-tint}
+  --background-more-more-tint: #{$background-more-more-tint}
+
+  // text
+  --default-text: #{$default-text}
+  --reversal-text: #{$reversal-text}
+  --muted-text: #{$muted-text}
+  --semi-muted-text: #{$semi-muted-text}
+  --placeholder-text: #{$placeholder-text}
+  --link-text: #{$link-text}
+
+  // border
+  --side-border: #{$side-border}
+  --border: #{$border}
+  --border-tint: #{$border-tint}
+  --border-shade: #{$border-shade}
+
+  // Welcome Colors
+  --welcome-blue: #{$welcome-blue}
+  --welcome-light-blue: #{$welcome-light-blue}
+  --welcome-yellow: #{$welcome-yellow}
+  --welcome-orange: #{$welcome-orange}
+  --welcome-pink: #{$welcome-pink}
+
+  // UI colors
+  --primary: #{$primary}
+  --secondary: #{$secondary}
+  --success: #{$success}
+  --info: #{$info}
+  --warning: #{$warning}
+  --danger: #{$danger}
+  --disabled: #{$disabled}
+  --stamp-color: #{$stamp-color}
+
+  --danger-text: #{$danger-text}
+  --danger-tint: #{$danger-tint}
+
+  --success-text: #{$success-text}
+  --success-tint: #{$success-tint}
+
+  --info-text: #{$info-text}
+  --info-tint: #{$info-tint}
+
+  --primary-text: #{$primary-text}
+  --primary-tint: #{$primary-tint}
+  --primary-semi-tint: #{$primary-semi-tint}
+
+  --warning-text: #{$warning-text}
+  --warning-tint: #{$warning-tint}
+
+  --main-text: #{$main-text}
+  --main-tint: #{$main-tint}
+  --main-shade: #{$main-shade}
+
+  // input
+  --input-border: #{$input-border}
+  --input-background: #{$input-background}
+
+  --input-hover-border: #{$input-hover-border}
+  --input-hover-background: #{$input-hover-background}
+
+  --input-selected-background: #{$input-selected-background}
+  --input-selected-border: #{$input-selected-border}
+  --input-selected-text: #{$input-selected-text}
+
+  --input-focus-background: #{$input-focus-background}
+  --input-focus-border: #{$input-focus-border}
+  --input-focus-shadow: #{$input-focus-shadow}
 
 =default-link
   transition: color .2s ease-in
-  color: $link-text
+  color: var(--link-text)
   &:link
-    color: $link-text
+    color: var(--link-text)
   &:visited
     color: hsl(233, 33%, 58%)
   &:hover
@@ -92,12 +171,12 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
 
 =muted-link
   transition: color .2s ease-in
-  color: $muted-text
+  color: var(--muted-text)
   &:link
-    color: $muted-text
+    color: var(--muted-text)
   &:visited
-    color: $muted-text
+    color: var(--muted-text)
   &:hover
-    color: $danger
+    color: var(--danger)
   &:active
-    color: $danger
+    color: var(--danger)
