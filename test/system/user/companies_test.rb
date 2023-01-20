@@ -52,7 +52,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
       within first('.a-user-role.is-adviser') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
       end
-    end 
+    end
     assert_selector('.group-company-name__label', text: 'Fjord Inc.')
     within all('.a-user-icons__items')[1] do
       within first('.a-user-role.is-admin') do
