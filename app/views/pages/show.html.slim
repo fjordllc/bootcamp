@@ -15,28 +15,52 @@ header.page-header
 
 .page-body
   .container.is-lg
-    .doc.page-content
-      = render 'doc_header', page: @page
-      .a-card
-        .card-body
-          .card__description
-            .a-long-text.is-md.js-markdown-view
-              = @page.body
-        = render 'reactions/reactions', reactionable: @page
-        footer.card-footer
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                = link_to [:edit, @page], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
-                  i.fa-solid.fa-pen
-                  | 内容変更
-              - if admin_or_mentor_login? || current_user == @page.user
-                li.card-main-actions__item.is-sub
-                  = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                    | 削除する
-      .page-content-prev-next
-        .page-content-prev-next__item
-          = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
-            | 一覧に戻る
+    .row.is-gutter-width-32
+      .col-lg-8.col-xs-12
+        .doc.page-content
+          = render 'doc_header', page: @page
+          .a-card
+            .card-body
+              .card__description
+                .a-long-text.is-md.js-markdown-view
+                  = @page.body
+            = render 'reactions/reactions', reactionable: @page
+            footer.card-footer
+              .card-main-actions
+                ul.card-main-actions__items
+                  li.card-main-actions__item
+                    = link_to [:edit, @page], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                      i.fa-solid.fa-pen
+                      | 内容変更
+                  - if admin_or_mentor_login? || current_user == @page.user
+                    li.card-main-actions__item.is-sub
+                      = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                        | 削除する
+          .page-content-prev-next
+            .page-content-prev-next__item
+              = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
+                | 一覧に戻る
 
-    #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
+        #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
+
+      .col-lg-4.col-xs-12
+        nav.page-nav
+          header.page-nav__header
+            h2.page-nav__title
+              = link_to @page.practice,
+                class: 'page-nav__title-link' do
+                - if @page.practice.present?
+                  = @page.practice.title
+          ul.page-nav__items
+            - if @pages.present?
+              - @pages.each do |page|
+                li.page-nav__item(class="#{@page == page ? 'is-current' : ''}")
+                  = link_to page_path(page), class: 'page-nav__item-link' do
+                    span.page-nav__item-link-inner
+                      = page.title
+          header.page-nav__header
+            h2.page-nav__title
+              - if @page.practice.present?
+                = link_to practice_pages_path(@page.practice),
+                  class: 'page-nav__title-link' do
+                  = @page.practice.title + "の関連ドキュメント一覧"
