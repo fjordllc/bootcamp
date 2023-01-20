@@ -8,7 +8,7 @@ module UserDecorator
   def roles
     roles = []
 
-    roles << :retired if retired?
+    roles << :retired if retired_on?
     roles << :admin if admin?
     roles << :mentor if mentor?
     roles << :adviser if adviser?
