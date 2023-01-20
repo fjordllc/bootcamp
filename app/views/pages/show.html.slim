@@ -64,4 +64,4 @@ header.page-header
                 - if @page.practice.present?
                   = link_to practice_pages_path(@page.practice),
                     class: 'page-nav__title-link' do
-                    = @page.practice.title + "の関連ドキュメント一覧"
+                    = "#{@page.practice.title}の関連ドキュメント一覧"
