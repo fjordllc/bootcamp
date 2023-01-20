@@ -108,7 +108,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     end
     assert_selector('.group-company-name__label', text: 'root inc.')
     within all('.a-user-role.is-adviser')[1] do
-      assert_equal all('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'senpai'
+      assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'senpai'
     end
   end
 
