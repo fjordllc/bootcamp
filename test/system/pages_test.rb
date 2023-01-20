@@ -249,5 +249,4 @@ class PagesTest < ApplicationSystemTestCase
     assert_link 'プラクティスに紐付いたDocs'
     assert_link 'OS X Mountain Lionをクリーンインストールするの関連ドキュメント一覧'
   end
-
 end
