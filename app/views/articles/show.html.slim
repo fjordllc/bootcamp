@@ -57,7 +57,6 @@ ruby:
                       = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'a-button is-secondary is-md is-block' do
                         | 削除
         .col-xl-4.col-lg-4.col-xs-12
-          .a-card
-            = render partial: 'welcome/mentor', locals: { mentor: @mentor }
+          = render 'welcome/mentor', mentor: @mentor, page: 'articles-show'
           = render 'recent_articles'
           = render 'ad'

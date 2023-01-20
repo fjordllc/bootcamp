@@ -1,40 +1,45 @@
-section.welcome-member.a-card
-  .welcome-member__header
-    - if mentor.profile_image.attached?
-      .welcome-member__start
-        = image_tag(mentor.profile_image, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
-    .welcome-member__end
-      - if mentor.profile_name.present?
-        h3.welcome-member__name
-          = mentor.profile_name
-      - if mentor.profile_job.present?
-        p.welcome-member__job
-          = mentor.profile_job
-      ul.welcome-member__sns
-        - if mentor.github_account.present?
-          li.welcome-member__sns-item
-            = link_to "https://github.com/#{mentor.github_account}", class: 'welcome-member__sns-item-link' do
-              i.fa-brands.fa-github-alt
-        - if mentor.blog_url.present?
-          li.welcome-member__sns-item
-            = link_to mentor.blog_url, class: 'welcome-member__sns-item-link' do
-              i.fa-solid.fa-home
-        - if mentor.twitter_account.present?
-          li.welcome-member__sns-item
-            = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'welcome-member__sns-item-link' do
-              i.fa-brands.fa-twitter
-        - if mentor.facebook_url.present?
-          li.welcome-member__sns-item
-            = link_to mentor.facebook_url, class: 'welcome-member__sns-item-link' do
-              i.fa-brands.fa-facebook-square
-  .welcome-member__body
-    .a-long-text.is-md.js-markdown-view
-      = mentor.profile_text
-  - if mentor.authored_books.present?
-    .welcome-member-books
-      ul.welcome-member-books__items
-        - mentor.authored_books.sorted.each do |authored_book|
-          - if authored_book.cover.attached?
-            li.welcome-member-books__item
-              = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
-                = image_tag(authored_book.cover, alt: authored_book.title, class: 'welcome-member-books__item-image')
+section.welcome-member.a-card(class="is-#{page}")
+  - if page == 'articles-show'
+    header.card-header.is-sm
+      h2.card-header__title
+        | 著者
+  .welcome-member__inner
+    .welcome-member__header
+      - if mentor.profile_image.attached?
+        .welcome-member__start
+          = image_tag(mentor.profile_image, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+      .welcome-member__end
+        - if mentor.profile_name.present?
+          h3.welcome-member__name
+            = mentor.profile_name
+        - if mentor.profile_job.present?
+          p.welcome-member__job
+            = mentor.profile_job
+        ul.welcome-member__sns
+          - if mentor.github_account.present?
+            li.welcome-member__sns-item
+              = link_to "https://github.com/#{mentor.github_account}", class: 'welcome-member__sns-item-link' do
+                i.fa-brands.fa-github-alt
+          - if mentor.blog_url.present?
+            li.welcome-member__sns-item
+              = link_to mentor.blog_url, class: 'welcome-member__sns-item-link' do
+                i.fa-solid.fa-home
+          - if mentor.twitter_account.present?
+            li.welcome-member__sns-item
+              = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'welcome-member__sns-item-link' do
+                i.fa-brands.fa-twitter
+          - if mentor.facebook_url.present?
+            li.welcome-member__sns-item
+              = link_to mentor.facebook_url, class: 'welcome-member__sns-item-link' do
+                i.fa-brands.fa-facebook-square
+    .welcome-member__body
+      .a-long-text.js-markdown-view(class="#{page == 'articles-show' ? 'is-sm' : 'is-md'}")
+        = mentor.profile_text
+    - if mentor.authored_books.present?
+      .welcome-member-books
+        ul.welcome-member-books__items
+          - mentor.authored_books.sorted.each do |authored_book|
+            - if authored_book.cover.attached?
+              li.welcome-member-books__item
+                = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
+                  = image_tag(authored_book.cover, alt: authored_book.title, class: 'welcome-member-books__item-image')

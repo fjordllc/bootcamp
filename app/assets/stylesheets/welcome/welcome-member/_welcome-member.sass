@@ -1,16 +1,24 @@
 .welcome-member
+  &.is-welcome-index
+    +media-breakpoint-up(md)
+      height: 100%
+    +media-breakpoint-down(sm)
+      height: auto
+
+.welcome-member__inner
   padding: 1.25rem 1.5rem 1.5rem
-  +media-breakpoint-up(md)
-    height: 100%
-  +media-breakpoint-down(sm)
-    height: auto
+  .welcome-member.is-articles-show &
+    padding: .75rem 1rem
 
 .welcome-member__header
   display: flex
   align-items: flex-start
 
 .welcome-member__start
-  flex: 0 0 4.5rem
+  +media-breakpoint-up(md)
+    flex: 0 0 4.5rem
+  +media-breakpoint-down(sm)
+    flex: 0 0 3.5rem
 
 .welcome-member__end
   flex: 1
@@ -22,10 +30,16 @@
   margin-right: 1rem
 
 .welcome-member__name
-  +text-block(1.25rem 1.45, 600)
+  +media-breakpoint-up(md)
+    +text-block(1.25rem 1.45, 600)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.45, 600)
 
 .welcome-member__job
-  +text-block(.75rem 1.45, 400)
+  +media-breakpoint-up(md)
+    +text-block(.75rem 1.45, 400)
+  +media-breakpoint-down(sm)
+    +text-block(.625rem 1.45, 400)
 
 .welcome-member__sns
   display: flex
