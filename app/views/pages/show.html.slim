@@ -45,22 +45,23 @@ header.page-header
 
       .col-lg-4.col-xs-12
         nav.page-nav
-          header.page-nav__header
-            h2.page-nav__title
-              = link_to @page.practice,
-                class: 'page-nav__title-link' do
-                - if @page.practice.present?
-                  = @page.practice.title
-          ul.page-nav__items
-            - if @pages.present?
-              - @pages.each do |page|
-                li.page-nav__item(class="#{@page == page ? 'is-current' : ''}")
-                  = link_to page_path(page), class: 'page-nav__item-link' do
-                    span.page-nav__item-link-inner
-                      = page.title
-          header.page-nav__header
-            h2.page-nav__title
-              - if @page.practice.present?
-                = link_to practice_pages_path(@page.practice),
+          - if @page.practice
+            header.page-nav__header
+              h2.page-nav__title
+                = link_to @page.practice,
                   class: 'page-nav__title-link' do
-                  = @page.practice.title + "の関連ドキュメント一覧"
+                  - if @page.practice.present?
+                    = @page.practice.title
+            ul.page-nav__items
+              - if @pages.present?
+                - @pages.each do |page|
+                  li.page-nav__item(class="#{@page == page ? 'is-current' : ''}")
+                    = link_to page_path(page), class: 'page-nav__item-link' do
+                      span.page-nav__item-link-inner
+                        = page.title
+            header.page-nav__header
+              h2.page-nav__title
+                - if @page.practice.present?
+                  = link_to practice_pages_path(@page.practice),
+                    class: 'page-nav__title-link' do
+                    = @page.practice.title + "の関連ドキュメント一覧"
