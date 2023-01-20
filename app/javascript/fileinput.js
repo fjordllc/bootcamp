@@ -1,21 +1,27 @@
 import Heic2any from 'heic2any'
 
 function isHEIC(file) {
-  const type = file.type ? file.type.split('image/').pop() : file.name.split('.').pop().toLowerCase();
-  return type === 'heic' || type === 'heif';
+  const type = file.type
+    ? file.type.split('image/').pop()
+    : file.name.split('.').pop().toLowerCase()
+  return type === 'heic' || type === 'heif'
 }
 
 function convertHEIC(file) {
   return new Promise((resolve) => {
-      Heic2any({
-          blob: file,
-          toType: "image/jpeg",
-          quality: 1
-      }).then((convertedBlob) => {
-          const convertedFile = new File([convertedBlob], file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg', { type:"image/jpeg"});
-          resolve(convertedFile);
-      });
-  });
+    Heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+      quality: 1
+    }).then((convertedBlob) => {
+      const convertedFile = new File(
+        [convertedBlob],
+        file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg',
+        { type: 'image/jpeg' }
+      )
+      resolve(convertedFile)
+    })
+  })
 }
 
 function initializeFileInput(target) {
@@ -30,7 +36,9 @@ function initializeFileInput(target) {
         const fileReader = new FileReader()
         fileReader.addEventListener('load', (event) => {
           const dataUri = event.target.result
-          const preview = input.parentElement.parentElement.querySelector('.js-file-input__preview')
+          const preview = input.parentElement.parentElement.querySelector(
+            '.js-file-input__preview'
+          )
           const p = preview.querySelector('p')
           let img = preview.querySelector('img')
 
