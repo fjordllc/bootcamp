@@ -1,2 +1,0 @@
-= render 'notification_mailer_template', title: "質問「#{@answer.question.title}」に#{@answer.user.login_name}さんが回答しました。", link_url: notification_url(@notification, anchor: "answer_#{@answer.id}"), link_text: '回答へ' do
-  = md2html(@answer.description)
