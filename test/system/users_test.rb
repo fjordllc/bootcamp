@@ -567,6 +567,8 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'can upload heic image as user avatar' do
+    skip 'HEICのサポートがないため、CI では実行されません。' if ENV['CI'] == 'true'
+
     visit_with_auth '/current_user/edit', 'hajime'
     attach_file 'user[avatar]', 'test/fixtures/files/images/heic-sample-file.heic', make_visible: true
     click_button '更新する'
