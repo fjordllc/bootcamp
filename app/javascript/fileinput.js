@@ -1,29 +1,52 @@
+import Heic2any from 'heic2any'
+
+function isHEIC(file) {
+  const type = file.type ? file.type.split('image/').pop() : file.name.split('.').pop().toLowerCase();
+  return type === 'heic' || type === 'heif';
+}
+
+function convertHEIC(file) {
+  return new Promise((resolve) => {
+      Heic2any({
+          blob: file,
+          toType: "image/jpeg",
+          quality: 1
+      }).then((convertedBlob) => {
+          const convertedFile = new File([convertedBlob], file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg', { type:"image/jpeg"});
+          resolve(convertedFile);
+      });
+  });
+}
+
 function initializeFileInput(target) {
   const inputs = target.querySelectorAll('.js-file-input input')
-  if (!inputs) {
-    return null
-  }
+  if (!inputs) return null
 
   inputs.forEach((input) => {
-    input.addEventListener('change', (e) => {
-      const file = e.target.files[0]
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', (event) => {
-        const dataUri = event.target.result
-        const frame = input.parentElement.parentElement
-        const preview = frame.querySelector('.js-file-input__preview')
-        const p = frame.querySelector('.js-file-input__preview p')
-        let img = frame.querySelector('.js-file-input__preview img')
+    input.addEventListener('change', async (e) => {
+      let file = e.target.files[0]
 
-        if (!img) {
-          img = document.createElement('img')
-          preview.appendChild(img)
-        }
+      if (file) {
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', (event) => {
+          const dataUri = event.target.result
+          const preview = input.parentElement.parentElement.querySelector('.js-file-input__preview')
+          const p = preview.querySelector('p')
+          let img = preview.querySelector('img')
 
-        img.src = dataUri
-        p.innerHTML = '画像を変更'
-      })
-      fileReader.readAsDataURL(file)
+          if (!img) {
+            img = document.createElement('img')
+            preview.appendChild(img)
+          }
+
+          img.src = dataUri
+          p.innerHTML = '画像を変更'
+        })
+
+        if (isHEIC(file)) file = await convertHEIC(file)
+
+        fileReader.readAsDataURL(file)
+      }
     })
   })
 }
