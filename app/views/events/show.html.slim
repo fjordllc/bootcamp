@@ -16,6 +16,8 @@ header.page-header
             = link_to events_path, class: 'a-button is-md is-secondary is-block is-back' do
               | イベント一覧
 
+= render 'events/tabs'
+
 - if @event.wip?
   .a-page-notice.is-danger
     .container.is-lg
