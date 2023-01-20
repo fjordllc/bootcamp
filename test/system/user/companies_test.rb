@@ -33,7 +33,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
       within first('.a-user-role.is-trainee') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyu'
       end
-      within all('.a-user-role.is-trainee')[1] do
+      within first('.a-user-role.is-retired') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyuowata'
       end
       within first('.a-user-role.is-adviser') do
@@ -67,7 +67,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
       within first('.a-user-role.is-trainee') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyu'
       end
-      within all('.a-user-role.is-trainee')[1] do
+      within first('.a-user-role.is-retired') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyuowata'
       end
       within first('.a-user-role.is-adviser') do
@@ -90,7 +90,7 @@ class User::CompaniesTest < ApplicationSystemTestCase
     within first('.a-user-role.is-trainee') do
       assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyu'
     end
-    within all('.a-user-role.is-trainee')[1] do
+    within first('.a-user-role.is-retired') do
       assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyuowata'
     end
   end
