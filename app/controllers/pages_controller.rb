@@ -15,7 +15,9 @@ class PagesController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
   end
 
-  def show; end
+  def show
+    @pages = @page.practice.pages.limit(20) if @page.practice
+  end
 
   def new
     @page = Page.new
