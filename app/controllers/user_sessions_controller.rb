@@ -24,6 +24,7 @@ class UserSessionsController < ApplicationController
       end
     else
       logout
+      @user = User.new
       flash.now[:alert] = 'ユーザー名かパスワードが違います。'
       render 'new'
     end
