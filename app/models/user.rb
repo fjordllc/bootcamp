@@ -564,7 +564,7 @@ class User < ApplicationRecord
   end
 
   def message_send_target?
-    student? && after_thirty_days_registration? && !sent_message_after_thirty_days
+    current_student? && !hibernated? && after_thirty_days_registration? && !sent_message_after_thirty_days
   end
 
   def retired?

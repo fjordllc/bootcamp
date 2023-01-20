@@ -146,6 +146,10 @@ talk_registerfourty:
   user: registration40days
   unreplied: false
 
+unhibernated:
+  user: unhibernated
+  unreplied: false
+
 talk_sotugyou-with-job:
   user: sotugyou_with_job
   unreplied: false

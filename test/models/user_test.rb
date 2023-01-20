@@ -627,8 +627,10 @@ class UserTest < ActiveSupport::TestCase
     target = users(:registration30days)
     nottarget = users(:komagata)
     otameshi = users(:otameshi)
+    hibernated = users(:kyuukai)
     assert target.message_send_target?
     assert_not nottarget.message_send_target?
     assert_not otameshi.message_send_target?
+    assert_not hibernated.message_send_target?
   end
 end
