@@ -565,4 +565,15 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'js-user-search-input', with: 'キム'
     assert_text 'Kimura', count: 2
   end
+
+  test 'can upload heic image as user avatar' do
+    visit_with_auth '/current_user/edit', 'hajime'
+    attach_file 'user[avatar]', 'test/fixtures/files/images/heic-sample-file.heic', make_visible: true
+    click_button '更新する'
+
+    assert_text 'ユーザー情報を更新しました。'
+    img = find('img.user-profile__user-icon-image', visible: false)
+    user = users(:hajime)
+    assert_match(/#{user.id}\.png$/, img.native['src'])
+  end
 end
