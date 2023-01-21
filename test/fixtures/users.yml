@@ -614,7 +614,7 @@ registration30days:
   os: mac
   experience: ruby
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
-  sent_message_after_thirty_days: false
+  sent_student_followup_message: false
   updated_at: <%= Time.current - 20.days %>
   created_at: <%= Time.current - 30.days %>
   last_activity_at: <%= Time.current - 10.days %>
@@ -635,7 +635,7 @@ registration40days:
   os: mac
   experience: ruby
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
-  sent_message_after_thirty_days: false
+  sent_student_followup_message: false
   updated_at: <%= Time.current - 31.days %>
   created_at: <%= Time.current - 40.days %>
   last_activity_at: <%= Time.current - 10.days %>

@@ -2,13 +2,13 @@
 
 class Scheduler::Daily::SendMessageController < SchedulerController
   def show
-    send_message_to_students_thirty_days_after_registration
+    sent_student_followup_message
     head :ok
   end
 
   private
 
-  def send_message_to_students_thirty_days_after_registration
+  def sent_student_followup_message
     @komagata = User.find_by(login_name: 'komagata')
 
     User.students.find_each do |student|
@@ -19,7 +19,7 @@ class Scheduler::Daily::SendMessageController < SchedulerController
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
-      student.assign_attributes(sent_message_after_thirty_days: true)
+      student.assign_attributes(sent_student_followup_message: true)
       student.save(validate: false)
     end
   end
