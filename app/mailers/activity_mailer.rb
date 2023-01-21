@@ -46,7 +46,7 @@ class ActivityMailer < ApplicationMailer
     @announcement ||= args[:announcement]
 
     @user = @receiver
-    @link_url = notification_redirector_path(
+    @link_url = notification_redirector_url(
       link: "/announcements/#{@announcement.id}",
       kind: Notification.kinds[:announced]
     )
