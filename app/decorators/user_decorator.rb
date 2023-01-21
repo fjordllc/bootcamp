@@ -9,6 +9,7 @@ module UserDecorator
     roles = []
 
     roles << :retired if retired_on?
+    roles << :hibernationed if hibernated_at?
     roles << :admin if admin?
     roles << :mentor if mentor?
     roles << :adviser if adviser?
@@ -39,6 +40,7 @@ module UserDecorator
 
     roles = [
       { role: '退会ユーザー', value: retired_on? },
+      { role: '休会ユーザー', value: hibernated_at? },
       { role: '管理者', value: admin },
       { role: 'メンター', value: mentor },
       { role: 'アドバイザー', value: adviser },
