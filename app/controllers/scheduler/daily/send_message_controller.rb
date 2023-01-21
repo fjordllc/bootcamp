@@ -19,8 +19,7 @@ class Scheduler::Daily::SendMessageController < SchedulerController
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
-      student.assign_attributes(sent_student_followup_message: true)
-      student.save(validate: false)
+      student.update!(sent_student_followup_message: true)
     end
   end
 end
