@@ -109,10 +109,11 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 5, link: "/announcements/#{announce.id}"}.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(/お知らせ本文1/, email.body.to_s)
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
   end
 
   test 'post_announcement with params' do
@@ -129,10 +130,11 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 5, link: "/announcements/#{announce.id}"}.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] お知らせ「お知らせ1」', email.subject
-    assert_match(/お知らせ本文1/, email.body.to_s)
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このお知らせへ</a>}, email.body.to_s)
   end
 
   test 'post_announcement to mute email notification or retired user' do
