@@ -82,6 +82,7 @@ adminonly: # adminのroleだけを持ったユーザー
   updated_at: "2021-02-01 00:00:30"
   created_at: "2021-02-01 00:00:30"
   last_activity_at: "2021-02-01 00:00:30"
+  sent_student_followup_message: true
 
 sotugyou_with_job:
   login_name: sotugyou-with-job
@@ -317,6 +318,7 @@ kensyu:
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
   last_activity_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
 
 senpai:
   login_name: senpai
@@ -364,6 +366,7 @@ kananashi: #name_kanaを持たないユーザー
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
   last_activity_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
 
 osnashi: #osを持たないユーザー
   login_name: osnashi
@@ -386,6 +389,7 @@ osnashi: #osを持たないユーザー
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
   last_activity_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
 
 discordinvalid: #Discord IDが不正なユーザー
   login_name: discordinvalid
@@ -408,6 +412,7 @@ discordinvalid: #Discord IDが不正なユーザー
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
   last_activity_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
 
 twitterinvalid: #Twitter IDが不正なユーザー
   login_name: twitterinvalid
@@ -430,6 +435,7 @@ twitterinvalid: #Twitter IDが不正なユーザー
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
   last_activity_at: "2020-01-01 00:00:12"
+  sent_student_followup_message: true
 
 jobseeker: #就活希望するユーザー
   login_name: jobseeker
@@ -453,6 +459,7 @@ jobseeker: #就活希望するユーザー
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
   last_activity_at: "2020-01-01 00:00:12"
+  sent_student_followup_message: true
 
 nippounashi: # 日報を投稿していないユーザー
   login_name: nippounashi
@@ -475,6 +482,7 @@ nippounashi: # 日報を投稿していないユーザー
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
   last_activity_at: "2014-01-01 00:00:10"
+  sent_student_followup_message: true
 
 with_hyphen:
   login_name: &login_name with-hyphen
@@ -497,6 +505,7 @@ with_hyphen:
   updated_at: "2021-01-01 00:00:17"
   created_at: "2021-01-01 00:00:17"
   last_activity_at: "2021-01-01 00:00:17"
+  sent_student_followup_message: true
 
 kensyuowata: # 研修が終わったユーザー
   login_name: kensyuowata
@@ -640,6 +649,28 @@ registration40days:
   created_at: <%= Time.current - 40.days %>
   last_activity_at: <%= Time.current - 10.days %>
 
+unhibernated:
+  login_name: thiry_hibernated
+  email: thiry_hibernated@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: 復帰 太郎
+  name_kana: フッキ タロウ
+  github_account: thiry_hibernated
+  discord_account: thiry_hibernated#1234
+  twitter_account: thiry_hibernated
+  description: "入会30日目の休会中ユーザーです"
+  course: course1
+  job: student
+  os: mac
+  experience: ruby
+  unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
+  sent_student_followup_message: false
+  hibernated_at: <%= Time.current - 13.days %>
+  updated_at: <%= Time.current - 20.days %>
+  created_at: <%= Time.current - 30.days %>
+  last_activity_at: <%= Time.current - 10.days %>
+
 enchomaemae:
   login_name: enchomaemae
   email: enchomaemae@fjord.jp
@@ -661,6 +692,7 @@ enchomaemae:
   updated_at: "2021-03-25 00:00:00"
   created_at: "2021-03-25 00:00:00"
   last_activity_at: "2021-03-25 00:00:00"
+  sent_student_followup_message: true
 
 enchomaeyo:
   login_name: enchomaeyo
@@ -683,6 +715,7 @@ enchomaeyo:
   updated_at: "2021-08-19 23:59:59"
   created_at: "2021-08-19 23:59:59"
   last_activity_at: "2021-08-19 23:59:59"
+  sent_student_followup_message: true
 
 enchohayashi:
   login_name: enchohayashi
@@ -705,6 +738,7 @@ enchohayashi:
   updated_at: "2021-08-20 00:00:00"
   created_at: "2021-08-20 00:00:00"
   last_activity_at: "2021-08-20 00:00:00"
+  sent_student_followup_message: true
 
 enchoososhi:
   login_name: enchoososhi
@@ -727,6 +761,7 @@ enchoososhi:
   updated_at: "2021-08-31 23:59:00"
   created_at: "2021-08-31 23:59:00"
   last_activity_at: "2021-08-31 23:59:00"
+  sent_student_followup_message: true
 
 enchoowata:
   login_name: enchoowata
@@ -749,6 +784,7 @@ enchoowata:
   updated_at: "2021-09-01 00:00:00"
   created_at: "2021-09-01 00:00:00"
   last_activity_at: "2021-09-01 00:00:00"
+  sent_student_followup_message: true
 
 kimuramitai:
   login_name: kimuramitai
@@ -776,6 +812,7 @@ kimuramitai:
   profile_name: "キムラ ミタイ"
   profile_job: "プログラマー"
   profile_text: "木村さんに似ているとよく言われます。"
+  sent_student_followup_message: true
 
 long-id-mentor:
   login_name: long-id-mentor
@@ -798,6 +835,7 @@ long-id-mentor:
   updated_at: "2022-04-15 00:00:01"
   created_at: "2022-04-15 00:00:01"
   last_activity_at: "2022-04-15 00:00:01"
+  sent_student_followup_message: true
 
 nocompanykensyu: # 所属企業のない研修生
   login_name: nocompanykensyu
@@ -822,6 +860,7 @@ nocompanykensyu: # 所属企業のない研修生
   updated_at: "2014-01-01 01:00:11"
   created_at: "2014-01-01 01:00:11"
   last_activity_at: "2014-01-01 01:00:11"
+  sent_student_followup_message: true
 
 neverlogin: # 1度もログインしたことがないユーザー
   login_name: neverlogin
@@ -837,6 +876,7 @@ neverlogin: # 1度もログインしたことがないユーザー
   free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
+  sent_student_followup_message: true
 
 kyuukai:
   login_name: kyuukai
@@ -876,6 +916,7 @@ neverlogin: # 1度もログインしたことがないユーザー
   free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
+  sent_student_followup_message: true
 
 kyuukai:
   login_name: kyuukai
@@ -964,4 +1005,5 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   updated_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
   created_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
   last_activity_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
+  sent_student_followup_message: true
 <% end %>

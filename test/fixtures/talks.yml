@@ -151,3 +151,6 @@ talk_registerfourty:
   user: registration40days
   unreplied: false
 
+unhibernated:
+  user: unhibernated
+  unreplied: false
