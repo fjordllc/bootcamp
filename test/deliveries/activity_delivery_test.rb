@@ -104,6 +104,17 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     end
   end
 
+  test '.notify(:submitted)' do
+    product = products(:product6)
+    params = {
+      subject: product,
+      message: 'test message'
+    }
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+      ActivityDelivery.with(**params).notify(:submitted)
+    end
+  end
+
   test '.notify(:retired)' do
     params = {
       sender: users(:yameo),
