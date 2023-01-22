@@ -2,6 +2,7 @@
 
 class Scheduler::Daily::AfterRetirementController < SchedulerController
   def show
+    User.notify_to_discord
     notify_certain_period_passed
     head :ok
   end
