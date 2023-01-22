@@ -60,6 +60,23 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
+  # required params: product, receivers, message
+  def submitted(args = {})
+    @message = params&.key?(:message) ? params[:message] : args[:message]
+    @product = params&.key?(:product) ? params[:product] : args[:product]
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_path(
+      link: "/products/#{@product.id}",
+      kind: Notification.kinds[:submitted]
+    )
+    # @notification = @user.notifications.find_by(link: "/products/#{product.id}")
+    subject = "[FBC] #{message}"
+    mail to: @user.email, subject: subject
+  end
+
   # required params: announcement, receiver
   def post_announcement(args = {})
     @receiver ||= args[:receiver]
