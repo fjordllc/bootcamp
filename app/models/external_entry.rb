@@ -25,7 +25,7 @@ class ExternalEntry < ApplicationRecord
     end
 
     def save_rss_feed(user, rss_item)
-      external_entry = ExternalEntry.new(
+      ExternalEntry.create(
         title: rss_item.title,
         url: rss_item.link,
         summary: rss_item.description,
@@ -33,8 +33,6 @@ class ExternalEntry < ApplicationRecord
         published_at: rss_item.pubDate,
         user: user
       )
-
-      external_entry.save
     end
   end
 end
