@@ -247,6 +247,6 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth "/pages/#{pages(:page7).id}", 'kimura'
     assert_link 'OS X Mountain Lionをクリーンインストールする'
     assert_link 'プラクティスに紐付いたDocs'
-    assert_link 'OS X Mountain Lionをクリーンインストールするの関連ドキュメント一覧'
+    assert_link '全て見る'
   end
 end
