@@ -14,7 +14,7 @@ header.page-header
               | Docs
 
 .page-body
-  .container.is-lg
+  .container.is-xxl
     .row.is-gutter-width-32
       .col-lg-8.col-xs-12
         .doc.page-content
@@ -44,7 +44,7 @@ header.page-header
         #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
 
       .col-lg-4.col-xs-12
-        nav.page-nav
+        nav.page-nav.has-footer
           - if @page.practice
             header.page-nav__header
               h2.page-nav__title
@@ -59,9 +59,8 @@ header.page-header
                     = link_to page_path(page), class: 'page-nav__item-link' do
                       span.page-nav__item-link-inner
                         = page.title
-            header.page-nav__header
-              h2.page-nav__title
-                - if @page.practice.present?
-                  = link_to practice_pages_path(@page.practice),
-                    class: 'page-nav__title-link' do
-                    = "#{@page.practice.title}の関連ドキュメント一覧"
+            footer.page-nav__footer
+              - if @page.practice.present?
+                = link_to practice_pages_path(@page.practice),
+                  class: 'page-nav__footer-link' do
+                  | 全て見る
