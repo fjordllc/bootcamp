@@ -146,7 +146,7 @@ class TalksTest < ApplicationSystemTestCase
 
   test 'talks unreplied page displays when admin logined ' do
     visit_with_auth '/', 'komagata'
-    click_link '相談'
+    click_link '相談', match: :first
     assert_equal '/talks/unreplied', current_path
   end
 
