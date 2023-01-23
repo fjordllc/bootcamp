@@ -1,7 +1,8 @@
 <template lang="pug">
 .page-body
   nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+    .container
+      pager(v-bind='pagerProps')
   .container
     .users
       .row(v-if='users === null')
@@ -22,7 +23,8 @@
           p.o-empty-message__text
             | {{ generationID }}期のユーザー一覧はありません
   nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+    .container
+      pager(v-bind='pagerProps')
 </template>
 <script>
 import User from './components/user.vue'
