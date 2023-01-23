@@ -34,4 +34,12 @@ class BookmarkTest < ActiveSupport::TestCase
     Bookmark.create(user: user, bookmarkable: page)
     assert_not Bookmark.new(user: user, bookmarkable: page).valid?
   end
+
+  test 'prohibit to duplicate talk registration' do
+    user = users(:komagata)
+    talk = talks(:talk1)
+
+    Bookmark.create(user: user, bookmarkable: talk)
+    assert_not Bookmark.new(user: user, bookmarkable: talk).valid?
+  end
 end
