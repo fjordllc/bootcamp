@@ -50,17 +50,14 @@ header.page-header
               h2.page-nav__title
                 = link_to @page.practice,
                   class: 'page-nav__title-link' do
-                  - if @page.practice.present?
-                    = @page.practice.title
+                  = @page.practice.title
             ul.page-nav__items
-              - if @pages.present?
-                - @pages.each do |page|
-                  li.page-nav__item(class="#{@page == page ? 'is-current' : ''}")
-                    = link_to page_path(page), class: 'page-nav__item-link' do
-                      span.page-nav__item-link-inner
-                        = page.title
+              - @pages.each do |page|
+                li.page-nav__item(class="#{@page == page ? 'is-current' : ''}")
+                  = link_to page_path(page), class: 'page-nav__item-link' do
+                    span.page-nav__item-link-inner
+                      = page.title
             footer.page-nav__footer
-              - if @page.practice.present?
-                = link_to practice_pages_path(@page.practice),
-                  class: 'page-nav__footer-link' do
-                  | 全て見る
+              = link_to practice_pages_path(@page.practice),
+                class: 'page-nav__footer-link' do
+                | 全て見る
