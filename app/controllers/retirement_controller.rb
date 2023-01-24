@@ -22,6 +22,7 @@ class RetirementController < ApplicationController
       notify_to_admins
       notify_to_mentors
       logout
+      kick_from_discord(user)
       redirect_to retirement_url
     else
       current_user.retired_on = nil
@@ -48,6 +49,23 @@ class RetirementController < ApplicationController
   def notify_to_mentors
     User.mentor.each do |mentor_user|
       NotificationFacade.retired(current_user, mentor_user)
+    end
+  end
+
+  def kick_from_discord(user)
+    discord_account = user.discord_account
+    return if discord_account.blank?
+
+    discord_member = DiscordMember.find_by(account_name: discord_account)
+    unless discord_member
+      logger.warn "[Discord API] #{discord_account} はアカウントが見つかりませんでした。"
+      return
+    end
+
+    if discord_member.destroy
+      logger.info "[Discord API] #{discord_account} を退出させました。"
+    else
+      logger.error "[Discord API] #{discord_account} は退出できませんでした。"
     end
   end
 end

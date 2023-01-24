@@ -60,13 +60,18 @@ class RetirementTest < ApplicationSystemTestCase
   end
 
   test 'enables retirement regardless of validity of discord id' do
+    logs = []
+    stub_warn_logger = ->(message) { logs << message }
     user = users(:discordinvalid)
-    visit_with_auth new_retirement_path, 'discordinvalid'
-    find('label', text: 'とても悪い').click
-    click_on '退会する'
-    page.accept_confirm
-    assert_text '退会処理が完了しました'
+    Rails.logger.stub(:warn, stub_warn_logger) do
+      visit_with_auth new_retirement_path, 'discordinvalid'
+      find('label', text: 'とても悪い').click
+      click_on '退会する'
+      page.accept_confirm
+      assert_text '退会処理が完了しました'
+    end
     assert_equal Date.current, user.reload.retired_on
+    assert_match '[Discord API] discordinvalid#1234567890 はアカウントが見つかりませんでした。', logs.to_s
     assert_equal '😢 discordinvalidさんが退会しました。', users(:komagata).notifications.last.message
     assert_equal '😢 discordinvalidさんが退会しました。', users(:mentormentaro).notifications.last.message
 
