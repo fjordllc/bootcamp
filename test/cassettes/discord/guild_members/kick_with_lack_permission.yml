@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://discord.com/api/v10/guilds/0123456789/members/123456
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bot NOT PRIVILEGED GATEWAY FOR GUILD MEMBERS INTENT
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Date:
+      - Tue, 24 Jan 2023 23:38:54 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=b4073ba16219b9e00e31a27a06903172cead606b-1674603534; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=43c216c29c4011edb384baba65353a66; Expires=Sun, 23-Jan-2028 23:38:54
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=43c216c29c4011edb384baba65353a66205c0764de7bdfb8361ec08a6a7b63775c68388a6fb4cd096c92b455695ff233;
+        Expires=Sun, 23-Jan-2028 23:38:54 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Ratelimit-Bucket:
+      - e06f83c33559dfd4dc34f5666fdfa1d3
+      X-Ratelimit-Limit:
+      - '5'
+      X-Ratelimit-Remaining:
+      - '4'
+      X-Ratelimit-Reset:
+      - '1674603535.683'
+      X-Ratelimit-Reset-After:
+      - '1.000'
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=YLurDOGZ84m3teZn6FeGU%2BOSOM7t1sZUnAizuoTy%2Fjw8frOueuFromNwexvnvrYKYraNkYkiLt0gXxoj0Ks1T%2Bq7lcemqpTRIoJGUDGp6evVX2Llue0WQmCxjwKs"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 78ec9afaec05836a-KIX
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJtZXNzYWdlIjogIk1pc3NpbmcgUGVybWlzc2lvbnMiLAogICJjb2Rl
+        IjogNTAwMTMKfQ==
+  recorded_at: Tue, 24 Jan 2023 23:38:54 GMT
+recorded_with: VCR 6.1.0

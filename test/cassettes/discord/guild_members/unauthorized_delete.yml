@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://discord.com/api/v10/guilds/0123456789/members/123456
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bot unauthorized
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Tue, 24 Jan 2023 07:28:00 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '43'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=b70e2eec57478ed5348e84f31e3c4b2d95c068b2-1674545280; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=a14a82309bb811eda4d6d61d084cbf6e; Expires=Sun, 23-Jan-2028 07:28:00
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=a14a82309bb811eda4d6d61d084cbf6e73aabb2f74bff06ea5e884ad19e4227634f5d092d138358a7192156a424e09a5;
+        Expires=Sun, 23-Jan-2028 07:28:00 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=dfz6ZbrLYMmERzB66YIp9xD%2B2TEnFEhSS7cF1sApH2KSrLHHT8074sXu3u142VKdW5tbtcdaptojbRfyF5DSyQ33cx0%2BXKCXwu7R9gPBDu%2FUitnnATXbrcyXKrFs"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 78e70cbf995417be-KIX
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJtZXNzYWdlIjogIjQwMTogVW5hdXRob3JpemVkIiwKICAiY29kZSI6
+        IDAKfQ==
+  recorded_at: Tue, 24 Jan 2023 07:28:02 GMT
+recorded_with: VCR 6.1.0

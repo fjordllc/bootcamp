@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://discord.com/api/v10/guilds/0123456789/members/search?limit=10&query=%E3%81%B2%E3%82%89%E3%81%8C%E3%81%AA%E3%81%A8%E6%BC%A2%E5%AD%97
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bot example
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Jan 2023 07:41:35 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=f31235248fa10f0adb086ea397f9c098ab8539e5-1674546095; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=875102809bba11edb1479a8c6482ced8; Expires=Sun, 23-Jan-2028 07:41:35
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=875102809bba11edb1479a8c6482ced801b2b7cffb08aeeda081c986c08062b5d9e6d1b46c720416060f18dec58198fd;
+        Expires=Sun, 23-Jan-2028 07:41:35 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Ratelimit-Bucket:
+      - d721eda6a63e6522373d361f98e4b58b
+      X-Ratelimit-Limit:
+      - '10'
+      X-Ratelimit-Remaining:
+      - '8'
+      X-Ratelimit-Reset:
+      - '1674546105.186'
+      X-Ratelimit-Reset-After:
+      - '9.715'
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=woT7bszJiZwQByGee2JKcT%2FLaKdOqH3TZZoWJU67taMZq1vcM%2FXtT0Zsv2VmEZX5IqiypPn8NHPXwFVX2s8s9gmxxWQwlwsVh1XzG7t4A15bP0ZhVZNKFNXPd%2B3l"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 78e720a7f820831d-KIX
+    body:
+      encoding: UTF-8
+      base64_string: |
+        WwogIHsKICAgICJhdmF0YXIiOiBudWxsLAogICAgImNvbW11bmljYXRpb25f
+        ZGlzYWJsZWRfdW50aWwiOiBudWxsLAogICAgImRlYWYiOiBmYWxzZSwKICAg
+        ICJmbGFncyI6IDAsCiAgICAiam9pbmVkX2F0IjogIjIwMjMtMDEtMjJUMDE6
+        NTk6MzcuNzA1MDAwKzAwOjAwIiwKICAgICJtdXRlIjogZmFsc2UsCiAgICAi
+        bmljayI6ICIiLAogICAgInBlbmRpbmciOiBmYWxzZSwKICAgICJwcmVtaXVt
+        X3NpbmNlIjogbnVsbCwKICAgICJyb2xlcyI6IFsKCiAgICBdLAogICAgInVz
+        ZXIiOiB7CiAgICAgICJhdmF0YXIiOiBudWxsLAogICAgICAiYXZhdGFyX2Rl
+        Y29yYXRpb24iOiBudWxsLAogICAgICAiYm90IjogZmFsc2UsCiAgICAgICJk
+        aXNjcmltaW5hdG9yIjogIjAwMTkiLAogICAgICAiaWQiOiAiMTkxODE5NTY5
+        MDIxMzMwMzc3IiwKICAgICAgInB1YmxpY19mbGFncyI6IDAsCiAgICAgICJ1
+        c2VybmFtZSI6ICLjgbLjgonjgYzjgarjgajmvKLlrZciCiAgICB9CiAgfQpd
+  recorded_at: Tue, 24 Jan 2023 07:41:37 GMT
+recorded_with: VCR 6.1.0
