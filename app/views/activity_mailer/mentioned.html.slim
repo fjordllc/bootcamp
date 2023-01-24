@@ -1,2 +1,2 @@
-= render '/notification_mailer/notification_mailer_template', title: "#{@mentionable.user.login_name}さんからメンションがありました", link_url: notification_url(@notification), link_text: 'このメンションへ' do
+= render '/notification_mailer/notification_mailer_template', title: "#{@mentionable.user.login_name}さんからメンションがありました", link_url: @link_url, link_text: 'このメンションへ' do
   = md2html @mentionable.body

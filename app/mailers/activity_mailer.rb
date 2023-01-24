@@ -148,7 +148,10 @@ class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
     @receiver ||= args[:receiver]
 
     @user = @receiver
-    @notification = @user.notifications.find_by(link: @mentionable.path)
+    @link_url = notification_redirector_path(
+      link: @mentionable.path,
+      kind: Notification.kinds[:mentioned]
+    )
     subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
     message = mail to: @user.email, subject: subject
 
