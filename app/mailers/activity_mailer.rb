@@ -56,4 +56,18 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
+
+  def came_question(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+    @question = params[:question]
+
+    @user = @receiver
+    @link_url = notification_redirector_path(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:came_question]
+    )
+    subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"
+    mail to: @user.email, subject: subject
+  end
 end

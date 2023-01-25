@@ -60,6 +60,13 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: "[FBC] #{@question.user.login_name}さんから質問「#{@question.title}」が投稿されました。"
   end
 
+  # required params: announcement, receiver
+  def post_announcement
+    @user = @receiver
+    @notification = @user.notifications.find_by(link: "/announcements/#{@announcement.id}")
+    mail to: @user.email, subject: "[FBC] お知らせ「#{@announcement.title}」"
+  end
+
   # required params: report, receiver
   def first_report
     @user = @receiver
