@@ -87,16 +87,6 @@ class NotificationFacade
     ).retired.deliver_later(wait: 5)
   end
 
-  def self.three_months_after_retirement(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).three_months_after_retirement.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).three_months_after_retirement.deliver_later(wait: 5)
-  end
-
   def self.trainee_report(report, receiver)
     ActivityNotifier.with(report: report, receiver: receiver).trainee_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
