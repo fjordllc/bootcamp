@@ -8,6 +8,7 @@ class ActivityMailer < ApplicationMailer
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
     @announcement = params[:announcement] if params&.key?(:announcement)
+    @question = params[:question] if params&.key?(:question)
   end
 
   # required params: sender, receiver
@@ -60,11 +61,11 @@ class ActivityMailer < ApplicationMailer
   def came_question(args = {})
     @sender ||= args[:sender]
     @receiver ||= args[:receiver]
-    @question = params[:question]
+    @question ||= args[:question]
 
     @user = @receiver
     @link_url = notification_redirector_path(
-      link: "/users/#{@sender.id}",
+      link: "/questions/#{@question.id}",
       kind: Notification.kinds[:came_question]
     )
     subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"

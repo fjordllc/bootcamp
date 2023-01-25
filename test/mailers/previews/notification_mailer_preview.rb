@@ -41,16 +41,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     ).submitted
   end
 
-  def came_question
-    question = Question.find(ActiveRecord::FixtureSet.identify(:question2))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:sotugyou))
-
-    NotificationMailer.with(
-      question: question,
-      receiver: receiver
-    ).came_question
-  end
-
   def first_report
     report = Report.find(ActiveRecord::FixtureSet.identify(:report10))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))

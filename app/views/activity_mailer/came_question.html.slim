@@ -1,0 +1,4 @@
+= render '/notification_mailer/notification_mailer_template',
+  title: "#{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。",
+  link_url: @link_url,
+  link_text: "#{@question.title}のページへ"

@@ -73,6 +73,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
+
     query = CGI.escapeHTML({ kind: 4, link: "/questions/#{answer.question.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
@@ -170,5 +171,42 @@ class ActivityMailerTest < ActionMailer::TestCase
       receiver: receiver
     ).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
+  end
+
+
+  test 'came_question' do
+    question = questions(:question1)
+    user = question.user
+    mentor = users(:komagata)
+
+    ActivityMailer.came_question(
+      sender: user,
+      receiver: mentor,
+      question: question
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
+    assert_match(/エディター/, email.body.to_s)
+  end
+
+  test 'came_question with params' do
+    question = questions(:question1)
+    user = question.user
+    mentor = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: mentor,
+      question: question
+    ).came_question
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
+    assert_match(/エディター/, email.body.to_s)
   end
 end

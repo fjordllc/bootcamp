@@ -26,4 +26,11 @@ class ActivityMailerPreview < ActionMailer::Preview
       receiver: receiver
     ).post_announcement
   end
+
+  def came_question
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+    question = Question.find(ActiveRecord::FixtureSet.identify(:question1))
+
+    ActivityMailer.with(sender: question.user, receiver: receiver, question: question).came_question
+  end
 end
