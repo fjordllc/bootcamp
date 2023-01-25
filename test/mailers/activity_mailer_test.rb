@@ -173,7 +173,6 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
   end
 
-
   test 'came_question' do
     question = questions(:question1)
     user = question.user
