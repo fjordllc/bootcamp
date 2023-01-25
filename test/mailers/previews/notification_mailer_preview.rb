@@ -41,16 +41,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     ).submitted
   end
 
-  def post_announcement
-    announce = Announcement.find(ActiveRecord::FixtureSet.identify(:announcement1))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:sotugyou))
-
-    NotificationMailer.with(
-      announcement: announce,
-      receiver: receiver
-    ).post_announcement
-  end
-
   def came_question
     question = Question.find(ActiveRecord::FixtureSet.identify(:question2))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:sotugyou))
