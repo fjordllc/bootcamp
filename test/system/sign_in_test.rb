@@ -25,7 +25,7 @@ class SignInTest < ApplicationSystemTestCase
     assert_text 'ログインしました。'
   end
 
-  test 'sign in with wrong password' do
+  test 'sign in with wrong password, then sign in successfully' do
     visit '/login'
     within('#sign-in-form') do
       fill_in('user[login]', with: 'komagata')
@@ -33,6 +33,13 @@ class SignInTest < ApplicationSystemTestCase
     end
     click_button 'ログイン'
     assert_text 'ユーザー名かパスワードが違います。'
+
+    within('#sign-in-form') do
+      fill_in('user[login]', with: 'komagata')
+      fill_in('user[password]', with: 'testtest')
+    end
+    click_button 'ログイン'
+    assert_text 'ログインしました。'
   end
 
   test 'sign in with retire account' do
