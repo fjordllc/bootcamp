@@ -309,10 +309,11 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 2, link: mentionable.path }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(/メンション/, email.body.to_s)
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
   end
 
   test 'mentioned with params' do
@@ -329,10 +330,44 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 2, link: mentionable.path }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['sotugyou@example.com'], email.to
     assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(/メンション/, email.body.to_s)
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このメンションへ</a>}, email.body.to_s)
+  end
+
+  test 'mentioned to mute email notification or retired user' do
+    mentionable = comments(:comment9)
+    mentioned = notifications(:notification_mentioned)
+
+    mentioned.user.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.mentioned(
+      mentionable: mentionable,
+      receiver: mentioned.user
+    ).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+
+    mentioned.user.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.mentioned(
+      mentionable: mentionable,
+      receiver: mentioned.user
+    ).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+
+    mentioned.user.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.mentioned(
+      mentionable: mentionable,
+      receiver: mentioned.user
+    ).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+
+    mentioned.user.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.mentioned(
+      mentionable: mentionable,
+      receiver: mentioned.user
+    ).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
   end
 
   test 'retired' do
