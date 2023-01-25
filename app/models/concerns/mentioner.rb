@@ -44,7 +44,7 @@ module Mentioner
     return nil if instance_of?(Comment) && commentable.instance_of?(Talk) # protect mention in talk
 
     receivers.each do |receiver|
-      ActivityDelivery.with(mentionable: self, receiver: receiver).notify!(:mentioned) if sender != receiver
+      ActivityDelivery.with(mentionable: self, receiver: receiver).notify(:mentioned) if sender != receiver
     end
   end
 
