@@ -35,8 +35,8 @@ class NotificationFacade
     ).mentioned.deliver_later(wait: 5)
   end
 
-  def self.submitted(subject, receiver, message, kind)
-    ActivityNotifier.with(subject: subject, receiver: receiver, message: message, kind: kind).submitted.notify_now
+  def self.submitted(subject, receiver, message)
+    ActivityNotifier.with(subject: subject, receiver: receiver, message: message).submitted.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(
