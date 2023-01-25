@@ -7,6 +7,7 @@ class ActivityMailer < ApplicationMailer
   before_action do
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
+    @announcement = params[:announcement] if params&.key?(:announcement)
   end
 
   # required params: sender, receiver
@@ -34,6 +35,23 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:answered]
     )
     message = mail to: @user.email, subject: "[FBC] #{@answer.user.login_name}さんから回答がありました。"
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: announcement, receiver
+  def post_announcement(args = {})
+    @receiver ||= args[:receiver]
+    @announcement ||= args[:announcement]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/announcements/#{@announcement.id}",
+      kind: Notification.kinds[:announced]
+    )
+    subject = "[FBC] お知らせ「#{@announcement.title}」"
+    message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
