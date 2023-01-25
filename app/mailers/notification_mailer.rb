@@ -11,8 +11,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @check = params[:check]
     @product = params[:product]
     @answer = params[:answer]
-    @announcement = params[:announcement]
-    @question = params[:question]
     @report = params[:report]
     @watchable = params[:watchable]
     @sender = params[:sender]
@@ -51,20 +49,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/products/#{@product.id}")
     mail to: @user.email, subject: "[FBC] #{@message}"
-  end
-
-  # required params: question, receiver
-  def came_question
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@question.id}")
-    mail to: @user.email, subject: "[FBC] #{@question.user.login_name}さんから質問「#{@question.title}」が投稿されました。"
-  end
-
-  # required params: announcement, receiver
-  def post_announcement
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/announcements/#{@announcement.id}")
-    mail to: @user.email, subject: "[FBC] お知らせ「#{@announcement.title}」"
   end
 
   # required params: report, receiver
