@@ -17,7 +17,7 @@ class ActivityMailer < ApplicationMailer
     return false unless @receiver.mail_notification? # cancel sending email
 
     @user = @receiver
-    @link_url = notification_redirector_path(
+    @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:graduated]
     )
