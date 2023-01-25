@@ -40,13 +40,13 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
     params = {
-      url: 'https://discord.com/api/webhooks/0123456789/admin',
+      url: 'https://discord.com/api/webhooks/0123456789/all',
       username: 'ピヨルド',
       avatar_url: 'https://i.gyazo.com/7099977680d8d8c2d72a3f14ddf14cc6.png',
       content: event_info
     }
 
-    stub_message = stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
+    stub_message = stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
                    .with(body: params,
                          headers: { 'Content-Type' => 'application/json' })
 
