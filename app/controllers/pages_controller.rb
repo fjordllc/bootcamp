@@ -5,6 +5,8 @@ class PagesController < ApplicationController
   before_action :set_categories, only: %i[new create edit update]
   before_action :redirect_to_slug, only: %i[show edit]
 
+  SIDE_LINK_LIMIT = 20
+
   def index
     @pages = Page.with_avatar
                  .includes(:comments, :practice, :tags,
@@ -15,7 +17,9 @@ class PagesController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
   end
 
-  def show; end
+  def show
+    @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+  end
 
   def new
     @page = Page.new
