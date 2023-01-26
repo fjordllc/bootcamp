@@ -330,7 +330,7 @@ class User < ApplicationRecord
     end
   }
   scope :same_generations, lambda { |start_date, end_date|
-    where(created_at: start_date..end_date).order(:created_at)
+    where(created_at: start_date..end_date).order(:created_at, :id)
   }
   scope :desc_tagged_with, lambda { |tag_name|
     with_attached_avatar
