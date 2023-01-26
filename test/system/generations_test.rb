@@ -147,13 +147,9 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-<<<<<<< HEAD
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-retired')['title'], 'yameo (辞目 辞目夫)'
-=======
         within first('.a-user-role.is-retired') do
           assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'yameo (辞目 辞目夫)'
         end
->>>>>>> 7915c33cf ( HTML構造を変更したのでテストを修正)
       end
     end
   end
