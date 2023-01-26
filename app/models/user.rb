@@ -167,8 +167,8 @@ class User < ApplicationRecord
 
   validates :avatar, attached: false,
                      content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif],
-                       message: 'はPNG, JPG, GIF形式にしてください'
+                       in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
+                       message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
   with_options if: -> { %i[create update].include? validation_context } do
