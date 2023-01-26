@@ -3,11 +3,11 @@
   .card-list-item__inner
     .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='report.user.url')
-        img.card-list-item__user-icon.a-user-icon(
-          :src='report.user.avatar_url',
-          :title='report.user.login_name',
-          :alt='report.user.login_name',
-          :class='[roleClass]')
+        span(:class='["a-user-role", roleClass]')
+          img.card-list-item__user-icon.a-user-icon(
+            :src='report.user.avatar_url',
+            :title='report.user.login_name',
+            :alt='report.user.login_name')
     .card-list-item__rows
       .card-list-item__row
         header.card-list-item-title

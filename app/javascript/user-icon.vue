@@ -1,10 +1,11 @@
 <template lang="pug">
 a(:href='user.url', :class='`${blockClass}user-link`')
-  img(
-    :src='user.avatar_url',
-    :alt='user.icon_title',
-    :title='user.icon_title',
-    :class='[`${blockClass}user-icon`, "a-user-icon", roleClass]')
+  span(:class='["a-user-role", roleClass]')
+    img(
+      :src='user.avatar_url',
+      :alt='user.icon_title',
+      :title='user.icon_title',
+      :class='[`${blockClass}user-icon`, "a-user-icon"]')
 </template>
 
 <script>

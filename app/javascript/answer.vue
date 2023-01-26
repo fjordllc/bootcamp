@@ -2,10 +2,10 @@
 .thread-comment
   .thread-comment__author
     a.thread-comment__user-link(:href='answer.user.url', itemprop='url')
-      img.thread-comment__user-icon.a-user-icon(
-        :src='answer.user.avatar_url',
-        :title='answer.user.icon_title',
-        :class='[roleClass]')
+      span(:class='["a-user-role", roleClass]')
+        img.thread-comment__user-icon.a-user-icon(
+          :src='answer.user.avatar_url',
+          :title='answer.user.icon_title')
       a.thread-comment__company-link(
         v-if='answer.user.company && answer.user.adviser',
         :href='answer.user.company.url')

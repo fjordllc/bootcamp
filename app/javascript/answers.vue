@@ -18,9 +18,10 @@
       @update='updateAnswer')
   .thread-comment-form
     .thread-comment__author
-      img.thread-comment__user-icon.a-user-icon(
-        :src='currentUser.avatar_url',
-        :title='currentUser.icon_title')
+      span(:class='["a-user-role", roleClass]')
+        img.thread-comment__user-icon.a-user-icon(
+          :src='currentUser.avatar_url',
+          :title='currentUser.icon_title')
     .thread-comment-form__form.a-card
       .a-form-tabs.js-tabs
         .a-form-tabs__tab.js-tabs__tab(
@@ -91,6 +92,9 @@ export default {
     },
     baseUrl: function () {
       return '/api/answers'
+    },
+    roleClass() {
+      return `is-${this.currentUser.primary_role}`
     }
   },
   created: function () {
