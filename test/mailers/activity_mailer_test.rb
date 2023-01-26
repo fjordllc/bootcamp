@@ -175,7 +175,7 @@ class ActivityMailerTest < ActionMailer::TestCase
   test 'three_months_after_retirement' do
     user = users(:kensyuowata)
     admin = users(:komagata)
-    mailer = ActivityMailer.three_months_after_retirement(
+    ActivityMailer.three_months_after_retirement(
       sender: user,
       receiver: admin
     ).deliver_now
