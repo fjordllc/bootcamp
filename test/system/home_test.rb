@@ -293,7 +293,9 @@ class HomeTest < ApplicationSystemTestCase
     find('#bookmark-button').click
     visit "/pages/#{pages(:page1).id}"
     find('#bookmark-button').click
-    reports = %i[report68 report69 report70 report71]
+    visit "/talks/#{talks(:talk1).id}"
+    find('#bookmark-button').click
+    reports = %i[report68 report69 report70]
     reports.each do |report|
       visit "/reports/#{reports(report).id}"
       find('#bookmark-button').click
@@ -304,6 +306,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '最新のブックマーク'
     find_link pages(:page1).title
     assert_text I18n.l pages(:page1).created_at, format: :long
+    user = talks(:talk1).user
+    find_link "#{user.login_name} (#{user.name}) さんの相談部屋"
     reports.each do |report|
       find_link reports(report).title
       assert_text I18n.l reports(report).reported_on, format: :long

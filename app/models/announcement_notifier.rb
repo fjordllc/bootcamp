@@ -12,7 +12,7 @@ class AnnouncementNotifier
     target_users.each do |target|
       next if announce.sender == target
 
-      NotificationFacade.post_announcement(announce, target)
+      ActivityDelivery.with(announcement: announce, receiver: target).notify(:post_announcement)
     end
   end
 end
