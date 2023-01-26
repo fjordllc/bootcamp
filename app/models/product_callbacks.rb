@@ -45,7 +45,7 @@ class ProductCallbacks
 
   def send_notification(product:, receivers:, message:)
     receivers.each do |receiver|
-      NotificationFacade.submitted(product, receiver, message)
+      ActivityDelivery.with(product: product, receiver: receiver, message: message).notify(:submitted)
     end
   end
 
