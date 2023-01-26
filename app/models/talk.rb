@@ -2,6 +2,7 @@
 
 class Talk < ApplicationRecord
   include Commentable
+  include Bookmarkable
 
   belongs_to :user
 

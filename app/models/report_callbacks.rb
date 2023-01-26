@@ -30,8 +30,7 @@ class ReportCallbacks
   end
 
   def notify_first_report(report)
-    receiver_list = User.where(retired_on: nil)
-    receiver_list.each do |receiver|
+    User.admins_and_mentors.each do |receiver|
       NotificationFacade.first_report(report, receiver) if report.sender != receiver
     end
   end

@@ -46,24 +46,6 @@ class NotificationFacade
     ).submitted.deliver_later(wait: 5)
   end
 
-  def self.came_answer(answer)
-    receiver = answer.receiver
-    ActivityNotifier.with(answer: answer).came_answer.notify_now
-    return unless answer.receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(answer: answer).came_answer.deliver_later(wait: 5)
-  end
-
-  def self.post_announcement(announce, receiver)
-    ActivityNotifier.with(announce: announce, receiver: receiver).post_announcement.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      announcement: announce,
-      receiver: receiver
-    ).post_announcement.deliver_later(wait: 5)
-  end
-
   def self.came_question(question, receiver)
     ActivityNotifier.with(question: question, receiver: receiver).came_question.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
@@ -75,7 +57,7 @@ class NotificationFacade
   end
 
   def self.first_report(report, receiver)
-    ActivityNotifier.with(report: report, receiver: receiver).first_report.notify_now if receiver.current_student? || receiver.admin_or_mentor?
+    ActivityNotifier.with(report: report, receiver: receiver).first_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

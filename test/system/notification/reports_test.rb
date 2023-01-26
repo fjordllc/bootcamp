@@ -12,7 +12,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test 'the first daily report notification is sent only to current students and mentors' do
+  test 'the first daily report notification is sent only to mentors' do
     report = users(:muryou).reports.create!(
       title: '初日報です',
       description: '初日報の内容です',
@@ -35,7 +35,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications', 'kimura'
     find('#notifications.loaded', wait: 10)
-    assert_text notification_message
+    assert_no_text notification_message
 
     visit_with_auth '/notifications', 'advijirou'
     find('#notifications.loaded', wait: 10)
@@ -239,7 +239,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test '初日報は初めて公開した時だけ通知する' do
-    check_notification_login_name = 'kimura'
+    check_notification_login_name = 'machida'
     author_login_name = 'nippounashi'
     title = '初めての日報を提出したら'
     description = 'ユーザーに通知をする'

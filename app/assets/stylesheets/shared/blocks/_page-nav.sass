@@ -1,14 +1,13 @@
 .page-nav
-  +position(right 0, top 3.5rem)
-  position: sticky
-  transition: opacity .2s ease-in
-  overflow: hidden
+  +media-breakpoint-up(lg)
+    +position(right 0, top 3.5rem)
+    position: sticky
+    overflow: hidden
   +media-breakpoint-down(md)
-    display: none
+    position: static
 
 .page-nav__header
   border: solid 1px $border
-  border-bottom: none
   background-color: $base
   border-radius: .25rem .25rem 0 0
 
@@ -23,10 +22,34 @@
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+  &:hover
+    text-decoration: underline
+
+.page-nav__footer
+  border: solid 1px $border
+  background-color: $base
+  border-radius: 0 0 .25rem .25rem
+  transform: translateY(-1px)
+
+.page-nav__footer-link
+  +block-link
+  +text-block(.8125rem 1.4)
+  text-align: right
+  padding: .5rem .75rem
+  color: $default-text
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  &:hover
+    text-decoration: underline
 
 .page-nav__items
-  max-height: calc(100vh - 8.5rem)
   overflow-y: auto
+  transform: translateY(-1px)
+  +media-breakpoint-up(lg)
+    max-height: calc(100vh - 8.5rem)
+  +media-breakpoint-down(md)
+    max-height: 12rem
 
 =page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
   +position(relative, 1)
@@ -47,6 +70,8 @@
     border-radius: 0
   &:last-child
     border-radius: 0 0 .25rem .25rem
+  .page-nav.has-footer &:last-child
+    border-radius: 0
   &:not(:first-child)
     margin-top: -1px
   &.is-active
