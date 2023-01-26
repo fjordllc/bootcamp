@@ -20,7 +20,9 @@ class GenerationsTest < ApplicationSystemTestCase
     assert_text 'ユーザー一覧'
     assert_link "#{users(:otameshi).generation}期生"
     within all('.a-user-icons__items').first do
-      assert_equal first('img')['class'], 'a-user-icons__item-icon a-user-icon is-student'
+      within first('.a-user-role.is-student') do
+        assert_equal first('img')['class'], 'a-user-icons__item-icon a-user-icon'
+      end
     end
     assert_equal '期生別ユーザー一覧 | FBC', title
   end
@@ -41,19 +43,29 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '33期生'
       assert_text '2021年01月01日 ~ 2021年03月31日'
       within all('.a-user-icons__items').first do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-admin')['title'], 'adminonly (アドミン 能美代): 管理者'
+        within first('.a-user-role.is-admin') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'adminonly (アドミン 能美代): 管理者'
+        end
       end
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'marumarushain1 (marumarushain1)'
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou (卒業 太郎)'
-        assert_equal all('.a-user-icons__item-icon.a-user-icon.is-mentor').last['title'], 'mentormentaro (メンタ 麺太郎): メンター'
-        all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
-          assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+        within first('.a-user-role.is-student') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'marumarushain1 (marumarushain1)'
         end
+        within first('.a-user-role.is-trainee') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'kensyu (Kensyu Seiko)'
+        end
+        within first('.a-user-role.is-adviser') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
+        end
+        within first('.a-user-role.is-graduate') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'sotugyou (卒業 太郎)'
+        end
+        within all('.a-user-role.is-mentor').last do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'mentormentaro (メンタ 麺太郎): メンター'
+        end
+        assert_empty all('.a-user-role.is-retired')
       end
     end
   end
@@ -67,10 +79,10 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-trainee')['title'], 'kensyu (Kensyu Seiko)'
-        all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
-          assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+        within first('.a-user-role.is-trainee') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'kensyu (Kensyu Seiko)'
         end
+        assert_empty all('.a-user-role.is-retired')
       end
     end
   end
@@ -84,10 +96,10 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-adviser')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
-        all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
-          assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+        within first('.a-user-role.is-adviser') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
         end
+        assert_empty all('.a-user-role.is-retired')
       end
     end
   end
@@ -101,10 +113,10 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-graduate')['title'], 'sotugyou (卒業 太郎)'
-        all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
-          assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+        within first('.a-user-role.is-graduate') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'sotugyou (卒業 太郎)'
         end
+        assert_empty all('.a-user-role.is-retired')
       end
     end
   end
@@ -118,10 +130,10 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal all('.a-user-icons__item-icon.a-user-icon.is-mentor').last['title'], 'mentormentaro (メンタ 麺太郎): メンター'
-        all('.a-user-icons__item-icon.a-user-icon.is-student').each do |selector|
-          assert_not_equal selector['title'], 'yameo (辞目 辞目夫)'
+        within all('.a-user-role.is-mentor').last do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'mentormentaro (メンタ 麺太郎): メンター'
         end
+        assert_empty all('.a-user-role.is-retired')
       end
     end
   end
@@ -135,7 +147,9 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       within all('.a-user-icons__items').last do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon.is-student')['title'], 'yameo (辞目 辞目夫)'
+        within first('.a-user-role.is-retired') do
+          assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'yameo (辞目 辞目夫)'
+        end
       end
     end
   end

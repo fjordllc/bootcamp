@@ -29,10 +29,10 @@
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
-      img.thread-comment__user-icon.a-user-icon(
-        :src='currentUser.avatar_url',
-        :class='[roleClass]',
-        :title='currentUser.icon_title')
+      span(:class='["a-user-role", roleClass]')
+        img.thread-comment__user-icon.a-user-icon(
+          :src='currentUser.avatar_url',
+          :title='currentUser.icon_title')
     .thread-comment-form__form.a-card
       .a-form-tabs.js-tabs
         .a-form-tabs__tab.js-tabs__tab(
