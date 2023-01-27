@@ -105,7 +105,7 @@ class RegularEventsController < ApplicationController
   end
 
   def create_watch(user)
-    return if @regular_event.watched?(user)
+    return if @regular_event.watched_by?(user)
 
     watch = Watch.new(
       user: user,
