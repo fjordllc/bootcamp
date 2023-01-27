@@ -196,12 +196,9 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_no_text '参加申込'
     assert_no_text '参加者'
     assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
-<<<<<<< HEAD
 
     visit_with_auth current_path, 'kensyu'
     assert_text 'Watch中'
     assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
-=======
->>>>>>> 0c51ddfb6 (全員参加の定期イベントのメッセージのデザイン)
   end
 end
