@@ -96,7 +96,7 @@ class RegularEventsController < ApplicationController
   end
 
   def set_all_users_to_participants
-    User.students.each do |user|
+    User.students_and_trainees.each do |user|
       next if @regular_event.regular_event_participations.exists?(user.id)
 
       @regular_event.regular_event_participations.create(user: user)
