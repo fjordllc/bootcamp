@@ -174,7 +174,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_selector '.card-list-item', count: 1
   end
 
-  test 'create all users regular event' do
+  test 'create a regular event for all students and trainees' do
     visit_with_auth new_regular_event_path, 'komagata'
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: '全員参加イベント'
@@ -195,6 +195,10 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     assert_no_text '参加申込'
     assert_no_text '参加者'
+    assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
+
+    visit_with_auth current_path, 'kensyu'
+    assert_text 'Watch中'
     assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
   end
 end
