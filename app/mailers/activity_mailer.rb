@@ -66,7 +66,7 @@ class ActivityMailer < ApplicationMailer
 
     @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
-      kind: Notification.kinds[:answered]
+      kind: Notification.kinds[:retired]
     )
     message = mail(to: @receiver.email, subject: default_i18n_subject(user: @sender.login_name.to_s))
     message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
