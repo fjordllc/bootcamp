@@ -380,12 +380,13 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_text 'この日報はすでに提出済みです。'
   end
 
+  # 日報が増えて前の状態だと１ページ目に該当する日報が表示されていなかったので、１ページ目に該当する日報でテストを書き換えた
   test 'reports are ordered in descending of reported_on' do
     visit_with_auth reports_path, 'kimura'
-    precede = reports(:report24).title
-    succeed = reports(:report23).title
-    assert_text '検索用の日報'
-    assert_text 'フォローされた日報'
+    precede = reports(:report15).title
+    succeed = reports(:report16).title
+    assert_text '頑張りました'
+    assert_text '頑張れませんでした'
     within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
@@ -399,6 +400,7 @@ class ReportsTest < ApplicationSystemTestCase
     within '.card-list__items' do
       assert page.text.index(precede) < page.text.index(succeed)
     end
+    debugger # HEADED=1 rails test test/system/reports_test.rb:395をすると、ここで画面が止まるのでHTML構造を確認できる！
   end
 
   test 'reports can be checked as plain markdown' do
