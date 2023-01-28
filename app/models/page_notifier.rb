@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-class PageUpdateNotifier
+class PageNotifier
   def call(page)
-    return unless page.saved_change_to_attribute?(:wip, from: true, to: false) && page.published_at.nil?
-
     send_notification(page)
     notify_to_chat(page)
     create_author_watch(page)
