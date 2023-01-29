@@ -33,16 +33,15 @@ class Notification::RetirementTest < ApplicationSystemTestCase
   end
 
   test 'notify admins when three months after retirement' do
-    visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
-    visit '/notifications'
     mock_log = []
     stub_info = proc { |i| mock_log << i }
-
-    assert_text 'yameoさんが退会してから3カ月が経過しました。'
-    assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
     Rails.logger.stub(:info, stub_info) do
       visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
+      assert_text 'yameoさんが退会してから3カ月が経過しました。'
+      assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
     end
+    visit '/notifications'
+
     assert_match 'Message to Discord.', mock_log.to_s
   end
 end
