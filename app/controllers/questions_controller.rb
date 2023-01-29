@@ -8,6 +8,8 @@ class QuestionsController < ApplicationController
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
+  MAX_PRACTICE_QUESTIONS_DISPLAYED = 20
+
   def index
     questions =
       case params[:target]
@@ -31,6 +33,13 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @practice_questions = Question
+                          .not_wip
+                          .where(practice: @question.practice)
+                          .where.not(id: @question.id)
+                          .includes(:user, :correct_answer)
+                          .order(updated_at: :desc, id: :desc)
+                          .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
     respond_to do |format|
       format.html
       format.md
