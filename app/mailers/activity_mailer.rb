@@ -81,11 +81,15 @@ class ActivityMailer < ApplicationMailer
     @question ||= args[:question]
 
     @user = @receiver
-    @link_url = notification_redirector_path(
+    @link_url = notification_redirector_url(
       link: "/questions/#{@question.id}",
       kind: Notification.kinds[:came_question]
     )
     subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"
-    mail to: @user.email, subject: subject
+    message = mail to: @user.email, subject: subject
+
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
   end
 end
