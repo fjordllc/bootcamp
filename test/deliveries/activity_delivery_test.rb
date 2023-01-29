@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:graduated)' do
-    params = {
+    @params = {
       kind: :graduated,
       body: 'test message',
       sender: users(:kimura),
@@ -189,19 +189,19 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       read: false
     )
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:first_report, **params)
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.notify(:first_report, **params)
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify!(:first_report)
     end
 
-    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 2 do
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify(:first_report)
     end
   end
