@@ -6,4 +6,4 @@
 
 .page-body
   .container.is-md
-    = react_component("Reports" , user: @user, currentUser: current_user)
+    = react_component("Reports" , user: @user, currentUser: current_user, practices: @user.practices)
