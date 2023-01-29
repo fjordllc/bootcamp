@@ -41,7 +41,8 @@ class Notification::RetirementTest < ApplicationSystemTestCase
     assert_text 'yameoさんが退会してから3カ月が経過しました。'
     assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
     Rails.logger.stub(:info, stub_info) do
-      assert_text 'Message to Discord.'
+      visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
     end
+    assert_match 'Message to Discord.', mock_log.to_s
   end
 end
