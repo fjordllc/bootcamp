@@ -31,4 +31,12 @@ class Notification::RetirementTest < ApplicationSystemTestCase
       assert_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
     end
   end
+
+  test 'notify admins when three months after retirement' do
+    visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
+    visit '/notifications'
+
+    assert_text 'yameoさんが退会してから3カ月が経過しました。'
+    assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
+  end
 end
