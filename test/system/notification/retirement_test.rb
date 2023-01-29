@@ -37,11 +37,11 @@ class Notification::RetirementTest < ApplicationSystemTestCase
     stub_info = proc { |i| mock_log << i }
     Rails.logger.stub(:info, stub_info) do
       visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
-      visit '/notifications'
-      assert_text 'yameoさんが退会してから3カ月が経過しました。'
-      assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
     end
 
+    visit '/notifications'
+    assert_text 'yameoさんが退会してから3カ月が経過しました。'
+    assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
     assert_match 'Message to Discord.', mock_log.to_s
   end
 end
