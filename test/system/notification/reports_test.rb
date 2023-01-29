@@ -214,7 +214,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     follower_user_login_name = User.find(following.follower_id).login_name
     title = '初めて提出した時だけ'
     description = 'フォローされているユーザーに通知を飛ばす'
-    notification_message = "#{followed_user_login_name}さんがはじめての日報を書きました！"
+    notification_message = make_write_report_notification_message(followed_user_login_name, title)
     assert_notify_only_at_first_published_of_report(
       notification_message,
       followed_user_login_name,
