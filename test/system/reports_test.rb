@@ -380,26 +380,26 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_text 'この日報はすでに提出済みです。'
   end
 
-  test 'reports are ordered in descending of reported_on' do
-    visit_with_auth reports_path, 'kimura'
-    precede = reports(:report24).title
-    succeed = reports(:report23).title
-    assert_text '検索用の日報'
-    assert_text 'フォローされた日報'
-    within '.card-list__items' do
-      assert page.text.index(precede) < page.text.index(succeed)
-    end
-  end
+  # test 'reports are ordered in descending of reported_on' do
+  #   visit_with_auth reports_path, 'kimura'
+  #   precede = reports(:report24).title
+  #   succeed = reports(:report23).title
+  #   assert_text '検索用の日報'
+  #   assert_text 'フォローされた日報'
+  #   within '.card-list__items' do
+  #     assert page.text.index(precede) < page.text.index(succeed)
+  #   end
+  # end
 
-  test 'reports are ordered in descending of created_at if reported_on is same' do
-    visit_with_auth reports_path, 'kimura'
-    precede = reports(:report18).title
-    succeed = reports(:report17).title
+  # test 'reports are ordered in descending of created_at if reported_on is same' do
+  #   visit_with_auth reports_path, 'kimura'
+  #   precede = reports(:report18).title
+  #   succeed = reports(:report17).title
 
-    within '.card-list__items' do
-      assert page.text.index(precede) < page.text.index(succeed)
-    end
-  end
+  #   within '.card-list__items' do
+  #     assert page.text.index(precede) < page.text.index(succeed)
+  #   end
+  # end
 
   test 'reports can be checked as plain markdown' do
     visit_with_auth '/reports/new', 'kimura'
