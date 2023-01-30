@@ -3,7 +3,11 @@
 class CheckCallbacks
   def after_create(check)
     if check.sender != check.receiver && check.checkable_type != 'Report'
-      ActivityDelivery.with(sender: check.sender, receiver: check.receiver, check: check).notify(:checked)
+      ActivityDelivery.with(
+        sender: check.sender,
+        receiver: check.receiver,
+        check: check
+      ).notify(:checked)
     end
 
     delete_report_cache(check)
