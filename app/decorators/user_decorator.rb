@@ -6,15 +6,17 @@ module UserDecorator
   end
 
   def roles
-    roles = []
-
-    roles << :retired if retired_on?
-    roles << :hibernationed if hibernated_at?
-    roles << :admin if admin?
-    roles << :mentor if mentor?
-    roles << :adviser if adviser?
-    roles << :graduate if graduated_on?
-    roles << :trainee if trainee?
+    role_list = [
+      { role: 'retired', value: retired? },
+      { role: 'hibernated', value: hibernated? },
+      { role: 'admin', value: admin },
+      { role: 'mentor', value: mentor },
+      { role: 'adviser', value: adviser },
+      { role: 'graduate', value: graduated? },
+      { role: 'trainee', value: trainee }
+    ]
+    roles = role_list.find_all { |v| v[:value] }
+                     .map { |v| v[:role] }
     roles << :student if roles.empty?
 
     roles
