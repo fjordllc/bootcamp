@@ -8,7 +8,7 @@ module UserDecorator
   def roles
     role_list = [
       { role: 'retired', value: retired? },
-      { role: 'hibernated', value: hibernated? },
+      { role: 'hibernationed', value: hibernated? },
       { role: 'admin', value: admin },
       { role: 'mentor', value: mentor },
       { role: 'adviser', value: adviser },
@@ -41,12 +41,12 @@ module UserDecorator
     return '' if roles.empty?
 
     roles = [
-      { role: '退会ユーザー', value: retired_on? },
-      { role: '休会ユーザー', value: hibernated_at? },
+      { role: '退会ユーザー', value: retired? },
+      { role: '休会ユーザー', value: hibernated? },
       { role: '管理者', value: admin },
       { role: 'メンター', value: mentor },
       { role: 'アドバイザー', value: adviser },
-      { role: '卒業生', value: graduated_on? },
+      { role: '卒業生', value: graduated? },
       { role: '研修生', value: trainee }
     ]
     roles.find_all { |v| v[:value] }
