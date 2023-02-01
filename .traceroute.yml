@@ -18,10 +18,10 @@ ignore_unreachable_actions:
   - .*#hibernated_or_retired_login\?
   - .*#policy
   - .*#require_active_user_login
-  - .*#require_staff_login
   - .*#require_admin_login
   - .*#require_mentor_login
   - .*#require_admin_or_mentor_login
+  - .*#require_staff_login
   - mails#welcome
   - reports#convert_to_hour_minute
   - reports#convert_to_ceiled_hour
