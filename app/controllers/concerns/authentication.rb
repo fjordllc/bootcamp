@@ -14,7 +14,7 @@ module Authentication
                   :staff_or_paid_login?,
                   :hibernated_login?,
                   :retired_login?,
-                  :invalid_login?
+                  :hibernated_or_retired_login?
   end
 
   def admin_login?
@@ -57,8 +57,8 @@ module Authentication
     logged_in? && current_user.retired?
   end
 
-  def invalid_login?
-    logged_in? && current_user.invalid?
+  def hibernated_or_retired_login?
+    logged_in? && current_user.hibernated_or_retired?
   end
 
   def require_mentor_login
@@ -86,8 +86,8 @@ module Authentication
   end
 
   def require_active_user_login
-    if invalid_login?
-      deny_invalid_login
+    if hibernated_or_retired_login?
+      deny_hibernated_or_retired_login
     else
       require_login
     end
@@ -99,7 +99,7 @@ module Authentication
     redirect_to root_path, alert: 'ログインしてください'
   end
 
-  def deny_invalid_login
+  def deny_hibernated_or_retired_login
     if hibernated_login?
       logout
       link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
