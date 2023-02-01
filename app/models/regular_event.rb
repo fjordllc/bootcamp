@@ -137,6 +137,11 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   class << self
+    def today_events
+      holding_events = RegularEvent.holding
+      holding_events.select(&:event_day?)
+    end
+
     def tomorrow_events
       holding_events = RegularEvent.holding
       holding_events.select(&:tomorrow_event?)
