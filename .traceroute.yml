@@ -15,7 +15,7 @@ ignore_unreachable_actions:
   - .*#staff_or_paid_login\?
   - .*#hibernated_login\?
   - .*#retired_login\?
-  - .*#invalid_login\?
+  - .*#hibernated_or_retired_login\?
   - .*#policy
   - .*#require_active_user_login
   - .*#require_staff_login

@@ -550,7 +550,7 @@ class User < ApplicationRecord
     retired_on?
   end
 
-  def invalid?
+  def hibernated_or_retired?
     hibernated_at? || retired_on?
   end
 
