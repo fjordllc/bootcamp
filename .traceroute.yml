@@ -13,15 +13,15 @@ ignore_unreachable_actions:
   - .*#student_login\?
   - .*#paid_login\?
   - .*#staff_or_paid_login\?
-  - .*#retired_login\?
   - .*#hibernated_login\?
+  - .*#retired_login\?
+  - .*#invalid_login\?
   - .*#policy
+  - .*#require_active_user_login
   - .*#require_staff_login
   - .*#require_admin_login
   - .*#require_mentor_login
   - .*#require_admin_or_mentor_login
-  - .*#refuse_retired_login
-  - .*#refuse_hibernated_login
   - mails#welcome
   - reports#convert_to_hour_minute
   - reports#convert_to_ceiled_hour

@@ -10,9 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :init_user
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
-  before_action :require_login
-  before_action :refuse_retired_login
-  before_action :refuse_hibernated_login
+  before_action :require_active_user_login
 
   protected
 

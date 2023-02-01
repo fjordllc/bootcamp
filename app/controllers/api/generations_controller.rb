@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class API::GenerationsController < API::BaseController
-  before_action :require_login
-  before_action :refuse_retired_login
-  before_action :refuse_hibernated_login
+  before_action :require_active_user_login
   PAGER_NUMBER = 24
 
   def show
