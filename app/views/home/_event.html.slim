@@ -8,7 +8,7 @@
               span.a-badge.is-primary.is-sm
                 | イベント
               = today_or_tommorow(event)
-                = l event.start_at.to_date, format: :md
+              = l event.start_at.to_date, format: :md
               | は 「
               span.a-page-notice__label
                 = event.title
