@@ -2,9 +2,7 @@
 
 class Events::ParticipationsController < ApplicationController
   before_action :set_event
-  skip_before_action :require_login, raise: false
-  skip_before_action :refuse_retired_login, raise: false
-  skip_before_action :refuse_hibernated_login, raise: false
+  skip_before_action :require_active_user_login, raise: false
 
   def create
     return if current_user.trainee && @event.job_hunting

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  skip_before_action :require_login, raise: false, only: %i[new create]
-  skip_before_action :refuse_retired_login, raise: false, only: %i[new create]
-  skip_before_action :refuse_hibernated_login, raise: false, only: %i[new create]
+  skip_before_action :require_active_user_login, raise: false, only: %i[new create]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
