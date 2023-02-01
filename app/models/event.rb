@@ -107,6 +107,14 @@ class Event < ApplicationRecord
     NotificationFacade.moved_up_event_waiting_user(self, receiver)
   end
 
+  def event_day?
+    start_at.to_date.today?
+  end
+
+  def tomorrow_event?
+    start_at.to_date == Date.tomorrow
+  end
+
   private
 
   def end_at_be_greater_than_start_at
