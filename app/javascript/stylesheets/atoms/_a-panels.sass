@@ -1,10 +1,8 @@
-@use "sass:list"
-
 .a-panels__items
   display: grid
   gap: 1rem
   +media-breakpoint-up(lg)
-    grid-template: list.slash(repeat(auto-fill, minmax(10rem, 1fr)), repeat(auto-fill, minmax(23rem, 1fr)))
+    grid-template: repeat(auto-fill, minmax(10rem, 1fr))/ repeat(auto-fill, minmax(23rem, 1fr))
 
 .a-panels__item
   .a-card

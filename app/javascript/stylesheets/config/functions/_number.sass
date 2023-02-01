@@ -1,4 +1,3 @@
-@use "sass:list"
 @use "sass:math"
 
 // 数字のときにtrue
@@ -12,7 +11,7 @@
   // strip the units
   // That works. strip_unit(13.48cm) will return 13.48
   @if number($number)
-    @return list.slash($number, $number * 0 + 1)
+    @return math.div($number, $number * 0 + 1)
 
 // 単位がない数字のときにtrue
 @function unitless_number($number)
@@ -50,7 +49,7 @@
   @if strip_unit($px) == 0
     @return 0
   @else if px($px)
-    @return list.slash(strip_unit($px), strip_unit($base-px)) * 1em
+    @return math.div(strip_unit($px), strip_unit($base-px)) * 1em
   @else if em($px)
     @return $px
 
@@ -66,7 +65,7 @@
   @if strip_unit($px) == 0
     @return 0
   @else if px($px)
-    @return list.slash(strip_unit($px), strip_unit($base-px)) * 1rem
+    @return math.div(strip_unit($px), strip_unit($base-px)) * 1rem
   @else if rem($px)
     @return $px
 
