@@ -425,23 +425,23 @@ class QuestionsTest < ApplicationSystemTestCase
     question = questions(:question7)
     visit_with_auth question_path(question), 'kimura'
 
-    find('.practice-questions').click_link 'OS X Mountain Lionをクリーンインストールする'
+    find('.page-nav__items').click_link 'OS X Mountain Lionをクリーンインストールする'
     find('h1') { assert_text 'OS X Mountain Lionをクリーンインストールする' }
     go_back
 
-    find('.practice-questions').click_link 'どのエディターを使うのが良いでしょうか'
+    find('.page-nav__items').click_link 'どのエディターを使うのが良いでしょうか'
     find('h1') { assert_text 'どのエディターを使うのが良いでしょうか' }
     go_back
 
-    first('.practice-questions .user-name a').click
+    first('.page-nav__items .user-name a').click
     find('h1') { assert_text 'komagata' }
     go_back
 
-    find('.practice-questions').click_link 'もっと見る'
+    find('.page-nav__items').click_link '全て見る'
     find('.choices__item') { assert_text 'OS X Mountain Lionをクリーンインストールする' }
     go_back
 
-    within '.practice-questions' do
+    within '.page-nav__items' do
       assert_no_text question.title
       assert_no_text 'wipテスト用の質問(wip中)'
     end
