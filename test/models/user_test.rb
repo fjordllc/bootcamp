@@ -616,11 +616,11 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'after thirty days registration?' do
-    over30days_registered_student = users(:registration30days)
+  test 'after twenty nine days registration?' do
+    over29days_registered_student = users(:registration30days)
     recently_registered_student = users(:otameshi)
-    assert over30days_registered_student.after_thirty_days_registration?
-    assert_not recently_registered_student.after_thirty_days_registration?
+    assert over29days_registered_student.after_twenty_nine_days_registration?
+    assert_not recently_registered_student.after_twenty_nine_days_registration?
   end
 
   test 'message send target?' do

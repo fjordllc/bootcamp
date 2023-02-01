@@ -557,14 +557,14 @@ class User < ApplicationRecord
     hibernated_at?
   end
 
-  def after_thirty_days_registration?
+  def after_twenty_nine_days_registration?
     registration_date = created_at.to_date
-    thirty_days = Time.current.ago(29.days).to_date
-    registration_date.before? thirty_days
+    twenty_nine_days = Time.current.ago(29.days).to_date
+    registration_date.before? twenty_nine_days
   end
 
   def message_send_target?
-    current_student? && !hibernated? && after_thirty_days_registration? && !sent_student_followup_message
+    current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
   end
 
   def retired?
