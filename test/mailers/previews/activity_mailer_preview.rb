@@ -26,4 +26,11 @@ class ActivityMailerPreview < ActionMailer::Preview
       receiver: receiver
     ).post_announcement
   end
+
+  def three_months_after_retirement
+    sender = User.find(ActiveRecord::FixtureSet.identify(:kensyuowata))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    ActivityMailer.with(sender: sender, receiver: receiver).three_months_after_retirement
+  end
 end
