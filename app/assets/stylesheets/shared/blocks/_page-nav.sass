@@ -10,6 +10,7 @@
   border: solid 1px $border
   background-color: $base
   border-radius: .25rem .25rem 0 0
+  +position(relative, 1)
 
 .page-nav__title
   +text-block(.875rem 1.4, 600)
@@ -29,7 +30,7 @@
   border: solid 1px $border
   background-color: $base
   border-radius: 0 0 .25rem .25rem
-  transform: translateY(-1px)
+  transform: translateY(-2px)
 
 .page-nav__footer-link
   +block-link
@@ -100,6 +101,26 @@
   +block-link
   transition: all .1s ease-in
   background-color: transparent
-  &:hover
+  &:not(.has-metas):hover
     color: $primary-text
     text-decoration: underline
+  &.has-metas:hover
+    .page-nav__item-title
+      transition: all .2s ease-out
+      color: $primary-text
+      text-decoration: underline
+
+.page-nav__item-header .a-badge
+  transform: translateY(-.125em)
+  margin-right: .25rem
+
+
+.page-nav__item-title
+  +text-block(.875rem 1.4, 600 inline)
+
+.page-nav-metas
+  margin-top: .25rem
+  font-size: .75rem
+  display: flex
+  flex-wrap: wrap
+  gap: .25rem .75rem
