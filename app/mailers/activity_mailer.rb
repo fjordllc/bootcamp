@@ -113,13 +113,14 @@ class ActivityMailer < ApplicationMailer
 
     return false unless @receiver.mail_notification? # cancel sending email
 
+    @user = @receiver
     @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:retired]
     )
     subject = "[FBC] #{@sender.login_name}さんが退会しました。"
-    message = mail to: @receiver.email, subject: subject
-    message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
   end
