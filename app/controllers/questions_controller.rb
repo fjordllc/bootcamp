@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
                           .not_wip
                           .where(practice: @question.practice)
                           .where.not(id: @question.id)
-                          .includes(:user, :correct_answer)
+                          .includes(:correct_answer)
                           .order(updated_at: :desc, id: :desc)
                           .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
     respond_to do |format|
