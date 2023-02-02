@@ -80,6 +80,8 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'destroy regular event' do
     visit_with_auth regular_event_path(regular_events(:regular_event1)), 'komagata'
+    find 'h2', text: 'コメント'
+    find 'div.container > div.user-icons > ul.user-icons__items', visible: :all
     accept_confirm do
       click_link '削除'
     end

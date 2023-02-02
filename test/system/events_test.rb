@@ -83,6 +83,8 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'destroy event' do
     visit_with_auth event_path(events(:event1)), 'komagata'
+    find 'h2', text: 'コメント'
+    find 'div.container > div.user-icons > ul.user-icons__items', visible: :all
     accept_confirm do
       click_link '削除'
     end
