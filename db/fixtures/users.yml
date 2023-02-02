@@ -912,15 +912,15 @@ registration40days:
   last_activity_at: <%= Time.current - 10.days %>
 
 unhibernated:
-  login_name: thiry_hibernated
-  email: thiry_hibernated@fjord.jp
+  login_name: unhibernated
+  email: unhibernated@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 復帰 太郎
   name_kana: フッキ タロウ
-  github_account: thiry_hibernated
-  discord_account: thiry_hibernated#1234
-  twitter_account: thiry_hibernated
+  github_account: unhibernated
+  discord_account: unhibernated#1234
+  twitter_account: unhibernated
   description: "入会30日目の休会中ユーザーです"
   course: course1
   job: student
