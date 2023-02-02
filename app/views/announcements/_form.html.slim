@@ -46,10 +46,7 @@
       - if announcement.new_record?
         li.form-actions__item.is-main.is-help
           = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
-      - elsif (announcement.user == current_user || admin_or_mentor_login?) && announcement.published_at && !announcement.wip?
-        li.form-actions__item.is-main.is-help
-          = f.submit "更新", class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
-      - elsif (announcement.user == current_user || admin_or_mentor_login?) && (!announcement.published_at || announcement.wip?)
+      - elsif announcement.user == current_user || admin_or_mentor_login?
         li.form-actions__item.is-main.is-help
           = f.submit "公開", class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
