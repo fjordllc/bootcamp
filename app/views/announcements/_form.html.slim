@@ -48,11 +48,10 @@
           = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       - elsif announcement.user == current_user || admin_or_mentor_login? || announcement.published_at
         li.form-actions__item.is-main.is-help
-          = f.submit "公開", class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+          = f.submit '公開', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
           = link_to 'キャンセル', announcements_path, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
           = link_to 'キャンセル', announcement_path, class: 'a-button is-sm is-text'
-
