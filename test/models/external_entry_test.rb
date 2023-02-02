@@ -8,7 +8,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert_equal '/images/external_entries/thumbnails/blank.svg', external_entry.thumbnail_url
   end
 
-  test 'parse_rss_feed' do
+  test '.parse_rss_feed' do
     feed_url = ''
     assert_not ExternalEntry.parse_rss_feed(feed_url)
 
@@ -20,7 +20,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     end
   end
 
-  test 'save_rss_feed' do
+  test '.save_rss_feed' do
     user = users(:kimura)
     mock = Minitest::Mock.new
     mock.expect(:title, 'test title')
