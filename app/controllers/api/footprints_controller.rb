@@ -14,6 +14,6 @@ class API::FootprintsController < API::BaseController
   private
 
   def footprintable
-    params[:footprintable_type].constantize.find_by(id: params[:footprintable_id])
+    params[:footprintable_type].constantize.find(params[:footprintable_id])
   end
 end

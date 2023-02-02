@@ -167,8 +167,8 @@ class User < ApplicationRecord
 
   validates :avatar, attached: false,
                      content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif],
-                       message: 'はPNG, JPG, GIF形式にしてください'
+                       in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
+                       message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
   with_options if: -> { %i[create update].include? validation_context } do
@@ -330,7 +330,7 @@ class User < ApplicationRecord
     end
   }
   scope :same_generations, lambda { |start_date, end_date|
-    where(created_at: start_date..end_date).order(:created_at)
+    where(created_at: start_date..end_date).order(:created_at, :id)
   }
   scope :desc_tagged_with, lambda { |tag_name|
     with_attached_avatar

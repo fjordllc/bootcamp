@@ -89,7 +89,7 @@ class ActivityNotifier < ApplicationNotifier
 
     notification(
       body: message,
-      kind: :submitted,
+      kind: :watching,
       sender: subject.user,
       receiver: receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(subject),

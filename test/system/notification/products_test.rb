@@ -65,4 +65,24 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       assert_text "#{checker.login_name}さんが「#{practices(:practice47).title}」の提出物を確認しました。"
     end
   end
+
+  test 'send the notification of practices mentor is watching' do
+    practice = practices(:practice1)
+
+    visit_with_auth "/practices/#{practice.id}", 'mentormentaro'
+    find('div.a-watch-button', text: 'Watch').click
+
+    user = users(:hatsuno)
+    Product.create!(
+      body: 'test',
+      user: user,
+      practice: practice
+    )
+
+    visit_with_auth '/notifications?status=unread&target=watching', 'mentormentaro'
+
+    within first('.card-list-item.is-unread') do
+      assert_text "#{user.login_name}さんが「#{practice.title}」の提出物を提出しました。"
+    end
+  end
 end

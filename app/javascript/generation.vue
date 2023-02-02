@@ -13,11 +13,12 @@
     .a-user-icons__items
       .a-user-icons__item(v-for='user in users', :key='user.id')
         a.a-user-icons__item-link(:href='user.url')
-          img(
-            :src='user.avatar_url',
-            :title='user.icon_title',
-            :data-login-name='user.login_name',
-            :class='`a-user-icons__item-icon a-user-icon is-${user.primary_role}`')
+          span(:class='["a-user-role", `is-${user.primary_role}`]')
+            img(
+              :src='user.avatar_url',
+              :title='user.icon_title',
+              :data-login-name='user.login_name',
+              :class='"a-user-icons__item-icon a-user-icon"')
 </template>
 <script>
 import loadingGenerationsPageGenerationPlaceholder from './loading-generations-page-generation-placeholder.vue'

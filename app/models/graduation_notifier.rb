@@ -6,6 +6,14 @@ class GraduationNotifier
       ActivityDelivery.with(sender: user, receiver: mentor).notify(:graduated)
     end
 
-    DiscordNotifier.graduated(sender: user).notify_now
+    DiscordNotifier.graduated(
+      sender: user,
+      webhook_url: Rails.application.secrets[:webhook][:admin]
+    ).notify_now
+
+    DiscordNotifier.graduated(
+      sender: user,
+      webhook_url: Rails.application.secrets[:webhook][:mentor]
+    ).notify_now
   end
 end

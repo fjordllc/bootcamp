@@ -325,7 +325,7 @@ report<%= i %>:
   emotion: 2
   description: |-
     頑張れませんでした
-  reported_on: <%= Time.now - 1.year + i.day %>
+  reported_on: <%= Time.local(2022) - 1.year + i.day %>
 <% end %>
 
 report72:
