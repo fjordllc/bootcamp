@@ -68,7 +68,7 @@ export default function Report({report, currentUser}){
 const ReportListItemActions = ({ report }) => {
   return (
     <div className="card-list-item-title__end">
-      <label className="card-list-item-actions__trigger" for={report.id}></label>
+      <label className="card-list-item-actions__trigger" htmlFor={report.id}></label>
       <div className="card-list-item-actions">
         <input className="a-toggle-checkbox" type="checkbox" id={report.id} />
         <div className="card-list-item-actions__inner">
@@ -84,7 +84,7 @@ const ReportListItemActions = ({ report }) => {
               </a>
             </li>
           </ul>
-          <label className="a-overlay" for={report.id}></label>
+          <label className="a-overlay" htmlFor={report.id}></label>
         </div>
       </div>
     </div>
