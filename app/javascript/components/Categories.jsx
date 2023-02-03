@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
@@ -34,7 +34,7 @@ const Category = ({ category }) => {
   const destroy = (id) => {
     if (window.confirm('本当によろしいですか？')) {
       Bootcamp.delete(`/api/categories/${id}`)
-        .then((response) => {
+        .then((_response) => {
           mutate('/api/categories.json')
         })
         .catch((error) => {

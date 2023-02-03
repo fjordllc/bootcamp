@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
@@ -70,13 +70,13 @@ const EditButton = ({ editable, setEditable }) => {
   )
 }
 
-const Bookmark = ({ bookmark, editable, setEditable }) => {
+const Bookmark = ({ bookmark, editable, _setEditable }) => {
   const date = bookmark.reported_on || bookmark.created_at
   const createdAt = Bootcamp.iso8601ToFullTime(date)
   const { mutate } = useSWRConfig()
   const afterDelete = (id) => {
     Bootcamp.delete(`/api/bookmarks/${id}.json`)
-      .then((response) => {
+      .then((_response) => {
         mutate('/api/bookmarks.json')
       })
       .catch((error) => {
