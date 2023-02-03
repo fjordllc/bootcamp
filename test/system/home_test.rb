@@ -223,6 +223,21 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
+  test 'show regular events on dashbord for only event participant' do
+    travel_to Time.zone.local(2023, 1, 30, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      assert_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      assert_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+      first('.js-close-event').click
+      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      logout
+
+      visit_with_auth '/', 'komagata'
+      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+    end
+  end
+
   test 'show grass hide button for graduates' do
     visit_with_auth '/', 'kimura'
     assert_not has_button? '非表示'
