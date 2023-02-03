@@ -7,7 +7,7 @@ import Pagination from './Pagination'
 export default function AdminCompanies() {
   const per = 20
   const neighbours = 4
-  const defaultPage = parseInt(queryString.parse(location.search)['page']) || 1
+  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const AdminCompany = ({ company }) => {
         <img className="admin-table__item-logo-image" src={company.logo_url} />
       </td>
       <td className="admin-table__item-value">{company.website}</td>
-      <td className="admin-table__item-value admin-table__item-value is-text-align-center">
+      <td className="admin-table__item-value is-text-align-center">
         <a
           title="アドバイザーサインアップURL"
           href={company.adviser_sign_up_url}
@@ -86,7 +86,7 @@ const AdminCompany = ({ company }) => {
           <i className="fa-solid fa-user-plus"></i>
         </a>
       </td>
-      <td className="admin-table__item-value admin-table__item-value is-text-align-center">
+      <td className="admin-table__item-value is-text-align-center">
         <a
           title="アドバイザーサインアップURL"
           href={company.trainee_sign_up_url}
@@ -94,7 +94,7 @@ const AdminCompany = ({ company }) => {
           <i className="fa-solid fa-user-plus"></i>
         </a>
       </td>
-      <td className="admin-table__item-value admin-table__item-value is-text-align-center">
+      <td className="admin-table__item-value is-text-align-center">
         <a
           title="アドバイザーサインアップURL"
           href={editUrl}
