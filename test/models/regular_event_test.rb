@@ -75,4 +75,13 @@ class RegularEventTest < ActiveSupport::TestCase
     watch.save
     assert regular_event.watched_by?(user)
   end
+
+  test 'participated_by?' do
+    regular_event = regular_events(:regular_event1)
+    user = users(:hatsuno)
+    assert regular_event.participated_by?(user)
+
+    user = users(:komagata)
+    assert_not regular_event.participated_by?(user)
+  end
 end

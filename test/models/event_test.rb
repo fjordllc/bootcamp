@@ -85,6 +85,28 @@ class EventTest < ActiveSupport::TestCase
     assert Notification.where(user: user, sender: event.user, link: "/events/#{event.id}").exists?
   end
 
+  test '#event_day?' do
+    event = events(:event1)
+    travel_to Time.zone.local(2019, 12, 20, 0, 0, 0) do
+      assert event.event_day?
+    end
+
+    travel_to Time.zone.local(2019, 12, 21, 0, 0, 0) do
+      assert_not event.event_day?
+    end
+  end
+
+  test '#tomorrow_event?' do
+    event = events(:event1)
+    travel_to Time.zone.local(2019, 12, 19, 0, 0, 0) do
+      assert event.tomorrow_event?
+    end
+
+    travel_to Time.zone.local(2019, 12, 20, 0, 0, 0) do
+      assert_not event.tomorrow_event?
+    end
+  end
+
   test 'should be invalid when start_at >= end_at' do
     event = events(:event1)
     event.end_at = event.start_at - 1.hour
