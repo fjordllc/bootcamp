@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useSWR from 'swr'
 import queryString from 'query-string'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
+import Choices from "choices.js";
 
 export default function Reports({user, currentUser, practices}) {
   const per = 20
@@ -23,11 +24,6 @@ export default function Reports({user, currentUser, practices}) {
   
   const { data, error } = useSWR(`/api/reports.json?user_id=${user.id}&page=${page}&practice_id=${practiceId}`, fetcher)
   
-  const handlePaginate = (p) => {
-    setPage(p)
-    window.history.pushState(null, null, `/events?page=${p}`)
-  }
-
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
@@ -42,6 +38,7 @@ export default function Reports({user, currentUser, practices}) {
       <DropDown
         practices={practices}
         setPracticeId={setPracticeId}
+        practiceId={practiceId}
       />
       {(data.totalPages === 0) && <NoReports />}
       {(data.totalPages > 0) && (
@@ -53,7 +50,7 @@ export default function Reports({user, currentUser, practices}) {
               per={per}
               neighbours={neighbours}
               page={page}
-              onChange={e => handlePaginate(e.page)}
+              onChange={e => setPage(e.page)}
             />
           )}
           <ul className="card-list a-card">
@@ -75,7 +72,7 @@ export default function Reports({user, currentUser, practices}) {
               per={per}
               neighbours={neighbours}
               page={page}
-              onChange={e => handlePaginate(e.page)}
+              onChange={e => setPage(e.page)}
             />
           )}
         </div>
@@ -97,31 +94,57 @@ const NoReports = () => {
   )
 }
 
-const DropDown = ({practices, setPracticeId}) => {
-  const [selectValue, setSelectValue] = useState('');
+const DropDown = ({practices, setPracticeId, practiceId}) => {
+  const [selectedId, setSelectedId] = useState(practiceId)
+
   const onChange = (event) => {
     const value = event.target.value
-    setSelectValue(value)
+    setSelectedId(value)
     setPracticeId(value)
   };
+
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const selectElement = selectRef.current;
+    const choicesInstance = new Choices(selectElement, {
+      searchEnabled: true,
+      allowHTML: true,
+      searchResultLimit: 20,
+      searchPlaceholderValue: '検索ワード',
+      noResultsText: '一致する情報は見つかりません',
+      itemSelectText: '選択',
+      shouldSort: false
+    });
+
+    return () => {
+      choicesInstance.destroy();
+    };
+  }, []);
+
   return (
     <>
       <nav className="page-filter form">
         <div className="container is-md">
           <div className="form-item is-inline-md-up">
-            <label className="a-form-label" htmlFor="js-choices-single-select">プラクティスで絞り込む</label>
-            <select
-              id="js-choices-single-select"
-              className="a-form-select choices__input"
-              onChange={onChange}
-            >
-              <option key="" value="">全ての日報を表示</option>
-              {practices.map((practice) => {
-                return (
-                  <option key={practice.id} value={practice.id}>{practice.title}</option>
-                )
-              })}
-            </select>
+            <label className="a-form-label">プラクティスで絞り込む</label>
+            <div className="select-container">
+              <select
+                className="a-form-select"
+                onChange={onChange}
+                ref={selectRef}
+                value={selectedId}
+              >
+                <option key="" value="">全ての日報を表示</option>
+                {practices.map((practice) => {
+                  return (
+                    <option key={practice.id} value={practice.id}>
+                      {practice.title}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
           </div>
         </div>
       </nav>
