@@ -14,7 +14,10 @@ export default function AdminCompanies() {
     setPage(page)
   }, [page])
 
-  const { data, error } = useSWR(`/api/admin/companies.json?page=${page}&per=${per}`, fetcher)
+  const { data, error } = useSWR(
+    `/api/admin/companies.json?page=${page}&per=${per}`,
+    fetcher
+  )
   if (error) return <>An error has occurred.</>
   if (!data) return <>Loading...</>
 
@@ -30,7 +33,7 @@ export default function AdminCompanies() {
         per={per}
         neighbours={neighbours}
         page={page}
-        onChange={e => handlePaginate(e.page)}
+        onChange={(e) => handlePaginate(e.page)}
       />
       <div className="admin-table">
         <table className="admin-table__table">
@@ -56,13 +59,13 @@ export default function AdminCompanies() {
         per={per}
         neighbours={neighbours}
         page={page}
-        onChange={e => handlePaginate(e.page)}
+        onChange={(e) => handlePaginate(e.page)}
       />
     </>
   )
 }
 
-const AdminCompany = ({company}) => {
+const AdminCompany = ({ company }) => {
   const url = `/companies/${company.id}`
   const editUrl = `/admin/companies/${company.id}/edit`
 
@@ -76,17 +79,26 @@ const AdminCompany = ({company}) => {
       </td>
       <td className="admin-table__item-value">{company.website}</td>
       <td className="admin-table__item-value admin-table__item-value is-text-align-center">
-        <a title="アドバイザーサインアップURL" href={company.adviser_sign_up_url} className="a-button is-sm is-secondary is-icon">
+        <a
+          title="アドバイザーサインアップURL"
+          href={company.adviser_sign_up_url}
+          className="a-button is-sm is-secondary is-icon">
           <i className="fa-solid fa-user-plus"></i>
         </a>
       </td>
       <td className="admin-table__item-value admin-table__item-value is-text-align-center">
-        <a title="アドバイザーサインアップURL" href={company.trainee_sign_up_url} className="a-button is-sm is-secondary is-icon">
+        <a
+          title="アドバイザーサインアップURL"
+          href={company.trainee_sign_up_url}
+          className="a-button is-sm is-secondary is-icon">
           <i className="fa-solid fa-user-plus"></i>
         </a>
       </td>
       <td className="admin-table__item-value admin-table__item-value is-text-align-center">
-        <a title="アドバイザーサインアップURL" href={editUrl} className="a-button is-sm is-secondary is-icon">
+        <a
+          title="アドバイザーサインアップURL"
+          href={editUrl}
+          className="a-button is-sm is-secondary is-icon">
           <i className="fa-solid fa-pen"></i>
         </a>
       </td>

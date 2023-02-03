@@ -20,12 +20,7 @@ const Categories = () => {
         </thead>
         <tbody className="admin-table__items">
           {data.map((category) => {
-            return (
-              <Category
-                key={category.id}
-                category={category}
-              />
-            )
+            return <Category key={category.id} category={category} />
           })}
         </tbody>
       </table>
@@ -59,13 +54,14 @@ const Category = ({ category }) => {
           <li>
             <a
               href={`/admin/categories/${category.id}/edit`}
-              className="a-button is-sm is-secondary is-icon spec-edit"
-            >
+              className="a-button is-sm is-secondary is-icon spec-edit">
               <i className="fa-solid fa-pen" />
             </a>
           </li>
           <li>
-            <button onClick={() => destroy(category.id)} className="a-button is-sm is-danger is-icon js-delete">
+            <button
+              onClick={() => destroy(category.id)}
+              className="a-button is-sm is-danger is-icon js-delete">
               <i className="fa-solid fa-trash-alt" />
             </button>
           </li>

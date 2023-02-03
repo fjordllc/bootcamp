@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
-import UserIcon from './UserIcon';
+import UserIcon from './UserIcon'
 
 export default function Bookmarks() {
-  const [editable, setEditable] = useState(false);
+  const [editable, setEditable] = useState(false)
   const { data, error } = useSWR(`/api/bookmarks.json`, fetcher)
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
-  if (data.totalPages === 0){
+  if (data.totalPages === 0) {
     return <NoBookmarks />
   } else {
     return (
@@ -89,10 +89,7 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
       <div className="card-list-item__inner">
         {bookmark.modelName === 'Talk' ? (
           <div className="card-list-item__user">
-            <UserIcon
-              user={bookmark.user}
-              blockClassSuffix='card-list-item'
-            />
+            <UserIcon user={bookmark.user} blockClassSuffix="card-list-item" />
           </div>
         ) : (
           <div className="card-list-item__label">{bookmark.modelNameI18n}</div>
@@ -101,13 +98,15 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
           <div className="card-list-item__row">
             <div className="card-list-item-title">
               <div className="card-list-item-title__title">
-                <a href={bookmark.url} className="card-list-item-title__link a-text-link">
+                <a
+                  href={bookmark.url}
+                  className="card-list-item-title__link a-text-link">
                   {bookmark.title}
                 </a>
               </div>
             </div>
           </div>
-          {bookmark.modelName !== 'Talk' &&
+          {bookmark.modelName !== 'Talk' && (
             <div>
               <div className="card-list-item__row">
                 <div className="card-list-item__summary">
@@ -117,7 +116,9 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
               <div className="card-list-item__row">
                 <div className="card-list-item-meta">
                   <div className="card-list-item-meta__item">
-                    <a href={bookmark.authorUrl} className="a-user-name">{bookmark.author}</a>
+                    <a href={bookmark.authorUrl} className="a-user-name">
+                      {bookmark.author}
+                    </a>
                   </div>
                   <div className="card-list-item-meta__item">
                     <time className="a-meta" dateTime={bookmark.updated_at}>
@@ -127,7 +128,7 @@ const Bookmark = ({ bookmark, editable, setEditable }) => {
                 </div>
               </div>
             </div>
-          }
+          )}
         </div>
         {editable && (
           <DeleteButton id={bookmark.id} afterDelete={afterDelete} />
@@ -143,8 +144,7 @@ const DeleteButton = ({ id, afterDelete }) => {
       <div
         id="bookmark-button"
         className="a-bookmark-button a-button is-sm is-block is-main"
-        onClick={() => afterDelete(id)}
-      >
+        onClick={() => afterDelete(id)}>
         削除
       </div>
     </div>

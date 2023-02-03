@@ -5,9 +5,7 @@ export default function LoadingListPlaceholder() {
   return (
     <div className="card-list a-card is-loading">
       {[...Array(itemCount)].map((_, index) => {
-        return (
-          <LoadingListItemPlaceholder key={index} />
-        )
+        return <LoadingListItemPlaceholder key={index} />
       })}
     </div>
   )
