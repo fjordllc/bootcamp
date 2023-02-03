@@ -178,7 +178,7 @@ class User < ApplicationRecord
                            }
   end
 
-  with_options if: -> { validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { validation_context != :reset_password && validation_context != :retirement && validation_context != :followup_message } do
     validates :name_kana, presence: true,
                           format: {
                             with: /\A[\p{katakana}\p{blank}ー－]+\z/,
@@ -186,7 +186,7 @@ class User < ApplicationRecord
                           }
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement && validation_context != :followup_message } do
     validates :job, presence: true
     validates :os, presence: true
     validates :experience, presence: true
@@ -196,11 +196,11 @@ class User < ApplicationRecord
     validates :satisfaction, presence: true
   end
 
-  with_options if: -> { trainee? } do
+  with_options if: -> { trainee? && validation_context != :followup_message } do
     validates :company_id, presence: true
   end
 
-  with_options if: -> { validation_context != :retirement } do
+  with_options if: -> { validation_context != :retirement && validation_context != :followup_message } do
     validates :discord_account,
               format: {
                 allow_blank: true,

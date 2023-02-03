@@ -14,7 +14,10 @@ class Scheduler::Daily::SendMessageController < SchedulerController
   #        改修後、このメソッドは不要になると思われるので削除すること
   def mark_message_as_sent_for_hibernated_student
     User.find_each do |user|
-      user.update!(sent_student_followup_message: true) if user.hibernated?
+      if user.hibernated?
+        user.assign_attributes(sent_student_followup_message: true)
+        user.save(context: :followup_message)
+      end
     end
   end
 
@@ -29,7 +32,8 @@ class Scheduler::Daily::SendMessageController < SchedulerController
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
-      student.update!(sent_student_followup_message: true)
+      student.assign_attributes(sent_student_followup_message: true)
+      student.save(context: :followup_message)
     end
   end
 end
