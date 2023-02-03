@@ -11,7 +11,7 @@ module HomeHelper
 
   def event_date(event)
     if event.event_day?
-      Date.today
+      Date.current
     elsif event.tomorrow_event?
       Date.tomorrow
     end
