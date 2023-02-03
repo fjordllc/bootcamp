@@ -40,10 +40,12 @@ class NotificationsTest < ApplicationSystemTestCase
     select '00', from: :report_learning_times_attributes_0_finished_at_5i
     click_button '提出'
 
-    find('#js-new-comment').set("login_nameの補完テスト: @komagata\n")
-    click_button 'コメントする'
-    assert_text 'login_nameの補完テスト: @komagata'
-    assert_selector :css, "a[href='/users/komagata']"
+    perform_enqueued_jobs do
+      find('#js-new-comment').set("login_nameの補完テスト: @komagata\n")
+      click_button 'コメントする'
+      assert_text 'login_nameの補完テスト: @komagata'
+      assert_selector :css, "a[href='/users/komagata']"
+    end
 
     visit_with_auth '/notifications', 'komagata'
     assert_no_text 'kensyuさんがはじめての日報を書きました！'
