@@ -63,7 +63,7 @@ class HomeController < ApplicationController
   end
 
   def display_regular_events_on_dashboard
-    cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
+    cookies_ids = JSON.parse(cookies[:confirmed_regular_event_ids]) if cookies[:confirmed_regular_event_ids]
     regular_events_comming_soon = RegularEvent.today_events + RegularEvent.tomorrow_events
     @regular_events_comming_soon = regular_events_comming_soon.select { |event| event.participated_by?(current_user) }
 
