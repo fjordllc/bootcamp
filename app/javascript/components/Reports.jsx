@@ -35,14 +35,23 @@ export default function Reports({user, currentUser, practices}) {
 
   return (
     <>
-      <DropDown
-        practices={practices}
-        setPracticeId={setPracticeId}
-        practiceId={practiceId}
-      />
-      {(data.totalPages === 0) && <NoReports />}
+      {(data.totalPages === 0) && (
+        <div className="container is-md">
+          <DropDown
+            practices={practices}
+            setPracticeId={setPracticeId}
+            practiceId={practiceId}
+          />
+          <NoReports />
+        </div>
+      )}
       {(data.totalPages > 0) && (
         <div className="container is-md">
+        <DropDown
+          practices={practices}
+          setPracticeId={setPracticeId}
+          practiceId={practiceId}
+        />
         <div className="page-content reports">
           {data.totalPages > 1 && (
             <Pagination
@@ -127,24 +136,23 @@ const DropDown = ({practices, setPracticeId, practiceId}) => {
       <nav className="page-filter form">
         <div className="container is-md">
           <div className="form-item is-inline-md-up">
-            <label className="a-form-label">プラクティスで絞り込む</label>
-            <div className="select-container">
-              <select
-                className="a-form-select"
-                onChange={onChange}
-                ref={selectRef}
-                value={selectedId}
-              >
-                <option key="" value="">全ての日報を表示</option>
-                {practices.map((practice) => {
-                  return (
-                    <option key={practice.id} value={practice.id}>
-                      {practice.title}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
+            <label className="a-form-label" htmlFor='js-choices-single-select'>プラクティスで絞り込む</label>
+            <select
+              className="a-form-select"
+              onChange={onChange}
+              ref={selectRef}
+              value={selectedId}
+              id='js-choices-single-select'
+            >
+              <option key="" value="">全ての日報を表示</option>
+              {practices.map((practice) => {
+                return (
+                  <option key={practice.id} value={practice.id}>
+                    {practice.title}
+                  </option>
+                )
+              })}
+            </select>
           </div>
         </div>
       </nav>
