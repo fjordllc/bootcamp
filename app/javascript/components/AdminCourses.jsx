@@ -51,16 +51,14 @@ function AdminCourse(props) {
           <li>
             <a
               href={editUrl}
-              className="a-button is-sm is-secondary is-icon is-block"
-            >
+              className="a-button is-sm is-secondary is-icon is-block">
               <i className="fa fa-solid fa-pen" />
             </a>
           </li>
           <li>
             <a
               href={sortUrl}
-              className="a-button is-sm is-secondary is-icon is-block"
-            >
+              className="a-button is-sm is-secondary is-icon is-block">
               <i className="fa-solid fa-align-justify" />
             </a>
           </li>
