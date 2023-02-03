@@ -898,6 +898,7 @@ advisernocolleguetrainee:
   created_at: "2022-07-01 00:00:00"
   last_activity_at: "2022-07-01 00:00:00"
 
+<% trailing_katakana = "ァ" %>
 <% 1.upto(4) do |i| %>
 marumarushain<%= i %>: # ページネーション確認のためのユーザー
   login_name: marumarushain<%= i %>
@@ -905,7 +906,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: marumarushain<%= i %>
-  name_kana: マルマル シャイン<%= i %>
+  name_kana: マルマル シャイン<%= trailing_katakana %>
   twitter_account:
   facebook_url:
   blog_url:
@@ -921,4 +922,5 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   updated_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
   created_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
   last_activity_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
+  <% trailing_katakana = trailing_katakana.next %>
 <% end %>
