@@ -69,7 +69,7 @@ regular_event8:
   description: ダッシュボード表示確認用テスト定期イベント(当日用)
   finished: false
   hold_national_holiday: true
-  start_at: <%= Time.zone.local(2020, 1, 1, 21, 58, 0) %>
+  start_at: <%= Time.zone.local(2020, 1, 1, 23, 58, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 23, 59, 0) %>
   user: komagata
 
