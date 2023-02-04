@@ -11,6 +11,22 @@ class ActivityMailer < ApplicationMailer
   end
 
   # required params: sender, receiver
+  def comebacked(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    return false unless @receiver.mail_notification? # cancel sending email
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:comebacked]
+    )
+    subject = "[FBC] #{@sender.login_name}さんが休会から復帰しました。"
+    mail to: @user.email, subject: subject
+  end
+
+  # required params: sender, receiver
   def graduated(args = {})
     @sender ||= args[:sender]
     @receiver ||= args[:receiver]

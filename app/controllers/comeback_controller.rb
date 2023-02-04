@@ -12,6 +12,7 @@ class ComebackController < ApplicationController
     if @user
       if @user&.hibernated?
         @user.comeback!
+        Newspaper.publish(:comeback_update, @user)
         redirect_to root_url, notice: '休会から復帰しました。'
       else
         @user = User.new
