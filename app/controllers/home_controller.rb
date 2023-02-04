@@ -67,11 +67,9 @@ class HomeController < ApplicationController
     regular_events_comming_soon = RegularEvent.today_events + RegularEvent.tomorrow_events
     @regular_events_comming_soon = regular_events_comming_soon.select { |event| event.participated_by?(current_user) }
 
-    if cookies_ids
-      cookies_ids.each do |id|
-        @regular_events_comming_soon.delete_if do |event|
-          event.id == id.to_i
-        end
+    cookies_ids&.each do |id|
+      @regular_events_comming_soon.delete_if do |event|
+        event.id == id.to_i
       end
     end
   end
