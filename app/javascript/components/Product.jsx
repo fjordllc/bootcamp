@@ -11,16 +11,10 @@ export default function Product({ product }) {
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
-              {product.wip ? (
+              {product.wip && (
                 <div className="a-list-item-badge is-wip">
                   <span>WIP</span>
                 </div>
-              ) : (
-                product.ended && (
-                  <div className="a-list-item-badge is-ended">
-                    <span>終了</span>
-                  </div>
-                )
               )}
               <h2 className="card-list-item-title__title" itemProp="name">
                 <a
