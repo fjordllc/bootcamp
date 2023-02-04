@@ -4,7 +4,6 @@ class Scheduler::DailyController < SchedulerController
   def show
     User.notify_to_discord
     notify_product_review_not_completed
-    Question.notify_certain_period_passed_after_last_answer
     head :ok
   end
 
