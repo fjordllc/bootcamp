@@ -42,6 +42,10 @@ header.page-header
             - @campaigns.each do |campaign|
               tr.admin-table__item(id="campaign_#{campaign.id}")
                 td.admin-table__item-value
+                  - if (nil...campaign.start_at).cover? Time.current
+                    | 開催前
+                  - if (campaign.start_at..campaign.end_at).cover? Time.current
+                    | 開催中
                   - if (campaign.end_at..nil).cover? Time.current
                     | 終了
                 td.admin-table__item-value
