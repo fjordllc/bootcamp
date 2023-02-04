@@ -11,10 +11,10 @@
     #events_on_dashboard.confirmed_event
       .page-notices
         = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
-  - if @regular_events_comming_soon.present?
+  - if @regular_events_comming_soon_for_current_user.present?
     #events_on_dashboard.confirmed_event
       .page-notices
-        = render partial: 'regular_event', collection: @regular_events_comming_soon, as: :regular_event
+        = render partial: 'regular_event', collection: @regular_events_comming_soon_for_current_user, as: :regular_event
 
   - if current_user.adviser?
     = render 'adviser_dashboard'
