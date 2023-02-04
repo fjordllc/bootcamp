@@ -8,19 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventType = event.getAttribute('data-event-type')
     const button = event.querySelector('.js-close-event')
     const key = {
-                  Event: 'confirmed_event_ids=', 
-                  RegularEvent: 'confirmed_regular_event_ids='
-                }[eventType]
+      Event: 'confirmed_event_ids=',
+      RegularEvent: 'confirmed_regular_event_ids='
+    }[eventType]
 
     button.addEventListener('click', () => {
       document
-        .querySelector(`.page-notices__item[data-event-id="${eventId}"][data-event-type="${eventType}"]`)
+        .querySelector(
+          `.page-notices__item[data-event-id="${eventId}"][data-event-type="${eventType}"]`
+        )
         .remove()
 
       if (
-        document.cookie
-          .split('; ')
-          .find((row) => row.startsWith(key)) === undefined
+        document.cookie.split('; ').find((row) => row.startsWith(key)) ===
+        undefined
       ) {
         saveCookie(key, [eventId])
       } else {
@@ -43,10 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveCookie(key, eventIds) {
     const secondsFor30days = 2592000
     document.cookie =
-      key +
-      JSON.stringify(eventIds) +
-      ';max-age=' +
-      secondsFor30days
+      key + JSON.stringify(eventIds) + ';max-age=' + secondsFor30days
   }
 
   function updateEventIds(key, latestCookie, eventId) {
