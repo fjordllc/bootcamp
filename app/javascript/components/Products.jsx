@@ -16,7 +16,6 @@ export default function Products() {
     setPage(page)
   }, [page])
 
-  // const { data, error } = useSWR(`/api/events?page=${page}`, fetcher)
   const { data, error } = useSWR(`/api/products?page=${page}`, fetcher)
   console.log(data)
 
@@ -45,14 +44,12 @@ export default function Products() {
             per={per}
             neighbours={neighbours}
             page={page}
-            onChange={e => handlePaginate(e.page)}
+            onChange={(e) => handlePaginate(e.page)}
           />
         )}
         <ul className="card-list a-card">
           {data.products.map((product) => {
-            return (
-              <Product product={product} key={product.id} />
-            )
+            return <Product product={product} key={product.id} />
           })}
         </ul>
         {data.total_pages > 1 && (
@@ -61,7 +58,7 @@ export default function Products() {
             per={per}
             neighbours={neighbours}
             page={page}
-            onChange={e => handlePaginate(e.page)}
+            onChange={(e) => handlePaginate(e.page)}
           />
         )}
       </div>
