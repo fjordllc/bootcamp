@@ -6,7 +6,7 @@ import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Product from './Product'
 import fetcher from '../fetcher'
 
-export default function Products({ title }) {
+export default function Products({ title, selectedTab }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -16,12 +16,18 @@ export default function Products({ title }) {
     setPage(page)
   }, [page])
 
-  const { data, error } = useSWR(`/api/products?page=${page}`, fetcher)
-  console.log(data)
+  const url = (() => {
+    if (selectedTab === 'all') return '';
+    if (selectedTab === 'unassigned') return '/unassigned';
+    if (selectedTab === 'unchecked') return '/unchecked';
+    if (selectedTab === 'self_assigned') return '/self_assigned';
+  })()
+
+  const { data, error } = useSWR(`/api/products${url}?page=${page}`, fetcher)
 
   const handlePaginate = (p) => {
     setPage(p)
-    window.history.pushState(null, null, `/products?page=${p}`)
+    window.history.pushState(null, null, `/products${url}?page=${p}`)
   }
 
   if (error) return <>エラーが発生しました。</>
