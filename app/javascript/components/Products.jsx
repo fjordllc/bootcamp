@@ -3,6 +3,7 @@ import queryString from 'query-string'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
+import UnconfirmedLink from './UnconfirmedLink'
 import Product from './Product'
 import fetcher from '../fetcher'
 
@@ -15,6 +16,15 @@ export default function Products({ title, selectedTab }) {
   useEffect(() => {
     setPage(page)
   }, [page])
+
+  const unconfirmedLinksName= (() => {
+    return {
+      all: '全ての提出物を一覧で開く',
+      unchecked: '未完了の提出物を一覧で開く',
+      self_assigned: '自分の担当の提出物を一覧で開く',
+      unassigned: '未アサインの提出物を一覧で開く'
+    }[selectedTab]
+  })()
 
   const url = (() => {
     if (selectedTab === 'all') return '';
@@ -77,6 +87,7 @@ export default function Products({ title, selectedTab }) {
               onChange={(e) => handlePaginate(e.page)}
             />
           )}
+          <UnconfirmedLink label={unconfirmedLinksName} />
         </div>
       </div>
     )
