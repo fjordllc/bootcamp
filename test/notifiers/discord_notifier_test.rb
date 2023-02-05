@@ -183,7 +183,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     }
 
     expected = {
-      body: '🎉 hajimeさんがはじめての日報を書きました！',
+      body: "🎉 hajimeさんがはじめての日報を書きました！\rhttp://localhost:3000/reports/819157022",
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
