@@ -6,7 +6,7 @@ import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Product from './Product'
 import fetcher from '../fetcher'
 
-export default function Products() {
+export default function Products({ title }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -35,33 +35,44 @@ export default function Products() {
     )
   }
 
-  return (
-    <div className="page-body">
-      <div className="container is-md">
-        {data.total_pages > 1 && (
-          <Pagination
-            sum={data.total_pages * per}
-            per={per}
-            neighbours={neighbours}
-            page={page}
-            onChange={(e) => handlePaginate(e.page)}
-          />
-        )}
-        <ul className="card-list a-card">
-          {data.products.map((product) => {
-            return <Product product={product} key={product.id} />
-          })}
-        </ul>
-        {data.total_pages > 1 && (
-          <Pagination
-            sum={data.total_pages * per}
-            per={per}
-            neighbours={neighbours}
-            page={page}
-            onChange={(e) => handlePaginate(e.page)}
-          />
-        )}
+  if (data.products.length === 0) {
+    return (
+      <div class="o-empty-message">
+        <div class="o-empty-message__icon">
+          <i class="fa-regular fa-smile"></i>
+        </div>
+        <p class="o-empty-message__text">{title}はありません</p>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="page-body">
+        <div className="container is-md">
+          {data.total_pages > 1 && (
+            <Pagination
+              sum={data.total_pages * per}
+              per={per}
+              neighbours={neighbours}
+              page={page}
+              onChange={(e) => handlePaginate(e.page)}
+            />
+          )}
+          <ul className="card-list a-card">
+            {data.products.map((product) => {
+              return <Product product={product} key={product.id} />
+            })}
+          </ul>
+          {data.total_pages > 1 && (
+            <Pagination
+              sum={data.total_pages * per}
+              per={per}
+              neighbours={neighbours}
+              page={page}
+              onChange={(e) => handlePaginate(e.page)}
+            />
+          )}
+        </div>
+      </div>
+    )
+  }
 }
