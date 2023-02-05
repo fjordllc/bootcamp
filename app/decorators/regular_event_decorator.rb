@@ -6,7 +6,7 @@ module RegularEventDecorator
       holding_frequency = RegularEvent::FREQUENCY_LIST.find { |frequency| frequency[1] == repeat_rule.frequency }[0]
       holding_day_of_the_week = RegularEvent::DAY_OF_THE_WEEK_LIST.find { |day_of_the_week| day_of_the_week[1] == repeat_rule.day_of_the_week }[0]
       holding_frequency + holding_day_of_the_week
-    end.join(',')
+    end.join('、')
   end
 
   def next_holding_date
