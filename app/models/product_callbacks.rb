@@ -2,8 +2,6 @@
 
 class ProductCallbacks
   def after_create(product)
-    create_author_watch(product)
-
     Cache.delete_unchecked_product_count
     Cache.delete_unassigned_product_count
     Cache.delete_self_assigned_no_replied_product_count(product.checker_id)
@@ -40,10 +38,6 @@ class ProductCallbacks
   end
 
   private
-
-  def create_author_watch(product)
-    Watch.create!(user: product.user, watchable: product)
-  end
 
   def create_advisers_watch(product)
     product.user.company.advisers.each do |adviser|
