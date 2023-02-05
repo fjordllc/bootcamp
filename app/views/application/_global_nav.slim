@@ -58,7 +58,8 @@ nav.global-nav
               i.fa-solid.fa-beer
             .global-nav-links__link-label イベント
         li.global-nav-links__item
-          = link_to '/pages/help', class: "global-nav-links__link #{(@page&.slug == 'help') && current_link(/^pages/)}" do
+          - help_link = current_user.adviser? ? '/pages/help-adviser' : '/pages/help'
+          = link_to help_link, class: "global-nav-links__link #{(@page&.slug == 'help') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-hands-helping
             .global-nav-links__link-label ヘルプ
