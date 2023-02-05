@@ -12,4 +12,4 @@ header.page-header
   .page-body
     .container.is-md
       #js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-      / = react_component('Products', title: title)
+      / = react_component('Products', title: title, selectedTab: 'all')
