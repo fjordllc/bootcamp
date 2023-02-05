@@ -286,3 +286,10 @@ page34:
   practice: practice1
   published_at: "2022-12-21 00:00:00"
   last_updated_user: komagata
+
+page35:
+  title: アドバイザーのヘルプのページ
+  body: アドバイザーのヘルプ
+  slug: help-adviser
+  user: komagata
+  published_at: "2023-02-05 00:00:00"
