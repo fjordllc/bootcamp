@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resource :after_retirement, only: %i(show), controller: "after_retirement"
       resource :notify_tomorrow_regular_event, only: %i(show), controller: "notify_tomorrow_regular_event"
       resource :notify_certain_period_passed_after_last_answer, only: %i(show), controller: "notify_certain_period_passed_after_last_answer"
+      resource :notify_product_review_not_completed, only: %i(show), controller: "notify_product_review_not_completed"
     end
   end
 end
