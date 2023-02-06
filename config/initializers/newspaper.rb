@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.configuration.to_prepare do
+Rails.configuration.to_prepare do # rubocop:disable Metrics/BlockLength
   Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
@@ -33,4 +33,7 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
   Newspaper.subscribe(:check_create, ProductStatusUpdater.new)
+
+  page_notifier = PageNotifier.new
+  Newspaper.subscribe(:page_create, page_notifier)
 end
