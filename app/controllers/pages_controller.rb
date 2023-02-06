@@ -36,6 +36,7 @@ class PagesController < ApplicationController
     end
     set_wip
     if @page.save
+      Newspaper.publish(:page_create, @page)
       redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new

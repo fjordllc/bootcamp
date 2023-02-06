@@ -6,7 +6,6 @@ class PageCallbacks
 
     send_notification(page)
     notify_to_chat(page)
-    create_author_watch(page)
 
     page.published_at = Time.current
     page.save
