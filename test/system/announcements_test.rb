@@ -175,7 +175,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert has_button? '公開'
   end
 
-  test 'adimin user can publish submitted announcement' do
+  test 'admin user can publish submitted announcement' do
     announcement = announcements(:announcement1)
     visit_with_auth announcement_path(announcement), 'komagata'
     within '.announcement' do
