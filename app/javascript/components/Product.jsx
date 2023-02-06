@@ -28,7 +28,7 @@ export default function Product({ product }) {
           </div>
           <div className="card-list-item__row">
             <a className="a-user-name" href={product.user.url}>
-              {product.user.long_name}
+              {product.user.login_name}
             </a>
           </div>
           <div className="card-list-item__row">
