@@ -182,8 +182,13 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
+    body = <<~TEXT.chomp
+      🎉 hajimeさんがはじめての日報を書きました！
+      タイトル：「初日報です」
+      URL： http://localhost:3000/reports/819157022
+    TEXT
     expected = {
-      body: "🎉 hajimeさんがはじめての日報を書きました！\rhttp://localhost:3000/reports/819157022",
+      body: body,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
