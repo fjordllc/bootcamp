@@ -148,7 +148,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   end
 
   test 'announcement creator can publish wip announcement' do
-    announcement = announcements(:announcement_wip_kimura)
+    announcement = announcements(:announcement_wip_not_mentor_or_admin)
     visit_with_auth announcement_path(announcement), 'kimura'
     within '.announcement' do
       click_link '内容修正'
@@ -157,7 +157,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
   end
 
   test "general user can't publish other user's wip announcement" do
-    announcement = announcements(:announcement_wip_kimura)
+    announcement = announcements(:announcement_wip_not_mentor_or_admin)
     visit_with_auth announcement_path(announcement), 'hajime'
     within '.announcement' do
       click_link '内容修正'

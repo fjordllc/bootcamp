@@ -54,10 +54,10 @@ announcement_wip:
   target: 0
   wip: true
 
-announcement_wip_kimura:
+announcement_wip_not_mentor_or_admin:
   user: kimura
-  title: kimuraのwipお知らせ
-  description: kimuraのwipお知らせ本文
+  title: アドミン・メンター以外のユーザーのwipお知らせ
+  description: アドミン・メンター以外のユーザーのwipお知らせ本文
   created_at: "2018-01-05"
   target: 0
   wip: true
