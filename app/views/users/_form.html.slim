@@ -83,6 +83,10 @@
             .form-item-block__item
               = render 'users/form/graduate', f: f
 
+      .form-item
+        = f.label :subscription_id, class: 'a-form-label'
+        = f.text_field :subscription_id, class: 'a-text-input', placeholder: 'sub_123456789'
+
       .form-item-block
         .form-item-block__inner
           header.form-item-block__header
