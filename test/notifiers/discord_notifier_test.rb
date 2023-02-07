@@ -175,4 +175,32 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       DiscordNotifier.with(params).hibernated.notify_later
     end
   end
+
+  test '.first_report' do
+    params = {
+      report: reports(:report10),
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    body = <<~TEXT.chomp
+      🎉 hajimeさんがはじめての日報を書きました！
+      タイトル：「初日報です」
+      URL： http://localhost:3000/reports/819157022
+    TEXT
+    expected = {
+      body: body,
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    assert_notifications_sent 2, **expected do
+      DiscordNotifier.first_report(params).notify_now
+      DiscordNotifier.with(params).first_report.notify_now
+    end
+
+    assert_notifications_enqueued 2, **expected do
+      DiscordNotifier.first_report(params).notify_later
+      DiscordNotifier.with(params).first_report.notify_later
+    end
+  end
 end
