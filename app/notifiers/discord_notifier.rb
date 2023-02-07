@@ -99,4 +99,21 @@ class DiscordNotifier < ApplicationNotifier
       webhook_url: webhook_url
     )
   end
+
+  def first_report(params = {})
+    params.merge!(@params)
+    webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:introduction]
+    report = params[:report]
+    body = <<~TEXT.chomp
+      🎉 #{report.user.login_name}さんがはじめての日報を書きました！
+      タイトル：「#{report.title}」
+      URL： #{Rails.application.routes.url_helpers.report_url(report)}
+    TEXT
+
+    notification(
+      body: body,
+      name: 'ピヨルド',
+      webhook_url: webhook_url
+    )
+  end
 end
