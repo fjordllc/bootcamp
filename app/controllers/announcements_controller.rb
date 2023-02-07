@@ -20,9 +20,7 @@ class AnnouncementsController < ApplicationController
     flash.now[:notice] = 'お知らせをコピーしました。'
   end
 
-  def edit
-    @announcement.user_id = current_user.id
-  end
+  def edit; end
 
   def update
     set_wip

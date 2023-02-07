@@ -59,11 +59,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせをコピーしました。'
   end
 
-  test 'users except admin cannot publish an announcement' do
-    visit_with_auth new_announcement_path, 'kimura'
-    page.assert_no_selector('input[value="作成"]')
-  end
-
   test 'create a new announcement as wip' do
     visit_with_auth new_announcement_path, 'kimura'
     fill_in 'announcement[title]', with: '仮のお知らせ'
@@ -146,12 +141,28 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_no_text 'お知らせ「タイトルtest」'
   end
 
-  test "general user can't create announcement" do
+  test 'general user can create announcement' do
     visit_with_auth '/announcements', 'kimura'
     click_link 'お知らせ作成'
-    assert has_no_button? '作成'
+    assert has_button? '作成'
+  end
+
+  test 'announcement creator can publish wip announcement' do
+    announcement = announcements(:announcement_wip_not_mentor_or_admin)
+    visit_with_auth announcement_path(announcement), 'kimura'
+    within '.announcement' do
+      click_link '内容修正'
+    end
+    assert has_button? '公開'
+  end
+
+  test "general user can't publish other user's wip announcement" do
+    announcement = announcements(:announcement_wip_not_mentor_or_admin)
+    visit_with_auth announcement_path(announcement), 'hajime'
+    within '.announcement' do
+      click_link '内容修正'
+    end
     assert has_no_button? '公開'
-    assert_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
   test 'admin user can publish wip announcement' do
@@ -162,21 +173,9 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
     assert has_no_button? '作成'
     assert has_button? '公開'
-    assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
-  test "general user can't publish wip announcement" do
-    announcement = announcements(:announcement_wip)
-    visit_with_auth announcement_path(announcement), 'kimura'
-    within '.announcement' do
-      click_link '内容修正'
-    end
-    assert has_no_button? '作成'
-    assert has_no_button? '公開'
-    assert_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
-  end
-
-  test 'adimin user can publish submitted announcement' do
+  test 'admin user can publish submitted announcement' do
     announcement = announcements(:announcement1)
     visit_with_auth announcement_path(announcement), 'komagata'
     within '.announcement' do
@@ -184,7 +183,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
     assert has_no_button? '作成'
     assert has_button? '公開'
-    assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
   test 'general user can publish submitted announcement' do
@@ -195,7 +193,6 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
     assert has_no_button? '作成'
     assert has_button? '公開'
-    assert_no_text 'お知らせを作成しましたら、WIPで保存し、作成したお知らせのコメントから @mentor へ確認・公開の連絡をお願いします。'
   end
 
   test 'general user can copy submitted announcement' do
