@@ -18,8 +18,6 @@ class Page < ApplicationRecord
   validates :slug, length: { maximum: 200 }, format: { with: /\A[a-z][a-z0-9_-]*\z/ }, uniqueness: true, allow_nil: true
   paginates_per 20
   alias sender user
-  after_create PageCallbacks.new
-  after_update PageCallbacks.new
 
   columns_for_keyword_search :title, :body
 
