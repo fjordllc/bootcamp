@@ -3,11 +3,11 @@
   .card-list-item__inner
     .card-list-item__user(v-if='searchable.is_user')
       a.card-list-item__user-link(:href='searchable.url')
-        img.card-list-item__user-icon.a-user-icon(
-          :src='searchable.avatar_url',
-          :title='searchable.title',
-          :alt='searchable.title',
-          :class='[roleClass]')
+        span(:class='["a-user-role", roleClass]')
+          img.card-list-item__user-icon.a-user-icon(
+            :src='searchable.avatar_url',
+            :title='searchable.title',
+            :alt='searchable.title')
     .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .card-list-item__rows
@@ -36,11 +36,11 @@
               v-if='!["practice", "page", "user"].includes(searchable.model_name)')
               .card-list-item-meta__user
                 a.card-list-item-meta__icon-link(:href='userUrl')
-                  img.card-list-item-meta__icon.a-user-icon(
-                    :src='searchable.avatar_url',
-                    :title='searchable.icon_title',
-                    :alt='searchable.icon_title',
-                    :class='roleClass')
+                  span(:class='["a-user-role", roleClass]')
+                    img.card-list-item-meta__icon.a-user-icon(
+                      :src='searchable.avatar_url',
+                      :title='searchable.icon_title',
+                      :alt='searchable.icon_title')
                 a.a-user-name(:href='userUrl')
                   | {{ searchable.login_name }}
             .card-list-item-meta__item
