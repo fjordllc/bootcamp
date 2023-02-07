@@ -9,9 +9,12 @@ module Authentication
                   :admin_or_mentor_login?,
                   :adviser_login?,
                   :staff_login?,
+                  :student_login?,
                   :paid_login?,
                   :staff_or_paid_login?,
-                  :student_login?
+                  :hibernated_login?,
+                  :retired_login?,
+                  :hibernated_or_retired_login?
   end
 
   def admin_login?
@@ -46,16 +49,36 @@ module Authentication
     logged_in? && current_user.staff_or_paid?
   end
 
-  def require_mentor_login
-    return if mentor_login?
+  def hibernated_login?
+    logged_in? && current_user.hibernated?
+  end
 
-    redirect_to root_path, alert: 'メンターとしてログインしてください'
+  def retired_login?
+    logged_in? && current_user.retired?
+  end
+
+  def hibernated_or_retired_login?
+    logged_in? && current_user.hibernated_or_retired?
+  end
+
+  def require_active_user_login
+    if hibernated_or_retired_login?
+      deny_hibernated_or_retired_login
+    else
+      require_login
+    end
   end
 
   def require_admin_login
     return if admin_login?
 
     redirect_to root_path, alert: '管理者としてログインしてください'
+  end
+
+  def require_mentor_login
+    return if mentor_login?
+
+    redirect_to root_path, alert: 'メンターとしてログインしてください'
   end
 
   def require_admin_or_mentor_login
@@ -74,6 +97,17 @@ module Authentication
 
   def not_authenticated
     redirect_to root_path, alert: 'ログインしてください'
+  end
+
+  def deny_hibernated_or_retired_login
+    if hibernated_login?
+      logout
+      link = view_context.link_to '休会復帰ページ', new_comeback_path, target: '_blank', rel: 'noopener'
+      redirect_to root_path, alert: "休会中です。#{link}から手続きをお願いします。"
+    elsif retired_login?
+      logout
+      redirect_to root_path, alert: '退会したユーザーです。'
+    end
   end
 
   def require_login_for_api

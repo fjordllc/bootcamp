@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Notifications::ReadByCategoryController < ApplicationController
-  skip_before_action :require_login, raise: false
+  skip_before_action :require_active_user_login, raise: false
 
   def create
     target = params[:target].presence&.to_sym
