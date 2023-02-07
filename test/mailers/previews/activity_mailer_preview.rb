@@ -33,4 +33,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(sender: sender, receiver: receiver).three_months_after_retirement
   end
+
+  def came_question
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+    question = Question.find(ActiveRecord::FixtureSet.identify(:question1))
+
+    ActivityMailer.with(sender: question.user, receiver: receiver, question: question).came_question
+  end
 end
