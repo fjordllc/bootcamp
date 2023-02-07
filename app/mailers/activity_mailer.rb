@@ -8,6 +8,7 @@ class ActivityMailer < ApplicationMailer
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
     @announcement = params[:announcement] if params&.key?(:announcement)
+    @question = params[:question] if params&.key?(:question)
   end
 
   # required params: sender, receiver
@@ -86,6 +87,24 @@ class ActivityMailer < ApplicationMailer
     )
     message = mail(to: @receiver.email, subject: default_i18n_subject(user: @sender.login_name.to_s))
     message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
+
+    message
+  end
+
+  def came_question(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+    @question ||= args[:question]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/questions/#{@question.id}",
+      kind: Notification.kinds[:came_question]
+    )
+    subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"
+    message = mail to: @user.email, subject: subject
+
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
   end
