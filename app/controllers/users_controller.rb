@@ -83,6 +83,7 @@ class UsersController < ApplicationController
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
       notify_to_chat(@user)
+      Newspaper.publish(:student_or_trainee_create, @user) if @user.trainee?
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
       render 'new'
@@ -123,6 +124,7 @@ class UsersController < ApplicationController
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
+        Newspaper.publish(:student_or_trainee_create, @user) if @user.student?
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
         render 'new'

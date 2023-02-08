@@ -6,10 +6,14 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
+
+    @bot_token = Discord::Server.authorize_token
+    Discord::Server.authorize_token = 'skip'
   end
 
   teardown do
     AbstractNotifier.delivery_mode = @delivery_mode
+    Discord::Server.authorize_token = @bot_token
   end
 
   test 'notify mentors when signed up as adviser' do
