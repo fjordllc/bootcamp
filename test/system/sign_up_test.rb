@@ -3,6 +3,15 @@
 require 'application_system_test_case'
 
 class SignUpTest < ApplicationSystemTestCase
+  setup do
+    @bot_token = Discord::Server.authorize_token
+    Discord::Server.authorize_token = 'skip'
+  end
+
+  teardown do
+    Discord::Server.authorize_token = @bot_token
+  end
+
   test 'sign up' do
     visit '/users/new'
     within 'form[name=user]' do
