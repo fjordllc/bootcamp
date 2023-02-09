@@ -31,7 +31,7 @@ class API::QuestionsController < API::BaseController
   def update
     question = Question.find(params[:id])
     if question.update(question_params)
-      Newspaper.publish(:question_create, question) unless question.watched?
+      Newspaper.publish(:question_create, question)
       head :ok
     else
       head :bad_request

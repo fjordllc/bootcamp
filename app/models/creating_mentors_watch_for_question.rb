@@ -2,6 +2,7 @@
 
 class CreatingMentorsWatchForQuestion
   def call(question)
+    return if question.wip? || question.watched?
     watch_question_records = watch_records(question)
     Watch.insert_all(watch_question_records) # rubocop:disable Rails/SkipsModelValidations
   end
