@@ -80,11 +80,12 @@ const ReportListItemActions = ({ report }) => {
   return (
     <div className="card-list-item-title__end">
       <label className="card-list-item-actions__trigger" htmlFor={report.id}>
+        <i className="fa-solid fa-ellipsis-h"></i>
       </label>
       <div className="card-list-item-actions">
         <input className="a-toggle-checkbox" type="checkbox" id={report.id} />
         <div className="card-list-item-actions__inner">
-          <ul>
+          <ul className="card-list-item-actions__items">
             <li className="card-list-item-actions__item">
               <a
                 className="card-list-item-actions__action"
