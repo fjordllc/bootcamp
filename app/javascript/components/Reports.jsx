@@ -7,7 +7,7 @@ import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 
-export default function Reports({user, currentUser, practices}) {
+export default function Reports({ user, currentUser, practices }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -21,9 +21,12 @@ export default function Reports({user, currentUser, practices}) {
   useEffect(() => {
     setPracticeId(practiceId)
   }, [practiceId])
-  
-  const { data, error } = useSWR(`/api/reports.json?user_id=${user.id}&page=${page}&practice_id=${practiceId}`, fetcher)
-  
+
+  const { data, error } = useSWR(
+    `/api/reports.json?user_id=${user.id}&page=${page}&practice_id=${practiceId}`,
+    fetcher
+  )
+
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
@@ -35,7 +38,7 @@ export default function Reports({user, currentUser, practices}) {
 
   return (
     <>
-      {(data.totalPages === 0) && (
+      {data.totalPages === 0 && (
         <div className="container is-md">
           <PracticeFilterDropdown
             practices={practices}
@@ -45,7 +48,7 @@ export default function Reports({user, currentUser, practices}) {
           <NoReports />
         </div>
       )}
-      {(data.totalPages > 0) && (
+      {data.totalPages > 0 && (
         <div className="container is-md">
           <PracticeFilterDropdown
             practices={practices}
