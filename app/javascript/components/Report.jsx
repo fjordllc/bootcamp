@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentUserIcon from './CommentUserIcon'
+import ListComment from './ListComment'
 
 export default function Report({report, currentUser}){
   return (
@@ -46,9 +46,7 @@ export default function Report({report, currentUser}){
                 </div>
               </div>
             </div>
-          {(report.hasAnyComments) && (
-            <ReportListComment report={report} />
-          )}
+            {report.hasAnyComments && <ListComment report={report} />}
           </div>
         </div>
         {report.hascheck && (
@@ -88,35 +86,5 @@ const ReportListItemActions = ({ report }) => {
         </div>
       </div>
     </div>
-  )
-}
-
-const ReportListComment = ({ report }) => {
-  return (
-    <>
-      <hr className="card-list-item__row-separator"></hr>
-      <div className="card-list-item__row">
-        <div className="card-list-item-meta">
-          <div className="card-list-item-meta__items">
-            <div className="card-list-item-meta__item">
-              <div className="a-meta">コメント（{ report.numberOfComments }）</div>
-            </div>
-            <div className="card-list-item-meta__item">
-              <div className="card-list-item__user-icons">
-                {report.comments.map((comment) => {
-                  return (
-                    <CommentUserIcon comment={comment} key={comment.user_id}/>
-                  )
-                })}
-              </div>
-            </div>
-            <div className="card-list-item-meta__item">
-              <time className="a-meta" dateTime={report.lastCommentDatetime} pubdate="'pubdate'">{`〜 ${report.lastCommentDate}`}</time>
-            </div>
-            <div className="card-list-item-meta__item"></div>
-          </div>
-        </div>
-      </div>
-    </>
   )
 }
