@@ -60,7 +60,7 @@ export default function Report({ report, currentUser }) {
             {report.hasAnyComments && <ListComment report={report} />}
           </div>
         </div>
-        {report.hascheck && (
+        {report.hasCheck && (
           <div className="stamp stamp-approve">
             <h2 className="stamp__content is-title">確認済</h2>
             <time className="stamp__content is-created-at">
