@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PasswordResetsController < ApplicationController
-  skip_before_action :require_login, raise: false
+  skip_before_action :require_active_user_login, raise: false
 
   def create
     @user = User.find_by(email: params[:email])

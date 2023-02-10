@@ -50,6 +50,53 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert ActionMailer::Base.deliveries.empty?
   end
 
+  test 'comebacked' do
+    user = users(:kimura)
+    mentor = users(:mentormentaro)
+    ActivityMailer.comebacked(
+      sender: user,
+      receiver: mentor
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 23, link: "/users/#{user.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんが休会から復帰しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
+  end
+
+  test 'comebacked with params' do
+    user = users(:kimura)
+    mentor = users(:mentormentaro)
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: mentor
+    ).comebacked
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 23, link: "/users/#{user.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんが休会から復帰しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">kimuraさんのページへ</a>}, email.body.to_s)
+  end
+
+  test 'comebacked with user who have been denied' do
+    ActivityMailer.comebacked(
+      sender: users(:kimura),
+      receiver: users(:hajime)
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
   test 'came_answer' do
     answer = answers(:answer3)
     ActivityMailer.came_answer(answer: answer).deliver_now
@@ -206,5 +253,49 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] kensyuowataさんが退会してから3カ月が経過しました。', email.subject
     assert_match(/退会/, email.body.to_s)
+  end
+
+  test 'came_question' do
+    question = questions(:question1)
+    user = question.user
+    mentor = users(:komagata)
+
+    ActivityMailer.came_question(
+      sender: user,
+      receiver: mentor,
+      question: question
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 6, link: "/questions/#{question.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+  end
+
+  test 'came_question with params' do
+    question = questions(:question1)
+    user = question.user
+    mentor = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: mentor,
+      question: question
+    ).came_question
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 6, link: "/questions/#{question.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
   end
 end

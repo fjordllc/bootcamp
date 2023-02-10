@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HibernationController < ApplicationController
-  skip_before_action :require_login, raise: false, only: %i[show]
+  skip_before_action :require_active_user_login, raise: false, only: %i[show]
 
   def show; end
 

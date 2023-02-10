@@ -820,7 +820,7 @@ sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
   created_at: "2014-01-01 00:00:03"
   last_activity_at: "2014-01-01 00:00:03"
 
-<% 1.upto(22) do |i| %>
+<% 1.upto(25) do |i| %> # 期生別ページのページネーションを表示させるため25人分登録
 marumarushain<%= i %>: # ページネーション確認のためのユーザー
   login_name: marumarushain<%= i %>
   email: marumarushain<%= i %>@fjord.jp
@@ -840,9 +840,9 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   organization: 株式会社フィヨルド
   github_collaborator: true
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
-  updated_at: "2014-01-01 00:00:02"
-  created_at: "2014-01-01 00:00:02"
-  last_activity_at: "2014-01-01 00:00:02"
+  updated_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %>
+  created_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %> # 3ヶ月間隔で期が変更されるため、入会日を3ヶ月毎に設定
+  last_activity_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %>
 <% end %>
 
 otameshi:

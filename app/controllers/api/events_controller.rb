@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::EventsController < API::BaseController
-  before_action :require_login
+  before_action :require_active_user_login
 
   def index
     @events = Event.with_avatar

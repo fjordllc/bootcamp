@@ -6,18 +6,22 @@ ignore_unused_routes:
 ignore_unreachable_actions:
   - rails\/.*
   - .*#admin_login\?
+  - .*#mentor_login\?
   - .*#admin_or_mentor_login\?
   - .*#adviser_login\?
-  - .*#mentor_login\?
   - .*#staff_login\?
+  - .*#student_login\?
   - .*#paid_login\?
   - .*#staff_or_paid_login\?
-  - .*#student_login\?
+  - .*#hibernated_login\?
+  - .*#retired_login\?
+  - .*#hibernated_or_retired_login\?
   - .*#policy
-  - .*#require_staff_login
+  - .*#require_active_user_login
   - .*#require_admin_login
   - .*#require_mentor_login
   - .*#require_admin_or_mentor_login
+  - .*#require_staff_login
   - mails#welcome
   - reports#convert_to_hour_minute
   - reports#convert_to_ceiled_hour
