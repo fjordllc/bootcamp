@@ -129,14 +129,15 @@ class ActivityMailer < ApplicationMailer
     @check ||= args[:check]
     @receiver ||= args[:receiver]
 
-    return false unless @receiver.mail_notification?
-
     @user = @receiver
     @link_url = notification_redirector_url(
       link: "/users/#{@user.id}",
       kind: Notification.kinds[:checked]
     )
     subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    mail to: @user.email, subject: subject
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
   end
 end
