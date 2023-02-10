@@ -828,7 +828,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: marumarushain<%= i %>
-  name_kana: マルマル シャイン<%= trailing_katakana %>
+  name_kana: マルマル シャイン<%= trailing_katakana.next! %>
   twitter_account:
   facebook_url:
   blog_url:
@@ -844,7 +844,6 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   updated_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %>
   created_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %> # 3ヶ月間隔で期が変更されるため、入会日を3ヶ月毎に設定
   last_activity_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %>
-  <% trailing_katakana.next! %>
 <% end %>
 
 otameshi:
