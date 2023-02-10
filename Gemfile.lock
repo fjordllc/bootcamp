@@ -374,6 +374,8 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    recaptcha (5.12.3)
+      json
     regexp_parser (2.6.0)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -579,6 +581,7 @@ DEPENDENCIES
   rails_autolink
   ransack
   react-rails
+  recaptcha (~> 5.12)
   rollbar
   rubocop
   rubocop-fjord (~> 0.2.0)
