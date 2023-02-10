@@ -36,6 +36,7 @@ class PagesController < ApplicationController
     end
     set_wip
     if @page.save
+      Newspaper.publish(:page_create, @page) unless @page.wip?
       redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new
@@ -46,6 +47,7 @@ class PagesController < ApplicationController
     set_wip
     @page.last_updated_user = current_user
     if @page.update(page_params)
+      Newspaper.publish(:page_update, @page) if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
       redirect_to @page, notice: notice_message(@page, :update)
     else
       render :edit

@@ -11,3 +11,4 @@ header.page-header
 .page-body
   .container.is-xl
     #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+    / = react_component('Products', title: title, selectedTab: 'unassigned')

@@ -1,20 +1,7 @@
 # frozen_string_literal: true
 
-class PageCallbacks
-  def after_create(page)
-    return if page.wip?
-
-    send_notification(page)
-    notify_to_chat(page)
-    create_author_watch(page)
-
-    page.published_at = Time.current
-    page.save
-  end
-
-  def after_update(page)
-    return unless page.saved_change_to_attribute?(:wip, from: true, to: false) && page.published_at.nil?
-
+class PageNotifier
+  def call(page)
     send_notification(page)
     notify_to_chat(page)
     create_author_watch(page)

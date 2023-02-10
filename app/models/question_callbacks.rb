@@ -26,7 +26,7 @@ class QuestionCallbacks
 
   def send_notification_to_mentors(question)
     User.mentor.each do |user|
-      NotificationFacade.came_question(question, user) if question.sender != user
+      ActivityDelivery.with(sender: question.user, receiver: user, question: question).notify(:came_question) if question.sender != user
     end
   end
 

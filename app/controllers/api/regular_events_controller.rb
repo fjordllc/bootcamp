@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::RegularEventsController < API::BaseController
-  before_action :require_login
+  before_action :require_active_user_login
 
   def index
     regular_events =

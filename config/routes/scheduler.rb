@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace :daily do
       resource :after_retirement, only: %i(show), controller: "after_retirement"
       resource :notify_tomorrow_regular_event, only: %i(show), controller: "notify_tomorrow_regular_event"
+      resource :notify_certain_period_passed_after_last_answer, only: %i(show), controller: "notify_certain_period_passed_after_last_answer"
     end
   end
 end
