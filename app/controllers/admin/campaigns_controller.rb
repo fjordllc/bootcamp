@@ -23,6 +23,7 @@ class Admin::CampaignsController < AdminController
 
   def index
     @campaigns = Campaign.order(end_at: :desc)
+    @retired_students = User.retired_students
   end
 
   def edit; end
