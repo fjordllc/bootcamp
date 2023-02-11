@@ -264,6 +264,18 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
+  scope :retired_students, lambda {
+    where.not(
+      retired_on: nil
+    ).where(
+      admin: false,
+      mentor: false,
+      adviser: false,
+      trainee: false,
+      hibernated_at: nil,
+      graduated_on: nil
+    )
+  }
   scope :active, -> { where(last_activity_at: 1.month.ago..Float::INFINITY) }
   scope :inactive, lambda {
     where(
