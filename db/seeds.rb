@@ -14,6 +14,7 @@ tables = %i[
   answers
   articles
   bookmarks
+  campaigns
   categories
   checks
   comments
