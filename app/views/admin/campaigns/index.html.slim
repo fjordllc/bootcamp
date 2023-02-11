@@ -37,6 +37,12 @@ header.page-header
               th.admin-table__label
                 | 終了日
               th.admin-table__label
+                | 入会者
+              th.admin-table__label
+                | 現役生
+              th.admin-table__label
+                | 退会者
+              th.admin-table__label
                 | 操作
           tbody.admin-table__items
             - @campaigns.each do |campaign|
@@ -53,6 +59,12 @@ header.page-header
                   | #{l campaign.start_at}
                 td.admin-table__item-value.is-text-align-right
                   | #{l campaign.end_at}
+                td.admin-table__item-value.is-text-align-right
+                  / = @new_students ←TODO: campaigns_controller内かUserモデルにロジックを書いて定義する。下の２つのコメントアウトも同様。
+                td.admin-table__item-value.is-text-align-right
+                  / = @current_students
+                td.admin-table__item-value.is-text-align-right
+                  / = @retired_students
                 td.admin-table__item-value.is-text-align-center
                   ul.is-inline-buttons
                     li
