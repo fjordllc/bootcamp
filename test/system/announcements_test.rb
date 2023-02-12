@@ -131,7 +131,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせ「タイトルtest」'
 
     visit_with_auth '/announcements', 'komagata'
-    click_on 'タイトルtest'
+    page.find('h2', text: 'タイトルtest').click_on
     accept_confirm do
       click_link '削除'
     end
