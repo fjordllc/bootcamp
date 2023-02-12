@@ -11,6 +11,7 @@ class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
     @announcement = params[:announcement] if params&.key?(:announcement)
     @question = params[:question] if params&.key?(:question)
     @mentionable = params[:mentionable] if params&.key?(:mentionable)
+    @page = params[:page] if params&.key?(:page)
   end
 
   # required params: sender, receiver
@@ -153,6 +154,23 @@ class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
       kind: Notification.kinds[:mentioned]
     )
     subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: page, receiver
+  def create_page(args = {})
+    @receiver ||= args[:receiver]
+    @page ||= args[:page]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/pages/#{@page.id}",
+      kind: Notification.kinds[:create_pages]
+    )
+    subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 

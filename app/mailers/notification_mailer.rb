@@ -96,14 +96,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: subject
   end
 
-  # required params: page, receiver
-  def create_page
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/pages/#{@page.id}")
-    subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
-    mail to: @user.email, subject: subject
-  end
-
   # required params: report, receiver
   def following_report
     @user = @receiver
