@@ -40,6 +40,7 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.save
+      Newspaper.publish(:product_create, @product)
       redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
