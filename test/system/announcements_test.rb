@@ -125,17 +125,17 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     assert has_no_button? '公開'
     click_button '作成'
-    assert_text 'お知らせを作成しました'
+    assert page.has_css?('p.flash__message', text: 'お知らせを作成しました')
 
     visit_with_auth '/notifications', 'hatsuno'
-    assert_text 'お知らせ「タイトルtest」'
+    assert page.has_text? 'お知らせ「タイトルtest」'
 
     visit_with_auth '/announcements', 'komagata'
     page.find('h2', text: 'タイトルtest').click_on
     accept_confirm do
       click_link '削除'
     end
-    assert_text 'お知らせを削除しました'
+    assert page.has_css?('p.flash__message', text: 'お知らせを削除しました')
 
     visit_with_auth '/notifications', 'hatsuno'
     assert_no_text 'お知らせ「タイトルtest」'
