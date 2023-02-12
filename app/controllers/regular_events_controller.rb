@@ -96,21 +96,23 @@ class RegularEventsController < ApplicationController
   end
 
   def set_all_users_to_participants
-    User.students_and_trainees.each do |user|
-      next if @regular_event.regular_event_participations.exists?(user.id)
-
-      @regular_event.regular_event_participations.create(user: user)
-      create_watch(user)
-    end
+    @regular_event.regular_event_participations.create_with(
+      created_at: Time.current,
+      updated_at: Time.current
+    ).insert_all!(students_and_trainees_array_of_hashes) # rubocop:disable Rails::SkipsModelValidations
+    create_watches
   end
 
-  def create_watch(user)
-    return if @regular_event.watched_by?(user)
+  def create_watches
+    Watch.create_with(
+      watchable_type: 'RegularEvent',
+      watchable_id: @regular_event.id,
+      created_at: Time.current,
+      updated_at: Time.current
+    ).insert_all!(students_and_trainees_array_of_hashes) # rubocop:disable Rails::SkipsModelValidations
+  end
 
-    watch = Watch.new(
-      user: user,
-      watchable: @regular_event
-    )
-    watch.save!
+  def students_and_trainees_array_of_hashes
+    User.students_and_trainees.map { |user| { user_id: user.id } }
   end
 end
