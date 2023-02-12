@@ -142,26 +142,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/コメント/, email.body.to_s)
   end
 
-  test 'retired' do
-    user = users(:yameo)
-    admin = users(:komagata)
-    mailer = NotificationMailer.with(
-      sender: user,
-      receiver: admin
-    ).retired
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] yameoさんが退会しました。', email.subject
-    assert_match(/退会/, email.body.to_s)
-  end
-
   test 'trainee_report' do
     report = reports(:report11)
     trainee_report = notifications(:notification_trainee_report)
