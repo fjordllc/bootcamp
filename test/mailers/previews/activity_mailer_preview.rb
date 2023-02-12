@@ -40,4 +40,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(sender: question.user, receiver: receiver, question: question).came_question
   end
+
+  def retired
+    sender = User.find(ActiveRecord::FixtureSet.identify(:yameo))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    ActivityMailer.with(sender: sender, receiver: receiver).retired
+  end
 end
