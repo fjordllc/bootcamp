@@ -3,7 +3,7 @@
   .card-header.is-sm
     h2.card-header__title
       | 直近の日報
-  .card-list__items
+  .card-list__items(v-if='reports.length > 0')
     report(
       v-for='report in reports',
       :key='report.id',
@@ -11,6 +11,13 @@
       :current-user-id='currentUserId',
       :display-user-icon='displayUserIcon'
     )
+  .card-list__message(v-else)
+    .container
+      .o-empty-message
+        .o-empty-message__icon
+           i.fa-regular.fa-sad-tear
+        .o-empty-message__text
+           | 日報はまだありません。
 .page-content.reports(v-else)
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
@@ -38,12 +45,17 @@
       | 日報はまだありません。
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
+
+
+
+
+
 </template>
 <script>
-import Report from 'components/report.vue'
-import UnconfirmedLink from 'unconfirmed_link.vue'
+import Report                 from 'components/report.vue'
+import UnconfirmedLink        from 'unconfirmed_link.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
-import Pager from 'pager.vue'
+import Pager                  from 'pager.vue'
 
 export default {
   name: 'Reports',
@@ -139,7 +151,7 @@ export default {
     async getReports() {
       const response = await fetch(this.reportsAPI, {
         method: 'GET',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
         credentials: 'same-origin',
         redirect: 'manual'
       }).catch((error) => console.warn(error))

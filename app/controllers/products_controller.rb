@@ -10,11 +10,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = find_product
-    @reports = @product.user
-                       .reports
-                       .limit(10)
-                       .includes(:comments, :checks)
-                       .order(reported_on: :DESC)
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @footprints = find_footprints
