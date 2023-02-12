@@ -465,4 +465,44 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert ActionMailer::Base.deliveries.empty?
   end
+
+  test 'create_page' do
+    page = pages(:page4)
+    receiver = users(:hatsuno)
+
+    ActivityMailer.create_page(
+      page: page,
+      receiver: receiver
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 12, link: "/pages/#{page.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['hatsuno@fjord.jp'], email.to
+    assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
+  end
+
+  test 'create_page with params' do
+    page = pages(:page4)
+    receiver = users(:hatsuno)
+
+    mailer = ActivityMailer.with(
+      page: page,
+      receiver: receiver
+    ).create_page
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 12, link: "/pages/#{page.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['hatsuno@fjord.jp'], email.to
+    assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
+  end
 end
