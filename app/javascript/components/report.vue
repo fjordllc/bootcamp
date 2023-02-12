@@ -30,11 +30,11 @@
                 .card-list-item-actions__inner
                   ul.card-list-item-actions__items
                     li.card-list-item-actions__item
-                      a.card-list-item-actions__action(:href='report.editURL')
+                      a.card-list-item-actions__action(:href='report.editPath')
                         i.fa-solid.fa-pen
                         | 内容変更
                     li.card-list-item-actions__item
-                      a.card-list-item-actions__action(:href='report.newURL')
+                      a.card-list-item-actions__action(:href='report.newPath')
                         i.fa-solid.fa-copy
                         | コピー
                   label.a-overlay(:for='report.id')

@@ -5,5 +5,4 @@
 = render 'users/page_tabs', user: @user
 
 .page-body
-  .container.is-md
-    div(data-vue="Reports" data-vue-user-id:number="#{params[:user_id]}")
+  = react_component('Reports', user: @user, currentUser: current_user, practices: @user.practices)
