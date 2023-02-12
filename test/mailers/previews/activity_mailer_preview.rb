@@ -60,4 +60,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(mentionable: mentionable, receiver: receiver).mentioned
   end
+
+  def create_page
+    page = Page.find(ActiveRecord::FixtureSet.identify(:page4))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+
+    ActivityMailer.with(sender: page.user, receiver: receiver, page: page).create_page
+  end
 end
