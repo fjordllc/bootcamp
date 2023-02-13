@@ -83,7 +83,7 @@ module UserDecorator
   end
 
   def long_name
-    "#{login_name} (#{name})"
+    "#{name} (#{name_kana})"
   end
 
   def enrollment_period
