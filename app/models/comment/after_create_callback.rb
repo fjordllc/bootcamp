@@ -28,12 +28,12 @@ class Comment::AfterCreateCallback
 
   def notify_comment(comment)
     commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
-    NotificationFacade.came_comment(
-      comment,
-      comment.receiver,
-      "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
-      "#{commentable_path}#latest-comment"
-    )
+    ActivityDelivery.with(
+      comment: comment,
+      receiver: comment.receiver,
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      link: "#{commentable_path}#latest-comment"
+    ).notify(:came_comment)
   end
 
   def notify_to_watching_user(comment)
@@ -87,12 +87,12 @@ class Comment::AfterCreateCallback
       next if comment.sender == admin_user
 
       commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
-      NotificationFacade.came_comment(
-        comment,
-        admin_user,
-        "#{comment.commentable.user.login_name}さんの相談部屋で#{comment.sender.login_name}さんからコメントが届きました。",
-        "#{commentable_path}#latest-comment"
-      )
+      ActivityDelivery.with(
+        comment: comment,
+        receiver: admin_user,
+        message: "#{comment.commentable.user.login_name}さんの相談部屋で#{comment.sender.login_name}さんからコメントが届きました。",
+        link: "#{commentable_path}#latest-comment"
+      ).notify(:came_comment)
     end
   end
 
