@@ -29,15 +29,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: "[FBC] #{@message}"
   end
 
-  # required params: check
-  def checked
-    @user = @check.receiver
-    link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
-    @notification = @user.notifications.find_by(link: link)
-    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    mail to: @user.email, subject: subject
-  end
-
   # required params: mentionable, receiver
   def mentioned
     @user = @receiver
