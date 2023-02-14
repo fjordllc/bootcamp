@@ -128,11 +128,11 @@ class AnnouncementsTest < ApplicationSystemTestCase
     assert page.has_css?('p.flash__message', text: 'お知らせを作成しました')
 
     visit_with_auth '/notifications', 'hatsuno'
-    assert page.has_text? 'お知らせ「タイトルtest」'
+    assert_text 'お知らせ「タイトルtest」'
 
     visit_with_auth '/announcements', 'komagata'
-    page.find('h2', text: 'タイトルtest').click_on
-    accept_confirm do
+    click_on 'タイトルtest'
+    page.accept_confirm do
       click_link '削除'
     end
     assert page.has_css?('p.flash__message', text: 'お知らせを削除しました')
