@@ -23,9 +23,26 @@
                   - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'
-      - if current_user.belongs_company_and_adviser?
-        .dashboard-contents__col.is-main
-          .dashboard-contents__categories
+      .dashboard-contents__col.is-main
+        .dashboard-contents__categories
+          .dashboard-category
+            header.dashboard-category__header
+              h2.dashboard-category__title
+                | ヘルプ
+            .dashboard-category__body
+              .a-panels
+                .a-panels__items
+                  .a-panels__item
+                    = render 'adviser_help'
+                  .a-panels__item
+                    = render 'adviser_talk'
+                  //
+                    TODO 企業に所属するアドバイザーが企業情報を編集できるようにしたら公開
+                    - if current_user.belongs_company_and_adviser?
+                      .a-panels__item
+                        = render 'adviser_company_edit'
+
+          - if current_user.belongs_company_and_adviser?
             .dashboard-category
               header.dashboard-category__header
                 h2.dashboard-category__title
@@ -43,30 +60,7 @@
                         .a-panels
                           .a-panels__items
                             .a-panels__item
-                              .a-short-text.is-sm
-                                p
-                                  | 現在、#{current_user.company.name}は研修を利用していません。
-                                ul
-                                  li
-                                    | 研修を行う際は、
-                                    = link_to current_user.company.trainee_sign_up_url, class: '' do
-                                      | こちら
-                                    | から研修生をご登録ください。
-                                  li
-                                    | 研修内容や期間などについての
-                                    br
-                                    | お問い合わせは
-                                    = link_to unreplied_index_path(current_user.talk), class: '' do
-                                      | こちら
-                                    | からお願いいたします。
-
-            .dashboard-category
-              header.dashboard-category__header
-                h2.dashboard-category__title
-                  | 招待リンク
-              .dashboard-category__body
-                .a-panels
-                  .a-panels__items
+                                = render 'collegue_trainees_empty'
                     .a-panels__item
                       = render 'invite_trainee_link', company: current_user.company
                     .a-panels__item

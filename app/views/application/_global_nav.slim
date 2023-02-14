@@ -43,7 +43,7 @@ nav.global-nav
                 = Question.not_solved.not_wip.count
             .global-nav-links__link-label Q&A
         li.global-nav-links__item
-          = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help') && current_link(/^pages/)}" do
+          = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help' && @page&.slug != 'help-adviser') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-file
             .global-nav-links__link-label Docs
@@ -57,12 +57,17 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-beer
             .global-nav-links__link-label イベント
-        li.global-nav-links__item
-          - help_link = current_user.adviser? ? '/pages/help-adviser' : '/pages/help'
-          = link_to help_link, class: "global-nav-links__link #{(@page&.slug == 'help') && current_link(/^pages/)}" do
-            .global-nav-links__link-icon
-              i.fa-solid.fa-hands-helping
-            .global-nav-links__link-label ヘルプ
+        - if current_user.admin?
+          li.global-nav-links__item
+            = render 'global_nav_help_link'
+          li.global-nav-links__item
+            = render 'global_nav_help_adviser_link'
+        - elsif current_user.adviser?
+          li.global-nav-links__item
+            = render 'global_nav_help_adviser_link'
+        - else
+          li.global-nav-links__item
+            = render 'global_nav_help_adviser_link'
         li.global-nav-links__item
           = link_to unreplied_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
             .global-nav-links__link-icon
