@@ -11,11 +11,3 @@ campaign2:
   end_at: "2021-03-31 23:59:00"
   title: '二つ前に終了したキャンペーン'
   trial_period: 5
-
-campaign3:
-  start_at: Wed, 01 Jan 2014 00:00:00.000000000 JST +09:00
-  end_at: Wed, 31 Dec 2014 23:59:00.000000000 JST +09:00
-  title: "お試し延長期間のテスト"
-  created_at: Sat, 11 Feb 2023 12:02:58.965327000 JST +09:00
-  updated_at: Sat, 11 Feb 2023 12:02:58.965327000 JST +09:00
-  trial_period: 7

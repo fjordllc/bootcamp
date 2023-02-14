@@ -1,7 +1,6 @@
 campaign1:
-  start_at: Wed, 01 Jan 2014 00:00:00.000000000 JST +09:00
-  end_at: Wed, 31 Dec 2014 23:59:00.000000000 JST +09:00
+  start_at: "2014-01-01 00:00:00"
+  end_at: "2014-12-31 23:59:59"
   title: "お試し延長期間のテスト"
-  created_at: Sat, 11 Feb 2023 12:02:58.965327000 JST +09:00
-  updated_at: Sat, 11 Feb 2023 12:02:58.965327000 JST +09:00
+  created_at: "2013-12-01 00:00:00"
   trial_period: 7
