@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:graduated)' do
-    @params = {
+    params = {
       kind: :graduated,
       body: 'test message',
       sender: users(:kimura),
