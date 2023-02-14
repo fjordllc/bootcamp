@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
+class ActivityMailer < ApplicationMailer
   helper ApplicationHelper
   include Rails.application.routes.url_helpers
 
