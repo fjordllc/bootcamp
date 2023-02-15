@@ -22,12 +22,13 @@ class ActivityMailer < ApplicationMailer
 
     return false unless @receiver.mail_notification? # cancel sending email
 
+    @user = @receiver
     @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:comebacked]
     )
     subject = "[FBC] #{@sender.login_name}さんが休会から復帰しました。"
-    mail to: @receiver.email, subject: subject
+    mail to: @user.email, subject: subject
   end
 
   # required params: sender, receiver
@@ -37,12 +38,13 @@ class ActivityMailer < ApplicationMailer
 
     return false unless @receiver.mail_notification? # cancel sending email
 
+     @user = @receiver
     @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:graduated]
     )
     subject = "[FBC] #{@sender.login_name}さんが卒業しました。"
-    mail to: @receiver.email, subject: subject
+    mail to: @user.email, subject: subject
   end
 
   # required params: answer
@@ -81,13 +83,14 @@ class ActivityMailer < ApplicationMailer
     @receiver ||= args[:receiver]
     @announcement ||= args[:announcement]
 
+    @user = @receiver
     @link_url = notification_redirector_url(
       link: "/announcements/#{@announcement.id}",
       kind: Notification.kinds[:announced]
     )
     subject = "[FBC] お知らせ「#{@announcement.title}」"
-    message = mail to: @receiver.email, subject: subject
-    message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
   end
