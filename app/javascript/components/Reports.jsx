@@ -7,7 +7,7 @@ import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 
-export default function Reports({ user, practices }) {
+export default function Reports({ user, practices = 'none' }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -23,6 +23,7 @@ export default function Reports({ user, practices }) {
   }, [practiceId])
 
   const { data, error } = useSWR(
+    // この行にconpany_idを付け加える？
     `/api/reports.json?user_id=${user.id}&page=${page}&practice_id=${practiceId}`,
     fetcher
   )
@@ -40,21 +41,25 @@ export default function Reports({ user, practices }) {
     <>
       {data.totalPages === 0 && (
         <div className="container is-md">
-          <PracticeFilterDropdown
-            practices={practices}
-            setPracticeId={setPracticeId}
-            practiceId={practiceId}
-          />
+          {practices !== 'none' && (
+            <PracticeFilterDropdown
+              practices={practices}
+              setPracticeId={setPracticeId}
+              practiceId={practiceId}
+            />
+          )}
           <NoReports />
         </div>
       )}
       {data.totalPages > 0 && (
         <div className="container is-md">
-          <PracticeFilterDropdown
-            practices={practices}
-            setPracticeId={setPracticeId}
-            practiceId={practiceId}
-          />
+          {practices !== 'none' && (
+            <PracticeFilterDropdown
+              practices={practices}
+              setPracticeId={setPracticeId}
+              practiceId={practiceId}
+            />
+          )}
           <div className="page-content reports">
             {data.totalPages > 1 && (
               <Pagination
