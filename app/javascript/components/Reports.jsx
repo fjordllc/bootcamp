@@ -7,7 +7,7 @@ import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 
-export default function Reports({ user, currentUser, practices }) {
+export default function Reports({ user, practices }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -72,7 +72,7 @@ export default function Reports({ user, currentUser, practices }) {
                     <Report
                       key={report.id}
                       report={report}
-                      currentUser={currentUser}
+                      currentUserId={report.currentUserId}
                     />
                   )
                 })}
