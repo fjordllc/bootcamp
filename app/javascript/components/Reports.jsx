@@ -7,7 +7,7 @@ import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 
-export default function Reports({ user, practices = 'none' }) {
+export default function Reports({ userId = '', practices = 'none' }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -24,7 +24,7 @@ export default function Reports({ user, practices = 'none' }) {
 
   const { data, error } = useSWR(
     // この行にconpany_idを付け加える？
-    `/api/reports.json?user_id=${user.id}&page=${page}&practice_id=${practiceId}`,
+    `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${practiceId}`,
     fetcher
   )
 
