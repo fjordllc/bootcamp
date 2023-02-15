@@ -1,11 +1,11 @@
 .page-notices__item(data-event-id="#{event.id}" data-event-type="#{event.class}")
   .a-page-notice.page-notice
-    .container.is-lg
+    .container.is-md
       .a-page-notice__inner.has-close
         .a-page-notice__inner-start
           p
             = link_to event, itemprop: 'url', class: 'has-badge' do
-              span.a-badge.is-primary.is-sm
+              span.a-badge.is-primary.is-xs
                 | イベント
               = today_or_tommorow(event)
               = l event.start_at.to_date, format: :md
