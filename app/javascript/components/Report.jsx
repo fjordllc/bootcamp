@@ -1,7 +1,7 @@
 import React from 'react'
 import ListComment from './ListComment'
 
-export default function Report({ report, currentUser }) {
+export default function Report({ report, currentUserId }) {
   return (
     <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
       <div className="card-list-item__inner">
@@ -38,7 +38,7 @@ export default function Report({ report, currentUser }) {
                     {report.title}
                   </a>
                 </h2>
-                {currentUser.id === report.user.id && (
+                {currentUserId === report.user.id && (
                   <ReportListItemActions report={report} />
                 )}
               </div>
