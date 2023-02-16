@@ -25,7 +25,7 @@ class Scheduler::Daily::SendMessageController < SchedulerController
     @komagata = User.find_by(login_name: 'komagata')
 
     User.students.find_each do |student|
-      next unless student.message_send_target?
+      next unless student.followup_message_target?
 
       @komagata.comments.create(
         description: I18n.t('send_message.description'),
