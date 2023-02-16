@@ -15,7 +15,7 @@ class ProductCallbacks
     Cache.delete_unassigned_product_count
   end
 
-  def after_save(product)
+  def after_commit(product)
     update_learning_status product
 
     unless product.wip
