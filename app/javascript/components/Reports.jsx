@@ -24,7 +24,9 @@ export default function Reports({all = false, userId = '', practices = false, un
   }, [userPracticeId])
 
   const { data, error } = useSWR(
-    unchecked
+    practices
+    ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
+    : unchecked
     ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
     : userId !== ''
     ? `/api/reports.json?page=${page}&user_id=${userId}`
@@ -32,8 +34,6 @@ export default function Reports({all = false, userId = '', practices = false, un
     ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
     : companyId !== ''
     ? `/api/reports.json?page=${page}&company_id=${companyId}`
-    : practices
-    ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
     : all === true
     ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
     : console.log('data_fetched!'),
