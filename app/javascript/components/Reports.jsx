@@ -8,7 +8,7 @@ import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({userId = '', practices = 'none', unchecked = false, displayUserIcon = true}) {
+export default function Reports({userId = '', practices = 'none', unchecked = false, displayUserIcon = true, companyId = ''}) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -24,10 +24,9 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
   }, [practiceId])
 
   const { data, error } = useSWR(
-    // この行にconpany_idを付け加える？
     unchecked
-    ? `/api/reports/unchecked.json?user_id=${userId}&page=${page}&practice_id=${practiceId}`
-    : `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${practiceId}`,
+    ? `/api/reports/unchecked.json?user_id=${userId}&page=${page}&practice_id=${practiceId}&company_id=${companyId}`
+    : `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${practiceId}&company_id=${companyId}`,
     fetcher
   )
 
