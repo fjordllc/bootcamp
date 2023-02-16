@@ -51,7 +51,7 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
               practiceId={practiceId}
             />
           )}
-          <NoReports />
+          <NoReports unchecked={unchecked} />
         </div>
       )}
       {data.totalPages > 0 && (
@@ -105,12 +105,14 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
   )
 }
 
-const NoReports = () => {
+const NoReports = ({unchecked}) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
-        <i className="fa-regular fa-face-sad-tear" />
-        <p className="o-empty-message__text">日報はまだありません。</p>
+      {unchecked
+        ? <><i className="fa-regular fa-smile" /><p className="o-empty-message__text">未チェックの日報はありません</p></>
+        : <><i className="fa-regular fa-sad-tear" /><p className="o-empty-message__text">'日報はまだありません'</p></>
+      }
       </div>
     </div>
   )
