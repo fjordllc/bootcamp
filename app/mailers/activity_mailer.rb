@@ -72,7 +72,6 @@ class ActivityMailer < ApplicationMailer
       link: "/products/#{@product.id}",
       kind: Notification.kinds[:submitted]
     )
-    # @notification = @user.notifications.find_by(link: "/products/#{product.id}")
     subject = "[FBC] #{@message}"
     mail to: @user.email, subject: subject
   end
