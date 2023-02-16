@@ -628,9 +628,9 @@ class UserTest < ActiveSupport::TestCase
     nottarget = users(:komagata)
     otameshi = users(:otameshi)
     hibernated = users(:kyuukai)
-    assert target.message_send_target?
-    assert_not nottarget.message_send_target?
-    assert_not otameshi.message_send_target?
-    assert_not hibernated.message_send_target?
+    assert target.followup_message_target?
+    assert_not nottarget.followup_message_target?
+    assert_not otameshi.followup_message_target?
+    assert_not hibernated.followup_message_target?
   end
 end

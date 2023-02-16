@@ -563,7 +563,7 @@ class User < ApplicationRecord
     registration_date.before? twenty_nine_days
   end
 
-  def message_send_target?
+  def followup_message_target?
     current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
   end
 
