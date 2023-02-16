@@ -5,4 +5,6 @@
 = render 'users/page_tabs', user: @user
 
 .page-body
-  = react_component('Reports', userId: @user.id, practices: @user.practices)
+  .container.is-md
+    = react_component('Reports', userId: @user.id, practices: @user.practices)
+  / ここに追加する

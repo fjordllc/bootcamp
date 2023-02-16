@@ -1,22 +1,24 @@
 import React from 'react'
 import ListComment from './ListComment'
 
-export default function Report({ report, currentUserId }) {
+export default function Report({ report, currentUserId, displayUserIcon}) {
   return (
     <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
       <div className="card-list-item__inner">
-        <div className="card-list-item__user">
-          <a href={report.user.url} className="card-list-item__user-link">
-            <span className='["a-user-role", roleClass]'>
-              <img
-                className="card-list-item__user-icon a-user-icon"
-                src={report.user.avatar_url}
-                title={report.user.login_name}
-                alt={report.user.login_name}
-              />
-            </span>
-          </a>
-        </div>
+        {displayUserIcon && (
+          <div className="card-list-item__user">
+            <a href={report.user.url} className="card-list-item__user-link">
+              <span className='["a-user-role", roleClass]'>
+                <img
+                  className="card-list-item__user-icon a-user-icon"
+                  src={report.user.avatar_url}
+                  title={report.user.login_name}
+                  alt={report.user.login_name}
+                />
+              </span>
+            </a>
+          </div>
+        )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <header className="card-list-item-title">
