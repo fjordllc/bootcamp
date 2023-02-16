@@ -1,7 +1,11 @@
 - if defined?(books)
   - books
 
-section.m-medias-media.a-card
+section.m-medias-media.a-card(class="is-#{page}")
+  - if page == 'articles-show'
+    header.card-header.is-sm
+      h2.card-header__title
+        | 著者
   .m-medias-media__col
     .m-media-attributes
       .m-media-attributes__col
