@@ -1,7 +1,7 @@
 import React from 'react'
 import ListComment from './ListComment'
 
-export default function Report({ report, currentUserId, displayUserIcon}) {
+export default function Report({ report, currentUserId, displayUserIcon }) {
   return (
     <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
       <div className="card-list-item__inner">

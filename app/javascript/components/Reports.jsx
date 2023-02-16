@@ -8,7 +8,7 @@ import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = ''}) {
+export default function Reports({ all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = '' }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -96,7 +96,7 @@ export default function Reports({all = false, userId = '', practices = false, un
                 })}
               </div>
             </ul>
-            { unchecked && (
+            {unchecked && (
               <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
             )}
             {data.totalPages > 1 && (
@@ -115,7 +115,7 @@ export default function Reports({all = false, userId = '', practices = false, un
   )
 }
 
-const NoReports = ({unchecked}) => {
+const NoReports = ({ unchecked }) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
