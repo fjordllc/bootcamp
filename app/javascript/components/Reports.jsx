@@ -6,8 +6,9 @@ import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
+import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({ userId = '', practices = 'none' }) {
+export default function Reports({userId = '', practices = 'none', unchecked = false}) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -24,7 +25,9 @@ export default function Reports({ userId = '', practices = 'none' }) {
 
   const { data, error } = useSWR(
     // この行にconpany_idを付け加える？
-    `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${practiceId}`,
+    unchecked
+    ? `/api/reports/unchecked.json?user_id=${userId}&page=${page}&practice_id=${practiceId}`
+    : `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${practiceId}`,
     fetcher
   )
 
@@ -83,6 +86,9 @@ export default function Reports({ userId = '', practices = 'none' }) {
                 })}
               </div>
             </ul>
+            { unchecked && (
+              <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+            )}
             {data.totalPages > 1 && (
               <Pagination
                 sum={data.totalPages * per}
