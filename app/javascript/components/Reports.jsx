@@ -8,25 +8,35 @@ import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({userId = '', practices = 'none', unchecked = false, displayUserIcon = true, companyId = ''}) {
+export default function Reports({all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = ''}) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
-  const [practiceId, setPracticeId] = useState('')
+  const [userPracticeId, setUserPracticeId] = useState('')
 
   useEffect(() => {
     setPage(page)
   }, [page])
 
   useEffect(() => {
-    setPracticeId(practiceId)
-  }, [practiceId])
+    setUserPracticeId(userPracticeId)
+  }, [userPracticeId])
 
   const { data, error } = useSWR(
     unchecked
-    ? `/api/reports/unchecked.json?user_id=${userId}&page=${page}&practice_id=${practiceId}&company_id=${companyId}`
-    : `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${practiceId}&company_id=${companyId}`,
+    ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
+    : userId !== ''
+    ? `/api/reports.json?page=${page}&user_id=${userId}`
+    : practiceId !== ''
+    ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
+    : companyId !== ''
+    ? `/api/reports.json?page=${page}&company_id=${companyId}`
+    : practices
+    ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
+    : all === true
+    ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
+    : console.log('data_fetched!'),
     fetcher
   )
 
@@ -43,11 +53,11 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
     <>
       {data.totalPages === 0 && (
         <div>
-          {practices !== 'none' && (
+          {practices && (
             <PracticeFilterDropdown
               practices={practices}
-              setPracticeId={setPracticeId}
-              practiceId={practiceId}
+              setPracticeId={setUserPracticeId}
+              practiceId={userPracticeId}
             />
           )}
           <NoReports unchecked={unchecked} />
@@ -55,11 +65,11 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
       )}
       {data.totalPages > 0 && (
         <div>
-          {practices !== 'none' && (
+          {practices && (
             <PracticeFilterDropdown
               practices={practices}
-              setPracticeId={setPracticeId}
-              practiceId={practiceId}
+              setPracticeId={setUserPracticeId}
+              practiceId={userPracticeId}
             />
           )}
           <div className="page-content reports">
