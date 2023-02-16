@@ -35,7 +35,6 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     end
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-<<<<<<< HEAD
       ActivityDelivery.with(**params).notify(:graduated)
     end
   end
@@ -102,9 +101,6 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify(:comebacked)
-=======
-      ActivityDelivery.with(**@params).notify(:graduated)
->>>>>>> 7a09e5869 (テストの通知作成数を修正)
     end
   end
 
