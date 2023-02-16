@@ -8,7 +8,7 @@ import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({userId = '', practices = 'none', unchecked = false}) {
+export default function Reports({userId = '', practices = 'none', unchecked = false, displayUserIcon = true}) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -43,7 +43,7 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
   return (
     <>
       {data.totalPages === 0 && (
-        <div className="container is-md">
+        <div>
           {practices !== 'none' && (
             <PracticeFilterDropdown
               practices={practices}
@@ -55,7 +55,7 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
         </div>
       )}
       {data.totalPages > 0 && (
-        <div className="container is-md">
+        <div>
           {practices !== 'none' && (
             <PracticeFilterDropdown
               practices={practices}
@@ -81,6 +81,7 @@ export default function Reports({userId = '', practices = 'none', unchecked = fa
                       key={report.id}
                       report={report}
                       currentUserId={report.currentUserId}
+                      displayUserIcon={displayUserIcon}
                     />
                   )
                 })}

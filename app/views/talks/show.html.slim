@@ -87,3 +87,5 @@
                 div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
                 div(data-vue="Reports" data-vue-user-id:number="#{@user.id}" data-vue-limit="10" data-vue-display-user-icon:boolean="false")
+                = react_component('Reports', userId: @user.id, displayUserIcon: false)
+                / ここに追加する
