@@ -121,7 +121,7 @@ const NoReports = ({unchecked}) => {
       <div className="o-empty-message__icon">
       {unchecked
         ? <><i className="fa-regular fa-smile" /><p className="o-empty-message__text">未チェックの日報はありません</p></>
-        : <><i className="fa-regular fa-sad-tear" /><p className="o-empty-message__text">'日報はまだありません'</p></>
+        : <><i className="fa-regular fa-sad-tear" /><p className="o-empty-message__text">'日報はまだありません。'</p></>
       }
       </div>
     </div>
