@@ -5,22 +5,28 @@
   border-bottom: solid 1px $border-tint
   +border-radius(top, .25rem)
   padding: .88em 1.33em
-  font-size: 1.125rem
-  +media-breakpoint-down(sm)
-    font-size: 1rem
 
 .retire-message__title
-  +text-block(1em 1.4, center)
+  text-align: center
+  +media-breakpoint-up(md)
+    +text-block(1.125rem 1.4)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.4)
 
 .retire-message__body
   padding: 1.25em 1.5em
-  font-size: 1rem
+  +media-breakpoint-up(md)
+    font-size: 1rem
+    p
+      +text-block(1rem 1.6)
+      &:not(:last-child)
+        margin-bottom: 1rem
   +media-breakpoint-down(sm)
     font-size: .875rem
-  p
-    +text-block(1em 1.6 0 1em)
-    &:last-child
-      margin-bottom: 0
+    p
+      +text-block(.875rem 1.6)
+      &:not(:last-child)
+        margin-bottom: .875rem
   strong
     font-weight: 600
     display: inline-block

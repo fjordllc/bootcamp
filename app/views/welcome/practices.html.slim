@@ -1,22 +1,22 @@
 - title '学習内容'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 
-.welcome-page-header
-  .container.is-xxl
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
+.lp-page-header
+  .l-container.is-xxl
+    .lp-page-header__inner
+      h1.lp-page-header__title
         = title
 
-section.welcome-section
-  .container.is-xl
-    .welcome-small-sections
+section.lp-section
+  .l-container.is-xl
+    .lp-small-sections
       .row.is-gutter-widtd-32
         - @categories.each do |category|
           - if category.practices.present?
             .col-xs-12.col-md-4
-              .welcome-small-section
-                h3.welcome-small-section__title = category.name
-                table.welcome-table.a-card
+              .lp-small-section
+                h3.lp-small-section__title = category.name
+                table.practices-table.a-card
                   - category.practices.each do |practice|
                     tr
                       td = practice.title

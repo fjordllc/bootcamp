@@ -1,0 +1,47 @@
+$base-size: .25rem
+$size-count: 20
+$rem: strip_unit($rem)
+
+=generate-margin($breakpoint-scope: false, $base-size: $base-size, $size-count: $size-count)
+  @for $i from 0 through $size-count
+    $px: strip_unit($i * $base-size * $rem)
+    $margin: $i * $base-size
+    @if $breakpoint-scope == false
+      .u-m-#{$px}#{if($px != 0, px, null)}
+        margin: $margin
+      .u-mt-#{$px}#{if($px != 0, px, null)}
+        margin-top: $margin
+      .u-mr-#{$px}#{if($px != 0, px, null)}
+        margin-right: $margin
+      .u-mb-#{$px}#{if($px != 0, px, null)}
+        margin-bottom: $margin
+      .u-ml-#{$px}#{if($px != 0, px, null)}
+        margin-left: $margin
+      .u-mt-vr-#{$i}
+        margin-top: vr($i)
+      .u-mb-vr-#{$i}
+        margin-bottom: vr($i)
+    @else
+      .#{$breakpoint-scope}\:u-m-#{$px}#{if($px != 0, px, null)}
+        margin: $margin
+      .#{$breakpoint-scope}\:u-mt-#{$px}#{if($px != 0, px, null)}
+        margin-top: $margin
+      .#{$breakpoint-scope}\:u-mr-#{$px}#{if($px != 0, px, null)}
+        margin-right: $margin
+      .#{$breakpoint-scope}\:u-mb#{$px}#{if($px != 0, px, null)}
+        margin-bottom: $margin
+      .#{$breakpoint-scope}\:u-ml#{$px}#{if($px != 0, px, null)}
+        margin-left: $margin
+      .#{$breakpoint-scope}\:u-mt-vr-#{$i}
+        margin-top: vr($i)
+      .#{$breakpoint-scope}\:u-mb-vr-#{$i}
+        margin-bottom: vr($i)
+
++generate-margin(false)
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    +generate-margin($breakpoint)
+  +media-breakpoint-down(#{$breakpoint})
+    +generate-margin($breakpoint + "-down")
+  +media-breakpoint-up(#{$breakpoint})
+    +generate-margin($breakpoint + "-up")

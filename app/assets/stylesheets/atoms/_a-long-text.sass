@@ -1,5 +1,10 @@
 .a-long-text
   +long-text-style(1em, 1em)
+  &.is-lg
+    +media-breakpoint-up(md)
+      font-size: 1rem
+    +media-breakpoint-down(sm)
+      font-size: .875rem
   &.is-md
     +media-breakpoint-up(md)
       font-size: .9375rem

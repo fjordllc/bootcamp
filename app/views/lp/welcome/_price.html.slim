@@ -1,0 +1,37 @@
+section.m-lp-content.is-pricing#pricing
+  .m-lp-content__inner
+    .l-container.is-xxl
+      .m-lp-content__header
+        h2.m-lp-content__title
+          | 料金
+        .m-lp-content__sub-title
+          | 入会金無し・安心の月額課金
+      .m-lp-content__body
+        .m-lp-content__row
+          .a-lg-price
+            .a-lg-price__inner
+              .a-lg-price__time
+                | 月額
+              .a-lg-price__unit
+                i.fas.fa-yen-sign
+              .a-lg-price__number
+                | 29<span>,</span>800
+              .a-lg-price__tax
+                | 税込
+        .m-lp-content__row
+          .o-lp-features
+            .m-lp-content__row
+              .l-container
+                .l-grids
+                  .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+                    = render '/lp/welcome/pricing/pricing_1'
+                  .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+                    = render '/lp/welcome/pricing/pricing_2'
+                  .l-grids__item.md-up:u-col-4.sm-down:u-col-12
+                    = render '/lp/welcome/pricing/pricing_3'
+        .m-lp-content__row
+          .m-horizontal-buttons
+            .m-horizontal-buttons__items
+              .m-horizontal-buttons__item
+                = link_to pricing_path, class: 'a-button is-lg is-primary is-block' do
+                  | 料金についてくわしく

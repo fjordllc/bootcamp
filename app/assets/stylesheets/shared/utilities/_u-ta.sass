@@ -1,0 +1,14 @@
+$aligns: left, center, right, justify
+@each $align in $aligns
+  .u-ta-#{$align}
+    text-align: $align
+  @each $breakpoint in map-keys($grid-breakpoints)
+    +media-breakpoint-only(#{$breakpoint})
+      .#{$breakpoint}\:u-ta-#{$align}
+        text-align: $align
+    +media-breakpoint-down(#{$breakpoint})
+      .#{$breakpoint}-down\:u-ta-#{$align}
+        text-align: $align
+    +media-breakpoint-up(#{$breakpoint})
+      .#{$breakpoint}-up\:u-ta-#{$align}
+        text-align: $align

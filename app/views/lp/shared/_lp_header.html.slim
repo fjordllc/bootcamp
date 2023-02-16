@@ -1,0 +1,52 @@
+header.lp-header
+  .l-container.is-xxl
+    .lp-header__inner
+      .lp-header__home
+        = link_to welcome_path, class: 'lp-header__home-link' do
+          = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'lp-header__home-link-image')
+
+      label.lp-header__mobile-nav-trigger(for='welcome-mobile-nav')
+        i.fa-solid.fa-bars
+      input.a-toggle-checkbox#welcome-mobile-nav(type='checkbox')
+      nav.lp-header-nav
+        ul.lp-header-nav__items
+          li.lp-header-nav__item
+            = link_to practices_path, class: 'lp-header-nav__item-link' do
+              span
+                | 学習内容
+          li.lp-header-nav__item
+            = link_to pricing_path, class: 'lp-header-nav__item-link' do
+              span
+                | 料金
+          li.lp-header-nav__item
+            = link_to training_path, class: 'lp-header-nav__item-link' do
+              span
+                | 法人利用
+          li.lp-header-nav__item
+            = link_to articles_path, class: 'lp-header-nav__item-link' do
+              span
+                | ブログ
+          li.lp-header-nav__item
+            = link_to faq_path, class: 'lp-header-nav__item-link' do
+              span
+                | FAQ
+          - unless current_user
+            li.lp-header-nav__item
+              = link_to new_user_path, class: 'lp-header-nav__item-link' do
+                | 参加登録
+          li.lp-header-nav__item.is-hidden-md-up
+            - if current_user
+              = link_to course_practices_path(current_user.course), class: 'lp-header-nav__item-link' do
+                | プラクティス
+            - else
+              = link_to login_path, class: 'lp-header-nav__item-link' do
+                | ログイン
+
+        label.lp-header-nav__overlay(for='welcome-mobile-nav')
+      .lp-header__login
+        - if current_user
+          = link_to course_practices_path(current_user.course), class: 'lp-header__login-link' do
+            | プラクティス
+        - else
+          = link_to login_path, class: 'lp-header__login-link' do
+            | ログイン

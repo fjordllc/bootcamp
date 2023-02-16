@@ -1,0 +1,18 @@
+.m-lp-content
+  .l-container
+    .m-lp-content__inner
+      .m-lp-content__header
+        h2.m-lp-content__title
+          | メンター・顧問が
+          br
+          | 全力でバックアップ
+        h3.m-lp-content__sub-title
+          | 全員現役プログラマー、自慢のメンバーです
+      .m-lp-content__body
+        .o-lp-mentors
+          .m-lp-content__row
+            .l-masonry.js-masonry
+              - @mentors.each do |mentor|
+                - if mentor.profile_image && mentor.profile_name && mentor.profile_job && mentor.profile_text
+                  .l-masonry__item.js-masonry__item
+                    = render '/lp/welcome/mentor', mentor: mentor

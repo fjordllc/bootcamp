@@ -1,0 +1,19 @@
+.lp-section.is-campaign
+  +padding(vertical, 2rem)
+  background-color: #f26882
+  background-image: image_url('welcome/campaign.svg')
+  background-repeat: repeat
+  background-size: 20rem
+  color: $reversal-text
+  .lp-section__title
+    +media-breakpoint-up(md)
+      br
+        display: none
+    +media-breakpoint-down(sm)
+      font-size: 1.5rem
+      margin-bottom: .25rem
+  .em
+    font-style: normal
+    font-weight: 800
+    &.is-danger
+      color: $warning

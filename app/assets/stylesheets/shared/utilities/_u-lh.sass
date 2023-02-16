@@ -1,0 +1,26 @@
+$base-height: .25rem
+$line-count: 20
+$rem: strip_unit($rem)
+
+=generate-line-height($breakpoint-scope: false, $base-height: $base-height, $line-count: $line-count)
+  @for $i from 0 through $line-count
+    $px: strip_unit($i * $base-height * $rem)
+    @if $breakpoint-scope == false
+      .u-lh-#{$px}#{if($px != 0, px, null)}
+        line-height: $i * $base-height
+      .u-lh-vr-#{$i}
+        line-height: vr($i)
+    @else
+      .#{$breakpoint-scope}\:u-lh-#{$px}#{if($px != 0, px, null)}
+        line-height: $i * $base-height
+      .#{$breakpoint-scope}\:u-lh-vr-#{$i}
+        line-height: vr($i)
+
++generate-line-height(false)
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    +generate-line-height($breakpoint)
+  +media-breakpoint-down(#{$breakpoint})
+    +generate-line-height($breakpoint + "-down")
+  +media-breakpoint-up(#{$breakpoint})
+    +generate-line-height($breakpoint + "-up")

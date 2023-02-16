@@ -1,0 +1,18 @@
+.a-left-bold-border
+  position: relative
+  +media-breakpoint-up(md)
+    padding-left: vr(9)
+  +media-breakpoint-down(sm)
+    padding-left: vr(6)
+  &::before
+    content: ''
+    display: block
+    height: 100%
+    border-radius: 2px
+    +position(absolute, left 0, top 0, bottom 0)
+    background-color: $main
+    background-image: linear-gradient( 109.6deg,  rgba(62,161,219,1) 11.2%, $main 100.2% )
+    +media-breakpoint-up(md)
+      width: vr(3)
+    +media-breakpoint-down(sm)
+      width: vr(2)

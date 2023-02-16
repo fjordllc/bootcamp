@@ -31,7 +31,6 @@
     &:hover
       background-color: $background-more-tint
       color: $semi-muted-text
-
   &.is-sm-text
     span
       font-size: .875em
@@ -54,6 +53,24 @@
     +muted-link
     height: auto !important
     padding: 0 !important
+
+  // 3d-color
+  &.is-3d-primary
+    +button-3d-color($primary)
+  &.is-3d-secondary
+    +button-3d-color($secondary)
+  &.is-3d-info
+    +button-3d-color($info)
+  &.is-3d-success
+    +button-3d-color($success)
+  &.is-3d-warning
+    +button-3d-color($warning)
+  &.is-3d-danger
+    +button-3d-color($danger)
+  &.is-3d-disabled
+    +button-3d-color($disabled)
+    pointer-events: none
+
 
   //size
   &.is-xxs,

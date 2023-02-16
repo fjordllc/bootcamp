@@ -1,0 +1,52 @@
+section.lp-child-section.is-conditions
+  .lp-small-sections.is-conditions
+    h3.lp-small-sections__title
+      = image_tag('warning.svg', alt: '注意！', class: 'lp-small-sections__title-icon')
+      | ただし、以下の条件があります！！
+    .row.is-gutter-width-32
+      .col-xs-12.col-md-3
+        section.lp-small-section
+          .lp-small-section__inner.a-card
+            = image_tag('card.svg', class: 'lp-small-section__icon')
+            h3.lp-small-section__title
+              | クレジットカードで<br>料金の支払いができる
+            .lp-small-section__description
+              p
+                | 料金の支払いにはクレジットカードが必要です。なので、料金の支払いができるクレジットカードを持っていることが必須条件になります。クレジットカードは、Visa、Mastercard、American Express、Discover、Diners Club、JCB が使えます。
+
+      .col-xs-12.col-md-3
+        section.lp-small-section
+          .lp-small-section__inner.a-card
+            = image_tag('my-mac.svg', class: 'lp-small-section__icon')
+            h3.lp-small-section__title
+              | 自分のパソコンを<br>用意できる
+            .lp-small-section__description
+              p
+                | Mac、Windows、LinuxそれぞれのOSで受講することができます。しかし、それぞれで最新のOSが動く必要があります。詳しい要件、おすすめのOSについては下記を参照してください。
+            .lp-small-section__actions
+              .lp-small-section__actions-items
+                .lp-small-section__actions-item
+                  = link_to '受講できるパソコンの要件',
+                    'https://bootcamp.fjord.jp/articles/32',
+                    class: 'a-button is-md is-primary is-block',
+                    target: '_blank', rel: 'noopener'
+      .col-xs-12.col-md-3
+        section.lp-small-section
+          .lp-small-section__inner.a-card
+            = image_tag('book.svg', class: 'lp-small-section__icon')
+            h3.lp-small-section__title
+              | 必要な教材・機材を<br>購入できる
+            .lp-small-section__description
+              p
+                | カリキュラムの中で書籍が必要なものがあります。書籍代として、大体1万5000円くらいの費用がかかります。
+                | また、学習の課題の中でビデオチャットを使うものもあります。なので、カメラが付いてない Mac で参加をする場合は、外付けの Web カメラとマイクを購入する必要があります。
+      .col-xs-12.col-md-3
+        section.lp-small-section
+          .lp-small-section__inner.a-card
+            = image_tag('book.svg', class: 'lp-small-section__icon')
+            h3.lp-small-section__title
+              | 必要な教材・機材を<br>購入できる
+            .lp-small-section__description
+              p
+                | カリキュラムの中で書籍が必要なものがあります。書籍代として、大体1万5000円くらいの費用がかかります。
+                | また、学習の課題の中でビデオチャットを使うものもあります。なので、カメラが付いてない Mac で参加をする場合は、外付けの Web カメラとマイクを購入する必要があります。

@@ -1,0 +1,30 @@
+footer.lp-footer
+  .container.is-xxl
+    nav.lp-footer__nav
+      ul.lp-footer__nav-items
+        li.lp-footer__nav-item
+          = link_to root_path, class: 'lp-footer__nav-item-link' do
+            | フィヨルドブートキャンプ
+        li.lp-footer__nav-item
+          = link_to tos_path, class: 'lp-footer__nav-item-link' do
+            | 利用規約
+        li.lp-footer__nav-item
+          = link_to pp_path, class: 'lp-footer__nav-item-link' do
+            | プライバシーポリシー
+        li.lp-footer__nav-item
+          = link_to law_path, class: 'lp-footer__nav-item-link' do
+            | 特定商取引法に基づく表記
+        li.lp-footer__nav-item
+          = link_to 'https://fjord.jp', class: 'lp-footer__nav-item-link', target: '_blank', rel: 'noopener' do
+            | 運営会社
+        li.lp-footer__nav-item
+          = link_to coc_path, class: 'lp-footer__nav-item-link' do
+            | アンチハラスメントポリシー
+        li.lp-footer__nav-item
+          = link_to new_comeback_path, class: 'lp-footer__nav-item-link' do
+            | 休会からの復帰
+    small.lp-footer-copyright
+      i.fa-regular.fa-copyright
+      span.lp-footer-copyright__author
+        = link_to 'Fjord Inc.', 'https://fjord.jp', target: '_blank', rel: 'noopener', class: 'lp-footer-copyright__author-link'
+      | 2012 - #{Date.current.year}

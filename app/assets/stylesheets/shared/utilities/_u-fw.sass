@@ -1,0 +1,24 @@
+$min-weight: 100
+$max-weight: 900
+
+@for $i from ($min-weight / 100) through ($max-weight / 100)
+  .u-fw-#{$i * 100}
+    font-weight: $i * 100
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    @for $i from ($min-weight / 100) through ($max-weight / 100)
+      .#{$breakpoint}\:u-fw-#{$i * 100}
+        font-weight: $i * 100
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-down(#{$breakpoint})
+    @for $i from ($min-weight / 100) through ($max-weight / 100)
+      .#{$breakpoint}-down\:u-fw-#{$i * 100}
+        font-weight: $i * 100
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-up(#{$breakpoint})
+    @for $i from ($min-weight / 100) through ($max-weight / 100)
+      .#{$breakpoint}-up\:u-fw-#{$i * 100}
+        font-weight: $i * 100

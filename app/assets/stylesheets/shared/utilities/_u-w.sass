@@ -1,0 +1,31 @@
+$base-size: .25rem
+$size-count: 20
+$rem: strip_unit($rem)
+
+=generate-width($breakpoint-scope: false, $base-size: $base-size, $size-count: $size-count)
+  @for $i from 0 through $size-count
+    $px: strip_unit($i * $base-size * $rem)
+    $width: $i * $base-size
+    @if $breakpoint-scope == false
+      .u-w-#{$px}#{if($px != 0, px, null)}
+        width: #{$width}
+      .u-maw-#{$px}#{if($px != 0, px, null)}
+        max-width: #{$width}
+      .u-miw-#{$px}#{if($px != 0, px, null)}
+        min-width: #{$width}
+    @else
+      .#{$breakpoint-scope}\:u-w-#{$px}#{if($px != 0, px, null)}
+        width: #{$width}
+      .#{$breakpoint-scope}\:u-maw-#{$px}#{if($px != 0, px, null)}
+        max-width: #{$width}
+      .#{$breakpoint-scope}\:u-miw-#{$px}#{if($px != 0, px, null)}
+        min-width: #{$width}
+
++generate-width(false)
+@each $breakpoint in map-keys($grid-breakpoints)
+  +media-breakpoint-only(#{$breakpoint})
+    +generate-width($breakpoint)
+  +media-breakpoint-down(#{$breakpoint})
+    +generate-width($breakpoint + "-down")
+  +media-breakpoint-up(#{$breakpoint})
+    +generate-width($breakpoint + "-up")

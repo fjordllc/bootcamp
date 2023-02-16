@@ -93,6 +93,36 @@
     pointer-events: none
     border-color: shade($color, 6%)
 
+=button-3d-color($color)
+  $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  $border-color: shade($color, 10%)
+  $gradient-depth: 15%
+  $shadow-size: .125em
+  text-shadow: 0 1px 0 rgba(white, .1)
+  color: $text-color
+  border-color: if(luma($color) > 80, shade($color, 18%), tint($border-color, $gradient-depth) $border-color shade($color, 37%))
+  background-color: $color
+  box-shadow: shade($color, 36%) 0 $shadow-size 0 0, rgba(black, .4) 0 $shadow-size .3125em
+  @if $color != $disabled
+    background-image: linear-gradient(tint($color, $gradient-depth), shade($color, $gradient-depth))
+    &:hover,
+    &:focus,
+    &:active
+      $button-color: tint($color, 20%)
+      $border-color: shade($button-color, 10%)
+      background-color: $button-color
+      background-image: linear-gradient(tint($button-color, $gradient-depth), shade($button-color, $gradient-depth))
+      border-color: if(luma($color) > 80, shade($color, 24%), tint($border-color, $gradient-depth) $border-color shade($border-color, 37%))
+      box-shadow: shade($button-color, 36%) 0 $shadow-size 0 0, rgba(black, .4) 0 $shadow-size .3125em
+    &:active
+      $button-color: tint($color, 20%)
+      +position(relative, top .09375em)
+      box-shadow: shade($button-color, 36%) 0 calc(#{$shadow-size} / 2) 0 0, rgba(black, .4) 0 calc(#{$shadow-size} / 2) .3125em
+  &.is-disabled,
+  &:disabled
+    color: rgba($text-color, .4)
+    pointer-events: none
+    border-color: shade($color, 6%)
 
 =button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size

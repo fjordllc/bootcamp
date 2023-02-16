@@ -3,37 +3,24 @@
 - content_for :head_last do
   = javascript_include_tag 'https://sdk.form.run/js/v2/formrun.js'
 
-= render 'welcome/main_visual'
+= render '/lp/welcome/main_visual'
 //= render 'welcome/welcome_top_info'
-
-.welcome-sections
-  = render 'welcome/campaign' if Campaign.today_campaign?
-  = render 'welcome/about'
-  = render 'welcome/pricing'
-  = render 'welcome/tutorials'
-  = render 'welcome/eligibility'
-  = render 'welcome/process'
-
-  section.welcome-section.is-substance
-    .container.is-xxl
-      h2.welcome-section__title
-        | フィヨルドブートキャンプの<br>中身を見てみよう！
-      .welcome-section__description
-        p
-          | 実際にどうやって学習を進めるの？
-          | 学習アプリってどんな画面？
-          | わからないときはどうやって質問するの？
-          | どんなイベントが開催されてる？
-          | 学習アプリを受講者が開発してるって本当？
-          | ...などについて書いています。
-          | これを読めば、フィヨルドブートキャンプに入会するとどんなことが
-          | 待っているかわかりますので、ぜひ見てみてください。
-      .welcome-section__actions
-        .welcome-section__actions-items
-          .welcome-section__actions-item
-            = link_to article_path(34), class: 'a-welcome-button is-md' do
-              | 中身を見てみる
-
-  = render 'welcome/articles'
-  hr.welcome-section__seperator
-  = render 'welcome/administrator', mentors: @mentors
+- if Campaign.today_campaign?
+  = render '/lp/welcome/campaign'
+  hr.a-hr-border
+.t-lp__contents
+  = render '/lp/welcome/plus_strength'
+  hr.a-hr-border
+  = render '/lp/welcome/features'
+  hr.a-hr-border
+  = render '/lp/welcome/price'
+  hr.a-hr-border
+  = render '/lp/welcome/practices'
+  hr.a-hr-border
+  = render '/lp/welcome/eligibility'
+  hr.a-hr-border
+  = render '/lp/welcome/lerning_procedure'
+  hr.a-hr-border
+  = render '/lp/welcome/articles'
+  hr.a-hr-border
+  = render '/lp/welcome/mentors'

@@ -11,15 +11,15 @@ ruby:
     set_meta_tags(twitter: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
   end
 
-.welcome-page-header
-  .container.is-xxl
-    .welcome-page-header__inner
-      .welcome-page-header__title
+.lp-page-header
+  .l-container.is-xxl
+    .lp-page-header__inner
+      .lp-page-header__title
         | ブログ
 
-.welcome-section
+.lp-section
   .article
-    .container.is-xxl
+    .l-container.is-xxl
       .row.is-gutter-width-32
         .col-xl-8.col-lg-8.col-xs-12
           .a-card.article__inner
@@ -57,6 +57,6 @@ ruby:
                       = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'a-button is-secondary is-md is-block' do
                         | 削除
         .col-xl-4.col-lg-4.col-xs-12
-          = render 'welcome/mentor', mentor: @mentor, page: 'articles-show'
+          = render 'lp/welcome/mentor', mentor: @mentor, page: 'articles-show'
           = render 'recent_articles'
           = render 'ad'
