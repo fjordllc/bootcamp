@@ -35,7 +35,7 @@ regular_event_repeat_rule7:
 
 regular_event_repeat_rule8:
   frequency: 0
-  day_of_the_week: <%= Date.today.wday %>
+  day_of_the_week: <%= Date.current.wday %>
   regular_event: regular_event8
 
 regular_event_repeat_rule9:
