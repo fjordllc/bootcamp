@@ -1,0 +1,14 @@
+- content_for :extra_body_classes, 'no-header no-footer no-global-nav'
+
+.auth-form
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title 閲覧権限がありません
+    .auth-form__body
+      div ブートキャンプに登録するかログインしてください
+
+      ul.auth-form-nav__items
+          li.auth-form-nav__item
+            = link_to '登録はこちら', new_user_path
+          li.auth-form-nav__item
+            = link_to 'ログインはこちら', login_path
