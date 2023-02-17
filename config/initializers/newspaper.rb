@@ -48,4 +48,6 @@ Rails.configuration.to_prepare do
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
   Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
+
+  Newspaper.subscribe(:retirement_create, UserRetirement.new)
 end
