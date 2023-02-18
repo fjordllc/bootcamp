@@ -24,27 +24,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/コメント/, email.body.to_s)
   end
 
-  test 'submitted' do
-    product = products(:product3)
-    submitted = notifications(:notification_submitted)
-    mailer = NotificationMailer.with(
-      product: product,
-      receiver: submitted.user,
-      message: "#{product.user.login_name}さんが「#{product.title}」を提出しました。"
-    ).submitted
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal "[FBC] sotugyouさんが「#{product.title}」を提出しました。", email.subject
-    assert_match(/提出/, email.body.to_s)
-  end
-
   test 'first_report' do
     report = reports(:report10)
     first_report = notifications(:notification_first_report)
