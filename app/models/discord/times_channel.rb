@@ -2,15 +2,12 @@
 
 module Discord
   class TimesChannel
-    class_attribute :category_id, instance_reader: false
+    include ActiveSupport::Configurable
+    config_accessor :category_id, instance_accessor: false
 
     class << self
       def to_channel_name(username)
         username.downcase
-      end
-
-      def category_id
-        @category_id || ENV['DISCORD_TIMES_CHANNEL_CATEGORY_ID'].presence
       end
     end
 

@@ -2,11 +2,10 @@
 
 module Discord
   class Server
-    TOKEN_PREFIX_SIZE = 4
+    include ActiveSupport::Configurable
+    config_accessor :guild_id, :authorize_token, instance_accessor: false
 
     class << self
-      class_attribute :guild_id, :authorize_token, instance_reader: false
-
       def create_text_channel(name:, parent: nil)
         guild = Discord::Server.find_by(id: guild_id, token: authorize_token)
         return nil if guild.blank?
@@ -16,14 +15,6 @@ module Discord
       rescue Discordrb::Errors::CodeError => e
         log_error(e)
         nil
-      end
-
-      def guild_id
-        @guild_id || ENV['DISCORD_GUILD_ID'].presence
-      end
-
-      def authorize_token
-        @authorize_token || "Bot #{ENV['DISCORD_BOT_TOKEN']}"
       end
 
       def find_by(id:, token:)
@@ -40,7 +31,7 @@ module Discord
       end
 
       def enabled?
-        guild_id && authorize_token.size > TOKEN_PREFIX_SIZE
+        guild_id && authorize_token
       end
 
       private

@@ -5,8 +5,8 @@ require 'test_helper'
 module Discord
   class TimesChannelTest < ActiveSupport::TestCase
     setup do
-      @category_id = ENV['DISCORD_TIMES_CHANNEL_CATEGORY_ID']
-      ENV['DISCORD_TIMES_CHANNEL_CATEGORY_ID'] = nil
+      @category_id = Discord::TimesChannel.category_id
+      Discord::TimesChannel.category_id = nil
 
       @stub_create_text_channel = lambda { |name:, parent:|
         Discordrb::Channel.new({
@@ -18,7 +18,7 @@ module Discord
     end
 
     teardown do
-      ENV['DISCORD_TIMES_CHANNEL_CATEGORY_ID'] = @category_id
+      Discord::TimesChannel.category_id = @category_id
     end
 
     test '#save return true' do

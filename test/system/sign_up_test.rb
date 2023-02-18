@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class SignUpTest < ApplicationSystemTestCase
   setup do
     @bot_token = Discord::Server.authorize_token
-    Discord::Server.authorize_token = 'skip'
+    Discord::Server.authorize_token = nil
   end
 
   teardown do
