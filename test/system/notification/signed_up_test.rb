@@ -8,7 +8,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = :normal
 
     @bot_token = Discord::Server.authorize_token
-    Discord::Server.authorize_token = 'skip'
+    Discord::Server.authorize_token = nil
   end
 
   teardown do

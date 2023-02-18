@@ -99,26 +99,14 @@ module Discord
     test '.enabled?' do
       Discord::Server.guild_id = '1234567890123456789'
       Discord::Server.authorize_token = 'Bot valid token'
-      ENV['DISCORD_GUILD_ID'] = nil
-      ENV['DISCORD_BOT_TOKEN'] = nil
       assert Discord::Server.enabled?
 
       Discord::Server.guild_id = nil
       Discord::Server.authorize_token = nil
-      ENV['DISCORD_GUILD_ID'] = '1234567890123456789'
-      ENV['DISCORD_BOT_TOKEN'] = 'Bot valid token'
-      assert Discord::Server.enabled?
-
-      Discord::Server.guild_id = nil
-      Discord::Server.authorize_token = nil
-      ENV['DISCORD_GUILD_ID'] = nil
-      ENV['DISCORD_BOT_TOKEN'] = nil
       assert_not Discord::Server.enabled?
 
       Discord::Server.guild_id = nil
       Discord::Server.authorize_token = 'skip'
-      ENV['DISCORD_GUILD_ID'] = nil
-      ENV['DISCORD_BOT_TOKEN'] = nil
       assert_not Discord::Server.enabled?
     end
   end
