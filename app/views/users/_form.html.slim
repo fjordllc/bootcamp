@@ -49,12 +49,6 @@
   - if from == :new && user.student?
     = render 'users/form/card'
 
-  - if (admin_login? && user.trainee?) || user.trainee?
-    .form__items.js-training-info-block
-      h3.form__items-title 研修情報
-      = render 'users/form/training_end', f: f
-      = render 'users/form/company', f: f, user: user
-
   - if user.mentor?
     .form__items
       h3.form__items-title メンター紹介用公開プロフィール
@@ -115,6 +109,12 @@
             li
               = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank', rel: 'noopener' do
                 | GitHub設定
+
+  - if (admin_login? && user.current_student?) || user.trainee?
+    .form__items.js-training-info-block
+      h3.form__items-title 研修情報
+      = render 'users/form/training_end', f: f
+      = render 'users/form/company', f: f, user: user
 
   - if from == :new
     .form__items
