@@ -4,7 +4,7 @@
 
 .page-body
   .container.is-md
-    div(data-vue="Reports" data-vue-user-id:number="#{current_user.id}")
+    = react_component('Reports', userId: current_user.id)
     - if current_user.reports.present?
       .form-actions
         ul.form-actions__items

@@ -1,22 +1,13 @@
 import React from 'react'
 import ListComment from './ListComment'
 
-export default function Report({ report, currentUser }) {
+export default function Report({ report, currentUserId, displayUserIcon }) {
   return (
     <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
       <div className="card-list-item__inner">
-        <div className="card-list-item__user">
-          <a href={report.user.url} className="card-list-item__user-link">
-            <span className='["a-user-role", roleClass]'>
-              <img
-                className="card-list-item__user-icon a-user-icon"
-                src={report.user.avatar_url}
-                title={report.user.login_name}
-                alt={report.user.login_name}
-              />
-            </span>
-          </a>
-        </div>
+        {displayUserIcon && (
+          <DisplayUserIcon report={report} />
+        )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <header className="card-list-item-title">
@@ -38,7 +29,7 @@ export default function Report({ report, currentUser }) {
                     {report.title}
                   </a>
                 </h2>
-                {currentUser.id === report.user.id && (
+                {currentUserId === report.user.id && (
                   <ReportListItemActions report={report} />
                 )}
               </div>
@@ -72,6 +63,23 @@ export default function Report({ report, currentUser }) {
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+const DisplayUserIcon = ({ report }) => {
+  return (
+    <div className="card-list-item__user">
+      <a href={report.user.url} className="card-list-item__user-link">
+        <span className='["a-user-role", roleClass]'>
+          <img
+            className="card-list-item__user-icon a-user-icon"
+            src={report.user.avatar_url}
+            title={report.user.login_name}
+            alt={report.user.login_name}
+          />
+        </span>
+      </a>
     </div>
   )
 }
