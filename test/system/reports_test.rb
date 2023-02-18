@@ -455,10 +455,8 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'display recently reports' do
     visit_with_auth report_path(reports(:report10)), 'mentormentaro'
-    within first('.side-tabs .card-list-item') do
-      assert_selector 'img[alt="happy"]'
-      assert_text '今日は頑張りました'
-    end
+    assert_selector 'img[alt="happy"]'
+    assert_text '今日は頑張りました'
   end
 
   test 'display list of submission when mentor is access' do

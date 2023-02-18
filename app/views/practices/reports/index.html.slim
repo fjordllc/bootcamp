@@ -6,4 +6,4 @@
 
 .page-body
   .container.is-md
-    div(data-vue="Reports" data-vue-practice-id:number="#{@practice.id}")
+    = react_component('Reports', practiceId: @practice.id)
