@@ -29,18 +29,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(check: check).checked
   end
 
-  def submitted
-    product = Product.find(ActiveRecord::FixtureSet.identify(:product3))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
-    message = "#{product.user.login_name}さんが提出しました。"
-
-    NotificationMailer.with(
-      product: product,
-      receiver: receiver,
-      message: message
-    ).submitted
-  end
-
   def first_report
     report = Report.find(ActiveRecord::FixtureSet.identify(:report10))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
