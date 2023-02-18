@@ -1,0 +1,16 @@
+          ul.page-nav__items
+            - questions.each do |question|
+              li.page-nav__item(class="#{@question == question ? 'is-current' : ''}")
+                = link_to question_path(question), class: 'page-nav__item-link has-metas' do
+                  .page-nav__item-link-inner
+                    .page-nav__item-header
+                      - unless question.correct_answer
+                        .a-badge.is-danger.is-xs
+                          | 未解決
+                      .page-nav__item-title
+                        = question.title
+                  .page-nav-metas
+                    .page-nav-metas__item
+                      = "公開:#{l question.published_at}"
+                    .page-nav-metas__item
+                      = "回答・コメント(#{question.answers.count})"
