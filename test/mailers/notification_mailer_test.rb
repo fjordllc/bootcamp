@@ -24,26 +24,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/コメント/, email.body.to_s)
   end
 
-  test 'mentioned' do
-    mentionable = comments(:comment9)
-    mentioned = notifications(:notification_mentioned)
-    mailer = NotificationMailer.with(
-      mentionable: mentionable,
-      receiver: mentioned.user
-    ).mentioned
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(/メンション/, email.body.to_s)
-  end
-
   test 'submitted' do
     product = products(:product3)
     submitted = notifications(:notification_submitted)

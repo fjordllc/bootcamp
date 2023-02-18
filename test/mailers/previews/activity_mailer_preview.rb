@@ -52,4 +52,12 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(sender: sender, receiver: receiver).retired
   end
+
+  def mentioned
+    mentionable = Comment.find(ActiveRecord::FixtureSet.identify(:comment9))
+    report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
+    receiver = report.user
+
+    ActivityMailer.with(mentionable: mentionable, receiver: receiver).mentioned
+  end
 end
