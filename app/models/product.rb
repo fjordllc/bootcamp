@@ -19,7 +19,7 @@ class Product < ApplicationRecord
 
   after_create ProductCallbacks.new
   after_update ProductCallbacks.new
-  after_commit ProductCallbacks.new, on: %i[create update]
+  after_save_commit ProductCallbacks.new
   after_destroy ProductCallbacks.new
 
   columns_for_keyword_search :body
