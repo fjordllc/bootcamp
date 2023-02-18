@@ -14,13 +14,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     ).came_comment
   end
 
-  def checked
-    report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
-    check = report.checks.first
-
-    NotificationMailer.with(check: check).checked
-  end
-
   def mentioned
     report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
     mentionable = Comment.find(ActiveRecord::FixtureSet.identify(:comment9))

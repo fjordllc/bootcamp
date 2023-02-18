@@ -137,7 +137,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
       find('.choices__list').click
-      find('#choices--js-book-select-item-choice-2', text: 'はじめて学ぶソフトウェアのテスト技法').click
+      find('#choices--practice_practices_books_attributes_0_book_id-item-choice-2', text: 'はじめて学ぶソフトウェアのテスト技法').click
     end
     click_button '更新する'
     assert_text 'はじめて学ぶソフトウェアのテスト技法'

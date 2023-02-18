@@ -10,6 +10,11 @@ class ActivityMailerPreview < ActionMailer::Preview
     ActivityMailer.with(sender: sender, receiver: receiver).graduated
   end
 
+  def checked
+    check = Check.find(ActiveRecord::FixtureSet.identify(:procuct2_check_komagata))
+    ActivityMailer.with(receiver: check.receiver, check: check).checked
+  end
+
   def came_answer
     question = Question.find(ActiveRecord::FixtureSet.identify(:question2))
     answer = question.answers.first
@@ -39,5 +44,12 @@ class ActivityMailerPreview < ActionMailer::Preview
     question = Question.find(ActiveRecord::FixtureSet.identify(:question1))
 
     ActivityMailer.with(sender: question.user, receiver: receiver, question: question).came_question
+  end
+
+  def retired
+    sender = User.find(ActiveRecord::FixtureSet.identify(:yameo))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    ActivityMailer.with(sender: sender, receiver: receiver).retired
   end
 end
