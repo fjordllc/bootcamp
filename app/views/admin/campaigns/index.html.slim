@@ -37,6 +37,12 @@ header.page-header
               th.admin-table__label
                 | 終了日
               th.admin-table__label
+                | 入会者
+              th.admin-table__label
+                | 現役生
+              th.admin-table__label
+                | 退会者
+              th.admin-table__label
                 | 操作
           tbody.admin-table__items
             - @campaigns.each do |campaign|
@@ -57,6 +63,14 @@ header.page-header
                   | #{l campaign.start_at}
                 td.admin-table__item-value.is-text-align-right
                   | #{l campaign.end_at}
+                td.admin-table__item-value.is-text-align-right
+                  = students_joined_by_campaign = User.students.where(created_at: campaign.start_at..campaign.end_at).count
+                td.admin-table__item-value.is-text-align-right
+                  - retired_students_joined_by_campaign = @retired_students.where(created_at: campaign.start_at..campaign.end_at).count
+                  - continued_students = students_joined_by_campaign - retired_students_joined_by_campaign
+                  = continued_students
+                td.admin-table__item-value.is-text-align-right
+                  = retired_students_joined_by_campaign
                 td.admin-table__item-value.is-text-align-center
                   ul.is-inline-buttons
                     li
