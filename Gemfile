@@ -33,7 +33,7 @@ gem 'holiday_jp'
 gem 'jp_prefecture'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'mentionable', '~> 0.2.1'
+gem 'mentionable', '~> 0.3.0'
 gem 'meta-tags'
 gem 'mini_magick'
 gem 'net-imap', require: false
