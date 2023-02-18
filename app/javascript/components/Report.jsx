@@ -6,18 +6,7 @@ export default function Report({ report, currentUserId, displayUserIcon }) {
     <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
       <div className="card-list-item__inner">
         {displayUserIcon && (
-          <div className="card-list-item__user">
-            <a href={report.user.url} className="card-list-item__user-link">
-              <span className='["a-user-role", roleClass]'>
-                <img
-                  className="card-list-item__user-icon a-user-icon"
-                  src={report.user.avatar_url}
-                  title={report.user.login_name}
-                  alt={report.user.login_name}
-                />
-              </span>
-            </a>
-          </div>
+          <DisplayUserIcon report={report} />
         )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
@@ -74,6 +63,23 @@ export default function Report({ report, currentUserId, displayUserIcon }) {
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+const DisplayUserIcon = ({ report }) => {
+  return (
+    <div className="card-list-item__user">
+      <a href={report.user.url} className="card-list-item__user-link">
+        <span className='["a-user-role", roleClass]'>
+          <img
+            className="card-list-item__user-icon a-user-icon"
+            src={report.user.avatar_url}
+            title={report.user.login_name}
+            alt={report.user.login_name}
+          />
+        </span>
+      </a>
     </div>
   )
 }
