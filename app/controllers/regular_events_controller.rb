@@ -96,23 +96,30 @@ class RegularEventsController < ApplicationController
   end
 
   def set_all_users_to_participants
-    @regular_event.regular_event_participations.create_with(
-      created_at: Time.current,
-      updated_at: Time.current
-    ).insert_all!(students_and_trainees_array_of_hashes) # rubocop:disable Rails::SkipsModelValidations
-    create_watches
+    students_and_trainees_ids = User.students_and_trainees.ids
+    create_participants students_and_trainees_ids
+    create_watches students_and_trainees_ids
   end
 
-  def create_watches
-    Watch.create_with(
-      watchable_type: 'RegularEvent',
-      watchable_id: @regular_event.id,
-      created_at: Time.current,
-      updated_at: Time.current
-    ).insert_all!(students_and_trainees_array_of_hashes) # rubocop:disable Rails::SkipsModelValidations
+  def create_participants(students_and_trainees_ids)
+    new_participants_ids = students_and_trainees_ids - @regular_event.participants.ids
+    sql = "INSERT INTO regular_event_participations (user_id, regular_event_id, created_at, updated_at) VALUES #{participants_values(new_participants_ids)};"
+    ActiveRecord::Base.connection.execute(sql) unless new_participants_ids.empty?
   end
 
-  def students_and_trainees_array_of_hashes
-    User.students_and_trainees.map { |user| { user_id: user.id } }
+  def create_watches(students_and_trainees_ids)
+    new_watchers_ids = students_and_trainees_ids - @regular_event.watches.pluck(:user_id)
+    sql = "INSERT INTO watches (watchable_type, user_id, watchable_id, created_at, updated_at) VALUES #{regular_event_watch_values(new_watchers_ids)};"
+    ActiveRecord::Base.connection.execute(sql) unless new_watchers_ids.empty?
+  end
+
+  def participants_values(participants_ids)
+    time_utc = Time.current.utc
+    participants_ids.map { |id| "(#{id}, #{@regular_event.id}, '#{time_utc}', '#{time_utc}')" }.join(',')
+  end
+
+  def regular_event_watch_values(watchers_ids)
+    time_utc = Time.current.utc
+    watchers_ids.map { |id| "('RegularEvent', #{id}, #{@regular_event.id}, '#{time_utc}', '#{time_utc}')" }.join(',')
   end
 end
