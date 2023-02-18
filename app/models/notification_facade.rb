@@ -12,14 +12,6 @@ class NotificationFacade
     ).came_comment.deliver_later(wait: 5)
   end
 
-  def self.checked(check)
-    ActivityNotifier.with(check: check, receiver: check.receiver).checked.notify_now
-    receiver = check.receiver
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(check: check).checked.deliver_later(wait: 5)
-  end
-
   def self.product_update(product, receiver)
     ActivityNotifier.with(product: product, receiver: receiver).product_update.notify_now
     return if receiver.retired?
@@ -65,16 +57,6 @@ class NotificationFacade
       receiver: receiver,
       comment: comment
     ).watching_notification.deliver_later(wait: 5)
-  end
-
-  def self.retired(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).retired.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).retired.deliver_later(wait: 5)
   end
 
   def self.trainee_report(report, receiver)

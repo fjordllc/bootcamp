@@ -298,4 +298,100 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] machidaさんから質問「どのエディターを使うのが良いでしょうか」が投稿されました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
   end
+
+  test 'retired' do
+    user = users(:yameo)
+    mentor = users(:mentormentaro)
+    ActivityMailer.retired(
+      sender: user,
+      receiver: mentor
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 9, link: "/users/#{user.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] yameoさんが退会しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
+  end
+
+  test 'retired with params' do
+    user = users(:yameo)
+    mentor = users(:mentormentaro)
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: mentor
+    ).retired
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 9, link: "/users/#{user.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] yameoさんが退会しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">yameoさんのページへ</a>}, email.body.to_s)
+  end
+
+  test 'retired with user who have been denied' do
+    ActivityMailer.retired(
+      sender: users(:yameo),
+      receiver: users(:hajime)
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
+  test 'checked' do
+    check = checks(:procuct2_check_komagata)
+
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: check.receiver,
+      check: check
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を確認しました。', email.subject
+    assert_match(/確認/, email.body.to_s)
+  end
+
+  test 'checked with params' do
+    check = checks(:procuct2_check_komagata)
+
+    mailer = ActivityMailer.with(
+      sender: check.sender,
+      receiver: check.receiver,
+      check: check
+    ).checked
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんの「OS X Mountain Lionをクリーンインストールする」の提出物を確認しました。', email.subject
+    assert_match(/確認/, email.body.to_s)
+  end
+
+  test 'checked with user who have been denied' do
+    check = checks(:procuct2_check_komagata)
+    ActivityMailer.checked(
+      sender: check.sender,
+      receiver: users(:hajime),
+      check: check
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end

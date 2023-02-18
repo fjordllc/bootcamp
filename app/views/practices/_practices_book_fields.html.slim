@@ -7,7 +7,7 @@
     .books-form__items
       .books-form-item
         = f.label '参考書籍', class: 'a-form-label'
-        = f.collection_select :book_id, all_books, :first, :last, {}, { id: 'js-book-select' }
+        = f.collection_select :book_id, all_books, :first, :last, {}, { class: 'js-book-select' }
       .books-form-item.is-inline
         = f.label '必読', class: 'a-form-label'
         label.a-on-off-checkbox.is-sm.books-form-item__must-read

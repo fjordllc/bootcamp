@@ -41,13 +41,13 @@ class RetirementController < ApplicationController
 
   def notify_to_admins
     User.admins.each do |admin_user|
-      NotificationFacade.retired(current_user, admin_user)
+      ActivityDelivery.with(sender: current_user, receiver: admin_user).notify(:retired)
     end
   end
 
   def notify_to_mentors
     User.mentor.each do |mentor_user|
-      NotificationFacade.retired(current_user, mentor_user)
+      ActivityDelivery.with(sender: current_user, receiver: mentor_user).notify(:retired)
     end
   end
 end

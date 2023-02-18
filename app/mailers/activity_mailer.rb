@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-class ActivityMailer < ApplicationMailer
+class ActivityMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
   helper ApplicationHelper
   include Rails.application.routes.url_helpers
 
   before_action do
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
+    @check = params[:check] if params&.key?(:check)
     @announcement = params[:announcement] if params&.key?(:announcement)
     @question = params[:question] if params&.key?(:question)
   end
@@ -102,6 +103,39 @@ class ActivityMailer < ApplicationMailer
     subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"
     message = mail to: @user.email, subject: subject
 
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  # required params: sender, receiver
+  def retired(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:retired]
+    )
+    subject = "[FBC] #{@sender.login_name}さんが退会しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: check, receiver
+  def checked(args = {})
+    @check ||= args[:check]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@user.id}",
+      kind: Notification.kinds[:checked]
+    )
+    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
+    message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message

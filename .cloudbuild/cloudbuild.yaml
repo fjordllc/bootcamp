@@ -85,6 +85,8 @@ steps:
       - '--set-env-vars=STRIPE_ENDPOINT_SECRET=$_STRIPE_ENDPOINT_SECRET'
       - '--set-env-vars=BASIC_AUTH_USER=$_BASIC_AUTH_USER'
       - '--set-env-vars=BASIC_AUTH_PASSWORD=$_BASIC_AUTH_PASSWORD'
+      - '--set-env-vars=RECAPTCHA_SITE_KEY=$_RECAPTCHA_SITE_KEY'
+      - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
       - '--set-env-vars=APPSIGNAL_PUSH_API_KEY=$_APPSIGNAL_PUSH_API_KEY'
       - '--set-env-vars=$_ENVS'
