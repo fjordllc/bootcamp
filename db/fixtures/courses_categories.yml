@@ -117,3 +117,33 @@ courses_category24:
   course: course3
   category: category15
   position: 3
+
+courses_category25:
+  course: course3
+  category: category4
+  position: 4
+
+courses_category26:
+  course: course3
+  category: category16
+  position: 5
+
+courses_category27:
+  course: course3
+  category: category17
+  position: 6
+
+courses_category28:
+  course: course3
+  category: category11
+  position: 7
+
+courses_category29:
+  course: course3
+  category: category19
+  position: 8
+
+courses_category30:
+  course: course3
+  category: category7
+  position: 9
