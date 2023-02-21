@@ -19,6 +19,8 @@ class API::UsersController < API::BaseController
         User.tagged_with(@tag)
       elsif @company
         User.where(company_id: @company).users_role(@target)
+      elsif @target == 'hibernated'
+        User.users_role(@target)
       elsif @target == 'retired'
         User.users_role(@target)
       else
@@ -31,7 +33,7 @@ class API::UsersController < API::BaseController
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
 
-    @users = @users.unhibernated.unretired unless @company || @target.in?(%w[hibernated retired])
+    # @users = @users.unhibernated.unretired unless @company || @target.in?(%w[hibernated retired])
   end
 
   def show; end
@@ -50,22 +52,6 @@ class API::UsersController < API::BaseController
     users = target_users.search_by_keywords({ word: search_word })
     users = User.search_by_keywords({ word: search_word }).unscope(where: :retired_on).users_role(target) if target == 'retired'
     users
-  end
-
-  def check_users_to_display
-    if @target == 'hibernated' || @target == 'retired' || @company
-      @users
-    else
-      @users = @users.unhibernated.unretired
-    end
-  end
-
-  def check_target_if_hibernated_or_retired
-    true if @target == 'hibernated' || @target == 'retired'
-  end
-
-  def hibernated_or_retired_target?
-    @target == 'hibernated' || @target == 'retired'
   end
 
   def target_allowlist
