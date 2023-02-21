@@ -19,9 +19,7 @@ class API::UsersController < API::BaseController
         User.tagged_with(@tag)
       elsif @company
         User.where(company_id: @company).users_role(@target)
-      elsif @target == 'hibernated'
-        User.users_role(@target)
-      elsif @target == 'retired'
+      elsif @target.in? %w[hibernated retired]
         User.users_role(@target)
       else
         User.users_role(@target).unhibernated.unretired
@@ -32,8 +30,6 @@ class API::UsersController < API::BaseController
                          .order(updated_at: :desc)
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
-
-    # @users = @users.unhibernated.unretired unless @company || @target.in?(%w[hibernated retired])
   end
 
   def show; end
