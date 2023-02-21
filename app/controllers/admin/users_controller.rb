@@ -21,6 +21,7 @@ class Admin::UsersController < AdminController
 
   def update
     if @user.update(user_params)
+      Newspaper.publish(:retirement_create, @user)
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
       render :edit
