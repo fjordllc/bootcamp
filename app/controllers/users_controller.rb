@@ -17,10 +17,8 @@ class UsersController < ApplicationController
         current_user.followees_list(watch: @watch)
       elsif params[:tag]
         User.tagged_with(params[:tag])
-      elsif @target == 'retired'
-        User.users_role(@target)
       else
-        User.users_role(@target).unretired
+        User.users_role(@target)
       end
 
     @users = target_users
@@ -28,7 +26,7 @@ class UsersController < ApplicationController
              .preload(:avatar_attachment, :course, :taggings)
              .order(updated_at: :desc)
 
-    @users = @users.unhibernated.unretired unless hibernated_or_retired_target?
+    @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -72,10 +70,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def hibernated_or_retired_target?
-    @target == 'hibernated' || @target == 'retired'
-  end
 
   def target_allowlist
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
