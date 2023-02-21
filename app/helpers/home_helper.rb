@@ -2,17 +2,17 @@
 
 module HomeHelper
   def today_or_tommorow(event)
-    if event.event_day?
+    if event.holding_today?
       '今日'
-    elsif event.tomorrow_event?
+    elsif event.holding_tomorrow?
       '明日'
     end
   end
 
   def event_date(event)
-    if event.event_day?
+    if event.holding_today?
       Date.current
-    elsif event.tomorrow_event?
+    elsif event.holding_tomorrow?
       Date.tomorrow
     end
   end
