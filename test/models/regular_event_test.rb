@@ -15,14 +15,14 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test '#event_day?' do
+  test '#holding_today?' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
-      assert_equal true, regular_event.event_day?
+      assert regular_event.holding_today?
     end
 
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal false, regular_event.event_day?
+      assert_not regular_event.holding_today?
     end
   end
 
