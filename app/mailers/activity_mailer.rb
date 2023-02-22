@@ -232,7 +232,6 @@ class ActivityMailer < ApplicationMailer
 
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
-
     message
   end
 end
