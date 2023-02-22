@@ -87,9 +87,7 @@ import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import AdminPractices from '../components/admin-practices.vue'
 
-import '../stylesheets/application.sass'
-import '../stylesheets/completion.sass'
-import '../stylesheets/welcome.sass'
+import '../stylesheets/application'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
