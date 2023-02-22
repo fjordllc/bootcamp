@@ -219,7 +219,7 @@ class ActivityMailer < ApplicationMailer
   end
 
   # required params: sender, comment, watchable
-  def watching_notification( args = {} )
+  def watching_notification(_args = {})
     # @sender ||= args[:sender]
     # @comment ||= args[:comment]
     # @watchable ||= args[:watchable]
