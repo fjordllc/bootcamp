@@ -11,7 +11,12 @@ class ActivityMailer < ApplicationMailer
     @announcement = params[:announcement] if params&.key?(:announcement)
     @question = params[:question] if params&.key?(:question)
     @mentionable = params[:mentionable] if params&.key?(:mentionable)
+<<<<<<< HEAD
     @page = params[:page] if params&.key?(:page)
+=======
+    @watchable = params[:watchable] if params&.key?(:watchable)
+    @comment = params[:comment] if params&.key?(:comment)
+>>>>>>> c705d3210 (active_delivery置き換えを行った)
   end
 
   # required params: sender, receiver
@@ -206,6 +211,24 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:following_report]
     )
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
+
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: sender, comment, watchable
+  def watching_notification( args = {} )
+    # @sender ||= args[:sender]
+    # @comment ||= args[:comment]
+    # @watchable ||= args[:watchable]
+
+    @user = @receiver
+    link = "/#{@watchable.class.name.underscore.pluralize}/#{@watchable.id}"
+    @notification = @user.notifications.find_by(link: link)
+    action = @watchable.instance_of?(Question) ? '回答' : 'コメント'
+    subject = "[FBC] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんが#{action}しました。"
 
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
