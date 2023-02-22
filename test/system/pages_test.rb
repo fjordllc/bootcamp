@@ -249,4 +249,15 @@ class PagesTest < ApplicationSystemTestCase
     assert_link 'プラクティスに紐付いたDocs'
     assert_link '全て見る'
   end
+
+  test 'Check the box on the notice to create a document' do
+    visit_with_auth new_page_path, 'komagata'
+    fill_in 'page[title]', with: 'お知らせにチェックを入れて新規Docを作成'
+    fill_in 'page[body]', with: '「お知らせにチェックを入れて新規Docを作成」の本文です'
+    check 'このドキュメント公開についてお知らせを書く', allow_label_click: true
+    click_button '内容を保存'
+    assert_text 'ページを作成しました'
+    assert_text 'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。'
+    assert_text 'このテキストを編集してください'
+  end
 end
