@@ -38,9 +38,9 @@
     "pug-plain-loader": "^1.0.0",
     "query-string": "^7.1.1",
     "react": "^17.0.0",
-    "react_ujs": "^2.6.2",
     "react-dom": "^17.0.0",
     "react-router-dom": "^6.4.1",
+    "react_ujs": "^2.6.2",
     "select2": "^4.0.7-rc.0",
     "set-value": "^4.0.1",
     "sortablejs": "^1.15.0",
@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@prettier/plugin-pug": "^2.0.0",
+    "@webpack-cli/serve": "^2.0.1",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-config-standard": "^16.0.2",
@@ -70,7 +71,7 @@
     "eslint-plugin-vue": "^7.9.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
-    "webpack-dev-server": "^4"
+    "webpack-dev-server": "~3"
   },
   "engines": {
     "node": "^16.13.0"
