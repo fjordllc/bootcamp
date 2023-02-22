@@ -29,14 +29,14 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    if @page.user
-      @page.last_updated_user = current_user
-    else
-      @page.user = current_user
-    end
+    @page.user ? @page.last_updated_user = current_user : @page.user = current_user
     set_wip
     if @page.save
       Newspaper.publish(:page_create, @page) unless @page.wip?
+      if page_params[:announcement] == '1' && !@page.wip? # ’1’は「このドキュメント公開についてお知らせを書く」にチェックが入っていない場合を指す
+        redirect_to new_announcement_path, notice: notice_message(@page, :create) and return
+      end
+
       redirect_to @page, notice: notice_message(@page, :create)
     else
       render :new
@@ -66,7 +66,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    keys = %i[title body tag_list practice_id slug]
+    keys = %i[title body tag_list practice_id slug announcement]
     keys << :user_id if admin_or_mentor_login?
     params.require(:page).permit(*keys)
   end
