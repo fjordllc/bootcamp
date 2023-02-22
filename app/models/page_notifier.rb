@@ -13,7 +13,7 @@ class PageNotifier
   private
 
   def send_notification(page)
-    receivers = User.where(retired_on: nil, graduated_on: nil, adviser: false, trainee: false)
+    receivers = User.where(admin: true).or(User.where(mentor: true))
     receivers.each do |receiver|
       ActivityDelivery.with(receiver: receiver, page: page).notify(:create_page) if page.sender != receiver
     end
