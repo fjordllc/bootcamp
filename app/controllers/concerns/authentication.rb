@@ -96,7 +96,7 @@ module Authentication
   protected
 
   def not_authenticated
-    render template: 'not_authenticates/index'
+    redirect_to root_path, alert: 'ログインしてください'
   end
 
   def deny_hibernated_or_retired_login
