@@ -82,16 +82,6 @@ class NotificationFacade
     ).moved_up_event_waiting_user.deliver_later(wait: 5)
   end
 
-  def self.create_page(page, receiver)
-    ActivityNotifier.with(page: page, receiver: receiver).create_page.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      page: page,
-      receiver: receiver
-    ).create_page.deliver_later(wait: 5)
-  end
-
   def self.chose_correct_answer(answer, receiver)
     Notification.chose_correct_answer(answer, receiver)
     return unless receiver.mail_notification? && !receiver.retired?
