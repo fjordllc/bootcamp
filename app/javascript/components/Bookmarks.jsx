@@ -116,9 +116,7 @@ const Bookmark = ({ bookmark, editable, _setEditable }) => {
               <div className="card-list-item__row">
                 <div className="card-list-item-meta">
                   <div className="card-list-item-meta__item">
-                    <a href={bookmark.authorUrl} className="a-user-name">
-                      {bookmark.author}
-                    </a>
+                    <a href={bookmark.authorUrl} className="a-user-name">{bookmark.authorLoginName}({bookmark.authorNameKana})</a>
                   </div>
                   <div className="card-list-item-meta__item">
                     <time className="a-meta" dateTime={bookmark.updated_at}>
