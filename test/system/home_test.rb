@@ -307,7 +307,8 @@ class HomeTest < ApplicationSystemTestCase
     find_link pages(:page1).title
     assert_text I18n.l pages(:page1).created_at, format: :long
     user = talks(:talk1).user
-    find_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    find_link "#{decorated_user.long_name} さんの相談部屋"
     reports.each do |report|
       find_link reports(report).title
       assert_text I18n.l reports(report).reported_on, format: :long
