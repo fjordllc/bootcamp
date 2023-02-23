@@ -56,8 +56,9 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'admin can access user talk page from talks page' do
-    talks(:talk7).update!(updated_at: Time.current) # user: kimura
-    user = users(:kimura)
+    talk = talks(:talk7)
+    talk.update!(updated_at: Time.current)
+    user = talk.user
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks', 'komagata'
     click_link "#{decorated_user.long_name} さんの相談部屋"
