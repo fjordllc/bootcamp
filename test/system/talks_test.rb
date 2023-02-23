@@ -40,6 +40,7 @@ class TalksTest < ApplicationSystemTestCase
 
   test 'a talk room is shown up on unreplied tab when users except admin comments there' do
     user = users(:kimura)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
@@ -51,18 +52,21 @@ class TalksTest < ApplicationSystemTestCase
     logout
     visit_with_auth '/talks', 'komagata'
     find('.page-tabs__item-link', text: '未返信').click
-    assert_text "#{user.login_name} (#{user.name}) さんの相談部屋"
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'admin can access user talk page from talks page' do
     talks(:talk7).update!(updated_at: Time.current) # user: kimura
+    user = users(:kimura)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks', 'komagata'
-    click_link 'kimura (Kimura Tadasi) さんの相談部屋'
+    click_link "#{decorated_user.long_name} さんの相談部屋"
     assert_selector '.page-header__title', text: 'kimura'
   end
 
   test 'a talk room is removed from unreplied tab when admin comments there' do
     user = users(:with_hyphen)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'test')
@@ -72,43 +76,55 @@ class TalksTest < ApplicationSystemTestCase
     click_button 'コメントする'
     visit '/talks'
     find('.page-tabs__item-link', text: '未返信').click
-    assert_no_text "#{user.login_name} (#{user.name}) さんの相談部屋"
+    assert_no_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of current students is displayed' do
+    user = users(:hajime)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=student_and_trainee', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'hajime (Hajime Tayo) さんの相談部屋'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of graduates is displayed' do
+    user = users(:sotugyou)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=graduate', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'sotugyou (卒業 太郎) さんの相談部屋'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of advisers is displayed' do
+    user = users(:advijirou)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=adviser', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'advijirou (アドバイ 次郎) さんの相談部屋'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of mentors is displayed' do
+    user = users(:machida)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=mentor', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'machida (Machida Teppei) さんの相談部屋'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of trainees is displayed' do
+    user = users(:kensyu)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=trainee', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'kensyu (Kensyu Seiko) さんの相談部屋'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of retire users is displayed' do
+    user = users(:yameo)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=retired', 'komagata'
     find('#talks.loaded', wait: 10)
-    assert_text 'yameo (辞目 辞目夫) さんの相談部屋'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'both public and private information is displayed' do
