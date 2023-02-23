@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
@@ -33,6 +34,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    render template: 'not_authenticates/index', locals: { title: @question.title } unless logged_in?
+
     @practice_questions = Question
                           .not_wip
                           .where(practice: @question.practice)

@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
   before_action :redirect_to_slug, only: %i[show edit]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   SIDE_LINK_LIMIT = 20
 
@@ -18,6 +19,8 @@ class PagesController < ApplicationController
   end
 
   def show
+    render template: 'not_authenticates/index', locals: { title: @page.title } unless logged_in?
+
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
   end
 
