@@ -361,7 +361,7 @@ class ActivityNotifier < ApplicationNotifier
       body: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
       kind: :chose_correct_answer,
       receiver: receiver,
-      sender: answer.sender,
+      sender: answer.receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       read: false
     )
