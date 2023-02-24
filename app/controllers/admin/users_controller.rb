@@ -46,7 +46,7 @@ class Admin::UsersController < AdminController
   def user_params
     params.require(:user).permit(
       :adviser, :login_name, :name,
-      :name_kana, :email, :course_id,
+      :name_kana, :email, :course_id, :subscription_id,
       :description, :discord_account, :github_account,
       :twitter_account, :facebook_url, :blog_url, :times_url,
       :password, :password_confirmation, :job,

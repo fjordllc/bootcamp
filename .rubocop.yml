@@ -13,6 +13,7 @@ Metrics/ClassLength:
     - app/controllers/products_controller.rb
     - app/controllers/reports_controller.rb
     - app/controllers/users_controller.rb
+    - app/mailers/activity_mailer.rb
     - app/models/event.rb
     - app/models/notification.rb
     - app/models/notification_facade.rb

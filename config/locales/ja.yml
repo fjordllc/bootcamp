@@ -99,6 +99,7 @@ ja:
         profile_name: プロフィール名
         profile_job: 職業
         profile_text: プロフィール文
+        subscription_id: サブスクリプションID
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日

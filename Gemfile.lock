@@ -239,7 +239,7 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     memoist (0.16.2)
-    mentionable (0.2.1)
+    mentionable (0.3.0)
       activerecord
       railties
     meta-tags (2.18.0)
@@ -556,7 +556,7 @@ DEPENDENCIES
   kaminari
   letter_opener_web (~> 2.0)
   listen
-  mentionable (~> 0.2.1)
+  mentionable (~> 0.3.0)
   meta-tags
   mini_magick
   minitest-ci

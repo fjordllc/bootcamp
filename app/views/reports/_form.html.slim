@@ -76,7 +76,7 @@
               class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
               data: { 'preview': '.js-preview' }
             .a-textarea-bottom-note__banner
-              | 途中保存は「command + s」 マメに保存しよう。
+              | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー

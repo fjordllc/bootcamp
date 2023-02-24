@@ -37,6 +37,15 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: subject
   end
 
+  # required params: check
+  def checked
+    @user = @check.receiver
+    link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
+    @notification = @user.notifications.find_by(link: link)
+    subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
+    mail to: @user.email, subject: subject
+  end
+
   # required params: product, receiver, message
   def submitted
     @user = @receiver
@@ -84,14 +93,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/events/#{@event.id}")
     subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
-    mail to: @user.email, subject: subject
-  end
-
-  # required params: page, receiver
-  def create_page
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/pages/#{@page.id}")
-    subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
     mail to: @user.email, subject: subject
   end
 
