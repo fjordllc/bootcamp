@@ -11,12 +11,9 @@ class ActivityMailer < ApplicationMailer
     @announcement = params[:announcement] if params&.key?(:announcement)
     @question = params[:question] if params&.key?(:question)
     @mentionable = params[:mentionable] if params&.key?(:mentionable)
-<<<<<<< HEAD
     @page = params[:page] if params&.key?(:page)
-=======
     @watchable = params[:watchable] if params&.key?(:watchable)
     @comment = params[:comment] if params&.key?(:comment)
->>>>>>> c705d3210 (active_delivery置き換えを行った)
   end
 
   # required params: sender, receiver
