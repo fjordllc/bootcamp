@@ -2,3 +2,93 @@ practices_book1:
   practice: practice1
   book: book1
   must_read: true
+
+practices_book2:
+  practice: practice2
+  book: book2
+  must_read: true
+
+practices_book3:
+  practice: practice5
+  book: book3
+  must_read: true
+
+practices_book4:
+  practice: practice5
+  book: book4
+  must_read: true
+
+practices_book5:
+  practice: practice10
+  book: book5
+  must_read: true
+
+practices_book6:
+  practice: practice10
+  book: book6
+  must_read: true
+
+practices_book7:
+  practice: practice13
+  book: book7
+  must_read: true
+
+practices_book8:
+  practice: practice13
+  book: book8
+  must_read: true
+
+practices_book9:
+  practice: practice13
+  book: book9
+  must_read: true
+
+practices_book10:
+  practice: practice10
+  book: book10
+  must_read: true
+
+practices_book11:
+  practice: practice9
+  book: book11
+  must_read: true
+
+practices_book12:
+  practice: practice15
+  book: book12
+  must_read: true
+
+practices_book13:
+  practice: practice15
+  book: book13
+  must_read: true
+
+practices_book14:
+  practice: practice10
+  book: book14
+  must_read: true
+
+practices_book15:
+  practice: practice10
+  book: book15
+  must_read: true
+
+practices_book16:
+  practice: practice26
+  book: book16
+  must_read: true
+
+practices_book17:
+  practice: practice26
+  book: book17
+  must_read: true
+
+practices_book18:
+  practice: practice22
+  book: book18
+  must_read: true
+
+practices_book19:
+  practice: practice26
+  book: book19
+  must_read: true

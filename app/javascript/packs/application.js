@@ -64,6 +64,7 @@ import '../bookmarks-edit-button.js'
 import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
 import '../modal-switcher.js'
+import '../books-store.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
@@ -87,6 +88,7 @@ import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import AdminPractices from '../components/admin-practices.vue'
+import FilterByPractices from '../components/filter-by-practices.vue'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
@@ -110,6 +112,7 @@ mounter.addComponent(QuestionPage)
 mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
 mounter.addComponent(AdminPractices)
+mounter.addComponent(FilterByPractices)
 mounter.mount()
 
 // Support component names relative to this directory:

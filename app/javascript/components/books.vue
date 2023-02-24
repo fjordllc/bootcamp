@@ -1,5 +1,9 @@
 <template lang="pug">
 .books
+  .hoge
+    countertest
+  .filter-form
+    filterselect(v-for='practice in practices' :practice='practice' :key='practice.index')
   .empty(v-if='books === null')
     .fa-solid.fa-spinner.fa-pulse
     |
@@ -19,13 +23,35 @@
       | 登録されている本はありません
 </template>
 <script>
+import Vuex from 'vuex'
+import CounterTest from './counter'
+import FilterSelect from './filter-by-practices'
 import Book from './book'
+
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  },
+  actions: {
+    increment ({ commit }) {
+      commit('increment')
+    },
+  }
+})
 
 export default {
   name: 'Books',
   components: {
+    countertest: CounterTest,
+    filterselect: FilterSelect, 
     book: Book
   },
+  store,
   props: {
     isAdmin: { type: Boolean, required: true },
     isMentor: { type: Boolean, required: true },
@@ -33,6 +59,7 @@ export default {
   },
   data() {
     return {
+      practices: [],
       books: null
     }
   },
@@ -52,11 +79,24 @@ export default {
       location.replace(location.href)
     }
     this.getBooks()
+    this.getPractices()
   },
   methods: {
     token() {
       const meta = document.querySelector('meta[name="csrf-token"]')
       return meta ? meta.getAttribute('content') : ''
+    },
+    getPractices() {
+      fetch('/api/practices.json')
+        .then((response) => {
+          return response.json()
+        })
+        .then((json) =>{
+          this.practices = json
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
     getBooks() {
       fetch(this.booksAPI, {

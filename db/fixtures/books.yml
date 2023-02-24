@@ -9,3 +9,100 @@ book2:
   price: 2640
   page_url: https://www.amazon.co.jp/dp/4822282511
   description: ソフトウェアテストの必修技法を満載した初心者にもわかりやすい解説書です。
+
+book3:
+  title: いちばんやさしいアジャイル開発の教本
+  price: 1584
+  page_url: https://www.amazon.co.jp/dp/B088YGLSRJ
+  description: アジャイルの基本的な内容がわかります。
+
+book4:
+  title: SCRUM BOOT CAMP THE BOOK
+  price: 2376
+  page_url: https://www.amazon.co.jp/dp/B086GBXRN6
+  description: スクラムについてわかる本です。
+
+book5:
+  title: アジャイルサムライ
+  price: 2574
+  page_url: https://www.amazon.co.jp/dp/B00J1XKB6K
+  description: ソフトウェアテストの必修技法を満載した初心者にもわかりやすい解説書です。
+
+book6:
+  title: アジャイルな見積りと計画づくり
+  price: 3168
+  page_url: https://www.amazon.co.jp/dp/B00IR1HYGW
+  description: アジャイルなプロジェクトを進めるときの具体的な教科書。
+
+book7:
+  title: Rubyふりがなプログラミング
+  price: 1980
+  page_url: https://www.amazon.co.jp/dp/B07Q6KGSTX
+  description: プログラミング自体が初体験の人向け。
+
+book8:
+  title: プロを目指す人のためのRuby入門 改訂2版
+  price: 3278
+  page_url: https://www.amazon.co.jp/dp/4297124378
+  description: とても良い。
+
+book9:
+  title: リーダブルコード
+  price: 2640
+  page_url: https://www.amazon.co.jp/dp/4873115655
+  description: メソッドや変数の名前を考えるのに困ったら読んでみるといいかも。\n読みやすいコードとは何かが書かれています。
+
+book10:
+  title: イラスト図解式 この一冊で全部わかるWeb技術の基本
+  price: 1663
+  page_url: https://www.amazon.co.jp/dp/B06XNMMC9S
+  description: イラストが多くわかりやすい。ざっくり概念を理解したい時におすすめ。\nP.74 ページからの『Chapter 3 ステートレスで状態を維持する仕組み Cookie(クッキー)』を読んでみよう。
+
+book11:
+  title: SQL ゼロからはじめるデータベース操作
+  price: 1861
+  page_url: https://www.amazon.co.jp/dp/B01HD5VWWO
+
+book12:
+  title: すらすらと手が動くようになる SQL書き方ドリル
+  price: 2706
+  page_url: https://www.amazon.co.jp/dp/B06XNMMC9S
+
+book13:
+  title: 達人に学ぶDB設計 徹底指南書
+  price: 2574
+  page_url: https://www.amazon.co.jp/dp/B00EE1XPAI
+
+book14:
+  title: 楽々ERDレッスン
+  price: 2420
+  page_url: https://www.amazon.co.jp/dp/4798110663
+
+book15:
+  title: Webを支える技術
+  price: 2686
+  page_url: https://www.amazon.co.jp/dp/B07JK7FZH2
+  description: これ読めばだいたいわかる。
+
+book16:
+  title: RubyとSinatraではじめる Webアプリケーション開発の教科書
+  price: 3080
+  page_url: https://www.amazon.co.jp/dp/B06XNMMC9S
+  description: Sinatraの使い方以外にもRubyの基本的な点やWebアプリケーションの基本的な内容についても説明されています。
+
+book17:
+  title: 体系的に学ぶ 安全なWebアプリケーションの作り方 第2版
+  price: 3344
+  page_url: https://www.amazon.co.jp/dp/B07DVY4H3M
+  description: 「webアプリのセキュリティ対策といえばこれ」と一番に名前が挙げられる名著です。ただし、かなりページ数が多く、使われている言語もPHPなので、興味がある人だけが読めばOKです。まずは最初に挙げた2サイトの内容を理解しましょう。
+
+book18:
+  title: ITエンジニア1年生のためのまんがでわかるLinux
+  price: 2420
+  page_url: https://www.amazon.co.jp/dp/B09XM7PL4P
+
+book19:
+  title: 新しいLinuxの教科書
+  price: 2822
+  page_url: https://www.amazon.co.jp/dp/B072K1NH76
+  description: Linuxの基礎が一通りまとまっている本です。
