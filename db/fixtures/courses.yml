@@ -1,11 +1,11 @@
 course1:
-  title: iOSプログラマー
-  description: "iOS, Swiftを学んでiOSプログラマーになろう。"
+  title: Rails Webプログラマー
+  description: "Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。"
 
 course2:
   title: Unityゲームプログラマー
   description: "Unity, C#を学んでゲームプログラマーになろう。"
 
 course3:
-  title: Rails Webプログラマー
-  description: "Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。"
+  title: iOSプログラマー
+  description: "iOS, Swiftを学んでiOSプログラマーになろう。"

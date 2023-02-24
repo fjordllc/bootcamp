@@ -16,7 +16,7 @@ class WelcomeController < ApplicationController
   def training; end
 
   def practices
-    @categories = Course.first.categories.preload(:practices).order(:position)
+    @categories = Course.find_by(title: 'Rails Webプログラマー').categories.preload(:practices).order(:position)
   end
 
   def tos; end
