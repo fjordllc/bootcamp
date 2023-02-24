@@ -352,6 +352,21 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
+  def chose_correct_answer(params = {})
+    params.merge!(@params)
+    answer = params[:answer]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
+      kind: :chose_correct_answer,
+      receiver: receiver,
+      sender: answer.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
+      read: false
+    )
+  end
+
   def moved_up_event_waiting_user(params = {})
     params.merge!(@params)
     event = params[:event]
