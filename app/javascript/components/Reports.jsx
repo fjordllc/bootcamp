@@ -8,7 +8,7 @@ import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({ all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = '' }) {
+export default function Reports({ all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = '', displayPagination = true }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -73,7 +73,7 @@ export default function Reports({ all = false, userId = '', practices = false, u
             />
           )}
           <div className="page-content reports">
-            {data.totalPages > 1 && (
+            {data.totalPages > 1 && displayPagination && (
               <Pagination
                 sum={data.totalPages * per}
                 per={per}
@@ -99,7 +99,7 @@ export default function Reports({ all = false, userId = '', practices = false, u
             {unchecked && (
               <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
             )}
-            {data.totalPages > 1 && (
+            {data.totalPages > 1 && displayPagination && (
               <Pagination
                 sum={data.totalPages * per}
                 per={per}
