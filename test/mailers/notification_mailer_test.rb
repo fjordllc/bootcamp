@@ -24,26 +24,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/コメント/, email.body.to_s)
   end
 
-  test 'mentioned' do
-    mentionable = comments(:comment9)
-    mentioned = notifications(:notification_mentioned)
-    mailer = NotificationMailer.with(
-      mentionable: mentionable,
-      receiver: mentioned.user
-    ).mentioned
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['sotugyou@example.com'], email.to
-    assert_equal '[FBC] sotugyouさんの日報「学習週1日目」へのコメントでkomagataさんからメンションがありました。', email.subject
-    assert_match(/メンション/, email.body.to_s)
-  end
-
   test 'submitted' do
     product = products(:product3)
     submitted = notifications(:notification_submitted)
@@ -83,26 +63,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] hajimeさんがはじめての日報を書きました！', email.subject
     assert_match(/はじめて/, email.body.to_s)
-  end
-
-  test 'create_page' do
-    page = pages(:page4)
-    create_page = notifications(:notification_create_page)
-    mailer = NotificationMailer.with(
-      page: page,
-      receiver: create_page.user
-    ).create_page
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['hatsuno@fjord.jp'], email.to
-    assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
-    assert_match(/Bootcamp/, email.body.to_s)
   end
 
   test 'watching_notification' do

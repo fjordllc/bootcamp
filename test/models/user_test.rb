@@ -446,16 +446,16 @@ class UserTest < ActiveSupport::TestCase
       user: user,
       practice: practice1,
       status: :complete,
-      created_at: (today - 2.weeks).to_s(:db),
-      updated_at: (today - 2.weeks).to_s(:db)
+      created_at: (today - 2.weeks).to_formatted_s(:db),
+      updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
     Learning.create!(
       user: user,
       practice: practice2,
       status: :complete,
-      created_at: (today - (2.weeks + 1.day)).to_s(:db),
-      updated_at: (today - (2.weeks + 1.day)).to_s(:db)
+      created_at: (today - (2.weeks + 1.day)).to_formatted_s(:db),
+      updated_at: (today - (2.weeks + 1.day)).to_formatted_s(:db)
     )
 
     worried_users = User.delayed.order(completed_at: :asc)
@@ -472,8 +472,8 @@ class UserTest < ActiveSupport::TestCase
       user: user,
       practice: Practice.first,
       status: :complete,
-      created_at: (today - (2.weeks - 1.day)).to_s(:db),
-      updated_at: (today - (2.weeks - 1.day)).to_s(:db)
+      created_at: (today - (2.weeks - 1.day)).to_formatted_s(:db),
+      updated_at: (today - (2.weeks - 1.day)).to_formatted_s(:db)
     )
 
     worried_users = User.delayed.order(completed_at: :asc)
@@ -490,8 +490,8 @@ class UserTest < ActiveSupport::TestCase
       user: user,
       practice: practice1,
       status: :complete,
-      created_at: (today - 2.weeks).to_s(:db),
-      updated_at: (today - 2.weeks).to_s(:db)
+      created_at: (today - 2.weeks).to_formatted_s(:db),
+      updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
     worried_users = User.delayed.order(completed_at: :asc)
@@ -553,6 +553,12 @@ class UserTest < ActiveSupport::TestCase
   test 'students_and_trainees_method_does_not_include_graduates' do
     target = User.students_and_trainees
     assert_not_includes(target, users(:sotugyou_with_job))
+  end
+
+  test '#retired_students' do
+    target = User.retired_students
+    assert_includes(target, users(:yameo))
+    assert_not_includes(target, users(:kensyuowata))
   end
 
   test '#belongs_company_and_adviser?' do

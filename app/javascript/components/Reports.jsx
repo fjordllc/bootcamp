@@ -6,24 +6,37 @@ import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
+import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({ user, currentUser, practices }) {
+export default function Reports({ all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = '' }) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
-  const [practiceId, setPracticeId] = useState('')
+  const [userPracticeId, setUserPracticeId] = useState('')
 
   useEffect(() => {
     setPage(page)
   }, [page])
 
   useEffect(() => {
-    setPracticeId(practiceId)
-  }, [practiceId])
+    setUserPracticeId(userPracticeId)
+  }, [userPracticeId])
 
   const { data, error } = useSWR(
-    `/api/reports.json?user_id=${user.id}&page=${page}&practice_id=${practiceId}`,
+    practices
+    ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
+    : unchecked
+    ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
+    : userId !== ''
+    ? `/api/reports.json?page=${page}&user_id=${userId}`
+    : practiceId !== ''
+    ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
+    : companyId !== ''
+    ? `/api/reports.json?page=${page}&company_id=${companyId}`
+    : all === true
+    ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
+    : console.log('data_fetched!'),
     fetcher
   )
 
@@ -39,22 +52,26 @@ export default function Reports({ user, currentUser, practices }) {
   return (
     <>
       {data.totalPages === 0 && (
-        <div className="container is-md">
-          <PracticeFilterDropdown
-            practices={practices}
-            setPracticeId={setPracticeId}
-            practiceId={practiceId}
-          />
-          <NoReports />
+        <div>
+          {practices && (
+            <PracticeFilterDropdown
+              practices={practices}
+              setPracticeId={setUserPracticeId}
+              practiceId={userPracticeId}
+            />
+          )}
+          <NoReports unchecked={unchecked} />
         </div>
       )}
       {data.totalPages > 0 && (
-        <div className="container is-md">
-          <PracticeFilterDropdown
-            practices={practices}
-            setPracticeId={setPracticeId}
-            practiceId={practiceId}
-          />
+        <div>
+          {practices && (
+            <PracticeFilterDropdown
+              practices={practices}
+              setPracticeId={setUserPracticeId}
+              practiceId={userPracticeId}
+            />
+          )}
           <div className="page-content reports">
             {data.totalPages > 1 && (
               <Pagination
@@ -72,12 +89,16 @@ export default function Reports({ user, currentUser, practices }) {
                     <Report
                       key={report.id}
                       report={report}
-                      currentUser={currentUser}
+                      currentUserId={report.currentUserId}
+                      displayUserIcon={displayUserIcon}
                     />
                   )
                 })}
               </div>
             </ul>
+            {unchecked && (
+              <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+            )}
             {data.totalPages > 1 && (
               <Pagination
                 sum={data.totalPages * per}
@@ -94,12 +115,14 @@ export default function Reports({ user, currentUser, practices }) {
   )
 }
 
-const NoReports = () => {
+const NoReports = ({ unchecked }) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
-        <i className="fa-regular fa-face-sad-tear" />
-        <p className="o-empty-message__text">日報はまだありません。</p>
+      {unchecked
+        ? <><i className="fa-regular fa-smile" /><p className="o-empty-message__text">未チェックの日報はありません</p></>
+        : <><i className="fa-regular fa-sad-tear" /><p className="o-empty-message__text">'日報はまだありません。'</p></>
+      }
       </div>
     </div>
   )

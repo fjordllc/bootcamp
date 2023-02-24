@@ -16,7 +16,7 @@ class Comment < ApplicationRecord
 
   columns_for_keyword_search :description
 
-  mentionable_as :description
+  mentionable_as :description, hook_name: :after_commit
 
   class << self
     def commented_users

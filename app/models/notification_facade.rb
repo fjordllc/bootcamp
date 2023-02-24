@@ -17,16 +17,6 @@ class NotificationFacade
     return if receiver.retired?
   end
 
-  def self.mentioned(mentionable, receiver)
-    ActivityNotifier.with(mentionable: mentionable, receiver: receiver).mentioned.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      mentionable: mentionable,
-      receiver: receiver
-    ).mentioned.deliver_later(wait: 5)
-  end
-
   def self.submitted(subject, receiver, message)
     ActivityNotifier.with(subject: subject, receiver: receiver, message: message).submitted.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
@@ -90,16 +80,6 @@ class NotificationFacade
       event: event,
       receiver: receiver
     ).moved_up_event_waiting_user.deliver_later(wait: 5)
-  end
-
-  def self.create_page(page, receiver)
-    ActivityNotifier.with(page: page, receiver: receiver).create_page.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      page: page,
-      receiver: receiver
-    ).create_page.deliver_later(wait: 5)
   end
 
   def self.chose_correct_answer(answer, receiver)
