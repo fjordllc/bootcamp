@@ -22,7 +22,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.save
       Newspaper.publish(:event_create, @regular_event)
-      set_all_users_to_participants if @regular_event.all
+      RegularEventBulkInsertQuery.new(regular_event: @regular_event, target: User.students_and_trainees.ids).execute if @regular_event.all
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :new
@@ -35,7 +35,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.update(regular_event_params)
       Newspaper.publish(:regular_event_update, @regular_event)
-      set_all_users_to_participants if @regular_event.all
+      RegularEventBulkInsertQuery.new(regular_event: @regular_event, target: User.students_and_trainees.ids).execute if @regular_event.all
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :edit
@@ -93,33 +93,5 @@ class RegularEventsController < ApplicationController
     new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'
-  end
-
-  def set_all_users_to_participants
-    students_and_trainees_ids = User.students_and_trainees.ids
-    create_participants students_and_trainees_ids
-    create_watches students_and_trainees_ids
-  end
-
-  def create_participants(students_and_trainees_ids)
-    new_participants_ids = students_and_trainees_ids - @regular_event.participants.ids
-    sql = "INSERT INTO regular_event_participations (user_id, regular_event_id, created_at, updated_at) VALUES #{participants_values(new_participants_ids)};"
-    ActiveRecord::Base.connection.execute(sql) unless new_participants_ids.empty?
-  end
-
-  def create_watches(students_and_trainees_ids)
-    new_watchers_ids = students_and_trainees_ids - @regular_event.watches.pluck(:user_id)
-    sql = "INSERT INTO watches (watchable_type, user_id, watchable_id, created_at, updated_at) VALUES #{regular_event_watch_values(new_watchers_ids)};"
-    ActiveRecord::Base.connection.execute(sql) unless new_watchers_ids.empty?
-  end
-
-  def participants_values(participants_ids)
-    time_utc = Time.current.utc
-    participants_ids.map { |id| "(#{id}, #{@regular_event.id}, '#{time_utc}', '#{time_utc}')" }.join(',')
-  end
-
-  def regular_event_watch_values(watchers_ids)
-    time_utc = Time.current.utc
-    watchers_ids.map { |id| "('RegularEvent', #{id}, #{@regular_event.id}, '#{time_utc}', '#{time_utc}')" }.join(',')
   end
 end
