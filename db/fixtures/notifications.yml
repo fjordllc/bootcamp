@@ -103,7 +103,7 @@ notification_moved_up_event_waiting_user:
 
 notification_create_page:
   kind: 12
-  user: hatsuno
+  user: mentormentaro
   sender: komagata
   message: "komagataさんがDocsにBootcampの作業のページを投稿しました。"
   link: "/pages/<%= ActiveRecord::FixtureSet.identify(:page4) %>"

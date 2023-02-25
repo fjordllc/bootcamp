@@ -154,7 +154,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:create_page)' do
     params = {
       page: pages(:page4),
-      receiver: users(:hatsuno)
+      receiver: users(:mentormentaro)
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
