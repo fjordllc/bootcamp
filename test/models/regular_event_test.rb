@@ -15,14 +15,14 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test '#event_day?' do
+  test '#holding_today?' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
-      assert_equal true, regular_event.event_day?
+      assert regular_event.holding_today?
     end
 
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal false, regular_event.event_day?
+      assert_not regular_event.holding_today?
     end
   end
 
@@ -58,6 +58,17 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#holding_tomorrow?' do
+    regular_event = regular_events(:regular_event1)
+    travel_to Time.zone.local(2023, 2, 25, 0, 0, 0) do
+      assert regular_event.holding_tomorrow?
+    end
+
+    travel_to Time.zone.local(2023, 2, 26, 0, 0, 0) do
+      assert_not regular_event.holding_tomorrow?
+    end
+  end
+
   test '#cancel_participation' do
     regular_event = regular_events(:regular_event1)
     participant = regular_event_participations(:regular_event_participation1).user
@@ -74,5 +85,14 @@ class RegularEventTest < ActiveSupport::TestCase
     watch = Watch.new(user: user, watchable: regular_event)
     watch.save
     assert regular_event.watched_by?(user)
+  end
+
+  test 'participated_by?' do
+    regular_event = regular_events(:regular_event1)
+    user = users(:hatsuno)
+    assert regular_event.participated_by?(user)
+
+    user = users(:komagata)
+    assert_not regular_event.participated_by?(user)
   end
 end

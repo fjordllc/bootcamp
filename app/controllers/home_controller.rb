@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     if current_user
       display_dashboard
       display_events_on_dashboard
+      display_regular_events_on_dashboard
       display_welcome_message_for_adviser
       set_required_fields
       render aciton: :index
@@ -59,6 +60,18 @@ class HomeController < ApplicationController
     cookies_ids = JSON.parse(cookies[:confirmed_event_ids]) if cookies[:confirmed_event_ids]
     @events_coming_soon = Event.where(start_at: today_to_tomorrow).or(Event.where(start_at: tomorrow_to_day_after_tomorrow)).where.not(id: cookies_ids)
     @events_coming_soon_except_job_hunting = @events_coming_soon.where.not(job_hunting: true)
+  end
+
+  def display_regular_events_on_dashboard
+    cookies_ids = JSON.parse(cookies[:confirmed_regular_event_ids]) if cookies[:confirmed_regular_event_ids]
+    regular_events_comming_soon = RegularEvent.today_events + RegularEvent.tomorrow_events
+    @regular_events_comming_soon_for_current_user = regular_events_comming_soon.select { |event| event.participated_by?(current_user) }
+
+    cookies_ids&.each do |id|
+      @regular_events_comming_soon_for_current_user.delete_if do |event|
+        event.id == id.to_i
+      end
+    end
   end
 
   def display_welcome_message_for_adviser
