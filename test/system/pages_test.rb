@@ -250,7 +250,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_link '全て見る'
   end
 
-  test 'check the box on the notice to create a document' do
+  test 'check the box for notification to publish the document' do
     visit_with_auth new_page_path, 'komagata'
     fill_in 'page[title]', with: 'お知らせにチェックを入れて新規Docを作成'
     fill_in 'page[body]', with: '「お知らせにチェックを入れて新規Docを作成」の本文です。'
@@ -264,7 +264,6 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'publish a new document from WIP after checking the create notification box.' do
     visit_with_auth new_page_path, 'komagata'
-    debugger
     fill_in 'page[title]', with: 'お知らせにチェックを入れてWIP状態から新規Docを作成'
     fill_in 'page[body]', with: '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
     click_button 'WIP'
