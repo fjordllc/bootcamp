@@ -205,7 +205,7 @@ class ActivityMailer < ApplicationMailer
       link: "/reports/#{@report.id}",
       kind: Notification.kinds[:following_report]
     )
-    subject = "[FBC] #{@sender.login_name}さんが日報【 #{@report.title} 】を書きました！"
+    subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
 
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReportCallbacks
-  def after_save(report)
+  def after_commit(report)
     return unless report.saved_changes?
 
     Cache.delete_unchecked_report_count
