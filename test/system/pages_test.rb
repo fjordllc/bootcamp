@@ -256,9 +256,26 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: '「お知らせにチェックを入れて新規Docを作成」の本文です。'
     check 'このドキュメント公開についてお知らせを書く', allow_label_click: true
     click_button '内容を保存'
+
     assert_text 'ページを作成しました'
     assert has_field?('announcement[title]', with:'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れて新規Docを作成」の本文です。'
+  end
+
+  test 'publish a new document from WIP after checking the create notification box.' do
+    visit_with_auth new_page_path, 'komagata'
+    debugger
+    fill_in 'page[title]', with: 'お知らせにチェックを入れてWIP状態から新規Docを作成'
+    fill_in 'page[body]', with: '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
+    click_button 'WIP'
+
+    click_on '内容変更'
+    check 'このドキュメント公開についてお知らせを書く', allow_label_click: true
+    click_button '内容を保存'
+
+    assert_text 'ページを作成しました'
+    assert has_field?('announcement[title]', with:'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
+    assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
 end
 
