@@ -62,11 +62,9 @@ header.page-header
                 td.admin-table__item-value.is-text-align-right
                   = students_joined_by_campaign = @normal_students.where(created_at: campaign.start_at..campaign.end_at).count
                 td.admin-table__item-value.is-text-align-right
-                  - retired_students_joined_by_campaign = @retired_students.where(created_at: campaign.start_at..campaign.end_at).count
-                  - continued_students = students_joined_by_campaign - retired_students_joined_by_campaign
-                  = continued_students
+                  = continued_students_joined_by_campaign = @continued_students.where(created_at: campaign.start_at..campaign.end_at).count
                 td.admin-table__item-value.is-text-align-right
-                  = retired_students_joined_by_campaign
+                  = students_joined_by_campaign - continued_students_joined_by_campaign
                 td.admin-table__item-value.is-text-align-center
                   ul.is-inline-buttons
                     li
