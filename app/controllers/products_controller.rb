@@ -54,6 +54,7 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.update(product_params)
+      Newspaper.publish(:product_update, @product)
       redirect_to @product, notice: notice_message(@product, :update)
       notice_another_mentor_assined_as_checker
       notice_product_update if @product.checker_id.present?
