@@ -5,24 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   events.forEach((event) => {
     const eventId = event.getAttribute('data-event-id')
+    const eventType = event.getAttribute('data-event-type')
     const button = event.querySelector('.js-close-event')
+    const key = {
+      Event: 'confirmed_event_ids=',
+      RegularEvent: 'confirmed_regular_event_ids='
+    }[eventType]
 
     button.addEventListener('click', () => {
       document
-        .querySelector(`.page-notices__item[data-event-id="${eventId}"]`)
+        .querySelector(
+          `.page-notices__item[data-event-id="${eventId}"][data-event-type="${eventType}"]`
+        )
         .remove()
 
       if (
-        document.cookie
-          .split('; ')
-          .find((row) => row.startsWith('confirmed_event_ids')) === undefined
+        document.cookie.split('; ').find((row) => row.startsWith(key)) ===
+        undefined
       ) {
-        saveCookie([eventId])
+        saveCookie(key, [eventId])
       } else {
         const latestCookie = document.cookie
           .split('; ')
-          .find((row) => row.startsWith('confirmed_event_ids'))
-        saveCookie(updateEventIds(latestCookie, eventId))
+          .find((row) => row.startsWith(key))
+        const eventIds = updateEventIds(key, latestCookie, eventId)
+        saveCookie(key, eventIds)
       }
 
       const eventCount = document.querySelectorAll(
@@ -34,17 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  function saveCookie(eventIds) {
+  function saveCookie(key, eventIds) {
     const secondsFor30days = 2592000
     document.cookie =
-      'confirmed_event_ids=' +
-      JSON.stringify(eventIds) +
-      ';max-age=' +
-      secondsFor30days
+      key + JSON.stringify(eventIds) + ';max-age=' + secondsFor30days
   }
 
-  function updateEventIds(latestCookie, eventId) {
-    const unnecessaryCharacters = 20
+  function updateEventIds(key, latestCookie, eventId) {
+    const unnecessaryCharacters = key.length
     const latestEventIds = latestCookie.substr(unnecessaryCharacters)
     const updatedEventIds = JSON.parse(latestEventIds)
     updatedEventIds.push(eventId)

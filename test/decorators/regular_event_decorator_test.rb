@@ -8,7 +8,7 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
   def setup
     ActiveDecorator::ViewContext.push(controller.view_context)
     @regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event1))
-    @finished_regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event8))
+    @finished_regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event10))
   end
 
   test '#holding_cycles' do

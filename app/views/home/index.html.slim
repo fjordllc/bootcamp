@@ -3,14 +3,15 @@
 = render 'page_tabs', user: current_user
 
 .page-body.is-dash-board
-  - if @events_coming_soon.present? && current_user.job_seeker
+  - if @events_coming_soon.present? || @regular_events_comming_soon_for_current_user.present?
     #events_on_dashboard.confirmed_event
       .page-notices
-        = render partial: 'event', collection: @events_coming_soon, as: :event
-  - if @events_coming_soon_except_job_hunting.present? && !current_user.job_seeker
-    #events_on_dashboard.confirmed_event
-      .page-notices
-        = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
+        - if @events_coming_soon.present? && current_user.job_seeker
+          = render partial: 'event', collection: @events_coming_soon, as: :event
+        - if @events_coming_soon_except_job_hunting.present? && !current_user.job_seeker
+          = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
+        - if @regular_events_comming_soon_for_current_user.present?
+          = render partial: 'regular_event', collection: @regular_events_comming_soon_for_current_user, as: :regular_event
 
   - if current_user.adviser?
     = render 'adviser_dashboard'
