@@ -25,7 +25,6 @@ class Admin::CampaignsController < AdminController
     @campaigns = Campaign.order(end_at: :desc)
     @normal_students = User.where(admin: false, mentor: false, adviser: false, trainee: false)
     @continued_students = User.where(admin: false, mentor: false, adviser: false, trainee: false, retired_on: nil)
-    @retired_students = User.retired_students
   end
 
   def edit; end
