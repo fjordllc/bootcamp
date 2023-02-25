@@ -253,3 +253,4 @@ class PagesTest < ApplicationSystemTestCase
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
 end
+
