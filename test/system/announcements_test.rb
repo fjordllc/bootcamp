@@ -132,7 +132,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     visit_with_auth '/announcements', 'komagata'
     click_on 'タイトルtest'
-    page.accept_confirm do
+    accept_confirm do
       click_link '削除'
     end
     assert page.has_css?('p.flash__message', text: 'お知らせを削除しました')
