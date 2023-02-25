@@ -32,9 +32,9 @@ class PagesController < ApplicationController
     @page.user ? @page.last_updated_user = current_user : @page.user = current_user
     set_wip
     if @page.save
-      Newspaper.publish(:page_create, @page) unless @page.wip?
-      if page_params[:announcement] == '1' && !@page.wip? # ’1’は「このドキュメント公開についてお知らせを書く」にチェックが入っていない場合を指す
-        redirect_to new_announcement_path, notice: notice_message(@page, :create) and return
+      unless @page.wip?
+        Newspaper.publish(:page_create, @page)
+        redirect_to new_announcement_path, notice: notice_message(@page, :create) and return if announcement_checked?
       end
 
       redirect_to @page, notice: notice_message(@page, :create)
@@ -47,7 +47,11 @@ class PagesController < ApplicationController
     set_wip
     @page.last_updated_user = current_user
     if @page.update(page_params)
-      Newspaper.publish(:page_update, @page) if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
+      if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
+        Newspaper.publish(:page_update, @page)
+        redirect_to new_announcement_path, notice: notice_message(@page, :create) and return if announcement_checked?
+      end
+
       redirect_to @page, notice: notice_message(@page, :update)
     else
       render :edit
@@ -98,5 +102,9 @@ class PagesController < ApplicationController
     return if @page.slug.nil?
 
     redirect_to request.original_url.sub(params[:slug_or_id], @page.slug) unless params[:slug_or_id].start_with?(/[a-z]/)
+  end
+
+  def announcement_checked?
+    page_params[:announcement] == '1' # ’1’は「このドキュメント公開についてお知らせを書く」にチェックが入っている場合を指します
   end
 end
