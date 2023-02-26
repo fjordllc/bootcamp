@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreatingMentorsWatchForQuestion
+class MentorsWatchForQuestionCreator
   def call(question)
     return if question.wip? || question.watched?
 

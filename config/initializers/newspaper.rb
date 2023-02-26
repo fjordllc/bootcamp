@@ -40,6 +40,7 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:page_update, page_notifier)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   product_notifier = ProductNotifier.new
   Newspaper.subscribe(:product_create, product_notifier)
   Newspaper.subscribe(:product_update, product_notifier)
@@ -50,4 +51,9 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:question_create, creating_mentors_watch_for_question)
   Newspaper.subscribe(:question_update, creating_mentors_watch_for_question)
 >>>>>>> 7792e7778 (createとupdateでnewspaperの呼び出しを分けた)
+=======
+  mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
+  Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
+  Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
+>>>>>>> dd2eaab4c (ファイルとクラス名をCreatingMentorsWatchForQueestionからMentorsWatchForQuestionCreatorに修正した)
 end
