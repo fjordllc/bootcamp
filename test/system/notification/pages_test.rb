@@ -12,7 +12,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test 'Only students and mentors are notified' do
+  test 'Only admins and mentors are notified' do
     visit_with_auth '/pages', 'komagata'
     click_link 'Doc作成'
 
@@ -23,7 +23,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
     click_button '内容を保存'
     assert_text 'ページを作成しました。'
 
-    visit_with_auth '/notifications', 'hatsuno'
+    visit_with_auth '/notifications', 'mentormentaro'
 
     within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
@@ -34,6 +34,10 @@ class Notification::PagesTest < ApplicationSystemTestCase
     within first('.card-list-item.is-unread') do
       assert_text 'komagataさんがDocsにDocsTestを投稿しました。'
     end
+
+    logout
+    visit_with_auth '/notifications', 'hatsuno'
+    assert_no_text 'komagataさんがDocsにDocsTestを投稿しました。'
 
     logout
     visit_with_auth '/notifications', 'yameo'
