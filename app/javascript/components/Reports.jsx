@@ -8,7 +8,16 @@ import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
 
-export default function Reports({ all = false, userId = '', practices = false, unchecked = false, displayUserIcon = true, companyId = '', practiceId = '', displayPagination = true }) {
+export default function Reports({
+  all = false,
+  userId = '',
+  practices = false,
+  unchecked = false,
+  displayUserIcon = true,
+  companyId = '',
+  practiceId = '',
+  displayPagination = true
+}) {
   const per = 20
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
@@ -25,18 +34,18 @@ export default function Reports({ all = false, userId = '', practices = false, u
 
   const { data, error } = useSWR(
     practices
-    ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
-    : unchecked
-    ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
-    : userId !== ''
-    ? `/api/reports.json?page=${page}&user_id=${userId}`
-    : practiceId !== ''
-    ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
-    : companyId !== ''
-    ? `/api/reports.json?page=${page}&company_id=${companyId}`
-    : all === true
-    ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
-    : console.log('data_fetched!'),
+      ? `/api/reports.json?user_id=${userId}&page=${page}&practice_id=${userPracticeId}`
+      : unchecked
+      ? `/api/reports/unchecked.json?page=${page}&user_id=${userId}`
+      : userId !== ''
+      ? `/api/reports.json?page=${page}&user_id=${userId}`
+      : practiceId !== ''
+      ? `/api/reports.json?page=${page}&practice_id=${practiceId}`
+      : companyId !== ''
+      ? `/api/reports.json?page=${page}&company_id=${companyId}`
+      : all === true
+      ? `/api/reports.json?page=${page}&practice_id=${userPracticeId}`
+      : console.log('data_fetched!'),
     fetcher
   )
 
@@ -119,10 +128,19 @@ const NoReports = ({ unchecked }) => {
   return (
     <div className="o-empty-message">
       <div className="o-empty-message__icon">
-      {unchecked
-        ? <><i className="fa-regular fa-smile" /><p className="o-empty-message__text">未チェックの日報はありません</p></>
-        : <><i className="fa-regular fa-sad-tear" /><p className="o-empty-message__text">'日報はまだありません。'</p></>
-      }
+        {unchecked ? (
+          <>
+            <i className="fa-regular fa-smile" />
+            <p className="o-empty-message__text">
+              未チェックの日報はありません
+            </p>
+          </>
+        ) : (
+          <>
+            <i className="fa-regular fa-sad-tear" />
+            <p className="o-empty-message__text">'日報はまだありません。'</p>
+          </>
+        )}
       </div>
     </div>
   )
