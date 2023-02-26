@@ -71,8 +71,11 @@ class ActivityMailer < ApplicationMailer
       link: "/products/#{@product.id}",
       kind: Notification.kinds[:submitted]
     )
-    subject = "[FBC] #{@message}"
-    mail to: @user.email, subject: subject
+    subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を提出しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
   end
 
   # required params: announcement, receiver
