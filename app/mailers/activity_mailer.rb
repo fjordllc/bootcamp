@@ -60,9 +60,8 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
-  # required params: product, receivers, message
+  # required params: product, receiver
   def submitted(args = {})
-    @message = params&.key?(:message) ? params[:message] : args[:message]
     @product = params&.key?(:product) ? params[:product] : args[:product]
     @sender ||= args[:sender]
     @receiver ||= args[:receiver]

@@ -108,8 +108,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     product = products(:product6)
     params = {
       product: product,
-      receiver: users(:mentormentaro),
-      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+      receiver: users(:mentormentaro)
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
