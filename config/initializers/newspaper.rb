@@ -39,9 +39,15 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
 
+<<<<<<< HEAD
   product_notifier = ProductNotifier.new
   Newspaper.subscribe(:product_create, product_notifier)
   Newspaper.subscribe(:product_update, product_notifier)
 
   Newspaper.subscribe(:question_create, CreatingMentorsWatchForQuestion.new)
+=======
+  creating_mentors_watch_for_question = CreatingMentorsWatchForQuestion.new
+  Newspaper.subscribe(:question_create, creating_mentors_watch_for_question)
+  Newspaper.subscribe(:question_update, creating_mentors_watch_for_question)
+>>>>>>> 7792e7778 (createとupdateでnewspaperの呼び出しを分けた)
 end

@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
-  before_action :set_watch, only: %i[show create]
+  before_action :set_watch, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
