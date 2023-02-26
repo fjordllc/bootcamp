@@ -1,3 +1,8 @@
+# NOTE: ボイス機能を使用しない設定です。
+#       https://github.com/shardlab/discordrb/wiki/Installing-libopus
+ENV['DISCORDRB_NONACL'] = 'true'
+require 'discordrb'
+
 Rails.application.reloader.to_prepare do
   Discord::Server.configure do |config|
     config.guild_id = ENV['DISCORD_GUILD_ID'].presence
