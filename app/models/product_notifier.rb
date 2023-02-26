@@ -12,14 +12,13 @@ class ProductNotifier
   def notify_advisers(product)
     send_notification(
       product: product,
-      receivers: product.user.company.advisers,
-      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+      receivers: product.user.company.advisers
     )
   end
 
-  def send_notification(product:, receivers:, message:)
+  def send_notification(product:, receivers:)
     receivers.each do |receiver|
-      NotificationFacade.submitted(product, receiver, message)
+      NotificationFacade.submitted(product, receiver)
     end
   end
 end

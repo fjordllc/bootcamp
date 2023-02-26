@@ -85,10 +85,9 @@ class ActivityNotifier < ApplicationNotifier
     params.merge!(@params)
     product = params[:product]
     receiver = params[:receiver]
-    message = params[:message]
 
     notification(
-      body: message,
+      body: "#{product.user.login_name}さんが#{product.title}を提出しました。",
       kind: :watching,
       sender: product.user,
       receiver: receiver,
