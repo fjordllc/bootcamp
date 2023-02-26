@@ -417,7 +417,22 @@ class TalksTest < ApplicationSystemTestCase
   end
 
   test 'send to student after 30 days registration' do
-    user = users(:registration30days)
+    user = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      sent_student_followup_message: false,
+      updated_at: Time.current - 20.days,
+      created_at: Time.current - 30.days,
+      last_activity_at: Time.current - 10.days
+    )
     visit scheduler_daily_send_message_path
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     assert_text 'ご登録から30日ほど経ちますが'

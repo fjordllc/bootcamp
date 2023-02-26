@@ -617,14 +617,55 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'after twenty nine days registration?' do
-    over29days_registered_student = users(:registration30days)
-    recently_registered_student = users(:otameshi)
+    over29days_registered_student = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+    recently_registered_student = User.create!(
+      login_name: 'recently',
+      email: 'recently_registered_student@fjord.jp',
+      password: 'testtest',
+      name: '入会 太郎',
+      name_kana: 'ニュウカイ タロウ',
+      description: '最近入会したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      created_at: Time.current,
+      sent_student_followup_message: false
+    )
+
     assert over29days_registered_student.after_twenty_nine_days_registration?
     assert_not recently_registered_student.after_twenty_nine_days_registration?
   end
 
   test 'message send target?' do
-    target = users(:registration30days)
+    target = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      hibernated_at: nil,
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
     nottarget = users(:komagata)
     otameshi = users(:otameshi)
     hibernated = users(:kyuukai)
