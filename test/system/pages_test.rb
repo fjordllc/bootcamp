@@ -258,7 +258,7 @@ class PagesTest < ApplicationSystemTestCase
     click_button '内容を保存'
 
     assert_text 'ページを作成しました'
-    assert has_field?('announcement[title]', with:'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。')
+    assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れて新規Docを作成」の本文です。'
   end
 
@@ -273,8 +273,7 @@ class PagesTest < ApplicationSystemTestCase
     click_button '内容を保存'
 
     assert_text 'ページを作成しました'
-    assert has_field?('announcement[title]', with:'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
+    assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
 end
-
