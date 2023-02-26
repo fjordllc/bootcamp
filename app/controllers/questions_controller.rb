@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
-  before_action :set_watch, only: %i[show]
+  before_action :set_watch, only: %i[show create]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
@@ -55,6 +55,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     @question.wip = params[:commit] == 'WIP'
     if @question.save
+      Newspaper.publish(:question_create, @question) unless @question.wip
       redirect_to @question, notice: notice_message(@question)
     else
       render :new
