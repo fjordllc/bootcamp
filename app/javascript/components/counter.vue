@@ -1,7 +1,7 @@
 <template lang='pug'>
 div
   div {{ count }}
-  button(@click='this.$store.commit("increment")')
+  button(@click='increment')
     | プラス
 </template>
 <script>
@@ -11,7 +11,7 @@ export default {
       return this.$store.state.count
     }
   },
-  method: {
+  methods: {
     increment () {
       this.$store.commit('increment')
     }

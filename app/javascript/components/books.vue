@@ -22,27 +22,12 @@
     p.o-empty-message__text
       | 登録されている本はありません
 </template>
+
 <script>
-import Vuex from 'vuex'
+import store from '../books-store'
 import CounterTest from './counter'
 import FilterSelect from './filter-by-practices'
 import Book from './book'
-
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  },
-  actions: {
-    increment ({ commit }) {
-      commit('increment')
-    },
-  }
-})
 
 export default {
   name: 'Books',

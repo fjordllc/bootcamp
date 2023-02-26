@@ -1,22 +1,21 @@
-// import { createApp } from 'vue'
-// import { createStore } from 'vuex'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// const store = createStore({
-//   state () {
-//     return {
-//       count: 0
-//     }
-//   },
-//   mutations: {
-//     increment (state) {
-//       state.count++
-//     }
-//   }
-// })
-// 
-// export default createApp.use(store)
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  }
+})
+
+export default store
+
 
 // import Vue from 'vue'
 // import FilterByPractices from './components/filter-by-practices.vue'
