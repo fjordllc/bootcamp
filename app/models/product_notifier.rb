@@ -18,7 +18,7 @@ class ProductNotifier
 
   def send_notification(product:, receivers:)
     receivers.each do |receiver|
-      NotificationFacade.submitted(product, receiver)
+      ActivityDelivery.with(product: product, receiver: receiver).notify(:submitted)
     end
   end
 end
