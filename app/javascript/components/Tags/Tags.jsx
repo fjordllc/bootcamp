@@ -17,6 +17,7 @@ export default function Tags({
   tagsTypeId,
   tagsEditable = true
 }) {
+  const [unSavedTags, setUnSavedTags] = useState(parseTags(tagsInitialValue))
   const [tags, setTags] = useState(parseTags(tagsInitialValue))
   const [editing, setEditing] = useState(false)
   const [isSharp, setIsSharp] = useState(false)
@@ -39,9 +40,9 @@ export default function Tags({
 
   const onCancel = useCallback((e) => {
     e.preventDefault()
-    setTags(parseTags(tagsInitialValue))
+    setTags(unSavedTags)
     setEditing(false)
-  }, [])
+  }, [unSavedTags])
 
   const onInvalid = useCallback((e) => {
     alert(e.detail.message)
@@ -69,7 +70,11 @@ export default function Tags({
     }).catch((error) => {
       alert('タグの更新に失敗しました')
       console.warn(error)
-    }).finally(() => setEditing(false))
+    }).then(() =>
+      setUnSavedTags(tags)
+    ).finally(() =>
+      setEditing(false)
+    )
   }
 
   return (
@@ -100,7 +105,7 @@ export default function Tags({
                 validate: validateTagName,
                 transformTag: transformHeadSharp
               }}
-              defaultValue={tags}
+              value={tags}
               whitelist={data ? data.map((tag) => tag.value) : []}
               onChange={onChange}
               onInput={onInput}
