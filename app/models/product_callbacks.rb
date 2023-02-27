@@ -43,9 +43,9 @@ class ProductCallbacks
     end
   end
 
-  def send_notification(product:, receivers:, message:)
+  def send_notification(product:, receivers:)
     receivers.each do |receiver|
-      ActivityDelivery.with(product: product, receiver: receiver, message: message).notify(:submitted)
+      ActivityDelivery.with(product: product, receiver: receiver).notify(:submitted)
     end
   end
 
@@ -59,8 +59,7 @@ class ProductCallbacks
     mentors = User.where(id: mentor_ids)
     send_notification(
       product: product,
-      receivers: mentors,
-      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
+      receivers: mentors
     )
   end
 
