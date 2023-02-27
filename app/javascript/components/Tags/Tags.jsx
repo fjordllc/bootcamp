@@ -14,7 +14,8 @@ export default function Tags({
   tagsParamName,
   tagsInputId,
   tagsType,
-  tagsTypeId
+  tagsTypeId,
+  tagsEditable = true
 }) {
   const [tags, setTags] = useState(parseTags(tagsInitialValue))
   const [editing, setEditing] = useState(false)
@@ -83,9 +84,11 @@ export default function Tags({
               </li>
             )
           })}
-          <li className="tag-links__item">
-            <div className="tag-links__item-edit" onClick={() => setEditing(true)}>タグ編集</div>
-          </li>
+          {tagsEditable &&
+            <li className="tag-links__item">
+              <div className="tag-links__item-edit" onClick={() => setEditing(true)}>タグ編集</div>
+            </li>
+          }
         </ul>
       }
       <form className={`${editing ? '' : 'hidden'}`}>
@@ -106,16 +109,18 @@ export default function Tags({
           </div>
         </div>
         {isSharp && <div>先頭の記号は無視されます</div>}
-        <div className="form-actions">
-          <ul className="form-actions__items">
-            <li className="form-actions__item is-main">
-              <button className="a-button is-primary is-sm is-block" onClick={updateTag}>保存する</button>
-            </li>
-            <li className="form-actions__item">
-              <button className="a-button is-sm is-text" onClick={onCancel}>キャンセル</button>
-            </li>
-          </ul>
-        </div>
+        {tagsEditable &&
+          <div className="form-actions">
+            <ul className="form-actions__items">
+              <li className="form-actions__item is-main">
+                <button className="a-button is-primary is-sm is-block" onClick={updateTag}>保存する</button>
+              </li>
+              <li className="form-actions__item">
+                <button className="a-button is-sm is-text" onClick={onCancel}>キャンセル</button>
+              </li>
+            </ul>
+          </div>
+        }
       </form>
     </div>
   )
