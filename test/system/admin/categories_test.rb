@@ -52,12 +52,10 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'delete category' do
-    visit_with_auth '/admin/categories', 'komagata'
-    within('.admin-table__item:first-child') do
-      accept_confirm do
-        find('.js-delete').click
-      end
-    end
+    visit_with_auth "/admin/categories/#{categories(:category1).id}/edit", 'komagata'
+    click_on '削除'
+    page.driver.browser.switch_to.alert.accept
+    assert_text 'カテゴリーを削除しました。'
     assert_no_text '学習の準備'
   end
 end
