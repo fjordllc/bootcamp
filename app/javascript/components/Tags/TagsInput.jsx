@@ -49,7 +49,7 @@ export default function TagsInput({
           validate: validateTagName,
           transformTag: transformHeadSharp
         }}
-        defaultValue={tags}
+        value={tags}
         whitelist={data ? data.map((tag) => tag.value) : []}
         onInput={onInput}
         onChange={onChange}
