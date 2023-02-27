@@ -391,9 +391,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_not page.has_css?('.pagination')
   end
 
-  test 'show user full_name next to user login_name' do
-    visit_with_auth "/products/#{products(:product1).id}", 'kimura'
-    assert_text 'mentormentaro (メンタ 麺太郎)'
+  test 'show user name_kana next to name' do
+    product = products(:product1)
+    visit_with_auth "/products/#{product.id}", 'kimura'
+    user = product.user
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    assert_text decorated_user.long_name
   end
 
   test 'notice accessibility to open products on products index' do
