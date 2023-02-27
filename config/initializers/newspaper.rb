@@ -42,4 +42,8 @@ Rails.configuration.to_prepare do
   product_notifier = ProductNotifier.new
   Newspaper.subscribe(:product_create, product_notifier)
   Newspaper.subscribe(:product_update, product_notifier)
+
+  mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
+  Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
+  Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
 end

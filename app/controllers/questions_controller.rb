@@ -55,6 +55,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     @question.wip = params[:commit] == 'WIP'
     if @question.save
+      Newspaper.publish(:question_create, @question)
       redirect_to @question, notice: notice_message(@question)
     else
       render :new
