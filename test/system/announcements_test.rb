@@ -211,9 +211,12 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show user full_name next to user login_name' do
-    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
-    assert_text 'komagata (Komagata Masaki)'
+  test 'show user name_kana next to user name' do
+    announcement = announcements(:announcement1)
+    user = announcement.user
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    visit_with_auth "/announcements/#{announcement.id}", 'kimura'
+    assert_text decorated_user.long_name
   end
 
   test 'show comment count' do

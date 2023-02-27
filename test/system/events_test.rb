@@ -359,14 +359,17 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
-  test 'show user full_name next to user login_name' do
-    visit_with_auth event_path(events(:event2)), 'kimura'
-    assert_text 'komagata (Komagata Masaki)'
+  test 'show user name_kana next to user name' do
+    event = events(:event2)
+    user = event.user
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    visit_with_auth event_path(event), 'kimura'
+    assert_text decorated_user.long_name
   end
 
   test 'show user full name on list page' do
     visit_with_auth '/events', 'kimura'
-    assert_text 'komagata (Komagata Masaki)'
+    assert_text 'Komagata Masaki (コマガタ マサキ)'
   end
 
   test 'show pagination' do
