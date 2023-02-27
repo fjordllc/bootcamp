@@ -53,6 +53,9 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set 'タグタグ'
     tag_input.native.send_keys :return
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('タグタグ')
+    end
     click_button '保存する'
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
@@ -141,6 +144,9 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set '#ハッシュハッシュ'
     tag_input.native.send_keys :return
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('ハッシュハッシュ')
+    end
     click_button '保存する'
     within '.tag-links__items' do
       assert_text 'ハッシュハッシュ'
