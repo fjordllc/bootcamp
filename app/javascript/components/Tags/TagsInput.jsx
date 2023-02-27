@@ -29,10 +29,12 @@ export default function TagsInput({
     setTags(e.detail.tagify.value
       .filter((tag) => tag.__isValid)
       .map((tag) => tag.value))
+    setIsSharp(false)
   }, [])
 
   const onInvalid = useCallback((e) => {
     alert(e.detail.message)
+    setIsSharp(false)
   }, [])
 
   return (

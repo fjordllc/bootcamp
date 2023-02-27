@@ -30,6 +30,7 @@ export default function Tags({
     setTags(e.detail.tagify.value
       .filter((tag) => tag.__isValid)
       .map((tag) => tag.value))
+    setIsSharp(false)
   }, [])
 
   const onInput = useCallback((e) => {
