@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
-import TagifyTags from "@yaireo/tagify/dist/react.tagify"
-import "@yaireo/tagify/dist/tagify.css" // Tagify CSS
+import TagifyTags from '@yaireo/tagify/dist/react.tagify'
+import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import useSWR from 'swr'
 import fetcher from '../../fetcher'
 import transformHeadSharp from './transform-head-sharp.js'
@@ -15,7 +15,10 @@ export default function TagsInput({
 }) {
   const [tags, setTags] = useState(parseTags(tagsInitialValue))
   const [isSharp, setIsSharp] = useState(false)
-  const { data, error } = useSWR(`/api/tags.json?taggable_type=${taggableType}`, fetcher)
+  const { data, error } = useSWR(
+    `/api/tags.json?taggable_type=${taggableType}`,
+    fetcher
+  )
 
   if (error) {
     console.warn('使われているタグリストの読み込みに失敗しました', error)
@@ -26,9 +29,11 @@ export default function TagsInput({
   }, [])
 
   const onChange = useCallback((e) => {
-    setTags(e.detail.tagify.value
-      .filter((tag) => tag.__isValid)
-      .map((tag) => tag.value))
+    setTags(
+      e.detail.tagify.value
+        .filter((tag) => tag.__isValid)
+        .map((tag) => tag.value)
+    )
     setIsSharp(false)
   }, [])
 
@@ -50,7 +55,7 @@ export default function TagsInput({
         onChange={onChange}
         onInvalid={onInvalid}
       />
-      <input type="hidden" value={tags.join()} name={tagsParamName}/>
+      <input type="hidden" value={tags.join()} name={tagsParamName} />
       {isSharp && <div>先頭の記号は無視されます</div>}
     </>
   )
