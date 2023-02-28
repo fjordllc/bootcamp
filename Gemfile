@@ -31,6 +31,7 @@ gem 'discordrb', github: 'shardlab/discordrb', require: false
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
+gem 'icalendar', '~> 2.8'
 gem 'jp_prefecture'
 gem 'jquery-rails'
 gem 'kaminari'
