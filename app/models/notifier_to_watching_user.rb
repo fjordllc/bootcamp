@@ -11,7 +11,13 @@ class NotifierToWatchingUser
     watcher_ids.each do |watcher_id|
       if watcher_id != answer.sender.id && !mention_user_ids.include?(watcher_id)
         watcher = User.find_by(id: watcher_id)
-        NotificationFacade.watching_notification(question, watcher, answer)
+        sender = answer.user
+
+        ActivityDelivery.with(
+          watchable: question, 
+          receiver: watcher, 
+          comment: answer, 
+          sender: sender).notify(:watching_notification)
       end
     end
   end
