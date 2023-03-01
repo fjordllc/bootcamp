@@ -5,6 +5,8 @@ class WelcomeController < ApplicationController
 
   layout 'welcome'
 
+  RAILS_COURSE = 'Rails Webプログラマー'
+
   def index
     @mentors = User.mentors_sorted_by_created_at
   end
@@ -16,7 +18,7 @@ class WelcomeController < ApplicationController
   def training; end
 
   def practices
-    @categories = Course.find_by(title: 'Rails Webプログラマー').categories.preload(:practices).order(:position)
+    @categories = Course.find_by(title: RAILS_COURSE).categories.preload(:practices).order(:position)
   end
 
   def tos; end
