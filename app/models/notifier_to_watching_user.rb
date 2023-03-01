@@ -9,16 +9,17 @@ class NotifierToWatchingUser
 
     watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
     watcher_ids.each do |watcher_id|
-      if watcher_id != answer.sender.id && !mention_user_ids.include?(watcher_id)
-        watcher = User.find_by(id: watcher_id)
-        sender = answer.user
+      next unless watcher_id != answer.sender.id && !mention_user_ids.include?(watcher_id)
 
-        ActivityDelivery.with(
-          watchable: question, 
-          receiver: watcher, 
-          comment: answer, 
-          sender: sender).notify(:watching_notification)
-      end
+      watcher = User.find_by(id: watcher_id)
+      sender = answer.user
+
+      ActivityDelivery.with(
+        watchable: question,
+        receiver: watcher,
+        comment: answer,
+        sender: sender
+      ).notify(:watching_notification)
     end
   end
 end
