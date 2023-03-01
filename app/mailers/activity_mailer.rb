@@ -225,7 +225,7 @@ class ActivityMailer < ApplicationMailer
     link = "/#{@watchable.class.name.underscore.pluralize}/#{@watchable.id}"
     @notification = @user.notifications.find_by(link: link)
     action = @watchable.instance_of?(Question) ? '回答' : 'コメント'
-    subject = "[FBC] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんが#{action}しました。"
+    subject = "[FBC] #{@watchable.user.login_name}さんの【 #{@watchable.notification_title} 】に#{@sender.login_name}さんが#{action}しました。"
 
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
