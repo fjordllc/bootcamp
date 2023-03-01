@@ -20,6 +20,8 @@
     justify-content: center
     flex-wrap: wrap
     position: relative
+    max-width: 45em
+    +margin(horizontal,  auto)
     &.is-ais-flex-start
       align-items: flex-start
   +media-breakpoint-down(sm)
@@ -43,7 +45,7 @@
       margin-bottom: 1rem
   &.is-main
     +media-breakpoint-up(md)
-      min-width: 20rem
+      min-width: 18rem
       .auth-form__body &
         min-width: 50%
     +media-breakpoint-down(sm)
