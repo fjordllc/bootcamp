@@ -47,10 +47,10 @@ regular_event_repeat_rule9:
 regular_event_repeat_rule<%= i %>:
   frequency: 0
   day_of_the_week: 0
-  regular_event: regular_event<%= i - 3 %>
+  regular_event: regular_event<%= i %>
 <% end %>
 
-# NOTE: 定期イベントが複数の場合
+# NOTE: 定期イベントが複数存在する場合
 regular_event_repeat_rule27:
   frequency: 1
   day_of_the_week: 1
@@ -69,4 +69,3 @@ regular_event_repeat_rule29:
 regular_event_repeat_rule30:
   frequency: 2
   day_of_the_week: 3
-  regular_event: regular_event2
