@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::FootprintsController < API::BaseController
-  before_action :footprintable
+  before_action :footprintable, only: %i[index]
 
   def index
     if @footprintable.present?
