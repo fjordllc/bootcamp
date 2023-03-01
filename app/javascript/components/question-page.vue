@@ -1,8 +1,8 @@
 <template lang="pug">
-.page-body
-  .container(v-if='question === null || currentUser === null')
+div
+  template(v-if='question === null || currentUser === null')
     loadingQuestionPagePlaceholder
-  .container.is-lg(v-else)
+  template(v-else)
     questionEdit(
       :question='question',
       :answerCount='answerCount',
