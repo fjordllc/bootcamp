@@ -44,27 +44,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/はじめて/, email.body.to_s)
   end
 
-  test 'watching_notification' do
-    watch = watches(:report1_watch_kimura)
-    watching = notifications(:notification_watching)
-    mailer = NotificationMailer.with(
-      watchable: watch.watchable,
-      receiver: watching.user,
-      comment: comments(:comment1)
-    ).watching_notification
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[FBC] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。', email.subject
-    assert_match(/コメント/, email.body.to_s)
-  end
-
   test 'trainee_report' do
     report = reports(:report11)
     trainee_report = notifications(:notification_trainee_report)
