@@ -48,7 +48,12 @@ class Comment::AfterCreateCallback
 
       watcher = User.find_by(id: watcher_id)
       sender = comment.user
-      ActivityDelivery.with(watchable: watchable, receiver: watcher, comment: comment, sender: sender).notify(:watching_notification)
+
+      ActivityDelivery.with(
+        watchable: watchable,
+        receiver: watcher,
+        comment: comment,
+        sender: sender).notify(:watching_notification)
     end
   end
 
