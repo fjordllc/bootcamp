@@ -223,6 +223,21 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
+  test 'show regular events on dashbord for only event participant' do
+    travel_to Time.zone.local(2023, 1, 30, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      assert_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      assert_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+      first('.js-close-event').click
+      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      logout
+
+      visit_with_auth '/', 'komagata'
+      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+    end
+  end
+
   test 'show grass hide button for graduates' do
     visit_with_auth '/', 'kimura'
     assert_not has_button? '非表示'
@@ -307,7 +322,8 @@ class HomeTest < ApplicationSystemTestCase
     find_link pages(:page1).title
     assert_text I18n.l pages(:page1).created_at, format: :long
     user = talks(:talk1).user
-    find_link "#{user.login_name} (#{user.name}) さんの相談部屋"
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    find_link "#{decorated_user.long_name} さんの相談部屋"
     reports.each do |report|
       find_link reports(report).title
       assert_text I18n.l reports(report).reported_on, format: :long

@@ -20,10 +20,7 @@ class ProductCallbacks
 
     unless product.wip
       notify_watching_mentors product
-      if product.user.trainee? && product.user.company
-        notify_advisers product
-        create_advisers_watch product
-      end
+      create_advisers_watch product if product.user.trainee? && product.user.company
     end
 
     Cache.delete_unchecked_product_count
@@ -63,14 +60,6 @@ class ProductCallbacks
     send_notification(
       product: product,
       receivers: mentors,
-      message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
-    )
-  end
-
-  def notify_advisers(product)
-    send_notification(
-      product: product,
-      receivers: product.user.company.advisers,
       message: "#{product.user.login_name}さんが#{product.title}を提出しました。"
     )
   end

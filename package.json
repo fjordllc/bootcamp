@@ -1,8 +1,8 @@
 {
   "scripts": {
     "lint": "run-p lint:*",
-    "lint:eslint": "eslint 'app/javascript/**/*.{js,vue}' --max-warnings=0",
-    "lint:prettier": "prettier app/javascript/**/*.{js,vue} --check"
+    "lint:eslint": "eslint 'app/javascript/**/*.{js,jsx,vue}' --max-warnings=0",
+    "lint:prettier": "prettier app/javascript/**/*.{js,jsx,vue} --check"
   },
   "dependencies": {
     "@babel/preset-react": "^7.18.6",

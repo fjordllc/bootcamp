@@ -6,11 +6,12 @@ class Bookmark::TalkTest < ApplicationSystemTestCase
   setup do
     @talk = talks(:talk1)
     @user = @talk.user
+    @decorated_user = ActiveDecorator::Decorator.instance.decorate(@user)
   end
 
   test 'show talk bookmark on lists' do
     visit_with_auth '/current_user/bookmarks', 'komagata'
-    assert_text "#{@user.login_name} (#{@user.name}) さんの相談部屋"
+    assert_text "#{@decorated_user.long_name} さんの相談部屋"
   end
 
   test 'show active button when bookmarked talk' do
@@ -32,7 +33,7 @@ class Bookmark::TalkTest < ApplicationSystemTestCase
     assert_no_selector '#bookmark-button.is-inactive'
 
     visit '/current_user/bookmarks'
-    assert_text "#{@user.login_name} (#{@user.name}) さんの相談部屋"
+    assert_text "#{@decorated_user.long_name} さんの相談部屋"
   end
 
   test 'unbookmark talk' do
@@ -43,7 +44,7 @@ class Bookmark::TalkTest < ApplicationSystemTestCase
     assert_no_selector '#bookmark-button.is-active'
 
     visit '/current_user/bookmarks'
-    assert_no_text "#{@user.login_name} (#{@user.name}) さんの相談部屋"
+    assert_no_text "#{@decorated_user.long_name} さんの相談部屋"
   end
 
   test 'hide bookmark button when mentor login' do

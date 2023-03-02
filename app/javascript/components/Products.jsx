@@ -17,7 +17,7 @@ export default function Products({ title, selectedTab }) {
     setPage(page)
   }, [page])
 
-  const unconfirmedLinksName= (() => {
+  const unconfirmedLinksName = (() => {
     return {
       all: '全ての提出物を一覧で開く',
       unchecked: '未完了の提出物を一覧で開く',
@@ -27,10 +27,10 @@ export default function Products({ title, selectedTab }) {
   })()
 
   const url = (() => {
-    if (selectedTab === 'all') return '';
-    if (selectedTab === 'unassigned') return '/unassigned';
-    if (selectedTab === 'unchecked') return '/unchecked';
-    if (selectedTab === 'self_assigned') return '/self_assigned';
+    if (selectedTab === 'all') return ''
+    if (selectedTab === 'unassigned') return '/unassigned'
+    if (selectedTab === 'unchecked') return '/unchecked'
+    if (selectedTab === 'self_assigned') return '/self_assigned'
   })()
 
   const { data, error } = useSWR(`/api/products${url}?page=${page}`, fetcher)

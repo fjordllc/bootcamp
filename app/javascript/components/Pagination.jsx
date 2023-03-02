@@ -28,7 +28,7 @@ const Pagination = (props) => {
     // 初回レンダリング時はスキップし、変数を更新する
     if (isFirstRender.current) {
       isFirstRender.current = false
-      return;
+      return
     }
 
     props.onChange({ page: page })
@@ -40,15 +40,11 @@ const Pagination = (props) => {
         <ul className="pagination__items">
           <First page={page} setPage={setPage} />
           <Prev page={page} setPage={setPage} />
-          {numbers[0] > 1 && (
-            <ThreeDots />
-          )}
-          {numbers.map(i => {
+          {numbers[0] > 1 && <ThreeDots />}
+          {numbers.map((i) => {
             return <Number key={i} page={page} setPage={setPage} i={i} />
           })}
-          {numbers[numbers.length - 1] < totalPage && (
-            <ThreeDots />
-          )}
+          {numbers[numbers.length - 1] < totalPage && <ThreeDots />}
           <Next page={page} setPage={setPage} totalPage={totalPage} />
           <Last page={page} setPage={setPage} totalPage={totalPage} />
         </ul>
@@ -64,8 +60,7 @@ const First = ({ setPage, page }) => {
     <li className={'pagination__item is-prev' + disabled}>
       <button
         onClick={() => setPage(1)}
-        className={'pagination__item-link' + disabled}
-      >
+        className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-double-left" />
       </button>
     </li>
@@ -78,9 +73,8 @@ const Prev = ({ page, setPage }) => {
   return (
     <li className={'pagination__item is-prev' + disabled}>
       <button
-        onClick={() => (page !== 1) && setPage(page - 1)}
-        className={'pagination__item-link' + disabled}
-      >
+        onClick={() => page !== 1 && setPage(page - 1)}
+        className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-left" />
       </button>
     </li>
@@ -92,8 +86,7 @@ const Number = ({ page, setPage, i }) => {
     <li className="pagination__item">
       <button
         onClick={() => setPage(i)}
-        className={'pagination__item-link' + (i === page ? ' is-active' : '')}
-      >
+        className={'pagination__item-link' + (i === page ? ' is-active' : '')}>
         {i}
       </button>
     </li>
@@ -107,8 +100,7 @@ const Next = ({ page, setPage, totalPage }) => {
     <li className={'pagination__item is-next' + disabled}>
       <button
         onClick={() => page !== totalPage && setPage(page + 1)}
-        className={'pagination__item-link' + disabled}
-      >
+        className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-right" />
       </button>
     </li>
@@ -122,8 +114,7 @@ const Last = ({ page, setPage, totalPage }) => {
     <li className={'pagination__item is-next' + disabled}>
       <button
         onClick={() => setPage(totalPage)}
-        className={'pagination__item-link' + disabled}
-      >
+        className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-double-right" />
       </button>
     </li>
