@@ -1,17 +1,17 @@
-.page-notices__item(data-event-id="#{event.id}" data-event-type="#{event.class}")
+.page-notices__item(data-event-id="#{regular_event.id}" data-event-type="#{regular_event.class}")
   .a-page-notice.page-notice
     .container.is-md
       .a-page-notice__inner.has-close
         .a-page-notice__inner-start
           p
-            = link_to event, itemprop: 'url', class: 'has-badge' do
+            = link_to regular_event, itemprop: 'url', class: 'has-badge' do
               span.a-badge.is-primary.is-xs
-                | イベント
-              = today_or_tommorow(event)
-              = l event.start_at.to_date, format: :md
+                | 定期イベント
+              = today_or_tommorow(regular_event)
+              = l event_date(regular_event), format: :md
               | は 「
               span.a-page-notice__label
-                = event.title
+                = regular_event.title
               | 」 が開催されます
         .a-page-notice__inner-end
           .a-page-notice__close.js-close-event

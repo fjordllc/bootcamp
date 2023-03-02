@@ -68,7 +68,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     users.with_attached_avatar.order('organizers.created_at')
   end
 
-  def event_day?
+  def holding_today?
     now = Time.current
     event_day = regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
@@ -116,7 +116,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     0.days.ago.next_occurring(day_of_the_week_symbol).to_date
   end
 
-  def tomorrow_event?
+  def holding_tomorrow?
     tomorrow = Time.current.next_day
     regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
@@ -136,10 +136,19 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     watches.exists?(user_id: user.id)
   end
 
+  def participated_by?(user)
+    regular_event_participations.find_by(user_id: user.id).present?
+  end
+
   class << self
+    def today_events
+      holding_events = RegularEvent.holding
+      holding_events.select(&:holding_today?)
+    end
+
     def tomorrow_events
       holding_events = RegularEvent.holding
-      holding_events.select(&:tomorrow_event?)
+      holding_events.select(&:holding_tomorrow?)
     end
   end
 

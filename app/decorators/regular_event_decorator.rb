@@ -12,7 +12,7 @@ module RegularEventDecorator
   def next_holding_date
     if finished
       '開催終了'
-    elsif event_day?
+    elsif holding_today?
       '本日開催'
     else
       "次回の開催日は #{l next_event_date} です"
