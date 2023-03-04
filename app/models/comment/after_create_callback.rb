@@ -53,7 +53,8 @@ class Comment::AfterCreateCallback
         watchable: watchable,
         receiver: watcher,
         comment: comment,
-        sender: sender).notify(:watching_notification)
+        sender: sender
+      ).notify(:watching_notification)
     end
   end
 
