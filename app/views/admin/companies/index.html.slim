@@ -4,15 +4,15 @@ header.page-header
   .container
     .page-header__inner
       h1.page-header__title = title
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to new_admin_company_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | 企業作成
 
 = render 'admin/admin_page_tabs'
 
 .page-body
+  .page-header-actions
+    .page-header-actions__items
+      .page-header-actions__item
+        = link_to new_admin_company_path, class: 'a-button is-md is-secondary is-block' do
+          i.fa-regular.fa-plus
+          | 企業追加
   .container.is-lg
     = react_component 'AdminCompanies'
