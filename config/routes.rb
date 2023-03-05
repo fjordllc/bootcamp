@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :surveys
+  resources :surveys do
+    resources :survey_question_listings, only: %i(index), controller: "surveys/survey_question_listings"
+  end
   root to: "home#index"
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
@@ -49,7 +51,7 @@ Rails.application.routes.draw do
     resource :completion, only: %i(show), controller: "practices/completion"
   end
   resources :pages, param: :slug_or_id
-  namespace :notification do 
+  namespace :notification do
     resource :redirector, only: %i(show), controller: "redirector"
   end
   resources :notifications, only: %i(index show) do
