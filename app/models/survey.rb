@@ -22,4 +22,9 @@ class Survey < ApplicationRecord
           .where('end_at >= ?', Date.current)
           .exists?(survey_id)
   end
+
+  def answer_ended?(survey_id)
+    Survey.where('end_at <= ?', Date.current)
+          .exists?(survey_id)
+  end
 end
