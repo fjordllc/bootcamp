@@ -2,11 +2,11 @@
 
 require 'test_helper'
 
-class RegularEventBulkInsertQueryTest < ActiveSupport::TestCase
-  test '#execute' do
+class ParticipantsCreatorTest < ActiveSupport::TestCase
+  test '.call' do
     regular_event = regular_events(:regular_event3)
     target = User.students_and_trainees.ids
-    RegularEventBulkInsertQuery.new(regular_event: regular_event, target: target).execute
+    RegularEvent::ParticipantsCreator.call(regular_event: regular_event, target: target)
 
     assert_equal regular_event.regular_event_participations.count, target.count
   end
