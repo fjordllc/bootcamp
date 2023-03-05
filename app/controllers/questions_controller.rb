@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    render template: 'not_authenticates/index', locals: { title: @question.title } unless logged_in?
+    render template: 'not_authenticates/questions/index', locals: { title: @question.title } unless logged_in?
 
     @practice_questions = Question
                           .not_wip
