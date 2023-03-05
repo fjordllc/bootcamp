@@ -591,7 +591,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_link '退会', href: '/users?target=retired'
   end
 
-  test 'if the user is not admin or mentor, the user cannot see retired and hibernated tabs' do
+  test 'user can not see retired and hibernated tabs if the user is not admin or mentor' do
     visit_with_auth '/users', 'sotugyou'
     assert_no_link '休会', href: '/users?target=hibernated'
     assert_no_link '退会', href: '/users?target=retired'
