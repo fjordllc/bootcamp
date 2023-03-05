@@ -12,9 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   Sortable.create(element, {
     handle: '.js-grab',
     onEnd(event) {
-      const id = event.item.dataset.survey_question_listings_id
+      const id = event.item.dataset.survey_question_listing_id
+      // sortablejsのindexは0からはじまるため+1する
       const params = { insert_at: event.newIndex + 1 }
-      // const url = `/api/survey_question_listings/${id}/position.json`
+      const url = `/api/survey_question_listings/${id}/position.json`
 
       Bootcamp.patch(url, params).catch((error) => {
         console.warn(error)

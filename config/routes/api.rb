@@ -89,5 +89,8 @@ Rails.application.routes.draw do
     resources :courses, only: %i(index)
     resources :footprints, only: %i(index)
     resources :external_entries, only: %i(index)
+    resources :survey_question_listings, only: %i() do
+      resource :position, only: %i(update), controller: "survey_question_listings/position"
+    end
   end
 end
