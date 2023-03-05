@@ -7,7 +7,7 @@ class PracticesController < ApplicationController
   skip_before_action :require_active_user_login, only: %i[show]
 
   def show
-    render template: 'not_authenticates/index', locals: { title: @practice.title } unless logged_in?
+    render template: 'not_authenticates/practices/index', locals: { title: @practice.title } unless logged_in?
 
     @categories = @practice.categories
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
