@@ -22,7 +22,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.save
       Newspaper.publish(:event_create, @regular_event)
-      RegularEventBulkInsertQuery.new(regular_event: @regular_event, target: User.students_and_trainees.ids).execute if @regular_event.all
+      set_all_user_participants_and_watchers
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :new
@@ -35,7 +35,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.update(regular_event_params)
       Newspaper.publish(:regular_event_update, @regular_event)
-      RegularEventBulkInsertQuery.new(regular_event: @regular_event, target: User.students_and_trainees.ids).execute if @regular_event.all
+      set_all_user_participants_and_watchers
       redirect_to @regular_event, notice: notice_message(@regular_event)
     else
       render :edit
@@ -93,5 +93,13 @@ class RegularEventsController < ApplicationController
     new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'
+  end
+
+  def set_all_user_participants_and_watchers
+    return if @regular_event.wip?
+
+    students_and_trainees = User.students_and_trainees.ids
+    RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_and_trainees)
+    RegularEventParticipantsWatcher.call(regular_event: @regular_event, target: students_and_trainees)
   end
 end
