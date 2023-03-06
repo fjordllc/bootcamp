@@ -5,6 +5,6 @@ class Surveys::SurveyQuestionListingsController < ApplicationController
 
   def index
     @survey = Survey.find(params[:survey_id])
-    @survey_question_listings = @survey.survey_question_listings
+    @survey_question_listings = @survey.survey_question_listings.order(:position)
   end
 end
