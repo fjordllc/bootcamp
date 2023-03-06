@@ -30,7 +30,7 @@ header.page-header
           tr.admin-table__labels
             th.admin-table__label 名前
             th.admin-table__label.handle 並び順
-        tbody.admin-table__items#js-survey-question-listings-sortable
+        tbody.admin-table__items#js-survey-question-listing-sortable
           - @survey_question_listings.each do |survey_question_listing|
             tr.admin-table__item(data-survey_question_listing_id="#{survey_question_listing.id}")
               td.admin-table__item-value

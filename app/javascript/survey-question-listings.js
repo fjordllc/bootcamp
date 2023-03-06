@@ -2,9 +2,7 @@ import Sortable from 'sortablejs'
 import Bootcamp from 'bootcamp'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const element = document.querySelector(
-    '#js-survey-question-listings-sortable'
-  )
+  const element = document.querySelector('#js-survey-question-listing-sortable')
   if (!element) {
     return null
   }
