@@ -36,18 +36,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(report: report, receiver: receiver).first_report
   end
 
-  def watching_noitification
-    watchable = Report.find(ActiveRecord::FixtureSet.identify(:report1))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
-    comment = Comment.find(ActiveRecord::FixtureSet.identify(:comment4))
-
-    NotificationMailer.with(
-      watchable: watchable,
-      receiver: receiver,
-      comment: comment
-    ).watching_notification
-  end
-
   def retired
     sender = User.find(ActiveRecord::FixtureSet.identify(:yameo))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
