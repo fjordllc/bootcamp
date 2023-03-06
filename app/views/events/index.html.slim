@@ -15,6 +15,10 @@ header.page-header
             = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
               | 定期イベント作成
+          .page-header-actions__item
+            = link_to events_path(format: :ics), class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | イベントカレンダー出力
 
 = render 'events/tabs'
 
