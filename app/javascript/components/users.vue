@@ -12,9 +12,7 @@
   .page-content.is-users
     .users__items
       .row(v-if='!loaded')
-        .loading
-          .fa-solid.fa-spinner.fa-pulse
-          | ロード中
+        loadingUsersListPlaceholder(v-for='num in itemCount', :key='num')
       div(v-else-if='users.length !== 0')
         .user-list(v-show='!showSearchedUsers')
           nav.pagination(v-if='totalPages > 1')
@@ -50,12 +48,14 @@
 import User from './user.vue'
 import Pager from '../pager.vue'
 import Debounce from '../debounce.js'
+import LoadingUsersListPlaceholder from '../loading-users-list-placeholder.vue'
 
 export default {
   name: 'Users',
   components: {
     user: User,
-    pager: Pager
+    pager: Pager,
+    loadingUsersListPlaceholder: LoadingUsersListPlaceholder
   },
   data() {
     return {
@@ -69,7 +69,8 @@ export default {
       searchUsersWord: '',
       showSearchedUsers: false,
       searchedUsers: [],
-      loaded: false
+      loaded: false,
+      itemCount: 12
     }
   },
   computed: {
