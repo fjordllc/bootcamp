@@ -14,7 +14,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @announcement = params[:announcement]
     @question = params[:question]
     @report = params[:report]
-    @watchable = params[:watchable]
     @sender = params[:sender]
     @event = params[:event]
     @page = params[:page]
