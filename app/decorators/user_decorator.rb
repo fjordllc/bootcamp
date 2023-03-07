@@ -87,6 +87,10 @@ module UserDecorator
   end
 
   def long_name
+    "#{login_name} (#{name_kana})"
+  end
+
+  def private_name
     "#{name} (#{name_kana})"
   end
 
