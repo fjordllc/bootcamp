@@ -16,6 +16,9 @@
                 = render 'users/icon', user: @talk.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
             .page-content-header__end
               .page-content-header__row
+                .page-content-header__before-title
+                  .a-user-name
+                    = @user.private_name
                 h1.page-content-header__title
                   = title
               - if admin_login?

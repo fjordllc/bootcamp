@@ -6,8 +6,8 @@ class Mentor::HomeTest < ApplicationSystemTestCase
   test 'GET /mentor' do
     visit_with_auth '/mentor', 'komagata'
     assert_equal 'メンターページ | FBC', title
-    assert_no_text '就活 のぞむ (シュウカツ ノゾム)'
-    assert_text 'Muryou Nosuke (ムリョウ ノスケ)'
+    assert_no_text 'jobseeker (シュウカツ ノゾム)'
+    assert_text 'muryou (ムリョウ ノスケ)'
   end
 
   test 'accessed by non-mentor users' do
