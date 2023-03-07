@@ -369,7 +369,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'show user full name on list page' do
     visit_with_auth '/events', 'kimura'
-    assert_text 'Komagata Masaki (コマガタ マサキ)'
+    assert_text 'komagata (コマガタ マサキ)'
   end
 
   test 'show pagination' do
