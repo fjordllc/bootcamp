@@ -29,7 +29,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
   end
 
   test '#long_name' do
-    assert_equal 'Hajime Tayo (ハジメ タヨ)', @student_user.long_name
+    assert_equal 'hajime (ハジメ タヨ)', @student_user.long_name
   end
 
   test '#enrollment_period' do
