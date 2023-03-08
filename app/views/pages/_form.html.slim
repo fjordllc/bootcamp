@@ -42,15 +42,6 @@
               | スラッグを設定すると`https://bootcamp.fjord.jp/pages/{スラッグ}`の様にスラッグで指定した文字列のURLでアクセスが出来るようになります。
               br
               | スラッグにはアルファベットから始まる半角英数字と、ハイフン （ - ）、アンダーバー （ _ ） が使えます。
-    - unless @page.published_at?
-      .form-item
-        = f.label :announcement, class: 'a-form-label'
-        .checkboxes
-          ul.checkboxes__items
-            li.checkboxes__item
-              = f.check_box :announcement, class: 'a-toggle-checkbox'
-              = f.label :announcement
-                | このドキュメント公開についてお知らせを書く
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
