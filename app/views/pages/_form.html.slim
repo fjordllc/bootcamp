@@ -42,28 +42,51 @@
               | スラッグを設定すると`https://bootcamp.fjord.jp/pages/{スラッグ}`の様にスラッグで指定した文字列のURLでアクセスが出来るようになります。
               br
               | スラッグにはアルファベットから始まる半角英数字と、ハイフン （ - ）、アンダーバー （ _ ） が使えます。
-    - unless @page.published_at?
-      .form-item
-        = f.label :announcement, class: 'a-form-label'
-        .checkboxes
-          ul.checkboxes__items
-            li.checkboxes__item
-              = f.check_box :announcement, class: 'a-toggle-checkbox'
-              = f.label :announcement
-                | このドキュメント公開についてお知らせを書く
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
       li.form-actions__item.is-main
+        - unless @page.published_at?
+          .form-action-before-option.has-help
+            .checkboxes
+              ul.checkboxes__items
+                li.checkboxes__item
+                  = f.check_box :announcement, class: 'a-toggle-checkbox'
+                  = f.label :announcement
+                    | ドキュメント公開のお知らせを書く
+            label.a-form-help-link.is-muted-text(for='modal-announcement')
+              span.a-help
+                i.fa-solid.fa-question
+
         = button_tag(class: 'a-button is-lg is-primary is-block') do
-          - if params[:action] == 'new' || params[:action] == 'create' || params[:action] == 'edit' || params[:action] == 'update'
-            | 内容を保存
-          - else
-            | 内容を投稿
+          - case params[:action]
+          - when 'new', 'create'
+            | Docを公開
+          - when 'edit', 'update'
+            | 内容を更新
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
           = link_to 'キャンセル', :pages, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
           = link_to 'キャンセル', :pages, class: 'a-button is-sm is-text'
+
+= render '/shared/modal', id: 'modal-announcement', modal_title: 'ドキュメント公開のお知らせを書く'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | こちらのチェックを入れてから Doc を公開すると、
+        | お知らせ作成ページに遷移します。
+      p
+        | 遷移したお知らせ作成ページには予め、
+        | この Doc を公開したことをみんなに伝えるための情報が
+        | 入力されています。
+      p
+        | この Doc を公開したことをみんなに知らせる場合は、
+        | このチェックを入れてから公開をしてください。
+      p
+        | もし、チェックを入れ忘れた場合は、自分でお知らせ作成ページに行き、
+        | お知らせを作成して、この Doc を公開したことをみんなに伝えてください。
+      p
+        | みんなに伝える必要のない Doc の場合は、お知らせは作成する必要はありません。
