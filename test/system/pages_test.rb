@@ -40,7 +40,7 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth edit_page_path(target_page), 'kimura'
     assert_equal edit_page_path(target_page), current_path
     fill_in 'page[title]', with: '半角スペースを 含んでも 正常なページに 遷移する'
-    click_button '内容を保存'
+    click_button '内容を更新'
     assert_equal page_path(target_page.reload), current_path
     assert_text 'ページを更新しました'
   end
@@ -50,7 +50,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_equal new_page_path, current_path
     fill_in 'page[title]', with: '新規Docを作成する'
     fill_in 'page[body]', with: '新規Docを作成する本文です'
-    click_button '内容を保存'
+    click_button 'Docを公開'
     assert_text 'ページを作成しました'
     assert_text 'Watch中'
   end
@@ -114,7 +114,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
     first('.select2-container').click
     find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
-    click_button '内容を保存'
+    click_button '内容を更新'
     assert_text 'Linuxのファイル操作の基礎を覚える'
   end
 
@@ -149,7 +149,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: 'ページタイトル'
     fill_in 'page[slug]', with: slug
     fill_in 'page[body]', with: 'slug付きテストページの本文'
-    click_button '内容を保存'
+    click_button 'Docを公開'
     visit "/pages/#{slug}"
     assert_text 'slug付きテストページの本文'
   end
@@ -220,7 +220,7 @@ class PagesTest < ApplicationSystemTestCase
     stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
-      click_button '内容を保存'
+      click_button 'Docを公開'
     end
 
     assert_text 'ページを作成しました'
@@ -236,7 +236,7 @@ class PagesTest < ApplicationSystemTestCase
     stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
-      click_button '内容を保存'
+      click_button '内容を更新'
     end
 
     assert_text 'ページを更新しました'
@@ -254,8 +254,8 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth new_page_path, 'komagata'
     fill_in 'page[title]', with: 'お知らせにチェックを入れて新規Docを作成'
     fill_in 'page[body]', with: '「お知らせにチェックを入れて新規Docを作成」の本文です。'
-    check 'このドキュメント公開についてお知らせを書く', allow_label_click: true
-    click_button '内容を保存'
+    check 'ドキュメント公開のお知らせを書く', allow_label_click: true
+    click_button 'Docを公開'
 
     assert_text 'ページを作成しました'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。')
@@ -269,8 +269,8 @@ class PagesTest < ApplicationSystemTestCase
     click_button 'WIP'
 
     click_on '内容変更'
-    check 'このドキュメント公開についてお知らせを書く', allow_label_click: true
-    click_button '内容を保存'
+    check 'ドキュメント公開のお知らせを書く', allow_label_click: true
+    click_button 'Docを公開'
 
     assert_text 'ページを作成しました'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
