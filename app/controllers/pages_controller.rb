@@ -109,6 +109,6 @@ class PagesController < ApplicationController
   end
 
   def announcement_checked?
-    page_params[:announcement] == '1' # ’1’は「このドキュメント公開についてお知らせを書く」にチェックが入っている場合を指します
+    page_params[:announcement] == '1' # ’1’は「ドキュメント公開のお知らせを書く」にチェックが入っている場合を指します
   end
 end
