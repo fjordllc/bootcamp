@@ -81,7 +81,7 @@ class PagesTest < ApplicationSystemTestCase
     within('.form') do
       find('#select2-page_user_id-container').click
       select('kimura', from: 'page[user_id]')
-      find(".select-users").click
+      find('.select-users').click
     end
 
     click_button '内容を更新'
