@@ -81,9 +81,10 @@ class PagesTest < ApplicationSystemTestCase
     within('.form') do
       find('#select2-page_user_id-container').click
       select('kimura', from: 'page[user_id]')
+      find(".select-users").click
     end
 
-    click_on '保存'
+    click_button '内容を更新'
     within '.a-meta.is-creator' do
       assert find('.thread-header__user-icon')[:title].start_with?('kimura')
     end
@@ -102,7 +103,7 @@ class PagesTest < ApplicationSystemTestCase
       fill_in('page[title]', with: 'Created by non-admin')
       fill_in('page[body]', with: "非管理者によって作られたDocです。It's created by non-admin.")
     end
-    click_on '保存'
+    click_on 'Docを公開'
 
     click_on '内容変更'
     assert_no_selector '.select-users'
@@ -114,7 +115,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
     first('.select2-container').click
     find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
-    click_button '内容を更新'
+    click_button 'Docを公開'
     assert_text 'Linuxのファイル操作の基礎を覚える'
   end
 
@@ -196,7 +197,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
     first('.select2-container').click
     find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
-    click_button '内容を保存'
+    click_button 'Docを公開'
     assert_text 'Linuxのファイル操作の基礎を覚える'
 
     visit pages_path
@@ -270,7 +271,7 @@ class PagesTest < ApplicationSystemTestCase
 
     click_on '内容変更'
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
-    click_button 'Docを公開'
+    click_button '内容を更新'
 
     assert_text 'ページを作成しました'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
