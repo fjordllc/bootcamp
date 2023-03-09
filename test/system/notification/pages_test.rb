@@ -20,7 +20,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
       fill_in('page[title]', with: 'DocsTest')
       fill_in('page[body]', with: 'DocsTestBody')
     end
-    click_button '内容を保存'
+    click_button 'Docを公開'
     assert_text 'ページを作成しました。'
 
     visit_with_auth '/notifications', 'mentormentaro'
@@ -65,7 +65,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
     visit_with_auth page_path(page), 'komagata'
 
     click_link '内容変更'
-    click_button '内容を保存'
+    click_button '内容を更新'
     assert_text 'ページを更新しました。'
 
     visit_with_auth '/notifications', 'machida'
