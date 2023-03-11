@@ -1,0 +1,177 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://discord.com/api/v9/guilds/1234567890123456789
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - DiscordBot (https://github.com/shardlab/discordrb, v3.4.2) rest-client/2.1.0
+        ruby/3.1.0p0 discordrb/3.4.2
+      Authorization:
+      - Bot valid token
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 02 Feb 2023 02:58:52 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=92d8ab2d6d660af8cd41c249a6b569a58185a66e-1675306732; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=862efc62a2a511ed8a0fa24b3f5934cc; Expires=Tue, 01-Feb-2028 02:58:52
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=862efc62a2a511ed8a0fa24b3f5934cc1a63079c7c46d1fa39a567e8f3e23ae4ef9d0a131b1fcb53e6a2758005114447;
+        Expires=Tue, 01-Feb-2028 02:58:52 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=d%2FKN6fyJ0tmpsEOeEioOXNjLhQ4mQ3I0nAabYUFNHDQGZ3yXXwXviVuAxMv7tsVvy5o1ExDd5wNmjVhma3%2FXghtzCyKc0GkbDUiw%2BihPM3M7cbT5ZdQmqM427xYz"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 792faae3fb978370-KIX
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJpZCI6ICIxMjM0NTY3ODkwMTIzNDU2Nzg5IiwKICAibmFtZSI6ICJU
+        ZXN0IFNlcnZlciIsCiAgImljb24iOiBudWxsLAogICJkZXNjcmlwdGlvbiI6
+        IG51bGwsCiAgImhvbWVfaGVhZGVyIjogbnVsbCwKICAic3BsYXNoIjogbnVs
+        bCwKICAiZGlzY292ZXJ5X3NwbGFzaCI6IG51bGwsCiAgImZlYXR1cmVzIjog
+        WwogICAgIkFQUExJQ0FUSU9OX0NPTU1BTkRfUEVSTUlTU0lPTlNfVjIiCiAg
+        XSwKICAiZW1vamlzIjogWwoKICBdLAogICJzdGlja2VycyI6IFsKCiAgXSwK
+        ICAiYmFubmVyIjogbnVsbCwKICAib3duZXJfaWQiOiAiMTAwODE0MzY3MDcx
+        OTAyNTIxMiIsCiAgImFwcGxpY2F0aW9uX2lkIjogbnVsbCwKICAicmVnaW9u
+        IjogInN5ZG5leSIsCiAgImFma19jaGFubmVsX2lkIjogbnVsbCwKICAiYWZr
+        X3RpbWVvdXQiOiAzMDAsCiAgInN5c3RlbV9jaGFubmVsX2lkIjogbnVsbCwK
+        ICAid2lkZ2V0X2VuYWJsZWQiOiBmYWxzZSwKICAid2lkZ2V0X2NoYW5uZWxf
+        aWQiOiBudWxsLAogICJ2ZXJpZmljYXRpb25fbGV2ZWwiOiAwLAogICJyb2xl
+        cyI6IFsKCiAgXSwKICAiZGVmYXVsdF9tZXNzYWdlX25vdGlmaWNhdGlvbnMi
+        OiAwLAogICJtZmFfbGV2ZWwiOiAwLAogICJleHBsaWNpdF9jb250ZW50X2Zp
+        bHRlciI6IDAsCiAgIm1heF9wcmVzZW5jZXMiOiBudWxsLAogICJtYXhfbWVt
+        YmVycyI6IDUwMDAwMCwKICAibWF4X3N0YWdlX3ZpZGVvX2NoYW5uZWxfdXNl
+        cnMiOiAwLAogICJtYXhfdmlkZW9fY2hhbm5lbF91c2VycyI6IDI1LAogICJ2
+        YW5pdHlfdXJsX2NvZGUiOiBudWxsLAogICJwcmVtaXVtX3RpZXIiOiAwLAog
+        ICJwcmVtaXVtX3N1YnNjcmlwdGlvbl9jb3VudCI6IDAsCiAgInN5c3RlbV9j
+        aGFubmVsX2ZsYWdzIjogMCwKICAicHJlZmVycmVkX2xvY2FsZSI6ICJlbi1V
+        UyIsCiAgInJ1bGVzX2NoYW5uZWxfaWQiOiBudWxsLAogICJzYWZldHlfYWxl
+        cnRzX2NoYW5uZWxfaWQiOiBudWxsLAogICJwdWJsaWNfdXBkYXRlc19jaGFu
+        bmVsX2lkIjogbnVsbCwKICAiaHViX3R5cGUiOiBudWxsLAogICJwcmVtaXVt
+        X3Byb2dyZXNzX2Jhcl9lbmFibGVkIjogZmFsc2UsCiAgImxhdGVzdF9vbmJv
+        YXJkaW5nX3F1ZXN0aW9uX2lkIjogbnVsbCwKICAibnNmdyI6IGZhbHNlLAog
+        ICJuc2Z3X2xldmVsIjogMAp9
+  recorded_at: Thu, 02 Feb 2023 02:58:54 GMT
+- request:
+    method: post
+    uri: https://discord.com/api/v9/guilds/1234567890123456789/channels
+    body:
+      encoding: UTF-8
+      base64_string: |
+        eyJuYW1lIjoid2FrYXJhbvCflLAiLCJ0eXBlIjowLCJ0b3BpYyI6bnVsbCwi
+        Yml0cmF0ZSI6bnVsbCwidXNlcl9saW1pdCI6bnVsbCwicGVybWlzc2lvbl9v
+        dmVyd3JpdGVzIjpudWxsLCJwYXJlbnRfaWQiOjAsIm5zZnciOmZhbHNlLCJy
+        YXRlX2xpbWl0X3Blcl91c2VyIjpudWxsLCJwb3NpdGlvbiI6bnVsbH0=
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - DiscordBot (https://github.com/shardlab/discordrb, v3.4.2) rest-client/2.1.0
+        ruby/3.1.0p0 discordrb/3.4.2
+      Authorization:
+      - Bot valid token
+      Content-Type:
+      - application/json
+      X-Audit-Log-Reason:
+      - ''
+      Content-Length:
+      - '183'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Thu, 02 Feb 2023 02:58:52 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '161'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=92d8ab2d6d660af8cd41c249a6b569a58185a66e-1675306732; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=865f2b3aa2a511eda796765ac782f1df; Expires=Tue, 01-Feb-2028 02:58:52
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=865f2b3aa2a511eda796765ac782f1df5ef2b6f784690343ddaad52b51fe0b0ebdade0f516b3c52b28b4d688de8c4d1d;
+        Expires=Tue, 01-Feb-2028 02:58:52 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Ratelimit-Bucket:
+      - be56019ae011689ff5baf218062aacf5
+      X-Ratelimit-Limit:
+      - '2000'
+      X-Ratelimit-Remaining:
+      - '1991'
+      X-Ratelimit-Reset:
+      - '1675380036.824'
+      X-Ratelimit-Reset-After:
+      - '73304.244'
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=48SV9OJD8BphNpSUj7VDiig9DP3JqDDUyHpTQRzKs%2BWx3RYeYrZRER5u8RhK3ftcOypY43x9lP3AcNm7AWtpLbNaC32C4K9o1v5ENs0Yd9svUTH5zn%2B7lFXhp4Pg"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 792faae5b99b19e1-KIX
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJjb2RlIjogNTAwMzUsCiAgImVycm9ycyI6IHsKICAgICJwYXJlbnRf
+        aWQiOiB7CiAgICAgICJfZXJyb3JzIjogWwogICAgICAgIHsKICAgICAgICAg
+        ICJjb2RlIjogIkNIQU5ORUxfUEFSRU5UX0lOVkFMSUQiLAogICAgICAgICAg
+        Im1lc3NhZ2UiOiAiQ2F0ZWdvcnkgZG9lcyBub3QgZXhpc3QiCiAgICAgICAg
+        fQogICAgICBdCiAgICB9CiAgfSwKICAibWVzc2FnZSI6ICJJbnZhbGlkIEZv
+        cm0gQm9keSIKfQ==
+  recorded_at: Thu, 02 Feb 2023 02:58:54 GMT
+recorded_with: VCR 6.1.0
