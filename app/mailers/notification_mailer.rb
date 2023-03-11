@@ -46,13 +46,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     mail to: @user.email, subject: subject
   end
 
-  # required params: product, receiver, message
-  def submitted
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/products/#{@product.id}")
-    mail to: @user.email, subject: "[FBC] #{@message}"
-  end
-
   # required params: report, receiver
   def first_report
     @user = @receiver

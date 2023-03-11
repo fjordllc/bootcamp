@@ -505,4 +505,56 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] komagataさんがDocsにBootcampの作業のページを投稿しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
   end
+
+  test 'submitted' do
+    product = products(:product11)
+    receiver = users(:mentormentaro)
+
+    ActivityMailer.submitted(
+      receiver: receiver,
+      product: product
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 3, link: "/products/#{product.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] hatsunoさんが「Terminalの基礎を覚える」の提出物を提出しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+  end
+
+  test 'submitted with params' do
+    product = products(:product11)
+    receiver = users(:mentormentaro)
+
+    mailer = ActivityMailer.with(
+      receiver: receiver,
+      product: product
+    ).submitted
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 3, link: "/products/#{product.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['mentormentaro@fjord.jp'], email.to
+    assert_equal '[FBC] hatsunoさんが「Terminalの基礎を覚える」の提出物を提出しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+  end
+
+  test 'submitted with user who have been denied' do
+    product = products(:product11)
+    receiver = users(:hajime)
+
+    ActivityMailer.submitted(
+      receiver: receiver,
+      product: product
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end
