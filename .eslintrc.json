@@ -4,6 +4,7 @@
     "standard",
     "plugin:vue/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:storybook/recommended",
     "prettier"
   ],
   "plugins": [
@@ -32,7 +33,7 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "react/jsx-uses-react": "error",   
-    "react/jsx-uses-vars": "error" 
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 }
