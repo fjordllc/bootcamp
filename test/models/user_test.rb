@@ -674,4 +674,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not otameshi.followup_message_target?
     assert_not hibernated.followup_message_target?
   end
+
+  test 'mark messeage as sent for hibernated student' do
+    User.mark_message_as_sent_for_hibernated_student
+
+    assert_not users(:komagata).sent_student_followup_message
+    assert users(:kyuukai).sent_student_followup_message
+  end
 end
