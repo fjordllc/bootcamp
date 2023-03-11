@@ -681,4 +681,28 @@ class UserTest < ActiveSupport::TestCase
     assert_not users(:komagata).sent_student_followup_message
     assert users(:kyuukai).sent_student_followup_message
   end
+
+  test 'sent followup message for student' do
+    target = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      hibernated_at: nil,
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+
+    from_user = users(:komagata)
+
+    User.create_followup_comment(from_user, target)
+
+    assert target.sent_student_followup_message
+  end
 end
