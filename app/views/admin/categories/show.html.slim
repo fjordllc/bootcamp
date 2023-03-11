@@ -49,6 +49,9 @@ header.page-header
                         = link_to edit_admin_category_path(@category), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
                           i.fa-solid.fa-pen
                           | 編集
+                      li.card-main-actions__item.is-sub
+                        = link_to '削除', admin_category_path(@category), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'card-main-actions__muted-action'
+
             .page-content-prev-next
               .page-content-prev-next__item
               .page-content-prev-next__item
