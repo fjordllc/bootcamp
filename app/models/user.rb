@@ -441,6 +441,16 @@ class User < ApplicationRecord
         end
       end
     end
+
+    def create_followup_comment(from_user, student)
+      from_user.comments.create(
+        description: I18n.t('send_message.description'),
+        commentable_id: Talk.find_by(user_id: student.id).id,
+        commentable_type: 'Talk'
+      )
+      student.assign_attributes(sent_student_followup_message: true)
+      student.save(context: :followup_message)
+    end
   end
 
   def retired_three_months_ago_and_notification_not_sent?

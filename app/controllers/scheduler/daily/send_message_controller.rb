@@ -2,26 +2,23 @@
 
 class Scheduler::Daily::SendMessageController < SchedulerController
   def show
+    @from_user = from_user
     User.mark_message_as_sent_for_hibernated_student
-    sent_student_followup_message
+    sent_student_followup_message(@from_user)
     head :ok
   end
 
   private
 
-  def sent_student_followup_message
-    @komagata = User.find_by(login_name: 'komagata')
+  def from_user
+    User.find_by(login_name: 'komagata')
+  end
 
+  def sent_student_followup_message(from_user)
     User.students.find_each do |student|
       next unless student.followup_message_target?
 
-      @komagata.comments.create(
-        description: I18n.t('send_message.description'),
-        commentable_id: Talk.find_by(user_id: student.id).id,
-        commentable_type: 'Talk'
-      )
-      student.assign_attributes(sent_student_followup_message: true)
-      student.save(context: :followup_message)
+      User.create_followup_comment(from_user, student)
     end
   end
 end
