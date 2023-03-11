@@ -1,0 +1,2 @@
+= render '/notification_mailer/notification_mailer_template', title: "#{@product.user.login_name}さんが#{@product.title}を提出しました。", link_url: @link_url, link_text: '提出物へ' do
+  = md2html(@product.body)
