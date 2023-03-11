@@ -3,13 +3,15 @@
 class EventsInIcalFormatExporter
   def self.export_events(events)
     cal = Icalendar::Calendar.new
-    cal.event do |e|
-      events.each do |event|
+    events.each do |event|
+      cal.event do |e|
         e.dtstart     = event.start_at
         e.dtend       = event.end_at
         e.summary     = event.title
         e.description = event.description
         e.location    = event.location
+        e.uid         = "event#{event.id}"
+        e.sequence    = Time.now.to_i
       end
     end
     cal
