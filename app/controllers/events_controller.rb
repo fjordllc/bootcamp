@@ -2,11 +2,13 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
-  skip_before_action :require_active_user_login, only: :index
+  skip_before_action :require_active_user_login, raise: false, only: :index
 
   def index
     respond_to do |format|
-      format.html
+      format.html do
+        redirect_to root_path, alert: 'ログインしてください' unless logged_in?
+      end
       format.ics do
         calendar = EventsInIcalFormatExporter.export_events(set_export)
 
