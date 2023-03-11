@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
+  skip_before_action :require_active_user_login, only: :index
 
   def index
     respond_to do |format|
@@ -9,8 +10,8 @@ class EventsController < ApplicationController
       format.ics do
         calendar = EventsInIcalFormatExporter.export_events(set_export)
 
-        headers['Content-Type'] = 'text/calendar; charset=UTF-8'
-        render :inline, layout: false, plain: calendar.to_ical
+        calendar.publish
+        render plain: calendar.to_ical
       end
     end
   end

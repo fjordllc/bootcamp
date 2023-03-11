@@ -16,9 +16,9 @@ header.page-header
               i.fa-regular.fa-plus
               | 定期イベント作成
           .page-header-actions__item
-            = link_to events_path(format: :ics), class: 'a-button is-md is-secondary is-block' do
+            = link_to events_url(protocol: :webcal, format: :ics), class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
-              | イベントカレンダー出力
+              | イベント購読
 
 = render 'events/tabs'
 
