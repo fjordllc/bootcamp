@@ -14,10 +14,9 @@ tbody.admin-table__items
           span
             | 受付終了
     td.admin-table__item-value
-      span
-        = l survey.start_at
-        |〜
-        = l survey.end_at
+      = l survey.start_at
+      |〜
+      = l survey.end_at
     td.admin-table__item-value
       = link_to survey do
           = survey.title
