@@ -557,4 +557,48 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert ActionMailer::Base.deliveries.empty?
   end
+
+  test 'following_report' do
+    report = reports(:report23)
+    user = report.user
+    receiver = users(:muryou)
+
+    ActivityMailer.following_report(
+      sender: user,
+      receiver: receiver,
+      report: report
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 13, link: "/reports/#{report.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['muryou@fjord.jp'], email.to
+    assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+  end
+
+  test 'following_report with params' do
+    report = reports(:report23)
+    user = report.user
+    receiver = users(:muryou)
+
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: receiver,
+      report: report
+    ).following_report
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 13, link: "/reports/#{report.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['muryou@fjord.jp'], email.to
+    assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
+  end
 end
