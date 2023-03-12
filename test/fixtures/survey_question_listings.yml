@@ -23,27 +23,27 @@ survey_question_listing5:
   survey_question: survey_question5
   position: 5
 
-survey_question_listing7:
+survey_question_listing6:
   survey: survey2
   survey_question: survey_question1
   position: 1
 
-survey_question_listing8:
+survey_question_listing7:
   survey: survey2
   survey_question: survey_question2
   position: 2
 
-survey_question_listing9:
+survey_question_listing8:
   survey: survey2
   survey_question: survey_question3
   position: 3
 
-survey_question_listing10:
+survey_question_listing9:
   survey: survey2
   survey_question: survey_question4
   position: 4
 
-survey_question_listing11:
+survey_question_listing10:
   survey: survey2
   survey_question: survey_question5
   position: 5
