@@ -188,6 +188,25 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:create_pages]
     )
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
+
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  def following_report(args = {})
+    @sender ||= args[:sender]
+    @report = params&.key?(:report) ? params[:report] : args[:report]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+
+    @link_url = notification_redirector_url(
+      link: "/reports/#{@report.id}",
+      kind: Notification.kinds[:following_report]
+    )
+    subject = "[FBC] #{@sender.login_name}さんが日報【 #{@report.title} 】を書きました！"
+
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 

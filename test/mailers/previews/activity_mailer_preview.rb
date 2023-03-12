@@ -74,4 +74,16 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(product: product, receiver: receiver).submitted
   end
+
+  def following_report
+    report = Report.find(ActiveRecord::FixtureSet.identify(:report23))
+    sender = User.find(ActiveRecord::FixtureSet.identify(:kensyu))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:muryou))
+
+    ActivityMailer.with(
+      report: report,
+      sender: sender,
+      receiver: receiver
+    ).following_report
+  end
 end
