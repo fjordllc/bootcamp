@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Comment::AfterCreateCallback
-  def after_create(comment)
+  def after_commit(comment)
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
