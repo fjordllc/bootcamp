@@ -231,6 +231,18 @@ class PagesTest < ApplicationSystemTestCase
     assert_match 'Message to Discord.', mock_log.to_s
   end
 
+  test 'put docs editor except for author on watch' do
+    visit_with_auth "/pages/#{pages(:page1).id}/edit", 'kimura'
+    click_button '内容を保存'
+    assert_text 'ページを更新しました'
+    assert_text 'Watch中'
+
+    visit "/pages/#{pages(:page1).id}/edit"
+    click_button 'WIP'
+    assert_text 'ページをWIPとして保存しました。'
+    assert_text 'Watch中'
+  end
+
   test 'Check the list of columns on the right of the document' do
     visit_with_auth "/pages/#{pages(:page7).id}", 'kimura'
     assert_link 'OS X Mountain Lionをクリーンインストールする'
