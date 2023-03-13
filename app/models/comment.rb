@@ -7,7 +7,7 @@ class Comment < ApplicationRecord
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
-  after_create Comment::AfterCreateCallback.new
+  after_commit Comment::AfterCreateCallback.new
   after_update Comment::AfterUpdateCallback.new
   after_destroy Comment::AfterDestroyCallback.new
   alias sender user
