@@ -29,6 +29,7 @@ gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
 gem 'discordrb', github: 'shardlab/discordrb', require: false
+gem 'good_job', '~> 3.14'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
 gem 'jp_prefecture'
