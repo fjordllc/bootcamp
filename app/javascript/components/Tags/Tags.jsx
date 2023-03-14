@@ -3,7 +3,7 @@ import TagifyTags from '@yaireo/tagify/dist/react.tagify'
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import useSWR from 'swr'
 import fetcher from '../../fetcher'
-import { token } from '../../utils'
+import token from '../../token'
 import transformHeadSharp from './transform-head-sharp'
 import validateTagName from './validate-tag-name'
 import headIsSharpOrOctothorpe from './head-is-sharp-or-octothorpe'
