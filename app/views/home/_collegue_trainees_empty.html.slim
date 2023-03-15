@@ -4,13 +4,13 @@
   ul
     li
       | 研修を行う際は、
-      = link_to current_user.company.trainee_sign_up_url, class: '' do
+      = link_to current_user.company.trainee_sign_up_url do
         | こちら
       | から研修生をご登録ください。
     li
       | 研修内容や期間などについての
       br
       | お問い合わせは
-      = link_to unreplied_index_path(current_user.talk), class: '' do
+      = link_to unreplied_index_path(current_user.talk) do
         | こちら
         | からお願いいたします。
