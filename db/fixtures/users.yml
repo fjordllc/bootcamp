@@ -1009,6 +1009,7 @@ advisernocolleguetrainee:
   twitter_account: advisernocolleguetrainee
   facebook_url: https://www.facebook.com/fjordllc
   blog_url: http://advisernocolleguetrainee.example.com
+  company: company27
   description: '同僚がいないアドバイザーです。'
   adviser: true
   course: course1
