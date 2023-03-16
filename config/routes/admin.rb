@@ -12,7 +12,5 @@ Rails.application.routes.draw do
     resources :practices, only: %i(index)
     resources :courses, except: %i(show destroy)
     resources :campaigns, only: %i(new create index edit update)
-
-    mount GoodJob::Engine => 'good_job'
   end
 end
