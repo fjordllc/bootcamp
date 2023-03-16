@@ -4,6 +4,7 @@ ignore_unused_routes:
   - static_pages#retire
   - any_login\/.*
   - active_storage\/.*
+  - jobs/mass_update
 ignore_unreachable_actions:
   - rails\/.*
   - active_storage\/.*
