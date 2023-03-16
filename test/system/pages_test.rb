@@ -232,12 +232,19 @@ class PagesTest < ApplicationSystemTestCase
   end
 
   test 'put docs editor except for author on watch' do
-    visit_with_auth "/pages/#{pages(:page1).id}/edit", 'kimura'
+    # 編集前にWatch中になってないかチェック(作成者を除くDocs編集者)
+    docs_editor_except_for_author = 'machida'
+    visit_with_auth "/pages/#{pages(:page1).id}", docs_editor_except_for_author
+    assert_text 'Watch'
+    visit "/pages/#{pages(:page2).id}"
+    assert_text 'Watch'
+
+    visit "/pages/#{pages(:page1).id}/edit"
     click_button '内容を保存'
     assert_text 'ページを更新しました'
     assert_text 'Watch中'
 
-    visit "/pages/#{pages(:page1).id}/edit"
+    visit "/pages/#{pages(:page2).id}/edit"
     click_button 'WIP'
     assert_text 'ページをWIPとして保存しました。'
     assert_text 'Watch中'

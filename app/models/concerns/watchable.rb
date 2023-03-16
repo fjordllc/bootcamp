@@ -14,7 +14,7 @@ module Watchable
   end
 
   def already_on_watch?(user)
-    watches.find_by(user: user)
+    !!watches.find_by(user: user)
   end
 
   def notification_title
