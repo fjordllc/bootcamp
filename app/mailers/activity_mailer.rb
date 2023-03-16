@@ -14,6 +14,7 @@ class ActivityMailer < ApplicationMailer
     @page = params[:page] if params&.key?(:page)
     @watchable = params[:watchable] if params&.key?(:watchable)
     @comment = params[:comment] if params&.key?(:comment)
+    @product = params[:product] if params&.key?(:product)
   end
 
   # required params: sender, receiver
@@ -232,6 +233,24 @@ class ActivityMailer < ApplicationMailer
 
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  # required params: product, receiver
+  def assigned_as_checker(args = {})
+    @product ||= args[:product]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/products/#{@product.id}",
+      kind: Notification.kinds[:assigned_as_checker]
+    )
+
+    subject = "[FBC] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
     message
   end
 end
