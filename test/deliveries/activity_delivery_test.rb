@@ -173,4 +173,31 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:create_page)
     end
   end
+
+  test '.notify(:watching_notification)' do
+    watch = watches(:report1_watch_kimura)
+    watching = notifications(:notification_watching)
+    params = {
+      watchable: watch.watchable,
+      receiver: watching.user,
+      comment: comments(:comment1),
+      sender: comments(:comment1).user
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:watching_notification, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:watching_notification, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:watching_notification)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:watching_notification)
+    end
+  end
 end
