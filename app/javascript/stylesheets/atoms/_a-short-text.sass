@@ -1,0 +1,41 @@
+.a-short-text
+  p
+    +text-block(1em 1.6 .75em)
+  li
+    +text-block(1em 1.6)
+  ol,
+  ul
+    margin-left: 1.25em
+    margin-top: .75em
+  ol
+    list-style-type: decimal
+  >ul
+    list-style-type: disc
+  >ol
+    list-style-type: decimal
+  li
+    ul,
+    ol
+      +margin(vertical, .375em)
+      &:first-child
+        margin-top: .375em
+      &:last-child
+        margin-bottom: .375em
+    >ul
+      list-style-type: circle
+      >li
+        >ul
+          list-style-type: square
+  hr
+    display: block
+    +size(100% 0)
+    border: none
+    border-top: dashed 1px $border
+    +margin(vertical, 1.25em)
+  &.is-ta-center,
+  .is-ta-center
+    text-align: center
+  &.is-sm
+    font-size: .8125rem
+  *:first-child
+    margin-top: 0
