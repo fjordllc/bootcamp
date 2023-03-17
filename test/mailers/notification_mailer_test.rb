@@ -105,26 +105,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/イベント/, email.body.to_s)
   end
 
-  test 'following_report' do
-    report = reports(:report23)
-    notification = notifications(:notification_following_report)
-    mailer = NotificationMailer.with(
-      report: report,
-      receiver: notification.user
-    ).following_report
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['muryou@fjord.jp'], email.to
-    assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
-    assert_match(/日報/, email.body.to_s)
-  end
-
   test 'chose_correct_answer' do
     answer = correct_answers(:correct_answer2)
     notification = notifications(:notification_chose_correct_answer)

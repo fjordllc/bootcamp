@@ -34,7 +34,7 @@ class Report < ApplicationRecord
   validates :emotion, presence: true
   validate :reported_on_or_before_today
 
-  after_save   ReportCallbacks.new
+  after_save_commit ReportCallbacks.new
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
   after_initialize :set_default_emotion, if: :new_record?
