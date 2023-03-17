@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserRetirement
+class Retirement
   def call(user)
     return unless user.saved_change_to_retired_on?
 
