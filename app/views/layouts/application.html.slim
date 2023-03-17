@@ -12,19 +12,18 @@ html.is-application lang='ja'
     = render 'favicons'
     = render 'rollbar' if Rails.env.production?
     - if page_classes.include?('welcome')
-      = stylesheet_link_tag 'welcome', media: 'all'
+      = stylesheet_pack_tag 'welcome', media: 'all'
       - if page_classes.include?('welcome-home')
         link(rel='canonical' href='https://bootcamp.fjord.jp/')
     - else
       = render 'current_user'
       = render 'available_emojis'
       = render 'stripe'
-      = stylesheet_link_tag 'application', media: 'all'
+      = stylesheet_pack_tag 'application', media: 'all'
     = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900', media: 'all'
     = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'
     = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp_s-narrow.min.css', media: 'all'
     = stylesheet_link_tag 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap', media: 'all'
-    = stylesheet_pack_tag 'application'
     = render '/head/fontawsome'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body class="#{body_class}"

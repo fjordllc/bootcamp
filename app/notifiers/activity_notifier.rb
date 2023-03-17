@@ -83,16 +83,15 @@ class ActivityNotifier < ApplicationNotifier
 
   def submitted(params = {})
     params.merge!(@params)
-    subject = params[:subject]
+    product = params[:product]
     receiver = params[:receiver]
-    message = params[:message]
 
     notification(
-      body: message,
+      body: "#{product.user.login_name}さんが#{product.title}を提出しました。",
       kind: :watching,
-      sender: subject.user,
+      sender: product.user,
       receiver: receiver,
-      link: Rails.application.routes.url_helpers.polymorphic_path(subject),
+      link: Rails.application.routes.url_helpers.polymorphic_path(product),
       read: false
     )
   end

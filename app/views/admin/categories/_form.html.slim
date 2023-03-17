@@ -29,3 +29,6 @@
         = f.submit nil, class: 'a-button is-lg is-primary is-block'
       li.form-actions__item.is-sub
         = link_to 'キャンセル', admin_categories_path, class: 'a-button is-sm is-text'
+      - if category.id.present?
+        li.form-actions__item.is-muted
+          = link_to '削除', admin_category_path(category), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'a-button is-sm is-muted-text'

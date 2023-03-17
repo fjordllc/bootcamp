@@ -10,7 +10,6 @@ gem 'image_processing', '~> 1.12'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 6.0'
 gem 'rails', '~> 6.1.4.4'
-gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 
 # not default
@@ -28,6 +27,8 @@ gem 'commonmarker'
 gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
+gem 'discordrb', github: 'shardlab/discordrb', require: false
+gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
 gem 'jp_prefecture'
@@ -79,6 +80,7 @@ group :development do
   # not default
   gem 'bullet'
   gem 'bundle_outdated_formatter'
+  gem 'foreman'
   gem 'letter_opener_web', '~> 2.0'
   gem 'rack-dev-mark'
   gem 'rack-mini-profiler', '~> 2.0', require: false

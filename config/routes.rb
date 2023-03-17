@@ -95,4 +95,5 @@ Rails.application.routes.draw do
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount GoodJob::Engine => 'good_job'
 end

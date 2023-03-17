@@ -1,7 +1,6 @@
 import React from 'react'
-import useSWR, { useSWRConfig } from 'swr'
+import useSWR from 'swr'
 import fetcher from '../fetcher'
-import Bootcamp from '../bootcamp'
 
 const Categories = () => {
   const { data, error } = useSWR(`/api/categories.json`, fetcher)
@@ -29,20 +28,6 @@ const Categories = () => {
 }
 
 const Category = ({ category }) => {
-  const { mutate } = useSWRConfig()
-
-  const destroy = (id) => {
-    if (window.confirm('本当によろしいですか？')) {
-      Bootcamp.delete(`/api/categories/${id}`)
-        .then((_response) => {
-          mutate('/api/categories.json')
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    }
-  }
-
   return (
     <tr className="admin-table__item">
       <td className="admin-table__item-value">
@@ -57,13 +42,6 @@ const Category = ({ category }) => {
               className="a-button is-sm is-secondary is-icon spec-edit">
               <i className="fa-solid fa-pen" />
             </a>
-          </li>
-          <li>
-            <button
-              onClick={() => destroy(category.id)}
-              className="a-button is-sm is-danger is-icon js-delete">
-              <i className="fa-solid fa-trash-alt" />
-            </button>
           </li>
         </ul>
       </td>
