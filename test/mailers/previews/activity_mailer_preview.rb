@@ -67,4 +67,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(sender: page.user, receiver: receiver, page: page).create_page
   end
+
+  def submitted
+    product = Product.find(ActiveRecord::FixtureSet.identify(:product15))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    ActivityMailer.with(product: product, receiver: receiver).submitted
+  end
 end

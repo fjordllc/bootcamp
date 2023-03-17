@@ -61,7 +61,8 @@ Rails.application.configure do
   config.cache_store = :memory_store, { size: 128.megabytes }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :good_job
+  config.good_job.execution_mode = :async
   # config.active_job.queue_name_prefix = "bootcamp_production"
 
   config.action_mailer.perform_caching = true

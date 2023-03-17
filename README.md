@@ -5,11 +5,11 @@
 
 プログラマー向けEラーニングシステム。
 
-## インストール
+## インストールと起動
 
 ```
 $ bin/setup
-$ rails server
+$ foreman start -f Procfile.dev
 ```
 
 ## practiceの所要時間の集計

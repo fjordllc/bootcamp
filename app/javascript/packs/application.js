@@ -59,7 +59,6 @@ import '../choices-ui.js'
 import '../training-info-toggler.js'
 import '../company-products.js'
 import '../welcome_message_for_adviser.js'
-import '../stylesheets/application.css'
 import '../bookmarks-edit-button.js'
 import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
@@ -87,6 +86,8 @@ import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import AdminPractices from '../components/admin-practices.vue'
+
+import '../stylesheets/application'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)

@@ -1,0 +1,27 @@
+.pill-nav
+  &:not(:first-child)
+    padding-top: 1.25rem
+
+.pill-nav__items
+  display: flex
+  overflow-x: auto
+  overflow-y: hidden
+  justify-content: center
+
+.pill-nav__item
+  &:first-child .pill-nav__item-link
+    +border-radius(left, 10em)
+  &:last-child .pill-nav__item-link
+    +border-radius(right, 10em)
+
+.pill-nav__item-link
+  +block-link
+  +text-block(.75rem 2.3, $semi-muted-text center nowrap)
+  background-color: $background-shade
+  width: 7rem
+  transition: all .2s ease-out
+  &:hover
+    background-color: $background-semi-shade
+  &.is-active
+    background-color: $accent
+    color: $default-text
