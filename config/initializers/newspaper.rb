@@ -49,5 +49,5 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
   Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
 
-  Newspaper.subscribe(:retirement_create, Retirement.new)
+  Newspaper.subscribe(:retirement_create, RetirementUnfinishedDataDestroyer.new)
 end
