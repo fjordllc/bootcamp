@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     if @page.save
       unless @page.wip?
         Newspaper.publish(:page_create, @page)
-        if announcement_checked?
+        if @page.announcement_of_publication?
           redirect_to new_announcement_path(title: page_params[:title], description: page_params[:body]), notice: notice_message(@page, :create) and return
         end
       end
@@ -51,7 +51,7 @@ class PagesController < ApplicationController
     if @page.update(page_params)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
-        if announcement_checked?
+        if @page.announcement_of_publication?
           redirect_to new_announcement_path(title: page_params[:title], description: page_params[:body]), notice: notice_message(@page, :create) and return
         end
       end
@@ -74,7 +74,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    keys = %i[title body tag_list practice_id slug announcement]
+    keys = %i[title body tag_list practice_id slug announcement_of_publication]
     keys << :user_id if admin_or_mentor_login?
     params.require(:page).permit(*keys)
   end
@@ -106,9 +106,5 @@ class PagesController < ApplicationController
     return if @page.slug.nil?
 
     redirect_to request.original_url.sub(params[:slug_or_id], @page.slug) unless params[:slug_or_id].start_with?(/[a-z]/)
-  end
-
-  def announcement_checked?
-    page_params[:announcement] == '1' # ’1’は「ドキュメント公開のお知らせを書く」にチェックが入っている場合を指します
   end
 end
