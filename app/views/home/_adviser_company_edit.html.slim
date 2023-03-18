@@ -11,5 +11,4 @@
     .card-main-actions
       ul.card-main-actions__items
         li.card-main-actions__item
-          = link_to company_path(current_user.company), class: 'a-button is-sm is-block is-secondary' do
-            | 企業情報
+          = link_to '企業情報', company_path(current_user.company), class: 'a-button is-sm is-block is-secondary'

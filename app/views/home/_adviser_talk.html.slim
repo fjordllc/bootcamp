@@ -11,5 +11,4 @@
     .card-main-actions
       ul.card-main-actions__items
         li.card-main-actions__item
-          = link_to talk_path(current_user.talk, anchor: 'latest-comment'), class: 'a-button is-sm is-block is-secondary' do
-            | 相談部屋
+          = link_to '相談部屋', talk_path(current_user.talk, anchor: 'latest-comment'), class: 'a-button is-sm is-block is-secondary'
