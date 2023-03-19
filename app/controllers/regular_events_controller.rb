@@ -100,6 +100,6 @@ class RegularEventsController < ApplicationController
 
     students_and_trainees = User.students_and_trainees.ids
     RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_and_trainees)
-    RegularEventParticipantsWatcher.call(regular_event: @regular_event, target: students_and_trainees)
+    RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_and_trainees)
   end
 end
