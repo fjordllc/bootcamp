@@ -50,13 +50,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(answer: answer, receiver: receiver).chose_correct_answer
   end
 
-  def consecutive_sad_report
-    report = Report.find(ActiveRecord::FixtureSet.identify(:report16))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
-
-    NotificationMailer.with(report: report, receiver: receiver).consecutive_sad_report
-  end
-
   def graduated
     sender = User.find(ActiveRecord::FixtureSet.identify(:sotugyou))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
