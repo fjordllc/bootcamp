@@ -64,10 +64,10 @@ import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
 import '../modal-switcher.js'
 import '../survey-question-listings.js'
+import '../books.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
-import Books from '../components/books.vue'
 import ExternalEntries from '../components/external-entries.vue'
 import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
@@ -93,7 +93,6 @@ import '../stylesheets/application'
 
 const mounter = new VueMounter()
 mounter.addComponent(Announcements)
-mounter.addComponent(Books)
 mounter.addComponent(ExternalEntries)
 mounter.addComponent(Pages)
 mounter.addComponent(Questions)

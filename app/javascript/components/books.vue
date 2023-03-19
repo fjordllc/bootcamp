@@ -1,24 +1,35 @@
 <template lang="pug">
-.books
-  .empty(v-if='books === null')
-    .fa-solid.fa-spinner.fa-pulse
-    |
-    | ロード中
-  .books__items(v-else-if='books.length !== 0')
-    .row
-      book(
-        v-for='book in books',
-        :key='book.id',
-        :book='book',
-        :isAdmin='isAdmin',
-        :isMentor='isMentor')
-  .o-empty-message(v-else)
-    .o-empty-message__icon
-      i.fa-regular.fa-sad-tear
-    p.o-empty-message__text
-      | 登録されている本はありません
+.page-body
+  nav.page-filter.form
+    .container.is-md
+      .form-item.is-inline-md-up
+        label.a-form-label(for='js-choices-single-select')
+          | プラクティスで絞り込む
+        select#js-choices-single-select(v-model='filterByPlacticeId')
+          option(v-for='practice in practices' :value='practice.id' :key='practice.id') {{practice.title}}
+  .page-content.is-books
+    .container
+      .books
+        .empty(v-if='books === null')
+          .fa-solid.fa-spinner.fa-pulse
+          |
+          | ロード中
+        .books__items(v-else-if='books.length !== 0')
+          .row
+            book(
+              v-for='book in filteredBooks',
+              :key='book.id',
+              :book='book',
+              :isAdmin='isAdmin',
+              :isMentor='isMentor')
+        .o-empty-message(v-else)
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          p.o-empty-message__text
+            | 登録されている本はありません
 </template>
 <script>
+import Choices from 'choices.js'
 import Book from './book'
 
 export default {
@@ -33,25 +44,23 @@ export default {
   },
   data() {
     return {
-      books: null
+      books: null,
+      filterByPlacticeId: null
     }
   },
   computed: {
-    newParams() {
-      const params = new URL(location.href).searchParams
-      if (this.practiceId) params.set('practice_id', this.practiceId)
-      return params
+    practices() {
+      return this.$store.getters.practices
     },
-    booksAPI() {
-      const params = this.newParams
-      return `/api/books.json?${params}`
+    filteredBooks() {
+      return this.filterByPlacticeId === null || this.filterByPlacticeId === "null"
+        ? this.books
+        : this.books.filter(book => book.practices.some(practice => practice.id === Number(this.filterByPlacticeId)))
     }
   },
   created() {
-    window.onpopstate = function () {
-      location.replace(location.href)
-    }
     this.getBooks()
+    this.getPractices()
   },
   methods: {
     token() {
@@ -59,7 +68,8 @@ export default {
       return meta ? meta.getAttribute('content') : ''
     },
     getBooks() {
-      fetch(this.booksAPI, {
+      const url = '/api/books.json'
+      fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -69,18 +79,30 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual'
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
+        .then(res => res.json())
+        .then(json => {
           this.books = []
-          json.books.forEach((r) => {
-            this.books.push(r)
-          })
+          json.books.forEach(item => this.books.push(item))
         })
-        .catch((error) => {
-          console.warn(error)
+        .catch(error => console.warn(error))
+    },
+    getPractices() {
+      Promise.resolve(this.$store.dispatch('getAllPractices'))
+      .then(() => {this.choicesUi()})
+    },
+    choicesUi() {
+      const element = document.querySelector('#js-choices-single-select')
+      if (element) {
+        return new Choices(element, {
+          searchEnabled: true,
+          allowHTML: true,
+          searchResultLimit: 20,
+          searchPlaceholderValue: '検索ワード',
+          noResultsText: '一致する情報は見つかりません',
+          itemSelectText: '選択',
+          shouldSort: false
         })
+      }
     }
   }
 }
