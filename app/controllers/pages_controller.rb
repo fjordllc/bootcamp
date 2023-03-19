@@ -19,7 +19,7 @@ class PagesController < ApplicationController
   end
 
   def show
-    render template: 'not_authenticates/pages/index', locals: { title: @page.title } unless logged_in?
+    render template: 'pages/index_not_auth/index', locals: { title: @page.title } unless logged_in?
 
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
   end
