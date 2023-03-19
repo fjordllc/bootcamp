@@ -45,16 +45,14 @@ class ReportSaver
   end
 
   def notify_consecutive_sad_report(report)
-    count = 0
     User.mentor.each do |receiver|
       ActivityDelivery.with(report: report, receiver: receiver).notify(:consecutive_sad_report)
-      count += 1
     end
   end
 
   def notify_followers(report)
     report.user.followers.each do |follower|
-      NotificationFacade.following_report(report, follower)
+      ActivityDelivery.with(sender: report.user, receiver: follower, report: report).notify(:following_report)
       create_following_watch(report, follower) if follower.watching?(report.user)
     end
   end
