@@ -5,6 +5,11 @@ require 'application_system_test_case'
 class AnswersTest < ApplicationSystemTestCase
   include ActiveJob::TestHelper
 
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
   test 'answer form in questions/:id has comment tab and preview tab' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     within('.a-form-tabs') do
@@ -65,18 +70,6 @@ class AnswersTest < ApplicationSystemTestCase
 
   test 'notify watchers of best answer' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'sotugyou'
-
-    # ベストアンサーが決定された際、Notificationが作成され、参照される
-    # テスト環境だとActivityNotifierがNotification.create!しないため、ここでNotification.create!する
-    answer = questions(:question2).answers.first
-    Notification.create!(
-      kind: :chose_correct_answer,
-      sender: users(:sotugyou),
-      user: users(:kimura),
-      link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-      message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
-      read: false
-    )
 
     assert_difference 'ActionMailer::Base.deliveries.count', 1 do
       perform_enqueued_jobs do
