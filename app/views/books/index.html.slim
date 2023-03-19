@@ -13,17 +13,4 @@ header.page-header
                 i.fas.fa-plus
                 | 参考書籍登録
 
-.page-body
-  nav.page-filter.form
-    .container.is-md
-      = form_with url: books_path, method: 'get', local: true
-        .form-item.is-inline-md-up
-          = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
-          = select_tag :practice_id,
-                  options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]),
-                  include_blank: '全ての書籍を表示',
-                  onchange: 'this.form.submit()',
-                  id: 'js-choices-single-select'
-  .page-content.is-books
-    .container
-      div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}" data-vue-practice-id:number="#{params[:practice_id]}")
+div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}")
