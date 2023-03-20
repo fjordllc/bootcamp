@@ -95,6 +95,53 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     assert_equal [user.login_name], names
   end
 
+  test 'not include no replied wip products' do
+    product62 = products(:product62)
+    product_title = "#{product62.practice.title}の提出物"
+
+    assert_not product62.checked?
+
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'machida'
+    product_list_titles = all('.card-list-item-title__title').map(&:text)
+    assert_includes product_list_titles, product_title
+
+    product62.update!(wip: true)
+
+    visit '/products/self_assigned?target=self_assigned_no_replied'
+    product_list_titles = all('.card-list-item-title__title').map(&:text)
+    assert_not_includes product_list_titles, product_title
+  end
+
+  test 'not include wip product last replied by owner' do
+    checker = users(:machida)
+    product62 = products(:product62)
+    product_title = "#{product62.practice.title}の提出物"
+
+    Comment.create!(
+      user: checker,
+      commentable: product62,
+      description: 'メンターのコメント'
+    )
+
+    Comment.create!(
+      user: product62.user,
+      commentable: product62,
+      description: '提出者のコメント'
+    )
+
+    assert_not product62.checked?
+
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', checker.login_name
+    product_list_titles = all('.card-list-item-title__title').map(&:text)
+    assert_includes product_list_titles, product_title
+
+    product62.update!(wip: true)
+
+    visit '/products/self_assigned?target=self_assigned_no_replied'
+    product_list_titles = all('.card-list-item-title__title').map(&:text)
+    assert_not_includes product_list_titles, product_title
+  end
+
   test 'display replied products if click on self_assigned_all-button' do
     checker = users(:mentormentaro)
     practice = practices(:practice5)
