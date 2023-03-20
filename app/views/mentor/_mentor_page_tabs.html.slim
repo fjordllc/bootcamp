@@ -5,3 +5,15 @@
         = link_to 'メンターページ',
                 mentor_root_path,
                 class: "page-tabs__item-link #{current_link(/^mentor-home/)}"
+      li.page-tabs__item
+        = link_to 'プラクティス',
+                mentor_root_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-practices/)}"
+      li.page-tabs__item
+        = link_to 'カテゴリー',
+                mentor_root_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-categories/)}"
+      li.page-tabs__item
+        = link_to 'コース',
+                mentor_courses_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-courses/)}"
