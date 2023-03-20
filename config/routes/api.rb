@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       resources :companies, only: %i(index destroy)
       resources :practices, only: %i(index)
     end
+    namespace 'mentor' do
+      resources :practices, only: %i(index)
+    end
     resource :session, controller: "session", only: %i(create)
     resource :image, controller: "image", only: %i(create)
     resources :grasses, only: %i(show)
