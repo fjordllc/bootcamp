@@ -125,28 +125,3 @@ steps:
 timeout: 7200s
 images:
   - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-options:
-  substitutionOption: ALLOW_LOOSE
-substitutions:
-  _TRIGGER_ID: _
-  _DB_NAME: _
-  _APPSIGNAL_PUSH_API_KEY: _
-  _GCS_BUCKET: _
-  _MEMORY: 2GB
-  _DB_PASS: _
-  _CLOUD_SQL_HOST: _
-  _GOOGLE_CREDENTIALS: _
-  _APP_HOST_NAME: _
-  _RAILS_MASTER_KEY: _
-  _DB_USER: _
-  _ROLLBAR_CLIENT_TOKEN: _
-  _ENVS: _
-  _SERVICE_NAME: _
-  _DISCORD_NOTICE_WEBHOOK_URL: _
-  _CLOUD_RUN_HOST_NAME: _
-  _LABELS: _
-  _TOKEN: _
-tags:
-  - gcp-cloud-build-deploy-cloud-run
-  - gcp-cloud-build-deploy-cloud-run-managed
-  - bootcamp
