@@ -273,7 +273,7 @@ class PagesTest < ApplicationSystemTestCase
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
     click_button '内容を更新'
 
-    assert_text 'ページを作成しました'
+    assert_text 'ページを更新しました'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
