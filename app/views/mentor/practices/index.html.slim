@@ -1,0 +1,15 @@
+- title '管理ページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+
+= render 'mentor/mentor_page_tabs'
+
+.page-body
+  .container.is-lg
+    div(data-vue="MentorPractices")
