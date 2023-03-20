@@ -8,21 +8,12 @@
         .col-lg-9.col-xs-12
           .form-item
             = f.label :title, class: 'a-form-label'
-            - if params[:title].present?
-              = f.text_field :title, class: 'a-text-input js-warning-form', value: "ドキュメント「#{params[:title]}」を公開しました。"
-            - else
-              = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '今週のリリース2023年12月22日'
+            = f.text_field :title, class: 'a-text-input js-warning-form', placeholder: '今週のリリース2023年12月22日'
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-form-label'
-          - if params[:description].present?
-            = f.text_area :description,
-              class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
-              data: { 'preview': '.js-preview' },
-              value: "<!--  このテキストを編集してください-->\n\nドキュメント「#{params[:title]}」を公開しました。\nhttps://bootcamp.fjord.jp/pages/#{current_user.pages.last.id}\n\n<!--  不要な場合以下は削除 -->\n---\n\n#{params[:description]}"
-          - else
-            = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
+          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
