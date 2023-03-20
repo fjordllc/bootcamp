@@ -35,7 +35,7 @@ class PagesController < ApplicationController
       unless @page.wip?
         Newspaper.publish(:page_create, @page)
         if @page.announcement_of_publication?
-          redirect_to new_announcement_path(title: page_params[:title], description: page_params[:body]), notice: notice_message(@page, :create)
+          redirect_to new_announcement_path(page_id: @page.id), notice: notice_message(@page, :create)
         else
           redirect_to @page, notice: notice_message(@page, :create)
         end
@@ -55,7 +55,7 @@ class PagesController < ApplicationController
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
         if @page.announcement_of_publication?
-          redirect_to new_announcement_path(title: page_params[:title], description: page_params[:body]), notice: notice_message(@page, :create)
+          redirect_to new_announcement_path(page_id: @page.id), notice: notice_message(@page, :update)
         else
           redirect_to @page, notice: notice_message(@page, :update)
         end
