@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import queryString from 'query-string'
 import fetcher from '../../fetcher'
