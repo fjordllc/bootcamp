@@ -12,40 +12,35 @@ export default function Reports({
   displayPagination = true
 }) {
   return (
-    <>
+    <div>
+      {practices}
       {totalPages === 0 && (
-        <div>
-          {practices}
-          <NoReports unchecked={unchecked} />
-        </div>
+        <NoReports unchecked={unchecked} />
       )}
       {totalPages > 0 && (
-        <div>
-          {practices}
-          <div className="page-content reports">
-            {totalPages > 1 && displayPagination && pagination}
-            <ul className="card-list a-card">
-              <div className="card-list__items">
-                {reports.map((report) => {
-                  return (
-                    <Report
-                      key={report.id}
-                      report={report}
-                      currentUserId={report.currentUserId}
-                      displayUserIcon={displayUserIcon}
-                    />
-                  )
-                })}
-              </div>
-            </ul>
-            {unchecked && (
-              <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
-            )}
-            {totalPages > 1 && displayPagination && pagination}
-          </div>
+        <div className="page-content reports">
+          {totalPages > 1 && displayPagination && pagination}
+          <ul className="card-list a-card">
+            <div className="card-list__items">
+              {reports.map((report) => {
+                return (
+                  <Report
+                    key={report.id}
+                    report={report}
+                    currentUserId={report.currentUserId}
+                    displayUserIcon={displayUserIcon}
+                  />
+                )
+              })}
+            </div>
+          </ul>
+          {unchecked && (
+            <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+          )}
+          {totalPages > 1 && displayPagination && pagination}
         </div>
       )}
-    </>
+    </div>
   )
 }
 
@@ -63,7 +58,9 @@ const NoReports = ({ unchecked }) => {
         ) : (
           <>
             <i className="fa-regular fa-sad-tear" />
-            <p className="o-empty-message__text">'日報はまだありません。'</p>
+            <p className="o-empty-message__text">
+              日報はまだありません。
+            </p>
           </>
         )}
       </div>

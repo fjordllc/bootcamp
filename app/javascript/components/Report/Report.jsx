@@ -5,7 +5,9 @@ export default function Report({ report, currentUserId, displayUserIcon }) {
   return (
     <div className={`card-list-item ${report.wip ? 'is-wip' : ''}`}>
       <div className="card-list-item__inner">
-        {displayUserIcon && <DisplayUserIcon report={report} />}
+        {displayUserIcon && (
+          <DisplayUserIcon report={report} />
+        )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <header className="card-list-item-title">
