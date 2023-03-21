@@ -1,5 +1,5 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .courses-item(id="course_#{course.id}" class="#{!current_user.admin? || course.published ? 'is-published' : 'is-closed'}")
+  .courses-item(id="course_#{course.id}" class="#{course.published ? 'is-published' : 'is-closed'}")
     .courses-item__inner.a-card
       header.courses-item__header
         h3.courses-item__title
@@ -11,14 +11,15 @@
               = course.title
       .courses-item__description
         = simple_format(course.description)
-      footer.card-footer
-        .card-main-actions
-          ul.card-main-actions__items
-            li.card-main-actions__item
-              = link_to edit_mentor_course_path(course), class: 'a-button is-sm is-secondary is-block' do
-                i.fa-solid.fa-pen
-                | 編集
-            li.card-main-actions__item
-              = link_to course_categories_path(course), class: 'a-button is-sm is-secondary is-block' do
-                i.fa-solid.fa-align-justify
-                | 並び替え
+      - if mentor_login?
+        footer.card-footer
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_mentor_course_path(course), class: 'a-button is-sm is-secondary is-block' do
+                  i.fa-solid.fa-pen
+                  | 編集
+              li.card-main-actions__item
+                = link_to course_categories_path(course), class: 'a-button is-sm is-secondary is-block' do
+                  i.fa-solid.fa-align-justify
+                  | 並び替え
