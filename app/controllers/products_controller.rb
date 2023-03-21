@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
     if @product.update(product_params)
       Newspaper.publish(:product_update, @product)
       redirect_to @product, notice: notice_message(@product, :update)
-      notice_another_mentor_assined_as_checker
+      notice_another_mentor_assigned_as_checker
       notice_product_update if @product.checker_id.present?
     else
       render :edit
@@ -128,7 +128,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def notice_another_mentor_assined_as_checker
+  def notice_another_mentor_assigned_as_checker
     @checker_id = @product.checker_id
     return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
 
