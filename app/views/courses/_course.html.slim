@@ -1,25 +1,24 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .courses-item(id="course_#{course.id}" class="#{(current_user.mentor? && !current_user.admin?) || course.published ? 'is-published' : 'is-closed'}")
+  .courses-item(id="course_#{course.id}" class="#{!current_user.admin? || course.published ? 'is-published' : 'is-closed'}")
     .courses-item__inner.a-card
       header.courses-item__header
         h3.courses-item__title
           = link_to [course, :practices], class: 'courses-item__title-link' do
-            - if admin_login? && !course.published
+            - if !course.published
               .courses-item__title-icon.is-closed
                 | 非表示
             span.courses-item__title-label
               = course.title
       .courses-item__description
         = simple_format(course.description)
-      - if admin_login?
-        footer.card-footer
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                = link_to edit_admin_course_path(course), class: 'a-button is-sm is-secondary is-block' do
-                  i.fa-solid.fa-pen
-                  | 編集
-              li.card-main-actions__item
-                = link_to course_categories_path(course), class: 'a-button is-sm is-secondary is-block' do
-                  i.fa-solid.fa-align-justify
-                  | 並び替え
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to edit_mentor_course_path(course), class: 'a-button is-sm is-secondary is-block' do
+                i.fa-solid.fa-pen
+                | 編集
+            li.card-main-actions__item
+              = link_to course_categories_path(course), class: 'a-button is-sm is-secondary is-block' do
+                i.fa-solid.fa-align-justify
+                | 並び替え
