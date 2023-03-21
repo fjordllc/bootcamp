@@ -89,4 +89,4 @@
                                   class: 'a-button is-sm is-danger is-block'
                 div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-2
-                = react_component('Reports', userId: @user.id, displayUserIcon: false, displayPagination: false)
+                = react_component('Report/UserReports', userId: @user.id, displayUserIcon: false, displayPagination: false)
