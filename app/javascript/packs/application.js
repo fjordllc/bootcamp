@@ -83,7 +83,6 @@ import Footprints from '../components/footprints.vue'
 import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
-import AdminPractices from '../components/admin-practices.vue'
 import UserProducts from '../components/user-products.vue'
 import MentorPractices from '../components/mentor-practices.vue'
 
@@ -110,7 +109,6 @@ mounter.addComponent(Footprints)
 mounter.addComponent(QuestionPage)
 mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
-mounter.addComponent(AdminPractices)
 mounter.addComponent(UserProducts)
 mounter.addComponent(MentorPractices)
 mounter.mount()
