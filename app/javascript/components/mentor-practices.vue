@@ -86,14 +86,10 @@ export default {
       })
         .then((response) => response.json())
         .then((json) => {
-          // console.log("####### admin json ########")
-          // console.log(json)
           this.practices = []
           json.practices.forEach((r) => {
             this.practices.push(r)
           })
-          console.log("####### admin ########")
-          console.log(this.practices)
         })
         .catch((error) => {
           console.warn(error)
