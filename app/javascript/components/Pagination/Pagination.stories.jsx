@@ -4,7 +4,7 @@ import Pagination from './Pagination'
 
 export default {
   component: Pagination,
-  title: 'Pagination'
+  title: 'Components/Pagination'
 }
 
 const Template = (args) => {
