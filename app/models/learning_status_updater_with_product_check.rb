@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProductStatusUpdater
+class LearningStatusUpdaterWithProductCheck
   def call(check)
     return unless check.checkable_type == 'Product'
 
