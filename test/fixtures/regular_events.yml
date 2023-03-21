@@ -94,3 +94,12 @@ regular_event<%= i %>:
   user: komagata
   category: 1
 <% end %>
+
+regular_event27:
+  title: 二日連続開催の定期イベント
+  description: 二日連続開催の定期イベント
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
