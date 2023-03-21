@@ -5,6 +5,6 @@ Rails.application.routes.draw do
     root to: "home#index", as: :root
     resources :categories, except: %i(destroy)
     resources :practices, only: %i(index)
-    resources :courses, except: %i(show destroy)
+    resources :courses, only: %i(index edit update)
   end
 end
