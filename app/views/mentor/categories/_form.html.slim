@@ -1,0 +1,34 @@
+= form_with model: [:mentor, category], local: true, html: { name: 'category', class: 'form' } do |f|
+  = f.hidden_field :course_id, value: params[:course_id]
+  .form__items
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :name, class: 'a-form-label'
+          = f.text_field :name, class: 'a-text-input js-warning-form'
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :slug, class: 'a-form-label'
+          = f.text_field :slug, class: 'a-text-input js-warning-form'
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'a-form-label'
+          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area practices-edit__input', data: { 'preview': '.js-preview' }
+          .a-form-help
+            p
+              | このカテゴリーを学ぶことでできるようになること、なぜこれを学ぶのかの理由、学ぶにあたっての必要な前提条件（修了していないといけないプラクティスなど）を記入してください。
+        .col-md-6.col-xs-12
+          .a-form-label
+            | プレビュー
+          .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', mentor_categories_path, class: 'a-button is-sm is-text'
+      - if category.id.present?
+        li.form-actions__item.is-muted
+          = link_to '削除', mentor_category_path(category), method: :delete, data: { confirm: '本当によろしいですか？' }, class: 'a-button is-sm is-muted-text'

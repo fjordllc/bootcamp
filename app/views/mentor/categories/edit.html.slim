@@ -1,0 +1,19 @@
+- title 'カテゴリー編集'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_mentor_category_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | カテゴリー作成
+
+= render 'mentor/mentor_page_tabs'
+
+.page-body
+  .container.is-xxxl
+    = render 'form', category: @category
