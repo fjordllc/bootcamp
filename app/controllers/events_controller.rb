@@ -2,21 +2,8 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
-  skip_before_action :require_active_user_login, raise: false, only: :index
 
-  def index
-    respond_to do |format|
-      format.html do
-        redirect_to root_path, alert: 'ログインしてください' unless logged_in?
-      end
-      format.ics do
-        calendar = EventsInIcalFormatExporter.export_events(set_export)
-
-        calendar.publish
-        render plain: calendar.to_ical
-      end
-    end
-  end
+  def index; end
 
   def show
     @event = Event.with_avatar.find(params[:id])
@@ -81,10 +68,6 @@ class EventsController < ApplicationController
 
   def set_wip
     @event.wip = (params[:commit] == 'WIP')
-  end
-
-  def set_export
-    @events_for_export = Event.where('start_at > ?', Time.zone.today)
   end
 
   def notice_message(event)

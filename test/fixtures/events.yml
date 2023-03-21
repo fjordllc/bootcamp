@@ -136,3 +136,25 @@ event29:
   open_end_at: 2017-4-02 9:00
   job_hunting: true
   user: komagata
+
+event30:
+  title: "未来のイベント境界値用"
+  description: "明日開催のイベント"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.current + 1.days %>
+  end_at: <%= Time.current + 2.days %>
+  open_start_at: <%= Time.current - 1.days %>
+  open_end_at: <%= Time.current %>
+  user: komagata
+
+event31:
+  title: "過去のイベント境界値用"
+  description: "昨日開催のイベント"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.current - 2.days %>
+  end_at: <%= Time.current - 1.days %>
+  open_start_at: <%= Time.current - 4.days %>
+  open_end_at: <%= Time.current - 2.days %>
+  user: komagata
