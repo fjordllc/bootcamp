@@ -158,4 +158,3 @@ event31:
   open_start_at: <%= Time.current - 4.days %>
   open_end_at: <%= Time.current - 2.days %>
   user: komagata
-  
