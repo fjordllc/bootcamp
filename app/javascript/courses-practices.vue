@@ -14,7 +14,7 @@
               v-if='category.completed_all_practices === true')
               | 修了
         .categories-item__description
-          .categories-item__edit.is-only-mentor(v-if='isRole("admin")')
+          .categories-item__edit.is-only-mentor(v-if='isRole("mentor")')
             a.categories-item__edit-link(
               :href='`${category.edit_mentor_category_path}`')
               i.fa-solid.fa-pen
