@@ -238,6 +238,14 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
+  test 'show regular event held for two consecutive days on dashbord' do
+    travel_to Time.zone.local(2023, 1, 30, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      assert_text '今日01月30日は 「二日連続開催の定期イベント」'
+      assert_text '明日01月31日は 「二日連続開催の定期イベント」'
+    end
+  end
+
   test 'show grass hide button for graduates' do
     visit_with_auth '/', 'kimura'
     assert_not has_button? '非表示'

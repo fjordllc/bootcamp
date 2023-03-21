@@ -62,10 +62,11 @@ regular_event_repeat_rule28:
   regular_event: regular_event1
 
 regular_event_repeat_rule29:
-  frequency: 3
-  day_of_the_week: 2
-  regular_event: regular_event2
+  frequency: 0
+  day_of_the_week: <%= Date.current.wday %>
+  regular_event: regular_event27
 
 regular_event_repeat_rule30:
-  frequency: 2
-  day_of_the_week: 3
+  frequency: 0
+  day_of_the_week: <%= Date.tomorrow.wday %>
+  regular_event: regular_event27

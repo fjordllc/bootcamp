@@ -9,14 +9,6 @@ module HomeHelper
     end
   end
 
-  def event_date(event)
-    if event.holding_today?
-      Date.current
-    elsif event.holding_tomorrow?
-      Date.tomorrow
-    end
-  end
-
   def anchor_to_required_field(attribute)
     {
       avatar_attached: 'form-user-avatar',
