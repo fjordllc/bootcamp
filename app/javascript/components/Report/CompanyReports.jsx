@@ -14,10 +14,15 @@ export default function CompanyReports({ companyId }) {
 
   useEffect(() => {
     setPage(page)
-    window.history.pushState(null, null, `/reports?page=${page}&company_id=${companyId}`)
+    window.history.pushState(
+      null,
+      null,
+      `/reports?page=${page}&company_id=${companyId}`
+    )
   }, [page])
 
-  const { data, error } = useSWR(`/api/reports.json?page=${page}&company_id=${companyId}`,
+  const { data, error } = useSWR(
+    `/api/reports.json?page=${page}&company_id=${companyId}`,
     fetcher
   )
 

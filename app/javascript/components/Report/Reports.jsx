@@ -14,9 +14,7 @@ export default function Reports({
   return (
     <div>
       {practices}
-      {totalPages === 0 && (
-        <NoReports unchecked={unchecked} />
-      )}
+      {totalPages === 0 && <NoReports unchecked={unchecked} />}
       {totalPages > 0 && (
         <div className="page-content reports">
           {totalPages > 1 && displayPagination && pagination}
@@ -58,9 +56,7 @@ const NoReports = ({ unchecked }) => {
         ) : (
           <>
             <i className="fa-regular fa-sad-tear" />
-            <p className="o-empty-message__text">
-              日報はまだありません。
-            </p>
+            <p className="o-empty-message__text">日報はまだありません。</p>
           </>
         )}
       </div>

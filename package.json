@@ -2,7 +2,7 @@
   "scripts": {
     "lint": "run-p lint:*",
     "lint:eslint": "eslint 'app/javascript/**/*.{js,jsx,vue}' --max-warnings=0",
-    "lint:prettier": "prettier app/javascript/**/*.{js,jsx,vue} --check",
+    "lint:prettier": "prettier 'app/javascript/**/*.{js,jsx,vue}' --check",
     "storybook": "start-storybook -p 6006",
     "storybook-docs": "start-storybook --docs --no-manager-cache"
   },

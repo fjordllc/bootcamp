@@ -18,10 +18,15 @@ export default function PracticeReports({
 
   useEffect(() => {
     setPage(page)
-    window.history.pushState(null, null, `/reports?page=${page}&practice_id=${practiceId}`)
+    window.history.pushState(
+      null,
+      null,
+      `/reports?page=${page}&practice_id=${practiceId}`
+    )
   }, [page])
 
-  const { data, error } = useSWR(`/api/reports.json?page=${page}&practice_id=${practiceId}`,
+  const { data, error } = useSWR(
+    `/api/reports.json?page=${page}&practice_id=${practiceId}`,
     fetcher
   )
 

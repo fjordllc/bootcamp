@@ -18,10 +18,15 @@ export default function UserReports({
 
   useEffect(() => {
     setPage(page)
-    window.history.pushState(null, null, `/reports?page=${page}&user_id=${userId}`)
+    window.history.pushState(
+      null,
+      null,
+      `/reports?page=${page}&user_id=${userId}`
+    )
   }, [page, userId])
 
-  const { data, error } = useSWR(`/api/reports.json?page=${page}&user_id=${userId}`,
+  const { data, error } = useSWR(
+    `/api/reports.json?page=${page}&user_id=${userId}`,
     fetcher
   )
 

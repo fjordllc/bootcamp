@@ -17,7 +17,8 @@ export default function UncheckedReports() {
     window.history.pushState(null, null, `/reports/unchecked?page=${page}`)
   }, [page])
 
-  const { data, error } = useSWR(`/api/reports/unchecked.json?page=${page}`,
+  const { data, error } = useSWR(
+    `/api/reports/unchecked.json?page=${page}`,
     fetcher
   )
 

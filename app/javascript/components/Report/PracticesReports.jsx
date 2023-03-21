@@ -20,14 +20,21 @@ export default function PracticesReports({
 
   useEffect(() => {
     setPage(page)
-    window.history.pushState(null, null, `/reports?page=${page}${selectedPracticeId ? `&practice_id=${selectedPracticeId}`: ''}`)
+    window.history.pushState(
+      null,
+      null,
+      `/reports?page=${page}${
+        selectedPracticeId ? `&practice_id=${selectedPracticeId}` : ''
+      }`
+    )
   }, [page, selectedPracticeId])
 
   useEffect(() => {
     setSelectedPracticeId(selectedPracticeId)
   }, [selectedPracticeId])
 
-  const { data, error } = useSWR(`/api/reports.json?page=${page}&practice_id=${selectedPracticeId}`,
+  const { data, error } = useSWR(
+    `/api/reports.json?page=${page}&practice_id=${selectedPracticeId}`,
     fetcher
   )
 
