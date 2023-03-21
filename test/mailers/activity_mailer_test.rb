@@ -674,21 +674,21 @@ class ActivityMailerTest < ActionMailer::TestCase
       receiver: receiver
     ).deliver_now
     assert ActionMailer::Base.deliveries.empty?
-    
+
     receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
       product: product,
       receiver: receiver
     ).deliver_now
     assert ActionMailer::Base.deliveries.empty?
-    
+
     receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
       product: product,
       receiver: receiver
     ).deliver_now
     assert ActionMailer::Base.deliveries.empty?
-    
+
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
       product: product,
