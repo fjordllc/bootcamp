@@ -37,6 +37,8 @@ Rails.configuration.to_prepare do
 
   Newspaper.subscribe(:check_create, ProductStatusUpdater.new)
   Newspaper.subscribe(:product_create, ProductAuthorWatcher.new)
+  Newspaper.subscribe(:product_create, LearningStatusUpdaterWithProductSubmission.new)
+  Newspaper.subscribe(:product_update, LearningStatusUpdaterWithProductSubmission.new)
 
   page_notifier = PageNotifier.new
   Newspaper.subscribe(:page_create, page_notifier)
