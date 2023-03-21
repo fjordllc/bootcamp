@@ -1,27 +1,13 @@
 # frozen_string_literal: true
 
 class Mentor::CategoriesController < MentorController
-  before_action :set_category, only: %i[show edit update]
+  before_action :set_category, except: %i[index]
 
   def index; end
 
   def show; end
 
-  def new
-    @category = Category.new
-  end
-
   def edit; end
-
-  def create
-    @category = Category.new(category_params)
-
-    if @category.save
-      redirect_to mentor_categories_url, notice: 'カテゴリーを作成しました。'
-    else
-      render action: 'new'
-    end
-  end
 
   def update
     if @category.update(category_params)
@@ -29,6 +15,11 @@ class Mentor::CategoriesController < MentorController
     else
       render action: 'edit'
     end
+  end
+
+  def destroy
+    @category.destroy
+    redirect_to mentor_categories_url, notice: 'カテゴリーを削除しました。'
   end
 
   private
