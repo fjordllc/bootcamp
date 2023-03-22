@@ -7,25 +7,19 @@ export default {
   title: 'Components/Pagination'
 }
 
-const Template = (args) => {
+export const Simple = (args) => {
   const [page, setPage] = useState(1)
-
-  const handlePaginate = (p) => {
-    setPage(p)
-  }
 
   return (
     <Pagination
       {...args}
       page={page}
-      onChange={(e) => handlePaginate(e.page)}
+      onChange={(e) => setPage(e.page)}
     />
   )
 }
 
-export const Default = Template.bind({})
-
-Default.args = {
+Simple.args = {
   sum: 10 * 20,
   per: 20,
   neighbours: 4
