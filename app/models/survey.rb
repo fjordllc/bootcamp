@@ -13,7 +13,7 @@ class Survey < ApplicationRecord
   validates :survey_question_listings, presence: true
 
   def before_start?
-    Time.current <= start_at
+    Time.current < start_at
   end
 
   def answer_accepting?
