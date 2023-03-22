@@ -13,7 +13,6 @@ export default function UncheckedReports() {
   const [page, setPage] = useState(defaultPage)
 
   useEffect(() => {
-    setPage(page)
     window.history.pushState(null, null, `/reports/unchecked?page=${page}`)
   }, [page])
 

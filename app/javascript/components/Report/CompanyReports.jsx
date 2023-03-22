@@ -13,7 +13,6 @@ export default function CompanyReports({ companyId }) {
   const [page, setPage] = useState(defaultPage)
 
   useEffect(() => {
-    setPage(page)
     window.history.pushState(
       null,
       null,

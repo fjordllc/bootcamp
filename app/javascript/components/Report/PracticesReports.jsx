@@ -19,7 +19,6 @@ export default function PracticesReports({
   const [selectedPracticeId, setSelectedPracticeId] = useState('')
 
   useEffect(() => {
-    setPage(page)
     window.history.pushState(
       null,
       null,
@@ -28,10 +27,6 @@ export default function PracticesReports({
       }`
     )
   }, [page, selectedPracticeId])
-
-  useEffect(() => {
-    setSelectedPracticeId(selectedPracticeId)
-  }, [selectedPracticeId])
 
   const { data, error } = useSWR(
     `/api/reports.json?page=${page}&practice_id=${selectedPracticeId}`,
