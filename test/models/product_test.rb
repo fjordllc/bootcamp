@@ -132,7 +132,7 @@ class ProductTest < ActiveSupport::TestCase
     wip_product.save_checker(current_user.id)
 
     self_assigned_no_replied_products = Product.self_assigned_no_replied_products(current_user.id).pluck(:id)
-    assert_not_equal  [wip_product.id], self_assigned_no_replied_products
+    assert_not_equal [wip_product.id], self_assigned_no_replied_products
     assert_equal [published_product.id], self_assigned_no_replied_products
   end
 end
