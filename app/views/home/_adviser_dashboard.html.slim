@@ -7,8 +7,7 @@
         .dashboard-contents__categories
           .dashboard-category
             header.dashboard-category__header
-              h2.dashboard-category__title
-                | お知らせ
+              h2.dashboard-category__title お知らせ
             .dashboard-category__body
               .a-panels
                 .a-panels__items
@@ -27,8 +26,7 @@
         .dashboard-contents__categories
           .dashboard-category
             header.dashboard-category__header
-              h2.dashboard-category__title
-                | ヘルプ
+              h2.dashboard-category__title ヘルプ
             .dashboard-category__body
               .a-panels
                 .a-panels__items
@@ -45,8 +43,7 @@
           - if current_user.belongs_company_and_adviser?
             .dashboard-category
               header.dashboard-category__header
-                h2.dashboard-category__title
-                  | #{current_user.company.name} の研修状況
+                h2.dashboard-category__title #{current_user.company.name} の研修状況
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
