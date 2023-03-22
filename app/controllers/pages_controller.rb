@@ -19,9 +19,13 @@ class PagesController < ApplicationController
   end
 
   def show
-    render template: 'pages/index_not_auth/index', locals: { title: @page.title } unless logged_in?
-
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show
+    end
   end
 
   def new
