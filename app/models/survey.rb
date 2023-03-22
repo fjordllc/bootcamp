@@ -21,6 +21,6 @@ class Survey < ApplicationRecord
   end
 
   def answer_ended?
-    Time.current >= end_at
+    Time.current > end_at
   end
 end
