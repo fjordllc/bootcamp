@@ -9,12 +9,10 @@ nav.tab-nav
             = link_to t("watch.#{watch}"), users_path(target: @target, watch: watch), class: (@watch == watch ? ['is-active'] : []) << 'tab-nav__item-link'
       - else
         - targets = %w[student_and_trainee mentor graduate adviser trainee]
-        - if current_user.admin?
-          - targets += %w[retired]
         - if current_user.mentor?
-          - targets += %w[job_seeking all]
+          - targets += %w[job_seeking hibernated retired all]
         - elsif current_user.adviser?
           - targets += %w[job_seeking]
         - targets.each do |target|
-          li.tab-nav__item(class="#{%w[job_seeking retired all].include?(target) ? 'is-only-mentor is-only-adviser' : ''}")
+          li.tab-nav__item(class="#{%w[job_seeking hibernated retired all].include?(target) ? 'is-only-mentor is-only-adviser' : ''}")
             = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
