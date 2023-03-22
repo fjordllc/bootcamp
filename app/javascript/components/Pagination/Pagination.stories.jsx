@@ -10,13 +10,7 @@ export default {
 export const Simple = (args) => {
   const [page, setPage] = useState(1)
 
-  return (
-    <Pagination
-      {...args}
-      page={page}
-      onChange={(e) => setPage(e.page)}
-    />
-  )
+  return <Pagination {...args} page={page} onChange={(e) => setPage(e.page)} />
 }
 
 Simple.args = {
