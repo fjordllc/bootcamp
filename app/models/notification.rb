@@ -80,17 +80,6 @@ class Notification < ApplicationRecord
         read: false
       )
     end
-
-    def chose_correct_answer(answer, receiver)
-      Notification.create!(
-        kind: kinds[:chose_correct_answer],
-        user: receiver,
-        sender: answer.receiver,
-        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-        message: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
-        read: false
-      )
-    end
   end
 
   def unread?
