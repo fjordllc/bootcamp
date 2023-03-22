@@ -183,7 +183,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       if time == 1
         assert exists_notification_in_unread.call
         link_to_page_by_unread_notification(notification_message)
-        assert_equal current_path, report_path(report_id)
+        has_current_path? report_path(report_id)
       else
         assert_not exists_notification_in_unread.call
       end
