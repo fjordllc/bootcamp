@@ -12,19 +12,15 @@ class Survey < ApplicationRecord
   validates :end_at, presence: true
   validates :survey_question_listings, presence: true
 
-  def before_start?(survey_id)
-    Survey.where('start_at >= ?', Date.current)
-          .exists?(survey_id)
+  def before_start?
+    Time.current <= start_at
   end
 
-  def answer_accepting?(survey_id)
-    Survey.where('start_at <= ?', Date.current)
-          .where('end_at >= ?', Date.current)
-          .exists?(survey_id)
+  def answer_accepting?
+    Time.current.between?(start_at, end_at)
   end
 
-  def answer_ended?(survey_id)
-    Survey.where('end_at <= ?', Date.current)
-          .exists?(survey_id)
+  def answer_ended?
+    Time.current >= end_at
   end
 end

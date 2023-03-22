@@ -67,9 +67,9 @@ class SurveysController < ApplicationController
   def notice_message(survey)
     case params[:action]
     when 'create'
-      survey.before_start?(survey.id) ? 'アンケートを受付前として保存しました。' : 'アンケートを作成しました。'
+      survey.before_start? ? 'アンケートを受付前として保存しました。' : 'アンケートを作成しました。'
     when 'update'
-      survey.before_start?(survey.id) ? 'アンケートを受付前として保存しました。' : 'アンケートを更新しました。'
+      survey.before_start? ? 'アンケートを受付前として保存しました。' : 'アンケートを更新しました。'
     end
   end
 end
