@@ -1,4 +1,5 @@
 - title @practice.title
+- content_for :extra_body_classes, 'is-completion'
 - if @practice.ogp_image.attached?
   - set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
   - set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
@@ -7,18 +8,18 @@
   - set_meta_tags(twitter: { image: image_url('completion/completion_default.png'), url: request.url })
 
 .page-body
-  .complestion
-    .complestion__header
+  .not-logged-in
+    .not-logged-in__header
       .container
-        h1.complestion__title
+        h1.not-logged-in__title
           | おめでとうございます！！
           br
           | 「#{@practice.title}」を
           br
           | 修了しました🎉
-    .complestion__body
+    .not-logged-in__body
       .container.is-md
         - if @practice.ogp_image.attached?
-          = image_tag @practice.ogp_image, class: 'complestion__image', alt: "#{@practice.title}修了おめでとうカード"
+          = image_tag @practice.ogp_image, class: 'not-logged-in__image', alt: "#{@practice.title}修了おめでとうカード"
         - else
-          = image_tag('completion/completion_default.png', class: 'complestion__image', alt: "#{@practice.title}修了おめでとうカード")
+          = image_tag('completion/completion_default.png', class: 'not-logged-in__image', alt: "#{@practice.title}修了おめでとうカード")

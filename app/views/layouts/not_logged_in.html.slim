@@ -17,7 +17,7 @@ html.is-completion lang='ja'
     = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp-narrow.min.css', media: 'all'
     = render '/head/fontawsome'
     = content_for(:head_last) if content_for?(:head_last)
-  body.is-completion
+  body.is-not-logged-in(class="#{body_class}")
     = render 'google_tag_manager_body'
     = render 'flash'
     .not-logged-in-wrapper

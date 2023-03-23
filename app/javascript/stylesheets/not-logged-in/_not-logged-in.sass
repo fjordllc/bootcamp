@@ -1,0 +1,20 @@
+.not-logged-in
+  +padding(vertical, 4rem 2rem)
+
+.not-logged-in__title
+  +text-block(1em 1.5, 800 center $reversal-text)
+  font-family: YakuHanJP_Narrow,Hiragino Sans,Hiragino Kaku Gothic ProN,BIZ UDPGothic,Meiryo,sans-serif
+  +media-breakpoint-up(md)
+    font-size: 2rem
+  +media-breakpoint-down(sm)
+    font-size: 1.5rem
+
+.not-logged-in__body
+  margin-top: 3rem
+
+.not-logged-in__image
+  border-radius: 1rem
+  +media-breakpoint-up(md)
+    border: solid .75rem shade($completion, 30%)
+  +media-breakpoint-down(sm)
+    border: solid .5rem shade($completion, 30%)
