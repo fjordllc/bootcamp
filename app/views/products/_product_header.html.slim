@@ -8,6 +8,24 @@ header.page-content-header
       .page-content-header__before-title
         = link_to @product.user, class: 'a-user-name' do
           = @product.user.long_name
+          - if current_user&.mentor? && @product.user.trainee?
+            = User.human_attribute_name :training_ends_on
+            - end_date = @product.user.training_ends_on
+            - remaining_days = (end_date - Time.zone.today).to_i
+            = end_date.strftime('%Y年%m月%d日')
+            - if end_date
+              - if remaining_days.zero?
+                | （本日研修最終日）
+              - elsif remaining_days.negative?
+                | （研修終了済み）
+              - elsif remaining_days < 7
+                / 赤字にする
+                | （あと#{remaining_days}日）
+              - else
+                | （あと#{remaining_days}日）
+            - else
+              | （未入力）
+
       h1.page-content-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
         - if @product.wip?
           span.a-title-label.is-wip
