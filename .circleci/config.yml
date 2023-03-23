@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.0-node
+      - image: cimg/ruby:3.2.1-node
     steps:
       - checkout
       - ruby/install-deps
@@ -18,7 +18,7 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.1.0-node'
+      - image: 'cimg/ruby:3.2.1-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -97,5 +97,3 @@ workflows:
       - test:
           requires:
             - build
-
-# VS Code Extension Version: 1.5.1
