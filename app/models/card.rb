@@ -11,9 +11,10 @@ class Card
   end
 
   def update(customer_id, card_token)
-    customer = Stripe::Customer.retrieve(customer_id)
-    customer.source = card_token
-    customer.save
+    Stripe::Customer.update(
+      customer_id,
+      { source: card_token }
+    )
   end
 
   def search(email:)
