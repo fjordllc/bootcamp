@@ -11,7 +11,8 @@ export default new Vuex.Store({
     checkableId: null,
     checkableType: null,
     productId: null,
-    productCheckerId: null
+    productCheckerId: null,
+    watchableUserId: null
   },
   getters: {
     checkId: (state) => state.checkId,
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     checkableId: (state) => state.checkableId,
     checkableType: (state) => state.checkableType,
     productId: (state) => state.productId,
-    productCheckerId: (state) => state.productCheckerId
+    productCheckerId: (state) => state.productCheckerId,
+    watchableUserId: (state) => state.watchableUserId
   },
   mutations: {
     setCheckable(
@@ -36,6 +38,9 @@ export default new Vuex.Store({
     setProduct(state, { productId, productCheckerId }) {
       state.productId = productId
       state.productCheckerId = productCheckerId
+    },
+    setWatchable(state, { watchableUserId }) {
+      state.watchableUserId = watchableUserId
     }
   },
   actions: {
@@ -107,6 +112,17 @@ export default new Vuex.Store({
         .catch((error) => {
           console.warn(error)
         })
+    },
+    setWatchable({ commit }, { watchableUserId }) {
+      if (watchableUserId) {
+        commit('setWatchable', {
+          watchableUserId: watchableUserId
+        })
+      } else {
+        commit('setWatchable', {
+          watchableUserId: null
+        })
+      }
     }
   }
 })

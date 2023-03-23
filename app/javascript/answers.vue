@@ -171,6 +171,9 @@ export default {
           this.resizeTextarea()
           this.updateAnswerCount()
           this.toast('回答を投稿しました！')
+          this.$store.dispatch('setWatchable', {
+            watchableUserId: this.currentUser.id
+          })
         })
         .catch((error) => {
           console.warn(error)
