@@ -48,16 +48,6 @@ class NotificationFacade
     ).trainee_report.deliver_later(wait: 5)
   end
 
-  def self.following_report(report, receiver)
-    ActivityNotifier.with(report: report, receiver: receiver).following_report.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      report: report,
-      receiver: receiver
-    ).following_report.deliver_later(wait: 5)
-  end
-
   def self.moved_up_event_waiting_user(event, receiver)
     ActivityNotifier.with(
       event: event,
@@ -72,7 +62,7 @@ class NotificationFacade
   end
 
   def self.chose_correct_answer(answer, receiver)
-    Notification.chose_correct_answer(answer, receiver)
+    ActivityNotifier.with(answer: answer, receiver: receiver).chose_correct_answer.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
 
     NotificationMailer.with(

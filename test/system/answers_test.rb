@@ -5,6 +5,15 @@ require 'application_system_test_case'
 class AnswersTest < ApplicationSystemTestCase
   include ActiveJob::TestHelper
 
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test 'answer form in questions/:id has comment tab and preview tab' do
     visit_with_auth "/questions/#{questions(:question2).id}", 'komagata'
     within('.a-form-tabs') do

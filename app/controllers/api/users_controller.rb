@@ -19,7 +19,7 @@ class API::UsersController < API::BaseController
         User.tagged_with(@tag)
       elsif @company
         User.where(company_id: @company).users_role(@target)
-      elsif @target == 'retired'
+      elsif @target.in? %w[hibernated retired]
         User.users_role(@target)
       else
         User.users_role(@target).unhibernated.unretired
@@ -54,7 +54,7 @@ class API::UsersController < API::BaseController
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.push('all') if @company
-    target_allowlist.concat(%w[job_seeking retired inactive all]) if current_user.mentor? || current_user.admin?
+    target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
   end
 
