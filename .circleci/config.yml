@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@1.8.0
+  ruby: circleci/ruby@2.0.0
   node: circleci/node@5.0.3
   browser-tools: circleci/browser-tools@1.4.0
 jobs:
@@ -22,6 +22,9 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - run:
+          name: Install syntax_suggest
+          command: gem install syntax_suggest
       - ruby/rubocop-check:
           format: progress
           label: Inspecting with Rubocop

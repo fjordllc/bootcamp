@@ -67,7 +67,7 @@ group :development, :test do
 
   # not default
   gem 'pry-byebug'
-  gem 'syntax_suggest'
+  gem 'syntax_suggest', '~> 1.0.4'
   gem 'traceroute'
 end
 
