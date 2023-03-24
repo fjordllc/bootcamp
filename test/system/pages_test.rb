@@ -231,20 +231,20 @@ class PagesTest < ApplicationSystemTestCase
     assert_match 'Message to Discord.', mock_log.to_s
   end
 
-  test 'put docs editor except for author on watch' do
+  test 'non-author docs editor becomes Watcher when editing docs' do
     # 編集前にWatch中になってないかチェック(作成者を除くDocs編集者)
-    docs_editor_except_for_author = 'machida'
-    visit_with_auth "/pages/#{pages(:page1).id}", docs_editor_except_for_author
+    editor = 'machida'
+    visit_with_auth page_path(pages(:page1)), editor
     assert_text 'Watch'
-    visit "/pages/#{pages(:page2).id}"
+    visit page_path(pages(:page2))
     assert_text 'Watch'
 
-    visit "/pages/#{pages(:page1).id}/edit"
+    visit edit_page_path(pages(:page1))
     click_button '内容を保存'
     assert_text 'ページを更新しました'
     assert_text 'Watch中'
 
-    visit "/pages/#{pages(:page2).id}/edit"
+    visit edit_page_path(pages(:page2))
     click_button 'WIP'
     assert_text 'ページをWIPとして保存しました。'
     assert_text 'Watch中'
