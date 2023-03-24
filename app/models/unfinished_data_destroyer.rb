@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RetirementUnfinishedDataDestroyer
+class UnfinishedDataDestroyer
   def call(user)
     return unless user.saved_change_to_retired_on?
 
