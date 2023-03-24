@@ -44,6 +44,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'post new comment with mention for report' do
@@ -140,6 +141,7 @@ class CommentsTest < ApplicationSystemTestCase
     end
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'check preview for product' do
@@ -160,6 +162,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'post new comment for page' do
@@ -171,6 +174,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'post new comment for event' do
@@ -182,6 +186,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'comment tab is active after a comment has been posted' do
