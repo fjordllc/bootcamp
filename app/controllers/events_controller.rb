@@ -23,7 +23,11 @@ class EventsController < ApplicationController
     set_wip
     if @event.save
       Newspaper.publish(:event_create, @event)
-      redirect_to @event, notice: notice_message(@event)
+      if !@event.wip? && @event.announcement_of_publication?
+        redirect_to new_announcement_path(event_id: @event.id), notice: notice_message(@event)
+      else
+        redirect_to @event, notice: notice_message(@event)
+      end
     else
       render :new
     end
@@ -34,8 +38,16 @@ class EventsController < ApplicationController
   def update
     set_wip
     if @event.update(event_params)
-      @event.update_participations if @event.saved_change_to_attribute?('capacity')
-      redirect_to @event, notice: notice_message(@event)
+      if @event.wip?
+        redirect_to @event, notice: notice_message(@event)
+      else
+        @event.update_participations if @event.saved_change_to_attribute?('capacity')
+        if @event.announcement_of_publication?
+          redirect_to new_announcement_path(event_id: @event.id), notice: notice_message(@event)
+        else
+          redirect_to @event, notice: notice_message(@event)
+        end
+      end
     else
       render :edit
     end
@@ -58,7 +70,8 @@ class EventsController < ApplicationController
       :end_at,
       :open_start_at,
       :open_end_at,
-      :job_hunting
+      :job_hunting,
+      :announcement_of_publication
     )
   end
 

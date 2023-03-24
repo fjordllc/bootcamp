@@ -47,11 +47,19 @@
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
-        li.form-actions__item.is-main
-          - if event.new_record?
-            = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
-          - else
-            = f.submit '内容変更', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+      li.form-actions__item.is-main
+        - if event.published_at.nil?
+          .form-action-before-option.has-help
+            .checkboxes
+              ul.checkboxes__items
+                li.checkboxes__item
+                  = f.check_box :announcement_of_publication, class: 'a-toggle-checkbox'
+                  = f.label :announcement_of_publication
+                    | イベント公開のお知らせを書く
+        - if event.new_record?
+          = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+        - else
+          = f.submit '内容変更', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
