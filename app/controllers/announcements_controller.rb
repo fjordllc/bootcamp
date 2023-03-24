@@ -11,20 +11,22 @@ class AnnouncementsController < ApplicationController
   def new
     @announcement = Announcement.new(target: 'students')
 
-    if params[:page_id]
+    if params[:id]
+      announcement = Announcement.find(params[:id])
+      @announcement.title       = announcement.title
+      @announcement.description = announcement.description
+      @announcement.target = announcement.target
+      flash.now[:notice] = 'お知らせをコピーしました。'
+    elsif params[:page_id]
       page = Page.find(params[:page_id])
       page_url = "https://bootcamp.fjord.jp/pages/#{params[:page_id]}"
       @announcement.title       = "ドキュメント「#{page.title}」を公開しました。"
       @announcement.description = "<!--  このテキストを編集してください-->\n\nドキュメント「#{page.title}」を公開しました。\n#{page_url}\n\n<!--  不要な場合以下は削除 -->\n---\n\n#{page.description}"
+    elsif params[:event_id]
+      event = Event.find(params[:event_id])
+      @announcement.title       = "#{event.title}を開催します🎉"
+      @announcement.description = "<!-- このテキストを編集してください -->\n\n#{event.title}を開催します🎉\n\n- 開催日時\n    - #{ActiveDecorator::Decorator.instance.decorate(event).period}\n- 会場\n    - #{event.location}\n- 定員\n    - #{event.capacity}\n- 募集期間\n    - #{l event.open_start_at} 〜 #{l event.open_end_at}\n\n---\n\n#{event.description}\n\n## 参加登録はこちら\n#{event_url event}\n\n---"
     end
-
-    return unless params[:id]
-
-    announcement = Announcement.find(params[:id])
-    @announcement.title       = announcement.title
-    @announcement.description = announcement.description
-    @announcement.target = announcement.target
-    flash.now[:notice] = 'お知らせをコピーしました。'
   end
 
   def edit; end
