@@ -17,7 +17,7 @@ class QuestionTest < ActiveSupport::TestCase
     first_answer = Answer.create!(
       description: '最初の回答',
       user: answerer,
-      question: question,
+      question:,
       created_at: '2022-11-01',
       updated_at: '2022-11-01'
     )
@@ -25,7 +25,7 @@ class QuestionTest < ActiveSupport::TestCase
     last_answer = Answer.create!(
       description: '最後の回答',
       user: answerer,
-      question: question,
+      question:,
       created_at: '2022-11-02',
       updated_at: '2022-11-02'
     )

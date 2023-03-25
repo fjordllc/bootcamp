@@ -67,8 +67,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     user = users(:kimura)
     Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned', 'mentormentaro'
@@ -84,8 +84,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     user = users(:kimura)
     Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
@@ -101,8 +101,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     user = users(:kimura)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'mentormentaro'

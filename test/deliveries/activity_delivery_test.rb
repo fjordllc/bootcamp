@@ -42,7 +42,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:checked)' do
     check = checks(:procuct2_check_komagata)
     params = {
-      check: check,
+      check:,
       receiver: check.receiver
     }
 
@@ -107,7 +107,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:submitted)' do
     product = products(:product6)
     params = {
-      product: product,
+      product:,
       receiver: users(:mentormentaro)
     }
 

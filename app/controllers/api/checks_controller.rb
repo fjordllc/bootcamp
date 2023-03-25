@@ -5,7 +5,7 @@ class API::ChecksController < API::BaseController
 
   def index
     @checks = Check.where(
-      checkable: checkable
+      checkable:
     )
   end
 
@@ -13,7 +13,7 @@ class API::ChecksController < API::BaseController
     if checkable.checks.empty?
       @check = Check.create!(
         user: current_user,
-        checkable: checkable
+        checkable:
       )
       Newspaper.publish(:check_create, @check)
       head :created

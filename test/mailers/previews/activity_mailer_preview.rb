@@ -7,19 +7,19 @@ class ActivityMailerPreview < ActionMailer::Preview
     sender = User.find(ActiveRecord::FixtureSet.identify(:sotugyou))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
 
-    ActivityMailer.with(sender: sender, receiver: receiver).graduated
+    ActivityMailer.with(sender:, receiver:).graduated
   end
 
   def checked
     check = Check.find(ActiveRecord::FixtureSet.identify(:procuct2_check_komagata))
-    ActivityMailer.with(receiver: check.receiver, check: check).checked
+    ActivityMailer.with(receiver: check.receiver, check:).checked
   end
 
   def came_answer
     question = Question.find(ActiveRecord::FixtureSet.identify(:question2))
     answer = question.answers.first
 
-    ActivityMailer.with(answer: answer).came_answer
+    ActivityMailer.with(answer:).came_answer
   end
 
   def post_announcement
@@ -28,7 +28,7 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).post_announcement
   end
 
@@ -36,21 +36,21 @@ class ActivityMailerPreview < ActionMailer::Preview
     sender = User.find(ActiveRecord::FixtureSet.identify(:kensyuowata))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
 
-    ActivityMailer.with(sender: sender, receiver: receiver).three_months_after_retirement
+    ActivityMailer.with(sender:, receiver:).three_months_after_retirement
   end
 
   def came_question
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
     question = Question.find(ActiveRecord::FixtureSet.identify(:question1))
 
-    ActivityMailer.with(sender: question.user, receiver: receiver, question: question).came_question
+    ActivityMailer.with(sender: question.user, receiver:, question:).came_question
   end
 
   def retired
     sender = User.find(ActiveRecord::FixtureSet.identify(:yameo))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
 
-    ActivityMailer.with(sender: sender, receiver: receiver).retired
+    ActivityMailer.with(sender:, receiver:).retired
   end
 
   def mentioned
@@ -58,21 +58,21 @@ class ActivityMailerPreview < ActionMailer::Preview
     report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
     receiver = report.user
 
-    ActivityMailer.with(mentionable: mentionable, receiver: receiver).mentioned
+    ActivityMailer.with(mentionable:, receiver:).mentioned
   end
 
   def create_page
     page = Page.find(ActiveRecord::FixtureSet.identify(:page4))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
 
-    ActivityMailer.with(sender: page.user, receiver: receiver, page: page).create_page
+    ActivityMailer.with(sender: page.user, receiver:, page:).create_page
   end
 
   def submitted
     product = Product.find(ActiveRecord::FixtureSet.identify(:product15))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
 
-    ActivityMailer.with(product: product, receiver: receiver).submitted
+    ActivityMailer.with(product:, receiver:).submitted
   end
 
   def following_report
@@ -81,9 +81,9 @@ class ActivityMailerPreview < ActionMailer::Preview
     receiver = User.find(ActiveRecord::FixtureSet.identify(:muryou))
 
     ActivityMailer.with(
-      report: report,
-      sender: sender,
-      receiver: receiver
+      report:,
+      sender:,
+      receiver:
     ).following_report
   end
 end

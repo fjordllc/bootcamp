@@ -10,6 +10,6 @@ class API::Admin::CountController < API::Admin::BaseController
       graduated_on: nil
     ).count
 
-    render json: { users_count: users_count }
+    render json: { users_count: }
   end
 end

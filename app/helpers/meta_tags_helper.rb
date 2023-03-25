@@ -30,7 +30,7 @@ module MetaTagsHelper
 
   def welcome_meta_tags
     default_meta_tags.deep_merge({
-                                   title: title,
+                                   title:,
                                    og: {
                                      title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
                                    },

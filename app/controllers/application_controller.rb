@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_available_emojis
-    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: value } }
+    @available_emojis = Reaction.emojis.map { |key, value| { kind: key, value: } }
   end
 
   def set_host_for_disk_storage

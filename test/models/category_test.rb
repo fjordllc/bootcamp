@@ -8,6 +8,6 @@ class CategoryTest < ActiveSupport::TestCase
     course = courses(:course1)
     category = categories(:category2)
 
-    assert_equal category, Category.category(practice: practice, course: course)
+    assert_equal category, Category.category(practice:, course:)
   end
 end

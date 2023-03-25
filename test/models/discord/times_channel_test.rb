@@ -11,7 +11,7 @@ module Discord
       @stub_create_text_channel = lambda { |name:, parent:|
         Discordrb::Channel.new({
           id: '1234567890',
-          name: name,
+          name:,
           parent_id: parent
         }.stringify_keys, nil)
       }

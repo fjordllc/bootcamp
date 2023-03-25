@@ -44,7 +44,7 @@ class Comment::AfterCreateCallback
 
     watcher_ids = watchable.watches.pluck(:user_id)
     watcher_ids.each do |watcher_id|
-      if watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
+      if watcher_id != comment.sender.id && mention_user_ids.exclude?(watcher_id)
         watcher = User.find_by(id: watcher_id)
         NotificationFacade.watching_notification(watchable, watcher, comment)
       end
@@ -58,7 +58,7 @@ class Comment::AfterCreateCallback
 
     @watch = Watch.new(
       user: comment.sender,
-      watchable: watchable
+      watchable:
     )
     @watch.save!
   end
@@ -98,7 +98,7 @@ class Comment::AfterCreateCallback
 
   def update_unreplied(comment)
     unreplied = !comment.user.admin
-    comment.commentable.update!(unreplied: unreplied)
+    comment.commentable.update!(unreplied:)
   end
 
   def notify_to_chat(comment)

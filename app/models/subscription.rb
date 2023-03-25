@@ -18,7 +18,7 @@ class Subscription
                                   trial_end: trial.days.since.to_i,
                                   items: [{ plan: Plan.standard_plan.id }]
                                 }, {
-                                  idempotency_key: idempotency_key
+                                  idempotency_key:
                                 })
   end
 

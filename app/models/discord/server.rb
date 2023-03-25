@@ -11,7 +11,7 @@ module Discord
         return nil if guild.blank?
 
         channel_type = Discordrb::Channel::TYPES[:text]
-        guild.create_channel(name, channel_type, parent: parent)
+        guild.create_channel(name, channel_type, parent:)
       rescue Discordrb::Errors::CodeError => e
         log_error(e)
         nil
@@ -23,7 +23,7 @@ module Discord
         guild_json = Discordrb::API::Server.resolve(token, id)
         guild_body = JSON.parse(guild_json.body)
 
-        bot = Discordrb::Bot.new(token: token, log_mode: :silent)
+        bot = Discordrb::Bot.new(token:, log_mode: :silent)
         Discordrb::Server.new(guild_body, bot)
       rescue Discordrb::Errors::CodeError => e
         log_error(e)

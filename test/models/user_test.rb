@@ -443,7 +443,7 @@ class UserTest < ActiveSupport::TestCase
     today = Time.zone.today
 
     Learning.create!(
-      user: user,
+      user:,
       practice: practice1,
       status: :complete,
       created_at: (today - 2.weeks).to_formatted_s(:db),
@@ -451,7 +451,7 @@ class UserTest < ActiveSupport::TestCase
     )
 
     Learning.create!(
-      user: user,
+      user:,
       practice: practice2,
       status: :complete,
       created_at: (today - (2.weeks + 1.day)).to_formatted_s(:db),
@@ -469,7 +469,7 @@ class UserTest < ActiveSupport::TestCase
     today = Time.zone.today
 
     Learning.create!(
-      user: user,
+      user:,
       practice: Practice.first,
       status: :complete,
       created_at: (today - (2.weeks - 1.day)).to_formatted_s(:db),
@@ -487,7 +487,7 @@ class UserTest < ActiveSupport::TestCase
     today = Time.zone.today
 
     Learning.create!(
-      user: user,
+      user:,
       practice: practice1,
       status: :complete,
       created_at: (today - 2.weeks).to_formatted_s(:db),
