@@ -33,29 +33,19 @@ regular_event_repeat_rule7:
   day_of_the_week: 3
   regular_event: regular_event7
 
-regular_event_repeat_rule8:
-  frequency: 0
-  day_of_the_week: 1
-  regular_event: regular_event8
-
-regular_event_repeat_rule9:
-  frequency: 0
-  day_of_the_week: 2
-  regular_event: regular_event9
-
-<% (10..26).each do |i| %>
+<% (8..25).each do |i| %>
 regular_event_repeat_rule<%= i %>:
   frequency: 0
   day_of_the_week: 0
   regular_event: regular_event<%= i %>
 <% end %>
 
-regular_event_repeat_rule27:
+regular_event_repeat_rule26:
   frequency: 0
   day_of_the_week: 1
-  regular_event: regular_event27
+  regular_event: regular_event26
 
-regular_event_repeat_rule28:
+regular_event_repeat_rule27:
   frequency: 0
   day_of_the_week: 2
-  regular_event: regular_event27
+  regular_event: regular_event26
