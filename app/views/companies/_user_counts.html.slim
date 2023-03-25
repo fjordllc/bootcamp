@@ -1,6 +1,6 @@
 .company-counts
   dl.company-counts__items
-    - unless users.mentor.size.zero?
+    - unless users.mentor.empty?
       .company-counts__item
         .company-counts__item-inner
           dt.company-counts__item-label
@@ -19,7 +19,7 @@
           | 現役生
         dd.company-counts__item-value
           = users.students_and_trainees.size
-    - unless users.admins.size.zero?
+    - unless users.admins.empty?
       .company-counts__item
         .company-counts__item-inner
           dt.company-counts__item-label

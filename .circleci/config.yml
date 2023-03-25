@@ -44,7 +44,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.1.0-browsers
+      - image: cimg/ruby:3.2.1-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
