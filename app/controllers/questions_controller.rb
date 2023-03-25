@@ -34,8 +34,6 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    render template: 'questions/index_not_auth/index', locals: { title: @question.title } unless logged_in?
-
     @practice_questions = Question
                           .not_wip
                           .where(practice: @question.practice)
@@ -46,6 +44,12 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html
       format.md
+    end
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show
     end
   end
 
