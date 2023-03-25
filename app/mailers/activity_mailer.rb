@@ -27,7 +27,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:comebacked]
     )
     subject = "[FBC] #{@sender.login_name}さんが休会から復帰しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: sender, receiver
@@ -43,7 +43,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:graduated]
     )
     subject = "[FBC] #{@sender.login_name}さんが卒業しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: answer
@@ -71,7 +71,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:submitted]
     )
     subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を提出しました。"
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
@@ -88,7 +88,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:announced]
     )
     subject = "[FBC] お知らせ「#{@announcement.title}」"
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
@@ -120,7 +120,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:came_question]
     )
     subject = "[FBC] #{@sender.login_name}さんから質問「#{@question.title}」が投稿されました。"
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
 
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
@@ -137,7 +137,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:retired]
     )
     subject = "[FBC] #{@sender.login_name}さんが退会しました。"
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
@@ -154,7 +154,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:checked]
     )
     subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
@@ -171,7 +171,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:mentioned]
     )
     subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
@@ -189,7 +189,7 @@ class ActivityMailer < ApplicationMailer
     )
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
 
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message
@@ -207,7 +207,7 @@ class ActivityMailer < ApplicationMailer
     )
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
 
-    message = mail to: @user.email, subject: subject
+    message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
     message

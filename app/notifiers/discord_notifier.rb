@@ -21,7 +21,7 @@ class DiscordNotifier < ApplicationNotifier
     notification(
       body: "#{params[:sender].login_name}さんが休会しました。",
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -35,7 +35,7 @@ class DiscordNotifier < ApplicationNotifier
     notification(
       body: "お知らせ：「#{params[:announce].title}」\r#{url}",
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -60,7 +60,7 @@ class DiscordNotifier < ApplicationNotifier
     notification(
       body: event_info,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -70,9 +70,9 @@ class DiscordNotifier < ApplicationNotifier
     body = params[:body].slice(0, 2000) # Discord API restriction
 
     notification(
-      body: body,
+      body:,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -83,7 +83,7 @@ class DiscordNotifier < ApplicationNotifier
     notification(
       body: params[:body],
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -96,7 +96,7 @@ class DiscordNotifier < ApplicationNotifier
     notification(
       body: " ⚠️ #{product_checker_name}さんが担当の#{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。",
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -111,9 +111,9 @@ class DiscordNotifier < ApplicationNotifier
     TEXT
 
     notification(
-      body: body,
+      body:,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 end

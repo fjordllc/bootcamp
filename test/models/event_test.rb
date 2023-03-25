@@ -82,7 +82,7 @@ class EventTest < ActiveSupport::TestCase
     event = events(:event3)
     user = users(:hajime)
     event.send_notification(user)
-    assert Notification.where(user: user, sender: event.user, link: "/events/#{event.id}").exists?
+    assert Notification.where(user:, sender: event.user, link: "/events/#{event.id}").exists?
   end
 
   test '#holding_today?' do

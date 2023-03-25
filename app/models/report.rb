@@ -79,14 +79,14 @@ class Report < ApplicationRecord
   end
 
   def previous
-    Report.where(user: user)
+    Report.where(user:)
           .where('reported_on < ?', reported_on)
           .order(reported_on: :desc)
           .first
   end
 
   def next
-    Report.where(user: user)
+    Report.where(user:)
           .where('reported_on > ?', reported_on)
           .order(:reported_on)
           .first
@@ -98,7 +98,7 @@ class Report < ApplicationRecord
 
   def serial_number
     Report.select(:id)
-          .where(user: user)
+          .where(user:)
           .order(:created_at)
           .index(self) + 1
   end
@@ -121,7 +121,7 @@ class Report < ApplicationRecord
 
   def latest_of_user?
     self == Report.not_wip
-                  .where(user: user, wip: false)
+                  .where(user:, wip: false)
                   .order(reported_on: :desc)
                   .first
   end
@@ -131,7 +131,7 @@ class Report < ApplicationRecord
   end
 
   def not_wip_previous_of_user
-    Report.where(user: user, wip: false)
+    Report.where(user:, wip: false)
           .order(reported_on: :desc)
           .second
   end

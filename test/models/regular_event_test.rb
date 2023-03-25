@@ -82,7 +82,7 @@ class RegularEventTest < ActiveSupport::TestCase
     user = users(:kimura)
     assert_not regular_event.watched_by?(user)
 
-    watch = Watch.new(user: user, watchable: regular_event)
+    watch = Watch.new(user:, watchable: regular_event)
     watch.save
     assert regular_event.watched_by?(user)
   end

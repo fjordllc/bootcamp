@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'
+ruby '3.2.1'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.12'
@@ -67,7 +67,7 @@ group :development, :test do
 
   # not default
   gem 'pry-byebug'
-  gem 'syntax_suggest'
+  gem 'syntax_suggest', '~> 1.0.4'
   gem 'traceroute'
 end
 

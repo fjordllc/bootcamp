@@ -52,7 +52,7 @@ class ReportCallbacks
 
   def notify_followers(report)
     report.user.followers.each do |follower|
-      ActivityDelivery.with(sender: report.user, receiver: follower, report: report).notify(:following_report)
+      ActivityDelivery.with(sender: report.user, receiver: follower, report:).notify(:following_report)
       create_following_watch(report, follower) if follower.watching?(report.user)
     end
   end
@@ -76,7 +76,7 @@ class ReportCallbacks
   end
 
   def notify_to_chat(report)
-    DiscordNotifier.with(report: report).first_report.notify_now if report.first?
+    DiscordNotifier.with(report:).first_report.notify_now if report.first?
     ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_REPORT_WEBHOOK_URL'])
       #{report.user.login_name}さんが#{I18n.l report.reported_on}の日報を公開しました。
       タイトル：「#{report.title}」

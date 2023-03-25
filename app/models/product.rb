@@ -107,7 +107,7 @@ class Product < ApplicationRecord
   end
 
   def completed?(user)
-    checks.where(user: user).present?
+    checks.where(user:).present?
   end
 
   def change_learning_status(status)
@@ -115,7 +115,7 @@ class Product < ApplicationRecord
       user_id: user.id,
       practice_id: practice.id
     )
-    learning.update(status: status)
+    learning.update(status:)
   end
 
   # nilの場合あり
@@ -133,7 +133,7 @@ class Product < ApplicationRecord
   end
 
   def category(course)
-    Category.category(practice: practice, course: course)
+    Category.category(practice:, course:)
   end
 
   def save_checker(current_user_id)

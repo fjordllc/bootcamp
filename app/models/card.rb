@@ -6,18 +6,19 @@ class Card
                               email: user.email,
                               source: card_token
                             }, {
-                              idempotency_key: idempotency_key
+                              idempotency_key:
                             })
   end
 
   def update(customer_id, card_token)
-    customer = Stripe::Customer.retrieve(customer_id)
-    customer.source = card_token
-    customer.save
+    Stripe::Customer.update(
+      customer_id,
+      { source: card_token }
+    )
   end
 
   def search(email:)
-    result = Stripe::Customer.list(email: email, limit: 1)
+    result = Stripe::Customer.list(email:, limit: 1)
     return unless result.data.size.positive?
 
     result.data.first

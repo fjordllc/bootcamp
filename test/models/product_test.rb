@@ -6,7 +6,7 @@ class ProductTest < ActiveSupport::TestCase
   test 'delete associated notification' do
     user = users(:kimura)
     practice = practices(:practice5)
-    product = Product.create!(practice: practice, user: user, body: 'test')
+    product = Product.create!(practice:, user:, body: 'test')
     product.destroy
     assert_not Notification.where(link: "/products/#{product.id}").exists?
   end
@@ -18,7 +18,7 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new(
       body: 'test',
       user: trainee,
-      practice: practice
+      practice:
     )
     product.save!
     assert_not_nil Watch.find_by(user: adviser, watchable: product)
@@ -31,7 +31,7 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new(
       body: 'test',
       user: trainee,
-      practice: practice,
+      practice:,
       wip: true
     )
     product.save!
@@ -49,14 +49,14 @@ class ProductTest < ActiveSupport::TestCase
     practice = practices(:practice5)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice
+      user:,
+      practice:
     )
-    assert Learning.find_by(user: user, practice: practice, status: :submitted)
+    assert Learning.find_by(user:, practice:, status: :submitted)
 
     status = :complete
     product.change_learning_status(status)
-    assert Learning.find_by(user: user, practice: practice, status: :complete)
+    assert Learning.find_by(user:, practice:, status: :complete)
   end
 
   test '#category' do

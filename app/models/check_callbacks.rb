@@ -6,7 +6,7 @@ class CheckCallbacks
       ActivityDelivery.with(
         sender: check.sender,
         receiver: check.receiver,
-        check: check
+        check:
       ).notify(:checked)
     end
 

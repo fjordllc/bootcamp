@@ -9,7 +9,7 @@ class NotifierToWatchingUser
 
     watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
     watcher_ids.each do |watcher_id|
-      if watcher_id != answer.sender.id && !mention_user_ids.include?(watcher_id)
+      if watcher_id != answer.sender.id && mention_user_ids.exclude?(watcher_id)
         watcher = User.find_by(id: watcher_id)
         NotificationFacade.watching_notification(question, watcher, answer)
       end

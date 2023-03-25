@@ -12,8 +12,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "🎉️ #{sender.login_name}さんが卒業しました！",
       kind: :graduated,
-      sender: sender,
-      receiver: receiver,
+      sender:,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
@@ -28,7 +28,7 @@ class ActivityNotifier < ApplicationNotifier
       body: "#{report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。",
       kind: :consecutive_sad_report,
       sender: report.sender,
-      receiver: receiver,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
       read: false
     )
@@ -43,7 +43,7 @@ class ActivityNotifier < ApplicationNotifier
       body: "#{product.user.login_name}さんの提出物#{product.title}の担当になりました。",
       kind: :assigned_as_checker,
       sender: product.sender,
-      receiver: receiver,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(product),
       read: false
     )
@@ -59,9 +59,9 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: message,
       kind: :came_comment,
-      receiver: receiver,
+      receiver:,
       sender: comment.sender,
-      link: link,
+      link:,
       read: false
     )
   end
@@ -74,7 +74,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{question.user.login_name}さんから質問「#{question.title}」が投稿されました。",
       kind: :came_question,
-      receiver: receiver,
+      receiver:,
       sender: question.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(question),
       read: false
@@ -90,7 +90,7 @@ class ActivityNotifier < ApplicationNotifier
       body: "#{product.user.login_name}さんが#{product.title}を提出しました。",
       kind: :watching,
       sender: product.user,
-      receiver: receiver,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(product),
       read: false
     )
@@ -105,7 +105,7 @@ class ActivityNotifier < ApplicationNotifier
       body: "#{page.user.login_name}さんがDocsに#{page.title}を投稿しました。",
       kind: :create_pages,
       sender: page.sender,
-      receiver: receiver,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(page),
       read: false
     )
@@ -119,7 +119,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "🎉 #{report.user.login_name}さんがはじめての日報を書きました！",
       kind: :first_report,
-      receiver: receiver,
+      receiver:,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
       read: false
@@ -135,7 +135,7 @@ class ActivityNotifier < ApplicationNotifier
       body: "お知らせ「#{announce.title}」",
       kind: :announced,
       sender: announce.user,
-      receiver: receiver,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(announce),
       read: false
     )
@@ -149,8 +149,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "😢 #{sender.login_name}さんが退会しました。",
       kind: :retired,
-      sender: sender,
-      receiver: receiver,
+      sender:,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
@@ -164,8 +164,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{sender.login_name}さんが休会しました。",
       kind: :hibernated,
-      sender: sender,
-      receiver: receiver,
+      sender:,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
@@ -179,8 +179,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{sender.login_name}さんが休会から復帰しました！",
       kind: :comebacked,
-      sender: sender,
-      receiver: receiver,
+      sender:,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
@@ -195,8 +195,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "🎉 #{sender.login_name}さん#{sender_roles}が新しく入会しました！",
       kind: :signed_up,
-      sender: sender,
-      receiver: receiver,
+      sender:,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
@@ -210,7 +210,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{mentionable.where_mention}で#{mentionable.sender.login_name}さんからメンションがきました。",
       kind: :mentioned,
-      receiver: receiver,
+      receiver:,
       sender: mentionable.sender,
       link: mentionable.path,
       read: false
@@ -225,7 +225,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       kind: :following_report,
-      receiver: receiver,
+      receiver:,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
       read: false
@@ -254,8 +254,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#{sender.id}",
       kind: :retired,
-      sender: sender,
-      receiver: receiver,
+      sender:,
+      receiver:,
       link: Rails.application.routes.url_helpers.polymorphic_path(sender),
       read: false
     )
@@ -269,7 +269,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
       kind: :checked,
-      receiver: receiver,
+      receiver:,
       sender: check.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
       read: false
@@ -284,7 +284,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{report.user.login_name}さんが日報【 #{report.title} 】を書きました！",
       kind: :trainee_report,
-      receiver: receiver,
+      receiver:,
       sender: report.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(report),
       read: false
@@ -299,7 +299,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{product.user.login_name}さんの提出物が更新されました",
       kind: :product_update,
-      receiver: receiver,
+      receiver:,
       sender: product.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(product),
       read: false
@@ -315,8 +315,8 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{watchable.user.login_name}さんの【 #{watchable.notification_title} 】に#{sender.login_name}さんが#{action}しました。",
       kind: :watching,
-      receiver: receiver,
-      sender: sender,
+      receiver:,
+      sender:,
       link: Rails.application.routes.url_helpers.polymorphic_path(watchable),
       read: false
     )
@@ -330,7 +330,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "定期イベント【#{regular_event.title}】が更新されました。",
       kind: :regular_event_updated,
-      receiver: receiver,
+      receiver:,
       sender: regular_event.user,
       link: Rails.application.routes.url_helpers.polymorphic_path(regular_event),
       read: false
@@ -345,7 +345,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "Q&A「#{question.title}」のベストアンサーがまだ選ばれていません。",
       kind: :no_correct_answer,
-      receiver: receiver,
+      receiver:,
       sender: question.sender,
       link: Rails.application.routes.url_helpers.polymorphic_path(question),
       read: false
@@ -360,7 +360,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。",
       kind: :chose_correct_answer,
-      receiver: receiver,
+      receiver:,
       sender: answer.receiver,
       link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
       read: false
@@ -375,7 +375,7 @@ class ActivityNotifier < ApplicationNotifier
     notification(
       body: "#{event.title}で、補欠から参加に繰り上がりました。",
       kind: :moved_up_event_waiting_user,
-      receiver: receiver,
+      receiver:,
       sender: event.user,
       link: Rails.application.routes.url_helpers.polymorphic_path(event),
       read: false

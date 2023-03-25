@@ -7,6 +7,6 @@ class AnswerNotifier
     question = answer.question
     watcher_ids = Watch.where(watchable_id: question.id).pluck(:user_id)
     mention_user_ids = answer.new_mention_users.ids
-    ActivityDelivery.with(answer: answer).notify(:came_answer) if watcher_ids.concat(mention_user_ids).exclude?(answer.receiver.id)
+    ActivityDelivery.with(answer:).notify(:came_answer) if watcher_ids.concat(mention_user_ids).exclude?(answer.receiver.id)
   end
 end

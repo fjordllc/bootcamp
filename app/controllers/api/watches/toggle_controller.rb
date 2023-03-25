@@ -4,14 +4,14 @@ class API::Watches::ToggleController < API::BaseController
   def index
     @watches = Watch.where(
       user: current_user,
-      watchable: watchable
+      watchable:
     )
   end
 
   def create
     @watch = Watch.create!(
       user: current_user,
-      watchable: watchable
+      watchable:
     )
     render json: @watch
   end

@@ -28,7 +28,7 @@ module Searchable
       groupings = split_keyword_by_blank(searched_values[:word])
                   .map { |word| word_to_groupings(word) }
 
-      { groupings: groupings }
+      { groupings: }
     end
 
     def word_to_groupings(word)

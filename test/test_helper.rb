@@ -42,7 +42,7 @@ end
 module BlobFixtureSet
   def fixture(filename:, **attributes)
     blob = new(
-      filename: filename,
+      filename:,
       key: generate_unique_secure_token
     )
     io = Rails.root.join("test/fixtures/files/#{filename}").open

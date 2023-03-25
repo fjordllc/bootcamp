@@ -10,7 +10,7 @@ class API::BookmarksController < API::BaseController
 
     @bookmarks = Bookmark.where(
       user: current_user,
-      bookmarkable: bookmarkable
+      bookmarkable:
     )
   end
 
@@ -20,7 +20,7 @@ class API::BookmarksController < API::BaseController
     else
       @bookmark = Bookmark.create!(
         user: current_user,
-        bookmarkable: bookmarkable
+        bookmarkable:
       )
       render status: :created, json: @bookmark
     end

@@ -35,7 +35,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
 
     click_button 'アドバイザー登録'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-    assert User.find_by(email: email).adviser?
+    assert User.find_by(email:).adviser?
 
     visit_with_auth notifications_path, 'komagata'
     within first('.card-list-item.is-unread') do
@@ -69,7 +69,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
 
     click_button '参加する'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-    assert User.find_by(email: email).trainee?
+    assert User.find_by(email:).trainee?
 
     visit_with_auth notifications_path, 'komagata'
     within first('.card-list-item.is-unread') do

@@ -2,7 +2,7 @@
 
 module LinkChecker
   module Extractor
-    MARKDOWN_LINK_REGEXP = %r{\[(.*?)\]\((#{URI::DEFAULT_PARSER.make_regexp}|/.*?)\)}.freeze
+    MARKDOWN_LINK_REGEXP = %r{\[(.*?)\]\((#{URI::DEFAULT_PARSER.make_regexp}|/.*?)\)}
 
     module_function
 

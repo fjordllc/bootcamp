@@ -131,7 +131,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
 
     params = {
-      comment: comment,
+      comment:,
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
@@ -188,7 +188,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       URL： http://localhost:3000/reports/819157022
     TEXT
     expected = {
-      body: body,
+      body:,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }

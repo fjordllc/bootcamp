@@ -81,7 +81,7 @@ class Practice < ApplicationRecord
 
   def completed?(user)
     Learning.exists?(
-      user: user,
+      user:,
       practice_id: id,
       status: Learning.statuses[:complete]
     )
@@ -89,13 +89,13 @@ class Practice < ApplicationRecord
 
   def exists_learning?(user)
     Learning.exists?(
-      user: user,
+      user:,
       practice_id: id
     )
   end
 
   def learning(user)
-    learnings.find_by(user: user)
+    learnings.find_by(user:)
   end
 
   def all_text
@@ -107,7 +107,7 @@ class Practice < ApplicationRecord
   end
 
   def product(user)
-    products.find_by(user: user)
+    products.find_by(user:)
   end
 
   def learning_minute_per_user
@@ -141,15 +141,15 @@ class Practice < ApplicationRecord
   end
 
   def save_statistic(practice_id, average, median)
-    learning_minute_statistic = LearningMinuteStatistic.find_or_initialize_by(practice_id: practice_id)
+    learning_minute_statistic = LearningMinuteStatistic.find_or_initialize_by(practice_id:)
     learning_minute_statistic.update(
-      average: average,
-      median: median
+      average:,
+      median:
     )
   end
 
   def category(course)
-    Category.category(practice: self, course: course) || categories.first || Category.first
+    Category.category(practice: self, course:) || categories.first || Category.first
   end
 
   def tweet_url(practice_completion_url)

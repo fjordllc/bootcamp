@@ -7,7 +7,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     comment = comments(:comment9)
     came_comment = notifications(:notification_commented)
     mailer = NotificationMailer.with(
-      comment: comment,
+      comment:,
       receiver: came_comment.user,
       message: "#{comment.user.login_name}さんからコメントが届きました。"
     ).came_comment
@@ -28,7 +28,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     report = reports(:report10)
     first_report = notifications(:notification_first_report)
     mailer = NotificationMailer.with(
-      report: report,
+      report:,
       receiver: first_report.user
     ).first_report
 
@@ -69,7 +69,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     report = reports(:report11)
     trainee_report = notifications(:notification_trainee_report)
     mailer = NotificationMailer.with(
-      report: report,
+      report:,
       receiver: trainee_report.user
     ).trainee_report
 
@@ -89,7 +89,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     event = events(:event3)
     notification = notifications(:notification_moved_up_event_waiting_user)
     mailer = NotificationMailer.with(
-      event: event,
+      event:,
       receiver: notification.user
     ).moved_up_event_waiting_user
 
@@ -109,7 +109,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     answer = correct_answers(:correct_answer2)
     notification = notifications(:notification_chose_correct_answer)
     mailer = NotificationMailer.with(
-      answer: answer,
+      answer:,
       receiver: notification.user
     ).chose_correct_answer
 
@@ -129,7 +129,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     report = reports(:report16)
     consecutive_sad_report = notifications(:notification_consecutive_sad_report)
     mailer = NotificationMailer.with(
-      report: report,
+      report:,
       receiver: consecutive_sad_report.user
     ).consecutive_sad_report
 
@@ -205,7 +205,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     regular_event = regular_events(:regular_event1)
     notification = notifications(:notification_regular_event_updated)
     mailer = NotificationMailer.with(
-      regular_event: regular_event,
+      regular_event:,
       receiver: notification.user
     ).update_regular_event
 
@@ -227,13 +227,13 @@ class NotificationMailerTest < ActionMailer::TestCase
     Notification.create!(
       kind: 22,
       sender: user,
-      user: user,
+      user:,
       message: 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。',
       link: "/questions/#{question.id}",
       read: false
     )
     mailer = NotificationMailer.with(
-      question: question,
+      question:,
       receiver: user
     ).no_correct_answer
 

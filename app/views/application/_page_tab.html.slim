@@ -1,13 +1,13 @@
 li.page-tabs__item
   - case tab[:display_name]
   - when '質問'
-    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.questions.length.zero? ? 'is-inactive' : ''}" do
+    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.questions.empty? ? 'is-inactive' : ''}" do
       = tab[:display_name] + " （#{@practice.questions.length}）"
   - when 'Docs'
-    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.pages.length.zero? ? 'is-inactive' : ''}" do
+    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.pages.empty? ? 'is-inactive' : ''}" do
       = tab[:display_name] + " （#{@practice.pages.length}）"
   - when '日報'
-    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.reports.length.zero? ? 'is-inactive' : ''}" do
+    = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])} #{@practice.reports.empty? ? 'is-inactive' : ''}" do
       = tab[:display_name] + " （#{@practice.reports.length}）"
   - else
     = link_to tab[:path], class: "page-tabs__item-link #{current_page_tab_or_not(tab[:target_name])}" do

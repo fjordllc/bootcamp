@@ -26,7 +26,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     user = users(:komagata)
     Announcement.delete_all
     26.times do
-      Announcement.create(title: 'test', description: 'test', user: user)
+      Announcement.create(title: 'test', description: 'test', user:)
     end
     visit_with_auth '/announcements', 'kimura'
     assert_selector 'nav.pagination', count: 2
@@ -34,7 +34,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
   test 'show WIP message' do
     user = users(:komagata)
-    Announcement.create(title: 'test', description: 'test', user: user, wip: true)
+    Announcement.create(title: 'test', description: 'test', user:, wip: true)
     visit_with_auth '/announcements', 'kimura'
     assert_selector '.a-list-item-badge'
     assert_text 'お知らせ作成中'

@@ -25,7 +25,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
   def came_comment
     @user = @receiver
     link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    @notification = @user.notifications.find_by(link: link) || @user.notifications.find_by(link: "#{link}#latest-comment")
+    @notification = @user.notifications.find_by(link:) || @user.notifications.find_by(link: "#{link}#latest-comment")
     mail to: @user.email, subject: "[FBC] #{@message}"
   end
 
@@ -34,16 +34,16 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: @mentionable.path)
     subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: check
   def checked
     @user = @check.receiver
     link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
-    @notification = @user.notifications.find_by(link: link)
+    @notification = @user.notifications.find_by(link:)
     subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: report, receiver
@@ -59,10 +59,10 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @sender = @watchable.user
     @user = @receiver
     link = "/#{@watchable.class.name.underscore.pluralize}/#{@watchable.id}"
-    @notification = @user.notifications.find_by(link: link)
+    @notification = @user.notifications.find_by(link:)
     action = @watchable.instance_of?(Question) ? '回答' : 'コメント'
     subject = "[FBC] #{@sender.login_name}さんの【 #{@watchable.notification_title} 】に#{@comment.user.login_name}さんが#{action}しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: sender, receiver
@@ -70,7 +70,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/users/#{@sender.id}")
     subject = "[FBC] #{@sender.login_name}さんが退会しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: report, receiver
@@ -78,7 +78,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: event, receiver
@@ -86,7 +86,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/events/#{@event.id}")
     subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: page, receiver
@@ -94,7 +94,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/pages/#{@page.id}")
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: answer, receiver
@@ -102,7 +102,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/questions/#{@answer.question.id}")
     subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: report, receiver
@@ -117,7 +117,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/products/#{@product.id}")
     subject = "[FBC] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: sender, receiver
@@ -125,7 +125,7 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:hibernated])
     subject = "[FBC] #{@sender.login_name}さんが休会しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: sender, receiver
@@ -134,14 +134,14 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     roles = @sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"
     @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:signed_up])
     subject = "[FBC] #{@sender.login_name}さん#{roles}が新しく入会しました！"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   def update_regular_event
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/regular_events/#{@regular_event.id}", kind: Notification.kinds[:regular_event_updated])
     subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: question, receiver
@@ -149,6 +149,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/questions/#{@question.id}", kind: Notification.kinds[:no_correct_answer])
     subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 end

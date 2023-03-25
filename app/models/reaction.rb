@@ -25,10 +25,10 @@ class Reaction < ApplicationRecord
 
   def self.emojis
     negative_emojis = %w[thumbsdown confused]
-    @emojis ||= kinds.keys.zip(%w[👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭 🙌 🙏]).to_h.with_indifferent_access.filter { |e| !negative_emojis.include?(e) }
+    @emojis ||= kinds.keys.zip(%w[👍 👎 😄 😕 🎉 ❤️ 🚀 👀 💯 💪 🙆‍♀️ 😭 🙌 🙏]).to_h.with_indifferent_access.filter { |e| negative_emojis.exclude?(e) }
   end
 
   def self.available_emojis
-    emojis.map { |key, value| { kind: key, value: value } }
+    emojis.map { |key, value| { kind: key, value: } }
   end
 end

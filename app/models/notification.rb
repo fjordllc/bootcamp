@@ -87,13 +87,13 @@ class Notification < ApplicationRecord
   end
 
   def unique?(scope: [])
-    !other_duplicates(scope: scope).exists?
+    !other_duplicates(scope:).exists?
   end
 
   private
 
   def other_duplicates(scope: [])
     duplicates = scope.inject(Notification.all) { |notifications, scope_item| notifications.where(scope_item => self[scope_item]) }
-    duplicates.where.not(id: id)
+    duplicates.where.not(id:)
   end
 end
