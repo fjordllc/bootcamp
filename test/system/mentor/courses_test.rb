@@ -2,14 +2,14 @@
 
 require 'application_system_test_case'
 
-class Admin::CoursesTest < ApplicationSystemTestCase
+class Mentor::CoursesTest < ApplicationSystemTestCase
   test 'show listing courses' do
-    visit_with_auth '/admin/courses', 'komagata'
-    assert_equal '管理ページ | FBC', title
+    visit_with_auth '/mentor/courses', 'mentormentaro'
+    assert_equal 'メンターページ | FBC', title
   end
 
   test 'create course' do
-    visit_with_auth '/admin/courses/new', 'komagata'
+    visit_with_auth '/mentor/courses/new', 'mentormentaro'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
@@ -19,7 +19,7 @@ class Admin::CoursesTest < ApplicationSystemTestCase
   end
 
   test 'update course' do
-    visit_with_auth "/admin/courses/#{courses(:course1).id}/edit", 'komagata'
+    visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'mentormentaro'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
