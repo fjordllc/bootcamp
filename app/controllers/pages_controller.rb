@@ -85,7 +85,7 @@ class PagesController < ApplicationController
 
     case action_name
     when :create
-      'ページを作成しました。'
+      'ドキュメントを作成しました。'
     when :update
       'ページを更新しました。'
     end
