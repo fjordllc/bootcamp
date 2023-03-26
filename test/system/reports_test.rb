@@ -666,4 +666,28 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '日報を保存しました。'
     assert_text '変更された日報のタイトル'
   end
+
+  test 'adviser watches trainee report when trainee create report' do
+    visit_with_auth '/reports/new', 'kensyu'
+    within('form[name=report]') do
+      fill_in('report[title]', with: '研修生の日報')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+    within('.learning-time__started-at') do
+      select '07'
+      select '30'
+    end
+    within('.learning-time__finished-at') do
+      select '08'
+      select '30'
+    end
+
+    click_button '提出'
+    assert_text '日報を保存しました。'
+
+    visit_with_auth '/current_user/watches', 'senpai'
+
+    assert_text '研修生の日報'
+  end
 end
