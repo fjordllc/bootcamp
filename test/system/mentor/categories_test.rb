@@ -2,20 +2,20 @@
 
 require 'application_system_test_case'
 
-class Admin::CategoriesTest < ApplicationSystemTestCase
+class Mentor::CategoriesTest < ApplicationSystemTestCase
   test 'show listing categories' do
-    visit_with_auth '/admin/categories', 'komagata'
-    assert_equal '管理ページ | FBC', title
+    visit_with_auth '/mentor/categories', 'mentormentaro'
+    assert_equal 'メンターページ | FBC', title
   end
 
   test 'show category page' do
-    visit_with_auth admin_category_path(categories(:category2)), 'komagata'
+    visit_with_auth mentor_category_path(categories(:category2)), 'mentormentaro'
     assert_equal 'Mac OS X | FBC', title
     first('.card-list-item').assert_text 'OS X Mountain Lionをクリーンインストールする'
   end
 
   test 'create category' do
-    visit_with_auth '/admin/categories/new', 'komagata'
+    visit_with_auth '/mentor/categories/new', 'mentormentaro'
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
       fill_in 'category[slug]', with: 'test-category'
@@ -48,7 +48,7 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'update category from course page' do
-    visit_with_auth course_practices_path(courses(:course1)), 'komagata'
+    visit_with_auth course_practices_path(courses(:course1)), 'mentormentaro'
     first('.categories-item__edit').click
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
@@ -60,8 +60,8 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
     assert_current_path course_practices_path(courses(:course1))
   end
 
-  test 'update category from admin categories' do
-    visit_with_auth admin_categories_path, 'komagata'
+  test 'update category from mentor categories' do
+    visit_with_auth mentor_categories_path, 'mentormentaro'
     first('.spec-edit').click
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
@@ -70,11 +70,11 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
       click_button '更新する'
     end
     assert_text 'カテゴリーを更新しました。'
-    assert_current_path admin_categories_path
+    assert_current_path mentor_categories_path
   end
 
   test 'delete category' do
-    visit_with_auth "/admin/categories/#{categories(:category1).id}/edit", 'komagata'
+    visit_with_auth "/mentor/categories/#{categories(:category1).id}/edit", 'mentormentaro'
     click_on '削除'
     page.driver.browser.switch_to.alert.accept
     assert_text 'カテゴリーを削除しました。'
