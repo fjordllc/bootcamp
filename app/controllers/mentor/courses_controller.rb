@@ -1,13 +1,26 @@
 # frozen_string_literal: true
 
 class Mentor::CoursesController < MentorController
-  before_action :set_course, except: %i[index]
+  before_action :set_course, only: %i[edit update]
 
   def index
     @courses = Course.order(created_at: :desc)
   end
 
+  def new
+    @course = Course.new
+  end
+
   def edit; end
+
+  def create
+    @course = Course.new(course_params)
+    if @course.save
+      redirect_to mentor_courses_path, notice: 'コースを作成しました。'
+    else
+      render :new
+    end
+  end
 
   def update
     if @course.update(course_params)

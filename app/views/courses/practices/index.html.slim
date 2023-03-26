@@ -19,7 +19,7 @@ header.page-header
       .page-header__start
         h2.page-header__title
           = title
-        - if current_user.admin?
+        - if current_user.admin_or_mentor?
           .page-header__optionable-action.is-only-mentor
             = link_to course_sort_index_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
               | 順番変更

@@ -7,7 +7,7 @@ header.page-header
       h2.page-header__title = title
       .page-header-actions
         ul.page-header-actions__items
-          - if current_user&.admin?
+          - if current_user.admin_or_mentor?
             li.page-header-actions__item
               = link_to new_course_path, class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
