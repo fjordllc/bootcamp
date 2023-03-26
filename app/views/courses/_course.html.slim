@@ -4,7 +4,7 @@
       header.courses-item__header
         h3.courses-item__title
           = link_to [course, :practices], class: 'courses-item__title-link' do
-            - if !course.published
+            - unless course.published
               .courses-item__title-icon.is-closed
                 | 非表示
             span.courses-item__title-label
