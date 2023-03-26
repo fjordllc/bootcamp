@@ -35,7 +35,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-09 23:59')
       assert_difference 'Event.count', 1 do
-        click_button '作成'
+        click_button 'イベントを公開'
       end
     end
     assert_text '特別イベントを作成しました。'
@@ -51,7 +51,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[start_at]', with: Time.current.next_day
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '特別イベントを作成しました。'
     assert_text event.title
@@ -71,7 +71,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-21 22:30')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-11 9:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-20 23:59')
-      click_button '内容変更'
+      click_button '内容を更新'
     end
     assert_text '特別イベントを更新しました。'
   end
@@ -97,7 +97,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 10:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-09 23:59')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text 'イベント終了日時はイベント開始日時よりも後の日時にしてください。'
   end
@@ -113,7 +113,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-09 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-07 10:00')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '募集終了日時は募集開始日時よりも後の日時にしてください。'
   end
@@ -129,7 +129,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-10 10:30')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-10 11:30')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '募集開始日時はイベント開始日時よりも前の日時にしてください。'
   end
@@ -145,7 +145,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-11 12:00')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '募集終了日時はイベント終了日時よりも前の日時にしてください。'
   end
@@ -216,7 +216,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     within '.location' do
       assert_link url, href: url
@@ -234,7 +234,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -264,7 +264,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -294,7 +294,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -335,7 +335,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'

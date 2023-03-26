@@ -56,13 +56,35 @@
                   = f.check_box :announcement_of_publication, class: 'a-toggle-checkbox'
                   = f.label :announcement_of_publication
                     | イベント公開のお知らせを書く
+            label.a-form-help-link.is-muted-text(for='modal-announcement')
+              span.a-help
+                i.fa-solid.fa-question
         - if event.new_record?
-          = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+          = f.submit 'イベントを公開', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
         - else
-          = f.submit '内容変更', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+          = f.submit '内容を更新', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
           = link_to 'キャンセル', events_path, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
           = link_to 'キャンセル', event_path, class: 'a-button is-sm is-text'
+
+= render '/shared/modal', id: 'modal-announcement', modal_title: 'イベント公開のお知らせを書く'
+  .modal__description.is-md
+    .a-short-text
+      p
+        | こちらのチェックを入れてから イベント を公開すると、
+        | お知らせ作成ページに遷移します。
+      p
+        | 遷移したお知らせ作成ページには予め、
+        | この イベント を公開したことをみんなに伝えるための情報が
+        | 入力されています。
+      p
+        | この イベント を公開したことをみんなに知らせる場合は、
+        | このチェックを入れてから公開をしてください。
+      p
+        | もし、チェックを入れ忘れた場合は、自分でお知らせ作成ページに行き、
+        | お知らせを作成して、この イベント を公開したことをみんなに伝えてください。
+      p
+        | みんなに伝える必要のない イベント の場合は、お知らせは作成する必要はありません。
