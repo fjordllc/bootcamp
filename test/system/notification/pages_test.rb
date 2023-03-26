@@ -20,8 +20,8 @@ class Notification::PagesTest < ApplicationSystemTestCase
       fill_in('page[title]', with: 'DocsTest')
       fill_in('page[body]', with: 'DocsTestBody')
     end
-    click_button 'Docを公開'
-    assert_text 'ページを作成しました。'
+    click_button '内容を保存'
+    assert_text 'ドキュメントを作成しました。'
 
     visit_with_auth '/notifications', 'mentormentaro'
 
