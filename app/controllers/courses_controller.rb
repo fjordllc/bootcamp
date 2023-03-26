@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CoursesController < ApplicationController
-  before_action :require_admin_login, except: %i[index]
+  before_action :require_admin_or_mentor_login, except: %i[index]
 
   def index
     @courses = Course.order(created_at: :desc)

@@ -4,10 +4,10 @@ header.page-header
     .page-header__inner
       h2.page-header__title = title
       .page-header-actions
-        - if current_user.admin?
+        - if current_user.admin_or_mentor?
           ul.page-header-actions__items
             li.page-header-actions__item
-              = link_to new_admin_course_path, class: 'a-button is-md is-secondary is-block' do
+              = link_to new_mentor_course_path, class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 | コース作成
 

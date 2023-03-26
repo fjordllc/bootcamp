@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     resources :users, only: %i(index show edit update destroy) do
       resource :password, only: %i(edit update), controller: "users/password"
     end
-    resources :categories, only: %i(new create)
-    resources :courses, only: %i(new create)
     resources :campaigns, only: %i(new create index edit update)
   end
 end
