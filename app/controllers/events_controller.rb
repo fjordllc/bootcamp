@@ -43,7 +43,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: 'イベントを削除しました。'
+    redirect_to events_path, notice: '特別イベントを削除しました。'
   end
 
   private
@@ -73,7 +73,7 @@ class EventsController < ApplicationController
   def notice_message(event)
     case params[:action]
     when 'create'
-      event.wip? ? 'イベントをWIPとして保存しました。' : '特別イベントを作成しました。'
+      event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを作成しました。'
     when 'update'
       event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを更新しました。'
     end
