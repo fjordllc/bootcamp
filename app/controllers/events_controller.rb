@@ -73,7 +73,7 @@ class EventsController < ApplicationController
   def notice_message(event)
     case params[:action]
     when 'create'
-      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを作成しました。'
+      event.wip? ? 'イベントをWIPとして保存しました。' : '特別イベントを作成しました。'
     when 'update'
       event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを更新しました。'
     end
