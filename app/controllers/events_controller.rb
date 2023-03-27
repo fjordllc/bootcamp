@@ -75,7 +75,7 @@ class EventsController < ApplicationController
     when 'create'
       event.wip? ? 'イベントをWIPとして保存しました。' : '特別イベントを作成しました。'
     when 'update'
-      event.wip? ? '特別イベントをWIPとして保存しました。' : 'イベントを更新しました。'
+      event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを更新しました。'
     end
   end
 
