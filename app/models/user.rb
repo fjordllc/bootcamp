@@ -140,7 +140,6 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   after_create UserCallbacks.new
-  after_update UserCallbacks.new
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true

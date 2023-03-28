@@ -12,6 +12,7 @@ class RetirementController < ApplicationController
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
       user = current_user
+      Newspaper.publish(:retirement_create, user)
       begin
         UserMailer.retire(user).deliver_now
       rescue Postmark::InactiveRecipientError => e
