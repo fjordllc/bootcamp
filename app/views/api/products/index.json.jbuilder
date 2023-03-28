@@ -11,3 +11,4 @@ json.products_grouped_by_elapsed_days do
   end
 end
 json.total_pages @products.page(1).total_pages
+json.currentUserId String(current_user.id)
