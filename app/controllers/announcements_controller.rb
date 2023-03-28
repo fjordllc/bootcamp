@@ -23,9 +23,7 @@ class AnnouncementsController < ApplicationController
       @announcement.title       = "ドキュメント「#{page.title}」を公開しました。"
       @announcement.description = "<!--  このテキストを編集してください-->\n\nドキュメント「#{page.title}」を公開しました。\n#{page_url}\n\n<!--  不要な場合以下は削除 -->\n---\n\n#{page.description}"
     elsif params[:event_id]
-      event = Event.find(params[:event_id])
-      @announcement.title       = "#{event.title}を開催します🎉"
-      @announcement.description = "<!-- このテキストを編集してください -->\n\n#{event.title}を開催します🎉\n\n- 開催日時\n    - #{ActiveDecorator::Decorator.instance.decorate(event).period}\n- 会場\n    - #{event.location}\n- 定員\n    - #{event.capacity}\n- 募集期間\n    - #{l event.open_start_at} 〜 #{l event.open_end_at}\n\n---\n\n#{event.description}\n\n## 参加登録はこちら\n#{event_url event}\n\n---"
+      set_template_for_event
     end
   end
 
@@ -101,5 +99,33 @@ class AnnouncementsController < ApplicationController
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
                                     target: params['announcement']['target'])
+  end
+
+  def set_template_for_event
+    event = Event.find(params[:event_id])
+    @announcement.title       = "#{event.title}を開催します🎉"
+    @announcement.description = <<~DESCRIPTION_TEMPLATE
+      <!-- このテキストを編集してください -->
+
+      #{event.title}を開催します🎉
+
+      - 開催日時
+        - #{l event.start_at} 〜 #{l event.end_at}
+      - 会場
+        - #{event.location}
+      - 定員
+        - #{event.capacity}
+      - 募集期間
+        - #{l event.open_start_at} 〜 #{l event.open_end_at}
+
+      ---
+
+      #{event.description}
+
+      ## 参加登録はこちら
+      #{event_url event}
+
+      ---
+    DESCRIPTION_TEMPLATE
   end
 end
