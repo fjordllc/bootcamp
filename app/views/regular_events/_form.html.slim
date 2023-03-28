@@ -91,6 +91,16 @@
                 = f.label :all do
                   | 全員参加イベントの場合はチェック
 
+  .form__items
+    .form__items-inner
+      .form-item
+        .checkboxes
+          ul.checkboxes__items
+            li.checkboxes__item
+              = f.check_box :announced, class: 'a-toggle-checkbox js-warning-form'
+              = f.label :announced do
+                | 定期イベント公開のお知らせを書く
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

@@ -23,7 +23,11 @@ class RegularEventsController < ApplicationController
     if @regular_event.save
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      if @regular_event.announced?
+        redirect_to new_announcement_path, notice: notice_message(@regular_event)
+      else
+        redirect_to @regular_event, notice: notice_message(@regular_event)
+      end
     else
       render :new
     end
@@ -59,6 +63,7 @@ class RegularEventsController < ApplicationController
       :end_at,
       :category,
       :all,
+      :announced,
       user_ids: [],
       regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
