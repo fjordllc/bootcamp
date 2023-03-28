@@ -22,12 +22,22 @@ header.page-header
                 = link_to new_survey_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   | 新規作成
-
 .page-body
-  .container.is-md
+  .container.is-xxl
     - if @surveys.present?
-      .card-list.a-card
-        = render partial: 'surveys/survey', collection: @surveys, as: :survey
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              td.admin-table__label
+                | ステータス
+              td.admin-table__label
+                | 回答期間
+              td.admin-table__label
+                | アンケート名
+              td.admin-table__label
+                | 操作
+          = render partial: 'surveys/survey', collection: @surveys, as: :survey
     - else
       .o-empty-message
         .o-empty-message__icon

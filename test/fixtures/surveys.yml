@@ -6,3 +6,12 @@ survey1:
   end_at: <%= Time.zone.local(2020, 1, 1, 23, 59) %>
   created_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
   updated_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
+
+survey2:
+  title: "【第0回】テストに関するアンケート"
+  description: "テストに関するアンケート"
+  user: komagata
+  start_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 23, 59) %>
+  created_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
+  updated_at: <%= Time.zone.local(2020, 1, 1, 0, 0) %>
