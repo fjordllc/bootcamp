@@ -47,11 +47,13 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'not notify mentor watching product of submitted when comment on product' do
+    default_notifications_count = users(:kimura).notifications.count
     Comment.create!(
       user: users(:mentormentaro),
       commentable: products(:product8),
       description: '提出物のコメントcreate'
     )
+    sleep 0.2 until users(:kimura).notifications.count == default_notifications_count + 1
     assert users(:kimura).notifications.exists?(
       kind: 'watching',
       sender: users(:mentormentaro),
