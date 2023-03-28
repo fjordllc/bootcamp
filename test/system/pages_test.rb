@@ -51,7 +51,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: '新規Docを作成する'
     fill_in 'page[body]', with: '新規Docを作成する本文です'
     click_button '内容を保存'
-    assert_text 'ドキュメントを作成しました'
+    assert_text 'ドキュメントを作成しました。'
     assert_text 'Watch中'
   end
 
@@ -224,7 +224,7 @@ class PagesTest < ApplicationSystemTestCase
       click_button 'Docを公開'
     end
 
-    assert_text 'ドキュメントを作成しました'
+    assert_text 'ドキュメントを作成しました。'
     assert_text 'Watch中'
     assert_match 'Message to Discord.', mock_log.to_s
   end
