@@ -1,0 +1,12 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title アドバイザーヘルプ
+  .card-body
+    .card__description
+      .a-short-text.is-sm
+        p フィヨルドブートキャンプ学習アプリに関する使い方はこちらをご覧ください。
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to 'ヘルプ', page_path('help-adviser'), class: 'a-button is-sm is-block is-secondary'

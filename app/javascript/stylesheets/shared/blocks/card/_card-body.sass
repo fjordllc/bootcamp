@@ -1,10 +1,14 @@
 .card-body
+  flex: 1
   &:not(:first-child)
     border-top: solid 1px $border-tint
   &:not(:last-child)
       border-bottom: solid 1px $border-tint
   .card-header + &
     border-top: none
+  &.has-scroll
+    max-height: 18rem
+    overflow-y: auto
 
 .card__description
   overflow: hidden

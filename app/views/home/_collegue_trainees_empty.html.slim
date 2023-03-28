@@ -1,0 +1,12 @@
+.a-short-text.is-sm
+  p 現在、#{current_user.company.name}は研修を利用していません。
+  ul
+    li
+      | 研修を行う際は、
+      = link_to 'こちら', current_user.company.trainee_sign_up_url
+      | から研修生をご登録ください。
+    li
+      | 研修内容や期間などについての
+      br
+      | お問い合わせは
+      = link_to 'こちらからお願いいたします。', unreplied_index_path(current_user.talk)
