@@ -87,6 +87,7 @@ import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import AdminPractices from '../components/admin-practices.vue'
+import UserRecentProducts from '../components/user-recent-products.vue'
 
 import '../stylesheets/application'
 
@@ -112,6 +113,7 @@ mounter.addComponent(QuestionPage)
 mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
 mounter.addComponent(AdminPractices)
+mounter.addComponent(UserRecentProducts)
 mounter.mount()
 
 // Support component names relative to this directory:

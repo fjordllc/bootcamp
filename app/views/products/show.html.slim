@@ -79,9 +79,7 @@ header.page-header
                   = render 'users/metas', user: @product.user
                 div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@product.user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-4
-                .card-list.a-card
-                  - @products.each do |product|
-                    = render partial: 'product', locals: { product: product }
+                div(data-vue="UserRecentProducts" data-vue-user-id:number="#{@product.user.id}")
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
