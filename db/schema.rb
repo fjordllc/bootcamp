@@ -595,6 +595,7 @@ ActiveRecord::Schema.define(version: 2023_03_12_200635) do
     t.bigint "survey_question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
     t.index ["survey_id"], name: "index_survey_question_listings_on_survey_id"
     t.index ["survey_question_id"], name: "index_survey_question_listings_on_survey_question_id"
   end
