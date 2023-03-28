@@ -43,6 +43,13 @@ const Category = ({ category }) => {
               <i className="fa-solid fa-pen" />
             </a>
           </li>
+          <li>
+            <a
+              href={``}
+              className="a-button is-sm is-secondary is-icon is-block">
+              <i className="fa-solid fa-align-justify" />
+            </a>
+          </li>
         </ul>
       </td>
     </tr>
