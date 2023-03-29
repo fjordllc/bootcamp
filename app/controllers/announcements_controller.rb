@@ -27,6 +27,8 @@ class AnnouncementsController < ApplicationController
       template = MessageTemplate.load('event_announcements.yml', params: { event: event })
       @announcement.title       = template['title']
       @announcement.description = template['description']
+    elsif params[:regular_event_id]
+      set_template_for_regular_event
     end
   end
 
@@ -102,5 +104,36 @@ class AnnouncementsController < ApplicationController
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
                                     target: params['announcement']['target'])
+  end
+
+  def set_template_for_regular_event
+    regular_event = RegularEvent.find(params[:regular_event_id])
+    organizers = regular_event.organizers.map do |organizer|
+      "  - @#{organizer.login_name}"
+    end.join("\n")
+    holding_cycles = ActiveDecorator::Decorator.instance.decorate(regular_event).holding_cycles
+    hold_national_holiday = "(祝日#{regular_event.hold_national_holiday ? 'も開催' : 'は休み'})"
+    @announcement.title       = "#{regular_event.title}を開催します🎉"
+    @announcement.description = <<~DESCRIPTION_TEMPLATE
+      <!-- このテキストを編集してください -->
+
+      #{regular_event.title}を開催します🎉
+
+      - 開催日
+        - #{holding_cycles} #{hold_national_holiday}
+      - 開催時間
+        - #{l regular_event.start_at, format: :time_only} 〜 #{l regular_event.end_at, format: :time_only}
+      - 主催者
+      #{organizers}
+
+      ---
+
+      #{regular_event.description}
+
+      ## 参加登録はこちら
+      #{regular_event_url(regular_event)}
+
+      ---
+    DESCRIPTION_TEMPLATE
   end
 end

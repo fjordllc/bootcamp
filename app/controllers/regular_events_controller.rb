@@ -24,7 +24,7 @@ class RegularEventsController < ApplicationController
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
       if @regular_event.announced?
-        redirect_to new_announcement_path, notice: notice_message(@regular_event)
+        redirect_to new_announcement_path(regular_event_id: @regular_event.id), notice: notice_message(@regular_event)
       else
         redirect_to @regular_event, notice: notice_message(@regular_event)
       end
