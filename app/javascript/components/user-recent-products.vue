@@ -9,7 +9,7 @@
       :key='product.id',
       :product='product',
       :current-user-id='currentUserId',
-      :is-mentor='isMentor')
+      :is-mentor=false)
   .card-body(v-else)
     .card__description
       .o-empty-message
@@ -17,18 +17,18 @@
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
           | 提出物はまだありません。
-  </template>
-  <script>
-  import Product from '../product.vue'
-  
-  export default {
-    name: 'UserRecentProducts',
-    components: {
-      product: Product
-    },
-    props: {
+</template>
+<script>
+import Product from '../product.vue'
+
+export default {
+  name: 'UserRecentProducts',
+  components: {
+    product: Product
+  },
+  props: {
     limit: { type: Number, default: 10 },
-    userId: { type: Number, default: null },
+    userId: { type: Number, default: null }
   },
   data() {
     return {
@@ -47,16 +47,16 @@
       }
       return params
     },
-      newURL() {
+    newURL() {
       return `${location.pathname}?${this.newParams}`
     },
-      productsAPI() {
-        const params = this.newParams
-        return `/api/products.json?${params}`
-      }
-    },
-    created() {
-      this.getProducts()
+    productsAPI() {
+      const params = this.newParams
+      return `/api/products.json?${params}`
+    }
+  },
+  created() {
+    this.getProducts()
   },
   methods: {
     async getProducts() {
@@ -68,11 +68,10 @@
       }).catch((error) => console.warn(error))
       const json = await response.json().catch((error) => console.warn(error))
       const params = new URL(location.href).searchParams
-      console.log(params);
+      console.log(params)
       this.products = json.products
       this.currentUserId = json.currentUserId
     }
   }
 }
-  </script>
-  
+</script>
