@@ -16,7 +16,7 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:report_destroy, sad_streak_updater)
 
   Newspaper.subscribe(:report_save, FirstReportNotifier.new)
-  Newspaper.subscribe(:report_save, ReportSaver.new)
+  Newspaper.subscribe(:report_save, ReportSaveNotifier.new)
 
   learning_cache_destroyer = LearningCacheDestroyer.new
   Newspaper.subscribe(:learning_create, learning_cache_destroyer)

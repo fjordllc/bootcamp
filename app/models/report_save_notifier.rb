@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReportSaver
+class ReportSaveNotifier
   def call(report)
     Cache.delete_unchecked_report_count
 
