@@ -436,7 +436,7 @@ class User < ApplicationRecord
     def mark_message_as_sent_for_hibernated_student
       User.find_each do |user|
         if user.hibernated?
-          user.assign_attributes(sent_student_followup_message: true)
+          user.sent_student_followup_message = true
           user.save(validate: false)
         end
       end
@@ -448,7 +448,7 @@ class User < ApplicationRecord
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
-      student.assign_attributes(sent_student_followup_message: true)
+      student.sent_student_followup_message = true
       student.save(validate: false)
     end
   end
