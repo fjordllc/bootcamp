@@ -29,20 +29,16 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    @page.user ? @page.last_updated_user = current_user : @page.user = current_user
+    @page.last_updated_user = current_user
+    @page.user ||= current_user
     set_wip
     if @page.save
-      unless @page.wip?
+      url = page_url(@page)
+      if @page.not_wip?
         Newspaper.publish(:page_create, @page)
-        if @page.announcement_of_publication?
-          redirect_to new_announcement_path(page_id: @page.id), notice: notice_message(@page, :create)
-        else
-          redirect_to @page, notice: notice_message(@page, :create)
-        end
-        return
+        url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
-
-      redirect_to @page, notice: notice_message(@page, :create)
+      redirect_to url, notice: notice_message(@page, :create)
     else
       render :new
     end
