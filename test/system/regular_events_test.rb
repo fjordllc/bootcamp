@@ -229,6 +229,13 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントを作成しました。'
-    assert has_field?('announcement[title]')
+    assert has_field?('announcement[title]', with: 'チェリー本輪読会を開催します🎉')
+    within('.markdown-form__preview') do
+      assert_text '毎週月曜日 (祝日は休み)'
+      assert_text '19:00 〜 20:00'
+      assert_text '@adminonly'
+      assert_text '予習不要です'
+      assert_selector 'a[href*="regular_events"]'
+    end
   end
 end
