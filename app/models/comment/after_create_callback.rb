@@ -47,7 +47,7 @@ class Comment::AfterCreateCallback
       next unless watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
 
       watcher = User.find_by(id: watcher_id)
-      sender = comment.user
+      sender = comment.sender
 
       ActivityDelivery.with(
         watchable: watchable,

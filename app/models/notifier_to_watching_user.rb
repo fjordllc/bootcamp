@@ -12,7 +12,7 @@ class NotifierToWatchingUser
       next unless watcher_id != answer.sender.id && !mention_user_ids.include?(watcher_id)
 
       watcher = User.find_by(id: watcher_id)
-      sender = answer.user
+      sender = answer.sender
 
       ActivityDelivery.with(
         watchable: question,
