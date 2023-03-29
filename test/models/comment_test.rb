@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -47,18 +49,18 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'not notify mentor watching product of submitted when comment on product' do
-    default_notifications_count = users(:kimura).notifications.count
-    Comment.create!(
-      user: users(:mentormentaro),
-      commentable: products(:product8),
-      description: '提出物のコメントcreate'
-    )
-    sleep 0.2 until users(:kimura).notifications.count == default_notifications_count + 1
-    assert users(:kimura).notifications.exists?(
-      kind: 'watching',
-      sender: users(:mentormentaro),
-      message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
-    )
+    perform_enqueued_jobs do 
+      Comment.create!(
+        user: users(:mentormentaro),
+        commentable: products(:product8),
+        description: '提出物のコメントcreate'
+      )
+      assert users(:kimura).notifications.exists?(
+        kind: 'watching',
+        sender: users(:mentormentaro),
+        message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
+      )
+    end
     assert_not users(:mentormentaro).notifications.exists?(
       kind: 'submitted',
       sender: users(:kimura),
@@ -100,3 +102,17 @@ class CommentTest < ActiveSupport::TestCase
     assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(5.days)
   end
 end
+
+# class ActiveJob::Base
+#   def queue_adapter
+#     @queue_adapter
+#   end
+
+#   def queue_adapter=(queue_adapter)
+#     @queue_adapter = queue_adapter = :inline
+#   end
+# end
+
+# ActiveJob::Base.queue_adapter = :inline
+# ActiveJob::Base.queue_adapter
+# => inline
