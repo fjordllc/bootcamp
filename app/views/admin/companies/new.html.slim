@@ -18,8 +18,7 @@ main.page-main
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to admin_companies_path, class: 'a-button is-sm is-block is-secondary is-back' do
-                  | 企業一覧
+                = link_to '企業一覧', admin_companies_path, class: 'a-button is-sm is-block is-secondary is-back'
 .page-body
   .container.is-md
     = render 'form', company: @company
