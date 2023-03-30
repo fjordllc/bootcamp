@@ -101,7 +101,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
-    decorated_user = ActiveDecorator::Decorator.instance.decorate(user) 
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     product = Product.create!(
       body: 'test',
       user: user,
