@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Scheduler::Daily::NotifyTomorrowRegularEventController < ApplicationController
+class Scheduler::Daily::NotifyTomorrowRegularEventController < SchedulerController
   def show
     notify_tomorrow_regular_event
     head :ok

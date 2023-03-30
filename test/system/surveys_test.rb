@@ -35,7 +35,7 @@ class SurveysTest < ApplicationSystemTestCase
     assert_text 'そのように回答された理由を教えてください。'
   end
 
-  test 'not displaying any badge if a survey which deadline is over' do
+  test 'displaying ended badge if a survey which deadline is over' do
     visit_with_auth '/surveys', 'komagata'
     assert_selector 'h1', text: 'アンケート一覧'
 
@@ -44,6 +44,7 @@ class SurveysTest < ApplicationSystemTestCase
 
     assert_no_text '受付前'
     assert_no_text '受付中'
+    assert_text '受付終了'
   end
 
   test 'creating a survey which beginning of accepting and deadline is current' do

@@ -1,0 +1,12 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title FBC運営への連絡
+  .card-body
+    .card__description
+      .a-short-text.is-sm
+        p 研修利用についてのご相談など、フィヨルドブートキャンプ運営者へのご相談がありましたら、こちらからご連絡をお願いします。
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to '相談部屋', talk_path(current_user.talk, anchor: 'latest-comment'), class: 'a-button is-sm is-block is-secondary'

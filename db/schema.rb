@@ -564,6 +564,7 @@ ActiveRecord::Schema.define(version: 2023_03_12_200635) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "wip", default: false, null: false
     t.integer "category", default: 0, null: false
+    t.boolean "all", default: false, null: false
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
@@ -595,6 +596,7 @@ ActiveRecord::Schema.define(version: 2023_03_12_200635) do
     t.bigint "survey_question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
     t.index ["survey_id"], name: "index_survey_question_listings_on_survey_id"
     t.index ["survey_question_id"], name: "index_survey_question_listings_on_survey_question_id"
   end
