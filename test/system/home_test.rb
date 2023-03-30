@@ -282,7 +282,7 @@ class HomeTest < ApplicationSystemTestCase
   test "show my wip's event on dashboard" do
     visit_with_auth '/', 'kimura'
     click_link 'イベント'
-    click_link 'イベント作成'
+    click_link '特別イベント作成'
     fill_in 'event[title]', with: 'WIPのイベント'
     fill_in 'event[location]', with: 'オンライン'
     fill_in 'event[capacity]', with: 100
