@@ -11,7 +11,7 @@ class AnnouncementsController < ApplicationController
   def new
     @announcement = Announcement.new(target: 'students')
 
-    if params[:page_id].present?
+    if params[:page_id]
       page = Page.find(params[:page_id])
       page_url = "https://bootcamp.fjord.jp/pages/#{params[:page_id]}"
       @announcement.title       = "ドキュメント「#{page.title}」を公開しました。"
