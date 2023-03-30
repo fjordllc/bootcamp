@@ -102,17 +102,3 @@ class CommentTest < ActiveSupport::TestCase
     assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(5.days)
   end
 end
-
-# class ActiveJob::Base
-#   def queue_adapter
-#     @queue_adapter
-#   end
-
-#   def queue_adapter=(queue_adapter)
-#     @queue_adapter = queue_adapter = :inline
-#   end
-# end
-
-# ActiveJob::Base.queue_adapter = :inline
-# ActiveJob::Base.queue_adapter
-# => inline
