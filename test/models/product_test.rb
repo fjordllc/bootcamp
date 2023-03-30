@@ -113,25 +113,26 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '.self_assigned_no_replied_products' do
-    current_user = users(:mentormentaro)
+    mentor = users(:mentormentaro)
+    student = users(:kimura)
     published_product = Product.create!(
       body: 'test',
-      user: users(:kimura),
+      user: student,
       practice: practices(:practice5),
       checker_id: nil,
       published_at: Time.current.to_formatted_s(:db)
     )
     wip_product = Product.create!(
       body: 'test',
-      user: users(:kimura),
+      user: student,
       practice: practices(:practice7),
       checker_id: nil,
       wip: true
     )
-    published_product.save_checker(current_user.id)
-    wip_product.save_checker(current_user.id)
+    published_product.save_checker(mentor.id)
+    wip_product.save_checker(mentor.id)
 
-    self_assigned_no_replied_products = Product.self_assigned_no_replied_products(current_user.id).pluck(:id)
+    self_assigned_no_replied_products = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
     assert_not_equal [wip_product.id], self_assigned_no_replied_products
     assert_equal [published_product.id], self_assigned_no_replied_products
   end
