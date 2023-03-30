@@ -79,6 +79,9 @@ class UsersTest < ApplicationSystemTestCase
 
     visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
     assert_text '卒業生'
+
+    visit_with_auth "/users/#{users(:kyuukai).id}", 'kyuukai'
+    assert_text '休会中'
   end
 
   test 'show completed practices' do

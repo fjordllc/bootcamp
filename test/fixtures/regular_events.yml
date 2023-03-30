@@ -27,6 +27,7 @@ regular_event3:
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
   user: komagata
   category: 3
+  all: true
 
 regular_event4:
   title: チェリー本輪読会
