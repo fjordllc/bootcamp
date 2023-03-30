@@ -29,6 +29,10 @@ class Page < ApplicationRecord
     Page.find_by!(attr_name => params)
   end
 
+  def not_wip?
+    !wip?
+  end
+
   private
 
   def empty_slug_to_nil
