@@ -49,7 +49,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'not notify mentor watching product of submitted when comment on product' do
-    perform_enqueued_jobs do 
+    perform_enqueued_jobs do
       Comment.create!(
         user: users(:mentormentaro),
         commentable: products(:product8),
