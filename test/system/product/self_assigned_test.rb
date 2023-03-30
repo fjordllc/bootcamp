@@ -96,22 +96,29 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   end
 
   test 'not display no replied wip products if click on no-replied-button' do
-    mentor = users(:mentormentaro)
-    product = products(:product5)
+    mentor = users(:machida)
+    product = products(:product62)
+    product.update!(wip: true)
 
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', mentor.login_name
-    product_list_titles = all('.card-list-item-title__title').map(&:text)
-    assert_not_includes product_list_titles, product.title
+    product_title_list = all('.card-list-item-title__title').map(&:text)
+    assert_not_includes product_title_list, "#{product.practice.title}の提出物"
   end
 
-  test 'not display last replied by student replied wip products if click on no-replied-button' do
+  test 'not display last replied wip products by student if click on no-replied-button' do
     mentor = users(:machida)
     product = products(:product63)
     product.update(wip: true)
 
+    Comment.create!(
+      user: product.user,
+      commentable: product,
+      description: '提出者のコメント'
+    )
+
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', mentor.login_name
-    product_list_titles = all('.card-list-item-title__title').map(&:text)
-    assert_not_includes product_list_titles, product.title
+    product_title_list = all('.card-list-item-title__title').map(&:text)
+    assert_not_includes product_title_list, "#{product.practice.title}の提出物"
   end
 
   test 'display replied products if click on self_assigned_all-button' do
