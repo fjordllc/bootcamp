@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     set_wip
     if @page.save
       url = page_url(@page)
-      if @page.not_wip?
+      if !@page.wip?
         Newspaper.publish(:page_create, @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
@@ -48,17 +48,12 @@ class PagesController < ApplicationController
     set_wip
     @page.last_updated_user = current_user
     if @page.update(page_params)
+      url = page_url(@page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
-        if @page.announcement_of_publication?
-          redirect_to new_announcement_path(page_id: @page.id), notice: notice_message(@page, :update)
-        else
-          redirect_to @page, notice: notice_message(@page, :update)
-        end
-        return
+        url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
       end
-
-      redirect_to @page, notice: notice_message(@page, :update)
+      redirect_to url, notice: notice_message(@page, :update)
     else
       render :edit
     end
