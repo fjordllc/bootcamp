@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     set_wip
     if @page.save
       url = page_url(@page)
-      if !@page.wip?
+      if @page.not_wip?
         Newspaper.publish(:page_create, @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
