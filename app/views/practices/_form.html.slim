@@ -15,6 +15,12 @@
             = b.label { b.text }
   .form-item
     .row.js-markdown-parent
+      .col-md-12.col-xs-12
+        = f.label :summary, class: 'a-form-label'
+        = f.text_area :summary,
+          class: 'a-text-input js-warning-form markdown-form__text-area js-markdown'
+  .form-item
+    .row.js-markdown-parent
       .col-md-6.col-xs-12
         = f.label :description, class: 'a-form-label is-required'
         = f.text_area :description,
