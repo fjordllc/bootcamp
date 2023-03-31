@@ -38,7 +38,6 @@ class Event < ApplicationRecord
   has_many :users, through: :participations
   has_many :watches, as: :watchable, dependent: :destroy
   attribute :announcement_of_publication, :boolean
-  after_save :update_published_at
 
   columns_for_keyword_search :title, :description
 
@@ -162,9 +161,5 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
-  end
-
-  def update_published_at
-    update_column(:published_at, updated_at) if !wip? && published_at.nil? # rubocop:disable Rails/SkipsModelValidations
   end
 end
