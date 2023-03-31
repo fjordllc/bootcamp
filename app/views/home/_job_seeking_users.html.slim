@@ -1,4 +1,4 @@
-.a-card.is-only-mentor.is-only-adviser
+.a-card
   header.card-header.is-sm
     h2.card-header__title
       | 就職活動中のユーザー
@@ -38,3 +38,7 @@
           = render 'users/metas', user: user
           label.card-list-item__close-user-detail(for="show-user-detail-#{user.id}")
             | 閉じる
+  footer.card-footer
+    .card-footer__footer-link
+      = link_to users_path, class: 'card-footer__footer-text-link' do
+        | ユーザー一覧

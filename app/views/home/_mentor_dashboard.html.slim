@@ -20,6 +20,8 @@
             .dashboard-category__body
               .a-panels
                 .a-panels__items
+                  .a-panels__item
+                    = render partial: 'events'
                   - if @announcements.present?
                     .a-panels__item
                       = render partial: 'announcements'
@@ -30,13 +32,13 @@
                     .a-panels__item
                       = render 'wip_items'
                   - if User.depressed_reports.present?
-                    .a-panels__item
+                    .a-panels__item.is-only-mentor
                       = render 'users/sad_emotion_report', reports: User.depressed_reports
                   - if @inactive_students.present?
-                    .a-panels__item
+                    .a-panels__item.is-only-mentor
                       = render 'users/inactive_users', users: @inactive_students
                   - if @job_seeking_users.present?
-                    .a-panels__item
+                    .a-panels__item.is-only-mentor.is-only-adviser
                       = render 'job_seeking_users', users: @job_seeking_users
           - if current_user.active_practices.present? && !current_user.admin?
             .dashboard-category
