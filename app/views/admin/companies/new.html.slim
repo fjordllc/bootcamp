@@ -1,4 +1,4 @@
-- title '企業作成'
+- title '管理ページ'
 
 header.page-header
   .container
@@ -7,6 +7,18 @@ header.page-header
 
 = render 'admin/admin_page_tabs'
 
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 企業追加
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to '企業一覧', admin_companies_path, class: 'a-button is-sm is-block is-secondary is-back'
 .page-body
   .container.is-md
     = render 'form', company: @company
