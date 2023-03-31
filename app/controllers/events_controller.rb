@@ -21,6 +21,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user = current_user
     set_wip
+    update_published_at
     if @event.save
       Newspaper.publish(:event_create, @event)
       if !@event.wip? && @event.announcement_of_publication?
@@ -37,6 +38,7 @@ class EventsController < ApplicationController
 
   def update
     set_wip
+    update_published_at
     if @event.update(event_params)
       if @event.wip?
         redirect_to @event, notice: notice_message(@event)
@@ -102,5 +104,11 @@ class EventsController < ApplicationController
     new_event.job_hunting = event.job_hunting
 
     flash.now[:notice] = '特別イベントをコピーしました。'
+  end
+
+  def update_published_at
+    return if @event.wip || !@event.published_at?
+
+    @event.published_at = Time.current
   end
 end
