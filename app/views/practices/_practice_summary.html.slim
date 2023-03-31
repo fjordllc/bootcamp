@@ -1,0 +1,8 @@
+.a-card
+  header.card-header
+    h2.card-header__title
+      = Practice.human_attribute_name :summary
+  .card-body.is-practice
+    .card__description
+      .a-long-text.is-md.js-markdown-view
+        = practice.summary
