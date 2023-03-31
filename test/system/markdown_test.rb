@@ -8,7 +8,7 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: 'インタビュー'
     fill_in 'page[body]', with: ":::speak @mentormentaro\n## 質問\nあああ\nいいい\n:::"
 
-    click_button '内容を保存'
+    click_button 'Docを公開'
 
     assert_css '.a-long-text.is-md.js-markdown-view'
     assert_css '.speak'
@@ -21,7 +21,7 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: 'レポート'
     fill_in 'page[body]', with: ":@mentormentaro: \n すみません、これも確認していただけませんか？"
 
-    click_button '内容を保存'
+    click_button 'Docを公開'
 
     assert_css '.a-long-text.is-md.js-markdown-view'
     assert_css "a[href='/users/mentormentaro']"

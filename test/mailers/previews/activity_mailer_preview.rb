@@ -63,7 +63,7 @@ class ActivityMailerPreview < ActionMailer::Preview
 
   def create_page
     page = Page.find(ActiveRecord::FixtureSet.identify(:page4))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
 
     ActivityMailer.with(sender: page.user, receiver: receiver, page: page).create_page
   end
