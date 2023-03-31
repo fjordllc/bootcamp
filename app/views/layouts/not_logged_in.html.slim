@@ -1,9 +1,8 @@
 doctype html
-html.is-completion lang='ja'
+html lang='ja'
   head
     = render 'google_tag_manager_head'
     meta content='IE=edge' http-equiv='X-UA-Compatible'
-    meta name='robots' content='noindex'
     = display_meta_tags default_meta_tags
     = javascript_include_tag 'application'
     = javascript_pack_tag 'application'
@@ -19,9 +18,8 @@ html.is-completion lang='ja'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-not-logged-in(class="#{body_class}")
     = render 'google_tag_manager_body'
-    = render 'flash'
     .not-logged-in-wrapper
       .not-logged-in-wrapper__start
         = yield
       .not-logged-in-wrapper__end
-        = render 'welcome/welcome_footer'
+        = render 'shared/not_logged_in_footer'

@@ -1,24 +1,29 @@
 - title @practice.title
 - content_for :extra_body_classes, ''
 
-.not-logged-in
-  .not-logged-in__header
-    .container
-      h1.not-logged-in__title
-        = title
-  .not-logged-in__body
-    .container.is-md
-      .auth-form
-        .a-card
-          header.auth-form__header
-            h1.auth-form__title
-              | 閲覧にはフィヨルドブートキャンプの
-              br
-              | 入会が必要です。
-          .auth-form__body
-            div ブートキャンプに登録するかログインしてください
-            ul.auth-form-nav__items
-                li.auth-form-nav__item
-                  = link_to '登録はこちら', new_user_path, class: 'a-button is-lg is-primary'
-                li.auth-form-nav__item
-                  = link_to 'ログインはこちら', login_path, class: 'a-button is-lg is-primary'
+.page-body
+  article.sneak-peek
+    header.sneak-peek__header
+      .container
+        h1.sneak-peek__title
+          span.sneak-peek__title-label
+            | プラクティス
+          | 「#{title}」
+    .sneak-peek__body
+      .container.is-lg
+        .sneak-peek__content
+          //
+            .sneak-peek__content-body
+              .a-long-text.is-md.js-markdown-view
+                = @practice.description.truncate(400)
+          .sneak-peek__join-us
+            p
+              | 閲覧にはフィヨルドブートキャンプの入会が必要です🙇‍♂️
+            p
+              | ブートキャンプに登録するかログインしてください
+          nav.join-us-nav
+            ul.join-us-nav__items
+                li.join-us-nav__item
+                  = link_to '登録はこちら', new_user_path, class: 'a-welcome-button is-md is-primary'
+                li.join-us-nav__item
+                  = link_to 'ログインはこちら', login_path, class: ''
