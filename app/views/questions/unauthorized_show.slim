@@ -1,17 +1,27 @@
 - title @question.title
 - content_for :extra_body_classes, 'no-header no-footer no-global-nav'
 
-h1 Q&A用画面
-h2 = title
-.auth-form
-  .a-card
-    header.auth-form__header
-      h1.auth-form__title 閲覧権限がありません
-    .auth-form__body
-      div ブートキャンプに登録するかログインしてください
+.page-body
+  .not-logged-in
+    .not-logged-in__header
+      .container
+        h1.not-logged-in__title
+          | Q&A
+          br
+          | 「#{title}」
+    .not-logged-in__body
+      .container.is-md
+        .sneak-peek
+          .sneak-peek__body
 
-      ul.auth-form-nav__items
-          li.auth-form-nav__item
-            = link_to '登録はこちら', new_user_path
-          li.auth-form-nav__item
-            = link_to 'ログインはこちら', login_path
+          .sneak-peek__join-us
+            p
+              | 閲覧にはフィヨルドブートキャンプの入会が必要です🙇‍♂️
+            p
+              | ブートキャンプに登録するかログインしてください
+          nav.join-us-nav
+            ul.join-us-nav__items
+                li.join-us-nav__item
+                  = link_to '登録はこちら', new_user_path, class: 'a-welcome-button is-md is-primary'
+                li.join-us-nav__item
+                  = link_to 'ログインはこちら', login_path, class: ''
