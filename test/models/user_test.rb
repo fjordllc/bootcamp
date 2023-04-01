@@ -699,9 +699,7 @@ class UserTest < ActiveSupport::TestCase
       sent_student_followup_message: false
     )
 
-    from_user = users(:komagata)
-
-    User.create_followup_comment(from_user, target)
+    User.create_followup_comment(target)
 
     assert target.sent_student_followup_message
   end
