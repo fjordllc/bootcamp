@@ -580,9 +580,8 @@ class User < ApplicationRecord
   end
 
   def after_twenty_nine_days_registration?
-    registration_date = created_at.to_date
     twenty_nine_days = Time.current.ago(29.days).to_date
-    registration_date.before? twenty_nine_days
+    created_at.to_date.before? twenty_nine_days
   end
 
   def followup_message_target?
