@@ -2,9 +2,8 @@
 
 class Scheduler::Daily::SendMessageController < SchedulerController
   def show
-    @from_user = from_user
     User.mark_message_as_sent_for_hibernated_student
-    sent_student_followup_message(@from_user)
+    sent_student_followup_message(from_user)
     head :ok
   end
 
