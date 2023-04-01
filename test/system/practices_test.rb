@@ -66,6 +66,7 @@ class PracticesTest < ApplicationSystemTestCase
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       check categories(:category1).name, allow_label_click: true
+      fill_in 'practice[summary]', with: 'テストの概要です'
       fill_in 'practice[description]', with: 'テストの内容です'
       within '#reference_books' do
         click_link '書籍を選択'
@@ -264,5 +265,20 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
     assert_selector '.page-header__title', text: 'OS X Mountain Lionをクリーンインストールする'
     assert_no_selector '.common-page-body', text: '困った時は'
+  end
+
+  test 'show a summary if the practice has a summary data' do
+    practice = practices(:practice58)
+    visit_with_auth practice_path(practice), 'komagata'
+
+    assert_selector '.card-header', text: '概要'
+    assert_text practice.summary
+  end
+
+  test 'not show a summary if the practice does not has a summary data' do
+    practice = practices(:practice1)
+    visit_with_auth practice_path(practice), 'komagata'
+
+    assert_no_selector '.card-header', text: '概要'
   end
 end
