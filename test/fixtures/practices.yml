@@ -366,3 +366,11 @@ practice57:
   goal: "goal..."
   include_progress: false
   last_updated_user: komagata
+
+practice58:
+  title: "概要表示テスト用"
+  summary: "概要内容"
+  description: "概要表示テスト用"
+  goal: "goal..."
+  include_progress: false
+  last_updated_user: komagata
