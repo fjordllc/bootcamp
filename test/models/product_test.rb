@@ -114,26 +114,30 @@ class ProductTest < ActiveSupport::TestCase
 
   test '.self_assigned_no_replied_products' do
     mentor = users(:mentormentaro)
-    student = users(:kimura)
-    published_product = Product.create!(
+    no_replied_product = Product.create!(
       body: 'test',
-      user: student,
+      user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: nil,
+      checker_id: mentor.id,
       published_at: Time.current.to_formatted_s(:db)
     )
-    wip_product = Product.create!(
+
+    product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
+    assert_includes product_id_list, no_replied_product.id
+  end
+
+  test '.self_assigned_no_replied_products not include wip products' do
+    mentor = users(:mentormentaro)
+    no_replied_wip_product = Product.create!(
       body: 'test',
-      user: student,
-      practice: practices(:practice7),
-      checker_id: nil,
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: mentor.id,
+      published_at: Time.current.to_formatted_s(:db),
       wip: true
     )
-    published_product.save_checker(mentor.id)
-    wip_product.save_checker(mentor.id)
 
-    self_assigned_no_replied_products = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
-    assert_not_equal [wip_product.id], self_assigned_no_replied_products
-    assert_equal [published_product.id], self_assigned_no_replied_products
+    product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
+    assert_not_includes product_id_list, no_replied_wip_product.id
   end
 end
