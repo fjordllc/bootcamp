@@ -127,20 +127,12 @@ comment41:
   commentable: announcement1 (Announcement)
   description: "お知らせのコメントです。"
 
-<% (1..3).each do |i| %>
-comment<%= i + 41 %>:
-  user: <%= i.odd? ? 'kimura' : 'mentormentaro' %>
+comment42:
+  user: kimura
   commentable: product73 (Product)
-  description: <%= "#{i.odd? ? '提出者' : 'メンター'}のコメントです。" %>
-  created_at: <%= Time.current + i.minutes %>
-  updated_at: <%= Time.current + i.minutes %>
-<% end %>
+  description: "提出者のコメントです。"
 
-<% (1..3).each do |i| %>
-comment<%= i + 45 %>:
-  user: <%= i.even? ? 'kimura' : 'mentormentaro' %>
+comment43:
+  user: mentormentaro
   commentable: product74 (Product)
-  description: <%= "#{i.even? ? '提出者' : 'メンター'}のコメントです。" %>
-  created_at: <%= Time.current + i.minutes %>
-  updated_at: <%= Time.current + i.minutes %>
-<% end %>
+  description: "メンターのコメントです。"
