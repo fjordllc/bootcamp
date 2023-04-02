@@ -50,7 +50,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_equal new_page_path, current_path
     fill_in 'page[title]', with: '新規Docを作成する'
     fill_in 'page[body]', with: '新規Docを作成する本文です'
-    click_button '内容を保存'
+    click_button 'Docを公開'
     assert_text 'ドキュメントを作成しました。'
     assert_text 'Watch中'
   end
@@ -258,7 +258,7 @@ class PagesTest < ApplicationSystemTestCase
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
     click_button 'Docを公開'
 
-    assert_text 'ページを作成しました'
+    assert_text 'ドキュメントを作成しました。'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れて新規Docを作成」の本文です。'
   end
