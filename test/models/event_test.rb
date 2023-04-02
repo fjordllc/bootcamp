@@ -130,4 +130,15 @@ class EventTest < ActiveSupport::TestCase
     event.open_end_at = event.end_at + 1.day
     assert event.invalid?
   end
+
+  test '.not_wip?' do
+    event = events(:event1)
+    assert event.not_wip?
+  end
+
+  test '.can_move_up_the_waitlist?' do
+    event = events(:event3)
+    event.update(capacity: 10)
+    assert event.can_move_up_the_waitlist?
+  end
 end
