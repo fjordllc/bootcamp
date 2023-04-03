@@ -26,6 +26,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Footprintable
   include Reactionable
   include Watchable
+  include Searchable
 
   enum category: {
     reading_circle: 0,
@@ -63,6 +64,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
            through: :regular_event_participations,
            source: :user
   has_many :watches, as: :watchable, dependent: :destroy
+
+  columns_for_keyword_search :title, :description
 
   def organizers
     users.with_attached_avatar.order('organizers.created_at')

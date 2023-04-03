@@ -10,6 +10,7 @@ class Searcher
     ['Q&A', :questions],
     ['Docs', :pages],
     ['イベント', :events],
+    ['定期イベント', :regular_events],
     ['ユーザー', :users]
   ].freeze
 
@@ -49,7 +50,7 @@ class Searcher
     end
 
     def model_name(type)
-      type.to_s.capitalize.singularize
+      type.to_s.classify.singularize
     end
 
     def result_for_all(word)
