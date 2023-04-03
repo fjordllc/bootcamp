@@ -67,16 +67,8 @@ class Event < ApplicationRecord
     users.where('participations.enable = false').order(created_at: :asc)
   end
 
-  def participants_count
-    participants.count
-  end
-
-  def waitlist_count
-    waitlist.count
-  end
-
   def can_participate?
-    participants_count < capacity
+    participants.count < capacity
   end
 
   def cancel_participation!(user)
@@ -121,7 +113,7 @@ class Event < ApplicationRecord
   end
 
   def can_move_up_the_waitlist?
-    waitlist_count.positive? && can_participate?
+    waitlist.count.positive? && can_participate?
   end
 
   def not_wip?
