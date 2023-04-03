@@ -584,6 +584,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
     t.boolean "wip", default: false, null: false
     t.integer "category", default: 0, null: false
     t.boolean "all", default: false, null: false
+    t.datetime "published_at"
     t.index ["user_id"], name: "index_regular_events_on_user_id"
   end
 
