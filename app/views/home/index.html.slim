@@ -3,16 +3,16 @@
 = render 'page_tabs', user: current_user
 
 .page-body.is-dash-board
-  - if [@events_coming_soon, @regular_events_holding_today_for_current_user, @regular_events_holding_tomorrow_for_current_user].any?(&:present?)
+  - if [@events_coming_soon, @today_regular_events, @tomorrow_regular_events].any?(&:present?)
     #events_on_dashboard.confirmed_event
       .page-notices
         - if @events_coming_soon.present? && current_user.job_seeker
           = render partial: 'event', collection: @events_coming_soon, as: :event
         - if @events_coming_soon_except_job_hunting.present? && !current_user.job_seeker
           = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
-        - @regular_events_holding_today_for_current_user.each do |regular_event|
+        - @today_regular_events.each do |regular_event|
             = render partial: 'regular_event', locals: { regular_event: regular_event, date: Date.current }
-        - @regular_events_holding_tomorrow_for_current_user.each do |regular_event|
+        - @tomorrow_regular_events.each do |regular_event|
             = render partial: 'regular_event', locals: { regular_event: regular_event, date: Date.tomorrow }
 
   - if current_user.adviser?

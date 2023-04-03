@@ -64,13 +64,13 @@ class HomeController < ApplicationController
 
   def display_regular_events_on_dashboard
     cookies_ids = JSON.parse(cookies[:confirmed_regular_event_ids]) if cookies[:confirmed_regular_event_ids]
-    @regular_events_holding_today_for_current_user, @regular_events_holding_tomorrow_for_current_user =
+    @today_regular_events, @tomorrow_regular_events =
       [RegularEvent.today_events, RegularEvent.tomorrow_events].map do |regular_events|
         regular_events.select { |event| event.participated_by?(current_user) }
       end
 
     cookies_ids&.each do |id|
-      [@regular_events_holding_today_for_current_user, @regular_events_holding_tomorrow_for_current_user].each do |regular_events|
+      [@today_regular_events, @tomorrow_regular_events].each do |regular_events|
         regular_events.delete_if do |event|
           event.id == id.to_i
         end
