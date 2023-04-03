@@ -101,7 +101,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/subscriptions
     body:
       encoding: UTF-8
-      string: customer=cus_12345678&trial_end=1672758000&items[0][plan]=price_1J0hhTBpeWcLFd8ffLjm4nKO
+      string: customer=cus_12345678&items[0][plan]=price_1J0hhTBpeWcLFd8ffLjm4nKO&trial_end=1672758000
     headers:
       User-Agent:
       - Stripe/v1 RubyBindings/4.5.0
