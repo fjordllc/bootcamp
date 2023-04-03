@@ -123,6 +123,11 @@ comment41:
   commentable: report71 (Report)
   description: "長い名前のメンター"
 
+comment42:
+  user: mentormentaro
+  commentable: regular_event27 (RegularEvent)
+  description: "テスト用 regular_event27へのコメント"
+
 <% (1..20).each do |i| %>
 comment<%= i + 19 %>:
   user: komagata

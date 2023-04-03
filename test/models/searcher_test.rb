@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class SearchableTest < ActiveSupport::TestCase
-  SEARCHABLE_CLASSES = [Report, Page, Practice, Question, Announcement, Event, Comment, Answer, CorrectAnswer, User].freeze
+  SEARCHABLE_CLASSES = [Report, Page, Practice, Question, Announcement, Event, RegularEvent, Comment, Answer, CorrectAnswer, User].freeze
 
   def assert_includes_classes(results, *expected_classes)
     actual_classes = results.map(&:class).map(&:name).uniq
@@ -18,12 +18,12 @@ class SearchableTest < ActiveSupport::TestCase
 
   test "returns all types when document_type argument isn't specified" do
     results = Searcher.search('テスト')
-    assert_includes_classes(results, Report, Page, Practice, Question, Announcement, Event, Comment, Answer, CorrectAnswer, User)
+    assert_includes_classes(results, Report, Page, Practice, Question, Announcement, Event, RegularEvent, Comment, Answer, CorrectAnswer, User)
   end
 
   test 'returns all types when document_type argument is :all' do
     results = Searcher.search('テスト', document_type: :all)
-    assert_includes_classes(results, Report, Page, Practice, Question, Announcement, Event, Comment, Answer, CorrectAnswer, User)
+    assert_includes_classes(results, Report, Page, Practice, Question, Announcement, Event, RegularEvent, Comment, Answer, CorrectAnswer, User)
   end
 
   test 'returns only report type when document_type argument is :reports' do
@@ -54,6 +54,11 @@ class SearchableTest < ActiveSupport::TestCase
   test 'returns only event type when document_type argument is :events' do
     results = Searcher.search('テスト', document_type: :events)
     assert_includes_classes(results, Event, Comment)
+  end
+
+  test 'returns only event type when document_type argument is :regular_events' do
+    results = Searcher.search('テスト', document_type: :regular_events)
+    assert_includes_classes(results, RegularEvent, Comment)
   end
 
   test 'returns only announcement type when document_type argument is :users' do
@@ -179,7 +184,7 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, comments(:comment13))
     assert_includes(result, comments(:comment14))
     assert_includes(result, comments(:comment16))
-    assert_equal(29, result.size)
+    assert_equal(30, result.size)
   end
 
   test 'can not search a comment of talk' do
