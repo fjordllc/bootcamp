@@ -13,13 +13,13 @@ class Subscription
   end
 
   def create(customer_id, idempotency_key = SecureRandom.uuid, trial: 3)
-    Stripe::Subscription.create({
-                                  customer: customer_id,
-                                  trial_end: trial.days.since.to_i,
-                                  items: [{ plan: Plan.standard_plan.id }]
-                                }, {
-                                  idempotency_key: idempotency_key
-                                })
+    options = {
+      customer: customer_id,
+      items: [{ plan: Plan.standard_plan.id }]
+    }
+    options[:trial_end] = trial.days.since.to_i if trial.positive?
+
+    Stripe::Subscription.create(options, { idempotency_key: idempotency_key })
   end
 
   def destroy(subscription_id)
