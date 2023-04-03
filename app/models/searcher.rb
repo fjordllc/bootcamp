@@ -53,7 +53,10 @@ class Searcher
     end
 
     def result_for_all(word)
-      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
+      AVAILABLE_TYPES
+        .flat_map { |type| result_for(type, word) }
+        .sort_by(&:updated_at)
+        .reverse
     end
 
     def result_for_comments(document_type, word)
