@@ -97,7 +97,7 @@ class EventsController < ApplicationController
   end
 
   def update_published_at
-    return if @event.wip || !@event.published_at?
+    return if @event.wip || @event.published_at?
 
     @event.published_at = Time.current
   end
