@@ -50,7 +50,7 @@ class Searcher
     end
 
     def model_name(type)
-      type.to_s.classify.singularize
+      type.to_s.camelize.singularize
     end
 
     def result_for_all(word)
