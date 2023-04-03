@@ -4,19 +4,19 @@ class LearningStatusUpdater
   def call(product_or_associated_object)
     case product_or_associated_object
     when Product
-      update_with_submission(product_or_associated_object)
+      update_after_submission(product_or_associated_object)
     when Check
-      update_with_check(product_or_associated_object)
+      update_after_check(product_or_associated_object)
     end
   end
 
-  def update_with_check(check)
+  def update_after_check(check)
     return unless check.checkable_type == 'Product'
 
     check.checkable.change_learning_status(:complete)
   end
 
-  def update_with_submission(product)
+  def update_after_submission(product)
     previous_learning = Learning.find_or_initialize_by(
       user_id: product.user.id,
       practice_id: product.practice.id
