@@ -150,6 +150,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       holding_events = RegularEvent.holding
       holding_events.select(&:holding_tomorrow?)
     end
+
+    def comming_soon_events(user)
+      [today_events, tomorrow_events].map do |regular_events|
+        regular_events.select { |event| event.participated_by?(user) }
+      end
+    end
+
+    def remove_events(events_arr, id)
+      events_arr.each do |events|
+        events.delete_if do |event|
+          event.id == id.to_i
+        end
+      end
+    end
   end
 
   private
