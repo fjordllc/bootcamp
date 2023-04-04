@@ -95,4 +95,4 @@
                         class: 'a-button is-sm is-danger is-block'
             / ユーザー削除の表示
             - if @user.id != current_user.id && current_user.admin?
-              = link_to '削除', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-button is-sm is-danger is-icon', data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
+              = link_to '削除', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: '', data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
