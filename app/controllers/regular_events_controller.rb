@@ -20,6 +20,7 @@ class RegularEventsController < ApplicationController
     @regular_event = RegularEvent.new(regular_event_params)
     @regular_event.user = current_user
     set_wip
+    set_publised_at
     if @regular_event.save
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
@@ -75,6 +76,12 @@ class RegularEventsController < ApplicationController
 
   def set_wip
     @regular_event.wip = (params[:commit] == 'WIP')
+  end
+
+  def set_publised_at
+    return if @regular_event.wip || @regular_event.published_at?
+
+    @regular_event.published_at = Time.current
   end
 
   def notice_message(regular_event)
