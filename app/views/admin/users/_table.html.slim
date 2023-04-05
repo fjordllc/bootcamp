@@ -28,36 +28,49 @@
     tbody.admin-table__items
       - users.each do |user|
         - next if params[:target] == 'campaign' && user.adviser?
-        tr.admin-table__item class="#{user.retired_on? ? 'is-retired' : '' }"
-          td.admin-table__item-value.is-text-align-center
-            - if user.admin?
+        tr.admin-table__item class="#{user.retired_on? ? 'is-retired' : '' } #{user.hibernated? ? 'is-retired' : '' }"
+          td.admin-table__item-value
+            - if user.admin? && user.mentor?
+              span.admin-table__role
+                | 管理者 / メンター
+            - elsif user.adviser && user.graduated_on?
+              span.admin-table__role
+                | アドバイザー / 卒業生
+            - elsif user.mentor? && user.graduated_on?
+              span.admin-table__role
+                | メンター / 卒業生
+            - elsif user.admin?
               span.admin-table__role
                 | 管理者
-            - if user.mentor?
+            - elsif user.mentor?
               span.admin-table__role
                 | メンター
             - elsif user.adviser
               span.admin-table__role
                 | アドバイザー
-            - elsif user.trainee
+            - elsif user.hibernated?
               span.admin-table__role
-                | 研修生
+                | 休会
             - elsif user.retired_on?
               span.admin-table__role
                 | 退会
+            - elsif user.trainee
+              span.admin-table__role
+                | 研修生
             - elsif user.graduated_on?
               span.admin-table__role
                 | 卒業生
             - else
               span.admin-table__role
                 | 現役生
+            - unless user.hibernated? || user.retired_on?
+              - unless user.active?
+                span.a-badge.is-secondary.is-xs
+                  | 非ア
           td.admin-table__item-value
             = link_to user, class: 'admin-table__user', target: '_blank', rel: 'noopener' do
               span(class="a-user-role  is-#{user.primary_role}")
                 = image_tag user.avatar_url, title: user.icon_title, class: 'admin-table__user-icon a-user-icon'
-              - unless user.active?
-                span.a-badge.is-danger.is-xs
-                  | 非アクティブ
               span.admin-table__user-login-name
                 = user.login_name
                 | （#{user.name}）
