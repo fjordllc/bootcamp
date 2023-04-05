@@ -2,7 +2,7 @@
 
 class Practices::CompletionController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
-  layout 'completion'
+  layout 'not_logged_in'
 
   def show
     @practice = Practice.find(params[:practice_id])
