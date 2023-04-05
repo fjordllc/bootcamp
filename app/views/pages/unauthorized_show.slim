@@ -1,27 +1,16 @@
 - title @page.title
-- content_for :extra_body_classes, 'no-header no-footer no-global-nav'
+- content_for :extra_body_classes
 
 .page-body
-  .not-logged-in
-    .not-logged-in__header
-      .container
-        h1.not-logged-in__title
-          | ドキュメント
-          br
-          | 「#{title}」
-    .not-logged-in__body
+  article.unauthorized
+    = render '/unauthorized/unauthorized_header', label: 'ドキュメント', title: title
+    .unauthorized__body
       .container.is-md
         .unauthorized__contents
           .unauthorized__content
-            .unauthorized__join-us
-              p
-                | このページの閲覧にはフィヨルドブートキャンプの入会が必要です🙇‍♂️
-              p
-                | ブートキャンプに登録するかログインしてください
+            = render '/unauthorized/must_be_enrolled'
+          hr.unauthorized__content-separalor
           .unauthorized__content
-            nav.join-us-nav
-              ul.join-us-nav__items
-                  li.join-us-nav__item.is-main
-                    = link_to 'フィヨルドブートキャンプとは？', root_path, class: 'join-us-nav__item-link a-welcome-button is-md is-primary is-block'
-                  li.join-us-nav__item.is-sub
-                    = link_to 'ログインはこちらから', login_path, class: 'join-us-nav__item-link a-reversal-text-link'
+            = render '/unauthorized/about_fbc'
+          .unauthorized__content
+            = render '/unauthorized/join_us'

@@ -24,7 +24,7 @@ class PagesController < ApplicationController
     if logged_in?
       render :show
     else
-      render :unauthorized_show
+      render :unauthorized_show, layout: 'not_logged_in'
     end
   end
 
