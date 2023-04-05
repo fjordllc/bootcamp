@@ -7,8 +7,6 @@ class PracticesController < ApplicationController
   skip_before_action :require_active_user_login, only: %i[show]
 
   def show
-    render layout: 'not_logged_in', template: 'practices/index_not_auth/index', locals: { title: @practice.title } unless logged_in?
-
     @categories = @practice.categories
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @common_page = Page.find_by(slug: 'practice_common_description')
@@ -17,7 +15,7 @@ class PracticesController < ApplicationController
     if logged_in?
       render :show
     else
-      render :unauthorized_show
+      render :unauthorized_show, layout: 'not_logged_in'
     end
   end
 

@@ -11,6 +11,8 @@
     opacity: .075
     +media-breakpoint-up(md)
       background-size: 22rem auto
+    +media-breakpoint-down(sm)
+      background-size: 16rem auto
   body.is-completion &::before
     content: ''
     background-image: url('completion/completion_background.svg')

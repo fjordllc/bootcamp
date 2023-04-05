@@ -91,6 +91,18 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
   &:active
     color: hsl(20, 88%, 37%)
 
+=reversal-link
+  transition: color .2s ease-in
+  color: $reversal-text
+  &:link
+    color: $reversal-text
+  &:visited
+    color: hsl(248, 62%, 74%)
+  &:hover
+    color: hsl(210, 100%, 80%)
+  &:active
+    color: hsl(316, 90%, 66%)
+
 =muted-link
   transition: color .2s ease-in
   color: $muted-text

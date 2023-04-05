@@ -11,15 +11,17 @@
           | 「#{title}」
     .not-logged-in__body
       .container.is-md
-        .join-us
-          .join-us__body
-            p
-              | 閲覧にはフィヨルドブートキャンプの入会が必要です🙇‍♂️
-            p
-              | ブートキャンプに登録するかログインしてください
-          nav.join-us-nav
-            ul.join-us-nav__items
-                li.join-us-nav__item
-                  = link_to '登録はこちら', new_user_path, class: 'a-welcome-button is-md is-primary'
-                li.join-us-nav__item
-                  = link_to 'ログインはこちら', login_path, class: ''
+        .unauthorized__contents
+          .unauthorized__content
+            .unauthorized__join-us
+              p
+                | このページの閲覧にはフィヨルドブートキャンプの入会が必要です🙇‍♂️
+              p
+                | ブートキャンプに登録するかログインしてください
+          .unauthorized__content
+            nav.join-us-nav
+              ul.join-us-nav__items
+                  li.join-us-nav__item.is-main
+                    = link_to 'フィヨルドブートキャンプとは？', root_path, class: 'join-us-nav__item-link a-welcome-button is-md is-primary is-block'
+                  li.join-us-nav__item.is-sub
+                    = link_to 'ログインはこちらから', login_path, class: 'join-us-nav__item-link a-reversal-text-link'
