@@ -35,10 +35,12 @@ class RegularEventsController < ApplicationController
 
   def update
     set_wip
+    set_publised_at
     if @regular_event.update(regular_event_params)
       Newspaper.publish(:regular_event_update, @regular_event)
       set_all_user_participants_and_watchers
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      path = @regular_event.announced? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      redirect_to path, notice: notice_message(@regular_event)
     else
       render :edit
     end
