@@ -24,7 +24,7 @@ class RegularEventsController < ApplicationController
     if @regular_event.save
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
-      path = @regular_event.announced? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
       redirect_to path, notice: notice_message(@regular_event)
     else
       render :new
@@ -39,7 +39,7 @@ class RegularEventsController < ApplicationController
     if @regular_event.update(regular_event_params)
       Newspaper.publish(:regular_event_update, @regular_event)
       set_all_user_participants_and_watchers
-      path = @regular_event.announced? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
       redirect_to path, notice: notice_message(@regular_event)
     else
       render :edit
@@ -63,7 +63,7 @@ class RegularEventsController < ApplicationController
       :end_at,
       :category,
       :all,
-      :announced,
+      :wants_announcement,
       user_ids: [],
       regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
