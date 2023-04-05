@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
   before_action :redirect_to_slug, only: %i[show edit]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   SIDE_LINK_LIMIT = 20
 
@@ -19,6 +20,12 @@ class PagesController < ApplicationController
 
   def show
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new

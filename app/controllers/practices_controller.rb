@@ -4,12 +4,19 @@ class PracticesController < ApplicationController
   before_action :require_admin_or_mentor_login, only: %i[new create edit update]
   before_action :set_course, only: %i[new]
   before_action :set_practice, only: %i[show edit update]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   def show
     @categories = @practice.categories
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @common_page = Page.find_by(slug: 'practice_common_description')
     @common_page = nil if @common_page&.wip?
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new

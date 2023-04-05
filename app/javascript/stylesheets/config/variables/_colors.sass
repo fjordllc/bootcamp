@@ -2,7 +2,8 @@ $main: hsl(248, 51%, 48%)
 $accent: hsl(44, 96%, 54%)
 $base: white
 $background: hsl(248, 33%, 97%)
-$completion: rgb(0, 160, 221)
+$completion: hsl(197deg 83% 49%)
+$completion-dark: rgb(0 0 0 / 20%)
 
 // background
 $background-shade: hsl(248, 11%, 85%)
@@ -89,6 +90,18 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
     color: hsl(215, 78%, 50%)
   &:active
     color: hsl(20, 88%, 37%)
+
+=reversal-link
+  transition: color .2s ease-in
+  color: $reversal-text
+  &:link
+    color: $reversal-text
+  &:visited
+    color: hsl(248, 62%, 74%)
+  &:hover
+    color: hsl(210, 100%, 80%)
+  &:active
+    color: hsl(316, 90%, 66%)
 
 =muted-link
   transition: color .2s ease-in

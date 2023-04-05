@@ -1,0 +1,31 @@
+.not-logged-in-wrapper
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  &::before
+    content: ''
+    background-image: url('shared/background.svg')
+    background-repeat: repeat
+    +position(fixed, left 0, top 0, right 0, bottom 0, 1)
+    +size(100%)
+    opacity: .075
+    +media-breakpoint-up(md)
+      background-size: 22rem auto
+    +media-breakpoint-down(sm)
+      background-size: 16rem auto
+  body.is-completion &::before
+    content: ''
+    background-image: url('completion/completion_background.svg')
+    background-repeat: repeat
+    +position(fixed, left 0, top 0, right 0, bottom 0, 1)
+    +size(100%)
+    opacity: .075
+    +media-breakpoint-up(md)
+      background-size: 16rem auto
+
+.not-logged-in-wrapper__start
+  flex: 1
+  +position(relative, 2)
+
+.not-logged-in-wrapper__end
+  +position(relative, 2)

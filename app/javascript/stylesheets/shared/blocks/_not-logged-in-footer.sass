@@ -1,0 +1,65 @@
+.not-logged-in-footer
+  +media-breakpoint-up(md)
+    +padding(vertical, 3rem)
+  +media-breakpoint-down(md)
+    padding-bottom: 1.5rem
+    .container
+      +padding(horizontal, 0)
+
+.not-logged-in-footer__nav
+  margin-bottom: 1.5rem
+
+.not-logged-in-footer__nav-items
+  +media-breakpoint-up(lg)
+    gap: 1rem
+    justify-content: center
+  +media-breakpoint-up(md)
+    display: flex
+    flex-wrap: wrap
+  +media-breakpoint-down(md)
+    border-top: solid 1px rgba($border, 10%)
+    body.is-welcome &
+      border-top: none
+
+.not-logged-in-footer__nav-item
+  +media-breakpoint-only(md)
+    flex: 50% 0 0
+    border-bottom: solid 1px rgba($border, 10%)
+    &:nth-child(odd)
+      border-right: solid 1px rgba($border, 10%)
+  +media-breakpoint-down(sm)
+    border-bottom: solid 1px rgba($border, 10%)
+  body.is-welcome &
+    border-color: $border
+
+
+.not-logged-in-footer__nav-item-link
+  +text-block(.875rem 1, $reversal-text)
+  +media-breakpoint-up(md)
+    +hover-link
+  +media-breakpoint-down(md)
+    text-decoration: none
+    display: flex
+    align-items: center
+    +padding(horizontal, 1rem)
+    +size(100% 2.75rem)
+  body.is-welcome &
+    color: $default-text
+
+.not-logged-in-footer-copyright
+  justify-content: center
+  align-items: center
+  +text-block(.875rem 1.45, flex $reversal-text)
+  gap: .25rem
+  body.is-welcome &
+    color: $default-text
+
+.not-logged-in-footer-copyright__author
+  display: block
+
+.not-logged-in-footer-copyright__author-link
+  +hover-link
+  color: $reversal-text
+  margin-right: .5em
+  body.is-welcome &
+    color: $default-text

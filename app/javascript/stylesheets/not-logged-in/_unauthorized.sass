@@ -1,0 +1,33 @@
+.unauthorized
+  +media-breakpoint-up(md)
+    +padding(vertical, 3rem 2rem)
+  +media-breakpoint-down(sm)
+    +padding(vertical, 2rem)
+
+.unauthorized__body
+  +media-breakpoint-up(md)
+    margin-top: 3rem
+  +media-breakpoint-down(sm)
+    margin-top: 2rem
+
+.unauthorized__contents
+  background-color: rgba(black, 30%)
+  border-radius: .25rem
+
+.unauthorized__content
+  color: $reversal-text
+  +media-breakpoint-up(md)
+    padding: 1.5rem
+  +media-breakpoint-down(sm)
+    padding: 1rem
+  & + .unauthorized__content
+    padding-top: 0
+
+.unauthorized__content-separalor
+  border-top: dashed 1px rgb(white, 10%)
+
+.must-be-enrolled
+  +media-breakpoint-up(md)
+    +text-block(1rem 1.8, center)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.8)
