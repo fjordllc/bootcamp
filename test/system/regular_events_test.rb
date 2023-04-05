@@ -238,4 +238,29 @@ class RegularEventsTest < ApplicationSystemTestCase
       assert_selector 'a[href*="regular_events"]'
     end
   end
+
+  test 'redirect to /announcements/new when publishing a regular event from WIP with announcement checkbox checked' do
+    visit_with_auth new_regular_event_path, 'komagata'
+    within 'form[name=regular_event]' do
+      fill_in 'regular_event[title]', with: 'WIPの定期イベント'
+      first('.choices__inner').click
+      find('#choices--js-choices-multiple-select-item-choice-1').click
+      within('.regular-event-repeat-rule') do
+        first('.regular-event-repeat-rule__frequency select').select('毎週')
+        first('.regular-event-repeat-rule__day-of-the-week select').select('月曜日')
+      end
+      fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
+      fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
+      fill_in 'regular_event[description]', with: 'WIPです'
+      assert_difference 'RegularEvent.count', 1 do
+        click_button 'WIP'
+      end
+    end
+    assert_text '定期イベントをWIPとして保存しました。'
+    click_link '内容修正'
+    check '定期イベント公開のお知らせを書く', allow_label_click: true
+    click_button '内容変更'
+    assert_text '定期イベントを更新しました。'
+    assert has_field?('announcement[title]', with: 'WIPの定期イベントを開催します🎉')
+  end
 end
