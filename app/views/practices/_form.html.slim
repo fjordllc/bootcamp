@@ -15,10 +15,15 @@
             = b.label { b.text }
   .form-item
     .row.js-markdown-parent
-      .col-md-12.col-xs-12
+      .col-md-6.col-xs-12
         = f.label :summary, class: 'a-form-label'
         = f.text_area :summary,
-          class: 'a-text-input js-warning-form markdown-form__text-area js-markdown'
+          class: 'a-text-input is-md js-warning-form'
+        .a-form-help
+          p
+            | プラクティスの概要、目的、これを習得することでできるようになることなどを入力してください。
+            br
+            | 未ログインでプラクティスページでアクセスしたときも、ここに入力した情報は表示されます。
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12

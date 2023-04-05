@@ -4,5 +4,5 @@
       = Practice.human_attribute_name :summary
   .card-body.is-practice
     .card__description
-      .a-long-text.is-md.js-markdown-view
-        = practice.summary
+      .a-long-text.is-md
+        = simple_format(practice.summary)
