@@ -45,13 +45,15 @@
   background-color: $base
   &.is-retired
     background-color: $background-tint
+  &.is-retired:hover
+    background-color: $background
   &:last-child
     +border-radius(bottom, .25rem)
   &.sortable-chosen
     background-color: tint($warning, 80%)
   &:hover,
   .admin-table.is-grab &:hover
-    background-color: tint($warning, 90%)
+    background-color: tint($primary, 90%)
   &[draggable="false"]
     background-color: $base
     animation: grab-background-color 1.25s ease 0s 1 normal none running
@@ -84,6 +86,12 @@
   background-color: $base
   box-shadow: rgba(black, .2) 0 1px 4px
   overflow: hidden
+
+.admin-table__user
+  display: inline-flex
+  align-items: center
+  flex-wrap: wrap
+  gap: .25rem .25rem
 
 .admin-table__user-icon
   +size(2.125rem)
