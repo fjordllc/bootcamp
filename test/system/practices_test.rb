@@ -268,11 +268,18 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test 'show a summary if the practice has a summary data' do
-    practice = practices(:practice58)
-    visit_with_auth practice_path(practice), 'komagata'
+    visit_with_auth new_practice_path, 'komagata'
+    within 'form[name=practice]' do
+      fill_in 'practice[title]', with: '概要表示テスト用'
+      check categories(:category1).name, allow_label_click: true
+      fill_in 'practice[summary]', with: '概要の内容'
+      fill_in 'practice[description]', with: 'description...'
+      fill_in 'practice[goal]', with: 'goal...'
+      click_button '登録する'
+    end
 
     assert_selector '.card-header', text: '概要'
-    assert_text practice.summary
+    assert_selector '.card-body', text: '概要の内容'
   end
 
   test 'not show a summary if the practice does not has a summary data' do
@@ -280,5 +287,21 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth practice_path(practice), 'komagata'
 
     assert_no_selector '.card-header', text: '概要'
+  end
+
+  test 'in summary of the practice, markdown, javascript, and html tags are escaped' do
+    escape_text = <<~TEXT
+      # マークダウン
+      <script>alert('XSS')</script>
+      <h1>HTMLタグ</h1>
+    TEXT
+
+    visit_with_auth edit_practice_path(practices(:practice1)), 'komagata'
+    within 'form[name=practice]' do
+      fill_in 'practice[summary]', with: escape_text.chop
+      click_button '更新する'
+    end
+
+    assert_equal escape_text.chop, first('.card-body.is-practice').text
   end
 end
