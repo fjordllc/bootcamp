@@ -63,8 +63,7 @@
             - else
               span.admin-table__role
                 | 現役生
-            - if !user.hibernated? || !user.retired_on?
-              - if !user.active?
+            - if !user.active? && (!user.hibernated? || !user.retired_on?)
                 span.a-badge.is-secondary.is-xs
                   | 非ア
           td.admin-table__item-value
