@@ -11,6 +11,13 @@ class AnnouncementsController < ApplicationController
   def new
     @announcement = Announcement.new(target: 'students')
 
+    if params[:page_id]
+      page = Page.find(params[:page_id])
+      page_url = "https://bootcamp.fjord.jp/pages/#{params[:page_id]}"
+      @announcement.title       = "ドキュメント「#{page.title}」を公開しました。"
+      @announcement.description = "<!--  このテキストを編集してください-->\n\nドキュメント「#{page.title}」を公開しました。\n#{page_url}\n\n<!--  不要な場合以下は削除 -->\n---\n\n#{page.description}"
+    end
+
     return unless params[:id]
 
     announcement = Announcement.find(params[:id])

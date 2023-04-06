@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
   before_action :redirect_to_slug, only: %i[show edit]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   SIDE_LINK_LIMIT = 20
 
@@ -19,6 +20,12 @@ class PagesController < ApplicationController
 
   def show
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new
@@ -29,15 +36,16 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
-    if @page.user
-      @page.last_updated_user = current_user
-    else
-      @page.user = current_user
-    end
+    @page.last_updated_user = current_user
+    @page.user ||= current_user
     set_wip
     if @page.save
-      Newspaper.publish(:page_create, @page) unless @page.wip?
-      redirect_to @page, notice: notice_message(@page, :create)
+      url = page_url(@page)
+      if @page.not_wip?
+        Newspaper.publish(:page_create, @page)
+        url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
+      end
+      redirect_to url, notice: notice_message(@page, :create)
     else
       render :new
     end
@@ -47,8 +55,12 @@ class PagesController < ApplicationController
     set_wip
     @page.last_updated_user = current_user
     if @page.update(page_params)
-      Newspaper.publish(:page_update, @page) if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
-      redirect_to @page, notice: notice_message(@page, :update)
+      url = page_url(@page)
+      if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
+        Newspaper.publish(:page_update, @page)
+        url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
+      end
+      redirect_to url, notice: notice_message(@page, :update)
     else
       render :edit
     end
@@ -66,7 +78,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    keys = %i[title body tag_list practice_id slug]
+    keys = %i[title body tag_list practice_id slug announcement_of_publication]
     keys << :user_id if admin_or_mentor_login?
     params.require(:page).permit(*keys)
   end
@@ -80,7 +92,7 @@ class PagesController < ApplicationController
 
     case action_name
     when :create
-      'ページを作成しました。'
+      'ドキュメントを作成しました。'
     when :update
       'ページを更新しました。'
     end

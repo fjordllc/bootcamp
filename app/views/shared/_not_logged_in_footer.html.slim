@@ -1,0 +1,30 @@
+footer.not-logged-in-footer
+  .container.is-xxl
+    nav.not-logged-in-footer__nav
+      ul.not-logged-in-footer__nav-items
+        li.not-logged-in-footer__nav-item
+          = link_to root_path, class: 'not-logged-in-footer__nav-item-link' do
+            | フィヨルドブートキャンプ
+        li.not-logged-in-footer__nav-item
+          = link_to tos_path, class: 'not-logged-in-footer__nav-item-link' do
+            | 利用規約
+        li.not-logged-in-footer__nav-item
+          = link_to pp_path, class: 'not-logged-in-footer__nav-item-link' do
+            | プライバシーポリシー
+        li.not-logged-in-footer__nav-item
+          = link_to law_path, class: 'not-logged-in-footer__nav-item-link' do
+            | 特定商取引法に基づく表記
+        li.not-logged-in-footer__nav-item
+          = link_to 'https://fjord.jp', class: 'not-logged-in-footer__nav-item-link', target: '_blank', rel: 'noopener' do
+            | 会社概要
+        li.not-logged-in-footer__nav-item
+          = link_to coc_path, class: 'not-logged-in-footer__nav-item-link' do
+            | アンチハラスメントポリシー
+        li.not-logged-in-footer__nav-item
+          = link_to new_comeback_path, class: 'not-logged-in-footer__nav-item-link' do
+            | 休会からの復帰
+    small.not-logged-in-footer-copyright
+      i.fa-regular.fa-copyright
+      span.not-logged-in-footer-copyright__author
+        = link_to 'Fjord Inc.', 'https://fjord.jp', target: '_blank', rel: 'noopener', class: 'not-logged-in-footer-copyright__author-link'
+      | 2012 - #{Date.current.year}

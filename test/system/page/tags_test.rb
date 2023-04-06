@@ -19,7 +19,7 @@ class Page::TagsTest < ApplicationSystemTestCase
         tag_input.set tag
         tag_input.native.send_keys :return
       end
-      click_on '内容を保存'
+      click_on 'Docを公開'
     end
     click_on 'Docs', match: :first
 
