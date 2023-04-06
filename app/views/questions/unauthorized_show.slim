@@ -1,0 +1,16 @@
+- title @question.title
+- content_for :extra_body_classes
+
+.page-body
+  article.unauthorized
+    = render '/unauthorized/unauthorized_header', label: 'Q&A', title: title
+    .unauthorized__body
+      .container.is-md
+        .unauthorized__contents
+          .unauthorized__content
+            = render '/unauthorized/must_be_enrolled'
+          hr.unauthorized__content-separalor
+          .unauthorized__content
+            = render '/unauthorized/about_fbc'
+          .unauthorized__content
+            = render '/unauthorized/join_us'

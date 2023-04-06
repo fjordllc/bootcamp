@@ -28,7 +28,7 @@ class ActivityNotifierTest < ActiveSupport::TestCase
     @create_page_params = {
       body: 'test Docs',
       kind: :create_pages,
-      sender: users(:hajime),
+      sender: users(:mentormentaro),
       receiver: users(:komagata),
       link: 'pages',
       read: false,

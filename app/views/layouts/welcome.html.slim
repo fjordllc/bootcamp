@@ -34,5 +34,5 @@ html.is-application lang='ja'
         main.welcome-page
           = yield
       = render 'welcome/form'
-      = render 'welcome/welcome_footer'
+      = render 'shared/not_logged_in_footer'
     = any_login_here if defined?(AnyLogin)

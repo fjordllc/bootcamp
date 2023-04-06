@@ -18,6 +18,7 @@ class Page < ApplicationRecord
   validates :slug, length: { maximum: 200 }, format: { with: /\A[a-z][a-z0-9_-]*\z/ }, uniqueness: true, allow_nil: true
   paginates_per 20
   alias sender user
+  attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :body
 
@@ -26,6 +27,10 @@ class Page < ApplicationRecord
   def self.search_by_slug_or_id!(params)
     attr_name = params.start_with?(/[a-z]/) ? :slug : :id
     Page.find_by!(attr_name => params)
+  end
+
+  def not_wip?
+    !wip?
   end
 
   private

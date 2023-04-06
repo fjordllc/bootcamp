@@ -12,11 +12,13 @@ body
     background-color: $background
   &.is-welcome
     background-color: $background
+  &.is-not-logged-in
+    background-color: $main
   &.is-completion
     background-color: $completion
   &.is-piyo-background
     background-color: $main
-    background-image: url('error-background-main-color.svg')
+    background-image: url(https://bootcamp.fjord.jp/images/background/error-background-main-color.svg)
     background-repeat: repeat
     overflow-y: auto
     +media-breakpoint-up(md)
@@ -38,6 +40,8 @@ body
       padding-top: $header-height__md-up
   body.no-global-nav &
     margin-left: 0
+  body.no-header &
+    padding-top: 0
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto

@@ -33,6 +33,10 @@
   &.is-xs
     +button-size(.625rem, 1, .5)
     font-weight: 500
+    &:not(:first-child)
+      margin-left: .5em
+    &:not(:last-child)
+      margin-right: .5em
   &.is-sm
     +button-size(.6875rem, 1, .5)
     font-weight: 600

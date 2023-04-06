@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
@@ -43,6 +44,12 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html
       format.md
+    end
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
     end
   end
 
