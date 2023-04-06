@@ -9,7 +9,7 @@
       :key='product.id',
       :product='product',
       :current-user-id='currentUserId',
-      :is-mentor=false)
+      :is-mentor='isMentor')
   .card-body(v-else)
     .card__description
       .o-empty-message
@@ -33,7 +33,8 @@ export default {
   data() {
     return {
       products: null,
-      currentUserId: null
+      currentUserId: null,
+      isMentor: Boolean(this.isMentor)
     }
   },
   computed: {
@@ -67,11 +68,14 @@ export default {
         redirect: 'manual'
       }).catch((error) => console.warn(error))
       const json = await response.json().catch((error) => console.warn(error))
-      const params = new URL(location.href).searchParams
-      console.log(params)
       this.products = json.products
       this.currentUserId = json.currentUserId
     }
   }
 }
 </script>
+<style>
+.card-list-item__user-icon {
+  display: none;
+}
+</style>
