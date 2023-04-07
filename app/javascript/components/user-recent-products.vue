@@ -74,8 +74,3 @@ export default {
   }
 }
 </script>
-<style>
-.card-list-item__user-icon {
-  display: none;
-}
-</style>

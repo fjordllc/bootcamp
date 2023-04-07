@@ -79,7 +79,7 @@ header.page-header
                   = render 'users/metas', user: @product.user
                 div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@product.user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-4
-                div(data-vue="UserRecentProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-mentor-login:boolean="#{mentor_login?}" data-vue-current-user-id:string="#{current_user.id}")
+                div(data-vue="UserRecentProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-mentor-login:boolean="#{mentor_login?}" data-vue-current-user-id:string="#{current_user.id}" data-vue-display-user-icon:boolean="false")
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
