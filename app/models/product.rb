@@ -78,6 +78,7 @@ class Product < ApplicationRecord
         SELECT products.*
         FROM products
         WHERE checker_id = ?
+        AND wip = false
       )
       SELECT self_assigned_products.id
       FROM self_assigned_products

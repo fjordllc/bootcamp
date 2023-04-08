@@ -126,3 +126,13 @@ comment41:
   user: machida
   commentable: announcement1 (Announcement)
   description: "お知らせのコメントです。"
+
+comment42:
+  user: kimura
+  commentable: product73 (Product)
+  description: "提出者のコメントです。"
+
+comment43:
+  user: mentormentaro
+  commentable: product74 (Product)
+  description: "メンターのコメントです。"
