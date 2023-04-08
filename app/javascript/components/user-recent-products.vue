@@ -28,13 +28,13 @@ export default {
   },
   props: {
     limit: { type: Number, default: 10 },
-    userId: { type: Number, default: null }
+    userId: { type: Number, default: null },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true }
   },
   data() {
     return {
-      products: null,
-      currentUserId: null,
-      isMentor: Boolean(this.isMentor)
+      products: null
     }
   },
   computed: {
@@ -69,7 +69,6 @@ export default {
       }).catch((error) => console.warn(error))
       const json = await response.json().catch((error) => console.warn(error))
       this.products = json.products
-      this.currentUserId = json.currentUserId
     }
   }
 }

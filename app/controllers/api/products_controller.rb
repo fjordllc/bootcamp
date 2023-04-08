@@ -12,6 +12,7 @@ class API::ProductsController < API::BaseController
     @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
     @products = @products.joins(:user).where(users: { company_id: params[:company_id] }) if params[:company_id]
     @products = @products.where(user_id: params[:user_id]) if params[:user_id].present?
+    @products = @products.limit(params[:limit].to_i) if params[:limit].present?
   end
 
   def show
