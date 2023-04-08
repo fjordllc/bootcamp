@@ -1,6 +1,6 @@
 <template lang="pug">
 #watch-button.a-watch-button.a-button.is-sm.is-block(
-  :class='watchId ? "is-active is-main" : "is-inactive is-muted"',
+  :class='watchId || watchableUserId ? "is-active is-main" : "is-inactive is-muted"',
   @click='buttonClick')
   | {{ watchLabel }}
 </template>
@@ -20,9 +20,20 @@ export default {
   data() {
     return {
       watchId: null,
-      watchLabel: 'Watch',
       totalPages: 0,
       watchValue: null
+    }
+  },
+  computed: {
+    watchableUserId() {
+      return this.$store.getters.watchableUserId
+    },
+    watchLabel() {
+      if (this.checked) {
+        return '削除'
+      } else {
+        return this.watchableUserId ? 'Watch中' : 'Watch'
+      }
     }
   },
   mounted() {
@@ -31,7 +42,6 @@ export default {
     params.set('watchable_id', this.watchableId)
     if (this.checked) {
       this.watchId = this.watchIndexId
-      this.watchLabel = '削除'
     } else {
       fetch(`/api/watches/toggle.json?${params}`, {
         method: 'GET',
@@ -47,7 +57,9 @@ export default {
         .then((json) => {
           if (json[0]) {
             this.watchId = json[0].id
-            this.watchLabel = 'Watch中'
+            this.$store.dispatch('setWatchable', {
+              watchableUserId: json[0].user_id
+            })
           }
         })
         .catch((error) => {
@@ -88,8 +100,10 @@ export default {
         })
         .then((json) => {
           this.watchId = json.id
-          this.watchLabel = 'Watch中'
           this.toast('Watchしました！')
+          this.$store.dispatch('setWatchable', {
+            watchableUserId: json.user_id
+          })
         })
         .catch((error) => {
           console.warn(error)
@@ -108,8 +122,10 @@ export default {
       })
         .then(() => {
           this.watchId = null
-          this.watchLabel = 'Watch'
           this.toast('Watchを外しました')
+          this.$store.dispatch('setWatchable', {
+            watchableUserId: null
+          })
         })
         .then(() => {
           this.$emit('update-index')
