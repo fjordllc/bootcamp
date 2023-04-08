@@ -27,7 +27,6 @@ export default {
     product: Product
   },
   props: {
-    limit: { type: Number, default: 10 },
     userId: { type: Number, default: null },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true }
@@ -42,9 +41,6 @@ export default {
       const params = new URL(location.href).searchParams
       if (this.userId) {
         params.set('user_id', this.userId)
-      }
-      if (this.limit) {
-        params.set('limit', this.limit)
       }
       return params
     },
