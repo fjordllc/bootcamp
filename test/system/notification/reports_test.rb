@@ -13,20 +13,9 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'the first daily report notification is sent only to mentors' do
-    report = users(:muryou).reports.create!(
-      title: '初日報です',
-      description: '初日報の内容です',
-      reported_on: Date.current
-    )
-
-    Notification.create!(
-      kind: 7,
-      user: users(:komagata),
-      sender: users(:muryou),
-      message: "#{users(:muryou).login_name}さんがはじめての日報を書きました！",
-      link: "/reports/#{report.id}",
-      read: false
-    )
+    login_user 'muryou', 'testtest'
+    create_report('初日報です', '初日報の内容です', false)
+    logout
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
     visit_with_auth '/notifications', 'machida'
