@@ -2,7 +2,7 @@
 .card-list.a-card
   .card-header.is-sm
     h2.card-header__title
-      | 直近の提出物
+      | 提出物
   .card-list__items(v-if='products && products.length > 0')
     product(
       v-for='product in products',
