@@ -583,7 +583,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
     assert_no_selector('.card-list-item__user')
   end
-  
+
   test 'product show without recent reports' do
     visit_with_auth "/products/#{products(:product69).id}", 'komagata'
     assert_text '日報はまだありません。'
