@@ -283,6 +283,9 @@ export default {
     },
     postComment() {
       this.createComment()
+      this.$store.dispatch('setWatchable', {
+        watchableUserId: this.currentUserId
+      })
       if (this.isUnassignedAndUnchekedProduct) {
         this.checkProduct(
           this.commentableId,
