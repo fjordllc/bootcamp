@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Comment::AfterCreateCallback
-  def after_create(comment)
+  def after_commit(comment)
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
@@ -44,10 +44,17 @@ class Comment::AfterCreateCallback
 
     watcher_ids = watchable.watches.pluck(:user_id)
     watcher_ids.each do |watcher_id|
-      if watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
-        watcher = User.find_by(id: watcher_id)
-        NotificationFacade.watching_notification(watchable, watcher, comment)
-      end
+      next unless watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
+
+      watcher = User.find_by(id: watcher_id)
+      sender = comment.sender
+
+      ActivityDelivery.with(
+        watchable: watchable,
+        receiver: watcher,
+        comment: comment,
+        sender: sender
+      ).notify(:watching_notification)
     end
   end
 
