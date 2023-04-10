@@ -442,12 +442,8 @@ class User < ApplicationRecord
       end
     end
 
-    def from_komagata
-      User.find_by(login_name: 'komagata')
-    end
-
     def create_followup_comment(student)
-      from_komagata.comments.create(
+      User.find_by(login_name: 'komagata').comments.create(
         description: I18n.t('send_message.description'),
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
