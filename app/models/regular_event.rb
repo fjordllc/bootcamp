@@ -157,7 +157,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       end
     end
 
-    def remove_events(events_arr, id)
+    def remove_event(events_arr, id)
       events_arr.each do |events|
         events.delete_if do |event|
           event.id == id.to_i
