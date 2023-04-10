@@ -67,7 +67,7 @@ class HomeController < ApplicationController
     @today_regular_events, @tomorrow_regular_events = RegularEvent.comming_soon_events(current_user)
 
     cookies_ids&.each do |id|
-      RegularEvent.remove_events([@today_regular_events, @tomorrow_regular_events], id)
+      RegularEvent.remove_event([@today_regular_events, @tomorrow_regular_events], id)
     end
   end
 
