@@ -13,6 +13,10 @@ module Watchable
     watches.present?
   end
 
+  def already_on_watch?(user)
+    watches.find_by(user: user)
+  end
+
   def notification_title
     case self
     when Product
