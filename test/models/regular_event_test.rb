@@ -103,7 +103,7 @@ class RegularEventTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2023, 4, 10, 0, 0, 0) do
       today_regular_events, tomorrow_regular_events = RegularEvent.comming_soon_events(user)
       assert today_regular_events.size == 1 && today_regular_events.include?(regular_event)
-      assert tomorrow_regular_events.size == 1  && tomorrow_regular_events.include?(regular_event)
+      assert tomorrow_regular_events.size == 1 && tomorrow_regular_events.include?(regular_event)
     end
   end
 
