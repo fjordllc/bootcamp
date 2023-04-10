@@ -13,8 +13,8 @@ module Watchable
     watches.present?
   end
 
-  def already_on_watch?(user)
-    !!watches.find_by(user: user)
+  def watched_by?(user)
+    watches.exists?(user: user)
   end
 
   def notification_title

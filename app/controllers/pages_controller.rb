@@ -59,7 +59,7 @@ class PagesController < ApplicationController
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
-      elsif @page.published_at && !@page.already_on_watch?(current_user)
+      elsif @page.published_at && !@page.watched_by?(current_user)
         Watch.create!(user: current_user, watchable: @page)
       end
       redirect_to url, notice: notice_message(@page, :update)
