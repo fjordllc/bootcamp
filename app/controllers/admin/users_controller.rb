@@ -43,14 +43,15 @@ class Admin::UsersController < AdminController
 
   def set_user
     @user = User.find(params[:id])
+    @user.build_discord_profile if @user.discord_profile.nil?
   end
 
   def user_params
     params.require(:user).permit(
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id, :subscription_id,
-      :description, :discord_account, :github_account,
-      :twitter_account, :facebook_url, :blog_url, :times_url,
+      :description, :github_account,
+      :twitter_account, :facebook_url, :blog_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
       :experience, :company_id,
@@ -60,7 +61,7 @@ class Admin::UsersController < AdminController
       :officekey_permission, :tag_list, :training_ends_on,
       :profile_image, :profile_name, :profile_job, :mentor,
       :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
-      :country_code, :subdivision_code
+      :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url]
     )
   end
 
