@@ -212,6 +212,16 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
+  create_table "discord_profiles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "account_name"
+    t.string "times_url"
+    t.string "times_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_discord_profiles_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -459,7 +469,6 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
     t.boolean "include_progress", default: true, null: false
     t.text "memo"
     t.integer "last_updated_user_id"
-    t.text "summary"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
@@ -768,6 +777,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
