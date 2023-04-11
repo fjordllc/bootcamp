@@ -154,7 +154,7 @@
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                = react_component('Reports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
+                = react_component('Report/UserReports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
                 .user-info
                   = render 'users/user_secret_attributes', user: @report.user
@@ -174,7 +174,7 @@
                           .o-empty-message__text
                             | 提出物はまだありません。
         - else
-          = react_component('Reports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
+          = react_component('Report/UserReports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
 
 - if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true

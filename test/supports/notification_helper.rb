@@ -30,7 +30,7 @@ module NotificationHelper
 
   def link_to_page_by_unread_notification(message)
     visit notifications_path(status: 'unread')
-    wait_for_vuejs_再利用禁止 # 通知一覧はVueでREST APIを利用して表示しているため # rubocop:disable Naming/AsciiIdentifiers
+    find('#notifications.loaded', wait: 10)
     click_link message, class: 'card-list-item-title__link'
   end
 
