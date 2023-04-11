@@ -27,6 +27,12 @@
       :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
       @delete='deleteComment',
       @update='updateComment')
+  .handle-checkbox(v-if='isRole("admin") && commentableType === "Talk"')
+    input(type="checkbox" @click='changeFlag')
+    .handle-status(v-if="handleStatus")
+      | 対応済み
+    .handle-status(v-else="handleStatus")
+      | 未対応
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
@@ -108,7 +114,8 @@ export default {
       commentTotalCount: null,
       loadedComment: false,
       nextCommentAmount: null,
-      incrementCommentSize: 8
+      incrementCommentSize: 8,
+      handleStatus: false
     }
   },
   computed: {
@@ -137,6 +144,9 @@ export default {
     },
     changeActiveTab(tab) {
       this.tab = tab
+    },
+    changeFlag() {
+      this.handleStatus = !this.handleStatus
     },
     displayMoreComments() {
       this.loadedComment =
