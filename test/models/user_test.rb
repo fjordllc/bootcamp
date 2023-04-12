@@ -616,7 +616,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'after twenty nine days registration?' do
+  test '#after_twenty_nine_days_registration?' do
     over29days_registered_student = User.create!(
       login_name: 'thirty',
       email: 'thirty@fjord.jp',
@@ -650,7 +650,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not recently_registered_student.after_twenty_nine_days_registration?
   end
 
-  test 'message send target?' do
+  test '#followup_message_target?' do
     target = User.create!(
       login_name: 'thirty',
       email: 'thirty@fjord.jp',
@@ -675,14 +675,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not hibernated.followup_message_target?
   end
 
-  test 'mark messeage as sent for hibernated student' do
+  test '#mark_message_as_sent_for_hibernated_student' do
     User.mark_message_as_sent_for_hibernated_student
 
     assert_not users(:komagata).sent_student_followup_message
     assert users(:kyuukai).sent_student_followup_message
   end
 
-  test 'sent followup message for student' do
+  test '#sent_student_followup_message' do
     target = User.create!(
       login_name: 'thirty',
       email: 'thirty@fjord.jp',
