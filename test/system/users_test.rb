@@ -599,4 +599,12 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_link '休会', href: '/users?target=hibernated'
     assert_no_link '退会', href: '/users?target=retired'
   end
+
+  test 'delete user' do
+    user = users(:kimura)
+    visit_with_auth "users/#{user.id}", 'komagata'
+    click_link "delete-#{user.id}"
+    page.driver.browser.switch_to.alert.accept
+    assert_text "#{user.name} さんを削除しました。"
+  end
 end
