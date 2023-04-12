@@ -87,7 +87,7 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.watched_by?(user)
   end
 
-  test 'participated_by?' do
+  test '#participated_by?' do
     regular_event = regular_events(:regular_event1)
     user = users(:hatsuno)
     assert regular_event.participated_by?(user)
@@ -96,7 +96,7 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.participated_by?(user)
   end
 
-  test 'comming_soon_events' do
+  test '.comming_soon_events' do
     regular_event = regular_events(:regular_event26)
     user = users(:kimura)
 
@@ -107,7 +107,7 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-  test 'remove_event' do
+  test '.remove_event' do
     regular_event1 = regular_events(:regular_event1)
     regular_event2 = regular_events(:regular_event2)
     regular_event3 = regular_events(:regular_event3)
