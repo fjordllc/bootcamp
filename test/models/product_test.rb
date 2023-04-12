@@ -52,7 +52,6 @@ class ProductTest < ActiveSupport::TestCase
       user: user,
       practice: practice
     )
-    assert Learning.find_by(user: user, practice: practice, status: :submitted)
 
     status = :complete
     product.change_learning_status(status)
