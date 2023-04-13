@@ -55,7 +55,7 @@ class PracticesController < ApplicationController
       :submission,
       :open_product,
       :include_progress,
-      :ogp_image,
+      :completion_image,
       :memo,
       :summary,
       category_ids: [],

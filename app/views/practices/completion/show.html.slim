@@ -1,8 +1,8 @@
 - title @practice.title
 - content_for :extra_body_classes, 'is-completion'
-- if @practice.ogp_image.attached?
-  - set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
-  - set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+- if @practice.completion_image.attached?
+  - set_meta_tags(og: { image: polymorphic_url(@practice.completion_image), url: request.url })
+  - set_meta_tags(twitter: { image: polymorphic_url(@practice.completion_image), url: request.url })
 - else
   - set_meta_tags(og: { image: image_url('completion/completion_default.png'), url: request.url })
   - set_meta_tags(twitter: { image: image_url('completion/completion_default.png'), url: request.url })
@@ -19,7 +19,7 @@
           | 修了しました🎉
     .completion__body
       .container.is-md
-        - if @practice.ogp_image.attached?
-          = image_tag @practice.ogp_image, class: 'completion__image', alt: "#{@practice.title}修了おめでとうカード"
+        - if @practice.completion_image.attached?
+          = image_tag @practice.completion_image, class: 'completion__image', alt: "#{@practice.title}修了おめでとうカード"
         - else
           = image_tag('completion/completion_default.png', class: 'completion__image', alt: "#{@practice.title}修了おめでとうカード")
