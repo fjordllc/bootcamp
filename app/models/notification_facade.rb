@@ -27,17 +27,6 @@ class NotificationFacade
     ).first_report.deliver_later(wait: 5)
   end
 
-  def self.watching_notification(watchable, receiver, comment)
-    ActivityNotifier.with(watchable: watchable, receiver: receiver, comment: comment).watching_notification.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      watchable: watchable,
-      receiver: receiver,
-      comment: comment
-    ).watching_notification.deliver_later(wait: 5)
-  end
-
   def self.trainee_report(report, receiver)
     ActivityNotifier.with(report: report, receiver: receiver).trainee_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?

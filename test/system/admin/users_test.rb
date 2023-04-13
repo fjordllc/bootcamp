@@ -99,14 +99,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
-  test 'delete user' do
-    user = users(:kimura)
-    visit_with_auth admin_users_path(target: 'student_and_trainee'), 'komagata'
-    click_on "delete-#{user.id}"
-    page.driver.browser.switch_to.alert.accept
-    assert_text "#{user.name} さんを削除しました。"
-  end
-
   test 'hide input for retire date when unchecked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'

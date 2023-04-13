@@ -31,6 +31,7 @@ class AnswersTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'edit answer form has comment tab and preview tab' do

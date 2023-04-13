@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class API::FootprintsController < API::BaseController
+  before_action :footprintable, only: %i[index]
+
   def index
-    if params[:footprintable_type].present?
-      footprintable.footprints.create_or_find_by(user: current_user) if footprintable.user != current_user
-      @footprints = footprintable.footprints.with_avatar.order(created_at: :desc)
+    if @footprintable.present?
+      @footprintable.footprints.create_or_find_by(user: current_user) if @footprintable.user != current_user
+      @footprints = @footprintable.footprints.with_avatar.order(created_at: :desc)
       @footprint_total_count = @footprints.size
     else
       head :bad_request
@@ -14,6 +16,10 @@ class API::FootprintsController < API::BaseController
   private
 
   def footprintable
-    params[:footprintable_type].constantize.find(params[:footprintable_id])
+    @footprintable = if params[:footprintable_type].nil?
+                       nil
+                     else
+                       params[:footprintable_type].constantize.find_by(id: params[:footprintable_id])
+                     end
   end
 end

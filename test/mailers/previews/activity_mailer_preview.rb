@@ -86,4 +86,18 @@ class ActivityMailerPreview < ActionMailer::Preview
       receiver: receiver
     ).following_report
   end
+
+  def watching_noitification
+    watchable = Report.find(ActiveRecord::FixtureSet.identify(:report1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    comment = Comment.find(ActiveRecord::FixtureSet.identify(:comment4))
+    sender = comment.user
+
+    ActivityMailer.with(
+      watchable: watchable,
+      receiver: receiver,
+      sender: sender,
+      comment: comment
+    ).watching_notification
+  end
 end

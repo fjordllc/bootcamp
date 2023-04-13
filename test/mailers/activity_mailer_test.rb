@@ -601,4 +601,26 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] kensyuさんが日報【 フォローされた日報 】を書きました！', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
+
+  test 'watching_notification' do
+    watch = watches(:report1_watch_kimura)
+    watching = notifications(:notification_watching)
+    mailer = ActivityMailer.with(
+      watchable: watch.watchable,
+      receiver: watching.user,
+      comment: comments(:comment1),
+      sender: comments(:comment1).user
+    ).watching_notification
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。', email.subject
+    assert_match(/コメント/, email.body.to_s)
+  end
 end

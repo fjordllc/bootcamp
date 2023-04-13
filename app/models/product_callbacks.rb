@@ -16,8 +16,6 @@ class ProductCallbacks
   end
 
   def after_commit(product)
-    update_learning_status product
-
     unless product.wip
       notify_watching_mentors product
       create_advisers_watch product if product.user.trainee? && product.user.company
@@ -61,21 +59,5 @@ class ProductCallbacks
       product: product,
       receivers: mentors
     )
-  end
-
-  def update_learning_status(product)
-    previous_learning = Learning.find_or_initialize_by(
-      user_id: product.user.id,
-      practice_id: product.practice.id
-    )
-    status = if previous_learning.status == 'complete'
-               :complete
-             elsif product.wip
-               started_practice = product.user.learnings.map(&:status).include?('started')
-               started_practice ? :unstarted : :started
-             else
-               :submitted
-             end
-    product.change_learning_status status
   end
 end

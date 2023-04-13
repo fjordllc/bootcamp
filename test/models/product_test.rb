@@ -52,7 +52,6 @@ class ProductTest < ActiveSupport::TestCase
       user: user,
       practice: practice
     )
-    assert Learning.find_by(user: user, practice: practice, status: :submitted)
 
     status = :complete
     product.change_learning_status(status)
@@ -113,14 +112,31 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '.self_assigned_no_replied_products' do
-    current_user = users(:mentormentaro)
-    product = Product.create!(
+    mentor = users(:mentormentaro)
+    no_replied_product = Product.create!(
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: nil
+      checker_id: mentor.id,
+      published_at: Time.current.to_formatted_s(:db)
     )
-    product.save_checker(current_user.id)
-    assert_equal [product.id], Product.self_assigned_no_replied_products(current_user.id).pluck(:id)
+
+    product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
+    assert_includes product_id_list, no_replied_product.id
+  end
+
+  test '.self_assigned_no_replied_products not include wip products' do
+    mentor = users(:mentormentaro)
+    no_replied_wip_product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: mentor.id,
+      published_at: Time.current.to_formatted_s(:db),
+      wip: true
+    )
+
+    product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
+    assert_not_includes product_id_list, no_replied_wip_product.id
   end
 end
