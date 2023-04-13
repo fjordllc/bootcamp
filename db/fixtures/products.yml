@@ -140,3 +140,35 @@ product70:
   created_at: <%= 23.hour.ago %>
   updated_at: <%= 23.hour.ago %>
   published_at: <%= 23.hour.ago %>
+
+product71:
+  practice: practice7
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/コメントがゼロ』の提出物です。
+  checker: mentormentaro
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product72:
+  practice: practice8
+  user: kimura
+  body: 『mentormentaroが担当/WIP/コメントがゼロ』の提出物です。
+  checker: mentormentaro
+  created_at: <%= now.to_formatted_s(:db) %>
+  wip: true
+
+product73:
+  practice: practice9
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/最新のコメントがkimura』の提出物です。
+  checker: mentormentaro
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product74:
+  practice: practice10
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/最新のコメントがmentormentaro』の提出物です。
+  checker: mentormentaro
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>

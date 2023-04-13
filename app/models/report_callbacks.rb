@@ -29,14 +29,7 @@ class ReportCallbacks
     Watch.create!(user: report.user, watchable: report)
   end
 
-  def notify_first_report(report)
-    User.admins_and_mentors.each do |receiver|
-      NotificationFacade.first_report(report, receiver) if report.sender != receiver
-    end
-  end
-
   def notify_users(report)
-    notify_first_report(report) if report.first?
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
     notify_consecutive_sad_report(report) if report.user.depressed?
     notify_followers(report)
