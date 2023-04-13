@@ -196,6 +196,8 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
     user.login_name = '１２３４５'
     assert user.invalid?
+    user.login_name = 'あい'
+    assert user.invalid?
   end
 
   test 'twitter_account' do
