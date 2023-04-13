@@ -615,4 +615,92 @@ class UserTest < ActiveSupport::TestCase
       assert_equal records.first.login_name, 'taikai3'
     end
   end
+
+  test '#after_twenty_nine_days_registration?' do
+    over29days_registered_student = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+    recently_registered_student = User.create!(
+      login_name: 'recently',
+      email: 'recently_registered_student@fjord.jp',
+      password: 'testtest',
+      name: '入会 太郎',
+      name_kana: 'ニュウカイ タロウ',
+      description: '最近入会したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      created_at: Time.current,
+      sent_student_followup_message: false
+    )
+
+    assert over29days_registered_student.after_twenty_nine_days_registration?
+    assert_not recently_registered_student.after_twenty_nine_days_registration?
+  end
+
+  test '#followup_message_target?' do
+    target = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      hibernated_at: nil,
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+    nottarget = users(:komagata)
+    otameshi = users(:otameshi)
+    hibernated = users(:kyuukai)
+    assert target.followup_message_target?
+    assert_not nottarget.followup_message_target?
+    assert_not otameshi.followup_message_target?
+    assert_not hibernated.followup_message_target?
+  end
+
+  test '#mark_message_as_sent_for_hibernated_student' do
+    User.mark_message_as_sent_for_hibernated_student
+
+    assert_not users(:komagata).sent_student_followup_message
+    assert users(:kyuukai).sent_student_followup_message
+  end
+
+  test '#sent_student_followup_message' do
+    target = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      hibernated_at: nil,
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+
+    User.create_followup_comment(target)
+
+    assert target.sent_student_followup_message
+  end
 end

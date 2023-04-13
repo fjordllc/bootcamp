@@ -429,6 +429,28 @@ class User < ApplicationRecord
       ).pluck(:last_sad_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
+
+    # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
+    #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
+    #        改修後、このメソッドは不要になると思われるので削除すること
+    def mark_message_as_sent_for_hibernated_student
+      User.find_each do |user|
+        if user.hibernated?
+          user.sent_student_followup_message = true
+          user.save(validate: false)
+        end
+      end
+    end
+
+    def create_followup_comment(student)
+      User.find_by(login_name: 'komagata').comments.create(
+        description: I18n.t('send_message.description'),
+        commentable_id: Talk.find_by(user_id: student.id).id,
+        commentable_type: 'Talk'
+      )
+      student.sent_student_followup_message = true
+      student.save(validate: false)
+    end
   end
 
   def retired_three_months_ago_and_notification_not_sent?
@@ -555,6 +577,15 @@ class User < ApplicationRecord
 
   def hibernated?
     hibernated_at?
+  end
+
+  def after_twenty_nine_days_registration?
+    twenty_nine_days = Time.current.ago(29.days).to_date
+    created_at.to_date.before? twenty_nine_days
+  end
+
+  def followup_message_target?
+    current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
   end
 
   def retired?
