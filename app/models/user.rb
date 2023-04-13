@@ -164,6 +164,8 @@ class User < ApplicationRecord
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
+  validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
+
   validates :avatar, attached: false,
                      content_type: {
                        in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
