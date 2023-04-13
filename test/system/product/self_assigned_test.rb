@@ -65,6 +65,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     Product.create!(
       body: 'test',
       user: user,
@@ -75,13 +76,14 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
-    assert_equal [user.login_name], names
+    assert_equal [decorated_user.long_name], names
   end
 
   test 'display no replied products if click on no-replied-button' do
     checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     Product.create!(
       body: 'test',
       user: user,
@@ -92,7 +94,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
-    assert_equal [user.login_name], names
+    assert_equal [decorated_user.long_name], names
   end
 
   test 'not display no replied wip products if click on no-replied-button' do
@@ -125,6 +127,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     checker = users(:mentormentaro)
     practice = practices(:practice5)
     user = users(:kimura)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     product = Product.create!(
       body: 'test',
       user: user,
@@ -140,7 +143,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal ["#{practice.title}の提出物"], titles
-    assert_equal [user.login_name], names
+    assert_equal [decorated_user.long_name], names
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
     assert_text '未返信の担当提出物はありません'
   end

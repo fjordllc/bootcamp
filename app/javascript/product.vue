@@ -26,7 +26,7 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               a.a-user-name(:href='product.user.url')
-                | {{ product.user.login_name }}
+                | {{ product.user.long_name }}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
