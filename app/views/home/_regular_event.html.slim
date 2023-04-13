@@ -7,8 +7,8 @@
             = link_to regular_event, itemprop: 'url', class: 'has-badge' do
               span.a-badge.is-primary.is-xs
                 | 定期イベント
-              = today_or_tommorow(regular_event)
-              = l event_date(regular_event), format: :md
+              = date.today? ? '今日' : '明日'
+              = l date, format: :md
               | は 「
               span.a-page-notice__label
                 = regular_event.title
