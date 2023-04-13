@@ -117,7 +117,7 @@ ja:
         target: ターゲット
         submission: 提出物
         progress: 進捗の計算
-        ogp_image: OGP画像
+        completion_image: 修了おめでとう画像
         categories: カテゴリー
         memo: メンター向けメモ
         summary: 概要

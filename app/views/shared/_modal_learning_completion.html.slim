@@ -5,8 +5,8 @@
       h2.congrats-card-body__title
         | プラクティス「#{practice.title}」を修了しました🎉
       .congrats-card-body__image-container
-        - if practice.ogp_image.attached?
-          = image_tag @practice.ogp_image, class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード"
+        - if practice.completion_image.attached?
+          = image_tag @practice.completion_image, class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード"
         - else
           = image_tag('completion/completion_default.png', class: 'congrats-card-body__image', alt: "#{practice.title}修了おめでとうカード")
       .card-main-actions
