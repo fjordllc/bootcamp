@@ -4,9 +4,11 @@ class EventsInIcalFormatExporter
   def self.export_events(events)
     cal = Icalendar::Calendar.new
     events.each do |event|
+      tzid = 'Asia/Tokyo'
+
       cal.event do |e|
-        e.dtstart     = event.start_at
-        e.dtend       = event.end_at
+        e.dtstart     = Icalendar::Values::DateTime.new event.start_at, { 'tzid' => tzid }
+        e.dtend       = Icalendar::Values::DateTime.new event.end_at, { 'tzid' => tzid }
         e.summary     = event.title
         e.description = event.description
         e.location    = event.location

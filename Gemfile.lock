@@ -527,7 +527,7 @@ GEM
       pastel (~> 0.8)
       strings (~> 0.2.0)
       tty-screen (~> 0.8)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unf (0.1.4)
@@ -652,6 +652,7 @@ DEPENDENCIES
   stripe-i18n!
   syntax_suggest
   traceroute
+  tzinfo (~> 2.0, >= 2.0.6)
   vcr!
   view_source_map
   web-console (>= 4.1.0)
