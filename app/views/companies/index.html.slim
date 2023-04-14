@@ -1,10 +1,10 @@
-- title '企業一覧'
+- title '企業一覧　'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        = "#{title}(#{@total_count_registered_company})"
 
 .page-body
   .container
