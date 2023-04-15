@@ -27,6 +27,11 @@ if user.talk.present?
   json.talkUrl talk_path(user.talk)
 end
 
+if user.discord_profile.present?
+  json.discord_account user.discord_profile.account_name
+  json.times_url user.discord_profile.times_url
+end
+
 json.company do
   if user.company.present?
     json.id user.company.id
