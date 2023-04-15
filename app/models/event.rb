@@ -162,15 +162,15 @@ class Event < ApplicationRecord
 
   class << self
     def today_events
-      where(start_at: (Time.zone.today + 9.hours)...(Time.zone.tomorrow + 9.hours))
+      where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight)
     end
 
     def tomorrow_events
-      where(start_at: (Time.zone.tomorrow + 9.hours)...(Time.zone.tomorrow + 1.day + 9.hours))
+      where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight)
     end
 
     def day_after_tomorrow_events
-      where(start_at: (Time.zone.tomorrow + 1.day + 9.hours)...(Time.zone.tomorrow + 2.days + 9.hours))
+      where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight)
     end
   end
 end
