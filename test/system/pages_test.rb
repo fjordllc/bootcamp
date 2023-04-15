@@ -240,7 +240,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_text 'Watch'
 
     visit edit_page_path(pages(:page1))
-    click_button '内容を保存'
+    click_button '内容を更新'
     assert_text 'ページを更新しました'
     assert_text 'Watch中'
 
