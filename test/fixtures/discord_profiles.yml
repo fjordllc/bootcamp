@@ -1,11 +1,109 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+discord_profile1:
+  user: kimura
+  account_name: kimura#1234
+  times_url:
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+discord_profile2:
+  user: muryou
+  account_name: muryou#2222
+  times_url: https://discord.com/channels/715806612824260640/123456789000000010
+
+discord_profile3:
+  user: kensyu
+  account_name: kensyu#3333
+  times_url: https://discord.com/channels/715806612824260640/123456789000000011
+
+discord_profile4:
+  user: senpai
+  account_name: senpai#4444
+  times_url: https://discord.com/channels/715806612824260640/123456789000000012
+
+discord_profile5:
+  user: kananashi
+  account_name: kananashi#6666
+  times_url: https://discord.com/channels/715806612824260640/123456789000000013
+
+discord_profile6:
+  user: osnashi
+  account_name: osnashi#7777
+  times_url: https://discord.com/channels/715806612824260640/123456789000000014
+
+discord_profile7:
+  user: discordinvalid
+  account_name: discordinvalid#1234567890
+  times_url: https://discord.com/channels/715806612824260640/123456789000000014
+
+discord_profile8:
+  user: twitterinvalid
+  account_name: twitterinvalid#8888
+  times_url: https://discord.com/channels/715806612824260640/123456789000000114
+
+discord_profile9:
+  user: jobseeker
+  account_name: jobseeker#8888
+  times_url: https://discord.com/channels/715806612824260640/123456789000000015
+
+discord_profile10:
+  user: nippounashi
+  account_name: nippounashi#0001
+  times_url:
+
+discord_profile11:
+  user: with_hyphen
+  account_name: with_hyphen#1234
+  times_url:
+
+discord_profile12:
+  user: kensyuowata
+  account_name: kensyuowata#5678
+  times_url: https://discord.com/channels/715806612824260640/123456789000000011
+
+discord_profile13:
+  user: taikai
+  account_name: taikai#5678
+  times_url:
+
+discord_profile14:
+  user: taikai3
+  account_name: taikai#3333
+  times_url:
+
+discord_profile15:
+  user: otameshi
+  account_name: otameshi#1234
+  times_url:
+
+discord_profile16:
+  user: enchomaemae
+  account_name: enchomaemae#1234
+  times_url:
+
+discord_profile17:
+  user: enchomaeyo
+  account_name: enchomaeyo#1234
+  times_url:
+
+discord_profile18:
+  user: enchohayashi
+  account_name: enchohayashi#1234
+  times_url:
+
+discord_profile19:
+  user: enchoososhi
+  account_name: enchoososhi#1234
+  times_url:
+
+discord_profile20:
+  user: enchoowata
+  account_name: enchoowata#1234
+  times_url:
+
+discord_profile21:
+  user: kimuramitai
+  account_name: kimuradiscord#1234
+  times_url:
+
+discord_profile22:
+  user: nocompanykensyu
+  account_name: nocompanykensyu#9999
+  times_url:
