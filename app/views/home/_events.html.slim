@@ -8,7 +8,7 @@
     - @today_events.each do |today_event|
       - case today_event
       - when Event
-        = render partial: 'event', object: today_event, as: :event
+        = render partial: 'special_event', object: today_event, as: :special_event
       - when RegularEvent
         = render partial: 'regular_event', object: today_event, as: :regular_event
 
@@ -17,7 +17,7 @@
     - @tomorrow_events.each do |tomorrow_event|
       - case tomorrow_event
       - when Event
-        = render partial: 'event', object: tomorrow_event, as: :event
+        = render partial: 'special_event', object: tomorrow_event, as: :special_event
       - when RegularEvent
         = render partial: 'regular_event', object: tomorrow_event, as: :regular_event
 
@@ -26,7 +26,7 @@
     - @day_after_tomorrow_events.each do |day_after_tomorrow_event|
       - case day_after_tomorrow_event
       - when Event
-        = render partial: 'event', object: day_after_tomorrow_event, as: :event
+        = render partial: 'special_event', object: day_after_tomorrow_event, as: :special_event
       - when RegularEvent
         = render partial: 'regular_event', object: day_after_tomorrow_event, as: :regular_event
 
