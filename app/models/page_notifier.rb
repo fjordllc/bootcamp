@@ -4,7 +4,6 @@ class PageNotifier
   def call(page)
     send_notification(page)
     notify_to_chat(page)
-    create_author_watch(page)
 
     page.published_at = Time.current
     page.save
@@ -30,9 +29,5 @@ class PageNotifier
       Docs：「#{page.title}」が作成されました。
       #{page_url}
     TEXT
-  end
-
-  def create_author_watch(page)
-    Watch.create!(user: page.user, watchable: page)
   end
 end
