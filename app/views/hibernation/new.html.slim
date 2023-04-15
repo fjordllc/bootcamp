@@ -38,13 +38,13 @@ header.page-header
               placeholder: '仕事がXX月まで繁忙期で残業と休日出勤が続き、学習の時間を確保できなくなるため。',
               class: 'a-text-input is-sm'
 
-          - if current_user.times_url?
+          - if current_user.discord_profile? && current_user.discord_profile.times_url?
             .form-item
               label.a-form-label
                 | 分報チャンネル URL
               .form-link-block
-                = link_to current_user.times_url, class: 'form-link-block__link a-text-link' do
-                  = current_user.times_url
+                = link_to current_user.discord_profile.times_url, class: 'form-link-block__link a-text-link' do
+                  = current_user.discord_profile.times_url
               .a-form-help
                 p
                   | 休会の期間、分報チャンネルが削除されないようにします。
