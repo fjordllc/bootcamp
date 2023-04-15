@@ -6,8 +6,8 @@
       .card-list-item__row
         header.card-list-item-title
           h2.card-list-item-title__title
-            = link_to event, class: 'card-list-item-title__link a-text-link' do
-              = event.title
+            = link_to special_event, class: 'card-list-item-title__link a-text-link' do
+              = special_event.title
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
@@ -15,4 +15,4 @@
                 span.a-meta__label
                   | 開催日時
                 span.a-meta__value
-                  = l event.start_at
+                  = l special_event.start_at
