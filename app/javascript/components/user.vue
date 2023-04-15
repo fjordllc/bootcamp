@@ -33,14 +33,17 @@
                       .a-meta
                         | {{ user.name }}
                     .card-list-item-meta__item
-                      a.a-meta(v-if='user.times_url', :href='user.times_url')
+                      .a-meta(v-if='!user.discord_profile')
                         .a-meta__icon
                           i.fa-brands.fa-discord
-                        | {{ user.discord_account }}
+                      a.a-meta(v-else-if='user.discord_profile.times_url', :href='user.discord_profile.times_url')
+                        .a-meta__icon
+                          i.fa-brands.fa-discord
+                        | {{ user.discord_profile.account_name }}
                       .a-meta(v-else)
                         .a-meta__icon
                           i.fa-brands.fa-discord
-                        | {{ user.discord_account }}
+                        | {{ user.discord_profile.account_name }}
 
         user-sns(:user='user')
         user-activity-counts(:user='user')

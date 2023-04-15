@@ -31,8 +31,8 @@
         i.fa-solid.fa-blog
     li.sns-links__item
       a.sns-links__item-link.a-button.is-sm.is-secondary.is-icon(
-        v-if='user.times_url',
-        :href='user.times_url')
+        v-if='user.discord_profile && user.discord_profile.times_url',
+        :href='user.discord_profile.times_url')
         i.fa-solid.fa-clock
       .sns-links__item-link.a-button.is-sm.is-disabled.is-icon(v-else)
         i.fa-solid.fa-clock
