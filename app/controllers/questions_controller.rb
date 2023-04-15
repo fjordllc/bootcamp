@@ -49,6 +49,7 @@ class QuestionsController < ApplicationController
     if logged_in?
       render :show
     else
+      @page_description = "オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「#{@question.title}」のページです。"
       render :unauthorized_show, layout: 'not_logged_in'
     end
   end
