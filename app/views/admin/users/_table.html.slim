@@ -80,7 +80,10 @@
             - else
               | -
           td.admin-table__item-value.is-text-align-center
-            = user.discord_account.presence || '-'
+            - if user.discord_profile.presence
+              = user.discord_profile.account_name || '-'
+            - else
+              | -
           td.admin-table__item-value.is-text-align-center
             - if user.last_activity_at?
               = l user.last_activity_at
