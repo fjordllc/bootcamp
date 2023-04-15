@@ -45,6 +45,9 @@ class PagesController < ApplicationController
         Newspaper.publish(:page_create, @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
+
+      current_user.become_watcher(@page)
+
       redirect_to url, notice: notice_message(@page, :create)
     else
       render :new
@@ -59,9 +62,10 @@ class PagesController < ApplicationController
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
-      elsif @page.published_at
-        current_user.become_watcher(@page)
       end
+
+      current_user.become_watcher(@page)
+
       redirect_to url, notice: notice_message(@page, :update)
     else
       render :edit
