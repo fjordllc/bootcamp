@@ -150,12 +150,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
-  validates :times_url,
-            format: {
-              allow_blank: true,
-              with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
-              message: 'はDiscordのチャンネルURLを入力してください'
-            }
 
   validates :feed_url,
             format: {
@@ -205,12 +199,6 @@ class User < ApplicationRecord
   end
 
   with_options if: -> { validation_context != :retirement } do
-    validates :discord_account,
-              format: {
-                allow_blank: true,
-                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-                message: 'は「ユーザー名#４桁の数字」で入力してください'
-              }
     validates :twitter_account,
               length: { maximum: 15 },
               format: {
