@@ -180,7 +180,6 @@ kimura:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Kimura Tadasi
   name_kana: キムラ タダシ
-  discord_account: kimura#1234
   twitter_account: kimura
   facebook_url: https://www.facebook.com/fjordllc/kimura
   blog_url: http://kimura.org
@@ -256,9 +255,7 @@ muryou:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Muryou Nosuke
   name_kana: ムリョウ ノスケ
-  discord_account: muryou#2222
   twitter_account: muryou
-  times_url: https://discord.com/channels/715806612824260640/123456789000000010
   facebook_url: https://www.facebook.com/fjordllc/muryou
   blog_url: http://muryou.org
   description: "無料の助です。趣味は野良犬剣法です。"
@@ -281,10 +278,8 @@ kensyu:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Kensyu Seiko
   name_kana: ケンシュウ セイコ
-  discord_account: kensyu#3333
   github_account: kensyu
   twitter_account: kensyu
-  times_url: https://discord.com/channels/715806612824260640/123456789000000011
   facebook_url: https://www.facebook.com/fjordllc/kensyu
   blog_url: http://kensyu.org
   company: company2
@@ -310,10 +305,8 @@ senpai:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Senpai Ichiro
   name_kana: センパイ イチロウ
-  discord_account: senpai#4444
   github_account: senpai
   twitter_account: senpai
-  times_url: https://discord.com/channels/715806612824260640/123456789000000012
   facebook_url: https://www.facebook.com/fjordllc/senpai
   blog_url: http://senpai.org
   company: company2
@@ -335,10 +328,8 @@ kananashi: #name_kanaを持たないユーザー
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです 読み方のカナが無い
-  discord_account: kananashi#6666
   github_account: kananashi
   twitter_account: kananashi
-  times_url: https://discord.com/channels/715806612824260640/123456789000000013
   facebook_url: https://www.facebook.com/fjordllc/kananashi
   blog_url: http://kananashi.org
   description: "読み方のカナが無いユーザーです"
@@ -359,10 +350,8 @@ osnashi: #osを持たないユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです OSが無い
   name_kana: ナシ オーエス
-  discord_account: osnashi#7777
   github_account: osnashi
   twitter_account: osnashi
-  times_url: https://discord.com/channels/715806612824260640/123456789000000014
   facebook_url: https://www.facebook.com/fjordllc/osnashi
   blog_url: http://osnashi.org
   description: "OSが無いユーザーです"
@@ -382,10 +371,8 @@ jobseeker: #就活希望するユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 就活 のぞむ
   name_kana: シュウカツ ノゾム
-  discord_account: jobseeker#8888
   github_account: jobseeker
   twitter_account: jobseeker
-  times_url: https://discord.com/channels/715806612824260640/123456789000000015
   facebook_url: https://www.facebook.com/fjordllc/exmaple
   blog_url: http://example.org
   description: "フィヨルドからの就職希望してます！"
@@ -406,7 +393,6 @@ nippounashi: # 日報を投稿していないユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Nippou nashi
   name_kana: ニッポウ　ナシ
-  discord_account: nippounashi#0001
   twitter_account: nippounashi
   facebook_url: https://www.facebook.com/fjordllc/nippounashi
   blog_url: http://nippounashiorg
@@ -430,7 +416,6 @@ with_hyphen:
   name: ハイフンありユーザー
   name_kana: ハイフンアリユーザー
   github_account: *login_name
-  discord_account: with_hyphen#1234
   twitter_account: with_hyphen
   facebook_url: https://www.facebook.com/fjordllc/with-hyphen
   blog_url: http://with-hyphen.org
@@ -453,7 +438,6 @@ sumi:
   name: 秋元 澄
   name_kana: アキモト スミ
   github_account: sumi
-  discord_account: sumi#1234
   twitter_account: sumi
   facebook_url: https://www.facebook.com/fjordllc/sumi
   blog_url: http://sumi.org
@@ -478,7 +462,6 @@ nobu:
   name: 岡野 伸江
   name_kana: オカノ ノブエ
   github_account: nobu
-  discord_account: nobu#1234
   twitter_account: nobu
   facebook_url: https://www.facebook.com/fjordllc/nobu
   blog_url: http://nobu.org
@@ -501,7 +484,6 @@ rie:
   name: 服部 梨絵
   name_kana: ハットリ リエ
   github_account: rie
-  discord_account: rie#1234
   twitter_account: rie
   facebook_url: https://www.facebook.com/fjordllc/rie
   blog_url: http://rie.org
@@ -524,7 +506,6 @@ take:
   name: 青木 武久
   name_kana: アオキ タケヒサ
   github_account: take
-  discord_account: take#1234
   twitter_account: take
   facebook_url: https://www.facebook.com/fjordllc/take
   blog_url: http://take.org
@@ -547,7 +528,6 @@ kunimi:
   name: 平川 邦美
   name_kana: ヒラカワ クニミ
   github_account: kunimi
-  discord_account: kunimi#1234
   twitter_account: kunimi
   facebook_url: https://www.facebook.com/fjordllc/kunimi
   blog_url: http://kunimi.org
@@ -570,7 +550,6 @@ tomo:
   name: 向井 知美
   name_kana: ムカイ トモミ
   github_account: tomo
-  discord_account: tomo#1234
   twitter_account: tomo
   facebook_url: https://www.facebook.com/fjordllc/tomo
   blog_url: http://tomo.org
@@ -593,7 +572,6 @@ akiyosi:
   name: 秋山 義幸
   name_kana: アキヤマ ヨシユキ
   github_account: akiyosi
-  discord_account: akiyosi#1234
   twitter_account: akiyosi
   facebook_url: https://www.facebook.com/fjordllc/akiyosi
   blog_url: http://akiyosi.org
@@ -616,7 +594,6 @@ tomomi:
   name: 西川 知実
   name_kana: ニシカワ トモミ
   github_account: tomomi
-  discord_account: tomomi#1234
   twitter_account: tomomi
   facebook_url: https://www.facebook.com/fjordllc/tomomi
   blog_url: http://tomomi.org
@@ -639,7 +616,6 @@ ogaoga:
   name: 小笠原 里江子
   name_kana: オガサハラ リエコ
   github_account: ogaoga
-  discord_account: ogaoga#1234
   twitter_account: ogaoga
   facebook_url: https://www.facebook.com/fjordllc/ogaoga
   blog_url: http://ogaoga.org
@@ -662,7 +638,6 @@ take8:
   name: 武井 恵八郎
   name_kana: タケイ エイハチロウ
   github_account: take8
-  discord_account: take8#1234
   twitter_account: take8
   facebook_url: https://www.facebook.com/fjordllc/take8
   blog_url: http://take8.org
@@ -687,7 +662,6 @@ fujiyasu:
   name: 藤野 安則
   name_kana: フジノ ヤスノリ
   github_account: fujiyasu
-  discord_account: fujiyasu#1234
   twitter_account: fujiyasu
   facebook_url: https://www.facebook.com/fjordllc/fujiyasu
   blog_url: http://fujiyasu.org
@@ -734,10 +708,8 @@ kensyuowata:
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Kensyu Owata
   name_kana: ケンシュウ オワタ
-  discord_account: kensyuowata#5678
   github_account: kensyuowata
   twitter_account: kensyuowata
-  times_url: https://discord.com/channels/715806612824260640/123456789000000011
   facebook_url: https://www.facebook.com/fjordllc/kensyuowata
   blog_url: http://kensyuowata.org
   company: company2
@@ -791,7 +763,6 @@ tatenoicon: # アイコンが長方形のユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Tatenoicon dayo
   name_kana: タテノアイコン ダヨ
-  discord_account: tatenoicon#0001
   github_account: tatenoicon
   twitter_account: tatenoicon
   facebook_url: https://www.facebook.com/fjordllc/tatenoicon
@@ -815,7 +786,6 @@ thuynga: # アイコンが小さい画像のユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: Do Thuy Nga
   name_kana: ド　トゥイ　ガー
-  discord_account: nga#5675
   github_account: nga20167304
   twitter_account: NgaValin
   facebook_url: https://www.facebook.com/fjordllc/thuynga
@@ -857,7 +827,7 @@ sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:03"
 
-<% trailing_katakana = "ァ" %> 
+<% trailing_katakana = "ァ" %>
 <% 1.upto(25) do |i| %> # 期生別ページのページネーションを表示させるため25人分登録
 marumarushain<%= i %>: # ページネーション確認のためのユーザー
   login_name: marumarushain<%= i %>
@@ -892,7 +862,6 @@ otameshi:
   name: お試し 延長
   name_kana: オタメシ エンチョウ
   github_account: otameshi
-  discord_account: otameshi#1234
   twitter_account: otameshi
   facebook_url: https://www.facebook.com/fjordllc/otameshi
   blog_url: http://otameshi.org
@@ -979,10 +948,8 @@ discordinvalid: #Discord IDが不正なユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです Discord IDが不正
   name_kana: ディスコード フセイ
-  discord_account: discordinvalid#1234567890
   github_account: discordinvalid
   twitter_account: discordinvalid
-  times_url: https://discord.com/channels/715806612824260640/123456789000000014
   facebook_url: https://www.facebook.com/fjordllc/discordinvalid
   blog_url: http://discordinvalid.org
   description: "Discord IDが不正なユーザーです"
@@ -1002,10 +969,8 @@ twitterinvalid: #Twitter IDが不正なユーザー
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ユーザーです Twitter IDが不正
   name_kana: ツイッター フセイ
-  discord_account: twitterinvalid#8888
   github_account: twitterinvalid
   twitter_account: twit-ter
-  times_url: https://discord.com/channels/715806612824260640/123456789000000114
   facebook_url: https://www.facebook.com/fjordllc/twitterinvalid
   blog_url: http://twitterinvalid.org
   description: "Twitter IDが不正なユーザーです"
@@ -1025,7 +990,6 @@ nocompanykensyu: # 所属企業のない研修生
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: 研修　会社無男
   name_kana: ケンシュウ カイシャナシオ
-  discord_account: nocompanykensyu#9999
   github_account: nocompanykensyu
   twitter_account: nocompanykensyu
   facebook_url: https://www.facebook.com/fjordllc/nocompanykensyu
