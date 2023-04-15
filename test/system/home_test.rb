@@ -90,15 +90,18 @@ class HomeTest < ApplicationSystemTestCase
   end
 
   test 'not show messages of required field' do
-    user = users(:hatsuno)
-    # hatsuno の未入力項目を登録
-    user.update!(
-      tag_list: ['猫'],
-      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。',
-      discord_account: 'hatsuno#1234'
-    )
-    path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
-    user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
+    visit_with_auth '/', 'hatsuno'
+    assert_text '未入力の項目'
+    assert_text 'タグを登録してください。'
+    assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
+    assert_text 'Discordアカウントを登録してください。'
+
+    visit_with_auth '/current_user/edit', 'hatsuno'
+
+    find('.ti-new-tag-input').set('猫')
+    fill_in 'user[after_graduation_hope]', with: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
+    fill_in 'user[discord_profile_attributes][account_name]', with: 'hatsuno#1234'
+    click_on '更新する'
 
     visit_with_auth '/', 'hatsuno'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
