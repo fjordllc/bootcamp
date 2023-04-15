@@ -38,7 +38,7 @@ header.page-header
               placeholder: '仕事がXX月まで繁忙期で残業と休日出勤が続き、学習の時間を確保できなくなるため。',
               class: 'a-text-input is-sm'
 
-          - if current_user.discord_profile? && current_user.discord_profile.times_url?
+          - if current_user.discord_profile.presence && current_user.discord_profile.times_url?
             .form-item
               label.a-form-label
                 | 分報チャンネル URL
