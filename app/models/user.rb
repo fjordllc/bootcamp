@@ -356,7 +356,7 @@ class User < ApplicationRecord
     :facebook_url,
     :blog_url,
     :github_account,
-    :discord_account,
+    :discord_profile_account_name,
     :description
   )
 
