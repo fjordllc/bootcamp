@@ -98,21 +98,6 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
-  # required params: sender, receiver
-  def three_months_after_retirement(args = {})
-    @sender ||= args[:sender]
-    @receiver ||= args[:receiver]
-
-    @link_url = notification_redirector_url(
-      link: "/users/#{@sender.id}",
-      kind: Notification.kinds[:retired]
-    )
-    message = mail(to: @receiver.email, subject: default_i18n_subject(user: @sender.login_name.to_s))
-    message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
-
-    message
-  end
-
   def came_question(args = {})
     @sender ||= args[:sender]
     @receiver ||= args[:receiver]
