@@ -15,4 +15,4 @@
                 span.a-meta__label
                   | 開催日時
                 span.a-meta__value
-                  = "#{l(event_date(regular_event), format: :long)} #{l(regular_event.start_at, format: :time_only)}"
+                  = "#{l(holding_date, format: :long)} #{l(regular_event.start_at, format: :time_only)}"
