@@ -708,7 +708,6 @@ ActiveRecord::Schema.define(version: 2023_05_04_083810) do
     t.string "discord_account"
     t.text "mentor_memo"
     t.string "times_url"
-    t.boolean "notified_retirement", default: false, null: false
     t.text "after_graduation_hope"
     t.date "training_ends_on"
     t.boolean "sad_streak", default: false, null: false
