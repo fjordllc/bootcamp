@@ -108,8 +108,8 @@ event27:
   description: "直近イベントの表示テスト用(当日)"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: 2017-04-01 00:00:00
-  end_at: 2017-4-1 12:00:00
+  start_at: 2017-04-03 00:00:00
+  end_at: 2017-4-3 12:00:00
   open_start_at: 2017-3-25 9:00
   open_end_at: 2017-4-01 9:00
   user: kimura
@@ -119,8 +119,8 @@ event28:
   description: "直近イベントの表示テスト用(翌日)"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: 2017-04-02 00:00:00
-  end_at: 2017-4-2 12:00:00
+  start_at: 2017-04-04 13:00:00
+  end_at: 2017-4-4 13:00:00
   open_start_at: 2017-3-26 9:00
   open_end_at: 2017-4-02 9:00
   user: kimura
@@ -158,3 +158,14 @@ event31:
   open_start_at: 2023-04-18 10:00
   open_end_at: 2023-05-18 09:00
   user: kimura
+
+event32:
+  title: "直近イベントの表示テスト用(明後日)"
+  description: "直近イベントの表示テスト用(明後日)"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2017-04-05 00:00:00
+  end_at: 2017-04-05 01:00:00
+  open_start_at: 2017-3-26 9:00
+  open_end_at: 2017-4-03 9:00
+  user: komagata
