@@ -628,6 +628,7 @@ DEPENDENCIES
   omniauth (~> 2.1.1)
   omniauth-github (~> 2.0.1)
   omniauth-rails_csrf_protection
+  parallel
   pg
   postmark-rails
   pry-byebug
