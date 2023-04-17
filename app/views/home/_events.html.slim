@@ -30,7 +30,6 @@
       - when RegularEvent
         = render partial: 'regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
 
-
   footer.card-footer
     .card-footer__footer-link
       = link_to '全てのイベント', events_path, class: 'card-footer__footer-text-link'
