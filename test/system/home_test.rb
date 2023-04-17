@@ -201,15 +201,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector 'h2.card-header__title', text: '学習時間'
   end
 
-  test 'show test events on dashboard' do
-    travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
-      visit_with_auth '/', 'komagata'
-      assert_text '直近イベントの表示テスト用(当日)'
-      assert_text '直近イベントの表示テスト用(翌日)'
-    end
-  end
-
-  test 'show job events on dashboard for only job seeker' do
+  test 'show events on dashboard for only related to user' do
     travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
       visit_with_auth '/', 'jobseeker'
       assert_text '直近イベントの表示テスト用(当日)'
