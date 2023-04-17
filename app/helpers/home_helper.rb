@@ -1,24 +1,6 @@
 # frozen_string_literal: true
 
 module HomeHelper
-  def today_or_tommorow(event)
-    if event.holding_today?
-      '今日'
-    elsif event.holding_tomorrow?
-      '明日'
-    end
-  end
-
-  def event_date(event)
-    if event.holding_today?
-      Date.current
-    elsif event.holding_tomorrow?
-      Date.tomorrow
-    elsif event.holding_day_after_tomorrow?
-      Date.tomorrow + 1
-    end
-  end
-
   def anchor_to_required_field(attribute)
     {
       avatar_attached: 'form-user-avatar',
