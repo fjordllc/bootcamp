@@ -136,3 +136,14 @@ event29:
   open_end_at: 2019-12-16 9:00
   job_hunting: true
   user: komagata
+
+event30:
+  title: "ダッシュボード表示確認用テストイベント(明後日用)"
+  description: "ダッシュボード表示確認用テストイベント(明後日用)"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= (Time.zone.tomorrow + 1.day).midnight %>
+  end_at: <%= Time.zone.tomorrow + 1.day + 1.hours %>
+  open_start_at: <%= Time.zone.tomorrow.midnight %>
+  open_end_at: <%= Time.zone.tomorrow + 1.day - 1.hours %>
+  user: komagata
