@@ -290,4 +290,72 @@ class PracticesTest < ApplicationSystemTestCase
 
     assert_equal escape_text.chop, first('.card-body.is-practice').text
   end
+
+  test 'add ogp image' do
+    practice = practices(:practice1)
+    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
+    click_button '更新する'
+
+    visit "/practices/#{practice.id}/edit"
+    within('form[name=practice]') do
+      assert_selector 'img'
+    end
+  end
+
+  test 'if an ogp image is registered, set it to meta-tag' do
+    practice = practices(:practice1)
+    upload_image = '1.jpg'
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      attach_file 'practice[ogp_image]', "test/fixtures/files/practices/ogp_images/#{upload_image}", make_visible: true
+      click_button '更新する'
+    end
+
+    ogp_image = File.basename find('meta[property="og:image"]', visible: false)['content']
+    twitter_card_image = File.basename find('meta[name="twitter:image"]', visible: false)['content']
+    assert_equal upload_image, ogp_image
+    assert_equal upload_image, twitter_card_image
+  end
+
+  test 'if an ogp image is not registered, set default image to meta-tag' do
+    practice = practices(:practice1)
+    default_image = 'ogp.png'
+    visit_with_auth practice_path(practice), 'komagata'
+
+    ogp_image = File.basename find('meta[property="og:image"]', visible: false)['content']
+    twitter_card_image = File.basename find('meta[name="twitter:image"]', visible: false)['content']
+    assert_equal default_image, ogp_image
+    assert_equal default_image, twitter_card_image
+  end
+
+  test 'if an ogp image and a summary are registered, display them' do
+    practice = practices(:practice1)
+    upload_image = '1.jpg'
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      attach_file 'practice[ogp_image]', "test/fixtures/files/practices/ogp_images/#{upload_image}", make_visible: true
+      fill_in 'practice[summary]', with: '概要です'
+      click_button '更新する'
+    end
+
+    within :css, '.a-card', text: '概要' do
+      assert_selector "img[src$='#{upload_image}']"
+      assert_text '概要です'
+    end
+  end
+
+  test 'if all that is registered is a summary, a summary is displayed, but the default ogp image is not displayed' do
+    practice = practices(:practice1)
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      fill_in 'practice[summary]', with: '概要です'
+      click_button '更新する'
+    end
+
+    within :css, '.a-card', text: '概要' do
+      assert_no_selector 'img'
+      assert_text '概要です'
+    end
+  end
 end
