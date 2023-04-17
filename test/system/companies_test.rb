@@ -10,8 +10,7 @@ class CompaniesTest < ApplicationSystemTestCase
 
   test 'display company total count with company list' do
     visit_with_auth '/companies', 'komagata'
-    total_count_registered_company = companies.count
-    assert_selector 'h2.page-header__title', text: "企業一覧　(#{total_count_registered_company})"
+    assert_selector 'h2.page-header__title', text: '企業一覧　(27)'
   end
 
   test 'show company information' do
