@@ -42,6 +42,7 @@ class Event < ApplicationRecord
   columns_for_keyword_search :title, :description
 
   scope :wip, -> { where(wip: true) }
+  scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -157,5 +158,19 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
+  end
+
+  class << self
+    def today_events
+      where(start_at: (Time.zone.today + 9.hours)...(Time.zone.tomorrow + 9.hours))
+    end
+
+    def tomorrow_events
+      where(start_at: (Time.zone.tomorrow + 9.hours)...(Time.zone.tomorrow + 1.day + 9.hours))
+    end
+
+    def day_after_tomorrow_events
+      where(start_at: (Time.zone.tomorrow + 1.day + 9.hours)...(Time.zone.tomorrow + 2.days + 9.hours))
+    end
   end
 end

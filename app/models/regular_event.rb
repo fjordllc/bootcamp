@@ -120,12 +120,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def holding_tomorrow?
-    tomorrow = Time.current.next_day
+    holding_next_day?
+  end
+
+  def holding_day_after_tomorrow?
+    holding_next_day?(2)
+  end
+
+  def holding_next_day?(days = 1)
+    next_day = Time.current.next_day(days)
     regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == tomorrow.wday
+        repeat_rule.day_of_the_week == next_day.wday
       else
-        repeat_rule.day_of_the_week == tomorrow.wday && repeat_rule.frequency == convert_date_into_week(tomorrow.day)
+        repeat_rule.day_of_the_week == next_day.wday && repeat_rule.frequency == convert_date_into_week(next_day.day)
       end
     end.include?(true)
   end
@@ -146,12 +154,25 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   class << self
     def today_events
       holding_events = RegularEvent.holding
-      holding_events.select(&:holding_today?)
+      ids = holding_events.select(&:holding_today?).map(&:id)
+      where(id: ids)
     end
 
     def tomorrow_events
       holding_events = RegularEvent.holding
-      holding_events.select(&:holding_tomorrow?)
+      ids = holding_events.select(&:holding_tomorrow?).map(&:id)
+      where(id: ids)
+    end
+
+    def day_after_tomorrow_events
+      holding_events = RegularEvent.holding
+      ids = holding_events.select(&:holding_day_after_tomorrow?).map(&:id)
+      where(id: ids)
+    end
+
+    def participated_by(user)
+      ids = all.select { |e| e.participated_by?(user) }.map(&:id)
+      where(id: ids)
     end
 
     def comming_soon_events(user)

@@ -16,7 +16,7 @@
       .container.is-xl
         .row
           .col-xs-12.col-xl-6.col-xxl-6
-            = render partial: 'events'
+            = render partial: 'events', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
             - if @announcements.present?
               = render partial: 'announcements'
             - if current_user.bookmarks.present?
