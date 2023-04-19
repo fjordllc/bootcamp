@@ -277,4 +277,11 @@ class PagesTest < ApplicationSystemTestCase
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
+
+  test 'When Non-logged-in user access docs, meta description is displayed' do
+    visit "/pages/#{pages(:page1).id}"
+    assert_selector 'head', visible: false do
+      assert_selector "meta[name='description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」のドキュメント「#{pages(:page1).title}」のページです。']", visible: false
+    end
+  end
 end
