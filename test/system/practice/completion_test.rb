@@ -8,7 +8,7 @@ class Practice::CompletionTest < ApplicationSystemTestCase
     assert_text '「OS X Mountain Lionをクリーンインストールする」'
   end
 
-  test 'Appropriate meta description is displayed when accessed by non-logged-in user' do
+  test 'appropriate meta description is displayed when accessed by non-logged-in user' do
     visit "/practices/#{practices(:practice1).id}"
 
     assert_selector 'head', visible: false do
