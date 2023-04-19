@@ -623,4 +623,77 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] komagataさんの【 「作業週1日目」の日報 】にmachidaさんがコメントしました。', email.subject
     assert_match(/コメント/, email.body.to_s)
   end
+
+  test 'assigned_as_checker' do
+    product = products(:product64)
+    receiver = User.find(product.checker_id)
+
+    ActivityMailer.assigned_as_checker(
+      product: product,
+      receiver: receiver
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 16, link: "/products/#{product.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['machidanohimitsu@gmail.com'], email.to
+    assert_equal '[FBC] kimuraさんの提出物「sshdをインストールする」の提出物の担当になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
+  end
+
+  test 'assigned_as_checker with params' do
+    product = products(:product64)
+    receiver = User.find(product.checker_id)
+
+    mailer = ActivityMailer.with(
+      product: product,
+      receiver: receiver
+    ).assigned_as_checker
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 16, link: "/products/#{product.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['machidanohimitsu@gmail.com'], email.to
+    assert_equal '[FBC] kimuraさんの提出物「sshdをインストールする」の提出物の担当になりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この提出物へ</a>}, email.body.to_s)
+  end
+
+  test 'assigned_as_checker to mute email notification or retired user' do
+    product = products(:product64)
+    receiver = User.find(product.checker_id)
+
+    receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.assigned_as_checker(
+      product: product,
+      receiver: receiver
+    ).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+
+    receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.assigned_as_checker(
+      product: product,
+      receiver: receiver
+    ).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+
+    receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.assigned_as_checker(
+      product: product,
+      receiver: receiver
+    ).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+
+    receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
+    ActivityMailer.assigned_as_checker(
+      product: product,
+      receiver: receiver
+    ).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
+  end
 end
