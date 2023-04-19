@@ -22,7 +22,7 @@ module Watchable
     when Question
       "「#{self[:title]}」のQ&A"
     when Event
-      "「#{self[:title]}」のイベント"
+      "「#{self[:title]}」の特別イベント"
     when RegularEvent
       "「#{self[:title]}」の定期イベント"
     when Page
