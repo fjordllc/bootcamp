@@ -142,10 +142,10 @@ event30:
   description: "明日開催のイベント"
   location: "FJORDオフィス"
   capacity: 40
-  start_at: <%= Time.current + 1.days %>
-  end_at: <%= Time.current + 2.days %>
-  open_start_at: <%= Time.current - 1.days %>
-  open_end_at: <%= Time.current %>
+  start_at: 2023-05-20 10:00
+  end_at: 2023-05-20 12:00
+  open_start_at: 2023-04-20 10:00
+  open_end_at: 2023-05-20 09:00
   user: komagata
 
 event31:
@@ -153,8 +153,8 @@ event31:
   description: "昨日開催のイベント"
   location: "FJORDオフィス"
   capacity: 40
-  start_at: <%= Time.current - 2.days %>
-  end_at: <%= Time.current - 1.days %>
-  open_start_at: <%= Time.current - 4.days %>
-  open_end_at: <%= Time.current - 2.days %>
+  start_at: 2023-05-18 10:00
+  end_at: 2023-05-18 12:00
+  open_start_at: 2023-04-18 10:00
+  open_end_at: 2023-05-18 09:00
   user: komagata
