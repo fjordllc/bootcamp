@@ -743,6 +743,14 @@ class User < ApplicationRecord
     save!(validate: false)
   end
 
+  def training_end_date
+    training_ends_on
+  end
+
+  def training_remaining_days
+    (training_end_date - Time.zone.today).to_i
+  end
+
   private
 
   def password_required?
