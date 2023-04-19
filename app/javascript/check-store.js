@@ -13,7 +13,7 @@ export default new Vuex.Store({
     checkableType: null,
     productId: null,
     productCheckerId: null,
-    watchableUserId: null
+    watchId: null
   },
   getters: {
     checkId: (state) => state.checkId,
@@ -23,7 +23,7 @@ export default new Vuex.Store({
     checkableType: (state) => state.checkableType,
     productId: (state) => state.productId,
     productCheckerId: (state) => state.productCheckerId,
-    watchableUserId: (state) => state.watchableUserId
+    watchId: (state) => state.watchId
   },
   mutations: {
     setCheckable(
@@ -40,8 +40,8 @@ export default new Vuex.Store({
       state.productId = productId
       state.productCheckerId = productCheckerId
     },
-    setWatchable(state, { watchableUserId }) {
-      state.watchableUserId = watchableUserId
+    setWatchable(state, { watchId }) {
+      state.watchId = watchId
     }
   },
   actions: {
@@ -112,16 +112,36 @@ export default new Vuex.Store({
           console.warn(error)
         })
     },
-    setWatchable({ commit }, { watchableUserId }) {
-      if (watchableUserId) {
-        commit('setWatchable', {
-          watchableUserId: watchableUserId
+    setWatchable({ commit }, { watchableId, watchableType }) {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      fetch(
+        `/api/watches/toggle.json?watchable_id=${watchableId}&watchable_type=${watchableType}`,
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+          },
+          credentials: 'same-origin'
+        }
+      )
+        .then((response) => {
+          return response.json()
         })
-      } else {
-        commit('setWatchable', {
-          watchableUserId: null
+        .then((watchable) => {
+          if (watchable[0]) {
+            commit('setWatchable', {
+              watchId: watchable[0].id
+            })
+          } else {
+            commit('setWatchable', {
+              watchId: null
+            })
+          }
         })
-      }
+        .catch((error) => {
+          console.warn(error)
+        })
     }
   }
 })

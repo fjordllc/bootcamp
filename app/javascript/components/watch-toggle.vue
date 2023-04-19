@@ -1,6 +1,6 @@
 <template lang="pug">
 #watch-button.a-watch-button.a-button.is-sm.is-block(
-  :class='watchId || watchableUserId ? "is-active is-main" : "is-inactive is-muted"',
+  :class='watchId ? "is-active is-main" : "is-inactive is-muted"',
   @click='buttonClick')
   | {{ watchLabel }}
 </template>
@@ -20,20 +20,23 @@ export default {
   },
   data() {
     return {
-      watchId: null,
       totalPages: 0,
       watchValue: null
     }
   },
   computed: {
-    watchableUserId() {
-      return this.$store.getters.watchableUserId
+    watchId() {
+      if (this.checked) {
+        return this.watchIndexId
+      } else {
+        return this.$store.getters.watchId
+      }
     },
     watchLabel() {
       if (this.checked) {
         return '削除'
       } else {
-        return this.watchableUserId ? 'Watch中' : 'Watch'
+        return this.watchId ? 'Watch中' : 'Watch'
       }
     }
   },
@@ -41,32 +44,28 @@ export default {
     const params = new URL(location.href).searchParams
     params.set('watchable_type', this.watchableType)
     params.set('watchable_id', this.watchableId)
-    if (this.checked) {
-      this.watchId = this.watchIndexId
-    } else {
-      fetch(`/api/watches/toggle.json?${params}`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin'
+    fetch(`/api/watches/toggle.json?${params}`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin'
+    })
+      .then((response) => {
+        return response.json()
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          if (json[0]) {
-            this.watchId = json[0].id
-            this.$store.dispatch('setWatchable', {
-              watchableUserId: json[0].user_id
-            })
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-    }
+      .then((watchable) => {
+        if (watchable[0]) {
+          this.$store.dispatch('setWatchable', {
+            watchableId: watchable[0].watchable_id,
+            watchableType: watchable[0].watchable_type
+          })
+        }
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
   },
   methods: {
     buttonClick() {
@@ -96,10 +95,10 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.watchId = json.id
           this.toast('Watchしました！')
           this.$store.dispatch('setWatchable', {
-            watchableUserId: json.user_id
+            watchableId: json.watchable_id,
+            watchableType: json.watchable_type
           })
         })
         .catch((error) => {
@@ -118,10 +117,10 @@ export default {
         redirect: 'manual'
       })
         .then(() => {
-          this.watchId = null
           this.toast('Watchを外しました')
           this.$store.dispatch('setWatchable', {
-            watchableUserId: null
+            watchableId: this.watchableId,
+            watchableType: this.watchableType
           })
         })
         .then(() => {
