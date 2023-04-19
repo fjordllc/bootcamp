@@ -72,7 +72,7 @@ a.card-list-item__inner
   justify-content: center
   +text-block(.625rem 1.3, center 600)
   position: relative
-  padding: 1px
+  font-feature-settings: "palt"
   +media-breakpoint-up(md)
     +size(2.5rem)
   +media-breakpoint-down(sm)
@@ -81,10 +81,10 @@ a.card-list-item__inner
     background-color: #7f6fb7
     color: $reversal-text
   .card-list-item.is-practice &
-    background-color: #79bcc3
+    background-color: #5bbcc7
     color: $reversal-text
   .card-list-item.is-question &
-    background-color: #de9172
+    background-color: #e2965b
     color: $reversal-text
   .card-list-item.is-page &
     background-color: #56925c
@@ -93,7 +93,10 @@ a.card-list-item__inner
     background-color: #f7cd5b
     color: $default-text
   .card-list-item.is-event &
-    background-color: #ef9da8
+    background-color: #fb96a3
+    color: $reversal-text
+  .card-list-item.is-regular_event &
+    background-color: #dc6ed2
     color: $reversal-text
   .card-list-item.is-product &
     background-color: #909b3c
@@ -118,36 +121,10 @@ a.card-list-item__inner
     background-color: #f7cd5b
     color: $default-text
 
-.card-list-item__label-option
-  +position(absolute)
-  +media-breakpoint-up(md)
-    +position(left -.125rem, right -.125rem, bottom -.375rem)
-  +media-breakpoint-down(sm)
-    +position(left -.5rem, right -.5rem, bottom -.375rem)
-    transform: scale(.8)
-  background-color: $base
-  +text-block(.625rem 1.4, flex center)
-  align-items: center
-  justify-content: center
-  border: solid 1px
-  border-radius: 1rem
-  .card-list-item.is-report &
-    color: #7f6fb7
-  .card-list-item.is-practice &
-    color: #79bcc3
-  .card-list-item.is-question &
-    color: #de9172
-  .card-list-item.is-page &
-    color: #56925c
-  .card-list-item.is-announcement &
-    color: #a9831c
-    border-color: #f7cd5b
-  .card-list-item.is-event &
-    color: #ef9da8
-  .card-list-item.is-product &
-    color: #909b3c
-  .card-list-item.is-user &
-    color: #7cbd9c
+.card-list-item__label-inner
+  &.is-sm
+    transform: scale(.9)
+    margin: -1rem
 
 .card-list-item__user-icon
   +media-breakpoint-up(md)
