@@ -95,11 +95,15 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.toast('Watchしました！')
-          this.$store.dispatch('setWatchable', {
-            watchableId: json.watchable_id,
-            watchableType: json.watchable_type
-          })
+          if (json.message) {
+            this.toast(json.message, 'error')
+          } else {
+            this.toast('Watchしました！')
+            this.$store.dispatch('setWatchable', {
+              watchableId: json.watchable_id,
+              watchableType: json.watchable_type
+            })
+          }
         })
         .catch((error) => {
           console.warn(error)
