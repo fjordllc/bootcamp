@@ -8,7 +8,8 @@
             :src='searchable.avatar_url',
             :title='searchable.title',
             :alt='searchable.title')
-    .card-list-item__label(v-else-if='searchable.model_name == "regular_event"')
+    .card-list-item__label(
+      v-else-if='searchable.model_name == "regular_event"')
       span.card-list-item__label-inner.is-sm
         | 定期
         br
