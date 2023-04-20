@@ -170,7 +170,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.save(context: :retire_reason_presence)
   end
 
-  test 'is valid unsupportable login_name' do
+  test 'login_name' do
     user = users(:komagata)
     user.login_name = 'abcdABCD1234'
     assert user.valid?
