@@ -17,3 +17,9 @@ article3:
   body: 本文３
   user: komagata
   wip: true
+
+article4:
+  title: 500x500のサムネイル
+  body: 500x500のサムネイル
+  user: komagata
+  wip: true

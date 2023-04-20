@@ -32,6 +32,8 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
+      Ogp::Image::AttachmentProcessor.fit_to_size(@article.thumbnail)
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -41,6 +43,8 @@ class ArticlesController < ApplicationController
   def update
     set_wip
     if @article.update(article_params)
+      Ogp::Image::AttachmentProcessor.fit_to_size(@article.thumbnail)
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit

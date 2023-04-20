@@ -30,3 +30,6 @@ komagata_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/av
 machida_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg" %>
 
 kimuramitai_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/default.jpg" %>
+
+# article
+article4_thumbnail_blob: <%= ActiveStorage::Blob.fixture filename: "articles/ogp_images/test.jpg" %>

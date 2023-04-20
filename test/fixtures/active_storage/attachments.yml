@@ -69,3 +69,8 @@ kimuramitai_profile_image:
   name: profile_image
   record: kimuramitai (User)
   blob: kimuramitai_profile_image_blob
+
+article4_thumbnail_image:
+  name: thumbnail
+  record: article4 (Article)
+  blob: article4_thumbnail_blob
