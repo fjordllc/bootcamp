@@ -589,5 +589,4 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product13).id}", 'kensyu'
     assert_selector 'img[class="page-content-header__company-logo"]'
   end
-
 end
