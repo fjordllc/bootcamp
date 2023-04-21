@@ -49,8 +49,7 @@
                             image_class: 'page-content-members__user-icon'
                           = link_to user_path(member.id), class: 'a-user-name' do
                             = member.login_name
-
-        #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}")
+        #js-comments(data-commentable-id="#{@talk.id}" data-commentable-type='Talk' data-current-user-id="#{current_user.id}" data-is-unresolved="#{@talk.unreplied}")
 
       - if current_user.admin?
         .col-xl-5.col-xs-12

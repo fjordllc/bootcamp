@@ -80,7 +80,7 @@ Rails.application.routes.draw do
     namespace :talks do
       resources :unreplied, only: %i(index)
     end
-    resources :talks, only: %i(index)
+    resources :talks, only: %i(index update)
     resources :generations, only: %i(index show) do
       resources :users, only: %i(index), controller: "/api/generations/users"
     end
