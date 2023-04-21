@@ -11,15 +11,10 @@ namespace :bootcamp do
 
   desc 'Migration on production.'
   task migrate: :environment do
-    puts "ENV['DB_NAME']: #{ENV['DB_NAME']}"
-
     Rake::Task['db:migrate'].execute
 
     # staging
-    if ENV['DB_NAME'] == 'bootcamp_staging'
-      ENV['DISABLE_DATABASE_ENVIRONMENT_CHECK'] = '1'
-      Rake::Task['db:reset'].execute
-    end
+    Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
 
     # production
     Rake::Task['data:migrate'].execute if ENV['DB_NAME'] == 'bootcamp_production'
