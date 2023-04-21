@@ -28,12 +28,10 @@
       :isLatest='index === comments.length - 1',
       @delete='deleteComment',
       @update='updateComment')
-  .handle-checkbox(v-if='isRole("admin") && commentableType === "Talk"')
-    input(type="checkbox" @click='changeFlag')
-    .handle-status(v-if="handleStatus")
-      | 対応済み
-    .handle-status(v-else="handleStatus")
-      | 未対応
+  .support-checkbox( v-if='isRole("admin") && commentableType === "Talk"' )
+    input( type="checkbox" :checked='isUnresolved' @click='changeFlag' )
+    .check-button(:class='isUnresolved ? "is-active is-main" : "is-inactive is-muted"')
+      | {{ resolvedLabel }}
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__start
@@ -108,6 +106,7 @@ export default {
     commentableType: { type: String, required: true },
     currentUserId: { type: Number, required: true },
     currentUser: { type: Object, required: true }
+    initialUnresolved: { type: Boolean, required: true }
   },
   data() {
     return {
@@ -125,7 +124,7 @@ export default {
       loadedComment: false,
       nextCommentAmount: null,
       incrementCommentSize: 8,
-      handleStatus: false
+      isUnresolved: false
     }
   },
   computed: {
@@ -143,10 +142,18 @@ export default {
     },
     productCheckerId() {
       return this.$store.getters.productCheckerId
+    },
+    resolvedLabel() {
+      if (this.isUnresolved) {
+        return '対応済み'
+      } else {
+        return "未対応"
+      }
     }
   },
   created() {
     this.showComments()
+    this.getInitialUnresolved()
   },
   methods: {
     isActive(tab) {
@@ -156,7 +163,28 @@ export default {
       this.tab = tab
     },
     changeFlag() {
-      this.handleStatus = !this.handleStatus
+      this.isUnresolved = !this.isUnresolved
+      const params = {
+        talk: {unreplied: this.isUnresolved }
+      }
+
+      fetch( `/api/talks/${this.commentableId}`,{
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': this.token()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual',
+          body: JSON.stringify(params)
+        })
+        .then (() => {
+          this.toast(`${this.resolvedLabel}にしました`)
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
     displayMoreComments() {
       this.loadedComment =
@@ -208,6 +236,9 @@ export default {
             })
           }
         })
+    },
+    getInitialUnresolved() {
+      this.isUnresolved = this.initialUnresolved
     },
     createComment({ toastMessage } = {}) {
       if (this.description.length < 1) {
