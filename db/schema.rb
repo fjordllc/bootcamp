@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_21_010321) do
+ActiveRecord::Schema.define(version: 2023_03_12_200635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -655,7 +655,6 @@ ActiveRecord::Schema.define(version: 2023_04_21_010321) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "unreplied", default: false, null: false
-    t.boolean "action_completed", default: false, null: false
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
