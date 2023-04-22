@@ -33,6 +33,10 @@ class UserTest < ActiveSupport::TestCase
     end
 
     travel_to Time.zone.local(2022, 7, 11, 0, 0, 0) do
+      assert users(:neverlogin).active? # 未ログインでも登録したばかりならactive
+    end
+
+    travel_to Time.zone.local(2022, 8, 12, 0, 0, 0) do
       assert_not users(:neverlogin).active?
     end
   end
