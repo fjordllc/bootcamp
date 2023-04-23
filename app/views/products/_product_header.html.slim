@@ -12,9 +12,9 @@ header.page-content-header
           .a-meta
             span.a-meta__label
               = User.human_attribute_name :training_ends_on
-            - if @product.user.training_end_date
+            - if @product.user.training_ends_on
               span.a-meta__value
-                = l @product.user.training_end_date
+                = l @product.user.training_ends_on
               - if @product.user.training_remaining_days.zero?
                 span.a-meta__value.is-danger
                   | （本日研修最終日）
