@@ -200,7 +200,6 @@ class ActivityMailer < ApplicationMailer
   end
 
   def moved_up_event_waiting_user(args = {})
-    @sender ||= args[:sender]
     @receiver ||= args[:receiver]
     @event ||= args[:event]
 
