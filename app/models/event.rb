@@ -116,10 +116,6 @@ class Event < ApplicationRecord
     waitlist.count.positive? && can_participate?
   end
 
-  def not_wip?
-    !wip?
-  end
-
   private
 
   def end_at_be_greater_than_start_at
