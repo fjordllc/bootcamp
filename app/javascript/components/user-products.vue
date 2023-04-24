@@ -22,7 +22,7 @@
 import Product from '../product.vue'
 
 export default {
-  name: 'UserRecentProducts',
+  name: 'UserProducts',
   components: {
     product: Product
   },
@@ -43,9 +43,6 @@ export default {
         params.set('user_id', this.userId)
       }
       return params
-    },
-    newURL() {
-      return `${location.pathname}?${this.newParams}`
     },
     productsAPI() {
       const params = this.newParams
