@@ -7,4 +7,5 @@ class Talk < ApplicationRecord
   belongs_to :user
 
   scope :unreplied, -> { where(unreplied: true) }
+  scope :action_uncompleted, -> { where(action_completed: false) }
 end
