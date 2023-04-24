@@ -5,6 +5,12 @@
         = link_to '全て', talks_path, class: "page-tabs__item-link #{current_link(/^talks-index/)}"
       li.page-tabs__item
         = link_to talks_unreplied_index_path, class: "page-tabs__item-link #{current_link(/^talks-unreplied-index/)}" do
+          | 未返信
+          - if admin_or_mentor_login? && Talk.unreplied.count.positive?
+            .page-tabs__item-count.a-notification-count
+              = Talk.unreplied.count
+      li.page-tabs__item
+        = link_to talks_action_uncompleted_index_path, class: "page-tabs__item-link #{current_link(/^talks-action-uncompleted-index/)}" do
           | 未対応
           - if admin_or_mentor_login? && Talk.unreplied.count.positive?
             .page-tabs__item-count.a-notification-count
