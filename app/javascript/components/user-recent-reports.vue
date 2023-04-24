@@ -52,9 +52,6 @@ export default {
       }
       return params
     },
-    newURL() {
-      return `${location.pathname}?${this.newParams}`
-    },
     reportsAPI() {
       const params = this.newParams
       return `/api/reports.json?${params}`

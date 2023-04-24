@@ -114,11 +114,9 @@
 </template>
 <script>
 import ProductChecker from 'product_checker'
-import CommentUserIcon from 'comment-user-icon'
 export default {
   components: {
-    'product-checker': ProductChecker,
-    'comment-user-icon': CommentUserIcon
+    'product-checker': ProductChecker
   },
   props: {
     product: { type: Object, required: true },
