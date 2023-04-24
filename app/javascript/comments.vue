@@ -28,9 +28,9 @@
       @delete='deleteComment',
       @update='updateComment')
   .support-checkbox( v-if='isRole("admin") && commentableType === "Talk"' )
-    input( type="checkbox" :checked='isUnresolved' @click='changeFlag' )
-    .check-button(:class='isUnresolved ? "is-active is-main" : "is-inactive is-muted"')
-      | {{ resolvedLabel }}
+    input( type="checkbox" :checked='isCompleted' @click='changeFlag' )
+    .check-button(:class='isCompleted ? "is-active is-main" : "is-inactive is-muted"')
+      | {{ CompletedLabel }}
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
@@ -96,7 +96,7 @@ export default {
     commentableType: { type: String, required: true },
     currentUserId: { type: String, required: true },
     currentUser: { type: Object, required: true },
-    initialUnresolved: { type: Boolean, required: true }
+    initialCompleted: { type: Boolean, required: true }
   },
   data() {
     return {
@@ -114,7 +114,7 @@ export default {
       loadedComment: false,
       nextCommentAmount: null,
       incrementCommentSize: 8,
-      isUnresolved: false
+      isCompleted: false
     }
   },
   computed: {
@@ -133,8 +133,8 @@ export default {
     productCheckerId() {
       return this.$store.getters.productCheckerId
     },
-    resolvedLabel() {
-      if (this.isUnresolved) {
+    CompletedLabel() {
+      if (this.isCompleted) {
         return '対応済み'
       } else {
         return "未対応"
@@ -143,7 +143,7 @@ export default {
   },
   created() {
     this.showComments()
-    this.getInitialUnresolved()
+    this.getInitialCompleted()
   },
   methods: {
     isActive(tab) {
@@ -153,9 +153,9 @@ export default {
       this.tab = tab
     },
     changeFlag() {
-      this.isUnresolved = !this.isUnresolved
+      this.isCompleted = !this.isCompleted
       const params = { 
-        talk: {unreplied: this.isUnresolved }
+        talk: {action_completed: this.isCompleted }
       }
 
       fetch( `/api/talks/${this.commentableId}`,{
@@ -170,7 +170,7 @@ export default {
           body: JSON.stringify(params)
         })
         .then (() => {
-          this.toast(`${this.resolvedLabel}にしました`)
+          this.toast(`${this.CompletedLabel}にしました`)
         })
         .catch((error) => {
           console.warn(error)
@@ -227,8 +227,8 @@ export default {
           }
         })
     },
-    getInitialUnresolved() {
-      this.isUnresolved = this.initialUnresolved
+    getInitialCompleted() {
+      this.isCompleted = this.initialCompleted
     },
     createComment({ toastMessage } = {}) {
       if (this.description.length < 1) {

@@ -30,6 +30,6 @@ class API::TalksController < API::BaseController
   private
 
   def talk_params
-    params.require(:talk).permit(:unreplied)
+    params.require(:talk).permit(:action_completed)
   end
 end

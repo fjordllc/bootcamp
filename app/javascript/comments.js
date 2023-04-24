@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentableId = comments.getAttribute('data-commentable-id')
     const commentableType = comments.getAttribute('data-commentable-type')
     const currentUserId = comments.getAttribute('data-current-user-id')
-    const initialUnresolved = comments.getAttribute('data-is-unresolved')
+    const initialCompleted = comments.getAttribute('data-is-completed')
     const currentUser = window.currentUser
     new Vue({
       store,
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             commentableType: commentableType,
             currentUserId: currentUserId,
             currentUser: currentUser,
-            initialUnresolved: initialUnresolved === 'true'
+            initialCompleted: initialCompleted === 'true'
           }
         })
     }).$mount(selector)
