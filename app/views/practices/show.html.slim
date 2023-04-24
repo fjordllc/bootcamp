@@ -1,12 +1,11 @@
 - title @practice.title
 - category = @practice.category(current_user.course)
 
-- if @practice.ogp_image.attached?
-  - set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
-  - set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
-- else
-  - set_meta_tags(og: { image: image_url('/ogp/ogp.png'), url: request.url })
-  - set_meta_tags(twitter: { image: image_url('/ogp/ogp.png'), url: request.url })
+ruby:
+  if @practice.ogp_image.attached?
+    set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+    set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+  end
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
 = render '/practices/page_header', title: title, category: category
