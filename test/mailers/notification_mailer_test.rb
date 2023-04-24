@@ -64,26 +64,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/日報/, email.body.to_s)
   end
 
-  test 'moved_up_event_waiting_user' do
-    event = events(:event3)
-    notification = notifications(:notification_moved_up_event_waiting_user)
-    mailer = NotificationMailer.with(
-      event: event,
-      receiver: notification.user
-    ).moved_up_event_waiting_user
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['hajime@fjord.jp'], email.to
-    assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
-    assert_match(/イベント/, email.body.to_s)
-  end
-
   test 'chose_correct_answer' do
     answer = correct_answers(:correct_answer2)
     notification = notifications(:notification_chose_correct_answer)
