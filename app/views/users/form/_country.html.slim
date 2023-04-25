@@ -1,0 +1,9 @@
+.form-item#js-change-subdivisions(data-countries="#{all_countries_with_subdivisions}")
+  = f.label :country_code, class: 'a-form-label'
+  = radio_button_tag('register_address', 'yes')
+  = radio_button_tag('register_address', 'no')
+  .a-button.is-md.is-secondary.is-select.is-block
+    - if user.country_code.blank?
+      = f.country_select :country_code, { selected: 'JP' }, { id: 'country-select' }
+    - else
+      = f.country_select :country_code, {}, { id: 'country-select' }

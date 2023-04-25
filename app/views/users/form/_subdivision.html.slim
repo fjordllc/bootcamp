@@ -1,0 +1,8 @@
+.form-item
+  = f.label :subdivision_code, class: 'a-form-label'
+  .a-button.is-md.is-secondary.is-select.is-block
+    = f.select :subdivision_code, subdivisions(user), { include_blank: '地域を選択してください' }, { id: 'subdivision-select' }
+  .a-form-help
+    p
+      | 就職先企業の紹介やテック系イベントの紹介時の参考にします。
+      | この情報は他のフィヨルドブートキャンプ参加者にも公開されますが、選択必須ではありません。
