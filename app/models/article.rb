@@ -4,7 +4,6 @@ class Article < ApplicationRecord
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
 
-  THUMBNAIL_SIZE = '1200x630>'
   has_one_attached :thumbnail
 
   before_validation :set_published_at, if: :will_be_published?
@@ -21,7 +20,7 @@ class Article < ApplicationRecord
 
   def thumbnail_url
     if thumbnail.attached?
-      thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
+      thumbnail.blob.url
     else
       image_url('/images/articles/thumbnails/default.png')
     end
