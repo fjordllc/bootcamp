@@ -12,15 +12,13 @@ export default function Bookmarks() {
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
+  const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
 
   useEffect(() => {
     setPage(page)
   }, [page])
 
-  const { data, error } = useSWR(
-    `/api/bookmarks.json?page=${page}&per=${per}`,
-    fetcher
-  )
+  const { data, error } = useSWR(bookmarksUrl, fetcher)
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
@@ -55,8 +53,7 @@ export default function Bookmarks() {
                   bookmark={bookmark}
                   editable={editable}
                   setEditable={setEditable}
-                  per={per}
-                  page={page}
+                  bookmarksUrl={bookmarksUrl}
                 />
               )
             })}
@@ -105,14 +102,14 @@ const EditButton = ({ editable, setEditable }) => {
   )
 }
 
-const Bookmark = ({ bookmark, editable, per, page, _setEditable }) => {
+const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
   const date = bookmark.reported_on || bookmark.created_at
   const createdAt = Bootcamp.iso8601ToFullTime(date)
   const { mutate } = useSWRConfig()
   const afterDelete = (id) => {
     Bootcamp.delete(`/api/bookmarks/${id}.json`)
       .then((_response) => {
-        mutate(`/api/bookmarks.json?page=${page}&per=${per}`)
+        mutate(bookmarksUrl)
       })
       .catch((error) => {
         console.warn(error)
