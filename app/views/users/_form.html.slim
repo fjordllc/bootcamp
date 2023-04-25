@@ -22,7 +22,8 @@
         = render 'users/form/after_graduation_hope', f: f, user: user
       = render 'users/form/job', f: f
       = render 'users/form/os', f: f
-      = render 'users/form/prefecture', f: f
+      = render 'users/form/country', f: f, user: user
+      = render 'users/form/subdivision', f: f, user: user
       = render 'users/form/experience', f: f
     - if user.student?
       = render 'users/form/job_seeker', f: f
