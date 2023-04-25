@@ -5,12 +5,12 @@ require 'application_system_test_case'
 class CompaniesTest < ApplicationSystemTestCase
   test 'GET /companies' do
     visit_with_auth '/companies', 'komagata'
-    assert_equal '企業一覧　 | FBC', title
+    assert_equal '企業一覧 | FBC', title
   end
 
   test 'display company total count with company list' do
     visit_with_auth '/companies', 'komagata'
-    assert_selector 'h2.page-header__title', text: '企業一覧　(27)'
+    assert_selector 'h2.page-header__title', text: '企業一覧（27）'
   end
 
   test 'show company information' do
