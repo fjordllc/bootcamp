@@ -81,7 +81,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
 
     visit_with_auth '/notifications?status=unread&target=watching', 'mentormentaro'
 
-    within first('.card-list-item.is-unread') do
+    within first('.card-list-item-title__link-label') do
       assert_text "#{user.login_name}さんが「#{practice.title}」の提出物を提出しました。"
     end
   end
