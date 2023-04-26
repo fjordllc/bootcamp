@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :markdown_tasks, only: %i(create)
     namespace :talks do
       resources :unreplied, only: %i(index)
+      resources :action_uncompleted, only: %i(index)
     end
     resources :talks, only: %i(index update)
     resources :generations, only: %i(index show) do
