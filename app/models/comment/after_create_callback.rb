@@ -104,8 +104,8 @@ class Comment::AfterCreateCallback
   end
 
   def update_unreplied(comment)
-    unreplied = !comment.user.admin
-    comment.commentable.update!(unreplied: unreplied)
+    action_completed = comment.user.admin
+    comment.commentable.update!(action_completed: action_completed)
   end
 
   def notify_to_chat(comment)
