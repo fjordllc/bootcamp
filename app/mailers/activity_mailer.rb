@@ -209,7 +209,10 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:moved_up_event_waiting_user]
     )
     subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
-    mail to: @user.email, subject: subject
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
   end
 
   def following_report(args = {})
