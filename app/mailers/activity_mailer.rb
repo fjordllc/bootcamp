@@ -344,4 +344,20 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
+
+  # required params: answer, receiver
+  def chose_correct_answer
+    @user = @receiver
+    @answer = params[:answer]
+
+    @link_url = notification_redirector_url(
+      link: question_path(@answer.question),
+      kind: Notification.kinds[:chose_correct_answer]
+    )
+
+    subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
 end

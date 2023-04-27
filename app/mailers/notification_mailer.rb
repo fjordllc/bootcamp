@@ -69,12 +69,12 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: answer, receiver
-  def chose_correct_answer
+  # required params: report, receiver
+  def consecutive_sad_report
     @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@answer.question.id}")
-    subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
-    mail to: @user.email, subject: subject
+    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
+    mail to: @user.email,
+         subject: "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
   end
 
   # required params: question, receiver
