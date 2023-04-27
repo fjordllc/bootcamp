@@ -13,7 +13,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  test 'duplicate POST announce' do
+  test 'no duplicate watch for announcement' do
     announcement = announcements(:announcement1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
@@ -35,7 +35,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'duplicate POST product' do
+  test 'no duplicate watch for product' do
     product = products(:product1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
@@ -57,7 +57,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'duplicate POST report' do
+  test 'no duplicate watch for report' do
     report = reports(:report1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
@@ -79,7 +79,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'duplicate POST question' do
+  test 'no duplicate watch for question' do
     question = questions(:question1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
@@ -101,7 +101,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'duplicate POST page' do
+  test 'no duplicate watch for page' do
     page = pages(:page1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
@@ -123,7 +123,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'duplicate POST event' do
+  test 'no duplicate watch for event' do
     event = events(:event1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
@@ -145,7 +145,7 @@ class API::WatchesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'duplicate POST regular event' do
+  test 'no duplicate watch for regular event' do
     regular_event = regular_events(:regular_event1)
     token = create_token('komagata', 'testtest')
     post api_watches_toggle_index_path(format: :json),
