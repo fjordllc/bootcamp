@@ -759,6 +759,17 @@ class User < ApplicationRecord
     (training_ends_on - Time.zone.today).to_i
   end
 
+  def country_name
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_s]
+  end
+
+  def subdivision_name
+    country = ISO3166::Country[country_code]
+    subdivision = country.subdivisions[subdivision_code]
+    subdivision.translations[I18n.locale.to_s]
+  end
+
   private
 
   def password_required?

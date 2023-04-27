@@ -100,8 +100,8 @@ ja:
         profile_job: 職業
         profile_text: プロフィール文
         subscription_id: サブスクリプションID
-        country_code: お住まいの国
-        subdivision_code: お住まいの地域
+        country_code: 国
+        subdivision_code: 地域
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日
@@ -368,3 +368,4 @@ ja:
     following_report: フォロー中
   send_message:
     description: "こんにちは、komagataです。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあればお気軽におっしゃっていただければと思います。"
+  unregistered: 未登録

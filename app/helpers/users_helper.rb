@@ -67,4 +67,12 @@ module UsersHelper
     country = ISO3166::Country[country_code]
     country.subdivision_names_with_codes(I18n.locale.to_s)
   end
+
+  def address(user)
+    if user.country_code.present? && user.subdivision_code.present?
+      "#{user.subdivision_name} (#{user.country_name})"
+    else
+      I18n.t('unregistered')
+    end
+  end
 end
