@@ -41,31 +41,10 @@ export default {
     }
   },
   mounted() {
-    const params = new URL(location.href).searchParams
-    params.set('watchable_type', this.watchableType)
-    params.set('watchable_id', this.watchableId)
-    fetch(`/api/watches/toggle.json?${params}`, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin'
+    this.$store.dispatch('setWatchable', {
+      watchableId: this.watchableId,
+      watchableType: this.watchableType
     })
-      .then((response) => {
-        return response.json()
-      })
-      .then((watchable) => {
-        if (watchable[0]) {
-          this.$store.dispatch('setWatchable', {
-            watchableId: watchable[0].watchable_id,
-            watchableType: watchable[0].watchable_type
-          })
-        }
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
   },
   methods: {
     buttonClick() {
