@@ -27,9 +27,10 @@
       :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
       @delete='deleteComment',
       @update='updateComment')
-  .support-checkbox( v-if='isRole("admin") && commentableType === "Talk"' )
-    input( type="checkbox" :checked='isCompleted' @click='changeFlag' )
-    .check-button(:class='isCompleted ? "is-active is-main" : "is-inactive is-muted"')
+  .support-checkbox(v-if='isRole("admin") && commentableType === "Talk"')
+    input(type='checkbox', :checked='isCompleted', @click='changeFlag')
+    .check-button(
+      :class='isCompleted ? "is-active is-main" : "is-inactive is-muted"')
       | {{ CompletedLabel }}
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
@@ -137,7 +138,7 @@ export default {
       if (this.isCompleted) {
         return '対応済み'
       } else {
-        return "未対応"
+        return '未対応'
       }
     }
   },
@@ -154,22 +155,22 @@ export default {
     },
     changeFlag() {
       this.isCompleted = !this.isCompleted
-      const params = { 
-        talk: {action_completed: this.isCompleted }
+      const params = {
+        talk: { action_completed: this.isCompleted }
       }
 
-      fetch( `/api/talks/${this.commentableId}`,{
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.token()
-          },
-          credentials: 'same-origin',
-          redirect: 'manual',
-          body: JSON.stringify(params)
-        })
-        .then (() => {
+      fetch(`/api/talks/${this.commentableId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.token()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: JSON.stringify(params)
+      })
+        .then(() => {
           this.toast(`${this.CompletedLabel}にしました`)
         })
         .catch((error) => {
