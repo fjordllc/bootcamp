@@ -344,4 +344,20 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:signed_up)
     end
   end
+
+  test '.notify(:chose_correct_answer)' do
+    answer = answers(:answer1)
+    params = {
+      answer: answer,
+      receiver: answer.user
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:chose_correct_answer)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:chose_correct_answer)
+    end
+  end
 end
