@@ -14,7 +14,7 @@ div
     .o-empty-message__icon
       i.fa-regular.fa-smile
     p.o-empty-message__text
-      | 未返信の相談部屋はありません
+      | 未対応の相談部屋はありません
   #talks.page-content.loaded(v-else)
     .talk-list(v-show='!showSearchedTalks')
       nav.pagination(v-if='totalPages > 1')
