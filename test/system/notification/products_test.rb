@@ -72,17 +72,13 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practice.id}", 'mentormentaro'
     find('div.a-watch-button', text: 'Watch').click
 
-    user = users(:hatsuno)
-    Product.create!(
-      body: 'test',
-      user: user,
-      practice: practice
-    )
+    visit_with_auth "/products/new?practice_id=#{practice.id}", 'hatsuno'
+    fill_in 'product[body]', with: 'test'
+    click_button '提出する'
 
     visit_with_auth '/notifications?status=unread&target=watching', 'mentormentaro'
-
     within first('.card-list-item-title__link-label') do
-      assert_text "#{user.login_name}さんが「#{practice.title}」の提出物を提出しました。"
+      assert_text "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。"
     end
   end
 end
