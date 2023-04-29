@@ -1,11 +1,72 @@
-book1:
-  title: ゼロからわかるRuby超入門
-  price: 2592
-  page_url: https://www.amazon.co.jp/dp/B07KQXFF6D
-  description: Rubyを始める人にピッタリの本です！
+textbook_of_rails:
+  title: Railsの教科書
+  price: 1100
+  description: プログラミング初学者へ向けたRailsを使ったWebアプリづくりの教科書。簡単なサンプルアプリを題材に、その動作と仕組みを解説し、他の書籍や資料では省かれがちなRailsおよびWebアプリの基礎の部分を丁寧に説明していきます。基礎力を付け理解を助ける、最初の1冊に。Rails
+    7.0対応。
+  page_url: https://tatsu-zine.com/books/rails-textbook
 
-book2:
-  title: はじめて学ぶソフトウェアのテスト技法
-  price: 2640
-  page_url: https://www.amazon.co.jp/dp/4822282511
-  description: ソフトウェアテストの必修技法を満載した初心者にもわかりやすい解説書です。
+typescript_for_beginners_become_professional:
+  title: プロを目指す人のためのTypeScript入門
+  price: 3114
+  description: TypeScriptを学ぶ人にとって定番の一冊です。
+  page_url: https://www.amazon.co.jp/dp/B09Y527YPV
+
+perfect_ruby_on_rails:
+  title: パーフェクト Ruby on Rails
+  price: 3637
+  description: 通称パRails
+  page_url: https://www.amazon.co.jp/dp/B08D3DW7LP
+
+textbook_of_git_and_github:
+  title: いちばんやさしいGit&GitHubの教本
+  price: 2299
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B09X6MF3RW
+
+how_to_meke_object_brain_of_agile_ages:
+  title: アジャイル時代のオブジェクト脳のつくり方
+  price: 2926
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B0734GH91L
+
+why_develop_by_oriented_object:
+  title: オブジェクト指向でなぜつくるのか
+  price: 2376
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B092HDFJKK
+
+vuejs_for_beginners:
+  title: Vue.js入門 基礎から実践アプリケーション開発まで
+  price: 3532
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B07J6FP6NQ
+
+furigana_javascript:
+  title: スラスラ読める JavaScriptふりがなプログラミング
+  price: 1643
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B07DR76HSG
+
+usable_ruby_on_rails_in_develop_site:
+  title: 現場で使える Ruby on Rails 5速習実践ガイド
+  price: 3637
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B07JHQ9B5T
+
+study_yourself_rails:
+  title: 独習Ruby on Rails
+  price: 3762
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B07QW41QCM
+
+new_textbook_of_linux:
+  title: 新しいLinuxの教科書
+  price: 2822
+  description: Linuxの基礎が一通りまとまっている本です。
+  page_url: https://www.amazon.co.jp/dp/B072K1NH76
+
+lean_linux_by_manga_for_beginners:
+  title: ITエンジニア1年生のためのまんがでわかるLinux
+  price: 2420
+  description: ''
+  page_url: https://www.amazon.co.jp/dp/B09XM7PL4P

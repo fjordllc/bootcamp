@@ -1,104 +1,39 @@
-category1:
-  name: "学習の準備"
-  slug: "ready-for-learn"
+linux:
+  name: "Linux"
+  slug: "linux"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
-category2:
-  name: "Mac OS X"
-  slug: "mac-os-x"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category3:
-  name: "HTML & CSS"
-  slug: "html-and-css"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category4:
-  name: "UNIX"
-  slug: "unix"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category5:
-  name: "Ruby"
-  slug: "ruby"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category6:
-  name: "Ruby on Rails"
-  slug: "ruby-on-rails"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category7:
-  name: "SQL"
-  slug: "sql"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category8:
-  name: "Vim"
-  slug: "vim"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category9:
-  name: "自動テスト"
-  slug: "testing"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category10:
+javascript:
   name: "JavaScript"
   slug: "javascript"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
-category11:
+ruby:
+  name: "Ruby"
+  slug: "ruby"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+
+ruby_on_rails:
+  name: "Ruby on Rails"
+  slug: "ruby-on-rails"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+
+git:
   name: "Git"
   slug: "git"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
-category12:
+typescript:
+  name: "TypeScript"
+  slug: "typescript"
+  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
+
+development:
   name: "開発手法"
   slug: "development"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
 
-category13:
-  name: "iOS"
-  slug: "ios"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category14:
-  name: "Android"
-  slug: "android"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category15:
-  name: "Nginx"
-  slug: "nginx"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category16:
-  name: "HTTP"
-  slug: "http"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category17:
-  name: "Unity"
-  slug: "unity"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category18:
-  name: "C#"
-  slug: "csherp"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category19:
-  name: "ゲームのビルド"
-  slug: "game-build"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category20:
-  name: "Unity発展編"
-  slug: "unity-advance"
-  description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"
-
-category21:
-  name: "ゲームのテスト"
-  slug: "game-test"
+vuejs:
+  name: "Vue.js"
+  slug: "vuejs"
   description: "まずはここからはじめましょう。ここでの学習の進め方を学びます。"

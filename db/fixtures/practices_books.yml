@@ -1,4 +1,59 @@
 practices_book1:
-  practice: practice1
-  book: book1
+  practice: unix_and_linux
+  book: new_textbook_of_linux
+  must_read: true
+
+practices_book2:
+  practice: unix_and_linux
+  book: lean_linux_by_manga_for_beginners
+  must_read: false
+
+practices_book3:
+  practice: javascript_for_beginners
+  book: furigana_javascript
+  must_read: false
+
+practices_book4:
+  practice: basic_vuejs
+  book: vuejs_for_beginners
+  must_read: false
+
+practices_book5:
+  practice: basic_git
+  book: textbook_of_git_and_github
+  must_read: true
+
+practices_book6:
+  practice: ruby_on_rails
+  book: perfect_ruby_on_rails
+  must_read: false
+
+practices_book7:
+  practice: ruby_on_rails
+  book: usable_ruby_on_rails_in_develop_site
+  must_read: false
+
+practices_book8:
+  practice: ruby_on_rails
+  book: study_yourself_rails
+  must_read: false
+
+practices_book9:
+  practice: oop
+  book: how_to_meke_object_brain_of_agile_ages
+  must_read: true
+
+practices_book10:
+  practice: oop
+  book: why_develop_by_oriented_object
+  must_read: true
+
+practices_book11:
+  practice: typescript_for_beginners
+  book: typescript_for_beginners_become_professional
+  must_read: true
+
+practices_book12:
+  practice: ruby_on_rails
+  book: textbook_of_rails
   must_read: true

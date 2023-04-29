@@ -1,362 +1,107 @@
-practice1:
-  title: "OS X Mountain Lionをクリーンインストールする"
-  description: "description..."
-  goal: "OS X Mountain Lionをクリーンインストールする"
-  memo: "「OS X Mountain Lionをクリーンインストールする」のメンターメモ"
-  submission: true
-  open_product: false
-
-practice2:
-  title: "Terminalの基礎を覚える"
-  description: "description..."
-  goal: "goal..."
-  submission: true
-  open_product: true
-
-practice3:
-  title: "PC性能の見方を知る"
-  description: |-
-    - [CPUとは](https://www.pc-master.jp/words/cpu.html)
-    - [HDDが分かる](http://homepage2.nifty.com/kamurai/HDD.htm)
-
-    # 参考
-
-    - CPUとHDDがやりとりすると遅いのでメモリと、メモリとやりとりすると遅いのでキャッシュメモリと…という様になるが、どことやりとりされるかはPC側で自動的に判断されるので考える必要はない。
-
-  goal: |-
-    - CPUが何か説明できる。
-    - メモリが何か説明できる。
-    - HDDが何か説明できる。
-    - 自分のMacのOS、モデル番号、CPU、メモリ容量、HDD（SSD）容量をチャットに投稿して確認をもらう。
-
-    参照: [Macの型番調べ辛い](https://docs.komagata.org/4433)
-
-  memo: |-
-    - CPUとメモリの違いを把握しているかチェックする。
-    - 理解が浅いと感じたら突っ込みを入れてもいい。
-
-
-practice4:
-  title: "Debianをインストールする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice5:
-  title: "Linuxのファイル操作の基礎を覚える"
+unix_and_linux:
+  title: UNIX・Linux について知る
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
   submission: true
 
-practice6:
-  title: "aptの基礎を覚える"
+javascript_for_beginners:
+  title: JavaScript入門
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
   submission: true
 
-practice7:
-  title: "viをインストールする"
+basic_vuejs:
+  title: Vue.jsの基本
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice8:
-  title: "viのチュートリアルをやる"
+basic_git:
+  title: Git の基本を理解する
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice9:
-  title: "sudoをインストールする"
+oop:
+  title: オブジェクト指向プログラミング
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice10:
-  title: "sshdをインストールする"
+ruby_on_rails:
+  title: Rails の基本を理解する
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice11:
-  title: "リモートのサーバーにsshで鍵を使ってログインする"
+typescript_for_beginners:
+  title: TypeScript入門
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice12:
-  title: "sshdでパスワード認証を禁止にする"
+basic_grammaer_and_types:
+  title: 基本的な文法・型
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice13:
-  title: "sshdでrootでのログインを禁止にする"
+basic_for_object:
+  title: オブジェクトの基本
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice14:
-  title: "telnetを使ってget, postを試し、HTTPの基礎を理解する"
+basic_for_functions:
+  title: 関数の基本
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice15:
-  title: "HTTPのrequestとresponse、headerとbodyを理解する"
+basic_for_classes:
+  title: クラスの基本
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice16:
-  title: "nginxをインストールする"
+advanced_types:
+  title: 高度な型
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice17:
-  title: "nginxにネームベースのVirtualHostを使ってサイトを作る"
+basic_module_system:
+  title: モジュールシステムの基本
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice18:
-  title: "sslの基礎を理解する"
+basic_asychronus_processing:
+  title: 非同期処理の基本
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
 
-practice19:
-  title: "nginxで自己認証した証明書を使ったssl対応サイトを作る"
+<% (1..4).each do |i| %>
+practice<%= 3 + i %>:
+  title: practice<%= 3 + i %>
   description: "description..."
   goal: "goal..."
   memo: "memo for mentors..."
+  submission: true
+<% end %>
 
-practice20:
-  title: "sqlの基礎を理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice21:
-  title: "mysqlをインストールする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice22:
-  title: "mysql, mysqladminコマンドでユーザー、データベース、テーブルを作成する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice23:
-  title: "rubyをインストールする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice24:
-  title: "rbenvをインストールする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice25:
-  title: "rbenvで複数バージョンのrubyを切り替えれるようにする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice26:
-  title: "「プログラミング入門 - Rubyを使って」をやる"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice27:
-  title: "「プログラミング入門 - Rubyを使って」をgithubにpushする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice28:
-  title: "「プログラミング入門 - Rubyを使って」のテストをtestunitで書く"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice29:
-  title: "rubygemsの基礎を理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice30:
-  title: "gemコマンドを使ってgemのインストール、更新、削除をする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice31:
-  title: "rakeの基礎を理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice32:
-  title: "rakeでCプログラムをコンパイルするRakefileを書く"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice33:
-  title: "Getting Started with RailsにしたがってRailsアプリを作る"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice34:
-  title: "ActionControllerを理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice35:
-  title: "ActionViewを理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice36:
-  title: "ActiveRecordを理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice37:
-  title: "ActiveSupportを理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice38:
-  title: "Railsのroutesを理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice39:
-  title: "Railsのi18nの基礎を理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice40:
-  title: "deviseを使ってユーザー認証を作る"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice41:
-  title: "deviseを使ってTwitter認証を作る"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice42:
-  title: "exception_notificationを使ってエラーのメール通知機能を作る"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice43:
-  title: "paperclipを使って画像アップロード機能を作る"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice44:
-  title: "TDDの基礎を理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice45:
-  title: "unittestの基礎を理解する"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice46:
-  title: "rspecを使ってRailsアプリのテストを書く"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice47:
-  title: "capybaraを使ってrequest specを書く"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice48:
-  title: "Try Gitをやる"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice49:
-  title: "unicornを使ってrailsアプリを動かす"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice50:
-  title: "capistranoを使ってrailsアプリをデプロイする"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice51:
-  title: "iOSプログラミング入門"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-
-practice52:
-  title: "Unityのインストール"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-  include_progress: false
-
-practice53:
-  title: "C#の基本"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-  include_progress: false
-
-practice54:
-  title: "iOSへのビルドと固有の問題"
-  description: "description..."
-  goal: "goal..."
-  memo: "memo for mentors..."
-  include_progress: false
-
-practice55:
-  title: "サーバー連携"
-  description: "ユーザーネーム（最終更新者）で検索できるよ"
-  goal: "goal..."
-  memo: "memo for mentors..."
-  last_updated_user: komagata
-
-practice56:
-  title: "Unityでのテスト"
-  description: "ユーザーネーム（最終更新者）で検索できるよ"
-  goal: "goal..."
-  include_progress: false
-  last_updated_user: machida

@@ -13,7 +13,7 @@ page2:
     テスト
     [example](http://example.com)
   user: komagata
-  practice: practice44
+  practice: basic_vuejs
   published_at: "2019-01-01 00:00:00"
 
 page3:
@@ -30,7 +30,7 @@ page4:
     ## テスト
     テスト
   user: komagata
-  practice: practice51
+  practice: basic_git
   published_at: "2021-01-01 00:00:00"
 
 page5:
@@ -51,7 +51,7 @@ page7:
   body: 上手な質問の方法
   slug: how_to_ask_questions
   user: komagata
-  practice: practice11
+  practice: unix_and_linux
   published_at: "2021-07-01 00:00:00"
 
 page8:
@@ -73,14 +73,14 @@ page10:
   body: フォロー機能
   slug: follow_the_report
   user: komagata
-  practice: practice33
+  practice: oop
   published_at: "2021-07-01 00:00:00"
 
 page11:
   title: プラクティスに紐付いたDocs
   body: プラクティスに紐付いている
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2021-10-01 00:00:00"
   last_updated_user: komagata
 
@@ -98,7 +98,7 @@ page12:
       - 完全一致: `$ apt-cache search ^vim$`
       - 前方一致: `$ apt-cache search ^vim`
   user: komagata
-  practice: practice6
+  practice: ruby_on_rails
   published_at: "2022-01-01 00:00:00"
 
 page13:
@@ -131,7 +131,7 @@ page15:
   title: プラクティスに紐付いたDocs2
   body: プラクティスに紐付いている2
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-02 00:00:00"
   last_updated_user: komagata
 
@@ -139,7 +139,7 @@ page16:
   title: プラクティスに紐付いたDocs3
   body: プラクティスに紐付いている3
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-03 00:00:00"
   last_updated_user: komagata
 
@@ -147,7 +147,7 @@ page17:
   title: プラクティスに紐付いたDocs4
   body: プラクティスに紐付いている4
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-04 00:00:00"
   last_updated_user: komagata
 
@@ -155,7 +155,7 @@ page18:
   title: プラクティスに紐付いたDocs5
   body: プラクティスに紐付いている5
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-05 00:00:00"
   last_updated_user: komagata
 
@@ -163,7 +163,7 @@ page19:
   title: プラクティスに紐付いたDocs6
   body: プラクティスに紐付いている6
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-06 00:00:00"
   last_updated_user: komagata
 
@@ -171,7 +171,7 @@ page20:
   title: プラクティスに紐付いたDocs7
   body: プラクティスに紐付いている7
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-07 00:00:00"
   last_updated_user: komagata
 
@@ -179,7 +179,7 @@ page21:
   title: プラクティスに紐付いたDocs8
   body: プラクティスに紐付いている8
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-08 00:00:00"
   last_updated_user: komagata
 
@@ -187,7 +187,7 @@ page22:
   title: プラクティスに紐付いたDocs9
   body: プラクティスに紐付いている9
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-09 00:00:00"
   last_updated_user: komagata
 
@@ -195,7 +195,7 @@ page23:
   title: プラクティスに紐付いたDocs10
   body: プラクティスに紐付いている10
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-10 00:00:00"
   last_updated_user: komagata
 
@@ -203,7 +203,7 @@ page24:
   title: プラクティスに紐付いたDocs11
   body: プラクティスに紐付いている11
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-11 00:00:00"
   last_updated_user: komagata
 
@@ -211,7 +211,7 @@ page25:
   title: プラクティスに紐付いたDocs12
   body: プラクティスに紐付いている12
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-12 00:00:00"
   last_updated_user: komagata
 
@@ -219,7 +219,7 @@ page26:
   title: プラクティスに紐付いたDocs13
   body: プラクティスに紐付いている13
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-13 00:00:00"
   last_updated_user: komagata
 
@@ -227,7 +227,7 @@ page27:
   title: プラクティスに紐付いたDocs14
   body: プラクティスに紐付いている14
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-14 00:00:00"
   last_updated_user: komagata
 
@@ -235,7 +235,7 @@ page28:
   title: プラクティスに紐付いたDocs15
   body: プラクティスに紐付いている15
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-15 00:00:00"
   last_updated_user: komagata
 
@@ -243,7 +243,7 @@ page29:
   title: プラクティスに紐付いたDocs16
   body: プラクティスに紐付いている16
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-16 00:00:00"
   last_updated_user: komagata
 
@@ -251,7 +251,7 @@ page30:
   title: プラクティスに紐付いたDocs17
   body: プラクティスに紐付いている17
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-17 00:00:00"
   last_updated_user: komagata
 
@@ -259,7 +259,7 @@ page31:
   title: プラクティスに紐付いたDocs18
   body: プラクティスに紐付いている18
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-18 00:00:00"
   last_updated_user: komagata
 
@@ -267,7 +267,7 @@ page32:
   title: プラクティスに紐付いたDocs19
   body: プラクティスに紐付いている19
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-19 00:00:00"
   last_updated_user: komagata
 
@@ -275,7 +275,7 @@ page33:
   title: プラクティスに紐付いたDocs20
   body: プラクティスに紐付いている20
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-20 00:00:00"
   last_updated_user: komagata
 
@@ -283,7 +283,7 @@ page34:
   title: プラクティスに紐付いたDocs21
   body: プラクティスに紐付いている21
   user: komagata
-  practice: practice1
+  practice: javascript_for_beginners
   published_at: "2022-12-21 00:00:00"
   last_updated_user: komagata
 

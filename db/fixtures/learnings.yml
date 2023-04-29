@@ -1,49 +1,49 @@
 <% today = Time.zone.today %>
 learning1:
   user: komagata
-  practice: practice1
+  practice: unix_and_linux
   status: "started"
   completion_message_displayed: false
 
 learning2:
   user: komagata
-  practice: practice2
+  practice: javascript_for_beginners
   status: "complete"
   completion_message_displayed: true
 
 learning3:
   user: komagata
-  practice: practice3
+  practice: basic_vuejs
   status: "unstarted"
   completion_message_displayed: false
 
 learning4:
   user: machida
-  practice: practice2
+  practice: javascript_for_beginners
   status: "complete"
   completion_message_displayed: true
 
 learning5:
   user: sotugyou
-  practice: practice2
+  practice: javascript_for_beginners
   status: "complete"
   completion_message_displayed: true
 
 learning6:
   user: kimura
-  practice: practice1
+  practice: unix_and_linux
   status: "complete"
   completion_message_displayed: true
 
 learning7:
   user: komagata
-  practice: practice4
+  practice: basic_git
   status: "submitted"
   completion_message_displayed: false
 
 learning8:
   user: machida
-  practice: practice5
+  practice: oop
   status: "complete"
   completion_message_displayed: true
   created_at: "2020-04-12 14:05:53.782503"
@@ -51,7 +51,7 @@ learning8:
 
 learning9:
   user: machida
-  practice: practice6
+  practice: ruby_on_rails
   status: "complete"
   created_at: "2020-04-10 14:05:53.782503"
   updated_at: "2020-04-10 14:05:53.782503"
@@ -59,7 +59,7 @@ learning9:
 
 learning10:
   user: machida
-  practice: practice7
+  practice: typescript_for_beginners
   status: "complete"
   created_at: "2020-04-19 14:05:53.782503"
   updated_at: "2020-04-19 14:05:53.782503"
@@ -67,7 +67,7 @@ learning10:
 
 learning11:
   user: machida
-  practice: practice8
+  practice: basic_grammaer_and_types
   status: "complete"
   created_at: "2020-04-22 14:05:53.782503"
   updated_at: "2020-04-22 14:05:53.782503"
@@ -75,44 +75,44 @@ learning11:
 
 learning12:
   user: hajime
-  practice: practice1
+  practice: unix_and_linux
   status: "started"
   completion_message_displayed: false
 
 learning13:
   user: kananashi
-  practice: practice3
+  practice: basic_vuejs
   status: "started"
   completion_message_displayed: false
 
 learning14:
   user: hajime
-  practice: practice27
+  practice: basic_asychronus_processing
   status: "complete"
   completion_message_displayed: true
 
 learning15:
   user: hajime
-  practice: practice48
+  practice: basic_module_system
   status: "complete"
   completion_message_displayed: true
 
 learning16:
   user: kimura
-  practice: practice6
+  practice: ruby_on_rails
   status: "complete"
   completion_message_displayed: false
 
 learning17:
   user: sotugyou
-  practice: practice3
+  practice: basic_vuejs
   status: "submitted"
   completion_message_displayed: false
 
 <% (0..4).each do |i| %>
 learning<%= i + 18 %>:
   user: <%= [:akiyosi, :fujiyasu, :jobseeker, :muryou, :nippounashi][i] %>
-  practice: practice1
+  practice: unix_and_linux
   status: "complete"
   created_at: <%= (today - 2.weeks + 2.day + 12.hours - i.day).to_formatted_s(:db) %>
   updated_at: <%= (today - 2.weeks + 2.day + 12.hours - i.day).to_formatted_s(:db) %>
