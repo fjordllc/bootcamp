@@ -88,7 +88,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
 
     talk_id = users(:with_hyphen).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
-    check 'action-check'
+    check 'action-completed-checkbox'
     assert_text '対応済みにしました'
 
     visit '/talks/action_uncompleted'

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             commentableType: commentableType,
             currentUserId: currentUserId,
             currentUser: currentUser,
-            initialCompleted: initialCompleted === 'true'
+            initialActionCompleted: initialCompleted === 'true'
           }
         })
     }).$mount(selector)
