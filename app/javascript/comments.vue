@@ -28,10 +28,12 @@
       @delete='deleteComment',
       @update='updateComment')
   .support-checkbox(v-if='isRole("admin") && commentableType === "Talk"')
-    input#action-check(type='checkbox', :checked='isCompleted', @click='changeFlag')
-    .check-button(
-      :class='isCompleted ? "is-active is-main" : "is-inactive is-muted"')
-      | {{ CompletedLabel }}
+    input#action--check(
+      type='checkbox',
+      :checked='isActionCompleted',
+      @click='changeCompletedFlag')
+    .check-button(:class='isActionCompleted ? "is-checked" : "is-unchecked"')
+      | 対応しました
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
@@ -97,7 +99,7 @@ export default {
     commentableType: { type: String, required: true },
     currentUserId: { type: String, required: true },
     currentUser: { type: Object, required: true },
-    initialCompleted: { type: Boolean, required: true }
+    initialActionCompleted: { type: Boolean, required: true }
   },
   data() {
     return {
@@ -115,7 +117,7 @@ export default {
       loadedComment: false,
       nextCommentAmount: null,
       incrementCommentSize: 8,
-      isCompleted: false
+      isActionCompleted: false
     }
   },
   computed: {
@@ -135,11 +137,7 @@ export default {
       return this.$store.getters.productCheckerId
     },
     CompletedLabel() {
-      if (this.isCompleted) {
-        return '対応済み'
-      } else {
-        return '未対応'
-      }
+      return this.isActionCompleted ? '対応済み' : '未対応'
     }
   },
   created() {
@@ -153,10 +151,10 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    changeFlag() {
-      this.isCompleted = !this.isCompleted
+    changeCompletedFlag() {
+      this.isActionCompleted = !this.isActionCompleted
       const params = {
-        talk: { action_completed: this.isCompleted }
+        talk: { action_completed: this.isActionCompleted }
       }
 
       fetch(`/api/talks/${this.commentableId}`, {
@@ -229,7 +227,7 @@ export default {
         })
     },
     getInitialCompleted() {
-      this.isCompleted = this.initialCompleted
+      this.isActionCompleted = this.initialActionCompleted
     },
     createComment({ toastMessage } = {}) {
       if (this.description.length < 1) {
