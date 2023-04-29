@@ -77,7 +77,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_current_path(/#latest-comment$/, url: true)
   end
 
-  test 'The number of action uncompleted comments is displayed in the global navigation and actiont uncompleted tab of the talks room' do
+  test 'The number of action uncompleted comments is displayed in the global navigation and action uncompleted tab of the talks room' do
     visit_with_auth '/talks/action_uncompleted', 'komagata'
     within(:css, '.global-nav') do
       within(:css, "a[href='/talks/action_uncompleted']") do
@@ -88,11 +88,8 @@ class Notification::TalkTest < ApplicationSystemTestCase
 
     talk_id = users(:with_hyphen).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
-    within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
-    end
-    click_button 'コメントする'
-    assert_text 'コメントを投稿しました'
+    check 'action-check'
+    assert_text '対応済みにしました'
 
     visit '/talks/action_uncompleted'
     assert_text '未対応の相談部屋はありません'
