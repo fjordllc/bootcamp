@@ -77,10 +77,10 @@ class Notification::TalkTest < ApplicationSystemTestCase
     assert_current_path(/#latest-comment$/, url: true)
   end
 
-  test 'The number of unreplied comments is displayed in the global navigation and unreplied tab of the talks room' do
-    visit_with_auth '/talks/unreplied', 'komagata'
+  test 'The number of action uncompleted comments is displayed in the global navigation and actiont uncompleted tab of the talks room' do
+    visit_with_auth '/talks/action_uncompleted', 'komagata'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/unreplied']") do
+      within(:css, "a[href='/talks/action_uncompleted']") do
         assert_selector '.global-nav__item-count.a-notification-count.is-only-mentor', count: 1
       end
     end
@@ -94,17 +94,17 @@ class Notification::TalkTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'コメントを投稿しました'
 
-    visit '/talks/unreplied'
-    assert_text '未返信の相談部屋はありません'
+    visit '/talks/action_uncompleted'
+    assert_text '未対応の相談部屋はありません'
     within(:css, '.global-nav') do
-      within(:css, "a[href='/talks/unreplied'") do
+      within(:css, "a[href='/talks/action_uncompleted'") do
         assert_no_selector '.global-nav__item-count.a-notification-count.is-only-mentor'
       end
     end
     assert_no_selector '.page-tabs__item-count.a-notification-count'
   end
 
-  test 'The number of unreplied comments is not displayed in the global navigation when mentor visit page' do
+  test 'The number of action uncompleted comments is not displayed in the global navigation when mentor visit page' do
     user = users(:mentormentaro)
     visit_with_auth root_path, 'mentormentaro'
     assert_selector '.page-header__title', text: 'ダッシュボード'
@@ -115,7 +115,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
   end
 
-  test 'The number of unreplied comments is not displayed in the global navigation when advisor visit page' do
+  test 'The number of action uncompleted comments is not displayed in the global navigation when advisor visit page' do
     user = users(:advijirou)
     visit_with_auth root_path, 'advijirou'
     assert_selector '.page-header__title', text: 'ダッシュボード'
@@ -126,7 +126,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     end
   end
 
-  test 'The number of unreplied comments is not displayed in the global navigation when student visit page' do
+  test 'The number of action uncompleted comments is not displayed in the global navigation when student visit page' do
     user = users(:kimura)
     visit_with_auth root_path, 'kimura'
     assert_selector '.page-header__title', text: 'ダッシュボード'
