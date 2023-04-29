@@ -28,7 +28,7 @@
       @delete='deleteComment',
       @update='updateComment')
   .support-checkbox(v-if='isRole("admin") && commentableType === "Talk"')
-    input(type='checkbox', :checked='isCompleted', @click='changeFlag')
+    input#action-check(type='checkbox', :checked='isCompleted', @click='changeFlag')
     .check-button(
       :class='isCompleted ? "is-active is-main" : "is-inactive is-muted"')
       | {{ CompletedLabel }}
