@@ -423,7 +423,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text "#{decorated_user.long_name} さんの相談部屋"
 
     visit "/talks/#{user.talk.id}"
-    check 'action-check'
+    check 'action-completed-checkbox'
     assert_text '対応済みにしました'
     visit '/talks/action_uncompleted'
     assert_no_text "#{decorated_user.long_name} さんの相談部屋"
@@ -436,7 +436,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_no_text "#{decorated_user.long_name} さんの相談部屋"
 
     visit "/talks/#{user.talk.id}"
-    uncheck 'action-check'
+    uncheck 'action-completed-checkbox'
     assert_text '未対応にしました'
     visit '/talks/action_uncompleted'
     assert_text "#{decorated_user.long_name} さんの相談部屋"
