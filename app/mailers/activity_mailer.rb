@@ -351,7 +351,7 @@ class ActivityMailer < ApplicationMailer
     @answer = params[:answer]
 
     @link_url = notification_redirector_url(
-      link: question_path(@answer.question),
+      link: question_path(@answer.question, anchor: "answer_#{@answer.id}"),
       kind: Notification.kinds[:chose_correct_answer]
     )
 
