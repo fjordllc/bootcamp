@@ -12,7 +12,7 @@ class Comment::AfterCreateCallback
     if comment.commentable.instance_of?(Talk)
       notify_to_admins(comment)
       unless comment.sender.admin?
-        notify_to_chat(comment) 
+        notify_to_chat(comment)
         update_unreplied(comment)
       end
     end
