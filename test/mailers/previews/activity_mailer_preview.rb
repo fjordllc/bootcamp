@@ -70,7 +70,7 @@ class ActivityMailerPreview < ActionMailer::Preview
 
   def moved_up_event_waiting_user
     event = Event.find(ActiveRecord::FixtureSet.identify(:event3))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:hajime))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
 
     ActivityMailer.with(
       event: event,

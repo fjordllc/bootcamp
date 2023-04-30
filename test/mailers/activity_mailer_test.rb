@@ -517,7 +517,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal ['hatsuno@fjord.jp'], email.to
     assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
     assert_match(/イベント/, email.body.to_s)
   end
@@ -537,7 +537,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal ['hatsuno@fjord.jp'], email.to
     assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
     assert_match(/イベント/, email.body.to_s)
   end
