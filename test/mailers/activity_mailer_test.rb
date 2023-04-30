@@ -509,6 +509,22 @@ class ActivityMailerTest < ActionMailer::TestCase
   test 'moved_up_event_waiting_user' do
     event = events(:event3)
     notification = notifications(:notification_moved_up_event_waiting_user)
+    ActivityMailer.moved_up_event_waiting_user(
+      receiver: notification.user,
+      event: event
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['kimura@fjord.jp'], email.to
+    assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
+    assert_match(/イベント/, email.body.to_s)
+  end
+
+  test 'moved_up_event_waiting_user with params' do
+    event = events(:event3)
+    notification = notifications(:notification_moved_up_event_waiting_user)
     mailer = ActivityMailer.moved_up_event_waiting_user(
       receiver: notification.user,
       event: event
