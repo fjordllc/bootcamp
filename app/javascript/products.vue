@@ -24,7 +24,8 @@ div(:class='contentClassName')(v-else)
               :key='product.id',
               :product='product',
               :currentUserId='currentUserId',
-              :isMentor='isMentor')
+              :isMentor='isMentor',
+              :display-user-icon='displayUserIcon')
       template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
         .a-card(:class='cardClassName')(
           v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
@@ -74,7 +75,8 @@ div(:class='contentClassName')(v-else)
                 :key='product.id',
                 :product='product',
                 :currentUserId='currentUserId',
-                :isMentor='isMentor')
+                :isMentor='isMentor',
+                :display-user-icon='displayUserIcon')
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`')
@@ -106,7 +108,8 @@ export default {
     selectedTab: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: String, required: true },
-    checkerId: { type: String, required: false, default: null }
+    checkerId: { type: String, required: false, default: null },
+    displayUserIcon: { type: Boolean, default: true }
   },
   data() {
     return {

@@ -2,43 +2,38 @@
 .card-list.a-card
   .card-header.is-sm
     h2.card-header__title
-      | 直近の日報
-  .card-list__items(v-if='reports && reports.length > 0')
-    report(
-      v-for='report in reports',
-      :key='report.id',
-      :report='report',
-      :current-user-id='currentUserId')
+      | 提出物
+  .card-list__items(v-if='products && products.length > 0')
+    product(
+      v-for='product in products',
+      :key='product.id',
+      :product='product',
+      :current-user-id='currentUserId',
+      :is-mentor='isMentor')
   .card-body(v-else)
     .card__description
       .o-empty-message
         .o-empty-message__icon
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
-          | 日報はまだありません。
+          | 提出物はまだありません。
 </template>
 <script>
-import Report from './report.vue'
+import Product from '../product.vue'
 
 export default {
-  name: 'UserRecentReports',
+  name: 'UserProducts',
   components: {
-    report: Report
+    product: Product
   },
   props: {
-    userId: {
-      type: Number,
-      default: null
-    },
-    limit: {
-      type: Number,
-      default: 10
-    }
+    userId: { type: Number, default: null },
+    isMentor: { type: Boolean, required: true },
+    currentUserId: { type: String, required: true }
   },
   data() {
     return {
-      reports: null,
-      currentUserId: null
+      products: null
     }
   },
   computed: {
@@ -47,30 +42,26 @@ export default {
       if (this.userId) {
         params.set('user_id', this.userId)
       }
-      if (this.limit) {
-        params.set('limit', this.limit)
-      }
       return params
     },
-    reportsAPI() {
+    productsAPI() {
       const params = this.newParams
-      return `/api/reports.json?${params}`
+      return `/api/products.json?${params}`
     }
   },
   created() {
-    this.getReports()
+    this.getProducts()
   },
   methods: {
-    async getReports() {
-      const response = await fetch(this.reportsAPI, {
+    async getProducts() {
+      const response = await fetch(this.productsAPI, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin',
         redirect: 'manual'
       }).catch((error) => console.warn(error))
       const json = await response.json().catch((error) => console.warn(error))
-      this.reports = json.reports
-      this.currentUserId = json.currentUserId
+      this.products = json.products
     }
   }
 }

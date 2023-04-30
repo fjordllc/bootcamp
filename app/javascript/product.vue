@@ -1,7 +1,7 @@
 <template lang="pug">
 .card-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
   .card-list-item__inner
-    .card-list-item__user
+    .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='product.user.url')
         span(:class='["a-user-role", roleClass]')
           img.card-list-item__user-icon.a-user-icon(
@@ -121,7 +121,8 @@ export default {
   props: {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: String, required: true },
+    displayUserIcon: { type: Boolean }
   },
   computed: {
     roleClass() {

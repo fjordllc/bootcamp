@@ -588,4 +588,10 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product69).id}", 'komagata'
     assert_text '日報はまだありません。'
   end
+
+  test 'hide user icon from recent products in product show' do
+    visit_with_auth "/products/#{products(:product2).id}", 'komagata'
+    page.find('#side-tabs-nav-4').click
+    assert_no_selector('.card-list-item__user')
+  end
 end
