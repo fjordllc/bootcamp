@@ -485,7 +485,7 @@ class User < ApplicationRecord
   end
 
   def active?
-    last_activity_at && (last_activity_at > 1.month.ago)
+    (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
 
   def checked_product_of?(*practices)
