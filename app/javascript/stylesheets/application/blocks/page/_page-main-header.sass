@@ -1,13 +1,12 @@
 .page-main-header
-  +media-breakpoint-up(md)
-    font-size: 1.125rem
-  +media-breakpoint-down(sm)
-    font-size: 1rem
+  border-bottom: solid 1px $border
 
 .page-main-header__inner
-  padding-top: .75rem
+  +padding(vertical, .5rem)
   display: flex
   align-items: center
+  +media-breakpoint-up(md)
+    min-height: 2.5rem
   +media-breakpoint-down(sm)
     display: block
 
@@ -22,4 +21,7 @@
     margin-top: .75rem
 
 .page-main-header__title
-  +text-block(1em 1.4, $main 600)
+  +media-breakpoint-up(md)
+    +text-block(1.25rem 1.4, $main 700)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.4, $main 700)

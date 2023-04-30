@@ -1,0 +1,22 @@
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__title
+        | イベント
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to events_calendars_url(protocol: :webcal, format: :ics), class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | イベント購読
+            .page-header-actions__item-help
+              label.a-help(for='modal-web-cal')
+                i.fa-solid.fa-question
+= render '/shared/modal', id: 'modal-web-cal', modal_title: '📆 イベント購読'
+  .modal__description.is-md
+    .a-long-text
+      p
+        | 卒業するまでには最後までやり切る「熱量」が必要です。
+        | 人を動かす刺激としては「楽しさ」、「好奇心」、「情熱」といった感情が真っ先に思い浮かびます。
+        | これらの感情は人の行動の原動力となり得ますが、持続性や一貫性に欠けるところがあります。
+        | そこで熱量を持続させる場合はある種の目的ないし目標「ゴール」を設定することが有効になります。
