@@ -2,9 +2,18 @@
   = f.label :login_name, class: 'a-form-label is-required'
   = f.text_field :login_name, class: 'a-text-input', autocomplete: 'address-line3', placeholder: 'komagata'
   .a-form-help
+    ul
+      li
+        | 文字数は
+        em.is-danger
+          | 3文字以上
+        | が必要です。
+      li
+        | 半角英数字と-（ハイフン）のみが使用できます。
+      li
+        | 先頭と最後にハイフンを使用することはできません。
+      li
+        | ハイフンを連続して使用することはできません。
     p
-      | チャットやSNS（Twitter、GitHub、ブログ など）でユーザー名が異なると個人を認識するのが困難になります。
-      | 極力ユーザー名は統一するのがおすすめです。
-      | 半角英数字と-（ハイフン）のみが使用できます。
-      | 先頭と最後にハイフンを使用することはできません。
-      | ハイフンを連続して使用することはできません。
+      | チャットやSNS（Twitter、GitHub、ブログなど）でユーザー名が異なると個人を認識するのが困難になります。
+      | 極力ユーザー名は統一しましょう。
