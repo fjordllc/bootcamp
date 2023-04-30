@@ -12,6 +12,7 @@
     padding-top: .5rem
 
 .page-header-actions__item
+  position: relative
   +media-breakpoint-up(md)
     min-width: 10rem
     display: flex
@@ -23,3 +24,9 @@
     max-width: 50%
     &:first-child:last-child
       max-width: 100%
+  .a-button
+    +media-breakpoint-up(md)
+      height: 2.125rem
+
+.page-header-actions__item-help
+  +position(absolute, right -.25rem, top -.25rem)
