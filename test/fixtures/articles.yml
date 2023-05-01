@@ -19,7 +19,7 @@ article3:
   wip: true
 
 article4:
-  title: 500x500のサムネイル
-  body: 500x500のサムネイル
+  title: サムネイル画像付きのブログ記事
+  body: サムネイル画像付きのブログ記事
   user: komagata
   wip: true
