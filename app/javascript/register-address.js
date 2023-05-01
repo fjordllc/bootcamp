@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.forEach( element => {
         element.classList.toggle('is-hidden')
       })
+
+      const value = document.querySelector('input:checked[name=register_address]').value
+      const countrySelect = document.getElementById('country-select')
+
+      if (value === 'yes') {
+        if (countrySelect.value === '') {
+          countrySelect.querySelector("option[value='JP']").selected = true
+        }
+      }
     })
   })
 })
