@@ -20,11 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const selectedCountry = countrySelect.value
 
-    countries[selectedCountry].forEach(subdivision => {
-      const option = document.createElement('option')
-      option.text = subdivision[0]
-      option.value = subdivision[1]
-      subdivisionSelect.appendChild(option)
-    })
+    if (selectedCountry !== '') {
+      countries[selectedCountry].forEach(subdivision => {
+        const option = document.createElement('option')
+        option.text = subdivision[0]
+        option.value = subdivision[1]
+        subdivisionSelect.appendChild(option)
+      })
+    }
   })
 })
