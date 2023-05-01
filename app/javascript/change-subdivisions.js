@@ -1,15 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
   const countryForm = document.getElementById('country-form')
+
   if (!countryForm) {
     return null
   }
+
   const countries = JSON.parse(countryForm.getAttribute('data-countries'))
   const countrySelect = document.getElementById('country-select')
 
   countrySelect.addEventListener('change', () => {
     const subdivisionSelect = document.getElementById('subdivision-select')
+    const options = subdivisionSelect.options
+    
+    Array.from(options).forEach(option => {
+      if (option.index !== 0) {
+        subdivisionSelect.removeChild(options[option.index])
+      }
+    })
+
     const selectedCountry = countrySelect.value
-    subdivisionSelect.options.length = 0
 
     countries[selectedCountry].forEach(subdivision => {
       const option = document.createElement('option')
