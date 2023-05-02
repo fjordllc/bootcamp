@@ -120,7 +120,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def holding_tomorrow?
-    holding_next_day?
+    holding_next_day?(1)
   end
 
   def holding_day_after_tomorrow?
