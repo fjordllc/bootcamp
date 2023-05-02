@@ -216,7 +216,7 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show regular events for only event participant and regular events on dashbord' do
+  test 'show regular events for only participant and special events on dashbord' do
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
       today_event_label = find('.card-list__label', text: '今日開催')
