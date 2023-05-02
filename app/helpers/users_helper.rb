@@ -63,9 +63,13 @@ module UsersHelper
   end
 
   def subdivisions(user)
-    country_code = user.country_code.presence || 'JP'
-    country = ISO3166::Country[country_code]
-    country.subdivision_names_with_codes(I18n.locale.to_s)
+    country_code = user.country_code
+    if country_code.present?
+      country = ISO3166::Country[country_code]
+      country.subdivision_names_with_codes(I18n.locale.to_s)
+    else
+      []
+    end
   end
 
   def address(user)
