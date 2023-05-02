@@ -289,7 +289,7 @@ class PracticesTest < ApplicationSystemTestCase
     assert_no_selector '.card-header', text: '概要'
   end
 
-  test 'in summary of the practice, markdown, javascript, and html tags are escaped' do
+  test 'escape markdown, javascript, and html tags entered in the summary' do
     escape_text = <<~TEXT
       # マークダウン
       <script>alert('XSS')</script>
