@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (value === 'yes') {
         if (countrySelect.value === '') {
           countrySelect.querySelector("option[value='JP']").selected = true
+
+          const countries = JSON.parse(countryForm.getAttribute('data-countries'))
+
+          countries.JP.forEach(subdivision => {
+            const option = document.createElement('option')
+            option.text = subdivision[0]
+            option.value = subdivision[1]
+            subdivisionSelect.appendChild(option)
+          })
         }
 
         const elements = document.querySelectorAll("input[type=hidden][value='']")
