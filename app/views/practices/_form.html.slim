@@ -59,9 +59,9 @@
       | 参考書籍
     .row#reference_books
       = f.fields_for :practices_books do |practices_book|
-        = render 'practices_book_fields', f: practices_book
+        = render 'book_fields', f: practices_book
       .col-xs-12.books-form__add
-        = link_to_add_association f, :practices_books, class: 'a-button is-md is-primary' do
+        = link_to_add_association f, :practices_books, partial: 'book_fields', class: 'a-button is-md is-primary' do
           i.fa-regular.fa-plus
           span
             | 書籍を選択
