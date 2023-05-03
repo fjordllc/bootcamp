@@ -2,11 +2,7 @@
 .page-body
   nav.page-filter.form
     .container.is-md
-      .form-item.is-inline-md-up
-        label.a-form-label(for='js-choices-single-select')
-          | プラクティスで絞り込む
-        select#js-choices-single-select(v-model='filterByPlacticeId')
-          option(v-for='practice in practices' :value='practice.id' :key='practice.id') {{practice.title}}
+      filterDropdown(label='プラクティスで絞り込む' :options='practices' v-model='filterByPlacticeId')
   .page-content.is-books
     .container
       .books
@@ -31,16 +27,17 @@
 <script>
 import Choices from 'choices.js'
 import Book from './book'
+import FilterDropdown from './filterDropdown'
 
 export default {
   name: 'Books',
   components: {
-    book: Book
+    book: Book,
+    filterDropdown: FilterDropdown
   },
   props: {
     isAdmin: { type: Boolean, required: true },
-    isMentor: { type: Boolean, required: true },
-    practiceId: { type: Number, default: null, required: false }
+    isMentor: { type: Boolean, required: true }
   },
   data() {
     return {
