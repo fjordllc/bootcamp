@@ -1,0 +1,38 @@
+# frozen_string_literal: true
+
+class AfterRetirementProcesser
+  def initialize(user)
+    @user = user
+  end
+
+  def call
+    Newspaper.publish(:retirement_create, @user)
+    begin
+      UserMailer.retire(@user).deliver_now
+    rescue Postmark::InactiveRecipientError => e
+      Rails.logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
+    end
+
+    destroy_subscription
+    notify_to_admins
+    notify_to_mentors
+  end
+
+  private
+
+  def destroy_subscription
+    Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
+  end
+
+  def notify_to_admins
+    User.admins.each do |admin_user|
+      ActivityDelivery.with(sender: @user, receiver: admin_user).notify(:retired)
+    end
+  end
+
+  def notify_to_mentors
+    User.mentor.each do |mentor_user|
+      ActivityDelivery.with(sender: @user, receiver: mentor_user).notify(:retired)
+    end
+  end
+end
