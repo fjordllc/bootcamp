@@ -20,6 +20,7 @@ komagata:
   mentor: true
   github_collaborator: true
   unsubscribe_email_token: 037i-ef5n7V4EnPv74mtyQ
+  sent_student_followup_message: true
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
   last_activity_at: "2014-01-01 00:00:01"
@@ -48,6 +49,7 @@ machida:
   mentor: true
   github_collaborator: true
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
+  sent_student_followup_message: true
   updated_at: "2014-01-01 00:00:02"
   created_at: "2014-01-01 00:00:02"
   last_activity_at: "2014-01-01 00:00:02"
@@ -76,6 +78,7 @@ sotugyou_with_job:
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwj
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:03"
 
 sotugyou:
@@ -97,6 +100,7 @@ sotugyou:
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:03"
 
 advijirou:
@@ -115,6 +119,7 @@ advijirou:
   unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
   updated_at: "2014-01-01 00:00:04"
   created_at: "2014-01-01 00:00:04"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:04"
 
 yameo:
@@ -139,6 +144,7 @@ yameo:
   retired_on: "2015-01-01"
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:05"
   notified_retirement: false
 
@@ -162,6 +168,7 @@ mentormentaro:
   unsubscribe_email_token: -PmtH0Rmh36FIPhbxzkMGA
   updated_at: "2014-01-01 00:00:06"
   created_at: "2014-01-01 00:00:06"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:06"
   profile_name: "メンタ 麺太郎"
   profile_job: "プログラマー"
@@ -189,6 +196,7 @@ kimura:
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:07"
 
 hatsuno:
@@ -214,6 +222,7 @@ hatsuno:
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:08"
 
 hajime:
@@ -236,6 +245,7 @@ hajime:
   unsubscribe_email_token: iHzoJxKvrBeGGT6DjAJgJQ
   updated_at: "2014-01-01 00:00:09"
   created_at: "2014-01-01 00:00:09"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:09"
 
 muryou:
@@ -260,6 +270,7 @@ muryou:
   unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:10"
 
 kensyu:
@@ -287,6 +298,7 @@ kensyu:
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:11"
 
 senpai:
@@ -312,6 +324,7 @@ senpai:
   unsubscribe_email_token: E8ycg7ahXNYj5bPA9Ic7aw
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
 kananashi: #name_kanaを持たないユーザー
@@ -334,6 +347,7 @@ kananashi: #name_kanaを持たないユーザー
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
 osnashi: #osを持たないユーザー
@@ -356,6 +370,7 @@ osnashi: #osを持たないユーザー
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
 jobseeker: #就活希望するユーザー
@@ -379,6 +394,7 @@ jobseeker: #就活希望するユーザー
   unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
+  sent_student_followup_message: true
   last_activity_at: "2020-01-01 00:00:12"
 
 nippounashi: # 日報を投稿していないユーザー
@@ -401,6 +417,7 @@ nippounashi: # 日報を投稿していないユーザー
   unsubscribe_email_token: QV8qOjwxrYxqh6P_Q9C82M
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:10"
 
 with_hyphen:
@@ -423,6 +440,7 @@ with_hyphen:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:17"
   created_at: "2021-01-01 00:00:17"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:17"
 
 sumi:
@@ -447,6 +465,7 @@ sumi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:18"
   created_at: "2021-01-01 00:00:18"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:18"
 
 nobu:
@@ -469,6 +488,7 @@ nobu:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:19"
   created_at: "2021-01-01 00:00:19"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:19"
 
 rie:
@@ -491,6 +511,7 @@ rie:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:20"
   created_at: "2021-01-01 00:00:20"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:20"
 
 take:
@@ -513,6 +534,7 @@ take:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:21"
   created_at: "2021-01-01 00:00:21"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:21"
 
 kunimi:
@@ -535,6 +557,7 @@ kunimi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:22"
   created_at: "2021-01-01 00:00:22"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:22"
 
 tomo:
@@ -557,6 +580,7 @@ tomo:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:23"
   created_at: "2021-01-01 00:00:23"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:23"
 
 akiyosi:
@@ -579,6 +603,7 @@ akiyosi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:24"
   created_at: "2021-01-01 00:00:24"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:24"
 
 tomomi:
@@ -601,6 +626,7 @@ tomomi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:25"
   created_at: "2021-01-01 00:00:25"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:25"
 
 ogaoga:
@@ -623,6 +649,7 @@ ogaoga:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:26"
   created_at: "2021-01-01 00:00:26"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:26"
 
 take8:
@@ -647,6 +674,7 @@ take8:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:27"
   created_at: "2021-01-01 00:00:27"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:27"
 
 fujiyasu:
@@ -669,6 +697,7 @@ fujiyasu:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:28"
   created_at: "2021-01-01 00:00:28"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:28"
 
 adminonly: # adminのroleだけを持ったユーザー
@@ -693,6 +722,7 @@ adminonly: # adminのroleだけを持ったユーザー
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-02-01 00:00:30"
   created_at: "2021-02-01 00:00:30"
+  sent_student_followup_message: true
   last_activity_at: "2021-02-01 00:00:30"
 
 kensyuowata:
@@ -721,6 +751,7 @@ kensyuowata:
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:11"
   notified_retirement: false
 
@@ -746,6 +777,7 @@ unadmentor:
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: "2021-11-01 00:00:02"
   created_at: "2021-11-01 00:00:02"
+  sent_student_followup_message: true
   last_activity_at: "2021-11-01 00:00:02"
   profile_name: "ウナ アドメン"
   profile_job: "プログラマー"
@@ -772,6 +804,7 @@ tatenoicon: # アイコンが長方形のユーザー
   unsubscribe_email_token: QV8qOjwxrYxqh6P_Q9B76M
   updated_at: "2021-01-01 00:00:18"
   created_at: "2021-01-01 00:00:18"
+  sent_student_followup_message: true
   last_activity_at: "2021-01-01 00:00:18"
 
 thuynga: # アイコンが小さい画像のユーザー
@@ -795,6 +828,7 @@ thuynga: # アイコンが小さい画像のユーザー
   unsubscribe_email_token: KVcUc3Ew3L6yt1Pwjdp-iQ
   updated_at: "2021-12-01 00:00:11"
   created_at: "2021-12-01 00:00:11"
+  sent_student_followup_message: true
   last_activity_at: "2021-12-01 00:00:11"
 
 sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
@@ -819,6 +853,7 @@ sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
   updated_at: "2014-01-01 00:00:03"
   created_at: "2014-01-01 00:00:03"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:03"
 
 <% trailing_katakana = "ァ" %> 
@@ -844,6 +879,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %>
   created_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %> # 3ヶ月間隔で期が変更されるため、入会日を3ヶ月毎に設定
+  sent_student_followup_message: true
   last_activity_at: <%= Date.new(2014, 1, 1).next_month(i * 3) %>
 <% end %>
 
@@ -867,6 +903,7 @@ otameshi:
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current %>
   created_at: <%= Time.current %>
+  sent_student_followup_message: false
   last_activity_at: <%= Time.current %>
 
 registration30days:
@@ -885,9 +922,9 @@ registration30days:
   os: mac
   experience: ruby
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
-  sent_student_followup_message: false
   updated_at: <%= Time.current - 20.days %>
   created_at: <%= Time.current - 30.days %>
+  sent_student_followup_message: false
   last_activity_at: <%= Time.current - 10.days %>
 
 registration40days:
@@ -906,9 +943,9 @@ registration40days:
   os: mac
   experience: ruby
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
-  sent_student_followup_message: false
   updated_at: <%= Time.current - 31.days %>
   created_at: <%= Time.current - 40.days %>
+  sent_student_followup_message: true
   last_activity_at: <%= Time.current - 10.days %>
 
 unhibernated:
@@ -927,10 +964,11 @@ unhibernated:
   os: mac
   experience: ruby
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
-  sent_student_followup_message: false
+  sent_student_followup_message: true
   hibernated_at: <%= Time.current - 13.days %>
   updated_at: <%= Time.current - 20.days %>
   created_at: <%= Time.current - 30.days %>
+  sent_student_followup_message: false
   last_activity_at: <%= Time.current - 10.days %>
 
 discordinvalid: #Discord IDが不正なユーザー
@@ -953,6 +991,7 @@ discordinvalid: #Discord IDが不正なユーザー
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
 twitterinvalid: #Twitter IDが不正なユーザー
@@ -975,6 +1014,7 @@ twitterinvalid: #Twitter IDが不正なユーザー
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
+  sent_student_followup_message: true
   last_activity_at: "2020-01-01 00:00:12"
 
 nocompanykensyu: # 所属企業のない研修生
@@ -999,6 +1039,7 @@ nocompanykensyu: # 所属企業のない研修生
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:11"
 
 neverlogin: # 1度もログインしたことがないユーザー
@@ -1015,6 +1056,7 @@ neverlogin: # 1度もログインしたことがないユーザー
   free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
+  sent_student_followup_message: true
 
 kyuukai:
   login_name: kyuukai
@@ -1041,6 +1083,7 @@ kyuukai:
   hibernated_at: "2020-01-01 00:00:00"
   updated_at: "2014-01-01 00:00:13"
   created_at: "2014-01-01 00:00:13"
+  sent_student_followup_message: true
 
 sotsugyoukigyoshozoku:
   login_name: sotsugyoukigyoshozoku
@@ -1061,6 +1104,7 @@ sotsugyoukigyoshozoku:
   sad_streak: true
   updated_at: "2022-07-01 00:00:00"
   created_at: "2022-07-01 00:00:00"
+  sent_student_followup_message: true
   last_activity_at: "2022-07-01 00:00:00"
 
 advisernocolleguetrainee:
@@ -1080,4 +1124,5 @@ advisernocolleguetrainee:
   unsubscribe_email_token: 6ULb9vj1AJzTH_mOsfR46Q
   updated_at: "2014-01-01 00:00:04"
   created_at: "2014-01-01 00:00:04"
+  sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:04"
