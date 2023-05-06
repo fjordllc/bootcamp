@@ -101,7 +101,7 @@ class BookmarksTest < ApplicationSystemTestCase
     assert_text "#{decorated_user.long_name} さんの相談部屋"
     find(:css, '#spec-edit-mode').set(true)
     assert_selector '.card-list-item__option'
-    first('#bookmark-button').click
+    first('.bookmark-delete-button').click
     assert_no_text "#{decorated_user.long_name} さんの相談部屋"
     visit report_path(@report)
     assert_text 'Bookmark'
