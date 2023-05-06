@@ -40,11 +40,11 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
 
     assert_selector '.card-list-item', count: 4
     assert_text 'test1'
-    assert_no_selector '#bookmark-button'
+    assert_no_selector '.bookmark-delete-button'
 
     find('#spec-edit-mode').click
-    assert_selector '#bookmark-button'
-    first('#bookmark-button').click
+    assert_selector '.bookmark-delete-button'
+    first('.bookmark-delete-button').click
 
     assert_selector '.card-list-item', count: 3
     assert_no_text 'test1'
@@ -68,7 +68,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
 
     assert_selector '.card-list-item', count: 1
     find('#spec-edit-mode').click
-    first('#bookmark-button').click
+    first('.bookmark-delete-button').click
 
     assert_text 'ブックマークはまだありません。'
     assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
