@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Books from 'components/books'
-import store from 'store/practices'
+import store from './store'
+import Books from './components/books'
 
 document.addEventListener('DOMContentLoaded', () =>{
   const element = document.getElementById('js-books')

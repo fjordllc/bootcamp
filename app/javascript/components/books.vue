@@ -28,6 +28,7 @@
 import Choices from 'choices.js'
 import Book from './book'
 import FilterDropdown from './filterDropdown'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Books',
@@ -41,14 +42,14 @@ export default {
   },
   data() {
     return {
-      books: null,
       filterByPlacticeId: null
     }
   },
   computed: {
-    practices() {
-      return this.$store.getters.practices
-    },
+    ...mapGetters({
+      books: 'books/books',
+      practices: 'practices/practices'
+    }),
     filteredBooks() {
       return this.filterByPlacticeId === null || this.filterByPlacticeId === "null"
         ? this.books
@@ -60,31 +61,11 @@ export default {
     this.getPractices()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getBooks() {
-      const url = '/api/books.json'
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.books = []
-          json.books.forEach(item => this.books.push(item))
-        })
-        .catch(error => console.warn(error))
+      this.$store.dispatch('books/getAllBooks')
     },
     getPractices() {
-      Promise.resolve(this.$store.dispatch('getAllPractices'))
+      Promise.resolve(this.$store.dispatch("practices/getAllPractices"))
       .then(() => {this.choicesUi()})
     },
     choicesUi() {
