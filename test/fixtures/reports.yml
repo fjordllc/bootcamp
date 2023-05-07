@@ -343,3 +343,9 @@ report73:
   description: |-
     やっぱり難しいです。
   reported_on: "2022-06-03"
+
+report74:
+  user: kyuukai
+  title: 休会中ユーザーのWIPの日報
+  description: 休会します
+  wip: true
