@@ -77,6 +77,14 @@
             .form-item-block__item
               = render 'users/form/graduate', f: f
 
+      .form-item-block
+        .form-item-block__inner
+          header.form-item-block__header
+            .form-item-block__title
+              | 自動退会設定
+          .form-item-block__item
+              = render 'users/form/not_auto_retire_after_long_hibernation', f: f
+
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
         = f.text_field :subscription_id, class: 'a-text-input', placeholder: 'sub_123456789'
