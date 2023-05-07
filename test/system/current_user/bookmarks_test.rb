@@ -36,8 +36,10 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'can delete bookmarks when edit mode is active' do
-    visit_with_auth '/current_user/bookmarks', 'kimura'
+    visit_with_auth page_path(pages(:page1)), 'kimura'
+    assert_text 'Bookmark中'
 
+    visit_with_auth '/current_user/bookmarks', 'kimura'
     assert_selector '.card-list-item', count: 4
     assert_text 'test1'
     assert_no_selector '.bookmark-delete-button'
@@ -48,6 +50,9 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
 
     assert_selector '.card-list-item', count: 3
     assert_no_text 'test1'
+
+    visit_with_auth page_path(pages(:page1)), 'kimura'
+    assert_text 'Bookmark'
   end
 
   test 'show empty state when all bookmarks are deleted' do
