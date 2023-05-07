@@ -32,4 +32,20 @@ class ExternalEntryTest < ActiveSupport::TestCase
 
     assert ExternalEntry.save_rss_feed(user, mock)
   end
+
+  test '.fetch_and_save_rss_feeds' do
+    before_fetch_and_save = ExternalEntry.count
+    users = [users(:kimura)]
+
+    VCR.use_cassette 'external_entry/fetch', vcr_options do
+      ExternalEntry.fetch_and_save_rss_feeds(users)
+    end
+    assert_equal before_fetch_and_save + 1, ExternalEntry.count
+
+    VCR.use_cassette 'external_entry/fetch', vcr_options do
+      ExternalEntry.fetch_and_save_rss_feeds(users)
+    end
+    # 同じ記事は重複して保存しない
+    assert_equal before_fetch_and_save + 1, ExternalEntry.count
+  end
 end
