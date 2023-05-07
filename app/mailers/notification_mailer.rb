@@ -45,14 +45,6 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: report, receiver
-  def first_report
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
-    mail to: @user.email,
-         subject: "[FBC] #{@report.user.login_name}さんがはじめての日報を書きました！"
-  end
-
   # required params: sender, receiver
   def retired
     @user = @receiver

@@ -17,16 +17,6 @@ class NotificationFacade
     return if receiver.retired?
   end
 
-  def self.first_report(report, receiver)
-    ActivityNotifier.with(report: report, receiver: receiver).first_report.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      report: report,
-      receiver: receiver
-    ).first_report.deliver_later(wait: 5)
-  end
-
   def self.trainee_report(report, receiver)
     ActivityNotifier.with(report: report, receiver: receiver).trainee_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
