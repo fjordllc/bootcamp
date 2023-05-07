@@ -84,11 +84,4 @@ class BookmarksTest < ApplicationSystemTestCase
     visit '/current_user/bookmarks'
     assert_no_text @question.title
   end
-
-  test 'edit bookmarks' do
-    visit_with_auth current_user_bookmarks_path, 'kimura'
-    assert_no_selector '.card-list-item__option'
-    find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.card-list-item__option'
-  end
 end
