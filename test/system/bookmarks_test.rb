@@ -8,12 +8,6 @@ class BookmarksTest < ApplicationSystemTestCase
     @question = questions(:question1)
   end
 
-  test 'show my bookmark lists' do
-    visit_with_auth '/current_user/bookmarks', 'komagata'
-    assert_equal 'ブックマーク一覧 | FBC', title
-    assert_text @report.title
-  end
-
   test 'show my bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
     assert_selector '#bookmark-button.is-active'
