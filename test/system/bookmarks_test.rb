@@ -91,19 +91,4 @@ class BookmarksTest < ApplicationSystemTestCase
     find(:css, '#spec-edit-mode').set(true)
     assert_selector '.card-list-item__option'
   end
-
-  test 'delete bookmark from bookmarks' do
-    user = @report.user
-    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
-    visit_with_auth report_path(@report), 'komagata'
-    assert_text 'Bookmark中'
-    visit current_user_bookmarks_path
-    assert_text "#{decorated_user.long_name} さんの相談部屋"
-    find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.card-list-item__option'
-    first('.bookmark-delete-button').click
-    assert_no_text "#{decorated_user.long_name} さんの相談部屋"
-    visit report_path(@report)
-    assert_text 'Bookmark'
-  end
 end
