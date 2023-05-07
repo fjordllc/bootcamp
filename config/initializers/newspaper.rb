@@ -40,20 +40,15 @@ Rails.configuration.to_prepare do
 
   learning_status_updater = LearningStatusUpdater.new
   Newspaper.subscribe(:check_create, learning_status_updater)
-  Newspaper.subscribe(:product_create, learning_status_updater)
-  Newspaper.subscribe(:product_update, learning_status_updater)
+  Newspaper.subscribe(:product_save, learning_status_updater)
 
   page_notifier = PageNotifier.new
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
 
-  product_notifier_to_advisers_belonging_same_company = ProductNotifierToAdvisersBelongingSameCompany.new
-  Newspaper.subscribe(:product_create, product_notifier_to_advisers_belonging_same_company)
-  Newspaper.subscribe(:product_update, product_notifier_to_advisers_belonging_same_company)
+  Newspaper.subscribe(:product_save, ProductNotifierToAdvisersBelongingSameCompany.new)
 
-  product_notifier_to_mentors_watching_practice = ProductNotifierToMentorsWatchingPractice.new
-  Newspaper.subscribe(:product_create, product_notifier_to_mentors_watching_practice)
-  Newspaper.subscribe(:product_update, product_notifier_to_mentors_watching_practice)
+  Newspaper.subscribe(:product_save, ProductNotifierToMentorsWatchingPractice.new)
 
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
