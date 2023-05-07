@@ -14,6 +14,20 @@ class ExternalEntry < ApplicationRecord
   end
 
   class << self
+    def fetch_and_save_rss_feeds(users)
+      Parallel.each(users) do |user|
+        rss_items = ExternalEntry.parse_rss_feed(user.feed_url)
+
+        next unless rss_items
+
+        rss_items.each do |item|
+          next if ExternalEntry.find_by(url: item.link)
+
+          ExternalEntry.save_rss_feed(user, item)
+        end
+      end
+    end
+
     def parse_rss_feed(feed_url)
       return nil if feed_url.blank?
 
