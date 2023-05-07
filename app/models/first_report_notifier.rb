@@ -5,7 +5,7 @@ class FirstReportNotifier
     return if report.wip || !report.first? || Notification.find_by(kind: :first_report, sender_id: report.user.id).present?
 
     User.admins_and_mentors.each do |receiver|
-      NotificationFacade.first_report(report, receiver) if report.sender != receiver
+      ActivityDelivery.with(report: report, receiver: receiver).notify(:first_report)
     end
   end
 end
