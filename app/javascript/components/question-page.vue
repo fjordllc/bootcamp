@@ -9,6 +9,8 @@ div
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser',
       @afterUpdateQuestion='fetchQuestion(questionId)')
+    template(v-if='question.ai_answer !== null && isAdminOrMentor()')
+      ai_answer(:text='question.ai_answer')
     answers(
       :questionId='questionId',
       :questionUser='question.user',
@@ -19,6 +21,7 @@ div
 </template>
 <script>
 import QuestionEdit from 'components/question-edit.vue'
+import AIAnswer from 'components/ai-answer.vue'
 import Answers from 'answers.vue'
 import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
 
@@ -28,6 +31,7 @@ export default {
     LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
     /* app/javascript/loading-question-page-placeholder.vue */
     questionEdit: QuestionEdit,
+    ai_answer: AIAnswer,
     answers: Answers
   },
   props: {
@@ -98,6 +102,9 @@ export default {
     updateAnswerCount(count) {
       this.answerCount = count
       this.isAnswerCountUpdated = true
+    },
+    isAdminOrMentor() {
+      return this.currentUser.roles.includes('admin') || this.currentUser.roles.includes('mentor')
     }
   }
 }

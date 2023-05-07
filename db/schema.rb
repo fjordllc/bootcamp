@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_31_081736) do
+ActiveRecord::Schema.define(version: 2023_05_04_083810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -500,6 +500,7 @@ ActiveRecord::Schema.define(version: 2023_03_31_081736) do
     t.bigint "practice_id"
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
+    t.text "ai_answer"
     t.index ["practice_id"], name: "index_questions_on_practice_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
