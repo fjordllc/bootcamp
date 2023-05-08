@@ -104,7 +104,10 @@ export default {
       this.isAnswerCountUpdated = true
     },
     isAdminOrMentor() {
-      return this.currentUser.roles.includes('admin') || this.currentUser.roles.includes('mentor')
+      return (
+        this.currentUser.roles.includes('admin') ||
+        this.currentUser.roles.includes('mentor')
+      )
     }
   }
 }
