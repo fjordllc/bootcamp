@@ -239,11 +239,14 @@ export default {
       const productsPassedAlmost5days = []
 
       elements.products.forEach((product) => {
-        const time = product.published_at_date_time || product.created_at_date_time
-        const elapsedTimes = (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
+        const time =
+          product.published_at_date_time || product.created_at_date_time
+        const elapsedTimes =
+          (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
 
-        if(Math.floor((5 - elapsedTimes) * 24) <= 8 ) { 
-          productsPassedAlmost5days.push(product)}
+        if (Math.floor((5 - elapsedTimes) * 24) <= 8) {
+          productsPassedAlmost5days.push(product)
+        }
       })
 
       return productsPassedAlmost5days.length
