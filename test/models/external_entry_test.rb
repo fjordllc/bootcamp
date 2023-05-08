@@ -21,13 +21,13 @@ class ExternalEntryTest < ActiveSupport::TestCase
   end
 
   test '.save_rss_feed' do
-    user = users(:kimura)
+    user = users(:hatsuno)
     mock = Minitest::Mock.new
     mock.expect(:title, 'test title')
-    mock.expect(:link, 'https://example.com/rss')
+    mock.expect(:link, 'https://test.com/rss')
     mock.expect(:description, 'article description')
     mock.expect(:enclosure, mock)
-    mock.expect(:url, 'https://example.com/image.png')
+    mock.expect(:url, 'https://test.com/image.png')
     mock.expect(:pubDate, Time.zone.local(2022, 1, 1, 0, 0, 0))
 
     assert ExternalEntry.save_rss_feed(user, mock)
