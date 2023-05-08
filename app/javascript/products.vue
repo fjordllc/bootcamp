@@ -343,16 +343,11 @@ export default {
       return elements
     },
     calculateCount(products) {
-      const productsPassedAlmost5days = []
-
-      products.forEach((product) => {
+      const productsPassedAlmost5days = products.filter((product) => {
         const time =
           product.published_at_date_time || product.created_at_date_time
-        const elapsedTimes =
-          (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
-        if (Math.floor((5 - elapsedTimes) * 24) <= 8) {
-          productsPassedAlmost5days.push(product)
-        }
+        const elapsedTimes = (new Date() - new Date(time)) / 1000 / 60 / 60 / 24
+        return Math.floor((5 - elapsedTimes) * 24) <= 8
       })
       return productsPassedAlmost5days.length
     },
