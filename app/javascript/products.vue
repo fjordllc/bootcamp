@@ -77,7 +77,9 @@
                 :currentUserId='currentUserId',
                 :isMentor='isMentor',
                 :display-user-icon='displayUserIcon')
-      a.almost-5days-passed(href='/products/unassigned#4days-elapsed')
+      a.almost-5days-passed(href='/products/unassigned#4days-elapsed')(
+        v-if='isDashboard && productsGroupedByElapsedDays != null'
+      )
         | 8時間後に5日経過に到達する提出物は {{ countAlmostPassed5days }}件です。
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
@@ -249,7 +251,7 @@ export default {
         }
       })
 
-      return productsPassedAlmost5days.length
+      return productsPassedAlmost5days === undefined ? 0 :productsPassedAlmost5days.length
     },
     isNotProduct5daysElapsed() {
       const elapsedDays = []
