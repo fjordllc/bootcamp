@@ -62,4 +62,5 @@ Rails.configuration.to_prepare do
 
   question_notifier = QuestionNotifier.new
   Newspaper.subscribe(:question_create, question_notifier)
+  Newspaper.subscribe(:question_update, question_notifier)
 end
