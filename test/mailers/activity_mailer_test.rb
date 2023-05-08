@@ -696,4 +696,32 @@ class ActivityMailerTest < ActionMailer::TestCase
     ).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
   end
+
+  test 'hibernated' do
+    user = users(:kimura)
+    mentor = users(:komagata)
+    Notification.create!(
+      kind: 19,
+      sender: user,
+      user: mentor,
+      message: 'kimuraさんが休会しました。',
+      link: "/users/#{user.id}",
+      read: false
+    )
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: mentor
+    ).hibernated
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんが休会しました。', email.subject
+    assert_match(/休会/, email.body.to_s)
+  end
 end

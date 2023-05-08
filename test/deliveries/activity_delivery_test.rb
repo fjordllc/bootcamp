@@ -224,4 +224,28 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:assigned_as_checker)
     end
   end
+
+  test '.notify(:hibernated)' do
+    user = hibernations(:hibernation1).user
+    params = {
+      sender: user,
+      receiver: users(:komagata)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:hibernated, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:hibernated, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:hibernated)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:hibernated)
+    end
+  end
 end
