@@ -681,4 +681,14 @@ class UserTest < ActiveSupport::TestCase
 
     assert target.sent_student_followup_message
   end
+
+  test '#country_name' do
+    assert_equal '日本', users(:kimura).country_name
+    assert_equal '米国', users(:tom).country_name
+  end
+
+  test '#subdivision_name' do
+    assert_equal '東京都', users(:kimura).subdivision_name
+    assert_equal 'ニューヨーク州', users(:tom).subdivision_name
+  end
 end
