@@ -61,22 +61,4 @@ module UsersHelper
                     .to_h
                     .to_json
   end
-
-  def subdivisions(user)
-    country_code = user.country_code
-    if country_code.present?
-      country = ISO3166::Country[country_code]
-      country.subdivision_names_with_codes(I18n.locale.to_s)
-    else
-      []
-    end
-  end
-
-  def address(user)
-    if user.country_code.present? && user.subdivision_code.present?
-      "#{user.subdivision_name} (#{user.country_name})"
-    else
-      I18n.t('unregistered')
-    end
-  end
 end
