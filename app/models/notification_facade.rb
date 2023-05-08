@@ -70,16 +70,6 @@ class NotificationFacade
     ).consecutive_sad_report.deliver_later(wait: 5)
   end
 
-  def self.hibernated(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
-    return unless receiver.mail_notification?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).hibernated.deliver_later(wait: 5)
-  end
-
   def self.tomorrow_regular_event(event)
     DiscordNotifier.with(event: event).tomorrow_regular_event.notify_now
   end
