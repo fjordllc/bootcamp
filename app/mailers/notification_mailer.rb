@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
+class NotificationMailer < ApplicationMailer
   helper ApplicationHelper
 
   before_action do
