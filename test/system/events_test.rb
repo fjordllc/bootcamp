@@ -23,7 +23,7 @@ class EventsTest < ApplicationSystemTestCase
         click_button 'WIP'
       end
     end
-    assert_text 'イベントをWIPとして保存しました。'
+    assert_text '特別イベントをWIPとして保存しました。'
     assert_text '公開されるまでお待ちください。'
     assert_text 'Watch中'
   end
@@ -43,7 +43,7 @@ class EventsTest < ApplicationSystemTestCase
         click_button '作成'
       end
     end
-    assert_text 'イベントを作成しました。'
+    assert_text '特別イベントを作成しました。'
     assert_text 'Watch中'
   end
 
@@ -51,14 +51,14 @@ class EventsTest < ApplicationSystemTestCase
     event = events(:event1)
     visit_with_auth event_path(event), 'komagata'
     click_link 'コピー'
-    assert_text 'イベントをコピーしました'
+    assert_text '特別イベントをコピーしました'
     within 'form[name=event]' do
       fill_in 'event[start_at]', with: Time.current.next_day
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
       click_button '作成'
     end
-    assert_text 'イベントを作成しました。'
+    assert_text '特別イベントを作成しました。'
     assert_text event.title
     assert_text event.location
     assert_text event.capacity
@@ -78,7 +78,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-20 23:59')
       click_button '内容変更'
     end
-    assert_text 'イベントを更新しました。'
+    assert_text '特別イベントを更新しました。'
   end
 
   test 'destroy event' do
@@ -88,7 +88,7 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    assert_text 'イベントを削除しました。'
+    assert_text '特別イベントを削除しました。'
   end
 
   test 'cannot create a new event when start_at > end_at' do
@@ -172,7 +172,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'show message about ending event after event end' do
     visit_with_auth event_path(events(:event6)), 'kimura'
-    assert_text 'イベントは終了しました。'
+    assert_text '特別イベントは終了しました。'
   end
 
   test 'user can participate in an event' do

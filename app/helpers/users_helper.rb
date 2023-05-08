@@ -10,14 +10,6 @@ module UsersHelper
     end
   end
 
-  def user_tr_attrs(user)
-    if user.active?
-      { class: 'active' }
-    else
-      { class: 'inactive' }
-    end
-  end
-
   def user_github_url(user)
     "https://github.com/#{user.github_account}"
   end

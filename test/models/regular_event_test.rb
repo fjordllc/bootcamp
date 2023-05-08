@@ -87,12 +87,36 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.watched_by?(user)
   end
 
-  test 'participated_by?' do
+  test '#participated_by?' do
     regular_event = regular_events(:regular_event1)
     user = users(:hatsuno)
     assert regular_event.participated_by?(user)
 
     user = users(:komagata)
     assert_not regular_event.participated_by?(user)
+  end
+
+  test '.comming_soon_events' do
+    regular_event = regular_events(:regular_event26)
+    user = users(:kimura)
+
+    travel_to Time.zone.local(2023, 4, 10, 0, 0, 0) do
+      today_regular_events, tomorrow_regular_events = RegularEvent.comming_soon_events(user)
+      assert today_regular_events.size == 1 && today_regular_events.include?(regular_event)
+      assert tomorrow_regular_events.size == 1 && tomorrow_regular_events.include?(regular_event)
+    end
+  end
+
+  test '.remove_event' do
+    regular_event1 = regular_events(:regular_event1)
+    regular_event2 = regular_events(:regular_event2)
+    regular_event3 = regular_events(:regular_event3)
+    regular_events1 = [regular_event1, regular_event2]
+    regular_events2 = [regular_event3]
+
+    RegularEvent.remove_event([regular_events1, regular_events2], regular_event1.id)
+    assert_not regular_events1.include?(regular_event1)
+    assert regular_events1.include?(regular_event2)
+    assert regular_events2.include?(regular_event3)
   end
 end

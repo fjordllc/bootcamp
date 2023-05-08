@@ -5,7 +5,8 @@
   em
     font-style: normal
     font-weight: 600
-  &.is-danger
+  &.is-danger,
+  .is-danger
     color: $danger
   &.is-text-align-right
     text-align: right
@@ -18,7 +19,9 @@
   .form-item-block &
     margin-top: .75em
   p
-    +text-block(1em 1.6 0 .75em)
+    +text-block(1em 1.6)
+    &:not(:last-child)
+      margin-bottom: .75em
   a
     +hover-link-reversal
   *:last-child
@@ -32,6 +35,8 @@
     list-style-type: disc
     list-style-position: outside
     margin-left: 1.5em
+    &:not(:last-child)
+      margin-bottom: .75em
   li
     line-height: 1.6
     &:not(:first-child)
