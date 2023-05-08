@@ -229,8 +229,6 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     user = hibernations(:hibernation1).user
     params = {
       sender: user,
-      receiver: users(:komagata)
-    }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:hibernated, **params)
@@ -246,6 +244,29 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify(:hibernated)
+    end
+  end
+
+    test '.notify(:first_report)' do
+      report = reports(:report10)
+      params = {
+        report: report,
+        receiver: users(:komagata)
+      }
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify!(:first_report, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:first_report, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:first_report)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:first_report)
     end
   end
 end
