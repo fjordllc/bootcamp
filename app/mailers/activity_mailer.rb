@@ -253,4 +253,22 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
+
+  # required params: sender, receiver
+  def hibernated(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:hibernated]
+    )
+
+    subject = "[FBC] #{@sender.login_name}さんが休会しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
 end
