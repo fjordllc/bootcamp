@@ -79,7 +79,7 @@
                 :display-user-icon='displayUserIcon')
       a.almost-5days-passed(href='/products/unassigned#4days-elapsed')(
         v-if='isDashboard && productsGroupedByElapsedDays != null')
-        | 8時間後に5日経過に到達する提出物は {{ countAlmostPassed5days }}件です。
+        | 8時間後に5日経過に到達する提出物は {{ countAlmostPassed5days() }}件です。
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`')
@@ -233,27 +233,6 @@ export default {
     isUnassigned() {
       return location.pathname === '/products/unassigned'
     },
-    countAlmostPassed5days() {
-      const elements = this.productsGroupedByElapsedDays.find(
-        (el) => el.elapsed_days === 4
-      )
-      const productsPassedAlmost5days = []
-
-      elements.products.forEach((product) => {
-        const time =
-          product.published_at_date_time || product.created_at_date_time
-        const elapsedTimes =
-          (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
-
-        if (Math.floor((5 - elapsedTimes) * 24) <= 8) {
-          productsPassedAlmost5days.push(product)
-        }
-      })
-
-      return productsPassedAlmost5days === undefined
-        ? 0
-        : productsPassedAlmost5days.length
-    },
     isNotProduct5daysElapsed() {
       const elapsedDays = []
       this.productsGroupedByElapsedDays.forEach((h) => {
@@ -356,6 +335,32 @@ export default {
     },
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
+    },
+    getProductsAlmost4daysPassed() {
+      const elements = this.productsGroupedByElapsedDays.find(
+        (el) => el.elapsed_days === 4
+      )
+      return elements
+    },
+    calculateCount(products) {
+      const productsPassedAlmost5days = []
+
+      products.forEach((product) => {
+        const time =
+          product.published_at_date_time || product.created_at_date_time
+        const elapsedTimes =
+          (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
+        if (Math.floor((5 - elapsedTimes) * 24) <= 8) {
+          productsPassedAlmost5days.push(product)
+        }
+      })
+      return productsPassedAlmost5days.length
+    },
+    countAlmostPassed5days() {
+      const productsPassed4days = this.getProductsAlmost4daysPassed()
+      return productsPassed4days === undefined
+        ? 0
+        : this.calculateCount(productsPassed4days.products)
     }
   }
 }
