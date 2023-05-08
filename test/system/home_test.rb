@@ -226,15 +226,15 @@ class HomeTest < ApplicationSystemTestCase
   test 'show regular events on dashbord for only event participant' do
     travel_to Time.zone.local(2023, 1, 30, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
-      assert_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
-      assert_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+      assert_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
+      assert_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
       first('.js-close-event').click
-      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      assert_no_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
       logout
 
       visit_with_auth '/', 'komagata'
-      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
-      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+      assert_no_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
+      assert_no_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
     end
   end
 
@@ -282,7 +282,7 @@ class HomeTest < ApplicationSystemTestCase
   test "show my wip's event on dashboard" do
     visit_with_auth '/', 'kimura'
     click_link 'イベント'
-    click_link 'イベント作成'
+    click_link '特別イベント作成'
     fill_in 'event[title]', with: 'WIPのイベント'
     fill_in 'event[location]', with: 'オンライン'
     fill_in 'event[capacity]', with: 100

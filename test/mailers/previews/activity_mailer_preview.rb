@@ -100,4 +100,11 @@ class ActivityMailerPreview < ActionMailer::Preview
       comment: comment
     ).watching_notification
   end
+
+  def assigned_as_checker
+    product = Product.find(ActiveRecord::FixtureSet.identify(:product71))
+    receiver = User.find(product.checker_id)
+
+    ActivityMailer.with(product: product, receiver: receiver).assigned_as_checker
+  end
 end
