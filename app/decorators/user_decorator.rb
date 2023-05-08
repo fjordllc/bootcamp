@@ -105,4 +105,17 @@ module UserDecorator
       tag.span(" #{elapsed_days}日目 ") + tag.a("#{generation}期生", href: generation_path(generation))
     end
   end
+
+  def subdivisions_of_country
+    if country_code.present?
+      country = ISO3166::Country[country_code]
+      country.subdivision_names_with_codes(I18n.locale.to_s)
+    else
+      []
+    end
+  end
+
+  def address
+    country_code.present? && subdivision_code.present? ? "#{subdivision_name} (#{country_name})" : I18n.t('unregistered')
+  end
 end
