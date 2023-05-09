@@ -27,13 +27,20 @@
       :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
       @delete='deleteComment',
       @update='updateComment')
-  .support-checkbox(v-if='isRole("admin") && commentableType === "Talk"')
-    input#action-completed-checkbox(
-      type='checkbox',
-      :checked='isActionCompleted',
-      @click='changeCompletedFlag')
-    .check-button(:class='isActionCompleted ? "is-checked" : "is-unchecked"')
-      | 対応しました
+  .form-actions.is-action-completed.mb-8(v-if='isRole("admin") && commentableType === "Talk"')
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        label.support-checkbox
+          input.a-toggle-checkbox#action-completed-checkbox(
+            type='checkbox',
+            :checked='isActionCompleted',
+            @click='changeCompletedFlag')
+          .a-button.is-md.is-block.check-button.is-muted-borderd(v-if=`isActionCompleted`)
+            i.fas.fa-redo
+            | 未対応にする
+          .a-button.is-md.is-block.check-button.is-warning(v-else)
+            i.fas.fa-check
+            | 対応済にする
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
