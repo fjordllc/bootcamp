@@ -6,6 +6,7 @@ class TimesChannelCreator
 
     times_channel = Discord::TimesChannel.new(user.login_name)
     if times_channel.save
+      user.discord_profile ||= DiscordProfile.new
       user.discord_profile.update(times_id: times_channel.id)
     else
       Rails.logger.warn "[Discord API] #{user.login_name}の分報チャンネルが作成できませんでした。"

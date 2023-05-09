@@ -36,7 +36,7 @@ module Discord
       assert_redirected_to root_url
 
       student = User.find_by(login_name: 'Piyopiyo-student')
-      assert_not_nil student.times_id
+      assert_not_nil student.discord_profile.times_id
     end
 
     test 'POST create by trainee' do
@@ -67,7 +67,7 @@ module Discord
       assert_redirected_to root_url
 
       trainee = User.find_by(login_name: 'Piyopiyo-trainee')
-      assert_not_nil trainee.times_id
+      assert_not_nil trainee.discord_profile.times_id
     end
 
     test 'POST create by adviser' do
@@ -95,7 +95,7 @@ module Discord
       assert_redirected_to root_url
 
       adviser = User.find_by(login_name: 'Piyopiyo-adviser')
-      assert_nil adviser.times_id
+      assert_nil adviser.discord_profile
     end
 
     class FakeCard
