@@ -1,7 +1,23 @@
 <template lang="pug">
-div
-  h2 AIの解答
-  div(v-html='nl2brText')
+.thread-comments.is-only-mentor
+  header.thread-comments__header
+    h2.thread-comments__title
+      | AIによって生成された解答
+    .a-form-help
+      p
+        | この機能はメンターのみ公開されている実験的な機能です。
+        | この機能が受講生にとって役に立つものになるか、
+        | 逆に受講生を混乱させてしまわないかなどの検証を行った上で、
+        | 全体に公開するかの判断をします。
+  .thread-comments__items
+    .thread-comment
+      .thread-comment__author
+        .thread-comment__user-link
+          .a-user-role
+            img.thread-comment__user-icon.a-user-icon(src="/images/users/avatars/open_ai.svg")
+      .a-card.is-answer
+        .thread-comment__description
+          .a-long-text.is-md(v-html='nl2brText')
 </template>
 <script>
 export default {
