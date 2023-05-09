@@ -4,14 +4,20 @@
   width: $thread-max-width
   max-width: 100%
 
+.thread-comments__header
+  +media-breakpoint-up(md)
+    margin-bottom: 1.5rem
+  +media-breakpoint-down(sm)
+    margin-bottom: 1rem
+
 .thread-comments__title
   align-items: center
   display: flex
   font-weight: 700
   +media-breakpoint-up(md)
-    +text-block(1.125rem 1.45 0 1.5rem)
+    +text-block(1.125rem 1.45)
   +media-breakpoint-down(sm)
-    +text-block(1rem 1.45 0 1rem)
+    +text-block(1rem 1.45)
 
 .thread-comments__title-count
   +text-block(.875rem 1, 600 flex)
