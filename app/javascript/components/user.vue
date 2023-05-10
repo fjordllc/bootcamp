@@ -36,7 +36,9 @@
                       .a-meta(v-if='!user.discord_profile')
                         .a-meta__icon
                           i.fa-brands.fa-discord
-                      a.a-meta(v-else-if='user.discord_profile.times_url', :href='user.discord_profile.times_url')
+                      a.a-meta(
+                        v-else-if='user.discord_profile.times_url',
+                        :href='user.discord_profile.times_url')
                         .a-meta__icon
                           i.fa-brands.fa-discord
                         | {{ user.discord_profile.account_name }}
