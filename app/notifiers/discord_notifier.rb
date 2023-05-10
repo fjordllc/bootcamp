@@ -92,9 +92,15 @@ class DiscordNotifier < ApplicationNotifier
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
     comment = params[:comment]
     product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
+    product = comment.commentable
+    body = <<~TEXT.chomp
+    ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
+    担当：#{product_checker_name}さん
+    URL： #{Rails.application.routes.url_helpers.product_url(product)}
+    TEXT
 
     notification(
-      body: " ⚠️ #{product_checker_name}さんが担当の#{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。",
+      body: body,
       name: 'ピヨルド',
       webhook_url: webhook_url
     )
