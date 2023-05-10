@@ -209,27 +209,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test '#convert_to_channel_url!' do
-    VCR.use_cassette 'discord/invite' do
-      user = users(:komagata)
-      user.times_url = 'https://discord.gg/m2K7QG8byz'
-      user.convert_to_channel_url!
-      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
-
-      user.times_url = 'https://discord.gg/8Px4f7nMUx'
-      user.convert_to_channel_url!
-      assert_nil user.times_url
-
-      user.times_url = 'https://discord.com/channels/715806612824260640/715806613264400385'
-      user.convert_to_channel_url!
-      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
-
-      user.times_url = nil
-      user.convert_to_channel_url!
-      assert_nil user.times_url
-    end
-  end
-
   test 'is valid name_kana' do
     user = users(:komagata)
     user.name_kana = 'コマガタ マサキ'
