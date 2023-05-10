@@ -129,14 +129,20 @@ class DiscordNotifierTest < ActiveSupport::TestCase
   test '.product_review_not_completed' do
     products(:product8).update!(checker_id: users(:komagata).id)
     comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
+    body = <<~TEXT.chomp
+    ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。
+    担当：komagataさん
+    URL： http://localhost:3000/products/313836099
+    TEXT
 
     params = {
       comment: comment,
+      body: body,
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
     expected = {
-      body: ' ⚠️ komagataさんが担当のkimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。',
+      body: body,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
