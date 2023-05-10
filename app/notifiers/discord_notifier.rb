@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiscordNotifier < ApplicationNotifier
+class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLength
   self.driver = DiscordDriver.new
   self.async_adapter = DiscordAsyncAdapter.new
 
@@ -94,9 +94,9 @@ class DiscordNotifier < ApplicationNotifier
     product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
     product = comment.commentable
     body = <<~TEXT.chomp
-    ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
-    担当：#{product_checker_name}さん
-    URL： #{Rails.application.routes.url_helpers.product_url(product)}
+      ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
+      担当：#{product_checker_name}さん
+      URL： #{Rails.application.routes.url_helpers.product_url(product)}
     TEXT
 
     notification(
