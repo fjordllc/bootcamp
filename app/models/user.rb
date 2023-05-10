@@ -656,25 +656,6 @@ class User < ApplicationRecord
     update!(mentor_memo: new_memo)
   end
 
-  def convert_to_channel_url!
-    match = times_url&.match(%r{\Ahttps://discord.gg/(?<invite_code>\w+)\z})
-    return if match.nil?
-
-    uri = URI("https://discord.com/api/invites/#{match[:invite_code]}")
-    res = Net::HTTP.get_response(uri)
-
-    case res
-    when Net::HTTPSuccess
-      data = JSON.parse(res.body)
-      update!(times_url: "https://discord.com/channels/#{data['guild']['id']}/#{data['channel']['id']}")
-    when Net::HTTPNotFound
-      logger.warn "[Discord API] 無効な招待URLです: #{login_name} (#{times_url})"
-      update!(times_url: nil)
-    else
-      logger.error "[Discord API] チャンネルURLを取得できません: #{login_name} (#{res.code} #{res.message})"
-    end
-  end
-
   def category_active_or_unstarted_practice
     if active_practices.present?
       category_having_active_practice
