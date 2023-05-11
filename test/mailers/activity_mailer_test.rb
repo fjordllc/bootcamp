@@ -790,7 +790,7 @@ class ActivityMailerTest < ActionMailer::TestCase
   test 'first_report using synchronous mailer' do
     report = reports(:report10)
     first_report = notifications(:notification_first_report)
-    mailer = ActivityMailer.first_report(
+    ActivityMailer.first_report(
       report: report,
       receiver: first_report.user
     ).deliver_now
