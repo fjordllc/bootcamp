@@ -708,6 +708,30 @@ class ActivityMailerTest < ActionMailer::TestCase
       link: "/users/#{user.id}",
       read: false
     )
+    ActivityMailer.hibernated(
+      sender: user,
+      receiver: mentor
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんが休会しました。', email.subject
+    assert_match(/休会/, email.body.to_s)
+  end
+
+  test 'hibernated with params' do
+    user = users(:kimura)
+    mentor = users(:komagata)
+    Notification.create!(
+      kind: 19,
+      sender: user,
+      user: mentor,
+      message: 'kimuraさんが休会しました。',
+      link: "/users/#{user.id}",
+      read: false
+    )
     mailer = ActivityMailer.with(
       sender: user,
       receiver: mentor
