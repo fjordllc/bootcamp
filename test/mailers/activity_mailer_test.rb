@@ -697,7 +697,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
   end
 
-  test 'hibernated' do
+  test 'hibernated using synchronous mailer' do
     user = users(:kimura)
     mentor = users(:komagata)
     Notification.create!(
@@ -721,7 +721,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(/休会/, email.body.to_s)
   end
 
-  test 'hibernated with params' do
+  test 'hibernated with params using asynchronous mailer' do
     user = users(:kimura)
     mentor = users(:komagata)
     Notification.create!(
