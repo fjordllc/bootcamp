@@ -787,7 +787,23 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(/休会/, email.body.to_s)
   end
 
-  test 'first_report' do
+  test 'first_report using synchronous mailer' do
+    report = reports(:report10)
+    first_report = notifications(:notification_first_report)
+    mailer = ActivityMailer.first_report(
+      report: report,
+      receiver: first_report.user
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] hajimeさんがはじめての日報を書きました！', email.subject
+    assert_match(/はじめて/, email.body.to_s)
+  end
+
+  test 'first_report with params using asynchronous mailer' do
     report = reports(:report10)
     first_report = notifications(:notification_first_report)
     mailer = ActivityMailer.with(
