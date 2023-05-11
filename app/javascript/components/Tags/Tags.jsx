@@ -70,7 +70,7 @@ export default function Tags({
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token()
+        'X-CSRF-Token': token.getToken()
       },
       credentials: 'same-origin',
       redirect: 'manual',
