@@ -1,0 +1,6 @@
+ul.block-checks.is-1-item
+  li.block-checks__item
+    .a-block-check.is-checkbox
+      = f.check_box :not_retire_after_long_hibernation, class: 'a-toggle-checkbox'
+      = f.label :not_retire_after_long_hibernation, class: 'a-block-check__label is-ta-left' do
+        = User.human_attribute_name :not_retire_after_long_hibernation

@@ -54,7 +54,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     end
   end
 
-  test 'not retire when not_auto_retire_after_long_hibernation is true' do
+  test 'not retire when not_retire_after_long_hibernation is true' do
     user = users(:kyuukai)
 
     visit_with_auth edit_admin_user_path(user), 'komagata'
