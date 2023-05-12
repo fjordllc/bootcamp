@@ -9,7 +9,7 @@ class Scheduler::Daily::RetirementAfterLongHibernationController < SchedulerCont
   private
 
   def retire_after_long_hibernation
-    User.unretired.hibernated_for(3.months).auto_retire_after_long_hibernation.each do |user|
+    User.unretired.hibernated_for(3.months).retire_after_long_hibernation.each do |user|
       user.retire_reason = '（休会後三ヶ月経過したため自動退会）'
       user.retired_on = Date.current
       user.save!(validate: false)
