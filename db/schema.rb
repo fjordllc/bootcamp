@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2023_07_24_095814) do
-=======
-ActiveRecord::Schema.define(version: 2023_05_06_121936) do
->>>>>>> ab3e041a6 (休会三ヶ月で自動退会しないフラグを追加)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
