@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class Scheduler::Daily::UpdateRetiredAfterLongHibernationController < SchedulerController
+class Scheduler::Daily::RetirementAfterLongHibernationController < SchedulerController
   def show
-    update_retired_after_long_hibernation
+    retire_after_long_hibernation
     head :ok
   end
 
   private
 
-  def update_retired_after_long_hibernation
+  def retire_after_long_hibernation
     User.unretired.hibernated_for(3.months).auto_retire_after_long_hibernation.each do |user|
       user.retire_reason = '（休会後三ヶ月経過したため自動退会）'
       user.retired_on = Date.current

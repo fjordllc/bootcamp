@@ -16,7 +16,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     user = users(:kyuukai)
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_equal Date.current, user.reload.retired_on
     end
@@ -48,7 +48,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     user = users(:kyuukai)
     travel_to Time.zone.local(2020, 4, 1, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_nil user.reload.retired_on
     end
@@ -64,7 +64,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_nil user.reload.retired_on
     end
@@ -78,7 +78,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_equal retired_date, user.reload.retired_on
     end
@@ -92,7 +92,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_equal Date.current, user.reload.retired_on
     end
@@ -111,7 +111,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
       UserMailer.stub(:retire, stub_postmark_error) do
         travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
           VCR.use_cassette 'subscription/update' do
-            visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+            visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
           end
           assert_equal Date.current, user.reload.retired_on
         end
@@ -128,7 +128,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_update_retired_after_long_hibernation_path, 'komagata'
+        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_equal Date.current, user.reload.retired_on
     end
