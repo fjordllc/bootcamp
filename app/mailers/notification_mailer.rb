@@ -77,13 +77,12 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: sender, receiver
-  def signed_up
+  # required params: report, receiver
+  def consecutive_sad_report
     @user = @receiver
-    roles = @sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"
-    @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:signed_up])
-    subject = "[FBC] #{@sender.login_name}さん#{roles}が新しく入会しました！"
-    mail to: @user.email, subject: subject
+    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
+    mail to: @user.email,
+         subject: "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
   end
 
   # required params: question, receiver
