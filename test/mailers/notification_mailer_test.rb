@@ -64,21 +64,13 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/回答/, email.body.to_s)
   end
 
-  test 'signed up' do
-    user = users(:hajime)
-    mentor = users(:mentormentaro)
-    Notification.create!(
-      kind: 20,
-      sender: user,
-      user: mentor,
-      message: '🎉 hajimeさんが新しく入会しました！',
-      link: "/users/#{user.id}",
-      read: false
-    )
+  test 'consecutive_sad_report' do
+    report = reports(:report16)
+    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
     mailer = NotificationMailer.with(
-      sender: user,
-      receiver: mentor
-    ).signed_up
+      report: report,
+      receiver: consecutive_sad_report.user
+    ).consecutive_sad_report
 
     perform_enqueued_jobs do
       mailer.deliver_later
@@ -87,9 +79,9 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['mentormentaro@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
-    assert_match(/入会/, email.body.to_s)
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
+    assert_match(/2回連続/, email.body.to_s)
   end
 
   test 'no_correct_answer' do
