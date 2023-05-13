@@ -862,4 +862,57 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] 定期イベント【開発MTG】が更新されました。', email.subject
     assert_match(/定期イベント/, email.body.to_s)
   end
+
+  test 'signed_up using synchronous mailer' do
+    user = users(:hajime)
+    mentor = users(:komagata)
+    Notification.create!(
+      kind: 20,
+      sender: user,
+      user: mentor,
+      message: '🎉 hajimeさんが新しく入会しました！',
+      link: "/users/#{user.id}",
+      read: false
+    )
+
+    ActivityMailer.signed_up(
+      sender: user,
+      receiver: mentor
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_match(/入会/, email.body.to_s)
+  end
+
+  test 'signed_up with params using asynchronous mailer' do
+    user = users(:hajime)
+    mentor = users(:komagata)
+    Notification.create!(
+      kind: 20,
+      sender: user,
+      user: mentor,
+      message: '🎉 hajimeさんが新しく入会しました！',
+      link: "/users/#{user.id}",
+      read: false
+    )
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver: mentor
+    ).signed_up
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_match(/入会/, email.body.to_s)
+  end
 end
