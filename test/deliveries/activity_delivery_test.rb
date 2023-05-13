@@ -318,4 +318,30 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:update_regular_event)
     end
   end
+
+  test '.notify(:signed_up)' do
+    user = ActiveDecorator::Decorator.instance.decorate(User.find(users(:hajime).id))
+
+    params = {
+      sender: user,
+      receiver: users(:komagata),
+      sender_roles: user.roles_to_s
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:signed_up, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:signed_up, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:signed_up)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:signed_up)
+    end
+  end
 end
