@@ -134,8 +134,8 @@ class UsersController < ApplicationController
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
   def notify_to_mentors(user)
-    User.mentor.each do |mentor_user|
-      NotificationFacade.signed_up(user, mentor_user)
+    User.mentor.each do |mentor|
+      ActivityDelivery.with(sender: user, receiver: mentor, sender_roles: user.roles_to_s).notify(:signed_up)
     end
   end
 
