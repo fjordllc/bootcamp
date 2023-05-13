@@ -336,26 +336,26 @@ export default {
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
     },
-    getProductsAlmost4daysPassed() {
+    getElementAlmost4daysPassed() {
       const elements = this.productsGroupedByElapsedDays.find(
         (el) => el.elapsed_days === 4
       )
       return elements
     },
-    calculateCount(products) {
+    PassedAlmost5daysProducts(products) {
       const productsPassedAlmost5days = products.filter((product) => {
         const time =
           product.published_at_date_time || product.created_at_date_time
         const elapsedTimes = (new Date() - new Date(time)) / 1000 / 60 / 60 / 24
         return Math.floor((5 - elapsedTimes) * 24) <= 8
       })
-      return productsPassedAlmost5days.length
+      return productsPassedAlmost5days
     },
     countAlmostPassed5days() {
-      const productsPassed4days = this.getProductsAlmost4daysPassed()
+      const productsPassed4days = this.getElementAlmost4daysPassed()
       return productsPassed4days === undefined
         ? 0
-        : this.calculateCount(productsPassed4days.products)
+        : this.PassedAlmost5daysProducts(productsPassed4days.products).length
     }
   }
 }
