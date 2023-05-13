@@ -139,4 +139,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(regular_event: regular_event, receiver: receiver).update_regular_event
   end
+
+  def signed_up
+    sender = ActiveDecorator::Decorator.instance.decorate(User.find(ActiveRecord::FixtureSet.identify(:hajime)))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    ActivityMailer.with(sender: sender, receiver: receiver, sender_roles: sender.roles_to_s).signed_up
+  end
 end
