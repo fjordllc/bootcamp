@@ -325,4 +325,23 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
+
+  # required params: sender, receiver
+  def signed_up(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+    @sender_roles ||= args[:sender_roles]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:signed_up]
+    )
+
+    subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が新しく入会しました！"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
 end
