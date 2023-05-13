@@ -1,21 +1,22 @@
+
 <template lang="pug">
-div
-  template(v-if='question === null || currentUser === null')
-    loadingQuestionPagePlaceholder
-  template(v-else)
-    questionEdit(
-      :question='question',
-      :answerCount='answerCount',
-      :isAnswerCountUpdated='isAnswerCountUpdated',
-      :currentUser='currentUser',
-      @afterUpdateQuestion='fetchQuestion(questionId)')
-    answers(
-      :questionId='questionId',
-      :questionUser='question.user',
-      :currentUser='currentUser',
-      @updateAnswerCount='updateAnswerCount',
-      @solveQuestion='solveQuestion',
-      @cancelSolveQuestion='cancelSolveQuestion')
+  div
+    template(v-if='question === null || currentUser === null')
+      loadingQuestionPagePlaceholder
+    template(v-else)
+      questionEdit(
+        :question='question',
+        :answerCount='answerCount',
+        :isAnswerCountUpdated='isAnswerCountUpdated',
+        :currentUser='currentUser',
+        @afterUpdateQuestion='fetchQuestion(questionId)')
+      answers(
+        :questionId='questionId',
+        :questionUser='question.user',
+        :currentUser='currentUser',
+        @updateAnswerCount='updateAnswerCount',
+        @solveQuestion='solveQuestion',
+        @cancelSolveQuestion='cancelSolveQuestion')
 </template>
 <script>
 import QuestionEdit from 'components/question-edit.vue'
@@ -32,7 +33,7 @@ export default {
   },
   props: {
     currentUserId: { type: String, required: true },
-    questionId: { type: String, required: true }
+    questionId: { type: String, required: true },
   },
   data() {
     return {
