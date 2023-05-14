@@ -322,7 +322,7 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
-\
+
   # required params: regular_event, receiver
   def update_regular_event(args = {})
     @regular_event ||= args[:regular_event]

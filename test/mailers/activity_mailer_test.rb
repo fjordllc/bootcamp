@@ -860,4 +860,42 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
   end
+
+  test 'update_regular_event using synchronous mailer' do
+    regular_event = regular_events(:regular_event1)
+    notification = notifications(:notification_regular_event_updated)
+
+    ActivityMailer.update_regular_event(
+      regular_event: regular_event,
+      receiver: notification.user
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['hatsuno@fjord.jp'], email.to
+    assert_equal '[FBC] 定期イベント【開発MTG】が更新されました。', email.subject
+    assert_match(/定期イベント/, email.body.to_s)
+  end
+
+  test 'update_regular_event with params using asynchronous mailer' do
+    regular_event = regular_events(:regular_event1)
+    notification = notifications(:notification_regular_event_updated)
+
+    mailer = ActivityMailer.with(
+      regular_event: regular_event,
+      receiver: notification.user
+    ).update_regular_event
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['hatsuno@fjord.jp'], email.to
+    assert_equal '[FBC] 定期イベント【開発MTG】が更新されました。', email.subject
+    assert_match(/定期イベント/, email.body.to_s)
+  end
 end
