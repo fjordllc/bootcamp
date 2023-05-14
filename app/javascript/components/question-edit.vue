@@ -333,6 +333,11 @@ export default {
         return val !== this[key]
       })
     },
+    isChangedPacticeId(edited) {
+      return Object.entries(edited.practiceId).some(([key, val]) => {
+        return val !== this[key]
+      })
+    },
     updateQuestion(wip) {
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
@@ -368,6 +373,14 @@ export default {
           })
           this.finishEditing(true)
           this.$emit('afterUpdateQuestion')
+          if (this.isChangedPacticeId(this.edited)) {
+            // questionに紐づくpracticeが変わった場合のみリロードする。
+            // question一覧を更新したいため。
+            // question一覧はrailsのslimで作成されているが、そこをvueに置き換える事で発生する複雑さより
+            // リロードで解決できる簡潔さを重視した
+            const questionId = this.question.id
+            setTimeout(function(){window.location.href = `/questions/${questionId}`},1000)
+          }
         })
         .catch((error) => {
           console.warn(error)
