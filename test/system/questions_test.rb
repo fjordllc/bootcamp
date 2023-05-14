@@ -56,10 +56,13 @@ class QuestionsTest < ApplicationSystemTestCase
       click_button '更新する'
     end
     assert_text '質問を更新しました'
-
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
-    assert_text 'sshdでパスワード認証を禁止にする'
+
+    # 「a.a-category-link」は、その質問に紐づくpracticeのタイトル名のリンク
+    # 「a.page-nav__title-link」は、そのpracticeに紐づく質問一覧が表示されており、そのタイトル名のリンク
+    assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.page-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
   end
 
   test 'delete a question' do
