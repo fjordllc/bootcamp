@@ -17,7 +17,7 @@ class ActivityMailer < ApplicationMailer
     @comment = params[:comment] if params&.key?(:comment)
     @product = params[:product] if params&.key?(:product)
     @report = params[:report] if params&.key?(:report)
-    @regular_event = params[:regular_event]
+    @regular_event = params[:regular_event] if params&.key?(:regular_event)
   end
 
   # required params: sender, receiver
