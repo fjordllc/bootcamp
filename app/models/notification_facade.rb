@@ -51,16 +51,6 @@ class NotificationFacade
     ).signed_up.deliver_later(wait: 5)
   end
 
-  def self.update_regular_event(regular_event, receiver)
-    ActivityNotifier.with(regular_event: regular_event, receiver: receiver).update_regular_event.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      regular_event: regular_event,
-      receiver: receiver
-    ).update_regular_event.deliver_later(wait: 5)
-  end
-
   def self.no_correct_answer(question, receiver)
     ActivityNotifier.with(question: question, receiver: receiver).no_correct_answer.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
