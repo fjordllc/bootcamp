@@ -13,7 +13,7 @@ class Comment::AfterCreateCallback
       notify_to_admins(comment)
       unless comment.sender.admin?
         notify_to_chat(comment)
-        update_unreplied(comment)
+        update_action_completed(comment)
       end
     end
 
@@ -105,7 +105,7 @@ class Comment::AfterCreateCallback
     end
   end
 
-  def update_unreplied(comment)
+  def update_action_completed(comment)
     comment.commentable.update!(action_completed: false)
   end
 
