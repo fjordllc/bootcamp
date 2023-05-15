@@ -79,7 +79,7 @@
                 :display-user-icon='displayUserIcon')
       a.almost-5days-passed(href='/products/unassigned#4days-elapsed')(
         v-if='isDashboard && productsGroupedByElapsedDays != null')
-        | 8時間後に5日経過に到達する提出物は {{ countAlmostPassed5days() }}件です。
+        | 8時間後に5日経過に到達する提出物は{{ countAlmostPassed5days() }}件です。
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`')
