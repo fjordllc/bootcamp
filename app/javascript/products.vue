@@ -327,20 +327,18 @@ export default {
         })
       return params
     },
-    countProductsGroupedBy({ elapsed_days: elapsedDays }) {
+    getElementNdaysPassed(n) {
       const element = this.productsGroupedByElapsedDays.find(
-        (el) => el.elapsed_days === elapsedDays
+        (el) => el.elapsed_days === n
       )
+      return element
+    },
+    countProductsGroupedBy({ elapsed_days: elapsedDays }) {
+      const element = this.getElementNdaysPassed(elapsedDays)
       return element === undefined ? 0 : element.products.length
     },
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
-    },
-    getElementAlmost4daysPassed() {
-      const elements = this.productsGroupedByElapsedDays.find(
-        (el) => el.elapsed_days === 4
-      )
-      return elements
     },
     PassedAlmost5daysProducts(products) {
       const productsPassedAlmost5days = products.filter((product) => {
@@ -352,10 +350,10 @@ export default {
       return productsPassedAlmost5days
     },
     countAlmostPassed5days() {
-      const productsPassed4days = this.getElementAlmost4daysPassed()
-      return productsPassed4days === undefined
+      const elementPassed4days = this.getElementNdaysPassed(4)
+      return elementPassed4days === undefined
         ? 0
-        : this.PassedAlmost5daysProducts(productsPassed4days.products).length
+        : this.PassedAlmost5daysProducts(elementPassed4days.products).length
     }
   }
 }
