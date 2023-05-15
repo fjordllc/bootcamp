@@ -10,5 +10,5 @@ Rails.application.reloader.to_prepare do
     bot_token = ENV['DISCORD_BOT_TOKEN'].presence
     config.authorize_token = "Bot #{bot_token}" if bot_token
   end
-  Discord::TimesChannel.config.category_id = ENV['DISCORD_TIMES_CHANNEL_CATEGORY_ID'].presence
+  Discord::TimesCategory.config.default_times_category_id = ENV['DISCORD_TIMES_CHANNEL_CATEGORY_ID'].presence
 end
