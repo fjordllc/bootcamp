@@ -12,7 +12,7 @@ class QuestionNotifier
   def notify_to_chat(question)
     ChatNotifier.message(<<~TEXT)
       質問：「#{question.title}」を#{question.user.login_name}さんが作成しました。
-      #{Rails.application.routes.url_helpers.question_url(question, host: 'bootcamp.fjord.jp', protocol: 'https')}
+      #{Rails.application.routes.url_helpers.question_url(question)}
     TEXT
   end
 end
