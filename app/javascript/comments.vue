@@ -34,12 +34,12 @@
         label.support-checkbox
           .a-button.is-md.is-block.check-button.is-muted-borderd(
             v-if='isActionCompleted',
-            @click='changeCompletedFlag')
+            @click='changeCompleted')
             i.fas.fa-redo
             | 未対応にする
           .a-button.is-md.is-block.check-button.is-warning(
             v-else,
-            @click='changeCompletedFlag')
+            @click='changeCompleted')
             i.fas.fa-check
             | 対応済にする
   .thread-comment-form
@@ -159,7 +159,7 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    changeCompletedFlag() {
+    changeCompleted() {
       this.isActionCompleted = !this.isActionCompleted
       const params = {
         talk: { action_completed: this.isActionCompleted }
