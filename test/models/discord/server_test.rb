@@ -109,5 +109,56 @@ module Discord
       Discord::Server.authorize_token = 'skip'
       assert_not Discord::Server.enabled?
     end
+
+    test '.channels' do
+      logs = []
+      Rails.logger.stub(:error, ->(message) { logs << message }) do
+        VCR.use_cassette 'discord/server/channels' do
+          actual = Discord::Server.channels(id: '1234567890123456789', token: 'Bot valid token')
+          assert_kind_of Array, actual
+          assert actual.all?(Discordrb::Channel)
+          assert_nil logs.last
+        end
+
+        VCR.use_cassette 'discord/server/channels_with_unauthorized' do
+          actual = Discord::Server.channels(id: '1234567890123456789', token: 'Bot invalid token')
+          assert_nil actual
+          assert_equal '[Discord API] 401: Unauthorized', logs.pop
+        end
+
+        Discord::Server.stub(:enabled?, -> { false }) do
+          actual = Discord::Server.channels(id: '1234567890123456789', token: 'Bot valid token')
+          assert_nil actual
+          assert_nil logs.last
+        end
+      end
+    end
+
+    test '.categories' do
+      logs = []
+      Rails.logger.stub(:error, ->(message) { logs << message }) do
+        VCR.use_cassette 'discord/server/categories' do
+          actual = Discord::Server.categories
+
+          assert_kind_of Array, actual
+          assert(actual.all? { |channel| channel.type == Discordrb::Channel::TYPES[:category] })
+        end
+
+        VCR.use_cassette 'discord/server/categories_with_keyword' do
+          actual = Discord::Server.categories(keyword: 'ひとりごと・分報')
+
+          assert_kind_of Array, actual
+          assert(actual.all? { |channel| channel.type == Discordrb::Channel::TYPES[:category] })
+          assert(actual.all? { |channel| /ひとりごと・分報/.match? channel.name })
+        end
+
+        Discord::Server.stub(:categories, -> { nil }) do
+          actual = Discord::Server.categories
+
+          assert_nil actual
+          assert_nil logs.last
+        end
+      end
+    end
   end
 end

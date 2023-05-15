@@ -30,6 +30,25 @@ module Discord
         nil
       end
 
+      def categories(keyword: nil)
+        channels = Discord::Server.channels(id: guild_id, token: authorize_token)
+        categories = channels&.select(&:category?)
+        categories&.select { |category| /#{keyword}/.match? category.name }
+      end
+
+      def channels(id:, token:)
+        return nil unless enabled?
+
+        channels_response = Discordrb::API::Server.channels(token, id)
+        channels_data = JSON.parse(channels_response.body)
+
+        bot = Discordrb::Bot.new(token: token, log_mode: :silent)
+        channels_data.map { |channel_data| Discordrb::Channel.new(channel_data, bot) }
+      rescue Discordrb::Errors::CodeError => e
+        log_error(e)
+        nil
+      end
+
       def enabled?
         guild_id && authorize_token
       end
