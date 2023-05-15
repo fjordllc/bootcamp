@@ -32,15 +32,14 @@
     ul.form-actions__items
       li.form-actions__item.is-main
         label.support-checkbox
-          input#action-completed-checkbox.a-toggle-checkbox(
-            type='checkbox',
-            :checked='isActionCompleted',
-            @click='changeCompletedFlag')
           .a-button.is-md.is-block.check-button.is-muted-borderd(
-            v-if='isActionCompleted')
+            v-if='isActionCompleted',
+            @click='changeCompletedFlag')
             i.fas.fa-redo
             | 未対応にする
-          .a-button.is-md.is-block.check-button.is-warning(v-else)
+          .a-button.is-md.is-block.check-button.is-warning(
+            v-else,
+            @click='changeCompletedFlag')
             i.fas.fa-check
             | 対応済にする
   .thread-comment-form
