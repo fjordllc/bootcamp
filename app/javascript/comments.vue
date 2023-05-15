@@ -27,15 +27,17 @@
       :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
       @delete='deleteComment',
       @update='updateComment')
-  .form-actions.is-action-completed.mb-8(v-if='isRole("admin") && commentableType === "Talk"')
+  .form-actions.is-action-completed.mb-8(
+    v-if='isRole("admin") && commentableType === "Talk"')
     ul.form-actions__items
       li.form-actions__item.is-main
         label.support-checkbox
-          input.a-toggle-checkbox#action-completed-checkbox(
+          input#action-completed-checkbox.a-toggle-checkbox(
             type='checkbox',
             :checked='isActionCompleted',
             @click='changeCompletedFlag')
-          .a-button.is-md.is-block.check-button.is-muted-borderd(v-if=`isActionCompleted`)
+          .a-button.is-md.is-block.check-button.is-muted-borderd(
+            v-if='isActionCompleted')
             i.fas.fa-redo
             | 未対応にする
           .a-button.is-md.is-block.check-button.is-warning(v-else)
