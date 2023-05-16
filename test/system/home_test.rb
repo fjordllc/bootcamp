@@ -273,12 +273,12 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'display counts of passed almost 5days' do
     visit_with_auth '/', 'mentormentaro'
-    assert_text '8時間後に5日経過に到達する提出物は0件です。'
+    assert_text '8時間後に5日経過に到達する提出物は1件です。'
   end
 
-  test 'click on link of passed almost 5days' do
+  test 'work link of passed almost 5days' do
     visit_with_auth '/', 'mentormentaro'
-    click_link '8時間後に5日経過に到達する提出物は0件です。'
+    click_link '8時間後に5日経過に到達する提出物は1件です。'
     assert_current_path('/products/unassigned')
   end
 
