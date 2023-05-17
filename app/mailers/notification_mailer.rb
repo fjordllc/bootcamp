@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLength
+class NotificationMailer < ApplicationMailer
   helper ApplicationHelper
 
   before_action do
@@ -66,14 +66,6 @@ class NotificationMailer < ApplicationMailer # rubocop:disable Metrics/ClassLeng
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
-    mail to: @user.email, subject: subject
-  end
-
-  # required params: event, receiver
-  def moved_up_event_waiting_user
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/events/#{@event.id}")
-    subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
     mail to: @user.email, subject: subject
   end
 

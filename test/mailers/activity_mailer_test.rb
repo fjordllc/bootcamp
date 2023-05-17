@@ -506,6 +506,44 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">このDocsへ</a>}, email.body.to_s)
   end
 
+  test 'moved_up_event_waiting_user' do
+    event = events(:event3)
+    notification = notifications(:notification_moved_up_event_waiting_user)
+    ActivityMailer.moved_up_event_waiting_user(
+      receiver: notification.user,
+      event: event
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 11, link: "/events/#{event.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['hatsuno@fjord.jp'], email.to
+    assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
+  end
+
+  test 'moved_up_event_waiting_user with params' do
+    event = events(:event3)
+    notification = notifications(:notification_moved_up_event_waiting_user)
+    mailer = ActivityMailer.moved_up_event_waiting_user(
+      receiver: notification.user,
+      event: event
+    )
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 11, link: "/events/#{event.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['hatsuno@fjord.jp'], email.to
+    assert_equal '[FBC] 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">特別イベント詳細へ</a>}, email.body.to_s)
+  end
+
   test 'submitted' do
     product = products(:product11)
     receiver = users(:mentormentaro)
