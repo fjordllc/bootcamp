@@ -27,16 +27,6 @@ class NotificationFacade
     ).trainee_report.deliver_later(wait: 5)
   end
 
-  def self.chose_correct_answer(answer, receiver)
-    ActivityNotifier.with(answer: answer, receiver: receiver).chose_correct_answer.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      answer: answer,
-      receiver: receiver
-    ).chose_correct_answer.deliver_later(wait: 5)
-  end
-
   def self.coming_soon_regular_events(today_events, tomorrow_events)
     DiscordNotifier.with(today_events: today_events, tomorrow_events: tomorrow_events).coming_soon_regular_events.notify_now
   end
