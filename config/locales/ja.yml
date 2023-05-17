@@ -119,6 +119,7 @@ ja:
         ogp_image: OGP画像
         categories: カテゴリー
         memo: メンター向けメモ
+        summary: 概要
       book:
         title: タイトル
         price: 価格
