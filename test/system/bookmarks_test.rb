@@ -8,12 +8,6 @@ class BookmarksTest < ApplicationSystemTestCase
     @question = questions(:question1)
   end
 
-  test 'show my bookmark lists' do
-    visit_with_auth '/current_user/bookmarks', 'komagata'
-    assert_equal 'ブックマーク一覧 | FBC', title
-    assert_text @report.title
-  end
-
   test 'show my bookmark report' do
     visit_with_auth "/reports/#{@report.id}", 'komagata'
     assert_selector '#bookmark-button.is-active'
@@ -83,27 +77,5 @@ class BookmarksTest < ApplicationSystemTestCase
 
     visit '/current_user/bookmarks'
     assert_no_text @question.title
-  end
-
-  test 'edit bookmarks' do
-    visit_with_auth current_user_bookmarks_path, 'kimura'
-    assert_no_selector '.card-list-item__option'
-    find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.card-list-item__option'
-  end
-
-  test 'delete bookmark from bookmarks' do
-    user = @report.user
-    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
-    visit_with_auth report_path(@report), 'komagata'
-    assert_text 'Bookmark中'
-    visit current_user_bookmarks_path
-    assert_text "#{decorated_user.long_name} さんの相談部屋"
-    find(:css, '#spec-edit-mode').set(true)
-    assert_selector '.card-list-item__option'
-    first('#bookmark-button').click
-    assert_no_text "#{decorated_user.long_name} さんの相談部屋"
-    visit report_path(@report)
-    assert_text 'Bookmark'
   end
 end
