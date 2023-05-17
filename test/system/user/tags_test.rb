@@ -50,9 +50,12 @@ class User::TagsTest < ApplicationSystemTestCase
   test 'edit user tag current_user page' do
     visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
     page.all('.tag-links__item-edit')[0].click
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set 'タグタグ'
     tag_input.native.send_keys :return
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('タグタグ')
+    end
     click_button '保存する'
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
@@ -138,9 +141,12 @@ class User::TagsTest < ApplicationSystemTestCase
   test 'the first letter is ignored when adding a tag whose name begins with octothorpe' do
     visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
     page.all('.tag-links__item-edit')[0].click
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set '#ハッシュハッシュ'
     tag_input.native.send_keys :return
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('ハッシュハッシュ')
+    end
     click_button '保存する'
     within '.tag-links__items' do
       assert_text 'ハッシュハッシュ'
