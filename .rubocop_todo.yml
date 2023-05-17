@@ -42,6 +42,7 @@ Style/HashSyntax:
     - 'app/models/concerns/reactionable.rb'
     - 'app/models/concerns/searchable.rb'
     - 'app/models/discord/server.rb'
+    - 'app/models/event.rb'
     - 'app/models/grass.rb'
     - 'app/models/learning.rb'
     - 'app/models/notification.rb'
