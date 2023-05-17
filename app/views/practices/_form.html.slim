@@ -16,6 +16,17 @@
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
+        = f.label :summary, class: 'a-form-label'
+        = f.text_area :summary,
+          class: 'a-text-input is-md js-warning-form'
+        .a-form-help
+          p
+            | プラクティスの概要、目的、これを習得することでできるようになることなどを入力してください。
+            br
+            | 未ログインでプラクティスページでアクセスしたときも、ここに入力した情報は表示されます。
+  .form-item
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
         = f.label :description, class: 'a-form-label is-required'
         = f.text_area :description,
           class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
@@ -48,9 +59,9 @@
       | 参考書籍
     .row#reference_books
       = f.fields_for :practices_books do |practices_book|
-        = render 'practices_book_fields', f: practices_book
+        = render 'book_fields', f: practices_book
       .col-xs-12.books-form__add
-        = link_to_add_association f, :practices_books, class: 'a-button is-md is-primary' do
+        = link_to_add_association f, :practices_books, partial: 'book_fields', class: 'a-button is-md is-primary' do
           i.fa-regular.fa-plus
           span
             | 書籍を選択
