@@ -94,14 +94,6 @@ class NotificationMailer < ApplicationMailer
   end
 
   # required params: sender, receiver
-  def hibernated
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:hibernated])
-    subject = "[FBC] #{@sender.login_name}さんが休会しました。"
-    mail to: @user.email, subject: subject
-  end
-
-  # required params: sender, receiver
   def signed_up
     @user = @receiver
     roles = @sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"
