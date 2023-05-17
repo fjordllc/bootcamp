@@ -117,4 +117,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(product: product, receiver: receiver).assigned_as_checker
   end
+
+  def hibernated
+    sender = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    ActivityMailer.with(sender: sender, receiver: receiver).hibernated
+  end
 end

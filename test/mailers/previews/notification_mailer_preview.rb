@@ -71,13 +71,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(sender: sender, receiver: receiver).graduated
   end
 
-  def hibernated
-    sender = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
-
-    NotificationMailer.with(sender: sender, receiver: receiver).hibernated
-  end
-
   def update_regular_event
     regular_event = RegularEvent.find(ActiveRecord::FixtureSet.identify(:regular_event1))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
