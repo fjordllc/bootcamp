@@ -283,6 +283,11 @@ class ActivityMailer < ApplicationMailer
     )
 
     subject = "[FBC] #{@sender.login_name}さんが休会しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
   # required params: report, receiver
   def first_report(args = {})
     @report = params&.key?(:report) ? params[:report] : args[:report]
