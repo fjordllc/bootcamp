@@ -291,7 +291,7 @@ class SignUpTest < ApplicationSystemTestCase
       select '未経験', from: 'user[experience]'
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
-      tag_input = find('.ti-new-tag-input')
+      tag_input = find('.tagify__input')
       tag_input.set tag
       tag_input.native.send_keys :return
     end
