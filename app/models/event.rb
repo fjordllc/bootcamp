@@ -104,7 +104,7 @@ class Event < ApplicationRecord
   end
 
   def send_notification(receiver)
-    NotificationFacade.moved_up_event_waiting_user(self, receiver)
+    ActivityDelivery.with(receiver: receiver, event: self).notify(:moved_up_event_waiting_user)
   end
 
   def holding_today?
