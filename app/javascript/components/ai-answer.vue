@@ -17,18 +17,21 @@
             img.thread-comment__user-icon.a-user-icon(src="/images/users/avatars/open_ai.svg")
       .a-card.is-answer
         .thread-comment__description
-          .a-long-text.is-md(v-html='nl2brText')
+          .a-long-text.is-md(v-html='markdownDescription')
 </template>
 <script>
+import MarkdownInitializer from 'markdown-initializer'
+
 export default {
   name: 'AIAnswer',
   props: {
     text: { type: String, required: true }
   },
   computed: {
-    nl2brText() {
-      return this.text.replaceAll('\n', '<br>')
-    }
+    markdownDescription() {
+      const markdownInitializer = new MarkdownInitializer()
+      return markdownInitializer.render(this.text)
+    },
   }
 }
 </script>
