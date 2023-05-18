@@ -11,21 +11,21 @@ namespace :bootcamp do
 
   desc 'Migration on production.'
   task migrate: :environment do
-    Rake::Task['db:migrate'].execute
+    Rake::Task['db:migrate'].invoke
 
     # staging
     if ENV['DB_NAME'] == 'bootcamp_staging'
-      Rake::Task['db:reset'].execute
-      Rake::Task['db:seed'].execute
+      puts 'db:reset ============================'
+      Rake::Task['db:reset'].invoke
     end
 
     # production
-    Rake::Task['data:migrate'].execute if ENV['DB_NAME'] == 'bootcamp_production'
+    Rake::Task['data:migrate'].invoke if ENV['DB_NAME'] == 'bootcamp_production'
   end
 
   desc 'DB Reset on staging.'
   task reset: :environment do
-    Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
+    Rake::Task['db:reset'].invoke if ENV['DB_NAME'] == 'bootcamp_staging'
   end
 
   desc 'Reset Stripe test DB.'
