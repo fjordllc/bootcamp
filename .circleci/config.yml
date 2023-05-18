@@ -57,7 +57,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 2
+      PARALLEL_WORKERS: 1
     parallelism: 3
     steps:
       - checkout
