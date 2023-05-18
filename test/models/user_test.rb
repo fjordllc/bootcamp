@@ -36,12 +36,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test '#prefecture_name' do
-    assert_equal '未登録', users(:komagata).prefecture_name
-    assert_equal '東京都', users(:kimura).prefecture_name
-    assert_equal '宮城県', users(:hatsuno).prefecture_name
-  end
-
   test '#total_learnig_time' do
     user = users(:hatsuno)
     assert_equal 0, user.total_learning_time

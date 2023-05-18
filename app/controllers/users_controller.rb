@@ -150,7 +150,7 @@ class UsersController < ApplicationController
       :discord_account, :github_account, :twitter_account,
       :facebook_url, :blog_url, :times_url, :password,
       :password_confirmation, :job, :organization,
-      :os, :experience, :prefecture_code,
+      :os, :experience,
       :company_id, :nda, :avatar,
       :trainee, :adviser, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
