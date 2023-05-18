@@ -14,7 +14,8 @@
       .thread-comment__author
         .thread-comment__user-link
           .a-user-role
-            img.thread-comment__user-icon.a-user-icon(src="/images/users/avatars/open_ai.svg")
+            img.thread-comment__user-icon.a-user-icon(
+              src='/images/users/avatars/open_ai.svg')
       .a-card.is-answer
         .thread-comment__description
           .a-long-text.is-md(v-html='markdownDescription')
@@ -31,7 +32,7 @@ export default {
     markdownDescription() {
       const markdownInitializer = new MarkdownInitializer()
       return markdownInitializer.render(this.text)
-    },
+    }
   }
 }
 </script>
