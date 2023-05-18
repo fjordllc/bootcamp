@@ -189,6 +189,8 @@ kimura:
   job: office_worker
   os: mac
   experience: inexperienced
+  country_code: JP
+  subdivision_code: '13'
   organization: 木村大学
   subscription_id: sub-id-test-123
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
@@ -214,6 +216,8 @@ hatsuno:
   job: office_worker
   os: mac
   experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
   organization: 明治大学
   github_account: hatsuno
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
@@ -1074,6 +1078,8 @@ kyuukai:
   job: office_worker
   os: mac
   experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
   github_account: kyuukai
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   hibernated_at: "2020-01-01 00:00:00"
