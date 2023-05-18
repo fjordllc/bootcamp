@@ -276,6 +276,7 @@ class ActivityMailer < ApplicationMailer
   # required params: sender, receiver
   def hibernated(args = {})
     @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
 
     @user = @receiver
     @link_url = notification_redirector_url(
