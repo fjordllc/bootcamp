@@ -211,7 +211,6 @@ kimura:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 13
   organization: 木村大学
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2014-01-01 00:00:07"
@@ -238,7 +237,6 @@ hatsuno:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 4
   organization: 明治大学
   github_account: hatsuno
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
@@ -738,7 +736,6 @@ kimuramitai:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 13
   organization: 木村そっくり大学
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2022-03-28 00:00:01"
@@ -764,7 +761,6 @@ long-id-mentor:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 13
   organization: メンター大学
   mentor: true
   updated_at: "2022-04-15 00:00:01"
@@ -830,7 +826,6 @@ kyuukai:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 4
   github_account: kyuukai
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   hibernated_at: "2020-01-01 00:00:00"
@@ -870,7 +865,6 @@ kyuukai:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 4
   github_account: kyuukai
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   hibernated_at: "2020-01-01 00:00:00"

@@ -53,7 +53,7 @@ class Admin::UsersController < AdminController
       :twitter_account, :facebook_url, :blog_url, :times_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
-      :experience, :prefecture_code, :company_id,
+      :experience, :company_id,
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
       :job_seeker, :github_collaborator,
