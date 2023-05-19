@@ -22,7 +22,8 @@ li.header-links__item(v-bind:class='hasCountClass')
           a.header-dropdown__item-link.unconfirmed_link(
             :href='notification.path')
             .header-notifications-item__body
-              span.a-user-role(:class="'is-' + notification.sender.primary_role")
+              span.a-user-role(
+                :class='"is-" + notification.sender.primary_role')
                 img.header-notifications-item__user-icon.a-user-icon(
                   :src='notification.sender.avatar_url')
                 .header-notifications-item__message
