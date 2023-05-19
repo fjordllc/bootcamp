@@ -176,6 +176,15 @@ class NotificationsTest < ApplicationSystemTestCase
     end
   end
 
+  test 'notify user class name role contains' do
+    login_user 'komagata', 'testtest'
+    visit '/'
+    find('.header-links__link.test-show-notifications').click
+    assert_selector 'span.a-user-role.is-admin'
+    assert_selector 'span.a-user-role.is-student'
+    assert_selector 'span.a-user-role.is-mentor'
+  end
+
   test 'show notification count' do
     Notification.create(message: 'machidaさんからメンションが届きました',
                         created_at: '2040-01-18 06:06:42',
