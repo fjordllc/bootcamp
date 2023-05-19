@@ -18,11 +18,11 @@ class API::Watches::ToggleController < API::BaseController
       message = "この#{watchable.class.model_name.human}はWatch済です。"
       render json: { message: message }, status: :unprocessable_entity
     else
-      @watch = Watch.create!(
+      watch = Watch.create!(
         user: current_user,
         watchable: watchable
       )
-      render json: @watch
+      render json: watch
     end
   end
 
