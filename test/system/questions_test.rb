@@ -58,12 +58,8 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を更新しました'
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
-
-    # 質問に紐づくpracticeのタイトル名のリンク
     assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
-    # practiceに紐づく質問一覧が画面右側に表示されており、そのpracticeのタイトル名のリンク
     assert_selector 'a.page-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
-    # 質問を「sshdでパスワード認証を禁止にする」に移動させたので、そのカテゴリーの質問が表示される
     assert_selector 'div.page-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
   end
 
