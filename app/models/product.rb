@@ -14,7 +14,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
-  belongs_to :checker, class_name: 'Product', optional: true
+  belongs_to :checker, class_name: 'User', optional: true
   alias sender user
 
   after_create ProductCallbacks.new
