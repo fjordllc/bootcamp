@@ -20,6 +20,7 @@ div
 <script>
 import QuestionEdit from 'components/question-edit.vue'
 import Answers from 'answers.vue'
+import CSRF from 'csrf'
 import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
 
 export default {
@@ -52,7 +53,7 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -90,10 +91,6 @@ export default {
     },
     cancelSolveQuestion() {
       this.question.correct_answer = null
-    },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
     },
     updateAnswerCount(count) {
       this.answerCount = count

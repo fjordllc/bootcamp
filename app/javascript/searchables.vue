@@ -22,9 +22,11 @@
 </template>
 
 <script>
-import Searchable from 'searchable.vue'
-import Pager from 'pager.vue'
+import CSRF from 'csrf'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
+import Pager from 'pager.vue'
+import Searchable from 'searchable.vue'
+
 export default {
   components: {
     searchable: Searchable,
@@ -67,17 +69,13 @@ export default {
     this.getSearchablesPerPage()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getSearchablesPerPage() {
       fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

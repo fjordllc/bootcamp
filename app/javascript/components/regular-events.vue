@@ -15,6 +15,7 @@
 
 <script>
 import RegularEvent from 'components/regular-event.vue'
+import CSRF from 'csrf'
 import Pager from 'pager.vue'
 
 export default {
@@ -54,17 +55,13 @@ export default {
     this.getEventsPerPage()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getEventsPerPage() {
       fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

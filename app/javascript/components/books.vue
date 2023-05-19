@@ -20,6 +20,7 @@
 </template>
 <script>
 import Book from './book'
+import CSRF from 'csrf'
 
 export default {
   name: 'Books',
@@ -54,17 +55,13 @@ export default {
     this.getBooks()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getBooks() {
       fetch(this.booksAPI, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

@@ -35,9 +35,10 @@
 </template>
 
 <script>
+import CSRF from 'csrf'
 import VueTagsInput from '@johmun/vue-tags-input'
-import validateTagName from 'validate-tag-name'
 import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
+import validateTagName from 'validate-tag-name'
 
 export default {
   name: 'Tags',
@@ -141,10 +142,6 @@ export default {
         console.warn(error)
       })
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     update(newTags) {
       this.tags = newTags
       this.tagsValue = this.joinTags(newTags)
@@ -169,7 +166,7 @@ export default {
       this.editing = true
     },
     async updateTag() {
-      await this.updateCallback(this.tagsValue, this.token()).catch(
+      await this.updateCallback(this.tagsValue, CSRF.getToken()).catch(
         this.parseTagsError
       )
       this.editing = false
