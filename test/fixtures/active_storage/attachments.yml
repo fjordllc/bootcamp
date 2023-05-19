@@ -69,3 +69,13 @@ kimuramitai_profile_image:
   name: profile_image
   record: kimuramitai (User)
   blob: kimuramitai_profile_image_blob
+
+practice60_ogp_image:
+  name: ogp_image
+  record: practice60 (Practice)
+  blob: ogp_image_blob
+
+practice61_ogp_image:
+  name: ogp_image
+  record: practice61 (Practice)
+  blob: ogp_image_blob

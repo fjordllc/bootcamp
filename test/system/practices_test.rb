@@ -253,28 +253,6 @@ class PracticesTest < ApplicationSystemTestCase
     assert_no_selector '.common-page-body', text: '困った時は'
   end
 
-  test 'show a summary if the practice has a summary data' do
-    visit_with_auth new_practice_path, 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[title]', with: '概要表示テスト用'
-      check categories(:category1).name, allow_label_click: true
-      fill_in 'practice[summary]', with: '概要の内容'
-      fill_in 'practice[description]', with: 'description...'
-      fill_in 'practice[goal]', with: 'goal...'
-      click_button '登録する'
-    end
-
-    assert_selector '.card-header', text: '概要'
-    assert_selector '.card-body', text: '概要の内容'
-  end
-
-  test 'not show a summary if the practice does not has a summary data' do
-    practice = practices(:practice1)
-    visit_with_auth practice_path(practice), 'komagata'
-
-    assert_no_selector '.card-header', text: '概要'
-  end
-
   test 'escape markdown, javascript, and html tags entered in the summary' do
     escape_text = <<~TEXT
       # マークダウン
@@ -303,59 +281,35 @@ class PracticesTest < ApplicationSystemTestCase
     end
   end
 
-  test 'if an ogp image is registered, set it to meta-tag' do
-    practice = practices(:practice1)
-    upload_image = '1.jpg'
-    visit_with_auth edit_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      attach_file 'practice[ogp_image]', "test/fixtures/files/practices/ogp_images/#{upload_image}", make_visible: true
-      click_button '更新する'
-    end
-
-    ogp_image = File.basename find('meta[property="og:image"]', visible: false)['content']
-    twitter_card_image = File.basename find('meta[name="twitter:image"]', visible: false)['content']
-    assert_equal upload_image, ogp_image
-    assert_equal upload_image, twitter_card_image
-  end
-
-  test 'if an ogp image is not registered, set default image to meta-tag' do
-    practice = practices(:practice1)
-    default_image = 'ogp.png'
+  test 'show both in the summary ( summary_text: yes / ogp_image: yes )' do
+    practice = practices(:practice61)
     visit_with_auth practice_path(practice), 'komagata'
-
-    ogp_image = File.basename find('meta[property="og:image"]', visible: false)['content']
-    twitter_card_image = File.basename find('meta[name="twitter:image"]', visible: false)['content']
-    assert_equal default_image, ogp_image
-    assert_equal default_image, twitter_card_image
-  end
-
-  test 'if an ogp image and a summary are registered, display them' do
-    practice = practices(:practice1)
-    upload_image = '1.jpg'
-    visit_with_auth edit_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      attach_file 'practice[ogp_image]', "test/fixtures/files/practices/ogp_images/#{upload_image}", make_visible: true
-      fill_in 'practice[summary]', with: '概要です'
-      click_button '更新する'
-    end
-
     within :css, '.a-card', text: '概要' do
-      assert_selector "img[src$='#{upload_image}']"
+      assert_selector "img[src$='#{practice.ogp_image.blob.filename.sanitized}']"
       assert_text '概要です'
     end
   end
 
-  test 'if all that is registered is a summary, a summary is displayed, but the default ogp image is not displayed' do
-    practice = practices(:practice1)
-    visit_with_auth edit_practice_path(practice), 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[summary]', with: '概要です'
-      click_button '更新する'
-    end
-
+  test 'show only text in the summary ( summary_text: yes / ogp_image: no )' do
+    practice = practices(:practice59)
+    visit_with_auth practice_path(practice), 'komagata'
     within :css, '.a-card', text: '概要' do
       assert_no_selector 'img'
       assert_text '概要です'
     end
+  end
+
+  test 'not show the summary ( summary_text: no / ogp_image: no )' do
+    practice = practices(:practice58)
+    visit_with_auth practice_path(practice), 'komagata'
+
+    assert_no_selector '.a-card', text: '概要'
+  end
+
+  test 'not show the summary ( summary_text: no / ogp_image: yes )' do
+    practice = practices(:practice60)
+    visit_with_auth practice_path(practice), 'komagata'
+
+    assert_no_selector '.a-card', text: '概要'
   end
 end
