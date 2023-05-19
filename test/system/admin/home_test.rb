@@ -6,12 +6,14 @@ class Admin::HomeTest < ApplicationSystemTestCase
   test 'GET /admin' do
     visit_with_auth '/admin', 'komagata'
     assert_equal '管理ページ | FBC', title
-    assert_selector '.page-tabs__item-link', text: '管理ページ', visible: true
-    assert_selector '.page-tabs__item-link', text: 'ユーザー', visible: true
-    assert_selector '.page-tabs__item-link', text: '企業', visible: true
-    assert_selector '.page-tabs__item-link', text: 'お試し延長', visible: true
-    assert_no_selector '.page-tabs__item-link', text: 'プラクティス', visible: true
-    assert_no_selector '.page-tabs__item-link', text: 'カテゴリー', visible: true
-    assert_no_selector '.page-tabs__item-link', text: 'コース', visible: true
+
+    assert_selector 'a.page-tabs__item-link', count: 4
+    assert_selector '.page-tabs__item-link', text: '管理ページ'
+    assert_selector '.page-tabs__item-link', text: 'ユーザー'
+    assert_selector '.page-tabs__item-link', text: '企業'
+    assert_selector '.page-tabs__item-link', text: 'お試し延長'
+    assert_no_selector '.page-tabs__item-link', text: 'プラクティス'
+    assert_no_selector '.page-tabs__item-link', text: 'カテゴリー'
+    assert_no_selector '.page-tabs__item-link', text: 'コース'
   end
 end
