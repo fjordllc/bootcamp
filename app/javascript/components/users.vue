@@ -45,6 +45,7 @@
             | {{ targetName }}のユーザーはいません
 </template>
 <script>
+import CSRF from 'csrf'
 import User from './user.vue'
 import Pager from '../pager.vue'
 import Debounce from '../debounce.js'
@@ -115,17 +116,13 @@ export default {
     this.setupUsers()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     async fetchUsersResource() {
       const usersResource = await fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

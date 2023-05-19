@@ -20,6 +20,7 @@ div
       @cancelSolveQuestion='cancelSolveQuestion')
 </template>
 <script>
+import CSRF from 'csrf'
 import QuestionEdit from 'components/question-edit.vue'
 import AIAnswer from 'components/ai-answer.vue'
 import Answers from 'answers.vue'
@@ -56,7 +57,7 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -94,10 +95,6 @@ export default {
     },
     cancelSolveQuestion() {
       this.question.correct_answer = null
-    },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
     },
     updateAnswerCount(count) {
       this.answerCount = count

@@ -15,6 +15,7 @@ button(
     | {{ this.name }}
 </template>
 <script>
+import CSRF from 'csrf'
 import toast from 'toast'
 import checkable from './checkable.js'
 
@@ -57,17 +58,13 @@ export default {
     })
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     checkInCharge() {
       this.checkProduct(
         this.productId,
         this.currentUserId,
         '/api/products/checker',
         this.productCheckerId ? 'DELETE' : 'PATCH',
-        this.token()
+        CSRF.getToken()
       )
     }
   }

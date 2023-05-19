@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import CSRF from 'csrf'
 import Pager from 'pager.vue'
 import Product from 'product.vue'
 import LoadingListPlaceholder from './loading-list-placeholder.vue'
@@ -73,17 +74,13 @@ export default {
     this.getProducts()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getProducts() {
       fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

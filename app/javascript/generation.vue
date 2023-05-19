@@ -21,6 +21,7 @@
               :class='"a-user-icons__item-icon a-user-icon"')
 </template>
 <script>
+import CSRF from 'csrf'
 import loadingGenerationsPageGenerationPlaceholder from './loading-generations-page-generation-placeholder.vue'
 
 export default {
@@ -57,17 +58,13 @@ export default {
     this.getUsers()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getUsers() {
       fetch(this.generation_users_url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

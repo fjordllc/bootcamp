@@ -60,6 +60,7 @@ section.a-card.is-memo.is-only-mentor
 </template>
 
 <script>
+import CSRF from 'csrf'
 import TextareaInitializer from '../textarea-initializer'
 import MarkdownInitializer from '../markdown-initializer'
 import confirmUnload from '../confirm-unload'
@@ -117,10 +118,6 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     updateMemo() {
       const params = {
         user: {
@@ -132,7 +129,7 @@ export default {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Content-Type': 'application/json; charset=utf-8',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
