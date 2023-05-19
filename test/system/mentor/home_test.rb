@@ -8,6 +8,8 @@ class Mentor::HomeTest < ApplicationSystemTestCase
     assert_equal 'メンターページ | FBC', title
     assert_no_text 'jobseeker (シュウカツ ノゾム)'
     assert_text 'muryou (ムリョウ ノスケ)'
+
+    assert_selector 'a.page-tabs__item-link', count: 4
     assert_selector '.page-tabs__item-link', text: 'メンターページ', visible: true
     assert_selector '.page-tabs__item-link', text: 'プラクティス', visible: true
     assert_selector '.page-tabs__item-link', text: 'カテゴリー', visible: true
