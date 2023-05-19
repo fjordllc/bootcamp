@@ -13,7 +13,7 @@ class API::Watches::ToggleController < API::BaseController
       user_id: current_user.id,
       watchable_id: params[:watchable_id],
       watchable_type: params[:watchable_type]
-      )
+    )
     if watch_existence
       message = "この#{watchable.class.model_name.human}はWatch済です。"
       render json: { message: message }, status: :unprocessable_entity
