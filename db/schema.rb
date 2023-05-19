@@ -469,6 +469,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
     t.boolean "include_progress", default: true, null: false
     t.text "memo"
     t.integer "last_updated_user_id"
+    t.text "summary"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
@@ -721,6 +722,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
     t.string "name", default: "", null: false
     t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
+    t.string "discord_account"
     t.text "mentor_memo"
     t.string "times_url"
     t.text "after_graduation_hope"
