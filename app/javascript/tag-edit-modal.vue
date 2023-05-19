@@ -22,6 +22,8 @@
               | キャンセル
 </template>
 <script>
+import CSRF from 'csrf'
+
 export default {
   props: {
     id: { type: String, required: true },
@@ -43,10 +45,6 @@ export default {
     this.initialName = this.nameProp
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     closeModal() {
       this.$emit('closeModal')
     },
@@ -62,7 +60,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

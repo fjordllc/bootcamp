@@ -31,6 +31,7 @@
 </template>
 <script>
 import 'whatwg-fetch'
+import CSRF from 'csrf'
 import ProductChecker from 'product_checker'
 import checkable from 'checkable.js'
 import toast from './toast'
@@ -76,10 +77,6 @@ export default {
     }
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     checkSad() {
       if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
         if (
@@ -92,7 +89,7 @@ export default {
             this.checkableId,
             this.url,
             this.method,
-            this.token()
+            CSRF.getToken()
           )
         }
       } else {
@@ -101,7 +98,7 @@ export default {
           this.checkableId,
           this.url,
           this.method,
-          this.token()
+          CSRF.getToken()
         )
       }
     }
