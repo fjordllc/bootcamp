@@ -9,8 +9,14 @@ class API::Watches::ToggleController < API::BaseController
   end
 
   def create
-    if Watch.exists?(user_id: current_user.id, watchable_id: params[:watchable_id], watchable_type: params[:watchable_type])
-      render json: { message: "この#{watchable.class.model_name.human}はWatch済です。" }, status: :unprocessable_entity
+    watch_existence = Watch.exists?(
+      user_id: current_user.id,
+      watchable_id: params[:watchable_id],
+      watchable_type: params[:watchable_type]
+      )
+    if watch_existence
+      message = "この#{watchable.class.model_name.human}はWatch済です。"
+      render json: { message: message }, status: :unprocessable_entity
     else
       @watch = Watch.create!(
         user: current_user,
