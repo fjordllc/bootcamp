@@ -374,10 +374,6 @@ export default {
           this.finishEditing(true)
           this.$emit('afterUpdateQuestion')
           if (this.isChangedPacticeId(this.edited)) {
-            // questionに紐づくpracticeを変更した場合のみリロードする。
-            // /questions/id の右側の画面のquestion一覧を更新したいため。
-            // そのquestion一覧は、railsのslimで作成されているが、
-            // その部分をvueに置き換える事で発生する複雑さより、リロードで解決できる簡潔さを重視した。
             const questionId = this.question.id
             setTimeout(function () {
               window.location.href = `/questions/${questionId}`
