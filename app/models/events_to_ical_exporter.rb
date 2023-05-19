@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EventsInIcalFormatExporter
+class EventsToIcalExporter
   def self.export_events(events)
     cal = Icalendar::Calendar.new
     events.each do |event|
