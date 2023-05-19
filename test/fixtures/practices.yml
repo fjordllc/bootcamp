@@ -366,3 +366,29 @@ practice57:
   goal: "goal..."
   include_progress: false
   last_updated_user: komagata
+
+practice58:
+  title: "概要なし / OGP画像なし"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice59:
+  title: "概要あり / OGP画像なし"
+  summary: "概要です"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice60:
+  title: "概要なし / OGP画像あり"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice61:
+  title: "概要あり / OGP画像あり"
+  summary: "概要です"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
