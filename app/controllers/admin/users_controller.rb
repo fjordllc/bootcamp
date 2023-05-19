@@ -21,6 +21,7 @@ class Admin::UsersController < AdminController
 
   def update
     if @user.update(user_params)
+      destroy_subscription(@user)
       Newspaper.publish(:retirement_create, @user)
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
@@ -60,5 +61,12 @@ class Admin::UsersController < AdminController
       :profile_image, :profile_name, :profile_job, :mentor,
       :profile_text, authored_books_attributes: %i[id title url cover _destroy]
     )
+  end
+
+  def destroy_subscription(user)
+    return if user.subscription_id.blank?
+    return unless user.saved_change_to_retired_on? || user.saved_change_to_graduated_on?
+
+    Subscription.new.destroy(user.subscription_id)
   end
 end
