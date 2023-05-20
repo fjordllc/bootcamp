@@ -25,7 +25,7 @@ class Question::TagsTest < ApplicationSystemTestCase
           page.has_text?(tag)
         end.all?
       end
-
+      find_all('.tagify__tag').map(&:text)
       click_button '登録する'
     end
     click_on 'Q&A', match: :first
