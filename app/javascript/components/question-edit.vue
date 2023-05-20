@@ -105,9 +105,9 @@
               data-confirm='自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？',
               data-method='delete')
               | 削除する
-        .card-footer__notice(v-show='displayedUpdateMessage')
+        .card-footer__notice(v-show='savedMessage')
           p
-            | 質問を更新しました
+            | {{ savedMessage }}
 
   .a-card(v-show='editing')
     .thread-form
@@ -211,7 +211,8 @@ export default {
     question: { type: Object, required: true },
     answerCount: { type: Number, required: true },
     isAnswerCountUpdated: { type: Boolean, required: true },
-    currentUser: { type: Object, required: true }
+    currentUser: { type: Object, required: true },
+    createdMessage: { type: String, required: true }
   },
   data() {
     return {
@@ -224,7 +225,7 @@ export default {
         practiceId: this.getPracticeId()
       },
       editing: false,
-      displayedUpdateMessage: false,
+      savedMessage: this.createdMessage,
       tab: 'question',
       practices: null
     }
@@ -321,9 +322,9 @@ export default {
         $(`.question-id-${this.question.id}`).trigger('input')
       })
     },
-    finishEditing(hasUpdatedQuestion) {
+    finishEditing(savedMessage) {
       this.editing = false
-      this.displayedUpdateMessage = hasUpdatedQuestion
+      this.savedMessage = savedMessage
     },
     isActive(tab) {
       return this.tab === tab
@@ -338,10 +339,13 @@ export default {
     },
     updateQuestion(wip) {
       this.edited.wip = wip
+      const savedMessage = this.edited.wip
+        ? '質問をWIPとして保存しました。'
+        : '質問を更新しました。'
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
         // 表示しないとユーザーが更新されていないと不安に感じる
-        this.finishEditing(true)
+        this.finishEditing(savedMessage)
         return
       }
 
@@ -369,7 +373,7 @@ export default {
           Object.entries(this.edited).forEach(([key, val]) => {
             this[key] = val
           })
-          this.finishEditing(true)
+          this.finishEditing(savedMessage)
           this.$emit('afterUpdateQuestion')
         })
         .catch((error) => {
@@ -380,7 +384,7 @@ export default {
       Object.keys(this.edited).forEach((key) => {
         this.edited[key] = this[key]
       })
-      this.finishEditing(false)
+      this.finishEditing('')
     }
   }
 }

@@ -63,7 +63,8 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.save
       Newspaper.publish(:question_create, @question)
-      redirect_to @question, notice: notice_message(@question)
+      flash[:created_message] = @question.wip ? '質問をWIPとして保存しました。' : '質問を作成しました。'
+      redirect_to @question
     else
       render :new
     end
@@ -105,11 +106,5 @@ class QuestionsController < ApplicationController
     else
       QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
     end
-  end
-
-  def notice_message(question)
-    return '質問をWIPとして保存しました。' if question.wip?
-
-    '質問を作成しました。'
   end
 end

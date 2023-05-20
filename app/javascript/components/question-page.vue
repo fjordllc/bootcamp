@@ -8,6 +8,7 @@ div
       :answerCount='answerCount',
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser',
+      :createdMessage='createdMessage',
       @afterUpdateQuestion='fetchQuestion(questionId)')
     answers(
       :questionId='questionId',
@@ -32,7 +33,8 @@ export default {
   },
   props: {
     currentUserId: { type: String, required: true },
-    questionId: { type: String, required: true }
+    questionId: { type: String, required: true },
+    createdMessage: { type: String, required: true }
   },
   data() {
     return {
