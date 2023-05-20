@@ -25,7 +25,7 @@ class Page::TagsTest < ApplicationSystemTestCase
           page.has_text?(tag)
         end.all?
       end
-
+      find_all('.tagify__tag').map(&:text)
       click_on 'Docを公開'
     end
     click_on 'Docs', match: :first

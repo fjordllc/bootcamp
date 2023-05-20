@@ -23,6 +23,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until page.has_text?('タグ1')
     end
+    find_all('.tagify__tag').map(&:text)
     click_on '更新する'
     assert_text 'タグ1'
 

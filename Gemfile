@@ -94,7 +94,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', git: 'https://github.com/teamcapybara/capybara', ref: '2d05c20'
+  gem 'capybara'
   gem 'minitest-ci'
   gem 'minitest-retry'
   gem 'selenium-webdriver'
