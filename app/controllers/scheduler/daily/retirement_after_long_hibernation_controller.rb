@@ -12,6 +12,7 @@ class Scheduler::Daily::RetirementAfterLongHibernationController < SchedulerCont
     User.unretired.hibernated_for(3.months).retire_after_long_hibernation.each do |user|
       user.retire_reason = '（休会後三ヶ月経過したため自動退会）'
       user.retired_on = Date.current
+      user.hibernated_at = nil
       user.save!(validate: false)
 
       Newspaper.publish(:retirement_create, user)
