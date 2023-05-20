@@ -56,6 +56,7 @@ class User::TagsTest < ApplicationSystemTestCase
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until page.has_text?('タグタグ')
     end
+    find_all('.tagify__tag').map(&:text)
     click_button '保存する'
 
     visit_with_auth user_path(users(:hatsuno)), 'komagata'
@@ -147,6 +148,7 @@ class User::TagsTest < ApplicationSystemTestCase
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until page.has_text?('ハッシュハッシュ')
     end
+    find_all('.tagify__tag').map(&:text)
     click_button '保存する'
     within '.tag-links__items' do
       assert_text 'ハッシュハッシュ'

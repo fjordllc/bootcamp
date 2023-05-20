@@ -169,6 +169,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until page.has_text?('追加タグ')
     end
+    find_all('.tagify__tag').map(&:text)
     click_on '更新する'
     visit "/admin/users/#{user.id}/edit"
     assert_text '追加タグ'
