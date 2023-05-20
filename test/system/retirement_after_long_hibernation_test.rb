@@ -22,6 +22,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     end
 
     assert_equal '（休会後三ヶ月経過したため自動退会）', user.retire_reason
+    assert_nil user.hibernated_at
     login_user 'kyuukai', 'testtest'
     assert_text '退会したユーザーです'
 
