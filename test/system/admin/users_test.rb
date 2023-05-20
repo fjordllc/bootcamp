@@ -130,7 +130,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_retired_on', with: '')
   end
 
-  test 'update user with retired_on' do
+  test 'make user retired' do
     user = users(:hatsuno)
     date = Date.current
     VCR.use_cassette 'subscription/update' do
@@ -177,7 +177,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_graduated_on', with: '')
   end
 
-  test 'update user with graduated_on' do
+  test 'make user graduated' do
     user = users(:hatsuno)
     date = Date.current
     VCR.use_cassette 'subscription/update' do
