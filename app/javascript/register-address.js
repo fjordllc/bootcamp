@@ -5,17 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return null
   }
 
-  elements.forEach(element => {
+  elements.forEach((element) => {
     element.addEventListener('change', () => {
       const countryForm = document.getElementById('country-form')
       const subdivisionForm = document.getElementById('subdivision-form')
       const elements = [countryForm, subdivisionForm]
 
-      elements.forEach(element => {
+      elements.forEach((element) => {
         element.classList.toggle('is-hidden')
       })
 
-      const value = document.querySelector('input:checked[name=register_address]').value
+      const value = document.querySelector(
+        'input:checked[name=register_address]'
+      ).value
       const countrySelect = document.getElementById('country-select')
       const subdivisionSelect = document.getElementById('subdivision-select')
 
@@ -23,9 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countrySelect.value === '') {
           countrySelect.querySelector("option[value='JP']").selected = true
 
-          const countries = JSON.parse(countryForm.getAttribute('data-countries'))
+          const countries = JSON.parse(
+            countryForm.getAttribute('data-countries')
+          )
 
-          countries.JP.forEach(subdivision => {
+          countries.JP.forEach((subdivision) => {
             const option = document.createElement('option')
             option.text = subdivision[0]
             option.value = subdivision[1]
@@ -33,10 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         }
 
-        const elements = document.querySelectorAll("input[type=hidden][value='']")
+        const elements = document.querySelectorAll(
+          "input[type=hidden][value='']"
+        )
 
         if (elements) {
-          elements.forEach(element => {
+          elements.forEach((element) => {
             element.remove()
           })
         }
