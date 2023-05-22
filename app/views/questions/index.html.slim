@@ -24,7 +24,7 @@ header.page-header
           .page-main-header__end
             .page-main-header-actions
               .page-main-header-actions__items
-                #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
+                = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
 .page-body
   nav.page-filter.form
     .container.is-md

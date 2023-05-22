@@ -26,7 +26,7 @@ main.page-main
             .page-main-header-actions
               .page-main-header-actions__items
                 - if admin_login?
-                  #js-tag-edit(tag-id="#{@tag.id}" tag-name="#{@tag.name}")
+                  = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
                 .page-main-header-actions__item.is-remove
                   - if current_user.tag_list.include?(params[:tag])
                     = link_to 'このタグを自分から外す', "/users/tags/#{params[:tag]}", method: 'delete', class: 'a-button is-sm is-muted is-block'
