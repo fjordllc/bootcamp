@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import toast from "../../toast";
 
-const TagEditModal = ({ tagId, propTagName, setShowModal }) => {
+export default function TagEditModal ({ tagId, propTagName, setShowModal }) {
   const initialTagName = propTagName;
   const [tagName, setTagName] = useState(propTagName);
 
@@ -102,5 +102,3 @@ const TagEditModal = ({ tagId, propTagName, setShowModal }) => {
     </div>
   );
 };
-
-export default TagEditModal;
