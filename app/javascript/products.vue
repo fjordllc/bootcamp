@@ -77,9 +77,11 @@
                 :currentUserId='currentUserId',
                 :isMentor='isMentor',
                 :display-user-icon='displayUserIcon')
-      a.almost-5days-passed(href='/products/unassigned#4days-elapsed')(
+      .under-cards(
         v-if='isDashboard && productsGroupedByElapsedDays != null')
-        | 8時間後に5日経過に到達する提出物は{{ countAlmostPassed5days() }}件です。
+          .under-cards__links.mt-4.text-center.leading-normal.text-sm
+            a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(class='hover\:bg-black' href='/products/unassigned#4days-elapsed')
+              | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間後に5日経過に到達します。
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`')
