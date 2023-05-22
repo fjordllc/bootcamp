@@ -262,6 +262,8 @@ ja:
         choices: 選択肢
       check_box/check_box_choices:
         choices: 選択肢
+      buzz:
+        body: 本文
     enums:
       user:
         job:
