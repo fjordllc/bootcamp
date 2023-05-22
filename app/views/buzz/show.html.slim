@@ -1,1 +1,16 @@
-h1 buzz show
+- title 'Buzz'
+- set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+
+.welcome-page-header
+  .container.is-xxl
+    .welcome-page-header__inner
+      .welcome-page-header__title
+        = title
+
+.welcome-page-body
+  .container.is-md
+    .js-markdown-view.a-long-text.is-md
+      = @buzz.body
+    - if admin_or_mentor_login?
+      = link_to edit_buzz_path, class: 'a-button is-secondary is-md is-block' do
+        | 内容修正
