@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import toast from "../../toast";
 
 const TagEditModal = ({ tagId, propTagName, setShowModal }) => {
@@ -29,7 +29,6 @@ const TagEditModal = ({ tagId, propTagName, setShowModal }) => {
   };
 
   const updateTag = () => {
-    console.log("test3")
     if (tagName === '' || tagName === initialTagName) {
       return null;
     }
