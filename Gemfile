@@ -94,10 +94,10 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', git: 'https://github.com/teamcapybara/capybara', ref: '2d05c20'
   gem 'minitest-ci'
   gem 'minitest-retry'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '4.5.0'
   gem 'vcr', github: 'vcr/vcr'
   gem 'webdrivers'
   gem 'webmock'
