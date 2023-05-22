@@ -59,9 +59,7 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
   }
 
   return (
-    <div
-      className="a-overlay is-vue"
-      onClick={(e) => e.target === e.currentTarget && closeModal()}>
+    <div className="a-overlay is-vue">
       <div className="a-card is-modal">
         <header className="card-header is-sm">
           <h2 className="card-header__title">タグ名変更</h2>
