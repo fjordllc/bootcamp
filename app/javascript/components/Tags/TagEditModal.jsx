@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
-import toast from "../../toast";
+import React, { useState } from 'react'
+import toast from '../../toast'
 
-export default function TagEditModal ({ tagId, propTagName, setShowModal }) {
-  const initialTagName = propTagName;
-  const [tagName, setTagName] = useState(propTagName);
+export default function TagEditModal({ tagId, propTagName, setShowModal }) {
+  const initialTagName = propTagName
+  const [tagName, setTagName] = useState(propTagName)
 
-  const validation = tagName === initialTagName || tagName === '';
+  const validation = tagName === initialTagName || tagName === ''
 
   const token = () => {
-    const meta = document.querySelector('meta[name="csrf-token"]');
-    return meta ? meta.getAttribute('content') : '';
-  };
+    const meta = document.querySelector('meta[name="csrf-token"]')
+    return meta ? meta.getAttribute('content') : ''
+  }
 
   const changeTagName = (e) => {
     setTagName(e.target.value)
-  };
+  }
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowModal(false)
     setTagName(initialTagName)
-  };
+  }
 
   const updateTagList = () => {
-    toast.methods.toast('タグ名を変更しました');
-    const url = location.pathname.split('/');
-    const path = url[url.length - 3];
-    location.href = `/${path}/tags/${encodeURIComponent(tagName)}?all=true`;
-  };
+    toast.methods.toast('タグ名を変更しました')
+    const url = location.pathname.split('/')
+    const path = url[url.length - 3]
+    location.href = `/${path}/tags/${encodeURIComponent(tagName)}?all=true`
+  }
 
   const updateTag = () => {
     if (tagName === '' || tagName === initialTagName) {
-      return null;
+      return null
     }
 
     const params = {
       tag: { name: tagName }
-    };
+    }
 
     fetch(`/api/tags/${tagId}`, {
       method: 'PUT',
@@ -50,16 +50,18 @@ export default function TagEditModal ({ tagId, propTagName, setShowModal }) {
     })
       .then(() => {
         setTagName(tagName)
-        closeModal();
-        updateTagList();
+        closeModal()
+        updateTagList()
       })
       .catch((error) => {
-        console.warn(error);
-      });
-  };
+        console.warn(error)
+      })
+  }
 
   return (
-    <div className="a-overlay is-vue" onClick={(e) => e.target === e.currentTarget && closeModal()}>
+    <div
+      className="a-overlay is-vue"
+      onClick={(e) => e.target === e.currentTarget && closeModal()}>
       <div className="a-card is-modal">
         <header className="card-header is-sm">
           <h2 className="card-header__title">タグ名変更</h2>
@@ -85,13 +87,14 @@ export default function TagEditModal ({ tagId, propTagName, setShowModal }) {
                 <button
                   className="a-button is-primary is-sm is-block"
                   disabled={validation}
-                  onClick={updateTag}
-                >
+                  onClick={updateTag}>
                   変更
                 </button>
               </li>
               <li className="card-main-actions__item is-sub">
-                <div className="card-main-actions__muted-action" onClick={closeModal}>
+                <div
+                  className="card-main-actions__muted-action"
+                  onClick={closeModal}>
                   キャンセル
                 </div>
               </li>
@@ -100,5 +103,5 @@ export default function TagEditModal ({ tagId, propTagName, setShowModal }) {
         </footer>
       </div>
     </div>
-  );
-};
+  )
+}
