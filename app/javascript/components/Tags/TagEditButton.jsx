@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TagEditModal from './TagEditModal';
-const TagEditButton = ({ tagId, tagName }) => {
+
+export default function TagEditButton ({ tagId, tagName }) {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -23,5 +24,3 @@ const TagEditButton = ({ tagId, tagName }) => {
     </div>
   );
 };
-
-export default TagEditButton;
