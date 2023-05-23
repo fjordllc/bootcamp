@@ -14,18 +14,20 @@ http_interactions:
         q+WvvuOBl+OBpuWEquOBl+OBj+OAgeOCj+OBi+OCiuOChOOBmeOBj+etlOOB
         iOOBpuOBj+OBoOOBleOBhOOAglxu6LOq5ZWP44Gr5b+F6KaB44Gq5oOF5aCx
         44GM6Laz44KK44Gq44GE5aC05ZCI44Gv44Gd44Gu54K544Gr44Gk44GE44Gm
-        44KC5oyH5pGY44GX44Gm44GP44Gg44GV44GE44CCXG4ifSx7InJvbGUiOiJ1
-        c2VyIiwiY29udGVudCI6IuOBqeOBruOCqOODh+OCo+OCv+ODvOOCkuS9v+OB
-        huOBruOBjOiJr+OBhOOBp+OBl+OCh+OBhuOBi1xudmnjgIFlbWFjc+OAgWF0
-        b23jgajoibLjgIXjgqjjg4fjgqPjgr/jg7zjgYzjgYLjgorjgb7jgZnjgYzj
-        gIFcbuOBqeOBruOCqOODh+OCo+OCv+ODvOOCkuS9v+OBhuOBruOBjOS4gOeV
-        quiJr+OBhOOBp+OBl+OCh+OBhuOBi++8nyJ9XSwidGVtcGVyYXR1cmUiOjAu
-        N30=
+        44KC5oyH5pGY44GX44Gm44GP44Gg44GV44GE44CCXG7lm57nrZTjga9tYXJr
+        ZG93buW9ouW8j+OBp+iomOi/sOOBl+OBpuOBj+OBoOOBleOBhOOAglxuIn0s
+        eyJyb2xlIjoidXNlciIsImNvbnRlbnQiOiJ2aeOAgWVtYWNz44CBYXRvbeOB
+        qOiJsuOAheOCqOODh+OCo+OCv+ODvOOBjOOBguOCiuOBvuOBmeOBjOOAgVxu
+        44Gp44Gu44Ko44OH44Kj44K/44O844KS5L2/44GG44Gu44GM5LiA55Wq6Imv
+        44GE44Gn44GX44KH44GG44GL77yfXG52aeOAgWVtYWNz44CBYXRvbeOBqOiJ
+        suOAheOCqOODh+OCo+OCv+ODvOOBjOOBguOCiuOBvuOBmeOBjOOAgVxu44Gp
+        44Gu44Ko44OH44Kj44K/44O844KS5L2/44GG44Gu44GM5LiA55Wq6Imv44GE
+        44Gn44GX44KH44GG44GL77yfIn1dLCJ0ZW1wZXJhdHVyZSI6MC43fQ==
     headers:
       Content-Type:
       - application/json
       Authorization:
-      - Bearer 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
+      - Bearer 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
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -38,7 +40,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 07 May 2023 20:06:08 GMT
+      - Tue, 23 May 2023 20:23:09 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -54,7 +56,7 @@ http_interactions:
       Openai-Organization:
       - fjordbootcamp
       Openai-Processing-Ms:
-      - '91914'
+      - '89662'
       Openai-Version:
       - '2020-10-01'
       Strict-Transport-Security:
@@ -66,33 +68,33 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '199'
       X-Ratelimit-Remaining-Tokens:
-      - '39852'
+      - '39821'
       X-Ratelimit-Reset-Requests:
       - 300ms
       X-Ratelimit-Reset-Tokens:
-      - 222ms
+      - 268ms
       X-Request-Id:
-      - 295c7914aea2db52792af2ded73f659f
+      - c76d08d0cc488d848ff9fbd57b396ab2
       Cf-Cache-Status:
       - DYNAMIC
       Server:
       - cloudflare
       Cf-Ray:
-      - 7c3c12b27ba3af72-NRT
+      - 7cc001aa7f5ef587-NRT
       Alt-Svc:
       - h3=":443"; ma=86400, h3-29=":443"; ma=86400
     body:
       encoding: UTF-8
       base64_string: |
-        ewogICJpZCI6ICJjaGF0Y21wbC03RGV1VHlGbHhZQ0xBZEhta1hreTJpWW9Z
-        ZkY0SSIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVh
-        dGVkIjogMTY4MzQ4OTg3NywKICAibW9kZWwiOiAiZ3B0LTQtMDMxNCIsCiAg
-        InVzYWdlIjogewogICAgInByb21wdF90b2tlbnMiOiAxODEsCiAgICAiY29t
-        cGxldGlvbl90b2tlbnMiOiA1ODEsCiAgICAidG90YWxfdG9rZW5zIjogNzYy
+        ewogICJpZCI6ICJjaGF0Y21wbC03SlNuajZKOEI2ZE5nMm81Z0F2YXdEVXFz
+        WkRubCIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVh
+        dGVkIjogMTY4NDg3MzI5OSwKICAibW9kZWwiOiAiZ3B0LTQtMDMxNCIsCiAg
+        InVzYWdlIjogewogICAgInByb21wdF90b2tlbnMiOiAyMTYsCiAgICAiY29t
+        cGxldGlvbl90b2tlbnMiOiA1MTYsCiAgICAidG90YWxfdG9rZW5zIjogNzMy
         CiAgfSwKICAiY2hvaWNlcyI6IFsKICAgIHsKICAgICAgIm1lc3NhZ2UiOiB7
         CiAgICAgICAgInJvbGUiOiAiYXNzaXN0YW50IiwKICAgICAgICAiY29udGVu
         dCI6ICLjg4bjgrnjg4jjga7op6PnrZTjgafjgZnjgIIiCiAgICAgIH0sCiAg
         ICAgICJmaW5pc2hfcmVhc29uIjogInN0b3AiLAogICAgICAiaW5kZXgiOiAw
         CiAgICB9CiAgXQp9
-  recorded_at: Sun, 07 May 2023 20:06:09 GMT
+  recorded_at: Tue, 23 May 2023 20:23:09 GMT
 recorded_with: VCR 6.1.0
