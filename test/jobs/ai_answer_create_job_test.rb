@@ -8,6 +8,7 @@ class AIAnswerCreateJobTest < ActiveJob::TestCase
 
     VCR.use_cassette 'question/ai_answer_create_job' do
       AIAnswerCreateJob.perform_now(question_id: question.id)
+
       assert_equal 'テストの解答です。', question.reload.ai_answer
     end
   end
