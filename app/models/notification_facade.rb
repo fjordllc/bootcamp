@@ -37,36 +37,6 @@ class NotificationFacade
     ).chose_correct_answer.deliver_later(wait: 5)
   end
 
-  def self.consecutive_sad_report(report, receiver)
-    ActivityNotifier.with(report: report, receiver: receiver).consecutive_sad_report.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      report: report,
-      receiver: receiver
-    ).consecutive_sad_report.deliver_later(wait: 5)
-  end
-
-  def self.assigned_as_checker(product, receiver)
-    ActivityNotifier.with(product: product, receiver: receiver).assigned_as_checker.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      product: product,
-      receiver: receiver
-    ).assigned_as_checker.deliver_later(wait: 5)
-  end
-
-  def self.hibernated(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
-    return unless receiver.mail_notification?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).hibernated.deliver_later(wait: 5)
-  end
-
   def self.tomorrow_regular_event(event)
     DiscordNotifier.with(event: event).tomorrow_regular_event.notify_now
   end
