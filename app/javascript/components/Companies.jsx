@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Company from './Company';
 import LoadingUsersPageCompaniesPlaceholder from "./LoadingUsersPageCompaniesPlaceholder";
 
-const Companies = ({ target }) => {
+export default function Companies({ target }){
   const [companies, setCompanies] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -54,5 +54,3 @@ const Companies = ({ target }) => {
     </div>
   );
 };
-
-export default Companies;
