@@ -17,4 +17,5 @@ main.page-main
         h1.page-main-header__title
           = '企業別'
           | （#{t("target.#{@target}")}）
-  #js-companies(data-target="#{@target}")
+  / #js-companies(data-target="#{@target}")
+  = react_component('Companies', target: @target)
