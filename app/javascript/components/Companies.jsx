@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Company from './Company';
-import LoadingUsersPageCompaniesPlaceholder from './LoadingUsersPageCompaniesPlaceholder';
+import LoadingUsersPageCompaniesPlaceholder from "./LoadingUsersPageCompaniesPlaceholder";
 
 const Companies = ({ target }) => {
   const [companies, setCompanies] = useState([]);
