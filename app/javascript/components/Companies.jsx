@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Company from './Company';
-import LoadingUsersPageCompaniesPlaceholder from "./LoadingUsersPageCompaniesPlaceholder";
+import React, { useState, useEffect } from 'react'
+import Company from './Company'
+import LoadingUsersPageCompaniesPlaceholder from './LoadingUsersPageCompaniesPlaceholder'
 
-export default function Companies({ target }){
-  const [companies, setCompanies] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+export default function Companies({ target }) {
+  const [companies, setCompanies] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    getCompaniesPage();
-  }, []);
+    getCompaniesPage()
+  }, [])
 
   const token = () => {
-    const meta = document.querySelector('meta[name="csrf-token"]');
-    return meta ? meta.getAttribute('content') : '';
-  };
+    const meta = document.querySelector('meta[name="csrf-token"]')
+    return meta ? meta.getAttribute('content') : ''
+  }
 
   const getCompaniesPage = () => {
-    const url = `/api/users/companies?target=${target}`;
+    const url = `/api/users/companies?target=${target}`
 
     fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token(),
+        'X-CSRF-Token': token()
       },
       credentials: 'same-origin',
-      redirect: 'manual',
+      redirect: 'manual'
     })
       .then((response) => response.json())
-      .then((json) => {
-        setCompanies(json);
-        setLoaded(true);
+      .then((companies) => {
+        setCompanies(companies)
+        setLoaded(true)
       })
       .catch((error) => {
-        console.warn(error);
-      });
-  };
+        console.warn(error)
+      })
+  }
 
   return (
     <div className="page-body">
@@ -52,5 +52,5 @@ export default function Companies({ target }){
         )}
       </div>
     </div>
-  );
-};
+  )
+}

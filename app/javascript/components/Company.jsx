@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-export default function Company({ company }){
+export default function Company({ company }) {
   if (company.users.length === 0) {
-    return null;
+    return null
   }
 
   return (
@@ -20,7 +20,9 @@ export default function Company({ company }){
             </span>
             <span className="group-company-name__name">
               <span className="group-company-name__label">{company.name}</span>
-              <span className="group-company-name__label-option">{company.description}</span>
+              <span className="group-company-name__label-option">
+                {company.description}
+              </span>
             </span>
           </a>
         </h2>
@@ -28,7 +30,10 @@ export default function Company({ company }){
       <div className="a-user-icons">
         <div className="a-user-icons__items">
           {company.users.map((user) => (
-            <a className="a-user-icons__item-link" href={user.url} key={user.id}>
+            <a
+              className="a-user-icons__item-link"
+              href={user.url}
+              key={user.id}>
               <span className={`a-user-role is-${user.primary_role}`}>
                 <img
                   src={user.avatar_url}
@@ -42,5 +47,5 @@ export default function Company({ company }){
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
