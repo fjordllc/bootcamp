@@ -360,3 +360,10 @@ practice56:
   goal: "goal..."
   include_progress: false
   last_updated_user: machida
+
+practice57:
+  title: "概要を持つプラクティス"
+  summary: "概要です"
+  description: "概要を持つプラクティス"
+  goal: "goal..."
+  memo: "memo for mentors..."

@@ -37,19 +37,6 @@ class NotificationFacade
     ).trainee_report.deliver_later(wait: 5)
   end
 
-  def self.moved_up_event_waiting_user(event, receiver)
-    ActivityNotifier.with(
-      event: event,
-      receiver: receiver
-    ).moved_up_event_waiting_user.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      event: event,
-      receiver: receiver
-    ).moved_up_event_waiting_user.deliver_later(wait: 5)
-  end
-
   def self.chose_correct_answer(answer, receiver)
     ActivityNotifier.with(answer: answer, receiver: receiver).chose_correct_answer.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
@@ -68,16 +55,6 @@ class NotificationFacade
       report: report,
       receiver: receiver
     ).consecutive_sad_report.deliver_later(wait: 5)
-  end
-
-  def self.hibernated(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver).hibernated.notify_now
-    return unless receiver.mail_notification?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).hibernated.deliver_later(wait: 5)
   end
 
   def self.tomorrow_regular_event(event)

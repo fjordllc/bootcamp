@@ -163,9 +163,13 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'edit user tag' do
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.has_text?('追加タグ')
+    end
+    find_all('.tagify__tag').map(&:text)
     click_on '更新する'
     visit "/admin/users/#{user.id}/edit"
     assert_text '追加タグ'

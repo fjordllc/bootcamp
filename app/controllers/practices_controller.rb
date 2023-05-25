@@ -57,6 +57,7 @@ class PracticesController < ApplicationController
       :include_progress,
       :ogp_image,
       :memo,
+      :summary,
       category_ids: [],
       practices_books_attributes: %i[id book_id must_read _destroy]
     )
