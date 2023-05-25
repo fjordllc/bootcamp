@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoadingUserIconPlaceholder = () => {
+export default function LoadingUserIconPlaceholder(){
   return (
     <div className="a-user-icons__item">
       <div className="a-user-icons__item-link">
@@ -9,5 +9,3 @@ const LoadingUserIconPlaceholder = () => {
     </div>
   );
 };
-
-export default LoadingUserIconPlaceholder;

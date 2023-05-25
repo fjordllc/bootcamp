@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadingUserIconPlaceholder from './LoadingUserIconPlaceholder';
 
-const LoadingUsersPageCompanyPlaceholder = () => {
+export default function LoadingUsersPageCompanyPlaceholder(){
   const userIconCount = 16;
 
   return (
@@ -21,7 +21,7 @@ const LoadingUsersPageCompanyPlaceholder = () => {
       </header>
       <div className="a-user-icons">
         <div className="a-user-icons__items">
-          {Array.from({ length: userIconCount }).map((_, index) => (
+          {[...Array(userIconCount)].map((_, index) => (
             <LoadingUserIconPlaceholder key={index} />
           ))}
         </div>
@@ -29,5 +29,3 @@ const LoadingUsersPageCompanyPlaceholder = () => {
     </div>
   );
 };
-
-export default LoadingUsersPageCompanyPlaceholder;

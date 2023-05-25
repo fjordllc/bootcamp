@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Company = ({ company }) => {
+export default function Company({ company }){
   if (company.users.length === 0) {
     return null;
   }
@@ -44,5 +44,3 @@ const Company = ({ company }) => {
     </div>
   );
 };
-
-export default Company;
