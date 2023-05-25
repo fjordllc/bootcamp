@@ -12,6 +12,7 @@ class ActivityMailer < ApplicationMailer
     @question = params[:question] if params&.key?(:question)
     @mentionable = params[:mentionable] if params&.key?(:mentionable)
     @page = params[:page] if params&.key?(:page)
+    @event = params[:event] if params&.key?(:event)
     @watchable = params[:watchable] if params&.key?(:watchable)
     @comment = params[:comment] if params&.key?(:comment)
     @product = params[:product] if params&.key?(:product)
@@ -198,6 +199,22 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
+  def moved_up_event_waiting_user(args = {})
+    @receiver ||= args[:receiver]
+    @event ||= args[:event]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/events/#{@event.id}",
+      kind: Notification.kinds[:moved_up_event_waiting_user]
+    )
+    subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
   def following_report(args = {})
     @sender ||= args[:sender]
     @report = params&.key?(:report) ? params[:report] : args[:report]
@@ -248,6 +265,24 @@ class ActivityMailer < ApplicationMailer
     )
 
     subject = "[FBC] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: sender, receiver
+  def hibernated(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:hibernated]
+    )
+
+    subject = "[FBC] #{@sender.login_name}さんが休会しました。"
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 

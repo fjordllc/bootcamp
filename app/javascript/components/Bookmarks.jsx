@@ -142,8 +142,7 @@ const DeleteButton = ({ id, afterDelete }) => {
   return (
     <div className="card-list-item__option">
       <div
-        id="bookmark-button"
-        className="a-bookmark-button a-button is-sm is-block is-main"
+        className="bookmark-delete-button a-bookmark-button a-button is-sm is-block is-main"
         onClick={() => afterDelete(id)}>
         削除
       </div>

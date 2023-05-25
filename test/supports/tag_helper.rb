@@ -15,8 +15,9 @@ module TagHelper
   private
 
   def assert_alert_when_enter_tag(name)
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set name
+    find_all('.tagify__tag').map(&:text)
     page.accept_alert do
       tag_input.native.send_keys :return
     end

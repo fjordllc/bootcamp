@@ -68,6 +68,16 @@ class ActivityMailerPreview < ActionMailer::Preview
     ActivityMailer.with(sender: page.user, receiver: receiver, page: page).create_page
   end
 
+  def moved_up_event_waiting_user
+    event = Event.find(ActiveRecord::FixtureSet.identify(:event3))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+
+    ActivityMailer.with(
+      event: event,
+      receiver: receiver
+    ).moved_up_event_waiting_user
+  end
+
   def submitted
     product = Product.find(ActiveRecord::FixtureSet.identify(:product15))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
@@ -106,5 +116,12 @@ class ActivityMailerPreview < ActionMailer::Preview
     receiver = User.find(product.checker_id)
 
     ActivityMailer.with(product: product, receiver: receiver).assigned_as_checker
+  end
+
+  def hibernated
+    sender = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:mentormentaro))
+
+    ActivityMailer.with(sender: sender, receiver: receiver).hibernated
   end
 end

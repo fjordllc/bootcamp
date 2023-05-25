@@ -128,7 +128,7 @@ notification_trainee_report:
 
 notification_moved_up_event_waiting_user:
   kind: 11
-  user: hajime
+  user: hatsuno
   sender: komagata
   message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
   link: "/events/<%= ActiveRecord::FixtureSet.identify(:event3) %>"

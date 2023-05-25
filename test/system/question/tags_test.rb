@@ -14,11 +14,18 @@ class Question::TagsTest < ApplicationSystemTestCase
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'tagテストの質問'
       fill_in 'question[description]', with: 'tagテストの質問です。'
-      tag_input = find('.ti-new-tag-input')
+      tag_input = find('.tagify__input')
       tag_list.each do |tag|
         tag_input.set tag
         tag_input.native.send_keys :return
       end
+
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        loop until tag_list.map do |tag|
+          page.has_text?(tag)
+        end.all?
+      end
+      find_all('.tagify__tag').map(&:text)
       click_button '登録する'
     end
     click_on 'Q&A', match: :first
