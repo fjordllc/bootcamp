@@ -2,7 +2,8 @@
 .thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
-  h2.thread-comments__title 回答・コメント
+  header.thread-comments__header
+    h2.thread-comments__title 回答・コメント
   .thread-comments__items
     answer(
       v-for='answer in answers',
