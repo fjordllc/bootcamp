@@ -23,7 +23,11 @@ class GraduationController < ApplicationController
   end
 
   def check_admin_permission
-    redirect_to root_path, alert: '管理者としてログインしてください' unless current_user.admin?
+    if logged_in?
+      redirect_to root_path, alert: '管理者としてログインしてください' unless current_user.admin?
+    else
+      redirect_to root_path, alert: 'ログインしてください'
+    end
   end
 
   def set_redirect_url
