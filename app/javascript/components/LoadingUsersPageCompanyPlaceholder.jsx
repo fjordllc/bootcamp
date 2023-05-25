@@ -1,8 +1,8 @@
-import React from 'react';
-import LoadingUserIconPlaceholder from './LoadingUserIconPlaceholder';
+import React from 'react'
+import LoadingUserIconPlaceholder from './LoadingUserIconPlaceholder'
 
-export default function LoadingUsersPageCompanyPlaceholder(){
-  const userIconCount = 16;
+export default function LoadingUsersPageCompanyPlaceholder() {
+  const userIconCount = 16
 
   return (
     <div className="user-group">
@@ -27,5 +27,5 @@ export default function LoadingUsersPageCompanyPlaceholder(){
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

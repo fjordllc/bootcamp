@@ -1,8 +1,8 @@
-import React from 'react';
-import LoadingUsersPageCompanyPlaceholder from './LoadingUsersPageCompanyPlaceholder';
+import React from 'react'
+import LoadingUsersPageCompanyPlaceholder from './LoadingUsersPageCompanyPlaceholder'
 
-export default function LoadingUsersPageCompaniesPlaceholder(){
-  const companyCount = 9;
+export default function LoadingUsersPageCompaniesPlaceholder() {
+  const companyCount = 9
 
   return (
     <div>
@@ -10,5 +10,5 @@ export default function LoadingUsersPageCompaniesPlaceholder(){
         <LoadingUsersPageCompanyPlaceholder key={index} />
       ))}
     </div>
-  );
-};
+  )
+}
