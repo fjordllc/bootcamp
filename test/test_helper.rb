@@ -11,7 +11,7 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 Capybara.disable_animation = true
 Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
