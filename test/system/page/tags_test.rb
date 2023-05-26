@@ -4,48 +4,22 @@ require 'application_system_test_case'
 
 class Page::TagsTest < ApplicationSystemTestCase
   test 'search pages by tag' do
-    visit_with_auth pages_url, 'kimura'
-    click_on 'Doc作成'
-    tag_list = ['tag1',
-                'ドットつき.タグ',
-                'ドットが.2つ以上の.タグ',
-                '.先頭がドット',
-                '最後がドット.']
-    within 'form[name=page]' do
-      fill_in 'page[title]', with: 'tagのテスト'
-      fill_in 'page[body]', with: 'tagをつけます。空白とカンマはタグには使えません。'
-      tag_input = find('.tagify__input')
-      tag_list.each do |tag|
-        tag_input.set tag
-        tag_input.native.send_keys :return
-      end
-
-      Timeout.timeout(Capybara.default_max_wait_time) do
-        loop until tag_list.map do |tag|
-          page.has_text?(tag)
-        end.all?
-      end
-      find_all('.tagify__tag').map(&:text)
-      click_on 'Docを公開'
-    end
-    click_on 'Docs', match: :first
-
-    tag_list.each do |tag|
-      assert_text tag
-      click_on tag, match: :first
-      assert_text 'tagのテスト'
-      assert_no_text 'Bootcampの作業のページ'
+    visit_with_auth new_page_url, 'kimura'
+    tags = find_tags('Page')
+    tags.each do |tag|
+      visit_with_auth pages_tag_path(tag, all: 'true'), 'kimura'
+      assert_equal Page.tagged_with(tag).pluck(:title),
+                   all('.card-list-item-title__link').map(&:text)
     end
   end
 
   test 'update tags without page transitions' do
     visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
     find('.tag-links__item-edit').click
-    tag_input = find('.tagify__input')
-    tag_input.set '追加タグ'
-    tag_input.native.send_keys :return
+    fill_in_tag '追加タグ'
     click_on '保存'
-    assert_text '追加タグ'
+    assert_equal Page.tagged_with('追加タグ').pluck(:title),
+                 all('.card-list-item-title__link').map(&:text)
   end
 
   test 'admin can edit tag' do
@@ -119,5 +93,57 @@ class Page::TagsTest < ApplicationSystemTestCase
     click_button 'タグ名変更'
     fill_in('tag[name]', with: tag.name)
     has_field?('変更', disabled: true)
+  end
+
+  test 'alert when enter tag with space on creation page' do
+    visit_with_auth new_page_path, 'kimura'
+    ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
+      fill_in_tag_with_alert tag
+    end
+    fill_in_tag 'foo'
+    within('form[name=page]') do
+      fill_in('page[title]', with: 'test title')
+      fill_in('page[body]', with: 'test body')
+      click_button 'Docを公開'
+    end
+    assert_equal ['foo'], all('.tag-links__item-link').map(&:text).sort
+  end
+
+  test 'alert when enter one dot only tag on creation page' do
+    visit_with_auth new_page_path, 'kimura'
+    fill_in_tag_with_alert '.'
+    fill_in_tag 'foo'
+    within('form[name=page]') do
+      fill_in('page[title]', with: 'test title')
+      fill_in('page[body]', with: 'test body')
+      click_button 'Docを公開'
+    end
+    assert_equal ['foo'], all('.tag-links__item-link').map(&:text).sort
+  end
+
+  test 'alert when enter tag with space on update page' do
+    visit_with_auth "/pages/#{pages(:page3).id}/edit", 'kimura'
+    ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
+      fill_in_tag_with_alert tag
+    end
+    fill_in_tag 'foo'
+    within('form[name=page]') do
+      fill_in('page[title]', with: 'test title')
+      fill_in('page[body]', with: 'test body')
+      click_button '内容を更新'
+    end
+    assert_equal ['foo'], all('.tag-links__item-link').map(&:text).sort
+  end
+
+  test 'alert when enter one dot only tag on update page' do
+    visit_with_auth "/pages/#{pages(:page3).id}/edit", 'kimura'
+    fill_in_tag_with_alert '.'
+    fill_in_tag 'foo'
+    within('form[name=page]') do
+      fill_in('page[title]', with: 'test title')
+      fill_in('page[body]', with: 'test body')
+      click_button '内容を更新'
+    end
+    assert_equal ['foo'], all('.tag-links__item-link').map(&:text)
   end
 end
