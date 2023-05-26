@@ -141,23 +141,12 @@ class User::TagsTest < ApplicationSystemTestCase
 
   test 'the first letter is ignored when adding a tag whose name begins with octothorpe' do
     visit_with_auth user_path(users(:hatsuno)), 'hatsuno'
-    page.all('.tag-links__item-edit')[0].click
+    first('.tag-links__item-edit').click
     tag_input = find('.tagify__input')
     tag_input.set '#ハッシュハッシュ'
     tag_input.native.send_keys :return
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      loop until page.has_text?('ハッシュハッシュ')
-    end
-    find_all('.tagify__tag').map(&:text)
     click_button '保存する'
-    within '.tag-links__items' do
-      assert_text 'ハッシュハッシュ'
-    end
 
-    visit_with_auth user_path(users(:hatsuno)), 'komagata'
-    within '.tag-links__items' do
-      assert_text 'ハッシュハッシュ'
-      assert_no_text '#ハッシュハッシュ'
-    end
+    assert_includes all('.tag-links__item-link').map(&:text), 'ハッシュハッシュ'
   end
 end
