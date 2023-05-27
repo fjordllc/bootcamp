@@ -227,6 +227,9 @@ GEM
     httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    icalendar (2.8.0)
+      ice_cube (~> 0.16)
+    ice_cube (0.16.4)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
@@ -530,7 +533,7 @@ GEM
       pastel (~> 0.8)
       strings (~> 0.2.0)
       tty-screen (~> 0.8)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unf (0.1.4)
@@ -602,6 +605,7 @@ DEPENDENCIES
   good_job (~> 3.14)!
   google-cloud-storage (~> 1.25)
   holiday_jp
+  icalendar (~> 2.8)
   image_processing (~> 1.12)
   jbuilder (~> 2.7)
   jp_prefecture
@@ -655,6 +659,7 @@ DEPENDENCIES
   stripe-i18n!
   syntax_suggest
   traceroute
+  tzinfo (~> 2.0, >= 2.0.6)
   vcr!
   view_source_map
   web-console (>= 4.1.0)
