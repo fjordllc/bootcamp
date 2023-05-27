@@ -14,6 +14,7 @@
 Style/HashSyntax:
   Exclude:
     - 'app/controllers/admin/campaigns_controller.rb'
+    - 'app/controllers/announcements_controller.rb'
     - 'app/controllers/api/admin/count_controller.rb'
     - 'app/controllers/api/bookmarks_controller.rb'
     - 'app/controllers/api/checks_controller.rb'
@@ -28,6 +29,7 @@ Style/HashSyntax:
     - 'app/helpers/meta_tags_helper.rb'
     - 'app/helpers/page_tab_helper.rb'
     - 'app/helpers/reactions_helper.rb'
+    - 'app/jobs/ai_answer_create_job.rb'
     - 'app/mailers/activity_mailer.rb'
     - 'app/mailers/notification_mailer.rb'
     - 'app/models/announcement_notifier.rb'
