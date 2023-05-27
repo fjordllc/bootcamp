@@ -85,3 +85,12 @@ regular_event26:
   start_at: <%= Time.zone.local(2020, 1, 1, 23, 58, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 23, 59, 0) %>
   user: komagata
+
+regular_event27:
+  title: Discord通知確認用イベント(土曜開催)
+  description: Discord通知確認用イベント(土曜開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
