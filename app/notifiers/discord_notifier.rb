@@ -64,6 +64,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     )
   end
 
+  # rubocop:disable Metrics/MethodLength
   def coming_soon_regular_events(params = {})
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
@@ -98,6 +99,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
       webhook_url: webhook_url
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def invalid_user(params = {})
     params.merge!(@params)
