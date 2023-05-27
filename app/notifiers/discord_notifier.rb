@@ -64,6 +64,41 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     )
   end
 
+  def coming_soon_regular_events
+    webhook_url = Rails.application.secrets[:webhook][:all]
+    day_of_the_week = %w[日 月 火 水 木 金 土]
+    today = Time.current
+    tomorrow = Time.current.next_day
+    event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
+    if RegularEvent.today_events.present?
+      event_info += "< 今日 (#{today.strftime("%m/%d")} #{day_of_the_week[today.wday]} 開催 >\n\n"
+      RegularEvent.today_events.each { |event|
+        event_info += "#{event.title}\n"
+        event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
+        event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}}\n\n"
+      }
+      event_info += "------------------------------\n\n"
+    end
+    if RegularEvent.tomorrow_events.present?
+      event_info += "< 明日 (#{tomorrow.strftime("%m/%d")} #{day_of_the_week[tomorrow.wday]} 開催 >\n\n"
+      RegularEvent.tomorrow_events.each { |event|
+        event_info += "#{event.title}\n"
+        event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
+        event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}}\n\n"
+      }
+    end
+    event_info += "⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️\n\n"
+    puts "今日#{RegularEvent.today_events}です"
+    puts "明日#{RegularEvent.tomorrow_events}です"
+    puts "中身#{event_info}です"
+
+    notification(
+      body: event_info,
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/1111511603813306409/LFqYGRq9JypvLYdzXucLr-5EPa1k6j4PL8yLtslqHGWJbGA1-CJur60UAPu2ExeIVxut'
+    )
+  end
+
   def invalid_user(params = {})
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:admin]
