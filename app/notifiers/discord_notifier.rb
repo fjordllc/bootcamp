@@ -74,23 +74,23 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     tomorrow = Time.current.next_day
     event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
     if today_events.present?
-      event_info += "< 今日 (#{today.strftime("%m/%d")} #{day_of_the_week[today.wday]} 開催 >\n\n"
-      today_events.each { |event|
+      event_info += "< 今日 (#{today.strftime('%m/%d')} #{day_of_the_week[today.wday]} 開催 >\n\n"
+      today_events.each do |event|
         event_info += "#{event.title}\n"
         event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
         event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
-      }
+      end
       event_info += "------------------------------\n\n"
     end
     if tomorrow_events.present?
-      event_info += "< 明日 (#{tomorrow.strftime("%m/%d")} #{day_of_the_week[tomorrow.wday]} 開催 >\n\n"
-      tomorrow_events.each { |event|
+      event_info += "< 明日 (#{tomorrow.strftime('%m/%d')} #{day_of_the_week[tomorrow.wday]} 開催 >\n\n"
+      tomorrow_events.each do |event|
         event_info += "#{event.title}\n"
         event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
         event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
-      }
+      end
     end
-    event_info += "⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️"
+    event_info += '⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️'
 
     notification(
       body: event_info,
