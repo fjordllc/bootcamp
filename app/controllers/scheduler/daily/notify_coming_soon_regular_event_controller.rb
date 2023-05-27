@@ -9,7 +9,7 @@ class Scheduler::Daily::NotifyComingSoonRegularEventController < SchedulerContro
   private
 
   def notify_coming_soon_regular_event
-    return puts "通知するイベントがないのでDiscordへの通知は行われません。" if RegularEvent.today_events.blank? && RegularEvent.tomorrow_events.blank?
+    return if RegularEvent.today_events.blank? && RegularEvent.tomorrow_events.blank?
 
     NotificationFacade.coming_soon_regular_events
   end
