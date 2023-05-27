@@ -1,25 +1,32 @@
 # frozen_string_literal: true
 
 module TagHelper
-  def assert_alert_when_enter_tag_with_space
-    [
-      '半角スペースは 使えない',
-      '全角スペースも　使えない'
-    ].each { |tag| assert_alert_when_enter_tag(tag) }
-  end
-
-  def assert_alert_when_enter_one_dot_only_tag
-    ['.'].each { |tag| assert_alert_when_enter_tag(tag) }
-  end
-
-  private
-
-  def assert_alert_when_enter_tag(name)
-    tag_input = find('.tagify__input')
+  def fill_in_tag(name, selector = '.tagify__input')
+    tag_input = find(selector)
+    sleep 1
     tag_input.set name
-    find_all('.tagify__tag').map(&:text)
-    page.accept_alert do
+    tag_input.native.send_keys :return
+  end
+
+  def fill_in_tag_with_alert(name, selector = '.tagify__input')
+    tag_input = find(selector)
+    sleep 1
+    tag_input.set name
+    accept_alert do
       tag_input.native.send_keys :return
     end
+  end
+
+  def find_tags(taggable_name)
+    sql = <<~SQL
+      SELECT
+        DISTINCT tags.name AS name
+      FROM
+        tags
+        JOIN taggings ON tags.id = taggings.tag_id
+      WHERE
+        taggings.taggable_type = :taggable_name
+    SQL
+    ActsAsTaggableOn::Tag.find_by_sql([sql, { taggable_name: taggable_name }]).pluck(:name).sort
   end
 end

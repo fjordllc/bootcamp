@@ -113,6 +113,7 @@ steps:
       - '--set-env-vars=RECAPTCHA_SITE_KEY=$_RECAPTCHA_SITE_KEY'
       - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
+      - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS

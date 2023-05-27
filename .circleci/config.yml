@@ -79,6 +79,9 @@ jobs:
           name: Database setup
           command: 'bundle exec rails db:setup'
       - run:
+          name: Assets precompile
+          command: 'bundle exec rails assets:clean assets:precompile'
+      - run:
           name: Test
           command: |
             TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
