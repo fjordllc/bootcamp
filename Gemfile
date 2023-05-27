@@ -31,6 +31,7 @@ gem 'discordrb', github: 'shardlab/discordrb', require: false
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
+gem 'icalendar', '~> 2.8'
 gem 'jp_prefecture'
 gem 'jquery-rails'
 gem 'kaminari'
@@ -62,6 +63,7 @@ gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
+gem 'tzinfo', '~> 2.0', '>= 2.0.6'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

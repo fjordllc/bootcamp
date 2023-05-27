@@ -1,24 +1,20 @@
 - title '定期イベント'
 
-header.page-header
-  .container
-    .page-header__inner
-      h2.page-header__title
-        = 'イベント'
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to new_event_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | イベント作成
-          .page-header-actions__item
-            = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | 定期イベント作成
-
+= render 'events/header'
 = render 'events/tabs'
 
 .page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | 定期イベント作成
   .page-body
     .container.is-md
       = render 'nav'

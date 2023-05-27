@@ -70,6 +70,9 @@ Rails.application.routes.draw do
   resource :inquiry, only: %i(new create)
   resources :articles
   resources :survey_questions, except: %i(show destroy)
+  namespace :events do
+    resources :calendars, only: %i(index)
+  end
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
