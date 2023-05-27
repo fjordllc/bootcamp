@@ -19,9 +19,9 @@ class AnnouncementsController < ApplicationController
       flash.now[:notice] = 'お知らせをコピーしました。'
     elsif params[:page_id]
       page = Page.find(params[:page_id])
-      page_url = "https://bootcamp.fjord.jp/pages/#{params[:page_id]}"
-      @announcement.title       = "ドキュメント「#{page.title}」を公開しました。"
-      @announcement.description = "<!--  このテキストを編集してください-->\n\nドキュメント「#{page.title}」を公開しました。\n#{page_url}\n\n<!--  不要な場合以下は削除 -->\n---\n\n#{page.description}"
+      template = TemplateMessage.load('page_announcements.yml', hash: { page: page })
+      @announcement.title       = template['title']
+      @announcement.description = template['description']
     elsif params[:event_id]
       event = Event.find(params[:event_id])
       template = TemplateMessage.load('event_announcements.yml', hash: { event: event })
