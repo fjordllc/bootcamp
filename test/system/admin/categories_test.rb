@@ -25,6 +25,28 @@ class Admin::CategoriesTest < ApplicationSystemTestCase
     assert_text 'カテゴリーを作成しました。'
   end
 
+  test 'cannot create category without category name' do
+    visit_with_auth new_admin_category_path, 'komagata'
+    within 'form[name=category]' do
+      fill_in 'category[slug]', with: 'test-category'
+      fill_in 'category[description]', with: 'テストのカテゴリーです。'
+      click_button '登録する'
+    end
+    assert_text '入力内容にエラーがありました'
+    assert_text '名前を入力してください'
+  end
+
+  test 'cannot create category without category slug' do
+    visit_with_auth new_admin_category_path, 'komagata'
+    within 'form[name=category]' do
+      fill_in 'category[name]', with: 'テストカテゴリー'
+      fill_in 'category[description]', with: 'テストのカテゴリーです。'
+      click_button '登録する'
+    end
+    assert_text '入力内容にエラーがありました'
+    assert_text 'URLスラッグを入力してください'
+  end
+
   test 'update category from course page' do
     visit_with_auth course_practices_path(courses(:course1)), 'komagata'
     first('.categories-item__edit').click
