@@ -54,5 +54,9 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
   Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
 
+  ai_answer_creator = AIAnswerCreator.new
+  Newspaper.subscribe(:question_create, ai_answer_creator)
+  Newspaper.subscribe(:question_update, ai_answer_creator)
+
   Newspaper.subscribe(:retirement_create, UnfinishedDataDestroyer.new)
 end
