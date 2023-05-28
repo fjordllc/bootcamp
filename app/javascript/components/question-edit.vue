@@ -337,6 +337,15 @@ export default {
       })
     },
     updateQuestion(wip) {
+      const flashElement = document.querySelector('.flash__message')
+      if (flashElement) {
+        if (wip) {
+          flashElement.innerHTML = '質問をWIPとして保存しました。'
+        } else {
+          flashElement.innerHTML = '質問を公開しました。'
+        }
+      }
+
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
