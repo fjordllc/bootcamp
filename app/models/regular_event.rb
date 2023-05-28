@@ -85,10 +85,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event_day && (now < event_start_time)
   end
 
-  def hold_national_holiday?
-    hold_national_holiday
-  end
-
   def convert_date_into_week(date)
     (date / 7.0).ceil
   end
