@@ -120,4 +120,21 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_text '株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
   end
+
+  test 'admin can see buzz link' do
+    visit_with_auth welcome_path, 'komagata'
+    click_link '関連リンク集'
+    assert_current_path buzz_path
+  end
+
+  test 'mentor can see buzz link' do
+    visit_with_auth welcome_path, 'mentormentaro'
+    click_link '関連リンク集'
+    assert_current_path buzz_path
+  end
+
+  test 'regular user cannot see buzz link' do
+    visit_with_auth welcome_path, 'kimura'
+    assert_no_link '関連リンク集'
+  end
 end
