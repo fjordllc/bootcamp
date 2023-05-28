@@ -39,39 +39,17 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     )
   end
 
-  # rubocop:disable Metrics/MethodLength
   def coming_soon_regular_events(params = {})
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
     today_events = params[:today_events] || RegularEvent.today_events
     tomorrow_events = params[:tomorrow_events] || RegularEvent.tomorrow_events
-    day_of_the_week = %w[日 月 火 水 木 金 土]
     today = Time.current
     tomorrow = Time.current.next_day
-    is_outputted_event = false
     event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
-    if today_events.present?
-      today_events.each_with_index do |event, index|
-        unless HolidayJp.holiday?(today) && !event.hold_national_holiday?
-          event_info += "< 今日 (#{today.strftime('%m/%d')} #{day_of_the_week[today.wday]} 開催 >\n\n" if index == 0
-          event_info += "#{event.title}\n"
-          event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
-          event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
-          is_outputted_event = true
-        end
-      end
-      event_info += "------------------------------\n\n" if is_outputted_event
-    end
-    if tomorrow_events.present?
-      tomorrow_events.each_with_index do |event, index|
-        unless HolidayJp.holiday?(tomorrow) && !event.hold_national_holiday?
-          event_info += "< 明日 (#{tomorrow.strftime('%m/%d')} #{day_of_the_week[tomorrow.wday]} 開催 >\n\n" if index == 0
-          event_info += "#{event.title}\n"
-          event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
-          event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
-        end
-      end
-    end
+    event_info, is_outputted_event = add_event_info(today_events, '今日', today, event_info)
+    event_info += "------------------------------\n\n" if is_outputted_event
+    event_info = add_event_info(tomorrow_events, '明日', tomorrow, event_info)[0]
     event_info += '⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️'
 
     notification(
@@ -80,7 +58,21 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
       webhook_url: webhook_url
     )
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def add_event_info(events, date_message, date, event_info)
+    day_of_the_week = %w[日 月 火 水 木 金 土]
+    is_outputted_event = false
+    events.each_with_index do |event, index|
+      next if HolidayJp.holiday?(date) && !event.hold_national_holiday?
+
+      event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" if index.zero?
+      event_info += "#{event.title}\n"
+      event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
+      event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
+      is_outputted_event = true
+    end
+    [event_info, is_outputted_event]
+  end
 
   def invalid_user(params = {})
     params.merge!(@params)
