@@ -47,6 +47,16 @@
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
             | {{ paragraph.text }}
+          p
+            | 日報数：{{ user.reports }}
+          p
+            | 提出物数：{{ user.products }}
+          p
+            | コメント数：{{ user.comments }}
+          p
+            | 質問数：{{ user.questions }}
+          p
+            | 回答数：{{ user.answers }}
         .users-item__tags
           user-tags(:user='user')
       user-practice-progress(:user='user')
