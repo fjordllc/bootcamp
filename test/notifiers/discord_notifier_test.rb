@@ -113,6 +113,45 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  test '.not_notify_regular_events_held_on_holidays' do
+    params = {
+      today_events: [regular_events(:regular_event29)],
+      tomorrow_events: [regular_events(:regular_event29)],
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+    event_info = <<~TEXT.chomp
+      ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
+
+      < 明日 (05/06 土 開催 >
+
+      Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/670378901
+
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    TEXT
+
+    expected = {
+      body: event_info,
+      name: 'ピヨルド',
+      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
+    }
+
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      assert_notifications_sent 2, **expected do
+        DiscordNotifier.with(params).coming_soon_regular_events.notify_now
+        DiscordNotifier.coming_soon_regular_events(params).notify_now
+      end
+    end
+
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      assert_notifications_enqueued 2, **expected do
+        DiscordNotifier.with(params).coming_soon_regular_events.notify_later
+        DiscordNotifier.coming_soon_regular_events(params).notify_later
+      end
+    end
+  end
+
   test '.invaid_user' do
     params = {
       body: 'test message',
