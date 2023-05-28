@@ -32,31 +32,31 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
       ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
 
       < 今日 (05/27 土 開催 >
-      
+
       Discord通知確認用イベント(土曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/5047957
-      
+
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/284302086
-      
+
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/670378901
-      
+
       ------------------------------
-      
+
       < 明日 (05/28 日 開催 >
-      
+
       開発MTG
       時間: 15:00〜16:00
       詳細: http://localhost:3000/regular_events/459650222
-      
+
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/284302086
-      
+
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
     params = {
