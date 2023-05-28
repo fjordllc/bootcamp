@@ -166,7 +166,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       loop until page.has_text?('追加タグ')
     end
     find_all('.tagify__tag').map(&:text)
