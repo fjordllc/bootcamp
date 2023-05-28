@@ -73,22 +73,29 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     day_of_the_week = %w[日 月 火 水 木 金 土]
     today = Time.current
     tomorrow = Time.current.next_day
+    is_outputted_event = false
     event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
     if today_events.present?
-      event_info += "< 今日 (#{today.strftime('%m/%d')} #{day_of_the_week[today.wday]} 開催 >\n\n"
-      today_events.each do |event|
-        event_info += "#{event.title}\n"
-        event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
-        event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
+      today_events.each_with_index do |event, index|
+        unless HolidayJp.holiday?(today) && !event.hold_national_holiday?
+          event_info += "< 今日 (#{today.strftime('%m/%d')} #{day_of_the_week[today.wday]} 開催 >\n\n" if index == 0
+          event_info += "#{event.title}\n"
+          event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
+          event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
+          is_outputted_event = true
+        end
       end
-      event_info += "------------------------------\n\n"
+      event_info += "------------------------------\n\n" if is_outputted_event
+      is_outputted_event = false
     end
     if tomorrow_events.present?
-      event_info += "< 明日 (#{tomorrow.strftime('%m/%d')} #{day_of_the_week[tomorrow.wday]} 開催 >\n\n"
+      event_info += "< 明日 (#{tomorrow.strftime('%m/%d')} #{day_of_the_week[tomorrow.wday]} 開催 >\n\n" unless HolidayJp.holiday?(tomorrow) && !tomorrow_events.select(&:hold_national_holiday?)
       tomorrow_events.each do |event|
-        event_info += "#{event.title}\n"
-        event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
-        event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
+        unless HolidayJp.holiday?(tomorrow) && !event.hold_national_holiday?
+          event_info += "#{event.title}\n"
+          event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
+          event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
+        end
       end
     end
     event_info += '⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️'

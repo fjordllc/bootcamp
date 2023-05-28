@@ -150,12 +150,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   class << self
     def today_events
       holding_events = RegularEvent.holding
-      holding_events.select(&:holding_today?).select(&:hold_national_holiday?)
+      holding_events.select(&:holding_today?)
     end
 
     def tomorrow_events
       holding_events = RegularEvent.holding
-      holding_events.select(&:holding_tomorrow?).select(&:hold_national_holiday?)
+      holding_events.select(&:holding_tomorrow?)
     end
 
     def comming_soon_events(user)
