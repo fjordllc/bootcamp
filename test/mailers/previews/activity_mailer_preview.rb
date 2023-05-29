@@ -124,4 +124,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(sender: sender, receiver: receiver).hibernated
   end
+
+  def first_report
+    report = Report.find(ActiveRecord::FixtureSet.identify(:report10))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    ActivityMailer.with(report: report, receiver: receiver).first_report
+  end
 end
