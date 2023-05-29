@@ -326,6 +326,24 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
+  # required params: question, receiver
+  def no_correct_answer(args = {})
+    @question ||= args[:question]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+
+    @link_url = notification_redirector_url(
+      link: "/questions/#{@question.id}",
+      kind: Notification.kinds[:no_correct_answer]
+    )
+
+    subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
   # required params: sender, receiver
   def signed_up(args = {})
     @sender ||= args[:sender]
