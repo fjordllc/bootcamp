@@ -33,12 +33,6 @@ GIT
     discordrb-webhooks (3.4.2)
       rest-client (>= 2.0.0)
 
-GIT
-  remote: https://github.com/vcr/vcr.git
-  revision: 84e5040c3ba67a80d715773f0228a8e31541af1c
-  specs:
-    vcr (6.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -542,6 +536,7 @@ GEM
     unicode-display_width (2.3.0)
     unicode_utils (1.4.0)
     uniform_notifier (1.16.0)
+    vcr (6.1.0)
     version_gem (1.1.1)
     view_source_map (0.3.0)
       rails (>= 5)
@@ -660,7 +655,7 @@ DEPENDENCIES
   syntax_suggest
   traceroute
   tzinfo (~> 2.0, >= 2.0.6)
-  vcr!
+  vcr
   view_source_map
   web-console (>= 4.1.0)
   webdrivers
