@@ -26,7 +26,7 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'cannot create category without category name' do
-    visit_with_auth new_admin_category_path, 'komagata'
+    visit_with_auth new_mentor_category_path, 'komagata'
     within 'form[name=category]' do
       fill_in 'category[slug]', with: 'test-category'
       fill_in 'category[description]', with: 'テストのカテゴリーです。'
@@ -37,7 +37,7 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
   end
 
   test 'cannot create category without category slug' do
-    visit_with_auth new_admin_category_path, 'komagata'
+    visit_with_auth new_mentor_category_path, 'komagata'
     within 'form[name=category]' do
       fill_in 'category[name]', with: 'テストカテゴリー'
       fill_in 'category[description]', with: 'テストのカテゴリーです。'
