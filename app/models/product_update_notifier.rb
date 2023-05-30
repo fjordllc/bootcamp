@@ -4,6 +4,11 @@ class ProductUpdateNotifier
   def call(product)
     return if product.wip? || product.checker_id.blank?
 
-    NotificationFacade.product_update(product, User.find(product.checker_id))
+    def call(payload)
+      product = payload[:product]
+      current_user = payload[:current_user]
+
+      NotificationFacade.product_update(product, current_user)
+    end
   end
 end
