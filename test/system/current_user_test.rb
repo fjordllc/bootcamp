@@ -21,7 +21,7 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'update times url with wrong url' do
     visit_with_auth '/current_user/edit', 'komagata'
-    fill_in 'user[times_url]', with: 'https://example.com/channels/1234/5678/'
+    fill_in 'user[discord_profile_attributes][times_url]', with: 'https://example.com/channels/1234/5678/'
     click_button '更新する'
     assert_text '分報URLはDiscordのチャンネルURLを入力してください'
   end

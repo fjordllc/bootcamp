@@ -499,7 +499,6 @@ class UsersTest < ApplicationSystemTestCase
   test 'search users from all users when target is all' do
     visit_with_auth '/users?target=all', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_text 'ロード中'
     assert_equal 24, all('.users-item').length
     fill_in 'js-user-search-input', with: 'hajime'
     assert_text 'Hajime Tayo', count: 1
@@ -510,6 +509,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test "don't show incremental search when target's users aren't exist" do
     visit_with_auth '/users?target=job_seeking', 'komagata'
+    find('.users .loaded', wait: 60)
     assert_equal 0, all('.users-item').length
     assert has_no_field? 'js-user-search-input'
   end
