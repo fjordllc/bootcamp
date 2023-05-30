@@ -380,7 +380,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by login_name' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kimura'
     assert_text 'Kimura Tadasi', count: 1
   end
@@ -388,7 +388,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by name' do
     visit_with_auth '/users', 'kimura'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'Shinji'
     assert_text 'Hatsuno Shinji', count: 1
   end
@@ -396,7 +396,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by name_kana' do
     visit_with_auth '/users', 'mentormentaro'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'キムラ ミタイ'
     assert_text 'Kimura Mitai', count: 1
   end
@@ -404,7 +404,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by twitter_account' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hatsuno'
     assert_text 'Hatsuno Shinji', count: 1
   end
@@ -412,7 +412,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by blog_url' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hatsuno.org'
     assert_text 'Hatsuno Shinji', count: 1
   end
@@ -420,7 +420,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by github_account' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kananashi'
     assert_text 'ユーザーです 読み方のカナが無い', count: 1
   end
@@ -428,7 +428,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by facebook_url' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kimurafacebook'
     assert_text 'Kimura Mitai', count: 1
   end
@@ -436,7 +436,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search by description' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: '木村です'
     assert_text 'Kimura Tadasi', count: 1
   end
@@ -444,7 +444,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'search only mentor when target is mentor' do
     visit_with_auth '/users?target=mentor', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 4, all('.users-item').length
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'machida'
     assert_text 'Machida Teppei', count: 1
 
@@ -455,7 +455,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'search only graduated students when target is graduate' do
     visit_with_auth '/users?target=graduate', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 3, all('.users-item').length
+    assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: '卒業 就職済美'
     assert_text '卒業 就職済美', count: 1
 
@@ -466,7 +466,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'search only adviser when target is adviser' do
     visit_with_auth '/users?target=adviser', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 3, all('.users-item').length
+    assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: 'advijirou'
     assert_text 'アドバイ 次郎', count: 1
 
@@ -477,7 +477,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'search only retired when target is retired' do
     visit_with_auth '/users?target=retired', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 4, all('.users-item').length
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'yameo'
     assert_text '辞目 辞目夫', count: 1
 
@@ -488,7 +488,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'search only trainee when target is trainee' do
     visit_with_auth '/users?target=trainee', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 2, all('.users-item').length
+    assert_selector '.users-item', count: 2
     fill_in 'js-user-search-input', with: 'Kensyu Seiko'
     assert_text 'Kensyu Seiko', count: 1
 
@@ -499,7 +499,7 @@ class UsersTest < ApplicationSystemTestCase
   test 'search users from all users when target is all' do
     visit_with_auth '/users?target=all', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hajime'
     assert_text 'Hajime Tayo', count: 1
 
@@ -509,15 +509,14 @@ class UsersTest < ApplicationSystemTestCase
 
   test "don't show incremental search when target's users aren't exist" do
     visit_with_auth '/users?target=job_seeking', 'komagata'
-    find('.users .loaded', wait: 60)
-    assert_equal 0, all('.users-item').length
+    assert_no_selector '.users-item'
     assert has_no_field? 'js-user-search-input'
   end
 
   test 'only show incremental search in all tab' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert has_field? 'js-user-search-input'
+    assert_selector '#js-user-search-input'
 
     visit '/generations'
     assert has_no_field? 'js-user-search-input'
@@ -538,9 +537,9 @@ class UsersTest < ApplicationSystemTestCase
   test 'incremental search needs more than two characters for Japanese and three for others' do
     visit_with_auth '/users', 'komagata'
     find('.users .loaded', wait: 60)
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'ki'
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kim'
     assert_text 'Kimura', count: 2
 
