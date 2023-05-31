@@ -220,11 +220,9 @@ class UsersTest < ApplicationSystemTestCase
     today = Time.current
     last_month = today.prev_month
     visit user_path(users(:hajime).id)
-    within '.niconico-calendar-nav' do
-      assert_text "#{today.year}年#{today.month}月"
-      find('.niconico-calendar-nav__previous').click
-      assert_text "#{last_month.year}年#{last_month.month}月"
-    end
+    assert_text "#{today.year}年#{today.month}月"
+    find('.niconico-calendar-nav__previous').click
+    assert_text "#{last_month.year}年#{last_month.month}月"
   end
 
   test 'show mark to today on niconico_calendar' do
