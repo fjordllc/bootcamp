@@ -1,5 +1,5 @@
 <template lang="pug">
-.a-card(v-else)
+.a-card
   header.card-header.is-sm
     h2.card-header__title
       | ニコニコカレンダー
