@@ -1,0 +1,35 @@
+.card-counts__items
+  display: flex
+  gap: .5rem
+  flex-wrap: wrap
+
+=nowrap-items($one-line-items-count)
+  flex: 0 0 calc((100% - (.5rem * (#{$one-line-items-count} - 1))) / $one-line-items-count)
+
+.card-counts__item
+  +media-breakpoint-up(xxl)
+    +nowrap-items(5)
+  +media-breakpoint-down(xl)
+    +nowrap-items(4)
+  +media-breakpoint-down(lg)
+    +nowrap-items(3)
+  +media-breakpoint-down(md)
+    +nowrap-items(4)
+  +media-breakpoint-down(sm)
+    +nowrap-items(3)
+
+.card-counts__item-inner
+  border: solid 1px $border
+  border-radius: 3px
+
+.card-counts__item-label
+  +text-block(.625rem 1.4, center)
+  +padding(vertical, .125rem)
+  border-bottom: solid 1px $border
+  background-color: $background
+
+.card-counts__item-value
+  +text-block(1rem 1.4, center)
+  padding-bottom: .125rem
+  &.is-empty
+    color: $muted-text
