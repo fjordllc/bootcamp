@@ -42,7 +42,9 @@ export default function Companies({ target }) {
     <div className="page-body">
       <div className="container is-lg">
         {!loaded ? (
-          <LoadingUsersPageCompaniesPlaceholder />
+          <div className="card-list a-card is-loading">
+            <LoadingUsersPageCompaniesPlaceholder />
+          </div>
         ) : (
           <div className="card-list a-card">
             {companies.map((company) => (
