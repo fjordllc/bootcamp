@@ -62,10 +62,12 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
   def add_event_info(events, date_message, date, event_info)
     day_of_the_week = %w[日 月 火 水 木 金 土]
     is_outputted_event = false
-    events.each_with_index do |event, index|
+    is_outputted_date_message = false
+    events.each do |event|
       next if HolidayJp.holiday?(date) && !event.hold_national_holiday
 
-      event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" if index.zero?
+      event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" unless is_outputted_date_message
+      is_outputted_date_message = true
       event_info += "#{event.title}\n"
       event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
       event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
