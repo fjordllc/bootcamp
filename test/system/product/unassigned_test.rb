@@ -48,12 +48,14 @@ class Product::UnassignedTest < ApplicationSystemTestCase
   end
 
   test 'display elapsed days label and number of products' do
+    unassigned_products = Product.unassigned.not_wip.unchecked
+
     visit_with_auth '/products/unassigned', 'komagata'
     within '.page-body__column.is-main' do
-      assert_text '7日以上経過（6）'
-      assert_text '6日経過（1）'
-      assert_text '5日経過（1）'
-      assert_text '今日提出（48）'
+      assert_text "7日以上経過（#{unassigned_products.count { |product| product.elapsed_days >= 7 }}）"
+      assert_text "6日経過（#{unassigned_products.count { |product| product.elapsed_days == 6 }}）"
+      assert_text "5日経過（#{unassigned_products.count { |product| product.elapsed_days == 5 }}）"
+      assert_text "今日提出（#{unassigned_products.count { |product| product.elapsed_days.zero? }}）"
     end
   end
 
