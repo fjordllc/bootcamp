@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 class ProductUpdateNotifier
-  def call(product)
-    return if product.wip? || product.checker_id.blank?
+  def call(payload)
+    product = payload[:product]
+    current_user = payload[:current_user]
+    return if product.wip? || product.checker_id.nil? || !current_user.nil? && current_user.admin_or_mentor?
 
-    def call(payload)
-      product = payload[:product]
-      current_user = payload[:current_user]
-
-      NotificationFacade.product_update(product, current_user)
-    end
+    NotificationFacade.product_update(product, User.find(product.checker_id))
   end
 end
