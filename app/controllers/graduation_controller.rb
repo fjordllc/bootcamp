@@ -7,6 +7,7 @@ class GraduationController < ApplicationController
 
   def update
     return if require_admin_login
+
     if @user.update(graduated_on: Date.current)
       Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
       Newspaper.publish(:graduation_update, @user)
