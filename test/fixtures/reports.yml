@@ -349,3 +349,4 @@ report74:
   title: 休会中ユーザーのWIPの日報
   description: 休会します
   wip: true
+  reported_on: "2019-12-31"
