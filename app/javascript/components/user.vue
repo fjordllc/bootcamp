@@ -43,20 +43,52 @@
                         | {{ user.discord_account }}
 
         user-sns(:user='user')
+        .card-counts.mt-3
+          dl.card-counts__items
+            .card-counts__item
+              .card-counts__item-inner
+                dt.card-counts__item-label
+                  | 日報
+                dd.card-counts__item-value(
+                  :class='user.reports == 0 ? "is-empty" : ""'
+                  )
+                  | {{ user.reports }}
+            .card-counts__item
+              .card-counts__item-inner
+                dt.card-counts__item-label
+                  | 提出物
+                dd.card-counts__item-value(
+                  :class='user.products == 0 ? "is-empty" : ""'
+                  )
+                  | {{ user.products }}
+            .card-counts__item
+              .card-counts__item-inner
+                dt.card-counts__item-label
+                  | コメント
+                dd.card-counts__item-value(
+                  :class='user.comments == 0 ? "is-empty" : ""'
+                  )
+                  | {{ user.comments }}
+            .card-counts__item
+              .card-counts__item-inner
+                dt.card-counts__item-label
+                  | 質問
+                dd.card-counts__item-value(
+                  :class='user.questions == 0 ? "is-empty" : ""'
+                  )
+                  | {{ user.questions }}
+            .card-counts__item
+              .card-counts__item-inner
+                dt.card-counts__item-label
+                  | 回答
+                dd.card-counts__item-value(
+                  :class='user.answers == 0 ? "is-empty" : ""'
+                  )
+                  | {{ user.answers }}
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
             | {{ paragraph.text }}
-          p
-            | 日報数：{{ user.reports }}
-          p
-            | 提出物数：{{ user.products }}
-          p
-            | コメント数：{{ user.comments }}
-          p
-            | 質問数：{{ user.questions }}
-          p
-            | 回答数：{{ user.answers }}
         .users-item__tags
           user-tags(:user='user')
       user-practice-progress(:user='user')
