@@ -40,6 +40,7 @@
             .card-main-actions__muted-action(@click.prevent='closeModal') キャンセル
 </template>
 <script>
+import CSRF from 'csrf'
 import MarkdownInitializer from 'markdown-initializer'
 import TextareaInitializer from 'textarea-initializer'
 
@@ -70,10 +71,6 @@ export default {
     this.editingTemplate = this.editingTemplateProp
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     isActive(tab) {
       return this.tab === tab
     },
@@ -95,7 +92,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -121,7 +118,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

@@ -1,23 +1,22 @@
-import Tribute from 'tributejs'
+import CSRF from 'csrf'
+import MarkDownItContainerDetails from 'markdown-it-container-details'
+import MarkDownItContainerMessage from 'markdown-it-container-message'
+import MarkDownItContainerSpeak from 'markdown-it-container-speak'
+import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
+import MarkdownItEmoji from 'markdown-it-emoji'
+import MarkdownItMention from 'markdown-it-mention'
+import MarkdownItTaskLists from 'markdown-it-task-lists'
+import MarkdownItUserIcon from 'markdown-it-user-icon'
+import MarkdownOption from 'markdown-it-option'
 import TextareaAutocomplteEmoji from 'textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'textarea-autocomplte-mention'
 import TextareaMarkdown from 'textarea-markdown'
-import MarkdownItEmoji from 'markdown-it-emoji'
-import MarkdownItTaskLists from 'markdown-it-task-lists'
-import MarkdownItMention from 'markdown-it-mention'
-import MarkdownItUserIcon from 'markdown-it-user-icon'
-import MarkdownOption from 'markdown-it-option'
+import Tribute from 'tributejs'
 import UserIconRenderer from 'user-icon-renderer'
 import autosize from 'autosize'
-import MarkDownItContainerMessage from 'markdown-it-container-message'
-import MarkDownItContainerDetails from 'markdown-it-container-details'
-import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
-import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 
 export default class {
   static initialize(selector) {
-    const meta = document.querySelector('meta[name="csrf-token"]')
-    const token = meta ? meta.content : ''
     const textareas = document.querySelectorAll(selector)
     if (textareas.length === 0) {
       return null
@@ -57,7 +56,7 @@ export default class {
         endPoint: '/api/image.json',
         paramName: 'file',
         responseKey: 'url',
-        csrfToken: token,
+        csrfToken: CSRF.getToken(),
         placeholder: '%filenameをアップロード中...',
         afterPreview: () => {
           autosize.update(textarea)

@@ -45,6 +45,7 @@
             | {{ targetName }}のユーザーはいません
 </template>
 <script>
+import { get } from '@rails/request.js'
 import User from './user.vue'
 import Pager from '../pager.vue'
 import Debounce from '../debounce.js'
@@ -115,22 +116,12 @@ export default {
     this.setupUsers()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     async fetchUsersResource() {
-      const usersResource = await fetch(this.url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
+      const usersResource = await get(this.url, {
+        contentType: 'application/json; charset=utf-8',
+        responseKind: 'json'
       })
-      return usersResource.json()
+      return usersResource.json
     },
     setupUsers() {
       this.fetchUsersResource()

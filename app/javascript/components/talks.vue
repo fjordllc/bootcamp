@@ -41,6 +41,7 @@ div
           :talk='talk')
 </template>
 <script>
+import CSRF from 'csrf'
 import Talk from 'components/talk.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
@@ -118,17 +119,13 @@ export default {
       this.setupTalks()
       window.scrollTo(0, 0)
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     async fetchTalksResource() {
       const talksResource = await fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
