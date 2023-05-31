@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.save
-      Newspaper.publish(:product_update, {product: @product, current_user: current_user})
+      Newspaper.publish(:product_update, { product: @product, current_user: current_user })
       redirect_to @product, notice: notice_message(@product, :create)
     else
       render :new
@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.update(product_params)
-      Newspaper.publish(:product_update, {product: @product, current_user: current_user})
+      Newspaper.publish(:product_update, { product: @product, current_user: current_user })
       redirect_to @product, notice: notice_message(@product, :update)
       notice_another_mentor_assigned_as_checker
     else
