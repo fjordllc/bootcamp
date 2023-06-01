@@ -136,3 +136,25 @@ event29:
   open_end_at: 2017-4-02 9:00
   job_hunting: true
   user: komagata
+
+event30:
+  title: "未来のイベント境界値用"
+  description: "明日開催のイベント"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: 2023-05-20 10:00
+  end_at: 2023-05-20 12:00
+  open_start_at: 2023-04-20 10:00
+  open_end_at: 2023-05-20 09:00
+  user: komagata
+
+event31:
+  title: "過去のイベント境界値用"
+  description: "昨日開催のイベント"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: 2023-05-18 10:00
+  end_at: 2023-05-18 12:00
+  open_start_at: 2023-04-18 10:00
+  open_end_at: 2023-05-18 09:00
+  user: komagata

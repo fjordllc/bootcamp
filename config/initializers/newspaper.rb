@@ -59,4 +59,8 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:question_update, ai_answer_creator)
 
   Newspaper.subscribe(:retirement_create, UnfinishedDataDestroyer.new)
+
+  question_notifier = QuestionNotifier.new
+  Newspaper.subscribe(:question_create, question_notifier)
+  Newspaper.subscribe(:question_update, question_notifier)
 end

@@ -29,13 +29,6 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.with(check: check).checked
   end
 
-  def first_report
-    report = Report.find(ActiveRecord::FixtureSet.identify(:report10))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
-
-    NotificationMailer.with(report: report, receiver: receiver).first_report
-  end
-
   def retired
     sender = User.find(ActiveRecord::FixtureSet.identify(:yameo))
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))

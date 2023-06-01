@@ -51,7 +51,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
 
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == 'login_nameの補完テスト: @komagata '
         find('#js-new-comment').set('')
         find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
@@ -67,7 +67,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
 
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == 'login_nameの補完テスト: @mentor '
         find('#js-new-comment').set('')
         find('#js-new-comment').set("login_nameの補完テスト: @men\n")
@@ -83,7 +83,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
 
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
         find('#js-new-comment').set('')
         find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
@@ -243,7 +243,7 @@ class CommentsTest < ApplicationSystemTestCase
   test 'suggest mention to mentor' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       find('#js-new-comment').set('@') until has_selector?('span.mention', wait: false)
     end
     assert_selector 'span.mention', text: 'mentor'

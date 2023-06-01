@@ -1,20 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import queryString from 'query-string'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
+import Pagination from './Pagination'
 
 export default function Bookmarks() {
   const [editable, setEditable] = useState(false)
-  const { data, error } = useSWR(`/api/bookmarks.json`, fetcher)
+  const per = 20
+  const neighbours = 4
+  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
+  const [page, setPage] = useState(defaultPage)
+  const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
+
+  useEffect(() => {
+    setPage(page)
+  }, [page])
+
+  const { data, error } = useSWR(bookmarksUrl, fetcher)
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
+
+  const handlePaginate = (p) => {
+    setPage(p)
+    window.history.pushState(null, null, `/current_user/bookmarks?page=${p}`)
+  }
 
   if (data.totalPages === 0) {
     return <NoBookmarks />
   } else {
     return (
       <>
+        <Pagination
+          sum={data.totalPages * per}
+          per={per}
+          neighbours={neighbours}
+          page={page}
+          onChange={(e) => handlePaginate(e.page)}
+        />
         <div className="card-list-tools">
           <div className="form-item is-inline">
             <EditButton editable={editable} setEditable={setEditable} />
@@ -29,11 +53,19 @@ export default function Bookmarks() {
                   bookmark={bookmark}
                   editable={editable}
                   setEditable={setEditable}
+                  bookmarksUrl={bookmarksUrl}
                 />
               )
             })}
           </div>
         </div>
+        <Pagination
+          sum={data.totalPages * per}
+          per={per}
+          neighbours={neighbours}
+          page={page}
+          onChange={(e) => handlePaginate(e.page)}
+        />
       </>
     )
   }
@@ -70,14 +102,14 @@ const EditButton = ({ editable, setEditable }) => {
   )
 }
 
-const Bookmark = ({ bookmark, editable, _setEditable }) => {
+const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
   const date = bookmark.reported_on || bookmark.created_at
   const createdAt = Bootcamp.iso8601ToFullTime(date)
   const { mutate } = useSWRConfig()
   const afterDelete = (id) => {
     Bootcamp.delete(`/api/bookmarks/${id}.json`)
       .then((_response) => {
-        mutate('/api/bookmarks.json')
+        mutate(bookmarksUrl)
       })
       .catch((error) => {
         console.warn(error)

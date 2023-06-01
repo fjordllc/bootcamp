@@ -4,8 +4,9 @@ class API::BookmarksController < API::BaseController
   PAGER_NUMBER = 25
 
   def index
+    per = params[:per] || PAGER_NUMBER
     bookmarks = Bookmark.where(user: current_user).order(created_at: :desc).preload(bookmarkable: :user)
-    @bookmarks = Kaminari.paginate_array(bookmarks).page(params[:page]).per(PAGER_NUMBER)
+    @bookmarks = Kaminari.paginate_array(bookmarks).page(params[:page]).per(per)
     return unless params[:bookmarkable_id] && params[:bookmarkable_type]
 
     @bookmarks = Bookmark.where(
