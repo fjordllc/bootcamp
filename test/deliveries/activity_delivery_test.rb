@@ -272,4 +272,27 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:first_report)
     end
   end
+
+  test '.notify(:consecutive_sad_report)' do
+    params = {
+      report: reports(:report22),
+      receiver: users(:komagata)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:consecutive_sad_report, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:consecutive_sad_report, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:consecutive_sad_report)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:consecutive_sad_report)
+    end
+  end
 end

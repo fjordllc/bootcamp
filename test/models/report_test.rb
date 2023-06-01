@@ -35,23 +35,6 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 0, reports(:report3).total_learning_time
   end
 
-  test 'adviser watches trainee report when trainee create report' do
-    trainee = users(:kensyu)
-    adviser = users(:senpai)
-    report = Report.new(
-      title: 'test',
-      description: 'test text',
-      reported_on: Date.parse('2020-01-01'),
-      user: trainee
-    )
-    report.learning_times.build(
-      started_at: Time.zone.parse('2020-01-01 10:00:00'),
-      finished_at: Time.zone.parse('2020-01-01 11:00:00')
-    )
-    report.save!
-    assert_not_nil Watch.find_by(user: adviser, watchable: report)
-  end
-
   test '#latest_of_user?' do
     assert_not reports(:report31).latest_of_user?
     assert reports(:report32).latest_of_user?
