@@ -183,6 +183,7 @@
                 | キャンセル
 </template>
 <script>
+import CSRF from 'csrf'
 import Reaction from 'reaction.vue'
 import WatchToggle from './watch-toggle.vue'
 import BookmarkButton from 'bookmark-button.vue'
@@ -270,10 +271,6 @@ export default {
     TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getPracticeId() {
       return this.question.practice === undefined
         ? null
@@ -284,7 +281,7 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -359,7 +356,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

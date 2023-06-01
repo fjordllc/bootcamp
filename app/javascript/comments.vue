@@ -72,6 +72,7 @@
                 | 確認OKにする
 </template>
 <script>
+import CSRF from 'csrf'
 import Comment from 'comment.vue'
 import TextareaInitializer from 'textarea-initializer'
 import CommentPlaceholder from 'comment-placeholder'
@@ -131,10 +132,6 @@ export default {
     this.showComments()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     isActive(tab) {
       return this.tab === tab
     },
@@ -208,7 +205,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -235,7 +232,7 @@ export default {
         method: 'DELETE',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
@@ -278,7 +275,7 @@ export default {
           this.commentableId,
           '/api/checks',
           'POST',
-          this.token()
+          CSRF.getToken()
         )
       }
     },
@@ -293,7 +290,7 @@ export default {
           this.currentUserId,
           '/api/products/checker',
           'PATCH',
-          this.token()
+          CSRF.getToken()
         )
       }
     },
@@ -303,7 +300,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
