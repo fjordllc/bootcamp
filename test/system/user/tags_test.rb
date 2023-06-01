@@ -53,7 +53,7 @@ class User::TagsTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set 'タグタグ'
     tag_input.native.send_keys :return
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       loop until page.has_text?('タグタグ')
     end
     find_all('.tagify__tag').map(&:text)

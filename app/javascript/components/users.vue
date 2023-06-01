@@ -10,7 +10,7 @@
             v-model.trim='searchUsersWord',
             placeholder='ユーザー名、読み方、Discord ID、GitHub ID など')
   .page-content.is-users
-    .users__items
+    .users__items(:class='[loaded === true ? "loaded" : "loading"]')
       .row(v-if='!loaded')
         loadingUsersListPlaceholder(v-for='num in itemCount', :key='num')
       div(v-else-if='users.length !== 0')

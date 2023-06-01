@@ -1,4 +1,5 @@
 = form_with model: [:admin, category], local: true, html: { name: 'category', class: 'form' } do |f|
+  = render 'errors', object: category
   = f.hidden_field :course_id, value: params[:course_id]
   .form__items
     .form-item
