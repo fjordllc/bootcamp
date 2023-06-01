@@ -44,36 +44,49 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
     today_events = params[:today_events] || RegularEvent.today_events
     tomorrow_events = params[:tomorrow_events] || RegularEvent.tomorrow_events
-    today = Time.current
-    tomorrow = Time.current.next_day
+    today = Time.current.ago(27.days)
+    tomorrow = Time.current.ago(27.days).next_day
     event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
-    event_info, is_outputted_event = add_event_info(today_events, '今日', today, event_info)
-    event_info += "------------------------------\n\n" if is_outputted_event
-    event_info = add_event_info(tomorrow_events, '明日', tomorrow, event_info)[0]
+    event_info = add_event_info(today_events, '今日', today, event_info)
+    event_info += "------------------------------\n\n" if today_events.present?
+    event_info = add_event_info(tomorrow_events, '明日', tomorrow, event_info)
     event_info += '⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️'
 
     notification(
       body: event_info,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url: 'https://discord.com/api/webhooks/1111511603813306409/LFqYGRq9JypvLYdzXucLr-5EPa1k6j4PL8yLtslqHGWJbGA1-CJur60UAPu2ExeIVxut'
     )
   end
 
   def add_event_info(events, date_message, date, event_info)
     day_of_the_week = %w[日 月 火 水 木 金 土]
-    is_outputted_event = false
-    is_outputted_date_message = false
-    events.each do |event|
-      next if HolidayJp.holiday?(date) && !event.hold_national_holiday
-
-      event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" unless is_outputted_date_message
-      is_outputted_date_message = true
+    event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" if events.present?
+    held_events, not_held_events = separate_held_events(events,date)
+    held_events.each do |event|
       event_info += "#{event.title}\n"
       event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
       event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
-      is_outputted_event = true
     end
-    [event_info, is_outputted_event]
+    # event_info += "~~~ \n\n" if not_held_events.present?
+    not_held_events.each do |event|
+      event_info += "⚠️　#{event.title}\n"
+    end
+    event_info += "はお休みです。\n\n" if not_held_events.present?
+    event_info
+  end
+
+  def separate_held_events(events,date)
+    held_events = []
+    not_held_events = []
+    events.each do |event|
+      if HolidayJp.holiday?(date) && !event.hold_national_holiday
+        not_held_events.push(event)
+      else
+        held_events.push(event)
+      end
+    end
+    [held_events, not_held_events]
   end
 
   def invalid_user(params = {})
