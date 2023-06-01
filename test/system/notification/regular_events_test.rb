@@ -31,32 +31,28 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
     event_info = <<~TEXT.chomp
       ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
 
-      < 今日 (05/27 土 開催 >
-
+      < 今日 (05/05 金 開催 >
+      
+      ⚠️　Discord通知確認用、祝日非開催イベント(金曜日開催)
+      ⚠️　Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      はお休みです。
+      
+      ------------------------------
+      
+      < 明日 (05/06 土 開催 >
+      
       Discord通知確認用イベント(土曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/5047957
-
+      
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/284302086
-
+      
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/670378901
-
-      ------------------------------
-
-      < 明日 (05/28 日 開催 >
-
-      開発MTG
-      時間: 15:00〜16:00
-      詳細: http://localhost:3000/regular_events/459650222
-
-      Discord通知確認用イベント(土曜日 + 日曜日開催)
-      時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/284302086
-
+      詳細: http://localhost:3000/regular_events/120758905
+      
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
     params = {
@@ -70,7 +66,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
                    .with(body: params,
                          headers: { 'Content-Type' => 'application/json' })
 
-    travel_to Time.zone.local(2023, 5, 27, 6, 0, 0) do
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
       visit_with_auth '/scheduler/daily/notify_coming_soon_regular_events', 'komagata'
     end
 
