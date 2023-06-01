@@ -10,6 +10,7 @@ class Searcher
     ['Q&A', :questions],
     ['Docs', :pages],
     ['イベント', :events],
+    ['定期イベント', :regular_events],
     ['ユーザー', :users]
   ].freeze
 
@@ -49,11 +50,14 @@ class Searcher
     end
 
     def model_name(type)
-      type.to_s.capitalize.singularize
+      type.to_s.camelize.singularize
     end
 
     def result_for_all(word)
-      AVAILABLE_TYPES.flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
+      AVAILABLE_TYPES
+        .flat_map { |type| result_for(type, word) }
+        .sort_by(&:updated_at)
+        .reverse
     end
 
     def result_for_comments(document_type, word)

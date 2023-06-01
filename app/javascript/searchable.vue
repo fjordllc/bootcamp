@@ -8,6 +8,16 @@
             :src='searchable.avatar_url',
             :title='searchable.title',
             :alt='searchable.title')
+    .card-list-item__label(
+      v-else-if='searchable.model_name == "regular_event"')
+      span.card-list-item__label-inner.is-sm
+        | 定期
+        br
+        | イベント
+    .card-list-item__label(v-else-if='searchable.model_name == "practice"')
+      | プラク
+      br
+      | ティス
     .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .card-list-item__rows
