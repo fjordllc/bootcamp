@@ -44,8 +44,8 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
     today_events = params[:today_events] || RegularEvent.today_events
     tomorrow_events = params[:tomorrow_events] || RegularEvent.tomorrow_events
-    today = Time.current.ago(27.days)
-    tomorrow = Time.current.ago(27.days).next_day
+    today = Time.current
+    tomorrow = Time.current.next_day
     event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
     event_info = add_event_info(today_events, '今日', today, event_info)
     event_info += "------------------------------\n\n" if today_events.present?
@@ -55,20 +55,19 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     notification(
       body: event_info,
       name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/1111511603813306409/LFqYGRq9JypvLYdzXucLr-5EPa1k6j4PL8yLtslqHGWJbGA1-CJur60UAPu2ExeIVxut'
+      webhook_url: webhook_url
     )
   end
 
   def add_event_info(events, date_message, date, event_info)
     day_of_the_week = %w[日 月 火 水 木 金 土]
     event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" if events.present?
-    held_events, not_held_events = separate_held_events(events,date)
+    held_events, not_held_events = separate_events(events,date)
     held_events.each do |event|
       event_info += "#{event.title}\n"
       event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
       event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
     end
-    # event_info += "~~~ \n\n" if not_held_events.present?
     not_held_events.each do |event|
       event_info += "⚠️　#{event.title}\n"
     end
@@ -76,7 +75,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     event_info
   end
 
-  def separate_held_events(events,date)
+  def separate_events(events,date)
     held_events = []
     not_held_events = []
     events.each do |event|
