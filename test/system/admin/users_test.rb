@@ -130,6 +130,23 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_retired_on', with: '')
   end
 
+  test 'make user retired' do
+    user = users(:hatsuno)
+    date = Date.current
+    VCR.use_cassette 'subscription/update' do
+      visit_with_auth edit_admin_user_path(user.id), 'komagata'
+      check '退会済', allow_label_click: true
+      fill_in 'user_retired_on', with: date
+      click_on '更新する'
+    end
+    assert_text 'ユーザー情報を更新しました。'
+    assert_equal date, user.reload.retired_on
+
+    assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
+      req.body.include?('cancel_at_period_end=true')
+    end
+  end
+
   test 'hide input for graduation date when unchecked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
@@ -158,6 +175,23 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_unchecked_field?('graduation_checkbox', visible: false)
     check 'graduation_checkbox', allow_label_click: true, visible: false
     assert has_field?('user_graduated_on', with: '')
+  end
+
+  test 'make user graduated' do
+    user = users(:hatsuno)
+    date = Date.current
+    VCR.use_cassette 'subscription/update' do
+      visit_with_auth edit_admin_user_path(user.id), 'komagata'
+      check '卒業済', allow_label_click: true
+      fill_in 'user_graduated_on', with: date
+      click_on '更新する'
+    end
+    assert_text 'ユーザー情報を更新しました。'
+    assert_equal date, user.reload.graduated_on
+
+    assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
+      req.body.include?('cancel_at_period_end=true')
+    end
   end
 
   test 'edit user tag' do
