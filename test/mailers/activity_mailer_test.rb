@@ -916,7 +916,25 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(/入会/, email.body.to_s)
   end
 
-  test 'chose_correct_answer' do
+  test 'chose_correct_answer with using synchronous mailer' do
+    answer = correct_answers(:correct_answer1)
+    receiver = answer.user
+
+    ActivityMailer.chose_correct_answer(
+      answer: answer,
+      receiver: receiver
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: Notification.kinds[:chose_correct_answer], link: "/questions/#{answer.question.id}#answer_#{answer.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal [receiver.email], email.to
+    assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+  end
+
+  test 'chose_correct_answer with params using asynchronous mailer' do
     answer = correct_answers(:correct_answer1)
     receiver = answer.user
 

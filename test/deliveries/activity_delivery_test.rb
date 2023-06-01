@@ -353,6 +353,14 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:chose_correct_answer, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:chose_correct_answer, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify!(:chose_correct_answer)
     end
 
