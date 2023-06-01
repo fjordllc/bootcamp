@@ -64,70 +64,39 @@ class DiscordNotifierTest < ActiveSupport::TestCase
 
   test '.coming_soon_regular_events' do
     params = {
-      today_events: [regular_events(:regular_event27), regular_events(:regular_event28)],
-      tomorrow_events: [regular_events(:regular_event28)],
+      today_events: [regular_events(:regular_event26), regular_events(:regular_event29), regular_events(:regular_event30)],
+      tomorrow_events: [regular_events(:regular_event27), regular_events(:regular_event28), regular_events(:regular_event30)],
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
     event_info = <<~TEXT.chomp
       ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
 
-      < 今日 (05/27 土 開催 >
-
+      < 今日 (05/05 金 開催 >
+      
+      ダッシュボード表示確認用テスト定期イベント
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/927610372
+      
+      ⚠️　Discord通知確認用、祝日非開催イベント(金曜日開催)
+      ⚠️　Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      はお休みです。
+      
+      ------------------------------
+      
+      < 明日 (05/06 土 開催 >
+      
       Discord通知確認用イベント(土曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/5047957
-
+      
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 21:00〜22:00
       詳細: http://localhost:3000/regular_events/284302086
-
-      ------------------------------
-
-      < 明日 (05/28 日 開催 >
-
-      Discord通知確認用イベント(土曜日 + 日曜日開催)
-      時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/284302086
-
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-    TEXT
-
-    expected = {
-      body: event_info,
-      name: 'ピヨルド',
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-
-    travel_to Time.zone.local(2023, 5, 27, 6, 0, 0) do
-      assert_notifications_sent 2, **expected do
-        DiscordNotifier.with(params).coming_soon_regular_events.notify_now
-        DiscordNotifier.coming_soon_regular_events(params).notify_now
-      end
-    end
-
-    travel_to Time.zone.local(2023, 5, 27, 6, 0, 0) do
-      assert_notifications_enqueued 2, **expected do
-        DiscordNotifier.with(params).coming_soon_regular_events.notify_later
-        DiscordNotifier.coming_soon_regular_events(params).notify_later
-      end
-    end
-  end
-
-  test '.not_notify_regular_events_held_on_holidays' do
-    params = {
-      today_events: [regular_events(:regular_event29)],
-      tomorrow_events: [regular_events(:regular_event29)],
-      webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
-    }
-    event_info = <<~TEXT.chomp
-      ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
-
-      < 明日 (05/06 土 開催 >
-
+      
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/670378901
-
+      詳細: http://localhost:3000/regular_events/120758905
+      
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
 
