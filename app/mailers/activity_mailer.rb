@@ -346,9 +346,10 @@ class ActivityMailer < ApplicationMailer
   end
 
   # required params: answer, receiver
-  def chose_correct_answer
+  def chose_correct_answer(args = {})
+    @receiver ||= args[:receiver]
     @user = @receiver
-    @answer = params[:answer]
+    @answer = params&.key?(:answer) ? params[:answer] : args[:answer]
 
     @link_url = notification_redirector_url(
       link: question_path(@answer.question, anchor: "answer_#{@answer.id}"),
