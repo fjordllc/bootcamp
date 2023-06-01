@@ -32,6 +32,8 @@
     | {{ body }}
 </template>
 <script>
+import CSRF from 'csrf'
+
 export default {
   props: {
     memo: { type: Object, required: false, default: undefined },
@@ -66,10 +68,6 @@ export default {
     }
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     createMemo: function () {
       if (this.sendBody.length < 1) {
         return null
@@ -83,7 +81,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -121,7 +119,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -147,7 +145,7 @@ export default {
         method: 'DELETE',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
