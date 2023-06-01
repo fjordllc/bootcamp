@@ -136,3 +136,8 @@ comment43:
   user: mentormentaro
   commentable: product74 (Product)
   description: "メンターのコメントです。"
+
+comment44: 
+  user: machida
+  commentable: regular_event1 (RegularEvent)
+  description: "定期イベントのコメントです。"
