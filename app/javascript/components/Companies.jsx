@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CSRF from "../csrf";
+import CSRF from '../csrf'
 import Company from './Company'
 import LoadingUsersPageCompaniesPlaceholder from './LoadingUsersPageCompaniesPlaceholder'
 
