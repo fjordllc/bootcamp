@@ -43,15 +43,15 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
       Discord通知確認用イベント(土曜日開催)
       時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/5047957
+      詳細: http://localhost:3000/regular_events/284302086
 
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/284302086
+      詳細: http://localhost:3000/regular_events/670378901
 
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
       時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/120758905
+      詳細: http://localhost:3000/regular_events/808817380
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
