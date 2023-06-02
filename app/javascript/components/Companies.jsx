@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import CSRF from "../csrf";
 import Company from './Company'
 import LoadingUsersPageCompaniesPlaceholder from './LoadingUsersPageCompaniesPlaceholder'
 
@@ -10,11 +11,6 @@ export default function Companies({ target }) {
     getCompaniesPage()
   }, [])
 
-  const token = () => {
-    const meta = document.querySelector('meta[name="csrf-token"]')
-    return meta ? meta.getAttribute('content') : ''
-  }
-
   const getCompaniesPage = () => {
     const url = `/api/users/companies?target=${target}`
 
@@ -23,7 +19,7 @@ export default function Companies({ target }) {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token()
+        'X-CSRF-Token': CSRF.getToken()
       },
       credentials: 'same-origin',
       redirect: 'manual'
