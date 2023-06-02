@@ -177,8 +177,7 @@ class NotificationsTest < ApplicationSystemTestCase
   end
 
   test 'notify user class name role contains' do
-    login_user 'komagata', 'testtest'
-    visit '/'
+    visit_with_auth '/', 'komagata'
     find('.header-links__link.test-show-notifications').click
     assert_selector 'span.a-user-role.is-admin'
     assert_selector 'span.a-user-role.is-student'
