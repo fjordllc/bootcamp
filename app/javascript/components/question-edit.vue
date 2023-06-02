@@ -333,7 +333,7 @@ export default {
         return val !== this[key]
       })
     },
-    isChangedPacticeId(edited) {
+    isChangedPracticeId(edited) {
       return Object.entries(edited.practiceId).some(([key, val]) => {
         return val !== this[key]
       })
@@ -373,11 +373,10 @@ export default {
           })
           this.finishEditing(true)
           this.$emit('afterUpdateQuestion')
-          if (this.isChangedPacticeId(this.edited)) {
-            const questionId = this.question.id
-            setTimeout(function () {
-              window.location.href = `/questions/${questionId}`
-            }, 1000)
+        })
+        .then(() => {
+          if (this.isChangedPracticeId(this.edited)) {
+            location.href = `/questions/${this.question.id}`
           }
         })
         .catch((error) => {
