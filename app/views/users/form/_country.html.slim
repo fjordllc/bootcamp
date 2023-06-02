@@ -1,4 +1,0 @@
-div class="form-item #{'is-hidden' if user.country_code.blank?}" id="country-form" data-countries="#{all_countries_with_subdivisions}"
-  = f.label :country_code, class: 'a-form-label'
-  .a-button.is-md.is-secondary.is-select.is-block
-    = f.country_select :country_code, { include_blank: '国を選択してください' }, { id: 'country-select' }
