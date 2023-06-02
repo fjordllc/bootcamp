@@ -40,12 +40,6 @@ GIT
     countries (5.4.0)
       unaccent (~> 0.3)
 
-GIT
-  remote: https://github.com/vcr/vcr.git
-  revision: 84e5040c3ba67a80d715773f0228a8e31541af1c
-  specs:
-    vcr (6.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:

@@ -1,11 +1,28 @@
-.form-item
-  .a-form-label
-    = 'お住まい'
-  = radio_button_tag('register_address', 'yes', user.country_code.present?)
-  = label_tag('register_address_yes', '登録する')
-  = radio_button_tag('register_address', 'no', user.country_code.blank?)
-  = label_tag('register_address_no', '登録しない')
-  .a-form-help
-    p
-      | 就職先企業の紹介やテック系イベントの紹介時の参考にします。
-      | この情報は他のフィヨルドブートキャンプ参加者にも公開されますが、選択必須ではありません。
+.form__items
+  h3.form__items-title
+    | お住まいの地域（都道府県・州まで）
+  .form-item
+    label.a-form-label
+      | お住まいの地域の登録
+    .a-form-help.mb-4
+      p
+        | オフラインイベントの開催場所の参考にします。
+        | この情報を登録すると、他のフィヨルドブートキャンプ参加者にも公開されますが、
+        | 登録必須ではありません。
+    .block-checks.is-2-items
+      .block-checks__item
+        .a-block-check.is-radio
+          = radio_button_tag('register_address', 'yes', user.country_code.present?, class: 'a-toggle-checkbox')
+          = label_tag('register_address_yes', '登録する', class: 'a-block-check__label')
+      .block-checks__item
+        .a-block-check.is-radio
+          = radio_button_tag('register_address', 'no', user.country_code.blank?, class: 'a-toggle-checkbox')
+          = label_tag('register_address_no', '登録しない', class: 'a-block-check__label')
+  .form-item(class="#{'is-hidden' if user.country_code.blank?}" id="country-form" data-countries="#{all_countries_with_subdivisions}")
+    = f.label :country_code, class: 'a-form-label'
+    .a-button.is-md.is-secondary.is-select.is-block
+      = f.country_select :country_code, { include_blank: '国を選択してください' }, { id: 'country-select' }
+  .form-item(class="#{'is-hidden' if user.country_code.blank?}" id= "subdivision-form")
+    = f.label :subdivision_code, class: 'a-form-label'
+    .a-button.is-md.is-secondary.is-select.is-block
+      = f.select :subdivision_code, user.subdivisions_of_country, { include_blank: '選択してください' }, { id: 'subdivision-select' }
