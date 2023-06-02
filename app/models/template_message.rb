@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module TemplateMessage
-  DEFAULT_FALDER = 'config/message_templates/'
+  DEFAULT_DIRECTORY = 'config/message_templates/'
 
   class << self
     def load(file, hash: {})
-      path = DEFAULT_FALDER + file
+      path = DEFAULT_DIRECTORY + file
 
       erb_str = File.read(path)
       yaml_str = ERB.new(erb_str).result_with_hash(hash)
