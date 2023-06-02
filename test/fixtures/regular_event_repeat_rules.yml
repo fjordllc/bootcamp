@@ -53,29 +53,29 @@ regular_event_repeat_rule27:
 regular_event_repeat_rule28:
   frequency: 0
   day_of_the_week: 6
-  regular_event: regular_event27
+  regular_event: regular_event28
 
 regular_event_repeat_rule29:
   frequency: 0
   day_of_the_week: 6
-  regular_event: regular_event28
+  regular_event: regular_event29
 
 regular_event_repeat_rule30:
   frequency: 0
   day_of_the_week: 0
-  regular_event: regular_event28
+  regular_event: regular_event29
 
 regular_event_repeat_rule31:
   frequency: 0
   day_of_the_week: 5
-  regular_event: regular_event29
+  regular_event: regular_event30
 
 regular_event_repeat_rule32:
   frequency: 0
   day_of_the_week: 5
-  regular_event: regular_event30
+  regular_event: regular_event31
 
 regular_event_repeat_rule33:
   frequency: 0
   day_of_the_week: 6
-  regular_event: regular_event30
+  regular_event: regular_event31
