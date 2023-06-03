@@ -339,11 +339,9 @@ export default {
     updateQuestion(wip) {
       const flashElement = document.querySelector('.flash__message')
       if (flashElement) {
-        if (wip) {
-          flashElement.innerHTML = '質問をWIPとして保存しました。'
-        } else {
-          flashElement.innerHTML = '質問を公開しました。'
-        }
+        flashElement.innerHTML = wip
+          ? '質問をWIPとして保存しました。'
+          : '質問を公開しました。'
       }
 
       this.edited.wip = wip
