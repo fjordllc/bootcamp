@@ -46,11 +46,17 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     tomorrow_events = params[:tomorrow_events] || RegularEvent.tomorrow_events
     today = Time.current
     tomorrow = Time.current.next_day
-    event_info = "⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️\n\n"
-    event_info = add_event_info(today_events, '今日', today, event_info)
-    event_info += "------------------------------\n\n" if today_events.present?
-    event_info = add_event_info(tomorrow_events, '明日', tomorrow, event_info)
-    event_info += '⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️'
+    event_info = <<~TEXT.gsub(/^\n+/, "\n").chomp
+      ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
+
+      #{add_event_info(today_events, '今日', today)}
+
+      #{'------------------------------' if today_events.present?}
+
+      #{add_event_info(tomorrow_events, '明日', tomorrow)}
+
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    TEXT
 
     notification(
       body: event_info,
@@ -59,10 +65,11 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     )
   end
 
-  def add_event_info(events, date_message, date, event_info)
+  def add_event_info(events, date_message, date)
     day_of_the_week = %w[日 月 火 水 木 金 土]
-    event_info += "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" if events.present?
-    held_events, not_held_events = separate_events(events, date)
+    event_info = ''
+    event_info = "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]} 開催 >\n\n" if events.present?
+    not_held_events, held_events = events.partition { |event| !event.hold_national_holiday && HolidayJp.holiday?(date) }
     held_events.each do |event|
       event_info += "#{event.title}\n"
       event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
@@ -73,19 +80,6 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     end
     event_info += "はお休みです。\n\n" if not_held_events.present?
     event_info
-  end
-
-  def separate_events(events, date)
-    held_events = []
-    not_held_events = []
-    events.each do |event|
-      if HolidayJp.holiday?(date) && !event.hold_national_holiday
-        not_held_events.push(event)
-      else
-        held_events.push(event)
-      end
-    end
-    [held_events, not_held_events]
   end
 
   def invalid_user(params = {})
