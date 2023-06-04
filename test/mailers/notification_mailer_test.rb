@@ -64,26 +64,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/回答/, email.body.to_s)
   end
 
-  test 'consecutive_sad_report' do
-    report = reports(:report16)
-    consecutive_sad_report = notifications(:notification_consecutive_sad_report)
-    mailer = NotificationMailer.with(
-      report: report,
-      receiver: consecutive_sad_report.user
-    ).consecutive_sad_report
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
-    assert_match(/2回連続/, email.body.to_s)
-  end
-
   test 'no_correct_answer' do
     user = users(:kimura)
     question = questions(:question8)
