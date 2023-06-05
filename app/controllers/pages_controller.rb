@@ -68,7 +68,7 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
-    redirect_to '/pages', notice: 'ページを削除しました。'
+    redirect_to '/pages', notice: 'ドキュメントを削除しました。'
   end
 
   private
