@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import toast from '../../toast'
-import CSRF from "../../csrf";
+import CSRF from '../../csrf'
 
 export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
   const initialTagName = propsTagName
@@ -16,9 +16,9 @@ export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
     // 変更した内容を反映するためにリクエストを送り直している。
     // 変更内容を反映したい箇所がslimで書かれているためである。
     location.href = location.pathname.replace(
-            `/tags/${encodeURIComponent(initialTagName)}`,
-            `/tags/${encodeURIComponent(tagName)}`
-          )
+      `/tags/${encodeURIComponent(initialTagName)}`,
+      `/tags/${encodeURIComponent(tagName)}`
+    )
   }
 
   const updateTag = () => {
@@ -31,7 +31,7 @@ export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
       },
       credentials: 'same-origin',
       redirect: 'manual',
-      body: JSON.stringify({tag: { name: tagName }})
+      body: JSON.stringify({ tag: { name: tagName } })
     })
       .then(() => {
         updateTagList()
