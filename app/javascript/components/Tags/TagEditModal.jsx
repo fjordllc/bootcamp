@@ -48,7 +48,6 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
       body: JSON.stringify(params)
     })
       .then(() => {
-        setTagName(tagName)
         closeModal()
         updateTagList()
       })
