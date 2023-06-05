@@ -6,8 +6,6 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
   const initialTagName = propTagName
   const [tagName, setTagName] = useState(propTagName)
 
-  const validation = tagName === initialTagName || tagName === ''
-
   const cancel = () => {
     setShowModal(false)
     setTagName(initialTagName)
@@ -73,7 +71,7 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
               <li className="card-main-actions__item is-main">
                 <button
                   className="a-button is-primary is-sm is-block"
-                  disabled={validation}
+                  disabled={tagName === initialTagName || tagName === ''}
                   onClick={updateTag}>
                   変更
                 </button>
