@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkerId = Number(check.getAttribute('data-checker-id'))
     const checkerName = check.getAttribute('data-checker-name')
     const checkerAvatar = check.getAttribute('data-checker-avatar')
-    const currentUserId = check.getAttribute('data-current-user-id')
+    const currentUserId = Number(check.getAttribute('data-current-user-id'))
     new Vue({
       store,
       render: (h) =>
