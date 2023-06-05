@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 import toast from '../../toast'
+import CSRF from "../../csrf";
 
 export default function TagEditModal({ tagId, propTagName, setShowModal }) {
   const initialTagName = propTagName
   const [tagName, setTagName] = useState(propTagName)
 
   const validation = tagName === initialTagName || tagName === ''
-
-  const token = () => {
-    const meta = document.querySelector('meta[name="csrf-token"]')
-    return meta ? meta.getAttribute('content') : ''
-  }
 
   const changeTagName = (e) => {
     setTagName(e.target.value)
@@ -42,7 +38,7 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token()
+        'X-CSRF-Token': CSRF.getToken()
       },
       credentials: 'same-origin',
       redirect: 'manual',
