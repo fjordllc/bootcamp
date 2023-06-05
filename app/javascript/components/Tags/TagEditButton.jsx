@@ -19,7 +19,7 @@ export default function TagEditButton({ tagId, tagName }) {
       {showModal && (
         <TagEditModal
           tagId={tagId}
-          propTagName={tagName}
+          propsTagName={tagName}
           setShowModal={setShowModal}
         />
       )}
