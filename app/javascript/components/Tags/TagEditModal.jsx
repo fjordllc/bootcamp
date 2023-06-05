@@ -22,10 +22,6 @@ export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
   }
 
   const updateTag = () => {
-    const params = {
-      tag: { name: tagName }
-    }
-
     fetch(`/api/tags/${tagId}`, {
       method: 'PUT',
       headers: {
@@ -35,7 +31,7 @@ export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
       },
       credentials: 'same-origin',
       redirect: 'manual',
-      body: JSON.stringify(params)
+      body: JSON.stringify({tag: { name: tagName }})
     })
       .then(() => {
         updateTagList()
