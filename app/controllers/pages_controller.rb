@@ -68,7 +68,7 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
-    redirect_to '/pages', notice: notice_message(@page, :destroy)
+    redirect_to '/pages', notice: 'ページを削除しました。'
   end
 
   private
@@ -95,8 +95,6 @@ class PagesController < ApplicationController
       'ドキュメントを作成しました。'
     when :update
       'ページを更新しました。'
-    when :destroy
-      'ドキュメントを削除しました。'
     end
   end
 
