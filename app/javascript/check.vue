@@ -48,7 +48,7 @@ export default {
     checkerId: { type: Number, required: true },
     checkerName: { type: String, required: false, default: null },
     checkerAvatar: { type: String, required: false, default: null },
-    currentUserId: { type: String, required: false, default: null }
+    currentUserId: { type: Number, required: false, default: null }
   },
   computed: {
     checkId() {
