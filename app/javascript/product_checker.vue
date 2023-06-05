@@ -24,7 +24,7 @@ export default {
   props: {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     productId: { type: Number, required: true },
     checkableType: { type: String, required: false, default: null },
     checkerAvatar: { type: String, required: false, default: null },
