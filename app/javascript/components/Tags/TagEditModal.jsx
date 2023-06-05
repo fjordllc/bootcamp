@@ -12,7 +12,7 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
     setTagName(e.target.value)
   }
 
-  const closeModal = () => {
+  const cancel = () => {
     setShowModal(false)
     setTagName(initialTagName)
   }
@@ -89,7 +89,7 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
               <li className="card-main-actions__item is-sub">
                 <div
                   className="card-main-actions__muted-action"
-                  onClick={closeModal}>
+                  onClick={cancel}>
                   キャンセル
                 </div>
               </li>
