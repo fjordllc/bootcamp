@@ -24,10 +24,6 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
   }
 
   const updateTag = () => {
-    if (tagName === '' || tagName === initialTagName) {
-      return null
-    }
-
     const params = {
       tag: { name: tagName }
     }
