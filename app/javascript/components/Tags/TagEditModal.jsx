@@ -8,10 +8,6 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
 
   const validation = tagName === initialTagName || tagName === ''
 
-  const changeTagName = (e) => {
-    setTagName(e.target.value)
-  }
-
   const cancel = () => {
     setShowModal(false)
     setTagName(initialTagName)
@@ -70,7 +66,7 @@ export default function TagEditModal({ tagId, propTagName, setShowModal }) {
               id="tag_name"
               className="a-text-input"
               value={tagName}
-              onChange={changeTagName}
+              onChange={(e) => setTagName(e.target.value)}
               name="tag[name]"
             />
           </div>
