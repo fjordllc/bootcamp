@@ -273,8 +273,14 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'display counts of passed almost 5days' do
     visit_with_auth '/', 'mentormentaro'
-    assert_text "1件の提出物が、\n8時間後に5日経過に到達します。"
+    assert_text "2件の提出物が、\n8時間後に5日経過に到達します。"
+
     visit "/products/#{products(:product70).id}"
+    click_button '担当する'
+    visit '/'
+    assert_text "1件の提出物が、\n8時間後に5日経過に到達します。"
+
+    visit "/products/#{products(:product71).id}"
     click_button '担当する'
     visit '/'
     assert_text "しばらく5日経過に到達する\n提出物はありません。"
