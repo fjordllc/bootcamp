@@ -336,9 +336,9 @@ export default {
         })
       return params
     },
-    getElementNdaysPassed(n) {
+    getElementNdaysPassed(elapsedDays) {
       const element = this.productsGroupedByElapsedDays.find(
-        (el) => el.elapsed_days === n
+        (el) => el.elapsed_days === elapsedDays
       )
       return element
     },
