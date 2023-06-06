@@ -160,7 +160,7 @@ export default {
   },
   created() {
     this.showComments()
-    this.getInitialCompleted()
+    this.isActionCompleted = this.initialActionCompleted
   },
   methods: {
     isActive(tab) {
@@ -180,7 +180,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -243,9 +243,6 @@ export default {
             })
           }
         })
-    },
-    getInitialCompleted() {
-      this.isActionCompleted = this.initialActionCompleted
     },
     createComment({ toastMessage } = {}) {
       if (this.description.length < 1) {
