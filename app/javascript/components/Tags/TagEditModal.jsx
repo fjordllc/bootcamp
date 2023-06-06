@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import toast from '../../toast'
 import CSRF from '../../csrf'
 
-export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
-  const initialTagName = propsTagName
-  const [tagName, setTagName] = useState(propsTagName)
+export default function TagEditModal({ tagId, initialTagName, setShowModal }) {
+  const [tagName, setTagName] = useState(initialTagName)
 
   const cancel = () => {
     setShowModal(false)
