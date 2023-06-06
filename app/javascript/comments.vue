@@ -90,7 +90,7 @@ export default {
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     currentUser: { type: Object, required: true }
   },
   data() {
