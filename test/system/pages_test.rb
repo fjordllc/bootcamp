@@ -75,6 +75,21 @@ class PagesTest < ApplicationSystemTestCase
     assert_text 'ページをWIPとして保存しました。'
   end
 
+  test 'destroy document' do
+    visit_with_auth new_page_path, 'kimura'
+    within('.form') do
+      fill_in 'page[title]', with: 'test'
+      fill_in 'page[body]', with: 'test'
+      click_button 'Docを公開'
+    end
+    assert_text 'ドキュメントを作成しました。'
+    accept_confirm do
+      click_link '削除する'
+    end
+
+    assert_text 'ドキュメントを削除しました。'
+  end
+
   test 'administrator can change doc user' do
     visit_with_auth "/pages/#{pages(:page1).id}/edit", 'komagata'
 
