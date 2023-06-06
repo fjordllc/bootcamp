@@ -12,9 +12,8 @@ export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
   }
 
   const updateTagList = () => {
-    toast.methods.toast('タグ名を変更しました')
     // 変更した内容を反映するためにリクエストを送り直している。
-    // 変更内容を反映したい箇所がslimで書かれているためである。
+    // 変更内容を反映したい箇所がslimで書かれているため。
     location.href = location.pathname.replace(
       `/tags/${encodeURIComponent(initialTagName)}`,
       `/tags/${encodeURIComponent(tagName)}`
@@ -34,6 +33,7 @@ export default function TagEditModal({ tagId, propsTagName, setShowModal }) {
       body: JSON.stringify({ tag: { name: tagName } })
     })
       .then(() => {
+        toast.methods.toast('タグ名を変更しました')
         updateTagList()
       })
       .catch((error) => {
