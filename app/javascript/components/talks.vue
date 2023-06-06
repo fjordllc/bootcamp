@@ -66,12 +66,12 @@ export default {
     }
   },
   computed: {
-    isUnrepliedTalksPage() {
+    isActionUncompletedPage() {
       return location.pathname.includes('action_uncompleted')
     },
     url() {
       const params = this.newParams
-      if (this.isUnrepliedTalksPage) {
+      if (this.isActionUncompletedPage) {
         return `/api/talks/action_uncompleted.json?${params}`
       } else {
         return `/api/talks.json?${params}`
