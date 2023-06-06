@@ -36,7 +36,7 @@ export default {
     answers: Answers
   },
   props: {
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     questionId: { type: String, required: true }
   },
   data() {
