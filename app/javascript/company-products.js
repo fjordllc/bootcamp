@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = products.getAttribute('data-title')
     const companyID = products.getAttribute('company-id')
     const isMentor = products.getAttribute('data-mentor-login')
-    const currentUserId = products.getAttribute('data-current-user-id')
+    const currentUserId = Number(products.getAttribute('data-current-user-id'))
     new Vue({
       render: (h) =>
         h(CompanyProducts, {
