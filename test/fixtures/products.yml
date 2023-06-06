@@ -419,3 +419,11 @@ product70:
   created_at: <%= 5.day.ago + 8.hours %>
   updated_at: <%= 5.day.ago + 8.hours %>
   published_at: <%= 5.day.ago + 8.hours %>
+
+product71:
+  practice: practice12
+  user: kimura
+  body: 8時間後に5日経過に到達する提出物です。
+  created_at: <%= 5.day.ago + 8.hours %>
+  updated_at: <%= 5.day.ago + 8.hours %>
+  published_at: <%= 5.day.ago + 8.hours %>
