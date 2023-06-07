@@ -154,7 +154,7 @@ class Product < ApplicationRecord
   end
 
   def checker_name
-    checker_id ? User.find(checker_id).login_name : nil
+    checker&.login_name
   end
 
   def elapsed_days

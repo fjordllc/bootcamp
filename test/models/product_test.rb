@@ -90,14 +90,13 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '#checker_name' do
-    checker = users(:komagata)
-    product = Product.create!(
-      body: 'test',
-      user: users(:kimura),
-      practice: practices(:practice5),
-      checker_id: checker.id
-    )
-    assert_equal 'komagata', product.checker_name
+    product = products(:product1)
+
+    product.update!(checker: nil)
+    assert_nil product.checker_name
+
+    product.update!(checker: users(:mentormentaro))
+    assert_equal 'mentormentaro', product.checker_name
   end
 
   test '#save_checker' do
