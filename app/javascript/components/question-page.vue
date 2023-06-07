@@ -9,7 +9,7 @@ div
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser',
       @afterUpdateQuestion='fetchQuestion(questionId)')
-    template(v-if='question.ai_answer !== null && isAdminOrMentor()')
+    template(v-if='hasAiQuestion && isAdminOrMentor()')
       ai_answer(:text='question.ai_answer')
     answers(
       :questionId='questionId',
@@ -45,6 +45,13 @@ export default {
       currentUser: null,
       answerCount: 0,
       isAnswerCountUpdated: false
+    }
+  },
+  computed: {
+    hasAiQuestion() {
+      return (
+        this.question.ai_answer !== null && this.question.ai_answer.length > 0
+      )
     }
   },
   created() {
