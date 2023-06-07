@@ -99,6 +99,16 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal 'mentormentaro', product.checker_name
   end
 
+  test '#checker_avatar' do
+    product = products(:product1)
+
+    product.update!(checker: nil)
+    assert_nil product.checker_avatar
+
+    product.update!(checker: users(:mentormentaro))
+    assert_not_nil product.checker_avatar
+  end
+
   test '#save_checker' do
     checker = users(:komagata)
     product = Product.create!(
