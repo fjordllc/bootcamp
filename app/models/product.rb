@@ -163,7 +163,7 @@ class Product < ApplicationRecord
   end
 
   def checker_avatar
-    checker_id ? User.find(checker_id).avatar_url : nil
+    checker&.avatar_url
   end
 
   def replied_status_changed?(previous_commented_user_id, current_commented_user_id)

@@ -24,6 +24,13 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  setup do
+    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
+  end
+
+  teardown do
+    ActiveStorage::Current.host = nil
+  end
 end
 
 class ActionDispatch::IntegrationTest
