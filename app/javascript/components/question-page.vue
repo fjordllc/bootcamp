@@ -49,7 +49,9 @@ export default {
   },
   computed: {
     hasAiQuestion() {
-      return this.question.ai_answer !== null && this.question.ai_answer.length > 0
+      return (
+        this.question.ai_answer !== null && this.question.ai_answer.length > 0
+      )
     }
   },
   created() {
