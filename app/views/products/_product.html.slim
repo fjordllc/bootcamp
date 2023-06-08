@@ -11,6 +11,12 @@
                 span
                   | WIP
             h2.card-list-item-title__title(itemprop='name')
+              - if product.checker_id?
+                = render 'users/icon',
+                        user: product.checker,
+                        image_class: 'a-user-icon'
+                - if product.learning&.status == "submitted"
+                | レビュー中
               = link_to product, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
                 | #{product.practice.title}の提出物
       .card-list-item__row
