@@ -48,6 +48,7 @@
         v-if='showModal')
 </template>
 <script>
+import CSRF from 'csrf'
 import adminPracticeModalVue from './admin-practice-modal.vue'
 
 export default {
@@ -72,17 +73,13 @@ export default {
     closeModal() {
       this.showModal = false
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getPractices() {
       fetch(`/api/admin/practices`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

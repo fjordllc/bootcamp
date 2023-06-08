@@ -89,6 +89,7 @@ div(:class='contentClassName')(v-else)
 </template>
 
 <script>
+import CSRF from 'csrf'
 import Product from 'product.vue'
 import UnconfirmedLinksOpenButton from 'unconfirmed_links_open_button.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
@@ -179,17 +180,13 @@ export default {
     this.getProductsPerPage()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getProductsPerPage() {
       fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

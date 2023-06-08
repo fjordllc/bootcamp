@@ -77,14 +77,6 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: report, receiver
-  def consecutive_sad_report
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
-    mail to: @user.email,
-         subject: "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
-  end
-
   # required params: sender, receiver
   def signed_up
     @user = @receiver

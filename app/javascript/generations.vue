@@ -19,6 +19,7 @@
     pager(v-bind='pagerProps')
 </template>
 <script>
+import CSRF from 'csrf'
 import Generation from './generation.vue'
 import Pager from './pager.vue'
 
@@ -59,10 +60,6 @@ export default {
     this.getGenerations()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getGenerations() {
       this.loaded = false
       fetch(this.api_url, {
@@ -70,7 +67,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

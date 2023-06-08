@@ -9,7 +9,7 @@ div
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser',
       @afterUpdateQuestion='fetchQuestion(questionId)')
-    template(v-if='question.ai_answer !== null && isAdminOrMentor()')
+    template(v-if='hasAiQuestion && isAdminOrMentor()')
       ai_answer(:text='question.ai_answer')
     answers(
       :questionId='questionId',
@@ -20,6 +20,7 @@ div
       @cancelSolveQuestion='cancelSolveQuestion')
 </template>
 <script>
+import CSRF from 'csrf'
 import QuestionEdit from 'components/question-edit.vue'
 import AIAnswer from 'components/ai-answer.vue'
 import Answers from 'answers.vue'
@@ -46,6 +47,13 @@ export default {
       isAnswerCountUpdated: false
     }
   },
+  computed: {
+    hasAiQuestion() {
+      return (
+        this.question.ai_answer !== null && this.question.ai_answer.length > 0
+      )
+    }
+  },
   created() {
     this.fetchQuestion(this.questionId)
     this.fetchUser(this.currentUserId)
@@ -56,7 +64,7 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -94,10 +102,6 @@ export default {
     },
     cancelSolveQuestion() {
       this.question.correct_answer = null
-    },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
     },
     updateAnswerCount(count) {
       this.answerCount = count

@@ -68,25 +68,25 @@ class ProductTest < ActiveSupport::TestCase
 
   test 'other_checker_exists' do
     checker = users(:komagata)
-    current_user = users(:machida)
+    other_checker = users(:machida)
     product = Product.create!(
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
       checker_id: checker.id
     )
-    assert product.other_checker_exists?(current_user.id)
+    assert product.other_checker_exists?(other_checker.id)
   end
 
   test 'other_checker_not_exists' do
-    current_user = users(:machida)
+    other_checker = users(:machida)
     product = Product.create!(
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
       checker_id: nil
     )
-    assert_not product.other_checker_exists?(current_user.id)
+    assert_not product.other_checker_exists?(other_checker.id)
   end
 
   test '#checker_name' do
@@ -101,14 +101,14 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '#save_checker' do
-    current_user = users(:komagata)
+    checker = users(:komagata)
     product = Product.create!(
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
       checker_id: nil
     )
-    assert product.save_checker(current_user.id)
+    assert product.save_checker(checker.id)
   end
 
   test '.self_assigned_no_replied_products' do

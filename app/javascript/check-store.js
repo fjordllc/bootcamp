@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import CSRF from 'csrf'
 
 Vue.use(Vuex)
 
@@ -45,14 +46,13 @@ export default new Vuex.Store({
   },
   actions: {
     setCheckable({ commit }, { checkableId, checkableType }) {
-      const meta = document.querySelector('meta[name="csrf-token"]')
       fetch(
         `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`,
         {
           method: 'GET',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+            'X-CSRF-Token': CSRF.getToken()
           },
           credentials: 'same-origin'
         }
@@ -84,12 +84,11 @@ export default new Vuex.Store({
         })
     },
     setProduct({ commit }, { productId }) {
-      const meta = document.querySelector('meta[name="csrf-token"]')
       fetch(`/api/products/${productId}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })

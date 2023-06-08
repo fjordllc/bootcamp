@@ -14,7 +14,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
-  belongs_to :checker, class_name: 'Product', optional: true
+  belongs_to :checker, class_name: 'User', optional: true
   alias sender user
 
   after_create ProductCallbacks.new
@@ -36,7 +36,7 @@ class Product < ApplicationRecord
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
   scope :unassigned, -> { where(checker_id: nil) }
-  scope :self_assigned_product, ->(current_user_id) { where(checker_id: current_user_id) }
+  scope :self_assigned_product, ->(user_id) { where(checker_id: user_id) }
   scope :self_assigned_and_replied_products, ->(user_id) { self_assigned_product(user_id).where.not(id: self_assigned_no_replied_product_ids(user_id)) }
 
   scope :wip, -> { where(wip: true) }
@@ -61,7 +61,7 @@ class Product < ApplicationRecord
   end
 
   # rubocop:disable Metrics/MethodLength
-  def self.self_assigned_no_replied_product_ids(current_user_id)
+  def self.self_assigned_no_replied_product_ids(user_id)
     sql = <<~SQL
       WITH last_comments AS (
         SELECT *
@@ -87,12 +87,12 @@ class Product < ApplicationRecord
       OR self_assigned_products.checker_id != last_comments.user_id
       ORDER BY self_assigned_products.created_at DESC
     SQL
-    Product.find_by_sql([sql, current_user_id]).map(&:id)
+    Product.find_by_sql([sql, user_id]).map(&:id)
   end
   # rubocop:enable Metrics/MethodLength
 
-  def self.self_assigned_no_replied_products(current_user_id)
-    no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
+  def self.self_assigned_no_replied_products(user_id)
+    no_replied_product_ids = self_assigned_no_replied_product_ids(user_id)
     Product.where(id: no_replied_product_ids)
            .order(published_at: :asc, id: :asc)
   end
@@ -137,16 +137,16 @@ class Product < ApplicationRecord
     Category.category(practice: practice, course: course)
   end
 
-  def save_checker(current_user_id)
-    return false if other_checker_exists?(current_user_id)
+  def save_checker(user_id)
+    return false if other_checker_exists?(user_id)
 
-    self.checker_id = current_user_id
-    Cache.delete_self_assigned_no_replied_product_count(current_user_id)
+    self.checker_id = user_id
+    Cache.delete_self_assigned_no_replied_product_count(user_id)
     save!
   end
 
-  def other_checker_exists?(current_user_id)
-    checker_id.present? && checker_id.to_s != current_user_id
+  def other_checker_exists?(user_id)
+    checker_id.present? && checker_id.to_s != user_id
   end
 
   def unassigned?
