@@ -127,7 +127,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
   end
 
   test '.product_review_not_completed' do
-    products(:product8).update!(checker_id: users(:komagata).id)
+    products(:product8).update!(checker: users(:komagata))
     comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
     body = <<~TEXT.chomp
       ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。

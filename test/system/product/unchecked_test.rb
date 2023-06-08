@@ -55,7 +55,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
     click_button '提出物を確認'
@@ -71,7 +71,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
@@ -123,7 +123,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
@@ -141,7 +141,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
     fill_in('new_comment[description]', with: 'test')
@@ -169,7 +169,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
 
     visit_with_auth '/products/unchecked', 'mentormentaro'
@@ -189,7 +189,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
 
     visit_with_auth '/products/unchecked', 'mentormentaro'

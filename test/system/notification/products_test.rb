@@ -53,7 +53,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
     click_button '提出物を確認'

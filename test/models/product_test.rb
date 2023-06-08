@@ -73,7 +73,7 @@ class ProductTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: checker.id
+      checker: checker
     )
     assert product.other_checker_exists?(other_checker.id)
   end
@@ -84,7 +84,7 @@ class ProductTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: nil
+      checker: nil
     )
     assert_not product.other_checker_exists?(other_checker.id)
   end
@@ -95,7 +95,7 @@ class ProductTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: checker.id
+      checker: checker
     )
     assert_equal 'komagata', product.checker_name
   end
@@ -106,7 +106,7 @@ class ProductTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: nil
+      checker: nil
     )
     assert product.save_checker(checker.id)
   end
@@ -117,7 +117,7 @@ class ProductTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: mentor.id,
+      checker: mentor,
       published_at: Time.current.to_formatted_s(:db)
     )
 
@@ -131,7 +131,7 @@ class ProductTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: mentor.id,
+      checker: mentor,
       published_at: Time.current.to_formatted_s(:db),
       wip: true
     )

@@ -2,7 +2,7 @@ product1: # 自分のコメントあり(2つ)
   practice: practice1
   user: mentormentaro
   body: テストの提出物1です。
-  checker_id: nil
+  checker: nil
 
 product2: # チェック済
   practice: practice1
@@ -11,7 +11,7 @@ product2: # チェック済
   created_at: <%= 1.day.ago %>
   updated_at: <%= 1.day.ago %>
   published_at: <%= 1.day.ago %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:komagata) %>"
+  checker: komagata
 
 product3: # チェック済, 他者のコメントあり
   practice: practice2
@@ -117,7 +117,7 @@ product15:
   created_at: <%= 6.day.ago %>
   updated_at: <%= 6.day.ago %>
   published_at: <%= 6.day.ago %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+  checker: machida
 
 product16:
   practice: practice2
@@ -360,7 +360,7 @@ product62:
   updated_at: <%= 1.day.ago %>
   published_at: <%= 1.day.ago %>
   wip: false
-  checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+  checker: machida
 
 product63:
   practice: practice46
@@ -370,7 +370,7 @@ product63:
   updated_at: <%= 2.day.ago %>
   published_at: <%= 2.day.ago %>
   wip: false
-  checker_id: <%= ActiveRecord::FixtureSet.identify(:machida) %>
+  checker: machida
 
 product64:
   practice: practice10
@@ -379,7 +379,7 @@ product64:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
   published_at: <%= Time.current %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+  checker: machida
 
 product65:
   practice: practice6
@@ -396,13 +396,13 @@ product67:
   practice: practice3
   user: kimuramitai
   body: 確認済みの提出物67です。
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+  checker: long-id-mentor
 
 product68:
   practice: practice5
   user: kimuramitai
   body: 未確認だけど、担当になっている提出物68です。
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+  checker: long-id-mentor
 
 product69:
   practice: practice1
