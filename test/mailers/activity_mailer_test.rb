@@ -664,7 +664,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
   test 'assigned_as_checker' do
     product = products(:product64)
-    receiver = User.find(product.checker_id)
+    receiver = product.checker
 
     ActivityMailer.assigned_as_checker(
       product: product,
@@ -682,7 +682,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
   test 'assigned_as_checker with params' do
     product = products(:product64)
-    receiver = User.find(product.checker_id)
+    receiver = product.checker
 
     mailer = ActivityMailer.with(
       product: product,
@@ -704,7 +704,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
   test 'assigned_as_checker to mute email notification or retired user' do
     product = products(:product64)
-    receiver = User.find(product.checker_id)
+    receiver = product.checker
 
     receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(

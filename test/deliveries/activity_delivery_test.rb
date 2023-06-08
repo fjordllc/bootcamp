@@ -205,7 +205,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     product = products(:product64)
     params = {
       product: product,
-      receiver: User.find(product.checker_id)
+      receiver: product.checker
     }
 
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do

@@ -132,13 +132,13 @@ class ProductsController < ApplicationController
     @checker_id = @product.checker_id
     return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
 
-    ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
+    ActivityDelivery.with(product: @product, receiver: @product.checker).notify(:assigned_as_checker)
   end
 
   def notice_product_update
     @checker_id = @product.checker_id
     return if admin_or_mentor_login? || @product.wip?
 
-    NotificationFacade.product_update(@product, User.find(@checker_id))
+    NotificationFacade.product_update(@product, @product.checker)
   end
 end
