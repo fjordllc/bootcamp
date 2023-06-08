@@ -121,20 +121,20 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-   config.action_mailer.default_url_options = { host: ENV["APP_HOST_NAME"], protocol: "https" }
-   config.action_mailer.asset_host = "https://#{ENV["APP_HOST_NAME"]}"
-   config.action_controller.asset_host = "https://#{ENV["APP_HOST_NAME"]}"
+  config.action_mailer.default_url_options = { host: ENV["APP_HOST_NAME"], protocol: "https" }
+  config.action_mailer.asset_host = "https://#{ENV["APP_HOST_NAME"]}"
+  config.action_controller.asset_host = "https://#{ENV["APP_HOST_NAME"]}"
 
-   config.action_mailer.delivery_method = :postmark
-   config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { api_token: ENV["POSTMARK_API_TOKEN"] }
 
-   config.hosts << ENV["CLOUD_RUN_HOST_NAME"] if ENV["CLOUD_RUN_HOST_NAME"]
-   config.hosts << ENV["APP_HOST_NAME"] if ENV["APP_HOST_NAME"]
+  config.hosts << ENV["CLOUD_RUN_HOST_NAME"] if ENV["CLOUD_RUN_HOST_NAME"]
+  config.hosts << ENV["APP_HOST_NAME"] if ENV["APP_HOST_NAME"]
 
-   AnyLogin.setup do |config|
-     config.enabled = false
-   end
-   
-   Rails.application.routes.default_url_options[:host] = ENV["APP_HOST_NAME"]
-   Rails.application.routes.default_url_options[:protocol] = 'https'
+  AnyLogin.setup do |config|
+    config.enabled = false
+  end
+
+  Rails.application.routes.default_url_options[:host] = ENV["APP_HOST_NAME"]
+  Rails.application.routes.default_url_options[:protocol] = 'https'
 end
