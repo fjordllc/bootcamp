@@ -129,15 +129,17 @@ class ProductsController < ApplicationController
   end
 
   def notice_another_mentor_assigned_as_checker
-    @checker_id = @product.checker_id
-    return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
+    return unless admin_or_mentor_login?
+    return unless @product.checker
+    return if @product.checker == current_user
+    return if @product.wip?
 
     ActivityDelivery.with(product: @product, receiver: @product.checker).notify(:assigned_as_checker)
   end
 
   def notice_product_update
-    @checker_id = @product.checker_id
-    return if admin_or_mentor_login? || @product.wip?
+    return if admin_or_mentor_login?
+    return if @product.wip?
 
     NotificationFacade.product_update(@product, @product.checker)
   end
