@@ -47,11 +47,10 @@
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
-      - if admin_or_mentor_login?
         li.form-actions__item.is-main
           - if event.new_record?
             = f.submit '作成', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
-          - else
+          - elsif event.user_id == current_user.id || admin_or_mentor_login?
             = f.submit '内容変更', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]

@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
-  test 'users except admin cannot publish a event' do
-    visit_with_auth new_event_path, 'kimura'
-    page.assert_no_selector("input[value='作成']")
-  end
-
   test 'create a new event as wip' do
     visit_with_auth new_event_path, 'kimura'
     within 'form[name=event]' do

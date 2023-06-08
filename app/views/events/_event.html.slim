@@ -57,7 +57,7 @@
     - unless event.wip?
       = render 'events/participation', event: event
     = render 'reactions/reactions', reactionable: event
-    - if admin_or_mentor_login? || event.user_id == current_user.id
+    - if event.user_id == current_user.id || admin_or_mentor_login?
       .card-footer
         .card-main-actions
           ul.card-main-actions__items
