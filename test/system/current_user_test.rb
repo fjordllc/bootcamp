@@ -162,12 +162,11 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'display country and subdivision select box' do
     visit_with_auth '/current_user/edit', 'komagata'
-    assert has_checked_field? 'register_address_no'
+    assert has_checked_field? 'register_address_no', visible: false
     assert_not has_css? '#country-form'
     assert_not has_css? '#subdivision-form'
 
-    choose 'register_address_yes'
-
+    find('label[for=register_address_yes]').click
     assert has_css? '#country-form'
     assert_select 'user[country_code]', selected: '日本'
     assert has_css? '#subdivision-form'
@@ -182,9 +181,9 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_equal '13', user.subdivision_code
 
     visit_with_auth '/current_user/edit', 'kimura'
-    assert has_checked_field? 'register_address_yes'
+    assert has_checked_field? 'register_address_yes', visible: false
 
-    choose 'register_address_no'
+    find('label[for=register_address_no]').click
     click_on '更新する'
 
     assert_equal '', user.reload.country_code
