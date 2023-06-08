@@ -1,5 +1,5 @@
 <template lang="pug">
-.a-card(v-else)
+.a-card
   header.card-header.is-sm
     h2.card-header__title
       | ニコニコカレンダー
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import CSRF from 'csrf'
+
 export default {
   props: {
     userId: { type: String, required: true }
@@ -143,7 +145,7 @@ export default {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.token()
+        'X-CSRF-Token': CSRF.getToken()
       },
       credentials: 'same-origin'
     })
@@ -161,10 +163,6 @@ export default {
       })
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     formatMonth(month) {
       return month.toString().padStart(2, '0')
     },
