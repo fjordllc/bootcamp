@@ -34,7 +34,7 @@ header.page-content-header
         = render 'users/icon',
                 user: product.checker,
                 image_class: 'a-user-icon'
-        - if product.learning&.status == "submitted"
+        - if product.learning&.status == 'submitted'
           | レビュー中
 
       h1.page-content-header__title(class="#{product.wip? ? 'is-wip' : ''}")
