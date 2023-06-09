@@ -8,9 +8,24 @@
         = title
 
 .welcome-page-body
-  .container.is-md
-    .js-markdown-view.a-long-text.is-md
-      = @buzz.body
-    - if admin_or_mentor_login?
-      = link_to edit_buzz_path, class: 'a-button is-secondary is-md is-block' do
-        | 内容修正
+  .container.is-lg
+    .a-card
+      .article__inner
+        header.article__header
+          h1.article__title
+            | フィヨルドブートキャンプ関連リンク集
+          .article__summary.mt-4
+            .a-short-text.is-sm
+              p
+                | インターネットで見つけたフィヨルドブートキャンプに関連する記事、
+                | フィヨルドブートキャンプに言及している記事を集めています。
+        .article__body
+          .js-markdown-view.a-long-text.is-md
+            = @buzz.body
+      - if admin_or_mentor_login?
+        .card-footer
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_buzz_path, class: 'a-button is-secondary is-md is-block' do
+                  | 内容修正
