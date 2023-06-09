@@ -333,6 +333,11 @@ export default {
         return val !== this[key]
       })
     },
+    isChangedPracticeId(edited) {
+      return Object.entries(edited.practiceId).some(([key, val]) => {
+        return val !== this[key]
+      })
+    },
     updateQuestion(wip) {
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
@@ -368,6 +373,11 @@ export default {
           })
           this.finishEditing(true)
           this.$emit('afterUpdateQuestion')
+        })
+        .then(() => {
+          if (this.isChangedPracticeId(this.edited)) {
+            location.href = `/questions/${this.question.id}`
+          }
         })
         .catch((error) => {
           console.warn(error)
