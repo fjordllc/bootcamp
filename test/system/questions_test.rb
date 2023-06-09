@@ -55,11 +55,11 @@ class QuestionsTest < ApplicationSystemTestCase
       find('#choices--js-choices-single-select-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
       click_button '更新する'
     end
-    assert_text '質問を更新しました'
-
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
-    assert_text 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.page-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'div.page-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
   end
 
   test 'delete a question' do
