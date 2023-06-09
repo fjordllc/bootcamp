@@ -4,11 +4,11 @@ require 'test_helper'
 
 class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
   test "cached count of a mentor's unreplied products increases by 1 after the mentor gets assigned to a product" do
-    mentor_id = users(:machida).id
+    mentor = users(:machida)
     unassigned_product = Product.not_wip.unassigned.first
 
-    assert_difference "Cache.self_assigned_no_replied_product_count(#{mentor_id})", 1 do
-      unassigned_product.update!(checker_id: mentor_id)
+    assert_difference "Cache.self_assigned_no_replied_product_count(#{mentor.id})", 1 do
+      unassigned_product.update!(checker: mentor)
     end
   end
 
@@ -17,7 +17,7 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
     assigned_and_unreplied_product = Product.self_assigned_no_replied_products(mentor_id).first
 
     assert_difference "Cache.self_assigned_no_replied_product_count(#{mentor_id})", -1 do
-      assigned_and_unreplied_product.update!(checker_id: nil)
+      assigned_and_unreplied_product.update!(checker: nil)
     end
   end
 

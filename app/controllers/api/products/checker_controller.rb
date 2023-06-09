@@ -16,7 +16,7 @@ class API::Products::CheckerController < API::BaseController
   end
 
   def destroy
-    if @product.update(checker_id: nil)
+    if @product.update(checker: nil)
       render json: {
         checker_id: @product.checker_id,
         checker_name: @product.checker_name

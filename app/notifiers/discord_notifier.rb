@@ -91,7 +91,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
     comment = params[:comment]
-    product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
+    product_checker_name = comment.commentable.checker_name
     product = comment.commentable
     body = <<~TEXT.chomp
       ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。

@@ -21,7 +21,7 @@ class UnassignedProductCountTest < ActiveSupport::TestCase
     unassigned_product = Product.not_wip.unassigned.first
 
     assert_difference 'Cache.unassigned_product_count', -1 do
-      unassigned_product.update!(checker_id: users(:machida).id)
+      unassigned_product.update!(checker: users(:machida))
     end
   end
 
@@ -29,7 +29,7 @@ class UnassignedProductCountTest < ActiveSupport::TestCase
     assigned_product = Product.self_assigned_product(users(:machida).id).first
 
     assert_difference 'Cache.unassigned_product_count', 1 do
-      assigned_product.update!(checker_id: nil)
+      assigned_product.update!(checker: nil)
     end
   end
 end

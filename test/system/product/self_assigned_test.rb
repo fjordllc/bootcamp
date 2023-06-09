@@ -19,7 +19,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       body: 'test',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth '/products/self_assigned', 'komagata'
     assert_button '自分の担当の提出物を一括で開く'
@@ -31,7 +31,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       body: '自分の担当の提出物です。',
       user: users(:kimura),
       practice: practices(:practice5),
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth '/products/self_assigned', 'komagata'
 
@@ -55,8 +55,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
   test 'not display products in listing self-assigned if self-assigned products all checked' do
     product = products(:product3)
     checker = users(:komagata)
-    product.checker_id = checker.id
-    product.save
+    product.update!(checker: checker)
     visit_with_auth '/products/self_assigned?target=self_assigned_all', 'komagata'
     assert_text '提出物はありません'
   end
@@ -70,7 +69,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth '/products/self_assigned', 'mentormentaro'
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
@@ -88,7 +87,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
@@ -132,7 +131,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       body: 'test',
       user: user,
       practice: practice,
-      checker_id: checker.id
+      checker: checker
     )
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     within('.thread-comment-form__form') do

@@ -35,7 +35,7 @@ class Product < ApplicationRecord
         ->(user) { where(practice: user.practices_with_checked_product).checked.pluck(:id) }
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
-  scope :unassigned, -> { where(checker_id: nil) }
+  scope :unassigned, -> { where(checker: nil) }
   scope :self_assigned_product, ->(user_id) { where(checker_id: user_id) }
   scope :self_assigned_and_replied_products, ->(user_id) { self_assigned_product(user_id).where.not(id: self_assigned_no_replied_product_ids(user_id)) }
 

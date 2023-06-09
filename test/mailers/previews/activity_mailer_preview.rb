@@ -113,7 +113,7 @@ class ActivityMailerPreview < ActionMailer::Preview
 
   def assigned_as_checker
     product = Product.find(ActiveRecord::FixtureSet.identify(:product71))
-    receiver = User.find(product.checker_id)
+    receiver = product.checker
 
     ActivityMailer.with(product: product, receiver: receiver).assigned_as_checker
   end
