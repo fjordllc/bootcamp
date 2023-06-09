@@ -75,7 +75,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_text 'ページをWIPとして保存しました。'
   end
 
-  test 'destroy document' do
+  test 'destroy page' do
     visit_with_auth new_page_path, 'kimura'
     within('.form') do
       fill_in 'page[title]', with: 'test'
