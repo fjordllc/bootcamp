@@ -22,7 +22,7 @@ class Admin::UsersController < AdminController
   def update
     if @user.update(user_params)
       destroy_subscription(@user)
-      Newspaper.publish(:retirement_create, @user)
+      Newspaper.publish(:retirement_create, @user) if @user.saved_change_to_retired_on?
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
       render :edit
