@@ -43,43 +43,7 @@
                         | {{ user.discord_account }}
 
         user-sns(:user='user')
-        .card-counts.mt-3(v-if='user.student_or_trainee')
-          dl.card-counts__items
-            .card-counts__item
-              .card-counts__item-inner
-                dt.card-counts__item-label
-                  | 日報
-                dd.card-counts__item-value(
-                  :class='user.reports == 0 ? "is-empty" : ""')
-                  | {{ user.reports }}
-            .card-counts__item
-              .card-counts__item-inner
-                dt.card-counts__item-label
-                  | 提出物
-                dd.card-counts__item-value(
-                  :class='user.products == 0 ? "is-empty" : ""')
-                  | {{ user.products }}
-            .card-counts__item
-              .card-counts__item-inner
-                dt.card-counts__item-label
-                  | コメント
-                dd.card-counts__item-value(
-                  :class='user.comments == 0 ? "is-empty" : ""')
-                  | {{ user.comments }}
-            .card-counts__item
-              .card-counts__item-inner
-                dt.card-counts__item-label
-                  | 質問
-                dd.card-counts__item-value(
-                  :class='user.questions == 0 ? "is-empty" : ""')
-                  | {{ user.questions }}
-            .card-counts__item
-              .card-counts__item-inner
-                dt.card-counts__item-label
-                  | 回答
-                dd.card-counts__item-value(
-                  :class='user.answers == 0 ? "is-empty" : ""')
-                  | {{ user.answers }}
+        user-activity-counts(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
@@ -108,6 +72,7 @@
 </template>
 <script>
 import Following from '../following.vue'
+import UserActivityCounts from './user-activity-counts.vue'
 import UserSns from './user-sns.vue'
 import UserTags from './user-tags.vue'
 import UserPracticeProgress from './user-practice-progress.vue'
@@ -116,6 +81,7 @@ export default {
   name: 'User',
   components: {
     following: Following,
+    'user-activity-counts': UserActivityCounts,
     'user-sns': UserSns,
     'user-tags': UserTags,
     'user-practice-progress': UserPracticeProgress
