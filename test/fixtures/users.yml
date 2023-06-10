@@ -172,7 +172,6 @@ yameo:
   updated_at: "2014-01-01 00:00:05"
   created_at: "2014-01-01 00:00:05"
   last_activity_at: "2014-01-01 00:00:05"
-  notified_retirement: false
 
 mentormentaro:
   login_name: mentormentaro
@@ -534,7 +533,6 @@ kensyuowata: # 研修が終わったユーザー
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
   last_activity_at: "2014-01-01 00:00:11"
-  notified_retirement: false
 
 taikai: # 退会直後のユーザー
   login_name: taikai
@@ -579,7 +577,6 @@ taikai3: # 退会3ヶ月後のユーザー
   experience: rails
   organization: なし
   retired_on: <%= Date.current - 4.months %>
-  notified_retirement: false
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2021-12-10 00:00:11"
   created_at: "2021-12-10 00:00:11"

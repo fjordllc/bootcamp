@@ -219,42 +219,6 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
   end
 
-  test 'three_months_after_retirement' do
-    user = users(:kensyuowata)
-    admin = users(:komagata)
-    ActivityMailer.three_months_after_retirement(
-      sender: user,
-      receiver: admin
-    ).deliver_now
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] kensyuowataさんが退会してから3カ月が経過しました。', email.subject
-    assert_match(/退会/, email.body.to_s)
-  end
-
-  test 'three_months_after_retirement with params' do
-    user = users(:kensyuowata)
-    admin = users(:komagata)
-    mailer = ActivityMailer.with(
-      sender: user,
-      receiver: admin
-    ).three_months_after_retirement
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] kensyuowataさんが退会してから3カ月が経過しました。', email.subject
-    assert_match(/退会/, email.body.to_s)
-  end
-
   test 'came_question' do
     question = questions(:question1)
     user = question.user
