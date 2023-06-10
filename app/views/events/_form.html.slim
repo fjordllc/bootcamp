@@ -58,9 +58,3 @@
           = link_to 'キャンセル', events_path, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
           = link_to 'キャンセル', event_path, class: 'a-button is-sm is-text'
-    - unless mentor_login?
-      .form-actions__description.a-short-text
-        p
-          | イベントを作成しましたら WIP で保存し、作成したイベントのコメントから
-          br
-          |  @mentor へ確認・公開依頼の連絡をお願いします。
