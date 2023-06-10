@@ -102,6 +102,21 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     assert_equal 0, user.reports.wip.count
   end
 
+  test 'delete times channel when retire' do
+    user = users(:kyuukai)
+    user.update!(times_id: '987654321987654321')
+
+    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+      Discord::Server.stub(:delete_text_channel, true) do
+        VCR.use_cassette 'subscription/update' do
+          visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
+        end
+      end
+      assert_equal Date.current, user.reload.retired_on
+    end
+    assert_nil user.times_id
+  end
+
   test 'retire with postmark error' do
     user = users(:kyuukai)
     logs = []
