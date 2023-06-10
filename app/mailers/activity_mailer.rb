@@ -17,6 +17,7 @@ class ActivityMailer < ApplicationMailer
     @comment = params[:comment] if params&.key?(:comment)
     @product = params[:product] if params&.key?(:product)
     @report = params[:report] if params&.key?(:report)
+    @regular_event = params[:regular_event] if params&.key?(:regular_event)
   end
 
   # required params: sender, receiver
@@ -302,6 +303,23 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:consecutive_sad_report]
     )
     subject = "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: regular_event, receiver
+  def update_regular_event(args = {})
+    @regular_event ||= args[:regular_event]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/regular_events/#{@regular_event.id}",
+      kind: Notification.kinds[:regular_event_updated]
+    )
+
+    subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 

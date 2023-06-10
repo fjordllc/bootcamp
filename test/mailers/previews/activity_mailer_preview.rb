@@ -132,4 +132,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(report: report, receiver: receiver).consecutive_sad_report
   end
+
+  def update_regular_event
+    regular_event = RegularEvent.find(ActiveRecord::FixtureSet.identify(:regular_event1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+
+    ActivityMailer.with(regular_event: regular_event, receiver: receiver).update_regular_event
+  end
 end
