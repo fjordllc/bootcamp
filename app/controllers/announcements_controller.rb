@@ -19,12 +19,12 @@ class AnnouncementsController < ApplicationController
       flash.now[:notice] = 'お知らせをコピーしました。'
     elsif params[:page_id]
       page = Page.find(params[:page_id])
-      template = TemplateMessage.load('page_announcements.yml', hash: { page: page })
+      template = MessageTemplate.load('page_announcements.yml', hash: { page: page })
       @announcement.title       = template['title']
       @announcement.description = template['description']
     elsif params[:event_id]
       event = Event.find(params[:event_id])
-      template = TemplateMessage.load('event_announcements.yml', hash: { event: event })
+      template = MessageTemplate.load('event_announcements.yml', hash: { event: event })
       @announcement.title       = template['title']
       @announcement.description = template['description']
     end

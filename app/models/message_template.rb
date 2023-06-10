@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TemplateMessage
+module MessageTemplate
   DEFAULT_DIRECTORY = 'config/message_templates/'
 
   class << self
