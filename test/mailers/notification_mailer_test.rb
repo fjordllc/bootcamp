@@ -92,26 +92,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/入会/, email.body.to_s)
   end
 
-  test 'update_regular_event' do
-    regular_event = regular_events(:regular_event1)
-    notification = notifications(:notification_regular_event_updated)
-    mailer = NotificationMailer.with(
-      regular_event: regular_event,
-      receiver: notification.user
-    ).update_regular_event
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['hatsuno@fjord.jp'], email.to
-    assert_equal '[FBC] 定期イベント【開発MTG】が更新されました。', email.subject
-    assert_match(/定期イベント/, email.body.to_s)
-  end
-
   test 'no_correct_answer' do
     user = users(:kimura)
     question = questions(:question8)

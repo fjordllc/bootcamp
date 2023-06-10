@@ -231,7 +231,6 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       sender: user,
       receiver: users(:komagata)
     }
-
     assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
       ActivityDelivery.notify!(:hibernated, **params)
     end
@@ -293,6 +292,30 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
       ActivityDelivery.with(**params).notify(:consecutive_sad_report)
+    end
+  end
+
+  test '.notify(:update_regular_event)' do
+    regular_event = regular_events(:regular_event1)
+    params = {
+      regular_event: regular_event,
+      receiver: users(:komagata)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:update_regular_event, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:update_regular_event, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:update_regular_event)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:update_regular_event)
     end
   end
 end
