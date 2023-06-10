@@ -606,4 +606,33 @@ class UsersTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text "#{user.name} さんを削除しました。"
   end
+
+  test "should show students and trainees's active activity counts" do
+    visit_with_auth users_path, 'kimura'
+    assert_selector '.card-counts__items'
+
+    click_link('卒業生')
+    assert_selector '.card-counts__items'
+
+    click_link('研修生')
+    assert_selector '.card-counts__items'
+  end
+
+  test "should show hibernated user and retired user's activity counts" do
+    visit_with_auth users_path, 'komagata'
+    click_link('休会')
+    assert_selector '.card-counts__items'
+
+    click_link('退会')
+    assert_selector '.card-counts__items'
+  end
+
+  test "should not show mentor and adviser's activity counts" do
+    visit_with_auth users_path, 'kimura'
+    click_link('メンター')
+    assert_no_selector '.card-counts__items'
+
+    click_link('アドバイザー')
+    assert_no_selector '.card-counts__items'
+  end
 end
