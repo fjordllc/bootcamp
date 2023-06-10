@@ -43,7 +43,7 @@
                         | {{ user.discord_account }}
 
         user-sns(:user='user')
-        .card-counts.mt-3
+        .card-counts.mt-3(v-if='user.student_or_trainee')
           dl.card-counts__items
             .card-counts__item
               .card-counts__item-inner
