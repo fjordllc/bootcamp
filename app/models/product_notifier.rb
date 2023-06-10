@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 class ProductNotifier
-  def call(product)
+  def call(payload)
+    product =
+      case payload
+      when Hash
+        payload[:product]
+      else
+        payload
+      end
     return if product.wip
 
     notify_advisers product if product.user.trainee? && product.user.company
