@@ -132,15 +132,19 @@ class Admin::UsersTest < ApplicationSystemTestCase
 
   test 'make user retired' do
     user = users(:hatsuno)
+    user.update!(times_id: '987654321987654321')
     date = Date.current
-    VCR.use_cassette 'subscription/update' do
-      visit_with_auth edit_admin_user_path(user.id), 'komagata'
-      check '退会済', allow_label_click: true
-      fill_in 'user_retired_on', with: date
-      click_on '更新する'
+    Discord::Server.stub(:delete_text_channel, true) do
+      VCR.use_cassette 'subscription/update' do
+        visit_with_auth edit_admin_user_path(user.id), 'komagata'
+        check '退会済', allow_label_click: true
+        fill_in 'user_retired_on', with: date
+        click_on '更新する'
+      end
     end
     assert_text 'ユーザー情報を更新しました。'
     assert_equal date, user.reload.retired_on
+    assert_nil user.times_id
 
     assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
       req.body.include?('cancel_at_period_end=true')
