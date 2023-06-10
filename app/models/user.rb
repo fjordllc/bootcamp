@@ -236,11 +236,6 @@ class User < ApplicationRecord
   scope :hibernated, -> { where.not(hibernated_at: nil) }
   scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
-  scope :retired_with_3_months_ago_and_notification_not_sent, lambda {
-    retired
-      .where('retired_on <= ?', Date.current.ago(3.months).to_date)
-      .where(notified_retirement: false)
-  }
   scope :unretired, -> { where(retired_on: nil) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
@@ -376,18 +371,6 @@ class User < ApplicationRecord
   )
 
   class << self
-    def notify_to_discord
-      User.retired.find_each do |retired_user|
-        if retired_user.retired_three_months_ago_and_notification_not_sent?
-          ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
-            #{I18n.t('.retire_notice', user: retired_user.login_name)}
-            Discord ID: #{retired_user.discord_account}
-            ユーザーページ: https://bootcamp.fjord.jp/users/#{retired_user.id}
-          TEXT
-        end
-      end
-    end
-
     def announcement_receiver(target)
       case target
       when 'all'
@@ -453,10 +436,6 @@ class User < ApplicationRecord
       student.sent_student_followup_message = true
       student.save(validate: false)
     end
-  end
-
-  def retired_three_months_ago_and_notification_not_sent?
-    retired_on <= Date.current - 3.months && !notified_retirement
   end
 
   def away?
