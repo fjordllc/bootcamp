@@ -1,4 +1,4 @@
-json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on, :reports, :comments, :products, :questions, :answers)
+json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
@@ -13,11 +13,15 @@ json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
 json.isWatching current_user.watching?(user)
-json.reports user.reports.length
-json.comments user.comments.where.not(commentable_type: 'Talk').length
-json.products user.products.length
-json.questions user.questions.length
-json.answers user.answers.length
+
+if user.student_or_trainee?
+  json.report_count user.reports.size
+  json.comment_count user.comments.where.not(commentable_type: 'Talk').size
+  json.product_count user.products.size
+  json.question_count user.questions.size
+  json.answer_count user.answers.size
+end
+
 
 if user.talk.present?
   json.talkUrl talk_path(user.talk)
