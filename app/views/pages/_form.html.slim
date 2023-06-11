@@ -22,7 +22,9 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :body, class: 'a-form-label'
-          = f.text_area :body, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown', data: { 'preview': '.js-preview' }
+          input(type='file' class='file-input' multiple)
+          = f.text_area :body, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+          data: { 'preview': '.js-preview', 'input': '.file-input' }
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
