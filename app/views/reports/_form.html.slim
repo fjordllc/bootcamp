@@ -72,9 +72,10 @@
               template-id="#{current_user.report_template&.id}"
             )
           .a-textarea-bottom-note
+            input(type='file' class='file-input' multiple)
             = f.text_area :description,
               class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
-              data: { 'preview': '.js-preview' }
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
             .a-textarea-bottom-note__banner
               | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
