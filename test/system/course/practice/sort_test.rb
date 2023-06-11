@@ -10,8 +10,8 @@ class Practice::SortTest < ApplicationSystemTestCase
     end
   end
 
-  test 'non-admin user cannot access practices sort page' do
+  test 'non-mentor user cannot access practices sort page' do
     visit_with_auth course_sort_index_path(courses(:course1).id), 'kimura'
-    assert_text '管理者・メンターとしてログインしてください'
+    assert_text 'メンターとしてログインしてください'
   end
 end
