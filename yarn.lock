@@ -8279,8 +8279,9 @@ textarea-markdown@YukiWatanabe824/textarea-markdown.git#feature_for_fbc:
   version "1.3.12"
   resolved "https://codeload.github.com/YukiWatanabe824/textarea-markdown/tar.gz/501dc951cf96cad576033c1895f48f52ab675f17"
   dependencies:
-    file-type "^16.5.4"
+>>>>>>> Stashed changes
     filesize "^10.0.5"
+    magic-bytes.js "^1.0.14"
     markdown-it "^12.3.2"
     whatwg-fetch "^2.0.3"
 
