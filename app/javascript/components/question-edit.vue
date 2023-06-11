@@ -150,7 +150,9 @@
                 textarea#js-question-content.a-text-input.form-tabs-item__textarea(
                   v-model='edited.description',
                   data-preview='#js-question-preview',
+                  data-input='.js-question-file-input',
                   name='question[description]')
+                input(type='file' class='js-question-file-input' multiple)
               .form-tabs-item__markdown.js-tabs__content(
                 :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
