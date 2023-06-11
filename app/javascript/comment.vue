@@ -67,8 +67,13 @@
           textarea.a-text-input.a-markdown-input__textarea(
             :id='`js-comment-${this.comment.id}`',
             :data-preview='`#js-comment-preview-${this.comment.id}`',
+            :data-input='`.js-comment-file-input-${this.comment.id}`',
             v-model='description',
             name='comment[description]')
+          input(
+            :class='`js-comment-file-input-${this.comment.id}`',
+            type='file',
+            multiple)
         .a-markdown-input__inner.js-tabs__content(
           v-bind:class='{ "is-active": isActive("preview") }')
           .a-long-text.is-md.a-markdown-input__preview(
