@@ -40,7 +40,9 @@
             v-model='description',
             name='answer[description]',
             data-preview='#new-comment-preview',
+            data-input='.new-comment-file-input',
             @input='editAnswer')
+          input(type='file' class='new-comment-file-input' multiple)
         .a-markdown-input__inner.js-tabs__content(
           :class='{ "is-active": isActive("preview") }')
           #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
