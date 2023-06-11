@@ -7,7 +7,9 @@
         .col-md-6.col-xs-12
           label.a-form-label
             | 提出物
-          = f.text_area :body, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
+          input(type='file' class='file-input' multiple)
+          = f.text_area :body, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+          data: { 'preview': '.js-preview', 'input': '.file-input' }
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
