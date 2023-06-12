@@ -80,7 +80,7 @@
       .stamp__content.is-user-name
         .stamp__content-inner
           = product.checks.last.user.login_name
-  - elsif product.checker_id?
+  - elsif product.checker_id? && product.learning&.status == 'submitted'
     .card-list-item__checker
       .a-checker
         .a-checker__user
@@ -88,6 +88,5 @@
                   user: product.checker,
                   link_class: 'a-checker__user-link',
                   image_class: 'is-xs'
-        //- if product.learning&.status == 'submitted'
         .a-checker__status
           | レビュー中

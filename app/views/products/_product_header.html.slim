@@ -1,6 +1,6 @@
 header.page-content-header
   #js-check-stamp(data-checkable-id="#{product.id}" data-checkable-type='Product')
-  - if product.checker_id?
+  - if product.checker_id? && product.learning&.status == 'submitted'
     .page-content-header__checker
       .a-checker
         .a-checker__user
@@ -8,7 +8,6 @@ header.page-content-header
                   user: product.checker,
                   link_class: 'a-checker__user-link',
                   image_class: 'is-xs'
-        //- if product.learning&.status == 'submitted'
         .a-checker__status
           | レビュー中
   .page-content-header__start
