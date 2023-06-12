@@ -1,5 +1,16 @@
 header.page-content-header
   #js-check-stamp(data-checkable-id="#{product.id}" data-checkable-type='Product')
+  - if product.checker_id?
+    .page-content-header__checker
+      .a-checker
+        .a-checker__user
+          = render 'users/icon',
+                  user: product.checker,
+                  link_class: 'a-checker__user-link',
+                  image_class: 'is-xs'
+        //- if product.learning&.status == 'submitted'
+        .a-checker__status
+          | レビュー中
   .page-content-header__start
     .page-content-header__user
       = render 'users/icon', user: product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
@@ -33,22 +44,11 @@ header.page-content-header
                 - else
                   span.a-meta__value
                     | 未入力
-      - if product.checker_id?
-        .page-content-checker
-          .page-content-checker__user
-            = render 'users/icon',
-                    user: product.checker,
-                    link_class: 'page-content-checker__user-link',
-                    image_class: 'is-xs'
-          - if product.learning&.status == 'submitted'
-            .page-content-checker__status
-              | レビュー中
     .page-content-header__row
       h1.page-content-header__title.has-checker(class="#{product.wip? ? 'is-wip' : ''}")
         - if product.wip?
           span.a-title-label.is-wip
             | WIP
-
         | #{link_to product.practice.title, product.practice, class: 'page-content-header__title-link'}の提出物
 
     .page-content-header__row
