@@ -11,12 +11,6 @@
                 span
                   | WIP
             h2.card-list-item-title__title(itemprop='name')
-              - if product.checker_id?
-                = render 'users/icon',
-                        user: product.checker,
-                        image_class: 'a-user-icon'
-                - if product.learning&.status == 'submitted'
-                  | レビュー中
               = link_to product, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
                 | #{product.practice.title}の提出物
       .card-list-item__row
@@ -74,13 +68,26 @@
               .card-list-item-meta__item
                 .card-list-item-meta__item-note
                   | このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
-    - if product.checks.any?
-      .stamp.stamp-approve
-        h2.stamp__content.is-title 確認済
-        time.stamp__content.is-created-at
-          = l product.checks.last.created_at.to_date, format: :short
-        .stamp__content.is-user-name
-          .stamp__content-inner
-            = product.checks.last.user.login_name
+
     - if current_user.mentor? && product.checks.empty?
       .js-checker(data-checker-id="#{product.checker_id}" data-checker-name="#{product.checker_name}" data-current-user-id="#{current_user.id}" data-product-id="#{product.id}")
+
+  - if product.checks.any?
+    .stamp.stamp-approve
+      h2.stamp__content.is-title 確認済
+      time.stamp__content.is-created-at
+        = l product.checks.last.created_at.to_date, format: :short
+      .stamp__content.is-user-name
+        .stamp__content-inner
+          = product.checks.last.user.login_name
+  - elsif product.checker_id?
+    .card-list-item__checker
+      .a-checker
+        .a-checker__user
+          = render 'users/icon',
+                  user: product.checker,
+                  link_class: 'a-checker__user-link',
+                  image_class: 'is-xs'
+        //- if product.learning&.status == 'submitted'
+        .a-checker__status
+          | レビュー中

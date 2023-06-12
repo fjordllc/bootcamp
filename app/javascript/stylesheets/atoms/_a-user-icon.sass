@@ -7,7 +7,10 @@
   &.is-sm
     +size(2rem)
   &.is-xs
-    +size(1.5rem)
+    +media-breakpoint-up(md)
+      +size(1.5rem)
+    +media-breakpoint-down(sm)
+      +size(1.125rem)
 
 .a-long-text
   .a-user-emoji-link
