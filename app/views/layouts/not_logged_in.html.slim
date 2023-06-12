@@ -1,7 +1,6 @@
 doctype html
 html lang='ja'
   head
-    = render 'google_tag_manager_head'
     meta content='IE=edge' http-equiv='X-UA-Compatible'
     = display_meta_tags default_meta_tags
     = javascript_include_tag 'application'
@@ -17,7 +16,7 @@ html lang='ja'
     = render '/head/fontawsome'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-not-logged-in(class="#{body_class}")
-    = render 'google_tag_manager_body'
+    = render 'google_analytics' if Rails.env.production?
     .not-logged-in-wrapper
       .not-logged-in-wrapper__start
         = yield
