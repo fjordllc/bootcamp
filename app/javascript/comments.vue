@@ -118,7 +118,7 @@ export default {
       commentTotalCount: null,
       loadedComment: false,
       nextCommentAmount: null,
-      incrementCommentSize: 8,
+      incrementCommentSize: 8
     }
   },
   computed: {
