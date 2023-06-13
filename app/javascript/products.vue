@@ -354,7 +354,9 @@ export default {
         const time =
           product.published_at_date_time || product.created_at_date_time
         const elapsedTimes = (new Date() - new Date(time)) / 1000 / 60 / 60 / 24
-        return Math.floor((5 - elapsedTimes) * 24) <= 8
+        const thresholdDay = 5
+        const thresholdHour = 8
+        return Math.floor((thresholdDay - elapsedTimes) * 24) <= thresholdHour
       })
       return productsPassedAlmost5days
     },
