@@ -91,7 +91,7 @@ export default {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
     currentUserId: { type: String, required: true },
-    currentUser: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
   },
   data() {
     return {
@@ -108,7 +108,7 @@ export default {
       commentTotalCount: null,
       loadedComment: false,
       nextCommentAmount: null,
-      incrementCommentSize: 8,
+      incrementCommentSize: 8
     }
   },
   computed: {
