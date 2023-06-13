@@ -250,12 +250,12 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on '登録する'
 
     assert_text '記事を作成しました'
-    assert_selector "meta[name='description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
-    assert_selector "meta[property='og:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
-    assert_selector "meta[name='twitter:description'][content='現場の即戦力になれるプログラミングスクール。']", visible: false
+    assert_selector "meta[name='description'][content='月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。']", visible: false
+    assert_selector "meta[property='og:description'][content='月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。']", visible: false
+    assert_selector "meta[name='twitter:description'][content='月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。']", visible: false
 
     visit articles_path
-    assert_no_text '現場の即戦力になれるプログラミングスクール。'
+    assert_no_text '月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。'
   end
 
   test 'can set it as an OGP image by uploading an eye-catching image' do
