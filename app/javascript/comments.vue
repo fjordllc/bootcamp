@@ -27,21 +27,6 @@
       :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
       @delete='deleteComment',
       @update='updateComment')
-  .form-actions.is-action-completed.mb-8(
-    v-if='isRole("admin") && commentableType === "Talk"')
-    ul.form-actions__items
-      li.form-actions__item.is-main
-        label.support-checkbox
-          .a-button.is-md.is-block.check-button.is-muted-borderd(
-            v-if='isActionCompleted',
-            @click='changeCompleted')
-            i.fas.fa-redo
-            | 未対応にする
-          .a-button.is-md.is-block.check-button.is-warning(
-            v-else,
-            @click='changeCompleted')
-            i.fas.fa-check
-            | 対応済にする
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
     .thread-comment__author
@@ -107,7 +92,6 @@ export default {
     commentableType: { type: String, required: true },
     currentUserId: { type: String, required: true },
     currentUser: { type: Object, required: true },
-    initialActionCompleted: { type: Boolean, required: true }
   },
   data() {
     return {
@@ -125,7 +109,6 @@ export default {
       loadedComment: false,
       nextCommentAmount: null,
       incrementCommentSize: 8,
-      isActionCompleted: false
     }
   },
   computed: {
@@ -143,14 +126,10 @@ export default {
     },
     productCheckerId() {
       return this.$store.getters.productCheckerId
-    },
-    CompletedLabel() {
-      return this.isActionCompleted ? '対応済み' : '未対応'
     }
   },
   created() {
     this.showComments()
-    this.isActionCompleted = this.initialActionCompleted
   },
   methods: {
     isActive(tab) {
@@ -158,30 +137,6 @@ export default {
     },
     changeActiveTab(tab) {
       this.tab = tab
-    },
-    changeCompleted() {
-      this.isActionCompleted = !this.isActionCompleted
-      const params = {
-        talk: { action_completed: this.isActionCompleted }
-      }
-
-      fetch(`/api/talks/${this.commentableId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
-        .then(() => {
-          this.toast(`${this.CompletedLabel}にしました`)
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
     },
     displayMoreComments() {
       this.loadedComment =
