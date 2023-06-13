@@ -75,6 +75,16 @@ class PagesTest < ApplicationSystemTestCase
     assert_text 'ページをWIPとして保存しました。'
   end
 
+  test 'destroy page' do
+    visit_with_auth "/pages/#{pages(:page1).id}", 'komagata'
+
+    accept_confirm do
+      click_link '削除する'
+    end
+
+    assert_text 'ドキュメントを削除しました。'
+  end
+
   test 'administrator can change doc user' do
     visit_with_auth "/pages/#{pages(:page1).id}/edit", 'komagata'
 
