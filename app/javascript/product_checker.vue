@@ -1,10 +1,10 @@
 <template lang="pug">
 button(
-  v-if='!checkerId || checkerId == currentUserId',
+  v-if='!checkerId || checkerId === currentUserId',
   :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
   @click='checkInCharge')
   i(
-    v-if='!checkerId || checkerId == currentUserId',
+    v-if='!checkerId || checkerId === currentUserId',
     :class='["fas", productCheckerId ? "fa-times" : "fa-hand-paper"]',
     @click='checkInCharge')
   | {{ buttonLabel }}
