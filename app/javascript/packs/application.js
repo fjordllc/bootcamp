@@ -84,7 +84,7 @@ import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import AdminPractices from '../components/admin-practices.vue'
 import UserProducts from '../components/user-products.vue'
-import ActionCompleted from '../components/action-completed-button.vue'
+import ActionCompleted from '../components/action-completed.vue'
 
 import '../stylesheets/application'
 
