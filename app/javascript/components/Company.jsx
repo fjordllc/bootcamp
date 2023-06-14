@@ -18,20 +18,20 @@ function UserGroupHeader({ company }) {
     <header className="user-group__header">
       <h2 className="group-company-name">
         <a className="group-company-name__link" href={company.users_url}>
-            <span className="group-company-name__icon">
-              <img
-                className="group-company-name__icon-image"
-                title={company.name}
-                alt={company.name}
-                src={company.logo_url}
-              />
-            </span>
+          <span className="group-company-name__icon">
+            <img
+              className="group-company-name__icon-image"
+              title={company.name}
+              alt={company.name}
+              src={company.logo_url}
+            />
+          </span>
           <span className="group-company-name__name">
-              <span className="group-company-name__label">{company.name}</span>
-              <span className="group-company-name__label-option">
-                {company.description}
-              </span>
+            <span className="group-company-name__label">{company.name}</span>
+            <span className="group-company-name__label-option">
+              {company.description}
             </span>
+          </span>
         </a>
       </h2>
     </header>
