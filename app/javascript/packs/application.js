@@ -84,6 +84,7 @@ import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import MentorPractices from '../components/mentor-practices.vue'
 import ActionCompleted from '../components/action-completed-button.vue'
+import ActionCompleted from '../components/action-completed.vue'
 
 import '../stylesheets/application'
 
