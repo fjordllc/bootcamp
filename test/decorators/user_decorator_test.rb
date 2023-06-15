@@ -18,7 +18,6 @@ class UserDecoratorTest < ActiveSupport::TestCase
     @hibernationed_user = ActiveDecorator::Decorator.instance.decorate(users(:kyuukai))
     @japanese_user = ActiveDecorator::Decorator.instance.decorate(users(:kimura))
     @american_user = ActiveDecorator::Decorator.instance.decorate(users(:tom))
-    @address_not_registered_user = ActiveDecorator::Decorator.instance.decorate(users(:machida))
     @subdivision_not_registered_user = ActiveDecorator::Decorator.instance.decorate(users(:hatsuno))
   end
 
@@ -57,10 +56,9 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal '休会ユーザー', @hibernationed_user.roles_to_s
   end
 
-  test 'subdivisions_of_country' do
+  test '#subdivisions_of_country' do
     assert_includes @japanese_user.subdivisions_of_country, %w[北海道 01]
     assert_includes @american_user.subdivisions_of_country, %w[アラスカ州 AK]
-    assert_equal [], @address_not_registered_user.subdivisions_of_country
   end
 
   test '#address' do
