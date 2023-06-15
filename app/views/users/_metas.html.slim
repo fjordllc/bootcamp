@@ -12,7 +12,7 @@
       .user-metas__item-label
         | お住まい
       .user-metas__item-value
-        = user.address
+        = user.address || I18n.t('unregistered')
     .user-metas__item
       .user-metas__item-label
         | コース

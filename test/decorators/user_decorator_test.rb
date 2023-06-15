@@ -19,6 +19,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
     @japanese_user = ActiveDecorator::Decorator.instance.decorate(users(:kimura))
     @american_user = ActiveDecorator::Decorator.instance.decorate(users(:tom))
     @address_not_registered_user = ActiveDecorator::Decorator.instance.decorate(users(:machida))
+    @subdivision_not_registered_user = ActiveDecorator::Decorator.instance.decorate(users(:hatsuno))
   end
 
   test '#staff_roles' do
@@ -62,9 +63,9 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal [], @address_not_registered_user.subdivisions_of_country
   end
 
-  test 'address' do
+  test '#address' do
     assert_equal '東京都 (日本)', @japanese_user.address
     assert_equal 'ニューヨーク州 (米国)', @american_user.address
-    assert_equal '未登録', @address_not_registered_user.address
+    assert_equal '日本', @subdivision_not_registered_user.address
   end
 end

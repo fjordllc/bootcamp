@@ -116,6 +116,10 @@ module UserDecorator
   end
 
   def address
-    country_code.present? && subdivision_code.present? ? "#{subdivision_name} (#{country_name})" : I18n.t('unregistered')
+    if country_code.present? && subdivision_code.present?
+      "#{subdivision_name} (#{country_name})"
+    elsif country_code.present? && subdivision_code.blank?
+      country_name
+    end
   end
 end
