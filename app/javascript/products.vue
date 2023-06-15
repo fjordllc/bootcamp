@@ -353,7 +353,8 @@ export default {
       const productsPassedAlmost5days = products.filter((product) => {
         const lastSubmittedTime =
           product.published_at_date_time || product.created_at_date_time
-        const elapsedTimes = (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
+        const elapsedTimes =
+          (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
         const thresholdDay = 5
         const thresholdHour = 8
         return Math.floor((thresholdDay - elapsedTimes) * 24) <= thresholdHour
