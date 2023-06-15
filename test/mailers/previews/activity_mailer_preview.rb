@@ -32,13 +32,6 @@ class ActivityMailerPreview < ActionMailer::Preview
     ).post_announcement
   end
 
-  def three_months_after_retirement
-    sender = User.find(ActiveRecord::FixtureSet.identify(:kensyuowata))
-    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
-
-    ActivityMailer.with(sender: sender, receiver: receiver).three_months_after_retirement
-  end
-
   def came_question
     receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
     question = Question.find(ActiveRecord::FixtureSet.identify(:question1))
@@ -138,5 +131,19 @@ class ActivityMailerPreview < ActionMailer::Preview
     receiver = notification.user
 
     ActivityMailer.with(report: report, receiver: receiver).consecutive_sad_report
+  end
+
+  def update_regular_event
+    regular_event = RegularEvent.find(ActiveRecord::FixtureSet.identify(:regular_event1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:hatsuno))
+
+    ActivityMailer.with(regular_event: regular_event, receiver: receiver).update_regular_event
+  end
+
+  def signed_up
+    sender = ActiveDecorator::Decorator.instance.decorate(User.find(ActiveRecord::FixtureSet.identify(:hajime)))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    ActivityMailer.with(sender: sender, receiver: receiver, sender_roles: sender.roles_to_s).signed_up
   end
 end

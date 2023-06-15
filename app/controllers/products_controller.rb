@@ -54,10 +54,9 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.update(product_params)
-      Newspaper.publish(:product_update, @product)
+      Newspaper.publish(:product_update, { product: @product, current_user: current_user })
       redirect_to @product, notice: notice_message(@product, :update)
       notice_another_mentor_assigned_as_checker
-      notice_product_update if @product.checker_id.present?
     else
       render :edit
     end
@@ -133,12 +132,5 @@ class ProductsController < ApplicationController
     return unless @checker_id && admin_or_mentor_login? && (@checker_id != current_user.id) && !@product.wip?
 
     ActivityDelivery.with(product: @product, receiver: User.find(@checker_id)).notify(:assigned_as_checker)
-  end
-
-  def notice_product_update
-    @checker_id = @product.checker_id
-    return if admin_or_mentor_login? || @product.wip?
-
-    NotificationFacade.product_update(@product, User.find(@checker_id))
   end
 end

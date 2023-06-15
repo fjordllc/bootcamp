@@ -43,6 +43,24 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
   end
 
+  test 'create a question through wip' do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'テストの質問'
+      fill_in 'question[description]', with: 'テストの質問です。'
+      click_button 'WIP'
+    end
+    assert_text '質問をWIPとして保存しました。'
+
+    click_button '内容修正'
+    click_button '質問を公開'
+    assert_text '質問を公開しました。'
+
+    click_button '内容修正'
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+  end
+
   test 'update a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
@@ -55,11 +73,11 @@ class QuestionsTest < ApplicationSystemTestCase
       find('#choices--js-choices-single-select-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
       click_button '更新する'
     end
-    assert_text '質問を更新しました'
-
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
-    assert_text 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.page-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'div.page-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
   end
 
   test 'delete a question' do

@@ -77,22 +77,6 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: sender, receiver
-  def signed_up
-    @user = @receiver
-    roles = @sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"
-    @notification = @user.notifications.find_by(link: "/users/#{@sender.id}", kind: Notification.kinds[:signed_up])
-    subject = "[FBC] #{@sender.login_name}さん#{roles}が新しく入会しました！"
-    mail to: @user.email, subject: subject
-  end
-
-  def update_regular_event
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/regular_events/#{@regular_event.id}", kind: Notification.kinds[:regular_event_updated])
-    subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
-    mail to: @user.email, subject: subject
-  end
-
   # required params: question, receiver
   def no_correct_answer
     @user = @receiver
