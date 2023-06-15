@@ -243,6 +243,7 @@ hatsuno:
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"
   last_activity_at: "2014-01-01 00:00:08"
+  country_code: JP
 
 hajime:
   login_name: hajime
