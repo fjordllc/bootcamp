@@ -586,7 +586,7 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'display company-logo when trainee' do
-    visit_with_auth "/products/#{products(:product13).id}", 'kensyu'
+    visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
     assert_selector 'img[class="page-content-header__company-logo"]'
   end
 end
