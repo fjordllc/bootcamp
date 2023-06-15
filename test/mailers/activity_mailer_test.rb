@@ -823,7 +823,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal ['komagata@fjord.jp'], email.to
     assert_equal '[FBC] hajimeさんが2回連続でsadアイコンの日報を提出しました。', email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この日報へ</a>}, email.body.to_s)
-  end 
+  end
 
   test 'update_regular_event using synchronous mailer' do
     regular_event = regular_events(:regular_event1)
@@ -948,7 +948,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     end
 
     assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last   
+    email = ActionMailer::Base.deliveries.last
     query = CGI.escapeHTML({ kind: Notification.kinds[:chose_correct_answer], link: "/questions/#{answer.question.id}#answer_#{answer.id}" }.to_param)
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal [receiver.email], email.to
