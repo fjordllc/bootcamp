@@ -37,9 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         }
 
-        const inputs = document.querySelectorAll(
-          "input[type=hidden][value='']"
-        )
+        const inputs = document.querySelectorAll("input[type=hidden][value='']")
 
         if (inputs) {
           inputs.forEach((input) => {
