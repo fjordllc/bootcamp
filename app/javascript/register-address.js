@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const elements = document.getElementsByName('register_address')
+  const radioButtons = document.getElementsByName('register_address')
 
-  if (!elements) {
+  if (!radioButtons) {
     return null
   }
 
-  elements.forEach((element) => {
-    element.addEventListener('change', () => {
+  radioButtons.forEach((button) => {
+    button.addEventListener('change', () => {
       const countryForm = document.getElementById('country-form')
       const subdivisionForm = document.getElementById('subdivision-form')
-      const elements = [countryForm, subdivisionForm]
+      const addressForms = [countryForm, subdivisionForm]
 
-      elements.forEach((element) => {
-        element.classList.toggle('is-hidden')
+      addressForms.forEach((form) => {
+        form.classList.toggle('is-hidden')
       })
 
       const value = document.querySelector(
@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         }
 
-        const elements = document.querySelectorAll(
+        const inputs = document.querySelectorAll(
           "input[type=hidden][value='']"
         )
 
-        if (elements) {
-          elements.forEach((element) => {
-            element.remove()
+        if (inputs) {
+          inputs.forEach((input) => {
+            input.remove()
           })
         }
       } else {
