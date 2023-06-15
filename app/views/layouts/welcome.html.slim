@@ -2,7 +2,6 @@ doctype html
 html.is-application lang='ja'
   - page_classes = content_for(:extra_body_classes).to_s
   head
-    = render 'google_tag_manager_head'
     meta content='IE=edge' http-equiv='X-UA-Compatible'
     = display_meta_tags welcome_meta_tags
     = javascript_include_tag 'application'
@@ -26,7 +25,7 @@ html.is-application lang='ja'
     - if defined?(@article) && @article.wip?
       meta name="robots" content="none"
   body.is-welcome#body class="#{body_class}"
-    = render 'google_tag_manager_body'
+    = render 'google_analytics' if Rails.env.production? && !staging?
     .wrapper
       = render 'flash'
       .wrapper__main

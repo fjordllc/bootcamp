@@ -31,17 +31,4 @@ class Notification::RetirementTest < ApplicationSystemTestCase
       assert_selector '.card-list-item-title__link-label', text: '😢 kimuraさんが退会しました。'
     end
   end
-
-  test 'notify admins when three months after retirement' do
-    mock_log = []
-    stub_info = proc { |i| mock_log << i }
-    Rails.logger.stub(:info, stub_info) do
-      visit_with_auth '/scheduler/daily/after_retirement', 'komagata'
-    end
-
-    visit '/notifications'
-    assert_text 'yameoさんが退会してから3カ月が経過しました。'
-    assert_text 'kensyuowataさんが退会してから3カ月が経過しました。'
-    assert_match 'Message to Discord.', mock_log.to_s
-  end
 end

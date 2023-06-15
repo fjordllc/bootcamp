@@ -333,7 +333,19 @@ export default {
         return val !== this[key]
       })
     },
+    isChangedPracticeId(edited) {
+      return Object.entries(edited.practiceId).some(([key, val]) => {
+        return val !== this[key]
+      })
+    },
     updateQuestion(wip) {
+      const flashElement = document.querySelector('.flash__message')
+      if (flashElement) {
+        flashElement.innerHTML = wip
+          ? '質問をWIPとして保存しました。'
+          : '質問を公開しました。'
+      }
+
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
@@ -368,6 +380,11 @@ export default {
           })
           this.finishEditing(true)
           this.$emit('afterUpdateQuestion')
+        })
+        .then(() => {
+          if (this.isChangedPracticeId(this.edited)) {
+            location.href = `/questions/${this.question.id}`
+          }
         })
         .catch((error) => {
           console.warn(error)

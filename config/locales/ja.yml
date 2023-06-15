@@ -364,10 +364,5 @@ ja:
     check: 提出物の確認
     watching: Watch中
     following_report: フォロー中
-  activity_mailer:
-    three_months_after_retirement:
-      subject: '[FBC] %{user}さんが退会してから3カ月が経過しました。'
-      retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
-  retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
   send_message:
     description: "こんにちは、komagataです。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあればお気軽におっしゃっていただければと思います。"

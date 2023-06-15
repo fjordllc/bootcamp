@@ -41,26 +41,6 @@ class NotificationFacade
     DiscordNotifier.with(event: event).tomorrow_regular_event.notify_now
   end
 
-  def self.signed_up(sender, receiver)
-    ActivityNotifier.with(sender: sender, receiver: receiver, sender_roles: sender.roles_to_s).signed_up.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      sender: sender,
-      receiver: receiver
-    ).signed_up.deliver_later(wait: 5)
-  end
-
-  def self.update_regular_event(regular_event, receiver)
-    ActivityNotifier.with(regular_event: regular_event, receiver: receiver).update_regular_event.notify_now
-    return unless receiver.mail_notification? && !receiver.retired?
-
-    NotificationMailer.with(
-      regular_event: regular_event,
-      receiver: receiver
-    ).update_regular_event.deliver_later(wait: 5)
-  end
-
   def self.no_correct_answer(question, receiver)
     ActivityNotifier.with(question: question, receiver: receiver).no_correct_answer.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
