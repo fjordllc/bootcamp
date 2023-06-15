@@ -4,10 +4,9 @@ class GraduationController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   before_action :set_user, only: %i[update]
   before_action :set_redirect_url, only: %i[update]
+  before_action :require_admin_login, only: %i[update]
 
   def update
-    return if require_admin_login
-
     if @user.update(graduated_on: Date.current)
       Subscription.new.destroy(@user.subscription_id) if @user.subscription_id
       Newspaper.publish(:graduation_update, @user)
