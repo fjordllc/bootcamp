@@ -107,12 +107,10 @@ module UserDecorator
   end
 
   def subdivisions_of_country
-    if country_code.present?
-      country = ISO3166::Country[country_code]
-      country.subdivision_names_with_codes(I18n.locale.to_s)
-    else
-      []
-    end
+    return if country_code.blank?
+
+    country = ISO3166::Country[country_code]
+    country.subdivision_names_with_codes(I18n.locale.to_s)
   end
 
   def address

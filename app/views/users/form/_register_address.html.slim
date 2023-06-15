@@ -25,4 +25,4 @@
   .form-item(class="#{'is-hidden' if user.country_code.blank?}" id= "subdivision-form")
     = f.label :subdivision_code, class: 'a-form-label'
     .a-button.is-md.is-secondary.is-select.is-block
-      = f.select :subdivision_code, user.subdivisions_of_country, { include_blank: '選択してください' }, { id: 'subdivision-select' }
+      = f.select :subdivision_code, user.subdivisions_of_country || [], { include_blank: '選択してください' }, { id: 'subdivision-select' }
