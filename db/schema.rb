@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
   end
 
   create_table "buzzes", force: :cascade do |t|
-    t.text "body"
+    t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
