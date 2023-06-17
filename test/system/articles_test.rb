@@ -250,16 +250,13 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on '登録する'
 
     assert_text '記事を作成しました'
-    content = '月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。'
-    assert_selector "meta[name='description'][#{content}]",
-                    visible: false
-    assert_selector "meta[property='og:description'][#{content}]",
-                    visible: false
-    assert_selector "meta[name='twitter:description'][#{content}]",
-                    visible: false
+    meta_description = '月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。'
+    assert_selector "meta[name='description'][content='#{meta_description}']", visible: false
+    assert_selector "meta[property='og:description'][content='#{meta_description}']", visible: false
+    assert_selector "meta[name='twitter:description'][content='#{meta_description}']", visible: false
 
     visit articles_path
-    assert_no_text content
+    assert_no_text meta_description
   end
 
   test 'can set it as an OGP image by uploading an eye-catching image' do
