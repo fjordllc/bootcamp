@@ -19,10 +19,10 @@ import CSRF from 'csrf'
 import toast from 'toast'
 
 export default {
-  name: 'ActionCompleted',
+  name: 'ActionCompletedButton',
   mixins: [toast],
   props: {
-    isInitialCompleted: { type: Boolean, required: true },
+    isInitialActionCompleted: { type: Boolean, required: true },
     commentableId: { type: String, required: true }
   },
   data() {
@@ -36,7 +36,7 @@ export default {
     }
   },
   created() {
-    this.isActionCompleted = this.isInitialCompleted
+    this.isActionCompleted = this.isInitialActionCompleted
   },
   methods: {
     changeCompleted() {

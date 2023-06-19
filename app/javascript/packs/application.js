@@ -85,6 +85,7 @@ import UserProducts from '../components/user-products.vue'
 import MentorPractices from '../components/mentor-practices.vue'
 import ActionCompleted from '../components/action-completed-button.vue'
 import ActionCompleted from '../components/action-completed.vue'
+import ActionCompletedButton from '../components/action-completed-button.vue'
 
 import '../stylesheets/application'
 
@@ -111,6 +112,7 @@ mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(MentorPractices)
 mounter.addComponent(ActionCompleted)
+mounter.addComponent(ActionCompletedButton)
 mounter.mount()
 
 // Support component names relative to this directory:
