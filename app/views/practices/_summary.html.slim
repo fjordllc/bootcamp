@@ -3,7 +3,7 @@
     h2.card-header__title
       = Practice.human_attribute_name :summary
   .card-body.is-practice
-    -if practice.ogp_image.attached?
+    - if practice.ogp_image.attached?
       = image_tag practice.ogp_image
     .card__description
       .a-long-text.is-md
