@@ -33,13 +33,6 @@ GIT
     discordrb-webhooks (3.4.2)
       rest-client (>= 2.0.0)
 
-GIT
-  remote: https://github.com/shucream-p/countries.git
-  revision: 459f9ea3395779b603780c3e77a78426d2886f6c
-  specs:
-    countries (5.4.0)
-      unaccent (~> 0.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -154,6 +147,8 @@ GEM
     commonmarker (0.23.9)
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
+    countries (5.5.0)
+      unaccent (~> 0.3)
     country_select (8.0.1)
       countries (~> 5.0)
     crack (0.4.5)
@@ -601,7 +596,7 @@ DEPENDENCIES
   capybara
   cocoon
   commonmarker
-  countries!
+  countries (>= 5.5.0)
   country_select
   data_migrate
   diffy
