@@ -11,7 +11,7 @@ module Ogp
         width = blob.metadata[:width]
         height = blob.metadata[:height]
 
-        return nil if fit?(width: width, height: height)
+        return nil if just_fit_to_size?(width: width, height: height)
 
         opts = fit_to_size_option(width: width, height: height)
 

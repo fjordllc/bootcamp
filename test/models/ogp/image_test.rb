@@ -13,10 +13,10 @@ module Ogp
       assert_equal expected.to_a, Dummy.fit_to_size_option(width: 500, height: 500).to_a
     end
 
-    test '.fit?' do
-      assert Dummy.fit?(width: 1200, height: 630)
-      assert_not Dummy.fit?(width: 1201, height: 630)
-      assert_not Dummy.fit?(width: 1200, height: 631)
+    test '.just_fit_to_size?' do
+      assert Dummy.just_fit_to_size?(width: 1200, height: 630)
+      assert_not Dummy.just_fit_to_size?(width: 1201, height: 630)
+      assert_not Dummy.just_fit_to_size?(width: 1200, height: 631)
     end
 
     test '.resize_option return 1200x when width magnification is grater than height magnification' do

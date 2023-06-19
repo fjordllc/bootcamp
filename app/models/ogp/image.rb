@@ -5,7 +5,7 @@ module Ogp
     WIDTH = 1200
     HEIGHT = 630
 
-    def fit?(width:, height:)
+    def just_fit_to_size?(width:, height:)
       width == WIDTH && height == HEIGHT
     end
 
