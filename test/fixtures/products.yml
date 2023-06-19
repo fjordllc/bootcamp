@@ -411,3 +411,11 @@ product69:
   created_at: <%= 2.day.ago %>
   updated_at: <%= 2.day.ago %>
   published_at: <%= 2.day.ago %>
+
+product70:
+  practice: practice1
+  user: hajime
+  body: watch中のメンターがいるプラクティスの提出物70です。
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  published_at: <%= Time.current %>
