@@ -43,7 +43,7 @@
               data-preview='#new-comment-preview',
             data-input='.new-comment-file-input',
               @input='editAnswer')
-          input(type='file' class='new-comment-file-input' multiple)
+          input.new-comment-file-input(type='file', multiple)
           .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("preview") }')
             #new-comment-preview.a-long-text.is-md.a-markdown-input__preview

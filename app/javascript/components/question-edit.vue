@@ -152,7 +152,7 @@
                   data-preview='#js-question-preview',
                   data-input='.js-question-file-input',
                   name='question[description]')
-                input(type='file' class='js-question-file-input' multiple)
+                input.js-question-file-input(type='file', multiple)
               .form-tabs-item__markdown.js-tabs__content(
                 :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
