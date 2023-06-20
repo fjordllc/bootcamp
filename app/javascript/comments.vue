@@ -48,13 +48,19 @@
         .a-markdown-input.js-markdown-parent
           .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("comment") }')
-            textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
-              v-model='description',
-              name='new_comment[description]',
-              data-preview='#new-comment-preview',
-            data-input='.new-comment-file-input',
-              @input='editComment')
-        input.new-comment-file-input(type='file', multiple)
+          .form-textarea
+            .form-textarea__body
+                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
+                v-model='description',
+                name='new_comment[description]',
+                data-preview='#new-comment-preview',
+              data-input='.new-comment-file-input',
+                @input='editComment')
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                  | ファイルを挿入
+                  input.new-comment-file-input(type='file', multiple)
           .a-markdown-input__inner.js-tabs__content(
             :class='{ "is-active": isActive("preview") }')
             #new-comment-preview.a-long-text.is-md.a-markdown-input__preview

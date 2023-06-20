@@ -1,0 +1,32 @@
+.form-textarea
+  +position(relative)
+  textarea.a-text-input
+    padding-bottom: 6.25rem
+
++media-breakpoint-down(md)
+  .form-textarea__bottom-note
+    display: none
+
++media-breakpoint-up(lg)
+  .form-textarea__bottom-note
+    +text-block(.75rem 1.4, center)
+
+.form-textarea__footer
+  height: 2.5rem
+  display: flex
+  gap: 1rem
+  align-items: center
+  background-color: $background-semi-shade
+  +position(absolute, left 1px, bottom 1px, right 1px)
+  +border-radius(bottom, 3px)
+  +padding(horizontal, .5rem)
+  border-top: solid 1px $border-shade
+
+.form-textarea__insert
+  width: 8rem
+
+.form-textarea__bottom-note
+  +media-breakpoint-down(md)
+    display: none
+  +media-breakpoint-up(lg)
+    +text-block(.75rem 1.4, center)
