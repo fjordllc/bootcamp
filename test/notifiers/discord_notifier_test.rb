@@ -62,21 +62,42 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     end
   end
 
-  test '.tomorrow_regular_event' do
+  test '.coming_soon_regular_events' do
     params = {
-      event: regular_events(:regular_event1),
+      today_events: [regular_events(:regular_event26), regular_events(:regular_event30), regular_events(:regular_event31)],
+      tomorrow_events: [regular_events(:regular_event28), regular_events(:regular_event29), regular_events(:regular_event31)],
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
     event_info = <<~TEXT.chomp
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
-      【イベントのお知らせ】
-      明日 07月31日（日）に開催されるイベントです！
-      --------------------------------------------
-      開発MTG
-      時間: 15:00 〜 16:00
-      詳細: http://localhost:3000/regular_events/459650222
-      --------------------------------------------
-      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+      ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
+
+      < 今日 (05/05 金) 開催 >
+
+      ダッシュボード表示確認用テスト定期イベント
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/927610372
+
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      はお休みです。
+
+      ------------------------------
+
+      < 明日 (05/06 土) 開催 >
+
+      Discord通知確認用イベント(土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/284302086
+
+      Discord通知確認用イベント(土曜日 + 日曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/670378901
+
+      Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/808817380
+
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
 
     expected = {
@@ -85,10 +106,17 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
-    travel_to Time.zone.local(2022, 7, 30, 0, 0, 0) do
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
       assert_notifications_sent 2, **expected do
-        DiscordNotifier.tomorrow_regular_event(params).notify_now
-        DiscordNotifier.with(params).tomorrow_regular_event.notify_now
+        DiscordNotifier.with(params).coming_soon_regular_events.notify_now
+        DiscordNotifier.coming_soon_regular_events(params).notify_now
+      end
+    end
+
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      assert_notifications_enqueued 2, **expected do
+        DiscordNotifier.with(params).coming_soon_regular_events.notify_later
+        DiscordNotifier.coming_soon_regular_events(params).notify_later
       end
     end
   end
