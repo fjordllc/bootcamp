@@ -55,8 +55,8 @@ class ProductsController < ApplicationController
     update_published_at
     if @product.update(product_params)
       Newspaper.publish(:product_update, { product: @product, current_user: current_user })
-      redirect_to @product, notice: notice_message(@product, :update)
       notice_another_mentor_assigned_as_checker
+      redirect_to @product, notice: notice_message(@product, :update)
     else
       render :edit
     end
