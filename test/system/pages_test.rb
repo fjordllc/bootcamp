@@ -262,4 +262,12 @@ class PagesTest < ApplicationSystemTestCase
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_page_path, 'komagata'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find("textarea.a-text-input")["data-input"]
+  end
 end
