@@ -393,7 +393,7 @@ class EventsTest < ApplicationSystemTestCase
     within(:css, '.a-file-insert') do
       assert_selector 'input.file-input', visible: false
     end
-    assert_equal '.file-input', find("textarea.a-text-input")["data-input"]
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
   test 'When signing up for an event during Watch, Watch is not registered twice' do

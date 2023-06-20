@@ -126,7 +126,7 @@ class AnswersTest < ApplicationSystemTestCase
     within(:css, '.a-file-insert') do
       assert_selector 'input.new-comment-file-input', visible: false
     end
-    assert_equal '.new-comment-file-input', find("textarea.a-text-input")["data-input"]
+    assert_equal '.new-comment-file-input', find('textarea.a-text-input')['data-input']
   end
 
   test 'using file uploading by file selection dialogue in answers textarea' do
@@ -143,7 +143,7 @@ class AnswersTest < ApplicationSystemTestCase
 
     test_target_textarea = page.all('.form-textarea__body')[0]
     within test_target_textarea do
-    assert_equal ".js-comment-file-input-#{answers(:answer1).id}", find("textarea.a-text-input")["data-input"]
+      assert_equal ".js-comment-file-input-#{answers(:answer1).id}", find('textarea.a-text-input')['data-input']
     end
   end
 end

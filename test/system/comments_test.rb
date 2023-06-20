@@ -344,6 +344,6 @@ class CommentsTest < ApplicationSystemTestCase
     within(:css, '.a-file-insert') do
       assert_selector 'input.new-comment-file-input', visible: false
     end
-    assert_equal '.new-comment-file-input', find("textarea.a-text-input")["data-input"]
+    assert_equal '.new-comment-file-input', find('textarea.a-text-input')['data-input']
   end
 end

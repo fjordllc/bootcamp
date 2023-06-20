@@ -511,7 +511,7 @@ class QuestionsTest < ApplicationSystemTestCase
     within(:css, '.a-file-insert') do
       assert_selector 'input.file-input', visible: false
     end
-    assert_equal '.file-input', find("textarea.a-text-input")["data-input"]
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
   test 'using file uploading by file selection dialogue in textarea at editing question' do
@@ -523,6 +523,6 @@ class QuestionsTest < ApplicationSystemTestCase
     within element do
       assert_selector 'input.js-question-file-input', visible: false
     end
-    assert_equal '.js-question-file-input', find("textarea.a-text-input")["data-input"]
+    assert_equal '.js-question-file-input', find('textarea.a-text-input')['data-input']
   end
 end
