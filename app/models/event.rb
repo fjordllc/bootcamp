@@ -43,6 +43,9 @@ class Event < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
+  scope :today_events, -> { where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight) }
+  scope :tomorrow_events, -> { where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight) }
+  scope :day_after_tomorrow_events, -> { where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight) }
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -158,19 +161,5 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
-  end
-
-  class << self
-    def today_events
-      where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight)
-    end
-
-    def tomorrow_events
-      where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight)
-    end
-
-    def day_after_tomorrow_events
-      where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight)
-    end
   end
 end
