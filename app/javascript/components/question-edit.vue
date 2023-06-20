@@ -144,15 +144,23 @@
                 :class='{ "is-active": isActive("preview") }',
                 @click='changeActiveTab("preview")')
                 | プレビュー
-            .form-tabs-item__markdown-parent.js-markdown-parent
-              .form-tabs-item__markdown.js-tabs__content(
-                :class='{ "is-active": isActive("question") }')
-                textarea#js-question-content.a-text-input.form-tabs-item__textarea(
-                  v-model='edited.description',
-                  data-preview='#js-question-preview',
-                  data-input='.js-question-file-input',
-                  name='question[description]')
-                input.js-question-file-input(type='file', multiple)
+            .a-markdown-parent.js-markdown-parent
+              .a-markdown-input__inner.js-tabs__content(
+                v-bind:class='{ "is-active": isActive("question") }')
+                .form-textarea
+                  .form-textarea__body
+                    textarea#js-question-content.a-text-input.form-tabs-item__textarea(
+                      v-model='edited.description',
+                      data-preview='#js-question-preview',
+                      data-input='.js-question-file-input',
+                      name='question[description]')
+                  .form-textarea__footer
+                    .form-textarea__insert
+                      label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                        | ファイルを挿入
+                        input.js-question-file-input(
+                        type='file',
+                        multiple)
               .form-tabs-item__markdown.js-tabs__content(
                 :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
