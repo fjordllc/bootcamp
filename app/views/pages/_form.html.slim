@@ -22,9 +22,17 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :body, class: 'a-form-label'
-          input(type='file' class='file-input' multiple)
-          = f.text_area :body, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
-          data: { 'preview': '.js-preview', 'input': '.file-input' }
+          .form-textarea
+            .form-textarea__body
+              = f.text_area :body, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                  | ファイルを挿入
+                  input(type='file' class='file-input' multiple)
+              .form-textarea__bottom-note
+                | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
