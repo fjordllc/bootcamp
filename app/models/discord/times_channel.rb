@@ -2,9 +2,6 @@
 
 module Discord
   class TimesChannel
-    include ActiveSupport::Configurable
-    config_accessor :category_id, instance_accessor: false
-
     class << self
       def to_channel_name(username)
         username.downcase
@@ -18,7 +15,7 @@ module Discord
     def save
       @channel = Discord::Server.create_text_channel(
         name: @name,
-        parent: Discord::TimesChannel.category_id
+        parent: Discord::TimesCategory.categorize_by_initials(@name)
       )
 
       !!@channel
