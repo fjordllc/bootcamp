@@ -696,6 +696,6 @@ class ReportsTest < ApplicationSystemTestCase
     within(:css, '.a-file-insert') do
       assert_selector 'input.file-input', visible: false
     end
-    assert_equal '.file-input', find("textarea.a-text-input")["data-input"]
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end
