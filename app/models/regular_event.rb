@@ -53,6 +53,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :holding, -> { where(finished: false) }
+  scope :today_events, -> { where(id: holding.select(&:holding_today?).map(&:id)) }
+  scope :tomorrow_events, -> { where(id: holding.select(&:holding_tomorrow?).map(&:id)) }
+  scope :day_after_tomorrow_events, -> { where(id: holding.select(&:holding_day_after_tomorrow?).map(&:id)) }
+  scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -152,29 +156,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   class << self
-    def today_events
-      holding_events = RegularEvent.holding
-      ids = holding_events.select(&:holding_today?).map(&:id)
-      where(id: ids)
-    end
-
-    def tomorrow_events
-      holding_events = RegularEvent.holding
-      ids = holding_events.select(&:holding_tomorrow?).map(&:id)
-      where(id: ids)
-    end
-
-    def day_after_tomorrow_events
-      holding_events = RegularEvent.holding
-      ids = holding_events.select(&:holding_day_after_tomorrow?).map(&:id)
-      where(id: ids)
-    end
-
-    def participated_by(user)
-      ids = all.select { |e| e.participated_by?(user) }.map(&:id)
-      where(id: ids)
-    end
-
     def comming_soon_events(user)
       [today_events, tomorrow_events].map do |regular_events|
         regular_events.select { |event| event.participated_by?(user) }
