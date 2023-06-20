@@ -158,9 +158,7 @@
                     .form-textarea__insert
                       label.a-file-insert.a-button.is-sm.is-secondary.is-block
                         | ファイルを挿入
-                        input.js-question-file-input(
-                        type='file',
-                        multiple)
+                        input.js-question-file-input(type='file', multiple)
               .form-tabs-item__markdown.js-tabs__content(
                 :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview

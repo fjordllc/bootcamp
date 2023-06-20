@@ -87,11 +87,11 @@
             v-bind:class='{ "is-active": isActive("answer") }')
           .form-textarea
             .form-textarea__body
-                textarea.a-text-input.a-markdown-input__textarea(
+              textarea.a-text-input.a-markdown-input__textarea(
                 v-model='description',
                 :id='`js-comment-${this.answer.id}`',
                 :data-preview='`#js-comment-preview-${this.answer.id}`',
-              :data-input='`.js-comment-file-input-${this.answer.id}`',
+                :data-input='`.js-comment-file-input-${this.answer.id}`',
                 name='answer[description]')
             .form-textarea__footer
               .form-textarea__insert

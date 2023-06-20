@@ -39,11 +39,11 @@
             :class='{ "is-active": isActive("answer") }')
           .form-textarea
             .form-textarea__body
-                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
+              textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
                 v-model='description',
                 name='answer[description]',
                 data-preview='#new-comment-preview',
-              data-input='.new-comment-file-input',
+                data-input='.new-comment-file-input',
                 @input='editAnswer')
             .form-textarea__footer
               .form-textarea__insert
