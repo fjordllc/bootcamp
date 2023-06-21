@@ -108,7 +108,7 @@ export default {
     title: { type: String, required: true },
     selectedTab: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     checkerId: { type: String, required: false, default: null },
     displayUserIcon: { type: Boolean, default: true }
   },

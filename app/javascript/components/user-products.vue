@@ -29,7 +29,7 @@ export default {
   props: {
     userId: { type: Number, default: null },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: Number, required: true }
   },
   data() {
     return {
