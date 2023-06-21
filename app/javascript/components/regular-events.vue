@@ -1,17 +1,16 @@
 <template lang="pug">
-.l-main-column
-  .page-content.loaing(v-if='!loaded')
-    | ロード中
-  .page-content.loaded(v-else)
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .card-list.a-card
-      regularEvent(
-        v-for='regularEvent in regularEvents',
-        :key='regularEvent.id',
-        :regularEvent='regularEvent')
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+.page-content.loaing(v-if='!loaded')
+  | ロード中
+.page-content.loaded(v-else)
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
+  .card-list.a-card
+    regularEvent(
+      v-for='regularEvent in regularEvents',
+      :key='regularEvent.id',
+      :regularEvent='regularEvent')
+  nav.pagination(v-if='totalPages > 1')
+    pager(v-bind='pagerProps')
 </template>
 
 <script>
