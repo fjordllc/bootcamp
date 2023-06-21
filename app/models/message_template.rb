@@ -8,9 +8,7 @@ class MessageTemplate
   end
 
   def load(params = {})
-    full_path = DEFAULT_DIRECTORY + @path
-
-    erb_str = File.read(full_path)
+    erb_str = File.read(DEFAULT_DIRECTORY + @path)
     yaml_str = ERB.new(erb_str).result_with_hash(params)
     yaml = adjust_indentation(yaml_str)
     YAML.load(yaml)
