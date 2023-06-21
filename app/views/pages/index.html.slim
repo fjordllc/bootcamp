@@ -28,7 +28,7 @@ header.page-header
                 .page-main-header-actions__items
                   = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
 .page-body
-  .container.is-xl
+  .container.is-lg
     .page-body__columns
       .page-body__column.is-main
         div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}")
