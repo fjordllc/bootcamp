@@ -1,26 +1,27 @@
 <template lang="pug">
-#notifications.page-content.loaing(v-if='!loaded')
-  loadingListPlaceholder
-.o-empty-message(v-else-if='notifications.length === 0')
-  .o-empty-message__icon
-    i.fa-regular.fa-smile
-  p.o-empty-message__text(v-if='isUnreadPage')
-    | 未読の通知はありません
-  p.o-empty-message__text(v-else)
-    | 通知はありません
-#notifications.page-content.loaded(v-else)
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-  .card-list.a-card
-    notification(
-      v-for='notification in notifications',
-      :key='notification.id',
-      :notification='notification')
-    unconfirmed-links-open-button(
-      v-if='isMentor && isUnreadPage',
-      label='未読の通知を一括で開く')
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+.l-main-column
+  #notifications.page-content.loaing(v-if='!loaded')
+    loadingListPlaceholder
+  .o-empty-message(v-else-if='notifications.length === 0')
+    .o-empty-message__icon
+      i.fa-regular.fa-smile
+    p.o-empty-message__text(v-if='isUnreadPage')
+      | 未読の通知はありません
+    p.o-empty-message__text(v-else)
+      | 通知はありません
+  #notifications.page-content.loaded(v-else)
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .card-list.a-card
+      notification(
+        v-for='notification in notifications',
+        :key='notification.id',
+        :notification='notification')
+      unconfirmed-links-open-button(
+        v-if='isMentor && isUnreadPage',
+        label='未読の通知を一括で開く')
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 
 <script>

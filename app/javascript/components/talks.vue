@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.l-main-column
   .page-filter.form
     .form__items
       .form-item.is-inline-md-up
