@@ -3,17 +3,36 @@
 require 'test_helper'
 
 class ProductNotifierForPracticeWatcherTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
+  setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+  end
+
+  teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
+  end
+
   test '#call' do
-    watch = watches(:practice1_watch_mentormentaro)
-    product = products(:product70)
-    byebug
+    watch = Watch.new(
+      user: users(:machida),
+      watchable: practices(:practice1)
+    )
+    watch.save!
 
-    # 何をテストすればいいのか分からなくなった。
-    # callの戻り値user（めんためんたろう）
-    # notificationは作成されていない。なぜ。
+    product = Product.new(
+      body: 'test',
+      user: users(:hajime),
+      practice: practices(:practice1)
+    )
+    product.save!
+
+    product.update!(body: 'testtest')
+    product.save!
+
     ProductNotifierForPracticeWatcher.new.call(product)
-
-    assert Notification.where(kind: 17, user_id: product.user_id, sender_id: watch.user_id, message: "#{product.user}さんの提出物が更新されました", read: false,
-                              link: "/products/#{product.id}").exists?
+    byebug
+    assert Notification.where(user_id: product.user_id, sender_id: watch.user_id, body: "#{product.user}さんの提出物が更新されました").exists?
   end
 end
