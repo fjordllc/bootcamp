@@ -15,7 +15,7 @@ header.page-header
               | お知らせ一覧へ
 
 .page-body
-  .container.is-lg
+  .container.is-md
     = render 'announcement', announcement: @announcement
     #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
     div(data-vue='Footprints' data-vue-footprintable-id="#{@announcement.id}" data-vue-footprintable-type='Announcement')
