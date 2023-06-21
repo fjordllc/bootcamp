@@ -30,15 +30,13 @@ export default {
       isActionCompleted: false
     }
   },
-  computed: {
-    CompletedLabel() {
-      return this.isActionCompleted ? '対応済み' : '未対応'
-    }
-  },
   created() {
     this.isActionCompleted = this.isInitialActionCompleted
   },
   methods: {
+    completedLabel() {
+      return this.isActionCompleted ? '対応済み' : '未対応'
+    },
     changeCompleted() {
       this.isActionCompleted = !this.isActionCompleted
       const params = {
@@ -57,7 +55,7 @@ export default {
         body: JSON.stringify(params)
       })
         .then(() => {
-          this.toast(`${this.CompletedLabel}にしました`)
+          this.toast(`${this.completedLabel()}にしました`)
         })
         .catch((error) => {
           console.warn(error)
