@@ -1,7 +1,7 @@
 <template lang="pug">
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
   .users-item
-    .users-item__inner.a-card
+    .users-item__inner.a-card.is-loading
       .users-item__header
         .users-item__header-inner
           .users-item__header-start
