@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (comments) {
     const commentableId = comments.getAttribute('data-commentable-id')
     const commentableType = comments.getAttribute('data-commentable-type')
-    const currentUserId = comments.getAttribute('data-current-user-id')
+    const currentUserId = Number(comments.getAttribute('data-current-user-id'))
     const currentUser = window.currentUser
     new Vue({
       store,
