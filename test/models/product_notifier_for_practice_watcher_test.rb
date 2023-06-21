@@ -31,8 +31,10 @@ class ProductNotifierForPracticeWatcherTest < ActiveSupport::TestCase
     product.update!(body: 'testtest')
     product.save!
 
-    ProductNotifierForPracticeWatcher.new.call(product)
-    byebug
-    assert Notification.where(user_id: product.user_id, sender_id: watch.user_id, body: "#{product.user}さんの提出物が更新されました").exists?
+    perform_enqueued_jobs do
+      assert_difference 'Notification.count', 2 do
+        ProductNotifierForPracticeWatcher.new.call(product)
+      end
+    end
   end
 end
