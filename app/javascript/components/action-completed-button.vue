@@ -23,7 +23,7 @@ export default {
   mixins: [toast],
   props: {
     isInitialActionCompleted: { type: Boolean, required: true },
-    commentableId: { type: String, required: true }
+    commentableId: { type: Number, required: true }
   },
   data() {
     return {
