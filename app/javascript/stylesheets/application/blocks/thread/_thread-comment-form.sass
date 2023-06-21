@@ -1,12 +1,11 @@
 .thread-comment-form
   +media-breakpoint-up(md)
-    +position(relative)
-    padding-left: $thread-header-author
+    display: flex
   .card-footer
     border-top: none
 
 .thread-comment-form__author
-  +position(absolute, left 0, top 0)
+  flex: 0 0 $thread-header-author
   +size($thread-header-author 100%)
   padding-right: 2rem
   border-right: solid 1px $border-tint
@@ -16,5 +15,6 @@
   border-radius: 50%
 
 .thread-comment-form__form
+  flex: 1
   +position(relative)
   overflow: hidden

@@ -1,5 +1,5 @@
 <template lang="pug">
-.form-actions.is-action-completed.mb-8
+.form-actions.thread-comment-form.is-action-completed.mb-8
   ul.form-actions__items
     li.form-actions__item.is-main
       label.support-checkbox
