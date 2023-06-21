@@ -10,9 +10,16 @@ class GraduationControllerTest < ActionDispatch::IntegrationTest
     user = users(:kensyu)
     target = users(:hajime)
 
-    post user_sessions_path, params: { authenticity_token: token, user: { login: user.login_name, password: 'testtest' } }
+    post user_sessions_path, params: {
+      authenticity_token: token, user: {
+        login: user.login_name, password: 'testtest'
+      }
+    }
     follow_redirect!
-    patch "/users/#{target.id}/graduation", params: { authenticity_token: token, user_id: target.id }
+
+    patch "/users/#{target.id}/graduation", params: {
+      authenticity_token: token, user_id: target.id
+    }
     follow_redirect!
 
     assert_equal '管理者としてログインしてください', '管理者としてログインしてください'
