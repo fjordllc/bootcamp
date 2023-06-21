@@ -35,7 +35,7 @@ header.page-header
   - if @product.user == current_user && @learning&.complete?
     = render 'completion_message', practice: @product.practice
 
-  .container.is-xxxl
+  .container.is-xxl
     div(class="#{current_user.mentor? || current_user.admin? ? 'row is-gutter-width-32 is-jc:c' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
 

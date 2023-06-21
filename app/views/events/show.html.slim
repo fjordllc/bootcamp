@@ -20,38 +20,38 @@ header.page-header
 
 - if @event.wip?
   .a-page-notice.is-danger
-    .container.is-lg
+    .container.is-md
       .a-page-notice__inner
         p
           | 公開されるまでお待ちください。
 - elsif !@event.opening?
   - if @event.wip?
     .a-page-notice.is-danger
-      .container.is-lg
+      .container.is-md
         .a-page-notice__inner
           p
             | 公開されるまでお待ちください。
   - elsif @event.before_opening?
     .a-page-notice.is-danger
-      .container.is-lg
+      .container.is-md
         .a-page-notice__inner
           p
             | 募集開始までお待ち下さい。
   - elsif @event.closing?
     .a-page-notice.is-muted
-      .container.is-lg
+      .container.is-md
         .a-page-notice__inner
           p
             | 募集受付は終了しました。
   - else
     .a-page-notice.is-muted
-      .container.is-lg
+      .container.is-md
         .a-page-notice__inner
           p
             | 特別イベントは終了しました。
 
 .page-body
-  .container.is-lg
+  .container.is-md
     = render 'event', event: @event
     #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
     div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')
