@@ -5,10 +5,6 @@ html
     display: none !important
 
   body
-    .is-hidden-lg-up
-      +media-breakpoint-up(lg)
-        display: none
-
     .is-hidden-lg-down
       +media-breakpoint-down(lg)
         display: none
@@ -17,19 +13,9 @@ html
       +media-breakpoint-up(md)
         display: none !important
 
-    .is-hidden-md-down
-      +media-breakpoint-down(md)
-        display: none
-
     .is-hidden-sm-down
       +media-breakpoint-down(sm)
         display: none
-
-    .is-mw-100
-      max-width: 100%
-
-    .is-jc\:c
-      justify-content: center
 
 .is-only-mentor
   body:not(.is-mentor-mode) &
