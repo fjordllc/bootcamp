@@ -65,7 +65,7 @@ header.page-content-header
         .page-content-header__tags
           .tag-links
             ul.tag-links__items
-              - report.practices.eager_load(:categories).order('categories_practices.position').each do |practice|
+              - report.categories_practices.each do |practice|
                 li.tag-links__item
                   = link_to practice, class: 'tag-links__item-link' do
                     = practice.title
