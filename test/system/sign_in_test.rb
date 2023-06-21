@@ -62,7 +62,7 @@ class SignInTest < ApplicationSystemTestCase
     assert_text '休会中です。休会復帰ページから手続きをお願いします。'
   end
 
-  test 'if continue operation, login fails with inactive account but success with active account' do
+  test 'inactive account fail but active account success if continue login operation after login failure ' do
     visit '/login'
     within('#sign-in-form') do
       fill_in('user[login]', with: 'yameo')
