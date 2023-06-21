@@ -146,4 +146,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(sender: sender, receiver: receiver, sender_roles: sender.roles_to_s).signed_up
   end
+
+  def chose_correct_answer
+    answer = Answer.find(ActiveRecord::FixtureSet.identify(:correct_answer1))
+    receiver = User.find(answer.user_id)
+
+    ActivityMailer.with(answer: answer, receiver: receiver).chose_correct_answer
+  end
 end
