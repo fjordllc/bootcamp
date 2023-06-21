@@ -17,32 +17,33 @@
           i.fa-regular.fa-sad-tear
         .o-empty-message__text
           | 日報はまだありません。
-.page-content.reports(v-else)
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-  .reports.is-md(v-if='reports === null')
-    loadingListPlaceholder
-  .card-list.a-card(v-else-if='reports.length > 0')
-    .card-list__items
-      report(
-        v-for='report in reports',
-        :key='report.id',
-        :report='report',
-        :current-user-id='currentUserId',
-        :display-user-icon='displayUserIcon')
-    unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
-  .o-empty-message(v-else-if='reports.length === 0 && isUncheckedReportsPage')
-    .o-empty-message__icon
-      i.fa-regular.fa-smile
-    p.o-empty-message__text
-      | 未チェックの日報はありません
-  .o-empty-message(v-else)
-    .o-empty-message__icon
-      i.fa-regular.fa-sad-tear
-    .o-empty-message__text
-      | 日報はまだありません。
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
+.l-main-column(v-else)
+  .page-content.reports
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
+    .reports.is-md(v-if='reports === null')
+      loadingListPlaceholder
+    .card-list.a-card(v-else-if='reports.length > 0')
+      .card-list__items
+        report(
+          v-for='report in reports',
+          :key='report.id',
+          :report='report',
+          :current-user-id='currentUserId',
+          :display-user-icon='displayUserIcon')
+      unconfirmed-link(v-if='isUncheckedReportsPage', label='未チェックの日報を一括で開く')
+    .o-empty-message(v-else-if='reports.length === 0 && isUncheckedReportsPage')
+      .o-empty-message__icon
+        i.fa-regular.fa-smile
+      p.o-empty-message__text
+        | 未チェックの日報はありません
+    .o-empty-message(v-else)
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      .o-empty-message__text
+        | 日報はまだありません。
+    nav.pagination(v-if='totalPages > 1')
+      pager(v-bind='pagerProps')
 </template>
 <script>
 import Report from 'components/report.vue'
