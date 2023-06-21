@@ -69,14 +69,6 @@ class NotificationMailer < ApplicationMailer
     mail to: @user.email, subject: subject
   end
 
-  # required params: answer, receiver
-  def chose_correct_answer
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@answer.question.id}")
-    subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
-    mail to: @user.email, subject: subject
-  end
-
   # required params: question, receiver
   def no_correct_answer
     @user = @receiver

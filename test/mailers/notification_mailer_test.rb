@@ -44,26 +44,6 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match(/日報/, email.body.to_s)
   end
 
-  test 'chose_correct_answer' do
-    answer = correct_answers(:correct_answer2)
-    notification = notifications(:notification_chose_correct_answer)
-    mailer = NotificationMailer.with(
-      answer: answer,
-      receiver: notification.user
-    ).chose_correct_answer
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['advijirou@example.com'], email.to
-    assert_equal '[FBC] hajimeさんの質問【 解決済みの質問 】でadvijirouさんの回答がベストアンサーに選ばれました。', email.subject
-    assert_match(/回答/, email.body.to_s)
-  end
-
   test 'no_correct_answer' do
     user = users(:kimura)
     question = questions(:question8)

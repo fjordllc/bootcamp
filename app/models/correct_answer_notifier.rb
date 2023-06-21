@@ -13,7 +13,7 @@ class CorrectAnswerNotifier
     receiver_ids = watcher_ids - [question.user_id]
     receiver_ids.each do |receiver_id|
       receiver = User.find(receiver_id)
-      NotificationFacade.chose_correct_answer(answer, receiver)
+      ActivityDelivery.with(answer: answer, receiver: receiver).notify(:chose_correct_answer)
     end
   end
 end
