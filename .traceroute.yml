@@ -28,6 +28,7 @@ ignore_unreachable_actions:
   - mails#welcome
   - reports#convert_to_hour_minute
   - reports#convert_to_ceiled_hour
+  - reports#category_practices
   - reports#practice_options
   - home#pricing
   - any_login\/.*
