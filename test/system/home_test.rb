@@ -275,14 +275,12 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'mentormentaro'
     assert_text "2件の提出物が、\n8時間後に5日経過に到達します。"
 
-    visit "/products/#{products(:product70).id}"
-    click_button '担当する'
-    visit '/'
+    products(:product70).update!(checker: users(:mentormentaro))
+    visit current_path
     assert_text "1件の提出物が、\n8時間後に5日経過に到達します。"
 
-    visit "/products/#{products(:product71).id}"
-    click_button '担当する'
-    visit '/'
+    products(:product71).update!(checker: users(:mentormentaro))
+    visit current_path
     assert_text "しばらく5日経過に到達する\n提出物はありません。"
   end
 
