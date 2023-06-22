@@ -15,12 +15,7 @@ class ProductNotifierForPracticeWatcherTest < ActiveSupport::TestCase
   end
 
   test '#call' do
-    watch = Watch.new(
-      user: users(:machida),
-      watchable: practices(:practice1)
-    )
-    watch.save!
-
+    watch = watches(:practice1_watch_mentormentaro)
     product = Product.new(
       body: 'test',
       user: users(:hajime),
@@ -28,13 +23,10 @@ class ProductNotifierForPracticeWatcherTest < ActiveSupport::TestCase
     )
     product.save!
 
-    product.update!(body: 'testtest')
-    product.save!
-
     perform_enqueued_jobs do
-      assert_difference 'Notification.count', 2 do
-        ProductNotifierForPracticeWatcher.new.call(product)
-      end
+      ProductNotifierForPracticeWatcher.new.call(product)
     end
+    assert Notification.where(user_id: watch.user_id, sender_id: product.user_id,
+                              message: "#{product.user.login_name}さんが「#{product.practice.title}」の提出物を提出しました。").exists?
   end
 end
