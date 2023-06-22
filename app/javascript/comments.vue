@@ -101,7 +101,7 @@ export default {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
     currentUserId: { type: Number, required: true },
-    currentUser: { type: Object, required: true },
+    currentUser: { type: Object, required: true }
   },
   data() {
     return {
