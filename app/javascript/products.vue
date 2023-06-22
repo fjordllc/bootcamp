@@ -78,17 +78,6 @@
                 :isMentor='isMentor',
                 :display-user-icon='displayUserIcon')
       .under-cards(v-if='isDashboard')
-        .under-cards__links.mt-4.text-center.leading-normal.text-sm
-          a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
-            class='hover\:bg-black',
-            href='/products/unassigned#4days-elapsed',
-            v-if='countAlmostPassed5days() === 0')
-            | しばらく5日経過に到達する<br>提出物はありません。
-          a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
-            class='hover\:bg-black',
-            href='/products/unassigned#4days-elapsed',
-            v-else)
-            | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間後に5日経過に到達します。
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`')
@@ -153,6 +142,19 @@ div(v-else-if='isDashboard')
             :currentUserId='currentUserId',
             :isMentor='isMentor',
             :display-user-icon='displayUserIcon')
+
+  .under-cards
+    .under-cards__links.mt-4.text-center.leading-normal.text-sm
+      a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
+        class='hover\:bg-black',
+        href='/products/unassigned#4days-elapsed',
+        v-if='countAlmostPassed5days() === 0')
+        | しばらく5日経過に到達する<br>提出物はありません。
+      a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
+        class='hover\:bg-black',
+        href='/products/unassigned#4days-elapsed',
+        v-else)
+        | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間後に5日経過に到達します。
 
 //- 全て, 未完了
 .page-content.is-products(v-else)
