@@ -379,4 +379,20 @@ class ActivityMailer < ApplicationMailer
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
   end
+
+  def product_update(args = {})
+    @product = params&.key?(:product) ? params[:product] : args[:product]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/products/#{@product.id}",
+      kind: Notification.kinds[:product_update]
+    )
+    subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を提出しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
 end
