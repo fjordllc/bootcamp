@@ -34,7 +34,7 @@ module ReportsHelper
     "#{ceiled_hour}時間"
   end
 
-  def category_practices
-    practices.eager_load(:categories).order('categories_practices.position')
+  def category_practices(report)
+    report.practices.eager_load(:categories).order('categories_practices.position')
   end
 end

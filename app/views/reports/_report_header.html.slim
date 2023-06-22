@@ -65,7 +65,7 @@ header.page-content-header
         .page-content-header__tags
           .tag-links
             ul.tag-links__items
-              - report.category_practices.each do |practice|
+              - category_practices(report).each do |practice|
                 li.tag-links__item
                   = link_to practice, class: 'tag-links__item-link' do
                     = practice.title
