@@ -42,7 +42,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     mail_to_mentor = mails.find { |m| m.to == [mentor.email] }
     assert_equal "[FBC] #{user.login_name}さんが退会しました。", mail_to_mentor.subject
     mail_to_user = mails.find { |m| m.to == [user.email] }
-    assert_equal '[FBC] 退会処理が完了しました', mail_to_user.subject
+    assert_equal '[FBC] 重要なお知らせ：受講ステータスの変更について', mail_to_user.subject
   end
 
   test 'not retire when hibernated for less than three months' do
@@ -109,7 +109,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     stub_warn_logger = ->(message) { logs << message }
     Rails.logger.stub(:warn, stub_warn_logger) do
       stub_postmark_error = ->(_user) { raise Postmark::InactiveRecipientError }
-      UserMailer.stub(:retire, stub_postmark_error) do
+      UserMailer.stub(:retire_after_long_hibernation, stub_postmark_error) do
         travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
           VCR.use_cassette 'subscription/update' do
             visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'

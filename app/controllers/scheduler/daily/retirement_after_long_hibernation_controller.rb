@@ -17,7 +17,7 @@ class Scheduler::Daily::RetirementAfterLongHibernationController < SchedulerCont
 
       Newspaper.publish(:retirement_create, user)
       begin
-        UserMailer.retire(user).deliver_now
+        UserMailer.retire_after_long_hibernation(user).deliver_now
       rescue Postmark::InactiveRecipientError => e
         logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
       end
