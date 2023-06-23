@@ -121,7 +121,7 @@ export default {
   props: {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     displayUserIcon: { type: Boolean }
   },
   computed: {

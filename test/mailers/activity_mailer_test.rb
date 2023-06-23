@@ -915,4 +915,78 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
+
+  test 'chose_correct_answer with using synchronous mailer' do
+    answer = correct_answers(:correct_answer1)
+    receiver = answer.user
+
+    ActivityMailer.chose_correct_answer(
+      answer: answer,
+      receiver: receiver
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: Notification.kinds[:chose_correct_answer], link: "/questions/#{answer.question.id}#answer_#{answer.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal [receiver.email], email.to
+    assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+  end
+
+  test 'chose_correct_answer with params using asynchronous mailer' do
+    answer = correct_answers(:correct_answer1)
+    receiver = answer.user
+
+    mailer = ActivityMailer.with(
+      answer: answer,
+      receiver: receiver
+    ).chose_correct_answer
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: Notification.kinds[:chose_correct_answer], link: "/questions/#{answer.question.id}#answer_#{answer.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal [receiver.email], email.to
+    assert_equal "[FBC] #{answer.receiver.login_name}さんの質問【 #{answer.question.title} 】で#{answer.sender.login_name}さんの回答がベストアンサーに選ばれました。", email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">回答へ</a>}, email.body.to_s)
+  end
+
+  test 'not send chose_correct_answer email to user with mail_notification off' do
+    answer = correct_answers(:correct_answer1)
+    receiver = answer.user
+    receiver.update(mail_notification: false)
+
+    mailer = ActivityMailer.with(
+      answer: answer,
+      receiver: receiver
+    ).chose_correct_answer
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
+  test 'not send chose_correct_answer email to retired user' do
+    answer = correct_answers(:correct_answer1)
+    receiver = answer.user
+    receiver.update(retired_on: Date.current)
+
+    mailer = ActivityMailer.with(
+      answer: answer,
+      receiver: receiver
+    ).chose_correct_answer
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end

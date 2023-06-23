@@ -1,10 +1,10 @@
 <template lang="pug">
 button(
-  v-if='!checkerId || checkerId == currentUserId',
+  v-if='!checkerId || checkerId === currentUserId',
   :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
   @click='checkInCharge')
   i(
-    v-if='!checkerId || checkerId == currentUserId',
+    v-if='!checkerId || checkerId === currentUserId',
     :class='["fas", productCheckerId ? "fa-times" : "fa-hand-paper"]',
     @click='checkInCharge')
   | {{ buttonLabel }}
@@ -24,7 +24,7 @@ export default {
   props: {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     productId: { type: Number, required: true },
     checkableType: { type: String, required: false, default: null },
     checkerAvatar: { type: String, required: false, default: null },

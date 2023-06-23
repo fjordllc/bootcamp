@@ -2,14 +2,14 @@
   +position(relative)
   border-radius: .25rem
   +media-breakpoint-up(md)
+    display: flex
     margin-bottom: 2rem
-    padding-left: $thread-header-author
   +media-breakpoint-down(sm)
     padding-left: 0
     margin-bottom: 1rem
 
 .thread-comment__author
-  +position(absolute, left 0, top 0)
+  flex: 0 0 $thread-header-author
   +size($thread-header-author 100%)
   +media-breakpoint-down(sm)
     display: none

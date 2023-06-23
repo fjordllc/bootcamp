@@ -15,7 +15,8 @@ class RequiredField
   validates :avatar_attached, presence: { message: 'ユーザーアイコンを登録してください。' }
   validates :tag_list_count, numericality: { greater_than: 0, message: 'タグを登録してください。' }
   validates :after_graduation_hope, presence: { message: 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。' }, unless: :graduated
-  validates :discord_account, presence: { message: 'Discordアカウントを登録してください。' }
+  # Todo Discord の ID のルールが変更になったので、それに対応できるまで隠す。
+  # validates :discord_account, presence: { message: 'Discordアカウントを登録してください。' }
   validates :github_account, presence: { message: 'GitHubアカウントを登録してください。' }
   validates :blog_url, presence: { message: 'ブログURLを登録してください。' }
 end
