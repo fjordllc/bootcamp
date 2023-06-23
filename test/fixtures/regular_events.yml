@@ -94,3 +94,39 @@ regular_event27:
   start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
   user: komagata
+
+regular_event28:
+  title: Discord通知確認用イベント(土曜日開催)
+  description: Discord通知確認用イベント(土曜日開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+
+regular_event29:
+  title: Discord通知確認用イベント(土曜日 + 日曜日開催)
+  description: Discord通知確認用イベント(土曜日 + 日曜日開催)
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+
+regular_event30:
+  title: Discord通知確認用、祝日非開催イベント(金曜日開催)
+  description: Discord通知確認用、祝日非開催イベント(金曜日開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+
+regular_event31:
+  title: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+  description: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata

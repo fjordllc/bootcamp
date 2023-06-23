@@ -39,7 +39,7 @@ export default {
     companyID: { type: String, required: true },
     title: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: Number, required: true }
   },
   data() {
     return {

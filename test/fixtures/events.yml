@@ -9,7 +9,7 @@ event1:
   end_at: 2019-12-20 12:30
   open_start_at: 2019-12-10 09:00
   open_end_at: 2019-12-19 9:00
-  user: komagata
+  user: kimura
 
 event2:
   title: "募集期間中のイベント(補欠者なし)"
@@ -20,7 +20,7 @@ event2:
   end_at: <%= Time.current.next_year %>
   open_start_at: <%= Time.current %>
   open_end_at: <%= Time.current.next_year %>
-  user: komagata
+  user: kimura
 
 event3:
   title: "募集期間中のイベント(補欠者あり)"
@@ -42,7 +42,7 @@ event4:
   end_at: <%= Time.current.next_year %>
   open_start_at: <%= Time.current.next_year - 1.day %>
   open_end_at: <%= Time.current.next_year %>
-  user: komagata
+  user: kimura
 
 event5:
   title: "募集期間後のイベント"
@@ -53,7 +53,7 @@ event5:
   end_at: <%= Time.current.next_year %>
   open_start_at: <%= Time.current.yesterday %>
   open_end_at: <%= Time.current.yesterday + 1.hour %>
-  user: komagata
+  user: kimura
 
 event6:
   title: "終了したイベント"
@@ -64,7 +64,7 @@ event6:
   end_at: 2019-12-17 12:00:00
   open_start_at: 2019-12-10 9:00
   open_end_at: 2019-12-16 9:00
-  user: komagata
+  user: kimura
 
 event7:
   title: "テストのイベント"
@@ -75,7 +75,7 @@ event7:
   end_at: 2019-12-17 12:00:00
   open_start_at: 2019-12-10 9:00
   open_end_at: 2019-12-16 9:00
-  user: komagata
+  user: kimura
 
 event8:
   title: "イベントの検索結果テスト用"
@@ -86,7 +86,7 @@ event8:
   end_at: 2018-5-20 12:00:00
   open_start_at: 2018-5-14 9:00
   open_end_at: 2018-5-20 9:00
-  user: komagata
+  user: kimura
 
 <% (9..26).each do |i| %>
 event<%= i %>:
@@ -100,7 +100,7 @@ event<%= i %>:
   open_end_at: <%= Time.zone.local(2018, 5, 20, 9).ago(i.days) %>
   created_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
   updated_at: <%= Time.zone.local(2018, 5, 14, 9).ago(i.days) %>
-  user: komagata
+  user: kimura
 <% end %>
 
 event27:
@@ -112,7 +112,7 @@ event27:
   end_at: 2017-4-1 12:00:00
   open_start_at: 2017-3-25 9:00
   open_end_at: 2017-4-01 9:00
-  user: komagata
+  user: kimura
 
 event28:
   title: "直近イベントの表示テスト用(翌日)"
@@ -123,7 +123,7 @@ event28:
   end_at: 2017-4-2 12:00:00
   open_start_at: 2017-3-26 9:00
   open_end_at: 2017-4-02 9:00
-  user: komagata
+  user: kimura
 
 event29:
   title: "就職関係かつ直近イベントの表示テスト用"
@@ -135,7 +135,7 @@ event29:
   open_start_at: 2017-3-26 9:00
   open_end_at: 2017-4-02 9:00
   job_hunting: true
-  user: komagata
+  user: kimura
 
 event30:
   title: "未来のイベント境界値用"
@@ -146,7 +146,7 @@ event30:
   end_at: 2023-05-20 12:00
   open_start_at: 2023-04-20 10:00
   open_end_at: 2023-05-20 09:00
-  user: komagata
+  user: kimura
 
 event31:
   title: "過去のイベント境界値用"
@@ -157,4 +157,4 @@ event31:
   end_at: 2023-05-18 12:00
   open_start_at: 2023-04-18 10:00
   open_end_at: 2023-05-18 09:00
-  user: komagata
+  user: kimura

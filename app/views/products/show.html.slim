@@ -35,8 +35,8 @@ header.page-header
   - if @product.user == current_user && @learning&.complete?
     = render 'completion_message', practice: @product.practice
 
-  .container.is-xxxl
-    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-gutter-width-32 is-jc:c' : ''}")
+  .container.is-xxl
+    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-gutter-width-32 justify-center' : ''}")
       div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
 
         .product.page-content
@@ -79,7 +79,7 @@ header.page-header
                   = render 'users/metas', user: @product.user
                 div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@product.user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-4
-                div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:string="#{current_user.id}" data-vue-display-user-icon:boolean="false")
+                div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:number="#{current_user.id}" data-vue-display-user-icon:boolean="false")
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
