@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://example.com/rss
+    uri: https://example1.com/rss
     body:
       encoding: US-ASCII
       string: ''

@@ -15,17 +15,21 @@ class ExternalEntry < ApplicationRecord
 
   class << self
     def fetch_and_save_rss_feeds(users)
-      Parallel.each(users) do |user|
-        rss_items = ExternalEntry.parse_rss_feed(user.feed_url)
+      threads = Concurrent::Promises.future do
+        users.each do |user|
+          rss_items = ExternalEntry.parse_rss_feed(user.feed_url)
 
-        next unless rss_items
+          next unless rss_items
 
-        rss_items.each do |item|
-          next if ExternalEntry.find_by(url: item.link)
+          rss_items.each do |item|
+            next if ExternalEntry.find_by(url: item.link)
 
-          ExternalEntry.save_rss_feed(user, item)
+            ExternalEntry.save_rss_feed(user, item)
+          end
         end
       end
+
+      Concurrent::Promises.zip(threads).wait!
     end
 
     def parse_rss_feed(feed_url)

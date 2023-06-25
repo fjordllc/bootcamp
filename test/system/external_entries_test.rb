@@ -10,11 +10,12 @@ class ExternalEntriesTest < ApplicationSystemTestCase
   end
 
   test 'fetch and save rss feeds' do
-    external_entry_count_before_daily = ExternalEntry.count
-
-    VCR.use_cassette 'external_entry/fetch', vcr_options do
-      visit_with_auth '/scheduler/daily', 'komagata'
-      assert_equal external_entry_count_before_daily + 1, ExternalEntry.count
+    assert_difference 'ExternalEntry.count', 26 do
+      VCR.use_cassette 'external_entry/fetch2', vcr_options do
+        VCR.use_cassette 'external_entry/fetch' do
+          visit_with_auth '/scheduler/daily', 'komagata'
+        end
+      end
     end
   end
 end

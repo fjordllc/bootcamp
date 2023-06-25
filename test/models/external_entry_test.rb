@@ -12,7 +12,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     feed_url = ''
     assert_not ExternalEntry.parse_rss_feed(feed_url)
 
-    feed_url = 'https://example.com/rss'
+    feed_url = 'https://example1.com/rss'
     assert_not ExternalEntry.parse_rss_feed(feed_url)
 
     VCR.use_cassette 'external_entry/fetch', vcr_options do
@@ -34,18 +34,23 @@ class ExternalEntryTest < ActiveSupport::TestCase
   end
 
   test '.fetch_and_save_rss_feeds' do
-    before_fetch_and_save = ExternalEntry.count
-    users = [users(:kimura)]
+    users = [users(:kimura), users(:hatsuno)]
 
-    VCR.use_cassette 'external_entry/fetch', vcr_options do
-      ExternalEntry.fetch_and_save_rss_feeds(users)
+    assert_difference 'ExternalEntry.count', 26 do
+      VCR.use_cassette 'external_entry/fetch2', vcr_options do
+        VCR.use_cassette 'external_entry/fetch' do
+          ExternalEntry.fetch_and_save_rss_feeds(users)
+        end
+      end
     end
-    assert_equal before_fetch_and_save + 1, ExternalEntry.count
 
-    VCR.use_cassette 'external_entry/fetch', vcr_options do
-      ExternalEntry.fetch_and_save_rss_feeds(users)
+    assert_no_difference 'ExternalEntry.count' do
+      # 同じ記事は重複して保存しない
+      VCR.use_cassette 'external_entry/fetch2', vcr_options do
+        VCR.use_cassette 'external_entry/fetch' do
+          ExternalEntry.fetch_and_save_rss_feeds(users)
+        end
+      end
     end
-    # 同じ記事は重複して保存しない
-    assert_equal before_fetch_and_save + 1, ExternalEntry.count
   end
 end
