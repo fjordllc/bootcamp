@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 module BodyClassHelper
-  def qualified_controller_name
-    controller.controller_path.tr('/', '-')
-  end
-
+  include PathConversionHelper
   def page_category
     case params[:action]
     when 'new', 'create', 'edit'
@@ -23,7 +20,10 @@ module BodyClassHelper
   end
 
   def page_area
-    if controller.controller_path.include?('admin/')
+    path = controller.controller_path
+    qualified_controller_name = formatted_controller_path(path)
+
+    if path.include?('admin/')
       'admin-page'
     elsif qualified_controller_name.include?('welcome') ||
           (qualified_controller_name.include?('articles') && (page_category == 'index-page' ||
@@ -39,8 +39,8 @@ module BodyClassHelper
   end
 
   def body_class(options = {})
+    qualified_controller_name = formatted_controller_path(controller.controller_path)
     extra_body_classes_symbol = options[:extra_body_classes_symbol] || :extra_body_classes
-    qualified_controller_name = controller.controller_path.tr('/', '-')
     controller_class = "#{qualified_controller_name} #{qualified_controller_name}-#{controller.action_name}"
     basic_body_class = "#{controller_class} is-#{page_category} is-#{page_area} is-#{Rails.env} #{adviser_mode}"
 
