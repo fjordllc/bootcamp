@@ -232,6 +232,7 @@ hatsuno:
   twitter_account: hatsuno
   facebook_url: https://www.facebook.com/fjordllc/hatsuno
   blog_url: http://hatsuno.org
+  feed_url: https://example2.com/rss
   description: "初野です。課金しています。"
   customer_id: "cus_12345678"
   subscription_id: "sub_12345678"
