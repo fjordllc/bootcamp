@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module TagHelper
+  include PathConversionHelper
   def current_link(name)
     return unless qualified_page_name&.match?(name)
 
@@ -15,6 +16,6 @@ module TagHelper
   private
 
   def qualified_page_name
-    "#{controller_path.tr('/_', '-')}-#{controller.action_name}"
+    "#{formatted_controller_path(controller_path)}-#{controller.action_name}"
   end
 end
