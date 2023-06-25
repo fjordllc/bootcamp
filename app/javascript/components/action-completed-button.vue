@@ -27,8 +27,8 @@
           | このボタンをクリックして対応済のステータスに変更してください。
 </template>
 <script>
-import CSRF from 'csrf'
 import toast from 'toast'
+import Bootcamp from '../bootcamp'
 
 export default {
   name: 'ActionCompletedButton',
@@ -55,17 +55,7 @@ export default {
         talk: { action_completed: this.isActionCompleted }
       }
 
-      fetch(`/api/talks/${this.commentableId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual',
-        body: JSON.stringify(params)
-      })
+      Bootcamp.patch(`/api/talks/${this.commentableId}`, params)
         .then(() => {
           this.toast(`${this.completedLabel()}にしました`)
         })
