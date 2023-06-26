@@ -46,7 +46,7 @@ class PagesController < ApplicationController
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
 
-      current_user.watches.create!(watchable: @page) unless current_user.watches.exists?(watchable: @page)
+      current_user.watches.find_or_create_by!(watchable: @page)
 
       redirect_to url, notice: notice_message(@page, :create)
     else
@@ -64,7 +64,7 @@ class PagesController < ApplicationController
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
       end
 
-      current_user.watches.create!(watchable: @page) unless current_user.watches.exists?(watchable: @page)
+      current_user.watches.find_or_create_by!(watchable: @page)
 
       redirect_to url, notice: notice_message(@page, :update)
     else
