@@ -13,7 +13,7 @@ class ExternalEntriesTest < ApplicationSystemTestCase
     assert_difference 'ExternalEntry.count', 26 do
       VCR.use_cassette 'external_entry/fetch2', vcr_options do
         VCR.use_cassette 'external_entry/fetch' do
-          visit_with_auth '/scheduler/daily', 'komagata'
+          visit_with_auth '/scheduler/daily/fetch_external_entry', 'komagata'
         end
       end
     end
