@@ -47,6 +47,8 @@ steps:
     volumes:
       - name: db
         path: /cloudsql
+    waitFor:
+      - Push
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - sql
