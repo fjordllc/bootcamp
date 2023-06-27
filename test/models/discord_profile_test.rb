@@ -4,7 +4,7 @@ require 'test_helper'
 
 class DiscordProfileTest < ActiveSupport::TestCase
   test 'account_name' do
-    discord_profile = discord_profiles(:discord_profile1)
+    discord_profile = discord_profiles(:discord_profile_komagata)
     discord_profile.account_name = ''
     assert discord_profile.valid?
     discord_profile.account_name = 'komagata#1234'
@@ -20,7 +20,7 @@ class DiscordProfileTest < ActiveSupport::TestCase
   end
 
   test 'times_url' do
-    discord_profile = discord_profiles(:discord_profile1)
+    discord_profile = discord_profiles(:discord_profile_komagata)
     discord_profile.times_url = ''
     assert discord_profile.valid?
     discord_profile.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001'
