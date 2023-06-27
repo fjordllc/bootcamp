@@ -34,19 +34,46 @@ steps:
     volumes:
       - name: db
         path: /cloudsql
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - sql
+      - databases
+      - delete
+      - bootcamp_staging
+      - '--instance=bootcamp'
+      - '--quiet'
+    id: DropDB
+    entrypoint: gcloud
+    volumes:
+      - name: db
+        path: /cloudsql
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - sql
+      - databases
+      - create
+      - bootcamp_staging
+      - '--instance=bootcamp'
+      - '--quiet'
+    id: CreateDB
+    waitFor:
+      - DropDB
+    entrypoint: gcloud
+    volumes:
+      - name: db
+        path: /cloudsql
   - id: DB_Migrate
     name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     args:
       - bin/rails
       - bootcamp:migrate
     waitFor:
-      - Push
+      - CreateDB
     volumes:
       - name: db
         path: /cloudsql
     env:
       - RAILS_ENV=production
-      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
       - DB_HOST=/cloudsql/$_CLOUD_SQL_HOST
       - DB_NAME=$_DB_NAME
       - DB_PASS=$_DB_PASS
