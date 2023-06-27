@@ -3,7 +3,7 @@
 class ChangeNameToActiveStorageAttachment < ActiveRecord::Migration[6.1]
   def up
     ActiveStorage::Attachment.where(name: 'ogp_image', record_type: 'Practice').each do |record|
-      record.update(name: 'completion_image')
+      record.update!(name: 'completion_image')
     end
   end
 
