@@ -14,10 +14,7 @@ namespace :bootcamp do
     Rake::Task['db:migrate'].execute
 
     # staging
-    if ENV['DB_NAME'] == 'bootcamp_staging'
-      Rake::Task['db:reset'].execute
-      Rake::Task['db:seed'].execute
-    end
+    Rake::Task['db:seed'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
 
     # production
     Rake::Task['data:migrate'].execute if ENV['DB_NAME'] == 'bootcamp_production'
