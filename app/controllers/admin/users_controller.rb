@@ -53,13 +53,14 @@ class Admin::UsersController < AdminController
       :twitter_account, :facebook_url, :blog_url, :times_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
-      :experience, :prefecture_code, :company_id,
+      :experience, :company_id,
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on,
       :profile_image, :profile_name, :profile_job, :mentor,
-      :profile_text, authored_books_attributes: %i[id title url cover _destroy]
+      :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
+      :country_code, :subdivision_code
     )
   end
 

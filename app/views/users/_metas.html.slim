@@ -10,9 +10,9 @@
         = user.enrollment_period
     .user-metas__item
       .user-metas__item-label
-        | 都道府県
+        | お住まい
       .user-metas__item-value
-        = user.prefecture_name
+        = user.address || t('unregistered')
     .user-metas__item
       .user-metas__item-label
         | コース

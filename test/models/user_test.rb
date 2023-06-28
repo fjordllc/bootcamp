@@ -36,12 +36,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test '#prefecture_name' do
-    assert_equal '未登録', users(:komagata).prefecture_name
-    assert_equal '東京都', users(:kimura).prefecture_name
-    assert_equal '宮城県', users(:hatsuno).prefecture_name
-  end
-
   test '#total_learnig_time' do
     user = users(:hatsuno)
     assert_equal 0, user.total_learning_time
@@ -680,5 +674,15 @@ class UserTest < ActiveSupport::TestCase
     User.create_followup_comment(target)
 
     assert target.sent_student_followup_message
+  end
+
+  test '#country_name' do
+    assert_equal '日本', users(:kimura).country_name
+    assert_equal '米国', users(:tom).country_name
+  end
+
+  test '#subdivision_name' do
+    assert_equal '東京都', users(:kimura).subdivision_name
+    assert_equal 'ニューヨーク州', users(:tom).subdivision_name
   end
 end

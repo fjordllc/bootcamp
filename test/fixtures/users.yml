@@ -211,13 +211,14 @@ kimura:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 13
   organization: 木村大学
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
   last_activity_at: "2014-01-01 00:00:07"
   mentor_memo: "kimuraさんのメモ"
+  country_code: JP
+  subdivision_code: '13'
 
 hatsuno:
   login_name: hatsuno
@@ -236,13 +237,13 @@ hatsuno:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 4
   organization: 明治大学
   github_account: hatsuno
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   updated_at: "2014-01-01 00:00:08"
   created_at: "2014-01-01 00:00:08"
   last_activity_at: "2014-01-01 00:00:08"
+  country_code: JP
 
 hajime:
   login_name: hajime
@@ -736,7 +737,6 @@ kimuramitai:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 13
   organization: 木村そっくり大学
   unsubscribe_email_token: k6Da-oL3cRi8ApNFO9-Gcg
   updated_at: "2022-03-28 00:00:01"
@@ -762,7 +762,6 @@ long-id-mentor:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 13
   organization: メンター大学
   mentor: true
   updated_at: "2022-04-15 00:00:01"
@@ -828,7 +827,6 @@ kyuukai:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 4
   github_account: kyuukai
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   hibernated_at: "2020-01-01 00:00:00"
@@ -868,7 +866,6 @@ kyuukai:
   job: office_worker
   os: mac
   experience: inexperienced
-  prefecture_code: 4
   github_account: kyuukai
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   hibernated_at: "2020-01-01 00:00:00"
@@ -913,6 +910,25 @@ advisernocolleguetrainee:
   updated_at: "2022-07-01 00:00:00"
   created_at: "2022-07-01 00:00:00"
   last_activity_at: "2022-07-01 00:00:00"
+
+tom: #アメリカ在住のユーザー
+  login_name: tom
+  email: tom@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Tom
+  name_kana: トム
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  description: "アメリカ在住のトムです。"
+  unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
+  country_code: 'US'
+  subdivision_code: 'NY'
+  updated_at: "2023-05-08 00:00:00"
+  created_at: "2023-05-08 00:00:00"
+  last_activity_at: "2023-05-08 00:00:00"
 
 <% trailing_katakana = "ァ" %>
 <% 1.upto(4) do |i| %>
