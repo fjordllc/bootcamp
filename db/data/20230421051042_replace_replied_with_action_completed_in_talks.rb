@@ -2,9 +2,12 @@
 
 class ReplaceRepliedWithActionCompletedInTalks < ActiveRecord::Migration[6.1]
   def up
-    Talk.find_each do |talk|
-      talk.update!(action_completed: !talk.unreplied)
-    end
+    sql = <<~SQL
+      UPDATE talks
+      SET action_completed = NOT unreplied
+    SQL
+
+    ActiveRecord::Base.connection.execute sql
   end
 
   def down
