@@ -16,6 +16,9 @@ class UserDecoratorTest < ActiveSupport::TestCase
     @trainee_user = ActiveDecorator::Decorator.instance.decorate(users(:kensyu))
     @retired_user = ActiveDecorator::Decorator.instance.decorate(users(:taikai))
     @hibernationed_user = ActiveDecorator::Decorator.instance.decorate(users(:kyuukai))
+    @japanese_user = ActiveDecorator::Decorator.instance.decorate(users(:kimura))
+    @american_user = ActiveDecorator::Decorator.instance.decorate(users(:tom))
+    @subdivision_not_registered_user = ActiveDecorator::Decorator.instance.decorate(users(:hatsuno))
   end
 
   test '#staff_roles' do
@@ -51,5 +54,16 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal '研修生', @trainee_user.roles_to_s
     assert_equal '退会ユーザー', @retired_user.roles_to_s
     assert_equal '休会ユーザー', @hibernationed_user.roles_to_s
+  end
+
+  test '#subdivisions_of_country' do
+    assert_includes @japanese_user.subdivisions_of_country, %w[北海道 01]
+    assert_includes @american_user.subdivisions_of_country, %w[アラスカ州 AK]
+  end
+
+  test '#address' do
+    assert_equal '東京都 (日本)', @japanese_user.address
+    assert_equal 'ニューヨーク州 (米国)', @american_user.address
+    assert_equal '日本', @subdivision_not_registered_user.address
   end
 end
