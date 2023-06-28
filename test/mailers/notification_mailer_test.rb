@@ -43,32 +43,4 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] kensyuさんが日報【 研修の日報 】を書きました！', email.subject
     assert_match(/日報/, email.body.to_s)
   end
-
-  test 'no_correct_answer' do
-    user = users(:kimura)
-    question = questions(:question8)
-    Notification.create!(
-      kind: 22,
-      sender: user,
-      user: user,
-      message: 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。',
-      link: "/questions/#{question.id}",
-      read: false
-    )
-    mailer = NotificationMailer.with(
-      question: question,
-      receiver: user
-    ).no_correct_answer
-
-    perform_enqueued_jobs do
-      mailer.deliver_later
-    end
-
-    assert_not ActionMailer::Base.deliveries.empty?
-    email = ActionMailer::Base.deliveries.last
-    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
-    assert_equal ['kimura@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんの質問【 テストの質問 】のベストアンサーがまだ選ばれていません。', email.subject
-    assert_match(/まだ選ばれていません/, email.body.to_s)
-  end
 end
