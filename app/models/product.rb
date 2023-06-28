@@ -146,7 +146,7 @@ class Product < ApplicationRecord
   end
 
   def other_checker_exists?(user_id)
-    checker_id.present? && checker_id.to_s != user_id
+    checker_id.present? && checker_id != user_id
   end
 
   def unassigned?
