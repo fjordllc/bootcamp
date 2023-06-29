@@ -1,10 +1,12 @@
 - content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
-- title @user.adviser? ? 'アドバイザー登録' : 'フィヨルドブートキャンプ参加登録'
 - if @user.adviser?
-  description = 'フィヨルドブートキャンプアドバイザー登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにアドバイザーとして登録する際はこちらのページからお申し込みください。'
+  - title 'アドバイザー登録'
+  - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプアドバイザー登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにアドバイザーとして登録する際はこちらのページからお申し込みください。')
 - else
-  description = 'フィヨルドブートキャンプ参加登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプに参加登録する際はこちらのページからお申し込みください。'
-- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', description: description)
+  - title 'フィヨルドブートキャンプ参加登録'
+  - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプ参加登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプに参加登録する際はこちらのページからお申し込みください。')
 
 .auth-form.is-sign-up
   .a-card
