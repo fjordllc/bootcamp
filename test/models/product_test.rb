@@ -89,6 +89,17 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.other_checker_exists?(other_checker.id)
   end
 
+  test 'other_checker_not_exists_if_self' do
+    other_checker = users(:machida)
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: other_checker.id
+    )
+    assert_not product.other_checker_exists?(other_checker.id)
+  end
+
   test '#checker_name' do
     product = products(:product1)
 
