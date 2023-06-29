@@ -45,13 +45,6 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector "meta[name='twitter:title'][content='FAQ']", visible: false
   end
 
-  test 'GET /buzz' do
-    visit '/buzz'
-    assert_equal '関連リンク集 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
-    assert_selector "meta[property='og:title'][content='関連リンク集']", visible: false
-    assert_selector "meta[name='twitter:title'][content='関連リンク集']", visible: false
-  end
-
   test 'GET /tos' do
     visit '/tos'
     assert_equal '利用規約 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
