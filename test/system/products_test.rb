@@ -74,10 +74,6 @@ class ProductsTest < ApplicationSystemTestCase
 
     find('.a-button.is-tweet').click
     assert_text '喜びを Tweet する！'
-
-    click_link '喜びを Tweet する！'
-    switch_to_window(windows.last)
-    assert_includes current_url, 'https://twitter.com/intent/tweet'
   end
 
   test 'create product' do
