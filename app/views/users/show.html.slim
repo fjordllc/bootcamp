@@ -1,7 +1,7 @@
 - title @user.login_name
+- set_meta_tags description: "#{@user.login_name}さんのプロフィールページ"
 
 = render 'users/page_title', user: @user
-
 = render 'users/page_tabs', user: @user
 
 .page-body

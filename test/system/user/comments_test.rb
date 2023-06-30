@@ -5,6 +5,6 @@ require 'application_system_test_case'
 class User::CommentsTest < ApplicationSystemTestCase
   test 'show listing comments' do
     visit_with_auth "/users/#{users(:hatsuno).id}/comments", 'hatsuno'
-    assert_equal 'hatsuno コメント | FBC', title
+    assert_equal 'hatsunoコメント | FBC', title
   end
 end

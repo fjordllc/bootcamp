@@ -31,11 +31,14 @@ module MetaTagsHelper
   def welcome_meta_tags
     default_meta_tags.deep_merge({
                                    title: title,
+                                   description: '月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。',
                                    og: {
-                                     title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+                                     title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+                                     description: :description
                                    },
                                    twitter: {
-                                     title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+                                     title: title || 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+                                     description: :description
                                    }
                                  })
   end

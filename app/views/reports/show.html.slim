@@ -1,4 +1,5 @@
 - title @report.title
+- set_meta_tags description: "#{@report.user.login_name}さんの#{l @report.reported_on}の日報です。"
 
 = render 'users/page_title', user: @report.user
 
