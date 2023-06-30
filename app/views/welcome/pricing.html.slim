@@ -2,7 +2,8 @@ ruby:
   content_for :extra_body_classes, 'welcome'
   title '料金'
   trial_period = Campaign.current_trial_period
-  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプの利用料は月額29,800円です。クレジットカードでのお支払いになります。初期費用、入会金は一切ありません。')
 
 .welcome-page-header
   .container.is-xl
