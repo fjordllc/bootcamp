@@ -13,6 +13,7 @@ namespace :bootcamp do
   task migrate: :environment do
     case ENV['DB_NAME']
     when 'bootcamp_staging'
+      Rake::Task['db:migrate'].execute
       Rake::Task['db:reset'].execute
     when 'bootcamp_production'
       Rake::Task['db:migrate:with_data'].execute
