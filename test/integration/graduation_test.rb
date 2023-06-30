@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class GraduationControllerTest < ActionDispatch::IntegrationTest
+class GraduationTest < ActionDispatch::IntegrationTest
   fixtures :users
 
   test 'not admin permission requests for graduation' do
