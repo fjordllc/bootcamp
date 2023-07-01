@@ -64,9 +64,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     logout
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-      VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
-      end
+      visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       assert_nil user.reload.retired_on
     end
   end
@@ -78,9 +76,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     user.update!(retired_on: retired_date)
 
     travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-      VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
-      end
+      visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       assert_equal retired_date, user.reload.retired_on
     end
   end
