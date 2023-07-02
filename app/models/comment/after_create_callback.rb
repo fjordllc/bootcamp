@@ -17,7 +17,6 @@ class Comment::AfterCreateCallback
 
     return unless comment.commentable.instance_of?(Product)
 
-    comment.commentable.create_checker_id(comment)
     comment.commentable.update_last_commented_at(comment)
     comment.commentable.update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
