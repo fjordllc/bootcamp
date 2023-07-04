@@ -24,7 +24,7 @@
 .practice-status-buttons__button
   &.is-inactive
     $color: $base
-    color: $muted-text
+    color: var(--muted-text)
     background-color: $color
     border-color: $background-shade
     transition: all .2s ease-out
@@ -42,5 +42,6 @@
       width: 100%
 
 .practice-status-buttons__note
-  +text-block(.75rem 1.4, $muted-text left)
+  +text-block(.75rem 1.4, left)
+  color: var(--muted-text)
   margin-top: .5em

@@ -1,10 +1,10 @@
 .a-page-notice
   background-color: var(--success)
-  color: $reversal-text
+  color: var(--reversal-text)
   &.is-danger
     background-color: var(--danger)
   &.is-muted
-    background-color: $muted-text
+    background-color: var(--muted-text)
   .page-body &
     +margin(vertical, -.5rem 1rem)
   .page-body .page-notices__item &
@@ -24,13 +24,14 @@
     display: flex
     text-align: left
   p
-    +text-block(1em 1.5, $reversal-text)
+    +text-block(1em 1.5)
+    color: var(--reversal-text)
     +media-breakpoint-up(md)
       font-size: .875rem
     +media-breakpoint-down(sm)
       font-size: .75rem
   a
-    color: $reversal-text
+    color: var(--reversal-text)
     +hover-link-reversal
     &.has-badge
       text-decoration: none

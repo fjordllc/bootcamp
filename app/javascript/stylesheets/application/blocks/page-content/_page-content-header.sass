@@ -7,7 +7,7 @@
     margin-bottom: 1.25rem
   .a-watch-button.is-inactive,
   .a-bookmark-button.is-inactive
-    color: $semi-muted-text
+    color: var(--semi-muted-text)
     background-color: $background-semi-shade
   .a-count-badge
     +media-breakpoint-up(md)
@@ -47,16 +47,16 @@
   // regular_events
   &.is-meeting
     background-color: #7f6fb7
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-reading-circle
     background-color: #79bcc3
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-question
     background-color: #de9172
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-chat
     background-color: #56925c
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-others
     background-color: #f7cd5b
     color: $default-text
@@ -112,7 +112,7 @@
     &:not(:first-child)
       margin-top: .125rem
   &.is-wip
-    color: $muted-text
+    color: var(--muted-text)
   .a-title-label
     display: inline-flex
     vertical-align: top
@@ -125,7 +125,7 @@
   +hover-link
   color: $main
   .page-content-header__title.is-wip &
-    color: $muted-text
+    color: var(--muted-text)
 
 .page-content-header__tags
   margin-top: .75rem

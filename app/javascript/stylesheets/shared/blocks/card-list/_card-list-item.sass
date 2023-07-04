@@ -48,9 +48,9 @@ a.card-list-item__inner
     margin-top: .5rem
 
 .card-list-item__assignee-button.a-button
-  border: dashed 1px $muted-text
+  border: dashed 1px var(--muted-text)
   pointer-events: none
-  color: $muted-text
+  color: var(--muted-text)
   background-color: #f6f6f6
 
 .card-list-item__assignee-image
@@ -79,44 +79,44 @@ a.card-list-item__inner
     +size(2.25rem)
   .card-list-item.is-report &
     background-color: #7f6fb7
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-practice &
     background-color: #5bbcc7
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-question &
     background-color: #e2965b
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-page &
     background-color: #56925c
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-announcement &
     background-color: #f7cd5b
     color: $default-text
   .card-list-item.is-event &
     background-color: #fb96a3
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-regular_event &
     background-color: #dc6ed2
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-product &
     background-color: #909b3c
-    color: $reversal-text
+    color: var(--reversal-text)
   .card-list-item.is-user &
     background-color: #7cbd9c
-    color: $reversal-text
+    color: var(--reversal-text)
   // regular_events
   &.is-meeting
     background-color: #7f6fb7
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-reading-circle
     background-color: #79bcc3
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-question
     background-color: #de9172
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-chat
     background-color: #56925c
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-others
     background-color: #f7cd5b
     color: $default-text
@@ -185,7 +185,7 @@ a.card-list-item__inner
   cursor: pointer
 
 .card-list-item__summary
-  color: $muted-text
+  color: var(--muted-text)
   word-break: break-all
   *
     word-break: break-all

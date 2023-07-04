@@ -53,7 +53,8 @@
       transform: translate(0, -50%)
     &::after
       +fa(fas "\f00c")
-      +text-block(1em 1, flex $reversal-text)
+      +text-block(1em 1, flex)
+      color: var(--reversal-text)
       align-items: center
       justify-content: center
       +size(.9375em)
@@ -110,7 +111,8 @@
       +fa(fas "\f0d7")
       +size(2em 100%)
       +position(absolute, right 0, top 0, bottom 0)
-      +text-block(1em 1, flex $muted-text)
+      +text-block(1em 1, flex)
+      color: var(--muted-text)
       align-items: center
       justify-content: center
     select

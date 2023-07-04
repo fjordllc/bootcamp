@@ -38,7 +38,8 @@
         width: $global-nav-width-sm
 
 .header-dropdown__label
-  +text-block(.75rem 1.4, $reversal-text 600)
+  +text-block(.75rem 1.4, 600)
+  color: var(--reversal-text)
   padding: .5rem .75rem
   background-color: rgba(black, .3)
   +media-breakpoint-down(sm)
@@ -65,7 +66,7 @@
     &:hover
       background-color: $background-tint
   +media-breakpoint-down(sm)
-    color: $reversal-text
+    color: var(--reversal-text)
     border-bottom: solid 1px var(--side-border)
     &:hover
       background-color: var(--main-shade)
@@ -89,7 +90,7 @@
   +media-breakpoint-up(md)
     color: var(--main-text)
   +media-breakpoint-down(sm)
-    color: $reversal-text
+    color: var(--reversal-text)
   &:hover
     +media-breakpoint-up(md)
       background-color: $background-more-tint

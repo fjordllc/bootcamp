@@ -85,20 +85,21 @@
   &.is-reply-warning
     +page-nav-current(var(--warning), #d09a0e, $default-text, false)
   &.is-reply-alert
-    +page-nav-current(#ff7500, #d06305, $reversal-text, false)
+    +page-nav-current(#ff7500, #d06305, var(--reversal-text), false)
   &.is-reply-deadline
-    +page-nav-current(var(--danger), #b50f38, $reversal-text, false)
+    +page-nav-current(var(--danger), #b50f38, var(--reversal-text), false)
   &.is-inactive
     position: static
     border: solid 1px var(--border-shade)
     .page-nav__item-link
       background-color: $background-semi-shade
-      color: $muted-text
+      color: var(--muted-text)
       pointer-events: none
 
 .page-nav__item-link
   padding: .75rem
-  +text-block(.8125rem 1.4, $semi-muted-text)
+  +text-block(.8125rem 1.4)
+  color: var(--semi-muted-text)
   +block-link
   transition: all .1s ease-in
   background-color: transparent
@@ -114,7 +115,6 @@
 .page-nav__item-header .a-badge
   transform: translateY(-.125em)
   margin-right: .25rem
-
 
 .page-nav__item-title
   +text-block(.875rem 1.4, 600 inline)

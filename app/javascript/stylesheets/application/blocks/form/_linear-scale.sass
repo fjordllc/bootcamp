@@ -21,7 +21,8 @@ $radio-size: .875rem
 .linear-scale__point
   display: flex
   flex-direction: column
-  +text-block(.875rem 1.4, block $semi-muted-text)
+  +text-block(.875rem 1.4, block)
+  color: var(--semi-muted-text)
   +position(relative)
   cursor: pointer
   padding-bottom: $radio-size
@@ -37,7 +38,8 @@ $radio-size: .875rem
     transform: translate(-50%, 0)
     background-color: $base
     border-radius: 50%
-    +text-block(.75rem 1, $reversal-text flex $reversal-text)
+    +text-block(.75rem 1, flex)
+    color: var(--reversal-text)
     align-items: center
     justify-content: center
     transition: all .2s ease-out

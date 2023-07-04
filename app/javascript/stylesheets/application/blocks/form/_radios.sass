@@ -8,7 +8,7 @@ $radio-size: .875rem
 
 .radios__item
   label
-    +text-block(.875rem 1.4, block $semi-muted-text)
+    +text-block(.875rem 1.4, block var(--semi-muted-text))
     +position(relative)
     +hover-link
     cursor: pointer
@@ -25,7 +25,8 @@ $radio-size: .875rem
       transform: translate(0, -50%)
       background-color: $base
       border-radius: 50%
-      +text-block(.75rem 1, $reversal-text flex $reversal-text)
+      +text-block(.75rem 1)
+      color: var(--reversal-text)
       align-items: center
       justify-content: center
       transition: all .2s ease-out
