@@ -2,13 +2,13 @@
   height: 100%
 
 .a-block-check__label
-  background-color: $input-background
+  background-color: var(--input-background)
   height: 100%
   min-height: 2.5rem
   +text-block(.8125rem 1.45, flex center)
   align-items: center
   justify-content: center
-  border: solid 1px $input-border
+  border: solid 1px var(--input-border)
   padding: .5rem 1.25rem .5rem 2.25rem
   cursor: pointer
   border-radius: .25rem
@@ -23,12 +23,12 @@
       flex: 0 0 100%
       cursor: pointer
   &:hover
-    background-color: $input-hover-background
-    border-color: $input-hover-border
+    background-color: var(--input-hover-background)
+    border-color: var(--input-hover-border)
   input:checked + &
-    background-color: $input-selected-background
-    border-color: $input-selected-border
-    color: $input-selected-text
+    background-color: var(--input-selected-background)
+    border-color: var(--input-selected-border)
+    color: var(--input-selected-text)
   .a-block-check &::before
     display: block
     +position(absolute, left .75rem, top 50%)
@@ -43,23 +43,23 @@
   .a-block-check.is-radio &::before
     content: ''
     +size(.875rem)
-    border: solid 1px $input-border
+    border: solid 1px var(--input-border)
     border-radius: 50%
     background-color: $base
   .a-block-check.is-radio input:checked + &::before
-    border-color: $primary
-    background-color: $primary
+    border-color: var(--primary)
+    background-color: var(--primary)
     box-shadow: inset 0 0 0 2px $base
   // checkbox
   .a-block-check.is-checkbox &::before
     content: ''
     +size(.875rem)
-    border: solid 1px $input-border
+    border: solid 1px var(--input-border)
     border-radius: 3px
     background-color: $base
   .a-block-check.is-checkbox input:checked + &::before
-    border-color: $primary
-    background-color: $primary
+    border-color: var(--primary)
+    background-color: var(--primary)
     +fa(fas "\f00c")
     color: $reversal-text
 

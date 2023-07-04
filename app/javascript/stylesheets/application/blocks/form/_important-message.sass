@@ -1,18 +1,19 @@
 .important-message
-  border: solid 2px $danger
+  border: solid 2px var(--danger)
   border-radius: .25rem
   overflow: hidden
   & + form
     margin-top: 2rem
 
 .important-message__header
-  border-bottom: solid 1px $danger
+  border-bottom: solid 1px var(--danger)
   padding: .5rem 1rem
-  background-color: $danger-tint
+  background-color: var(--danger-tint)
 
 .important-message__title
-  +text-block(.875rem 1.4, 700 $danger-text)
+  +text-block(.875rem 1.4, 700)
+  color: var(--danger-text)
 
 .important-message__body
   padding: .75rem 1rem
-  background-color: $danger-tint
+  background-color: var(--danger-tint)

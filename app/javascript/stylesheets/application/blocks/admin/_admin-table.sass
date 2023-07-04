@@ -1,6 +1,6 @@
 @keyframes grab-background-color
   0%
-    background-color: $warning
+    background-color: var(--warning)
   100%
     background-color: $base
 
@@ -15,7 +15,7 @@
 
 .admin-table__header
   background-color: $background-semi-shade
-  border: solid 1px $border-shade
+  border: solid 1px var(--border-shade)
   +border-radius(top, .25rem)
 
 .admin-table__items
@@ -26,7 +26,7 @@
 
 .admin-table__label
   +text-block(.75rem 1.4, $main center 600)
-  border: solid 1px $border-shade
+  border: solid 1px var(--border-shade)
   white-space: nowrap
   height: 2rem
   +padding(horizontal, .5rem)
@@ -37,7 +37,7 @@
     margin-left: .5rem
     +padding(horizontal, .375rem)
     background-color: $base
-    border-color: $border-shade
+    border-color: var(--border-shade)
     color: $default-text
 
 .admin-table__item
@@ -77,7 +77,7 @@
   +text-block(.75rem 1.45, $muted-text)
 
 .admin-table__item-logo-image
-  border: solid 1px $border
+  border: solid 1px var(--border)
   width: 2.5rem
   border-radius: .25rem
 
@@ -106,7 +106,7 @@
     text-decoration: underline
 
 .admin-table__user-login-name
-  color: $main-text
+  color: var(--main-text)
 
 .is-user-icon-xl
   +size(100% auto)

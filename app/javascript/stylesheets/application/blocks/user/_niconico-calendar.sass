@@ -15,7 +15,7 @@
   +hover-link
   transition: all .2s ease-out
   &:hover
-    color: $main-text
+    color: var(--main-text)
   &.is-blank
     cursor: default
     pointer-events: none
@@ -29,7 +29,7 @@
   table-layout: fixed
   th,
   td
-    border: solid 1px $border-shade
+    border: solid 1px var(--border-shade)
   td
     height: 3rem
 
@@ -41,9 +41,9 @@
   +text-block(.75rem 1, center)
   +padding(vertical, .25em)
   &.is-sunday
-    color: $danger
+    color: var(--danger)
   &.is-saturday
-    color: $main-text
+    color: var(--main-text)
 
 .niconico-calendar__day
   &.is-blank
@@ -56,10 +56,10 @@
     background-color: #fff9e8
   &.is-today
     .niconico-calendar__day-inner
-      border: dashed 2px $success
+      border: dashed 2px var(--success)
     .niconico-calendar__day-label
       font-weight: 600
-      color: $success
+      color: var(--success)
 
 .niconico-calendar__day-inner
   +block-link
@@ -71,7 +71,7 @@ a.niconico-calendar__day-inner
   cursor: pointer
   &:hover
     background-color: rgba($warning, .1)
-    box-shadow: $warning 0 0 0 1px inset
+    box-shadow: var(--warning) 0 0 0 1px inset
     position: relative
 
 .niconico-calendar__day-label

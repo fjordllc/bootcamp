@@ -1,7 +1,7 @@
 =on-off-checkbox($border-width: 1px, $height: 1.5rem, $width: 4.5rem, $font-size: .8125rem)
   span
     +size($width calc(#{$height} + #{$border-width} * 2))
-    border: solid $border-width $input-border
+    border: solid $border-width var(--input-border)
     border-radius: $height
     font-size: $font-size
     &::before
@@ -36,15 +36,15 @@
       border-radius: 50%
       background-color: $base
       +position(absolute, left 0, top 0)
-      border: solid 1px $input-border
+      border: solid 1px var(--input-border)
     &::after
       content: "OFF"
       +text-block(1em 1, flex center 600)
       align-items: center
       justify-content: center
   input:checked + span
-    background-color: $danger
-    border-color: $danger
+    background-color: var(--danger)
+    border-color: var(--danger)
     &::before
       +position(absolute, left auto, right 0)
     &::after

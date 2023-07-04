@@ -6,10 +6,10 @@
   &::before
     content: ""
     +size(100% calc(#{$border-height} * 3))
-    background-color: $welcome-orange
+    background-color: var(--welcome-orange)
     +position(absolute, left 0, bottom 0)
-    border-top: solid $border-height $welcome-yellow
-    border-bottom: solid $border-height $welcome-pink
+    border-top: solid $border-height var(--welcome-yellow)
+    border-bottom: solid $border-height var(--welcome-pink)
     box-shadow: rgba(black, .2) 0 2px 1px
   +media-breakpoint-down(sm)
     $border-height: .5rem
@@ -18,10 +18,10 @@
     &::before
       content: ""
       +size(100% calc(#{$border-height} * 3))
-      background-color: $welcome-orange
+      background-color: var(--welcome-orange)
       +position(absolute, left 0, bottom 0)
-      border-top: solid $border-height $welcome-yellow
-      border-bottom: solid $border-height $welcome-pink
+      border-top: solid $border-height var(--welcome-yellow)
+      border-bottom: solid $border-height var(--welcome-pink)
       box-shadow: rgba(black, .2) 0 2px 1px
 
 .welcome-header__inner
@@ -56,8 +56,8 @@
   border-radius: .375rem
   transition: all .2s ease-out
   &:hover
-    border-color: $welcome-pink
-    color: $welcome-pink
+    border-color: var(--welcome-pink)
+    color: var(--welcome-pink)
     background-color: rgba($welcome-pink, .1)
   +media-breakpoint-down(sm)
     display: none

@@ -10,7 +10,7 @@
 .header-links__item
   display: flex
   height: 100%
-  border-left: solid $border-tint .0625rem
+  border-left: solid var(--border-tint) .0625rem
   +position(relative)
   transition: color .2s ease-in, background-color .2s ease-in
 
@@ -33,8 +33,8 @@
   &:hover
     background-color: #f8f8f8
   &.is-active
-    background-color: $warning
-    color: $main-text
+    background-color: var(--warning)
+    color: var(--main-text)
 
 .header-links__link-label
   margin-top: .375em

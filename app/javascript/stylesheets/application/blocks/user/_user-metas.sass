@@ -2,7 +2,7 @@
   margin-top: 1rem
 
 .user-metas__title
-  border: solid 1px $border
+  border: solid 1px var(--border)
   margin-bottom: -1px
   padding: .375rem .75rem
   +text-block(.75rem 1.4, 600)
@@ -10,12 +10,12 @@
   position: relative
 
 .user-metas__items
-  border: solid 1px $border
+  border: solid 1px var(--border)
   .user-metas__items + &
     border-top: none
 
 .user-metas__items-label
-  border-bottom: solid 1px $border
+  border-bottom: solid 1px var(--border)
   padding: .25rem .75rem
   +text-block(.75rem 1.4, 600)
   background-color: $background
@@ -27,19 +27,19 @@
   +media-breakpoint-down(sm)
     display: block
   &:nth-child(even)
-    background-color: $input-background
+    background-color: var(--input-background)
   &:not(:last-child)
-    border-bottom: solid 1px $border
+    border-bottom: solid 1px var(--border)
 
 .user-metas__item-label
   text-align: right
-  border-right: dashed 1px $border
+  border-right: dashed 1px var(--border)
   flex: 0 0 9rem
   padding: .375rem .5rem
   +media-breakpoint-down(sm)
     text-align: left
     border-right: none
-    border-bottom: dashed 1px $border
+    border-bottom: dashed 1px var(--border)
 
 .user-metas__item-value
   flex: 1

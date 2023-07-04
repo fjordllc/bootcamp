@@ -2,7 +2,7 @@
   height: 100%
 
 .users-item__inactive-message
-  background-color: $danger
+  background-color: var(--danger)
   +text-block(.625rem 1.4, center $reversal-text)
   padding: .25rem
   +border-radius(top, .1875rem)
@@ -16,7 +16,7 @@
 .users-item__header
   +position(relative)
   padding: 1rem
-  border-bottom: solid 1px $border-tint
+  border-bottom: solid 1px var(--border-tint)
 
 .users-item__header-inner
   display: flex
@@ -40,7 +40,7 @@
   +media-breakpoint-down(sm)
     font-size: 1rem
   i
-    color: $danger
+    color: var(--danger)
     margin-left: .25em
     font-size: .75em
 
@@ -67,4 +67,4 @@
   background-color: $base
   +position(absolute, right .5rem, top .5rem)
   border-radius: .25rem
-  border: solid 1px $border
+  border: solid 1px var(--border)

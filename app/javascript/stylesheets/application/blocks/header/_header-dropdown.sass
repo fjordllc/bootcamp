@@ -18,7 +18,7 @@
   +media-breakpoint-up(md)
     +position(absolute, right 0, top 100%, 2)
     background-color: $base
-    border: solid 1px $border-shade
+    border: solid 1px var(--border-shade)
     width: 14rem
     box-shadow: rgba(black, .2) 0 0 .375rem
     border-radius: .25rem
@@ -42,7 +42,7 @@
   padding: .5rem .75rem
   background-color: rgba(black, .3)
   +media-breakpoint-down(sm)
-    border-bottom: solid 1px $side-border
+    border-bottom: solid 1px var(--side-border)
 
 .header-dropdown__items
   .header-dropdown__inner.is-notification &
@@ -61,22 +61,22 @@
   +media-breakpoint-up(md)
     color: $default-text
     .header-dropdown__item:not(:last-child) &
-      border-bottom: solid 1px $border-tint
+      border-bottom: solid 1px var(--border-tint)
     &:hover
       background-color: $background-tint
   +media-breakpoint-down(sm)
     color: $reversal-text
-    border-bottom: solid 1px $side-border
+    border-bottom: solid 1px var(--side-border)
     &:hover
-      background-color: $main-shade
+      background-color: var(--main-shade)
 
 .header-dropdown__footer
   +border-radius(bottom, .25rem)
   overflow: hidden
   +media-breakpoint-up(md)
-    border-top: solid 1px $border-tint
+    border-top: solid 1px var(--border-tint)
   +media-breakpoint-down(sm)
-    border-top: solid 1px $side-border
+    border-top: solid 1px var(--side-border)
 
 
 .header-dropdown__footer-link
@@ -87,19 +87,19 @@
   +size(100% 2.75rem)
   transition: all .2s ease-out
   +media-breakpoint-up(md)
-    color: $main-text
+    color: var(--main-text)
   +media-breakpoint-down(sm)
     color: $reversal-text
   &:hover
     +media-breakpoint-up(md)
       background-color: $background-more-tint
     +media-breakpoint-down(sm)
-      background-color: $main-shade
+      background-color: var(--main-shade)
   +media-breakpoint-up(md)
     &:not(:last-child)
-      border-bottom: solid 1px $border-tint
+      border-bottom: solid 1px var(--border-tint)
   +media-breakpoint-down(sm)
-    border-bottom: solid 1px $side-border
+    border-bottom: solid 1px var(--side-border)
 
 .header-dropdown__background
   +media-breakpoint-up(md)

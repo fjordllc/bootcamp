@@ -1,6 +1,6 @@
 .errors
-  background-color: $danger-tint
-  border: solid 1px $danger
+  background-color: var(--danger-tint)
+  border: solid 1px var(--danger)
   margin-bottom: 1.25rem
   max-width: 30rem
   +margin(horizontal, auto)
@@ -11,12 +11,14 @@
     padding: .875rem 1rem
 
 .errors__title
-  +text-block(.875rem 1.45 0 .8em, center 600 $danger-text)
+  +text-block(.875rem 1.45 0 .8em, center 600)
+  color: var(--danger-text)
   +media-breakpoint-down(sm)
     font-size: .8125rem
 
 .errors__item
-  +text-block(.8125rem 1.6 0 .2em, $danger-text)
+  +text-block(.8125rem 1.6 0 .2em)
+  color: var(--danger-text)
   +media-breakpoint-down(sm)
     font-size: .75rem
   &:last-child

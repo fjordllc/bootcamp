@@ -1,5 +1,5 @@
 .books-form
-  border: solid 1px $border
+  border: solid 1px var(--border)
   background-color: $base
   border-radius: .25rem
   .books-form + &
@@ -14,7 +14,7 @@
   transform: translate(25%, -25%)
 
 .books-form__delete-link
-  border: solid 1px $border-shade
+  border: solid 1px var(--border-shade)
   font-size: 1.25rem
   color: $muted-text
   +size(100%)
@@ -25,8 +25,8 @@
   background-color: $base
   transition: all .2s ease-out
   &:hover
-    color: $danger
-    border-color: $danger
+    color: var(--danger)
+    border-color: var(--danger)
 
 .books-form__items
   +media-breakpoint-up(md)

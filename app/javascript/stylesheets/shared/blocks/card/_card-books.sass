@@ -43,7 +43,7 @@
   max-width: 100%
   object-fit: contain
   object-position: 50% 0
-  border: solid 1px $border-tint
+  border: solid 1px var(--border-tint)
   border-radius: 2px
 
 .card-books-item__title
@@ -57,12 +57,12 @@
   text-decoration: none
   .card-books-item__title-label
     +hover-link-reversal
-    color: $main-text
+    color: var(--main-text)
 
 a.card-books-item__inner:hover
   .card-books-item__title-label
     text-decoration: underline
-    color: $main-text
+    color: var(--main-text)
 
 .card-books-item__price
   +text-block(.75rem 1.4, $default-text)
