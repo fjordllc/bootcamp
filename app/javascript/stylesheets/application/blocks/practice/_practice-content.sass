@@ -14,14 +14,15 @@
       margin-top: 1rem
 
 .practice-content__body-notice
-  border: solid 1px $success
+  border: solid 1px var(--success)
   margin-top: 1rem
   background-color: rgba($success, .1)
   padding: .75rem .875rem
   +media-breakpoint-down(sm)
     padding: .375rem .625rem
   p
-    +text-block(.875rem 1.5, $success-text)
+    +text-block(.875rem 1.5)
+    color: var(--success-text)
     +media-breakpoint-down(sm)
       font-size: .75rem
 
@@ -33,7 +34,7 @@
   +media-breakpoint-down(sm)
     font-size: .75rem
   >a
-    +text-block(1em 1.5, $danger)
+    +text-block(1em 1.5, var(--danger))
     +hover-link-reversal
 
 .js-markdown-view

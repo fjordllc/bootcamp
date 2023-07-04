@@ -28,7 +28,8 @@
     +size(3.5rem)
 
 .company-profile__name
-  +text-block(1em 1.45, 700 $main-text)
+  +text-block(1em 1.45, 700)
+  color: var(--main-text)
   +media-breakpoint-up(md)
     font-size: 1.5rem
   +media-breakpoint-down(sm)
@@ -36,4 +37,4 @@
 
 .company-profile__body
   padding: 1rem
-  border-top: solid 1px $border-tint
+  border-top: solid 1px var(--border-tint)

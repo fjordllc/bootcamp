@@ -1,7 +1,7 @@
 .reactions
   display: flex
   justify-content: space-between
-  border-top: 1px solid $border-tint
+  border-top: 1px solid var(--border-tint)
   position: relative
   user-select: none
   .card-body + &
@@ -19,9 +19,9 @@
   .reactions__dropdown &
     +position(absolute, top 2.375rem, 1)
     width: 181px
-    border-top: 1px solid $border
-    border-left: 1px solid $border-shade
-    border-right: 1px solid $border-shade
+    border-top: 1px solid var(--border)
+    border-left: 1px solid var(--border-shade)
+    border-right: 1px solid var(--border-shade)
     +media-breakpoint-up(md)
       right: -1px
     +media-breakpoint-down(sm)
@@ -34,13 +34,13 @@
   justify-content: center
   padding: 0 9px
   background-color: $base
-  border-right: 1px solid $border-tint
+  border-right: 1px solid var(--border-tint)
   transition: all .2s ease-out
   position: relative
   +media-breakpoint-down(sm)
     width: 20%
     height: 2.75rem
-    border-bottom: 1px solid $border-tint
+    border-bottom: 1px solid var(--border-tint)
   &.is-reacted
     background-color: #fafafa
   &:hover
@@ -49,8 +49,8 @@
     &:hover .reactions__item-login-names
       display: block
   .reactions__dropdown &
-    border-right: 1px solid $border-shade
-    border-bottom: 1px solid $border-shade
+    border-right: 1px solid var(--border-shade)
+    border-bottom: 1px solid var(--border-shade)
     +size(2.8125rem)
   .reactions__dropdown &:nth-child(4n)
     border-right: none
@@ -93,7 +93,7 @@
   cursor: pointer
   align-items: center
   justify-content: center
-  border-left: 1px solid $border-tint
+  border-left: 1px solid var(--border-tint)
   &:hover
     background: #f2f2f2
 

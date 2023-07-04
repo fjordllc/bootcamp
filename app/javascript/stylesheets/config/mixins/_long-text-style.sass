@@ -47,7 +47,8 @@
   +media-breakpoint-down(sm)
     font-size: $mobile-font-size
   h1
-    +text-block(1.875em 1.466 0 .75em, 600 $main-text)
+    +text-block(1.875em 1.466 0 .75em, 600)
+    color: var(--main-text)
     padding-bottom: .25em
     border-bottom: 3px solid mix($font, $background, 20%)
   h2
@@ -260,38 +261,39 @@
     padding: 1em 1.25em 1em 2.75em
     border-radius: .25rem
     +margin(vertical, 1.5em 2em)
-    background-color: $warning-tint
-    color: $warning-text
+    background-color: var(--warning-tint)
+    color: var(--warning-text)
     &::before
       +fa(fas '\f06a')
       +position(absolute, left .25em, top .25em)
-      +text-block(1.5em, $warning)
+      font-size: 1.5em
+      color: var(--warning)
     &.alert,
     &.danger
-      background-color: $danger-tint
-      color: $danger-text
+      background-color: var(--danger-tint)
+      color: var(--danger-text)
       &::before
-        color: $danger
+        color: var(--danger)
     &.warning
-      background-color: $warning-tint
-      color: $warning-text
+      background-color: var(--warning-tint)
+      color: var(--warning-text)
       &::before
-        color: $warning
+        color: var(--warning)
     &.info
-      background-color: $info-tint
-      color: $info-text
+      background-color: var(--info-tint)
+      color: var(--info-text)
       &::before
-        color: $info
+        color: var(--info)
     &.primary
-      background-color: $primary-tint
-      color: $primary-text
+      background-color: var(--primary-tint)
+      color: var(--primary-text)
       &::before
-        color: $primary
+        color: var(--primary)
     &.success
-      background-color: $success-tint
-      color: $success-text
+      background-color: var(--success-tint)
+      color: var(--success-text)
       &::before
-        color: $success
+        color: var(--success)
 
   ul.contains-task-list
     list-style: none

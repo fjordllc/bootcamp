@@ -20,14 +20,14 @@
 
 .card-list-item-actions__items
   +position(relative, 2)
-  border: solid 1px $border
+  border: solid 1px var(--border)
   width: 10rem
   border-radius: .25rem
   overflow: hidden
 
 .card-list-item-actions__item
   .card-list-item-actions__item + &
-    border-top: dashed 1px $border
+    border-top: dashed 1px var(--border)
 
 .card-list-item-actions__action
   +text-block(.8125rem, $default-text)
@@ -41,4 +41,4 @@
     margin-right: .5em
   &:hover
     background-color: tint($main, 95%)
-    color: $main-text
+    color: var(--main-text)

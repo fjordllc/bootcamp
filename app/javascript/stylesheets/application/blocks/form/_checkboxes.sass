@@ -19,7 +19,7 @@ $checkbox-size: .875rem
       content: ""
       text-decoration: none
       +size($checkbox-size)
-      border: solid 1px $input-border
+      border: solid 1px var(--input-border)
       display: block
       +position(absolute, left 0, top 50%)
       transform: translate(0, -50%)
@@ -31,7 +31,7 @@ $checkbox-size: .875rem
       transition: all .2s ease-out
   label:hover::before
     background-color: rgba($primary, .4)
-    border-color: $primary
+    border-color: var(--primary)
   label:hover::after
     text-decoration: none
   input:checked + label,
@@ -39,11 +39,11 @@ $checkbox-size: .875rem
     color: $default-text
   input:checked + label::before,
   .is-dammy label::before
-    background-color: $primary
-    border-color: $primary
+    background-color: var(--primary)
+    border-color: var(--primary)
     +fa(fas "\f00c")
   input:checked + label:hover::before
-    border-color: $primary
+    border-color: var(--primary)
   input:checked + label::after,
   .is-dammy label::after
     opacity: 1

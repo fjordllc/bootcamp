@@ -15,13 +15,14 @@
 .page-tags-nav__item-link
   padding: .3125rem .5rem
   border-radius: 1.5em
-  +text-block(.625rem 1.4, $primary nowrap)
+  +text-block(.625rem 1.4, nowrap)
+  color: var(--primary)
   max-width: 8.5rem
   overflow: hidden
   text-overflow: ellipsis
-  border: solid 1px $primary
+  border: solid 1px var(--primary)
   +block-link
   transition: all .1s ease-in
   background-color: $base
   &:hover
-    background-color: $primary-tint
+    background-color: var(--primary-tint)

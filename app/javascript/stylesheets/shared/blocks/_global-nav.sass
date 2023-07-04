@@ -42,7 +42,7 @@
   +size(100% 4.25rem)
   align-items: center
   justify-content: center
-  border-bottom: solid 1px $side-border
+  border-bottom: solid 1px var(--side-border)
   color: $reversal-text
   transition: color .2s ease-in, background-color .2s ease-in
   +media-breakpoint-down(sm)
@@ -51,7 +51,7 @@
     +padding(horizontal, 1rem)
     justify-content: flex-start
   &:hover
-    background-color: $main-shade
+    background-color: var(--main-shade)
   &.is-active
     background-color: $accent
     color: $main

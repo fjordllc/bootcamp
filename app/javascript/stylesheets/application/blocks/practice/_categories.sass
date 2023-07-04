@@ -13,7 +13,8 @@
       margin-bottom: 2rem
 
 .categories-item__title
-  +text-block(1.5rem 1.5, $main-text 700)
+  +text-block(1.5rem 1.5, 700)
+  color: var(--main-text)
   position: relative
   +media-breakpoint-down(sm)
     font-size: 1.25rem
@@ -35,7 +36,7 @@
   +text-block(1rem 1, $muted-text)
   transition: all .2s ease-out
   &:hover
-    color: $main-text
+    color: var(--main-text)
 
 .categories__label
   +text-block(.75rem 2rem, $main center 600)
@@ -77,4 +78,4 @@
   +text-block(1rem 1, $muted-text)
   transition: all .2s ease-out
   &:hover
-    color: $main-text
+    color: var(--main-text)

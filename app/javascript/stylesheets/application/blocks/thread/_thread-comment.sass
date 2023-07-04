@@ -77,7 +77,7 @@
   +size(3.5rem)
   object-fit: cover
   border-radius: .25rem
-  border: solid 1px $border
+  border: solid 1px var(--border)
   background-color: white
   +media-breakpoint-up(md)
     margin-top: .5rem
@@ -98,7 +98,7 @@
   &:active,
   &:focus,
   &.is-active
-    color: $danger
+    color: var(--danger)
     &::after
       content: "Copied!"
       display: block
@@ -128,8 +128,8 @@
   &.is-success
     &:hover
       background-color: #e0eefe
-      color: $primary
+      color: var(--primary)
   &.is-danger
     &:hover
       background-color: #f5e6ea
-      color: $danger
+      color: var(--danger)

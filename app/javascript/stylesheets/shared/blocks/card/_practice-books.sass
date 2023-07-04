@@ -6,16 +6,16 @@
 
 .practice-books-item
   +media-breakpoint-up(md)
-    border-top: solid 1px $border-tint
+    border-top: solid 1px var(--border-tint)
     flex: 0 0 50%
     height: 100%
     display: flex
     flex-direction: column
     &:nth-child(odd)
-      border-right: solid 1px $border-tint
+      border-right: solid 1px var(--border-tint)
   +media-breakpoint-down(sm)
     &:not(:first-child)
-      border-top: solid 1px $border-tint
+      border-top: solid 1px var(--border-tint)
 
 .practice-books-item__body
   +media-breakpoint-up(md)
@@ -56,7 +56,7 @@
   max-width: 100%
   object-fit: contain
   object-position: 50% 0
-  border: solid 1px $border-tint
+  border: solid 1px var(--border-tint)
   border-radius: 2px
 
 .practice-books-item__title
@@ -69,7 +69,7 @@
 a.practice-books-item__inner:hover
   .practice-books-item__title-label
     text-decoration: underline
-    color: $main-text
+    color: var(--main-text)
 
 .practice-books-item__price
   +text-block(.75rem 1.4, $default-text)
