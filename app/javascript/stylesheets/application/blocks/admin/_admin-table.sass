@@ -1,8 +1,8 @@
 @keyframes grab-background-color
   0%
-    background-color: $warning
+    background-color: var(--warning)
   100%
-    background-color: $base
+    background-color: var(--base)
 
 .admin-table
   margin-bottom: 1.5rem
@@ -14,19 +14,21 @@
   width: 100%
 
 .admin-table__header
-  background-color: $background-semi-shade
-  border: solid 1px $border-shade
+  background-color: var(--background-semi-shade)
+  border: solid 1px var(--border-shade)
   +border-radius(top, .25rem)
 
 .admin-table__items
-  +border(horizontal, solid 1px $background-semi-shade)
+  +border(horizontal, solid 1px var(--background-semi-shade))
 
 .admin-table-item__title
-  +text-block(1.5rem 1.45, $default-text)
+  +text-block(1.5rem 1.45)
+  color: var(--default-text)
 
 .admin-table__label
-  +text-block(.75rem 1.4, $main center 600)
-  border: solid 1px $border-shade
+  +text-block(.75rem 1.4, center 600)
+  color: var(--main)
+  border: solid 1px var(--border-shade)
   white-space: nowrap
   height: 2rem
   +padding(horizontal, .5rem)
@@ -36,17 +38,17 @@
     font-size: .75rem
     margin-left: .5rem
     +padding(horizontal, .375rem)
-    background-color: $base
-    border-color: $border-shade
-    color: $default-text
+    background-color: var(--base)
+    border-color: var(--border-shade)
+    color: var(--default-text)
 
 .admin-table__item
   transition: all .2s ease-out
-  background-color: $base
+  background-color: var(--base)
   &.is-retired
-    background-color: $background-tint
+    background-color: var(--background-tint)
   &.is-retired:hover
-    background-color: $background
+    background-color: var(--background)
   &:last-child
     +border-radius(bottom, .25rem)
   &.sortable-chosen
@@ -55,12 +57,12 @@
   .admin-table.is-grab &:hover
     background-color: tint($primary, 90%)
   &[draggable="false"]
-    background-color: $base
+    background-color: var(--base)
     animation: grab-background-color 1.25s ease 0s 1 normal none running
 
 .admin-table__item-value
   padding: .375rem .75rem
-  border: solid 1px $background-semi-shade
+  border: solid 1px var(--background-semi-shade)
   +text-block(.8125rem 1.45)
   &.is-text-align-center
     text-align: center
@@ -74,16 +76,17 @@
     padding: 0
 
 .admin-table__item-blank
-  +text-block(.75rem 1.45, $muted-text)
+  +text-block(.75rem 1.45)
+  color: var(--muted-text)
 
 .admin-table__item-logo-image
-  border: solid 1px $border
+  border: solid 1px var(--border)
   width: 2.5rem
   border-radius: .25rem
 
 .admin-table-item__body
   border-radius: .25rem
-  background-color: $base
+  background-color: var(--base)
   box-shadow: rgba(black, .2) 0 1px 4px
   overflow: hidden
 
@@ -106,7 +109,7 @@
     text-decoration: underline
 
 .admin-table__user-login-name
-  color: $main-text
+  color: var(--main-text)
 
 .is-user-icon-xl
   +size(100% auto)

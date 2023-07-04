@@ -9,13 +9,14 @@
 
 .a-switch__label
   +media-breakpoint-up(md)
-    +text-block(.75rem 1.4, $muted-text center)
+    +text-block(.75rem 1.4, center)
+    color: var(--muted-text)
     margin-right: .5em
     .a-help
       +position(relative, top -1px)
     &:hover
       .a-switch__label-text
-        color: $main-text
+        color: var(--main-text)
         text-decoration: underline
       .a-help
-        background-color: $main
+        background-color: var(--main)

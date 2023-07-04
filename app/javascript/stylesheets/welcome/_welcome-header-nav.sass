@@ -29,7 +29,7 @@
     gap: 1.25rem
   +media-breakpoint-down(sm)
     width: 15rem
-    background-color: $base
+    background-color: var(--base)
     +position(fixed, left 0, top 0, bottom 0, 2)
 
 .welcome-header-nav__overlay
@@ -43,7 +43,8 @@
 
 .welcome-header-nav__item-link
   +media-breakpoint-up(md)
-    +text-block(.875rem 1, $default-text 600 block)
+    +text-block(.875rem 1, 600 block)
+    color: var(--default-text)
     +padding(horizontal, .875rem)
     text-decoration: none
     +padding(vertical, .375rem)
@@ -69,23 +70,24 @@
       &::before
         width: 100%
         opacity: 1
-        background-color: $welcome-yellow
+        background-color: var(--welcome-yellow)
     &.is-active
-      color: $reversal-text
+      color: var(--reversal-text)
       &::before
         transition: all .2s ease-out
         content: ""
         display: block
         +size(100%)
-        background-color: $welcome-pink
+        background-color: var(--welcome-pink)
         +position(absolute, left 50%, bottom 0, top 0, -1)
         transform: translate(-50%, 0)
         border-radius: 2rem
         opacity: 1
   +media-breakpoint-down(sm)
-    +text-block(.875rem 1, $default-text 600 flex)
+    +text-block(.875rem 1, 600 flex)
+    color: var(--default-text)
     +size(100% 2.75rem)
     align-items: center
     +padding(horizontal, 1rem)
     text-decoration: none
-    border-bottom: solid 1px $border
+    border-bottom: solid 1px var(--border)

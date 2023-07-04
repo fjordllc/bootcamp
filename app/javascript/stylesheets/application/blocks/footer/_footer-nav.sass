@@ -13,10 +13,10 @@
   +media-breakpoint-down(sm)
     flex: 0 0 50%
     &:nth-child(odd)
-      border-right: solid 1px $border-shade
+      border-right: solid 1px var(--border-shade)
 
 .footer-nav__item-link
-  color: $semi-muted-text
+  color: var(--semi-muted-text)
   +media-breakpoint-up(md)
     +hover-link
   +media-breakpoint-down(sm)
@@ -25,4 +25,4 @@
     +padding(vertical, .25rem)
     min-height: 2.75rem
     align-items: center
-    border-bottom: solid 1px $border-shade
+    border-bottom: solid 1px var(--border-shade)

@@ -28,7 +28,8 @@
     +size(4rem)
 
 .user-profile__login-name
-  +text-block(1.5rem 1.2 0 .25rem, 600 $main)
+  +text-block(1.5rem 1.2 0 .25rem, 600)
+  color: var(--main)
   +word-wrap
 
 .user-profile__company-name
@@ -36,8 +37,8 @@
 
 .user-profile__company-logo
   +size(3.5rem)
-  background-color: $base
+  background-color: var(--base)
   object-fit: contain
   +position(absolute, right 0, top 0)
   border-radius: .25rem
-  border: solid 1px $border
+  border: solid 1px var(--border)

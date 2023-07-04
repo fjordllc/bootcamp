@@ -25,14 +25,14 @@
     margin-top: 1.5rem
 
 .auth-form__header
-  border-bottom: solid 1px $border-tint
+  border-bottom: solid 1px var(--border-tint)
   padding: 1rem 1.25rem
 
 .auth-form__body
   padding: 1.5rem 1.25rem
 
 .auth-form__footer
-  border-top: solid 1px $border-tint
+  border-top: solid 1px var(--border-tint)
   padding: 1rem 1.25rem
 
 .auth-form__title
@@ -45,9 +45,10 @@
   padding: .5rem 1.25rem
   background-color: $danger
   text-align: center
-  +text-block(.8125rem 1.4, $reversal-text)
+  +text-block(.8125rem 1.4)
+  color: var(--reversal-text)
   margin: 1rem 1rem 0
   border-radius: .25rem
   a
     +hover-link-reversal
-    color: $reversal-text
+    color: var(--reversal-text)

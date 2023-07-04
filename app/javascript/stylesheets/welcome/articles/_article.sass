@@ -14,7 +14,7 @@
   +media-breakpoint-down(sm)
     font-size: 1.625rem
   &.is-wip
-    color: $muted-text
+    color: var(--muted-text)
 
 .article__title-label
   background-color: #ccc
@@ -26,7 +26,7 @@
   border-radius: 1rem
   margin-top: -.5em
   font-weight: 400
-  color: $default-text
+  color: var(--default-text)
   line-height: 1
 
 .article__metas
@@ -41,12 +41,13 @@
   margin-left: .75em
 
 .article__published-at
-  +text-block(1em 1.4, $semi-muted-text)
+  +text-block(1em 1.4, var(--semi-muted-text))
 
 .article__author
   display: flex
   align-items: center
-  +text-block(1em 1.4, $default-text)
+  +text-block(1em 1.4)
+  color: var(--default-text)
   img
     +size(1.125rem)
     object-fit: cover
@@ -68,7 +69,7 @@
 
 .article__actions
   margin-top: 2rem
-  border-top: dashed 2px $border
+  border-top: dashed 2px var(--border)
   padding-top: 1rem
   ul
     display: flex

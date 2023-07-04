@@ -3,7 +3,8 @@
   &.is-required
     &::after
       +fa(fas '\f069')
-      +text-block(.625rem, $danger inline-block)
+      +text-block(.625rem, inline-block)
+      color: var(--danger)
       margin-left: .125rem
       vertical-align: top
       transform: scale(.7)
@@ -11,7 +12,7 @@
     +text-block(.75rem 1.5)
   &.is-lg
     +text-block(1.125rem 1.5)
-    border-bottom: solid 1px $border
+    border-bottom: solid 1px var(--border)
     padding-bottom: .5rem
   &.is-inline
     margin-bottom: 0
@@ -33,7 +34,7 @@
       +position(absolute, left 0, top 50%)
       margin-top: -.4375rem
       box-shadow: rgba(black, .1) 0 1px 2px inset
-      background-color: $base
+      background-color: var(--base)
   input:checked + .a-form-label::after
     +fa(fas '\f00c')
     +text-block(.75rem .875rem, center block #4193e9)
