@@ -21,7 +21,8 @@
 .welcome-small-sections__title
   $height: 3.25rem
   $width: 20rem
-  +text-block(1.5rem 1.4 0 1.25em, 700 center flex $default-text)
+  +text-block(1.5rem 1.4 0 1.25em, 700 center flex)
+  color: var(--default-text)
   align-items: center
   justify-content: center
   font-feature-settings: "palt"
@@ -118,7 +119,7 @@
   background-color: var(--welcome-yellow)
   margin-right: .5rem
   vertical-align: bottom
-  border: solid 2px $default-text
+  border: solid 2px var(--default-text)
 
 .welcome-small-section__description
   &:not(:last-child)

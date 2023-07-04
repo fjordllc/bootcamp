@@ -9,8 +9,8 @@
 #side-tabs-2:checked ~ .side-tabs-nav #side-tabs-nav-2,
 #side-tabs-3:checked ~ .side-tabs-nav #side-tabs-nav-3,
 #side-tabs-4:checked ~ .side-tabs-nav #side-tabs-nav-4
-  background-color: $base
-  color: $default-text
+  background-color: var(--base)
+  color: var(--default-text)
 
 .side-tabs-nav__item-link
   +text-block(.8125rem 1.4, flex 600 center)
@@ -26,4 +26,4 @@
   .side-tabs-nav__item:not(:first-child) &
     margin-left: -1px
   &:hover
-    color: $default-text
+    color: var(--default-text)

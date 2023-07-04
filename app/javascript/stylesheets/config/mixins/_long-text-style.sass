@@ -30,7 +30,7 @@
       align-items: center
       gap: .5rem
       text-decoration: none
-      color: $default-text
+      color: var(--default-text)
     >a:hover
       .speak__speaker-name
         text-decoration: underline
@@ -127,7 +127,8 @@
     blockquote + ul
       margin-top: -2em
     code
-      +text-block(.875em 1.7, $default-text inline-flex)
+      +text-block(.875em 1.7, inline-flex)
+      color: var(--default-text)
       align-items: center
       letter-spacing: 0
       +padding(horizontal, .25rem)
@@ -341,4 +342,4 @@
     opacity: 0
     &:link,
     &:visited
-      color: $main
+      color: var(--main)

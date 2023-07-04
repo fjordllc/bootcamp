@@ -1,7 +1,7 @@
 $select2-height: 2.25rem
 $select2-font-size: .8125rem
-$select2-border-color: $background-shade
-$select2-option-border-color: $background
+$select2-border-color: var(--background-shade)
+$select2-option-border-color: var(--background)
 $select2-highlighted-color: rgba($main, .8)
 $select2-results-height: 200px
 $select2-selection-choice-border: $main
@@ -297,7 +297,7 @@ $select2-selection-choice-background: mix($main, $base, 10%)
   color: #999
 
 .select2-container--default .select2-results__option[aria-selected=true]
-  background-color: $background-shade
+  background-color: var(--background-shade)
 
 .select2-container--default .select2-results__option .select2-results__option
   padding-left: 1em

@@ -46,7 +46,7 @@
     content: ""
     display: block
     +size(40% 2px)
-    background-color: $default-text
+    background-color: var(--default-text)
     +position(absolute, left 50%, top 50%)
     border-radius: 2px
   &::before
@@ -59,7 +59,7 @@
 .modal-content
   +position(absolute, left 50%, top 50%, 1)
   transform: translate(-50%, -50%)
-  background-color: $base
+  background-color: var(--base)
   border-radius: .25rem
   width: 40rem
   max-width: calc(100% - 2rem)

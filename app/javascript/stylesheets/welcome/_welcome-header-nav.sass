@@ -29,7 +29,7 @@
     gap: 1.25rem
   +media-breakpoint-down(sm)
     width: 15rem
-    background-color: $base
+    background-color: var(--base)
     +position(fixed, left 0, top 0, bottom 0, 2)
 
 .welcome-header-nav__overlay
@@ -43,7 +43,8 @@
 
 .welcome-header-nav__item-link
   +media-breakpoint-up(md)
-    +text-block(.875rem 1, $default-text 600 block)
+    +text-block(.875rem 1, 600 block)
+    color: var(--default-text)
     +padding(horizontal, .875rem)
     text-decoration: none
     +padding(vertical, .375rem)
@@ -83,7 +84,8 @@
         border-radius: 2rem
         opacity: 1
   +media-breakpoint-down(sm)
-    +text-block(.875rem 1, $default-text 600 flex)
+    +text-block(.875rem 1, 600 flex)
+    color: var(--default-text)
     +size(100% 2.75rem)
     align-items: center
     +padding(horizontal, 1rem)

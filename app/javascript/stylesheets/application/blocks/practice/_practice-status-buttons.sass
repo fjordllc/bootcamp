@@ -23,10 +23,10 @@
 
 .practice-status-buttons__button
   &.is-inactive
-    $color: $base
+    $color: var(--base)
     color: var(--muted-text)
     background-color: $color
-    border-color: $background-shade
+    border-color: var(--background-shade)
     transition: all .2s ease-out
     &:hover
       +practice-hover-color(true)

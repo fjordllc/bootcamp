@@ -27,14 +27,14 @@
     overflow: hidden
   span
     display: block
-    background-color: $background
+    background-color: var(--background)
     +position(relative)
     transition: all .2s ease-out
     &::before
       content: ""
       display: block
       border-radius: 50%
-      background-color: $base
+      background-color: var(--base)
       +position(absolute, left 0, top 0)
       border: solid 1px var(--input-border)
     &::after

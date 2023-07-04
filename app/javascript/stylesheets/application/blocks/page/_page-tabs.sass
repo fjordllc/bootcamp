@@ -1,5 +1,5 @@
 .page-tabs
-  background-color: $base
+  background-color: var(--base)
   border-bottom: solid 1px var(--border-shade)
   +position(relative, 2)
 
@@ -26,7 +26,7 @@
   color: var(--muted-text)
   align-items: center
   justify-content: center
-  background-color: $background-semi-shade
+  background-color: var(--background-semi-shade)
   +padding(horizontal, 1.25rem)
   +border-radius(top, .25rem)
   border: solid 1px var(--border-shade)
@@ -38,12 +38,12 @@
     height: 2.75rem
     font-size: .75rem
   &:hover
-    background-color: $background-shade
+    background-color: var(--background-shade)
     color: var(--semi-muted-text)
   &.is-active
-    background-color: $background
-    border-bottom-color: $background
-    color: $default-text
+    background-color: var(--background)
+    border-bottom-color: var(--background)
+    color: var(--default-text)
   &.is-sm
     font-size: .75rem
   &.is-inactive

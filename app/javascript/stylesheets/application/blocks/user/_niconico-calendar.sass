@@ -34,7 +34,7 @@
     height: 3rem
 
 .niconico-calendar__header
-  background-color: $background-tint
+  background-color: var(--background-tint)
 
 .niconico-calendar__header-day
   width: calc(100% / 7)
@@ -47,7 +47,7 @@
 
 .niconico-calendar__day
   &.is-blank
-    background-color: $background-more-tint
+    background-color: var(--background-more-tint)
   &.is-happy
     background-color: #ffecdf
   &.is-sad
@@ -75,7 +75,8 @@ a.niconico-calendar__day-inner
     position: relative
 
 .niconico-calendar__day-label
-  +text-block(.625rem 1, center $default-text)
+  +text-block(.625rem 1, center)
+  color: var(--default-text)
   margin-bottom: .125rem
   .niconico-calendar__day.is-blank &
     color: var(--muted-text)

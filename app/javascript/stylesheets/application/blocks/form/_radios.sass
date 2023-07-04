@@ -23,7 +23,7 @@ $radio-size: .875rem
       display: block
       +position(absolute, left 0, top 50%)
       transform: translate(0, -50%)
-      background-color: $base
+      background-color: var(--base)
       border-radius: 50%
       +text-block(.75rem 1)
       color: var(--reversal-text)
@@ -36,11 +36,11 @@ $radio-size: .875rem
   label:hover::after
     text-decoration: none
   input:checked + label
-    color: $default-text
+    color: var(--default-text)
   input:checked + label::before
     background-color: var(--primary)
     border-color: var(--primary)
-    box-shadow: $background 0 0 0 1px inset
+    box-shadow: var(--background) 0 0 0 1px inset
   input:checked + label:hover::before
     border-color: var(--primary)
   input:checked + label::after

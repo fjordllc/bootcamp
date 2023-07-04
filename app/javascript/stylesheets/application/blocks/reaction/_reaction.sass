@@ -33,7 +33,7 @@
   align-items: center
   justify-content: center
   padding: 0 9px
-  background-color: $base
+  background-color: var(--base)
   border-right: 1px solid var(--border-tint)
   transition: all .2s ease-out
   position: relative
@@ -89,7 +89,8 @@
 
 .reactions__dropdown-toggle
   +size(2.8125rem calc(2.8125rem - 1px))
-  +text-block(1.25rem 1, flex $main)
+  +text-block(1.25rem 1, flex)
+  color: var(--main)
   cursor: pointer
   align-items: center
   justify-content: center
