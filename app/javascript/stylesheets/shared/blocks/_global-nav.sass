@@ -20,7 +20,7 @@
     display: block
 
 .global-nav__inner
-  background-color: $main
+  background-color: var(--main)
   +size($global-nav-width 100%)
   +position(fixed, left 0, top 0, bottom 0, 3)
   overflow-y: auto
@@ -53,8 +53,8 @@
   &:hover
     background-color: var(--main-shade)
   &.is-active
-    background-color: $accent
-    color: $main
+    background-color: var(--accent)
+    color: var(--main)
 
 .global-nav-links__link-icon
   +media-breakpoint-up(md)

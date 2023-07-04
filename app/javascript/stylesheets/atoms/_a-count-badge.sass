@@ -4,7 +4,7 @@
   vertical-align: middle
   border-radius: .25rem
   overflow: hidden
-  background-color: $base
+  background-color: var(--base)
   transition: all .2s ease-out
   +media-breakpoint-up(md)
     display: flex
@@ -16,11 +16,11 @@
 a.a-count-badge
   text-decoration: none
   &:hover
-    background-color: $background-more-tint
+    background-color: var(--background-more-tint)
 
 .a-count-badge__label
   font-size: .625rem
-  color: $default-text
+  color: var(--default-text)
   +media-breakpoint-up(md)
     border-right: solid 1px var(--border-shade)
     display: flex

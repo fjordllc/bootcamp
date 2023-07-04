@@ -4,14 +4,14 @@
   &:not(:last-child)
     border-bottom: solid 1px var(--border-tint)
   &:nth-child(even)
-    background-color: $background-more-tint
+    background-color: var(--background-more-tint)
   +media-breakpoint-down(sm)
     flex-wrap: wrap
     padding: .5rem .75rem .75rem
   &.sortable-chosen
     background-color: tint($warning, 90%)
   &[draggable="false"]
-    background-color: $base
+    background-color: var(--base)
     animation: grab-background-color 1.25s ease 0s 1 normal none running
 
 .category-practices-item__grab
@@ -43,7 +43,8 @@
     margin-bottom: .5rem
 
 .category-practices-item__title-link
-  +text-block(.875rem 1.5, $default-text flex)
+  +text-block(.875rem 1.5, flex)
+  color: var(--default-text)
   align-items: center
   min-height: 1.875rem
   text-decoration: none

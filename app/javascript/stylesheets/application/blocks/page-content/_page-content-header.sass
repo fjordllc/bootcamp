@@ -8,7 +8,7 @@
   .a-watch-button.is-inactive,
   .a-bookmark-button.is-inactive
     color: var(--semi-muted-text)
-    background-color: $background-semi-shade
+    background-color: var(--background-semi-shade)
   .a-count-badge
     +media-breakpoint-up(md)
       +position(absolute, right 0, top -.75rem)
@@ -59,7 +59,7 @@
     color: var(--reversal-text)
   &.is-others
     background-color: #f7cd5b
-    color: $default-text
+    color: var(--default-text)
 
 .page-content-header__user-link
   +block-link
@@ -68,7 +68,7 @@
   +size(3.5rem)
 
 .page-content-header__company-logo
-  background-color: $base
+  background-color: var(--base)
   object-fit: contain
   border-radius: .25rem
   border: solid 1px var(--border)
@@ -98,7 +98,8 @@
 .page-content-header__title
   font-feature-settings: "palt"
   letter-spacing: .02em
-  +text-block(1em 1.45, 700 $main)
+  +text-block(1em 1.45, 700)
+  color: var(--main)
   padding-bottom: .25rem
   border-bottom: solid 1px var(--border-shade)
   +media-breakpoint-up(md)
@@ -123,7 +124,7 @@
 
 .page-content-header__title-link
   +hover-link
-  color: $main
+  color: var(--main)
   .page-content-header__title.is-wip &
     color: var(--muted-text)
 

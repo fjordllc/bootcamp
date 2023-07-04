@@ -34,10 +34,10 @@
 
 a.card-list-item__inner
   +flex-link
-  color: $default-text
+  color: var(--default-text)
   &:hover
     .card-list-item-title__title
-      color: $main
+      color: var(--main)
       text-decoration: underline
 
 .card-list-item__assignee
@@ -66,7 +66,7 @@ a.card-list-item__inner
 
 .card-list-item__label
   border-radius: 50%
-  background-color: $accent
+  background-color: var(--accent)
   display: flex
   align-items: center
   justify-content: center
@@ -91,7 +91,7 @@ a.card-list-item__inner
     color: var(--reversal-text)
   .card-list-item.is-announcement &
     background-color: #f7cd5b
-    color: $default-text
+    color: var(--default-text)
   .card-list-item.is-event &
     background-color: #fb96a3
     color: var(--reversal-text)
@@ -119,7 +119,7 @@ a.card-list-item__inner
     color: var(--reversal-text)
   &.is-others
     background-color: #f7cd5b
-    color: $default-text
+    color: var(--default-text)
 
 .card-list-item__label-inner
   &.is-sm
@@ -178,7 +178,8 @@ a.card-list-item__inner
 
 .card-list-item__close-user-detail
   margin-top: 1rem
-  +text-block(.8125rem 1.4, flex $main)
+  +text-block(.8125rem 1.4, flex)
+  color: var(--main)
   align-items: center
   justify-content: center
   +hover-link-reversal

@@ -4,7 +4,7 @@
   border-radius: .25rem
   width: 100%
   +margin(horizontal, auto)
-  background-color: $base
+  background-color: var(--base)
   border: solid 1px var(--border)
   &.is-danger
     border-color: var(--danger)
@@ -19,7 +19,7 @@
     +media-breakpoint-down(lg)
       margin-top: 1rem
   &.is-borderd
-    border: solid 4px $default-text
+    border: solid 4px var(--default-text)
   &.is-modal
     width: 42.5rem
     max-width: 100%

@@ -4,7 +4,8 @@
     margin-top: 1.5rem
 
 .welcome-child-section__title
-  +text-block(1.5rem 1.45 0 .6em, 700 center $default-text)
+  +text-block(1.5rem 1.45 0 .6em, 700 center)
+  color: var(--default-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: 1rem
@@ -32,7 +33,7 @@
       font-size: .875rem
   table
     width: 100%
-    background-color: $base
+    background-color: var(--base)
     border: solid 1px var(--border)
     border-radius: .25rem
   tr

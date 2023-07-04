@@ -60,7 +60,8 @@
   border-radius: 2px
 
 .practice-books-item__title
-  +text-block(.875rem 1.4, $default-text 600)
+  +text-block(.875rem 1.4, 600)
+  color: var(--default-text)
   transition: all .2s ease-out
   .a-badge
     +position(relative, top -.125em)
@@ -72,7 +73,8 @@ a.practice-books-item__inner:hover
     color: var(--main-text)
 
 .practice-books-item__price
-  +text-block(.75rem 1.4, $default-text)
+  +text-block(.75rem 1.4)
+  color: var(--default-text)
 
 .practice-books-item__description
   font-size: .75rem

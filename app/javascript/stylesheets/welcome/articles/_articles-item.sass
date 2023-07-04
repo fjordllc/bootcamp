@@ -18,7 +18,8 @@
   border-radius: 4px
 
 .articles-item__title
-  +text-block(1.125rem 1.4, $default-text 700)
+  +text-block(1.125rem 1.4, 700)
+  color: var(--default-text)
   .articles-item.is-wip &
     color: var(--muted-text)
 
@@ -31,7 +32,8 @@
 .articles-item__author
   display: flex
   align-items: center
-  +text-block(.8125rem 1.4, $default-text)
+  +text-block(.8125rem 1.4)
+  color: var(--default-text)
   img
     +size(1.125rem)
     object-fit: cover

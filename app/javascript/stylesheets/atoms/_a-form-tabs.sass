@@ -1,6 +1,6 @@
 .a-form-tabs
   display: flex
-  background-color: $background-semi-shade
+  background-color: var(--background-semi-shade)
   border-bottom: solid 1px var(--border-shade)
   margin-bottom: 1rem
   padding: .5rem .75rem 0
@@ -18,9 +18,9 @@
   +position(relative, bottom -1px)
   transition: all .2s ease-out
   &:hover
-    color: $default-text
+    color: var(--default-text)
   &.is-active
-    background-color: $base
+    background-color: var(--base)
     color: var(--main-text)
     border-color: var(--border-shade)
-    border-bottom-color: $base
+    border-bottom-color: var(--base)
