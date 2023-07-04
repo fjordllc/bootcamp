@@ -4,7 +4,7 @@
     margin-top: 1.25rem
   .form + &
     margin-top: 1rem
-    border-top: dashed 1px $border
+    border-top: dashed 1px var(--border)
     padding-top: 1rem
 
 .form__items
@@ -12,8 +12,9 @@
     margin-top: 1.75rem
 
 .form__items-title
-  +text-block(.875rem 1.4 0 1.5rem, 600 $reversal-text)
-  background-color: $main
+  +text-block(.875rem 1.4 0 1.5rem, 600)
+  color: var(--reversal-text)
+  background-color: var(--main)
   padding: .625rem 1rem
   border-radius: .25rem
 

@@ -15,7 +15,7 @@
   +hover-link
   transition: all .2s ease-out
   &:hover
-    color: $main-text
+    color: var(--main-text)
   &.is-blank
     cursor: default
     pointer-events: none
@@ -29,25 +29,25 @@
   table-layout: fixed
   th,
   td
-    border: solid 1px $border-shade
+    border: solid 1px var(--border-shade)
   td
     height: 3rem
 
 .niconico-calendar__header
-  background-color: $background-tint
+  background-color: var(--background-tint)
 
 .niconico-calendar__header-day
   width: calc(100% / 7)
   +text-block(.75rem 1, center)
   +padding(vertical, .25em)
   &.is-sunday
-    color: $danger
+    color: var(--danger)
   &.is-saturday
-    color: $main-text
+    color: var(--main-text)
 
 .niconico-calendar__day
   &.is-blank
-    background-color: $background-more-tint
+    background-color: var(--background-more-tint)
   &.is-happy
     background-color: #ffecdf
   &.is-sad
@@ -56,10 +56,10 @@
     background-color: #fff9e8
   &.is-today
     .niconico-calendar__day-inner
-      border: dashed 2px $success
+      border: dashed 2px var(--success)
     .niconico-calendar__day-label
       font-weight: 600
-      color: $success
+      color: var(--success)
 
 .niconico-calendar__day-inner
   +block-link
@@ -71,14 +71,15 @@ a.niconico-calendar__day-inner
   cursor: pointer
   &:hover
     background-color: rgba($warning, .1)
-    box-shadow: $warning 0 0 0 1px inset
+    box-shadow: var(--warning) 0 0 0 1px inset
     position: relative
 
 .niconico-calendar__day-label
-  +text-block(.625rem 1, center $default-text)
+  +text-block(.625rem 1, center)
+  color: var(--default-text)
   margin-bottom: .125rem
   .niconico-calendar__day.is-blank &
-    color: $muted-text
+    color: var(--muted-text)
 
 .niconico-calendar__day-value
   +text-block(1.75rem 1, center flex)
@@ -86,7 +87,7 @@ a.niconico-calendar__day-inner
   justify-content: center
   +size(100% 1.875rem)
   .niconico-calendar__day.is-blank &
-    color: $muted-text
+    color: var(--muted-text)
     font-size: 1.25rem
 
 .niconico-calendar__emotion-image

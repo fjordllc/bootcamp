@@ -3,7 +3,7 @@
   +media-breakpoint-down(sm)
     +text-block(1.125rem 1)
     .has-count &
-      color: $default-text
+      color: var(--default-text)
 
 .header-notification-count
   position: absolute
@@ -15,7 +15,7 @@
     background-color: transparent
   &.is-loading::before
     content: ' .'
-    color: $default-text
+    color: var(--default-text)
     animation: dots 1s steps(5, end) infinite
     +text-block(1rem 1)
     +position(absolute, left .25rem, bottom .25rem)
@@ -25,19 +25,19 @@
     color: rgba(0,0,0,0)
     text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0)
   40%
-    color: $default-text
+    color: var(--default-text)
     text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0)
   60%
-    text-shadow: .25em 0 0 $default-text, .5em 0 0 rgba(0,0,0,0)
+    text-shadow: .25em 0 0 var(--default-text), .5em 0 0 rgba(0,0,0,0)
   80%, 100%
-    text-shadow: .25em 0 0 $default-text, .5em 0 0 $default-text
+    text-shadow: .25em 0 0 var(--default-text), .5em 0 0 var(--default-text)
 
 .header-notifications-item__body
   width: 100%
   +media-breakpoint-up(md)
-    color: $default-text
+    color: var(--default-text)
   +media-breakpoint-down(sm)
-    color: $reversal-text
+    color: var(--reversal-text)
 
 .header-notifications-item__user-icon
   float: left

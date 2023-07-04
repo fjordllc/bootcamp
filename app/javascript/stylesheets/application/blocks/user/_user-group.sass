@@ -1,7 +1,7 @@
 .user-group
   padding: 1rem
   &:not(:first-child)
-    border-top: solid 1px $border
+    border-top: solid 1px var(--border)
 
 .user-group__title
   +media-breakpoint-up(md)
@@ -11,7 +11,7 @@
 
 .user-group__title-link
   text-decoration: none
-  color: $main-text
+  color: var(--main-text)
   +media-breakpoint-up(md)
     display: flex
     align-items: flex-end
@@ -39,10 +39,10 @@
 .user-group__date
   font-size: .75rem
   font-weight: 400
-  color: $muted-text
+  color: var(--muted-text)
 
 .user-group__count
   font-size: .75rem
   font-weight: 400
-  color: $muted-text
+  color: var(--muted-text)
   margin-left: .25rem

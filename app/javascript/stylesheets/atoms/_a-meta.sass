@@ -1,5 +1,6 @@
 .a-meta
-  +text-block(1em 1.5, $muted-text flex)
+  +text-block(1em 1.5, flex)
+  color: var(--muted-text)
   align-items: center
   flex-wrap: wrap
   +media-breakpoint-up(md)
@@ -8,12 +9,12 @@
     font-size: .75rem
   .is-important,
   &.is-important
-    color: $danger
+    color: var(--danger)
     font-weight: 600
   .is-muted
-    color: $muted-text
+    color: var(--muted-text)
   .is-emphasized
-    color: $default-text
+    color: var(--default-text)
     font-weight: 600
   +media-breakpoint-up(md)
     .a-meta + &
@@ -25,10 +26,10 @@
 
 a.a-meta
   +hover-link
-  color: $muted-text
+  color: var(--muted-text)
   transition: all .2s ease-out
   &:hover
-    color: $main-text
+    color: var(--main-text)
   &.is-disabled
     pointer-events: none
 
@@ -47,4 +48,4 @@ a.a-meta
     margin-left: .25rem
   &.is-danger
     font-weight: 600
-    color: $danger
+    color: var(--danger)

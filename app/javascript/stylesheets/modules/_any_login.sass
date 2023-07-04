@@ -25,7 +25,7 @@ body
       select,
       input[type="text"],
       input[type="submit"]
-        background-color: $base
+        background-color: var(--base)
         height: 2rem
         border-radius: .25rem
         +padding(horizontal, .75rem)
@@ -35,8 +35,8 @@ body
       input[type="text"]
         min-width: 6rem
       input[type="submit"]
-        background-color: $danger
-        color: $reversal-text
+        background-color: var(--danger)
+        color: var(--reversal-text)
         font-weight: 600
         +margin(horizontal, .5em)
         height: 2rem
@@ -48,6 +48,6 @@ body
         padding-left: 0
       #anylogin_back_to_user
         +padding(horizontal, .5rem)
-        color: $reversal-text
+        color: var(--reversal-text)
       #anylogin_back_to_user
-        color: $reversal-text
+        color: var(--reversal-text)

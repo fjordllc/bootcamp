@@ -2,10 +2,11 @@
   margin-bottom: -.25rem
 
 .active-practices-list-item:not(:last-child)
-  border-bottom: dotted .0625rem $border-tint
+  border-bottom: dotted .0625rem var(--border-tint)
 
 .active-practices-list-item__link
-  +text-block(.875rem 1.55, block $main)
+  +text-block(.875rem 1.55, block)
+  color: var(--main)
   +padding(vertical, .5rem)
   +padding(horizontal, 1rem)
   +hover-link
@@ -13,6 +14,6 @@
     +fa(fas '\f060')
     display: inline-block
     margin-right: .5rem
-    color: $accent
+    color: var(--accent)
   &:hover::before
     text-decoration: none

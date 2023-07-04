@@ -1,10 +1,10 @@
 .a-count-badge
   +text-block(1.125rem 1, center)
-  border: solid 1px $border-shade
+  border: solid 1px var(--border-shade)
   vertical-align: middle
   border-radius: .25rem
   overflow: hidden
-  background-color: $base
+  background-color: var(--base)
   transition: all .2s ease-out
   +media-breakpoint-up(md)
     display: flex
@@ -16,26 +16,26 @@
 a.a-count-badge
   text-decoration: none
   &:hover
-    background-color: $background-more-tint
+    background-color: var(--background-more-tint)
 
 .a-count-badge__label
   font-size: .625rem
-  color: $default-text
+  color: var(--default-text)
   +media-breakpoint-up(md)
-    border-right: solid 1px $border-shade
+    border-right: solid 1px var(--border-shade)
     display: flex
     align-items: center
     justify-content: center
     width: auto
     +padding(horizontal, .5rem)
   +media-breakpoint-down(sm)
-    border-bottom: solid 1px $border-shade
+    border-bottom: solid 1px var(--border-shade)
     +padding(vertical, .25rem)
 
 .a-count-badge__value
   font-size: 1em
   font-weight: 700
-  color: $danger
+  color: var(--danger)
   transition: all .2s ease-out
   +media-breakpoint-up(md)
     min-width: 2rem
@@ -48,9 +48,9 @@ a.a-count-badge
     line-height: .9375
     height: 1.125em
   &.is-zero
-    color: $muted-text
+    color: var(--muted-text)
   &.is-counting
-    color: $muted-text
+    color: var(--muted-text)
     padding: 0
     i
       font-size: .75em

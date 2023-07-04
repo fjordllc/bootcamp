@@ -1,6 +1,6 @@
 .a-form-help
   font-size: .75rem
-  color: $semi-muted-text
+  color: var(--semi-muted-text)
   &:not(:first-child)
     margin-top: .5em
   em
@@ -8,7 +8,7 @@
     font-weight: 600
   &.is-danger,
   .is-danger
-    color: $danger
+    color: var(--danger)
   &.is-text-align-right
     text-align: right
   &.is-text-align-center
@@ -48,9 +48,9 @@
   cursor: pointer
   +default-link
   .a-form-help &.is-danger
-      color: $danger
+      color: var(--danger)
   &.is-muted-text
-      color: $muted-text
+      color: var(--muted-text)
 
 .a-form-help-link__label
   +hover-link-reversal

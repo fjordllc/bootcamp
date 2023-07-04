@@ -6,7 +6,7 @@
     +media-breakpoint-up(md)
       padding-bottom: 1.5rem
   .form-actions + &
-    border-top: dashed 1px $border
+    border-top: dashed 1px var(--border)
     +media-breakpoint-up(md)
       margin-top: 1rem
       padding-top: 1rem
@@ -92,9 +92,10 @@
 
 .form-actions__delete-link
   +hover-link-reversal
-  +text-block(.875rem 1.4, $muted-text)
+  +text-block(.875rem 1.4)
+  color: var(--muted-text)
   &:hover
-    color: $danger
+    color: var(--danger)
 
 .form-action-before-option
   margin-bottom: .5rem

@@ -2,8 +2,8 @@
   letter-spacing: .125em
   text-indent: .125em
   margin: -1px -1px 0
-  background-color: $base
-  border: solid 1px $border
+  background-color: var(--base)
+  border: solid 1px var(--border)
   >*
     width: 100%
   +media-breakpoint-up(md)
@@ -13,13 +13,13 @@
     +text-block(.875rem 1.4, 600 center)
     padding: .375rem .75rem
   &.is-reply-warning
-    background-color: $warning
+    background-color: var(--warning)
     border-color: #d09a0e
   &.is-reply-alert
     background-color: #ff7500
-    color: $reversal-text
+    color: var(--reversal-text)
     border-color: #d06305
   &.is-reply-deadline
-    background-color: $danger
-    color: $reversal-text
+    background-color: var(--danger)
+    color: var(--reversal-text)
     border-color: #b50f38

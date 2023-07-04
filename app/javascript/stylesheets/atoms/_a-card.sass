@@ -4,12 +4,12 @@
   border-radius: .25rem
   width: 100%
   +margin(horizontal, auto)
-  background-color: $base
-  border: solid 1px $border
+  background-color: var(--base)
+  border: solid 1px var(--border)
   &.is-danger
-    border-color: $danger
-    color: $danger-text
-    background-color: $danger-tint
+    border-color: var(--danger)
+    color: var(--danger-text)
+    background-color: var(--danger-tint)
   +media-breakpoint-down(lg)
     &:not(:last-child)
       margin-bottom: 1rem
@@ -19,7 +19,7 @@
     +media-breakpoint-down(lg)
       margin-top: 1rem
   &.is-borderd
-    border: solid 4px $default-text
+    border: solid 4px var(--default-text)
   &.is-modal
     width: 42.5rem
     max-width: 100%
@@ -44,10 +44,11 @@ table.a-card
 
 .a-card__alert
   padding: .5rem 1.25rem
-  background-color: $danger
+  background-color: var(--danger)
   text-align: center
-  +text-block(.875rem 1.4, $reversal-text)
+  +text-block(.875rem 1.4)
+  color: var(--reversal-text)
   +border-radius(top, .25rem)
   a
     +hover-link-reversal
-    color: $reversal-text
+    color: var(--reversal-text)

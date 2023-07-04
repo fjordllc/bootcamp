@@ -1,5 +1,5 @@
 .page-main-header
-  border-bottom: solid 1px $border
+  border-bottom: solid 1px var(--border)
 
 .page-main-header__inner
   +padding(vertical, .5rem)
@@ -21,7 +21,9 @@
     margin-top: .75rem
 
 .page-main-header__title
+  color: var(--main)
+  font-weight: 700
   +media-breakpoint-up(md)
-    +text-block(1.25rem 1.4, $main 700)
+    +text-block(1.25rem 1.4)
   +media-breakpoint-down(sm)
-    +text-block(1rem 1.4, $main 700)
+    +text-block(1rem 1.4)

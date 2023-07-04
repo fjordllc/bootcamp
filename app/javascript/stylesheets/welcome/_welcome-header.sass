@@ -1,15 +1,15 @@
 .welcome-header
   $border-height: .625rem
-  background-color: $base
+  background-color: var(--base)
   +position(relative)
   padding-bottom: calc(#{$border-height} * 3)
   &::before
     content: ""
     +size(100% calc(#{$border-height} * 3))
-    background-color: $welcome-orange
+    background-color: var(--welcome-orange)
     +position(absolute, left 0, bottom 0)
-    border-top: solid $border-height $welcome-yellow
-    border-bottom: solid $border-height $welcome-pink
+    border-top: solid $border-height var(--welcome-yellow)
+    border-bottom: solid $border-height var(--welcome-pink)
     box-shadow: rgba(black, .2) 0 2px 1px
   +media-breakpoint-down(sm)
     $border-height: .5rem
@@ -18,10 +18,10 @@
     &::before
       content: ""
       +size(100% calc(#{$border-height} * 3))
-      background-color: $welcome-orange
+      background-color: var(--welcome-orange)
       +position(absolute, left 0, bottom 0)
-      border-top: solid $border-height $welcome-yellow
-      border-bottom: solid $border-height $welcome-pink
+      border-top: solid $border-height var(--welcome-yellow)
+      border-bottom: solid $border-height var(--welcome-pink)
       box-shadow: rgba(black, .2) 0 2px 1px
 
 .welcome-header__inner
@@ -47,17 +47,18 @@
   transform: translate(0, -50%)
 
 .welcome-header__login-link
-  +text-block(.8125rem 1, flex $muted-text 600)
+  +text-block(.8125rem 1, flex 600)
+  color: var(--muted-text)
   +size(6.75rem 2.125rem)
-  border: solid 2px $muted-text
+  border: solid 2px var(--muted-text)
   text-decoration: none
   align-items: center
   justify-content: center
   border-radius: .375rem
   transition: all .2s ease-out
   &:hover
-    border-color: $welcome-pink
-    color: $welcome-pink
+    border-color: var(--welcome-pink)
+    color: var(--welcome-pink)
     background-color: rgba($welcome-pink, .1)
   +media-breakpoint-down(sm)
     display: none
