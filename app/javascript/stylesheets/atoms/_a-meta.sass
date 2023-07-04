@@ -1,5 +1,6 @@
 .a-meta
-  +text-block(1em 1.5, $muted-text flex)
+  +text-block(1em 1.5, flex)
+  color: var(--muted-text)
   align-items: center
   flex-wrap: wrap
   +media-breakpoint-up(md)
@@ -11,7 +12,7 @@
     color: var(--danger)
     font-weight: 600
   .is-muted
-    color: $muted-text
+    color: var(--muted-text)
   .is-emphasized
     color: $default-text
     font-weight: 600
@@ -25,7 +26,7 @@
 
 a.a-meta
   +hover-link
-  color: $muted-text
+  color: var(--muted-text)
   transition: all .2s ease-out
   &:hover
     color: var(--main-text)

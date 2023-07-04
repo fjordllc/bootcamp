@@ -32,7 +32,8 @@
   +size(2.5rem)
   border-radius: 50%
   outline: none
-  +text-block(.875rem 1, $muted-text)
+  +text-block(.875rem 1)
+  color: var(--muted-text)
   +flex-link
   justify-content: center
   align-items: center
@@ -41,7 +42,7 @@
     background-color: rgba(black, .1)
   &.is-active
     background-color: $main
-    color: $reversal-text
+    color: var(--reversal-text)
   .pagination__item.is-active &
     background-color: $main
-    color: $reversal-text
+    color: var(--reversal-text)

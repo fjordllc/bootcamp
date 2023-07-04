@@ -241,7 +241,8 @@ $select2-selection-choice-background: mix($main, $base, 10%)
   +size(1.5rem 100%)
   flex: 0 0 1.5rem
   margin-right: .5rem
-  +text-block(1.125rem, 700 flex $reversal-text)
+  +text-block(1.125rem, 700 flex)
+  color: var(--reversal-text)
   background-color: $select2-selection-choice-border
   &:hover
     background-color: mix($select2-selection-choice-border, $base, 80%)
@@ -326,7 +327,7 @@ $select2-selection-choice-background: mix($main, $base, 10%)
 
 .select2-container--default .select2-results__option--highlighted[aria-selected]
   background-color: $select2-highlighted-color
-  color: $reversal-text
+  color: var(--reversal-text)
 
 .select2-container--default .select2-results__group
   cursor: default

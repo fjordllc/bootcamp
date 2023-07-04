@@ -34,7 +34,8 @@
 
 
 .not-logged-in-footer__nav-item-link
-  +text-block(.875rem 1, $reversal-text)
+  +text-block(.875rem 1)
+  color: var(--reversal-text)
   +media-breakpoint-up(md)
     +hover-link
   +media-breakpoint-down(md)
@@ -49,7 +50,8 @@
 .not-logged-in-footer-copyright
   justify-content: center
   align-items: center
-  +text-block(.875rem 1.45, flex $reversal-text)
+  +text-block(.875rem 1.45, flex)
+  color: var(--reversal-text)
   gap: .25rem
   body.is-welcome &
     color: $default-text
@@ -59,7 +61,7 @@
 
 .not-logged-in-footer-copyright__author-link
   +hover-link
-  color: $reversal-text
+  color: var(--reversal-text)
   margin-right: .5em
   body.is-welcome &
     color: $default-text

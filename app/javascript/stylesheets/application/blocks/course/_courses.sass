@@ -11,7 +11,8 @@
   +text-block(1.125rem 1.4)
 
 .courses-item__title-icon
-  +text-block(.6875rem, inline-flex $semi-muted-text nowrap 400)
+  +text-block(.6875rem, inline-flex nowrap 400)
+  color: var(--semi-muted-text)
   +padding(horizontal, .5rem)
   height: 1.125rem
   margin-right: .5rem
@@ -33,7 +34,7 @@
   transition: all .2s ease-out
   font-weight: 700
   .is-closed &
-    color: $muted-text
+    color: var(--muted-text)
   .is-closed .courses-item__title-link:hover &,
   .courses-item__title-link:hover &
     text-decoration: underline

@@ -22,7 +22,8 @@
 
 .page-tabs__item-link
   +flex-link
-  +text-block(.825rem 1, $muted-text 600 nowrap)
+  +text-block(.825rem 1, 600 nowrap)
+  color: var(--muted-text)
   align-items: center
   justify-content: center
   background-color: $background-semi-shade
@@ -38,7 +39,7 @@
     font-size: .75rem
   &:hover
     background-color: $background-shade
-    color: $semi-muted-text
+    color: var(--semi-muted-text)
   &.is-active
     background-color: $background
     border-bottom-color: $background
@@ -47,7 +48,7 @@
     font-size: .75rem
   &.is-inactive
     pointer-events: none
-    color: $muted-text
+    color: var(--muted-text)
 
 .page-tabs__item-count
   +position(right -.25rem, top -.25rem)

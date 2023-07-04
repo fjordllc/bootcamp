@@ -10,19 +10,19 @@
 =practice-color($border: false)
   &.is-not_complete
     +practice-button($background, $border)
-    color: $muted-text
+    color: var(--muted-text)
   &.is-started
     +practice-button($danger, $border)
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-submitted
     +practice-button($warning, $border)
     color: $default-text
   &.is-complete
     +practice-button($success, $border)
-    color: $reversal-text
+    color: var(--reversal-text)
   &.is-unstarted
     +practice-button(#dcdcdc, $border)
-    color: $muted-text
+    color: var(--muted-text)
   @if $border == true
     border: solid 1px
 

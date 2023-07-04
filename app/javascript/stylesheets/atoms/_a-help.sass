@@ -1,8 +1,9 @@
 .a-help
-  +text-block(.75em 1, inline-flex $reversal-text)
+  +text-block(.75em 1, inline-flex)
+  color: var(--reversal-text)
   +size(1.75em)
   text-decoration: none
-  background-color: $muted-text
+  background-color: var(--muted-text)
   vertical-align: middle
   align-items: center
   justify-content: center
@@ -11,7 +12,7 @@
   transition: all .2s ease-out
   &:hover
     background-color: $main
-    color: $reversal-text
+    color: var(--reversal-text)
   &:last-child
     margin-left: .25em
   .is-danger &

@@ -20,7 +20,7 @@
 .articles-item__title
   +text-block(1.125rem 1.4, $default-text 700)
   .articles-item.is-wip &
-    color: $muted-text
+    color: var(--muted-text)
 
 .articles-item__metas
   display: flex
@@ -39,4 +39,5 @@
     border-radius: 50%
 
 .articles-item__published-at
-  +text-block(.8125rem 1.4, $semi-muted-text)
+  +text-block(.8125rem 1.4)
+  color: var(--semi-muted-text)

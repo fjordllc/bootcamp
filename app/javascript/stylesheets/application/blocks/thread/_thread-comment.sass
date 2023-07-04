@@ -52,7 +52,8 @@
   margin-right: .5rem
 
 .thread-comment__title-label
-  +text-block(.8125rem, $muted-text block 400)
+  +text-block(.8125rem, block 400)
+  color: var(--muted-text)
   margin-bottom: .125rem
   i
     margin-right: .1875rem
@@ -89,7 +90,8 @@
 
 .thread-comment__created-at
   display: block
-  +text-block(.8125rem 1.4, $muted-text nowrap)
+  +text-block(.8125rem 1.4, nowrap)
+  color: var(--muted-text)
   +hover-link-reversal
   cursor: pointer
   +position(relative)
@@ -105,7 +107,8 @@
       background-color: rgba(black, .4)
       border-radius: .125rem
       padding: .25rem
-      +text-block(.625rem 1, $reversal-text)
+      +text-block(.625rem 1)
+      color: var(--reversal-text)
       +position(absolute, left 0, top 100%)
   &.a-placeholder
     width: 30%
@@ -119,7 +122,8 @@
   align-items: center
 
 .thread-comment__actions-item-link
-  +text-block(1.25rem 1, center flex $muted-text)
+  +text-block(1.25rem 1, center flex)
+  color: var(--muted-text)
   +size(2.375rem)
   align-items: center
   justify-content: center
