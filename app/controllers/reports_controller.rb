@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  include ReportsHelper
   include Rails.application.routes.url_helpers
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
