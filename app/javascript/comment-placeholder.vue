@@ -1,19 +1,20 @@
 <template lang="pug">
 .thread-comment
-  .thread-comment__author
+  .thread-comment__start
     .thread-comment__user-icon.a-user-icon.a-placeholder
-  .a-card.is-loading
-    .card-header
-      .thread-comment__title
-        .thread-comment__title-link.a-placeholder
-      .thread-comment__created-at.a-placeholder
-    .thread-comment__description
-      .a-long-text.is-md.a-placeholder
-        p
-        p
-        p
-        p
-        p
-        p
+  .thread-comment__end
+    .a-card.is-loading
+      .card-header
+        .thread-comment__title
+          .thread-comment__title-link.a-placeholder
+        .thread-comment__created-at.a-placeholder
+      .thread-comment__description
+        .a-long-text.is-md.a-placeholder
+          p
+          p
+          p
+          p
+          p
+          p
 </template>
 <script></script>

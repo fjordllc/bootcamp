@@ -8,11 +8,18 @@
     padding-left: 0
     margin-bottom: 1rem
 
-.thread-comment__author
-  flex: 0 0 $thread-header-author
-  +size($thread-header-author 100%)
+.thread-comment__start
+  +media-breakpoint-up(md)
+    flex: 0 0 $thread-header-author
+    +size($thread-header-author 100%)
   +media-breakpoint-down(sm)
     display: none
+
+.thread-comment__end
+  +media-breakpoint-up(md)
+    max-width:  calc(100% - #{$thread-header-author})
+    flex: 1
+
 
 .thread-comment__title
   width: 100%

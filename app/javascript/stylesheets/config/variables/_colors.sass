@@ -19,6 +19,7 @@ $muted-text: hsl(248, 5%, 64%)
 $semi-muted-text: hsl(248, 7%, 57%)
 $placeholder-text: hsl(248, 0%, 73%)
 $link-text: hsl(248, 62%, 33%)
+$hover-text: hsl(215, 78%, 50%)
 
 // border
 $side-border: rgba(black, .09)
@@ -99,6 +100,7 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
   --semi-muted-text: #{$semi-muted-text}
   --placeholder-text: #{$placeholder-text}
   --link-text: #{$link-text}
+  --hover-text: #{$hover-text}
 
   // border
   --side-border: #{$side-border}
@@ -166,15 +168,15 @@ $input-focus-shadow: rgba($primary, .4) 0 0 1px 2px
   &:visited
     color: hsl(233, 33%, 58%)
   &:hover
-    color: hsl(215, 78%, 50%)
+    color: var(--hover-text)
   &:active
     color: hsl(20, 88%, 37%)
 
 =reversal-link
   transition: color .2s ease-in
-  color: $reversal-text
+  color: var(--reversal-text)
   &:link
-    color: $reversal-text
+    color: var(--reversal-text)
   &:visited
     color: hsl(248, 62%, 74%)
   &:hover
