@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
-      Ogp::ImageProcessor.fit_to_size(@article.thumbnail) if @article.thumbnail.attached?
+      fit_to_size_for_ogp
 
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
@@ -43,7 +43,7 @@ class ArticlesController < ApplicationController
   def update
     set_wip
     if @article.update(article_params)
-      Ogp::ImageProcessor.fit_to_size(@article.thumbnail) if @article.thumbnail.attached?
+      fit_to_size_for_ogp
 
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
@@ -100,5 +100,9 @@ class ArticlesController < ApplicationController
     when 'update'
       article.wip? ? '記事をWIPとして保存しました' : '記事を更新しました'
     end
+  end
+
+  def fit_to_size_for_ogp
+    Ogp::ImageProcessor.fit_to_size(@article.thumbnail) if @article.thumbnail.attached?
   end
 end
