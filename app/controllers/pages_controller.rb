@@ -94,7 +94,7 @@ class PagesController < ApplicationController
     when :create
       'ドキュメントを作成しました。'
     when :update
-      'ページを更新しました。'
+      'ドキュメントを更新しました。'
     end
   end
 
