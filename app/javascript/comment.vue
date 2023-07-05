@@ -1,6 +1,6 @@
 <template lang="pug">
 .thread-comment
-  .thread-comment__author
+  .thread-comment__start
     a.thread-comment__user-link(:href='comment.user.url')
       span(:class='["a-user-role", roleClass]')
         img.thread-comment__user-icon.a-user-icon(
@@ -10,80 +10,81 @@
       v-if='comment.user.company && comment.user.adviser',
       :href='comment.user.company.url')
       img.thread-comment__company-logo(:src='comment.user.company.logo_url')
-  .a-card(v-if='!editing')
-    header.card-header
-      h2.thread-comment__title
-        a.thread-comment__title-user-link.is-hidden-md-up(
-          :href='comment.user.url')
-          img.thread-comment__title-user-icon.a-user-icon(
-            :src='comment.user.avatar_url',
-            :title='comment.user.icon_title',
-            :class='[roleClass]')
+  .thread-comment__end
+    .a-card(v-if='!editing')
+      header.card-header
+        h2.thread-comment__title
+          a.thread-comment__title-user-link.is-hidden-md-up(
+            :href='comment.user.url')
+            img.thread-comment__title-user-icon.a-user-icon(
+              :src='comment.user.avatar_url',
+              :title='comment.user.icon_title',
+              :class='[roleClass]')
 
-        a.thread-comment__title-link.a-text-link(:href='comment.user.url')
-          | {{ comment.user.login_name }}
-      time.thread-comment__created-at(
-        :class='{ "is-active": activating }',
-        :datetime='commentableCreatedAt',
-        @click='copyCommentURLToClipboard(comment.id)')
-        | {{ updatedAt }}
-    .thread-comment__description
-      a.thread-comment__company-link.is-hidden-md-up(
-        v-if='comment.user.company && comment.user.adviser',
-        :href='comment.user.company.url')
-        img.thread-comment__company-logo(:src='comment.user.company.logo_url')
-      .a-long-text.is-md(v-html='markdownDescription')
-    .thread-comment__reactions
-      reaction(
-        v-bind:reactionable='comment',
-        v-bind:currentUser='currentUser',
-        v-bind:reactionableId='reactionableId')
-    footer.card-footer(
-      v-if='comment.user.id === currentUser.id || isRole("admin")')
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item
-            button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
-              @click='editComment')
-              i.fa-solid.fa-pen
-              | 編集
-          li.card-main-actions__item.is-sub
-            button.card-main-actions__muted-action(@click='deleteComment')
-              | 削除する
-  .a-card(v-show='editing')
-    .thread-comment-form__form
-      .a-form-tabs.js-tabs
-        .a-form-tabs__tab.js-tabs__tab(
-          v-bind:class='{ "is-active": isActive("comment") }',
-          @click='changeActiveTab("comment")')
-          | コメント
-        .a-form-tabs__tab.js-tabs__tab(
-          v-bind:class='{ "is-active": isActive("preview") }',
-          @click='changeActiveTab("preview")')
-          | プレビュー
-      .a-markdown-input.js-markdown-parent
-        .a-markdown-input__inner.js-tabs__content(
-          v-bind:class='{ "is-active": isActive("comment") }')
-          textarea.a-text-input.a-markdown-input__textarea(
-            :id='`js-comment-${this.comment.id}`',
-            :data-preview='`#js-comment-preview-${this.comment.id}`',
-            v-model='description',
-            name='comment[description]')
-        .a-markdown-input__inner.js-tabs__content(
-          v-bind:class='{ "is-active": isActive("preview") }')
-          .a-long-text.is-md.a-markdown-input__preview(
-            :id='`js-comment-preview-${this.comment.id}`')
-      .card-footer
+          a.thread-comment__title-link.a-text-link(:href='comment.user.url')
+            | {{ comment.user.login_name }}
+        time.thread-comment__created-at(
+          :class='{ "is-active": activating }',
+          :datetime='commentableCreatedAt',
+          @click='copyCommentURLToClipboard(comment.id)')
+          | {{ updatedAt }}
+      .thread-comment__description
+        a.thread-comment__company-link.is-hidden-md-up(
+          v-if='comment.user.company && comment.user.adviser',
+          :href='comment.user.company.url')
+          img.thread-comment__company-logo(:src='comment.user.company.logo_url')
+        .a-long-text.is-md(v-html='markdownDescription')
+      .thread-comment__reactions
+        reaction(
+          v-bind:reactionable='comment',
+          v-bind:currentUser='currentUser',
+          v-bind:reactionableId='reactionableId')
+      footer.card-footer(
+        v-if='comment.user.id === currentUser.id || isRole("admin")')
         .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button.a-button.is-sm.is-primary.is-block(
-                @click='updateComment',
-                v-bind:disabled='!validation')
-                | 保存する
-            .card-main-actions__item
-              button.a-button.is-sm.is-secondary.is-block(@click='cancel')
-                | キャンセル
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              button.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
+                @click='editComment')
+                i.fa-solid.fa-pen
+                | 編集
+            li.card-main-actions__item.is-sub
+              button.card-main-actions__muted-action(@click='deleteComment')
+                | 削除する
+    .a-card(v-show='editing')
+      .thread-comment-form__form
+        .a-form-tabs.js-tabs
+          .a-form-tabs__tab.js-tabs__tab(
+            v-bind:class='{ "is-active": isActive("comment") }',
+            @click='changeActiveTab("comment")')
+            | コメント
+          .a-form-tabs__tab.js-tabs__tab(
+            v-bind:class='{ "is-active": isActive("preview") }',
+            @click='changeActiveTab("preview")')
+            | プレビュー
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.js-tabs__content(
+            v-bind:class='{ "is-active": isActive("comment") }')
+            textarea.a-text-input.a-markdown-input__textarea(
+              :id='`js-comment-${this.comment.id}`',
+              :data-preview='`#js-comment-preview-${this.comment.id}`',
+              v-model='description',
+              name='comment[description]')
+          .a-markdown-input__inner.js-tabs__content(
+            v-bind:class='{ "is-active": isActive("preview") }')
+            .a-long-text.is-md.a-markdown-input__preview(
+              :id='`js-comment-preview-${this.comment.id}`')
+        .card-footer
+          .card-main-actions
+            .card-main-actions__items
+              .card-main-actions__item
+                button.a-button.is-sm.is-primary.is-block(
+                  @click='updateComment',
+                  v-bind:disabled='!validation')
+                  | 保存する
+              .card-main-actions__item
+                button.a-button.is-sm.is-secondary.is-block(@click='cancel')
+                  | キャンセル
 </template>
 <script>
 import CSRF from 'csrf'
