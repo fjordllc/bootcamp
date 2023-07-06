@@ -1,21 +1,21 @@
 .welcome-section
   +position(relative)
   +media-breakpoint-up(lg)
-    +padding(vertical, 3rem)
+    padding-block: 3rem
   +media-breakpoint-down(md)
-    +padding(vertical, 2rem)
+    padding-block: 2rem
   &.has-no-padding-bottom
     padding-bottom: 0
   &.is-pricing
     background-color: tint($welcome-pink, 40%)
-    +padding(vertical, 2.25rem)
+    padding-block: 2.25rem
     +media-breakpoint-down(md)
-      +padding(vertical, 2rem)
+      padding-block: 2rem
   &.is-substance
     background-color: #b4dbfd
-    +padding(vertical, 2.25rem)
+    padding-block: 2.25rem
     +media-breakpoint-down(md)
-      +padding(vertical, 2rem)
+      padding-block: 2rem
   .tos
     th
       white-space: nowrap
@@ -58,7 +58,7 @@
   justify-content: center
   margin-top: .25em
   &.is-index
-    +margin(vertical, .25em .75em)
+    margin-block: .25em .75em
   +media-breakpoint-up(md)
     font-size: 1.75rem
   +media-breakpoint-down(sm)

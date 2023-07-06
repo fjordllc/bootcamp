@@ -39,7 +39,7 @@
 .niconico-calendar__header-day
   width: calc(100% / 7)
   +text-block(.75rem 1, center)
-  +padding(vertical, .25em)
+  padding-block: .25em
   &.is-sunday
     color: var(--danger)
   &.is-saturday
@@ -63,7 +63,7 @@
 
 .niconico-calendar__day-inner
   +block-link
-  +padding(vertical, .25rem .125rem)
+  padding-block: .25rem .125rem
   +size(100%)
 
 a.niconico-calendar__day-inner
