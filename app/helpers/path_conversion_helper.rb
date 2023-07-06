@@ -2,6 +2,6 @@
 
 module PathConversionHelper
   def formatted_controller_path(path)
-    path.tr('/_', '-')
+    path.tr('/', '-')
   end
 end
