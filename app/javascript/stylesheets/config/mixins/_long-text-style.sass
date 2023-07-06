@@ -131,10 +131,10 @@
       color: var(--default-text)
       align-items: center
       letter-spacing: 0
-      +padding(horizontal, .25rem)
+      padding-inline: .25rem
       border: solid 1px mix($font, $background, 20%)
       background-color: mix($font, $background, 4%)
-      +margin(horizontal, .25rem)
+      margin-inline: .25rem
       border-radius: .125rem
     pre code
       +margin(vertical, 1em)
@@ -148,7 +148,7 @@
     max-width: 100%
     height: auto
     display: block
-    +margin(horizontal, auto)
+    margin-inline: auto
     border: 1px solid mix($font, $background, 10%)
     +media-breakpoint-up(md)
       max-height: 32rem
@@ -237,7 +237,7 @@
     display: block
     max-width: 100%
     +margin(vertical, 1.5em)
-    +margin(horizontal, auto)
+    margin-inline: auto
 
   code
     word-break: break-all

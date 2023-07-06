@@ -66,7 +66,7 @@
 
 .welcome-section__price-number
   font-size: 2.5em
-  +margin(horizontal, .125em)
+  margin-inline: .125em
   font-family: 'Lato', sans-serif
 
 .welcome-section__price-period
@@ -82,11 +82,11 @@
 .welcome-section__title-image
   max-width: 33rem
   +media-breakpoint-down(sm)
-    +margin(horizontal, -.75rem)
+    margin-inline: -.75rem
 
 .welcome-section__description
   max-width: 40rem
-  +margin(horizontal, auto)
+  margin-inline: auto
   +media-breakpoint-up(md)
     font-size: 1rem
   +media-breakpoint-down(sm)
@@ -122,7 +122,7 @@
   +media-breakpoint-down(sm)
     margin-top: 0
     .row.is-gutter-width-64
-      +margin(horizontal, 0)
+      margin-inline: 0
 
 .welcome-section__actions
   .welcome-small-sections + &,
@@ -133,13 +133,13 @@
   display: flex
   justify-content: center
   +media-breakpoint-up(md)
-    +margin(horizontal, -.75rem)
+    margin-inline: -.75rem
   +media-breakpoint-down(sm)
     display: block
 
 .welcome-section__actions-item
   +media-breakpoint-up(md)
-    +padding(horizontal, .75rem)
+    padding-inline: .75rem
     width: 20rem
   +media-breakpoint-down(sm)
     &:not(:first-child)

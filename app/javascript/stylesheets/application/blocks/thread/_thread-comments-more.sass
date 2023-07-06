@@ -2,7 +2,7 @@
   +position(relative)
   +media-breakpoint-up(md)
     margin-bottom: 2rem
-    padding-left: $thread-header-author
+    padding-left: var(--thread-header-author)
   +media-breakpoint-down(sm)
     padding-left: 0
     margin-bottom: 1rem
@@ -19,5 +19,5 @@
 .thread-comments-more__action
   +media-breakpoint-up(md)
     max-width: 16rem
-    +padding(horizontal, .375rem)
-    +margin(horizontal, auto)
+    padding-inline: .375rem
+    margin-inline: auto

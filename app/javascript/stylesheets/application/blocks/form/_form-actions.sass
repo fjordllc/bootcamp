@@ -21,14 +21,14 @@
     flex-wrap: wrap
     position: relative
     max-width: 45em
-    +margin(horizontal,  auto)
+    margin-inline: auto
     &.is-ais-flex-start
       align-items: flex-start
   +media-breakpoint-down(sm)
     flex-direction: column
 
 .form-actions__item
-  +padding(horizontal, .375rem)
+  padding-inline: .375rem
   +position(relative)
   &.is-sub
     +media-breakpoint-up(md)
@@ -56,7 +56,7 @@
       padding-bottom: 1.5rem
   +media-breakpoint-down(sm)
     width: 100%
-    +padding(horizontal, 0)
+    padding-inline: 0
     &:nth-child(2),
     &:nth-child(3)
       margin-top: .75rem
