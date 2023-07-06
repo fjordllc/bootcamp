@@ -37,14 +37,16 @@
 .global-nav-links__link
   position: relative
   +flex-link
-  flex-direction: column
   white-space: nowrap
-  +size(100% 4.25rem)
   align-items: center
   justify-content: center
   border-bottom: solid 1px var(--side-border)
   color: var(--reversal-text)
   transition: color .2s ease-in, background-color .2s ease-in
+  width: 100%
+  +media-breakpoint-up(md)
+    flex-direction: column
+    height: 4.125rem
   +media-breakpoint-down(sm)
     flex-direction: row
     height: 2.75rem
@@ -58,19 +60,20 @@
 
 .global-nav-links__link-icon
   +media-breakpoint-up(md)
-    +text-block(1.25rem 1 0 .375rem, center)
+    +text-block(1.125rem 1 0 .25rem, center)
   +media-breakpoint-down(sm)
     +text-block(1rem 1, center)
     margin-right: .5rem
 
 .global-nav-links__link-label
-  +text-block(.625rem 1.45, center)
+  +text-block(.625rem 1.4, center)
   +media-breakpoint-down(sm)
     font-size: .875rem
   +media-breakpoint-up(md)
     &.is-sm
       transform: scale(.875)
-      margin-top: -.25rem
+      margin-top: -.125rem
+      line-height: 1.2
 
 .global-nav__item-count
   +position(right .25rem, top .25rem)
