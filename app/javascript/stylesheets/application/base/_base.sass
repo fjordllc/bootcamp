@@ -2,7 +2,7 @@ html.is-application
   font-family: $basic-serif
   color: var(--default-text)
   +media-breakpoint-up(md)
-    scroll-padding-top: $header-height__md-up
+    scroll-padding-top: var(--header-height__md-up)
 
 body.is-application
   background-color: var(--background)
@@ -21,7 +21,7 @@ body.is-piyo-background
   &.is-application
     +media-breakpoint-up(md)
       margin-left: 5rem
-      padding-top: $header-height__md-up
+      padding-top: var(--header-height__md-up)
   body.no-global-nav &
     margin-left: 0
   body.no-header &

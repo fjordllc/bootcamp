@@ -10,7 +10,7 @@
   li
     ul,
     ol
-      +margin(vertical, .375em)
+      margin-block: .375em
       &:first-child
         margin-top: .375em
       &:last-child
@@ -23,7 +23,7 @@
 
 =speak
   .speak
-    +margin(vertical, 1.5em 2em)
+    margin-block: 1.5em 2em
   .speak__speaker
     >a
       display: flex
@@ -131,24 +131,24 @@
       color: var(--default-text)
       align-items: center
       letter-spacing: 0
-      +padding(horizontal, .25rem)
+      padding-inline: .25rem
       border: solid 1px mix($font, $background, 20%)
       background-color: mix($font, $background, 4%)
-      +margin(horizontal, .25rem)
+      margin-inline: .25rem
       border-radius: .125rem
     pre code
-      +margin(vertical, 1em)
+      margin-block: 1em
   hr
     display: block
     height: .25rem
     background-color: #dadbdc
-    +margin(vertical, 2em)
+    margin-block: 2em
     border: none
   img
     max-width: 100%
     height: auto
     display: block
-    +margin(horizontal, auto)
+    margin-inline: auto
     border: 1px solid mix($font, $background, 10%)
     +media-breakpoint-up(md)
       max-height: 32rem
@@ -162,7 +162,7 @@
     &.is-md
       max-width: 30em
   br + img
-    +margin(vertical, 1em)
+    margin-block: 1em
   +list
   ul,
   ol
@@ -171,7 +171,7 @@
     margin-bottom: 1.5em
   li
     +text-block(1em 1.86)
-    +margin(vertical, .375em)
+    margin-block: .375em
     &:first-child
       margin-top: 0
     &:last-child
@@ -206,12 +206,12 @@
 
   blockquote
     padding-left: 1.5em
-    +margin(vertical, 1.5em 2em)
+    margin-block: 1.5em 2em
     +position(relative)
     border-left: solid .25em mix($font, $background, 10%)
     +list
     p + &
-      +margin(vertical, 3em 2.5em)
+      margin-block: 3em 2.5em
     code
       font-style: normal
     >*:last-child
@@ -236,8 +236,8 @@
   iframe
     display: block
     max-width: 100%
-    +margin(vertical, 1.5em)
-    +margin(horizontal, auto)
+    margin-block: 1.5em
+    margin-inline: auto
 
   code
     word-break: break-all
@@ -261,7 +261,7 @@
   .message
     padding: 1em 1.25em 1em 2.75em
     border-radius: .25rem
-    +margin(vertical, 1.5em 2em)
+    margin-block: 1.5em 2em
     background-color: var(--warning-tint)
     color: var(--warning-text)
     &::before

@@ -2,10 +2,10 @@
   border-top: solid 1px var(--border)
   color: var(--semi-muted-text)
   +media-breakpoint-up(md)
-    +padding(vertical, 1.5rem)
+    padding-block: 1.5rem
   +media-breakpoint-down(sm)
     .container
-      +padding(horizontal, 0)
+      padding-inline: 0
 
 .footer__copyright
   line-height: 1.4
@@ -17,9 +17,9 @@
     margin-top: 1.5em
   +media-breakpoint-down(sm)
     font-size: .75rem
-    +padding(vertical, 1.25rem)
+    padding-block: 1.25rem
 
 .footer__copyright-link
-  +margin(horizontal, .25em)
+  margin-inline: .25em
   +hover-link
   color: var(--semi-muted-text)

@@ -6,14 +6,14 @@
   &.is-muted
     background-color: var(--muted-text)
   .page-body &
-    +margin(vertical, -.5rem 1rem)
+    margin-block: -.5rem 1rem
   .page-body .page-notices__item &
-    +margin(vertical, 0)
+    margin-block: 0
   .page-tabs + &
     margin-top: 1rem
 
 .a-page-notice__inner
-  +padding(vertical, .5rem)
+  padding-block: .5rem
   +media-breakpoint-up(md)
     text-align: center
     font-size: .875rem
@@ -65,6 +65,6 @@
   opacity: .6
   transition: all .2s ease-out
   transform: translateX(1rem)
-  +margin(vertical,  -.75rem)
+  margin-block:  -.75rem
   &:hover
     opacity: 1

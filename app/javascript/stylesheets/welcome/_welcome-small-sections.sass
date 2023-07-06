@@ -16,7 +16,7 @@
     padding-bottom: 0
     max-width: 55rem
     margin-top: 1.5rem
-    +margin(horizontal, auto)
+    margin-inline: auto
 
 .welcome-small-sections__title
   $height: 3.25rem
@@ -33,14 +33,14 @@
     background-size: 1.75rem
     margin-bottom: 0
     +size($width $height)
-    margin-left: math.div($width, -2)
+    margin-left: calc(#{$width} / -2)
     +position(absolute, left 50%, top math.div($height, -2))
     +media-breakpoint-down(sm)
       $height: 2.75rem
       $width: 14rem
       font-size: 1.125rem
       +size($width $height)
-      margin-left: math.div($width, -2)
+      margin-left: calc(#{$width} / -2)
       +position(absolute, left 50%, top math.div($height, -2))
 
 .welcome-small-sections__title-icon
@@ -54,7 +54,7 @@
     padding-bottom: 0
     max-width: 55rem
     margin-top: 1.5rem
-    +margin(horizontal, auto)
+    margin-inline: auto
   .welcome-child-section.is-unlimited &
     padding-bottom: 0
   .welcome-small-section + &
@@ -82,7 +82,7 @@
 .welcome-small-section__icon
   +size(7rem)
   display: block
-  +margin(horizontal, auto)
+  margin-inline: auto
   margin-bottom: .75rem
   .welcome-small-sections.is-unlimited &
     +size(7rem)
