@@ -42,7 +42,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: '半角スペースを 含んでも 正常なページに 遷移する'
     click_button '内容を更新'
     assert_equal page_path(target_page.reload), current_path
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました。'
   end
 
   test 'add new page' do
@@ -225,7 +225,7 @@ class PagesTest < ApplicationSystemTestCase
       click_button '内容を更新'
     end
 
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました。'
     assert_match 'Message to Discord.', mock_log.to_s
   end
 
@@ -258,7 +258,7 @@ class PagesTest < ApplicationSystemTestCase
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
     click_button '内容を更新'
 
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました。'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
   end
