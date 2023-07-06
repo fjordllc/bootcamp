@@ -55,7 +55,7 @@
 
 =page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
   +position(relative, 1)
-  border: solid 1px var(--border)-color
+  border: solid 1px $border-color
   background-color: $background-color
   .page-nav__item-link
     background-color: transparent
@@ -83,11 +83,11 @@
   &.is-current
     +page-nav-current(var(--primary-tint), var(--primary), var(--primary-text), true)
   &.is-reply-warning
-    +page-nav-current(var(--warning), #d09a0e, var(--default-text), false)
+    +page-nav-current(var(--reply-warning-background), var(--reply-warning-border), var(--default-text), false)
   &.is-reply-alert
-    +page-nav-current(#ff7500, #d06305, var(--reversal-text), false)
+    +page-nav-current(var(--reply-alert-background), var(--reply-alert-border), var(--reversal-text), false)
   &.is-reply-deadline
-    +page-nav-current(var(--danger), #b50f38, var(--reversal-text), false)
+    +page-nav-current(var(--reply-deadline-background), var(--reply-deadline-border), var(--reversal-text), false)
   &.is-inactive
     position: static
     border: solid 1px var(--border-shade)
