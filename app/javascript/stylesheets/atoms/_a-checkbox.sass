@@ -14,19 +14,19 @@
       content: ''
       display: block
       +size(.875rem)
-      border: solid 1px #bbbbbb
+      border: solid 1px var(--muted-text)
       border-radius: .1875rem
       +position(absolute, left 0, top 50%)
       margin-top: -.4375rem
-      box-shadow: rgba(black, .1) 0 1px 2px inset
       background-color: var(--base)
-  input:checked + span::after
+  input:checked + span::before
     +fa(fas '\f00c')
-    +text-block(.75rem .875rem, center block)
-    color: #4193e9
-    +size(.875rem)
-    +position(absolute, left 0, top 50%)
-    margin-top: -.4375rem
+    +text-block(.75rem .875rem, center flex)
+    align-items: center
+    justify-content: center
+    color: var(--reversal-text)
+    background-color: var(--primary)
+    border-color: var(--primary-text)
   &:hover
     span
       text-decoration: underline
