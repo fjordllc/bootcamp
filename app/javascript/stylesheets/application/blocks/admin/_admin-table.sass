@@ -31,13 +31,13 @@
   border: solid 1px var(--border-shade)
   white-space: nowrap
   height: 2rem
-  +padding(horizontal, .5rem)
+  padding-inline: .5rem
   .a-button.is-icon
     min-height: 1.25rem
     height: 1.25rem
     font-size: .75rem
     margin-left: .5rem
-    +padding(horizontal, .375rem)
+    padding-inline: .375rem
     background-color: var(--base)
     border-color: var(--border-shade)
     color: var(--default-text)
@@ -69,9 +69,9 @@
   &.is-text-align-right
     text-align: right
   .a-button
-    +margin(horizontal, .1875rem)
+    margin-inline: .1875rem
   .is-button-group .a-button
-    +margin(horizontal, 0)
+    margin-inline: 0
   &.is-grab
     padding: 0
 
@@ -113,7 +113,7 @@
 
 .is-user-icon-xl
   +size(100% auto)
-  +margin(horizontal, auto)
+  margin-inline: auto
   border-radius: .25rem
 
 .admin-table__item-block-link-container

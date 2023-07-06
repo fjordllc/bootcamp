@@ -25,17 +25,16 @@
     &.is-notification
       width: 15rem
   +media-breakpoint-down(sm)
-    $global-nav-width-sm: 13rem
     background-color: var(--main)
     +position(fixed, top 0, bottom 0, right auto, 1)
     transition: left .2s ease-out
-    width: $global-nav-width-sm
+    width: var(--global-nav-width-sm)
     overflow-y: auto
-    left: $global-nav-width-sm * -1
+    left: calc(var(--global-nav-width-sm) * -1)
     input:checked + .header-dropdown &
       left: 0
       >*
-        width: $global-nav-width-sm
+        width: var(--global-nav-width-sm)
 
 .header-dropdown__label
   +text-block(.75rem 1.4, 600)

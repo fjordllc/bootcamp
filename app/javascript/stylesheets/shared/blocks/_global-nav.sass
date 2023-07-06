@@ -21,18 +21,18 @@
 
 .global-nav__inner
   background-color: var(--main)
-  +size($global-nav-width 100%)
+  +size(var(--global-nav-width) 100%)
   +position(fixed, left 0, top 0, bottom 0, 3)
   overflow-y: auto
   +media-breakpoint-down(sm)
     transition: left .2s ease-out
-    width: $global-nav-width-sm
+    width: var(--global-nav-width-sm)
     overflow-y: auto
-    left: $global-nav-width-sm * -1
+    left: calc(var(--global-nav-width-sm) * -1)
     input:checked + .global-nav &
       left: 0
       >*
-        width: $global-nav-width-sm
+        width: var(--global-nav-width-sm)
 
 .global-nav-links__link
   position: relative
@@ -48,7 +48,7 @@
   +media-breakpoint-down(sm)
     flex-direction: row
     height: 2.75rem
-    +padding(horizontal, 1rem)
+    padding-inline: 1rem
     justify-content: flex-start
   &:hover
     background-color: var(--main-shade)

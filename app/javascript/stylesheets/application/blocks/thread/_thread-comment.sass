@@ -10,14 +10,14 @@
 
 .thread-comment__start
   +media-breakpoint-up(md)
-    flex: 0 0 $thread-header-author
-    +size($thread-header-author 100%)
+    flex: 0 0 var(--thread-header-author)
+    +size(var(--thread-header-author) 100%)
   +media-breakpoint-down(sm)
     display: none
 
 .thread-comment__end
   +media-breakpoint-up(md)
-    max-width:  calc(100% - #{$thread-header-author})
+    max-width:  calc(100% - var(--thread-header-author))
     flex: 1
 
 
@@ -69,7 +69,7 @@
   overflow: hidden
   min-height: 5rem
   +padding(vertical, 1rem)
-  +padding(horizontal, 1rem)
+  padding-inline: 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
     word-wrap: break-word

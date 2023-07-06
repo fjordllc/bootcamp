@@ -8,10 +8,12 @@
       +size($height)
     &::after
       +size(100% calc(100% - #{$border-width} * 2))
-      +padding(horizontal, $height .75em)
+      padding-left: $height
+      padding-right: .75em
   input:checked + span
     &::after
-      +padding(horizontal, 1em $height)
+      padding-left: 1em
+      padding-right: $height
 
 .a-on-off-checkbox
   +position(relative)
