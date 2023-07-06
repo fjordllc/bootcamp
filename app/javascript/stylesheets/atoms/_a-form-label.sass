@@ -29,7 +29,7 @@
       content: ''
       display: block
       +size(.875rem)
-      border: solid 1px #bbbbbb
+      border: solid 1px var(--muted-text)
       border-radius: .1875rem
       +position(absolute, left 0, top 50%)
       margin-top: -.4375rem
@@ -37,7 +37,8 @@
       background-color: var(--base)
   input:checked + .a-form-label::after
     +fa(fas '\f00c')
-    +text-block(.75rem .875rem, center block #4193e9)
+    +text-block(.75rem .875rem, center block)
+    color: var(--primary)
     +size(.875rem)
     +position(absolute, left 0, top 50%)
     margin-top: -.4375rem
