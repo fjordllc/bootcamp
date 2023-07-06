@@ -3,7 +3,7 @@
   flex-direction: column
   border-radius: .25rem
   width: 100%
-  +margin(horizontal, auto)
+  margin-inline: auto
   background-color: var(--base)
   border: solid 1px var(--border)
   &.is-danger
@@ -24,7 +24,7 @@
     width: 42.5rem
     max-width: 100%
     +media-breakpoint-down(sm)
-      +margin(horizontal, 1rem)
+      margin-inline: 1rem
   &.is-toggle
     label
         cursor: pointer

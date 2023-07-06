@@ -20,7 +20,7 @@
     width: 100%
     max-width: 100%
     &.is-select
-      +margin(horizontal, 0)
+      margin-inline: 0
   &:focus
     outline: none
   &:disabled
@@ -97,15 +97,15 @@
 
 =button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
-  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  padding-inline: #{strip_unit($horizontal * $font-size)}em
   @if unitless_number($vertical)
     height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
   @else
     height: $vertical
   &.is-icon
-    +padding(horizontal, #{strip_unit($horizontal * $font-size * 1)}em)
+    padding-inline: #{strip_unit($horizontal * $font-size * 1)}em
   &.is-select
-    +padding(horizontal, 0)
+    padding-inline: 0
     +position(relative)
     &::before
       +fa(fas "\f0d7")
