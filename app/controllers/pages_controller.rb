@@ -88,7 +88,7 @@ class PagesController < ApplicationController
   end
 
   def notice_message(page, action_name)
-    return 'ページをWIPとして保存しました。' if page.wip?
+    return 'ドキュメントをWIPとして保存しました。' if page.wip?
 
     case action_name
     when :create
