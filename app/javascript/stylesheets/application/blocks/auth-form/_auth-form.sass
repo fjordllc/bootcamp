@@ -1,18 +1,18 @@
 .auth-form-logo-image
   max-width: 24rem
-  margin-inline: auto
   display: block
-  margin-block: 4rem 2rem
+  margin: 4rem auto 2rem
   +media-breakpoint-down(sm)
     margin-top: 2rem
     max-width: 100%
     padding-inline: 2rem
 
 .auth-form
-  margin-bottom: 2rem
   width: 28rem
   max-width: calc(100vw - 2rem)
-  margin-inline: auto
+  margin-bottom: 2rem
+  +media-breakpoint-up(md)
+    margin-inline: auto
   +media-breakpoint-down(sm)
     margin-inline: 1rem
   &.is-sign-up

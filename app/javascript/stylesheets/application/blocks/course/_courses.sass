@@ -19,12 +19,13 @@
   border-radius: .75rem
   align-items: center
   justify-content: center
+  position: relative
   +media-breakpoint-up(md)
-    +position(relative, top -.125rem)
+    top: -.125rem
   +media-breakpoint-down(sm)
-    +position(relative, top -.1875rem)
+    top: -.1875rem
   &.is-closed
-    background-color: #e9ebef
+    background-color: var(--background-tint)
 
 .courses-item__title-link
   +block-link

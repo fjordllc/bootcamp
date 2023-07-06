@@ -5,8 +5,9 @@
   align-items: center
 
 .practice-status-buttons__label
-  +text-block(.75rem, 600 nowrap)
-  margin-right: 1em
+  +media-breakpoint-up(md)
+    +text-block(.75rem, 600 nowrap)
+    margin-right: 1em
   +media-breakpoint-down(sm)
     display: none
 
