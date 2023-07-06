@@ -62,7 +62,7 @@ class PagesTest < ApplicationSystemTestCase
       fill_in('page[body]', with: 'test')
     end
     click_button 'WIP'
-    assert_text 'ページをWIPとして保存しました。'
+    assert_text 'ドキュメントをWIPとして保存しました。'
   end
 
   test 'update page as WIP' do
@@ -72,7 +72,7 @@ class PagesTest < ApplicationSystemTestCase
       fill_in('page[body]', with: 'test')
     end
     click_button 'WIP'
-    assert_text 'ページをWIPとして保存しました。'
+    assert_text 'ドキュメントをWIPとして保存しました。'
   end
 
   test 'destroy page' do
