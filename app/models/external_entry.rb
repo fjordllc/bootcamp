@@ -37,7 +37,8 @@ class ExternalEntry < ApplicationRecord
 
       begin
         RSS::Parser.parse(feed_url).items
-      rescue OpenURI::HTTPError
+      rescue StandardError => e
+        logger.warn("[RSS Feed] #{feed_url}: #{e.message}")
         nil
       end
     end
