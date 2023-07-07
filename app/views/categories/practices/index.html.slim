@@ -20,7 +20,7 @@ header.page-header
           tr.admin-table__labels
             th.admin-table__label 名前
             th.admin-table__label.handle 並び順
-        tbody.admin-table__items#js-category-sortable
+        tbody.admin-table__items#js-practice-sortable
           - @categories_practices.each do |categories_practice|
             tr.admin-table__item(data-categories_practice_id="#{categories_practice.id}")
               td.admin-table__item-value
