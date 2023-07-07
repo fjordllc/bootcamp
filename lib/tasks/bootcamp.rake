@@ -11,13 +11,16 @@ namespace :bootcamp do
 
   desc 'Migration on production.'
   task migrate: :environment do
+    trace = Rake.application.options.trace
+    Rake.application.options.trace = true
     case ENV['DB_NAME']
     when 'bootcamp_staging'
-      Rake::Task['db:migrate'].execute
-      Rake::Task['db:reset'].execute
+      Rake::Task['db:migrate'].invoke
+      Rake::Task['db:reset'].invoke
     when 'bootcamp_production'
-      Rake::Task['db:migrate:with_data'].execute
+      Rake::Task['db:migrate:with_data'].invoke
     end
+    Rake.application.options.trace = trace
   end
 
   desc 'DB Reset on staging.'
