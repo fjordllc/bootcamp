@@ -258,7 +258,6 @@ hajime:
   twitter_account: hajime
   facebook_url: https://www.facebook.com/fjordllc/hajime
   blog_url: http://hajime.org
-  feed_url: example.com/rss
   description: "始です。テストです。"
   course: course1
   job: office_worker
