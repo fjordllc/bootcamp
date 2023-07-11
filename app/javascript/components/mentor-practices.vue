@@ -49,12 +49,12 @@
 </template>
 <script>
 import CSRF from 'csrf'
-import adminPracticeModalVue from './admin-practice-modal.vue'
+import mentorPracticeModalVue from './mentor-practice-modal.vue'
 
 export default {
-  name: 'AdminPractices',
+  name: 'MentorPractices',
   components: {
-    modal: adminPracticeModalVue
+    modal: mentorPracticeModalVue
   },
   data() {
     return {
@@ -74,7 +74,7 @@ export default {
       this.showModal = false
     },
     getPractices() {
-      fetch(`/api/admin/practices`, {
+      fetch(`/api/mentor/practices`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
