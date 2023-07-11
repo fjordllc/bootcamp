@@ -2,11 +2,11 @@
   border-bottom: solid 1px var(--border)
 
 .page-main-header__inner
-  padding-block: .5rem
-  display: flex
-  align-items: center
+  padding-block: .75rem
   +media-breakpoint-up(md)
-    min-height: 2.5rem
+    min-height: calc(3.75rem - 1px)
+    display: flex
+    align-items: center
   +media-breakpoint-down(sm)
     display: block
 
@@ -18,7 +18,7 @@
 
 .page-main-header__end
   +media-breakpoint-down(sm)
-    margin-top: .75rem
+    margin-top: .125rem
 
 .page-main-header__title
   color: var(--main)

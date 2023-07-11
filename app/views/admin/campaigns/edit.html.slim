@@ -1,10 +1,10 @@
-- title '管理ページ'
+- title 'お試し延長編集'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
+        | 管理ページ
 
 = render 'admin/admin_page_tabs'
 
@@ -12,13 +12,15 @@ header.page-header
   header.page-main-header
     .container
       .page-main-header__inner
-        h1.page-main-header__title
-          | お試し延長編集
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to admin_campaigns_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | お試し延長一覧
+        .page-main-header__start
+          h1.page-main-header__title
+            | お試し延長編集
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to admin_campaigns_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | お試し延長一覧
   .page-body
     .container.is-md
       = render 'form', campaign: @campaign
