@@ -8,7 +8,8 @@
     +size(1rem)
 
 .card-list-item-meta__item-note
-  +text-block(.75rem 1.4, $default-text)
+  +text-block(.75rem 1.4)
+  color: var(--default-text)
   &::before
     content: "※"
     +position(relative, top -.0625em)
@@ -18,7 +19,8 @@
   margin-left: .75rem
 
 .card-list-item-meta__created-at
-  +text-block(.75rem 1.4, $muted-text)
+  +text-block(.75rem 1.4)
+  color: var(--muted-text)
 
 .card-list-item-meta__user
   display: flex

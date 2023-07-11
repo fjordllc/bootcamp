@@ -1,6 +1,6 @@
 .a-completion-message
-  background-color: $success
-  +padding(vertical, .5rem)
+  background-color: var(--success)
+  padding-block: .5rem
   &:not(:last-child)
     margin-bottom: 1.25rem
 
@@ -11,7 +11,8 @@
     align-items: center
 
 .a-completion-message__title
-  +text-block(1em 1.45, center $reversal-text 600)
+  +text-block(1em 1.45, center 600)
+  color: var(--reversal-text)
   +media-breakpoint-up(md)
     font-size: 1rem
   +media-breakpoint-down(sm)

@@ -153,4 +153,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(answer: answer, receiver: receiver).chose_correct_answer
   end
+
+  def no_correct_answer
+    question = Question.find(ActiveRecord::FixtureSet.identify(:question1))
+    receiver = User.find(question.user_id)
+
+    ActivityMailer.with(question: question, receiver: receiver).no_correct_answer
+  end
 end

@@ -11,14 +11,15 @@
         | 全体に公開するかの判断をします。
   .thread-comments__items
     .thread-comment
-      .thread-comment__author
+      .thread-comment__start
         .thread-comment__user-link
           .a-user-role
             img.thread-comment__user-icon.a-user-icon(
               src='/images/users/avatars/open_ai.svg')
-      .a-card.is-answer
-        .thread-comment__description
-          .a-long-text.is-md(v-html='markdownDescription')
+      .thread-comment__end
+        .a-card.is-answer
+          .thread-comment__description
+            .a-long-text.is-md(v-html='markdownDescription')
 </template>
 <script>
 import MarkdownInitializer from 'markdown-initializer'

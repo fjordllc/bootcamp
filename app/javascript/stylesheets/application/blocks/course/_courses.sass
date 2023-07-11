@@ -11,33 +11,35 @@
   +text-block(1.125rem 1.4)
 
 .courses-item__title-icon
-  +text-block(.6875rem, inline-flex $semi-muted-text nowrap 400)
-  +padding(horizontal, .5rem)
+  +text-block(.6875rem, inline-flex nowrap 400)
+  color: var(--semi-muted-text)
+  padding-inline: .5rem
   height: 1.125rem
   margin-right: .5rem
   border-radius: .75rem
   align-items: center
   justify-content: center
+  position: relative
   +media-breakpoint-up(md)
-    +position(relative, top -.125rem)
+    top: -.125rem
   +media-breakpoint-down(sm)
-    +position(relative, top -.1875rem)
+    top: -.1875rem
   &.is-closed
-    background-color: #e9ebef
+    background-color: var(--background-tint)
 
 .courses-item__title-link
   +block-link
 
 .courses-item__title-label
-  color: $main-text
+  color: var(--main-text)
   transition: all .2s ease-out
   font-weight: 700
   .is-closed &
-    color: $muted-text
+    color: var(--muted-text)
   .is-closed .courses-item__title-link:hover &,
   .courses-item__title-link:hover &
     text-decoration: underline
-    color: $main-text
+    color: var(--main-text)
 
 .courses-item__description
   padding: .5rem 1.25rem .75rem

@@ -2,8 +2,9 @@
   height: 100%
 
 .users-item__inactive-message
-  background-color: $danger
-  +text-block(.625rem 1.4, center $reversal-text)
+  background-color: var(--danger)
+  +text-block(.625rem 1.4, center)
+  color: var(--reversal-text)
   padding: .25rem
   +border-radius(top, .1875rem)
 
@@ -15,10 +16,8 @@
 
 .users-item__header
   +position(relative)
-  +padding(horizontal, 1rem)
-  padding-top: .5rem
-  border-bottom: solid 1px $border-tint
-  padding-bottom: .5rem
+  padding: 1rem
+  border-bottom: solid 1px var(--border-tint)
 
 .users-item__header-inner
   display: flex
@@ -28,21 +27,22 @@
   flex: 1
 
 .users-item__user-icon-image
-  background-color: $base
+  background-color: var(--base)
   +media-breakpoint-up(md)
     +size(3.5rem)
   +media-breakpoint-down(sm)
     +size(2.5rem)
 
 .users-item__name
-  +text-block(1em 1.4, 600 $main block)
+  +text-block(1em 1.4, 600 block)
+  color: var(--main)
   margin-bottom: .125rem
   +media-breakpoint-up(md)
     font-size: 1.125rem
   +media-breakpoint-down(sm)
     font-size: 1rem
   i
-    color: $danger
+    color: var(--danger)
     margin-left: .25em
     font-size: .75em
 
@@ -66,7 +66,7 @@
 .user-item__company-logo
   +size(3rem)
   object-fit: cover
-  background-color: $base
+  background-color: var(--base)
   +position(absolute, right .5rem, top .5rem)
   border-radius: .25rem
-  border: solid 1px $border
+  border: solid 1px var(--border)

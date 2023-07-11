@@ -1,6 +1,6 @@
 .tab-nav
-  +padding(vertical, .875rem)
-  border-bottom: solid 1px $border
+  padding-block: .875rem
+  border-bottom: solid 1px var(--border)
   .page-main-header + &
     border-bottom: none
     padding-bottom: 0
@@ -10,20 +10,21 @@
   gap: .5rem
   overflow-x: auto
   overflow-y: hidden
-  +margin(horizontal,  -1rem)
-  +padding(horizontal, 1rem)
+  margin-inline: -1rem
+  padding-inline: 1rem
 
 .tab-nav__item
   flex: 0 0 7rem
 
 .tab-nav__item-link
   +block-link
-  +text-block(.75rem 2.3, $semi-muted-text center nowrap)
-  background-color: $background-semi-shade
+  +text-block(.75rem 2.3, center nowrap)
+  color: var(--semi-muted-text)
+  background-color: var(--background-semi-shade)
   border-radius: 20rem
   transition: all .2s ease-out
   &:hover
-    background-color: $background-shade
+    background-color: var(--background-shade)
   &.is-active
-    background-color: $accent
-    color: $default-text
+    background-color: var(--accent)
+    color: var(--default-text)

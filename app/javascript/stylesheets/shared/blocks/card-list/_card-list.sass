@@ -4,14 +4,14 @@
     max-height: 25.5rem
     overflow-y: auto
   .completed-practices-progress + &
-    border-top: solid 1px $border-tint
+    border-top: solid 1px var(--border-tint)
   .side-tabs-contents__item &
     +media-breakpoint-up(md)
       max-height: calc(100vh - 6rem)
       overflow-y: auto
 
 .card-list__message
-  +padding(vertical, 2rem)
+  padding-block: 2rem
 
 .card-list__deacription
   padding: .75rem 1rem
@@ -21,10 +21,10 @@
       font-size: .75rem
 
 .card-list__notice
-  border: solid 1px $success
-  background-color: $success-tint
+  border: solid 1px var(--success)
+  background-color: var(--success-tint)
   padding: .75rem 1rem
-  color: $success-text
+  color: var(--success-text)
   +media-breakpoint-down(sm)
     padding: .5rem .75rem
   a
@@ -33,7 +33,7 @@
 
 .card-list__items
   .card-list__deacription + &
-    border-top: dotted .0625rem $border-tint
+    border-top: dotted .0625rem var(--border-tint)
   &.is-md-only-2-items
     +media-breakpoint-only(md)
       display: flex
@@ -41,4 +41,4 @@
       .card-list-item
         flex: 0 0 50%
         &:nth-child(odd)
-          border-right: solid 1px $border-tint
+          border-right: solid 1px var(--border-tint)

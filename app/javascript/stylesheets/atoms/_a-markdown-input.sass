@@ -1,11 +1,11 @@
 .a-markdown-input
-  +padding(horizontal, 1rem)
+  padding-inline: 1rem
   +media-breakpoint-down(sm)
-    +padding(horizontal, .75rem)
+    padding-inline: .75rem
   .card__description &
-    +padding(horizontal, 0)
+    padding-inline: 0
     +media-breakpoint-down(sm)
-      +padding(horizontal, 0)
+      padding-inline: 0
 
 .a-markdown-input__inner
   display: none
@@ -17,7 +17,7 @@
   overflow: hidden
 
 .a-markdown-input__preview
-  background-color: $base
+  background-color: var(--base)
   +text-block(.875rem 1.8)
   border-radius: .25rem
   min-height: 6rem

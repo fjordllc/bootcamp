@@ -8,11 +8,18 @@
     padding-left: 0
     margin-bottom: 1rem
 
-.thread-comment__author
-  flex: 0 0 $thread-header-author
-  +size($thread-header-author 100%)
+.thread-comment__start
+  +media-breakpoint-up(md)
+    flex: 0 0 var(--thread-header-author)
+    +size(var(--thread-header-author) 100%)
   +media-breakpoint-down(sm)
     display: none
+
+.thread-comment__end
+  +media-breakpoint-up(md)
+    max-width:  calc(100% - var(--thread-header-author))
+    flex: 1
+
 
 .thread-comment__title
   width: 100%
@@ -52,7 +59,8 @@
   margin-right: .5rem
 
 .thread-comment__title-label
-  +text-block(.8125rem, $muted-text block 400)
+  +text-block(.8125rem, block 400)
+  color: var(--muted-text)
   margin-bottom: .125rem
   i
     margin-right: .1875rem
@@ -60,8 +68,8 @@
 .thread-comment__description
   overflow: hidden
   min-height: 5rem
-  +padding(vertical, 1rem)
-  +padding(horizontal, 1rem)
+  padding-block: 1rem
+  padding-inline: 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
     word-wrap: break-word
@@ -77,7 +85,7 @@
   +size(3.5rem)
   object-fit: cover
   border-radius: .25rem
-  border: solid 1px $border
+  border: solid 1px var(--border)
   background-color: white
   +media-breakpoint-up(md)
     margin-top: .5rem
@@ -89,7 +97,8 @@
 
 .thread-comment__created-at
   display: block
-  +text-block(.8125rem 1.4, $muted-text nowrap)
+  +text-block(.8125rem 1.4, nowrap)
+  color: var(--muted-text)
   +hover-link-reversal
   cursor: pointer
   +position(relative)
@@ -98,28 +107,30 @@
   &:active,
   &:focus,
   &.is-active
-    color: $danger
+    color: var(--danger)
     &::after
       content: "Copied!"
       display: block
       background-color: rgba(black, .4)
       border-radius: .125rem
       padding: .25rem
-      +text-block(.625rem 1, $reversal-text)
+      +text-block(.625rem 1)
+      color: var(--reversal-text)
       +position(absolute, left 0, top 100%)
   &.a-placeholder
     width: 30%
     height: 1.4em
 
 .thread-comment__actions
-  +padding(vertical, 0 1rem)
+  padding-block: 0 1rem
 
 .thread-comment__actions-items
   display: flex
   align-items: center
 
 .thread-comment__actions-item-link
-  +text-block(1.25rem 1, center flex $muted-text)
+  +text-block(1.25rem 1, center flex)
+  color: var(--muted-text)
   +size(2.375rem)
   align-items: center
   justify-content: center
@@ -128,8 +139,8 @@
   &.is-success
     &:hover
       background-color: #e0eefe
-      color: $primary
+      color: var(--primary)
   &.is-danger
     &:hover
       background-color: #f5e6ea
-      color: $danger
+      color: var(--danger)

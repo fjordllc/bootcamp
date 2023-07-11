@@ -989,4 +989,38 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert ActionMailer::Base.deliveries.empty?
   end
+
+  test 'no_correct_answer using synchronous mailer' do
+    question = questions(:question1)
+    receiver = question.user
+
+    ActivityMailer.no_correct_answer(question: question, receiver: receiver).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: Notification.kinds[:no_correct_answer], link: "/questions/#{question.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal [receiver.email], email.to
+    assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
+  end
+
+  test 'no_correct_answer with params using asynchronous mailer' do
+    question = questions(:question1)
+    receiver = question.user
+
+    mailer = ActivityMailer.with(question: question, receiver: receiver).no_correct_answer
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: Notification.kinds[:no_correct_answer], link: "/questions/#{question.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal [receiver.email], email.to
+    assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
+  end
 end

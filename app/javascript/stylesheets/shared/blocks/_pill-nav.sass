@@ -16,12 +16,13 @@
 
 .pill-nav__item-link
   +block-link
-  +text-block(.75rem 2.3, $semi-muted-text center nowrap)
-  background-color: $background-shade
+  +text-block(.75rem 2.3, center nowrap)
+  color: var(--semi-muted-text)
+  background-color: var(--background-shade)
   width: 7rem
   transition: all .2s ease-out
   &:hover
-    background-color: $background-semi-shade
+    background-color: var(--background-semi-shade)
   &.is-active
-    background-color: $accent
-    color: $default-text
+    background-color: var(--accent)
+    color: var(--default-text)

@@ -1,8 +1,8 @@
 .page-content-members
-  background: $base
+  background: var(--base)
   padding: .75rem 1rem
   border-radius: .25rem
-  border: solid 1px $border-shade
+  border: solid 1px var(--border-shade)
 
 .page-content-members__title
   +text-block(.8125rem 1.4, 600)
@@ -20,7 +20,8 @@
   +media-breakpoint-down(sm)
     font-size: .75rem
   .a-user-name
-    +text-block(1em 1.4, $default-text)
+    +text-block(1em 1.4)
+    color: var(--default-text)
 
 .page-content-members__user-icon
   +media-breakpoint-up(md)

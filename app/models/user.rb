@@ -489,15 +489,6 @@ class User < ApplicationRecord
     learning_time.first.total || 0
   end
 
-  def prefecture_name
-    if prefecture_code.nil?
-      '未登録'
-    else
-      pref = JpPrefecture::Prefecture.find prefecture_code
-      pref.name
-    end
-  end
-
   def elapsed_days
     if graduated_on.present?
       (graduated_on.to_date - created_at.to_date).to_i
@@ -757,6 +748,17 @@ class User < ApplicationRecord
 
   def training_remaining_days
     (training_ends_on - Time.zone.today).to_i
+  end
+
+  def country_name
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_s]
+  end
+
+  def subdivision_name
+    country = ISO3166::Country[country_code]
+    subdivision = country.subdivisions[subdivision_code]
+    subdivision.translations[I18n.locale.to_s]
   end
 
   private

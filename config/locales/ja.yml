@@ -69,7 +69,6 @@ ja:
         os: 利用OS
         study_place: 主な学習場所
         experience: プログラミング経験
-        prefecture_code: お住まいの都道府県
         organization: 現在の所属組織
         company: 企業
         company_id: 所属企業
@@ -100,6 +99,8 @@ ja:
         profile_job: 職業
         profile_text: プロフィール文
         subscription_id: サブスクリプションID
+        country_code: 国
+        subdivision_code: 都道府県・州
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日
@@ -366,3 +367,4 @@ ja:
     following_report: フォロー中
   send_message:
     description: "こんにちは、komagataです。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあればお気軽におっしゃっていただければと思います。"
+  unregistered: 未登録

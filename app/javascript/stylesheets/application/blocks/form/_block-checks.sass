@@ -11,8 +11,9 @@
   .block-checks.is-1-item.is-centered &
     width: 20rem
   .block-checks.is-2-items &
-    flex: 0 0 calc((100% - .5rem) / 2)
-    max-width: calc((100% - .5rem) / 2)
+    +media-breakpoint-up(md)
+      flex: 0 0 calc((100% - .5rem) / 2)
+      max-width: calc((100% - .5rem) / 2)
     +media-breakpoint-down(sm)
       flex: 0 0 100%
       max-width: 100%

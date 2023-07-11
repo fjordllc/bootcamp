@@ -1,6 +1,6 @@
 .welcome-message
   position: relative
-  +padding(vertical, 2.5rem)
+  padding-block: 2.5rem
 
 .welcome-message__inner
   +media-breakpoint-up(md)
@@ -10,13 +10,13 @@
 
 .welcome-message__author
   +size(5rem)
-  +margin(horizontal, auto)
+  margin-inline: auto
   padding: .75rem
   border-radius: 50%
   border: solid 1px shade($warning, 10%)
   +position(absolute, top 0, left 50%)
   transform: translate(-50%, 0)
-  background-color: $warning
+  background-color: var(--warning)
 
 .welcome-message__header
   font-size: 1.5rem

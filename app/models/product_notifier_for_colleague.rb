@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProductNotifier
+class ProductNotifierForColleague
   def call(payload)
     product =
       case payload

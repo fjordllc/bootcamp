@@ -68,12 +68,4 @@ class NotificationMailer < ApplicationMailer
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
     mail to: @user.email, subject: subject
   end
-
-  # required params: question, receiver
-  def no_correct_answer
-    @user = @receiver
-    @notification = @user.notifications.find_by(link: "/questions/#{@question.id}", kind: Notification.kinds[:no_correct_answer])
-    subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
-    mail to: @user.email, subject: subject
-  end
 end
