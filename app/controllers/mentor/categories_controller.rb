@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::CategoriesController < AdminController
+class Mentor::CategoriesController < MentorController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index; end
@@ -17,7 +17,7 @@ class Admin::CategoriesController < AdminController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to admin_categories_url, notice: 'カテゴリーを作成しました。'
+      redirect_to mentor_categories_url, notice: 'カテゴリーを作成しました。'
     else
       render action: 'new'
     end
@@ -33,7 +33,7 @@ class Admin::CategoriesController < AdminController
 
   def destroy
     @category.destroy
-    redirect_to admin_categories_url, notice: 'カテゴリーを削除しました。'
+    redirect_to mentor_categories_url, notice: 'カテゴリーを削除しました。'
   end
 
   private
@@ -52,6 +52,6 @@ class Admin::CategoriesController < AdminController
 
   def return_to
     course_id = params[:category][:course_id]
-    course_id.present? ? course_practices_url(course_id) : admin_categories_url
+    course_id.present? ? course_practices_url(course_id) : mentor_categories_url
   end
 end

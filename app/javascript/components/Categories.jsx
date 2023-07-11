@@ -31,14 +31,14 @@ const Category = ({ category }) => {
   return (
     <tr className="admin-table__item">
       <td className="admin-table__item-value">
-        <a href={`/admin/categories/${category.id}`}>{category.name}</a>
+        <a href={`/mentor/categories/${category.id}`}>{category.name}</a>
       </td>
       <td className="admin-table__item-value">{category.slug}</td>
       <td className="admin-table__item-value is-text-align-center">
         <ul className="is-inline-buttons">
           <li>
             <a
-              href={`/admin/categories/${category.id}/edit`}
+              href={`/mentor/categories/${category.id}/edit`}
               className="a-button is-sm is-secondary is-icon spec-edit">
               <i className="fa-solid fa-pen" />
             </a>
