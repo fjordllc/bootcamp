@@ -6,9 +6,9 @@
     height: 100%
 
 .companies-item__header
-  padding: .5rem 1rem
+  padding: 1rem
   &:not(:last-child)
-    border-bottom: solid 1px $border-tint
+    border-bottom: solid 1px var(--border-tint)
 
 .companies-item__header-inner
   display: flex
@@ -32,7 +32,8 @@
   flex: 1
 
 .companies-item__name
-  +text-block(1em 1.4, 600 $main block)
+  +text-block(1em 1.4, 600 block)
+  color: var(--main)
   margin-bottom: .125rem
   +media-breakpoint-up(md)
     font-size: 1.125rem
@@ -40,7 +41,7 @@
     font-size: 1rem
 
 .companies-item__name-link
-  color: $main-text
+  color: var(--main-text)
   display: block
   +hover-link
 

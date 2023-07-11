@@ -1,39 +1,42 @@
 .welcome-header
-  $border-height: .625rem
-  background-color: $base
-  +position(relative)
-  padding-bottom: calc(#{$border-height} * 3)
+  background-color: var(--base)
+  position: relative
   &::before
     content: ""
-    +size(100% calc(#{$border-height} * 3))
-    background-color: $welcome-orange
+    background-color: var(--welcome-orange)
     +position(absolute, left 0, bottom 0)
-    border-top: solid $border-height $welcome-yellow
-    border-bottom: solid $border-height $welcome-pink
+    border-style: solid
+    border-top-color: var(--welcome-yellow)
+    border-bottom-color: var(--welcome-pink)
     box-shadow: rgba(black, .2) 0 2px 1px
-  +media-breakpoint-down(sm)
-    $border-height: .5rem
-    +position(relative)
+  +media-breakpoint-up(md)
+    $border-height: .625rem
     padding-bottom: calc(#{$border-height} * 3)
     &::before
-      content: ""
       +size(100% calc(#{$border-height} * 3))
-      background-color: $welcome-orange
       +position(absolute, left 0, bottom 0)
-      border-top: solid $border-height $welcome-yellow
-      border-bottom: solid $border-height $welcome-pink
-      box-shadow: rgba(black, .2) 0 2px 1px
+      border-top-width: $border-height
+      border-bottom-width: $border-height
+  +media-breakpoint-down(sm)
+    $border-height: .5rem
+    padding-bottom: calc(#{$border-height} * 3)
+    &::before
+      +size(100% calc(#{$border-height} * 3))
+      border-top-width: $border-height
+      border-bottom-width: $border-height
 
 .welcome-header__inner
-  height: 4rem
-  +position(relative)
+  position: relative
   display: flex
   align-items: center
+  +media-breakpoint-up(md)
+    height: 4rem
   +media-breakpoint-down(sm)
     height: 2.75rem
 
 .welcome-header__home
-  +size(3rem)
+  +media-breakpoint-up(md)
+    +size(3rem)
   +media-breakpoint-down(sm)
     +size(2rem)
 
@@ -47,17 +50,19 @@
   transform: translate(0, -50%)
 
 .welcome-header__login-link
-  +text-block(.8125rem 1, flex $muted-text 600)
-  +size(6.75rem 2.125rem)
-  border: solid 2px $muted-text
-  text-decoration: none
-  align-items: center
-  justify-content: center
-  border-radius: .375rem
-  transition: all .2s ease-out
-  &:hover
-    border-color: $welcome-pink
-    color: $welcome-pink
-    background-color: rgba($welcome-pink, .1)
+  +media-breakpoint-up(md)
+    +text-block(.8125rem 1, flex 600)
+    color: var(--muted-text)
+    +size(6.75rem 2.125rem)
+    border: solid 2px var(--muted-text)
+    text-decoration: none
+    align-items: center
+    justify-content: center
+    border-radius: .375rem
+    transition: all .2s ease-out
+    &:hover
+      border-color: var(--welcome-pink)
+      color: var(--welcome-pink)
+      background-color: rgba($welcome-pink, .1)
   +media-breakpoint-down(sm)
     display: none

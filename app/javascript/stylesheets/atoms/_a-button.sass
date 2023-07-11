@@ -29,7 +29,7 @@
     font-weight: 400 !important
     background-color: $base
     &:hover
-      background-color: $background-more-tint
+      background-color: var(--background-more-tint)
       color: $semi-muted-text
 
   &.is-sm-text
@@ -104,7 +104,8 @@
   //icon
   &.is-back
     +position(relative)
-    +padding(horizontal, .75em 0)
+    padding-left: .75em
+    padding-right: 0
     &::before
       +fa(fas '\f104')
       +position(absolute, left .75em, top 50%)
@@ -139,7 +140,7 @@ input[type="button"]
     justify-content: center
 
 [class*=a-button]:not(input)
-  +padding(vertical, 0)
+  padding-block: 0
 
 [class*=a-button]
   &[class*=-primary]:disabled

@@ -1,27 +1,27 @@
 html.is-application
-  font-family: $basic-serif
-  color: $default-text
+  font-family: $sans-serif
+  color: var(--default-text)
   +media-breakpoint-up(md)
-    scroll-padding-top: $header-height__md-up
+    scroll-padding-top: var(--header-height__md-up)
 
 body.is-application
-  background-color: $background
+  background-color: var(--background)
 
 body.is-piyo-background
-  background-color: $main
+  background-color: var(--main)
   background-image: url(https://bootcamp.fjord.jp/images/background/error-background-main-color.svg)
   background-repeat: repeat
   overflow-y: auto
   +media-breakpoint-up(md)
-    background-size: 80px
+    background-size: 5rem
   +media-breakpoint-down(sm)
-    background-size: 72px
+    background-size: 4.5rem
 
 .wrapper
   &.is-application
     +media-breakpoint-up(md)
       margin-left: 5rem
-      padding-top: $header-height__md-up
+      padding-top: var(--header-height__md-up)
   body.no-global-nav &
     margin-left: 0
   body.no-header &

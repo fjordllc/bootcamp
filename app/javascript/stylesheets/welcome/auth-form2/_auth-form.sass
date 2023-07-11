@@ -1,17 +1,18 @@
 .auth-form
-  +margin(vertical, 2rem)
   max-width: 40rem
   background: rgba($base, .8)
-  padding: 2rem
-  border: solid 1px $border
+  border: solid 1px var(--border)
   border-radius: .25rem
-  +margin(horizontal, auto)
+  margin-block: 2rem
+  +media-breakpoint-up(md)
+    margin-inline: auto
+    padding: 2rem
   +media-breakpoint-down(sm)
-    +margin(horizontal, 0)
+    margin-inline: 0
     padding: 1rem
     margin-top: 2rem
     .auth-form__body
-      +padding(horizontal, 0)
+      padding-inline: 0
   .modal-body &
     margin: 0
     padding: 0
@@ -19,11 +20,11 @@
     border-radius: 0
 
 .auth-form__header
-  border-bottom: solid 1px $border-tint
+  border-bottom: solid 1px var(--border-tint)
   padding: 1.25rem
 
 .auth-form__footer
-  border-top: solid 1px $border-tint
+  border-top: solid 1px var(--border-tint)
   padding: 1rem 1.25rem
 
 .auth-form__title

@@ -1,5 +1,10 @@
 - title @search_words.present? ? "'#{@search_words.join(' ')}'の検索結果" : '日報'
 
+- if @search_words.present?
+  - set_meta_tags description: "日報'#{@search_words.join(' ')}'の検索結果の一覧ページです。"
+- else
+  - set_meta_tags description: '日報の一覧ページです。'
+
 header.page-header
   .container
     .page-header__inner

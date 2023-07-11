@@ -2,9 +2,9 @@
   label
     height: 10rem
     max-width: 100%
-    +margin(horizontal, auto)
-    border: solid 1px $input-border
-    background-color: $base
+    margin-inline: auto
+    border: solid 1px var(--input-border)
+    background-color: var(--base)
     display: flex
     align-items: center
     justify-content: center
@@ -28,7 +28,7 @@
     max-height: 100%
     max-width: 100%
     object-fit: contain
-    border: solid 1px $border-tint
+    border: solid 1px var(--border-tint)
   input
     overflow: hidden
     +size(0)
@@ -36,12 +36,12 @@
     opacity: 0
   p
     +size(100% 2.25rem)
-    background-color: $base
+    background-color: var(--base)
     +position(absolute, left 0, bottom 0, right 0)
     +text-block(.8125rem 1, flex 600)
     justify-content: center
     align-items: center
-    border-top: solid 1px $input-border
+    border-top: solid 1px var(--input-border)
     transition: all .2s ease-out
     &:hover
       background-color: #e8e8e8

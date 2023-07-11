@@ -54,4 +54,11 @@ module UsersHelper
   def users_name
     User.pluck(:login_name, :id).sort
   end
+
+  def all_countries_with_subdivisions
+    ISO3166::Country.all
+                    .map { |country| [country.alpha2, country.subdivision_names_with_codes(I18n.locale.to_s)] }
+                    .to_h
+                    .to_json
+  end
 end

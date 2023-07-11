@@ -1,6 +1,6 @@
 .page-tabs
-  background-color: $base
-  border-bottom: solid 1px $border-shade
+  background-color: var(--base)
+  border-bottom: solid 1px var(--border-shade)
   +position(relative, 2)
 
 .page-tabs__items
@@ -9,8 +9,8 @@
   transform: translateY(1px)
   overflow-y: visible
   overflow-x: auto
-  +margin(horizontal,  -1rem)
-  +padding(horizontal, 1rem)
+  margin-inline: -1rem
+  padding-inline: 1rem
   padding-top: .5rem
   margin-top: -.5rem
 
@@ -22,13 +22,14 @@
 
 .page-tabs__item-link
   +flex-link
-  +text-block(.825rem 1, $muted-text 600 nowrap)
+  +text-block(.825rem 1, 600 nowrap)
+  color: var(--muted-text)
   align-items: center
   justify-content: center
-  background-color: $background-semi-shade
-  +padding(horizontal, 1.25rem)
+  background-color: var(--background-semi-shade)
+  padding-inline: 1.25rem
   +border-radius(top, .25rem)
-  border: solid 1px $border-shade
+  border: solid 1px var(--border-shade)
   +position(relative)
   transition: all .2s ease-out
   +media-breakpoint-up(md)
@@ -37,17 +38,17 @@
     height: 2.75rem
     font-size: .75rem
   &:hover
-    background-color: $background-shade
-    color: $semi-muted-text
+    background-color: var(--background-shade)
+    color: var(--semi-muted-text)
   &.is-active
-    background-color: $background
-    border-bottom-color: $background
-    color: $default-text
+    background-color: var(--background)
+    border-bottom-color: var(--background)
+    color: var(--default-text)
   &.is-sm
     font-size: .75rem
   &.is-inactive
     pointer-events: none
-    color: $muted-text
+    color: var(--muted-text)
 
 .page-tabs__item-count
   +position(right -.25rem, top -.25rem)

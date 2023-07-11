@@ -1,5 +1,5 @@
 .main-visual
-  background-color: $welcome-blue
+  background-color: var(--welcome-blue)
   +media-breakpoint-down(xxl)
     height: 22rem
   +media-breakpoint-down(md)
@@ -16,11 +16,11 @@
   display: flex
   align-items: center
   +media-breakpoint-down(sm)
-    +padding(vertical, 1rem 1.5rem)
+    padding-block: 1rem 1.5rem
 
 .main-visual__contents
   max-width: 920px
-  +margin(horizontal, auto)
+  margin-inline: auto
 
 .main-visual__image-container
   display: flex
@@ -31,19 +31,21 @@
   +size(38rem auto)
   display: block
   margin-top: 1.125rem
-  +margin(horizontal, auto)
+  margin-inline: auto
   +media-breakpoint-down(sm)
     max-width: 90%
     margin-top: .75rem
 
 .main-visual__description
-  +text-block(1.5rem 1.4, $reversal-text center 700)
+  +text-block(1.5rem 1.4, center 700)
+  color: var(--reversal-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: .875rem
 
 .main-visual__title
-  +text-block(1.5rem 1.4, $reversal-text center 700)
+  +text-block(1.5rem 1.4, center 700)
+  color: var(--reversal-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
     font-size: .8125rem

@@ -7,8 +7,8 @@
     position: static
 
 .page-nav__header
-  border: solid 1px $border
-  background-color: $base
+  border: solid 1px var(--border)
+  background-color: var(--base)
   border-radius: .25rem .25rem 0 0
 
 .page-nav__title
@@ -18,7 +18,7 @@
   +block-link
   text-align: center
   padding: .5rem .75rem
-  color: $default-text
+  color: var(--default-text)
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
@@ -26,8 +26,8 @@
     text-decoration: underline
 
 .page-nav__footer
-  border: solid 1px $border
-  background-color: $base
+  border: solid 1px var(--border)
+  background-color: var(--base)
   border-radius: 0 0 .25rem .25rem
   transform: translateY(-2px)
 
@@ -36,7 +36,7 @@
   +text-block(.8125rem 1.4)
   text-align: right
   padding: .5rem .75rem
-  color: $default-text
+  color: var(--default-text)
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
@@ -64,8 +64,8 @@
       pointer-events: none
 
 .page-nav__item
-  background-color: $base
-  border: solid 1px $border
+  background-color: var(--base)
+  border: solid 1px var(--border)
   &:first-child
     border-radius: .25rem .25rem 0 0
   .page-nav__header + .page-nav__items &:first-child
@@ -78,43 +78,43 @@
     margin-top: -1px
   &.is-active
     .page-nav__item-link
-      color: $default-text
+      color: var(--default-text)
       font-weight: 700
   &.is-current
-    +page-nav-current($primary-tint, $primary, $primary-text, true)
+    +page-nav-current(var(--primary-tint), var(--primary), var(--primary-text), true)
   &.is-reply-warning
-    +page-nav-current($warning, #d09a0e, $default-text, false)
+    +page-nav-current(var(--reply-warning-background), var(--reply-warning-border), var(--default-text), false)
   &.is-reply-alert
-    +page-nav-current(#ff7500, #d06305, $reversal-text, false)
+    +page-nav-current(var(--reply-alert-background), var(--reply-alert-border), var(--reversal-text), false)
   &.is-reply-deadline
-    +page-nav-current($danger, #b50f38, $reversal-text, false)
+    +page-nav-current(var(--reply-deadline-background), var(--reply-deadline-border), var(--reversal-text), false)
   &.is-inactive
     position: static
-    border: solid 1px $border-shade
+    border: solid 1px var(--border-shade)
     .page-nav__item-link
-      background-color: $background-semi-shade
-      color: $muted-text
+      background-color: var(--background-semi-shade)
+      color: var(--muted-text)
       pointer-events: none
 
 .page-nav__item-link
   padding: .75rem
-  +text-block(.8125rem 1.4, $semi-muted-text)
+  +text-block(.8125rem 1.4)
+  color: var(--semi-muted-text)
   +block-link
   transition: all .1s ease-in
   background-color: transparent
   &:not(.has-metas):hover
-    color: $primary-text
+    color: var(--primary-text)
     text-decoration: underline
   &.has-metas:hover
     .page-nav__item-title
       transition: all .2s ease-out
-      color: $primary-text
+      color: var(--primary-text)
       text-decoration: underline
 
 .page-nav__item-header .a-badge
   transform: translateY(-.125em)
   margin-right: .25rem
-
 
 .page-nav__item-title
   +text-block(.875rem 1.4, 600 inline)

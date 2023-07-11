@@ -1,5 +1,5 @@
 .page-header
-  background-color: $base
+  background-color: var(--base)
   +position(relative, 1)
 
 .page-header__inner
@@ -11,14 +11,15 @@
     justify-content: space-between
   +media-breakpoint-down(sm)
     display: block
-    +padding(vertical, .5rem)
+    padding-block: .5rem
 
 .page-header__start
   display: flex
   align-items: center
 
 .page-header__title
-  +text-block(1.25rem 1, $main 700)
+  +text-block(1.25rem 1, 700)
+  color: var(--main)
   font-feature-settings: "palt"
   letter-spacing: .02em
   +media-breakpoint-down(sm)
@@ -29,7 +30,8 @@
     +size(2.5rem auto)
     margin-right: .5rem
   +media-breakpoint-down(sm)
-    +text-block(1rem 1.4, $main)
+    +text-block(1rem 1.4)
+    color: var(--main)
   .page-header__start &
     margin-right: .5em
     align-self: center

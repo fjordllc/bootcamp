@@ -1,7 +1,7 @@
 .reactions
   display: flex
   justify-content: space-between
-  border-top: 1px solid $border-tint
+  border-top: 1px solid var(--border-tint)
   position: relative
   user-select: none
   .card-body + &
@@ -19,9 +19,9 @@
   .reactions__dropdown &
     +position(absolute, top 2.375rem, 1)
     width: 181px
-    border-top: 1px solid $border
-    border-left: 1px solid $border-shade
-    border-right: 1px solid $border-shade
+    border-top: 1px solid var(--border)
+    border-left: 1px solid var(--border)
+    border-right: 1px solid var(--border)
     +media-breakpoint-up(md)
       right: -1px
     +media-breakpoint-down(sm)
@@ -33,43 +33,41 @@
   align-items: center
   justify-content: center
   padding: 0 9px
-  background-color: $base
-  border-right: 1px solid $border-tint
+  background-color: var(--base)
+  border-right: 1px solid var(--border-tint)
   transition: all .2s ease-out
   position: relative
   +media-breakpoint-down(sm)
     width: 20%
     height: 2.75rem
-    border-bottom: 1px solid $border-tint
+    border-bottom: 1px solid var(--border-tint)
   &.is-reacted
-    background-color: #fafafa
+    background-color: var(--background-more-tint)
   &:hover
-    background-color: #f2f2f2
+    background-color: var(--background-more-more-tint)
   @media (pointer: fine)
     &:hover .reactions__item-login-names
       display: block
   .reactions__dropdown &
-    border-right: 1px solid $border-shade
-    border-bottom: 1px solid $border-shade
+    border-right: 1px solid var(--border)
+    border-bottom: 1px solid var(--border)
     +size(2.8125rem)
   .reactions__dropdown &:nth-child(4n)
     border-right: none
     width: calc(2.8125rem - 1px)
 
 .reactions__item-count
-  margin-left: .125rem
+  margin-left: .25rem
   +text-block(.75rem 1)
-  vertical-align: top
 
 .reactions__item-login-names
   display: none
   position: absolute
   top: 2.9rem
   left: .1rem
-  font-size: .8rem
-  color: #fff
-  background: #444
-  text-shadow: 0 1px 0 #111
+  font-size: .625rem
+  color: var(--reversal-text)
+  background: var(--main)
   padding: 5px 11px 7px
   border-radius: .2rem
   pointer-events: none
@@ -83,19 +81,22 @@
     margin-left: -5px
     border-width: 5px
     border-style: solid
-    border-color: transparent transparent #444 transparent
+    border-color: transparent transparent var(--main) transparent
   li
     line-height: 1.4
 
 .reactions__dropdown-toggle
   +size(2.8125rem calc(2.8125rem - 1px))
-  +text-block(1.25rem 1, flex $main)
+  +text-block(1.25rem 1, flex)
+  color: var(--main)
   cursor: pointer
   align-items: center
   justify-content: center
-  border-left: 1px solid $border-tint
+  border-left: 1px solid var(--border-tint)
+  transition: all .2s ease-out
   &:hover
-    background: #f2f2f2
+    color: var(--hover-text)
+    background: var(--background-more-more-tint)
 
 .reactions__dropdown-toggle-plus
   font-size: .4em

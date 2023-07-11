@@ -1,10 +1,10 @@
 .flash
-  background-color: $danger
-  +padding(vertical, .75rem)
+  background-color: var(--danger)
+  padding-block: .75rem
   &.is-alert
-    background-color: $danger
+    background-color: var(--danger)
   &.is-notice
-    background-color: $success
+    background-color: var(--success)
   input:checked + &
     display: none
 
@@ -12,10 +12,11 @@
   +position(relative)
 
 .flash__message
-  +text-block(.875rem 1.45, center $reversal-text)
+  +text-block(.875rem 1.45, center)
+  color: var(--reversal-text)
   a
     +hover-link-reversal
-    color: $reversal-text
+    color: var(--reversal-text)
 
 .flash__close
   +position(absolute, right 0, top 50%)
@@ -32,7 +33,7 @@
     content: ""
     display: block
     +size(50% 2px)
-    background-color: $reversal-text
+    background-color: var(--reversal-text)
     +position(absolute, left 50%, top 50%)
     border-radius: 2px
   &::before

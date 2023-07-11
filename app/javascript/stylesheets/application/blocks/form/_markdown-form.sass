@@ -5,10 +5,11 @@
       margin-bottom: 1rem
 
 .markdown-form__preview
-  background-color: $base
-  padding: 1rem
+  background-color: var(--base)
   +text-block(.875rem 1.8)
   border-radius: .25rem
   min-height: 22rem
+  +media-breakpoint-up(md)
+    padding: 1rem
   +media-breakpoint-down(sm)
     padding: .5rem

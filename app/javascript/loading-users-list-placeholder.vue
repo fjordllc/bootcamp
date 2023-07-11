@@ -18,6 +18,18 @@
                     .card-list-item-meta__item.a-placeholder
         .sns-links
           .sns-links__items.is-button-group.a-placeholder
+        .card-counts.mt-3
+          .card-counts__items
+            .card-counts__item
+              .card-counts__item-inner.a-placeholder
+            .card-counts__item
+              .card-counts__item-inner.a-placeholder
+            .card-counts__item
+              .card-counts__item-inner.a-placeholder
+            .card-counts__item
+              .card-counts__item-inner.a-placeholder
+            .card-counts__item
+              .card-counts__item-inner.a-placeholder
       .users-item__body
         .users-item__description.a-short-text.a-placeholder
         .users-item__tags
