@@ -28,6 +28,7 @@
       .container.is-xl
         .row
           .col-xs-12.col-xl-6.col-xxl-6
+            = render partial: 'events'
             - if @announcements.present?
               = render partial: 'announcements'
             - if current_user.bookmarks.present?
