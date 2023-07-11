@@ -4,6 +4,7 @@ class GraduationController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   before_action :set_user, only: %i[update]
   before_action :set_redirect_url, only: %i[update]
+  before_action :require_admin_login, only: %i[update]
 
   def update
     if @user.update(graduated_on: Date.current)
