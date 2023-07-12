@@ -248,6 +248,15 @@ ActiveRecord::Schema.define(version: 2024_02_02_100641) do
     t.index ["user_id"], name: "index_external_entries_on_user_id"
   end
 
+  create_table "faqs", force: :cascade do |t|
+    t.string "answer", null: false
+    t.string "question", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
+    t.index ["question"], name: "index_faqs_on_question", unique: true
+  end
+
   create_table "followings", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
@@ -730,6 +739,7 @@ ActiveRecord::Schema.define(version: 2024_02_02_100641) do
     t.text "profile_text"
     t.string "feed_url"
     t.boolean "sent_student_followup_message", default: false
+    t.string "times_id", comment: "Snowflake ID"
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
