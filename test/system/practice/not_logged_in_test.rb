@@ -13,8 +13,8 @@ class Practice::NotLoggedInTest < ApplicationSystemTestCase
     logout
 
     visit practice_path(practice)
-    ogp_image = File.basename find('meta[property="og:image"]', visible: false)['content']
-    twitter_card_image = File.basename find('meta[name="twitter:image"]', visible: false)['content']
+    ogp_image = File.basename(find('meta[property="og:image"]', visible: false)['content'])
+    twitter_card_image = File.basename(find('meta[name="twitter:image"]', visible: false)['content'])
     assert_equal '1.jpg', ogp_image
     assert_equal '1.jpg', twitter_card_image
   end
@@ -23,8 +23,8 @@ class Practice::NotLoggedInTest < ApplicationSystemTestCase
     practice = practices(:practice1)
 
     visit practice_path(practice)
-    ogp_image = File.basename find('meta[property="og:image"]', visible: false)['content']
-    twitter_card_image = File.basename find('meta[name="twitter:image"]', visible: false)['content']
+    ogp_image = File.basename(find('meta[property="og:image"]', visible: false)['content'])
+    twitter_card_image = File.basename(find('meta[name="twitter:image"]', visible: false)['content'])
     assert_equal 'ogp.png', ogp_image
     assert_equal 'ogp.png', twitter_card_image
   end
