@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::FAQController < AdminController
-  before_action :set_faq, only: %i[edit update]
+  before_action :set_faq, only: %i[edit update destroy]
   def index
     @faqs = FAQ.all
   end
@@ -28,6 +28,11 @@ class Admin::FAQController < AdminController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @faq.destroy
+    redirect_to admin_faqs_path, notice: 'FAQを削除しました。'
   end
 
   private
