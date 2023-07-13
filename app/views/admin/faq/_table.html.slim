@@ -8,9 +8,9 @@
     tbody.admin-table__items
       - faqs.each do |faq|
         tr.admin-table__item(id="faq_#{faq.id}")
-          td.admin-table__item-value
-            = faq.question
-          td.admin-table__item-value
+          td.admin-table__item-value.is-text-align-center
+            = question_mark_with(faq.question)
+          td.admin-table__item-value.is-text-align-center
             = faq.answer
           td.admin-table__item-value.is-text-align-center
             = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
