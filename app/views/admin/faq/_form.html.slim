@@ -12,3 +12,6 @@
         = f.submit nil, class: 'a-button is-lg is-block is-primary'
       li.form-actions__item.is-sub
         = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'
+      - if faq.id.present?
+        li.form-actions__item.is-muted
+          = link_to '削除', admin_faq_path(faq), data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }, method: :delete, class: 'a-button is-sm is-muted-text'
