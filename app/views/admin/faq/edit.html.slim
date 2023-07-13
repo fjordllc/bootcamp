@@ -1,0 +1,18 @@
+- title 'FAQ編集'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to new_admin_faq_path, class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | FAQ追加
+
+= render 'admin/admin_page_tabs'
+
+.page-body
+  .container.is-md
+    = render 'form', faq: @faq
