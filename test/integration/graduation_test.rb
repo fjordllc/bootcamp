@@ -23,6 +23,6 @@ class GraduationTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_equal '管理者としてログインしてください', '管理者としてログインしてください'
-    assert_equal users(:hajime).graduated_on, nil
+    assert_nil users(:hajime).graduated_on
   end
 end
