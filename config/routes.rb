@@ -36,11 +36,7 @@ Rails.application.routes.draw do
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
   resources :courses, only: %i(index new create) do
-    resources :practices, only: %i(index), controller: "courses/practices" do
-      collection do
-        resources :sort, only: %i(index), controller: "courses/practices/sort"
-      end
-    end
+    resources :practices, only: %i(index), controller: "courses/practices"
     resources :categories, only: %i(index), controller: "courses/categories"
   end
   resources :practices, except: %i(index destroy) do
