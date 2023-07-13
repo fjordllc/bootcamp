@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     end
     resources :campaigns, only: %i(new create index edit update)
     resources :inquiries, only: %i(index show)
+    resources :faqs, only: %i(index new create), controller: 'faq'
   end
 end

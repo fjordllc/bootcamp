@@ -1,0 +1,14 @@
+= form_with model: [:admin, faq], local: true, html: { name: 'faq' } do |f|
+  .form__items
+    .form-item
+      = f.label :question, class: 'a-form-label'
+      = f.text_area :question, size: '10x20', class: 'a-text-input'
+    .form-item
+      = f.label :answer, class: 'a-form-label'
+      = f.text_area :answer, size: '10x20', class: 'a-text-input'
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-block is-primary'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'
