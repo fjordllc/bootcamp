@@ -17,7 +17,9 @@ class WelcomeController < ApplicationController
 
   def pricing; end
 
-  def faq; end
+  def faq
+    @faqs = FAQ.all
+  end
 
   def training; end
 
