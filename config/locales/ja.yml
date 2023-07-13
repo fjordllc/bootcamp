@@ -47,6 +47,7 @@ ja:
       book: 参考書籍
       regular_event: 定期イベント
       request_retirement: 退会申請
+      faq: FAQ
     attributes:
       user:
         login_name: アカウント
@@ -301,6 +302,9 @@ ja:
       request_retirement/keep_data/option:
         keep: 残す
         delete: 削除する
+      faq:
+        question: 質問
+        answer: 回答
     enums:
       user:
         job:
