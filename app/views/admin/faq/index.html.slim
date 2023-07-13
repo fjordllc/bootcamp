@@ -1,0 +1,19 @@
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | FAQ一覧
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to new_admin_faq_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | FAQ追加
+  .page-body
+    .container.is-lg
+      = render 'table', faqs: @faqs
