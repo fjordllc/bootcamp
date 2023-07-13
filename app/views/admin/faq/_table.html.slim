@@ -13,5 +13,5 @@
           td.admin-table__item-value
             = faq.answer
           td.admin-table__item-value.is-text-align-center
-            = link_to new_admin_faq_path, class: 'a-button is-sm is-secondary is-icon' do
+            = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
               i.fa-solid.fa-pen
