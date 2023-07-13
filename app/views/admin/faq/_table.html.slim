@@ -1,0 +1,17 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label 質問
+        th.admin-table__label 回答
+        th.admin-table__label 編集
+    tbody.admin-table__items
+      - faqs.each do |faq|
+        tr.admin-table__item(id="faq_#{faq.id}")
+          td.admin-table__item-value
+            = faq.question
+          td.admin-table__item-value
+            = faq.answer
+          td.admin-table__item-value.is-text-align-center
+            = link_to new_admin_faq_path, class: 'a-button is-sm is-secondary is-icon' do
+              i.fa-solid.fa-pen
