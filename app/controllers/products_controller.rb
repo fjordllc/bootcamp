@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
     if @product.save
       Newspaper.publish(:product_create, @product)
       Newspaper.publish(:product_save, @product)
-      redirect_to @product, notice: notice_message(@product, :create)
+      redirect_to redirect_url(@product), notice: notice_message(@product, :create)
     else
       render :new
     end
@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
       Newspaper.publish(:product_update, { product: @product, current_user: current_user })
       Newspaper.publish(:product_save, @product)
       notice_another_mentor_assigned_as_checker
-      redirect_to @product, notice: notice_message(@product, :update)
+      redirect_to redirect_url(@product), notice: notice_message(@product, :update)
     else
       render :edit
     end
@@ -116,6 +116,10 @@ class ProductsController < ApplicationController
 
   def set_wip
     @product.wip = params[:commit] == 'WIP'
+  end
+
+  def redirect_url(product)
+    product.wip? ? edit_product_url(product) : product_url(product)
   end
 
   def notice_message(product, action_name)
