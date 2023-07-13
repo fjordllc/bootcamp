@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::FAQController < AdminController
+  before_action :set_faq, only: %i[edit update]
   def index
     @faqs = FAQ.all
   end
@@ -19,9 +20,23 @@ class Admin::FAQController < AdminController
     end
   end
 
+  def edit; end
+
+  def update
+    if @faq.update(faq_params)
+      redirect_to admin_faqs_path, notice: 'FAQを更新しました。'
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def faq_params
     params.require(:faq).permit(:answer, :question)
+  end
+
+  def set_faq
+    @faq = FAQ.find(params[:id])
   end
 end
