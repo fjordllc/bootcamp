@@ -9,5 +9,6 @@ Rails.application.routes.draw do
       resource :password, only: %i(edit update), controller: "users/password"
     end
     resources :campaigns, only: %i(new create index edit update)
+    resources :faqs, only: %i(index new create), controller: 'faq'
   end
 end
