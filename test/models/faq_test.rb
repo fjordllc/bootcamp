@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class FAQTest < ActiveSupport::TestCase
+class FaqTest < ActiveSupport::TestCase
   setup do
     @faq1 = faqs(:faq1)
   end
