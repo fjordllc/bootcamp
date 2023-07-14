@@ -223,6 +223,10 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.displayToast(toastMessage)
+          this.$store.dispatch('setWatchable', {
+            watchableId: this.commentableId,
+            watchableType: this.commentableType
+          })
         })
         .catch((error) => {
           console.warn(error)
@@ -282,9 +286,6 @@ export default {
     },
     postComment() {
       this.createComment()
-      this.$store.dispatch('setWatchable', {
-        watchableUserId: this.currentUserId
-      })
       if (this.isUnassignedAndUnchekedProduct) {
         this.checkProduct(
           this.commentableId,
