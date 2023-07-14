@@ -21,7 +21,7 @@
 </template>
 <script>
 export default {
-  name: 'AdminPracticeModal',
+  name: 'MentorPracticeModal',
   props: {
     postPractice: { type: Object, required: true }
   },
@@ -30,7 +30,7 @@ export default {
       this.$emit('closeModal')
     },
     linkCategory(categoryId) {
-      window.location.href = `/admin/categories/${categoryId}`
+      window.location.href = `/mentor/categories/${categoryId}`
     }
   }
 }

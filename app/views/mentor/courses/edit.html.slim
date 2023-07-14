@@ -1,15 +1,15 @@
-- title 'コース作成'
+- title 'コース編集'
 
-header.page-header
+.page-header
   .container
     .page-header__inner
-      h2.page-header__title
+      h1.page-header__title
         = title
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to admin_courses_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to mentor_courses_path, class: 'a-button is-md is-secondary is-block' do
               | コース一覧
 .page-body
-  .container
+  .container.is-xl
     = render 'form', course: @course

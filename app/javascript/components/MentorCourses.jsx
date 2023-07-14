@@ -14,7 +14,7 @@ const Header = () => {
   )
 }
 
-export default function AdminCourses() {
+export default function MentorCourses() {
   const { data, error } = useSWR('/api/courses.json', fetcher)
   if (error) return <>An error has occurred.</>
   if (!data) return <>Loading...</>
@@ -26,7 +26,7 @@ export default function AdminCourses() {
         <Header />
         <tbody className="admin-table__items">
           {courses.map((course) => {
-            return <AdminCourse key={course.id} course={course} />
+            return <MentorCourse key={course.id} course={course} />
           })}
         </tbody>
       </table>
@@ -34,10 +34,10 @@ export default function AdminCourses() {
   )
 }
 
-function AdminCourse(props) {
+function MentorCourse(props) {
   const course = props.course
   const url = `/courses/${course.id}/practices`
-  const editUrl = `/admin/courses/${course.id}/edit`
+  const editUrl = `/mentor/courses/${course.id}/edit`
   const sortUrl = `/courses/${course.id}/categories`
 
   return (

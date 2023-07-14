@@ -115,6 +115,10 @@ class Event < ApplicationRecord
     start_at.to_date == Date.tomorrow
   end
 
+  def watched_by?(user)
+    watches.exists?(user_id: user.id)
+  end
+
   private
 
   def end_at_be_greater_than_start_at

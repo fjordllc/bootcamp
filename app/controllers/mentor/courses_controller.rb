@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::CoursesController < AdminController
+class Mentor::CoursesController < MentorController
   before_action :set_course, only: %i[edit update]
 
   def index
@@ -16,7 +16,7 @@ class Admin::CoursesController < AdminController
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to admin_courses_path, notice: 'コースを作成しました。'
+      redirect_to mentor_courses_path, notice: 'コースを作成しました。'
     else
       render :new
     end
@@ -24,7 +24,7 @@ class Admin::CoursesController < AdminController
 
   def update
     if @course.update(course_params)
-      redirect_to admin_courses_path, notice: 'コースを更新しました。'
+      redirect_to mentor_courses_path, notice: 'コースを更新しました。'
     else
       render :edit
     end

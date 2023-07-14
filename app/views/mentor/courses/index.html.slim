@@ -1,4 +1,4 @@
-- title '管理ページ'
+- title 'メンターページ'
 header.page-header
   .container
     .page-header__inner
@@ -6,12 +6,12 @@ header.page-header
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item
-            = link_to new_admin_course_path, class: 'a-button is-md is-secondary is-block' do
+            = link_to new_mentor_course_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
               | コース作成
 
-= render 'admin/admin_page_tabs'
+= render 'mentor/mentor_page_tabs'
 
 .page-body
   .container.is-lg
-    = react_component 'AdminCourses'
+    = react_component 'MentorCourses'
