@@ -2,10 +2,18 @@
   .form__items
     .form-item
       = f.label :question, class: 'a-form-label'
-      = f.text_area :question, size: '10x20', class: 'a-text-input'
+      = f.text_area :question, class: 'a-text-input'
     .form-item
-      = f.label :answer, class: 'a-form-label'
-      = f.text_area :answer, size: '10x20', class: 'a-text-input'
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :answer, class: 'a-form-label'
+          = f.text_area :answer,
+            class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+            data: { 'preview': '.js-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label
+            | プレビュー
+          .js-preview.a-long-text.is-md.markdown-form__preview
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
