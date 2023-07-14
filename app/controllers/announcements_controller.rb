@@ -39,7 +39,7 @@ class AnnouncementsController < ApplicationController
 
     if @announcement.update(announcement_params)
       Newspaper.publish(:announcement_update, @announcement)
-      redirect_to @announcement, notice: notice_message(@announcement)
+      redirect_to redirect_url(@announcement), notice: notice_message(@announcement)
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class AnnouncementsController < ApplicationController
     set_wip
     if @announcement.save
       Newspaper.publish(:announcement_create, @announcement)
-      redirect_to @announcement, notice: notice_message(@announcement)
+      redirect_to redirect_url(@announcement), notice: notice_message(@announcement)
     else
       render :new
     end
@@ -75,6 +75,10 @@ class AnnouncementsController < ApplicationController
 
   def set_wip
     @announcement.wip = (params[:commit] == 'WIP')
+  end
+
+  def redirect_url(announcement)
+    announcement.wip? ? edit_announcement_url(announcement) : announcement_url(announcement)
   end
 
   def notice_message(announcement)
