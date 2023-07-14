@@ -14,6 +14,7 @@ class Admin::HomeTest < ApplicationSystemTestCase
     assert_selector '.page-tabs__item-link', text: 'お試し延長'
     assert_selector '.page-tabs__item-link', text: 'お問い合わせ'
     assert_selector '.page-tabs__item-link', text: '招待URL'
+    assert_selector '.page-tabs__item-link', text: 'FAQ'
     assert_no_selector '.page-tabs__item-link', text: 'プラクティス'
     assert_no_selector '.page-tabs__item-link', text: 'カテゴリー'
     assert_no_selector '.page-tabs__item-link', text: 'コース'
