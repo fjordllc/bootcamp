@@ -56,7 +56,16 @@ namespace :bootcamp do
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
 
-      User.order(:id).each(&:update_sad_streak)
+      watches = []
+      Watch.find_each do |watch|
+        w = "#{watch.watchable_type}-#{watch.watchable_id}-#{watch.user_id}"
+        if watches.include?(w)
+          puts w
+          watch.destroy
+        else
+          watches << w
+        end
+      end
 
       puts '== END   Cloud Build Task =='
     end
