@@ -19,4 +19,5 @@
                     = image_tag('question.svg', class: 'faqs-item__title-icon')
                     = question_mark_with(faq.question)
                   .faqs-item__body
-                    = simple_format h faq.answer
+                    .a-long-text.is-md.js-markdown-view
+                      = faq.answer
