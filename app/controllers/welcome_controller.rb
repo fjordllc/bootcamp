@@ -16,7 +16,7 @@ class WelcomeController < ApplicationController
   def pricing; end
 
   def faq
-    @faqs = FAQ.all
+    @faqs = FAQ.default_order
   end
 
   def training; end
