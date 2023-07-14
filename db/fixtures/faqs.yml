@@ -76,8 +76,8 @@ faq12:
   question: Windowsで学習をしたいのですが可能ですか
   answer: "\
     Windowsでも可能ですが、WSL2を使うのでWSL2対応のパソコンであることが必須です。WSL2についてとWSL2に対応しているかの調べ方は下記にかいてあります。そちらを読んで理解できないようであればMacを購入してから受講することをおすすめしております。\n\n\
-    WSL2が使えるマシンとは？\n\n\
-    WSL2でLinuxを使おう\
+    [WSL2が使えるマシンとは？](https://bootcamp.fjord.jp/articles/32)\n\
+    [WSL2でLinuxを使おう](https://bootcamp.fjord.jp/articles/6)\
   "
 
 faq13:
@@ -120,7 +120,7 @@ faq18:
   question: 会社の新人研修など法人での利用はできますか
   answer: "\
     可能です。\n\n\
-    法人でのご利用についてはこちらに詳細を記載しております。\
+    法人でのご利用については[こちら](https://bootcamp.fjord.jp/training)に詳細を記載しております。\
   "
 
 faq19:
