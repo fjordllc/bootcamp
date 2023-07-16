@@ -9,7 +9,8 @@
       - faqs.each do |faq|
         tr.admin-table__item(id="faq_#{faq.id}")
           td.admin-table__item-value.is-text-align-center
-            = format_question(faq.question)
+            = link_to admin_faq_path(faq) do
+              = format_question(faq.question)
           td.admin-table__item-value.is-text-align-center
             = faq.answer
           td.admin-table__item-value.is-text-align-center
