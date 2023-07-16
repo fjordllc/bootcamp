@@ -17,7 +17,7 @@
                 .faqs-item__inner
                   h3.faqs-item__title
                     = image_tag('question.svg', class: 'faqs-item__title-icon')
-                    = question_mark_with(faq.question)
+                    = format_question(faq.question)
                   .faqs-item__body
                     .a-long-text.is-md.js-markdown-view
                       = faq.answer
