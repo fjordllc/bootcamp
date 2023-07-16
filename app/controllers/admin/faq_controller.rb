@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::FAQController < AdminController
-  before_action :set_faq, only: %i[edit update destroy]
+  before_action :set_faq, only: %i[show edit update destroy]
   def index
     @faqs = FAQ.default_order
   end
@@ -19,6 +19,8 @@ class Admin::FAQController < AdminController
       render 'new'
     end
   end
+
+  def show; end
 
   def edit; end
 
