@@ -1,0 +1,14 @@
+- title '管理ページ'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title = title
+
+= render 'admin/admin_page_tabs'
+
+p = format_question(@faq.question)
+p = @faq.answer
+p
+  = link_to edit_admin_faq_path(@faq) do
+    = '編集'
