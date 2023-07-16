@@ -7,8 +7,23 @@ header.page-header
 
 = render 'admin/admin_page_tabs'
 
-p = format_question(@faq.question)
-p = @faq.answer
-p
-  = link_to edit_admin_faq_path(@faq) do
-    = '編集'
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | FAQ詳細
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to 'FAQ一覧', admin_faqs_path, class: 'a-button is-sm is-block is-secondary is-back'
+.page-body
+  .container.is-md
+    dl
+      dt = format_question(@faq.question)
+      dd = @faq.answer
+    p
+      = link_to edit_admin_faq_path(@faq) do
+        = '編集'
