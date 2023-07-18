@@ -5,7 +5,12 @@
   +size(100%)
   +icon-role-style
   &.is-sm
-    +size(2em)
+    +size(2rem)
+  &.is-xs
+    +media-breakpoint-up(md)
+      +size(1.5rem)
+    +media-breakpoint-down(sm)
+      +size(1.125rem)
 
 .a-long-text
   .a-user-emoji-link
