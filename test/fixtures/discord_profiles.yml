@@ -1,6 +1,56 @@
+discord_profile_komagata:
+  user: komagata
+  account_name: komagata#0000
+  times_url:
+
+discord_profile_machida:
+  user: machida
+  account_name:
+  times_url:
+
+discord_profile_adminonly:
+  user: adminonly
+  account_name:
+  times_url:
+
+discord_profile_sotugyou_with_job:
+  user: sotugyou_with_job
+  account_name:
+  times_url:
+
+discord_profile_sotugyou:
+  user: sotugyou
+  account_name:
+  times_url:
+
+discord_profile_advijirou:
+  user: advijirou
+  account_name:
+  times_url:
+
+discord_profile_yameo:
+  user: yameo
+  account_name:
+  times_url:
+
+discord_profile_mentormentaro:
+  user: mentormentaro
+  account_name:
+  times_url:
+
 discord_profile_kimura:
   user: kimura
   account_name: kimura#1234
+  times_url:
+
+discord_profile_hatsuno:
+  user: hatsuno
+  account_name:
+  times_url:
+
+discord_profile_hajime:
+  user: hajime
+  account_name:
   times_url:
 
 discord_profile_muryou:
@@ -103,12 +153,42 @@ discord_profile_kimuramitai:
   account_name: kimuradiscord#1234
   times_url:
 
+discord_profile_long-id-mentor:
+  user: long-id-mentor
+  account_name:
+  times_url:
+
 discord_profile_nocompanykensyu:
   user: nocompanykensyu
   account_name: nocompanykensyu#9999
   times_url:
 
-discord_profile_komagata:
-  user: komagata
-  account_name: komagata#0000
+discord_profile_neverlogin:
+  user: neverlogin
+  account_name:
+  times_url:
+
+discord_profile_kyuukai:
+  user: kyuukai
+  account_name:
+  times_url:
+
+discord_profile_sotsugyoukigyoshozoku:
+  user: sotsugyoukigyoshozoku
+  account_name:
+  times_url:
+
+discord_profile_advisernocolleguetrainee:
+  user: advisernocolleguetrainee
+  account_name:
+  times_url:
+
+discord_profile_tom:
+  user: tom
+  account_name:
+  times_url:
+
+discord_profile_marumarushain<%= i %>:
+  user: marumarushain<%= i %>
+  account_name:
   times_url:

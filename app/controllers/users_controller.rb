@@ -57,6 +57,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.course_id ||= Course.first.id
     @user.free = true if @user.trainee?
+    @user.build_discord_profile
     Newspaper.publish(:user_create, @user)
     if @user.staff? || @user.trainee?
       create_free_user!
