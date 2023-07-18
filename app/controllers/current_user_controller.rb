@@ -39,6 +39,5 @@ class CurrentUserController < ApplicationController
 
   def set_user
     @user = current_user
-    @user.build_discord_profile if @user.discord_profile.nil?
   end
 end
