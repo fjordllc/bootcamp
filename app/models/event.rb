@@ -37,6 +37,7 @@ class Event < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
   has_many :watches, as: :watchable, dependent: :destroy
+  attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :description
 
@@ -59,23 +60,15 @@ class Event < ApplicationRecord
   end
 
   def participants
-    first_come_first_served.limit(capacity)
+    users.where('participations.enable = true').order(created_at: :asc)
   end
 
   def waitlist
-    first_come_first_served - participants
-  end
-
-  def participants_count
-    users.size > capacity ? capacity : users.size
-  end
-
-  def waitlist_count
-    users.size > capacity ? users.size - capacity : 0
+    users.where('participations.enable = false').order(created_at: :asc)
   end
 
   def can_participate?
-    first_come_first_served.count < capacity
+    participants.count < capacity
   end
 
   def cancel_participation!(user)
@@ -117,6 +110,10 @@ class Event < ApplicationRecord
 
   def watched_by?(user)
     watches.exists?(user_id: user.id)
+  end
+
+  def can_move_up_the_waitlist?
+    waitlist.count.positive? && can_participate?
   end
 
   private

@@ -35,7 +35,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-09 23:59')
       assert_difference 'Event.count', 1 do
-        click_button '作成'
+        click_button 'イベントを公開'
       end
     end
     assert_text '特別イベントを作成しました。'
@@ -51,7 +51,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[start_at]', with: Time.current.next_day
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '特別イベントを作成しました。'
     assert_text event.title
@@ -71,7 +71,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-21 22:30')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-11 9:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-20 23:59')
-      click_button '内容変更'
+      click_button '内容を更新'
     end
     assert_text '特別イベントを更新しました。'
   end
@@ -97,7 +97,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 10:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-09 23:59')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text 'イベント終了日時はイベント開始日時よりも後の日時にしてください。'
   end
@@ -113,7 +113,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-09 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-07 10:00')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '募集終了日時は募集開始日時よりも後の日時にしてください。'
   end
@@ -129,7 +129,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-10 10:30')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-10 11:30')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '募集開始日時はイベント開始日時よりも前の日時にしてください。'
   end
@@ -145,7 +145,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-10 12:00')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-05 10:00')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-11 12:00')
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     assert_text '募集終了日時はイベント終了日時よりも前の日時にしてください。'
   end
@@ -216,7 +216,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     within '.location' do
       assert_link url, href: url
@@ -234,7 +234,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -264,7 +264,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -294,7 +294,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -335,7 +335,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
       fill_in 'event[open_start_at]', with: Time.current
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
-      click_button '作成'
+      click_button 'イベントを公開'
     end
     accept_confirm do
       click_link '参加申込'
@@ -396,5 +396,103 @@ class EventsTest < ApplicationSystemTestCase
     end
     visit_with_auth '/current_user/watches', 'komagata'
     assert_selector '.card-list-item', count: 1
+  end
+
+  test 'when the create announcements checkbox is enabled, the user is redirected to the new announcement page after create a new event' do
+    event = {
+      title: 'チェックボックスを有効にするとお知らせ作成ページにリダイレクトする',
+      description: 'お知らせ作成ページには、リダイレクト元のイベント情報が自動入力される'
+    }
+
+    visit_with_auth new_event_path, 'komagata'
+    within 'form[name=event]' do
+      fill_in 'event[title]', with: event[:title]
+      fill_in 'event[description]', with: event[:description]
+      fill_in 'event[capacity]', with: 10
+      fill_in 'event[location]', with: 'FJORDオフィス'
+      fill_in 'event[start_at]', with: Time.current.next_day
+      fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
+      fill_in 'event[open_start_at]', with: Time.current
+      fill_in 'event[open_end_at]', with: Time.current + 2.hours
+      check 'イベント公開のお知らせを書く', allow_label_click: true
+      click_button 'イベントを公開'
+    end
+
+    assert_text 'イベントを作成しました'
+    within 'form[name=announcement]' do
+      assert has_field? 'announcement[title]', with: /#{event[:title]}/
+      assert has_field? 'announcement[description]', with: /#{event[:desription]}/
+    end
+  end
+
+  test 'when the create announcements checkbox is enabled, the user is redirected to the new announcement page after edit a wip event' do
+    event = {
+      title: 'WIP中のイベントを公開する際、チェックボックスを有効にするとお知らせ作成ページにリダイレクトする',
+      description: 'お知らせ作成ページには、リダイレクト元のイベント情報が自動入力される'
+    }
+
+    visit_with_auth new_event_path, 'komagata'
+    within 'form[name=event]' do
+      fill_in 'event[title]', with: event[:title]
+      fill_in 'event[description]', with: event[:description]
+      fill_in 'event[capacity]', with: 10
+      fill_in 'event[location]', with: 'FJORDオフィス'
+      fill_in 'event[start_at]', with: Time.current.next_day
+      fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
+      fill_in 'event[open_start_at]', with: Time.current
+      fill_in 'event[open_end_at]', with: Time.current + 2.hours
+      check 'イベント公開のお知らせを書く', allow_label_click: true
+      click_button 'WIP'
+    end
+    click_link '内容修正'
+
+    check 'イベント公開のお知らせを書く', allow_label_click: true
+    click_button '内容を更新'
+
+    assert_text 'イベントを更新しました'
+    within 'form[name=announcement]' do
+      assert has_field? 'announcement[title]', with: /#{event[:title]}/
+      assert has_field? 'announcement[description]', with: /#{event[:desription]}/
+    end
+  end
+
+  test 'checkboxes for creating an announcement are display the new event page' do
+    visit_with_auth new_event_path, 'komagata'
+    assert_selector 'label', text: 'イベント公開のお知らせを書く'
+  end
+
+  test 'checkboxes for creating an announcement are display the edit page of wip event' do
+    visit_with_auth new_event_path, 'komagata'
+    within 'form[name=event]' do
+      fill_in 'event[title]', with: 'WIPで保存したイベントの編集画面にはチェックボックスを表示'
+      fill_in 'event[description]', with: '説明文'
+      fill_in 'event[capacity]', with: 10
+      fill_in 'event[location]', with: 'FJORDオフィス'
+      fill_in 'event[start_at]', with: Time.current.next_day
+      fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
+      fill_in 'event[open_start_at]', with: Time.current
+      fill_in 'event[open_end_at]', with: Time.current + 2.hours
+      click_button 'WIP'
+    end
+    click_link '内容修正'
+
+    assert_selector 'label', text: 'イベント公開のお知らせを書く'
+  end
+
+  test 'checkboxes for creating an announcement are not display the edit page of published event' do
+    visit_with_auth new_event_path, 'komagata'
+    within 'form[name=event]' do
+      fill_in 'event[title]', with: '公開したイベントの編集画面にはチェックボックスを表示しない'
+      fill_in 'event[description]', with: '説明文'
+      fill_in 'event[capacity]', with: 10
+      fill_in 'event[location]', with: 'FJORDオフィス'
+      fill_in 'event[start_at]', with: Time.current.next_day
+      fill_in 'event[end_at]', with: Time.current.next_day + 2.hours
+      fill_in 'event[open_start_at]', with: Time.current
+      fill_in 'event[open_end_at]', with: Time.current + 2.hours
+      click_button 'イベントを公開'
+    end
+    click_link '内容修正'
+    assert_no_selector 'label', text: 'イベント公開のお知らせを書く'
   end
 end
