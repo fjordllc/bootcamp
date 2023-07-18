@@ -29,7 +29,7 @@
         .sns-links__item-link.a-button.is-sm.is-disabled.is-icon
           i.fa-solid.fa-blog
     li.sns-links__item
-      - if user.discord_profile.presence && user.discord_profile.times_url?
+      - if user.discord_profile.times_url?
         = link_to user.discord_profile.times_url, class: 'sns-links__item-link a-button is-sm is-secondary is-icon' do
           i.fa-solid.fa-clock
       - else

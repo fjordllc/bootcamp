@@ -43,7 +43,6 @@ class Admin::UsersController < AdminController
 
   def set_user
     @user = User.find(params[:id])
-    @user.build_discord_profile if @user.discord_profile.nil?
   end
 
   def user_params

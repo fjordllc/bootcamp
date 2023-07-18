@@ -28,10 +28,8 @@ if user.talk.present?
 end
 
 json.discord_profile do
-  if user.discord_profile.present?
-    json.account_name user.discord_profile.account_name
-    json.times_url user.discord_profile.times_url
-  end
+  json.account_name user.discord_profile.account_name
+  json.times_url user.discord_profile.times_url
 end
 
 json.company do

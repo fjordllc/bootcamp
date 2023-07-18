@@ -33,11 +33,8 @@
                       .a-meta
                         | {{ user.name }}
                     .card-list-item-meta__item
-                      .a-meta(v-if='!user.discord_profile')
-                        .a-meta__icon
-                          i.fa-brands.fa-discord
                       a.a-meta(
-                        v-else-if='user.discord_profile.times_url',
+                        v-if='user.discord_profile.times_url',
                         :href='user.discord_profile.times_url')
                         .a-meta__icon
                           i.fa-brands.fa-discord

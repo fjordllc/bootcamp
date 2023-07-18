@@ -95,7 +95,7 @@ module Discord
       assert_redirected_to root_url
 
       adviser = User.find_by(login_name: 'Piyopiyo-adviser')
-      assert_nil adviser.discord_profile
+      assert_nil adviser.discord_profile.times_id
     end
 
     class FakeCard
