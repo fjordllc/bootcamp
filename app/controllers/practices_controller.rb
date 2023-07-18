@@ -55,9 +55,10 @@ class PracticesController < ApplicationController
       :submission,
       :open_product,
       :include_progress,
-      :ogp_image,
+      :completion_image,
       :memo,
       :summary,
+      :ogp_image,
       category_ids: [],
       practices_books_attributes: %i[id book_id must_read _destroy]
     )
