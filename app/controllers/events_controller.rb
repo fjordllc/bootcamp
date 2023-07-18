@@ -22,8 +22,10 @@ class EventsController < ApplicationController
     @event.user = current_user
     set_wip
     if @event.save
+      update_published_at
       Newspaper.publish(:event_create, @event)
-      redirect_to @event, notice: notice_message(@event)
+      path = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : @event
+      redirect_to path, notice: notice_message(@event)
     else
       render :new
     end
@@ -34,8 +36,10 @@ class EventsController < ApplicationController
   def update
     set_wip
     if @event.update(event_params)
-      @event.update_participations if @event.saved_change_to_attribute?('capacity')
-      redirect_to @event, notice: notice_message(@event)
+      update_published_at
+      @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
+      path = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : @event
+      redirect_to path, notice: notice_message(@event)
     else
       render :edit
     end
@@ -58,7 +62,8 @@ class EventsController < ApplicationController
       :end_at,
       :open_start_at,
       :open_end_at,
-      :job_hunting
+      :job_hunting,
+      :announcement_of_publication
     )
   end
 
@@ -89,5 +94,15 @@ class EventsController < ApplicationController
     new_event.job_hunting = event.job_hunting
 
     flash.now[:notice] = '特別イベントをコピーしました。'
+  end
+
+  def update_published_at
+    return if @event.wip || @event.published_at?
+
+    @event.update(published_at: Time.current)
+  end
+
+  def publish_with_announcement?
+    !@event.wip? && @event.announcement_of_publication?
   end
 end

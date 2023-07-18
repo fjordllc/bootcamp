@@ -1,0 +1,11 @@
+title: <%= "ドキュメント「#{page.title}」を公開しました。" %>
+description: |
+  <!--  このテキストを編集してください-->
+
+  <%= "ドキュメント「#{page.title}」を公開しました。" %>
+  <%= Rails.application.routes.url_helpers.page_url page %>
+
+  <!--  不要な場合以下は削除 -->
+  ---
+
+  <%= page.description %>

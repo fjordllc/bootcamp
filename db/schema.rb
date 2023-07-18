@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "wip", default: false, null: false
     t.boolean "job_hunting", default: false, null: false
+    t.datetime "published_at"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
