@@ -1,4 +1,6 @@
-# userを増やした場合test/fixtures/talks.ymlにも追記する
+# userを増やした場合、以下のymlにも追記する
+# test/fixtures/talks.yml
+# test/fixtures/discord_profiles.yml
 
 komagata:
   login_name: komagata
