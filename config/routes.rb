@@ -99,6 +99,7 @@ Rails.application.routes.draw do
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
+  resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
 end
