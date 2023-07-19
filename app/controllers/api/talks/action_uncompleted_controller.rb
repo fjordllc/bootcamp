@@ -4,7 +4,8 @@ class API::Talks::ActionUncompletedController < API::BaseController
   PAGER_NUMBER = 20
 
   def index
-    @talks = Talk.eager_load(user: { avatar_attachment: :blob })
+    @talks = Talk.joins(:user)
+                 .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .action_uncompleted
                  .order(updated_at: :desc, id: :asc)
     @talks =
