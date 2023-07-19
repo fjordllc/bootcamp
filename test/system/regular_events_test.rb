@@ -19,7 +19,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントをWIPとして保存しました。'
-    assert_text 'Watch中'
+    assert_text '定期イベント編集'
   end
 
   test 'create regular event' do
