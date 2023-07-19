@@ -11,12 +11,7 @@ module ReportsHelper
 
   def practice_options_within_course
     user_course_categories = current_user.course.categories.includes(:practices)
-    user_practices = user_course_categories.flat_map do |category|
-      category.practices.map do |practice|
-        [practice.title, practice.id]
-      end
-    end
-    user_practices.uniq
+    user_course_categories.flat_map(&:practices).map { |practice| [practice.title, practice.id] }.uniq
   end
 
   def convert_to_hour_minute(time)
