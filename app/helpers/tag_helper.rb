@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module TagHelper
-  include PathConversionHelper
   def current_link(name)
     return unless qualified_page_name&.match?(name)
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module BodyClassHelper
-  include PathConversionHelper
   def page_category
     case params[:action]
     when 'new', 'create', 'edit'
