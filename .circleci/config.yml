@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.8.0
   node: circleci/node@5.0.3
-  browser-tools: circleci/browser-tools@1.4.0
+  browser-tools: circleci/browser-tools@1.4.3
 jobs:
   build:
     docker:
@@ -61,7 +61,9 @@ jobs:
     parallelism: 3
     steps:
       - checkout
-      - browser-tools/install-chrome
+      - run: sudo apt-get update # TODO: remove it https://github.com/CircleCI-Public/browser-tools-orb/issues/75#issuecomment-1641031119
+      - browser-tools/install-chrome:
+          chrome-version: 114.0.5735.90
       - browser-tools/install-chromedriver
       - ruby/install-deps
       - node/install:
