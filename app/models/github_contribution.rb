@@ -14,7 +14,12 @@ class GithubContribution
   def generate_table
     extract_contributions
       .map do |contribution_row|
-        contribution_row.map { |contribution| contribution.attribute('data-level').value.to_i }
+        contribution_row.map do |contribution|
+          {
+            level: contribution.attribute('data-level').value.to_i,
+            index: contribution.attribute('data-ix').value.to_i
+          }
+        end
       end
   end
 
