@@ -14,6 +14,7 @@ import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
+import TeaxtareaMarkdownLinkify from 'textarea-markdown-linkify'
 
 export default class {
   static initialize(selector) {
@@ -84,6 +85,9 @@ export default class {
 
     // user-icon
     new UserIconRenderer().render(selector)
+
+    // Convert selected text to markdown link on URL paste
+    new TeaxtareaMarkdownLinkify().linkify(selector)
   }
 
   static uninitialize(selector) {
