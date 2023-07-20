@@ -1,6 +1,6 @@
 import React from 'react'
 
-function getGrassColor (level) {
+function getGrassColor(level) {
   switch (level) {
     case 1:
       return '#0e4429'
@@ -15,7 +15,7 @@ function getGrassColor (level) {
   }
 }
 
-function hasContribution (level) {
+function hasContribution(level) {
   return level === 0
 }
 
@@ -26,10 +26,10 @@ const defaultStyle = {
   padding: '1px',
   margin: '1px',
   display: 'block',
-  borderRadius: '2px',
+  borderRadius: '2px'
 }
 
-export default function GithubContributionsTableData ({ contributionLevel }) {
+export default function GithubContributionsTableData({ contributionLevel }) {
   const style = {
     ...defaultStyle,
     border: hasContribution(contributionLevel) ? '1px solid lightgray' : 'none',
@@ -38,9 +38,7 @@ export default function GithubContributionsTableData ({ contributionLevel }) {
 
   return (
     <td>
-      <span
-        style={style}
-      />
+      <span style={style} />
     </td>
   )
 }
