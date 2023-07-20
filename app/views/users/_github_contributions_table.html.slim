@@ -3,5 +3,5 @@
     h2.card-header__title GitHub
   .user-grass
     // Todo Design
-    = link_to user_github_url(user), target: '_blank', rel: 'noopener', class: 'user-grass__link', style: "padding: 0; text-decoration: none" do
+    = link_to user_github_url(user), target: '_blank', rel: 'noopener', class: 'user-grass__link', style: 'padding: 0; text-decoration: none' do
       = react_component('GithubContributionsTable', account: user.github_account)
