@@ -57,6 +57,7 @@ tables = %i[
   check_box_choices
   surveys
   survey_question_listings
+  buzzes
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

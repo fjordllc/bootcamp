@@ -16,6 +16,22 @@
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
+        = f.label :ogp_image, class: 'a-form-label'
+        .form-item-file-input.js-file-input.a-file-input
+          label.js-file-input__preview(for='practice_ogp_image')
+            - if f.object.ogp_image.attached?
+              = image_tag f.object.ogp_image.variant(resize: '100x100')
+              p 画像を変更
+            - else
+              p 画像を選択
+            = f.file_field :ogp_image
+        .a-form-help
+          p
+            | ここにアップロードした画像が、TwitterでTweet、Facebookで投稿した際に表示される画像として使われます。
+            | 画像サイズは必ず 1200px × 630xp でお願いします。
+  .form-item
+    .row.js-markdown-parent
+      .col-md-6.col-xs-12
         = f.label :summary, class: 'a-form-label'
         = f.text_area :summary,
           class: 'a-text-input is-md js-warning-form'
@@ -88,15 +104,15 @@
   .form-item
     .row.js-markdown-parent
       .col-md-6.col-xs-12
-        = f.label '修了おめでとう画像', class: 'a-form-label'
+        = f.label :completion_image, class: 'a-form-label'
         .form-item-file-input.js-file-input.a-file-input
-          label.js-file-input__preview(for='practice_ogp_image')
-            - if f.object.ogp_image.attached?
-              = image_tag f.object.ogp_image.variant(resize: '100x100')
+          label.js-file-input__preview(for='practice_completion_image')
+            - if f.object.completion_image.attached?
+              = image_tag f.object.completion_image.variant(resize: '100x100')
               p 画像を変更
             - else
               p 画像を選択
-            = f.file_field :ogp_image
+            = f.file_field :completion_image
         .a-form-help
           p 画像サイズ: 1200px × 630xp
 

@@ -1,20 +1,31 @@
 - title @category.name
+- set_meta_tags description: "カテゴリー「#{@category.name}」のページです。このカテゴリーには"
 
 header.page-header
   .container
     .page-header__inner
       h1.page-header__title
         | メンターページ
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to new_mentor_category_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | カテゴリー作成
 
 = render 'mentor/mentor_page_tabs'
 
 .page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | カテゴリー
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to new_mentor_category_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | カテゴリー作成
+              .page-header-actions__item
+                = link_to mentor_categories_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | カテゴリー一覧
   .page-body
     .container.is-xxl
       .row.justify-center

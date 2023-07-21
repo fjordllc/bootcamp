@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const added = extractField(target)
       initializeFileInput(added)
     })
-  } else {
-    initializeFileInput(document)
   }
+  initializeFileInput(document)
 })

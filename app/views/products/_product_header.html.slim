@@ -1,72 +1,85 @@
 header.page-content-header
-  #js-check-stamp(data-checkable-id="#{@product.id}" data-checkable-type='Product')
+  #js-check-stamp(data-checkable-id="#{product.id}" data-checkable-type='Product')
+  - if product.checker_id? && product.learning&.status == 'submitted'
+    .page-content-header__checker
+      .a-checker
+        .a-checker__user
+          = render 'users/icon',
+                  user: product.checker,
+                  link_class: 'a-checker__user-link',
+                  image_class: 'is-xs'
+        .a-checker__status
+          | レビュー中
   .page-content-header__start
     .page-content-header__user
-      = render 'users/icon', user: @product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+      = render 'users/icon', user: product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
   .page-content-header__end
+    .page-content-header__row.relative
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas__meta
+            = link_to product.user, class: 'a-user-name' do
+              = product.user.long_name
+          - if current_user&.mentor? && product.user.trainee?
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__label
+                  = User.human_attribute_name :training_ends_on
+                - if product.user.training_ends_on
+                  span.a-meta__value
+                    = l product.user.training_ends_on
+                  - if product.user.training_remaining_days.zero?
+                    span.a-meta__value.is-danger
+                      | （本日研修最終日）
+                  - elsif product.user.training_remaining_days.negative?
+                    span.a-meta__value
+                      | （研修終了済み）
+                  - elsif product.user.training_remaining_days < 7
+                    span.a-meta__value.is-danger
+                      | （あと#{product.user.training_remaining_days}日）
+                  - else
+                    span.a-meta__value
+                      | （あと#{product.user.training_remaining_days}日）
+                - else
+                  span.a-meta__value
+                    | 未入力
     .page-content-header__row
-      .page-content-header__before-title
-        = link_to @product.user, class: 'a-user-name' do
-          = @product.user.long_name
-        - if current_user&.mentor? && @product.user.trainee?
-          .a-meta
-            span.a-meta__label
-              = User.human_attribute_name :training_ends_on
-            - if @product.user.training_ends_on
-              span.a-meta__value
-                = l @product.user.training_ends_on
-              - if @product.user.training_remaining_days.zero?
-                span.a-meta__value.is-danger
-                  | （本日研修最終日）
-              - elsif @product.user.training_remaining_days.negative?
-                span.a-meta__value
-                  | （研修終了済み）
-              - elsif @product.user.training_remaining_days < 7
-                span.a-meta__value.is-danger
-                  | （あと#{@product.user.training_remaining_days}日）
-              - else
-                span.a-meta__value
-                  | （あと#{@product.user.training_remaining_days}日）
-            - else
-              span.a-meta__value
-                | 未入力
-
-      h1.page-content-header__title(class="#{@product.wip? ? 'is-wip' : ''}")
-        - if @product.wip?
+      h1.page-content-header__title.has-checker(class="#{product.wip? ? 'is-wip' : ''}")
+        - if product.wip?
           span.a-title-label.is-wip
             | WIP
-        | #{link_to @product.practice.title, @product.practice, class: 'page-content-header__title-link'}の提出物
+        | #{link_to product.practice.title, product.practice, class: 'page-content-header__title-link'}の提出物
 
     .page-content-header__row
       .page-content-header-metas
         .page-content-header-metas__start
           .page-content-header-metas__meta
             .a-meta
-              - if @product.wip?
+              - if product.wip?
                 .a-meta__value
                   | 提出物作成中
-              - elsif @product.published_at.present?
+              - elsif product.published_at.present?
                 span.a-meta__label
                   | 提出
-                time.a-meta__value(datetime="#{@product.published_at.to_datetime}")
-                  = l @product.published_at
+                time.a-meta__value(datetime="#{product.published_at.to_datetime}")
+                  = l product.published_at
               - else
                 span.a-meta__label
                   | 提出
-                time.a-meta__value(datetime="#{@product.created_at.to_datetime}")
-                  = l @product.created_at
+                time.a-meta__value(datetime="#{product.created_at.to_datetime}")
+                  = l product.created_at
 
-          - if @product.updated_at.present?
+          - if product.updated_at.present?
             .page-content-header-metas__meta
               .a-meta
                 span.a-meta__label
                   | 更新
-                time.a-meta__value(datetime="#{@product.updated_at.to_datetime}")
-                  = l @product.updated_at
+                time.a-meta__value(datetime="#{product.updated_at.to_datetime}")
+                  = l product.updated_at
 
         .page-content-header-metas__end
           .page-content-header-metas__meta
-            - length = @product.comments.length
+            - length = product.comments.length
             a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
               | コメント（
               span(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
@@ -77,9 +90,9 @@ header.page-content-header
       .page-content-header-actions
         .page-content-header-actions__start
           .page-content-header-actions__action
-            div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@product.id}" data-vue-watchable-type='Product')
+            div(data-vue="WatchToggle" data-vue-watchable-id:number="#{product.id}" data-vue-watchable-type='Product')
           .page-content-header-actions__action
-            #js-bookmark(data-bookmarkable-id="#{@product.id}", data-bookmarkable-type='Product')
+            #js-bookmark(data-bookmarkable-id="#{product.id}", data-bookmarkable-type='Product')
         .page-content-header-actions__end
           .page-content-header-actions__action
             = link_to 'Raw', product_path(format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener'

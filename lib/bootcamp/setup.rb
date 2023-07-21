@@ -13,6 +13,7 @@ module Bootcamp
         attach_company_logo!
         attach_book_cover!
         attach_authored_book_cover!
+        attach_practice_ogp!
       end
 
       private
@@ -61,6 +62,14 @@ module Bootcamp
           filename = "#{i + 1}.png"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/authored_books/#{filename}")
           authored_book.cover.attach(io: File.open(path), filename: filename) if File.exist?(path)
+        end
+      end
+
+      def attach_practice_ogp!
+        Practice.order(:created_at).each_with_index do |practice, i|
+          filename = "#{i + 1}.jpg"
+          path = Rails.root.join("#{fixtures_dir}/fixtures/files/practices/#{filename}")
+          practice.ogp_image.attach(io: File.open(path), filename: filename) if File.exist?(path)
         end
       end
     end
