@@ -1,4 +1,8 @@
 - title "#{@practice.title}の提出物"
+- if @practice.open_product?
+  - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。"
+- else
+  - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。"
 - category = @practice.category(current_user.course)
 
 = render '/practices/page_header', title: @practice.title, category: category

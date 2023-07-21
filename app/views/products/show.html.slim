@@ -1,4 +1,5 @@
 - title @product.practice.title
+- set_meta_tags description: "#{@product.user.long_name}さんが提出した、プラクティス「#{@product.practice.title}」の提出物です。"
 - category = @product.category(current_user.course)
 
 = render '/shared/modal_learning_completion',

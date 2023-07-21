@@ -1,16 +1,26 @@
-- title 'カテゴリー作成'
+- title 'メンターページ'
 
 header.page-header
   .container
     .page-header__inner
       h1.page-header__title = title
-      .page-header__action
-        = link_to new_mentor_category_path, class: 'a-button is-md is-warning is-block' do
-          i.fa-regular.fa-plus
-          | カテゴリー作成
 
 = render 'mentor/mentor_page_tabs'
 
-.page-body
-  .container
-    = render 'form', category: @category
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | カテゴリー
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to mentor_categories_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | カテゴリー一覧
+
+  .page-body
+    .container.is-xxl
+      = render 'form', category: @category
