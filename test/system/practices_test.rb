@@ -130,10 +130,10 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text 'はじめて学ぶソフトウェアのテスト技法'
   end
 
-  test 'add ogp image' do
+  test 'add completion image' do
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
-    attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
+    attach_file 'practice[completion_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     click_button '更新する'
 
     visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
@@ -253,28 +253,6 @@ class PracticesTest < ApplicationSystemTestCase
     assert_no_selector '.common-page-body', text: '困った時は'
   end
 
-  test 'show a summary if the practice has a summary data' do
-    visit_with_auth new_practice_path, 'komagata'
-    within 'form[name=practice]' do
-      fill_in 'practice[title]', with: '概要表示テスト用'
-      check categories(:category1).name, allow_label_click: true
-      fill_in 'practice[summary]', with: '概要の内容'
-      fill_in 'practice[description]', with: 'description...'
-      fill_in 'practice[goal]', with: 'goal...'
-      click_button '登録する'
-    end
-
-    assert_selector '.card-header', text: '概要'
-    assert_selector '.card-body', text: '概要の内容'
-  end
-
-  test 'not show a summary if the practice does not has a summary data' do
-    practice = practices(:practice1)
-    visit_with_auth practice_path(practice), 'komagata'
-
-    assert_no_selector '.card-header', text: '概要'
-  end
-
   test 'escape markdown, javascript, and html tags entered in the summary' do
     escape_text = <<~TEXT
       # マークダウン
@@ -289,5 +267,66 @@ class PracticesTest < ApplicationSystemTestCase
     end
 
     assert_equal escape_text.chop, first('.card-body.is-practice').text
+  end
+
+  test 'add ogp image' do
+    practice = practices(:practice1)
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
+    end
+    click_button '更新する'
+
+    visit edit_practice_path(practice)
+    within('form[name=practice]') do
+      assert_selector 'label[for=practice_ogp_image] img[src$="1.jpg"]'
+    end
+  end
+
+  test 'show both in the summary ( summary_text: yes / ogp_image: yes )' do
+    practice = practices(:practice1)
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
+      fill_in 'practice[summary]', with: '概要です'
+    end
+    click_button '更新する'
+
+    within :css, '.a-card', text: '概要' do
+      assert_selector 'img[src$="1.jpg"]'
+      assert_selector 'p', text: '概要です'
+    end
+  end
+
+  test 'show only text in the summary ( summary_text: yes / ogp_image: no )' do
+    practice = practices(:practice1)
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      fill_in 'practice[summary]', with: '概要です'
+    end
+    click_button '更新する'
+
+    within :css, '.a-card', text: '概要' do
+      assert_no_selector 'img'
+      assert_selector 'p', text: '概要です'
+    end
+  end
+
+  test 'not show the summary ( summary_text: no / ogp_image: no )' do
+    practice = practices(:practice1)
+    visit_with_auth practice_path(practice), 'komagata'
+
+    assert_no_selector '.a-card', text: '概要'
+  end
+
+  test 'not show the summary ( summary_text: no / ogp_image: yes )' do
+    practice = practices(:practice1)
+    visit_with_auth edit_practice_path(practice), 'komagata'
+    within 'form[name=practice]' do
+      attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
+    end
+    click_button '更新する'
+
+    assert_no_selector '.a-card', text: '概要'
   end
 end

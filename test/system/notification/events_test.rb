@@ -33,7 +33,7 @@ class Notification::EventsTest < ApplicationSystemTestCase
     click_link '内容修正'
 
     fill_in 'event_capacity', with: 2
-    click_button '内容変更'
+    click_button '内容を更新'
     assert_text 'イベントを更新しました。'
 
     visit_with_auth '/notifications', 'hatsuno'

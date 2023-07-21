@@ -11,20 +11,23 @@ class AnnouncementsController < ApplicationController
   def new
     @announcement = Announcement.new(target: 'students')
 
-    if params[:page_id]
+    if params[:id]
+      announcement = Announcement.find(params[:id])
+      @announcement.title       = announcement.title
+      @announcement.description = announcement.description
+      @announcement.target = announcement.target
+      flash.now[:notice] = 'お知らせをコピーしました。'
+    elsif params[:page_id]
       page = Page.find(params[:page_id])
-      page_url = "https://bootcamp.fjord.jp/pages/#{params[:page_id]}"
-      @announcement.title       = "ドキュメント「#{page.title}」を公開しました。"
-      @announcement.description = "<!--  このテキストを編集してください-->\n\nドキュメント「#{page.title}」を公開しました。\n#{page_url}\n\n<!--  不要な場合以下は削除 -->\n---\n\n#{page.description}"
+      template = MessageTemplate.load('page_announcements.yml', params: { page: page })
+      @announcement.title       = template['title']
+      @announcement.description = template['description']
+    elsif params[:event_id]
+      event = Event.find(params[:event_id])
+      template = MessageTemplate.load('event_announcements.yml', params: { event: event })
+      @announcement.title       = template['title']
+      @announcement.description = template['description']
     end
-
-    return unless params[:id]
-
-    announcement = Announcement.find(params[:id])
-    @announcement.title       = announcement.title
-    @announcement.description = announcement.description
-    @announcement.target = announcement.target
-    flash.now[:notice] = 'お知らせをコピーしました。'
   end
 
   def edit; end

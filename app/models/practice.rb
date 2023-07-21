@@ -35,6 +35,7 @@ class Practice < ApplicationRecord
   has_many :categories_practices, dependent: :destroy
   has_many :categories, through: :categories_practices
   has_one_attached :ogp_image
+  has_one_attached :completion_image
 
   has_many :books, through: :practices_books
   has_many :practices_books, dependent: :destroy
