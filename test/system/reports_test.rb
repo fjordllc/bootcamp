@@ -648,6 +648,13 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector('.card-list-item__user')
   end
 
+  test 'check user role class in reports' do
+    visit_with_auth reports_path, 'kimura'
+    within('.card-list-item__user', match: :first) do
+      assert_selector('span.a-user-role.is-student')
+    end
+  end
+
   test 'show edit button when mentor is logged in and menter mode is on in report detail page' do
     visit_with_auth report_path(reports(:report1)), 'mentormentaro'
     assert_text '内容修正'
