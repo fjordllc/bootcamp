@@ -3,7 +3,7 @@
 class Admin::FAQController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
   def index
-    @faqs = FAQ.default_order
+    @faqs = FAQ.all
   end
 
   def new
