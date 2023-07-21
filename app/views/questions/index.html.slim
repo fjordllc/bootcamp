@@ -1,4 +1,9 @@
 - title @questions_property.title
+- if @tag.present?
+  - set_meta_tags description: "タグ「#{@tag.name}」がついたQ&Aの一覧です。"
+- else
+  - set_meta_tags description: 'Q&Aの一覧です。'
+
 header.page-header
   .container
     .page-header__inner
