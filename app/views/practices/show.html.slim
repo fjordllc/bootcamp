@@ -1,4 +1,5 @@
 - title @practice.title
+- set_meta_tags description: "プラクティス「#{@practice.title}」のページです。"
 - category = @practice.category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false

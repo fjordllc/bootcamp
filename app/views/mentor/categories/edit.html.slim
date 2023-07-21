@@ -15,6 +15,19 @@ header.page-header
 
 = render 'mentor/mentor_page_tabs'
 
-.page-body
-  .container.is-xxl
-    = render 'form', category: @category
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | カテゴリー
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to mentor_categories_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | カテゴリー一覧
+  .page-body
+    .container.is-xxl
+      = render 'form', category: @category
