@@ -272,6 +272,7 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.string "question", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
     t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
     t.index ["question"], name: "index_faqs_on_question", unique: true
   end
