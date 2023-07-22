@@ -23,6 +23,7 @@ class BuzzController < ApplicationController
 
   def set_buzz
     @buzz = Buzz.first
+    @buzz ||= Buzz.create(body: 'test')
   end
 
   def buzz_params
