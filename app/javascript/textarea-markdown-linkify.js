@@ -16,14 +16,11 @@ export default class {
           const markdownLink = `[${selectedText}](${pasteText})`
           const selectionStart = textarea.selectionStart
           const selectionEnd = textarea.selectionEnd
-          const newText =
-            textarea.value.slice(0, selectionStart) +
-            markdownLink +
-            textarea.value.slice(selectionEnd)
-          textarea.value = newText
-          textarea.setSelectionRange(
-            selectionStart + markdownLink.length,
-            selectionStart + markdownLink.length
+          textarea.setRangeText(
+            markdownLink,
+            selectionStart,
+            selectionEnd,
+            'end'
           )
         }
       })
