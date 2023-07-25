@@ -650,8 +650,18 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'check user role class in reports' do
     visit_with_auth reports_path, 'kimura'
+
     within('.card-list-item__user', match: :first) do
-      assert_selector('span.a-user-role.is-student')
+      assert_selector('
+        span.a-user-role.is-student,
+        span.a-user-role.is-admin,
+        span.a-user-role.is-retired,
+        span.a-user-role.is-hibernationed,
+        span.a-user-role.is-mentor,
+        span.a-user-role.is-adviser,
+        span.a-user-role.is-graduate,
+        span.a-user-role.is-trainee
+        ')
     end
   end
 
