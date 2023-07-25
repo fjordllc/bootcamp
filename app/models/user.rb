@@ -425,7 +425,7 @@ class User < ApplicationRecord
       )
       student.sent_student_followup_message = true
       student.save(validate: false)
-    end_
+    end
   end
 
   def away?
