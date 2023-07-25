@@ -16,12 +16,7 @@ export default class {
         if (selectedText && this._isURL(pasteText)) {
           event.preventDefault()
           const markdownLink = `[${selectedText}](${pasteText})`
-          textarea.setRangeText(
-            markdownLink,
-            selectionStart,
-            selectionEnd,
-            'end'
-          )
+          document.execCommand('insertText', false, markdownLink)
         }
       })
     })
