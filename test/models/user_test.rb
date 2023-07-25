@@ -632,4 +632,18 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '東京都', users(:kimura).subdivision_name
     assert_equal 'ニューヨーク州', users(:tom).subdivision_name
   end
+
+  test '#create_comebacked_comment' do
+    assert_difference 'Comment.count', 1 do
+      users(:hajime).create_comebacked_comment
+    end
+    comment = Comment.last
+    description = "お帰りなさい！！復会ありがとうございます。\n" \
+           '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
+           "何か困ったことや質問があれば、遠慮なくご相談ください。\n\n" \
+           "またフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n" \
+           '<https://bootcamp.fjord.jp/practices/129#url>'
+    assert_equal users(:komagata).id, comment.user_id
+    assert_equal description, comment.body
+  end
 end
