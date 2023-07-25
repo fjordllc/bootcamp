@@ -10,12 +10,12 @@ export default class {
     Array.from(textareas).forEach((textarea) => {
       textarea.addEventListener('paste', (event) => {
         const pasteText = event.clipboardData.getData('text')
-        const selectedText = window.getSelection().toString()
+        const selectionStart = textarea.selectionStart
+        const selectionEnd = textarea.selectionEnd
+        const selectedText = textarea.value.slice(selectionStart, selectionEnd)
         if (selectedText && this._isURL(pasteText)) {
           event.preventDefault()
           const markdownLink = `[${selectedText}](${pasteText})`
-          const selectionStart = textarea.selectionStart
-          const selectionEnd = textarea.selectionEnd
           textarea.setRangeText(
             markdownLink,
             selectionStart,
