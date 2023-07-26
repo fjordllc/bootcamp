@@ -17,10 +17,9 @@ main.page-main
           .page-header-actions
             .page-header-actions__items
               .page-header-actions__item
-              - if current_user.mentor?
                 = link_to new_mentor_category_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
-                    | カテゴリー作成
+                  | カテゴリー作成
   .page-body
     .container.is-lg
       = react_component 'Categories'

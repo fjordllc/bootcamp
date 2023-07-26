@@ -18,10 +18,13 @@
   align-items: center
 
 .page-header__title
-  +text-block(1.25rem 1, 700)
   color: var(--main)
+  line-height: 1
+  font-weight: 700
   font-feature-settings: "palt"
   letter-spacing: .02em
+  +media-breakpoint-up(md)
+    font-size: 1.25rem
   +media-breakpoint-down(sm)
     font-size: 1.125rem
     word-wrap: break-word
