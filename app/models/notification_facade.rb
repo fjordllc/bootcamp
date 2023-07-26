@@ -29,5 +29,10 @@ class NotificationFacade
   def self.product_reviewing(product, receiver)
     ActivityNotifier.with(product: product, receiver: receiver).product_reviewing.notify_now
     return unless receiver.mail_notification? && !receiver.retired?
+
+    NotificationMailer.with(
+      product: product,
+      receiver: receiver
+    ).product_reviewing.deliver_now
   end
 end
