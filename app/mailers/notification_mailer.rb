@@ -68,4 +68,12 @@ class NotificationMailer < ApplicationMailer
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
     mail to: @user.email, subject: subject
   end
+
+  # required params: product, receiver
+  def product_reviewing
+    @user = @receiver
+    @notification = @user.notifications.find_by(link: "/products/#{@product.id}")
+    subject = "[FBC] プラクティス#{@product.title}がレビュー中になりました（担当メンター #{@product.checker_name}）。"
+    mail to: @user.email, subject: subject
+  end
 end
