@@ -25,4 +25,9 @@ class NotificationFacade
   def self.coming_soon_regular_events(today_events, tomorrow_events)
     DiscordNotifier.with(today_events: today_events, tomorrow_events: tomorrow_events).coming_soon_regular_events.notify_now
   end
+
+  def self.product_reviewing(product, receiver)
+    ActivityNotifier.with(product: product, receiver: receiver).product_reviewing.notify_now
+    return unless receiver.mail_notification? && !receiver.retired?
+  end
 end
