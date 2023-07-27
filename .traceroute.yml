@@ -33,4 +33,3 @@ ignore_unreachable_actions:
   - any_login\/.*
   - .*#recaptcha_enabled?
   - .*#valid_recaptcha?
-  - ^admin/categories/practices#index$
