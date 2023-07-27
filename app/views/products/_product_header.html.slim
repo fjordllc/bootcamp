@@ -1,50 +1,39 @@
 header.page-content-header
   #js-check-stamp(data-checkable-id="#{product.id}" data-checkable-type='Product')
-  - if product.checker_id? && product.learning&.status == 'submitted'
-    .page-content-header__checker
-      .a-checker
-        .a-checker__user
-          = render 'users/icon',
-                  user: product.checker,
-                  link_class: 'a-checker__user-link',
-                  image_class: 'is-xs'
-        .a-checker__status
-          | レビュー中
   .page-content-header__start
     .page-content-header__user
       = render 'users/icon', user: product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+    - if product.user.company
+      = link_to company_path(product.user.company) do
+        = image_tag product.user.company.logo_url, class: 'page-content-header__company-logo'
   .page-content-header__end
-    .page-content-header__row.relative
-      .page-content-header-metas
-        .page-content-header-metas__start
-          .page-content-header-metas__meta
-            = link_to product.user, class: 'a-user-name' do
-              = product.user.long_name
-          - if current_user&.mentor? && product.user.trainee?
-            .page-content-header-metas__meta
-              .a-meta
-                span.a-meta__label
-                  = User.human_attribute_name :training_ends_on
-                - if product.user.training_ends_on
-                  span.a-meta__value
-                    = l product.user.training_ends_on
-                  - if product.user.training_remaining_days.zero?
-                    span.a-meta__value.is-danger
-                      | （本日研修最終日）
-                  - elsif product.user.training_remaining_days.negative?
-                    span.a-meta__value
-                      | （研修終了済み）
-                  - elsif product.user.training_remaining_days < 7
-                    span.a-meta__value.is-danger
-                      | （あと#{product.user.training_remaining_days}日）
-                  - else
-                    span.a-meta__value
-                      | （あと#{product.user.training_remaining_days}日）
-                - else
-                  span.a-meta__value
-                    | 未入力
     .page-content-header__row
-      h1.page-content-header__title.has-checker(class="#{product.wip? ? 'is-wip' : ''}")
+      .page-content-header__before-title
+        = link_to product.user, class: 'a-user-name' do
+          = product.user.long_name
+        - if current_user&.mentor? && @product.user.trainee?
+          .a-meta
+            span.a-meta__label
+              = User.human_attribute_name :training_ends_on
+            - if @product.user.training_ends_on
+              span.a-meta__value
+                = l @product.user.training_ends_on
+              - if @product.user.training_remaining_days.zero?
+                span.a-meta__value.is-danger
+                  | （本日研修最終日）
+              - elsif @product.user.training_remaining_days.negative?
+                span.a-meta__value
+                  | （研修終了済み）
+              - elsif @product.user.training_remaining_days < 7
+                span.a-meta__value.is-danger
+                  | （あと#{@product.user.training_remaining_days}日）
+              - else
+                span.a-meta__value
+                  | （あと#{@product.user.training_remaining_days}日）
+            - else
+              span.a-meta__value
+                | 未入力
+      h1.page-content-header__title(class="#{product.wip? ? 'is-wip' : ''}")
         - if product.wip?
           span.a-title-label.is-wip
             | WIP

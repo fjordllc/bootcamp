@@ -33,4 +33,8 @@ module ReportsHelper
     ceiled_hour = (time / 60.0).ceil.to_i
     "#{ceiled_hour}時間"
   end
+
+  def category_practices(report)
+    report.practices.eager_load(:categories).order('categories_practices.position')
+  end
 end
