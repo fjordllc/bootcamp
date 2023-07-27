@@ -396,4 +396,20 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
+
+  def product_reviewing(args = {})
+    @receiver ||= args[:receiver]
+    @user = @receiver
+    @product ||= args[:product]
+
+    @link_url = notification_redirector_url(
+      link: "/products/#{@product.id}",
+      kind: Notification.kinds[:product_reviewing]
+    )
+
+    subject = "[FBC] プラクティス#{@product.title}がレビュー中になりました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
 end

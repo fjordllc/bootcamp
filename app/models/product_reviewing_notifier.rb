@@ -4,6 +4,6 @@ class ProductReviewingNotifier
   def call(product)
     return if product.checker_id.nil?
 
-    NotificationFacade.product_reviewing(product, product.user)
+    ActivityDelivery.with(product:, receiver: User.find(product.user.id)).notify(:product_reviewing)
   end
 end
