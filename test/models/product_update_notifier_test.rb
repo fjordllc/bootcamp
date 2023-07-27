@@ -25,8 +25,12 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
 
     assert_difference 'Notification.count', 1 do
       perform_enqueued_jobs do
-        ProductUpdateNotifier.new.call({ product: product, current_user: product.user })
+        ProductUpdateNotifier.new.call({ product:, current_user: product.user })
       end
     end
+    notification = Notification.last
+    assert_equal product.user.id, notification.sender_id
+    assert_equal product.checker_id, notification.user_id
+    assert_equal "#{product.user.login_name}さんの提出物が更新されました", notification.message
   end
 end
