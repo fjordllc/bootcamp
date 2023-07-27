@@ -380,6 +380,7 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
+  # required params: product, receiver
   def product_update(args = {})
     @product = params&.key?(:product) ? params[:product] : args[:product]
     @receiver ||= args[:receiver]
