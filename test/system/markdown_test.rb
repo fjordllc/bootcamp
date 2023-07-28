@@ -27,4 +27,24 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_css "a[href='/users/mentormentaro']"
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
+
+  test 'should automatically create Markdown link by pasting URL into selected text' do
+    visit_with_auth new_report_path, 'komagata'
+    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
+    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'c'], :delete)
+    fill_in('report[description]', with: 'FBC')
+    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
+    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
+  end
+
+  test 'should support undo after automatically create Markdown link by pasting URL into selected text' do
+    visit_with_auth new_report_path, 'komagata'
+    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
+    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'c'], :delete)
+    fill_in('report[description]', with: 'FBC')
+    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
+    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
+    find('.js-report-content').native.send_keys([:command, 'z'])
+    assert_field('report[description]', with: 'FBC')
+  end
 end
