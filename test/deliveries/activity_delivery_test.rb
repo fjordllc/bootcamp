@@ -392,4 +392,27 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:no_correct_answer)
     end
   end
+
+  test '.notify(:product_update)' do
+    params = {
+      product: products(:product1),
+      receiver: users(:komagata)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:product_update, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:product_update, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:product_update)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:product_update)
+    end
+  end
 end
