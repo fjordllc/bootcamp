@@ -5,9 +5,10 @@
         th.admin-table__label 質問
         th.admin-table__label 回答
         th.admin-table__label 編集
-    tbody.admin-table__items
+        th.admin-table__label 並び順
+    tbody.admin-table__items#js-faq-sortable
       - faqs.each do |faq|
-        tr.admin-table__item(id="faq_#{faq.id}")
+        tr.admin-table__item(data-faq_id="#{faq.id}")
           td.admin-table__item-value.is-text-align-center
             = link_to admin_faq_path(faq) do
               = format_question(faq.question)
@@ -16,3 +17,6 @@
           td.admin-table__item-value.is-text-align-center
             = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
               i.fa-solid.fa-pen
+          td.admin-table__item-value.is-text-align-center.is-grab
+            span.js-grab.a-grab
+              i.fa-solid.fa-align-justify
