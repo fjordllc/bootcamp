@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
       resources :companies, only: %i(index destroy)
+      resources :faqs, only: %i(update), controller: 'faq'
     end
     namespace 'mentor' do
       resources :practices, only: %i(index)
