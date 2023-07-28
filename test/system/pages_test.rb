@@ -63,6 +63,7 @@ class PagesTest < ApplicationSystemTestCase
     end
     click_button 'WIP'
     assert_text 'ドキュメントをWIPとして保存しました。'
+    assert_text 'ページ編集'
   end
 
   test 'update page as WIP' do
@@ -73,6 +74,7 @@ class PagesTest < ApplicationSystemTestCase
     end
     click_button 'WIP'
     assert_text 'ドキュメントをWIPとして保存しました。'
+    assert_text 'ページ編集'
   end
 
   test 'destroy page' do
@@ -254,7 +256,6 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
     click_button 'WIP'
 
-    click_on '内容変更'
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
     click_button '内容を更新'
 
