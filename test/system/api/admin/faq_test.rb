@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class API::Admin::FAQTest < ApplicationSystemTestCase
+class API::Admin::FaqTest < ApplicationSystemTestCase
   test 'sort FAQ' do
     visit faq_path
     assert_equal all('h3.faqs-item__title').first.text, '学習を終えるのにどれくらいの時間がかかりますか？'
