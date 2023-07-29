@@ -159,4 +159,35 @@ class ProductTest < ActiveSupport::TestCase
     product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
     assert_not_includes product_id_list, no_replied_wip_product.id
   end
+
+  test '#updated_after_submission? return true when product is updated after submission' do
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil,
+      published_at: Time.current
+    )
+
+    product.update!(body: 'product is updated.')
+    assert product.updated_after_submission?
+
+    product.update!(body: 'product is saved as WIP.', wip: true)
+
+    product.update!(body: 'product is reupdated.', wip: false, published_at: Time.current)
+    assert product.updated_after_submission?
+  end
+
+  test '#updated_after_submission? return false when product is first saved as WIP then updated' do
+    product = Product.create!(
+      body: 'first saved as WIP',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil,
+      wip: true
+    )
+
+    product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
+    assert_not product.updated_after_submission?
+  end
 end
