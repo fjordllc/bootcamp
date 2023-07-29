@@ -92,10 +92,11 @@ class HomeTest < ApplicationSystemTestCase
   test 'not show messages of required field' do
     user = users(:hatsuno)
     # hatsuno の未入力項目を登録
+    user.build_discord_profile
+    user.discord_profile.account_name = 'hatsuno#1234'
     user.update!(
       tag_list: ['猫'],
-      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。',
-      discord_account: 'hatsuno#1234'
+      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
     )
     path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')

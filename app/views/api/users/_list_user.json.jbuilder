@@ -1,4 +1,4 @@
-json.(user, :id, :login_name, :name, :discord_account, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :times_url, :job_seeker, :free, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
+json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :free, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
@@ -25,6 +25,11 @@ end
 
 if user.talk.present?
   json.talkUrl talk_path(user.talk)
+end
+
+json.discord_profile do
+  json.account_name user.discord_profile.account_name
+  json.times_url user.discord_profile.times_url
 end
 
 json.company do
