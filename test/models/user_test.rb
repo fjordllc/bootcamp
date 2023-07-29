@@ -209,59 +209,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
-  test 'discord_account' do
-    user = users(:komagata)
-    user.discord_account = ''
-    assert user.valid?
-    user.discord_account = 'komagata#1234'
-    assert user.valid?
-    user.discord_account = 'komagata'
-    assert user.invalid?
-    user.discord_account = '#1234'
-    assert user.invalid?
-    user.discord_account = ' komagata　#1234'
-    assert user.invalid?
-    user.discord_account = 'komagata1234'
-    assert user.invalid?
-  end
-
-  test 'times_url' do
-    user = users(:komagata)
-    user.times_url = ''
-    assert user.valid?
-    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001'
-    assert user.valid?
-    user.times_url = "https://discord.com/channels/715806612824260640/12345678900000000\n"
-    assert user.invalid?
-    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
-    assert user.invalid?
-    user.times_url = 'https://discord.gg/jc9fnWk4'
-    assert user.invalid?
-    user.times_url = 'https://example.com/channels/715806612824260640/123456789000000001'
-    assert user.invalid?
-  end
-
-  test '#convert_to_channel_url!' do
-    VCR.use_cassette 'discord/invite' do
-      user = users(:komagata)
-      user.times_url = 'https://discord.gg/m2K7QG8byz'
-      user.convert_to_channel_url!
-      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
-
-      user.times_url = 'https://discord.gg/8Px4f7nMUx'
-      user.convert_to_channel_url!
-      assert_nil user.times_url
-
-      user.times_url = 'https://discord.com/channels/715806612824260640/715806613264400385'
-      user.convert_to_channel_url!
-      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
-
-      user.times_url = nil
-      user.convert_to_channel_url!
-      assert_nil user.times_url
-    end
-  end
-
   test 'is valid name_kana' do
     user = users(:komagata)
     user.name_kana = 'コマガタ マサキ'
@@ -401,6 +348,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
     komagata = users(:komagata)
+    komagata.discord_profile.account_name = 'komagata#1234'
     komagata.update!(login_name: 'komagata1234',
                      name: 'こまがた1234',
                      name_kana: 'コマガタイチニサンヨン',
@@ -408,7 +356,6 @@ class UserTest < ActiveSupport::TestCase
                      facebook_url: 'http://www.facebook.com/komagata1234',
                      blog_url: 'http://komagata1234.org',
                      github_account: 'komagata1234_github',
-                     discord_account: 'komagata#1234',
                      description: '平日１０〜１９時勤務です。1234')
     assert_includes(User.search_by_keywords({ word: komagata.login_name, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.name, commentable_type: nil }), komagata)
@@ -417,7 +364,7 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(User.search_by_keywords({ word: komagata.facebook_url, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.blog_url, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.github_account, commentable_type: nil }), komagata)
-    assert_includes(User.search_by_keywords({ word: komagata.discord_account, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.discord_profile.account_name, commentable_type: nil }), komagata)
   end
 
   test '#update_user_mentor_memo' do

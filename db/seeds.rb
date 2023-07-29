@@ -22,6 +22,7 @@ tables = %i[
   correct_answers
   courses
   courses_categories
+  discord_profiles
   events
   external_entries
   followings

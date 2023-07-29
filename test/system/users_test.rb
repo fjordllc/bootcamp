@@ -242,31 +242,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector '.niconico-calendar__day.is-today'
   end
 
-  test 'show times link on user page' do
-    kimura = users(:kimura)
-
-    visit_with_auth "/users/#{kimura.id}", 'hatsuno'
-    assert_text 'kimura'
-    assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    visit current_path
-    assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-  end
-
-  test 'show times link on user list page' do
-    visit_with_auth '/users', 'hatsuno'
-    assert_selector '.page-header__title', text: 'ユーザー'
-    assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    kimura = users(:kimura)
-    kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    visit current_path
-    assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-  end
-
   test 'only admin can see link to talk on user list page' do
     visit_with_auth '/users', 'komagata'
     assert_link '相談部屋'
@@ -448,14 +423,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kananashi'
     assert_text 'ユーザーです 読み方のカナが無い', count: 1
-  end
-
-  test 'incremental search by discord_account' do
-    visit_with_auth '/users', 'komagata'
-    find('.users .loaded', wait: 60)
-    assert_selector '.users-item', count: 24
-    fill_in 'js-user-search-input', with: 'kimura#1234'
-    assert_text 'Kimura Tadasi', count: 1
   end
 
   test 'incremental search by facebook_url' do

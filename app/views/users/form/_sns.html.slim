@@ -12,17 +12,19 @@
             | こちら
           span.a-help
             i.fa-solid.fa-question
-.form-item#times-url
-  = f.label :times_url, class: 'a-form-label'
-  = f.text_field :times_url, class: 'a-text-input', placeholder: 'https://discord.com/channels/715806612824260640/123456789012345678'
-  .a-form-help
-    p
-      | Discord の分報チャンネルの URL を入力。調べ方は
-      label.a-form-help-link.is-danger(for='modal-times-url')
-        span.a-form-help-link__label
-          | こちら
-        span.a-help
-          i.fa-solid.fa-question
+
+= f.fields_for :discord_profile do |discord_profile_fields|
+  .form-item#times-url
+    = discord_profile_fields.label :times_url, class: 'a-form-label'
+    = discord_profile_fields.text_field :times_url, class: 'a-text-input', placeholder: 'https://discord.com/channels/715806612824260640/123456789012345678'
+    .a-form-help
+      p
+        | Discord の分報チャンネルの URL を入力。調べ方は
+        label.a-form-help-link.is-danger(for='modal-times-url')
+          span.a-form-help-link__label
+            | こちら
+          span.a-help
+            i.fa-solid.fa-question
 
 .form-item#form-github-account
   = f.label :github_account, class: 'a-form-label'
