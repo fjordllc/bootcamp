@@ -64,9 +64,6 @@ export default {
     }
   },
   created() {
-    window.onpopstate = function () {
-      location.replace(location.href)
-    }
     this.getFootprints()
   },
   methods: {
