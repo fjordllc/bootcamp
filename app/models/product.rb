@@ -196,4 +196,10 @@ class Product < ApplicationRecord
   def delete_commented_at
     update_commented_at(comments.last)
   end
+
+  def updated_after_submission?
+    return false if saved_change_to_attribute?('published_at', from: nil)
+
+    created_at != updated_at
+  end
 end
