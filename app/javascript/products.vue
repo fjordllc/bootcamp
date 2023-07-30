@@ -365,9 +365,7 @@ export default {
     elapsedTimes(product) {
       const lastSubmittedTime =
         product.published_at_date_time || product.created_at_date_time
-      const elapsedTimes =
-        (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
-      return elapsedTimes
+      return (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
     },
     countAlmostPassed5days() {
       const elementPassed4days =
