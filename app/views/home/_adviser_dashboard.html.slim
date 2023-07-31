@@ -12,6 +12,8 @@
               .a-panels
                 .a-panels__items
                   .a-panels__item
+                    = render partial: 'events'
+                  .a-panels__item
                     = render partial: 'announcements'
                   - if @job_seeking_users.present?
                     .a-panels__item
