@@ -1,6 +1,51 @@
+discord_profile_komagata:
+  user: komagata
+  account_name: komagata#0000
+  times_url:
+
+discord_profile_machida:
+  user: machida
+  account_name:
+  times_url:
+
+discord_profile_sotugyou_with_job:
+  user: sotugyou_with_job
+  account_name:
+  times_url:
+
+discord_profile_sotugyou:
+  user: sotugyou
+  account_name:
+  times_url:
+
+discord_profile_advijirou:
+  user: advijirou
+  account_name:
+  times_url:
+
+discord_profile_yameo:
+  user: yameo
+  account_name:
+  times_url:
+
+discord_profile_mentormentaro:
+  user: mentormentaro
+  account_name:
+  times_url:
+
 discord_profile_kimura:
   user: kimura
   account_name: kimura#1234
+  times_url:
+
+discord_profile_hatsuno:
+  user: hatsuno
+  account_name:
+  times_url:
+
+discord_profile_hajime:
+  user: hajime
+  account_name:
   times_url:
 
 discord_profile_muryou:
@@ -98,10 +143,20 @@ discord_profile_fujiyasu:
   account_name: fujiyasu#1234
   times_url:
 
+discord_profile_adminonly:
+  user: adminonly
+  account_name:
+  times_url:
+
 discord_profile_kensyuowata:
   user: kensyuowata
   account_name: kensyuowata#5678
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
+
+discord_profile_unadmentor:
+  user: unadmentor
+  account_name:
+  times_url:
 
 discord_profile_tatenoicon:
   user: tatenoicon
@@ -113,9 +168,36 @@ discord_profile_thuynga:
   account_name: nga#5675
   times_url:
 
+discord_profile_sotugyou-adviser:
+  user: sotugyou-adviser
+  account_name:
+  times_url:
+
+<% 1.upto(25) do |i| %>
+discord_profile_marumarushain<%= i %>: # ページネーション確認のためのユーザー
+  user: marumarushain<%= i %>
+  account_name:
+  times_url:
+<% end %>
+
 discord_profile_otameshi:
   user: otameshi
   account_name: otameshi#1234
+  times_url:
+
+discord_profile_registration30days:
+  user: registration30days
+  account_name: registration30days#1234
+  times_url:
+
+discord_profile_registration40days:
+  user: registration40days
+  account_name: registration40days#1234
+  times_url:
+
+discord_profile_unhibernated:
+  user: unhibernated
+  account_name: unhibernated#1234
   times_url:
 
 discord_profile_discordinvalid:
@@ -131,4 +213,24 @@ discord_profile_twitterinvalid:
 discord_profile_nocompanykensyu:
   user: nocompanykensyu
   account_name: nocompanykensyu#9999
+  times_url:
+
+discord_profile_neverlogin:
+  user: neverlogin
+  account_name:
+  times_url:
+
+discord_profile_kyuukai:
+  user: kyuukai
+  account_name:
+  times_url:
+
+discord_profile_sotsugyoukigyoshozoku:
+  user: sotsugyoukigyoshozoku
+  account_name:
+  times_url:
+
+discord_profile_advisernocolleguetrainee:
+  user: advisernocolleguetrainee
+  account_name:
   times_url:

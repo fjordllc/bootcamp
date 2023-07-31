@@ -884,7 +884,6 @@ registration30days:
   name: 入会 三十郎
   name_kana: ニュウカイ サンジュウロウ
   github_account: thirty
-  discord_account: thirty#1234
   twitter_account: thirty
   description: "入会30日経過したユーザーです"
   course: course1
@@ -905,7 +904,6 @@ registration40days:
   name: 入会 四十郎
   name_kana: ニュウカイ ヨソジロウ
   github_account: fourty
-  discord_account: fourty#1234
   twitter_account: fourty
   description: "入会30日経過したユーザーです"
   course: course1
@@ -926,7 +924,6 @@ unhibernated:
   name: 復帰 太郎
   name_kana: フッキ タロウ
   github_account: unhibernated
-  discord_account: unhibernated#1234
   twitter_account: unhibernated
   description: "入会30日目の休会中ユーザーです"
   course: course1
