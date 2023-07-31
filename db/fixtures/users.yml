@@ -1,3 +1,6 @@
+# userを増やした場合、以下のymlにも追記する
+# db/fixtures/discord_profiles.yml
+
 komagata:
   login_name: komagata
   email: komagata@fjord.jp
