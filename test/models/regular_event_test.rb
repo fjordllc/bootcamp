@@ -69,6 +69,17 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#holding_day_after_tomorrow?' do
+    regular_event = regular_events(:regular_event1)
+    travel_to Time.zone.local(2022, 12, 30, 0, 0, 0) do
+      assert regular_event.holding_day_after_tomorrow?
+    end
+
+    travel_to Time.zone.local(2022, 1, 1, 0, 0, 0) do
+      assert_not regular_event.holding_day_after_tomorrow?
+    end
+  end
+
   test '#cancel_participation' do
     regular_event = regular_events(:regular_event1)
     participant = regular_event_participations(:regular_event_participation1).user
