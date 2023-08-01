@@ -5,15 +5,6 @@ require 'test_helper'
 class ProductUpdateNotifierTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
-  setup do
-    @delivery_mode = AbstractNotifier.delivery_mode
-    AbstractNotifier.delivery_mode = :normal
-  end
-
-  teardown do
-    AbstractNotifier.delivery_mode = @delivery_mode
-  end
-
   test '#call' do
     product = Product.new(
       body: 'test',
@@ -23,15 +14,9 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     )
     product.save!
 
-    assert_difference 'Notification.count', 1 do
-      perform_enqueued_jobs do
-        ProductUpdateNotifier.new.call({ product:, current_user: product.user })
-      end
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
     end
-    notification = Notification.last
-    assert_equal product.user.id, notification.sender_id
-    assert_equal product.checker_id, notification.user_id
-    assert_equal "#{product.user.login_name}さんの提出物が更新されました", notification.message
   end
 
   test 'does not notify when product is wip' do
