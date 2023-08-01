@@ -589,4 +589,12 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
     assert_selector 'img[class="page-content-header__company-logo"]'
   end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
 end

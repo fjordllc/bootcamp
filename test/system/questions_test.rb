@@ -505,4 +505,24 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_no_text 'wipテスト用の質問(wip中)'
     end
   end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_question_path, 'kimura'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
+
+  test 'using file uploading by file selection dialogue in textarea at editing question' do
+    question = questions(:question3)
+    visit_with_auth "/questions/#{question.id}", 'komagata'
+    click_button '内容修正'
+
+    element = first('.a-file-insert')
+    within element do
+      assert_selector 'input.js-question-file-input', visible: false
+    end
+    assert_equal '.js-question-file-input', find('textarea.a-text-input')['data-input']
+  end
 end
