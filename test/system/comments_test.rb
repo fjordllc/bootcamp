@@ -338,4 +338,12 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     assert_equal '2.png', File.basename(find('img.thread-comment__company-logo')['src'])
   end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.new-comment-file-input', visible: false
+    end
+    assert_equal '.new-comment-file-input', find('textarea.a-text-input')['data-input']
+  end
 end
