@@ -648,7 +648,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector('.card-list-item__user')
   end
 
-  test 'check user role class in reports' do
+  test 'user role class is displayed correctly in reports' do
     visit_with_auth reports_path, 'kimura'
 
     within('.card-list-item__user', match: :first) do
