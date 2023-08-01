@@ -24,7 +24,8 @@
       :key='comment.id',
       :comment='comment',
       :currentUser='currentUser',
-      :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
+      :id='"comment_" + comment.id',
+      :isLatest='index === comments.length - 1'
       @delete='deleteComment',
       @update='updateComment')
   .thread-comment-form

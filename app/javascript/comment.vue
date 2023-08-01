@@ -1,5 +1,6 @@
 <template lang="pug">
 .thread-comment
+  #latest-comment(v-if='isLatest')
   .thread-comment__start
     a.thread-comment__user-link(:href='comment.user.url')
       span(:class='["a-user-role", roleClass]')
@@ -107,7 +108,8 @@ export default {
   mixins: [confirmUnload, role],
   props: {
     comment: { type: Object, required: true },
-    currentUser: { type: Object, required: true }
+    currentUser: { type: Object, required: true },
+    isLatest: { type: Boolean, required: true }
   },
   data() {
     return {
