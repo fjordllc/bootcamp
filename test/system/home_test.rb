@@ -299,6 +299,25 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text '今日提出（48）'
   end
 
+  test 'display counts of passed almost 5days' do
+    visit_with_auth '/', 'mentormentaro'
+    assert_text "2件の提出物が、\n8時間後に5日経過に到達します。"
+
+    products(:product70).update!(checker: users(:mentormentaro))
+    visit current_path
+    assert_text "1件の提出物が、\n8時間後に5日経過に到達します。"
+
+    products(:product71).update!(checker: users(:mentormentaro))
+    visit current_path
+    assert_text "しばらく5日経過に到達する\n提出物はありません。"
+  end
+
+  test 'work link of passed almost 5days' do
+    visit_with_auth '/', 'mentormentaro'
+    find('.under-cards').click
+    assert_current_path('/products/unassigned')
+  end
+
   test "show my wip's announcement on dashboard" do
     visit_with_auth '/', 'komagata'
     assert_text 'WIPで保存中'
