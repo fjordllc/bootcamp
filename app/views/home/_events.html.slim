@@ -1,34 +1,37 @@
 .a-card
-  header.card-header.is-sm
+  header.card-header.is-sm.has-no-border
     h2.card-header__title
       | 近日開催のイベント
   .card-list.has-scroll
-    .card-list__label
-      | 今日開催
-    - @today_events.each do |today_event|
-      - case today_event
-      - when Event
-        = render partial: 'special_event', object: today_event, as: :special_event
-      - when RegularEvent
-        = render partial: 'regular_event', locals: { regular_event: today_event, holding_date: Time.zone.today }
+    .card-list__items
+      .card-list__label
+        | 今日開催
+      - @today_events.each do |today_event|
+        - case today_event
+        - when Event
+          = render partial: 'special_event', object: today_event, as: :special_event
+        - when RegularEvent
+          = render partial: 'regular_event', locals: { regular_event: today_event, holding_date: Time.zone.today }
 
-    .card-list__label
-      | 明日開催
-    - @tomorrow_events.each do |tomorrow_event|
-      - case tomorrow_event
-      - when Event
-        = render partial: 'special_event', object: tomorrow_event, as: :special_event
-      - when RegularEvent
-        = render partial: 'regular_event', locals: { regular_event: tomorrow_event, holding_date: Time.zone.tomorrow }
+    .card-list__items
+      .card-list__label
+        | 明日開催
+      - @tomorrow_events.each do |tomorrow_event|
+        - case tomorrow_event
+        - when Event
+          = render partial: 'special_event', object: tomorrow_event, as: :special_event
+        - when RegularEvent
+          = render partial: 'regular_event', locals: { regular_event: tomorrow_event, holding_date: Time.zone.tomorrow }
 
-    .card-list__label
-      | 明後日開催
-    - @day_after_tomorrow_events.each do |day_after_tomorrow_event|
-      - case day_after_tomorrow_event
-      - when Event
-        = render partial: 'special_event', object: day_after_tomorrow_event, as: :special_event
-      - when RegularEvent
-        = render partial: 'regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
+    .card-list__items
+      .card-list__label
+        | 明後日開催
+      - @day_after_tomorrow_events.each do |day_after_tomorrow_event|
+        - case day_after_tomorrow_event
+        - when Event
+          = render partial: 'special_event', object: day_after_tomorrow_event, as: :special_event
+        - when RegularEvent
+          = render partial: 'regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
 
   footer.card-footer
     .card-footer__footer-link
