@@ -94,7 +94,8 @@
               @click='startEditing')
               i#new.fa-solid.fa-pen
               | 内容修正
-          li.card-main-actions__item.is-sub.is-only-mentor(v-if='isRole("mentor")')
+          li.card-main-actions__item.is-sub.is-only-mentor(
+            v-if='isRole("mentor")')
             // - vue.jsでDELETE methodのリンクを作成する方法が、
             // - 見つからなかったので、
             // - いい実装方法ではないが、
