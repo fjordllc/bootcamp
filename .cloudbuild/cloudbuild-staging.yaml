@@ -30,7 +30,7 @@ steps:
       - '-dir=/cloudsql'
       - '-instances=$_CLOUD_SQL_HOST'
     waitFor:
-      - '-'
+      - Push
     volumes:
       - name: db
         path: /cloudsql
