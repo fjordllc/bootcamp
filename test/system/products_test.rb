@@ -51,7 +51,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-    find('label.card-main-actions__muted-action').click
+    first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びを Tweet する！'
     visit current_path
     assert_text '修了 Tweet する'
