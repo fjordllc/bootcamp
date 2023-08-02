@@ -38,42 +38,23 @@ steps:
         path: /cloudsql
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
-      - sql
-      - databases
-      - delete
-      - bootcamp_staging
-      - '--instance=bootcamp'
-      - '--quiet'
-    id: DropDB
+      - '-c'
+      - 'gcloud sql databases delete bootcamp_staging --instance=bootcamp --quiet || gcloud sql databases create bootcamp_staging --instance=bootcamp --quiet || exit 0'
+    id: DropAndCreateDB
     waitFor:
-      - Push
-    entrypoint: gcloud
+      - Fetch
+    entrypoint: sh
     volumes:
       - name: db
         path: /cloudsql
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args:
-      - sql
-      - databases
-      - create
-      - bootcamp_staging
-      - '--instance=bootcamp'
-      - '--quiet'
-    id: CreateDB
-    waitFor:
-      - DropDB
-    entrypoint: gcloud
-    volumes:
-      - name: db
-        path: /cloudsql
-  - id: DB_Migrate
+  - id: DBMigrate
     name: 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
     args:
       - bin/rails
       - db:migrate
       - db:seed
     waitFor:
-      - CreateDB
+      - DropAndCreateDB
     volumes:
       - name: db
         path: /cloudsql
@@ -92,7 +73,7 @@ steps:
       - '-c'
       - docker kill -s TERM $(docker ps -q --filter "volume=db")
     waitFor:
-      - DB_Migrate
+      - DBMigrate
   - id: Deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
