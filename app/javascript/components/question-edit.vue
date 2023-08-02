@@ -94,7 +94,7 @@
               @click='startEditing')
               i#new.fa-solid.fa-pen
               | 内容修正
-          li.card-main-actions__item.is-sub
+          li.card-main-actions__item.is-sub(v-if='isRole("mentor")')
             // - vue.jsでDELETE methodのリンクを作成する方法が、
             // - 見つからなかったので、
             // - いい実装方法ではないが、
@@ -105,6 +105,9 @@
               data-confirm='自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？',
               data-method='delete')
               | 削除する
+          li.card-main-actions__item.is-sub(v-else)
+            label.card-main-actions__muted-action(for='modal-progress')
+              | 削除申請
         .card-footer__notice(v-show='displayedUpdateMessage')
           p
             | 質問を更新しました

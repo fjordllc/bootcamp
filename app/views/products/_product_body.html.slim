@@ -49,14 +49,14 @@
     .page-content-prev-next__item.is-only-mentor
       = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'page-content-prev-next__item-link is-index'
 
-= render '/shared/modal', id: 'modal-progress', modal_title: '提出物の削除申請'
+= render '/shared/modal', id: 'modal-progress', modal_title: '提出物の削除申請' do
   .modal__description.is-md
-    .a-short-text
+    .a-long-text
       p
         | せっかく作った提出物を操作ミスで削除してしまわないように、
         | 削除ができないようになっています。
-        | 提出物の削除をする場合は、相談部屋にこのページの URL （<code>#{request.url}</code>）を貼り、
+        | 提出物の削除をする場合は、相談部屋にこのページの URL <code>#{request.url}</code> を貼り、
         | 削除の申請をお願いします。
       p
-        = link_to unreplied_index_path(current_user.talk), class: "aaaa" do
+        = link_to unreplied_index_path(current_user.talk), target: '_blank' do
           | 相談部屋はこちら
