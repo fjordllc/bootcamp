@@ -19,22 +19,44 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert_not ExternalEntry.parse_rss_feed(not_url_format)
 
     VCR.use_cassette 'external_entry/fetch', vcr_options do
-      feed_url = 'https://example1.com/rss'
+      feed_url = 'https://example1.com/feed'
       assert ExternalEntry.parse_rss_feed(feed_url)
     end
   end
 
   test '.save_rss_feed' do
     user = users(:hatsuno)
-    mock = Minitest::Mock.new
-    mock.expect(:title, 'test title')
-    mock.expect(:link, 'https://test.com/rss')
-    mock.expect(:description, 'article description')
-    mock.expect(:enclosure, mock)
-    mock.expect(:url, 'https://test.com/image.png')
-    mock.expect(:pubDate, Time.zone.local(2022, 1, 1, 0, 0, 0))
+    rss_item = Minitest::Mock.new
+    rss_item.expect(:link, 'https://test.com/rss')
+    rss_item.expect(:title, 'test title')
+    rss_item.expect(:link, 'https://test.com/rss')
+    rss_item.expect(:description, 'article description')
+    rss_item.expect(:enclosure, rss_item)
+    rss_item.expect(:url, 'https://test.com/image.png')
+    rss_item.expect(:pubDate, Time.zone.local(2022, 1, 1, 0, 0, 0))
 
-    assert ExternalEntry.save_rss_feed(user, mock)
+    assert ExternalEntry.save_rss_feed(user, rss_item)
+  end
+
+  test '.save_atom_feed' do
+    user = users(:hatsuno)
+    atom_item = Minitest::Mock.new
+    atom_item.expect(:link, atom_item)
+    atom_item.expect(:href, 'https://test.com/feed')
+    atom_item.expect(:title, atom_item)
+    atom_item.expect(:content, 'test title')
+    atom_item.expect(:link, atom_item)
+    atom_item.expect(:href, 'https://test.com/feed')
+    atom_item.expect(:content, atom_item)
+    atom_item.expect(:content, 'article description')
+    atom_item.expect(:links, atom_item)
+    atom_item.expect(:find, atom_item)
+    atom_item.expect(:nil?, atom_item)
+    atom_item.expect(:href, 'https://test.com/image.png')
+    atom_item.expect(:published, atom_item)
+    atom_item.expect(:content, Time.zone.local(2022, 1, 1, 0, 0, 0))
+
+    assert ExternalEntry.save_atom_feed(user, atom_item)
   end
 
   test '.fetch_and_save_rss_feeds' do

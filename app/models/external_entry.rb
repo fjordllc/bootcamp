@@ -22,9 +22,10 @@ class ExternalEntry < ApplicationRecord
           next unless rss_items
 
           rss_items.each do |item|
-            next if ExternalEntry.find_by(url: item.link)
-
-            ExternalEntry.save_rss_feed(user, item)
+            case item.class.name
+            when 'RSS::Atom::Feed::Entry' then ExternalEntry.save_atom_feed(user, item)
+            when 'RSS::Rss::Channel::Item' then ExternalEntry.save_rss_feed(user, item)
+            end
           end
         end
       end
@@ -44,12 +45,27 @@ class ExternalEntry < ApplicationRecord
     end
 
     def save_rss_feed(user, rss_item)
+      return if ExternalEntry.find_by(url: rss_item.link)
+
       ExternalEntry.create(
         title: rss_item.title,
         url: rss_item.link,
         summary: rss_item.description,
-        thumbnail_image_url: rss_item.enclosure.url,
+        thumbnail_image_url: rss_item.enclosure&.url,
         published_at: rss_item.pubDate,
+        user: user
+      )
+    end
+
+    def save_atom_feed(user, atom_item)
+      return if ExternalEntry.find_by(url: atom_item.link.href)
+
+      ExternalEntry.create(
+        title: atom_item.title.content,
+        url: atom_item.link.href,
+        summary: atom_item.content.content,
+        thumbnail_image_url: atom_item.links.find { |link| !link.type.nil? && link.type.include?('image') }&.href,
+        published_at: atom_item.published.content,
         user: user
       )
     end
