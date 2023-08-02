@@ -83,10 +83,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'delete a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    accept_confirm do
-      click_link '削除する'
-    end
-    assert_text '質問を削除しました。'
+    assert_text '削除申請'
   end
 
   test 'admin can update and delete any questions' do
