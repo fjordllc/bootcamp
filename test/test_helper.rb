@@ -13,7 +13,6 @@ require 'webmock/minitest'
 
 Capybara.default_max_wait_time = 10
 Capybara.disable_animation = true
-Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
 
 class ActiveSupport::TestCase

@@ -103,6 +103,5 @@ group :test do
   gem 'minitest-retry'
   gem 'selenium-webdriver'
   gem 'vcr'
-  gem 'webdrivers'
   gem 'webmock'
 end

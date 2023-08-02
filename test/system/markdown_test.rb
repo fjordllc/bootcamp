@@ -29,21 +29,13 @@ class MarkdownTest < ApplicationSystemTestCase
   end
 
   test 'should automatically create Markdown link by pasting URL into selected text' do
-    visit_with_auth new_report_path, 'komagata'
-    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'c'], :delete)
+    # headless_chromeはクリップボードにアクセスできないため、GETパラメータの値を擬似的にクリップボードの値として扱う
+    visit_with_auth new_report_path, 'komagata', dummy_clipboard: 'https://bootcamp.fjord.jp/'
     fill_in('report[description]', with: 'FBC')
     find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-  end
 
-  test 'should support undo after automatically create Markdown link by pasting URL into selected text' do
-    visit_with_auth new_report_path, 'komagata'
-    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'c'], :delete)
-    fill_in('report[description]', with: 'FBC')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
-    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
+    # undoもサポートする
     find('.js-report-content').native.send_keys([:command, 'z'])
     assert_field('report[description]', with: 'FBC')
   end

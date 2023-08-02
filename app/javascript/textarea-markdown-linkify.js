@@ -9,7 +9,9 @@ export default class {
 
     Array.from(textareas).forEach((textarea) => {
       textarea.addEventListener('paste', (event) => {
-        const pasteText = event.clipboardData.getData('text')
+        const params = (new URL(document.location)).searchParams;
+        // headless_chromeはクリップボードにアクセスできないため、GETパラメータの値を擬似的にクリップボードの値として扱う
+        const pasteText = params.get('dummy_clipboard') || event.clipboardData.getData('text')
         const selectionStart = textarea.selectionStart
         const selectionEnd = textarea.selectionEnd
         const selectedText = textarea.value.slice(selectionStart, selectionEnd)

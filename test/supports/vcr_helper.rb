@@ -25,7 +25,4 @@ VCR.configure do |c|
     name = 'UTF-8' || !http_message.body.valid_encoding?
     http_message.body.encoding.name == name
   end
-
-  driver_hosts = Webdrivers::Common.subclasses.map { |driver| URI(driver.base_url).host }
-  c.ignore_hosts(*driver_hosts)
 end
