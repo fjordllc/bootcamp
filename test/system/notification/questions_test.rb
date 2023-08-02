@@ -254,7 +254,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
   end
 
-  test 'delete question with notification' do
+  test 'delete question by mentor with notification' do
     visit_with_auth '/questions', 'kimura'
     click_link '質問する'
     fill_in 'question[title]', with: 'タイトルtest'
