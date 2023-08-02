@@ -5,6 +5,7 @@
   hr.a-border
   .card-list.has-scroll
     = render partial: 'collegue_trainee_recent_report', collection: @collegue_trainees_recent_reports, as: :report
+  hr.a-border
   footer.card-footer
     .card-footer__footer-link
       = link_to company_reports_path(current_user.company_id), class: 'card-footer__footer-text-link' do

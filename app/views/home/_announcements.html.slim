@@ -5,6 +5,7 @@
   hr.a-border
   .card-list.has-scroll
     = render partial: 'announcement', collection: @announcements, as: :announcement
+  hr.a-border
   footer.card-footer
     .card-footer__footer-link
       = link_to announcements_path, class: 'card-footer__footer-text-link' do

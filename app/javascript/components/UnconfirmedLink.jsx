@@ -12,6 +12,7 @@ export default function UnconfirmedLink({ label }) {
 
   return (
     <div className="card-footer">
+      <hr className='a-border'></hr>
       <div className="card-main-actions">
         <ul className="card-main-actions__items">
           <li className="card-main-actions__item">

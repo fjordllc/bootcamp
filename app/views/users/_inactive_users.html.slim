@@ -24,6 +24,7 @@
                   span.a-meta__value
                     - if user.last_activity_at?
                       = l user.last_activity_at
+  hr.a-border
   footer.card-footer
     .card-footer__footer-link
       = link_to users_path, class: 'card-footer__footer-text-link' do

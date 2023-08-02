@@ -1,5 +1,6 @@
 <template lang="pug">
 .unconfirmed_links.card-footer.is-only-mentor
+  hr.a-border
   .card-main-actions
     ul.card-main-actions__items
       li.card-main-actions__item
