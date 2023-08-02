@@ -44,7 +44,7 @@ class Admin::FAQTest < ApplicationSystemTestCase
     assert_selector '.markdown-form__preview a', text: 'test'
   end
 
-  test 'delete company' do
+  test 'delete FAQ' do
     visit_with_auth "/admin/faqs/#{faqs(:faq1).id}/edit", 'komagata'
     click_on '削除'
     page.driver.browser.switch_to.alert.accept
