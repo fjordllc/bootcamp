@@ -4,7 +4,9 @@
   &.is-danger
     background-color: var(--danger)
   &.is-muted
-    background-color: var(--muted-text)
+    background-color: var(--background-shade)
+    .a-page-notice__inner
+      color: var(--default-text)
   .page-body &
     margin-block: -.5rem 1rem
   .page-body .page-notices__item &
@@ -14,6 +16,7 @@
 
 .a-page-notice__inner
   padding-block: .5rem
+  color: var(--reversal-text)
   +media-breakpoint-up(md)
     text-align: center
     font-size: .875rem
@@ -25,7 +28,6 @@
     text-align: left
   p
     +text-block(1em 1.5)
-    color: var(--reversal-text)
     +media-breakpoint-up(md)
       font-size: .875rem
     +media-breakpoint-down(sm)

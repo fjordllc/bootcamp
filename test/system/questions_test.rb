@@ -83,10 +83,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'delete a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    accept_confirm do
-      click_link '削除する'
-    end
-    assert_text '質問を削除しました。'
+    assert_text '削除申請'
   end
 
   test 'admin can update and delete any questions' do
@@ -263,7 +260,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit questions_path
     click_link 'WIPタイトル'
-    assert_text '削除する'
+    assert_text '削除申請'
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
@@ -438,12 +435,6 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_text 'Linuxのファイル操作の基礎を覚える'
     end
     assert_link 'Linuxのファイル操作の基礎を覚える'
-  end
-
-  test 'show confirm dialog before delete' do
-    visit_with_auth question_path(questions(:question8)), 'kimura'
-    confirm_dialog = dismiss_confirm { click_link '削除する' }
-    assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
   end
 
   test 'show a question without choosing practice' do
