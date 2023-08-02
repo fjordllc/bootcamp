@@ -23,6 +23,8 @@ steps:
     args:
       - push
       - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+    waitFor:
+      - Build
   - id: SqlProxy
     name: 'gcr.io/cloudsql-docker/gce-proxy:1.16'
     args:
@@ -30,7 +32,7 @@ steps:
       - '-dir=/cloudsql'
       - '-instances=$_CLOUD_SQL_HOST'
     waitFor:
-      - Push
+      - '-'
     volumes:
       - name: db
         path: /cloudsql
@@ -44,7 +46,7 @@ steps:
       - '--quiet'
     id: DropDB
     waitFor:
-      - '-'
+      - Push
     entrypoint: gcloud
     volumes:
       - name: db
