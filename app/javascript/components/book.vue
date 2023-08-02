@@ -38,7 +38,7 @@
             :key='practice.id')
             a.tag-links__item-link(:href='practice.practicePath')
               | {{ practice.title }}
-    hr.a-border
+    hr.a-border-tint
     footer.card-footer.is-only-mentor(v-if='isAdmin || isMentor')
       .card-main-actions
         ul.card-main-actions__items

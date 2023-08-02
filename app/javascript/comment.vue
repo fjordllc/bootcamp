@@ -28,7 +28,7 @@
           :datetime='commentableCreatedAt',
           @click='copyCommentURLToClipboard(comment.id)')
           | {{ updatedAt }}
-      hr.a-border
+      hr.a-border-tint
       .thread-comment__description
         a.thread-comment__company-link.is-hidden-md-up(
           v-if='comment.user.company && comment.user.adviser',
@@ -41,7 +41,7 @@
           v-bind:reactionable='comment',
           v-bind:currentUser='currentUser',
           v-bind:reactionableId='reactionableId')
-      hr.a-border
+      hr.a-border-tint
       footer.card-footer(
         v-if='comment.user.id === currentUser.id || isRole("admin")')
         .card-main-actions
@@ -88,7 +88,7 @@
             v-bind:class='{ "is-active": isActive("preview") }')
             .a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.comment.id}`')
-        hr.a-border
+        hr.a-border-tint
         .card-footer
           .card-main-actions
             .card-main-actions__items
