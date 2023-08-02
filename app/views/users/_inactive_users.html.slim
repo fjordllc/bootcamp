@@ -3,6 +3,7 @@
     h2.card-header__title
       | 1ヶ月以上ログインのないユーザー
       = "(#{users.size})"
+  hr.a-border
   .card-list.has-scroll
     - users.each do |user|
       .card-list-item

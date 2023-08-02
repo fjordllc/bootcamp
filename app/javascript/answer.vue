@@ -36,6 +36,7 @@
           pubdate='pubdate',
           @click='copyAnswerURLToClipboard(answer.id)')
           | {{ updatedAt }}
+      hr.a-border
       .thread-comment__description
         a.thread-comment__company-link.is-hidden-md-up(
           v-if='answer.user.company && answer.user.adviser',

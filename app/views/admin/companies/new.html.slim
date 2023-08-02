@@ -19,6 +19,7 @@ main.page-main
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
                 = link_to '企業一覧', admin_companies_path, class: 'a-button is-sm is-block is-secondary is-back'
-.page-body
-  .container.is-md
-    = render 'form', company: @company
+  hr.a-border
+  .page-body
+    .container.is-md
+      = render 'form', company: @company

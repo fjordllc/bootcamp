@@ -21,6 +21,7 @@ header.page-header
               li.page-main-header-actions__item
             = link_to survey_questions_path, class: 'a-button is-md is-secondary is-block is-back' do
               | 質問一覧
-.page-body
-  .container.is-md
-    = render 'form', survey_question: @survey_question, linear_scale: @linear_scale, radio_button: @radio_button, check_box: @check_box, radio_button_choices: @radio_button_choices, check_box_choices: @check_box_choices
+  hr.a-border
+  .page-body
+    .container.is-md
+      = render 'form', survey_question: @survey_question, linear_scale: @linear_scale, radio_button: @radio_button, check_box: @check_box, radio_button_choices: @radio_button_choices, check_box_choices: @check_box_choices

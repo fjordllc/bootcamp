@@ -26,6 +26,7 @@ header.page-header
               .page-header-actions__item
                 = link_to mentor_categories_path, class: 'a-button is-md is-secondary is-block is-back' do
                   | カテゴリー一覧
+  hr.a-border
   .page-body
     .container.is-xxl
       .row.justify-center
@@ -49,6 +50,7 @@ header.page-header
               .card-header.is-sm
                 h2.card-header__title
                   | 説明
+              hr.a-border
               .card-body
                 .card__description
                   .a-long-text.is-md.js-markdown-view
@@ -75,6 +77,7 @@ header.page-header
               h2.card-header__title
                 | プラクティス
                 | （#{@category.practices.count}）
+            hr.a-border
             - if @category.practices.present?
               .card-list__items
                 - @category.practices.each do |practice|
