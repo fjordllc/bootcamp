@@ -45,6 +45,13 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector "meta[name='twitter:title'][content='FAQ']", visible: false
   end
 
+  test 'GET /buzz' do
+    visit '/buzz'
+    assert_equal '紹介記事 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_selector "meta[property='og:title'][content='紹介記事']", visible: false
+    assert_selector "meta[name='twitter:title'][content='紹介記事']", visible: false
+  end
+
   test 'GET /tos' do
     visit '/tos'
     assert_equal '利用規約 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
@@ -112,22 +119,5 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_text 'プログラマー'
     assert_text '株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
-  end
-
-  test 'admin can see buzz link' do
-    visit_with_auth welcome_path, 'komagata'
-    click_link '紹介記事'
-    assert_current_path buzz_path
-  end
-
-  test 'mentor can see buzz link' do
-    visit_with_auth welcome_path, 'mentormentaro'
-    click_link '紹介記事'
-    assert_current_path buzz_path
-  end
-
-  test 'regular user cannot see buzz link' do
-    visit_with_auth welcome_path, 'kimura'
-    assert_no_link '紹介記事'
   end
 end
