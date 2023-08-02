@@ -25,7 +25,7 @@ main.page-main
           .page-main-header__end
             = link_to "#{t("notification.#{@target}")}の通知を既読にする", read_by_category_path(target: @target), method: :post,
                     class: "a-button is-sm is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
-
+  hr.a-border
   .page-body
     .container.is-md
       nav.pill-nav

@@ -28,6 +28,7 @@
           :datetime='commentableCreatedAt',
           @click='copyCommentURLToClipboard(comment.id)')
           | {{ updatedAt }}
+      hr.a-border
       .thread-comment__description
         a.thread-comment__company-link.is-hidden-md-up(
           v-if='comment.user.company && comment.user.adviser',

@@ -22,7 +22,7 @@ header.page-header
                 = link_to surveys_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular
                   | アンケート一覧
-
-.page-body
-  .container.is-lg
-    = render 'form', survey: @survey
+  hr.a-border
+  .page-body
+    .container.is-lg
+      = render 'form', survey: @survey

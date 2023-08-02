@@ -48,6 +48,7 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
+    hr.a-border
     - if regular_event.all
       .card__message.is-notice
         | この定期イベントは全員参加のため参加登録は不要です。
@@ -75,6 +76,7 @@
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{regular_event.participants.count}名）
+      hr.a-border
       .card-body
         .card__description
           - if regular_event.participants.present?

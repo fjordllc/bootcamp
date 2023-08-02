@@ -3,6 +3,7 @@ section.a-card.is-memo.is-only-mentor
   header.card-header.is-sm(v-if='!editing && !productsMode')
     h2.card-header__title
       | メンター向けユーザーメモ
+  hr.a-border
   .card-body(v-if='!editing')
     .card__description
       .a-long-text.is-md.a-placeholder(v-if='loading')

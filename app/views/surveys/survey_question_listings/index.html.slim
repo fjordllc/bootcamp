@@ -22,19 +22,20 @@ header.page-header
                 = link_to surveys_path, class: 'a-button is-md is-secondary is-block is-back' do
                   i.fa-regular
                   | アンケート一覧
-.page-body
-  .container.is-lg
-    .admin-table.is-grab
-      table.admin-table__table
-        thead.admin-table__header
-          tr.admin-table__labels
-            th.admin-table__label 名前
-            th.admin-table__label.handle 並び順
-        tbody.admin-table__items#js-survey-question-listing-sortable
-          - @survey_question_listings.each do |survey_question_listing|
-            tr.admin-table__item(data-survey_question_listing_id="#{survey_question_listing.id}")
-              td.admin-table__item-value
-                = survey_question_listing.survey_question.title
-              td.admin-table__item-value.is-text-align-center.is-grab
-                span.js-grab.a-grab
-                  i.fa-solid.fa-align-justify
+  hr.a-border
+  .page-body
+    .container.is-lg
+      .admin-table.is-grab
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label 名前
+              th.admin-table__label.handle 並び順
+          tbody.admin-table__items#js-survey-question-listing-sortable
+            - @survey_question_listings.each do |survey_question_listing|
+              tr.admin-table__item(data-survey_question_listing_id="#{survey_question_listing.id}")
+                td.admin-table__item-value
+                  = survey_question_listing.survey_question.title
+                td.admin-table__item-value.is-text-align-center.is-grab
+                  span.js-grab.a-grab
+                    i.fa-solid.fa-align-justify
