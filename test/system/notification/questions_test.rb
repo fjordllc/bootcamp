@@ -269,7 +269,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text 'yameoさんが退会しました。'
     assert_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
 
-    visit_with_auth '/questions', 'kimura'
+    visit_with_auth '/questions', 'komagata'
     click_on 'タイトルtest'
     assert_difference -> { Question.count }, -1 do
       accept_confirm do
