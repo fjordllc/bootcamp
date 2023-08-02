@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   draw :admin
   draw :mentor
   draw :current_user
-  draw :partial
   draw :users
   draw :connection
   draw :products

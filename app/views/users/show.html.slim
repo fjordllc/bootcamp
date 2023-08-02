@@ -59,7 +59,7 @@
           - unless @user.total_learning_time.zero? || @user.mentor?
             #js-grass(data-user-id="#{@user.id}")
           - if @user.github_account.present?
-            = render 'users/github_grass', user: @user
+            = render 'users/github_contributions_table', user: @user
           - if @user.active_practices.present?
             = render '/users/practices/active_practices', user: @user
           - if @user.student?
