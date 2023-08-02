@@ -268,7 +268,7 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
   end
 
   create_table "faqs", force: :cascade do |t|
-    t.string "answer", null: false
+    t.text "answer", null: false
     t.string "question", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -768,8 +768,8 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.string "profile_job"
     t.text "profile_text"
     t.string "feed_url"
-    t.boolean "sent_student_followup_message", default: false
     t.string "times_id", comment: "Snowflake ID"
+    t.boolean "sent_student_followup_message", default: false
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
