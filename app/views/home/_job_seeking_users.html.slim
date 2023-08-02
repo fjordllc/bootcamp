@@ -39,6 +39,7 @@
           = render 'users/metas', user: user
           label.card-list-item__close-user-detail(for="show-user-detail-#{user.id}")
             | 閉じる
+  hr.a-border
   footer.card-footer
     .card-footer__footer-link
       = link_to users_path, class: 'card-footer__footer-text-link' do

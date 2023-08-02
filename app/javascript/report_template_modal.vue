@@ -26,6 +26,7 @@
         v-bind:class='{ "is-active": isActive("preview") }',
         v-html='markdownDescription')
         #js-template-preview
+    hr.a-border
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items

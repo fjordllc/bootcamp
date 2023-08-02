@@ -41,6 +41,7 @@
           v-bind:reactionable='comment',
           v-bind:currentUser='currentUser',
           v-bind:reactionableId='reactionableId')
+      hr.a-border
       footer.card-footer(
         v-if='comment.user.id === currentUser.id || isRole("admin")')
         .card-main-actions
@@ -87,6 +88,7 @@
             v-bind:class='{ "is-active": isActive("preview") }')
             .a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.comment.id}`')
+        hr.a-border
         .card-footer
           .card-main-actions
             .card-main-actions__items
