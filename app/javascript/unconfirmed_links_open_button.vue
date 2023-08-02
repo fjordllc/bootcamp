@@ -1,11 +1,12 @@
 <template lang="pug">
-.unconfirmed_links.card-footer.is-only-mentor
-  hr.a-border
-  .card-main-actions
-    ul.card-main-actions__items
-      li.card-main-actions__item
-        button.thread-unconfirmed-links-form__action.a-button.is-block.is-sm.is-secondary(
-          @click='openUnconfirmedItems()') {{ label }}
+div
+  hr.a-border-tint
+  .unconfirmed_links.card-footer.is-only-mentor
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          button.thread-unconfirmed-links-form__action.a-button.is-block.is-sm.is-secondary(
+            @click='openUnconfirmedItems()') {{ label }}
 </template>
 <script>
 export default {

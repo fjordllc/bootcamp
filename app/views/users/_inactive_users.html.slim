@@ -3,7 +3,7 @@
     h2.card-header__title
       | 1ヶ月以上ログインのないユーザー
       = "(#{users.size})"
-  hr.a-border
+  hr.a-border-tint
   .card-list.has-scroll
     - users.each do |user|
       .card-list-item
@@ -24,7 +24,7 @@
                   span.a-meta__value
                     - if user.last_activity_at?
                       = l user.last_activity_at
-  hr.a-border
+  hr.a-border-tint
   footer.card-footer
     .card-footer__footer-link
       = link_to users_path, class: 'card-footer__footer-text-link' do

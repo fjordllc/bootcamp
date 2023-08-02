@@ -47,7 +47,7 @@
         .a-long-text.is-md.js-markdown-view
           = announcement.description
     = render 'reactions/reactions', reactionable: @announcement
-    hr.a-border
+    hr.a-border-tint
     .card-footer
       .card-main-actions
         ul.card-main-actions__items(class="#{announcement.published_at ? 'is-sub-actions' : ''}")

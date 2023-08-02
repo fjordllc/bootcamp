@@ -60,7 +60,7 @@
       = render 'regular_events/participation', regular_event: regular_event
     = render 'reactions/reactions', reactionable: regular_event
     - if admin_or_mentor_login? || regular_event.organizers.ids.include?(current_user.id)
-      hr.a-border
+      hr.a-border-tint
       .card-footer
         .card-main-actions
           ul.card-main-actions__items

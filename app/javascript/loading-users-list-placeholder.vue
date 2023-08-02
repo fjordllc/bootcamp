@@ -41,7 +41,7 @@
         .completed-practices-progress__bar-container
           .completed-practices-progress__bar.a-placeholder
         .completed-practices-progress__number.a-placeholder
-      hr.a-border
+      hr.a-border-tint
       .card-footer
         .card-main-actions
           .card-main-actions__items
