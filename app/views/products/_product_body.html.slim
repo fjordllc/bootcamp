@@ -27,7 +27,7 @@
                 | 削除する
           - else
             li.card-main-actions__item.is-sub
-              label.card-main-actions__muted-action(for='modal-progress')
+              label.card-main-actions__muted-action(for='modal-delete-request')
                 | 削除申請
 
     - if admin_or_mentor_login?
@@ -49,7 +49,7 @@
     .page-content-prev-next__item.is-only-mentor
       = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'page-content-prev-next__item-link is-index'
 
-= render '/shared/modal', id: 'modal-progress', modal_title: '提出物の削除申請' do
+= render '/shared/modal', id: 'modal-delete-request', modal_title: '提出物の削除申請' do
   .modal__description.is-md
     .a-long-text
       p
