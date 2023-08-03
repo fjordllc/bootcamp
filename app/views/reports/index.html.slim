@@ -14,6 +14,4 @@ header.page-header
 
 = render 'reports/tabs'
 
-.page-body
-  .container.is-md
-    = react_component('Reports', all: true, practices: current_user.practices)
+= react_component('Reports', all: true, practices: current_user.practices)
