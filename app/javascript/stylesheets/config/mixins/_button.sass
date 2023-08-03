@@ -75,10 +75,11 @@
     display: block
 
 =button-color($color)
-  background-color: $color
   $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  $border-color: if(luma($color) > 80, saturate(darken($color, 12%), 2%), $color)
+  background-color: $color
   color: $text-color
-  border-color: if(luma($color) > 80, saturate(darken($color, 12%), 2%), $color)
+  border-color: $border-color
   &:focus,
   &:active
     box-shadow: 0 0 0 .1875rem rgba($color, .25)
@@ -86,14 +87,14 @@
   &:focus,
   &:active
     $button-color: saturate(darken($color, 4%), 2%)
+    $border-color: if(luma($color) > 80, saturate(darken($color, 18%), 2%), $color)
     background-color: $button-color
-    border-color: if(luma($color) > 80, saturate(darken($color, 18%), 2%), $color)
+    border-color: $border-color
   &.is-disabled,
   &:disabled
     color: rgba($text-color, .4)
-    pointer-events: none
     border-color: shade($color, 6%)
-
+    pointer-events: none
 
 =button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
