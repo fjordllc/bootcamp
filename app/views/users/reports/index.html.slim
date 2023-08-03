@@ -5,6 +5,4 @@
 
 = render 'users/page_tabs', user: @user
 
-.page-body
-  .container.is-md
-    = react_component('Reports', userId: @user.id, practices: @user.practices)
+= react_component('Reports', userId: @user.id, practices: @user.practices)
