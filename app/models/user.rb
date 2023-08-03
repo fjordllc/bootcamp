@@ -419,7 +419,7 @@ class User < ApplicationRecord
 
     def create_followup_comment(student)
       User.find_by(login_name: 'komagata').comments.create(
-        description: I18n.t('send_message.description'),
+        description: I18n.t('talk.followup'),
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
       )
@@ -734,7 +734,7 @@ class User < ApplicationRecord
 
   def create_comebacked_comment
     User.find_by(login_name: 'komagata').comments.create(
-      description: I18n.t('comeback.message'),
+      description: I18n.t('talk.comeback'),
       commentable_id: Talk.find_by(user_id: id).id,
       commentable_type: 'Talk'
     )
