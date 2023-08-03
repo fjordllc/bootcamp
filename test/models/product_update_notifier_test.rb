@@ -29,10 +29,8 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     )
     product.save!
 
-    assert_difference 'Notification.count', 0 do
-      perform_enqueued_jobs do
-        ProductUpdateNotifier.new.call({ product:, current_user: product.user })
-      end
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
+      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
     end
   end
 
@@ -41,15 +39,12 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
       body: 'test',
       user: users(:hajime),
       practice: practices(:practice1),
-      checker_id: users(:komagata).id,
-      wip: true
+      checker_id: nil
     )
     product.save!
 
-    assert_difference 'Notification.count', 0 do
-      perform_enqueued_jobs do
-        ProductUpdateNotifier.new.call({ product:, current_user: product.user })
-      end
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
+      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
     end
   end
 
@@ -62,10 +57,8 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     )
     product.save!
 
-    assert_difference 'Notification.count', 0 do
-      perform_enqueued_jobs do
-        ProductUpdateNotifier.new.call({ product:, current_user: users(:mentormentaro) })
-      end
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
+      ProductUpdateNotifier.new.call({ product:, current_user: users(:mentormentaro) })
     end
   end
 end
