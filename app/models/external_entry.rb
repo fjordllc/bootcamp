@@ -53,7 +53,7 @@ class ExternalEntry < ApplicationRecord
         summary: rss_item.description,
         thumbnail_image_url: rss_item.enclosure&.url,
         published_at: rss_item.pubDate,
-        user: user
+        user:
       )
     end
 
@@ -66,7 +66,7 @@ class ExternalEntry < ApplicationRecord
         summary: atom_item.content.content,
         thumbnail_image_url: atom_item.links.find { |link| !link.type.nil? && link.type.include?('image') }&.href,
         published_at: atom_item.published.content,
-        user: user
+        user:
       )
     end
   end
