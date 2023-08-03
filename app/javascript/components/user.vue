@@ -53,6 +53,7 @@
         .users-item__tags
           user-tags(:user='user')
       user-practice-progress(:user='user')
+      hr.a-border-tint
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items

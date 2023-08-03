@@ -10,6 +10,18 @@ header.page-header
 
 = render 'mentor/mentor_page_tabs'
 
-.page-body
-  .container.is-lg
-    div(data-vue="MentorPractices")
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | プラクティス
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+  hr.a-border
+  .page-body
+    .container.is-lg
+      div(data-vue="MentorPractices")

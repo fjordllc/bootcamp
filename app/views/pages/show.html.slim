@@ -14,10 +14,10 @@ header.page-header
           li.page-header-actions__item
             = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
               | Docs
-
+hr.a-border
 .page-body
   .container.is-xl
-    .row.is-gutter-width-32
+    .row.is-gutter-width-32.justify-center
       .col-lg-8.col-xs-12
         .doc.page-content
           = render 'doc_header', page: @page
@@ -27,6 +27,7 @@ header.page-header
                 .a-long-text.is-md.js-markdown-view
                   = @page.body
             = render 'reactions/reactions', reactionable: @page
+            hr.a-border-tint
             footer.card-footer
               .card-main-actions
                 ul.card-main-actions__items
@@ -45,9 +46,9 @@ header.page-header
 
         #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
 
-      .col-lg-4.col-xs-12
-        nav.page-nav.has-footer
-          - if @page.practice
+      - if @page.practice
+        .col-lg-4.col-xs-12
+          nav.page-nav.has-footer
             header.page-nav__header
               h2.page-nav__title
                 = link_to @page.practice,

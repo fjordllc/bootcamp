@@ -3,6 +3,7 @@
   header.card-header.is-sm
     h2.card-header__title
       | ニコニコカレンダー
+  hr.a-border
   .card-body(v-if='!loaded')
     .card__description
       | ロード中

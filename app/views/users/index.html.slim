@@ -5,7 +5,7 @@
   - title '全てのユーザー'
   - set_meta_tags description: '全てのユーザー一覧ページです。'
 
-header.page-header.is-border-bottom-none
+header.page-header
   .container
     .page-header__inner
       h2.page-header__title
@@ -43,6 +43,7 @@ main.page-main
               - if admin_or_mentor_login?
                 span.is-only-mentor
                   |（#{@users.total_count}）
+  hr.a-border
   .page-body.is-users
     // TODO 暫定的な対応
     .container

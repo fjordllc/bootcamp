@@ -36,6 +36,7 @@
           pubdate='pubdate',
           @click='copyAnswerURLToClipboard(answer.id)')
           | {{ updatedAt }}
+      hr.a-border-tint
       .thread-comment__description
         a.thread-comment__company-link.is-hidden-md-up(
           v-if='answer.user.company && answer.user.adviser',
@@ -48,6 +49,7 @@
           v-bind:currentUser='currentUser',
           v-bind:questionUser='questionUser',
           v-bind:reactionableId='reactionableId')
+      hr.a-border
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
@@ -105,6 +107,7 @@
             v-bind:class='{ "is-active": isActive("preview") }')
             .js-preview.a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.answer.id}`')
+        hr.a-border
         .card-footer
           .card-main-actions
             .card-main-actions__items
