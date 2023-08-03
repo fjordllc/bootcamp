@@ -61,7 +61,7 @@ export default function PracticeFilterDropdown({
           </div>
         </div>
       </nav>
-      <hr className='a-border'></hr>
+      <hr className="a-border"></hr>
     </>
   )
 }
