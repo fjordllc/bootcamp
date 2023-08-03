@@ -1,6 +1,6 @@
 <template lang="pug">
 .users
-  .page-filter.form(v-if='users.length !== 0 && isAll')
+  .page-filter.form.pt-0(v-if='users.length !== 0 && isAll')
     .container.is-md.has-no-x-padding
       .form__items
         .form-item.is-inline-md-up
