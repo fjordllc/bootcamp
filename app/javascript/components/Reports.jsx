@@ -91,7 +91,7 @@ export default function Reports({
                 onChange={(e) => setPage(e.page)}
               />
             )}
-            <ul className="card-list a-card">
+            <div className="card-list a-card">
               <div className="card-list__items">
                 {data.reports.map((report) => {
                   return (
@@ -104,10 +104,10 @@ export default function Reports({
                   )
                 })}
               </div>
-            </ul>
-            {unchecked && (
-              <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
-            )}
+              {unchecked && (
+                <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+              )}
+            </div>
             {data.totalPages > 1 && displayPagination && (
               <Pagination
                 sum={data.totalPages * per}
