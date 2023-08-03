@@ -201,4 +201,12 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
   end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_regular_event_path, 'komagata'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
 end

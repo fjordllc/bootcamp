@@ -1,6 +1,6 @@
 .page-tabs
   background-color: var(--base)
-  border-bottom: solid 1px var(--border-shade)
+  border-bottom: solid 1px var(--border)
   +position(relative, 2)
 
 .page-tabs__items
@@ -26,10 +26,10 @@
   color: var(--muted-text)
   align-items: center
   justify-content: center
-  background-color: var(--background-semi-shade)
+  background-color: var(--base)
   padding-inline: 1.25rem
   +border-radius(top, .25rem)
-  border: solid 1px var(--border-shade)
+  border: solid 1px var(--border)
   +position(relative)
   transition: all .2s ease-out
   +media-breakpoint-up(md)
@@ -38,8 +38,8 @@
     height: 2.75rem
     font-size: .75rem
   &:hover
-    background-color: var(--background-shade)
-    color: var(--semi-muted-text)
+    background-color: var(--background-more-tint)
+    color: var(--muted-text)
   &.is-active
     background-color: var(--background)
     border-bottom-color: var(--background)

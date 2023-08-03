@@ -19,10 +19,6 @@ header.page-header
       .page-header__start
         h2.page-header__title
           = title
-        - if current_user.mentor?
-          .page-header__optionable-action.is-only-mentor
-            = link_to course_sort_index_path(course_id: @course), class: 'a-button is-md is-secondary is-block' do
-              | 順番変更
       .page-header-actions
         ul.page-header-actions__items
           li.page-header-actions__item.is-hidden-sm-down
@@ -43,7 +39,7 @@ header.page-header
           li.page-header-actions__item
             = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
               | コース一覧
-
+hr.a-border
 .page-body.js-users-visibility
   .container.is-xl
     #js-courses-practices(course-id="#{@course.id}")

@@ -18,7 +18,7 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
       Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
         TimesChannelCreator.new.call(user)
       end
-      assert_equal '1234567890123456789', user.times_id
+      assert_equal '1234567890123456789', user.discord_profile.times_id
       assert_nil logs.last
     end
   end

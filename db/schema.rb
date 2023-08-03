@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_16_025937) do
+ActiveRecord::Schema.define(version: 2023_07_24_095814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -210,6 +210,16 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
   end
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
+  create_table "discord_profiles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "account_name"
+    t.string "times_url"
+    t.string "times_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_discord_profiles_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -702,7 +712,6 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
     t.string "customer_id"
     t.string "subscription_id"
     t.boolean "mail_notification", default: true, null: false
-    t.integer "prefecture_code"
     t.boolean "job_seeker", default: false, null: false
     t.boolean "github_collaborator", default: false, null: false
     t.string "github_id"
@@ -768,6 +777,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_025937) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"

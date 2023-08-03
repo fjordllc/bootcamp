@@ -388,6 +388,14 @@ class EventsTest < ApplicationSystemTestCase
     assert_equal find('#event_open_end_at').value, '2050-12-24T23:59'
   end
 
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_event_path, 'komagata'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
+
   test 'When signing up for an event during Watch, Watch is not registered twice' do
     visit_with_auth event_path(events(:event2)), 'komagata'
     find('#watch-button').click

@@ -36,6 +36,7 @@
           pubdate='pubdate',
           @click='copyAnswerURLToClipboard(answer.id)')
           | {{ updatedAt }}
+      hr.a-border-tint
       .thread-comment__description
         a.thread-comment__company-link.is-hidden-md-up(
           v-if='answer.user.company && answer.user.adviser',
@@ -48,6 +49,7 @@
           v-bind:currentUser='currentUser',
           v-bind:questionUser='questionUser',
           v-bind:reactionableId='reactionableId')
+      hr.a-border
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
@@ -85,15 +87,27 @@
         .a-markdown-input.js-markdown-parent
           .a-markdown-input__inner.js-tabs__content(
             v-bind:class='{ "is-active": isActive("answer") }')
-            textarea.a-text-input.a-markdown-input__textarea(
-              v-model='description',
-              :id='`js-comment-${this.answer.id}`',
-              :data-preview='`#js-comment-preview-${this.answer.id}`',
-              name='answer[description]')
+          .form-textarea
+            .form-textarea__body
+              textarea.a-text-input.a-markdown-input__textarea(
+                v-model='description',
+                :id='`js-comment-${this.answer.id}`',
+                :data-preview='`#js-comment-preview-${this.answer.id}`',
+                :data-input='`.js-comment-file-input-${this.answer.id}`',
+                name='answer[description]')
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                  | ファイルを挿入
+                  input(
+                    :class='`js-comment-file-input-${this.answer.id}`',
+                    type='file',
+                    multiple)
           .a-markdown-input__inner.js-tabs__content(
             v-bind:class='{ "is-active": isActive("preview") }')
             .js-preview.a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.answer.id}`')
+        hr.a-border
         .card-footer
           .card-main-actions
             .card-main-actions__items

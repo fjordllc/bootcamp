@@ -28,6 +28,7 @@
           :datetime='commentableCreatedAt',
           @click='copyCommentURLToClipboard(comment.id)')
           | {{ updatedAt }}
+      hr.a-border-tint
       .thread-comment__description
         a.thread-comment__company-link.is-hidden-md-up(
           v-if='comment.user.company && comment.user.adviser',
@@ -40,6 +41,7 @@
           v-bind:reactionable='comment',
           v-bind:currentUser='currentUser',
           v-bind:reactionableId='reactionableId')
+      hr.a-border-tint
       footer.card-footer(
         v-if='comment.user.id === currentUser.id || isRole("admin")')
         .card-main-actions
@@ -66,15 +68,27 @@
         .a-markdown-input.js-markdown-parent
           .a-markdown-input__inner.js-tabs__content(
             v-bind:class='{ "is-active": isActive("comment") }')
-            textarea.a-text-input.a-markdown-input__textarea(
-              :id='`js-comment-${this.comment.id}`',
-              :data-preview='`#js-comment-preview-${this.comment.id}`',
-              v-model='description',
-              name='comment[description]')
+            .form-textarea
+              .form-textarea__body
+                textarea.a-text-input.a-markdown-input__textarea(
+                  :id='`js-comment-${this.comment.id}`',
+                  :data-preview='`#js-comment-preview-${this.comment.id}`',
+                  :data-input='`.js-comment-file-input-${this.comment.id}`',
+                  v-model='description',
+                  name='comment[description]')
+              .form-textarea__footer
+                .form-textarea__insert
+                  label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                    | ファイルを挿入
+                    input(
+                      :class='`js-comment-file-input-${this.comment.id}`',
+                      type='file',
+                      multiple)
           .a-markdown-input__inner.js-tabs__content(
             v-bind:class='{ "is-active": isActive("preview") }')
             .a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.comment.id}`')
+        hr.a-border-tint
         .card-footer
           .card-main-actions
             .card-main-actions__items

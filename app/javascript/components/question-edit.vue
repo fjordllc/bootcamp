@@ -85,6 +85,7 @@
       :reactionable='question',
       :currentUser='currentUser',
       :reactionableId='`Question_${question.id}`')
+    hr.a-border
     footer.card-footer(
       v-if='currentUser.id === question.user.id || isRole("mentor")')
       .card-main-actions
@@ -94,7 +95,8 @@
               @click='startEditing')
               i#new.fa-solid.fa-pen
               | 内容修正
-          li.card-main-actions__item.is-sub
+          li.card-main-actions__item.is-sub.is-only-mentor(
+            v-if='isRole("mentor")')
             // - vue.jsでDELETE methodのリンクを作成する方法が、
             // - 見つからなかったので、
             // - いい実装方法ではないが、
@@ -105,6 +107,9 @@
               data-confirm='自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？',
               data-method='delete')
               | 削除する
+          li.card-main-actions__item.is-sub(v-else)
+            label.card-main-actions__muted-action(for='modal-delete-request')
+              | 削除申請
         .card-footer__notice(v-show='displayedUpdateMessage')
           p
             | 質問を更新しました
@@ -144,13 +149,21 @@
                 :class='{ "is-active": isActive("preview") }',
                 @click='changeActiveTab("preview")')
                 | プレビュー
-            .form-tabs-item__markdown-parent.js-markdown-parent
-              .form-tabs-item__markdown.js-tabs__content(
-                :class='{ "is-active": isActive("question") }')
-                textarea#js-question-content.a-text-input.form-tabs-item__textarea(
-                  v-model='edited.description',
-                  data-preview='#js-question-preview',
-                  name='question[description]')
+            .a-markdown-parent.js-markdown-parent
+              .a-markdown-input__inner.js-tabs__content(
+                v-bind:class='{ "is-active": isActive("question") }')
+                .form-textarea
+                  .form-textarea__body
+                    textarea#js-question-content.a-text-input.form-tabs-item__textarea(
+                      v-model='edited.description',
+                      data-preview='#js-question-preview',
+                      data-input='.js-question-file-input',
+                      name='question[description]')
+                  .form-textarea__footer
+                    .form-textarea__insert
+                      label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                        | ファイルを挿入
+                        input.js-question-file-input(type='file', multiple)
               .form-tabs-item__markdown.js-tabs__content(
                 :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview

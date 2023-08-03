@@ -77,6 +77,7 @@
                 :currentUserId='currentUserId',
                 :isMentor='isMentor',
                 :display-user-icon='displayUserIcon')
+      .under-cards(v-if='isDashboard')
       unconfirmed-links-open-button(
         v-if='isMentor && selectedTab != "all" && !isDashboard',
         :label='`${unconfirmedLinksName}の提出物を一括で開く`')
@@ -141,6 +142,19 @@ div(v-else-if='isDashboard')
             :currentUserId='currentUserId',
             :isMentor='isMentor',
             :display-user-icon='displayUserIcon')
+
+  .under-cards
+    .under-cards__links.mt-4.text-center.leading-normal.text-sm
+      a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
+        class='hover\:bg-black',
+        href='/products/unassigned#4days-elapsed',
+        v-if='countAlmostPassed5days() === 0')
+        | しばらく5日経過に到達する<br>提出物はありません。
+      a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
+        class='hover\:bg-black',
+        href='/products/unassigned#4days-elapsed',
+        v-else)
+        | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間後に5日経過に到達します。
 
 //- 全て, 未完了
 .page-content.is-products(v-else)
@@ -324,14 +338,43 @@ export default {
         })
       return params
     },
-    countProductsGroupedBy({ elapsed_days: elapsedDays }) {
+    getElementNdaysPassed(elapsedDays) {
       const element = this.productsGroupedByElapsedDays.find(
         (el) => el.elapsed_days === elapsedDays
       )
+      return element
+    },
+    countProductsGroupedBy({ elapsed_days: elapsedDays }) {
+      const element = this.getElementNdaysPassed(elapsedDays)
       return element === undefined ? 0 : element.products.length
     },
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
+    },
+    PassedAlmost5daysProducts(products) {
+      const productsPassedAlmost5days = products.filter((product) => {
+        const thresholdDay = 5
+        const thresholdHour = 8
+        return (
+          Math.floor((thresholdDay - this.elapsedTimes(product)) * 24) <=
+          thresholdHour
+        )
+      })
+      return productsPassedAlmost5days
+    },
+    elapsedTimes(product) {
+      const lastSubmittedTime =
+        product.published_at_date_time || product.created_at_date_time
+      return (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
+    },
+    countAlmostPassed5days() {
+      const elementPassed4days =
+        this.productsGroupedByElapsedDays === null
+          ? undefined
+          : this.getElementNdaysPassed(4)
+      return elementPassed4days === undefined
+        ? 0
+        : this.PassedAlmost5daysProducts(elementPassed4days.products).length
     }
   }
 }

@@ -1,8 +1,8 @@
-- title '関連リンク集'
+- title '紹介記事'
 - set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
 
 .welcome-page-header
-  .container.is-xxl
+  .container.is-xl
     .welcome-page-header__inner
       .welcome-page-header__title
         = title
@@ -13,16 +13,12 @@
       .article__inner
         header.article__header
           h1.article__title
-            | フィヨルドブートキャンプ関連リンク集
-          .article__summary.mt-4
-            .a-short-text.is-sm
-              p
-                | インターネットで見つけたフィヨルドブートキャンプに関連する記事、
-                | フィヨルドブートキャンプに言及している記事を集めています。
+            | フィヨルドブートキャンプ紹介記事
         .article__body
           .js-markdown-view.a-long-text.is-md
             = @buzz.body
       - if admin_or_mentor_login?
+        hr.a-border
         .card-footer
           .card-main-actions
             ul.card-main-actions__items

@@ -14,6 +14,7 @@ header.page-header
               = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 | Doc作成
+hr.a-border
 
 -  if @tag.present?
   .page-optional-header
@@ -29,6 +30,7 @@ header.page-header
               .page-main-header-actions
                 .page-main-header-actions__items
                   = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
+  hr.a-border
 .page-body
   .container.is-lg
     .page-body__columns
@@ -41,6 +43,7 @@ header.page-header
             header.card-header.is-sm
               h2.card-header__title
                 | タグ一覧
+            hr.a-border-tint
             .page-tags-nav__body
               ul.page-tags-nav__items
                 - Page.all_tags.each do |tag|

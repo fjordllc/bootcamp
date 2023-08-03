@@ -4,6 +4,7 @@
     header.card-header.is-sm
       h1.card-header__title
         | 日報テンプレート
+    hr.a-border
     .a-form-tabs.js-tabs
       .a-form-tabs__tab.js-tabs__tab(
         v-bind:class='{ "is-active": isActive("template") }',
@@ -25,6 +26,7 @@
         v-bind:class='{ "is-active": isActive("preview") }',
         v-html='markdownDescription')
         #js-template-preview
+    hr.a-border
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
