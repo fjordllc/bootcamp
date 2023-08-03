@@ -635,10 +635,10 @@ class UserTest < ActiveSupport::TestCase
 
   test '#create_comebacked_comment' do
     hajime = users(:hajime)
-    assert_difference 'Comment.count', 1 do
-      hajime.create_comebacked_comment
-    end
-    comment = Comment.last
+    comment =
+      assert_difference 'Comment.count', 1 do
+        hajime.create_comebacked_comment
+      end
     description = "お帰りなさい！！復会ありがとうございます。\n" \
            '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
            "何か困ったことや質問があれば、遠慮なくご相談ください。\n\n" \
