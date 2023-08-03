@@ -11,16 +11,16 @@
           .a-meta
             | #{user.name}（#{user.name_kana}）
         .card-list-item-meta__item
-          - if user.times_url?
-            = link_to user.times_url, class: 'a-meta' do
+          - if user.discord_profile.times_url?
+            = link_to user.discord_profile.times_url, class: 'a-meta' do
               .a-meta__icon
                 i.fab.fa-discord
-              = user.discord_account.presence || 'Discord未設定'
+              = user.discord_profile.account_name.presence || 'Discord未設定'
           - else
             .a-meta
               .a-meta__icon
                 i.fab.fa-discord
-              = user.discord_account.presence || 'Discord未設定'
+              | Discord未設定
     = render 'users/sns', user: user
     - if admin_login?
       .form-actions.is-only-mentor

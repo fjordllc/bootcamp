@@ -1,7 +1,7 @@
 - title "#{@generation}期のユーザー一覧"
 - set_meta_tags description: "#{@generation}期のユーザー一覧ページです。"
 
-header.page-header.is-border-bottom-none
+header.page-header
   .container
     .page-header__inner
       h2.page-header__title
@@ -24,5 +24,5 @@ main.page-main
               li.page-main-header-actions__item
                 = link_to generations_path, class: 'a-button is-sm is-block is-secondary is-back' do
                   | 期一覧
-
+  hr.a-border
   #js-generation-users(generation-id="#{@generation}")

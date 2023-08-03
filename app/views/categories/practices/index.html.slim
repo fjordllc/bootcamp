@@ -1,0 +1,25 @@
+- title "プラクティス並び替え | #{@category.name}カテゴリー"
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+hr.a-border
+.page-body
+  .container.is-lg
+    .admin-table.is-grab
+      table.admin-table__table
+        thead.admin-table__header
+          tr.admin-table__labels
+            th.admin-table__label 名前
+            th.admin-table__label.handle 並び順
+        tbody.admin-table__items#js-practice-sortable
+          - @categories_practices.each do |categories_practice|
+            tr.admin-table__item(data-categories_practice_id="#{categories_practice.id}")
+              td.admin-table__item-value
+                = categories_practice.practice.title
+              td.admin-table__item-value.is-text-align-center.is-grab
+                span.js-grab.a-grab
+                  i.fa-solid.fa-align-justify

@@ -20,17 +20,17 @@
     +button-color($main)
   &.is-muted
     border: none
-    color: $muted-text
+    color: var(--muted-text)
     font-weight: 400 !important
-    background-color: $background
+    background-color: var(--background)
   &.is-muted-borderd
     border-color: $border
     color: $muted-text
     font-weight: 400 !important
-    background-color: $base
+    background-color: var(--base)
     &:hover
       background-color: var(--background-more-tint)
-      color: $semi-muted-text
+      color: var(--semi-muted-text)
 
   &.is-sm-text
     span
@@ -144,5 +144,5 @@ input[type="button"]
 
 [class*=a-button]
   &[class*=-primary]:disabled
-    background-color: $primary
+    background-color: var(--primary)
     cursor: default

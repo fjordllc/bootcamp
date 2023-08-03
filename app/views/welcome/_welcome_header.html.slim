@@ -30,11 +30,10 @@ header.welcome-header
             = link_to faq_path, class: 'welcome-header-nav__item-link' do
               span
                 | FAQ
-          - if admin_or_mentor_login?
-            li.welcome-header-nav__item
-              = link_to buzz_path, class: 'welcome-header-nav__item-link' do
-                span
-                  | 関連リンク集
+          li.welcome-header-nav__item
+            = link_to buzz_path, class: 'welcome-header-nav__item-link' do
+              span
+                | 紹介・言及記事
           - unless current_user
             li.welcome-header-nav__item
               = link_to new_user_path, class: 'welcome-header-nav__item-link' do

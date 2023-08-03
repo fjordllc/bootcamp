@@ -51,7 +51,7 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-    find('label.card-main-actions__muted-action').click
+    first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びを Tweet する！'
     visit current_path
     assert_text '修了 Tweet する'
@@ -588,5 +588,13 @@ class ProductsTest < ApplicationSystemTestCase
   test 'display company-logo when user is trainee' do
     visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
     assert_selector 'img[class="page-content-header__company-logo"]'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end

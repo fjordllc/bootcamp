@@ -36,9 +36,9 @@
           p
           p
           p
-        footer.card-footer
-          .card-main-actions
-            ul.card-main-actions__items
-              li.card-main-actions__item
-                .a-button.is-sm.is-block.a-placeholder
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            .a-button.is-sm.is-block.a-placeholder
 </template>

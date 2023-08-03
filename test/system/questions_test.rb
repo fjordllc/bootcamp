@@ -83,10 +83,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'delete a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    accept_confirm do
-      click_link '削除する'
-    end
-    assert_text '質問を削除しました。'
+    assert_text '削除申請'
   end
 
   test 'admin can update and delete any questions' do
@@ -263,7 +260,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit questions_path
     click_link 'WIPタイトル'
-    assert_text '削除する'
+    assert_text '削除申請'
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
@@ -440,12 +437,6 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_link 'Linuxのファイル操作の基礎を覚える'
   end
 
-  test 'show confirm dialog before delete' do
-    visit_with_auth question_path(questions(:question8)), 'kimura'
-    confirm_dialog = dismiss_confirm { click_link '削除する' }
-    assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
-  end
-
   test 'show a question without choosing practice' do
     question = questions(:question14)
     visit_with_auth question_path(question), 'kimura'
@@ -504,5 +495,25 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_no_text question.title
       assert_no_text 'wipテスト用の質問(wip中)'
     end
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_question_path, 'kimura'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
+
+  test 'using file uploading by file selection dialogue in textarea at editing question' do
+    question = questions(:question3)
+    visit_with_auth "/questions/#{question.id}", 'komagata'
+    click_button '内容修正'
+
+    element = first('.a-file-insert')
+    within element do
+      assert_selector 'input.js-question-file-input', visible: false
+    end
+    assert_equal '.js-question-file-input', find('textarea.a-text-input')['data-input']
   end
 end

@@ -75,6 +75,8 @@ class User < ApplicationRecord
   has_many :external_entries, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
+  has_one :discord_profile, dependent: :destroy
+  accepts_nested_attributes_for :discord_profile, allow_destroy: true
 
   has_many :participate_events,
            through: :participations,
@@ -148,12 +150,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
-  validates :times_url,
-            format: {
-              allow_blank: true,
-              with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
-              message: 'はDiscordのチャンネルURLを入力してください'
-            }
 
   validates :feed_url,
             format: {
@@ -203,12 +199,6 @@ class User < ApplicationRecord
   end
 
   with_options if: -> { validation_context != :retirement } do
-    validates :discord_account,
-              format: {
-                allow_blank: true,
-                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-                message: 'は「ユーザー名#４桁の数字」で入力してください'
-              }
     validates :twitter_account,
               length: { maximum: 15 },
               format: {
@@ -366,7 +356,7 @@ class User < ApplicationRecord
     :facebook_url,
     :blog_url,
     :github_account,
-    :discord_account,
+    :discord_profile_account_name,
     :description
   )
 
@@ -664,25 +654,6 @@ class User < ApplicationRecord
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
     update!(mentor_memo: new_memo)
-  end
-
-  def convert_to_channel_url!
-    match = times_url&.match(%r{\Ahttps://discord.gg/(?<invite_code>\w+)\z})
-    return if match.nil?
-
-    uri = URI("https://discord.com/api/invites/#{match[:invite_code]}")
-    res = Net::HTTP.get_response(uri)
-
-    case res
-    when Net::HTTPSuccess
-      data = JSON.parse(res.body)
-      update!(times_url: "https://discord.com/channels/#{data['guild']['id']}/#{data['channel']['id']}")
-    when Net::HTTPNotFound
-      logger.warn "[Discord API] 無効な招待URLです: #{login_name} (#{times_url})"
-      update!(times_url: nil)
-    else
-      logger.error "[Discord API] チャンネルURLを取得できません: #{login_name} (#{res.code} #{res.message})"
-    end
   end
 
   def category_active_or_unstarted_practice

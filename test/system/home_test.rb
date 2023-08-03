@@ -92,10 +92,11 @@ class HomeTest < ApplicationSystemTestCase
   test 'not show messages of required field' do
     user = users(:hatsuno)
     # hatsuno の未入力項目を登録
+    user.build_discord_profile
+    user.discord_profile.account_name = 'hatsuno#1234'
     user.update!(
       tag_list: ['猫'],
-      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。',
-      discord_account: 'hatsuno#1234'
+      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
     )
     path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
@@ -201,16 +202,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector 'h2.card-header__title', text: '学習時間'
   end
 
-  test 'show test events on dashboard' do
-    travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
-      visit_with_auth '/', 'komagata'
-      assert_text '直近イベントの表示テスト用(当日)'
-      assert_text '直近イベントの表示テスト用(翌日)'
-    end
-  end
-
-  test 'show job events on dashboard for only job seeker' do
-    travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
+  test 'show events on dashboard for only related to user' do
+    travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
       visit_with_auth '/', 'jobseeker'
       assert_text '直近イベントの表示テスト用(当日)'
       assert_text '直近イベントの表示テスト用(翌日)'
@@ -224,19 +217,55 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show regular events on dashbord for only event participant' do
-    travel_to Time.zone.local(2023, 1, 30, 10, 0, 0) do
+  test 'show regular events for only participant and special events on dashbord' do
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
-      assert_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
-      assert_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
-      first('.js-close-event').click
-      assert_no_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
+      today_event_label = find('.card-list__label', text: '今日開催')
+      tomorrow_event_label = find('.card-list__label', text: '明日開催')
+      day_after_tomorrow_event_label = find('.card-list__label', text: '明後日開催')
+
+      today_events_texts = [
+        { category: '特別イベント', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
+      ]
+      tomorrow_events_texts = [
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
+        { category: '特別イベント', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
+      ]
+      day_after_tomorrow_events_texts = [
+        { category: '特別イベント', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' }
+      ]
+
+      assert_event_card(today_event_label, today_events_texts)
+      assert_event_card(tomorrow_event_label, tomorrow_events_texts)
+      assert_event_card(day_after_tomorrow_event_label, day_after_tomorrow_events_texts)
+
       logout
 
       visit_with_auth '/', 'komagata'
       assert_no_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
       assert_no_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
     end
+  end
+
+  def event_xpath(event_label, idx)
+    "#{event_label.path}/following-sibling::*[#{idx + 1}][contains(@class, 'card-list-item')]"
+  end
+
+  def assert_event_card(event_label, events_texts)
+    return assert_not has_selector?(:xpath, event_xpath.call(0)) if events_texts.empty?
+
+    events_texts.each_with_index do |event_texts, idx|
+      card_list_element = find(:xpath, event_xpath(event_label, idx))
+      card_list_element.assert_text(event_texts[:category])
+      card_list_element.assert_text(event_texts[:title])
+      card_list_element.assert_text(event_texts[:start_at])
+    end
+    assert_events_count(event_label, events_texts.size)
+  end
+
+  def assert_events_count(event_label, count)
+    assert_no_selector(:xpath, event_xpath(event_label, count))
   end
 
   test 'show grass hide button for graduates' do
@@ -268,6 +297,25 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '6日経過（1）'
     assert_text '5日経過（1）'
     assert_no_text '今日提出（48）'
+  end
+
+  test 'display counts of passed almost 5days' do
+    visit_with_auth '/', 'mentormentaro'
+    assert_text "2件の提出物が、\n8時間後に5日経過に到達します。"
+
+    products(:product70).update!(checker: users(:mentormentaro))
+    visit current_path
+    assert_text "1件の提出物が、\n8時間後に5日経過に到達します。"
+
+    products(:product71).update!(checker: users(:mentormentaro))
+    visit current_path
+    assert_text "しばらく5日経過に到達する\n提出物はありません。"
+  end
+
+  test 'work link of passed almost 5days' do
+    visit_with_auth '/', 'mentormentaro'
+    find('.under-cards').click
+    assert_current_path('/products/unassigned')
   end
 
   test "show my wip's announcement on dashboard" do

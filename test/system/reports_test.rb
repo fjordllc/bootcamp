@@ -690,4 +690,12 @@ class ReportsTest < ApplicationSystemTestCase
 
     assert_text '研修生の日報'
   end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth '/reports/new', 'kensyu'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
 end

@@ -1,14 +1,15 @@
 .a-form-tabs
   display: flex
-  background-color: var(--background-semi-shade)
-  border-bottom: solid 1px var(--border-shade)
+  background-color: var(--background)
+  border-bottom: solid 1px var(--border)
   margin-bottom: 1rem
   padding: .5rem .75rem 0
+  border-radius: .1875rem .1875rem 0 0
 
 .a-form-tabs__tab
   +size(6.5rem 2.5rem)
   +text-block(.8125rem 1, flex 600)
-  color: var(--semi-muted-text)
+  color: var(--muted-text)
   align-items: center
   justify-content: center
   border-bottom: none
@@ -22,5 +23,5 @@
   &.is-active
     background-color: var(--base)
     color: var(--main-text)
-    border-color: var(--border-shade)
+    border-color: var(--border)
     border-bottom-color: var(--base)

@@ -55,8 +55,6 @@ ja:
         blog_url: ブログ URL
         feed_url: ブログのフィードURL
         github_account: GitHub アカウント
-        discord_account: Discord アカウント
-        times_url: 分報URL
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -101,6 +99,9 @@ ja:
         subscription_id: サブスクリプションID
         country_code: 国
         subdivision_code: 都道府県・州
+      discord_profile:
+        account_name: Discord アカウント
+        times_url: 分報URL
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日

@@ -7,7 +7,7 @@ class RequiredField
   attribute :avatar_attached, :boolean
   attribute :tag_list_count, :integer
   attribute :after_graduation_hope, :string
-  attribute :discord_account, :string
+  attribute :discord_account_name, :string
   attribute :github_account, :string
   attribute :blog_url, :string
   attribute :graduated, :boolean

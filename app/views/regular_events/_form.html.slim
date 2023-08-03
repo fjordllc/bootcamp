@@ -8,7 +8,6 @@
       .form-item
         = f.label :organizer, class: 'a-form-label'
         = f.select(:user_ids, users_name, { include_hidden: false }, { multiple: true, id: 'js-choices-multiple-select' })
-      / TODO 定期開催日のCSSは機能追加が完了してから対応する
       .form-item
         label.a-form-label
           | カテゴリー
@@ -51,7 +50,17 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-form-label'
-          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area', data: { 'preview': '.js-preview' }
+          .form-textarea
+            .form-textarea__body
+              = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
+            .form-textarea__footer
+              .form-textarea__insert
+                label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                  | ファイルを挿入
+                  input(type='file' class='file-input' multiple)
+              .form-textarea__bottom-note
+                | 途中保存は「#{request.os == 'Mac OSX' ? 'command + s' : 'Ctrl + s'}」 マメに保存しよう。
         .col-md-6.col-xs-12
           .a-form-label
             | プレビュー
