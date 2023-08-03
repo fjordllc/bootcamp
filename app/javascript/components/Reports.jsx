@@ -52,8 +52,8 @@ export default function Reports({
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
-      <div className='page-main'>
-        <div className='page-body'>
+      <div className="page-main">
+        <div className="page-body">
           <div className="container is-md">
             <LoadingListPlaceholder />
           </div>
@@ -63,7 +63,7 @@ export default function Reports({
   }
 
   return (
-    <div className='page-main'>
+    <div className="page-main">
       {data.totalPages === 0 && (
         <div>
           {practices && (
@@ -85,8 +85,8 @@ export default function Reports({
               practiceId={userPracticeId}
             />
           )}
-          <div className='page-body'>
-            <div className='container is-md'>
+          <div className="page-body">
+            <div className="container is-md">
               <div className="page-content reports">
                 {data.totalPages > 1 && displayPagination && (
                   <Pagination
