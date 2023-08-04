@@ -509,7 +509,7 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'test')
     height = find('#report_description').style('height')['height'][/\d+/].to_i
 
-    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22")
     after_height = find('#report_description').style('height')['height'][/\d+/].to_i
 
     assert height < after_height
@@ -521,7 +521,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     height = find('#report_description').style('height')['height'][/\d+/].to_i
 
-    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22")
     after_height = find('#report_description').style('height')['height'][/\d+/].to_i
 
     assert height < after_height
