@@ -166,7 +166,7 @@ talk_discordinvalid:
 
 talk_nodiscordprofile:
   user: nodiscordprofile
-  unreplied: false
+  action_completed: true
 
 talk_twitterinvalid:
   user: twitterinvalid
