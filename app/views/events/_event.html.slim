@@ -50,13 +50,13 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
-    hr.a-border
+    hr.a-border-tint
     .card-body
       .card__description
         .a-long-text.is-md.js-markdown-view
           = event.description
-    - unless event.wip?
-      = render 'events/participation', event: event
+      - unless event.wip?
+        = render 'events/participation', event: event
     = render 'reactions/reactions', reactionable: event
     - if event.user_id == current_user.id || admin_or_mentor_login?
       hr.a-border-tint
@@ -76,7 +76,7 @@
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
-      hr.a-border
+      hr.a-border-tint
       .card-body
         .card__description
           - if event.participants.present?
