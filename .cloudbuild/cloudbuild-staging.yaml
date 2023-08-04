@@ -42,7 +42,7 @@ steps:
       - 'gcloud sql databases delete bootcamp_staging --instance=bootcamp --quiet || gcloud sql databases create bootcamp_staging --instance=bootcamp --quiet || exit 0'
     id: DropAndCreateDB
     waitFor:
-      - Fetch
+      - Push
     entrypoint: sh
     volumes:
       - name: db
