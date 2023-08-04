@@ -661,7 +661,7 @@ class ReportsTest < ApplicationSystemTestCase
         span.a-user-role.is-adviser,
         span.a-user-role.is-graduate,
         span.a-user-role.is-trainee
-        ')
+      ')
     end
   end
 
