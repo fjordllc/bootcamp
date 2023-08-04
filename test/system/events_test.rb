@@ -167,7 +167,7 @@ class EventsTest < ApplicationSystemTestCase
 
   test 'show message about ending event after event end' do
     visit_with_auth event_path(events(:event6)), 'kimura'
-    assert_text '特別イベントは終了しました。'
+    assert_text 'このイベントは終了しました。'
   end
 
   test 'user can participate in an event' do
