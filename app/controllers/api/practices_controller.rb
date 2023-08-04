@@ -13,6 +13,7 @@ class API::PracticesController < API::BaseController
                   .eager_load(:practices)
                   .where.not(practices: { id: nil })
                   .order('categories_practices.position')
+    @unique_practices = @categories.flat_map(&:practices).uniq
   end
 
   def update
