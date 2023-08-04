@@ -12,16 +12,16 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
-  test 'retire after three-month hibernation' do
+  test 'retire after six-month hibernation' do
     user = users(:kyuukai)
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
       assert_equal Date.current, user.reload.retired_on
     end
 
-    assert_equal '（休会後三ヶ月経過したため自動退会）', user.retire_reason
+    assert_equal '（休会後六ヶ月経過したため自動退会）', user.retire_reason
     assert_nil user.hibernated_at
     login_user 'kyuukai', 'testtest'
     assert_text '退会したユーザーです'
@@ -45,9 +45,9 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     assert_equal '[FBC] 重要なお知らせ：受講ステータスの変更について', mail_to_user.subject
   end
 
-  test 'not retire when hibernated for less than three months' do
+  test 'not retire when hibernated for less than six months' do
     user = users(:kyuukai)
-    travel_to Time.zone.local(2020, 4, 1, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 7, 1, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
@@ -59,11 +59,11 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     user = users(:kyuukai)
 
     visit_with_auth edit_admin_user_path(user), 'komagata'
-    check '休会三ヶ月後に自動退会しない', allow_label_click: true
+    check '休会六ヶ月後に自動退会しない', allow_label_click: true
     click_on '更新する'
     logout
 
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       assert_nil user.reload.retired_on
     end
@@ -72,10 +72,10 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
   test 'do nothing with already retired user' do
     user = users(:kyuukai)
 
-    retired_date = Date.new(2020, 4, 1)
+    retired_date = Date.new(2020, 7, 1)
     user.update!(retired_on: retired_date)
 
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       assert_equal retired_date, user.reload.retired_on
     end
@@ -87,7 +87,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     assert user.products.unchecked.count.positive?
     assert user.reports.wip.count.positive?
 
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
@@ -106,7 +106,7 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
     Rails.logger.stub(:warn, stub_warn_logger) do
       stub_postmark_error = ->(_user) { raise Postmark::InactiveRecipientError }
       UserMailer.stub(:retire_after_long_hibernation, stub_postmark_error) do
-        travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+        travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
           VCR.use_cassette 'subscription/update' do
             visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
           end
@@ -119,11 +119,11 @@ class RetirementAferLongHibernationTest < ApplicationSystemTestCase
 
   test 'retire with invalid user status' do
     user = users(:kyuukai)
-    user.discord_account = 'discordinvalid#1234567890'
+    user.twitter_account = '不正なツイッターアカウント名'
     user.save!(validate: false)
     assert user.invalid?
 
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
         visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
       end
