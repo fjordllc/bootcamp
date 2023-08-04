@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-comment
+.thread-comment(:class='{ "is-latest": isLatest }')
   #latest-comment(v-if='isLatest')
   .thread-comment__start
     a.thread-comment__user-link(:href='comment.user.url')
@@ -79,7 +79,7 @@
                   name='comment[description]')
               .form-textarea__footer
                 .form-textarea__insert
-                  label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input(
                       :class='`js-comment-file-input-${this.comment.id}`',

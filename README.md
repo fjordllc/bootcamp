@@ -53,13 +53,13 @@ $ ./bin/lint
 * eslintの警告は以下のコマンドで修正されますが、修正されない場合は手動で修正してください。
 
 ```shell
-$ eslint 'app/javascript/**/*.{js,vue}' --fix
+$ eslint 'app/javascript/**/*.{js,vue,jsx}' --fix
 ```
 
 * prettierの警告が出ている場合には、以下のコマンドで修正できます。
 
 ```shell
-$ prettier app/javascript/**/*.{js,vue} --write
+$ prettier app/javascript/**/*.{js,vue,jsx} --write
 ```
 
 ## Profiler

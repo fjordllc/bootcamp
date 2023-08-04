@@ -92,7 +92,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    within('#latest-comment') do
+    within('.thread-comment.is-latest') do
       assert_text 'kimura'
       assert_text 'test'
     end
@@ -106,7 +106,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    within('#latest-comment') do
+    within('.thread-comment.is-latest') do
       assert_text 'mentormentaro'
       assert_text 'test'
     end
