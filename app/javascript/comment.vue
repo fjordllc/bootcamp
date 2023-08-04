@@ -1,5 +1,5 @@
 <template lang="pug">
-.thread-comment
+.thread-comment(:class='{ "is-latest": isLatest }')
   #latest-comment(v-if='isLatest')
   .thread-comment__start
     a.thread-comment__user-link(:href='comment.user.url')
