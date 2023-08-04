@@ -52,14 +52,18 @@ export default function Reports({
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
-      <div className="container is-md">
-        <LoadingListPlaceholder />
+      <div className="page-main">
+        <div className="page-body">
+          <div className="container is-md">
+            <LoadingListPlaceholder />
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <>
+    <div className="page-main">
       {data.totalPages === 0 && (
         <div>
           {practices && (
@@ -81,46 +85,50 @@ export default function Reports({
               practiceId={userPracticeId}
             />
           )}
-          <div className="page-content reports">
-            {data.totalPages > 1 && displayPagination && (
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => setPage(e.page)}
-              />
-            )}
-            <div className="card-list a-card">
-              <div className="card-list__items">
-                {data.reports.map((report) => {
-                  return (
-                    <Report
-                      key={report.id}
-                      report={report}
-                      currentUserId={report.currentUserId}
-                      displayUserIcon={displayUserIcon}
-                    />
-                  )
-                })}
+          <div className="page-body">
+            <div className="container is-md">
+              <div className="page-content reports">
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    neighbours={neighbours}
+                    page={page}
+                    onChange={(e) => setPage(e.page)}
+                  />
+                )}
+                <div className="card-list a-card">
+                  <div className="card-list__items">
+                    {data.reports.map((report) => {
+                      return (
+                        <Report
+                          key={report.id}
+                          report={report}
+                          currentUserId={report.currentUserId}
+                          displayUserIcon={displayUserIcon}
+                        />
+                      )
+                    })}
+                  </div>
+                  {unchecked && (
+                    <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+                  )}
+                </div>
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    neighbours={neighbours}
+                    page={page}
+                    onChange={(e) => setPage(e.page)}
+                  />
+                )}
               </div>
-              {unchecked && (
-                <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
-              )}
             </div>
-            {data.totalPages > 1 && displayPagination && (
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => setPage(e.page)}
-              />
-            )}
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

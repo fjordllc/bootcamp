@@ -24,7 +24,8 @@
       :key='comment.id',
       :comment='comment',
       :currentUser='currentUser',
-      :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
+      :id='"comment_" + comment.id',
+      :isLatest='index === comments.length - 1',
       @delete='deleteComment',
       @update='updateComment')
   .thread-comment-form
@@ -58,7 +59,7 @@
                   @input='editComment')
               .form-textarea__footer
                 .form-textarea__insert
-                  label.a-file-insert.a-button.is-sm.is-secondary.is-block
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input.new-comment-file-input(type='file', multiple)
           .a-markdown-input__inner.js-tabs__content(

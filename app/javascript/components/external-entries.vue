@@ -1,15 +1,16 @@
 <template lang="pug">
-.page-body
-  .container.is-md
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
-    .card-list.a-card
-      externalEntry(
-        v-for='externalEntry in externalEntries',
-        :key='externalEntry.id',
-        :externalEntry='externalEntry')
-    nav.pagination(v-if='totalPages > 1')
-      pager(v-bind='pagerProps')
+.page-main
+  .page-body
+    .container.is-md
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
+      .card-list.a-card
+        externalEntry(
+          v-for='externalEntry in externalEntries',
+          :key='externalEntry.id',
+          :externalEntry='externalEntry')
+      nav.pagination(v-if='totalPages > 1')
+        pager(v-bind='pagerProps')
 </template>
 
 <script>
