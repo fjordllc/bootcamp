@@ -197,6 +197,10 @@ class Product < ApplicationRecord
     update_commented_at(comments.last)
   end
 
+  def notification_type
+    updated_after_submission? ? :product_update : :submitted
+  end
+
   def updated_after_submission?
     return false if saved_change_to_attribute?('published_at', from: nil)
 
