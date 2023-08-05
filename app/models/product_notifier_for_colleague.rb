@@ -24,9 +24,8 @@ class ProductNotifierForColleague
   end
 
   def send_notification(product:, receivers:)
-    notification = product.updated_after_submission? ? :product_update : :submitted
     receivers.each do |receiver|
-      ActivityDelivery.with(product: product, receiver: receiver).notify(notification)
+      ActivityDelivery.with(product: product, receiver: receiver).notify(product.notification_type)
     end
   end
 end
