@@ -160,7 +160,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_not_includes product_id_list, no_replied_wip_product.id
   end
 
-  test '#updated_after_submission? return true when product is updated after submission' do
+  test '#notification_type return :product_update when product is updated after submission' do
     product = Product.create!(
       body: 'test',
       user: users(:kimura),
@@ -170,15 +170,15 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     product.update!(body: 'product is updated.')
-    assert product.updated_after_submission?
+    assert_equal :product_update, product.notification_type
 
     product.update!(body: 'product is saved as WIP.', wip: true)
 
     product.update!(body: 'product is reupdated.', wip: false, published_at: Time.current)
-    assert product.updated_after_submission?
+    assert_equal :product_update, product.notification_type
   end
 
-  test '#updated_after_submission? return false when product is first saved as WIP then updated' do
+  test '#notification_type return :submitted when product is first saved as WIP then updated' do
     product = Product.create!(
       body: 'first saved as WIP',
       user: users(:kimura),
@@ -188,6 +188,6 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
-    assert_not product.updated_after_submission?
+    assert_equal :submitted, product.notification_type
   end
 end
