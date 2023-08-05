@@ -204,7 +204,7 @@ class User < ApplicationRecord
               allow_blank: true,
               format: {
                 with: /\A(?!.*\.\.)[a-z0-9_.]+\z/,
-                message: 'は2文字以上32文字以内で入力してください アンダースコア（_）とピリオド（.）以外の特殊文字を使用できません ユーザー名にピリオド( . )を2つ連続して使用することはできません'
+                message: 'はアンダースコア（_）とピリオド（.）以外の特殊文字を使用できません ユーザー名にピリオド( . )を2つ連続して使用することはできません'
               }
     validates :twitter_account,
               length: { maximum: 15 },
