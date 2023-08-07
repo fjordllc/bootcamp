@@ -18,7 +18,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include CommentHelper
   include TagHelper
 
-  Webdrivers::Chromedriver.required_version = "114.0.5735.90"
+  Webdrivers::Chromedriver.required_version = '114.0.5735.90'
 
   if ENV['HEADED']
     driven_by :selenium, using: :chrome
