@@ -649,18 +649,23 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'user role class is displayed correctly in reports' do
-    visit_with_auth reports_path, 'kimura'
+    visit_with_auth '/reports/new', 'mentormentaro'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
 
+    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+    click_button '提出'
+
+    visit_with_auth reports_path, 'kimura'
     within('.card-list-item__user', match: :first) do
       assert_selector('
-        span.a-user-role.is-student,
-        span.a-user-role.is-admin,
-        span.a-user-role.is-retired,
-        span.a-user-role.is-hibernationed,
-        span.a-user-role.is-mentor,
-        span.a-user-role.is-adviser,
-        span.a-user-role.is-graduate,
-        span.a-user-role.is-trainee
+        span.a-user-role.is-mentor
       ')
     end
   end
