@@ -20,8 +20,8 @@ class RegularEventsController < ApplicationController
     @regular_event = RegularEvent.new(regular_event_params)
     @regular_event.user = current_user
     set_wip
-    set_publised_at
     if @regular_event.save
+      update_publised_at
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
       path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
@@ -35,8 +35,8 @@ class RegularEventsController < ApplicationController
 
   def update
     set_wip
-    set_publised_at
     if @regular_event.update(regular_event_params)
+      update_publised_at
       Newspaper.publish(:regular_event_update, @regular_event)
       set_all_user_participants_and_watchers
       path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
@@ -77,10 +77,10 @@ class RegularEventsController < ApplicationController
     @regular_event.wip = (params[:commit] == 'WIP')
   end
 
-  def set_publised_at
+  def update_publised_at
     return if @regular_event.wip || @regular_event.published_at?
 
-    @regular_event.published_at = Time.current
+    @regular_event.update(published_at: Time.current)
   end
 
   def notice_message(regular_event)
