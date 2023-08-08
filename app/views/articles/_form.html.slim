@@ -39,7 +39,7 @@
         .col-md-6.col-xs-12
           = f.label :tag_list, 'タグを入力してください（カンマ区切り）',
             class: 'a-form-label'
-          = render partial: 'tags_input', locals: { taggable: article }
+          = render 'tags_input', taggable: article
 
     .form-item
       .row
