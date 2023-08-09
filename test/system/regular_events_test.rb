@@ -61,6 +61,7 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'update regular event' do
     visit_with_auth edit_regular_event_path(regular_events(:regular_event1)), 'komagata'
+    assert_no_selector 'label', text: '定期イベント公開のお知らせを書く'
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: 'チェリー本輪読会（修正）'
       first('.choices__inner').click
