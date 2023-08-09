@@ -156,6 +156,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participations.find_by(user_id: user.id).present?
   end
 
+  def not_held?(date)
+    !hold_national_holiday && HolidayJp.holiday?(date)
+  end
+
   class << self
     def comming_soon_events(user)
       [today_events, tomorrow_events].map do |regular_events|
