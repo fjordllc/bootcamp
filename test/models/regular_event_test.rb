@@ -130,4 +130,17 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_events1.include?(regular_event2)
     assert regular_events2.include?(regular_event3)
   end
+
+  test '#not_held?' do
+    weekdays = Time.zone.parse('2023-8-10')
+    holidays = Time.zone.parse('2023-8-11')
+
+    regular_event_not_held_on_holidays = regular_events(:regular_event1)
+    assert_not regular_event_not_held_on_holidays.not_held?(weekdays)
+    assert regular_event_not_held_on_holidays.not_held?(holidays)
+
+    regular_event_held_on_holidays = regular_events(:regular_event4)
+    assert_not regular_event_held_on_holidays.not_held?(weekdays)
+    assert_not regular_event_held_on_holidays.not_held?(holidays)
+  end
 end
