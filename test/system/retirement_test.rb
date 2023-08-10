@@ -74,7 +74,7 @@ class RetirementTest < ApplicationSystemTestCase
     assert_text '退会したユーザーです'
   end
 
-  test 'enables retirement regardless of validity of twitter id' do
+  test 'enables retirement regardless of validity of X（Twitter） ID' do
     user = users(:twitterinvalid)
     visit_with_auth new_retirement_path, 'twitterinvalid'
     find('label', text: 'とても悪い').click
