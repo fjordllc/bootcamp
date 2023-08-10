@@ -41,39 +41,39 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'can not see tweet button when current_user does not complete a practice' do
     visit_with_auth "/products/#{products(:product1).id}", 'yamada'
-    assert_no_text '修了 Tweet する'
+    assert_no_text '修了 投稿する'
   end
 
   test 'display learning completion message when a user of the completed product visits show first time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-    assert_text '喜びを Tweet する！'
+    assert_text '喜びを 投稿する！'
   end
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
-    assert_no_text '喜びを Tweet する！'
+    assert_no_text '喜びを 投稿する！'
     visit current_path
-    assert_text '修了 Tweet する'
-    assert_no_text '喜びを Tweet する！'
+    assert_text '修了 投稿する'
+    assert_no_text '喜びを 投稿する！'
   end
 
   test 'not display learning completion message when a user whom the product does not belongs to visits show' do
     visit_with_auth "/products/#{products(:product65).id}", 'yamada'
-    assert_no_text '喜びを Tweet する！'
+    assert_no_text '喜びを 投稿する！'
   end
 
   test 'not display learning completion message when a user of the non-completed product visits show' do
     visit_with_auth "/products/#{products(:product6).id}", 'sotugyou'
-    assert_no_text '喜びを Tweet する！'
+    assert_no_text '喜びを 投稿する！'
   end
 
   test 'can see tweet button when current_user has completed a practice' do
     visit_with_auth "/products/#{products(:product2).id}", 'kimura'
-    assert_text '修了 Tweet する'
+    assert_text '修了 投稿する'
 
     find('.a-button.is-tweet').click
-    assert_text '喜びを Tweet する！'
+    assert_text '喜びを 投稿する！'
   end
 
   test 'create product' do
