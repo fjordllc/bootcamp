@@ -37,7 +37,13 @@ steps:
       - name: db
         path: /cloudsql
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args: 'sql databases delete bootcamp_staging --instance=bootcamp --quiet'
+    args:
+      - sql
+      - databases
+      - delete
+      - bootcamp_staging
+      - '--instance=bootcamp'
+      - '--quiet'
     id: DeleteDB
     waitFor:
       - Push
@@ -46,7 +52,13 @@ steps:
       - name: db
         path: /cloudsql
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    args: 'sql databases create bootcamp_staging --instance=bootcamp --quiet'
+    args:
+      - sql
+      - databases
+      - create
+      - bootcamp_staging
+      - '--instance=bootcamp'
+      - '--quiet'
     id: CreateDB
     waitFor:
       - DeleteDB
