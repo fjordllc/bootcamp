@@ -12,35 +12,23 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new(target: 'students')
 
     if params[:id]
-      announcement = Announcement.find(params[:id])
-      @announcement.title       = announcement.title
-      @announcement.description = announcement.description
-      @announcement.target = announcement.target
-      flash.now[:notice] = 'お知らせをコピーしました。'
+      copy_announcement(params[:id])
     elsif params[:page_id]
       page = Page.find(params[:page_id])
-      template = MessageTemplate.load('page_announcements.yml', params: { page: page })
-      @announcement.title       = template['title']
-      @announcement.description = template['description']
+      copy_template_by_resource('page_announcements.yml', page: page)
     elsif params[:event_id]
       event = Event.find(params[:event_id])
-      template = MessageTemplate.load('event_announcements.yml', params: { event: event })
-      @announcement.title       = template['title']
-      @announcement.description = template['description']
+      copy_template_by_resource('event_announcements.yml', event: event)
     elsif params[:regular_event_id]
       regular_event = RegularEvent.find(params[:regular_event_id])
       organizers = regular_event.organizers.map { |organizer| "@#{organizer.login_name}" }.join("\n    - ")
       holding_cycles = ActiveDecorator::Decorator.instance.decorate(regular_event).holding_cycles
       hold_national_holiday = "(祝日#{regular_event.hold_national_holiday ? 'も開催' : 'は休み'})"
-      template = MessageTemplate.load('regular_event_announcements.yml',
-                                      params: {
-                                        regular_event: regular_event,
-                                        organizers: organizers,
-                                        holding_cycles: holding_cycles,
-                                        hold_national_holiday: hold_national_holiday
-                                      })
-      @announcement.title       = template['title']
-      @announcement.description = template['description']
+      copy_template_by_resource('regular_event_announcements.yml',
+                                regular_event: regular_event,
+                                organizers: organizers,
+                                holding_cycles: holding_cycles,
+                                hold_national_holiday: hold_national_holiday)
     end
   end
 
@@ -116,5 +104,19 @@ class AnnouncementsController < ApplicationController
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
                                     target: params['announcement']['target'])
+  end
+
+  def copy_announcement(announcement_id)
+    announcement = Announcement.find(announcement_id)
+    @announcement.title       = announcement.title
+    @announcement.description = announcement.description
+    @announcement.target = announcement.target
+    flash.now[:notice] = 'お知らせをコピーしました。'
+  end
+
+  def copy_template_by_resource(template_file, params = {})
+    template = MessageTemplate.load(template_file, params: params)
+    @announcement.title       = template['title']
+    @announcement.description = template['description']
   end
 end
