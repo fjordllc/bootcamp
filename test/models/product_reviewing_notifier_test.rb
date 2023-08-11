@@ -23,4 +23,12 @@ class ProductReviewingNotifierTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'does not notify when checker_id is nil' do
+    product = products(:product72)
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
+      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
+    end
+  end
 end
