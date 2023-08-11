@@ -11,7 +11,7 @@ product2: # チェック済
   created_at: <%= 1.day.ago %>
   updated_at: <%= 1.day.ago %>
   published_at: <%= 1.day.ago %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:komagata) %>"
+  checker_id: '<%= ActiveRecord::FixtureSet.identify(:komagata) %>'
 
 product3: # チェック済, 他者のコメントあり
   practice: practice2
@@ -117,7 +117,7 @@ product15:
   created_at: <%= 6.day.ago %>
   updated_at: <%= 6.day.ago %>
   published_at: <%= 6.day.ago %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+  checker_id: '<%= ActiveRecord::FixtureSet.identify(:machida) %>'
 
 product16:
   practice: practice2
@@ -379,7 +379,7 @@ product64:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
   published_at: <%= Time.current %>
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:machida) %>"
+  checker_id: '<%= ActiveRecord::FixtureSet.identify(:machida) %>'
 
 product65:
   practice: practice6
@@ -427,3 +427,9 @@ product71:
   created_at: <%= 5.day.ago + 8.hours %>
   updated_at: <%= 5.day.ago + 8.hours %>
   published_at: <%= 5.day.ago + 8.hours %>
+
+product72:
+  practice: practice6
+  user: kimuramitai
+  body: checker_idがnilの提出物70です
+  checker_id: nil
