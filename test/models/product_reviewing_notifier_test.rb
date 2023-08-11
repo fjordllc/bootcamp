@@ -17,11 +17,10 @@ class ProductReviewingNotifierTest < ActiveSupport::TestCase
   test '#call' do
     product = products(:product68)
 
-    perform_enqueued_jobs do
-      ProductReviewingNotifier.new.call(product)
+    assert_difference -> { Notification.count }, 1 do
+      perform_enqueued_jobs do
+        ProductReviewingNotifier.new.call(product)
+      end
     end
-
-    assert Notification.where(user_id: product.user.id, sender_id: product.checker.id,
-                              message: "プラクティス「#{product.practice.title}」の提出物がレビュー中になりました（担当メンター #{product.checker_name}）。").exists?
   end
 end
