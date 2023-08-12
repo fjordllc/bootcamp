@@ -15,7 +15,7 @@ class ProductReviewingNotifierTest < ActiveSupport::TestCase
   end
 
   test '#call' do
-    product = products(:product68)
+    product = products(:product73)
 
     assert_difference -> { Notification.count }, 1 do
       perform_enqueued_jobs do
