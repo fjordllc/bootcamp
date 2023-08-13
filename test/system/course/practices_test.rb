@@ -41,4 +41,12 @@ class Course::PracticesTest < ApplicationSystemTestCase
       assert_text 'OS X Mountain Lionをクリーンインストールする'
     end
   end
+
+  test 'the inactive class has been removed in practices' do
+    visit_with_auth course_practices_path(courses(:course1).id), 'hatsuno'
+    within('.category-practices-item', match: :first) do
+      assert_selector '.a-user-icons__item-icon.a-user-icon'
+      assert_no_selector '.a-user-icons__item-icon.a-user-icon.inactive'
+    end
+  end
 end
