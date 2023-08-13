@@ -429,19 +429,19 @@ product71:
   published_at: <%= 5.day.ago + 8.hours %>
 
 product72:
-  practice: practice6
+  practice: practice7
   user: kimuramitai
-  body: checker_idがnilの提出物72です
-  checker_id: nil
+  body: 未確認だけど、担当になっている提出物73です。
+  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
   created_at: <%= 2.day.ago %>
   updated_at: <%= 2.day.ago%>
   published_at: <%= 2.day.ago%>
 
 product73:
-  practice: practice7
+  practice: practice6
   user: kimuramitai
-  body: 未確認だけど、担当になっている提出物73です。
-  checker_id: "<%= ActiveRecord::FixtureSet.identify(:'long-id-mentor') %>"
+  body: checker_idがnilの提出物72です
+  checker_id: nil
   created_at: <%= 2.day.ago %>
   updated_at: <%= 2.day.ago%>
   published_at: <%= 2.day.ago%>
