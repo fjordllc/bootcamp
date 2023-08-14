@@ -214,7 +214,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'redirect to /announcements/new when create a regular event with announcement checkbox checked' do
     visit_with_auth new_regular_event_path, 'komagata'
     within 'form[name=regular_event]' do
-      fill_in 'regular_event[title]', with: 'チェリー本輪読会'
+      fill_in 'regular_event[title]', with: 'お知らせ作成チェックボックス確認用イベント'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
       within('.regular-event-repeat-rule') do
@@ -223,20 +223,21 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
-      fill_in 'regular_event[description]', with: '予習不要です'
+      fill_in 'regular_event[description]', with: 'お知らせ作成画面に遷移します'
       check '定期イベント公開のお知らせを書く', allow_label_click: true
       assert_difference 'RegularEvent.count', 1 do
         click_button '作成'
       end
     end
     assert_text '定期イベントを作成しました。'
-    assert has_field?('announcement[title]', with: 'チェリー本輪読会を開催します🎉')
+    assert has_field?('announcement[title]', with: 'お知らせ作成チェックボックス確認用イベントを開催します🎉')
+    created_event = RegularEvent.find_by(title: 'お知らせ作成チェックボックス確認用イベント', description: 'お知らせ作成画面に遷移します')
     within('.markdown-form__preview') do
       assert_text '毎週月曜日 (祝日は休み)'
       assert_text '19:00 〜 20:00'
       assert_text '@adminonly'
-      assert_text '予習不要です'
-      assert_selector 'a[href*="regular_events"]'
+      assert_text 'お知らせ作成画面に遷移します'
+      assert_selector "a[href*='regular_events/#{created_event.id}']"
     end
   end
 
