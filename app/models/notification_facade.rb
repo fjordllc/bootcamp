@@ -12,11 +12,6 @@ class NotificationFacade
     ).came_comment.deliver_later(wait: 5)
   end
 
-  def self.product_update(product, receiver)
-    ActivityNotifier.with(product: product, receiver: receiver).product_update.notify_now
-    return if receiver.retired?
-  end
-
   def self.trainee_report(report, receiver)
     ActivityNotifier.with(report: report, receiver: receiver).trainee_report.notify_now
     return unless receiver.mail_notification? && !receiver.retired?

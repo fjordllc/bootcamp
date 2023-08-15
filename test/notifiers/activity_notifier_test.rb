@@ -144,4 +144,16 @@ class ActivityNotifierTest < ActiveSupport::TestCase
       notification.notify_later
     end
   end
+
+  test '#product_update' do
+    notification = ActivityNotifier.with(product: products(:product1), receiver: users(:komagata)).product_update
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      notification.notify_now
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      notification.notify_later
+    end
+  end
 end

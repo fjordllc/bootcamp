@@ -6,6 +6,9 @@ class ProductUpdateNotifier
     current_user = payload[:current_user]
     return if product.wip? || product.checker_id.nil? || !current_user.nil? && current_user.admin_or_mentor?
 
-    NotificationFacade.product_update(product, product.checker)
+    ActivityDelivery.with(
+      product:,
+      receiver: product.checker
+    ).notify(:product_update)
   end
 end
