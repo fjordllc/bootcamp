@@ -99,7 +99,7 @@ ja:
         subscription_id: サブスクリプションID
         country_code: 国
         subdivision_code: 都道府県・州
-        not_retire_after_long_hibernation: 休会六ヶ月後に自動退会しない
+        not_auto_retire: 休会六ヶ月後に自動退会しない
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL

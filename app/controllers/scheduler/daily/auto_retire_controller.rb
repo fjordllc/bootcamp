@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class Scheduler::Daily::RetirementAfterLongHibernationController < SchedulerController
+class Scheduler::Daily::AutoRetireController < SchedulerController
   def show
-    retire_after_long_hibernation
+    auto_retire
     head :ok
   end
 
   private
 
-  def retire_after_long_hibernation
-    User.unretired.hibernated_for(6.months).retire_after_long_hibernation.each do |user|
+  def auto_retire
+    User.unretired.hibernated_for(6.months).auto_retire.each do |user|
       user.retire_reason = '（休会後六ヶ月経過したため自動退会）'
       user.retired_on = Date.current
       user.hibernated_at = nil
@@ -17,7 +17,7 @@ class Scheduler::Daily::RetirementAfterLongHibernationController < SchedulerCont
 
       Newspaper.publish(:retirement_create, user)
       begin
-        UserMailer.retire_after_long_hibernation(user).deliver_now
+        UserMailer.auto_retire(user).deliver_now
       rescue Postmark::InactiveRecipientError => e
         logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
       end
