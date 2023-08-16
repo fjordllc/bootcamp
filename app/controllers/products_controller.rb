@@ -118,10 +118,6 @@ class ProductsController < ApplicationController
     @product.wip = params[:commit] == 'WIP'
   end
 
-  def redirect_url(product)
-    product.wip? ? edit_product_url(product) : product_url(product)
-  end
-
   def notice_message(product, action_name)
     return '提出物をWIPとして保存しました。' if product.wip?
 

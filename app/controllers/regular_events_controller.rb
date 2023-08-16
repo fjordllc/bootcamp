@@ -83,10 +83,6 @@ class RegularEventsController < ApplicationController
     @regular_event.update(published_at: Time.current)
   end
 
-  def redirect_url(regular_event)
-    regular_event.wip? ? edit_regular_event_url(regular_event) : regular_event_url(regular_event)
-  end
-
   def notice_message(regular_event)
     case params[:action]
     when 'create'

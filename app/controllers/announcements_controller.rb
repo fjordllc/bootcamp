@@ -77,10 +77,6 @@ class AnnouncementsController < ApplicationController
     @announcement.wip = (params[:commit] == 'WIP')
   end
 
-  def redirect_url(announcement)
-    announcement.wip? ? edit_announcement_url(announcement) : announcement_url(announcement)
-  end
-
   def notice_message(announcement)
     case params[:action]
     when 'create'

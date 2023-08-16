@@ -24,7 +24,8 @@ class EventsController < ApplicationController
     if @event.save
       update_published_at
       Newspaper.publish(:event_create, @event)
-      redirect_to redirect_url(@event), notice: notice_message(@event)
+      url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : redirect_url(@event)
+      redirect_to url, notice: notice_message(@event)
     else
       render :new
     end
@@ -37,7 +38,8 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       update_published_at
       @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
-      redirect_to redirect_url(@event), notice: notice_message(@event)
+      url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : redirect_url(@event)
+      redirect_to url, notice: notice_message(@event)
     else
       render :edit
     end
