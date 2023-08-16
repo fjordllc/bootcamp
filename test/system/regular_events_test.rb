@@ -259,7 +259,6 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントをWIPとして保存しました。'
-    click_link '内容修正'
     check '定期イベント公開のお知らせを書く', allow_label_click: true
     click_button '内容変更'
     assert_text '定期イベントを更新しました。'
