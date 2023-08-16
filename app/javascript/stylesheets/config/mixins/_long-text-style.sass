@@ -171,7 +171,7 @@
     margin-bottom: 1.5em
   li
     +text-block(1em 1.86)
-    margin-block: .375em
+    margin-block: .5em
     &:first-child
       margin-top: 0
     &:last-child
@@ -254,9 +254,16 @@
     *:last-child
       margin-bottom: 0
 
-  div
+  div,
+  article,
+  section,
+  aside
     position: relative
     +list
+
+  textarea
+    width: 100%
+    min-height: 5rem
 
   .message
     padding: 1em 1.25em 1em 2.75em

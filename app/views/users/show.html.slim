@@ -16,29 +16,29 @@
     .columns
       .row
         .col-xs-12.col-lg-6.col-xxl-6
+          - if admin_login? && @user.retired_on? && @user.github_collaborator?
+            .a-card__alert.is-only-mentor
+              = link_to edit_admin_user_path(anchor: 'external-services') do
+                | 外部サービスの設定を変更してください。
+          header.user-data__header
+            .user-data__main
+              = render 'users/profile', user: @user
           .a-card.is-user
-            - if admin_login? && @user.retired_on? && @user.github_collaborator?
-              .a-card__alert.is-only-mentor
-                = link_to edit_admin_user_path(anchor: 'external-services') do
-                  | 外部サービスの設定を変更してください。
             .user-data
-              header.user-data__header
-                .user-data__main
-                  = render 'users/profile', user: @user
-                .user-data__sub
-                  - if admin_or_mentor_login? && @user.hibernated?
-                    = render 'users/hibernation_info', user: @user
-                  - if admin_or_mentor_login? && @user.retired?
-                    = render 'users/retire_info', user: @user
-                  - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
-                    = render 'users/user_secret_attributes', user: @user
-                  = render 'users/metas', user: @user
+              .user-data__sub
+                - if admin_or_mentor_login? && @user.hibernated?
+                  = render 'users/hibernation_info', user: @user
+                - if admin_or_mentor_login? && @user.retired?
+                  = render 'users/retire_info', user: @user
+                - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
+                  = render 'users/user_secret_attributes', user: @user
+                = render 'users/metas', user: @user
               .user-data__description
                 = auto_link simple_format h @user.description
               .user-data__tags
                 - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s, tagsParamName: 'user[tag_list]', tagsInputId: 'user_tag_list', tagsType: 'User', tagsTypeId: @user.id.to_s, tagsEditable: @user.id == current_user.id }
                 = react_component('Tags/Tags', tags_props)
-            hr.a-border
+            hr.a-border-tint
             footer.card-footer
               .card-main-actions
                 ul.card-main-actions__items

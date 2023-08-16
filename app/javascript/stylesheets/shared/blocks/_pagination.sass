@@ -20,24 +20,23 @@
 
 .pagination__item
   &.is-disabled
-    opacity: .4
     pointer-events: none
+    .pagination__item-link
+      color: var(--placeholder-text)
 
 .pagination__item-link
   +size(2.5rem)
   border-radius: 50%
   outline: none
   +text-block(.875rem 1)
-  color: var(--muted-text)
+  color: var(--semi-muted-text)
   +flex-link
   justify-content: center
   align-items: center
   transition: all .2s ease-in
   &:hover
-    background-color: rgba(black, .1)
-  &.is-active
-    background-color: var(--main)
-    color: var(--reversal-text)
+    background-color: var(--background-semi-shade)
   .pagination__item.is-active &
-    background-color: var(--main)
-    color: var(--reversal-text)
+    background-color: var(--base)
+    border: solid 1px var(--border-shade)
+    color: var(--default-text)

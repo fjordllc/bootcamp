@@ -85,7 +85,7 @@
       :reactionable='question',
       :currentUser='currentUser',
       :reactionableId='`Question_${question.id}`')
-    hr.a-border
+    hr.a-border-tint
     footer.card-footer(
       v-if='currentUser.id === question.user.id || isRole("mentor")')
       .card-main-actions
