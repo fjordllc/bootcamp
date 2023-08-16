@@ -1,7 +1,9 @@
+- not_held = regular_event.not_held?(holding_date)
+
 .card-list-item
   .card-list-item__inner
     .card-list-item__label class="is-#{regular_event.category}"
-      = t("activerecord.enums.regular_event.category.#{regular_event.category}")
+      = not_held ? '休み' : t("activerecord.enums.regular_event.category.#{regular_event.category}")
     .card-list-item__rows
       .card-list-item__row
         header.card-list-item-title
@@ -11,8 +13,12 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              time.a-meta(datetime="" pubdate='pubdate')
-                span.a-meta__label
-                  | 開催日時
-                span.a-meta__value
-                  = "#{l(holding_date, format: :long)} #{l(regular_event.start_at, format: :time_only)}"
+              - if not_held
+                span
+                  = "#{l(holding_date, format: :md)}は開催しません"
+              - else
+                time.a-meta(datetime="" pubdate='pubdate')
+                  span.a-meta__label
+                    | 開催日時
+                  span.a-meta__value
+                    = "#{l(holding_date, format: :long)} #{l(regular_event.start_at, format: :time_only)}"
