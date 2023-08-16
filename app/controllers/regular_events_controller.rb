@@ -24,7 +24,7 @@ class RegularEventsController < ApplicationController
       update_publised_at
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
-      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : redirect_url(@regular_event)
       redirect_to path, notice: notice_message(@regular_event)
     else
       render :new
@@ -39,7 +39,7 @@ class RegularEventsController < ApplicationController
       update_publised_at
       Newspaper.publish(:regular_event_update, @regular_event)
       set_all_user_participants_and_watchers
-      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : redirect_url(@regular_event)
       redirect_to path, notice: notice_message(@regular_event)
     else
       render :edit
@@ -81,6 +81,10 @@ class RegularEventsController < ApplicationController
     return if @regular_event.wip || @regular_event.published_at?
 
     @regular_event.update(published_at: Time.current)
+  end
+
+  def redirect_url(regular_event)
+    regular_event.wip? ? edit_regular_event_url(regular_event) : regular_event_url(regular_event)
   end
 
   def notice_message(regular_event)
