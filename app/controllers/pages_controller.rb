@@ -87,10 +87,6 @@ class PagesController < ApplicationController
     @page.wip = params[:commit] == 'WIP'
   end
 
-  def redirect_url(page)
-    page.wip? ? edit_page_url(page) : page_url(page)
-  end
-
   def notice_message(page, action_name)
     return 'ドキュメントをWIPとして保存しました。' if page.wip?
 

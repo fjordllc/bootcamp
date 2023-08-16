@@ -50,6 +50,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
   end
 
+  def redirect_url(resource)
+    resource.wip? ? polymorphic_url(resource, action: :edit) : polymorphic_url(resource)
+  end
+
   protected
 
   def staging?
