@@ -15,6 +15,6 @@ module TagHelper
   private
 
   def qualified_page_name
-    "#{formatted_controller_path(controller_path)}-#{controller.action_name}"
+    "#{qualified_controller_name}-#{controller.action_name}"
   end
 end
