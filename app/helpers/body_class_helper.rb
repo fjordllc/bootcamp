@@ -35,12 +35,12 @@ module BodyClassHelper
   end
 
   def admin_page?
-    controller.controller_path.include?('admin/')
+    controller_path.include?('admin/')
   end
 
   def body_class(options = {})
     extra_body_classes_symbol = options[:extra_body_classes_symbol] || :extra_body_classes
-    controller_class = "#{qualified_controller_name} #{qualified_controller_name}-#{controller.action_name}"
+    controller_class = "#{qualified_controller_name} #{qualified_controller_name}-#{action_name}"
     basic_body_class = "#{controller_class} is-#{page_category} is-#{page_area} is-#{Rails.env} #{adviser_mode}"
 
     if content_for?(extra_body_classes_symbol)
