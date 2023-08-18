@@ -36,10 +36,10 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'can see tweet button when current_user has completed a practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}", 'kimura'
-    assert_text '修了 Tweet する'
+    assert_text '修了 投稿する'
 
-    find(:label, '修了 Tweet する').click
-    assert_text '喜びを Tweet する！'
+    find(:label, '修了 投稿する').click
+    assert_text '喜びを 投稿する！'
   end
 
   test "only show when user isn't admin " do

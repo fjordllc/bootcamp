@@ -1,6 +1,5 @@
 <template lang="pug">
 .card-footer
-  hr.a-border
   .card-main-actions
     ul.card-main-actions__items
       li.card-main-actions__item

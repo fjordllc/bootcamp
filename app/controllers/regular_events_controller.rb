@@ -21,9 +21,11 @@ class RegularEventsController < ApplicationController
     @regular_event.user = current_user
     set_wip
     if @regular_event.save
+      update_publised_at
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      redirect_to path, notice: notice_message(@regular_event)
     else
       render :new
     end
@@ -34,9 +36,11 @@ class RegularEventsController < ApplicationController
   def update
     set_wip
     if @regular_event.update(regular_event_params)
+      update_publised_at
       Newspaper.publish(:regular_event_update, @regular_event)
       set_all_user_participants_and_watchers
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      path = @regular_event.wants_announcement? && !@regular_event.wip? ? new_announcement_path(regular_event_id: @regular_event.id) : @regular_event
+      redirect_to path, notice: notice_message(@regular_event)
     else
       render :edit
     end
@@ -59,6 +63,7 @@ class RegularEventsController < ApplicationController
       :end_at,
       :category,
       :all,
+      :wants_announcement,
       user_ids: [],
       regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
@@ -70,6 +75,12 @@ class RegularEventsController < ApplicationController
 
   def set_wip
     @regular_event.wip = (params[:commit] == 'WIP')
+  end
+
+  def update_publised_at
+    return if @regular_event.wip || @regular_event.published_at?
+
+    @regular_event.update(published_at: Time.current)
   end
 
   def notice_message(regular_event)

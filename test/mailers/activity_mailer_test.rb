@@ -1023,4 +1023,22 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal "[FBC] #{receiver.login_name}さんの質問【 #{question.title} 】のベストアンサーがまだ選ばれていません。", email.subject
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">#{receiver.login_name}さんの質問へ</a>}, email.body.to_s)
   end
+
+  test 'product_update' do
+    product = products(:product1)
+    receiver = users(:komagata)
+
+    ActivityMailer.product_update(
+      product: product,
+      receiver: receiver
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 17, link: "/products/#{product.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] mentormentaroさんが「OS X Mountain Lionをクリーンインストールする」の提出物を更新しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">提出物へ</a>}, email.body.to_s)
+  end
 end

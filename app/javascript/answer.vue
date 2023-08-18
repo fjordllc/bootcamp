@@ -49,7 +49,7 @@
           v-bind:currentUser='currentUser',
           v-bind:questionUser='questionUser',
           v-bind:reactionableId='reactionableId')
-      hr.a-border
+      hr.a-border-tint
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
