@@ -984,18 +984,18 @@ nodiscordprofile: #Discord情報が未登録のユーザー
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:12"
 
-twitterinvalid: #Twitter IDが不正なユーザー
+twitterinvalid: #X（Twitter） IDが不正なユーザー
   login_name: twitterinvalid
   email: twitterinvalid@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: ユーザーです Twitter IDが不正
+  name: ユーザーです X（Twitter） IDが不正
   name_kana: ツイッター フセイ
   github_account: twitterinvalid
   twitter_account: twit-ter
   facebook_url: https://www.facebook.com/fjordllc/twitterinvalid
   blog_url: http://twitterinvalid.org
-  description: "Twitter IDが不正なユーザーです"
+  description: "X（Twitter） IDが不正なユーザーです"
   course: course1
   job: office_worker
   experience: rails

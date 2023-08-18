@@ -56,4 +56,11 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.with(sender: sender, receiver: receiver).graduated
   end
+
+  def product_update
+    product = Product.find(ActiveRecord::FixtureSet.identify(:product1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    NotificationMailer.with(product: product, receiver: receiver).product_update
+  end
 end
