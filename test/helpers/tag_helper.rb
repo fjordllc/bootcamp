@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class TagHelperTest < ActionView::TestCase
+  include BodyClassHelper
   test 'current_link' do
     def controller_path
       'practices'
