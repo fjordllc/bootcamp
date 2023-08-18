@@ -2,7 +2,7 @@
 
 module BodyClassHelper
   def qualified_controller_name
-    controller.controller_path.tr('/', '-')
+    controller_path.tr('/', '-')
   end
 
   def page_category
@@ -23,7 +23,7 @@ module BodyClassHelper
   end
 
   def page_area
-    if controller.controller_path.include?('admin/')
+    if controller_path.include?('admin/')
       'admin-page'
     elsif qualified_controller_name.include?('welcome') ||
           (qualified_controller_name.include?('articles') && (page_category == 'index-page' ||
