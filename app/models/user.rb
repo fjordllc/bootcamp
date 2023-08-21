@@ -750,6 +750,12 @@ class User < ApplicationRecord
     )
   end
 
+  def become_watcher(watchable)
+    return nil if watchable.watched_by?(self)
+
+    Watch.create!(user: self, watchable: watchable)
+  end
+
   private
 
   def password_required?
