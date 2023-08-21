@@ -750,10 +750,8 @@ class User < ApplicationRecord
     )
   end
 
-  def become_watcher(watchable)
-    return nil if watchable.watched_by?(self)
-
-    Watch.create!(user: self, watchable: watchable)
+  def become_watcher!(watchable)
+    watches.find_or_create_by!(watchable:)
   end
 
   private
