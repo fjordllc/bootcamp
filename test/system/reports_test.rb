@@ -664,9 +664,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     visit_with_auth reports_path, 'kimura'
     within('.card-list-item__user', match: :first) do
-      assert_selector('
-        span.a-user-role.is-mentor
-      ')
+      assert_selector('span.a-user-role.is-mentor')
     end
   end
 
