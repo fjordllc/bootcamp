@@ -241,12 +241,12 @@ class PagesTest < ApplicationSystemTestCase
 
     visit edit_page_path(pages(:page1))
     click_button '内容を更新'
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました'
     assert_text 'Watch中'
 
     visit edit_page_path(pages(:page2))
     click_button 'WIP'
-    assert_text 'ページをWIPとして保存しました。'
+    assert_text 'ドキュメントをWIPとして保存しました。'
     assert_text 'Watch中'
   end
 
