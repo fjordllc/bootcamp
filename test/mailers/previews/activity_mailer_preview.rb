@@ -160,4 +160,11 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(question: question, receiver: receiver).no_correct_answer
   end
+
+  def product_reviewing
+    product = Product.find(ActiveRecord::FixtureSet.identify(:product72))
+    receiver = User.find(product.user_id)
+
+    ActivityMailer.with(product:, receiver: receiver).product_reviewing
+  end
 end
