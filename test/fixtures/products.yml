@@ -440,7 +440,7 @@ product72:
 product73:
   practice: practice6
   user: kimuramitai
-  body: checker_idがnilの提出物72です
+  body: checker_idがnilの提出物73です
   checker_id: nil
   created_at: <%= 2.day.ago %>
   updated_at: <%= 2.day.ago%>
