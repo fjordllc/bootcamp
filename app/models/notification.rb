@@ -39,7 +39,8 @@ class Notification < ApplicationRecord
     signed_up: 20,
     regular_event_updated: 21,
     no_correct_answer: 22,
-    comebacked: 23
+    comebacked: 23,
+    product_reviewing: 24
   }
 
   scope :unreads, -> { where(read: false) }
