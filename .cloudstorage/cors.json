@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://bootcamp.fjord.jp"],
+    "method": ["GET"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 3600
+  }
+]
