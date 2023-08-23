@@ -367,4 +367,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def product_reviewing(params = {})
+    params.merge!(@params)
+    product = params[:product]
+    receiver = params[:receiver]
+
+    notification(
+      body: "プラクティス#{product.title}がレビュー中になりました（担当メンター #{product.checker_name}）。",
+      kind: :product_reviewing,
+      receiver: receiver,
+      sender: product.checker,
+      link: Rails.application.routes.url_helpers.polymorphic_path(product),
+      read: false
+    )
+  end
 end

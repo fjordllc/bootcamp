@@ -81,4 +81,18 @@ class Notification::ProductsTest < ApplicationSystemTestCase
       assert_text "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。"
     end
   end
+
+  test 'send the notification of product is reviewing' do
+    product = products(:product8)
+
+    visit_with_auth "/products/#{product.id}", 'komagata'
+    click_button '担当する'
+    assert_text '担当になりました。'
+
+    visit_with_auth '/notifications', 'kimura'
+
+    within first('.card-list-item.is-unread') do
+      assert_text 'プラクティス「PC性能の見方を知る」の提出物がレビュー中になりました（担当メンター komagata）'
+    end
+  end
 end
