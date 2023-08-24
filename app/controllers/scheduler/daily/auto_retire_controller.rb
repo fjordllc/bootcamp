@@ -29,7 +29,7 @@ class Scheduler::Daily::AutoRetireController < SchedulerController
   end
 
   def destroy_subscription(user)
-    Subscription.new.destroy(user.subscription_id) if user.subscription_id
+    Subscription.new.destroy(user.subscription_id) if user.subscription_id.present?
   end
 
   def notify_to_admins(user)
