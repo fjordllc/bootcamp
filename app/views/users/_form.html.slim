@@ -83,7 +83,7 @@
             .form-item-block__title
               | 自動退会設定
           .form-item-block__item
-              = render 'users/form/not_auto_retire', f: f
+              = render 'users/form/auto_retire', f: f, user: user
 
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
