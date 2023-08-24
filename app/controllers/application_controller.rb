@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
+  include Redirection
   helper_method :staging?
   protect_from_forgery with: :exception
   before_action :basic_auth, if: :staging?
@@ -48,10 +49,6 @@ class ApplicationController < ActionController::Base
 
   def require_subscription
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
-  end
-
-  def redirect_url(resource)
-    resource.wip? ? polymorphic_url(resource, action: :edit) : polymorphic_url(resource)
   end
 
   protected
