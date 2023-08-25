@@ -1,5 +1,0 @@
-= render '/notification_mailer/notification_mailer_template',
-  title: "プラクティス#{@product.title}がレビュー中になりました。",
-  link_url: @link_url,
-  link_text: '提出物へ' do
-  = md2html("プラクティス#{@product.title}がレビュー中になりました（担当メンター #{@product.checker_name}）。")
