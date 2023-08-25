@@ -65,6 +65,4 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:question_update, question_notifier)
 
   Newspaper.subscribe(:product_update, ProductUpdateNotifier.new)
-
-  Newspaper.subscribe(:product_reviewing, ProductReviewingNotifier.new)
 end
