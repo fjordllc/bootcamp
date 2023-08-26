@@ -24,6 +24,18 @@ class ExternalEntryTest < ActiveSupport::TestCase
     end
   end
 
+  test '.save_rdf_feed' do
+    user = users(:hatsuno)
+    rdf_item = Minitest::Mock.new
+    rdf_item.expect(:link, 'https://test.com/index.rdf')
+    rdf_item.expect(:title, 'test title')
+    rdf_item.expect(:link, 'https://test.com/index.rdf')
+    rdf_item.expect(:description, 'article description')
+    rdf_item.expect(:dc_date, Time.zone.local(2022, 1, 1, 0, 0, 0))
+
+    assert ExternalEntry.save_rdf_feed(user, rdf_item)
+  end
+
   test '.save_rss_feed' do
     user = users(:hatsuno)
     rss_item = Minitest::Mock.new
@@ -60,21 +72,25 @@ class ExternalEntryTest < ActiveSupport::TestCase
   end
 
   test '.fetch_and_save_rss_feeds' do
-    users = [users(:kimura), users(:hatsuno)]
+    users = [users(:kimura), users(:hatsuno), users(:komagata)]
 
-    assert_difference 'ExternalEntry.count', 26 do
-      VCR.use_cassette 'external_entry/fetch2', vcr_options do
-        VCR.use_cassette 'external_entry/fetch' do
-          ExternalEntry.fetch_and_save_rss_feeds(users)
+    assert_difference 'ExternalEntry.count', 56 do
+      VCR.use_cassette 'external_entry/fetch3', vcr_options do
+        VCR.use_cassette 'external_entry/fetch2', vcr_options do
+          VCR.use_cassette 'external_entry/fetch' do
+            ExternalEntry.fetch_and_save_rss_feeds(users)
+          end
         end
       end
     end
 
     assert_no_difference 'ExternalEntry.count' do
       # 同じ記事は重複して保存しない
-      VCR.use_cassette 'external_entry/fetch2', vcr_options do
-        VCR.use_cassette 'external_entry/fetch' do
-          ExternalEntry.fetch_and_save_rss_feeds(users)
+      VCR.use_cassette 'external_entry/fetch3', vcr_options do
+        VCR.use_cassette 'external_entry/fetch2', vcr_options do
+          VCR.use_cassette 'external_entry/fetch' do
+            ExternalEntry.fetch_and_save_rss_feeds(users)
+          end
         end
       end
     end
