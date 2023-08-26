@@ -25,6 +25,7 @@ class ExternalEntry < ApplicationRecord
             case item.class.name
             when 'RSS::Atom::Feed::Entry' then ExternalEntry.save_atom_feed(user, item)
             when 'RSS::Rss::Channel::Item' then ExternalEntry.save_rss_feed(user, item)
+            when 'RSS::RDF::Item' then ExternalEntry.save_rdf_feed(user, item)
             end
           end
         end
@@ -42,6 +43,19 @@ class ExternalEntry < ApplicationRecord
         logger.warn("[RSS Feed] #{feed_url}: #{e.message}")
         nil
       end
+    end
+
+    def save_rdf_feed(user, rdf_item)
+      return if ExternalEntry.find_by(url: rdf_item.link)
+
+      ExternalEntry.create(
+        title: rdf_item.title,
+        url: rdf_item.link,
+        summary: rdf_item.description,
+        thumbnail_image_url: nil,
+        published_at: rdf_item.dc_date,
+        user:
+      )
     end
 
     def save_rss_feed(user, rss_item)
