@@ -23,5 +23,15 @@ class RedirectionTest < ActiveSupport::TestCase
 
     url = "http://test.host/products/#{wip_product.id}/edit"
     assert_equal url, @controller.redirect_url(wip_product)
+
+    product = Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice7),
+      checker_id: nil
+    )
+
+    url = "http://test.host/products/#{product.id}"
+    assert_equal url, @controller.redirect_url(product)
   end
 end
