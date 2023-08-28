@@ -3,13 +3,13 @@
 require 'test_helper'
 
 class RedirectionTest < ActiveSupport::TestCase
-  include Rails.application.routes.url_helpers
-
   class ExampleController < ApplicationController
+    include Redirection
   end
 
   def setup
     @controller = ExampleController.new
+    @controller.request = ActionDispatch::TestRequest.create
   end
 
   test '#redirect_url' do
@@ -20,6 +20,8 @@ class RedirectionTest < ActiveSupport::TestCase
       checker_id: nil,
       wip: true
     )
-    assert_equal edit_product_url(wip_product), @controller.redirect_url(wip_product)
+
+    url = "http://test.host/products/#{wip_product.id}/edit"
+    assert_equal url, @controller.redirect_url(wip_product)
   end
 end
