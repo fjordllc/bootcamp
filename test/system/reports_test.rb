@@ -648,6 +648,26 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector('.card-list-item__user')
   end
 
+  test 'user role class is displayed correctly in reports' do
+    visit_with_auth '/reports/new', 'mentormentaro'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+
+    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+    click_button '提出'
+
+    visit_with_auth reports_path, 'kimura'
+    within('.card-list-item__user', match: :first) do
+      assert_selector('span.a-user-role.is-mentor')
+    end
+  end
+
   test 'show edit button when mentor is logged in and menter mode is on in report detail page' do
     visit_with_auth report_path(reports(:report1)), 'mentormentaro'
     assert_text '内容修正'
