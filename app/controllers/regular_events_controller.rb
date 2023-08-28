@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController
+  include Redirection
   before_action :set_regular_event, only: %i[show edit update destroy]
 
   def index; end

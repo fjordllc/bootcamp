@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AnnouncementsController < ApplicationController
+  include Redirection
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
