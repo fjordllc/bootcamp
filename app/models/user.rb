@@ -199,10 +199,17 @@ class User < ApplicationRecord
   end
 
   with_options if: -> { validation_context != :retirement } do
+    validates :discord_account,
+              length: { maximum: 32, minimum: 2 },
+              allow_blank: true,
+              format: {
+                with: /\A(?!.*\.\.)[a-z0-9_.]+\z/,
+                message: 'はアンダースコア（_）とピリオド（.）以外の特殊文字を使用できません ユーザー名にピリオド( . )を2つ連続して使用することはできません'
+              }
     validates :twitter_account,
               length: { maximum: 15 },
+              allow_blank: true,
               format: {
-                allow_blank: true,
                 with: /\A\w+\z/,
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
