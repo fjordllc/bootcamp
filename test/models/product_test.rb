@@ -159,4 +159,44 @@ class ProductTest < ActiveSupport::TestCase
     product_id_list = Product.self_assigned_no_replied_products(mentor.id).pluck(:id)
     assert_not_includes product_id_list, no_replied_wip_product.id
   end
+
+  test '#notification_type' do
+    product = Product.create!(
+      body: 'first saved as WIP',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil,
+      wip: true
+    )
+
+    product.update!(body: 'product is submitted.', wip: false, published_at: Time.current)
+    assert_equal :submitted, product.notification_type
+
+    product.update!(body: 'product is saved as WIP after submission.', wip: true)
+
+    product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
+    assert_equal :product_update, product.notification_type
+  end
+
+  test '#updated_after_submission?' do
+    product = Product.create!(
+      body: 'product is submitted.',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: nil
+    )
+    assert_not product.updated_after_submission?
+    product.update!(body: 'product is updated.')
+    assert product.updated_after_submission?
+
+    wip_product = Product.create!(
+      body: 'first saved as wip.',
+      user: users(:kimura),
+      practice: practices(:practice7),
+      checker_id: nil,
+      wip: true
+    )
+    wip_product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
+    assert_not wip_product.updated_after_submission?
+  end
 end

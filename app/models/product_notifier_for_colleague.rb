@@ -25,7 +25,7 @@ class ProductNotifierForColleague
 
   def send_notification(product:, receivers:)
     receivers.each do |receiver|
-      ActivityDelivery.with(product: product, receiver: receiver).notify(:submitted)
+      ActivityDelivery.with(product: product, receiver: receiver).notify(product.notification_type)
     end
   end
 end
