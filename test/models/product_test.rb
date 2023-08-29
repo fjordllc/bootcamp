@@ -66,7 +66,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal category, product.category(course)
   end
 
-  test 'other_checker_exists' do
+  test '#other_checker_exists' do
     checker = users(:komagata)
     other_checker = users(:machida)
     product = Product.create!(
@@ -78,7 +78,7 @@ class ProductTest < ActiveSupport::TestCase
     assert product.other_checker_exists?(other_checker.id)
   end
 
-  test 'other_checker_not_exists' do
+  test '#other_checker_exists return false when other checker not exists' do
     other_checker = users(:machida)
     product = Product.create!(
       body: 'test',
@@ -89,7 +89,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.other_checker_exists?(other_checker.id)
   end
 
-  test 'other_checker_not_exists_if_self' do
+  test '#other_checker_exists return false when checker is oneself' do
     other_checker = users(:machida)
     product = Product.create!(
       body: 'test',
