@@ -31,17 +31,19 @@ class MarkdownTest < ApplicationSystemTestCase
   test 'should automatically create Markdown link by pasting URL into selected text' do
     visit_with_auth new_report_path, 'komagata'
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'c'], :delete)
+    assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
+    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'x'])
     fill_in('report[description]', with: 'FBC')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
-    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-  end
-
-  test 'should support undo after automatically create Markdown link by pasting URL into selected text' do
-    visit_with_auth new_report_path, 'komagata'
-    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'c'], :delete)
-    fill_in('report[description]', with: 'FBC')
+    assert_field('report[description]', with: 'FBC')
+    # クリップボードを読み取る権限を付与
+    cdp_permission = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
+    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    assert_equal 'https://bootcamp.fjord.jp/', clip_text
     find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
     find('.js-report-content').native.send_keys([:command, 'z'])
