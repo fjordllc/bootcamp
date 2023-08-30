@@ -41,7 +41,7 @@ export default function TagEditModal({ tagId, initialTagName, setShowModal }) {
   }
 
   return (
-    <div className="a-overlay is-vue">
+    <div className="a-overlay is-js">
       <div className="a-card is-modal">
         <header className="card-header is-sm">
           <h2 className="card-header__title">タグ名変更</h2>
