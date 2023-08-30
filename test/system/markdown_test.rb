@@ -31,7 +31,8 @@ class MarkdownTest < ApplicationSystemTestCase
   test 'should automatically create Markdown link by pasting URL into selected text' do
     visit_with_auth new_report_path, 'komagata'
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'x'])
+    cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     fill_in('report[description]', with: 'FBC')
     # クリップボードを読み取る権限を付与
     cdp_permission = {
@@ -42,9 +43,9 @@ class MarkdownTest < ApplicationSystemTestCase
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
-    find('.js-report-content').native.send_keys([:command, 'a'], [:command, 'v'])
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-    find('.js-report-content').native.send_keys([:command, 'z'])
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
     assert_field('report[description]', with: 'FBC')
   end
 end
