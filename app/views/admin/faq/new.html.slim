@@ -19,6 +19,7 @@ main.page-main
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
                 = link_to 'FAQ一覧', admin_faqs_path, class: 'a-button is-sm is-block is-secondary is-back'
-.page-body
-  .container.is-md
-    = render 'form', faq: @faq
+  hr.a-border
+  .page-body
+    .container.is-xl
+      = render 'form', faq: @faq
