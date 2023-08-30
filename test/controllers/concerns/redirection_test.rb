@@ -5,6 +5,10 @@ require 'test_helper'
 class RedirectionTest < ActiveSupport::TestCase
   class ExampleController < ApplicationController
     include Redirection
+
+    def call_redirect_url(resource)
+      redirect_url(resource)
+    end
   end
 
   def setup
@@ -22,7 +26,7 @@ class RedirectionTest < ActiveSupport::TestCase
     )
 
     url = "http://test.host/products/#{wip_product.id}/edit"
-    assert_equal url, @controller.redirect_url(wip_product)
+    assert_equal url, @controller.call_redirect_url(wip_product)
 
     product = Product.create!(
       body: 'test',
@@ -32,6 +36,6 @@ class RedirectionTest < ActiveSupport::TestCase
     )
 
     url = "http://test.host/products/#{product.id}"
-    assert_equal url, @controller.redirect_url(product)
+    assert_equal url, @controller.call_redirect_url(product)
   end
 end
