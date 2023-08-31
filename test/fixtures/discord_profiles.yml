@@ -40,7 +40,7 @@ discord_profile_mentormentaro:
 
 discord_profile_kimura:
   user: kimura
-  account_name: kimura#1234
+  account_name: kimura1234
   times_url:
 
 discord_profile_hatsuno:
@@ -55,27 +55,27 @@ discord_profile_hajime:
 
 discord_profile_muryou:
   user: muryou
-  account_name: muryou#2222
+  account_name: muryou2222
   times_url: https://discord.com/channels/715806612824260640/123456789000000010
 
 discord_profile_kensyu:
   user: kensyu
-  account_name: kensyu#3333
+  account_name: kensyu3333
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
 
 discord_profile_senpai:
   user: senpai
-  account_name: senpai#4444
+  account_name: senpai4444
   times_url: https://discord.com/channels/715806612824260640/123456789000000012
 
 discord_profile_kananashi:
   user: kananashi
-  account_name: kananashi#6666
+  account_name: kananashi6666
   times_url: https://discord.com/channels/715806612824260640/123456789000000013
 
 discord_profile_osnashi:
   user: osnashi
-  account_name: osnashi#7777
+  account_name: osnashi7777
   times_url: https://discord.com/channels/715806612824260640/123456789000000014
 
 discord_profile_discordinvalid:
@@ -90,17 +90,17 @@ discord_profile_twitterinvalid:
 
 discord_profile_jobseeker:
   user: jobseeker
-  account_name: jobseeker#8888
+  account_name: jobseeker8888
   times_url: https://discord.com/channels/715806612824260640/123456789000000015
 
 discord_profile_nippounashi:
   user: nippounashi
-  account_name: nippounashi#0001
+  account_name: nippounashi0001
   times_url:
 
 discord_profile_with_hyphen:
   user: with_hyphen
-  account_name: with_hyphen#1234
+  account_name: with_hyphen1234
   times_url:
 
 discord_profile_kensyuowata:
