@@ -10,8 +10,7 @@ export default class {
     Array.from(textareas).forEach((textarea) => {
       textarea.addEventListener('paste', async (event) => {
         event.preventDefault()
-        const selectionStart = textarea.selectionStart
-        const selectionEnd = textarea.selectionEnd
+        const { selectionStart, selectionEnd } = textarea
         const selectedText = textarea.value.slice(selectionStart, selectionEnd)
         const pasteText =
           event.clipboardData.getData('text') ||
