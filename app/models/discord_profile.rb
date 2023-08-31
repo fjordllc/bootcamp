@@ -29,8 +29,8 @@ class DiscordProfile < ApplicationRecord
   end
 
   def no_consecutive_periods
-    if account_name&.include?('..')
-      errors.add(:account_name, 'にピリオドを2つ連続して使用することはできません。')
-    end
+    return unless account_name&.include?('..')
+
+    errors.add(:account_name, 'にピリオドを2つ連続して使用することはできません。')
   end
 end
