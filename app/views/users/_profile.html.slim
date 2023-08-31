@@ -12,15 +12,15 @@
             | #{user.name}（#{user.name_kana}）
         .card-list-item-meta__item
           - if user.discord_profile.times_url?
-            = link_to user.discord_profile.times_url, class: 'a-meta' do
+            = link_to user.discord_profile.times_url, class: 'a-meta', target: '_blank', rel: 'noopener' do
               .a-meta__icon
                 i.fab.fa-discord
-              = user.discord_profile.account_name.presence || 'Discord未設定'
+              = user.discord_profile.account_name.presence || 'Discord ID 未登録'
           - else
             .a-meta
               .a-meta__icon
                 i.fab.fa-discord
-              | Discord未設定
+              = user.discord_profile.account_name.presence || 'Discord 未設定'
     = render 'users/sns', user: user
     - if admin_login?
       .form-actions.is-only-mentor
