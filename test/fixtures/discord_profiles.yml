@@ -1,6 +1,6 @@
 discord_profile_komagata:
   user: komagata
-  account_name: komagata#0000
+  account_name: komagata0000
   times_url:
 
 discord_profile_machida:
@@ -105,52 +105,52 @@ discord_profile_with_hyphen:
 
 discord_profile_kensyuowata:
   user: kensyuowata
-  account_name: kensyuowata#5678
+  account_name: kensyuowata5678
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
 
 discord_profile_taikai:
   user: taikai
-  account_name: taikai#5678
+  account_name: taikai5678
   times_url:
 
 discord_profile_taikai3:
   user: taikai3
-  account_name: taikai#3333
+  account_name: taikai3333
   times_url:
 
 discord_profile_otameshi:
   user: otameshi
-  account_name: otameshi#1234
+  account_name: otameshi1234
   times_url:
 
 discord_profile_enchomaemae:
   user: enchomaemae
-  account_name: enchomaemae#1234
+  account_name: enchomaemae1234
   times_url:
 
 discord_profile_enchomaeyo:
   user: enchomaeyo
-  account_name: enchomaeyo#1234
+  account_name: enchomaeyo1234
   times_url:
 
 discord_profile_enchohayashi:
   user: enchohayashi
-  account_name: enchohayashi#1234
+  account_name: enchohayashi1234
   times_url:
 
 discord_profile_enchoososhi:
   user: enchoososhi
-  account_name: enchoososhi#1234
+  account_name: enchoososhi1234
   times_url:
 
 discord_profile_enchoowata:
   user: enchoowata
-  account_name: enchoowata#1234
+  account_name: enchoowata1234
   times_url:
 
 discord_profile_kimuramitai:
   user: kimuramitai
-  account_name: kimuradiscord#1234
+  account_name: kimuradiscord1234
   times_url:
 
 discord_profile_long-id-mentor:
@@ -160,7 +160,7 @@ discord_profile_long-id-mentor:
 
 discord_profile_nocompanykensyu:
   user: nocompanykensyu
-  account_name: nocompanykensyu#9999
+  account_name: nocompanykensyu9999
   times_url:
 
 discord_profile_neverlogin:

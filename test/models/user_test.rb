@@ -348,7 +348,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
     komagata = users(:komagata)
-    komagata.discord_profile.account_name = 'komagata#1234'
+    komagata.discord_profile.account_name = 'komagata1234'
     komagata.update!(login_name: 'komagata1234',
                      name: 'こまがた1234',
                      name_kana: 'コマガタイチニサンヨン',
