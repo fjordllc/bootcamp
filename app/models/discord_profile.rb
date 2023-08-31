@@ -23,7 +23,7 @@ class DiscordProfile < ApplicationRecord
   private
 
   def validate_only_underscore_and_period
-    return if account_name.match?(/\A[\w.]+\z/)
+    return if account_name.blank? || account_name.match?(/\A[\w.]+\z/)
 
     errors.add(:account_name, 'はアンダースコアとピリオド以外の特殊文字を使用できません。')
   end
