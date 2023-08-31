@@ -6,7 +6,7 @@
     .card-header__action(
       v-if='currentUser.primary_role === "graduate" && isDashboard')
       | <button @click='hideGrass' class='a-button is-xs is-muted-borderd'>非表示</button>
-  hr.a-border
+  hr.a-border-tint
   .user-grass
     .user-grass-nav
       .user-grass-nav__previous(@click='onPrevYearMonth')

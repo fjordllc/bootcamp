@@ -12,9 +12,9 @@
       a.sns-links__item-link.a-button.is-sm.is-secondary.is-icon(
         v-if='user.twitter_account',
         :href='twitterUrl')
-        i.fa-brands.fa-twitter
+        i.fa-brands.fa-x-twitter
       .sns-links__item-link.a-button.is-sm.is-disabled.is-icon(v-else)
-        i.fa-brands.fa-twitter
+        i.fa-brands.fa-x-twitter
     li.sns-links__item
       a.sns-links__item-link.a-button.is-sm.is-secondary.is-icon(
         v-if='user.facebook_url',
