@@ -174,7 +174,7 @@ discord_profile_sotugyou-adviser:
   times_url:
 
 <% 1.upto(25) do |i| %>
-discord_profile_marumarushain<%= i %>:  ページネーション確認のためのユーザー
+discord_profile_marumarushain<%= i %>: # ページネーション確認のためのユーザー
   user: marumarushain<%= i %>
   account_name:
   times_url:
