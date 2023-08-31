@@ -1,14 +1,23 @@
-- title 'ダッシュボード 自分の日報'
+- title '自分の日報'
 - set_meta_tags description: '自分の日報一覧ページです。'
 
 = render 'home/page_header'
 = render 'home/page_tabs', user: @user
 
+.page-main
+  .page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | 自分の日報（#{@user.reports.length}）
+        - if current_user.reports.present?
+          .page-main-header__end
+            .page-header-actions
+              .page-header-actions__items
+                .page-header-actions__item
+                  = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
+                    | 日報一括ダウンロード
+
+hr.a-border
 = react_component('Reports', userId: current_user.id)
-- if current_user.reports.present?
-  .form-actions
-    ul.form-actions__items
-      li.form-actions__item.is-main
-        = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
-          i.fa-solid.fa-cloud-download-alt
-          | 日報一括ダウンロード
