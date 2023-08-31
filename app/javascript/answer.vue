@@ -87,22 +87,22 @@
         .a-markdown-input.js-markdown-parent
           .a-markdown-input__inner.js-tabs__content(
             v-bind:class='{ "is-active": isActive("answer") }')
-          .form-textarea
-            .form-textarea__body
-              textarea.a-text-input.a-markdown-input__textarea(
-                v-model='description',
-                :id='`js-comment-${this.answer.id}`',
-                :data-preview='`#js-comment-preview-${this.answer.id}`',
-                :data-input='`.js-comment-file-input-${this.answer.id}`',
-                name='answer[description]')
-            .form-textarea__footer
-              .form-textarea__insert
-                label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
-                  | ファイルを挿入
-                  input(
-                    :class='`js-comment-file-input-${this.answer.id}`',
-                    type='file',
-                    multiple)
+            .form-textarea
+              .form-textarea__body
+                textarea.a-text-input.a-markdown-input__textarea(
+                  v-model='description',
+                  :id='`js-comment-${this.answer.id}`',
+                  :data-preview='`#js-comment-preview-${this.answer.id}`',
+                  :data-input='`.js-comment-file-input-${this.answer.id}`',
+                  name='answer[description]')
+              .form-textarea__footer
+                .form-textarea__insert
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                    | ファイルを挿入
+                    input(
+                      :class='`js-comment-file-input-${this.answer.id}`',
+                      type='file',
+                      multiple)
           .a-markdown-input__inner.js-tabs__content(
             v-bind:class='{ "is-active": isActive("preview") }')
             .js-preview.a-long-text.is-md.a-markdown-input__preview(
