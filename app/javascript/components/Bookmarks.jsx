@@ -32,40 +32,62 @@ export default function Bookmarks() {
   } else {
     return (
       <>
-        <Pagination
-          sum={data.totalPages * per}
-          per={per}
-          neighbours={neighbours}
-          page={page}
-          onChange={(e) => handlePaginate(e.page)}
-        />
-        <div className="card-list-tools">
-          <div className="form-item is-inline">
-            <EditButton editable={editable} setEditable={setEditable} />
-          </div>
-        </div>
-        <div className="card-list a-card">
-          <div className="card-list__items">
-            {data.bookmarks.map((bookmark) => {
-              return (
-                <Bookmark
-                  key={bookmark.id}
-                  bookmark={bookmark}
-                  editable={editable}
-                  setEditable={setEditable}
-                  bookmarksUrl={bookmarksUrl}
-                />
-              )
-            })}
-          </div>
-        </div>
-        <Pagination
-          sum={data.totalPages * per}
-          per={per}
-          neighbours={neighbours}
-          page={page}
-          onChange={(e) => handlePaginate(e.page)}
-        />
+        <div className="page-main">
+          <div className="page-main-header">
+            <div className="container">
+              <div className="page-main-header__inner">
+                <div className="page-main-header__start">
+                  <h1 className="page-main-header__title">ブックマーク</h1>
+                </div>
+                <div className="page-main-header__end">
+                  <div className="page-header-actions">
+                    <div className="page-header-actions__items">
+                      <div className="page-header-actions__item">
+                        <div className="form-item is-inline">
+                          <EditButton editable={editable} setEditable={setEditable} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>{/* .page-main-header */}
+          <hr className="a-border"></hr>
+          <div className="page-body">
+            <div className="container is-md">
+              <Pagination
+                sum={data.totalPages * per}
+                per={per}
+                neighbours={neighbours}
+                page={page}
+                onChange={(e) => handlePaginate(e.page)}
+              />
+              <div className="card-list a-card">
+                <div className="card-list__items">
+                  {data.bookmarks.map((bookmark) => {
+                    return (
+                      <Bookmark
+                        key={bookmark.id}
+                        bookmark={bookmark}
+                        editable={editable}
+                        setEditable={setEditable}
+                        bookmarksUrl={bookmarksUrl}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+              <Pagination
+                sum={data.totalPages * per}
+                per={per}
+                neighbours={neighbours}
+                page={page}
+                onChange={(e) => handlePaginate(e.page)}
+              />
+            </div>{/* .container */}
+          </div>{/* .page-body */}
+        </div>{/* .page-main */}
       </>
     )
   }
@@ -73,10 +95,24 @@ export default function Bookmarks() {
 
 const NoBookmarks = () => {
   return (
-    <div className="o-empty-message">
-      <div className="o-empty-message__icon">
-        <i className="fa-regular fa-face-sad-tear" />
-        <p className="o-empty-message__text">ブックマークはまだありません。</p>
+    <div className="page-main">
+      <div className="page-main-header">
+        <div className="container">
+          <div className="page-main-header__inner">
+            <div className="page-main-header__start">
+              <h1 className="page-main-header__title">ブックマーク</h1>
+            </div>
+          </div>
+        </div>
+      </div>{/* .page-main-header */}
+      <hr className="a-border"></hr>
+      <div className="page-body">
+        <div className="o-empty-message">
+          <div className="o-empty-message__icon">
+            <i className="fa-regular fa-face-sad-tear" />
+            <p className="o-empty-message__text">ブックマークはまだありません。</p>
+          </div>
+        </div>
       </div>
     </div>
   )
