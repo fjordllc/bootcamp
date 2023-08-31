@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Mentor::PracticesTest < ApplicationSystemTestCase
   test 'show listing practices' do
     visit_with_auth mentor_practices_path, 'mentormentaro'
-    assert_equal 'メンターページ | FBC', title
+    assert_equal 'プラクティス | FBC', title
   end
 
   test 'show practice page' do
