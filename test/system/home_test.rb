@@ -30,7 +30,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'Discordアカウントを登録してください。'
 
-    hajime.discord_profile.update!(account_name: 'hajime1111')
+    users(:hajime).discord_profile.update!(account_name: 'hajime1111')
     refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'Discordアカウントを登録してください。'
