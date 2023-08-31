@@ -3,15 +3,8 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title
-        = title
-      .page-header-actions
-        - if current_user.mentor?
-          .page-header-actions__items
-            .page-header-actions__item
-              = link_to new_mentor_category_path, class: 'a-button is-md is-secondary is-block' do
-                i.fa-regular.fa-plus
-                | カテゴリー作成
+      .page-header__title
+        | メンターページ
 
 = render 'mentor/mentor_page_tabs'
 
@@ -21,7 +14,7 @@ header.page-header
       .page-main-header__inner
         .page-main-header__start
           h1.page-main-header__title
-            | カテゴリー
+            = title
         .page-main-header__end
           .page-header-actions
             .page-header-actions__items
