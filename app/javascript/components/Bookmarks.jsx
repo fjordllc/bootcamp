@@ -44,7 +44,10 @@ export default function Bookmarks() {
                     <div className="page-header-actions__items">
                       <div className="page-header-actions__item">
                         <div className="form-item is-inline">
-                          <EditButton editable={editable} setEditable={setEditable} />
+                          <EditButton
+                            editable={editable}
+                            setEditable={setEditable}
+                          />
                         </div>
                       </div>
                     </div>
@@ -52,7 +55,8 @@ export default function Bookmarks() {
                 </div>
               </div>
             </div>
-          </div>{/* .page-main-header */}
+          </div>
+          {/* .page-main-header */}
           <hr className="a-border"></hr>
           <div className="page-body">
             <div className="container is-md">
@@ -85,9 +89,12 @@ export default function Bookmarks() {
                 page={page}
                 onChange={(e) => handlePaginate(e.page)}
               />
-            </div>{/* .container */}
-          </div>{/* .page-body */}
-        </div>{/* .page-main */}
+            </div>
+            {/* .container */}
+          </div>
+          {/* .page-body */}
+        </div>
+        {/* .page-main */}
       </>
     )
   }
@@ -104,13 +111,16 @@ const NoBookmarks = () => {
             </div>
           </div>
         </div>
-      </div>{/* .page-main-header */}
+      </div>
+      {/* .page-main-header */}
       <hr className="a-border"></hr>
       <div className="page-body">
         <div className="o-empty-message">
           <div className="o-empty-message__icon">
             <i className="fa-regular fa-face-sad-tear" />
-            <p className="o-empty-message__text">ブックマークはまだありません。</p>
+            <p className="o-empty-message__text">
+              ブックマークはまだありません。
+            </p>
           </div>
         </div>
       </div>
