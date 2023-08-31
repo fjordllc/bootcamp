@@ -13,18 +13,49 @@ main.page-main
       .page-main-header__inner
         .page-main-header__start
           h1.page-main-header__title
-            | FAQ詳細
+            | FAQ 詳細
         .page-main-header__end
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to 'FAQ一覧', admin_faqs_path, class: 'a-button is-sm is-block is-secondary is-back'
+                = link_to admin_faqs_path, class: 'a-button is-sm is-block is-secondary is-back is-back' do
+                  | FAQ一覧
   hr.a-border
   .page-body
-    .container.is-md
-      dl
-        dt = format_question(@faq.question)
-        dd = @faq.answer
-      p
-        = link_to edit_admin_faq_path(@faq) do
-          = '編集'
+    .container.is-xxl
+      .row.justify-center
+        .col-xl-7.col-xs-12
+          .page-content
+            header.page-content-header
+              //
+                .page-content-header__start
+                  .page-content-header__user
+                    = render 'users/icon', user: @faq.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+              .page-content-header__end
+                .page-content-header__row
+                  //
+                    .page-content-header__before-title
+                      = link_to @faq.user, class: 'a-user-name' do
+                        = @faq.user.long_name
+                  h1.page-content-header__title
+                    = format_question(@faq.question)
+
+                .page-content-header__row
+                  .page-content-header-metas
+                    .page-content-header-metas__start
+                      .page-content-header-metas__meta
+                        .a-meta
+                          | #{l @faq.created_at} 公開
+
+            .a-card
+              .card-body
+                .card__description
+                  .js-markdown-view.a-long-text.is-md
+                    = @faq.answer
+              .card-footer
+                .card-main-actions
+                  .card-main-actions__items
+                    .card-main-actions__item
+                      = link_to edit_admin_faq_path(@faq), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                        i.fa-solid.fa-pen
+                        | 内容修正
