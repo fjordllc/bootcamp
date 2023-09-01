@@ -49,6 +49,20 @@ class BodyClassHelperTest < ActionView::TestCase
     assert_equal 'other-page', page_category
   end
 
+  test 'adviser_mode' do
+    def adviser_login?
+      true
+    end
+
+    assert_equal 'is-adviser-mode', adviser_mode
+
+    def adviser_login?
+      false
+    end
+
+    assert_not_equal 'is-adviser-mode', adviser_mode
+  end
+
   test 'controller_class' do
     def qualified_page_name
       "#{qualified_controller_name}-#{action_name}"
