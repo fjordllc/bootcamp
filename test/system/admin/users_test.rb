@@ -77,12 +77,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     within 'form[name=user]' do
       assert_text '所属企業'
       find('.choices').click
-      first('.choices__item', text: 'Fjord Inc.').click
+      first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
   test 'update advisor with company' do
@@ -91,12 +91,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     within 'form[name=user]' do
       assert_text '所属企業'
       find('.choices').click
-      first('.choices__item', text: 'Fjord Inc.').click
+      first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
   test 'hide input for retire date when unchecked' do

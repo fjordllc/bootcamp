@@ -19,7 +19,7 @@ komagata:
   job: office_worker
   os: mac
   experience: rails
-  organization: 株式会社フィヨルド
+  organization: 株式会社ロッカ
   admin: true
   mentor: true
   github_collaborator: true
@@ -31,7 +31,7 @@ komagata:
   last_activity_at: "2014-01-01 00:00:01"
   profile_name: "駒形 真幸"
   profile_job: "プログラマー"
-  profile_text: "株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
+  profile_text: "株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
 
 machida:
   login_name: machida
@@ -49,7 +49,7 @@ machida:
   job: office_worker
   os: mac
   experience: rails
-  organization: 株式会社フィヨルド
+  organization: 株式会社ロッカ
   admin: true
   mentor: true
   github_collaborator: true
@@ -59,7 +59,7 @@ machida:
   last_activity_at: "2014-01-01 00:00:02"
   profile_name: "町田 哲平"
   profile_job: "デザイナー"
-  profile_text: "株式会社フィヨルドのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
+  profile_text: "株式会社ロッカのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -919,7 +919,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   job: office_worker
   os: mac
   experience: rails
-  organization: 株式会社フィヨルド
+  organization: 株式会社ロッカ
   github_collaborator: true
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
   updated_at: "2014-01-01 00:00:0<%= 2 + (i - 1) / 2 %>"
