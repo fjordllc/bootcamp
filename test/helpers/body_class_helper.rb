@@ -23,6 +23,32 @@ class BodyClassHelperTest < ActionView::TestCase
     assert_equal 'admin-users-password', qualified_controller_name
   end
 
+  test 'page_category' do
+    params[:action] = 'new'
+
+    assert_equal 'edit-page', page_category
+
+    params[:action] = 'create'
+
+    assert_equal 'edit-page', page_category
+
+    params[:action] = 'edit'
+
+    assert_equal 'edit-page', page_category
+
+    params[:action] = 'index'
+
+    assert_equal 'index-page', page_category
+
+    params[:action] = 'show'
+
+    assert_equal 'show-page', page_category
+
+    params[:action] = 'destroy'
+
+    assert_equal 'other-page', page_category
+  end
+
   test 'controller_class' do
     def qualified_page_name
       "#{qualified_controller_name}-#{action_name}"
