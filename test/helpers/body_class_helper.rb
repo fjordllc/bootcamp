@@ -63,6 +63,44 @@ class BodyClassHelperTest < ActionView::TestCase
     assert_not_equal 'is-adviser-mode', adviser_mode
   end
 
+  test 'page_area' do
+    def controller_path
+      'admin/users'
+    end
+
+    assert_equal 'admin-page', page_area
+
+    def controller_path
+      'welcome'
+    end
+
+    assert_equal 'welcome-page', page_area
+
+    def controller_path
+      'articles'
+    end
+
+    params[:action] = 'index'
+
+    assert_equal 'welcome-page', page_area
+
+    params[:action] = 'show'
+
+    assert_equal 'welcome-page', page_area
+
+    params[:action] = 'new'
+
+    assert_equal 'learning-page', page_area
+
+    def controller_path
+      'practices'
+    end
+
+    params[:action] = 'new'
+
+    assert_equal 'learning-page', page_area
+  end
+
   test 'controller_class' do
     def qualified_page_name
       "#{qualified_controller_name}-#{action_name}"
