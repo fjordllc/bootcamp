@@ -3,10 +3,10 @@ section.welcome-section.is-administrator#administrator
     h2.welcome-section__title
       = image_tag('administrator-title.svg', alt: '運営会社', class: 'welcome-section__title-image')
     h3.welcome-section__sub-title
-      | 株式会社フィヨルド
+      | 株式会社ロッカ
     .welcome-section__description
       p
-        | 東京の渋谷にある株式会社フィヨルドという会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
+        | 東京の渋谷にある株式会社ロッカという会社です。自社で運営しているサービスを開発しながら、お客様からお金をいただいてお客様のシステムを開発する仕事（受託開発）をしています。
 
     // メンターのデータを入れた後、tempは削除
     = render 'welcome/mentors', mentors: mentors
@@ -19,18 +19,15 @@ section.welcome-section.is-administrator#administrator
           tbody
             tr
               th 会社名
-              td 株式会社フィヨルド
+              td 株式会社ロッカ
             tr
               th 所在地
-              td 〒150-0031 東京都渋谷区桜丘町15-14 フジビル40 7F
-            tr
-              th 設立
-              td 2007年12月7日
+              td 〒150-0041 東京都渋谷区神南1-12-14 渋谷宮田ビル710号
             tr
               th 資本金
-              td 500万円
+              td 900万円
             tr
               th URL
               td
-                = link_to 'https://fjord.jp', target: '_blank', rel: 'noopener', class: 'welcome-child-section__description-link' do
+                = link_to 'https://lokka.jp', target: '_blank', rel: 'noopener', class: 'welcome-child-section__description-link' do
                   | fjord.jp
