@@ -101,6 +101,20 @@ class BodyClassHelperTest < ActionView::TestCase
     assert_equal 'learning-page', page_area
   end
 
+  test 'admin_page?' do
+    def controller_path
+      'admin/users'
+    end
+
+    assert admin_page?
+
+    def controller_path
+      'practices/products'
+    end
+
+    assert_not admin_page?
+  end
+
   test 'controller_class' do
     def qualified_page_name
       "#{qualified_controller_name}-#{action_name}"
