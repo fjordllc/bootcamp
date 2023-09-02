@@ -17,6 +17,8 @@ Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
 
 class ActiveSupport::TestCase
+  include VCRHelper
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
@@ -30,16 +32,6 @@ class ActiveSupport::TestCase
 
   teardown do
     ActiveStorage::Current.host = nil
-  end
-
-  def vcr_options
-    {
-      record: :once,
-      match_requests_on: [
-        :method,
-        VCR.request_matchers.uri_without_param(:source)
-      ]
-    }
   end
 end
 
