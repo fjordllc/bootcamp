@@ -10,12 +10,8 @@
         - @today_events.each do |today_event|
           - case today_event
           - when Event
-            - if today_event.participants.include?(current_user)
-              = '参加登録済'
             = render partial: 'special_event', object: today_event, as: :special_event
           - when RegularEvent
-            - if today_event.participants.include?(current_user)
-              = '参加登録済'
             = render partial: 'regular_event', locals: { regular_event: today_event, holding_date: Time.zone.today }
       - else
         .card-list-item
@@ -29,12 +25,8 @@
         - @tomorrow_events.each do |tomorrow_event|
           - case tomorrow_event
           - when Event
-            - if tomorrow_event.participants.include?(current_user)
-              = '参加登録済'
             = render partial: 'special_event', object: tomorrow_event, as: :special_event
           - when RegularEvent
-            - if tomorrow_event.participants.include?(current_user)
-              = '参加登録済'
             = render partial: 'regular_event', locals: { regular_event: tomorrow_event, holding_date: Time.zone.tomorrow }
       - else
         .card-list-item
@@ -48,12 +40,8 @@
         - @day_after_tomorrow_events.each do |day_after_tomorrow_event|
           - case day_after_tomorrow_event
           - when Event
-            - if day_after_tomorrow_event.participants.include?(current_user)
-              = '参加登録済'
             = render partial: 'special_event', object: day_after_tomorrow_event, as: :special_event
           - when RegularEvent
-            - if day_after_tomorrow_event.participants.include?(current_user)
-              = '参加登録済'
             = render partial: 'regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
       - else
         .card-list-item
