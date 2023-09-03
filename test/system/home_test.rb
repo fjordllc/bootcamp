@@ -243,12 +243,6 @@ class HomeTest < ApplicationSystemTestCase
       assert_event_card(today_event_label, today_events_texts)
       assert_event_card(tomorrow_event_label, tomorrow_events_texts)
       assert_event_card(day_after_tomorrow_event_label, day_after_tomorrow_events_texts)
-
-      logout
-
-      visit_with_auth '/', 'komagata'
-      #assert_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
-      #assert_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
     end
   end
 
