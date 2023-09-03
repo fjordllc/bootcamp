@@ -60,7 +60,7 @@ class BodyClassHelperTest < ActionView::TestCase
       false
     end
 
-    assert_not_equal 'is-adviser-mode', adviser_mode
+    assert_nil adviser_mode
   end
 
   test 'page_area' do
@@ -141,5 +141,36 @@ class BodyClassHelperTest < ActionView::TestCase
     end
 
     assert_equal 'admin-users-password admin-users-password-index', controller_class
+  end
+
+  test 'body_class' do
+    def qualified_page_name
+      "#{qualified_controller_name}-#{action_name}"
+    end
+
+    def controller_path
+      'admin/users'
+    end
+
+    def action_name
+      'index'
+    end
+
+    def adviser_login?
+      true
+    end
+
+    params[:action] = 'new'
+
+    assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode', body_class
+
+    content_for(:extra_body_classes, 'no-recent-reports')
+
+    assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode no-recent-reports', body_class
+
+    options = { extra_body_classes_symbol: :test }
+    content_for(:test, 'test')
+
+    assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode test', body_class(options)
   end
 end
