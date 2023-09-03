@@ -1,6 +1,7 @@
 .card-list-item
   - if special_event.participants.include?(current_user)
-    | 参加登録済
+    .participation-registration
+      | 参加登録済
   .card-list-item__inner
     .card-list-item__label.is-special
       | 特別イベント

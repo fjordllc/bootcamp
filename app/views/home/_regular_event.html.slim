@@ -1,6 +1,7 @@
 .card-list-item
   - if regular_event.participants.include?(current_user)
-    | 参加登録済
+    .participation-registration
+      | 参加登録済
   .card-list-item__inner
     - if regular_event.holding?(holding_date)
       .card-list-item__label class="is-#{regular_event.category}"
