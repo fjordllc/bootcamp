@@ -226,14 +226,17 @@ class HomeTest < ApplicationSystemTestCase
       today_events_texts = [
         { category: '特別イベント', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
         { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
+        { category: '輪読会', title: '誰も参加していない輪読会', start_at: '2017年04月03日(月) 18:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
       ]
       tomorrow_events_texts = [
+        { category: '輪読会', title: '誰も参加していない輪読会', start_at: '2017年04月04日(火) 18:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
         { category: '特別イベント', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
       ]
       day_after_tomorrow_events_texts = [
         { category: '特別イベント', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
+        { category: '輪読会', title: '誰も参加していない輪読会', start_at: '2017年04月05日(水) 18:00' },
         { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' }
       ]
 
