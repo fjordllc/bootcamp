@@ -227,17 +227,14 @@ class HomeTest < ApplicationSystemTestCase
         { category: '特別イベント', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
         { category: '特別イベント', title: 'kimura専用イベント', start_at: '2017年04月03日(月) 09:00' },
         { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
-        { category: '輪読会', title: '誰も参加していない輪読会', start_at: '2017年04月03日(月) 18:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
       ]
       tomorrow_events_texts = [
-        { category: '輪読会', title: '誰も参加していない輪読会', start_at: '2017年04月04日(火) 18:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
         { category: '特別イベント', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
       ]
       day_after_tomorrow_events_texts = [
         { category: '特別イベント', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
-        { category: '輪読会', title: '誰も参加していない輪読会', start_at: '2017年04月05日(水) 18:00' },
         { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' }
       ]
 
@@ -269,7 +266,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'show registered to participate only participating events' do
     Event.where.not(title: ['kimura専用イベント', '直近イベントの表示テスト用(当日)']).destroy_all
-    RegularEvent.where.not(title: ['誰も参加していない輪読会', '質問・雑談タイム']).destroy_all
+    RegularEvent.where.not(title: ['ダッシュボード表示確認用テスト定期イベント', '質問・雑談タイム']).destroy_all
 
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
@@ -283,11 +280,11 @@ class HomeTest < ApplicationSystemTestCase
       end
       within all('.card-list-item')[2] do
         assert_text '質問・雑談タイム'
-        assert_text '参加登録済'
+        assert_no_text '参加登録済'
       end
       within all('.card-list-item')[3] do
-        assert_text '誰も参加していない輪読会'
-        assert_no_text '参加登録済'
+        assert_text 'ダッシュボード表示確認用テスト定期イベント'
+        assert_text '参加登録済'
       end
     end
   end
