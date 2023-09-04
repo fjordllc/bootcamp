@@ -76,7 +76,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     assert_text '企業'
     within '.choices__inner' do
-      assert_text 'Fjord Inc.'
+      assert_text 'Lokka Inc.'
     end
   end
 
