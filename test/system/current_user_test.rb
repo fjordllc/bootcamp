@@ -23,7 +23,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'user[discord_profile_attributes][times_url]', with: 'https://example.com/channels/1234/5678/'
     click_button '更新する'
-    assert_text '分報URLはDiscordのチャンネルURLを入力してください'
+    assert_text '分報URLは https://discord.com/channels/ で始まる Discord のチャンネル URL を入力してください。'
   end
 
   test 'do not show after graduation hope when advisor or mentor' do
@@ -76,7 +76,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     assert_text '企業'
     within '.choices__inner' do
-      assert_text 'Fjord Inc.'
+      assert_text 'Lokka Inc.'
     end
   end
 
