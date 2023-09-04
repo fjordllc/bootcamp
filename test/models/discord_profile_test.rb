@@ -7,15 +7,15 @@ class DiscordProfileTest < ActiveSupport::TestCase
     discord_profile = discord_profiles(:discord_profile_komagata)
     discord_profile.account_name = ''
     assert discord_profile.valid?
-    discord_profile.account_name = 'komagata#1234'
+    discord_profile.account_name = 'komagata1234'
     assert discord_profile.valid?
-    discord_profile.account_name = 'komagata'
+    discord_profile.account_name = 'komagata..'
     assert discord_profile.invalid?
     discord_profile.account_name = '#1234'
     assert discord_profile.invalid?
     discord_profile.account_name = ' komagata　#1234'
     assert discord_profile.invalid?
-    discord_profile.account_name = 'komagata1234'
+    discord_profile.account_name = 'komagata-1234'
     assert discord_profile.invalid?
   end
 

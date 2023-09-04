@@ -7,14 +7,30 @@ class DiscordProfile < ApplicationRecord
             format: {
               allow_blank: true,
               with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
-              message: 'はDiscordのチャンネルURLを入力してください'
+              message: 'は https://discord.com/channels/ で始まる Discord のチャンネル URL を入力してください。'
             }
   with_options if: -> { validation_context != :retirement } do
     validates :account_name,
-              format: {
-                allow_blank: true,
-                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-                message: 'は「ユーザー名#４桁の数字」で入力してください'
+              allow_blank: true,
+              length: {
+                in: 2..32,
+                message: 'は2文字以上32文字以内で入力してください。'
               }
+    validate :validate_only_underscore_and_period
+    validate :no_consecutive_periods
+  end
+
+  private
+
+  def validate_only_underscore_and_period
+    return if account_name.blank? || account_name.match?(/\A[\w.]+\z/)
+
+    errors.add(:account_name, 'はアンダースコアとピリオド以外の特殊文字を使用できません。')
+  end
+
+  def no_consecutive_periods
+    return unless account_name&.include?('..')
+
+    errors.add(:account_name, 'にピリオドを2つ連続して使用することはできません。')
   end
 end

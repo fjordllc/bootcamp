@@ -25,17 +25,16 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'GitHubアカウントを登録してください。'
   end
 
-  # Todo Discord の ID のルールが変更になったので、それに対応できるまで隠す。
-  # test 'verify message presence of discord_account registration' do
-  #   visit_with_auth '/', 'hajime'
-  #   assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-  #   assert_text 'Discordアカウントを登録してください。'
-  #
-  #   users(:hajime).update!(discord_account: 'hajime#1111')
-  #   refresh
-  #   assert_selector 'h2.page-header__title', text: 'ダッシュボード'
-  #   assert_no_text 'Discordアカウントを登録してください。'
-  # end
+  test 'verify message presence of discord_profile_account_name registration' do
+    visit_with_auth '/', 'hajime'
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert_text 'Discordアカウントを登録してください。'
+
+    users(:hajime).discord_profile.update!(account_name: 'hajime1111')
+    refresh
+    assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+    assert_no_text 'Discordアカウントを登録してください。'
+  end
 
   test 'verify message presence of avatar registration' do
     visit_with_auth '/', 'hajime'
@@ -93,7 +92,7 @@ class HomeTest < ApplicationSystemTestCase
     user = users(:hatsuno)
     # hatsuno の未入力項目を登録
     user.build_discord_profile
-    user.discord_profile.account_name = 'hatsuno#1234'
+    user.discord_profile.account_name = 'hatsuno1234'
     user.update!(
       tag_list: ['猫'],
       after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'

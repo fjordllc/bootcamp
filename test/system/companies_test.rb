@@ -15,13 +15,13 @@ class CompaniesTest < ApplicationSystemTestCase
 
   test 'show company information' do
     visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
-    assert_equal 'Fjord Inc.の企業情報 | FBC', title
+    assert_equal 'Lokka Inc.の企業情報 | FBC', title
   end
 
   test 'show link to website if company has' do
     visit_with_auth "/companies/#{companies(:company1).id}", 'komagata'
     within '.company-links' do
-      assert_link '企業ページ', href: 'https://fjord.jp'
+      assert_link '企業ページ', href: 'https://lokka.jp'
     end
   end
 
