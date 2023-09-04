@@ -266,6 +266,31 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector(:xpath, event_xpath(event_label, count))
   end
 
+  test 'show registered to participate only participating events' do
+    Event.where.not(title: ['kimura専用イベント', '直近イベントの表示テスト用(当日)']).destroy_all
+    RegularEvent.where.not(title: ['誰も参加していない輪読会','質問・雑談タイム'] ).destroy_all
+
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      within all('.card-list-item')[0] do
+        assert_text '直近イベントの表示テスト用(当日)'
+        assert_no_text '参加登録済'
+      end
+      within all('.card-list-item')[1] do
+        assert_text 'kimura専用イベント'
+        assert_text '参加登録済'
+      end
+      within all('.card-list-item')[2] do
+        assert_text '質問・雑談タイム'
+        assert_text '参加登録済'
+      end
+      within all('.card-list-item')[3] do
+        assert_text '誰も参加していない輪読会'
+        assert_no_text '参加登録済'
+      end
+    end
+  end
+
   test 'show grass hide button for graduates' do
     visit_with_auth '/', 'kimura'
     assert_not has_button? '非表示'
