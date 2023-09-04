@@ -227,6 +227,8 @@ class User < ApplicationRecord
   scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
   scope :unretired, -> { where(retired_on: nil) }
+  scope :hibernated_for, ->(period) { where(hibernated_at: nil..period.ago) }
+  scope :auto_retire, -> { where(auto_retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
   scope :students_and_trainees, lambda {
