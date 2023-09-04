@@ -57,7 +57,7 @@ class HomeController < ApplicationController
     @day_after_tomorrow_events = (Event.day_after_tomorrow_events.related_to(current_user) \
                                   + RegularEvent.day_after_tomorrow_events)
                                  .sort_by { |e| e.start_at.strftime('%H:%M') }
-                          .sort_by { |e| e.start_at.strftime('%H:%M') }
+                                 .sort_by { |e| e.start_at.strftime('%H:%M') }
   end
 
   def display_welcome_message_for_adviser

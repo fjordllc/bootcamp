@@ -269,7 +269,7 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'show registered to participate only participating events' do
     Event.where.not(title: ['kimura専用イベント', '直近イベントの表示テスト用(当日)']).destroy_all
-    RegularEvent.where.not(title: ['誰も参加していない輪読会','質問・雑談タイム'] ).destroy_all
+    RegularEvent.where.not(title: ['誰も参加していない輪読会', '質問・雑談タイム']).destroy_all
 
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
