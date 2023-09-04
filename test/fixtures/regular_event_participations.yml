@@ -17,3 +17,7 @@ regular_event_participation4:
 regular_event_participation5:
   user: kimura
   regular_event: regular_event7
+
+regular_event_participation6:
+  user: kimura
+  regular_event: regular_event2
