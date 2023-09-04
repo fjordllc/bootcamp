@@ -116,10 +116,6 @@ class BodyClassHelperTest < ActionView::TestCase
   end
 
   test 'controller_class' do
-    def qualified_page_name
-      "#{qualified_controller_name}-#{action_name}"
-    end
-
     def controller_path
       'practices/products'
     end
@@ -144,10 +140,6 @@ class BodyClassHelperTest < ActionView::TestCase
   end
 
   test 'body_class' do
-    def qualified_page_name
-      "#{qualified_controller_name}-#{action_name}"
-    end
-
     def controller_path
       'admin/users'
     end
@@ -172,5 +164,11 @@ class BodyClassHelperTest < ActionView::TestCase
     content_for(:test, 'test')
 
     assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode test', body_class(options)
+  end
+
+  private
+
+  def qualified_page_name
+    "#{qualified_controller_name}-#{action_name}"
   end
 end
