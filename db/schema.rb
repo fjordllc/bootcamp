@@ -739,6 +739,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
     t.boolean "sent_student_followup_message", default: false
     t.string "country_code"
     t.string "subdivision_code"
+    t.boolean "auto_retire", default: true
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
