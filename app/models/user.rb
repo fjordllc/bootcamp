@@ -759,9 +759,9 @@ class User < ApplicationRecord
 
   def unstarted_practices
     @unstarted_practices ||= practices -
-      practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+                             practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
+                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
+                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
   end
 
   def category_having_active_practice
