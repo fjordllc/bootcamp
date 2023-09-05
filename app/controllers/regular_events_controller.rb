@@ -2,6 +2,7 @@
 
 class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[show edit update destroy]
+  before_action :set_editable_regular_event, only: %i[edit update]
 
   def index; end
 
@@ -116,5 +117,13 @@ class RegularEventsController < ApplicationController
     students_and_trainees = User.students_and_trainees.ids
     RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_and_trainees)
     RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_and_trainees)
+  end
+
+  def set_editable_regular_event
+    @regular_event = RegularEvent.find(params[:id])
+
+    unless @regular_event.user == current_user || @regular_event.organizers.ids.include?(current_user.id) || current_user.mentor?
+      @regular_event = nil
+    end
   end
 end
