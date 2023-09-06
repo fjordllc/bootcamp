@@ -60,6 +60,7 @@ export default function Bookmarks() {
           <hr className="a-border"></hr>
           <div className="page-body">
             <div className="container is-md">
+            {data.totalPages > 1 && (
               <Pagination
                 sum={data.totalPages * per}
                 per={per}
@@ -67,6 +68,7 @@ export default function Bookmarks() {
                 page={page}
                 onChange={(e) => handlePaginate(e.page)}
               />
+            )}
               <div className="card-list a-card">
                 <div className="card-list__items">
                   {data.bookmarks.map((bookmark) => {
@@ -82,13 +84,15 @@ export default function Bookmarks() {
                   })}
                 </div>
               </div>
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => handlePaginate(e.page)}
-              />
+              {data.totalPages > 1 && (
+                <Pagination
+                  sum={data.totalPages * per}
+                  per={per}
+                  neighbours={neighbours}
+                  page={page}
+                  onChange={(e) => handlePaginate(e.page)}
+                />
+              )}
             </div>
             {/* .container */}
           </div>
