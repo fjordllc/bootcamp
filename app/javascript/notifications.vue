@@ -107,10 +107,20 @@ export default {
     paginateClickCallback: function (pageNumber) {
       this.currentPage = pageNumber
       this.getNotificationsPerPage()
+      const url = new URL(location)
+      if (url.searchParams.has('page')) {
+        if (pageNumber > 1) {
+          url.searchParams.set('page', pageNumber)
+        } else {
+          url.searchParams.delete('page')
+        }
+      } else {
+        url.searchParams.append('page', pageNumber)
+      }
       history.pushState(
         null,
         null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
+        url
       )
       window.scrollTo(0, 0)
     },
