@@ -44,6 +44,7 @@ class MarkdownTest < ApplicationSystemTestCase
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
+    sleep 5
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
     find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
     assert_field('report[description]', with: 'FBC')
