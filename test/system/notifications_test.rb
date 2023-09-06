@@ -86,7 +86,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:mentormentaro),
                         sender: users(:machida))
     login_user 'mentormentaro', 'testtest'
-    visit '/notifications', 'mentormentaro'
+    visit '/notifications'
     within first('nav.pagination') do
       find('a', text: '2').click
     end
