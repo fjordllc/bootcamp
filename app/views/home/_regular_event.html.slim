@@ -1,8 +1,6 @@
-- not_held = regular_event.no_holding?(holding_date)
-
 .card-list-item
   .card-list-item__inner
-    - if not_held
+    - if no_holding?(regular_event, holding_date)
       .card-list-item__label.is-not-held.a-icon-label
         .a-icon-label__icon
           i.fas.fa-times
@@ -15,13 +13,13 @@
       .card-list-item__row
         header.card-list-item-title
           h2.card-list-item-title__title
-            = link_to regular_event, class: "card-list-item-title__link #{not_held ? 'a-muted-text-link' : 'a-text-link'}" do
+            = link_to regular_event, class: "card-list-item-title__link #{no_holding?(regular_event, holding_date) ? 'a-muted-text-link' : 'a-text-link'}" do
               = regular_event.title
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              - if not_held
+              - if no_holding?(regular_event, holding_date)
                 .a-meta.is-important
                   span.a-meta__label
                     | 注意
