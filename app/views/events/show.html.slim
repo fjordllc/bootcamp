@@ -1,58 +1,63 @@
 - title @event.title
 - set_meta_tags description: "特別イベント「#{@event.title}」のページです。#{@event.period}に開催。"
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__title
-        | イベント
-      .page-header-actions
-        ul.page-header-actions__items
-          - if admin_or_mentor_login?
-            li.page-header-actions__item.is-only-mentor
-              = link_to new_event_path, class: 'a-button is-md is-secondary is-block' do
-                i.fa-regular.fa-plus
-                | 特別イベント作成
-          li.page-header-actions__item
-            = link_to events_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | 特別イベント一覧
-
+= render 'events/header'
 = render 'events/tabs'
 
-- if @event.wip?
-  .a-page-notice.is-danger
-    .container.is-md
-      .a-page-notice__inner
-        p
-          | 公開されるまでお待ちください。
-- elsif !@event.opening?
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          .page-header__title
+            | 特別イベント
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_event_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | 特別イベント作成
+              li.page-main-header-actions__item
+                = link_to events_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 特別イベント一覧
+
   - if @event.wip?
     .a-page-notice.is-danger
       .container.is-md
         .a-page-notice__inner
           p
             | 公開されるまでお待ちください。
-  - elsif @event.before_opening?
-    .a-page-notice.is-danger
-      .container.is-md
-        .a-page-notice__inner
-          p
-            | 募集開始までお待ち下さい。
-  - elsif @event.closing?
-    .a-page-notice.is-muted
-      .container.is-md
-        .a-page-notice__inner
-          p
-            | 募集受付は終了しました。
+  - elsif !@event.opening?
+    - if @event.wip?
+      .a-page-notice.is-danger
+        .container.is-md
+          .a-page-notice__inner
+            p
+              | 公開されるまでお待ちください。
+    - elsif @event.before_opening?
+      .a-page-notice.is-danger
+        .container.is-md
+          .a-page-notice__inner
+            p
+              | 募集開始までお待ち下さい。
+    - elsif @event.closing?
+      .a-page-notice.is-muted
+        .container.is-md
+          .a-page-notice__inner
+            p
+              | 募集受付は終了しました。
+    - else
+      .a-page-notice.is-muted
+        .container.is-md
+          .a-page-notice__inner
+            p
+              | このイベントは終了しました。
   - else
-    .a-page-notice.is-muted
-      .container.is-md
-        .a-page-notice__inner
-          p
-            | このイベントは終了しました。
+    hr.a-border
 
-.page-body
-  .container.is-md
-    = render 'event', event: @event
-    #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
-    div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')
+  .page-body
+    .container.is-md
+      = render 'event', event: @event
+      #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
+      div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')

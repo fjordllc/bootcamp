@@ -1,36 +1,43 @@
 - title @regular_event.title
 - set_meta_tags description: "定期イベント「#{@regular_event.title}」募集ページです。"
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__title
-        | 定期イベント
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | 定期イベント作成
-          li.page-header-actions__item
-            = link_to regular_events_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | 定期イベント一覧
-hr.a-border
-- if @regular_event.wip?
-  .a-page-notice.is-danger
-    .container.is-md
-      .a-page-notice__inner
-        p
-          | 公開されるまでお待ちください。
-- elsif @regular_event.finished
-  .a-page-notice.is-danger
-    .container.is-md
-      .a-page-notice__inner
-        p
-          | 定期イベントは終了しました。
+= render 'events/header'
+= render 'events/tabs'
 
-.page-body
-  .container.is-md
-    = render 'regular_event', regular_event: @regular_event
-    #js-comments(data-commentable-id="#{@regular_event.id}" data-commentable-type='RegularEvent' data-current-user-id="#{current_user.id}")
-    div(data-vue='Footprints' data-vue-footprintable-id="#{@regular_event.id}" data-vue-footprintable-type='RegularEvent')
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          .page-header__title
+            | 定期イベント
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to new_regular_event_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | 定期イベント作成
+              li.page-main-header-actions__item
+                = link_to regular_events_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 定期イベント一覧
+  - if @regular_event.wip?
+    .a-page-notice.is-danger
+      .container.is-md
+        .a-page-notice__inner
+          p
+            | 公開されるまでお待ちください。
+  - elsif @regular_event.finished
+    .a-page-notice.is-muted
+      .container.is-md
+        .a-page-notice__inner
+          p
+            | 定期イベントは終了しました。
+  - else
+    hr.a-border
+
+  .page-body
+    .container.is-md
+      = render 'regular_event', regular_event: @regular_event
+      #js-comments(data-commentable-id="#{@regular_event.id}" data-commentable-type='RegularEvent' data-current-user-id="#{current_user.id}")
+      div(data-vue='Footprints' data-vue-footprintable-id="#{@regular_event.id}" data-vue-footprintable-type='RegularEvent')
