@@ -7,11 +7,6 @@ module NavigationHelper
     'is-active'
   end
 
-  def qrcode_tag(url, size: 1.8)
-    RQRCode::QRCode.new(url)
-                   .as_svg(module_size: size).html_safe # rubocop:disable Rails/OutputSafety
-  end
-
   def qualified_page_name
     "#{qualified_controller_name}-#{action_name}"
   end
