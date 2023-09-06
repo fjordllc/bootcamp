@@ -156,8 +156,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participations.find_by(user_id: user.id).present?
   end
 
-  def not_held?(date)
-    !hold_national_holiday && HolidayJp.holiday?(date)
+  def no_holding?(date)
+    HolidayJp.holiday?(date) && !hold_national_holiday
   end
 
   class << self
