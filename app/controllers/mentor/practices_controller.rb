@@ -3,8 +3,7 @@
 class Mentor::PracticesController < ApplicationController
   before_action :require_admin_or_mentor_login, only: %i[new create edit update]
   before_action :set_course, only: %i[new]
-  before_action :set_practice, only: %i[show edit update]
-  skip_before_action :require_active_user_login, only: %i[show]
+  before_action :set_practice, only: %i[edit update]
 
   def new
     @practice = Practice.new
