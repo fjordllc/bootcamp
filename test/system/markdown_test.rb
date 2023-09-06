@@ -30,7 +30,7 @@ class MarkdownTest < ApplicationSystemTestCase
 
   test 'should automatically create Markdown link by pasting URL into selected text' do
     visit_with_auth new_report_path, 'komagata'
-    fill_in('report[description]', with: 'test')
+    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     fill_in('report[description]', with: 'FBC')
@@ -42,7 +42,7 @@ class MarkdownTest < ApplicationSystemTestCase
     }
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal 'test', clip_text
+    assert_equal 'https://bootcamp.fjord.jp/', clip_text
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
     find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
