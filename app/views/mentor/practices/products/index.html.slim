@@ -1,0 +1,30 @@
+- title "#{@practice.title}の提出物"
+- if @practice.open_product?
+  - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。"
+- else
+  - set_meta_tags description: "プラクティス「#{@practice.title}」の提出物一覧です。"
+- category = @practice.category(current_user.course)
+
+= render '/practices/page_header', title: @practice.title, category: category
+= render 'page_tabs', resource: @practice
+
+.page-body
+  - if current_user.student_or_trainee?
+    - if @practice.open_product?
+      .a-page-notice
+        .container
+          .a-page-notice__inner
+            p このプラクティスは、OKをもらっていなくても他の人の提出物を閲覧できます。
+    - elsif @my_product.nil? || @my_product.checks.empty?
+      .a-page-notice
+        .container
+          .a-page-notice__inner
+            p プラクティスを修了するまで他の人の提出物は見れません。
+  .container.is-md
+    = paginate @products
+    - if @products.present?
+      .card-list.a-card
+        = render partial: 'products/product',
+          collection: @products,
+          as: :product
+    = paginate @products

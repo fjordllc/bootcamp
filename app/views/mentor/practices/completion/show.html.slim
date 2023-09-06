@@ -1,0 +1,28 @@
+ruby:
+  title @practice.title
+  content_for :extra_body_classes, 'is-completion'
+  set_meta_tags description: "オンラインプログラミングスクールフィヨルドブートキャンプの「#{@practice.title}」修了おめでとうページです。"
+  if @practice.ogp_image.attached?
+    set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+    set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+  else
+    set_meta_tags(og: { image: image_url('completion/completion_default.png'), url: request.url })
+    set_meta_tags(twitter: { image: image_url('completion/completion_default.png'), url: request.url })
+  end
+
+.page-body
+  .completion
+    .completion__header
+      .container
+        h1.completion__title
+          | おめでとうございます！！
+          br
+          | 「#{@practice.title}」を
+          br
+          | 修了しました🎉
+    .completion__body
+      .container.is-md
+        - if @practice.completion_image.attached?
+          = image_tag @practice.completion_image, class: 'completion__image', alt: "#{@practice.title}修了おめでとうカード"
+        - else
+          = image_tag('completion/completion_default.png', class: 'completion__image', alt: "#{@practice.title}修了おめでとうカード")
