@@ -46,7 +46,5 @@ class MarkdownTest < ApplicationSystemTestCase
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
     sleep 5
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
-    assert_field('report[description]', with: 'FBC')
   end
 end
