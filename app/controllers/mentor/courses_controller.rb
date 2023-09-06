@@ -3,10 +3,6 @@
 class Mentor::CoursesController < MentorController
   before_action :set_course, only: %i[edit update]
 
-  def index
-    @courses = Course.order(created_at: :desc)
-  end
-
   def new
     @course = Course.new
   end
