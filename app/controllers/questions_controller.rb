@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
+  before_action :require_mentor_or_admin, only: [:destroy]
   skip_before_action :require_active_user_login, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
@@ -111,5 +112,12 @@ class QuestionsController < ApplicationController
     return '質問をWIPとして保存しました。' if question.wip?
 
     '質問を作成しました。'
+  end
+
+  def require_mentor_or_admin
+    unless current_user.mentor || current_user.admin
+      flash[:alert] = 'アクセス権限がありません。'
+      redirect_to root_url
+    end
   end
 end
