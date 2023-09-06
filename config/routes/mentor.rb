@@ -3,8 +3,13 @@
 Rails.application.routes.draw do
   namespace :mentor do
     root to: "home#index", as: :root
-    resources :categories
+    resources :categories do
+      resources :practices, only: %i(index), controller: "categories/practices"
+    end
     resources :practices, only: %i(index)
-    resources :courses, except: %i(show destroy)
+    resources :courses, only: %i(index new create) do
+      resources :practices, only: %i(index), controller: "courses/practices"
+      resources :categories, only: %i(index), controller: "courses/categories"
+    end
   end
 end

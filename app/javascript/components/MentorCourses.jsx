@@ -38,7 +38,7 @@ function MentorCourse(props) {
   const course = props.course
   const url = `/courses/${course.id}/practices`
   const editUrl = `/mentor/courses/${course.id}/edit`
-  const sortUrl = `/courses/${course.id}/categories`
+  const sortUrl = `/mentor/courses/${course.id}/categories`
 
   return (
     <tr className="admin-table__item">
