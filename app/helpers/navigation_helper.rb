@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TagHelper
+module NavigationHelper
   def current_link(name)
     return unless qualified_page_name&.match?(name)
 

@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class BodyClassHelperTest < ActionView::TestCase
+  include NavigationHelper
+
   test 'qualified_controller_name' do
     def controller_path
       'practices/products'
@@ -164,11 +166,5 @@ class BodyClassHelperTest < ActionView::TestCase
     content_for(:test, 'test')
 
     assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode test', body_class(options)
-  end
-
-  private
-
-  def qualified_page_name
-    "#{qualified_controller_name}-#{action_name}"
   end
 end
