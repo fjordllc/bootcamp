@@ -117,11 +117,7 @@ export default {
       } else {
         url.searchParams.append('page', pageNumber)
       }
-      history.pushState(
-        null,
-        null,
-        url
-      )
+      history.pushState(null, null, url)
       window.scrollTo(0, 0)
     },
     getPageValueFromParameter: function () {
