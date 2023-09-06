@@ -1,0 +1,20 @@
+- title "#{@practice.title}に関するQ&A"
+- set_meta_tags description: "プラクティス「#{@practice.title}」に関するQ&A一覧です。"
+- category = @practice.category(current_user.course)
+
+= render '/practices/page_header', title: @practice.title, category: category
+= render 'page_tabs', resource: @practice
+
+nav.tab-nav
+  .container
+    ul.tab-nav__items
+      li.tab-nav__item
+        = link_to '全ての質問', practice_questions_path(@practice), class: "tab-nav__item-link #{params[:target] == 'not_solved' || params[:target] == 'solved' ? '' : 'is-active'}"
+      li.tab-nav__item
+        = link_to '解決済み', practice_questions_path(@practice, target: 'solved'), class: "tab-nav__item-link #{params[:target] == 'solved' ? 'is-active' : ''}"
+      li.tab-nav__item
+        = link_to '未解決', practice_questions_path(@practice, target: 'not_solved'), class: "tab-nav__item-link #{params[:target] == 'not_solved' ? 'is-active' : ''}"
+
+.page-body
+  .container.is-md
+    div(data-vue='Questions' data-vue-empty-message="#{@empty_message}" data-vue-practice-id="#{params[:practice_id]}")

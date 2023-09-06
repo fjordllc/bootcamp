@@ -1,0 +1,10 @@
+- title "#{@practice.title}に関するDocs"
+- set_meta_tags description: "プラクティス「#{@practice.title}」に関するドキュメント一覧です。"
+- category = @practice.category(current_user.course)
+
+= render '/practices/page_header', title: @practice.title, category: category
+= render 'page_tabs', resource: @practice
+
+.page-body
+  .container.is-md
+    div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}" data-vue-practice-id:number="#{params[:practice_id]}")

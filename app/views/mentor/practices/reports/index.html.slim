@@ -1,0 +1,10 @@
+- title "#{@practice.title}に関する日報"
+- set_meta_tags description: "プラクティス「#{@practice.title}」に関する日報一覧です。"
+- category = @practice.category(current_user.course)
+
+= render '/practices/page_header', title: @practice.title, category: category
+= render 'page_tabs', resource: @practice
+
+.page-body
+  .container.is-md
+    = react_component('Reports', practiceId: @practice.id)
