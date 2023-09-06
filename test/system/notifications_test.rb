@@ -85,7 +85,8 @@ class NotificationsTest < ApplicationSystemTestCase
                         link: '/reports/20000118',
                         user: users(:mentormentaro),
                         sender: users(:machida))
-    visit_with_auth '/notifications', 'mentormentaro'
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications', 'mentormentaro'
     within first('nav.pagination') do
       find('a', text: '2').click
     end
