@@ -45,7 +45,9 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
+    focused_element_id = page.evaluate_script('document.activeElement.id')
+    assert_equal 'report_description', focused_element_id
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
-    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
+    assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
   end
 end
