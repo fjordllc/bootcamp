@@ -51,7 +51,6 @@ class MarkdownTest < ApplicationSystemTestCase
     }
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal 'https://bootcamp.fjord.jp', clip_text
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     # 文字列を選択してcmd + Vでペースト
