@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :practices, only: %i(index), controller: "categories/practices"
     end
     resources :practices, only: %i(index)
-    resources :courses, only: %i(index new edit create) do
+    resources :courses, only: %i(index new edit create update) do
       resources :practices, only: %i(index), controller: "courses/practices"
       resources :categories, only: %i(index), controller: "courses/categories"
     end
