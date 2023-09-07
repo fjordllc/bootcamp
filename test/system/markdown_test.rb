@@ -33,7 +33,15 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    # 文字列を選択してcmd + Xでカット
+    page.driver.browser.action
+        .key_down(:shift)
+        .send_keys(:arrow_up)
+        .key_up(:shift)
+        .key_down(cmd_ctrl)
+        .send_keys('x')
+        .key_up(cmd_ctrl)
+        .perform
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     # クリップボードを読み取る権限を付与
@@ -45,7 +53,15 @@ class MarkdownTest < ApplicationSystemTestCase
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
+    # 文字列を選択してcmd + Vでペースト
+    page.driver.browser.action
+        .key_down(:shift)
+        .send_keys(:arrow_up)
+        .key_up(:shift)
+        .key_down(cmd_ctrl)
+        .send_keys('v')
+        .key_up(cmd_ctrl)
+        .perform
     sleep 5
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
   end
