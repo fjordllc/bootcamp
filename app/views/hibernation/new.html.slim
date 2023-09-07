@@ -29,7 +29,7 @@ hr.a-border
               class: 'a-text-input'
             .a-form-help
               p
-                | 休会期間は最長6ヶ月です（#{l(Time.current.since(6.months), format: :year_and_date)}まで）。
+                | 休会期間は最長3ヶ月です（#{l(Time.current.since(3.months), format: :year_and_date)}まで）。
                 | 明確な日を指定できない場合は、大体の年月日の入力をお願いします。
           .form-item
             = f.label :reason, '休会の理由を教えてください',
