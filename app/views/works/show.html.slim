@@ -45,7 +45,7 @@ hr.a-border
           .card__description
             .a-long-text.is-md.js-markdown-view
               = @work.description
-        .card-footer
+        footer.card-footer
           ul.card-main-actions__items
             - if @work.url.present?
               li.card-main-actions__item
@@ -58,8 +58,8 @@ hr.a-border
                   i.fa-brands.fa-github-alt
                   | Repository
         - if @work.user == current_user || admin_or_mentor_login?
-          hr.a-border
-          .card-footer
+          hr.a-border-tint
+          footer.card-footer
             .card-main-actions
               ul.card-main-actions__items
                 li.card-main-actions__item

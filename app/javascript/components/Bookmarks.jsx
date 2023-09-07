@@ -57,7 +57,7 @@ export default function Bookmarks() {
             </div>
           </div>
           {/* .page-main-header */}
-          <hr className="a-border"></hr>
+          <hr className="a-border-tint"></hr>
           <div className="page-body">
             <div className="container is-md">
               <Pagination
@@ -113,7 +113,7 @@ const NoBookmarks = () => {
         </div>
       </div>
       {/* .page-main-header */}
-      <hr className="a-border"></hr>
+      <hr className="a-bordertint"></hr>
       <div className="page-body">
         <div className="o-empty-message">
           <div className="o-empty-message__icon">

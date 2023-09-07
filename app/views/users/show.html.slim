@@ -38,7 +38,7 @@
               .user-data__tags
                 - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s, tagsParamName: 'user[tag_list]', tagsInputId: 'user_tag_list', tagsType: 'User', tagsTypeId: @user.id.to_s, tagsEditable: @user.id == current_user.id }
                 = react_component('Tags/Tags', tags_props)
-            hr.a-border
+            hr.a-border-tint
             footer.card-footer
               .card-main-actions
                 ul.card-main-actions__items

@@ -12,8 +12,8 @@
       .courses-item__description
         = simple_format(course.description)
       - if mentor_login?
-        hr.a-border-tint
-        footer.card-footer
+        hr.a-border-tint.is-only-mentor
+        footer.card-footer.is-only-mentor
           .card-main-actions
             ul.card-main-actions__items
               li.card-main-actions__item

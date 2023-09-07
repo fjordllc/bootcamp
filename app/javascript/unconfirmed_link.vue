@@ -1,5 +1,5 @@
 <template lang="pug">
-.card-footer
+footer.card-footer
   .card-main-actions
     ul.card-main-actions__items
       li.card-main-actions__item

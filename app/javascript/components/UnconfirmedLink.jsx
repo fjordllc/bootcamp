@@ -13,7 +13,7 @@ export default function UnconfirmedLink({ label }) {
   return (
     <>
       <hr className="a-border-tint"></hr>
-      <div className="card-footer">
+      <footer className="card-footer">
         <div className="card-main-actions">
           <ul className="card-main-actions__items">
             <li className="card-main-actions__item">
@@ -25,7 +25,7 @@ export default function UnconfirmedLink({ label }) {
             </li>
           </ul>
         </div>
-      </div>
+      </footer>
     </>
   )
 }

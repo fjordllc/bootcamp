@@ -90,7 +90,7 @@
             .a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.comment.id}`')
         hr.a-border-tint
-        .card-footer
+        footer.card-footer
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item

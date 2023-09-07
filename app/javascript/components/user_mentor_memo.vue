@@ -49,7 +49,7 @@ section.a-card.is-memo.is-only-mentor
         .a-markdown-input__inner.is-preview.js-tabs__content(
           :class='{ "is-active": isActive("preview") }')
           .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
-  .card-footer(v-show='editing')
+  footer.card-footer(v-show='editing')
     .card-main-actions
       .card-main-actions__items
         .card-main-actions__item

@@ -1,7 +1,7 @@
 .a-card
   .card-header.is-sm
     = render 'reports/learning_times', report: report
-  hr.a-border
+  hr.a-border-tint
   .card-body
     .card__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{report.id}" data-taskable-type='Report' data-taskable="#{report.taskable?(current_user).to_s}")

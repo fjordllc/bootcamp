@@ -4,7 +4,7 @@
     header.card-header.is-sm
       h2.card-header__title
         | 所属カテゴリー
-    hr.a-border
+    hr.a-border-tint
     .card-body(v-for='category_id_name in postPractice.category_ids_names')
       .card__description
         table.admin-table__table
