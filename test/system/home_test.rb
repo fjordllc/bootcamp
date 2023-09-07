@@ -479,12 +479,11 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '社内メンター招待リンク'
   end
 
-  test 'show on dashboard that event is not held' do
+  test 'shows event status even if it is not held on holidays' do
     Event.destroy_all
     RegularEvent.where.not(title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)').destroy_all
 
-    holidays = Time.zone.parse('2023-09-18')
-    travel_to holidays do
+    travel_to Time.zone.parse('2023-09-18') do
       visit_with_auth '/', 'hatsuno'
       today_event_label = find('.card-list__label', text: '今日開催')
       today_events_texts = [
@@ -496,9 +495,13 @@ class HomeTest < ApplicationSystemTestCase
       ]
       assert_event_card(today_event_label, today_events_texts)
     end
+  end
 
-    weekdays = Time.zone.parse('2023-09-25')
-    travel_to weekdays do
+  test 'shows event status when it is held on weekdays' do
+    Event.destroy_all
+    RegularEvent.where.not(title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)').destroy_all
+
+    travel_to Time.zone.parse('2023-09-25') do
       visit_with_auth '/', 'hatsuno'
       today_event_label = find('.card-list__label', text: '今日開催')
       today_events_texts = [
