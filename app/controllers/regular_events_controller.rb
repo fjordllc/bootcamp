@@ -19,7 +19,11 @@ class RegularEventsController < ApplicationController
 
   def create
     @regular_event = RegularEvent.new(regular_event_params)
+    unless @regular_event.user_ids.include?(current_user.id)
+      @regular_event.user_ids = @regular_event.user_ids << current_user.id
+    end
     @regular_event.user = current_user
+    #byebug
     set_wip
     if @regular_event.save
       update_publised_at
