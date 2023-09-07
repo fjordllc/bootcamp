@@ -36,9 +36,9 @@ class MarkdownTest < ApplicationSystemTestCase
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
     # 文字列を選択してcmd + Xでカット
     page.driver.browser.action
-        .key_down(el, :shift)
-        .send_keys(el, :arrow_up)
-        .key_up(el, :shift)
+        .key_down(el, cmd_ctrl)
+        .send_keys(el, 'a')
+        .key_up(el, cmd_ctrl)
         .key_down(el, cmd_ctrl)
         .send_keys(el, 'x')
         .key_up(el, cmd_ctrl)
@@ -51,6 +51,7 @@ class MarkdownTest < ApplicationSystemTestCase
     }
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    assert_equal 'https://bootcamp.fjord.jp', clip_text
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     # 文字列を選択してcmd + Vでペースト
