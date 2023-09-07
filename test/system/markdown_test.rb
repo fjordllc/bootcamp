@@ -43,8 +43,6 @@ class MarkdownTest < ApplicationSystemTestCase
         .send_keys(el, 'x')
         .key_up(el, cmd_ctrl)
         .perform
-    fill_in('report[description]', with: 'FBC')
-    assert_field('report[description]', with: 'FBC')
     # クリップボードを読み取る権限を付与
     cdp_permission = {
       origin: page.server_url,
@@ -54,6 +52,8 @@ class MarkdownTest < ApplicationSystemTestCase
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
+    fill_in('report[description]', with: 'FBC')
+    assert_field('report[description]', with: 'FBC')
     # 文字列を選択してcmd + Vでペースト
     page.driver.browser.action
         .key_down(el, :shift)
@@ -63,7 +63,6 @@ class MarkdownTest < ApplicationSystemTestCase
         .send_keys(el, 'v')
         .key_up(el, cmd_ctrl)
         .perform
-    sleep 5
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
   end
 end
