@@ -47,15 +47,15 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'no pagination when 20 companies or less exist' do
     (21..27).each do |n|
-      Company.find(id: companies("company#{n}".to_sym).id).destroy
+      Company.find(companies("company#{n}".to_sym).id).destroy
     end
     visit_with_auth '/admin/companies', 'komagata'
     assert_no_selector 'nav.pagination'
   end
 
   test 'no pagination when 1 company exists' do
-    (2..20).each do |n|
-      Company.find(id: companies("company#{n}".to_sym).id).destroy
+    (2..27).each do |n|
+      Company.find(companies("company#{n}".to_sym).id).destroy
     end
     visit_with_auth '/admin/companies', 'komagata'
     assert_no_selector 'nav.pagination'
