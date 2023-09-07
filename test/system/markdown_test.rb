@@ -30,17 +30,18 @@ class MarkdownTest < ApplicationSystemTestCase
 
   test 'should automatically create Markdown link by pasting URL into selected text' do
     visit_with_auth new_report_path, 'komagata'
+    el = find('.js-report-content').native
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
     # 文字列を選択してcmd + Xでカット
     page.driver.browser.action
-        .key_down(:shift)
-        .send_keys(:arrow_up)
-        .key_up(:shift)
-        .key_down(cmd_ctrl)
-        .send_keys('x')
-        .key_up(cmd_ctrl)
+        .key_down(el, :shift)
+        .send_keys(el, :arrow_up)
+        .key_up(el, :shift)
+        .key_down(el, cmd_ctrl)
+        .send_keys(el, 'x')
+        .key_up(el, cmd_ctrl)
         .perform
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
@@ -55,12 +56,12 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     # 文字列を選択してcmd + Vでペースト
     page.driver.browser.action
-        .key_down(:shift)
-        .send_keys(:arrow_up)
-        .key_up(:shift)
-        .key_down(cmd_ctrl)
-        .send_keys('v')
-        .key_up(cmd_ctrl)
+        .key_down(el, :shift)
+        .send_keys(el, :arrow_up)
+        .key_up(el, :shift)
+        .key_down(el, cmd_ctrl)
+        .send_keys(el, 'v')
+        .key_up(el, cmd_ctrl)
         .perform
     sleep 5
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
