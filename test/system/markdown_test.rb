@@ -30,19 +30,10 @@ class MarkdownTest < ApplicationSystemTestCase
 
   test 'should automatically create Markdown link by pasting URL into selected text' do
     visit_with_auth new_report_path, 'komagata'
-    el = find('.js-report-content').native
-    fill_in('report[description]', with: 'https://bootcamp.fjord.jp')
-    assert_field('report[description]', with: 'https://bootcamp.fjord.jp')
+    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
+    assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    # 文字列を選択してcmd + Xでカット
-    page.driver.browser.action
-        .key_down(el, cmd_ctrl)
-        .send_keys(el, 'a')
-        .key_up(el, cmd_ctrl)
-        .key_down(el, cmd_ctrl)
-        .send_keys(el, 'x')
-        .key_up(el, cmd_ctrl)
-        .perform
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     # クリップボードを読み取る権限を付与
     cdp_permission = {
       origin: page.server_url,
@@ -51,18 +42,10 @@ class MarkdownTest < ApplicationSystemTestCase
     }
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal 'https://bootcamp.fjord.jp', clip_text
+    assert_equal 'https://bootcamp.fjord.jp/', clip_text
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
-    # 文字列を選択してcmd + Vでペースト
-    page.driver.browser.action
-        .key_down(el, :shift)
-        .send_keys(el, :arrow_up)
-        .key_up(el, :shift)
-        .key_down(el, cmd_ctrl)
-        .send_keys(el, 'v')
-        .key_up(el, cmd_ctrl)
-        .perform
-    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp)')
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
+    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
   end
 end
