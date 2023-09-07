@@ -1,7 +1,4 @@
 .card-list-item
-  - if special_event.participants.include?(current_user)
-    .participation-registration
-      | 参加登録済
   .card-list-item__inner
     .card-list-item__label.is-special
       | 特別<br>イベント
@@ -9,8 +6,13 @@
       .card-list-item__row
         header.card-list-item-title
           h2.card-list-item-title__title
-            = link_to special_event, class: 'card-list-item-title__link a-text-link' do
-              = special_event.title
+            = link_to special_event, class: 'card-list-item-title__link a-text-link has-badge' do
+              - if special_event.participants.include?(current_user)
+                span.a-badge.is-xs.is-danger
+                  | 参加
+              span.a-text-link__text
+                = special_event.title
+      .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item

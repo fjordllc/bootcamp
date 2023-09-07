@@ -272,19 +272,19 @@ class HomeTest < ApplicationSystemTestCase
       visit_with_auth '/', 'kimura'
       within all('.card-list-item')[0] do
         assert_text '直近イベントの表示テスト用(当日)'
-        assert_no_text '参加登録済'
+        assert_no_text '参加'
       end
       within all('.card-list-item')[1] do
         assert_text 'kimura専用イベント'
-        assert_text '参加登録済'
+        assert_text '参加'
       end
       within all('.card-list-item')[2] do
         assert_text '質問・雑談タイム'
-        assert_no_text '参加登録済'
+        assert_no_text '参加'
       end
       within all('.card-list-item')[3] do
         assert_text 'ダッシュボード表示確認用テスト定期イベント'
-        assert_text '参加登録済'
+        assert_text '参加'
       end
     end
   end
