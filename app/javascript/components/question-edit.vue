@@ -134,7 +134,7 @@
                 option(
                   v-for='practice in practices',
                   :key='practice.id',
-                  :value='practice.id') {{ practice.categoryAndPracticeName }}
+                  :value='practice.id') {{ practice.title }}
           .form-item
             .a-form-label
               | タイトル
@@ -302,10 +302,7 @@ export default {
           return response.json()
         })
         .then((practices) => {
-          this.practices = practices.map((practice) => {
-            practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
-            return practice
-          })
+          this.practices = practices
         })
         .then(() => {
           const choices = document.getElementById('js-choices-single-select')

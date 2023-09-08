@@ -101,7 +101,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     user = users(:komagata)
 
     visit_with_auth '/current_user/edit', 'komagata'
-    check '退会', allow_label_click: true
+    check '退会済', allow_label_click: true
     fill_in 'user[retired_on]', with: '2022-05-01'.to_date
 
     click_on '更新する'

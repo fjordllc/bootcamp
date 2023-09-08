@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resource :notify_certain_period_passed_after_last_answer, only: %i(show), controller: "notify_certain_period_passed_after_last_answer"
       resource :notify_product_review_not_completed, only: %i(show), controller: "notify_product_review_not_completed"
       resource :send_message, only: %i(show), controller: "send_message"
+      resource :auto_retire, only: %i(show), controller: "auto_retire"
     end
   end
 end

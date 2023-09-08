@@ -44,7 +44,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
 
     visit show_product_path
     post_comment('担当者がいる提出物の場合、担当者にならない')
-    assert_text 'コメントを投稿しました！'
+    assert_text '担当者がいる提出物の場合、担当者にならない'
 
     visit '/products/unchecked?target=unchecked_no_replied'
     assert_equal before_comment, assigned_product_count
