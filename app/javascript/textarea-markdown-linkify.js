@@ -8,18 +8,16 @@ export default class {
     }
 
     Array.from(textareas).forEach((textarea) => {
-      textarea.addEventListener('paste', async (event) => {
-        event.preventDefault()
+      textarea.addEventListener('paste', (event) => {
+        const params = new URL(document.location).searchParams
         const { selectionStart, selectionEnd } = textarea
         const selectedText = textarea.value.slice(selectionStart, selectionEnd)
         const pasteText =
-          event.clipboardData.getData('text') ||
-          (await navigator.clipboard.readText())
+          params.get('dummy_clipboard') || event.clipboardData.getData('text')
         if (selectedText && this._isURL(pasteText)) {
+          event.preventDefault()
           const markdownLink = `[${selectedText}](${pasteText})`
           document.execCommand('insertText', false, markdownLink)
-        } else {
-          document.execCommand('insertText', false, pasteText)
         }
       })
     })
