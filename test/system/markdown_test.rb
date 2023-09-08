@@ -33,7 +33,8 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    # find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [:shift, :delete])
     # クリップボードを読み取る権限を付与
     cdp_permission = {
       origin: page.server_url,
