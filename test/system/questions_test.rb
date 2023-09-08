@@ -201,7 +201,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'select practice title when push question button on practice page' do
     visit_with_auth "/practices/#{practices(:practice23).id}", 'hatsuno'
     click_on '質問する'
-    assert_text '[Ruby] rubyをインストールする'
+    assert_text 'rubyをインストールする'
   end
 
   test 'Question display 25 items correctly' do

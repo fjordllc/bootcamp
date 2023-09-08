@@ -191,3 +191,7 @@ talk_sotsugyoukigyoshozoku:
 talk_advisernocolleguetrainee:
   user: advisernocolleguetrainee
   unreplied: false
+
+talk_nagai-kyuukai:
+  user: nagai-kyuukai
+  unreplied: false

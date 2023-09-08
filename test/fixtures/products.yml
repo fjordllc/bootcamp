@@ -427,3 +427,8 @@ product71:
   created_at: <%= 5.day.ago + 8.hours %>
   updated_at: <%= 5.day.ago + 8.hours %>
   published_at: <%= 5.day.ago + 8.hours %>
+
+product72:
+  practice: practice1
+  user: kyuukai
+  body: 休会中ユーザーの未確認提出物

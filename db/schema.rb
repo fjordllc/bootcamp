@@ -486,7 +486,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
   create_table "practices_reports", id: false, force: :cascade do |t|
     t.integer "practice_id", null: false
     t.integer "report_id", null: false
-    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
+    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id", unique: true
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
 
@@ -739,6 +739,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
     t.boolean "sent_student_followup_message", default: false
     t.string "country_code"
     t.string "subdivision_code"
+    t.boolean "auto_retire", default: true
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

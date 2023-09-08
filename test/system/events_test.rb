@@ -402,6 +402,8 @@ class EventsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '参加申込'
     end
+
+    assert_text '参加登録しています。'
     visit_with_auth '/current_user/watches', 'komagata'
     assert_selector '.card-list-item', count: 1
   end
