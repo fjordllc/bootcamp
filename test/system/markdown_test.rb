@@ -33,10 +33,10 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [:shift, :delete])
     fill_in('report[description]', with: 'test')
     assert_field('report[description]', with: 'test')
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [:shift, :insert])
     assert_field('report[description]', with: 'FBC')
   end
   # test 'should automatically create Markdown link by pasting URL into selected text' do
