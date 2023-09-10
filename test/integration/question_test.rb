@@ -1,7 +1,9 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class QuestionTest < ActionDispatch::IntegrationTest
-  test "regular user cannot delete a question" do
+  test 'regular user cannot delete a question' do
     token = create_token('kimura', 'testtest')
     user = users(:kimura)
 
@@ -19,7 +21,7 @@ class QuestionTest < ActionDispatch::IntegrationTest
     assert_equal 'メンター/管理者以外は質問を削除できません。', flash[:notice]
   end
 
-  test "admin can delete a question" do
+  test 'admin can delete a question' do
     token = create_token('adminonly', 'testtest')
     user = users(:adminonly)
 
@@ -37,7 +39,7 @@ class QuestionTest < ActionDispatch::IntegrationTest
     assert_equal '質問を削除しました。', flash[:notice]
   end
 
-  test "mentor can delete a question" do
+  test 'mentor can delete a question' do
     token = create_token('mentormentaro', 'testtest')
     user = users(:mentormentaro)
 

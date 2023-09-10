@@ -115,9 +115,8 @@ class QuestionsController < ApplicationController
   end
 
   def require_mentor_or_admin
-    unless current_user.mentor || current_user.admin
-      flash[:notice] = 'メンター/管理者以外は質問を削除できません。'
-      redirect_to questions_path
-    end
+    return if current_user.mentor || current_user.admin
+
+    redirect_to questions_path, notice: 'メンター/管理者以外は質問を削除できません。'
   end
 end
