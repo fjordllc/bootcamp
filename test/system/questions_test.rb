@@ -80,15 +80,18 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_selector 'div.page-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
   end
 
-  test 'delete a question' do
-    question = questions(:question8)
-    visit_with_auth question_path(question), 'kimura'
-    assert_text '削除申請'
-  end
-
   test 'admin can update and delete any questions' do
     question = questions(:question8)
-    visit_with_auth question_path(question), 'komagata'
+    visit_with_auth question_path(question), 'adminonly'
+    within '.page-content' do
+      assert_text '内容修正'
+      assert_text '削除'
+    end
+  end
+
+  test 'mentor can update and delete any questions' do
+    question = questions(:question8)
+    visit_with_auth question_path(question), 'mentormentaro'
     within '.page-content' do
       assert_text '内容修正'
       assert_text '削除'
