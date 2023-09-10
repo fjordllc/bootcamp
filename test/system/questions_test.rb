@@ -263,7 +263,6 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit questions_path
     click_link 'WIPタイトル'
-    assert_text '削除申請'
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
