@@ -116,8 +116,8 @@ class QuestionsController < ApplicationController
 
   def require_mentor_or_admin
     unless current_user.mentor || current_user.admin
-      flash[:alert] = 'アクセス権限がありません。'
-      redirect_to root_url
+      flash[:notice] = 'メンター/管理者以外は質問を削除できません。'
+      redirect_to questions_path
     end
   end
 end
