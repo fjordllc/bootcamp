@@ -1,0 +1,19 @@
+h1 Listing quizzes
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @quizzes.each do |quiz|
+      tr
+        td = link_to "Show", quiz
+        td = link_to "Edit", edit_quiz_path(quiz)
+        td = link_to "Destroy", quiz, data: {confirm: "Are you sure?"}, method: :delete
+
+br
+
+= link_to "New Quiz", new_quiz_path

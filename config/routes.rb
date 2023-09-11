@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :quizzes
   resources :surveys do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
   end
