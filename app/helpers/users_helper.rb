@@ -68,21 +68,11 @@ module UsersHelper
     ((Time.zone.now - user.hibernated_at) / 86_400).floor
   end
 
-<<<<<<< HEAD
-=======
-  def automatic_retire_datetime(user)
-    return unless user.hibernated_at
-
-    user.hibernated_at.advance(months: 6)
-  end
-
->>>>>>> 5520b190b (users.rbに定義したメソッド群を、users_helper.rbに移動)
   def remaining_days_until_automatic_retire(user)
     return unless user.hibernated_at
 
     ((automatic_retire_datetime(user) - Time.zone.now) / 86_400).floor
   end
-<<<<<<< HEAD
 end
 
 def remaining_time_until_automatic_retire(user)
@@ -115,19 +105,4 @@ def remaining_minutes_until_automatic_retire(user)
   return unless user.hibernated_at
 
   ((automatic_retire_datetime(user) - Time.zone.now) / 60).floor
-=======
-
-  def remaining_hours_until_automatic_retire(user)
-    return unless user.hibernated_at
-
-    ((automatic_retire_datetime(user) - Time.zone.now) / 3600).floor
-  end
-
-  def remaining_minutes_until_automatic_retire(user)
-    return unless user.hibernated_at
-
-    ((automatic_retire_datetime(user) - Time.zone.now) / 60).floor
-  end
-
->>>>>>> 5520b190b (users.rbに定義したメソッド群を、users_helper.rbに移動)
 end
