@@ -28,23 +28,24 @@ class MarkdownTest < ApplicationSystemTestCase
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
 
-  test 'copy and paste' do
+  test 'should automatically create Markdown link by pasting URL into selected text' do
     visit_with_auth new_report_path, 'komagata'
-    fill_in('report[description]', with: 'FBC')
-    assert_field('report[description]', with: 'FBC')
+    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [:shift, :delete])
-    fill_in('report[description]', with: 'test')
-    assert_field('report[description]', with: 'test')
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [:shift, :insert])
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    fill_in('report[description]', with: 'FBC')
+    # クリップボードを読み取る権限を付与
+    cdp_permission = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
+    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    assert_equal 'https://bootcamp.fjord.jp/', clip_text
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
+    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
     assert_field('report[description]', with: 'FBC')
   end
-  # test 'should automatically create Markdown link by pasting URL into selected text' do
-  #   visit_with_auth new_report_path, 'komagata', dummy_clipboard: 'https://bootcamp.fjord.jp/'
-  #   cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-  #   fill_in('report[description]', with: 'FBC')
-  #   assert_field('report[description]', with: 'FBC')
-  #   find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
-  #   assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-  # end
 end
