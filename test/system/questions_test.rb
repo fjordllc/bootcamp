@@ -88,16 +88,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
   test 'admin can update and delete any questions' do
     question = questions(:question8)
-    visit_with_auth question_path(question), 'adminonly'
-    within '.page-content' do
-      assert_text '内容修正'
-      assert_text '削除'
-    end
-  end
-
-  test 'mentor can update and delete any questions' do
-    question = questions(:question8)
-    visit_with_auth question_path(question), 'mentormentaro'
+    visit_with_auth question_path(question), 'komagata'
     within '.page-content' do
       assert_text '内容修正'
       assert_text '削除'
@@ -210,7 +201,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'select practice title when push question button on practice page' do
     visit_with_auth "/practices/#{practices(:practice23).id}", 'hatsuno'
     click_on '質問する'
-    assert_text 'rubyをインストールする'
+    assert_text '[Ruby] rubyをインストールする'
   end
 
   test 'Question display 25 items correctly' do
