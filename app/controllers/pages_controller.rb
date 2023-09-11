@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  include Redirection
   before_action :set_page, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
   before_action :redirect_to_slug, only: %i[show edit]
@@ -41,7 +40,7 @@ class PagesController < ApplicationController
     @page.user ||= current_user
     set_wip
     if @page.save
-      url = redirect_url(@page)
+      url = Redirection.determin_url(self, @page)
       if !@page.wip?
         Newspaper.publish(:page_create, @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
@@ -56,7 +55,7 @@ class PagesController < ApplicationController
     set_wip
     @page.last_updated_user = current_user
     if @page.update(page_params)
-      url = redirect_url(@page)
+      url = Redirection.determin_url(self, @page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?

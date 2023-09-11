@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class AnnouncementsController < ApplicationController
-  include Redirection
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
@@ -40,7 +39,7 @@ class AnnouncementsController < ApplicationController
 
     if @announcement.update(announcement_params)
       Newspaper.publish(:announcement_update, @announcement)
-      redirect_to redirect_url(@announcement), notice: notice_message(@announcement)
+      redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
     else
       render :edit
     end
@@ -52,7 +51,7 @@ class AnnouncementsController < ApplicationController
     set_wip
     if @announcement.save
       Newspaper.publish(:announcement_create, @announcement)
-      redirect_to redirect_url(@announcement), notice: notice_message(@announcement)
+      redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
     else
       render :new
     end
