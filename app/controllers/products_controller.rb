@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  include Redirection
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
@@ -43,7 +42,7 @@ class ProductsController < ApplicationController
     if @product.save
       Newspaper.publish(:product_create, @product)
       Newspaper.publish(:product_save, @product)
-      redirect_to redirect_url(@product), notice: notice_message(@product, :create)
+      redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
     else
       render :new
     end
@@ -59,7 +58,7 @@ class ProductsController < ApplicationController
       Newspaper.publish(:product_update, { product: @product, current_user: current_user })
       Newspaper.publish(:product_save, @product)
       notice_another_mentor_assigned_as_checker
-      redirect_to redirect_url(@product), notice: notice_message(@product, :update)
+      redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
     else
       render :edit
     end
