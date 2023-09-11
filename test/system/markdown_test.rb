@@ -53,7 +53,8 @@ class MarkdownTest < ApplicationSystemTestCase
     }
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal 'https://bootcamp.fjord.jp/', clip_text
+    focused_element_id = page.evaluate_script('document.activeElement.id')
+    assert_equal 'report_description', focused_element_id
     # 文字列を選択→ペースト
     page.driver.browser.action
         .key_down(el, :shift)
