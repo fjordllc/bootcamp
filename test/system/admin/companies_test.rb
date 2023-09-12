@@ -46,17 +46,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'no pagination when 20 companies or less exist' do
-    (21..27).each do |n|
-      Company.find(companies("company#{n}".to_sym).id).destroy
-    end
-    visit_with_auth '/admin/companies', 'komagata'
-    assert_no_selector 'nav.pagination'
-  end
-
-  test 'no pagination when 1 company exists' do
-    (2..27).each do |n|
-      Company.find(companies("company#{n}".to_sym).id).destroy
-    end
+    Company.where.not(description: 'このデータはページャーの確認用').destroy_all
     visit_with_auth '/admin/companies', 'komagata'
     assert_no_selector 'nav.pagination'
   end

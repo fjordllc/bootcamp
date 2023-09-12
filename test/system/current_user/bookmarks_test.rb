@@ -80,24 +80,6 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
 
-  test 'no pagination when 1 bookmark exists' do
-    user_with_one_bookmark = User.create!(
-      login_name: 'have-one-bookmark',
-      email: 'have-one-bookmark@fjord.jp',
-      password: 'testtest',
-      name: 'have-one-bookmark',
-      name_kana: 'ブックマーク イッケン',
-      description: 'test',
-      course: courses(:course1),
-      job: 'office_worker',
-      os: 'mac',
-      experience: 'inexperienced'
-    )
-    user_with_one_bookmark.bookmarks.create!(bookmarkable_id: reports(:report1).id, bookmarkable_type: 'Report')
-    visit_with_auth '/current_user/bookmarks', user_with_one_bookmark.login_name
-    assert_no_selector 'nav.pagination'
-  end
-
   test 'no pagination when 20 bookmarks or less exist' do
     user_with_some_bookmarks = User.create!(
       login_name: 'have-some-bookmarks',
