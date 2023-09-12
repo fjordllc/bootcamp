@@ -121,10 +121,7 @@ class RegularEventsController < ApplicationController
   end
 
   def set_editable_regular_event
-    @regular_event = RegularEvent.find(params[:id])
-
-    unless @regular_event.organizers.ids.include?(current_user.id) || current_user.mentor?
-      @regular_event = nil
-    end
+    organizer_regular_event_ids = current_user.organizers.map(&:regular_event_id)
+    @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.where(id: organizer_regular_event_ids).find(params[:id])
   end
 end
