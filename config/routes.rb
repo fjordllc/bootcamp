@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
-  resources :courses, only: %i(index new create) do
+  resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices"
   end
   resources :practices, except: %i(index new edit destroy) do
