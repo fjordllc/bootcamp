@@ -12,7 +12,7 @@ class Categories::PracticesTest < ApplicationSystemTestCase
 
   test 'non-admin user cannot access practices sort page' do
     visit_with_auth category_practices_path(categories(:category2)), 'kimura'
-    assert_text '管理者としてログインしてください'
+    assert_text '管理者・メンターとしてログインしてください'
   end
 
   test 'sorting practices of a category' do
