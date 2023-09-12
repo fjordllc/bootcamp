@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Categories::PracticesController < ApplicationController
-  before_action :require_admin_login
+  before_action :require_admin_or_mentor_login
 
   def index
     @category = Category.find(params[:category_id])
