@@ -1,4 +1,4 @@
-= form_with model: practice, local: true, class: 'form', html: { name: 'practice' } do |f|
+= form_with model: [:mentor, practice], local: true, class: 'form', html: { name: 'practice' } do |f|
   = render 'errors', object: practice
   .form-item
     .row
