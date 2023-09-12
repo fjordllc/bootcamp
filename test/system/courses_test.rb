@@ -9,7 +9,7 @@ class CoursesTest < ApplicationSystemTestCase
   end
 
   test 'create course' do
-    visit_with_auth '/courses/new', 'komagata'
+    visit_with_auth '/mentor/courses/new', 'komagata'
     within 'form[name=course]' do
       fill_in 'course[title]', with: 'テストコース'
       fill_in 'course[description]', with: 'テストのコースです。'
