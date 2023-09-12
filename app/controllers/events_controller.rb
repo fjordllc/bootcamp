@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
+  before_action :set_editable_event, only: %i[edit update]
 
   def index; end
 
@@ -110,5 +111,9 @@ class EventsController < ApplicationController
 
   def publish_with_announcement?
     !@event.wip? && @event.announcement_of_publication?
+  end
+
+  def set_editable_event
+    @event = current_user.mentor? ? Event.find(params[:id]) : current_user.events.find(params[:id])
   end
 end
