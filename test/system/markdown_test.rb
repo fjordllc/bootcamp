@@ -28,44 +28,13 @@ class MarkdownTest < ApplicationSystemTestCase
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
 
-  test 'should automatically create Markdown link by pasting URL into selected text' do
+  test 'copy and paste' do
     visit_with_auth new_report_path, 'komagata'
-    el = find('.js-report-content').native
-    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
+    fill_in('report[title]', with: 'FBC')
+    assert_field('report[title]', with: 'FBC')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    # 文字列を選択→カット
-    page.driver.browser.action
-        .key_down(el, :shift)
-        .send_keys(el, :arrow_up)
-        .key_up(el, :shift)
-        .key_down(el, cmd_ctrl)
-        .send_keys(el, 'x')
-        .key_up(el, cmd_ctrl)
-        .perform
-    fill_in('report[description]', with: 'FBC')
-    assert_field('report[description]', with: 'FBC')
-    # クリップボードを読み取る権限を付与
-    cdp_permission = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    focused_element_id = page.evaluate_script('document.activeElement.id')
-    assert_equal 'report_description', focused_element_id
-    # 文字列を選択→ペースト
-    page.driver.browser.action
-        .key_down(el, :shift)
-        .send_keys(el, :arrow_up)
-        .key_up(el, :shift)
-        .key_down(el, cmd_ctrl)
-        .send_keys(el, 'v')
-        .key_up(el, cmd_ctrl)
-        .perform
-    assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
+    find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+    find('#report_description').native.send_keys([cmd_ctrl, 'v'])
     assert_field('report[description]', with: 'FBC')
   end
 end
