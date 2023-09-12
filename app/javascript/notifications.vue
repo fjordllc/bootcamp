@@ -76,17 +76,17 @@ export default {
   },
   created() {
     // ブラウザバック・フォワードした時にページネーションの更新をする
-    window.addEventListener("popstate", this.handlePopstate)
+    window.addEventListener('popstate', this.handlePopstate)
     this.getNotificationsPerPage()
   },
   beforeDestroy() {
-    window.removeEventListener("popstate", this.handlePopstate)
+    window.removeEventListener('popstate', this.handlePopstate)
   },
   methods: {
     handlePopstate() {
       this.currentPage = this.getPageValueFromParameter()
       this.getNotificationsPerPage()
-  },
+    },
     getNotificationsPerPage: function () {
       fetch(this.url, {
         method: 'GET',
