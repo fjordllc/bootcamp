@@ -34,7 +34,9 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_field('report[title]', with: 'FBC')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
     find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
-    find('#report_description').native.send_keys([cmd_ctrl, 'v'])
+    fill_in('report[description]', with: 'test')
+    assert_field('report[description]', with: 'test')
+    find('#report_description').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'v'])
     assert_field('report[description]', with: 'FBC')
   end
 end
