@@ -3,6 +3,14 @@
 require 'application_system_test_case'
 
 class RegularEventsTest < ApplicationSystemTestCase
+  setup do
+    @raise_server_errors = Capybara.raise_server_errors
+  end
+
+  teardown do
+    Capybara.raise_server_errors = @raise_server_errors
+  end
+
   test 'create regular event as WIP' do
     visit_with_auth new_regular_event_path, 'komagata'
     within 'form[name=regular_event]' do
@@ -263,5 +271,17 @@ class RegularEventsTest < ApplicationSystemTestCase
     click_button '内容変更'
     assert_text '定期イベントを更新しました。'
     assert has_field?('announcement[title]', with: 'WIPの定期イベントを開催します🎉')
+  end
+
+  test 'edit only organizers or mentor' do
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event5)), 'kimura'
+    assert_text '定期イベント編集'
+
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'machida'
+    assert_text '定期イベント編集'
+
+    Capybara.raise_server_errors = false
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event5)), 'hajime'
+    assert_text 'ActiveRecord::RecordNotFound'
   end
 end
