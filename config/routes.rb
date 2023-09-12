@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices"
   end
-  resources :practices, except: %i(index new edit destroy) do
+  resources :practices, only: %i(show) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
