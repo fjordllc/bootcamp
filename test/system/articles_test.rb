@@ -85,7 +85,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'no WIP marks after publication' do
     visit_with_auth edit_article_path(@article3), 'komagata'
-    click_on '更新する'
+    click_on '公開する'
     assert_no_text 'WIP'
     assert_no_text '執筆中'
     assert_selector 'head', visible: false do
