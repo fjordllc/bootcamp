@@ -4,6 +4,6 @@ section.welcome-child-section
   .welcome-members
     .row.is-gutter-width-32
       - mentors.each do |mentor|
-        - if mentor.profile_image.present? && mentor.profile_name.present? && mentor.profile_job.present? && mentor.profile_text.present?
+        - if mentor.profile_image.present? && mentor.profile_name.present? && mentor.profile_job.present? && mentor.profile_text.present? && mentor.login_name != 'achamixx'
           .col-xs-12.col-md-6.col-lg-4
             = render 'welcome/mentor', mentor: mentor, page: 'welcome-index'
