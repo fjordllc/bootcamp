@@ -13,8 +13,8 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '管理者としてログインしてください'
   end
 
-  test 'non-admin user cannot access talks unreplied page' do
-    visit_with_auth '/talks/unreplied', 'mentormentaro'
+  test 'non-admin user cannot access talks action uncompleted page' do
+    visit_with_auth '/talks/action_uncompleted', 'mentormentaro'
     assert_text '管理者としてログインしてください'
   end
 
@@ -38,7 +38,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_text "#{visited_user.login_name}さんの相談部屋"
   end
 
-  test 'a talk room is shown up on unreplied tab when users except admin comments there' do
+  test 'a talk room is shown up on action uncompleted tab when users except admin comments there' do
     user = users(:kimura)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'
@@ -51,7 +51,7 @@ class TalksTest < ApplicationSystemTestCase
 
     logout
     visit_with_auth '/talks', 'komagata'
-    find('.page-tabs__item-link', text: '未返信').click
+    find('.page-tabs__item-link', text: '未対応').click
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -65,7 +65,7 @@ class TalksTest < ApplicationSystemTestCase
     assert_selector '.page-header__title', text: 'kimura'
   end
 
-  test 'a talk room is removed from unreplied tab when admin comments there' do
+  test 'a talk room is not removed from action uncompleted tab when admin comments there' do
     user = users(:with_hyphen)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
@@ -75,9 +75,9 @@ class TalksTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    visit '/talks'
-    find('.page-tabs__item-link', text: '未返信').click
-    assert_no_text "#{decorated_user.long_name} さんの相談部屋"
+    visit '/talks/action_uncompleted'
+    find('#talks.loaded', wait: 10)
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
   test 'a list of current students is displayed' do
@@ -161,10 +161,10 @@ class TalksTest < ApplicationSystemTestCase
     end
   end
 
-  test 'talks unreplied page displays when admin logined ' do
+  test 'talks action uncompleted page displays when admin logined ' do
     visit_with_auth '/', 'komagata'
     click_link '相談', match: :first
-    assert_equal '/talks/unreplied', current_path
+    assert_equal '/talks/action_uncompleted', current_path
   end
 
   test 'Displays users talks page when user loged in ' do
@@ -331,13 +331,13 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'さんの相談部屋', count: 1 # users(:yameo)
   end
 
-  test 'incremental search for unreplied' do
-    users(:kimura).talk.update!(unreplied: true)
+  test 'incremental search for action uncompleted' do
+    users(:kimura).talk.update!(action_completed: false)
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kimura'
     assert_text 'さんの相談部屋', count: 2
 
-    visit '/talks/unreplied'
+    visit '/talks/action_uncompleted'
     fill_in 'js-talk-search-input', with: 'kimura'
     assert_text 'さんの相談部屋', count: 1 # users(:kimura)
   end
@@ -414,5 +414,31 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth "/talks/#{user.talk.id}", 'komagata'
     page.find('#side-tabs-nav-2').click
     assert_text '日報はまだありません。'
+  end
+
+  test 'it will be action completed when check action completed ' do
+    user = users(:with_hyphen)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    visit_with_auth '/talks/action_uncompleted', 'komagata'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
+
+    visit "/talks/#{user.talk.id}"
+    find('.check-button').click
+    assert_text '対応済みにしました'
+    visit '/talks/action_uncompleted'
+    assert_no_text "#{decorated_user.long_name} さんの相談部屋"
+  end
+
+  test 'it will be action uncompleted when check action completed ' do
+    user = users(:kimura)
+    decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
+    visit_with_auth '/talks/action_uncompleted', 'komagata'
+    assert_no_text "#{decorated_user.long_name} さんの相談部屋"
+
+    visit "/talks/#{user.talk.id}"
+    find('.check-button').click
+    assert_text '未対応にしました'
+    visit '/talks/action_uncompleted'
+    assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 end

@@ -18,7 +18,7 @@
         .o-empty-message__icon
           i.fa-regular.fa-smile
         p.o-empty-message__text
-          | 未返信の相談部屋はありません
+          | 未対応の相談部屋はありません
       #talks.page-content.loaded(v-else)
         .talk-list(v-show='!showSearchedTalks')
           nav.pagination(v-if='totalPages > 1')
@@ -70,13 +70,13 @@ export default {
     }
   },
   computed: {
-    isUnrepliedTalksPage() {
-      return location.pathname.includes('unreplied')
+    isActionUncompletedPage() {
+      return location.pathname.includes('action_uncompleted')
     },
     url() {
       const params = this.newParams
-      if (this.isUnrepliedTalksPage) {
-        return `/api/talks/unreplied.json?${params}`
+      if (this.isActionUncompletedPage) {
+        return `/api/talks/action_uncompleted.json?${params}`
       } else {
         return `/api/talks.json?${params}`
       }

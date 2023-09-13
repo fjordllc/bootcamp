@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   end
   resources :works, except: %i(index)
   namespace :talks do
-    resources :unreplied, only: %i(index)
+    resources :action_uncompleted, only: %i(index)
   end
   resources :talks, only: %i(index show)
   resources :questions, only: %i(index show new create destroy)
