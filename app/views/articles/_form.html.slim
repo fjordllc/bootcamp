@@ -86,7 +86,14 @@
       li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
       li.form-actions__item.is-main
-        = f.submit nil, class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+        - if article.wip?
+          = f.submit '公開する', class: 'a-button is-lg is-danger is-block', id: 'js-shortcut-submit'
+        - else
+          - case params[:action]
+          - when 'new', 'create'
+            = f.submit '公開する', class: 'a-button is-lg is-danger is-block', id: 'js-shortcut-submit'
+          - when 'edit', 'update'
+            = f.submit '更新する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'
