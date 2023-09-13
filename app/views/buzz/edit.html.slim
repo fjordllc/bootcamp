@@ -1,10 +1,27 @@
-- title '紹介記事編集'
+- title '紹介・言及記事編集'
 
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title = title
-hr.a-border
-.page-body
-  .container.is-xl
-    = render 'form', buzz: @buzz
+      .page-header__title
+        | メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to buzz_path, class: 'a-button is-md is-secondary is-block', target: '_blank', rel: 'noopener' do
+                  | 紹介・言及記事
+  hr.a-border
+  .page-body
+    .container.is-xl
+      = render 'form', buzz: @buzz

@@ -19,7 +19,8 @@
               .page-content-header__row
                 .page-content-header__before-title
                   .a-user-name
-                    = @user.private_name
+                    = link_to @user, class: 'a-muted-text-link' do
+                      = @user.private_name
                 h1.page-content-header__title
                   = title
               - if admin_login?

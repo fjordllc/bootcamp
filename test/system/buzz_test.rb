@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class BuzzTest < ApplicationSystemTestCase
   test 'non-logged-in user can access /buzz' do
     visit buzz_url
-    assert_text '紹介記事'
+    assert_text '紹介・言及記事'
     assert_text '本文1'
   end
 
@@ -16,7 +16,7 @@ class BuzzTest < ApplicationSystemTestCase
     click_on '更新する'
 
     assert_text 'adminが書き換えました'
-    assert_text '紹介記事を更新しました'
+    assert_text '紹介・言及記事を更新しました'
   end
 
   test 'mentor can update buzz' do
@@ -26,7 +26,7 @@ class BuzzTest < ApplicationSystemTestCase
     click_on '更新する'
 
     assert_text 'mentorが書き換えました'
-    assert_text '紹介記事を更新しました'
+    assert_text '紹介・言及記事を更新しました'
   end
 
   test 'regular user cannot update buzz' do

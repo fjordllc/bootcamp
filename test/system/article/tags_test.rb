@@ -13,7 +13,7 @@ class Article::TagsTest < ApplicationSystemTestCase
     end
     assert page.has_text?(tags.first)
     assert page.has_text?(tags.second)
-    click_on '登録する'
+    click_on '公開する'
 
     created_article = Article.find_by(title: 'タグ追加のテスト記事')
     assert_equal tags, created_article.tag_list.sort
