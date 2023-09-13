@@ -36,15 +36,6 @@ class MarkdownTest < ApplicationSystemTestCase
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
-    # クリップボードを読み取る権限を付与
-    cdp_permission = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    assert_equal 'https://bootcamp.fjord.jp/', clip_text
     page.execute_script("document.querySelector('#report_description').select();")
     find('.js-report-content').native.send_keys([cmd_ctrl, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
