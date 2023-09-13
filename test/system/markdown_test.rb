@@ -48,5 +48,7 @@ class MarkdownTest < ApplicationSystemTestCase
     page.execute_script("document.querySelector('#report_description').select();")
     find('.js-report-content').native.send_keys([cmd_ctrl, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
+    find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
+    assert_field('report[description]', with: 'FBC')
   end
 end
