@@ -24,8 +24,8 @@ class EventsController < ApplicationController
     if @event.save
       update_published_at
       Newspaper.publish(:event_create, @event)
-      path = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : @event
-      redirect_to path, notice: notice_message(@event)
+      url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
+      redirect_to url, notice: notice_message(@event)
     else
       render :new
     end
@@ -38,8 +38,8 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       update_published_at
       @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
-      path = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : @event
-      redirect_to path, notice: notice_message(@event)
+      url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
+      redirect_to url, notice: notice_message(@event)
     else
       render :edit
     end
@@ -73,6 +73,12 @@ class EventsController < ApplicationController
 
   def set_wip
     @event.wip = (params[:commit] == 'WIP')
+  end
+
+  def redirect_url(event)
+    return new_announcement_path(event_id: event.id) if publish_with_announcement?
+
+    event.wip? ? edit_event_url(event) : event_url(event)
   end
 
   def notice_message(event)
