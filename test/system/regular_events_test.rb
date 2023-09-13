@@ -284,4 +284,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     visit_with_auth edit_regular_event_path(regular_events(:regular_event5)), 'hajime'
     assert_text 'ActiveRecord::RecordNotFound'
   end
+
+  test '作成者が自動的に主催者になるかのテスト' do
+  end
 end
