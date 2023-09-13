@@ -292,7 +292,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
-    click_link 'お知らせの通知を既読にする'
+    click_link 'お知らせを既読にする'
 
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
     assert_no_text 'お知らせのテスト通知'
