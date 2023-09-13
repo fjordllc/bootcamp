@@ -4,13 +4,25 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title = title
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to articles_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | ブログ
-hr.a-border
-.page-body
-  .container.is-xl
-    = render 'form', article: @article, categories: @articles
+      .page-header__title
+        | メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to articles_path, class: 'a-button is-md is-secondary is-block', target: '_blank', rel: 'noopener' do
+                  | ブログ
+  hr.a-border
+  .page-body
+    .container.is-xl
+      = render 'form', article: @article, categories: @articles

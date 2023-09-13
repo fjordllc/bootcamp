@@ -13,7 +13,7 @@ class BuzzController < ApplicationController
 
   def update
     if @buzz.update(buzz_params)
-      redirect_to buzz_path, notice: '紹介記事を更新しました'
+      redirect_to buzz_path, notice: '紹介・言及記事を更新しました'
     else
       render :edit
     end
