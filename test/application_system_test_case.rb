@@ -30,14 +30,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     ActionMailer::Base.deliveries.clear
   end
-
-  def vcr_options
-    {
-      record: :once,
-      match_requests_on: [
-        :method,
-        VCR.request_matchers.uri_without_param(:source)
-      ]
-    }
-  end
 end
