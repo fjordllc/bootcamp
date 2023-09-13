@@ -2,8 +2,7 @@
 .a-user-icons__item
   a.a-user-icons__item-link(:href='startedStudent.user_link')
     span(:class='["a-user-role", roleClass]')
-      img(
-        :class='`a-user-icons__item-icon a-user-icon ${activeOrInactive}`',
+      img.a-user-icons__item-icon.a-user-icon(
         :src='startedStudent.avatar_url',
         :title='`${startedStudent.icon_title}`')
 </template>
@@ -14,10 +13,6 @@ export default {
     startedStudent: { type: Object, required: true }
   },
   computed: {
-    activeOrInactive() {
-      const active = this.startedStudent.active
-      return active ? 'active' : 'inactive'
-    },
     roleClass() {
       return `is-${this.startedStudent.primary_role}`
     }
