@@ -3,6 +3,8 @@
 class Mentor::CoursesController < MentorController
   before_action :set_course, only: %i[edit update]
 
+  def index; end
+
   def new
     @course = Course.new
   end
