@@ -1,197 +1,197 @@
 talk_komagata:
   user: komagata
-  unreplied: false
+  action_completed: true
 
 talk_machida:
   user: machida
-  unreplied: false
+  action_completed: true
 
 talk_sotugyou:
   user: sotugyou
-  unreplied: false
+  action_completed: true
 
 talk_advijirou:
   user: advijirou
-  unreplied: false
+  action_completed: true
 
 talk_yameo:
   user: yameo
-  unreplied: false
+  action_completed: true
 
 talk_mentormentaro:
   user: mentormentaro
-  unreplied: false
+  action_completed: true
 
 talk_kimura:
   user: kimura
-  unreplied: false
+  action_completed: true
 
 talk_hatsuno:
   user: hatsuno
-  unreplied: false
+  action_completed: true
 
 talk_hajime:
   user: hajime
-  unreplied: false
+  action_completed: true
 
 talk_muryou:
   user: muryou
-  unreplied: false
+  action_completed: true
 
 talk_kensyu:
   user: kensyu
-  unreplied: false
+  action_completed: true
 
 talk_senpai:
   user: senpai
-  unreplied: false
+  action_completed: true
 
 talk_kananashi:
   user: kananashi
-  unreplied: false
+  action_completed: true
 
 talk_osnashi:
   user: osnashi
-  unreplied: false
+  action_completed: true
 
 talk_jobseeker:
   user: jobseeker
-  unreplied: false
+  action_completed: true
 
 talk_nippounashi:
   user: nippounashi
-  unreplied: false
+  action_completed: true
 
 talk_with_hyphen:
   user: with_hyphen
-  unreplied: false
+  action_completed: true
 
 talk_sumi:
   user: sumi
-  unreplied: false
+  action_completed: true
 
 talk_nobu:
   user: nobu
-  unreplied: false
+  action_completed: true
 
 talk_rie:
   user: rie
-  unreplied: false
+  action_completed: true
 
 talk_take:
   user: take
-  unreplied: false
+  action_completed: true
 
 talk_kunimi:
   user: kunimi
-  unreplied: false
+  action_completed: true
 
 talk_tomo:
   user: tomo
-  unreplied: false
+  action_completed: true
 
 talk_akiyosi:
   user: akiyosi
-  unreplied: false
+  action_completed: true
 
 talk_tomomi:
   user: tomomi
-  unreplied: false
+  action_completed: true
 
 talk_ogaoga:
   user: ogaoga
-  unreplied: false
+  action_completed: true
 
 talk_take8:
   user: take8
-  unreplied: false
+  action_completed: true
 
 talk_fujiyasu:
   user: fujiyasu
-  unreplied: false
+  action_completed: true
 
 talk_adminonly:
   user: adminonly
-  unreplied: false
+  action_completed: true
 
 talk_kensyuowata:
   user: kensyuowata
-  unreplied: false
+  action_completed: true
 
 talk_unadmentor:
   user: unadmentor
-  unreplied: false
+  action_completed: true
 
 talk_tatenoicon:
   user: tatenoicon
-  unreplied: false
+  action_completed: true
 
 talk_thuynga:
   user: thuynga
-  unreplied: false
+  action_completed: true
 
 talk_sotugyou-adviser:
   user: sotugyou-adviser
-  unreplied: false
+  action_completed: true
 
 talk_otameshi:
   user: otameshi
-  unreplied: false
+  action_completed: true
 
 talk_registerthirty:
   user: registration30days
-  unreplied: false
+  action_completed: true
 
 talk_registerfourty:
   user: registration40days
-  unreplied: false
+  action_completed: true
 
 unhibernated:
   user: unhibernated
-  unreplied: false
+  action_completed: true
 
 talk_sotugyou-with-job:
   user: sotugyou_with_job
-  unreplied: false
+  action_completed: true
 
 <% 1.upto(25) do |i| %>
 marumarushain<%= i %>: # ページネーション確認のためのユーザー
   user: marumarushain<%= i %>
-  unreplied: false
+  action_completed: true
 <% end %>
 
 talk_discordinvalid:
   user: discordinvalid
-  unreplied: false
+  action_completed: true
 
 talk_nodiscordprofile:
   user: nodiscordprofile
-  unreplied: false
+  action_completed: true
 
 talk_twitterinvalid:
   user: twitterinvalid
-  unreplied: false
+  action_completed: true
 
 talk_nocompanykensyu:
   user: nocompanykensyu
-  unreplied: false
+  action_completed: true
 
 talk_kyuukai:
   user: kyuukai
-  unreplied: false
+  action_completed: true
 
 talk_neverlogin:
   user: neverlogin
-  unreplied: false
+  action_completed: true
 
 talk_sotsugyoukigyoshozoku:
   user: sotsugyoukigyoshozoku
-  unreplied: false
+  action_completed: true
 
 talk_advisernocolleguetrainee:
   user: advisernocolleguetrainee
-  unreplied: false
+  action_completed: true
 
 talk_nagai-kyuukai:
   user: nagai-kyuukai
-  unreplied: false
+  action_completed: true
