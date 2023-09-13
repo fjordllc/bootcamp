@@ -17,6 +17,8 @@ Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
 
 class ActiveSupport::TestCase
+  include VCRHelper
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
