@@ -36,7 +36,7 @@ class MarkdownTest < ApplicationSystemTestCase
     find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
     fill_in('report[description]', with: 'test')
     assert_field('report[description]', with: 'test')
-    find('#report_description').native.send_keys([cmd_ctrl, 'a'])
+    page.execute_script("document.querySelector('#report_description').select();")
     find('#report_description').native.send_keys([cmd_ctrl, 'v'])
     assert_field('report[description]', with: 'FBC')
   end
