@@ -19,7 +19,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
-    click_on '登録する'
+    click_on '公開する'
 
     assert_text '記事を作成しました'
   end
@@ -29,7 +29,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in 'article[title]', with: ''
     fill_in 'article[body]', with: ''
-    click_on '登録する'
+    click_on '公開する'
 
     assert_text 'タイトルを入力してください'
     assert_text '本文を入力してください'
@@ -107,7 +107,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
-    click_on '登録する'
+    click_on '公開する'
 
     assert_text '記事を作成しました'
   end
@@ -210,7 +210,7 @@ class ArticlesTest < ApplicationSystemTestCase
     fill_in 'article[body]', with: @article.body
     find('.choices__inner').click
     find('#choices--js-choices-single-select-item-choice-6', text: 'mentormentaro').click
-    click_on '登録する'
+    click_on '公開する'
 
     assert_text '記事を作成しました'
     assert_text 'mentormentaro'
@@ -234,7 +234,7 @@ class ArticlesTest < ApplicationSystemTestCase
     fill_in 'article[title]', with: @article.title
     fill_in 'article[summary]', with: 'サマリー１'
     fill_in 'article[body]', with: @article.body
-    click_on '登録する'
+    click_on '公開する'
 
     assert_text '記事を作成しました'
     assert_selector "meta[name='description'][content='サマリー１']", visible: false
@@ -247,7 +247,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     fill_in 'article[title]', with: @article.title
     fill_in 'article[body]', with: @article.body
-    click_on '登録する'
+    click_on '公開する'
 
     assert_text '記事を作成しました'
     meta_description = '月額29.800円、全機能が使えるお試し期間付き。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。'
@@ -293,7 +293,7 @@ class ArticlesTest < ApplicationSystemTestCase
     fill_in 'article[title]', with: 'test'
     fill_in 'article[body]', with: ':@hatsuno:'
 
-    click_on '登録する'
+    click_on '公開する'
 
     click_link 'プラクティス'
 
