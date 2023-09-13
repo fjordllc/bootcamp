@@ -6,7 +6,7 @@ class Mentor::PracticesController < ApplicationController
   before_action :set_practice, only: %i[edit update]
 
   def index; end
-  
+
   def new
     @practice = Practice.new
   end
