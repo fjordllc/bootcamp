@@ -1,5 +1,6 @@
 .form-actions
-  margin-top: 1.5rem
+  +media-breakpoint-up(md)
+    margin-top: 1.5rem
   +media-breakpoint-down(sm)
     margin-top: 1rem
   &.is-report
@@ -46,6 +47,7 @@
   &.is-main
     +media-breakpoint-up(md)
       min-width: 18rem
+      max-width: 50%
       .auth-form__body &
         min-width: 50%
     +media-breakpoint-down(sm)
@@ -66,7 +68,6 @@
     .a-button.is-muted-text
       width: auto
 
-
 .form-actions__item-help
   +text-block(.8125rem 1, center)
   padding-top: .5rem
@@ -77,11 +78,6 @@
 
 .form-actions__item-checkbox
   margin-bottom: .5rem
-
-.form-actions__description
-  margin-top: 1em
-  font-size: .8125rem
-  text-align: center
 
 .form-actions__delete
   text-align: right

@@ -29,3 +29,15 @@ VCR.configure do |c|
   driver_hosts = Webdrivers::Common.subclasses.map { |driver| URI(driver.base_url).host }
   c.ignore_hosts(*driver_hosts)
 end
+
+module VCRHelper
+  def vcr_options
+    {
+      record: :once,
+      match_requests_on: [
+        :method,
+        VCR.request_matchers.uri_without_param(:source)
+      ]
+    }
+  end
+end

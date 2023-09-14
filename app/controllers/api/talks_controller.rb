@@ -22,4 +22,15 @@ class API::TalksController < API::BaseController
               .page(params[:page]).per(PAGER_NUMBER)
       end
   end
+
+  def update
+    talk = Talk.find(params[:id])
+    talk.update(talk_params)
+  end
+
+  private
+
+  def talk_params
+    params.require(:talk).permit(:action_completed)
+  end
 end

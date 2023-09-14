@@ -11,7 +11,7 @@ json.categories @categories do |category|
       json.url practice_path(practice)
       json.learning_minute_statistic practice.learning_minute_statistic
       json.started_students practice.started_students.each do |user|
-        json.acticve user.active?
+        json.active user.active?
         json.updated_at user.updated_at
         json.user_link user_path(user)
         json.avatar_url user.avatar_url

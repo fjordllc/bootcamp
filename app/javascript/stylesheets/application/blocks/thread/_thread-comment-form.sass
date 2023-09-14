@@ -3,6 +3,12 @@
     display: flex
   .card-footer
     border-top: none
+  &.is-action-completed
+    +media-breakpoint-up(md)
+      margin-top: 1.5rem
+      padding-left: var(--thread-header-author)
+    +media-breakpoint-down(sm)
+      margin-top: 1rem
 
 .thread-comment-form__author
   flex: 0 0 var(--thread-header-author)
@@ -18,3 +24,6 @@
   flex: 1
   +position(relative)
   overflow: hidden
+
+.thread-comment-form__action-completed
+  flex: 1

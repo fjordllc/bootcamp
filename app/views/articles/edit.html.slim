@@ -4,14 +4,31 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title = title
-- if @article.wip?
-  .a-page-notice
+      .page-header__title
+        | メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+.page-main
+  header.page-main-header
     .container
-      .a-page-notice__inner
-        p
-          | この記事はまだ公開されていません。
-hr.a-border
-.page-body
-  .container.is-xl
-    = render 'form', article: @article
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to articles_path, class: 'a-button is-md is-secondary is-block', target: '_blank', rel: 'noopener' do
+                  | ブログ
+  - if @article.wip?
+    .a-page-notice
+      .container
+        .a-page-notice__inner
+          p
+            | この記事はまだ公開されていません。
+  hr.a-border
+  .page-body
+    .container.is-xl
+      = render 'form', article: @article

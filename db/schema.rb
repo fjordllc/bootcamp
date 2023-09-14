@@ -673,6 +673,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "unreplied", default: false, null: false
+    t.boolean "action_completed", default: true, null: false
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
 

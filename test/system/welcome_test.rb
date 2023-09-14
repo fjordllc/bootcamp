@@ -47,9 +47,9 @@ class WelcomeTest < ApplicationSystemTestCase
 
   test 'GET /buzz' do
     visit '/buzz'
-    assert_equal '紹介記事 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
-    assert_selector "meta[property='og:title'][content='紹介記事']", visible: false
-    assert_selector "meta[name='twitter:title'][content='紹介記事']", visible: false
+    assert_equal '紹介・言及記事 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_selector "meta[property='og:title'][content='紹介・言及記事']", visible: false
+    assert_selector "meta[name='twitter:title'][content='紹介・言及記事']", visible: false
   end
 
   test 'GET /tos' do

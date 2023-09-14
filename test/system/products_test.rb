@@ -220,8 +220,8 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
-    assert_text '提出物作成中'
     assert_text '提出物をWIPとして保存しました。'
+    assert_text '提出物編集'
   end
 
   test 'update product as WIP' do
@@ -232,6 +232,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
+    assert_text '提出物編集'
   end
 
   test 'update product as WIP with blank body to fail update and successfully get back to editor' do
@@ -270,7 +271,6 @@ class ProductsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
 
-    click_link '内容修正'
     fill_in('product[body]', with: 'test update')
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'

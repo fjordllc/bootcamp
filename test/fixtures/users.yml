@@ -13,6 +13,7 @@ komagata:
   facebook_url: https://www.facebook.com/fjordllc/komagata1111
   github_account: komagata
   blog_url: http://komagata.org
+  feed_url: https://example3.com/index.rdf
   company: company1
   description: "平日１０〜１９時勤務です。"
   course: course1
@@ -207,6 +208,7 @@ kimura:
   twitter_account: kimura
   facebook_url: https://www.facebook.com/fjordllc/kimura
   blog_url: http://kimura.org
+  feed_url: https://example1.com/feed
   description: "木村です。"
   course: course1
   job: office_worker
@@ -231,6 +233,7 @@ hatsuno:
   twitter_account: hatsuno
   facebook_url: https://www.facebook.com/fjordllc/hatsuno
   blog_url: http://hatsuno.org
+  feed_url: https://example2.com/rss
   description: "初野です。課金しています。"
   customer_id: "cus_12345678"
   subscription_id: "sub_12345678"
