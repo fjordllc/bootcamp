@@ -11,8 +11,10 @@ class Comment::AfterCreateCallback
 
     if comment.commentable.instance_of?(Talk)
       notify_to_admins(comment)
-      notify_to_chat(comment) unless comment.sender.admin?
-      update_unreplied(comment)
+      unless comment.sender.admin?
+        notify_to_chat(comment)
+        update_action_completed(comment)
+      end
     end
 
     return unless comment.commentable.instance_of?(Product)
@@ -95,9 +97,8 @@ class Comment::AfterCreateCallback
     end
   end
 
-  def update_unreplied(comment)
-    unreplied = !comment.user.admin
-    comment.commentable.update!(unreplied: unreplied)
+  def update_action_completed(comment)
+    comment.commentable.update!(action_completed: false)
   end
 
   def notify_to_chat(comment)

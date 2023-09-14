@@ -83,6 +83,7 @@ import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import MentorPractices from '../components/mentor-practices.vue'
+import ActionCompletedButton from '../components/action-completed-button.vue'
 
 import '../stylesheets/application'
 
@@ -108,6 +109,7 @@ mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(MentorPractices)
+mounter.addComponent(ActionCompletedButton)
 mounter.mount()
 
 // Support component names relative to this directory:

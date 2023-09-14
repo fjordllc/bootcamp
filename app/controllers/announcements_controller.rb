@@ -39,7 +39,7 @@ class AnnouncementsController < ApplicationController
 
     if @announcement.update(announcement_params)
       Newspaper.publish(:announcement_update, @announcement)
-      redirect_to @announcement, notice: notice_message(@announcement)
+      redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class AnnouncementsController < ApplicationController
     set_wip
     if @announcement.save
       Newspaper.publish(:announcement_create, @announcement)
-      redirect_to @announcement, notice: notice_message(@announcement)
+      redirect_to Redirection.determin_url(self, @announcement), notice: notice_message(@announcement)
     else
       render :new
     end

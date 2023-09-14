@@ -8,4 +8,14 @@ class ExternalEntriesTest < ApplicationSystemTestCase
     assert_text 'ブログ'
     assert_selector '.card-list-item'
   end
+
+  test 'fetch and save rss feeds' do
+    assert_difference 'ExternalEntry.count', 26 do
+      VCR.use_cassette 'external_entry/fetch2', vcr_options do
+        VCR.use_cassette 'external_entry/fetch' do
+          visit_with_auth '/scheduler/daily/fetch_external_entry', 'komagata'
+        end
+      end
+    end
+  end
 end

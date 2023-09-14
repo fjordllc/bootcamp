@@ -60,5 +60,5 @@
         | 提出物の削除をする場合は、相談部屋にこのページの URL <code>#{request.url}</code> を貼り、
         | 削除の申請をお願いします。
       p
-        = link_to unreplied_index_path(current_user.talk), target: '_blank', rel: 'noopener' do
+        = link_to action_uncompleted_index_path(current_user.talk), target: '_blank', rel: 'noopener' do
           | 相談部屋はこちら

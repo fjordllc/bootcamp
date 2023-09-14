@@ -19,8 +19,7 @@ class EventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '特別イベントをWIPとして保存しました。'
-    assert_text '公開されるまでお待ちください。'
-    assert_text 'Watch中'
+    assert_text '特別イベント編集'
   end
 
   test 'create a new event' do
@@ -454,7 +453,6 @@ class EventsTest < ApplicationSystemTestCase
       check 'イベント公開のお知らせを書く', allow_label_click: true
       click_button 'WIP'
     end
-    click_link '内容修正'
 
     check 'イベント公開のお知らせを書く', allow_label_click: true
     click_button '内容を更新'
@@ -484,7 +482,6 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[open_end_at]', with: Time.current + 2.hours
       click_button 'WIP'
     end
-    click_link '内容修正'
 
     assert_selector 'label', text: 'イベント公開のお知らせを書く'
   end

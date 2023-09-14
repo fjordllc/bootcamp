@@ -1,5 +1,5 @@
 <template lang="pug">
-.a-overlay.is-vue(@click.self='closeModal')
+.a-overlay.is-js(@click.self='closeModal')
   .a-card.is-modal
     header.card-header.is-sm
       h1.card-header__title

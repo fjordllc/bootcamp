@@ -69,10 +69,10 @@ nav.global-nav
           li.global-nav-links__item
             = render 'global_nav_help_link'
         li.global-nav-links__item
-          = link_to unreplied_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
+          = link_to action_uncompleted_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-comment-alt-smile
-            - if admin_login? && Talk.unreplied.count.positive?
+            - if admin_login? && Talk.action_uncompleted.count.positive?
               .global-nav__item-count.a-notification-count.is-only-mentor
-                = Talk.unreplied.count
+                = Talk.action_uncompleted.count
             .global-nav-links__link-label 相談

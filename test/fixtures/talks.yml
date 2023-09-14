@@ -1,144 +1,144 @@
 talk1:
   user: komagata
-  unreplied: false
+  action_completed: true
 
 talk2:
   user: machida
-  unreplied: false
+  action_completed: true
 
 talk3:
   user: sotugyou
-  unreplied: false
+  action_completed: true
 
 talk4:
   user: advijirou
-  unreplied: false
+  action_completed: true
 
 talk5:
   user: yameo
-  unreplied: false
+  action_completed: true
 
 talk6:
   user: mentormentaro
-  unreplied: false
+  action_completed: true
 
 talk7:
   user: kimura
-  unreplied: false
+  action_completed: true
 
 talk8:
   user: hatsuno
-  unreplied: false
+  action_completed: true
 
 talk9:
   user: hajime
-  unreplied: false
+  action_completed: true
 
 talk10:
   user: muryou
-  unreplied: false
+  action_completed: true
 
 talk11:
   user: kensyu
 
 talk12:
   user: senpai
-  unreplied: false
+  action_completed: true
 
 talk13:
   user: kananashi
-  unreplied: false
+  action_completed: true
 
 talk14:
   user: osnashi
-  unreplied: false
+  action_completed: true
 
 talk15:
   user: jobseeker
-  unreplied: false
+  action_completed: true
 
 talk16:
   user: nippounashi
-  unreplied: false
+  action_completed: true
 
 talk17:
   user: with_hyphen
-  unreplied: true
+  action_completed: false
 
 talk18:
   user: kensyuowata
-  unreplied: false
+  action_completed: true
 
 talk19:
   user: adminonly
-  unreplied: false
+  action_completed: true
 
 talk20:
   user: otameshi
-  unreplied: false
+  action_completed: true
 
 talk21:
   user: sotugyou_with_job
-  unreplied: false
+  action_completed: true
 
 talk22:
   user: discordinvalid
-  unreplied: false
+  action_completed: true
 
 talk23:
   user: twitterinvalid
-  unreplied: false
+  action_completed: true
 
 talk24:
   user: enchomaemae
-  unreplied: false
+  action_completed: true
 
 talk25:
   user: enchomaeyo
-  unreplied: false
+  action_completed: true
 
 talk26:
   user: enchohayashi
-  unreplied: false
+  action_completed: true
 
 talk27:
   user: enchoososhi
-  unreplied: false
+  action_completed: true
 
 talk28:
   user: enchoowata
-  unreplied: false
+  action_completed: true
 
 talk29:
   user: kimuramitai
-  unreplied: false
+  action_completed: true
 
 talk30:
   user: long-id-mentor
-  unreplied: false
+  action_completed: true
 
 talk31:
   user: nocompanykensyu
-  unreplied: false
+  action_completed: true
 
 talk32:
   user: neverlogin
-  unreplied: false
+  action_completed: true
 
 talk33:
   user: sotsugyoukigyoshozoku
-  unreplied: false
+  action_completed: true
 
 talk34:
   user: kyuukai
-  unreplied: false
+  action_completed: true
 
 talk_advisernocolleguetrainee:
   user: advisernocolleguetrainee
-  unreplied: false
+  action_completed: true
 
 <% 1.upto(4) do |i| %>
 marumarushain<%= i %>: # ページネーション確認のためのユーザー
   user: marumarushain<%= i %>
-  unreplied: false
+  action_completed: true
 <% end %>
