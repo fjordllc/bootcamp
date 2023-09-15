@@ -1,6 +1,6 @@
 .card-list-item
   .card-list-item__inner
-    - if holding?(holding_date, regular_event)
+    - if regular_event.holding?(holding_date)
       .card-list-item__label class="is-#{regular_event.category}"
         = t("activerecord.enums.regular_event.category.#{regular_event.category}")
     - else
@@ -13,13 +13,13 @@
       .card-list-item__row
         header.card-list-item-title
           h2.card-list-item-title__title
-            = link_to regular_event, class: "card-list-item-title__link #{holding?(holding_date, regular_event) ? 'a-text-link' : 'a-muted-text-link'}" do
+            = link_to regular_event, class: "card-list-item-title__link #{regular_event.holding?(holding_date) ? 'a-text-link' : 'a-muted-text-link'}" do
               = regular_event.title
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              - if holding?(holding_date, regular_event)
+              - if regular_event.holding?(holding_date)
                 time.a-meta
                   span.a-meta__label
                     | 開催日時
