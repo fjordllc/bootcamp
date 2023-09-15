@@ -1,0 +1,70 @@
+header.lp-header
+  .l-container
+    .lp-header__inner
+      .lp-header__start
+        .lp-header__home
+          = link_to current_user ? welcome_path : root_path, class: 'lp-header__home-link' do
+            = image_tag('shared/logo-horizontal.svg', alt: 'プログラミングスクール', class: 'lp-header__home-link-image')
+        input.a-toggle-checkbox#welcome-mobile-nav(type='checkbox')
+        nav.lp-header-nav
+          ul.lp-header-nav__items
+            li.lp-header-nav__item
+              = link_to welcome_path, class: 'lp-header-nav__item-link' do
+                span
+                  | トップページ
+            li.lp-header-nav__item
+              = link_to practices_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 学習内容
+            li.lp-header-nav__item
+              = link_to pricing_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 料金
+            li.lp-header-nav__item
+              = link_to job_support_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 就職支援
+            li.lp-header-nav__item
+              = link_to training_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 法人利用
+            li.lp-header-nav__item
+              = link_to faq_path, class: 'lp-header-nav__item-link' do
+                span
+                  | FAQ
+            li.lp-header-nav__item
+              = link_to buzz_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 紹介・言及記事
+            li.lp-header-nav__item
+              = link_to alumni_voices_path, class: 'lp-header-nav__item-link' do
+                span
+                  | 卒業生の声
+            li.lp-header-nav__item
+              = link_to articles_path, class: 'lp-header-nav__item-link' do
+                span
+                  | ブログ
+            - unless current_user
+              li.lp-header-nav__item
+                = link_to courses_path, class: 'lp-header-nav__item-link' do
+                  | 参加登録
+            li.lp-header-nav__item.is-hidden-md-up
+              - if current_user
+                = link_to course_practices_path(current_user.course), class: 'lp-header-nav__item-link' do
+                  | プラクティス
+              - else
+                = link_to login_path, class: 'lp-header-nav__item-link' do
+                  | ログイン
+          label.lp-header-nav__overlay(for='welcome-mobile-nav')
+
+      .lp-header__end
+        .lp-header__login.is-hidden-md-down
+          - if current_user
+            = link_to course_practices_path(current_user.course), class: 'a-button is-sm is-secondary is-block' do
+              | プラクティス
+          - else
+            = link_to login_path, class: 'a-button is-sm is-secondary is-block' do
+              | ログイン
+        label.lp-header__mobile-nav-trigger(for='welcome-mobile-nav')
+          i.fa-solid.fa-bars
+  hr.a-border-tint

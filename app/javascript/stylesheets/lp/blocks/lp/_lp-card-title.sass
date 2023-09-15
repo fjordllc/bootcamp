@@ -1,0 +1,25 @@
+.lp-card-title
+  font-feature-settings: "palt"
+  letter-spacing: .02em
+  font-weight: 800
+  color: var(--main)
+  +media-breakpoint-up(lg)
+    +text-block(1.5rem 1.4)
+  +media-breakpoint-only(md)
+    +text-block(1.25rem 1.4)
+  +media-breakpoint-down(sm)
+    +text-block(1rem 1.4)
+    br
+      display: none
+
+.lp-card-title-number
+  +text-block(.9375rem 1, inline-flex 800)
+  font-family: 'Roboto Mono', monospace
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  +size(1.75rem)
+  background-color: var(--lp-bg-3)
+  margin-right: .5rem
+  vertical-align: middle
+  border: solid 2px var(--main)

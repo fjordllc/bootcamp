@@ -1,17 +1,22 @@
 $main: hsl(242, 51%, 51%)
 $accent: hsl(44, 96%, 54%)
 $base: white
-$background: hsl(242, 34%, 98%)
 
 // completion
 $completion: hsl(197deg 83% 49%)
 $completion-dark: rgb(0 0 0 / 20%)
 
 // background
-$background-shade: hsl(242, 11%, 85%)
-$background-semi-shade: hsl(242, 24%, 92%)
-$background-tint: hsl(242, 9%, 93%)
-$background-more-tint: hsl(242, 8%, 98.5%)
+$background-shade: hsl(242, 11%, 85%) // #d5d5dd
+$background-semi-shade: hsl(242, 24%, 92%) // #e6e6ef
+$background: hsl(242, 34%, 98%) // #f8f8fc
+$background-tint: hsl(242, 9%, 93%) // #ececef
+$background-more-tint: hsl(242, 8%, 98.5%) // #fbfbfb
+
+// lp-bg
+$lp-bg-3: #DEDEF2
+$lp-bg-2: #EBEBF7
+$lp-bg-1: $background
 
 // nikoniko
 $happy-background: #ffecdf
@@ -24,7 +29,7 @@ $silver: #898888
 $bronze: #dc7e61
 
 // text
-$default-text: hsl(242, 12%, 35%)
+$default-text: hsl(242, 10%, 30%)
 $reversal-text: white
 $muted-text: hsl(242, 5%, 64%)
 $semi-muted-text: hsl(242, 7%, 57%)
@@ -39,6 +44,7 @@ $placeholder-text: hsl(242, 0%, 73%)
 $border: hsl(242, 7%, 89%)
 $border-tint: hsl(242, 14%, 95%)
 $border-shade: hsl(242, 7%, 84%)
+$border-more-shade: $muted-text
 
 // Welcome Colors
 $welcome-blue: hsl(210, 100%, 55%)
@@ -48,7 +54,7 @@ $welcome-orange: hsl(40, 98%, 59%)
 $welcome-pink: hsl(344, 80%, 66%)
 
 // UI colors
-$primary: hsl(211, 67%, 52%)
+$primary: $main
 $secondary: hsl(242, 1%, 100%)
 $success: hsl(150, 39%, 49%)
 $info: hsl(190, 73%, 48%)
@@ -69,6 +75,8 @@ $info-tint: tint($info, 90%)
 $primary-text: shade($primary, 40%)
 $primary-tint: tint($primary, 90%)
 $primary-semi-tint: tint($primary, 60%)
+
+$primary-background: #ebebf7
 
 $warning-text: shade($warning, 60%)
 $warning-tint: tint($warning, 90%)

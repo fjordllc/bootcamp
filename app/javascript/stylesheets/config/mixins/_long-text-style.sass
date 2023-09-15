@@ -54,11 +54,11 @@
     +text-block(1.875em 1.466 0 .75em, 600)
     color: var(--main-text)
     padding-bottom: .25em
-    border-bottom: 3px solid mix($font, $background, 20%)
+    border-bottom: 3px solid var(--border)
   h2
     +text-block(1.625em 1.4615 0 .75em, 600)
     padding-bottom: .25em
-    border-bottom: 1px solid mix($font, $background, 20%)
+    border-bottom: 1px solid var(--border)
   * + h2
     margin-top: 1.4em
   h2 + h3
@@ -141,7 +141,7 @@
       align-items: center
       letter-spacing: 0
       padding-inline: .25rem
-      border: solid 1px mix($font, $background, 20%)
+      border: solid 1px var(--border)
       background-color: mix($font, $background, 4%)
       margin-inline: .25rem
       border-radius: .125rem
@@ -177,7 +177,7 @@
     margin-block: 1.5em
   li
     +text-block(1em 1.86)
-    margin-block: .375em
+    margin-block: .5em
     &:first-child
       margin-top: 0
     &:last-child
@@ -195,16 +195,17 @@
 
   table
     width: 100%
+    background-color: var(--base)
     margin-block: 2em
 
   th,
   td
-    border: solid 1px mix($font, $background, 40%)
+    border: solid 1px var(--border-shade)
     padding: .5em .625em
     +text-block(.875em 1.6, left)
 
   th
-    background-color: mix($font, $background, 8%)
+    background-color: var(--background)
 
   tbody tr
     &:nth-child(even)
@@ -214,7 +215,7 @@
     padding-left: 1.5em
     margin-block: 1.5em 2em
     +position(relative)
-    border-left: solid .25em mix($font, $background, 10%)
+    border-left: solid .25em var(--border-tint)
     +list
     p + &
       margin-block: 3em 2.5em
@@ -225,7 +226,7 @@
 
   details
     +text-block(.875rem 1.8 0 1.5em)
-    border: solid 1px mix($font, $background, 20%)
+    border: solid 1px var(--border)
     padding: .5em 1em
     border-radius: .25rem
     +list
@@ -235,7 +236,7 @@
       outline: none
       +hover-link
     &[open] summary
-      border-bottom: solid 1px mix($font, $background, 20%)
+      border-bottom: solid 1px var(--border)
       padding-bottom: .5em
       margin-bottom: .5em
 

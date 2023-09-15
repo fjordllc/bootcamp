@@ -1,0 +1,45 @@
+section.lp-content.is-lp-bg-1.is-top-title#feature
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 基本的に誰でも参加OK
+
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            section.lp-content-section
+              .lp-content__description
+                .l-inner-container.is-md
+                  .a-long-text
+                    p
+                      | FBCに入会資格はありません。住所、年齢、プログラミング経験に関わらず、誰でも入会が可能です。
+                      | ただし、FBCは誰にとっても居心地のいい場所であり続けるため、
+                      = link_to tos_path, target: '_blank', rel: 'noopener' do
+                        | 利用規約
+                      | の他に
+                      = link_to coc_path, target: '_blank', rel: 'noopener' do
+                        | アンチハラスメントポリシー
+                      | にも同意する必要があります。
+          .lp-content-stack__item
+              = render 'welcome/unlimited'
+          .lp-content-stack__item
+            section.lp-content-section
+              h3.lp-content-sub-title.text-center
+                i.fa-solid.fa-triangle-exclamation
+                | ただし、以下の条件があります
+              .lp-content__description
+                .l-inner-container.is-md
+                  .a-long-text
+                    p
+                      | FBCでの学習には書籍や機材などが必要ですが、
+                      | これらは利用料とは別に購入する必要があります。
+                      | ただし、入会直後にすべてを揃える必要はありません。
+                      | 必要に応じて、都度購入していただけます。
+          .lp-content-stack__item
+            = render 'welcome/conditions'
+
+  .lp-content-divider.is-lp-bg-2
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
