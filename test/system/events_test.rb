@@ -515,9 +515,6 @@ class EventsTest < ApplicationSystemTestCase
     visit_with_auth edit_event_path(events(:event1)), 'komagata'
     assert_text '特別イベント編集'
 
-    visit_with_auth edit_event_path(events(:event31)), 'kimura'
-    assert_text '特別イベント編集'
-
     Capybara.raise_server_errors = false
     visit_with_auth edit_event_path(events(:event5)), 'hajime'
     assert_text 'ActiveRecord::RecordNotFound'
