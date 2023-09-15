@@ -4,21 +4,21 @@
   +media-breakpoint-down(sm)
     padding: .75rem
 
+.user-data__row
+  &:not(:first-child)
+    +media-breakpoint-up(md)
+      margin-top: 1rem
+    +media-breakpoint-down(sm)
+      margin-top: .75rem
+
 .user-data__description
   flex: 0 0 100%
-  margin-top: 1rem
-  +media-breakpoint-down(sm)
-    margin-top: .75rem
   p
     +text-block(.875rem 1.8 0 .8em)
     +media-breakpoint-down(sm)
       font-size: .8125rem
     &:last-child
       margin-bottom: 0
-
-.user-data__edit
-  margin-top: .75rem
-  text-align: right
 
 .user-data__tags
   margin-top: .75rem

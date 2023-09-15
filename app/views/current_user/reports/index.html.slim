@@ -17,7 +17,7 @@
               .page-header-actions__items
                 .page-header-actions__item
                   = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
-                    | 日報一括ダウンロード
+                    | 日報ダウンロード
 
 hr.a-border
 = react_component('Reports', userId: current_user.id)
