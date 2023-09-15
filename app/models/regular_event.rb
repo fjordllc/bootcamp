@@ -57,6 +57,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :tomorrow_events, -> { where(id: holding.select(&:holding_tomorrow?).map(&:id)) }
   scope :day_after_tomorrow_events, -> { where(id: holding.select(&:holding_day_after_tomorrow?).map(&:id)) }
   scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
+  scope :organizer_event, ->(user) { where(id: organizer_events_ids(user)) }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -169,6 +170,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
           event.id == id.to_i
         end
       end
+    end
+
+    def organizer_events_ids(user)
+      user.organizers.map(&:regular_event_id)
     end
   end
 
