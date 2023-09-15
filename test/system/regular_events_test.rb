@@ -285,6 +285,24 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'ActiveRecord::RecordNotFound'
   end
 
-  test '作成者が自動的に主催者になるかのテスト' do
+  test 'join event user to organizers automatically' do
+    visit_with_auth new_regular_event_path, 'hajime'
+    within 'form[name=regular_event]' do
+      fill_in 'regular_event[title]', with: 'ブルーベリー本輪読会'
+      first('.choices__inner').click
+      find('#choices--js-choices-multiple-select-item-choice-1').click
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select('金曜日')
+      fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
+      fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
+      fill_in 'regular_event[description]', with: '予習不要です'
+      assert_difference 'RegularEvent.count', 1 do
+        click_button '作成'
+      end
+    end
+    assert_text '定期イベントを作成しました。'
+    assert_text '毎週金曜日'
+    assert_text 'Watch中'
+    assert_css '.a-user-icon.is-hajime'
   end
 end
