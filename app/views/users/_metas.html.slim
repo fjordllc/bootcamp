@@ -33,13 +33,6 @@
         | 修了プラクティス
       .user-metas__item-value
         = user.completed_practices.size
-    .user-metas__item
-      .user-metas__item-label
-        | Discordアカウント
-      .user-metas__item-value
-        = user.discord_profile.account_name.presence || '未登録'
-        - if user.discord_profile.times_url?
-            | （#{link_to '分報', user.discord_profile.times_url}）
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label

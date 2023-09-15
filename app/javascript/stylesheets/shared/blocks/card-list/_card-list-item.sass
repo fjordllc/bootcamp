@@ -65,7 +65,7 @@ a.card-list-item__inner
   text-overflow: ellipsis
 
 .card-list-item__label
-  border-radius: 50%
+  border-radius: .25rem
   background-color: var(--accent)
   display: flex
   align-items: center
@@ -74,9 +74,9 @@ a.card-list-item__inner
   position: relative
   font-feature-settings: "palt"
   +media-breakpoint-up(md)
-    +size(2.5rem)
+    +size(2.75rem)
   +media-breakpoint-down(sm)
-    +size(2.25rem)
+    +size(2.5rem)
   .card-list-item.is-report &
     background-color: #7f6fb7
     color: var(--reversal-text)
@@ -132,9 +132,9 @@ a.card-list-item__inner
 
 .card-list-item__user-icon
   +media-breakpoint-up(md)
-    +size(2.5rem)
+    +size(2.75rem)
   +media-breakpoint-down(sm)
-    +size(2.25rem)
+    +size(2.5rem)
   .card-list-item.is-wip &
     opacity: .6
 
