@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.config.after_initialize do
+Rails.configuration.to_prepare do
   Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
