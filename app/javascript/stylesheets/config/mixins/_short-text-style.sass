@@ -15,3 +15,42 @@
     +text-block(1em 1.7 0 .125em)
   a
     +hover-link-reversal
+
+  .message
+    background: red
+    padding: 1em 1.25em 1em 2.75em
+    border-radius: .25rem
+    margin-block: 1.5em 2em
+    background-color: var(--warning-tint)
+    color: var(--warning-text)
+    &::before
+      +fa(fas '\f06a')
+      +position(absolute, left .25em, top .25em)
+      font-size: 1.5em
+      color: var(--warning)
+    &.alert,
+    &.danger
+      background-color: var(--danger-tint)
+      color: var(--danger-text)
+      &::before
+        color: var(--danger)
+    &.warning
+      background-color: var(--warning-tint)
+      color: var(--warning-text)
+      &::before
+        color: var(--warning)
+    &.info
+      background-color: var(--info-tint)
+      color: var(--info-text)
+      &::before
+        color: var(--info)
+    &.primary
+      background-color: var(--primary-tint)
+      color: var(--primary-text)
+      &::before
+        color: var(--primary)
+    &.success
+      background-color: var(--success-tint)
+      color: var(--success-text)
+      &::before
+        color: var(--success)

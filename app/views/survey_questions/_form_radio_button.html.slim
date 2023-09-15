@@ -8,7 +8,8 @@
       .form-item__add-choice.js-add-choice
         = link_to_add_association i, :radio_button_choices, class: 'a-button is-md is-primary' do
           i.fa-regular.fa-plus
-          | 選択肢を追加
+          span
+            | 選択肢を追加
     .form-item.is-hidden.radio_button
       = i.label :title_of_reason, class: 'a-form-label is-required'
       = i.text_field :title_of_reason, class: 'a-text-input js-warning-form', placeholder: 'その他を選択した場合、その他の内容について具体的に教えてください。'

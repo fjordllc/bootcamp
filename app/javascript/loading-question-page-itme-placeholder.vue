@@ -22,7 +22,7 @@
               .a-button.is-sm.is-secondary.is-block.a-placeholder
   .a-card.is-loading
     .card-body
-      .card__description
+      .card-body__description
         .a-long-text.is-md.a-placeholder
           p
           p
