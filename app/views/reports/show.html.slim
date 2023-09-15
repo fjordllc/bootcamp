@@ -2,7 +2,6 @@
 - set_meta_tags description: "#{@report.user.login_name}さんの#{l @report.reported_on}の日報です。"
 
 = render 'users/page_title', user: @report.user
-
 = render 'users/page_tabs', user: @report.user
 
 - if mentor_login? && !@report.first? && @report.latest_of_user?
