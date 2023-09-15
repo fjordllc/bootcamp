@@ -19,17 +19,17 @@
     +nowrap-items(3)
 
 .card-counts__item-inner
-  border: solid 1px var(--border)
+  border: solid 1px var(--border-tint)
   border-radius: 3px
 
 .card-counts__item-label
   +text-block(.625rem 1.4, center)
+  color: var(--semi-muted-text)
   padding-block: .125rem
-  border-bottom: solid 1px var(--border)
-  background-color: var(--background)
+  border-bottom: solid 1px var(--border-tint)
 
 .card-counts__item-value
-  +text-block(1rem 1.4, center)
+  +text-block(.875rem 1.4, center)
   padding-bottom: .125rem
   &.is-empty
     color: var(--muted-text)
