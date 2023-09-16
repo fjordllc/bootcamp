@@ -39,21 +39,44 @@ class MarkdownTest < ApplicationSystemTestCase
     end
   end
 
+  def cmd_ctrl
+    page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
+  end
+
+  def all_cut(selector)
+    find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+  end
+
+  def all_copy(selector)
+    find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+  end
+
+  def select_text_and_paste(selector)
+    page.execute_script("document.querySelector('#{selector}').select();")
+    find(selector).native.send_keys([cmd_ctrl, 'v'])
+  end
+
+  def undo(selector)
+    find(selector).native.send_keys([cmd_ctrl, 'z'])
+  end
+
+  def paste(selector)
+    find(selector).native.send_keys([cmd_ctrl, 'v'])
+  end
+
   test 'should automatically create Markdown link when pasting a URL text into selected text' do
     visit_with_auth new_report_path, 'komagata'
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
-    cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('#report_description').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    all_cut('#report_description')
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
-    page.execute_script("document.querySelector('#report_description').select();")
-    find('#report_description').native.send_keys([cmd_ctrl, 'v'])
+    select_text_and_paste('#report_description')
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-    find('#report_description').native.send_keys([cmd_ctrl, 'z'])
+    undo('#report_description')
     assert_field('report[description]', with: 'FBC')
   end
 
@@ -61,15 +84,13 @@ class MarkdownTest < ApplicationSystemTestCase
     visit_with_auth new_report_path, 'komagata'
     fill_in('report[title]', with: 'FBC')
     assert_field('report[title]', with: 'FBC')
-    cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+    all_copy('#report_title')
     fill_in('report[description]', with: 'test')
     assert_field('report[description]', with: 'test')
     grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'FBC', clip_text
-    page.execute_script("document.querySelector('#report_description').select();")
-    find('#report_description').native.send_keys([cmd_ctrl, 'v'])
+    select_text_and_paste('#report_description')
     assert_field('report[description]', with: 'FBC')
   end
 
@@ -77,12 +98,11 @@ class MarkdownTest < ApplicationSystemTestCase
     visit_with_auth new_report_path, 'komagata'
     fill_in('report[title]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[title]', with: 'https://bootcamp.fjord.jp/')
-    cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+    all_copy('#report_title')
     grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
-    find('#report_description').native.send_keys([cmd_ctrl, 'v'])
+    paste('#report_description')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
   end
 end
