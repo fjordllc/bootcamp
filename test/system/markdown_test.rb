@@ -44,16 +44,16 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
+    find('#report_description').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     page.execute_script("document.querySelector('#report_description').select();")
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'v'])
+    find('#report_description').native.send_keys([cmd_ctrl, 'v'])
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
-    find('.js-report-content').native.send_keys([cmd_ctrl, 'z'])
+    find('#report_description').native.send_keys([cmd_ctrl, 'z'])
     assert_field('report[description]', with: 'FBC')
   end
 
