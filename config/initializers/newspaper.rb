@@ -67,4 +67,5 @@ Rails.configuration.to_prepare do
 
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForWatcher.new)
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForChecker.new)
+  Newspaper.subscribe(:came_comment, CommentNotifier.new)
 end

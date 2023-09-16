@@ -6,7 +6,7 @@ class Comment::AfterCreateCallback
       create_watch(comment)
       notify_to_watching_user(comment)
     elsif comment.sender != comment.receiver
-      notify_comment(comment)
+      Newspaper.publish(:came_comment, comment)
     end
 
     if comment.commentable.instance_of?(Talk)
@@ -26,16 +26,6 @@ class Comment::AfterCreateCallback
   end
 
   private
-
-  def notify_comment(comment)
-    commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
-    ActivityDelivery.with(
-      comment: comment,
-      receiver: comment.receiver,
-      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
-      link: "#{commentable_path}#latest-comment"
-    ).notify(:came_comment)
-  end
 
   def notify_to_watching_user(comment)
     watchable = comment.commentable
