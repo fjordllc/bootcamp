@@ -28,6 +28,9 @@ class MarkdownTest < ApplicationSystemTestCase
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
 
+  # ローカル環境のheadless chromeでのテスト実行時にのみ必要
+  # https://github.com/fjordllc/bootcamp/pull/6747#discussion_r1325417231
+  # https://bootcamp.fjord.jp/reports/80292
   def grant_clipboard_read_permission
     unless ENV['CI']
       cdp_permission = {
@@ -51,6 +54,9 @@ class MarkdownTest < ApplicationSystemTestCase
     find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
   end
 
+  # CIでのみペースト前のctrl + Aが効かないため文字列の選択をselect()メソッドで実行
+  # https://github.com/fjordllc/bootcamp/pull/6747#discussion_r1325419865
+  # https://bootcamp.fjord.jp/questions/1720
   def select_text_and_paste(selector)
     page.execute_script("document.querySelector('#{selector}').select();")
     find(selector).native.send_keys([cmd_ctrl, 'v'])
