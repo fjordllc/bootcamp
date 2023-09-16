@@ -331,7 +331,7 @@ class HomeTest < ApplicationSystemTestCase
 
     products(:product71).update!(checker: users(:mentormentaro))
     visit current_path
-    assert_text 'しばらく5日経過に到達する\n提出物はありません。'
+    assert_text "しばらく5日経過に到達する\n提出物はありません。"
   end
 
   test 'work link of passed almost 5days' do
