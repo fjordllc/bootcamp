@@ -227,6 +227,7 @@ class HomeTest < ApplicationSystemTestCase
         { category: '特別', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
         { category: '特別', title: 'kimura専用イベント', start_at: '2017年04月03日(月) 09:00' },
         { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
       ]
       tomorrow_events_texts = [
