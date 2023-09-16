@@ -42,7 +42,7 @@ class RetirementTest < ApplicationSystemTestCase
 
   test 'retire user with times_channel' do
     user = users(:hajime)
-    user.update!(times_id: '987654321987654321')
+    user.discord_profile.update!(times_id: '987654321987654321')
     Discord::Server.stub(:delete_text_channel, true) do
       visit_with_auth new_retirement_path, user.login_name
       find('label', text: 'とても良い').click
@@ -51,7 +51,7 @@ class RetirementTest < ApplicationSystemTestCase
       assert_text '退会処理が完了しました'
     end
     assert_equal Date.current, user.reload.retired_on
-    assert_nil user.times_id
+    assert_nil user.discord_profile.times_id
   end
 
   test 'retire user with postmark error' do

@@ -101,17 +101,17 @@ class AutoRetireTest < ApplicationSystemTestCase
 
   test 'delete times channel when retire' do
     user = users(:kyuukai)
-    user.update!(times_id: '987654321987654321')
+    user.discord_profile.update!(times_id: '987654321987654321')
 
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       Discord::Server.stub(:delete_text_channel, true) do
         VCR.use_cassette 'subscription/update' do
-          visit_with_auth scheduler_daily_retirement_after_long_hibernation_path, 'komagata'
+          visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
         end
       end
       assert_equal Date.current, user.reload.retired_on
     end
-    assert_nil user.times_id
+    assert_nil user.discord_profile.times_id
   end
 
   test 'retire with postmark error' do
