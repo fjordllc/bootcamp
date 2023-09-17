@@ -20,7 +20,7 @@ class MarkdownTest < ApplicationSystemTestCase
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
-    grant_clipboard_read_permission
+    # grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     page.execute_script("document.querySelector('#report_description').select();")
@@ -38,7 +38,7 @@ class MarkdownTest < ApplicationSystemTestCase
     find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
     fill_in('report[description]', with: 'test')
     assert_field('report[description]', with: 'test')
-    grant_clipboard_read_permission
+    # grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'FBC', clip_text
     page.execute_script("document.querySelector('#report_description').select();")
@@ -52,7 +52,7 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_field('report[title]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
     find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
-    grant_clipboard_read_permission
+    # grant_clipboard_read_permission
     clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     find('#report_description').native.send_keys([cmd_ctrl, 'v'])
