@@ -86,7 +86,7 @@ jobs:
       - run:
           name: Test
           command: |
-            bundle exec rails test test/system/markdown_test.rb:31
+            bundle exec rails test test/system/markdown_test.rb
           no_output_timeout: 30m
           when: always
       - store_test_results:
