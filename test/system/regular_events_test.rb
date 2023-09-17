@@ -274,14 +274,17 @@ class RegularEventsTest < ApplicationSystemTestCase
   end
 
   test 'edit only organizers or mentor' do
-    visit_with_auth edit_regular_event_path(regular_events(:regular_event5)), 'kimura'
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'kimura'
+    assert_text '定期イベント編集'
+
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'hajime'
     assert_text '定期イベント編集'
 
     visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'machida'
     assert_text '定期イベント編集'
 
     Capybara.raise_server_errors = false
-    visit_with_auth edit_regular_event_path(regular_events(:regular_event5)), 'hajime'
+    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'kensyu'
     assert_text 'ActiveRecord::RecordNotFound'
   end
 
