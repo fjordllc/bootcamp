@@ -11,7 +11,7 @@ class MarkdownTest < ApplicationSystemTestCase
     find('.js-report-content').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
-    if !ENV['CI']
+    unless ENV['CI']
       # クリップボードを読み取る権限を付与
       cdp_permission = {
         origin: page.server_url,
@@ -37,7 +37,7 @@ class MarkdownTest < ApplicationSystemTestCase
     find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
     fill_in('report[description]', with: 'test')
     assert_field('report[description]', with: 'test')
-    if !ENV['CI']
+    unless ENV['CI']
       # クリップボードを読み取る権限を付与
       cdp_permission = {
         origin: page.server_url,
@@ -59,7 +59,7 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_field('report[title]', with: 'https://bootcamp.fjord.jp/')
     cmd_ctrl = page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
     find('#report_title').native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
-    if !ENV['CI']
+    unless ENV['CI']
       # クリップボードを読み取る権限を付与
       cdp_permission = {
         origin: page.server_url,
