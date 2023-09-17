@@ -511,7 +511,7 @@ class EventsTest < ApplicationSystemTestCase
     assert_no_selector 'label', text: 'イベント公開のお知らせを書く'
   end
 
-  test 'edit only users or mentor' do
+  test 'edit only creator or mentor' do
     visit_with_auth edit_event_path(events(:event1)), 'komagata'
     assert_text '特別イベント編集'
 
