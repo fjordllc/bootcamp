@@ -117,6 +117,6 @@ class QuestionsController < ApplicationController
   def require_mentor_or_admin
     return if current_user.mentor || current_user.admin
 
-    redirect_to questions_path, alert: 'メンター / 管理者以外は質問を削除できません。'
+    redirect_to questions_path, alert: '質問を削除するには、管理者かメンターの権限が必要です。'
   end
 end
