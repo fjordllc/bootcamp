@@ -24,7 +24,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.save
       update_publised_at
-      Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id) unless @regular_event.organizers.include?(current_user.id)
+      Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
