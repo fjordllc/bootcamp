@@ -516,7 +516,7 @@ class EventsTest < ApplicationSystemTestCase
     assert_text '特別イベント編集'
 
     Capybara.raise_server_errors = false
-    visit_with_auth edit_event_path(events(:event5)), 'hajime'
+    visit_with_auth edit_event_path(events(:event1)), 'hajime'
     assert_text 'ActiveRecord::RecordNotFound'
   end
 end
