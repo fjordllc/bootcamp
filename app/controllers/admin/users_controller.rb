@@ -61,7 +61,7 @@ class Admin::UsersController < AdminController
       :auto_retire,
       :profile_image, :profile_name, :profile_job, :mentor,
       :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
-      :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url]
+      :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url times_id]
     )
   end
 
