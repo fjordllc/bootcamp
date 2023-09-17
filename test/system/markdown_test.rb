@@ -4,14 +4,12 @@ require 'application_system_test_case'
 
 class MarkdownTest < ApplicationSystemTestCase
   def grant_clipboard_read_permission
-    unless ENV['CI']
-      cdp_permission = {
-        origin: page.server_url,
-        permission: { name: 'clipboard-read' },
-        setting: 'granted'
-      }
-      page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    end
+    cdp_permission = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
   end
 
   test 'should automatically create Markdown link when pasting a URL text into selected text' do
