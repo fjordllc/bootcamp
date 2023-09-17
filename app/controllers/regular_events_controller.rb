@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController
-  before_action :set_regular_event, only: %i[show edit update destroy]
+  before_action :set_regular_event, only: %i[edit update destroy]
 
   def index; end
 
-  def show; end
+  def show
+    @regular_event = RegularEvent.find(params[:id])
+  end
 
   def new
     @regular_event = RegularEvent.new
