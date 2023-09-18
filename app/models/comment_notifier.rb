@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class CommentNotifier
-  def call(payload)
-    comment = payload[:comment]
-    current_user = payload[:current_user]
-    return if current_user.nil?
+  def call(comment)
+    return if comment.nil?
 
     commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
     ActivityDelivery.with(
