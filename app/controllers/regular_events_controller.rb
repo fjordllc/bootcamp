@@ -116,8 +116,8 @@ class RegularEventsController < ApplicationController
   def set_all_user_participants_and_watchers
     return if @regular_event.wip?
 
-    students_and_trainees = User.students_and_trainees.ids
-    RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_and_trainees)
-    RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_and_trainees)
+    students_trainees_mentors_and_admins = User.students_trainees_mentors_and_admins.ids
+    RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
+    RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
   end
 end
