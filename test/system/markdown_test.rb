@@ -28,18 +28,16 @@ class MarkdownTest < ApplicationSystemTestCase
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
 
-  # ローカル環境のheadless chromeでのテスト実行時にのみ必要
+  # headless chromeでnavigator.clipboard.readText()を実行する時に必要
   # https://github.com/fjordllc/bootcamp/pull/6747#discussion_r1325417231
   # https://bootcamp.fjord.jp/reports/80292
   def grant_clipboard_read_permission
-    unless ENV['CI']
-      cdp_permission = {
-        origin: page.server_url,
-        permission: { name: 'clipboard-read' },
-        setting: 'granted'
-      }
-      page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    end
+    cdp_permission = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
   end
 
   def cmd_ctrl
