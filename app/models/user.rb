@@ -241,6 +241,14 @@ class User < ApplicationRecord
       retired_on: nil
     )
   }
+  scope :students_trainees_mentors_and_admins, lambda {
+    where(
+      adviser: false,
+      graduated_on: nil,
+      hibernated_at: nil,
+      retired_on: nil
+    )
+  }
   scope :students, lambda {
     where(
       admin: false,
