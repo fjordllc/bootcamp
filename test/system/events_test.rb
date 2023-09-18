@@ -512,6 +512,9 @@ class EventsTest < ApplicationSystemTestCase
   end
 
   test 'edit only creator or mentor' do
+    visit_with_auth edit_event_path(events(:event1)), 'kimura'
+    assert_text '特別イベント編集'
+
     visit_with_auth edit_event_path(events(:event1)), 'komagata'
     assert_text '特別イベント編集'
 
