@@ -68,6 +68,10 @@ class MarkdownTest < ApplicationSystemTestCase
     find(selector).native.send_keys([cmd_ctrl, 'v'])
   end
 
+  def read_clipboard_text
+    page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+  end
+
   test 'should automatically create Markdown link when pasting a URL text into selected text' do
     visit_with_auth new_report_path, 'komagata'
     fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
@@ -76,7 +80,7 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     grant_clipboard_read_permission
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    clip_text = read_clipboard_text
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     select_text_and_paste('#report_description')
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
@@ -92,7 +96,7 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'test')
     assert_field('report[description]', with: 'test')
     grant_clipboard_read_permission
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    clip_text = read_clipboard_text
     assert_equal 'FBC', clip_text
     select_text_and_paste('#report_description')
     assert_field('report[description]', with: 'FBC')
@@ -104,7 +108,7 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_field('report[title]', with: 'https://bootcamp.fjord.jp/')
     all_copy('#report_title')
     grant_clipboard_read_permission
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    clip_text = read_clipboard_text
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
     paste('#report_description')
     assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
