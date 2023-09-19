@@ -27,7 +27,7 @@ export default function AdminCompanies() {
   }
 
   return (
-    <>
+    <div data-testid="admin-companies">
       {data.total_pages > 1 && (
         <Pagination
           sum={data.total_pages * per}
@@ -65,7 +65,7 @@ export default function AdminCompanies() {
           onChange={(e) => handlePaginate(e.page)}
         />
       )}
-    </>
+    </div>
   )
 }
 

@@ -42,12 +42,18 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'show pagination' do
     visit_with_auth '/admin/companies', 'komagata'
-    assert_selector 'nav.pagination', count: 2
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    within "[data-testid='admin-companies']" do
+      assert_selector 'nav.pagination', count: 2
+    end
   end
 
   test 'no pagination when 20 companies or less exist' do
     Company.where.not(description: 'このデータはページャーの確認用').destroy_all
     visit_with_auth '/admin/companies', 'komagata'
-    assert_no_selector 'nav.pagination'
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    within "[data-testid='admin-companies']" do
+      assert_no_selector 'nav.pagination'
+    end
   end
 end

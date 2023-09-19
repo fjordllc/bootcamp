@@ -97,7 +97,10 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       user_with_some_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
     end
     visit_with_auth '/current_user/bookmarks', user_with_some_bookmarks.login_name
-    assert_no_selector 'nav.pagination'
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    within "[data-testid='bookmarks']" do
+      assert_no_selector 'nav.pagination'
+    end
   end
 
   test 'show pagination when 21 bookmark or more exist' do
@@ -117,6 +120,9 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       user_with_many_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
     end
     visit_with_auth '/current_user/bookmarks', user_with_many_bookmarks.login_name
-    assert_selector 'nav.pagination', count: 2
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    within "[data-testid='bookmarks']" do
+      assert_selector 'nav.pagination', count: 2
+    end
   end
 end

@@ -31,7 +31,7 @@ export default function Bookmarks() {
     return <NoBookmarks />
   } else {
     return (
-      <>
+      <div data-testid="bookmarks">
         <div className="page-main">
           <div className="page-main-header">
             <div className="container">
@@ -99,7 +99,7 @@ export default function Bookmarks() {
           {/* .page-body */}
         </div>
         {/* .page-main */}
-      </>
+      </div>
     )
   }
 }
