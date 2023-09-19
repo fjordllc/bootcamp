@@ -72,4 +72,19 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
     assert_requested(stub_message)
   end
+
+  test 'notify mentor or admin when comment on regular event page' do
+    regular_event = regular_events(:regular_event3)
+    visit_with_auth "/regular_events/#{regular_event.id}", 'kimura'
+    within('.thread-comment-form') do
+      fill_in('new_comment[description]', with: 'test')
+    end
+    click_button 'コメントする'
+    assert_text "test"
+
+    visit_with_auth '/notifications', 'komagata'
+    within first('.card-list-item.is-unread') do
+      assert_text "komagataさんの【「#{regular_event.title}」の定期イベント】にkimuraさんがコメントしました。"
+    end
+  end
 end
