@@ -12,9 +12,21 @@
         - if user.auto_retire == false # 自動退会しないユーザの場合
           span.user-metas__item-value-text
             | 企業都合休会中(#{user.calculate_absence_days(user)}日)
+<<<<<<< HEAD
         - elsif user.remaining_days_until_automatic_retire(user) <= 7
           span.user-metas__item-value-text.is-danger
             | #{l user.automatic_retire_datetime} (自動退会まであと#{user.remaining_time_until_automatic_retire(user)})
+=======
+        - elsif user.remaining_days_until_automatic_retire(user) < 1
+          span.user-metas__item-value-text.is-danger
+            - if user.remaining_hours_until_automatic_retire(user) >= 1
+              | #{l user.automatic_retire_datetime} (自動退会まであと#{user.remaining_hours_until_automatic_retire(user)}時間)
+            - if user.remaining_hours_until_automatic_retire(user) < 1
+              | #{l user.automatic_retire_datetime} (自動退会まであと#{user.remaining_minutes_until_automatic_retire(user)}分)
+        - elsif user.remaining_days_until_automatic_retire(user) <= 7
+          span.user-metas__item-value-text.is-danger
+            | #{l user.automatic_retire_datetime} (自動退会まであと#{user.remaining_days_until_automatic_retire(user)}日)
+>>>>>>> 5274d63b5 (ビジネスロジックはモデルに定義)
         - else
           span.user-metas__item-value-text
             | #{l user.automatic_retire_datetime} (自動退会まであと#{user.remaining_days_until_automatic_retire(user)}日)
