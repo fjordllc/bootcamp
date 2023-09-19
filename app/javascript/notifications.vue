@@ -49,7 +49,7 @@ export default {
     return {
       notifications: [],
       totalPages: 0,
-      currentPage: Number(this.getPageValueFromParameter()) || 1,
+      currentPage: this.getPageValueFromParameter(),
       loaded: false
     }
   },
@@ -75,13 +75,18 @@ export default {
     }
   },
   created() {
-    // ブラウザバック・フォワードした時に画面を読み込ませる
-    window.onpopstate = function () {
-      location.replace(location.href)
-    }
+    // ブラウザバック・フォワードした時にページネーションの更新をする
+    window.addEventListener('popstate', this.handlePopstate)
     this.getNotificationsPerPage()
   },
+  beforeDestroy() {
+    window.removeEventListener('popstate', this.handlePopstate)
+  },
   methods: {
+    handlePopstate() {
+      this.currentPage = this.getPageValueFromParameter()
+      this.getNotificationsPerPage()
+    },
     getNotificationsPerPage: function () {
       fetch(this.url, {
         method: 'GET',
@@ -107,18 +112,18 @@ export default {
     paginateClickCallback: function (pageNumber) {
       this.currentPage = pageNumber
       this.getNotificationsPerPage()
-      history.pushState(
-        null,
-        null,
-        location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
-      )
+      const url = new URL(location)
+      if (pageNumber > 1) {
+        url.searchParams.set('page', pageNumber)
+      } else {
+        url.searchParams.delete('page')
+      }
+      history.pushState(null, null, url)
       window.scrollTo(0, 0)
     },
     getPageValueFromParameter: function () {
-      const url = location.href
-      const results = url.match(/\?page=(\d+)/)
-      if (!results) return null
-      return results[1]
+      const url = new URL(location)
+      return Number(url.searchParams.get('page')) || 1
     }
   }
 }
