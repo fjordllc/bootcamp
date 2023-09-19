@@ -79,3 +79,8 @@ regular_event_repeat_rule33:
   frequency: 0
   day_of_the_week: 6
   regular_event: regular_event31
+
+regular_event_repeat_rule34:
+  frequency: 0
+  day_of_the_week: 1
+  regular_event: regular_event32
