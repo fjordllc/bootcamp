@@ -80,4 +80,18 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
     assert_text 'カテゴリーを削除しました。'
     assert_no_text '学習の準備'
   end
+
+  test 'admin and mentor can access category practice sorting page' do
+    category = Category.find_by(name: '学習の準備')
+
+    visit_with_auth mentor_categories_path, 'komagata'
+    assert_text '学習の準備'
+    find("a[href='/categories/#{category.id}/practices']").click
+    assert_text '学習の準備カテゴリーのプラクティス並び替え'
+
+    visit_with_auth mentor_categories_path, 'mentormentaro'
+    assert_text '学習の準備'
+    find("a[href='/categories/#{category.id}/practices']").click
+    assert_text '学習の準備カテゴリーのプラクティス並び替え'
+  end
 end
