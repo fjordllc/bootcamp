@@ -15,8 +15,7 @@ export default class {
         // headless chromeではevent.clipboardData.getData('text')は空文字を返すため、代わりにnavigator.clipboard.readText()を使用
         // https://github.com/fjordllc/bootcamp/pull/6747#discussion_r1325362833
         const pasteText =
-          event.clipboardData.getData('text') ||
-          (await navigator.clipboard.readText())
+          event.clipboardData.getData('text') || (await navigator.clipboard.readText())
         if (selectedText && this._isURL(pasteText)) {
           const markdownLink = `[${selectedText}](${pasteText})`
           document.execCommand('insertText', false, markdownLink)
