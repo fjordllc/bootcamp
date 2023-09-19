@@ -57,6 +57,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :tomorrow_events, -> { where(id: holding.select(&:holding_tomorrow?).map(&:id)) }
   scope :day_after_tomorrow_events, -> { where(id: holding.select(&:holding_day_after_tomorrow?).map(&:id)) }
   scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
+  scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy

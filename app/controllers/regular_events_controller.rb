@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController
-  before_action :set_regular_event, only: %i[show edit update destroy]
+  before_action :set_regular_event, only: %i[edit update destroy]
 
   def index; end
 
-  def show; end
+  def show
+    @regular_event = RegularEvent.find(params[:id])
+  end
 
   def new
     @regular_event = RegularEvent.new
@@ -22,6 +24,7 @@ class RegularEventsController < ApplicationController
     set_wip
     if @regular_event.save
       update_publised_at
+      Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
@@ -70,7 +73,7 @@ class RegularEventsController < ApplicationController
   end
 
   def set_regular_event
-    @regular_event = RegularEvent.find(params[:id])
+    @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
   end
 
   def set_wip
