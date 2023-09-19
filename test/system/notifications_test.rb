@@ -85,7 +85,8 @@ class NotificationsTest < ApplicationSystemTestCase
                         link: '/reports/20000118',
                         user: users(:mentormentaro),
                         sender: users(:machida))
-    visit_with_auth '/notifications', 'mentormentaro'
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications'
     within first('nav.pagination') do
       find('a', text: '2').click
     end
@@ -97,6 +98,72 @@ class NotificationsTest < ApplicationSystemTestCase
       assert active_button.has_text? '2'
     end
     assert_current_path('/notifications?page=2')
+  end
+
+  test 'click on the pager button with query string' do
+    19.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          link: "/reports/#{n}",
+                          user: users(:mentormentaro),
+                          sender: users(:machida))
+    end
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20000118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications?status=unread'
+    within first('nav.pagination') do
+      find('a', text: '2').click
+    end
+    assert_text '1番古い通知'
+    assert_no_text '1番新しい通知'
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/notifications?status=unread&page=2')
+  end
+
+  test 'click on the pager button with multiple query string' do
+    19.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          link: "/reports/#{n}",
+                          user: users(:mentormentaro),
+                          sender: users(:machida))
+    end
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20000118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications?status=unread&target=mention'
+    within first('nav.pagination') do
+      find('a', text: '2').click
+    end
+    assert_text '1番古い通知'
+    assert_no_text '1番新しい通知'
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/notifications?status=unread&target=mention&page=2')
   end
 
   test 'specify the page number in the URL' do
