@@ -165,14 +165,14 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'show listing not finished regular events' do
     visit_with_auth regular_events_path(target: 'not_finished'), 'kimura'
-    assert_selector '.card-list-item', count: 13
+    assert_selector '.card-list-item', count: 14
   end
 
   test 'show listing all regular events' do
     visit_with_auth regular_events_path, 'kimura'
     assert_selector '.card-list-item', count: 25
     visit regular_events_path(page: 2)
-    assert_selector '.card-list-item', count: 6
+    assert_selector '.card-list-item', count: 7
   end
 
   test 'create a regular event for all students and trainees' do

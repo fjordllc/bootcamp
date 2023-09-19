@@ -144,3 +144,14 @@ regular_event31:
   end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
   user: komagata
   published_at: "2023-08-01 00:00:00"
+
+regular_event32:
+  title: ダッシュボード表示確認用テスト定期イベント(祝日非開催)
+  description: ダッシュボード表示確認用テスト定期イベント(祝日非開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  category: 0
+  published_at: "2023-08-01 00:00:00"
