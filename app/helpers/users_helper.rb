@@ -94,10 +94,6 @@ def automatic_retire_datetime(user)
 
   user.hibernated_at.advance(months: 6)
 end
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9f1a40363 (slimファイルのif文を減らしてDRYにした)
 
 def remaining_hours_until_automatic_retire(user)
   return unless user.hibernated_at
