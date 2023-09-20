@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'article[thumbnail_type]'
   )
   const fileField = document.getElementById('upload-thumbnail')
-  fileField.style.display = 'none'
   for (const radioButton of radioButtons) {
     radioButton.addEventListener('change', () => {
       if (radioButton.value === 'prepared_image') {
