@@ -79,4 +79,50 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
     assert_selector 'i.fa-regular.fa-face-sad-tear', visible: false
     assert_no_selector 'input#card-list-tools__action', visible: false
   end
+
+  test 'no pagination when 20 bookmarks or less exist' do
+    user_with_some_bookmarks = User.create!(
+      login_name: 'have-some-bookmarks',
+      email: 'have-some-bookmarks@fjord.jp',
+      password: 'testtest',
+      name: 'have-some-bookmarks',
+      name_kana: 'ブックマーク タクサン',
+      description: 'test',
+      course: courses(:course1),
+      job: 'office_worker',
+      os: 'mac',
+      experience: 'inexperienced'
+    )
+    (1..20).each do |n|
+      user_with_some_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
+    end
+    visit_with_auth '/current_user/bookmarks', user_with_some_bookmarks.login_name
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    within "[data-testid='bookmarks']" do
+      assert_no_selector 'nav.pagination'
+    end
+  end
+
+  test 'show pagination when 21 bookmark or more exist' do
+    user_with_many_bookmarks = User.create!(
+      login_name: 'have-many-bookmarks',
+      email: 'have-many-bookmarks@fjord.jp',
+      password: 'testtest',
+      name: 'have-many-bookmarks',
+      name_kana: 'ブックマーク タクサン',
+      description: 'test',
+      course: courses(:course1),
+      job: 'office_worker',
+      os: 'mac',
+      experience: 'inexperienced'
+    )
+    (1..21).each do |n|
+      user_with_many_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
+    end
+    visit_with_auth '/current_user/bookmarks', user_with_many_bookmarks.login_name
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    within "[data-testid='bookmarks']" do
+      assert_selector 'nav.pagination', count: 2
+    end
+  end
 end

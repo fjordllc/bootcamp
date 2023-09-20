@@ -19,17 +19,8 @@ class User::CompaniesTest < ApplicationSystemTestCase
     within first('.a-user-icons__items') do
       assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
     end
-    assert_selector('.group-company-name__label', text: 'Lokka Inc.')
-    within all('.a-user-icons__items')[1] do
-      within first('.a-user-role.is-admin') do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'komagata'
-      end
-      within all('.a-user-role.is-admin')[1] do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'machida'
-      end
-    end
     assert_selector('.group-company-name__label', text: 'Fjord inc.')
-    within all('.a-user-icons__items')[2] do
+    within all('.a-user-icons__items')[1] do
       within first('.a-user-role.is-trainee') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyu'
       end
@@ -41,6 +32,15 @@ class User::CompaniesTest < ApplicationSystemTestCase
       end
       within first('.a-user-role.is-graduate') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'sotsugyoukigyoshozoku'
+      end
+    end
+    assert_selector('.group-company-name__label', text: 'Lokka Inc.')
+    within all('.a-user-icons__items')[2] do
+      within first('.a-user-role.is-admin') do
+        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'komagata'
+      end
+      within all('.a-user-role.is-admin')[1] do
+        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'machida'
       end
     end
 
@@ -53,17 +53,8 @@ class User::CompaniesTest < ApplicationSystemTestCase
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
       end
     end
-    assert_selector('.group-company-name__label', text: 'Lokka Inc.')
-    within all('.a-user-icons__items')[1] do
-      within first('.a-user-role.is-admin') do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'komagata'
-      end
-      within all('.a-user-role.is-admin')[1] do
-        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'machida'
-      end
-    end
     assert_selector('.group-company-name__label', text: 'Fjord inc.')
-    within all('.a-user-icons__items')[2] do
+    within all('.a-user-icons__items')[1] do
       within first('.a-user-role.is-trainee') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'kensyu'
       end
@@ -75,6 +66,15 @@ class User::CompaniesTest < ApplicationSystemTestCase
       end
       within first('.a-user-role.is-graduate') do
         assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'sotsugyoukigyoshozoku'
+      end
+    end
+    assert_selector('.group-company-name__label', text: 'Lokka Inc.')
+    within all('.a-user-icons__items')[2] do
+      within first('.a-user-role.is-admin') do
+        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'komagata'
+      end
+      within all('.a-user-role.is-admin')[1] do
+        assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'machida'
       end
     end
   end

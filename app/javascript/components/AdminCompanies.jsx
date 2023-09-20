@@ -27,14 +27,16 @@ export default function AdminCompanies() {
   }
 
   return (
-    <>
-      <Pagination
-        sum={data.total_pages * per}
-        per={per}
-        neighbours={neighbours}
-        page={page}
-        onChange={(e) => handlePaginate(e.page)}
-      />
+    <div data-testid="admin-companies">
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          neighbours={neighbours}
+          page={page}
+          onChange={(e) => handlePaginate(e.page)}
+        />
+      )}
       <div className="admin-table">
         <table className="admin-table__table">
           <thead className="admin-table__header">
@@ -54,14 +56,16 @@ export default function AdminCompanies() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        sum={data.total_pages * per}
-        per={per}
-        neighbours={neighbours}
-        page={page}
-        onChange={(e) => handlePaginate(e.page)}
-      />
-    </>
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          neighbours={neighbours}
+          page={page}
+          onChange={(e) => handlePaginate(e.page)}
+        />
+      )}
+    </div>
   )
 }
 

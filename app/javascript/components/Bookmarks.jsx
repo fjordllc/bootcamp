@@ -31,7 +31,7 @@ export default function Bookmarks() {
     return <NoBookmarks />
   } else {
     return (
-      <>
+      <div data-testid="bookmarks">
         <div className="page-main">
           <div className="page-main-header">
             <div className="container">
@@ -60,13 +60,15 @@ export default function Bookmarks() {
           <hr className="a-border"></hr>
           <div className="page-body">
             <div className="container is-md">
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => handlePaginate(e.page)}
-              />
+              {data.totalPages > 1 && (
+                <Pagination
+                  sum={data.totalPages * per}
+                  per={per}
+                  neighbours={neighbours}
+                  page={page}
+                  onChange={(e) => handlePaginate(e.page)}
+                />
+              )}
               <div className="card-list a-card">
                 <div className="card-list__items">
                   {data.bookmarks.map((bookmark) => {
@@ -82,20 +84,22 @@ export default function Bookmarks() {
                   })}
                 </div>
               </div>
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => handlePaginate(e.page)}
-              />
+              {data.totalPages > 1 && (
+                <Pagination
+                  sum={data.totalPages * per}
+                  per={per}
+                  neighbours={neighbours}
+                  page={page}
+                  onChange={(e) => handlePaginate(e.page)}
+                />
+              )}
             </div>
             {/* .container */}
           </div>
           {/* .page-body */}
         </div>
         {/* .page-main */}
-      </>
+      </div>
     )
   }
 }
