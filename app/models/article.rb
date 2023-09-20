@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
+  enum thumbnail_type: { prepared_image: 0,
+                         Ruby: 1,
+                         Ruby_on_Rails: 2,
+                         JavaScript: 3,
+                         WSL2: 4,
+                         Linux: 5,
+                         Advice: 6,
+                         school_information: 7 }
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
 
