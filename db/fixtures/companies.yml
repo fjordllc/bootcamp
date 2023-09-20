@@ -62,7 +62,7 @@ company3:
   website: "http://example.com/zada.schumm"
   created_at: 2000-01-01 00:00:03
 
-<% (4..26).each do |i| %>
+<% (4..25).each do |i| %>
 company<%= i %>:
   name: "テスト企業"
   description: "このデータはページャーの確認用"
@@ -70,7 +70,7 @@ company<%= i %>:
   created_at: 2000-01-01 00:00:05
 <% end %>
 
-company27:
+company26:
   name: "ユーザの企業に登録しないで株式会社"
   description: "この企業は user login_name: advisernocolleguetrainee のユーザにのみ紐づけているので、それ以外のユーザは紐づけないでください。"
   website: "http://example.com/test"
