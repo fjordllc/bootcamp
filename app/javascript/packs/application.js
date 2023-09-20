@@ -56,6 +56,7 @@ import '../modal-switcher.js'
 import '../survey-question-listings.js'
 import '../change-subdivisions.js'
 import '../register-address.js'
+import '../upload-image-to-article.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
