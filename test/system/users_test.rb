@@ -255,12 +255,12 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'show daily report download button' do
     visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
-    assert_text '日報一括ダウンロード'
+    assert_text '日報ダウンロード'
   end
 
   test 'not show daily report download button' do
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
-    assert_no_text '日報一括ダウンロード'
+    assert_no_text '日報ダウンロード'
   end
 
   test 'show link to talk room when logined as admin' do

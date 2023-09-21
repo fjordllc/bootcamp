@@ -2,6 +2,7 @@
   +position(relative)
   +media-breakpoint-up(md)
     display: flex
+    gap: 1rem
     margin-bottom: 1.5rem
   +media-breakpoint-down(sm)
     margin-bottom: 1.25rem
@@ -15,10 +16,6 @@
     +media-breakpoint-down(sm)
       float: right
       margin-left: .5rem
-
-.page-content-header__start
-  +media-breakpoint-up(md)
-    flex: 0 0 5rem
 
 .page-content-header__end
   +media-breakpoint-up(md)
@@ -84,7 +81,7 @@
   flex-wrap: wrap
   +media-breakpoint-up(md)
     display: inline-flex
-    margin-bottom: .125rem
+    margin-bottom: .25rem
   +media-breakpoint-down(sm)
     display: flex
     justify-content: center
@@ -105,13 +102,9 @@
   +media-breakpoint-up(md)
     font-size: 1.625rem
     word-wrap: break-word
-    &:not(:first-child)
-      margin-top: .25rem
   +media-breakpoint-down(sm)
     font-size: 1.125rem
     word-break: break-all
-    &:not(:first-child)
-      margin-top: .125rem
   &.is-wip
     color: var(--muted-text)
   .a-title-label
@@ -165,3 +158,14 @@
 
 .page-content-header__checker
   +position(absolute, right 0, top -.5rem)
+
+.user-profile__company-logo
+  background-color: var(--base)
+  object-fit: contain
+  border-radius: .25rem
+  border: solid 1px var(--border)
+  +media-breakpoint-up(md)
+    +size(3.75rem)
+  +media-breakpoint-down(sm)
+    +size(3.5rem)
+    +position(absolute, right 0, top 0)

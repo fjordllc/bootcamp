@@ -50,3 +50,11 @@ a.a-meta
   &.is-danger
     font-weight: 600
     color: var(--danger)
+
+.a-meta__list
+  display: inline-flex
+
+.a-meta__list-item
+  &:not(:first-child)
+    &::before
+      content: '、'

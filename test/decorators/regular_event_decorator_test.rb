@@ -32,4 +32,17 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
       assert_equal '開催終了', @finished_regular_event.next_holding_date
     end
   end
+
+  test '#holding?' do
+    weekday = Time.zone.parse('2023-9-17')
+    holiday = Time.zone.parse('2023-9-18')
+
+    regular_event_held_on_holidays = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event26))
+    assert regular_event_held_on_holidays.holding?(weekday)
+    assert regular_event_held_on_holidays.holding?(holiday)
+
+    regular_event_not_held_on_holidays = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event32))
+    assert regular_event_not_held_on_holidays.holding?(weekday)
+    assert_not regular_event_not_held_on_holidays.holding?(holiday)
+  end
 end
