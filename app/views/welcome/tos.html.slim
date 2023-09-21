@@ -3,12 +3,16 @@
   description: '株式会社ロッカ（以下、「当社」といいます。）が提供するサービス「フィヨルドブートキャンプ（以下、「本サービス」といいます。）をご利用いただきありがとうございます。ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。')
 
 header.welcome-page-header
-  .container.is-xl
+  .container
     .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
-
+      .welcome-page-header__start
+        h1.welcome-page-header__title
+          = title
+      .welcome-page-header__end
+hr.a-border
 .welcome-page-body
-  .container.is-md
-    .tos.a-long-text.is-md
-      = render 'welcome/tos_text'
+  .container.is-lg
+    .a-card
+      .card__inner
+        .tos.a-long-text.is-md
+          = render 'welcome/tos_text'

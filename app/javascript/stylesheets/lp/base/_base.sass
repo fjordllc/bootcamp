@@ -1,0 +1,118 @@
+html.is-lp
+  font-family: $sans-serif
+  color: var(--default-text)
+
+body.is-lp
+  background-color: var(--background)
+
+.welcome-main-visual
+  height: 40rem
+  background-color: var(--base)
+
+.welcome-page-header
+  background-color: var(--base)
+
+.welcome-page-header__title
+  +text-block(1.5rem 1.4, 700)
+  color: var(--main)
+
+.welcome-page-header__inner
+  background-color: var(--base)
+  height: 4rem
+
+.welcome-page-header__start
+  flex: 1
+  height: 100%
+  display: flex
+  align-items: center
+  height: 100%
+
+.welcome-page-header__end
+  height: 100%
+
+.welcome-page-body
+  padding-block: 2.5rem
+
+.welcome-header
+  background-color: var(--base)
+  +position(sticky, top 0, 10)
+
+.welcome-header__inner
+  height: 3.5rem
+  display: flex
+
+.welcome-header__start
+  height: 100%
+  flex: 1
+  display: flex
+  gap: 2.5rem
+
+.welcome-header__end
+  height: 100%
+  display: flex
+  gap: 2.5rem
+
+.welcome-header-nav
+  height: 100%
+
+.welcome-header-nav__items
+  display: flex
+  height: 100%
+  align-items: center
+  gap: 2.5rem
+  font-size: .875rem
+
+.welcome-header-nav__item-link
+  font-weight: 600
+  color: var(--main)
+  +block-link
+
+.welcome-header__home-link-image
+  width: 9.75rem
+
+.welcome-header__login
+  display: flex
+  height: 100%
+  align-items: center
+
+.welcome-header__mobile-nav-trigger
+  +media-breakpoint-up(md)
+    display: none
+
+.welcome-header__home
+  height: 100%
+  display: flex
+  align-items: center
+
+.not-logged-in-footer
+  color: var(--default-text)
+
+.not-logged-in-footer__nav-item-link
+  color: var(--default-text)
+
+.not-logged-in-footer-copyright
+  color: var(--default-text)
+
+.card__inner-title
+  +text-block(1.5rem 1.4, 700)
+  padding-bottom: .25rem
+  color: var(--main)
+  border-bottom: solid 1px var(--border)
+
+.welcome-page-body__header
+  display: flex
+  justify-content: center
+  margin-bottom: 2.5rem
+
+.welcome-page-body__title
+  +text-block(2.25rem 1.4, center 700)
+  color: var(--main)
+
+.welcome-practices
+  margin-top: 1rem
+  display: flex
+  gap: .5rem 1rem
+  flex-wrap: wrap
+
+.welcome-practices__item
+  +text-block(.875rem 1.6)

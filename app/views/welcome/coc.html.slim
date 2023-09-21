@@ -3,12 +3,15 @@
   description: 'フィヨルドブートキャンプではアンチハラスメントポリシーを定めています。フィヨルドブートキャンプ、フィヨルドブートキャンプのイベントに参加する皆さんはこのページで定めたポリシーを遵守するように心がけてください。')
 
 header.welcome-page-header
-  .container.is-xl
+  .container
     .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
-
+      .welcome-page-header__start
+        h1.welcome-page-header__title
+          = title
+hr.a-border
 .welcome-page-body
-  .container.is-md
-    .coc.a-long-text.is-md
-      = render 'welcome/coc_text'
+  .container.is-lg
+    .a-card
+      .card__inner
+        .coc.a-long-text.is-md
+          = render 'welcome/coc_text'
