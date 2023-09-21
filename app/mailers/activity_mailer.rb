@@ -5,8 +5,6 @@ class ActivityMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
   before_action do
-    @comment = params[:comment] if params&.key?(:comment)
-    @message = params[:message] if params&.key?(:message)
     @sender = params[:sender] if params&.key?(:sender)
     @receiver = params[:receiver] if params&.key?(:receiver)
     @check = params[:check] if params&.key?(:check)
@@ -20,6 +18,7 @@ class ActivityMailer < ApplicationMailer
     @product = params[:product] if params&.key?(:product)
     @report = params[:report] if params&.key?(:report)
     @regular_event = params[:regular_event] if params&.key?(:regular_event)
+    @message = params[:message] if params&.key?(:message)
   end
 
   # required params: sender, receiver
