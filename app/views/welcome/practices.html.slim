@@ -2,8 +2,8 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプの学習内容一覧を表示しています。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。')
 
-.welcome-page-header
-  .container.is-xl
+header.welcome-page-header
+  .container
     .welcome-page-header__inner
       h1.welcome-page-header__title
         = title
@@ -50,3 +50,15 @@
               = render('course_practices', course: course)
             - else
               p コースが見つかりませんでした。
+
+//
+  - @categories.each do |category|
+    - if category.practices.present?
+      .a-card
+        .card__inner
+          h3.card__inner-title
+            = category.name
+          ul.welcome-practices
+            - category.practices.each do |practice|
+              li.welcome-practices__item
+                = practice.title
