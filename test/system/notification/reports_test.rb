@@ -263,6 +263,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     find('.modal-header__close').click
 
+    visit_with_auth '/reports', student
+
     click_link '日報作成'
     within('form[name=report]') do
       fill_in('report[title]', with: 'test title 2')

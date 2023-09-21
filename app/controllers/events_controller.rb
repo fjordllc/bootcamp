@@ -68,7 +68,7 @@ class EventsController < ApplicationController
   end
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = current_user.mentor? ? Event.find(params[:id]) : current_user.events.find(params[:id])
   end
 
   def set_wip

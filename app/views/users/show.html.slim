@@ -4,92 +4,92 @@
 = render 'users/page_title', user: @user
 = render 'users/page_tabs', user: @user
 
-.page-body
-  - if current_user == @user
-    .a-page-notice.page-notice
-      .container
-        .a-page-notice__inner
-          p
-            | このページは他のユーザーから見た、あなたのプロフィールページです。
-            | （ #{ link_to '登録情報変更', edit_current_user_path } ）
-  .container.is-xl
-    .columns
-      .row
-        .col-xs-12.col-lg-6.col-xxl-6
-          .a-card.is-user
-            - if admin_login? && @user.retired_on? && @user.github_collaborator?
-              .a-card__alert.is-only-mentor
-                = link_to edit_admin_user_path(anchor: 'external-services') do
-                  | 外部サービスの設定を変更してください。
-            .user-data
-              header.user-data__header
-                .user-data__main
-                  = render 'users/profile', user: @user
-                .user-data__sub
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | プロフィール
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              - if current_user == @user
+                li.page-main-header-actions__item
+                  = link_to '登録情報変更', edit_current_user_path, class: 'a-button is-md is-secondary is-block'
+              - if admin_login?
+                li.page-main-header-actions__item
+                  = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
+                    i.fa-solid.fa-cloud-download-alt
+                    | 日報ダウンロード
+  hr.a-border
+  .page-body
+    - if current_user == @user
+      .a-page-notice.page-notice
+        .container
+          .a-page-notice__inner
+            p
+              | このページは他のユーザーから見た、あなたのプロフィールページです。
+              | （ #{ link_to '登録情報変更', edit_current_user_path } ）
+    .container.is-xl
+      .columns
+        .row
+          .col-xs-12.col-lg-6.col-xxl-6
+            .page-content.is-user
+              = render 'users/profile', user: @user
+              .a-card
+                .user-data
+                  .user-data__row
+                    .user-data__description
+                      = auto_link simple_format h @user.description
+                  .user-data__row
+                    .user-data__tags
+                      - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s, tagsParamName: 'user[tag_list]', tagsInputId: 'user_tag_list', tagsType: 'User', tagsTypeId: @user.id.to_s, tagsEditable: @user.id == current_user.id }
+                      = react_component('Tags/Tags', tags_props)
                   - if admin_or_mentor_login? && @user.hibernated?
-                    = render 'users/hibernation_info', user: @user
+                    .user-data__row
+                      = render 'users/hibernation_info', user: @user
                   - if admin_or_mentor_login? && @user.retired?
-                    = render 'users/retire_info', user: @user
+                    .user-data__row
+                      = render 'users/retire_info', user: @user
                   - if admin_or_mentor_login? && @user.student_or_trainee_or_retired?
-                    = render 'users/user_secret_attributes', user: @user
-                  = render 'users/metas', user: @user
-              .user-data__description
-                = auto_link simple_format h @user.description
-              .user-data__tags
-                - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s, tagsParamName: 'user[tag_list]', tagsInputId: 'user_tag_list', tagsType: 'User', tagsTypeId: @user.id.to_s, tagsEditable: @user.id == current_user.id }
-                = react_component('Tags/Tags', tags_props)
-            hr.a-border
-            footer.card-footer
-              .card-main-actions
-                ul.card-main-actions__items
-                  - if current_user == @user
-                    li.card-main-actions__item
-                      = link_to '登録情報変更', edit_current_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
-                  - elsif current_user != @user && current_user.adviser? && current_user.company_id == @user.company_id && @user.trainee
-                    li.card-main-actions__item
-                      .a-button.is-disabled.is-sm.is-block
-                        i.fa-solid.fa-check
-                        span
-                          | 自社研修生
-                  - else
-                    li.card-main-actions__item
-                      .js-following(data-is-following="#{current_user.following?(@user)}" data-user-id="#{@user.id}" data-is-watching="#{current_user.watching?(@user)}")
-        .col-xs-12.col-lg-6.col-xxl-6
-          - if admin_or_mentor_login?
-            div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}")
-          - unless @user.total_learning_time.zero? || @user.mentor?
-            #js-grass(data-user-id="#{@user.id}")
-          - if @user.github_account.present?
-            = render 'users/github_grass', user: @user
-          - if @user.active_practices.present?
-            = render '/users/practices/active_practices', user: @user
-          - if @user.student?
-            #js-niconico_calendar(data-user-id="#{@user.id}")
-          - if @user.completed_practices.present?
-            - cache [@user, @completed_learnings] do
-              = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
-          - if admin_login?
-            .a-card.is-only-mentor
-              .card-header.is-sm
-                h2.card-header__title
-                  | ステータス変更
-              hr.a-border
-              .user-statuses
-                .user-statuses__items
-                  .user-statuses__item
-                    = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
-                  .user-statuses__item
-                    = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
-                      = render 'talks/seeking_switch', f: f
-                  .user-statuses__item
-                    - if @user.graduated?
-                      .a-button.is-sm.is-disabled.is-block
-                        | 卒業済
-                    - else
-                      = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
-                        method: :patch,
-                        data: { confirm: '本当によろしいですか？' },
-                        class: 'a-button is-sm is-danger is-block'
-                - if @user != current_user
-                  .user-statuses__delete
-                    = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link', data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @user
+                  .user-data__row
+                    = render 'users/metas', user: @user
+
+          .col-xs-12.col-lg-6.col-xxl-6
+            - if admin_or_mentor_login?
+              div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}")
+            - unless @user.total_learning_time.zero? || @user.mentor?
+              #js-grass(data-user-id="#{@user.id}")
+            - if @user.student?
+              #js-niconico_calendar(data-user-id="#{@user.id}")
+            - if @user.completed_practices.present?
+              - cache [@user, @completed_learnings] do
+                = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
+            - if admin_login?
+              .a-card.is-only-mentor
+                .card-header.is-sm
+                  h2.card-header__title
+                    | ステータス変更
+                hr.a-border-tint
+                .user-statuses
+                  .user-statuses__items
+                    .user-statuses__item
+                      = link_to '管理者として情報変更', edit_admin_user_path, class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+                    .user-statuses__item
+                      = form_with model: @user, local: true, url: user_job_seek_path(@user), class: 'form', html: { name: 'jobseeking' } do |f|
+                        = render 'talks/seeking_switch', f: f
+                    .user-statuses__item
+                      - if @user.graduated?
+                        .a-button.is-sm.is-disabled.is-block
+                          | 卒業済
+                      - else
+                        = link_to '卒業にする', user_graduation_path(@user, redirect_url: "/users/#{@user.id}"),
+                          method: :patch,
+                          data: { confirm: '本当によろしいですか？' },
+                          class: 'a-button is-sm is-danger is-block'
+                  - if @user != current_user
+                    .user-statuses__delete
+                      = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link', data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }

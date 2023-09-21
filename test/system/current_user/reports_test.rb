@@ -11,12 +11,12 @@ class CurrentUser::ReportsTest < ApplicationSystemTestCase
   test 'show reports download button when reports exist' do
     # 日報があるユーザーでログイン
     visit_with_auth '/current_user/reports', 'hatsuno'
-    assert_text '日報一括ダウンロード'
+    assert_text '日報ダウンロード'
   end
 
   test 'not show reports download button when no reports' do
     # 日報がないユーザーでログイン
     visit_with_auth '/current_user/reports', 'nippounashi'
-    assert_no_text '日報一括ダウンロード'
+    assert_no_text '日報ダウンロード'
   end
 end

@@ -1,34 +1,40 @@
-.user-profile
-  .user-profile__icon
-    span class="a-user-role is-#{user.primary_role}"
-      = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
-  .user-profile__names
-    h1.user-profile__login-name
-      = user.login_name
-    .card-list-item-meta
-      .card-list-item-meta__items
-        .card-list-item-meta__item
-          .a-meta
-            | #{user.name}（#{user.name_kana}）
-        .card-list-item-meta__item
-          - if user.discord_profile.times_url?
-            = link_to user.discord_profile.times_url, class: 'a-meta', target: '_blank', rel: 'noopener' do
-              .a-meta__icon
-                i.fab.fa-discord
-              = user.discord_profile.account_name.presence || 'Discord ID 未登録'
-          - else
+header.page-content-header
+  .page-content-header__start
+    .page-content-header__user
+      = link_to user, class: 'page-content-header__user-link' do
+        span class="a-user-role is-#{user.primary_role}"
+          = image_tag user.avatar_url, title: user.icon_title, class: 'user-profile__user-icon-image a-user-icon'
+  .page-content-header__end
+    .page-content-header__row
+      .page-content-header__before-title
+        .a-meta
+          | #{user.name}（#{user.name_kana}）
+      h1.page-content-header__title
+        = user.login_name
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          .page-content-header-metas__meta
             .a-meta
-              .a-meta__icon
-                i.fab.fa-discord
-              = user.discord_profile.account_name.presence || 'Discord 未設定'
-    = render 'users/sns', user: user
-    - if admin_login?
-      .form-actions.is-only-mentor
-        ul.form-actions__items
-          li.form-actions__item.is-main
-            = link_to user_reports_path(user, format: :md), class: 'a-button is-sm is-primary is-block' do
-              i.fa-solid.fa-cloud-download-alt
-              | 日報一括ダウンロード
+              ul.a-meta__list
+                - user.roles.each do |role|
+                  li.a-meta__list-item
+                    = t "target.#{role}"
+        .page-content-header-metas__end
+          .page-content-header-metas__meta
+            - if user.discord_profile.times_url?
+              = link_to user.discord_profile.times_url, class: 'a-meta', target: '_blank', rel: 'noopener' do
+                .a-meta__icon
+                  i.fab.fa-discord
+                = user.discord_profile.account_name.presence || 'Discord ID 未登録'
+            - else
+              .a-meta
+                .a-meta__icon
+                  i.fab.fa-discord
+                = user.discord_profile.account_name.presence || 'Discord 未設定'
+    .page-content-header__row
+      = render 'users/sns', user: user
+
   - if user.company.present?
     = link_to company_path(user.company) do
       = image_tag user.company.logo_url, class: 'user-profile__company-logo'

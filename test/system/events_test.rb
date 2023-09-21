@@ -3,6 +3,14 @@
 require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
+  setup do
+    @raise_server_errors = Capybara.raise_server_errors
+  end
+
+  teardown do
+    Capybara.raise_server_errors = @raise_server_errors
+  end
+
   test 'create a new event as wip' do
     visit_with_auth new_event_path, 'kimura'
     within 'form[name=event]' do
@@ -501,5 +509,17 @@ class EventsTest < ApplicationSystemTestCase
     end
     click_link '内容修正'
     assert_no_selector 'label', text: 'イベント公開のお知らせを書く'
+  end
+
+  test 'edit only creator or mentor' do
+    visit_with_auth edit_event_path(events(:event1)), 'kimura'
+    assert_text '特別イベント編集'
+
+    visit_with_auth edit_event_path(events(:event1)), 'komagata'
+    assert_text '特別イベント編集'
+
+    Capybara.raise_server_errors = false
+    visit_with_auth edit_event_path(events(:event1)), 'hajime'
+    assert_text 'ActiveRecord::RecordNotFound'
   end
 end
