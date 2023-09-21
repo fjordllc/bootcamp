@@ -13,8 +13,7 @@ export default class {
         const { selectionStart, selectionEnd } = textarea
         const selectedText = textarea.value.slice(selectionStart, selectionEnd)
         const pasteText =
-          event.clipboardData.getData('text') ||
-          (await navigator.clipboard.readText())
+          event.clipboardData.getData('text') || (await navigator.clipboard.readText())
         if (selectedText && this._isURL(pasteText)) {
           const markdownLink = `[${selectedText}](${pasteText})`
           document.execCommand('insertText', false, markdownLink)
