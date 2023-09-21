@@ -218,8 +218,8 @@ class RegularEventsTest < ApplicationSystemTestCase
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
-      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select("#{%w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日
-                                                                                                                   土曜日][DateTime.now.wday]}")
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select(%w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日
+                                                                                                                土曜日][DateTime.now.wday].to_s)
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '全員が参加するイベントです。'
