@@ -211,14 +211,15 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'この定期イベントは全員参加のため参加登録は不要です。'
   end
 
-    test 'mentor or admin can join regular event when they are organizer' do
+  test 'mentor or admin can join regular event when they are organizer' do
     visit_with_auth new_regular_event_path, 'komagata'
     within 'form[name=regular_event]' do
       fill_in 'regular_event[title]', with: '全員参加イベント'
       first('.choices__inner').click
       find('#choices--js-choices-multiple-select-item-choice-1').click
       first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__frequency select').select('毎週')
-      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select("#{%w(日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日)[DateTime.now.wday]}")
+      first('.regular-event-repeat-rule').first('.regular-event-repeat-rule__day-of-the-week select').select("#{%w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日
+                                                                                                                   土曜日][DateTime.now.wday]}")
       fill_in 'regular_event[start_at]', with: Time.zone.parse('19:00')
       fill_in 'regular_event[end_at]', with: Time.zone.parse('20:00')
       fill_in 'regular_event[description]', with: '全員が参加するイベントです。'
@@ -228,7 +229,7 @@ class RegularEventsTest < ApplicationSystemTestCase
       end
     end
     assert_text '定期イベントを作成しました。'
-    assert_text "毎週#{%w(日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日)[DateTime.now.wday]}"
+    assert_text "毎週#{%w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日][DateTime.now.wday]}"
     assert_text 'Watch中'
     assert_no_text '参加申込'
     assert_no_text '参加者'
@@ -236,7 +237,7 @@ class RegularEventsTest < ApplicationSystemTestCase
 
     visit_with_auth '/', 'komagata'
     within first('.card-list.has-scroll') do
-      assert_text "全員参加イベント"
+      assert_text '全員参加イベント'
     end
   end
 
