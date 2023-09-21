@@ -17,13 +17,22 @@ class WelcomeController < ApplicationController
 
   def practices
     @categories = Course.find_by(title: DEFAULT_COURSE).categories.preload(:practices).order(:position)
+    render layout: 'lp'
   end
 
-  def tos; end
+  def tos
+    render layout: 'lp'
+  end
 
-  def pp; end
+  def pp
+    render layout: 'lp'
+  end
 
-  def law; end
+  def law
+    render layout: 'lp'
+  end
 
-  def coc; end
+  def coc
+    render layout: 'lp'
+  end
 end
