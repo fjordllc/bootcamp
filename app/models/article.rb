@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
-  enum thumbnail_type: { prepared_image: 0,
-                         Ruby: 1,
+  enum thumbnail_type: { prepared_thumbnail: 0,
+                         Ruby_on_Rails: 1,
                          Rails: 2,
                          JavaScript: 3,
                          WSL2: 4,
                          Linux: 5,
-                         Advice: 6,
+                         advise: 6,
                          school_information: 7 }
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
@@ -27,7 +27,7 @@ class Article < ApplicationRecord
   paginates_per 24
   acts_as_taggable
 
-  def thumbnail_url
+  def prepared_thumbnail_url
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
@@ -35,7 +35,7 @@ class Article < ApplicationRecord
     end
   end
 
-  def default_thumbnail_url
+  def selected_thumbnail_url
     image_url("/assets/articles/thumbnails/#{thumbnail_type}.png")
   end
 
