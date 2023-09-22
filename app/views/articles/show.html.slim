@@ -3,12 +3,12 @@
 - set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
 
 ruby:
-  if @article.thumbnail.attached?
-    set_meta_tags(og: { image: @article.thumbnail_url, url: request.url })
-    set_meta_tags(twitter: { image: @article.thumbnail_url, url: request.url })
+  if @article.prepared_thumbnail?
+    set_meta_tags(og: { image: @article.prepared_thumbnail_url, url: request.url })
+    set_meta_tags(twitter: { image: @article.prepared_thumbnail_url, url: request.url })
   else
-    set_meta_tags(og: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
-    set_meta_tags(twitter: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
+    set_meta_tags(og: { image: @article.selected_thumbnail_url, url: request.url })
+    set_meta_tags(twitter: { image: @article.selected_thumbnail_url, url: request.url })
   end
 
 .welcome-page-header
@@ -43,10 +43,10 @@ ruby:
                         = l(@article.created_at)
                       - else
                         = l(@article.published_at)
-                - if @article.prepared_image?
-                  = image_tag @article.thumbnail_url, class: 'article__image'
-                - elsif !@article.prepared_image?
-                  = image_tag @article.default_thumbnail_url, class: 'article__image'
+                - if @article.prepared_thumbnail?
+                  = image_tag @article.prepared_thumbnail_url, class: 'article__image'
+                - else
+                  = image_tag @article.selected_thumbnail_url, class: 'article__image'
               .article__body
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
