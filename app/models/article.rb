@@ -2,8 +2,8 @@
 
 class Article < ApplicationRecord
   enum thumbnail_type: { prepared_thumbnail: 0,
-                         Ruby_on_Rails: 1,
-                         Rails: 2,
+                         Ruby: 1,
+                         Ruby_on_Rails: 2,
                          JavaScript: 3,
                          WSL2: 4,
                          Linux: 5,
