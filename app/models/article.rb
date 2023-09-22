@@ -3,7 +3,7 @@
 class Article < ApplicationRecord
   enum thumbnail_type: { prepared_image: 0,
                          Ruby: 1,
-                         Ruby_on_Rails: 2,
+                         Rails: 2,
                          JavaScript: 3,
                          WSL2: 4,
                          Linux: 5,
@@ -31,8 +31,12 @@ class Article < ApplicationRecord
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
-      image_url('/images/articles/thumbnails/default.png')
+      image_url('/assets/articles/thumbnails/default.png')
     end
+  end
+
+  def default_thumbnail_url
+    image_url("/assets/articles/thumbnails/#{thumbnail_type}.png")
   end
 
   private
