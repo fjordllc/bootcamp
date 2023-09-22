@@ -20,14 +20,6 @@ class NotificationMailer < ApplicationMailer
     @regular_event = params[:regular_event]
   end
 
-  # required params: comment, receiver, message
-  def came_comment
-    @user = @receiver
-    link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    @notification = @user.notifications.find_by(link: link) || @user.notifications.find_by(link: "#{link}#latest-comment")
-    mail to: @user.email, subject: "[FBC] #{@message}"
-  end
-
   # required params: mentionable, receiver
   def mentioned
     @user = @receiver
