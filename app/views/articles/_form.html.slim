@@ -46,20 +46,10 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(1)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(1)
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(2)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(2)
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(3)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(3)
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(4)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(4)
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(5)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(5)
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(6)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(6)
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(7)
-          = f.label :thumbnail_type, value: Article.thumbnail_types.key(7)
+          - (Article.thumbnail_types.count - 1).times do |i|
+            = f.radio_button :thumbnail_type, Article.thumbnail_types.key(i + 1)
+            = f.label :thumbnail_type, value: Article.thumbnail_types.key(i + 1)
+
           = f.radio_button :thumbnail_type, Article.thumbnail_types.key(0), checked: true
           = f.label :thumbnail_type, '自分で設定', value: Article.thumbnail_types.key(0)
 
