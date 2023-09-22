@@ -27,10 +27,11 @@ description: 'オンラインプログラミングフィヨルドブートキャ
                 .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
                   = link_to article, class: 'articles-item__link' do
                     .articles-item__row
-                      - if article.thumbnail.attached?
+                      / - if article.thumbnail.attached?
+                      - if article.prepared_image?
                         = image_tag article.thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
-                      - else
-                        = image_tag('work-blank.svg', class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
+                      - elsif !article.prepared_image?
+                        = image_tag(article.default_thumbnail_url, class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
                     .articles-item__row
                       h2.articles-item__title
                         - if article.wip?
