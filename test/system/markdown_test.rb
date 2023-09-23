@@ -44,10 +44,6 @@ class MarkdownTest < ApplicationSystemTestCase
     page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
   end
 
-  def all_cut(selector)
-    find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'x'])
-  end
-
   def all_copy(selector)
     find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
   end
@@ -74,9 +70,9 @@ class MarkdownTest < ApplicationSystemTestCase
 
   test 'should automatically create Markdown link when pasting a URL text into selected text' do
     visit_with_auth new_report_path, 'komagata'
-    fill_in('report[description]', with: 'https://bootcamp.fjord.jp/')
-    assert_field('report[description]', with: 'https://bootcamp.fjord.jp/')
-    all_cut('#report_description')
+    fill_in('report[title]', with: 'https://bootcamp.fjord.jp/')
+    assert_field('report[title]', with: 'https://bootcamp.fjord.jp/')
+    all_copy('#report_title')
     fill_in('report[description]', with: 'FBC')
     assert_field('report[description]', with: 'FBC')
     grant_clipboard_read_permission
