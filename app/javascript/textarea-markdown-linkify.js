@@ -12,11 +12,12 @@ export default class {
         event.preventDefault()
         const { selectionStart, selectionEnd } = textarea
         const selectedText = textarea.value.slice(selectionStart, selectionEnd)
+        const escapedSelectedText = selectedText.replace(/[[\]]/g, '\\$&')
         const pasteText =
           event.clipboardData.getData('text') ||
           (await navigator.clipboard.readText())
         if (selectedText && this._isURL(pasteText)) {
-          const markdownLink = `[${selectedText}](${pasteText})`
+          const markdownLink = `[${escapedSelectedText}](${pasteText})`
           document.execCommand('insertText', false, markdownLink)
         } else {
           document.execCommand('insertText', false, pasteText)
