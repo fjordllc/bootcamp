@@ -73,11 +73,11 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[title]', with: 'https://bootcamp.fjord.jp/')
     assert_field('report[title]', with: 'https://bootcamp.fjord.jp/')
     all_copy('#report_title')
-    fill_in('report[description]', with: 'FBC')
-    assert_field('report[description]', with: 'FBC')
     grant_clipboard_read_permission
     clip_text = read_clipboard_text
     assert_equal 'https://bootcamp.fjord.jp/', clip_text
+    fill_in('report[description]', with: 'FBC')
+    assert_field('report[description]', with: 'FBC')
     select_text_and_paste('#report_description')
     assert_field('report[description]', with: '[FBC](https://bootcamp.fjord.jp/)')
     undo('#report_description')
@@ -89,11 +89,11 @@ class MarkdownTest < ApplicationSystemTestCase
     fill_in('report[title]', with: 'FBC')
     assert_field('report[title]', with: 'FBC')
     all_copy('#report_title')
-    fill_in('report[description]', with: 'test')
-    assert_field('report[description]', with: 'test')
     grant_clipboard_read_permission
     clip_text = read_clipboard_text
     assert_equal 'FBC', clip_text
+    fill_in('report[description]', with: 'test')
+    assert_field('report[description]', with: 'test')
     select_text_and_paste('#report_description')
     assert_field('report[description]', with: 'FBC')
   end
