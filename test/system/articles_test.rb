@@ -261,6 +261,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'can set it as an OGP image by uploading an eye-catching image' do
     visit_with_auth edit_article_path(@article), 'komagata'
+    choose '自分で設定'
     attach_file 'article[thumbnail]', 'test/fixtures/files/articles/ogp_images/test.jpg', make_visible: true
     click_button '更新する'
 
@@ -278,6 +279,21 @@ class ArticlesTest < ApplicationSystemTestCase
     ogp_othter_content = ogp_othter.native['content']
     assert_match(/ogp\.png$/, ogp_twitter_content)
     assert_match(/ogp\.png$/, ogp_othter_content)
+  end
+
+  test 'Can set up prepared images for eye-catching image, the default OGP image will be used' do
+    visit_with_auth edit_article_path(@article), 'komagata'
+    choose 'Ruby'
+    click_button '更新する'
+
+    visit "/articles/#{@article.id}"
+    ogp_twitter = find('meta[name="twitter:image"]', visible: false)
+    ogp_twitter_content = ogp_twitter.native['content']
+    ogp_othter = find('meta[property="og:image"]', visible: false)
+    ogp_othter_content = ogp_othter.native['content']
+    assert_match(/ogp\.png$/, ogp_twitter_content)
+    assert_match(/ogp\.png$/, ogp_othter_content)
+    assert_selector 'img[src$="Ruby.png"]'
   end
 
   test 'display user icon when not logged in' do
