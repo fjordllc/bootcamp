@@ -63,7 +63,7 @@
           = f.radio_button :thumbnail_type, Article.thumbnail_types.key(0), checked: true
           = f.label :thumbnail_type, '自分で設定', value: Article.thumbnail_types.key(0)
 
-          div#upload-thumbnail
+          #upload-thumbnail
             = f.label :thumbnail, 'サムネイル画像を登録してください',
               class: 'a-form-label'
             .form-item-file-input.js-file-input.a-file-input.is-thumbnail
