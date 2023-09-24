@@ -18,12 +18,11 @@ export default class {
         const clipboardText =
           event.clipboardData.getData('text') ||
           (await navigator.clipboard.readText())
-        if (selectedText && this._isURL(clipboardText)) {
-          const markdownLink = `[${escapedSelectedText}](${clipboardText})`
-          document.execCommand('insertText', false, markdownLink)
-        } else {
-          document.execCommand('insertText', false, clipboardText)
-        }
+        const textToInsert =
+          selectedText && this._isURL(clipboardText)
+            ? `[${escapedSelectedText}](${clipboardText})`
+            : clipboardText
+        document.execCommand('insertText', false, textToInsert)
       })
     })
   }
