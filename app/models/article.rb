@@ -36,7 +36,11 @@ class Article < ApplicationRecord
   end
 
   def selected_thumbnail_url
-    image_url("/assets/articles/thumbnails/#{thumbnail_type}.png")
+    if Rails.env.production?
+      image_url("https://bootcamp.fjord.jp/public/images/ogp/#{thumbnail_type}.png")
+    else
+      image_url("/images/ogp/#{thumbnail_type}.png")
+    end
   end
 
   private
