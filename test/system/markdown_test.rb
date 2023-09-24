@@ -61,7 +61,7 @@ class MarkdownTest < ApplicationSystemTestCase
   # https://bootcamp.fjord.jp/questions/1720
   def select_text_and_paste(selector)
     page.execute_script("document.querySelector('#{selector}').select();")
-    find(selector).native.send_keys([cmd_ctrl, 'v'])
+    paste(selector)
   end
 
   def undo(selector)
