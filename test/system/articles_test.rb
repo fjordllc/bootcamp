@@ -273,12 +273,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'if there is no featured image, the default image is set as the OGP image' do
     visit_with_auth "/articles/#{@article.id}", 'komagata'
-    ogp_twitter = find('meta[name="twitter:image"]', visible: false)
-    ogp_twitter_content = ogp_twitter.native['content']
-    ogp_othter = find('meta[property="og:image"]', visible: false)
-    ogp_othter_content = ogp_othter.native['content']
-    assert_match(/ogp\.png$/, ogp_twitter_content)
-    assert_match(/ogp\.png$/, ogp_othter_content)
+    verify_default_ogp_image_used
   end
 
   test 'Can set up prepared images for eye-catching image, the default OGP image will be used' do
@@ -287,12 +282,7 @@ class ArticlesTest < ApplicationSystemTestCase
     click_button '更新する'
 
     visit "/articles/#{@article.id}"
-    ogp_twitter = find('meta[name="twitter:image"]', visible: false)
-    ogp_twitter_content = ogp_twitter.native['content']
-    ogp_othter = find('meta[property="og:image"]', visible: false)
-    ogp_othter_content = ogp_othter.native['content']
-    assert_match(/ogp\.png$/, ogp_twitter_content)
-    assert_match(/ogp\.png$/, ogp_othter_content)
+    verify_default_ogp_image_used
     assert_selector 'img[src$="Ruby.png"]'
   end
 
