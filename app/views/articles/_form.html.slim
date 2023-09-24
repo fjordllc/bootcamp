@@ -46,7 +46,9 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.collection_radio_buttons :thumbnail_type, [%w(Ruby Ruby), ['Ruby on Rails', 'Ruby on Rails'], %w(JavaScript JavaScript), %w(WSL2 WSL2), %w(advise アドバイス), %w(school_information スクール情報)], :first, :last /# rubocop:disable  Style/PercentLiteralDelimiters
+          - # rubocop:disable  Style/PercentLiteralDelimiters
+          = f.collection_radio_buttons(:thumbnail_type, [%w(Ruby Ruby), ['Ruby on Rails', 'Ruby on Rails'], %w(JavaScript JavaScript), %w(WSL2 WSL2), %w(advise アドバイス), %w(school_information スクール情報)], :first, :last)
+          - # rubocop:enable  Style/PercentLiteralDelimiters
           = f.radio_button :thumbnail_type, Article.thumbnail_types.key(0), checked: true
           = f.label :thumbnail_type, '自分で設定', value: Article.thumbnail_types.key(0)
 
