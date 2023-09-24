@@ -16,7 +16,7 @@ article2:
 
 article3:
   title: タイトル３
-  body: サムネイルは自分で用意した画像を使っています。
+  body: 記事は昔に書かれた記事であり、デフォルトの画像が使われています。
   user: komagata
   wip: true
   thumbnail_type: :prepared_thumbnail
