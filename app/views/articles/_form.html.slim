@@ -63,21 +63,21 @@
           = f.radio_button :thumbnail_type, Article.thumbnail_types.key(0), checked: true
           = f.label :thumbnail_type, '自分で設定', value: Article.thumbnail_types.key(0)
 
-          #upload-thumbnail
-            = f.label :thumbnail, 'サムネイル画像を登録してください',
-              class: 'a-form-label'
-            .form-item-file-input.js-file-input.a-file-input.is-thumbnail
-              label.js-file-input__preview
-                - if article.thumbnail.attached?
-                  = image_tag article.thumbnail
-                  p 画像を変更
-                - else
-                  p 画像を選択
-                = f.file_field :thumbnail
-            .a-form-help
-              p
-                | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
-                | 画像サイズは必ず 1200px × 630xpx でお願いします。
+        #upload-thumbnail
+          = f.label :thumbnail, 'サムネイル画像を登録してください',
+            class: 'a-form-label'
+          .form-item-file-input.js-file-input.a-file-input.is-thumbnail
+            label.js-file-input__preview
+              - if article.thumbnail.attached?
+                = image_tag article.thumbnail
+                p 画像を変更
+              - else
+                p 画像を選択
+              = f.file_field :thumbnail
+          .a-form-help
+            p
+              | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
+              | 画像サイズは必ず 1200px × 630xpx でお願いします。
 
     - if params[:action] == 'edit'
       .form-item
