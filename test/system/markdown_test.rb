@@ -28,6 +28,14 @@ class MarkdownTest < ApplicationSystemTestCase
     assert find('.js-user-icon.a-user-emoji')['data-user'].include?('mentormentaro')
   end
 
+  def cmd_ctrl
+    page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
+  end
+
+  def all_copy(selector)
+    find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+  end
+
   # headless chromeでnavigator.clipboard.readText()を実行する時に必要
   # https://github.com/fjordllc/bootcamp/pull/6747#discussion_r1325417231
   # https://bootcamp.fjord.jp/reports/80292
@@ -40,12 +48,12 @@ class MarkdownTest < ApplicationSystemTestCase
     page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
   end
 
-  def cmd_ctrl
-    page.driver.browser.capabilities.platform_name.include?('mac') ? :command : :control
+  def read_clipboard_text
+    page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
   end
 
-  def all_copy(selector)
-    find(selector).native.send_keys([cmd_ctrl, 'a'], [cmd_ctrl, 'c'])
+  def paste(selector)
+    find(selector).native.send_keys([cmd_ctrl, 'v'])
   end
 
   # CIでのみペースト前のctrl + Aが効かないため文字列の選択をselect()メソッドで実行
@@ -58,14 +66,6 @@ class MarkdownTest < ApplicationSystemTestCase
 
   def undo(selector)
     find(selector).native.send_keys([cmd_ctrl, 'z'])
-  end
-
-  def paste(selector)
-    find(selector).native.send_keys([cmd_ctrl, 'v'])
-  end
-
-  def read_clipboard_text
-    page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
   end
 
   test 'should automatically create Markdown link when pasting a URL text into selected text' do
