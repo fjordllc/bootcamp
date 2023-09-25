@@ -3,7 +3,6 @@ import MarkdownIt from 'markdown-it'
 export default class {
   linkify(selector) {
     const textareas = document.querySelectorAll(selector)
-    if (!textareas.length) return
 
     Array.from(textareas).forEach((textarea) => {
       textarea.addEventListener('paste', async (event) => {
