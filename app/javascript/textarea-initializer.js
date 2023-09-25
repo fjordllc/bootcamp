@@ -14,13 +14,12 @@ import MarkDownItContainerDetails from 'markdown-it-container-details'
 import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import CSRF from 'csrf'
+import TextareaMarkdownLinkify from 'textarea-markdown-linkify'
 
 export default class {
   static initialize(selector) {
     const textareas = document.querySelectorAll(selector)
-    if (textareas.length === 0) {
-      return null
-    }
+    if (!textareas.length) return
 
     // autosize
     autosize(textareas)
@@ -84,6 +83,9 @@ export default class {
 
     // user-icon
     new UserIconRenderer().render(selector)
+
+    // Convert selected text to markdown link on URL paste
+    new TextareaMarkdownLinkify().linkify(selector)
   }
 
   static uninitialize(selector) {
