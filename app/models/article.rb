@@ -9,6 +9,7 @@ class Article < ApplicationRecord
                          Linux: 5,
                          advise: 6,
                          school_information: 7 }
+
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
 
@@ -19,6 +20,7 @@ class Article < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
+  validates :thumbnail_type, presence: true
   validates :published_at, presence: true, if: :will_be_published?
   validates :thumbnail,
             content_type: %w[image/png image/jpg image/jpeg],
