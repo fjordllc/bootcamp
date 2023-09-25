@@ -46,11 +46,22 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          - # rubocop:disable  Style/PercentLiteralDelimiters
-          = f.collection_radio_buttons(:thumbnail_type, [%w(Ruby Ruby), ['Ruby on Rails', 'Ruby on Rails'], %w(JavaScript JavaScript), %w(WSL2 WSL2), %w(advise アドバイス), %w(school_information スクール情報)], :first, :last)
-          - # rubocop:enable  Style/PercentLiteralDelimiters
-          = f.radio_button :thumbnail_type, Article.thumbnail_types.key(0), checked: true
-          = f.label :thumbnail_type, '自分で設定', value: Article.thumbnail_types.key(0)
+          = f.radio_button :thumbnail_type, 'Ruby'
+          = f.label :thumbnail_type, value: 'Ruby'
+          = f.radio_button :thumbnail_type, 'Ruby_on_Rails'
+          = f.label :thumbnail_type, value: 'Ruby on Rails'
+          = f.radio_button :thumbnail_type, 'JavaScript'
+          = f.label :thumbnail_type, value: 'JavaScript'
+          = f.radio_button :thumbnail_type, 'WSL2'
+          = f.label :thumbnail_type, value: 'WSL2'
+          = f.radio_button :thumbnail_type, 'Linux'
+          = f.label :thumbnail_type, value: 'Linux'
+          = f.radio_button :thumbnail_type, 'advise'
+          = f.label :thumbnail_type, 'アドバイス', value: 'advise'
+          = f.radio_button :thumbnail_type, 'school_information'
+          = f.label :thumbnail_type, 'スクール情報', value: 'school_information'
+          = f.radio_button :thumbnail_type, 'prepared_thumbnail'
+          = f.label :thumbnail_type, '自分で設定', value: 'prepared_thumbnail'
 
         #upload-thumbnail
           = f.label :thumbnail, 'サムネイル画像を登録してください',
