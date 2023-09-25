@@ -17,7 +17,7 @@ export default class {
           event.clipboardData.getData('text') ||
           (await navigator.clipboard.readText())
         const textToInsert =
-          selectedText && this._isURL(clipboardText)
+          escapedSelectedText && this._isURL(clipboardText)
             ? `[${escapedSelectedText}](${clipboardText})`
             : clipboardText
         document.execCommand('insertText', false, textToInsert)
