@@ -17,8 +17,8 @@ class QuestionDeleteTest < ActionDispatch::IntegrationTest
     question = questions(:question8)
     delete question_path(question)
 
-    assert_redirected_to questions_path
-    assert_equal '質問を削除するには、管理者かメンターの権限が必要です。', flash[:alert]
+    assert_redirected_to root_path
+    assert_equal '管理者・メンターとしてログインしてください', flash[:alert]
   end
 
   test 'admin can delete a question' do
