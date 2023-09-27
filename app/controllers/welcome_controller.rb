@@ -9,11 +9,17 @@ class WelcomeController < ApplicationController
     @mentors = User.mentors_sorted_by_created_at
   end
 
-  def pricing; end
+  def pricing
+    render layout: 'lp'
+  end
 
-  def faq; end
+  def faq
+    render layout: 'lp'
+  end
 
-  def training; end
+  def training
+    render layout: 'lp'
+  end
 
   def practices
     @categories = Course.find_by(title: DEFAULT_COURSE).categories.preload(:practices).order(:position)
