@@ -1,6 +1,8 @@
 html.is-lp
   font-family: $sans-serif
   color: var(--default-text)
+  font-feature-settings: "palt"
+  letter-spacing: .025em
 
 body.is-lp
   background-color: var(--background)
@@ -116,3 +118,5 @@ body.is-lp
 
 .welcome-practices__item
   +text-block(.875rem 1.6)
+  &:not(:last-child)::after
+    content: '、'

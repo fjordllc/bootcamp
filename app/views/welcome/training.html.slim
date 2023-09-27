@@ -3,16 +3,21 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。料金は月額99,800円です。')
 
-.welcome-page-header
-  .container.is-xl
+header.welcome-page-header
+  .container
     .welcome-page-header__inner
-      h1.welcome-page-header__title
+      .welcome-page-header__start
+        h1.welcome-page-header__title
+          = title
+      .welcome-page-header__end
+hr.a-border
+.welcome-page-body
+  .container.is-lg
+    .welcome-page-body__header
+      h1.welcome-page-body__title
         = title
-
-.welcome-page-body.pt-0
-  .welcome-sections
-    section.welcome-section
-      .container.is-md
+    .a-card
+      .card__inner
         h2.welcome-section__title.has-border
           | フィヨルドブートキャンプが
           br
@@ -185,9 +190,8 @@
             br
             | ただし、一般受講生として利用した場合、研修期間と要望に合わせた独自カリキュラム作成、研修担当者、社内メンターの招待、
             | 利用料金の請求書対応ができません。
-
-    section.welcome-section
-      .container.is-md
+    .a-card
+      .card__inner
         h2.welcome-section__title.has-border
           | 実績
         .welcome-section__description
