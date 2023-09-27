@@ -7,19 +7,6 @@ class CoursesController < ApplicationController
     @courses = Course.order(created_at: :desc)
   end
 
-  def new
-    @course = Course.new
-  end
-
-  def create
-    @course = Course.new(course_params)
-    if @course.save
-      redirect_to courses_path, notice: 'コースを作成しました。'
-    else
-      render :new
-    end
-  end
-
   private
 
   def course_params

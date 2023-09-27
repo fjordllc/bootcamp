@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Practice::NotLoggedInTest < ApplicationSystemTestCase
   test 'set ogp image to meta-tag when exists ogp image' do
     practice = practices(:practice1)
-    visit_with_auth edit_practice_path(practice), 'komagata'
+    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
     within 'form[name=practice]' do
       attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     end

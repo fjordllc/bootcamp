@@ -43,12 +43,12 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test "only show when user isn't admin " do
-    visit_with_auth "/practices/#{practices(:practice1).id}/edit", 'mentormentaro'
+    visit_with_auth "/mentor/practices/#{practices(:practice1).id}/edit", 'mentormentaro'
     assert_not_equal 'プラクティス編集', title
   end
 
   test 'create practice' do
-    visit_with_auth '/practices/new', 'komagata'
+    visit_with_auth '/mentor/practices/new', 'komagata'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       check categories(:category1).name, allow_label_click: true
@@ -65,7 +65,7 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test 'create practice as a mentor' do
-    visit_with_auth '/practices/new', 'mentormentaro'
+    visit_with_auth '/mentor/practices/new', 'mentormentaro'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       check categories(:category1).name, allow_label_click: true
@@ -83,7 +83,7 @@ class PracticesTest < ApplicationSystemTestCase
   test 'update practice' do
     practice = practices(:practice2)
     product = products(:product3)
-    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       fill_in 'practice[memo]', with: 'メンター向けのメモの内容です'
@@ -112,7 +112,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'add a book' do
     practice = practices(:practice2)
-    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
       click_link '書籍を選択'
     end
@@ -121,7 +121,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'update a book' do
     practice = practices(:practice1)
-    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
       find('.choices__list').click
       find('#choices--practice_practices_books_attributes_0_book_id-item-choice-2', text: 'はじめて学ぶソフトウェアのテスト技法').click
@@ -132,18 +132,18 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'add completion image' do
     practice = practices(:practice1)
-    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
     attach_file 'practice[completion_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     click_button '更新する'
 
-    visit_with_auth "/practices/#{practice.id}/edit", 'komagata'
+    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
     within('form[name=practice]') do
       assert_selector 'img'
     end
   end
 
   test 'show setting for completed percentage' do
-    visit_with_auth '/practices/new', 'komagata'
+    visit_with_auth '/mentor/practices/new', 'komagata'
     assert_text '進捗の計算'
   end
 
@@ -186,7 +186,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'update practice in the role of mentor' do
     practice = practices(:practice2)
-    visit_with_auth "/practices/#{practice.id}/edit", 'mentormentaro'
+    visit_with_auth "/mentor/practices/#{practice.id}/edit", 'mentormentaro'
     within 'form[name=practice]' do
       fill_in 'practice[title]', with: 'テストプラクティス'
       within '#reference_books' do
@@ -260,7 +260,7 @@ class PracticesTest < ApplicationSystemTestCase
       <h1>HTMLタグ</h1>
     TEXT
 
-    visit_with_auth edit_practice_path(practices(:practice1)), 'komagata'
+    visit_with_auth edit_mentor_practice_path(practices(:practice1)), 'komagata'
     within 'form[name=practice]' do
       fill_in 'practice[summary]', with: escape_text.chop
       click_button '更新する'
@@ -271,13 +271,13 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'add ogp image' do
     practice = practices(:practice1)
-    visit_with_auth edit_practice_path(practice), 'komagata'
+    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
     within 'form[name=practice]' do
       attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     end
     click_button '更新する'
 
-    visit edit_practice_path(practice)
+    visit edit_mentor_practice_path(practice)
     within('form[name=practice]') do
       assert_selector 'label[for=practice_ogp_image] img[src$="1.jpg"]'
     end
@@ -285,7 +285,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'show both in the summary ( summary_text: yes / ogp_image: yes )' do
     practice = practices(:practice1)
-    visit_with_auth edit_practice_path(practice), 'komagata'
+    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
     within 'form[name=practice]' do
       attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
       fill_in 'practice[summary]', with: '概要です'
@@ -300,7 +300,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'show only text in the summary ( summary_text: yes / ogp_image: no )' do
     practice = practices(:practice1)
-    visit_with_auth edit_practice_path(practice), 'komagata'
+    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
     within 'form[name=practice]' do
       fill_in 'practice[summary]', with: '概要です'
     end
@@ -321,7 +321,7 @@ class PracticesTest < ApplicationSystemTestCase
 
   test 'not show the summary ( summary_text: no / ogp_image: yes )' do
     practice = practices(:practice1)
-    visit_with_auth edit_practice_path(practice), 'komagata'
+    visit_with_auth edit_mentor_practice_path(practice), 'komagata'
     within 'form[name=practice]' do
       attach_file 'practice[ogp_image]', 'test/fixtures/files/practices/ogp_images/1.jpg', make_visible: true
     end

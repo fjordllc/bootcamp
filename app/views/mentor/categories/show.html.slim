@@ -90,7 +90,7 @@ header.page-header
                               h3.card-list-item-title__title
                                 = link_to practice.title, practice_path(practice), class: 'card-list-item-title__link a-text-link'
                             .card-list-item-title__end
-                              = link_to edit_practice_path(practice), class: 'a-button is-xs is-secondary is-icon' do
+                              = link_to edit_mentor_practice_path(practice), class: 'a-button is-xs is-secondary is-icon' do
                                 i.fa-solid.fa-pen
             - else
               .card-list__message

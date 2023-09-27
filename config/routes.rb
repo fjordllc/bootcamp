@@ -35,11 +35,10 @@ Rails.application.routes.draw do
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
-  resources :courses, only: %i(index new create) do
+  resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices"
-    resources :categories, only: %i(index), controller: "courses/categories"
   end
-  resources :practices, except: %i(index destroy) do
+  resources :practices, only: %i(show) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
@@ -87,9 +86,6 @@ Rails.application.routes.draw do
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
   resources :external_entries, only: %i(index)
-  resources :categories, only: [] do
-    resources :practices, only: %i(index), controller: "categories/practices"
-  end
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"

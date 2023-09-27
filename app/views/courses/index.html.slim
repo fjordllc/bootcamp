@@ -9,7 +9,7 @@ header.page-header
         ul.page-header-actions__items
           - if current_user&.mentor?
             li.page-header-actions__item
-              = link_to new_course_path, class: 'a-button is-md is-secondary is-block' do
+              = link_to new_mentor_course_path, class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 | コース作成
 hr.a-border
