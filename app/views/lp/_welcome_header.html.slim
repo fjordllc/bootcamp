@@ -51,7 +51,7 @@ header.welcome-header
       .welcome-header__end
         .welcome-header__login
           - if current_user
-            = link_to course_practices_path(current_user.course), class: 'a-button is-sm is-primary is-block' do
+            = link_to course_practices_path(current_user.course), class: 'a-button is-sm is-secondary is-block' do
               | プラクティス
           - else
             = link_to login_path, class: 'a-button is-sm is-secondary is-block' do
