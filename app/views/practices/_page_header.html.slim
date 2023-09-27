@@ -7,7 +7,7 @@ header.page-header
         ul.page-header-actions__items
           - if current_user.mentor?
             li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
-              = link_to new_practice_path, class: 'a-button is-md is-secondary is-block' do
+              = link_to new_mentor_practice_path, class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 | プラクティス作成
           li.page-header-actions__item
