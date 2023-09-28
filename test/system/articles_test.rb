@@ -261,7 +261,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'can set it as an OGP image by uploading an eye-catching image' do
     visit_with_auth edit_article_path(@article), 'komagata'
-    choose '自分で設定'
+    choose '画像アップロード'
     attach_file 'article[thumbnail]', 'test/fixtures/files/articles/ogp_images/test.jpg', make_visible: true
     click_button '更新する'
 
