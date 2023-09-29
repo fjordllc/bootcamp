@@ -21,7 +21,7 @@ class ProductUpdateNotifierForProductWatcherTest < ActiveSupport::TestCase
     end
   end
 
-  test 'does not notify when watches and checker is nil' do
+  test 'does not notify when watches and checker are nil' do
     product = products(:product73)
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
