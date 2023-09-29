@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class ProductUpdateNotifierTest < ActiveSupport::TestCase
+class ProductUpdateNotifierForCheckerTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   test '#call' do
@@ -15,7 +15,7 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     product.save!
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
-      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
+      ProductUpdateNotifierForChecker.new.call({ product:, current_user: product.user })
     end
   end
 
@@ -30,7 +30,7 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     product.save!
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
+      ProductUpdateNotifierForChecker.new.call({ product:, current_user: product.user })
     end
   end
 
@@ -44,7 +44,7 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     product.save!
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      ProductUpdateNotifier.new.call({ product:, current_user: product.user })
+      ProductUpdateNotifierForChecker.new.call({ product:, current_user: product.user })
     end
   end
 
@@ -58,7 +58,7 @@ class ProductUpdateNotifierTest < ActiveSupport::TestCase
     product.save!
 
     assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 0 do
-      ProductUpdateNotifier.new.call({ product:, current_user: users(:mentormentaro) })
+      ProductUpdateNotifierForChecker.new.call({ product:, current_user: users(:mentormentaro) })
     end
   end
 end

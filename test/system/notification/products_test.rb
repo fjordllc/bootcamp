@@ -41,7 +41,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'komagata'
 
     within first('.card-list-item.is-unread') do
-      assert_text 'kimuraさんの提出物が更新されました'
+      assert_text "kimuraさんの「#{product.practice.title}」の提出物が更新されました"
     end
   end
 
