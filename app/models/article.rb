@@ -38,7 +38,7 @@ class Article < ApplicationRecord
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
-      image_url('/images/articles/thumbnails/default.png')
+      image_url('/assets/articles/thumbnails/default.png')
     end
   end
 
