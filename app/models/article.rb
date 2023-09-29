@@ -8,11 +8,12 @@ class Article < ApplicationRecord
                          wsl2: 4,
                          linux: 5,
                          pc: 6,
-                         green: 7,
-                         purple: 8,
-                         orange: 9,
-                         brown: 10,
-                         blue: 11 }
+                         sponsorship: 7,
+                         green: 8,
+                         purple: 9,
+                         orange: 10,
+                         brown: 11,
+                         blue: 12 }
 
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
