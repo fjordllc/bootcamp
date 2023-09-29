@@ -38,13 +38,13 @@ class Article < ApplicationRecord
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
     else
-      image_url('/assets/articles/thumbnails/default.png')
+      image_url('/images/articles/thumbnails/default.png')
     end
   end
 
   def selected_thumbnail_url
     if Rails.env.production?
-      image_url("https://bootcamp.fjord.jp/public/images/ogp/#{thumbnail_type}.png")
+      image_url("https://bootcamp.fjord.jp/public/ogp/#{thumbnail_type}.png")
     else
       image_url("/ogp/#{thumbnail_type}.png")
     end
