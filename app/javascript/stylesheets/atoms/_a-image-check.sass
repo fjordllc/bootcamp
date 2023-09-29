@@ -55,6 +55,9 @@
     +fa(fas "\f00c")
     color: var(--reversal-text)
 
+.a-image-check__start
+  width: 100%
+
 .a-image-check__end
   padding-bottom: .5rem
   width: 100%
@@ -67,3 +70,14 @@
   .a-image-check__inner.has-icon &
     +size(1.75rem)
     margin-right: .5rem
+
+.a-image-check__upload-image
+  display: block
+  width: 100%
+  background-color: var(--background-shade)
+  aspect-ratio: 120 / 63
+  position: relative
+  i
+    +position(absolute, left 50%, top 50%)
+    transform: translate(-50%, -50%)
+    font-size: 3rem

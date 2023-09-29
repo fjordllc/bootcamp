@@ -53,7 +53,7 @@
         - types.each do |type|
           .col-md-3.col-xs-6
             .a-image-check.is-radio
-              - converted_type = type.downcase.gsub(' ', '_')
+              - converted_type = type.downcase.tr(' ', '_')
               = f.radio_button :thumbnail_type, converted_type, class: 'a-toggle-checkbox'
               = f.label :thumbnail_type, value: type, class: 'a-image-check__inner'
                 span.a-image-check__start
@@ -66,6 +66,8 @@
             = f.radio_button :thumbnail_type, 'prepared_thumbnail', class: 'a-toggle-checkbox'
             = f.label :thumbnail_type, '画像アップロード', value: 'prepared_thumbnail', class: 'a-image-check__inner'
               span.a-image-check__start
+                span.a-image-check__upload-image
+                  i.fas.fa-upload
               span.a-image-check__end
                 | 画像アップロード
 
