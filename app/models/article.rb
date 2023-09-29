@@ -2,13 +2,17 @@
 
 class Article < ApplicationRecord
   enum thumbnail_type: { prepared_thumbnail: 0,
-                         Ruby: 1,
-                         Ruby_on_Rails: 2,
-                         JavaScript: 3,
-                         WSL2: 4,
-                         Linux: 5,
-                         advise: 6,
-                         school_information: 7 }
+                         ruby: 1,
+                         ruby_on_rails: 2,
+                         javascript: 3,
+                         wsl2: 4,
+                         linux: 5,
+                         pc: 6,
+                         green: 7,
+                         purple: 8,
+                         orange: 9,
+                         brown: 10,
+                         blue: 11 }
 
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
@@ -41,7 +45,7 @@ class Article < ApplicationRecord
     if Rails.env.production?
       image_url("https://bootcamp.fjord.jp/public/images/ogp/#{thumbnail_type}.png")
     else
-      image_url("/images/ogp/#{thumbnail_type}.png")
+      image_url("/ogp/#{thumbnail_type}.png")
     end
   end
 
