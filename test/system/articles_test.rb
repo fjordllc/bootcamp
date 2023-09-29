@@ -261,7 +261,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'can set it as an OGP image by uploading an eye-catching image' do
     visit_with_auth edit_article_path(@article), 'komagata'
-    choose '画像アップロード'
+    find('label[for=article_thumbnail_type_prepared_thumbnail]').click
     attach_file 'article[thumbnail]', 'test/fixtures/files/articles/ogp_images/test.jpg', make_visible: true
     click_button '更新する'
 
@@ -278,12 +278,12 @@ class ArticlesTest < ApplicationSystemTestCase
 
   test 'Can set up prepared images for eye-catching image, the default OGP image will be used' do
     visit_with_auth edit_article_path(@article), 'komagata'
-    choose 'Ruby'
+    find('label[for=article_thumbnail_type_ruby_on_rails]').click
     click_button '更新する'
 
     visit "/articles/#{@article.id}"
     verify_default_ogp_image_used
-    assert_selector 'img[src$="Ruby.png"]'
+    assert_selector 'img[src$="ruby_on_rails.png"]'
   end
 
   test 'display user icon when not logged in' do
