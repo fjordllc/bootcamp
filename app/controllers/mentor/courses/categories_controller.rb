@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Courses::CategoriesController < ApplicationController
+class Mentor::Courses::CategoriesController < ApplicationController
   before_action :require_mentor_login
 
   def index

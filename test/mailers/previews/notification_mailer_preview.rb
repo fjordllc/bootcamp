@@ -3,17 +3,6 @@
 require 'active_record/fixtures'
 
 class NotificationMailerPreview < ActionMailer::Preview
-  def came_comment
-    report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
-    comment = report.comments.first
-
-    NotificationMailer.with(
-      comment: comment,
-      receiver: comment.receiver,
-      message: "#{comment.sender.login_name}さんからコメントが届きました。"
-    ).came_comment
-  end
-
   def mentioned
     report = Report.find(ActiveRecord::FixtureSet.identify(:report5))
     mentionable = Comment.find(ActiveRecord::FixtureSet.identify(:comment9))
