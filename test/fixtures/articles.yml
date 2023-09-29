@@ -1,10 +1,10 @@
 article1:
   title: タイトル１
-  body: サムネイルは「/public/images/ogp/」配下にある画像を使っています。
+  body: サムネイルは「/public/ogp/」配下にある画像を使っています。
   user: komagata
   wip: false
   published_at: "2022-01-01 00:00:00"
-  thumbnail_type: :school_information
+  thumbnail_type: :ruby_on_rails
 
 article2:
   title: タイトル２
