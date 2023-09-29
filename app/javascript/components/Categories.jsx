@@ -45,7 +45,7 @@ const Category = ({ category }) => {
           </li>
           <li>
             <a
-              href={`/categories/${category.id}/practices`}
+              href={`/mentor/categories/${category.id}/practices`}
               className="a-button is-sm is-secondary is-icon is-block">
               <i className="fa-solid fa-align-justify" />
             </a>

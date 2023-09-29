@@ -86,12 +86,12 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
 
     visit_with_auth mentor_categories_path, 'komagata'
     assert_text '学習の準備'
-    find("a[href='/categories/#{category.id}/practices']").click
+    find("a[href='/mentor/categories/#{category.id}/practices']").click
     assert_text '学習の準備カテゴリーのプラクティス並び替え'
 
     visit_with_auth mentor_categories_path, 'mentormentaro'
     assert_text '学習の準備'
-    find("a[href='/categories/#{category.id}/practices']").click
+    find("a[href='/mentor/categories/#{category.id}/practices']").click
     assert_text '学習の準備カテゴリーのプラクティス並び替え'
   end
 end
