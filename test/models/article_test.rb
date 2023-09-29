@@ -10,7 +10,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   test 'selected_thumbnail_url' do
     article = articles(:article1)
-    assert_equal '/images/ogp/school_information.png', article.selected_thumbnail_url
+    assert_equal '/ogp/ruby_on_rails.png', article.selected_thumbnail_url
   end
 
   test 'articles directly published without WIP have value of the published_at' do
