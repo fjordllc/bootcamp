@@ -19,7 +19,7 @@ export default function Notification({ notification }) {
   useEffect(() => {
     setFormattedCreatedAt(formatCreatedAtInJapanese)
     setFormattedRoleClass(formatRoleClass)
-  }, [notification])
+  }, [notification.created_at, notification.sender.primary_role])
 
   return (
     <div
