@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import fetcher from '../fetcher'
 import queryString from 'query-string'
 import Pagination from './Pagination'
+import LoadingListPlaceholder from './LoadingListPlaceholder'
 import RegularEvent from './RegularEvent'
 
 const buildParams = (targetParam, page) => {
@@ -43,7 +44,15 @@ const RegularEvents = () => {
   }
 
   if (error) console.warn(error)
-  if (!data) return <div className="page-content loaing">ロード中…</div>
+  if (!data) {
+    return (
+      <div className="page-body">
+        <div className="container is-md">
+          <LoadingListPlaceholder />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="page-content loaded">
