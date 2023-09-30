@@ -78,7 +78,7 @@ class ExternalEntry < ApplicationRecord
         title: atom_item.title&.content,
         url: atom_item.link&.href,
         summary: atom_item.content&.content,
-        thumbnail_image_url: atom_item.links&.find { |link| !link.type.nil? && link.type.include?('image') }&.href,
+        thumbnail_image_url: atom_image_url(atom_item),
         published_at: atom_publish_date(atom_item, feed_updated),
         user:
       )
@@ -98,6 +98,10 @@ class ExternalEntry < ApplicationRecord
       return feed_updated if feed_updated
 
       Time.zone.today
+    end
+
+    def atom_image_url(atom_item)
+      atom_item.links&.find { |link| !link.type.nil? && link.type.include?('image') }&.href
     end
 
     def atom_publish_date(atom_item, feed_updated)
