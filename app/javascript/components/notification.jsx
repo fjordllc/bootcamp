@@ -1,0 +1,67 @@
+import React from 'react'
+import dayjs from 'dayjs'
+import ja from 'dayjs/locale/ja'
+dayjs.locale(ja)
+
+export default function Notification({ notification }) {
+  const formattedCreatedAtInJapanese = () => {
+    return dayjs(this.notification.created_at).format(
+      'YYYY年MM月DD日(ddd) HH:mm'
+    )
+  }
+  const roleClass = () => {
+    return `is-${this.notification.sender.primary_role}`
+  }
+
+  return (
+    <div
+      className={`card-list-item ${
+        notification.read ? 'is-read' : 'is-unread'
+      }`}>
+      <div className="card-list-item__inner">
+        <div className="card-list-item__user">
+          <img
+            className={`card-list-item__user-icon.a-user-icon ${roleClass}`}
+            title={notification.sender.icon_title}
+            src={notification.sender.avatar_url}
+          />
+        </div>
+        <div className="card-list-item__rows">
+          <div className="card-list-item__row">
+            <div className="card-list-item-title">
+              <div className="card-list-item-title__start">
+                <div
+                  className={`a-list-item-badge ${
+                    notification.read === false ? 'is-unread' : ''
+                  }`}>
+                  <span>未読</span>
+                </div>
+                <h2 className="card-list-item-title__title" itemprop="name">
+                  <a
+                    className="card-list-item-title__link a-text-link js-unconfirmed-link"
+                    href={notification.path}
+                    itemprop="url">
+                    <span className="card-list-item-title__link-label">
+                      {notification.message}
+                    </span>
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div className="card-list-item__row">
+            <div className="card-list-item-meta">
+              <div className="card-list-item-meta__items">
+                <div className="card-list-item-meta__item">
+                  <time className="a-meta" datetime={notification.created_at}>
+                    {formattedCreatedAtInJapanese}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
