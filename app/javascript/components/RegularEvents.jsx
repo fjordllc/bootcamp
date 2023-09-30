@@ -15,8 +15,9 @@ const buildParams = (targetParam, page) => {
 const RegularEvents = () => {
   const per = 20
   const neighbours = 4
+  const defaultTarget = queryString.parse(location.search).target || 'all'
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [targetParam, setTargetParam] = useState('not_finished')
+  const [targetParam, setTargetParam] = useState(defaultTarget)
   const [page, setPage] = useState(defaultPage)
 
   useEffect(() => {
