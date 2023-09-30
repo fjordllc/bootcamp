@@ -154,7 +154,7 @@ div(v-else-if='isDashboard')
         class='hover\:bg-black',
         href='/products/unassigned#4days-elapsed',
         v-else)
-        | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間後に5日経過に到達します。
+        | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間以内に5日経過に到達します。
 
 //- 全て, 未完了
 .page-content.is-products(v-else)
