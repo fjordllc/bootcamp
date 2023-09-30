@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
 
 export default function Notification({ notification }) {
-  const formattedCreatedAtInJapanese = () => {
-    return dayjs(this.notification.created_at).format(
-      'YYYY年MM月DD日(ddd) HH:mm'
-    )
+  const formatCreatedAtInJapanese = () => {
+    return dayjs(notification.created_at).format('YYYY年MM月DD日(ddd) HH:mm')
   }
-  const roleClass = () => {
-    return `is-${this.notification.sender.primary_role}`
+  const formatRoleClass = () => {
+    return `is-${notification.sender.primary_role}`
   }
+
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState(
+    formatCreatedAtInJapanese
+  )
+  const [formattedroleClass, setFormattedRoleClass] = useState(formatRoleClass)
+
+  useEffect(() => {
+    setFormattedCreatedAt(formatCreatedAtInJapanese)
+    setFormattedRoleClass(formatRoleClass)
+  }, [notification])
 
   return (
     <div
@@ -21,7 +29,7 @@ export default function Notification({ notification }) {
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <img
-            className={`card-list-item__user-icon.a-user-icon ${roleClass}`}
+            className={`card-list-item__user-icon.a-user-icon ${formattedroleClass}`}
             title={notification.sender.icon_title}
             src={notification.sender.avatar_url}
           />
@@ -54,7 +62,7 @@ export default function Notification({ notification }) {
               <div className="card-list-item-meta__items">
                 <div className="card-list-item-meta__item">
                   <time className="a-meta" datetime={notification.created_at}>
-                    {formattedCreatedAtInJapanese}
+                    {formattedCreatedAt}
                   </time>
                 </div>
               </div>
