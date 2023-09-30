@@ -24,7 +24,10 @@ const RegularEvents = () => {
     setPage(page)
   }, [targetParam, page])
 
-  const { data, error } = useSWR(`/api/regular_events?${buildParams(targetParam, page)}`, fetcher)
+  const { data, error } = useSWR(
+    `/api/regular_events?${buildParams(targetParam, page)}`,
+    fetcher
+  )
 
   const handleNotFinishedClick = () => {
     setTargetParam('not_finished')
@@ -40,7 +43,11 @@ const RegularEvents = () => {
 
   const handlePaginate = (p) => {
     setPage(p)
-    window.history.pushState(null, null, `/regular_events?${buildParams(targetParam, p)}`)
+    window.history.pushState(
+      null,
+      null,
+      `/regular_events?${buildParams(targetParam, p)}`
+    )
   }
 
   if (error) console.warn(error)
@@ -71,12 +78,9 @@ const RegularEvents = () => {
         />
       )}
       <div className="card-list a-card">
-        {data.regular_events.map(regularEvent =>
-          <RegularEvent
-            key={regularEvent.id}
-            regularEvent={regularEvent}
-          />
-        )}
+        {data.regular_events.map((regularEvent) => (
+          <RegularEvent key={regularEvent.id} regularEvent={regularEvent} />
+        ))}
       </div>
       {data.total_pages > 1 && (
         <Pagination
@@ -91,23 +95,29 @@ const RegularEvents = () => {
   )
 }
 
-const Navigation = ({ targetParam, handleNotFinishedClick, handleAllClick }) => {
+const Navigation = ({
+  targetParam,
+  handleNotFinishedClick,
+  handleAllClick
+}) => {
   return (
     <nav className="pill-nav">
       <ul className="pill-nav__items">
         <li className="pill-nav__item">
           <button
-            className={`pill-nav__item-link ${targetParam === 'not_finished' ? 'is-active' : ''}`}
-            onClick={handleNotFinishedClick}
-          >
+            className={`pill-nav__item-link ${
+              targetParam === 'not_finished' ? 'is-active' : ''
+            }`}
+            onClick={handleNotFinishedClick}>
             開催中
           </button>
         </li>
         <li className="pill-nav__item">
           <button
-            className={`pill-nav__item-link ${targetParam === 'all' ? 'is-active' : ''}`}
-            onClick={handleAllClick}
-          >
+            className={`pill-nav__item-link ${
+              targetParam === 'all' ? 'is-active' : ''
+            }`}
+            onClick={handleAllClick}>
             全て
           </button>
         </li>
