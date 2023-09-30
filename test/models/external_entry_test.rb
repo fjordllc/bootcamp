@@ -160,28 +160,28 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_atom_feed(user, atom_item, nil)
   end
 
-  # test '.fetch_and_save_rss_feeds' do
-  #   users = [users(:kimura), users(:hatsuno), users(:komagata)]
-  #
-  #   assert_difference 'ExternalEntry.count', 56 do
-  #     VCR.use_cassette 'external_entry/fetch3', vcr_options do
-  #       VCR.use_cassette 'external_entry/fetch2', vcr_options do
-  #         VCR.use_cassette 'external_entry/fetch' do
-  #           ExternalEntry.fetch_and_save_rss_feeds(users)
-  #         end
-  #       end
-  #     end
-  #   end
-  #
-  #   assert_no_difference 'ExternalEntry.count' do
-  #     # 同じ記事は重複して保存しない
-  #     VCR.use_cassette 'external_entry/fetch3', vcr_options do
-  #       VCR.use_cassette 'external_entry/fetch2', vcr_options do
-  #         VCR.use_cassette 'external_entry/fetch' do
-  #           ExternalEntry.fetch_and_save_rss_feeds(users)
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+  test '.fetch_and_save_rss_feeds' do
+    users = [users(:kimura), users(:hatsuno), users(:komagata)]
+
+    assert_difference 'ExternalEntry.count', 56 do
+      VCR.use_cassette 'external_entry/fetch3', vcr_options do
+        VCR.use_cassette 'external_entry/fetch2', vcr_options do
+          VCR.use_cassette 'external_entry/fetch' do
+            ExternalEntry.fetch_and_save_rss_feeds(users)
+          end
+        end
+      end
+    end
+
+    assert_no_difference 'ExternalEntry.count' do
+      # 同じ記事は重複して保存しない
+      VCR.use_cassette 'external_entry/fetch3', vcr_options do
+        VCR.use_cassette 'external_entry/fetch2', vcr_options do
+          VCR.use_cassette 'external_entry/fetch' do
+            ExternalEntry.fetch_and_save_rss_feeds(users)
+          end
+        end
+      end
+    end
+  end
 end

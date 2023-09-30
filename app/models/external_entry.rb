@@ -23,9 +23,9 @@ class ExternalEntry < ApplicationRecord
 
           feed.items.each do |item|
             case item.class.name
-            when 'RSS::Atom::Feed::Entry' then ExternalEntry.save_atom_feed(user, item, feed.channel&.dc_date)
+            when 'RSS::Atom::Feed::Entry' then ExternalEntry.save_atom_feed(user, item, feed.updated&.content)
             when 'RSS::Rss::Channel::Item' then ExternalEntry.save_rss_feed(user, item, feed.channel&.lastBuildDate)
-            when 'RSS::RDF::Item' then ExternalEntry.save_rdf_feed(user, item, feed.updated&.content)
+            when 'RSS::RDF::Item' then ExternalEntry.save_rdf_feed(user, item, feed.channel&.dc_date)
             end
           end
         end
