@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import Notification from 'notification'
-import LoadingListPlaceholder from 'loading-list-placeholder.jsx'
-import Pager from 'pager.vue'
-import UnconfirmedLinksOpenButton from 'unconfirmed_links_open_button'
+import Notification from './Notification'
+import LoadingListPlaceholder from './LoadingListPlaceholder'
+import Pagination from './Pagination'
+import queryString from 'query-string'
 
 export default function Notifications(props) {
   const [notifications, setNotifications] = useState([])
   const [totalPages, setTotalPages] = useState(0)
+  const per = 20
+  const neighbours = 4
+
+  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
+  const [page, setPage] = useState(defaultPage)
 
   const getPageValueFromParameter = () => {
     const url = new URL(location)
@@ -16,33 +21,25 @@ export default function Notifications(props) {
   const [currentPage, setCurrentPage] = useState(getPageValueFromParameter())
   const [loaded, setLoaded] = useState(false)
 
-  const url = () => {
-    if (isUnreadPage) {
-      return `/api/notifications.json?page=${currentPage}&status=unread&target=${props.target}`
-    } else {
-      return `/api/notifications.json?page=${currentPage}&target=${props.target}`
-    }
-  }
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
     return params.get('status') !== null && params.get('status') === 'unread'
   }
-  const pagerProps = () => {
-    return {
-      initialPageNumber: currentPage,
-      pageCount: totalPages,
-      pageRange: 5,
-      clickHandle: paginateClickCallback
+
+  const target = () => {
+    return props.target ? `&target=${props.target}` : ''
+  }
+
+  const url = () => {
+    if (isUnreadPage()) {
+      return `/api/notifications.json?page=${currentPage}&status=unread${target()}`
+    } else {
+      return `/api/notifications.json?page=${currentPage}${target()}`
     }
   }
 
-  const handlePopstate = () => {
-    setCurrentPage(getPageValueFromParameter())
-    getNotificationsPerPage()
-  }
-
   const getNotificationsPerPage = () => {
-    fetch(url, {
+    fetch(url(), {
       method: 'GET',
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
       credentials: 'same-origin',
@@ -53,10 +50,9 @@ export default function Notifications(props) {
       })
       .then((json) => {
         setTotalPages(json.total_pages)
-        setNotifications([])
-        json.notifications.forEach((n) => {
-          setNotifications(notifications.push(n))
-        })
+        setNotifications(json.notifications)
+        console.log('json.notifications')
+        console.log(json.notifications)
         setLoaded(true)
       })
       .catch((error) => {
@@ -77,13 +73,19 @@ export default function Notifications(props) {
   }
 
   useEffect(() => {
+    setPage(page)
+
+    const handlePopstate = () => {
+      setCurrentPage(getPageValueFromParameter())
+    }
+
     window.addEventListener('popstate', handlePopstate)
     getNotificationsPerPage()
 
     return () => {
       window.removeEventListener('popstate', handlePopstate)
     }
-  }, [])
+  }, [page])
 
   let content
 
@@ -109,22 +111,34 @@ export default function Notifications(props) {
       <div id="notifications" className="page-content loaded">
         {totalPages > 1 && (
           <nav className="pagination">
-            <Pager {...pagerProps} />
+            <Pagination
+              sum={totalPages * per}
+              per={per}
+              neighbours={neighbours}
+              page={currentPage}
+              onChange={(e) => paginateClickCallback(e.page)}
+            />
           </nav>
         )}
         <div className="card-list a-card">
+          {console.log('notifications')}
+          {console.log(notifications)}
           {notifications.map((notification) => {
+            console.log(notification)
             return (
               <Notification key={notification.id} notification={notification} />
             )
           })}
-          {props.isMentor && isUnreadPage && (
-            <UnconfirmedLinksOpenButton label="未読の通知を一括で開く" />
-          )}
         </div>
         {totalPages > 1 && (
           <nav className="pagination">
-            <Pager {...pagerProps} />
+            <Pagination
+              sum={totalPages * per}
+              per={per}
+              neighbours={neighbours}
+              page={currentPage}
+              onChange={paginateClickCallback} // 関数の参照を渡す
+            />
           </nav>
         )}
       </div>

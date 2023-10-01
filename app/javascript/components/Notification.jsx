@@ -3,12 +3,14 @@ import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
 
-export default function Notification({ notification }) {
+export default function Notification(props) {
   const formatCreatedAtInJapanese = () => {
-    return dayjs(notification.created_at).format('YYYY年MM月DD日(ddd) HH:mm')
+    return dayjs(props.notification.created_at).format(
+      'YYYY年MM月DD日(ddd) HH:mm'
+    )
   }
   const formatRoleClass = () => {
-    return `is-${notification.sender.primary_role}`
+    return `is-${props.notification.sender.primary_role}`
   }
 
   const [formattedCreatedAt, setFormattedCreatedAt] = useState(
@@ -19,19 +21,19 @@ export default function Notification({ notification }) {
   useEffect(() => {
     setFormattedCreatedAt(formatCreatedAtInJapanese)
     setFormattedRoleClass(formatRoleClass)
-  }, [notification.created_at, notification.sender.primary_role])
+  }, [props.notification.created_at, props.notification.sender.primary_role])
 
   return (
     <div
       className={`card-list-item ${
-        notification.read ? 'is-read' : 'is-unread'
+        props.notification.read ? 'is-read' : 'is-unread'
       }`}>
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <img
             className={`card-list-item__user-icon.a-user-icon ${formattedroleClass}`}
-            title={notification.sender.icon_title}
-            src={notification.sender.avatar_url}
+            title={props.notification.sender.icon_title}
+            src={props.notification.sender.avatar_url}
           />
         </div>
         <div className="card-list-item__rows">
@@ -40,17 +42,17 @@ export default function Notification({ notification }) {
               <div className="card-list-item-title__start">
                 <div
                   className={`a-list-item-badge ${
-                    notification.read === false ? 'is-unread' : ''
+                    props.notification.read === false ? 'is-unread' : ''
                   }`}>
                   <span>未読</span>
                 </div>
-                <h2 className="card-list-item-title__title" itemprop="name">
+                <h2 className="card-list-item-title__title" itemProp="name">
                   <a
                     className="card-list-item-title__link a-text-link js-unconfirmed-link"
-                    href={notification.path}
-                    itemprop="url">
+                    href={props.notification.path}
+                    itemProp="url">
                     <span className="card-list-item-title__link-label">
-                      {notification.message}
+                      {props.notification.message}
                     </span>
                   </a>
                 </h2>
@@ -61,7 +63,9 @@ export default function Notification({ notification }) {
             <div className="card-list-item-meta">
               <div className="card-list-item-meta__items">
                 <div className="card-list-item-meta__item">
-                  <time className="a-meta" datetime={notification.created_at}>
+                  <time
+                    className="a-meta"
+                    dateTime={props.notification.created_at}>
                     {formattedCreatedAt}
                   </time>
                 </div>
