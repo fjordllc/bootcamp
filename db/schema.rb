@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_25_075918) do
+ActiveRecord::Schema.define(version: 2023_10_01_031818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -719,8 +719,11 @@ ActiveRecord::Schema.define(version: 2023_09_25_075918) do
     t.bigint "retire_reasons", default: 0, null: false
     t.string "unsubscribe_email_token"
     t.text "mentor_memo"
+<<<<<<< HEAD
     t.string "discord_account"
     t.string "times_url"
+=======
+>>>>>>> b9e7e94dd (Usersからdiscord_account, times_url, times_idカラムを削除)
     t.text "after_graduation_hope"
     t.date "training_ends_on"
     t.boolean "sad_streak", default: false, null: false
