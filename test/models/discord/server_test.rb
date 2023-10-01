@@ -96,6 +96,28 @@ module Discord
       end
     end
 
+    test '.delete_text_channel' do
+      VCR.use_cassette 'discord/server/delete_text_channel' do
+        assert Discord::Server.delete_text_channel('987654321987654321')
+      end
+    end
+
+    test '.delete_text_channel with error' do
+      logs = []
+      Rails.logger.stub(:error, ->(message) { logs << message }) do
+        VCR.use_cassette 'discord/server/delete_text_channel_with_unknown_channel_id' do
+          assert_nil Discord::Server.delete_text_channel('12345')
+          assert_equal '[Discord API] Unknown Channel', logs.pop
+        end
+
+        VCR.use_cassette 'discord/server/delete_text_channel_with_unauthorized' do
+          Discord::Server.authorize_token = 'Bot invalid token'
+          assert_nil Discord::Server.delete_text_channel('987654321987654321')
+          assert_equal '[Discord API] 401: Unauthorized', logs.pop
+        end
+      end
+    end
+
     test '.enabled?' do
       Discord::Server.guild_id = '1234567890123456789'
       Discord::Server.authorize_token = 'Bot valid token'

@@ -22,7 +22,7 @@ class Admin::UsersController < AdminController
   def update
     if @user.update(user_params)
       destroy_subscription(@user)
-      Newspaper.publish(:retirement_create, @user)
+      Newspaper.publish(:retirement_create, @user) if @user.saved_change_to_retired_on?
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -61,7 +61,7 @@ class Admin::UsersController < AdminController
       :auto_retire,
       :profile_image, :profile_name, :profile_job, :mentor,
       :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
-      :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url]
+      :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url times_id]
     )
   end
 
