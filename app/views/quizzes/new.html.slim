@@ -1,5 +1,26 @@
-h1 New quiz
+- title '○×クイズ'
+- set_meta_tags description: '◯✗クイズ作成ページです。'
 
-== render "form"
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to quizzes_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | クイズ一覧
+hr.a-border
+.page-body
+  .container.is-xxl
+    = form_with model: @quiz, local: true do |quiz_form|
+      .form-item-group
+        = quiz_form.label :title, class: 'a-form-label'
+        = quiz_form.text_field :title, class: 'a-text-input js-warning-form', placeholder: '○×クイズのタイトル'
+        = quiz_form.fields_for :quiz_questions do |quiz_question_form|
+          = quiz_question_form.label :body, class: 'a-form-label'
+          = quiz_question_form.text_field :body, class: 'a-text-input', placeholder: '○×クイズの問題'
+          = quiz_question_form.label :correct?, class: 'a-form-label'
+          = quiz_question_form.check_box :correct?, class: 'a-text-input'
 
-= link_to "Back", quizzes_path
+      = quiz_form.submit 'クイズを作成', class: 'a-button is-lg is-primary is-block'
