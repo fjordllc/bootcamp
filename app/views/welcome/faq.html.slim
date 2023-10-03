@@ -4,8 +4,11 @@
   description: 'フィヨルドブートキャンプに寄せられたよくあるお問い合わせとその回答の一覧です。')
 
 header.welcome-page-header
-  .container.is-xl
+  .container
     .welcome-page-header__inner
-      h1.welcome-page-header__title
-        | FAQ
+      .welcome-page-header__start
+        h1.welcome-page-header__title
+          | FAQ
+      .welcome-page-header__end
+hr.a-border
 = render 'faq'
