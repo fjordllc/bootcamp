@@ -60,8 +60,8 @@ export default function Notifications(props) {
       })
   }
   const paginateClickCallback = (pageNumber) => {
+    setPage(pageNumber)
     setCurrentPage(pageNumber)
-    getNotificationsPerPage()
     const url = new URL(location)
     if (pageNumber > 1) {
       url.searchParams.set('page', pageNumber)
@@ -121,10 +121,7 @@ export default function Notifications(props) {
           </nav>
         )}
         <div className="card-list a-card">
-          {console.log('notifications')}
-          {console.log(notifications)}
           {notifications.map((notification) => {
-            console.log(notification)
             return (
               <Notification key={notification.id} notification={notification} />
             )
