@@ -11,15 +11,13 @@ export default function Notifications(props) {
   const neighbours = 4
 
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+  const [currentPage, setCurrentPage] = useState(defaultPage)
+  const [loaded, setLoaded] = useState(false)
 
   const getPageValueFromParameter = () => {
     const url = new URL(location)
     return Number(url.searchParams.get('page')) || 1
   }
-
-  const [currentPage, setCurrentPage] = useState(getPageValueFromParameter())
-  const [loaded, setLoaded] = useState(false)
 
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
@@ -60,7 +58,6 @@ export default function Notifications(props) {
       })
   }
   const paginateClickCallback = (pageNumber) => {
-    setPage(pageNumber)
     setCurrentPage(pageNumber)
     const url = new URL(location)
     if (pageNumber > 1) {
@@ -73,19 +70,16 @@ export default function Notifications(props) {
   }
 
   useEffect(() => {
-    setPage(page)
-
     const handlePopstate = () => {
       setCurrentPage(getPageValueFromParameter())
     }
 
     window.addEventListener('popstate', handlePopstate)
     getNotificationsPerPage()
-
     return () => {
       window.removeEventListener('popstate', handlePopstate)
     }
-  }, [page])
+  }, [currentPage])
 
   let content
 
@@ -116,6 +110,7 @@ export default function Notifications(props) {
               per={per}
               neighbours={neighbours}
               page={currentPage}
+              setPage={setCurrentPage}
               onChange={(e) => paginateClickCallback(e.page)}
             />
           </nav>
@@ -134,7 +129,8 @@ export default function Notifications(props) {
               per={per}
               neighbours={neighbours}
               page={currentPage}
-              onChange={paginateClickCallback} // 関数の参照を渡す
+              setPage={setCurrentPage}
+              onChange={(e) => paginateClickCallback(e.page)}
             />
           </nav>
         )}
