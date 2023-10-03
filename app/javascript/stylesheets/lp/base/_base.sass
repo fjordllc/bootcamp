@@ -33,7 +33,7 @@ body.is-lp
   height: 100%
 
 .welcome-page-body
-  padding-block: 2.5rem
+  padding-block: 2.75rem
 
 .welcome-header
   background-color: var(--base)
@@ -56,6 +56,8 @@ body.is-lp
 
 .welcome-header-nav
   height: 100%
+  +media-breakpoint-down(sm)
+    display: none
 
 .welcome-header-nav__items
   display: flex
@@ -96,7 +98,7 @@ body.is-lp
   color: var(--default-text)
 
 .card__inner-title
-  +text-block(1.5rem 1.4, 700)
+  +text-block(1.5rem 1.5, 700)
   padding-bottom: .25rem
   color: var(--main)
   border-bottom: solid 1px var(--border)
@@ -104,16 +106,28 @@ body.is-lp
 .welcome-page-body__header
   display: flex
   justify-content: center
-  margin-bottom: 2.5rem
+  margin-bottom: 2.75rem
 
 .welcome-page-body__title
   +text-block(2.25rem 1.4, center 700)
+  padding-bottom: 1.75rem
   color: var(--main)
+  +letter-spacing-center(.125em)
+  position: relative
+  &::before
+    content: ''
+    display: block
+    +size(6rem .5rem)
+    background-color: var(--main)
+    +position(absolute, left 50%, bottom 0)
+    transform: translate(-50%, 0)
+    border-radius: 1rem
+
 
 .welcome-practices
-  margin-top: 1rem
+  margin-top: 1.25rem
   display: flex
-  gap: .5rem 1rem
+  gap: .75rem .5rem
   flex-wrap: wrap
 
 .welcome-practices__item
