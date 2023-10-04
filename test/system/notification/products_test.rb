@@ -46,6 +46,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'update product notification message for watcher' do
+    # 担当者がいなくてwatchされていない提出物
     product = products(:product73)
 
     visit_with_auth "/products/#{product.id}/", 'komagata'
