@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class QuestionDeleteTest < ActionDispatch::IntegrationTest
+class QuestionTest < ActionDispatch::IntegrationTest
   test 'regular user cannot delete a question' do
     token = create_token('kimura', 'testtest')
     user = users(:kimura)
