@@ -91,7 +91,7 @@ module Discord
           Discord::Server.authorize_token = 'Bot invalid token'
           actual = Discord::Server.create_text_channel(name: 'wakaran🔰')
           assert_nil actual
-          assert_equal '[Discord API] 401: Unauthorized', logs.pop
+          assert_equal '[Discord API] Do not find server. guild_id: 1234567890123456789, token: Bot invalid token', logs.pop
         end
       end
     end
