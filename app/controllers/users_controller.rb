@@ -54,6 +54,8 @@ class UsersController < ApplicationController
   end
 
   def create
+    logger.info "[Signup] 1. start create. #{user_params[:email]}"
+
     @user = User.new(user_params)
     @user.course_id ||= Course.first.id
     @user.free = true if @user.trainee?
@@ -80,11 +82,14 @@ class UsersController < ApplicationController
   end
 
   def create_free_user!
+    logger.info "[Signup] 2. start create free user. #{@user.email}"
     if @user.save
+      logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
       notify_to_chat(@user)
       Newspaper.publish(:student_or_trainee_create, @user) if @user.trainee?
+      logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
       render 'new'
@@ -93,6 +98,7 @@ class UsersController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
   def create_user!
+    logger.info "[Signup] 2. start create user. #{@user.email}"
     @user.with_lock do
       unless @user.validate
         render 'new'
@@ -108,6 +114,7 @@ class UsersController < ApplicationController
 
       token = params[:idempotency_token]
 
+      logger.info "[Signup] 3. before create subscription. #{@user.email}"
       begin
         customer = Card.new.create(@user, params[:stripeToken], token)
         subscription = Subscription.new.create(customer['id'], "#{token}-subscription")
@@ -117,15 +124,18 @@ class UsersController < ApplicationController
         render 'new'
         return false
       end
+      logger.info "[Signup] 4. after create subscription.#{@user.email}"
 
       @user.customer_id = customer['id']
       @user.subscription_id = subscription['id']
 
       if @user.save
+        logger.info "[Signup] 5. after save user. #{@user.email}"
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
         Newspaper.publish(:student_or_trainee_create, @user) if @user.student?
+        logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
         render 'new'
