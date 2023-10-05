@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class TimesChannelCreatorTest < ActiveSupport::TestCase
+class TimesChannelDestroyerTest < ActiveSupport::TestCase
   test '#call' do
     logs = []
     user = users(:hajime)
