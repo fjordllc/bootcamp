@@ -13,8 +13,6 @@ const buildParams = (targetParam, page) => {
 }
 
 const RegularEvents = () => {
-  const per = 20
-  const neighbours = 4
   const defaultTarget = queryString.parse(location.search).target || 'all'
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [targetParam, setTargetParam] = useState(defaultTarget)
@@ -51,48 +49,20 @@ const RegularEvents = () => {
     )
   }
 
-  if (error) console.warn(error)
-  if (!data) {
-    return (
-      <div className="page-body">
-        <div className="container is-md">
-          <LoadingListPlaceholder />
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="page-content loaded">
+    <>
       <Navigation
         targetParam={targetParam}
         handleNotFinishedClick={handleNotFinishedClick}
         handleAllClick={handleAllClick}
       />
-      {data.total_pages > 1 && (
-        <Pagination
-          sum={data.total_pages * per}
-          per={per}
-          neighbours={neighbours}
-          page={page}
-          onChange={(e) => handlePaginate(e.page)}
-        />
-      )}
-      <div className="card-list a-card">
-        {data.regular_events.map((regularEvent) => (
-          <RegularEvent key={regularEvent.id} regularEvent={regularEvent} />
-        ))}
-      </div>
-      {data.total_pages > 1 && (
-        <Pagination
-          sum={data.total_pages * per}
-          per={per}
-          neighbours={neighbours}
-          page={page}
-          onChange={(e) => handlePaginate(e.page)}
-        />
-      )}
-    </div>
+      <EventList
+        error={error}
+        data={data}
+        page={page}
+        handlePaginate={handlePaginate}
+      />
+    </>
   )
 }
 
@@ -124,6 +94,51 @@ const Navigation = ({
         </li>
       </ul>
     </nav>
+  )
+}
+
+const EventList = ({ error, data, page, handlePaginate }) => {
+  const per = 20
+  const neighbours = 4
+
+  if (error) console.warn(error)
+
+  if (!data) {
+    return (
+      <div className="page-body">
+        <div className="container is-md">
+          <LoadingListPlaceholder />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="page-content loaded">
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          neighbours={neighbours}
+          page={page}
+          onChange={(e) => handlePaginate(e.page)}
+        />
+      )}
+      <div className="card-list a-card">
+        {data.regular_events.map((regularEvent) => (
+          <RegularEvent key={regularEvent.id} regularEvent={regularEvent} />
+        ))}
+      </div>
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          neighbours={neighbours}
+          page={page}
+          onChange={(e) => handlePaginate(e.page)}
+        />
+      )}
+    </div>
   )
 }
 
