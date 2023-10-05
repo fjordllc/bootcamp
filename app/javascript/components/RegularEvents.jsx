@@ -13,7 +13,7 @@ const buildParams = (targetParam, page) => {
 }
 
 const RegularEvents = () => {
-  const defaultTarget = queryString.parse(location.search).target || 'all'
+  const defaultTarget = queryString.parse(location.search).target || ''
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [targetParam, setTargetParam] = useState(defaultTarget)
   const [page, setPage] = useState(defaultPage)
@@ -35,7 +35,7 @@ const RegularEvents = () => {
   }
 
   const handleAllClick = () => {
-    setTargetParam('all')
+    setTargetParam('')
     setPage(1)
     window.history.pushState(null, null, '/regular_events')
   }
@@ -86,7 +86,7 @@ const Navigation = ({
         <li className="pill-nav__item">
           <button
             className={`pill-nav__item-link ${
-              targetParam === 'all' ? 'is-active' : ''
+              targetParam === '' ? 'is-active' : ''
             }`}
             onClick={handleAllClick}>
             全て
