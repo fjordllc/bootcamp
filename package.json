@@ -30,7 +30,7 @@
     "markdown-it-regexp": "^0.4.0",
     "markdown-it-task-lists": "^2.1.1",
     "mem": "^4.0.0",
-    "postcss": "^8.4.17",
+    "postcss": "^8.4.31",
     "postcss-loader": "4",
     "postcss-preset-env": "7",
     "prettier-config-standard": "^5.0.0",
