@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_24_095814) do
+ActiveRecord::Schema.define(version: 2023_09_30_110750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -486,7 +486,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
   create_table "practices_reports", id: false, force: :cascade do |t|
     t.integer "practice_id", null: false
     t.integer "report_id", null: false
-    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id"
+    t.index ["practice_id", "report_id"], name: "index_practices_reports_on_practice_id_and_report_id", unique: true
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
 
@@ -520,6 +520,21 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
     t.text "ai_answer"
     t.index ["practice_id"], name: "index_questions_on_practice_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "quiz_questions", force: :cascade do |t|
+    t.bigint "quiz_id", null: false
+    t.text "body"
+    t.boolean "correct?"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
   end
 
   create_table "radio_button_choices", force: :cascade do |t|
@@ -739,6 +754,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
     t.boolean "sent_student_followup_message", default: false
     t.string "country_code"
     t.string "subdivision_code"
+    t.boolean "auto_retire", default: true
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
@@ -798,6 +814,7 @@ ActiveRecord::Schema.define(version: 2023_07_24_095814) do
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
+  add_foreign_key "quiz_questions", "quizzes"
   add_foreign_key "radio_button_choices", "radio_buttons"
   add_foreign_key "radio_buttons", "survey_questions"
   add_foreign_key "reactions", "users"
