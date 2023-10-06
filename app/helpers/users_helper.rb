@@ -76,14 +76,14 @@ module UsersHelper
 end
 
 def remaining_time_until_automatic_retire(user)
-  if user.remaining_days_until_automatic_retire(user) < 1
-    if user.remaining_hours_until_automatic_retire(user) >= 1
-      "#{user.remaining_hours_until_automatic_retire(user)}時間"
+  if remaining_days_until_automatic_retire(user) < 1
+    if remaining_hours_until_automatic_retire(user) >= 1
+      "#{remaining_hours_until_automatic_retire(user)}時間"
     else
-      "#{user.remaining_minutes_until_automatic_retire(user)}分"
+      "#{remaining_minutes_until_automatic_retire(user)}分"
     end
   else
-    "#{user.remaining_days_until_automatic_retire(user)}日"
+    "#{remaining_days_until_automatic_retire(user)}日"
   end
 end
 
