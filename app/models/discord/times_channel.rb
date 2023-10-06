@@ -8,6 +8,8 @@ module Discord
       end
     end
 
+    attr_reader :name
+
     def initialize(username)
       @name = Discord::TimesChannel.to_channel_name(username)
     end

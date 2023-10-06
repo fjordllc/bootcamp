@@ -104,7 +104,7 @@
             // - 確認ダイアログとDELETE methodのリンクを実装する
             a.js-delete.card-main-actions__muted-action(
               :href='`/questions/${question.id}`',
-              data-confirm='自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？',
+              data-confirm='本当に削除しますか？質問はなるべく消さず、もし質問者が自己解決した場合も、質問者自身で解決した手段や手順を回答に記入し、それをベストアンサーにしてこの質問を解決することを即すようにしてください。',
               data-method='delete')
               | 削除する
           li.card-main-actions__item.is-sub(v-else)
