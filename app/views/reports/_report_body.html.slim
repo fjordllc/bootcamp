@@ -6,6 +6,7 @@
     .card__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{report.id}" data-taskable-type='Report' data-taskable="#{report.taskable?(current_user).to_s}")
         = report.description
+  hr.a-border-tint
   = render 'reactions/reactions', reactionable: report
 
   - if report.user_id == current_user.id || mentor_login?
