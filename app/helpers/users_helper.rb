@@ -89,12 +89,6 @@ end
 
 private
 
-def automatic_retire_datetime(user)
-  return unless user.hibernated_at
-
-  user.hibernated_at.advance(months: 6)
-end
-
 def remaining_hours_until_automatic_retire(user)
   return unless user.hibernated_at
 
