@@ -57,6 +57,7 @@
           = event.description
       - unless event.wip?
         = render 'events/participation', event: event
+    hr.a-border-tint
     = render 'reactions/reactions', reactionable: event
     - if event.user_id == current_user.id || admin_or_mentor_login?
       hr.a-border-tint
