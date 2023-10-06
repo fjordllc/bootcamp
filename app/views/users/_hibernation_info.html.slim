@@ -9,7 +9,7 @@
     .user-metas__item
       .user-metas__item-label 休会期限日時
       .user-metas__item-value
-        - if user.auto_retire == false # 自動退会しないユーザの場合
+        - if !user.auto_retire # 自動退会しないユーザの場合
           span.user-metas__item-value-text
             | 企業都合休会中(#{user.calculate_absence_days(user)}日)
         - elsif user.remaining_days_until_automatic_retire(user) <= 7
