@@ -30,11 +30,9 @@ export default function Areas({ userCounts }) {
 
   const handleClick = async (region, area) => {
     const searchParams = new URLSearchParams({ region, area })
-    const newUsers = await fetcher(apiUrl + searchParams).catch(
-      (error) => {
-        console.error(error)
-      }
-    )
+    const newUsers = await fetcher(apiUrl + searchParams).catch((error) => {
+      console.error(error)
+    })
     mutate(newUsers)
     setSearchParams({ region, area })
   }
