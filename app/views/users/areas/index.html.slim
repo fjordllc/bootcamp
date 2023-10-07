@@ -1,0 +1,19 @@
+- title '都道府県別ユーザー一覧'
+- set_meta_tags description: '都道府県別ユーザー一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title ユーザー一覧
+      .page-header-actions
+        ul.page-header-actions__items
+
+= render '/users/lg_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        h1.page-main-header__title 都道府県別
+  hr.a-border
+  = react_component('Areas/Areas', userCounts: @user_counts)

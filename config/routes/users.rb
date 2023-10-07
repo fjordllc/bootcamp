@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :users do
     get "tags", to: "tags#index"
     resources :companies, only: %i(index)
+    resources :areas, only: %i(index)
   end
 
   resources :users, only: %i(index show new create) do
