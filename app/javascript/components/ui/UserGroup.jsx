@@ -26,11 +26,11 @@ const UserGroupIcons = ({ users, className, ...props }) => {
 }
 
 const UserIcon = ({ user }) => {
-  const userRole = `is-${user.primary_role}`
+  const primaryRole = `is-${user.primary_role}`
 
   return (
     <a className="a-user-icons__item-link" href={user.url}>
-      <span className={clsx('a-user-role', userRole)}>
+      <span className={clsx('a-user-role', primaryRole)}>
         <img
           src={user.avatar_url}
           title={user.icon_title}
