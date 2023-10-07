@@ -1,7 +1,7 @@
 import React from 'react'
 import LoadingListPlaceholder from '../LoadingListPlaceholder'
 import EmptyMessage from '../ui/EmptyMessage'
-import { UserGroup, UserGroupHeader, UserGroupIcons } from '../ui/UserGroup'
+import { UserGroup } from '../ui/UserGroup'
 import useSWR from 'swr'
 import fetcher from '../../fetcher'
 import useSearchParams from '../../hooks/useSearchParams'
@@ -79,8 +79,8 @@ export default function Areas({ userCounts }) {
         <section className="a-card">
           {users.length > 0 ? (
             <UserGroup>
-              <UserGroupHeader>{searchParams.get('area')}</UserGroupHeader>
-              <UserGroupIcons users={users} />
+              <UserGroup.Header>{searchParams.get('area')}</UserGroup.Header>
+              <UserGroup.Icons users={users} />
             </UserGroup>
           ) : (
             <EmptyMessage>都道府県別ユーザー一覧はありません</EmptyMessage>

@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-const UserGroup = ({ className, ...props }) => {
+export const UserGroup = ({ className, ...props }) => {
   return <div className={clsx('user-group', className)} {...props} />
 }
 
@@ -42,4 +42,5 @@ const UserIcon = ({ user }) => {
   )
 }
 
-export { UserGroup, UserGroupHeader, UserGroupIcons }
+UserGroup.Header = UserGroupHeader
+UserGroup.Icons = UserGroupIcons
