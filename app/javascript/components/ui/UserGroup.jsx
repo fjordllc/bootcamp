@@ -2,15 +2,13 @@ import React from 'react'
 import clsx from 'clsx'
 
 const UserGroup = ({ className, ...props }) => {
-  return (
-    <div className={clsx('user-group', className)} {...props} />
-  )
+  return <div className={clsx('user-group', className)} {...props} />
 }
 
 const UserGroupHeader = ({ className, children, ...props }) => {
   return (
     <header className={clsx('user-group__header', className)} {...props}>
-      <h2 className='user-group__title'>{children}</h2>
+      <h2 className="user-group__title">{children}</h2>
     </header>
   )
 }
