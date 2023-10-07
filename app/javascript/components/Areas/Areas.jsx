@@ -63,18 +63,20 @@ export default function Areas({ userCounts }) {
 
   return (
     <div className="page-body">
-      <div className="container flex is-lg">
-        <ul>
-          {Object.keys(userCounts).map((region) => (
-            <Region
-              key={region}
-              region={region}
-              areas={userCounts[region]}
-              handleClick={handleClick}
-            />
-          ))}
-        </ul>
-        <div className="a-card">
+      <div className="container is-lg">
+        <section>
+          <ul>
+            {Object.keys(userCounts).map((region) => (
+              <Region
+                key={region}
+                region={region}
+                areas={userCounts[region]}
+                handleClick={handleClick}
+              />
+            ))}
+          </ul>
+        </section>
+        <section className="a-card">
           {users.length > 0 ? (
             <UserGroup>
               <UserGroupHeader>{searchParams.get('area')}</UserGroupHeader>
@@ -83,7 +85,7 @@ export default function Areas({ userCounts }) {
           ) : (
             <EmptyMessage>都道府県別ユーザー一覧はありません</EmptyMessage>
           )}
-        </div>
+        </section>
       </div>
     </div>
   )
