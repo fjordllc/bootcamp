@@ -96,6 +96,8 @@ jobs:
           path: test/reports
       - store_artifacts:
           path: tmp/screenshots
+      - store_artifacts:
+          path: tmp/capybara
 workflows:
   build_and_test:
     jobs:

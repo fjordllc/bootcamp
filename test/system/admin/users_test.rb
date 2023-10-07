@@ -212,6 +212,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
+    page.save_screenshot 'user_tag.png'
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       loop until page.has_text?('追加タグ')
     end
