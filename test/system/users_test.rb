@@ -631,7 +631,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'display remaining time until auto retire' do
-    # kyuukaiの退会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
+    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
 
     travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do # 自動退会日まで1時間を切った場合。
       visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
