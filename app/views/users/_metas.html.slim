@@ -54,6 +54,7 @@
           - user.roles.each do |role|
             li
               = t "target.#{role}"
+              = render 'users/hibernation_status', user: user
     - if user.trainee? && user.training_ends_on?
       .user-metas__item
         .user-metas__item-label
