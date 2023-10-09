@@ -15,6 +15,9 @@
             .page-content-header__start
               .page-content-header__user
                 = render 'users/icon', user: @talk.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+              - if @talk.user.trainee?
+                = link_to company_path(@talk.user.company) do
+                  = image_tag @talk.user.company.logo_url, class: 'page-content-header__company-logo'
             .page-content-header__end
               .page-content-header__row
                 .page-content-header__before-title
