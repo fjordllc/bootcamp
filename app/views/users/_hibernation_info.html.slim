@@ -6,13 +6,6 @@
       .user-metas__item-label 最後に休会した日時
       .user-metas__item-value
         = l user.hibernated_at
-    .user-metas__item
-      .user-metas__item-label 休会日数
-      .user-metas__item-value
-        | 休会から
-        strong
-          = (Time.current.to_date - user.hibernated_at.to_date).to_i
-        | 日目
   - user.hibernations.each_with_index do |hibernation, i|
     - number = i + 1
     .user-metas__items
