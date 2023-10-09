@@ -210,6 +210,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     tag_input = find('.tagify__input')
+    tag_input.set ''
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
     page.save_screenshot 'user_tag.png'
