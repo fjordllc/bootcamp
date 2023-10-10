@@ -17,10 +17,10 @@ hr.a-border
       .form-item-group
         = quiz_form.label :title, class: 'a-form-label'
         = quiz_form.text_field :title, class: 'a-text-input js-warning-form', placeholder: '○×クイズのタイトル'
-        = quiz_form.fields_for :quiz_questions do |quiz_question_form|
-          = quiz_question_form.label :body, class: 'a-form-label'
-          = quiz_question_form.text_field :body, class: 'a-text-input', placeholder: '○×クイズの問題'
-          = quiz_question_form.label :correct?, class: 'a-form-label'
-          = quiz_question_form.check_box :correct?, class: 'a-text-input'
+        = quiz_form.fields_for :statements do |statement_form|
+          = statement_form.label :body, class: 'a-form-label'
+          = statement_form.text_field :body, class: 'a-text-input', placeholder: '○×クイズの問題'
+          = statement_form.label :correct?, class: 'a-form-label'
+          = statement_form.check_box :correct?, class: 'a-text-input'
 
       = quiz_form.submit 'クイズを作成', class: 'a-button is-lg is-primary is-block'

@@ -6,7 +6,7 @@ p
   p
     strong Body:
     = form_with model: @quiz, local: true do |answer_form|
-      = answer_form.fields_for :quiz_questions do |answer_form|
+      = answer_form.fields_for :statements do |answer_form|
         = answer_form.label :body
         = answer_form.radio_button :answer, 'correct', id: 'correct', class: 'a-toggle-checkbox'
           = '◯'

@@ -1,5 +1,5 @@
 class Quiz < ApplicationRecord
-  has_many :quiz_questions, dependent: :destroy
+  has_many :statements, dependent: :destroy
 
-  accepts_nested_attributes_for :quiz_questions, allow_destroy: true
+  accepts_nested_attributes_for :statements, allow_destroy: true
 end
