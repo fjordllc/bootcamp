@@ -34,6 +34,7 @@ export default function AdminCompanies() {
           per={per}
           neighbours={neighbours}
           page={page}
+          setPage={setPage}
           onChange={(e) => handlePaginate(e.page)}
         />
       )}
@@ -62,6 +63,7 @@ export default function AdminCompanies() {
           per={per}
           neighbours={neighbours}
           page={page}
+          setPage={setPage}
           onChange={(e) => handlePaginate(e.page)}
         />
       )}

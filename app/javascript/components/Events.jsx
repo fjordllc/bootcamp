@@ -43,6 +43,7 @@ export default function Events() {
             per={per}
             neighbours={neighbours}
             page={page}
+            setPage={setPage}
             onChange={(e) => handlePaginate(e.page)}
           />
         )}
@@ -57,6 +58,7 @@ export default function Events() {
             per={per}
             neighbours={neighbours}
             page={page}
+            setPage={setPage}
             onChange={(e) => handlePaginate(e.page)}
           />
         )}

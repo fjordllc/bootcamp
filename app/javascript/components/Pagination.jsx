@@ -18,12 +18,11 @@ const createNumbers = (current, neighbours, max) => {
 
 const Pagination = (props) => {
   const isFirstRender = useRef(true)
-  const [page, setPage] = useState(props.page)
   const [numbers, setNumbers] = useState([])
   const totalPage = Math.ceil(props.sum / props.per)
 
   useEffect(() => {
-    setNumbers(createNumbers(page, props.neighbours, totalPage))
+    setNumbers(createNumbers(props.page, props.neighbours, totalPage))
 
     // 初回レンダリング時はスキップし、変数を更新する
     if (isFirstRender.current) {
@@ -31,22 +30,32 @@ const Pagination = (props) => {
       return
     }
 
-    props.onChange({ page: page })
-  }, [page])
+    props.onChange({ page: props.page })
+  }, [props.page])
 
   return (
     <nav className="pagination">
       {totalPage !== 0 && (
         <ul className="pagination__items">
-          <First page={page} setPage={setPage} />
-          <Prev page={page} setPage={setPage} />
+          <First page={props.page} setPage={props.setPage} />
+          <Prev page={props.page} setPage={props.setPage} />
           {numbers[0] > 1 && <ThreeDots />}
           {numbers.map((i) => {
-            return <Number key={i} page={page} setPage={setPage} i={i} />
+            return (
+              <Number key={i} page={props.page} setPage={props.setPage} i={i} />
+            )
           })}
           {numbers[numbers.length - 1] < totalPage && <ThreeDots />}
-          <Next page={page} setPage={setPage} totalPage={totalPage} />
-          <Last page={page} setPage={setPage} totalPage={totalPage} />
+          <Next
+            page={props.page}
+            setPage={props.setPage}
+            totalPage={totalPage}
+          />
+          <Last
+            page={props.page}
+            setPage={props.setPage}
+            totalPage={totalPage}
+          />
         </ul>
       )}
     </nav>
