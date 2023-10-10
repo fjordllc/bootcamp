@@ -617,4 +617,13 @@ class UsersTest < ApplicationSystemTestCase
     click_link('アドバイザー')
     assert_no_selector '.card-counts__items'
   end
+
+  test 'show hibernation period in profile' do
+    visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
+    assert_text '休会中'
+    assert_text '休会から'
+    visit_with_auth "/users/#{users(:hatsuno).id}", 'komagata'
+    assert_no_text '休会中'
+    assert_no_text '休会から'
+  end
 end
