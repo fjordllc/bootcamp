@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show destroy]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
+  before_action :require_admin_or_mentor_login, only: [:destroy]
   skip_before_action :require_active_user_login, only: %i[show]
 
   QuestionsProperty = Struct.new(:title, :empty_message)
