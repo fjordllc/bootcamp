@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_10_112226) do
+ActiveRecord::Schema.define(version: 2023_10_10_113639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -617,6 +617,16 @@ ActiveRecord::Schema.define(version: 2023_10_10_112226) do
     t.index ["user_id"], name: "reports_user_id"
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.boolean "answer"
+    t.bigint "statement_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["statement_id"], name: "index_responses_on_statement_id"
+    t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
   create_table "statements", force: :cascade do |t|
     t.bigint "quiz_id", null: false
     t.text "body"
@@ -822,6 +832,8 @@ ActiveRecord::Schema.define(version: 2023_10_10_112226) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "responses", "statements"
+  add_foreign_key "responses", "users"
   add_foreign_key "statements", "quizzes"
   add_foreign_key "survey_question_listings", "survey_questions"
   add_foreign_key "survey_question_listings", "surveys"
