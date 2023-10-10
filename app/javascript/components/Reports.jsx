@@ -94,6 +94,7 @@ export default function Reports({
                     per={per}
                     neighbours={neighbours}
                     page={page}
+                    setPage={setPage}
                     onChange={(e) => setPage(e.page)}
                   />
                 )}
@@ -120,6 +121,7 @@ export default function Reports({
                     per={per}
                     neighbours={neighbours}
                     page={page}
+                    setPage={setPage}
                     onChange={(e) => setPage(e.page)}
                   />
                 )}
