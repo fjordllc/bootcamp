@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProductUpdateNotifier
+class ProductUpdateNotifierForChecker
   def call(payload)
     product = payload[:product]
     current_user = payload[:current_user]

@@ -432,3 +432,9 @@ product72:
   practice: practice1
   user: kyuukai
   body: 休会中ユーザーの未確認提出物
+
+product73:
+  practice: practice12
+  user: hajime
+  body: 担当者がいなくてwatchされていない提出物です
+  checker_id: nil
