@@ -14,13 +14,14 @@ class ArticlesController < ApplicationController
       format.html { render layout: 'welcome' }
       format.atom
     end
+    render layout: 'lp'
   end
 
   def show
     @mentor = @article.user
     @recent_articles = list_recent_articles(10)
     if @article.published? || admin_or_mentor_login?
-      render layout: 'welcome'
+      render layout: 'lp'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
     end
