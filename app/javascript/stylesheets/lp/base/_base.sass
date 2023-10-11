@@ -2,7 +2,7 @@ html.is-lp
   font-family: $sans-serif
   color: var(--default-text)
   font-feature-settings: "palt"
-  letter-spacing: .025em
+  letter-spacing: .0375em
 
 body.is-lp
   background-color: var(--background)
@@ -21,6 +21,8 @@ body.is-lp
 .welcome-page-header__inner
   background-color: var(--base)
   height: 4rem
+  display: flex
+  align-items: center
 
 .welcome-page-header__start
   flex: 1
@@ -33,7 +35,7 @@ body.is-lp
   height: 100%
 
 .welcome-page-body
-  padding-block: 2.75rem
+  padding-block: 3rem
 
 .welcome-header
   background-color: var(--base)
@@ -77,6 +79,7 @@ body.is-lp
 .welcome-header__login
   display: flex
   height: 100%
+  width: 7.5rem
   align-items: center
 
 .welcome-header__mobile-nav-trigger
@@ -106,18 +109,18 @@ body.is-lp
 .welcome-page-body__header
   display: flex
   justify-content: center
-  margin-bottom: 2.75rem
+  margin-bottom: 3rem
 
 .welcome-page-body__title
-  +text-block(2.25rem 1.4, center 700)
+  +text-block(2.5rem 1.4, center 700)
   padding-bottom: 1.75rem
   color: var(--main)
-  +letter-spacing-center(.125em)
+  +letter-spacing-center(.0625em)
   position: relative
   &::before
     content: ''
     display: block
-    +size(6rem .5rem)
+    +size(4.5rem .375rem)
     background-color: var(--main)
     +position(absolute, left 50%, bottom 0)
     transform: translate(-50%, 0)
@@ -127,10 +130,35 @@ body.is-lp
 .welcome-practices
   margin-top: 1.25rem
   display: flex
-  gap: .75rem .5rem
   flex-wrap: wrap
+  +media-breakpoint-up(md)
+    gap: .75rem .5rem
+  +media-breakpoint-down(sm)
+    flex-direction: column
 
 .welcome-practices__item
-  +text-block(.875rem 1.6)
-  &:not(:last-child)::after
-    content: '、'
+  line-height: 1.6
+  +media-breakpoint-up(md)
+    font-size: .875rem
+    &:not(:last-child)::after
+      content: '、'
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
+    padding-block: .5rem
+    .welcome-practices__item + &
+      border-top: solid 1px var(--border-tint)
+    &:first-child
+      padding-top: 0
+    &:last-child
+      padding-bottom: 0
+
+.faqs-item__header
+  padding-bottom: .5rem
+  border-bottom: solid 1px var(--border)
+
+.faqs-item__body
+  margin-top: 1.5rem
+
+.faqs-item__title
+  +text-block(1.25rem 1.6, 700)
+  color: var(--main)

@@ -11,7 +11,7 @@
 hr.a-border
 
 .welcome-page-body
-  .container.is-xl
+  .container.is-lg
     .welcome-page-body__header
       h1.welcome-page-body__title
         | 紹介・言及記事
@@ -22,7 +22,7 @@ hr.a-border
           .js-markdown-view.a-long-text.is-md
             = @buzz.body
       - if admin_or_mentor_login?
-        hr.a-border
+        hr.a-border-tint
         .card-footer
           .card-main-actions
             ul.card-main-actions__items

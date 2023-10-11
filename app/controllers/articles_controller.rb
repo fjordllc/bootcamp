@@ -14,13 +14,14 @@ class ArticlesController < ApplicationController
       format.html { render layout: 'welcome' }
       format.atom
     end
+    render layout: 'lp'
   end
 
   def show
     @mentor = @article.user
     @recent_articles = Article.with_attachments_and_user.order(published_at: :desc).limit(10)
     if @article.published? || @article.token == params[:token] || admin_or_mentor_login?
-      render layout: 'welcome'
+      render layout: 'lp'
     else
       message = params[:token].nil? ? '管理者・メンターとしてログインしてください' : 'token が一致しませんでした'
       redirect_to root_path, alert: message
