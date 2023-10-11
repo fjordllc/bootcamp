@@ -107,7 +107,6 @@
             v-bind:class='{ "is-active": isActive("preview") }')
             .js-preview.a-long-text.is-md.a-markdown-input__preview(
               :id='`js-comment-preview-${this.answer.id}`')
-        hr.a-border
         .card-footer
           .card-main-actions
             .card-main-actions__items

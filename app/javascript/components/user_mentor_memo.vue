@@ -19,6 +19,7 @@ section.a-card.is-memo.is-only-mentor
         .o-empty-message__text
           | ユーザーメモはまだありません。
       .a-long-text.is-md(v-else, v-html='markdownMemo')
+  hr.a-border-tint(v-if='!editing')
   footer.card-footer(v-if='!editing')
     .card-main-actions
       .card-main-actions__items
@@ -49,6 +50,7 @@ section.a-card.is-memo.is-only-mentor
         .a-markdown-input__inner.is-preview.js-tabs__content(
           :class='{ "is-active": isActive("preview") }')
           .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
+  hr.a-border-tint(v-show='editing')
   .card-footer(v-show='editing')
     .card-main-actions
       .card-main-actions__items
