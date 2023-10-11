@@ -2,7 +2,7 @@
 
 class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
-  layout 'welcome'
+  layout 'lp'
   DEFAULT_COURSE = 'Railsプログラマー'
 
   def index
@@ -10,35 +10,27 @@ class WelcomeController < ApplicationController
   end
 
   def pricing
-    render layout: 'lp'
   end
 
   def faq
-    render layout: 'lp'
   end
 
   def training
-    render layout: 'lp'
   end
 
   def practices
     @categories = Course.find_by(title: DEFAULT_COURSE).categories.preload(:practices).order(:position)
-    render layout: 'lp'
   end
 
   def tos
-    render layout: 'lp'
   end
 
   def pp
-    render layout: 'lp'
   end
 
   def law
-    render layout: 'lp'
   end
 
   def coc
-    render layout: 'lp'
   end
 end

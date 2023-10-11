@@ -4,17 +4,17 @@ description: 'オンラインプログラミングフィヨルドブートキャ
 = render '/head/fontawsome'
 
 .welcome-page-header
-  .container.is-xl
+  .container
     .welcome-page-header__inner
       .welcome-page-header__start
         h1.welcome-page-header__title
           = title
-      - if current_user&.mentor?
-        .welcome-page-header__end
+      .welcome-page-header__end
+        - if current_user&.mentor?
           = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
             i.fas.fa-plus
             | ブログ記事作成
-
+hr.a-border
 .welcome-page-body
   .articles
     .articles__body
