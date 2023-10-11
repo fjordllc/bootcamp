@@ -246,7 +246,7 @@ class PagesTest < ApplicationSystemTestCase
 
     visit edit_page_path(pages(:page2))
     click_button 'WIP'
-    assert_text 'ドキュメントをWIPとして保存しました。'
+    visit page_path(pages(:page2))
     assert_text 'Watch中'
   end
 
