@@ -6,15 +6,15 @@ import useSWR from 'swr'
 import fetcher from '../../fetcher'
 import useSearchParams from '../../hooks/useSearchParams'
 
-function Region({ region, areas, handleClick }) {
+function Region({ region, numberOfUsersByRegion, handleClick }) {
   return (
     <li key={region}>
       <h2>{region}</h2>
       <ul>
-        {Object.keys(areas).map((area) => (
+        {Object.keys(numberOfUsersByRegion).map((area) => (
           <li key={area}>
             <button onClick={() => handleClick(region, area)}>
-              {`${area}（${areas[area]})`}
+              {`${area}（${numberOfUsersByRegion[area]})`}
             </button>
           </li>
         ))}
@@ -23,18 +23,18 @@ function Region({ region, areas, handleClick }) {
   )
 }
 
-export default function Areas({ userCounts }) {
+export default function Areas({ numberOfUsers }) {
   const [searchParams, setSearchParams] = useSearchParams({ area: '東京都' })
   const apiUrl = '/api/users/areas?'
   const { data: users, error, mutate } = useSWR(apiUrl + searchParams, fetcher)
 
   const handleClick = async (region, area) => {
-    const searchParams = new URLSearchParams({ region, area })
-    const newUsers = await fetcher(apiUrl + searchParams).catch((error) => {
+    const search = new URLSearchParams({ region, area })
+    const newUsers = await fetcher(apiUrl + search).catch((error) => {
       console.error(error)
     })
     mutate(newUsers)
-    setSearchParams({ region, area })
+    setSearchParams(search)
   }
 
   const onPopstate = async () => {
@@ -62,15 +62,15 @@ export default function Areas({ userCounts }) {
   }
 
   return (
-    <div className="page-body">
+    <div data-testid='areas' className="page-body">
       <div className="container is-lg">
         <section>
           <ul>
-            {Object.keys(userCounts).map((region) => (
+            {Object.keys(numberOfUsers).map((region) => (
               <Region
                 key={region}
                 region={region}
-                areas={userCounts[region]}
+                numberOfUsersByRegion={numberOfUsers[region]}
                 handleClick={handleClick}
               />
             ))}
@@ -79,7 +79,7 @@ export default function Areas({ userCounts }) {
         <section className="a-card">
           {users.length > 0 ? (
             <UserGroup>
-              <UserGroup.Header>{searchParams.get('area')}</UserGroup.Header>
+              <UserGroup.Header>{searchParams.get('area') || '東京都'}</UserGroup.Header>
               <UserGroup.Icons users={users} />
             </UserGroup>
           ) : (
