@@ -2,6 +2,6 @@
 
 class Users::AreasController < ApplicationController
   def index
-    @user_counts = Area.user_counts_by_subdivision
+    @number_of_users = Area.number_of_users
   end
 end

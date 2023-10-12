@@ -17,7 +17,6 @@ class Area
     '四国地方' => SHIKOKU,
     '九州・沖縄地方' => KYUSHU_OKINAWA
   }.freeze
-  JP = ISO3166::Country[:JP]
 
   class << self
     # 日本の場合は都道府県、海外の場合は国名によってユーザーを取得
@@ -28,15 +27,15 @@ class Area
           .with_attached_avatar
           .where(country_code: country.alpha2)
       else
-        subdivision_code = JP.find_subdivision_by_name(subdivision_or_country).code
+        subdivision_code = ISO3166::Country[:JP].find_subdivision_by_name(subdivision_or_country).code
         User
           .with_attached_avatar
           .where(subdivision_code: subdivision_code.to_s)
       end
     end
 
-    def user_counts_by_subdivision
-      translated_pairs = to_jp(country_subdivision_pairs)
+    def number_of_users
+      translated_pairs = translate(country_subdivision_pairs)
       by_countries = translated_pairs.group_by(&:first)
       # hash autovivification https://stackoverflow.com/questions/50468234/better-way-to-initialize-and-update-deeply-nested-hash
       by_countries.each_with_object(Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }) do |v, result|
@@ -60,11 +59,11 @@ class Area
         .pluck(:country_code, :subdivision_code)
     end
 
-    def to_jp(country_subdivision_pairs)
+    def translate(country_subdivision_pairs)
       country_subdivision_pairs.map do |country_code, subdivision_code|
         country = ISO3166::Country[country_code]
         subdivision = country.subdivisions[subdivision_code]
-        [country.translations[I18n.locale.to_s], subdivision.translations[I18n.locale.to_s]]
+        [country.translations['ja'], subdivision.translations['ja']]
       end
     end
 
