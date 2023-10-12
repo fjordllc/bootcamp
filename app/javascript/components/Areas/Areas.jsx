@@ -62,7 +62,7 @@ export default function Areas({ numberOfUsers }) {
   }
 
   return (
-    <div data-testid='areas' className="page-body">
+    <div data-testid="areas" className="page-body">
       <div className="container is-lg">
         <section>
           <ul>
@@ -79,7 +79,9 @@ export default function Areas({ numberOfUsers }) {
         <section className="a-card">
           {users.length > 0 ? (
             <UserGroup>
-              <UserGroup.Header>{searchParams.get('area') || '東京都'}</UserGroup.Header>
+              <UserGroup.Header>
+                {searchParams.get('area') || '東京都'}
+              </UserGroup.Header>
               <UserGroup.Icons users={users} />
             </UserGroup>
           ) : (
