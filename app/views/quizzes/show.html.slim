@@ -6,13 +6,8 @@ p
   p
     strong Body:
     = form_with model: @quiz, local: true do |answer_form|
-      = answer_form.fields_for :statements do |answer_form|
-        = answer_form.label :body
-        = answer_form.radio_button :answer, 'correct', id: 'correct', class: 'a-toggle-checkbox'
-          = '◯'
-        = answer_form.radio_button :answer, 'incorrect', id: 'incorrect', class: 'a-toggle-checkbox'
-          = '✗'
-      = answer_form.submit '回答する', class: 'a-button is-lg is-primary is-block'
+      = answer_form.fields_for :statements do |statement_form|
+        = statement_form.label :body
 
 => link_to "Edit", edit_quiz_path(@quiz)
 '|
