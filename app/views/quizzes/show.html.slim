@@ -1,13 +1,13 @@
 p#notice = notice
-
-p
-  strong Title:
   = @quiz.title
-  p
-    strong Body:
-    = form_with model: @quiz, local: true do |answer_form|
-      = answer_form.fields_for :statements do |statement_form|
-        = statement_form.label :body
+
+    = form_with model: @response, local: true do |response_form|
+      = response_form.label @statements.first.body
+      = response_form
+
+
+
+
 
 => link_to "Edit", edit_quiz_path(@quiz)
 '|

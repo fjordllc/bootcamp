@@ -10,9 +10,10 @@ class QuizzesController < ApplicationController
   def show
     @quiz = Quiz.find(params[:id])
     @statements = @quiz.statements
-    @statements.each do |statement|
-      @response = Response.new(statement: statement, user: current_user)
-    end
+    @response = Response.new(response_params)
+    # @responses = @statements.map do |statement|
+    #   Response.new(statement: statement, user: current_user)
+    # end
   end
 
   # GET /quizzes/new
@@ -64,13 +65,18 @@ class QuizzesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_quiz
-      @quiz = Quiz.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def quiz_params
-      params.require(:quiz).permit(:title, statements_attributes: [:id, :body, :is_correct, :_destroy])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_quiz
+    @quiz = Quiz.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def quiz_params
+    params.require(:quiz).permit(:title, statements_attributes: [:id, :body, :is_correct, :_destroy])
+  end
+
+  def response_params
+    params.require(:response).permit(:statement_id, :user_id, :answer)
+  end
 end
