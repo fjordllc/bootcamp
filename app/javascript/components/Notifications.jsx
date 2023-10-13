@@ -11,7 +11,7 @@ export default function Notifications(props) {
   const neighbours = 4
 
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [currentPage, setCurrentPage] = useState(defaultPage)
+  const [page, setPage] = useState(defaultPage)
   const [loaded, setLoaded] = useState(false)
 
   const getPageValueFromParameter = () => {
@@ -30,9 +30,9 @@ export default function Notifications(props) {
 
   const url = () => {
     if (isUnreadPage()) {
-      return `/api/notifications.json?page=${currentPage}&status=unread${target()}`
+      return `/api/notifications.json?page=${page}&status=unread${target()}`
     } else {
-      return `/api/notifications.json?page=${currentPage}${target()}`
+      return `/api/notifications.json?page=${page}${target()}`
     }
   }
 
@@ -58,7 +58,7 @@ export default function Notifications(props) {
       })
   }
   const paginateClickCallback = (pageNumber) => {
-    setCurrentPage(pageNumber)
+    setPage(pageNumber)
     const url = new URL(location)
     if (pageNumber > 1) {
       url.searchParams.set('page', pageNumber)
@@ -71,7 +71,7 @@ export default function Notifications(props) {
 
   useEffect(() => {
     const handlePopstate = () => {
-      setCurrentPage(getPageValueFromParameter())
+      setPage(getPageValueFromParameter())
     }
 
     window.addEventListener('popstate', handlePopstate)
@@ -79,7 +79,7 @@ export default function Notifications(props) {
     return () => {
       window.removeEventListener('popstate', handlePopstate)
     }
-  }, [currentPage])
+  }, [page])
 
   let content
 
@@ -109,8 +109,8 @@ export default function Notifications(props) {
               sum={totalPages * per}
               per={per}
               neighbours={neighbours}
-              page={currentPage}
-              setPage={setCurrentPage}
+              page={page}
+              setPage={setPage}
               onChange={(e) => paginateClickCallback(e.page)}
             />
           </nav>
@@ -128,8 +128,8 @@ export default function Notifications(props) {
               sum={totalPages * per}
               per={per}
               neighbours={neighbours}
-              page={currentPage}
-              setPage={setCurrentPage}
+              page={page}
+              setPage={setPage}
               onChange={(e) => paginateClickCallback(e.page)}
             />
           </nav>
