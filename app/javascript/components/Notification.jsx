@@ -31,7 +31,7 @@ export default function Notification(props) {
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <img
-            className={`card-list-item__user-icon.a-user-icon ${formattedroleClass}`}
+            className={`card-list-item__user-icon a-user-icon ${formattedroleClass}`}
             title={props.notification.sender.icon_title}
             src={props.notification.sender.avatar_url}
           />
@@ -40,12 +40,11 @@ export default function Notification(props) {
           <div className="card-list-item__row">
             <div className="card-list-item-title">
               <div className="card-list-item-title__start">
-                <div
-                  className={`a-list-item-badge ${
-                    props.notification.read === false ? 'is-unread' : ''
-                  }`}>
-                  <span>未読</span>
-                </div>
+                {props.notification.read === false && (
+                  <div className="a-list-item-badge is-unread">
+                    <span>未読</span>
+                  </div>
+                )}
                 <h2 className="card-list-item-title__title" itemProp="name">
                   <a
                     className="card-list-item-title__link a-text-link js-unconfirmed-link"
