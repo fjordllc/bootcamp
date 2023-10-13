@@ -3,6 +3,7 @@ import Notification from './Notification'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Pagination from './Pagination'
 import queryString from 'query-string'
+import UnconfirmedLink from './UnconfirmedLink'
 
 export default function Notifications(props) {
   const [notifications, setNotifications] = useState([])
@@ -71,6 +72,7 @@ export default function Notifications(props) {
 
   useEffect(() => {
     const handlePopstate = () => {
+      console.log('page=' + page)
       setPage(getPageValueFromParameter())
     }
 
@@ -122,6 +124,7 @@ export default function Notifications(props) {
             )
           })}
         </div>
+        <UnconfirmedLink label="未読の通知を一括で開く" />
         {totalPages > 1 && (
           <nav className="pagination">
             <Pagination
