@@ -21,7 +21,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include MockEnvHelper
 
   if ENV['HEADED']
-    driven_by :selenium, using: :chrome
+    driven_by :selenium, using: :firefox
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
       driver_option.add_argument('--no-sandbox')
