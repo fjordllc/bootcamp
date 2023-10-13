@@ -211,8 +211,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
+    page.save_screenshot 'usertag_before_enter.png'
     tag_input.native.send_keys :enter
-    page.save_screenshot 'user_tag.png'
+    page.save_screenshot 'usertag_after_enter.png'
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       loop until page.has_text?('追加タグ')
     end
