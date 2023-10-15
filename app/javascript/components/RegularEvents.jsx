@@ -6,22 +6,11 @@ import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import RegularEvent from './RegularEvent'
 
-const buildParams = (targetParam, page) => {
-  const target = targetParam === 'not_finished' ? 'target=not_finished&' : ''
-  const pageNumber = `page=${page}`
-  return `${target}${pageNumber}`
-}
-
 const RegularEvents = () => {
   const defaultTarget = queryString.parse(location.search).target || ''
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [targetParam, setTargetParam] = useState(defaultTarget)
   const [page, setPage] = useState(defaultPage)
-
-  const { data, error } = useSWR(
-    `/api/regular_events?${buildParams(targetParam, page)}`,
-    fetcher
-  )
 
   const handleNotFinishedClick = () => {
     setTargetParam('not_finished')
@@ -52,8 +41,7 @@ const RegularEvents = () => {
         handleAllClick={handleAllClick}
       />
       <EventList
-        error={error}
-        data={data}
+        targetParam={targetParam}
         page={page}
         handlePaginate={handlePaginate}
       />
@@ -92,9 +80,14 @@ const Navigation = ({
   )
 }
 
-const EventList = ({ error, data, page, handlePaginate }) => {
+const EventList = ({ targetParam, page, handlePaginate }) => {
   const per = 20
   const neighbours = 4
+
+  const { data, error } = useSWR(
+    `/api/regular_events?${buildParams(targetParam, page)}`,
+    fetcher
+  )
 
   if (error) console.warn(error)
 
@@ -135,6 +128,12 @@ const EventList = ({ error, data, page, handlePaginate }) => {
       )}
     </div>
   )
+}
+
+const buildParams = (targetParam, page) => {
+  const target = targetParam === 'not_finished' ? 'target=not_finished&' : ''
+  const pageNumber = `page=${page}`
+  return `${target}${pageNumber}`
 }
 
 export default RegularEvents
