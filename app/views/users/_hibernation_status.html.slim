@@ -1,5 +1,0 @@
-- if user.hibernated?
-  | / 休会から
-  strong
-    = (Time.current.to_date - user.hibernated_at.to_date).to_i
-  | 日目
