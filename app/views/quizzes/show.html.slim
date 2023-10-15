@@ -1,14 +1,17 @@
-p#notice = notice
-  = @quiz.title
-
+h1 = @quiz.title
+hr.a-border
+.page-body
+  .container.is-xxl
     = form_with model: @response, local: true do |response_form|
-      = response_form.label @statements.first.body
-      = response_form
+      .form-item-group
+      = response_form.label :body, class: 'a-form-label'
+      = response_form.radio_button :answer, '正しい', id: 'true', class: 'a-toggle-checkbox'
+      label.a-block-check__label.has-icon.is-ta-left(for='mac')
+        span.a-block-check__name
+          '正しい'
+      = response_form.radio_button :answer, '間違い', id: 'false', class: 'a-toggle-checkbox'
 
 
-
-
-
-=> link_to "Edit", edit_quiz_path(@quiz)
-'|
-=< link_to "Back", quizzes_path
+/ => link_to "Edit", edit_quiz_path(@quiz)
+/ '|
+/ =< link_to "Back", quizzes_path
