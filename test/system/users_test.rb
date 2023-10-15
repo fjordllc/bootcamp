@@ -619,9 +619,11 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'show hibernation period in profile' do
-    visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
-    assert_text '休会中'
-    assert_text '休会から'
+    travel_to Time.zone.local(2023, 10, 15) do
+      visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
+      assert_text '休会中'
+      assert_text '休会から1383日目'
+    end
     visit_with_auth "/users/#{users(:hatsuno).id}", 'komagata'
     assert_no_text '休会中'
     assert_no_text '休会から'
