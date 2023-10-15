@@ -120,4 +120,8 @@ module UserDecorator
       country_name
     end
   end
+
+  def hibernation_period
+    " / 休会から#{(Time.current.to_date - hibernated_at.to_date).to_i}日目"
+  end
 end
