@@ -16,7 +16,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     user = users(:kyuukai)
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+        visit scheduler_daily_auto_retire_path
       end
       assert_equal Date.current, user.reload.retired_on
     end
@@ -49,7 +49,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     user = users(:kyuukai)
     travel_to Time.zone.local(2020, 7, 1, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+        visit scheduler_daily_auto_retire_path
       end
       assert_nil user.reload.retired_on
     end
@@ -64,7 +64,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     logout
 
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
-      visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+      visit scheduler_daily_auto_retire_path
       assert_nil user.reload.retired_on
     end
   end
@@ -76,7 +76,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     user.update!(retired_on: retired_date)
 
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
-      visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+      visit scheduler_daily_auto_retire_path
       assert_equal retired_date, user.reload.retired_on
     end
   end
@@ -89,7 +89,7 @@ class AutoRetireTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+        visit scheduler_daily_auto_retire_path
       end
       assert_equal Date.current, user.reload.retired_on
     end
@@ -106,7 +106,7 @@ class AutoRetireTest < ApplicationSystemTestCase
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       Discord::Server.stub(:delete_text_channel, true) do
         VCR.use_cassette 'subscription/update' do
-          visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+          visit scheduler_daily_auto_retire_path
         end
       end
       assert_equal Date.current, user.reload.retired_on
@@ -123,7 +123,7 @@ class AutoRetireTest < ApplicationSystemTestCase
       UserMailer.stub(:auto_retire, stub_postmark_error) do
         travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
           VCR.use_cassette 'subscription/update' do
-            visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+            visit scheduler_daily_auto_retire_path
           end
           assert_equal Date.current, user.reload.retired_on
         end
@@ -140,7 +140,7 @@ class AutoRetireTest < ApplicationSystemTestCase
 
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       VCR.use_cassette 'subscription/update' do
-        visit_with_auth scheduler_daily_auto_retire_path, 'komagata'
+        visit scheduler_daily_auto_retire_path
       end
       assert_equal Date.current, user.reload.retired_on
     end
