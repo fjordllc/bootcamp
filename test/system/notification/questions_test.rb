@@ -303,15 +303,16 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     )
 
     travel_to Time.zone.local(2022, 11, 6, 0, 0, 0) do
-      visit_with_auth '/scheduler/daily/notify_certain_period_passed_after_last_answer', 'kimura'
-      visit '/notifications'
+      visit '/scheduler/daily/notify_certain_period_passed_after_last_answer'
+      visit_with_auth '/notifications', 'kimura'
 
       assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
+    logout
 
     travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
-      visit_with_auth '/scheduler/daily/notify_certain_period_passed_after_last_answer', 'kimura'
-      visit '/notifications'
+      visit '/scheduler/daily/notify_certain_period_passed_after_last_answer'
+      visit_with_auth '/notifications', 'kimura'
 
       assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
