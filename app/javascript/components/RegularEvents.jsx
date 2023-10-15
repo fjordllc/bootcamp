@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import queryString from 'query-string'
@@ -17,11 +17,6 @@ const RegularEvents = () => {
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [targetParam, setTargetParam] = useState(defaultTarget)
   const [page, setPage] = useState(defaultPage)
-
-  useEffect(() => {
-    setTargetParam(targetParam)
-    setPage(page)
-  }, [targetParam, page])
 
   const { data, error } = useSWR(
     `/api/regular_events?${buildParams(targetParam, page)}`,
