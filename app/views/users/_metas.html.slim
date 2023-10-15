@@ -54,7 +54,7 @@
           - user.roles.each do |role|
             li
               = t "target.#{role}"
-              = " / 休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目" if role == "hibernationed"
+              = " / 休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目" if role == 'hibernationed'
     - if user.trainee? && user.training_ends_on?
       .user-metas__item
         .user-metas__item-label
