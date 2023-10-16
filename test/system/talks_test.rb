@@ -441,4 +441,9 @@ class TalksTest < ApplicationSystemTestCase
     visit '/talks/action_uncompleted'
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
+
+  test 'display company-logo in consultation room when user is trainee' do
+    visit_with_auth "/talks/#{talks(:talk11).id}", 'kensyu'
+    assert_selector 'img[class="page-content-header__company-logo"]'
+  end
 end

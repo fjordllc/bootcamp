@@ -11,7 +11,7 @@
         .card-header
           .card-header__title.is-sm
             | メモ
-        hr.a-border
+        hr.a-border-tint
         .card-body
           .card__description
             textarea.a-text-input(
