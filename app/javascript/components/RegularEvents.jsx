@@ -130,10 +130,12 @@ const EventList = ({ target, page, handlePaginate }) => {
   )
 }
 
-  const target = targetParam === 'not_finished' ? 'target=not_finished&' : ''
-  const pageNumber = `page=${page}`
-  return `${target}${pageNumber}`
 const buildParams = (targetParam, pageParam) => {
+  const params = {
+    ...(targetParam === 'not_finished' && { target: 'not_finished' }),
+    page: pageParam
+  }
+  return new URLSearchParams(params).toString()
 }
 
 export default RegularEvents
