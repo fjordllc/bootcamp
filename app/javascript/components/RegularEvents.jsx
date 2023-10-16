@@ -9,17 +9,17 @@ import RegularEvent from './RegularEvent'
 const RegularEvents = () => {
   const defaultTarget = queryString.parse(location.search).target || ''
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [targetParam, setTargetParam] = useState(defaultTarget)
+  const [target, setTarget] = useState(defaultTarget)
   const [page, setPage] = useState(defaultPage)
 
   const handleNotFinishedClick = () => {
-    setTargetParam('not_finished')
+    setTarget('not_finished')
     setPage(1)
     window.history.pushState(null, null, '/regular_events?target=not_finished')
   }
 
   const handleAllClick = () => {
-    setTargetParam('')
+    setTarget('')
     setPage(1)
     window.history.pushState(null, null, '/regular_events')
   }
@@ -29,19 +29,19 @@ const RegularEvents = () => {
     window.history.pushState(
       null,
       null,
-      `/regular_events?${buildParams(targetParam, p)}`
+      `/regular_events?${buildParams(target, p)}`
     )
   }
 
   return (
     <>
       <Navigation
-        targetParam={targetParam}
+        target={target}
         handleNotFinishedClick={handleNotFinishedClick}
         handleAllClick={handleAllClick}
       />
       <EventList
-        targetParam={targetParam}
+        target={target}
         page={page}
         handlePaginate={handlePaginate}
       />
@@ -50,7 +50,7 @@ const RegularEvents = () => {
 }
 
 const Navigation = ({
-  targetParam,
+  target,
   handleNotFinishedClick,
   handleAllClick
 }) => {
@@ -60,7 +60,7 @@ const Navigation = ({
         <li className="pill-nav__item">
           <button
             className={`pill-nav__item-link ${
-              targetParam === 'not_finished' ? 'is-active' : ''
+              target === 'not_finished' ? 'is-active' : ''
             }`}
             onClick={handleNotFinishedClick}>
             開催中
@@ -69,7 +69,7 @@ const Navigation = ({
         <li className="pill-nav__item">
           <button
             className={`pill-nav__item-link ${
-              targetParam === '' ? 'is-active' : ''
+              target === '' ? 'is-active' : ''
             }`}
             onClick={handleAllClick}>
             全て
@@ -80,12 +80,12 @@ const Navigation = ({
   )
 }
 
-const EventList = ({ targetParam, page, handlePaginate }) => {
+const EventList = ({ target, page, handlePaginate }) => {
   const per = 20
   const neighbours = 4
 
   const { data, error } = useSWR(
-    `/api/regular_events?${buildParams(targetParam, page)}`,
+    `/api/regular_events?${buildParams(target, page)}`,
     fetcher
   )
 
@@ -130,10 +130,10 @@ const EventList = ({ targetParam, page, handlePaginate }) => {
   )
 }
 
-const buildParams = (targetParam, page) => {
   const target = targetParam === 'not_finished' ? 'target=not_finished&' : ''
   const pageNumber = `page=${page}`
   return `${target}${pageNumber}`
+const buildParams = (targetParam, pageParam) => {
 }
 
 export default RegularEvents
