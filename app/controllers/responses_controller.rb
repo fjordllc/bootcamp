@@ -2,16 +2,18 @@ class ResponsesController < ApplicationController
   before_action :set_quiz
 
   def create
-    @responses = response_params[:responses_attributes].values.map do |response|
-      current_user.responses.build(statement_id: response[:statement_id], answer: response[:answer])
-    end
+    ActiveRecord::Base.transaction do
+      @responses = response_params[:responses_attributes].values.map do |response|
+        current_user.responses.build(statement_id: response[:statement_id], answer: response[:answer])
+      end
 
-    if @responses.all?(&:valid?) && @responses.each(&:save)
-      redirect_to quizzes_path, notice: 'Your answers have been submitted!'
-    else
-      flash.now[:alert] = 'There was an error submitting your answers. Please try again.'
-      render 'quizzes/show'
+      if @responses.each(&:save!)
+        redirect_to quizzes_path, notice: 'Your answers have been submitted!'
+      end
     end
+  rescue ActiveRecord::RecordInvalid
+    flash.now[:alert] = 'There was an error submitting your answers. Please try again.'
+    render 'quizzes/show'
   end
 
   private
