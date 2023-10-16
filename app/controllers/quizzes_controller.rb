@@ -9,11 +9,7 @@ class QuizzesController < ApplicationController
   # GET /quizzes/1 or /quizzes/1.json
   def show
     @quiz = Quiz.find(params[:id])
-    @statements = @quiz.statements
-    @response = Response.new(response_params)
-    # @responses = @statements.map do |statement|
-    #   Response.new(statement: statement, user: current_user)
-    # end
+    @responses = @quiz.statements.map { |statement| statement.responses.build(statement: statement, user: current_user) }
   end
 
   # GET /quizzes/new

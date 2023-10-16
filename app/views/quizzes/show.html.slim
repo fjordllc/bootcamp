@@ -1,17 +1,16 @@
 h1 = @quiz.title
-hr.a-border
-.page-body
-  .container.is-xxl
-    = form_with model: @response, local: true do |response_form|
-      .form-item-group
-      = response_form.label :body, class: 'a-form-label'
-      = response_form.radio_button :answer, '正しい', id: 'true', class: 'a-toggle-checkbox'
-      label.a-block-check__label.has-icon.is-ta-left(for='mac')
-        span.a-block-check__name
-          '正しい'
-      = response_form.radio_button :answer, '間違い', id: 'false', class: 'a-toggle-checkbox'
 
+= form_with url: quiz_responses_path(@quiz), local: true do |form|
+      - @quiz.statements.each_with_index do |statement, index|
+            div
+                  = statement.body
+                  br
+                  = form.radio_button :"responses_attributes[#{index}][answer]", true
+                  = label_tag :"responses_attributes_#{index}_answer_true", 'True'
+                  br
+                  = form.radio_button :"responses_attributes[#{index}][answer]", false
+                  = label_tag :"responses_attributes_#{index}_answer_false", 'False'
+                  = form.hidden_field :"responses_attributes[#{index}][statement_id]", value: statement.id
+                  br
 
-/ => link_to "Edit", edit_quiz_path(@quiz)
-/ '|
-/ =< link_to "Back", quizzes_path
+      = form.submit 'Submit Answers'
