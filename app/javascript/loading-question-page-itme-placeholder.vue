@@ -36,6 +36,7 @@
           p
           p
           p
+    hr.a-border-tint
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items

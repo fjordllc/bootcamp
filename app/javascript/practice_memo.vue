@@ -12,6 +12,7 @@
                 i.fa-regular.fa-sad-tear
               .o-empty-message__text
                 | プラクティスメモはまだありません。
+    hr.a-border-tint
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
@@ -42,6 +43,7 @@
         .a-markdown-input__inner.is-preview.js-tabs__content(
           :class='{ "is-active": isActive("preview") }')
           .a-long-text.a-markdown-input__preview(v-html='markdownMemo')
+    hr.a-border-tint
     .card-footer
       .card-main-actions
         .card-main-actions__items

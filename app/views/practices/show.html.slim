@@ -92,6 +92,7 @@
                   = @practice.goal
                 - if !current_user.adviser? && @practice.open_product?
                   = render 'content_notice'
+            hr.a-border-tint
             footer.card-footer
               #js-learning(data-practice-id="#{@practice.id}")
               - if @practice.submission

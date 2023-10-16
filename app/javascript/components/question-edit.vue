@@ -81,6 +81,7 @@
     .card-body
       .card__description
         .a-long-text.is-md(v-html='markdownDescription')
+    hr.a-border-tint
     reaction(
       :reactionable='question',
       :currentUser='currentUser',
