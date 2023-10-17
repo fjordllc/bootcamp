@@ -7,9 +7,7 @@ class ResponsesController < ApplicationController
         current_user.responses.build(statement_id: response[:statement_id], answer: response[:answer])
       end
 
-      if @responses.each(&:save!)
-        redirect_to quizzes_path, notice: 'Your answers have been submitted!'
-      end
+      redirect_to quizzes_path, notice: 'Your answers have been submitted!' if @responses.each(&:save!)
     end
   rescue ActiveRecord::RecordInvalid
     flash.now[:alert] = 'There was an error submitting your answers. Please try again.'
@@ -23,6 +21,6 @@ class ResponsesController < ApplicationController
   end
 
   def response_params
-    params.permit(responses_attributes: [:answer, :statement_id])
+    params.permit(responses_attributes: %i[answer statement_id])
   end
 end
