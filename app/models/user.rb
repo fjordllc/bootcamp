@@ -138,8 +138,6 @@ class User < ApplicationRecord
            through: :regular_event_participations,
            source: :regular_event
 
-  has_many :responses, dependent: :destroy
-
   has_one_attached :avatar
   has_one_attached :profile_image
 
