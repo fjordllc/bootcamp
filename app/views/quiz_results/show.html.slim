@@ -1,0 +1,17 @@
+h1 = @quiz.title
+
+= "#{@quiz_result.score}点"
+br
+= @quiz_result.user.name
+br
+  = @quiz_result.created_at.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][@quiz_result.created_at.wday]}) %H:%M")
+
+- @quiz_result.responses.each do |response|
+  div
+    = response.statement.body
+    br
+    = response.answer ? 'True' : 'False'
+    br
+    = response.answer == response.statement.is_correct ? '◯' : '✗'
+
+= link_to "#{@quiz.title}の回答一覧", quiz_quiz_results_path(@quiz)
