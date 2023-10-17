@@ -1,6 +1,6 @@
 h1 = @quiz.title
 
-= form_with url: quiz_responses_path(@quiz), local: true do |form|
+= form_with url: quiz_quiz_results_path(@quiz), local: true do |form|
       - @quiz.statements.each_with_index do |statement, index|
             div
                   = statement.body
