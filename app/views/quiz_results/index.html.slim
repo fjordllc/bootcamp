@@ -1,0 +1,19 @@
+h1 = "#{@quiz.title}の回答一覧"
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @quiz_results.each do |result|
+      tr
+        td = result.user.name
+        td = result.score
+        td = result.created_at.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][result.created_at.wday]}) %H:%M")
+
+br
+
+= link_to "クイズ一覧", quizzes_path
