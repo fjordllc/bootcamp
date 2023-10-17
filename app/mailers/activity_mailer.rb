@@ -298,7 +298,7 @@ class ActivityMailer < ApplicationMailer
     @user = @receiver
 
     @link_url = notification_redirector_url(
-      link: "/reports/#{@report.id}",
+      link: report_url(@report),
       kind: Notification.kinds[:first_report]
     )
 
