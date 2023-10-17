@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_17_014009) do
+ActiveRecord::Schema.define(version: 2023_10_17_034523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -632,6 +632,8 @@ ActiveRecord::Schema.define(version: 2023_10_17_014009) do
     t.bigint "statement_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "quiz_result_id", null: false
+    t.index ["quiz_result_id"], name: "index_responses_on_quiz_result_id"
     t.index ["statement_id"], name: "index_responses_on_statement_id"
   end
 
@@ -842,6 +844,7 @@ ActiveRecord::Schema.define(version: 2023_10_17_014009) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "responses", "quiz_results"
   add_foreign_key "responses", "statements"
   add_foreign_key "statements", "quizzes"
   add_foreign_key "survey_question_listings", "survey_questions"

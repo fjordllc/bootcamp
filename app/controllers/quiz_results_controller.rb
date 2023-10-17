@@ -4,7 +4,7 @@ class QuizResultsController < ApplicationController
     ActiveRecord::Base.transaction do
       quiz_result = QuizResult.create!(quiz: @quiz, user: current_user)
       responses = response_params[:responses_attributes].values.map do |response|
-        quiz_result.responses.build(statement_id: response[:statement_id], answer: response[:answer])
+        quiz_result.responses.build(statement_id: response[:statement_id], answer: response[:answer], quiz_result:)
       end
       quiz_result.set_score
 
