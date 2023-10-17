@@ -13,6 +13,7 @@ class QuizResultsController < ApplicationController
   end
 
   private
+
   def set_quiz
     @quiz = Quiz.find(params[:quiz_id])
   end
