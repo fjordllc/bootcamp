@@ -8,7 +8,7 @@ class QuizResultsController < ApplicationController
       end
       quiz_result.set_score
 
-      redirect_to quizzes_path, notice: 'Your answers have been submitted!' if responses.each(&:save!)
+      redirect_to quiz_quiz_result_path(@quiz, quiz_result), notice: 'Your answers have been submitted!' if responses.each(&:save!)
     end
   end
 
