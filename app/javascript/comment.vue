@@ -37,6 +37,7 @@
           img.thread-comment__company-logo(
             :src='comment.user.company.logo_url')
         .a-long-text.is-md(v-html='markdownDescription')
+      hr.a-border-tint
       .thread-comment__reactions
         reaction(
           v-bind:reactionable='comment',
