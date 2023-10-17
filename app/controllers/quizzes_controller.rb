@@ -69,8 +69,4 @@ class QuizzesController < ApplicationController
   def quiz_params
     params.require(:quiz).permit(:title, statements_attributes: %i[id body is_correct _destroy])
   end
-
-  def response_params
-    params.require(:response).permit(:statement_id, :user_id, :answer)
-  end
 end
