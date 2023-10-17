@@ -12,6 +12,10 @@ class QuizResultsController < ApplicationController
     end
   end
 
+  def index
+    @quiz_results = @quiz.quiz_results
+  end
+
   private
 
   def set_quiz

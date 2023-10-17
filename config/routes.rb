@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :quizzes do
-    resources :quiz_results, only: [:create]
+    resources :quiz_results, only: [:create, :index]
   end
   resources :surveys do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"

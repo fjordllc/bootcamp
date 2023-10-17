@@ -6,6 +6,7 @@ table
       th
       th
       th
+      th
 
   tbody
     - @quizzes.each do |quiz|
@@ -13,6 +14,8 @@ table
         td = link_to quiz.title, quiz
         td = link_to "Edit", edit_quiz_path(quiz)
         td = link_to "Destroy", quiz, data: {confirm: "Are you sure?"}, method: :delete
+        td = link_to "回答", quiz_quiz_results_path(quiz)
+
 
 br
 
