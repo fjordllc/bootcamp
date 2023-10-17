@@ -5,7 +5,7 @@ class QuizResult < ApplicationRecord
 
   attribute :score, default: 0
 
-  def calculate_score
+  def set_score
     correct_responses = responses.select do |response|
       response.answer == response.statement.is_correct
     end
