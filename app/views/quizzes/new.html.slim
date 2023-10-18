@@ -14,13 +14,22 @@ hr.a-border
 .page-body
   .container.is-xxl
     = form_with model: @quiz, local: true do |quiz_form|
-      .form-item-group
-        = quiz_form.label :title, class: 'a-form-label'
-        = quiz_form.text_field :title, class: 'a-text-input js-warning-form', placeholder: '○×クイズのタイトル'
-        = quiz_form.fields_for :statements do |statement_form|
-          = statement_form.label :body, class: 'a-form-label'
-          = statement_form.text_field :body, class: 'a-text-input', placeholder: '○×クイズの問題'
-          = statement_form.label :is_correct, class: 'a-form-label'
-          = statement_form.check_box :is_correct, class: 'a-text-input'
+      .new-quiz-form
+        div
+          = quiz_form.label 'タイトル', class: 'a-form-label'
+          = quiz_form.text_field :title, class: 'a-text-input js-warning-form', placeholder: 'クイズのタイトル'
+        .quiz-cards-wrapper
+          = quiz_form.fields_for :statements do |statement_form|
+            .quiz-card
+              div
+                = statement_form.label "#{statement_form.index + 1}問目", class: 'a-form-label'
+                = statement_form.text_field :body, class: 'a-text-input', placeholder: '問題文'
+              .quiz-answer__items
+                .quiz-answer__item
+                  = statement_form.radio_button :is_correct, true, id: 'is_correct_true'
+                  = statement_form.label :is_correct, '正', for: 'is_correct_true'
+                .quiz-answer__item
+                  = statement_form.radio_button :is_correct, false, id: 'is_correct_false'
+                  = statement_form.label :is_correct, '誤', for: 'is_correct_false'
 
-      = quiz_form.submit 'クイズを作成', class: 'a-button is-lg is-primary is-block'
+        = quiz_form.submit 'クイズを作成', class: 'a-button is-lg is-primary is-block'
