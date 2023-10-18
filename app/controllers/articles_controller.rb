@@ -103,6 +103,9 @@ class ArticlesController < ApplicationController
   end
 
   def fit_to_size_for_ogp
-    Ogp::ImageProcessor.fit_to_size(@article.thumbnail) if @article.thumbnail.attached?
+    return unless @article.thumbnail.attached?
+
+    image_resizer = ImageResizer.new(@article.thumbnail)
+    image_resizer.fit_to!(*ImageResizer::OGP_SIZE)
   end
 end
