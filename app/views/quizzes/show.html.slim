@@ -1,16 +1,38 @@
-h1 = @quiz.title
+- title "#{@quiz.title}"
 
-= form_with model: @quiz_result, url: quiz_quiz_results_path(@quiz), local: true do |form|
-      - @quiz.statements.each_with_index do |statement, index|
-            div
-                  = statement.body
-                  br
-                  = form.radio_button :"responses_attributes[#{index}][answer]", true
-                  = label_tag :"responses_attributes_#{index}_answer_true", 'True'
-                  br
-                  = form.radio_button :"responses_attributes[#{index}][answer]", false
-                  = label_tag :"responses_attributes_#{index}_answer_false", 'False'
-                  = form.hidden_field :"responses_attributes[#{index}][statement_id]", value: statement.id
-                  br
-
-      = form.submit 'Submit Answers'
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title = @quiz.title
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to quizzes_path, class: 'a-button is-md is-secondary is-block is-back' do
+              | クイズ一覧
+hr.a-border
+.page-body
+  .container.is-xxl
+    = form_with model: @quiz_result, url: quiz_quiz_results_path(@quiz), local: true do |form|
+      .form__items
+        .form__items-inner
+          - @quiz.statements.each_with_index do |statement, index|
+            .form-item
+              label.a-form-label
+                | 問題#{index + 1}: #{statement.body}
+              ul.block-checks
+                li.block-checks__item
+                  .a-block-check.is-radio
+                    = form.radio_button :"responses_attributes_#{index}_answer", true, name: "quiz_result[responses_attributes[#{index}][answer]]", class: 'a-toggle-checkbox'
+                    = form.label :"responses_attributes_#{index}_answer_true", class: 'a-block-check__label' do
+                      span.a-block-check__name ○ 正しい
+                li.block-checks__item
+                  .a-block-check.is-radio
+                    = form.radio_button :"responses_attributes_#{index}_answer", false, name: "quiz_result[responses_attributes[#{index}][answer]]", class: 'a-toggle-checkbox'
+                    = form.label :"responses_attributes_#{index}_answer_false", class: 'a-block-check__label' do
+                      span.a-block-check__name × 誤り
+                    = form.hidden_field :"responses_attributes[#{index}][statement_id]", value: statement.id
+      .form-actions
+        ul.form-actions__items
+          li.form-actions__item.is-main
+            = button_tag(class: 'a-button is-lg is-primary is-block') do
+              = form.submit '回答する'
