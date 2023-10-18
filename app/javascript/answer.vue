@@ -43,6 +43,7 @@
           :href='answer.user.company.url')
           img.thread-comment__company-logo(:src='answer.user.company.logo_url')
         .a-long-text.is-md(v-html='markdownDescription')
+      hr.a-border-tint
       .thread-comment__reactions
         reaction(
           v-bind:reactionable='answer',
