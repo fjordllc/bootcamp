@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import queryString from 'query-string'
 import useSWR from 'swr'
 import Pagination from './Pagination'
@@ -12,10 +12,6 @@ export default function Products({ title, selectedTab }) {
   const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
-
-  useEffect(() => {
-    setPage(page)
-  }, [page])
 
   const unconfirmedLinksName = (() => {
     return {
@@ -34,11 +30,6 @@ export default function Products({ title, selectedTab }) {
   })()
 
   const { data, error } = useSWR(`/api/products${url}?page=${page}`, fetcher)
-
-  const handlePaginate = (p) => {
-    setPage(p)
-    window.history.pushState(null, null, `/products${url}?page=${p}`)
-  }
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -70,7 +61,7 @@ export default function Products({ title, selectedTab }) {
               per={per}
               neighbours={neighbours}
               page={page}
-              onChange={(e) => handlePaginate(e.page)}
+              setPage={setPage}
             />
           )}
           <ul className="card-list a-card">
@@ -84,7 +75,7 @@ export default function Products({ title, selectedTab }) {
               per={per}
               neighbours={neighbours}
               page={page}
-              onChange={(e) => handlePaginate(e.page)}
+              setPage={setPage}
             />
           )}
           <UnconfirmedLink label={unconfirmedLinksName} />
