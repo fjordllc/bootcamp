@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import queryString from 'query-string'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
@@ -10,21 +10,12 @@ export default function AdminCompanies() {
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
 
-  useEffect(() => {
-    setPage(page)
-  }, [page])
-
   const { data, error } = useSWR(
     `/api/admin/companies.json?page=${page}&per=${per}`,
     fetcher
   )
   if (error) return <>An error has occurred.</>
   if (!data) return <>Loading...</>
-
-  const handlePaginate = (p) => {
-    setPage(p)
-    window.history.pushState(null, null, `/admin/companies?page=${p}`)
-  }
 
   return (
     <div data-testid="admin-companies">
@@ -35,7 +26,6 @@ export default function AdminCompanies() {
           neighbours={neighbours}
           page={page}
           setPage={setPage}
-          onChange={(e) => handlePaginate(e.page)}
         />
       )}
       <div className="admin-table">
@@ -64,7 +54,6 @@ export default function AdminCompanies() {
           neighbours={neighbours}
           page={page}
           setPage={setPage}
-          onChange={(e) => handlePaginate(e.page)}
         />
       )}
     </div>
