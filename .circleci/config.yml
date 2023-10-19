@@ -89,15 +89,14 @@ jobs:
       - run:
           name: Test
           command: |
-            bundle exec rails test test/system/attachments_test.rb:15 test/system/admin/users_test.rb:201
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            bundle exec rails test $TESTFILES
           no_output_timeout: 30m
           when: always
       - store_test_results:
           path: test/reports
       - store_artifacts:
           path: tmp/screenshots
-      - store_artifacts:
-          path: tmp/capybara
 workflows:
   build_and_test:
     jobs:

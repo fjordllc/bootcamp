@@ -14,5 +14,7 @@ class Company < ApplicationRecord
     else
       image_url('/images/companies/logos/default.png')
     end
+  rescue ActiveStorage::FileNotFoundError
+    image_url('/images/companies/logos/default.png')
   end
 end
