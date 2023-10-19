@@ -7,12 +7,13 @@ import UnconfirmedLink from './UnconfirmedLink'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 
-export default function Notifications() {
-  const getPageQueryParam = () => {
-    return parseInt(queryString.parse(location.search).page) || 1
+export default function Notifications({ ismentor }) {
+  const per = 20
+  const neighbours = 4
+  const isUnreadPage = () => {
+    const params = new URLSearchParams(location.search)
+    return params.get('status') !== null && params.get('status') === 'unread'
   }
-  const [page, setPage] = useState(getPageQueryParam())
-
   const url = () => {
     const params = new URLSearchParams(location.search)
     return `/api/notifications.json?${params}`
@@ -28,10 +29,14 @@ export default function Notifications() {
     } else {
       url.searchParams.delete('page')
     }
-    console.log('save history ' + url.href)
     window.history.pushState(null, null, url)
     window.scrollTo(0, 0)
   }
+
+  const getPageQueryParam = () => {
+    return parseInt(queryString.parse(location.search).page) || 1
+  }
+  const [page, setPage] = useState(getPageQueryParam())
 
   useEffect(() => {
     const handlePopstate = () => {
@@ -43,27 +48,6 @@ export default function Notifications() {
       window.removeEventListener('popstate', handlePopstate)
     }
   }, [])
-
-  return (
-    <>
-      <NotificationList
-        error={error}
-        data={data}
-        page={page}
-        setPage={setPage}
-        handlePaginate={handlePaginate}
-      />
-    </>
-  )
-}
-const NotificationList = ({ error, data, page, handlePaginate }) => {
-  const per = 20
-  const neighbours = 4
-  const isUnreadPage = () => {
-    const params = new URLSearchParams(location.search)
-    console.log('params=' + params)
-    return params.get('status') !== null && params.get('status') === 'unread'
-  }
 
   if (error) {
     console.warn(error)
@@ -108,7 +92,9 @@ const NotificationList = ({ error, data, page, handlePaginate }) => {
             )
           })}
         </div>
-        <UnconfirmedLink label="未読の通知を一括で開く" />
+        {ismentor && isUnreadPage() && (
+          <UnconfirmedLink label="未読の通知を一括で開く" />
+        )}
         {data.total_pages > 1 && (
           <nav className="pagination">
             <Pagination
