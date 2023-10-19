@@ -164,5 +164,4 @@ notification_for_pagination<%= i %>: # 通知ページのページネーショ�
   message: "practice<%= i %>が更新されました。"
   link: "/practices/<%= ActiveRecord::FixtureSet.identify("practice#{i}".to_sym) %>"
   read: false
-  created_at: <%= i.day.ago%>
 <% end %>
