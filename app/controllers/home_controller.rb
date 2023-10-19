@@ -48,14 +48,11 @@ class HomeController < ApplicationController
   end
 
   def display_events_on_dashboard
-    @today_events = (Event.today_events.related_to(current_user) \
-                     + RegularEvent.today_events)
+    @today_events = (Event.today_events + RegularEvent.today_events)
                     .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @tomorrow_events = (Event.tomorrow_events.related_to(current_user) \
-                        + RegularEvent.tomorrow_events)
+    @tomorrow_events = (Event.tomorrow_events + RegularEvent.tomorrow_events)
                        .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @day_after_tomorrow_events = (Event.day_after_tomorrow_events.related_to(current_user) \
-                                  + RegularEvent.day_after_tomorrow_events)
+    @day_after_tomorrow_events = (Event.day_after_tomorrow_events + RegularEvent.day_after_tomorrow_events)
                                  .sort_by { |e| e.start_at.strftime('%H:%M') }
   end
 
