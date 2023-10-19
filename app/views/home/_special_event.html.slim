@@ -11,6 +11,9 @@
                 span.a-badge.is-xs.is-danger
                   | 参加
               span.a-text-link__text
+                - if special_event.job_hunting?
+                  span.a-badge.is-xs.is-danger
+                    | 就活
                 = special_event.title
       .card-list-item__row
         .card-list-item-meta
