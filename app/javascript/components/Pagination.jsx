@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import queryString from 'query-string'
 
 const createRange = (a, z) => {
   const items = []
@@ -32,8 +33,19 @@ const Pagination = ({ sum, per, neighbours, page, setPage }) => {
     window.scrollTo(0, 0)
   }
 
+  const getPageQueryParam = () => {
+    return parseInt(queryString.parse(location.search).page) || 1
+  }
+
   useEffect(() => {
+    const handlePopstate = () => {
+      setPage(getPageQueryParam())
+    }
     setNumbers(createNumbers(page, neighbours, totalPage))
+    window.addEventListener('popstate', handlePopstate)
+    return () => {
+      window.removeEventListener('popstate', handlePopstate)
+    }
   }, [page])
 
   return (

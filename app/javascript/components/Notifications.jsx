@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Notification from './Notification'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Pagination from './Pagination'
@@ -25,17 +25,6 @@ export default function Notifications({ ismentor }) {
     return parseInt(queryString.parse(location.search).page) || 1
   }
   const [page, setPage] = useState(getPageQueryParam())
-
-  useEffect(() => {
-    const handlePopstate = () => {
-      setPage(getPageQueryParam())
-    }
-
-    window.addEventListener('popstate', handlePopstate)
-    return () => {
-      window.removeEventListener('popstate', handlePopstate)
-    }
-  }, [])
 
   if (error) {
     console.warn(error)
