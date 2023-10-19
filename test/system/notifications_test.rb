@@ -220,6 +220,7 @@ class NotificationsTest < ApplicationSystemTestCase
     within first('nav.pagination') do
       find('button', text: '1').click
     end
+    assert_text '1番新しい通知'
     page.go_back
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
