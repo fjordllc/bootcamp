@@ -7,32 +7,15 @@ import UnconfirmedLink from './UnconfirmedLink'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 
-export default function Notifications(props) {
-  const target = () => {
-    return props.target ? `&target=${props.target}` : ''
-  }
-  const getStatusQueryParam = () => {
-    return queryString.parse(location.search).status || ''
-  }
+export default function Notifications() {
   const getPageQueryParam = () => {
     return parseInt(queryString.parse(location.search).page) || 1
   }
-  const [statusParam, setStatusParam] = useState(getStatusQueryParam())
   const [page, setPage] = useState(getPageQueryParam())
 
-  const isUnreadPage = () => {
-    const params = new URLSearchParams(location.search)
-    return params.get('status') !== null && params.get('status') === 'unread'
-  }
-
   const url = () => {
-    if (isUnreadPage()) {
-      console.log(page)
-      return `/api/notifications.json?page=${page}&status=unread${target()}`
-    } else {
-      console.log(page)
-      return `/api/notifications.json?page=${page}${target()}`
-    }
+    const params = new URLSearchParams(location.search)
+    return `/api/notifications.json?${params}`
   }
 
   const { data, error } = useSWR(url, fetcher)
@@ -50,22 +33,20 @@ export default function Notifications(props) {
     window.scrollTo(0, 0)
   }
 
-  const handlePopstate = () => {
-    setStatusParam(getStatusQueryParam())
-    setPage(getPageQueryParam())
-  }
-
-  window.addEventListener('popstate', handlePopstate)
-
   useEffect(() => {
-    setStatusParam(statusParam)
-    setPage(page)
-  }, [statusParam, page])
+    const handlePopstate = () => {
+      setPage(getPageQueryParam())
+    }
+
+    window.addEventListener('popstate', handlePopstate)
+    return () => {
+      window.removeEventListener('popstate', handlePopstate)
+    }
+  }, [])
 
   return (
     <>
       <NotificationList
-        isUnreadPage={isUnreadPage}
         error={error}
         data={data}
         page={page}
@@ -75,17 +56,15 @@ export default function Notifications(props) {
     </>
   )
 }
-const NotificationList = ({
-  isUnreadPage,
-  error,
-  data,
-  page,
-  handlePaginate
-}) => {
+const NotificationList = ({ error, data, page, handlePaginate }) => {
   const per = 20
   const neighbours = 4
-  console.log('render')
-  console.log('page=' + page)
+  const isUnreadPage = () => {
+    const params = new URLSearchParams(location.search)
+    console.log('params=' + params)
+    return params.get('status') !== null && params.get('status') === 'unread'
+  }
+
   if (error) {
     console.warn(error)
     return <div>failed to load</div>

@@ -3,14 +3,12 @@ import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
 
-export default function Notification(props) {
+export default function Notification({ notification }) {
   const formatCreatedAtInJapanese = () => {
-    return dayjs(props.notification.created_at).format(
-      'YYYY年MM月DD日(ddd) HH:mm'
-    )
+    return dayjs(notification.created_at).format('YYYY年MM月DD日(ddd) HH:mm')
   }
   const formatRoleClass = () => {
-    return `is-${props.notification.sender.primary_role}`
+    return `is-${notification.sender.primary_role}`
   }
 
   const [formattedCreatedAt, setFormattedCreatedAt] = useState(
@@ -21,26 +19,26 @@ export default function Notification(props) {
   useEffect(() => {
     setFormattedCreatedAt(formatCreatedAtInJapanese)
     setFormattedRoleClass(formatRoleClass)
-  }, [props.notification.created_at, props.notification.sender.primary_role])
+  }, [notification.created_at, notification.sender.primary_role])
 
   return (
     <div
       className={`card-list-item ${
-        props.notification.read ? 'is-read' : 'is-unread'
+        notification.read ? 'is-read' : 'is-unread'
       }`}>
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <img
             className={`card-list-item__user-icon a-user-icon ${formattedroleClass}`}
-            title={props.notification.sender.icon_title}
-            src={props.notification.sender.avatar_url}
+            title={notification.sender.icon_title}
+            src={notification.sender.avatar_url}
           />
         </div>
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
               <div className="card-list-item-title__start">
-                {props.notification.read === false && (
+                {notification.read === false && (
                   <div className="a-list-item-badge is-unread">
                     <span>未読</span>
                   </div>
@@ -48,10 +46,10 @@ export default function Notification(props) {
                 <h2 className="card-list-item-title__title" itemProp="name">
                   <a
                     className="card-list-item-title__link a-text-link js-unconfirmed-link"
-                    href={props.notification.path}
+                    href={notification.path}
                     itemProp="url">
                     <span className="card-list-item-title__link-label">
-                      {props.notification.message}
+                      {notification.message}
                     </span>
                   </a>
                 </h2>
@@ -62,9 +60,7 @@ export default function Notification(props) {
             <div className="card-list-item-meta">
               <div className="card-list-item-meta__items">
                 <div className="card-list-item-meta__item">
-                  <time
-                    className="a-meta"
-                    dateTime={props.notification.created_at}>
+                  <time className="a-meta" dateTime={notification.created_at}>
                     {formattedCreatedAt}
                   </time>
                 </div>
