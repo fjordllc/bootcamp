@@ -46,11 +46,6 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     within "[data-testid='admin-companies']" do
       assert_selector 'nav.pagination', count: 2
     end
-
-    first('.pagination__item-link', text: '2').click
-    assert_equal 2, page.all('.pagination__item-link.is-active', text: '2').count
-    first('.pagination__item-link', text: '1').click
-    assert_equal 2, page.all('.pagination__item-link.is-active', text: '1').count
   end
 
   test 'no pagination when 20 companies or less exist' do

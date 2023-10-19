@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import queryString from 'query-string'
+import React, { useState, useRef, useEffect } from 'react'
 
 const createRange = (a, z) => {
   const items = []
@@ -17,78 +16,50 @@ const createNumbers = (current, neighbours, max) => {
   return createRange(first, last)
 }
 
-const Pagination = ({ sum, per, neighbours, page, setPage }) => {
+const Pagination = (props) => {
+  const isFirstRender = useRef(true)
+  const [page, setPage] = useState(props.page)
   const [numbers, setNumbers] = useState([])
-  const totalPage = Math.ceil(sum / per)
-
-  const handlePaginate = (pageNumber) => {
-    setPage(pageNumber)
-    const url = new URL(location)
-    if (pageNumber > 1) {
-      url.searchParams.set('page', pageNumber)
-    } else {
-      url.searchParams.delete('page')
-    }
-    window.history.pushState(null, null, url)
-    window.scrollTo(0, 0)
-  }
-
-  const getPageQueryParam = () => {
-    return parseInt(queryString.parse(location.search).page) || 1
-  }
+  const totalPage = Math.ceil(props.sum / props.per)
 
   useEffect(() => {
-    const handlePopstate = () => {
-      setPage(getPageQueryParam())
+    setNumbers(createNumbers(page, props.neighbours, totalPage))
+
+    // 初回レンダリング時はスキップし、変数を更新する
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
     }
-    setNumbers(createNumbers(page, neighbours, totalPage))
-    window.addEventListener('popstate', handlePopstate)
-    return () => {
-      window.removeEventListener('popstate', handlePopstate)
-    }
+
+    props.onChange({ page: page })
   }, [page])
 
   return (
     <nav className="pagination">
       {totalPage !== 0 && (
         <ul className="pagination__items">
-          <First page={page} handlePaginate={handlePaginate} />
-          <Prev page={page} handlePaginate={handlePaginate} />
+          <First page={page} setPage={setPage} />
+          <Prev page={page} setPage={setPage} />
           {numbers[0] > 1 && <ThreeDots />}
           {numbers.map((i) => {
-            return (
-              <Number
-                key={i}
-                page={page}
-                handlePaginate={handlePaginate}
-                i={i}
-              />
-            )
+            return <Number key={i} page={page} setPage={setPage} i={i} />
           })}
           {numbers[numbers.length - 1] < totalPage && <ThreeDots />}
-          <Next
-            page={page}
-            handlePaginate={handlePaginate}
-            totalPage={totalPage}
-          />
-          <Last
-            page={page}
-            handlePaginate={handlePaginate}
-            totalPage={totalPage}
-          />
+          <Next page={page} setPage={setPage} totalPage={totalPage} />
+          <Last page={page} setPage={setPage} totalPage={totalPage} />
         </ul>
       )}
     </nav>
   )
 }
 
-const First = ({ handlePaginate, page }) => {
+const First = ({ setPage, page }) => {
   const disabled = page === 1 ? ' is-disabled' : ''
 
   return (
     <li className={'pagination__item is-prev' + disabled}>
       <button
-        onClick={() => handlePaginate(1)}
+        onClick={() => setPage(1)}
         className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-double-left" />
       </button>
@@ -96,13 +67,13 @@ const First = ({ handlePaginate, page }) => {
   )
 }
 
-const Prev = ({ page, handlePaginate }) => {
+const Prev = ({ page, setPage }) => {
   const disabled = page === 1 ? ' is-disabled' : ''
 
   return (
     <li className={'pagination__item is-prev' + disabled}>
       <button
-        onClick={() => page !== 1 && handlePaginate(page - 1)}
+        onClick={() => page !== 1 && setPage(page - 1)}
         className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-left" />
       </button>
@@ -110,11 +81,11 @@ const Prev = ({ page, handlePaginate }) => {
   )
 }
 
-const Number = ({ page, handlePaginate, i }) => {
+const Number = ({ page, setPage, i }) => {
   return (
     <li className="pagination__item">
       <button
-        onClick={() => handlePaginate(i)}
+        onClick={() => setPage(i)}
         className={'pagination__item-link' + (i === page ? ' is-active' : '')}>
         {i}
       </button>
@@ -122,13 +93,13 @@ const Number = ({ page, handlePaginate, i }) => {
   )
 }
 
-const Next = ({ page, handlePaginate, totalPage }) => {
+const Next = ({ page, setPage, totalPage }) => {
   const disabled = page === totalPage ? ' is-disabled' : ''
 
   return (
     <li className={'pagination__item is-next' + disabled}>
       <button
-        onClick={() => page !== totalPage && handlePaginate(page + 1)}
+        onClick={() => page !== totalPage && setPage(page + 1)}
         className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-right" />
       </button>
@@ -136,13 +107,13 @@ const Next = ({ page, handlePaginate, totalPage }) => {
   )
 }
 
-const Last = ({ page, handlePaginate, totalPage }) => {
+const Last = ({ page, setPage, totalPage }) => {
   const disabled = page === totalPage ? ' is-disabled' : ''
 
   return (
     <li className={'pagination__item is-next' + disabled}>
       <button
-        onClick={() => handlePaginate(totalPage)}
+        onClick={() => setPage(totalPage)}
         className={'pagination__item-link' + disabled}>
         <i className="fas fa-angle-double-right" />
       </button>

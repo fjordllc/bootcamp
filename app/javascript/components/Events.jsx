@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import queryString from 'query-string'
 import useSWR from 'swr'
 import Pagination from './Pagination'
@@ -12,7 +12,16 @@ export default function Events() {
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
 
+  useEffect(() => {
+    setPage(page)
+  }, [page])
+
   const { data, error } = useSWR(`/api/events?page=${page}`, fetcher)
+
+  const handlePaginate = (p) => {
+    setPage(p)
+    window.history.pushState(null, null, `/events?page=${p}`)
+  }
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
@@ -34,7 +43,7 @@ export default function Events() {
             per={per}
             neighbours={neighbours}
             page={page}
-            setPage={setPage}
+            onChange={(e) => handlePaginate(e.page)}
           />
         )}
         <ul className="card-list a-card">
@@ -48,7 +57,7 @@ export default function Events() {
             per={per}
             neighbours={neighbours}
             page={page}
-            setPage={setPage}
+            onChange={(e) => handlePaginate(e.page)}
           />
         )}
       </div>

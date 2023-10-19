@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import queryString from 'query-string'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
@@ -14,9 +14,18 @@ export default function Bookmarks() {
   const [page, setPage] = useState(defaultPage)
   const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
 
+  useEffect(() => {
+    setPage(page)
+  }, [page])
+
   const { data, error } = useSWR(bookmarksUrl, fetcher)
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
+
+  const handlePaginate = (p) => {
+    setPage(p)
+    window.history.pushState(null, null, `/current_user/bookmarks?page=${p}`)
+  }
 
   if (data.totalPages === 0) {
     return <NoBookmarks />
@@ -57,7 +66,7 @@ export default function Bookmarks() {
                   per={per}
                   neighbours={neighbours}
                   page={page}
-                  setPage={setPage}
+                  onChange={(e) => handlePaginate(e.page)}
                 />
               )}
               <div className="card-list a-card">
@@ -81,7 +90,7 @@ export default function Bookmarks() {
                   per={per}
                   neighbours={neighbours}
                   page={page}
-                  setPage={setPage}
+                  onChange={(e) => handlePaginate(e.page)}
                 />
               )}
             </div>

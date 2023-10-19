@@ -25,6 +25,10 @@ export default function Reports({
   const [userPracticeId, setUserPracticeId] = useState('')
 
   useEffect(() => {
+    setPage(page)
+  }, [page])
+
+  useEffect(() => {
     setUserPracticeId(userPracticeId)
   }, [userPracticeId])
 
@@ -90,7 +94,7 @@ export default function Reports({
                     per={per}
                     neighbours={neighbours}
                     page={page}
-                    setPage={setPage}
+                    onChange={(e) => setPage(e.page)}
                   />
                 )}
                 <div className="card-list a-card">
@@ -116,7 +120,7 @@ export default function Reports({
                     per={per}
                     neighbours={neighbours}
                     page={page}
-                    setPage={setPage}
+                    onChange={(e) => setPage(e.page)}
                   />
                 )}
               </div>

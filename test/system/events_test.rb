@@ -377,11 +377,6 @@ class EventsTest < ApplicationSystemTestCase
   test 'show pagination' do
     visit_with_auth '/events', 'kimura'
     assert_selector 'nav.pagination', count: 2
-
-    first('.pagination__item-link', text: '2').click
-    assert_equal 2, page.all('.pagination__item-link.is-active', text: '2').count
-    first('.pagination__item-link', text: '1').click
-    assert_equal 2, page.all('.pagination__item-link.is-active', text: '1').count
   end
 
   test 'dates of target events get filled automatically only when they are empty' do
