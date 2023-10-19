@@ -49,4 +49,4 @@ main.page-main
               = link_to '未読', notifications_path(status: 'unread', target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
             li.pill-nav__item
               = link_to '全て', notifications_path(target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"
-      = react_component('Notifications', ismentor: mentor_login?, target: @target)
+      = react_component('Notifications', ismentor: mentor_login?)
