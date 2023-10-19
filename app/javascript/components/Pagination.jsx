@@ -16,9 +16,21 @@ const createNumbers = (current, neighbours, max) => {
   return createRange(first, last)
 }
 
-const Pagination = ({ sum, per, neighbours, page, handlePaginate }) => {
+const Pagination = ({ sum, per, neighbours, page, setPage }) => {
   const [numbers, setNumbers] = useState([])
   const totalPage = Math.ceil(sum / per)
+
+  const handlePaginate = (pageNumber) => {
+    setPage(pageNumber)
+    const url = new URL(location)
+    if (pageNumber > 1) {
+      url.searchParams.set('page', pageNumber)
+    } else {
+      url.searchParams.delete('page')
+    }
+    window.history.pushState(null, null, url)
+    window.scrollTo(0, 0)
+  }
 
   useEffect(() => {
     setNumbers(createNumbers(page, neighbours, totalPage))

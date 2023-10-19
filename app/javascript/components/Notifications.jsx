@@ -21,18 +21,6 @@ export default function Notifications({ ismentor }) {
 
   const { data, error } = useSWR(url, fetcher)
 
-  const handlePaginate = (pageNumber) => {
-    setPage(pageNumber)
-    const url = new URL(location)
-    if (pageNumber > 1) {
-      url.searchParams.set('page', pageNumber)
-    } else {
-      url.searchParams.delete('page')
-    }
-    window.history.pushState(null, null, url)
-    window.scrollTo(0, 0)
-  }
-
   const getPageQueryParam = () => {
     return parseInt(queryString.parse(location.search).page) || 1
   }
@@ -81,7 +69,7 @@ export default function Notifications({ ismentor }) {
               per={per}
               neighbours={neighbours}
               page={page}
-              handlePaginate={handlePaginate}
+              setPage={setPage}
             />
           </nav>
         )}
@@ -102,7 +90,7 @@ export default function Notifications({ ismentor }) {
               per={per}
               neighbours={neighbours}
               page={page}
-              handlePaginate={handlePaginate}
+              setPage={setPage}
             />
           </nav>
         )}
