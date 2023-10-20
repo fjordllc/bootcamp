@@ -1,4 +1,4 @@
-import React from 'react'
+import { useRef, useEffect, useCallback, useMemo } from 'react'
 
 function createSearchParams(init = '') {
   return new URLSearchParams(
@@ -32,13 +32,14 @@ function getSearchParamsForLocation(locationSearch, defaultSearchParams) {
 }
 
 /**
+ * React RouterのuseSearchParamsと同じように働くので参考にしてください
  * @see https://reactrouter.com/en/main/hooks/use-search-params
  */
-export default function useSearchParams(defaultInit) {
-  const defaultSearchParamsRef = React.useRef(createSearchParams(defaultInit))
-  const hasSetSearchParamsRef = React.useRef(false)
+function useSearchParams(defaultInit) {
+  const defaultSearchParamsRef = useRef(createSearchParams(defaultInit))
+  const hasSetSearchParamsRef = useRef(false)
 
-  const searchParams = React.useMemo(
+  const searchParams = useMemo(
     () =>
       getSearchParamsForLocation(
         location.search,
@@ -53,7 +54,7 @@ export default function useSearchParams(defaultInit) {
     preventScrollReset: false
   }
 
-  const setSearchParams = React.useCallback(
+  const setSearchParams = useCallback(
     (nextInit, { replace, state, preventScrollReset } = defaultOptions) => {
       const newSearchParams = createSearchParams(
         typeof nextInit === 'function' ? nextInit(searchParams) : nextInit
@@ -73,3 +74,25 @@ export default function useSearchParams(defaultInit) {
 
   return [searchParams, setSearchParams]
 }
+
+/**
+ * @see https://usehooks-ts.com/react-hook/use-event-listener
+ */
+function usePopstate(handler) {
+  const savedHandler = useRef(handler)
+
+  useEffect(() => {
+    savedHandler.current = handler
+  }, [handler])
+
+  useEffect(() => {
+    if (!(window && window.addEventListener)) return
+    const listener = (event) => savedHandler.current(event)
+    window.addEventListener('popstate', listener)
+    return () => {
+      window.removeEventListener('popstate', listener)
+    }
+  }, [])
+}
+
+export { useSearchParams, usePopstate }
