@@ -1099,4 +1099,31 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] 相談部屋でkomagataさんからコメントがありました。', email.subject
     assert_match(/コメント/, email.body.to_s)
   end
+
+  test 'came_comment for admin with mail_notification off' do
+    ActionMailer::Base.deliveries.clear
+    
+    admin = users(:komagata)
+    admin.update(mail_notification: false)
+
+    comment = comments(:commentOfTalk)
+    commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
+
+    Notification.create!(
+      kind: Notification.kinds['came_comment'],
+      user: comment.receiver,
+      sender: comment.sender,
+      link: "#{commentable_path}#latest-comment",
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      read: false
+    )
+
+    ActivityMailer.came_comment(
+      comment: comment,
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      receiver: comment.receiver
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end
