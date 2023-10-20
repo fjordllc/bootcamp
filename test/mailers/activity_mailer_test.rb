@@ -1102,7 +1102,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
   test 'came_comment for admin with mail_notification off' do
     ActionMailer::Base.deliveries.clear
-    
+
     admin = users(:komagata)
     admin.update(mail_notification: false)
 
