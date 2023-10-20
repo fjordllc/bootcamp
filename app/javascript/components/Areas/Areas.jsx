@@ -4,7 +4,7 @@ import EmptyMessage from '../ui/EmptyMessage'
 import { UserGroup } from '../ui/UserGroup'
 import useSWR from 'swr'
 import fetcher from '../../fetcher'
-import useSearchParams from '../../hooks/useSearchParams'
+import { useSearchParams, usePopstate } from '../../hooks/useSearchParams'
 
 function Region({ region, numberOfUsersByRegion, handleClick }) {
   return (
@@ -37,18 +37,13 @@ export default function Areas({ numberOfUsers }) {
     setSearchParams(search)
   }
 
-  const onPopstate = async () => {
+  usePopstate(async () => {
     const search = new URL(location).searchParams
     const newUsers = await fetcher(apiUrl + search).catch((error) => {
       console.error(error)
     })
     mutate(newUsers)
-  }
-
-  React.useEffect(() => {
-    window.addEventListener('popstate', onPopstate)
-    return () => window.removeEventListener('popstate', onPopstate)
-  }, [onPopstate])
+  })
 
   if (error) return console.warn(error)
   if (!users) {
