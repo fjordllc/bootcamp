@@ -13,6 +13,7 @@ header.page-header
 hr.a-border
 .page-body
   .container.is-xxl
+    = render 'errors', object: @quiz
     = form_with model: @quiz, local: true do |quiz_form|
       .new-quiz-form
         div
