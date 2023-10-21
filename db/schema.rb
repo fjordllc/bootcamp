@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_21_045037) do
+ActiveRecord::Schema.define(version: 2023_10_21_045431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -640,7 +640,7 @@ ActiveRecord::Schema.define(version: 2023_10_21_045037) do
   create_table "statements", force: :cascade do |t|
     t.bigint "quiz_id", null: false
     t.text "body", null: false
-    t.boolean "is_correct", default: false
+    t.boolean "is_correct", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["quiz_id"], name: "index_statements_on_quiz_id"
