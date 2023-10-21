@@ -42,6 +42,10 @@ ja:
       campaign: お試し延長
       book: 参考書籍
       regular_event: 定期イベント
+      quiz: クイズ
+      statement: 問題
+      response: 解答
+      quiz_result: 回答結果
     attributes:
       user:
         login_name: アカウント
@@ -266,6 +270,11 @@ ja:
         choices: 選択肢
       buzz:
         body: 本文
+      quiz:
+        title: タイトル
+      quiz/statements:
+        body: 問題文
+        is_correct: 正誤
     enums:
       user:
         job:
