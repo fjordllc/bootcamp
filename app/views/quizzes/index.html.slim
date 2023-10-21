@@ -1,22 +1,29 @@
-h1  クイズ一覧
+header.page-header
+  .container
+    .page-header__inner
+      .page-main-header__start
+        h1.page-header__title
+          | クイズ一覧
+      .page-main-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to new_quiz_path, class: 'a-button is-md is-secondary is-block' do
+                i.fa-regular.fa-plus
+                | クイズ作成
 
-table
-  thead
-    tr
-      th
-      th
-      th
-      th
-
-  tbody
-    - @quizzes.each do |quiz|
-      tr
-        td = link_to quiz.title, quiz
-        td = link_to "Edit", edit_quiz_path(quiz)
-        td = link_to "Destroy", quiz, data: {confirm: "Are you sure?"}, method: :delete
-        td = link_to "回答", quiz_quiz_results_path(quiz)
-
-
-br
-
-= link_to "New Quiz", new_quiz_path
+hr.a-border
+.page-body
+  .container.is-lg
+    .category-practices
+      .category-practices-item
+        .category-practices-item__header
+          ul.category-practices-item__title
+            - @quizzes.each do |quiz|
+              li.page-nav__item.quiz-item-list
+                div class="category-practices-item__title"
+                  a.category-practices-item__title-link(href="#{quiz_path(quiz)}")
+                    span.category-practices-item__title-link-label
+                      = quiz.title
+                a href="#{quiz_quiz_results_path(quiz)}" class="practice-status category-practices-item__status is-info" style="justify-content: flex-end;"
+                  | 回答一覧
