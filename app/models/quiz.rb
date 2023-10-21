@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Quiz < ApplicationRecord
   has_many :statements, dependent: :destroy
   has_many :quiz_results, dependent: :destroy

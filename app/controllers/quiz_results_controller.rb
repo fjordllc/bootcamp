@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuizResultsController < ApplicationController
   before_action :set_quiz
   def create
