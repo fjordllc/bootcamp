@@ -22,7 +22,7 @@ hr.a-border
               ul.block-checks
                 li.block-checks__item
                   .a-block-check.is-radio
-                    = form.radio_button :"responses_attributes_#{index}_answer", true, name: "quiz_result[responses_attributes[#{index}][answer]]", class: 'a-toggle-checkbox'
+                    = form.radio_button :"responses_attributes_#{index}_answer", true, checked: true, name: "quiz_result[responses_attributes[#{index}][answer]]", class: 'a-toggle-checkbox'
                     = form.label :"responses_attributes_#{index}_answer_true", class: 'a-block-check__label' do
                       span.a-block-check__name ○ 正しい
                 li.block-checks__item
