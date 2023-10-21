@@ -5,4 +5,6 @@ class Quiz < ApplicationRecord
   has_many :quiz_results, dependent: :destroy
 
   accepts_nested_attributes_for :statements, allow_destroy: true
+
+  validates :title, presence: true, length: { maximum: 100 }
 end
