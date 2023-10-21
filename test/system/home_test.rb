@@ -537,4 +537,17 @@ class HomeTest < ApplicationSystemTestCase
       assert_event_card(today_event_label, today_events_texts)
     end
   end
+
+  test 'show job hunting on job hunting related events' do
+    Event.where.not(title: ['就職関係かつ直近イベントの表示テスト用']).destroy_all
+    RegularEvent.destroy_all
+
+    travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      within all('.card-list-item')[0] do
+        assert_text '就職関係かつ直近イベントの表示テスト用'
+        assert_text '就活'
+      end
+    end
+  end
 end
