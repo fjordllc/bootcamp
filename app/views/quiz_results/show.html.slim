@@ -11,11 +11,25 @@ header.page-header
 hr.a-border
 .page-body
   .container.is-sm
-    = "#{@quiz_result.score}点"
-    br
-    = @quiz_result.user.name
-    br
-      = @quiz_result.created_at.strftime("%Y年%m月%d日(#{%w[日 月 火 水 木 金 土][@quiz_result.created_at.wday]}) %H:%M")
+    header.page-content-header
+      .page-content-header__start
+        .page-content-header__user
+          = render 'users/icon', user: @quiz_result.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+      .page-content-header__end
+        .page-content-header__row
+          .page-content-header__before-title
+            = link_to @quiz_result.user, class: 'a-user-name' do
+              = @quiz_result.user.long_name
+          h1.page-content-header__title
+            span.page-content-header__emotion
+              = image_tag Report.faces[@quiz_result.emotion], id: @quiz_result.emotion, alt: @quiz_result.emotion, class: 'page-content-header__emotion-image'
+            | #{@quiz_result.score} 点
+          .page-content-header__row
+            .page-content-header-metas
+              .page-content-header-metas__start
+                .page-content-header-metas__meta
+                  .a-meta
+                    | 回答日時: #{l @quiz_result['created_at']}
 
     = form_with model: @quiz_result, url: quiz_quiz_results_path(@quiz) do |form|
       .form__items

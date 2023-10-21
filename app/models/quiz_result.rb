@@ -15,4 +15,15 @@ class QuizResult < ApplicationRecord
     self.score = correct_responses.count
     save
   end
+
+  def emotion
+    case score
+    when 3
+      'happy'
+    when 2
+      'soso'
+    else
+      'sad'
+    end
+  end
 end
