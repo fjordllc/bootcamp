@@ -5,7 +5,6 @@ const isMentorsCommentToProducts = (currentUser, commentableType) => {
 }
 
 export const toast = (title, status = 'success') => {
-  console.log(title)
   Swal.fire({
     title: title,
     toast: true,
