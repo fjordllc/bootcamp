@@ -17,7 +17,7 @@ const createNumbers = (current, neighbours, max) => {
   return createRange(first, last)
 }
 
-const Pagination = ({ sum, per, neighbours, page, setPage }) => {
+const Pagination = ({ sum, per, neighbours = 4, page, setPage }) => {
   const [numbers, setNumbers] = useState([])
   const totalPage = Math.ceil(sum / per)
 
