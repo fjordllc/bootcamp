@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import queryString from 'query-string'
+import React from 'react'
 
 const createRange = (a, z) => {
   const items = []
@@ -31,20 +30,6 @@ const Pagination = ({ sum, per, neighbours = 4, page, setPage }) => {
     window.history.pushState(null, null, url)
     window.scrollTo(0, 0)
   }
-
-  const getPageQueryParam = () => {
-    return parseInt(queryString.parse(location.search).page) || 1
-  }
-
-  useEffect(() => {
-    const handlePopstate = () => {
-      setPage(getPageQueryParam())
-    }
-    window.addEventListener('popstate', handlePopstate)
-    return () => {
-      window.removeEventListener('popstate', handlePopstate)
-    }
-  }, [page])
 
   return (
     <nav className="pagination">

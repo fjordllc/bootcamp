@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
-import queryString from 'query-string'
+import React from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import Pagination from './Pagination'
+import usePage from './hooks/usePage'
 
 export default function AdminCompanies() {
   const per = 20
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+  const { page, setPage } = usePage()
 
   const { data, error } = useSWR(
     `/api/admin/companies.json?page=${page}&per=${per}`,
