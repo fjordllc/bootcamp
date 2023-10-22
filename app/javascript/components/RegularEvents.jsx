@@ -40,20 +40,12 @@ const RegularEvents = () => {
         handleNotFinishedClick={handleNotFinishedClick}
         handleAllClick={handleAllClick}
       />
-      <EventList
-        target={target}
-        page={page}
-        handlePaginate={handlePaginate}
-      />
+      <EventList target={target} page={page} handlePaginate={handlePaginate} />
     </>
   )
 }
 
-const Navigation = ({
-  target,
-  handleNotFinishedClick,
-  handleAllClick
-}) => {
+const Navigation = ({ target, handleNotFinishedClick, handleAllClick }) => {
   return (
     <nav className="pill-nav">
       <ul className="pill-nav__items">
