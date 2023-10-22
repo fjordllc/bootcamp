@@ -6,7 +6,6 @@ class CommentNotifierForAdmin
 
     User.admins.each do |admin_user|
       next if comment.sender == admin_user
-      next unless admin_user.mail_notification?
 
       commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
       ActivityDelivery.with(
