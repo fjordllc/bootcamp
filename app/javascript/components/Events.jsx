@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
-import queryString from 'query-string'
+import React from 'react'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import UserIcon from './UserIcon'
 import fetcher from '../fetcher'
+import usePage from './hooks/usePage'
 
 export default function Events() {
   const per = 20
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+  const { page, setPage } = usePage()
 
   const { data, error } = useSWR(`/api/events?page=${page}`, fetcher)
 

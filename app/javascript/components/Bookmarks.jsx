@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import queryString from 'query-string'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
 import Pagination from './Pagination'
+import usePage from './hooks/usePage'
 
 export default function Bookmarks() {
   const [editable, setEditable] = useState(false)
   const per = 20
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+  const { page, setPage } = usePage()
   const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
 
   const { data, error } = useSWR(bookmarksUrl, fetcher)
