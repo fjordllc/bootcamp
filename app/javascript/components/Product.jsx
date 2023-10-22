@@ -1,7 +1,20 @@
 import React from 'react'
 import UserIcon from './UserIcon'
+import ProductChecker from './ProductChecker'
 
-export default function Product({ product }) {
+export default function Product({
+  product,
+  isMentor,
+  currentUserId,
+  displayUserIcon
+}) {
+  const notRespondedSign = () => {
+    return (
+      product.self_last_commented_at_date_time >
+        product.mentor_last_commented_at_date_time ||
+      product.comments.size === 0
+    )
+  }
   return (
     <li className="card-list-item">
       <div className="card-list-item__inner">
@@ -11,11 +24,16 @@ export default function Product({ product }) {
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
-              {product.wip && (
-                <div className="a-list-item-badge is-wip">
-                  <span>WIP</span>
-                </div>
+              {notRespondedSign() && (
+                <div className="card-list-item__notresponded" />
               )}
+              <div card-list-item-title__start>
+                {product.wip && (
+                  <div className="a-list-item-badge is-wip">
+                    <span>WIP</span>
+                  </div>
+                )}
+              </div>
               <h2 className="card-list-item-title__title" itemProp="name">
                 <a
                   className="card-list-item-title__link a-text-link"
@@ -64,6 +82,18 @@ export default function Product({ product }) {
           </div>
         )}
       </div>
+      {isMentor && product.checks.size === 0 && (
+        <div className="card-list-item__assignee is-only-mentor">
+          <ProductChecker
+            checkerId={product.checker_id}
+            checkerName={product.checker_name}
+            checkerAvatar={product.checker_avatar}
+            currentUserId={currentUserId}
+            productId={product.id}
+            parentComponent="product"
+          />
+        </div>
+      )}
     </li>
   )
 }
