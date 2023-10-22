@@ -37,7 +37,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_rdf_feed(user, rdf_item, nil)
   end
 
-  test 'save rdf feed with no article publish date' do
+  test '.save_rdf_feed with no article publish date' do
     user = users(:hatsuno)
     rdf_item = Minitest::Mock.new
     rdf_item.expect(:link, 'https://test.com/index.rdf')
@@ -49,7 +49,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_rdf_feed(user, rdf_item, nil)
   end
 
-  test 'no exception even if all rdf elements are nil' do
+  test '.save_rdf_feed no exception even if all rdf elements are nil' do
     user = users(:hatsuno)
     rdf_item = Minitest::Mock.new
     rdf_item.expect(:link, nil)
@@ -76,7 +76,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_rss_feed(user, rss_item, nil)
   end
 
-  test 'save rss feed with no article publish date' do
+  test '.save_rss_feed with no article publish date' do
     user = users(:hatsuno)
     rss_item = Minitest::Mock.new
     rss_item.expect(:link, 'https://test.com/rss')
@@ -89,7 +89,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_rss_feed(user, rss_item, Time.zone.local(2023, 1, 1, 0, 0, 0).utc)
   end
 
-  test 'no exception even if all rss elements are nil' do
+  test '.save_rss_feed no exception even if all rss elements are nil' do
     user = users(:hatsuno)
     rss_item = Minitest::Mock.new
     rss_item.expect(:link, nil)
@@ -124,7 +124,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_atom_feed(user, atom_item, nil)
   end
 
-  test 'save atom feed with no article publish date' do
+  test '.save_atom_feed with no article publish date' do
     user = users(:hatsuno)
     atom_item = Minitest::Mock.new
     atom_item.expect(:link, atom_item)
@@ -145,7 +145,7 @@ class ExternalEntryTest < ActiveSupport::TestCase
     assert ExternalEntry.save_atom_feed(user, atom_item, Time.zone.local(2023, 1, 1, 0, 0, 0).utc)
   end
 
-  test 'no exception even if all atom elements are nil' do
+  test '.save_atom_feed no exception even if all atom elements are nil' do
     user = users(:hatsuno)
     atom_item = Minitest::Mock.new
     atom_item.expect(:link, nil)
