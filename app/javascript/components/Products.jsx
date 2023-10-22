@@ -23,10 +23,10 @@ export default function Products({
 
   const unconfirmedLinksName = (() => {
     return {
-      all: '全ての提出物を一覧で開く',
-      unchecked: '未完了の提出物を一覧で開く',
-      self_assigned: '自分の担当の提出物を一覧で開く',
-      unassigned: '未アサインの提出物を一覧で開く'
+      all: '全ての提出物を一括で開く',
+      unchecked: '未完了の提出物を一括で開く',
+      self_assigned: '自分の担当の提出物を一括で開く',
+      unassigned: '未アサインの提出物を一括で開く'
     }[selectedTab]
   })()
 
