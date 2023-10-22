@@ -82,7 +82,7 @@ const Pagination = ({ sum, per, neighbours = 4, page, setPage }) => {
   )
 }
 
-const First = ({ handlePaginate, page }) => {
+const First = ({ page, handlePaginate }) => {
   const disabled = page === 1 ? ' is-disabled' : ''
 
   return (
