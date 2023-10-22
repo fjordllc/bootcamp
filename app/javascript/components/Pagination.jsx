@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import queryString from 'query-string'
 
 const createRange = (a, z) => {
@@ -18,9 +18,8 @@ const createNumbers = (current, neighbours, max) => {
 }
 
 const Pagination = ({ sum, per, neighbours = 4, page, setPage }) => {
-  const [numbers, setNumbers] = useState([])
   const totalPage = Math.ceil(sum / per)
-
+  const numbers = createNumbers(page, neighbours, totalPage)
   const handlePaginate = (pageNumber) => {
     setPage(pageNumber)
     const url = new URL(location)
@@ -41,7 +40,6 @@ const Pagination = ({ sum, per, neighbours = 4, page, setPage }) => {
     const handlePopstate = () => {
       setPage(getPageQueryParam())
     }
-    setNumbers(createNumbers(page, neighbours, totalPage))
     window.addEventListener('popstate', handlePopstate)
     return () => {
       window.removeEventListener('popstate', handlePopstate)
