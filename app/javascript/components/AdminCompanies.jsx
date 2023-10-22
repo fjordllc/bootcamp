@@ -6,7 +6,6 @@ import Pagination from './Pagination'
 
 export default function AdminCompanies() {
   const per = 20
-  const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
 
@@ -23,7 +22,6 @@ export default function AdminCompanies() {
         <Pagination
           sum={data.total_pages * per}
           per={per}
-          neighbours={neighbours}
           page={page}
           setPage={setPage}
         />
@@ -51,7 +49,6 @@ export default function AdminCompanies() {
         <Pagination
           sum={data.total_pages * per}
           per={per}
-          neighbours={neighbours}
           page={page}
           setPage={setPage}
         />

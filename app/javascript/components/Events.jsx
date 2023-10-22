@@ -8,7 +8,6 @@ import fetcher from '../fetcher'
 
 export default function Events() {
   const per = 20
-  const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
 
@@ -32,7 +31,6 @@ export default function Events() {
           <Pagination
             sum={data.total_pages * per}
             per={per}
-            neighbours={neighbours}
             page={page}
             setPage={setPage}
           />
@@ -46,7 +44,6 @@ export default function Events() {
           <Pagination
             sum={data.total_pages * per}
             per={per}
-            neighbours={neighbours}
             page={page}
             setPage={setPage}
           />

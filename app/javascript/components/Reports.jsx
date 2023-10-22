@@ -19,7 +19,6 @@ export default function Reports({
   displayPagination = true
 }) {
   const per = 20
-  const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
   const [userPracticeId, setUserPracticeId] = useState('')
@@ -88,7 +87,6 @@ export default function Reports({
                   <Pagination
                     sum={data.totalPages * per}
                     per={per}
-                    neighbours={neighbours}
                     page={page}
                     setPage={setPage}
                   />
@@ -114,7 +112,6 @@ export default function Reports({
                   <Pagination
                     sum={data.totalPages * per}
                     per={per}
-                    neighbours={neighbours}
                     page={page}
                     setPage={setPage}
                   />

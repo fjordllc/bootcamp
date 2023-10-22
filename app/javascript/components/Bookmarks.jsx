@@ -9,7 +9,6 @@ import Pagination from './Pagination'
 export default function Bookmarks() {
   const [editable, setEditable] = useState(false)
   const per = 20
-  const neighbours = 4
   const defaultPage = parseInt(queryString.parse(location.search).page) || 1
   const [page, setPage] = useState(defaultPage)
   const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
@@ -55,7 +54,6 @@ export default function Bookmarks() {
                 <Pagination
                   sum={data.totalPages * per}
                   per={per}
-                  neighbours={neighbours}
                   page={page}
                   setPage={setPage}
                 />
@@ -79,7 +77,6 @@ export default function Bookmarks() {
                 <Pagination
                   sum={data.totalPages * per}
                   per={per}
-                  neighbours={neighbours}
                   page={page}
                   setPage={setPage}
                 />
