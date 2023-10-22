@@ -66,8 +66,6 @@ export default function Products({
   }
 
   const countProductsGroupedBy = (elapsedDays) => {
-    console.log('elapsedDays =' + elapsedDays)
-
     const element = getElementNdaysPassed(
       elapsedDays,
       data.products_grouped_by_elapsed_days
@@ -194,7 +192,9 @@ export default function Products({
             {data.products_grouped_by_elapsed_days.map(
               (productsNDaysPassed) => {
                 return (
-                  <div className="a-card">
+                  <div
+                    className="a-card"
+                    key={productsNDaysPassed.elapsed_days}>
                     <ProductHeader productsNDaysPassed={productsNDaysPassed} />
                     <div className="card-list">
                       <div className="card-list__items">
