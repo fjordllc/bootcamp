@@ -2,12 +2,7 @@ import React from 'react'
 import UserIcon from './UserIcon'
 import ProductChecker from './ProductChecker'
 
-export default function Product({
-  product,
-  isMentor,
-  currentUserId,
-  displayUserIcon
-}) {
+export default function Product({ product, isMentor, currentUserId }) {
   const notRespondedSign = () => {
     return (
       product.self_last_commented_at_date_time >
@@ -16,7 +11,7 @@ export default function Product({
     )
   }
   return (
-    <li className="card-list-item">
+    <div className="card-list-item has-assigned">
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <UserIcon user={product.user} blockClassSuffix="card-list-item" />
@@ -27,7 +22,7 @@ export default function Product({
               {notRespondedSign() && (
                 <div className="card-list-item__notresponded" />
               )}
-              <div card-list-item-title__start>
+              <div className="card-list-item-title__start">
                 {product.wip && (
                   <div className="a-list-item-badge is-wip">
                     <span>WIP</span>
@@ -94,6 +89,6 @@ export default function Product({
           />
         </div>
       )}
-    </li>
+    </div>
   )
 }
