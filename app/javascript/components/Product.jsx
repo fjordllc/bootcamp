@@ -50,6 +50,19 @@ export default function Product({ product }) {
             </div>
           </div>
         </div>
+        {product.checks.size > 0 && (
+          <div className=" stamp stamp-approve">
+            <h2 className="stamp__content is-title">確認済</h2>
+            <time className="stamp__content is-created-at">
+              {product.checks.last_created_at}
+            </time>
+            <div className="stamp__content is-user-name">
+              <div className="stamp__content-inner">
+                {product.checks.last_user_login_name}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </li>
   )
