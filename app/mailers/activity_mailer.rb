@@ -43,7 +43,7 @@ class ActivityMailer < ApplicationMailer
     @message ||= args[:message]
     @receiver ||= args[:receiver]
 
-    return unless @receiver.mail_notification
+    return unless @receiver.mail_notification?
 
     @user = @receiver
     link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
