@@ -95,7 +95,7 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
     assert_text '学習の準備カテゴリーのプラクティス並び替え'
   end
 
-  test 'should_display_practice_count_correctly' do
+  test 'should display practice count correctly' do
     category_name = '学習の準備'
     category = Category.find_by(name: category_name)
     practice_count = category.practices.length
