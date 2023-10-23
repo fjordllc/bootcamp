@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
-import queryString from 'query-string'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
+import usePage from './hooks/usePage'
 
 export default function Reports({
   all = false,
@@ -19,14 +19,8 @@ export default function Reports({
   displayPagination = true
 }) {
   const per = 20
-  const neighbours = 4
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+  const { page, setPage } = usePage()
   const [userPracticeId, setUserPracticeId] = useState('')
-
-  useEffect(() => {
-    setPage(page)
-  }, [page])
 
   useEffect(() => {
     setUserPracticeId(userPracticeId)
@@ -92,9 +86,8 @@ export default function Reports({
                   <Pagination
                     sum={data.totalPages * per}
                     per={per}
-                    neighbours={neighbours}
                     page={page}
-                    onChange={(e) => setPage(e.page)}
+                    setPage={setPage}
                   />
                 )}
                 <div className="card-list a-card">
@@ -118,9 +111,8 @@ export default function Reports({
                   <Pagination
                     sum={data.totalPages * per}
                     per={per}
-                    neighbours={neighbours}
                     page={page}
-                    onChange={(e) => setPage(e.page)}
+                    setPage={setPage}
                   />
                 )}
               </div>
