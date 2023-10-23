@@ -11,7 +11,8 @@
                 = "#{bookmark.bookmarkable.user.long_name} さんの相談部屋"
     - else
       .card-list-item__label
-        = bookmark.bookmarkable.model_name.human
+        span.card-list-item__label-inner
+          = bookmark.bookmarkable.model_name.human
       .card-list-item__rows
         .card-list-item__row
           header.card-list-item-title

@@ -546,7 +546,7 @@ class HomeTest < ApplicationSystemTestCase
       visit_with_auth '/', 'kimura'
       within all('.card-list-item')[0] do
         assert_text '就職関係かつ直近イベントの表示テスト用'
-        assert_text '就活'
+        assert_text '就活関連イベント'
       end
     end
   end
