@@ -99,14 +99,8 @@ export default function Product({ product, isMentor, currentUserId }) {
         product.self_last_commented_at_date_time
       const mentorLastCommentedAtDateTime =
         product.mentor_last_commented_at_date_time
-      console.log('FFF')
-      console.log('selfLastCommentedAtDateTime=' + selfLastCommentedAtDateTime)
-      console.log(
-        'mentorLastCommentedAtDateTime=' + mentorLastCommentedAtDateTime
-      )
       if (selfLastCommentedAtDateTime && mentorLastCommentedAtDateTime) {
         if (selfLastCommentedAtDateTime > mentorLastCommentedAtDateTime) {
-          console.log('AAA')
           return (
             <div className="a-meta">
               〜 {selfLastCommentedAt}（<strong>提出者</strong>）
@@ -115,26 +109,22 @@ export default function Product({ product, isMentor, currentUserId }) {
         } else if (
           selfLastCommentedAtDateTime < mentorLastCommentedAtDateTime
         ) {
-          console.log('BBB')
           return (
             <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
           )
         }
       } else if (selfLastCommentedAtDateTime) {
-        console.log('CCC')
         return (
           <div className="a-meta">
             〜 {selfLastCommentedAt}（<strong>提出者</strong>）
           </div>
         )
       } else if (mentorLastCommentedAtDateTime) {
-        console.log('DDD')
         return (
           <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
         )
       }
     }
-    console.log('null')
     return null
   }
 
