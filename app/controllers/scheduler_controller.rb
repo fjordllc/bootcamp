@@ -8,7 +8,6 @@ class SchedulerController < ApplicationController
   protected
 
   def require_token
-    return if Rails.env.test?
     return if ENV['TOKEN'].present? && ENV['TOKEN'] == params[:token]
 
     head :unauthorized
