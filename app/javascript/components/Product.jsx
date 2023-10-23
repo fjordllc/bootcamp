@@ -39,10 +39,14 @@ export default function Product({ product, isMentor, currentUserId }) {
               </h2>
             </div>
           </div>
-          <div className="card-list-item__row">
-            <a className="a-user-name" href={product.user.url}>
-              {product.user.login_name}
-            </a>
+          <div className="card-list-item-meta">
+            <div className="card-list-item-meta__items">
+              <div className="card-list-item-meta__item">
+                <a className="a-user-name" href={product.user.url}>
+                  {product.user.long_name}
+                </a>
+              </div>
+            </div>
           </div>
           <div className="card-list-item__row">
             <div className="card-list-item-meta">
