@@ -67,7 +67,9 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
                          headers: { 'Content-Type' => 'application/json' })
 
     travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
-      visit '/scheduler/daily/notify_coming_soon_regular_events'
+      mock_env({ 'TOKEN' => 'token' }) do
+        visit_with_query scheduler_daily_notify_coming_soon_regular_events_path, { token: 'token' }
+      end
     end
 
     assert_requested(stub_message)
