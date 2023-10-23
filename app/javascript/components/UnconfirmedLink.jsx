@@ -3,7 +3,6 @@ import React, { useCallback } from 'react'
 export default function UnconfirmedLink({ label }) {
   const openUnconfirmedItems = useCallback(() => {
     const links = document.querySelectorAll('.card-list-item-title__link')
-    console.log(links)
     links.forEach((link) => {
       window.open(link.href, '_target', 'noopener')
     })

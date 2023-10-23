@@ -46,7 +46,6 @@ export default function Products({
       (checkerId ? `&checker_id=${checkerId}` : '') +
       (params.target ? `&target=${params.target}` : '') +
       `&per=${per}`
-    console.log(buildedUrl)
     return buildedUrl
   }
 
