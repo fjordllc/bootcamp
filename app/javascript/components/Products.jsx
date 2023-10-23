@@ -21,14 +21,12 @@ export default function Products({
 
   const [page, setPage] = useState(defaultPage)
 
-  const unconfirmedLinksName = (() => {
-    return {
-      all: '全ての提出物を一括で開く',
-      unchecked: '未完了の提出物を一括で開く',
-      self_assigned: '自分の担当の提出物を一括で開く',
-      unassigned: '未アサインの提出物を一括で開く'
-    }[selectedTab]
-  })()
+  const unconfirmedLinksName = () => {
+    if (selectedTab === 'all') return '全ての提出物を一括で開く'
+    if (selectedTab === 'unchecked') return '未完了の提出物を一括で開く'
+    if (selectedTab === 'unassigned') return '未アサインの提出物を一括で開く'
+    if (selectedTab === 'self_assigned') return '自分の担当の提出物を一括で開く'
+  }
 
   const url = () => {
     if (selectedTab === 'all') return ''
@@ -177,7 +175,7 @@ export default function Products({
                     setPage={setPage}
                   />
                 )}
-                <UnconfirmedLink label={unconfirmedLinksName} />
+                <UnconfirmedLink label={unconfirmedLinksName()} />
               </div>
             </div>
           </div>
@@ -214,7 +212,7 @@ export default function Products({
                 )
               }
             )}
-            <UnconfirmedLink label={unconfirmedLinksName} />
+            <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
           <ElapsedDays
