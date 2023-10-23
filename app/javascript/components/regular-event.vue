@@ -2,7 +2,8 @@
 .card-list-item(:class='{ "is-wip": regularEvent.wip }')
   .card-list-item__inner
     .card-list-item__label(:class='[categoryClass]')
-      | {{ regularEvent.category }}
+      span.card-list-item__label-inner
+        | {{ regularEvent.category }}
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
