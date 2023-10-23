@@ -13,8 +13,9 @@ export default function ElapsedDays({
         productsGroup.elapsed_days,
         productsGroup.products
       )
-    return countProductsGroupedBy(0, [])
+    return 0
   }
+
   const activeClass = (quantity) => {
     if (quantity) return `is-active`
     return `is-inactive`
