@@ -92,17 +92,25 @@ export default function Products({
       headerClass += ' is-reply-deadline'
     }
 
+    const headerLabel = () => {
+      if (productsNDaysPassed.elapsed_days === 0) {
+        return '今日提出'
+      } else if (productsNDaysPassed.elapsed_days === 7) {
+        return `${productsNDaysPassed.elapsed_days}日以上経過`
+      } else {
+        return `${productsNDaysPassed.elapsed_days}日経過`
+      }
+    }
+
     return (
       <header
         className={headerClass}
         id={elapsedDaysId(productsNDaysPassed.elapsed_days)}>
         <h2 className="card-header__title">
-          {productsNDaysPassed.elapsed_days === 0
-            ? '今日提出'
-            : `${productsNDaysPassed.elapsed_days}日経過`}
+          {headerLabel()}
           {
             <span className="card-header__count">
-              ({countProductsGroupedBy(productsNDaysPassed.elapsed_days)})
+              （{countProductsGroupedBy(productsNDaysPassed.elapsed_days)}）
             </span>
           }
         </h2>
