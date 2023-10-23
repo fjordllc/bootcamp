@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
   before_action :require_active_user_login
+  before_action :require_scheduler_inheritation
 
   protected
 
@@ -48,6 +49,13 @@ class ApplicationController < ActionController::Base
 
   def require_subscription
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
+  end
+
+  def require_scheduler_inheritation
+    return unless request.path_info.start_with?('/scheduler')
+    return if is_a?(SchedulerController)
+
+    head :internal_server_error
   end
 
   protected
