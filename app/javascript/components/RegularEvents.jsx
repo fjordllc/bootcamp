@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import queryString from 'query-string'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import RegularEvent from './RegularEvent'
+import usePage from './hooks/usePage'
 
 const RegularEvents = () => {
-  const defaultTarget = queryString.parse(location.search).target || ''
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [target, setTarget] = useState(defaultTarget)
-  const [page, setPage] = useState(defaultPage)
+  const getTargetQueryParam = () => {
+    return queryString.parse(location.search).target || ''
+  }
+  const [target, setTarget] = useState(getTargetQueryParam())
+  const { page, setPage } = usePage()
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setTarget(getTargetQueryParam())
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
 
   const handleNotFinishedClick = () => {
     setTarget('not_finished')
@@ -24,15 +36,6 @@ const RegularEvents = () => {
     window.history.pushState(null, null, '/regular_events')
   }
 
-  const handlePaginate = (p) => {
-    setPage(p)
-    window.history.pushState(
-      null,
-      null,
-      `/regular_events?${buildParams(target, p)}`
-    )
-  }
-
   return (
     <>
       <Navigation
@@ -40,7 +43,7 @@ const RegularEvents = () => {
         handleNotFinishedClick={handleNotFinishedClick}
         handleAllClick={handleAllClick}
       />
-      <EventList target={target} page={page} handlePaginate={handlePaginate} />
+      <EventList target={target} page={page} setPage={setPage} />
     </>
   )
 }
@@ -72,9 +75,8 @@ const Navigation = ({ target, handleNotFinishedClick, handleAllClick }) => {
   )
 }
 
-const EventList = ({ target, page, handlePaginate }) => {
+const EventList = ({ target, page, setPage }) => {
   const per = 20
-  const neighbours = 4
 
   const { data, error } = useSWR(
     `/api/regular_events?${buildParams(target, page)}`,
@@ -99,9 +101,8 @@ const EventList = ({ target, page, handlePaginate }) => {
         <Pagination
           sum={data.total_pages * per}
           per={per}
-          neighbours={neighbours}
           page={page}
-          onChange={(e) => handlePaginate(e.page)}
+          setPage={setPage}
         />
       )}
       <div className="card-list a-card">
@@ -113,9 +114,8 @@ const EventList = ({ target, page, handlePaginate }) => {
         <Pagination
           sum={data.total_pages * per}
           per={per}
-          neighbours={neighbours}
           page={page}
-          onChange={(e) => handlePaginate(e.page)}
+          setPage={setPage}
         />
       )}
     </div>
