@@ -49,7 +49,7 @@ export default function ElapsedDays({
             className={`page-nav__item is-reply-warning ${activeClass(
               countProductsByElapsedDays(5)
             )}`}>
-            <a className="page-nav__item-link" href="#6days-elapsed">
+            <a className="page-nav__item-link" href="#5days-elapsed">
               <span className="page-nav__item-link-inner">
                 5日経過{` (${countProductsByElapsedDays(5)})`}
               </span>
