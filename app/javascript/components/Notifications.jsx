@@ -7,7 +7,7 @@ import useSWR from 'swr'
 import fetcher from '../fetcher'
 import usePage from './hooks/usePage'
 
-export default function Notifications({ ismentor }) {
+export default function Notifications({ isMentor, target }) {
   const per = 20
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
@@ -45,39 +45,69 @@ export default function Notifications({ ismentor }) {
       </div>
     )
   } else {
+    const params = new URLSearchParams(location.search)
     return (
-      <div id="notifications" className="page-content loaded">
-        {data.total_pages > 1 && (
-          <nav className="pagination">
-            <Pagination
-              sum={data.total_pages * per}
-              per={per}
-              page={page}
-              setPage={setPage}
-            />
-          </nav>
-        )}
-        <div className="card-list a-card">
-          {data.notifications.map((notification) => {
-            return (
-              <Notification key={notification.id} notification={notification} />
-            )
-          })}
+      <>
+        <nav className="pill-nav">
+          <div className="container">
+            <ul className="pill-nav__items">
+              <li className="pill-nav__item">
+                <a
+                  className={`pill-nav__item-link ${
+                    params.get('status') === 'unread' ? 'is-active' : ''
+                  }`}
+                  href={`/notifications?target=${target}`}>
+                  未読
+                </a>
+              </li>
+              <li className="pill-nav__item">
+                <a
+                  className={`pill-nav__item-link ${
+                    params.get('status') === 'unread' ? '' : 'is-active'
+                  }`}
+                  href="/notifications">
+                  全て
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div id="notifications" className="page-content loaded">
+          {data.total_pages > 1 && (
+            <nav className="pagination">
+              <Pagination
+                sum={data.total_pages * per}
+                per={per}
+                page={page}
+                setPage={setPage}
+              />
+            </nav>
+          )}
+          <div className="card-list a-card">
+            {data.notifications.map((notification) => {
+              return (
+                <Notification
+                  key={notification.id}
+                  notification={notification}
+                />
+              )
+            })}
+          </div>
+          {isMentor && isUnreadPage() && (
+            <UnconfirmedLink label="未読の通知を一括で開く" />
+          )}
+          {data.total_pages > 1 && (
+            <nav className="pagination">
+              <Pagination
+                sum={data.total_pages * per}
+                per={per}
+                page={page}
+                setPage={setPage}
+              />
+            </nav>
+          )}
         </div>
-        {ismentor && isUnreadPage() && (
-          <UnconfirmedLink label="未読の通知を一括で開く" />
-        )}
-        {data.total_pages > 1 && (
-          <nav className="pagination">
-            <Pagination
-              sum={data.total_pages * per}
-              per={per}
-              page={page}
-              setPage={setPage}
-            />
-          </nav>
-        )}
-      </div>
+      </>
     )
   }
 }
