@@ -1,8 +1,7 @@
 <template lang="pug">
 .card-list-item(:class='isWatchClassName')
   .card-list-item__inner
-    .card-list-item__label(
-      v-if='watch.model_name == "regular_event"')
+    .card-list-item__label(v-if='watch.model_name == "regular_event"')
       span.card-list-item__label-inner.is-sm
         | 定期
         br
