@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Notification from './Notification'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Pagination from './Pagination'
-import queryString from 'query-string'
 import UnconfirmedLink from './UnconfirmedLink'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
+import usePage from './hooks/usePage'
 
 export default function Notifications({ ismentor }) {
   const per = 20
-  const neighbours = 4
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
     return params.get('status') !== null && params.get('status') === 'unread'
@@ -21,10 +20,7 @@ export default function Notifications({ ismentor }) {
 
   const { data, error } = useSWR(url, fetcher)
 
-  const getPageQueryParam = () => {
-    return parseInt(queryString.parse(location.search).page) || 1
-  }
-  const [page, setPage] = useState(getPageQueryParam())
+  const { page, setPage } = usePage()
 
   if (error) {
     console.warn(error)
@@ -56,7 +52,6 @@ export default function Notifications({ ismentor }) {
             <Pagination
               sum={data.total_pages * per}
               per={per}
-              neighbours={neighbours}
               page={page}
               setPage={setPage}
             />
@@ -77,7 +72,6 @@ export default function Notifications({ ismentor }) {
             <Pagination
               sum={data.total_pages * per}
               per={per}
-              neighbours={neighbours}
               page={page}
               setPage={setPage}
             />
