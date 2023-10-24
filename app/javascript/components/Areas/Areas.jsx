@@ -8,12 +8,12 @@ import { useSearchParams, usePopstate } from '../../hooks/useSearchParams'
 
 function Region({ region, numberOfUsersByRegion, handleClick }) {
   return (
-    <li key={region}>
-      <h2>{region}</h2>
-      <ul>
+    <li key={region} className='side-nav-block'>
+      <h2 className="side-nav-block__title">{region}</h2>
+      <ul className="side-nav-block__items">
         {Object.keys(numberOfUsersByRegion).map((area) => (
-          <li key={area}>
-            <button onClick={() => handleClick(region, area)}>
+          <li key={area} className="side-nav-block__item">
+            <button onClick={() => handleClick(region, area)} className="a-text-link">
               {`${area}（${numberOfUsersByRegion[area]})`}
             </button>
           </li>
@@ -59,30 +59,36 @@ export default function Areas({ numberOfUsers }) {
   return (
     <div data-testid="areas" className="page-body">
       <div className="container is-lg">
-        <section>
-          <ul>
-            {Object.keys(numberOfUsers).map((region) => (
-              <Region
-                key={region}
-                region={region}
-                numberOfUsersByRegion={numberOfUsers[region]}
-                handleClick={handleClick}
-              />
-            ))}
-          </ul>
-        </section>
-        <section className="a-card">
-          {users.length > 0 ? (
-            <UserGroup>
-              <UserGroup.Header>
-                {searchParams.get('area') || '東京都'}
-              </UserGroup.Header>
-              <UserGroup.Icons users={users} />
-            </UserGroup>
-          ) : (
-            <EmptyMessage>都道府県別ユーザー一覧はありません</EmptyMessage>
-          )}
-        </section>
+        <div className="page-body__columns md:flex md:flex-col-reverse">
+          <div className="page-body__column is-sub is-sm">
+            <nav className="side-nav">
+              <ul className="side-nav-blocks">
+                {Object.keys(numberOfUsers).map((region) => (
+                  <Region
+                    key={region}
+                    region={region}
+                    numberOfUsersByRegion={numberOfUsers[region]}
+                    handleClick={handleClick}
+                  />
+                ))}
+              </ul>
+            </nav>
+          </div>
+          <div className="page-body__column is-main">
+            <section className="a-card">
+              {users.length > 0 ? (
+                <UserGroup>
+                  <UserGroup.Header>
+                    {searchParams.get('area') || '東京都'}
+                  </UserGroup.Header>
+                  <UserGroup.Icons users={users} />
+                </UserGroup>
+              ) : (
+                <EmptyMessage>都道府県別ユーザー一覧はありません</EmptyMessage>
+              )}
+            </section>
+          </div>
+        </div>
       </div>
     </div>
   )
