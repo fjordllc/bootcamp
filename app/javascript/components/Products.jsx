@@ -7,6 +7,7 @@ import Product from './Product'
 import fetcher from '../fetcher'
 import ElapsedDays from './ElapsedDays'
 import usePage from './hooks/usePage'
+
 export default function Products({
   title,
   selectedTab,
@@ -24,7 +25,7 @@ export default function Products({
     if (selectedTab === 'self_assigned') return '自分の担当の提出物を一括で開く'
   }
 
-  const url = () => {
+  const path = () => {
     if (selectedTab === 'all') return ''
     if (selectedTab === 'unassigned') return '/unassigned'
     if (selectedTab === 'unchecked') return '/unchecked'
@@ -35,7 +36,7 @@ export default function Products({
     const params = new URLSearchParams(location.search)
     const buildedUrl =
       '/api/products' +
-      url() +
+      path() +
       '.json' +
       '?' +
       params +

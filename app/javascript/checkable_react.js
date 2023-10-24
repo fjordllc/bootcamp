@@ -1,4 +1,4 @@
-import { toast } from '../toast_react'
+import { toast } from './toast_react'
 
 export const check = ({
   checkableType,
@@ -75,7 +75,7 @@ export const checkProduct = (productId, currentUserId, url, method, token) => {
     })
     .then((json) => {
       if (json.message) {
-        alert(json.message)
+        toast(json.message, 'error')
       } else {
         if (json.checker_id !== null) {
           toast('担当になりました。')

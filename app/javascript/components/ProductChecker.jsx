@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import CSRF from 'csrf'
-import { checkProduct } from './Checkable.jsx'
+import { checkProduct } from '../checkable_react'
 
 export default function ProductChecker({
   checkerId,

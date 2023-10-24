@@ -99,6 +99,7 @@ export default function Product({ product, isMentor, currentUserId }) {
         product.self_last_commented_at_date_time
       const mentorLastCommentedAtDateTime =
         product.mentor_last_commented_at_date_time
+
       if (selfLastCommentedAtDateTime && mentorLastCommentedAtDateTime) {
         if (selfLastCommentedAtDateTime > mentorLastCommentedAtDateTime) {
           return (
