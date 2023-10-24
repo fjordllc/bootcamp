@@ -7,7 +7,7 @@ import useSWR from 'swr'
 import fetcher from '../fetcher'
 import usePage from './hooks/usePage'
 
-export default function Notifications({ isMentor, target }) {
+export default function Notifications({ isMentor }) {
   const per = 20
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
@@ -56,7 +56,7 @@ export default function Notifications({ isMentor, target }) {
                   className={`pill-nav__item-link ${
                     params.get('status') === 'unread' ? 'is-active' : ''
                   }`}
-                  href={`/notifications?target=${target}`}>
+                  href={`/notifications?status=unread`}>
                   未読
                 </a>
               </li>
