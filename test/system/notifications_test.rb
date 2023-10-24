@@ -218,7 +218,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     within first('nav.pagination') do
-      find('a', text: '1').click
+      find('button', text: '1').click
     end
     assert_text '1番新しい通知'
     page.go_back
