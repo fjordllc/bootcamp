@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import queryString from 'query-string'
+import React from 'react'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
@@ -7,7 +6,7 @@ import UnconfirmedLink from './UnconfirmedLink'
 import Product from './Product'
 import fetcher from '../fetcher'
 import ElapsedDays from './ElapsedDays'
-
+import usePage from './hooks/usePage'
 export default function Products({
   title,
   selectedTab,
@@ -16,10 +15,7 @@ export default function Products({
   currentUserId
 }) {
   const per = 50
-  const neighbours = 4
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-
-  const [page, setPage] = useState(defaultPage)
+  const { page, setPage } = usePage()
 
   const unconfirmedLinksName = () => {
     if (selectedTab === 'all') return '全ての提出物を一括で開く'
@@ -156,7 +152,6 @@ export default function Products({
                   <Pagination
                     sum={data.total_pages * per}
                     per={per}
-                    neighbours={neighbours}
                     page={page}
                     setPage={setPage}
                   />
@@ -177,7 +172,6 @@ export default function Products({
                   <Pagination
                     sum={data.total_pages * per}
                     per={per}
-                    neighbours={neighbours}
                     page={page}
                     setPage={setPage}
                   />
