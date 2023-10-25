@@ -4,7 +4,7 @@
       | 提出物
   hr.a-border-tint
   .card-body
-    .card__description
+    .card-body__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
         =  product.body
   hr.a-border-tint
