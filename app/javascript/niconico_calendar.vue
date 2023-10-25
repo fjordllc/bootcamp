@@ -5,13 +5,13 @@
       | ニコニコカレンダー
   hr.a-border-tint
   .card-body(v-if='!loaded')
-    .card__description
+    .card-body__description
       | ロード中
   .card-body(v-else-if='reports.length === 0')
-    .card__description
+    .card-body__description
       | 日報はありません。
   .card-body(v-else)
-    .card__description
+    .card-body__description
       .niconico-calendar-nav
         .niconico-calendar-nav__previous(
           v-if='!oldestMonth()',

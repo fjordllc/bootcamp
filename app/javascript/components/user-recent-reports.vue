@@ -11,7 +11,7 @@
       :report='report',
       :current-user-id='currentUserId')
   .card-body(v-else)
-    .card__description
+    .card-body__description
       .o-empty-message
         .o-empty-message__icon
           i.fa-regular.fa-sad-tear

@@ -2,7 +2,7 @@
 .a-card
   div(v-if='!editing')
     .card-body
-      .card__description(v-if='memo')
+      .card-body__description(v-if='memo')
         .a-long-text.is-md(v-html='markdownMemo')
       .card-list(v-else)
         .card-list__message

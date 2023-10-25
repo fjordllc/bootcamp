@@ -13,7 +13,7 @@
             | メモ
         hr.a-border-tint
         .card-body
-          .card__description
+          .card-body__description
             textarea.a-text-input(
               ref='sendBody',
               v-model='sendBody',
