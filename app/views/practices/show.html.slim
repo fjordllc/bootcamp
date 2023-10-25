@@ -87,7 +87,7 @@
                 = Practice.human_attribute_name :goal
             hr.a-border
             .card-body.is-goal
-              .card__description
+              .card-body__description
                 .a-long-text.is-md.js-markdown-view
                   = @practice.goal
                 - if !current_user.adviser? && @practice.open_product?

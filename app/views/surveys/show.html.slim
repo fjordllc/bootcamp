@@ -36,8 +36,8 @@ header.page-header
             .survey-questions__items
               - @survey_questions.each do |survey_question|
                 .survey-questions-item.a-card
-                  .card__body
-                    .card__description
+                  .card-body
+                    .card-body__description
                       - if survey_question.answer_required
                         = f.label survey_question.id, survey_question.title, class: 'a-form-label is-lg is-required'
                       - else

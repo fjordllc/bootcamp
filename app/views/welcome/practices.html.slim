@@ -52,13 +52,17 @@ header.welcome-page-header
               p コースが見つかりませんでした。
 
 //
-  - @categories.each do |category|
-    - if category.practices.present?
-      .a-card
-        .card__inner
-          h3.card__inner-title
-            = category.name
-          ul.welcome-practices
-            - category.practices.each do |practice|
-              li.welcome-practices__item
-                = practice.title
+  .container.is-lg
+    header.welcome-page-body__header
+      h1.welcome-page-body__title
+        | 学習内容
+    - @categories.each do |category|
+      - if category.practices.present?
+        .a-card
+          .card-body__inner
+            h3.card-body__inner-title
+              = category.name
+            ul.welcome-practices
+              - category.practices.each do |practice|
+                li.welcome-practices__item
+                  = practice.title
