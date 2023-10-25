@@ -9,10 +9,6 @@ export default function Notification({ notification }) {
   )
   const roleClass = `is-${notification.sender.primary_role}`
 
-  // const [formattedCreatedAt, setFormattedCreatedAt] = useState(
-  //   formatCreatedAtInJapanese
-  // )
-
   return (
     <div
       className={`card-list-item ${
