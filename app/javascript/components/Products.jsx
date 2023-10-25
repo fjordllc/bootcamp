@@ -205,6 +205,7 @@ export default function Products({
                               key={product.id}
                               isMentor={isMentor}
                               currentUserId={currentUserId}
+                              elapsedDays={productsNDaysPassed.elapsed_days}
                             />
                           )
                         })}
