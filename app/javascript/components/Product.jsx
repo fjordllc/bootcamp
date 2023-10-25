@@ -2,7 +2,12 @@ import React from 'react'
 import UserIcon from './UserIcon'
 import ProductChecker from './ProductChecker'
 
-export default function Product({ product, isMentor, currentUserId }) {
+export default function Product({
+  product,
+  isMentor,
+  currentUserId,
+  elapsedDays
+}) {
   const isDashboardPage = () => {
     return location.pathname === '/'
   }
@@ -35,34 +40,33 @@ export default function Product({ product, isMentor, currentUserId }) {
     } else {
       return (
         <div className="card-list-item-meta">
-          <div className="card-list-item-meta__items">
-            {isUnassignedPage() || isDashboardPage() ? (
-              <div className="a-meta">
-                {untilNextElapsedDays(product) < 1
-                  ? `次の経過日数まで 1時間未満`
-                  : `次の経過日数まで 約 ${untilNextElapsedDays(product)} 時間`}
-              </div>
-            ) : null}
-            <div className="card-list-item__row">
-              <div className="card-list-item-meta">
-                <div className="card-list-item-meta__items">
-                  <div className="card-list-item-meta__item">
-                    <time className="a-meta" dateTime={product.created_at}>
-                      <span className="a-meta__label">提出</span>
-                      <span className="a-meta__value">
-                        {product.created_at}
-                      </span>
-                    </time>
-                  </div>
-                  <div className="card-list-item-meta__item">
-                    <time className="a-meta" dateTime={product.updated_at}>
-                      <span className="a-meta__label">更新</span>
-                      <span className="a-meta__value">
-                        {product.updated_at}
-                      </span>
-                    </time>
-                  </div>
+          <div className="card-list-item__row">
+            <div className="card-list-item-meta">
+              <div className="card-list-item-meta__items">
+                <div className="card-list-item-meta__item">
+                  <time className="a-meta" dateTime={product.created_at}>
+                    <span className="a-meta__label">提出</span>
+                    <span className="a-meta__value">{product.created_at}</span>
+                  </time>
                 </div>
+                <div className="card-list-item-meta__item">
+                  <time className="a-meta" dateTime={product.updated_at}>
+                    <span className="a-meta__label">更新</span>
+                    <span className="a-meta__value">{product.updated_at}</span>
+                  </time>
+                </div>
+                {(elapsedDays !== 7 && isUnassignedPage()) ||
+                isDashboardPage() ? (
+                  <div className="card-list-item-meta__item">
+                    <div className="a-meta">
+                      {untilNextElapsedDays(product) < 1
+                        ? `次の経過日数まで 1時間未満`
+                        : `次の経過日数まで 約 ${untilNextElapsedDays(
+                            product
+                          )} 時間`}
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
