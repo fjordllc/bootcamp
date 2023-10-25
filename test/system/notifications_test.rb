@@ -88,7 +88,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications'
     within first('nav.pagination') do
-      find('a', text: '2').click
+      find('button', text: '2').click
     end
     # 2ページ目に1番古い通知が表示されることを確認
     assert_text '1番古い通知'
@@ -123,7 +123,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?status=unread'
     within first('nav.pagination') do
-      find('a', text: '2').click
+      find('button', text: '2').click
     end
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
@@ -156,7 +156,7 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?status=unread&target=mention'
     within first('nav.pagination') do
-      find('a', text: '2').click
+      find('button', text: '2').click
     end
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
@@ -218,8 +218,9 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     within first('nav.pagination') do
-      find('a', text: '1').click
+      find('button', text: '1').click
     end
+    assert_text '1番新しい通知'
     page.go_back
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
