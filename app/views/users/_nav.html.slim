@@ -6,7 +6,7 @@ nav.tab-nav
           = link_to t('watch.all'), users_path(target: @target), class: "tab-nav__item-link #{'is-active' if @watch.nil?}".strip
         - %w[true false].each do |watch|
           li.tab-nav__item
-            = link_to t("watch.#{watch}"), users_path(target: @target, watch: watch), class: (@watch == watch ? ['is-active'] : []) << 'tab-nav__item-link'
+            = link_to t("watch.#{watch}"), users_path(target: @target, watch:), class: (@watch == watch ? ['is-active'] : []) << 'tab-nav__item-link'
       - else
         - targets = %w[student_and_trainee mentor graduate adviser trainee]
         - if current_user.mentor?
@@ -15,4 +15,4 @@ nav.tab-nav
           - targets += %w[job_seeking]
         - targets.each do |target|
           li.tab-nav__item(class="#{%w[job_seeking hibernated retired all].include?(target) ? 'is-only-mentor is-only-adviser' : ''}")
-            = link_to t("target.#{target}"), users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+            = link_to t("target.#{target}"), users_path(target:), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
