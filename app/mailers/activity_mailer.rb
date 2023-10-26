@@ -43,9 +43,11 @@ class ActivityMailer < ApplicationMailer
     @message ||= args[:message]
     @receiver ||= args[:receiver]
 
+    return unless @receiver.mail_notification?
+
     @user = @receiver
     link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
-    @link_url = notification_redirector_path(
+    @link_url = notification_redirector_url(
       link: link,
       kind: Notification.kinds[:came_comment]
     )

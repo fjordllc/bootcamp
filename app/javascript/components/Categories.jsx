@@ -31,7 +31,8 @@ const Category = ({ category }) => {
   return (
     <tr className="admin-table__item">
       <td className="admin-table__item-value">
-        <a href={`/mentor/categories/${category.id}`}>{category.name}</a>
+        <a href={`/mentor/categories/${category.id}`}>{category.name}</a>(
+        {category.practices.length})
       </td>
       <td className="admin-table__item-value">{category.slug}</td>
       <td className="admin-table__item-value is-text-align-center">

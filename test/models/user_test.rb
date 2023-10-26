@@ -648,4 +648,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal users(:komagata).id, comment.user_id
     assert_equal description, comment.body
   end
+
+  test '#become_watcher!' do
+    watchable = pages(:page1)
+    user = users(:kimura)
+
+    assert_not user.watches.exists?(watchable:)
+
+    user.become_watcher!(watchable)
+    assert user.watches.exists?(watchable:)
+  end
 end
