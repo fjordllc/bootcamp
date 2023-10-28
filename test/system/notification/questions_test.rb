@@ -309,6 +309,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       visit_with_auth '/notifications', 'kimura'
 
       assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+      assert_current_path(notifications_path(_login_name: 'kimura'))
     end
     logout
 
