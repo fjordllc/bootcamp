@@ -8,7 +8,6 @@ require 'supports/notification_helper'
 require 'supports/report_helper'
 require 'supports/comment_helper'
 require 'supports/tag_helper'
-require 'supports/query_helper'
 require 'supports/mock_env_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
@@ -19,7 +18,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ReportHelper
   include CommentHelper
   include TagHelper
-  include QueryHelper
   include MockEnvHelper
 
   if ENV['HEADED']
