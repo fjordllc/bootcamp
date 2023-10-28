@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class PracticesTest < ApplicationSystemTestCase
   test 'show practice' do
     visit_with_auth "/practices/#{practices(:practice1).id}", 'hatsuno'
-    assert_equal 'OS X Mountain Lionをクリーンインストールする | FBC', title
+    assert_equal 'プラクティス OS X Mountain Lionをクリーンインストールする | FBC', title
   end
 
   test 'show link to all practices with same category' do
@@ -196,7 +196,7 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/practices/#{practice.id}"
-    assert_equal 'テストプラクティス | FBC', title
+    assert_equal 'プラクティス テストプラクティス | FBC', title
   end
 
   test 'show last updated user icon' do
