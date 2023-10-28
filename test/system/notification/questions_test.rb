@@ -303,7 +303,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     )
 
     travel_to Time.zone.local(2022, 11, 6, 0, 0, 0) do
-      mock_env({ 'TOKEN' => 'token' }) do
+      mock_env('TOKEN' => 'token') do
         visit_with_query scheduler_daily_notify_certain_period_passed_after_last_answer_path, { token: 'token' }
       end
       visit_with_auth '/notifications', 'kimura'
@@ -313,7 +313,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     logout
 
     travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
-      mock_env({ 'TOKEN' => 'token' }) do
+      mock_env('TOKEN' => 'token') do
         visit_with_query scheduler_daily_notify_certain_period_passed_after_last_answer_path, { token: 'token' }
       end
       visit_with_auth '/notifications', 'kimura'
