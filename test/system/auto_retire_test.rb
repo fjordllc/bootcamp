@@ -161,4 +161,26 @@ class AutoRetireTest < ApplicationSystemTestCase
       assert_equal Date.current, user.reload.retired_on
     end
   end
+
+  test 'not retire when token is invalid' do
+    user = users(:kyuukai)
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+      VCR.use_cassette 'subscription/update' do
+        mock_env('TOKEN' => 'token') do
+          visit scheduler_daily_auto_retire_path(token: 'invalid')
+        end
+      end
+      assert_nil user.reload.retired_on
+    end
+  end
+
+  test 'not retire when token is not set' do
+    user = users(:kyuukai)
+    travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
+      VCR.use_cassette 'subscription/update' do
+        visit scheduler_daily_auto_retire_path
+      end
+      assert_nil user.reload.retired_on
+    end
+  end
 end

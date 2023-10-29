@@ -74,4 +74,98 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
     assert_requested(stub_message)
   end
+
+  test 'not notify_coming_soon_regular_events when token is invalid' do
+    event_info = <<~TEXT.chomp
+      ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
+
+      < 今日 (05/05 金) 開催 >
+
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      はお休みです。
+
+      ------------------------------
+
+      < 明日 (05/06 土) 開催 >
+
+      Discord通知確認用イベント(土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/284302086
+
+      Discord通知確認用イベント(土曜日 + 日曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/670378901
+
+      Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/808817380
+
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    TEXT
+    params = {
+      url: 'https://discord.com/api/webhooks/0123456789/all',
+      username: 'ピヨルド',
+      avatar_url: 'https://i.gyazo.com/7099977680d8d8c2d72a3f14ddf14cc6.png',
+      content: event_info
+    }
+
+    stub_message = stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+                   .with(body: params,
+                         headers: { 'Content-Type' => 'application/json' })
+
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      mock_env('TOKEN' => 'token') do
+        visit scheduler_daily_notify_coming_soon_regular_events_path(token: 'invalid')
+      end
+    end
+
+    assert_not_requested(stub_message)
+  end
+
+  test 'not notify_coming_soon_regular_events when token is not set' do
+    event_info = <<~TEXT.chomp
+      ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
+
+      < 今日 (05/05 金) 開催 >
+
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      はお休みです。
+
+      ------------------------------
+
+      < 明日 (05/06 土) 開催 >
+
+      Discord通知確認用イベント(土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/284302086
+
+      Discord通知確認用イベント(土曜日 + 日曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/670378901
+
+      Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      時間: 21:00〜22:00
+      詳細: http://localhost:3000/regular_events/808817380
+
+      ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
+    TEXT
+    params = {
+      url: 'https://discord.com/api/webhooks/0123456789/all',
+      username: 'ピヨルド',
+      avatar_url: 'https://i.gyazo.com/7099977680d8d8c2d72a3f14ddf14cc6.png',
+      content: event_info
+    }
+
+    stub_message = stub_request(:post, 'https://discord.com/api/webhooks/0123456789/all')
+                   .with(body: params,
+                         headers: { 'Content-Type' => 'application/json' })
+
+    travel_to Time.zone.local(2023, 5, 5, 6, 0, 0) do
+      visit scheduler_daily_notify_coming_soon_regular_events_path
+    end
+
+    assert_not_requested(stub_message)
+  end
 end
