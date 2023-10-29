@@ -52,10 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_scheduler_inheritation
-    return unless request.path_info.start_with?('/scheduler')
-    return if is_a?(SchedulerController)
-
-    head :internal_server_error
+    head :internal_server_error if request.path_info.start_with?('/scheduler') && !is_a?(SchedulerController)
   end
 
   protected
