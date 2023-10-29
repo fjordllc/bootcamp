@@ -324,4 +324,66 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
   end
+
+  test 'not notify to questioner when a week has passed since last answer when token is invalid' do
+    questioner = users(:kimura)
+    answerer = users(:komagata)
+    question = Question.create!(
+      title: 'テストの質問',
+      description: 'テスト',
+      user: questioner,
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31',
+      published_at: '2022-10-31'
+    )
+    Answer.create!(
+      description: '最後の回答',
+      user: answerer,
+      question: question,
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31'
+    )
+
+    travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
+      assert_no_difference 'questioner.notifications.count' do
+        mock_env('TOKEN' => 'token') do
+          visit scheduler_daily_notify_certain_period_passed_after_last_answer_path(token: 'invalid')
+        end
+        visit_with_auth '/notifications', 'kimura'
+
+        assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+        assert_current_path(notifications_path(_login_name: 'kimura'))
+      end
+    end
+  end
+
+  test 'not notify to questioner when a week has passed since last answer when token is not set' do
+    questioner = users(:kimura)
+    answerer = users(:komagata)
+    question = Question.create!(
+      title: 'テストの質問',
+      description: 'テスト',
+      user: questioner,
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31',
+      published_at: '2022-10-31'
+    )
+    Answer.create!(
+      description: '最後の回答',
+      user: answerer,
+      question: question,
+      created_at: '2022-10-31',
+      updated_at: '2022-10-31'
+    )
+
+    travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
+      assert_no_difference 'questioner.notifications.count' do
+        visit scheduler_daily_notify_certain_period_passed_after_last_answer_path
+        visit_with_auth '/notifications', 'kimura'
+
+        assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+        assert_current_path(notifications_path(_login_name: 'kimura'))
+      end
+    end
+  end
 end
