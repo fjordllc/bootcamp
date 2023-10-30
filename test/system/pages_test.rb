@@ -250,6 +250,42 @@ class PagesTest < ApplicationSystemTestCase
     assert_text 'Watch中'
   end
 
+  test 'author becomes watcher' do
+    author = 'kimura'
+    # 編集前にWatch中になってないかチェック
+    visit_with_auth page_path(pages(:page1)), author
+    assert_text 'Watch'
+    visit page_path(pages(:page2))
+    assert_text 'Watch'
+
+    logout
+
+    # 編集者もwatch中になるため、作者と編集者を別にする
+    editor = 'machida'
+    visit_with_auth edit_page_path(pages(:page1)), editor
+
+    within('.form') do
+      find('#select2-page_user_id-container').click
+      select(author, from: 'page[user_id]')
+    end
+    click_button '内容を更新'
+
+    visit edit_page_path(pages(:page2))
+
+    within('.form') do
+      find('#select2-page_user_id-container').click
+      select(author, from: 'page[user_id]')
+    end
+    click_button 'WIP'
+
+    logout
+
+    visit_with_auth page_path(pages(:page1)), author
+    assert_text 'Watch中'
+    visit page_path(pages(:page2))
+    assert_text 'Watch中'
+  end
+
   test 'Check the list of columns on the right of the document' do
     visit_with_auth "/pages/#{pages(:page7).id}", 'kimura'
     assert_link 'OS X Mountain Lionをクリーンインストールする'

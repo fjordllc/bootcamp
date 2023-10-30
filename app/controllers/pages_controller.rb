@@ -46,7 +46,7 @@ class PagesController < ApplicationController
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
 
-      current_user.become_watcher!(@page)
+      become_watcher!(@page, [current_user, @page.user])
 
       redirect_to url, notice: notice_message(@page, :create)
     else
@@ -64,7 +64,7 @@ class PagesController < ApplicationController
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
       end
 
-      current_user.become_watcher!(@page)
+      become_watcher!(@page, [current_user, @page.user])
 
       redirect_to url, notice: notice_message(@page, :update)
     else
@@ -116,5 +116,9 @@ class PagesController < ApplicationController
     return if @page.slug.nil?
 
     redirect_to request.original_url.sub(params[:slug_or_id], @page.slug) unless params[:slug_or_id].start_with?(/[a-z]/)
+  end
+
+  def become_watcher!(page, users)
+    users.each { |user| user.become_watcher!(page) }
   end
 end
