@@ -231,7 +231,7 @@ class PagesTest < ApplicationSystemTestCase
     assert_match 'Message to Discord.', mock_log.to_s
   end
 
-  test 'non-author docs editor becomes Watcher when editing docs' do
+  test 'non-author docs editor becomes watcher' do
     # 編集前にWatch中になってないかチェック(作成者を除くDocs編集者)
     editor = 'machida'
     visit_with_auth page_path(pages(:page1)), editor
