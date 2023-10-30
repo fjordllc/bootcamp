@@ -100,6 +100,36 @@ class NotificationsTest < ApplicationSystemTestCase
     assert_current_path('/notifications?page=2')
   end
 
+  test 'show 20 notifications in first page' do
+    25.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          link: "/reports/#{n}",
+                          user: users(:mentormentaro),
+                          sender: users(:machida))
+    end
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20000118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications'
+    assert_text '1番新しい通知'
+    assert_equal 20, all('.card-list-item').size
+
+    visit '/notifications?status=unread'
+    assert_text '1番新しい通知'
+    assert_equal 20, all('.card-list-item').size
+  end
+
   test 'click on the pager button with query string' do
     19.times do |n|
       Notification.create(message: "machidaさんからメンションが届きました#{n}",
