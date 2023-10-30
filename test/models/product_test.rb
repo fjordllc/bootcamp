@@ -199,4 +199,14 @@ class ProductTest < ActiveSupport::TestCase
     wip_product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
     assert_not wip_product.updated_after_submission?
   end
+
+  test 'reject wrong url' do
+    product = Product.new(
+      body: 'https://github.com/fjordllc/ruby-practices/pull/35',
+      user: users(:kimura),
+      practice: practices(:practice5)
+    )
+    product.valid?
+    assert_equal 'PRのURLが間違っています。PRを作り直してください', product.errors[:body].first
+  end
 end
