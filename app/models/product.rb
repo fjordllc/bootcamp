@@ -26,7 +26,7 @@ class Product < ApplicationRecord
 
   validates :user, presence: true, uniqueness: { scope: :practice, message: '既に提出物があります。' }
   validates :body, presence: true
-  validate :reject_wrong_url
+  validate :reject_wrong_repository_url
 
   paginates_per 50
 
@@ -208,7 +208,7 @@ class Product < ApplicationRecord
     created_at != updated_at
   end
 
-  def reject_wrong_url
+  def reject_wrong_repository_url
     errors.add(:body, 'PRのURLが間違っています。PRを作り直してください') if body.match?(/fjordllc\/.+\/pull\/\d+/)
   end
 end

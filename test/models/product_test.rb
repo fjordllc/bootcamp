@@ -200,7 +200,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_not wip_product.updated_after_submission?
   end
 
-  test 'reject wrong url' do
+  test 'reject wrong repository url' do
     product = Product.new(
       body: 'https://github.com/fjordllc/hoge/pull/35',
       user: users(:kimura),
