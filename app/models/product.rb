@@ -211,6 +211,6 @@ class Product < ApplicationRecord
   end
 
   def reject_wrong_repository_url
-    errors.add(:body, 'PRのURLが間違っています。PRを作り直してください') if body.match?(/#{GITHUB_ACCOUNT_NAME}\/.+\/pull\/\d+/)
+    errors.add(:body, '中のPRのURLが間違っています。PRを作り直してください') if body.match?(/#{GITHUB_ACCOUNT_NAME}\/.+\/pull\/\d+/)
   end
 end
