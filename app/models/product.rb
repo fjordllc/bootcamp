@@ -12,6 +12,8 @@ class Product < ApplicationRecord
   include Bookmarkable
   include Taskable
 
+  GITHUB_ACCOUNT_NAME = 'fjordllc'
+
   belongs_to :practice
   belongs_to :user, touch: true
   belongs_to :checker, class_name: 'User', optional: true
@@ -209,6 +211,6 @@ class Product < ApplicationRecord
   end
 
   def reject_wrong_repository_url
-    errors.add(:body, 'PRのURLが間違っています。PRを作り直してください') if body.match?(/fjordllc\/.+\/pull\/\d+/)
+    errors.add(:body, 'PRのURLが間違っています。PRを作り直してください') if body.match?(/#{GITHUB_ACCOUNT_NAME}\/.+\/pull\/\d+/)
   end
 end
