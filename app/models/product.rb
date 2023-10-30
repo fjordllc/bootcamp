@@ -209,6 +209,6 @@ class Product < ApplicationRecord
   end
 
   def reject_wrong_url
-    errors.add(:body, 'PRのURLが間違っています。PRを作り直してください') if body.match?(/fjordllc\/ruby-practices\/pull\/\d+/)
+    errors.add(:body, 'PRのURLが間違っています。PRを作り直してください') if body.match?(/fjordllc\/.+\/pull\/\d+/)
   end
 end

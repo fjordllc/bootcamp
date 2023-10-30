@@ -202,7 +202,7 @@ class ProductTest < ActiveSupport::TestCase
 
   test 'reject wrong url' do
     product = Product.new(
-      body: 'https://github.com/fjordllc/ruby-practices/pull/35',
+      body: 'https://github.com/fjordllc/hoge/pull/35',
       user: users(:kimura),
       practice: practices(:practice5)
     )
