@@ -127,12 +127,13 @@
                         | 編集
 
       .col-lg-4.col-xs-12
-        nav.page-nav
+        nav.page-nav.a-card
           header.page-nav__header
             h2.page-nav__title
               = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-                class: 'page-nav__title-link' do
+                class: 'page-nav__title-inner' do
                 = category.name
+          hr.a-border-tint
           ul.page-nav__items
             - category.practices.each do |practice|
               li.page-nav__item(class="#{@practice == practice ? 'is-current' : ''}")
