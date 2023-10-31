@@ -6,13 +6,13 @@ class ApplicationController < ActionController::Base
   include PolicyHelper
   helper_method :staging?
   protect_from_forgery with: :exception
+  before_action :require_scheduler_inheritation
   before_action :basic_auth, if: :staging?
   before_action :test_login, if: :test?
   before_action :init_user
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
   before_action :require_active_user_login
-  before_action :require_scheduler_inheritation
 
   protected
 
