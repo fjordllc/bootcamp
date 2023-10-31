@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.0-node
+      - image: cimg/ruby:3.1.4-node
     steps:
       - checkout
       - ruby/install-deps
@@ -18,7 +18,7 @@ jobs:
           pkg-manager: yarn
   check:
     docker:
-      - image: 'cimg/ruby:3.1.0-node'
+      - image: 'cimg/ruby:3.1.4-node'
     steps:
       - checkout
       - ruby/install-deps
@@ -41,7 +41,7 @@ jobs:
           command: bin/yarn lint
   test:
     docker:
-      - image: cimg/ruby:3.1.0-browsers
+      - image: cimg/ruby:3.1.4-browsers
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
