@@ -8,17 +8,24 @@ import { useSearchParams, usePopstate } from '../../hooks/useSearchParams'
 
 function Region({ region, numberOfUsersByRegion, handleClick }) {
   return (
-    <li key={region} className='side-nav-block'>
-      <h2 className="side-nav-block__title">{region}</h2>
-      <ul className="side-nav-block__items">
-        {Object.keys(numberOfUsersByRegion).map((area) => (
-          <li key={area} className="side-nav-block__item">
-            <button onClick={() => handleClick(region, area)} className="a-text-link">
-              {`${area}（${numberOfUsersByRegion[area]})`}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <li key={region} className="page-nav a-card">
+      <div className="side-nav-block">
+        <header class="page-nav__header">
+          <h2 className="page-nav__title">
+            <span className="page-nav__title-inner">{region}</span>
+          </h2>
+        </header>
+        <hr className="a-border-tint"></hr>
+        <ul className="page-nav__items">
+          {Object.keys(numberOfUsersByRegion).map((area) => (
+            <li key={area} className="page-nav__item">
+              <button onClick={() => handleClick(region, area)} className="page-nav__item-link a-text-link">
+                {`${area}（${numberOfUsersByRegion[area]})`}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </li>
   )
 }
@@ -59,7 +66,7 @@ export default function Areas({ numberOfUsers }) {
   return (
     <div data-testid="areas" className="page-body">
       <div className="container is-lg">
-        <div className="page-body__columns md:flex md:flex-col-reverse">
+        <div className="page-body__columns is-reverse">
           <div className="page-body__column is-sub is-sm">
             <nav className="side-nav">
               <ul className="side-nav-blocks">

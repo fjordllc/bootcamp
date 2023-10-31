@@ -37,12 +37,13 @@
         width: var(--global-nav-width-sm)
 
 .header-dropdown__label
-  +text-block(.75rem 1.4, 600)
-  color: var(--reversal-text)
-  padding: .5rem .75rem
-  background-color: rgba(black, .3)
+  +text-block(.625rem 1.4, 600)
+  padding: .25rem .75rem
+  +media-breakpoint-up(md)
+    background-color: var(--background-semi-shade)
   +media-breakpoint-down(sm)
-    border-bottom: solid 1px var(--main-semi-shade)
+    color: var(--reversal-text)
+    background-color: var(--main-semi-shade)
 
 .header-dropdown__items
   .header-dropdown__inner.is-notification &
@@ -63,7 +64,7 @@
     .header-dropdown__item:not(:last-child) &
       border-bottom: solid 1px var(--border-tint)
     &:hover
-      background-color: var(--background-more-tint)
+      background-color: var(--primary-tint)
   +media-breakpoint-down(sm)
     color: var(--reversal-text)
     border-bottom: solid 1px var(--main-semi-shade)

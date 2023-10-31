@@ -17,6 +17,16 @@
     display: flex
     gap: 1.5rem
     position: relative
+  &.is-reverse
+    display: flex
+    +media-breakpoint-up(md)
+      flex-direction: row
+      gap: 1.5rem
+    +media-breakpoint-down(sm)
+      flex-direction: column-reverse
+      gap: 1rem
+      .page-body__column
+        width: 100%
 
 .page-body__column
   &.is-main
