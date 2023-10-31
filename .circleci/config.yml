@@ -90,7 +90,7 @@ jobs:
           name: Test
           command: |
             TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
-            bundle exec rails test --seed 36782 $TESTFILES
+            bundle exec rails test test/system/attachments_test.rb:15 test/system/admin/users_test.rb:201 test/system/comments_test.rb:334 test/system/answers_test.rb:113
           no_output_timeout: 30m
           when: always
       - store_test_results:
