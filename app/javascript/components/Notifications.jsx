@@ -13,8 +13,14 @@ export default function Notifications({ isMentor }) {
     const params = new URLSearchParams(location.search)
     return params.get('status') !== null && params.get('status') === 'unread'
   }
+
   const url = () => {
     const params = new URLSearchParams(location.search)
+    if (params.get('status') === 'unread' && params.get('page') === null) {
+      return '/api/notifications.json?status=unread&page=1'
+    } else if (params.size === 0) {
+      return '/api/notifications.json?page=1'
+    }
     return `/api/notifications.json?${params}`
   }
 
