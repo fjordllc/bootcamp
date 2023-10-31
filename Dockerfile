@@ -1,4 +1,4 @@
-FROM ruby:3.1.0-alpine
+FROM ruby:3.1.4-alpine
 
 ENV RAILS_ENV production
 WORKDIR /app
