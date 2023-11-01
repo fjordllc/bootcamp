@@ -18,7 +18,9 @@ function Region({ region, numberOfUsersByRegion, handleClick }) {
       <ul className="page-nav__items">
         {Object.keys(numberOfUsersByRegion).map((area) => (
           <li key={area} className="page-nav__item">
-            <button onClick={() => handleClick(region, area)} className="page-nav__item-link a-text-link">
+            <button
+              onClick={() => handleClick(region, area)}
+              className="page-nav__item-link a-text-link">
               {`${area}（${numberOfUsersByRegion[area]})`}
             </button>
           </li>
