@@ -8,25 +8,23 @@ import { useSearchParams, usePopstate } from '../../hooks/useSearchParams'
 
 function Region({ region, numberOfUsersByRegion, handleClick }) {
   return (
-    <li key={region} className="page-nav a-card">
-      <div className="side-nav-block">
-        <header class="page-nav__header">
-          <h2 className="page-nav__title">
-            <span className="page-nav__title-inner">{region}</span>
-          </h2>
-        </header>
-        <hr className="a-border-tint"></hr>
-        <ul className="page-nav__items">
-          {Object.keys(numberOfUsersByRegion).map((area) => (
-            <li key={area} className="page-nav__item">
-              <button onClick={() => handleClick(region, area)} className="page-nav__item-link a-text-link">
-                {`${area}（${numberOfUsersByRegion[area]})`}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </li>
+    <nav key={region} className="page-nav a-card">
+      <header class="page-nav__header">
+        <h2 className="page-nav__title">
+          <span className="page-nav__title-inner">{region}</span>
+        </h2>
+      </header>
+      <hr className="a-border-tint"></hr>
+      <ul className="page-nav__items">
+        {Object.keys(numberOfUsersByRegion).map((area) => (
+          <li key={area} className="page-nav__item">
+            <button onClick={() => handleClick(region, area)} className="page-nav__item-link a-text-link">
+              {`${area}（${numberOfUsersByRegion[area]})`}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
   )
 }
 
@@ -68,18 +66,14 @@ export default function Areas({ numberOfUsers }) {
       <div className="container is-lg">
         <div className="page-body__columns is-reverse">
           <div className="page-body__column is-sub is-sm">
-            <nav className="side-nav">
-              <ul className="side-nav-blocks">
-                {Object.keys(numberOfUsers).map((region) => (
-                  <Region
-                    key={region}
-                    region={region}
-                    numberOfUsersByRegion={numberOfUsers[region]}
-                    handleClick={handleClick}
-                  />
-                ))}
-              </ul>
-            </nav>
+            {Object.keys(numberOfUsers).map((region) => (
+              <Region
+                key={region}
+                region={region}
+                numberOfUsersByRegion={numberOfUsers[region]}
+                handleClick={handleClick}
+              />
+            ))}
           </div>
           <div className="page-body__column is-main">
             <section className="a-card">

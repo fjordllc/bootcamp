@@ -9,12 +9,11 @@
       p.o-empty-message__text
         | ユーザーはありません
   .container.is-lg(v-else)
-    .card-list.a-card
-      generation(
-        v-for='generation in generations',
-        :key='generation.number',
-        :generation='generation',
-        :target='target')
+    generation(
+      v-for='generation in generations',
+      :key='generation.number',
+      :generation='generation',
+      :target='target')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
