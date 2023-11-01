@@ -117,7 +117,6 @@ class AnswersTest < ApplicationSystemTestCase
     end
     page.all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
-    p users(:senpai).company.logo
     assert_text 'test'
     assert_equal '2.png', File.basename(find('img.thread-comment__company-logo')['src'])
   end

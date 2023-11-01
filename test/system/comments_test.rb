@@ -335,7 +335,6 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
-    p users(:senpai).company.logo
     assert_text 'test'
     assert_equal '2.png', File.basename(find('img.thread-comment__company-logo')['src'])
   end
