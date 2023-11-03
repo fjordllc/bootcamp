@@ -1099,4 +1099,19 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_equal '[FBC] 相談部屋でkomagataさんからコメントがありました。', email.subject
     assert_match(/コメント/, email.body.to_s)
   end
+
+  test 'came_comment for admin with mail_notification off' do
+    admin = users(:komagata)
+    admin.update(mail_notification: false)
+
+    comment = comments(:commentOfTalk)
+
+    ActivityMailer.came_comment(
+      comment: comment,
+      message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
+      receiver: comment.receiver
+    ).deliver_now
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
 end

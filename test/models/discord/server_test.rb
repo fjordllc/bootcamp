@@ -105,6 +105,8 @@ module Discord
     test '.delete_text_channel with error' do
       logs = []
       Rails.logger.stub(:error, ->(message) { logs << message }) do
+        Discordrb::LOGGER.mode = :silent
+
         VCR.use_cassette 'discord/server/delete_text_channel_with_unknown_channel_id' do
           assert_nil Discord::Server.delete_text_channel('12345')
           assert_equal '[Discord API] Unknown Channel', logs.pop
@@ -115,6 +117,8 @@ module Discord
           assert_nil Discord::Server.delete_text_channel('987654321987654321')
           assert_equal '[Discord API] 401: Unauthorized', logs.pop
         end
+
+        Discordrb::LOGGER.mode = :info
       end
     end
 

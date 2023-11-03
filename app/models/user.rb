@@ -750,6 +750,10 @@ class User < ApplicationRecord
     )
   end
 
+  def become_watcher!(watchable)
+    watches.find_or_create_by!(watchable:)
+  end
+
   private
 
   def password_required?

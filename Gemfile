@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'
+ruby '3.1.4'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.12'
@@ -29,7 +29,7 @@ gem 'country_select'
 gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
-gem 'discordrb', github: 'shardlab/discordrb', require: false
+gem 'discordrb', '~> 3.5', require: false
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
@@ -104,6 +104,5 @@ group :test do
   gem 'minitest-retry'
   gem 'selenium-webdriver'
   gem 'vcr'
-  gem 'webdrivers'
   gem 'webmock'
 end

@@ -29,7 +29,6 @@ import '../github_grass'
 import '../following.js'
 import '../hide-user.js'
 import '../categories-practice.js'
-import '../notifications.js'
 import '../products.js'
 import '../courses-categories.js'
 import '../courses-practices.js'
@@ -68,7 +67,6 @@ import ExternalEntries from '../components/external-entries.vue'
 import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
-import RegularEvents from '../components/regular-events.vue'
 import Users from '../components/users.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
@@ -94,7 +92,6 @@ mounter.addComponent(ExternalEntries)
 mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
-mounter.addComponent(RegularEvents)
 mounter.addComponent(Users)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)

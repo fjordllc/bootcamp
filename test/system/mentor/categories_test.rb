@@ -94,4 +94,13 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
     find("a[href='/mentor/categories/#{category.id}/practices']").click
     assert_text '学習の準備カテゴリーのプラクティス並び替え'
   end
+
+  test 'should display practice count correctly' do
+    category_name = '学習の準備'
+    category = Category.find_by(name: category_name)
+    practice_count = category.practices.length
+
+    visit_with_auth '/mentor/categories', 'komagata'
+    assert_text "#{category_name}(#{practice_count})"
+  end
 end
