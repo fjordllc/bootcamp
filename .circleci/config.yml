@@ -13,7 +13,7 @@ jobs:
       - ruby/install-deps
       - node/install:
           install-yarn: true
-          node-version: '16.13.0'
+          node-version: '20.9.0'
       - node/install-packages:
           pkg-manager: yarn
   check:
@@ -33,7 +33,7 @@ jobs:
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute
       - node/install:
           install-yarn: true
-          node-version: '16.13.0'
+          node-version: '20.9.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -68,7 +68,7 @@ jobs:
       - ruby/install-deps
       - node/install:
           install-yarn: true
-          node-version: '16.13.0'
+          node-version: '20.9.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -82,12 +82,12 @@ jobs:
           command: 'bundle exec rails db:setup'
       - run:
           name: Assets precompile
-          command: 'bundle exec rails assets:clean assets:precompile'
+          command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
       - run:
           name: Test
           command: |
             TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
-            bundle exec rails test $TESTFILES
+            bundle exec rails test $TESTFILES NODE_OPTIONS=--openssl-legacy-provider
           no_output_timeout: 30m
           when: always
       - store_test_results:
