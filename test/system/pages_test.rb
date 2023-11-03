@@ -231,6 +231,25 @@ class PagesTest < ApplicationSystemTestCase
     assert_match 'Message to Discord.', mock_log.to_s
   end
 
+  test 'non-author docs editor becomes Watcher when editing docs' do
+    # 編集前にWatch中になってないかチェック(作成者を除くDocs編集者)
+    editor = 'machida'
+    visit_with_auth page_path(pages(:page1)), editor
+    assert_text 'Watch'
+    visit page_path(pages(:page2))
+    assert_text 'Watch'
+
+    visit edit_page_path(pages(:page1))
+    click_button '内容を更新'
+    assert_text 'ドキュメントを更新しました'
+    assert_text 'Watch中'
+
+    visit edit_page_path(pages(:page2))
+    click_button 'WIP'
+    visit page_path(pages(:page2))
+    assert_text 'Watch中'
+  end
+
   test 'Check the list of columns on the right of the document' do
     visit_with_auth "/pages/#{pages(:page7).id}", 'kimura'
     assert_link 'OS X Mountain Lionをクリーンインストールする'
