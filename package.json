@@ -61,6 +61,8 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.22.11",
+    "@babel/plugin-transform-optional-chaining": "^7.23.0",
     "@prettier/plugin-pug": "^2.0.0",
     "@webpack-cli/serve": "^2.0.1",
     "eslint": "^7.24.0",
