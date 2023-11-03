@@ -33,7 +33,7 @@ RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-n
 
 # Compile assets
 COPY . ./
-RUN SECRET_KEY_BASE=dummy bin/rails assets:precompile
+RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile
 
 ENV PORT 3000
 EXPOSE 3000

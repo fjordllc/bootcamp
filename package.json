@@ -78,7 +78,7 @@
     "webpack-dev-server": "~3"
   },
   "engines": {
-    "node": "^16.13.0"
+    "node": "^20.9.0"
   },
   "license": "MIT"
 }
