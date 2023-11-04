@@ -18,6 +18,7 @@ class HibernationController < ApplicationController
       destroy_subscription!
       notify_to_chat
       notify_to_mentors_and_admins
+      current_user.delete_organizer
       logout
       redirect_to hibernation_path
     else
