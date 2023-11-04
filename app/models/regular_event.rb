@@ -185,6 +185,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
+  def assign_admin_as_organizer_if_none
+    return if organizers.exists?
+    # DBから管理者（komagata）を取得
+    admin_user = User.find_by(login_name: 'komagata')
+    # 管理者が存在する場合にのみ主催者として追加
+    Organizer.new(user: admin_user, regular_event: self).save if admin_user
+  end
+
   private
 
   def end_at_be_greater_than_start_at
