@@ -120,4 +120,13 @@ class RegularEventsController < ApplicationController
     RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
     RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
   end
+
+  def assign_admin_as_organizer_if_none
+    return if @regular_event.organizers.exists?
+
+    # 管理者（komagata）をデータベースから検索
+    admin_user = User.active.find_by(login_name: 'komagata')
+    # 管理者を主催者として割り当てる
+    @regular_event.organizers.create(user: admin_user) if admin_user
+  end
 end
