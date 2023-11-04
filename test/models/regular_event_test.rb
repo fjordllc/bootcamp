@@ -155,4 +155,13 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_events1.include?(regular_event2)
     assert regular_events2.include?(regular_event3)
   end
+
+  test '#assign_admin_as_organizer_if_none' do
+
+    regular_event = regular_events(:regular_event33)
+    regular_event.assign_admin_as_organizer_if_none
+    assert User.find_by(login_name: 'komagata'), regular_event.organizers[0]
+  end
+
+  
 end

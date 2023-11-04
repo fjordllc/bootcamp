@@ -678,4 +678,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
     assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
   end
+
+  test '#delete_organizer' do
+    user = users(:hajime)
+    user.delete_organizer
+
+    event = regular_events(:regular_event4)
+    assert !event.organizers.include?(user)
+  end
 end
