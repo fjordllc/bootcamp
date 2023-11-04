@@ -29,7 +29,7 @@ RUN yarn install --production --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-native" BUNDLE_FORCE_RUBY_PLATFORM=1 bundle install -j4
+RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-native" bundle install -j4
 
 # Compile assets
 COPY . ./
