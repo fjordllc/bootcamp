@@ -13,6 +13,8 @@ steps:
       - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
       - '-t'
       - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+      - '--cache-from'
+      - 'asia.gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - .
       - '-f'
       - Dockerfile

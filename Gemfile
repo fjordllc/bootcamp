@@ -42,13 +42,11 @@ gem 'mini_magick'
 gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
-gem 'nokogiri', '~> 1.15', '>= 1.15.4'
 gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-github', '~> 2.0.1'
 gem 'omniauth-rails_csrf_protection'
-gem 'parser', '3.2.2.4'
 gem 'pg'
 gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'

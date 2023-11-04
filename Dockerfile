@@ -6,7 +6,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.4.21
+RUN gem install --no-document --force bundler -v 2.3.6
 RUN bundle config set without development:test
 
 # Install packages
@@ -29,7 +29,7 @@ RUN yarn install --production --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install -j4
+RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-native" BUNDLE_FORCE_RUBY_PLATFORM=1 bundle install -j4
 
 # Compile assets
 COPY . ./
