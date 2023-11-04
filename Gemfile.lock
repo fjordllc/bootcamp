@@ -285,7 +285,6 @@ GEM
     mime-types-data (3.2023.1003)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.5)
     minitest (5.20.0)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
@@ -307,10 +306,9 @@ GEM
     netrc (0.11.0)
     newspaper (0.2.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.4-x86_64-darwin)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     oauth (1.1.0)
       oauth-tty (~> 1.0, >= 1.0.1)
@@ -587,8 +585,8 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  ruby
-  x86_64-darwin-19
+  arm64-darwin-23
+  x86_64-linux
 
 DEPENDENCIES
   abstract_notifier (~> 0.3.2)
