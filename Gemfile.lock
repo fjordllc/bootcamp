@@ -631,6 +631,7 @@ DEPENDENCIES
   net-pop
   net-smtp
   newspaper
+  nokogiri (~> 1.15, >= 1.15.4)
   oauth2
   omniauth (~> 2.1.1)
   omniauth-github (~> 2.0.1)
