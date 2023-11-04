@@ -290,6 +290,7 @@ GEM
     minitest-retry (0.2.2)
       minitest (>= 5.0)
     msgpack (1.7.2)
+    minitest-stub_any_instance (1.0.3)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
@@ -625,6 +626,7 @@ DEPENDENCIES
   mini_magick
   minitest-ci
   minitest-retry
+  minitest-stub_any_instance
   net-imap
   net-pop
   net-smtp

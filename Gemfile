@@ -104,6 +104,7 @@ group :test do
   gem 'capybara'
   gem 'minitest-ci'
   gem 'minitest-retry'
+  gem 'minitest-stub_any_instance'
   gem 'selenium-webdriver'
   gem 'vcr'
   gem 'webmock'
