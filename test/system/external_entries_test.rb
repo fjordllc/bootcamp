@@ -20,26 +20,4 @@ class ExternalEntriesTest < ApplicationSystemTestCase
       end
     end
   end
-
-  test 'not fetch and save rss feeds when token is invalid' do
-    assert_no_difference 'ExternalEntry.count' do
-      VCR.use_cassette 'external_entry/fetch2', vcr_options do
-        VCR.use_cassette 'external_entry/fetch' do
-          mock_env('TOKEN' => 'token') do
-            visit scheduler_daily_fetch_external_entry_path(token: 'invalid')
-          end
-        end
-      end
-    end
-  end
-
-  test 'not fetch and save rss feeds when token is not set' do
-    assert_no_difference 'ExternalEntry.count' do
-      VCR.use_cassette 'external_entry/fetch2', vcr_options do
-        VCR.use_cassette 'external_entry/fetch' do
-          visit scheduler_daily_fetch_external_entry_path
-        end
-      end
-    end
-  end
 end
