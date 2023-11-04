@@ -9,7 +9,9 @@ export default MarkdownItRegexp(mentionRegexp, (match) => {
     )
     return output
       ? output[1].match(mentionRegexp)[0]
-      : ('[' + match.input).match(mentionRegexp)[0]
+      : `<a href="${
+          match[0] === '@mentor' ? `/users?target=mentor` : `/users/${match[1]}`
+        }" class="mention-link">${match[0]}</a>`
   } else {
     return `<a href="${
       match[0] === '@mentor' ? `/users?target=mentor` : `/users/${match[1]}`
