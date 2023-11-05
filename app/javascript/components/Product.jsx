@@ -83,7 +83,6 @@ export default function Product({
             checkerAvatar={product.checker_avatar}
             currentUserId={currentUserId}
             productId={product.id}
-            parentComponent="product"
           />
         </div>
       )}
