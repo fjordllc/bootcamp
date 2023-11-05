@@ -58,8 +58,8 @@ export default function Products({
 
   const isNotProduct5daysElapsed = () => {
     const elapsedDays = []
-    data.productsGroupedByElapsedDays.forEach((h) => {
-      elapsedDays.push(h.elapsed_days)
+    data.productsGroupedByElapsedDays.forEach((group) => {
+      elapsedDays.push(group.elapsed_days)
     })
     return elapsedDays.every((day) => day < 5)
   }
