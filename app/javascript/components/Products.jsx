@@ -176,10 +176,7 @@ export default function Products({
             <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
-          <ElapsedDays
-            productsGroupedByElapsedDays={data.products_grouped_by_elapsed_days}
-            countProductsGroupedBy={countProductsGroupedBy}
-          />
+          <ElapsedDays countProductsGroupedBy={countProductsGroupedBy} />
         </div>
       </div>
     )
