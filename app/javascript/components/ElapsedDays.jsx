@@ -1,24 +1,8 @@
 import React from 'react'
 
-export default function ElapsedDays({
-  productsGroupedByElapsedDays,
-  countProductsGroupedBy
-}) {
-  const countProductsByElapsedDays = (elapsedDays) => {
-    const productsGroup = productsGroupedByElapsedDays.find((product) => {
-      return product.elapsed_days === elapsedDays
-    })
-    if (productsGroup)
-      return countProductsGroupedBy(
-        productsGroup.elapsed_days,
-        productsGroup.products
-      )
-    return 0
-  }
-
+export default function ElapsedDays({ countProductsGroupedBy }) {
   const activeClass = (quantity) => {
-    if (quantity) return `is-active`
-    return `is-inactive`
+    return quantity ? 'is-active' : 'is-inactive'
   }
 
   return (
@@ -27,31 +11,31 @@ export default function ElapsedDays({
         <ol className="page-nav__items elapsed-days">
           <li
             className={`page-nav__item is-reply-deadline ${activeClass(
-              countProductsByElapsedDays(7)
+              countProductsGroupedBy(7)
             )}`}>
             <a className="page-nav__item-link" href="#7days-elapsed">
               <span className="page-nav__item-link-inner">
-                7日以上経過{` (${countProductsByElapsedDays(7)})`}
+                7日以上経過{` (${countProductsGroupedBy(7)})`}
               </span>
             </a>
           </li>
           <li
             className={`page-nav__item is-reply-alert ${activeClass(
-              countProductsByElapsedDays(6)
+              countProductsGroupedBy(6)
             )}`}>
             <a className="page-nav__item-link" href="#6days-elapsed">
               <span className="page-nav__item-link-inner">
-                6日経過{` (${countProductsByElapsedDays(6)})`}
+                6日経過{` (${countProductsGroupedBy(6)})`}
               </span>
             </a>
           </li>
           <li
             className={`page-nav__item is-reply-warning ${activeClass(
-              countProductsByElapsedDays(5)
+              countProductsGroupedBy(5)
             )}`}>
             <a className="page-nav__item-link" href="#5days-elapsed">
               <span className="page-nav__item-link-inner">
-                5日経過{` (${countProductsByElapsedDays(5)})`}
+                5日経過{` (${countProductsGroupedBy(5)})`}
               </span>
             </a>
           </li>
@@ -60,14 +44,14 @@ export default function ElapsedDays({
               <li
                 key={passedDay}
                 className={`page-nav__item ${activeClass(
-                  countProductsByElapsedDays(passedDay)
+                  countProductsGroupedBy(passedDay)
                 )}`}>
                 <a
                   href={`#${passedDay}days-elapsed`}
                   className="page-nav__item-link">
                   <span className="page-nav__item-link-inner">
                     {passedDay}日経過
-                    {` (${countProductsByElapsedDays(passedDay)})`}
+                    {` (${countProductsGroupedBy(passedDay)})`}
                   </span>
                 </a>
               </li>
@@ -75,11 +59,11 @@ export default function ElapsedDays({
           })}
           <li
             className={`page-nav__item ${activeClass(
-              countProductsByElapsedDays(0)
+              countProductsGroupedBy(0)
             )}`}>
             <a href="#0days-elapsed" className="page-nav__item-link">
               <span className="page-nav__item-link-inner">
-                今日提出{` (${countProductsByElapsedDays(0)})`}
+                今日提出{` (${countProductsGroupedBy(0)})`}
               </span>
             </a>
           </li>
