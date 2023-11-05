@@ -216,11 +216,9 @@ function ProductHeader({
       id={elapsedDaysId(productsNDaysPassed.elapsed_days)}>
       <h2 className="card-header__title">
         {headerLabel()}
-        {
-          <span className="card-header__count">
-            （{countProductsGroupedBy(productsNDaysPassed.elapsed_days)}）
-          </span>
-        }
+        <span className="card-header__count">
+          （{countProductsGroupedBy(productsNDaysPassed.elapsed_days)}）
+        </span>
       </h2>
     </header>
   )
