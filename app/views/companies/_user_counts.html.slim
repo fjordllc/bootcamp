@@ -1,6 +1,6 @@
 .card-counts
   dl.card-counts__items
-    - unless users.mentor.size.zero?
+    - unless users.mentor.empty?
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
@@ -19,7 +19,7 @@
           | 現役生
         dd.card-counts__item-value
           = users.students_and_trainees.size
-    - unless users.admins.size.zero?
+    - unless users.admins.empty?
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
