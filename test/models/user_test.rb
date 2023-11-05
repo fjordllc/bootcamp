@@ -684,6 +684,6 @@ class UserTest < ActiveSupport::TestCase
     user.delete_organizer
 
     event = regular_events(:regular_event4)
-    assert !event.organizers.include?(user)
+    assert_not event.organizers.include?(user)
   end
 end
