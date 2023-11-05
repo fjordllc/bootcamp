@@ -67,6 +67,12 @@ export default function Products({
     return `${elapsedDays}days-elapsed`
   }
 
+  const checkerId = () => {
+    const params = new URLSearchParams(location.search)
+    const id = params.get('checker_id')
+    return id ? `&checker_id=${id}` : ''
+  }
+
   const isActive = (target) => {
     const params = new URLSearchParams(location.search)
     const urlTarget = params.get('target')
@@ -114,7 +120,7 @@ export default function Products({
                 return (
                   <li className="pill-nav__item" key={target}>
                     <a
-                      href={`/products/unchecked?target=${target}`}
+                      href={`/products/unchecked?target=${target}${checkerId()}`}
                       className={`pill-nav__item-link ${isActive(target)}`}>
                       {target === 'unchecked_no_replied' ? '未返信' : '全て'}
                     </a>
