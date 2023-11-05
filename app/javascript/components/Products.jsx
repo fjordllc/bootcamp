@@ -67,6 +67,14 @@ export default function Products({
     return `${elapsedDays}days-elapsed`
   }
 
+  const isActive = (target) => {
+    const params = new URLSearchParams(location.search)
+    const urlTarget = params.get('target')
+    if ((!urlTarget && target === 'unchecked_all') || target === urlTarget) {
+      return 'is-active'
+    }
+  }
+
   if (error) return <>エラーが発生しました。</>
 
   if (!data) {
@@ -99,6 +107,22 @@ export default function Products({
     const per = 50
     return (
       <>
+        <nav className="pill-nav">
+          <ul className="pill-nav__items">
+            {['unchecked_no_replied', 'unchecked_all'].map((target) => {
+              return (
+                <li className="pill-nav__item" key={target}>
+                  <a
+                    href={`/products/unchecked?target=${target}`}
+                    className={`pill-nav__item-link ${isActive(target)}`}>
+                    {target === 'unchecked_no_replied' ? '未返信' : '全て'}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+
         <div className="page-content is-products">
           <div className="page-body__columns">
             <div className="page-body__column is-main">
