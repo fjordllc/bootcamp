@@ -36,7 +36,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify when WIP report submitted' do
-    Report.all.each(&:destroy)
+    Report.all.find_each(&:destroy)
 
     visit_with_auth '/reports/new', 'kensyu'
     within('form[name=report]') do
