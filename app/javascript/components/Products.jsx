@@ -11,7 +11,6 @@ import usePage from './hooks/usePage'
 export default function Products({
   title,
   selectedTab,
-  checkerId,
   isMentor,
   currentUserId
 }) {
@@ -40,7 +39,6 @@ export default function Products({
       '.json' +
       '?' +
       params +
-      (checkerId ? `&checker_id=${checkerId}` : '') +
       (params.target ? `&target=${params.target}` : '') +
       `&per=${per}`
     return buildedUrl
