@@ -23,23 +23,16 @@ export default function Products({
     if (selectedTab === 'self_assigned') return '自分の担当の提出物を一括で開く'
   }
 
-  const path = () => {
-    if (selectedTab === 'all') return ''
-    if (selectedTab === 'unassigned') return '/unassigned'
-    if (selectedTab === 'unchecked') return '/unchecked'
-    if (selectedTab === 'self_assigned') return '/self_assigned'
-  }
-
   const ApiUrl = () => {
+    const path = (() => {
+      if (selectedTab === 'all') return ''
+      if (selectedTab === 'unassigned') return '/unassigned'
+      if (selectedTab === 'unchecked') return '/unchecked'
+      if (selectedTab === 'self_assigned') return '/self_assigned'
+    })()
     const params = new URLSearchParams(location.search)
-    const buildedUrl =
-      '/api/products' +
-      path() +
-      '.json' +
-      '?' +
-      params +
-      (params.target ? `&target=${params.target}` : '')
-    return buildedUrl
+
+    return `/api/products${path}?${params}`
   }
 
   const isDashboard = () => {
