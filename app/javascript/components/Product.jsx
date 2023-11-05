@@ -173,36 +173,32 @@ const UserIcons = ({ users }) => {
 }
 
 const LastCommentedTime = ({ product }) => {
-  if (product.comments.size > 0) {
-    const selfLastCommentedAt = product.self_last_commented_at
-    const mentorLastCommentedAt = product.mentor_last_commented_at
-    const selfLastCommentedAtDateTime = product.self_last_commented_at_date_time
-    const mentorLastCommentedAtDateTime =
-      product.mentor_last_commented_at_date_time
+  const selfLastCommentedAt = product.self_last_commented_at
+  const mentorLastCommentedAt = product.mentor_last_commented_at
+  const selfLastCommentedAtDateTime = product.self_last_commented_at_date_time
+  const mentorLastCommentedAtDateTime =
+    product.mentor_last_commented_at_date_time
 
-    if (selfLastCommentedAtDateTime && mentorLastCommentedAtDateTime) {
-      if (selfLastCommentedAtDateTime > mentorLastCommentedAtDateTime) {
-        return (
-          <div className="a-meta">
-            〜 {selfLastCommentedAt}（<strong>提出者</strong>）
-          </div>
-        )
-      } else if (selfLastCommentedAtDateTime < mentorLastCommentedAtDateTime) {
-        return (
-          <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
-        )
-      }
-    } else if (selfLastCommentedAtDateTime) {
+  if (selfLastCommentedAtDateTime && mentorLastCommentedAtDateTime) {
+    if (selfLastCommentedAtDateTime > mentorLastCommentedAtDateTime) {
       return (
         <div className="a-meta">
           〜 {selfLastCommentedAt}（<strong>提出者</strong>）
         </div>
       )
-    } else if (mentorLastCommentedAtDateTime) {
+    } else if (selfLastCommentedAtDateTime < mentorLastCommentedAtDateTime) {
       return (
         <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
       )
     }
+  } else if (selfLastCommentedAtDateTime) {
+    return (
+      <div className="a-meta">
+        〜 {selfLastCommentedAt}（<strong>提出者</strong>）
+      </div>
+    )
+  } else if (mentorLastCommentedAtDateTime) {
+    return <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
   }
   return null
 }
