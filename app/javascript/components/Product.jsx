@@ -8,151 +8,11 @@ export default function Product({
   currentUserId,
   elapsedDays
 }) {
-  const isDashboardPage = () => {
-    return location.pathname === '/'
-  }
-  const isUnassignedPage = () => {
-    return location.pathname === '/products/unassigned'
-  }
   const notRespondedSign = () => {
     return (
       product.self_last_commented_at_date_time >
         product.mentor_last_commented_at_date_time ||
       product.comments.size === 0
-    )
-  }
-  const untilNextElapsedDays = () => {
-    const elapsedTimes = calcElapsedTimes(product)
-    return Math.floor((Math.ceil(elapsedTimes) - elapsedTimes) * 24)
-  }
-
-  const calcElapsedTimes = () => {
-    const time = product.published_at_date_time || product.created_at_date_time
-    return (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
-  }
-  const TimeInfo = () => {
-    if (product.wip) {
-      return (
-        <div className="card-list-item-meta">
-          <div className="a-meta">提出物作成中</div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="card-list-item-meta">
-          <div className="card-list-item__row">
-            <div className="card-list-item-meta">
-              <div className="card-list-item-meta__items">
-                <div className="card-list-item-meta__item">
-                  <time className="a-meta" dateTime={product.created_at}>
-                    <span className="a-meta__label">提出</span>
-                    <span className="a-meta__value">{product.created_at}</span>
-                  </time>
-                </div>
-                <div className="card-list-item-meta__item">
-                  <time className="a-meta" dateTime={product.updated_at}>
-                    <span className="a-meta__label">更新</span>
-                    <span className="a-meta__value">{product.updated_at}</span>
-                  </time>
-                </div>
-                {(elapsedDays !== 7 && isUnassignedPage()) ||
-                isDashboardPage() ? (
-                  <div className="card-list-item-meta__item">
-                    <div className="a-meta">
-                      {untilNextElapsedDays(product) < 1
-                        ? `次の経過日数まで 1時間未満`
-                        : `次の経過日数まで 約 ${untilNextElapsedDays(
-                            product
-                          )} 時間`}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    }
-  }
-
-  const UserIcons = ({ users }) => {
-    return (
-      <div className="card-list-item__user-icons">
-        {users.map((user) => (
-          <a
-            key={user.url}
-            href={user.url}
-            className="card-list-item__user-icons-icon">
-            <img
-              title={user.icon_title}
-              alt={user.icon_title}
-              src={user.avatar_url}
-              className={`a-user-icon is-${user.primary_role}`}
-            />
-          </a>
-        ))}
-      </div>
-    )
-  }
-
-  const LastCommentedTime = () => {
-    if (product.comments.size > 0) {
-      const selfLastCommentedAt = product.self_last_commented_at
-      const mentorLastCommentedAt = product.mentor_last_commented_at
-      const selfLastCommentedAtDateTime =
-        product.self_last_commented_at_date_time
-      const mentorLastCommentedAtDateTime =
-        product.mentor_last_commented_at_date_time
-
-      if (selfLastCommentedAtDateTime && mentorLastCommentedAtDateTime) {
-        if (selfLastCommentedAtDateTime > mentorLastCommentedAtDateTime) {
-          return (
-            <div className="a-meta">
-              〜 {selfLastCommentedAt}（<strong>提出者</strong>）
-            </div>
-          )
-        } else if (
-          selfLastCommentedAtDateTime < mentorLastCommentedAtDateTime
-        ) {
-          return (
-            <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
-          )
-        }
-      } else if (selfLastCommentedAtDateTime) {
-        return (
-          <div className="a-meta">
-            〜 {selfLastCommentedAt}（<strong>提出者</strong>）
-          </div>
-        )
-      } else if (mentorLastCommentedAtDateTime) {
-        return (
-          <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
-        )
-      }
-    }
-    return null
-  }
-
-  const CommentInfo = () => {
-    return (
-      <>
-        {product.comments.size > 0 && (
-          <hr className="card-list-item__row-separator" />
-        )}
-        {product.comments.size > 0 && (
-          <div className="card-list-item-meta__items">
-            <div className="card-list-item-meta__item">
-              <div className="a-meta">コメント（{product.comments.size}）</div>
-            </div>
-            <div className="card-list-item-meta__item">
-              <UserIcons users={product.comments.users} />
-            </div>
-            <div className="card-list-item-meta__item">
-              <LastCommentedTime />
-            </div>
-          </div>
-        )}
-      </>
     )
   }
 
@@ -197,8 +57,8 @@ export default function Product({
             </div>
           </div>
           <div className="card-list-item__row">
-            <TimeInfo />
-            <CommentInfo />
+            <TimeInfo product={product} elapsedDays={elapsedDays} />
+            <CommentInfo product={product} />
           </div>
         </div>
         {product.checks.size > 0 && (
@@ -228,5 +88,144 @@ export default function Product({
         </div>
       )}
     </div>
+  )
+}
+
+const TimeInfo = ({ product, elapsedDays }) => {
+  const isDashboardPage = () => {
+    return location.pathname === '/'
+  }
+  const isUnassignedPage = () => {
+    return location.pathname === '/products/unassigned'
+  }
+  const untilNextElapsedDays = () => {
+    const elapsedTimes = calcElapsedTimes(product)
+    return Math.floor((Math.ceil(elapsedTimes) - elapsedTimes) * 24)
+  }
+
+  const calcElapsedTimes = () => {
+    const time = product.published_at_date_time || product.created_at_date_time
+    return (new Date() - Date.parse(time)) / 1000 / 60 / 60 / 24
+  }
+
+  if (product.wip) {
+    return (
+      <div className="card-list-item-meta">
+        <div className="a-meta">提出物作成中</div>
+      </div>
+    )
+  } else {
+    return (
+      <div className="card-list-item-meta">
+        <div className="card-list-item__row">
+          <div className="card-list-item-meta">
+            <div className="card-list-item-meta__items">
+              <div className="card-list-item-meta__item">
+                <time className="a-meta" dateTime={product.created_at}>
+                  <span className="a-meta__label">提出</span>
+                  <span className="a-meta__value">{product.created_at}</span>
+                </time>
+              </div>
+              <div className="card-list-item-meta__item">
+                <time className="a-meta" dateTime={product.updated_at}>
+                  <span className="a-meta__label">更新</span>
+                  <span className="a-meta__value">{product.updated_at}</span>
+                </time>
+              </div>
+              {(elapsedDays !== 7 && isUnassignedPage()) ||
+              isDashboardPage() ? (
+                <div className="card-list-item-meta__item">
+                  <div className="a-meta">
+                    {untilNextElapsedDays(product) < 1
+                      ? `次の経過日数まで 1時間未満`
+                      : `次の経過日数まで 約 ${untilNextElapsedDays(
+                          product
+                        )} 時間`}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+const UserIcons = ({ users }) => {
+  return (
+    <div className="card-list-item__user-icons">
+      {users.map((user) => (
+        <a
+          key={user.url}
+          href={user.url}
+          className="card-list-item__user-icons-icon">
+          <img
+            title={user.icon_title}
+            alt={user.icon_title}
+            src={user.avatar_url}
+            className={`a-user-icon is-${user.primary_role}`}
+          />
+        </a>
+      ))}
+    </div>
+  )
+}
+
+const LastCommentedTime = ({ product }) => {
+  if (product.comments.size > 0) {
+    const selfLastCommentedAt = product.self_last_commented_at
+    const mentorLastCommentedAt = product.mentor_last_commented_at
+    const selfLastCommentedAtDateTime = product.self_last_commented_at_date_time
+    const mentorLastCommentedAtDateTime =
+      product.mentor_last_commented_at_date_time
+
+    if (selfLastCommentedAtDateTime && mentorLastCommentedAtDateTime) {
+      if (selfLastCommentedAtDateTime > mentorLastCommentedAtDateTime) {
+        return (
+          <div className="a-meta">
+            〜 {selfLastCommentedAt}（<strong>提出者</strong>）
+          </div>
+        )
+      } else if (selfLastCommentedAtDateTime < mentorLastCommentedAtDateTime) {
+        return (
+          <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
+        )
+      }
+    } else if (selfLastCommentedAtDateTime) {
+      return (
+        <div className="a-meta">
+          〜 {selfLastCommentedAt}（<strong>提出者</strong>）
+        </div>
+      )
+    } else if (mentorLastCommentedAtDateTime) {
+      return (
+        <div className="a-meta">〜 {mentorLastCommentedAt}（メンター）</div>
+      )
+    }
+  }
+  return null
+}
+
+const CommentInfo = ({ product }) => {
+  return (
+    <>
+      {product.comments.size > 0 && (
+        <hr className="card-list-item__row-separator" />
+      )}
+      {product.comments.size > 0 && (
+        <div className="card-list-item-meta__items">
+          <div className="card-list-item-meta__item">
+            <div className="a-meta">コメント（{product.comments.size}）</div>
+          </div>
+          <div className="card-list-item-meta__item">
+            <UserIcons users={product.comments.users} />
+          </div>
+          <div className="card-list-item-meta__item">
+            <LastCommentedTime product={product} />
+          </div>
+        </div>
+      )}
+    </>
   )
 }

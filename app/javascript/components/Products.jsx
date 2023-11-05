@@ -67,42 +67,6 @@ export default function Products({
     return `${elapsedDays}days-elapsed`
   }
 
-  function ProductHeader({ productsNDaysPassed }) {
-    let headerClass = 'card-header a-elapsed-days'
-    if (productsNDaysPassed.elapsed_days === 5) {
-      headerClass += ' is-reply-warning'
-    } else if (productsNDaysPassed.elapsed_days === 6) {
-      headerClass += ' is-reply-alert'
-    } else if (productsNDaysPassed.elapsed_days >= 7) {
-      headerClass += ' is-reply-deadline'
-    }
-
-    const headerLabel = () => {
-      if (productsNDaysPassed.elapsed_days === 0) {
-        return '今日提出'
-      } else if (productsNDaysPassed.elapsed_days === 7) {
-        return `${productsNDaysPassed.elapsed_days}日以上経過`
-      } else {
-        return `${productsNDaysPassed.elapsed_days}日経過`
-      }
-    }
-
-    return (
-      <header
-        className={headerClass}
-        id={elapsedDaysId(productsNDaysPassed.elapsed_days)}>
-        <h2 className="card-header__title">
-          {headerLabel()}
-          {
-            <span className="card-header__count">
-              （{countProductsGroupedBy(productsNDaysPassed.elapsed_days)}）
-            </span>
-          }
-        </h2>
-      </header>
-    )
-  }
-
   if (error) return <>エラーが発生しました。</>
 
   if (!data) {
@@ -185,7 +149,11 @@ export default function Products({
                   <div
                     className="a-card"
                     key={productsNDaysPassed.elapsed_days}>
-                    <ProductHeader productsNDaysPassed={productsNDaysPassed} />
+                    <ProductHeader
+                      productsNDaysPassed={productsNDaysPassed}
+                      elapsedDaysId={elapsedDaysId}
+                      countProductsGroupedBy={countProductsGroupedBy}
+                    />
                     <div className="card-list">
                       <div className="card-list__items">
                         {productsNDaysPassed.products.map((product) => {
@@ -216,4 +184,44 @@ export default function Products({
       </div>
     )
   }
+}
+
+function ProductHeader({
+  productsNDaysPassed,
+  elapsedDaysId,
+  countProductsGroupedBy
+}) {
+  let headerClass = 'card-header a-elapsed-days'
+  if (productsNDaysPassed.elapsed_days === 5) {
+    headerClass += ' is-reply-warning'
+  } else if (productsNDaysPassed.elapsed_days === 6) {
+    headerClass += ' is-reply-alert'
+  } else if (productsNDaysPassed.elapsed_days >= 7) {
+    headerClass += ' is-reply-deadline'
+  }
+
+  const headerLabel = () => {
+    if (productsNDaysPassed.elapsed_days === 0) {
+      return '今日提出'
+    } else if (productsNDaysPassed.elapsed_days === 7) {
+      return `${productsNDaysPassed.elapsed_days}日以上経過`
+    } else {
+      return `${productsNDaysPassed.elapsed_days}日経過`
+    }
+  }
+
+  return (
+    <header
+      className={headerClass}
+      id={elapsedDaysId(productsNDaysPassed.elapsed_days)}>
+      <h2 className="card-header__title">
+        {headerLabel()}
+        {
+          <span className="card-header__count">
+            （{countProductsGroupedBy(productsNDaysPassed.elapsed_days)}）
+          </span>
+        }
+      </h2>
+    </header>
+  )
 }
