@@ -60,7 +60,8 @@ class Notification::TalkTest < ApplicationSystemTestCase
   test 'Receive a notification when someone except myself comments on my talk room' do
     talk_id = users(:kimura).talk.id
     visit_with_auth "/talks/#{talk_id}", 'komagata'
-    within('.thread-comment-form__form') do
+    form = first('.thread-comment-form__form', wait: true)
+    within form do
       fill_in('new_comment[description]', with: 'test')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
