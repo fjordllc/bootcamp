@@ -185,4 +185,26 @@ class RetirementTest < ApplicationSystemTestCase
     visit '/retirement'
     assert_equal 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
+
+  test 'retirement with event organizer' do
+    visit_with_auth new_retirement_path, 'hajime'
+    find('label', text: 'とても良い').click
+    click_on '退会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '退会処理が完了しました'
+
+    regular_event = regular_events(:regular_event4)
+    visit_with_auth "regular_events/#{regular_event.id}", 'kimura'
+    assert_no_selector '.is-hajime'
+
+    visit_with_auth new_retirement_path, 'kimura'
+    find('label', text: 'とても良い').click
+    click_on '退会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '退会処理が完了しました'
+
+    visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
+    assert_no_selector '.is-kimura'
+    assert_selector '.is-komagata'
+  end
 end
