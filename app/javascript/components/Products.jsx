@@ -14,7 +14,6 @@ export default function Products({
   isMentor,
   currentUserId
 }) {
-  const per = 50
   const { page, setPage } = usePage()
 
   const unconfirmedLinksName = () => {
@@ -39,8 +38,7 @@ export default function Products({
       '.json' +
       '?' +
       params +
-      (params.target ? `&target=${params.target}` : '') +
-      `&per=${per}`
+      (params.target ? `&target=${params.target}` : '')
     return buildedUrl
   }
 
@@ -141,6 +139,7 @@ export default function Products({
       </div>
     )
   } else if (selectedTab !== 'unassigned') {
+    const per = 50
     return (
       <>
         <div className="page-content is-products">
