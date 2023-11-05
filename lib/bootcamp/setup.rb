@@ -29,7 +29,7 @@ module Bootcamp
       end
 
       def attach_user_avatar!
-        User.all.each do |user|
+        User.all.find_each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
           user.avatar.attach(io: File.open(path), filename: filename) if File.exist?(path)
