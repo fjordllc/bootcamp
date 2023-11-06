@@ -719,8 +719,6 @@ ActiveRecord::Schema.define(version: 2023_10_01_031818) do
     t.bigint "retire_reasons", default: 0, null: false
     t.string "unsubscribe_email_token"
     t.text "mentor_memo"
-    t.string "discord_account"
-    t.string "times_url"
     t.text "after_graduation_hope"
     t.date "training_ends_on"
     t.boolean "sad_streak", default: false, null: false
@@ -732,7 +730,6 @@ ActiveRecord::Schema.define(version: 2023_10_01_031818) do
     t.text "profile_text"
     t.string "feed_url"
     t.boolean "sent_student_followup_message", default: false
-    t.string "times_id", comment: "Snowflake ID"
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
