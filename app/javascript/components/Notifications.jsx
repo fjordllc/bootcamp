@@ -16,13 +16,16 @@ export default function Notifications({ isMentor }) {
 
   const url = () => {
     const params = new URLSearchParams(location.search)
-    if (params.get('status') === 'unread' && params.get('page') === null) {
-      return '/api/notifications?status=unread&page=1'
-    } else if (params.get('page')) {
-      return `/api/notifications.json?${params}`
-    } else {
-      return '/api/notifications?page=1'
-    }
+    console.log(params)
+    const page = params.get('page') ? `page=${params.get('page')}` : 'page=1'
+    const target = params.get('target')
+      ? `&target=${params.get('target')}`
+      : null
+    const status = params.get('status')
+      ? `&status=${params.get('status')}`
+      : null
+
+    return `/api/notifications.json?${page}${target}${status}`
   }
 
   const { data, error } = useSWR(url, fetcher)
