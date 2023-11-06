@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@1.8.0
-  node: circleci/node@5.0.3
+  ruby: circleci/ruby@2.1.0
+  node: circleci/node@5.1.0
   browser-tools: circleci/browser-tools@1.4.6
 jobs:
   build:
@@ -65,7 +65,8 @@ jobs:
       - browser-tools/install-chrome:
           chrome-version: 114.0.5735.90
       - browser-tools/install-chromedriver
-      - ruby/install-deps
+      - ruby/install-deps:
+          clean-bundle: true
       - node/install:
           install-yarn: true
           node-version: '20.9.0'
@@ -87,7 +88,7 @@ jobs:
           name: Test
           command: |
             TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
-            bundle exec rails test $TESTFILES NODE_OPTIONS=--openssl-legacy-provider
+            bundle exec rails test $TESTFILES
           no_output_timeout: 30m
           when: always
       - store_test_results:
