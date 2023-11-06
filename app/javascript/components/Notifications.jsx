@@ -13,18 +13,11 @@ export default function Notifications({ isMentor }) {
     const params = new URLSearchParams(location.search)
     return params.get('status') !== null && params.get('status') === 'unread'
   }
-
+  const params = new URLSearchParams(location.search)
   const url = () => {
-    const params = new URLSearchParams(location.search)
-    console.log(params)
+    const target = params.get('target') ? `&target=${params.get('target')}` : ''
+    const status = params.get('status') ? `&status=${params.get('status')}` : ''
     const page = params.get('page') ? `page=${params.get('page')}` : 'page=1'
-    const target = params.get('target')
-      ? `&target=${params.get('target')}`
-      : null
-    const status = params.get('status')
-      ? `&status=${params.get('status')}`
-      : null
-
     return `/api/notifications.json?${page}${target}${status}`
   }
 
@@ -55,7 +48,6 @@ export default function Notifications({ isMentor }) {
       </div>
     )
   } else {
-    const params = new URLSearchParams(location.search)
     return (
       <>
         <nav className="pill-nav">
@@ -66,7 +58,11 @@ export default function Notifications({ isMentor }) {
                   className={`pill-nav__item-link ${
                     params.get('status') === 'unread' ? 'is-active' : ''
                   }`}
-                  href={`/notifications?status=unread`}>
+                  href={`/notifications?status=unread${
+                    params.get('target')
+                      ? `&target=${params.get('target')}`
+                      : ''
+                  }`}>
                   未読
                 </a>
               </li>
@@ -75,7 +71,11 @@ export default function Notifications({ isMentor }) {
                   className={`pill-nav__item-link ${
                     params.get('status') === 'unread' ? '' : 'is-active'
                   }`}
-                  href="/notifications">
+                  href={`/notifications${
+                    params.get('target')
+                      ? `?target=${params.get('target')}`
+                      : ''
+                  }`}>
                   全て
                 </a>
               </li>
