@@ -1,7 +1,6 @@
 <template lang="pug">
 .thread-comment-form.is-action-completed
-  .thread-comment__author
-  .thread-comment-form__form
+  .thread-action-completed-form__form
     .action-completed(v-if='isActionCompleted')
       .action-completed__action
         .a-button.is-sm.is-block.check-button.is-muted-borderd(

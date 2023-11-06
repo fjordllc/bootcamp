@@ -64,8 +64,7 @@ GEM
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
     active_decorator (1.4.1)
       activesupport
-    active_delivery (1.0.0)
-      ruby-next-core (>= 0.15.0)
+    active_delivery (0.4.4)
     active_flag (1.6.0)
       activerecord (>= 5)
     active_storage_validations (1.1.1)
@@ -113,7 +112,7 @@ GEM
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    bullet (7.1.2)
+    bullet (7.1.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     bundle_outdated_formatter (0.7.0)
@@ -285,7 +284,6 @@ GEM
     mime-types-data (3.2023.1003)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.5)
     minitest (5.20.0)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
@@ -307,9 +305,6 @@ GEM
     netrc (0.11.0)
     newspaper (0.2.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
@@ -349,7 +344,7 @@ GEM
       racc
     pastel (0.8.0)
       tty-color (~> 0.5)
-    pg (1.5.4)
+    pg (1.4.6)
     postmark (1.25.0)
       json
     postmark-rails (0.22.1)
@@ -367,7 +362,7 @@ GEM
     puma (6.4.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.7.2)
+    racc (1.7.3)
     rack (2.2.8)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
@@ -475,7 +470,6 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    ruby-next-core (0.15.3)
     ruby-openai (5.2.0)
       event_stream_parser (>= 0.3.0, < 1.0.0)
       faraday (>= 1)
@@ -526,7 +520,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stringio (3.0.8)
+    stringio (3.0.1)
     strings (0.2.1)
       strings-ansi (~> 0.2)
       unicode-display_width (>= 1.5, < 3.0)
@@ -590,13 +584,12 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
-  ruby
   x86_64-linux
 
 DEPENDENCIES
   abstract_notifier (~> 0.3.2)
   active_decorator
-  active_delivery
+  active_delivery (= 0.4.4)
   active_flag
   active_storage_validations
   acts-as-taggable-on
@@ -636,13 +629,12 @@ DEPENDENCIES
   net-pop
   net-smtp
   newspaper
-  nokogiri (~> 1.15, >= 1.15.4)
   oauth2
   omniauth (~> 2.1.1)
   omniauth-github (~> 2.0.1)
   omniauth-rails_csrf_protection
   parser (= 3.2.2.4)
-  pg
+  pg (~> 1.4.6)
   postmark-rails
   pry-byebug
   puma (~> 6.3)
@@ -672,6 +664,7 @@ DEPENDENCIES
   sorcery-jwt
   spring
   spring-watcher-listen (~> 2.0.0)
+  stringio (= 3.0.1)
   stripe
   stripe-i18n!
   syntax_suggest
