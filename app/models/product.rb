@@ -11,6 +11,7 @@ class Product < ApplicationRecord
   include Searchable
   include Bookmarkable
   include Taskable
+  include ProductDecorator
 
   GITHUB_ACCOUNT_NAME = 'fjordllc'
 
@@ -211,6 +212,6 @@ class Product < ApplicationRecord
   end
 
   def reject_wrong_repository_url
-    errors.add(:body, '中のPRのURLが間違っています。フォークした自分のリポジトリ向けにPRを作り直してください(参考: https://www.youtube.com/watch?v=XMgLL4qIyEA)') if body.match?(/#{GITHUB_ACCOUNT_NAME}\/.+\/pull\/\d+/)
+    errors.add(:body, reject_message_for_wrong_repository) if body.match?(%r{#{GITHUB_ACCOUNT_NAME}/.+/pull/\d+})
   end
 end

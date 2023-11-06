@@ -207,6 +207,6 @@ class ProductTest < ActiveSupport::TestCase
       practice: practices(:practice5)
     )
     product.valid?
-    assert_equal '中のPRのURLが間違っています。フォークした自分のリポジトリ向けにPRを作り直してください(参考: https://www.youtube.com/watch?v=XMgLL4qIyEA)', product.errors[:body].first
+    assert_equal '中のPRのURLが間違っています。<a href="https://www.youtube.com/watch?v=XMgLL4qIyEA">提出物のPRのやり方 - YouTube</a>を確認してPRを作り直してください', product.errors[:body].first
   end
 end
