@@ -15,10 +15,39 @@ export default function Notifications({ isMentor }) {
   }
   const params = new URLSearchParams(location.search)
   const url = () => {
-    const target = params.get('target') ? `&target=${params.get('target')}` : ''
-    const status = params.get('status') ? `&status=${params.get('status')}` : ''
-    const page = params.get('page') ? `page=${params.get('page')}` : 'page=1'
-    return `/api/notifications.json?${page}${target}${status}`
+    const target = params.get('target')
+    const status = params.get('status')
+    const page = params.get('page') ? params.get('page') : 1
+    const url = new URL('api/notifications.json', location.origin)
+
+    const searchParams = new URLSearchParams()
+    if (target) {
+      searchParams.set('target', target)
+    }
+
+    if (status) {
+      searchParams.set('status', status)
+    }
+
+    searchParams.set('page', page)
+    url.search = searchParams
+
+    return url.toString()
+  }
+
+  const filterButtonUrl = (status) => {
+    const url = new URL('/notifications', location.origin)
+    const target = params.get('target')
+    const searchParams = new URLSearchParams()
+    if (target) {
+      searchParams.set('target', target)
+    }
+    if (status) {
+      searchParams.set('status', status)
+    }
+
+    url.search = searchParams
+    return url.toString()
   }
 
   const { data, error } = useSWR(url, fetcher)
@@ -58,11 +87,7 @@ export default function Notifications({ isMentor }) {
                   className={`pill-nav__item-link ${
                     params.get('status') === 'unread' ? 'is-active' : ''
                   }`}
-                  href={`/notifications?status=unread${
-                    params.get('target')
-                      ? `&target=${params.get('target')}`
-                      : ''
-                  }`}>
+                  href={filterButtonUrl('unread')}>
                   未読
                 </a>
               </li>
@@ -71,11 +96,7 @@ export default function Notifications({ isMentor }) {
                   className={`pill-nav__item-link ${
                     params.get('status') === 'unread' ? '' : 'is-active'
                   }`}
-                  href={`/notifications${
-                    params.get('target')
-                      ? `?target=${params.get('target')}`
-                      : ''
-                  }`}>
+                  href={filterButtonUrl(null)}>
                   全て
                 </a>
               </li>
