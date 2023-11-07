@@ -19,8 +19,8 @@ export default function Notifications({ isMentor }) {
     const status = params.get('status')
     const page = params.get('page') ? params.get('page') : 1
     const url = new URL('api/notifications.json', location.origin)
-
     const searchParams = new URLSearchParams()
+
     if (target) {
       searchParams.set('target', target)
     }
@@ -39,6 +39,7 @@ export default function Notifications({ isMentor }) {
     const url = new URL('/notifications', location.origin)
     const target = params.get('target')
     const searchParams = new URLSearchParams()
+
     if (target) {
       searchParams.set('target', target)
     }
