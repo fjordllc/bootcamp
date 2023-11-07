@@ -72,7 +72,7 @@ export default function Notifications({ isMentor }) {
           <i className="fa-regular fa-smile" />
         </div>
         <p className="o-empty-message__text">
-          {isUnreadPage ? '未読の通知はありません' : '通知はありません'}
+          {isUnreadPage() ? '未読の通知はありません' : '通知はありません'}
         </p>
       </div>
     )
