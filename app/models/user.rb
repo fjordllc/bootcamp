@@ -706,7 +706,7 @@ class User < ApplicationRecord
   end
 
   def last_hibernation
-    return nil if hibernations.size.zero?
+    return nil if hibernations.empty?
 
     hibernations.order(:created_at).last
   end

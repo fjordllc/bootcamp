@@ -1,4 +1,4 @@
-FROM ruby:3.1.0-alpine
+FROM ruby:3.1.4-alpine
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -6,8 +6,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.3.6
-RUN bundle config set without development:test
+RUN gem install --no-document --force bundler -v 2.4.21
 
 # Install packages
 RUN apk add --no-cache \
@@ -21,7 +20,7 @@ RUN apk add --no-cache \
       cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # ImageMagick
-RUN apk add --no-cache imagemagick bash pngcrush optipng=0.7.7-r0 ghostscript-fonts
+RUN apk add --no-cache imagemagick bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
 
 # Install npm packages
 COPY package.json yarn.lock ./
@@ -29,11 +28,11 @@ RUN yarn install --production --ignore-engines
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN CFLAGS="-Wno-cast-function-type" BUNDLE_BUILD__SASSC="--disable-march-tune-native" BUNDLE_FORCE_RUBY_PLATFORM=1 bundle install -j4
+RUN bundle install -j4
 
 # Compile assets
 COPY . ./
-RUN SECRET_KEY_BASE=dummy bin/rails assets:precompile
+RUN SECRET_KEY_BASE=dummy NODE_OPTIONS=--openssl-legacy-provider bin/rails assets:precompile
 
 ENV PORT 3000
 EXPOSE 3000
