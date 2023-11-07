@@ -14,7 +14,7 @@ export default function Notifications({ isMentor }) {
     return params.get('status') !== null && params.get('status') === 'unread'
   }
   const params = new URLSearchParams(location.search)
-  const url = () => {
+  const apiUrl = () => {
     const target = params.get('target')
     const status = params.get('status')
     const page = params.get('page') ? params.get('page') : 1
@@ -50,7 +50,7 @@ export default function Notifications({ isMentor }) {
     return url.toString()
   }
 
-  const { data, error } = useSWR(url, fetcher)
+  const { data, error } = useSWR(apiUrl, fetcher)
 
   const { page, setPage } = usePage()
 
