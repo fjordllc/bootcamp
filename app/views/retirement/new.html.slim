@@ -15,6 +15,17 @@ hr.a-border
         = render 'errors', object: current_user
       = form_with model: current_user, local: true, url: retirement_path, method: :post, class: 'form' do |f|
         .form__items
+          - if current_user.regular_events.any?
+            .form-item
+              .important-message
+                .important-message__body
+                  .a-short-text.is-sm
+                    p
+                      |ご自身が主催者である定期イベントがあります。
+                      | 退会をお考えの場合、イベントの進行に影響がないよう、任意で他の参加者に主催を引き継ぐことを推奨します。
+                      | 退会手続きを完了する前に、
+                      = link_to 'こちら', regular_events_path
+                      | からイベント管理を行ってください。
           .form-item
             = f.label :retire_reasons, '退会の理由を教えてください（複数選択可）', class: 'a-form-label'
             .checkboxes
