@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'
+ruby '3.1.4'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'image_processing', '~> 1.12'
@@ -15,7 +15,7 @@ gem 'webpacker', '~> 5.0'
 # not default
 gem 'abstract_notifier', '~> 0.3.2'
 gem 'active_decorator'
-gem 'active_delivery'
+gem 'active_delivery', '0.4.4'
 gem 'active_flag'
 gem 'active_storage_validations'
 gem 'acts_as_list'
@@ -29,7 +29,7 @@ gem 'country_select'
 gem 'data_migrate'
 gem 'diffy'
 gem 'discord-notifier'
-gem 'discordrb', github: 'shardlab/discordrb', require: false
+gem 'discordrb', '~> 3.5', require: false
 gem 'good_job', '~> 3.14', github: 'komagata/good_job'
 gem 'google-cloud-storage', '~> 1.25', require: false
 gem 'holiday_jp'
@@ -47,7 +47,8 @@ gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-github', '~> 2.0.1'
 gem 'omniauth-rails_csrf_protection'
-gem 'pg'
+gem 'parser', '3.2.2.4'
+gem 'pg', '~> 1.4.6'
 gem 'postmark-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-user_agent'
@@ -63,6 +64,7 @@ gem 'rubyzip'
 gem 'slim-rails'
 gem 'sorcery', '~> 0.16.2'
 gem 'sorcery-jwt'
+gem 'stringio', '3.0.1'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'tzinfo', '~> 2.0', '>= 2.0.6'
@@ -104,6 +106,5 @@ group :test do
   gem 'minitest-retry'
   gem 'selenium-webdriver'
   gem 'vcr'
-  gem 'webdrivers'
   gem 'webmock'
 end
