@@ -618,6 +618,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector '.card-counts__items'
   end
 
+<<<<<<< HEAD
   test 'show hibernation period in profile' do
     hibernated_user = users(:kyuukai)
     user = users(:hatsuno)
@@ -628,6 +629,34 @@ class UsersTest < ApplicationSystemTestCase
     end
     visit_with_auth user_path(user), 'komagata'
     assert_no_text '休会中 / 休会から'
+=======
+  test 'calculate time to auto retire' do
+    # kyuukaiの退会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
+
+    travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do # 自動退会日まで1時間を切った場合。
+      visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
+      assert_text '休会期限日時'
+      assert_text '2020年07月01日(水) 09:00 (自動退会まであと59分)'
+    end
+
+    travel_to Time.zone.local(2020, 6, 30, 10, 0, 0) do # 自動退会日まで24時間を切った場合。
+      visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
+      assert_text '休会期限日時'
+      assert_text '2020年07月01日(水) 09:00 (自動退会まであと23時間)'
+    end
+
+    travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do # 自動退会日1週間を切った場合。
+      visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
+      assert_text '休会期限日時'
+      assert_text '2020年07月01日(水) 09:00 (自動退会まであと7日)'
+    end
+
+    travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do # 自動退会日6ヶ月前 ~ 1週間を切るまでの場合。
+      visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
+      assert_text '休会期限日時'
+      assert_text '2020年07月01日(水) 09:00 (自動退会まであと182日)'
+    end
+>>>>>>> 5f05b48dd (conflict対応)
   end
 
   test 'show retirement message on users page' do
