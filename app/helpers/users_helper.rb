@@ -61,4 +61,48 @@ module UsersHelper
                     .to_h
                     .to_json
   end
+
+  def calculate_absence_days(user)
+    return unless user.hibernated_at
+
+    ((Time.zone.now - user.hibernated_at) / 86_400).floor
+  end
+
+  def remaining_days_until_automatic_retire(user)
+    return unless user.hibernated_at
+
+    ((automatic_retire_datetime(user) - Time.zone.now) / 86_400).floor
+  end
+end
+
+def remaining_time_until_automatic_retire(user)
+  if user.remaining_days_until_automatic_retire(user) < 1
+    if user.remaining_hours_until_automatic_retire(user) >= 1
+      "#{user.remaining_hours_until_automatic_retire(user)}時間"
+    else
+      "#{user.remaining_minutes_until_automatic_retire(user)}分"
+    end
+  else
+    "#{user.remaining_days_until_automatic_retire(user)}日"
+  end
+end
+
+private
+
+def automatic_retire_datetime(user)
+  return unless user.hibernated_at
+
+  user.hibernated_at.advance(months: 6)
+end
+
+def remaining_hours_until_automatic_retire(user)
+  return unless user.hibernated_at
+
+  ((automatic_retire_datetime(user) - Time.zone.now) / 3600).floor
+end
+
+def remaining_minutes_until_automatic_retire(user)
+  return unless user.hibernated_at
+
+  ((automatic_retire_datetime(user) - Time.zone.now) / 60).floor
 end
