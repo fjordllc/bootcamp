@@ -54,14 +54,12 @@ export default function Notifications({ isMentor }) {
   }
 
   const { data, error } = useSWR(apiUrl, fetcher)
-
-  const { page, setPage } = usePage()
-
   if (error) {
     console.warn(error)
     return <div>failed to load</div>
   }
 
+  const { page, setPage } = usePage()
   if (!data) {
     return (
       <div id="notifications" className="page-content loading">
