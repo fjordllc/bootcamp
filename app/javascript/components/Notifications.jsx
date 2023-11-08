@@ -11,7 +11,7 @@ export default function Notifications({ isMentor }) {
   const per = 20
   const isUnreadPage = () => {
     const params = new URLSearchParams(location.search)
-    return params.get('status') !== null && params.get('status') === 'unread'
+    return params.get('status') === 'unread'
   }
   const params = new URLSearchParams(location.search)
   const apiUrl = () => {
