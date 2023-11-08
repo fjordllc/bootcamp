@@ -13,9 +13,9 @@ export default function Notifications({ isMentor }) {
     const params = new URLSearchParams(location.search)
     return params.get('status') === 'unread'
   }
-  const params = new URLSearchParams(location.search)
   const apiUrl = () => {
     const searchParams = new URLSearchParams()
+    const params = new URLSearchParams(location.search)
     const target = params.get('target')
     if (target) {
       searchParams.set('target', target)
@@ -37,6 +37,7 @@ export default function Notifications({ isMentor }) {
 
   const filterButtonUrl = (status) => {
     const searchParams = new URLSearchParams()
+    const params = new URLSearchParams(location.search)
     const target = params.get('target')
     if (target) {
       searchParams.set('target', target)
@@ -79,6 +80,7 @@ export default function Notifications({ isMentor }) {
       </div>
     )
   } else {
+    const params = new URLSearchParams(location.search)
     return (
       <>
         <nav className="pill-nav">
