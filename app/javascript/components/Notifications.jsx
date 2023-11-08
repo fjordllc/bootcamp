@@ -36,18 +36,19 @@ export default function Notifications({ isMentor }) {
   }
 
   const filterButtonUrl = (status) => {
-    const url = new URL('/notifications', location.origin)
-    const target = params.get('target')
     const searchParams = new URLSearchParams()
-
+    const target = params.get('target')
     if (target) {
       searchParams.set('target', target)
     }
+
     if (status) {
       searchParams.set('status', status)
     }
 
+    const url = new URL('/notifications', location.origin)
     url.search = searchParams
+
     return url.toString()
   }
 
