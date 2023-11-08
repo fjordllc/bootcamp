@@ -17,7 +17,7 @@ export default function Notifications({ isMentor }) {
   const apiUrl = () => {
     const target = params.get('target')
     const status = params.get('status')
-    const page = params.get('page') ? params.get('page') : 1
+    const page = params.get('page') ?? 1
     const url = new URL('api/notifications.json', location.origin)
     const searchParams = new URLSearchParams()
 
