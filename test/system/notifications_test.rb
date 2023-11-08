@@ -422,4 +422,13 @@ class NotificationsTest < ApplicationSystemTestCase
       assert_no_selector '.a-notification-count'
     end
   end
+
+  test 'Unread and All buttons should always be displayed' do
+    user = users(:kimura)
+    visit_with_auth '/notifications', user.login_name
+    assert_selector '.pill-nav__item-link.is-active'
+
+    visit '/notifications?status=unread&target=check'
+    assert_selector '.pill-nav__item-link.is-active'
+  end
 end
