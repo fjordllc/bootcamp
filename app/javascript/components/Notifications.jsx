@@ -98,7 +98,7 @@ export default function Notifications({ isMentor }) {
                   className={`pill-nav__item-link ${
                     params.get('status') === 'unread' ? '' : 'is-active'
                   }`}
-                  href={filterButtonUrl(null)}>
+                  href={filterButtonUrl()}>
                   全て
                 </a>
               </li>
