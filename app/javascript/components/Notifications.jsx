@@ -15,21 +15,21 @@ export default function Notifications({ isMentor }) {
   }
   const params = new URLSearchParams(location.search)
   const apiUrl = () => {
-    const target = params.get('target')
-    const status = params.get('status')
-    const page = params.get('page') ?? 1
-    const url = new URL('api/notifications.json', location.origin)
     const searchParams = new URLSearchParams()
-
+    const target = params.get('target')
     if (target) {
       searchParams.set('target', target)
     }
 
+    const status = params.get('status')
     if (status) {
       searchParams.set('status', status)
     }
 
+    const page = params.get('page') ?? 1
     searchParams.set('page', page)
+
+    const url = new URL('api/notifications.json', location.origin)
     url.search = searchParams
 
     return url.toString()
