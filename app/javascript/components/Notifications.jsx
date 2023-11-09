@@ -35,14 +35,13 @@ export default function Notifications({ isMentor }) {
     return url.toString()
   }
 
+  const { page, setPage } = usePage()
   const { data, error } = useSWR(apiUrl, fetcher)
+
   if (error) {
     console.warn(error)
     return <div>failed to load</div>
-  }
-
-  const { page, setPage } = usePage()
-  if (!data) {
+  } else if (!data) {
     return (
       <div id="notifications" className="page-content loading">
         <LoadingListPlaceholder />
@@ -62,48 +61,45 @@ export default function Notifications({ isMentor }) {
         </div>
       </>
     )
-  } else {
-    return (
-      <>
-        <FilterButton />
-        <div id="notifications" className="page-content loaded">
-          {data.total_pages > 1 && (
-            <nav className="pagination">
-              <Pagination
-                sum={data.total_pages * per}
-                per={per}
-                page={page}
-                setPage={setPage}
-              />
-            </nav>
-          )}
-          <div className="card-list a-card">
-            {data.notifications.map((notification) => {
-              return (
-                <Notification
-                  key={notification.id}
-                  notification={notification}
-                />
-              )
-            })}
-          </div>
-          {isMentor && isUnreadPage() && (
-            <UnconfirmedLink label="未読の通知を一括で開く" />
-          )}
-          {data.total_pages > 1 && (
-            <nav className="pagination">
-              <Pagination
-                sum={data.total_pages * per}
-                per={per}
-                page={page}
-                setPage={setPage}
-              />
-            </nav>
-          )}
-        </div>
-      </>
-    )
   }
+
+  return (
+    <>
+      <FilterButton />
+      <div id="notifications" className="page-content loaded">
+        {data.total_pages > 1 && (
+          <nav className="pagination">
+            <Pagination
+              sum={data.total_pages * per}
+              per={per}
+              page={page}
+              setPage={setPage}
+            />
+          </nav>
+        )}
+        <div className="card-list a-card">
+          {data.notifications.map((notification) => {
+            return (
+              <Notification key={notification.id} notification={notification} />
+            )
+          })}
+        </div>
+        {isMentor && isUnreadPage() && (
+          <UnconfirmedLink label="未読の通知を一括で開く" />
+        )}
+        {data.total_pages > 1 && (
+          <nav className="pagination">
+            <Pagination
+              sum={data.total_pages * per}
+              per={per}
+              page={page}
+              setPage={setPage}
+            />
+          </nav>
+        )}
+      </div>
+    </>
+  )
 }
 
 const FilterButton = () => {
