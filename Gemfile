@@ -43,6 +43,7 @@ gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'newspaper'
+gem 'nokogiri', '~> 1.15', '>= 1.15.4'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
 gem 'omniauth-github', '~> 2.0.1'
