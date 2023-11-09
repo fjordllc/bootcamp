@@ -1,60 +1,15 @@
 .welcome-section
   +position(relative)
-  +media-breakpoint-up(lg)
-    padding-block: 3rem
-  +media-breakpoint-down(md)
-    padding-block: 2rem
-  &.has-no-padding-bottom
-    padding-bottom: 0
-  &.is-pricing
-    background-color: tint($welcome-pink, 40%)
-    padding-block: 2.25rem
-    +media-breakpoint-down(md)
-      padding-block: 2rem
-  &.is-substance
-    background-color: #b4dbfd
-    padding-block: 2.25rem
-    +media-breakpoint-down(md)
-      padding-block: 2rem
-  &.is-job-hunt-support
-    background-color: #e6e6ee
-    padding-block: 2.25rem
-    +media-breakpoint-down(md)
-      padding-block: 2rem
-  .tos
-    th
-      white-space: nowrap
-  &.is-top-banner
-    background-color: #ffeb00
-    padding: .5rem 0
-    img
-      max-height: 6rem
-      display: block
-      margin-inline: auto
 
 .welcome-section__seperator
   border-top: solid 1px var(--border)
 
 .welcome-section__title
-  +text-block(1.875rem 1.45 0 .3em, 700 center)
   color: var(--default-text)
+  +media-breakpoint-up(md)
+    +text-block(1.875rem 1.45 0 .3em, 700)
   +media-breakpoint-down(sm)
     +text-block(1.125rem 1.3 0 1rem)
-    +position(relative)
-  &.has-border
-    position: relative
-    padding-bottom: .75em
-    margin-bottom: 1em
-    &::before
-      content: ''
-      display: block
-      +position(absolute, left 50%, bottom 0)
-      +size(6em .375em)
-      //background-color: #178bff
-      transform: translate(-50%, 0)
-      border-radius: 1em
-      background: rgb(250,237,0)
-      background: linear-gradient(180deg, #fdb82e 0%, #fdb82e 50%, #ef6085 50%, #ef6085 100%)
 
 .welcome-section__sub-title
   +text-block(1.25rem 1.45 0 .8em, 700 center)
@@ -97,8 +52,6 @@
     margin-inline: -.75rem
 
 .welcome-section__description
-  max-width: 40rem
-  margin-inline: auto
   +media-breakpoint-up(md)
     font-size: 1rem
   +media-breakpoint-down(sm)
