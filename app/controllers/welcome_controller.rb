@@ -8,30 +8,23 @@ class WelcomeController < ApplicationController
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
 
-  def pricing
-  end
+  def pricing; end
 
-  def faq
-  end
+  def faq; end
 
-  def training
-  end
+  def training; end
 
   def practices
     render layout: 'lp'
   end
 
-  def tos
-  end
+  def tos; end
 
-  def pp
-  end
+  def pp; end
 
-  def law
-  end
+  def law; end
 
-  def coc
-  end
+  def coc; end
 
   def courses
     @courses = Course.order(:created_at)
