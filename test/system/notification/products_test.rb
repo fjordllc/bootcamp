@@ -90,10 +90,12 @@ class Notification::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'send the notification of practices mentor is watching' do
-    practice = practices(:practice1)
+    practice = practices(:practice5)
 
     visit_with_auth "/practices/#{practice.id}", 'mentormentaro'
     find('div.a-watch-button', text: 'Watch').click
+
+    assert_text 'Watch中'
 
     visit_with_auth "/products/new?practice_id=#{practice.id}", 'hatsuno'
     fill_in 'product[body]', with: 'test'

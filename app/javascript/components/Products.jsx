@@ -1,46 +1,88 @@
-import React, { useState, useEffect } from 'react'
-import queryString from 'query-string'
+import React from 'react'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import UnconfirmedLink from './UnconfirmedLink'
 import Product from './Product'
 import fetcher from '../fetcher'
+import ElapsedDays from './ElapsedDays'
+import usePage from './hooks/usePage'
 
-export default function Products({ title, selectedTab }) {
-  const per = 20
-  const neighbours = 4
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+export default function Products({
+  title,
+  selectedTab,
+  isMentor,
+  currentUserId
+}) {
+  const { page, setPage } = usePage()
 
-  useEffect(() => {
-    setPage(page)
-  }, [page])
+  const unconfirmedLinksName = () => {
+    if (selectedTab === 'all') return '全ての提出物を一括で開く'
+    if (selectedTab === 'unchecked') return '未完了の提出物を一括で開く'
+    if (selectedTab === 'unassigned') return '未アサインの提出物を一括で開く'
+    if (selectedTab === 'self_assigned') return '自分の担当の提出物を一括で開く'
+  }
 
-  const unconfirmedLinksName = (() => {
-    return {
-      all: '全ての提出物を一覧で開く',
-      unchecked: '未完了の提出物を一覧で開く',
-      self_assigned: '自分の担当の提出物を一覧で開く',
-      unassigned: '未アサインの提出物を一覧で開く'
-    }[selectedTab]
-  })()
+  const ApiUrl = () => {
+    const path = (() => {
+      if (selectedTab === 'all') return ''
+      if (selectedTab === 'unassigned') return '/unassigned'
+      if (selectedTab === 'unchecked') return '/unchecked'
+      if (selectedTab === 'self_assigned') return '/self_assigned'
+    })()
+    const params = new URLSearchParams(location.search)
 
-  const url = (() => {
-    if (selectedTab === 'all') return ''
-    if (selectedTab === 'unassigned') return '/unassigned'
-    if (selectedTab === 'unchecked') return '/unchecked'
-    if (selectedTab === 'self_assigned') return '/self_assigned'
-  })()
+    return `/api/products${path}?${params}`
+  }
 
-  const { data, error } = useSWR(`/api/products${url}?page=${page}`, fetcher)
+  const isDashboard = () => {
+    return location.pathname === '/'
+  }
 
-  const handlePaginate = (p) => {
-    setPage(p)
-    window.history.pushState(null, null, `/products${url}?page=${p}`)
+  const { data, error } = useSWR(ApiUrl(), fetcher)
+
+  const getElementNdaysPassed = (elapsedDays, productsGroupedByElapsedDays) => {
+    const element = productsGroupedByElapsedDays.find(
+      (el) => el.elapsed_days === elapsedDays
+    )
+    return element
+  }
+
+  const countProductsGroupedBy = (elapsedDays) => {
+    const element = getElementNdaysPassed(
+      elapsedDays,
+      data.products_grouped_by_elapsed_days
+    )
+    return element === undefined ? 0 : element.products.length
+  }
+
+  const isNotProduct5daysElapsed = () => {
+    const elapsedDays = []
+    data.productsGroupedByElapsedDays.forEach((group) => {
+      elapsedDays.push(group.elapsed_days)
+    })
+    return elapsedDays.every((day) => day < 5)
+  }
+  const elapsedDaysId = (elapsedDays) => {
+    return `${elapsedDays}days-elapsed`
+  }
+
+  const checkerId = () => {
+    const params = new URLSearchParams(location.search)
+    const id = params.get('checker_id')
+    return id ? `checker_id=${id}` : ''
+  }
+
+  const isActive = (target) => {
+    const params = new URLSearchParams(location.search)
+    const urlTarget = params.get('target')
+    if ((!urlTarget && target === 'unchecked_all') || target === urlTarget) {
+      return 'is-active'
+    }
   }
 
   if (error) return <>エラーが発生しました。</>
+
   if (!data) {
     return (
       <div className="page-body">
@@ -49,9 +91,7 @@ export default function Products({ title, selectedTab }) {
         </div>
       </div>
     )
-  }
-
-  if (data.products.length === 0) {
+  } else if (data.products.length === 0) {
     return (
       <div class="o-empty-message">
         <div class="o-empty-message__icon">
@@ -60,36 +100,155 @@ export default function Products({ title, selectedTab }) {
         <p class="o-empty-message__text">{title}はありません</p>
       </div>
     )
+  } else if (isDashboard() && isNotProduct5daysElapsed()) {
+    return (
+      <div className="o-empty-message">
+        <div className="o-empty-message__icon">
+          <i className="fa-regular fa-smile" />
+        </div>
+        <p className="o-empty-message__text">5日経過した提出物はありません</p>
+      </div>
+    )
+  } else if (selectedTab !== 'unassigned') {
+    const per = 50
+    return (
+      <>
+        {selectedTab !== 'all' && (
+          <nav className="pill-nav">
+            <ul className="pill-nav__items">
+              {['unchecked_no_replied', 'unchecked_all'].map((target) => {
+                return (
+                  <li className="pill-nav__item" key={target}>
+                    <a
+                      href={`/products/unchecked?${checkerId()}&target=${target}`}
+                      className={`pill-nav__item-link ${isActive(target)}`}>
+                      {target === 'unchecked_no_replied' ? '未返信' : '全て'}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+        )}
+
+        <div className="page-content is-products">
+          <div className="page-body__columns">
+            <div className="page-body__column is-main">
+              <div className="container is-md">
+                {data.total_pages > 1 && (
+                  <Pagination
+                    sum={data.total_pages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
+                <ul className="card-list a-card">
+                  {data.products.map((product) => {
+                    return (
+                      <Product
+                        product={product}
+                        key={product.id}
+                        isMentor={isMentor}
+                        currentUserId={currentUserId}
+                      />
+                    )
+                  })}
+                </ul>
+                {data.total_pages > 1 && (
+                  <Pagination
+                    sum={data.total_pages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
+                <UnconfirmedLink label={unconfirmedLinksName()} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
   } else {
     return (
-      <div className="page-body">
-        <div className="container is-md">
-          {data.total_pages > 1 && (
-            <Pagination
-              sum={data.total_pages * per}
-              per={per}
-              neighbours={neighbours}
-              page={page}
-              onChange={(e) => handlePaginate(e.page)}
-            />
-          )}
-          <ul className="card-list a-card">
-            {data.products.map((product) => {
-              return <Product product={product} key={product.id} />
-            })}
-          </ul>
-          {data.total_pages > 1 && (
-            <Pagination
-              sum={data.total_pages * per}
-              per={per}
-              neighbours={neighbours}
-              page={page}
-              onChange={(e) => handlePaginate(e.page)}
-            />
-          )}
-          <UnconfirmedLink label={unconfirmedLinksName} />
+      <div className="page-content is-products">
+        <div className="page-body__columns">
+          <div className="page-body__column is-main">
+            {data.products_grouped_by_elapsed_days.map(
+              (productsNDaysPassed) => {
+                return (
+                  <div
+                    className="a-card"
+                    key={productsNDaysPassed.elapsed_days}>
+                    <ProductHeader
+                      productsNDaysPassed={productsNDaysPassed}
+                      elapsedDaysId={elapsedDaysId}
+                      countProductsGroupedBy={countProductsGroupedBy}
+                    />
+                    <div className="card-list">
+                      <div className="card-list__items">
+                        {productsNDaysPassed.products.map((product) => {
+                          return (
+                            <Product
+                              product={product}
+                              key={product.id}
+                              isMentor={isMentor}
+                              currentUserId={currentUserId}
+                              elapsedDays={productsNDaysPassed.elapsed_days}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+            )}
+            <UnconfirmedLink label={unconfirmedLinksName()} />
+          </div>
+
+          <ElapsedDays countProductsGroupedBy={countProductsGroupedBy} />
         </div>
       </div>
     )
   }
+}
+
+function ProductHeader({
+  productsNDaysPassed,
+  elapsedDaysId,
+  countProductsGroupedBy
+}) {
+  let headerClass = 'card-header a-elapsed-days'
+  if (productsNDaysPassed.elapsed_days === 5) {
+    headerClass += ' is-reply-warning'
+  } else if (productsNDaysPassed.elapsed_days === 6) {
+    headerClass += ' is-reply-alert'
+  } else if (productsNDaysPassed.elapsed_days >= 7) {
+    headerClass += ' is-reply-deadline'
+  }
+
+  const headerLabel = () => {
+    if (productsNDaysPassed.elapsed_days === 0) {
+      return '今日提出'
+    } else if (productsNDaysPassed.elapsed_days === 7) {
+      return `${productsNDaysPassed.elapsed_days}日以上経過`
+    } else {
+      return `${productsNDaysPassed.elapsed_days}日経過`
+    }
+  }
+
+  return (
+    <header
+      className={headerClass}
+      id={elapsedDaysId(productsNDaysPassed.elapsed_days)}>
+      <h2 className="card-header__title">
+        {headerLabel()}
+        <span className="card-header__count">
+          （{countProductsGroupedBy(productsNDaysPassed.elapsed_days)}）
+        </span>
+      </h2>
+    </header>
+  )
 }
