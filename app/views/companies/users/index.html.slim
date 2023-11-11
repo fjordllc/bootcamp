@@ -1,5 +1,7 @@
 - title "#{@company.name}所属ユーザー"
-header.page-header.is-border-bottom-none
+- set_meta_tags description: "#{@company.name}所属ユーザー一覧ページです。"
+
+header.page-header
   .container
     .page-header__inner
       h2.page-header__title
@@ -19,4 +21,5 @@ header.page-header.is-border-bottom-none
       .page-main-header__inner
         h1.page-main-header__title
           = "#{t("target.#{@target}")}（#{@users.size}）"
+  hr.a-border
   #js-company-users(company-id="#{@company.id}")

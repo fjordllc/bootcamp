@@ -1,4 +1,5 @@
 - title '提出物'
+- set_meta_tags description: '提出物一覧です。'
 
 header.page-header
   .container
@@ -11,5 +12,4 @@ header.page-header
 
   .page-body
     .container.is-md
-      #js-products(data-title="#{title}" data-selected-tab="all" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-      / = react_component('Products', title: title, selectedTab: 'all')
+      = react_component('Products', title: title, selectedTab: 'all', isMentor: mentor_login?, currentUserId: current_user.id)

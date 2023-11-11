@@ -1,20 +1,30 @@
 .thread-comment-form
   +media-breakpoint-up(md)
-    +position(relative)
-    padding-left: $thread-header-author
+    display: flex
   .card-footer
     border-top: none
+  &.is-action-completed
+    +media-breakpoint-up(md)
+      margin-top: 1.5rem
+      padding-left: var(--thread-header-author)
+    +media-breakpoint-down(sm)
+      margin-top: 1rem
 
 .thread-comment-form__author
-  +position(absolute, left 0, top 0)
-  +size($thread-header-author 100%)
+  flex: 0 0 var(--thread-header-author)
+  +size(var(--thread-header-author) 100%)
   padding-right: 2rem
-  border-right: solid 1px $border-tint
+  border-right: solid 1px var(--border-tint)
 
 .thread-comment-form__user-icon
   +size(100% auto)
   border-radius: 50%
 
-.thread-comment-form__form
+.thread-comment-form__form,
+.thread-action-completed-form__form
+  flex: 1
   +position(relative)
   overflow: hidden
+
+.thread-comment-form__action-completed
+  flex: 1

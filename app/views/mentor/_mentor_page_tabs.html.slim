@@ -5,3 +5,23 @@
         = link_to 'メンターページ',
                 mentor_root_path,
                 class: "page-tabs__item-link #{current_link(/^mentor-home/)}"
+      li.page-tabs__item
+        = link_to 'プラクティス',
+                mentor_practices_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-practices/)}"
+      li.page-tabs__item
+        = link_to 'カテゴリー',
+                mentor_categories_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-categories/)}"
+      li.page-tabs__item
+        = link_to 'コース',
+                mentor_courses_path,
+                class: "page-tabs__item-link #{current_link(/^mentor-courses/)}"
+      li.page-tabs__item
+        = link_to '紹介・言及記事',
+                edit_buzz_path,
+                class: "page-tabs__item-link #{current_link(/^buzz/)}"
+      li.page-tabs__item
+        = link_to 'ブログ',
+                articles_path,
+                class: "page-tabs__item-link #{current_link(/^articles/)}"

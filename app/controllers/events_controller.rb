@@ -22,8 +22,10 @@ class EventsController < ApplicationController
     @event.user = current_user
     set_wip
     if @event.save
+      update_published_at
       Newspaper.publish(:event_create, @event)
-      redirect_to @event, notice: notice_message(@event)
+      url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
+      redirect_to url, notice: notice_message(@event)
     else
       render :new
     end
@@ -34,8 +36,10 @@ class EventsController < ApplicationController
   def update
     set_wip
     if @event.update(event_params)
-      @event.update_participations if @event.saved_change_to_attribute?('capacity')
-      redirect_to @event, notice: notice_message(@event)
+      update_published_at
+      @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
+      url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
+      redirect_to url, notice: notice_message(@event)
     else
       render :edit
     end
@@ -43,7 +47,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: 'イベントを削除しました。'
+    redirect_to events_path, notice: '特別イベントを削除しました。'
   end
 
   private
@@ -58,24 +62,31 @@ class EventsController < ApplicationController
       :end_at,
       :open_start_at,
       :open_end_at,
-      :job_hunting
+      :job_hunting,
+      :announcement_of_publication
     )
   end
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = current_user.mentor? ? Event.find(params[:id]) : current_user.events.find(params[:id])
   end
 
   def set_wip
     @event.wip = (params[:commit] == 'WIP')
   end
 
+  def redirect_url(event)
+    return new_announcement_path(event_id: event.id) if publish_with_announcement?
+
+    event.wip? ? edit_event_url(event) : event_url(event)
+  end
+
   def notice_message(event)
     case params[:action]
     when 'create'
-      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを作成しました。'
+      event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを作成しました。'
     when 'update'
-      event.wip? ? 'イベントをWIPとして保存しました。' : 'イベントを更新しました。'
+      event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを更新しました。'
     end
   end
 
@@ -88,6 +99,16 @@ class EventsController < ApplicationController
     new_event.description = event.description
     new_event.job_hunting = event.job_hunting
 
-    flash.now[:notice] = 'イベントをコピーしました。'
+    flash.now[:notice] = '特別イベントをコピーしました。'
+  end
+
+  def update_published_at
+    return if @event.wip || @event.published_at?
+
+    @event.update(published_at: Time.current)
+  end
+
+  def publish_with_announcement?
+    !@event.wip? && @event.announcement_of_publication?
   end
 end

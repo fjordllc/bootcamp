@@ -246,21 +246,6 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-  def three_months_after_retirement(params = {})
-    params.merge!(@params)
-    sender = params[:sender]
-    receiver = params[:receiver]
-
-    notification(
-      body: "#{I18n.t('.retire_notice', user: sender.login_name)}Discord ID: #{sender.discord_account}, ユーザーページ: https://bootcamp.fjord.jp/users/#{sender.id}",
-      kind: :retired,
-      sender: sender,
-      receiver: receiver,
-      link: Rails.application.routes.url_helpers.polymorphic_path(sender),
-      read: false
-    )
-  end
-
   def checked(params = {})
     params.merge!(@params)
     check = params[:check]
@@ -297,7 +282,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{product.user.login_name}さんの提出物が更新されました",
+      body: "#{product.user.login_name}さんの「#{product.practice.title}」の提出物が更新されました",
       kind: :product_update,
       receiver: receiver,
       sender: product.sender,
@@ -310,8 +295,9 @@ class ActivityNotifier < ApplicationNotifier
     params.merge!(@params)
     watchable = params[:watchable]
     receiver = params[:receiver]
-    sender = params[:comment].user
+    sender = params[:sender]
     action = watchable.instance_of?(Question) ? '回答' : 'コメント'
+
     notification(
       body: "#{watchable.user.login_name}さんの【 #{watchable.notification_title} 】に#{sender.login_name}さんが#{action}しました。",
       kind: :watching,

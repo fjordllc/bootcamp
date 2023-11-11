@@ -1,16 +1,18 @@
 <template lang="pug">
 .a-card
-  .card-body(v-if='!editing')
-    .card__description(v-if='memo')
-      .a-long-text.is-md(v-html='markdownMemo')
-    .card-list(v-else)
-      .card-list__message
-        .container
-          .o-empty-message
-            .o-empty-message__icon
-              i.fa-regular.fa-sad-tear
-            .o-empty-message__text
-              | プラクティスメモはまだありません。
+  div(v-if='!editing')
+    .card-body
+      .card__description(v-if='memo')
+        .a-long-text.is-md(v-html='markdownMemo')
+      .card-list(v-else)
+        .card-list__message
+          .container
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              .o-empty-message__text
+                | プラクティスメモはまだありません。
+    hr.a-border-tint
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
@@ -19,27 +21,29 @@
               @click='editMemo')
               i.fa-solid.fa-pen
               | 編集
-  .card-body(v-show='editing')
-    .form-tabs.js-tabs
-      .form-tabs__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("memo") }',
-        @click='changeActiveTab("memo")')
-        | メモ
-      .form-tabs__tab.js-tabs__tab(
-        :class='{ "is-active": isActive("preview") }',
-        @click='changeActiveTab("preview")')
-        | プレビュー
-    .a-markdown-input.js-markdown-parent
-      .a-markdown-input__inner.is-editor.js-tabs__content(
-        :class='{ "is-active": isActive("memo") }')
-        textarea.a-text-input.a-markdown-input__textarea(
-          :id='`js-practice-memo`',
-          data-preview='#practice-memo-preview',
-          v-model='memo',
-          name='practice[memo]')
-      .a-markdown-input__inner.is-preview.js-tabs__content(
-        :class='{ "is-active": isActive("preview") }')
-        .a-long-text.a-markdown-input__preview(v-html='markdownMemo')
+  div(v-show='editing')
+    .card-body
+      .form-tabs.js-tabs
+        .form-tabs__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("memo") }',
+          @click='changeActiveTab("memo")')
+          | メモ
+        .form-tabs__tab.js-tabs__tab(
+          :class='{ "is-active": isActive("preview") }',
+          @click='changeActiveTab("preview")')
+          | プレビュー
+      .a-markdown-input.js-markdown-parent
+        .a-markdown-input__inner.is-editor.js-tabs__content(
+          :class='{ "is-active": isActive("memo") }')
+          textarea.a-text-input.a-markdown-input__textarea(
+            :id='`js-practice-memo`',
+            data-preview='#practice-memo-preview',
+            v-model='memo',
+            name='practice[memo]')
+        .a-markdown-input__inner.is-preview.js-tabs__content(
+          :class='{ "is-active": isActive("preview") }')
+          .a-long-text.a-markdown-input__preview(v-html='markdownMemo')
+    hr.a-border-tint
     .card-footer
       .card-main-actions
         .card-main-actions__items
@@ -51,6 +55,7 @@
               | キャンセル
 </template>
 <script>
+import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import confirmUnload from 'confirm-unload'
@@ -99,10 +104,6 @@ export default {
     TextareaInitializer.initialize('#js-practice-memo')
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     isActive(tab) {
       return this.tab === tab
     },
@@ -140,7 +141,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

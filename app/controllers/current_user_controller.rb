@@ -22,16 +22,16 @@ class CurrentUserController < ApplicationController
     user_attribute = [
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id,
-      :description, :job_seeking, :discord_account,
+      :description, :job_seeking,
       :github_account, :twitter_account, :facebook_url,
-      :blog_url, :times_url, :password, :password_confirmation,
+      :blog_url, :password, :password_confirmation,
       :job, :organization, :os,
-      :experience, :prefecture_code, :company_id,
+      :experience, :company_id,
       :nda, :avatar, :trainee,
       :mail_notification, :job_seeker, :tag_list,
       :after_graduation_hope, :training_ends_on, :profile_image,
       :profile_name, :profile_job, :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
-      :feed_url
+      :feed_url, :country_code, :subdivision_code, { discord_profile_attributes: %i[id account_name times_url] }
     ]
     user_attribute.push(:retired_on, :graduated_on, :free, :github_collaborator) if current_user.admin?
     params.require(:user).permit(user_attribute)

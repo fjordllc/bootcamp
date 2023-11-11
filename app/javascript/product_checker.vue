@@ -1,10 +1,10 @@
 <template lang="pug">
 button(
-  v-if='!checkerId || checkerId == currentUserId',
+  v-if='!checkerId || checkerId === currentUserId',
   :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
   @click='checkInCharge')
   i(
-    v-if='!checkerId || checkerId == currentUserId',
+    v-if='!checkerId || checkerId === currentUserId',
     :class='["fas", productCheckerId ? "fa-times" : "fa-hand-paper"]',
     @click='checkInCharge')
   | {{ buttonLabel }}
@@ -15,6 +15,7 @@ button(
     | {{ this.name }}
 </template>
 <script>
+import CSRF from 'csrf'
 import toast from 'toast'
 import checkable from './checkable.js'
 
@@ -23,7 +24,7 @@ export default {
   props: {
     checkerId: { type: Number, required: false, default: null },
     checkerName: { type: String, required: false, default: null },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     productId: { type: Number, required: true },
     checkableType: { type: String, required: false, default: null },
     checkerAvatar: { type: String, required: false, default: null },
@@ -57,17 +58,13 @@ export default {
     })
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     checkInCharge() {
       this.checkProduct(
         this.productId,
         this.currentUserId,
         '/api/products/checker',
         this.productCheckerId ? 'DELETE' : 'PATCH',
-        this.token()
+        CSRF.getToken()
       )
     }
   }

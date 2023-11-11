@@ -12,9 +12,11 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:announcement_update, announcement_notifier)
 
   sad_streak_updater = SadStreakUpdater.new
-  Newspaper.subscribe(:report_create, sad_streak_updater)
-  Newspaper.subscribe(:report_update, sad_streak_updater)
+  Newspaper.subscribe(:report_save, sad_streak_updater)
   Newspaper.subscribe(:report_destroy, sad_streak_updater)
+
+  Newspaper.subscribe(:report_save, FirstReportNotifier.new)
+  Newspaper.subscribe(:report_save, ReportNotifier.new)
 
   learning_cache_destroyer = LearningCacheDestroyer.new
   Newspaper.subscribe(:learning_create, learning_cache_destroyer)
@@ -34,20 +36,37 @@ Rails.configuration.to_prepare do
 
   Newspaper.subscribe(:comeback_update, ComebackNotifier.new)
 
-  Newspaper.subscribe(:check_create, ProductStatusUpdater.new)
   Newspaper.subscribe(:product_create, ProductAuthorWatcher.new)
+
+  learning_status_updater = LearningStatusUpdater.new
+  Newspaper.subscribe(:check_create, learning_status_updater)
+  Newspaper.subscribe(:product_save, learning_status_updater)
 
   page_notifier = PageNotifier.new
   Newspaper.subscribe(:page_create, page_notifier)
   Newspaper.subscribe(:page_update, page_notifier)
 
-  product_notifier = ProductNotifier.new
-  Newspaper.subscribe(:product_create, product_notifier)
-  Newspaper.subscribe(:product_update, product_notifier)
+  Newspaper.subscribe(:product_save, ProductNotifierForColleague.new)
+
+  Newspaper.subscribe(:product_save, ProductNotifierForPracticeWatcher.new)
 
   mentors_watch_for_question_creator = MentorsWatchForQuestionCreator.new
   Newspaper.subscribe(:question_create, mentors_watch_for_question_creator)
   Newspaper.subscribe(:question_update, mentors_watch_for_question_creator)
 
+  ai_answer_creator = AIAnswerCreator.new
+  Newspaper.subscribe(:question_create, ai_answer_creator)
+  Newspaper.subscribe(:question_update, ai_answer_creator)
+
   Newspaper.subscribe(:retirement_create, UnfinishedDataDestroyer.new)
+  Newspaper.subscribe(:retirement_create, TimesChannelDestroyer.new)
+
+  question_notifier = QuestionNotifier.new
+  Newspaper.subscribe(:question_create, question_notifier)
+  Newspaper.subscribe(:question_update, question_notifier)
+
+  Newspaper.subscribe(:product_update, ProductUpdateNotifierForWatcher.new)
+  Newspaper.subscribe(:product_update, ProductUpdateNotifierForChecker.new)
+  Newspaper.subscribe(:came_comment, CommentNotifier.new)
+  Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
 end

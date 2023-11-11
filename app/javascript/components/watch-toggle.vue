@@ -6,6 +6,7 @@
 </template>
 <script>
 import 'whatwg-fetch'
+import CSRF from 'csrf'
 import toast from '../toast'
 
 export default {
@@ -19,47 +20,33 @@ export default {
   },
   data() {
     return {
-      watchId: null,
-      watchLabel: 'Watch',
       totalPages: 0,
       watchValue: null
     }
   },
-  mounted() {
-    const params = new URL(location.href).searchParams
-    params.set('watchable_type', this.watchableType)
-    params.set('watchable_id', this.watchableId)
-    if (this.checked) {
-      this.watchId = this.watchIndexId
-      this.watchLabel = '削除'
-    } else {
-      fetch(`/api/watches/toggle.json?${params}`, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
-        },
-        credentials: 'same-origin'
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((json) => {
-          if (json[0]) {
-            this.watchId = json[0].id
-            this.watchLabel = 'Watch中'
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+  computed: {
+    watchId() {
+      if (this.checked) {
+        return this.watchIndexId
+      } else {
+        return this.$store.getters.watchId
+      }
+    },
+    watchLabel() {
+      if (this.checked) {
+        return '削除'
+      } else {
+        return this.watchId ? 'Watch中' : 'Watch'
+      }
     }
   },
+  mounted() {
+    this.$store.dispatch('setWatchable', {
+      watchableId: this.watchableId,
+      watchableType: this.watchableType
+    })
+  },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     buttonClick() {
       if (this.watchId) {
         this.unwatch()
@@ -77,7 +64,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -87,9 +74,15 @@ export default {
           return response.json()
         })
         .then((json) => {
-          this.watchId = json.id
-          this.watchLabel = 'Watch中'
-          this.toast('Watchしました！')
+          if (json.message) {
+            this.toast(json.message, 'error')
+          } else {
+            this.toast('Watchしました！')
+            this.$store.dispatch('setWatchable', {
+              watchableId: json.watchable_id,
+              watchableType: json.watchable_type
+            })
+          }
         })
         .catch((error) => {
           console.warn(error)
@@ -101,15 +94,17 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
       })
         .then(() => {
-          this.watchId = null
-          this.watchLabel = 'Watch'
           this.toast('Watchを外しました')
+          this.$store.dispatch('setWatchable', {
+            watchableId: this.watchableId,
+            watchableType: this.watchableType
+          })
         })
         .then(() => {
           this.$emit('update-index')

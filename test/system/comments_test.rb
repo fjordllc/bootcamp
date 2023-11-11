@@ -44,13 +44,14 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'post new comment with mention for report' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
 
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == 'login_nameの補完テスト: @komagata '
         find('#js-new-comment').set('')
         find('#js-new-comment').set("login_nameの補完テスト: @koma\n")
@@ -66,7 +67,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
 
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == 'login_nameの補完テスト: @mentor '
         find('#js-new-comment').set('')
         find('#js-new-comment').set("login_nameの補完テスト: @men\n")
@@ -82,7 +83,7 @@ class CommentsTest < ApplicationSystemTestCase
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
 
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       until find('#js-new-comment').value == '絵文字の補完テスト: 😺 '
         find('#js-new-comment').set('')
         find('#js-new-comment').set("絵文字の補完テスト: :cat\n")
@@ -140,6 +141,7 @@ class CommentsTest < ApplicationSystemTestCase
     end
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'check preview for product' do
@@ -160,6 +162,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'post new comment for page' do
@@ -171,6 +174,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'post new comment for event' do
@@ -182,6 +186,7 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     assert_text 'test'
+    assert_text 'Watch中'
   end
 
   test 'comment tab is active after a comment has been posted' do
@@ -238,7 +243,7 @@ class CommentsTest < ApplicationSystemTestCase
   test 'suggest mention to mentor' do
     visit_with_auth "/reports/#{reports(:report1).id}", 'komagata'
     find('#comments.loaded', wait: 10)
-    Timeout.timeout(Capybara.default_max_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
       find('#js-new-comment').set('@') until has_selector?('span.mention', wait: false)
     end
     assert_selector 'span.mention', text: 'mentor'
@@ -332,5 +337,13 @@ class CommentsTest < ApplicationSystemTestCase
     click_button 'コメントする'
     assert_text 'test'
     assert_equal '2.png', File.basename(find('img.thread-comment__company-logo')['src'])
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'senpai'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.new-comment-file-input', visible: false
+    end
+    assert_equal '.new-comment-file-input', find('textarea.a-text-input')['data-input']
   end
 end

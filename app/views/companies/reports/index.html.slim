@@ -1,4 +1,6 @@
 - title "#{@company.name}所属ユーザーの日報"
+- set_meta_tags description: "#{@company.name}所属ユーザーの日報一覧ページです。"
+
 header.page-header
   .container
     .page-header__inner
@@ -14,5 +16,4 @@ header.page-header
 
 .page-body
   .container.is-md
-    div(data-vue="Reports" data-vue-company-id:number="#{@company.id}")
     = react_component('Reports', companyId: @company.id)

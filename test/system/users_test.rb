@@ -217,18 +217,16 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'paging niconico_calendar' do
     visit_with_auth root_path, 'hatsuno'
-    today = Time.current
+    today = Date.current
     last_month = today.prev_month
     visit user_path(users(:hajime).id)
-    within '.niconico-calendar-nav' do
-      assert_text "#{today.year}年#{today.month}月"
-      find('.niconico-calendar-nav__previous').click
-      assert_text "#{last_month.year}年#{last_month.month}月"
-    end
+    assert_text "#{today.year}年#{today.month}月"
+    find('.niconico-calendar-nav__previous').click
+    assert_text "#{last_month.year}年#{last_month.month}月"
   end
 
   test 'show mark to today on niconico_calendar' do
-    today = Time.current
+    today = Date.current
     visit_with_auth root_path, 'hatsuno'
     visit user_path(users(:hajime).id)
     assert_selector '.niconico-calendar__day.is-today'
@@ -244,31 +242,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector '.niconico-calendar__day.is-today'
   end
 
-  test 'show times link on user page' do
-    kimura = users(:kimura)
-
-    visit_with_auth "/users/#{kimura.id}", 'hatsuno'
-    assert_text 'kimura'
-    assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    visit current_path
-    assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-  end
-
-  test 'show times link on user list page' do
-    visit_with_auth '/users', 'hatsuno'
-    assert_selector '.page-header__title', text: 'ユーザー'
-    assert_no_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    kimura = users(:kimura)
-    kimura.update!(times_url: 'https://discord.com/channels/715806612824260640/123456789000000007')
-
-    visit current_path
-    assert_link(href: 'https://discord.com/channels/715806612824260640/123456789000000007')
-  end
-
   test 'only admin can see link to talk on user list page' do
     visit_with_auth '/users', 'komagata'
     assert_link '相談部屋'
@@ -282,12 +255,12 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'show daily report download button' do
     visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
-    assert_text '日報一括ダウンロード'
+    assert_text '日報ダウンロード'
   end
 
   test 'not show daily report download button' do
     visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
-    assert_no_text '日報一括ダウンロード'
+    assert_no_text '日報ダウンロード'
   end
 
   test 'show link to talk room when logined as admin' do
@@ -406,70 +379,72 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'incremental search by login_name' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kimura'
     assert_text 'Kimura Tadasi', count: 1
   end
 
   test 'incremental search by name' do
     visit_with_auth '/users', 'kimura'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'Shinji'
     assert_text 'Hatsuno Shinji', count: 1
   end
 
   test 'incremental search by name_kana' do
     visit_with_auth '/users', 'mentormentaro'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'キムラ ミタイ'
     assert_text 'Kimura Mitai', count: 1
   end
 
   test 'incremental search by twitter_account' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hatsuno'
     assert_text 'Hatsuno Shinji', count: 1
   end
 
   test 'incremental search by blog_url' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hatsuno.org'
     assert_text 'Hatsuno Shinji', count: 1
   end
 
   test 'incremental search by github_account' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kananashi'
     assert_text 'ユーザーです 読み方のカナが無い', count: 1
   end
 
-  test 'incremental search by discord_account' do
-    visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
-    fill_in 'js-user-search-input', with: 'kimura#1234'
-    assert_text 'Kimura Tadasi', count: 1
-  end
-
   test 'incremental search by facebook_url' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kimurafacebook'
     assert_text 'Kimura Mitai', count: 1
   end
 
   test 'incremental search by description' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: '木村です'
     assert_text 'Kimura Tadasi', count: 1
   end
 
   test 'search only mentor when target is mentor' do
     visit_with_auth '/users?target=mentor', 'komagata'
-    assert_equal 4, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'machida'
     assert_text 'Machida Teppei', count: 1
 
@@ -479,7 +454,8 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only graduated students when target is graduate' do
     visit_with_auth '/users?target=graduate', 'komagata'
-    assert_equal 3, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: '卒業 就職済美'
     assert_text '卒業 就職済美', count: 1
 
@@ -489,7 +465,8 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only adviser when target is adviser' do
     visit_with_auth '/users?target=adviser', 'komagata'
-    assert_equal 3, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: 'advijirou'
     assert_text 'アドバイ 次郎', count: 1
 
@@ -499,7 +476,8 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only retired when target is retired' do
     visit_with_auth '/users?target=retired', 'komagata'
-    assert_equal 4, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'yameo'
     assert_text '辞目 辞目夫', count: 1
 
@@ -509,7 +487,8 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only trainee when target is trainee' do
     visit_with_auth '/users?target=trainee', 'komagata'
-    assert_equal 2, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 2
     fill_in 'js-user-search-input', with: 'Kensyu Seiko'
     assert_text 'Kensyu Seiko', count: 1
 
@@ -519,8 +498,8 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search users from all users when target is all' do
     visit_with_auth '/users?target=all', 'komagata'
-    assert_text 'ロード中'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hajime'
     assert_text 'Hajime Tayo', count: 1
 
@@ -530,13 +509,14 @@ class UsersTest < ApplicationSystemTestCase
 
   test "don't show incremental search when target's users aren't exist" do
     visit_with_auth '/users?target=job_seeking', 'komagata'
-    assert_equal 0, all('.users-item').length
+    assert_no_selector '.users-item'
     assert has_no_field? 'js-user-search-input'
   end
 
   test 'only show incremental search in all tab' do
     visit_with_auth '/users', 'komagata'
-    assert has_field? 'js-user-search-input'
+    find('.users .loaded', wait: 60)
+    assert_selector '#js-user-search-input'
 
     visit '/generations'
     assert has_no_field? 'js-user-search-input'
@@ -556,9 +536,10 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'incremental search needs more than two characters for Japanese and three for others' do
     visit_with_auth '/users', 'komagata'
-    assert_equal 24, all('.users-item').length
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'ki'
-    assert_equal 24, all('.users-item').length
+    assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kim'
     assert_text 'Kimura', count: 2
 
@@ -598,5 +579,54 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'sotugyou'
     assert_no_link '休会', href: '/users?target=hibernated'
     assert_no_link '退会', href: '/users?target=retired'
+  end
+
+  test 'delete user' do
+    user = users(:kimura)
+    visit_with_auth "users/#{user.id}", 'komagata'
+    click_link "delete-#{user.id}"
+    page.driver.browser.switch_to.alert.accept
+    assert_text "#{user.name} さんを削除しました。"
+  end
+
+  test "should show students and trainees's active activity counts" do
+    visit_with_auth users_path, 'kimura'
+    assert_selector '.card-counts__item-value', text: '0'
+
+    click_link('卒業生')
+    assert_selector '.card-counts__item-value', text: '0'
+
+    click_link('研修生')
+    assert_selector '.card-counts__item-value', text: '0'
+  end
+
+  test "should show hibernated user and retired user's activity counts" do
+    visit_with_auth users_path, 'komagata'
+    click_link('休会')
+    assert_selector '.card-counts__item-value', text: '0'
+
+    click_link('退会')
+    assert_selector '.card-counts__item-value', text: '0'
+  end
+
+  test "should not show mentor and adviser's activity counts" do
+    visit_with_auth users_path, 'kimura'
+    click_link('メンター')
+    assert_no_selector '.card-counts__items'
+
+    click_link('アドバイザー')
+    assert_no_selector '.card-counts__items'
+  end
+
+  test 'show hibernation period in profile' do
+    hibernated_user = users(:kyuukai)
+    user = users(:hatsuno)
+
+    travel_to hibernated_user.hibernated_at + 30.days do
+      visit_with_auth user_path(hibernated_user), 'komagata'
+      assert_text '休会中 / 休会から30日目'
+    end
+    visit_with_auth user_path(user), 'komagata'
+    assert_no_text '休会中 / 休会から'
   end
 end

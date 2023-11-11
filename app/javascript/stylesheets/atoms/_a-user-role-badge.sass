@@ -1,8 +1,9 @@
 .a-user-role-badge
-  border: solid 1px $main
-  +padding(horizontal, .75em)
+  border: solid 1px var(--main)
+  padding-inline: .75em
   height: 1.75em
-  +text-block(.625rem 1, center $main flex nowrap)
+  +text-block(.625rem 1, center flex nowrap)
+  color: var(--main)
   align-items: center
   margin-right: .5rem
   border-radius: 1rem
@@ -21,4 +22,4 @@
   .a-user-role-badge__label + &::before
     content: "/"
     display: inline-block
-    +margin(horizontal, .25em)
+    margin-inline: .25em

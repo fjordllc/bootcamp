@@ -5,8 +5,9 @@
   align-items: center
 
 .practice-status-buttons__label
-  +text-block(.75rem, 600 nowrap)
-  margin-right: 1em
+  +media-breakpoint-up(md)
+    +text-block(.75rem, 600 nowrap)
+    margin-right: 1em
   +media-breakpoint-down(sm)
     display: none
 
@@ -23,10 +24,10 @@
 
 .practice-status-buttons__button
   &.is-inactive
-    $color: $base
-    color: $muted-text
+    $color: var(--base)
+    color: var(--muted-text)
     background-color: $color
-    border-color: $background-shade
+    border-color: var(--background-shade)
     transition: all .2s ease-out
     &:hover
       +practice-hover-color(true)
@@ -42,5 +43,6 @@
       width: 100%
 
 .practice-status-buttons__note
-  +text-block(.75rem 1.4, $muted-text left)
+  +text-block(.75rem 1.4, left)
+  color: var(--muted-text)
   margin-top: .5em

@@ -1,4 +1,5 @@
 - title '自分の担当の提出物'
+- set_meta_tags description: '自分がレビュー担当になっている提出物一覧です。'
 
 header.page-header
   .container
@@ -7,11 +8,9 @@ header.page-header
         | 提出物
 
 = render 'products/tabs'
-= render 'nav'
 
 - title '未返信の担当提出物' if @target == 'self_assigned_no_replied'
 
 .page-body
   .container.is-md
-    #js-products(data-title="#{title}" data-selected-tab="self-assigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-    / = react_component('Products', title: title, selectedTab: 'self_assigned')
+    = react_component('Products', title: title, selectedTab: 'self_assigned', isMentor: mentor_login?, currentUserId: current_user.id)

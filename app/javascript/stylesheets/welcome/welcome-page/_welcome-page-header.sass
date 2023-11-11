@@ -1,5 +1,5 @@
 .welcome-page-header
-  background-color: $welcome-blue
+  background-color: var(--welcome-blue)
 
 .welcome-page-header__inner
   display: flex
@@ -16,7 +16,8 @@
   align-items: center
 
 .welcome-page-header__title
-  +text-block(1em 1.4, 600 $reversal-text)
+  +text-block(1em 1.4, 600)
+  color: var(--reversal-text)
   +media-breakpoint-up(md)
     font-size: 1.75rem
   +media-breakpoint-down(sm)

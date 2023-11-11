@@ -1,10 +1,8 @@
 import Swal from 'sweetalert2'
+import CSRF from 'csrf'
 
 export default class {
   static initialize(parent, selector) {
-    const meta = document.querySelector('meta[name="csrf-token"]')
-    const token = meta ? meta.content : ''
-
     const markdowns = document.querySelectorAll(parent || '.js-markdown-view')
 
     markdowns.forEach((md) => {
@@ -25,7 +23,7 @@ export default class {
               taskableType,
               i,
               checkbox.checked,
-              token
+              CSRF.getToken()
             )
           })
         })

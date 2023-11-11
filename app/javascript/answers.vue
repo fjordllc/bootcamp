@@ -2,7 +2,8 @@
 .thread-comments(v-if='loaded === false')
   commentPlaceholder(v-for='num in placeholderCount', :key='num')
 .thread-comments(v-else)
-  h2.thread-comments__title 回答・コメント
+  header.thread-comments__header
+    h2.thread-comments__title 回答・コメント
   .thread-comments__items
     answer(
       v-for='answer in answers',
@@ -17,42 +18,52 @@
       @cancelBestAnswer='cancelBestAnswer',
       @update='updateAnswer')
   .thread-comment-form
-    .thread-comment__author
+    .thread-comment__start
       span(:class='["a-user-role", roleClass]')
         img.thread-comment__user-icon.a-user-icon(
           :src='currentUser.avatar_url',
           :title='currentUser.icon_title')
-    .thread-comment-form__form.a-card
-      .a-form-tabs.js-tabs
-        .a-form-tabs__tab.js-tabs__tab(
-          :class='{ "is-active": isActive("answer") }',
-          @click='changeActiveTab("answer")')
-          | コメント
-        .a-form-tabs__tab.js-tabs__tab(
-          :class='{ "is-active": isActive("preview") }',
-          @click='changeActiveTab("preview")')
-          | プレビュー
-      .a-markdown-input.js-markdown-parent
-        .a-markdown-input__inner.js-tabs__content(
-          :class='{ "is-active": isActive("answer") }')
-          textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
-            v-model='description',
-            name='answer[description]',
-            data-preview='#new-comment-preview',
-            @input='editAnswer')
-        .a-markdown-input__inner.js-tabs__content(
-          :class='{ "is-active": isActive("preview") }')
-          #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
-      .card-footer
-        .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
-                @click='createAnswer',
-                :disabled='!validation || buttonDisabled')
-                | コメントする
+    .thread-comment__end
+      .thread-comment-form__form.a-card
+        .a-form-tabs.js-tabs
+          .a-form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("answer") }',
+            @click='changeActiveTab("answer")')
+            | コメント
+          .a-form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("preview") }',
+            @click='changeActiveTab("preview")')
+            | プレビュー
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.js-tabs__content(
+            :class='{ "is-active": isActive("answer") }')
+            .form-textarea
+              .form-textarea__body
+                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
+                  v-model='description',
+                  name='answer[description]',
+                  data-preview='#new-comment-preview',
+                  data-input='.new-comment-file-input',
+                  @input='editAnswer')
+              .form-textarea__footer
+                .form-textarea__insert
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                    | ファイルを挿入
+                    input.new-comment-file-input(type='file', multiple)
+          .a-markdown-input__inner.js-tabs__content(
+            :class='{ "is-active": isActive("preview") }')
+            #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
+        .card-footer
+          .card-main-actions
+            .card-main-actions__items
+              .card-main-actions__item
+                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
+                  @click='createAnswer',
+                  :disabled='!validation || buttonDisabled')
+                  | コメントする
 </template>
 <script>
+import CSRF from 'csrf'
 import Answer from 'answer.vue'
 import TextareaInitializer from 'textarea-initializer'
 import CommentPlaceholder from 'comment-placeholder'
@@ -128,10 +139,6 @@ export default {
       })
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     isActive: function (tab) {
       return this.tab === tab
     },
@@ -153,7 +160,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -171,6 +178,10 @@ export default {
           this.resizeTextarea()
           this.updateAnswerCount()
           this.toast('回答を投稿しました！')
+          this.$store.dispatch('setWatchable', {
+            watchableId: this.questionId,
+            watchableType: 'Question'
+          })
         })
         .catch((error) => {
           console.warn(error)
@@ -181,7 +192,7 @@ export default {
         method: 'DELETE',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
@@ -223,7 +234,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

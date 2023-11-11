@@ -7,6 +7,7 @@ require 'supports/stripe_helper'
 require 'supports/notification_helper'
 require 'supports/report_helper'
 require 'supports/comment_helper'
+require 'supports/tag_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -15,6 +16,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include NotificationHelper
   include ReportHelper
   include CommentHelper
+  include TagHelper
 
   if ENV['HEADED']
     driven_by :selenium, using: :chrome
@@ -27,15 +29,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   teardown do
     ActionMailer::Base.deliveries.clear
-  end
-
-  def vcr_options
-    {
-      record: :once,
-      match_requests_on: [
-        :method,
-        VCR.request_matchers.uri_without_param(:source)
-      ]
-    }
   end
 end

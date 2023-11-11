@@ -81,10 +81,12 @@
     .card-body
       .card__description
         .a-long-text.is-md(v-html='markdownDescription')
+    hr.a-border-tint
     reaction(
       :reactionable='question',
       :currentUser='currentUser',
       :reactionableId='`Question_${question.id}`')
+    hr.a-border-tint
     footer.card-footer(
       v-if='currentUser.id === question.user.id || isRole("mentor")')
       .card-main-actions
@@ -94,7 +96,8 @@
               @click='startEditing')
               i#new.fa-solid.fa-pen
               | 内容修正
-          li.card-main-actions__item.is-sub
+          li.card-main-actions__item.is-sub.is-only-mentor(
+            v-if='isRole("mentor")')
             // - vue.jsでDELETE methodのリンクを作成する方法が、
             // - 見つからなかったので、
             // - いい実装方法ではないが、
@@ -102,9 +105,12 @@
             // - 確認ダイアログとDELETE methodのリンクを実装する
             a.js-delete.card-main-actions__muted-action(
               :href='`/questions/${question.id}`',
-              data-confirm='自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？',
+              data-confirm='本当に削除しますか？質問はなるべく消さず、もし質問者が自己解決した場合も、質問者自身で解決した手段や手順を回答に記入し、それをベストアンサーにしてこの質問を解決することを即すようにしてください。',
               data-method='delete')
               | 削除する
+          li.card-main-actions__item.is-sub(v-else)
+            label.card-main-actions__muted-action(for='modal-delete-request')
+              | 削除申請
         .card-footer__notice(v-show='displayedUpdateMessage')
           p
             | 質問を更新しました
@@ -129,7 +135,7 @@
                 option(
                   v-for='practice in practices',
                   :key='practice.id',
-                  :value='practice.id') {{ practice.categoryAndPracticeName }}
+                  :value='practice.id') {{ practice.title }}
           .form-item
             .a-form-label
               | タイトル
@@ -144,13 +150,21 @@
                 :class='{ "is-active": isActive("preview") }',
                 @click='changeActiveTab("preview")')
                 | プレビュー
-            .form-tabs-item__markdown-parent.js-markdown-parent
-              .form-tabs-item__markdown.js-tabs__content(
-                :class='{ "is-active": isActive("question") }')
-                textarea#js-question-content.a-text-input.form-tabs-item__textarea(
-                  v-model='edited.description',
-                  data-preview='#js-question-preview',
-                  name='question[description]')
+            .a-markdown-parent.js-markdown-parent
+              .a-markdown-input__inner.js-tabs__content(
+                v-bind:class='{ "is-active": isActive("question") }')
+                .form-textarea
+                  .form-textarea__body
+                    textarea#js-question-content.a-text-input.form-tabs-item__textarea(
+                      v-model='edited.description',
+                      data-preview='#js-question-preview',
+                      data-input='.js-question-file-input',
+                      name='question[description]')
+                  .form-textarea__footer
+                    .form-textarea__insert
+                      label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                        | ファイルを挿入
+                        input.js-question-file-input(type='file', multiple)
               .form-tabs-item__markdown.js-tabs__content(
                 :class='{ "is-active": isActive("preview") }')
                 #js-question-preview.js-preview.a-long-text.is-md.form-tabs-item__preview
@@ -183,6 +197,7 @@
                 | キャンセル
 </template>
 <script>
+import CSRF from 'csrf'
 import Reaction from 'reaction.vue'
 import WatchToggle from './watch-toggle.vue'
 import BookmarkButton from 'bookmark-button.vue'
@@ -270,10 +285,6 @@ export default {
     TextareaInitializer.initialize(`#js-question-content`)
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     getPracticeId() {
       return this.question.practice === undefined
         ? null
@@ -284,7 +295,7 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -292,10 +303,7 @@ export default {
           return response.json()
         })
         .then((practices) => {
-          this.practices = practices.map((practice) => {
-            practice.categoryAndPracticeName = `[${practice.category}] ${practice.title}`
-            return practice
-          })
+          this.practices = practices
         })
         .then(() => {
           const choices = document.getElementById('js-choices-single-select')
@@ -336,7 +344,19 @@ export default {
         return val !== this[key]
       })
     },
+    isChangedPracticeId(edited) {
+      return Object.entries(edited.practiceId).some(([key, val]) => {
+        return val !== this[key]
+      })
+    },
     updateQuestion(wip) {
+      const flashElement = document.querySelector('.flash__message')
+      if (flashElement) {
+        flashElement.innerHTML = wip
+          ? '質問をWIPとして保存しました。'
+          : '質問を公開しました。'
+      }
+
       this.edited.wip = wip
       if (!this.changedQuestion(this.edited)) {
         // 何も変更していなくても、更新メッセージは表示する
@@ -359,7 +379,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -371,6 +391,11 @@ export default {
           })
           this.finishEditing(true)
           this.$emit('afterUpdateQuestion')
+        })
+        .then(() => {
+          if (this.isChangedPracticeId(this.edited)) {
+            location.href = `/questions/${this.question.id}`
+          }
         })
         .catch((error) => {
           console.warn(error)

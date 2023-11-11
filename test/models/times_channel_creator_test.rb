@@ -12,13 +12,13 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
       Discord::TimesChannel.stub(:new, ->(_) { InvalidTimesChannel.new }) do
         TimesChannelCreator.new.call(user)
       end
-      assert_nil user.times_id
+      assert_nil user.discord_profile.times_id
       assert_equal "[Discord API] #{user.login_name}の分報チャンネルが作成できませんでした。", logs.pop
 
       Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
         TimesChannelCreator.new.call(user)
       end
-      assert_equal '1234567890123456789', user.times_id
+      assert_equal '1234567890123456789', user.discord_profile.times_id
       assert_nil logs.last
     end
   end

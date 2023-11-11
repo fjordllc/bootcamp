@@ -17,6 +17,7 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_text 'Q&Aの検索結果テスト用'
     assert_text 'Docsの検索結果テスト用'
     assert_text 'イベントの検索結果テスト用'
+    assert_text '定期イベントの検索結果テスト用'
   end
 
   test 'search reports ' do
@@ -37,6 +38,16 @@ class SearchablesTest < ApplicationSystemTestCase
     end
     find('#test-search').click
     assert_text 'テストのイベント'
+  end
+
+  test 'search regular_events' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'イベント'
+      fill_in 'word', with: '定期イベントの検索結果テスト用'
+    end
+    find('#test-search').click
+    assert_text '定期イベントの検索結果テスト用'
   end
 
   test 'admin can see comment description' do
@@ -167,7 +178,7 @@ class SearchablesTest < ApplicationSystemTestCase
     assert find('img.card-list-item-meta__icon.a-user-icon')['src'].include?('komagata.png')
 
     find('img.card-list-item-meta__icon.a-user-icon').click
-    assert_selector 'h1.user-profile__login-name', text: 'komagata'
+    assert_selector 'h1.page-content-header__title', text: 'komagata'
   end
 
   test 'disappear icon when search user' do

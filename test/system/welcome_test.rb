@@ -45,6 +45,13 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector "meta[name='twitter:title'][content='FAQ']", visible: false
   end
 
+  test 'GET /buzz' do
+    visit '/buzz'
+    assert_equal '紹介・言及記事 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_selector "meta[property='og:title'][content='紹介・言及記事']", visible: false
+    assert_selector "meta[name='twitter:title'][content='紹介・言及記事']", visible: false
+  end
+
   test 'GET /tos' do
     visit '/tos'
     assert_equal '利用規約 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
@@ -78,7 +85,7 @@ class WelcomeTest < ApplicationSystemTestCase
     attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
     fill_in 'user[profile_name]', with: '駒形 真幸'
     fill_in 'user[profile_job]', with: 'プログラマー'
-    fill_in 'user[profile_text]', with: '[株式会社フィヨルド](https://fjord.jp)の代表兼プログラマー。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
+    fill_in 'user[profile_text]', with: '[株式会社ロッカ](https://lokka.jp)の代表兼プログラマー。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
     click_on '書籍を追加'
     find("input[name*='[title]']").set('プロを目指す人のためのRuby入門 言語仕様からテスト駆動開発・デバッグ技法まで')
     find("input[name*='[url]']").set('https://www.amazon.co.jp/dp/B09MPX7SMY')
@@ -89,7 +96,7 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector 'img[src*="komagata.jpg"]'
     assert_text '駒形 真幸'
     assert_text 'プログラマー'
-    assert_text '株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
   end
 
@@ -99,7 +106,7 @@ class WelcomeTest < ApplicationSystemTestCase
     attach_file 'user[profile_image]', Rails.root.join('test/fixtures/files/users/avatars/komagata.jpg'), make_visible: true
     fill_in 'user[profile_name]', with: '駒形 真幸'
     fill_in 'user[profile_job]', with: 'プログラマー'
-    fill_in 'user[profile_text]', with: '[株式会社フィヨルド](https://fjord.jp)の代表兼プログラマー。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
+    fill_in 'user[profile_text]', with: '[株式会社ロッカ](https://lokka.jp)の代表兼プログラマー。Rubyが大好きで[怖話](https://kowabana.jp)、[フィヨルドブートキャンプ](https://bootcamp.fjord.jp)などを開発している。'
     click_on '書籍を追加'
     find("input[name*='[title]']").set('プロを目指す人のためのRuby入門 言語仕様からテスト駆動開発・デバッグ技法まで')
     find("input[name*='[url]']").set('https://www.amazon.co.jp/dp/B09MPX7SMY')
@@ -110,7 +117,7 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector 'img[src*="komagata.jpg"]'
     assert_text '駒形 真幸'
     assert_text 'プログラマー'
-    assert_text '株式会社フィヨルドの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
   end
 end

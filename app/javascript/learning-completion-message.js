@@ -1,3 +1,5 @@
+import CSRF from 'csrf'
+
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.querySelector('#modal-learning_completion')
   if (!modal) {
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
@@ -27,9 +29,4 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
   })
-
-  function token() {
-    const meta = document.querySelector('meta[name="csrf-token"]')
-    return meta ? meta.getAttribute('content') : ''
-  }
 })

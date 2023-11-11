@@ -54,9 +54,12 @@ class UsersController < ApplicationController
   end
 
   def create
+    logger.info "[Signup] 1. start create. #{user_params[:email]}"
+
     @user = User.new(user_params)
     @user.course_id ||= Course.first.id
     @user.free = true if @user.trainee?
+    @user.build_discord_profile
     Newspaper.publish(:user_create, @user)
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -79,11 +82,14 @@ class UsersController < ApplicationController
   end
 
   def create_free_user!
+    logger.info "[Signup] 2. start create free user. #{@user.email}"
     if @user.save
+      logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
       notify_to_chat(@user)
       Newspaper.publish(:student_or_trainee_create, @user) if @user.trainee?
+      logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
       render 'new'
@@ -92,6 +98,7 @@ class UsersController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
   def create_user!
+    logger.info "[Signup] 2. start create user. #{@user.email}"
     @user.with_lock do
       unless @user.validate
         render 'new'
@@ -107,6 +114,7 @@ class UsersController < ApplicationController
 
       token = params[:idempotency_token]
 
+      logger.info "[Signup] 3. before create subscription. #{@user.email}"
       begin
         customer = Card.new.create(@user, params[:stripeToken], token)
         subscription = Subscription.new.create(customer['id'], "#{token}-subscription")
@@ -116,15 +124,18 @@ class UsersController < ApplicationController
         render 'new'
         return false
       end
+      logger.info "[Signup] 4. after create subscription.#{@user.email}"
 
       @user.customer_id = customer['id']
       @user.subscription_id = subscription['id']
 
       if @user.save
+        logger.info "[Signup] 5. after save user. #{@user.email}"
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
         Newspaper.publish(:student_or_trainee_create, @user) if @user.student?
+        logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else
         render 'new'
@@ -134,26 +145,27 @@ class UsersController < ApplicationController
   # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
   def notify_to_mentors(user)
-    User.mentor.each do |mentor_user|
-      NotificationFacade.signed_up(user, mentor_user)
+    User.mentor.each do |mentor|
+      ActivityDelivery.with(sender: user, receiver: mentor, sender_roles: user.roles_to_s).notify(:signed_up)
     end
   end
 
   def notify_to_chat(user)
-    ChatNotifier.message "#{user.name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
+    ChatNotifier.message "#{user.login_name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
   end
 
   def user_params
     params.require(:user).permit(
       :login_name, :name, :name_kana,
       :email, :course_id, :description,
-      :discord_account, :github_account, :twitter_account,
-      :facebook_url, :blog_url, :times_url, :password,
+      :github_account, :twitter_account,
+      :facebook_url, :blog_url, :password,
       :password_confirmation, :job, :organization,
-      :os, :experience, :prefecture_code,
+      :os, :experience,
       :company_id, :nda, :avatar,
       :trainee, :adviser, :job_seeker,
-      :tag_list, :after_graduation_hope, :feed_url
+      :tag_list, :after_graduation_hope, :feed_url,
+      :country_code, :subdivision_code
     )
   end
 

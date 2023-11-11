@@ -1,6 +1,7 @@
 .form-times
-  display: flex
-  align-items: flex-end
+  +media-breakpoint-up(md)
+    display: flex
+    align-items: flex-end
   +media-breakpoint-down(sm)
     display: block
 
@@ -26,7 +27,8 @@
 .form-times__time
   display: flex
   flex-direction: column
-  margin-right: 1rem
+  +media-breakpoint-up(md)
+    margin-right: 1rem
   +media-breakpoint-down(sm)
     margin-right: 0
     flex-basis: 50%

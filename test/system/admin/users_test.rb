@@ -77,12 +77,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     within 'form[name=user]' do
       assert_text '所属企業'
       find('.choices').click
-      first('.choices__item', text: 'Fjord Inc.').click
+      first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
   test 'update advisor with company' do
@@ -91,20 +91,12 @@ class Admin::UsersTest < ApplicationSystemTestCase
     within 'form[name=user]' do
       assert_text '所属企業'
       find('.choices').click
-      first('.choices__item', text: 'Fjord Inc.').click
+      first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Fjord Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
-  end
-
-  test 'delete user' do
-    user = users(:kimura)
-    visit_with_auth admin_users_path(target: 'student_and_trainee'), 'komagata'
-    click_on "delete-#{user.id}"
-    page.driver.browser.switch_to.alert.accept
-    assert_text "#{user.name} さんを削除しました。"
+    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
   end
 
   test 'hide input for retire date when unchecked' do
@@ -138,6 +130,27 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_retired_on', with: '')
   end
 
+  test 'make user retired' do
+    user = users(:hatsuno)
+    user.discord_profile.update!(times_id: '987654321987654321')
+    date = Date.current
+    Discord::Server.stub(:delete_text_channel, true) do
+      VCR.use_cassette 'subscription/update' do
+        visit_with_auth edit_admin_user_path(user.id), 'komagata'
+        check '退会済', allow_label_click: true
+        fill_in 'user_retired_on', with: date
+        click_on '更新する'
+      end
+    end
+    assert_text 'ユーザー情報を更新しました。'
+    assert_equal date, user.reload.retired_on
+    assert_nil user.discord_profile.times_id
+
+    assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
+      req.body.include?('cancel_at_period_end=true')
+    end
+  end
+
   test 'hide input for graduation date when unchecked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
@@ -168,12 +181,33 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_graduated_on', with: '')
   end
 
+  test 'make user graduated' do
+    user = users(:hatsuno)
+    date = Date.current
+    VCR.use_cassette 'subscription/update' do
+      visit_with_auth edit_admin_user_path(user.id), 'komagata'
+      check '卒業済', allow_label_click: true
+      fill_in 'user_graduated_on', with: date
+      click_on '更新する'
+    end
+    assert_text 'ユーザー情報を更新しました。'
+    assert_equal date, user.reload.graduated_on
+
+    assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
+      req.body.include?('cancel_at_period_end=true')
+    end
+  end
+
   test 'edit user tag' do
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    tag_input = find('.ti-new-tag-input')
+    tag_input = find('.tagify__input')
     tag_input.set '追加タグ'
     tag_input.native.send_keys :enter
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
+      loop until page.has_text?('追加タグ')
+    end
+    find_all('.tagify__tag').map(&:text)
     click_on '更新する'
     visit "/admin/users/#{user.id}/edit"
     assert_text '追加タグ'

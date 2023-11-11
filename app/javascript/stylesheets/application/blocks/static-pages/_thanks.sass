@@ -1,22 +1,23 @@
 .thanks
   max-width: 26rem
-  +padding(horizontal, 1rem)
-  +margin(horizontal, auto)
+  padding-inline: 1rem
+  margin-inline: auto
   margin-top: 6rem
 
 .thanks__logo-image
   max-width: 20rem
   display: block
-  +margin(horizontal, auto)
+  margin-inline: auto
   margin-bottom: 3rem
 
 .thanks__body
-  background-color: $base
+  background-color: var(--base)
   padding: 1.5rem
   border-radius: .25rem
 
 .thanks__icon
-  +text-block(4rem 1 0 .5rem, center $main)
+  +text-block(4rem 1 0 .5rem, center)
+  color: var(--main)
 
 .thanks__title
   +text-block(.875rem 1.4 0 .75rem, center 600)

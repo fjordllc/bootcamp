@@ -11,13 +11,13 @@ require 'supports/vcr_helper'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 Capybara.disable_animation = true
-Webdrivers.cache_time = 86_400
 Minitest::Retry.use! if ENV['CI']
-Selenium::WebDriver.logger.ignore(:browser_options) # TODO: Remove it when capybara-3.36.0 greater is released.
 
 class ActiveSupport::TestCase
+  include VCRHelper
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
@@ -25,6 +25,13 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  setup do
+    ActiveStorage::Current.host = 'http://localhost:3000' # https://github.com/rails/rails/issues/40855
+  end
+
+  teardown do
+    ActiveStorage::Current.host = nil
+  end
 end
 
 class ActionDispatch::IntegrationTest

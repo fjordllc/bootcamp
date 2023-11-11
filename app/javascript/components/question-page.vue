@@ -9,6 +9,8 @@ div
       :isAnswerCountUpdated='isAnswerCountUpdated',
       :currentUser='currentUser',
       @afterUpdateQuestion='fetchQuestion(questionId)')
+    template(v-if='hasAiQuestion && isAdminOrMentor()')
+      ai_answer(:text='question.ai_answer')
     answers(
       :questionId='questionId',
       :questionUser='question.user',
@@ -18,7 +20,9 @@ div
       @cancelSolveQuestion='cancelSolveQuestion')
 </template>
 <script>
+import CSRF from 'csrf'
 import QuestionEdit from 'components/question-edit.vue'
+import AIAnswer from 'components/ai-answer.vue'
 import Answers from 'answers.vue'
 import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
 
@@ -28,10 +32,11 @@ export default {
     LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
     /* app/javascript/loading-question-page-placeholder.vue */
     questionEdit: QuestionEdit,
+    ai_answer: AIAnswer,
     answers: Answers
   },
   props: {
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     questionId: { type: String, required: true }
   },
   data() {
@@ -40,6 +45,13 @@ export default {
       currentUser: null,
       answerCount: 0,
       isAnswerCountUpdated: false
+    }
+  },
+  computed: {
+    hasAiQuestion() {
+      return (
+        this.question.ai_answer !== null && this.question.ai_answer.length > 0
+      )
     }
   },
   created() {
@@ -52,7 +64,7 @@ export default {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -91,13 +103,15 @@ export default {
     cancelSolveQuestion() {
       this.question.correct_answer = null
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     updateAnswerCount(count) {
       this.answerCount = count
       this.isAnswerCountUpdated = true
+    },
+    isAdminOrMentor() {
+      return (
+        this.currentUser.roles.includes('admin') ||
+        this.currentUser.roles.includes('mentor')
+      )
     }
   }
 }

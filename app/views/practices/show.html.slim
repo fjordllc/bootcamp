@@ -1,14 +1,15 @@
-- title @practice.title
+- title "プラクティス #{@practice.title}"
+- set_meta_tags description: "プラクティス「#{@practice.title}」のページです。"
 - category = @practice.category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
-= render '/practices/page_header', title: title, category: category
+= render '/practices/page_header', title: @practice.title, category: category
 = render 'page_tabs', resource: @practice
 
 .page-body
   - if @practice.learning(current_user)&.complete?
     = render '/products/completion_message', practice: @practice
-  .container.is-xxl
+  .container.is-xl
     .row.is-gutter-width-32
       .col-lg-8.col-xs-12
         .practice.page-content
@@ -72,21 +73,26 @@
                       .practice-first-actions__end.is-only-mentor
                         div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@practice.id}" data-vue-watchable-type='Practice')
 
-          = render 'practice_description', practice: @practice
+          - if @practice.summary?
+            = render 'summary', practice: @practice
+
+          = render 'description', practice: @practice
 
           - if @practice.practices_books.exists?
-            = render 'practice_books', practice: @practice
+            = render 'books', practice: @practice
 
           .a-card
             header.card-header
               h2.card-header__title
                 = Practice.human_attribute_name :goal
+            hr.a-border
             .card-body.is-goal
               .card__description
                 .a-long-text.is-md.js-markdown-view
                   = @practice.goal
                 - if !current_user.adviser? && @practice.open_product?
-                  = render '/practices/practice_content_notice'
+                  = render 'content_notice'
+            hr.a-border-tint
             footer.card-footer
               #js-learning(data-practice-id="#{@practice.id}")
               - if @practice.submission
@@ -106,16 +112,17 @@
                   | 終了条件をクリアしたら修了にしてください。
 
           - if current_user.admin_or_mentor?
-            = render 'practice_memo', practice: @practice
+            = render 'memo', practice: @practice
 
             .a-card.is-only-mentor
               header.card-header
                 h2.card-header__title 管理者・メンター用メニュー
+              hr.a-border
               footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items
                     li.card-main-actions__item
-                      = link_to edit_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
+                      = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
                         | 編集
 

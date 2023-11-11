@@ -1,35 +1,39 @@
 .auth-form-logo-image
   max-width: 24rem
-  +margin(horizontal, auto)
   display: block
-  +margin(vertical, 4rem 2rem)
+  margin: 4rem auto 2rem
   +media-breakpoint-down(sm)
     margin-top: 2rem
     max-width: 100%
-    +padding(horizontal, 2rem)
+    padding-inline: 2rem
 
 .auth-form
-  margin-bottom: 2rem
   width: 28rem
   max-width: calc(100vw - 2rem)
-  +margin(horizontal, auto)
+  margin-bottom: 2rem
+  +media-breakpoint-up(md)
+    margin-inline: auto
   +media-breakpoint-down(sm)
-    +margin(horizontal, 1rem)
+    margin-inline: 1rem
   &.is-sign-up
     width: 34rem
+    +media-breakpoint-up(md)
+      margin-top: 3rem
+    +media-breakpoint-down(sm)
+      margin-top: 1rem
   .page-header + &
     margin-top: 1.5rem
 
 .auth-form__header
-  border-bottom: solid 1px $border-tint
-  padding: 1rem 1.25rem
+  border-bottom: solid 1px var(--border-tint)
+  padding: 1rem 1.75rem
 
 .auth-form__body
-  padding: 1.5rem 1.25rem
+  padding: 1.5rem 1.75rem
 
 .auth-form__footer
-  border-top: solid 1px $border-tint
-  padding: 1rem 1.25rem
+  border-top: solid 1px var(--border-tint)
+  padding: 1rem 1.75rem
 
 .auth-form__title
   +text-block(1.25rem 1.45, center 600)
@@ -38,12 +42,13 @@
   margin-bottom: 1.25rem
 
 .auth-form__alert
-  padding: .5rem 1.25rem
+  padding: .5rem 1.5rem
   background-color: $danger
   text-align: center
-  +text-block(.8125rem 1.4, $reversal-text)
+  +text-block(.8125rem 1.4)
+  color: var(--reversal-text)
   margin: 1rem 1rem 0
   border-radius: .25rem
   a
     +hover-link-reversal
-    color: $reversal-text
+    color: var(--reversal-text)

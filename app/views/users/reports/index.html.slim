@@ -1,9 +1,8 @@
 - title "#{@user.login_name} 日報"
+- set_meta_tags description: "#{@user.login_name}さんの質問一覧ページです。"
 
 = render 'users/page_title', user: @user
 
 = render 'users/page_tabs', user: @user
 
-.page-body
-  .container.is-md
-    = react_component('Reports', userId: @user.id, practices: @user.practices)
+= react_component('Reports', userId: @user.id, practices: @user.practices)

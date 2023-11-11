@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
   before_action :redirect_to_slug, only: %i[show edit]
+  skip_before_action :require_active_user_login, only: %i[show]
 
   SIDE_LINK_LIMIT = 20
 
@@ -19,6 +20,12 @@ class PagesController < ApplicationController
 
   def show
     @pages = @page.practice.pages.limit(SIDE_LINK_LIMIT) if @page.practice
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new
@@ -33,11 +40,14 @@ class PagesController < ApplicationController
     @page.user ||= current_user
     set_wip
     if @page.save
-      url = page_url(@page)
-      if @page.not_wip?
+      url = Redirection.determin_url(self, @page)
+      if !@page.wip?
         Newspaper.publish(:page_create, @page)
         url = new_announcement_url(page_id: @page.id) if @page.announcement_of_publication?
       end
+
+      current_user.become_watcher!(@page)
+
       redirect_to url, notice: notice_message(@page, :create)
     else
       render :new
@@ -48,11 +58,14 @@ class PagesController < ApplicationController
     set_wip
     @page.last_updated_user = current_user
     if @page.update(page_params)
-      url = page_url(@page)
+      url = Redirection.determin_url(self, @page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
         Newspaper.publish(:page_update, @page)
         url = new_announcement_path(page_id: @page.id) if @page.announcement_of_publication?
       end
+
+      current_user.become_watcher!(@page)
+
       redirect_to url, notice: notice_message(@page, :update)
     else
       render :edit
@@ -61,7 +74,7 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
-    redirect_to '/pages', notice: 'ページを削除しました。'
+    redirect_to '/pages', notice: 'ドキュメントを削除しました。'
   end
 
   private
@@ -81,13 +94,13 @@ class PagesController < ApplicationController
   end
 
   def notice_message(page, action_name)
-    return 'ページをWIPとして保存しました。' if page.wip?
+    return 'ドキュメントをWIPとして保存しました。' if page.wip?
 
     case action_name
     when :create
-      'ページを作成しました。'
+      'ドキュメントを作成しました。'
     when :update
-      'ページを更新しました。'
+      'ドキュメントを更新しました。'
     end
   end
 

@@ -14,9 +14,9 @@
       v-if='isCurrentUser')
       | {{ translate(practices.practice.id) }}
 
-  .category-practices-item__learning-time(v-if='practiceTime')
-    | <!--- 所要時間の目安: {{ convertToHourMinute(practiceTime.median) }} --->
-    | <!--- （平均: {{ convertToHourMinute(practiceTime.average) }}） --->
+  .category-practices-item__learning-time.is-only-mentor(v-if='practiceTime')
+    | 所要時間の目安: {{ convertToHourMinute(practiceTime.median) }}
+    | （平均: {{ convertToHourMinute(practiceTime.average) }}）
   .a-user-icons(v-if='practices.started_students.length')
     .a-user-icons__items
       practice-user-icon(

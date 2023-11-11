@@ -11,7 +11,7 @@
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
     - if from == :edit
-      = render 'users/form/mail_notification', f: f
+      = render 'users/form/mail_notification', f:
     = render 'users/form/name', f: f, user: user
     = render 'users/form/kana_name', f: f, user: user
     = render 'users/form/avatar', f: f, user: user
@@ -19,13 +19,13 @@
     = render 'users/form/tags', f: f, user: user
     - unless user.adviser?
       - unless user.mentor?
-        = render 'users/form/after_graduation_hope', f: f, user: user
+        = render 'users/form/after_graduation_hope', f:, user:
       = render 'users/form/job', f: f
       = render 'users/form/os', f: f
-      = render 'users/form/prefecture', f: f
-      = render 'users/form/experience', f: f
+      = render 'users/form/experience', f:
     - if user.student?
-      = render 'users/form/job_seeker', f: f
+      = render 'users/form/job_seeker', f:
+    = render 'users/form/register_address', f: f, user: user
   - if from == :edit
     .form__items
       h3.form__items-title パスワードの変更
@@ -37,14 +37,14 @@
             = link_to 'パスワード変更はこちらから', edit_current_user_password_path, class: 'a-button is-md is-secondary'
     .form__items
       h3.form__items-title SNSアカウント
-      = render 'users/form/sns', f: f
+      = render 'users/form/sns', f:
   - else
     .form__items
-      = render 'users/form/password', f: f, from: from
+      = render 'users/form/password', f:, from:
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
-      = render 'users/form/company', f: f, user: user
+      = render 'users/form/company', f:, user:
 
   - if from == :new && user.student?
     = render 'users/form/card'
@@ -56,7 +56,7 @@
       = render 'users/form/profile_name', f: f
       = render 'users/form/profile_job', f: f
       = render 'users/form/profile_text', f: f
-      = render 'users/form/authored_book', f: f
+      = render 'users/form/authored_book', f:
 
   - if admin_login?
     .form__items
@@ -76,6 +76,14 @@
               = render 'users/form/retire', f: f
             .form-item-block__item
               = render 'users/form/graduate', f: f
+
+      .form-item-block
+        .form-item-block__inner
+          header.form-item-block__header
+            .form-item-block__title
+              | 自動退会設定
+          .form-item-block__item
+              = render 'users/form/auto_retire', f: f, user: user
 
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
@@ -114,7 +122,7 @@
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
       = render 'users/form/training_end', f: f
-      = render 'users/form/company', f: f, user: user
+      = render 'users/form/company', f:, user:
 
   - if from == :new
     .form__items

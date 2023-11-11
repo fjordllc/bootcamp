@@ -8,10 +8,21 @@ module Discord
     class << self
       def create_text_channel(name:, parent: nil)
         guild = Discord::Server.find_by(id: guild_id, token: authorize_token)
-        return nil if guild.blank?
+        if guild.blank?
+          Rails.logger.error "[Discord API] Do not find server. guild_id: #{guild_id}, token: #{authorize_token}"
+          return nil
+        end
 
         channel_type = Discordrb::Channel::TYPES[:text]
         guild.create_channel(name, channel_type, parent: parent)
+      rescue Discordrb::Errors::CodeError => e
+        log_error(e)
+        nil
+      end
+
+      def delete_text_channel(channel_id)
+        response = Discordrb::API::Channel.delete(authorize_token, channel_id)
+        response.code == 200
       rescue Discordrb::Errors::CodeError => e
         log_error(e)
         nil
@@ -25,6 +36,25 @@ module Discord
 
         bot = Discordrb::Bot.new(token: token, log_mode: :silent)
         Discordrb::Server.new(guild_body, bot)
+      rescue Discordrb::Errors::CodeError => e
+        log_error(e)
+        nil
+      end
+
+      def categories(keyword: nil)
+        channels = Discord::Server.channels(id: guild_id, token: authorize_token)
+        categories = channels&.select(&:category?)
+        categories&.select { |category| /#{keyword}/.match? category.name }
+      end
+
+      def channels(id:, token:)
+        return nil unless enabled?
+
+        channels_response = Discordrb::API::Server.channels(token, id)
+        channels_data = JSON.parse(channels_response.body)
+
+        bot = Discordrb::Bot.new(token: token, log_mode: :silent)
+        channels_data.map { |channel_data| Discordrb::Channel.new(channel_data, bot) }
       rescue Discordrb::Errors::CodeError => e
         log_error(e)
         nil

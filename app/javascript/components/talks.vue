@@ -1,46 +1,51 @@
 <template lang="pug">
-div
+.page-main
   .page-filter.form
-    .form__items
-      .form-item.is-inline-md-up
-        label.a-form-label
-          | 絞り込み
-        input#js-talk-search-input.a-text-input(
-          v-model.trim='searchTalksWord',
-          placeholder='ユーザーID、ユーザー名、読み方、Discord ID など')
-  #talks.page-content.loading(v-if='!loaded')
-    loadingListPlaceholder
-  .o-empty-message(v-else-if='talks.length === 0')
-    .o-empty-message__icon
-      i.fa-regular.fa-smile
-    p.o-empty-message__text
-      | 未返信の相談部屋はありません
-  #talks.page-content.loaded(v-else)
-    .talk-list(v-show='!showSearchedTalks')
-      nav.pagination(v-if='totalPages > 1')
-        pager(v-bind='pagerProps')
-      .card-list.a-card
-        talk(
-          v-for='talk in talks',
-          :key='talk.id',
-          :user='talk.user',
-          :talk='talk')
-      nav.pagination(v-if='totalPages > 1')
-        pager(v-bind='pagerProps')
-    .searched-talk-list(v-show='showSearchedTalks')
-      .o-empty-message(v-if='searchedTalks.length === 0')
+    .container.is-md
+      .form__items
+        .form-item.is-inline-md-up
+          label.a-form-label
+            | 絞り込み
+          input#js-talk-search-input.a-text-input(
+            v-model.trim='searchTalksWord',
+            placeholder='ユーザーID、ユーザー名、読み方、Discord ID など')
+  hr.a-border
+  .page-body
+    .container.is-md
+      #talks.page-content.loading(v-if='!loaded')
+        loadingListPlaceholder
+      .o-empty-message(v-else-if='talks.length === 0')
         .o-empty-message__icon
-          i.far.fa-sad-tear
+          i.fa-regular.fa-smile
         p.o-empty-message__text
-          | 一致する相談部屋はありません
-      .card-list.a-card(v-else)
-        talk(
-          v-for='talk in searchedTalks',
-          :key='talk.id',
-          :user='talk.user',
-          :talk='talk')
+          | 未対応の相談部屋はありません
+      #talks.page-content.loaded(v-else)
+        .talk-list(v-show='!showSearchedTalks')
+          nav.pagination(v-if='totalPages > 1')
+            pager(v-bind='pagerProps')
+          .card-list.a-card
+            talk(
+              v-for='talk in talks',
+              :key='talk.id',
+              :user='talk.user',
+              :talk='talk')
+          nav.pagination(v-if='totalPages > 1')
+            pager(v-bind='pagerProps')
+        .searched-talk-list(v-show='showSearchedTalks')
+          .o-empty-message(v-if='searchedTalks.length === 0')
+            .o-empty-message__icon
+              i.far.fa-sad-tear
+            p.o-empty-message__text
+              | 一致する相談部屋はありません
+          .card-list.a-card(v-else)
+            talk(
+              v-for='talk in searchedTalks',
+              :key='talk.id',
+              :user='talk.user',
+              :talk='talk')
 </template>
 <script>
+import CSRF from 'csrf'
 import Talk from 'components/talk.vue'
 import LoadingListPlaceholder from 'loading-list-placeholder.vue'
 import Pager from 'pager.vue'
@@ -65,13 +70,13 @@ export default {
     }
   },
   computed: {
-    isUnrepliedTalksPage() {
-      return location.pathname.includes('unreplied')
+    isActionUncompletedPage() {
+      return location.pathname.includes('action_uncompleted')
     },
     url() {
       const params = this.newParams
-      if (this.isUnrepliedTalksPage) {
-        return `/api/talks/unreplied.json?${params}`
+      if (this.isActionUncompletedPage) {
+        return `/api/talks/action_uncompleted.json?${params}`
       } else {
         return `/api/talks.json?${params}`
       }
@@ -118,17 +123,13 @@ export default {
       this.setupTalks()
       window.scrollTo(0, 0)
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     async fetchTalksResource() {
       const talksResource = await fetch(this.url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

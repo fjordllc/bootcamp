@@ -85,9 +85,10 @@ class NotificationsTest < ApplicationSystemTestCase
                         link: '/reports/20000118',
                         user: users(:mentormentaro),
                         sender: users(:machida))
-    visit_with_auth '/notifications', 'mentormentaro'
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications'
     within first('nav.pagination') do
-      find('a', text: '2').click
+      find('button', text: '2').click
     end
     # 2ページ目に1番古い通知が表示されることを確認
     assert_text '1番古い通知'
@@ -97,6 +98,96 @@ class NotificationsTest < ApplicationSystemTestCase
       assert active_button.has_text? '2'
     end
     assert_current_path('/notifications?page=2')
+  end
+
+  test 'show 20 notifications in first page' do
+    25.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          link: "/reports/#{n}",
+                          user: users(:mentormentaro),
+                          sender: users(:machida))
+    end
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications'
+    assert_text '1番新しい通知'
+    assert_equal 20, all('.card-list-item').size
+
+    visit '/notifications?status=unread'
+    assert_text '1番新しい通知'
+    assert_equal 20, all('.card-list-item').size
+  end
+
+  test 'click on the pager button with query string' do
+    19.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          link: "/reports/#{n}",
+                          user: users(:mentormentaro),
+                          sender: users(:machida))
+    end
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20000118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications?status=unread'
+    within first('nav.pagination') do
+      find('button', text: '2').click
+    end
+    assert_text '1番古い通知'
+    assert_no_text '1番新しい通知'
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/notifications?status=unread&page=2')
+  end
+
+  test 'click on the pager button with multiple query string' do
+    19.times do |n|
+      Notification.create(message: "machidaさんからメンションが届きました#{n}",
+                          kind: 'mentioned',
+                          link: "/reports/#{n}",
+                          user: users(:mentormentaro),
+                          sender: users(:machida))
+    end
+    Notification.create(message: '1番新しい通知',
+                        created_at: '2040-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20400118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    Notification.create(message: '1番古い通知',
+                        created_at: '2000-01-18 06:06:42',
+                        kind: 'mentioned',
+                        link: '/reports/20000118',
+                        user: users(:mentormentaro),
+                        sender: users(:machida))
+    login_user 'mentormentaro', 'testtest'
+    visit '/notifications?status=unread&target=mention'
+    within first('nav.pagination') do
+      find('button', text: '2').click
+    end
+    assert_text '1番古い通知'
+    assert_no_text '1番新しい通知'
+    all('.pagination .is-active').each do |active_button|
+      assert active_button.has_text? '2'
+    end
+    assert_current_path('/notifications?status=unread&target=mention&page=2')
   end
 
   test 'specify the page number in the URL' do
@@ -151,8 +242,9 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'mentormentaro', 'testtest'
     visit '/notifications?page=2'
     within first('nav.pagination') do
-      find('a', text: '1').click
+      find('button', text: '1').click
     end
+    assert_text '1番新しい通知'
     page.go_back
     assert_text '1番古い通知'
     assert_no_text '1番新しい通知'
@@ -165,14 +257,23 @@ class NotificationsTest < ApplicationSystemTestCase
     login_user 'hatsuno', 'testtest'
     report = create_report 'コメントと', '確認があった', false
 
-    visit_with_auth "/reports/#{report}", 'komagata'
-    visit "/reports/#{report}"
-    fill_in 'new_comment[description]', with: 'コメントと確認した'
-    click_button '確認OKにする'
+    perform_enqueued_jobs do
+      visit_with_auth "/reports/#{report}", 'komagata'
+      visit "/reports/#{report}"
+      fill_in 'new_comment[description]', with: 'コメントと確認した'
+      click_button '確認OKにする'
+      visit_with_auth "/reports/#{report}", 'hatsuno'
+      find('.header-links__link.test-show-notifications').click
+      assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
+    end
+  end
 
-    visit_with_auth "/reports/#{report}", 'hatsuno'
+  test 'notify user class name role contains' do
+    visit_with_auth '/', 'komagata'
     find('.header-links__link.test-show-notifications').click
-    assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
+    assert_selector 'span.a-user-role.is-admin'
+    assert_selector 'span.a-user-role.is-student'
+    assert_selector 'span.a-user-role.is-mentor'
   end
 
   test 'show notification count' do
@@ -283,7 +384,7 @@ class NotificationsTest < ApplicationSystemTestCase
                         user: users(:komagata),
                         sender: users(:machida))
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
-    click_link 'お知らせの通知を既読にする'
+    click_link 'お知らせを既読にする'
 
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
     assert_no_text 'お知らせのテスト通知'

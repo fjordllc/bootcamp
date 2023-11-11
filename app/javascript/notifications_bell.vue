@@ -22,8 +22,9 @@ li.header-links__item(v-bind:class='hasCountClass')
           a.header-dropdown__item-link.unconfirmed_link(
             :href='notification.path')
             .header-notifications-item__body
-              img.header-notifications-item__user-icon.a-user-icon(
-                :src='notification.sender.avatar_url')
+              span.a-user-role.header-notifications-item__user-icon(
+                :class='"is-" + notification.sender.primary_role')
+                img.a-user-icon(:src='notification.sender.avatar_url')
               .header-notifications-item__message
                 p.test-notification-message {{ notification.message }}
               time.header-notifications-item__created-at {{ createdAtFromNow(notification.created_at) }}

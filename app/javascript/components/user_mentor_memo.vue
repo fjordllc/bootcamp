@@ -3,6 +3,7 @@ section.a-card.is-memo.is-only-mentor
   header.card-header.is-sm(v-if='!editing && !productsMode')
     h2.card-header__title
       | メンター向けユーザーメモ
+  hr.a-border-tint(v-if='!editing && !productsMode')
   .card-body(v-if='!editing')
     .card__description
       .a-long-text.is-md.a-placeholder(v-if='loading')
@@ -18,6 +19,7 @@ section.a-card.is-memo.is-only-mentor
         .o-empty-message__text
           | ユーザーメモはまだありません。
       .a-long-text.is-md(v-else, v-html='markdownMemo')
+  hr.a-border-tint(v-if='!editing')
   footer.card-footer(v-if='!editing')
     .card-main-actions
       .card-main-actions__items
@@ -48,6 +50,7 @@ section.a-card.is-memo.is-only-mentor
         .a-markdown-input__inner.is-preview.js-tabs__content(
           :class='{ "is-active": isActive("preview") }')
           .a-long-text.is-md.a-markdown-input__preview(v-html='markdownMemo')
+  hr.a-border-tint(v-show='editing')
   .card-footer(v-show='editing')
     .card-main-actions
       .card-main-actions__items
@@ -60,6 +63,7 @@ section.a-card.is-memo.is-only-mentor
 </template>
 
 <script>
+import CSRF from 'csrf'
 import TextareaInitializer from '../textarea-initializer'
 import MarkdownInitializer from '../markdown-initializer'
 import confirmUnload from '../confirm-unload'
@@ -117,10 +121,6 @@ export default {
     changeActiveTab(tab) {
       this.tab = tab
     },
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     updateMemo() {
       const params = {
         user: {
@@ -132,7 +132,7 @@ export default {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Content-Type': 'application/json; charset=utf-8',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

@@ -1,10 +1,12 @@
 - title '提出物編集'
+- set_meta_tags description: '提出物編集ページです。'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
         = title
+hr.a-border
 - if @product.published_at.present?
   .a-page-notice.is-danger
     .container.is-sm
@@ -12,5 +14,5 @@ header.page-header
         p
           | 再提出をした際はコメントから<br class='is-hidden-md-up'>メンターに連絡をお願いします。
 .page-body
-  .container.is-xxl
+  .container.is-xl
     = render 'form', practice: @practice, product: @product

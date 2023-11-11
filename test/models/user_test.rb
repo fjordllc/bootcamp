@@ -18,11 +18,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not users(:komagata).retired?
   end
 
-  test '#retired_three_months_ago_and_notification_not_sent?' do
-    assert users(:taikai3).retired_three_months_ago_and_notification_not_sent?
-    assert_not users(:taikai).retired_three_months_ago_and_notification_not_sent?
-  end
-
   test '#active?' do
     travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
       assert users(:komagata).active?
@@ -33,14 +28,12 @@ class UserTest < ActiveSupport::TestCase
     end
 
     travel_to Time.zone.local(2022, 7, 11, 0, 0, 0) do
+      assert users(:neverlogin).active? # 未ログインでも登録したばかりならactive
+    end
+
+    travel_to Time.zone.local(2022, 8, 12, 0, 0, 0) do
       assert_not users(:neverlogin).active?
     end
-  end
-
-  test '#prefecture_name' do
-    assert_equal '未登録', users(:komagata).prefecture_name
-    assert_equal '東京都', users(:kimura).prefecture_name
-    assert_equal '宮城県', users(:hatsuno).prefecture_name
   end
 
   test '#total_learnig_time' do
@@ -170,7 +163,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.save(context: :retire_reason_presence)
   end
 
-  test 'is valid username' do
+  test 'login_name' do
     user = users(:komagata)
     user.login_name = 'abcdABCD1234'
     assert user.valid?
@@ -196,6 +189,8 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
     user.login_name = '１２３４５'
     assert user.invalid?
+    user.login_name = 'xx'
+    assert user.invalid?
   end
 
   test 'twitter_account' do
@@ -212,59 +207,6 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
     user.twitter_account = 'A' * 16
     assert user.invalid?
-  end
-
-  test 'discord_account' do
-    user = users(:komagata)
-    user.discord_account = ''
-    assert user.valid?
-    user.discord_account = 'komagata#1234'
-    assert user.valid?
-    user.discord_account = 'komagata'
-    assert user.invalid?
-    user.discord_account = '#1234'
-    assert user.invalid?
-    user.discord_account = ' komagata　#1234'
-    assert user.invalid?
-    user.discord_account = 'komagata1234'
-    assert user.invalid?
-  end
-
-  test 'times_url' do
-    user = users(:komagata)
-    user.times_url = ''
-    assert user.valid?
-    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001'
-    assert user.valid?
-    user.times_url = "https://discord.com/channels/715806612824260640/12345678900000000\n"
-    assert user.invalid?
-    user.times_url = 'https://discord.com/channels/715806612824260640/123456789000000001/123456789000000001'
-    assert user.invalid?
-    user.times_url = 'https://discord.gg/jc9fnWk4'
-    assert user.invalid?
-    user.times_url = 'https://example.com/channels/715806612824260640/123456789000000001'
-    assert user.invalid?
-  end
-
-  test '#convert_to_channel_url!' do
-    VCR.use_cassette 'discord/invite' do
-      user = users(:komagata)
-      user.times_url = 'https://discord.gg/m2K7QG8byz'
-      user.convert_to_channel_url!
-      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
-
-      user.times_url = 'https://discord.gg/8Px4f7nMUx'
-      user.convert_to_channel_url!
-      assert_nil user.times_url
-
-      user.times_url = 'https://discord.com/channels/715806612824260640/715806613264400385'
-      user.convert_to_channel_url!
-      assert_equal 'https://discord.com/channels/715806612824260640/715806613264400385', user.times_url
-
-      user.times_url = nil
-      user.convert_to_channel_url!
-      assert_nil user.times_url
-    end
   end
 
   test 'is valid name_kana' do
@@ -406,6 +348,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'columns_for_keyword_searchの設定がsearch_by_keywordsに反映されていることを確認' do
     komagata = users(:komagata)
+    komagata.discord_profile.account_name = 'komagata1234'
     komagata.update!(login_name: 'komagata1234',
                      name: 'こまがた1234',
                      name_kana: 'コマガタイチニサンヨン',
@@ -413,7 +356,6 @@ class UserTest < ActiveSupport::TestCase
                      facebook_url: 'http://www.facebook.com/komagata1234',
                      blog_url: 'http://komagata1234.org',
                      github_account: 'komagata1234_github',
-                     discord_account: 'komagata#1234',
                      description: '平日１０〜１９時勤務です。1234')
     assert_includes(User.search_by_keywords({ word: komagata.login_name, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.name, commentable_type: nil }), komagata)
@@ -422,7 +364,7 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(User.search_by_keywords({ word: komagata.facebook_url, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.blog_url, commentable_type: nil }), komagata)
     assert_includes(User.search_by_keywords({ word: komagata.github_account, commentable_type: nil }), komagata)
-    assert_includes(User.search_by_keywords({ word: komagata.discord_account, commentable_type: nil }), komagata)
+    assert_includes(User.search_by_keywords({ word: komagata.discord_profile.account_name, commentable_type: nil }), komagata)
   end
 
   test '#update_user_mentor_memo' do
@@ -593,26 +535,127 @@ class UserTest < ActiveSupport::TestCase
     user.avatar.purge
   end
 
-  test '.retired_with_3_months_ago_and_notification_not_sent' do
-    target_ids = [
-      users(:taikai).id,
-      users(:taikai3).id
-    ]
-    targets = User.where(id: target_ids)
-    three_months_ago = Date.new(2022, 9, 1)
-    users(:taikai3).update_column(:retired_on, three_months_ago) # rubocop:disable Rails/SkipsModelValidations
+  test '#after_twenty_nine_days_registration?' do
+    over29days_registered_student = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+    recently_registered_student = User.create!(
+      login_name: 'recently',
+      email: 'recently_registered_student@fjord.jp',
+      password: 'testtest',
+      name: '入会 太郎',
+      name_kana: 'ニュウカイ タロウ',
+      description: '最近入会したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      created_at: Time.current,
+      sent_student_followup_message: false
+    )
 
-    travel_to Time.zone.local(2022, 12, 1, 7, 0, 0) do
-      expected_count = 2
-      users(:taikai).update_column(:retired_on, three_months_ago - 1.day) # rubocop:disable Rails/SkipsModelValidations
-      records = targets.retired_with_3_months_ago_and_notification_not_sent
-      assert_equal records.count, expected_count
+    assert over29days_registered_student.after_twenty_nine_days_registration?
+    assert_not recently_registered_student.after_twenty_nine_days_registration?
+  end
 
-      expected_count = 1
-      users(:taikai).update_column(:retired_on, three_months_ago + 1.day) # rubocop:disable Rails/SkipsModelValidations
-      records = targets.retired_with_3_months_ago_and_notification_not_sent
-      assert_equal records.count, expected_count
-      assert_equal records.first.login_name, 'taikai3'
-    end
+  test '#followup_message_target?' do
+    target = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      hibernated_at: nil,
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+    nottarget = users(:komagata)
+    otameshi = users(:otameshi)
+    hibernated = users(:kyuukai)
+    assert target.followup_message_target?
+    assert_not nottarget.followup_message_target?
+    assert_not otameshi.followup_message_target?
+    assert_not hibernated.followup_message_target?
+  end
+
+  test '#mark_message_as_sent_for_hibernated_student' do
+    User.mark_message_as_sent_for_hibernated_student
+
+    assert_not users(:komagata).sent_student_followup_message
+    assert users(:kyuukai).sent_student_followup_message
+  end
+
+  test '#sent_student_followup_message' do
+    target = User.create!(
+      login_name: 'thirty',
+      email: 'thirty@fjord.jp',
+      password: 'testtest',
+      name: '入会 三十郎',
+      name_kana: 'ニュウカイ サンジュウロウ',
+      description: '入会30日経過したユーザーです',
+      course: courses(:course1),
+      job: 'student',
+      os: 'mac',
+      experience: 'ruby',
+      hibernated_at: nil,
+      created_at: Time.current - 30.days,
+      sent_student_followup_message: false
+    )
+
+    User.create_followup_comment(target)
+
+    assert target.sent_student_followup_message
+  end
+
+  test '#country_name' do
+    assert_equal '日本', users(:kimura).country_name
+    assert_equal '米国', users(:tom).country_name
+  end
+
+  test '#subdivision_name' do
+    assert_equal '東京都', users(:kimura).subdivision_name
+    assert_equal 'ニューヨーク州', users(:tom).subdivision_name
+  end
+
+  test '#create_comebacked_comment' do
+    hajime = users(:hajime)
+    comment =
+      assert_difference 'Comment.count', 1 do
+        hajime.create_comebacked_comment
+      end
+    description = "お帰りなさい！！復会ありがとうございます。\n" \
+           '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
+           "何か困ったことや質問があれば、遠慮なくご相談ください。\n\n" \
+           "またフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n" \
+           '<https://bootcamp.fjord.jp/practices/129#url>'
+    assert_equal hajime.id, comment.commentable.user_id
+    assert_equal users(:komagata).id, comment.user_id
+    assert_equal description, comment.body
+  end
+
+  test '#become_watcher!' do
+    watchable = pages(:page1)
+    user = users(:kimura)
+
+    assert_not user.watches.exists?(watchable:)
+
+    user.become_watcher!(watchable)
+    assert user.watches.exists?(watchable:)
   end
 end

@@ -125,7 +125,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     assert has_no_button? '公開'
     click_button '作成'
-    assert_text 'お知らせを作成しました'
+    assert has_css?('p.flash__message', text: 'お知らせを作成しました')
 
     visit_with_auth '/notifications', 'hatsuno'
     assert_text 'お知らせ「タイトルtest」'
@@ -135,7 +135,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     accept_confirm do
       click_link '削除'
     end
-    assert_text 'お知らせを削除しました'
+    assert has_css?('p.flash__message', text: 'お知らせを削除しました')
 
     visit_with_auth '/notifications', 'hatsuno'
     assert_no_text 'お知らせ「タイトルtest」'
@@ -258,5 +258,13 @@ class AnnouncementsTest < ApplicationSystemTestCase
     Capybara.session_name = :later
     click_button 'WIP'
     assert_text '別の人がお知らせを更新していたので更新できませんでした。'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_announcement_path, 'komagata'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end

@@ -1,10 +1,17 @@
 .a-user-icon
+  display: block
   object-fit: cover
   border-radius: 50%
-  background-color: $base
+  background-color: var(--base)
+  +size(100%)
   +icon-role-style
   &.is-sm
-    +size(2em)
+    +size(2rem)
+  &.is-xs
+    +media-breakpoint-up(md)
+      +size(1.5rem)
+    +media-breakpoint-down(sm)
+      +size(1.125rem)
 
 .a-long-text
   .a-user-emoji-link
@@ -17,7 +24,7 @@
   .a-user-emoji
     +size(1.8em)
     object-fit: cover
-    background-color: $base
+    background-color: var(--base)
     border-radius: 2px
     display: inline-block !important
     border: none !important

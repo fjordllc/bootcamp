@@ -11,13 +11,15 @@ namespace :bootcamp do
 
   desc 'Migration on production.'
   task migrate: :environment do
-    Rake::Task['db:migrate'].execute
-
-    # staging
-    Rake::Task['db:reset'].execute if ENV['DB_NAME'] == 'bootcamp_staging'
-
-    # production
-    Rake::Task['data:migrate'].execute if ENV['DB_NAME'] == 'bootcamp_production'
+    trace = Rake.application.options.trace
+    Rake.application.options.trace = true
+    case ENV['DB_NAME']
+    when 'bootcamp_staging'
+      Rake::Task['db:reset'].invoke
+    when 'bootcamp_production'
+      Rake::Task['db:migrate:with_data'].invoke
+    end
+    Rake.application.options.trace = trace
   end
 
   desc 'DB Reset on staging.'
@@ -54,7 +56,16 @@ namespace :bootcamp do
     task cloudbuild: :environment do
       puts '== START Cloud Build Task =='
 
-      User.order(:id).each(&:update_sad_streak)
+      watches = []
+      Watch.find_each do |watch|
+        w = "#{watch.watchable_type}-#{watch.watchable_id}-#{watch.user_id}"
+        if watches.include?(w)
+          puts w
+          watch.destroy
+        else
+          watches << w
+        end
+      end
 
       puts '== END   Cloud Build Task =='
     end

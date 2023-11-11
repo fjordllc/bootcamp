@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = products.getAttribute('data-title')
     const selectedTab = products.getAttribute('data-selected-tab')
     const isMentor = products.getAttribute('data-mentor-login')
-    const currentUserId = products.getAttribute('data-current-user-id')
+    const currentUserId = Number(products.getAttribute('data-current-user-id'))
     const checkerId = products.getAttribute('data-checker-id')
     new Vue({
       store,

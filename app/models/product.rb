@@ -14,7 +14,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
-  belongs_to :checker, class_name: 'Product', optional: true
+  belongs_to :checker, class_name: 'User', optional: true
   alias sender user
 
   after_create ProductCallbacks.new
@@ -36,7 +36,7 @@ class Product < ApplicationRecord
 
   scope :unchecked, -> { where.not(id: Check.where(checkable_type: 'Product').pluck(:checkable_id)) }
   scope :unassigned, -> { where(checker_id: nil) }
-  scope :self_assigned_product, ->(current_user_id) { where(checker_id: current_user_id) }
+  scope :self_assigned_product, ->(user_id) { where(checker_id: user_id) }
   scope :self_assigned_and_replied_products, ->(user_id) { self_assigned_product(user_id).where.not(id: self_assigned_no_replied_product_ids(user_id)) }
 
   scope :wip, -> { where(wip: true) }
@@ -61,7 +61,7 @@ class Product < ApplicationRecord
   end
 
   # rubocop:disable Metrics/MethodLength
-  def self.self_assigned_no_replied_product_ids(current_user_id)
+  def self.self_assigned_no_replied_product_ids(user_id)
     sql = <<~SQL
       WITH last_comments AS (
         SELECT *
@@ -78,6 +78,7 @@ class Product < ApplicationRecord
         SELECT products.*
         FROM products
         WHERE checker_id = ?
+        AND wip = false
       )
       SELECT self_assigned_products.id
       FROM self_assigned_products
@@ -86,12 +87,12 @@ class Product < ApplicationRecord
       OR self_assigned_products.checker_id != last_comments.user_id
       ORDER BY self_assigned_products.created_at DESC
     SQL
-    Product.find_by_sql([sql, current_user_id]).map(&:id)
+    Product.find_by_sql([sql, user_id]).map(&:id)
   end
   # rubocop:enable Metrics/MethodLength
 
-  def self.self_assigned_no_replied_products(current_user_id)
-    no_replied_product_ids = self_assigned_no_replied_product_ids(current_user_id)
+  def self.self_assigned_no_replied_products(user_id)
+    no_replied_product_ids = self_assigned_no_replied_product_ids(user_id)
     Product.where(id: no_replied_product_ids)
            .order(published_at: :asc, id: :asc)
   end
@@ -136,16 +137,16 @@ class Product < ApplicationRecord
     Category.category(practice: practice, course: course)
   end
 
-  def save_checker(current_user_id)
-    return false if other_checker_exists?(current_user_id)
+  def save_checker(user_id)
+    return false if other_checker_exists?(user_id)
 
-    self.checker_id = current_user_id
-    Cache.delete_self_assigned_no_replied_product_count(current_user_id)
+    self.checker_id = user_id
+    Cache.delete_self_assigned_no_replied_product_count(user_id)
     save!
   end
 
-  def other_checker_exists?(current_user_id)
-    checker_id.present? && checker_id.to_s != current_user_id
+  def other_checker_exists?(user_id)
+    checker_id.present? && checker_id != user_id
   end
 
   def unassigned?
@@ -153,7 +154,7 @@ class Product < ApplicationRecord
   end
 
   def checker_name
-    checker_id ? User.find(checker_id).login_name : nil
+    checker&.login_name
   end
 
   def elapsed_days
@@ -162,7 +163,7 @@ class Product < ApplicationRecord
   end
 
   def checker_avatar
-    checker_id ? User.find(checker_id).avatar_url : nil
+    checker&.avatar_url
   end
 
   def replied_status_changed?(previous_commented_user_id, current_commented_user_id)
@@ -170,12 +171,6 @@ class Product < ApplicationRecord
     is_replied_by_checker_current = checker_id == current_commented_user_id
 
     is_replied_by_checker_previous != is_replied_by_checker_current
-  end
-
-  def create_checker_id(comment)
-    return nil unless comment.user.mentor?
-
-    update_columns(checker_id: comment.user.id) unless checker_id? # rubocop:disable Rails/SkipsModelValidations
   end
 
   def update_last_commented_at(comment)
@@ -200,5 +195,15 @@ class Product < ApplicationRecord
 
   def delete_commented_at
     update_commented_at(comments.last)
+  end
+
+  def notification_type
+    updated_after_submission? ? :product_update : :submitted
+  end
+
+  def updated_after_submission?
+    return false if saved_change_to_attribute?('published_at', from: nil)
+
+    created_at != updated_at
   end
 end

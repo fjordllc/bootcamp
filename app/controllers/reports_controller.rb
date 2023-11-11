@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  include ReportsHelper
   include Rails.application.routes.url_helpers
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
@@ -51,7 +50,7 @@ class ReportsController < ApplicationController
     set_wip
     canonicalize_learning_times(@report)
     if @report.save
-      Newspaper.publish(:report_create, @report.user)
+      Newspaper.publish(:report_save, @report)
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :new
@@ -64,7 +63,7 @@ class ReportsController < ApplicationController
     @report.assign_attributes(report_params)
     canonicalize_learning_times(@report)
     if @report.save
-      Newspaper.publish(:report_update, @report.user)
+      Newspaper.publish(:report_save, @report)
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
       render :edit
@@ -73,7 +72,7 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
-    Newspaper.publish(:report_destroy, @report.user)
+    Newspaper.publish(:report_destroy, @report)
     redirect_to reports_url, notice: '日報を削除しました。'
   end
 

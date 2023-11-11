@@ -34,6 +34,7 @@
 </template>
 <script>
 import 'whatwg-fetch'
+import CSRF from 'csrf'
 
 export default {
   props: {
@@ -50,10 +51,6 @@ export default {
     this.statusName = this.status
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     pushStatus(name) {
       const params = new FormData()
       params.append('status', name)
@@ -62,7 +59,7 @@ export default {
         method: 'PATCH',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',

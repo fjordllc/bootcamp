@@ -1,6 +1,6 @@
 header.header
   .container.has-no-right-padding
-    .header__container
+    .header__inner
       .header__start
         = link_to root_path, class: 'header__title' do
           = image_tag('pjord-face.svg', alt: 'プログラミングスクール', class: 'header__title-image')
@@ -20,3 +20,4 @@ header.header
       .header__end
         = render 'application/header/header_links'
         #js-notifications-mobile
+  hr.a-border

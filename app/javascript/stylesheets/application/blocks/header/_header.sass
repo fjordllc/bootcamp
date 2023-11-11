@@ -1,19 +1,19 @@
 .header
-  background-color: $base
+  background-color: var(--base)
   z-index: 3
-  border-bottom: solid 1px $border
   +media-breakpoint-up(md)
-    +position(fixed, top 0, left $global-nav-width, right 0)
-    height: $header-height__md-up
+    +position(fixed, top 0, right 0)
+    left: var(--global-nav-width)
+    height: var(--header-height__md-up)
   +media-breakpoint-down(sm)
     position: relative
-    height: $header-height__sm-down
+    height: var(--header-height__sm-down)
   .a-switch
     margin-left: .5rem
   .container
-    height: 100%
+    height: calc(100% - 1px)
 
-.header__container
+.header__inner
   display: flex
   justify-content: space-between
   align-items: center

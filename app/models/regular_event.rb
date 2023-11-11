@@ -26,6 +26,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Footprintable
   include Reactionable
   include Watchable
+  include Searchable
 
   enum category: {
     reading_circle: 0,
@@ -52,6 +53,11 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :holding, -> { where(finished: false) }
+  scope :today_events, -> { where(id: holding.select(&:holding_today?).map(&:id)) }
+  scope :tomorrow_events, -> { where(id: holding.select(&:holding_tomorrow?).map(&:id)) }
+  scope :day_after_tomorrow_events, -> { where(id: holding.select(&:holding_day_after_tomorrow?).map(&:id)) }
+  scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
+  scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -63,6 +69,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
            through: :regular_event_participations,
            source: :user
   has_many :watches, as: :watchable, dependent: :destroy
+  attribute :wants_announcement, :boolean
+
+  columns_for_keyword_search :title, :description
 
   def organizers
     users.with_attached_avatar.order('organizers.created_at')
@@ -117,12 +126,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def holding_tomorrow?
-    tomorrow = Time.current.next_day
+    holding_next_day?(1)
+  end
+
+  def holding_day_after_tomorrow?
+    holding_next_day?(2)
+  end
+
+  def holding_next_day?(days = 1)
+    next_day = Time.current.next_day(days)
     regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == tomorrow.wday
+        repeat_rule.day_of_the_week == next_day.wday
       else
-        repeat_rule.day_of_the_week == tomorrow.wday && repeat_rule.frequency == convert_date_into_week(tomorrow.day)
+        repeat_rule.day_of_the_week == next_day.wday && repeat_rule.frequency == convert_date_into_week(next_day.day)
       end
     end.include?(true)
   end
@@ -141,14 +158,18 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   class << self
-    def today_events
-      holding_events = RegularEvent.holding
-      holding_events.select(&:holding_today?)
+    def comming_soon_events(user)
+      [today_events, tomorrow_events].map do |regular_events|
+        regular_events.select { |event| event.participated_by?(user) }
+      end
     end
 
-    def tomorrow_events
-      holding_events = RegularEvent.holding
-      holding_events.select(&:holding_tomorrow?)
+    def remove_event(events_arr, id)
+      events_arr.each do |events|
+        events.delete_if do |event|
+          event.id == id.to_i
+        end
+      end
     end
   end
 

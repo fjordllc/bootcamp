@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://fjord.jp/foo
+    uri: https://lokka.jp/foo
     body:
       encoding: US-ASCII
       string: ''

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Authentication
   include TestAuthentication if Rails.env.test?
   include PolicyHelper
+  helper_method :staging?
   protect_from_forgery with: :exception
   before_action :basic_auth, if: :staging?
   before_action :test_login, if: :test?

@@ -35,15 +35,10 @@ Rails.application.routes.draw do
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
-  resources :courses, only: %i(index new create) do
-    resources :practices, only: %i(index), controller: "courses/practices" do
-      collection do
-        resources :sort, only: %i(index), controller: "courses/practices/sort"
-      end
-    end
-    resources :categories, only: %i(index), controller: "courses/categories"
+  resources :courses, only: %i(index) do
+    resources :practices, only: %i(index), controller: "courses/practices"
   end
-  resources :practices, except: %i(index destroy) do
+  resources :practices, only: %i(show) do
     resources :reports, only: %i(index), controller: "practices/reports"
     resources :questions, only: %i(index), controller: "practices/questions"
     resources :products, only: %i(index), controller: "practices/products"
@@ -62,7 +57,7 @@ Rails.application.routes.draw do
   end
   resources :works, except: %i(index)
   namespace :talks do
-    resources :unreplied, only: %i(index)
+    resources :action_uncompleted, only: %i(index)
   end
   resources :talks, only: %i(index show)
   resources :questions, only: %i(index show new create destroy)
@@ -70,6 +65,9 @@ Rails.application.routes.draw do
   resource :inquiry, only: %i(new create)
   resources :articles
   resources :survey_questions, except: %i(show destroy)
+  namespace :events do
+    resources :calendars, only: %i(index)
+  end
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
@@ -96,6 +94,7 @@ Rails.application.routes.draw do
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
+  resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
 end

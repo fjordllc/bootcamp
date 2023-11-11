@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'supports/tag_helper'
 
 class CurrentUserTest < ApplicationSystemTestCase
-  include TagHelper
-
   test 'update user' do
     visit_with_auth '/current_user/edit', 'komagata'
     within 'form[name=user]' do
@@ -15,20 +12,6 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました。'
   end
 
-  test 'update user tags' do
-    visit_with_auth '/current_user/edit', 'komagata'
-    tag_input = find '.ti-new-tag-input'
-    tag_input.set 'タグ1'
-    click_on '更新する'
-    assert_text 'タグ1'
-
-    visit '/users'
-    assert_text 'タグ1'
-
-    click_on 'タグ1'
-    assert_text '「タグ1」のユーザー'
-  end
-
   test 'update user description with blank' do
     visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'user[description]', with: ''
@@ -36,24 +19,11 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text '自己紹介を入力してください'
   end
 
-  test 'alert when enter tag with space' do
-    visit_with_auth edit_current_user_path, 'komagata'
-
-    # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
-    # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
-    assert_alert_when_enter_tag_with_space
-  end
-
-  test 'alert when enter one dot only tag' do
-    visit_with_auth edit_current_user_path, 'komagata'
-    assert_alert_when_enter_one_dot_only_tag
-  end
-
   test 'update times url with wrong url' do
     visit_with_auth '/current_user/edit', 'komagata'
-    fill_in 'user[times_url]', with: 'https://example.com/channels/1234/5678/'
+    fill_in 'user[discord_profile_attributes][times_url]', with: 'https://example.com/channels/1234/5678/'
     click_button '更新する'
-    assert_text '分報URLはDiscordのチャンネルURLを入力してください'
+    assert_text '分報URLは https://discord.com/channels/ で始まる Discord のチャンネル URL を入力してください。'
   end
 
   test 'do not show after graduation hope when advisor or mentor' do
@@ -106,7 +76,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     assert_text '企業'
     within '.choices__inner' do
-      assert_text 'Fjord Inc.'
+      assert_text 'Lokka Inc.'
     end
   end
 
@@ -131,7 +101,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     user = users(:komagata)
 
     visit_with_auth '/current_user/edit', 'komagata'
-    check '退会', allow_label_click: true
+    check '退会済', allow_label_click: true
     fill_in 'user[retired_on]', with: '2022-05-01'.to_date
 
     click_on '更新する'
@@ -188,5 +158,48 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text 'プロフィール画像'
     assert_text 'プロフィール名'
     assert_text 'プロフィール文'
+  end
+
+  test 'display country and subdivision select box' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    assert has_checked_field? 'register_address_no', visible: false
+    assert_not has_css? '#country-form'
+    assert_not has_css? '#subdivision-form'
+
+    find('label[for=register_address_yes]').click
+    assert has_css? '#country-form'
+    assert_select 'user[country_code]', selected: '日本'
+    assert has_css? '#subdivision-form'
+    within('#subdivision-select') do
+      assert_text '北海道'
+    end
+  end
+
+  test 'do not register country and subdivision' do
+    user = users(:kimura)
+    assert_equal 'JP', user.country_code
+    assert_equal '13', user.subdivision_code
+
+    visit_with_auth '/current_user/edit', 'kimura'
+    assert has_checked_field? 'register_address_yes', visible: false
+
+    find('label[for=register_address_no]').click
+    click_on '更新する'
+
+    assert_equal '', user.reload.country_code
+    assert_equal '', user.reload.subdivision_code
+  end
+
+  test 'change subdivisions' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    within('#subdivision-select') do
+      assert_text '北海道'
+    end
+
+    select '米国', from: 'user[country_code]'
+
+    within('#subdivision-select') do
+      assert_text 'アラスカ州'
+    end
   end
 end

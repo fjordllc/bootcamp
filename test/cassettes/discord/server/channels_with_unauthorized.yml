@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://discord.com/api/v9/guilds/1234567890123456789/channels
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - DiscordBot (https://github.com/shardlab/discordrb, v3.4.2) rest-client/2.1.0
+        ruby/3.1.0p0 discordrb/3.4.2
+      Authorization:
+      - Bot invalid token
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - discord.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 30 Apr 2023 09:27:51 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '43'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfruid=4651178efa2f1730bc83bed264d3f9a8374335a8-1682846871; path=/; domain=.discord.com;
+        HttpOnly; Secure; SameSite=None
+      - __dcfduid=479175ece73911edaf5bea71e46397d5; Expires=Fri, 28-Apr-2028 09:27:51
+        GMT; Max-Age=157680000; Secure; HttpOnly; Path=/
+      - __sdcfduid=479175ece73911edaf5bea71e46397d5646a6f8863b5fd6839d23790e87e1c2b5bfa77b96f86c76cbd3a7262f5b55541;
+        Expires=Fri, 28-Apr-2028 09:27:51 GMT; Max-Age=157680000; Secure; HttpOnly;
+        Path=/
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=vV0dTLKScdTx9nJBvwkL0kNOoNfG9H3XfdH6UnQKOM%2FcNj5gLu5b7BJmWSuxUG1AqVh3%2Fs2XkAkFp1bTk%2BSULHiopd0izsfXFnA1iNVdiqrUcrl7pi6SXMbkcA7F"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy-Report-Only:
+      - frame-ancestors 'none'; default-src https://o64374.ingest.sentry.io; report-to
+        csp-sentry; report-uri https://o64374.ingest.sentry.io/api/5441894/security/?sentry_key=8fbbce30bf5244ec9429546beef21870
+      Reporting-Endpoints:
+      - csp-sentry=https://o64374.ingest.sentry.io/api/5441894/security/?sentry_key=8fbbce30bf5244ec9429546beef21870
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 7bfec05449c525fb-NRT
+    body:
+      encoding: UTF-8
+      base64_string: |
+        ewogICJtZXNzYWdlIjogIjQwMTogVW5hdXRob3JpemVkIiwKICAiY29kZSI6
+        IDAKfQ==
+  recorded_at: Sun, 30 Apr 2023 09:27:51 GMT
+recorded_with: VCR 6.1.0

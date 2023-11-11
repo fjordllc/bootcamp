@@ -16,12 +16,7 @@ class ProductCallbacks
   end
 
   def after_commit(product)
-    update_learning_status product
-
-    unless product.wip
-      notify_watching_mentors product
-      create_advisers_watch product if product.user.trainee? && product.user.company
-    end
+    create_advisers_watch product if !product.wip && (product.user.trainee? && product.user.company)
 
     Cache.delete_unchecked_product_count
   end
@@ -51,31 +46,5 @@ class ProductCallbacks
 
   def delete_notification(product)
     Notification.where(link: "/products/#{product.id}").destroy_all
-  end
-
-  def notify_watching_mentors(product)
-    practice = Practice.find(product.practice_id)
-    mentor_ids = practice.watches.where.not(user_id: product.user_id).pluck(:user_id)
-    mentors = User.where(id: mentor_ids)
-    send_notification(
-      product: product,
-      receivers: mentors
-    )
-  end
-
-  def update_learning_status(product)
-    previous_learning = Learning.find_or_initialize_by(
-      user_id: product.user.id,
-      practice_id: product.practice.id
-    )
-    status = if previous_learning.status == 'complete'
-               :complete
-             elsif product.wip
-               started_practice = product.user.learnings.map(&:status).include?('started')
-               started_practice ? :unstarted : :started
-             else
-               :submitted
-             end
-    product.change_learning_status status
   end
 end

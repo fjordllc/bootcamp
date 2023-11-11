@@ -33,16 +33,19 @@
                       .a-meta
                         | {{ user.name }}
                     .card-list-item-meta__item
-                      a.a-meta(v-if='user.times_url', :href='user.times_url')
+                      a.a-meta(
+                        v-if='user.discord_profile.times_url',
+                        :href='user.discord_profile.times_url')
                         .a-meta__icon
                           i.fa-brands.fa-discord
-                        | {{ user.discord_account }}
+                        | {{ user.discord_profile.account_name }}
                       .a-meta(v-else)
                         .a-meta__icon
                           i.fa-brands.fa-discord
-                        | {{ user.discord_account }}
+                        | {{ user.discord_profile.account_name }}
 
         user-sns(:user='user')
+        user-activity-counts(:user='user')
       .users-item__body
         .users-item__description.a-short-text
           p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
@@ -50,6 +53,7 @@
         .users-item__tags
           user-tags(:user='user')
       user-practice-progress(:user='user')
+      hr.a-border-tint
       footer.card-footer
         .card-main-actions
           ul.card-main-actions__items
@@ -71,6 +75,7 @@
 </template>
 <script>
 import Following from '../following.vue'
+import UserActivityCounts from './user-activity-counts.vue'
 import UserSns from './user-sns.vue'
 import UserTags from './user-tags.vue'
 import UserPracticeProgress from './user-practice-progress.vue'
@@ -79,6 +84,7 @@ export default {
   name: 'User',
   components: {
     following: Following,
+    'user-activity-counts': UserActivityCounts,
     'user-sns': UserSns,
     'user-tags': UserTags,
     'user-practice-progress': UserPracticeProgress

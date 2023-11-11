@@ -1,0 +1,29 @@
+.form-textarea
+  +position(relative)
+  textarea.a-text-input
+    padding-bottom: 3rem
+
++media-breakpoint-down(md)
+  .form-textarea__bottom-note
+    display: none
+
++media-breakpoint-up(lg)
+  .form-textarea__bottom-note
+    +text-block(.75rem 1.4, center)
+
+.form-textarea__footer
+  height: 2rem
+  display: flex
+  gap: 1rem
+  align-items: center
+  background-color: var(--background)
+  +position(absolute, left 1px, bottom 1px, right 1px)
+  +border-radius(bottom, 3px)
+  +padding(horizontal, .5rem)
+  border-top: solid 1px var(--border-shade)
+
+.form-textarea__bottom-note
+  +media-breakpoint-down(md)
+    display: none
+  +media-breakpoint-up(lg)
+    +text-block(.75rem 1.4, center)

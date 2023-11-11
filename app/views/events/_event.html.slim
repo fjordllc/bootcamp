@@ -50,14 +50,17 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
+    hr.a-border-tint
     .card-body
       .card__description
         .a-long-text.is-md.js-markdown-view
           = event.description
-    - unless event.wip?
-      = render 'events/participation', event: event
+      - unless event.wip?
+        = render 'events/participation', event: event
+    hr.a-border-tint
     = render 'reactions/reactions', reactionable: event
-    - if admin_or_mentor_login? || event.user_id == current_user.id
+    - if event.user_id == current_user.id || admin_or_mentor_login?
+      hr.a-border-tint
       .card-footer
         .card-main-actions
           ul.card-main-actions__items
@@ -74,6 +77,7 @@
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
+      hr.a-border-tint
       .card-body
         .card__description
           - if event.participants.present?
@@ -93,8 +97,9 @@
   - if event.waitlist.count.positive?
     .a-card.waitlist
       header.card-header.is-sm
-        h1.card-header__title
+        h2.card-header__title
           | 補欠者（#{event.waitlist.count}名）
+      hr.a-border
       .card-body
         .card__description
           ul.user-icons__items

@@ -13,20 +13,9 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'the first daily report notification is sent only to mentors' do
-    report = users(:muryou).reports.create!(
-      title: '初日報です',
-      description: '初日報の内容です',
-      reported_on: Date.current
-    )
-
-    Notification.create!(
-      kind: 7,
-      user: users(:komagata),
-      sender: users(:muryou),
-      message: "#{users(:muryou).login_name}さんがはじめての日報を書きました！",
-      link: "/reports/#{report.id}",
-      read: false
-    )
+    login_user 'muryou', 'testtest'
+    create_report('初日報です', '初日報の内容です', false)
+    logout
 
     notification_message = 'muryouさんがはじめての日報を書きました！'
     visit_with_auth '/notifications', 'machida'
@@ -47,7 +36,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'notify when WIP report submitted' do
-    Report.all.each(&:destroy)
+    Report.all.find_each(&:destroy)
 
     visit_with_auth '/reports/new', 'kensyu'
     within('form[name=report]') do
@@ -273,6 +262,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
     find('.modal-header__close').click
+
+    visit_with_auth '/reports', student
 
     click_link '日報作成'
     within('form[name=report]') do

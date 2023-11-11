@@ -1,9 +1,10 @@
 - title "'#{params[:word]}'の検索結果"
+- set_meta_tags description: "'#{params[:word]}'の検索結果一覧ページです。"
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
         = title
-
+hr.a-border
 #js-searchables(document_type="#{params[:document_type]}" word="#{params[:word]}")

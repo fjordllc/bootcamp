@@ -1,9 +1,10 @@
 - title 'ブログ'
-- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+description: 'オンラインプログラミングフィヨルドブートキャンプのブログ記事一覧ページです。')
 = render '/head/fontawsome'
 
 .welcome-page-header
-  .container.is-xxl
+  .container.is-xl
     .welcome-page-header__inner
       .welcome-page-header__start
         h1.welcome-page-header__title
@@ -17,7 +18,7 @@
 .welcome-page-body
   .articles
     .articles__body
-      .container.is-xxl
+      .container.is-xl
         .articles__items
           .row
             - @articles.each do |article|

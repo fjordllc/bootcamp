@@ -126,3 +126,24 @@ comment41:
   user: machida
   commentable: announcement1 (Announcement)
   description: "お知らせのコメントです。"
+
+comment42:
+  user: kimura
+  commentable: product73 (Product)
+  description: "提出者のコメントです。"
+
+comment43:
+  user: mentormentaro
+  commentable: product74 (Product)
+  description: "メンターのコメントです。"
+
+comment44: 
+  user: machida
+  commentable: regular_event1 (RegularEvent)
+  description: "定期イベントのコメントです。"
+
+commentOfTalk:
+  user: komagata
+  commentable: talk_komagata (Talk)
+  description: "これは相談部屋の会話です。"
+  updated_at: "2019-01-02 00:00:00 JST"

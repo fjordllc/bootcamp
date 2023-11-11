@@ -22,6 +22,7 @@ tables = %i[
   correct_answers
   courses
   courses_categories
+  discord_profiles
   events
   external_entries
   followings
@@ -57,6 +58,7 @@ tables = %i[
   check_box_choices
   surveys
   survey_question_listings
+  buzzes
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './check-store.js'
 import CompanyProducts from './company-products.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,8 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = products.getAttribute('data-title')
     const companyID = products.getAttribute('company-id')
     const isMentor = products.getAttribute('data-mentor-login')
-    const currentUserId = products.getAttribute('data-current-user-id')
+    const currentUserId = Number(products.getAttribute('data-current-user-id'))
     new Vue({
+      store,
       render: (h) =>
         h(CompanyProducts, {
           props: {

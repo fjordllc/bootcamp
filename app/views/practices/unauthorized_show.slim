@@ -1,0 +1,32 @@
+- title @practice.title
+- description "オンラインプログラミングスクール「フィヨルドブートキャンプ」のプラクティス「#{@practice.title}」のページです。"
+- content_for :extra_body_classes
+
+ruby:
+  if @practice.ogp_image.attached?
+    set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+    set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+  end
+
+.page-body
+  article.unauthorized
+    = render '/unauthorized/unauthorized_header', label: 'プラクティス', title: title
+
+    .unauthorized__body
+      .container.is-md
+        .unauthorized__contents
+          - if @practice.summary?
+            - if @practice.ogp_image.attached?
+              .unauthorized__content
+                = image_tag(polymorphic_url(@practice.ogp_image), alt: "プラクティス「#{@practice.title}」のイメージ画像")
+            .unauthorized__content
+              .a-long-text.is-md
+                = simple_format h(@practice.summary)
+            hr.unauthorized__content-separalor
+          .unauthorized__content
+            = render '/unauthorized/must_be_enrolled'
+          hr.unauthorized__content-separalor
+          .unauthorized__content
+            = render '/unauthorized/about_fbc'
+          .unauthorized__content
+            = render '/unauthorized/join_us'

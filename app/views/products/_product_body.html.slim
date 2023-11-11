@@ -2,28 +2,36 @@
   header.card-header.is-sm
     h2.card-header__title
       | 提出物
+  hr.a-border-tint
   .card-body
     .card__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{product.id}" data-taskable-type='Product' data-taskable="#{product.taskable?(current_user).to_s}")
         =  product.body
+  hr.a-border-tint
   = render 'reactions/reactions', reactionable: product
 
   - if product.user == current_user || admin_or_mentor_login?
+    hr.a-border-tint
     .card-footer
       .card-main-actions
         ul.card-main-actions__items
+          li.card-main-actions__item
+            = link_to edit_product_path(product), class: 'card-main-actions_action a-button is-sm is-secondary is-block' do
+              i.fa-solid.fa-pen
+              | 内容修正
           - if product.wip?
             li.card-main-actions__item
               = form_with model: product, local: true do |f|
                 = f.hidden_field :body
                 = f.submit '提出する', class: 'a-button is-sm is-primary is-block'
-          li.card-main-actions__item
-            = link_to edit_product_path(product), class: 'card-main-actions_action a-button is-sm is-secondary is-block' do
-              i.fa-solid.fa-pen
-              | 内容修正
-          li.card-main-actions__item.is-sub.is-only-mentor
-            = link_to product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-              | 削除する
+          - if admin_or_mentor_login?
+            li.card-main-actions__item.is-sub.is-only-mentor
+              = link_to product, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                | 削除する
+          - else
+            li.card-main-actions__item.is-sub
+              label.card-main-actions__muted-action(for='modal-delete-request')
+                | 削除申請
 
     - if admin_or_mentor_login?
       #js-check(data-checkable-id="#{product.id}"
@@ -43,3 +51,15 @@
       = link_to '提出物・自分の担当', products_self_assigned_index_path, class: 'page-content-prev-next__item-link is-index'
     .page-content-prev-next__item.is-only-mentor
       = link_to '提出物・未アサイン', products_unassigned_index_path, class: 'page-content-prev-next__item-link is-index'
+
+= render '/shared/modal', id: 'modal-delete-request', modal_title: '提出物の削除申請' do
+  .modal__description.is-md
+    .a-long-text
+      p
+        | せっかく作った提出物を操作ミスで削除してしまわないように、
+        | 削除ができないようになっています。
+        | 提出物の削除をする場合は、相談部屋にこのページの URL <code>#{request.url}</code> を貼り、
+        | 削除の申請をお願いします。
+      p
+        = link_to action_uncompleted_index_path(current_user.talk), target: '_blank', rel: 'noopener' do
+          | 相談部屋はこちら

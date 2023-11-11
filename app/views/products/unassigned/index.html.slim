@@ -1,4 +1,5 @@
 - title '未アサインの提出物'
+- set_meta_tags description: '担当メンターがまだ決まっていない、レビュー未着手の提出物一覧です。'
 
 header.page-header
   .container
@@ -9,6 +10,5 @@ header.page-header
 = render 'products/tabs'
 
 .page-body
-  .container.is-xl
-    #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
-    / = react_component('Products', title: title, selectedTab: 'unassigned')
+  .container.is-lg
+    = react_component('Products', title: title, selectedTab: 'unassigned', isMentor: mentor_login?, currentUserId: current_user.id)

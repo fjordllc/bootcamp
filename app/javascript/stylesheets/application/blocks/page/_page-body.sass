@@ -1,9 +1,7 @@
 .page-body
-  +padding(vertical, 1.5rem)
+  padding-block: 1.5rem
   +media-breakpoint-down(sm)
-    +padding(vertical, 1.125rem)
-  .page-header + &
-    border-top: solid 1px $border
+    padding-block: 1.125rem
 
 .page-body__inner
   position: relative
@@ -17,7 +15,7 @@
 .page-body__column
   &.is-main
     flex: 1
-    +margin(horizontal,  auto)
+    margin-inline: auto
   &.is-sub
     flex: 0 0 20rem
     &.is-sm

@@ -1,6 +1,6 @@
 .page-header-actions
   +media-breakpoint-down(sm)
-    +margin(horizontal, -1rem)
+    margin-inline: -1rem
     padding-top: .5rem 1rem 0
 
 .page-header-actions__items
@@ -8,18 +8,20 @@
   gap: .5rem
   justify-content: center
   +media-breakpoint-down(sm)
-    +padding(horizontal, 1rem)
+    padding-inline: 1rem
     padding-top: .5rem
 
 .page-header-actions__item
+  position: relative
   +media-breakpoint-up(md)
     min-width: 10rem
     display: flex
     justify-content: center
-    .a-button.is-md
-      height: 2.125rem
   +media-breakpoint-down(sm)
     flex: 1
     max-width: 50%
     &:first-child:last-child
       max-width: 100%
+
+.page-header-actions__item-help
+  +position(absolute, right -.25rem, top -.25rem)

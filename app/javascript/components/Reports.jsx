@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
-import queryString from 'query-string'
 import fetcher from '../fetcher'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
 import Report from './Report'
 import Pagination from './Pagination'
 import PracticeFilterDropdown from './PracticeFilterDropdown'
 import UnconfirmedLink from './UnconfirmedLink'
+import usePage from './hooks/usePage'
 
 export default function Reports({
   all = false,
@@ -19,14 +19,8 @@ export default function Reports({
   displayPagination = true
 }) {
   const per = 20
-  const neighbours = 4
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
+  const { page, setPage } = usePage()
   const [userPracticeId, setUserPracticeId] = useState('')
-
-  useEffect(() => {
-    setPage(page)
-  }, [page])
 
   useEffect(() => {
     setUserPracticeId(userPracticeId)
@@ -52,14 +46,18 @@ export default function Reports({
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
-      <div className="container is-md">
-        <LoadingListPlaceholder />
+      <div className="page-main">
+        <div className="page-body">
+          <div className="container is-md">
+            <LoadingListPlaceholder />
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <>
+    <div className="page-main">
       {data.totalPages === 0 && (
         <div>
           {practices && (
@@ -81,46 +79,48 @@ export default function Reports({
               practiceId={userPracticeId}
             />
           )}
-          <div className="page-content reports">
-            {data.totalPages > 1 && displayPagination && (
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => setPage(e.page)}
-              />
-            )}
-            <ul className="card-list a-card">
-              <div className="card-list__items">
-                {data.reports.map((report) => {
-                  return (
-                    <Report
-                      key={report.id}
-                      report={report}
-                      currentUserId={report.currentUserId}
-                      displayUserIcon={displayUserIcon}
-                    />
-                  )
-                })}
+          <div className="page-body">
+            <div className="container is-md">
+              <div className="page-content reports">
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
+                <div className="card-list a-card">
+                  <div className="card-list__items">
+                    {data.reports.map((report) => {
+                      return (
+                        <Report
+                          key={report.id}
+                          report={report}
+                          currentUserId={report.currentUserId}
+                          displayUserIcon={displayUserIcon}
+                        />
+                      )
+                    })}
+                  </div>
+                  {unchecked && (
+                    <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
+                  )}
+                </div>
+                {data.totalPages > 1 && displayPagination && (
+                  <Pagination
+                    sum={data.totalPages * per}
+                    per={per}
+                    page={page}
+                    setPage={setPage}
+                  />
+                )}
               </div>
-            </ul>
-            {unchecked && (
-              <UnconfirmedLink label={'未チェックの日報を一括で開く'} />
-            )}
-            {data.totalPages > 1 && displayPagination && (
-              <Pagination
-                sum={data.totalPages * per}
-                per={per}
-                neighbours={neighbours}
-                page={page}
-                onChange={(e) => setPage(e.page)}
-              />
-            )}
+            </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

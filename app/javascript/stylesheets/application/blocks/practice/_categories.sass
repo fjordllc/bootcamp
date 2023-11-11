@@ -1,19 +1,16 @@
-.categories
-  box-shadow: rgba(black, .2) 0 .0625rem .125rem
-  border-radius: .25rem
-  width: 100%
-
 .is-hidden-users .a-user-icons
   display: none
 
 .categories-item
   &:not(:last-child)
-    margin-bottom: 3rem
+    +media-breakpoint-up(md)
+      margin-bottom: 3rem
     +media-breakpoint-down(sm)
       margin-bottom: 2rem
 
 .categories-item__title
-  +text-block(1.5rem 1.5, $main-text 700)
+  +text-block(1.5rem 1.5, 700)
+  color: var(--main-text)
   position: relative
   +media-breakpoint-down(sm)
     font-size: 1.25rem
@@ -32,25 +29,17 @@
   align-items: center
   justify-content: center
   cursor: pointer
-  +text-block(1rem 1, $muted-text)
+  +text-block(1rem 1)
+  color: var(--muted-text)
   transition: all .2s ease-out
   &:hover
-    color: $main-text
-
-.categories__label
-  +text-block(.75rem 2rem, $main center 600)
-  border: solid 1px #aaaaaa
+    color: var(--main-text)
 
 .categories-item__header
   display: flex
   justify-content: space-between
   align-items: center
   margin-bottom: .5rem
-
-.categories__item-value
-  padding: .375rem .75rem
-  border: solid 1px $background-shade
-  +text-block(.875rem 1.45)
 
 .categories-item__body
   overflow: hidden
@@ -74,7 +63,8 @@
   +flex-link
   align-items: center
   justify-content: center
-  +text-block(1rem 1, $muted-text)
+  +text-block(1rem 1)
+  color: var(--muted-text)
   transition: all .2s ease-out
   &:hover
-    color: $main-text
+    color: var(--main-text)

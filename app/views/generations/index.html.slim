@@ -1,6 +1,7 @@
 - title '期生別ユーザー一覧'
+- set_meta_tags description: '期生別ユーザー一覧のページです。'
 
-header.page-header.is-border-bottom-none
+header.page-header
   .container
     .page-header__inner
       h2.page-header__title ユーザー一覧
@@ -17,4 +18,5 @@ main.page-main
         h1.page-main-header__title
           = '期生別'
           | （#{t("target.#{@target}")}）
+  hr.a-border
   #js-generations(data-target="#{@target}")

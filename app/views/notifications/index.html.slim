@@ -1,4 +1,5 @@
 - title '通知'
+- set_meta_tags description: '通知一覧ページです。'
 
 header.page-header
   .container
@@ -7,9 +8,6 @@ header.page-header
         = title
       .page-header-actions
         .page-header-actions__items
-          .page-header-actions__item
-            = link_to allmarks_path, method: :post, class: "a-button is-md is-warning is-block #{current_user.notifications.unreads.empty? ? 'is-disabled' : ''}" do
-              | 全て既読にする
 
 = render 'notifications/tabs'
 
@@ -22,16 +20,26 @@ main.page-main
             h1.page-main-header__title
               = t("notification.#{@target}")
           .page-main-header__end
-            = link_to "#{t("notification.#{@target}")}の通知を既読にする", read_by_category_path(target: @target), method: :post,
-                    class: "a-button is-sm is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
+            .page-main-header-actions
+              .page-main-header-actions__items
+                .page-main-header-actions__item
+                  = link_to "#{t("notification.#{@target}")}を既読にする", read_by_category_path(target: @target), method: :post,
+                          class: "a-button is-sm is-warning is-block #{current_user.notifications.by_target(@target.presence&.to_sym).unreads.empty? ? 'is-disabled' : ''}"
+  - else
+    header.page-main-header
+      .container
+        .page-main-header__inner
+          .page-main-header__start
+            h1.page-main-header__title
+              | 全て
+          .page-main-header__end
+            .page-main-header-actions
+              .page-main-header-actions__items
+                .page-main-header-actions__item
+                  = link_to allmarks_path, method: :post, class: "a-button is-sm is-warning is-block #{current_user.notifications.unreads.empty? ? 'is-disabled' : ''}" do
+                    | 全て既読にする
 
+  hr.a-border
   .page-body
     .container.is-md
-      nav.pill-nav
-        .container
-          ul.pill-nav__items
-            li.pill-nav__item
-              = link_to '未読', notifications_path(status: 'unread', target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? 'is-active' : ''}"
-            li.pill-nav__item
-              = link_to '全て', notifications_path(target: @target), class: "pill-nav__item-link #{params[:status] == 'unread' ? '' : 'is-active'}"
-      #js-notifications(data-is-mentor="#{mentor_login?}" data-target="#{@target}")
+      = react_component('Notifications', isMentor: mentor_login?)

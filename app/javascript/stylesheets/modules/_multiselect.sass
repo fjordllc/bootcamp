@@ -17,8 +17,8 @@
 
 .multiselect__content-wrapper
   overflow-y: scroll
-  background-color: $base
-  border: solid 1px $border
+  background-color: var(--base)
+  border: solid 1px var(--border)
   +border-radius(bottom, .25rem)
 
 .multiselect--active
@@ -33,16 +33,16 @@
   +media-breakpoint-down(sm)
     font-size: 1rem
   &:not(:first-child)
-    border-top: solid 1px $border
+    border-top: solid 1px var(--border)
   >span
     display: flex
     height: 2.75rem
-    +padding(horizontal, .75rem)
+    padding-inline: .75rem
     align-items: center
     cursor: pointer
     transition: all .2s ease-out
     &:hover
-      background-color: $background-tint
+      background-color: var(--background-tint)
     >span
       display: block
       white-space: nowrap

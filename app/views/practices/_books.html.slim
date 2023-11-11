@@ -1,0 +1,28 @@
+.a-card
+  header.card-header
+    h2.card-header__title
+      | 参考書籍
+  hr.a-border
+  .practice-books
+    .practice-books__items
+      - practice.practices_books.each do |practices_book|
+        - book = practices_book.book
+        .practice-books-item
+          .practice-books-item__body
+            = link_to book.page_url, target: '_blank', rel: 'noopener', class: 'practice-books-item__inner' do
+              .practice-books-item__start
+                .practice-books-item__cover-container
+                  = image_tag book.cover_url, class: 'practice-books-item__image', alt: book.title
+              .practice-books-item__end
+                h3.practice-books-item__title
+                  - if practices_book.must_read
+                    span.a-badge.is-danger.is-sm
+                      | 必読
+                  span.practice-books-item__title-label
+                    = book.title
+                p.practice-books-item__price
+                  = number_to_currency(book.price, unit: '円（税込）')
+                - if book.description
+                  .practice-books-item__description
+                    .a-short-text
+                      = simple_format(book.description)

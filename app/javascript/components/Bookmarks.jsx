@@ -3,10 +3,16 @@ import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
+import Pagination from './Pagination'
+import usePage from './hooks/usePage'
 
 export default function Bookmarks() {
   const [editable, setEditable] = useState(false)
-  const { data, error } = useSWR(`/api/bookmarks.json`, fetcher)
+  const per = 20
+  const { page, setPage } = usePage()
+  const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
+
+  const { data, error } = useSWR(bookmarksUrl, fetcher)
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
@@ -14,37 +20,100 @@ export default function Bookmarks() {
     return <NoBookmarks />
   } else {
     return (
-      <>
-        <div className="card-list-tools">
-          <div className="form-item is-inline">
-            <EditButton editable={editable} setEditable={setEditable} />
+      <div data-testid="bookmarks">
+        <div className="page-main">
+          <div className="page-main-header">
+            <div className="container">
+              <div className="page-main-header__inner">
+                <div className="page-main-header__start">
+                  <h1 className="page-main-header__title">ブックマーク</h1>
+                </div>
+                <div className="page-main-header__end">
+                  <div className="page-header-actions">
+                    <div className="page-header-actions__items">
+                      <div className="page-header-actions__item">
+                        <div className="form-item is-inline">
+                          <EditButton
+                            editable={editable}
+                            setEditable={setEditable}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="card-list a-card">
-          <div className="card-list__items">
-            {data.bookmarks.map((bookmark) => {
-              return (
-                <Bookmark
-                  key={bookmark.id}
-                  bookmark={bookmark}
-                  editable={editable}
-                  setEditable={setEditable}
+          {/* .page-main-header */}
+          <hr className="a-border"></hr>
+          <div className="page-body">
+            <div className="container is-md">
+              {data.totalPages > 1 && (
+                <Pagination
+                  sum={data.totalPages * per}
+                  per={per}
+                  page={page}
+                  setPage={setPage}
                 />
-              )
-            })}
+              )}
+              <div className="card-list a-card">
+                <div className="card-list__items">
+                  {data.bookmarks.map((bookmark) => {
+                    return (
+                      <Bookmark
+                        key={bookmark.id}
+                        bookmark={bookmark}
+                        editable={editable}
+                        setEditable={setEditable}
+                        bookmarksUrl={bookmarksUrl}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+              {data.totalPages > 1 && (
+                <Pagination
+                  sum={data.totalPages * per}
+                  per={per}
+                  page={page}
+                  setPage={setPage}
+                />
+              )}
+            </div>
+            {/* .container */}
           </div>
+          {/* .page-body */}
         </div>
-      </>
+        {/* .page-main */}
+      </div>
     )
   }
 }
 
 const NoBookmarks = () => {
   return (
-    <div className="o-empty-message">
-      <div className="o-empty-message__icon">
-        <i className="fa-regular fa-face-sad-tear" />
-        <p className="o-empty-message__text">ブックマークはまだありません。</p>
+    <div className="page-main">
+      <div className="page-main-header">
+        <div className="container">
+          <div className="page-main-header__inner">
+            <div className="page-main-header__start">
+              <h1 className="page-main-header__title">ブックマーク</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* .page-main-header */}
+      <hr className="a-border"></hr>
+      <div className="page-body">
+        <div className="o-empty-message">
+          <div className="o-empty-message__icon">
+            <i className="fa-regular fa-face-sad-tear" />
+            <p className="o-empty-message__text">
+              ブックマークはまだありません。
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -70,14 +139,14 @@ const EditButton = ({ editable, setEditable }) => {
   )
 }
 
-const Bookmark = ({ bookmark, editable, _setEditable }) => {
+const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
   const date = bookmark.reported_on || bookmark.created_at
   const createdAt = Bootcamp.iso8601ToFullTime(date)
   const { mutate } = useSWRConfig()
   const afterDelete = (id) => {
     Bootcamp.delete(`/api/bookmarks/${id}.json`)
       .then((_response) => {
-        mutate('/api/bookmarks.json')
+        mutate(bookmarksUrl)
       })
       .catch((error) => {
         console.warn(error)
@@ -142,8 +211,7 @@ const DeleteButton = ({ id, afterDelete }) => {
   return (
     <div className="card-list-item__option">
       <div
-        id="bookmark-button"
-        className="a-bookmark-button a-button is-sm is-block is-main"
+        className="bookmark-delete-button a-bookmark-button a-button is-sm is-block is-main"
         onClick={() => afterDelete(id)}>
         削除
       </div>

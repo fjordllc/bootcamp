@@ -110,14 +110,6 @@ notification_retired:
   link: "/users/<%= ActiveRecord::FixtureSet.identify(:yameo) %>"
   read: false
 
-notification_three_months_after_retirement:
-  kind: 9
-  user: komagata
-  sender: taikai3
-  message: taikai3さんが退会してから3カ月が経過しました。Discord ID:taikai#3333, ユーザーページ:https://bootcamp.fjord.jp/users/1008501353
-  link: "/users/<%= ActiveRecord::FixtureSet.identify(:taikai3) %>"
-  read: false
-
 notification_trainee_report:
   kind: 10
   user: senpai
@@ -128,7 +120,7 @@ notification_trainee_report:
 
 notification_moved_up_event_waiting_user:
   kind: 11
-  user: hajime
+  user: hatsuno
   sender: komagata
   message: 募集期間中のイベント(補欠者あり)で、補欠から参加に繰り上がりました。
   link: "/events/<%= ActiveRecord::FixtureSet.identify(:event3) %>"

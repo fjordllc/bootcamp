@@ -1,4 +1,5 @@
 - title "#{@product.practice.title}の提出物"
+- set_meta_tags description: "#{@product.user.long_name}さんが提出した、プラクティス「#{@product.practice.title}」の提出物です。"
 - category = @product.category(current_user.course)
 
 = render '/shared/modal_learning_completion',
@@ -35,10 +36,9 @@ header.page-header
   - if @product.user == current_user && @learning&.complete?
     = render 'completion_message', practice: @product.practice
 
-  .container.is-xxxl
-    div(class="#{current_user.mentor? || current_user.admin? ? 'row is-gutter-width-32 is-jc:c' : ''}")
-      div(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-7 col-xs-12' : ''}")
-
+  .container.is-xxl
+    .row.is-gutter-width-32.justify-center
+      .col-xl-7.col-xs-12
         .product.page-content
           = render 'product_header', product: @product
           = render 'product_practice_goal', product: @product
@@ -79,9 +79,7 @@ header.page-header
                   = render 'users/metas', user: @product.user
                 div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@product.user.id}" data-vue-products-mode:boolean="#{true}")
               .side-tabs-contents__item#side-tabs-content-4
-                .card-list.a-card
-                  - @products.each do |product|
-                    = render partial: 'product', locals: { product: product }
+                div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:number="#{current_user.id}" data-vue-display-user-icon:boolean="false")
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message

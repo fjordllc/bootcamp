@@ -41,43 +41,39 @@ class ProductsTest < ApplicationSystemTestCase
 
   test 'can not see tweet button when current_user does not complete a practice' do
     visit_with_auth "/products/#{products(:product1).id}", 'yamada'
-    assert_no_text '修了 Tweet する'
+    assert_no_text '修了 投稿する'
   end
 
   test 'display learning completion message when a user of the completed product visits show first time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-    assert_text '喜びを Tweet する！'
+    assert_text '喜びを 投稿する！'
   end
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
-    find('label.card-main-actions__muted-action').click
-    assert_no_text '喜びを Tweet する！'
+    first('label.card-main-actions__muted-action.is-closer').click
+    assert_no_text '喜びを 投稿する！'
     visit current_path
-    assert_text '修了 Tweet する'
-    assert_no_text '喜びを Tweet する！'
+    assert_text '修了 投稿する'
+    assert_no_text '喜びを 投稿する！'
   end
 
   test 'not display learning completion message when a user whom the product does not belongs to visits show' do
     visit_with_auth "/products/#{products(:product65).id}", 'yamada'
-    assert_no_text '喜びを Tweet する！'
+    assert_no_text '喜びを 投稿する！'
   end
 
   test 'not display learning completion message when a user of the non-completed product visits show' do
     visit_with_auth "/products/#{products(:product6).id}", 'sotugyou'
-    assert_no_text '喜びを Tweet する！'
+    assert_no_text '喜びを 投稿する！'
   end
 
   test 'can see tweet button when current_user has completed a practice' do
     visit_with_auth "/products/#{products(:product2).id}", 'kimura'
-    assert_text '修了 Tweet する'
+    assert_text '修了 投稿する'
 
     find('.a-button.is-tweet').click
-    assert_text '喜びを Tweet する！'
-
-    click_link '喜びを Tweet する！'
-    switch_to_window(windows.last)
-    assert_includes current_url, 'https://twitter.com/intent/tweet'
+    assert_text '喜びを 投稿する！'
   end
 
   test 'create product' do
@@ -224,8 +220,8 @@ class ProductsTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button 'WIP'
-    assert_text '提出物作成中'
     assert_text '提出物をWIPとして保存しました。'
+    assert_text '提出物編集'
   end
 
   test 'update product as WIP' do
@@ -236,6 +232,7 @@ class ProductsTest < ApplicationSystemTestCase
     end
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
+    assert_text '提出物編集'
   end
 
   test 'update product as WIP with blank body to fail update and successfully get back to editor' do
@@ -274,7 +271,6 @@ class ProductsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
 
-    click_link '内容修正'
     fill_in('product[body]', with: 'test update')
     click_button 'WIP'
     assert_text '提出物をWIPとして保存しました。'
@@ -303,7 +299,9 @@ class ProductsTest < ApplicationSystemTestCase
     Product.limit(Product.count - Product.default_per_page).delete_all
     newest_product = Product.reorder(:id).first
     newest_product.update(published_at: Time.current)
+    newest_product_decorated_author = ActiveDecorator::Decorator.instance.decorate(newest_product.user)
     oldest_product = Product.reorder(:id).last
+    oldest_product_decorated_author = ActiveDecorator::Decorator.instance.decorate(oldest_product.user)
     oldest_product.update(published_at: 2.days.ago)
 
     visit_with_auth '/products', 'komagata'
@@ -312,9 +310,9 @@ class ProductsTest < ApplicationSystemTestCase
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
     assert_equal "#{newest_product.practice.title}の提出物", titles.first
-    assert_equal newest_product.user.login_name, names.first
+    assert_equal newest_product_decorated_author.long_name, names.first
     assert_equal "#{oldest_product.practice.title}の提出物", titles.last
-    assert_equal oldest_product.user.login_name, names.last
+    assert_equal oldest_product_decorated_author.long_name, names.last
   end
 
   test 'setting checker' do
@@ -341,9 +339,10 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'click on the pager button' do
-    visit_with_auth '/products', 'komagata'
+    login_user 'komagata', 'testtest'
+    visit '/products'
     within first('.pagination') do
-      find('a', text: '2').click
+      find('button', text: '2').click
     end
 
     all('.pagination .is-active').each do |active_button|
@@ -365,10 +364,10 @@ class ProductsTest < ApplicationSystemTestCase
     login_user 'komagata', 'testtest'
     visit '/products?page=2'
     within first('.pagination') do
-      find('a', text: '1').click
+      find('button', text: '1').click
     end
     assert_current_path('/products')
-
+    assert_text '「プログラミング入門 - Rubyを使って」をやるの提出物'
     page.go_back
     assert_current_path('/products?page=2')
     all('.pagination .is-active').each do |active_button|
@@ -585,5 +584,18 @@ class ProductsTest < ApplicationSystemTestCase
   test 'product show without recent reports' do
     visit_with_auth "/products/#{products(:product69).id}", 'komagata'
     assert_text '日報はまだありません。'
+  end
+
+  test 'display company-logo when user is trainee' do
+    visit_with_auth "/products/#{products(:product13).id}", 'mentormentaro'
+    assert_selector 'img[class="page-content-header__company-logo"]'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice6).id}", 'mentormentaro'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end

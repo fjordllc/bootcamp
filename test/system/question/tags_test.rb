@@ -5,29 +5,12 @@ require 'application_system_test_case'
 class Question::TagsTest < ApplicationSystemTestCase
   test 'search questions by tag' do
     visit_with_auth questions_url, 'kimura'
-    click_on '質問する'
-    tag_list = ['tag1',
-                'ドットつき.タグ',
-                'ドットが.2つ以上の.タグ',
-                '.先頭がドット',
-                '最後がドット.']
-    within 'form[name=question]' do
-      fill_in 'question[title]', with: 'tagテストの質問'
-      fill_in 'question[description]', with: 'tagテストの質問です。'
-      tag_input = find('.ti-new-tag-input')
-      tag_list.each do |tag|
-        tag_input.set tag
-        tag_input.native.send_keys :return
-      end
-      click_button '登録する'
-    end
-    click_on 'Q&A', match: :first
-
-    tag_list.each do |tag|
-      assert_text tag
-      click_on tag, match: :first
-      assert_text 'tagテストの質問'
-      assert_no_text 'どのエディターを使うのが良いでしょうか'
+    tags = find_tags('Question')
+    tags.each do |tag|
+      visit_with_auth questions_tag_path(tag, all: 'true'), 'kimura'
+      titles = Question.tagged_with(tag).pluck(:title)
+      texts = all('.card-list-item-title__link').map(&:text)
+      assert_equal titles, texts
     end
   end
 

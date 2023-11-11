@@ -360,3 +360,29 @@ practice56:
   goal: "goal..."
   include_progress: false
   last_updated_user: machida
+
+practice57:
+  title: "概要なし / OGP画像なし"
+  description: "概要欄は表示されません"
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice58:
+  title: "概要あり / OGP画像なし"
+  summary: "概要です"
+  description: "概要文のみ表示されます"
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice59:
+  title: "概要なし / OGP画像あり"
+  description: "概要欄は表示されません"
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice60:
+  title: "概要あり / OGP画像あり"
+  summary: "概要です"
+  description: "概要欄(概要文＆OGP画像)を表示します"
+  goal: "goal..."
+  memo: "memo for mentors..."

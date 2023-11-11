@@ -1,4 +1,4 @@
-import Token from 'token'
+import CSRF from 'csrf'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
@@ -7,7 +7,7 @@ const headers = () => {
   return {
     'Content-Type': 'application/json; charset=utf-8',
     'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-Token': Token.getToken()
+    'X-CSRF-Token': CSRF.getToken()
   }
 }
 

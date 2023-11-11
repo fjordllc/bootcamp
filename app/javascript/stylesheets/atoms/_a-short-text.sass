@@ -16,7 +16,7 @@
   li
     ul,
     ol
-      +margin(vertical, .375em)
+      margin-block: .375em
       &:first-child
         margin-top: .375em
       &:last-child
@@ -30,8 +30,8 @@
     display: block
     +size(100% 0)
     border: none
-    border-top: dashed 1px $border
-    +margin(vertical, 1.25em)
+    border-top: dashed 1px var(--border)
+    margin-block: 1.25em
   &.is-ta-center,
   .is-ta-center
     text-align: center

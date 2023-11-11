@@ -8,6 +8,7 @@ json.currentUser do
   json.adviser current_user.adviser
   json.company_id current_user.company_id
   json.admin current_user.admin
+  json.practices current_user.practices
 end
 
 json.target t("target.#{@target}")

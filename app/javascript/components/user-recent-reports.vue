@@ -3,6 +3,7 @@
   .card-header.is-sm
     h2.card-header__title
       | 直近の日報
+    hr.a-border
   .card-list__items(v-if='reports && reports.length > 0')
     report(
       v-for='report in reports',
@@ -51,9 +52,6 @@ export default {
         params.set('limit', this.limit)
       }
       return params
-    },
-    newURL() {
-      return `${location.pathname}?${this.newParams}`
     },
     reportsAPI() {
       const params = this.newParams

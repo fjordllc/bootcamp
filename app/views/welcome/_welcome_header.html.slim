@@ -1,5 +1,5 @@
 header.welcome-header
-  .container.is-xxl
+  .container.is-xl
     .welcome-header__inner
       .welcome-header__home
         = link_to welcome_path, class: 'welcome-header__home-link' do
@@ -30,6 +30,10 @@ header.welcome-header
             = link_to faq_path, class: 'welcome-header-nav__item-link' do
               span
                 | FAQ
+          li.welcome-header-nav__item
+            = link_to buzz_path, class: 'welcome-header-nav__item-link' do
+              span
+                | 紹介・言及記事
           - unless current_user
             li.welcome-header-nav__item
               = link_to new_user_path, class: 'welcome-header-nav__item-link' do

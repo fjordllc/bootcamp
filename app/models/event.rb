@@ -37,10 +37,15 @@ class Event < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
   has_many :watches, as: :watchable, dependent: :destroy
+  attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :description
 
   scope :wip, -> { where(wip: true) }
+  scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
+  scope :today_events, -> { where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight) }
+  scope :tomorrow_events, -> { where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight) }
+  scope :day_after_tomorrow_events, -> { where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight) }
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -59,23 +64,15 @@ class Event < ApplicationRecord
   end
 
   def participants
-    first_come_first_served.limit(capacity)
+    users.where('participations.enable = true').order(created_at: :asc)
   end
 
   def waitlist
-    first_come_first_served - participants
-  end
-
-  def participants_count
-    users.size > capacity ? capacity : users.size
-  end
-
-  def waitlist_count
-    users.size > capacity ? users.size - capacity : 0
+    users.where('participations.enable = false').order(created_at: :asc)
   end
 
   def can_participate?
-    first_come_first_served.count < capacity
+    participants.count < capacity
   end
 
   def cancel_participation!(user)
@@ -104,7 +101,7 @@ class Event < ApplicationRecord
   end
 
   def send_notification(receiver)
-    NotificationFacade.moved_up_event_waiting_user(self, receiver)
+    ActivityDelivery.with(receiver: receiver, event: self).notify(:moved_up_event_waiting_user)
   end
 
   def holding_today?
@@ -113,6 +110,14 @@ class Event < ApplicationRecord
 
   def holding_tomorrow?
     start_at.to_date == Date.tomorrow
+  end
+
+  def watched_by?(user)
+    watches.exists?(user_id: user.id)
+  end
+
+  def can_move_up_the_waitlist?
+    waitlist.count.positive? && can_participate?
   end
 
   private

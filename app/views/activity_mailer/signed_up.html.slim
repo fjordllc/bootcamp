@@ -1,0 +1,3 @@
+= render '/notification_mailer/notification_mailer_template',
+title: "#{@sender.login_name}さん#{@sender.roles_to_s.empty? ? '' : "(#{@sender.roles_to_s})"}が新しく入会しました！",
+link_url: @link_url, link_text: "#{@sender.login_name}さんのページへ"

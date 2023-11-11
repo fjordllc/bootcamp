@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController
-  before_action :set_regular_event, only: %i[show edit update destroy]
+  before_action :set_regular_event, only: %i[edit update destroy]
 
   def index; end
 
-  def show; end
+  def show
+    @regular_event = RegularEvent.find(params[:id])
+  end
 
   def new
     @regular_event = RegularEvent.new
@@ -21,9 +23,12 @@ class RegularEventsController < ApplicationController
     @regular_event.user = current_user
     set_wip
     if @regular_event.save
+      update_publised_at
+      Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, @regular_event)
       set_all_user_participants_and_watchers
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
+      redirect_to path, notice: notice_message(@regular_event)
     else
       render :new
     end
@@ -34,9 +39,11 @@ class RegularEventsController < ApplicationController
   def update
     set_wip
     if @regular_event.update(regular_event_params)
+      update_publised_at
       Newspaper.publish(:regular_event_update, @regular_event)
       set_all_user_participants_and_watchers
-      redirect_to @regular_event, notice: notice_message(@regular_event)
+      path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
+      redirect_to path, notice: notice_message(@regular_event)
     else
       render :edit
     end
@@ -59,17 +66,28 @@ class RegularEventsController < ApplicationController
       :end_at,
       :category,
       :all,
+      :wants_announcement,
       user_ids: [],
       regular_event_repeat_rules_attributes: %i[id regular_event_id frequency day_of_the_week _destroy]
     )
   end
 
   def set_regular_event
-    @regular_event = RegularEvent.find(params[:id])
+    @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
   end
 
   def set_wip
     @regular_event.wip = (params[:commit] == 'WIP')
+  end
+
+  def update_publised_at
+    return if @regular_event.wip || @regular_event.published_at?
+
+    @regular_event.update(published_at: Time.current)
+  end
+
+  def publish_with_announcement?
+    @regular_event.wants_announcement? && !@regular_event.wip?
   end
 
   def notice_message(regular_event)
@@ -98,8 +116,8 @@ class RegularEventsController < ApplicationController
   def set_all_user_participants_and_watchers
     return if @regular_event.wip?
 
-    students_and_trainees = User.students_and_trainees.ids
-    RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_and_trainees)
-    RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_and_trainees)
+    students_trainees_mentors_and_admins = User.students_trainees_mentors_and_admins.ids
+    RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
+    RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
   end
 end

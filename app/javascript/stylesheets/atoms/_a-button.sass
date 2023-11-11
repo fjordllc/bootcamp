@@ -20,17 +20,17 @@
     +button-color($main)
   &.is-muted
     border: none
-    color: $muted-text
+    color: var(--muted-text)
     font-weight: 400 !important
-    background-color: $background
+    background-color: var(--background)
   &.is-muted-borderd
     border-color: $border
     color: $muted-text
     font-weight: 400 !important
-    background-color: $base
+    background-color: var(--base)
     &:hover
-      background-color: $background-more-tint
-      color: $semi-muted-text
+      background-color: var(--background-more-tint)
+      color: var(--semi-muted-text)
 
   &.is-sm-text
     span
@@ -44,6 +44,14 @@
     font-weight: 400
     +hover-link-reversal
     +default-link
+    height: auto !important
+    padding: 0 !important
+  &.is-text-reversal
+    background: none
+    border: none
+    font-weight: 400
+    +hover-link
+    +muted-link
     height: auto !important
     padding: 0 !important
   &.is-muted-text
@@ -69,7 +77,7 @@
     +button-size(.75rem, 1.25, 2rem)
   &.is-md,
   &.is-md input[type="submit"]
-    +button-size(.8125rem, 1.5, 2.5rem)
+    +button-size(.8125rem, 1.5, 2.25rem)
   &.is-lg,
   &.is-lg input[type="submit"]
     +button-size(1rem, 1, 2.75rem)
@@ -104,7 +112,8 @@
   //icon
   &.is-back
     +position(relative)
-    +padding(horizontal, .75em 0)
+    padding-left: .75em
+    padding-right: 0
     &::before
       +fa(fas '\f104')
       +position(absolute, left .75em, top 50%)
@@ -139,9 +148,9 @@ input[type="button"]
     justify-content: center
 
 [class*=a-button]:not(input)
-  +padding(vertical, 0)
+  padding-block: 0
 
 [class*=a-button]
   &[class*=-primary]:disabled
-    background-color: $primary
+    background-color: var(--primary)
     cursor: default

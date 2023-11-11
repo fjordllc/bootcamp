@@ -36,7 +36,7 @@ ja:
       announcement: お知らせ
       article: ブログ記事
       work: 作品
-      event: イベント
+      event: 特別イベント
       memo: メモ
       reference_book: 参考書籍
       campaign: お試し延長
@@ -50,13 +50,11 @@ ja:
         course_id: コース
         description: 自己紹介
         email: Email
-        twitter_account: Twitter アカウント
+        twitter_account: X（Twitter）アカウント
         facebook_url: Facebook URL
         blog_url: ブログ URL
         feed_url: ブログのフィードURL
         github_account: GitHub アカウント
-        discord_account: Discord アカウント
-        times_url: 分報URL
         password: パスワード
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
@@ -69,7 +67,6 @@ ja:
         os: 利用OS
         study_place: 主な学習場所
         experience: プログラミング経験
-        prefecture_code: お住まいの都道府県
         organization: 現在の所属組織
         company: 企業
         company_id: 所属企業
@@ -100,6 +97,12 @@ ja:
         profile_job: 職業
         profile_text: プロフィール文
         subscription_id: サブスクリプションID
+        country_code: 国
+        subdivision_code: 都道府県・州
+        not_auto_retire: 休会六ヶ月後に自動退会しない
+      discord_profile:
+        account_name: Discord アカウント
+        times_url: 分報URL
       hibernation:
         reason: 休会の理由
         scheduled_return_on: 復帰予定日
@@ -116,9 +119,11 @@ ja:
         target: ターゲット
         submission: 提出物
         progress: 進捗の計算
-        ogp_image: OGP画像
+        completion_image: 修了おめでとう画像
         categories: カテゴリー
         memo: メンター向けメモ
+        summary: 概要
+        ogp_image: OGP画像
       book:
         title: タイトル
         price: 価格
@@ -260,6 +265,8 @@ ja:
         choices: 選択肢
       check_box/check_box_choices:
         choices: 選択肢
+      buzz:
+        body: 本文
     enums:
       user:
         job:
@@ -363,8 +370,7 @@ ja:
     check: 提出物の確認
     watching: Watch中
     following_report: フォロー中
-  activity_mailer:
-    three_months_after_retirement:
-      subject: '[FBC] %{user}さんが退会してから3カ月が経過しました。'
-      retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
-  retire_notice: '%{user}さんが退会してから3カ月が経過しました。'
+  talk:
+    followup: "こんにちは、komagataです。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあればお気軽におっしゃっていただければと思います。"
+    comeback: "お帰りなさい！！復会ありがとうございます。\n休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。何か困ったことや質問があれば、遠慮なくご相談ください。\n\nまたフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n<https://bootcamp.fjord.jp/practices/129#url>"
+  unregistered: 未登録

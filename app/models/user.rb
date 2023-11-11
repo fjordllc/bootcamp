@@ -75,6 +75,8 @@ class User < ApplicationRecord
   has_many :external_entries, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
+  has_one :discord_profile, dependent: :destroy
+  accepts_nested_attributes_for :discord_profile, allow_destroy: true
 
   has_many :participate_events,
            through: :participations,
@@ -148,12 +150,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
-  validates :times_url,
-            format: {
-              allow_blank: true,
-              with: %r{\Ahttps://discord\.com/channels/\d+/\d+\z},
-              message: 'はDiscordのチャンネルURLを入力してください'
-            }
 
   validates :feed_url,
             format: {
@@ -163,6 +159,8 @@ class User < ApplicationRecord
             }
 
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
+
+  validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
   validates :avatar, attached: false,
                      content_type: {
@@ -201,16 +199,10 @@ class User < ApplicationRecord
   end
 
   with_options if: -> { validation_context != :retirement } do
-    validates :discord_account,
-              format: {
-                allow_blank: true,
-                with: /\A[^\s\p{blank}].*[^\s\p{blank}]#\d{4}\z/,
-                message: 'は「ユーザー名#４桁の数字」で入力してください'
-              }
     validates :twitter_account,
               length: { maximum: 15 },
+              allow_blank: true,
               format: {
-                allow_blank: true,
                 with: /\A\w+\z/,
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
@@ -234,18 +226,23 @@ class User < ApplicationRecord
   scope :hibernated, -> { where.not(hibernated_at: nil) }
   scope :unhibernated, -> { where(hibernated_at: nil) }
   scope :retired, -> { where.not(retired_on: nil) }
-  scope :retired_with_3_months_ago_and_notification_not_sent, lambda {
-    retired
-      .where('retired_on <= ?', Date.current.ago(3.months).to_date)
-      .where(notified_retirement: false)
-  }
   scope :unretired, -> { where(retired_on: nil) }
+  scope :hibernated_for, ->(period) { where(hibernated_at: nil..period.ago) }
+  scope :auto_retire, -> { where(auto_retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
   scope :students_and_trainees, lambda {
     where(
       admin: false,
       mentor: false,
+      adviser: false,
+      graduated_on: nil,
+      hibernated_at: nil,
+      retired_on: nil
+    )
+  }
+  scope :students_trainees_mentors_and_admins, lambda {
+    where(
       adviser: false,
       graduated_on: nil,
       hibernated_at: nil,
@@ -369,23 +366,11 @@ class User < ApplicationRecord
     :facebook_url,
     :blog_url,
     :github_account,
-    :discord_account,
+    :discord_profile_account_name,
     :description
   )
 
   class << self
-    def notify_to_discord
-      User.retired.find_each do |retired_user|
-        if retired_user.retired_three_months_ago_and_notification_not_sent?
-          ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_ADMIN_WEBHOOK_URL'])
-            #{I18n.t('.retire_notice', user: retired_user.login_name)}
-            Discord ID: #{retired_user.discord_account}
-            ユーザーページ: https://bootcamp.fjord.jp/users/#{retired_user.id}
-          TEXT
-        end
-      end
-    end
-
     def announcement_receiver(target)
       case target
       when 'all'
@@ -429,10 +414,28 @@ class User < ApplicationRecord
       ).pluck(:last_sad_report_id)
       Report.joins(:user).where(id: ids).order(reported_on: :desc)
     end
-  end
 
-  def retired_three_months_ago_and_notification_not_sent?
-    retired_on <= Date.current - 3.months && !notified_retirement
+    # FIXME: 一次対応として一回でも休会している受講生にはメッセージ送信済みとする
+    #        別Issueで入会n日目、休会開けn日目目の受講生にメッセージを送信する方針へ改修してほしい
+    #        改修後、このメソッドは不要になると思われるので削除すること
+    def mark_message_as_sent_for_hibernated_student
+      User.find_each do |user|
+        if user.hibernated?
+          user.sent_student_followup_message = true
+          user.save(validate: false)
+        end
+      end
+    end
+
+    def create_followup_comment(student)
+      User.find_by(login_name: 'komagata').comments.create(
+        description: I18n.t('talk.followup'),
+        commentable_id: Talk.find_by(user_id: student.id).id,
+        commentable_type: 'Talk'
+      )
+      student.sent_student_followup_message = true
+      student.save(validate: false)
+    end
   end
 
   def away?
@@ -461,7 +464,7 @@ class User < ApplicationRecord
   end
 
   def active?
-    last_activity_at && (last_activity_at > 1.month.ago)
+    (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
 
   def checked_product_of?(*practices)
@@ -484,15 +487,6 @@ class User < ApplicationRecord
 
     learning_time = LearningTime.find_by_sql([sql, { user_id: id }])
     learning_time.first.total || 0
-  end
-
-  def prefecture_name
-    if prefecture_code.nil?
-      '未登録'
-    else
-      pref = JpPrefecture::Prefecture.find prefecture_code
-      pref.name
-    end
   end
 
   def elapsed_days
@@ -555,6 +549,15 @@ class User < ApplicationRecord
 
   def hibernated?
     hibernated_at?
+  end
+
+  def after_twenty_nine_days_registration?
+    twenty_nine_days = Time.current.ago(29.days).to_date
+    created_at.to_date.before? twenty_nine_days
+  end
+
+  def followup_message_target?
+    current_student? && !hibernated? && after_twenty_nine_days_registration? && !sent_student_followup_message
   end
 
   def retired?
@@ -663,25 +666,6 @@ class User < ApplicationRecord
     update!(mentor_memo: new_memo)
   end
 
-  def convert_to_channel_url!
-    match = times_url&.match(%r{\Ahttps://discord.gg/(?<invite_code>\w+)\z})
-    return if match.nil?
-
-    uri = URI("https://discord.com/api/invites/#{match[:invite_code]}")
-    res = Net::HTTP.get_response(uri)
-
-    case res
-    when Net::HTTPSuccess
-      data = JSON.parse(res.body)
-      update!(times_url: "https://discord.com/channels/#{data['guild']['id']}/#{data['channel']['id']}")
-    when Net::HTTPNotFound
-      logger.warn "[Discord API] 無効な招待URLです: #{login_name} (#{times_url})"
-      update!(times_url: nil)
-    else
-      logger.error "[Discord API] チャンネルURLを取得できません: #{login_name} (#{res.code} #{res.message})"
-    end
-  end
-
   def category_active_or_unstarted_practice
     if active_practices.present?
       category_having_active_practice
@@ -722,7 +706,7 @@ class User < ApplicationRecord
   end
 
   def last_hibernation
-    return nil if hibernations.size.zero?
+    return nil if hibernations.empty?
 
     hibernations.order(:created_at).last
   end
@@ -743,6 +727,33 @@ class User < ApplicationRecord
     save!(validate: false)
   end
 
+  def training_remaining_days
+    (training_ends_on - Time.zone.today).to_i
+  end
+
+  def country_name
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_s]
+  end
+
+  def subdivision_name
+    country = ISO3166::Country[country_code]
+    subdivision = country.subdivisions[subdivision_code]
+    subdivision.translations[I18n.locale.to_s]
+  end
+
+  def create_comebacked_comment
+    User.find_by(login_name: 'komagata').comments.create(
+      description: I18n.t('talk.comeback'),
+      commentable_id: Talk.find_by(user_id: id).id,
+      commentable_type: 'Talk'
+    )
+  end
+
+  def become_watcher!(watchable)
+    watches.find_or_create_by!(watchable:)
+  end
+
   private
 
   def password_required?
@@ -759,10 +770,10 @@ class User < ApplicationRecord
   end
 
   def unstarted_practices
-    practices -
-      practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-               .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+    @unstarted_practices ||= practices -
+                             practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
+                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
+                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
   end
 
   def category_having_active_practice

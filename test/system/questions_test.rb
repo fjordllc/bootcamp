@@ -43,6 +43,24 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
   end
 
+  test 'create a question through wip' do
+    visit_with_auth new_question_path, 'kimura'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'テストの質問'
+      fill_in 'question[description]', with: 'テストの質問です。'
+      click_button 'WIP'
+    end
+    assert_text '質問をWIPとして保存しました。'
+
+    click_button '内容修正'
+    click_button '質問を公開'
+    assert_text '質問を公開しました。'
+
+    click_button '内容修正'
+    click_button 'WIP'
+    assert_text '質問をWIPとして保存しました。'
+  end
+
   test 'update a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
@@ -55,20 +73,17 @@ class QuestionsTest < ApplicationSystemTestCase
       find('#choices--js-choices-single-select-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
       click_button '更新する'
     end
-    assert_text '質問を更新しました'
-
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
-    assert_text 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'a.page-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'div.page-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
   end
 
   test 'delete a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    accept_confirm do
-      click_link '削除する'
-    end
-    assert_text '質問を削除しました。'
+    assert_text '削除申請'
   end
 
   test 'admin can update and delete any questions' do
@@ -89,29 +104,58 @@ class QuestionsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'alert when enter tag with space on creation page' do
-    visit_with_auth new_page_path, 'kimura'
-
-    # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
-    # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
-    assert_alert_when_enter_tag_with_space
+  test 'alert when enter tag with space on creation question' do
+    visit_with_auth new_question_path, 'kimura'
+    ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
+      fill_in_tag_with_alert tag
+    end
+    fill_in_tag 'foo'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'test title'
+      fill_in 'question[description]', with: 'test body'
+      click_button '登録する'
+    end
+    assert_equal ['foo'], all('.tag-links__item-link').map(&:text)
   end
 
-  test 'alert when enter one dot only tag on creation page' do
-    visit_with_auth new_page_path, 'kimura'
-    assert_alert_when_enter_one_dot_only_tag
+  test 'alert when enter one dot only tag on creation question' do
+    visit_with_auth new_question_path, 'kimura'
+    fill_in_tag_with_alert '.'
+    fill_in_tag 'foo'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'test title'
+      fill_in 'question[description]', with: 'test body'
+      click_button '登録する'
+    end
+    assert_equal ['foo'], all('.tag-links__item-link').map(&:text)
   end
 
-  test 'alert when enter tag with space on update page' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
+  test 'alert when enter tag with space on update question' do
+    question = questions(:question3)
+    visit_with_auth "/questions/#{question.id}", 'komagata'
     find('.tag-links__item-edit').click
-    assert_alert_when_enter_tag_with_space
+    tag_input = first('.ti-new-tag-input')
+    accept_alert do
+      tag_input.set "半角スペースは 使えない\t"
+    end
+    tag_input = first('.ti-new-tag-input')
+    accept_alert do
+      tag_input.set "全角スペースも　使えない\t"
+    end
+    click_button '保存する'
+    assert_equal question.tag_list.sort, all('.tag-links__item-link').map(&:text).sort
   end
 
   test 'alert when enter one dot only tag on update page' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
+    question = questions(:question3)
+    visit_with_auth "/questions/#{question.id}", 'komagata'
     find('.tag-links__item-edit').click
-    assert_alert_when_enter_one_dot_only_tag
+    tag_input = first('.ti-new-tag-input')
+    accept_alert do
+      tag_input.set ".\t"
+    end
+    click_button '保存する'
+    assert_equal question.tag_list.sort, all('.tag-links__item-link').map(&:text).sort
   end
 
   test 'permission decision best answer' do
@@ -157,7 +201,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'select practice title when push question button on practice page' do
     visit_with_auth "/practices/#{practices(:practice23).id}", 'hatsuno'
     click_on '質問する'
-    assert_text '[Ruby] rubyをインストールする'
+    assert_text 'rubyをインストールする'
   end
 
   test 'Question display 25 items correctly' do
@@ -216,7 +260,7 @@ class QuestionsTest < ApplicationSystemTestCase
 
     visit questions_path
     click_link 'WIPタイトル'
-    assert_text '削除する'
+    assert_text '削除申請'
     click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
@@ -358,6 +402,22 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_no_match 'Message to Discord.', mock_log.to_s
   end
 
+  test 'notify to chat after publish a question from WIP' do
+    question = questions(:question_for_wip)
+    visit_with_auth question_path(question), 'kimura'
+    click_button '内容修正'
+
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+
+    Rails.logger.stub(:info, stub_info) do
+      click_button '質問を公開'
+      assert_text '質問を更新しました'
+    end
+
+    assert_match 'Message to Discord.', mock_log.to_s
+  end
+
   test 'link to the question should appear and work correctly' do
     visit_with_auth new_question_path, 'kimura'
     fill_in 'question[title]', with: 'Questionに関連プラクティスを指定'
@@ -375,12 +435,6 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_text 'Linuxのファイル操作の基礎を覚える'
     end
     assert_link 'Linuxのファイル操作の基礎を覚える'
-  end
-
-  test 'show confirm dialog before delete' do
-    visit_with_auth question_path(questions(:question8)), 'kimura'
-    confirm_dialog = dismiss_confirm { click_link '削除する' }
-    assert_equal '自己解決した場合は削除せずに回答を書き込んでください。本当に削除しますか？', confirm_dialog
   end
 
   test 'show a question without choosing practice' do
@@ -441,5 +495,25 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_no_text question.title
       assert_no_text 'wipテスト用の質問(wip中)'
     end
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_question_path, 'kimura'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
+
+  test 'using file uploading by file selection dialogue in textarea at editing question' do
+    question = questions(:question3)
+    visit_with_auth "/questions/#{question.id}", 'komagata'
+    click_button '内容修正'
+
+    element = first('.a-file-insert')
+    within element do
+      assert_selector 'input.js-question-file-input', visible: false
+    end
+    assert_equal '.js-question-file-input', find('textarea.a-text-input')['data-input']
   end
 end

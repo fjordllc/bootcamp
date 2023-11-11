@@ -1,9 +1,9 @@
 .a-text-input
   +text-block(1em 1.45, block)
-  background-color: $input-background
+  background-color: var(--input-background)
   width: 100%
   padding: .5rem
-  border: solid 1px $input-border
+  border: solid 1px var(--input-border)
   border-radius: .25rem
   transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
   +media-breakpoint-up(md)
@@ -14,12 +14,12 @@
     border-color: #e1a7b6
     background-color: #fefafb
   &:hover
-    background-color: $input-hover-background
-    border-color: $input-hover-border
+    background-color: var(--input-hover-background)
+    border-color: var(--input-hover-border)
   &:focus
-    background-color: $input-focus-background
-    border-color: $input-focus-border
-    box-shadow: $input-focus-shadow
+    background-color: var(--input-focus-background)
+    border-color: var(--input-focus-border)
+    box-shadow: var(--input-focus-shadow)
   &:disabled
     color: #999
     background-color: #dedede
@@ -46,7 +46,7 @@ input[type=week].a-text-input
 
 textarea.a-text-input
   line-height: 1.5
-  min-height: 6rem
+  min-height: 10rem
   overflow: hidden
   &.is-sm
     min-height: 10rem
@@ -60,13 +60,13 @@ textarea.a-text-input
   +text-block(.8125rem 1.45, block)
   width: 100%
   padding: .25rem .5rem
-  background-color: $input-background
-  border: solid 1px $input-border
+  background-color: var(--input-background)
+  border: solid 1px var(--input-border)
   border-radius: .25rem
   transition: all .2s ease-in
   +media-breakpoint-down(sm)
     font-size: 1rem
   &:focus
-    background-color: $input-focus-background
-    border-color: $input-focus-border
-    box-shadow: $input-focus-shadow
+    background-color: var(--input-focus-background)
+    border-color: var(--input-focus-border)
+    box-shadow: var(--input-focus-shadow)

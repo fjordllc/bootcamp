@@ -3,7 +3,7 @@
   display: inline-flex
   border: solid 1px
   border-radius: 1em
-  font-family: system-ui, sans-serif
+  font-family: var(--sans-serif)
   white-space: nowrap
   text-decoration: none
   align-items: center
@@ -21,7 +21,7 @@
 
 =badge-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
-  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  padding-inline: #{strip_unit($horizontal * $font-size)}em
   @if unitless_number($vertical)
     height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
   @else

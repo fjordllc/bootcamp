@@ -1,0 +1,27 @@
+- title '紹介・言及記事'
+- set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
+
+.welcome-page-header
+  .container.is-xl
+    .welcome-page-header__inner
+      .welcome-page-header__title
+        = title
+
+.welcome-page-body
+  .container.is-lg
+    .a-card
+      .article__inner
+        header.article__header
+          h1.article__title
+            | フィヨルドブートキャンプ紹介・言及記事
+        .article__body
+          .js-markdown-view.a-long-text.is-md
+            = @buzz.body
+      - if admin_or_mentor_login?
+        hr.a-border
+        .card-footer
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to edit_buzz_path, class: 'a-button is-secondary is-md is-block' do
+                  | 内容修正

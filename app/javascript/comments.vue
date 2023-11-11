@@ -7,70 +7,82 @@
       .thread-comments-more__action
         button.a-button.is-lg.is-text.is-block(@click='showComments')
           | 前のコメント（ {{ nextCommentAmount }} ）
-  h2.thread-comments__title(
-    v-if='commentableType === "RegularEvent" || commentableType === "Event"')
-    | 質問・連絡・コメント
-  h2.thread-comments__title(
-    v-else-if='commentableType === "Announcement" || commentableType === "Page"')
-    | 質問・コメント
-  h2.thread-comments__title(v-else-if='commentableType === "Talk"')
-    | 連絡・返信
-  h2.thread-comments__title(v-else)
-    | コメント
+  header.thread-comments__header
+    h2.thread-comments__title(
+      v-if='commentableType === "RegularEvent" || commentableType === "Event"')
+      | 質問・連絡・コメント
+    h2.thread-comments__title(
+      v-else-if='commentableType === "Announcement" || commentableType === "Page"')
+      | 質問・コメント
+    h2.thread-comments__title(v-else-if='commentableType === "Talk"')
+      | 連絡・返信
+    h2.thread-comments__title(v-else)
+      | コメント
   .thread-comments__items
     comment(
       v-for='(comment, index) in comments',
       :key='comment.id',
       :comment='comment',
       :currentUser='currentUser',
-      :id='index === comments.length - 1 ? "latest-comment" : "comment_" + comment.id',
+      :id='"comment_" + comment.id',
+      :isLatest='index === comments.length - 1',
       @delete='deleteComment',
       @update='updateComment')
   .thread-comment-form
     #latest-comment(v-if='comments.length === 0')
-    .thread-comment__author
+    .thread-comment__start
       span(:class='["a-user-role", roleClass]')
         img.thread-comment__user-icon.a-user-icon(
           :src='currentUser.avatar_url',
           :title='currentUser.icon_title')
-    .thread-comment-form__form.a-card
-      .a-form-tabs.js-tabs
-        .a-form-tabs__tab.js-tabs__tab(
-          :class='{ "is-active": isActive("comment") }',
-          @click='changeActiveTab("comment")')
-          | コメント
-        .a-form-tabs__tab.js-tabs__tab(
-          :class='{ "is-active": isActive("preview") }',
-          @click='changeActiveTab("preview")')
-          | プレビュー
-      .a-markdown-input.js-markdown-parent
-        .a-markdown-input__inner.js-tabs__content(
-          :class='{ "is-active": isActive("comment") }')
-          textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
-            v-model='description',
-            name='new_comment[description]',
-            data-preview='#new-comment-preview',
-            @input='editComment')
-        .a-markdown-input__inner.js-tabs__content(
-          :class='{ "is-active": isActive("preview") }')
-          #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
-      .card-footer
-        .card-main-actions
-          .card-main-actions__items
-            .card-main-actions__item
-              button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
-                @click='postComment',
-                :disabled='!validation || buttonDisabled')
-                | コメントする
-            .card-main-actions__item.is-only-mentor(
-              v-if='isRole("mentor") && commentType && !checkId')
-              button.a-button.is-sm.is-danger.is-block(
-                @click='commentAndCheck',
-                :disabled='!validation || buttonDisabled')
-                i.fa-solid.fa-check
-                | 確認OKにする
+    .thread-comment__end
+      .thread-comment-form__form.a-card
+        .a-form-tabs.js-tabs
+          .a-form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("comment") }',
+            @click='changeActiveTab("comment")')
+            | コメント
+          .a-form-tabs__tab.js-tabs__tab(
+            :class='{ "is-active": isActive("preview") }',
+            @click='changeActiveTab("preview")')
+            | プレビュー
+        .a-markdown-input.js-markdown-parent
+          .a-markdown-input__inner.js-tabs__content(
+            :class='{ "is-active": isActive("comment") }')
+            .form-textarea
+              .form-textarea__body
+                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea(
+                  v-model='description',
+                  name='new_comment[description]',
+                  data-preview='#new-comment-preview',
+                  data-input='.new-comment-file-input',
+                  @input='editComment')
+              .form-textarea__footer
+                .form-textarea__insert
+                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                    | ファイルを挿入
+                    input.new-comment-file-input(type='file', multiple)
+          .a-markdown-input__inner.js-tabs__content(
+            :class='{ "is-active": isActive("preview") }')
+            #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
+        .card-footer
+          .card-main-actions
+            .card-main-actions__items
+              .card-main-actions__item
+                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block(
+                  @click='postComment',
+                  :disabled='!validation || buttonDisabled')
+                  | コメントする
+              .card-main-actions__item.is-only-mentor(
+                v-if='isRole("mentor") && commentType && !checkId')
+                button.a-button.is-sm.is-danger.is-block(
+                  @click='commentAndCheck',
+                  :disabled='!validation || buttonDisabled')
+                  i.fa-solid.fa-check
+                  | 確認OKにする
 </template>
 <script>
+import CSRF from 'csrf'
 import Comment from 'comment.vue'
 import TextareaInitializer from 'textarea-initializer'
 import CommentPlaceholder from 'comment-placeholder'
@@ -88,7 +100,7 @@ export default {
   props: {
     commentableId: { type: String, required: true },
     commentableType: { type: String, required: true },
-    currentUserId: { type: String, required: true },
+    currentUserId: { type: Number, required: true },
     currentUser: { type: Object, required: true }
   },
   data() {
@@ -130,10 +142,6 @@ export default {
     this.showComments()
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     isActive(tab) {
       return this.tab === tab
     },
@@ -207,7 +215,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual',
@@ -224,6 +232,10 @@ export default {
           this.buttonDisabled = false
           this.resizeTextarea()
           this.displayToast(toastMessage)
+          this.$store.dispatch('setWatchable', {
+            watchableId: this.commentableId,
+            watchableType: this.commentableType
+          })
         })
         .catch((error) => {
           console.warn(error)
@@ -234,7 +246,7 @@ export default {
         method: 'DELETE',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'
@@ -277,7 +289,7 @@ export default {
           this.commentableId,
           '/api/checks',
           'POST',
-          this.token()
+          CSRF.getToken()
         )
       }
     },
@@ -289,7 +301,7 @@ export default {
           this.currentUserId,
           '/api/products/checker',
           'PATCH',
-          this.token()
+          CSRF.getToken()
         )
       }
     },
@@ -299,7 +311,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.token()
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin',
         redirect: 'manual'

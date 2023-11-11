@@ -4,13 +4,12 @@
 
 .auth-form-nav__items
   display: flex
+  gap: 3rem
   justify-content: center
   width: 100%
 
-.auth-form-nav__item
-  +margin(horizontal, .5rem)
-
 .auth-form-nav__item-link
   cursor: pointer
-  +text-block(.75rem 1.45, $main)
+  +text-block(.75rem 1.45)
+  color: var(--main)
   +hover-link

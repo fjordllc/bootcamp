@@ -1,0 +1,5 @@
+= render '/notification_mailer/notification_mailer_template',
+  title: @message,
+  link_url: @link_url,
+  link_text: 'コメントへ'
+  = md2html(@comment.description)

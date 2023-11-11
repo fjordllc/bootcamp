@@ -254,7 +254,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
   end
 
-  test 'delete question with notification' do
+  test 'delete question by mentor with notification' do
     visit_with_auth '/questions', 'kimura'
     click_link '質問する'
     fill_in 'question[title]', with: 'タイトルtest'
@@ -269,7 +269,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text 'yameoさんが退会しました。'
     assert_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
 
-    visit_with_auth '/questions', 'kimura'
+    visit_with_auth '/questions', 'komagata'
     click_on 'タイトルtest'
     assert_difference -> { Question.count }, -1 do
       accept_confirm do

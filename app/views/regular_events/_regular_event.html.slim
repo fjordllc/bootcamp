@@ -48,6 +48,7 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
+    hr.a-border
     - if regular_event.all
       .card__message.is-notice
         | この定期イベントは全員参加のため参加登録は不要です。
@@ -59,6 +60,7 @@
       = render 'regular_events/participation', regular_event: regular_event
     = render 'reactions/reactions', reactionable: regular_event
     - if admin_or_mentor_login? || regular_event.organizers.ids.include?(current_user.id)
+      hr.a-border-tint
       .card-footer
         .card-main-actions
           ul.card-main-actions__items
@@ -75,6 +77,7 @@
       header.card-header.is-sm
         h2.card-header__title
           | 参加者（#{regular_event.participants.count}名）
+      hr.a-border-tint
       .card-body
         .card__description
           - if regular_event.participants.present?

@@ -1,6 +1,7 @@
 - title '企業別ユーザー一覧'
+- set_meta_tags description: '企業別ユーザー一覧ページです。'
 
-header.page-header.is-border-bottom-none
+header.page-header
   .container
     .page-header__inner
       h2.page-header__title ユーザー一覧
@@ -17,4 +18,5 @@ main.page-main
         h1.page-main-header__title
           = '企業別'
           | （#{t("target.#{@target}")}）
-  #js-companies(data-target="#{@target}")
+  hr.a-border
+  = react_component('Companies', target: @target)

@@ -1,7 +1,7 @@
 <template lang="pug">
 .card-list-item.has-assigned(:class='product.wip ? "is-wip" : ""')
   .card-list-item__inner
-    .card-list-item__user
+    .card-list-item__user(v-if='displayUserIcon')
       a.card-list-item__user-link(:href='product.user.url')
         span(:class='["a-user-role", roleClass]')
           img.card-list-item__user-icon.a-user-icon(
@@ -26,7 +26,7 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               a.a-user-name(:href='product.user.url')
-                | {{ product.user.login_name }}
+                | {{ product.user.long_name }}
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
@@ -45,7 +45,7 @@
                 span.a-meta__label 更新
                 | {{ product.updated_at }}
             .card-list-item-meta__item(
-              v-if='(product.selectedTab = unassigned)')
+              v-if='isUnassignedProductsPage || isDashboardPage')
               time.a-meta(v-if='untilNextElapsedDays(product) < 1')
                 span.a-meta__label 次の経過日数まで
                 | 1時間未満
@@ -121,7 +121,8 @@ export default {
   props: {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
-    currentUserId: { type: String, required: true }
+    currentUserId: { type: Number, required: true },
+    displayUserIcon: { type: Boolean }
   },
   computed: {
     roleClass() {
@@ -130,11 +131,11 @@ export default {
     practiceTitle() {
       return `${this.product.practice.title}の提出物`
     },
-    unassigned() {
-      return location.pathname === '/products/unassigned'
+    isDashboardPage() {
+      return location.pathname === '/'
     },
-    unchecked() {
-      return location.pathname === '/products/unchecked'
+    isUnassignedProductsPage() {
+      return location.pathname === '/products/unassigned'
     },
     notRespondedSign() {
       return (

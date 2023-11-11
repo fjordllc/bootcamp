@@ -12,6 +12,13 @@ class ActivityMailer < ApplicationMailer
     @question = params[:question] if params&.key?(:question)
     @mentionable = params[:mentionable] if params&.key?(:mentionable)
     @page = params[:page] if params&.key?(:page)
+    @event = params[:event] if params&.key?(:event)
+    @watchable = params[:watchable] if params&.key?(:watchable)
+    @comment = params[:comment] if params&.key?(:comment)
+    @product = params[:product] if params&.key?(:product)
+    @report = params[:report] if params&.key?(:report)
+    @regular_event = params[:regular_event] if params&.key?(:regular_event)
+    @message = params[:message] if params&.key?(:message)
   end
 
   # required params: sender, receiver
@@ -28,6 +35,23 @@ class ActivityMailer < ApplicationMailer
     )
     subject = "[FBC] #{@sender.login_name}さんが休会から復帰しました。"
     mail to: @user.email, subject: subject
+  end
+
+  # required params: comment, message, receiver
+  def came_comment(args = {})
+    @comment ||= args[:comment]
+    @message ||= args[:message]
+    @receiver ||= args[:receiver]
+
+    return unless @receiver.mail_notification?
+
+    @user = @receiver
+    link = "/#{@comment.commentable_type.downcase.pluralize}/#{@comment.commentable.id}"
+    @link_url = notification_redirector_url(
+      link: link,
+      kind: Notification.kinds[:came_comment]
+    )
+    mail to: @user.email, subject: "[FBC] #{@message}"
   end
 
   # required params: sender, receiver
@@ -90,21 +114,6 @@ class ActivityMailer < ApplicationMailer
     subject = "[FBC] お知らせ「#{@announcement.title}」"
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
-
-    message
-  end
-
-  # required params: sender, receiver
-  def three_months_after_retirement(args = {})
-    @sender ||= args[:sender]
-    @receiver ||= args[:receiver]
-
-    @link_url = notification_redirector_url(
-      link: "/users/#{@sender.id}",
-      kind: Notification.kinds[:retired]
-    )
-    message = mail(to: @receiver.email, subject: default_i18n_subject(user: @sender.login_name.to_s))
-    message.perform_deliveries = @receiver.mail_notification? && !@receiver.retired?
 
     message
   end
@@ -195,6 +204,22 @@ class ActivityMailer < ApplicationMailer
     message
   end
 
+  def moved_up_event_waiting_user(args = {})
+    @receiver ||= args[:receiver]
+    @event ||= args[:event]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/events/#{@event.id}",
+      kind: Notification.kinds[:moved_up_event_waiting_user]
+    )
+    subject = "[FBC] #{@event.title}で、補欠から参加に繰り上がりました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
   def following_report(args = {})
     @sender ||= args[:sender]
     @report = params&.key?(:report) ? params[:report] : args[:report]
@@ -207,6 +232,183 @@ class ActivityMailer < ApplicationMailer
     )
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
 
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: sender, comment, watchable, receiver
+  def watching_notification(args = {})
+    @receiver ||= args[:receiver]
+    @sender ||= args[:sender]
+    @comment ||= args[:comment]
+    @watchable ||= args[:watchable]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: @watchable.path,
+      kind: Notification.kinds[:watched]
+    )
+    @action = @watchable.instance_of?(Question) ? '回答' : 'コメント'
+    subject = "[FBC] #{@watchable.user.login_name}さんの【 #{@watchable.notification_title} 】に#{@sender.login_name}さんが#{@action}しました。"
+
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  # required params: product, receiver
+  def assigned_as_checker(args = {})
+    @product ||= args[:product]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/products/#{@product.id}",
+      kind: Notification.kinds[:assigned_as_checker]
+    )
+
+    subject = "[FBC] #{@product.user.login_name}さんの提出物#{@product.title}の担当になりました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: sender, receiver
+  def hibernated(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:hibernated]
+    )
+
+    subject = "[FBC] #{@sender.login_name}さんが休会しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  # required params: report, receiver
+  def first_report(args = {})
+    @report = params&.key?(:report) ? params[:report] : args[:report]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+
+    @link_url = notification_redirector_url(
+      link: "/reports/#{@report.id}",
+      kind: Notification.kinds[:first_report]
+    )
+
+    subject = "[FBC] #{@report.user.login_name}さんがはじめての日報を書きました！"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  # required params: report, receiver
+  def consecutive_sad_report(args = {})
+    @receiver ||= args[:receiver]
+    @report ||= args[:report]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/reports/#{@report.id}",
+      kind: Notification.kinds[:consecutive_sad_report]
+    )
+    subject = "[FBC] #{@report.user.login_name}さんが#{User::DEPRESSED_SIZE}回連続でsadアイコンの日報を提出しました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: regular_event, receiver
+  def update_regular_event(args = {})
+    @regular_event ||= args[:regular_event]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/regular_events/#{@regular_event.id}",
+      kind: Notification.kinds[:regular_event_updated]
+    )
+
+    subject = "[FBC] 定期イベント【#{@regular_event.title}】が更新されました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: question, receiver
+  def no_correct_answer(args = {})
+    @question ||= args[:question]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+
+    @link_url = notification_redirector_url(
+      link: "/questions/#{@question.id}",
+      kind: Notification.kinds[:no_correct_answer]
+    )
+
+    subject = "[FBC] #{@user.login_name}さんの質問【 #{@question.title} 】のベストアンサーがまだ選ばれていません。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: sender, receiver
+  def signed_up(args = {})
+    @sender ||= args[:sender]
+    @receiver ||= args[:receiver]
+    @sender_roles ||= args[:sender_roles]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/users/#{@sender.id}",
+      kind: Notification.kinds[:signed_up]
+    )
+
+    subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が新しく入会しました！"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: answer, receiver
+  def chose_correct_answer(args = {})
+    @receiver ||= args[:receiver]
+    @user = @receiver
+    @answer = params&.key?(:answer) ? params[:answer] : args[:answer]
+
+    @link_url = notification_redirector_url(
+      link: question_path(@answer.question, anchor: "answer_#{@answer.id}"),
+      kind: Notification.kinds[:chose_correct_answer]
+    )
+
+    subject = "[FBC] #{@answer.receiver.login_name}さんの質問【 #{@answer.question.title} 】で#{@answer.sender.login_name}さんの回答がベストアンサーに選ばれました。"
+    message = mail to: @user.email, subject: subject
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
+
+  # required params: product, receiver
+  def product_update(args = {})
+    @product = params&.key?(:product) ? params[:product] : args[:product]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/products/#{@product.id}",
+      kind: Notification.kinds[:product_update]
+    )
+    subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を更新しました。"
     message = mail to: @user.email, subject: subject
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 

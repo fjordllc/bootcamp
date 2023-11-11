@@ -509,7 +509,7 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in('report[description]', with: 'test')
     height = find('#report_description').style('height')['height'][/\d+/].to_i
 
-    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22")
     after_height = find('#report_description').style('height')['height'][/\d+/].to_i
 
     assert height < after_height
@@ -521,7 +521,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     height = find('#report_description').style('height')['height'][/\d+/].to_i
 
-    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15")
+    fill_in('report[description]', with: "\n1\n2\n3\n4\n5\n6\7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22")
     after_height = find('#report_description').style('height')['height'][/\d+/].to_i
 
     assert height < after_height
@@ -648,6 +648,26 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector('.card-list-item__user')
   end
 
+  test 'user role class is displayed correctly in reports' do
+    visit_with_auth '/reports/new', 'mentormentaro'
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'test title')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+
+    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('08')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+    click_button '提出'
+
+    visit_with_auth reports_path, 'kimura'
+    within('.card-list-item__user', match: :first) do
+      assert_selector('span.a-user-role.is-mentor')
+    end
+  end
+
   test 'show edit button when mentor is logged in and menter mode is on in report detail page' do
     visit_with_auth report_path(reports(:report1)), 'mentormentaro'
     assert_text '内容修正'
@@ -665,5 +685,37 @@ class ReportsTest < ApplicationSystemTestCase
     click_button '内容変更'
     assert_text '日報を保存しました。'
     assert_text '変更された日報のタイトル'
+  end
+
+  test 'adviser watches trainee report when trainee create report' do
+    visit_with_auth '/reports/new', 'kensyu'
+    within('form[name=report]') do
+      fill_in('report[title]', with: '研修生の日報')
+      fill_in('report[description]', with: 'test')
+      fill_in('report[reported_on]', with: Time.current)
+    end
+    within('.learning-time__started-at') do
+      select '07'
+      select '30'
+    end
+    within('.learning-time__finished-at') do
+      select '08'
+      select '30'
+    end
+
+    click_button '提出'
+    assert_text '日報を保存しました。'
+
+    visit_with_auth '/current_user/watches', 'senpai'
+
+    assert_text '研修生の日報'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth '/reports/new', 'kensyu'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end

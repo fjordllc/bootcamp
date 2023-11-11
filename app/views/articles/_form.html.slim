@@ -39,7 +39,7 @@
         .col-md-6.col-xs-12
           = f.label :tag_list, 'タグを入力してください（カンマ区切り）',
             class: 'a-form-label'
-          = f.text_field :tag_list, class: 'a-text-input js-warning-form'
+          = render 'tags_input', taggable: article
 
     .form-item
       .row
@@ -56,7 +56,7 @@
               = f.file_field :thumbnail
           .a-form-help
             p
-              | ここにアップロードした画像が、TwitterでTweet、Facebookで投稿した際に表示される画像として使われます。
+              | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
               | 画像サイズは必ず 1200px × 630xpx でお願いします。
 
     - if params[:action] == 'edit'
@@ -86,7 +86,14 @@
       li.form-actions__item.is-main
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
       li.form-actions__item.is-main
-        = f.submit nil, class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+        - if article.wip?
+          = f.submit '公開する', class: 'a-button is-lg is-danger is-block', id: 'js-shortcut-submit'
+        - else
+          - case params[:action]
+          - when 'new', 'create'
+            = f.submit '公開する', class: 'a-button is-lg is-danger is-block', id: 'js-shortcut-submit'
+          - when 'edit', 'update'
+            = f.submit '更新する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
       li.form-actions__item.is-sub
         - case params[:action]
         - when 'new', 'create'

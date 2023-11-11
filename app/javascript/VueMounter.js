@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './check-store.js'
 
 export default class VueMounter {
   constructor() {
@@ -20,6 +21,7 @@ export default class VueMounter {
           const component = this.components[name]
 
           new Vue({
+            store,
             render: (h) => h(component, { props: props })
           }).$mount(`[data-vue="${name}"]`)
         })

@@ -1,11 +1,12 @@
 - title '企業一覧'
+- set_meta_tags description: '企業一覧ページです。'
 
 header.page-header
   .container
     .page-header__inner
       h2.page-header__title
-        = title
-
+        | #{title}（#{@companies.count}）
+hr.a-border
 .page-body
   .container
     .companies

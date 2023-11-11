@@ -26,13 +26,9 @@ import '../js-select2.js'
 import '../warning.js'
 import '../date-input-toggler'
 import '../github_grass'
-import '../tags-input.js'
-import '../page_tags.js'
 import '../following.js'
-import '../user_tags.js'
 import '../hide-user.js'
 import '../categories-practice.js'
-import '../notifications.js'
 import '../products.js'
 import '../courses-categories.js'
 import '../courses-practices.js'
@@ -44,14 +40,11 @@ import '../niconico_calendar.js'
 import '../mentor-mode.js'
 import '../bookmark.js'
 import '../agreements.js'
-import '../incoming-events.js'
 import '../book-select.js'
-import '../companies.js'
 import '../generations.js'
 import '../report_template.js'
 import '../subscription-status.js'
 import '../new-event-date-set.js'
-import '../tag_edit.js'
 import '../company-users.js'
 import '../generation-users.js'
 import '../learning-completion-message.js'
@@ -64,6 +57,8 @@ import '../hibernation_agreements.js'
 import '../current-date-time-setter.js'
 import '../modal-switcher.js'
 import '../survey-question-listings.js'
+import '../change-subdivisions.js'
+import '../register-address.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
@@ -72,8 +67,6 @@ import ExternalEntries from '../components/external-entries.vue'
 import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
-import Reports from '../components/reports.vue'
-import RegularEvents from '../components/regular-events.vue'
 import Users from '../components/users.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
@@ -86,7 +79,9 @@ import Footprints from '../components/footprints.vue'
 import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
-import AdminPractices from '../components/admin-practices.vue'
+import UserProducts from '../components/user-products.vue'
+import MentorPractices from '../components/mentor-practices.vue'
+import ActionCompletedButton from '../components/action-completed-button.vue'
 
 import '../stylesheets/application'
 
@@ -97,8 +92,6 @@ mounter.addComponent(ExternalEntries)
 mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
-mounter.addComponent(Reports)
-mounter.addComponent(RegularEvents)
 mounter.addComponent(Users)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
@@ -111,7 +104,9 @@ mounter.addComponent(Footprints)
 mounter.addComponent(QuestionPage)
 mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
-mounter.addComponent(AdminPractices)
+mounter.addComponent(UserProducts)
+mounter.addComponent(MentorPractices)
+mounter.addComponent(ActionCompletedButton)
 mounter.mount()
 
 // Support component names relative to this directory:

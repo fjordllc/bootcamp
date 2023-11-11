@@ -5,9 +5,6 @@ require 'test_helper'
 module Discord
   class TimesChannelTest < ActiveSupport::TestCase
     setup do
-      @category_id = Discord::TimesChannel.category_id
-      Discord::TimesChannel.category_id = nil
-
       @stub_create_text_channel = lambda { |name:, parent:|
         Discordrb::Channel.new({
           id: '1234567890',
@@ -17,27 +14,25 @@ module Discord
       }
     end
 
-    teardown do
-      Discord::TimesChannel.category_id = @category_id
-    end
-
     test '#save return true' do
-      Discord::TimesChannel.category_id = '9876543210'
-      Discord::Server.stub(:create_text_channel, @stub_create_text_channel) do
-        times_channel = Discord::TimesChannel.new('piyo')
+      Discord::TimesCategory.stub(:categorize_by_initials, ->(_) { '9876543210' }) do
+        Discord::Server.stub(:create_text_channel, @stub_create_text_channel) do
+          times_channel = Discord::TimesChannel.new('piyo')
 
-        assert_equal true, times_channel.save
-        assert_equal '1234567890', times_channel.id
-        assert_equal '9876543210', times_channel.category_id
+          assert_equal true, times_channel.save
+          assert_equal '1234567890', times_channel.id
+          assert_equal '9876543210', times_channel.category_id
+        end
       end
 
-      Discord::TimesChannel.category_id = nil
-      Discord::Server.stub(:create_text_channel, @stub_create_text_channel) do
-        times_channel = Discord::TimesChannel.new('piyo')
+      Discord::TimesCategory.stub(:categorize_by_initials, ->(_) { nil }) do
+        Discord::Server.stub(:create_text_channel, @stub_create_text_channel) do
+          times_channel = Discord::TimesChannel.new('piyo')
 
-        assert_equal true, times_channel.save
-        assert_equal '1234567890', times_channel.id
-        assert_nil times_channel.category_id
+          assert_equal true, times_channel.save
+          assert_equal '1234567890', times_channel.id
+          assert_nil times_channel.category_id
+        end
       end
     end
 

@@ -42,7 +42,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: '半角スペースを 含んでも 正常なページに 遷移する'
     click_button '内容を更新'
     assert_equal page_path(target_page.reload), current_path
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました。'
   end
 
   test 'add new page' do
@@ -51,7 +51,7 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[title]', with: '新規Docを作成する'
     fill_in 'page[body]', with: '新規Docを作成する本文です'
     click_button 'Docを公開'
-    assert_text 'ページを作成しました'
+    assert_text 'ドキュメントを作成しました。'
     assert_text 'Watch中'
   end
 
@@ -62,7 +62,8 @@ class PagesTest < ApplicationSystemTestCase
       fill_in('page[body]', with: 'test')
     end
     click_button 'WIP'
-    assert_text 'ページをWIPとして保存しました。'
+    assert_text 'ドキュメントをWIPとして保存しました。'
+    assert_text 'ページ編集'
   end
 
   test 'update page as WIP' do
@@ -72,7 +73,18 @@ class PagesTest < ApplicationSystemTestCase
       fill_in('page[body]', with: 'test')
     end
     click_button 'WIP'
-    assert_text 'ページをWIPとして保存しました。'
+    assert_text 'ドキュメントをWIPとして保存しました。'
+    assert_text 'ページ編集'
+  end
+
+  test 'destroy page' do
+    visit_with_auth "/pages/#{pages(:page1).id}", 'komagata'
+
+    accept_confirm do
+      click_link '削除する'
+    end
+
+    assert_text 'ドキュメントを削除しました。'
   end
 
   test 'administrator can change doc user' do
@@ -117,31 +129,6 @@ class PagesTest < ApplicationSystemTestCase
     find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
     click_button 'Docを公開'
     assert_text 'Linuxのファイル操作の基礎を覚える'
-  end
-
-  test 'alert when enter tag with space on creation page' do
-    visit_with_auth new_page_path, 'kimura'
-
-    # この次に assert_alert_when_enter_one_dot_only_tag を追加しても、
-    # 空白を入力したalertが発生し、ドットのみのalertが発生するテストにならない
-    assert_alert_when_enter_tag_with_space
-  end
-
-  test 'alert when enter one dot only tag on creation page' do
-    visit_with_auth new_page_path, 'kimura'
-    assert_alert_when_enter_one_dot_only_tag
-  end
-
-  test 'alert when enter tag with space on update page' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
-    find('.tag-links__item-edit').click
-    assert_alert_when_enter_tag_with_space
-  end
-
-  test 'alert when enter one dot only tag on update page' do
-    visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
-    find('.tag-links__item-edit').click
-    assert_alert_when_enter_one_dot_only_tag
   end
 
   test 'add new page with slug and visit page' do
@@ -224,7 +211,7 @@ class PagesTest < ApplicationSystemTestCase
       click_button 'Docを公開'
     end
 
-    assert_text 'ページを作成しました'
+    assert_text 'ドキュメントを作成しました。'
     assert_text 'Watch中'
     assert_match 'Message to Discord.', mock_log.to_s
   end
@@ -240,8 +227,27 @@ class PagesTest < ApplicationSystemTestCase
       click_button '内容を更新'
     end
 
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました。'
     assert_match 'Message to Discord.', mock_log.to_s
+  end
+
+  test 'non-author docs editor becomes Watcher when editing docs' do
+    # 編集前にWatch中になってないかチェック(作成者を除くDocs編集者)
+    editor = 'machida'
+    visit_with_auth page_path(pages(:page1)), editor
+    assert_text 'Watch'
+    visit page_path(pages(:page2))
+    assert_text 'Watch'
+
+    visit edit_page_path(pages(:page1))
+    click_button '内容を更新'
+    assert_text 'ドキュメントを更新しました'
+    assert_text 'Watch中'
+
+    visit edit_page_path(pages(:page2))
+    click_button 'WIP'
+    visit page_path(pages(:page2))
+    assert_text 'Watch中'
   end
 
   test 'Check the list of columns on the right of the document' do
@@ -258,7 +264,7 @@ class PagesTest < ApplicationSystemTestCase
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
     click_button 'Docを公開'
 
-    assert_text 'ページを作成しました'
+    assert_text 'ドキュメントを作成しました。'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れて新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れて新規Docを作成」の本文です。'
   end
@@ -269,12 +275,19 @@ class PagesTest < ApplicationSystemTestCase
     fill_in 'page[body]', with: '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
     click_button 'WIP'
 
-    click_on '内容変更'
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
     click_button '内容を更新'
 
-    assert_text 'ページを更新しました'
+    assert_text 'ドキュメントを更新しました。'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
     assert_text '「お知らせにチェックを入れてWIP状態から新規Docを作成」の本文です。'
+  end
+
+  test 'using file uploading by file selection dialogue in textarea' do
+    visit_with_auth new_page_path, 'komagata'
+    within(:css, '.a-file-insert') do
+      assert_selector 'input.file-input', visible: false
+    end
+    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 end

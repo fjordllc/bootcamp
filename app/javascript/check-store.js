@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import CSRF from 'csrf'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ export default new Vuex.Store({
     checkableId: null,
     checkableType: null,
     productId: null,
-    productCheckerId: null
+    productCheckerId: null,
+    watchId: null
   },
   getters: {
     checkId: (state) => state.checkId,
@@ -20,7 +22,8 @@ export default new Vuex.Store({
     checkableId: (state) => state.checkableId,
     checkableType: (state) => state.checkableType,
     productId: (state) => state.productId,
-    productCheckerId: (state) => state.productCheckerId
+    productCheckerId: (state) => state.productCheckerId,
+    watchId: (state) => state.watchId
   },
   mutations: {
     setCheckable(
@@ -36,18 +39,20 @@ export default new Vuex.Store({
     setProduct(state, { productId, productCheckerId }) {
       state.productId = productId
       state.productCheckerId = productCheckerId
+    },
+    setWatchable(state, { watchId }) {
+      state.watchId = watchId
     }
   },
   actions: {
     setCheckable({ commit }, { checkableId, checkableType }) {
-      const meta = document.querySelector('meta[name="csrf-token"]')
       fetch(
         `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`,
         {
           method: 'GET',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+            'X-CSRF-Token': CSRF.getToken()
           },
           credentials: 'same-origin'
         }
@@ -79,12 +84,11 @@ export default new Vuex.Store({
         })
     },
     setProduct({ commit }, { productId }) {
-      const meta = document.querySelector('meta[name="csrf-token"]')
       fetch(`/api/products/${productId}.json`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+          'X-CSRF-Token': CSRF.getToken()
         },
         credentials: 'same-origin'
       })
@@ -101,6 +105,37 @@ export default new Vuex.Store({
             commit('setProduct', {
               productId: productId,
               productCheckerId: null
+            })
+          }
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    },
+    setWatchable({ commit }, { watchableId, watchableType }) {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      fetch(
+        `/api/watches/toggle.json?watchable_id=${watchableId}&watchable_type=${watchableType}`,
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': meta ? meta.getAttribute('content') : ''
+          },
+          credentials: 'same-origin'
+        }
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((watchable) => {
+          if (watchable[0]) {
+            commit('setWatchable', {
+              watchId: watchable[0].id
+            })
+          } else {
+            commit('setWatchable', {
+              watchId: null
             })
           }
         })

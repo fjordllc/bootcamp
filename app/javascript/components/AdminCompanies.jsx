@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import queryString from 'query-string'
+import React from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import Pagination from './Pagination'
+import usePage from './hooks/usePage'
 
 export default function AdminCompanies() {
   const per = 20
-  const neighbours = 4
-  const defaultPage = parseInt(queryString.parse(location.search).page) || 1
-  const [page, setPage] = useState(defaultPage)
-
-  useEffect(() => {
-    setPage(page)
-  }, [page])
+  const { page, setPage } = usePage()
 
   const { data, error } = useSWR(
     `/api/admin/companies.json?page=${page}&per=${per}`,
@@ -21,20 +15,16 @@ export default function AdminCompanies() {
   if (error) return <>An error has occurred.</>
   if (!data) return <>Loading...</>
 
-  const handlePaginate = (p) => {
-    setPage(p)
-    window.history.pushState(null, null, `/admin/companies?page=${p}`)
-  }
-
   return (
-    <>
-      <Pagination
-        sum={data.total_pages * per}
-        per={per}
-        neighbours={neighbours}
-        page={page}
-        onChange={(e) => handlePaginate(e.page)}
-      />
+    <div data-testid="admin-companies">
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          page={page}
+          setPage={setPage}
+        />
+      )}
       <div className="admin-table">
         <table className="admin-table__table">
           <thead className="admin-table__header">
@@ -54,14 +44,15 @@ export default function AdminCompanies() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        sum={data.total_pages * per}
-        per={per}
-        neighbours={neighbours}
-        page={page}
-        onChange={(e) => handlePaginate(e.page)}
-      />
-    </>
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          page={page}
+          setPage={setPage}
+        />
+      )}
+    </div>
   )
 }
 

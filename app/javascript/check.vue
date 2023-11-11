@@ -1,36 +1,39 @@
 <template lang="pug">
-.card-footer.is-only-mentor
-  .card-main-actions
-    ul.card-main-actions__items
-      li.card-main-actions__item(v-if='checkableType === "Product"')
-        //
-          v-showではなくv-ifだと "提出物を確認" => "取り消し" した際、
-          担当ボタンの表示はページ読み込み時に戻る。
-          例えば、ページ読み込み時に "担当する" ボタンだった場合、
-          クリックして "担当から外れる" ボタンに変更後、
-          "提出物を確認" => "取り消し" すると、
-          ページ読み込み時の "担当する" ボタンが表示される。
-          パフォーマンスが非常に悪くなるとかではないので、今回はv-showを利用
-          checkerIdの値がページ読み込み時の値のままではなく、
-          現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
-        //-
-        product-checker(
-          v-show='checkId === null',
-          :checkerId='checkerId',
-          :checkerName='checkerName',
-          :checkerAvatar='checkerAvatar',
-          :currentUserId='currentUserId',
-          :productId='checkableId',
-          :checkableType='checkableType',
-          :parentComponent='"check"')
-      li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
-        button#js-shortcut-check.is-block(
-          :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"',
-          @click='checkSad')
-          | {{ buttonLabel }}
+div
+  hr.a-border-tint
+  .card-footer.is-only-mentor
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item(v-if='checkableType === "Product"')
+          //
+            v-showではなくv-ifだと "提出物を確認" => "取り消し" した際、
+            担当ボタンの表示はページ読み込み時に戻る。
+            例えば、ページ読み込み時に "担当する" ボタンだった場合、
+            クリックして "担当から外れる" ボタンに変更後、
+            "提出物を確認" => "取り消し" すると、
+            ページ読み込み時の "担当する" ボタンが表示される。
+            パフォーマンスが非常に悪くなるとかではないので、今回はv-showを利用
+            checkerIdの値がページ読み込み時の値のままではなく、
+            現状のcheckerIdを参照すれば、v-ifでも大丈夫と推測
+          //-
+          product-checker(
+            v-show='checkId === null',
+            :checkerId='checkerId',
+            :checkerName='checkerName',
+            :checkerAvatar='checkerAvatar',
+            :currentUserId='currentUserId',
+            :productId='checkableId',
+            :checkableType='checkableType',
+            :parentComponent='"check"')
+        li.card-main-actions__item(:class='checkId ? "is-sub" : ""')
+          button#js-shortcut-check.is-block(
+            :class='checkId ? "card-main-actions__muted-action" : "a-button is-sm is-danger"',
+            @click='checkSad')
+            | {{ buttonLabel }}
 </template>
 <script>
 import 'whatwg-fetch'
+import CSRF from 'csrf'
 import ProductChecker from 'product_checker'
 import checkable from 'checkable.js'
 import toast from './toast'
@@ -47,7 +50,7 @@ export default {
     checkerId: { type: Number, required: true },
     checkerName: { type: String, required: false, default: null },
     checkerAvatar: { type: String, required: false, default: null },
-    currentUserId: { type: String, required: false, default: null }
+    currentUserId: { type: Number, required: false, default: null }
   },
   computed: {
     checkId() {
@@ -76,10 +79,6 @@ export default {
     }
   },
   methods: {
-    token() {
-      const meta = document.querySelector('meta[name="csrf-token"]')
-      return meta ? meta.getAttribute('content') : ''
-    },
     checkSad() {
       if (this.checkHasSadEmotion && !this.checkHasComment && !this.checkId) {
         if (
@@ -92,7 +91,7 @@ export default {
             this.checkableId,
             this.url,
             this.method,
-            this.token()
+            CSRF.getToken()
           )
         }
       } else {
@@ -101,7 +100,7 @@ export default {
           this.checkableId,
           this.url,
           this.method,
-          this.token()
+          CSRF.getToken()
         )
       }
     }

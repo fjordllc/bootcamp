@@ -1,0 +1,23 @@
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__title
+        | イベント
+      .page-header-actions
+        .page-header-actions__items
+          .page-header-actions__item
+            = link_to events_calendars_url(protocol: :webcal, format: :ics), class: 'a-button is-md is-secondary is-block' do
+              i.fa-regular.fa-plus
+              | イベント購読
+            .page-header-actions__item-help
+              label.a-help(for='modal-web-cal')
+                i.fa-solid.fa-question
+= render '/shared/modal', id: 'modal-web-cal', modal_title: '📆 イベント購読'
+  .modal__description.is-md
+    .a-long-text
+      p
+        | イベント購読すると、普段自分が使っているカレンダーアプリ（Googleカレンダー、
+        | iPhone・Macの標準アプリ「カレンダー」など）に、
+        | フィヨルドブートキャンプのイベントを表示することができます。
+        | 現在は、イベント購読には定期イベントは対応してなく、
+        | 通常のイベントだけが表示されます。

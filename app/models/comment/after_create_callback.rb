@@ -1,23 +1,24 @@
 # frozen_string_literal: true
 
 class Comment::AfterCreateCallback
-  def after_create(comment)
+  def after_commit(comment)
     if comment.commentable.class.include?(Watchable)
       create_watch(comment)
       notify_to_watching_user(comment)
     elsif comment.sender != comment.receiver
-      notify_comment(comment)
+      Newspaper.publish(:came_comment, comment)
     end
 
     if comment.commentable.instance_of?(Talk)
       notify_to_admins(comment)
-      notify_to_chat(comment) unless comment.sender.admin?
-      update_unreplied(comment)
+      unless comment.sender.admin?
+        notify_to_chat(comment)
+        update_action_completed(comment)
+      end
     end
 
     return unless comment.commentable.instance_of?(Product)
 
-    comment.commentable.create_checker_id(comment)
     comment.commentable.update_last_commented_at(comment)
     comment.commentable.update_commented_at(comment)
     delete_product_cache(comment.commentable.id)
@@ -25,16 +26,6 @@ class Comment::AfterCreateCallback
   end
 
   private
-
-  def notify_comment(comment)
-    commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
-    NotificationFacade.came_comment(
-      comment,
-      comment.receiver,
-      "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
-      "#{commentable_path}#latest-comment"
-    )
-  end
 
   def notify_to_watching_user(comment)
     watchable = comment.commentable
@@ -44,10 +35,17 @@ class Comment::AfterCreateCallback
 
     watcher_ids = watchable.watches.pluck(:user_id)
     watcher_ids.each do |watcher_id|
-      if watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
-        watcher = User.find_by(id: watcher_id)
-        NotificationFacade.watching_notification(watchable, watcher, comment)
-      end
+      next unless watcher_id != comment.sender.id && !mention_user_ids.include?(watcher_id)
+
+      watcher = User.find_by(id: watcher_id)
+      sender = comment.sender
+
+      ActivityDelivery.with(
+        watchable: watchable,
+        receiver: watcher,
+        comment: comment,
+        sender: sender
+      ).notify(:watching_notification)
     end
   end
 
@@ -63,13 +61,6 @@ class Comment::AfterCreateCallback
     @watch.save!
   end
 
-  def create_checker_id(comment)
-    return nil unless comment.user.mentor?
-
-    product = comment.commentable
-    product.checker_id = comment.sender.id unless product.checker_id?
-  end
-
   def delete_product_cache(product_id)
     Rails.cache.delete "/model/product/#{product_id}/last_commented_user"
   end
@@ -83,22 +74,11 @@ class Comment::AfterCreateCallback
   end
 
   def notify_to_admins(comment)
-    User.admins.each do |admin_user|
-      next if comment.sender == admin_user
-
-      commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
-      NotificationFacade.came_comment(
-        comment,
-        admin_user,
-        "#{comment.commentable.user.login_name}さんの相談部屋で#{comment.sender.login_name}さんからコメントが届きました。",
-        "#{commentable_path}#latest-comment"
-      )
-    end
+    Newspaper.publish(:came_comment_in_talk, comment)
   end
 
-  def update_unreplied(comment)
-    unreplied = !comment.user.admin
-    comment.commentable.update!(unreplied: unreplied)
+  def update_action_completed(comment)
+    comment.commentable.update!(action_completed: false)
   end
 
   def notify_to_chat(comment)

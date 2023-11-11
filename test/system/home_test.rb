@@ -25,12 +25,12 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text 'GitHubアカウントを登録してください。'
   end
 
-  test 'verify message presence of discord_account registration' do
+  test 'verify message presence of discord_profile_account_name registration' do
     visit_with_auth '/', 'hajime'
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'Discordアカウントを登録してください。'
 
-    users(:hajime).update!(discord_account: 'hajime#1111')
+    users(:hajime).discord_profile.update!(account_name: 'hajime1111')
     refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'Discordアカウントを登録してください。'
@@ -91,10 +91,11 @@ class HomeTest < ApplicationSystemTestCase
   test 'not show messages of required field' do
     user = users(:hatsuno)
     # hatsuno の未入力項目を登録
+    user.build_discord_profile
+    user.discord_profile.account_name = 'hatsuno1234'
     user.update!(
       tag_list: ['猫'],
-      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。',
-      discord_account: 'hatsuno#1234'
+      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
     )
     path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')
@@ -200,16 +201,8 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector 'h2.card-header__title', text: '学習時間'
   end
 
-  test 'show test events on dashboard' do
-    travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
-      visit_with_auth '/', 'komagata'
-      assert_text '直近イベントの表示テスト用(当日)'
-      assert_text '直近イベントの表示テスト用(翌日)'
-    end
-  end
-
-  test 'show job events on dashboard for only job seeker' do
-    travel_to Time.zone.local(2017, 4, 1, 10, 0, 0) do
+  test 'show events on dashboard for only related to user' do
+    travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
       visit_with_auth '/', 'jobseeker'
       assert_text '直近イベントの表示テスト用(当日)'
       assert_text '直近イベントの表示テスト用(翌日)'
@@ -223,19 +216,55 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show regular events on dashbord for only event participant' do
-    travel_to Time.zone.local(2023, 1, 30, 10, 0, 0) do
+  test 'show regular events for only participant and special events on dashbord' do
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
-      assert_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
-      assert_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
-      first('.js-close-event').click
-      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
+      today_event_label = find('.card-list__label', text: '今日開催')
+      tomorrow_event_label = find('.card-list__label', text: '明日開催')
+      day_after_tomorrow_event_label = find('.card-list__label', text: '明後日開催')
+
+      today_events_texts = [
+        { category: '特別イベント', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
+      ]
+      tomorrow_events_texts = [
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
+        { category: '特別イベント', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
+      ]
+      day_after_tomorrow_events_texts = [
+        { category: '特別イベント', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' }
+      ]
+
+      assert_event_card(today_event_label, today_events_texts)
+      assert_event_card(tomorrow_event_label, tomorrow_events_texts)
+      assert_event_card(day_after_tomorrow_event_label, day_after_tomorrow_events_texts)
+
       logout
 
       visit_with_auth '/', 'komagata'
-      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(当日用)'
-      assert_no_text 'ダッシュボード表示確認用テスト定期イベント(翌日用)'
+      assert_no_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
+      assert_no_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
     end
+  end
+
+  def event_xpath(event_label, idx)
+    "#{event_label.path}/following-sibling::*[#{idx + 1}][contains(@class, 'card-list-item')]"
+  end
+
+  def assert_event_card(event_label, events_texts)
+    return assert_not has_selector?(:xpath, event_xpath.call(0)) if events_texts.empty?
+
+    events_texts.each_with_index do |event_texts, idx|
+      card_list_element = find(:xpath, event_xpath(event_label, idx))
+      card_list_element.assert_text(event_texts[:category])
+      card_list_element.assert_text(event_texts[:title])
+      card_list_element.assert_text(event_texts[:start_at])
+    end
+    assert_events_count(event_label, events_texts.size)
+  end
+
+  def assert_events_count(event_label, count)
+    assert_no_selector(:xpath, event_xpath(event_label, count))
   end
 
   test 'show grass hide button for graduates' do
@@ -269,6 +298,25 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text '今日提出（48）'
   end
 
+  test 'display counts of passed almost 5days' do
+    visit_with_auth '/', 'mentormentaro'
+    assert_text "2件の提出物が、\n8時間以内に5日経過に到達します。"
+
+    products(:product70).update!(checker: users(:mentormentaro))
+    visit current_path
+    assert_text "1件の提出物が、\n8時間以内に5日経過に到達します。"
+
+    products(:product71).update!(checker: users(:mentormentaro))
+    visit current_path
+    assert_text "しばらく5日経過に到達する\n提出物はありません。"
+  end
+
+  test 'work link of passed almost 5days' do
+    visit_with_auth '/', 'mentormentaro'
+    find('.under-cards').click
+    assert_current_path('/products/unassigned')
+  end
+
   test "show my wip's announcement on dashboard" do
     visit_with_auth '/', 'komagata'
     assert_text 'WIPで保存中'
@@ -282,7 +330,7 @@ class HomeTest < ApplicationSystemTestCase
   test "show my wip's event on dashboard" do
     visit_with_auth '/', 'kimura'
     click_link 'イベント'
-    click_link 'イベント作成'
+    click_link '特別イベント作成'
     fill_in 'event[title]', with: 'WIPのイベント'
     fill_in 'event[location]', with: 'オンライン'
     fill_in 'event[capacity]', with: 100
@@ -429,5 +477,41 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'senpai'
     assert_text '研修生招待リンク'
     assert_text '社内メンター招待リンク'
+  end
+
+  test 'shows event status even if it is not held on holidays' do
+    Event.destroy_all
+    RegularEvent.where.not(title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)').destroy_all
+
+    travel_to Time.zone.parse('2023-09-18') do
+      visit_with_auth '/', 'hatsuno'
+      today_event_label = find('.card-list__label', text: '今日開催')
+      today_events_texts = [
+        {
+          category: '休み',
+          title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)',
+          start_at: '09月18日はお休みです。'
+        }
+      ]
+      assert_event_card(today_event_label, today_events_texts)
+    end
+  end
+
+  test 'shows event status when it is held on weekdays' do
+    Event.destroy_all
+    RegularEvent.where.not(title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)').destroy_all
+
+    travel_to Time.zone.parse('2023-09-25') do
+      visit_with_auth '/', 'hatsuno'
+      today_event_label = find('.card-list__label', text: '今日開催')
+      today_events_texts = [
+        {
+          category: '輪読会',
+          title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)',
+          start_at: '2023年09月25日(月) 21:00'
+        }
+      ]
+      assert_event_card(today_event_label, today_events_texts)
+    end
   end
 end

@@ -4,7 +4,7 @@
   display: inline-flex
   border: solid 1px
   border-radius: .25rem
-  font-family: system-ui, sans-serif
+  font-family: var(--sans-serif)
   line-height: 1.4
   white-space: nowrap
   text-decoration: none
@@ -20,7 +20,7 @@
     width: 100%
     max-width: 100%
     &.is-select
-      +margin(horizontal, 0)
+      margin-inline: 0
   &:focus
     outline: none
   &:disabled
@@ -47,13 +47,14 @@
       +size(.9375em)
       border-radius: .1875em
       display: block
-      border: solid 1px $background-shade
-      background-color: $base
+      border: solid 1px var(--background-shade)
+      background-color: var(--base)
       +position(absolute, left 1em, top 50%)
       transform: translate(0, -50%)
     &::after
       +fa(fas "\f00c")
-      +text-block(1em 1, flex $reversal-text)
+      +text-block(1em 1, flex)
+      color: var(--reversal-text)
       align-items: center
       justify-content: center
       +size(.9375em)
@@ -61,8 +62,8 @@
       transform: translate(0, -50%)
       opacity: 0
     input:checked + &::before
-      border-color: $primary
-      background-color: $primary
+      border-color: var(--primary)
+      background-color: var(--primary)
     input:checked + &::after
       opacity: 1
 
@@ -74,10 +75,11 @@
     display: block
 
 =button-color($color)
-  background-color: $color
   $text-color: if(luma($color) > 50, $default-text, $reversal-text)
+  $border-color: if(luma($color) > 80, saturate(darken($color, 12%), 2%), $color)
+  background-color: $color
   color: $text-color
-  border-color: if(luma($color) > 80, saturate(darken($color, 12%), 2%), $color)
+  border-color: $border-color
   &:focus,
   &:active
     box-shadow: 0 0 0 .1875rem rgba($color, .25)
@@ -85,32 +87,33 @@
   &:focus,
   &:active
     $button-color: saturate(darken($color, 4%), 2%)
+    $border-color: if(luma($color) > 80, saturate(darken($color, 18%), 2%), $color)
     background-color: $button-color
-    border-color: if(luma($color) > 80, saturate(darken($color, 18%), 2%), $color)
+    border-color: $border-color
   &.is-disabled,
   &:disabled
     color: rgba($text-color, .4)
-    pointer-events: none
     border-color: shade($color, 6%)
-
+    pointer-events: none
 
 =button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
-  +padding(horizontal, #{strip_unit($horizontal * $font-size)}em)
+  padding-inline: #{strip_unit($horizontal * $font-size)}em
   @if unitless_number($vertical)
     height: #{strip_unit(($font-size * 1.4) + (($vertical * $font-size) * 2))}em
   @else
     height: $vertical
   &.is-icon
-    +padding(horizontal, #{strip_unit($horizontal * $font-size * 1)}em)
+    padding-inline: #{strip_unit($horizontal * $font-size * 1)}em
   &.is-select
-    +padding(horizontal, 0)
+    padding-inline: 0
     +position(relative)
     &::before
       +fa(fas "\f0d7")
       +size(2em 100%)
       +position(absolute, right 0, top 0, bottom 0)
-      +text-block(1em 1, flex $muted-text)
+      +text-block(1em 1, flex)
+      color: var(--muted-text)
       align-items: center
       justify-content: center
     select

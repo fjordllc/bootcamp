@@ -10,9 +10,9 @@
         = user.enrollment_period
     .user-metas__item
       .user-metas__item-label
-        | 都道府県
+        | お住まい
       .user-metas__item-value
-        = user.prefecture_name
+        = user.address || t('unregistered')
     .user-metas__item
       .user-metas__item-label
         | コース
@@ -33,20 +33,13 @@
         | 修了プラクティス
       .user-metas__item-value
         = user.completed_practices.size
-    .user-metas__item
-      .user-metas__item-label
-        | Discordアカウント
-      .user-metas__item-value
-        = user.discord_account.presence || '未登録'
-        - if user.times_url?
-          | （#{link_to '分報', user.times_url}）
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label
           | 合計学習時間
         .user-metas__item-value
           = "#{number_with_precision(user.total_learning_time, precision: 1)}時間 / "
-          = render 'users/learning_status', user: user
+          = render 'users/learning_status', user:
     - if user.company.present?
       .user-metas__item
         .user-metas__item-label
@@ -61,6 +54,7 @@
           - user.roles.each do |role|
             li
               = t "target.#{role}"
+              = " / 休会から#{(Time.current.to_date - user.hibernated_at.to_date).to_i}日目" if role == 'hibernationed'
     - if user.trainee? && user.training_ends_on?
       .user-metas__item
         .user-metas__item-label

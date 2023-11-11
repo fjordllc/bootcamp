@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -47,16 +49,18 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'not notify mentor watching product of submitted when comment on product' do
-    Comment.create!(
-      user: users(:mentormentaro),
-      commentable: products(:product8),
-      description: '提出物のコメントcreate'
-    )
-    assert users(:kimura).notifications.exists?(
-      kind: 'watching',
-      sender: users(:mentormentaro),
-      message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
-    )
+    perform_enqueued_jobs do
+      Comment.create!(
+        user: users(:mentormentaro),
+        commentable: products(:product8),
+        description: '提出物のコメントcreate'
+      )
+      assert users(:kimura).notifications.exists?(
+        kind: 'watching',
+        sender: users(:mentormentaro),
+        message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
+      )
+    end
     assert_not users(:mentormentaro).notifications.exists?(
       kind: 'submitted',
       sender: users(:kimura),

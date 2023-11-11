@@ -9,3 +9,11 @@ regular_event_participation2:
 regular_event_participation3:
   user: kimura
   regular_event: regular_event9
+
+regular_event_participation4:
+  user: kimura
+  regular_event: regular_event26
+
+regular_event_participation5:
+  user: hatsuno
+  regular_event: regular_event32

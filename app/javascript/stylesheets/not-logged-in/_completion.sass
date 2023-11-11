@@ -1,0 +1,21 @@
+.completion
+  padding-block: 4rem 2rem
+
+.completion__title
+  +text-block(1em 1.5, 800 center)
+  color: var(--reversal-text)
+  font-family: var(--sans-serif)
+  +media-breakpoint-up(md)
+    font-size: 2rem
+  +media-breakpoint-down(sm)
+    font-size: 1.5rem
+
+.completion__body
+  margin-top: 3rem
+
+.completion__image
+  border-radius: 1rem
+  +media-breakpoint-up(md)
+    border: solid .75rem var(--completion-dark)
+  +media-breakpoint-down(sm)
+    border: solid .5rem var(--completion-dark)

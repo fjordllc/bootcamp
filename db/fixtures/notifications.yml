@@ -155,3 +155,14 @@ notification_regular_event_updated:
   message: "[FBC] 定期イベント【開発MTG】が更新されました。"
   link: "/regular_events/<%= ActiveRecord::FixtureSet.identify(:regular_event1) %>"
   read: false
+
+<% 1.upto(25) do |i| %>
+notification_for_pagination<%= i %>: # 通知ページのページネーション動作確認のための通知
+  kind: 5
+  user: hatsuno
+  sender: komagata
+  message: "practice<%= i %>が更新されました。"
+  link: "/practices/<%= ActiveRecord::FixtureSet.identify("practice#{i}".to_sym) %>"
+  read: false
+  created_at: "<%= Time.current - i.days %>"
+<% end %>

@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/product_helper'
 
 class Product::UnassignedTest < ApplicationSystemTestCase
+  include ProductHelper
+
   test 'non-staff user can not see listing unassigned products' do
     visit_with_auth '/products/unassigned', 'hatsuno'
     assert_text '管理者・アドバイザー・メンターとしてログインしてください'
@@ -19,10 +22,9 @@ class Product::UnassignedTest < ApplicationSystemTestCase
   end
 
   test 'click on open all unassigned submissions button' do
+    delete_most_unassigned_products!
     visit_with_auth '/products/unassigned', 'komagata'
-
     click_button '未アサインの提出物を一括で開く'
-
     within_window(windows.last) do
       newest_product = Product
                        .unassigned
@@ -46,12 +48,14 @@ class Product::UnassignedTest < ApplicationSystemTestCase
   end
 
   test 'display elapsed days label and number of products' do
+    unassigned_products = Product.unassigned.not_wip.unchecked
+
     visit_with_auth '/products/unassigned', 'komagata'
     within '.page-body__column.is-main' do
-      assert_text '7日以上経過（6）'
-      assert_text '6日経過（1）'
-      assert_text '5日経過（1）'
-      assert_text '今日提出（48）'
+      assert_text "7日以上経過（#{unassigned_products.count { |product| product.elapsed_days >= 7 }}）"
+      assert_text "6日経過（#{unassigned_products.count { |product| product.elapsed_days == 6 }}）"
+      assert_text "5日経過（#{unassigned_products.count { |product| product.elapsed_days == 5 }}）"
+      assert_text "今日提出（#{unassigned_products.count { |product| product.elapsed_days.zero? }}）"
     end
   end
 

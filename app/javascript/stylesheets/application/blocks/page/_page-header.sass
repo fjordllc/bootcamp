@@ -1,6 +1,5 @@
 .page-header
-  background-color: $base
-  +position(relative, 1)
+  background-color: var(--base)
 
 .page-header__inner
   +position(relative)
@@ -11,16 +10,20 @@
     justify-content: space-between
   +media-breakpoint-down(sm)
     display: block
-    +padding(vertical, .5rem)
+    padding-block: .5rem
 
 .page-header__start
   display: flex
   align-items: center
 
 .page-header__title
-  +text-block(1.25rem 1, $main 700)
+  color: var(--main)
+  line-height: 1
+  font-weight: 700
   font-feature-settings: "palt"
   letter-spacing: .02em
+  +media-breakpoint-up(md)
+    font-size: 1.25rem
   +media-breakpoint-down(sm)
     font-size: 1.125rem
     word-wrap: break-word
@@ -29,15 +32,11 @@
     +size(2.5rem auto)
     margin-right: .5rem
   +media-breakpoint-down(sm)
-    +text-block(1rem 1.4, $main)
+    +text-block(1rem 1.4)
+    color: var(--main)
   .page-header__start &
     margin-right: .5em
     align-self: center
-
-.page-header__optionable-action
-  min-width: 7.5rem
-  .a-button
-    height: 2.125rem
 
 .page-header__action
   +media-breakpoint-down(sm)

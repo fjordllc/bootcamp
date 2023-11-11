@@ -44,7 +44,7 @@ class HibernationController < ApplicationController
 
   def notify_to_mentors_and_admins
     User.admins_and_mentors.each do |admin_or_mentor|
-      NotificationFacade.hibernated(current_user, admin_or_mentor)
+      ActivityDelivery.with(sender: current_user, receiver: admin_or_mentor).notify(:hibernated)
     end
   end
 

@@ -28,7 +28,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'update product notification message' do
+  test 'update product notification message for checker' do
     product = products(:product2)
 
     visit_with_auth "/products/#{product.id}/edit", 'kimura'
@@ -41,7 +41,30 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'komagata'
 
     within first('.card-list-item.is-unread') do
-      assert_text 'kimuraさんの提出物が更新されました'
+      assert_text "kimuraさんの「#{product.practice.title}」の提出物が更新されました"
+    end
+  end
+
+  test 'update product notification message for watcher' do
+    # 担当者がいなくてwatchされていない提出物
+    product = products(:product73)
+
+    visit_with_auth "/products/#{product.id}/", 'komagata'
+
+    find('#watch-button').click
+    assert_text 'Watchしました！'
+
+    visit_with_auth "/products/#{product.id}/edit", 'hajime'
+    within('form[name=product]') do
+      fill_in('product[body]', with: 'test')
+    end
+    click_button '提出する'
+    assert_text '提出物を更新しました。'
+
+    visit_with_auth '/notifications', 'komagata'
+
+    within first('.card-list-item.is-unread') do
+      assert_text "hajimeさんの「#{product.practice.title}」の提出物が更新されました"
     end
   end
 
@@ -67,22 +90,20 @@ class Notification::ProductsTest < ApplicationSystemTestCase
   end
 
   test 'send the notification of practices mentor is watching' do
-    practice = practices(:practice1)
+    practice = practices(:practice5)
 
     visit_with_auth "/practices/#{practice.id}", 'mentormentaro'
     find('div.a-watch-button', text: 'Watch').click
 
-    user = users(:hatsuno)
-    Product.create!(
-      body: 'test',
-      user: user,
-      practice: practice
-    )
+    assert_text 'Watch中'
+
+    visit_with_auth "/products/new?practice_id=#{practice.id}", 'hatsuno'
+    fill_in 'product[body]', with: 'test'
+    click_button '提出する'
 
     visit_with_auth '/notifications?status=unread&target=watching', 'mentormentaro'
-
-    within first('.card-list-item.is-unread') do
-      assert_text "#{user.login_name}さんが「#{practice.title}」の提出物を提出しました。"
+    within first('.card-list-item-title__link-label') do
+      assert_text "#{users(:hatsuno).login_name}さんが「#{practice.title}」の提出物を提出しました。"
     end
   end
 end

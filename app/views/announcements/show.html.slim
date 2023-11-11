@@ -13,9 +13,9 @@ header.page-header
           li.page-header-actions__item
             = link_to announcements_path, class: 'a-button is-md is-secondary is-block is-back' do
               | お知らせ一覧へ
-
+hr.a-border
 .page-body
-  .container.is-lg
+  .container.is-md
     = render 'announcement', announcement: @announcement
     #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
     div(data-vue='Footprints' data-vue-footprintable-id="#{@announcement.id}" data-vue-footprintable-type='Announcement')

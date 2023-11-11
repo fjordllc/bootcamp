@@ -1,18 +1,10 @@
 - title 'ダッシュボード'
+- set_meta_tags description: 'ダッシュボードページです。'
+
 = render 'page_header'
 = render 'page_tabs', user: current_user
 
 .page-body.is-dash-board
-  - if @events_coming_soon.present? || @regular_events_comming_soon_for_current_user.present?
-    #events_on_dashboard.confirmed_event
-      .page-notices
-        - if @events_coming_soon.present? && current_user.job_seeker
-          = render partial: 'event', collection: @events_coming_soon, as: :event
-        - if @events_coming_soon_except_job_hunting.present? && !current_user.job_seeker
-          = render partial: 'event', collection: @events_coming_soon_except_job_hunting, as: :event
-        - if @regular_events_comming_soon_for_current_user.present?
-          = render partial: 'regular_event', collection: @regular_events_comming_soon_for_current_user, as: :regular_event
-
   - if current_user.adviser?
     = render 'adviser_dashboard'
   - elsif current_user.mentor?
@@ -21,9 +13,10 @@
     - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
       = render 'welcome_message'
     .columns
-      .container.is-xxl
+      .container.is-xl
         .row
           .col-xs-12.col-xl-6.col-xxl-6
+            = render partial: 'events', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
             - if @announcements.present?
               = render partial: 'announcements'
             - if current_user.bookmarks.present?

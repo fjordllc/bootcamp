@@ -21,7 +21,8 @@ class Admin::UsersController < AdminController
 
   def update
     if @user.update(user_params)
-      Newspaper.publish(:retirement_create, @user)
+      destroy_subscription(@user)
+      Newspaper.publish(:retirement_create, @user) if @user.saved_change_to_retired_on?
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -48,17 +49,26 @@ class Admin::UsersController < AdminController
     params.require(:user).permit(
       :adviser, :login_name, :name,
       :name_kana, :email, :course_id, :subscription_id,
-      :description, :discord_account, :github_account,
-      :twitter_account, :facebook_url, :blog_url, :times_url,
+      :description, :github_account,
+      :twitter_account, :facebook_url, :blog_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
-      :experience, :prefecture_code, :company_id,
+      :experience, :company_id,
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on,
+      :auto_retire,
       :profile_image, :profile_name, :profile_job, :mentor,
-      :profile_text, authored_books_attributes: %i[id title url cover _destroy]
+      :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
+      :country_code, :subdivision_code, discord_profile_attributes: %i[account_name times_url times_id]
     )
+  end
+
+  def destroy_subscription(user)
+    return if user.subscription_id.blank?
+    return unless user.saved_change_to_retired_on? || user.saved_change_to_graduated_on?
+
+    Subscription.new.destroy(user.subscription_id)
   end
 end

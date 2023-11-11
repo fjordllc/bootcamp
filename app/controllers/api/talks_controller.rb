@@ -7,7 +7,8 @@ class API::TalksController < API::BaseController
   def index
     @target = params[:target]
     @target = 'all' unless TARGETS.include?(@target)
-    @talks = Talk.eager_load(user: { avatar_attachment: :blob })
+    @talks = Talk.joins(:user)
+                 .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
     @talks =
       if params[:search_word]
@@ -20,5 +21,16 @@ class API::TalksController < API::BaseController
         @talks.merge(User.users_role(@target))
               .page(params[:page]).per(PAGER_NUMBER)
       end
+  end
+
+  def update
+    talk = Talk.find(params[:id])
+    talk.update(talk_params)
+  end
+
+  private
+
+  def talk_params
+    params.require(:talk).permit(:action_completed)
   end
 end

@@ -22,7 +22,7 @@
                   :src='emotionImg',
                   :alt='report.emotion')
                 | {{ report.title }}
-            .card-list-item-title__end(v-if='currentUserId == report.user.id')
+            .card-list-item-title__end(v-if='currentUserId === report.user.id')
               label.card-list-item-actions__trigger(:for='report.id')
                 i.fa-solid.fa-ellipsis-h
               .card-list-item-actions
