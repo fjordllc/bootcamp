@@ -22,7 +22,7 @@ class PagesTest < ApplicationSystemTestCase
 
   test 'show page' do
     visit_with_auth "/pages/#{pages(:page1).id}", 'kimura'
-    assert_equal 'test1 | FBC', title
+    assert_equal 'Doc test1 | FBC', title
   end
 
   test 'show edit page' do
