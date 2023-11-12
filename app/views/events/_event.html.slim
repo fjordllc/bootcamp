@@ -44,7 +44,7 @@
                 i.fa-solid.fa-copy
                 | コピー
 
-  = render('event_meta', event: event)
+  = render('event_meta', event:)
 
   .a-card
     .card-header.is-sm
@@ -56,7 +56,7 @@
         .a-long-text.is-md.js-markdown-view
           = event.description
       - unless event.wip?
-        = render 'events/participation', event: event
+        = render 'events/participation', event:
     hr.a-border-tint
     = render 'reactions/reactions', reactionable: event
     - if event.user_id == current_user.id || admin_or_mentor_login?
