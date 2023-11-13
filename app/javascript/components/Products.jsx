@@ -67,20 +67,6 @@ export default function Products({
     return `${elapsedDays}days-elapsed`
   }
 
-  const checkerId = () => {
-    const params = new URLSearchParams(location.search)
-    const id = params.get('checker_id')
-    return id ? `checker_id=${id}` : ''
-  }
-
-  const isActive = (target) => {
-    const params = new URLSearchParams(location.search)
-    const urlTarget = params.get('target')
-    if ((!urlTarget && target === 'unchecked_all') || target === urlTarget) {
-      return 'is-active'
-    }
-  }
-
   if (error) return <>エラーが発生しました。</>
 
   if (!data) {
@@ -93,11 +79,11 @@ export default function Products({
     )
   } else if (data.products.length === 0) {
     return (
-      <div class="o-empty-message">
-        <div class="o-empty-message__icon">
-          <i class="fa-regular fa-smile"></i>
+      <div className="o-empty-message">
+        <div className="o-empty-message__icon">
+          <i className="fa-regular fa-smile"></i>
         </div>
-        <p class="o-empty-message__text">{title}はありません</p>
+        <p className="o-empty-message__text">{title}はありません</p>
       </div>
     )
   } else if (isDashboard() && isNotProduct5daysElapsed()) {
@@ -116,17 +102,7 @@ export default function Products({
         {selectedTab !== 'all' && (
           <nav className="pill-nav">
             <ul className="pill-nav__items">
-              {['unchecked_no_replied', 'unchecked_all'].map((target) => {
-                return (
-                  <li className="pill-nav__item" key={target}>
-                    <a
-                      href={`/products/unchecked?${checkerId()}&target=${target}`}
-                      className={`pill-nav__item-link ${isActive(target)}`}>
-                      {target === 'unchecked_no_replied' ? '未返信' : '全て'}
-                    </a>
-                  </li>
-                )
-              })}
+              <FilterButtons selectedTab={selectedTab} />
             </ul>
           </nav>
         )}
@@ -250,5 +226,64 @@ function ProductHeader({
         </span>
       </h2>
     </header>
+  )
+}
+
+const FilterButtons = ({ selectedTab }) => {
+  let targets
+  if (selectedTab === 'self_assigned') {
+    targets = ['self_assigned_no_replied', 'self_assigned_all']
+  } else {
+    targets = ['unchecked_no_replied', 'unchecked_all']
+  }
+
+  const filterButtonUrl = ({ selectedTab, target }) => {
+    const searchParams = new URLSearchParams()
+    const params = new URLSearchParams(location.search)
+
+    const id = params.get('checker_id')
+    if (id) {
+      searchParams.set('checker_id', id)
+    }
+    searchParams.set('target', target)
+    const url = new URL(
+      new URL(`/products/${encodeURIComponent(selectedTab)}`, location.origin)
+    )
+    url.search = searchParams
+
+    return url.toString()
+  }
+
+  const isActive = (target) => {
+    const params = new URLSearchParams(location.search)
+    const urlTarget = params.get('target')
+    if (!urlTarget) {
+      if (target === 'unchecked_all' || target === 'self_assigned_all') {
+        return 'is-active'
+      }
+    } else if (target === urlTarget) {
+      return 'is-active'
+    } else {
+      return ''
+    }
+  }
+
+  return (
+    <>
+      {targets.map((target) => {
+        return (
+          <li className="pill-nav__item" key={target}>
+            <a
+              href={filterButtonUrl({ selectedTab, target })}
+              className={`pill-nav__item-link ${isActive(target)}`}>
+              {target === 'unchecked_no_replied' ||
+              target === 'self_assigned_no_replied'
+                ? '未返信'
+                : '全て'}
+            </a>
+          </li>
+        )
+      })}
+    </>
   )
 }
