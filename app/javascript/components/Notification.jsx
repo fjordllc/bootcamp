@@ -1,4 +1,5 @@
 import React from 'react'
+import UserIcon from './UserIcon'
 import dayjs from 'dayjs'
 import ja from 'dayjs/locale/ja'
 dayjs.locale(ja)
@@ -7,7 +8,6 @@ export default function Notification({ notification }) {
   const createdAt = dayjs(notification.created_at).format(
     'YYYY年MM月DD日(ddd) HH:mm'
   )
-  const roleClass = `is-${notification.sender.primary_role}`
 
   return (
     <div
@@ -16,10 +16,10 @@ export default function Notification({ notification }) {
       }`}>
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
-          <img
-            className={`card-list-item__user-icon a-user-icon ${roleClass}`}
-            title={notification.sender.icon_title}
-            src={notification.sender.avatar_url}
+          <UserIcon
+            key={notification.id}
+            user={notification.sender}
+            blockClassSuffix="card-list-item"
           />
         </div>
         <div className="card-list-item__rows">
