@@ -83,18 +83,18 @@ module UsersHelper
       "#{remaining_days_until_automatic_retire(user)}日"
     end
   end
+end
 
-  private
+private
 
-  def remaining_hours_until_automatic_retire(user)
-    return unless user.hibernated_at
+def remaining_hours_until_automatic_retire(user)
+  return unless user.hibernated_at
 
-    ((user.automatic_retire_datetime - Time.zone.now) / 3600).floor
-  end
+  ((user.automatic_retire_datetime - Time.zone.now) / 3600).floor
+end
 
-  def remaining_minutes_until_automatic_retire(user)
-    return unless user.hibernated_at
+def remaining_minutes_until_automatic_retire(user)
+  return unless user.hibernated_at
 
-    ((user.automatic_retire_datetime - Time.zone.now) / 60).floor
-  end
+  ((user.automatic_retire_datetime - Time.zone.now) / 60).floor
 end
