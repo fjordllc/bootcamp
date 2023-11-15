@@ -289,8 +289,8 @@ GEM
       minitest (>= 5.0.6)
     minitest-retry (0.2.2)
       minitest (>= 5.0)
-    msgpack (1.7.2)
     minitest-stub_any_instance (1.0.3)
+    msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
@@ -586,6 +586,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-22
   arm64-darwin-23
   x86_64-darwin-22
   x86_64-linux
