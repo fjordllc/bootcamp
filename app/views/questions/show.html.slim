@@ -1,4 +1,4 @@
-- title @question.title
+- title "Q＆A #{@question.title}"
 - if @question.practice
   - set_meta_tags description: "#{@question.user.long_name}さんが投稿した、プラクティス「#{@question.practice}」に関する質問「#{@question.title}」のページです。"
 - else
