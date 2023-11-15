@@ -8,6 +8,7 @@ require 'supports/notification_helper'
 require 'supports/report_helper'
 require 'supports/comment_helper'
 require 'supports/tag_helper'
+require 'supports/mock_env_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -17,6 +18,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ReportHelper
   include CommentHelper
   include TagHelper
+  include MockEnvHelper
 
   if ENV['HEADED']
     driven_by :selenium, using: :chrome
