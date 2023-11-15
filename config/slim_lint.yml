@@ -39,4 +39,3 @@ linters:
       - Style/Next
       - Style/WhileUntilDo
       - Style/WhileUntilModifier
-      - Style/HashSyntax
