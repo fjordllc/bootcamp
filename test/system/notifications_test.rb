@@ -262,7 +262,9 @@ class NotificationsTest < ApplicationSystemTestCase
       visit "/reports/#{report}"
       fill_in 'new_comment[description]', with: 'コメントと確認した'
       click_button '確認OKにする'
+      assert_text 'コメントと確認した'
       visit_with_auth "/reports/#{report}", 'hatsuno'
+      assert_text 'コメントと確認した'
       find('.header-links__link.test-show-notifications').click
       assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
     end
@@ -270,6 +272,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'notify user class name role contains' do
     visit_with_auth '/', 'komagata'
+    assert_text '7日以上経過'
     find('.header-links__link.test-show-notifications').click
     assert_selector 'span.a-user-role.is-admin'
     assert_selector 'span.a-user-role.is-student'
@@ -418,5 +421,14 @@ class NotificationsTest < ApplicationSystemTestCase
     within '.page-tabs__item', text: 'メンション' do
       assert_no_selector '.a-notification-count'
     end
+  end
+
+  test 'Unread and All buttons should always be displayed' do
+    user = users(:kimura)
+    visit_with_auth '/notifications', user.login_name
+    assert_selector '.pill-nav__item-link.is-active'
+
+    visit '/notifications?status=unread&target=check'
+    assert_selector '.pill-nav__item-link.is-active'
   end
 end

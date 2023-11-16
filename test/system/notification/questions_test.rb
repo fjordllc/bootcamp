@@ -303,15 +303,23 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     )
 
     travel_to Time.zone.local(2022, 11, 6, 0, 0, 0) do
-      visit_with_auth '/scheduler/daily/notify_certain_period_passed_after_last_answer', 'kimura'
-      visit '/notifications'
+      assert_no_difference 'questioner.notifications.count' do
+        mock_env('TOKEN' => 'token') do
+          visit scheduler_daily_notify_certain_period_passed_after_last_answer_path(token: 'token')
+        end
+        visit_with_auth '/notifications', 'kimura'
 
-      assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+        assert_no_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
+        assert_current_path(notifications_path(_login_name: 'kimura'))
+      end
     end
+    logout
 
     travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
-      visit_with_auth '/scheduler/daily/notify_certain_period_passed_after_last_answer', 'kimura'
-      visit '/notifications'
+      mock_env('TOKEN' => 'token') do
+        visit scheduler_daily_notify_certain_period_passed_after_last_answer_path(token: 'token')
+      end
+      visit_with_auth '/notifications', 'kimura'
 
       assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
