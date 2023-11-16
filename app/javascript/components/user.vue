@@ -68,7 +68,7 @@
                 :isFollowing='user.isFollowing',
                 :userId='user.id',
                 :isWatching='user.isWatching')
-            li.card-main-actions__item.is-only-admin(
+            li.card-main-actions__item.is-only-mentor(
               v-if='currentUser.admin && user.talkUrl')
               a.a-button.is-secondary.is-sm.is-block(:href='user.talkUrl')
                 | 相談部屋
