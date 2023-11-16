@@ -289,6 +289,7 @@ GEM
       minitest (>= 5.0.6)
     minitest-retry (0.2.2)
       minitest (>= 5.0)
+    minitest-stub_any_instance (1.0.3)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -306,6 +307,8 @@ GEM
     newspaper (0.2.0)
     nio4r (2.5.9)
     nokogiri (1.15.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
@@ -583,7 +586,9 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-22
   arm64-darwin-23
+  x86_64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
@@ -625,6 +630,7 @@ DEPENDENCIES
   mini_magick
   minitest-ci
   minitest-retry
+  minitest-stub_any_instance
   net-imap
   net-pop
   net-smtp

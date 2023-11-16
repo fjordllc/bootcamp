@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include PolicyHelper
   helper_method :staging?
   protect_from_forgery with: :exception
+  before_action :require_scheduler_inheritation, if: -> { request.path_info.start_with?('/scheduler') }
   before_action :basic_auth, if: :staging?
   before_action :test_login, if: :test?
   before_action :init_user
@@ -48,6 +49,10 @@ class ApplicationController < ActionController::Base
 
   def require_subscription
     redirect_to root_path, notice: 'サブスクリプション登録が必要です。' unless current_user&.subscription?
+  end
+
+  def require_scheduler_inheritation
+    head :internal_server_error unless is_a?(SchedulerController)
   end
 
   protected
