@@ -17,7 +17,6 @@ export default function Notification({ notification }) {
       <div className="card-list-item__inner">
         <div className="card-list-item__user">
           <UserIcon
-            key={notification.id}
             user={notification.sender}
             blockClassSuffix="card-list-item"
           />
