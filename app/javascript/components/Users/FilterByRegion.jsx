@@ -10,7 +10,11 @@ import useSWR from 'swr'
 // helper
 import fetcher from '../../fetcher'
 
-function RegionCard({ region, numberOfUsersByRegion, updateSelectedSubdivisionOrCountry }) {
+function RegionCard({
+  region,
+  numberOfUsersByRegion,
+  updateSelectedSubdivisionOrCountry
+}) {
   return (
     <nav className="page-nav a-card">
       <header className="page-nav__header">
@@ -23,7 +27,9 @@ function RegionCard({ region, numberOfUsersByRegion, updateSelectedSubdivisionOr
         {Object.keys(numberOfUsersByRegion).map((subdivisionOrCountry) => (
           <li key={subdivisionOrCountry} className="page-nav__item">
             <button
-              onClick={() => updateSelectedSubdivisionOrCountry(region, subdivisionOrCountry)}
+              onClick={() =>
+                updateSelectedSubdivisionOrCountry(region, subdivisionOrCountry)
+              }
               className="page-nav__item-link a-text-link">
               {`${subdivisionOrCountry}（${numberOfUsersByRegion[subdivisionOrCountry]})`}
             </button>
@@ -38,12 +44,20 @@ function RegionCard({ region, numberOfUsersByRegion, updateSelectedSubdivisionOr
  * 都道府県を指定しないデフォルトでは東京都が選択されます
  */
 export default function FilterByRegion({ numberOfUsersByRegion }) {
-  const [searchParams, setSearchParams] = useSearchParams({ subdivision_or_country: '東京都' })
+  const [searchParams, setSearchParams] = useSearchParams({
+    subdivision_or_country: '東京都'
+  })
   const apiUrl = '/api/users/regions?'
   const { data: users, error, mutate } = useSWR(apiUrl + searchParams, fetcher)
 
-  const updateSelectedSubdivisionOrCountry = async (region, subdivisionOrCountry) => {
-    const search = new URLSearchParams({ region, subdivision_or_country: subdivisionOrCountry })
+  const updateSelectedSubdivisionOrCountry = async (
+    region,
+    subdivisionOrCountry
+  ) => {
+    const search = new URLSearchParams({
+      region,
+      subdivision_or_country: subdivisionOrCountry
+    })
     const newUsers = await fetcher(apiUrl + search).catch((error) => {
       console.error(error)
     })
@@ -72,13 +86,15 @@ export default function FilterByRegion({ numberOfUsersByRegion }) {
 
   return (
     <MultiColumns data-testid="regions" isReverse>
-      <MultiColumns.Sub className='is-sm'>
+      <MultiColumns.Sub className="is-sm">
         {Object.keys(numberOfUsersByRegion).map((region) => (
           <RegionCard
             key={region}
             region={region}
             numberOfUsersByRegion={numberOfUsersByRegion[region]}
-            updateSelectedSubdivisionOrCountry={updateSelectedSubdivisionOrCountry}
+            updateSelectedSubdivisionOrCountry={
+              updateSelectedSubdivisionOrCountry
+            }
           />
         ))}
       </MultiColumns.Sub>
