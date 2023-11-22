@@ -30,7 +30,10 @@ function Region({ region, numberOfUsersByRegion, handleClick }) {
   )
 }
 
-export default function Areas({ numberOfUsers }) {
+/**
+ * 都道府県を指定しないデフォルトでは東京都が選択されます
+ */
+export default function Areas({ numberOfUsersByRegion }) {
   const [searchParams, setSearchParams] = useSearchParams({ area: '東京都' })
   const apiUrl = '/api/users/areas?'
   const { data: users, error, mutate } = useSWR(apiUrl + searchParams, fetcher)
@@ -52,7 +55,7 @@ export default function Areas({ numberOfUsers }) {
     mutate(newUsers)
   })
 
-  if (error) return console.warn(error)
+  if (error) return <>エラーが発生しました。</>
   if (!users) {
     return (
       <div className="page-body">
@@ -68,11 +71,11 @@ export default function Areas({ numberOfUsers }) {
       <div className="container is-lg">
         <div className="page-body__columns is-reverse">
           <div className="page-body__column is-sub is-sm">
-            {Object.keys(numberOfUsers).map((region) => (
+            {Object.keys(numberOfUsersByRegion).map((region) => (
               <Region
                 key={region}
                 region={region}
-                numberOfUsersByRegion={numberOfUsers[region]}
+                numberOfUsersByRegion={numberOfUsersByRegion[region]}
                 handleClick={handleClick}
               />
             ))}

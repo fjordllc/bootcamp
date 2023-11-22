@@ -34,7 +34,8 @@ class Area
       end
     end
 
-    def number_of_users
+    # 都道府県及び海外の国毎のユーザー数をハッシュで取得
+    def number_of_users_by_region
       translated_pairs = translate(country_subdivision_pairs)
       by_countries = translated_pairs.group_by(&:first)
       # hash autovivification https://stackoverflow.com/questions/50468234/better-way-to-initialize-and-update-deeply-nested-hash
