@@ -1,11 +1,16 @@
 import React from 'react'
 import clsx from 'clsx'
 
-export const MultiColumns = ({ className, children, isReverse = false, ...props}) => {
+export const MultiColumns = ({
+  className,
+  children,
+  isReverse = false,
+  ...props
+}) => {
   return (
     <div className={clsx('page-body', className)} {...props}>
       <div className="container is-lg">
-        <div className={clsx('page-body__columns', isReverse && 'is-reverse' )}>
+        <div className={clsx('page-body__columns', isReverse && 'is-reverse')}>
           {children}
         </div>
       </div>
