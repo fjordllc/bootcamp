@@ -78,6 +78,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def holding_today?
+    return false if !hold_national_holiday && HolidayJp.holiday?(Time.zone.today)
+
     now = Time.current
     event_day = regular_event_repeat_rules.map do |repeat_rule|
       if repeat_rule.frequency.zero?
