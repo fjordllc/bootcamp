@@ -352,6 +352,7 @@ class User < ApplicationRecord
   scope :desc_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
+      .unhibernated
       .order(last_activity_at: :desc)
       .tagged_with(tag_name)
   }
@@ -404,7 +405,7 @@ class User < ApplicationRecord
     end
 
     def tags
-      unretired.all_tag_counts(order: 'count desc, name asc')
+      unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
     end
 
     def depressed_reports
