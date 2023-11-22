@@ -9,19 +9,19 @@ import { useSearchParams, usePopstate } from '../../hooks/useSearchParams'
 function Region({ region, numberOfUsersByRegion, handleClick }) {
   return (
     <nav key={region} className="page-nav a-card">
-      <header class="page-nav__header">
+      <header className="page-nav__header">
         <h2 className="page-nav__title">
           <span className="page-nav__title-inner">{region}</span>
         </h2>
       </header>
       <hr className="a-border-tint"></hr>
       <ul className="page-nav__items">
-        {Object.keys(numberOfUsersByRegion).map((area) => (
-          <li key={area} className="page-nav__item">
+        {Object.keys(numberOfUsersByRegion).map((subdivisionOrCountry) => (
+          <li key={subdivisionOrCountry} className="page-nav__item">
             <button
-              onClick={() => handleClick(region, area)}
+              onClick={() => handleClick(region, subdivisionOrCountry)}
               className="page-nav__item-link a-text-link">
-              {`${area}（${numberOfUsersByRegion[area]})`}
+              {`${subdivisionOrCountry}（${numberOfUsersByRegion[subdivisionOrCountry]})`}
             </button>
           </li>
         ))}
@@ -33,13 +33,13 @@ function Region({ region, numberOfUsersByRegion, handleClick }) {
 /**
  * 都道府県を指定しないデフォルトでは東京都が選択されます
  */
-export default function Areas({ numberOfUsersByRegion }) {
-  const [searchParams, setSearchParams] = useSearchParams({ area: '東京都' })
-  const apiUrl = '/api/users/areas?'
+export default function FilterByRegion({ numberOfUsersByRegion }) {
+  const [searchParams, setSearchParams] = useSearchParams({ subdivision_or_country: '東京都' })
+  const apiUrl = '/api/users/regions?'
   const { data: users, error, mutate } = useSWR(apiUrl + searchParams, fetcher)
 
-  const handleClick = async (region, area) => {
-    const search = new URLSearchParams({ region, area })
+  const handleClick = async (region, subdivisionOrCountry) => {
+    const search = new URLSearchParams({ region, subdivision_or_country: subdivisionOrCountry })
     const newUsers = await fetcher(apiUrl + search).catch((error) => {
       console.error(error)
     })
@@ -67,7 +67,7 @@ export default function Areas({ numberOfUsersByRegion }) {
   }
 
   return (
-    <div data-testid="areas" className="page-body">
+    <div data-testid="regions" className="page-body">
       <div className="container is-lg">
         <div className="page-body__columns is-reverse">
           <div className="page-body__column is-sub is-sm">
@@ -85,7 +85,7 @@ export default function Areas({ numberOfUsersByRegion }) {
               {users.length > 0 ? (
                 <UserGroup>
                   <UserGroup.Header>
-                    {searchParams.get('area') || '東京都'}
+                    {searchParams.get('subdivision_or_country') || '東京都'}
                   </UserGroup.Header>
                   <UserGroup.Icons users={users} />
                 </UserGroup>
