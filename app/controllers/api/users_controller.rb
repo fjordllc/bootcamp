@@ -16,7 +16,7 @@ class API::UsersController < API::BaseController
       if @target == 'followings'
         current_user.followees_list(watch: @watch)
       elsif @tag
-        User.tagged_with(@tag)
+        User.tagged_with(@tag).unhibernated.unretired
       elsif @company
         User.where(company_id: @company).users_role(@target)
       elsif @target.in? %w[hibernated retired]
