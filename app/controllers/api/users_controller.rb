@@ -12,22 +12,8 @@ class API::UsersController < API::BaseController
 
     @target = target_allowlist.include?(params[:target]) ? params[:target] : 'student_and_trainee'
 
-    target_users =
-      if @target == 'followings'
-        current_user.followees_list(watch: @watch)
-      elsif @tag
-        User.tagged_with(@tag)
-      elsif @company
-        User.where(company_id: @company).users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
-      elsif @target.in? %w[hibernated retired]
-        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
-      else
-        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee').unhibernated.unretired
-      end
-
-    @users = target_users.page(params[:page]).per(PAGER_NUMBER)
-                         .preload(:company, :avatar_attachment, :course, :tags)
-                         .order(updated_at: :desc)
+    target_users = retrieve_target_users
+    @users = target_users.page(params[:page]).per(PAGER_NUMBER).preload(:company, :avatar_attachment, :course, :tags).order(updated_at: :desc)
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
   end
@@ -59,6 +45,23 @@ class API::UsersController < API::BaseController
     target_allowlist.push('all') if @company
     target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
+  end
+
+  def retrieve_target_users
+    target_users =
+      if @target == 'followings'
+        current_user.followees_list(watch: @watch)
+      elsif @tag
+        User.tagged_with(@tag)
+      elsif @company
+        User.where(company_id: @company).users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+      elsif @target.in? %w[hibernated retired]
+        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+      else
+        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee').unhibernated.unretired
+      end
+
+    @target == 'inactive' ? target_users.order(:last_activity_at) : target_users
   end
 
   def set_user
