@@ -11,6 +11,14 @@ class User < ApplicationRecord
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
+  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee trainee year_end_party].freeze
+  # 本来であればtarget = scope名としたいが、歴史的経緯によりtargetとscope名が一致しないものが多数あるため、名前が一致しない場合はこのハッシュを使ってscope名に変換する
+  TARGET_TO_SCOPE = {
+    'student_and_trainee' => :students_and_trainees,
+    'graduate' => :graduated,
+    'adviser' => :advisers,
+    'trainee' => :trainees
+  }.freeze
 
   enum job: {
     student: 0,
@@ -384,21 +392,13 @@ class User < ApplicationRecord
       end
     end
 
-    def users_role(target)
-      case target
-      when 'student_and_trainee'
-        students_and_trainees
-      when 'graduate'
-        graduated
-      when 'adviser'
-        advisers
-      when 'inactive'
-        inactive.order(:last_activity_at)
-      when 'trainee'
-        trainees
-      else
-        send(target)
-      end
+    # このメソッドはユーザから送信された値をsendに渡すので、悪意のあるコードが実行される危険性がある
+    # そのため、このメソッドを使用する際には安全性の確保のために以下の引数を指定すること
+    # allowed_targets:　呼び出したいscope名に対応するtargetを過不足なく指定した配列。
+    # default_target: targetに不正な値が渡された際、users_roleが返すスコープ名に対応するtargetを指定する。デフォルトでは:noneを指定しているため何も返さない。
+    def users_role(target, allowed_targets: [], default_target: :none)
+      scope_name = (ALL_ALLOWED_TARGETS & allowed_targets).include?(target) ? TARGET_TO_SCOPE.fetch(target, target) : default_target
+      send(scope_name)
     end
 
     def tags

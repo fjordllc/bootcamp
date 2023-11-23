@@ -2,6 +2,7 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
+  TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
   def index
     @direction = params[:direction] || 'desc'
@@ -9,8 +10,8 @@ class Admin::UsersController < AdminController
     @users = User.with_attached_avatar
                  .preload(%i[company course])
                  .order_by_counts(params[:order_by] || 'id', @direction)
-                 .users_role(@target)
-    @emails = User.users_role(@target).pluck(:email)
+                 .users_role(@target, allowed_targets: TARGETS, default_target: 'student_and_trainee')
+    @emails = User.users_role(@target, allowed_targets: TARGETS, default_target: 'student_and_trainee').pluck(:email)
   end
 
   def show

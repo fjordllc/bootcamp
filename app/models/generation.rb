@@ -2,6 +2,7 @@
 
 class Generation
   START_YEAR = 2013
+  TARGETS = %w[all trainee adviser graduate mentor retired].freeze
 
   class << self
     def generations(target)
@@ -39,7 +40,7 @@ class Generation
   end
 
   def target_users(target)
-    target_users = users.users_role(target)
+    target_users = users.users_role(target, allowed_targets: TARGETS, default_target: 'all')
     target == 'retired' ? target_users : target_users.unretired
   end
 end

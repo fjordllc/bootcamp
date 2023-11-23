@@ -18,11 +18,11 @@ class API::UsersController < API::BaseController
       elsif @tag
         User.tagged_with(@tag)
       elsif @company
-        User.where(company_id: @company).users_role(@target)
+        User.where(company_id: @company).users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
       elsif @target.in? %w[hibernated retired]
-        User.users_role(@target)
+        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
       else
-        User.users_role(@target).unhibernated.unretired
+        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee').unhibernated.unretired
       end
 
     @users = target_users.page(params[:page]).per(PAGER_NUMBER)
@@ -46,7 +46,10 @@ class API::UsersController < API::BaseController
 
   def search_for_users(target, target_users, search_word)
     users = target_users.search_by_keywords({ word: search_word })
-    users = User.search_by_keywords({ word: search_word }).unscope(where: :retired_on).users_role(target) if target == 'retired'
+    if target == 'retired'
+      users = User.search_by_keywords({ word: search_word }).unscope(where: :retired_on)
+                  .users_role(target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+    end
     users
   end
 

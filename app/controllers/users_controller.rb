@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       elsif params[:tag]
         User.tagged_with(params[:tag])
       else
-        User.users_role(@target)
+        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
       end
 
     @users = target_users
