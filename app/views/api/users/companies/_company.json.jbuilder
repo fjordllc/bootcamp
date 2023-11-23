@@ -6,4 +6,5 @@ json.description company.description
 json.logo_url company.logo_url
 json.users_url company_users_url(company)
 
-json.users company.users.users_role(@target).order(:id), partial: "api/users/user", as: :user
+targets = %w[all trainee adviser graduate mentor]
+json.users company.users.users_role(@target, allowed_targets: targets, default_target: 'all').order(:id), partial: "api/users/user", as: :user

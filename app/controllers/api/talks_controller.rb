@@ -15,10 +15,10 @@ class API::TalksController < API::BaseController
         @talks.merge(
           User.search_by_keywords({ word: params[:search_word] })
               .unscope(where: :retired_on)
-              .users_role(@target)
+              .users_role(@target, allowed_targets: TARGETS, default_target: 'all')
         )
       else
-        @talks.merge(User.users_role(@target))
+        @talks.merge(User.users_role(@target, allowed_targets: TARGETS, default_target: 'all'))
               .page(params[:page]).per(PAGER_NUMBER)
       end
   end
