@@ -72,6 +72,17 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
+  test '#calculate_nth_weekday_date' do
+    regular_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule2)
+    days_of_the_week_count = 7
+
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 1, 6), regular_event.calculate_nth_weekday_date(repeat_rule, first_day, days_of_the_week_count)
+    end
+  end
+
   test '#holding_tomorrow?' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2023, 2, 25, 0, 0, 0) do
