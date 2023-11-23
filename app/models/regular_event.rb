@@ -114,13 +114,13 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def possible_next_event_date(first_day, repeat_rule)
     return next_specific_day_of_the_week(repeat_rule) if repeat_rule.frequency.zero?
 
-    possible_date = next_month_specific_day_of_the_week(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
+    possible_date = calculate_nth_weekday_date(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
 
     return possible_date if hold_national_holiday
 
     while possible_date.mon == first_day.mon && HolidayJp.holiday?(possible_date)
       first_day = first_day.next_month
-      possible_date = next_month_specific_day_of_the_week(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
+      possible_date = calculate_nth_weekday_date(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
     end
     possible_date
   end
@@ -132,7 +132,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     possible_date
   end
 
-  def next_month_specific_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
+  def calculate_nth_weekday_date(repeat_rule, first_day, days_of_the_week_count)
     # 次の第n X曜日の日付を計算する
     date = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday + 1
     date += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
