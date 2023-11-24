@@ -25,9 +25,6 @@ vendor/bundle/
 /public/packs-test
 
 /public/system
-/public/packs
-/public/packs-test
-/node_modules
 yarn-debug.log*
 .yarn-integrity
 
@@ -38,11 +35,5 @@ storage/
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
 .envrc
 /test/reports
