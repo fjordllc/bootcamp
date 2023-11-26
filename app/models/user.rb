@@ -397,8 +397,7 @@ class User < ApplicationRecord
     # allowed_targets:　呼び出したいscope名に対応するtargetを過不足なく指定した配列。
     # default_target: targetに不正な値が渡された際、users_roleが返すスコープ名に対応するtargetを指定する。デフォルトでは:noneを指定しているため何も返さない。
     def users_role(target, allowed_targets: [], default_target: :none)
-      default_scope = (ALL_ALLOWED_TARGETS & allowed_targets).include?(default_target) ? TARGET_TO_SCOPE.fetch(default_target, default_target) : :none
-      scope_name = (ALL_ALLOWED_TARGETS & allowed_targets).include?(target) ? TARGET_TO_SCOPE.fetch(target, target) : default_scope
+      scope_name = (ALL_ALLOWED_TARGETS & allowed_targets).include?(target) ? TARGET_TO_SCOPE.fetch(target, target) : default_target
       send(scope_name)
     end
 
