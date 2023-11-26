@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class API::TalksController < API::BaseController
-  TARGETS = %w[all student_and_trainee mentor graduate adviser trainee retired].freeze
+  ALLOWED_TARGETS = %w[all student_and_trainee mentor graduate adviser trainee retired].freeze
   PAGER_NUMBER = 20
 
   def index
     @target = params[:target]
-    @target = 'all' unless TARGETS.include?(@target)
+    @target = 'all' unless ALLOWED_TARGETS.include?(@target)
     @talks = Talk.joins(:user)
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
@@ -15,10 +15,10 @@ class API::TalksController < API::BaseController
         @talks.merge(
           User.search_by_keywords({ word: params[:search_word] })
               .unscope(where: :retired_on)
-              .users_role(@target, allowed_targets: TARGETS, default_target: 'all')
+              .users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
         )
       else
-        @talks.merge(User.users_role(@target, allowed_targets: TARGETS, default_target: 'all'))
+        @talks.merge(User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all'))
               .page(params[:page]).per(PAGER_NUMBER)
       end
   end
