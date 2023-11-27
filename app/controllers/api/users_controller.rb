@@ -13,7 +13,11 @@ class API::UsersController < API::BaseController
     @target = target_allowlist.include?(params[:target]) ? params[:target] : 'student_and_trainee'
 
     target_users = retrieve_target_users
-    @users = target_users.page(params[:page]).per(PAGER_NUMBER).preload(:company, :avatar_attachment, :course, :tags).order(updated_at: :desc)
+    @users = target_users
+             .preload(:company, :avatar_attachment, :course, :tags)
+             .order(updated_at: :desc)
+             .page(params[:page])
+             .per(PAGER_NUMBER)
 
     @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
   end
