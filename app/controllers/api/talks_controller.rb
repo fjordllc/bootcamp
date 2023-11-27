@@ -6,7 +6,6 @@ class API::TalksController < API::BaseController
 
   def index
     @target = params[:target]
-    @target = 'all' unless ALLOWED_TARGETS.include?(@target)
     @talks = Talk.joins(:user)
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
