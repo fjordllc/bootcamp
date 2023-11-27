@@ -9,7 +9,6 @@ class TalksController < ApplicationController
 
   def index
     @target = params[:target]
-    @target = 'all' unless API::TalksController::ALLOWED_TARGETS.include?(@target)
   end
 
   def show; end
