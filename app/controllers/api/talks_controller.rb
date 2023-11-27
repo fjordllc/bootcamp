@@ -9,15 +9,15 @@ class API::TalksController < API::BaseController
     @talks = Talk.joins(:user)
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
+    users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     @talks =
       if params[:search_word]
+        searched_users = users.search_by_keywords({ word: params[:search_word] }).unscope(where: :retired_on)
         @talks.merge(
-          User.search_by_keywords({ word: params[:search_word] })
-              .unscope(where: :retired_on)
-              .users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+          @target == 'retired' ? searched_users.retired : searched_users
         )
       else
-        @talks.merge(User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all'))
+        @talks.merge(users)
               .page(params[:page]).per(PAGER_NUMBER)
       end
   end
