@@ -6,7 +6,7 @@ class API::GenerationsController < API::BaseController
 
   def show
     generation = params[:id].to_i
-    @users = Generation.new(generation).users.page(params[:page]).per(PAGER_NUMBER)
+    @users = Generation.new(generation).same_generation_users.page(params[:page]).per(PAGER_NUMBER)
   end
 
   def index
