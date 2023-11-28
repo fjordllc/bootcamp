@@ -25,4 +25,5 @@
                   | 削除する
 
   - if admin_or_mentor_login?
-    #js-check(data-checkable-id="#{report.id}" data-checkable-type='Report' data-checkable-label="#{Report.model_name.human}")
+    hr.a-border-tint
+    = react_component('Check/Check', { emotion: report.emotion, checkableId: report.id, checkableType: 'Report', checkableLabel: Report.model_name.human })
