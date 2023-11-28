@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2023_10_01_031818) do
-=======
-ActiveRecord::Schema.define(version: 2023_08_02_001904) do
->>>>>>> efc69a932 (FAQテーブルのanswerカラムをtext型に変更した)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
