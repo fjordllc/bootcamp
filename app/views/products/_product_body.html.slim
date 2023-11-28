@@ -34,13 +34,8 @@
                 | 削除申請
 
     - if admin_or_mentor_login?
-      #js-check(data-checkable-id="#{product.id}"
-                data-checkable-type='Product'
-                data-checkable-label="#{Product.model_name.human}"
-                data-checker-id="#{product.checker_id}"
-                data-checker-name="#{product.checker_name}"
-                data-checker-avatar="#{product.checker_avatar}"
-                data-current-user-id="#{current_user.id}")
+      hr.a-border-tint
+      = react_component('Check/Check', { checkableId: product.id, checkableType: 'Product', checkableLabel: Product.model_name.human, checkerId: product.checker_id, checkerName: product.checker_name, checkerAvatar: product.checker_avatar, currentUserId: current_user.id })
 
 .page-content-prev-next
   .page-content-prev-next__item
