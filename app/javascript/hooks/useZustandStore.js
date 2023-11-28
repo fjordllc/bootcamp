@@ -31,6 +31,7 @@ const zustandStore = createStore((set) => ({
         return response.json()
       })
       .then((json) => {
+        console.log(json)
         set(() => ({
           checkable: {
             checkId: json[0]?.id ?? null,
