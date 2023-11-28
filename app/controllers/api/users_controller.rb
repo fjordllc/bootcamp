@@ -12,14 +12,14 @@ class API::UsersController < API::BaseController
 
     @target = target_allowlist.include?(params[:target]) ? params[:target] : 'student_and_trainee'
 
-    target_users = retrieve_target_users
-    @users = target_users
+    users = target_users
+    @users = users
              .preload(:company, :avatar_attachment, :course, :tags)
              .order(updated_at: :desc)
              .page(params[:page])
              .per(PAGER_NUMBER)
 
-    @users = search_for_users(@target, target_users, params[:search_word]) if params[:search_word]
+    @users = search_for_users(@target, users, params[:search_word]) if params[:search_word]
   end
 
   def show; end
@@ -47,8 +47,8 @@ class API::UsersController < API::BaseController
     target_allowlist
   end
 
-  def retrieve_target_users
-    target_users =
+  def target_users
+    users =
       if @target == 'followings'
         current_user.followees_list(watch: @watch)
       elsif @tag
@@ -61,7 +61,7 @@ class API::UsersController < API::BaseController
         User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee').unhibernated.unretired
       end
 
-    @target == 'inactive' ? target_users.order(:last_activity_at) : target_users
+    @target == 'inactive' ? users.order(:last_activity_at) : users
   end
 
   def set_user
