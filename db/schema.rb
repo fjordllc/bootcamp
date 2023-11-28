@@ -734,13 +734,7 @@ ActiveRecord::Schema.define(version: 2023_08_02_001904) do
     t.string "name", default: "", null: false
     t.string "name_kana", default: "", null: false
     t.string "unsubscribe_email_token"
-<<<<<<< HEAD
     t.text "mentor_memo"
-=======
-    t.string "discord_account"
-    t.text "mentor_memo"
-    t.string "times_url"
->>>>>>> efc69a932 (FAQテーブルのanswerカラムをtext型に変更した)
     t.text "after_graduation_hope"
     t.date "training_ends_on"
     t.boolean "sad_streak", default: false, null: false
