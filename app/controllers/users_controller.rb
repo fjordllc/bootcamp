@@ -18,8 +18,8 @@ class UsersController < ApplicationController
       elsif params[:tag]
         User.tagged_with(params[:tag])
       else
-        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
-            .then { |users| @target == 'inactive' ? users.order(:last_activity_at) : users }
+        users = User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+        @target == 'inactive' ? users.order(:last_activity_at) : users
       end
 
     @users = target_users
