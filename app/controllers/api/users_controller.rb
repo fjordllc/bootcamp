@@ -36,11 +36,7 @@ class API::UsersController < API::BaseController
 
   def search_for_users(target, target_users, search_word)
     users = target_users.search_by_keywords({ word: search_word })
-    if target == 'retired'
-      users = User.search_by_keywords({ word: search_word }).unscope(where: :retired_on)
-                  .users_role(target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
-    end
-    users
+    target == 'retired' ? users.unscope(where: :retired_on).retired : users
   end
 
   def target_allowlist
