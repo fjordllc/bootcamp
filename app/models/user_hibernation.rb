@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AbsenceDays
+class UserHibernation
   def calculate_absence_days(user)
     return unless user.hibernated_at
 
