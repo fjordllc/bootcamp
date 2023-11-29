@@ -660,24 +660,16 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '.users_role' do
-    allowed_targets = %w[student_and_trainee]
-    assert_equal User.students_and_trainees, User.users_role('student_and_trainee', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
+    assert_equal User.mentor, User.users_role('mentor', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    assert_equal User.students_and_trainees, User.users_role('', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
   end
 
   test '.users_role return default_target when invalid target is passed' do
-    allowed_targets = %w[student_and_trainee]
-    invalid_target = 'retired'
-    assert_equal User.students_and_trainees, User.users_role(invalid_target, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
-  end
-
-  test '.users_role return default_target when invalid allwed_targets is passed' do
-    invalid_allowed_targets = %w[student_and_trainee working]
-    assert_equal User.students_and_trainees, User.users_role('working', allowed_targets: invalid_allowed_targets, default_target: 'student_and_trainee')
-  end
-
-  test '.users_role return nothing when invalid default_target is passed' do
-    invalid_default_target = 'retired'
-    # default_target で指定したスコープが呼ばれるように引数 target と allowed_targets を指定する
-    assert_empty User.users_role('invalid', allowed_targets: [], default_target: invalid_default_target)
+    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
+    not_allowed_target = 'retired'
+    assert_equal User.students_and_trainees, User.users_role(not_allowed_target, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    not_scope_name = 'destroy_all'
+    assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
   end
 end
