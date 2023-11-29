@@ -13,6 +13,7 @@ class API::UsersController < API::BaseController
     @target = target_allowlist.include?(params[:target]) ? params[:target] : 'student_and_trainee'
 
     users = target_users
+    users.order(:last_activity_at) if @target == 'inactive'
     @users = users
              .preload(:company, :avatar_attachment, :course, :tags)
              .order(updated_at: :desc)
@@ -48,20 +49,21 @@ class API::UsersController < API::BaseController
   end
 
   def target_users
-    users =
-      if @target == 'followings'
-        current_user.followees_list(watch: @watch)
-      elsif @tag
-        User.tagged_with(@tag)
-      elsif @company
-        User.where(company_id: @company).users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
-      elsif @target.in? %w[hibernated retired]
-        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
-      else
-        User.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee').unhibernated.unretired
-      end
-
-    @target == 'inactive' ? users.order(:last_activity_at) : users
+    if @target == 'followings'
+      current_user.followees_list(watch: @watch)
+    elsif @tag
+      User.tagged_with(@tag)
+    else
+      user_scope =
+        if @company
+          User.where(company_id: @company)
+        elsif @target.in? %w[hibernated retired]
+          User
+        else
+          User.unhibernated.unretired
+        end
+      user_scope.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+    end
   end
 
   def set_user
