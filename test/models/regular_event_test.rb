@@ -49,7 +49,7 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_equal Date.new(2022, 6, 5), regular_event.possible_next_event_date(first_day, regular_event_repeat_rule)
     end
 
-    holiday_not_held_event = regular_events(:regular_event33)
+    holiday_not_held_event = regular_events(:regular_event1)
     repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule36) # 第1週水曜日
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       first_day = Time.zone.today
@@ -64,7 +64,7 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_equal Date.new(2022, 6, 5), regular_event.next_specific_day_of_the_week(regular_event_repeat_rule)
     end
 
-    holiday_not_held_event = regular_events(:regular_event33)
+    holiday_not_held_event = regular_events(:regular_event1)
     repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule35) # 毎週水曜日
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       first_day = Time.zone.today
