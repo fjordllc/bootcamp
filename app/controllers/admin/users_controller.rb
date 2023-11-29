@@ -7,11 +7,11 @@ class Admin::UsersController < AdminController
   def index
     @direction = params[:direction] || 'desc'
     @target = params[:target]
-    @users = User.with_attached_avatar
-                 .preload(%i[company course])
-                 .order_by_counts(params[:order_by] || 'id', @direction)
-                 .users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
-    @emails = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee').pluck(:email)
+    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    @users = user_scope.with_attached_avatar
+                       .preload(%i[company course])
+                       .order_by_counts(params[:order_by] || 'id', @direction)
+    @emails = user_scope.pluck(:email)
   end
 
   def show
