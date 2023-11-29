@@ -13,7 +13,7 @@ module RegularEventDecorator
     if finished
       '開催終了'
     elsif holding_today?
-      '本日開催'
+      !hold_national_holiday && HolidayJp.holiday?(Time.zone.today) ? "次回の開催日は #{l next_event_date} です" : '本日開催'
     else
       "次回の開催日は #{l next_event_date} です"
     end
