@@ -7,16 +7,19 @@ const clientDateFormat = 'YYYY年M月'
 const serverDateFormat = 'YYYY-MM-DD'
 
 const GrassHeader = ({ currentUser, hideGrass }) => {
+  const isDashboard = location.pathname === '/'
   return (
     <header className="card-header is-sm">
       <h2 className="card-header__title">学習時間</h2>
-      {currentUser && currentUser.primary_role === 'graduate' && (
-        <button
-          onClick={hideGrass}
-          className="a-button is-xs is-muted-bordered">
-          非表示
-        </button>
-      )}
+      {currentUser &&
+        currentUser.primary_role === 'graduate' &&
+        isDashboard && (
+          <button
+            onClick={hideGrass}
+            className="a-button is-xs is-muted-bordered">
+            非表示
+          </button>
+        )}
     </header>
   )
 }
@@ -124,7 +127,9 @@ export default function Grass({ currentUser, userId }) {
         }
 
         const lastDate = grasses[grasses.length - 1].date
-        setCurrentDate(dayjs(lastDate))
+        if (!dayjs(lastDate).isSame(currentDate, 'month')) {
+          setCurrentDate(dayjs(lastDate))
+        }
 
         const sampleStartX = 555
         const sampleStartY = 120
@@ -142,15 +147,10 @@ export default function Grass({ currentUser, userId }) {
         ctx.strokeText('0 h', sampleStartX - 23, sampleStartY + 8.5)
         ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
       }
-      if (!grasses && canvasRef.current !== null) {
-        render()
-      }
-
-      return () => {
-        document.cookie = `user_grass=${JSON.stringify(userId)}`
-      }
+      render()
     }
-  }, [grasses, currentDate])
+    document.cookie = `user_grass=${JSON.stringify(userId)}`
+  }, [grasses])
 
   const onAddOneYear = () => {
     setCurrentDate(currentDate.add(1, 'year'))
