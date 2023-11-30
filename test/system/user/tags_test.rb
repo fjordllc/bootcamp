@@ -149,4 +149,69 @@ class User::TagsTest < ApplicationSystemTestCase
 
     assert_includes all('.tag-links__item-link').map(&:text), 'ハッシュハッシュ'
   end
+
+  test 'hibernated users are not displayed in the user list by tag' do
+    user = users(:kensyu)
+    tag = acts_as_taggable_on_tags('guitar')
+
+    visit_with_auth users_tag_path(tag.name), 'kensyu'
+    assert_text "タグ「#{tag.name}」のユーザー（2）"
+    assert_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
+
+    visit_with_auth users_tags_path, 'kensyu'
+    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    assert_equal '2', displayed_users_number
+    assert_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
+
+    visit_with_auth new_hibernation_path, 'kensyu'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+    find('.check-box-to-read').click
+    click_on '休会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '休会処理が完了しました'
+
+    visit_with_auth users_tag_path(tag.name), 'komagata'
+    assert_text "タグ「#{tag.name}」のユーザー（1）"
+    assert_no_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
+
+    visit_with_auth users_tags_path, 'komagata'
+    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    assert_equal '1', displayed_users_number
+    assert_no_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
+  end
+
+  test 'retired users are not displayed in the user list by tag' do
+    user = users(:kensyu)
+    tag = acts_as_taggable_on_tags('guitar')
+
+    visit_with_auth users_tag_path(tag.name), 'kensyu'
+    assert_text "タグ「#{tag.name}」のユーザー（2）"
+    assert_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
+
+    visit_with_auth users_tags_path, 'kensyu'
+    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    assert_equal '2', displayed_users_number
+    assert_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
+
+    visit_with_auth new_retirement_path, 'kensyu'
+    find('label', text: 'とても良い').click
+    click_on '退会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '退会処理が完了しました'
+
+    visit_with_auth users_tag_path(tag.name), 'komagata'
+    assert_text "タグ「#{tag.name}」のユーザー（1）"
+    assert_no_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
+
+    visit_with_auth users_tags_path, 'komagata'
+    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    assert_equal '1', displayed_users_number
+    assert_no_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
+  end
 end
