@@ -98,7 +98,7 @@ class Product < ApplicationRecord
   end
 
   def self.unchecked_no_replied_products
-    self_last_commented_products =  Product.joins(:comments).where.not(comments: { id: nil }).filter do |product|
+    self_last_commented_products = Product.joins(:comments).where.not(comments: { id: nil }).filter do |product|
       product.comments.last.user_id == product.user.id
     end
     no_comments_products = Product.where.missing(:comments)
