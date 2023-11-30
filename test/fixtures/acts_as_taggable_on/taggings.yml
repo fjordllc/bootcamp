@@ -23,6 +23,11 @@ machida_tag_guitar:
   context: tags
   tag: guitar
 
+kensyu_tag_guitar:
+  taggable: kensyu (User)
+  context: tags
+  tag: guitar
+
 kimura_tag_cat:
   taggable: kimura (User)
   context: tags
