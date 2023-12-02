@@ -12,7 +12,7 @@ class API::TalksController < API::BaseController
     users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     @talks =
       if params[:search_word]
-        searched_users = users.search_by_keywords({ word: params[:search_word] }).unscope(where: :retired_on)
+        searched_users = users.search_by_keywords(word: params[:search_word]).unscope(where: :retired_on)
         @talks.merge(
           @target == 'retired' ? searched_users.retired : searched_users
         )
