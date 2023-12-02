@@ -5,7 +5,7 @@
 = render '/shared/modal_learning_completion',
   practice: @product.practice,
   tweet_url: @tweet_url,
-  should_display_message_automatically: @learning&.should_display_message_automatically?(current_user: current_user)
+  should_display_message_automatically: @learning&.should_display_message_automatically?(current_user:)
 
 header.page-header
   .container
