@@ -37,6 +37,8 @@ class API::UsersController < API::BaseController
 
   def search_for_users(target, target_users, search_word)
     users = target_users.search_by_keywords({ word: search_word })
+    # search_by_keywords内では { unretired } というスコープが設定されている
+    # 引退したユーザーに対しキーワード検索を行う場合は、一旦 unscope(where: :retired_on) で { unretired } スコープを削除し、その後で retired スコープを設定する必要がある
     target == 'retired' ? users.unscope(where: :retired_on).retired : users
   end
 
