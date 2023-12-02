@@ -138,7 +138,7 @@ const NoReports = ({ unchecked }) => {
         ) : (
           <>
             <i className="fa-regular fa-sad-tear" />
-            <p className="o-empty-message__text">'日報はまだありません。'</p>
+            <p className="o-empty-message__text">日報はまだありません。</p>
           </>
         )}
       </div>
