@@ -14,7 +14,7 @@ module Mentioner
   def where_mention
     case self
     when Product
-      "#{user.login_name}さんの「#{practice[:title]}」の提出物"
+      "#{user.login_name}さんの提出物「#{practice[:title]}」"
     when Report
       "#{user.login_name}さんの日報「#{self[:title]}」"
     when Comment
