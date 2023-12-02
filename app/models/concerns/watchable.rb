@@ -16,19 +16,19 @@ module Watchable
   def notification_title
     case self
     when Product
-      "「#{practice[:title]}」の提出物"
+      "提出物「#{practice[:title]}」"
     when Report
-      "「#{self[:title]}」の日報"
+      "日報「#{self[:title]}」"
     when Question
-      "「#{self[:title]}」のQ&A"
+      "Q&A「#{self[:title]}」"
     when Event
-      "「#{self[:title]}」の特別イベント"
+      "特別イベント「#{self[:title]}」"
     when RegularEvent
-      "「#{self[:title]}」の定期イベント"
+      "定期イベント「#{self[:title]}」"
     when Page
-      "「#{self[:title]}」のDocs"
+      "Docs「#{self[:title]}」"
     when Announcement
-      " [#{self[:title]}]のお知らせ"
+      " お知らせ[#{self[:title]}]"
     end
   end
 
