@@ -13,7 +13,7 @@ class API::UsersController < API::BaseController
     @target = target_allowlist.include?(params[:target]) ? params[:target] : 'student_and_trainee'
 
     users = target_users
-    users.order(:last_activity_at) if @target == 'inactive'
+    users = users.order(:last_activity_at) if @target == 'inactive'
     @users = users
              .preload(:company, :avatar_attachment, :course, :tags)
              .order(updated_at: :desc)
