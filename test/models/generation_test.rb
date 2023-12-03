@@ -14,13 +14,13 @@ class GenerationTest < ActiveSupport::TestCase
     assert_equal Time.zone.local(2020, 12, 31).end_of_day, Generation.new(32).end_date
   end
 
-  test '#users' do
-    assert_includes Generation.new(5).same_generation_users, users(:komagata)
-    assert_includes Generation.new(29).same_generation_users, users(:jobseeker)
+  test '#classmates' do
+    assert_includes Generation.new(5).classmates, users(:komagata)
+    assert_includes Generation.new(29).classmates, users(:jobseeker)
     users(:komagata).created_at = Time.zone.local(2020, 12, 31, 23, 59, 59)
     users(:komagata).save
-    assert_includes Generation.new(32).same_generation_users, users(:komagata)
-    assert_not_includes Generation.new(33).same_generation_users, users(:komagata)
+    assert_includes Generation.new(32).classmates, users(:komagata)
+    assert_not_includes Generation.new(33).classmates, users(:komagata)
   end
 
   test '#target_users' do
