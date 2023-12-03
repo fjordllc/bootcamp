@@ -35,12 +35,12 @@ class Generation
     (next_generation.start_date - 1).end_of_day
   end
 
-  def same_generation_users
-    User.with_attached_avatar.same_generations(start_date, end_date)
+  def classmates
+    User.with_attached_avatar.classmates(start_date, end_date)
   end
 
   def target_users(target)
-    users = same_generation_users.users_role(target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+    users = classmates.users_role(target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     target == 'retired' ? users : users.unretired
   end
 end
