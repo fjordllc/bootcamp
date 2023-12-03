@@ -14,13 +14,16 @@ class API::UsersController < API::BaseController
 
     users = target_users
     users = users.order(:last_activity_at) if @target == 'inactive'
-    @users = users
-             .preload(:company, :avatar_attachment, :course, :tags)
-             .order(updated_at: :desc)
-             .page(params[:page])
-             .per(PAGER_NUMBER)
-
-    @users = search_for_users(@target, users, params[:search_word]) if params[:search_word]
+    @users =
+      if params[:search_word]
+        search_for_users(@target, users, params[:search_word])
+      else
+        users
+          .preload(:company, :avatar_attachment, :course, :tags)
+          .order(updated_at: :desc)
+          .page(params[:page])
+          .per(PAGER_NUMBER)
+      end
   end
 
   def show; end
