@@ -9,7 +9,7 @@ class Admin::UsersController < AdminController
     @target = params[:target]
     user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
     @users = user_scope.with_attached_avatar
-                       .preload(%i[company course])
+                       .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
     @emails = user_scope.pluck(:email)
   end
