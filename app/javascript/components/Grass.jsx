@@ -1,77 +1,42 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import dayjs from 'dayjs'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
+import GrassHeader from './GrassHeader'
+import GrassBody from './GrassBody'
+import GrassNav from './GrassNav'
+import GrassCanvas from './GrassCanvas'
 
-const clientDateFormat = 'YYYY年M月'
 const serverDateFormat = 'YYYY-MM-DD'
-
-const GrassHeader = ({ currentUser, hideGrass }) => {
-  const isDashboard = location.pathname === '/'
-  return (
-    <header className="card-header is-sm">
-      <h2 className="card-header__title">学習時間</h2>
-      {currentUser &&
-        currentUser.primary_role === 'graduate' &&
-        isDashboard && (
-          <button
-            onClick={hideGrass}
-            className="a-button is-xs is-muted-bordered">
-            非表示
-          </button>
-        )}
-    </header>
-  )
-}
-
-const GrassBody = ({ children }) => {
-  return <div className="user-grass">{children}</div>
-}
-
-const GrassNav = ({ onAddOneYear, currentDate, onSubtractOneYear }) => {
-  const prevYearMonth = dayjs(currentDate).subtract(1, 'year')
-  const isLatestYearMonth = dayjs().isSame(currentDate, 'month')
-  return (
-    <div className="user-grass-nav">
-      <div className="user-grass-nav__previous" onClick={onSubtractOneYear}>
-        <i className="fa-solid fa-angle-left" />
-      </div>
-      <div className="user-grass-nav__year--month">
-        {prevYearMonth?.format(clientDateFormat)} 〜
-        {currentDate?.format(clientDateFormat)}
-      </div>
-      {!isLatestYearMonth ? (
-        <div className="user-grass-nav__next" onClick={onAddOneYear}>
-          <i className="fa-solid fa-angle-right" />
-        </div>
-      ) : (
-        <div className="user-grass-nav__next is-blank" />
-      )}
-    </div>
-  )
-}
-
-const GrassCanvas = forwardRef((_, ref) => {
-  return (
-    <canvas
-      id="grass"
-      className="a-grass"
-      width="650px"
-      height="130px"
-      ref={ref}></canvas>
-  )
-})
 
 export default function Grass({ currentUser, userId }) {
   const [currentDate, setCurrentDate] = useState(dayjs())
   const [isVisible, setIsVisible] = useState(true)
   const canvasRef = useRef(null)
   const formattedDate = currentDate.format(serverDateFormat)
+  const [isDashboard, setIsDashboard] = useState(location.pathname === '/')
 
-  const { data: grasses } = useSWR(
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setIsDashboard(location.pathname === '/')
+    }
+
+    window.addEventListener('popstate', handleLocationChange)
+    handleLocationChange()
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange)
+    }
+  }, [window.location.pathname])
+
+  const { data: grasses, error } = useSWR(
     `/api/grasses/${userId}.json?end_date=${formattedDate}`,
     fetcher
   )
+
+  if (error) {
+    console.warn('Error fetching grass data:', error)
+  }
 
   const hideGrass = () => {
     setIsVisible(false)
@@ -149,7 +114,9 @@ export default function Grass({ currentUser, userId }) {
       }
       render()
     }
-    document.cookie = `user_grass=${JSON.stringify(userId)}`
+    return () => {
+      document.cookie = `user_grass=${JSON.stringify(userId)}`
+    }
   }, [grasses])
 
   const onAddOneYear = () => {
@@ -166,7 +133,11 @@ export default function Grass({ currentUser, userId }) {
 
   return (
     <div className="a-card">
-      <GrassHeader currentUser={currentUser} hideGrass={hideGrass} />
+      <GrassHeader
+        currentUser={currentUser}
+        hideGrass={hideGrass}
+        isDashboard={isDashboard}
+      />
       <hr className="a-border-tint" />
       <GrassBody>
         <GrassNav

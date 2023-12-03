@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react"
+import React, { forwardRef } from 'react'
 
 const GrassCanvas = forwardRef((_, ref) => {
   return (
@@ -11,4 +11,4 @@ const GrassCanvas = forwardRef((_, ref) => {
   )
 })
 
-export default GrassCanvas;
+export default GrassCanvas

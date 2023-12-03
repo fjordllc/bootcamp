@@ -1,9 +1,13 @@
-import React from "react"
-import dayjs from "dayjs"
+import React from 'react'
+import dayjs from 'dayjs'
 
 const clientDateFormat = 'YYYY年M月'
 
-export default function GrassNav ({ onAddOneYear, currentDate, onSubtractOneYear }) {
+export default function GrassNav({
+  onAddOneYear,
+  currentDate,
+  onSubtractOneYear
+}) {
   const prevYearMonth = dayjs(currentDate).subtract(1, 'year')
   const isLatestYearMonth = dayjs().isSame(currentDate, 'month')
   return (
