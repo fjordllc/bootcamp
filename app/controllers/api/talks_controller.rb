@@ -13,9 +13,10 @@ class API::TalksController < API::BaseController
     @talks =
       if params[:search_word]
         searched_users = users.search_by_keywords(word: params[:search_word]).unscope(where: :retired_on)
-        @talks.merge(
-          @target == 'retired' ? searched_users.retired : searched_users
-        )
+        # search_by_keywords内では { unretired } というスコープが設定されている
+        # 引退したユーザーに対しキーワード検索を行う場合は、一旦 unscope(where: :retired_on) で { unretired } スコープを削除し、その後で retired スコープを設定する必要がある
+        searched_users = searched_users.unscope(where: :retired_on).retired if @target == 'retired'
+        @talks.merge(searched_users)
       else
         @talks.merge(users)
               .page(params[:page]).per(PAGER_NUMBER)
