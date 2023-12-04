@@ -5,7 +5,7 @@ export default function GrassHeader({ currentUser, hideGrass, isDashboard }) {
     <header className="card-header is-sm">
       <h2 className="card-header__title">学習時間</h2>
       {currentUser &&
-        currentUser.primary_role === 'graduate' &&
+        window.currentUser.primary_role === 'graduate' &&
         isDashboard && (
           <button
             onClick={hideGrass}
