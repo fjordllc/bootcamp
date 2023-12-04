@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  skip_before_action :require_active_user_login, raise: false, only: %i[new create]
+  skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
@@ -40,6 +40,12 @@ class UsersController < ApplicationController
                            .includes(:practice)
                            .where(status: 3)
                            .order(updated_at: :desc)
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new
