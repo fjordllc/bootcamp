@@ -186,7 +186,7 @@ class RetirementTest < ApplicationSystemTestCase
     assert_equal 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
-  test 'retirement with event organizer' do
+  test 'retire with event organizer' do
     visit_with_auth new_retirement_path, 'hajime'
     find('label', text: 'とても良い').click
     click_on '退会する'
