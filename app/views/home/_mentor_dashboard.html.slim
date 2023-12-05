@@ -1,4 +1,4 @@
-.dashboard-contents.is-mentor
+jdashboard-contents.is-mentor
   .container
     .dashboard-contents__cols
       .dashboard-contents__col.is-sub.is-only-mentor
@@ -26,7 +26,7 @@
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
                     .a-panels__item
-                      = render 'bookmarks', user: current_user
+                      = react_component 'BookmarksInDashboard', user: current_user, bookmarks: current_user.bookmarks
                   - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'
