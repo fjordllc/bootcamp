@@ -12,6 +12,9 @@
         .users-item__inactive-message(v-else-if='!user.active')
           | 1ヶ月以上ログインがありません
       header.users-item__header
+        div(
+          v-if='(currentUser.mentor || currentUser.admin) && user.roles.includes("hibernationed")')
+          | 休会中: {{ user.hibernated_at }}〜({{ user.hibernation_elapsed_days }}日経過)
         .users-item__header-inner
           .users-item__header-start
             .users-item__icon
@@ -22,12 +25,12 @@
                     :alt='user.icon_title',
                     :src='user.avatar_url')
           .users-item__header-end
-            .card-list-item__rows
-              .card-list-item__row
-                .card-list-item-title
-                  a.card-list-item-title__title.is-lg.a-text-link(
-                    :href='user.url')
-                    | {{ loginName }}
+          .card-list-item__rows
+            .card-list-item__row
+              .card-list-item-title
+                a.card-list-item-title__title.is-lg.a-text-link(
+                  :href='user.url')
+                  | {{ loginName }}
                   a(
                     v-if='user.company && user.company.logo_url',
                     :href='user.company.url')
