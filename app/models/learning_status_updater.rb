@@ -32,7 +32,7 @@ class LearningStatusUpdater
                :complete
              elsif product.wip
                started_practice = product.user.learnings.map(&:status).include?('started')
-               started_practice ? :unstarted : :started
+               started_practice ? previous_learning.status.to_sym : :started
              else
                :submitted
              end
