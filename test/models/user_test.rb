@@ -681,9 +681,10 @@ class UserTest < ActiveSupport::TestCase
 
   test '#delete_organizer' do
     user = users(:hajime)
-    user.delete_organizer
-
     event = regular_events(:regular_event4)
-    assert_not event.organizers.include?(user)
+
+    assert_changes -> { event.organizers.include?(user) }, from: true, to: false do
+      user.delete_organizer
+    end
   end
 end
