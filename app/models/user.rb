@@ -712,6 +712,10 @@ class User < ApplicationRecord
     hibernations.order(:created_at).last
   end
 
+  def hibernation_elapsed_days
+    (Time.zone.today - hibernated_at.to_date).to_i
+  end
+
   def update_last_returned_at!
     hibernation = last_hibernation
     hibernation.returned_at = Date.current
