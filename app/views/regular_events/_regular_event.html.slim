@@ -42,7 +42,7 @@
                 i.fa-solid.fa-copy
                 | コピー
 
-  = render('regular_event_meta', regular_event: regular_event)
+  = render('regular_event_meta', regular_event:)
 
   .a-card
     .card-header.is-sm
@@ -57,7 +57,7 @@
         = regular_event.description
 
     - unless regular_event.wip? || regular_event.all
-      = render 'regular_events/participation', regular_event: regular_event
+      = render 'regular_events/participation', regular_event:
     = render 'reactions/reactions', reactionable: regular_event
     - if admin_or_mentor_login? || regular_event.organizers.ids.include?(current_user.id)
       hr.a-border-tint

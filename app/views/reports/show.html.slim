@@ -69,7 +69,7 @@
                 .card-list.a-card
                   - if @products.present?
                     - @products.each do |product|
-                      = render partial: 'product', locals: { product: product }
+                      = render partial: 'product', locals: { product: }
                   - else
                     .card-list__message
                       .container
