@@ -127,6 +127,20 @@ class ProductsTest < ApplicationSystemTestCase
     assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
   end
 
+  test 'should unchange learning status when change wip status' do
+    product = products(:product8)
+    product_path = "/products/#{product.id}"
+    practice_path = "/practices/#{product.practice.id}"
+
+    visit_with_auth "#{product_path}/edit", 'kimura'
+    product.change_learning_status(:started)
+    visit "#{product_path}/edit"
+    click_button 'WIP'
+    visit practice_path
+
+    assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
+  end
+
   test 'update product' do
     product = products(:product1)
     visit_with_auth "/products/#{product.id}/edit", 'mentormentaro'
