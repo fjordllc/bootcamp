@@ -33,7 +33,8 @@
             - if current_user.after_graduation_hope?
               = render 'after_graduation_hope', user: current_user
             - if current_user.student_or_trainee?
-              = react_component 'Grass', { currentUser: current_user, userId: current_user.id }
+              .a-card
+                = react_component 'Grass', { currentUser: current_user, userId: current_user.id }
             - if current_user.github_account.present?
               = render 'users/github_grass', user: current_user
             - if current_user.student_or_trainee?

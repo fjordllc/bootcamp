@@ -63,7 +63,8 @@
             - if admin_or_mentor_login?
               div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}")
             - unless @user.total_learning_time.zero? || @user.mentor?
-              = react_component 'Grass', { userId: @user.id }
+              .a-card
+                = react_component 'Grass', { userId: @user.id }
             - if @user.student?
               #js-niconico_calendar(data-user-id="#{@user.id}")
             - if @user.completed_practices.present?

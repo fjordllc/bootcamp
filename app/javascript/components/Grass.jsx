@@ -132,7 +132,7 @@ export default function Grass({ currentUser, userId }) {
   }
 
   return (
-    <div className="a-card">
+    <>
       <GrassHeader
         currentUser={currentUser}
         hideGrass={hideGrass}
@@ -147,6 +147,6 @@ export default function Grass({ currentUser, userId }) {
         />
         <GrassCanvas ref={canvasRef} />
       </GrassBody>
-    </div>
+    </>
   )
 }
