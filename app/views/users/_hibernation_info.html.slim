@@ -14,7 +14,7 @@
             | 企業都合休会中(#{Hibernation.new.calculate_absence_days(user)}日)
         - elsif remaining_days_until_automatic_retire(user) <= 7
           span.user-metas__item-value-text.is-danger
-            | #{l user.automatic_retire_datetime} (自動退会まであと#{remaining_time_until_automatic_retire(user)})
+            | #{l user.automatic_retire_datetime} (自動退会まであと#{user.remaining_time_until_automatic_retire(user)})
         - else
           span.user-metas__item-value-text
             | #{l user.automatic_retire_datetime} (自動退会まであと#{remaining_days_until_automatic_retire(user)}日)
