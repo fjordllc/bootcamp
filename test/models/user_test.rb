@@ -676,5 +676,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.students_and_trainees, User.users_role(not_allowed_target, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
     not_scope_name = 'destroy_all'
     assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
   end
 end
