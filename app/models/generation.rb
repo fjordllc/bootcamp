@@ -40,7 +40,7 @@ class Generation
   end
 
   def target_users(target)
-    users = classmates.users_role(target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+    users = classmates.users_role(target, allowed_targets: ALLOWED_TARGETS)
     # 退会者は「退会」フィルター時のみ表示させたいため、絞り込みを行う
     target == 'retired' ? users : users.unretired
   end
