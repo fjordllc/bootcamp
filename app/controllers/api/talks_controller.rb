@@ -13,9 +13,9 @@ class API::TalksController < API::BaseController
     @talks =
       if params[:search_word]
         # search_by_keywords内では { unretired } というスコープが設定されている
-        # 引退したユーザーも検索対象に含めたいので、unscope(where: :retired_on) で上記のスコープを削除
+        # 退会したユーザーも検索対象に含めたいので、unscope(where: :retired_on) で上記のスコープを削除
         searched_users = users.search_by_keywords(word: params[:search_word]).unscope(where: :retired_on)
-        # 引退したユーザーに絞ってキーワード検索を行う場合は、retired スコープを設定する
+        # もし検索対象が退会したユーザーである場合、searched_usersには退会していないユーザーも含まれているため、retired スコープを設定する
         searched_users = searched_users.retired if @target == 'retired'
         @talks.merge(searched_users)
       else
