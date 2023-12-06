@@ -59,7 +59,7 @@ class API::UsersController < API::BaseController
     elsif @tag
       User.tagged_with(@tag)
     else
-      user_scope =
+      users_scope =
         if @company
           User.where(company_id: @company)
         elsif @target.in? %w[hibernated retired]
@@ -67,7 +67,7 @@ class API::UsersController < API::BaseController
         else
           User.unhibernated.unretired
         end
-      user_scope.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+      users_scope.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
     end
   end
 
