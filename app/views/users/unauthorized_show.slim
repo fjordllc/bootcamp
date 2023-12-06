@@ -4,7 +4,8 @@
 
 .page-body
   article.unauthorized
-    = render '/unauthorized/unauthorized_header', label: 'プロフィールページ', title: "#{title}"
+    = render '/unauthorized/unauthorized_header',
+      label: 'プロフィールページ', title: title.to_s
     .unauthorized__body
       .container.is-md
         .unauthorized__contents
