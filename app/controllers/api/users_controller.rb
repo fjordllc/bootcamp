@@ -67,7 +67,7 @@ class API::UsersController < API::BaseController
         else
           User.unhibernated.unretired
         end
-      users_scope.users_role(@target, allowed_targets: target_allowlist, default_target: 'student_and_trainee')
+      users_scope.users_role(@target, allowed_targets: target_allowlist)
     end
   end
 
