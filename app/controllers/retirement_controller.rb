@@ -12,7 +12,7 @@ class RetirementController < ApplicationController
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
       user = current_user
-      current_user.delete_all_organizer
+      current_user.delete_all_organizers
       Newspaper.publish(:retirement_create, user)
       begin
         UserMailer.retire(user).deliver_now
