@@ -755,7 +755,7 @@ class User < ApplicationRecord
     watches.find_or_create_by!(watchable:)
   end
 
-  def delete_all_organizer
+  def delete_all_organizers
     organizers.each(&:delete_and_assign_new)
   end
 
