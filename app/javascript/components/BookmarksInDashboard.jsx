@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Bookmark from './Bookmark.jsx'
+
 class BookmarksInDashboard extends React.Component {
   render() {
     return (
@@ -14,14 +16,12 @@ class BookmarksInDashboard extends React.Component {
             </label>
           </div>
         </header>
-        {/*
         <hr className="a-border-tint" />
         <div className="card-list">
-          {bookmarks.map((bookmark) => (
+          {this.props.bookmarks.map((bookmark) => (
             <Bookmark key={bookmark.id} {...bookmark} />
           ))}
-        </div> */}
-        <p>ユーザーの名前：{this.props.user.login_name}</p>
+        </div>
         <footer className="card-footer">
           <div className="card-footer__footer-link">
             <a
@@ -38,6 +38,6 @@ class BookmarksInDashboard extends React.Component {
 
 BookmarksInDashboard.propTypes = {
   user: PropTypes.object,
-  bookmarks: PropTypes.integer
+  bookmarks: PropTypes.array
 }
 export default BookmarksInDashboard
