@@ -679,12 +679,11 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
   end
 
-  test '#delete_organizer' do
+  test '#delete_all_organizers' do
     user = users(:hajime)
-    event = regular_events(:regular_event4)
 
-    assert_changes -> { event.organizers.include?(user) }, from: true, to: false do
-      user.delete_organizer
+    assert_changes -> { Organizer.where(user: user).exists? }, from: true, to: false do
+      user.delete_all_organizers
     end
   end
 end
