@@ -755,13 +755,8 @@ class User < ApplicationRecord
     watches.find_or_create_by!(watchable:)
   end
 
-  def delete_organizer
-    organizers = self.organizers
-    organizers.each do |organizer|
-      event = organizer.regular_event
-      organizer.delete
-      event.assign_admin_as_organizer_if_none
-    end
+  def delete_all_organizer
+    organizers.each(&:delete_and_assign_new)
   end
 
   private
