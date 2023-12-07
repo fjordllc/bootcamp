@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-class Bookmark extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>ブックマーク</p>
-      </div>
-    )
+
+function Bookmark() {
+  return (
+    <div>
+      <p>ブックマーク</p>
+    </div>
     /*
       <div
         className={`card-list-item is-${this.props.bookmark.bookmarkable.model_name.to_s.toLowerCase()}`}>
@@ -85,7 +84,7 @@ class Bookmark extends React.Component {
         </div>
       </div>
     */
-  }
+  )
 }
 
 Bookmark.propTypes = {
