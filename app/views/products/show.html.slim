@@ -30,7 +30,7 @@ header.page-header
   - if @product.user == current_user && !@product.wip? && !@product.checked? && @product.commented_users.mentor.empty?
     = render 'message_for_after_submission'
 
-  - if @product.wip?
+  - if @product.user == current_user && @product.wip?
     = render 'message_for_wip'
 
   - if @product.user == current_user && @learning&.complete?
