@@ -670,7 +670,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.students_and_trainees, User.users_role('', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
   end
 
-  test '.users_role return default_target when invalid target is passed' do
+  test '.users_role returns default_target when invalid target is passed' do
     allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
     not_allowed_target = 'retired'
     assert_equal User.students_and_trainees, User.users_role(not_allowed_target, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
