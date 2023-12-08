@@ -14,7 +14,7 @@ class Cache
 
     def unchecked_product_count
       Rails.cache.fetch 'unchecked_product_count' do
-        Product.unchecked.not_wip.count
+        Product.unchecked_not_wip_hibernated_user_products.count
       end
     end
 

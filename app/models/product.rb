@@ -107,6 +107,10 @@ class Product < ApplicationRecord
            .order(published_at: :asc, id: :asc)
   end
 
+  def self.unchecked_not_wip_hibernated_user_products
+    Product.unchecked.not_wip.reject { |product| product.user.hibernated? }
+  end
+
   def completed?(user)
     checks.where(user: user).present?
   end
