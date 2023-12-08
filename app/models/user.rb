@@ -302,7 +302,12 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
-  scope :year_end_party, -> { where(retired_on: nil) }
+  scope :year_end_party, lambda {
+    where(
+      hibernated_at: nil,
+      retired_on: nil
+    )
+  }
   scope :mentor, -> { where(mentor: true) }
   scope :mentors_sorted_by_created_at, lambda {
     with_attached_profile_image
