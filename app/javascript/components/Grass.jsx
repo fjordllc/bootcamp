@@ -27,7 +27,7 @@ export default function Grass({ currentUser, userId }) {
     return () => {
       window.removeEventListener('popstate', handleLocationChange)
     }
-  }, [window.location.pathname])
+  }, [isDashboard])
 
   const { data: grasses, error } = useSWR(
     `/api/grasses/${userId}.json?end_date=${formattedDate}`,
