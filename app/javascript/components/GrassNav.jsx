@@ -16,8 +16,8 @@ export default function GrassNav({
         <i className="fa-solid fa-angle-left" />
       </div>
       <div className="user-grass-nav__year--month">
-        {prevYearMonth?.format(clientDateFormat)} 〜
-        {currentDate?.format(clientDateFormat)}
+        {prevYearMonth.format(clientDateFormat)} 〜
+        {currentDate.format(clientDateFormat)}
       </div>
       {!isLatestYearMonth ? (
         <div className="user-grass-nav__next" onClick={onAddOneYear}>
