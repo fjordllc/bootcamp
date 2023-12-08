@@ -1,0 +1,9 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to course_practices_path, class: "page-tabs__item-link #{current_link(/^courses-practices-index/)}" do
+            | プラクティス
+        li.page-tabs__item
+          = link_to course_books_path, class: "page-tabs__item-link #{current_link(/^courses-books-index/)} is-sm" do
+            | 書籍
