@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :password_resets, only: %i(create edit update)
   resources :courses, only: %i(index) do
     resources :practices, only: %i(index), controller: "courses/practices"
+    resources :books, only: %i(index), controller: "courses/books"
   end
   resources :practices, only: %i(show) do
     resources :reports, only: %i(index), controller: "practices/reports"
