@@ -52,6 +52,8 @@ class Product < ApplicationRecord
   scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
 
+  scope :unhibernated_user_products, -> { Product.joins(:user).where(user: { hibernated_at: nil }) }
+
   def self.add_latest_commented_at
     Product.all.includes(:comments).find_each do |product|
       next if product.comments.blank?
@@ -97,18 +99,15 @@ class Product < ApplicationRecord
            .order(published_at: :asc, id: :asc)
   end
 
-  def self.unchecked_no_replied_products
-    self_last_commented_products = Product.where.not(commented_at: nil).filter do |product|
+  def self.unhibernated_user_products_unchecked_no_replied_products
+    unhibernated_user_products = Product.joins(:user).where(user: { hibernated_at: nil })
+    self_last_commented_products = unhibernated_user_products.where.not(commented_at: nil).filter do |product|
       product.comments.last.user_id == product.user.id
     end
-    no_comments_products = Product.where(commented_at: nil)
+    no_comments_products = unhibernated_user_products.where(commented_at: nil)
     no_replied_products_ids = (self_last_commented_products + no_comments_products).map(&:id)
-    Product.where(id: no_replied_products_ids)
-           .order(published_at: :asc, id: :asc)
-  end
-
-  def self.unchecked_not_wip_hibernated_user_products
-    Product.unchecked.not_wip.reject { |product| product.user.hibernated? }
+    unhibernated_user_products.where(id: no_replied_products_ids)
+                              .order(published_at: :asc, id: :asc)
   end
 
   def completed?(user)
