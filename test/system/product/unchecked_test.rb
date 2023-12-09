@@ -222,4 +222,3 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_not has_text?(product_unhiberanated_user_name)
   end
 end
-
