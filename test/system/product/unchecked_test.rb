@@ -200,4 +200,9 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_selector '.card-list-item__assignee-name', text: 'komagata'
     assert_no_selector '.card-list-item__assignee-name', text: 'machida'
   end
+
+  test 'page tab item count about unchecked product is exclude unhiberanated user products' do
+    visit_with_auth '/products/unchecked', 'komagata'
+    assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{Product.joins(:user).where(user: { hibernated_at: nil }).unchecked.not_wip.count}）"
+  end
 end
