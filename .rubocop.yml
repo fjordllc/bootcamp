@@ -28,6 +28,22 @@ Metrics/ClassLength:
     - app/models/report.rb
     - app/notifiers/activity_notifier.rb
 
+Minitest/AssertIncludes:
+  Enabled: false
+
+Minitest/AssertEmpty:
+  Enabled: false
+
+Minitest/AssertTruthy:
+  Enabled: false
+
+Minitest/RefuteFalse:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Exclude:
+    - app/decorators/user_decorator.rb
+
 AllCops:
   Exclude:
     - '**/templates/**/*'
