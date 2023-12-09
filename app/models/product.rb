@@ -100,7 +100,7 @@ class Product < ApplicationRecord
   end
 
   def self.unhibernated_user_products_unchecked_no_replied_products
-    unhibernated_user_products = Product.joins(:user).where(user: { hibernated_at: nil })
+    unhibernated_user_products = Product.unhibernated_user_products
     self_last_commented_products = unhibernated_user_products.where.not(commented_at: nil).filter do |product|
       product.comments.last.user_id == product.user.id
     end
