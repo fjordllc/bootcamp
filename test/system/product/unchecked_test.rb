@@ -201,8 +201,25 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_no_selector '.card-list-item__assignee-name', text: 'machida'
   end
 
-  test 'page tab item count about unchecked product is exclude unhiberanated user products' do
+  test 'the number of products in the unchecked tab is excepted unhiberanated user' do
     visit_with_auth '/products/unchecked', 'komagata'
     assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{Product.joins(:user).where(user: { hibernated_at: nil }).unchecked.not_wip.count}）"
   end
+
+  test 'unchecked products is excepted unhiberanated user' do
+    user = users(:kyuukai)
+    product_unhiberanated_user_name = "#{user.login_name} (#{user.name_kana})"
+
+    visit_with_auth '/products/unchecked', 'komagata'
+    # assert_no_text だとデータが読み込まれる前に実行され常に成立してしまうため、明示的に待機する has_text? を使用する
+    assert_not has_text?(product_unhiberanated_user_name)
+    first('.pagination__item-link', text: '2').click
+    assert_not has_text?(product_unhiberanated_user_name)
+
+    visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
+    assert_not has_text?(product_unhiberanated_user_name)
+    first('.pagination__item-link', text: '2').click
+    assert_not has_text?(product_unhiberanated_user_name)
+  end
 end
+
