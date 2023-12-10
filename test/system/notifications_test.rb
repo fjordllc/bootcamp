@@ -266,7 +266,7 @@ class NotificationsTest < ApplicationSystemTestCase
       visit_with_auth "/reports/#{report}", 'hatsuno'
       assert_text 'コメントと確認した'
       find('.header-links__link.test-show-notifications').click
-      assert_text 'hatsunoさんの【 「コメントと」の日報 】にkomagataさんがコメントしました。'
+      assert_text 'hatsunoさんの日報「コメントと」でkomagataさんがコメントしました。'
     end
   end
 

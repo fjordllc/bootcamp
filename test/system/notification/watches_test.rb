@@ -32,13 +32,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
 
     within first('.card-list-item.is-unread') do
-      assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
+      assert_text "komagataさんの日報「#{reports(:report1).title}」でkomagataさんがコメントしました。"
     end
 
     visit_with_auth '/notifications', 'machida'
 
     within first('.card-list-item.is-unread') do
-      assert_text "komagataさんの【 「#{reports(:report1).title}」の日報 】にkomagataさんがコメントしました。"
+      assert_text "komagataさんの日報「#{reports(:report1).title}」でkomagataさんがコメントしました。"
     end
   end
 
@@ -62,13 +62,13 @@ class Notification::WatchesTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
 
     within first('.card-list-item.is-unread') do
-      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんが回答しました。"
+      assert_text "machidaさんのQ&A「#{questions(:question1).title}」でmachidaさんが回答しました。"
     end
 
     visit_with_auth '/notifications', 'komagata'
 
     within first('.card-list-item.is-unread') do
-      assert_text "machidaさんの【 「#{questions(:question1).title}」のQ&A 】にmachidaさんが回答しました。"
+      assert_text "machidaさんのQ&A「#{questions(:question1).title}」でmachidaさんが回答しました。"
     end
   end
 end
