@@ -201,12 +201,12 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_no_selector '.card-list-item__assignee-name', text: 'machida'
   end
 
-  test 'the number of products in the unchecked tab is excepted unhiberanated user' do
+  test 'the number of products in the unchecked tab is excepted hiberanated user' do
     visit_with_auth '/products/unchecked', 'komagata'
     assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{Product.joins(:user).where(user: { hibernated_at: nil }).unchecked.not_wip.count}）"
   end
 
-  test 'unchecked products is excepted unhiberanated user' do
+  test 'unchecked products is excepted hiberanated user' do
     user = users(:kyuukai)
     product_unhiberanated_user_name = "#{user.login_name} (#{user.name_kana})"
 
