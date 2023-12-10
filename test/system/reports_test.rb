@@ -470,6 +470,17 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '学習日は今日以前の日付にしてください'
   end
 
+  test 'cannot post a new report with before specific date' do
+    visit_with_auth '/reports/new', 'komagata'
+    within('form[name=report]') do
+      fill_in('report[title]', with: '学習日が2013年より前の日付では日報を作成できない')
+      fill_in('report[description]', with: 'エラーになる')
+      fill_in('report[reported_on]', with: Date.new(2012, 12, 31))
+    end
+    click_button '提出'
+    assert_text '学習日は2013年1月1日以後の日付にしてください'
+  end
+
   test 'display recently reports' do
     visit_with_auth report_path(reports(:report10)), 'mentormentaro'
     assert_selector 'img[alt="happy"]'
