@@ -208,17 +208,17 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
   test 'unchecked products is excepted hiberanated user' do
     user = users(:kyuukai)
-    product_unhiberanated_user_name = "#{user.login_name} (#{user.name_kana})"
+    product_hiberanated_user_name = "#{user.login_name} (#{user.name_kana})"
 
     visit_with_auth '/products/unchecked', 'komagata'
     # assert_no_text だとデータが読み込まれる前に実行され常に成立してしまうため、明示的に待機する has_text? を使用する
-    assert_not has_text?(product_unhiberanated_user_name)
+    assert_not has_text?(product_hiberanated_user_name)
     first('.pagination__item-link', text: '2').click
-    assert_not has_text?(product_unhiberanated_user_name)
+    assert_not has_text?(product_hiberanated_user_name)
 
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
-    assert_not has_text?(product_unhiberanated_user_name)
+    assert_not has_text?(product_hiberanated_user_name)
     first('.pagination__item-link', text: '2').click
-    assert_not has_text?(product_unhiberanated_user_name)
+    assert_not has_text?(product_hiberanated_user_name)
   end
 end
