@@ -28,7 +28,7 @@ module Watchable
     when Page
       "Docs「#{self[:title]}」"
     when Announcement
-      " お知らせ[#{self[:title]}]"
+      "お知らせ「#{self[:title]}」"
     end
   end
 
