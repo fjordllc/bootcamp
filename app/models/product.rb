@@ -51,7 +51,6 @@ class Product < ApplicationRecord
   scope :order_for_all_list, -> { order(published_at: :desc, id: :asc) }
   scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
-
   scope :unhibernated_user_products, -> { Product.joins(:user).where(user: { hibernated_at: nil }) }
 
   def self.add_latest_commented_at
