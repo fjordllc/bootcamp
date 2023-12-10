@@ -33,6 +33,7 @@ class Report < ApplicationRecord
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
   validate :reported_on_or_before_today
+  validate :reported_on_or_after_specific_date
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -116,6 +117,10 @@ class Report < ApplicationRecord
 
   def reported_on_or_before_today
     errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
+  end
+
+  def reported_on_or_after_specific_date
+    errors.add(:reported_on, 'は2013年1月1日以後の日付にしてください') if reported_on < Date.new(2013,1,1) #通常あり得る日付になるよう、スクラムマスター(komagata)により決定
   end
 
   def latest_of_user?
