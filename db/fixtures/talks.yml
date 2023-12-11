@@ -164,10 +164,6 @@ talk_discordinvalid:
   user: discordinvalid
   action_completed: true
 
-talk_nodiscordprofile:
-  user: nodiscordprofile
-  action_completed: true
-
 talk_twitterinvalid:
   user: twitterinvalid
   action_completed: true
