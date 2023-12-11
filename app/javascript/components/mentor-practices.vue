@@ -21,8 +21,8 @@
           a(:href='`/practices/${practice.id}`')
             | {{ practice.title }}
         td.admin-table__item-value.is-text-align-right
-          .a-text-link(@click='openModal(practice)')
-            | {{ practice.categories_practice.size }}
+          p(v-for='category_id_name in practice.category_ids_names')
+            | {{ category_id_name.category_name }}
         td.admin-table__item-value.is-text-align-right(
           v-if='practice.submission')
           a(:href='`/practices/${practice.id}/products`')

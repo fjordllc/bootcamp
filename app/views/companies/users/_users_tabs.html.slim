@@ -3,4 +3,4 @@ nav.tab-nav
     ul.tab-nav__items
         - Companies::UsersController::TARGETS.each do |target|
           li.tab-nav__item
-            = link_to t("target.#{target}"), company_users_path(target: target), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+            = link_to t("target.#{target}"), company_users_path(target:), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'

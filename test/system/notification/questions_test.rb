@@ -324,4 +324,35 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       assert_text 'Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'
     end
   end
+
+  test 'do not notify discord when questions are updated' do
+    visit_with_auth questions_path(target: 'not_solved'), 'komagata'
+
+    click_link '質問する'
+    fill_in 'question[title]', with: 'testタイトル(新規投稿)'
+    fill_in 'question[description]', with: 'test本文(新規投稿)'
+
+    mock_log = []
+    stub_info = proc { |i| mock_log << i }
+    Rails.logger.stub(:info, stub_info) do
+      click_button '登録する'
+    end
+
+    assert_text '質問を作成しました。'
+    assert_match 'Message to Discord.', mock_log.to_s
+
+    click_button '内容修正'
+    within 'form[name=question]' do
+      fill_in 'question[title]', with: 'testタイトル(更新)'
+      fill_in 'question[description]', with: 'test本文(更新)'
+    end
+
+    mock_log = []
+    Rails.logger.stub(:info, stub_info) do
+      click_button '更新する'
+    end
+
+    assert_text '質問を更新しました'
+    assert_no_match 'Message to Discord.', mock_log.to_s
+  end
 end
