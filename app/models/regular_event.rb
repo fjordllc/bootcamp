@@ -132,9 +132,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
     # 次の第n X曜日の日付を計算する
-    date = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday + 1
-    date += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
-    Date.new(first_day.year, first_day.mon, date)
+    specific_date = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday + 1
+    specific_date += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
+    Date.new(first_day.year, first_day.mon, specific_date)
   end
 
   def holding_tomorrow?
