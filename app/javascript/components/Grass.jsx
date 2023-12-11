@@ -12,9 +12,10 @@ const serverDateFormat = 'YYYY-MM-DD'
 export default function Grass({ currentUser, userId }) {
   const [currentDate, setCurrentDate] = useState(dayjs())
   const [isVisible, setIsVisible] = useState(true)
+  const [isDashboard, setIsDashboard] = useState(location.pathname === '/')
   const canvasRef = useRef(null)
   const formattedDate = currentDate.format(serverDateFormat)
-  const [isDashboard, setIsDashboard] = useState(location.pathname === '/')
+  const isVisibleRef = useRef(isVisible)
 
   useEffect(() => {
     const handleLocationChange = () => {
@@ -27,7 +28,7 @@ export default function Grass({ currentUser, userId }) {
     return () => {
       window.removeEventListener('popstate', handleLocationChange)
     }
-  }, [isDashboard])
+  }, [])
 
   const { data: grasses, error } = useSWR(
     `/api/grasses/${userId}.json?end_date=${formattedDate}`,
@@ -41,6 +42,24 @@ export default function Grass({ currentUser, userId }) {
   const hideGrass = () => {
     setIsVisible(false)
   }
+
+  useEffect(() => {
+    if (isVisibleRef.current && !isVisible) {
+      document.cookie = `user_grass=${JSON.stringify(userId)}`
+    }
+  }, [isVisible])
+
+  useEffect(() => {
+    const userGrassCookie = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('user_grass='))
+    if (userGrassCookie) {
+      const userGrass = JSON.parse(userGrassCookie.split('=')[1])
+      if (userGrass === userId) {
+        setIsVisible(false)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (grasses && canvasRef.current) {
@@ -91,11 +110,6 @@ export default function Grass({ currentUser, userId }) {
           }
         }
 
-        const lastDate = grasses[grasses.length - 1].date
-        if (!dayjs(lastDate).isSame(currentDate, 'month')) {
-          setCurrentDate(dayjs(lastDate))
-        }
-
         const sampleStartX = 555
         const sampleStartY = 120
         const sampleSpanX = 3
@@ -113,9 +127,6 @@ export default function Grass({ currentUser, userId }) {
         ctx.strokeText('6 h', sampleStartX + 71, sampleStartY + 8.5)
       }
       render()
-    }
-    return () => {
-      document.cookie = `user_grass=${JSON.stringify(userId)}`
     }
   }, [grasses])
 
