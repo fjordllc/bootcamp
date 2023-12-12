@@ -58,6 +58,11 @@ class Report < ApplicationRecord
       .default_order
   }
 
+  scope :student_trainee_recent_reports, lambda {
+    joins(:user)
+      .where(users: { admin: false, mentor: false, adviser: false, graduated_on: nil, hibernated_at: nil, retired_on: nil })
+  }
+
   class << self
     def faces
       @faces ||= emotions.keys
