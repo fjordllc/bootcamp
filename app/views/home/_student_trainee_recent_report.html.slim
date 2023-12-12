@@ -7,6 +7,7 @@
         header.card-list-item-title
           h2.card-list-item-title__title(itemprop='name')
             = link_to report, itemprop: 'url', class: 'card-list-item-title__link a-text-link' do
+              = image_tag("/images/emotion/#{report.emotion}.svg", class: 'card-list-item-title__emotion-image', alt: 'report.emotion')
               = report.title
       .card-list-item__row
         .card-list-item-meta
@@ -15,5 +16,5 @@
               = link_to report.user, class: 'a-user-name' do
                 = report.user.long_name
             .card-list-item-meta__item
-              time.a-meta(datetime="#{report.created_at.to_datetime}" pubdate='pubdate')
-                = l report.created_at
+              time.a-meta
+                = "#{l report.reported_on}の日報"
