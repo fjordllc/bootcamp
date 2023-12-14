@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function GrassHeader({ currentUser, hideGrass, isDashboard }) {
+export default function GrassHeader({ currentUser, hideGrass }) {
+  const isDashboard = location.pathname === '/'
+
   return (
     <header className="card-header is-sm">
       <h2 className="card-header__title">学習時間</h2>

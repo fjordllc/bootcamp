@@ -12,23 +12,9 @@ const serverDateFormat = 'YYYY-MM-DD'
 export default function Grass({ currentUser, userId }) {
   const [currentDate, setCurrentDate] = useState(dayjs())
   const [isVisible, setIsVisible] = useState(true)
-  const [isDashboard, setIsDashboard] = useState(location.pathname === '/')
+  const isDashboard = location.pathname === '/'
   const canvasRef = useRef(null)
   const formattedDate = currentDate.format(serverDateFormat)
-  const isVisibleRef = useRef(isVisible)
-
-  useEffect(() => {
-    const handleLocationChange = () => {
-      setIsDashboard(location.pathname === '/')
-    }
-
-    window.addEventListener('popstate', handleLocationChange)
-    handleLocationChange()
-
-    return () => {
-      window.removeEventListener('popstate', handleLocationChange)
-    }
-  }, [])
 
   const { data: grasses, error } = useSWR(
     `/api/grasses/${userId}.json?end_date=${formattedDate}`,
@@ -41,13 +27,8 @@ export default function Grass({ currentUser, userId }) {
 
   const hideGrass = () => {
     setIsVisible(false)
+    document.cookie = `user_grass=${JSON.stringify(userId)}`
   }
-
-  useEffect(() => {
-    if (isVisibleRef.current && !isVisible) {
-      document.cookie = `user_grass=${JSON.stringify(userId)}`
-    }
-  }, [isVisible])
 
   useEffect(() => {
     const userGrassCookie = document.cookie
