@@ -9,7 +9,7 @@ import GrassCanvas from './GrassCanvas'
 
 const serverDateFormat = 'YYYY-MM-DD'
 
-export default function Grass({ currentUser, userId }) {
+export default function Grass({ userId }) {
   const [currentDate, setCurrentDate] = useState(dayjs())
   const [isVisible, setIsVisible] = useState(true)
   const isDashboard = location.pathname === '/'
@@ -125,11 +125,7 @@ export default function Grass({ currentUser, userId }) {
 
   return (
     <>
-      <GrassHeader
-        currentUser={currentUser}
-        hideGrass={hideGrass}
-        isDashboard={isDashboard}
-      />
+      <GrassHeader hideGrass={hideGrass} isDashboard={isDashboard} />
       <hr className="a-border-tint" />
       <GrassBody>
         <GrassNav
