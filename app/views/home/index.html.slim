@@ -38,5 +38,4 @@
               = render 'users/github_grass', user: current_user
             - if current_user.student_or_trainee?
               #js-niconico_calendar(data-user-id="#{current_user.id}")
-            - if current_user.student_or_trainee?
               = render partial: 'recent_reports'
