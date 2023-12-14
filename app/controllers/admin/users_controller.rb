@@ -2,15 +2,16 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
+  ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
   def index
     @direction = params[:direction] || 'desc'
-    @target = params[:target] || 'student_and_trainee'
-    @users = User.with_attached_avatar
-                 .preload(%i[company course])
-                 .order_by_counts(params[:order_by] || 'id', @direction)
-                 .users_role(@target)
-    @emails = User.users_role(@target).pluck(:email)
+    @target = params[:target]
+    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    @users = user_scope.with_attached_avatar
+                       .preload(:company, :course)
+                       .order_by_counts(params[:order_by] || 'id', @direction)
+    @emails = user_scope.pluck(:email)
   end
 
   def show
