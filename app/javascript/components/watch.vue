@@ -1,7 +1,22 @@
 <template lang="pug">
 .card-list-item(:class='isWatchClassName')
   .card-list-item__inner
-    .card-list-item__label
+    .card-list-item__label(v-if='watch.model_name == "regular_event"')
+      span.card-list-item__label-inner.is-sm
+        | 定期
+        br
+        | イベント
+    .card-list-item__label(v-else-if='watch.model_name == "event"')
+      span.card-list-item__label-inner.is-sm
+        | 特別
+        br
+        | イベント
+    .card-list-item__label(v-else-if='watch.model_name == "practice"')
+      span.card-list-item__label-inner
+        | プラク
+        br
+        | ティス
+    .card-list-item__label(v-else)
       | {{ watch.model_name_with_i18n }}
     .card-list-item__rows
       .card-list-item__row
