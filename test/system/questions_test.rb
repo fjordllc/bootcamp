@@ -30,7 +30,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'show a question' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    assert_equal 'Q＆A テストの質問 | FBC', title
+    assert_equal 'Q＆A: テストの質問 | FBC', title
   end
 
   test 'create a question' do
