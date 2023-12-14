@@ -50,7 +50,7 @@
                   .a-panels__items
                     - unless cookies[:user_grass]
                       .a-panels__item
-                        = react_component 'Grass', { currentUser: current_user, userId: current_user.id }, { class: 'a-card' }
+                        = react_component 'Grass', { userId: current_user.id }, { class: 'a-card' }
                     - if current_user.github_account.present?
                       .a-panels__item
                         = render 'users/github_grass', user: current_user
