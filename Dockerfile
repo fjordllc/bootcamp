@@ -20,7 +20,7 @@ RUN apk add --no-cache \
       cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # ImageMagick
-RUN apk add --no-cache imagemagick bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
+RUN apk add --no-cache imagemagick imagemagick-heic imagemagick-jpeg imagemagick-pdf imagemagick-svg imagemagick-webp bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
 
 # Install npm packages
 COPY package.json yarn.lock ./
