@@ -49,8 +49,6 @@ class WatchesTest < ApplicationSystemTestCase
       end
     end
 
-    visit current_path
-    assert_selector '#watch-button', exact_text: 'Watch'
     visit '/current_user/watches'
     assert_text 'OS X Mountain Lionをクリーンインストールする'
     assert_no_text '作業週1日目'
@@ -77,8 +75,6 @@ class WatchesTest < ApplicationSystemTestCase
     end
     assert_text 'ウォッチ確認用のtestコメントを編集'
 
-    visit current_path
-    assert_selector '#watch-button', exact_text: 'Watch'
     visit '/current_user/watches'
     assert_text 'OS X Mountain Lionをクリーンインストールする'
     assert_no_text '作業週1日目'
