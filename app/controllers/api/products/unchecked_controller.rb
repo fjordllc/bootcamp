@@ -15,8 +15,8 @@ class API::Products::UncheckedController < API::BaseController
                          .ascending_by_date_of_publishing_and_id
                          .page(params[:page])
                 when 'unchecked_no_replied'
-                  Product.unhibernated_user_products_unchecked_no_replied_products
-                         .unchecked
+                  Product.unhibernated_user_products
+                         .unchecked_no_replied_products
                          .not_wip
                          .list
                          .page(params[:page])

@@ -51,7 +51,16 @@ class Product < ApplicationRecord
   scope :order_for_all_list, -> { order(published_at: :desc, id: :asc) }
   scope :ascending_by_date_of_publishing_and_id, -> { order(published_at: :asc, id: :asc) }
   scope :order_for_self_assigned_list, -> { order('commented_at asc nulls first, published_at asc') }
-  scope :unhibernated_user_products, -> { Product.joins(:user).where(user: { hibernated_at: nil }) }
+  scope :unchecked_no_replied_products, lambda {
+    self_last_commented_products = where.not(commented_at: nil).select do |product|
+      product.comments.last.user_id == product.user.id
+    end
+    no_comments_products = where(commented_at: nil)
+    no_replied_products_ids = (self_last_commented_products + no_comments_products).map(&:id)
+    where(id: no_replied_products_ids)
+      .order(published_at: :asc, id: :asc)
+  }
+  scope :unhibernated_user_products, -> { joins(:user).where(user: { hibernated_at: nil }) }
 
   def self.add_latest_commented_at
     Product.all.includes(:comments).find_each do |product|
@@ -96,17 +105,6 @@ class Product < ApplicationRecord
     no_replied_product_ids = self_assigned_no_replied_product_ids(user_id)
     Product.where(id: no_replied_product_ids)
            .order(published_at: :asc, id: :asc)
-  end
-
-  def self.unhibernated_user_products_unchecked_no_replied_products
-    unhibernated_user_products = Product.unhibernated_user_products
-    self_last_commented_products = unhibernated_user_products.where.not(commented_at: nil).filter do |product|
-      product.comments.last.user_id == product.user.id
-    end
-    no_comments_products = unhibernated_user_products.where(commented_at: nil)
-    no_replied_products_ids = (self_last_commented_products + no_comments_products).map(&:id)
-    unhibernated_user_products.where(id: no_replied_products_ids)
-                              .order(published_at: :asc, id: :asc)
   end
 
   def completed?(user)
