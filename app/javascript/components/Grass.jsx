@@ -43,7 +43,7 @@ export default function Grass({ userId }) {
   }, [])
 
   useEffect(() => {
-    if (grasses && canvasRef.current) {
+    if (grasses) {
       const render = () => {
         const startX = 16
         const startY = 20
