@@ -7,7 +7,7 @@ class User::NotLoggedInTest < ApplicationSystemTestCase
     target_user = users(:kimura)
     visit user_path(target_user)
     assert_selector 'head', visible: false do
-      assert_selector "meta[name='description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」の#{target_user.login_name}さんのプロフィールページ']", visible: false
+      assert_selector "meta[name='description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」の@#{target_user.login_name}さんのプロフィールページ']", visible: false
     end
   end
 end
