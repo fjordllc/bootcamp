@@ -170,6 +170,6 @@ class RegularEventTest < ActiveSupport::TestCase
     )
     regular_event.save(validate: false)
     regular_event.assign_admin_as_organizer_if_none
-    assert_equal User.find_by(login_name: User::DEFAULT_ADMIN_LOGIN_NAME), regular_event.organizers.first
+    assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
   end
 end
