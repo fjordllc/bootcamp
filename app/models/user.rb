@@ -19,7 +19,7 @@ class User < ApplicationRecord
     'adviser' => :advisers,
     'trainee' => :trainees
   }.freeze
-  DEFAULT_ADMIN_LOGIN_NAME = 'komagata'
+  DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
 
   enum job: {
     student: 0,
