@@ -188,7 +188,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def assign_admin_as_organizer_if_none
     return if organizers.exists?
 
-    admin_user = User.find_by(login_name: User::DEFAULT_ADMIN_LOGIN_NAME)
+    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
