@@ -12,7 +12,7 @@ class RetirementController < ApplicationController
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
       user = current_user
-      current_user.delete_all_organizers
+      assign_admin_as_organizer
       Newspaper.publish(:retirement_create, user)
       begin
         UserMailer.retire(user).deliver_now
@@ -51,5 +51,10 @@ class RetirementController < ApplicationController
     User.mentor.each do |mentor_user|
       ActivityDelivery.with(sender: current_user, receiver: mentor_user).notify(:retired)
     end
+  end
+
+  def assign_admin_as_organizer
+    current_user.organizers.destroy_all
+    current_user.regular_events.each(&:assign_admin_as_organizer_if_none)
   end
 end
