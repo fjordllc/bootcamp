@@ -3,7 +3,6 @@ import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
-// import Pagination from './Pagination'
 import usePage from './hooks/usePage'
 
 export default function Bookmarks({ bookmarksNum }) {
