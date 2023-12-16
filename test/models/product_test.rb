@@ -200,7 +200,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_not wip_product.updated_after_submission?
   end
 
-  test '#unhibernated_user_products' do
+  test 'unhibernated user products' do
     expected_count = Product.joins(:user).where(user: { hibernated_at: nil }).count
     assert_equal expected_count, Product.unhibernated_user_products.count
   end
