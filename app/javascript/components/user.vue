@@ -2,13 +2,14 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
   .users-item
     .users-item__inner.a-card
-      .users-item__inactive-message.is-only-mentor(
-        v-if='currentUser.mentor && user.student_or_trainee && !user.active')
-        | 1ヶ月以上ログインがありません
-      header.users-item__header
-        .is-only-mentor(
-          v-if='(currentUser.mentor || currentUser.admin) && user.roles.includes("hibernationed")')
+      .users-item__inactive-message-container(v-if='(currentUser.mentor || currentUser.admin) && user.student_or_trainee')
+        .users-item__inactive-message.is-only-mentor(v-if='user.roles.includes("retired")')
+          | 退会しました
+        .users-item__inactive-message.is-only-mentor(v-else-if='user.roles.includes("hibernationed")')
           | 休会中: {{ user.hibernated_at }}〜({{ user.hibernation_elapsed_days }}日経過)
+        .users-item__inactive-message.is-only-mentor(v-else-if='!user.active')
+          | 1ヶ月以上ログインがありません
+      header.users-item__header
         .users-item__header-inner
           .users-item__header-start
             .users-item__icon
