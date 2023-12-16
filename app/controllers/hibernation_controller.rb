@@ -52,4 +52,9 @@ class HibernationController < ApplicationController
   def notify_to_chat
     DiscordNotifier.with(sender: current_user).hibernated.notify_now
   end
+
+  def assign_admin_as_organizer
+    current_user.organizers.destroy_all
+    current_user.regular_events.each(&:assign_admin_as_organizer_if_none)
+  end
 end
