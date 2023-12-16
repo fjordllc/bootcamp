@@ -203,7 +203,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
 
   test 'the number of products in the unchecked tab is excepted hiberanated user' do
     visit_with_auth '/products/unchecked', 'komagata'
-    assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{Product.joins(:user).where(user: { hibernated_at: nil }).unchecked.not_wip.count}）"
+    expected_count = Product.joins(:user).where(user: { hibernated_at: nil }).unchecked.not_wip.count
+    assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{expected_count}）"
   end
 
   test 'unchecked products is excepted hiberanated user' do
