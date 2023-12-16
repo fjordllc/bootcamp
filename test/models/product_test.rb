@@ -199,4 +199,9 @@ class ProductTest < ActiveSupport::TestCase
     wip_product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
     assert_not wip_product.updated_after_submission?
   end
+
+  test '#unhibernated_user_products' do
+    expected_count = Product.joins(:user).where(user: { hibernated_at: nil }).count
+    assert_equal expected_count, Product.unhibernated_user_products.count
+  end
 end
