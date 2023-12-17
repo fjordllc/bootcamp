@@ -52,9 +52,4 @@ class RetirementController < ApplicationController
       ActivityDelivery.with(sender: current_user, receiver: mentor_user).notify(:retired)
     end
   end
-
-  def assign_admin_as_organizer
-    current_user.organizers.destroy_all
-    current_user.regular_events.each(&:assign_admin_as_organizer_if_none)
-  end
 end
