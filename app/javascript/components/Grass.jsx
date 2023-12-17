@@ -31,18 +31,6 @@ export default function Grass({ userId }) {
   }
 
   useEffect(() => {
-    const userGrassCookie = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('user_grass='))
-    if (userGrassCookie) {
-      const userGrass = JSON.parse(userGrassCookie.split('=')[1])
-      if (userGrass === userId) {
-        setIsVisible(false)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
     if (grasses) {
       const render = () => {
         const startX = 16
