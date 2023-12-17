@@ -207,7 +207,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     assert_selector '.page-tabs__item-link.is-active', text: "未完了 （#{expected_count}）"
   end
 
-  test 'unchecked products is excepted unhiberanated user' do
+  test 'unchecked products is excepted hiberanated user' do
     hiberanated_user = users(:kyuukai)
     practice = practices(:practice47)
 
