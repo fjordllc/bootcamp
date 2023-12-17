@@ -201,7 +201,16 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'unhibernated user products' do
-    expected_count = Product.joins(:user).where(user: { hibernated_at: nil }).count
-    assert_equal expected_count, Product.unhibernated_user_products.count
+    hiberanated_user = users(:kyuukai)
+
+    hibernated_user_product = Product.create!(
+      body: "hibernated user's product.",
+      user: hiberanated_user,
+      practice: practices(:practice7),
+      checker_id: nil
+    )
+
+    assert_includes Product.all, hibernated_user_product
+    assert_not_includes Product.unhibernated_user_products, hibernated_user_product
   end
 end
