@@ -46,7 +46,7 @@ ruby:
                         = l(@article.created_at)
                       - else
                         = l(@article.published_at)
-                    = render "share_buttons", article: @article
+                    = render 'share_buttons', article: @article
                 - if @article.thumbnail.attached? && @article.prepared_thumbnail?
                   = image_tag @article.prepared_thumbnail_url, class: 'article__image'
                 - elsif !thumbnail_blank?(@article)
@@ -54,7 +54,7 @@ ruby:
               .article__body
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
-                = render "share_buttons", article: @article
+                = render 'share_buttons', article: @article
             - if admin_or_mentor_login?
               hr.a-border
               .card-footer
