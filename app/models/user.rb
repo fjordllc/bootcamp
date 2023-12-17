@@ -756,6 +756,10 @@ class User < ApplicationRecord
     watches.find_or_create_by!(watchable:)
   end
 
+  def organizers_delete_and_assign_new
+    organizers.each(&:delete_and_assign_new)
+  end
+
   private
 
   def password_required?
