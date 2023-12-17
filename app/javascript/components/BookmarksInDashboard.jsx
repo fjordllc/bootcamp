@@ -16,16 +16,16 @@ export default function Bookmarks() {
   if (!data) return <>ロード中…</>
 
   return (
-    <div class="a-card">
-      <header class="card-header is-sm">
-        <h2 class="card-header__title">最新のブックマーク</h2>
-        <div class="card-header__action">
+    <div className="a-card">
+      <header className="card-header is-sm">
+        <h2 className="card-header__title">最新のブックマーク</h2>
+        <div className="card-header__action">
           <EditButton editable={editable} setEditable={setEditable} />
           <span></span>
         </div>
       </header>
-      <hr class="a-border-tint" />
-      <div class="card-list">
+      <hr className="a-border-tint" />
+      <div className="card-list">
         {data.bookmarks.map((bookmark) => {
           return (
             <Bookmark
@@ -38,14 +38,13 @@ export default function Bookmarks() {
           )
         })}
       </div>
-      <footer class="card-footer">
-        <div class="card-footer__footer-link">
+      <footer className="card-footer">
+        <div className="card-footer__footer-link">
           <a
             href={`current_user/bookmarks`}
-            class="card-footer__footer-text-link">
+            className="card-footer__footer-text-link">
             全てのブックマーク（{data.unpagedBookmarks.length}）
           </a>
-          {console.log(data)}
         </div>
       </footer>
     </div>
