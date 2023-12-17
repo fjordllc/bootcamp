@@ -110,11 +110,6 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
           {bookmark.modelName !== 'Talk' && (
             <div>
               <div className="card-list-item__row">
-                <div className="card-list-item__summary">
-                  <p>{bookmark.summary}</p>
-                </div>
-              </div>
-              <div className="card-list-item__row">
                 <div className="card-list-item-meta">
                   <div className="card-list-item-meta__item">
                     <a href={bookmark.authorUrl} className="a-user-name">
