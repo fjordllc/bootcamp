@@ -623,6 +623,16 @@ class UserTest < ActiveSupport::TestCase
     assert target.sent_student_followup_message
   end
 
+  test '#hibernation_elapsed_days' do
+    user = users(:kyuukai)
+
+    travel_to Time.zone.local(2020, 1, 10) do
+      elapsed_days = user.hibernation_elapsed_days
+
+      assert assert_equal 9, elapsed_days
+    end
+  end
+
   test '#country_name' do
     assert_equal '日本', users(:kimura).country_name
     assert_equal '米国', users(:tom).country_name
