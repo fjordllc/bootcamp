@@ -678,4 +678,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
     assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
   end
+
+  test '#organizers_delete_and_assign_new' do
+    user = users(:hajime)
+
+    assert_changes -> { Organizer.where(user: user).exists? }, from: true, to: false do
+      user.organizers_delete_and_assign_new
+    end
+  end
 end
