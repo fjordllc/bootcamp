@@ -5,7 +5,7 @@ import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
 import usePage from './hooks/usePage'
 
-export default function Bookmarks({ bookmarksNum }) {
+export default function Bookmarks() {
   const [editable, setEditable] = useState(false)
   const per = 5
   const { page } = usePage()
@@ -43,8 +43,9 @@ export default function Bookmarks({ bookmarksNum }) {
           <a
             href={`current_user/bookmarks`}
             class="card-footer__footer-text-link">
-            全てのブックマーク（{bookmarksNum}）
+            全てのブックマーク（{data.unpagedBookmarks.length}）
           </a>
+          {console.log(data)}
         </div>
       </footer>
     </div>
