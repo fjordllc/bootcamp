@@ -232,7 +232,7 @@ function ProductHeader({
 const FilterButtons = ({ selectedTab }) => {
   let targets
   if (selectedTab === 'self_assigned') {
-    targets = ['self_assigned_no_replied', 'self_assigned_all']
+    targets = ['self_assigned_all', 'self_assigned_no_replied']
   } else {
     targets = ['unchecked_no_replied', 'unchecked_all']
   }
