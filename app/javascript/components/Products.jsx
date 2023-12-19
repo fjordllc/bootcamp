@@ -234,7 +234,7 @@ const FilterButtons = ({ selectedTab }) => {
   if (selectedTab === 'self_assigned') {
     targets = ['self_assigned_all', 'self_assigned_no_replied']
   } else {
-    targets = ['unchecked_no_replied', 'unchecked_all']
+    targets = ['unchecked_all', 'unchecked_no_replied']
   }
 
   const filterButtonUrl = ({ selectedTab, target }) => {
