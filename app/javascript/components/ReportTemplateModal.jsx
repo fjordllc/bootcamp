@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import TextareaInitializer from '../textarea-initializer'
-import MarkdownInitializer from '../markdown-initializer'
 import CSRF from '../csrf'
 import { toast } from '../toast_react'
 
@@ -20,11 +19,6 @@ export default function ReportTemplateModal({
   }, [])
 
   const isEditingTemplateValid = editingTemplate !== ''
-
-  const markdownDescription = () => {
-    const markdownInitializer = new MarkdownInitializer()
-    return markdownInitializer.render(editingTemplate)
-  }
 
   const clickTemplateTab = () => {
     setIsEditingTemplate(true)
@@ -137,7 +131,6 @@ export default function ReportTemplateModal({
             className={`a-markdown-input__inner js-tabs__content a-long-text is-md a-markdown-input__preview ${
               isEditingTemplate ? '' : 'is-active'
             }`}
-            dangerouslySetInnerHTML={{ __html: markdownDescription() }}
             id="js-template-preview"></div>
         </div>
         <footer className="card-footer">
