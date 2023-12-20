@@ -679,11 +679,11 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
   end
 
-  test '#organizers_delete_and_assign_new' do
+  test '#delete_and_assign_new_organizer' do
     user = users(:hajime)
 
     assert_changes -> { Organizer.where(user: user).exists? }, from: true, to: false do
-      user.organizers_delete_and_assign_new
+      user.delete_and_assign_new_organizer
     end
   end
 end
