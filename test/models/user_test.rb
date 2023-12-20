@@ -503,7 +503,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kensyuowata))
   end
 
-  test '#year_end_party' do
+  test '.year_end_party' do
     target = User.year_end_party
     assert_not_includes(target, users(:kyuukai))
     assert_not_includes(target, users(:yameo))
