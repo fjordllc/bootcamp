@@ -1,3 +1,6 @@
+require:
+  - rubocop-minitest
+
 inherit_from: .rubocop_todo.yml
 
 inherit_gem:
@@ -24,6 +27,18 @@ Metrics/ClassLength:
     - app/models/product.rb
     - app/models/report.rb
     - app/notifiers/activity_notifier.rb
+
+Minitest/AssertIncludes:
+  Enabled: false
+
+Minitest/AssertEmpty:
+  Enabled: false
+
+Minitest/AssertTruthy:
+  Enabled: false
+
+Minitest/RefuteFalse:
+  Enabled: false
 
 AllCops:
   Exclude:
