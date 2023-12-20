@@ -54,7 +54,9 @@ export default function Bookmarks() {
 const EditButton = ({ editable, setEditable }) => {
   return (
     <>
-      <label className="a-form-label" htmlFor="card-list-tools__action">
+      <label
+        className="a-form-label is-sm is-inline spec-bookmark-edit"
+        htmlFor="card-list-tools__action">
         編集
       </label>
       <label className="a-on-off-checkbox is-sm">
@@ -138,7 +140,7 @@ const DeleteButton = ({ id, afterDelete }) => {
   return (
     <div className="card-list-item__option">
       <div
-        className="bookmark-delete-button a-bookmark-button a-button is-sm is-block is-main"
+        className="card-list-item__option js-bookmark-delete-button a-button is-sm is-primary"
         onClick={() => afterDelete(id)}>
         削除
       </div>
