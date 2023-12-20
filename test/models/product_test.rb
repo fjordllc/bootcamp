@@ -200,7 +200,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_not wip_product.updated_after_submission?
   end
 
-  test 'unhibernated user products' do
+  test '.unhibernated_user_products' do
     hiberanated_user = users(:kyuukai)
 
     hibernated_user_product = Product.create!(
