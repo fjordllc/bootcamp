@@ -48,6 +48,13 @@ class RegularEventTest < ActiveSupport::TestCase
       first_day = Time.zone.today
       assert_equal Date.new(2022, 6, 5), regular_event.possible_next_event_date(first_day, regular_event_repeat_rule)
     end
+
+    holiday_not_held_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule36) # 第1週水曜日
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 2, 5), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
+    end
   end
 
   test '#next_specific_day_of_the_week' do
@@ -55,6 +62,24 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event_repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal Date.new(2022, 6, 5), regular_event.next_specific_day_of_the_week(regular_event_repeat_rule)
+    end
+
+    holiday_not_held_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule35) # 毎週水曜日
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 1, 8), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
+    end
+  end
+
+  test '#calculate_date_of_specific_nth_day_of_the_week' do
+    regular_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule2)
+    days_of_the_week_count = 7
+
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 1, 6), regular_event.calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
     end
   end
 

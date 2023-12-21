@@ -110,19 +110,31 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def possible_next_event_date(first_day, repeat_rule)
-    if repeat_rule.frequency.zero?
-      next_specific_day_of_the_week(repeat_rule) if Time.zone.today.mon == first_day.mon
-    else
-      # 次の第n X曜日の日付を計算する
-      date = (repeat_rule.frequency - 1) * DAYS_OF_THE_WEEK_COUNT + repeat_rule.day_of_the_week - first_day.wday + 1
-      date += DAYS_OF_THE_WEEK_COUNT if repeat_rule.day_of_the_week < first_day.wday
-      Date.new(first_day.year, first_day.mon, date)
+    return next_specific_day_of_the_week(repeat_rule) if repeat_rule.frequency.zero?
+
+    possible_date = calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
+
+    return possible_date if hold_national_holiday
+
+    while possible_date.mon == first_day.mon && HolidayJp.holiday?(possible_date)
+      first_day = first_day.next_month
+      possible_date = calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
     end
+    possible_date
   end
 
   def next_specific_day_of_the_week(repeat_rule)
     day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
-    0.days.ago.next_occurring(day_of_the_week_symbol).to_date
+    possible_date = 0.days.ago.next_occurring(day_of_the_week_symbol).to_date
+    possible_date = possible_date.next_occurring(day_of_the_week_symbol) while !hold_national_holiday && HolidayJp.holiday?(possible_date)
+    possible_date
+  end
+
+  def calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
+    # 次の第n X曜日の日付を計算する
+    specific_date = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday + 1
+    specific_date += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
+    Date.new(first_day.year, first_day.mon, specific_date)
   end
 
   def holding_tomorrow?

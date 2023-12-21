@@ -13,8 +13,12 @@
       .card-list-item__row
         header.card-list-item-title
           h2.card-list-item-title__title
-            = link_to regular_event, class: "card-list-item-title__link #{regular_event.holding?(holding_date) ? 'a-text-link' : 'a-muted-text-link'}" do
-              = regular_event.title
+            = link_to regular_event, class: "card-list-item-title__link has-badge #{regular_event.holding?(holding_date) ? 'a-muted-text-link' : 'a-text-link'}" do
+              - if regular_event.participants.include?(current_user)
+                span.a-badge.is-xs.is-danger.card-list-item__badge
+                  | 参加
+              span.a-text-link__text
+                = regular_event.title
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
