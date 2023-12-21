@@ -15,3 +15,9 @@ book3:
   price: 3637
   page_url: https://www.amazon.co.jp/dp/B08D3DW7LP
   description: 通称パRails
+
+book4:
+  title: 新しいLinuxの教科書
+  price: 2822
+  page_url: https://www.amazon.co.jp/dp/B072K1NH76
+  description:
