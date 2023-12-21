@@ -5,32 +5,32 @@ require 'application_system_test_case'
 class ProductsTest < ApplicationSystemTestCase
   test 'see my product' do
     visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
-    assert_equal "#{products(:product1).practice.title} | FBC", title
+    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
   end
 
   test 'admin can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
-    assert_equal "#{products(:product1).practice.title} | FBC", title
+    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
   end
 
   test 'adviser can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'advijirou'
-    assert_equal "#{products(:product1).practice.title} | FBC", title
+    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
   end
 
   test 'graduate can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'sotugyou'
-    assert_equal "#{products(:product1).practice.title} | FBC", title
+    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
   end
 
   test "user who completed the practice can see the other user's product" do
     visit_with_auth "/products/#{products(:product1).id}", 'kimura'
-    assert_equal "#{products(:product1).practice.title} | FBC", title
+    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
   end
 
   test "can see other user's product if it is permitted" do
     visit_with_auth "/products/#{products(:product3).id}", 'hatsuno'
-    assert_equal "#{products(:product3).practice.title} | FBC", title
+    assert_equal "#{products(:product3).practice.title}の提出物 | FBC", title
   end
 
   test "can not see other user's product if it isn't permitted" do
@@ -120,6 +120,20 @@ class ProductsTest < ApplicationSystemTestCase
     products(:product8).change_learning_status(:submitted)
     visit product_path
     click_button '提出する'
+    visit "#{product_path}/edit"
+    click_button 'WIP'
+    visit practice_path
+
+    assert find_button(class: 'is-started', disabled: true).matches_css?('.is-active')
+  end
+
+  test 'should unchange learning status when change wip status' do
+    product = products(:product8)
+    product_path = "/products/#{product.id}"
+    practice_path = "/practices/#{product.practice.id}"
+
+    visit_with_auth "#{product_path}/edit", 'kimura'
+    product.change_learning_status(:started)
     visit "#{product_path}/edit"
     click_button 'WIP'
     visit practice_path
@@ -243,6 +257,19 @@ class ProductsTest < ApplicationSystemTestCase
     end
     click_button 'WIP'
     assert_text '本文を入力してください'
+  end
+
+  test 'user who has submitted a WIP product is alerted in the product page' do
+    wip_product = products(:product5)
+    visit_with_auth "/products/#{wip_product.id}", 'kimura'
+    assert_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
+  end
+
+  test "user is not alerted in the other's WIP product page" do
+    wip_product = products(:product5)
+    visit_with_auth "/products/#{wip_product.id}", 'hatsuno'
+    assert_equal "#{wip_product.practice.title}の提出物 | FBC", title
+    assert_no_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
   end
 
   test "Don't notify if create product as WIP" do

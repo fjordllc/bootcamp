@@ -201,7 +201,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_selector 'h2.card-header__title', text: '学習時間'
   end
 
-  test 'show events on dashboard for only related to user' do
+  test 'show job hunting events on dashboard for all user' do
     travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
       visit_with_auth '/', 'jobseeker'
       assert_text '直近イベントの表示テスト用(当日)'
@@ -212,11 +212,11 @@ class HomeTest < ApplicationSystemTestCase
       visit_with_auth '/', 'komagata'
       assert_text '直近イベントの表示テスト用(当日)'
       assert_text '直近イベントの表示テスト用(翌日)'
-      assert_no_text '就職関係かつ直近イベントの表示テスト用'
+      assert_text '就職関係かつ直近イベントの表示テスト用'
     end
   end
 
-  test 'show regular events for only participant and special events on dashbord' do
+  test 'show all regular events and special events on dashbord' do
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth '/', 'kimura'
       today_event_label = find('.card-list__label', text: '今日開催')
@@ -224,26 +224,24 @@ class HomeTest < ApplicationSystemTestCase
       day_after_tomorrow_event_label = find('.card-list__label', text: '明後日開催')
 
       today_events_texts = [
-        { category: '特別イベント', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
+        { category: '特別', title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
+        { category: '特別', title: 'kimura専用イベント', start_at: '2017年04月03日(月) 09:00' },
+        { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' },
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
       ]
       tomorrow_events_texts = [
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
-        { category: '特別イベント', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
+        { category: '特別', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
       ]
       day_after_tomorrow_events_texts = [
-        { category: '特別イベント', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' }
+        { category: '特別', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
+        { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' }
       ]
 
       assert_event_card(today_event_label, today_events_texts)
       assert_event_card(tomorrow_event_label, tomorrow_events_texts)
       assert_event_card(day_after_tomorrow_event_label, day_after_tomorrow_events_texts)
-
-      logout
-
-      visit_with_auth '/', 'komagata'
-      assert_no_text '今日01月30日は 「ダッシュボード表示確認用テスト定期イベント」'
-      assert_no_text '明日01月31日は 「ダッシュボード表示確認用テスト定期イベント」'
     end
   end
 
@@ -265,6 +263,31 @@ class HomeTest < ApplicationSystemTestCase
 
   def assert_events_count(event_label, count)
     assert_no_selector(:xpath, event_xpath(event_label, count))
+  end
+
+  test 'show registered to participate only participating events' do
+    Event.where.not(title: ['kimura専用イベント', '直近イベントの表示テスト用(当日)']).destroy_all
+    RegularEvent.where.not(title: ['ダッシュボード表示確認用テスト定期イベント', '質問・雑談タイム']).destroy_all
+
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      within all('.card-list-item')[0] do
+        assert_text '直近イベントの表示テスト用(当日)'
+        assert_no_text '参加'
+      end
+      within all('.card-list-item')[1] do
+        assert_text 'kimura専用イベント'
+        assert_text '参加'
+      end
+      within all('.card-list-item')[2] do
+        assert_text '質問・雑談タイム'
+        assert_no_text '参加'
+      end
+      within all('.card-list-item')[3] do
+        assert_text 'ダッシュボード表示確認用テスト定期イベント'
+        assert_text '参加'
+      end
+    end
   end
 
   test 'show grass hide button for graduates' do
@@ -512,6 +535,19 @@ class HomeTest < ApplicationSystemTestCase
         }
       ]
       assert_event_card(today_event_label, today_events_texts)
+    end
+  end
+
+  test 'show job hunting on job hunting related events' do
+    Event.where.not(title: ['就職関係かつ直近イベントの表示テスト用']).destroy_all
+    RegularEvent.destroy_all
+
+    travel_to Time.zone.local(2017, 4, 2, 10, 0, 0) do
+      visit_with_auth '/', 'kimura'
+      within all('.card-list-item')[0] do
+        assert_text '就職関係かつ直近イベントの表示テスト用'
+        assert_text '就活関連イベント'
+      end
     end
   end
 end

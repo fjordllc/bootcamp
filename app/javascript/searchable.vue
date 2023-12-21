@@ -14,10 +14,16 @@
         | 定期
         br
         | イベント
+    .card-list-item__label(v-else-if='searchable.model_name == "event"')
+      span.card-list-item__label-inner.is-sm
+        | 特別
+        br
+        | イベント
     .card-list-item__label(v-else-if='searchable.model_name == "practice"')
-      | プラク
-      br
-      | ティス
+      span.card-list-item__label-inner
+        | プラク
+        br
+        | ティス
     .card-list-item__label(v-else)
       | {{ searchable.model_name_with_i18n }}
     .card-list-item__rows

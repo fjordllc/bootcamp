@@ -80,10 +80,18 @@
       display: block
 
 .welcome-small-section__icon
-  +size(7rem)
   display: block
   margin-inline: auto
   margin-bottom: .75rem
+  display: flex
+  justify-content: center
+  align-items: center
+  +media-breakpoint-up(md)
+    +size(7rem)
+    font-size: 5rem
+  +media-breakpoint-down(sm)
+    +size(4rem)
+    font-size: 3rem
   .welcome-small-sections.is-unlimited &
     +size(7rem)
     margin-bottom: .75rem
