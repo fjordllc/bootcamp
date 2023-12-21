@@ -1,11 +1,5 @@
 <template lang="pug">
 .page-body
-  nav.page-filter.form
-    .container.is-md
-      filterDropdown(
-        label='プラクティスで絞り込む',
-        :options='practices',
-        v-model='practiceId')
   .page-content.is-books
     .container
       .books
@@ -29,15 +23,12 @@
 </template>
 <script>
 import CSRF from 'csrf'
-import Choices from 'choices.js'
 import Book from './book'
-import FilterDropdown from './filterDropdown'
 
 export default {
   name: 'CourseBooks',
   components: {
-    book: Book,
-    filterDropdown: FilterDropdown
+    book: Book
   },
   props: {
     isAdmin: { type: Boolean, required: true },
@@ -47,25 +38,18 @@ export default {
   data() {
     return {
       books: null,
-      practices: [],
-      practiceId: null
+      practices: []
     }
   },
   computed: {
     filteredBooks() {
-      return this.practiceId
-        ? this.books.filter((book) =>
-            book.practices.some(
-              (practice) => practice.id === Number(this.practiceId)
-            )
+      return this.books.filter((book) =>
+        book.practices.some((practice) =>
+          this.practices.some(
+            (coursePractice) => coursePractice.id === practice.id
           )
-        : this.books.filter((book) =>
-            book.practices.some((practice) =>
-              this.practices.some(
-                (coursePractice) => coursePractice.id === practice.id
-              )
-            )
-          )
+        )
+      )
     }
   },
   created() {
@@ -112,12 +96,6 @@ export default {
       })
         .then((res) => res.json())
         .then((json) => {
-          this.practices = [
-            {
-              id: null,
-              title: '全プラクティスの参考書籍を表示'
-            }
-          ]
           json.categories.forEach((category) => {
             this.practices.push(
               ...category.practices.map(
@@ -126,22 +104,7 @@ export default {
             )
           })
         })
-        .then(() => this.choicesUi())
         .catch((err) => console.warn(err))
-    },
-    choicesUi() {
-      const element = document.querySelector('#js-choices-single-select')
-      if (element) {
-        return new Choices(element, {
-          searchEnabled: true,
-          allowHTML: true,
-          searchResultLimit: 20,
-          searchPlaceholderValue: '検索ワード',
-          noResultsText: '一致する情報は見つかりません',
-          itemSelectText: '選択',
-          shouldSort: false
-        })
-      }
     }
   }
 }
