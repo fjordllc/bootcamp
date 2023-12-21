@@ -7,3 +7,8 @@ practices_book2:
   practice: practice1
   book: book3
   must_read: false
+
+practices_book3:
+  practice: practice5
+  book: book4
+  must_read: true
