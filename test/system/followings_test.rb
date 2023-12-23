@@ -120,9 +120,9 @@ class FollowingsTest < ApplicationSystemTestCase
     assert_text comment
 
     visit_with_auth '/notifications', 'kimura'
-    assert_text 'hatsunoさんの日報「test title」でhatsunoさんがコメントしました。'
+    assert_text 'hatsunoさんの日報「test title」にhatsunoさんがコメントしました。'
 
     visit_with_auth '/notifications', 'mentormentaro'
-    assert_no_text 'hatsunoさんの日報「test title」でhatsunoさんがコメントしました。'
+    assert_no_text 'hatsunoさんの日報「test title」にhatsunoさんがコメントしました。'
   end
 end
