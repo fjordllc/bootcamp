@@ -299,7 +299,7 @@ class ActivityNotifier < ApplicationNotifier
     action = watchable.instance_of?(Question) ? '回答' : 'コメント'
 
     notification(
-      body: "#{watchable.user.login_name}さんの#{watchable.notification_title}で#{sender.login_name}さんが#{action}しました。",
+      body: "#{watchable.user.login_name}さんの#{watchable.notification_title}に#{sender.login_name}さんが#{action}しました。",
       kind: :watching,
       receiver: receiver,
       sender: sender,
