@@ -4,6 +4,7 @@ import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
 import usePage from './hooks/usePage'
+import { toast } from '../toast_react'
 
 export default function Bookmarks() {
   const [editable, setEditable] = useState(false)
@@ -81,6 +82,7 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
     Bootcamp.delete(`/api/bookmarks/${id}.json`)
       .then((_response) => {
         mutate(bookmarksUrl)
+        toast('Bookmarkを削除しました。')
       })
       .catch((error) => {
         console.warn(error)
