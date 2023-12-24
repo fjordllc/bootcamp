@@ -32,14 +32,18 @@ class WatchesTest < ApplicationSystemTestCase
   end
 
   test "deleting a comment in a report after removing a watch to the report shouldn't change the watching status" do
-    visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
+    target_report_path = "/reports/#{reports(:report1).id}"
+    visit_with_auth target_report_path, 'mentormentaro'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'ウォッチ確認用のtestコメント')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
 
-    visit current_path
+    visit '/current_user/watches'
+    assert_text '作業週1日目'
+
+    visit target_report_path
     assert_text 'Watch中'
     find('#watch-button').click
     assert_text 'Watchを外しました'
@@ -55,14 +59,18 @@ class WatchesTest < ApplicationSystemTestCase
   end
 
   test "updating a comment in a report after removing a watch to the report shouldn't change the watching status" do
-    visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
+    target_report_path = "/reports/#{reports(:report1).id}"
+    visit_with_auth target_report_path, 'mentormentaro'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'ウォッチ確認用のtestコメント')
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
 
-    visit current_path
+    visit '/current_user/watches'
+    assert_text '作業週1日目'
+
+    visit target_report_path
     assert_text 'Watch中'
     find('#watch-button').click
     assert_text 'Watchを外しました'
