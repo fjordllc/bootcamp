@@ -5,14 +5,14 @@ import { toast } from '../toast_react'
 
 export default function ReportTemplateModal({
   templateId,
+  registeredTemplate,
   setRegisteredTemplate,
   isTemplateRegistered,
   setIsTemplateRegistered,
-  editingTemplate,
-  setEditingTemplate,
   closeModal
 }) {
   const [isEditingTemplate, setIsEditingTemplate] = useState(true)
+  const [editingTemplate, setEditingTemplate] = useState(registeredTemplate)
 
   useEffect(() => {
     TextareaInitializer.initialize('#js-template-content')

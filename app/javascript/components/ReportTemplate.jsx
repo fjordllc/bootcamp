@@ -9,7 +9,6 @@ export default function ReportTemplate({ templateDescription, templateId }) {
   const [isTemplateRegistered, setIsTemplateRegistered] = useState(
     templateDescription !== null
   )
-  const [editingTemplate, setEditingTemplate] = useState(registeredTemplate)
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -75,11 +74,10 @@ export default function ReportTemplate({ templateDescription, templateId }) {
       {showModal && (
         <ReportTemplateModal
           templateId={templateId}
+          registeredTemplate={registeredTemplate}
           setRegisteredTemplate={setRegisteredTemplate}
           isTemplateRegistered={isTemplateRegistered}
           setIsTemplateRegistered={setIsTemplateRegistered}
-          editingTemplate={editingTemplate}
-          setEditingTemplate={setEditingTemplate}
           closeModal={closeModal}
         />
       )}
