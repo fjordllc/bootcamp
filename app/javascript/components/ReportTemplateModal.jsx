@@ -18,7 +18,8 @@ export default function ReportTemplateModal({
     TextareaInitializer.initialize('#js-template-content')
   }, [])
 
-  const isEditingTemplateValid = editingTemplate !== ''
+  const isEditingTemplateValid =
+    editingTemplate !== '' && editingTemplate !== registeredTemplate
 
   const clickOutsideModal = (e) => {
     if (e.target !== e.currentTarget) {
@@ -42,7 +43,7 @@ export default function ReportTemplateModal({
 
   const registerTemplate = (e) => {
     e.preventDefault()
-    if (editingTemplate === '') {
+    if (!isEditingTemplateValid) {
       return null
     }
 
@@ -73,7 +74,7 @@ export default function ReportTemplateModal({
 
   const updateTemplate = (e) => {
     e.preventDefault()
-    if (editingTemplate === '') {
+    if (!isEditingTemplateValid) {
       return null
     }
 
