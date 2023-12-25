@@ -20,6 +20,18 @@ export default function ReportTemplateModal({
 
   const isEditingTemplateValid = editingTemplate !== ''
 
+  const clickOutsideModal = (e) => {
+    if (e.target !== e.currentTarget) {
+      return
+    }
+
+    if (editingTemplate === registeredTemplate) {
+      closeModal()
+    } else {
+      confirm('テンプレートを登録せずに終了しますか？') && closeModal()
+    }
+  }
+
   const clickTemplateTab = () => {
     setIsEditingTemplate(true)
   }
@@ -90,9 +102,7 @@ export default function ReportTemplateModal({
   }
 
   return (
-    <div
-      className="a-overlay is-js"
-      onClick={(e) => e.target === e.currentTarget && closeModal()}>
+    <div className="a-overlay is-js" onClick={clickOutsideModal}>
       <div className="a-card is-modal">
         <header className="card-header is-sm">
           <h1 className="card-header__title">日報テンプレート</h1>
