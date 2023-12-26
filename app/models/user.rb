@@ -19,6 +19,7 @@ class User < ApplicationRecord
     'adviser' => :advisers,
     'trainee' => :trainees
   }.freeze
+  DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
 
   enum job: {
     student: 0,
@@ -753,6 +754,10 @@ class User < ApplicationRecord
 
   def become_watcher!(watchable)
     watches.find_or_create_by!(watchable:)
+  end
+
+  def delete_and_assign_new_organizer
+    organizers.each(&:delete_and_assign_new)
   end
 
   private
