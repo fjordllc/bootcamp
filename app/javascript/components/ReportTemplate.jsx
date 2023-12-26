@@ -4,7 +4,7 @@ import TextareaInitializer from '../textarea-initializer'
 
 export default function ReportTemplate({ templateDescription, templateId }) {
   const [registeredTemplate, setRegisteredTemplate] = useState(
-    templateDescription !== null ? templateDescription : ''
+    templateDescription ?? ''
   )
   const [registeredTemplateId, setRegisteredTemplateId] = useState(templateId)
   const [showModal, setShowModal] = useState(false)
