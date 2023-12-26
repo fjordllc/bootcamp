@@ -11,7 +11,7 @@ export default function ReportTemplateModal({
   isTemplateRegistered,
   closeModal
 }) {
-  const [isEditingTemplate, setIsEditingTemplate] = useState(true)
+  const [isEditing, setIsEditing] = useState(true)
   const [editingTemplate, setEditingTemplate] = useState(registeredTemplate)
 
   useEffect(() => {
@@ -34,11 +34,11 @@ export default function ReportTemplateModal({
   }
 
   const clickTemplateTab = () => {
-    setIsEditingTemplate(true)
+    setIsEditing(true)
   }
 
   const clickPreviewTab = () => {
-    setIsEditingTemplate(false)
+    setIsEditing(false)
   }
 
   const registerTemplate = (e) => {
@@ -115,14 +115,14 @@ export default function ReportTemplateModal({
         <div className="a-form-tabs js-tabs">
           <div
             className={`a-form-tabs__tab js-tabs__tab ${
-              isEditingTemplate ? 'is-active' : ''
+              isEditing ? 'is-active' : ''
             }`}
             onClick={clickTemplateTab}>
             テンプレート
           </div>
           <div
             className={`a-form-tabs__tab js-tabs__tab ${
-              isEditingTemplate ? '' : 'is-active'
+              isEditing ? '' : 'is-active'
             }`}
             onClick={clickPreviewTab}>
             プレビュー
@@ -131,7 +131,7 @@ export default function ReportTemplateModal({
         <div className="a-markdown-input js-markdown-parent">
           <div
             className={`a-markdown-input__inner js-tabs__content ${
-              isEditingTemplate ? 'is-active' : ''
+              isEditing ? 'is-active' : ''
             }`}>
             <textarea
               className="a-text-input a-markdown-input__textare has-max-height"
@@ -143,7 +143,7 @@ export default function ReportTemplateModal({
           </div>
           <div
             className={`a-markdown-input__inner js-tabs__content a-long-text is-md a-markdown-input__preview ${
-              isEditingTemplate ? '' : 'is-active'
+              isEditing ? '' : 'is-active'
             }`}
             id="js-template-preview"></div>
         </div>
