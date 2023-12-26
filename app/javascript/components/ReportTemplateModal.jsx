@@ -4,11 +4,11 @@ import CSRF from '../csrf'
 import { toast } from '../toast_react'
 
 export default function ReportTemplateModal({
-  templateId,
   registeredTemplate,
   setRegisteredTemplate,
+  registeredTemplateId,
+  setRegisteredTemplateId,
   isTemplateRegistered,
-  setIsTemplateRegistered,
   closeModal
 }) {
   const [isEditingTemplate, setIsEditingTemplate] = useState(true)
@@ -61,9 +61,12 @@ export default function ReportTemplateModal({
       redirect: 'manual',
       body: JSON.stringify(params)
     })
-      .then(() => {
+      .then((response) => {
+        return response.json()
+      })
+      .then((newTemplate) => {
         setRegisteredTemplate(editingTemplate)
-        setIsTemplateRegistered(true)
+        setRegisteredTemplateId(newTemplate.id)
         toast('テンプレートを登録しました！')
         closeModal()
       })
@@ -81,7 +84,7 @@ export default function ReportTemplateModal({
     const params = {
       report_template: { description: editingTemplate }
     }
-    fetch(`/api/report_templates/${templateId}`, {
+    fetch(`/api/report_templates/${registeredTemplateId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
