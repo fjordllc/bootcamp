@@ -57,33 +57,8 @@ export default {
     this.getPractices()
   },
   methods: {
-    getBooks() {
-      const uri = '/api/books.json'
-      const urlParams = new URLSearchParams(window.location.search)
-      const status = urlParams.get('status')
-      fetch(uri, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          if (status === 'mustread') {
-            this.books = json.books.filter((book) => book.mustRead)
-          } else {
-            this.books = []
-            json.books.forEach((book) => this.books.push(book))
-          }
-        })
-        .catch((err) => console.warn(err))
-    },
-    getPractices() {
-      const uri = `/api/courses/${this.course.id}/practices.json`
+    fetchGetData(url, callback) {
+      const uri = `/api/${url}`
       fetch(uri, {
         method: 'GET',
         headers: {
@@ -95,16 +70,31 @@ export default {
         redirect: 'manual'
       })
         .then((res) => res.json())
-        .then((json) => {
-          json.categories.forEach((category) => {
-            this.practices.push(
-              ...category.practices.map(
-                (categoryPractice) => categoryPractice.practice
-              )
-            )
-          })
-        })
+        .then(callback)
         .catch((err) => console.warn(err))
+    },
+    getBooks() {
+      this.fetchGetData(`books.json`, (json) => {
+        const urlParams = new URLSearchParams(window.location.search)
+        const status = urlParams.get('status')
+        if (status === 'mustread') {
+          this.books = json.books.filter((book) => book.mustRead)
+        } else {
+          this.books = []
+          json.books.forEach((book) => this.books.push(book))
+        }
+      })
+    },
+    getPractices() {
+      this.fetchGetData(`courses/${this.course.id}/practices.json`, (json) => {
+        json.categories.forEach((category) => {
+          this.practices.push(
+            ...category.practices.map(
+              (categoryPractice) => categoryPractice.practice
+            )
+          )
+        })
+      })
     }
   }
 }
