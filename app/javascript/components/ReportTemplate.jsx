@@ -6,10 +6,10 @@ export default function ReportTemplate({ templateDescription, templateId }) {
   const [registeredTemplate, setRegisteredTemplate] = useState(
     templateDescription !== null ? templateDescription : ''
   )
-  const [isTemplateRegistered, setIsTemplateRegistered] = useState(
-    templateDescription !== null
-  )
+  const [registeredTemplateId, setRegisteredTemplateId] = useState(templateId)
   const [showModal, setShowModal] = useState(false)
+
+  const isTemplateRegistered = registeredTemplateId !== null
 
   useEffect(() => {
     const report = document.querySelector('#report_description')
@@ -73,11 +73,11 @@ export default function ReportTemplate({ templateDescription, templateId }) {
       </ul>
       {showModal && (
         <ReportTemplateModal
-          templateId={templateId}
           registeredTemplate={registeredTemplate}
           setRegisteredTemplate={setRegisteredTemplate}
+          registeredTemplateId={registeredTemplateId}
+          setRegisteredTemplateId={setRegisteredTemplateId}
           isTemplateRegistered={isTemplateRegistered}
-          setIsTemplateRegistered={setIsTemplateRegistered}
           closeModal={closeModal}
         />
       )}
