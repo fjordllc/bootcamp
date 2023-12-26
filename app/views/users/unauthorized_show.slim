@@ -1,0 +1,18 @@
+- title "@#{@user.login_name}"
+- description "オンラインプログラミングスクール「フィヨルドブートキャンプ」の@#{@user.login_name}さんのプロフィールページ"
+- content_for :extra_body_classes
+
+.page-body
+  article.unauthorized
+    = render '/unauthorized/unauthorized_header',
+      label: 'ユーザープロフィールページ', title: title.to_s
+    .unauthorized__body
+      .container.is-md
+        .unauthorized__contents
+          .unauthorized__content
+            = render '/unauthorized/must_be_enrolled'
+          hr.unauthorized__content-separalor
+          .unauthorized__content
+            = render '/unauthorized/about_fbc'
+          .unauthorized__content
+            = render '/unauthorized/join_us'
