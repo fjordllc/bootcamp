@@ -44,7 +44,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'kensyu（Kensyu Seiko）'
   end
 
-  test 'remove hibernated and retired user from year-end-party email list' do
+  test 'exclude hibernated and retired users from year-end-party email list' do
     visit_with_auth '/admin/users?target=year_end_party', 'komagata'
     assert_equal '管理ページ | FBC', title
     assert_no_text users(:kyuukai).email
