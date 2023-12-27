@@ -555,9 +555,9 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '最新のみんなの日報'
   end
 
-  test 'not show the latest reports for administrators' do
+  test 'show the latest reports for administrators' do
     visit_with_auth '/', 'komagata'
-    assert_no_text '最新のみんなの日報'
+    assert_text '最新のみんなの日報'
   end
 
   test 'show the the latest reports for trainees' do
