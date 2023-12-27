@@ -32,19 +32,19 @@ hr.a-border
                   = react_component('Tags/TagEditButton', tagId: @tag.id, tagName: @tag.name)
   hr.a-border
 .page-body
-  .container.is-lg
-    .page-body__columns
-      .page-body__column.is-main
-        div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}")
+  .page-body__inner.has-side-nav
+    .container.is-md
+      div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}")
 
-      - if Page.all_tags.any?
-        .page-body__column.is-sub
-          nav.page-tags-nav.a-card
-            header.card-header.is-sm
-              h2.card-header__title
-                | タグ一覧
-            hr.a-border-tint
-            .page-tags-nav__body
+    - if Page.all_tags.any?
+      nav.a-side-nav
+        .a-side-nav__inner
+          header.a-side-nav__header
+            h2.a-side-nav__title
+              | タグ一覧
+          hr.a-border
+          .a-side-nav__body
+            .page-tags-nav
               ul.page-tags-nav__items
                 - Page.all_tags.each do |tag|
                   li.page-tags-nav__item
