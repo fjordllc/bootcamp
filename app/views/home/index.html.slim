@@ -10,7 +10,6 @@
 - if @welcome_message_first_time.blank? && current_user.adviser?
   = render 'welcome_message_for_adviser'
 
-
 .page-body.is-dash-board
   - if current_user.adviser?
     .page-body__inner.has-side-nav
