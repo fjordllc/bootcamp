@@ -94,7 +94,7 @@
                 v-else-if='product.mentor_last_commented_at_date_time')
                 | 〜 {{ product.mentor_last_commented_at }}（メンター）
       .card-list-item__row.is-only-mentor(
-          v-if='isMentor && product.checks.size == 0')
+        v-if='isMentor && product.checks.size == 0')
         .card-list-item__assignee
           product-checker(
             :checkerId='product.checker_id',
@@ -103,7 +103,6 @@
             :currentUserId='currentUserId',
             :productId='product.id',
             :parentComponent='"product"')
-
 
     .stamp.stamp-approve(v-if='product.checks.size > 0')
       h2.stamp__content.is-title
