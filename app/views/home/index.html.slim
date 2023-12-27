@@ -5,14 +5,17 @@
 = render 'page_tabs', user: current_user
 
 - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-  .page-body.is-dash-board
-    .page-body__inner
-      = render 'welcome_message'
-  hr.a-border
+  = render 'welcome_message'
+
+- if @welcome_message_first_time.blank? && current_user.adviser?
+  = render 'welcome_message_for_adviser'
+
 
 .page-body.is-dash-board
   - if current_user.adviser?
-    = render 'adviser_dashboard'
+    .page-body__inner.has-side-nav
+      = render 'adviser_dashboard'
+      = render partial: 'recent_reports'
   - elsif current_user.mentor?
     .page-body__inner.has-side-nav
       = render 'mentor_dashboard'
