@@ -152,14 +152,16 @@ class User::TagsTest < ApplicationSystemTestCase
 
   test 'hibernated users are not displayed in the user list by tag' do
     user = users(:kensyu)
-    tag = acts_as_taggable_on_tags('guitar')
+    tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
-    visit_with_auth users_tag_path(tag.name), 'kensyu'
-    assert_text "タグ「#{tag.name}」のユーザー（2）"
+    User.tags.where.not(name: tag_name).destroy_all
+
+    visit_with_auth users_tag_path(tag_name), 'kensyu'
+    assert_text "タグ「#{tag_name}」のユーザー（2）"
     assert_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth users_tags_path, 'kensyu'
-    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    displayed_users_number = find('.user-group__count').text[/\d+/]
     assert_equal '2', displayed_users_number
     assert_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
 
@@ -176,26 +178,28 @@ class User::TagsTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text '休会処理が完了しました'
 
-    visit_with_auth users_tag_path(tag.name), 'komagata'
-    assert_text "タグ「#{tag.name}」のユーザー（1）"
+    visit_with_auth users_tag_path(tag_name), 'komagata'
+    assert_text "タグ「#{tag_name}」のユーザー（1）"
     assert_no_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth users_tags_path, 'komagata'
-    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    displayed_users_number = find('.user-group__count').text[/\d+/]
     assert_equal '1', displayed_users_number
     assert_no_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
   end
 
   test 'retired users are not displayed in the user list by tag' do
     user = users(:kensyu)
-    tag = acts_as_taggable_on_tags('guitar')
+    tag_name = acts_as_taggable_on_tags('guitar').name.to_s
 
-    visit_with_auth users_tag_path(tag.name), 'kensyu'
-    assert_text "タグ「#{tag.name}」のユーザー（2）"
+    User.tags.where.not(name: tag_name).destroy_all
+
+    visit_with_auth users_tag_path(tag_name), 'kensyu'
+    assert_text "タグ「#{tag_name}」のユーザー（2）"
     assert_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth users_tags_path, 'kensyu'
-    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    displayed_users_number = find('.user-group__count').text[/\d+/]
     assert_equal '2', displayed_users_number
     assert_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
 
@@ -205,12 +209,12 @@ class User::TagsTest < ApplicationSystemTestCase
     page.driver.browser.switch_to.alert.accept
     assert_text '退会処理が完了しました'
 
-    visit_with_auth users_tag_path(tag.name), 'komagata'
-    assert_text "タグ「#{tag.name}」のユーザー（1）"
+    visit_with_auth users_tag_path(tag_name), 'komagata'
+    assert_text "タグ「#{tag_name}」のユーザー（1）"
     assert_no_selector ".users-item__icon img[title='#{user.login_name} (#{user.name})']"
 
     visit_with_auth users_tags_path, 'komagata'
-    displayed_users_number = find('span.user-group__title-label', text: 'ギター').sibling('span.user-group__count').text.scan(/\d+/).first
+    displayed_users_number = find('.user-group__count').text[/\d+/]
     assert_equal '1', displayed_users_number
     assert_no_selector ".a-user-icons__items img[title='#{user.login_name} (#{user.name})']"
   end
