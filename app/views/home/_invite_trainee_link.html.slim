@@ -8,17 +8,16 @@
       .card__description
         .a-short-text.is-sm
           p
-            | 研修生を追加する場合は、以下のリンクから登録をお願いいたします。
-            | 以下のリンクから登録することで、#{current_user.company.name}所属の研修生として
-            | 登録されます。
-          p
-            | 研修生が履修をするプラクティスの選別についてなどは、
+            | 貴社の研修生を追加する場合は、
             = link_to '相談部屋', talk_path(current_user.talk, anchor: 'latest-comment')
-            | からご相談ください。
+            | からご連絡をお願い致します。
+          p
+            | 研修を受けさせることを検討中の方の現状のスキル、研修期間、研修で身に付けさせたいスキルを
+            | ビデオチャットでヒヤリングさせていただき、独自のカリキュラムを作成致します。
     hr.a-border-tint
     footer.card-footer
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
-            = link_to company.trainee_sign_up_url, class: 'a-button is-sm is-block is-secondary', target: '_blank', rel: 'noopener' do
-              | 研修生招待リンク
+            = link_to talk_path(current_user.talk, anchor: 'latest-comment'), class: 'a-button is-sm is-block is-secondary' do
+              | 相談部屋
