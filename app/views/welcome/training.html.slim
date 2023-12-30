@@ -1,7 +1,7 @@
-- content_for :extra_body_classes, 'welcome'
-- title '法人利用'
+- content_for :extra_body_classes, 'welcome no-forms'
+- title '研修利用'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
-  description: 'フィヨルドブートキャンプのカリキュラムは「プログラマーとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、新人研修にも最適です。料金は一般の受講生と同じ月額29,800円です。')
+  description: 'フィヨルドブートキャンプのカリキュラムは「プログラマーとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。料金は月額99,800円です。')
 
 .welcome-page-header
   .container.is-xl
@@ -14,72 +14,208 @@
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
-          | 新人研修
+          | フィヨルドブートキャンプが
+          br
+          | 研修にオススメの理由
         .welcome-section__description
-          p フィヨルドブートキャンプは会社の新人研修での利用もお勧めしています。
+          p
+            | フィヨルドブートキャンプは企業の研修代行も行っております。
           p
             | 私たちのカリキュラムは「プログラマーとして就職するためのカリキュラム」ではありません。
-            | 「現場のプラスの戦力になるためのカリキュラム」です。そこが新人研修にも最適な理由です。
+            | 「現場のプラスの戦力になるためのカリキュラム」です。
+            | 新人がチームに加わった際、ほとんどの場合は教育にリソースが取られ、
+            | 戦力としてはマイナスになってしまいます。
+          p
+            | フィヨルドブートキャンプは、チームに加入した時点で少しでも開発に貢献ができる人材であること、
+            | 決してマイナスの戦力ではなく、
+            | 戦力としてプラスになっていることを目指して作られています。
+          p
+            | 一番コストのかかる、マイナスの戦力からプラスの戦力にする教育を、
+            | 貴社のリソースを使わずにフィヨルドブートキャンプに任せることができます。
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
-            | 料金
+            | 研修での
+            br
+            | ご利用の際の料金
         .welcome-section__description
           p
-            | 料金は一般の受講生と同じ月額29,800円です。
-          p
-            | 登録メールアドレスに毎月領収書が届きます。
-            | 法人の方はそちらを処理するか、法人名義のカードを直接使う方法もございます。
-          p
-            | 領収書の宛名など変更をご希望の方は info@fjord.jp までご連絡いただければ対応いたします。
-          p
-            |（上記は2023年末までの料金になります。法人の料金は2024年01月01日から99,800円となります。）
-        .welcome-section__actions
-          .welcome-section__actions-items
-            .welcome-section__actions-item
-              = link_to '料金について詳しく', pricing_path, class: 'a-welcome-button is-md'
+            | 料金は月額99,800円（税込み）です。
+            br
+            | 毎月、貴社の研修担当者様へメールにて請求書をお送り致します。
+            br
+            | 領収書の宛名の指定なども柔軟に対応致します。
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
-            | 先輩プログラマーも<br>メンターとして参加できる
+            | 研修担当者、社内メンターも<br>メンターとして参加
         .welcome-section__description
           p
-            | 入会された生徒の方は私達がメンタリング・レビューを行いますが、
-            | それだけですと社内の文化や独自のルールなどが身につかないかもしれません。
-            | フィヨルドブートキャンプでは先輩プログラマーに無料のアカウントを発行して、新人の成長を随時見守ったりサポートすることができます。
+            | フィヨルドブートキャンプのメンターが、貴社の研修生に対して
+            | メンタリング・コードレビューを行いますが、
+            | それにプラスして貴社の文化や独自のルールなども伝えることができるように、
+            | 研修担当者、社内メンターにもフィヨルドブートキャンプに
+            | ログインできる無料のアカウントを発行します。
           p
-            | 日報の確認やコメント、提出物・コードのレビューなど、
-            | 弊社メンターと同じように先輩プログラマーのアカウントも使えますので是非ご活用ください。
-          p
-            | info@fjord.jpまでご連絡いただければ先輩プログラマー用の無料アカウントを発行いたします。
+            | 研修生の学習の進捗の確認、日報へのコメントやアドバイス、課題の提出物へのコードに対する指摘、
+            | アドバイスなどが行なえます。是非ご活用ください。
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
-          | 必要なカリキュラムをチョイス
+          | 期間・要望に合わせた
+          br
+          | カリキュラムを作成
         .welcome-section__description
           p
-            | フィヨルドブートキャンプのカリキュラムは量が多く、全てやると半年〜1年以上かかってしまいます。
-            | 会社毎に必要な部分をチョイスして学習することをお勧めします。
+            | 一般の受講生が学んでいるカリキュラムは量が多く、その全てを学習すると半年〜2年以上かかります。
+            | 研修でのご利用の場合、ビデオチャットで研修期間や研修で身につけてもらいたいスキルをヒヤリングし、
+            | それに合わせたカリキュラムを作成致します。
+            | カリキュラムは一般の受講生が行っているもの、一般の受講生の中の希望者がだけが行うものから
+            | 抜粋する形になります。
           h3 チョイスの例
           ul
-            li Linux、インフラ関連だけ重点的に学習する。
-            li Railsとスクラムの実践的カリキュラムだけ学習する。
+            li
+              | Railsを使った開発の経験はあるが、基礎的な部分を学ぶ機会がなかったので、Linux、インフラ関連だけを重点的に学習する。
+            li
+              | 独学でアプリを作っていたので、チーム開発に慣れるためにRailsとスクラム形式でのチーム開発のカリキュラムを学習する。
+            li
+              | 多言語の開発の経験があるので、RubyとRailsのカリキュラムだけ学習する。
+
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
-          | 複数人での研修がおすすめ
+          | 一般受講生と研修利用の
+          br
+          | サービス内容の違い
+        .welcome-section__description
+          table
+            thead
+              tr
+                th
+                th 一般利用
+                th 研修利用
+            tbody
+              tr
+                td 利用料
+                td 月額￥29,800（税込み）
+                td 月額￥99,800（税込み）
+              tr
+                td 請求方法
+                td クレジットカード
+                td 請求書
+              tr
+                td
+                  | 社内メンター招待
+                  br
+                  | （詳細は以下を参照）
+                td ☓
+                td
+                  | ◯
+                  br
+                  | （人数は今のところ無制限）
+              tr
+                td
+                  | カリキュラム作成
+                  br
+                  | （詳細は以下を参照）
+                td ☓
+                td ◯
+              tr
+                td 就職サポート
+                td ◯
+                td ☓
+              tr
+                td イベント参加
+                td ◯
+                td
+                  | ◯
+                  br
+                  | （就活関連イベントを除く）
+
+    section.welcome-section
+      .container.is-md
+        h2.welcome-section__title.has-border
+          | 研修スタートまでの
+          br
+          | 流れ
         .welcome-section__description
           p
-            | これまでの経験上、会社にとっても研修を受ける本人にとっても一人より二人以上で研修を受ける方が良いようです。
-            | 進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりと、モチベーションが高まることが多いです。
+            | まずは、
+            = link_to new_inquiry_path, target: 'blank', rel: 'noopener'  do
+              | お問い合わせフォーム
+            | より研修利用希望の旨のご連絡をお願い致します。
+            br
+            | 研修についての質問などもお問い合わせフォームよりお願い致します。
+            br
+            | 担当者より返信を致します。
+          p
+            | 日時を調整し、ビデオチャットで研修の打ち合わせを行います。
+            br
+            | 研修のスタート日、研修期間、研修の目的、研修生のスキル、
+            | 請求書の送付先などをヒヤリングさせていただきます。
+          p
+            | 打ち合わせで決まった内容に合わせ、カリキュラムを作成致します。
+          p
+            | 研修スタート日になりましたら、研修生のアカウントを作成し、研修生がログインできるように致します。
+            br
+            | 同時に、研修担当者、社内メンター用のサインアップもURLもお送りし、
+            | 貴社の研修担当者、社内メンターの方もログインができるように致します。
+
+
+    section.welcome-section
+      .container.is-md
+        h2.welcome-section__title.has-border
+          | FAQ
+        .welcome-section__description
+          h3
+            | 研修をより効果的にするための何かアドバイスはありますか？
+          p
+            | まずは、複数人で研修を始めることをおすすめします。
+          p
+            | これまでの経験上、貴社にとっても研修を受ける本人にとっても、一人より二人以上で研修を始める方がメリットが多いです。
+            | 例えば、進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりなど、
+            | お互いにモチベーションが高め合いながらスムーズに研修を進められます。
+          p
+            | また、同じ企業の研修生同士だけでなく、フィヨルドブートキャンプ内のイベントに参加するなどして、
+            | 一般の受講生やメンターや卒業生と積極的に関わりを持ち、コミュニティとしてのフィヨルドブートキャンプを
+            | 活用することも、モチベーションの維持に大きく役立ちますので、おすすめします。
+        .welcome-section__description
+          h3
+            | 研修ではなく福利厚生としての利用の場合、一般受講生として利用ができますか？
+          p
+            | 企業での利用の場合でも、一般受講生としての利用は可能です。
+            br
+            | ただし、一般受講生として利用した場合、研修期間と要望に合わせた独自カリキュラム作成、研修担当者、社内メンターの招待、
+            | 利用料金の請求書対応ができません。
+
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
           | 実績
         .welcome-section__description
-          p フィヨルドブートキャンプのプログラマー新人研修はこれまでも様々な企業様で使われております。
+          p
+            | フィヨルドブートキャンプの研修は、これまでRubyKaigiのスポンサー常連企業などを含む、20社を超える様々な企業様で使われております。以下は一部の企業になります。
           ul
-            li = link_to 'GMOペパボ様', 'https://pepabo.com/', target: 'blank', rel: 'noopener'
-            li = link_to 'Classi株式会社様', 'https://corp.classi.jp/company/', target: 'blank', rel: 'noopener'
-            li = link_to '永和システムマネジメント様', 'https://esm.co.jp/', target: 'blank', rel: 'noopener'
-            li = link_to '株式会社ラグザイア様', 'https://www.luxiar.com/', target: 'blank', rel: 'noopener'
+            li
+              = link_to 'GMOペパボ様', 'https://pepabo.com/', target: 'blank', rel: 'noopener'
+            li
+              = link_to 'Classi株式会社様', 'https://corp.classi.jp/company/', target: 'blank', rel: 'noopener'
+            li
+              = link_to '永和システムマネジメント様', 'https://esm.co.jp/', target: 'blank', rel: 'noopener'
+            li
+              = link_to '株式会社ラグザイア様', 'https://www.luxiar.com/', target: 'blank', rel: 'noopener'
+
+    section.welcome-section
+      .container.is-md
+        h2.welcome-section__title.has-border
+          | お申し込み
+          br
+          | お問い合わせ
+        .welcome-section__description
+          p
+            | 研修利用の申し込み、研修利用についてのお問い合わせは以下のお問い合わせフォームからお願い致します。
+
+        .welcome-actions__items
+          .welcome-actions__item
+            = link_to new_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener'  do
+              | お申し込み・お問い合わせ
