@@ -1,0 +1,44 @@
+- editors = %w[VSCode RubyMine Vim Emacs]
+= f.label :editor, class: 'a-form-label'
+  = t('activerecord.attributes.user.editor')
+- editors.each do |editor|
+  = f.radio_button :editor, editor, id: editor
+  = f.label :editor, editor, for: editor
+- others_checked = user.editor.present? && editors.exclude?(user.editor)
+= f.radio_button :editor, 'others', id: 'others', checked: others_checked
+= f.label :editor, t('activerecord.attributes.editors.others'), for: 'others'
+- text_field_style = others_checked ? 'display: block;' : 'display: none;'
+= f.text_field :others_editor, id: 'others_editor', value: (user.editor if others_checked), style: text_field_style
+
+javascript:
+  let othersEditorRadio = document.getElementById('others');
+  let othersEditorInput = document.getElementById('others_editor');
+  let form = document.getElementById('payment-form');
+
+  function onChangeFunc() {
+    if (othersEditorRadio.checked) {
+      othersEditorInput.style.display = 'block';
+    } else {
+      othersEditorInput.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    onChangeFunc();
+    let radios = document.querySelectorAll('[name="user[editor]"]');
+    radios.forEach(function(radio) {
+      radio.addEventListener('change', onChangeFunc);
+    });
+  });
+
+  form.addEventListener('submit', function() {
+    if (othersEditorRadio.checked) {
+      let othersEditorValue = othersEditorInput.value;
+      let hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'user[editor]');
+      hiddenInput.setAttribute('value', othersEditorValue);
+
+      form.appendChild(hiddenInput);
+    }
+  });

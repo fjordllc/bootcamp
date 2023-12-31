@@ -66,6 +66,7 @@ ja:
         os: 利用OS
         study_place: 主な学習場所
         experience: プログラミング経験
+        editor: 使用しているエディタ
         organization: 現在の所属組織
         company: 企業
         company_id: 所属企業
@@ -264,6 +265,8 @@ ja:
         choices: 選択肢
       buzz:
         body: 本文
+      editors:
+        others: その他
     enums:
       user:
         job:
