@@ -9,7 +9,7 @@ class TimesChannelDestroyerTest < ActiveSupport::TestCase
     user.discord_profile.update!(times_id: '987654321987654321')
     Rails.logger.stub(:warn, ->(message) { logs << message }) do
       Discord::Server.stub(:delete_text_channel, true) do
-        TimesChannelDestroyer.new.call(user)
+        TimesChannelDestroyer.new.call({ user: })
       end
       assert_nil user.discord_profile.times_id
       assert_nil logs.last
@@ -22,7 +22,7 @@ class TimesChannelDestroyerTest < ActiveSupport::TestCase
     user.discord_profile.update!(times_id: '987654321987654321')
     Rails.logger.stub(:warn, ->(message) { logs << message }) do
       Discord::Server.stub(:delete_text_channel, nil) do
-        TimesChannelDestroyer.new.call(user)
+        TimesChannelDestroyer.new.call({ user: })
       end
       assert_equal '987654321987654321', user.discord_profile.times_id
       assert_equal "[Discord API] #{user.login_name}の分報チャンネルが削除できませんでした。", logs.last
