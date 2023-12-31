@@ -202,4 +202,21 @@ class CurrentUserTest < ApplicationSystemTestCase
       assert_text 'アラスカ州'
     end
   end
+
+  test 'register editor with radio button' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    page.first('#VSCode').click
+    click_on '更新する'
+
+    assert_text 'VSCode'
+  end
+
+  test 'register editor with text box' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    page.first('#others').click
+    page.fill_in 'others_editor', with: 'Atom'
+    click_on '更新する'
+
+    assert_text 'Atom'
+  end
 end
