@@ -503,6 +503,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kensyuowata))
   end
 
+  test '.year_end_party' do
+    target = User.year_end_party
+    assert_not_includes(target, users(:kyuukai))
+    assert_not_includes(target, users(:yameo))
+    assert_includes(target, users(:kimura))
+  end
+
   test '#belongs_company_and_adviser?' do
     assert_not users(:kensyu).belongs_company_and_adviser?
     assert_not users(:advijirou).belongs_company_and_adviser?
