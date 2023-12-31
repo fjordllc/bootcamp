@@ -57,7 +57,7 @@ class API::UsersController < API::BaseController
     if @target == 'followings'
       current_user.followees_list(watch: @watch)
     elsif @tag
-      User.tagged_with(@tag)
+      User.tagged_with(@tag).unhibernated.unretired
     else
       users_scope =
         if @company
