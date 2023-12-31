@@ -123,7 +123,7 @@ class PracticesTest < ApplicationSystemTestCase
     practice = practices(:practice1)
     visit_with_auth "/mentor/practices/#{practice.id}/edit", 'komagata'
     within '#reference_books' do
-      find('.choices__list').click
+      first('.choices__list').click
       find('#choices--practice_practices_books_attributes_0_book_id-item-choice-2', text: 'はじめて学ぶソフトウェアのテスト技法').click
     end
     click_button '更新する'
