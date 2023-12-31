@@ -12,4 +12,8 @@ module LayoutHelper
   def display_footer?
     body_class.exclude?('no-footer')
   end
+
+  def display_forms?
+    body_class.exclude?('no-forms')
+  end
 end
