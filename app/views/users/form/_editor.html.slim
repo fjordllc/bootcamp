@@ -8,7 +8,7 @@
 = f.radio_button :editor, 'others', id: 'others', checked: others_checked
 = f.label :editor, t('activerecord.attributes.editors.others'), for: 'others'
 - text_field_style = others_checked ? 'display: block;' : 'display: none;'
-= f.text_field :others_editor, id: 'others_editor', value: (user.editor if others_checked), style: text_field_style
+= f.text_field :others_editor, placeholder: 'エディタ名を入力してください', class: 'a-text-input', id: 'others_editor', value: (user.editor if others_checked), style: text_field_style
 
 javascript:
   let othersEditorRadio = document.getElementById('others');
