@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ReportNotifier
-  def call(report)
+  def call(payload)
+    report = payload[:report]
     Cache.delete_unchecked_report_count
 
     return unless report.first_public?

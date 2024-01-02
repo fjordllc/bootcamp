@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class AnnouncementNotifier
-  def call(announce)
+  def call(payload)
+    announce = payload[:announcement]
     return if announce.wip? || announce.published_at?
 
     announce.update(published_at: Time.current)
