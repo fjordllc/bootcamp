@@ -109,12 +109,14 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
   def product_review_not_completed(params = {})
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
+
     comment = params[:comment]
     product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
     product = comment.commentable
     body = <<~TEXT.chomp
       ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
       担当：#{product_checker_name}さん
+      メンション： <@#{search_discord_id('goruchan')}>さん
       URL： #{Rails.application.routes.url_helpers.product_url(product)}
     TEXT
 
@@ -140,5 +142,25 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
       name: 'ピヨルド',
       webhook_url: webhook_url
     )
+  end
+
+  private
+
+  def search_discord_id(discord_name = nil)
+    guild_id = ENV['DISCORD_GUILD_ID'].presence
+    bot_token = ENV['DISCORD_BOT_TOKEN'].presence
+    query_string = URI.encode_www_form({ limit: 1000, after: nil }.compact)
+
+    response = Discordrb::API.request(
+      :guilds_sid_members,
+      guild_id,
+      :get,
+      "#{Discordrb::API.api_base}/guilds/#{guild_id}/members?#{query_string}",
+      Authorization: "Bot #{bot_token}"
+    )
+
+    members_data = JSON.parse(response.body)
+    target_member = members_data.select { |member| member['user']['username'] == discord_name }
+    target_member[0]['user']['id']
   end
 end
