@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class CommentNotifier
-  def call(comment)
+  def call(payload)
+    comment = payload[:comment]
     return if comment.nil?
 
     commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
