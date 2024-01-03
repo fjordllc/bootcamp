@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class CommentNotifierForAdmin
-  def call(comment)
+  def call(payload)
+    comment = payload[:comment]
     return if comment.nil?
 
     User.admins.each do |admin_user|
