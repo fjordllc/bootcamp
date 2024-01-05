@@ -1,14 +1,24 @@
-- editors = %w[VSCode RubyMine Vim Emacs]
-= f.label :editor, class: 'a-form-label'
-  = t('activerecord.attributes.user.editor')
-- editors.each do |editor|
-  = f.radio_button :editor, editor, id: editor
-  = f.label :editor, editor, for: editor
-- others_checked = user.editor.present? && editors.exclude?(user.editor)
-= f.radio_button :editor, 'others', id: 'others', checked: others_checked
-= f.label :editor, t('activerecord.attributes.editors.others'), for: 'others'
-- text_field_style = others_checked ? 'display: block;' : 'display: none;'
-= f.text_field :others_editor, placeholder: 'エディタ名を入力してください', class: 'a-text-input', id: 'others_editor', value: (user.editor if others_checked), style: text_field_style
+.form-item
+  - editors = %w[VSCode RubyMine Vim Emacs]
+  = f.label :editor, class: 'a-form-label'
+    = t('activerecord.attributes.user.editor')
+  ul.block-checks.is-2-items
+    - editors.each do |editor|
+      li.block-checks__item
+        .a-block-check.is-radio
+          = f.radio_button :editor, editor, id: editor, class: 'a-toggle-checkbox'
+          = f.label :editor, for: editor, class: 'a-block-check__label has-icon is-ta-left' do
+            = editor
+    - others_checked = user.editor.present? && editors.exclude?(user.editor)
+    li.block-checks__item
+      .a-block-check.is-radio
+        = f.radio_button :editor, 'others', id: 'others', class: 'a-toggle-checkbox', checked: others_checked
+        = f.label :editor, for: 'others', class: 'a-block-check__label has-icon is-ta-left' do
+          = t('activerecord.attributes.editors.others')
+.form-item#others_editor
+  label.a-form-label
+    | その他のエディタを選択した場合、具体的なエディタ名を入力してください。
+  = f.text_field :others_editor, placeholder: 'textbringer', class: 'a-text-input', value: (user.editor if others_checked)
 
 javascript:
   let othersEditorRadio = document.getElementById('others');
