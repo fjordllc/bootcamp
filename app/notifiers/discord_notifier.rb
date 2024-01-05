@@ -116,7 +116,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     body = <<~TEXT.chomp
       ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
       担当：#{product_checker_name}さん
-      メンション： <@#{find_id('goruchan')}>さん
+      メンション： <@#{Discord::Server.find_member_id(member_name: 'goruchan')}>さん
       URL： #{Rails.application.routes.url_helpers.product_url(product)}
     TEXT
 
@@ -142,25 +142,5 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
       name: 'ピヨルド',
       webhook_url: webhook_url
     )
-  end
-
-  private
-
-  def find_id(discord_name = nil)
-    guild_id = Discord::Server.guild_id
-    authorize_token = Discord::Server.authorize_token
-    query_string = URI.encode_www_form({ limit: 1000, after: nil }.compact)
-
-    response = Discordrb::API.request(
-      :guilds_sid_members,
-      guild_id,
-      :get,
-      "#{Discordrb::API.api_base}/guilds/#{guild_id}/members?#{query_string}",
-      Authorization: authorize_token
-    )
-
-    members_data = JSON.parse(response.body)
-    target_member = members_data.select { |member| member['user']['username'] == discord_name }
-    target_member[0]['user']['id']
   end
 end
