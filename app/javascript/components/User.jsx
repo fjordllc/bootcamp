@@ -29,14 +29,11 @@ export default function User({ user, currentUser }) {
     <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
       <div className="users-item">
         <div className={`users-item__inner a-card ${roleClass()}`}>
-          {currentUser.id !== user.id &&
-            currentUser.mentor &&
-            user.student_or_trainee &&
-            !user.active && (
-              <div className="users-item__inactive-message is-only-mentor">
-                1ヶ月以上ログインがありません
-              </div>
-            )}
+          {currentUser.mentor && user.student_or_trainee && !user.active && (
+            <div className="users-item__inactive-message is-only-mentor">
+              1ヶ月以上ログインがありません
+            </div>
+          )}
           <header className="users-item__header">
             <div className="users-item__header-inner">
               <div className="users-item__header-start">
@@ -57,7 +54,11 @@ export default function User({ user, currentUser }) {
                 <div className="card-list-item__rows">
                   <div className="card-list-item__row">
                     <div className="card-list-item-title">
-                      <a href={user.url}>{user.name}</a>
+                      <a
+                        className="card-list-item-title__title is-lg a-text-link"
+                        href={user.url}>
+                        {user.login_name}
+                      </a>
                     </div>
                   </div>
                 </div>
