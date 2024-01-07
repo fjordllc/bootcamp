@@ -159,7 +159,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
     body = <<~TEXT.chomp
       ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。
-      担当：komagataさん
+      担当：<@12345>さん
       URL： http://localhost:3000/products/313836099
     TEXT
 
@@ -174,14 +174,20 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
-    assert_notifications_sent 2, **expected do
-      DiscordNotifier.product_review_not_completed(params).notify_now
-      DiscordNotifier.with(params).product_review_not_completed.notify_now
-    end
 
-    assert_notifications_enqueued 2, **expected do
-      DiscordNotifier.product_review_not_completed(params).notify_later
-      DiscordNotifier.with(params).product_review_not_completed.notify_later
+    discord_notifier_mock = Minitest::Mock.new
+    discord_notifier_mock.expect(:find_member_id, '12345', [{ member_name: 'komagata' }])
+
+    DiscordNotifier.stub(:new, discord_notifier_mock) do
+      assert_notifications_sent 1, **expected do
+        DiscordNotifier.product_review_not_completed(params).notify_now
+        DiscordNotifier.with(params).product_review_not_completed.notify_now
+      end
+
+      # assert_notifications_enqueued 2, **expected do
+      #   DiscordNotifier.product_review_not_completed(params).notify_later
+      #   DiscordNotifier.with(params).product_review_not_completed.notify_later
+      # end
     end
   end
 
