@@ -382,4 +382,13 @@ class ArticlesTest < ApplicationSystemTestCase
       assert_current_path "https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/#{@article.id}&hashtags=fjordbootcamp"
     end
   end
+
+  test 'share button Hatena' do
+    visit "/articles/#{@article.id}"
+
+    new_window = window_opened_by { first('.hatena-bookmark-button-frame').click }
+    within_window new_window do
+      assert_current_path "https://b.hatena.ne.jp/site/bootcamp.fjord.jp/#bookmark_url=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}"
+    end
+  end
 end
