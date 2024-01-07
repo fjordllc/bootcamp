@@ -3,14 +3,12 @@ import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
-import usePage from './hooks/usePage'
 import { toast } from '../toast_react'
 
 export default function BookmarksInDashboard() {
   const [editable, setEditable] = useState(false)
   const per = 5
-  const { page } = usePage()
-  const bookmarksUrl = `/api/bookmarks.json?page=${page}&per=${per}`
+  const bookmarksUrl = `/api/bookmarks.json?&per=${per}`
 
   const { data, error } = useSWR(bookmarksUrl, fetcher)
   if (error) return <>エラーが発生しました。</>
