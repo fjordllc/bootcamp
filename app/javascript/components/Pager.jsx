@@ -8,15 +8,15 @@ export default function Pager({
   clickHandle
 }) {
   const makeITag = (iconName) => {
-    return `<i class='fas fa-angle-${iconName}'></i>`
+    return <i className={`fas fa-angle-${iconName}`}></i>
   }
 
   return (
     <ReactPaginate
-      forcePage={initialPageNumber - 1}
+      forcePage={initialPageNumber}
       pageCount={pageCount}
       pageRangeDisplayed={pageRange}
-      onPageChange={clickHandle}
+      onPageChange={(event) => clickHandle(event.selected + 1)}
       previousLabel={makeITag('left')}
       nextLabel={makeITag('right')}
       breakLabel={'...'}
