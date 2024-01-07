@@ -373,4 +373,13 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_text '2021年12月24日(金) 23:59'
   end
+
+  test 'share button X' do
+    visit "/articles/#{@article.id}"
+
+    new_window = window_opened_by { click_on 'Postする', match: :first }
+    within_window new_window do
+      assert_current_path "https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/#{@article.id}&hashtags=fjordbootcamp"
+    end
+  end
 end
