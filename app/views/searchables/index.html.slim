@@ -7,4 +7,4 @@ header.page-header
       h2.page-header__title
         = title
 hr.a-border
-#js-searchables(document_type="#{params[:document_type]}" word="#{params[:word]}")
+  = react_component('Searchables', word: "#{params[:word]}")
