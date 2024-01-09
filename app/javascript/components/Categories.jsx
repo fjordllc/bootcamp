@@ -1,11 +1,12 @@
 import React from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
+import LoadingView from './LoadingView'
 
 const Categories = () => {
   const { data, error } = useSWR(`/api/categories.json`, fetcher)
   if (error) return <>エラーが発生しました。</>
-  if (!data) return <>ロード中…</>
+  if (!data) return <LoadingView />
 
   return (
     <div className="admin-table is-grab">
