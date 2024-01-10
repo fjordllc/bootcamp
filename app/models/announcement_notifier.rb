@@ -2,18 +2,18 @@
 
 class AnnouncementNotifier
   def call(payload)
-    announce = payload[:announcement]
-    return if announce.wip? || announce.published_at?
+    announcement = payload[:announcement]
+    return if announcement.wip? || announcement.published_at?
 
-    announce.update(published_at: Time.current)
-    DiscordNotifier.with(announce: announce).announced.notify_now
-    Watch.create!(user: announce.user, watchable: announce)
+    announcement.update(published_at: Time.current)
+    DiscordNotifier.with(announce: announcement).announced.notify_now
+    Watch.create!(user: announcement.user, watchable: announcement)
 
-    target_users = User.announcement_receiver(announce.target)
+    target_users = User.announcement_receiver(announcement.target)
     target_users.each do |target|
-      next if announce.sender == target
+      next if announcement.sender == target
 
-      ActivityDelivery.with(announcement: announce, receiver: target).notify(:post_announcement)
+      ActivityDelivery.with(announcement: announcement, receiver: target).notify(:post_announcement)
     end
   end
 end
