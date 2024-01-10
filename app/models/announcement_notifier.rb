@@ -13,7 +13,7 @@ class AnnouncementNotifier
     target_users.each do |target|
       next if announcement.sender == target
 
-      ActivityDelivery.with(announcement: announcement, receiver: target).notify(:post_announcement)
+      ActivityDelivery.with(announcement:, receiver: target).notify(:post_announcement)
     end
   end
 end
