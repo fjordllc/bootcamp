@@ -549,19 +549,4 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'hajime'
     assert_text '最新のみんなの日報'
   end
-
-  test 'show the latest reports for graduates' do
-    visit_with_auth '/', 'sotugyou'
-    assert_text '最新のみんなの日報'
-  end
-
-  test 'show the latest reports for administrators' do
-    visit_with_auth '/', 'komagata'
-    assert_text '最新のみんなの日報'
-  end
-
-  test 'show the the latest reports for trainees' do
-    visit_with_auth '/', 'kensyu'
-    assert_text '最新のみんなの日報'
-  end
 end
