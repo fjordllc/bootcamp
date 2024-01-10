@@ -121,13 +121,13 @@ module UserDecorator
     end
   end
 
-  def remaining_time_until_automatic_retire(user)
-    if remaining_hours_until_automatic_retire(user) < 1
-      "#{remaining_minutes_until_automatic_retire(user)}分"
-    elsif remaining_hours_until_automatic_retire(user) < 24
-      "#{remaining_hours_until_automatic_retire(user)}時間"
+  def remaining_time_until_automatic_retire
+    if remaining_hours_until_automatic_retire(self) < 1
+      "#{remaining_minutes_until_automatic_retire(self)}分"
+    elsif remaining_hours_until_automatic_retire(self) < 24
+      "#{remaining_hours_until_automatic_retire(self)}時間"
     else
-      "#{remaining_days_until_automatic_retire(user)}日"
+      "#{remaining_days_until_automatic_retire(self)}日"
     end
   end
 end
