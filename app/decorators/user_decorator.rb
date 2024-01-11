@@ -121,13 +121,19 @@ module UserDecorator
     end
   end
 
+  def remaining_days_until_automatic_retire
+    return unless hibernated_at
+
+    ((automatic_retire_datetime - Time.zone.now) / 86_400).floor
+  end
+
   def remaining_time_until_automatic_retire
     if remaining_hours_until_automatic_retire(self) < 1
       "#{remaining_minutes_until_automatic_retire(self)}分"
     elsif remaining_hours_until_automatic_retire(self) < 24
       "#{remaining_hours_until_automatic_retire(self)}時間"
     else
-      "#{remaining_days_until_automatic_retire(self)}日"
+      "#{remaining_days_until_automatic_retire}日"
     end
   end
 end
