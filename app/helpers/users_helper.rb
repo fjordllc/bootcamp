@@ -62,12 +62,6 @@ module UsersHelper
                     .to_json
   end
 
-  def remaining_days_until_automatic_retire(user)
-    return unless user.hibernated_at
-
-    ((user.automatic_retire_datetime - Time.zone.now) / 86_400).floor
-  end
-
   private
 
   def remaining_hours_until_automatic_retire(user)
