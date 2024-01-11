@@ -2,3 +2,18 @@ practices_book1:
   practice: practice1
   book: book1
   must_read: true
+
+practices_book2:
+  practice: practice1
+  book: book3
+  must_read: false
+
+practices_book3:
+  practice: practice5
+  book: book4
+  must_read: true
+
+practices_book4:
+  practice: practice20
+  book: book5
+  must_read: false

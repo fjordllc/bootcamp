@@ -4,7 +4,7 @@
       = link_to users_tag_path(tag.name), class: 'user-group__title-link'
         - rank = users_tags_rank(tag.count, @top3_tags_counts)
         - if rank.present?
-          span.user-group__title-icon(class="#{users_tags_rank(tag.count, @top3_tags_counts)}")
+          span.user-group__title-icon(class="#{rank}")
             i.fa-solid.fa-crown
         span.user-group__title-label
           | #{tag.name}
@@ -12,4 +12,6 @@
           | （#{tag.count}）
   .a-user-icons
     .a-user-icons__items
-      = render partial: 'tags/user', collection: User.desc_tagged_with(tag.name), as: :user
+      = render partial: 'tags/user',
+               collection: User.desc_tagged_with(tag.name),
+               as: :user

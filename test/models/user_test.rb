@@ -503,6 +503,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kensyuowata))
   end
 
+  test '.year_end_party' do
+    target = User.year_end_party
+    assert_not_includes(target, users(:kyuukai))
+    assert_not_includes(target, users(:yameo))
+    assert_includes(target, users(:kimura))
+  end
+
   test '#belongs_company_and_adviser?' do
     assert_not users(:kensyu).belongs_company_and_adviser?
     assert_not users(:advijirou).belongs_company_and_adviser?
@@ -623,6 +630,16 @@ class UserTest < ActiveSupport::TestCase
     assert target.sent_student_followup_message
   end
 
+  test '#hibernation_elapsed_days' do
+    user = users(:kyuukai)
+
+    travel_to Time.zone.local(2020, 1, 10) do
+      elapsed_days = user.hibernation_elapsed_days
+
+      assert assert_equal 9, elapsed_days
+    end
+  end
+
   test '#country_name' do
     assert_equal '日本', users(:kimura).country_name
     assert_equal '米国', users(:tom).country_name
@@ -677,5 +694,13 @@ class UserTest < ActiveSupport::TestCase
     not_scope_name = 'destroy_all'
     assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
     assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
+  end
+
+  test '#delete_and_assign_new_organizer' do
+    user = users(:hajime)
+
+    assert_changes -> { Organizer.where(user: user).exists? }, from: true, to: false do
+      user.delete_and_assign_new_organizer
+    end
   end
 end

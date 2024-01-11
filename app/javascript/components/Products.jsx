@@ -79,12 +79,22 @@ export default function Products({
     )
   } else if (data.products.length === 0) {
     return (
-      <div className="o-empty-message">
-        <div className="o-empty-message__icon">
-          <i className="fa-regular fa-smile"></i>
+      <>
+        {selectedTab === 'unchecked' || selectedTab === 'self_assigned' ? (
+          <nav className="pill-nav">
+            <ul className="pill-nav__items">
+              <FilterButtons selectedTab={selectedTab} />
+            </ul>
+          </nav>
+        ) : null}
+
+        <div className="o-empty-message">
+          <div className="o-empty-message__icon">
+            <i className="fa-regular fa-smile"></i>
+          </div>
+          <p className="o-empty-message__text">{title}はありません</p>
         </div>
-        <p className="o-empty-message__text">{title}はありません</p>
-      </div>
+      </>
     )
   } else if (isDashboard() && isNotProduct5daysElapsed()) {
     return (
@@ -232,9 +242,9 @@ function ProductHeader({
 const FilterButtons = ({ selectedTab }) => {
   let targets
   if (selectedTab === 'self_assigned') {
-    targets = ['self_assigned_no_replied', 'self_assigned_all']
+    targets = ['self_assigned_all', 'self_assigned_no_replied']
   } else {
-    targets = ['unchecked_no_replied', 'unchecked_all']
+    targets = ['unchecked_all', 'unchecked_no_replied']
   }
 
   const filterButtonUrl = ({ selectedTab, target }) => {

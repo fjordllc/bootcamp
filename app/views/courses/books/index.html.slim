@@ -1,0 +1,27 @@
+- title "#{@course.title}コースの参考書籍"
+- set_meta_tags description: "#{@course.title}コースの参考書籍一覧ページです。"
+
+header.page-header
+  .container
+    .page-header__inner
+      h2.page-header__title
+        = title
+      .page-header-actions
+        ul.page-header-actions__items
+          - if current_user.admin_or_mentor?
+            li.page-header-actions__item
+              = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
+                i.fas.fa-plus
+                | 参考書籍登録
+= render 'courses/tabs'
+hr.a-border
+  .page-body
+    .container.is-md
+      nav.pill-nav
+        .container
+          ul.pill-nav__items
+            li.pill-nav__item
+              = link_to '全て', course_books_path, class: "pill-nav__item-link #{params[:status] == 'mustread' ? '' : 'is-active'}"
+            li.pill-nav__item
+              = link_to '必読', course_books_path(status: 'mustread'), class: "pill-nav__item-link #{params[:status] == 'mustread' ? 'is-active' : ''}"
+div(data-vue="CourseBooks" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}" data-vue-course:json="#{@course.to_json}")
