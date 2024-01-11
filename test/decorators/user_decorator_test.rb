@@ -66,4 +66,24 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal 'ニューヨーク州 (米国)', @american_user.address
     assert_equal '日本', @subdivision_not_registered_user.address
   end
+
+  test '#remaining_time_until_automatic_retire' do
+    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
+
+    travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do # 自動退会日まで1時間を切った場合。
+      assert_equal '59分', @hibernationed_user.remaining_time_until_automatic_retire
+    end
+
+    travel_to Time.zone.local(2020, 6, 30, 10, 0, 0) do # 自動退会日まで24時間を切った場合。
+      assert_equal '23時間', @hibernationed_user.remaining_time_until_automatic_retire
+    end
+
+    travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do # 自動退会日1週間を切った場合。
+      assert_equal '7日', @hibernationed_user.remaining_time_until_automatic_retire
+    end
+
+    travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do # 自動退会日6ヶ月前 ~ 1週間を切るまでの場合。
+      assert_equal '182日', @hibernationed_user.remaining_time_until_automatic_retire
+    end
+  end
 end
