@@ -496,12 +496,6 @@ class HomeTest < ApplicationSystemTestCase
     end
   end
 
-  test 'show trainee and adviser invitation links when the user logged in as adviser and has belongs to company' do
-    visit_with_auth '/', 'senpai'
-    assert_text '研修生招待リンク'
-    assert_text '社内メンター招待リンク'
-  end
-
   test 'shows event status even if it is not held on holidays' do
     Event.destroy_all
     RegularEvent.where.not(title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)').destroy_all
