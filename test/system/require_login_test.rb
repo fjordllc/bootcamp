@@ -67,7 +67,7 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_no_login_required('/welcome', 'フィヨルドブートキャンプとは？')
     assert_no_login_required('/pricing', '料金')
     assert_no_login_required('/faq', 'FAQ')
-    assert_no_login_required('/training', '法人利用')
+    assert_no_login_required('/training', '研修利用')
     assert_no_login_required('/practices', '学習内容')
     assert_no_login_required('/tos', '利用規約')
     assert_no_login_required('/pp', 'プライバシーポリシー')

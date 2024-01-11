@@ -141,7 +141,7 @@
         .welcome-section__description
           p
             | まずは、
-            = link_to new_inquiry_path, target: 'blank', rel: 'noopener'  do
+            = link_to new_inquiry_path, target: 'blank', rel: 'noopener' do
               | お問い合わせフォーム
             | より研修利用希望の旨のご連絡をお願い致します。
             br
@@ -160,7 +160,6 @@
             br
             | 同時に、研修担当者、社内メンター用のサインアップもURLもお送りし、
             | 貴社の研修担当者、社内メンターの方もログインができるように致します。
-
 
     section.welcome-section
       .container.is-md
@@ -217,5 +216,5 @@
 
         .welcome-actions__items
           .welcome-actions__item
-            = link_to new_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener'  do
+            = link_to new_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener' do
               | お申し込み・お問い合わせ

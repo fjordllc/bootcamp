@@ -179,3 +179,10 @@ product5:
   body: 4時間後に5日経過に到達する提出物です。
   published_at: <%= (now - 60 * 60 * 23 * 5).to_formatted_s(:db) %>
   created_at: <%= (now - 60 * 60 * 23 * 5).to_formatted_s(:db) %>
+
+product76:
+  practice: practice19
+  user: kyuukai
+  body: 休会中ユーザの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>

@@ -19,6 +19,7 @@ class User < ApplicationRecord
     'adviser' => :advisers,
     'trainee' => :trainees
   }.freeze
+  DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
 
   enum job: {
     student: 0,
@@ -301,7 +302,12 @@ class User < ApplicationRecord
       graduated_on: nil
     )
   }
-  scope :year_end_party, -> { where(retired_on: nil) }
+  scope :year_end_party, lambda {
+    where(
+      hibernated_at: nil,
+      retired_on: nil
+    )
+  }
   scope :mentor, -> { where(mentor: true) }
   scope :mentors_sorted_by_created_at, lambda {
     with_attached_profile_image
@@ -351,6 +357,7 @@ class User < ApplicationRecord
   scope :desc_tagged_with, lambda { |tag_name|
     with_attached_avatar
       .unretired
+      .unhibernated
       .order(last_activity_at: :desc)
       .tagged_with(tag_name)
   }
@@ -403,7 +410,7 @@ class User < ApplicationRecord
     end
 
     def tags
-      unretired.all_tag_counts(order: 'count desc, name asc')
+      unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
     end
 
     def depressed_reports
@@ -712,6 +719,10 @@ class User < ApplicationRecord
     hibernations.order(:created_at).last
   end
 
+  def hibernation_elapsed_days
+    (Time.zone.today - hibernated_at.to_date).to_i
+  end
+
   def update_last_returned_at!
     hibernation = last_hibernation
     hibernation.returned_at = Date.current
@@ -753,6 +764,10 @@ class User < ApplicationRecord
 
   def become_watcher!(watchable)
     watches.find_or_create_by!(watchable:)
+  end
+
+  def delete_and_assign_new_organizer
+    organizers.each(&:delete_and_assign_new)
   end
 
   private

@@ -199,4 +199,18 @@ class ProductTest < ActiveSupport::TestCase
     wip_product.update!(body: 'product is updated.', wip: false, published_at: Time.current)
     assert_not wip_product.updated_after_submission?
   end
+
+  test '.unhibernated_user_products' do
+    hiberanated_user = users(:kyuukai)
+
+    hibernated_user_product = Product.create!(
+      body: "hibernated user's product.",
+      user: hiberanated_user,
+      practice: practices(:practice7),
+      checker_id: nil
+    )
+
+    assert_includes Product.all, hibernated_user_product
+    assert_not_includes Product.unhibernated_user_products, hibernated_user_product
+  end
 end
