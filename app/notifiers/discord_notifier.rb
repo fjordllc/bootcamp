@@ -112,12 +112,13 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
 
     comment = params[:comment]
     product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
-    product = comment.commentable
     product_checker_discord_id = Discord::Server.find_member_id(member_name: product_checker_name)
+    product_checker_discord_name = "<@#{product_checker_discord_id}>"
+    product = comment.commentable
 
     body = <<~TEXT.chomp
       ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
-      担当：<@#{product_checker_discord_id}>さん
+      担当：#{product_checker_discord_name}さん
       URL： #{Rails.application.routes.url_helpers.product_url(product)}
     TEXT
 
