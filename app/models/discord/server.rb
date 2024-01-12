@@ -71,7 +71,7 @@ module Discord
         guild_members_json = Discordrb::API::Server.resolve_members(authorize_token, guild_id, limit)
         guild_members = JSON.parse(guild_members_json.body)
         target_member = guild_members.select { |member| member['user']['username'] == member_name }
-        target_member == [] ? nil : target_member[0]['user']['id']
+        target_member.empty? ? nil : target_member[0]['user']['id']
       rescue Discordrb::Errors::CodeError => e
         log_error(e)
         nil
