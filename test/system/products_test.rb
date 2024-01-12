@@ -5,32 +5,32 @@ require 'application_system_test_case'
 class ProductsTest < ApplicationSystemTestCase
   test 'see my product' do
     visit_with_auth "/products/#{products(:product1).id}", 'mentormentaro'
-    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{products(:product1).practice.title} | FBC", title
   end
 
   test 'admin can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
-    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{products(:product1).practice.title} | FBC", title
   end
 
   test 'adviser can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'advijirou'
-    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{products(:product1).practice.title} | FBC", title
   end
 
   test 'graduate can see a product' do
     visit_with_auth "/products/#{products(:product1).id}", 'sotugyou'
-    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{products(:product1).practice.title} | FBC", title
   end
 
   test "user who completed the practice can see the other user's product" do
     visit_with_auth "/products/#{products(:product1).id}", 'kimura'
-    assert_equal "#{products(:product1).practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{products(:product1).practice.title} | FBC", title
   end
 
   test "can see other user's product if it is permitted" do
     visit_with_auth "/products/#{products(:product3).id}", 'hatsuno'
-    assert_equal "#{products(:product3).practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{products(:product3).practice.title} | FBC", title
   end
 
   test "can not see other user's product if it isn't permitted" do
@@ -268,7 +268,7 @@ class ProductsTest < ApplicationSystemTestCase
   test "user is not alerted in the other's WIP product page" do
     wip_product = products(:product5)
     visit_with_auth "/products/#{wip_product.id}", 'hatsuno'
-    assert_equal "#{wip_product.practice.title}の提出物 | FBC", title
+    assert_equal "提出物: #{wip_product.practice.title} | FBC", title
     assert_no_text "提出物はまだ提出されていません。\n完成したら「提出する」をクリック！"
   end
 
