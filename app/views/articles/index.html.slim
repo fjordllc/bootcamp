@@ -19,6 +19,7 @@ description: 'オンラインプログラミングフィヨルドブートキャ
   .articles
     .articles__body
       .container.is-xl
+        = paginate @articles
         .articles__items
           .row
             - @articles.each do |article|
