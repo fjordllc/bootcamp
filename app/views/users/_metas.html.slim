@@ -38,12 +38,11 @@
         .user-metas__item-value
           = "#{number_with_precision(user.total_learning_time, precision: 1)}時間 / "
           = render 'users/learning_status', user:
-    - if user.student_or_trainee?
-      .user-metas__item
-        .user-metas__item-label
-          | 使用しているエディタ
-        .user-metas__item-value
-          = user.editor
+    .user-metas__item
+      .user-metas__item-label
+        | 使用しているエディタ
+      .user-metas__item-value
+        = user.editor
     - if user.company.present?
       .user-metas__item
         .user-metas__item-label
