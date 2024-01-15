@@ -6,7 +6,7 @@ import UserIcon from './UserIcon'
 import fetcher from '../fetcher'
 import usePage from './hooks/usePage'
 
-export default function Events() {
+export default function Events({today_events, tomorrow_events, day_after_tomorrow_events}) {
   const per = 20
   const { page, setPage } = usePage()
 

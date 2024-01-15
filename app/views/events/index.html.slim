@@ -19,4 +19,7 @@
                   i.fa-regular.fa-plus
                   | 特別イベント作成
   hr.a-border
-  = react_component 'Events'
+  = react_component 'Events',
+      today_events: @today_events,
+      tomorrow_events: @tomorrow_events,
+      day_after_tomorrow_events: @day_after_tomorrow_events

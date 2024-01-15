@@ -3,7 +3,9 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    display_events
+  end
 
   def show
     @event = Event.with_avatar.find(params[:id])
@@ -110,5 +112,14 @@ class EventsController < ApplicationController
 
   def publish_with_announcement?
     !@event.wip? && @event.announcement_of_publication?
+  end
+
+  def display_events
+    @today_events = (Event.today_events + RegularEvent.today_events)
+                    .sort_by { |e| e.start_at.strftime('%H:%M') }
+    @tomorrow_events = (Event.tomorrow_events + RegularEvent.tomorrow_events)
+                       .sort_by { |e| e.start_at.strftime('%H:%M') }
+    @day_after_tomorrow_events = (Event.day_after_tomorrow_events + RegularEvent.day_after_tomorrow_events)
+                                 .sort_by { |e| e.start_at.strftime('%H:%M') }
   end
 end
