@@ -15,21 +15,22 @@
         = f.radio_button :editor, 'others', id: 'others', class: 'a-toggle-checkbox', checked: others_checked
         = f.label :editor, for: 'others', class: 'a-block-check__label has-icon is-ta-left' do
           = t('activerecord.attributes.editors.others')
-.form-item#others_editor
+.form-item#toggle-textbox
   label.a-form-label
     | その他のエディタを選択した場合、具体的なエディタ名を入力してください。
-  = f.text_field :others_editor, placeholder: 'textbringer', class: 'a-text-input', value: (user.editor if others_checked)
+  = f.text_field :others_editor, placeholder: 'textbringer', id: 'others_editor', class: 'a-text-input', value: (user.editor if others_checked)
 
 javascript:
   let othersEditorRadio = document.getElementById('others');
   let othersEditorInput = document.getElementById('others_editor');
+  let toggleTextbox = document.getElementById('toggle-textbox');
   let form = document.getElementById('payment-form');
 
   function onChangeFunc() {
     if (othersEditorRadio.checked) {
-      othersEditorInput.style.display = 'block';
+      toggleTextbox.style.display = 'block';
     } else {
-      othersEditorInput.style.display = 'none';
+      toggleTextbox.style.display = 'none';
     }
   }
 
