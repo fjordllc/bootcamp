@@ -7,7 +7,7 @@ class API::ReportTemplatesController < API::BaseController
     @template = ReportTemplate.new(report_template_params)
     @template.user = current_user
     if @template.save
-      head :ok
+      render json: { id: @template.id }, status: :ok
     else
       head :bad_request
     end
