@@ -544,4 +544,9 @@ class HomeTest < ApplicationSystemTestCase
       end
     end
   end
+
+  test 'show the latest reports for students' do
+    visit_with_auth '/', 'hajime'
+    assert_text '最新のみんなの日報'
+  end
 end

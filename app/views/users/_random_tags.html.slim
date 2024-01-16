@@ -1,19 +1,21 @@
-.random-tags.a-card
-  header.card-header.is-sm
-    h2.card-header__title
-      | ユーザータグ
-  hr.a-border-tint
-  .random-tags__items
-    ul.random-tags__items
-      - @random_tags.each do |tag|
-        li.random-tags__item class="#{users_tags_gradation(tag.count, @top3_tags_counts[0])} #{users_tags_rank(tag.count, @top3_tags_counts)}"
-          = link_to "/users/tags/#{tag.name}", class: 'random-tags__item-link' do
-            .random-tags__item-link-inner
-              .random-tags__item-name
-                = tag.name
-              .random-tags__item-count
-                = tag.count
-  hr.a-border-tint
-  footer.card-footer
-    .card-footer__footer-link
-      = link_to 'もっとみる', users_tags_path, class: 'card-footer__footer-text-link'
+.a-side-nav
+  .a-side-nav__inner
+    header.a-side-nav__header
+      h2.a-side-nav__title
+        | ユーザータグ
+    hr.a-border
+    .a-side-nav__body
+      .random-tags
+        ul.random-tags__items
+          - @random_tags.each do |tag|
+            li.random-tags__item class="#{users_tags_gradation(tag.count, @top3_tags_counts[0])} #{users_tags_rank(tag.count, @top3_tags_counts)}"
+              = link_to "/users/tags/#{tag.name}", class: 'random-tags__item-link' do
+                .random-tags__item-link-inner
+                  .random-tags__item-name
+                    = tag.name
+                  .random-tags__item-count
+                    = tag.count
+    hr.a-border
+    footer.a-side-nav__footer
+      = link_to users_tags_path, class: 'a-side-nav__footer-link' do
+        | もっとみる

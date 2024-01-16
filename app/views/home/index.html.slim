@@ -4,37 +4,47 @@
 = render 'page_header'
 = render 'page_tabs', user: current_user
 
+- if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
+  = render 'welcome_message'
+
+- if @welcome_message_first_time.blank? && current_user.adviser?
+  = render 'welcome_message_for_adviser'
+
 .page-body.is-dash-board
   - if current_user.adviser?
-    = render 'adviser_dashboard'
+    .page-body__inner.has-side-nav
+      = render 'adviser_dashboard'
+      = render partial: 'recent_reports'
   - elsif current_user.mentor?
-    = render 'mentor_dashboard'
+    .page-body__inner.has-side-nav
+      = render 'mentor_dashboard'
+      = render partial: 'recent_reports'
   - else
-    - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
-      = render 'welcome_message'
-    .columns
-      .container.is-xl
-        .row
-          .col-xs-12.col-xl-6.col-xxl-6
-            = render partial: 'events', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
-            - if @announcements.present?
-              = render partial: 'announcements'
-            - if current_user.bookmarks.present?
-              = render 'bookmarks', user: current_user
-            - if current_user.wip_exists?
-              = render 'wip_items'
-            - if current_user.active_practices.present?
-              = render '/users/practices/active_practices', user: current_user
-            - if current_user.completed_practices.present?
-              = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
-          .col-xs-12.col-xl-6.col-xxl-6
-            - if current_user.student_or_trainee?
-              = render 'required_field', user: current_user
-            - if current_user.after_graduation_hope?
-              = render 'after_graduation_hope', user: current_user
-            - if current_user.student_or_trainee? && !cookies[:user_grass]
-              = react_component 'Grass', { userId: current_user.id }, { class: 'a-card' }
-            - if current_user.github_account.present?
-              = render 'users/github_grass', user: current_user
-            - if current_user.student_or_trainee?
-              #js-niconico_calendar(data-user-id="#{current_user.id}")
+    .page-body__inner.has-side-nav
+      .columns
+        .container.is-xl
+          .row
+            .col-xs-12.col-xl-6.col-xxl-6
+              = render partial: 'events', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
+              - if @announcements.present?
+                = render partial: 'announcements'
+              - if current_user.bookmarks.present?
+                = render 'bookmarks', user: current_user
+              - if current_user.wip_exists?
+                = render 'wip_items'
+              - if current_user.active_practices.present?
+                = render '/users/practices/active_practices', user: current_user
+              - if current_user.completed_practices.present?
+                = render '/users/practices/completed_practices', user: current_user, completed_learnings: @completed_learnings
+            .col-xs-12.col-xl-6.col-xxl-6
+              - if current_user.student_or_trainee?
+                = render 'required_field', user: current_user
+              - if current_user.after_graduation_hope?
+                = render 'after_graduation_hope', user: current_user
+              - if current_user.student_or_trainee? && !cookies[:user_grass]
+                = react_component 'Grass', { userId: current_user.id }, { class: 'a-card' }
+              - if current_user.github_account.present?
+                = render 'users/github_grass', user: current_user
+              - if current_user.student_or_trainee?
+                #js-niconico_calendar(data-user-id="#{current_user.id}")
+      = render partial: 'recent_reports'
