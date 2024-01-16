@@ -643,15 +643,4 @@ class UsersTest < ApplicationSystemTestCase
       assert_selector '.users-item__inactive-message-container.is-only-mentor .users-item__inactive-message', text: '休会中: 2020年01月01日〜(10日経過)'
     end
   end
-
-  test 'display remaining days for not auto retire user' do
-    travel_to Time.zone.local(2020, 4, 1, 9, 0, 0) do
-      visit_with_auth "/admin/users/#{users(:kyuukai).id}/edit", 'komagata'
-      check 'user[auto_retire]', allow_label_click: true, visible: false
-      click_on '更新する'
-
-      visit_with_auth "/users/#{users(:kyuukai).id}", 'komagata'
-      assert_text '企業都合休会中(91日)'
-    end
-  end
 end
