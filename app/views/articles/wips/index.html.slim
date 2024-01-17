@@ -11,46 +11,40 @@ description: 'オンラインプログラミングフィヨルドブートキャ
           = title
       - if current_user&.mentor?
         .welcome-page-header__end
-          = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
-            i.fas.fa-plus
-            | ブログ記事作成
-          = link_to articles_wips_path, class: 'a-button is-md is-secondary is-block' do
-            | WIP ブログ一覧
 
 .welcome-page-body
   .articles
     .articles__body
       .container.is-xl
-        = paginate @articles
         .articles__items
           .row
             - @articles.each do |article|
               .col-lg-4.col-md-6.col-xs-12
-                .thumbnail-card.a-card class=(article.wip? ? ' is-wip' : '')
-                  = link_to article, class: 'thumbnail-card__inner' do
-                    .thumbnail-card__row
-                      - if article.prepared_thumbnail?
-                        = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
+                .articles-item.a-card class='is-wip'
+                  = link_to article_path(id: article.id, token: article.token), class: 'articles-item__link' do
+                    .articles-item__row
+                      - if article.thumbnail.attached?
+                        = image_tag article.thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
                       - else
-                        = image_tag(article.selected_thumbnail_url, class: 'thumbnail-card__image', alt: 'ブログ記事のブランクアイキャッチ画像')
-                    .thumbnail-card__row
-                      h2.thumbnail-card__title
+                        = image_tag('work-blank.svg', class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
+                    .articles-item__row
+                      h2.articles-item__title
                         - if article.wip?
                           span.article__title-label.is-wip
                             | WIP
                         = article.title
-                    .thumbnail-card__row
-                      .thumbnail-card__metas
-                        .thumbnail-card__meta
-                          .thumbnail-card__author
+                    .articles-item__row
+                      .articles-item__metas
+                        .articles-item__meta
+                          .articles-item__author
                             = image_tag article.user.avatar_url
                             = article.user.login_name
-                        .thumbnail-card__meta
-                          .thumbnail-card__date
+                        .articles-item__meta
+                          .articles-item__published-at
                             - if article.wip?
                               = '執筆中'
                             - elsif article.published_at.nil?
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
-        = paginate @articles
+

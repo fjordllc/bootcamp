@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   def show
     @mentor = @article.user
     @recent_articles = list_recent_articles
-    if @article.published? || admin_or_mentor_login?
+    if @article.published? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'welcome'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
@@ -80,6 +80,7 @@ class ArticlesController < ApplicationController
       display_thumbnail_in_body
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
+    article_attributes.push(:token) if params[:commit] == 'WIP'
     params.require(:article).permit(*article_attributes)
   end
 
@@ -89,6 +90,7 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
+    @article.token = @article.token.nil? ? SecureRandom.urlsafe_base64 : @article.token if params[:commit] == 'WIP'
   end
 
   def notice_message(article)
