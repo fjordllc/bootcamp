@@ -20,3 +20,4 @@ article3:
   user: komagata
   wip: true
   thumbnail_type: :prepared_thumbnail
+  token: abcdef123456
