@@ -29,7 +29,7 @@ export default function User({ user, currentUser }) {
     <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
       <div className="users-item">
         <div className={`users-item__inner a-card ${roleClass()}`}>
-          {currentUser.mentor && user.student_or_trainee && !user.active && (
+          {currentUser?.mentor && user.student_or_trainee && !user.active && (
             <div className="users-item__inactive-message is-only-mentor">
               1ヶ月以上ログインがありません
             </div>
