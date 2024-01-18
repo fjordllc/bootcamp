@@ -1,0 +1,31 @@
+dl.card-counts__items
+  .card-counts__item
+    .card-counts__item-inner
+      dt.card-counts__item-label
+        | 日報
+      dd.card-counts__item-value
+        = link_to user.reports.count, user_reports_path(@user)
+  .card-counts__item
+    .card-counts__item-inner
+      dt.card-counts__item-label
+        | 提出物
+      dd.card-counts__item-value
+        = link_to user.products.count, user_products_path(@user)
+  .card-counts__item
+    .card-counts__item-inner
+      dt.card-counts__item-label
+        | コメント
+      dd.card-counts__item-value
+        = link_to user.comments.count, user_comments_path(@user)
+  .card-counts__item
+    .card-counts__item-inner
+      dt.card-counts__item-label
+        | 質問
+      dd.card-counts__item-value
+        = link_to user.questions.count, user_questions_path(@user)
+  .card-counts__item
+    .card-counts__item-inner
+      dt.card-counts__item-label
+        | 回答
+      dd.card-counts__item-value
+        = link_to user.answers.count, user_answers_path(@user)
