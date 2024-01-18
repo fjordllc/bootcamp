@@ -534,6 +534,7 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(reports(:report33)), 'kananashi'
     click_link '内容修正'
     click_button '提出'
+    find('.modal-header__close').click
 
     visit_with_auth report_path(reports(:report32)), 'komagata'
     assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です'
