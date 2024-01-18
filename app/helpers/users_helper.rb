@@ -62,8 +62,6 @@ module UsersHelper
                     .to_json
   end
 
-  private
-
   def remaining_hours_until_automatic_retire(user)
     return unless user.hibernated_at
 
