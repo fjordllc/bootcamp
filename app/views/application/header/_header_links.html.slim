@@ -32,7 +32,8 @@
         label.header-links__link.test-show-menu(for='mobile-nav')
           i.fa-solid.fa-bars
           .header-links__link-label Menu
-      #js-notifications-bell
+      li.header-links__item
+        = react_component('NotificationsBell/NotificationsBell')
 
 .modal#js-modal-search.is-hidden-md-up
   .modal__overlay.js-modal-search-hidden-trigger
