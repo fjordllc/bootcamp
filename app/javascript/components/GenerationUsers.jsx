@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import User from './User.jsx'
 import Pager from './Pager.jsx'
 import CSRF from 'csrf'
@@ -19,16 +19,9 @@ const getParams = () => {
 export default function GenerationUsers({ generationID }) {
   const [users, setUsers] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
-  const [currentTarget, setCurrentTarget] = useState(null)
-  const [currentTag, setCurrentTag] = useState(null)
   const [currentPage, setCurrentPage] = useState(Number(getParams().page) || 1)
   const [totalPages, setTotalPages] = useState(0)
   const [params] = useState(getParams())
-
-  const targetName = useMemo(
-    () => currentTag || currentTarget,
-    [currentTag, currentTarget]
-  )
 
   useEffect(() => {
     window.onpopstate = () => {
@@ -62,8 +55,6 @@ export default function GenerationUsers({ generationID }) {
       .then((json) => {
         setUsers(json.users)
         setCurrentUser(json.currentUser)
-        setCurrentTarget(json.target)
-        setCurrentTag(json.tag)
         setTotalPages(json.totalPages)
       })
       .catch((error) => {
@@ -101,13 +92,11 @@ export default function GenerationUsers({ generationID }) {
         </nav>
       )}
       <div className="container">
-        <div className="users">
+        <div className="users row">
           {users === null ? (
-            <div className="row">
-              <div className="empty">
-                <i className="fa-solid fa-spinner fa-pulse" />
-                ロード中
-              </div>
+            <div className="empty">
+              <i className="fa-solid fa-spinner fa-pulse" />
+              ロード中
             </div>
           ) : users.length !== 0 ? (
             users.map((user) => (
