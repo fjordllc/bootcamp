@@ -205,7 +205,7 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'register editor with radio button' do
     visit_with_auth '/current_user/edit', 'kimura'
-    page.first('#VSCode').click
+    find('label', text: 'VSCode').click
     click_on '更新する'
 
     assert_text 'VSCode'
@@ -213,10 +213,10 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'register editor with text box' do
     visit_with_auth '/current_user/edit', 'kimura'
-    page.first('#others').click
-    page.fill_in 'others_editor', with: 'Atom'
+    find('label', text: 'その他').click
+    fill_in 'others_editor', with: 'textbringer'
     click_on '更新する'
 
-    assert_text 'Atom'
+    assert_text 'textbringer'
   end
 end
