@@ -89,7 +89,8 @@ jobs:
       - run:
           name: Test
           command: |
-            bundle exec rails test test/system
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            bundle exec rails test $TESTFILES
           no_output_timeout: 30m
           when: always
       - store_test_results:
