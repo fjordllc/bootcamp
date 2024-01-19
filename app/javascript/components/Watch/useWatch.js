@@ -9,6 +9,8 @@ export const useWatch = (watchableId, watchableType) => {
     useShallow((state) => [state.watchId, state.setWatchable])
   )
 
+  const watchExists = !!watchId
+
   const handleCreateWatch = () => {
     createWatch(watchableType, watchableId).
       then((watch) => {
@@ -57,7 +59,7 @@ export const useWatch = (watchableId, watchableType) => {
   }, [watchableId, watchableType])
 
   return {
-    watchId,
+    watchExists,
     handleCreateWatch,
     handleDeleteWatch,
   }
