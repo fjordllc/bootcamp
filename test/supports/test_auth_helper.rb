@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module TestAuthHelper
+  # include Sorcery::TestHelpers::Rails
+
   def visit_with_auth(url, login_name)
-    visit logout_path if page.has_selector?('.test-show-menu')
+    logout if page.has_selector?('.test-show-menu')
 
     uri = URI.parse(url)
     queries = Rack::Utils.parse_nested_query(uri.query)
