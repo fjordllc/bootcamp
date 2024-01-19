@@ -22,7 +22,7 @@ class User::TagsTest < ApplicationSystemTestCase
 
     %i[cat shinjuku_rb neovim_v_zero_five_zero _net_framework may_j_].each do |key|
       name = acts_as_taggable_on_tags(key).name
-      within '.a-side-nav' do
+      within '.random-tags' do
         click_on name, exact_text: true
       end
       assert_text "タグ「#{name}」のユーザー"
