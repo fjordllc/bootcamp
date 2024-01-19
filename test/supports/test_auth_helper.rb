@@ -2,11 +2,7 @@
 
 module TestAuthHelper
   def visit_with_auth(url, login_name)
-    if page.has_selector?('.test-show-menu')
-      find('.test-show-menu').click
-      click_link 'ログアウト'
-      assert_text 'ログアウトしました。'
-    end
+    visit logout_path if page.has_selector?('.test-show-menu')
 
     uri = URI.parse(url)
     queries = Rack::Utils.parse_nested_query(uri.query)
