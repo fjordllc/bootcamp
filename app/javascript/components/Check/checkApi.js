@@ -3,7 +3,7 @@ import CSRF from '../../csrf'
 const createCheck = async (checkableId, checkableType) => {
   const params = {
     checkable_id: checkableId,
-    checkable_type: checkableType,
+    checkable_type: checkableType
   }
   const res = await fetch('/api/checks', {
     method: 'POST',
@@ -25,7 +25,7 @@ const createCheck = async (checkableId, checkableType) => {
 const deleteCheck = async (checkId, checkableId, checkableType) => {
   const params = {
     checkable_id: checkableId,
-    checkable_type: checkableType,
+    checkable_type: checkableType
   }
   const res = await fetch(`/api/checks/${checkId}`, {
     method: 'DELETE',

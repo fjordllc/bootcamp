@@ -12,15 +12,15 @@ export const useWatch = (watchableId, watchableType) => {
   const watchExists = !!watchId
 
   const handleCreateWatch = () => {
-    createWatch(watchableType, watchableId).
-      then((watch) => {
+    createWatch(watchableType, watchableId)
+      .then((watch) => {
         if (watch.message) {
-          toast.methods.toast(watch.message, 'error');
+          toast.methods.toast(watch.message, 'error')
         } else {
-          toast.methods.toast('Watchしました！');
+          toast.methods.toast('Watchしました！')
           setWatchable({
             watchableId: watch.watchable_id,
-            watchableType: watch.watchable_type,
+            watchableType: watch.watchable_type
           })
         }
       })
@@ -36,7 +36,7 @@ export const useWatch = (watchableId, watchableType) => {
         toast.methods.toast('Watchを外しました')
         setWatchable({
           watchableId: watchableId,
-          watchableType: watchableType,
+          watchableType: watchableType
         })
         // 元のvueのコードではここで下記のイベントを発行していたので
         // 移行する時に注意 移行後にこのコメントは消去
@@ -61,6 +61,6 @@ export const useWatch = (watchableId, watchableType) => {
   return {
     watchExists,
     handleCreateWatch,
-    handleDeleteWatch,
+    handleDeleteWatch
   }
 }

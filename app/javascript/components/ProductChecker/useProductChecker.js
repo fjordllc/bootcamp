@@ -24,28 +24,39 @@ const createInitialState = ({ checkerId, currentUserId }) => {
 }
 
 export const useProductChecker = (checkerId, productId, currentUserId) => {
-  const [productChecker, dispatch] = useReducer(reducer, {checkerId, currentUserId}, createInitialState)
+  const [productChecker, dispatch] = useReducer(
+    reducer,
+    { checkerId, currentUserId },
+    createInitialState
+  )
 
-  const {createProductChecker, deleteProductChecker} = productCheckerApi(productId, currentUserId)
+  const { createProductChecker, deleteProductChecker } = productCheckerApi(
+    productId,
+    currentUserId
+  )
 
   const onCreateProductChecker = () => {
-    createProductChecker().then(() => {
-      dispatch('becomeProductChecker')
-      toast.methods.toast('担当になりました。')
-    }).catch((error) => {
-      console.error(error)
-      toast.methods.toast('担当になるのに失敗しました。', 'error')
-    })
+    createProductChecker()
+      .then(() => {
+        dispatch('becomeProductChecker')
+        toast.methods.toast('担当になりました。')
+      })
+      .catch((error) => {
+        console.error(error)
+        toast.methods.toast('担当になるのに失敗しました。', 'error')
+      })
   }
 
   const onDeleteProductChecker = () => {
-    deleteProductChecker().then(() => {
-      dispatch('deleteProductChecker')
-      toast.methods.toast('担当から外れました。')
-    }).catch((error) => {
-      console.error(error)
-      toast.methods.toast('担当から外れるのに失敗しました。', 'error')
-    })
+    deleteProductChecker()
+      .then(() => {
+        dispatch('deleteProductChecker')
+        toast.methods.toast('担当から外れました。')
+      })
+      .catch((error) => {
+        console.error(error)
+        toast.methods.toast('担当から外れるのに失敗しました。', 'error')
+      })
   }
 
   return {

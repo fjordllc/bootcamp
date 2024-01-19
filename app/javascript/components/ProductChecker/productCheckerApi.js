@@ -34,5 +34,5 @@ export const productCheckerApi = (productId, currentUserId) => {
     })
   }
 
-  return {createProductChecker, deleteProductChecker}
+  return { createProductChecker, deleteProductChecker }
 }
