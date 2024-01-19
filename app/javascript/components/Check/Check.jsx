@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductChecker from '../ProductChecker'
+import ProductChecker from '../ProductChecker/ProductChecker'
 import * as Card from '../ui/Card'
 import { useCheck } from './useCheck'
 import clsx from 'clsx'
@@ -42,11 +42,10 @@ const CheckComponent = ({
           <ProductChecker
             checkerId={checkerId}
             checkerName={checkerName}
-            checkerAvatar={checkerAvatar}
             currentUserId={currentUserId}
             productId={checkableId}
             checkableType={checkableType}
-            parentComponent="check"
+            checkerAvatar={checkerAvatar}
           />
         </Card.FooterItem>
       )}

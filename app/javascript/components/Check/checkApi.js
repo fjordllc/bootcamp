@@ -1,4 +1,4 @@
-import CSRF from 'csrf'
+import CSRF from '../../csrf'
 
 const createCheck = async (checkableId, checkableType) => {
   const params = {
