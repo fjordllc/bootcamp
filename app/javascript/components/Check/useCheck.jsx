@@ -9,6 +9,8 @@ export const useCheck = (checkableId, checkableType) => {
     state.setCheckable
   ])
 
+  const checkExists = !!checkId
+
   const onCreateCheck = () => {
     createCheck(checkableId, checkableType).then(() => {
       setCheckable({ checkableId, checkableType })
@@ -45,7 +47,7 @@ export const useCheck = (checkableId, checkableType) => {
   }, [checkableId, checkableType])
 
   return {
-    checkId,
+    checkExists,
     createdAt,
     userName,
     onCreateCheck,
