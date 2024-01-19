@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 import toast from '../../toast'
-import { productCheckerApi } from './productCheckerApi'
+import { productCheckerClient } from './productCheckerApi'
 
 const reducer = (_state, action) => {
   switch (action) {
@@ -30,7 +30,7 @@ export const useProductChecker = (checkerId, productId, currentUserId) => {
     createInitialState
   )
 
-  const { createProductChecker, deleteProductChecker } = productCheckerApi(
+  const { createProductChecker, deleteProductChecker } = productCheckerClient(
     productId,
     currentUserId
   )

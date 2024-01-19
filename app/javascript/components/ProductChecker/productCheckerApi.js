@@ -1,6 +1,6 @@
 import CSRF from '../../csrf'
 
-export const productCheckerApi = (productId, currentUserId) => {
+export const productCheckerClient = (productId, currentUserId) => {
   const params = {
     product_id: productId,
     current_user_id: currentUserId

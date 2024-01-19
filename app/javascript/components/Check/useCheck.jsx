@@ -1,17 +1,23 @@
 import { useEffect } from 'react'
 import toast from '../../toast'
 import { useZustandStore } from '../../hooks/useZustandStore.js'
-import { createCheck, deleteCheck } from './checkApi'
+import { checkClient } from './checkApi'
 
 export const useCheck = (checkableId, checkableType) => {
   const [{ checkId, createdAt, userName }, setCheckable] = useZustandStore(
     (state) => [state.checkable, state.setCheckable]
   )
 
+  const { createCheck, deleteCheck } = checkClient(
+    checkId,
+    checkableId,
+    checkableType
+  )
+
   const checkExists = !!checkId
 
   const onCreateCheck = () => {
-    createCheck(checkableId, checkableType)
+    createCheck()
       .then(() => {
         setCheckable({ checkableId, checkableType })
         const message = {
@@ -27,7 +33,7 @@ export const useCheck = (checkableId, checkableType) => {
   }
 
   const onDeleteCheck = () => {
-    deleteCheck(checkId, checkableId, checkableType)
+    deleteCheck()
       .then(() => {
         setCheckable({ checkableId, checkableType })
         const message = {
