@@ -4,39 +4,42 @@ import { useZustandStore } from '../../hooks/useZustandStore.js'
 import { createCheck, deleteCheck } from './checkApi'
 
 export const useCheck = (checkableId, checkableType) => {
-  const [{ checkId, createdAt, userName }, setCheckable] = useZustandStore((state) => [
-    state.checkable,
-    state.setCheckable
-  ])
+  const [{ checkId, createdAt, userName }, setCheckable] = useZustandStore(
+    (state) => [state.checkable, state.setCheckable]
+  )
 
   const checkExists = !!checkId
 
   const onCreateCheck = () => {
-    createCheck(checkableId, checkableType).then(() => {
-      setCheckable({ checkableId, checkableType })
-      const message = {
-        'Product': '提出物を確認済みにしました。',
-        'Report': '日報を確認済みにしました。'
-      }
-      toast.methods.toast(message[checkableType])
-    }).catch((error) => {
-      console.error(error)
-      toast.methods.toast(error.message, 'error')
-    })
+    createCheck(checkableId, checkableType)
+      .then(() => {
+        setCheckable({ checkableId, checkableType })
+        const message = {
+          Product: '提出物を確認済みにしました。',
+          Report: '日報を確認済みにしました。'
+        }
+        toast.methods.toast(message[checkableType])
+      })
+      .catch((error) => {
+        console.error(error)
+        toast.methods.toast(error.message, 'error')
+      })
   }
 
   const onDeleteCheck = () => {
-    deleteCheck(checkId, checkableId, checkableType).then(() => {
-      setCheckable({ checkableId, checkableType })
-      const message = {
-        'Product': '提出物の確認を取り消しました。',
-        'Report': '日報の確認を取り消しました。'
-      }
-      toast.methods.toast(message[checkableType])
-    }).catch((error) => {
-      console.error(error)
-      toast.methods.toast(error.message, 'error')
-    })
+    deleteCheck(checkId, checkableId, checkableType)
+      .then(() => {
+        setCheckable({ checkableId, checkableType })
+        const message = {
+          Product: '提出物の確認を取り消しました。',
+          Report: '日報の確認を取り消しました。'
+        }
+        toast.methods.toast(message[checkableType])
+      })
+      .catch((error) => {
+        console.error(error)
+        toast.methods.toast(error.message, 'error')
+      })
   }
 
   // ApiからwatchIdの値を受け取るための初期化

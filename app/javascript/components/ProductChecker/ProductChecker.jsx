@@ -10,33 +10,26 @@ export default function ProductChecker({
   productId,
   checkerAvatar
 }) {
-  const {
-    productChecker,
-    onCreateProductChecker,
-    onDeleteProductChecker
-  } = useProductChecker(checkerId, productId, currentUserId)
+  const { productChecker, onCreateProductChecker, onDeleteProductChecker } =
+    useProductChecker(checkerId, productId, currentUserId)
 
   return (
     <>
       {/* 担当者が不在の場合 */}
       {productChecker === 'absent' && (
         <button
-          className='a-button is-block is-sm is-secondary'
+          className="a-button is-block is-sm is-secondary"
           onClick={onCreateProductChecker}>
-          <i
-            className='fas fa-hand-paper'
-          />
+          <i className="fas fa-hand-paper" />
           担当する
         </button>
       )}
       {/* 担当者が現在のユーザーの場合 */}
       {productChecker === 'currentUser' && (
         <button
-          className='a-button is-block is-sm is-warning'
+          className="a-button is-block is-sm is-warning"
           onClick={onDeleteProductChecker}>
-          <i
-            className='fas fa-times'
-          />
+          <i className="fas fa-times" />
           担当から外れる
         </button>
       )}

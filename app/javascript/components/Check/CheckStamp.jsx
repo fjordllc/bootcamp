@@ -2,7 +2,10 @@ import React from 'react'
 import { useCheck } from './useCheck'
 
 const CheckStamp = ({ checkableId, checkableType }) => {
-  const { checkExists, createdAt, userName } = useCheck(checkableId, checkableType)
+  const { checkExists, createdAt, userName } = useCheck(
+    checkableId,
+    checkableType
+  )
 
   return (
     checkExists && (
