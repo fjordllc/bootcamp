@@ -1,6 +1,6 @@
 import React from 'react'
 import UserIcon from './UserIcon'
-import ProductChecker from './ProductChecker'
+import ProductChecker from './ProductChecker/ProductChecker'
 
 export default function Product({
   product,
