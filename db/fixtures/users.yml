@@ -1251,3 +1251,28 @@ nagai-kyuukai:
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:04"
+
+pijord:
+  login_name: pijord
+  email: pijord@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ピヨルド
+  name_kana: ピヨルド
+  twitter_account: pijord
+  facebook_url: https://www.facebook.com/fjordllc/pijord
+  github_account: pijord
+  blog_url: http://pijord.org
+  description: "ピヨルドです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: Fijord Boot Camp
+  admin: true
+  mentor: false
+  unsubscribe_email_token: Xw-T0PjrO2LTkCx1C8KA9w
+  updated_at: "2021-02-01 00:00:30"
+  created_at: "2021-02-01 00:00:30"
+  sent_student_followup_message: true
+  last_activity_at: "2021-02-01 00:00:30"
