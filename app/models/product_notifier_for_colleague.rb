@@ -2,13 +2,7 @@
 
 class ProductNotifierForColleague
   def call(payload)
-    product =
-      case payload
-      when Hash
-        payload[:product]
-      else
-        payload
-      end
+    product = payload[:product]
     return if product.wip
 
     notify_advisers product if product.user.trainee? && product.user.company

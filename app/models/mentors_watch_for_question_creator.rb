@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class MentorsWatchForQuestionCreator
-  def call(question)
+  def call(payload)
+    question = payload[:question]
     return if question.wip? || question.watched?
 
     watch_question_records = watch_records(question)
