@@ -49,17 +49,16 @@
           label.a-form-label
             | サムネイル画像選択
       .row
-        - types = ['Ruby', 'Ruby on Rails', 'JavaScript', 'WSL2', 'Linux', 'PC', 'Sponsorship', 'Green', 'Purple', 'Orange', 'Brown', 'Blue']
+        - types = Article.thumbnail_types.keys.tap {|types| types.delete('prepared_thumbnail')}
         - types.each do |type|
           .col-md-3.col-xs-6
             .a-image-check.is-radio
-              - converted_type = type.downcase.tr(' ', '_')
-              = f.radio_button :thumbnail_type, converted_type, class: 'a-toggle-checkbox'
-              = f.label :thumbnail_type, value: type, class: 'a-image-check__inner'
+              = f.radio_button :thumbnail_type, type, class: 'a-toggle-checkbox'
+              = f.label :thumbnail_type, value: t("activerecord.enums.article.thumbnail_type.#{type}"), class: 'a-image-check__inner'
                 span.a-image-check__start
-                  = image_tag("/ogp/#{converted_type}.png")
+                  = image_tag("/ogp/#{type}.png")
                 span.a-image-check__end
-                  = type
+                  = t("activerecord.enums.article.thumbnail_type.#{type}")
 
         .col-md-3.col-xs-6
           .a-image-check.is-radio
