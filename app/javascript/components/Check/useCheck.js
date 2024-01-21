@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import toast from '../../toast'
 import { useZustandStore } from '../../hooks/useZustandStore.js'
+import { useShallow } from 'zustand/react/shallow'
 import { checkClient } from './checkApi'
 
 export const useCheck = (checkableId, checkableType) => {
   const [{ checkId, createdAt, userName }, setCheckable] = useZustandStore(
-    (state) => [state.checkable, state.setCheckable]
+    useShallow((state) => [state.checkable, state.setCheckable])
   )
 
   const { createCheck, deleteCheck } = checkClient(
