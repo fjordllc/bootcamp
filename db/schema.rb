@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2024_02_16_080937) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
+    t.string "token"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
