@@ -21,17 +21,18 @@ const CheckComponent = ({
   const buttonLabel = `${checkableLabel}${
     checkExists ? 'の確認を取り消す' : 'を確認'
   }`
-  const isSadEmotion = emotion === 'sad'
-  // TODO querySelectorを辞めてpropsから渡したい
-  const hasComment =
-    parseInt(document.querySelector('a[href="#comments"] > span').innerHTML) > 0
-  const message = '今日の気分は「sad」ですが、コメント無しで確認しますか？'
 
   const handleToggleCheck = () => {
+    const isSadEmotion = emotion === 'sad'
+    // TODO querySelectorを辞めてpropsから渡したい
+    const hasComment =
+      parseInt(document.querySelector('a[href="#comments"] > span').innerHTML) > 0
+    const confirmMessage = '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+
     if (checkExists) {
       onDeleteCheck()
     } else {
-      if (isSadEmotion && !hasComment && !window.confirm(message)) return
+      if (isSadEmotion && !hasComment && !window.confirm(confirmMessage)) return
       onCreateCheck()
     }
   }
@@ -39,7 +40,7 @@ const CheckComponent = ({
   return (
     <Card.Footer className="is-only-mentor">
       {checkableType === 'Product' && (
-        <Card.FooterItem className="card-main-actions__item">
+        <Card.FooterItem>
           <ProductChecker
             checkerId={checkerId}
             checkerName={checkerName}
