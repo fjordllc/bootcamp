@@ -276,7 +276,7 @@ class ArticlesTest < ApplicationSystemTestCase
     verify_default_ogp_image_used
   end
 
-  test 'Can set up prepared images for eye-catching image, the default OGP image will be used' do
+  test 'can set up prepared images for eye-catching image, the default OGP image will be used' do
     visit_with_auth edit_article_path(@article), 'komagata'
     find('label[for=article_thumbnail_type_ruby_on_rails]').click
     click_button '更新する'
