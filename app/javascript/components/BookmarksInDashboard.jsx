@@ -14,12 +14,8 @@ export default function BookmarksInDashboard() {
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
-  if (data.unpagedBookmarks.length === 0) {
-    return null
-  }
-
   return (
-    <div className="a-card">
+    <div className={data.unpagedBookmarks.length ? 'a-card' : 'none'}>
       <header className="card-header is-sm">
         <h2 className="card-header__title">最新のブックマーク</h2>
         <div className="card-header__action">
