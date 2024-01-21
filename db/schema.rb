@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_20_101451) do
+ActiveRecord::Schema.define(version: 2024_01_20_134935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2023_11_20_101451) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.text "summary"
+    t.string "token"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
