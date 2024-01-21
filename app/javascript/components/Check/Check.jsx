@@ -26,8 +26,10 @@ const CheckComponent = ({
     const isSadEmotion = emotion === 'sad'
     // TODO querySelectorを辞めてpropsから渡したい
     const hasComment =
-      parseInt(document.querySelector('a[href="#comments"] > span').innerHTML) > 0
-    const confirmMessage = '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+      parseInt(document.querySelector('a[href="#comments"] > span').innerHTML) >
+      0
+    const confirmMessage =
+      '今日の気分は「sad」ですが、コメント無しで確認しますか？'
 
     if (checkExists) {
       onDeleteCheck()
