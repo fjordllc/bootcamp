@@ -49,11 +49,11 @@ export default function Searchable({ searchable, word }) {
       <span>WIP</span>
     </div>
   ) : searchable.is_comment_or_answer ? (
-    <div className="a-list-item-badge is-serchable">
+    <div className="a-list-item-badge is-searchable">
       <span>コメント</span>
     </div>
   ) : searchable.is_user ? (
-    <div className="a-list-item-badge is-serchable">
+    <div className="a-list-item-badge is-searchable">
       <span>ユーザー</span>
     </div>
   ) : (
