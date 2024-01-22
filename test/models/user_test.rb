@@ -536,7 +536,7 @@ class UserTest < ActiveSupport::TestCase
     user.rename_avatar_and_strip_exif
 
     image = MiniMagick::Image.read(user.avatar.download)
-    assert image.exif.empty?
+    assert_empty image.exif
     assert user.avatar.filename, user.id
 
     user.avatar.purge
