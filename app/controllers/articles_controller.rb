@@ -83,6 +83,7 @@ class ArticlesController < ApplicationController
       summary
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
+    article_attributes.push(:token) if params[:commit] == 'WIP'
     params.require(:article).permit(*article_attributes)
   end
 
@@ -92,6 +93,8 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
+    # 更新ごとにトークンがリセットされるので要修正
+    @article.token = params[:commit] == 'WIP' ? SecureRandom.urlsafe_base64 : nil
   end
 
   def notice_message(article)
