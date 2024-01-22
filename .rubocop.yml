@@ -28,9 +28,6 @@ Metrics/ClassLength:
     - app/models/report.rb
     - app/notifiers/activity_notifier.rb
 
-Minitest/AssertEmpty:
-  Enabled: false
-
 Minitest/AssertTruthy:
   Enabled: false
 
