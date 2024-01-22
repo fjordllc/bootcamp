@@ -40,7 +40,7 @@ module Discord
       Discord::Server.stub(:create_text_channel, ->(*) { nil }) do
         times_channel = Discord::TimesChannel.new('piyo')
 
-        assert_equal false, times_channel.save
+        assert_not times_channel.save
         assert_nil times_channel.id
         assert_nil times_channel.category_id
       end
