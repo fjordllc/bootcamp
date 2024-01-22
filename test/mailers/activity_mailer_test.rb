@@ -47,7 +47,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       receiver: users(:hajime)
     ).deliver_now
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'comebacked' do
@@ -94,7 +94,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       receiver: users(:hajime)
     ).deliver_now
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'came_answer' do
@@ -133,15 +133,15 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.came_answer(answer: answer.reload).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.came_answer(answer: answer.reload).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.came_answer(answer: answer.reload).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.came_answer(answer: answer.reload).deliver_now
@@ -195,21 +195,21 @@ class ActivityMailerTest < ActionMailer::TestCase
       announcement: announce,
       receiver: receiver
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
       announcement: announce,
       receiver: receiver
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
       announcement: announce,
       receiver: receiver
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
@@ -310,21 +310,21 @@ class ActivityMailerTest < ActionMailer::TestCase
       mentionable: mentionable,
       receiver: mentioned.user
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     mentioned.user.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
       mentionable: mentionable,
       receiver: mentioned.user
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     mentioned.user.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
       mentionable: mentionable,
       receiver: mentioned.user
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     mentioned.user.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
@@ -378,7 +378,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       receiver: users(:hajime)
     ).deliver_now
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'checked' do
@@ -427,7 +427,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       check: check
     ).deliver_now
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'create_page' do
@@ -557,7 +557,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       product: product
     ).deliver_now
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'following_report' do
@@ -675,21 +675,21 @@ class ActivityMailerTest < ActionMailer::TestCase
       product: product,
       receiver: receiver
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
       product: product,
       receiver: receiver
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
       product: product,
       receiver: receiver
     ).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
@@ -970,7 +970,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       mailer.deliver_later
     end
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'not send chose_correct_answer email to retired user' do
@@ -987,7 +987,7 @@ class ActivityMailerTest < ActionMailer::TestCase
       mailer.deliver_later
     end
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test 'no_correct_answer using synchronous mailer' do
@@ -1112,6 +1112,6 @@ class ActivityMailerTest < ActionMailer::TestCase
       receiver: comment.receiver
     ).deliver_now
 
-    assert ActionMailer::Base.deliveries.empty?
+    assert_empty ActionMailer::Base.deliveries
   end
 end
