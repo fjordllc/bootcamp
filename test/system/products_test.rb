@@ -569,7 +569,7 @@ class ProductsTest < ApplicationSystemTestCase
       - 6日経過：1件
       - 5日経過：1件
     BODY
-    assert page.body.include?(expected)
+    assert_includes page.body, expected
   end
 
   test 'no company trainee create product' do

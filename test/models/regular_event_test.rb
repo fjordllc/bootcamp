@@ -152,8 +152,8 @@ class RegularEventTest < ActiveSupport::TestCase
 
     RegularEvent.remove_event([regular_events1, regular_events2], regular_event1.id)
     assert_not regular_events1.include?(regular_event1)
-    assert regular_events1.include?(regular_event2)
-    assert regular_events2.include?(regular_event3)
+    assert_includes regular_events1, regular_event2
+    assert_includes regular_events2, regular_event3
   end
 
   test '#assign_admin_as_organizer_if_none' do
