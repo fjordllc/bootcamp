@@ -17,7 +17,7 @@ const CardFooter = ({ children, className }) => {
   return (
     <div className={clsx('card-footer', className)}>
       <div className="card-main-actions">
-        <div className="card-main-actions__items">{children}</div>
+        <ul className="card-main-actions__items">{children}</ul>
       </div>
     </div>
   )
@@ -27,7 +27,7 @@ CardFooter.displayName = 'CardFooter'
 
 const CardFooterItem = ({ children, className }) => {
   return (
-    <div className={clsx('card-main-actions__item', className)}>{children}</div>
+    <li className={clsx('card-main-actions__item', className)}>{children}</li>
   )
 }
 
