@@ -23,18 +23,21 @@ const CheckComponent = ({
   }`
 
   const handleToggleCheck = () => {
-    const isSadEmotion = emotion === 'sad'
-    // TODO querySelectorを辞めてpropsから渡したい
-    const hasComment =
-      parseInt(document.querySelector('a[href="#comments"] > span').innerHTML) >
-      0
-    const confirmMessage =
-      '今日の気分は「sad」ですが、コメント無しで確認しますか？'
-
     if (checkExists) {
       onDeleteCheck()
     } else {
-      if (isSadEmotion && !hasComment && !window.confirm(confirmMessage)) return
+      const isSadEmotion = emotion === 'sad'
+      // TODO querySelectorを辞めてpropsから渡したい
+      const commentExists =
+        parseInt(
+          document.querySelector('a[href="#comments"] > span').innerHTML
+        ) > 0
+      const confirmMessage =
+        '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+      const isConfirmed = () => window.confirm(confirmMessage)
+      const isSadNoCommentNotComfirmed =
+        isSadEmotion && !commentExists && !isConfirmed()
+      if (isSadNoCommentNotComfirmed) return
       onCreateCheck()
     }
   }
@@ -55,6 +58,7 @@ const CheckComponent = ({
       )}
       <Card.FooterItem className={clsx({ 'is-sub': checkExists })}>
         <button
+          // shortcut.jsでhotkey(ctrl+b)の設定に使うid
           id="js-shortcut-check"
           className={clsx(
             'is-block',
