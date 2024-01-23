@@ -4,7 +4,7 @@ import * as Card from '../ui/Card'
 import { useCheck } from './useCheck'
 import clsx from 'clsx'
 
-const CheckComponent = ({
+const Check = ({
   emotion = null,
   checkableId,
   checkableType,
@@ -34,6 +34,7 @@ const CheckComponent = ({
         ) > 0
       const confirmMessage =
         '今日の気分は「sad」ですが、コメント無しで確認しますか？'
+      // 変数定義時に実行させないため関数
       const isConfirmed = () => window.confirm(confirmMessage)
       const isSadNoCommentNotComfirmed =
         isSadEmotion && !commentExists && !isConfirmed()
@@ -44,8 +45,10 @@ const CheckComponent = ({
 
   return (
     <Card.Footer className="is-only-mentor">
+      {/* 提出物のみで使う担当ボタン */}
       {checkableType === 'Product' && (
-        <Card.FooterItem>
+        // 確認されていた場合はCSSによって非表示
+        <Card.FooterItem className={clsx({ hidden: checkExists })}>
           <ProductChecker
             checkerId={checkerId}
             checkerName={checkerName}
@@ -56,6 +59,7 @@ const CheckComponent = ({
           />
         </Card.FooterItem>
       )}
+      {/* 確認or確認取り消しボタン */}
       <Card.FooterItem className={clsx({ 'is-sub': checkExists })}>
         <button
           // shortcut.jsでhotkey(ctrl+b)の設定に使うid
@@ -74,4 +78,4 @@ const CheckComponent = ({
   )
 }
 
-export default CheckComponent
+export default Check
