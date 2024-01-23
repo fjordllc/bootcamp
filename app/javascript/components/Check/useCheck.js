@@ -49,7 +49,7 @@ export const useCheck = (checkableId, checkableType) => {
       })
   }
 
-  // ApiからwatchIdの値を受け取るための初期化
+  // Apiからcheckableの値を受け取るための初期化
   // もし使えるならcontextを使って初期化した方が良い
   // https://docs.pmnd.rs/zustand/guides/initialize-state-with-props
   useEffect(() => {
