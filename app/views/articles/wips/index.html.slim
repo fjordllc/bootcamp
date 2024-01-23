@@ -11,9 +11,6 @@ description: 'オンラインプログラミングフィヨルドブートキャ
           = title
       - if current_user&.mentor?
         .welcome-page-header__end
-          = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
-            i.fas.fa-plus
-            | ブログ記事作成
 
 .welcome-page-body
   .articles
@@ -24,7 +21,7 @@ description: 'オンラインプログラミングフィヨルドブートキャ
             - @articles.each do |article|
               .col-lg-4.col-md-6.col-xs-12
                 .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
-                  = link_to article, class: 'articles-item__link' do
+                  = link_to articles_wips_path, class: 'articles-item__link' do
                     .articles-item__row
                       - if article.thumbnail.attached?
                         = image_tag article.thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"

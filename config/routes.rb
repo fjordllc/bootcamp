@@ -64,11 +64,10 @@ Rails.application.routes.draw do
   resources :questions, only: %i(index show new create destroy)
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
-  resources :articles do
-    collection do
-      get "wip", to: "articles#wip"
-    end
+  namespace :articles do
+    resources :wips, only: %i(index), controller: "wips"
   end
+  resources :articles
   resources :survey_questions, except: %i(show destroy)
   namespace :events do
     resources :calendars, only: %i(index)
