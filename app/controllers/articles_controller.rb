@@ -52,11 +52,6 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: '記事を削除しました'
   end
 
-  def wip
-    @articles = Article.where(wip: true)
-    render layout: 'welcome'
-  end
-
   private
 
   def set_article
