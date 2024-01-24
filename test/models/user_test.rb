@@ -704,10 +704,10 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test '#automatic_retire_datetime' do
+  test '#retire_deadline' do
     user = users(:kyuukai)
 
     # kyuukaiの休会日は "2020-01-01 09:00:00"に設定されている。
-    assert_equal '2020-07-01 09:00:00 +0900', user.automatic_retire_datetime.to_s
+    assert_equal '2020-07-01 09:00:00 +0900', user.retire_deadline.to_s
   end
 end

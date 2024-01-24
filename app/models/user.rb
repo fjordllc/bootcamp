@@ -770,7 +770,7 @@ class User < ApplicationRecord
     organizers.each(&:delete_and_assign_new)
   end
 
-  def automatic_retire_datetime
+  def retire_deadline
     return unless hibernated_at
 
     hibernated_at.advance(months: 6)
