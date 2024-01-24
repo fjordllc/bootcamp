@@ -705,9 +705,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#scheduled_retire_at' do
-    user = users(:kyuukai)
-
-    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定されている。
-    assert_equal '2020-07-01 09:00:00 +0900', user.scheduled_retire_at.to_s
+    assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
   end
 end
