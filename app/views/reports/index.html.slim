@@ -14,4 +14,5 @@ header.page-header
 
 = render 'reports/tabs'
 
-= react_component('Reports', all: true, practices: current_user.practices)
+- practices = current_user.practices.as_json(only: [:id, :title])
+= react_component('Reports', all: true, practices: practices)
