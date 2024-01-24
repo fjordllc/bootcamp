@@ -121,6 +121,12 @@ module UserDecorator
     end
   end
 
+  def hibernation_days
+    return unless hibernated_at
+
+    ((Time.zone.now - hibernated_at) / 86_400).floor
+  end
+
   def remaining_days_until_automatic_retire
     return unless hibernated_at
 

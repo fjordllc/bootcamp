@@ -67,6 +67,14 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal '日本', @subdivision_not_registered_user.address
   end
 
+  test '#hibernation_days' do
+    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定されている。
+
+    travel_to Time.zone.local(2020, 2, 1, 9, 0, 0) do
+      assert_equal 31, @hibernationed_user.hibernation_days
+    end
+  end
+
   test '#remaining_days_until_automatic_retire' do
     # kyuukaiの休会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
 
