@@ -6,12 +6,12 @@ require 'application_system_test_case'
 class AttachmentsTest < ApplicationSystemTestCase
   test 'attachment user avatar' do
     visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
-    assert find('img.user-profile__user-icon-image')['src'].include?('komagata.png')
+    assert_includes find('img.user-profile__user-icon-image')['src'], 'komagata.png'
   end
 
   test 'attachment company icons in reports' do
     report = reports(:report11)
     visit_with_auth "/reports/#{report.id}", 'kensyu'
-    assert find('img.page-content-header__company-logo')['src'].include?('2.png')
+    assert_includes find('img.page-content-header__company-logo')['src'], '2.png'
   end
 end
