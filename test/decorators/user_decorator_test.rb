@@ -68,24 +68,18 @@ class UserDecoratorTest < ActiveSupport::TestCase
   end
 
   test '#hibernation_days' do
-    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定されている。
-
     travel_to Time.zone.local(2020, 2, 1, 9, 0, 0) do
       assert_equal 31, @hibernationed_user.hibernation_days
     end
   end
 
   test '#retire_countdown_days' do
-    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
-
     travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do # 自動退会日1週間を切った場合。
       assert_equal 7, @hibernationed_user.retire_countdown_days
     end
   end
 
   test '#retire_deadline' do
-    # kyuukaiの休会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
-
     travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do # 自動退会日まで1時間を切った場合。
       assert_equal '2020年07月01日(水) 09:00 (自動退会まであと59分)', @hibernationed_user.retire_deadline
     end
