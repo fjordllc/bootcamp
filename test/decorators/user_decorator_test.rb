@@ -74,7 +74,7 @@ class UserDecoratorTest < ActiveSupport::TestCase
   end
 
   test '#retire_countdown_days' do
-    travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do # 自動退会日1週間を切った場合。
+    travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
       assert_equal 7, @hibernationed_user.retire_countdown_days
     end
   end

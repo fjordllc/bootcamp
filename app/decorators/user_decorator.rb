@@ -124,21 +124,21 @@ module UserDecorator
   def hibernation_days
     return unless hibernated_at
 
-    ((Time.zone.now - hibernated_at) / 86_400).floor
+    ((Time.zone.now - hibernated_at) / 1.day.to_i).floor
   end
 
   def retire_countdown_days
     return unless hibernated_at
 
-    ((scheduled_retire_at - Time.zone.now) / 86_400).floor
+    ((scheduled_retire_at - Time.zone.now) / 1.day.to_i).floor
   end
 
   def retire_deadline
     countdown =
-      if (retire_countdown_seconds / 3600) < 1
-        "#{retire_countdown_seconds / 60}分"
-      elsif (retire_countdown_seconds / 3600) < 24
-        "#{retire_countdown_seconds / 3600}時間"
+      if (retire_countdown_seconds / 1.hour.to_i) < 1
+        "#{retire_countdown_seconds / 1.minute.to_i}分"
+      elsif (retire_countdown_seconds / 1.hour.to_i) < 24
+        "#{retire_countdown_seconds / 1.hour.to_i}時間"
       else
         "#{retire_countdown_days}日"
       end
