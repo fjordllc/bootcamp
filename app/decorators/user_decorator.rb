@@ -136,9 +136,9 @@ module UserDecorator
   def retire_deadline
     countdown =
       if (retire_countdown_seconds / 3600) < 1
-        "#{(retire_countdown_seconds / 60)}分"
+        "#{retire_countdown_seconds / 60}分"
       elsif (retire_countdown_seconds / 3600) < 24
-        "#{(retire_countdown_seconds / 3600)}時間"
+        "#{retire_countdown_seconds / 3600}時間"
       else
         "#{retire_countdown_days}日"
       end
