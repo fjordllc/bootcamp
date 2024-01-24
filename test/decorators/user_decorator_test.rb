@@ -83,23 +83,23 @@ class UserDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test '#remaining_time_until_automatic_retire' do
+  test '#retire_deadline' do
     # kyuukaiの休会日は "2020-01-01 09:00:00"に設定してあるので、その6ヶ月後の"2020-07-01 09:00:00"が自動退会日。
 
     travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do # 自動退会日まで1時間を切った場合。
-      assert_equal '59分', @hibernationed_user.remaining_time_until_automatic_retire
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと59分)', @hibernationed_user.retire_deadline
     end
 
     travel_to Time.zone.local(2020, 6, 30, 10, 0, 0) do # 自動退会日まで24時間を切った場合。
-      assert_equal '23時間', @hibernationed_user.remaining_time_until_automatic_retire
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと23時間)', @hibernationed_user.retire_deadline
     end
 
     travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do # 自動退会日1週間を切った場合。
-      assert_equal '7日', @hibernationed_user.remaining_time_until_automatic_retire
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと7日)', @hibernationed_user.retire_deadline
     end
 
     travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do # 自動退会日6ヶ月前 ~ 1週間を切るまでの場合。
-      assert_equal '182日', @hibernationed_user.remaining_time_until_automatic_retire
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと182日)', @hibernationed_user.retire_deadline
     end
   end
 end

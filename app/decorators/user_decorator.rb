@@ -133,13 +133,16 @@ module UserDecorator
     ((scheduled_retire_at - Time.zone.now) / 86_400).floor
   end
 
-  def remaining_time_until_automatic_retire
-    if remaining_hours_or_minutes_until_automatic_retire(self, :hours) < 1
-      "#{remaining_hours_or_minutes_until_automatic_retire(self, :minutes)}分"
-    elsif remaining_hours_or_minutes_until_automatic_retire(self, :hours) < 24
-      "#{remaining_hours_or_minutes_until_automatic_retire(self, :hours)}時間"
-    else
-      "#{retire_countdown}日"
-    end
+  def retire_deadline
+    countdown =
+      if remaining_hours_or_minutes_until_automatic_retire(self, :hours) < 1
+        "#{remaining_hours_or_minutes_until_automatic_retire(self, :minutes)}分"
+      elsif remaining_hours_or_minutes_until_automatic_retire(self, :hours) < 24
+        "#{remaining_hours_or_minutes_until_automatic_retire(self, :hours)}時間"
+      else
+        "#{retire_countdown}日"
+      end
+
+    "#{l scheduled_retire_at} (自動退会まであと#{countdown})"
   end
 end
