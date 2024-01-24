@@ -29,8 +29,8 @@ class API::AnswersController < API::BaseController
     @answer = question.answers.new(answer_params)
     @answer.user = current_user
     if @answer.save
-      Newspaper.publish(:answer_create, @answer)
-      Newspaper.publish(:answer_save, @answer)
+      Newspaper.publish(:answer_create, { answer: @answer })
+      Newspaper.publish(:answer_save, { answer: @answer })
       render :create, status: :created
     else
       head :bad_request
@@ -39,7 +39,7 @@ class API::AnswersController < API::BaseController
 
   def update
     if @answer.update(answer_params)
-      Newspaper.publish(:answer_save, @answer)
+      Newspaper.publish(:answer_save, { answer: @answer })
       head :ok
     else
       head :bad_request
@@ -48,7 +48,7 @@ class API::AnswersController < API::BaseController
 
   def destroy
     @answer.destroy
-    Newspaper.publish(:answer_destroy, @answer)
+    Newspaper.publish(:answer_destroy, { answer: @answer })
   end
 
   private

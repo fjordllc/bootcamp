@@ -13,7 +13,7 @@ class RetirementController < ApplicationController
     if current_user.save(context: :retirement)
       user = current_user
       current_user.delete_and_assign_new_organizer
-      Newspaper.publish(:retirement_create, user)
+      Newspaper.publish(:retirement_create, { user: })
       begin
         UserMailer.retire(user).deliver_now
       rescue Postmark::InactiveRecipientError => e
