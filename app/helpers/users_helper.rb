@@ -61,13 +61,4 @@ module UsersHelper
                     .to_h
                     .to_json
   end
-
-  def remaining_hours_or_minutes_until_automatic_retire(user, hours_or_minutes)
-    return unless user.hibernated_at
-
-    remaining_time = user.scheduled_retire_at - Time.zone.now
-    seconds_per_hour_or_minute = hours_or_minutes == :hours ? 3600 : 60
-
-    (remaining_time / seconds_per_hour_or_minute).floor
-  end
 end
