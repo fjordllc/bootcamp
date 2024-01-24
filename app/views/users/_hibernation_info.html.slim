@@ -13,8 +13,8 @@
           span.user-metas__item-value-text
             | 企業都合休会中(#{user.hibernation_days}日)
         - else
-          span.user-metas__item-value-text class=(user.remaining_days_until_automatic_retire <= 7 ? 'is-danger' : '')
-            | #{l user.retire_deadline} (自動退会まであと#{user.remaining_time_until_automatic_retire})
+          span.user-metas__item-value-text class=(user.retire_countdown <= 7 ? 'is-danger' : '')
+            | #{l user.scheduled_retire_at} (自動退会まであと#{user.remaining_time_until_automatic_retire})
   - user.hibernations.each_with_index do |hibernation, i|
     - number = i + 1
     .user-metas__items

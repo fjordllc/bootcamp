@@ -127,10 +127,10 @@ module UserDecorator
     ((Time.zone.now - hibernated_at) / 86_400).floor
   end
 
-  def remaining_days_until_automatic_retire
+  def retire_countdown
     return unless hibernated_at
 
-    ((retire_deadline - Time.zone.now) / 86_400).floor
+    ((scheduled_retire_at - Time.zone.now) / 86_400).floor
   end
 
   def remaining_time_until_automatic_retire
@@ -139,7 +139,7 @@ module UserDecorator
     elsif remaining_hours_or_minutes_until_automatic_retire(self, :hours) < 24
       "#{remaining_hours_or_minutes_until_automatic_retire(self, :hours)}時間"
     else
-      "#{remaining_days_until_automatic_retire}日"
+      "#{retire_countdown}日"
     end
   end
 end
