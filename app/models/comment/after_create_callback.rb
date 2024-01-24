@@ -6,7 +6,7 @@ class Comment::AfterCreateCallback
       create_watch(comment)
       notify_to_watching_user(comment)
     elsif comment.sender != comment.receiver
-      Newspaper.publish(:came_comment, comment)
+      Newspaper.publish(:came_comment, { comment: })
     end
 
     if comment.commentable.instance_of?(Talk)
@@ -74,7 +74,7 @@ class Comment::AfterCreateCallback
   end
 
   def notify_to_admins(comment)
-    Newspaper.publish(:came_comment_in_talk, comment)
+    Newspaper.publish(:came_comment_in_talk, { comment: })
   end
 
   def update_action_completed(comment)
