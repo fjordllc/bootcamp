@@ -124,7 +124,7 @@ module UserDecorator
   def remaining_days_until_automatic_retire
     return unless hibernated_at
 
-    ((automatic_retire_datetime - Time.zone.now) / 86_400).floor
+    ((retire_deadline - Time.zone.now) / 86_400).floor
   end
 
   def remaining_time_until_automatic_retire
