@@ -54,7 +54,10 @@ export default function NotificationsBell() {
               targetStatus={targetStatus}
               setTargetStatus={setTargetStatus}
             />
-            <Notifications notifications={notifications} />
+            <Notifications
+              notifications={notifications}
+              targetStatus={targetStatus}
+            />
             <footer className="header-dropdown__footer">
               <a
                 href="/notifications?status=unread"

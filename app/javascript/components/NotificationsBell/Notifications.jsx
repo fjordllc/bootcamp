@@ -4,11 +4,25 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
-export default function Notifications({ notifications }) {
+export default function Notifications({ notifications, targetStatus }) {
+  const isUnreadTab = targetStatus === 'unread'
+
   if (!notifications) {
     return (
       <div className="page-content loading">
         <LoadingListPlaceholder />
+      </div>
+    )
+  } else if (notifications.length === 0) {
+    return (
+      <div className="o-empty-message">
+        <div className="o-empty-message__icon">
+          <i className="fa-regular fa-smile" />
+        </div>
+        <p className="o-empty-message__text">
+          {isUnreadTab ? '未読の通知はありません' : '通知はありません'}
+        </p>
+        {isUnreadTab && <a href="/notifications">通知一覧へ</a>}
       </div>
     )
   } else {
