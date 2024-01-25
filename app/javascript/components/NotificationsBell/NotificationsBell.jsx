@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useSWR from 'swr'
+import BellButton from './BellButton'
 import fetcher from '../../fetcher'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -13,17 +14,6 @@ export default function NotificationsBell() {
 
   const notificationExist = data?.notifications.length > 0
   const hasCountClass = notificationExist ? 'has-count' : 'has-no-count'
-
-  const notificationCount = () => {
-    if (!data) return
-
-    const count = data.notifications.length
-    return count > 99 ? '99+' : String(count)
-  }
-
-  const openNotifications = () => {
-    setShowNotifications(true)
-  }
 
   const clickOutsideNotifications = (e) => {
     if (e.target !== e.currentTarget) return
@@ -47,24 +37,7 @@ export default function NotificationsBell() {
 
   return (
     <div className={hasCountClass}>
-      <label
-        onClick={openNotifications}
-        className="header-links__link test-show-notifications">
-        <div className="header-links__link test-bell">
-          <div className="header-notification-icon">
-            {notificationExist && (
-              <div className="header-notification-count a-notification-count test-notification-count">
-                {notificationCount()}
-              </div>
-            )}
-            {!data && (
-              <div className="header-notification-count a-notification-count is-loading"></div>
-            )}
-            <i className="fa-solid fa-bell"></i>
-            <div className="header-links__link-label">通知</div>
-          </div>
-        </div>
-      </label>
+      <BellButton setShowNotifications={setShowNotifications} />
       {data && showNotifications && (
         <div>
           <label
