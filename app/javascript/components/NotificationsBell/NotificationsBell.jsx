@@ -4,13 +4,19 @@ import BellButton from './BellButton'
 import Notifications from './Notifications'
 import fetcher from '../../fetcher'
 
+export function useNotification(status) {
+  const baseUrl = '/api/notifications.json'
+  const apiKey = status ? `${baseUrl}?status=${status}` : baseUrl
+  const { data, error } = useSWR(apiKey, fetcher)
+  return { notifications: data?.notifications, error }
+}
+
 export default function NotificationsBell() {
   const [showNotifications, setShowNotifications] = useState(false)
 
-  const url = '/api/notifications.json?status=unread'
-  const { data, error } = useSWR(url, fetcher)
+  const { notifications, error } = useNotification('unread')
 
-  const notificationExist = data?.notifications.length > 0
+  const notificationExist = notifications?.length > 0
   const hasCountClass = notificationExist ? 'has-count' : 'has-no-count'
 
   const clickOutsideNotifications = (e) => {
@@ -36,13 +42,13 @@ export default function NotificationsBell() {
   return (
     <div className={hasCountClass}>
       <BellButton setShowNotifications={setShowNotifications} />
-      {data && showNotifications && (
+      {notifications && showNotifications && (
         <div>
           <label
             className="header-dropdown__background"
             onClick={clickOutsideNotifications}></label>
           <div className="header-dropdown__inner is-notification">
-            <Notifications data={data} />
+            <Notifications notifications={notifications} />
             <footer className="header-dropdown__footer">
               <a
                 href="/notifications?status=unread"

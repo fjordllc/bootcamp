@@ -3,10 +3,10 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
-export default function Notifications({ data }) {
+export default function Notifications({ notifications }) {
   return (
     <ul className="header-dropdown__items">
-      {data.notifications.map((notification) => {
+      {notifications.map((notification) => {
         return (
           <Notification key={notification.id} notification={notification} />
         )
