@@ -1,0 +1,28 @@
+div
+  div
+    div
+      span
+        | 特別<br>イベント
+    div
+      div
+        header
+          h2
+            = link_to special_event do
+              - if special_event.participants.include?(current_user)
+                span
+                  | 参加
+              span
+                = special_event.title
+      div
+        div
+          div
+            div
+              time
+                span
+                  | 開催日時
+                span
+                  = l special_event.start_at
+            div
+              - if special_event.job_hunting?
+                span
+                  | 就活関連イベント
