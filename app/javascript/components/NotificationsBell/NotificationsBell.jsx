@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import useSWR from 'swr'
 import BellButton from './BellButton'
+import Header from './Header'
 import Notifications from './Notifications'
 import fetcher from '../../fetcher'
 
@@ -13,11 +14,11 @@ export function useNotification(status) {
 
 export default function NotificationsBell() {
   const [showNotifications, setShowNotifications] = useState(false)
+  const [targetStatus, setTargetStatus] = useState('unread')
 
-  const { notifications, error } = useNotification('unread')
+  const { notifications, error } = useNotification(targetStatus)
 
-  const notificationExist = notifications?.length > 0
-  const hasCountClass = notificationExist ? 'has-count' : 'has-no-count'
+  const notificationsCount = notifications?.length
 
   const clickOutsideNotifications = (e) => {
     if (e.target !== e.currentTarget) return
@@ -40,14 +41,19 @@ export default function NotificationsBell() {
   }
 
   return (
-    <div className={hasCountClass}>
+    <div>
       <BellButton setShowNotifications={setShowNotifications} />
-      {notifications && showNotifications && (
+      {showNotifications && (
         <div>
           <label
             className="header-dropdown__background"
             onClick={clickOutsideNotifications}></label>
           <div className="header-dropdown__inner is-notification">
+            <Header
+              notificationsCount={notificationsCount}
+              targetStatus={targetStatus}
+              setTargetStatus={setTargetStatus}
+            />
             <Notifications notifications={notifications} />
             <footer className="header-dropdown__footer">
               <a

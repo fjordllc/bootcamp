@@ -1,18 +1,27 @@
 import React from 'react'
+import LoadingListPlaceholder from '../LoadingListPlaceholder'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 export default function Notifications({ notifications }) {
-  return (
-    <ul className="header-dropdown__items">
-      {notifications.map((notification) => {
-        return (
-          <Notification key={notification.id} notification={notification} />
-        )
-      })}
-    </ul>
-  )
+  if (!notifications) {
+    return (
+      <div className="page-content loading">
+        <LoadingListPlaceholder />
+      </div>
+    )
+  } else {
+    return (
+      <ul className="header-dropdown__items">
+        {notifications.map((notification) => {
+          return (
+            <Notification key={notification.id} notification={notification} />
+          )
+        })}
+      </ul>
+    )
+  }
 }
 
 function Notification({ notification }) {
