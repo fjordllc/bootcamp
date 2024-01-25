@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ReportNotifier
-  def call(report)
+  def call(payload)
+    report = payload[:report]
     Cache.delete_unchecked_report_count
 
     return unless report.first_public?
@@ -15,7 +16,6 @@ class ReportNotifier
   private
 
   def notify_users(report)
-    notify_first_report(report) if report.first?
     notify_advisers(report) if report.user.trainee? && report.user.company_id?
     notify_consecutive_sad_report(report) if report.user.depressed?
     notify_followers(report)
@@ -23,18 +23,11 @@ class ReportNotifier
   end
 
   def notify_to_chat(report)
-    DiscordNotifier.with(report: report).first_report.notify_now if report.first?
     ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_REPORT_WEBHOOK_URL'])
       #{report.user.login_name}さんが#{I18n.l report.reported_on}の日報を公開しました。
       タイトル：「#{report.title}」
       URL： https://bootcamp.fjord.jp/reports/#{report.id}
     TEXT
-  end
-
-  def notify_first_report(report)
-    User.admins_and_mentors.each do |receiver|
-      ActivityDelivery.with(report: report, receiver: receiver).notify(:first_report) if report.sender != receiver
-    end
   end
 
   def notify_advisers(report)

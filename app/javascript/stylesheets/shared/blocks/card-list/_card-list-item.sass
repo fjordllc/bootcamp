@@ -6,6 +6,8 @@
     padding: .75rem 1rem
   +media-breakpoint-down(sm)
     padding: .75rem
+  .a-side-nav &:not(:last-child)
+    border-bottom-color: var(--border-shade)
 
 .card-list-item__icon
   font-size: 1.25rem
@@ -15,6 +17,7 @@
 
 .card-list-item__rows
   flex: 1
+  min-width: 0
 
 .card-list-item__user-icons
   display: flex
@@ -41,11 +44,9 @@ a.card-list-item__inner
       text-decoration: underline
 
 .card-list-item__assignee
+  margin-top: .5rem
   +media-breakpoint-up(md)
-    +position(absolute, right .5rem, top .5rem)
     width: 8rem
-  +media-breakpoint-down(sm)
-    margin-top: .5rem
 
 .card-list-item__assignee-button.a-button
   border: solid 1px var(--border-shade)
@@ -88,6 +89,12 @@ a.card-list-item__inner
     transform: scale(.9)
     margin: -1rem
 
+.card-list-item__user
+  +media-breakpoint-up(md)
+    min-width: 2.75rem
+  +media-breakpoint-down(sm)
+    min-width: 2.5rem
+
 .card-list-item__user-icon
   +media-breakpoint-up(md)
     +size(2.75rem)
@@ -107,9 +114,6 @@ a.card-list-item__inner
 .card-list-item__row
   &:not(:first-child)
     margin-top: .25rem
-  .card-list-item.has-assigned &:first-child
-    +media-breakpoint-up(md)
-      padding-right: 8.5rem
 
 .card-list-item__show-user-detail
   +size(2.75rem)

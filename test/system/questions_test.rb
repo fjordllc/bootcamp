@@ -76,8 +76,8 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
     assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
-    assert_selector 'a.page-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
-    assert_selector 'div.page-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
+    assert_selector 'a.a-side-nav__title-link', text: 'sshdでパスワード認証を禁止にする'
+    assert_selector 'div.a-side-nav__item-title', text: 'プラクティス「sshdでパスワード認証を禁止にする」に関する質問'
   end
 
   test 'delete a question' do
@@ -479,19 +479,19 @@ class QuestionsTest < ApplicationSystemTestCase
     question = questions(:question7)
     visit_with_auth question_path(question), 'kimura'
 
-    find('.page-nav').click_link 'OS X Mountain Lionをクリーンインストールする'
+    find('.a-side-nav').click_link 'OS X Mountain Lionをクリーンインストールする'
     find('h1') { assert_text 'OS X Mountain Lionをクリーンインストールする' }
     go_back
 
-    find('.page-nav').click_link 'どのエディターを使うのが良いでしょうか'
+    find('.a-side-nav').click_link 'どのエディターを使うのが良いでしょうか'
     find('h1') { assert_text 'どのエディターを使うのが良いでしょうか' }
     go_back
 
-    find('.page-nav').click_link '全て見る'
+    find('.a-side-nav').click_link '全て見る'
     find('.choices__item') { assert_text 'OS X Mountain Lionをクリーンインストールする' }
     go_back
 
-    within '.page-nav' do
+    within '.a-side-nav' do
       assert_no_text question.title
       assert_no_text 'wipテスト用の質問(wip中)'
     end

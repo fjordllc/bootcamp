@@ -175,7 +175,7 @@ class SearchablesTest < ApplicationSystemTestCase
       fill_in 'word', with: '提出物のコメントです。'
     end
     find('#test-search').click
-    assert find('img.card-list-item-meta__icon.a-user-icon')['src'].include?('komagata.png')
+    assert_includes find('img.card-list-item-meta__icon.a-user-icon')['src'], 'komagata.png'
 
     find('img.card-list-item-meta__icon.a-user-icon').click
     assert_selector 'h1.page-content-header__title', text: 'komagata'

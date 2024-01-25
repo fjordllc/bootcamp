@@ -21,6 +21,6 @@ class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
       - 6日経過：2件
       - 5日経過：1件
     BODY
-    assert response.body.include?(expected)
+    assert_includes response.body, expected
   end
 end
