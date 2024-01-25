@@ -186,3 +186,11 @@ product76:
   body: 休会中ユーザの提出物です。
   published_at: <%= now.to_formatted_s(:db) %>
   created_at: <%= now.to_formatted_s(:db) %>
+
+product77:
+  practice: practice15
+  user: kimura
+  body: 『mentormentaroが担当/提出済み/最新のコメントがkimuraでコメントから5日経過した』提出物です。
+  checker: mentormentaro
+  published_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+  created_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
