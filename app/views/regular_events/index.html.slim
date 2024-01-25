@@ -22,3 +22,5 @@
   .page-body
     .container.is-md
       = react_component 'RegularEvents'
+div.upcoming_events_list
+  = render partial: 'upcoming_events/index', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
