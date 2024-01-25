@@ -67,10 +67,7 @@
         .col-md-6.col-xs-12
           .form-item__header
             = f.label :description, class: 'a-form-label'
-            #js-report-template(
-              template-description="#{current_user.report_template&.description}"
-              template-id="#{current_user.report_template&.id}"
-            )
+            = react_component('ReportTemplate', templateDescription: current_user.report_template&.description, templateId: current_user.report_template&.id)
           .form-textarea
             .form-textarea__body
               = f.text_area :description,

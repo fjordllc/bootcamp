@@ -9,7 +9,7 @@
               = current_user.notifications.unreads.latest_of_each_link.size
       - Notification::TARGETS_TO_KINDS.each_key do |target|
         li.page-tabs__item
-          = link_to notifications_path(status: 'unread', target: target), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip do
+          = link_to notifications_path(status: 'unread', target:), class: "page-tabs__item-link #{'is-active' if @target == target.to_s}".strip do
             = t("notification.#{target}")
             - if ensure_notifications?(target)
               .page-tabs__item-count.a-notification-count

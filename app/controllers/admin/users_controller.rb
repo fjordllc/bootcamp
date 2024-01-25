@@ -23,7 +23,7 @@ class Admin::UsersController < AdminController
   def update
     if @user.update(user_params)
       destroy_subscription(@user)
-      Newspaper.publish(:retirement_create, @user) if @user.saved_change_to_retired_on?
+      Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -35,7 +35,7 @@ class Admin::UsersController < AdminController
     # 制限をかけておく
     redirect_to admin_users_url, alert: '自分自身を削除する場合、退会から処理を行ってください。' if current_user.id == params[:id]
     user = User.find(params[:id])
-    Newspaper.publish(:learning_destroy, user)
+    Newspaper.publish(:learning_destroy, { user: })
     user.destroy
     redirect_to admin_users_url, notice: "#{user.name} さんを削除しました。"
   end

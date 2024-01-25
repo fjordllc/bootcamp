@@ -64,6 +64,19 @@ module Discord
         guild_id && authorize_token
       end
 
+      def find_member_id(member_name:)
+        return nil unless enabled?
+
+        limit = 1000
+        guild_members_json = Discordrb::API::Server.resolve_members(authorize_token, guild_id, limit)
+        guild_members = JSON.parse(guild_members_json.body)
+        target_member = guild_members.select { |member| member['user']['username'] == member_name }
+        target_member.empty? ? nil : target_member[0]['user']['id']
+      rescue Discordrb::Errors::CodeError => e
+        log_error(e)
+        nil
+      end
+
       private
 
       def log_error(exception)

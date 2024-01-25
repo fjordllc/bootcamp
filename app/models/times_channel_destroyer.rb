@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class TimesChannelDestroyer
-  def call(user)
+  def call(payload)
+    user = payload[:user]
     return unless user.discord_profile.times_id
 
     if Discord::Server.delete_text_channel(user.discord_profile.times_id)
