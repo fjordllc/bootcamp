@@ -1,22 +1,20 @@
 import React from 'react'
-import useSWR from 'swr'
-import fetcher from '../../fetcher'
+import { useNotification } from './NotificationsBell'
 
 export default function BellButton({ setShowNotifications }) {
-  const url = '/api/notifications.json?status=unread'
-  const { data } = useSWR(url, fetcher)
+  const { notifications } = useNotification('unread')
 
-  const notificationExist = data?.notifications.length > 0
+  const notificationExist = notifications?.length > 0
 
   const notificationCount = () => {
-    if (!data) return
+    if (!notifications) return
 
-    const count = data.notifications.length
+    const count = notifications.length
     return count > 99 ? '99+' : String(count)
   }
 
   const openNotifications = () => {
-    if (!data) return
+    if (!notifications) return
 
     setShowNotifications(true)
   }
@@ -32,7 +30,7 @@ export default function BellButton({ setShowNotifications }) {
               {notificationCount()}
             </div>
           )}
-          {!data && (
+          {!notifications && (
             <div className="header-notification-count a-notification-count is-loading"></div>
           )}
           <i className="fa-solid fa-bell"></i>
