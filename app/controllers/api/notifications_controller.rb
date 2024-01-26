@@ -14,6 +14,11 @@ class API::NotificationsController < API::BaseController
     @notifications = Notification.with_avatar
                                  .from(latest_notifications, :notifications)
                                  .order(created_at: :desc)
-    @notifications = params[:page] ? @notifications.page(params[:page]) : @notifications
+
+    page = params[:page]
+    return @notifications unless page
+
+    per = params[:per]
+    @notifications = per ? @notifications.page(page).per(per) : @notifications.page(page)
   end
 end
