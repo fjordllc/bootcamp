@@ -73,9 +73,9 @@ class UserDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test '#retire_countdown_days' do
+  test '#retire_countdown' do
     travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
-      assert_equal 7, @hibernationed_user.retire_countdown_days
+      assert_equal 7, @hibernationed_user.retire_countdown
     end
   end
 

@@ -124,33 +124,25 @@ module UserDecorator
   def hibernation_days
     return unless hibernated_at
 
-    ((Time.zone.now - hibernated_at) / 1.day.to_i).floor
+    ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor
   end
 
-  def retire_countdown_days
+  def retire_countdown
     return unless hibernated_at
 
-    ((scheduled_retire_at - Time.zone.now) / 1.day.to_i).floor
+    ActiveSupport::Duration.build(scheduled_retire_at - Time.zone.now)
   end
 
   def retire_deadline
     countdown =
-      if (retire_countdown_seconds / 1.hour.to_i) < 1
-        "#{retire_countdown_seconds / 1.minute.to_i}分"
-      elsif (retire_countdown_seconds / 1.hour.to_i) < 24
-        "#{retire_countdown_seconds / 1.hour.to_i}時間"
+      if retire_countdown.in_hours < 1
+        "#{retire_countdown.in_minutes.floor}分"
+      elsif retire_countdown.in_hours < 24
+        "#{retire_countdown.in_hours.floor}時間"
       else
-        "#{retire_countdown_days}日"
+        "#{retire_countdown.in_days.floor}日"
       end
 
     "#{l scheduled_retire_at} (自動退会まであと#{countdown})"
-  end
-
-  private
-
-  def retire_countdown_seconds
-    return unless hibernated_at
-
-    (scheduled_retire_at - Time.zone.now).floor
   end
 end
