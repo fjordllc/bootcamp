@@ -26,5 +26,14 @@ module Commentable
     else
       self[:body]
     end
+  def commentable_notification_title
+    {
+      Report: "#{user.login_name}さんの日報「#{title}」",
+      Product: "#{user.login_name}さんの#{title}",
+      Event: "特別イベント「#{title}」",
+      Page: "Docs「#{title}」",
+      Announcement: "お知らせ「#{title}」",
+      RegularEvent: "定期イベント「#{title}」"
+    }[:"#{self.class}"]
   end
 end
