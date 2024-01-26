@@ -4,10 +4,9 @@ import { useNotification } from './NotificationsBell'
 export default function BellButton({ setShowNotifications }) {
   const { notifications } = useNotification('unread')
   const isLoading = !notifications
+  const unreadNotificationExist = notifications?.length > 0
 
-  const notificationExist = notifications?.length > 0
-
-  const notificationCount = () => {
+  const unreadNotificationCount = () => {
     if (isLoading) return
 
     const count = notifications.length
@@ -26,9 +25,9 @@ export default function BellButton({ setShowNotifications }) {
       className="header-links__link test-show-notifications">
       <div className="header-links__link test-bell">
         <div className="header-notification-icon">
-          {notificationExist && (
+          {unreadNotificationExist && (
             <div className="header-notification-count a-notification-count test-notification-count">
-              {notificationCount()}
+              {unreadNotificationCount()}
             </div>
           )}
           {isLoading && (
