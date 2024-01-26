@@ -3,18 +3,19 @@ import { useNotification } from './NotificationsBell'
 
 export default function BellButton({ setShowNotifications }) {
   const { notifications } = useNotification('unread')
+  const isLoading = !notifications
 
   const notificationExist = notifications?.length > 0
 
   const notificationCount = () => {
-    if (!notifications) return
+    if (isLoading) return
 
     const count = notifications.length
     return count > 99 ? '99+' : String(count)
   }
 
   const openNotifications = () => {
-    if (!notifications) return
+    if (isLoading) return
 
     setShowNotifications(true)
   }
@@ -30,7 +31,7 @@ export default function BellButton({ setShowNotifications }) {
               {notificationCount()}
             </div>
           )}
-          {!notifications && (
+          {isLoading && (
             <div className="header-notification-count a-notification-count is-loading"></div>
           )}
           <i className="fa-solid fa-bell"></i>
