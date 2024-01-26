@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import BellButton from './BellButton'
 import Header from './Header'
 import Notifications from './Notifications'
+import Footer from './Footer'
 import fetcher from '../../fetcher'
 
 export function useNotification(status) {
@@ -24,15 +25,6 @@ export default function NotificationsBell() {
     if (e.target !== e.currentTarget) return
 
     setShowNotifications(false)
-  }
-
-  const openUnconfirmedItems = () => {
-    const links = document.querySelectorAll(
-      '.header-dropdown__item-link.unconfirmed_link'
-    )
-    links.forEach((link) => {
-      window.open(link.href, '_target', 'noopener')
-    })
   }
 
   if (error) {
@@ -58,27 +50,9 @@ export default function NotificationsBell() {
               notifications={notifications}
               targetStatus={targetStatus}
             />
-            <footer className="header-dropdown__footer">
-              <a
-                href="/notifications?status=unread"
-                className="header-dropdown__footer-link">
-                全ての未読通知
-              </a>
-              <a href="/notifications" className="header-dropdown__footer-link">
-                全ての通知
-              </a>
-              <a
-                href="/notifications/allmarks"
-                className="header-dropdown__footer-link"
-                data-method="post">
-                全て既読にする
-              </a>
-              <button
-                className="header-dropdown__footer-link"
-                onClick={openUnconfirmedItems}>
-                全て別タブで開く
-              </button>
-            </footer>
+            {targetStatus === 'unread' && (
+              <Footer notificationsCount={notificationsCount} />
+            )}
           </div>
         </div>
       )}
