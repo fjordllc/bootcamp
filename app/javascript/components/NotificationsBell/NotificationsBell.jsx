@@ -8,7 +8,11 @@ import fetcher from '../../fetcher'
 
 export function useNotification(status) {
   const baseUrl = '/api/notifications.json'
-  const apiKey = status ? `${baseUrl}?status=${status}` : baseUrl
+  const page = 1
+  const per = 10
+  const apiKey = status
+    ? `${baseUrl}?status=${status}`
+    : `${baseUrl}?page=${page}&per=${per}`
   const { data, error } = useSWR(apiKey, fetcher)
   return { notifications: data?.notifications, error }
 }
