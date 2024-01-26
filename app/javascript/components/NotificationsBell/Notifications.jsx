@@ -5,9 +5,10 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 export default function Notifications({ notifications, targetStatus }) {
+  const isLoading = !notifications
   const isUnreadTab = targetStatus === 'unread'
 
-  if (!notifications) {
+  if (isLoading) {
     return (
       <div className="page-content loading">
         <LoadingListPlaceholder />
