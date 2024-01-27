@@ -342,7 +342,37 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_css '.a-user-icon.is-hajime'
   end
 
-  test 'upcoming events list displays appropriate messages when no upcoming events' do
+  test 'list upcoming events with category, title, start at' do
+    today_events = [
+      { category: "特別\nイベント", title: '直近イベントの表示テスト用(当日)', start_at: '2017年04月03日(月) 09:00' },
+      { category: "特別\nイベント", title: 'kimura専用イベント', start_at: '2017年04月03日(月) 09:00' },
+      { category: '質問', title: '質問・雑談タイム', start_at: '2017年04月03日(月) 16:00' },
+      { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' },
+      { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)', start_at: '2017年04月03日(月) 21:00' }
+    ]
+    tomorrow_events = [
+      { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
+      { category: "特別\nイベント", title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
+      ]
+    day_after_tomorrow_events = [
+      { category: "特別\nイベント", title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
+      { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' }
+    ]
+
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      visit_with_auth events_path, 'kimura'
+      within '.upcoming_events_list' do
+        assert_text '今日開催'
+        verify_upcoming_event_rows(today_events)
+        assert_text '明日開催'
+        verify_upcoming_event_rows(tomorrow_events)
+        assert_text '明後日開催'
+        verify_upcoming_event_rows(day_after_tomorrow_events)
+      end
+    end
+  end
+
+  test 'display appropriate messages when no upcoming events' do
     Event.destroy_all
     RegularEvent.destroy_all
 
@@ -358,6 +388,16 @@ class RegularEventsTest < ApplicationSystemTestCase
         assert_text '明後日開催'
         assert_text '明後日開催のイベントはありません。', count: 1
       end
+    end
+  end
+
+  private
+
+  def verify_upcoming_event_rows(upcoming_events)
+    upcoming_events.each do |event|
+      assert_text event[:category]
+      assert_text event[:title]
+      assert_text event[:start_at]
     end
   end
 end
