@@ -33,12 +33,7 @@ module Watchable
   end
 
   def body
-    case self
-    when Question, Event, RegularEvent, Report, Announcement
-      self[:description]
-    else
-      self[:body]
-    end
+    self[:body] || self[:description]
   end
 
   def time

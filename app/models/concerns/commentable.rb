@@ -20,12 +20,9 @@ module Commentable
   end
 
   def body
-    case self
-    when Announcement, Event, Report
-      self[:description]
-    else
-      self[:body]
-    end
+    self[:body] || self[:description]
+  end
+
   def commentable_notification_title
     {
       Report: "#{user.login_name}さんの日報「#{title}」",
