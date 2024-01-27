@@ -341,4 +341,23 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     assert_css '.a-user-icon.is-hajime'
   end
+
+  test 'upcoming events list displays appropriate messages when no upcoming events' do
+    Event.destroy_all
+    RegularEvent.destroy_all
+
+    # 2017/04/03~05に近日開催イベントを登録中
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      visit_with_auth events_path, 'kimura'
+
+      within '.upcoming_events_list' do
+        assert_text '今日開催'
+        assert_text '今日開催のイベントはありません。', count: 1
+        assert_text '明日開催'
+        assert_text '明日開催のイベントはありません。', count: 1
+        assert_text '明後日開催'
+        assert_text '明後日開催のイベントはありません。', count: 1
+      end
+    end
+  end
 end
