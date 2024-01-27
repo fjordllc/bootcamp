@@ -19,37 +19,4 @@
   label.a-form-label
     | その他のエディタを選択した場合、具体的なエディタ名を入力してください。
   = f.text_field :others_editor, placeholder: 'textbringer', id: 'others_editor', class: 'a-text-input', value: (user.editor if others_checked)
-
-javascript:
-  let othersEditorRadio = document.getElementById('others');
-  let othersEditorInput = document.getElementById('others_editor');
-  let toggleTextbox = document.getElementById('toggle-textbox');
-  let form = document.getElementById('payment-form');
-
-  function onChangeFunc() {
-    if (othersEditorRadio.checked) {
-      toggleTextbox.style.display = 'block';
-    } else {
-      toggleTextbox.style.display = 'none';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    onChangeFunc();
-    let radios = document.querySelectorAll('[name="user[editor]"]');
-    radios.forEach(function(radio) {
-      radio.addEventListener('change', onChangeFunc);
-    });
-  });
-
-  form.addEventListener('submit', function() {
-    if (othersEditorRadio.checked) {
-      let othersEditorValue = othersEditorInput.value;
-      let hiddenInput = document.createElement('input');
-      hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'user[editor]');
-      hiddenInput.setAttribute('value', othersEditorValue);
-
-      form.appendChild(hiddenInput);
-    }
-  });
+= javascript_pack_tag 'application'
