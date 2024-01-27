@@ -3,7 +3,9 @@
 class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    display_upcoming_events
+  end
 
   def show
     @regular_event = RegularEvent.find(params[:id])
@@ -119,5 +121,11 @@ class RegularEventsController < ApplicationController
     students_trainees_mentors_and_admins = User.students_trainees_mentors_and_admins.ids
     RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
     RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
+  end
+
+  def display_upcoming_events
+    @today_events = (Event.today_events + RegularEvent.today_events).sort_by { |e| e.start_at.strftime('%H:%M') }
+    @tomorrow_events = (Event.tomorrow_events + RegularEvent.tomorrow_events).sort_by { |e| e.start_at.strftime('%H:%M') }
+    @day_after_tomorrow_events = (Event.day_after_tomorrow_events + RegularEvent.day_after_tomorrow_events).sort_by { |e| e.start_at.strftime('%H:%M') }
   end
 end

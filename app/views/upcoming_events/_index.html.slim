@@ -10,9 +10,9 @@ div
         - @today_events.each do |today_event|
           - case today_event
           - when Event
-            = render partial: 'special_event', object: today_event, as: :special_event
+            = render partial: 'upcoming_events/special_event', object: today_event, as: :special_event
           - when RegularEvent
-            = render partial: 'regular_event', locals: { regular_event: today_event, holding_date: Time.zone.today }
+            = render partial: 'upcoming_events/regular_event', locals: { regular_event: today_event, holding_date: Time.zone.today }
       - else
         div
           div
@@ -25,9 +25,9 @@ div
         - @tomorrow_events.each do |tomorrow_event|
           - case tomorrow_event
           - when Event
-            = render partial: 'special_event', object: tomorrow_event, as: :special_event
+            = render partial: 'upcoming_events/special_event', object: tomorrow_event, as: :special_event
           - when RegularEvent
-            = render partial: 'regular_event', locals: { regular_event: tomorrow_event, holding_date: Time.zone.tomorrow }
+            = render partial: 'upcoming_events/regular_event', locals: { regular_event: tomorrow_event, holding_date: Time.zone.tomorrow }
       - else
         div
           div
@@ -40,9 +40,9 @@ div
         - @day_after_tomorrow_events.each do |day_after_tomorrow_event|
           - case day_after_tomorrow_event
           - when Event
-            = render partial: 'special_event', object: day_after_tomorrow_event, as: :special_event
+            = render partial: 'upcoming_events/special_event', object: day_after_tomorrow_event, as: :special_event
           - when RegularEvent
-            = render partial: 'regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
+            = render partial: 'upcoming_events/regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
       - else
         div
           div
