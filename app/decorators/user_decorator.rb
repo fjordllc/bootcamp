@@ -122,15 +122,11 @@ module UserDecorator
   end
 
   def hibernation_days
-    return unless hibernated_at
-
-    ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor
+    ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor if hibernated_at?
   end
 
   def retire_countdown
-    return unless hibernated_at
-
-    ActiveSupport::Duration.build(scheduled_retire_at - Time.zone.now)
+    ActiveSupport::Duration.build(scheduled_retire_at - Time.zone.now) if hibernated_at?
   end
 
   def retire_deadline
@@ -144,5 +140,9 @@ module UserDecorator
       end
 
     "#{l scheduled_retire_at} (自動退会まであと#{countdown})"
+  end
+
+  def countdown_danger_tag
+    retire_countdown.in_days <= 7 ? 'is-danger' : ''
   end
 end

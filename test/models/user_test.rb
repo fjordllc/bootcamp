@@ -706,5 +706,6 @@ class UserTest < ActiveSupport::TestCase
 
   test '#scheduled_retire_at' do
     assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
+    assert_nil users(:hatsuno).scheduled_retire_at
   end
 end
