@@ -23,9 +23,11 @@ form.addEventListener('submit', function () {
   if (othersEditorRadio.checked) {
     const othersEditorValue = othersEditorInput.value
     const hiddenInput = document.createElement('input')
-    hiddenInput.setAttribute('type', 'hidden')
-    hiddenInput.setAttribute('name', 'user[editor]')
-    hiddenInput.setAttribute('value', othersEditorValue)
+    Object.assign(hiddenInput, {
+      type: 'hidden',
+      name: 'user[editor]',
+      value: othersEditorValue
+    })
 
     form.appendChild(hiddenInput)
   }
