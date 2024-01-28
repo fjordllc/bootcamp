@@ -771,9 +771,7 @@ class User < ApplicationRecord
   end
 
   def scheduled_retire_at
-    return unless hibernated_at
-
-    hibernated_at.advance(months: 6)
+    hibernated_at&.advance(months: 6)
   end
 
   private
