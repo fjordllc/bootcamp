@@ -10,7 +10,6 @@ linters:
       - Layout/ArgumentAlignment
       - Layout/ArrayAlignment
       - Layout/BlockAlignment
-      - Layout/EmptyLineAfterGuardClause
       - Layout/EndAlignment
       - Layout/FirstArrayElementIndentation
       - Layout/FirstParameterIndentation

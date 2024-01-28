@@ -27,6 +27,7 @@
     tbody.admin-table__items
       - users.each do |user|
         - next if params[:target] == 'campaign' && user.adviser?
+      ruby
         tr.admin-table__item class="#{user.retired_on? ? 'is-retired' : '' } #{user.hibernated? ? 'is-retired' : '' }"
           td.admin-table__item-value
             - if user.admin? && user.mentor?
