@@ -89,8 +89,7 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
-    # 更新ごとにトークンがリセットされるので要修正
-    @article.token = params[:commit] == 'WIP' ? SecureRandom.urlsafe_base64 : nil
+    @article.token = @article.token.nil? ? SecureRandom.urlsafe_base64 : @article.token if params[:commit] == 'WIP'
   end
 
   def notice_message(article)
