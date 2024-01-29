@@ -1,37 +1,34 @@
 div
-  div
-    - if regular_event.holding?(holding_date)
-      div
-        = t("activerecord.enums.regular_event.category.#{regular_event.category}")
-    - else
-      div
-        div
-          i
-        div
-          | 休み
+  - if regular_event.holding?(holding_date)
+    div
+      = t("activerecord.enums.regular_event.category.#{regular_event.category}")
+  - else
     div
       div
-        header
-          h2
-            = link_to regular_event do
-              - if regular_event.participants.include?(current_user)
-                span
-                  | 参加
-              span
-                = regular_event.title
+        i
       div
-        div
+        | 休み
+  div
+    div
+      header
+        h2
+          = link_to regular_event do
+            - if regular_event.participants.include?(current_user)
+              span
+                | 参加
+            span
+              = regular_event.title
+    div
+      div
+        - if regular_event.holding?(holding_date)
+          time
+            span
+              | 開催日時
+            span
+              = "#{l(holding_date, format: :long)} #{l(regular_event.start_at, format: :time_only)}"
+        - else
           div
-            div
-              - if regular_event.holding?(holding_date)
-                time
-                  span
-                    | 開催日時
-                  span
-                    = "#{l(holding_date, format: :long)} #{l(regular_event.start_at, format: :time_only)}"
-              - else
-                div
-                  span
-                    | 注意
-                  span
-                    = "#{l(holding_date, format: :md)}はお休みです。"
+            span
+              | 注意
+            span
+              = "#{l(holding_date, format: :md)}はお休みです。"
