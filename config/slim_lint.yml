@@ -22,7 +22,6 @@ linters:
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
       - Layout/MultilineHashBraceLayout
-      - Layout/MultilineMethodCallBraceLayout
       - Layout/MultilineMethodCallIndentation
       - Layout/MultilineMethodDefinitionBraceLayout
       - Layout/MultilineOperationIndentation
