@@ -81,25 +81,25 @@ class UserDecoratorTest < ActiveSupport::TestCase
     end
   end
 
-  test '#retire_deadline_1_hour' do
+  test 'retire_deadline_1_hour' do
     travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do
       assert_equal '2020年07月01日(水) 09:00 (自動退会まであと59分)', @hibernationed_user.retire_deadline
     end
   end
 
-  test '#retire_deadline_24_hours' do
+  test 'retire_deadline_24_hours' do
     travel_to Time.zone.local(2020, 6, 30, 10, 0, 0) do
       assert_equal '2020年07月01日(水) 09:00 (自動退会まであと23時間)', @hibernationed_user.retire_deadline
     end
   end
 
-  test '#retire_deadline_1_week' do
+  test 'retire_deadline_1_week' do
     travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
       assert_equal '2020年07月01日(水) 09:00 (自動退会まであと7日)', @hibernationed_user.retire_deadline
     end
   end
 
-  test '#retire_deadline_over_1_week' do
+  test 'retire_deadline_over_1_week' do
     travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do
       assert_equal '2020年07月01日(水) 09:00 (自動退会まであと182日)', @hibernationed_user.retire_deadline
     end
