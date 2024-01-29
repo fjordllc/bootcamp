@@ -56,6 +56,7 @@ import '../upload-image-to-article.js'
 import '../header-dropdown.js'
 import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
+import '../bookmarks-in-dashboard'
 
 import VueMounter from '../VueMounter.js'
 import Books from '../components/books.vue'
