@@ -383,6 +383,27 @@ class ArticlesTest < ApplicationSystemTestCase
     end
   end
 
+  test 'share button Facebook' do
+    visit "/articles/#{@article.id}"
+
+    new_window = window_opened_by do
+      within find('.fb-share-button', match: :first) do
+        within_frame do
+          find('#icon-button').click
+        end
+      end
+    end
+
+    url = '/login.php?skip_api_login=1&api_key=966242223397117&signed_next=1'\
+          '&next=https%3A%2F%2Fwww.facebook.com%2Fsharer%2Fsharer.php%3Fkid_directed_site%3D0%26sdk%3Djoey'\
+          "%26u%3Dhttps%253A%252F%252Fbootcamp.fjord.jp%252Farticles%252F#{@article.id}%26display%3Dpopup%26ref%3Dplugin%26src%3Dshare_button"\
+          '&cancel_url=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Fclose_window%2F%3Fapp_id%3D966242223397117%26connect%3D0%23_%3D_'\
+          '&display=popup&locale=ja_JP&kid_directed_site=0'
+    within_window new_window do
+      assert_current_path url
+    end
+  end
+
   test 'share button Hatena' do
     visit "/articles/#{@article.id}"
 
