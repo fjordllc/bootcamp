@@ -19,7 +19,7 @@ export default function Searchable({ searchable, word }) {
   const canDisplayTalk = searchable.model_name === 'user' && searchable.talk_id
   const currentUser = window.currentUser
 
-  const labelContet =
+  const labelContent =
     searchable.model_name === 'regular_event' ? (
       <span className="card-list-item__label-inner is-sm">
         定期
@@ -44,7 +44,7 @@ export default function Searchable({ searchable, word }) {
       </span>
     )
 
-  const badgeContet = searchable.wip ? (
+  const badgeContent = searchable.wip ? (
     <div className="a-list-item-badge is-wip">
       <span>WIP</span>
     </div>
@@ -93,12 +93,12 @@ export default function Searchable({ searchable, word }) {
           </div>
         )}
         {!searchable.is_user && (
-          <div className="card-list-item__label">{labelContet}</div>
+          <div className="card-list-item__label">{labelContent}</div>
         )}
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
-              {badgeContet}
+              {badgeContent}
               <div className="card-list-item-title__title">
                 <a
                   className="card-list-item-title__link a-text-link"
