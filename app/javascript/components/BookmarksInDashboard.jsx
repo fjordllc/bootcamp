@@ -5,7 +5,7 @@ import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
 import { toast } from '../toast_react'
 
-export default function BookmarksInDashboard() {
+export default function BookmarksInDashboard(props) {
   const [editable, setEditable] = useState(false)
   const per = 5
   const bookmarksUrl = `/api/bookmarks.json?&per=${per}`
@@ -14,38 +14,47 @@ export default function BookmarksInDashboard() {
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
+  // if (data.unpagedBookmarks.length === 0) {
+  //   props.removeComponent()
+  // }
+
+  if (data.unpagedBookmarks.length === 0) {
+    return null
+  }
   return (
-    <div className={data.unpagedBookmarks.length ? 'a-card' : 'none'}>
-      <header className="card-header is-sm">
-        <h2 className="card-header__title">最新のブックマーク</h2>
-        <div className="card-header__action">
-          <EditButton editable={editable} setEditable={setEditable} />
-          <span></span>
+    <div className="a-panels__item">
+      <div className="a-card">
+        <header className="card-header is-sm">
+          <h2 className="card-header__title">最新のブックマーク</h2>
+          <div className="card-header__action">
+            <EditButton editable={editable} setEditable={setEditable} />
+            <span></span>
+          </div>
+        </header>
+        <hr className="a-border-tint" />
+        <div className="card-list">
+          {data.bookmarks.map((bookmark) => {
+            return (
+              <Bookmark
+                key={bookmark.id}
+                bookmark={bookmark}
+                editable={editable}
+                setEditable={setEditable}
+                bookmarksUrl={bookmarksUrl}
+              />
+            )
+          })}
         </div>
-      </header>
-      <hr className="a-border-tint" />
-      <div className="card-list">
-        {data.bookmarks.map((bookmark) => {
-          return (
-            <Bookmark
-              key={bookmark.id}
-              bookmark={bookmark}
-              editable={editable}
-              setEditable={setEditable}
-              bookmarksUrl={bookmarksUrl}
-            />
-          )
-        })}
+        <footer className="card-footer">
+          <div className="card-footer__footer-link">
+            <a
+              href={`current_user/bookmarks`}
+              className="card-footer__footer-text-link">
+              全てのブックマーク（{data.unpagedBookmarks.length}）
+            </a>
+          </div>
+        </footer>
       </div>
-      <footer className="card-footer">
-        <div className="card-footer__footer-link">
-          <a
-            href={`current_user/bookmarks`}
-            className="card-footer__footer-text-link">
-            全てのブックマーク（{data.unpagedBookmarks.length}）
-          </a>
-        </div>
-      </footer>
     </div>
   )
 }
