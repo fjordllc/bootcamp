@@ -14,7 +14,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function removeComponent() {
   const bookmarksDomNode = document.getElementById('a-card-react')
-  ReactDOM.unmountComponentAtNode(bookmarksDomNode)
-  // const root = ReactDOM.createRoot(bookmarksDomNode)
-  // root.unmount()
+  bookmarksDomNode.remove()
 }
