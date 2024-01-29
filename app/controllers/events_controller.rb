@@ -115,12 +115,12 @@ class EventsController < ApplicationController
   end
 
   def display_upcoming_events
-    @today_events = fetch_sorted_events_held_on('today')
-    @tomorrow_events = fetch_sorted_events_held_on('tomorrow')
-    @day_after_tomorrow_events = fetch_sorted_events_held_on('day_after_tomorrow')
+    @today_events = fetch_events_held_on('today')
+    @tomorrow_events = fetch_events_held_on('tomorrow')
+    @day_after_tomorrow_events = fetch_events_held_on('day_after_tomorrow')
   end
 
-  def fetch_sorted_events_held_on(day = 'today')
+  def fetch_events_held_on(day = 'today')
     method_name = "#{day}_events".to_sym
     events = Event.send(method_name) + RegularEvent.send(method_name)
     events.sort_by { |e| e.start_at.strftime('%H:%M') }
