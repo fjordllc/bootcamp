@@ -3,50 +3,9 @@ div
     h2
       | 近日開催のイベント
   div
-    div
-      div
-        | 今日開催
-      - if @today_events.present?
-        - @today_events.each do |today_event|
-          - case today_event
-          - when Event
-            = render partial: 'upcoming_events/special_event', object: today_event, as: :special_event
-          - when RegularEvent
-            = render partial: 'upcoming_events/regular_event', locals: { regular_event: today_event, holding_date: Time.zone.today }
-      - else
-        div
-          div
-            | 今日開催のイベントはありません。
-
-    div
-      div
-        | 明日開催
-      - if @tomorrow_events.present?
-        - @tomorrow_events.each do |tomorrow_event|
-          - case tomorrow_event
-          - when Event
-            = render partial: 'upcoming_events/special_event', object: tomorrow_event, as: :special_event
-          - when RegularEvent
-            = render partial: 'upcoming_events/regular_event', locals: { regular_event: tomorrow_event, holding_date: Time.zone.tomorrow }
-      - else
-        div
-          div
-            | 明日開催のイベントはありません。
-
-    div
-      div
-        | 明後日開催
-      - if @day_after_tomorrow_events.present?
-        - @day_after_tomorrow_events.each do |day_after_tomorrow_event|
-          - case day_after_tomorrow_event
-          - when Event
-            = render partial: 'upcoming_events/special_event', object: day_after_tomorrow_event, as: :special_event
-          - when RegularEvent
-            = render partial: 'upcoming_events/regular_event', locals: { regular_event: day_after_tomorrow_event, holding_date: Time.zone.tomorrow + 1.day }
-      - else
-        div
-          div
-            | 明後日開催のイベントはありません。
+    = render partial: 'upcoming_events/events_rows', locals: { day_label: '今日', events: @today_events, holding_date: Time.zone.today }
+    = render partial: 'upcoming_events/events_rows', locals: { day_label: '明日', events: @tomorrow_events, holding_date: Time.zone.tomorrow }
+    = render partial: 'upcoming_events/events_rows', locals: { day_label: '明後日', events: @day_after_tomorrow_events, holding_date: Time.zone.tomorrow + 1.day }
 
   hr
   footer

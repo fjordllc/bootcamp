@@ -1,0 +1,13 @@
+div
+  div
+    | #{day_label}開催
+  - if events.present?
+    - events.each do |event|
+      - case event
+      - when Event
+        = render partial: 'upcoming_events/special_event', object: event, as: :special_event
+      - when RegularEvent
+        = render partial: 'upcoming_events/regular_event', locals: { regular_event: event, holding_date: holding_date }
+  - else
+      div
+        | #{day_label}開催のイベントはありません。
