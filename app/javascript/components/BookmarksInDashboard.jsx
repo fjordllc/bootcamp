@@ -14,9 +14,9 @@ export default function BookmarksInDashboard(props) {
   if (error) return <>エラーが発生しました。</>
   if (!data) return <>ロード中…</>
 
-  // if (data.unpagedBookmarks.length === 0) {
-  //   props.removeComponent()
-  // }
+  if (data.unpagedBookmarks.length === 0) {
+    props.removeComponent()
+  }
 
   if (data.unpagedBookmarks.length === 0) {
     return null
