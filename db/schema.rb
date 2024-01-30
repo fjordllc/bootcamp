@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_20_101451) do
+ActiveRecord::Schema.define(version: 2024_01_28_205255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -602,6 +602,7 @@ ActiveRecord::Schema.define(version: 2023_11_20_101451) do
     t.boolean "wip", default: false, null: false
     t.integer "emotion"
     t.datetime "published_at"
+    t.index ["created_at"], name: "index_reports_on_created_at"
     t.index ["user_id", "reported_on"], name: "index_reports_on_user_id_and_reported_on", unique: true
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
   end
