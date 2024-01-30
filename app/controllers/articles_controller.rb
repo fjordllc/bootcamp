@@ -88,7 +88,11 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
-    @article.token = @article.token.nil? ? SecureRandom.urlsafe_base64 : @article.token if params[:commit] == 'WIP'
+    @article.token = if params[:commit] == 'WIP'
+                       @article.token.presence || SecureRandom.urlsafe_base64
+                     else
+                       ''
+                     end
   end
 
   def notice_message(article)
