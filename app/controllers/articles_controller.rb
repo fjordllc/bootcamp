@@ -32,6 +32,8 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
+      fit_to_size_for_ogp
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -41,6 +43,8 @@ class ArticlesController < ApplicationController
   def update
     set_wip
     if @article.update(article_params)
+      fit_to_size_for_ogp
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit
@@ -96,5 +100,12 @@ class ArticlesController < ApplicationController
     when 'update'
       article.wip? ? '記事をWIPとして保存しました' : '記事を更新しました'
     end
+  end
+
+  def fit_to_size_for_ogp
+    return unless @article.thumbnail.attached?
+
+    image_resizer = ImageResizer.new(@article.thumbnail)
+    image_resizer.fit_to!(*ImageResizer::OGP_SIZE)
   end
 end
