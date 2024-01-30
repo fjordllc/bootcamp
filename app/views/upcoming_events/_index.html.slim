@@ -3,9 +3,8 @@ div
     h2
       | 近日開催のイベント
   div
-    = render partial: 'upcoming_events/events_rows', locals: { day_label: '今日', events: @today_events, holding_date: Time.zone.today }
-    = render partial: 'upcoming_events/events_rows', locals: { day_label: '明日', events: @tomorrow_events, holding_date: Time.zone.tomorrow }
-    = render partial: 'upcoming_events/events_rows', locals: { day_label: '明後日', events: @day_after_tomorrow_events, holding_date: Time.zone.tomorrow + 1.day }
+    - { '今日': @today_events, '明日': @tomorrow_events, '明後日': @day_after_tomorrow_events }.each_with_index do |(day_label, events), index|
+      = render partial: 'upcoming_events/events_rows', locals: { day_label: day_label, events: events, holding_date: Time.zone.today + index.days }
 
   hr
   footer
