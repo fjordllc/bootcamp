@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
+    # Event.allはReactコンポーネントでfetchするため、ここでは取得しません。
     display_upcoming_events
   end
 
