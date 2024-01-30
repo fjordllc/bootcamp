@@ -770,6 +770,10 @@ class User < ApplicationRecord
     organizers.each(&:delete_and_assign_new)
   end
 
+  def scheduled_retire_at
+    hibernated_at&.advance(months: 6)
+  end
+
   private
 
   def password_required?

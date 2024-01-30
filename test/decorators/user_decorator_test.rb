@@ -66,4 +66,52 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal 'ニューヨーク州 (米国)', @american_user.address
     assert_equal '日本', @subdivision_not_registered_user.address
   end
+
+  test '#hibernation_days' do
+    travel_to Time.zone.local(2020, 2, 1, 9, 0, 0) do
+      assert_equal 31, @hibernationed_user.hibernation_days
+      assert_nil @student_user.hibernation_days
+    end
+  end
+
+  test '#retire_countdown' do
+    travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
+      assert_equal 1.week, @hibernationed_user.retire_countdown
+      assert_nil @student_user.retire_countdown
+    end
+  end
+
+  test '#retire_deadline wihin 1 hour' do
+    travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと59分)', @hibernationed_user.retire_deadline
+    end
+  end
+
+  test '#retire_deadline within 24 hours' do
+    travel_to Time.zone.local(2020, 6, 30, 10, 0, 0) do
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと23時間)', @hibernationed_user.retire_deadline
+    end
+  end
+
+  test '#retire_deadline within 1 week' do
+    travel_to Time.zone.local(2020, 6, 24, 9, 0, 0) do
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと7日)', @hibernationed_user.retire_deadline
+    end
+  end
+
+  test '#retire_deadline over 1 week' do
+    travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do
+      assert_equal '2020年07月01日(水) 09:00 (自動退会まであと182日)', @hibernationed_user.retire_deadline
+    end
+  end
+
+  test '#countdown_danger_tag' do
+    travel_to Time.zone.local(2020, 7, 1, 8, 1, 0) do
+      assert_equal 'is-danger', @hibernationed_user.countdown_danger_tag
+    end
+
+    travel_to Time.zone.local(2020, 1, 1, 9, 0, 0) do
+      assert_equal '', @hibernationed_user.countdown_danger_tag
+    end
+  end
 end
