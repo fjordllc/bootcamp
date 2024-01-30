@@ -28,6 +28,10 @@ Metrics/ClassLength:
     - app/models/report.rb
     - app/notifiers/activity_notifier.rb
 
+Metrics/ModuleLength:
+  Exclude:
+    - app/decorators/user_decorator.rb
+
 AllCops:
   Exclude:
     - '**/templates/**/*'
