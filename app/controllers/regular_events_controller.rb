@@ -4,6 +4,7 @@ class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
+    # RegularEvent.allはReactコンポーネントでfetchするため、ここでは取得しません。
     display_upcoming_events
   end
 
