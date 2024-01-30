@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   def show
     @mentor = @article.user
     @recent_articles = list_recent_articles
-    if !@article.wip? || admin_or_mentor_login?
+    if !@article.wip? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'welcome'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
