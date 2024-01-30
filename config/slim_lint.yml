@@ -26,7 +26,6 @@ linters:
       - Layout/MultilineOperationIndentation
       - Layout/ParameterAlignment
       - Layout/TrailingEmptyLines
-      - Layout/TrailingWhitespace
       - Lint/Void
       - Metrics/BlockLength
       - Metrics/BlockNesting
