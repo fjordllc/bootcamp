@@ -18,9 +18,6 @@ export default function BookmarksInDashboard(props) {
     props.removeComponent()
   }
 
-  if (data.unpagedBookmarks.length === 0) {
-    return null
-  }
   return (
     <div className="a-panels__item">
       <div className="a-card">
