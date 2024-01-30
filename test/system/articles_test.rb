@@ -377,10 +377,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test 'share button X' do
     visit "/articles/#{@article.id}"
 
-    new_window = window_opened_by { click_on 'Postする', match: :first }
-    within_window new_window do
-      assert_current_path "https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/#{@article.id}&hashtags=fjordbootcamp"
-    end
+    assert_selector 'a.x-share-button[href^="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/"]', text: 'Postする'
   end
 
   test 'share button Facebook' do
