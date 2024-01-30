@@ -30,7 +30,8 @@ module Commentable
       Event: "特別イベント「#{title}」",
       Page: "Docs「#{title}」",
       Announcement: "お知らせ「#{title}」",
-      RegularEvent: "定期イベント「#{title}」"
+      RegularEvent: "定期イベント「#{title}」",
+      Talk: "#{user.login_name}さんの相談部屋"
     }[:"#{self.class}"]
   end
 end
