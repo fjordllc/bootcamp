@@ -225,6 +225,31 @@ discord_profile_kyuukai:
   account_name:
   times_url:
 
+discord_profile_autoretire-within-1-hour:
+  user: autoretire-within-1-hour
+  account_name:
+  times_url:
+
+discord_profile_autoretire-within-24-hour:
+  user: autoretire-within-24-hour
+  account_name:
+  times_url:
+
+discord_profile_autoretire-within-1-week:
+  user: autoretire-within-1-week
+  account_name:
+  times_url:
+
+discord_profile_autoretire-over-1-week:
+  user: autoretire-over-1-week
+  account_name:
+  times_url:
+
+discord_profile_not-autoretire:
+  user: not-autoretire
+  account_name:
+  times_url:
+
 discord_profile_sotsugyoukigyoshozoku:
   user: sotsugyoukigyoshozoku
   account_name:
