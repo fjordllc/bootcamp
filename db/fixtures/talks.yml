@@ -191,3 +191,23 @@ talk_advisernocolleguetrainee:
 talk_nagai-kyuukai:
   user: nagai-kyuukai
   action_completed: true
+
+talk_autoretire-within-1-hour:
+  user: autoretire-within-1-hour
+  action_completed: true
+
+talk_autoretire-within-24-hour:
+  user: autoretire-within-24-hour
+  action_completed: true
+
+talk_autoretire-within-1-week:
+  user: autoretire-within-1-week
+  action_completed: true
+
+talk_autoretire-over-1-week:
+  user: autoretire-over-1-week
+  action_completed: true
+
+talk_not-autoretire:
+  user: not-autoretire
+  action_completed: true
