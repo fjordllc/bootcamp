@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import BookmarksInDashboard from './components/BookmarksInDashboard.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('a-card-react')) {
-    const bookmarksDomNode = document.getElementById('a-card-react')
+  if (document.getElementById('bookmarks-in-dashboard')) {
+    const bookmarksDomNode = document.getElementById('bookmarks-in-dashboard')
     ReactDOM.render(
       <BookmarksInDashboard removeComponent={removeComponent} />,
       bookmarksDomNode
@@ -13,6 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function removeComponent() {
-  const bookmarksDomNode = document.getElementById('a-card-react')
+  const bookmarksDomNode = document.getElementById('bookmarks-in-dashboard')
   bookmarksDomNode.remove()
 }
