@@ -390,13 +390,13 @@ class HomeTest < ApplicationSystemTestCase
 
     visit '/'
     assert_text '最新のブックマーク'
-    find_link pages(:page1).title, match: :first
+    find_link pages(:page1).title
     assert_text I18n.l pages(:page1).created_at, format: :long
     user = talks(:talk1).user
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
-    find_link "#{decorated_user.long_name} さんの相談部屋", match: :first
+    find_link "#{decorated_user.long_name} さんの相談部屋"
     reports.each do |report|
-      find_link reports(report).title, match: :first
+      find_link reports(report).title
       assert_text I18n.l reports(report).reported_on, format: :long
     end
   end
