@@ -8,10 +8,6 @@ inherit_gem:
     - config/rubocop.yml
     - config/rails.yml
 
-Metrics/BlockLength:
-  Exclude:
-    - test/**/*
-
 Metrics/ClassLength:
   Exclude:
     - test/**/*
@@ -20,8 +16,6 @@ Metrics/ClassLength:
     - app/controllers/users_controller.rb
     - app/mailers/activity_mailer.rb
     - app/models/event.rb
-    - app/models/notification.rb
-    - app/models/notification_facade.rb
     - app/models/practice.rb
     - app/models/user.rb
     - app/models/product.rb
