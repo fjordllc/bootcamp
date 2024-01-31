@@ -19,39 +19,37 @@ export default function BookmarksInDashboard(props) {
   }
 
   return (
-    <div className="a-panels__item">
-      <div className="a-card">
-        <header className="card-header is-sm">
-          <h2 className="card-header__title">最新のブックマーク</h2>
-          <div className="card-header__action">
-            <EditButton editable={editable} setEditable={setEditable} />
-            <span></span>
-          </div>
-        </header>
-        <hr className="a-border-tint" />
-        <div className="card-list">
-          {data.bookmarks.map((bookmark) => {
-            return (
-              <Bookmark
-                key={bookmark.id}
-                bookmark={bookmark}
-                editable={editable}
-                setEditable={setEditable}
-                bookmarksUrl={bookmarksUrl}
-              />
-            )
-          })}
+    <div className="a-card">
+      <header className="card-header is-sm">
+        <h2 className="card-header__title">最新のブックマーク</h2>
+        <div className="card-header__action">
+          <EditButton editable={editable} setEditable={setEditable} />
+          <span></span>
         </div>
-        <footer className="card-footer">
-          <div className="card-footer__footer-link">
-            <a
-              href={`current_user/bookmarks`}
-              className="card-footer__footer-text-link">
-              全てのブックマーク（{data.unpagedBookmarks.length}）
-            </a>
-          </div>
-        </footer>
+      </header>
+      <hr className="a-border-tint" />
+      <div className="card-list">
+        {data.bookmarks.map((bookmark) => {
+          return (
+            <Bookmark
+              key={bookmark.id}
+              bookmark={bookmark}
+              editable={editable}
+              setEditable={setEditable}
+              bookmarksUrl={bookmarksUrl}
+            />
+          )
+        })}
       </div>
+      <footer className="card-footer">
+        <div className="card-footer__footer-link">
+          <a
+            href={`current_user/bookmarks`}
+            className="card-footer__footer-text-link">
+            全てのブックマーク（{data.unpagedBookmarks.length}）
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }
