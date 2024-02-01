@@ -3,6 +3,10 @@
 class WorksController < ApplicationController
   before_action :set_my_work, only: %i[edit update destroy]
 
+  def index
+    @works = Work.with_attached_thumbnail.order(updated_at: :desc)
+  end
+
   def show
     @work = Work.find(params[:id])
   end
