@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Watchable
+  include Notifiable
   extend ActiveSupport::Concern
 
   included do
@@ -11,25 +12,6 @@ module Watchable
 
   def watched?
     watches.present?
-  end
-
-  def notification_title
-    case self
-    when Product
-      "提出物「#{practice[:title]}」"
-    when Report
-      "日報「#{self[:title]}」"
-    when Question
-      "Q&A「#{self[:title]}」"
-    when Event
-      "特別イベント「#{self[:title]}」"
-    when RegularEvent
-      "定期イベント「#{self[:title]}」"
-    when Page
-      "Docs「#{self[:title]}」"
-    when Announcement
-      "お知らせ「#{self[:title]}」"
-    end
   end
 
   def body

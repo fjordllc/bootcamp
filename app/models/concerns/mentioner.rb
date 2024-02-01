@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Mentioner
+  include Notifiable
+
   def after_save_mention(new_mentions)
     return if instance_of?(Report)
 
@@ -12,18 +14,7 @@ module Mentioner
   end
 
   def where_mention
-    case self
-    when Product
-      "#{user.login_name}さんの提出物「#{practice[:title]}」"
-    when Report
-      "#{user.login_name}さんの日報「#{self[:title]}」"
-    when Comment
-      "#{commentable.commentable_notification_title}へのコメント"
-    when Answer
-      "#{receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
-    when Question
-      "#{user.login_name}さんのQ&A「#{practice[:title]}」"
-    end
+    notification_title
   end
 
   def body

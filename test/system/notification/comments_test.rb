@@ -38,7 +38,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       end
       click_button 'コメントする'
     }
-    title = "#{reports(:report1).commentable_notification_title}へのコメントでkimuraさんからメンションがきました。"
+    title = "#{reports(:report1).notification_title}へのコメントでkimuraさんからメンションがきました。"
     assert_commentable_notification(title, 'kimura', 'hatsuno', post_mention)
   end
 
@@ -50,7 +50,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       end
       click_button 'コメントする'
     }
-    title = "#{products(:product1).commentable_notification_title}へのコメントでkimuraさんからメンションがきました。"
+    title = "#{products(:product1).notification_title}へのコメントでkimuraさんからメンションがきました。"
     assert_commentable_notification(title, 'kimura', 'hatsuno', post_mention)
   end
 
@@ -62,7 +62,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       end
       click_button 'コメントする'
     }
-    title = "#{events(:event1).commentable_notification_title}へのコメントでkimuraさんからメンションがきました。"
+    title = "#{events(:event1).notification_title}へのコメントでkimuraさんからメンションがきました。"
     assert_commentable_notification(title, 'kimura', 'hatsuno', post_mention)
   end
 
@@ -74,7 +74,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       end
       click_button 'コメントする'
     }
-    title = "#{pages(:page1).commentable_notification_title}へのコメントでkimuraさんからメンションがきました。"
+    title = "#{pages(:page1).notification_title}へのコメントでkimuraさんからメンションがきました。"
     assert_commentable_notification(title, 'kimura', 'hatsuno', post_mention)
   end
 
@@ -86,7 +86,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       end
       click_button 'コメントする'
     }
-    title = "#{announcements(:announcement1).commentable_notification_title}へのコメントでkimuraさんからメンションがきました。"
+    title = "#{announcements(:announcement1).notification_title}へのコメントでkimuraさんからメンションがきました。"
     assert_commentable_notification(title, 'kimura', 'hatsuno', post_mention)
   end
 
@@ -98,7 +98,7 @@ class Notification::CommentsTest < ApplicationSystemTestCase
       end
       click_button 'コメントする'
     }
-    title = "#{regular_events(:regular_event1).commentable_notification_title}へのコメントでkimuraさんからメンションがきました。"
+    title = "#{regular_events(:regular_event1).notification_title}へのコメントでkimuraさんからメンションがきました。"
     assert_commentable_notification(title, 'kimura', 'hatsuno', post_mention)
   end
 

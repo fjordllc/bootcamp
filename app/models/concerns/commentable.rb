@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Commentable
+  include Notifiable
   extend ActiveSupport::Concern
 
   included do
@@ -21,17 +22,5 @@ module Commentable
 
   def body
     self[:body] || self[:description]
-  end
-
-  def commentable_notification_title
-    {
-      Report: "#{user.login_name}さんの日報「#{title}」",
-      Product: "#{user.login_name}さんの#{title}",
-      Event: "特別イベント「#{title}」",
-      Page: "Docs「#{title}」",
-      Announcement: "お知らせ「#{title}」",
-      RegularEvent: "定期イベント「#{title}」",
-      Talk: "#{user.login_name}さんの相談部屋"
-    }[:"#{self.class}"]
   end
 end
