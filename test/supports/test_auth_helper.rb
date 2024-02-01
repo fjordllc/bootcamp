@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module TestAuthHelper
+  # 認証のためのリクエストがテストの実行時間でかなりの部分を占めているため、高速にテスト時の認証を行うためのメソッド
   def visit_with_auth(url, login_name)
     uri = URI.parse(url)
     queries = Rack::Utils.parse_nested_query(uri.query)
