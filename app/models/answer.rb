@@ -21,7 +21,7 @@ class Answer < ApplicationRecord
   end
 
   def path
-    Rails.application.routes.url_helpers.polymorphic_path(question, anchor: anchor)
+    Rails.application.routes.url_helpers.polymorphic_path(question, anchor:)
   end
 
   def certain_period_has_passed?
