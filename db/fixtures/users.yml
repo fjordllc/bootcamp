@@ -1051,6 +1051,147 @@ kyuukai:
   created_at: "2014-01-01 00:00:13"
   sent_student_followup_message: true
 
+autoretire-within-1-hour:
+  login_name: autoretire-within-1-hour
+  email: autoretire-within-1-hour@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: autoretire-within-1-hour
+  name_kana: 自動退会まで1時間のユーザー
+  customer_id: cus_12345678
+  subscription_id: sub_12345678
+  twitter_account: autoretire-within-1-hour
+  facebook_url: https://www.facebook.com/fjordllc/autoretire-within-1-hour
+  blog_url: https://example.com/autoretire-within-1-hour
+  description: "1時間以内に自動退会するユーザーです。"
+  customer_id: cus_LZ2wCJqYybuDlJ
+  subscription_id: sub_12345678
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
+  github_account: autoretire-within-1-hour
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  hibernated_at: <%= Time.current - 6.months + 30.minutes %>
+  updated_at: "2014-01-01 00:00:13"
+  created_at: "2014-01-01 00:00:13"
+  sent_student_followup_message: true
+
+autoretire-within-24-hour:
+  login_name: autoretire-within-24-hour
+  email: autoretire-within-24-hour@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: autoretire-within-24-hour
+  name_kana: 自動退会まで24時間のユーザー
+  customer_id: cus_12345678
+  subscription_id: sub_12345678
+  twitter_account: autoretire-within-24-hour
+  facebook_url: https://www.facebook.com/fjordllc/autoretire-within-24-hour
+  blog_url: https://example.com/autoretire-within-24-hour
+  description: "24時間以内に自動退会するユーザーです。"
+  customer_id: cus_LZ2wCJqYybuDlJ
+  subscription_id: sub_12345678
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
+  github_account: autoretire-within-24-hour
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  hibernated_at: <%= Time.current - 6.months + 23.hour%>
+  updated_at: "2014-01-01 00:00:13"
+  created_at: "2014-01-01 00:00:13"
+  sent_student_followup_message: true
+
+autoretire-within-1-week:
+  login_name: autoretire-within-1-week
+  email: autoretire-within-1-week@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: autoretire-within-1-week
+  name_kana: 自動退会まで1週間のユーザー
+  customer_id: cus_12345678
+  subscription_id: sub_12345678
+  twitter_account: autoretire-within-1-week
+  facebook_url: https://www.facebook.com/fjordllc/autoretire-within-1-week
+  blog_url: https://example.com/autoretire-within-1-week
+  description: "1週間以内に自動退会するユーザーです。"
+  customer_id: cus_LZ2wCJqYybuDlJ
+  subscription_id: sub_12345678
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
+  github_account: autoretire-within-1-week
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  hibernated_at: <%= Time.current - 6.months + 6.days%>
+  updated_at: "2014-01-01 00:00:13"
+  created_at: "2014-01-01 00:00:13"
+  sent_student_followup_message: true
+
+autoretire-over-1-week:
+  login_name: autoretire-over-1-week
+  email: autoretire-over-1-week@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: autoretire-over-1-week
+  name_kana: 自動退会まで1週間以上のユーザー
+  customer_id: cus_12345678
+  subscription_id: sub_12345678
+  twitter_account: autoretire-over-1-week
+  facebook_url: https://www.facebook.com/fjordllc/autoretire-over-1-week
+  blog_url: https://example.com/autoretire-over-1-week
+  description: "自動退会まで1週間以上のユーザーです。"
+  customer_id: cus_LZ2wCJqYybuDlJ
+  subscription_id: sub_12345678
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
+  github_account: autoretire-over-1-week
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  hibernated_at: <%= Time.current - 6.months + 3.months%>
+  updated_at: "2014-01-01 00:00:13"
+  created_at: "2014-01-01 00:00:13"
+  sent_student_followup_message: true
+
+not-autoretire:
+  login_name: not-autoretire
+  email: not-autoretire@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: not-autoretire
+  name_kana: 自動退会しないユーザー
+  customer_id: cus_12345678
+  subscription_id: sub_12345678
+  twitter_account: not-autoretire
+  facebook_url: https://www.facebook.com/fjordllc/not-autoretire
+  blog_url: https://example.com/not-autoretire
+  description: "自動退会しないユーザーです。"
+  customer_id: cus_LZ2wCJqYybuDlJ
+  subscription_id: sub_12345678
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  country_code: JP
+  subdivision_code: '04'
+  github_account: not-autoretire
+  unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
+  hibernated_at: <%= Time.current - 6.months%>
+  updated_at: "2014-01-01 00:00:13"
+  created_at: "2014-01-01 00:00:13"
+  sent_student_followup_message: true
+  auto_retire: false
+
 sotsugyoukigyoshozoku:
   login_name: sotsugyoukigyoshozoku
   email: sotsugyoukigyoshozoku@example.com

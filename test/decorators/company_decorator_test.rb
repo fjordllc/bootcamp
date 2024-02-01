@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'active_decorator_test_case'
 
-class CompanyDecoratorTest < ActiveSupport::TestCase
-  def setup
+class CompanyDecoratorTest < ActiveDecoratorTestCase
+  setup do
     controller = ApplicationController.new
     controller.request = ActionDispatch::TestRequest.create
     ActiveDecorator::ViewContext.push controller.view_context
-    @company1 = ActiveDecorator::Decorator.instance.decorate(companies(:company1))
+    @company1 = decorate(companies(:company1))
   end
 
   test '#adviser_sign_up_url' do

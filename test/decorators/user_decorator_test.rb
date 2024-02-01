@@ -1,29 +1,18 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'active_decorator_test_case'
 
-class UserDecoratorTest < ActiveSupport::TestCase
-  include ActionView::TestCase::Behavior
-
-  def setup
-    ActiveDecorator::ViewContext.push(controller.view_context)
-    @admin_mentor_user = ActiveDecorator::Decorator.instance.decorate(users(:komagata))
-    @student_user = ActiveDecorator::Decorator.instance.decorate(users(:hajime))
-    @graduated_user = ActiveDecorator::Decorator.instance.decorate(users(:sotugyou))
-    @admin_user = ActiveDecorator::Decorator.instance.decorate(users(:adminonly))
-    @adviser_user = ActiveDecorator::Decorator.instance.decorate(users(:advijirou))
-    @mentor_user = ActiveDecorator::Decorator.instance.decorate(users(:mentormentaro))
-    @trainee_user = ActiveDecorator::Decorator.instance.decorate(users(:kensyu))
-    @retired_user = ActiveDecorator::Decorator.instance.decorate(users(:taikai))
-    @hibernationed_user = ActiveDecorator::Decorator.instance.decorate(users(:kyuukai))
-    @japanese_user = ActiveDecorator::Decorator.instance.decorate(users(:kimura))
-    @american_user = ActiveDecorator::Decorator.instance.decorate(users(:tom))
-    @subdivision_not_registered_user = ActiveDecorator::Decorator.instance.decorate(users(:hatsuno))
-  end
-
-  test '#staff_roles' do
-    assert_equal '管理者、メンター', @admin_mentor_user.staff_roles
-    assert_equal '', @student_user.staff_roles
+class UserDecoratorTest < ActiveDecoratorTestCase
+  setup do
+    @admin_mentor_user = decorate(users(:komagata))
+    @student_user = decorate(users(:hajime))
+    @graduated_user = decorate(users(:sotugyou))
+    @mentor_user = decorate(users(:mentormentaro))
+    @hibernationed_user = decorate(users(:kyuukai))
+    @japanese_user = decorate(users(:kimura))
+    @american_user = decorate(users(:tom))
+    @subdivision_not_registered_user = decorate(users(:hatsuno))
   end
 
   test '#icon_title' do
@@ -44,18 +33,6 @@ class UserDecoratorTest < ActiveSupport::TestCase
                  @graduated_user.enrollment_period
   end
 
-  test '#roles_to_s' do
-    assert_equal '管理者、メンター', @admin_mentor_user.roles_to_s
-    assert_equal '', @student_user.roles_to_s
-    assert_equal '卒業生', @graduated_user.roles_to_s
-    assert_equal '管理者', @admin_user.roles_to_s
-    assert_equal 'アドバイザー', @adviser_user.roles_to_s
-    assert_equal 'メンター', @mentor_user.roles_to_s
-    assert_equal '研修生', @trainee_user.roles_to_s
-    assert_equal '退会ユーザー', @retired_user.roles_to_s
-    assert_equal '休会ユーザー', @hibernationed_user.roles_to_s
-  end
-
   test '#subdivisions_of_country' do
     assert_includes @japanese_user.subdivisions_of_country, %w[北海道 01]
     assert_includes @american_user.subdivisions_of_country, %w[アラスカ州 AK]
@@ -65,5 +42,12 @@ class UserDecoratorTest < ActiveSupport::TestCase
     assert_equal '東京都 (日本)', @japanese_user.address
     assert_equal 'ニューヨーク州 (米国)', @american_user.address
     assert_equal '日本', @subdivision_not_registered_user.address
+  end
+
+  test '#hibernation_days' do
+    travel_to Time.zone.local(2020, 2, 1, 9, 0, 0) do
+      assert_equal 31, @hibernationed_user.hibernation_days
+      assert_nil @student_user.hibernation_days
+    end
   end
 end
