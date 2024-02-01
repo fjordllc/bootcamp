@@ -2,16 +2,18 @@
 
 module TestAuthHelper
   def visit_with_auth(url, login_name)
-    if page.has_selector?('.test-show-menu')
-      find('.test-show-menu').click
-      click_link 'ログアウト'
-      assert_text 'ログアウトしました。'
-    end
-
     uri = URI.parse(url)
     queries = Rack::Utils.parse_nested_query(uri.query)
     queries['_login_name'] = login_name
     uri.query = queries.to_query
     visit uri.to_s
+  end
+
+  # 特定のテストが落ちてしまうことを回避するため、明示的にログアウトを行うメソッド
+  # 詳しくは Issue#7168 参照
+  def logout_by_menu
+    find('.test-show-menu').click
+    click_link 'ログアウト'
+    assert_text 'ログアウトしました。'
   end
 end

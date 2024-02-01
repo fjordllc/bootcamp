@@ -76,6 +76,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    logout_by_menu
+
     visit_with_auth '/products/unchecked', 'komagata'
     click_link '自分の担当'
     assert_text product.practice.title
