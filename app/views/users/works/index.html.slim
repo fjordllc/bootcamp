@@ -26,6 +26,10 @@ header.page-header
             ul.page-main-header-actions__items
               - if current_user == @user
                 li.page-main-header-actions__item
+                  = link_to portfolios_path, class: 'a-button is-md is-secondary is-block' do
+                    i.fa-regular
+                    | みんなの作品
+                li.page-main-header-actions__item
                   = link_to new_work_path, class: 'a-button is-md is-secondary is-block' do
                     i.fa-regular.fa-plus
                     | 作品を追加
