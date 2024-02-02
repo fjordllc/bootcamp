@@ -81,7 +81,7 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'komagata'
     click_button '提出物を確認'
     assert_text '提出物を確認済みにしました。'
-    logout_via_menu
+    # logout_via_menu
 
     visit_with_auth '/notifications', 'kimura'
 

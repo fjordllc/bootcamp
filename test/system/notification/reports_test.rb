@@ -278,7 +278,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
     click_button '提出'
     find('.modal-header__close').click
-    logout_via_menu
+    # logout_via_menu
 
     visit_with_auth '/notifications', mentor
 
