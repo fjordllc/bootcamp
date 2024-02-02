@@ -49,7 +49,7 @@ ruby:
                 = render 'share_buttons', article: @article.id
                 - if @article.thumbnail.attached? && @article.prepared_thumbnail?
                   = image_tag @article.prepared_thumbnail_url, class: 'article__image'
-                - elsif !thumbnail_blank?(@article)
+                - elsif !thumbnail_blank?(@article) && @article.prepared_thumbnail?
                   = image_tag @article.selected_thumbnail_url, class: 'article__image'
               .article__body
                 .js-markdown-view.a-long-text.is-md
