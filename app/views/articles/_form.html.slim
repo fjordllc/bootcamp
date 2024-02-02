@@ -89,6 +89,12 @@
                 | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
                 | 画像サイズは必ず 1200px × 630xpx でお願いします。
 
+    .form-item
+      = f.check_box :insert_image
+      = f.label :insert_image, "サムネイル画像を記事に表示"
+      .a-form-help
+        p チェックを入れると、ブログ記事の本文内にもサムネイル画像が表示されます。
+
     - if params[:action] == 'edit'
       .form-item
         .hidden-form-item
