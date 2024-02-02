@@ -8,4 +8,10 @@ module TestAuthHelper
     uri.query = queries.to_query
     visit uri.to_s
   end
+
+  def logout_via_menu
+    find('.test-show-menu').click
+    click_link 'ログアウト'
+    assert_text 'ログアウトしました。'
+  end
 end
