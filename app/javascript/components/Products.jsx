@@ -12,6 +12,7 @@ export default function Products({
   title,
   selectedTab,
   isMentor,
+  isAdmin,
   currentUserId
 }) {
   const { page, setPage } = usePage()
@@ -136,6 +137,7 @@ export default function Products({
                         product={product}
                         key={product.id}
                         isMentor={isMentor}
+                        isAdmin={isAdmin}
                         currentUserId={currentUserId}
                       />
                     )
@@ -180,6 +182,7 @@ export default function Products({
                               product={product}
                               key={product.id}
                               isMentor={isMentor}
+                              isAdmin={isAdmin}
                               currentUserId={currentUserId}
                               elapsedDays={productsNDaysPassed.elapsed_days}
                             />

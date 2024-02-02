@@ -5,6 +5,7 @@ import ProductChecker from './ProductChecker'
 export default function Product({
   product,
   isMentor,
+  isAdmin,
   currentUserId,
   elapsedDays
 }) {
@@ -60,7 +61,7 @@ export default function Product({
             <TimeInfo product={product} elapsedDays={elapsedDays} />
             <CommentInfo product={product} />
           </div>
-          {isMentor && product.user.primary_role === 'trainee' && (
+          {(isMentor || isAdmin) && product.user.primary_role === 'trainee' && (
             <TrainingEndInfo product={product} />
           )}
           {isMentor && product.checks.size === 0 && (
