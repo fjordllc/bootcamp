@@ -90,7 +90,7 @@
                 | 画像サイズは必ず 1200px × 630xpx でお願いします。
 
     .form-item
-      = f.check_box :insert_image
+      = f.check_box :insert_image, checked: true
       = f.label :insert_image, "サムネイル画像を記事に表示"
       .a-form-help
         p チェックを入れると、ブログ記事の本文内にもサムネイル画像が表示されます。
