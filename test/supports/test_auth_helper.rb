@@ -12,7 +12,7 @@ module TestAuthHelper
 
   # 特定のテストが落ちてしまうことを回避するため、明示的にログアウトを行うメソッド
   # 詳しくは Issue#7168 参照
-  def logout_by_menu
+  def logout_via_menu
     find('.test-show-menu').click
     click_link 'ログアウト'
     assert_text 'ログアウトしました。'

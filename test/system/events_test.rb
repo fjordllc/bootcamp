@@ -307,7 +307,7 @@ class EventsTest < ApplicationSystemTestCase
       click_link '参加申込'
     end
     assert_text '参加登録しました'
-    logout_by_menu
+    logout_via_menu
 
     visit_with_auth events_path, 'hatsuno'
     click_link '補欠者が繰り上がるイベント'
@@ -319,7 +319,7 @@ class EventsTest < ApplicationSystemTestCase
       participants = all('img').map { |img| img['alt'] }
       assert_equal %w[kimura], participants
     end
-    logout_by_menu
+    logout_via_menu
 
     visit_with_auth events_path, 'kimura'
     click_link '補欠者が繰り上がるイベント'
