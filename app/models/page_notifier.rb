@@ -15,7 +15,7 @@ class PageNotifier
   def send_notification(page)
     receivers = User.admins_and_mentors
     receivers.each do |receiver|
-      ActivityDelivery.with(receiver: receiver, page: page).notify(:create_page) if page.sender != receiver
+      ActivityDelivery.with(receiver:, page:).notify(:create_page) if page.sender != receiver
     end
   end
 
