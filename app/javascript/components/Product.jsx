@@ -60,6 +60,9 @@ export default function Product({
             <TimeInfo product={product} elapsedDays={elapsedDays} />
             <CommentInfo product={product} />
           </div>
+          {isMentor && product.user.primary_role === 'trainee' && (
+            <TrainingEndInfo product={product} />
+          )}
           {isMentor && product.checks.size === 0 && (
             <div className="card-list-item__row is-only-mentor">
               <div className="card-list-item__assignee">
@@ -224,5 +227,44 @@ const CommentInfo = ({ product }) => {
         </div>
       )}
     </>
+  )
+}
+
+const TrainingEndInfo = ({ product }) => {
+  const trainingEndsOn = new Date(product.user.training_ends_on);
+  const trainingRemainingDays = Math.floor((trainingEndsOn - new Date()) / 1000 / 60 / 60 / 24);
+
+  const formattedDate = (date) => {
+    return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日`
+  }
+
+  return (
+    <div>
+      {trainingEndsOn ? (
+          <time className="a-meta" dateTime={formattedDate(trainingEndsOn)}>
+            <span className="a-meta__label">研修終了日</span>
+            <span className="a-meta__value">{formattedDate(trainingEndsOn)}</span>
+            {trainingRemainingDays === 0 ? (
+              <span className="a-meta__value">（本日研修最終日）</span>
+            ) : (
+                trainingRemainingDays < 0 ? (
+                  <span className="a-meta__value">（研修終了済み）</span>
+                ) : (
+                  trainingRemainingDays < 8 ? (
+                    // 赤く表示する
+                    <span className="a-meta__value">（あと{trainingRemainingDays}日）</span>
+                  ) : (
+                    <span className="a-meta__value">（あと{trainingRemainingDays}日）</span>
+                  )
+                )
+            )}
+          </time>
+      ) : (
+        <>
+          <span className="a-meta__label">研修終了日</span>
+          <span className="a-meta__value">未入力</span>
+        </>
+      )}
+    </div>
   )
 }
