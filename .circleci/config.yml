@@ -61,7 +61,8 @@ jobs:
     parallelism: 3
     steps:
       - checkout
-      - browser-tools/install-chrome
+      - browser-tools/install-chrome:
+          chrome-version: 121.0.6167.85
       - browser-tools/install-chromedriver
       - ruby/install-deps:
           clean-bundle: true
