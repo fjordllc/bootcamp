@@ -3,8 +3,14 @@
 class WorksController < ApplicationController
   before_action :set_my_work, only: %i[edit update destroy]
 
+  PAGER_NUMBER = 24
+
   def index
-    @works = Work.with_attached_thumbnail.order(updated_at: :desc)
+    @works = Work.with_attached_thumbnail
+                 .eager_load(:user)
+                 .order(updated_at: :desc)
+                 .page(params[:page])
+                 .per(PAGER_NUMBER)
   end
 
   def show
