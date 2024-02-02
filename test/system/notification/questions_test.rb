@@ -99,7 +99,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
   test 'notify when a newly question was created as published' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
-    # logout_via_menu
+    logout_via_menu
 
     visit_with_auth '/questions/new', 'kimura'
     within 'form[name=question]' do
@@ -108,7 +108,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     end
     click_button '登録する'
     assert_text '質問を作成しました。'
-    # logout_via_menu
+    logout_via_menu
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
@@ -266,12 +266,12 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       click_button '登録する'
       assert_text '質問を作成しました。'
     end
-    # logout_via_menu
+    logout_via_menu
 
     visit_with_auth '/notifications', 'komagata'
     assert_text 'yameoさんが退会しました。'
     assert_text 'kimuraさんから質問「タイトルtest」が投稿されました。'
-    # logout_via_menu
+    logout_via_menu
 
     visit_with_auth '/questions', 'komagata'
     click_on 'タイトルtest'
@@ -281,7 +281,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
       end
       assert_text '質問を削除しました。'
     end
-    # logout_via_menu
+    logout_via_menu
 
     visit_with_auth '/notifications', 'komagata'
     assert_text 'yameoさんが退会しました。'
