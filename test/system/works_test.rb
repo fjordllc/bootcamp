@@ -3,6 +3,12 @@
 require 'application_system_test_case'
 
 class WorksTest < ApplicationSystemTestCase
+  test 'user can see portfolio list page' do
+    visit_with_auth portfolios_path, 'kimura'
+    assert_equal 'ポートフォリオ | FBC', title
+    assert_text works(:work1).title
+  end
+
   test "user can see user's own work" do
     visit_with_auth work_path(works(:work1)), 'kimura'
     assert_text "kimura's app"
