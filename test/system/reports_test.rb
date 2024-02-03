@@ -237,7 +237,7 @@ class ReportsTest < ApplicationSystemTestCase
     within '.learning-times__total-time' do
       assert_text '1時間', exact: true
     end
-    assert_text '23:00 〜 00:00'
+    assert_text '23:00 〜 (翌日)00:00'
 
     click_link '内容修正'
 
@@ -273,7 +273,7 @@ class ReportsTest < ApplicationSystemTestCase
     click_button '提出'
 
     assert_text "4時間\n"
-    assert_text '22:00 〜 00:00'
+    assert_text '22:00 〜 (翌日)00:00'
     assert_text '00:30 〜 02:30'
   end
 

@@ -134,7 +134,7 @@ class ArticlesTest < ApplicationSystemTestCase
     end
 
     visit_with_auth articles_url, 'komagata'
-    find 'nav.pagination'
+    assert_selector 'nav.pagination', count: 2
   end
 
   test "general user can't see edit and delete buttons" do

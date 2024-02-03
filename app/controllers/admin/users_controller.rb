@@ -2,15 +2,16 @@
 
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
+  ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
 
   def index
     @direction = params[:direction] || 'desc'
-    @target = params[:target] || 'student_and_trainee'
-    @users = User.with_attached_avatar
-                 .preload(%i[company course])
-                 .order_by_counts(params[:order_by] || 'id', @direction)
-                 .users_role(@target)
-    @emails = User.users_role(@target).pluck(:email)
+    @target = params[:target]
+    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    @users = user_scope.with_attached_avatar
+                       .preload(:company, :course)
+                       .order_by_counts(params[:order_by] || 'id', @direction)
+    @emails = user_scope.pluck(:email)
   end
 
   def show
@@ -22,7 +23,7 @@ class Admin::UsersController < AdminController
   def update
     if @user.update(user_params)
       destroy_subscription(@user)
-      Newspaper.publish(:retirement_create, @user) if @user.saved_change_to_retired_on?
+      Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
       redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
     else
       render :edit
@@ -34,7 +35,7 @@ class Admin::UsersController < AdminController
     # 制限をかけておく
     redirect_to admin_users_url, alert: '自分自身を削除する場合、退会から処理を行ってください。' if current_user.id == params[:id]
     user = User.find(params[:id])
-    Newspaper.publish(:learning_destroy, user)
+    Newspaper.publish(:learning_destroy, { user: })
     user.destroy
     redirect_to admin_users_url, notice: "#{user.name} さんを削除しました。"
   end

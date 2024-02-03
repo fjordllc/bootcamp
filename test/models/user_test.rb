@@ -503,6 +503,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not_includes(target, users(:kensyuowata))
   end
 
+  test '.year_end_party' do
+    target = User.year_end_party
+    assert_not_includes(target, users(:kyuukai))
+    assert_not_includes(target, users(:yameo))
+    assert_includes(target, users(:kimura))
+  end
+
   test '#belongs_company_and_adviser?' do
     assert_not users(:kensyu).belongs_company_and_adviser?
     assert_not users(:advijirou).belongs_company_and_adviser?
@@ -529,7 +536,7 @@ class UserTest < ActiveSupport::TestCase
     user.rename_avatar_and_strip_exif
 
     image = MiniMagick::Image.read(user.avatar.download)
-    assert image.exif.empty?
+    assert_empty image.exif
     assert user.avatar.filename, user.id
 
     user.avatar.purge
@@ -623,6 +630,16 @@ class UserTest < ActiveSupport::TestCase
     assert target.sent_student_followup_message
   end
 
+  test '#hibernation_elapsed_days' do
+    user = users(:kyuukai)
+
+    travel_to Time.zone.local(2020, 1, 10) do
+      elapsed_days = user.hibernation_elapsed_days
+
+      assert assert_equal 9, elapsed_days
+    end
+  end
+
   test '#country_name' do
     assert_equal '日本', users(:kimura).country_name
     assert_equal '米国', users(:tom).country_name
@@ -657,5 +674,38 @@ class UserTest < ActiveSupport::TestCase
 
     user.become_watcher!(watchable)
     assert user.watches.exists?(watchable:)
+  end
+
+  test '.users_role' do
+    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
+
+    # target引数とdefault_target引数に関して、targetとscope名が一致しているケースと一致していないケースを順にテストする
+    assert_equal User.mentor, User.users_role('mentor', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    assert_equal User.graduated, User.users_role('graduate', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+
+    assert_equal User.year_end_party, User.users_role('', allowed_targets: allowed_targets, default_target: 'year_end_party')
+    assert_equal User.students_and_trainees, User.users_role('', allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+  end
+
+  test '.users_role returns default_target when invalid target is passed' do
+    allowed_targets = %w[student_and_trainee mentor graduate adviser trainee year_end_party]
+    not_allowed_target = 'retired'
+    assert_equal User.students_and_trainees, User.users_role(not_allowed_target, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    not_scope_name = 'destroy_all'
+    assert_equal User.students_and_trainees, User.users_role(not_scope_name, allowed_targets: allowed_targets, default_target: 'student_and_trainee')
+    assert_empty User.users_role(not_scope_name, allowed_targets: allowed_targets)
+  end
+
+  test '#delete_and_assign_new_organizer' do
+    user = users(:hajime)
+
+    assert_changes -> { Organizer.where(user: user).exists? }, from: true, to: false do
+      user.delete_and_assign_new_organizer
+    end
+  end
+
+  test '#scheduled_retire_at' do
+    assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
+    assert_nil users(:hatsuno).scheduled_retire_at
   end
 end

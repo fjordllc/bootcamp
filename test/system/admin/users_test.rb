@@ -44,6 +44,14 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'kensyu（Kensyu Seiko）'
   end
 
+  test 'exclude hibernated and retired users from year-end-party email list' do
+    visit_with_auth '/admin/users?target=year_end_party', 'komagata'
+    assert_equal '管理ページ | FBC', title
+    assert_no_text users(:kyuukai).email
+    assert_no_text users(:yameo).email
+    assert_text users(:kimura).email
+  end
+
   test 'accessed by non-administrative users' do
     user = users(:hatsuno)
     visit_with_auth edit_admin_user_path(user.id), 'kimura'

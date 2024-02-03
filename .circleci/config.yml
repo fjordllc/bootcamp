@@ -84,6 +84,8 @@ jobs:
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
+      - run:  
+          command: 'gem install stringio -v 3.1.0'
       - run:
           name: Test
           command: |

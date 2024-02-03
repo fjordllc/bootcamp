@@ -169,3 +169,14 @@ event32:
   open_start_at: 2017-3-26 9:00
   open_end_at: 2017-4-03 9:00
   user: komagata
+
+event33:
+  title: "kimura専用イベント"
+  description: "kimura専用イベント"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: 2017-04-03 00:00:00
+  end_at: 2017-4-3 12:00:00
+  open_start_at: 2017-3-25 9:00
+  open_end_at: 2017-4-01 9:00
+  user: kimura

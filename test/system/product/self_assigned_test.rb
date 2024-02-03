@@ -147,4 +147,65 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
     assert_text '未返信の担当提出物はありません'
   end
+
+  test "the number of products displayed in a self assigned tab excludes hibernated users' products" do
+    checker = users(:mentormentaro)
+
+    # 担当中かつ未返信の提出物が0個のとき、「自分の担当」タブの右肩の赤い数字がそもそも表示されないという状況を防ぐため、この時点で提出物を1件作成
+    Product.create!(
+      body: 'test',
+      user: users(:kimura),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+
+    self_assigned_count = Product.unhibernated_user_products.self_assigned_product(checker.id).unchecked.count
+    self_assigned_no_replied_count = Product.unhibernated_user_products.self_assigned_no_replied_products(checker.id).unchecked.count
+
+    visit_with_auth '/products/self_assigned', 'mentormentaro'
+    assert_selector '.page-tabs__item-link.is-active', text: "自分の担当 （#{self_assigned_count}）"
+    assert_selector '.page-tabs__item-count.a-notification-count.is-only-mentor', text: self_assigned_no_replied_count.to_s
+
+    Product.create!(
+      body: 'test',
+      user: users(:kyuukai),
+      practice: practices(:practice5),
+      checker_id: checker.id
+    )
+
+    visit_with_auth '/products/self_assigned', 'mentormentaro'
+    assert_selector '.page-tabs__item-link.is-active', text: "自分の担当 （#{self_assigned_count}）"
+    assert_selector '.page-tabs__item-count.a-notification-count.is-only-mentor', text: self_assigned_no_replied_count.to_s
+  end
+
+  test "not display hibernated users' products in a self assigned products list" do
+    checker = users(:mentormentaro)
+    unhibernated_user = users(:kimura)
+    hibernated_user = users(:kyuukai)
+    practice = practices(:practice5)
+
+    Product.create!(
+      body: 'test',
+      user: unhibernated_user,
+      practice: practice,
+      checker_id: checker.id
+    )
+    Product.create!(
+      body: 'test',
+      user: hibernated_user,
+      practice: practice,
+      checker_id: checker.id
+    )
+
+    unhibernated_users_displayed_name = "#{unhibernated_user.login_name} (#{unhibernated_user.name_kana})"
+    hibernated_users_displayed_name = "#{hibernated_user.login_name} (#{hibernated_user.name_kana})"
+
+    visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentormentaro'
+    assert_text unhibernated_users_displayed_name
+    assert_no_text hibernated_users_displayed_name
+
+    visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
+    assert_text unhibernated_users_displayed_name
+    assert_no_text hibernated_users_displayed_name
+  end
 end

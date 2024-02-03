@@ -180,7 +180,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     visit_with_auth regular_events_path, 'kimura'
     assert_selector '.card-list-item', count: 25
     visit regular_events_path(page: 2)
-    assert_selector '.card-list-item', count: 7
+    assert_selector '.card-list-item', count: 8
   end
 
   test 'create a regular event for all students and trainees' do

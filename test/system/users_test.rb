@@ -629,4 +629,18 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth user_path(user), 'komagata'
     assert_no_text '休会中 / 休会から'
   end
+
+  test 'show retirement message on users page' do
+    visit_with_auth users_path, 'komagata'
+    click_link('退会')
+    assert_selector '.users-item__inactive-message-container.is-only-mentor .users-item__inactive-message', text: '退会しました'
+  end
+
+  test 'show hibernation elasped days message on users page' do
+    travel_to Time.zone.local(2020, 1, 11, 0, 0, 0) do
+      visit_with_auth users_path, 'komagata'
+      click_link('休会')
+      assert_selector '.users-item__inactive-message-container.is-only-mentor .users-item__inactive-message', text: '休会中: 2020年01月01日〜(10日経過)'
+    end
+  end
 end

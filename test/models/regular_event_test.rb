@@ -48,6 +48,13 @@ class RegularEventTest < ActiveSupport::TestCase
       first_day = Time.zone.today
       assert_equal Date.new(2022, 6, 5), regular_event.possible_next_event_date(first_day, regular_event_repeat_rule)
     end
+
+    holiday_not_held_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule36) # 第1週水曜日
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 2, 5), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
+    end
   end
 
   test '#next_specific_day_of_the_week' do
@@ -55,6 +62,24 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event_repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal Date.new(2022, 6, 5), regular_event.next_specific_day_of_the_week(regular_event_repeat_rule)
+    end
+
+    holiday_not_held_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule35) # 毎週水曜日
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 1, 8), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
+    end
+  end
+
+  test '#calculate_date_of_specific_nth_day_of_the_week' do
+    regular_event = regular_events(:regular_event1)
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule2)
+    days_of_the_week_count = 7
+
+    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
+      first_day = Time.zone.today
+      assert_equal Date.new(2020, 1, 6), regular_event.calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
     end
   end
 
@@ -127,7 +152,24 @@ class RegularEventTest < ActiveSupport::TestCase
 
     RegularEvent.remove_event([regular_events1, regular_events2], regular_event1.id)
     assert_not regular_events1.include?(regular_event1)
-    assert regular_events1.include?(regular_event2)
-    assert regular_events2.include?(regular_event3)
+    assert_includes regular_events1, regular_event2
+    assert_includes regular_events2, regular_event3
+  end
+
+  test '#assign_admin_as_organizer_if_none' do
+    regular_event = RegularEvent.new(
+      title: '主催者のいないイベント',
+      description: '主催者のいないイベント',
+      finished: false,
+      hold_national_holiday: false,
+      start_at: Time.zone.local(2020, 1, 1, 21, 0, 0),
+      end_at: Time.zone.local(2020, 1, 1, 22, 0, 0),
+      user: users(:kimura),
+      category: 0,
+      published_at: '2023-08-01 00:00:00'
+    )
+    regular_event.save(validate: false)
+    regular_event.assign_admin_as_organizer_if_none
+    assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
   end
 end

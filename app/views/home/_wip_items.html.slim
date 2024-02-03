@@ -2,7 +2,7 @@
   header.card-header.is-sm
     h2.card-header__title
       | WIPで保存中
-  hr.a-border
+  hr.a-border-tint
   .card-list
     - if current_user.pages.wip.exists?
       = render 'users/pages/wip_pages', user: current_user

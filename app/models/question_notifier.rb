@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class QuestionNotifier
-  def call(question)
+  def call(payload)
+    question = payload[:question]
     return if question.wip?
 
     ChatNotifier.message(<<~TEXT)

@@ -45,17 +45,15 @@ class HomeController < ApplicationController
     @collegue_trainees = current_user.collegue_trainees&.with_attached_avatar&.includes(:reports, :products, :comments)
     collegue_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.collegue_trainees&.with_attached_avatar)
     @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
+    @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
   end
 
   def display_events_on_dashboard
-    @today_events = (Event.today_events.related_to(current_user) \
-                     + RegularEvent.today_events.participated_by(current_user))
+    @today_events = (Event.today_events + RegularEvent.today_events)
                     .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @tomorrow_events = (Event.tomorrow_events.related_to(current_user) \
-                        + RegularEvent.tomorrow_events.participated_by(current_user))
+    @tomorrow_events = (Event.tomorrow_events + RegularEvent.tomorrow_events)
                        .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @day_after_tomorrow_events = (Event.day_after_tomorrow_events.related_to(current_user) \
-                                  + RegularEvent.day_after_tomorrow_events.participated_by(current_user))
+    @day_after_tomorrow_events = (Event.day_after_tomorrow_events + RegularEvent.day_after_tomorrow_events)
                                  .sort_by { |e| e.start_at.strftime('%H:%M') }
   end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  skip_before_action :require_active_user_login, raise: false, only: %i[new create]
+  skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
@@ -18,7 +18,8 @@ class UsersController < ApplicationController
       elsif params[:tag]
         User.tagged_with(params[:tag])
       else
-        User.users_role(@target)
+        users = User.users_role(@target, allowed_targets: target_allowlist)
+        @target == 'inactive' ? users.order(:last_activity_at) : users
       end
 
     @users = target_users
@@ -39,6 +40,12 @@ class UsersController < ApplicationController
                            .includes(:practice)
                            .where(status: 3)
                            .order(updated_at: :desc)
+
+    if logged_in?
+      render :show
+    else
+      render :unauthorized_show, layout: 'not_logged_in'
+    end
   end
 
   def new
@@ -60,7 +67,7 @@ class UsersController < ApplicationController
     @user.course_id ||= Course.first.id
     @user.free = true if @user.trainee?
     @user.build_discord_profile
-    Newspaper.publish(:user_create, @user)
+    Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!
     else
@@ -88,7 +95,7 @@ class UsersController < ApplicationController
       UserMailer.welcome(@user).deliver_now
       notify_to_mentors(@user)
       notify_to_chat(@user)
-      Newspaper.publish(:student_or_trainee_create, @user) if @user.trainee?
+      Newspaper.publish(:student_or_trainee_create, { user: @user }) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
@@ -134,7 +141,7 @@ class UsersController < ApplicationController
         UserMailer.welcome(@user).deliver_now
         notify_to_mentors(@user)
         notify_to_chat(@user)
-        Newspaper.publish(:student_or_trainee_create, @user) if @user.student?
+        Newspaper.publish(:student_or_trainee_create, { user: @user }) if @user.student?
         logger.info "[Signup] 8. after create times channel. #{@user.email}"
         redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
       else

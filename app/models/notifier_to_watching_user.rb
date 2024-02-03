@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class NotifierToWatchingUser
-  def call(answer)
+  def call(payload)
+    answer = payload[:answer]
     question = Question.find(answer.question_id)
     mention_user_ids = answer.new_mention_users.ids
 

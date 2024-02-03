@@ -147,3 +147,14 @@ event30:
   open_start_at: <%= Time.zone.tomorrow.midnight %>
   open_end_at: <%= Time.zone.tomorrow + 1.day - 1.hours %>
   user: komagata
+
+event31:
+  title: "kimura専用イベント"
+  description: "kimura専用イベント"
+  location: "FJORDオフィス"
+  capacity: 10
+  start_at: <%= Date.current %>
+  end_at: 2019-12-17 12:00:00
+  open_start_at: 2019-12-10 9:00
+  open_end_at: 2019-12-16 9:00
+  user: kimura

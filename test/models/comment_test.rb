@@ -58,7 +58,7 @@ class CommentTest < ActiveSupport::TestCase
       assert users(:kimura).notifications.exists?(
         kind: 'watching',
         sender: users(:mentormentaro),
-        message: 'kimuraさんの【 「PC性能の見方を知る」の提出物 】にmentormentaroさんがコメントしました。'
+        message: 'kimuraさんの提出物「PC性能の見方を知る」にmentormentaroさんがコメントしました。'
       )
     end
     assert_not users(:mentormentaro).notifications.exists?(

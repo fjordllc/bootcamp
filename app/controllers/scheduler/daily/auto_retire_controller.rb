@@ -15,7 +15,7 @@ class Scheduler::Daily::AutoRetireController < SchedulerController
       user.hibernated_at = nil
       user.save!(validate: false)
 
-      Newspaper.publish(:retirement_create, user)
+      Newspaper.publish(:retirement_create, { user: })
       begin
         UserMailer.auto_retire(user).deliver_now
       rescue Postmark::InactiveRecipientError => e

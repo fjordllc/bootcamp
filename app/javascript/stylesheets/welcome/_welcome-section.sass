@@ -16,6 +16,11 @@
     padding-block: 2.25rem
     +media-breakpoint-down(md)
       padding-block: 2rem
+  &.is-job-hunt-support
+    background-color: #e6e6ee
+    padding-block: 2.25rem
+    +media-breakpoint-down(md)
+      padding-block: 2rem
   .tos
     th
       white-space: nowrap
@@ -109,6 +114,22 @@
     margin-bottom: 1.2em
   li
     +text-block(1em 1.6 0 .25em)
+  table
+    width: 100%
+    margin-bottom: 2em
+  th,
+  td
+    border: solid 1px var(--border-shade)
+    padding: .5em .625em
+    +text-block(.875em 1.6, left)
+
+  th
+    background-color: var(--background-semi-shade)
+
+  tbody tr
+    &:nth-child(even)
+      background-color: var(--background-more-tint)
+
   *:last-child
     margin-bottom: 0
 

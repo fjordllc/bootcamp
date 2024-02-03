@@ -4,8 +4,12 @@
   gap: 0 .5rem
 
 .card-list-item-meta__item
+  overflow: hidden
   .a-user-icon
     +size(1rem)
+  a
+    overflow: hidden
+    text-overflow: ellipsis
 
 .card-list-item-meta__item-note
   +text-block(.75rem 1.4)

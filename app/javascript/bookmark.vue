@@ -2,7 +2,8 @@
 .card-list-item(:class='isBookmarkClassName')
   .card-list-item__inner
     .card-list-item__label
-      | {{ bookmark.modelNameI18n }}
+      span.card-list-item__label-inner
+        | {{ bookmark.modelNameI18n }}
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title

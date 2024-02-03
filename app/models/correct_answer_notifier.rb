@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class CorrectAnswerNotifier
-  def call(answer)
+  def call(payload)
+    answer = payload[:answer]
     notify_correct_answer(answer) if answer.saved_change_to_attribute?('type', to: 'CorrectAnswer')
   end
 

@@ -8,7 +8,6 @@ linters:
     enabled: true
     ignored_cops:
       - Layout/ArgumentAlignment
-      - Layout/ArrayAlignment
       - Layout/BlockAlignment
       - Layout/EmptyLineAfterGuardClause
       - Layout/EndAlignment
@@ -22,7 +21,6 @@ linters:
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
       - Layout/MultilineHashBraceLayout
-      - Layout/MultilineMethodCallBraceLayout
       - Layout/MultilineMethodCallIndentation
       - Layout/MultilineMethodDefinitionBraceLayout
       - Layout/MultilineOperationIndentation

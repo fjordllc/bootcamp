@@ -2,11 +2,11 @@
   height: 100%
 
 .users-item__inactive-message
-  background-color: var(--background)
+  background-color: var(--disabled)
   +text-block(.625rem 1.4, center)
   padding: .25rem
   +border-radius(top, .1875rem)
-  margin-bottom: -.25rem
+  margin: -1px -1px -.25rem
 
 .users-item__inner
   +media-breakpoint-up(md)
@@ -16,7 +16,7 @@
 
 .users-item__header
   +position(relative)
-  padding: 1rem
+  padding: .75rem 1rem
   border-bottom: solid 1px var(--border-tint)
 
 .users-item__header-inner

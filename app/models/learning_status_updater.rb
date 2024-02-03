@@ -2,13 +2,7 @@
 
 class LearningStatusUpdater
   def call(payload)
-    product_or_associated_object =
-      case payload
-      when Hash
-        payload[:product]
-      else
-        payload
-      end
+    product_or_associated_object = payload[:product] || payload[:check]
     case product_or_associated_object
     when Product
       update_after_submission(product_or_associated_object)
@@ -32,7 +26,7 @@ class LearningStatusUpdater
                :complete
              elsif product.wip
                started_practice = product.user.learnings.map(&:status).include?('started')
-               started_practice ? :unstarted : :started
+               started_practice && previous_learning.status != 'started' ? :unstarted : :started
              else
                :submitted
              end

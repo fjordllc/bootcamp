@@ -2,6 +2,7 @@
 
 class Generation
   START_YEAR = 2013
+  ALLOWED_TARGETS = %w[all trainee adviser graduate mentor retired].freeze
 
   class << self
     def generations(target)
@@ -34,12 +35,13 @@ class Generation
     (next_generation.start_date - 1).end_of_day
   end
 
-  def users
-    User.with_attached_avatar.same_generations(start_date, end_date)
+  def classmates
+    User.with_attached_avatar.classmates(start_date, end_date)
   end
 
   def target_users(target)
-    target_users = users.users_role(target)
-    target == 'retired' ? target_users : target_users.unretired
+    users = classmates.users_role(target, allowed_targets: ALLOWED_TARGETS)
+    # 退会者は「退会」フィルター時のみ表示させたいため、絞り込みを行う
+    target == 'retired' ? users : users.unretired
   end
 end

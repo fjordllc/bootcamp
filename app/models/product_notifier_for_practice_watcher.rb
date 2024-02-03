@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ProductNotifierForPracticeWatcher
-  def call(product)
+  def call(payload)
+    product = payload[:product]
     return if product.wip
 
     practice = Practice.find(product.practice_id)

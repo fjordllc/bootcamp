@@ -103,9 +103,3 @@ Style/HashSyntax:
     - 'test/system/sign_up_test.rb'
     - 'test/system/user/products_test.rb'
     - 'test/test_helper.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantFreeze:
-  Exclude:
-    - 'app/models/link_checker/extractor.rb'

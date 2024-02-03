@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.array! @companies, partial: "api/users/companies/company", as: :company
+json.array! @companies, partial: "api/users/companies/company", as: :company, target: @target

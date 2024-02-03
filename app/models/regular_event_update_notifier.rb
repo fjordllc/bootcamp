@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class RegularEventUpdateNotifier
-  def call(regular_event)
+  def call(payload)
+    regular_event = payload[:regular_event]
     participants = regular_event.participants
 
     participants.each do |participant|

@@ -186,5 +186,12 @@ module Discord
         end
       end
     end
+
+    test '.find_member_id' do
+      VCR.use_cassette 'discord/server/find_member_id' do
+        actual_discord_id = Discord::Server.find_member_id(member_name: 'mentormentaro')
+        assert_equal '1187928102689574976', actual_discord_id
+      end
+    end
   end
 end

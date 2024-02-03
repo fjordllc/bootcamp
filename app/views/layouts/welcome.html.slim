@@ -32,6 +32,9 @@ html.is-application lang='ja'
         = render 'welcome/welcome_header'
         main.welcome-page
           = yield
-      = render 'welcome/form'
+      - if display_forms?
+        = render 'welcome/form'
+      - else
+        hr.welcome-section__seperator
       = render 'shared/not_logged_in_footer'
     = any_login_here if defined?(AnyLogin)

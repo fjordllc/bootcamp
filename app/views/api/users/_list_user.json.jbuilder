@@ -39,3 +39,8 @@ json.company do
     json.url company_url(user.company)
   end
 end
+
+if user.hibernated?
+  json.hibernated_at l(user.hibernated_at, format: :year_and_date)
+  json.hibernation_elapsed_days user.hibernation_elapsed_days
+end

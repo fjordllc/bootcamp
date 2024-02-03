@@ -17,7 +17,6 @@ import '../unconfirmed-links-open.js'
 import '../comments.js'
 import '../notifications_bell.js'
 import '../category-select.js'
-import '../grass.js'
 import '../fileinput.js'
 import '../reaction.js'
 import '../practice_memo.js'
@@ -35,14 +34,12 @@ import '../courses-practices.js'
 import '../no_learn.js'
 import '../survey_question.js'
 import '../survey.js'
-import '../searchables.js'
 import '../niconico_calendar.js'
 import '../mentor-mode.js'
 import '../bookmark.js'
 import '../agreements.js'
 import '../book-select.js'
 import '../generations.js'
-import '../report_template.js'
 import '../subscription-status.js'
 import '../new-event-date-set.js'
 import '../company-users.js'
@@ -82,6 +79,7 @@ import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import MentorPractices from '../components/mentor-practices.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
+import CourseBooks from '../components/course-books.vue'
 
 import '../stylesheets/application'
 
@@ -107,6 +105,7 @@ mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(MentorPractices)
 mounter.addComponent(ActionCompletedButton)
+mounter.addComponent(CourseBooks)
 mounter.mount()
 
 // Support component names relative to this directory:

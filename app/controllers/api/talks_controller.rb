@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
 class API::TalksController < API::BaseController
-  TARGETS = %w[all student_and_trainee mentor graduate adviser trainee retired].freeze
+  ALLOWED_TARGETS = %w[all student_and_trainee mentor graduate adviser trainee retired].freeze
   PAGER_NUMBER = 20
 
   def index
     @target = params[:target]
-    @target = 'all' unless TARGETS.include?(@target)
     @talks = Talk.joins(:user)
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
+    users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
     @talks =
       if params[:search_word]
-        @talks.merge(
-          User.search_by_keywords({ word: params[:search_word] })
-              .unscope(where: :retired_on)
-              .users_role(@target)
-        )
+        # search_by_keywords内では { unretired } というスコープが設定されている
+        # 退会したユーザーも検索対象に含めたいので、unscope(where: :retired_on) で上記のスコープを削除
+        searched_users = users.search_by_keywords(word: params[:search_word]).unscope(where: :retired_on)
+        # もし検索対象が退会したユーザーである場合、searched_usersには退会していないユーザーも含まれているため、retired スコープを設定する
+        searched_users = searched_users.retired if @target == 'retired'
+        @talks.merge(searched_users)
       else
-        @talks.merge(User.users_role(@target))
+        @talks.merge(users)
               .page(params[:page]).per(PAGER_NUMBER)
       end
   end

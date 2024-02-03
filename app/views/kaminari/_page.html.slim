@@ -6,7 +6,7 @@ ruby:
         end
 - if page.current?
   li.pagination__item.is-active
-    = tag.a page, remote: remote, rel: rel, class: 'pagination__item-link is-active'
+    = tag.a page, remote:, rel:, class: 'pagination__item-link is-active'
 - else
   li.pagination__item
-    = link_to page, url, remote: remote, rel: rel, class: 'pagination__item-link'
+    = link_to page, url, remote:, rel:, class: 'pagination__item-link'

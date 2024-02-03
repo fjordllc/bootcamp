@@ -60,6 +60,19 @@ export default function Product({
             <TimeInfo product={product} elapsedDays={elapsedDays} />
             <CommentInfo product={product} />
           </div>
+          {isMentor && product.checks.size === 0 && (
+            <div className="card-list-item__row is-only-mentor">
+              <div className="card-list-item__assignee">
+                <ProductChecker
+                  checkerId={product.checker_id}
+                  checkerName={product.checker_name}
+                  checkerAvatar={product.checker_avatar}
+                  currentUserId={currentUserId}
+                  productId={product.id}
+                />
+              </div>
+            </div>
+          )}
         </div>
         {product.checks.size > 0 && (
           <div className=" stamp stamp-approve">
@@ -75,17 +88,6 @@ export default function Product({
           </div>
         )}
       </div>
-      {isMentor && product.checks.size === 0 && (
-        <div className="card-list-item__assignee is-only-mentor">
-          <ProductChecker
-            checkerId={product.checker_id}
-            checkerName={product.checker_name}
-            checkerAvatar={product.checker_avatar}
-            currentUserId={currentUserId}
-            productId={product.id}
-          />
-        </div>
-      )}
     </div>
   )
 }
