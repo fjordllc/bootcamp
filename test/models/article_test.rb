@@ -3,12 +3,12 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
-  test 'prepared_thumbnail_url' do
+  test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/assets/articles/thumbnails/default.png', article.prepared_thumbnail_url
   end
 
-  test 'selected_thumbnail_url' do
+  test '#selected_thumbnail_url' do
     article = articles(:article1)
     assert_equal '/ogp/ruby_on_rails.png', article.selected_thumbnail_url
   end
