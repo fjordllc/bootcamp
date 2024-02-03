@@ -119,8 +119,14 @@ class Report < ApplicationRecord
     errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
   end
 
+  VALIDATION_STARTS_YEAR = 2013
+  VALIDATION_STARTS_MONTH = 1
+  VALIDATION_STARTS_DAY = 1
+
   def reported_on_or_after_specific_date
-    errors.add(:reported_on, 'は2013年1月1日以後の日付にしてください') if reported_on < Date.new(2013, 1, 1) # 通常あり得る日付になるよう、スクラムマスター(komagata)により決定
+    errors.add(:reported_on, "は#{VALIDATION_STARTS_YEAR}年#{VALIDATION_STARTS_MONTH}月#{VALIDATION_STARTS_DAY}日以後の日付にしてください") if reported_on < Date.new(
+      VALIDATION_STARTS_YEAR, VALIDATION_STARTS_MONTH, VALIDATION_STARTS_DAY
+    )
   end
 
   def latest_of_user?
