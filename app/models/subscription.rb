@@ -19,7 +19,7 @@ class Subscription
     }
     options[:trial_end] = trial.days.since.to_i if trial.positive?
 
-    Stripe::Subscription.create(options, { idempotency_key: idempotency_key })
+    Stripe::Subscription.create(options, { idempotency_key: })
   end
 
   def destroy(subscription_id)

@@ -635,12 +635,12 @@ class User < ApplicationRecord
   end
 
   def follow(other_user, watch:)
-    active_relationships.create(followed: other_user, watch: watch)
+    active_relationships.create(followed: other_user, watch:)
   end
 
   def change_watching(other_user, watch)
     following = Following.find_by(follower_id: self, followed_id: other_user)
-    following.update(watch: watch)
+    following.update(watch:)
   end
 
   def unfollow(other_user)
@@ -657,7 +657,7 @@ class User < ApplicationRecord
 
   def followees_list(watch: '')
     if %w[true false].include?(watch)
-      followees.includes(:passive_relationships).where(followings: { watch: watch })
+      followees.includes(:passive_relationships).where(followings: { watch: })
     else
       followees
     end

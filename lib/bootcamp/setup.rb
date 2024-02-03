@@ -24,7 +24,7 @@ module Bootcamp
           filename =
             File.exist?(Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{mentor.login_name}.jpg")) ? "#{mentor.login_name}.jpg" : 'default.jpg'
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
-          mentor.profile_image.attach(io: File.open(path), filename: filename)
+          mentor.profile_image.attach(io: File.open(path), filename:)
         end
       end
 
@@ -32,7 +32,7 @@ module Bootcamp
         User.all.find_each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
-          user.avatar.attach(io: File.open(path), filename: filename) if File.exist?(path)
+          user.avatar.attach(io: File.open(path), filename:) if File.exist?(path)
         end
       end
 
@@ -45,7 +45,7 @@ module Bootcamp
             filename = 'default.jpg'
             path = "#{dir}/#{filename}"
           end
-          company.logo.attach(io: File.open(path), filename: filename)
+          company.logo.attach(io: File.open(path), filename:)
         end
       end
 
@@ -53,7 +53,7 @@ module Bootcamp
         Book.order(:created_at).each_with_index do |book, i|
           filename = "#{i + 1}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/books/covers/#{filename}")
-          book.cover.attach(io: File.open(path), filename: filename) if File.exist?(path)
+          book.cover.attach(io: File.open(path), filename:) if File.exist?(path)
         end
       end
 
@@ -61,7 +61,7 @@ module Bootcamp
         AuthoredBook.order(:created_at).each_with_index do |authored_book, i|
           filename = "#{i + 1}.png"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/authored_books/#{filename}")
-          authored_book.cover.attach(io: File.open(path), filename: filename) if File.exist?(path)
+          authored_book.cover.attach(io: File.open(path), filename:) if File.exist?(path)
         end
       end
 
@@ -69,7 +69,7 @@ module Bootcamp
         Practice.order(:created_at).each_with_index do |practice, i|
           filename = "#{i + 1}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/practices/#{filename}")
-          practice.ogp_image.attach(io: File.open(path), filename: filename) if File.exist?(path)
+          practice.ogp_image.attach(io: File.open(path), filename:) if File.exist?(path)
         end
       end
     end
