@@ -562,7 +562,6 @@ class EventsTest < ApplicationSystemTestCase
     Event.destroy_all
     RegularEvent.destroy_all
 
-    # 2017/04/03~05に近日開催イベントを登録中
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth events_path, 'kimura'
 
