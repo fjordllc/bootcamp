@@ -34,7 +34,19 @@
     input:checked + .header-dropdown &
       left: 0
       >*
-        width: var(--global-nav-width-sm)
+  &.is-notification
+    +media-breakpoint-down(sm)
+      left: 0
+  .pill-nav__item-link
+    border-color: var(--base)
+    color: var(--reversal-text)
+
+.header-dropdown__header
+  padding: 1rem 1rem 0
+  +media-breakpoint-up(md)
+    border-bottom: solid 1px var(--border-tint)
+  +media-breakpoint-down(sm)
+    border-bottom: solid 1px var(--main-semi-shade)
 
 .header-dropdown__label
   +text-block(.75rem 1.4, 600)
@@ -78,7 +90,6 @@
   +media-breakpoint-down(sm)
     border-top: solid 1px var(--main-semi-shade)
 
-
 .header-dropdown__footer-link
   +text-block(.875rem 1.4)
   +flex-link
@@ -115,3 +126,23 @@
       opacity: 1
       width: 100%
       display: block
+  &.is-notification
+    +media-breakpoint-down(sm)
+      opacity: 1
+      width: 100%
+
+
+.header-dropdown__page-link-container
+  display: flex
+  align-items: center
+  justify-content: center
+  +size(100% 2.75rem)
+
+.header-dropdown__page-link
+  +text-block(.875rem 1.4)
+  +hover-link-reversal
+  transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    color: var(--main-text)
+  +media-breakpoint-down(sm)
+    color: var(--reversal-text)

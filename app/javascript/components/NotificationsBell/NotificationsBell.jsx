@@ -37,12 +37,12 @@ export default function NotificationsBell() {
   }
 
   return (
-    <div>
+    <>
       <BellButton setShowNotifications={setShowNotifications} />
       {showNotifications && (
-        <div>
+        <>
           <label
-            className="header-dropdown__background"
+            className="header-dropdown__background is-notification"
             onClick={clickOutsideNotifications}></label>
           <div className="header-dropdown__inner is-notification">
             <Header
@@ -58,8 +58,8 @@ export default function NotificationsBell() {
               <Footer notificationsCount={notificationsCount} />
             )}
           </div>
-        </div>
+        </>
       )}
-    </div>
+    </>
   )
 }

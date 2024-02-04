@@ -13,32 +13,32 @@ export default function Header({
   const linkLabel = isUnreadTab ? '全ての未読通知一覧へ' : '全ての通知一覧へ'
 
   return (
-    <header>
-      <nav className="pill-nav">
-        <div className="container">
-          <ul className="pill-nav__items">
-            <li className="pill-nav__item">
-              <div
-                className={`pill-nav__item-link`}
-                onClick={() => {
-                  setTargetStatus('unread')
-                }}>
-                未読
-              </div>
-            </li>
-            <li className="pill-nav__item">
-              <div
-                className={`pill-nav__item-link`}
-                onClick={() => {
-                  setTargetStatus(null)
-                }}>
-                全て
-              </div>
-            </li>
-          </ul>
-        </div>
+    <header className='header-dropdown__header'>
+      <nav className="pill-nav is-half">
+        <ul className="pill-nav__items">
+          <li className="pill-nav__item">
+            <div
+              className={`pill-nav__item-link w-full`}
+              onClick={() => {
+                setTargetStatus('unread')
+              }}>
+              未読
+            </div>
+          </li>
+          <li className="pill-nav__item">
+            <div
+              className={`pill-nav__item-link w-full`}
+              onClick={() => {
+                setTargetStatus(null)
+              }}>
+              全て
+            </div>
+          </li>
+        </ul>
       </nav>
-      {notificationsCount > 0 && <a href={notificationsUrl}>{linkLabel}</a>}
+      <div className='header-dropdown__page-link-container'>
+        {notificationsCount > 0 && <a href={notificationsUrl} className="header-dropdown__page-link">{linkLabel}</a>}
+      </div>
     </header>
   )
 }
