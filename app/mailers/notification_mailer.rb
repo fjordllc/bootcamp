@@ -25,16 +25,16 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(link: @mentionable.path)
     subject = "[FBC] #{@mentionable.where_mention}で#{@mentionable.sender.login_name}さんからメンションがありました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: check
   def checked
     @user = @check.receiver
     link = "/#{@check.checkable_type.downcase.pluralize}/#{@check.checkable.id}"
-    @notification = @user.notifications.find_by(link: link)
+    @notification = @user.notifications.find_by(link:)
     subject = "[FBC] #{@user.login_name}さんの#{@check.checkable.title}を確認しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: sender, receiver
@@ -42,7 +42,7 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/users/#{@sender.id}")
     subject = "[FBC] #{@sender.login_name}さんが退会しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: report, receiver
@@ -50,7 +50,7 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/reports/#{@report.id}")
     subject = "[FBC] #{@report.user.login_name}さんが日報【 #{@report.title} 】を書きました！"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 
   # required params: page, receiver
@@ -58,6 +58,6 @@ class NotificationMailer < ApplicationMailer
     @user = @receiver
     @notification = @user.notifications.find_by(link: "/pages/#{@page.id}")
     subject = "[FBC] #{@page.user.login_name}さんがDocsに#{@page.title}を投稿しました。"
-    mail to: @user.email, subject: subject
+    mail to: @user.email, subject:
   end
 end
