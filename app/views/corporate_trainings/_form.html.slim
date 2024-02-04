@@ -1,0 +1,52 @@
+= form_with model: corporate_training, url: corporate_training_path, method: :post, local: true do |f|
+  = render 'errors', object: corporate_training
+  .form__items
+    .form-item
+      = f.label :name, class: 'a-form-label is-required'
+      = f.text_field :name, class: 'a-text-input'
+    .form-item
+      = f.label :company_name, class: 'a-form-label is-required'
+      = f.text_field :company_name, class: 'a-text-input'
+    .form-item
+      = f.label :email, class: 'a-form-label is-required'
+      = f.email_field :email, class: 'a-text-input'
+    .form__items-inner
+      .form-item
+        = f.label :meeting_dates, class: 'a-form-label is-required'
+        .form-item
+          = f.label :meeting_date1, class: 'a-form-label'
+          = f.datetime_field :meeting_date1
+        .form-item
+          = f.label :meeting_date2, class: 'a-form-label'
+          = f.datetime_field :meeting_date2
+        .form-item
+          = f.label :meeting_date3, class: 'a-form-label'
+          = f.datetime_field :meeting_date3
+      .form-item
+        = f.label :participants_count, class: 'a-form-label is-required'
+        = f.number_field :participants_count, min: 1, max: 10000, placeholder: 1
+    .form-item
+      = f.label :training_duration, class: 'a-form-label is-required'
+      = f.text_field :training_duration, class: 'a-text-input'
+    .form-item
+      = f.label :how_did_you_hear, class: 'a-form-label is-required'
+      = f.text_field :how_did_you_hear, class: 'a-text-input'
+    .form-item
+      = f.label :additional_information, class: 'a-form-label'
+      = f.text_area :additional_information, class: 'a-text-input is-md'
+    .form-item
+      .a-form-label
+        | 個人情報の取り扱いについて
+      label.form-item__one-checkbox.a-checkbox
+        = f.check_box :privacy_policy
+        span
+          | 下記の個人情報の取り扱いに同意する
+      .a-form-frame.form-item__pp
+        = render('pp')
+
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          = f.submit '送信', class: 'a-button is-lg is-primary is-block'
+
+  = recaptcha_v3(action: 'corporate_training', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?
