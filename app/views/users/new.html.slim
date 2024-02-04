@@ -14,11 +14,13 @@
       h1.auth-form__title
         = title
     .auth-form__body
-      .auth-form__description
-        p
-          | 法人研修でご利用の方は
-          = link_to 'こちら', new_inquiry_path, class: 'auth-form__description-link'
-          | からお問い合わせください。
+      .form-item
+        .form-notice
+          p
+            | 法人研修でのご利用については、
+            = link_to new_inquiry_path do
+              | こちらのお問い合わせフォーム
+            | からご連絡ください。
       - if !@user.adviser? && Campaign.today_campaign?
         = render 'checked_campaign'
       = render 'form', from: :new, url: users_path, user: @user
