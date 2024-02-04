@@ -13,16 +13,16 @@
         = f.text_field :capacity, class: 'a-text-input js-warning-form', placeholder: '100'
       .form-item
         = f.label :start_at, class: 'a-form-label'
-        = f.datetime_field :start_at, class: 'a-text-input js-warning-form'
+        = f.datetime_field :start_at, class: 'a-text-input js-warning-form', step: 1
       .form-item
         = f.label :end_at, class: 'a-form-label'
-        = f.datetime_field :end_at, class: 'a-text-input js-warning-form'
+        = f.datetime_field :end_at, class: 'a-text-input js-warning-form', step: 1
       .form-item
         = f.label :open_start_at, class: 'a-form-label'
-        = f.datetime_field :open_start_at, class: 'a-text-input js-warning-form'
+        = f.datetime_field :open_start_at, class: 'a-text-input js-warning-form', step: 1
       .form-item
         = f.label :open_end_at, class: 'a-form-label'
-        = f.datetime_field :open_end_at, class: 'a-text-input js-warning-form'
+        = f.datetime_field :open_end_at, class: 'a-text-input js-warning-form', step: 1
       .form-item
         label.a-form-label
           | イベント内容
