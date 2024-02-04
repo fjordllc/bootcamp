@@ -15,40 +15,34 @@ export default function Events() {
   if (error) return <>エラーが発生しました。</>
   if (!data) {
     return (
-      <div className="page-body">
-        <div className="container is-md">
-          <LoadingListPlaceholder />
-        </div>
-      </div>
+      <LoadingListPlaceholder />
     )
   }
 
   return (
-    <div className="page-body">
-      <div className="container is-md">
-        {data.total_pages > 1 && (
-          <Pagination
-            sum={data.total_pages * per}
-            per={per}
-            page={page}
-            setPage={setPage}
-          />
-        )}
-        <ul className="card-list a-card">
-          {data.events.map((event) => {
-            return <Event event={event} key={event.id} />
-          })}
-        </ul>
-        {data.total_pages > 1 && (
-          <Pagination
-            sum={data.total_pages * per}
-            per={per}
-            page={page}
-            setPage={setPage}
-          />
-        )}
-      </div>
-    </div>
+    <>
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          page={page}
+          setPage={setPage}
+        />
+      )}
+      <ul className="card-list a-card">
+        {data.events.map((event) => {
+          return <Event event={event} key={event.id} />
+        })}
+      </ul>
+      {data.total_pages > 1 && (
+        <Pagination
+          sum={data.total_pages * per}
+          per={per}
+          page={page}
+          setPage={setPage}
+        />
+      )}
+    </>
   )
 }
 

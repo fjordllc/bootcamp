@@ -19,6 +19,8 @@
                   i.fa-regular.fa-plus
                   | 特別イベント作成
   hr.a-border
-  = react_component 'Events'
-.upcoming_events_list
-  = render partial: 'upcoming_events/index', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
+  .page-body
+    .page-body__inner.has-side-nav
+      .container.is-md
+        = react_component 'Events'
+        = render partial: 'upcoming_events/index', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
