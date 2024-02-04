@@ -18,7 +18,7 @@
                     .card-list-item-meta__item.a-placeholder
         .sns-links
           .sns-links__items.is-button-group.a-placeholder
-        .card-counts.mt-3
+        .card-counts.is-users.mt-3
           .card-counts__items
             .card-counts__item
               .card-counts__item-inner.a-placeholder
