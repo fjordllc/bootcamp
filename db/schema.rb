@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_20_101451) do
+ActiveRecord::Schema.define(version: 2024_01_26_180444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -189,6 +189,21 @@ ActiveRecord::Schema.define(version: 2023_11_20_101451) do
     t.datetime "updated_at"
     t.text "tos"
     t.string "blog_url"
+  end
+
+  create_table "corporate_trainings", force: :cascade do |t|
+    t.string "company_name"
+    t.string "name"
+    t.string "email"
+    t.datetime "meeting_date1"
+    t.datetime "meeting_date2"
+    t.datetime "meeting_date3"
+    t.integer "participants_count"
+    t.string "training_duration"
+    t.string "how_did_you_hear"
+    t.text "additional_information"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "courses", force: :cascade do |t|
