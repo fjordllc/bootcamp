@@ -1,3 +1,10 @@
+.card-counts
+  &.is-user
+    +media-breakpoint-up(md)
+      margin-bottom: 2rem
+    +media-breakpoint-down(sm)
+      margin-bottom: 1.25rem
+
 .card-counts__items
   display: flex
   gap: .5rem
@@ -7,29 +14,46 @@
   flex: 0 0 calc((100% - (.5rem * (#{$one-line-items-count} - 1))) / $one-line-items-count)
 
 .card-counts__item
-  +media-breakpoint-up(xxl)
-    +nowrap-items(5)
-  +media-breakpoint-only(xl)
-    +nowrap-items(4)
-  +media-breakpoint-only(lg)
-    +nowrap-items(3)
-  +media-breakpoint-only(md)
-    +nowrap-items(4)
-  +media-breakpoint-down(sm)
-    +nowrap-items(3)
+  background-color: var(--base)
+  .is-users &
+    +media-breakpoint-up(xxl)
+      +nowrap-items(5)
+    +media-breakpoint-only(xl)
+      +nowrap-items(4)
+    +media-breakpoint-only(lg)
+      +nowrap-items(3)
+    +media-breakpoint-only(md)
+      +nowrap-items(4)
+    +media-breakpoint-down(sm)
+      +nowrap-items(3)
+  .is-user &
+    +media-breakpoint-up(xxl)
+      +nowrap-items(5)
+    +media-breakpoint-only(xl)
+      +nowrap-items(5)
+    +media-breakpoint-only(lg)
+      +nowrap-items(4)
+    +media-breakpoint-only(md)
+      +nowrap-items(5)
+    +media-breakpoint-down(sm)
+      +nowrap-items(4)
 
 .card-counts__item-inner
-  border: solid 1px var(--border-tint)
+  border: solid 1px var(--border)
   border-radius: 3px
 
 .card-counts__item-label
   +text-block(.625rem 1.4, center)
   color: var(--semi-muted-text)
   padding-block: .125rem
-  border-bottom: solid 1px var(--border-tint)
+  border-bottom: solid 1px var(--border)
 
 .card-counts__item-value
   +text-block(.875rem 1.4, center)
   padding-bottom: .125rem
   &.is-empty
     color: var(--muted-text)
+  a
+    +hover-link
+    display: block
+    color: var(--default-text)
