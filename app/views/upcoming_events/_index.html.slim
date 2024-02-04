@@ -1,12 +1,14 @@
-div
-  header
-    h2
-      | 近日開催のイベント
-  div
-    - { '今日': @today_events, '明日': @tomorrow_events, '明後日': @day_after_tomorrow_events }.each_with_index do |(day_label, events), index|
-      = render partial: 'upcoming_events/events_rows', locals: { day_label: day_label, events: events, holding_date: Time.zone.today + index.days }
+.a-side-nav.upcoming_events_list
+  .a-side-nav__inner
+    header.a-side-nav__header
+      h2.a-side-nav__title
+        | 近日開催のイベント
+    hr.a-border
+    .a-side-nav__body
+      - { '今日': @today_events, '明日': @tomorrow_events, '明後日': @day_after_tomorrow_events }.each_with_index do |(day_label, events), index|
+        = render partial: 'upcoming_events/events_rows', locals: { day_label: day_label, events: events, holding_date: Time.zone.today + index.days }
 
-  hr
-  footer
-    div
-      = link_to '全てのイベント（参加登録はこちらから）', events_path
+    hr.a-border
+    footer.a-side-nav__footer
+      = link_to events_path, class: 'a-side-nav__footer-link' do
+        | 全てのイベント（参加登録はこちらから）

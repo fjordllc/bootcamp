@@ -1,25 +1,26 @@
-div
-  div
-    span
-      | 特別<br>イベント
-  div
-    div
-      header
-        h2
-          = link_to special_event do
-            - if special_event.participants.include?(current_user)
+.a-side-nav__item
+  = link_to special_event, class: 'a-side-nav__item-link has-metas' do
+    .a-side-nav__item-link-inner
+      div
+        span
+          | 特別<br>イベント
+      div
+        div
+          header
+            h2
+              - if special_event.participants.include?(current_user)
+                span
+                  | 参加
               span
-                | 参加
-            span
-              = special_event.title
-    div
-      div
-        time
-          span
-            | 開催日時
-          span
-            = l special_event.start_at
-      div
-        - if special_event.job_hunting?
-          span
-            | 就活関連イベント
+                = special_event.title
+        div
+          div
+            time
+              span
+                | 開催日時
+              span
+                = l special_event.start_at
+          div
+            - if special_event.job_hunting?
+              span
+                | 就活関連イベント
