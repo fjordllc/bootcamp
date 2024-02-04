@@ -184,6 +184,19 @@ ja:
         email: メールアドレス
         body: 内容
         privacy_policy: 個人情報の取り扱い
+      corporate_training:
+        name: 名前
+        company_name: 企業名
+        email: メールアドレス
+        meeting_dates: 研修打ち合わせ希望日時
+        meeting_date1: 第1希望
+        meeting_date2: 第2希望
+        meeting_date3: 第3希望
+        participants_count: 参加人数
+        training_duration: 研修期間
+        how_did_you_hear: どこでフィヨルドブートキャンプを知りましたか？
+        additional_information: その他伝えておきたいこと
+        privacy_policy: 個人情報の取り扱い
       article:
         title: タイトル
         body: 本文
