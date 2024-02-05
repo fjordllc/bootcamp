@@ -35,7 +35,6 @@ header.page-header
             = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
               | コース一覧
 = render 'courses/tabs'
-hr.a-border
 .page-body.js-users-visibility
   .container.is-xl
     #js-courses-practices(course-id="#{@course.id}")
