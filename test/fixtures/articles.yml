@@ -4,6 +4,7 @@ article1:
   user: komagata
   wip: false
   published_at: "2022-01-01 00:00:00"
+  token: nil
 
 article2:
   title: タイトル２
@@ -11,9 +12,11 @@ article2:
   user: machida
   wip: false
   published_at: "2022-01-02 00:00:00"
+  token: nil
 
 article3:
   title: タイトル３
   body: 本文３
   user: komagata
   wip: true
+  token: abcdef123456

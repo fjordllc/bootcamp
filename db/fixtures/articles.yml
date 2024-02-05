@@ -20,6 +20,7 @@ article1:
   user: komagata
   wip: false
   published_at: "2022-01-01 00:00:00"
+  token: nil
 
 article2:
   title: Debian用の仮想マシンを作ろう
@@ -45,6 +46,7 @@ article2:
   user: machida
   wip: false
   published_at: "2022-01-02 00:00:00"
+  token: nil
 
 article3:
   title: 仮想マシンにDebianをインストールしよう
@@ -55,6 +57,7 @@ article3:
     物理マシンでしたらインストールCD（やUSB）をマシンに入れてインストールしますが、仮想マシンの場合は、仮想のCDドライブにCDイメージをセットしてインストールします。
   user: komagata
   wip: true
+  token: abcdef123456
 
 article4:
   title: Debianでzshを使う
@@ -78,6 +81,7 @@ article4:
   user: komagata
   wip: true
   published_at: "2022-04-04 00:00:00"
+  token: abcdef123456
 
 <% (5..20).each do |id| %>
 article<%= id %>:
@@ -87,4 +91,5 @@ article<%= id %>:
   user: komagata
   wip: false
   published_at: "2022-03-14 00:00:00"
+  token: nil
 <% end %>
