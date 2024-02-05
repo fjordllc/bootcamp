@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
     set_wip
     update_published_at
     if @product.update(product_params)
-      Newspaper.publish(:product_update, { product: @product, current_user: current_user })
+      Newspaper.publish(:product_update, { product: @product, current_user: })
       Newspaper.publish(:product_save, { product: @product })
       notice_another_mentor_assigned_as_checker
       redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)

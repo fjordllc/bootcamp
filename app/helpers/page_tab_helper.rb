@@ -36,10 +36,10 @@ module PageTabHelper
 
   def page_tab_member(path, tab_name, is_products_tab: false)
     {
-      path: path,
+      path:,
       target_name: tab_name.to_s,
       display_name: display_tab_name(tab_name),
-      is_products_tab: is_products_tab
+      is_products_tab:
     }
   end
 
