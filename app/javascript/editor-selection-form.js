@@ -4,10 +4,8 @@ const toggleTextbox = document.getElementById('toggle-textbox')
 const form = document.getElementById('payment-form')
 
 function onChangeFunc() {
-  if (othersEditorRadio.checked) {
-    toggleTextbox.style.display = 'block'
-  } else {
-    toggleTextbox.style.display = 'none'
+  if (othersEditorRadio) {
+    toggleTextbox.style.display = othersEditorRadio.checked ? 'block' : 'none'
   }
 }
 
@@ -19,8 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 })
 
-form.addEventListener('submit', function () {
-  if (othersEditorRadio.checked) {
+if (form) {
+  form.addEventListener('submit', handleFormSubmit)
+}
+
+function handleFormSubmit() {
+  if (othersEditorRadio && othersEditorRadio.checked) {
     const othersEditorValue = othersEditorInput.value
     const hiddenInput = document.createElement('input')
     Object.assign(hiddenInput, {
@@ -31,4 +33,4 @@ form.addEventListener('submit', function () {
 
     form.appendChild(hiddenInput)
   }
-})
+}
