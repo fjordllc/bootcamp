@@ -17,7 +17,7 @@ class AnswerTest < ActiveSupport::TestCase
     answer = Answer.create!(
       description: '最後の回答',
       user: answerer,
-      question: question,
+      question:,
       created_at: '2022-10-31',
       updated_at: '2022-10-31'
     )
