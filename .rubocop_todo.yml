@@ -11,15 +11,3 @@
 # Configuration parameters: EnforcedStyle, EnforcedShorthandSyntax, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
 # SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
 # SupportedShorthandSyntax: always, never, either, consistent
-Style/HashSyntax:
-  Exclude:
-    - 'test/deliveries/activity_delivery_test.rb'
-    - 'test/mailers/activity_mailer_test.rb'
-    - 'test/mailers/notification_mailer_test.rb'
-    - 'test/mailers/previews/activity_mailer_preview.rb'
-    - 'test/mailers/previews/notification_mailer_preview.rb'
-    - 'test/models/answer_test.rb'
-    - 'test/models/bookmark_test.rb'
-    - 'test/models/category_test.rb'
-    - 'test/models/discord/times_channel_test.rb'
-    - 'test/models/event_test.rb'
