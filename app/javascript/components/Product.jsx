@@ -245,7 +245,7 @@ const TrainingEndInfo = ({ product }) => {
 
   return (
     <div>
-      {trainingEndsOn ? (
+      {product.user.training_ends_on ? (
         <time className="a-meta" dateTime={formattedDate(trainingEndsOn)}>
           <span className="a-meta__label">研修終了日</span>
           <span className="a-meta__value">{formattedDate(trainingEndsOn)}</span>
@@ -265,10 +265,10 @@ const TrainingEndInfo = ({ product }) => {
           )}
         </time>
       ) : (
-        <>
+        <div className="a-meta">
           <span className="a-meta__label">研修終了日</span>
           <span className="a-meta__value">未入力</span>
-        </>
+        </div>
       )}
     </div>
   )
