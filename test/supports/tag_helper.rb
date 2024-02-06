@@ -27,6 +27,6 @@ module TagHelper
       WHERE
         taggings.taggable_type = :taggable_name
     SQL
-    ActsAsTaggableOn::Tag.find_by_sql([sql, { taggable_name: taggable_name }]).pluck(:name).sort
+    ActsAsTaggableOn::Tag.find_by_sql([sql, { taggable_name: }]).pluck(:name).sort
   end
 end
