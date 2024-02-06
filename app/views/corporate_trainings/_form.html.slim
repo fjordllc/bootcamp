@@ -24,7 +24,7 @@
           = f.datetime_field :meeting_date3
       .form-item
         = f.label :participants_count, class: 'a-form-label is-required'
-        = f.number_field :participants_count, min: 1, max: 10000, placeholder: 1
+        = f.number_field :participants_count, min: 1, max: 10_000, placeholder: 1
     .form-item
       = f.label :training_duration, class: 'a-form-label is-required'
       = f.text_field :training_duration, class: 'a-text-input'
