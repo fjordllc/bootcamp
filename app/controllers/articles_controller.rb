@@ -17,7 +17,8 @@ class ArticlesController < ApplicationController
     if !@article.wip? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'welcome'
     else
-      redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
+      message = params[:token].nil? ? '管理者・メンターとしてログインしてください' : 'token が一致しませんでした'
+      redirect_to root_path, alert: message
     end
   end
 
