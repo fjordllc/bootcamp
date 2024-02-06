@@ -11,7 +11,7 @@
         h2.works-item__title
           = link_to work.title, work, class: 'works-item__title-link'
         .works-item__icon
-          = link_to user_path(work.user), class: 'a-user-icons__item-link' do
+          = link_to user_path(work.user) do
             span class="a-user-role is-#{work.user.primary_role}"
               = image_tag work.user.avatar_url, title: work.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
         .works-item__user
