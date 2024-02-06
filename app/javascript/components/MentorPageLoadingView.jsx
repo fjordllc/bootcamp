@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MentorPageLoadingView = ({ rows, columns }) => {
+const MentorPageLoadingView = ({ columns, rows }) => {
   const renderTableLabels = () => (
     <thead className="admin-table__header">
       <tr className="admin-table__labels">
