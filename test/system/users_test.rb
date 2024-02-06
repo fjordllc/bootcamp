@@ -327,7 +327,7 @@ class UsersTest < ApplicationSystemTestCase
     user = users(:kensyu)
     visit_with_auth user_path(user.id), 'kensyu'
     assert has_text?('研修終了日')
-    assert has_text?('2022年04月01日')
+    assert has_text?((Time.current + 100.days).strftime('%Y年%m月%d日'))
   end
 
   test 'does not display training end date if user is a trainee and not has a training end date' do
