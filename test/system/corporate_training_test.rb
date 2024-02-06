@@ -26,7 +26,7 @@ class CorporateTrainingTest < ApplicationSystemTestCase
     fill_in '第1希望', with: '002030-01-01-08:00'
     fill_in '第2希望', with: '002030-01-02-10:00'
     fill_in '第3希望', with: '002030-01-03-12:00'
-    fill_in '参加人数', with: 10
+    fill_in '参加人数', with: '10'
     fill_in '研修期間', with: '1ヶ月'
     fill_in 'どこでフィヨルドブートキャンプを知りましたか？', with: 'インターネットで知った'
     fill_in 'その他伝えておきたいこと', with: 'よろしくお願いします。'
