@@ -250,6 +250,7 @@ const TrainingEndInfo = ({ product }) => {
           <span className="a-meta__label">研修終了日</span>
           <span className="a-meta__value">{formattedDate(trainingEndsOn)}</span>
           {trainingRemainingDays === 0 ? (
+            // 赤く表示する
             <span className="a-meta__value">（本日研修最終日）</span>
           ) : trainingRemainingDays < 0 ? (
             <span className="a-meta__value">（研修終了済み）</span>
