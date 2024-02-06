@@ -2,13 +2,13 @@ import React from 'react'
 import MentorPageLoadingView from './MentorPageLoadingView'
 
 const LoadingMentorPageCategoriesPlaceholder = () => {
-  const rowsForCategories = 12
   const columnsForCategories = 3
+  const rowsForCategories = 12
 
   return (
     <MentorPageLoadingView
-      rows={rowsForCategories}
       columns={columnsForCategories}
+      rows={rowsForCategories}
     />
   )
 }
