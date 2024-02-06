@@ -194,3 +194,31 @@ product77:
   checker: mentormentaro
   published_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
   created_at: <%= (now - 60 * 60 * 24 * 5).to_formatted_s(:db) %>
+
+product78:
+  practice: practice1
+  user: kensyu-end-within-24-hour
+  body: 24時間以内に研修終了するユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product79:
+  practice: practice1
+  user: kensyu-end-within-1-week
+  body: 1週間以内に研修終了するユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product80:
+  practice: practice1
+  user: kensyu-end-over-1-week
+  body: 研修終了まで1週間以上のユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>
+
+product81:
+  practice: practice1
+  user: kensyu-not-setting-end-date
+  body: 研修終了日が未入力のユーザーの提出物です。
+  published_at: <%= now.to_formatted_s(:db) %>
+  created_at: <%= now.to_formatted_s(:db) %>

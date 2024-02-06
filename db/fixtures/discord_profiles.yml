@@ -58,6 +58,26 @@ discord_profile_kensyu:
   account_name: kensyu3333
   times_url: https://discord.com/channels/715806612824260640/123456789000000011
 
+discord_profile_kensyu-end-within-24-hour:
+  user: kensyu-end-within-24-hour
+  account_name: kensyu-end-within-24-hour
+  times_url:
+
+discord_profile_kensyu-end-within-1-week:
+  user: kensyu-end-within-1-week
+  account_name: kensyu-end-within-1-week
+  times_url:
+
+discord_profile_kensyu-end-over-1-week:
+  user: kensyu-end-over-1-week
+  account_name: kensyu-end-over-1-week
+  times_url:
+
+discord_profile_kensyu-not-setting-end-date:
+  user: kensyu-not-setting-end-date
+  account_name: kensyu-not-setting-end-date
+  times_url:
+
 discord_profile_senpai:
   user: senpai
   account_name: senpai4444
