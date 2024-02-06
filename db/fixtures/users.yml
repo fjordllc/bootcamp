@@ -301,6 +301,113 @@ kensyu:
   last_activity_at: "2014-01-01 00:00:11"
   training_ends_on: <%= Time.current.next_year %>
 
+kensyu-end-within-24-hour:
+  login_name: kensyu-end-within-24-hour
+  email: kensyu-end-within-24-hour@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: kensyu-end-within-24-hour
+  name_kana: 研修終了まで24時間以内のユーザー
+  github_account: kensyu-end-within-24-hour
+  twitter_account: kensyu-end-within-24-hour
+  facebook_url: https://www.facebook.com/fjordllc/kensyu-end-within-24-hour
+  blog_url: http://kensyu-end-within-24-hour.org
+  company: company2
+  description: "24時間以内に研修終了するユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 研修大学
+  trainee: true
+  free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:11"
+  training_ends_on: <%= Time.current + 23.hours %>
+
+kensyu-end-within-1-week:
+  login_name: kensyu-end-within-1-week
+  email: kensyu-end-within-1-week@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: kensyu-end-within-1-week
+  name_kana: 研修終了まで1週間以内のユーザー
+  github_account: kensyu-end-within-1-week
+  twitter_account: kensyu-end-within-1-week
+  facebook_url: https://www.facebook.com/fjordllc/kensyu-end-within-1-week
+  blog_url: http://kensyu-end-within-1-week.org
+  company: company2
+  description: "1週間以内に研修終了するユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 研修大学
+  trainee: true
+  free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:11"
+  training_ends_on: <%= Time.current + 6.days %>
+
+kensyu-end-over-1-week:
+  login_name: kensyu-end-over-1-week
+  email: kensyu-end-over-1-week@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: kensyu-end-over-1-week
+  name_kana: 研修終了まで1週間以上のユーザー
+  github_account: kensyu-end-over-1-week
+  twitter_account: kensyu-end-over-1-week
+  facebook_url: https://www.facebook.com/fjordllc/kensyu-end-over-1-week
+  blog_url: http://kensyu-end-over-1-week.org
+  company: company2
+  description: "研修終了まで1週間以上のユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: rails
+  organization: 研修大学
+  trainee: true
+  free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:11"
+  training_ends_on: <%= Time.current + 3.months %>
+
+kensyu-not-setting-end-date:
+  login_name: kensyu-not-setting-end-date
+  email: kensyu-not-setting-end-date@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: kensyu-not-setting-end-date
+  name_kana: 研修終了日が未入力のユーザー
+  github_account: kensyu-not-setting-end-date
+  twitter_account: kensyu-not-setting-end-date
+  facebook_url: https://www.facebook.com/fjordllc/kensyu-not-setting-end-date
+  blog_url: http://kensyu-not-setting-end-date.org
+  company: company2
+  description: "研修終了日が未入力のユーザーです。"
+  course: course1
+  job: office_workerkensyu-end-within-24-hour
+  os: mac
+  experience: rails
+  organization: 研修大学
+  trainee: true
+  free: true
+  unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
+  updated_at: "2014-01-01 00:00:11"
+  created_at: "2014-01-01 00:00:11"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:11"
+
 senpai:
   login_name: senpai
   email: senpai@fjord.jp
