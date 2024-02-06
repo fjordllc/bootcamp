@@ -1,7 +1,7 @@
 import React from 'react'
 import MentorPageLoadingView from './MentorPageLoadingView'
 
-const LoadingMentorPageCategiesPlaceholder = () => {
+const LoadingMentorPageCategoriesPlaceholder = () => {
   const rowsForCategories = 12
   const columnsForCategories = 3
 
@@ -13,4 +13,4 @@ const LoadingMentorPageCategiesPlaceholder = () => {
   )
 }
 
-export default LoadingMentorPageCategiesPlaceholder
+export default LoadingMentorPageCategoriesPlaceholder
