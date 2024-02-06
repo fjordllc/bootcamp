@@ -132,7 +132,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     click_button 'アドバイザー登録'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-    assert User.find_by(email: email).adviser?
+    assert User.find_by(email:).adviser?
   end
 
   test 'sign up as trainee' do
@@ -161,7 +161,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     click_button '参加する'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-    assert User.find_by(email: email).trainee?
+    assert User.find_by(email:).trainee?
   end
 
   test 'form item about job seek is only displayed to students' do
@@ -217,7 +217,7 @@ class SignUpTest < ApplicationSystemTestCase
 
     click_button 'アドバイザー登録'
     assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-    assert_equal User.find_by(email: email).company_id, companies(:company2).id
+    assert_equal User.find_by(email:).company_id, companies(:company2).id
   end
 
   test 'sign up as trainee with course_id' do
@@ -246,7 +246,7 @@ class SignUpTest < ApplicationSystemTestCase
     end
 
     click_button '参加する'
-    assert_equal User.find_by(email: email).course_id, course.id
+    assert_equal User.find_by(email:).course_id, course.id
   end
 
   test 'sign up with empty description ' do
@@ -301,7 +301,7 @@ class SignUpTest < ApplicationSystemTestCase
     VCR.use_cassette 'sign_up/tag', record: :once, match_requests_on: %i[method uri] do
       click_button '参加する'
       assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
-      user = User.find_by(email: email)
+      user = User.find_by(email:)
       visit_with_auth user_path(user), 'taguo'
       assert_text 'タグ夫'
     end

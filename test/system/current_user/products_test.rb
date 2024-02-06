@@ -12,10 +12,10 @@ class CurrentUser::ProductsTest < ApplicationSystemTestCase
     user = users(:with_hyphen)
 
     # id順で並べたときの最初と最後の提出物を、作成日順で見たときに最新と最古になるように入れ替える
-    Product.where(user: user).update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
-    newest_product = Product.where(user: user).first
+    Product.where(user:).update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
+    newest_product = Product.where(user:).first
     newest_product.update(created_at: Time.current)
-    oldest_product = Product.where(user: user).last
+    oldest_product = Product.where(user:).last
     oldest_product.update(created_at: 2.days.ago)
 
     visit_with_auth '/current_user/products', user.login_name
