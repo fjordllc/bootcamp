@@ -7,7 +7,7 @@ class WorksController < ApplicationController
 
   def index
     @works = Work.with_attached_thumbnail
-                 .eager_load(:user)
+                 .includes(:user)
                  .order(updated_at: :desc)
                  .page(params[:page])
                  .per(PAGER_NUMBER)
