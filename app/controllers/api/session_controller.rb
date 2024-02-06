@@ -9,7 +9,7 @@ class API::SessionController < API::BaseController
     user = User.authenticate(params[:login_name], params[:password])
     if user
       token = User.issue_token(id: user.id, email: user.email)
-      render json: { token: token }
+      render json: { token: }
     else
       head :bad_request
     end
