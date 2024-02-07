@@ -23,7 +23,10 @@ class API::ChecksController < API::BaseController
   end
 
   def destroy
-    @check = Check.find(params[:id]).destroy
+    @check = Check.find(params[:id])
+    @check.destroy
+    Newspaper.publish(:check_cancel, { check: @check })
+
     head :no_content
   end
 

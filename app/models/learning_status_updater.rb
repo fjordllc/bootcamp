@@ -7,7 +7,7 @@ class LearningStatusUpdater
     when Product
       update_after_submission(product_or_associated_object)
     when Check
-      update_after_check(product_or_associated_object)
+      Check.exists?(product_or_associated_object.id) ? update_after_check(product_or_associated_object) : update_after_cancel_check(product_or_associated_object)
     end
   end
 
@@ -15,6 +15,12 @@ class LearningStatusUpdater
     return unless check.checkable_type == 'Product'
 
     check.checkable.change_learning_status(:complete)
+  end
+
+  def update_after_cancel_check(check)
+    return unless check.checkable_type == 'Product'
+
+    check.checkable.change_learning_status(:submitted)
   end
 
   def update_after_submission(product)
