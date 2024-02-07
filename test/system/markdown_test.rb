@@ -13,6 +13,7 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_css '.a-long-text.is-md.js-markdown-view'
     assert_css '.speak'
     assert_css "a[href='/users/mentormentaro']"
+    assert_includes find('.js-user-icon.a-user-emoji')['title'], '@mentormentaro'
     assert_includes find('.js-user-icon.a-user-emoji')['data-user'], 'mentormentaro'
   end
 
