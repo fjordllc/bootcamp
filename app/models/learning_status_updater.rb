@@ -7,7 +7,11 @@ class LearningStatusUpdater
     when Product
       update_after_submission(product_or_associated_object)
     when Check
-      Check.exists?(product_or_associated_object.id) ? update_after_check(product_or_associated_object) : update_after_cancel_check(product_or_associated_object)
+      if Check.exists?(product_or_associated_object.id)
+        update_after_check(product_or_associated_object)
+      else
+        update_after_cancel_check(product_or_associated_object)
+      end
     end
   end
 
