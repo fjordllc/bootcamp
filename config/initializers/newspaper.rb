@@ -41,6 +41,7 @@ Rails.configuration.to_prepare do
   learning_status_updater = LearningStatusUpdater.new
   Newspaper.subscribe(:check_create, learning_status_updater)
   Newspaper.subscribe(:product_save, learning_status_updater)
+  Newspaper.subscribe(:check_cancel, learning_status_updater)
 
   page_notifier = PageNotifier.new
   Newspaper.subscribe(:page_create, page_notifier)
