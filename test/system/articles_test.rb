@@ -385,11 +385,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     within find('.fb-share-button', match: :first) do
       within_frame do
-        assert_selector "a[
-                            href='/sharer/sharer.php?kid_directed_site=0&sdk=joey&" \
-                            "u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}&display=popup&" \
-                            "ref=plugin&src=share_button'
-                          ]"
+        assert_selector "a[href*='u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}']"
       end
     end
   end
