@@ -39,13 +39,13 @@ class ReportNotifier
 
   def notify_consecutive_sad_report(report)
     User.mentor.each do |receiver|
-      ActivityDelivery.with(report: report, receiver: receiver).notify(:consecutive_sad_report)
+      ActivityDelivery.with(report:, receiver:).notify(:consecutive_sad_report)
     end
   end
 
   def notify_followers(report)
     report.user.followers.each do |follower|
-      ActivityDelivery.with(sender: report.user, receiver: follower, report: report).notify(:following_report)
+      ActivityDelivery.with(sender: report.user, receiver: follower, report:).notify(:following_report)
       create_following_watch(report, follower) if follower.watching?(report.user)
     end
   end
