@@ -1,18 +1,39 @@
 .welcome-section
   +position(relative)
+  padding-block: 3rem
+
+.welcome-section__inner
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 1.25rem
 
 .welcome-section__seperator
   border-top: solid 1px var(--border)
 
+.welcome-section__header
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 1rem
+
 .welcome-section__title
-  color: var(--default-text)
+  color: var(--main)
+  text-align: center
   +media-breakpoint-up(md)
-    +text-block(1.875rem 1.45 0 .3em, 700)
+    +text-block(2rem 2.5rem, 700)
   +media-breakpoint-down(sm)
-    +text-block(1.125rem 1.3 0 1rem)
+    +text-block(1.125rem 1.3, 700)
+
+.welcome-section__title-border
+  content: ''
+  display: block
+  +size(6rem .25rem)
+  background-color: var(--main)
+  border-radius: .75rem
 
 .welcome-section__sub-title
-  +text-block(1.25rem 1.45 0 .8em, 700 center)
+  +text-block(1.25rem 1.45, 700 center)
   color: var(--default-text)
   font-feature-settings: "palt"
   +media-breakpoint-down(sm)
