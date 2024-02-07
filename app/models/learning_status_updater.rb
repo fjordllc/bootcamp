@@ -7,11 +7,7 @@ class LearningStatusUpdater
     when Product
       update_after_submission(product_or_associated_object)
     when Check
-      if Check.exists?(product_or_associated_object.id)
-        update_after_check(product_or_associated_object)
-      else
-        update_after_cancel_check(product_or_associated_object)
-      end
+      handle_check(product_or_associated_object)
     end
   end
 
@@ -41,5 +37,11 @@ class LearningStatusUpdater
                :submitted
              end
     product.change_learning_status status
+  end
+
+  private
+
+  def handle_check(check)
+    Check.exists?(check.id) ? update_after_check(check) : update_after_cancel_check(check)
   end
 end
