@@ -36,9 +36,7 @@ export default function Header({
           </li>
         </ul>
       </nav>
-      <div className='header-dropdown__page-link-container'>
-        {notificationsCount > 0 && <a href={notificationsUrl} className="header-dropdown__page-link">{linkLabel}</a>}
-      </div>
+      {notificationsCount > 0 && <div className='header-dropdown__page-link-container'><a href={notificationsUrl} className="header-dropdown__page-link">{linkLabel}</a></div>}
     </header>
   )
 }
