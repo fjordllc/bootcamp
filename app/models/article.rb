@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
-  enum thumbnail_type: { prepared_thumbnail: 0,
-                         ruby: 1,
-                         ruby_on_rails: 2,
-                         javascript: 3,
-                         wsl2: 4,
-                         linux: 5,
-                         pc: 6,
-                         sponsorship: 7,
-                         green: 8,
-                         purple: 9,
-                         orange: 10,
-                         brown: 11,
-                         blue: 12 }
+  enum thumbnail_type: {
+    prepared_thumbnail: 0,
+    ruby: 1,
+    ruby_on_rails: 2,
+    javascript: 3,
+    wsl2: 4,
+    linux: 5,
+    pc: 6,
+    sponsorship: 7,
+    green: 8,
+    purple: 9,
+    orange: 10,
+    brown: 11,
+    blue: 12
+  }
 
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
