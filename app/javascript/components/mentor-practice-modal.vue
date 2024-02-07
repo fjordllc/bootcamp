@@ -6,7 +6,7 @@
         | 所属カテゴリー
     hr.a-border-tint
     .card-body(v-for='category_id_name in postPractice.category_ids_names')
-      .card__description
+      .card-body__description
         table.admin-table__table
           tbody.admin-table__items
             tr.admin-table__item

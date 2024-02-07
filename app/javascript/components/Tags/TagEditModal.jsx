@@ -48,7 +48,7 @@ export default function TagEditModal({ tagId, initialTagName, setShowModal }) {
         </header>
         <hr className="a-border-shade"></hr>
         <div className="card-body">
-          <div className="card__description">
+          <div className="card-body__description">
             <label className="a-form-label" htmlFor="tag_name">
               タグ名
             </label>

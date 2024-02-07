@@ -42,7 +42,7 @@ hr.a-border
           - if @work.thumbnail.attached?
             = image_tag @work.thumbnail_url, alt: @work.title
         .card-body
-          .card__description
+          .card-body__description
             .a-long-text.is-md.js-markdown-view
               = @work.description
         hr.a-border-tint

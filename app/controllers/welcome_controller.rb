@@ -2,7 +2,7 @@
 
 class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
-  layout 'welcome'
+  layout 'lp'
   DEFAULT_COURSE = 'Railsプログラマー'
 
   def index

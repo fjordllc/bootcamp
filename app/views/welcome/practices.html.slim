@@ -2,22 +2,26 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプの学習内容一覧を表示しています。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。')
 
-.welcome-page-header
-  .container.is-xl
+header.welcome-page-header
+  .container
     .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
-
-section.welcome-section
-  .container.is-xl
-    .welcome-small-sections
-      .row.is-gutter-widtd-32
-        - @categories.each do |category|
-          - if category.practices.present?
-            .col-xs-12.col-md-4
-              .welcome-small-section
-                h3.welcome-small-section__title = category.name
-                table.welcome-table.a-card
-                  - category.practices.each do |practice|
-                    tr
-                      td = practice.title
+      .welcome-page-header__start
+        h1.welcome-page-header__title
+          = title
+      .welcome-page-header__end
+hr.a-border
+.welcome-page-body
+  .container.is-lg
+    header.welcome-page-body__header
+      h1.welcome-page-body__title
+        | 学習内容
+    - @categories.each do |category|
+      - if category.practices.present?
+        .a-card
+          .card-body__inner
+            h3.card-body__inner-title
+              = category.name
+            ul.welcome-practices
+              - category.practices.each do |practice|
+                li.welcome-practices__item
+                  = practice.title

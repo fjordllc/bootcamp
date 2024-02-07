@@ -6,7 +6,7 @@ class BuzzController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[show]
 
   def show
-    render layout: 'welcome'
+    render layout: 'lp'
   end
 
   def edit; end

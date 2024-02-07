@@ -5,7 +5,7 @@ section.a-card.is-memo.is-only-mentor
       | メンター向けユーザーメモ
   hr.a-border-tint(v-if='!editing && !productsMode')
   .card-body(v-if='!editing')
-    .card__description
+    .card-body__description
       .a-long-text.is-md.a-placeholder(v-if='loading')
         p
         p
@@ -38,7 +38,7 @@ section.a-card.is-memo.is-only-mentor
       @click='changeActiveTab("preview")')
       | プレビュー
   .card-body(v-show='editing')
-    .card__description
+    .card-body__description
       .a-markdown-input.js-markdown-parent
         .a-markdown-input__inner.is-editor.js-tabs__content(
           :class='{ "is-active": isActive("memo") }')

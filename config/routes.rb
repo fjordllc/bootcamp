@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
   end
   root to: "home#index"
+
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
   get "practices", to: "welcome#practices", as: "practices"

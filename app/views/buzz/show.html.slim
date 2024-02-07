@@ -2,23 +2,27 @@
 - set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
 
 .welcome-page-header
-  .container.is-xl
+  .container
     .welcome-page-header__inner
-      .welcome-page-header__title
-        = title
+      .welcome-page-header__start
+        .welcome-page-header__title
+          = title
+      .welcome-page-header__end
+hr.a-border
 
 .welcome-page-body
   .container.is-lg
+    .welcome-page-body__header
+      h1.welcome-page-body__title
+        | 紹介・言及記事
+
     .a-card
       .article__inner
-        header.article__header
-          h1.article__title
-            | フィヨルドブートキャンプ紹介・言及記事
         .article__body
           .js-markdown-view.a-long-text.is-md
             = @buzz.body
       - if admin_or_mentor_login?
-        hr.a-border
+        hr.a-border-tint
         .card-footer
           .card-main-actions
             ul.card-main-actions__items
