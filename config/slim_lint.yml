@@ -16,7 +16,6 @@ linters:
       - Layout/HashAlignment
       - Layout/IndentationWidth
       - Layout/InitialIndentation
-      - Layout/LineLength
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
       - Layout/MultilineHashBraceLayout
