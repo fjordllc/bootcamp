@@ -62,7 +62,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'WIP label visible on index and show' do
-    visit_with_auth articles_path, 'komagata'
+    visit_with_auth articles_wips_path, 'komagata'
     assert_text 'WIP'
     assert_text '執筆中'
 
@@ -114,7 +114,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'mentor can see WIP label on index and show' do
-    visit_with_auth articles_path, 'mentormentaro'
+    visit_with_auth articles_wips_path, 'mentormentaro'
     assert_text 'WIP'
     assert_text '執筆中'
 
@@ -419,5 +419,19 @@ class ArticlesTest < ApplicationSystemTestCase
     titles = all('h2.thumbnail-card__title').map(&:text)
 
     assert_equal titles, ["WIP#{@article3.title}", @article2.title, @article.title]
+  end
+
+  test 'not logged-in users cannot view WIP articles without correct token' do
+    visit article_path(@article3)
+    assert_text '管理者・メンターとしてログインしてください'
+
+    visit "#{article_path(@article3)}?token=failed_token"
+    assert_text 'token が一致しませんでした'
+
+    visit "#{article_path(@article3)}?token=#{@article3.token}"
+    assert_text @article3.title
+    assert_selector 'head', visible: false do
+      assert_selector "meta[name='robots'][content='noindex, nofollow']", visible: false
+    end
   end
 end
