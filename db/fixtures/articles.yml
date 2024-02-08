@@ -20,7 +20,6 @@ article1:
   user: komagata
   wip: false
   published_at: "2022-01-01 00:00:00"
-  token: nil
 
 article2:
   title: Debian用の仮想マシンを作ろう
@@ -46,7 +45,6 @@ article2:
   user: machida
   wip: false
   published_at: "2022-01-02 00:00:00"
-  token: nil
 
 article3:
   title: 仮想マシンにDebianをインストールしよう
@@ -91,5 +89,4 @@ article<%= id %>:
   user: komagata
   wip: false
   published_at: "2022-03-14 00:00:00"
-  token: nil
 <% end %>
