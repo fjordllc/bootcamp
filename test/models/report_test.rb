@@ -43,4 +43,9 @@ class ReportTest < ActiveSupport::TestCase
   test '#interval' do
     assert_equal 10, reports(:report32).interval
   end
+
+  test '#date' do
+    report = Report.new(reported_on: Date.new(2012, 12, 31))
+    assert report.invalid?
+  end
 end

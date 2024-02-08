@@ -478,7 +478,7 @@ class ReportsTest < ApplicationSystemTestCase
       fill_in('report[reported_on]', with: Date.new(2012, 12, 31))
     end
     click_button '提出'
-    assert_text '学習日は2013年1月1日以後の日付にしてください'
+    assert_select '', text: '2013/01/01 以降の値を指定する必要があります。'
   end
 
   test 'display recently reports' do
