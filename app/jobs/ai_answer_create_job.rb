@@ -8,6 +8,6 @@ class AIAnswerCreateJob < ApplicationJob
     token = Rails.application.secrets[:open_ai][:access_token]
     generator = AI::AnswerGenerator.new(open_ai_access_token: token)
     ai_answer = generator.call("#{question.body}\n#{question.description}")
-    question.update(ai_answer: ai_answer)
+    question.update(ai_answer:)
   end
 end
