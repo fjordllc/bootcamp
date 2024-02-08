@@ -21,7 +21,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     notification(
       body: "#{params[:sender].login_name}さんが休会しました。",
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -35,7 +35,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     notification(
       body: "お知らせ：「#{params[:announce].title}」\r#{url}",
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -61,7 +61,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     notification(
       body: event_info,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -89,9 +89,9 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     body = params[:body].slice(0, 2000) # Discord API restriction
 
     notification(
-      body: body,
+      body:,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -102,7 +102,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     notification(
       body: params[:body],
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -123,9 +123,9 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     TEXT
 
     notification(
-      body: body,
+      body:,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 
@@ -140,9 +140,9 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     TEXT
 
     notification(
-      body: body,
+      body:,
       name: 'ピヨルド',
-      webhook_url: webhook_url
+      webhook_url:
     )
   end
 end
