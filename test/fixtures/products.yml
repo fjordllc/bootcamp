@@ -438,3 +438,11 @@ product73:
   user: hajime
   body: 担当者がいなくてwatchされていない提出物です
   checker_id: nil
+
+product74:
+  practice: practice1
+  user: hajime
+  body: メンターが確認を取り消した後の、learningstatusのテスト用提出物です
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  published_at: <%= Time.current %>
