@@ -94,6 +94,7 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[end_at]', with: Time.zone.parse('2019-12-21 22:30:01')
       fill_in 'event[open_start_at]', with: Time.zone.parse('2019-12-11 09:00:01')
       fill_in 'event[open_end_at]', with: Time.zone.parse('2019-12-20 23:59:01')
+      binding.irb
       click_button '内容を更新'
     end
     assert_text '特別イベントを更新しました。'
