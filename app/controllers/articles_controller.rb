@@ -17,7 +17,8 @@ class ArticlesController < ApplicationController
     if @article.published? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'welcome'
     else
-      redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
+      message = params[:token].nil? ? '管理者・メンターとしてログインしてください' : 'token が一致しませんでした'
+      redirect_to root_path, alert: message
     end
   end
 
@@ -60,7 +61,7 @@ class ArticlesController < ApplicationController
 
   def list_articles
     articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
-    admin_or_mentor_login? ? articles : articles.where(wip: false)
+    articles.where(wip: false)
   end
 
   def list_recent_articles
@@ -90,7 +91,9 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
-    @article.token = @article.token.nil? ? SecureRandom.urlsafe_base64 : @article.token if params[:commit] == 'WIP'
+
+    token = @article.wip ? (@article.token.presence || SecureRandom.urlsafe_base64) : nil
+    @article.token = token
   end
 
   def notice_message(article)
