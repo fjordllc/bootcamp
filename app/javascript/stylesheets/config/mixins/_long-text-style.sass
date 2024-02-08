@@ -311,11 +311,6 @@
 
   +speak
 
-  *:first-child
-    margin-top: 0
-  *:last-child
-    margin-bottom: 0
-
   // header-anchor
   h1,
   h2,
@@ -346,3 +341,29 @@
     &:link,
     &:visited
       color: var(--main)
+
+  .a-user-emoji-link
+    +size(2em)
+    display: inline-block
+    &:not(:first-child)
+      margin-left: .5em
+  .header-anchor + .a-user-emoji-link
+    margin-left: 0
+  .a-user-emoji
+    +size(1.8em)
+    object-fit: cover
+    background-color: var(--base)
+    border-radius: 2px
+    display: inline-block !important
+    border: none !important
+    margin-left: 0 !important
+    margin-right: 0 !important
+    vertical-align: middle
+  body.articles & .a-user-emoji-link,
+  body.buzz & .a-user-emoji-link
+    pointer-events: none
+
+  *:first-child
+    margin-top: 0
+  *:last-child
+    margin-bottom: 0
