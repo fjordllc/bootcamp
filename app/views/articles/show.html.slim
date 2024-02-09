@@ -45,9 +45,24 @@ ruby:
                         = l(@article.published_at)
                 - if @article.thumbnail.attached?
                   = image_tag @article.thumbnail_url, class: 'article__image'
+
               .article__body
+                - if @article.token == params[:token]
+                  .article__message.a-notice-block.mb-8
+                    p
+                      | この記事はまだ公開前です。このページのURLはSNSなどで公開しないようにしてください。
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
+                - if @article.wip?
+                  // TODO aタグとinputにURLを設定する
+                  .article__message.a-notice-block
+                    p
+                      | この記事はまだ未公開です。書き途中の記事のプレビューを見るには、以下のURLにアクセスしてください。
+                    p
+                      input.a-text-input(type='text' value='https://aaaaaaaaaaaaaaaaa')
+                    p
+                      = link_to '', target: '_blank', rel: 'noopener' do
+                        | プレビューをブラウザで開く
             - if admin_or_mentor_login?
               hr.a-border
               .card-footer
