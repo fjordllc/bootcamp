@@ -144,8 +144,8 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     click_button '提出'
     logout
 
-    login_user 'muryou', 'testtest'
-    assert page.has_css?('.has-no-count')
+    visit_with_auth '/notifications?status=unread', 'muryou'
+    assert_text '未読の通知はありません'
   end
 
   def assert_notify_only_at_first_published_of_report(
