@@ -52,6 +52,10 @@ ruby:
                 - elsif !thumbnail_blank?(@article)
                   = image_tag @article.selected_thumbnail_url, class: 'article__image'
               .article__body
+                - if @article.token == params[:token]
+                  .article__message.a-notice-block.mb-8
+                    p
+                      | この記事はまだ公開前です。このページのURLはSNSなどで公開しないようにしてください。
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
                 = render 'share_buttons', article: @article.id

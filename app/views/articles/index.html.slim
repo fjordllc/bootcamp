@@ -9,18 +9,26 @@ description: 'オンラインプログラミングフィヨルドブートキャ
       .welcome-page-header__start
         h1.welcome-page-header__title
           = title
-      - if current_user&.mentor?
+      - if current_user&.admin_or_mentor_login?
         .welcome-page-header__end
           = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
             i.fas.fa-plus
             | ブログ記事作成
-          = link_to articles_wips_path, class: 'a-button is-md is-secondary is-block' do
-            | WIP ブログ一覧
 
 .welcome-page-body
   .articles
     .articles__body
       .container.is-xl
+        - if current_user&.admin_or_mentor_login?
+          nav.pill-nav.mb-8
+            .pill-nav__items
+              .pill-nav__item
+                = link_to articles_path, class: 'pill-nav__item-link is-active' do
+                  | 公開済
+              .pill-nav__item
+                = link_to articles_wips_path, class: 'pill-nav__item-link' do
+                  | WIP
+
         = paginate @articles
         .articles__items
           .row
