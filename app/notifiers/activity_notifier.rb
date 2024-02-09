@@ -383,4 +383,20 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def came_inquiry(params = {})
+    params.merge!(@params)
+    inquiry = params[:inquiry]
+    sender = params[:sender]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{inquiry.name}さんから問い合わせがありました。",
+      kind: :came_inquiry,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.admin_inquiry_path(inquiry),
+      read: false
+    )
+  end
 end
