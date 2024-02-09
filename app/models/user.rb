@@ -391,9 +391,9 @@ class User < ApplicationRecord
       when 'all'
         User.unretired
       when 'students'
-        User.admins.or(User.students)
+        User.admins_and_mentors.or(User.students)
       when 'job_seekers'
-        User.admins.or(User.job_seekers)
+        User.admins_and_mentors.or(User.job_seekers)
       else
         User.none
       end
