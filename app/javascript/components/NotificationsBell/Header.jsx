@@ -18,7 +18,7 @@ export default function Header({
         <ul className="pill-nav__items">
           <li className="pill-nav__item">
             <div
-              className={`pill-nav__item-link w-full`}
+              className={`pill-nav__item-link w-full ${isUnreadTab ? 'is-active' : ''}`}
               onClick={() => {
                 setTargetStatus('unread')
               }}>
@@ -27,7 +27,7 @@ export default function Header({
           </li>
           <li className="pill-nav__item">
             <div
-              className={`pill-nav__item-link w-full`}
+              className={`pill-nav__item-link w-full ${isUnreadTab ? '' : 'is-active'}`}
               onClick={() => {
                 setTargetStatus(null)
               }}>
