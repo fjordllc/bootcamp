@@ -23,8 +23,12 @@ export default function Notifications({ notifications, targetStatus }) {
         <p className="o-empty-message__text">
           {isUnreadTab ? '未読の通知はありません' : '通知はありません'}
         </p>
-        <div className='header-dropdown__page-link-container mt-8'>
-          {isUnreadTab && <a href="/notifications"  className="header-dropdown__page-link">通知一覧へ</a>}
+        <div className="header-dropdown__page-link-container mt-8">
+          {isUnreadTab && (
+            <a href="/notifications" className="header-dropdown__page-link">
+              通知一覧へ
+            </a>
+          )}
         </div>
       </div>
     )

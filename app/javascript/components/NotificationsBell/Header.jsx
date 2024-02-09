@@ -13,12 +13,14 @@ export default function Header({
   const linkLabel = isUnreadTab ? '全ての未読通知一覧へ' : '全ての通知一覧へ'
 
   return (
-    <header className='header-dropdown__header'>
+    <header className="header-dropdown__header">
       <nav className="pill-nav is-half">
         <ul className="pill-nav__items">
           <li className="pill-nav__item">
             <div
-              className={`pill-nav__item-link w-full ${isUnreadTab ? 'is-active' : ''}`}
+              className={`pill-nav__item-link w-full ${
+                isUnreadTab ? 'is-active' : ''
+              }`}
               onClick={() => {
                 setTargetStatus('unread')
               }}>
@@ -27,7 +29,9 @@ export default function Header({
           </li>
           <li className="pill-nav__item">
             <div
-              className={`pill-nav__item-link w-full ${isUnreadTab ? '' : 'is-active'}`}
+              className={`pill-nav__item-link w-full ${
+                isUnreadTab ? '' : 'is-active'
+              }`}
               onClick={() => {
                 setTargetStatus(null)
               }}>
@@ -36,7 +40,13 @@ export default function Header({
           </li>
         </ul>
       </nav>
-      {notificationsCount > 0 && <div className='header-dropdown__page-link-container'><a href={notificationsUrl} className="header-dropdown__page-link">{linkLabel}</a></div>}
+      {notificationsCount > 0 && (
+        <div className="header-dropdown__page-link-container">
+          <a href={notificationsUrl} className="header-dropdown__page-link">
+            {linkLabel}
+          </a>
+        </div>
+      )}
     </header>
   )
 }
