@@ -23,4 +23,4 @@
     .page-body__inner.has-side-nav
       .container.is-md
         = react_component 'Events'
-        = render partial: 'upcoming_events/index', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
+      = render partial: 'upcoming_events/index', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
