@@ -28,16 +28,6 @@
           | 回答なし
     .user-metas__item
       .user-metas__item-label
-        | 日報
-      .user-metas__item-value
-        = user.reports.count
-    .user-metas__item
-      .user-metas__item-label
-        | コメント
-      .user-metas__item-value
-        = user.comments.count
-    .user-metas__item
-      .user-metas__item-label
         | 修了プラクティス
       .user-metas__item-value
         = user.completed_practices.size
