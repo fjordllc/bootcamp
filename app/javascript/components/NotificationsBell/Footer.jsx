@@ -10,7 +10,7 @@ export default function Footer({ notificationsCount }) {
     })
   }
 
-  if (notificationsCount === 0) return null
+  if (!notificationsCount) return null
 
   return (
     <footer className="header-dropdown__footer">
