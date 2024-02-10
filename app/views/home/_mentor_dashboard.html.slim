@@ -26,7 +26,7 @@ jdashboard-contents.is-mentor
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
                     .a-panels__item
-                      = react_component 'BookmarksInDashboard', bookmarksNum: current_user.bookmarks.count
+                      = react_component 'BookmarksInDashboard'
                   - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'
