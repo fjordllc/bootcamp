@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return response.text()
         })
         .then((text) => {
+          // grass.innerHTML = `<table>${text}</table>`
           grass.innerHTML = text
         })
         .then(() => {

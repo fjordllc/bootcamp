@@ -4,7 +4,8 @@ require 'net/http'
 require 'nokogiri'
 
 class GithubGrass
-  SELECTOR = 'svg.js-calendar-graph-svg'
+  SELECTOR = 'table.js-calendar-graph-table'
+
   WDAYS = %w[日 月 火 水 木 金 土].freeze
   MONTHS = {
     Jan: '1', Feb: '2', Mar: '3', Apr: '4',
@@ -17,16 +18,16 @@ class GithubGrass
   end
 
   def fetch
-    svg = extract_svg(fetch_page)
-    add_view_box_attribute(svg)
-    localize(svg).to_s
+    extract_table(fetch_page)
+    # add_view_box_attribute(table)
+    # localize(table).to_s
   rescue StandardError
     ''
   end
 
   private
 
-  def extract_svg(html)
+  def extract_table(html)
     Nokogiri::HTML(html).css(SELECTOR)
   end
 
@@ -40,27 +41,27 @@ class GithubGrass
     localize_month(localize_wday(svg)).to_s
   end
 
-  def localize_wday(svg)
-    svg.css('text.wday').map.with_index do |wday, i|
-      wday[:style] = ''
-      wday[:dy] = 12 + (15 * i)
-      wday.children = WDAYS[i]
-    end
-    svg
-  end
+  # def localize_wday(svg)
+  #   svg.css('text.wday').map.with_index do |wday, i|
+  #     wday[:style] = ''
+  #     wday[:dy] = 12 + (15 * i)
+  #     wday.children = WDAYS[i]
+  #   end
+  #   svg
+  # end
 
-  def localize_month(svg)
-    svg.css('text.month').map do |month|
-      month.children = MONTHS[month.children.text.to_sym]
-    end
-    svg
-  end
+  # def localize_month(svg)
+  #   svg.css('text.month').map do |month|
+  #     month.children = MONTHS[month.children.text.to_sym]
+  #   end
+  #   svg
+  # end
 
-  def add_view_box_attribute(svg)
-    width = svg.attribute('width').value
-    height = svg.attribute('height').value
-    svg.attribute('viewBox', "0 0 #{width} #{height}")
-  end
+  # def add_view_box_attribute(svg)
+  #   width = svg.attribute('width').value
+  #   height = svg.attribute('height').value
+  #   svg.attribute('viewBox', "0 0 #{width} #{height}")
+  # end
 
   def github_url(name)
     "https://github.com/#{name}"
