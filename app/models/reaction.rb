@@ -29,6 +29,6 @@ class Reaction < ApplicationRecord
   end
 
   def self.available_emojis
-    emojis.map { |key, value| { kind: key, value: value } }
+    emojis.map { |key, value| { kind: key, value: } }
   end
 end
