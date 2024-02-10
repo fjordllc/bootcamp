@@ -1,0 +1,25 @@
+= form_with model: [:admin, faq], local: true, html: { name: 'faq' } do |f|
+  .form__items
+    .form-item
+      = f.label :question, class: 'a-form-label'
+      = f.text_field :question, class: 'a-text-input'
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :answer, class: 'a-form-label'
+          = f.text_area :answer,
+            class: 'a-text-input js-warning-form js-markdown markdown-form__text-area',
+            data: { 'preview': '.js-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label
+            | プレビュー
+          .js-preview.a-long-text.is-md.markdown-form__preview
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-block is-primary'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'
+      - if faq.id.present?
+        li.form-actions__item.is-muted
+          = link_to '削除', admin_faq_path(faq), data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }, method: :delete, class: 'a-button is-sm is-muted-text'
