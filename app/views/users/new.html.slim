@@ -14,6 +14,13 @@
       h1.auth-form__title
         = title
     .auth-form__body
+      .form-item
+        .form-notice
+          p
+            | 法人研修でのご利用については、
+            = link_to new_inquiry_path do
+              | こちらのお問い合わせフォーム
+            | からご連絡ください。
       - if !@user.adviser? && Campaign.today_campaign?
         = render 'checked_campaign'
       = render 'form', from: :new, url: users_path, user: @user
