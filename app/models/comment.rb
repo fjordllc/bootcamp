@@ -39,7 +39,7 @@ class Comment < ApplicationRecord
   end
 
   def path
-    Rails.application.routes.url_helpers.polymorphic_path(commentable, anchor: anchor)
+    Rails.application.routes.url_helpers.polymorphic_path(commentable, anchor:)
   end
 
   def previous

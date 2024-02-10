@@ -41,10 +41,10 @@ class Comment::AfterCreateCallback
       sender = comment.sender
 
       ActivityDelivery.with(
-        watchable: watchable,
+        watchable:,
         receiver: watcher,
-        comment: comment,
-        sender: sender
+        comment:,
+        sender:
       ).notify(:watching_notification)
     end
   end
@@ -56,7 +56,7 @@ class Comment::AfterCreateCallback
 
     @watch = Watch.new(
       user: comment.sender,
-      watchable: watchable
+      watchable:
     )
     @watch.save!
   end

@@ -27,7 +27,7 @@ module Reactionable
                            .order(created_at: :asc)
                            .pluck(:id, :kind, :"users.login_name").each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |array, hash|
       id, kind, login_name = array
-      hash[kind] << { id: id, login_name: login_name }
+      hash[kind] << { id:, login_name: }
     end.with_indifferent_access
   end
 end
