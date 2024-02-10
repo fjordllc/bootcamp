@@ -13,15 +13,9 @@ export default function BellButton({ setShowNotifications }) {
     return count > 99 ? '99+' : String(count)
   }
 
-  const openNotifications = () => {
-    if (isLoading) return
-
-    setShowNotifications(true)
-  }
-
   return (
     <label
-      onClick={openNotifications}
+      onClick={() => setShowNotifications(true)}
       className="header-links__link test-show-notifications">
       <div className="header-links__link test-bell">
         <div className="header-notification-icon">
