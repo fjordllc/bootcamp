@@ -75,6 +75,7 @@ class ArticlesController < ApplicationController
       tag_list
       user_id
       thumbnail
+      thumbnail_type
       summary
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
