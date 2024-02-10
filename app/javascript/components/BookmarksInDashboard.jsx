@@ -6,7 +6,7 @@ import UserIcon from './UserIcon'
 import usePage from './hooks/usePage'
 import { toast } from '../toast_react'
 
-export default function Bookmarks() {
+export default function BookmarksInDashboard() {
   const [editable, setEditable] = useState(false)
   const per = 5
   const { page } = usePage()
