@@ -6,7 +6,7 @@ class Card
                               email: user.email,
                               source: card_token
                             }, {
-                              idempotency_key: idempotency_key
+                              idempotency_key:
                             })
   end
 
@@ -17,7 +17,7 @@ class Card
   end
 
   def search(email:)
-    result = Stripe::Customer.list(email: email, limit: 1)
+    result = Stripe::Customer.list(email:, limit: 1)
     return unless result.data.size.positive?
 
     result.data.first
