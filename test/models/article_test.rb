@@ -3,9 +3,14 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
-  test 'thumbnail_url' do
+  test '#prepared_thumbnail_url' do
+    article = articles(:article3)
+    assert_equal '/assets/articles/thumbnails/default.png', article.prepared_thumbnail_url
+  end
+
+  test '#selected_thumbnail_url' do
     article = articles(:article1)
-    assert_equal '/images/articles/thumbnails/default.png', article.thumbnail_url
+    assert_equal '/ogp/ruby_on_rails.png', article.selected_thumbnail_url
   end
 
   test 'articles directly published without WIP have value of the published_at' do

@@ -6,7 +6,7 @@
         .col-md-6.col-xs-12
           = f.label :title, class: 'a-form-label'
           = f.text_field :title, class: 'a-text-input js-warning-form'
-        .col-md-3.col-xs-6
+        .col-md-3.col-sm-6.col-xs-6
           = f.label :user, class: 'a-form-label'
           .select-users
             = f.select(:user_id, contributor, { include_blank: (article.user || current_user).login_name }, { id: 'js-choices-single-select' })
@@ -46,20 +46,48 @@
     .form-item
       .row
         .col-md-6.col-xs-12
-          = f.label :thumbnail, 'サムネイル画像を登録してください',
-            class: 'a-form-label'
-          .form-item-file-input.js-file-input.a-file-input.is-thumbnail
-            label.js-file-input__preview
-              - if article.thumbnail.attached?
-                = image_tag article.thumbnail
-                p 画像を変更
-              - else
-                p 画像を選択
-              = f.file_field :thumbnail
-          .a-form-help
-            p
-              | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
-              | 画像サイズは必ず 1200px × 630xpx でお願いします。
+          label.a-form-label
+            | サムネイル画像選択
+      .row
+        - types = Article.thumbnail_types.keys.tap { |thumbnail_types| thumbnail_types.delete('prepared_thumbnail') }
+        - types.each do |type|
+          .col-md-3.col-xs-6
+            .a-image-check.is-radio
+              = f.radio_button :thumbnail_type, type, class: 'a-toggle-checkbox'
+              = f.label :thumbnail_type, value: t("activerecord.enums.article.thumbnail_type.#{type}"), class: 'a-image-check__inner'
+                span.a-image-check__start
+                  = image_tag("/ogp/#{type}.png")
+                span.a-image-check__end
+                  = t("activerecord.enums.article.thumbnail_type.#{type}")
+
+        .col-md-3.col-xs-6
+          .a-image-check.is-radio
+            = f.radio_button :thumbnail_type, 'prepared_thumbnail', class: 'a-toggle-checkbox'
+            = f.label :thumbnail_type, '画像アップロード', value: 'prepared_thumbnail', class: 'a-image-check__inner'
+              span.a-image-check__start
+                span.a-image-check__upload-image
+                  i.fas.fa-upload
+              span.a-image-check__end
+                | 画像アップロード
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          #upload-thumbnail
+            = f.label :thumbnail, 'サムネイル画像を登録してください',
+              class: 'a-form-label'
+            .form-item-file-input.js-file-input.a-file-input.is-thumbnail
+              label.js-file-input__preview
+                - if article.thumbnail.attached?
+                  = image_tag article.thumbnail
+                  p 画像を変更
+                - else
+                  p 画像を選択
+                = f.file_field :thumbnail
+            .a-form-help
+              p
+                | ここにアップロードした画像が、X（Twitter）、Facebook で投稿した際に表示される画像として使われます。
+                | 画像サイズは必ず 1200px × 630xpx でお願いします。
 
     - if params[:action] == 'edit'
       .form-item

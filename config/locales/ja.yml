@@ -308,6 +308,21 @@ ja:
           question: 質問
           meeting: MTG
           others: その他
+      article:
+        thumbnail_type:
+          prepared_thumbnail: prepared_thumbnail
+          ruby: Ruby
+          ruby_on_rails: Ruby on Rails
+          javascript: JavaScript
+          wsl2: WSL2
+          linux: Linux
+          pc: PC
+          sponsorship: Sponsorship
+          green: Green
+          purple: Purple
+          orange: Orange
+          brown: Brown
+          blue: Blue
     errors:
       models:
         campaign:
