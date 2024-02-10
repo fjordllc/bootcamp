@@ -17,7 +17,7 @@ export default function BookmarksInDashboard() {
   if (!data) return <>ロード中…</>
 
   return (
-    <div className="a-card">
+    <div>
       <header className="card-header is-sm">
         <h2 className="card-header__title">最新のブックマーク</h2>
         <div className="card-header__action">
