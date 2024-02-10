@@ -33,7 +33,7 @@ export default function Header({
                 isUnreadTab ? '' : 'is-active'
               }`}
               onClick={() => {
-                setTargetStatus(null)
+                setTargetStatus('all')
               }}>
               全て
             </div>
