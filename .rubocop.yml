@@ -1,5 +1,6 @@
 require:
   - rubocop-minitest
+  - rubocop-capybara
 
 inherit_from: .rubocop_todo.yml
 
