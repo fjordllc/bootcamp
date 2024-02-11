@@ -24,3 +24,7 @@
                 = link_to mentor_course_categories_path(course), class: 'a-button is-sm is-secondary is-block' do
                   i.fa-solid.fa-align-justify
                   | 並び替え
+              li.card-main-actions__item
+                = link_to new_mentor_course_path(course_id: course.id), class: 'a-button is-sm is-secondary is-block' do
+                  i.fa-solid.fa-align-justify
+                  | コピー
