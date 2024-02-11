@@ -19,7 +19,7 @@ export default function BookmarksInDashboard() {
   }
 
   return (
-    <div>
+    <div className="a-card">
       <header className="card-header is-sm">
         <h2 className="card-header__title">最新のブックマーク</h2>
         <div className="card-header__action">
