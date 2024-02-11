@@ -19,7 +19,7 @@ class NotifierToWatchingUser
         watchable: question,
         receiver: watcher,
         comment: answer,
-        sender: sender
+        sender:
       ).notify(:watching_notification)
     end
   end
