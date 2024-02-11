@@ -24,7 +24,8 @@
               = render partial: 'events', object: [@today_events, @tomorrow_events, @day_after_tomorrow_events]
               - if @announcements.present?
                 = render partial: 'announcements'
-                = react_component('BookmarksInDashboard', { isBookmarks: current_user.bookmarks.present? }, { class: 'a-card-react' })
+              - if current_user.bookmarks.present?
+                = react_component('BookmarksInDashboard', {}, { class: 'a-card-react' })
               - if current_user.wip_exists?
                 = render 'wip_items'
               - if current_user.active_practices.present?
