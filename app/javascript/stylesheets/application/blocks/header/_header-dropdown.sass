@@ -39,9 +39,15 @@
       .pill-nav__item-link
         border-color: var(--base)
         color: var(--reversal-text)
+      .pill-nav__item-link.is-active
+        background-color: var(--base)
+        color: var(--main)
+      .o-empty-message
+        opacity: .7
+        color: var(--reversal-text)
 
 .header-dropdown__header
-  padding: 1rem 1rem 0
+  padding: 1rem
   +media-breakpoint-up(md)
     border-bottom: solid 1px var(--border-tint)
   +media-breakpoint-down(sm)
@@ -130,12 +136,12 @@
       opacity: 1
       width: 100%
 
-
 .header-dropdown__page-link-container
   display: flex
   align-items: center
   justify-content: center
-  +size(100% 2.75rem)
+  width: 100%
+  margin-top: 1rem
 
 .header-dropdown__page-link
   +text-block(.875rem 1.4)
