@@ -18,6 +18,16 @@
       margin-top: 1.25rem
     +media-breakpoint-down(lg)
       margin-top: 1rem
+  & + .a-card-react
+    +media-breakpoint-up(xl)
+      margin-top: 1.25rem
+    +media-breakpoint-down(lg)
+      margin-top: 1rem
+  .a-card-react + &
+    +media-breakpoint-up(xl)
+      margin-top: 1.25rem
+    +media-breakpoint-down(lg)
+      margin-top: 1rem
   &.is-borderd
     border: solid 4px var(--default-text)
   &.is-modal
