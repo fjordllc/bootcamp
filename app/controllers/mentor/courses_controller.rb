@@ -10,7 +10,7 @@ class Mentor::CoursesController < MentorController
   def new
     if params[:course_id].present?
       original_course = Course.find(params[:course_id])
-      @course = Course.new(title: original_course.title)
+      @course = Course.new(category_ids: original_course.category_ids)
     else
       @course = Course.new
     end
