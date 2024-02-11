@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 2024_02_28_105218) do
     t.datetime "updated_at"
     t.text "tos"
     t.string "blog_url"
+    t.text "memo"
   end
 
   create_table "courses", force: :cascade do |t|
