@@ -31,7 +31,13 @@ $ rails test:all
 普通のブラウザーでテスト
 
 ```
-$ HEADED=1 rails test:all
+$ HEADFULL=1 rails test:all
+```
+
+並列実行せずにテスト
+
+```
+$ PARALLEL_WORKERS=1 rails test:all
 ```
 
 ## Lint
