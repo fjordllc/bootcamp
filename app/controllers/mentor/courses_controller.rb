@@ -8,7 +8,12 @@ class Mentor::CoursesController < MentorController
   end
 
   def new
-    @course = Course.new
+    if params[:course_id].present?
+      original_course = Course.find(params[:course_id])
+      @course = Course.new(title: original_course.title)
+    else
+      @course = Course.new
+    end
   end
 
   def edit; end
