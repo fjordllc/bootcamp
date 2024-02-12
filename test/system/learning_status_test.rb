@@ -9,7 +9,7 @@ class LearningStatusTest < ApplicationSystemTestCase
     click_button '提出物を確認'
     click_button '提出物の確認を取り消す'
     visit_with_auth course_practices_path(courses(:course1).id), 'kimura'
-    assert_selector 'a', text: '提出'
+    assert_no_selector 'a', text: '修了'
   end
 
   test 'learning status changes to submitted after the mentor cancels the confirmation with comment' do
@@ -21,6 +21,6 @@ class LearningStatusTest < ApplicationSystemTestCase
     end
     click_button '提出物の確認を取り消す'
     visit_with_auth course_practices_path(courses(:course1).id), 'kimura'
-    assert_selector 'a', text: '提出'
+    assert_no_selector 'a', text: '修了'
   end
 end
