@@ -24,10 +24,14 @@ class NotificationsBellTest < ApplicationSystemTestCase
     find('.header-links__link.test-show-notifications').click
     assert_selector('.test-notification-message', text: 'コメントのテスト通知')
     assert_no_selector('.test-notification-message', text: 'お知らせのテスト通知')
+    assert has_link?('全ての未読通知一覧へ', href: '/notifications?status=unread')
+    assert has_link?('全て既読にする', href: '/notifications/allmarks')
+    assert_button '全て別タブで開く'
 
     find('.pill-nav__item-link.w-full', text: '全て').click
     assert_selector('.test-notification-message', text: 'コメントのテスト通知')
     assert_selector('.test-notification-message', text: 'お知らせのテスト通知')
+    assert has_link?('全ての通知一覧へ', href: '/notifications')
   end
 
   test "No notification is displayed if an user doesn't have target notifications of a selected tab" do
@@ -36,6 +40,7 @@ class NotificationsBellTest < ApplicationSystemTestCase
 
     find('.header-links__link.test-show-notifications').click
     assert_selector('.o-empty-message.mb-8 .o-empty-message__text', text: '未読の通知はありません')
+    assert has_link?('通知一覧へ', href: '/notifications')
     find('.pill-nav__item-link.w-full', text: '全て').click
     assert_selector('.o-empty-message.mb-8 .o-empty-message__text', text: '通知はありません')
   end
