@@ -60,6 +60,17 @@ ruby:
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
                 = render 'share_buttons', article: @article.id
+                - if @article.wip? && params[:token].nil?
+                  // TODO aタグとinputにURL(token付きのURL)を設定する。
+                  // このパーツはプレビューページ(token付きのURL)には表示しない。
+                  .article__message.a-notice-block
+                    p
+                      | この記事はまだ未公開です。書き途中の記事のプレビューを見るには、以下のURLにアクセスしてください。
+                    p
+                      input.a-text-input(type='text' value="#{request.host_with_port}#{article_path(@article)}?token=#{@article.token}")
+                    p
+                      = link_to "#{article_path(@article)}?token=#{@article.token}", target: '_blank', rel: 'noopener' do
+                        | プレビューをブラウザで開く
             - if admin_or_mentor_login?
               hr.a-border
               .card-footer
