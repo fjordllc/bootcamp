@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class NotificationsBellTest < ApplicationSystemTestCase
-  test 'Unread and All tubs filter their target notifications' do
+  test 'Unread and All tabs filter their target notifications' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
