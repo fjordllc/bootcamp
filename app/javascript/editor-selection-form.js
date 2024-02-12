@@ -1,13 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const editors = document.getElementsByName('user[editor]')
-  const othersEditorRadio = document.getElementById('others')
+  const othersRadio = document.getElementById('others')
   editors.forEach((editor) => {
     editor.addEventListener('change', () => {
-      const othersEditorInput = document.getElementById('others_form')
-      othersEditorInput.classList.toggle(
-        'is-hidden',
-        !othersEditorRadio.checked
-      )
+      const othersForm = document.getElementById('others_form')
+      othersForm.classList.toggle('is-hidden', !othersRadio.checked)
     })
   })
 
@@ -17,14 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleFormSubmit() {
-    const othersEditorInput = document.getElementById('others_editor')
-    if (othersEditorRadio.checked) {
-      const othersEditorValue = othersEditorInput.value
+    const othersInput = document.getElementById('others_input')
+    if (othersRadio.checked) {
+      const othersValue = othersInput.value
       const hiddenInput = document.createElement('input')
       Object.assign(hiddenInput, {
         type: 'hidden',
         name: 'user[editor]',
-        value: othersEditorValue
+        value: othersValue
       })
       form.appendChild(hiddenInput)
     }

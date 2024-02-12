@@ -18,4 +18,4 @@
 .form-item(class="#{'is-hidden' unless others_checked}" id='others_form')
   label.a-form-label
     | その他のエディタを選択した場合、具体的なエディタ名を入力してください。
-  = f.text_field :others_editor, placeholder: 'textbringer', id: 'others_editor', class: 'a-text-input', value: (user.editor if others_checked)
+  = f.text_field :others_input, placeholder: 'textbringer', id: 'others_input', class: 'a-text-input', value: (user.editor if others_checked)
