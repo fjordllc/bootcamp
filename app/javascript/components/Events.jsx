@@ -14,9 +14,7 @@ export default function Events() {
 
   if (error) return <>エラーが発生しました。</>
   if (!data) {
-    return (
-      <LoadingListPlaceholder />
-    )
+    return <LoadingListPlaceholder />
   }
 
   return (
