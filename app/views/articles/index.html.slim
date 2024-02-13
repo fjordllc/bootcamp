@@ -16,6 +16,12 @@ description: 'オンラインプログラミングフィヨルドブートキャ
             | ブログ記事作成
 
 .welcome-page-body
+  .navigation
+  - if admin_or_mentor_login?
+   .navigation__published
+    = link_to '公開済み', articles_path(target: "published")
+   .navigation__wip
+    = link_to 'WIP', articles_path(target: "wip")
   .articles
     .articles__body
       .container.is-xl

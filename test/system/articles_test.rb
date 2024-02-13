@@ -372,4 +372,21 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_text '2021年12月24日(金) 23:59'
   end
+
+  test '管理者でログインしたときのみナビゲーションが表示される' do
+    visit_with_auth articles_path, 'komagata'
+    assert_selector '.navigation', visible: true
+  end
+
+  test '公開済みボタンを押したときに公開済みのブログのみが表示される' do
+    visit_with_auth articles_path(target: 'published'), 'komagata'
+    assert_text @article.title
+    assert_no_text @article3.title
+  end
+
+  test 'WIPボタンを押したときにWIPのブログのみが表示される' do
+    visit_with_auth articles_path(target: 'wip'), 'komagata'
+    assert_text @article3.title
+    assert_no_text @article.title
+  end
 end

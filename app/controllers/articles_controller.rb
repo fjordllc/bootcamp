@@ -60,6 +60,8 @@ class ArticlesController < ApplicationController
 
   def list_articles
     articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
+    articles = articles.where(wip: false).order(published_at: :desc) if params[:target] == 'published'
+    articles = articles.where(wip: true).order(updated_at: :desc) if params[:target] == 'wip'
     admin_or_mentor_login? ? articles : articles.where(wip: false)
   end
 
