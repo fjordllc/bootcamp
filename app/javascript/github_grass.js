@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (grasses) {
     Array.from(grasses).forEach((grass) => {
       const name = grass.dataset.name
+
       fetch(`/partial/git_hub_grass?name=${name}`, {
         method: 'GET',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
