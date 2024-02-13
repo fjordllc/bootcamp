@@ -26,10 +26,6 @@ module UsersHelper
     end
   end
 
-  def user_github_grass_url(user)
-    "https://grass-graph.moshimo.works/images/#{user.github_account}.png?background=none"
-  end
-
   def users_tags_rank(count, top3_tags_counts)
     if count == top3_tags_counts[0]
       'is-first'
