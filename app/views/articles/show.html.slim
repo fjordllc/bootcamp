@@ -53,7 +53,6 @@ ruby:
                   = image_tag @article.selected_thumbnail_url, class: 'article__image'
               .article__body
                 - if @article.wip? && @article.token == params[:token]
-                  // TODO このパーツはプレビューページ(token付きのURL)にだけ表示をさせる。
                   .article__message.a-notice-block.mb-8
                     p
                       | この記事はまだ公開前です。このページのURLはSNSなどで公開しないようにしてください。
@@ -61,8 +60,6 @@ ruby:
                   = @article.body
                 = render 'share_buttons', article: @article.id
                 - if @article.wip? && params[:token].nil?
-                  // TODO aタグとinputにURL(token付きのURL)を設定する。
-                  // このパーツはプレビューページ(token付きのURL)には表示しない。
                   .article__message.a-notice-block
                     p
                       | この記事はまだ未公開です。書き途中の記事のプレビューを見るには、以下のURLにアクセスしてください。
