@@ -48,6 +48,12 @@
         .col-md-6.col-xs-12
           label.a-form-label
             | サムネイル画像選択
+          .a-form-help.mb-4
+            p
+              | サムネイル画像を用意している場合は「アップロード」を選択し、
+              | 画像をアップロードしてください。
+              | サムネイル画像を用意していない場合は、
+              | それ以外から記事の内容に合いそうなものをピックアップしてください。
       .row
         - types = Article.thumbnail_types.keys.tap { |thumbnail_types| thumbnail_types.delete('prepared_thumbnail') }
         - types.each do |type|
