@@ -14,6 +14,8 @@ class Searcher
     ['ユーザー', :users]
   ].freeze
 
+  USER_JOBS = User.jobs.transform_keys { |key| I18n.t('activerecord.enums.user.job')[key.to_sym] }.to_h
+
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   class << self
@@ -29,6 +31,8 @@ class Searcher
         else
           result_for(document_type, word).sort_by(&:updated_at).reverse
         end
+
+      searchables += search_user_job(word) if USER_JOBS.key?(word) && %i[users all].include?(document_type)
 
       delete_comment_of_talk!(searchables) # 相談部屋の内容は検索できないようにする
     end
@@ -74,6 +78,10 @@ class Searcher
       searchables.reject do |searchable|
         searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
       end
+    end
+
+    def search_user_job(word)
+      User.ransack(job_eq: USER_JOBS[word]).result
     end
   end
 end
