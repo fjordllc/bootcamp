@@ -14,33 +14,36 @@
     .container
       ul.page-tabs__items
         li.page-tabs__item
-          = link_to '学習内容について',
-            admin_root_path,
-            class: "page-tabs__item-link #{current_link(/^admin-home/)}"
-        li.page-tabs__item
-          = link_to '学習環境について',
-            admin_users_path,
-            class: "page-tabs__item-link #{current_link(/^admin-users/)}"
-        li.page-tabs__item
-          = link_to '利用料について',
-            admin_companies_path,
-            class: "page-tabs__item-link #{current_link(/^admin-companies/)}"
-        li.page-tabs__item
-          = link_to '就職について',
-            admin_campaigns_path,
-            class: "page-tabs__item-link #{current_link(/^admin-campaigns/)}"
-        li.page-tabs__item
-          = link_to '入会について',
-            admin_faqs_path,
-            class: "page-tabs__item-link #{current_link(/^admin-faq/)}"
-        li.page-tabs__item
-          = link_to '退会、休会、卒業について',
-            admin_faqs_path,
-            class: "page-tabs__item-link #{current_link(/^admin-faq/)}"
-        li.page-tabs__item
-          = link_to '法人利用について',
-            admin_faqs_path,
-            class: "page-tabs__item-link #{current_link(/^admin-faq/)}"
+          = link_to '全て', products_path, class: "page-tabs__item-link #{current_link(/^products-index/)}"
+        - if admin_or_mentor_login?
+          li.page-tabs__item
+            = link_to '学習内容について',
+              admin_root_path,
+              class: "page-tabs__item-link #{current_link(/^admin-home/)}"
+          li.page-tabs__item
+            = link_to '学習環境について',
+              admin_users_path,
+              class: "page-tabs__item-link #{current_link(/^admin-users/)}"
+          li.page-tabs__item
+            = link_to '利用料について',
+              admin_companies_path,
+              class: "page-tabs__item-link #{current_link(/^admin-companies/)}"
+          li.page-tabs__item
+            = link_to '就職について',
+              admin_campaigns_path,
+              class: "page-tabs__item-link #{current_link(/^admin-campaigns/)}"
+          li.page-tabs__item
+            = link_to '入会について',
+              admin_faqs_path,
+              class: "page-tabs__item-link #{current_link(/^admin-faq/)}"
+          li.page-tabs__item
+            = link_to '退会、休会、卒業について',
+              admin_faqs_path,
+              class: "page-tabs__item-link #{current_link(/^admin-faq/)}"
+          li.page-tabs__item
+            = link_to '法人利用について',
+              admin_faqs_path,
+              class: "page-tabs__item-link #{current_link(/^admin-faq/)}"
 
       .welcome-section__faqs
         .row.is-gutter-width-32
