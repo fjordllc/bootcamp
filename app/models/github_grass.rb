@@ -4,7 +4,8 @@ require 'net/http'
 require 'nokogiri'
 
 class GithubGrass
-  SELECTOR = 'table.js-calendar-graph-table'
+  SELECTOR = 'table.ContributionCalendar-grid.js-calendar-graph-table'
+  SELECTOR_TO_REMOVE = 'tool-tip'
 
   WDAYS = {
     Sun: '日', Mon: '月', Tue: '火', Wed: '水',
@@ -31,7 +32,9 @@ class GithubGrass
   private
 
   def extract_table(html)
-    Nokogiri::HTML(html).css(SELECTOR)
+    table = Nokogiri::HTML(html).css(SELECTOR)
+    table.css(SELECTOR_TO_REMOVE).each(&:remove)
+    table
   end
 
   def fetch_page
@@ -42,16 +45,26 @@ class GithubGrass
 
   def localize(table)
     table.css('span[aria-hidden="true"]').each do |label|
-      text = label.children.to_s.strip.to_sym
-      if WDAYS[text]
-        label.children = WDAYS[text]
-        label[:class] = 'wdays'
-      elsif MONTHS[text]
-        label.children = MONTHS[text]
-        label[:class] = 'months'
-      end
+      localize_month(label)
+      localize_wday(label)
     end
     table
+  end
+
+  def localize_wday(label)
+    wdays_key = label.children.text.strip.to_sym
+    return unless WDAYS[wdays_key]
+
+    label.children = WDAYS[wdays_key]
+    label[:class] = 'wdays'
+  end
+
+  def localize_month(label)
+    months_key = label.children.text.to_sym
+    return unless MONTHS[months_key]
+
+    label.children = MONTHS[months_key]
+    label[:class] = 'months'
   end
 
   def github_url(name)
