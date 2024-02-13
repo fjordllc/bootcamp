@@ -90,10 +90,26 @@
                 | 画像サイズは必ず 1200px × 630xpx でお願いします。
 
     .form-item
-      = f.check_box :insert_thumbnail, { check: @article.new_record? || @article.insert_thumbnail }
-      = f.label :insert_thumbnail, 'サムネイル画像を本文に表示'
-      .a-form-help
-        p チェックを入れると、ブログ記事の本文内にもサムネイル画像が表示されます。
+      .checkboxes
+        .checkboxes__items
+          .checkboxes__item
+            = f.check_box :insert_thumbnail, { check: @article.new_record? || @article.insert_thumbnail, class: 'a-toggle-checkbox' }
+            = f.label :insert_thumbnail, 'サムネイル画像を本文に表示'
+        .a-form-help
+          p
+            | チェックを入れると、ブログ記事の本文内にもサムネイル画像が表示されます。
+            label.a-form-help-link.is-muted-text(for='modal-thumbnail-image')
+              span.a-form-help-link__label
+                | 詳しく
+              span.a-help
+                i.fa-solid.fa-question
+    = render '/shared/modal', id: 'modal-thumbnail-image', modal_title: '本文内にサムネイル表示とは？'
+      .modal__description.is-md
+        .a-short-text
+          p
+            | チェックを入れると本文の頭（タイトルの下）にサムネイル画像が大きく表示されます。記事のアイキャッチ画像としてサムネイル画像を使用する場合はチェックを入れてください。
+          p
+            = image_tag('articles/thumbnail_description.png')
 
     - if params[:action] == 'edit'
       .form-item
