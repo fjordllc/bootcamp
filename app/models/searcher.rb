@@ -19,7 +19,7 @@ class Searcher
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   class << self
-    def search(word, document_type: :all)
+    def search(word, current_user, document_type: :all)
       searchables =
         case document_type
         when :all
@@ -32,7 +32,7 @@ class Searcher
           result_for(document_type, word).sort_by(&:updated_at).reverse
         end
 
-      searchables += search_user_job(word) if USER_JOBS.key?(word) && %i[users all].include?(document_type)
+      searchables += search_user_job(word, document_type) if current_user.admin_or_mentor?
 
       delete_comment_of_talk!(searchables) # 相談部屋の内容は検索できないようにする
     end
@@ -80,8 +80,8 @@ class Searcher
       end
     end
 
-    def search_user_job(word)
-      User.ransack(job_eq: USER_JOBS[word]).result
+    def search_user_job(word, document_type)
+      User.ransack(job_eq: USER_JOBS[word]).result if USER_JOBS.key?(word) && %i[users all].include?(document_type)
     end
   end
 end
