@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Region
+class Area
   HOKKAIDO_TOHOKU = %w[北海道 青森県 岩手県 宮城県 秋田県 山形県 福島県].freeze
   KANTO = %w[茨城県 栃木県 群馬県 埼玉県 千葉県 東京都 神奈川県].freeze
   CHUBU = %w[新潟県 富山県 石川県 福井県 山梨県 長野県 岐阜県 静岡県 愛知県].freeze
@@ -19,22 +19,32 @@ class Region
   }.freeze
 
   class << self
-    # 日本の場合は都道府県、海外の場合は国名によってユーザーを取得
-    def users(subdivision_or_country, region)
+    # 指定したregionとareaのユーザーを全て取得して返す関数
+    # regionはareaをカテゴリーに分類します 日本の地域区分名か海外になります
+    # areaは場所を表す最小単位です 都道府県名か国名になります
+    def users(region, area)
       if region == '海外'
-        country = ISO3166::Country.find_country_by_any_name(subdivision_or_country)
+        country = ISO3166::Country.find_country_by_any_name(area)
         User
           .with_attached_avatar
           .where(country_code: country.alpha2)
       else
-        subdivision_code = ISO3166::Country[:JP].find_subdivision_by_name(subdivision_or_country).code
+        subdivision_code = ISO3166::Country[:JP].find_subdivision_by_name(area).code
         User
           .with_attached_avatar
           .where(subdivision_code: subdivision_code.to_s)
       end
     end
 
-    # 都道府県及び海外の国毎のユーザー数をハッシュで取得
+    # regionとareaによって分類されたユーザー数をハッシュで取得して返す関数
+    #
+    # 返されるハッシュの例
+    # {
+    #   '関東地方' => { '東京都' => 1, '栃木県' => 1 },
+    #   '九州・沖縄地方' => { '長崎県' => 1 },
+    #   '海外' => { '米国' => 2, 'カナダ' => 1 }
+    # }
+    #
     def number_of_users_by_region
       translated_pairs = translate(country_subdivision_pairs)
       by_countries = translated_pairs.group_by(&:first)

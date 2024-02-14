@@ -10,11 +10,7 @@ import useSWR from 'swr'
 // helper
 import fetcher from '../../fetcher'
 
-function RegionCard({
-  region,
-  numberOfUsersByRegion,
-  updateSelectedSubdivisionOrCountry
-}) {
+function RegionCard({ region, numberOfUsersByRegion, onUpdateSelectedArea }) {
   return (
     <nav className="page-nav a-card">
       <header className="page-nav__header">
@@ -24,14 +20,12 @@ function RegionCard({
       </header>
       <hr className="a-border-tint"></hr>
       <ul className="page-nav__items">
-        {Object.keys(numberOfUsersByRegion).map((subdivisionOrCountry) => (
-          <li key={subdivisionOrCountry} className="page-nav__item">
+        {Object.keys(numberOfUsersByRegion).map((area) => (
+          <li key={area} className="page-nav__item">
             <button
-              onClick={() =>
-                updateSelectedSubdivisionOrCountry(region, subdivisionOrCountry)
-              }
+              onClick={() => onUpdateSelectedArea({ region, area })}
               className="page-nav__item-link a-text-link">
-              {`${subdivisionOrCountry}（${numberOfUsersByRegion[subdivisionOrCountry]})`}
+              {`${area}（${numberOfUsersByRegion[area]})`}
             </button>
           </li>
         ))}
@@ -43,21 +37,13 @@ function RegionCard({
 /**
  * 都道府県を指定しないデフォルトでは東京都が選択されます
  */
-export default function FilterByRegion({ numberOfUsersByRegion }) {
-  const [searchParams, setSearchParams] = useSearchParams({
-    subdivision_or_country: '東京都'
-  })
-  const apiUrl = '/api/users/regions?'
+export default function FilterByArea({ numberOfUsersByRegion }) {
+  const [searchParams, setSearchParams] = useSearchParams({ area: '東京都' })
+  const apiUrl = '/api/users/areas?'
   const { data: users, error, mutate } = useSWR(apiUrl + searchParams, fetcher)
 
-  const updateSelectedSubdivisionOrCountry = async (
-    region,
-    subdivisionOrCountry
-  ) => {
-    const search = new URLSearchParams({
-      region,
-      subdivision_or_country: subdivisionOrCountry
-    })
+  const handleUpdateSelectedArea = async ({ region, area }) => {
+    const search = new URLSearchParams({ region, area })
     const newUsers = await fetcher(apiUrl + search).catch((error) => {
       console.error(error)
     })
@@ -85,25 +71,25 @@ export default function FilterByRegion({ numberOfUsersByRegion }) {
   }
 
   return (
-    <MultiColumns data-testid="regions" isReverse>
+    <MultiColumns data-testid="areas" isReverse>
+      {/* region毎に区分されたareaの選択一覧 */}
       <MultiColumns.Sub className="is-sm">
         {Object.keys(numberOfUsersByRegion).map((region) => (
           <RegionCard
             key={region}
             region={region}
             numberOfUsersByRegion={numberOfUsersByRegion[region]}
-            updateSelectedSubdivisionOrCountry={
-              updateSelectedSubdivisionOrCountry
-            }
+            onUpdateSelectedArea={handleUpdateSelectedArea}
           />
         ))}
       </MultiColumns.Sub>
+      {/* 選択されたareaのユーザー一覧 */}
       <MultiColumns.Main>
         <section className="a-card">
           {users.length > 0 ? (
             <UserGroup>
               <UserGroup.Header>
-                {searchParams.get('subdivision_or_country') || '東京都'}
+                {searchParams.get('area') || '東京都'}
               </UserGroup.Header>
               <UserGroup.Icons users={users} />
             </UserGroup>
