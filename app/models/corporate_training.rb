@@ -14,7 +14,7 @@ class CorporateTraining < ApplicationRecord
   validates :participants_count, presence: true
   validates :training_duration, presence: true
   validates :how_did_you_hear, presence: true
-  validates :additional_information, length: { maximum: 1_000_0 }
+  validates :additional_information, length: { maximum: 10_000 }
   validates :privacy_policy, acceptance: { message: 'に同意してください' }
   validate :unique_meeting_dates
   validate :meeting_dates_not_in_past
