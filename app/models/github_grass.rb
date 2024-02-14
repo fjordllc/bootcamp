@@ -24,7 +24,7 @@ class GithubGrass
 
   def fetch
     table = extract_table(fetch_page)
-    localize(table).to_s
+    localize_date_label(table).to_s
   rescue StandardError
     ''
   end
@@ -43,28 +43,27 @@ class GithubGrass
     response.body
   end
 
-  def localize(table)
+  def localize_date_label(table)
     table.css('span[aria-hidden="true"]').each do |label|
-      localize_month(label)
-      localize_wday(label)
+      english_abbreviation = label.children.text.strip
+      replace_month_with_number(label, english_abbreviation)
+      replace_wday_with_japanese(label, english_abbreviation)
     end
     table
   end
 
-  def localize_wday(label)
-    wdays_key = label.children.text.strip.to_sym
-    return unless WDAYS[wdays_key]
+  def replace_month_with_number(label, abbreviation)
+    return unless MONTHS.key?(abbreviation.to_sym)
 
-    label.children = WDAYS[wdays_key]
-    label[:class] = 'wdays'
+    label.children = MONTHS[abbreviation.to_sym]
+    label[:class] = 'months'
   end
 
-  def localize_month(label)
-    months_key = label.children.text.to_sym
-    return unless MONTHS[months_key]
+  def replace_wday_with_japanese(label, abbreviation)
+    return unless WDAYS.key?(abbreviation.to_sym)
 
-    label.children = MONTHS[months_key]
-    label[:class] = 'months'
+    label.children = WDAYS[abbreviation.to_sym]
+    label[:class] = 'wdays'
   end
 
   def github_url(name)
