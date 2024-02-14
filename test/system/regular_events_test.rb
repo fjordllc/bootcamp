@@ -173,14 +173,20 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'show listing not finished regular events' do
     visit_with_auth regular_events_path(target: 'not_finished'), 'kimura'
-    assert_selector '.card-list-item', count: 14
+    within '[data-react-class="RegularEvents"]' do
+      assert_selector '.card-list-item', count: 14
+    end
   end
 
   test 'show listing all regular events' do
     visit_with_auth regular_events_path, 'kimura'
-    assert_selector '.card-list-item', count: 25
+    within '[data-react-class="RegularEvents"]' do
+      assert_selector '.card-list-item', count: 25
+    end
     visit regular_events_path(page: 2)
-    assert_selector '.card-list-item', count: 8
+    within '[data-react-class="RegularEvents"]' do
+      assert_selector '.card-list-item', count: 8
+    end
   end
 
   test 'create a regular event for all students and trainees' do
