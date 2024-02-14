@@ -4,7 +4,8 @@ require 'net/http'
 require 'nokogiri'
 
 class GithubGrass
-  SELECTOR = 'table.ContributionCalendar-grid.js-calendar-graph-table'
+  TABLE_SELECTOR = 'table.ContributionCalendar-grid.js-calendar-graph-table'
+  LABEL_SELECTOR = 'td.ContributionCalendar-label span[aria-hidden="true"]'
   SELECTOR_TO_REMOVE = 'tool-tip'
 
   WDAYS = {
@@ -32,7 +33,7 @@ class GithubGrass
   private
 
   def extract_table(html)
-    table = Nokogiri::HTML(html).css(SELECTOR)
+    table = Nokogiri::HTML(html).css(TABLE_SELECTOR)
     table.css(SELECTOR_TO_REMOVE).each(&:remove)
     table
   end
@@ -44,7 +45,7 @@ class GithubGrass
   end
 
   def localize_date_label(table)
-    table.css('span[aria-hidden="true"]').each do |label|
+    table.css(LABEL_SELECTOR).each do |label|
       english_abbreviation = label.children.text.strip
       replace_month_with_number(label, english_abbreviation)
       replace_wday_with_japanese(label, english_abbreviation)
