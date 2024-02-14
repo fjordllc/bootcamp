@@ -438,3 +438,8 @@ product73:
   user: hajime
   body: 担当者がいなくてwatchされていない提出物です
   checker_id: nil
+
+product74:
+  practice: practice1
+  user: kimuramitai
+  body: 提出、確認が必要なプラクティスの提出物
