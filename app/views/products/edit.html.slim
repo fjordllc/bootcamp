@@ -15,6 +15,6 @@ hr.a-border
           | 再提出をした際はコメントから<br class='is-hidden-md-up'>メンターに連絡をお願いします。
 .page-body
   .container.is-xl
-    = render 'product_practice_content', product: @product, is_description: true
-    = render 'product_practice_content', product: @product, is_description: false
+    = render 'product_practice_content', product: @product, content_type: :practice
+    = render 'product_practice_content', product: @product, content_type: :goal
     = render 'form', practice: @practice, product: @product
