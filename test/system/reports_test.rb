@@ -277,6 +277,23 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '00:30 〜 02:30'
   end
 
+  test 'learning times when carrying over next month' do
+    visit_with_auth '/reports/new', 'komagata'
+    fill_in 'report_title', with: 'テスト日報'
+    fill_in 'report_description', with: '学習時間が月を跨いでいるパターン'
+    fill_in 'report_reported_on', with: Date.new(2024, 1, 31)
+
+    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('22')
+    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('00')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('00')
+    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('00')
+
+    click_button '提出'
+
+    assert_text "2時間\n"
+    assert_text '22:00 〜 (翌日)00:00'
+  end
+
   test 'learning times order' do
     visit_with_auth '/reports/new', 'komagata'
     fill_in 'report_title', with: 'テスト日報'
