@@ -4,7 +4,7 @@ class API::Watches::ToggleController < API::BaseController
   def index
     @watches = Watch.where(
       user: current_user,
-      watchable: watchable
+      watchable:
     )
   end
 
@@ -16,11 +16,11 @@ class API::Watches::ToggleController < API::BaseController
     )
     if watch_existence
       message = "この#{watchable.class.model_name.human}はWatch済です。"
-      render json: { message: message }, status: :unprocessable_entity
+      render json: { message: }, status: :unprocessable_entity
     else
       watch = Watch.create!(
         user: current_user,
-        watchable: watchable
+        watchable:
       )
       render json: watch
     end
