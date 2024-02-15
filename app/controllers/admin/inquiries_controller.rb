@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Admin::InquiriesController < AdminController
-  def index; end
+  def index
+    @inquiries = Inquiry.all
+  end
 
-  def show; end
+  def show
+    @inquiry = Inquiry.find(params[:id])
+  end
 end
