@@ -8,4 +8,9 @@ module ArticlesHelper
   def thumbnail_blank?(article)
     !article.thumbnail.attached? && article.thumbnail_type == 'prepared_thumbnail'
   end
+
+  def ogp_image_url(image_url)
+    base_url = "#{request.protocol}#{request.host_with_port}"
+    base_url + image_url
+  end
 end

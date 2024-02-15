@@ -3,12 +3,15 @@
 - set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
 
 ruby:
-  if @article.prepared_thumbnail?
+  if thumbnail_blank?(@article)
+    set_meta_tags(og: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })
+    set_meta_tags(twitter: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })
+  elsif @article.prepared_thumbnail?
     set_meta_tags(og: { image: @article.prepared_thumbnail_url, url: request.url })
     set_meta_tags(twitter: { image: @article.prepared_thumbnail_url, url: request.url })
   else
-    set_meta_tags(og: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
-    set_meta_tags(twitter: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
+    set_meta_tags(og: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
+    set_meta_tags(twitter: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
   end
 
 .welcome-page-header

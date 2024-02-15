@@ -5,7 +5,7 @@ require 'test_helper'
 class ArticleTest < ActiveSupport::TestCase
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
-    assert_equal '/images/articles/thumbnails/blank.svg', article.prepared_thumbnail_url
+    assert_equal '/ogp/thumbnails/blank.svg', article.prepared_thumbnail_url
   end
 
   test '#selected_thumbnail_url' do
