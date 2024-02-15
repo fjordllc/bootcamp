@@ -164,13 +164,13 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     TEXT
 
     params = {
-      comment: comment,
-      body: body,
+      comment:,
+      body:,
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
 
     expected = {
-      body: body,
+      body:,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
@@ -225,7 +225,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       URL： http://localhost:3000/reports/819157022
     TEXT
     expected = {
-      body: body,
+      body:,
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
