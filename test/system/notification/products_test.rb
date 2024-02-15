@@ -74,8 +74,8 @@ class Notification::ProductsTest < ApplicationSystemTestCase
     user = users(:kimura)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'

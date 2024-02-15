@@ -1,5 +1,5 @@
 <template lang="pug">
-.card-counts.mt-3(v-if='user.student_or_trainee')
+.card-counts.is-users.mt-3(v-if='user.student_or_trainee')
   dl.card-counts__items
     .card-counts__item
       .card-counts__item-inner

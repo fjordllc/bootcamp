@@ -12,14 +12,14 @@ class ProductNotifierForColleague
 
   def notify_advisers(product)
     send_notification(
-      product: product,
+      product:,
       receivers: product.user.company.advisers
     )
   end
 
   def send_notification(product:, receivers:)
     receivers.each do |receiver|
-      ActivityDelivery.with(product: product, receiver: receiver).notify(product.notification_type)
+      ActivityDelivery.with(product:, receiver:).notify(product.notification_type)
     end
   end
 end

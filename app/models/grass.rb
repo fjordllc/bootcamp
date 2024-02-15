@@ -39,7 +39,7 @@ class Grass
         summary ON series.date = summary.date
     SQL
 
-    LearningTime.find_by_sql([sql, { start_date: start_date, end_date: end_date, user_id: user.id }])
+    LearningTime.find_by_sql([sql, { start_date:, end_date:, user_id: user.id }])
   end
   # rubocop:enable Metrics/MethodLength
 end

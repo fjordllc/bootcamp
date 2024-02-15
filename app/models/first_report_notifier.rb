@@ -13,11 +13,11 @@ class FirstReportNotifier
 
   def notify_admins_and_mentors(report)
     User.admins_and_mentors.each do |receiver|
-      ActivityDelivery.with(report: report, receiver: receiver).notify(:first_report) if report.sender != receiver
+      ActivityDelivery.with(report:, receiver:).notify(:first_report) if report.sender != receiver
     end
   end
 
   def notify_to_chat(report)
-    DiscordNotifier.with(report: report).first_report.notify_now
+    DiscordNotifier.with(report:).first_report.notify_now
   end
 end

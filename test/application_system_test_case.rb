@@ -9,6 +9,7 @@ require 'supports/report_helper'
 require 'supports/comment_helper'
 require 'supports/tag_helper'
 require 'supports/mock_env_helper'
+require 'supports/article_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include LoginHelper
@@ -19,11 +20,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include CommentHelper
   include TagHelper
   include MockEnvHelper
+  include ArticleHelper
 
-  if ENV['HEADED']
+  if ENV['HEADFULL']
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
+      driver_option.add_argument('--headless=old')
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
     end

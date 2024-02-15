@@ -106,7 +106,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    base64 (0.1.1)
+    base64 (0.2.0)
     bcrypt (3.1.19)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -461,6 +461,8 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
+    rubocop-capybara (2.20.0)
+      rubocop (~> 1.41)
     rubocop-fjord (0.3.0)
       rubocop (>= 1.0)
       rubocop-performance
@@ -482,7 +484,8 @@ GEM
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
-    selenium-webdriver (4.15.0)
+    selenium-webdriver (4.17.0)
+      base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -655,13 +658,14 @@ DEPENDENCIES
   rollbar
   rss
   rubocop
+  rubocop-capybara
   rubocop-fjord (~> 0.3.0)
   rubocop-minitest
   rubocop-performance
   rubocop-rails
   ruby-openai
   rubyzip
-  selenium-webdriver
+  selenium-webdriver (~> 4.17.0)
   slim-rails
   slim_lint
   sorcery (~> 0.16.2)
