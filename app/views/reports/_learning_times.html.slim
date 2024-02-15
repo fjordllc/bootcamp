@@ -10,4 +10,4 @@
     ul.learning-times__items
       - @report.learning_times.each do |learning_time|
         li.learning-times__item
-          | #{l learning_time.started_at, format: :time_only} 〜 #{'(翌日)' if learning_time.started_at.day < learning_time.finished_at.day}#{l learning_time.finished_at, format: :time_only}
+          | #{l learning_time.started_at, format: :time_only} 〜 #{'(翌日)' if learning_time.started_at.to_date < learning_time.finished_at.to_date}#{l learning_time.finished_at, format: :time_only}
