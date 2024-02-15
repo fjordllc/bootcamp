@@ -90,10 +90,10 @@ class EventsTest < ApplicationSystemTestCase
       fill_in 'event[description]', with: 'ミートアップを開催します(修正2)'
       fill_in 'event[capacity]', with: 30
       fill_in 'event[location]', with: 'FJORDオフィス'
-      page.execute_script("document.getElementById('event_start_at').value = '2019-12-21T19:00:01'")
-      page.execute_script("document.getElementById('event_end_at').value = '2019-12-21T22:30:01'")
-      page.execute_script("document.getElementById('event_open_start_at').value = '2019-12-11T09:00:01'")
-      page.execute_script("document.getElementById('event_open_end_at').value = '2019-12-20T23:59:01'")
+      fill_in 'event[start_at]', with: '002019-12-21T19:00:01'
+      fill_in 'event[end_at]', with: '002019-12-21T22:30:01'
+      fill_in 'event[open_start_at]', with: '002019-12-11T09:00:01'
+      fill_in 'event[open_end_at]', with: '002019-12-20T23:59:01'
       click_button '内容を更新'
     end
     assert_text '特別イベントを更新しました。'

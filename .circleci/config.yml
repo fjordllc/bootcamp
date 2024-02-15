@@ -49,15 +49,16 @@ jobs:
       - image: cimg/postgres:14.4
     resource_class: large
     environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
+      BUNDLE_JOBS: '3'
+      BUNDLE_RETRY: '3'
       PGHOST: 127.0.0.1
       PGUSER: postgres
-      PGPASSWORD: "postgres"
+      PGPASSWORD: 'postgres'
       RAILS_ENV: test
-      DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
+      DATABASE_URL: 'postgres://postgres:postgres@localhost/ci_test'
       TZ: Asia/Tokyo
       PARALLEL_WORKERS: 2
+      LANG: 'ja_JP.UTF-8'
     parallelism: 3
     steps:
       - checkout
@@ -84,7 +85,7 @@ jobs:
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
-      - run:  
+      - run:
           command: 'gem install stringio -v 3.1.0'
       - run:
           name: Test
@@ -105,5 +106,4 @@ workflows:
       - test:
           requires:
             - build
-
 # VS Code Extension Version: 1.5.1
