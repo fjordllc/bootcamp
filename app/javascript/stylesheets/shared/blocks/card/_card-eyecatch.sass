@@ -1,3 +1,13 @@
 .card-eyecatch
-  +border-radius(top, 4px)
-  overflow: hidden
+  +media-breakpoint-up(md)
+    padding: 1rem 1rem 0
+  +media-breakpoint-down(sm)
+    padding: .75rem .75rem 0
+
+.card-eyecatch__image
+  display: block
+  border-radius: 4px
+  aspect-ratio: 1.91 / 1
+  width: 100%
+  object-fit: cover
+  border-radius: .25rem
