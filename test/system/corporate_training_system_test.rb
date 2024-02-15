@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class CorporateTrainingTest < ApplicationSystemTestCase
+class CorporateTrainingSystemTest < ApplicationSystemTestCase
   setup do
     @site_key = Recaptcha.configuration.site_key
     @secret_key = Recaptcha.configuration.secret_key
