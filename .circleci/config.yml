@@ -46,7 +46,9 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
+          LANG: 'ja_JP.UTF-8'
       - image: cimg/postgres:14.4
+          LANG: 'ja_JP.UTF-8'
     resource_class: large
     environment:
       BUNDLE_JOBS: '3'
@@ -58,7 +60,6 @@ jobs:
       DATABASE_URL: 'postgres://postgres:postgres@localhost/ci_test'
       TZ: Asia/Tokyo
       PARALLEL_WORKERS: 2
-      LANG: 'ja_JP.UTF-8'
     parallelism: 3
     steps:
       - checkout
