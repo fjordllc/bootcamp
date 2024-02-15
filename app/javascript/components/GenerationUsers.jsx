@@ -28,6 +28,7 @@ export default function GenerationUsers({ generationID }) {
       location.replace(location.href)
     }
     getUsers()
+    getCurrentUser()
   }, [])
 
   useEffect(() => {
@@ -60,6 +61,22 @@ export default function GenerationUsers({ generationID }) {
       .catch((error) => {
         console.warn(error)
       })
+  }
+
+  const getCurrentUser = () => {
+    fetch('/api/generations/&{generationID}', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+      .then((response) => response.json())
+      .then((data) => setCurrentUser(data))
+      .catch((error) => console.error('Error fetching current user:', error))
   }
 
   const paginateClickCallback = (pageNumber) => {
