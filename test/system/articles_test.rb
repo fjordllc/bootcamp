@@ -287,6 +287,17 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_match(/ruby_on_rails\.png$/, content)
   end
 
+  test 'uncheck checkbox whether to display thumbnail in body' do
+    visit_with_auth edit_article_path(@article), 'komagata'
+    find('label[for=article_thumbnail_type_ruby_on_rails]').click
+    find('label[for=article_insert_thumbnail]').click # デフォルトがONなのでクリックでチェックを外せる
+    click_button '更新する'
+
+    visit "/articles/#{@article.id}"
+    verify_default_ogp_image_used
+    assert_no_selector 'img[class=article__image]'
+  end
+
   test 'display user icon when not logged in' do
     visit_with_auth '/current_user/edit', 'hatsuno'
 
