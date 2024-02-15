@@ -53,8 +53,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     user = users(:mentormentaro)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
@@ -69,8 +69,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     user = users(:kimura)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'kimura'
@@ -121,8 +121,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     user = users(:kimura)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'kimura'
@@ -139,8 +139,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     user = users(:kimura)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'komagata'
@@ -167,8 +167,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     checker = users(:komagata)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
 
@@ -187,8 +187,8 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     checker = users(:komagata)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
 
@@ -214,7 +214,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     Product.create!(
       body: 'hiberanated user product.',
       user: hiberanated_user,
-      practice: practice,
+      practice:,
       checker_id: nil
     )
 

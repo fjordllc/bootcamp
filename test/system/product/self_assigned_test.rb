@@ -68,8 +68,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned', 'mentormentaro'
@@ -86,8 +86,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth '/products/self_assigned?target=self_assigned_no_replied', 'mentormentaro'
@@ -130,8 +130,8 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     product = Product.create!(
       body: 'test',
-      user: user,
-      practice: practice,
+      user:,
+      practice:,
       checker_id: checker.id
     )
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
@@ -187,13 +187,13 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     Product.create!(
       body: 'test',
       user: unhibernated_user,
-      practice: practice,
+      practice:,
       checker_id: checker.id
     )
     Product.create!(
       body: 'test',
       user: hibernated_user,
-      practice: practice,
+      practice:,
       checker_id: checker.id
     )
 
