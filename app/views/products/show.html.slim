@@ -41,7 +41,7 @@ header.page-header
       .col-xl-7.col-lg-9.col-md-11.col-xs-12
         .page-content.is-product
           = render 'product_header', product: @product
-          = render 'product_practice_content', product: @product, is_description: false
+          = render 'product_practice_content', product: @product, content_type: :goal
           = render 'product_body', product: @product
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
