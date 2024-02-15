@@ -3,6 +3,7 @@
 class QuestionsController < ApplicationController
   include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[show destroy]
+  before_action :set_editable_question, only: %i[edit update]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
   before_action :require_admin_or_mentor_login, only: [:destroy]
@@ -58,6 +59,8 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
+  def edit; end
+
   def create
     @question = Question.new(question_params)
     @question.user = current_user
@@ -70,6 +73,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def update
+    @question.wip = params[:commit] == 'WIP'
+    if @question.update(question_params)
+      Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
+      redirect_to @question, notice: '質問を更新しました。'
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @question.destroy
     redirect_to questions_url, notice: '質問を削除しました。'
@@ -79,6 +92,10 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_editable_question
+    @question = current_user.mentor? ? Question.find(params[:id]) : current_user.questions.find(params[:id])
   end
 
   def set_categories
