@@ -192,6 +192,21 @@ ActiveRecord::Schema.define(version: 2024_02_02_100641) do
     t.string "blog_url"
   end
 
+  create_table "corporate_trainings", force: :cascade do |t|
+    t.string "company_name"
+    t.string "name"
+    t.string "email"
+    t.datetime "meeting_date1"
+    t.datetime "meeting_date2"
+    t.datetime "meeting_date3"
+    t.integer "participants_count"
+    t.string "training_duration"
+    t.string "how_did_you_hear"
+    t.text "additional_information"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false

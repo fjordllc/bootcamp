@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   resources :questions, only: %i(index show new create destroy)
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
+  resource :corporate_training, only: %i(new create)
   resources :articles
   resources :survey_questions, except: %i(show destroy)
   namespace :events do
