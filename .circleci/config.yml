@@ -48,7 +48,6 @@ jobs:
           POSTGRES_DB: ci_test
           LANG: 'ja_JP.UTF-8'
       - image: cimg/postgres:14.4
-          LANG: 'ja_JP.UTF-8'
     resource_class: large
     environment:
       BUNDLE_JOBS: '3'
