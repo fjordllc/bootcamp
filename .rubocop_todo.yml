@@ -13,16 +13,6 @@
 # SupportedShorthandSyntax: always, never, either, consistent
 Style/HashSyntax:
   Exclude:
-    - 'app/controllers/admin/campaigns_controller.rb'
-    - 'app/controllers/announcements_controller.rb'
-    - 'app/controllers/api/admin/count_controller.rb'
-    - 'app/controllers/api/bookmarks_controller.rb'
-    - 'app/controllers/api/checks_controller.rb'
-    - 'app/controllers/api/followings_controller.rb'
-    - 'app/controllers/api/products/unchecked_controller.rb'
-    - 'app/controllers/api/session_controller.rb'
-    - 'app/controllers/api/watches/toggle_controller.rb'
-    - 'app/controllers/application_controller.rb'
     - 'test/deliveries/activity_delivery_test.rb'
     - 'test/mailers/activity_mailer_test.rb'
     - 'test/mailers/notification_mailer_test.rb'
