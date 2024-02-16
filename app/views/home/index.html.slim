@@ -11,16 +11,12 @@
   = render 'welcome_message_for_adviser'
 
 .page-body.is-dash-board
-  - if current_user.adviser?
-    .page-body__inner.has-side-nav
+  .page-body__inner.has-side-nav
+    - if current_user.adviser?
       = render 'adviser_dashboard'
-      = render partial: 'recent_reports'
-  - elsif current_user.mentor?
-    .page-body__inner.has-side-nav
+    - elsif current_user.mentor?
       = render 'mentor_dashboard'
-      = render partial: 'recent_reports'
-  - else
-    .page-body__inner.has-side-nav
+    - else
       .columns
         .container.is-xl
           .row
@@ -47,4 +43,4 @@
                 = render 'users/github_grass', user: current_user
               - if current_user.student_or_trainee?
                 #js-niconico_calendar(data-user-id="#{current_user.id}")
-      = render partial: 'recent_reports'
+    = render partial: 'recent_reports'

@@ -36,13 +36,12 @@ main.page-main
                     = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-sm is-secondary is-block'
         - else
           h1.page-main-header__title
+            | #{t("target.#{@target}")}
             - if @watch
-              | #{t("target.#{@target}")}：#{t("watch.#{@watch}")}（#{@users.total_count}）
-            - else
-              | #{t("target.#{@target}")}
-              - if admin_or_mentor_login?
-                span.is-only-mentor
-                  |（#{@users.total_count}）
+              |：#{t("watch.#{@watch}")}（#{@users.total_count}）
+            - elsif admin_or_mentor_login?
+              span.is-only-mentor
+                |（#{@users.total_count}）
   hr.a-border
   .page-body.is-users
     // TODO 暫定的な対応
