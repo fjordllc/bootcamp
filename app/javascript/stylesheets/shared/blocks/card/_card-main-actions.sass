@@ -5,29 +5,29 @@
 .card-main-actions__items
   display: flex
   gap: .75rem
-  +media-breakpoint-up(md)
+  @container card-footer (min-width: 20em)
     +position(relative)
     justify-content: center
     flex-wrap: wrap
     align-items: flex-end
     min-height: 1.875rem
-  +media-breakpoint-down(sm)
+  @container card-footer (max-width: 19.9375em)
     flex-direction: column
   &.is-sub-actions
     justify-content: flex-end
-    +media-breakpoint-down(sm)
+    @container card-footer (max-width: 19.9375em)
       flex-direction: row
     .card-main-actions__item.is-sub
       position: static
       flex: 0 0 auto
 
 .card-main-actions__item
-  +media-breakpoint-up(md)
-    flex: 0 0 12rem
-    max-width: calc(50% - .375rem)
+  @container card-footer (min-width: 20em)
+    flex: 1
+    max-width: 15rem
     &.is-sub
       +position(absolute, right 0, bottom 0)
-  +media-breakpoint-down(sm)
+  @container card-footer (max-width: 19.9375em)
     flex-basis: 100%
     max-width: 100%
     &.is-sub
@@ -37,6 +37,10 @@
   &.is-end
     margin-left: auto
     flex-basis: 2.5rem
+  .card-main-actions.is-3-items &
+    @container card-footer (min-width: 20em)
+      flex: 1 0 0
+
 
 .card-main-actions__muted-action
   +hover-link-reversal
