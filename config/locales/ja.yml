@@ -100,6 +100,7 @@ ja:
         country_code: 国
         subdivision_code: 都道府県・州
         not_auto_retire: 休会六ヶ月後に自動退会しない
+        invoice_payment_user: 請求書払いのユーザーである
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
