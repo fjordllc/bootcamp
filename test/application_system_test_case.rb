@@ -23,14 +23,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include ArticleHelper
   if ENV['HEADFULL']
     driven_by(:selenium, using: :chrome) do |driver_option|
-      driver_option.add_argument('--lang=ja')
+      options = driver_option.args
+      options << '--lang=ja'
+      options << '--user-agent=ja-JP'
+      driver_option.args = options
     end
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      driver_option.add_argument('--headless=old')
-      driver_option.add_argument('--no-sandbox')
-      driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('--lang=ja')
+      options = driver_option.args
+      options << '--headless=old'
+      options << '--no-sandbox'
+      options << '--disable-dev-shm-usage'
+      options << '--lang=ja'
+      options << '--user-agent=ja-JP'
+      driver_option.args = options
     end
   end
 
