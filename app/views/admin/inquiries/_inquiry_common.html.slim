@@ -1,0 +1,27 @@
+.card-list-item__row
+  .card-list-item-meta
+    .card-list-item-meta__items
+      .card-list-item-meta__item
+        .a-meta
+          span.a-meta__label
+            | 名前
+          span.a-meta__value
+            = inquiry.name
+.card-list-item__row
+  .card-list-item-meta
+    .card-list-item-meta__items
+      .card-list-item-meta__item
+        .a-meta
+          span.a-meta__label
+            | メールアドレス
+          span.a-meta__value
+            = inquiry.email
+.card-list-item__row
+  .card-list-item-meta
+    .card-list-item-meta__items
+      .card-list-item-meta__item
+        .a-meta
+          span.a-meta__label
+            | 送信年月日
+          span.a-meta__value
+            = l inquiry.created_at.to_date
