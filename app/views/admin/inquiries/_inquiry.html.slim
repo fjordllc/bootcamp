@@ -1,5 +1,0 @@
-.card-list-item.a-card
-  - if params[:action] == 'index'
-    = render partial: 'inquiry_index', locals: { inquiry: inquiry }
-  - elsif params[:action] == 'show'
-    = render partial: 'inquiry_show', locals: { inquiry: inquiry }
