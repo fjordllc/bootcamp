@@ -29,7 +29,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       driver_option.add_argument('--headless=old')
       driver_option.add_argument('--no-sandbox')
       driver_option.add_argument('--disable-dev-shm-usage')
-      driver_option.add_argument('--lang=ja_JP.UTF-8')
+      driver_option.add_argument('--lang=ja_JP')
     end
   end
 
