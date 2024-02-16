@@ -12,8 +12,8 @@
     - others_checked = user.editor.present? && editors.exclude?(user.editor)
     li.block-checks__item
       .a-block-check.is-radio
-        = f.radio_button :editor, 'others', id: 'others', class: 'a-toggle-checkbox', checked: others_checked
-        = f.label :editor, for: 'others', class: 'a-block-check__label has-icon is-ta-left' do
+        = f.radio_button :editor, 'others_editor', id: 'others_editor', class: 'a-toggle-checkbox', checked: others_checked
+        = f.label :editor, for: 'others_editor', class: 'a-block-check__label has-icon is-ta-left' do
           = t('activerecord.attributes.editors.others')
 .form-item(class="#{'is-hidden' unless others_checked}" id='others_form')
   label.a-form-label
