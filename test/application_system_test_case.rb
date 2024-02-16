@@ -21,22 +21,21 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include TagHelper
   include MockEnvHelper
   include ArticleHelper
+
   if ENV['HEADFULL']
-    driven_by(:selenium, using: :chrome) do |driver_option|
-      options = driver_option.args
-      options << '--lang=ja'
-      options << '--user-agent=ja-JP'
-      driver_option.args = options
-    end
+    driven_by(:selenium, using: :chrome, options:{
+      options: Selenium::WebDriver::Chrome::Options.new(
+        prefs: { 'general.useragent.locale' => 'ja-JP' }
+      )
+    })
   else
-    driven_by(:selenium, using: :headless_chrome) do |driver_option|
-      options = driver_option.args
-      options << '--headless=old'
-      options << '--no-sandbox'
-      options << '--disable-dev-shm-usage'
-      options << '--lang=ja'
-      options << '--user-agent=ja-JP'
-      driver_option.args = options
+    driven_by(:selenium, using: :headless_chrome, options:{
+      options: Selenium::WebDriver::Chrome::Options.new(
+        prefs: { 'general.useragent.locale' => 'ja-JP' }
+      )}) do |driver_option|
+      driver_option.add_argument('--headless=old')
+      driver_option.add_argument('--no-sandbox')
+      driver_option.add_argument('--disable-dev-shm-usage')
     end
   end
 
