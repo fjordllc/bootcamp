@@ -11,7 +11,7 @@
             .card-list-item__thumbnail
               .card-list-item__thumbnail-inner
                 - if recent_article.thumbnail.attached?
-                  = image_tag recent_article.thumbnail.variant(resize: '200x105>').processed.url, class: 'card-list-item__thumbnail-image', alt: "ブログ記事「#{recent_article.title}」のアイキャッチ画像"
+                  = image_tag recent_article.thumbnail.variant(resize_to_limit: [200, 105]).processed.url, class: 'card-list-item__thumbnail-image', alt: "ブログ記事「#{recent_article.title}」のアイキャッチ画像"
                 - else
                   = image_tag 'work-blank.svg', class: 'card-list-item__thumbnail-image', alt: 'ブログ記事のブランクアイキャッチ画像'
             .card-list-item__rows
