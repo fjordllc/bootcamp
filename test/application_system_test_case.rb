@@ -25,13 +25,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   if ENV['HEADFULL']
     driven_by(:selenium, using: :chrome, options: {
                 options: Selenium::WebDriver::Chrome::Options.new(
-                  prefs: { 'general.useragent.locale' => 'ja-JP' }
+                  prefs: { 'intl.accept_languages' => 'ja-JP' }
                 )
               })
   else
     driven_by(:selenium, using: :headless_chrome, options: {
                 options: Selenium::WebDriver::Chrome::Options.new(
-                  prefs: { 'general.useragent.locale' => 'ja-JP' }
+                  prefs: { 'intl.accept_languages' => 'ja-JP' }
                 )
               }) do |driver_option|
       driver_option.add_argument('--headless=old')
