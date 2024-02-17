@@ -279,6 +279,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test 'can set up prepared images for eye-catching image, the default OGP image will be used' do
     visit_with_auth edit_article_path(@article), 'komagata'
     find('label[for=article_thumbnail_type_ruby_on_rails]').click
+    check 'サムネイル画像を本文に表示', allow_label_click: true
     click_button '更新する'
 
     visit "/articles/#{@article.id}"
@@ -290,7 +291,7 @@ class ArticlesTest < ApplicationSystemTestCase
   test 'uncheck checkbox whether to display thumbnail in body' do
     visit_with_auth edit_article_path(@article), 'komagata'
     find('label[for=article_thumbnail_type_ruby_on_rails]').click
-    find('label[for=article_insert_thumbnail]').click # デフォルトがONなのでクリックでチェックを外せる
+    uncheck 'サムネイル画像を本文に表示', allow_label_click: true
     click_button '更新する'
 
     visit "/articles/#{@article.id}"
