@@ -23,13 +23,13 @@ class Searcher
       searchables =
         case document_type
         when :all
-          result_for_all(word) + (search_user_job(word, current_user) || [])
+          result_for_all(word) + (search_users_by_job(word, current_user) || [])
         when commentable?
           result_for_comments(document_type, word)
         when :questions
           result_for_questions(document_type, word)
         when :users
-          result_for(document_type, word) + (search_user_job(word, current_user) || [])
+          result_for(document_type, word) + (search_users_by_job(word, current_user) || [])
         else
           result_for(document_type, word)
         end
@@ -78,7 +78,7 @@ class Searcher
       end
     end
 
-    def search_user_job(word, current_user)
+    def search_users_by_job(word, current_user)
       User.ransack(job_eq: USER_JOBS[word]).result if USER_JOBS.key?(word) && current_user.admin_or_mentor?
     end
   end
