@@ -206,4 +206,23 @@ class SearchableTest < ActiveSupport::TestCase
     assert_includes(result, practices(:practice55))
     assert_not_includes(result, practices(:practice56))
   end
+
+  test 'returns search results by job' do
+    result = Searcher.search('学生', @test_user)
+    User.where(job: 'student').find_each do |user|
+      assert_includes result, user
+    end
+  end
+
+  test 'returns search results by job when user is mentor' do
+    result = Searcher.search('学生', users(:mentormentaro))
+    User.where(job: 'student').find_each do |user|
+      assert_includes result, user
+    end
+  end
+
+  test 'does not return search results by job when user is other than admin or mentor' do
+    result = Searcher.search('学生', users(:advijirou))
+    assert_empty result
+  end
 end
