@@ -64,9 +64,7 @@ nav.global-nav
             .global-nav-links__link-label イベント
         - if current_user.admin?
           li.global-nav-links__item
-            = render 'global_nav_help_link'
-          li.global-nav-links__item
-            = render 'global_nav_help_adviser_link'
+            = render 'global_nav_helps'
         - elsif current_user.adviser?
           li.global-nav-links__item
             = render 'global_nav_help_adviser_link'
