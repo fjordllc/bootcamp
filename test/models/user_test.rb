@@ -336,13 +336,13 @@ class UserTest < ActiveSupport::TestCase
 
   test "don't return retired user data" do
     yameo = users(:yameo)
-    result = Searcher.search(yameo.name)
+    result = Searcher.search(yameo.name, yameo)
     assert_not_includes(result, yameo)
   end
 
   test 'return not retired user data' do
     hajime = users(:hajime)
-    result = Searcher.search(hajime.name)
+    result = Searcher.search(hajime.name, hajime)
     assert_includes(result, hajime)
   end
 

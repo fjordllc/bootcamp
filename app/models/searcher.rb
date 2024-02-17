@@ -23,18 +23,18 @@ class Searcher
       searchables =
         case document_type
         when :all
-          result_for_all(word)
+          result_for_all(word) + (search_user_job(word, current_user) || [])
         when commentable?
           result_for_comments(document_type, word)
         when :questions
           result_for_questions(document_type, word)
+        when :users
+          result_for(document_type, word) + (search_user_job(word, current_user) || [])
         else
-          result_for(document_type, word).sort_by(&:updated_at).reverse
+          result_for(document_type, word)
         end
 
-      searchables += search_user_job(word, document_type) if current_user.admin_or_mentor?
-
-      delete_comment_of_talk!(searchables) # 相談部屋の内容は検索できないようにする
+      delete_comment_of_talk!(searchables.sort_by(&:updated_at).reverse) # 相談部屋の内容は検索できないようにする
     end
 
     private
@@ -60,18 +60,16 @@ class Searcher
     def result_for_all(word)
       AVAILABLE_TYPES
         .flat_map { |type| result_for(type, word) }
-        .sort_by(&:updated_at)
-        .reverse
     end
 
     def result_for_comments(document_type, word)
       [document_type, :comments].flat_map do |type|
         result_for(type, word, commentable_type: model_name(document_type))
-      end.sort_by(&:updated_at).reverse
+      end
     end
 
     def result_for_questions(document_type, word)
-      [document_type, :answers].flat_map { |type| result_for(type, word) }.sort_by(&:updated_at).reverse
+      [document_type, :answers].flat_map { |type| result_for(type, word) }
     end
 
     def delete_comment_of_talk!(searchables)
@@ -80,8 +78,8 @@ class Searcher
       end
     end
 
-    def search_user_job(word, document_type)
-      User.ransack(job_eq: USER_JOBS[word]).result if USER_JOBS.key?(word) && %i[users all].include?(document_type)
+    def search_user_job(word, current_user)
+      User.ransack(job_eq: USER_JOBS[word]).result if USER_JOBS.key?(word) && current_user.admin_or_mentor?
     end
   end
 end
