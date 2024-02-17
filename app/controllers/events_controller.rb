@@ -117,10 +117,10 @@ class EventsController < ApplicationController
 
   def display_upcoming_events
     days = %w[today tomorrow day_after_tomorrow]
-    @today_events, @tomorrow_events, @day_after_tomorrow_events = days.map { |day| fetch_events_held_on(day:) }
+    @today_events, @tomorrow_events, @day_after_tomorrow_events = days.map { |day| fetch_events_held_on(day) }
   end
 
-  def fetch_events_held_on(day: 'today')
+  def fetch_events_held_on(day)
     method_name = "#{day}_events".to_sym
     events = Event.send(method_name) + RegularEvent.send(method_name)
     events.sort_by { |e| e.start_at.strftime('%H:%M') }
