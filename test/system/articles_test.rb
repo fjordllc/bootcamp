@@ -260,7 +260,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'if there is no featured image, the default image is set as the OGP image' do
-    visit_with_auth "/articles/#{@article.id}", 'komagata'
+    visit_with_auth "/articles/#{@article3.id}", 'komagata'
     verify_default_ogp_image_used
   end
 
