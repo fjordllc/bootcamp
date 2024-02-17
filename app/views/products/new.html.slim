@@ -8,11 +8,18 @@ header.page-header
         = title
 hr.a-border
 .page-body
-  .page-body__rows
-    .page-body__row
-      .container.is-lg
-        = render 'product_practice_content', product: @product, content_type: :practice
-        = render 'product_practice_content', product: @product, content_type: :goal
-    .page-body__row
-      .container.is-xl
-        = render 'form', practice: @practice, product: @product
+  .page-body__inner
+    .page-body__rows
+      .page-body__row
+        .container.is-lg
+          .row
+            .col-xs-12.col-lg-10.col-xl-8
+              = render 'product_practice_content', product: @product, content_type: :practice
+      .page-body__row
+        .container.is-lg
+          .row
+            .col-xs-12.col-lg-10.col-xl-8
+              = render 'product_practice_content', product: @product, content_type: :goal
+      .page-body__row
+        .container.is-xl
+          = render 'form', practice: @practice, product: @product
