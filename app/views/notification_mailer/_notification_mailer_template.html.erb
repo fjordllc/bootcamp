@@ -1,29 +1,30 @@
 <table style="width: 100%;">
   <tr>
-    <td style="word-wrap: break-word; font-size: 0px; padding: 16px 20px 0;" align="center">
-      <div style="cursor:auto; font-family: sans-serif ; text-align:center;">
-        <h3
-          style="font-family: sans-serif; font-size: 20px; color:#4638a0; line-height: 1.5; margin-bottom: 0; font-weight: bold">
-          <%= title %></h3>
+    <td style="word-wrap: break-word; font-size: 0px; padding: 16px 20px 0; text-align: left;">
+      <div style="cursor:auto;">
+        <h1 style="font-size: 24px; color:#4638a0; line-height: 1.5; margin-bottom: 0; font-weight: bold">
+          <%= title %></h1>
+        <p style="font-size: 13px; color:#4638a0; line-height: 1.5; margin-top: 12px; text-align: left">
+          <%= link_to @announcement.user.long_name, @announcement.user, style: "line-height: 140%; text-decoration: underline;" %>
+        </p>
       </div>
     </td>
   </tr>
   <tr>
-    <td style="word-wrap:break-word; padding:16px 24px 16px 24px;" align="left">
+    <td style="word-wrap: break-word; padding: 16px 24px 16px 24px; text-align: left;">
       <div class="a-long-text">
         <%= yield %>
       </div>
     </td>
   </tr>
   <tr>
-    <td style="word-wrap:break-word;font-size:0px;padding:0 20px 16px 20px;" align="center">
-      <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;width:auto;"
-        align="center" border="0">
+    <td style="word-wrap: break-word; font-size: 0px; padding: 0 20px 16px 20px; text-align: center;">
+      <table role="presentation" cellpadding="0" cellspacing="0"
+        style="border-collapse:separate;width:auto; text-align: center; border: none; width: 100%">
         <tbody>
           <tr>
-            <td style="border:0px solid #000;border-radius:24px;color:#fff;cursor:auto;padding:12px 32px;"
-              align="center" valign="middle" bgcolor="#30ABDB">
-              <%= link_to link_text, link_url, style: "text-decoration:none; background:#30ABDB; color:#fff; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 140%; text-transform: none; margin: 0px;" %>
+            <td style="border: none; text-align: center;" valign="middle">
+              <%= link_to link_text, link_url, style: "text-decoration: none; background: #30ABDB; color:#fff; font-size: 14px; font-weight: bold; line-height: 140%; border-radius: 24px; padding: 12px 32px; text-align: center; background-color: #30ABDB; margin: 0px; display: inline-block;" %>
             </td>
           </tr>
         </tbody>
@@ -31,21 +32,15 @@
     </td>
   </tr>
   <tr>
-    <td style="word-wrap:break-word;font-size:0px;padding:0 20px 20px 20px;" align="center">
-      <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;width:auto;"
-        align="center" border="0">
+    <td style="word-wrap: break-word; font-size:0px; padding: 0 20px 20px 20px; text-align: center;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse: separate; width: 100%; text-align: center;">
         <tbody>
           <tr>
-            <td style="border:0px solid #000;cursor:auto;padding:12px 32px;" align="center" valign="middle">
-              <%= link_to "メールでの通知オフはこちらから", user_mail_notification_url(@user, token: @user.unsubscribe_email_token), style: "color:#4638a0; font-family: sans-serif; font-size:14px; font-weight:bold;line-height:140%; text-transform:none; margin:0px;", target: "_blank" %>
+            <td style="border: none; text-align: center;">
+              <%= link_to "メールでの通知オフはこちらから", user_mail_notification_url(@user, token: @user.unsubscribe_email_token), style: "color:#4638a0; font-size:14px; font-weight: bold; line-height:140%; margin: 0px; padding: 12px 32px; display: inline-block;", target: "_blank" %>
           </tr>
         </tbody>
       </table>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <%= "作成者：#{@announcement.user.long_name}" %>
     </td>
   </tr>
 </table>
