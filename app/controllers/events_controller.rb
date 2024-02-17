@@ -117,7 +117,7 @@ class EventsController < ApplicationController
 
   def display_upcoming_events
     days = %w[today tomorrow day_after_tomorrow]
-    @today_events, @tomorrow_events, @day_after_tomorrow_events = days.map { |day| fetch_events_held_on(day: day) }
+    @today_events, @tomorrow_events, @day_after_tomorrow_events = days.map { |day| fetch_events_held_on(day:) }
   end
 
   def fetch_events_held_on(day: 'today')
