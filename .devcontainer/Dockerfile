@@ -10,7 +10,7 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 
 # Install OS packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends imagemagick pngcrush optipng gsfonts
+    && apt-get -y install --no-install-recommends libvips42 libvips-dev pngcrush optipng gsfonts
 
 # Install bundler
 RUN gem install --no-document bundler -v 2.2.27

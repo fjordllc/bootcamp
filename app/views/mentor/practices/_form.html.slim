@@ -20,7 +20,7 @@
         .form-item-file-input.js-file-input.a-file-input
           label.js-file-input__preview(for='practice_ogp_image')
             - if f.object.ogp_image.attached?
-              = image_tag f.object.ogp_image.variant(resize: '100x100')
+              = image_tag f.object.ogp_image.variant(resize_to_limit: [100, 100])
               p 画像を変更
             - else
               p 画像を選択
@@ -108,7 +108,7 @@
         .form-item-file-input.js-file-input.a-file-input
           label.js-file-input__preview(for='practice_completion_image')
             - if f.object.completion_image.attached?
-              = image_tag f.object.completion_image.variant(resize: '100x100')
+              = image_tag f.object.completion_image.variant(resize_to_limit: [100, 100])
               p 画像を変更
             - else
               p 画像を選択

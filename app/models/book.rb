@@ -3,7 +3,7 @@
 class Book < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
 
-  COVER_SIZE = '100x150>'
+  COVER_SIZE = [100, 150].freeze
   has_many :practices_books, dependent: :destroy
   has_many :practices, through: :practices_books
   has_one_attached :cover
@@ -17,7 +17,7 @@ class Book < ApplicationRecord
   def cover_url
     default_image_path = '/images/books/covers/default.svg'
     if cover.attached?
-      cover.variant(resize: COVER_SIZE).processed.url
+      cover.variant(resize_to_limit: COVER_SIZE).processed.url
     else
       image_url default_image_path
     end
