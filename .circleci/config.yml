@@ -46,6 +46,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_test
+          - LOCALE=ja
+          - LANG=ja_JP.UTF-8
       - image: cimg/postgres:14.4
     resource_class: large
     environment:
@@ -62,6 +64,9 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get update # TODO: remove it https://github.com/CircleCI-Public/browser-tools-orb/issues/75#issuecomment-1641031119
+      - run: echo 'ja_JP.UTF-8 UTF-8' | sudo tee -a  /etc/locale.gen
+      - run: sudo locale-gen
+      - run: sudo update-locale LANG=ja_JP.UTF-8
       - browser-tools/install-chrome:
           chrome-version: 121.0.6167.160
       - browser-tools/install-chromedriver
