@@ -120,4 +120,10 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
   end
+
+  test '特定のタグを持つ記事6件がpublished_atの順で表示される' do
+    visit '/welcome'
+    articles = Article.tagged_with('feature')
+    assert_equal articles.map(&:published_at), articles.map(&:published_at).sort.reverse.first(6)
+  end
 end
