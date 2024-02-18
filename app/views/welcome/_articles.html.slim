@@ -1,77 +1,46 @@
-section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
-  .l-container.is-xl
-    .lp-content__inner
-      .lp-content__start
-        header.lp-content__header
-          h2.lp-content-title.text-center.is-border-bottom
-            | 注目のブログ記事
-
-      .lp-content__end
-        .lp-content-stack
-          .lp-content-stack__item
-            .lp-content__description
-              .l-inner-container.is-md
-                .a-short-text
-                  p
-                    | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
-                    | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
-                    | ぜひ、検討材料にご活用ください。
-          .lp-content-stack__item
-            .lp-content__articles
-              .row.is-gutter-width-32
-                .col-xs-6.col-md-4
-                  .thumbnail-card.a-card
-                    = link_to 'https://bootcamp.fjord.jp/articles/38', class: 'thumbnail-card__inner' do
-                      .thumbnail-card__row
-                        = image_tag 'articles/article-38.png', class: 'thumbnail-card__image', alt: '「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しましたの記事のサムネイル'
-                      .thumbnail-card__row
-                        h3.thumbnail-card__title
-                          | 「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しました
-                      .thumbnail-card__row
-                        .thumbnail-card__description
-                          p
-                            | 「ゼロからわかるRuby超入門」著者五十嵐さん本人による講義動画を製作しました。
-                            | フィヨルドブートキャンプに入会した方は全員見ることができます。
-                            | 1章あたりおよそ1時間の講義で、環境構築以外の2章〜11章の講義動画があります。
-
-                .col-xs-6.col-md-4
-                  .thumbnail-card.a-card
-                    = link_to 'https://bootcamp.fjord.jp/articles/97', class: 'thumbnail-card__inner' do
-                      .thumbnail-card__row
-                        = image_tag 'articles/article-97.png', class: 'thumbnail-card__image', alt: 'フィヨブーフェス2023 の発表の動画（字幕付✨）と文字起こしを公開！！の記事のサムネイル'
-                      .thumbnail-card__row
-                        h3.thumbnail-card__title
-                          | フィヨブーフェス2023 の発表の動画（字幕付✨）と文字起こしを公開！！
-                      .thumbnail-card__row
-                        .thumbnail-card__description
-                          p
-                            | 現役生やフィヨルドブートキャンプの受講を考えている方に対して、
-                            | 先輩受講生や卒業生からフィヨルドブートキャンプの楽しみ方や学習継続のコツ、
-                            | アドバイスなどをショートプレゼンテーション形式で伝える、
-                            | というイベント「フィヨブーフェス2023」を開催しました。
-
-                .col-xs-6.col-md-4
-                  .thumbnail-card.a-card
-                    = link_to 'https://bootcamp.fjord.jp/articles/44', class: 'thumbnail-card__inner' do
-                      .thumbnail-card__row
-                        = image_tag 'articles/article-44.png', class: 'thumbnail-card__image', alt: 'フィヨルドブートキャンプアドベントカレンダーの記事のサムネイル'
-                      .thumbnail-card__row
-                        h3.thumbnail-card__title
-                          | フィヨルドブートキャンプアドベントカレンダー
-                      .thumbnail-card__row
-                        .thumbnail-card__description
-                          p
-                            | 毎年12月は受講生、メンター、アドバイザー...フィヨルドブートキャンプコミュニティに関わっているみんなで
-                            | クリスマスに向けてブログ記事を書く、というのが毎年恒例です。
-                            | フィヨルドブートキャンプコミュニティに関わるみんなの記事が一気に見れるので、
-                            | フィヨルドブートキャンプの中のことがよくわかります。
-
-          .lp-content-stack__item
-            .lp-actions
-              .lp-actions__items
-                .lp-actions__item
-                  = link_to articles_path, class: 'a-button is-xl is-primary-border is-block' do
-                    | ブログ記事一覧
+section.welcome-section.is-articles#articles
+  .container.is-xl
+    h2.welcome-section__title
+      | 注目のブログ記事
+    .welcome-section__description
+      p
+        | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
+        | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
+        | ぜひ、検討材料にご活用ください。
+        .welcome-page-body
+  .articles__body
+    .container.is-xl
+      .articles__items
+        .row
+          - @articles.first(6).each do |article|
+            .col-lg-4.col-md-6.col-xs-12
+              .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
+                = link_to article, class: 'articles-item__link' do
+                  .articles-item__row
+                    - if article.prepared_thumbnail?
+                      = image_tag article.prepared_thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
+                    - else
+                      = image_tag(article.selected_thumbnail_url, class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
+                  .articles-item__row
+                    h2.articles-item__title
+                      - if article.wip?
+                        span.article__title-label.is-wip
+                          | WIP
+                      = article.title
+                  .articles-item__row
+                    .articles-item__metas
+                      .articles-item__meta
+                        .articles-item__author
+                          = image_tag article.user.avatar_url
+                          = article.user.login_name
+                      .articles-item__meta
+                        .articles-item__published-at
+                          - if article.wip?
+                            = '執筆中'
+                          - elsif article.published_at.nil?
+                            = l(article.created_at)
+                          - else
+                            = l(article.published_at)
 
   .lp-content-divider.is-lp-bg-2
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
