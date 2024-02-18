@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   template(v-if='question === null || currentUser === null')
-    loadingQuestionPagePlaceholder
+    commentPlaceholder(v-for='num in placeholderCount', :key='num')
   template(v-else)
     template(v-if='hasAiQuestion && isAdminOrMentor()')
       ai_answer(:text='question.ai_answer')
@@ -15,17 +15,14 @@ div
 </template>
 <script>
 import CSRF from 'csrf'
-import QuestionEdit from 'components/question-edit.vue'
 import AIAnswer from 'components/ai-answer.vue'
 import Answers from '../answers.vue'
-import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
+import CommentPlaceholder from '../comment-placeholder.vue'
 
 export default {
   name: 'Answers',
   components: {
-    LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
-    /* app/javascript/loading-question-page-placeholder.vue */
-    questionEdit: QuestionEdit,
+    commentPlaceholder: CommentPlaceholder,
     ai_answer: AIAnswer,
     answers: Answers
   },
@@ -37,8 +34,7 @@ export default {
     return {
       question: null,
       currentUser: null,
-      answerCount: 0,
-      isAnswerCountUpdated: false
+      placeholderCount: 3
     }
   },
   computed: {
@@ -91,15 +87,21 @@ export default {
           console.warn(error)
         })
     },
-    solveQuestion(answer) {
-      this.question.correct_answer = answer
+    solveQuestion() {
+      const statusLabel = document.querySelector('.js-solved-status')
+      statusLabel.classList.remove('is-danger')
+      statusLabel.classList.add('is-success')
+      statusLabel.textContent = '解決済'
     },
     cancelSolveQuestion() {
-      this.question.correct_answer = null
+      const statusLabel = document.querySelector('.js-solved-status')
+      statusLabel.classList.remove('is-success')
+      statusLabel.classList.add('is-danger')
+      statusLabel.textContent = '未解決'
     },
     updateAnswerCount(count) {
-      this.answerCount = count
-      this.isAnswerCountUpdated = true
+      const answerCount = document.querySelector('.js-answer-count')
+      answerCount.textContent = count
     },
     isAdminOrMentor() {
       return (
