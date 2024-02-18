@@ -2,6 +2,8 @@ import React from 'react'
 import { useNotification } from './NotificationsBell'
 
 export default function BellButton({ setShowNotifications }) {
+  // 通知ベルボタン上に表示される数が、常に「未読の通知の数」を表すようにするために、
+  // 本コンポーネントでも未読の通知データを独自に取得する
   const { notifications } = useNotification('unread')
   const isLoading = !notifications
   const unreadNotificationExist = notifications?.length > 0
