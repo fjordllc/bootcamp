@@ -134,13 +134,21 @@ export default function Following({ isFollowing, userId, isWatching }) {
             )}
           </li>
           <li className="following__dropdown-item a-dropdown__item">
-            <button
-              className="following-option a-dropdown__item-inner"
-              onClick={unfollow}>
-              <div className="following-option__inner">
-                <div className="following-option__label">フォローしない</div>
-              </div>
-            </button>
+            {!following && !watching ? (
+              <button className="following-option a-dropdown__item-inner is-active">
+                <div className="following-option__inner">
+                  <div className="following-option__label">フォローしない</div>
+                </div>
+              </button>
+            ) : (
+              <button
+                className="following-option a-dropdown__item-inner"
+                onClick={unfollow}>
+                <div className="following-option__inner">
+                  <div className="following-option__label">フォローしない</div>
+                </div>
+              </button>
+            )}
           </li>
         </ul>
       </div>
