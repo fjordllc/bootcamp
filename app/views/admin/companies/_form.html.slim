@@ -25,6 +25,9 @@
       .a-form-help
         p
           | 正方形に切り抜かれるので、正方形で加工したものをアップロードする必要があります。
+    .form-item
+      = f.label :memo, class: 'a-form-label'
+      = f.text_area :memo, size: '10x20', class: 'a-text-input'
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
