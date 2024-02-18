@@ -17,6 +17,10 @@
       .companies-item__body-row
         .companies-item__description.a-short-text
           = simple_format(company.description)
+      - if current_user.admin?
+        .companies-item__body-row
+          .companies-item__description.a-short-text
+            = simple_format(company.memo)
 
   - if current_user.admin?
     hr.a-border-tint
