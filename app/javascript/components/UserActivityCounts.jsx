@@ -5,64 +5,38 @@ export default function UserActivityCounts({ user }) {
     return null
   }
 
+  const activities = [
+    { name: '日報', count: user.report_count, url: `${user.url}/reports` },
+    { name: '提出物', count: user.product_count, url: `${user.url}/products` },
+    {
+      name: 'コメント',
+      count: user.comment_count,
+      url: `${user.url}/comments`
+    },
+    { name: '質問', count: user.question_count, url: `${user.url}/questions` },
+    { name: '回答', count: user.answer_count, url: `${user.url}/answers` }
+  ]
+
   return (
-    <div className="card-counts mt-3">
+    <div className="card-counts is-users mt-3">
       <dl className="card-counts__items">
-        <div className="card-counts__item">
-          <div className="card-counts__item-inner">
-            <dt className="card-counts__item-label">日報</dt>
-            <dd
-              className={`card-counts__item-value ${
-                user.report_count === 0 ? 'is-empty' : ''
-              }`}>
-              {user.report_count}
-            </dd>
+        {activities.map((activity) => (
+          <div key={activity.name} className="card-counts__item">
+            <div className="card-counts__item-inner">
+              <dt className="card-counts__item-label">{activity.name}</dt>
+              <dd
+                className={`card-counts__item-value ${
+                  activity.count === 0 ? 'is-empty' : ''
+                }`}>
+                {activity.count === 0 ? (
+                  <span>{activity.count}</span>
+                ) : (
+                  <a href={activity.url}>{activity.count}</a>
+                )}
+              </dd>
+            </div>
           </div>
-        </div>
-        <div className="card-counts__item">
-          <div className="card-counts__item-inner">
-            <dt className="card-counts__item-label">提出物</dt>
-            <dd
-              className={`card-counts__item-value ${
-                user.product_count === 0 ? 'is-empty' : ''
-              }`}>
-              {user.product_count}
-            </dd>
-          </div>
-        </div>
-        <div className="card-counts__item">
-          <div className="card-counts__item-inner">
-            <dt className="card-counts__item-label">コメント</dt>
-            <dd
-              className={`card-counts__item-value ${
-                user.comment_count === 0 ? 'is-empty' : ''
-              }`}>
-              {user.comment_count}
-            </dd>
-          </div>
-        </div>
-        <div className="card-counts__item">
-          <div className="card-counts__item-inner">
-            <dt className="card-counts__item-label">質問</dt>
-            <dd
-              className={`card-counts__item-value ${
-                user.question_count === 0 ? 'is-empty' : ''
-              }`}>
-              {user.question_count}
-            </dd>
-          </div>
-        </div>
-        <div className="card-counts__item">
-          <div className="card-counts__item-inner">
-            <dt className="card-counts__item-label">回答</dt>
-            <dd
-              className={`card-counts__item-value ${
-                user.answer_count === 0 ? 'is-empty' : ''
-              }`}>
-              {user.answer_count}
-            </dd>
-          </div>
-        </div>
+        ))}
       </dl>
     </div>
   )
