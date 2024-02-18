@@ -7,7 +7,7 @@
       a.a-count-badge href='#comments'
         .a-count-badge__label
           | 回答
-        .a-count-badge__value class=(question.answers.blank? ? 'is-zero' : '')
+        .a-count-badge__value.js-answer-count class=(question.answers.blank? ? 'is-zero' : '')
           | #{question.answers.size}
 
       .page-content-header__row
@@ -16,13 +16,13 @@
             = link_to question.practice.title, practice_path(question.practice_id), class: 'a-category-link'
         h1.page-content-header__title class=(question.wip ? 'is-wip' : '')
           - if question.correct_answer.present?
-            span.a-title-label.is-solved.is-success
+            span.a-title-label.is-solved.is-success.js-solved-status
               | 解決済
           - elsif question.wip?
             span.a-title-label.is-wip
               | WIP
           - else
-            span.a-title-label.is-solved.is-danger
+            span.a-title-label.is-solved.is-danger.js-solved-status
               | 未解決
           | #{question.title}
 
