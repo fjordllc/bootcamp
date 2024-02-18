@@ -3,12 +3,6 @@ div
   template(v-if='question === null || currentUser === null')
     loadingQuestionPagePlaceholder
   template(v-else)
-    questionEdit(
-      :question='question',
-      :answerCount='answerCount',
-      :isAnswerCountUpdated='isAnswerCountUpdated',
-      :currentUser='currentUser',
-      @afterUpdateQuestion='fetchQuestion(questionId)')
     template(v-if='hasAiQuestion && isAdminOrMentor()')
       ai_answer(:text='question.ai_answer')
     answers(
@@ -23,11 +17,11 @@ div
 import CSRF from 'csrf'
 import QuestionEdit from 'components/question-edit.vue'
 import AIAnswer from 'components/ai-answer.vue'
-import Answers from 'answers.vue'
+import Answers from '../answers.vue'
 import LoadingQuestionPagePlaceholder from 'loading-question-page-placeholder.vue'
 
 export default {
-  name: 'QuestionPage',
+  name: 'Answers',
   components: {
     LoadingQuestionPagePlaceholder: LoadingQuestionPagePlaceholder,
     /* app/javascript/loading-question-page-placeholder.vue */
