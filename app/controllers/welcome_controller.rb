@@ -9,6 +9,7 @@ class WelcomeController < ApplicationController
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
+    @articles = list_articles_with_specific_tag
   end
 
   def alumni_voices
@@ -68,5 +69,9 @@ class WelcomeController < ApplicationController
     return if current_user&.admin?
 
     redirect_to root_path, alert: 'ページのアクセス権限がありませんでした。'
+  end
+
+  def list_articles_with_specific_tag
+    Article.tagged_with('feature').order(published_at: :desc)
   end
 end
