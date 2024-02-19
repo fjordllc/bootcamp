@@ -5,9 +5,4 @@
       br
       | #{report_count}日目の日報を提出しました。
   .modal-celebrate-report-count-body__image-container
-  - if celebration_image_exist?(report_count)
     = image_tag("celebrate-report-count/#{report_count}.png", class: 'modal-celebrate-report-count-body__image')
-  - else
-    = image_tag('celebrate-report-count/default.png', class: 'modal-celebrate-report-count-body__image')
-    p
-      | #{report_count}日目の日報提出おめでとう

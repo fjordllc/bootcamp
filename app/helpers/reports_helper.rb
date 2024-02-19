@@ -33,9 +33,4 @@ module ReportsHelper
   def category_practices(report)
     report.practices.eager_load(:categories).order('categories_practices.position')
   end
-
-  def celebration_image_exist?(count)
-    path = Rails.root.join('app/assets/images/celebrate-report-count', "#{count}.png")
-    File.exist?(path)
-  end
 end
