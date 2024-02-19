@@ -1,9 +1,9 @@
 import React from 'react'
-import UserSns from './UserSns.jsx'
+import Following from './Following.jsx'
 import UserActivityCounts from './UserActivityCounts.jsx'
+import UserSns from './UserSns.jsx'
 import UserTags from './UserTags.jsx'
 import UserPracticeProgress from './UserPracticeProgress.jsx'
-import Following from './Following.jsx'
 
 export default function User({ user, currentUser }) {
   const userDescParagraphs = () => {
@@ -21,9 +21,7 @@ export default function User({ user, currentUser }) {
     return paragraphs
   }
 
-  const roleClass = () => {
-    return `is-${user.primary_role}`
-  }
+  const roleClass = () => `is-${user.primary_role}`
 
   return (
     <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
