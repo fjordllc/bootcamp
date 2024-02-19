@@ -72,6 +72,10 @@ class CampaignsTest < ApplicationSystemTestCase
   end
 
   test 'trial extension campaign period outside' do
+    # テスト内の時刻とビューで表示される時刻が数秒ずれており、テスト内とビューで異なる日付となる可能性があるため、時刻を固定する
+    # ビューで表示される時刻(app/views/welcome/pricing.html.slim:69)は現在時刻から1秒引いたものを返すが、TODAYの時刻は00:00:00であり1秒引くと日付が一日前に変わってしまうため、1秒足しておく
+    travel_to TODAY + 1
+
     assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
 
     visit welcome_path
@@ -114,6 +118,10 @@ class CampaignsTest < ApplicationSystemTestCase
   end
 
   test '6days trial extension campaign period inside' do
+    # テスト内の時刻とビューで表示される時刻が数秒ずれており、テスト内とビューで異なる日付となる可能性があるため、時刻を固定する
+    # ビューで表示される時刻(app/views/welcome/pricing.html.slim:69)は現在時刻から1秒引いたものを返すが、TODAYの時刻は00:00:00であり1秒引くと日付が一日前に変わってしまうため、1秒足しておく
+    travel_to TODAY + 1
+
     visit_with_auth new_admin_campaign_path, 'komagata'
     within 'form[name=campaign]' do
       fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
