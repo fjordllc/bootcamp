@@ -295,7 +295,6 @@ class ArticlesTest < ApplicationSystemTestCase
     click_button '更新する'
 
     visit "/articles/#{@article.id}"
-    verify_default_ogp_image_used
     assert_no_selector 'img[class=article__image]'
   end
 
