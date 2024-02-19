@@ -41,7 +41,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     assert_equal expected, actual
   end
 
-  test 'announcement notification receive only active users' do
+  test 'announcement to Only Active Users notifies the active users, admins, mentors' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '現役生にのみお知らせtest'
@@ -57,6 +57,9 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'kimura'
     assert_text 'お知らせ「現役生にのみお知らせtest」'
 
+    visit_with_auth '/notifications', 'mentormentaro'
+    assert_text 'お知らせ「現役生にのみお知らせtest」'
+
     visit_with_auth '/notifications', 'sotugyou'
     assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
@@ -66,14 +69,11 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'yameo'
     assert_no_text 'お知らせ「現役生にのみお知らせtest」'
 
-    visit_with_auth '/notifications', 'mentormentaro'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
     visit_with_auth '/notifications', 'kensyu'
     assert_no_text 'お知らせ「現役生にのみお知らせtest」'
   end
 
-  test 'announcement notifications are only recived by job seekers' do
+  test 'announcement to Only Job Seekers notifies the job seekers, admins, mentors' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '就活希望者のみお知らせします'
@@ -87,6 +87,9 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     assert_text 'お知らせ「就活希望者のみお知らせします」'
 
     visit_with_auth '/notifications', 'jobseeker'
+    assert_text 'お知らせ「就活希望者のみお知らせします」'
+
+    visit_with_auth '/notifications', 'mentormentaro'
     assert_text 'お知らせ「就活希望者のみお知らせします」'
 
     visit_with_auth '/notifications', 'kimura'
