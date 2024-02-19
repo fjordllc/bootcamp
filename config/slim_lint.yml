@@ -25,11 +25,11 @@ linters:
       - Layout/MultilineOperationIndentation
       - Layout/ParameterAlignment
       - Layout/TrailingEmptyLines
-      - Lint/Void  #除外検討したが見送り
-      - Metrics/BlockLength  #除外検討したが見送り
+      - Lint/Void  # 除外検討したが見送り
+      - Metrics/BlockLength  # 除外検討したが見送り
       - Metrics/BlockNesting
       - Naming/FileName
-      - Style/FrozenStringLiteralComment  #除外検討したが見送り
+      - Style/FrozenStringLiteralComment  # 除外検討したが見送り
       - Style/IdenticalConditionalBranches
       - Style/IfUnlessModifier
       - Style/Next
