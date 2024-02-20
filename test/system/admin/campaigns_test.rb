@@ -74,28 +74,28 @@ class CampaignsTest < ApplicationSystemTestCase
   test 'trial extension campaign period outside' do
     # テスト内の時刻とビューで表示される時刻が数秒ずれており、テスト内とビューで異なる日付となる可能性があるため、時刻を固定する
     # ビューで表示される時刻(app/views/welcome/pricing.html.slim:69)は現在時刻から1秒引いたものを返すが、TODAYの時刻は00:00:00であり1秒引くと日付が一日前に変わってしまうため、1秒足しておく
-    travel_to TODAY + 1
+    travel_to TODAY + 1 do
+      assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
 
-    assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
+      visit welcome_path
+      assert_no_text '通常 3日間 のお試し期間が'
 
-    visit welcome_path
-    assert_no_text '通常 3日間 のお試し期間が'
+      visit pricing_path
+      example_start_at = TODAY.strftime('%-m月%-d日10時10分10秒')
+      example_end_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分9秒')
+      example_pay_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分10秒')
 
-    visit pricing_path
-    example_start_at = TODAY.strftime('%-m月%-d日10時10分10秒')
-    example_end_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分9秒')
-    example_pay_at = (TODAY + 3.days).strftime('%-m月%-d日10時10分10秒')
+      assert_text "3日間のお試し期間\n月額29,800円は決して安い金額ではありません。"
+      assert_text 'フィヨルドブートキャンプを使うべきかを判断するために3日間のお試し期間を用意'
+      assert_text 'その3日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。'
 
-    assert_text "3日間のお試し期間\n月額29,800円は決して安い金額ではありません。"
-    assert_text 'フィヨルドブートキャンプを使うべきかを判断するために3日間のお試し期間を用意'
-    assert_text 'その3日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。'
+      assert_text '厳密にはお試し期間は72時間（3日間）になります。'
+      assert_text "例えば#{example_start_at}にフィヨルドブートキャンプを利用開始したとすると、"
+      assert_text "そこから3日後の#{example_end_at}がお試し期間終了のタイミングになります。"
+      assert_text "その後#{example_pay_at}に最初の1ヶ月分の料金が引き落とされます。"
 
-    assert_text '厳密にはお試し期間は72時間（3日間）になります。'
-    assert_text "例えば#{example_start_at}にフィヨルドブートキャンプを利用開始したとすると、"
-    assert_text "そこから3日後の#{example_end_at}がお試し期間終了のタイミングになります。"
-    assert_text "その後#{example_pay_at}に最初の1ヶ月分の料金が引き落とされます。"
-
-    assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
+      assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
+    end
 
     visit new_user_path
     assert_no_text 'キャンペーン適用'
@@ -120,48 +120,48 @@ class CampaignsTest < ApplicationSystemTestCase
   test '6days trial extension campaign period inside' do
     # テスト内の時刻とビューで表示される時刻が数秒ずれており、テスト内とビューで異なる日付となる可能性があるため、時刻を固定する
     # ビューで表示される時刻(app/views/welcome/pricing.html.slim:69)は現在時刻から1秒引いたものを返すが、TODAYの時刻は00:00:00であり1秒引くと日付が一日前に変わってしまうため、1秒足しておく
-    travel_to TODAY + 1
+    travel_to TODAY + 1 do
+      visit_with_auth new_admin_campaign_path, 'komagata'
+      within 'form[name=campaign]' do
+        fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
+        fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + PERIOD.days).to_s)
+        fill_in 'campaign[title]', with: 'お試し期間が倍以上の延長キャンペーン！！！'
+        fill_in 'campaign[trial_period]', with: PERIOD
+        click_button '内容を保存'
+      end
 
-    visit_with_auth new_admin_campaign_path, 'komagata'
-    within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: Time.zone.parse(TODAY.to_s)
-      fill_in 'campaign[end_at]', with: Time.zone.parse((TODAY + PERIOD.days).to_s)
-      fill_in 'campaign[title]', with: 'お試し期間が倍以上の延長キャンペーン！！！'
-      fill_in 'campaign[trial_period]', with: PERIOD
-      click_button '内容を保存'
+      assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
+
+      start_at = Campaign.recently_campaign.first
+      end_at = Campaign.recently_campaign.last
+      campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
+      campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
+
+      visit welcome_path
+      assert_text 'お試し期間が倍以上の延長キャンペーン！！！'
+      assert_text 'お試し期間が倍以上に延長！！'
+      assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
+      assert_text '通常 3日間 のお試し期間が'
+      assert_text "#{PERIOD}日間 となります。"
+      assert_text "#{PERIOD}日以内に退会すれば受講料はかかりません。"
+
+      example_start_at = TODAY.strftime('%-m月%-d日10時10分10秒')
+      example_end_at = (TODAY + PERIOD.days).strftime('%-m月%-d日10時10分9秒')
+      example_pay_at = (TODAY + PERIOD.days).strftime('%-m月%-d日10時10分10秒')
+
+      visit pricing_path
+      assert_text "キャンペーン中につき、#{PERIOD}日間のお試し期間"
+      assert_text "フィヨルドブートキャンプを使うべきかを判断するために#{PERIOD}日間のお試し期間を用意"
+      assert_text '（現在、キャンペーン中のためお試し期間を延長しています）'
+      assert_text "その#{PERIOD}日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。"
+
+      assert_text "厳密にはお試し期間は#{PERIOD * 24}時間（#{PERIOD}日間）になります。"
+      assert_text "例えば#{example_start_at}にフィヨルドブートキャンプを利用開始したとすると、"
+      assert_text "そこから#{PERIOD}日後の#{example_end_at}がお試し期間終了のタイミングになります。"
+      assert_text "その後#{example_pay_at}に最初の1ヶ月分の料金が引き落とされます。"
+
+      assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
     end
-
-    assert_equal Campaign.today_campaign?, Campaign.recently_campaign.cover?(TODAY)
-
-    start_at = Campaign.recently_campaign.first
-    end_at = Campaign.recently_campaign.last
-    campaign_start = start_at.strftime("%-m/%-d(#{WEEK_DAY[start_at.wday]})")
-    campaign_end = end_at.strftime("%-m/%-d(#{WEEK_DAY[end_at.wday]})")
-
-    visit welcome_path
-    assert_text 'お試し期間が倍以上の延長キャンペーン！！！'
-    assert_text 'お試し期間が倍以上に延長！！'
-    assert_text "#{campaign_start}〜#{campaign_end}の期間中にご入会いただくと、"
-    assert_text '通常 3日間 のお試し期間が'
-    assert_text "#{PERIOD}日間 となります。"
-    assert_text "#{PERIOD}日以内に退会すれば受講料はかかりません。"
-
-    example_start_at = TODAY.strftime('%-m月%-d日10時10分10秒')
-    example_end_at = (TODAY + PERIOD.days).strftime('%-m月%-d日10時10分9秒')
-    example_pay_at = (TODAY + PERIOD.days).strftime('%-m月%-d日10時10分10秒')
-
-    visit pricing_path
-    assert_text "キャンペーン中につき、#{PERIOD}日間のお試し期間"
-    assert_text "フィヨルドブートキャンプを使うべきかを判断するために#{PERIOD}日間のお試し期間を用意"
-    assert_text '（現在、キャンペーン中のためお試し期間を延長しています）'
-    assert_text "その#{PERIOD}日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。"
-
-    assert_text "厳密にはお試し期間は#{PERIOD * 24}時間（#{PERIOD}日間）になります。"
-    assert_text "例えば#{example_start_at}にフィヨルドブートキャンプを利用開始したとすると、"
-    assert_text "そこから#{PERIOD}日後の#{example_end_at}がお試し期間終了のタイミングになります。"
-    assert_text "その後#{example_pay_at}に最初の1ヶ月分の料金が引き落とされます。"
-
-    assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
 
     visit new_user_path
     assert_text 'キャンペーン適用'
