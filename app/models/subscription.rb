@@ -15,7 +15,10 @@ class Subscription
   def create(customer_id, idempotency_key = SecureRandom.uuid, trial: 3)
     options = {
       customer: customer_id,
-      items: [{ plan: Plan.standard_plan.id }]
+      items: [{
+        plan: Plan.standard_plan.id,
+        tax_rates: [Rails.application.secrets[:stripe][:tax_rate_id]]
+      }]
     }
     options[:trial_end] = trial.days.since.to_i if trial.positive?
 
