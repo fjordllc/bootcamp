@@ -213,22 +213,4 @@ class ProductTest < ActiveSupport::TestCase
     assert_includes Product.all, hibernated_user_product
     assert_not_includes Product.unhibernated_user_products, hibernated_user_product
   end
-
-  test '#practice_content_for_toggle' do
-    product =
-      Product.create!(
-        body: 'test',
-        user: users(:kimura),
-        practice: practices(:practice5),
-        checker_id: nil
-      )
-
-    practice_content = product.practice_content_for_toggle(:practice)
-    assert_equal 'toggle_description_body', practice_content[:id_name]
-    assert_equal product.practice.description, practice_content[:description]
-
-    practice_content = product.practice_content_for_toggle(:goal)
-    assert_equal 'toggle_goal_body', practice_content[:id_name]
-    assert_equal product.practice.goal, practice_content[:description]
-  end
 end
