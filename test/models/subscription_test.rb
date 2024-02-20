@@ -12,7 +12,7 @@ class SubscriptionTest < ActiveSupport::TestCase
 
   test '#create' do
     travel_to Time.zone.parse('2023-01-01 00:00:00') do
-      VCR.use_cassette 'subscription/create' do
+      VCR.use_cassette 'subscription/create', record: :once, match_requests_on: %i[method uri] do
         subscription = Subscription.new.create('cus_12345678')
         assert_equal 'sub_12345678', subscription['id']
       end
