@@ -101,7 +101,11 @@ http_interactions:
     uri: https://api.stripe.com/v1/subscriptions
     body:
       encoding: UTF-8
-      string: customer=cus_12345678&items[0][plan]=price_1J0hhTBpeWcLFd8ffLjm4nKO&trial_end=1672758000
+      base64_string: |
+        Y3VzdG9tZXI9Y3VzXzEyMzQ1Njc4Jml0ZW1zWzBdW3BsYW5dPXByaWNlXzFK
+        cmxPeEJwZVdjTEZkOGZkNXJneDA4YyZpdGVtc1swXVt0YXhfcmF0ZXNdWzBd
+        PXR4cl8xT20wWXlCcGVXY0xGZDhmb3ZTTEZnWFgmdHJpYWxfZW5kPTE2NzI3
+        NTgwMDA=
     headers:
       User-Agent:
       - Stripe/v1 RubyBindings/4.5.0
