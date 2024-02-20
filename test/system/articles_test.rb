@@ -373,4 +373,28 @@ class ArticlesTest < ApplicationSystemTestCase
     click_on '更新する'
     assert_text '2021年12月24日(金) 23:59'
   end
+
+  test 'share button X' do
+    visit "/articles/#{@article.id}"
+
+    assert_selector 'a.x-share-button[href^="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/"]', text: 'Postする'
+  end
+
+  test 'share button Facebook' do
+    visit "/articles/#{@article.id}"
+
+    within find('.fb-share-button', match: :first) do
+      within_frame do
+        assert_selector "a[href*='u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}']"
+      end
+    end
+  end
+
+  test 'share button Hatena' do
+    visit "/articles/#{@article.id}"
+
+    within_frame(find('.hatena-bookmark-button-frame', match: :first)) do
+      assert_selector "a[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton']"
+    end
+  end
 end
