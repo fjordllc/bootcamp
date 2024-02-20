@@ -93,7 +93,7 @@
           td.admin-table__item-value.is-text-align-center
             = l user.created_at
           td.admin-table__item-value.is-text-align-center
-            = link_to "相談部屋", talk_path(user.talk)
+            = link_to '相談部屋', talk_path(user.talk)
           td.admin-table__item-value.is-text-align-center
             - if user.card?
               = link_to user.customer_url,
