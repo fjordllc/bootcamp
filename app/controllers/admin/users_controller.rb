@@ -24,7 +24,7 @@ class Admin::UsersController < AdminController
     if @user.update(user_params)
       destroy_subscription(@user)
       Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
-      redirect_to admin_users_url, notice: 'ユーザー情報を更新しました。'
+      redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
     else
       render :edit
     end
