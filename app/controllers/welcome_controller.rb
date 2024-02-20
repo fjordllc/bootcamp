@@ -16,7 +16,11 @@ class WelcomeController < ApplicationController
   def pricing; end
 
   def faq
-    @faqs = FAQ.all
+    if params[:category].present?
+      @faqs = FAQ.where(category: params[:category])
+    else
+      @faqs = FAQ.all
+    end
   end
 
   def training; end

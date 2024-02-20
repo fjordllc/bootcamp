@@ -456,6 +456,7 @@ ja:
     comeback: "お帰りなさい！！復会ありがとうございます。\n休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\nまたフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n<https://bootcamp.fjord.jp/practices/129#url>"
   unregistered: 未登録
   faq:
+    all: 全て
     study_content: 学習内容について
     study_environment: 学習環境について
     fee: 利用料について
