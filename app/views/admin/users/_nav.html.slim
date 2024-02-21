@@ -1,6 +1,9 @@
-nav.tab-nav.is-in-tab
-  .container
-    ul.tab-nav__items
-      - %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].each do |target|
-        li.tab-nav__item
-          = link_to t("target.#{target}"), admin_users_path(target:), class: (@target == target ? ['is-active'] : []) << 'tab-nav__item-link'
+= form_with url: admin_users_path(role: @role), local: true, method: 'get' do
+  - roles = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign]
+  - roles_ja = roles.map { |role| [t("target.#{role}"), role] }
+  - jobs = User.jobs.keys.map { |job| [t("activerecord.enums.user.job.#{job}"), job] }
+  = select_tag 'role', options_for_select(roles_ja, params[:role])
+  = select_tag 'job', options_for_select(jobs, params[:job]) 
+  button 
+    span 
+      | 絞り込み
