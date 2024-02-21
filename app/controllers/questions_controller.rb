@@ -67,7 +67,7 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.save
       Newspaper.publish(:question_create, { question: @question })
-      redirect_to @question, notice: notice_message(@question)
+      redirect_to @question, notice: notice_message(@question, :create)
     else
       render :new
     end
@@ -77,7 +77,7 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.update(question_params)
       Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
-      redirect_to @question, notice: '質問を更新しました。'
+      redirect_to @question, notice: notice_message(@question, :update)
     else
       render :edit
     end
@@ -125,9 +125,14 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def notice_message(question)
+  def notice_message(question, action_name)
     return '質問をWIPとして保存しました。' if question.wip?
 
-    '質問を作成しました。'
+    case action_name
+    when :create
+      '質問を作成しました。'
+    when :update
+      '質問を更新しました。'
+    end
   end
 end
