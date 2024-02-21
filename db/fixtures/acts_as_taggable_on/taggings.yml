@@ -98,7 +98,37 @@ page13_tag_net_framework:
   context: tags
   tag: _net_framework
 
-movie1_tag_cat:
-  taggable: movie1 (Movie)
+article21_tag_feature:
+  taggable: article21 (Article)
   context: tags
-  tag: cat
+  tag: feature
+
+article22_tag_feature:
+  taggable: article22 (Article)
+  context: tags
+  tag: feature
+
+article23_tag_feature:
+  taggable: article23 (Article)
+  context: tags
+  tag: feature
+
+article24_tag_feature:
+  taggable: article24 (Article)
+  context: tags
+  tag: feature
+
+article25_tag_feature:
+  taggable: article25 (Article)
+  context: tags
+  tag: feature
+
+article26_tag_feature:
+  taggable: article26 (Article)
+  context: tags
+  tag: feature
+
+article27_tag_feature:
+  taggable: article27 (Article)
+  context: tags
+  tag: feature
