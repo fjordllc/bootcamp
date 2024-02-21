@@ -7,9 +7,9 @@ class Admin::UsersController < AdminController
 
   def index
     @direction = params[:direction] || 'desc'
-    @role = params[:role]
+    @target = params[:target]
     @job = params[:job]
-    user_scope = User.users_role(@role, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
     if @job.present? && ALLOWED_JOBS.include?(@job)
       scoped_job = "job_#{@job}"
       user_scope = user_scope.public_send(scoped_job)
