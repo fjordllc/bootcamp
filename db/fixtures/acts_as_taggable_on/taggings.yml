@@ -102,3 +102,38 @@ movie1_tag_cat:
   taggable: movie1 (Movie)
   context: tags
   tag: cat
+
+article21_tag_feature:
+  taggable: article21 (Article)
+  context: tags
+  tag: feature
+
+article22_tag_feature:
+  taggable: article22 (Article)
+  context: tags
+  tag: feature
+
+article23_tag_feature:
+  taggable: article23 (Article)
+  context: tags
+  tag: feature
+
+article24_tag_feature:
+  taggable: article24 (Article)
+  context: tags
+  tag: feature
+
+article25_tag_feature:
+  taggable: article25 (Article)
+  context: tags
+  tag: feature
+
+article26_tag_feature:
+  taggable: article26 (Article)
+  context: tags
+  tag: feature
+
+article27_tag_feature:
+  taggable: article27 (Article)
+  context: tags
+  tag: feature
