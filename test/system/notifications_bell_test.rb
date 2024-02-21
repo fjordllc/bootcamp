@@ -7,16 +7,20 @@ class NotificationsBellTest < ApplicationSystemTestCase
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
-    Notification.create(message: 'お知らせのテスト通知',
-                        kind: 'announced',
-                        link: '/announcements/1',
-                        user: users(:komagata),
-                        sender: users(:machida))
-    Notification.create(message: 'コメントのテスト通知',
-                        kind: 'came_comment',
-                        link: '/reports/1',
-                        user: users(:komagata),
-                        sender: users(:machida))
+    Notification.create(
+      message: 'お知らせのテスト通知',
+      kind: 'announced',
+      link: '/announcements/1',
+      user: users(:komagata),
+      sender: users(:machida)
+    )
+    Notification.create(
+      message: 'コメントのテスト通知',
+      kind: 'came_comment',
+      link: '/reports/1',
+      user: users(:komagata),
+      sender: users(:machida)
+    )
     visit_with_auth '/notifications?status=unread&target=announcement', 'komagata'
     click_link 'お知らせを既読にする'
 
@@ -47,18 +51,22 @@ class NotificationsBellTest < ApplicationSystemTestCase
 
   test 'Up to 10 notifications are displayed in an All tab' do
     10.times do |n|
-      Notification.create(message: "machidaさんからメンションが届きました#{n}",
-                          kind: 'mentioned',
-                          link: "/reports/#{n}",
-                          user: users(:komagata),
-                          sender: users(:machida))
+      Notification.create(
+        message: "machidaさんからメンションが届きました#{n}",
+        kind: 'mentioned',
+        link: "/reports/#{n}",
+        user: users(:komagata),
+        sender: users(:machida)
+      )
     end
-    Notification.create(message: '1番新しい通知',
-                        created_at: '2040-01-18 06:06:42',
-                        kind: 'mentioned',
-                        link: '/reports/20400118',
-                        user: users(:komagata),
-                        sender: users(:machida))
+    Notification.create(
+      message: '1番新しい通知',
+      created_at: '2040-01-18 06:06:42',
+      kind: 'mentioned',
+      link: '/reports/20400118',
+      user: users(:komagata),
+      sender: users(:machida)
+    )
 
     visit_with_auth '/', 'komagata'
     find('.header-links__link.test-show-notifications').click
