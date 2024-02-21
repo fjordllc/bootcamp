@@ -91,6 +91,16 @@ article<%= id %>:
   published_at: "2022-03-14 00:00:00"
 <% end %>
 
+<% (21..27).each do |id| %>
+article<%= id %>:
+  title: test with feature tag <%= id %>
+  body: |-
+    test body<%= id %>
+  user: komagata
+  wip: false
+  published_at:  "<%= (Date.parse('2024-02-01') + id - 21) %>"
+<% end %>
+
 <% (41..55).each do |id| %>
 article<%= id %>:
   title: test title<%= id %>
