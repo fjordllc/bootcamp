@@ -67,7 +67,7 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.save
       Newspaper.publish(:question_create, { question: @question })
-      redirect_to redirect_url(@question), notice: notice_message(@question, :create)
+      redirect_to Redirection.determin_url(self, @question), notice: notice_message(@question, :create)
     else
       render :new
     end
@@ -77,7 +77,7 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.update(question_params)
       Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
-      redirect_to redirect_url(@question), notice: notice_message(@question, :update)
+      redirect_to Redirection.determin_url(self, @question), notice: notice_message(@question, :update)
     else
       render :edit
     end
@@ -134,9 +134,5 @@ class QuestionsController < ApplicationController
     when :update
       '質問を更新しました。'
     end
-  end
-
-  def redirect_url(question)
-    question.wip? ? edit_question_url(question) : question_url(question)
   end
 end
