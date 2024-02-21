@@ -70,4 +70,13 @@ module UsersHelper
                     .to_h
                     .to_json
   end
+
+  def roles_for_select
+    roles = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign]
+    roles.map { |role| [t("target.#{role}"), role] }
+  end
+
+  def jobs_for_select
+    User.jobs.keys.map { |job| [t("activerecord.enums.user.job.#{job}"), job] }
+  end
 end
