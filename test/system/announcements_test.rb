@@ -224,6 +224,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
 
     fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
+    assert_selector 'p', text: 'コメント数表示のテストです。'
 
     visit current_path
     assert_selector '#comment_count', text: '2'
