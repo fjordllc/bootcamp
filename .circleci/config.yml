@@ -64,6 +64,7 @@ jobs:
       - run: sudo apt-get update # TODO: remove it https://github.com/CircleCI-Public/browser-tools-orb/issues/75#issuecomment-1641031119
       - browser-tools/install-chrome:
           chrome-version: 121.0.6167.160
+          replace-existing: true
       - browser-tools/install-chromedriver
       - ruby/install-deps:
           clean-bundle: true
@@ -84,7 +85,7 @@ jobs:
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
-      - run:  
+      - run:
           command: 'gem install stringio -v 3.1.0'
       - run:
           name: Test
