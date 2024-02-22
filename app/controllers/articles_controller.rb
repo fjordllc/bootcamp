@@ -77,7 +77,7 @@ class ArticlesController < ApplicationController
       thumbnail
       thumbnail_type
       summary
-      insert_thumbnail
+      display_thumbnail_in_body
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     params.require(:article).permit(*article_attributes)

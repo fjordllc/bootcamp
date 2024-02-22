@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_16_080937) do
+ActiveRecord::Schema.define(version: 2024_02_22_135029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2024_02_16_080937) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
+    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
