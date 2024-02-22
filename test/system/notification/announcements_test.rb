@@ -41,7 +41,7 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     assert_equal expected, actual
   end
 
-  test 'announcement notification receive only active users' do
+  test 'announcement to Only Active Users notifies the active users, admins, mentors' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '現役生にのみお知らせtest'
@@ -51,29 +51,22 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「現役生にのみお知らせtest」'
+    message = 'お知らせ「現役生にのみお知らせtest」'
 
-    visit_with_auth '/notifications', 'kimura'
-    assert_text 'お知らせ「現役生にのみお知らせtest」'
+    notified_users = %w[kimura komagata mentormentaro]
+    notified_users.each do |user|
+      visit_with_auth '/notifications', user
+      assert_text message
+    end
 
-    visit_with_auth '/notifications', 'sotugyou'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'advijirou'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'yameo'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'mentormentaro'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
-
-    visit_with_auth '/notifications', 'kensyu'
-    assert_no_text 'お知らせ「現役生にのみお知らせtest」'
+    not_notified_users = %w[sotugyou advijirou yameo kensyu]
+    not_notified_users.each do |user|
+      visit_with_auth '/notifications', user
+      assert_no_text message
+    end
   end
 
-  test 'announcement notifications are only recived by job seekers' do
+  test 'announcement to Only Job Seekers notifies the job seekers, admins, mentors' do
     visit_with_auth '/announcements', 'machida'
     click_link 'お知らせ作成'
     fill_in 'announcement[title]', with: '就活希望者のみお知らせします'
@@ -83,13 +76,18 @@ class Notification::AnnouncementsTest < ApplicationSystemTestCase
     click_button '作成'
     assert_text 'お知らせを作成しました'
 
-    visit_with_auth '/notifications', 'komagata'
-    assert_text 'お知らせ「就活希望者のみお知らせします」'
+    message = 'お知らせ「就活希望者のみお知らせします」'
 
-    visit_with_auth '/notifications', 'jobseeker'
-    assert_text 'お知らせ「就活希望者のみお知らせします」'
+    notified_users = %w[jobseeker komagata mentormentaro]
+    notified_users.each do |user|
+      visit_with_auth '/notifications', user
+      assert_text message
+    end
 
-    visit_with_auth '/notifications', 'kimura'
-    assert_no_text 'お知らせ「就活希望者のみお知らせします」'
+    not_notified_users = %w[kimura]
+    not_notified_users.each do |user|
+      visit_with_auth '/notifications', user
+      assert_no_text message
+    end
   end
 end
