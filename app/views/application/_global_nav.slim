@@ -79,3 +79,9 @@ nav.global-nav
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Talk.action_uncompleted.count
             .global-nav-links__link-label 相談
+
+ul
+  li
+    = link_to 'ヘルプ', page_path('help')
+  li
+    = link_to 'アドバイザーヘルプ', page_path('help-adviser')
