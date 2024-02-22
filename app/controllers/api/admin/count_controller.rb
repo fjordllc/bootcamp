@@ -11,6 +11,6 @@ class API::Admin::CountController < API::Admin::BaseController
       hibernated_at: nil
     ).count
 
-    render json: { users_count: users_count }
+    render json: { users_count: }
   end
 end

@@ -7,7 +7,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     report = reports(:report11)
     trainee_report = notifications(:notification_trainee_report)
     mailer = NotificationMailer.with(
-      report: report,
+      report:,
       receiver: trainee_report.user
     ).trainee_report
 

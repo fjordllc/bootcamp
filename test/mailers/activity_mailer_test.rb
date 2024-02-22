@@ -99,7 +99,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
   test 'came_answer' do
     answer = answers(:answer3)
-    ActivityMailer.came_answer(answer: answer).deliver_now
+    ActivityMailer.came_answer(answer:).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
@@ -112,7 +112,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
   test 'came_answer with params' do
     answer = answers(:answer3)
-    mailer = ActivityMailer.with(answer: answer).came_answer
+    mailer = ActivityMailer.with(answer:).came_answer
 
     perform_enqueued_jobs do
       mailer.deliver_later
@@ -153,7 +153,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:sotugyou)
     ActivityMailer.post_announcement(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -170,7 +170,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:sotugyou)
     mailer = ActivityMailer.with(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).post_announcement
 
     perform_enqueued_jobs do
@@ -193,28 +193,28 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.post_announcement(
       announcement: announce,
-      receiver: receiver
+      receiver:
     ).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
   end
@@ -227,7 +227,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     ActivityMailer.came_question(
       sender: user,
       receiver: mentor,
-      question: question
+      question:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -247,7 +247,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     mailer = ActivityMailer.with(
       sender: user,
       receiver: mentor,
-      question: question
+      question:
     ).came_question
 
     perform_enqueued_jobs do
@@ -267,7 +267,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     mentionable = comments(:comment9)
     mentioned = notifications(:notification_mentioned)
     ActivityMailer.mentioned(
-      mentionable: mentionable,
+      mentionable:,
       receiver: mentioned.user
     ).deliver_now
 
@@ -284,7 +284,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     mentionable = comments(:comment9)
     mentioned = notifications(:notification_mentioned)
     mailer = ActivityMailer.with(
-      mentionable: mentionable,
+      mentionable:,
       receiver: mentioned.user
     ).mentioned
 
@@ -307,28 +307,28 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     mentioned.user.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
-      mentionable: mentionable,
+      mentionable:,
       receiver: mentioned.user
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     mentioned.user.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
-      mentionable: mentionable,
+      mentionable:,
       receiver: mentioned.user
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     mentioned.user.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
-      mentionable: mentionable,
+      mentionable:,
       receiver: mentioned.user
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     mentioned.user.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.mentioned(
-      mentionable: mentionable,
+      mentionable:,
       receiver: mentioned.user
     ).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
@@ -387,7 +387,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     ActivityMailer.checked(
       sender: check.sender,
       receiver: check.receiver,
-      check: check
+      check:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -404,7 +404,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     mailer = ActivityMailer.with(
       sender: check.sender,
       receiver: check.receiver,
-      check: check
+      check:
     ).checked
 
     perform_enqueued_jobs do
@@ -424,7 +424,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     ActivityMailer.checked(
       sender: check.sender,
       receiver: users(:hajime),
-      check: check
+      check:
     ).deliver_now
 
     assert_empty ActionMailer::Base.deliveries
@@ -435,8 +435,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:mentormentaro)
 
     ActivityMailer.create_page(
-      page: page,
-      receiver: receiver
+      page:,
+      receiver:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -453,8 +453,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:mentormentaro)
 
     mailer = ActivityMailer.with(
-      page: page,
-      receiver: receiver
+      page:,
+      receiver:
     ).create_page
 
     perform_enqueued_jobs do
@@ -475,7 +475,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     notification = notifications(:notification_moved_up_event_waiting_user)
     ActivityMailer.moved_up_event_waiting_user(
       receiver: notification.user,
-      event: event
+      event:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -492,7 +492,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     notification = notifications(:notification_moved_up_event_waiting_user)
     mailer = ActivityMailer.moved_up_event_waiting_user(
       receiver: notification.user,
-      event: event
+      event:
     )
 
     perform_enqueued_jobs do
@@ -513,8 +513,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:mentormentaro)
 
     ActivityMailer.submitted(
-      receiver: receiver,
-      product: product
+      receiver:,
+      product:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -531,8 +531,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:mentormentaro)
 
     mailer = ActivityMailer.with(
-      receiver: receiver,
-      product: product
+      receiver:,
+      product:
     ).submitted
 
     perform_enqueued_jobs do
@@ -553,8 +553,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:hajime)
 
     ActivityMailer.submitted(
-      receiver: receiver,
-      product: product
+      receiver:,
+      product:
     ).deliver_now
 
     assert_empty ActionMailer::Base.deliveries
@@ -567,8 +567,8 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     ActivityMailer.following_report(
       sender: user,
-      receiver: receiver,
-      report: report
+      receiver:,
+      report:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -587,8 +587,8 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     mailer = ActivityMailer.with(
       sender: user,
-      receiver: receiver,
-      report: report
+      receiver:,
+      report:
     ).following_report
 
     perform_enqueued_jobs do
@@ -631,8 +631,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = User.find(product.checker_id)
 
     ActivityMailer.assigned_as_checker(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -649,8 +649,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = User.find(product.checker_id)
 
     mailer = ActivityMailer.with(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).assigned_as_checker
 
     perform_enqueued_jobs do
@@ -672,29 +672,29 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     receiver.update_columns(mail_notification: false, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: false, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: Date.current) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).deliver_now
     assert_empty ActionMailer::Base.deliveries
 
     receiver.update_columns(mail_notification: true, retired_on: nil) # rubocop:disable Rails/SkipsModelValidations
     ActivityMailer.assigned_as_checker(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
   end
@@ -755,7 +755,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     report = reports(:report10)
     first_report = notifications(:notification_first_report)
     ActivityMailer.first_report(
-      report: report,
+      report:,
       receiver: first_report.user
     ).deliver_now
 
@@ -771,7 +771,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     report = reports(:report10)
     first_report = notifications(:notification_first_report)
     mailer = ActivityMailer.with(
-      report: report,
+      report:,
       receiver: first_report.user
     ).first_report
 
@@ -791,7 +791,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     report = reports(:report16)
     consecutive_sad_report = notifications(:notification_consecutive_sad_report)
     ActivityMailer.consecutive_sad_report(
-      report: report,
+      report:,
       receiver: consecutive_sad_report.user
     ).deliver_now
 
@@ -808,7 +808,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     report = reports(:report16)
     consecutive_sad_report = notifications(:notification_consecutive_sad_report)
     mailer = ActivityMailer.with(
-      report: report,
+      report:,
       receiver: consecutive_sad_report.user
     ).consecutive_sad_report
 
@@ -830,7 +830,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     notification = notifications(:notification_regular_event_updated)
 
     ActivityMailer.update_regular_event(
-      regular_event: regular_event,
+      regular_event:,
       receiver: notification.user
     ).deliver_now
 
@@ -847,7 +847,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     notification = notifications(:notification_regular_event_updated)
 
     mailer = ActivityMailer.with(
-      regular_event: regular_event,
+      regular_event:,
       receiver: notification.user
     ).update_regular_event
 
@@ -921,8 +921,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = answer.user
 
     ActivityMailer.chose_correct_answer(
-      answer: answer,
-      receiver: receiver
+      answer:,
+      receiver:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -939,8 +939,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = answer.user
 
     mailer = ActivityMailer.with(
-      answer: answer,
-      receiver: receiver
+      answer:,
+      receiver:
     ).chose_correct_answer
 
     perform_enqueued_jobs do
@@ -962,8 +962,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver.update(mail_notification: false)
 
     mailer = ActivityMailer.with(
-      answer: answer,
-      receiver: receiver
+      answer:,
+      receiver:
     ).chose_correct_answer
 
     perform_enqueued_jobs do
@@ -979,8 +979,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver.update(retired_on: Date.current)
 
     mailer = ActivityMailer.with(
-      answer: answer,
-      receiver: receiver
+      answer:,
+      receiver:
     ).chose_correct_answer
 
     perform_enqueued_jobs do
@@ -994,7 +994,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     question = questions(:question1)
     receiver = question.user
 
-    ActivityMailer.no_correct_answer(question: question, receiver: receiver).deliver_now
+    ActivityMailer.no_correct_answer(question:, receiver:).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
     email = ActionMailer::Base.deliveries.last
@@ -1009,7 +1009,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     question = questions(:question1)
     receiver = question.user
 
-    mailer = ActivityMailer.with(question: question, receiver: receiver).no_correct_answer
+    mailer = ActivityMailer.with(question:, receiver:).no_correct_answer
 
     perform_enqueued_jobs do
       mailer.deliver_later
@@ -1029,8 +1029,8 @@ class ActivityMailerTest < ActionMailer::TestCase
     receiver = users(:komagata)
 
     ActivityMailer.product_update(
-      product: product,
-      receiver: receiver
+      product:,
+      receiver:
     ).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
@@ -1056,7 +1056,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     )
 
     ActivityMailer.came_comment(
-      comment: comment,
+      comment:,
       message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
       receiver: comment.receiver
     ).deliver_now
@@ -1083,7 +1083,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     )
 
     mailer = ActivityMailer.with(
-      comment: comment,
+      comment:,
       message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
       receiver: comment.receiver
     ).came_comment
@@ -1107,7 +1107,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     comment = comments(:commentOfTalk)
 
     ActivityMailer.came_comment(
-      comment: comment,
+      comment:,
       message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
       receiver: comment.receiver
     ).deliver_now

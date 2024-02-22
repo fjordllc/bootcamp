@@ -13,7 +13,9 @@ class MarkdownTest < ApplicationSystemTestCase
     assert_css '.a-long-text.is-md.js-markdown-view'
     assert_css '.speak'
     assert_css "a[href='/users/mentormentaro']"
-    assert_includes find('.js-user-icon.a-user-emoji')['data-user'], 'mentormentaro'
+    emoji = find('.js-user-icon.a-user-emoji')
+    assert_includes emoji['title'], '@mentormentaro'
+    assert_includes emoji['data-user'], 'mentormentaro'
   end
 
   test 'user profile image markdown test' do
@@ -25,7 +27,9 @@ class MarkdownTest < ApplicationSystemTestCase
 
     assert_css '.a-long-text.is-md.js-markdown-view'
     assert_css "a[href='/users/mentormentaro']"
-    assert_includes find('.js-user-icon.a-user-emoji')['data-user'], 'mentormentaro'
+    emoji = find('.js-user-icon.a-user-emoji')
+    assert_includes emoji['title'], '@mentormentaro'
+    assert_includes emoji['data-user'], 'mentormentaro'
   end
 
   def cmd_ctrl

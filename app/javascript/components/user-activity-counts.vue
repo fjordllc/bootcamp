@@ -1,44 +1,33 @@
 <template lang="pug">
 .card-counts.is-users.mt-3(v-if='user.student_or_trainee')
   dl.card-counts__items
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | 日報
-        dd.card-counts__item-value(
-          :class='user.report_count == 0 ? "is-empty" : ""')
-          | {{ user.report_count }}
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | 提出物
-        dd.card-counts__item-value(
-          :class='user.product_count == 0 ? "is-empty" : ""')
-          | {{ user.product_count }}
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | コメント
-        dd.card-counts__item-value(
-          :class='user.comment_count == 0 ? "is-empty" : ""')
-          | {{ user.comment_count }}
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | 質問
-        dd.card-counts__item-value(
-          :class='user.question_count == 0 ? "is-empty" : ""')
-          | {{ user.question_count }}
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | 回答
-        dd.card-counts__item-value(
-          :class='user.answer_count == 0 ? "is-empty" : ""')
-          | {{ user.answer_count }}
+    user-activity-count(
+      activity-name='日報',
+      :activity-count='user.report_count',
+      :activity-url='`${user.url}/reports`')
+    user-activity-count(
+      activity-name='提出物',
+      :activity-count='user.product_count',
+      :activity-url='`${user.url}/products`')
+    user-activity-count(
+      activity-name='コメント',
+      :activity-count='user.comment_count',
+      :activity-url='`${user.url}/comments`')
+    user-activity-count(
+      activity-name='質問',
+      :activity-count='user.question_count',
+      :activity-url='`${user.url}/questions`')
+    user-activity-count(
+      activity-name='回答',
+      :activity-count='user.answer_count',
+      :activity-url='`${user.url}/answers`')
 </template>
 <script>
+import UserActivityCount from './user-activity-count.vue'
 export default {
+  components: {
+    'user-activity-count': UserActivityCount
+  },
   props: {
     user: { type: Object, required: true }
   }

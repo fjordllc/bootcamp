@@ -14,11 +14,11 @@ class UserMailer < ApplicationMailer
 
   def retire(user)
     @user = user
-    mail to: user.email, subject: '[FBC] 退会処理が完了しました'
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 退会処理が完了しました'
   end
 
   def auto_retire(user)
     @user = user
-    mail to: user.email, subject: '[FBC] 重要なお知らせ：受講ステータスの変更について'
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] 重要なお知らせ：受講ステータスの変更について'
   end
 end
