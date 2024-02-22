@@ -259,6 +259,11 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text meta_description
   end
 
+  test 'if there is no featured image, the default image is set as the OGP image' do
+    visit_with_auth "/articles/#{@article3.id}", 'komagata'
+    verify_default_ogp_image_used
+  end
+
   test 'can set it as an OGP image by uploading an eye-catching image' do
     visit_with_auth edit_article_path(@article), 'komagata'
     find('label[for=article_thumbnail_type_prepared_thumbnail]').click
@@ -271,19 +276,15 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_match(/test\.jpg$/, content)
   end
 
-  test 'if there is no featured image, the default image is set as the OGP image' do
-    visit_with_auth "/articles/#{@article.id}", 'komagata'
-    verify_default_ogp_image_used
-  end
-
   test 'can set up prepared images for eye-catching image, the default OGP image will be used' do
     visit_with_auth edit_article_path(@article), 'komagata'
     find('label[for=article_thumbnail_type_ruby_on_rails]').click
     click_button '更新する'
 
     visit "/articles/#{@article.id}"
-    verify_default_ogp_image_used
-    assert_selector 'img[src$="ruby_on_rails.png"]'
+    meta = find('meta[name="twitter:image"]', visible: false)
+    content = meta.native['content']
+    assert_match(/ruby_on_rails\.png$/, content)
   end
 
   test 'display user icon when not logged in' do
@@ -371,5 +372,29 @@ class ArticlesTest < ApplicationSystemTestCase
     fill_in 'article[published_at]', with: Time.zone.parse('2021-12-24 23:59')
     click_on '更新する'
     assert_text '2021年12月24日(金) 23:59'
+  end
+
+  test 'share button X' do
+    visit "/articles/#{@article.id}"
+
+    assert_selector 'a.x-share-button[href^="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/"]', text: 'Postする'
+  end
+
+  test 'share button Facebook' do
+    visit "/articles/#{@article.id}"
+
+    within find('.fb-share-button', match: :first) do
+      within_frame do
+        assert_selector "a[href*='u=https%3A%2F%2Fbootcamp.fjord.jp%2Farticles%2F#{@article.id}']"
+      end
+    end
+  end
+
+  test 'share button Hatena' do
+    visit "/articles/#{@article.id}"
+
+    within_frame(find('.hatena-bookmark-button-frame', match: :first)) do
+      assert_selector "a[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton']"
+    end
   end
 end

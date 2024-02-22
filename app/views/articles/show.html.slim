@@ -3,12 +3,15 @@
 - set_meta_tags site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）'
 
 ruby:
-  if @article.prepared_thumbnail?
+  if thumbnail_blank?(@article)
+    set_meta_tags(og: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })
+    set_meta_tags(twitter: { image: ogp_image_url('/ogp/ogp.png'), url: request.url })
+  elsif @article.prepared_thumbnail?
     set_meta_tags(og: { image: @article.prepared_thumbnail_url, url: request.url })
     set_meta_tags(twitter: { image: @article.prepared_thumbnail_url, url: request.url })
   else
-    set_meta_tags(og: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
-    set_meta_tags(twitter: { image: image_url('https://bootcamp.fjord.jp/ogp/ogp.png'), url: request.url })
+    set_meta_tags(og: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
+    set_meta_tags(twitter: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
   end
 
 .welcome-page-header
@@ -43,6 +46,7 @@ ruby:
                         = l(@article.created_at)
                       - else
                         = l(@article.published_at)
+                = render 'share_buttons', article: @article.id
                 - if @article.thumbnail.attached? && @article.prepared_thumbnail?
                   = image_tag @article.prepared_thumbnail_url, class: 'article__image'
                 - elsif !thumbnail_blank?(@article)
@@ -50,6 +54,7 @@ ruby:
               .article__body
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
+                = render 'share_buttons', article: @article.id
             - if admin_or_mentor_login?
               hr.a-border
               .card-footer

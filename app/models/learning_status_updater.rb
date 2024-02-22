@@ -14,7 +14,8 @@ class LearningStatusUpdater
   def update_after_check(check)
     return unless check.checkable_type == 'Product'
 
-    check.checkable.change_learning_status(:complete)
+    learning_status = check.checkable.checked? ? :complete : :submitted
+    check.checkable.change_learning_status(learning_status)
   end
 
   def update_after_submission(product)

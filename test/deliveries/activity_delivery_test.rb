@@ -42,7 +42,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:checked)' do
     check = checks(:procuct2_check_komagata)
     params = {
-      check: check,
+      check:,
       receiver: check.receiver
     }
 
@@ -107,7 +107,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:submitted)' do
     product = products(:product6)
     params = {
-      product: product,
+      product:,
       receiver: users(:mentormentaro)
     }
 
@@ -204,7 +204,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:assigned_as_checker)' do
     product = products(:product64)
     params = {
-      product: product,
+      product:,
       receiver: User.find(product.checker_id)
     }
 
@@ -251,7 +251,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:first_report)' do
     report = reports(:report10)
     params = {
-      report: report,
+      report:,
       receiver: users(:komagata)
     }
 
@@ -298,7 +298,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:update_regular_event)' do
     regular_event = regular_events(:regular_event1)
     params = {
-      regular_event: regular_event,
+      regular_event:,
       receiver: users(:komagata)
     }
 
@@ -348,7 +348,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:chose_correct_answer)' do
     answer = answers(:answer1)
     params = {
-      answer: answer,
+      answer:,
       receiver: answer.user
     }
 
@@ -372,7 +372,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
   test '.notify(:no_correct_answer)' do
     question = questions(:question1)
     params = {
-      question: question,
+      question:,
       receiver: question.user
     }
 
@@ -421,7 +421,7 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
     commentable_path = Rails.application.routes.url_helpers.polymorphic_path(comment.commentable)
 
     params = {
-      comment: comment,
+      comment:,
       receiver: comment.receiver,
       message: "相談部屋で#{comment.sender.login_name}さんからコメントがありました。",
       link: "#{commentable_path}#latest-comment"

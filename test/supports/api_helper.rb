@@ -2,7 +2,7 @@
 
 module APIHelper
   def create_token(login_name, password)
-    post api_session_url, params: { login_name: login_name, password: password }
+    post api_session_url, params: { login_name:, password: }
     JSON.parse(body)['token']
   end
 end
