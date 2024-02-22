@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'vips'
+
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
@@ -7,7 +9,6 @@ class User < ApplicationRecord
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
-  AVATAR_SIZE = [88, 88].freeze
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
@@ -593,7 +594,22 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
-      avatar.variant(resize_to_limit: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
+      blob = avatar.blob
+      width = blob.metadata['width']
+      height = blob.metadata['height']
+
+      aspect_ratio = width.to_f / height
+      if aspect_ratio > 1
+        # 横長の画像の場合
+        resized_width = 120 * width / height
+        avatar_size = [resized_width, 120]
+      else
+        # 縦長の画像の場合
+        resized_height = 120 * height / width
+        avatar_size = [120, resized_height]
+      end
+
+      avatar.variant(resize_to_fit: avatar_size).processed.url
     else
       image_url default_image_path
     end
