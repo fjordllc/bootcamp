@@ -1252,18 +1252,18 @@ nagai-kyuukai:
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:04"
 
-pijord:
-  login_name: pijord
-  email: pijord@fjord.jp
+pijord-bot:
+  login_name: pijord-bot
+  email: pijord-bot@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ピヨルド
   name_kana: ピヨルド
-  twitter_account: pijord
-  facebook_url: https://www.facebook.com/fjordllc/pijord
-  github_account: pijord
-  blog_url: http://pijord.org
-  description: "ピヨルドです。"
+  twitter_account: pijord-bot
+  facebook_url: https://www.facebook.com/fjordllc/pijord-bot
+  github_account: pijord-bot
+  blog_url: http://pijord-bot.org
+  description: "ピヨルドbotです。"
   course: course1
   job: office_worker
   os: mac
