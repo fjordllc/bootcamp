@@ -20,6 +20,7 @@ class User < ApplicationRecord
     'trainee' => :trainees
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
+  HIBERNATION_LIMIT = 6.months
 
   enum job: {
     student: 0,
@@ -771,7 +772,7 @@ class User < ApplicationRecord
   end
 
   def scheduled_retire_at
-    hibernated_at&.advance(months: 6)
+    hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
   end
 
   private
