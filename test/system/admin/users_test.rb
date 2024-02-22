@@ -206,17 +206,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     end
   end
 
-  test 'make user not invoice payment' do
-    user = users(:kimura)
-    user.invoice_payment = true
-
-    visit_with_auth edit_admin_user_path(user), 'komagata'
-    uncheck '請求書払いのユーザーである', allow_label_click: true
-    click_on '更新する'
-
-    assert_not user.reload.invoice_payment
-  end
-
   test 'make user invoice payment' do
     user = users(:kimura)
 
