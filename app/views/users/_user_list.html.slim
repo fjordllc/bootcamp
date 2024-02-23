@@ -1,0 +1,9 @@
+- if !users.empty?
+  .user-list
+    = paginate users, params: { controller: 'users', action: 'index' }
+    .row
+      - users.each do |user|
+        = render 'users/user', user:
+    = paginate users, params: { controller: 'users', action: 'index' }
+- else
+  = render 'users/no_match_user', is_search:
