@@ -99,7 +99,7 @@
       .checkboxes
         .checkboxes__items
           .checkboxes__item
-            = f.check_box :display_thumbnail_in_body, { checked: @article.new_record? || @article.display_thumbnail_in_body?, class: 'a-toggle-checkbox' }
+            = f.check_box :display_thumbnail_in_body, { class: 'a-toggle-checkbox' }
             = f.label :display_thumbnail_in_body, 'サムネイル画像を本文に表示'
         .a-form-help
           p
