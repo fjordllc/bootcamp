@@ -232,26 +232,19 @@ const CommentInfo = ({ product }) => {
 }
 
 const TrainingEndDateInfo = ({ product }) => {
-  const trainingEndsOn = new Date(product.user.training_ends_on)
   const trainingRemainingDays = Math.floor(
     (trainingEndsOn - new Date()) / 1000 / 60 / 60 / 24
   )
-
-  const formattedDate = (date) => {
-    return `${date.getFullYear()}年${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日`
-  }
 
   return (
     <div className="card-list-item__row">
       <div className="card-list-item-meta__items">
         <div className="card-list-item-meta__item">
           {product.user.training_ends_on ? (
-            <time className="a-meta" dateTime={formattedDate(trainingEndsOn)}>
+            <time className="a-meta" dateTime={product.user.training_ends_on}>
               <span className="a-meta__label">研修終了日</span>
               <span className="a-meta__value">
-                {formattedDate(trainingEndsOn)}
+                {product.user.training_ends_on}
               </span>
               {trainingRemainingDays === 0 ? (
                 <span className="a-meta__value is-danger">
