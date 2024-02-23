@@ -36,6 +36,12 @@ class Article < ApplicationRecord
   paginates_per 24
   acts_as_taggable
 
+  class << self
+    def fetch_recent_articles
+      with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).where(wip: false).order(published_at: :desc).limit(10)
+    end
+  end
+
   def prepared_thumbnail_url
     if thumbnail.attached?
       thumbnail.variant(resize: THUMBNAIL_SIZE).processed.url
@@ -46,6 +52,10 @@ class Article < ApplicationRecord
 
   def selected_thumbnail_url
     image_url("/ogp/#{thumbnail_type}.png")
+  end
+
+  def published?
+    !wip?
   end
 
   private
