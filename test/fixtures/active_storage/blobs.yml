@@ -11,22 +11,22 @@ company3_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/3
 company4_logo_blob: <%= ActiveStorage::Blob.fixture filename: "companies/logos/4.jpg" %>
 
 # users
-hatsuno_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/hatsuno.jpg" %>
+hatsuno_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/hatsuno.jpg", metadata: { width: 100, height: 100 } %>
 
-komagata_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/komagata.jpg" %>
+komagata_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/komagata.jpg", metadata: { width: 100, height: 100 } %>
 
-machida_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg" %>
+machida_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg", metadata: { width: 100, height: 100 } %>
 
-mentormentaro_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mentormentaro.jpg" %>
+mentormentaro_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mentormentaro.jpg", metadata: { width: 100, height: 100 } %>
 
-mineo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mineo.jpg" %>
+mineo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/mineo.jpg", metadata: { width: 100, height: 100 } %>
 
-tanaka_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/tanaka.jpg" %>
+tanaka_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/tanaka.jpg", metadata: { width: 100, height: 100 } %>
 
-yameo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/yameo.jpg" %>
+yameo_avatar_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/yameo.jpg", metadata: { width: 100, height: 100 } %>
 
-komagata_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/komagata.jpg" %>
+komagata_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/komagata.jpg", metadata: { width: 100, height: 100 } %>
 
-machida_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg" %>
+machida_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/machida.jpg", metadata: { width: 100, height: 100 } %>
 
-kimuramitai_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/default.jpg" %>
+kimuramitai_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/default.jpg", metadata: { width: 100, height: 100 } %>
