@@ -232,10 +232,6 @@ const CommentInfo = ({ product }) => {
 }
 
 const TrainingEndDateInfo = ({ product }) => {
-  const trainingRemainingDays = Math.floor(
-    (trainingEndsOn - new Date()) / 1000 / 60 / 60 / 24
-  )
-
   return (
     <div className="card-list-item__row">
       <div className="card-list-item-meta__items">
@@ -246,19 +242,19 @@ const TrainingEndDateInfo = ({ product }) => {
               <span className="a-meta__value">
                 {product.user.training_ends_on}
               </span>
-              {trainingRemainingDays === 0 ? (
+              {product.user.training_remaining_days === 0 ? (
                 <span className="a-meta__value is-danger">
                   （本日研修最終日）
                 </span>
-              ) : trainingRemainingDays < 0 ? (
+              ) : product.user.training_remaining_days < 0 ? (
                 <span className="a-meta__value">（研修終了）</span>
-              ) : trainingRemainingDays < 8 ? (
+              ) : product.user.training_remaining_days < 8 ? (
                 <span className="a-meta__value is-danger">
-                  （あと{trainingRemainingDays}日）
+                  （あと{product.user.training_remaining_days}日）
                 </span>
               ) : (
                 <span className="a-meta__value">
-                  （あと{trainingRemainingDays}日）
+                  （あと{product.user.training_remaining_days}日）
                 </span>
               )}
             </time>
