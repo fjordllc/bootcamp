@@ -47,9 +47,9 @@ ruby:
                       - else
                         = l(@article.published_at)
                 - if @article.display_thumbnail_in_body?
-                  - if @article.thumbnail.attached? && @article.prepared_thumbnail?
+                  - if @article.prepared_thumbnail?
                     = image_tag @article.prepared_thumbnail_url, class: 'article__image'
-                  - elsif !thumbnail_blank?(@article)
+                  - else
                     = image_tag @article.selected_thumbnail_url, class: 'article__image'
               .article__body
                 .js-markdown-view.a-long-text.is-md
