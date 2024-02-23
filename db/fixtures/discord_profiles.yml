@@ -60,22 +60,22 @@ discord_profile_kensyu:
 
 discord_profile_kensyu-end-within-24-hour:
   user: kensyu-end-within-24-hour
-  account_name: kensyu-end-within-24-hour
+  account_name: kensyu_end_within_24_hour
   times_url:
 
 discord_profile_kensyu-end-within-1-week:
   user: kensyu-end-within-1-week
-  account_name: kensyu-end-within-1-week
+  account_name: kensyu_end_within_1_week
   times_url:
 
 discord_profile_kensyu-end-over-1-week:
   user: kensyu-end-over-1-week
-  account_name: kensyu-end-over-1-week
+  account_name: kensyu_end_over_1_week
   times_url:
 
 discord_profile_kensyu-not-setting-end-date:
   user: kensyu-not-setting-end-date
-  account_name: kensyu-not-setting-end-date
+  account_name: kensyu_not_setting_end_date
   times_url:
 
 discord_profile_senpai:

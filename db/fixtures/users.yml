@@ -307,9 +307,9 @@ kensyu-end-within-24-hour:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: kensyu-end-within-24-hour
-  name_kana: 研修終了まで24時間以内のユーザー
+  name_kana: ケンシュウ キョウシュウリョウ
   github_account: kensyu-end-within-24-hour
-  twitter_account: kensyu-end-within-24-hour
+  twitter_account: kensyu_end_kyou
   facebook_url: https://www.facebook.com/fjordllc/kensyu-end-within-24-hour
   blog_url: http://kensyu-end-within-24-hour.org
   company: company2
@@ -326,7 +326,7 @@ kensyu-end-within-24-hour:
   created_at: "2014-01-01 00:00:11"
   sent_student_followup_message: true
   last_activity_at: "2014-01-01 00:00:11"
-  training_ends_on: <%= Time.current + 23.hours %>
+  training_ends_on: <%= Time.current + 1.hour %>
 
 kensyu-end-within-1-week:
   login_name: kensyu-end-within-1-week
@@ -334,9 +334,9 @@ kensyu-end-within-1-week:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: kensyu-end-within-1-week
-  name_kana: 研修終了まで1週間以内のユーザー
+  name_kana: ケンシュウ モウスコシデシュウリョウ
   github_account: kensyu-end-within-1-week
-  twitter_account: kensyu-end-within-1-week
+  twitter_account: kensyu_end_week
   facebook_url: https://www.facebook.com/fjordllc/kensyu-end-within-1-week
   blog_url: http://kensyu-end-within-1-week.org
   company: company2
@@ -361,9 +361,9 @@ kensyu-end-over-1-week:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: kensyu-end-over-1-week
-  name_kana: 研修終了まで1週間以上のユーザー
+  name_kana: ケンシュウ マダマダ
   github_account: kensyu-end-over-1-week
-  twitter_account: kensyu-end-over-1-week
+  twitter_account: kensyu_madamada
   facebook_url: https://www.facebook.com/fjordllc/kensyu-end-over-1-week
   blog_url: http://kensyu-end-over-1-week.org
   company: company2
@@ -388,15 +388,15 @@ kensyu-not-setting-end-date:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: kensyu-not-setting-end-date
-  name_kana: 研修終了日が未入力のユーザー
+  name_kana: ケンシュウ シュウリョウミテイ
   github_account: kensyu-not-setting-end-date
-  twitter_account: kensyu-not-setting-end-date
+  twitter_account: kensyu_mitei
   facebook_url: https://www.facebook.com/fjordllc/kensyu-not-setting-end-date
   blog_url: http://kensyu-not-setting-end-date.org
   company: company2
   description: "研修終了日が未入力のユーザーです。"
   course: course1
-  job: office_workerkensyu-end-within-24-hour
+  job: office_worker
   os: mac
   experience: rails
   organization: 研修大学
