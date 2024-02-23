@@ -188,6 +188,11 @@ discord_profile_tom:
   account_name:
   times_url:
 
+discord_profile_pijord-bot:
+  user: pijord-bot
+  account_name:
+  times_url:
+
 <% 1.upto(4) do |i| %>
 discord_profile_marumarushain<%= i %>:
   user: marumarushain<%= i %>
