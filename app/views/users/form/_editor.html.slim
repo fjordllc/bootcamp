@@ -9,13 +9,13 @@
           = f.radio_button :editor, editor, id: editor, class: 'a-toggle-checkbox'
           = f.label :editor, for: editor, class: 'a-block-check__label has-icon is-ta-left' do
             = editor
-    - others_checked = user.editor.present? && editors.exclude?(user.editor)
+    - others_editor_checked = user.others_editor_checked?(user, editors)
     li.block-checks__item
       .a-block-check.is-radio
-        = f.radio_button :editor, 'others_editor', id: 'others_editor', class: 'a-toggle-checkbox', checked: others_checked
+        = f.radio_button :editor, 'others_editor', id: 'others_editor', class: 'a-toggle-checkbox', checked: others_editor_checked
         = f.label :editor, for: 'others_editor', class: 'a-block-check__label has-icon is-ta-left' do
           = t('activerecord.attributes.editors.others')
-.form-item(class="#{'is-hidden' unless others_checked}" id='others_form')
+.form-item(class="#{'is-hidden' unless others_editor_checked}" id='others_form')
   label.a-form-label
     | その他のエディタを選択した場合、具体的なエディタ名を入力してください。
-  = f.text_field :others_input, placeholder: 'textbringer', id: 'others_input', class: 'a-text-input', value: (user.editor if others_checked)
+  = f.text_field :others_input, placeholder: 'textbringer', id: 'others_input', class: 'a-text-input', value: (user.editor if others_editor_checked)

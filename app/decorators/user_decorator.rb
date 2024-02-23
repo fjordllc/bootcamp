@@ -78,4 +78,8 @@ module UserDecorator
   def hibernation_days
     ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor if hibernated_at?
   end
+
+  def others_editor_checked?(user, editors)
+    user.editor.present? && editors.exclude?(user.editor)
+  end
 end
