@@ -1265,8 +1265,8 @@ pijord-bot:
   email: pijord-bot@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: ピヨルド
-  name_kana: ピヨルド
+  name: ピヨルドbot
+  name_kana: ピヨルドボット
   twitter_account: pijord-bot
   facebook_url: https://www.facebook.com/fjordllc/pijord-bot
   github_account: pijord-bot
