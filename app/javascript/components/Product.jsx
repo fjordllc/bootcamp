@@ -62,7 +62,7 @@ export default function Product({
             <CommentInfo product={product} />
           </div>
           {(isMentor || isAdmin) && product.user.primary_role === 'trainee' && (
-            <TrainingEndInfo product={product} />
+            <TrainingEndDateInfo product={product} />
           )}
           {isMentor && product.checks.size === 0 && (
             <div className="card-list-item__row is-only-mentor">
@@ -231,7 +231,7 @@ const CommentInfo = ({ product }) => {
   )
 }
 
-const TrainingEndInfo = ({ product }) => {
+const TrainingEndDateInfo = ({ product }) => {
   const trainingEndsOn = new Date(product.user.training_ends_on)
   const trainingRemainingDays = Math.floor(
     (trainingEndsOn - new Date()) / 1000 / 60 / 60 / 24
