@@ -6,6 +6,7 @@ class ArticleTest < ActiveSupport::TestCase
   test '.fetch_recent_articles' do
     recent_articles = Article.fetch_recent_articles
 
+    assert_equal recent_articles.count, 10
     recent_articles.each do |article|
       assert_not article.wip
     end
