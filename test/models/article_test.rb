@@ -3,6 +3,14 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
+  test '.fetch_recent_articles' do
+    recent_articles = Article.fetch_recent_articles
+
+    recent_articles.each do |article|
+      assert_not article.wip
+    end
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
@@ -11,6 +19,14 @@ class ArticleTest < ActiveSupport::TestCase
   test '#selected_thumbnail_url' do
     article = articles(:article1)
     assert_equal '/ogp/ruby_on_rails.png', article.selected_thumbnail_url
+  end
+
+  test '#published?' do
+    public = articles(:article1)
+    wip = articles(:article3)
+
+    assert public.published?
+    assert_not wip.published?
   end
 
   test 'articles directly published without WIP have value of the published_at' do

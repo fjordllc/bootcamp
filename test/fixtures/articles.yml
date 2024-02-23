@@ -20,3 +20,12 @@ article3:
   user: komagata
   wip: true
   thumbnail_type: :prepared_thumbnail
+
+<% (4..20).each do |i| %>
+article<%= i %>:
+  title: "４～２０番目作成の内<%= i %>番目>"
+  body: "<%= i %>という数字が好きです。"
+  user: machida
+  wip: false
+  thumbnail_type: :ruby_on_rails
+<% end %>
