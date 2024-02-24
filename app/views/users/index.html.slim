@@ -58,9 +58,8 @@ main.page-main
                       | 絞り込み
                     input#js-user-search-input.a-text-input type="text" value="#{@search_word}" placeholder="ユーザー名、読み方、Discord ID、GitHub ID など"
           .page-content.is-users
-            .users__items
-              .row id="user_lists"
-                = render 'users/user_list', users: @users, is_search: false
+            #user_lists.users__items
+              = render 'users/user_list', users: @users, is_search: false
 
       = render '/users/random_tags'
 - unless params[:tag]
