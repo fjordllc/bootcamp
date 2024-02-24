@@ -29,6 +29,12 @@ jobs:
           name: Slim Lint
           command: bundle exec slim-lint app/views -c config/slim_lint.yml
       - run:
+          name: Update package list
+          command: sudo apt-get update
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
+      - run:
           name: Traceroute
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute
       - node/install:
