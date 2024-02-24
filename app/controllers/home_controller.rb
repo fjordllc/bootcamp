@@ -47,6 +47,8 @@ class HomeController < ApplicationController
     @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
     @collegues = current_user.collegues_other_than_self
+    @current_month = calendar
+    @current_calendar = current_user.reports_date(@current_month)
   end
 
   def display_events_on_dashboard
@@ -60,5 +62,11 @@ class HomeController < ApplicationController
 
   def display_welcome_message_for_adviser
     @welcome_message_first_time = cookies[:confirmed_welcome_message]
+  end
+
+  def calendar
+    year = params[:year] || Time.zone.now.year
+    month = params[:month] || Time.zone.now.month
+    Date.new(year.to_i, month.to_i)
   end
 end
