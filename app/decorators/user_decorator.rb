@@ -103,6 +103,6 @@ module UserDecorator
 
     blanks = Array.new(first_wday) { { date: nil } }
 
-    calendar = [*blanks, *calendar_dates].each_slice(7).to_a
+    [*blanks, *calendar_dates].each_slice(7).to_a
   end
 end
