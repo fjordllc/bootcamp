@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'vips'
-
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
