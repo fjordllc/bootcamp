@@ -96,5 +96,13 @@ module UserDecorator
     return nil if editor.nil?
 
     editor == 'other_editor' ? other_editor : t("activerecord.enums.user.editor.#{editor}")
+
+  def niconico_calendar(calendar)
+    calendar_dates = calendar
+    first_wday = calendar_dates.first[:date].wday
+
+    blanks = Array.new(first_wday) { { date: nil } }
+
+    calendar = [*blanks, *calendar_dates].each_slice(7).to_a
   end
 end
