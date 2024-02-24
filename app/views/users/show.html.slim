@@ -72,7 +72,7 @@
             - unless @user.total_learning_time.zero? || @user.mentor?
               = react_component 'Grass', { userId: @user.id }, { class: 'a-card' }
             - if @user.student_or_trainee?
-              #js-niconico_calendar(data-user-id="#{@user.id}")
+              = render 'niconico_calendar', user: @user
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
                 = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
