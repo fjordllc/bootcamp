@@ -78,4 +78,13 @@ module UserDecorator
   def hibernation_days
     ActiveSupport::Duration.build(Time.zone.now - hibernated_at).in_days.floor if hibernated_at?
   end
+
+  def niconico_calendar(calendar)
+    calendar_dates = calendar
+    first_wday = calendar_dates.first[:date].wday
+
+    blanks = Array.new(first_wday) { { date: nil } }
+
+    calendar = [*blanks, *calendar_dates].each_slice(7).to_a
+  end
 end

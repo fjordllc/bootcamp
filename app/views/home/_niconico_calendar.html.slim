@@ -1,0 +1,62 @@
+- today = Date.today
+- first_day_of_month = today.beginning_of_month
+- last_day_of_month = today.end_of_month
+- days_of_month = (first_day_of_month..last_day_of_month)
+
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title
+      | ニコニコカレンダー
+  hr.a-border-tint
+  .card-body
+    .card__description
+      .niconico-calendar-nav
+        .niconico-calendar-nav__previous
+          = link_to root_path(month: @current_month.prev_month.month, year: @current_month.prev_month.year) do
+            <i class="fa-solid fa-angle-left"></i>
+        .niconico-calendar-nav__year--month
+          = "#{@current_month.year}年#{@current_month.month}月"
+        .niconico-calendar-nav__next
+          = link_to root_path(month: @current_month.next_month.month, year: @current_month.next_month.year) do
+            <i class="fa-solid fa-angle-right"></i>
+      table.niconico-calendar
+        thead.niconico-calendar__header
+          tr
+            th.niconico-calendar__header-day.is-sunday
+              | 日
+            th.niconico-calendar__header-day
+              | 月
+            th.niconico-calendar__header-day
+              | 火
+            th.niconico-calendar__header-day
+              | 水
+            th.niconico-calendar__header-day
+              | 木
+            th.niconico-calendar__header-day
+              | 金
+            th.niconico-calendar__header-day.is-saturday
+              | 土
+        tbody.niconico-calendar__body
+          - user.niconico_calendar(@current_calendar).each do |week|
+            tr.niconico-calendar__week
+              - week.each do |set|
+                - emotion = set[:emotion] ? "is-#{set[:emotion]}" : 'is-blank'
+                - emotion += ' is-today' if set[:date] == Date.today
+                - day_label_html = capture do
+                  .niconico-calendar__day-label
+                    = set[:date]&.day
+                  .niconico-calendar__day-value
+                    - if set[:emotion]
+                      img.niconico-calendar__emotion-image src="/images/emotion/#{set[:emotion]}.svg" alt="#{set[:emotion]}"
+                    - elsif set[:date]
+                      = content_tag :i, nil, class: 'fa-solid fa-minus'
+                td.niconico-calendar__day class=emotion
+                  - if set[:report]
+                    = link_to report_path(set[:report]), class: 'niconico-calendar__day-inner' do
+                      = day_label_html
+                  - elsif set[:date] == Date.today
+                    = link_to new_report_path, class: 'niconico-calendar__day-inner' do
+                      = day_label_html
+                  - else
+                    .niconico-calendar__day-inner
+                      = day_label_html
