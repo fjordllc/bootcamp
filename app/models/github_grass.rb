@@ -6,7 +6,7 @@ require 'nokogiri'
 class GithubGrass
   TABLE_SELECTOR = 'table.ContributionCalendar-grid.js-calendar-graph-table'
   LABEL_SELECTOR = 'td.ContributionCalendar-label span[aria-hidden="true"]'
-  SELECTOR_TO_REMOVE = 'tool-tip'
+  SELECTORS_TO_REMOVE = ['tool-tip', 'caption', 'span[class="sr-only"]'].freeze
 
   WDAYS = {
     Sun: '日', Mon: '月', Tue: '火', Wed: '水',
@@ -34,7 +34,7 @@ class GithubGrass
 
   def extract_table(html)
     table = Nokogiri::HTML(html).css(TABLE_SELECTOR)
-    table.css(SELECTOR_TO_REMOVE).each(&:remove)
+    SELECTORS_TO_REMOVE.each { |selector| table.search(selector).remove }
     table
   end
 
