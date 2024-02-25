@@ -5,7 +5,7 @@
         <h1 style="font-size: 24px; color:#4638a0; line-height: 1.5; margin-bottom: 0; font-weight: bold">
           <%= title %></h1>
         <p style="font-size: 13px; color:#4638a0; line-height: 1.5; margin-top: 12px; text-align: left">
-          <%= link_to @announcement.user.long_name, @announcement.user, style: "line-height: 140%; text-decoration: underline;" %>
+          <%= link_to @announcement.user.long_name, @announcement.user, style: "line-height: 140%; text-decoration: underline;" if @announcement %>
         </p>
       </div>
     </td>
