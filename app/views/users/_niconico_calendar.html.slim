@@ -6,16 +6,18 @@
   .card-body
     .card__description
       .niconico-calendar-nav
-        .niconico-calendar-nav__previous
-          = link_to root_path(month: @current_date.prev_month.month, year: @current_date.prev_month.year) do
+        = link_to root_path(month: @current_date.prev_month.month, year: @current_date.prev_month.year) do
+          .niconico-calendar-nav__previous
             i.fa-solid.fa-angle-left
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
         - latest_month = @current_date.beginning_of_month == Time.zone.today.beginning_of_month
-        = tag.div class: "niconico-calendar-nav__next#{latest_month ? ' is-blank' : ''}"
-          - unless latest_month
-            = link_to root_path(month: @current_date.next_month.month, year: @current_date.next_month.year) do
+        - if !latest_month
+          = link_to root_path(month: @current_date.next_month.month, year: @current_date.next_month.year) do
+            .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
+        - else
+          .niconico-calendar-nav__next.is-blank
       table.niconico-calendar
         thead.niconico-calendar__header
           tr
