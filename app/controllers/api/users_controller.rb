@@ -43,6 +43,7 @@ class API::UsersController < API::BaseController
     # search_by_keywords内では { unretired } というスコープが設定されている
     # 退会したユーザーに対しキーワード検索を行う場合は、一旦 unscope(where: :retired_on) で { unretired } スコープを削除し、その後で retired スコープを設定する必要がある
     target == 'retired' ? users.unscope(where: :retired_on).retired : users
+    target == 'all' ? users.unscope(where: %i[retired_on hibernated_at]) : users
   end
 
   def target_allowlist
