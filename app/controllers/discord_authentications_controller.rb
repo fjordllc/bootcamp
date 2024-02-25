@@ -10,9 +10,9 @@ class DiscordAuthenticationsController < ApplicationController
     discord_profile.account_name = discord_account_name
 
     if discord_profile.save
-      redirect_to root_path, notice: "Discordと連携しました"
+      redirect_to root_path, notice: 'Discordと連携しました'
     else
-      redirect_to root_path, alert: "Discordの連携に失敗しました"
+      redirect_to root_path, alert: 'Discordの連携に失敗しました'
     end
   end
 end
