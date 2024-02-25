@@ -8,14 +8,14 @@
       .niconico-calendar-nav
         .niconico-calendar-nav__previous
           = link_to root_path(month: @current_date.prev_month.month, year: @current_date.prev_month.year) do
-            <i class="fa-solid fa-angle-left"></i>
+            i.fa-solid.fa-angle-left
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
         - latest_month = @current_date.beginning_of_month == Time.zone.today.beginning_of_month
         = tag.div class: "niconico-calendar-nav__next#{latest_month ? ' is-blank' : ''}"
           - unless latest_month
             = link_to root_path(month: @current_date.next_month.month, year: @current_date.next_month.year) do
-              <i class="fa-solid fa-angle-right"></i>
+              i.fa-solid.fa-angle-right
       table.niconico-calendar
         thead.niconico-calendar__header
           tr
@@ -46,7 +46,7 @@
                     - if set[:emotion]
                       img.niconico-calendar__emotion-image src="/images/emotion/#{set[:emotion]}.svg" alt="#{set[:emotion]}"
                     - elsif set[:date]
-                      = tag.i class: 'fa-solid fa-minus'
+                      i.fa-solid.fa-minus
                 td.niconico-calendar__day class=emotion
                   - if set[:report]
                     = link_to report_path(set[:report]), class: 'niconico-calendar__day-inner' do
