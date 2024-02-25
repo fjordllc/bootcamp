@@ -7,12 +7,12 @@
     .card__description
       .niconico-calendar-nav
         .niconico-calendar-nav__previous
-          = link_to root_path(month: @current_month.prev_month.month, year: @current_month.prev_month.year) do
+          = link_to root_path(month: @current_date.prev_month.month, year: @current_date.prev_month.year) do
             <i class="fa-solid fa-angle-left"></i>
         .niconico-calendar-nav__year--month
-          = "#{@current_month.year}年#{@current_month.month}月"
+          = "#{@current_date.year}年#{@current_date.month}月"
         .niconico-calendar-nav__next
-          = link_to root_path(month: @current_month.next_month.month, year: @current_month.next_month.year) do
+          = link_to root_path(month: @current_date.next_month.month, year: @current_date.next_month.year) do
             <i class="fa-solid fa-angle-right"></i>
       table.niconico-calendar
         thead.niconico-calendar__header

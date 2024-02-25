@@ -823,22 +823,6 @@ class User < ApplicationRecord
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
   end
 
-  def reports_date(day)
-    first_day_of_month = day.beginning_of_month
-    last_day_of_month = day.end_of_month
-    days_of_month = (first_day_of_month..last_day_of_month)
-  
-    reports = self.reports.where(reported_on: days_of_month, wip: false)
-    emotions = reports.index_by(&:reported_on)
-
-    dates = days_of_month.index_with { |_day| nil }
-
-    dates.merge(emotions)
-         .to_a
-         .map { |set| [report: set[1], date: set[0], emotion: set[1]&.emotion] }
-         .flatten
-  end
-
   private
 
   def password_required?
