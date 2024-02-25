@@ -363,7 +363,7 @@ class UserTest < ActiveSupport::TestCase
     assert Following.find_by(follower_id: kimura.id, followed_id: hatsuno.id)
   end
 
-  test "return retired user data" do
+  test 'return retired user data' do
     yameo = users(:yameo)
     result = Searcher.search(yameo.name)
     assert_includes(result, yameo)
