@@ -8,11 +8,12 @@ section.welcome-section.is-articles#articles
         | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
         | ぜひ、検討材料にご活用ください。
         .welcome-page-body
+
   .articles__body
     .container.is-xl
       .articles__items
         .row
-          - @articles.first(6).each do |article|
+          - @articles.each do |article|
             .col-lg-4.col-md-6.col-xs-12
               .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
                 = link_to article, class: 'articles-item__link' do
