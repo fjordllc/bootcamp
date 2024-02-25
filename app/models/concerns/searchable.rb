@@ -13,7 +13,7 @@ module Searchable
   # rubocop:disable Metrics/BlockLength
   class_methods do
     def search_by_keywords(searched_values = {})
-      ransack(**params_for_keyword_search(searched_values)).result.search_by_keywords_scope
+      ransack(**params_for_keyword_search(searched_values)).result
     end
 
     def columns_for_keyword_search(*column_names)
