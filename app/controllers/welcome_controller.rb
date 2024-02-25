@@ -31,6 +31,6 @@ class WelcomeController < ApplicationController
   private
 
   def list_articles_with_specific_tag
-    Article.tagged_with('feature').order(published_at: :desc)
+    Article.tagged_with('feature').order(published_at: :desc).where(wip: false).first(6)
   end
 end
