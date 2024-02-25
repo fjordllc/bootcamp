@@ -11,9 +11,11 @@
             <i class="fa-solid fa-angle-left"></i>
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
-        .niconico-calendar-nav__next
-          = link_to root_path(month: @current_date.next_month.month, year: @current_date.next_month.year) do
-            <i class="fa-solid fa-angle-right"></i>
+        - latest_month = @current_date.beginning_of_month == Time.zone.today.beginning_of_month
+        = content_tag :div, nil, class: "niconico-calendar-nav__next#{latest_month ? ' is-blank' : ''}"
+          - unless latest_month
+            = link_to root_path(month: @current_date.next_month.month, year: @current_date.next_month.year) do
+              <i class="fa-solid fa-angle-right"></i>
       table.niconico-calendar
         thead.niconico-calendar__header
           tr
