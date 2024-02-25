@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2024_02_02_100641) do
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
     t.text "summary"
+    t.integer "thumbnail_type", default: 0, null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
