@@ -474,11 +474,11 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
       fill_in('report[title]', with: '学習日が特定の日付以前では日報を作成できない')
-      fill_in('report[description]', with: 'エラーになる')
+      fill_in('report[description]', with: 'ページ遷移しない')
       fill_in('report[reported_on]', with: Date.new(2012, 12, 31))
     end
     click_button '提出'
-    assert_select '', text: '2013/01/01 以降の値を指定する必要があります。'
+    assert_current_path '/reports/new?_login_name=komagata'
   end
 
   test 'display recently reports' do
