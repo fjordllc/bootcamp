@@ -913,6 +913,40 @@ tom: #アメリカ在住のユーザー
   created_at: "2023-05-08 00:00:00"
   last_activity_at: "2023-05-08 00:00:00"
 
+paginataion-taro:
+  login_name: paginataion-taro
+  email: paginataion-taro@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ページネーション 太郎
+  name_kana: ページネーション タロウ
+  description: "ページネーションを確認するため追加したユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:07"
+
+paginataion-jirou:
+  login_name: paginataion-jirou
+  email: paginataion-jirou@example.com
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ページネーション 次郎
+  name_kana: ページネーション ジロウ
+  description: "ページネーションを確認するため追加したユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  experience: inexperienced
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  sent_student_followup_message: true
+  last_activity_at: "2014-01-01 00:00:07"
+
 pjord:
   login_name: pjord
   email:
