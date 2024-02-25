@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  include CalendarMethods
+
   skip_before_action :require_active_user_login, raise: false
 
   def index
@@ -49,6 +51,8 @@ class HomeController < ApplicationController
     @collegues = current_user.collegues_other_than_self
     @current_month = calendar
     @current_calendar = current_user.reports_date(@current_month)
+    @current_date = current_calendar_date(params[:year], params[:month])
+    @current_calendar = calendars_with_reports(current_user, @current_date)
   end
 
   def display_events_on_dashboard
@@ -62,11 +66,5 @@ class HomeController < ApplicationController
 
   def display_welcome_message_for_adviser
     @welcome_message_first_time = cookies[:confirmed_welcome_message]
-  end
-
-  def calendar
-    year = params[:year] || Time.zone.now.year
-    month = params[:month] || Time.zone.now.month
-    Date.new(year.to_i, month.to_i)
   end
 end

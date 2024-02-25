@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include CalendarMethods
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
@@ -37,6 +38,9 @@ class UsersController < ApplicationController
                            .includes(:practice)
                            .where(status: 3)
                            .order(updated_at: :desc)
+
+    @current_date = current_calendar_date(params[:year], params[:month])
+    @current_calendar = calendars_with_reports(@user, @current_date)
 
     if logged_in?
       render :show
