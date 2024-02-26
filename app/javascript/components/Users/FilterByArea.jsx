@@ -38,7 +38,7 @@ function RegionCard({ region, numberOfUsersByRegion, onUpdateSelectedArea }) {
  * 都道府県を指定しないデフォルトでは東京都が選択されます
  */
 export default function FilterByArea({ numberOfUsersByRegion }) {
-  const [searchParams, setSearchParams] = useSearchParams({ area: '東京都' })
+  const { searchParams, setSearchParams } = useSearchParams({ area: '東京都' })
   const apiUrl = '/api/users/areas?'
   const { data: users, error, mutate } = useSWR(apiUrl + searchParams, fetcher)
 
@@ -52,8 +52,7 @@ export default function FilterByArea({ numberOfUsersByRegion }) {
   }
 
   usePopstate(async () => {
-    const search = new URL(location).searchParams
-    const newUsers = await fetcher(apiUrl + search).catch((error) => {
+    const newUsers = await fetcher(apiUrl + searchParams).catch((error) => {
       console.error(error)
     })
     mutate(newUsers)
