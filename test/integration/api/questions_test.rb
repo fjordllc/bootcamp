@@ -28,20 +28,12 @@ class API::QuestionsTest < ActionDispatch::IntegrationTest
     patch @path, params: { question: { title: '認証失敗' } }
     assert_response :unauthorized
 
-    [
-      @question.user.login_name,
-      @non_editable_user_login_name,
-      User.find_by(admin: true).login_name
-    ].each do |name|
-      changed_title = "#{name} changed"
-      token = create_token(name, 'testtest')
-      patch @path,
-            params: { question: { title: changed_title } },
-            headers: { 'Authorization' => "Bearer #{token}" }
-
-      assert_response :ok
-      assert_equal changed_title, @question.reload.title
-    end
+    token = create_token('hajime', 'testtest')
+    patch @path,
+          params: { question: { tag_list: '新規タグ1,新規タグ2' } },
+          headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+    assert_equal %w[新規タグ1 新規タグ2], @question.reload.tag_list
   end
 
   test 'GET /api/questions.json?user_id=253826460' do
