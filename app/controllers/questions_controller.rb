@@ -14,15 +14,7 @@ class QuestionsController < ApplicationController
   MAX_PRACTICE_QUESTIONS_DISPLAYED = 20
 
   def index
-    questions =
-      case params[:target]
-      when 'solved'
-        Question.solved
-      when 'not_solved'
-        Question.not_solved.not_wip
-      else
-        Question.all
-      end
+    questions = Question.by_target(params[:target])
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
     @tags = Question.all.all_tags
     questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
