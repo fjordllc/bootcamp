@@ -46,6 +46,7 @@ ruby:
                         = l(@article.created_at)
                       - else
                         = l(@article.published_at)
+                = render 'share_buttons', article: @article.id
                 - if @article.display_thumbnail_in_body?
                   - if @article.prepared_thumbnail?
                     = image_tag @article.prepared_thumbnail_url, class: 'article__image'
