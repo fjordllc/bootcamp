@@ -1,0 +1,68 @@
+header.page-content-header
+  .page-content-header__start
+    .page-content-header__user
+      = render 'users/icon', user: question.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
+  .page-content-header__end
+    a.a-count-badge href='#comments'
+      .a-count-badge__label
+        | 回答
+      .a-count-badge__value.js-answer-count class=(question.answers.blank? ? 'is-zero' : '')
+        | #{question.answers.size}
+
+    .page-content-header__row
+      .page-content-header__before-title
+        - if question.practice_id.present?
+          = link_to question.practice.title, practice_path(question.practice_id), class: 'a-category-link'
+      h1.page-content-header__title class=(question.wip ? 'is-wip' : '')
+        - if question.correct_answer.present?
+          span.a-title-label.is-solved.is-success.js-solved-status
+            | 解決済
+        - elsif question.wip?
+          span.a-title-label.is-wip
+            | WIP
+        - else
+          span.a-title-label.is-solved.is-danger.js-solved-status
+            | 未解決
+        | #{question.title}
+
+    .page-content-header__row
+      .page-content-header-metas
+        .page-content-header-metas__start
+          - if question.wip?
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__value
+                  | 質問作成中
+          .page-content-header-metas__meta
+            = link_to question.user.long_name, user_path(question.user), class: 'a-user-name'
+          - if !question.wip?
+            .page-content-header-metas__meta
+              time.a-meta
+                span.a-meta__label
+                  | 公開
+                span.a-meta__value
+                  time(datetime="#{question.published_at.to_datetime}")
+                    | #{l question.published_at}
+            .page-content-header-metas__meta
+              .a-meta
+                span.a-meta__label
+                  | 更新
+                time.a-meta__value
+                  time(datetime="#{question.updated_at.to_datetime}")
+                    | #{l question.updated_at}
+
+    .page-content-header__row
+      .page-content-header-actions
+        .page-content-header-actions__start
+          .page-content-header-actions__action
+            div(data-vue='WatchToggle' data-vue-watchable-id:number="#{question.id}" data-vue-watchable-type='Question')
+          .page-content-header-actions__action
+            #js-bookmark(data-bookmarkable-id="#{question.id}", data-bookmarkable-type='Question')
+        .page-content-header-actions__end
+          .page-content-header-actions__action
+            = link_to question_path(question, format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener' do
+              | Raw
+
+    .page-content-header__row
+      .page-content-header__tags
+        = react_component('Tags/Tags', { tagsInitialValue: question.tag_list.join(',').to_s, tagsParamName: 'question[tag_list]', tagsInputId: 'question_tag_list', tagsType: 'Question', tagsTypeId: question.id.to_s })
