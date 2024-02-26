@@ -1,4 +1,5 @@
-import { useRef, useEffect, useCallback, useMemo } from 'react'
+import { useRef, useEffect } from 'react'
+import { useLocation } from './useLocation'
 
 function createSearchParams(init = '') {
   return new URLSearchParams(
@@ -32,20 +33,16 @@ function getSearchParamsForLocation(locationSearch, defaultSearchParams) {
 }
 
 /**
- * React RouterのuseSearchParamsと同じように働くので参考にしてください
+ * React RouterのuseSearchParamsと同じように動きます
  * @see https://reactrouter.com/en/main/hooks/use-search-params
  */
 function useSearchParams(defaultInit) {
   const defaultSearchParamsRef = useRef(createSearchParams(defaultInit))
   const hasSetSearchParamsRef = useRef(false)
-
-  const searchParams = useMemo(
-    () =>
-      getSearchParamsForLocation(
-        location.search,
-        hasSetSearchParamsRef.current ? null : defaultSearchParamsRef.current
-      ),
-    [location.search]
+  const search = useLocation((location) => location.search)
+  const searchParams = getSearchParamsForLocation(
+    search,
+    hasSetSearchParamsRef.current ? null : defaultSearchParamsRef.current
   )
 
   const defaultOptions = {
@@ -54,25 +51,25 @@ function useSearchParams(defaultInit) {
     preventScrollReset: false
   }
 
-  const setSearchParams = useCallback(
-    (nextInit, { replace, state, preventScrollReset } = defaultOptions) => {
-      const newSearchParams = createSearchParams(
-        typeof nextInit === 'function' ? nextInit(searchParams) : nextInit
-      )
-      hasSetSearchParamsRef.current = true
-      if (replace) {
-        history.replaceState(state, '', '?' + newSearchParams)
-      } else {
-        history.pushState(state, '', '?' + newSearchParams)
-      }
-      if (!preventScrollReset) {
-        window.scrollTo(0, 0)
-      }
-    },
-    [searchParams]
-  )
+  const setSearchParams = (
+    nextInit,
+    { replace, state, preventScrollReset } = defaultOptions
+  ) => {
+    const newSearchParams = createSearchParams(
+      typeof nextInit === 'function' ? nextInit(searchParams) : nextInit
+    )
+    hasSetSearchParamsRef.current = true
+    if (replace) {
+      history.replaceState(state, '', '?' + newSearchParams)
+    } else {
+      history.pushState(state, '', '?' + newSearchParams)
+    }
+    if (!preventScrollReset) {
+      window.scrollTo(0, 0)
+    }
+  }
 
-  return [searchParams, setSearchParams]
+  return { searchParams, setSearchParams }
 }
 
 /**
