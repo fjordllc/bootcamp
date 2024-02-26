@@ -216,5 +216,16 @@ class CurrentUserTest < ApplicationSystemTestCase
     click_on '更新する'
 
     assert_text 'textbringer'
+
+  test 'cannot register discord account already setting user' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    assert_text 'Discord アカウントは登録されています。'
+    assert_no_text 'Discord アカウントを登録する'
+  end
+
+  test 'can register discord account not setting user' do
+    visit_with_auth '/current_user/edit', 'hatsuno'
+    assert_text 'Discord アカウントを登録する'
+    assert_no_text 'Discord アカウントは登録されています。'
   end
 end
