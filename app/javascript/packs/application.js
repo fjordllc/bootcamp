@@ -73,7 +73,7 @@ import UserMentorMemo from '../components/user_mentor_memo.vue'
 import UserRecentReports from '../components/user-recent-reports.vue'
 import Talks from '../components/talks.vue'
 import Footprints from '../components/footprints.vue'
-import Answers from '../components/answers.vue'
+import QuestionAnswers from '../components/question-answers.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import MentorPractices from '../components/mentor-practices.vue'
@@ -98,7 +98,7 @@ mounter.addComponent(UserMentorMemo)
 mounter.addComponent(UserRecentReports)
 mounter.addComponent(Talks)
 mounter.addComponent(Footprints)
-mounter.addComponent(Answers)
+mounter.addComponent(QuestionAnswers)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(MentorPractices)
