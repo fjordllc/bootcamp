@@ -137,6 +137,8 @@ class QuestionsTest < ApplicationSystemTestCase
     accept_alert do
       tag_input.set "半角スペースは 使えない\t"
     end
+    click_button '保存する'
+    find('.tag-links__item-edit').click
     tag_input = first('.tagify__input')
     accept_alert do
       tag_input.set "全角スペースも　使えない\t"
