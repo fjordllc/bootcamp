@@ -9,8 +9,6 @@ class QuestionsController < ApplicationController
   before_action :require_admin_or_mentor_login, only: [:destroy]
   skip_before_action :require_active_user_login, only: %i[show]
 
-  QuestionsProperty = Struct.new(:title, :empty_message)
-
   MAX_PRACTICE_QUESTIONS_DISPLAYED = 20
 
   def index
@@ -24,7 +22,7 @@ class QuestionsController < ApplicationController
                  .includes(:practice, :answers, :tags, :correct_answer)
                  .order(updated_at: :desc, id: :desc)
                  .page(params[:page])
-    @questions_property = questions_property
+    @questions_property = Question.generate_questions_property(params[:target])
   end
 
   def show
@@ -58,7 +56,7 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.save
       Newspaper.publish(:question_create, { question: @question })
-      redirect_to Redirection.determin_url(self, @question), notice: notice_message(@question, :create)
+      redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
     else
       render :new
     end
@@ -68,7 +66,7 @@ class QuestionsController < ApplicationController
     @question.wip = params[:commit] == 'WIP'
     if @question.update(question_params)
       Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
-      redirect_to Redirection.determin_url(self, @question), notice: notice_message(@question, :update)
+      redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
     else
       render :edit
     end
@@ -103,27 +101,5 @@ class QuestionsController < ApplicationController
 
   def set_watch
     @watch = Watch.new
-  end
-
-  def questions_property
-    case params[:target]
-    when 'solved'
-      QuestionsProperty.new('解決済みのQ&A', '解決済みのQ&Aはありません。')
-    when 'not_solved'
-      QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
-    else
-      QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
-    end
-  end
-
-  def notice_message(question, action_name)
-    return '質問をWIPとして保存しました。' if question.wip?
-
-    case action_name
-    when :create
-      '質問を作成しました。'
-    when :update
-      '質問を更新しました。'
-    end
   end
 end
