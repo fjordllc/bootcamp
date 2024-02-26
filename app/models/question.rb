@@ -29,6 +29,16 @@ class Question < ApplicationRecord
   scope :not_solved, -> { where.not(id: CorrectAnswer.select(:question_id)) }
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+  scope :by_target, lambda { |target|
+    case target
+    when 'solved'
+      solved
+    when 'not_solved'
+      not_solved.not_wip
+    else
+      all
+    end
+  }
 
   columns_for_keyword_search :title, :description
 

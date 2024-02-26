@@ -37,4 +37,17 @@ class QuestionTest < ActiveSupport::TestCase
       assert_equal question.last_answer, last_answer
     end
   end
+
+  test '.by_target' do
+    solved_question = questions(:question3)
+    not_solved_question = questions(:question1)
+    assert_includes Question.by_target('solved'), solved_question
+    assert_not_includes Question.by_target('solved'), not_solved_question
+
+    assert_includes Question.by_target('not_solved'), not_solved_question
+    assert_not_includes Question.by_target('not_solved'), solved_question
+
+    assert_includes Question.by_target(nil), solved_question
+    assert_includes Question.by_target(nil), not_solved_question
+  end
 end
