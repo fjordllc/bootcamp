@@ -592,11 +592,11 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
+      avatar.blob.analyze unless avatar.blob.analyzed?
+
       blob = avatar.blob
       width = blob.metadata['width']
       height = blob.metadata['height']
-
-      return avatar.variant(resize_to_fit: [120, 120]).processed.url if width.nil?
 
       avatar_size = fetch_avatar_size(width, height)
       avatar.variant(resize_to_fit: avatar_size[:fit], crop: [*avatar_size[:crop], 120, 120]).processed.url
