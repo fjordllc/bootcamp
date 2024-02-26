@@ -25,7 +25,7 @@ hr.a-border
       .question.page-content
         = render 'question_header', question: @question
         = render 'question_body', question: @question
-      div(data-vue="Answers" data-vue-current-user-id:number="#{current_user.id}" data-vue-question-id="#{@question.id}")
+      div(data-vue="QuestionAnswers" data-vue-current-user-id:number="#{current_user.id}" data-vue-question-id="#{@question.id}")
 
     nav.a-side-nav
       .a-side-nav__inner

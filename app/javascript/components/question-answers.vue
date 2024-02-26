@@ -16,11 +16,11 @@ div
 <script>
 import CSRF from 'csrf'
 import AIAnswer from 'components/ai-answer.vue'
-import Answers from '../answers.vue'
+import Answers from 'answers.vue'
 import CommentPlaceholder from '../comment-placeholder.vue'
 
 export default {
-  name: 'Answers',
+  name: 'QuestionAnswers',
   components: {
     commentPlaceholder: CommentPlaceholder,
     ai_answer: AIAnswer,
