@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.new(question_params)
-    @question.wip = params[:commit] == 'WIP'
+    set_wip
     if @question.save
       Newspaper.publish(:question_create, { question: @question })
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
@@ -63,7 +63,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question.wip = params[:commit] == 'WIP'
+    set_wip
     if @question.update(question_params)
       Newspaper.publish(:question_update, { question: @question }) if @question.saved_change_to_wip?
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:update)
@@ -101,5 +101,9 @@ class QuestionsController < ApplicationController
 
   def set_watch
     @watch = Watch.new
+  end
+
+  def set_wip
+    @question.wip = params[:commit] == 'WIP'
   end
 end
