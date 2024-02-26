@@ -596,23 +596,17 @@ class User < ApplicationRecord
       width = blob.metadata['width']
       height = blob.metadata['height']
 
-      aspect_ratio = width.to_f / height
-      if aspect_ratio > 1
-        # 横長の画像の場合
-        resized_width = 120 * width / height
-        avatar_size = [resized_width, 120]
-      else
-        # 縦長の画像の場合
-        resized_height = 120 * height / width
-        avatar_size = [120, resized_height]
-      end
+      return avatar.variant(resize_to_fit: [120, 120]).processed.url if width.nil?
 
-      avatar.variant(resize_to_fit: avatar_size).processed.url
+      avatar_size = fetch_avatar_size(width, height)
+      avatar.variant(resize_to_fit: avatar_size[:fit], crop: [*avatar_size[:crop], 120, 120]).processed.url
     else
       image_url default_image_path
     end
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
     image_url default_image_path
+  rescue Vips::Error
+    avatar.variant(resize_to_fit: [120, 120]).processed.url
   end
 
   def generation
@@ -809,5 +803,35 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def fetch_avatar_size(width, height)
+    aspect_ratio = width.to_f / height
+    if aspect_ratio > 1
+      # 横長の画像の場合
+      calculate_avatar_size_fit_and_crop(width, height, :width)
+    else
+      # 縦長の画像の場合
+      calculate_avatar_size_fit_and_crop(width, height, :height)
+    end
+  end
+
+  def calculate_avatar_size_fit_and_crop(width, height, long_side)
+    avatar_size = {}
+    case long_side
+    when :width
+      resized_width = 120 * width / height
+      avatar_size[:fit] = [resized_width.floor, 120]
+
+      cut_out_start_point = (resized_width - 120) / 2
+      avatar_size[:crop] = [cut_out_start_point.floor, 0]
+    when :height
+      resized_height = 120 * height / width
+      avatar_size[:fit] = [120, resized_height.floor]
+
+      cut_out_start_point = (resized_height - 120) / 2
+      avatar_size[:crop] = [0, cut_out_start_point.floor]
+    end
+    avatar_size
   end
 end
