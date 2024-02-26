@@ -633,7 +633,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     assert_selector '.a-meta__label', text: '研修終了日'
     assert_selector '.a-meta__value', text: (Time.current + 100.days).strftime('%Y年%m月%d日')
-    assert_selector '.a-meta__value', text: '（あと99日）'
+    assert_selector '.a-meta__value', text: '（あと100日）'
   end
 
   test 'display training end date in products for admin only' do
@@ -643,7 +643,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     assert_selector '.a-meta__label', text: '研修終了日'
     assert_selector '.a-meta__value', text: (Time.current + 100.days).strftime('%Y年%m月%d日')
-    assert_selector '.a-meta__value', text: '（あと99日）'
+    assert_selector '.a-meta__value', text: '（あと100日）'
   end
 
   test 'display training end date in products for adviser' do
