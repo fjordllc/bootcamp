@@ -62,8 +62,7 @@ class QuestionsController < ApplicationController
   def edit; end
 
   def create
-    @question = Question.new(question_params)
-    @question.user = current_user
+    @question = current_user.questions.new(question_params)
     @question.wip = params[:commit] == 'WIP'
     if @question.save
       Newspaper.publish(:question_create, { question: @question })
