@@ -9,6 +9,8 @@ class Question < ApplicationRecord
   include Mentioner
   include Bookmarkable
 
+  QuestionsProperty = Struct.new(:title, :empty_message)
+
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
   has_one :correct_answer, dependent: :destroy
@@ -60,10 +62,32 @@ class Question < ApplicationRecord
         not_solved_question.last_answer.certain_period_has_passed?
       end
     end
+
+    def generate_questions_property(target)
+      case target
+      when 'solved'
+        QuestionsProperty.new('解決済みのQ&A', '解決済みのQ&Aはありません。')
+      when 'not_solved'
+        QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
+      else
+        QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
+      end
+    end
   end
 
   def last_answer
     answers.max_by(&:created_at)
+  end
+
+  def generate_notice_message(action_name)
+    return '質問をWIPとして保存しました。' if wip?
+
+    case action_name
+    when :create
+      '質問を作成しました。'
+    when :update
+      '質問を更新しました。'
+    end
   end
 
   private
