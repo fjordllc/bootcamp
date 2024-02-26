@@ -24,7 +24,7 @@ hr.a-border
     .container.is-md
       .question.page-content
         = render 'question_header', question: @question
-        = render 'question', question: @question
+        = render 'question_body', question: @question
       div(data-vue="Answers" data-vue-current-user-id:number="#{current_user.id}" data-vue-question-id="#{@question.id}")
 
     nav.a-side-nav
