@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+  if (!document.querySelector('[name="user[editor]"]')) {
+    return null
+  }
+
   const editors = document.getElementsByName('user[editor]')
   const othersEditor = document.getElementById('others_editor')
   editors.forEach((editor) => {
