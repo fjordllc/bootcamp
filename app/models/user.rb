@@ -820,14 +820,14 @@ class User < ApplicationRecord
     avatar_size = {}
     case long_side
     when :width
-      resized_width = 120 * width / height
-      avatar_size[:fit] = [resized_width.floor, 120]
+      resized_width = (120 * width.to_f / height).ceil
+      avatar_size[:fit] = [resized_width, 120]
 
       cut_out_start_point = (resized_width - 120) / 2
       avatar_size[:crop] = [cut_out_start_point.floor, 0]
     when :height
-      resized_height = 120 * height / width
-      avatar_size[:fit] = [120, resized_height.floor]
+      resized_height = (120 * height.to_f / width).ceil
+      avatar_size[:fit] = [120, resized_height]
 
       cut_out_start_point = (resized_height - 120) / 2
       avatar_size[:crop] = [0, cut_out_start_point.floor]
