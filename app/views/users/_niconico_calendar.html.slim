@@ -6,14 +6,14 @@
   .card-body
     .card__description
       .niconico-calendar-nav
-        = link_to send(path, params: { niconico_calendar: @current_date.prev_month.strftime('%Y-%m') }) do
+        = link_to send(path, niconico_calendar: @current_date.prev_month.strftime('%Y-%m')) do
           .niconico-calendar-nav__previous
             i.fa-solid.fa-angle-left
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
         - latest_month = @current_date.beginning_of_month == Time.zone.today.beginning_of_month
         - if !latest_month
-          = link_to send(path, niconico_calendar: @current_date.next_month.strftime('%Y-%m') ) do
+          = link_to send(path, niconico_calendar: @current_date.next_month.strftime('%Y-%m')) do
             .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
         - else
@@ -40,7 +40,7 @@
             tr.niconico-calendar__week
               - week.each do |set|
                 - emotion = set[:emotion] ? "is-#{set[:emotion]}" : 'is-blank'
-                - emotion += ' is-today' if set[:date] == Date.today
+                - emotion += ' is-today' if set[:date] == Time.zone.today
                 - day_label_html = capture do
                   .niconico-calendar__day-label
                     = set[:date]&.day
