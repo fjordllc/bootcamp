@@ -12,10 +12,9 @@ class Talks::ActionUncompletedController < ApplicationController
       @searched_talks = @talks.merge(
         User.search_by_keywords({ word: params[:search_word] })
             .unscope(where: :retired_on)
-      )
+      ).page(params[:page])
     else
-      # 後ほどページネーションを実装する
-      @talks = @talks
+      @talks = @talks.page(params[:page])
     end
   end
 end

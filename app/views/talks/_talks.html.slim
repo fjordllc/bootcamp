@@ -22,9 +22,11 @@
               | 未対応の相談部屋はありません
         - elsif params[:search_word].blank?
           .talk-list
+            = paginate @talks
             .card-list.a-card
               - @talks.each do |talk|
                   = render 'talks/talk', talk: talk
+            = paginate @talks
         - else
           .searched-talk-list
           - if @searched_talks.empty?
@@ -34,6 +36,8 @@
               p.o-empty-message__text
                 | 一致する相談部屋はありません
           - else
+            = paginate @searched_talks
             .card-list.a-card
               - @searched_talks.each do |searched_talk|
                 = render 'talks/talk', talk: searched_talk
+            = paginate @searched_talks

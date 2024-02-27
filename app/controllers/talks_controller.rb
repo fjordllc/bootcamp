@@ -21,9 +21,9 @@ class TalksController < ApplicationController
       searched_users = users.search_by_keywords(word: params[:search_word]).unscope(where: :retired_on)
       # もし検索対象が退会したユーザーである場合、searched_usersには退会していないユーザーも含まれているため、retired スコープを設定する
       searched_users = searched_users.retired if @target == 'retired'
-      @searched_talks = @talks.merge(searched_users)
+      @searched_talks = @talks.merge(searched_users).page(params[:page])
     else
-      @talks = @talks.merge(users)
+      @talks = @talks.merge(users).page(params[:page])
     end
   end
 
