@@ -34,8 +34,8 @@
                 | 削除申請
 
     - if admin_or_mentor_login?
-      - check = { checkableId: product.id, checkableType: 'Product', checkableLabel: Product.model_name.human, checkerId: product.checker_id, checkerName: product.checker_name, checkerAvatar: product.checker_avatar, currentUserId: current_user.id }
       hr.a-border-tint
+      - check = { checkableId: product.id, checkableType: 'Product', checkableName: Product.model_name.human, responsibleUserId: product.checker_id, responsibleUserName: product.checker_name, responsibleUserAvatar: product.checker_avatar, currentUserId: current_user.id }
       = react_component('Check/Check', check)
 
 .page-content-prev-next
