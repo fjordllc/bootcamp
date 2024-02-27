@@ -76,7 +76,6 @@ class TalksTest < ApplicationSystemTestCase
     assert_text 'test'
     click_button 'コメントする'
     visit '/talks/action_uncompleted'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -84,7 +83,6 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:hajime)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=student_and_trainee', 'komagata'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -92,7 +90,6 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:sotugyou)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=graduate', 'komagata'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -100,7 +97,6 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:advijirou)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=adviser', 'komagata'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -108,7 +104,6 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:machida)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=mentor', 'komagata'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -116,7 +111,6 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:kensyu)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=trainee', 'komagata'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -124,7 +118,6 @@ class TalksTest < ApplicationSystemTestCase
     user = users(:yameo)
     decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
     visit_with_auth '/talks?target=retired', 'komagata'
-    find('#talks.loaded', wait: 10)
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end
 
@@ -177,7 +170,7 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks?target=student_and_trainee', 'komagata'
     within('.card-list-item-meta') do
       assert_text 'コメント'
-      assert_selector 'img[class="a-user-icon"]'
+      assert_selector 'img.a-user-icon'
       assert_text '（1）'
       assert_text '2019年01月02日(水) 00:00'
       assert_text '（hajime）'
@@ -188,8 +181,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimuramitai'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -197,8 +192,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'Kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'Kimura Mitai'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -206,8 +203,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'キムラ'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'キムラ ミタイ'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -215,8 +214,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimuratwitter'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -224,8 +225,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimurafacebook'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -233,8 +236,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimurablog.org'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -242,8 +247,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimuragithub'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -251,8 +258,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: 'kimuradiscord'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -260,8 +269,10 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
     assert_text 'さんの相談部屋', count: 20
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
     fill_in 'js-talk-search-input', with: '木村さんに似ているとよく言われます。'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1
   end
 
@@ -269,10 +280,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(mentor: true)
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
 
     visit '/talks?target=student_and_trainee'
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1 # users(:kimura)
   end
 
@@ -280,10 +293,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'mentorkimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'mentor'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 3
 
     visit '/talks?target=mentor'
     fill_in 'js-talk-search-input', with: 'mentor'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2 # users(:mentormentaro) users(:'long-id-mentor')
   end
 
@@ -291,10 +306,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'sotugyoukimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'sotugyou'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 3
 
     visit '/talks?target=graduate'
     fill_in 'js-talk-search-input', with: 'sotugyou'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2 # users(:sotugyou, :sotugyou_with_job)
   end
 
@@ -302,10 +319,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'advikimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'advi'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 3
 
     visit '/talks?target=adviser'
     fill_in 'js-talk-search-input', with: 'advi'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2 # users(:advijirou)
   end
 
@@ -313,10 +332,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'kensyukimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kensyu'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 4
 
     visit '/talks?target=trainee'
     fill_in 'js-talk-search-input', with: 'kensyu'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 3 # users(:nocompanykensyu, :kensyu, :kensyuowata)
   end
 
@@ -324,10 +345,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimuramitai).update!(login_name: 'yameokimura')
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'yameo'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
 
     visit '/talks?target=retired'
     fill_in 'js-talk-search-input', with: 'yameo'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1 # users(:yameo)
   end
 
@@ -335,10 +358,12 @@ class TalksTest < ApplicationSystemTestCase
     users(:kimura).talk.update!(action_completed: false)
     visit_with_auth '/talks', 'komagata'
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 2
 
     visit '/talks/action_uncompleted'
     fill_in 'js-talk-search-input', with: 'kimura'
+    find('#js-talk-search-input').send_keys :return
     assert_text 'さんの相談部屋', count: 1 # users(:kimura)
   end
 
@@ -349,18 +374,22 @@ class TalksTest < ApplicationSystemTestCase
 
     # /^[\w-]+$/ の場合は3文字以上、それ以外は2文字以上で検索結果を表示
     fill_in 'js-talk-search-input', with: 'kim'
+    find('#js-talk-search-input').send_keys :return
     assert_no_selector '.talk-list'
     assert_selector '.searched-talk-list'
 
     fill_in 'js-talk-search-input', with: 'ki'
+    find('#js-talk-search-input').send_keys :return
     assert_selector '.talk-list'
     assert_no_selector '.searched-talk-list'
 
     fill_in 'js-talk-search-input', with: 'キム'
+    find('#js-talk-search-input').send_keys :return
     assert_no_selector '.talk-list'
     assert_selector '.searched-talk-list'
 
     fill_in 'js-talk-search-input', with: 'キ'
+    find('#js-talk-search-input').send_keys :return
     assert_selector '.talk-list'
     assert_no_selector '.searched-talk-list'
   end
@@ -369,6 +398,7 @@ class TalksTest < ApplicationSystemTestCase
     visit_with_auth '/talks', 'komagata'
 
     fill_in 'js-talk-search-input', with: 'hoge'
+    find('#js-talk-search-input').send_keys :return
     assert_text '一致する相談部屋はありません'
   end
 
