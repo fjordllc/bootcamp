@@ -1,24 +1,38 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import toast from '../../toast'
 import { useZustandStore } from '../../hooks/useZustandStore.js'
 import { useShallow } from 'zustand/react/shallow'
-import { checkClient } from './checkApi'
+import { createCheck, deleteCheck } from './checkApi'
 
-export const useCheck = (checkableId, checkableType) => {
-  const [{ checkId, createdAt, userName }, setCheckable] = useZustandStore(
-    useShallow((state) => [state.checkable, state.setCheckable])
+// 同じページ内の1箇所でのみ呼ぶこと
+export const useInitializeCheck = (checkableId, checkableType) => {
+  const { setCheckable } = useZustandStore(
+    useShallow((state) => state.checkable)
   )
+  // Apiからcheckableの値を受け取るための初期化
+  // もし使えるならcontextを使って初期化した方が良い
+  // https://docs.pmnd.rs/zustand/guides/initialize-state-with-props
+  useEffect(() => {
+    setCheckable({ checkableId, checkableType })
+  }, [])
+}
 
-  const { createCheck, deleteCheck } = checkClient(
+// useInitializeCheckを読んだ後なら同じページ内の複数箇所で使えてデータは同期されます
+export const useCheck = () => {
+  const {
     checkId,
+    isChecked,
+    createdAt,
+    checkerUserName,
     checkableId,
-    checkableType
+    checkableType,
+    setCheckable
+  } = useZustandStore(
+    useShallow((state) => state.checkable)
   )
 
-  const checkExists = !!checkId
-
-  const onCreateCheck = () => {
-    createCheck()
+  const handleCreateCheck = useCallback(() => {
+    createCheck(checkableId, checkableType)
       .then(() => {
         setCheckable({ checkableId, checkableType })
         const message = {
@@ -31,10 +45,10 @@ export const useCheck = (checkableId, checkableType) => {
         console.error(error)
         toast.methods.toast(error.message, 'error')
       })
-  }
+  },  [checkableId, checkableType])
 
-  const onDeleteCheck = () => {
-    deleteCheck()
+  const handleDeleteCheck = useCallback(() => {
+    deleteCheck(checkId, checkableId, checkableType)
       .then(() => {
         setCheckable({ checkableId, checkableType })
         const message = {
@@ -47,20 +61,13 @@ export const useCheck = (checkableId, checkableType) => {
         console.error(error)
         toast.methods.toast(error.message, 'error')
       })
-  }
-
-  // Apiからcheckableの値を受け取るための初期化
-  // もし使えるならcontextを使って初期化した方が良い
-  // https://docs.pmnd.rs/zustand/guides/initialize-state-with-props
-  useEffect(() => {
-    setCheckable({ checkableId, checkableType })
-  }, [checkableId, checkableType])
+  }, [checkId, checkableId, checkableType])
 
   return {
-    checkExists,
+    isChecked,
     createdAt,
-    userName,
-    onCreateCheck,
-    onDeleteCheck
+    checkerUserName,
+    handleCreateCheck,
+    handleDeleteCheck
   }
 }

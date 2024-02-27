@@ -1,6 +1,6 @@
 import React from 'react'
 import UserIcon from './UserIcon'
-import ProductChecker from './ProductChecker/ProductChecker'
+import ResponsibleMentor from './ResponsibleMentor/ResponsibleMentor'
 
 export default function Product({
   product,
@@ -67,10 +67,10 @@ export default function Product({
           {isMentor && product.checks.size === 0 && (
             <div className="card-list-item__row is-only-mentor">
               <div className="card-list-item__assignee">
-                <ProductChecker
-                  checkerId={product.checker_id}
-                  checkerName={product.checker_name}
-                  checkerAvatar={product.checker_avatar}
+                <ResponsibleMentor
+                  responsibleUserId={product.checker_id}
+                  responsibleUserName={product.checker_name}
+                  responsibleUserAvatar={product.checker_avatar}
                   currentUserId={currentUserId}
                   productId={product.id}
                 />

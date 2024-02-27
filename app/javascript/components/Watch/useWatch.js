@@ -5,11 +5,9 @@ import { useShallow } from 'zustand/react/shallow'
 import { createWatch, deleteWatch } from './watchApi'
 
 export const useWatch = (watchableId, watchableType) => {
-  const [watchId, setWatchable] = useZustandStore(
-    useShallow((state) => [state.watchId, state.setWatchable])
+  const { watchId, isWatched, setWatchable } = useZustandStore(
+    useShallow((state) => state.watch)
   )
-
-  const watchExists = !!watchId
 
   const handleCreateWatch = () => {
     createWatch(watchableType, watchableId)
@@ -59,7 +57,7 @@ export const useWatch = (watchableId, watchableType) => {
   }, [watchableId, watchableType])
 
   return {
-    watchExists,
+    isWatched,
     handleCreateWatch,
     handleDeleteWatch
   }
