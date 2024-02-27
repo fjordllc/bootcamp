@@ -10,7 +10,7 @@ module CalendarMethods
     params_date.future? ? today : params_date
   end
 
-  def calendars_with_reports(user, date)
+  def calendar_with_reports(user, date)
     first_date_of_month = date.beginning_of_month
     last_date_of_month = date.end_of_month
     dates_of_month = (first_date_of_month..last_date_of_month)
