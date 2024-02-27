@@ -14,18 +14,9 @@ export default class TextareaMarkdownHtml extends TextareaMarkdown {
       const bytes = new Uint8Array(reader.result);
       const fileType = await FileType.fromBuffer(bytes);
       const fileSize = filesize(file.size, { base: 10, standard: "jedec" });
-      const text =
-        // "![" +
-        // this.options["placeholder"].replace(/\%filename/, file.name) +
-        // "]()";
-
-        "<img src=\"" +
-        this.options["placeholder"].replace(/\%filename/, file.name) +
-        ">";
-
+      const text = `<img src=${this.options["placeholder"].replace(/\%filename/, file.name)} >`;
 
       const beforeRange = this.textarea.selectionStart;
-      // const afterRange = text.length;
       const beforeText = this.textarea.value.substring(0, beforeRange);
       const afterText = this.textarea.value.substring(
         beforeRange,
@@ -56,7 +47,6 @@ export default class TextareaMarkdownHtml extends TextareaMarkdown {
           if (this.options["imageableExtensions"].includes(fileType.ext)) {
             this.textarea.value = this.textarea.value.replace(
               text,
-              // `![${file.name}](${url})\n`
               `<img src=${url} width="100" height="100" loading="lazy" decoding="async" alt=${file.name}>\n`
               );
           } else if (this.options["videoExtensions"].includes(fileType.ext)) {
