@@ -42,5 +42,5 @@
               - if current_user.github_account.present?
                 = render 'users/github_grass', user: current_user
               - if current_user.student_or_trainee?
-                = render 'users/niconico_calendar', user: current_user
+                = render 'users/niconico_calendar', user: current_user, redirect_to_calendar: niconico_calendar_date_path
       = render partial: 'recent_reports'

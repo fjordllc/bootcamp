@@ -52,6 +52,7 @@ class HomeController < ApplicationController
     @current_month = calendar
     @current_calendar = current_user.reports_date(@current_month)
     @current_date = current_calendar_date(params[:year], params[:month])
+    @current_date = current_calendar_date(params[:niconico_calendar])
     @current_calendar = calendars_with_reports(current_user, @current_date)
   end
 
