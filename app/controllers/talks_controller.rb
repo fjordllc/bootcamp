@@ -15,6 +15,8 @@ class TalksController < ApplicationController
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
     users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
+    params[:search_word] = validate_search_word(params[:search_word]) if params[:search_word]
+
     if params[:search_word]
       # search_by_keywords内では { unretired } というスコープが設定されている
       # 退会したユーザーも検索対象に含めたいので、unscope(where: :retired_on) で上記のスコープを削除
@@ -49,5 +51,13 @@ class TalksController < ApplicationController
     @members = User.with_attached_avatar
                    .where(id: User.admins.ids.push(@talk.user_id))
                    .order(:id)
+  end
+
+  def validate_search_word(search_word)
+    if search_word.match?(/^[\w-]+$/)
+      search_word.strip if search_word.strip.length >= 3
+    elsif search_word.strip.length >= 2
+      search_word.strip
+    end
   end
 end
