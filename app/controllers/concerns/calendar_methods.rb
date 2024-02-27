@@ -4,8 +4,10 @@ module CalendarMethods
   extend ActiveSupport::Concern
 
   def current_calendar_date(year_and_month)
-    year, month = year_and_month ? year_and_month.split('-').map(&:to_i) : [Date.current.year, Date.current.month]
-    Date.new(year, month)
+    today = Date.current
+    year, month = year_and_month ? year_and_month.split('-').map(&:to_i) : [today.year, today.month]
+    params_date = Date.new(year, month)
+    params_date.future? ? today : params_date
   end
 
   def calendars_with_reports(user, date)
