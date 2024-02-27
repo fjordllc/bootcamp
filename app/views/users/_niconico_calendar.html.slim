@@ -6,14 +6,14 @@
   .card-body
     .card__description
       .niconico-calendar-nav
-        = link_to redirect_to_calendar, params: { niconico_calendar: @current_date.prev_month.strftime('%Y-%m') } do
+        = link_to send(path, params: { niconico_calendar: @current_date.prev_month.strftime('%Y-%m') }) do
           .niconico-calendar-nav__previous
             i.fa-solid.fa-angle-left
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
         - latest_month = @current_date.beginning_of_month == Time.zone.today.beginning_of_month
         - if !latest_month
-          = link_to redirect_to_calendar, params: { niconico_calendar: @current_date.next_month.strftime('%Y-%m') } do
+          = link_to send(path, niconico_calendar: @current_date.next_month.strftime('%Y-%m') ) do
             .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
         - else
@@ -53,8 +53,8 @@
                   - if set[:report]
                     = link_to report_path(set[:report]), class: 'niconico-calendar__day-inner' do
                       = day_label_html
-                  - elsif set[:date] == Date.today
-                    = link_to new_report_path, class: 'niconico-calendar__day-inner' do
+                  - elsif set[:date] && !set[:date].future?
+                    = link_to new_report_path(reported_on: set[:date]), class: 'niconico-calendar__day-inner' do
                       = day_label_html
                   - else
                     .niconico-calendar__day-inner
