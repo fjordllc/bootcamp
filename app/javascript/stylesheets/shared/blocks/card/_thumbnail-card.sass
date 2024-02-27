@@ -1,0 +1,65 @@
+.thumbnail-card
+  +media-breakpoint-up(md)
+    height: 100%
+
+.thumbnail-card__inner
+  padding: 1rem
+
+a.thumbnail-card__inner
+  +block-link
+  &:hover
+    .thumbnail-card__title
+      text-decoration: underline
+
+.thumbnail-card__row
+  &:not(:first-child)
+    margin-top: .5rem
+
+.thumbnail-card__image-link
+  &:hover
+    opacity: .7
+    .thumbnail-card__image
+
+.thumbnail-card__image
+  display: block
+  border-radius: 4px
+  aspect-ratio: 1.91 / 1
+  width: 100%
+  object-fit: cover
+
+.thumbnail-card__title
+  +text-block(1.125rem 1.4, 700)
+  color: var(--default-text)
+  overflow: hidden
+  display: -webkit-box
+  text-overflow: ellipsis
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: 2
+  max-height: calc(1.125rem * 1.4 * 2)
+  .thumbnail-card.is-wip &
+    color: var(--muted-text)
+
+.thumbnail-card__title-link
+  color: var(--default-text)
+  +hover-link
+
+.thumbnail-card__metas
+  display: flex
+
+.thumbnail-card__meta:not(:first-child)
+  margin-left: .75rem
+
+.thumbnail-card__author
+  display: flex
+  align-items: center
+  +text-block(.8125rem 1.4)
+  color: var(--default-text)
+  img
+    +size(1.125rem)
+    object-fit: cover
+    margin-right: .25rem
+    border-radius: 50%
+
+.thumbnail-card__date
+  +text-block(.8125rem 1.4)
+  color: var(--semi-muted-text)

@@ -1,14 +1,27 @@
 .col-xxl-2.col-xl-3.col-lg-4.col-md-6.col-xs-12
-  .works-item
-    .works-item__inner.a-card
-      header.works-item__header
-        = link_to work, class: 'works-item__image-link' do
+  .thumbnail-card.a-card
+    .thumbnail-card__inner
+      .thumbnail-card__row
+        = link_to work, class: 'thumbnail-card__image-link' do
           - if work.thumbnail.attached?
-            = image_tag work.thumbnail_url, class: 'works-item__image'
+            = image_tag work.thumbnail_url, class: 'thumbnail-card__image'
           - else
-            = image_tag('work-blank.svg', class: 'works-item__image')
-      .works-item__body
-        h2.works-item__title
-          = link_to work.title, work, class: 'works-item__title-link'
-        .works-item__description.a-short-text
-          = md_summary(work.description, 140)
+            = image_tag('work-blank.svg', class: 'thumbnail-card__image')
+      .thumbnail-card__row
+        h2.thumbnail-card__title
+          = link_to work, class: 'thumbnail-card__title-link' do
+            = work.title
+      .thumbnail-card__row
+        .thumbnail-card__metas
+          .thumbnail-card__meta
+            .thumbnail-card__author
+              .thumbnail-card__icon
+                = link_to user_path(work.user) do
+                  span class="a-user-role is-#{work.user.primary_role}"
+                    = image_tag work.user.avatar_url, title: work.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
+              .thumbnail-card__user
+                = link_to work.user.name, user_path(work.user), class: 'a-user-name'
+        .thumbnail-card__metas
+          .thumbnail-card__meta
+            .thumbnail-card__date
+              = l(work.created_at)
