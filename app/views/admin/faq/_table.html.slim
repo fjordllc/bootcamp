@@ -6,6 +6,7 @@
         th.admin-table__label 回答
         th.admin-table__label 編集
         th.admin-table__label 並び順
+        th.admin-table__label カテゴリ
     tbody.admin-table__items#js-faq-sortable
       - faqs.each do |faq|
         tr.admin-table__item(id="faq_#{faq.id}")
@@ -20,3 +21,12 @@
           td.admin-table__item-value.is-text-align-center.is-grab
             span.js-grab.a-grab
               i.fa-solid.fa-align-justify
+          td.admin-table__item-value.is-text-align-center
+            ul.block-checks.sm-down:is-3-items
+              - %w[学習内容について 学習環境について 利用料について 就職について 入会について 退会、休会、卒業について 法人利用について].each do |category|
+                li.block-checks__item
+                  .a-block-check.is-radio
+                    = radio_button "faq_#{faq.id}_category", 'category', value: category, class: 'a-toggle-checkbox'
+                    = label :category, value: category, class: 'a-block-check__label'
+                      span.a-block-check__name
+                        = category
