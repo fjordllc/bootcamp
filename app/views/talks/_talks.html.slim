@@ -2,7 +2,7 @@
   .page-filter.form
     .container.is-md
       .form__items
-        = form_with url: talks_path, method: 'get', local: true
+        = form_with url: request.path_info, method: 'get', local: true
           .form-item.is-inline-md-up
             = hidden_field_tag :target, params[:target]
             = label_tag :search_word, '絞り込み', class: 'a-form-label'
