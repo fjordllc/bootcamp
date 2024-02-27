@@ -1,0 +1,39 @@
+.page-main
+  .page-filter.form
+    .container.is-md
+      .form__items
+        = form_with url: talks_path, method: 'get', local: true
+          .form-item.is-inline-md-up
+            = hidden_field_tag :target, params[:target]
+            = label_tag :search_word, '絞り込み', class: 'a-form-label'
+            = text_field_tag :search_word, params[:search_word], class: 'a-text-input',
+                              placeholder: 'ユーザーID、ユーザー名、読み方、Discord ID など',
+                              onchange: 'this.form.submit()',
+                              id: 'js-talk-search-input'
+
+  hr.a-border
+  .page-body
+    .container.is-md
+        - if @talks.nil?
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-smile
+            p.o-empty-message__text
+              | 未対応の相談部屋はありません
+        - elsif params[:search_word].blank?
+          .talk-list
+            .card-list.a-card
+              - @talks.each do |talk|
+                  = render 'talks/talk', talk: talk
+        - else
+          .searched-talk-list
+          - if @searched_talks.empty?
+            .o-empty-message
+              .o-empty-message__icon
+                i.far.fa-sad-tear
+              p.o-empty-message__text
+                | 一致する相談部屋はありません
+          - else
+            .card-list.a-card
+              - @searched_talks.each do |searched_talk|
+                = render 'talks/talk', talk: searched_talk
