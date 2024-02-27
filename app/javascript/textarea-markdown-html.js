@@ -1,6 +1,6 @@
 import TextareaMarkdown from 'textarea-markdown'
-const FileType = require("file-type/browser");
-import { filesize } from "filesize";
+import { filesize } from 'filesize';
+import FileType from 'file-type/browser';
 
 export default class TextareaMarkdownHtml extends TextareaMarkdown {
   constructor(textarea, options = {}) {
@@ -14,7 +14,7 @@ export default class TextareaMarkdownHtml extends TextareaMarkdown {
       const bytes = new Uint8Array(reader.result);
       const fileType = await FileType.fromBuffer(bytes);
       const fileSize = filesize(file.size, { base: 10, standard: "jedec" });
-      const text = `<img src=${this.options["placeholder"].replace(/\%filename/, file.name)} >`;
+      const text = `<img src=${this.options.placeholder.replace(/%filename/, file.name)} >`;
 
       const beforeRange = this.textarea.selectionStart;
       const beforeText = this.textarea.value.substring(0, beforeRange);
@@ -24,15 +24,15 @@ export default class TextareaMarkdownHtml extends TextareaMarkdown {
       );
       this.textarea.value = `${beforeText}\n${text}\n${afterText}`;
 
-      let params = new FormData();
-      params.append(this.options["paramName"], file);
+      const params = new FormData();
+      params.append(this.options.paramName, file);
 
-      let headers = { "X-Requested-With": "XMLHttpRequest" };
-      if (this.options["csrfToken"]) {
-        headers["X-CSRF-Token"] = this.options["csrfToken"];
+      const headers = { "X-Requested-With": "XMLHttpRequest" };
+      if (this.options.csrfToken) {
+        headers["X-CSRF-Token"] = this.options.csrfToken;
       }
 
-      fetch(this.options["endPoint"], {
+      fetch(this.options.endPoint, {
         method: "POST",
         headers: headers,
         credentials: "same-origin",
@@ -42,14 +42,14 @@ export default class TextareaMarkdownHtml extends TextareaMarkdown {
           return response.json();
         })
         .then((json) => {
-          const responseKey = this.options["responseKey"];
+          const responseKey = this.options.responseKey;
           const url = json[responseKey];
-          if (this.options["imageableExtensions"].includes(fileType.ext)) {
+          if (this.options.imageableExtensions.includes(fileType.ext)) {
             this.textarea.value = this.textarea.value.replace(
               text,
               `<img src=${url} width="100" height="100" loading="lazy" decoding="async" alt=${file.name}>\n`
               );
-          } else if (this.options["videoExtensions"].includes(fileType.ext)) {
+          } else if (this.options.videoExtensions.includes(fileType.ext)) {
             this.textarea.value = this.textarea.value.replace(
               text,
               `<video controls src="${url}"></video>\n`

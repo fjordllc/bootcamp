@@ -1,7 +1,6 @@
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'textarea-autocomplte-mention'
-import TextareaMarkdown from 'textarea-markdown'
 import TextareaMarkdownHtml from 'textarea-markdown-html'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
