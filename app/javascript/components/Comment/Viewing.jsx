@@ -1,7 +1,7 @@
 import React from 'react'
 import MarkdownInitializer from '../../markdown-initializer' // Import your MarkdownInitializer here
 // components
-import Reactions from '../Reactions/Reactions'
+import Reactions from '../Reaction/Reactions'
 import { TimeClipboard } from '../ui/TimeClipboard'
 import * as Card from '../ui/Card'
 import { Border } from '../ui/Border'
