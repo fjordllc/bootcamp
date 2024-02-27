@@ -47,6 +47,9 @@ hr.a-border
               | 一覧に戻る
 
       #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
+      - narrowed_current_user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
+
+      = react_component('Comments/Comments', title: 'コメント', commentableId: @page.id, commentableType: 'Page', currentUser: narrowed_current_user, availableEmojis: Reaction.available_emojis.to_json)
 
     - if @page.practice
       nav.a-side-nav

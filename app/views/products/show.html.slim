@@ -47,6 +47,10 @@ header.page-header
           = render 'product_body', product: @product
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
+        - narrowed_current_user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
+
+        = react_component('Comments/Comments', title: 'コメント', commentableId: @product.id, commentableType: 'Product', currentUser: narrowed_current_user, availableEmojis: Reaction.available_emojis.to_json)
+
         div(data-vue='Footprints' data-vue-footprintable-id="#{@product.id}" data-vue-footprintable-type='Product')
 
       .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
