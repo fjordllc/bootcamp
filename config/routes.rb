@@ -100,6 +100,9 @@ Rails.application.routes.draw do
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
   get "portfolios" => "works#index"
+  niconico_calendar_constraints = { niconico_calendar: /\d{4}-\d{2}/ }
+  get '/', to: 'home#index', as: :niconico_calendar_date, constraints: niconico_calendar_constraints
+  get '/users/:id', to: 'users#show', as: :niconico_calendar_date_in_profile, constraints: niconico_calendar_constraints
   resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
