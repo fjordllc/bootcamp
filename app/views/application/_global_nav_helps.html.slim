@@ -1,9 +1,15 @@
-.global-nav-links__link.js-admin-helps
-  .global-nav-links__link-icon
-    i.fa-solid.fa-hands-helping
-  .global-nav-links__link-label ヘルプ
-  ul.js-admin-helps__target
-    li
-      = link_to 'ヘルプ', page_path('help')
-    li
-      = link_to 'アドバイザーヘルプ', page_path('help-adviser')
+.header-links__link.js-admin-helps
+  .header-links__link-icon
+    i.fa-solid.fa-circle-info
+  .header-links__link-label
+    | ヘルプ
+  .header-dropdown.js-admin-helps__target
+    .header-dropdown__inner
+      .header-dropdown__list
+        ul.header-dropdown__items
+          li.header-dropdown__item
+            = link_to page_path('help'), class: 'header-dropdown__item-link' do
+              | 受講生用ヘルプ
+          li.header-dropdown__item
+            = link_to page_path('help-adviser'), class: 'header-dropdown__item-link' do
+              | アドバイザー用ヘルプ

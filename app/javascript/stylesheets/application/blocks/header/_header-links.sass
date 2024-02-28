@@ -52,3 +52,10 @@
     width: 1.5rem
   +media-breakpoint-down(sm)
     width: 1.125rem
+
+.header-links__link-icon
+  +text-block(1.25rem 1, center)
+  +media-breakpoint-down(sm)
+    +text-block(1.125rem 1)
+    .has-count &
+      color: var(--default-text)

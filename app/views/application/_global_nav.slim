@@ -62,15 +62,6 @@ nav.global-nav
             .global-nav-links__link-icon
               i.fa-solid.fa-beer
             .global-nav-links__link-label イベント
-        - if current_user.admin?
-          li.global-nav-links__item
-            = render 'global_nav_helps'
-        - elsif current_user.adviser?
-          li.global-nav-links__item
-            = render 'global_nav_help_adviser_link'
-        - else
-          li.global-nav-links__item
-            = render 'global_nav_help_link'
         li.global-nav-links__item
           = link_to action_uncompleted_index_path(current_user.talk), class: "global-nav-links__link #{current_link(/talk/)}" do
             .global-nav-links__link-icon
@@ -79,9 +70,3 @@ nav.global-nav
               .global-nav__item-count.a-notification-count.is-only-mentor
                 = Talk.action_uncompleted.count
             .global-nav-links__link-label 相談
-
-ul
-  li
-    = link_to 'ヘルプ', page_path('help')
-  li
-    = link_to 'アドバイザーヘルプ', page_path('help-adviser')
