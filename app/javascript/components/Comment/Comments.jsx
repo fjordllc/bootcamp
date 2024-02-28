@@ -58,6 +58,7 @@ const Comments = ({
     isLoading,
     isValidating,
     nextCommentAmount,
+    getKey,
     handleLoadMore,
     handleCreateComment,
     handleUpdateComment,
@@ -109,6 +110,7 @@ const Comments = ({
                 isLatest={index === comments.length - 1}
                 isValidating={isValidating}
                 availableEmojis={Array.isArray(availableEmojis) ? availableEmojis : JSON.parse(availableEmojis)}
+                getKey={getKey}
                 onDeleteComment={() => {
                   if (window.confirm('削除してよろしいですか？')) {
                     handleDeleteComment(comment.id)

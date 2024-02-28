@@ -19,6 +19,7 @@ const Comment = ({
   isLatest,
   isValidating,
   availableEmojis,
+  getKey,
   onDeleteComment,
   onUpdateComment,
   className,
@@ -54,6 +55,7 @@ const Comment = ({
               comment={comment}
               currentUser={currentUser}
               availableEmojis={availableEmojis}
+              getKey={getKey}
               onStartEditing={() => setEditing(true)}
               onDeleteComment={onDeleteComment}
             />}
