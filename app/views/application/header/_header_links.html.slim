@@ -7,10 +7,16 @@
         submit_id: 'test-search'
     li.header-links__item.is-hidden-md-up
       button.header-links__link.test-show-menu.js-modal-search-shown-trigger
-        .header-notification-icon
+        .header-links__link-icon
           i.fa-solid.fa-search
         .header-links__link-label 検索
-    - if current_user
+
+      - if current_user.admin? || current_user.adviser?
+        li.header-links__item
+          = render 'global_nav_helps'
+      - else
+        li.header-links__item
+          = render 'global_nav_help_link'
       li.header-links__item
         label.header-links__link.test-show-menu(for='header-menu')
           .header-current-user
