@@ -50,4 +50,13 @@ class UserDecoratorTest < ActiveDecoratorTestCase
       assert_nil @student_user.hibernation_days
     end
   end
+
+  test 'others_editor_checked?' do
+    editors = %w[VSCode RubyMine Vim Emacs]
+    @admin_mentor_user.editor = 'textbringer'
+    @student_user.editor = editors[0]
+
+    assert @admin_mentor_user.others_editor_checked?(editors)
+    assert_not @student_user.others_editor_checked?(editors)
+  end
 end
