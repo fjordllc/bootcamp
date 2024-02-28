@@ -15,5 +15,8 @@ header.page-main-header
         | お問い合わせ一覧
 hr.a-border
 .page-body
-  .container.is-lg
-    = render partial: 'inquiry_index', collection: @inquiries, as: :inquiry
+  .page-body__inner
+    .container.is-md
+      .card-list.a-card
+        .card-list__items
+          = render partial: 'inquiries_item', collection: @inquiries, as: :inquiry
