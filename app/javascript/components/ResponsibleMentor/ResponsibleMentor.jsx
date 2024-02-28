@@ -30,7 +30,7 @@ export default function ResponsibleMentor({
       {responsibleMentorState === 'absent' && (
         <button
           className="a-button is-block is-sm is-secondary"
-          onClick={() => handleBecomeResponsibleMentor()}>
+          onClick={() => handleBecomeResponsibleMentor({ productId, currentUserId })}>
           <i className="fas fa-hand-paper" />
           担当する
         </button>
@@ -39,7 +39,7 @@ export default function ResponsibleMentor({
       {responsibleMentorState === 'currentUser' && (
         <button
           className="a-button is-block is-sm is-warning"
-          onClick={() => handleDeleteResponsibleMentor()}>
+          onClick={() => handleDeleteResponsibleMentor({ productId })}>
           <i className="fas fa-times" />
           担当から外れる
         </button>
