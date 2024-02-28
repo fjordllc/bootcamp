@@ -26,6 +26,6 @@ class CalendarMethodsTest < ActiveSupport::TestCase
     hajime = users(:hajime)
     date = @controller.current_calendar_date('2019-01')
     calendar = @controller.calendar_with_reports(hajime, date)
-    assert_equal calendar.select{ |set| set[:report] }.count, 1
+    assert_equal calendar.select { |set| set[:report] }.count, 1
   end
 end
