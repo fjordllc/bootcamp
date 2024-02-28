@@ -1,37 +1,28 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
+import { Reaction } from './Reaction'
+import { ReactionDropdown } from './ReactionDropdown'
+import { useReaction } from './useReaction'
 
 const Reactions = ({
-  // url,
   reactionable,
   currentUser,
-  // reactionableId,
-  availableEmojis
+  reactionableId,
+  availableEmojis,
+  getKey,
 }) => {
-  const [dropdown, setDropdown] = useState(false)
-  const displayedEmojis = reactionable.reaction_count.filter((el) => el.count !== 0);
+  const { handleCreateReaction, handleDeleteReaction } = useReaction(getKey, reactionableId)
 
-  const createReaction = async (_kind) => {}
+  const displayedEmojis = reactionable.reaction_count.filter((el) => el.count !== 0)
 
-  const destroyReaction = async (_kind) => {}
-
-  const footerReaction = (kind) => {
-    isReacted(kind) ? destroyReaction(kind) : createReaction(kind)
-  }
-
-  const dropdownToggle = useCallback(() => {
-    setDropdown((dropdown) => !dropdown)
-  }, [])
-
-  const dropdownReaction = useCallback((kind) => {
-    footerReaction(kind);
-    dropdownToggle()
-  }, [])
+  const clickedReaction = (kind) => reactionable.reaction.find(
+    (el) => el.user_id === currentUser.id && el.kind === kind
+  )
 
   const isReacted = (kind) => {
-    const id = reactionable.reaction_count.findIndex((element) => element.kind === kind);
+    const id = reactionable.reaction_count.findIndex((element) => element.kind === kind)
     const reaction = reactionable.reaction_count[id].login_names.filter(
       (el) => el === currentUser.login_name
-    );
+    )
     return reaction.length !== 0
   }
 
@@ -40,76 +31,22 @@ const Reactions = ({
       <ul className="reactions__items test-inline-block js-reaction">
         {displayedEmojis.map((emoji) => (
           <Reaction
+            key={emoji.kind}
             emoji={emoji}
             isReacted={isReacted}
-            footerReaction={footerReaction}
+            clickedReaction={clickedReaction}
+            onCreateReaction={handleCreateReaction}
+            onDeleteReaction={handleDeleteReaction}
           />
         ))}
       </ul>
       <ReactionDropdown
-        dropdown={dropdown}
-        dropdownToggle={dropdownToggle}
-        dropdownReaction={dropdownReaction}
         isReacted={isReacted}
+        clickedReaction={clickedReaction}
         availableEmojis={availableEmojis}
+        onCreateReaction={handleCreateReaction}
+        onDeleteReaction={handleDeleteReaction}
       />
-    </div>
-  )
-}
-
-const Reaction = ({ emoji, isReacted, footerReaction}) => {
-  return (
-    <li
-      key={emoji.kind}
-      className={`reactions__item test-inline-block ${
-        isReacted(emoji.kind) ? 'is-reacted' : ''
-      }`}
-      onClick={() => footerReaction(emoji.kind)}
-      data-reaction-kind={emoji.kind}
-    >
-      <span className="reactions__item-emoji js-reaction-emoji">{emoji.value}</span>
-      <span className="reactions__item-count js-reaction-count">{emoji.count}</span>
-      <ul className="reactions__item-login-names js-reaction-login-names">
-        {emoji.loginNames.map((loginName) => (
-          <li key={loginName}>{loginName}</li>
-        ))}
-      </ul>
-    </li>
-  )
-}
-
-const ReactionDropdown = ({
-  dropdown,
-  dropdownToggle,
-  dropdownReaction,
-  isReacted,
-  availableEmojis
-}) => {
-  return (
-    <div className="reactions__dropdown js-reaction-dropdown">
-      <div
-        className="reactions__dropdown-toggle js-reaction-dropdown-toggle"
-        onClick={dropdownToggle}
-      >
-        <i className="fa-regular fa-plus reactions__dropdown-toggle-plus"></i>
-        <i className="fa-solid fa-smile"></i>
-      </div>
-      <ul
-        className="reactions__items test-inline-block js-reaction"
-        style={{ display: dropdown ? 'block' : 'none' }}>
-        {availableEmojis.map((emoji) => (
-          <li
-            key={emoji.kind}
-            className={`reactions__item test-inline-block ${
-              isReacted(emoji.kind) ? 'is-reacted' : ''
-            }`}
-            onClick={() => dropdownReaction(emoji.kind)}
-            data-reaction-kind={emoji.kind}
-          >
-            <span className="reactions__item-emoji js-reaction-emoji">{emoji.value}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }

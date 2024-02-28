@@ -85,6 +85,7 @@ export const useComment = ({
     isLoading,
     isValidating,
     nextCommentAmount,
+    getKey,
     handleLoadMore,
     handleCreateComment,
     handleUpdateComment,

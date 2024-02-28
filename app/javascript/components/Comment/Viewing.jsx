@@ -37,6 +37,7 @@ const CommentViewing = ({
   comment,
   currentUser,
   availableEmojis,
+  getKey,
   onStartEditing,
   onDeleteComment
 }) => {
@@ -78,6 +79,7 @@ const CommentViewing = ({
           currentUser={currentUser}
           reactionableId={`Comment_${comment.id}`}
           availableEmojis={availableEmojis}
+          getKey={getKey}
         />
       </div>
       <Border color='tint' />
