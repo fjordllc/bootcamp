@@ -14,6 +14,22 @@
           .a-form-label
             | プレビュー
           .js-preview.a-long-text.is-md.markdown-form__preview
+    .form-item
+      = render 'errors', object: faq
+      = f.radio_button :category, :study_content
+      = f.label :category, "学習内容について", {value: :study_content}
+      = f.radio_button :category, :study_environment
+      = f.label :category, "学習環境について", {value: :study_environment}
+      = f.radio_button :category, :fee
+      = f.label :category, "利用料について", {value: :fee}
+      = f.radio_button :category, :find_job
+      = f.label :category, "就職について", {value: :find_job}
+      = f.radio_button :category, :join
+      = f.label :category, "入会について", {value: :join}
+      = f.radio_button :category, :withdrawal_hibernation_graduation
+      = f.label :category, "退会、休会、卒業について", {value: :withdrawal_hibernation_graduation}
+      = f.radio_button :category, :corporate_use
+      = f.label :category, "法人利用について", {value: :corporate_use}
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
