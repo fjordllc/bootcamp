@@ -82,10 +82,10 @@ export default class {
     })
 
     // user-icon
-    new UserIconRenderer().render(selector)
+    new UserIconRenderer(selector).render()
 
     // Convert selected text to markdown link on URL paste
-    new TextareaMarkdownLinkify().linkify(selector)
+    new TextareaMarkdownLinkify(selector).linkify()
   }
 
   static uninitialize(selector) {
