@@ -20,6 +20,8 @@ class Talks::ActionUncompletedController < ApplicationController
     end
   end
 
+  private
+
   def validate_search_word(search_word)
     if search_word.match?(/^[\w-]+$/)
       search_word.strip if search_word.strip.length >= 3
