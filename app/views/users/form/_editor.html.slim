@@ -9,7 +9,7 @@
           = f.radio_button :editor, editor, id: editor, class: 'a-toggle-checkbox'
           = f.label :editor, for: editor, class: 'a-block-check__label has-icon is-ta-left' do
             = editor
-    - others_editor_checked = user.others_editor_checked?(user, editors)
+    - others_editor_checked = user.others_editor_checked?(editors)
     li.block-checks__item
       .a-block-check.is-radio
         = f.radio_button :editor, 'others_editor', id: 'others_editor', class: 'a-toggle-checkbox', checked: others_editor_checked
