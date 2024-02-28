@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2024_02_28_105218) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
-    t.string "category"
+    t.string "category", null: false
     t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
     t.index ["question"], name: "index_faqs_on_question", unique: true
   end
