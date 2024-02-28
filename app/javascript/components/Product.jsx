@@ -246,7 +246,7 @@ const TrainingEndDateInfo = ({ product }) => {
                 <span className="a-meta__value is-danger">
                   （本日研修最終日）
                 </span>
-              ) : product.user.training_remaining_days < 1 ? (
+              ) : product.user.training_remaining_days < 0 ? (
                 <span className="a-meta__value">（研修終了）</span>
               ) : product.user.training_remaining_days < 7 ? (
                 <span className="a-meta__value is-danger">
