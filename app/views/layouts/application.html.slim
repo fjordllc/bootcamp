@@ -28,7 +28,8 @@ html.is-application lang='ja'
   body.is-application#body(class="#{body_class}")
     = render 'google_analytics' if Rails.env.production? && !staging?
     - if display_global_nav?
-      = render 'global_nav'
+      .is-hidden-sm-down
+        = render 'global_nav'
     .wrapper.is-application
       - if display_header?
         = render 'application/header/header'
