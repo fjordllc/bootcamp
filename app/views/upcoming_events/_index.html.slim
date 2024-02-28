@@ -4,9 +4,8 @@
       h2.a-side-nav__title
         | 近日開催のイベント
     .a-side-nav__body
-      = render partial: 'upcoming_events/events_rows', locals: { day_label: '今日', events: @today_events, holding_date: Time.zone.today }
-      = render partial: 'upcoming_events/events_rows', locals: { day_label: '明日', events: @tomorrow_events, holding_date: Time.zone.tomorrow }
-      = render partial: 'upcoming_events/events_rows', locals: { day_label: '明後日', events: @day_after_tomorrow_events, holding_date: Time.zone.tomorrow + 1.day }
+      - @upcoming_events.each do |event_set|
+        = render partial: 'upcoming_events/events_rows', locals: { day_label: event_set[:day_label], events: event_set[:events], holding_date: event_set[:holding_date] }
 
     hr.a-border
     footer.a-side-nav__footer
