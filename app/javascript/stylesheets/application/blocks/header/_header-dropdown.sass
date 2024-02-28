@@ -1,7 +1,8 @@
 .header-dropdown
   +media-breakpoint-up(md)
     display: none
-    input:checked + &
+    input:checked + &,
+    .is-opened-dropdown &
       display: block
   +media-breakpoint-down(sm)
     +position(fixed, left 0, top 0, bottom 0, 100)
@@ -9,7 +10,8 @@
     width: 0
     cursor: pointer
     transition: background-color .4s ease-in
-    input:checked + &
+    input:checked + &,
+    .is-opened-dropdown &
       opacity: 1
       width: 100%
       display: block
@@ -31,7 +33,8 @@
     width: var(--global-nav-width-sm)
     overflow-y: auto
     left: calc(var(--global-nav-width-sm) * -1)
-    input:checked + .header-dropdown &
+    input:checked + .header-dropdown &,
+    .is-opened-dropdown &
       left: 0
   &.is-notification
     +media-breakpoint-down(sm)
