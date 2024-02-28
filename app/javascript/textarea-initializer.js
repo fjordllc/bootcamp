@@ -1,7 +1,7 @@
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'textarea-autocomplte-mention'
-import TextareaMarkdownHtml from 'textarea-markdown-html'
+import TextareaMarkdownToHtml from 'textarea-markdown-to-html'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
@@ -51,7 +51,7 @@ export default class {
     // markdown
     Array.from(textareas).forEach((textarea) => {
       /* eslint-disable no-new */
-      new TextareaMarkdownHtml(textarea, {
+      new TextareaMarkdownToHtml(textarea, {
         endPoint: '/api/image.json',
         paramName: 'file',
         responseKey: 'url',

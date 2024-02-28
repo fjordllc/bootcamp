@@ -2,7 +2,7 @@ import TextareaMarkdown from 'textarea-markdown'
 import { filesize } from 'filesize'
 import FileType from 'file-type/browser'
 
-export default class TextareaMarkdownHtml extends TextareaMarkdown {
+export default class TextareaMarkdownToHtml extends TextareaMarkdown {
   constructor(textarea, options = {}) {
     super(textarea, options)
   }
