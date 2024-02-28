@@ -36,7 +36,6 @@
                   | 次の日報
                   i.fa-solid.fa-angle-right
 
-        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
         - narrowed_current_user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
 
         = react_component('Comment/Comments', title: 'コメント', commentableId: @report.id, commentableType: 'Report', currentUser: narrowed_current_user, availableEmojis: Reaction.available_emojis.to_json)
