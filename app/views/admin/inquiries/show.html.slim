@@ -12,4 +12,24 @@ header.page-header
 hr.a-border
 .page-body
   .container.is-md
-    = render partial: 'inquiry_show', locals: { inquiry: @inquiry }
+    .page-content
+      header.page-content-header
+        .page-content-header__end
+          .page-content-header__row
+            h1.page-content-header__title
+              | #{@inquiry.name}（#{@inquiry.email}）
+          .page-content-header__row
+            .page-content-header-metas
+              .page-content-header-metas__start
+                .page-content-header-metas__meta
+                  .a-meta
+                    span.a-meta__label
+                      | 受信日
+                    span.a-meta__value
+                      = l @inquiry.created_at
+      .page-content__body
+        .a-card
+          .card-body
+            .card__description
+              .a-long-text.is-md
+                = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
