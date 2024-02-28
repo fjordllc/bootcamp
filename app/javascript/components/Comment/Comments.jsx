@@ -129,8 +129,8 @@ const Comments = ({
           const isConfirmed = ()=> window.confirm('提出物を確認済にしてよろしいですか？')
           return commentableType === 'Product' && !isConfirmed()
         }}
-        onCreateCommentAndWatch={async () => {
-          await handleCreateComment()
+        onCreateCommentAndWatch={async (description) => {
+          await handleCreateComment(description)
           // Commentが作成されるとBackendでは自動でWatchも作成されるので、
           // フロントのZustandでも合わせてWatchする
           setWatchable({ watchableId: commentableId, watchableType: commentableType })
