@@ -1,5 +1,5 @@
 import React from 'react'
-import MarkdownInitializer from '../../markdown-initializer' // Import your MarkdownInitializer here
+import MarkdownInitializer from '../../markdown-initializer'
 // components
 import Reactions from '../Reaction/Reactions'
 import { TimeClipboard } from '../ui/TimeClipboard'
@@ -42,7 +42,7 @@ const CommentViewing = ({
 }) => {
   const commentURL = window.location.href.split('#')[0] + '#comment_' + comment.id
   const roleClass = `is-${comment.user.primary_role}`
-  const isRole = (role) => currentUser.roles.includes(role)
+  const isAdmin = currentUser.roles.includes("admin")
 
   return (
     <Card.Root>
@@ -82,7 +82,7 @@ const CommentViewing = ({
       </div>
       <Border color='tint' />
       {/* コメントした本人か管理者だけに表示 */}
-      {(comment.user.id === currentUser.id || !isRole("admin")) && (
+      {(comment.user.id === currentUser.id || isAdmin) && (
         <Card.Footer>
           {/* コメントの編集開始ボタン */}
           <Card.FooterItem>
