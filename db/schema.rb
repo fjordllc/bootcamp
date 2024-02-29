@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_22_135029) do
+ActiveRecord::Schema.define(version: 2024_02_28_105218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -394,14 +394,6 @@ ActiveRecord::Schema.define(version: 2024_02_22_135029) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
-  end
-
-  create_table "memos", force: :cascade do |t|
-    t.date "date"
-    t.string "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["date"], name: "index_memos_on_date", unique: true
   end
 
   create_table "notifications", force: :cascade do |t|
