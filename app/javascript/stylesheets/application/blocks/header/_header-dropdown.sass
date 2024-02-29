@@ -33,8 +33,25 @@
     left: calc(var(--global-nav-width-sm) * -1)
     input:checked + .header-dropdown &
       left: 0
-      >*
-        width: var(--global-nav-width-sm)
+  &.is-notification
+    +media-breakpoint-down(sm)
+      left: 0
+      .pill-nav__item-link
+        border-color: var(--base)
+        color: var(--reversal-text)
+      .pill-nav__item-link.is-active
+        background-color: var(--base)
+        color: var(--main)
+      .o-empty-message
+        opacity: .7
+        color: var(--reversal-text)
+
+.header-dropdown__header
+  padding: 1rem
+  +media-breakpoint-up(md)
+    border-bottom: solid 1px var(--border-tint)
+  +media-breakpoint-down(sm)
+    border-bottom: solid 1px var(--main-semi-shade)
 
 .header-dropdown__label
   +text-block(.75rem 1.4, 600)
@@ -48,7 +65,7 @@
   .header-dropdown__inner.is-notification &
     overflow-y: auto
     +media-breakpoint-up(md)
-      max-height: 70vh
+      max-height: calc(100vh - 16rem)
     +media-breakpoint-down(sm)
       max-height: calc(100vh - 134px)
       margin-bottom: -1px
@@ -77,7 +94,6 @@
     border-top: solid 1px var(--border-tint)
   +media-breakpoint-down(sm)
     border-top: solid 1px var(--main-semi-shade)
-
 
 .header-dropdown__footer-link
   +text-block(.875rem 1.4)
@@ -115,3 +131,23 @@
       opacity: 1
       width: 100%
       display: block
+  &.is-notification
+    +media-breakpoint-down(sm)
+      opacity: 1
+      width: 100%
+
+.header-dropdown__page-link-container
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  margin-top: 1rem
+
+.header-dropdown__page-link
+  +text-block(.875rem 1.4)
+  +hover-link-reversal
+  transition: all .2s ease-out
+  +media-breakpoint-up(md)
+    color: var(--main-text)
+  +media-breakpoint-down(sm)
+    color: var(--reversal-text)
