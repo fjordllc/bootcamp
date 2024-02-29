@@ -5,15 +5,18 @@ header.page-header
   .container
     .page-header__inner
       h1.page-header__title
-        = title
+        | #{@work.user.login_name}さんの作品
       .page-header-actions
         .page-header-actions__items
           .page-header-actions__item
-            = link_to user_portfolio_path(@work.user), class: 'a-button is-sm is-secondary is-block' do
-              | ポートフォリオ
+            = link_to portfolios_path, class: 'a-button is-sm is-secondary is-block is-back' do
+              | みんなの一覧
+          .page-header-actions__item
+            = link_to user_portfolio_path(@work.user), class: 'a-button is-sm is-secondary is-block is-back' do
+              | 個人の一覧
 hr.a-border
 .page-body
-  .container.is-lg
+  .container.is-md
     .page-content.work
       header.page-content-header
         .page-content-header__start
@@ -38,10 +41,10 @@ hr.a-border
                       = l @work.created_at
 
       .a-card
-        .card-eyecatch
-          - if @work.thumbnail.attached?
-            = image_tag @work.thumbnail_url, alt: @work.title
         .card-body
+          - if @work.thumbnail.attached?
+            .card-eyecatch
+              = image_tag @work.thumbnail_url, alt: @work.title, class: 'card-eyecatch__image'
           .card__description
             .a-long-text.is-md.js-markdown-view
               = @work.description

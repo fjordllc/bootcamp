@@ -24,6 +24,7 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_login_required '/generations'
     assert_login_required '/notifications'
     assert_login_required '/pages'
+    assert_login_required '/portfolios'
     assert_login_required "/practices/#{practices(:practice1).id}/pages"
     assert_login_required "/practices/#{practices(:practice1).id}/products"
     assert_login_required "/practices/#{practices(:practice1).id}/questions"

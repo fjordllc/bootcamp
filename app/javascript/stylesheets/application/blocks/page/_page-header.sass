@@ -22,12 +22,16 @@
   font-weight: 700
   font-feature-settings: "palt"
   letter-spacing: .02em
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
   +media-breakpoint-up(md)
     font-size: 1.25rem
+    max-width: calc(100% - 22.5rem)
   +media-breakpoint-down(sm)
     font-size: 1.125rem
-    word-wrap: break-word
     flex: 1
+    max-width: 100%
   img
     +size(2.5rem auto)
     margin-right: .5rem

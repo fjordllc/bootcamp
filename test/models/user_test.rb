@@ -239,9 +239,9 @@ class UserTest < ActiveSupport::TestCase
     target = User.announcement_receiver('students')
     assert_includes(target, users(:kimura))
     assert_includes(target, users(:komagata))
+    assert_includes(target, users(:mentormentaro))
     assert_not_includes(target, users(:yameo))
     assert_not_includes(target, users(:sotugyou))
-    assert_not_includes(target, users(:mentormentaro))
     assert_not_includes(target, users(:advijirou))
     assert_not_includes(target, users(:kensyu))
   end
@@ -251,6 +251,7 @@ class UserTest < ActiveSupport::TestCase
     assert_includes(target, users(:jobseeker))
     assert_includes(target, users(:komagata))
     assert_includes(target, users(:sotugyou))
+    assert_includes(target, users(:mentormentaro))
     assert_not_includes(target, users(:sotugyou_with_job))
     assert_not_includes(target, users(:kimura))
     assert_not_includes(target, users(:yameo))
