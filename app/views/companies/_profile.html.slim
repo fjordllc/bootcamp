@@ -16,14 +16,8 @@ header.page-content-header
 .a-card.is-user
   .company-profile
     .company-profile__body
-      .companies-item__body-row
-        .companies-item__description.a-short-text
-          = simple_format(company.description)
-      - if current_user.admin?
-        .companies-item__body-row
-          .companies-item__description.a-short-text
-            = simple_format(company.memo)
-
+      .company-profile__description.a-long-text
+        = simple_format(company.description)
   - if current_user.admin?
     hr.a-border-tint
     footer.card-footer.is-only-mentor
