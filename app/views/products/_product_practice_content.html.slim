@@ -4,7 +4,7 @@
   input.a-toggle-checkbox(id=practice_content[:id_name] type='checkbox')
   label.card-header.is-sm(for=practice_content[:id_name])
     h2.card-header__title
-      | #{practice_content[:title]}
+      = practice_content[:title]
     .is-hidden-then-checked
       i.fas.fa-angle-down
     .is-hidden-then-unchecked
