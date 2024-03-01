@@ -39,9 +39,7 @@ export default function Searchable({ searchable, word }) {
         ティス
       </span>
     ) : (
-      <span className="card-list-item__label">
-        {searchable.model_name_with_i18n}
-      </span>
+      <span>{searchable.model_name_with_i18n}</span>
     )
 
   const badgeContent = searchable.wip ? (
