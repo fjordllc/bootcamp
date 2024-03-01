@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'timelines/index'
+  get 'timelines/new'
+  get 'timelines/create'
   resources :surveys do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
   end
