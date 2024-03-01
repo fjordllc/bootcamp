@@ -8,6 +8,11 @@
             = f.label :practice, class: 'a-form-label'
             .select-practices
               = f.select(:practice_id, practice_options(categories), { include_blank: '関連プラクティスを指定しない' }, { class: 'js-select2' })
+            .a-form-help
+              p
+                | どんな内容が書かれているドキュメントかを予想できるタイトルを付けましょう。
+                br
+                | また、それを探している人が検索するであろうワードを含めることを意識してください。
     .form-item
       .row
         .col-md-6.col-xs-12
