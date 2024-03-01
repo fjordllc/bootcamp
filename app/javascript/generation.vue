@@ -9,6 +9,8 @@
           | {{ generation.number }}期生
         .user-group__date
           | {{ dateFormat(generation.start_date) }} ~ {{ dateFormat(generation.end_date) }}
+        .user-group__status-count.is-admin-and-mentor(v-if="isAdminOrMentor() && target === 'all'") 
+          |  現役生 {{ generation.students_and_trainees_count }}人  卒業生 {{ generation.graduates_count }}人  退会者 {{ generation.retirees_count }}人 
   .a-user-icons
     .a-user-icons__items
       .a-user-icons__item(v-for='user in users', :key='user.id')
@@ -38,6 +40,10 @@ export default {
       type: String,
       required: false,
       default: 'all'
+    },
+    currentUser: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -80,6 +86,12 @@ export default {
     },
     dateFormat(date) {
       return date.replace('-', '年').replace('-', '月') + '日'
+    },
+    isAdminOrMentor() {
+      return (
+        this.currentUser.roles.includes("admin") ||
+        this.currentUser.roles.includes("mentor")
+      )
     }
   }
 }

@@ -44,4 +44,12 @@ class Generation
     # 退会者は「退会」フィルター時のみ表示させたいため、絞り込みを行う
     target == 'retired' ? users : users.unretired
   end
+
+  def user_counts
+    {
+      students_and_trainees_count: classmates.users_role('student_and_trainee', allowed_targets: %w[student_and_trainee]).count,
+      graduates_count: classmates.users_role('graduate', allowed_targets: %w[graduate]).count,
+      retirees_count: classmates.users_role('retired', allowed_targets: %w[retired]).count
+    }
+  end
 end
