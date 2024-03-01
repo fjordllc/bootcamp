@@ -45,7 +45,7 @@ class Generation
     target == 'retired' ? users : users.unretired
   end
 
-  def user_counts
+  def user_status_counts
     {
       students_and_trainees_count: classmates.users_role('student_and_trainee', allowed_targets: %w[student_and_trainee]).count,
       graduates_count: classmates.users_role('graduate', allowed_targets: %w[graduate]).count,
