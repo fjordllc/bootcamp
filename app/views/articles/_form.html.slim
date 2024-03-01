@@ -113,9 +113,9 @@
       .modal__description.is-md
         .a-short-text
           p
-            | チェックを入れると本文の頭（タイトルの下）にサムネイル画像が大きく表示されます。記事のアイキャッチ画像としてサムネイル画像を使用する場合はチェックを入れてください。
-          p
-            = image_tag('articles/thumbnail_description.png')
+            | チェックを入れると本文の頭（タイトルの下）にサムネイル画像が大きく表示されます。
+            | 記事のアイキャッチ画像としてサムネイル画像を使用する場合はチェックを入れてください。
+          p = image_tag('articles/thumbnail_description.png')
 
     - if params[:action] == 'edit'
       .form-item
