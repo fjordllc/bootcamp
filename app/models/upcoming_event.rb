@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-DAY_LABELS = {
-  today: '今日',
-  tomorrow: '明日',
-  day_after_tomorrow: '明後日'
-}.freeze
-
 class UpcomingEvent
+  DAY_LABELS = {
+    today: '今日',
+    tomorrow: '明日',
+    day_after_tomorrow: '明後日'
+  }.freeze
+
   class << self
     def fetch(*days_symbol)
       days_symbol.map do |day|
