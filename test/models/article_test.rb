@@ -14,11 +14,8 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   test '#published?' do
-    public_article = articles(:article1)
-    wip_article = articles(:article3)
-
-    assert public_article.published?
-    assert_not wip_article.published?
+    assert articles(:article1).published?
+    assert_not articles(:article3).published?
   end
 
   test 'articles directly published without WIP have value of the published_at' do
