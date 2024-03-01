@@ -13,12 +13,14 @@
           | アドバイザー
         dd.card-counts__item-value
           = users.unretired.advisers.size
+      = link_to_company_users_path(company, 'adviser')
     .card-counts__item
       .card-counts__item-inner
         dt.card-counts__item-label
           | 現役生
         dd.card-counts__item-value
           = users.students_and_trainees.size
+      = link_to_company_users_path(company, 'student_and_trainee')
     - unless users.admins.empty?
       .card-counts__item
         .card-counts__item-inner
