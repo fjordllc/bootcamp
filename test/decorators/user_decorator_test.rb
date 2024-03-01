@@ -52,7 +52,7 @@ class UserDecoratorTest < ActiveDecoratorTestCase
   end
 
   test 'others_editor_checked?' do
-    editors = %w[VSCode RubyMine Vim Emacs]
+    editors = User.editors.keys
     @admin_mentor_user.editor = 'textbringer'
     @student_user.editor = editors[0]
 

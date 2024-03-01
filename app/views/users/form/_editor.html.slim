@@ -1,5 +1,5 @@
 .form-item
-  - editors = %w[VSCode RubyMine Vim Emacs]
+  - editors = User.editors.keys
   = f.label :editor, class: 'a-form-label'
     = t('activerecord.attributes.user.editor')
   ul.block-checks.is-2-items
