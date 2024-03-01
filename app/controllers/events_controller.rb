@@ -4,7 +4,6 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
-    # Event.allはReactコンポーネントでfetchするため、ここでは取得しません。
     @upcoming_events = UpcomingEvent.fetch(:today, :tomorrow, :day_after_tomorrow)
   end
 
