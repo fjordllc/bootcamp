@@ -94,6 +94,6 @@
                                   method: :patch,
                                   data: { confirm: '本当によろしいですか？' },
                                   class: 'a-button is-sm is-danger is-block'
-                div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}" data-vue-products-mode:boolean="#{true}")
+                = render 'users/user_mentor_memo', user_id: @user.id
               .side-tabs-contents__item#side-tabs-content-2
                 = react_component('Reports', userId: @user.id, displayUserIcon: false, displayPagination: false)
