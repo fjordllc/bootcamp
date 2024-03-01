@@ -45,6 +45,13 @@ class User < ApplicationRecord
     rails: 4
   }, _prefix: true
 
+  enum editors: {
+    VSCode: 0,
+    RubyMine: 1,
+    Vim: 2,
+    Emacs: 3
+  }
+
   enum satisfaction: {
     excellent: 0,
     good: 1,
