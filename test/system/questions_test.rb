@@ -424,7 +424,7 @@ class QuestionsTest < ApplicationSystemTestCase
     fill_in 'question[title]', with: 'Questionに関連プラクティスを指定'
     fill_in 'question[description]', with: 'Questionに関連プラクティスを指定'
     find('.choices__inner').click
-    find('#choices--js-choices-single-select-item-choice-6', text: 'Linuxのファイル操作の基礎を覚える').click
+    find('#choices--js-choices-single-select-item-choice-7', text: 'Linuxのファイル操作の基礎を覚える').click
     click_button '登録する'
     assert_text 'Questionに関連プラクティスを指定'
 
@@ -449,7 +449,6 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth new_question_path, 'kimura'
 
     within 'form[name=question]' do
-      click_button 'Remove item'
       fill_in 'question[title]', with: 'プラクティス指定のないテストの質問'
       fill_in 'question[description]', with: 'プラクティス指定のないテストの質問です。'
       click_button '登録する'
