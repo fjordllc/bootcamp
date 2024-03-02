@@ -1,9 +1,5 @@
 $checkbox-size: .875rem
 
-.checkboxes
-  .checkboxes__item &
-    margin-left: 1.5rem
-
 .checkboxes__items
   display: flex
   flex-wrap: wrap
@@ -67,18 +63,24 @@ $checkbox-size: .875rem
     flex-direction: column
     > .checkboxes__item
       border: solid 1px var(--border)
-      padding: .75rem
       border-radius: .25rem
       background-color: var(--base)
       > label
         font-size: 1rem
         font-weight: 700
+        margin: .75rem
       .checkboxes
         display: none
+        border-top: solid 1px var(--border-tint)
       .checkboxes__items
         gap: .5rem 1rem
       input:checked + label + .checkboxes
         display: block
 
+.checkboxes
+  .checkboxes__item &
+    padding: .75rem
+
 .checkboxes__title
-  margin-top: .5rem
+  margin-bottom: .75rem
+  color: var(--muted-text)
