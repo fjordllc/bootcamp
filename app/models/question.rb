@@ -31,6 +31,9 @@ class Question < ApplicationRecord
   scope :not_solved, -> { where.not(id: CorrectAnswer.select(:question_id)) }
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+  scope :recent, -> { order(updated_at: :desc, id: :desc) }
+  scope :by_practice_id, ->(practice_id) { where(practice_id:) if practice_id.present? }
+  scope :by_tag, ->(tag) { tagged_with(tag) if tag }
   scope :by_target, lambda { |target|
     case target
     when 'solved'

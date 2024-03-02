@@ -12,15 +12,15 @@ class QuestionsController < ApplicationController
   MAX_PRACTICE_QUESTIONS_DISPLAYED = 20
 
   def index
-    questions = Question.by_target(params[:target])
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
     @tags = Question.all.all_tags
-    questions = params[:practice_id].present? ? questions.where(practice_id: params[:practice_id]) : questions
-    questions = questions.tagged_with(params[:tag]) if params[:tag]
-    @questions = questions
+    @questions = Question
+                 .by_target(params[:target])
+                 .by_practice_id(params[:practice_id])
+                 .by_tag(params[:tag])
                  .with_avatar
                  .includes(:practice, :answers, :tags, :correct_answer)
-                 .order(updated_at: :desc, id: :desc)
+                 .recent
                  .page(params[:page])
     @questions_property = Question.generate_questions_property(params[:target])
   end
@@ -31,7 +31,7 @@ class QuestionsController < ApplicationController
                           .where(practice: @question.practice)
                           .where.not(id: @question.id)
                           .includes(:correct_answer)
-                          .order(updated_at: :desc, id: :desc)
+                          .recent
                           .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
     respond_to do |format|
       format.html
