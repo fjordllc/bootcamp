@@ -82,4 +82,8 @@ module UserDecorator
   def others_editor_checked?(editors)
     editor.present? && editors.exclude?(editor)
   end
+
+  def editors
+    User.editors.keys
+  end
 end
