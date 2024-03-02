@@ -52,8 +52,21 @@ ruby:
                 - elsif !thumbnail_blank?(@article)
                   = image_tag @article.selected_thumbnail_url, class: 'article__image'
               .article__body
+                - if @article.wip? && @article.token == params[:token]
+                  .article__message.a-notice-block.mb-8
+                    p
+                      | この記事はまだ公開前です。このページのURLはSNSなどで公開しないようにしてください。
                 .js-markdown-view.a-long-text.is-md
                   = @article.body
+                - if @article.wip? && params[:token].nil?
+                  .article__message.a-notice-block
+                    p
+                      | この記事はまだ未公開です。書き途中の記事のプレビューを見るには、以下のURLにアクセスしてください。
+                    p
+                      input.a-text-input(type='text' value="#{request.host_with_port}#{article_path(@article)}?token=#{@article.token}")
+                    p
+                      = link_to "#{article_path(@article)}?token=#{@article.token}", target: '_blank', rel: 'noopener' do
+                        | プレビューをブラウザで開く
                 = render 'share_buttons', article: @article.id
             - if admin_or_mentor_login?
               hr.a-border

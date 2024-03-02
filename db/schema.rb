@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2024_02_16_080937) do
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
+    t.string "token"
   end
 
   create_table "authored_books", force: :cascade do |t|
