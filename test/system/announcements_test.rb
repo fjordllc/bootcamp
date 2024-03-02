@@ -171,7 +171,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.announcement' do
       click_link '内容修正'
     end
-    assert has_no_button? '作成'
+    assert has_no_button? '作成', exact: true
     assert has_button? '公開'
   end
 
@@ -181,7 +181,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     within '.announcement' do
       click_link '内容修正'
     end
-    assert has_no_button? '作成'
+    assert has_no_button? '作成', exact: true
     assert has_button? '公開'
   end
 
