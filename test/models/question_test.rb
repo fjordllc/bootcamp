@@ -51,6 +51,50 @@ class QuestionTest < ActiveSupport::TestCase
     assert_includes Question.by_target(nil), not_solved_question
   end
 
+  test '.recent' do
+    Question.destroy_all
+    question1 = Question.create!(
+      title: 'テストの質問',
+      description: 'テスト',
+      user: users(:kimura),
+      created_at: '2022-01-01',
+      updated_at: '2022-01-01'
+    )
+    question2 = Question.create!(
+      title: 'テストの質問2',
+      description: 'テスト2',
+      user: users(:kimura),
+      created_at: '2022-02-01',
+      updated_at: '2022-02-01'
+    )
+    question3 = Question.create!(
+      title: 'テストの質問3',
+      description: 'テスト3',
+      user: users(:kimura),
+      created_at: '2022-01-01',
+      updated_at: '2022-03-01'
+    )
+
+    assert_equal [question3, question2, question1], Question.recent
+  end
+
+  test '.by_practice_id' do
+    question1 = questions(:question1)
+    question2 = questions(:question2)
+    question1_practice = question1.practice
+
+    assert_includes Question.by_practice_id(question1_practice.id), question1
+    assert_not_includes Question.by_practice_id(question1_practice.id), question2
+  end
+
+  test '.by_tag' do
+    question_with_beginner_tag = questions(:question3)
+    question_not_with_beginner_tag = questions(:question4)
+
+    assert_includes Question.by_tag('初心者'), question_with_beginner_tag
+    assert_not_includes Question.by_tag('初心者'), question_not_with_beginner_tag
+  end
+
   test '.generate_questions_property' do
     solved_questions_property = Question.generate_questions_property('solved')
     assert_equal '解決済みのQ&A', solved_questions_property.title
