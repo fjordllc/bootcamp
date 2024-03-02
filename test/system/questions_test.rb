@@ -69,7 +69,7 @@ class QuestionsTest < ApplicationSystemTestCase
       fill_in 'question[title]', with: 'テストの質問（修正）'
       fill_in 'question[description]', with: 'テストの質問です。（修正）'
       find('.choices__inner').click
-      find('#choices--js-choices-single-select-item-choice-11', text: 'sshdでパスワード認証を禁止にする').click
+      find('#choices--js-choices-single-select-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
       click_button '更新する'
     end
     assert_text 'テストの質問（修正）'
@@ -471,7 +471,7 @@ class QuestionsTest < ApplicationSystemTestCase
       click_button '更新する'
     end
     assert_text '質問を更新しました'
-    assert_selector '.a-category-link', text: ''
+    assert_no_selector('.a-category-link')
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
   end
