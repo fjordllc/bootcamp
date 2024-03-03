@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
-  enum thumbnail_type: { prepared_image: 0,
-                         Ruby: 1,
-                         Rails: 2,
-                         JavaScript: 3,
-                         WSL2: 4,
-                         Linux: 5,
-                         Advice: 6,
-                         school_information: 7 }
+  enum thumbnail_type: {
+    prepared_thumbnail: 0,
+    ruby: 1,
+    ruby_on_rails: 2,
+    javascript: 3,
+    wsl2: 4,
+    linux: 5,
+    pc: 6,
+    sponsorship: 7,
+    green: 8,
+    purple: 9,
+    orange: 10,
+    brown: 11,
+    blue: 12
+  }
+
   belongs_to :user
   include ActionView::Helpers::AssetUrlHelper
 
@@ -36,8 +44,8 @@ class Article < ApplicationRecord
     end
   end
 
-  def default_thumbnail_url
-    image_url("/assets/articles/thumbnails/#{thumbnail_type}.png")
+  def selected_thumbnail_url
+    image_url("/ogp/#{thumbnail_type}.png")
   end
 
   private
