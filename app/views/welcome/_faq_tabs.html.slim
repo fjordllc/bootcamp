@@ -1,0 +1,26 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      li.page-tabs__item
+        = link_to '全て', faq_path
+      li.page-tabs__item
+        = link_to '学習内容について',
+          faq_path(category: 'study_content')
+      li.page-tabs__item
+        = link_to '学習環境について',
+          faq_path(category: 'study_environment')
+      li.page-tabs__item
+        = link_to '利用料について',
+          faq_path(category: 'fee')
+      li.page-tabs__item
+        = link_to '就職について',
+          faq_path(category: 'find_job')
+      li.page-tabs__item
+        = link_to '入会について',
+          faq_path(category: 'join')
+      li.page-tabs__item
+        = link_to '退会、休会、卒業について',
+          faq_path(category: 'withdrawal_hibernation_graduation')
+      li.page-tabs__item
+        = link_to '法人利用について',
+          faq_path(category: 'corporate_use')
