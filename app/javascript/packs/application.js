@@ -56,6 +56,7 @@ import '../survey-question-listings.js'
 import '../change-subdivisions.js'
 import '../register-address.js'
 import '../upload-image-to-article.js'
+import '../mentor-practices.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
@@ -77,7 +78,6 @@ import QuestionPage from '../components/question-page.vue'
 import QuestionEdit from '../components/question-edit.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
-import MentorPractices from '../components/mentor-practices.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
 import CourseBooks from '../components/course-books.vue'
 
@@ -103,7 +103,6 @@ mounter.addComponent(QuestionPage)
 mounter.addComponent(QuestionEdit)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
-mounter.addComponent(MentorPractices)
 mounter.addComponent(ActionCompletedButton)
 mounter.addComponent(CourseBooks)
 mounter.mount()
