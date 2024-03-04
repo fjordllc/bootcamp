@@ -4,8 +4,6 @@ import {
   useResponsibleMentor
 } from './useResponsibleMentor'
 
-// 注意
-// ここでのcheckerは提出物の担当者を意味していて、確認したかどうかで使われているcheckableとは別の概念です
 export default function ResponsibleMentor({
   responsibleUserId,
   responsibleUserName,
@@ -30,7 +28,7 @@ export default function ResponsibleMentor({
       {responsibleMentorState === 'absent' && (
         <button
           className="a-button is-block is-sm is-secondary"
-          onClick={() => handleBecomeResponsibleMentor({ productId, currentUserId })}>
+          onClick={() => handleBecomeResponsibleMentor({ currentUserId })}>
           <i className="fas fa-hand-paper" />
           担当する
         </button>
@@ -39,7 +37,7 @@ export default function ResponsibleMentor({
       {responsibleMentorState === 'currentUser' && (
         <button
           className="a-button is-block is-sm is-warning"
-          onClick={() => handleDeleteResponsibleMentor({ productId })}>
+          onClick={() => handleDeleteResponsibleMentor()}>
           <i className="fas fa-times" />
           担当から外れる
         </button>
