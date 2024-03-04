@@ -13,6 +13,7 @@ import toast from '../../toast'
 /**
  * @typedef {Object} FormProps - コメントフォームのProps
  * @prop {any} currentUser - 現在のユーザー
+ * @prop {bool} isValidating - コメントのリクエストの実行中かどうかの真偽値
  * @prop {bool} isCheckable - Commentableを確認済にしていいかどうかの真偽値
  * @prop {bool} isBecomeResponsibleMentor - 担当者になる必要があるかどうかの真偽値
  * @prop {() => bool} isPreventCommentAndCheck - 提出物を確認済にしていいかどうかの真偽値
@@ -29,6 +30,7 @@ import toast from '../../toast'
  */
 const CommentForm = ({
   currentUser,
+  isValidating,
   isCheckable,
   isBecomeResponsibleMentor,
   isPreventCommentAndCheck,
@@ -130,7 +132,7 @@ const CommentForm = ({
                 id='js-shortcut-post-comment'
                 className='a-button is-sm is-primary is-block'
                 onClick={handleClickCreateComment}
-                disabled={!isValidDescrption || isPosting}
+                disabled={!isValidDescrption || isPosting || isValidating}
               >
                 コメントする
               </button>
@@ -141,7 +143,7 @@ const CommentForm = ({
                 <button
                   className='a-button is-sm is-danger is-block'
                   onClick={handleClickCreateCommentAndCheck}
-                  disabled={!isValidDescrption || isPosting}
+                  disabled={!isValidDescrption || isPosting || isValidating}
                 >
                   <i className="fa-solid fa-check" /> 確認OKにする
                 </button>
