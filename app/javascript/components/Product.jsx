@@ -1,6 +1,6 @@
 import React from 'react'
 import UserIcon from './UserIcon'
-import ResponsibleMentor from './ResponsibleMentor/ResponsibleMentor'
+import ResponsibleMentor from './ResponsibleMentor/SingleResponsibleMentor'
 
 export default function Product({
   product,
