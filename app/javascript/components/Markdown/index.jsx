@@ -103,10 +103,25 @@ const MarkdownFile = ({ ...props }) => {
 MarkdownFile.displayName = 'MarkdownFile'
 
 const MarkdownPreview = forwardRef(({ ...props }, ref) => {
+  const previewRef = useRef(null)
+
+  useImperativeHandle(ref, () => {
+    return {
+      /**
+       * Markdownのプレビュー要素の削除
+       */
+      removePreviewLastChild() {
+        while (previewRef.current.lastChild) {
+          previewRef.current.removeChild(previewRef.current.lastChild)
+        }
+      }
+    }
+  })
+
   return (
     <div
       className="a-long-text is-md a-markdown-input__preview"
-      ref={ref}
+      ref={previewRef}
       {...props}
     />
   )
