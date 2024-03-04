@@ -72,7 +72,7 @@ header.page-content-header
           .page-content-header-actions__action
             div(data-vue="WatchToggle" data-vue-watchable-id:number="#{page.id}" data-vue-watchable-type='Page')
           .page-content-header-actions__action
-            #js-bookmark(data-bookmarkable-id="#{page.id}", data-bookmarkable-type='Page')
+            = react_component('BookmarkButton', bookmarkableId: page.id, bookmarkableType: 'Page')
 
     .page-content-header__row
       .page-content-header__tags
