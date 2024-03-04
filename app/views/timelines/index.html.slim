@@ -3,11 +3,15 @@ h1.page-header__title 分報
 - @timelines.each do |timeline|
   = timeline.created_at.strftime('%Y/%m/%d %H:%M')
   p
-    = timeline.context
+    = safe_join(timeline.context.split("\n"),tag(:br))
     hr.a-border
 
 = form_with model: Timeline.new do |f|
-  = f.text_area :context, size: '50%', class: 'a-text-input', placeholder: "つぶやく"
+  = f.text_area :context,
+    size: '50%',
+    class: 'a-text-input',
+    placeholder: "つぶやく",
+    data: { 'preview': '.js-preview', 'input': '.file-input' }
   p
   = f.submit "投稿", class: 'a-button is-lg is-primary is-block'
 end
