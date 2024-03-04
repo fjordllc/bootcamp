@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Commentable
+  include Notifiable
   extend ActiveSupport::Concern
 
   included do
@@ -20,11 +21,6 @@ module Commentable
   end
 
   def body
-    case self
-    when Announcement, Event, Report
-      self[:description]
-    else
-      self[:body]
-    end
+    self[:body] || self[:description]
   end
 end

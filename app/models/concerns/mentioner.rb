@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Mentioner
+  include Notifiable
+
   def after_save_mention(new_mentions)
     return if instance_of?(Report)
 
@@ -12,18 +14,7 @@ module Mentioner
   end
 
   def where_mention
-    case self
-    when Product
-      "#{user.login_name}さんの提出物「#{practice[:title]}」"
-    when Report
-      "#{user.login_name}さんの日報「#{self[:title]}」"
-    when Comment
-      "#{target_of_comment(commentable.class, commentable)}へのコメント"
-    when Answer
-      "#{receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
-    when Question
-      "#{user.login_name}さんのQ&A「#{practice[:title]}」"
-    end
+    notification_title
   end
 
   def body
@@ -61,15 +52,5 @@ module Mentioner
 
   def extract_login_names_from_mentions(mentions)
     mentions.map { |s| s.gsub(/@/, '') }
-  end
-
-  def target_of_comment(commentable_class, commentable)
-    {
-      Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
-      Product: "#{commentable.user.login_name}さんの#{commentable.title}",
-      Event: "特別イベント「#{commentable.title}」",
-      Page: "Docs「#{commentable.title}」",
-      Announcement: "お知らせ「#{commentable.title}」"
-    }[:"#{commentable_class}"]
   end
 end
