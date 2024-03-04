@@ -1,0 +1,53 @@
+.skip-practices
+  .skip-practices + &
+    margin-top: .5rem
+
+.skip-practices__inner
+  border-radius: .25rem
+  border: solid 1px var(--border)
+  overflow: hidden
+  transition: all .2s ease-out
+  input:checked + &
+    border-color: var(--primary)
+
+.skip-practices__header
+  display: flex
+  justify-content: space-between
+  height: 2.5rem
+  +text-block(.875rem 1.5)
+  padding: .75rem
+  align-items: center
+  cursor: pointer
+  color: var(--semi-muted-text)
+  transition: all .2s ease-out
+  &:hover
+    background-color: var(--background)
+  input:checked + .skip-practices__inner &
+    background-color: var(--primary-tint)
+    color: var(--primary-text)
+
+.skip-practices__category-angle-icon
+  transition: all .2s ease-out
+  input:checked + .skip-practices__inner &
+    transform: rotate(180deg)
+
+.skip-practices__category-name
+  transition: all .2s ease-out
+  .skip-practices__header:hover &
+    text-decoration: underline
+    color: var(--default-text)
+
+.skip-practices__start
+  display: flex
+  gap: .25rem
+
+.skip-practices__body
+  transition: all .2s ease-out
+  display: none
+  border-top: solid 1px var(--primary-semi-tint)
+  margin-top: -1px
+  padding: .75rem
+  font-size: .8125rem
+  background-color: var(--primary-tint)
+  input:checked + .skip-practices__inner &
+    display: block
