@@ -47,9 +47,9 @@ class Generation
 
   def user_status_counts
     {
-      students_and_trainees_count: classmates.users_role('student_and_trainee', allowed_targets: %w[student_and_trainee]).count,
-      graduates_count: classmates.users_role('graduate', allowed_targets: %w[graduate]).count,
-      retirees_count: classmates.users_role('retired', allowed_targets: %w[retired]).count
+      students_and_trainees_count: classmates.students_and_trainees.count,
+      graduates_count: classmates.graduated.count,
+      retirees_count: classmates.retired.count
     }
   end
 end
