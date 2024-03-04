@@ -140,7 +140,7 @@
         ul.block-checks.is-1-item
           li.block-checks__item
             .a-block-check.is-checkbox
-              = check_box_tag :coc, 1, false, class: 'a-toggle-checkbox js-agreements-checkbox'
+              = check_box_tag :coc, 1, params[:coc], class: 'a-toggle-checkbox js-agreements-checkbox'
               label.a-block-check__label.is-ta-left(for='coc')
                 | アンチハラスメントポリシーに同意
         .a-form-help
@@ -149,7 +149,7 @@
         ul.block-checks.is-1-item
           li.block-checks__item
             .a-block-check.is-checkbox
-              = check_box_tag :tos, 2, false, class: 'a-toggle-checkbox js-agreements-checkbox'
+              = check_box_tag :tos, 2, params[:tos], class: 'a-toggle-checkbox js-agreements-checkbox'
               label.a-block-check__label.is-ta-left(for='tos')
                 | 利用規約に同意
         .a-form-help
