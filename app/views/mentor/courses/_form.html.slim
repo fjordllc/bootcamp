@@ -23,38 +23,15 @@
         .js-preview.a-long-text.is-md.markdown-form__preview
   .form-item
     label.a-form-label
-      | 所属カテゴリー
+      | このコースに含むカテゴリー
     .row
       .col-md-6.col-xs-12
-        .checkboxes.has-children
+        .checkboxes
           .checkboxes__items
             = f.collection_check_boxes :category_ids, Category.all, :id, :name, class: 'label-checkbox' do |b|
               .checkboxes__item
                 = b.check_box(class: 'a-toggle-checkbox')
                 = b.label { b.text }
-                // checkbox_id　チェックボックスを動かすための無理やりなもの
-                - checkbox_id = SecureRandom.hex(10)
-                .checkboxes
-                  .checkboxes__title.a-form-label.is-sm
-                    | スキップするプラクティスにチェック
-                  .checkboxes__items
-                    // 以下、inputのIDとlabelのforの値を同じにする(SecureRandomは使わない)。
-                    .checkboxes__item
-                      input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_aaa")
-                      label(for="#{checkbox_id}_aaa")
-                        | プラクティスああああああ
-                    .checkboxes__item
-                      input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_bbb")
-                      label(for="#{checkbox_id}_bbb")
-                        | プラクティスいいいい
-                    .checkboxes__item
-                      input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_ccc")
-                      label(for="#{checkbox_id}_ccc")
-                        | プラクティスううう
-                    .checkboxes__item
-                      input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_ddd")
-                      label(for="#{checkbox_id}_ddd")
-                        | プラクティスえええええ
 
   .form-actions
     ul.form-actions__items
