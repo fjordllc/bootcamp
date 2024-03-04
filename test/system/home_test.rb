@@ -387,7 +387,6 @@ class HomeTest < ApplicationSystemTestCase
       find('#bookmark-button').click
     end
     assert_text 'Bookmarkしました！'
-
     visit '/'
     assert_text '最新のブックマーク'
     find_link pages(:page1).title
