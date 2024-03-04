@@ -31,8 +31,8 @@ const CommentEditing = ({
                 data-preview={`#js-comment-preview-${comment.id}`}
                 data-input={`#js-comment-file-input-${comment.id}`}
                 name='comment[description]'
-                description={description}
-                setDescription={setDescription}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 ref={textareaRef}
               />
               <Markdown.File id={`js-comment-file-input-${comment.id}`} />

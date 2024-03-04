@@ -112,8 +112,8 @@ const CommentForm = ({
                   data-preview='#new-comment-preview'
                   data-input='#new-comment-file-input'
                   name='new_comment[description]'
-                  description={description}
-                  setDescription={setDescription}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   ref={textareaRef}
                 />
                 <Markdown.File id='new-comment-file-input' />
