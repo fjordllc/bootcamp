@@ -37,7 +37,7 @@ export const useResponsibleMentor = () => {
     useShallow((state) => state.responsibleMentor)
   )
 
-  const handleBecomeResponsibleMentor = useCallback(({ productId, currentUserId }) => {
+  const handleBecomeResponsibleMentor = useCallback(({ currentUserId }) => {
     createResponsibleMentor({ productId, currentUserId })
       .then(() => {
         becomeResponsibleMentor()
@@ -47,9 +47,9 @@ export const useResponsibleMentor = () => {
         console.error(error)
         toast.methods.toast('担当になるのに失敗しました。', 'error')
       })
-  }, [])
+  }, [productId])
 
-  const handleDeleteResponsibleMentor = useCallback(({ productId }) => {
+  const handleDeleteResponsibleMentor = useCallback(() => {
     deleteResponsibleMentor({ productId })
       .then(() => {
         absentResponsibleMentor()
@@ -59,10 +59,9 @@ export const useResponsibleMentor = () => {
         console.error(error)
         toast.methods.toast('担当から外れるのに失敗しました。', 'error')
       })
-  }, [])
+  }, [productId])
 
   return {
-    productId,
     responsibleMentorState,
     handleBecomeResponsibleMentor,
     handleDeleteResponsibleMentor

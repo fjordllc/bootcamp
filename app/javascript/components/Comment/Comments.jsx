@@ -70,7 +70,6 @@ const Comments = ({
   })
   const { isChecked, handleCreateCheck } = useCheck()
   const {
-    productId,
     handleBecomeResponsibleMentor,
     responsibleMentorState
   } = useResponsibleMentor()
@@ -123,6 +122,7 @@ const Comments = ({
       </CommentsList>
       {/* コメント投稿フォーム */}
       <CommentForm
+        currentUser={currentUser}
         isValidating={isValidating}
         isCheckable={isCheckable}
         isPreventCommentAndCheck={() => {
@@ -142,10 +142,9 @@ const Comments = ({
             && responsibleMentorState === 'absent'
             && isChecked === false
           if (isBecomeResponsibleMentor) {
-            handleBecomeResponsibleMentor({ productId, currentUser: currentUser.id })
+            handleBecomeResponsibleMentor({ currentUserId: currentUser.id })
           }
         }}
-        currentUser={currentUser}
       />
     </div>
   )
