@@ -1,5 +1,5 @@
 import React from 'react'
-import ResponsibleMentor from '../ResponsibleMentor/ResponsibleMentor'
+import ResponsibleMentor from '../ResponsibleMentor/SharedResponsibleMentor'
 import * as Card from '../ui/Card'
 import { useInitializeCheck, useCheck } from './useCheck'
 import clsx from 'clsx'

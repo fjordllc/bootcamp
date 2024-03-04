@@ -1,34 +1,19 @@
 import React from 'react'
-import {
-  useInitializeResponsibleMentor,
-  useResponsibleMentor
-} from './useResponsibleMentor'
 
-export default function ResponsibleMentor({
-  responsibleUserId,
+export default function ResponsibleMentorPresenter({
   responsibleUserName,
   responsibleUserAvatar,
-  currentUserId,
-  productId,
+  responsibleMentorState,
+  onBecomeResponsibleMentor,
+  onDeleteResponsibleMentor,
 }) {
-  useInitializeResponsibleMentor({
-    initialResponsibleMentorId: responsibleUserId,
-    productId,
-    currentUserId
-  })
-  const {
-    responsibleMentorState,
-    handleBecomeResponsibleMentor,
-    handleDeleteResponsibleMentor
-  } = useResponsibleMentor()
-
   return (
     <>
       {/* 担当者が不在の場合 */}
       {responsibleMentorState === 'absent' && (
         <button
           className="a-button is-block is-sm is-secondary"
-          onClick={() => handleBecomeResponsibleMentor({ currentUserId })}>
+          onClick={onBecomeResponsibleMentor}>
           <i className="fas fa-hand-paper" />
           担当する
         </button>
@@ -37,7 +22,7 @@ export default function ResponsibleMentor({
       {responsibleMentorState === 'currentUser' && (
         <button
           className="a-button is-block is-sm is-warning"
-          onClick={() => handleDeleteResponsibleMentor()}>
+          onClick={onDeleteResponsibleMentor}>
           <i className="fas fa-times" />
           担当から外れる
         </button>
