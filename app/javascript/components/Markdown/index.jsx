@@ -40,8 +40,8 @@ MarkdownForm.displayName = 'MarkdownForm'
 const MarkdownTextarea = forwardRef(({
   variant = 'primary',
   className,
-  description,
-  setDescription,
+  value,
+  onChange,
   ...props
 }, ref) => {
   const teatareaRef = useRef(null)
@@ -54,11 +54,11 @@ const MarkdownTextarea = forwardRef(({
   const { onPageHasUnsavedChanges, onAllChangesSaved } = useBeforeunload()
 
   useEffect(() => {
-    if (description.length > 0) {
+    if (value.length > 0) {
       onPageHasUnsavedChanges()
     }
     return () => onAllChangesSaved()
-  }, [description])
+  }, [value])
 
   useImperativeHandle(ref, () => {
     return {
@@ -72,8 +72,8 @@ const MarkdownTextarea = forwardRef(({
     <div className="form-textarea__body">
       <textarea
         className={clsx('a-text-input a-markdown-input__textarea', variant === 'warning' ? 'js-warning-form' : 'primary', className)}
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={value}
+        onChange={onChange}
         ref={teatareaRef}
         {...props}
       />
