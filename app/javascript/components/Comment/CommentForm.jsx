@@ -46,13 +46,6 @@ const CommentForm = ({
   useTextarea('#js-new-comment')
   const [isPosting, setIsPosting] = useState(false)
 
-  // Markdownのプレビュー要素の削除
-  const removePreviewLastChild = () => {
-    while (previewRef.current.lastChild) {
-      previewRef.current.removeChild(previewRef.current.lastChild)
-    }
-  }
-
   const handleClickCreateComment = async() => {
     setIsPosting(true)
     try {
@@ -69,7 +62,7 @@ const CommentForm = ({
     } finally {
       // クリーンアップ
       setDescription('')
-      removePreviewLastChild()
+      previewRef.current.removePreviewLastChild()
       setActiveTab('comment')
       setIsPosting(false)
       textareaRef.current.resizeToDefaultHeight()
@@ -89,7 +82,7 @@ const CommentForm = ({
     } finally {
       // クリーンアップ
       setDescription('')
-      removePreviewLastChild()
+      previewRef.current.removePreviewLastChild()
       setActiveTab('comment')
       setIsPosting(false)
       textareaRef.current.resizeToDefaultHeight()
