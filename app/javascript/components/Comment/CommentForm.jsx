@@ -7,7 +7,7 @@ import {
 } from './Share'
 import * as Markdown from '../Markdown'
 import * as Card from '../ui/Card'
-import { useTextarea } from './useTextarea'
+import { useTextarea } from '../Markdown/useTextarea'
 import toast from '../../toast'
 
 /**
@@ -43,7 +43,7 @@ const CommentForm = ({
   const isActive = (tab) => tab === activeTab
   const textareaRef = useRef(null)
   const previewRef = useRef(null)
-  useTextarea(textareaRef)
+  useTextarea('#js-new-comment')
   const [isPosting, setIsPosting] = useState(false)
 
   // Markdownのプレビュー要素の削除
@@ -72,7 +72,7 @@ const CommentForm = ({
       removePreviewLastChild()
       setActiveTab('comment')
       setIsPosting(false)
-      // this.resizeTextarea()
+      textareaRef.current.resizeToDefaultHeight()
     }
   }
 
@@ -92,7 +92,7 @@ const CommentForm = ({
       removePreviewLastChild()
       setActiveTab('comment')
       setIsPosting(false)
-      // this.resizeTextarea()
+      textareaRef.current.resizeToDefaultHeight()
     }
   }
 

@@ -4,7 +4,7 @@ import { CommentTab } from './Share'
 import * as Card from '../ui/Card'
 import { Border } from '../ui/Border'
 import * as Markdown from '../Markdown'
-import { useTextarea } from './useTextarea'
+import { useTextarea } from '../Markdown/useTextarea'
 
 const CommentEditing = ({
   comment,
@@ -17,7 +17,7 @@ const CommentEditing = ({
   const [description, setDescription] = useState(comment.description)
   const isActive = (tab) => tab === activeTab
   const textareaRef = useRef(null)
-  useTextarea(textareaRef)
+  useTextarea(`#js-comment-${comment.id}`)
 
   return(
     <Card.Root>
