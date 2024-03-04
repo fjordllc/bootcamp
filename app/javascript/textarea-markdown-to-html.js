@@ -50,7 +50,7 @@ export default class TextareaMarkdownToHtml extends TextareaMarkdown {
           if (this.options.imageableExtensions.includes(fileType.ext)) {
             this.textarea.value = this.textarea.value.replace(
               text,
-              `<img src=${url} width="100" height="100" loading="lazy" decoding="async" alt=${file.name}>\n`
+              `<img src=${url} width="100" height="100" loading="lazy" decoding="async" alt="${file.name}">\n`
             )
           } else if (this.options.videoExtensions.includes(fileType.ext)) {
             this.textarea.value = this.textarea.value.replace(
