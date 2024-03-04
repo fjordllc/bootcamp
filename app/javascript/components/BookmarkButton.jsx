@@ -48,7 +48,7 @@ export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
     Bootcamp.post(bookmarkUrl)
       .then(() => {
         setIsBookmark(true)
-        toast.methods.toast('Bookmarkしました')
+        toast.methods.toast('Bookmarkしました！')
       })
       .catch((error) => {
         console.warn(error)
