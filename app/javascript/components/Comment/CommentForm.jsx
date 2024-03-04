@@ -10,14 +10,31 @@ import * as Card from '../ui/Card'
 import { useTextarea } from './useTextarea'
 import toast from '../../toast'
 
-/* コメントフォーム */
+/**
+ * @typedef {Object} FormProps - コメントフォームのProps
+ * @prop {any} currentUser - 現在のユーザー
+ * @prop {bool} isCheckable - Commentableを確認済にしていいかどうかの真偽値
+ * @prop {bool} isBecomeResponsibleMentor - 担当者になる必要があるかどうかの真偽値
+ * @prop {() => bool} isPreventCommentAndCheck - 提出物を確認済にしていいかどうかの真偽値
+ * @prop {(description: string) => Promise<void>} onCreateCommentAndWatch - コメントを作成してWatch状態にする際に呼ばれるイベントハンドラ
+ * @prop {() => void} onCreateCheck - Commentableを確認済にする時に呼ばれるイベントハンドラ
+ * @prop {() => bool} onBecomeResponsibleMentor - Commentableの担当者になる時に呼ばれるイベントハンドラ
+ンドラ
+ */
+
+/**
+ * Comment Form component
+ * コメントフォームを表示するコンポーネント
+ * @param {FormProps} formProps - コメントフォームのProps
+ */
 const CommentForm = ({
+  currentUser,
+  isCheckable,
+  isBecomeResponsibleMentor,
+  isPreventCommentAndCheck,
   onCreateCommentAndWatch,
   onCreateCheck,
-  onBecomeResponsibleMentor,
-  isCheckable,
-  isPreventCommentAndCheck,
-  currentUser,
+  onBecomeResponsibleMentor
 }) => {
   const [description, setDescription] = useState('')
   const isValidDescrption = description.length > 0
@@ -36,13 +53,17 @@ const CommentForm = ({
     }
   }
 
-  const handleClickCreateComment = () => {
+  const handleClickCreateComment = async() => {
     setIsPosting(true)
     try {
       // コメントの作成とWatchをして、担当者になる
-      onCreateCommentAndWatch(description)
-      onBecomeResponsibleMentor()
-      toast.methods.toast('コメントを投稿して担当者になりました')
+      await onCreateCommentAndWatch(description)
+      if (isBecomeResponsibleMentor) {
+        await onBecomeResponsibleMentor()
+        toast.methods.toast('コメントを投稿して担当者になりました')
+      } else {
+        toast.methods.toast('コメントを投稿しました')
+      }
     } catch (error) {
       toast.methods.toast('コメントの投稿に失敗しました', 'error')
     } finally {
@@ -55,13 +76,13 @@ const CommentForm = ({
     }
   }
 
-  const handleClickCreateCommentAndCheck = () => {
+  const handleClickCreateCommentAndCheck = async () => {
     if (isPreventCommentAndCheck()) return
     setIsPosting(true)
     try {
       // コメントの作成とWatchをして、確認OKにする
-      onCreateCommentAndWatch(description)
-      onCreateCheck()
+      await onCreateCommentAndWatch(description)
+      await onCreateCheck()
       toast.methods.toast('コメントを投稿して確認OKにしました')
     } catch (error) {
       toast.methods.toast('コメントの投稿に失敗しました', 'error')
