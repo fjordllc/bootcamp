@@ -77,6 +77,10 @@ const Comments = ({
   const isCheckable = currentUser.roles.includes("mentor")
     && /^(Report|Product)$/.test(commentableType)
     && !isChecked
+  // 提出物のコメントで、担当者がおらずに確認が済んでいない場合にtrue
+  const isBecomeResponsibleMentor = commentableType === 'Product'
+    && responsibleMentorState === 'absent'
+    && isChecked === false
 
   if (error) return <>エラーが発生しました。</>
   if (isLoading) return <CommentPlaceholder />
@@ -125,6 +129,7 @@ const Comments = ({
         currentUser={currentUser}
         isValidating={isValidating}
         isCheckable={isCheckable}
+        isBecomeResponsibleMentor={isBecomeResponsibleMentor}
         isPreventCommentAndCheck={() => {
           const isConfirmed = ()=> window.confirm('提出物を確認済にしてよろしいですか？')
           return commentableType === 'Product' && !isConfirmed()
@@ -137,13 +142,7 @@ const Comments = ({
         }}
         onCreateCheck={handleCreateCheck}
         onBecomeResponsibleMentor={() => {
-          // 提出物のコメントで、担当者がおらずに確認が済んでいない場合にtrue
-          const isBecomeResponsibleMentor = commentableType === 'Product'
-            && responsibleMentorState === 'absent'
-            && isChecked === false
-          if (isBecomeResponsibleMentor) {
             handleBecomeResponsibleMentor({ currentUserId: currentUser.id })
-          }
         }}
       />
     </div>
