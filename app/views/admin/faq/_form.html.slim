@@ -16,6 +16,8 @@
           .js-preview.a-long-text.is-md.markdown-form__preview
     .form-item
       = render 'errors', object: faq
+      label.a-form-label
+        | カテゴリー
       - %i[study_content study_environment fee find_job join withdrawal_hibernation_graduation corporate_use].each do |category|
         = f.radio_button :category, category
         = f.label :category, t("faq.#{category}"), value: category
