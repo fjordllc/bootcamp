@@ -33,6 +33,7 @@ hr.a-border
   hr.a-border
 .page-body
   .page-body__inner.has-side-nav
+    = paginate @pages
     .container.is-md
       div
         / - if @pages.nil?
@@ -62,3 +63,4 @@ hr.a-border
                 - Page.all_tags.each do |tag|
                   li.page-tags-nav__item
                     = link_to tag.name, pages_tag_path(tag.name), class: 'page-tags-nav__item-link'
+    = paginate @pages
