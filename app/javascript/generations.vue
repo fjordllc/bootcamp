@@ -13,7 +13,8 @@
       v-for='generation in generations',
       :key='generation.number',
       :generation='generation',
-      :target='target')
+      :target='target',
+      :currentUser = 'currentUser')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>
@@ -32,6 +33,10 @@ export default {
       type: String,
       required: false,
       default: 'all'
+    },
+    currentUserId: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -39,7 +44,8 @@ export default {
       generations: [],
       loaded: false,
       currentPage: this.getCurrentPage(),
-      totalPages: 0
+      totalPages: 0,
+      currentUser: {}
     }
   },
   computed: {
@@ -57,6 +63,7 @@ export default {
   },
   created() {
     this.getGenerations()
+    this.fetchUser(this.currentUserId)
   },
   methods: {
     getGenerations() {
@@ -94,6 +101,25 @@ export default {
         location.pathname + (pageNumber === 1 ? '' : `?page=${pageNumber}`)
       )
       window.scrollTo(0, 0)
+    },
+    fetchUser(id) {
+      fetch(`/api/users/${id}.json`, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((user) => {
+          this.currentUser = user
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     }
   }
 }

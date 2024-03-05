@@ -19,4 +19,4 @@ main.page-main
           = '期生別'
           | （#{t("target.#{@target}")}）
   hr.a-border
-  #js-generations(data-target="#{@target}")
+  #js-generations(data-target="#{@target}" data-current-user-id:number="#{current_user.id}")
