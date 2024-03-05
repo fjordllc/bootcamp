@@ -81,6 +81,15 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     end
   end
 
+  test 'show admin memo on company show' do
+    visit_with_auth "/admin/companies/#{companies(:company1).id}/edit", 'komagata'
+    fill_in 'company[memo]', with: '管理者のみが閲覧できるメモです。'
+    click_button '更新する'
+    visit_with_auth company_path(companies(:company1)), 'komagata'
+
+    assert_text '管理者のみが閲覧できるメモです。'
+  end
+
   test 'don\'t show adomin memo on company show' do
     visit_with_auth "/admin/companies/#{companies(:company1).id}/edit", 'komagata'
     fill_in 'company[memo]', with: '管理者のみが閲覧できるメモです。'
