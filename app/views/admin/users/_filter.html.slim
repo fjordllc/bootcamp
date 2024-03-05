@@ -1,0 +1,25 @@
+
+.page-main-filter
+  .container
+    = form_with url: admin_users_path(target: @target), local: true, method: 'get', class: 'page-main-filter__inner' do
+      .page-main-filter__row
+          .page-main-filter__column
+            .page-main-filter__row
+              .page-main-filter__column
+                label.a-form-label.is-sm
+                  | ロール
+              .page-main-filter__column
+                .a-button.is-sm.is-secondary.is-select.is-block
+                  = select_tag 'target', options_for_select(roles_for_select, params[:target])
+          .page-main-filter__column
+            .page-main-filter__row
+              .page-main-filter__column
+                label.a-form-label.is-sm
+                  | 職業
+              .page-main-filter__column
+                .a-button.is-sm.is-secondary.is-select.is-block
+                  = select_tag 'job', options_for_select(jobs_for_select, params[:job])
+          .page-main-filter__column
+            button.a-button.is-sm.is-primary.is-block
+              span
+                | この条件で絞り込む

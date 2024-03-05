@@ -1,6 +1,0 @@
-= form_with url: admin_users_path(target: @target), local: true, method: 'get' do
-  = select_tag 'target', options_for_select(roles_for_select, params[:target])
-  = select_tag 'job', options_for_select(jobs_for_select, params[:job])
-  button
-    span
-      | 絞り込み

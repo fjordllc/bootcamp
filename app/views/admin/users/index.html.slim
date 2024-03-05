@@ -7,8 +7,16 @@ header.page-header
         = title
 
 = render 'admin/admin_page_tabs'
-= render 'nav'
-
-.page-body
-  .container
-    = render 'table', users: @users, direction: @direction
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | ユーザー一覧
+  hr.a-border
+  = render 'filter'
+  hr.a-border
+  .page-body
+    .container
+      = render 'table', users: @users, direction: @direction
