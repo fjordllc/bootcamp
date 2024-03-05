@@ -16,20 +16,9 @@
           .js-preview.a-long-text.is-md.markdown-form__preview
     .form-item
       = render 'errors', object: faq
-      = f.radio_button :category, :study_content
-      = f.label :category, t("faq.study_content"), {value: :study_content}
-      = f.radio_button :category, :study_environment
-      = f.label :category, t("faq.study_environment"), {value: :study_environment}
-      = f.radio_button :category, :fee
-      = f.label :category, t("faq.fee"), {value: :fee}
-      = f.radio_button :category, :find_job
-      = f.label :category, t("faq.find_job"), {value: :find_job}
-      = f.radio_button :category, :join
-      = f.label :category, t("faq.join"), {value: :join}
-      = f.radio_button :category, :withdrawal_hibernation_graduation
-      = f.label :category, t("faq.withdrawal_hibernation_graduation"), {value: :withdrawal_hibernation_graduation}
-      = f.radio_button :category, :corporate_use
-      = f.label :category, t("faq.corporate_use"), {value: :corporate_use}
+      - [:study_content, :study_environment, :fee, :find_job, :join, :withdrawal_hibernation_graduation, :corporate_use].each do |category|
+        = f.radio_button :category, category
+        = f.label :category, t("faq.#{category}"), value: category
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
