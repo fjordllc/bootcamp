@@ -53,12 +53,12 @@
         .users-item__description.a-short-text
           - desc_paragraphs(user).each do |desc_paragraph|
             p
-            | #{desc_paragraph[:text]}
+              = desc_paragraph[:text]
         .users-item__tags
           = render 'users/tags', user: user
       = render 'users/practices/completed_practices_progress', user: user, is_progress: false
       hr.a-border-tint
-      footer.card-footer
+      footer.card-footer.users-item__footer
         .card-main-actions
           ul.card-main-actions__items
             - if current_user.id != user.id && current_user.adviser && user.company && current_user.company_id == user.company.id
