@@ -7,15 +7,20 @@ export const Reaction = ({
   onCreateReaction,
   onDeleteReaction
 }) => {
-  const { id: reactionId } = clickedReaction(emoji.kind)
-
   return (
     <li
       key={emoji.kind}
       className={`reactions__item test-inline-block ${
         isReacted(emoji.kind) ? 'is-reacted' : ''
       }`}
-      onClick={() => isReacted(emoji.kind) ? onDeleteReaction(reactionId) : onCreateReaction(emoji.kind)}
+      onClick={() => {
+        if(isReacted(emoji.kind)){
+          const { id: reactionId } = clickedReaction(emoji.kind)
+          onDeleteReaction(reactionId)
+        } else {
+          onCreateReaction(emoji.kind)
+        }
+      }}
       data-reaction-kind={emoji.kind}
     >
       <span className="reactions__item-emoji js-reaction-emoji">{emoji.value}</span>

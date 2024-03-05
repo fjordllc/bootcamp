@@ -17,13 +17,15 @@ const createReaction = async (reactionableId, kind) => {
     redirect: 'manual',
     body: JSON.stringify(params)
   })
-
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
   const commentId = await response.json()
   return commentId
 }
 
-const deleteReaction = (id) => {
-  fetch(`/api/reactions/${id}`, {
+const deleteReaction = async(id) => {
+  const response = await fetch(`/api/reactions/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
@@ -33,6 +35,9 @@ const deleteReaction = (id) => {
     credentials: 'same-origin',
     redirect: 'manual'
   })
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
 }
 
 export { createReaction, deleteReaction }
