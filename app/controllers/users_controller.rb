@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
 
     if params[:search_word]
-      @users = search_for_users(@target, users, params[:search_word]).page(params[:page]).per(PAGER_NUMBER)
+      @users = search_for_users(@target, @users, params[:search_word]).page(params[:page]).per(PAGER_NUMBER)
       @search_word = params[:search_word]
     end
     @random_tags = User.tags.sample(20)
