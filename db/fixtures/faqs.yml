@@ -80,7 +80,7 @@ faq11:
   position: 11
   question: Linuxで学習をしたいのですが可能ですか？
   answer: Linuxでも可能ですが条件があります。用意しているカリキュラムは Mac を想定して作られています。そのため、Linux でカリキュラムを行う場合は自分自身でMac用のカリキュラムをLinuxに合わせて操作方法などを変える必要があります。それができるだけのLinuxのスキルがある方のみ、Linuxで学習をすることをOKとしています。
-  category:
+  category: study_environment
 
 faq12:
   position: 12
