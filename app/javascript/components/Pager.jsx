@@ -10,7 +10,7 @@ export default function Pager({
   const makeITag = (iconName) => <i className={`fas fa-angle-${iconName}`}></i>
 
   return (
-    <div className="pagination-container">
+    <div className="pagination__items">
       <button onClick={() => clickHandle(1)} className="pagination__item-link">
         {makeITag('double-left')}
       </button>
