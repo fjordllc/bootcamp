@@ -65,7 +65,7 @@
               div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}")
             - unless @user.total_learning_time.zero? || @user.mentor?
               = react_component 'Grass', { userId: @user.id }, { class: 'a-card' }
-            - if @user.student?
+            - if @user.student_or_trainee?
               #js-niconico_calendar(data-user-id="#{@user.id}")
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
