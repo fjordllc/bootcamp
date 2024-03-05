@@ -2,7 +2,7 @@
 
 class DiscordAuthenticationsController < ApplicationController
   def new
-    return redirect_to root_path, alert: 'キャンセルしました' unless params[:code]
+    return redirect_to root_path, alert: 'Discord連携をキャンセルしました' unless params[:code]
 
     redirect_uri = discord_authentications_new_url
     access_token = DiscordAuthentication.fetch_access_token(params[:code], redirect_uri)
