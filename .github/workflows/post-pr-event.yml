@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: post review requested pr event
       run: |
-        curl -X POST https://fjord-choice.herokuapp.com/api/pulls \
+        curl -f -X POST https://fjord-choice.herokuapp.com/api/pulls \
              -H 'Content-Type: application/json' \
              -H 'Authorization: Token ${{ secrets.FJORD_CHOICE_TOKEN }}' \
              -d '{"title": ${{ toJson(github.event.pull_request.title) }},
