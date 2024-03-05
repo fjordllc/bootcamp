@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
 class UpcomingEvent
-  DAY_LABELS = {
-    today: '今日',
-    tomorrow: '明日',
-    day_after_tomorrow: '明後日'
-  }.freeze
-
   class << self
-    def fetch(*days_symbol)
-      days_symbol.map do |day|
+    def fetch(*day_symbols)
+      day_symbols.map do |day|
         {
-          day_label: DAY_LABELS[day],
+          day_label: day,
           events: fetch_events_held_on(day),
           holding_date: calc_holding_date(day)
         }
