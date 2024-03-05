@@ -33,7 +33,7 @@ header.page-header
                 .card__description
                   - if @company.memo.present?
                     .a-long-text.is-md.a-placeholder
-                      = simple_format(company.memo)
+                      = simple_format(@company.memo)
                   - else
                     .o-empty-message
                       .o-empty-message__icon
