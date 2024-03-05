@@ -9,9 +9,15 @@
         p
           | Discord アカウントは登録されています。
     - else
-      = link_to ENV['DISCORD_AUTHENTICATION_URL'], class: 'a-button is-sm' do
+      = link_to ENV['DISCORD_AUTHENTICATION_URL'], class: 'a-button is-sm is-primary' do
         p
           | Discord アカウントを登録する
+      .a-form-help
+        p
+          | 今後、Discord とフィヨルドブートキャンプアプリとの
+          | 連携に Discord アカウントの登録が必要になります。
+          | フィヨルドブートキャンプの Discord サーバに入室をしたら、
+          | 必ず登録をしてください。
 
   .form-item#times-url
     = discord_profile_fields.label :times_url, class: 'a-form-label'
