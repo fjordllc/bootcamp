@@ -47,6 +47,13 @@ main.page-main
                         .a-meta
                           | #{l @faq.created_at} 公開
 
+                .page-content-header__row
+                  .page-content-header-metas
+                    .page-content-header-metas__start
+                      .page-content-header-metas__meta
+                        .a-meta
+                          = t("faq.#{@faq.category}")
+
             .a-card
               .card-body
                 .card__description
