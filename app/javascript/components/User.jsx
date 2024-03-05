@@ -109,11 +109,11 @@ export default function User({ user, currentUser }) {
                     </div>
                   </div>
                 </div>
+                <UserSns user={user} />
               </div>
             </div>
+            <UserActivityCounts user={user} />
           </header>
-          <UserSns user={user} />
-          <UserActivityCounts user={user} />
           <div className="users-item__body">
             <div className="users-item__description a-short-text">
               {userDescParagraphs().map((paragraph) => (
