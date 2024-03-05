@@ -153,4 +153,16 @@ class GenerationsTest < ApplicationSystemTestCase
       end
     end
   end
+
+  test 'users status count for generation' do
+    travel_to Time.zone.local(2014, 4, 1, 0, 0, 0) do
+      visit_with_auth '/generations?target=all', 'komagata'
+
+      assert_selector('a.tab-nav__item-link.is-active', text: '全員')
+      assert_text '期生別（全員）'
+      assert_link '5期生'
+      assert_text '2014年01月01日 ~ 2014年03月31日'
+      assert_text '現役生 14人 卒業生 2人 退会者 2人'
+    end
+  end
 end
