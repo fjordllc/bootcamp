@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   skip_before_action :require_active_user_login, only: %i[show]
 
   SIDE_LINK_LIMIT = 20
+  PAGER_NUMBER = 20
 
   def index
     @pages = Page.with_avatar
@@ -14,6 +15,7 @@ class PagesController < ApplicationController
                            { last_updated_user: { avatar_attachment: :blob } })
                  .order(updated_at: :desc)
                  .page(params[:page])
+                 .per(PAGER_NUMBER)
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
   end
