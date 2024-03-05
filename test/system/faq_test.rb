@@ -7,4 +7,9 @@ class FAQTest < ApplicationSystemTestCase
     visit faq_path
     assert_selector '.faqs-item', count: FAQ.all.size
   end
+
+  test 'show listing FAQs by category' do
+    visit '/faq?category=study_environment'
+    assert_selector '.faqs-item', count: FAQ.where(category: 'study_environment').size
+  end
 end
