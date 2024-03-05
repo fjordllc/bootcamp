@@ -21,6 +21,11 @@ class FaqTest < ActiveSupport::TestCase
     assert @faq1.invalid?
   end
 
+  test 'faq1 is invalid if category is null' do
+    @faq1.category = nil
+    assert @faq1.invalid?
+  end
+
   test 'new faq is invalid if question has already existed' do
     new_faq = faqs(:faq2)
     new_faq.question = @faq1.question
