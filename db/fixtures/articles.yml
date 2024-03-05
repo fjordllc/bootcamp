@@ -19,7 +19,8 @@ article1:
     あとはインストーラーの指示に従ってインストールしましょう。
   user: komagata
   wip: false
-  published_at: "2022-01-01 00:00:00"
+  published_at: "2022-01-01 00:01:00"
+  created_at: "2022-01-01 00:00:00"
 
 article2:
   title: Debian用の仮想マシンを作ろう
@@ -44,7 +45,8 @@ article2:
     しかしこれは中身の空っぽの仮想マシンができた状態なので続けてOSをインストールしましょう。
   user: machida
   wip: false
-  published_at: "2022-01-02 00:00:00"
+  published_at: "2022-01-02 00:01:00"
+  created_at: "2022-01-02 00:00:00"
 
 article3:
   title: 仮想マシンにDebianをインストールしよう
@@ -55,7 +57,6 @@ article3:
     物理マシンでしたらインストールCD（やUSB）をマシンに入れてインストールしますが、仮想マシンの場合は、仮想のCDドライブにCDイメージをセットしてインストールします。
   user: komagata
   wip: true
-  token: <%= SecureRandom.urlsafe_base64 %>
 
 article4:
   title: Debianでzshを使う
@@ -78,17 +79,16 @@ article4:
     シェルを再起動したらzshになってます。設定ファイルは`~/.zshrc`になるので、自由に設定しましょう。zsh設定については奥が深過ぎるのでこのエントリーではここで終わりにしておきます。
   user: komagata
   wip: true
-  published_at: "2022-04-04 00:00:00"
-  token: <%= SecureRandom.urlsafe_base64 %>
 
-<% (5..40).each do |id| %>
+<% (5..20).each do |id| %>
 article<%= id %>:
   title: test title<%= id %>
   body: |-
     test body<%= id %>
   user: komagata
   wip: false
-  published_at: "2022-03-14 00:00:00"
+  published_at: "<%= (Date.parse('2024-01-01') + id - 5) %>"
+  created_at: "<%= (Date.parse('2024-01-01') + id - 5) %>"
 <% end %>
 
 <% (21..27).each do |id| %>
@@ -98,7 +98,8 @@ article<%= id %>:
     test body<%= id %>
   user: komagata
   wip: false
-  published_at:  "<%= (Date.parse('2024-02-01') + id - 21) %>"
+  published_at: "<%= (Date.parse('2024-02-01') + id - 21) %>"
+  created_at: "<%= (Date.parse('2024-02-01') + id - 21) %>"
 <% end %>
 
 <% (41..55).each do |id| %>
