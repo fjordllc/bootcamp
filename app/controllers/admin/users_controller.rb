@@ -3,7 +3,7 @@
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
-  ALLOWED_JOBS = User.jobs.keys
+  ALLOWED_JOBS = User.jobs.keys.prepend('all')
 
   def index
     @direction = params[:direction] || 'desc'
@@ -11,7 +11,7 @@ class Admin::UsersController < AdminController
     @job = params[:job]
     user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
     if @job.present? && ALLOWED_JOBS.include?(@job)
-      scoped_job = "job_#{@job}"
+      scoped_job = @job == 'all' ? @job : "job_#{@job}"
       user_scope = user_scope.public_send(scoped_job)
     end
     @users = user_scope.with_attached_avatar

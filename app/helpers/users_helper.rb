@@ -64,6 +64,7 @@ module UsersHelper
   end
 
   def jobs_for_select
-    User.jobs.keys.map { |job| [t("activerecord.enums.user.job.#{job}"), job] }
+    user_jobs = User.jobs.keys.map { |job| [t("activerecord.enums.user.job.#{job}"), job] }
+    user_jobs.prepend(%w[全員 all])
   end
 end
