@@ -7,4 +7,6 @@
 
 .page-body
   .container.is-md
-    div(data-vue='Pages' data-vue-selected-tag="#{params[:tag]}" data-vue-practice-id:number="#{params[:practice_id]}")
+    .card-list.a-card
+      .card-list__items
+        = render partial: 'pages/page', collection: @pages
