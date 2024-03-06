@@ -44,11 +44,10 @@
               - if page.last_updated_user
                 .card-list-item-meta__item
                   .card-list-item-meta__user
-                    .card-list-item-meta__icon-link
-                      = render 'users/icon',
-                        user: page.last_updated_user,
-                        image_class: 'card-list-item-meta__icon.a-user-icon',
-                        link_class: 'card-list-item-meta__icon-link'
+                    = render 'users/icon',
+                      user: page.last_updated_user,
+                      image_class: 'card-list-item-meta__icon.a-user-icon',
+                      link_class: 'card-list-item-meta__icon-link'
                     = link_to page.last_updated_user.login_name, user_url(page.last_updated_user), class: 'a-user-name'
             - if page.comments.length > 0
               .card-list-item-meta__item
