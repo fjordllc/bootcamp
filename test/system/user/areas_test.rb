@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'uri'
 
 class User::AreasTest < ApplicationSystemTestCase
   test 'show tokyo users without search params' do
