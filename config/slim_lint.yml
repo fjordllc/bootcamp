@@ -28,7 +28,7 @@ linters:
       - Metrics/BlockLength # 除外検討したが見送り
       - Style/FrozenStringLiteralComment # 除外検討したが見送り
       - Style/IdenticalConditionalBranches
-      - Style/IfUnlessModifier
+      - Style/IfUnlessModifier # 除外検討したが見送り
       - Style/Next
       - Style/WhileUntilDo
       - Style/WhileUntilModifier
