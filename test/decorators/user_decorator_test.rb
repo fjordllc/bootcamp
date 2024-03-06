@@ -51,13 +51,13 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     end
   end
 
-  test 'others_editor_checked?' do
+  test 'other_editor_checked?' do
     editors = User.editors.keys
     @admin_mentor_user.editor = 'textbringer'
     @student_user.editor = editors[0]
 
-    assert @admin_mentor_user.others_editor_checked?(editors)
-    assert_not @student_user.others_editor_checked?(editors)
+    assert @admin_mentor_user.other_editor_checked?(editors)
+    assert_not @student_user.other_editor_checked?(editors)
   end
 
   test 'editors' do
