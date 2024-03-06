@@ -10,13 +10,15 @@ const WatchToggle = ({ watchableId, watchableType }) => {
   return (
     isWatched ? (
       <button
-        className='watch-button a-watch-button a-button is-sm is-block is-active is-main'
+        id="watch-button"
+        className='a-watch-button a-button is-sm is-block is-active is-main'
         onClick={handleDeleteWatch}>
         Watch中
       </button>
     ) : (
       <button
-        className='watch-button a-watch-button a-button is-sm is-block is-inactive is-muted'
+        id="watch-button"
+        className='a-watch-button a-button is-sm is-block is-inactive is-muted'
         onClick={handleCreateWatch}>
         Watch
       </button>
