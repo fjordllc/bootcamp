@@ -15,3 +15,32 @@
         th.admin-table__label.actions
           | 編集
     tbody.admin-table__items
+      - practices.each do |practice|
+        tr.admin-table__item
+          td.admin-table__item-value
+            = link_to practice_path(practice)
+              = practice.title
+          td.admin-table__item-value.is-text-align-right
+            - practice.categories.each do |category|
+              p
+                = category.name
+          - if practice.submission
+            td.admin-table__item-value.is-text-align-right
+              = link_to practice_products_path(practice) do
+                = practice.products.size
+          - else
+            td.admin-table__item-value.is-text-align-center
+              span.admin-table__item-blank
+                | 不要
+          td.admin-table__item-value.is-text-align-right
+            = link_to practice_reports_path(practice) do
+              = practice.reports.size
+          td.admin-table__item-value.is-text-align-right
+            = link_to practice_questions_path(practice) do
+              = practice.questions.size
+          td.admin-table__item-value.is-text-align-center
+            ul.is-inline-buttons
+              li
+                = link_to edit_mentor_practice_path(practice), class: 'a-button is-sm is-secondary is-icon'
+                  i.fa-solid.fa-pen
+
