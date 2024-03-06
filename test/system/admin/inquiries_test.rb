@@ -13,7 +13,7 @@ class Admin::InquiriesTest < ApplicationSystemTestCase
 
   test 'show inquiry details' do
     visit_with_auth '/admin/inquiries', 'komagata'
-    all('.card-list-item__inner')[0].click
+    find('.card-list-item-title', text: 'inquiry1 様 （inquiry1@example.com）').click
 
     assert_text inquiries(:inquiry1).name
     assert_text inquiries(:inquiry1).email
