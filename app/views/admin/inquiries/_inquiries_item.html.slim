@@ -5,7 +5,7 @@
         .card-list-item-title
           h2.card-list-item-title__title
             = link_to admin_inquiry_path(inquiry), class: 'card-list-item-title__link a-text-link' do
-              | #{inquiry.name} 様 （#{inquiry.email}）
+              = inquiry.sender_name_and_email
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items

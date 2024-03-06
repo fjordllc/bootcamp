@@ -17,7 +17,7 @@ hr.a-border
         .page-content-header__end
           .page-content-header__row
             h1.page-content-header__title
-              | #{@inquiry.name}（#{@inquiry.email}）
+              = @inquiry.sender_name_and_email
           .page-content-header__row
             .page-content-header-metas
               .page-content-header-metas__start
