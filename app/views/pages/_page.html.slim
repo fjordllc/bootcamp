@@ -29,7 +29,7 @@
                 .a-meta
                   | Doc作成中
               - elsif page.published_at
-                .a-meta 
+                .a-meta
                   span.a-meta__label
                     | 公開
                   span.a-meta__value
@@ -45,8 +45,8 @@
                 .card-list-item-meta__item
                   .card-list-item-meta__user
                     = link_to page.last_updated_user, class: 'card-list-item-meta__icon-link' do
-                      = image_tag page.last_updated_user.avatar_url, 
-                        title: page.last_updated_user.icon_title, 
+                      = image_tag page.last_updated_user.avatar_url,
+                        title: page.last_updated_user.icon_title,
                         alt: page.last_updated_user.icon_title,
                         src: page.last_updated_user.avatar_url,
                         class: "card-list-item-meta__icon a-user-icon is-#{page.last_updated_user.primary_role}"
@@ -55,7 +55,7 @@
                       image_class: 'card-list-item-meta__icon.a-user-icon',
                       link_class: 'card-list-item-meta__icon-link'
                     = link_to page.last_updated_user.login_name, page.last_updated_user, class: 'a-user-name'
-            - if page.comments.length > 0
+            - if page.comments.any?
               .card-list-item-meta__item
                 .a-meta
-                  | コメント（#{ page.comments.length }）
+                  | コメント（#{page.comments.length}）
