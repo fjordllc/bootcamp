@@ -51,7 +51,7 @@ class QuestionTest < ActiveSupport::TestCase
     assert_includes Question.by_target(nil), not_solved_question
   end
 
-  test '.recent' do
+  test '.latest_update_order' do
     Question.destroy_all
     question1 = Question.create!(
       title: 'テストの質問',
@@ -75,7 +75,7 @@ class QuestionTest < ActiveSupport::TestCase
       updated_at: '2022-03-01'
     )
 
-    assert_equal [question3, question2, question1], Question.recent
+    assert_equal [question3, question2, question1], Question.latest_update_order
   end
 
   test '.by_practice_id' do
