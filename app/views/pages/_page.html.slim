@@ -44,11 +44,17 @@
               - if page.last_updated_user
                 .card-list-item-meta__item
                   .card-list-item-meta__user
-                    = render 'users/icon',
+                    = link_to page.last_updated_user, class: 'card-list-item-meta__icon-link' do
+                      = image_tag page.last_updated_user.avatar_url, 
+                        title: page.last_updated_user.icon_title, 
+                        alt: page.last_updated_user.icon_title,
+                        src: page.last_updated_user.avatar_url,
+                        class: "card-list-item-meta__icon a-user-icon is-#{page.last_updated_user.primary_role}"
+                                           = render 'users/icon',
                       user: page.last_updated_user,
                       image_class: 'card-list-item-meta__icon.a-user-icon',
                       link_class: 'card-list-item-meta__icon-link'
-                    = link_to page.last_updated_user.login_name, user_url(page.last_updated_user), class: 'a-user-name'
+                    = link_to page.last_updated_user.login_name, page.last_updated_user, class: 'a-user-name'
             - if page.comments.length > 0
               .card-list-item-meta__item
                 .a-meta
