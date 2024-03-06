@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
                  .by_tag(params[:tag])
                  .with_avatar
                  .includes(:practice, :answers, :tags, :correct_answer)
-                 .recent
+                 .latest_update_order
                  .page(params[:page])
     @questions_property = Question.generate_questions_property(params[:target])
   end
@@ -31,7 +31,7 @@ class QuestionsController < ApplicationController
                           .where(practice: @question.practice)
                           .where.not(id: @question.id)
                           .includes(:correct_answer)
-                          .recent
+                          .latest_update_order
                           .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
     respond_to do |format|
       format.html
