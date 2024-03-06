@@ -2,7 +2,7 @@
 
 class API::Users::AreasController < API::BaseController
   def index
-    # params[:area]がnilの場合は東京都を取得
-    @users = Area.users(params[:region], params[:area] || '13')
+    tokyo_area_id = '13'
+    @users = Area.users(params[:region], params[:area] || tokyo_area_id)
   end
 end
