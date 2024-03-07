@@ -6,6 +6,6 @@ class Practices::PagesController < ApplicationController
     @pages = Page.with_avatar
                  .includes(:comments, :practice, { last_updated_user: { avatar_attachment: :blob } })
                  .where(practice_id: params[:practice_id])
-                 .order(updated_at: :desc)
+                 .order(updated_at: :desc, id: :desc)
   end
 end
