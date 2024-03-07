@@ -6,7 +6,7 @@ class Mentor::PracticesController < ApplicationController
   before_action :set_practice, only: %i[edit update]
 
   def index
-    @practices = Practice.preload(:categories, :products, :reports, :questions).all.order(:id)
+    @practices = Practice.preload(:categories, :products, :reports, :questions).order(:id)
   end
 
   def new
