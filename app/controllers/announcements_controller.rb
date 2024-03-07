@@ -6,7 +6,9 @@ class AnnouncementsController < ApplicationController
 
   def index; end
 
-  def show; end
+  def show
+    @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
+  end
 
   def new
     @announcement = Announcement.new(target: 'students')
