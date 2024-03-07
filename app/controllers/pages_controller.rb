@@ -13,7 +13,7 @@ class PagesController < ApplicationController
     @pages = Page.with_avatar
                  .includes(:comments, :practice, :tags,
                            { last_updated_user: { avatar_attachment: :blob } })
-                 .order(updated_at: :desc)
+                 .order(updated_at: :desc, id: :desc)
                  .page(params[:page])
                  .per(PAGER_NUMBER)
     @pages = @pages.tagged_with(params[:tag]) if params[:tag]
