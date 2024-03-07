@@ -1,0 +1,14 @@
+.a-side-nav
+  .a-side-nav__inner
+    header.a-side-nav__header
+      h2.a-side-nav__title
+        | 最新のお知らせ
+    hr.a-border
+    .a-side-nav__body
+      .card-list
+        = render partial: 'home/announcement', collection: @announcements, as: :announcement
+    hr.a-border
+    footer.a-side-nav__footer
+      = link_to announcements_path, class: 'a-side-nav__footer-link' do
+        | 全てのお知らせ
+
