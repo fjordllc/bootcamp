@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   def show
     @mentor = @article.user
     @recent_articles = list_recent_articles
-    if !@article.wip? || admin_or_mentor_login?
+    if @article.published? || admin_or_mentor_login?
       render layout: 'welcome'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
@@ -77,6 +77,7 @@ class ArticlesController < ApplicationController
       thumbnail
       thumbnail_type
       summary
+      display_thumbnail_in_body
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     params.require(:article).permit(*article_attributes)

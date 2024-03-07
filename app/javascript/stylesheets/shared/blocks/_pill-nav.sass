@@ -13,6 +13,8 @@
     +border-radius(left, 10em)
   &:last-child .pill-nav__item-link
     +border-radius(right, 10em)
+  .is-half &
+    width: 50%
 
 .pill-nav__item-link
   +block-link
@@ -33,3 +35,6 @@
     background-color: var(--main)
     color: var(--reversal-text)
     border-color: var(--main)
+
+div.pill-nav__item-link
+  cursor: pointer

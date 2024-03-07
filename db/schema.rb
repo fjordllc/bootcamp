@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_02_100641) do
+ActiveRecord::Schema.define(version: 2024_02_22_135029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2024_02_02_100641) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
+    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -734,6 +735,7 @@ ActiveRecord::Schema.define(version: 2024_02_02_100641) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
+    t.boolean "invoice_payment", default: false, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true

@@ -48,6 +48,10 @@ class Article < ApplicationRecord
     image_url("/ogp/#{thumbnail_type}.png")
   end
 
+  def published?
+    !wip?
+  end
+
   private
 
   def will_be_published?

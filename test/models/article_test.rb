@@ -13,6 +13,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal '/ogp/ruby_on_rails.png', article.selected_thumbnail_url
   end
 
+  test '#published?' do
+    assert articles(:article1).published?
+    assert_not articles(:article3).published?
+  end
+
   test 'articles directly published without WIP have value of the published_at' do
     article = Article.create(
       title: '公開された記事',
