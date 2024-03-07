@@ -6,13 +6,15 @@
   .card-body
     .card__description
       .niconico-calendar-nav
-        = link_to send(path, niconico_calendar: @current_date.prev_month.strftime('%Y-%m')) do
-          .niconico-calendar-nav__previous
-            i.fa-solid.fa-angle-left
+        - if prev_month?(@current_date, user)
+          = link_to send(path, niconico_calendar: @current_date.prev_month.strftime('%Y-%m')) do
+            .niconico-calendar-nav__previous
+              i.fa-solid.fa-angle-left
+        - else
+          .niconico-calendar-nav__next.is-blank
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
-        - latest_month = @current_date.beginning_of_month == Time.zone.today.beginning_of_month
-        - if !latest_month
+        - if next_month?(@current_date)
           = link_to send(path, niconico_calendar: @current_date.next_month.strftime('%Y-%m')) do
             .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
@@ -39,8 +41,7 @@
           - user.niconico_calendar(@current_calendar).each do |week|
             tr.niconico-calendar__week
               - week.each do |set|
-                - emotion = set[:emotion] ? "is-#{set[:emotion]}" : 'is-blank'
-                - emotion += ' is-today' if set[:date] == Time.zone.today
+                - day_css_class = frame_and_background(set[:date], set[:emotion])
                 - day_label_html = capture do
                   .niconico-calendar__day-label
                     = set[:date]&.day
@@ -49,7 +50,7 @@
                       img.niconico-calendar__emotion-image src="/images/emotion/#{set[:emotion]}.svg" alt="#{set[:emotion]}"
                     - elsif set[:date]
                       i.fa-solid.fa-minus
-                td.niconico-calendar__day class=emotion
+                td.niconico-calendar__day class=day_css_class
                   - if set[:report]
                     = link_to report_path(set[:report]), class: 'niconico-calendar__day-inner' do
                       = day_label_html
