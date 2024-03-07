@@ -1,0 +1,6 @@
+.block-checks.is-1-item
+  .block-checks__item
+    .a-block-check.is-checkbox
+      = f.check_box :invoice_payment, class: 'a-toggle-checkbox'
+      = f.label :invoice_payment, class: 'a-block-check__label is-ta-left' do
+        = User.human_attribute_name :invoice_payment_user

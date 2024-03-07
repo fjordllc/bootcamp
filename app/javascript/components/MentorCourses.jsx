@@ -1,6 +1,7 @@
 import React from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
+import LoadingMentorPageCoursesPlaceholder from './LoadingMentorPageCoursesPlaceholder'
 
 const Header = () => {
   return (
@@ -17,7 +18,7 @@ const Header = () => {
 export default function MentorCourses() {
   const { data, error } = useSWR('/api/courses.json', fetcher)
   if (error) return <>An error has occurred.</>
-  if (!data) return <>Loading...</>
+  if (!data) return <LoadingMentorPageCoursesPlaceholder />
   const courses = data.courses
 
   return (
