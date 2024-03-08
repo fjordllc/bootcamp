@@ -904,30 +904,28 @@ tom: #アメリカ在住のユーザー
   created_at: "2023-05-08 00:00:00"
   last_activity_at: "2023-05-08 00:00:00"
 
-pijord-bot:
-  login_name: pijord-bot
-  email: pijord-bot@fjord.jp
+pjord:
+  login_name: pjord
+  email:
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: ピヨルドbot
-  name_kana: ピヨルドボット
-  twitter_account: pijord-bot
-  facebook_url: https://www.facebook.com/fjordllc/pijord-bot
-  github_account: pijord-bot
-  blog_url: http://pijord-bot.org
-  description: "ピヨルドbotです。"
+  name: ピヨルド
+  name_kana: ピヨルド
+  twitter_account:
+  github_account:
+  blog_url:
+  description: "管理者のピヨルドです。バイキングの末裔です。"
+  adviser: true
   course: course1
-  job: office_worker
-  os: mac
-  experience: rails
-  organization: Fijord Boot Camp
+  organization: 株式会社ロッカ（Lokka Inc.）
   admin: true
   mentor: false
   unsubscribe_email_token: Xw-T0PjrO2LTkCx1C8KA9w
-  updated_at: "2021-02-01 00:00:30"
-  created_at: "2021-02-01 00:00:30"
+  updated_at: "2024-03-09 00:00:30"
+  created_at: "2024-03-05 00:00:30"
   sent_student_followup_message: true
   last_activity_at: "2021-02-01 00:00:30"
+
 
 
 <% trailing_katakana = "ァ" %>
