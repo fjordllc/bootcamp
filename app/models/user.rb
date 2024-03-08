@@ -603,10 +603,8 @@ class User < ApplicationRecord
     else
       image_url default_image_path
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
     image_url default_image_path
-  rescue Vips::Error
-    avatar.variant(resize_to_fit: [120, 120]).processed.url
   end
 
   def generation
