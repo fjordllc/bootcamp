@@ -47,6 +47,17 @@ class Event < ApplicationRecord
   scope :tomorrow_events, -> { where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight) }
   scope :day_after_tomorrow_events, -> { where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight) }
 
+  class << self
+    def new_with_copied_attributes(original_event)
+      new_event = Event.new(open_start_at: Time.current.beginning_of_minute)
+
+      %i[title description location capacity job_hunting].each do |attribute|
+        new_event.public_send("#{attribute}=", original_event.send(attribute))
+      end
+      new_event
+    end
+  end
+
   def opening?
     Time.current.between?(open_start_at, open_end_at)
   end
