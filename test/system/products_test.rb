@@ -631,9 +631,11 @@ class ProductsTest < ApplicationSystemTestCase
     Product.where.not(user: users(:kensyu)).delete_all
     visit_with_auth '/products', 'mentormentaro'
 
-    assert_selector '.a-meta__label', text: '研修終了日'
-    assert_selector '.a-meta__value', text: (Time.current + 100.days).strftime('%Y年%m月%d日')
-    assert_selector '.a-meta__value', text: '（あと100日）'
+    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
+      assert_selector '.a-meta__label', text: '研修終了日'
+      assert_selector '.a-meta__value', text: '2022年04月01日'
+      assert_selector '.a-meta__value', text: '（あと365日）'
+    end
   end
 
   test 'display training end date in products for admin only' do
@@ -641,9 +643,11 @@ class ProductsTest < ApplicationSystemTestCase
     Product.where.not(user: users(:kensyu)).delete_all
     visit_with_auth '/products', 'adminonly'
 
-    assert_selector '.a-meta__label', text: '研修終了日'
-    assert_selector '.a-meta__value', text: (Time.current + 100.days).strftime('%Y年%m月%d日')
-    assert_selector '.a-meta__value', text: '（あと100日）'
+    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
+      assert_selector '.a-meta__label', text: '研修終了日'
+      assert_selector '.a-meta__value', text: '2022年04月01日'
+      assert_selector '.a-meta__value', text: '（あと365日）'
+    end
   end
 
   test 'display training end date in products for adviser' do
@@ -651,8 +655,10 @@ class ProductsTest < ApplicationSystemTestCase
     Product.where.not(user: users(:kensyu)).delete_all
     visit_with_auth '/products', 'advijirou'
 
-    assert_no_selector '.a-meta__label', text: '研修終了日'
-    assert_no_selector '.a-meta__value', text: (Time.current + 100.days).strftime('%Y年%m月%d日')
-    assert_no_selector '.a-meta__value', text: '（あと99日）'
+    travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
+      assert_no_selector '.a-meta__label', text: '研修終了日'
+      assert_no_selector '.a-meta__value', text: '2022年04月01日'
+      assert_no_selector '.a-meta__value', text: '（あと365日）'
+    end
   end
 end
