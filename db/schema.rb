@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_28_105218) do
+ActiveRecord::Schema.define(version: 2024_03_09_003847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -195,15 +195,15 @@ ActiveRecord::Schema.define(version: 2024_02_28_105218) do
   end
 
   create_table "corporate_trainings", force: :cascade do |t|
-    t.string "company_name"
-    t.string "name"
-    t.string "email"
-    t.datetime "meeting_date1"
-    t.datetime "meeting_date2"
-    t.datetime "meeting_date3"
-    t.integer "participants_count"
-    t.string "training_duration"
-    t.string "how_did_you_hear"
+    t.string "company_name", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "meeting_date1", null: false
+    t.datetime "meeting_date2", null: false
+    t.datetime "meeting_date3", null: false
+    t.integer "participants_count", null: false
+    t.string "training_duration", null: false
+    t.string "how_did_you_hear", null: false
     t.text "additional_information"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
