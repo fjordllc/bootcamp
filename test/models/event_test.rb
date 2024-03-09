@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
+  include ActiveSupport::Testing::TimeHelpers
   test '.new_with_copied_attributes' do
     original_event = events(:event1)
     new_event = Event.new_with_copied_attributes(original_event)
@@ -74,6 +75,28 @@ class EventTest < ActiveSupport::TestCase
     event.update_participations
 
     assert_not_includes event.participations.disabled, move_up_participation
+  end
+
+  test '#update_published_at' do
+    new_event = Event.new
+    assert_nil new_event.published_at
+
+    freeze_time do
+      new_event.update_published_at
+      assert_equal Time.current, new_event.published_at
+    end
+  end
+
+  test '#update_published_at does not work if already set wip or published_at' do
+    wip_event = Event.new(wip: true)
+    wip_event.update_published_at
+    assert_nil wip_event.published_at
+
+    freeze_time do
+      published_event = Event.new(published_at: 1.year.ago)
+      published_event.update_published_at
+      assert_not_equal Time.current, published_event.published_at
+    end
   end
 
   test '#send_notification' do

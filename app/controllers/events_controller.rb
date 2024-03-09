@@ -23,9 +23,8 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-    set_wip
+    set_wip_status
     if @event.save
-      update_published_at
       Newspaper.publish(:event_create, { event: @event })
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
@@ -37,9 +36,8 @@ class EventsController < ApplicationController
   def edit; end
 
   def update
-    set_wip
+    set_wip_status
     if @event.update(event_params)
-      update_published_at
       @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
@@ -74,7 +72,7 @@ class EventsController < ApplicationController
     @event = current_user.mentor? ? Event.find(params[:id]) : current_user.events.find(params[:id])
   end
 
-  def set_wip
+  def set_wip_status
     @event.wip = (params[:commit] == 'WIP')
   end
 
@@ -91,12 +89,6 @@ class EventsController < ApplicationController
     when 'update'
       event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを更新しました。'
     end
-  end
-
-  def update_published_at
-    return if @event.wip || @event.published_at?
-
-    @event.update(published_at: Time.current)
   end
 
   def publish_with_announcement?

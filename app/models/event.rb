@@ -17,6 +17,8 @@ class Event < ApplicationRecord
   validates :open_start_at, presence: true
   validates :open_end_at, presence: true
 
+  before_save :update_published_at
+
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
@@ -109,6 +111,12 @@ class Event < ApplicationRecord
         participation.update(enable: false)
       end
     end
+  end
+
+  def update_published_at
+    return if wip? || published_at?
+
+    self.published_at = Time.current
   end
 
   def send_notification(receiver)
