@@ -51,7 +51,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/questions/#{questions(:question8).id}", 'kimura'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
       fill_in 'question[description]', with: '更新された本文'
@@ -68,13 +68,13 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_link '全て既読にする'
 
     visit_with_auth "/questions/#{questions(:question8).id}", 'kimura'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
       fill_in 'question[description]', with: '更新された本文'
     end
     click_button 'WIP'
-    assert_text '質問を更新しました'
+    assert_text '質問をWIPとして保存しました。'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text 'kimuraさんから質問「更新されたタイトル」が投稿されました。'
@@ -124,13 +124,12 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
 
-    click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたWIPタイトル'
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_text '質問を更新しました'
+    assert_text '質問をWIPとして保存しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text 'kimuraさんから質問「更新されたWIPタイトル」が投稿されました。'
@@ -148,7 +147,6 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
 
-    click_button '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新された公開タイトル'
       fill_in 'question[description]', with: '更新された公開本文'
@@ -172,7 +170,6 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
 
-    click_button '内容修正'
     click_button '質問を公開'
     assert_text '質問を更新しました'
 
@@ -194,13 +191,13 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/questions', 'kimura'
     click_link '公開タイトル'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたWIPタイトル'
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_text '質問を更新しました'
+    assert_text '質問をWIPとして保存しました。'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text 'kimuraさんから質問「更新されたWIPタイトル」が投稿されました。'
@@ -220,9 +217,9 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/questions', 'kimura'
     click_link '公開タイトル'
-    click_button '内容修正'
+    click_link '内容修正'
     click_button 'WIP'
-    assert_text '質問を更新しました'
+    assert_text '質問をWIPとして保存しました'
 
     visit_with_auth '/notifications?status=unread', 'komagata'
     assert_no_text 'kimuraさんから質問「公開タイトル」が投稿されました。'
@@ -242,7 +239,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/questions', 'kimura'
     click_link '公開タイトル'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
       fill_in 'question[description]', with: '更新された本文'
@@ -271,6 +268,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
 
     visit_with_auth '/questions', 'komagata'
     click_on 'タイトルtest'
+    assert_text 'コメントする'
     assert_difference -> { Question.count }, -1 do
       accept_confirm do
         click_link '削除する'
@@ -341,7 +339,7 @@ class Notification::QuestionsTest < ApplicationSystemTestCase
     assert_text '質問を作成しました。'
     assert_match 'Message to Discord.', mock_log.to_s
 
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'testタイトル(更新)'
       fill_in 'question[description]', with: 'test本文(更新)'
