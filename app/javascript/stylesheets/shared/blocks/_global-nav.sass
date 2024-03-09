@@ -1,14 +1,6 @@
 .global-nav
   +media-breakpoint-down(sm)
-    +position(fixed, left 0, top 0, bottom 0, 100)
-    background-color: rgba(black, 0)
-    width: 0
-    cursor: pointer
-    transition: background-color .4s ease-in
-    input:checked + &
-      opacity: 1
-      width: 100%
-      display: block
+    background-color: transparent
 
 .global-nav__background.a-overlay
   background-color: rgba(black, .6)
@@ -20,19 +12,11 @@
     display: block
 
 .global-nav__inner
-  background-color: var(--main)
-  +size(var(--global-nav-width) 100%)
-  +position(fixed, left 0, top 0, bottom 0, 3)
-  overflow-y: auto
-  +media-breakpoint-down(sm)
-    transition: left .2s ease-out
-    width: var(--global-nav-width-sm)
+  +media-breakpoint-up(md)
+    background-color: var(--main)
+    +size(var(--global-nav-width) 100%)
+    +position(fixed, left 0, top 0, bottom 0, 3)
     overflow-y: auto
-    left: calc(var(--global-nav-width-sm) * -1)
-    input:checked + .global-nav &
-      left: 0
-      >*
-        width: var(--global-nav-width-sm)
 
 .global-nav-links__link
   position: relative
