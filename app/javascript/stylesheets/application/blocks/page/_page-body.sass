@@ -12,6 +12,16 @@
   +media-breakpoint-up(lg)
     flex: 1
 
+.page-body__rows
+  display: flex
+  flex-direction: column
+  +media-breakpoint-up(md)
+    gap: 1.25rem
+  +media-breakpoint-down(sm)
+    gap: 1rem
+  > *
+    width: 100%
+
 .page-body__columns
   +media-breakpoint-up(lg)
     display: flex
@@ -35,7 +45,3 @@
     font-size: .8125rem
   &:not(:last-child)
     margin-bottom: 1.5em
-
-.page-body__row
-  &:not(:first-child)
-    margin-top: 1.5rem
