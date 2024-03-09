@@ -56,7 +56,6 @@ Rails.application.routes.draw do
     namespace "watches" do
       resources :toggle, only: %i(index create destroy)
     end
-    resources :memos, only: %i(create update destroy)
     resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index update)
     resources :pages, only: %i(index update)
