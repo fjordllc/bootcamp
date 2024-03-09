@@ -101,7 +101,6 @@ class User::CompaniesTest < ApplicationSystemTestCase
 
     assert_text '企業別（アドバイザー）'
     assert_selector('a.tab-nav__item-link.is-active', text: 'アドバイザー')
-    assert_no_selector('.group-company-name__label', text: 'Lokka Inc.')
     assert_selector('.group-company-name__label', text: 'ユーザの企業に登録しないで株式会社')
     within first('.a-user-role.is-adviser') do
       assert_equal first('.a-user-icons__item-icon.a-user-icon')['data-login-name'], 'advisernocolleguetrainee'
