@@ -437,7 +437,7 @@ class User < ApplicationRecord
     end
 
     def create_followup_comment(student)
-      User.find_by(login_name: 'pjord-bot').comments.create(
+      User.find_by(login_name: 'pjord').comments.create(
         description: I18n.t('talk.followup'),
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
@@ -748,7 +748,7 @@ class User < ApplicationRecord
   end
 
   def create_comebacked_comment
-    User.find_by(login_name: 'pjord-bot').comments.create(
+    User.find_by(login_name: 'pjord').comments.create(
       description: I18n.t('talk.comeback'),
       commentable_id: Talk.find_by(user_id: id).id,
       commentable_type: 'Talk'
