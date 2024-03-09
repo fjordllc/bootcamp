@@ -5,3 +5,12 @@
     li.header-dropdown__item
       = link_to admin_root_path, class: 'header-dropdown__item-link' do
         | 管理ページ
+    li.header-dropdown__item
+      = link_to admin_users_path, class: 'header-dropdown__item-link' do
+        | ユーザー
+    li.header-dropdown__item
+      = link_to admin_companies_path, class: 'header-dropdown__item-link' do
+        | 企業
+    li.header-dropdown__item
+      = link_to admin_campaigns_path, class: 'header-dropdown__item-link' do
+        | お試し延長
