@@ -37,7 +37,6 @@ ja:
       article: ブログ記事
       work: 作品
       event: 特別イベント
-      memo: メモ
       reference_book: 参考書籍
       campaign: お試し延長
       book: 参考書籍
@@ -156,9 +155,6 @@ ja:
         learning_times: 学習時間
         emotion: 今日の気分
         no_learn: 学習時間は無し
-      memo:
-        body: 内容
-        date: 日付
       report/learning_times:
         finished_at: 終了時間
       learning_time:
