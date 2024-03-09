@@ -145,6 +145,9 @@ steps:
       - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
       - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
+      - '--set-env-vars=DISCORD_CLIENT_ID=$_DISCORD_CLIENT_ID'
+      - '--set-env-vars=DISCORD_CLIENT_SECRET=$_DISCORD_CLIENT_SECRET'
+      - '--set-env-vars=DISCORD_AUTHENTICATION_URL=$_DISCORD_AUTHENTICATION_URL'
       - '--set-env-vars=$_ENVS'
       - >-
         --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
