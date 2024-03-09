@@ -282,7 +282,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{product.user.login_name}さんの「#{product.practice.title}」の提出物が更新されました",
+      body: "#{product.user.login_name}さんの「#{product.practice.title}」の提出物が更新されました。",
       kind: :product_update,
       receiver:,
       sender: product.sender,
