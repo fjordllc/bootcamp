@@ -124,8 +124,6 @@ export default {
         json.answers.forEach((c) => {
           this.answers.push(c)
         })
-
-        this.updateAnswerCount()
       })
       .catch((error) => {
         console.warn(error)
@@ -252,7 +250,7 @@ export default {
         .then((answer) => {
           this.findAnswerById(answer.id).type = 'CorrectAnswer'
 
-          this.$emit('solveQuestion', answer)
+          this.$emit('solveQuestion')
         })
         .catch((error) => {
           console.warn(error)

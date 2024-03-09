@@ -31,7 +31,6 @@ class API::QuestionsController < API::BaseController
   def update
     question = Question.find(params[:id])
     if question.update(question_params)
-      Newspaper.publish(:question_update, { question: }) if question.saved_change_to_wip?
       head :ok
     else
       head :bad_request
@@ -41,6 +40,6 @@ class API::QuestionsController < API::BaseController
   private
 
   def question_params
-    params.require(:question).permit(:title, :description, :practice_id, :tag_list, :wip)
+    params.require(:question).permit(:tag_list)
   end
 end

@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     resources :action_uncompleted, only: %i(index)
   end
   resources :talks, only: %i(index show)
-  resources :questions, only: %i(index show new create destroy)
+  resources :questions
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
   resources :articles

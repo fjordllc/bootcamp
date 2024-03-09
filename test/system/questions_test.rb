@@ -52,11 +52,10 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     assert_text '質問をWIPとして保存しました。'
 
-    click_button '内容修正'
     click_button '質問を公開'
-    assert_text '質問を公開しました。'
+    assert_text '質問を更新しました。'
 
-    click_button '内容修正'
+    click_link '内容修正'
     click_button 'WIP'
     assert_text '質問をWIPとして保存しました。'
   end
@@ -65,7 +64,7 @@ class QuestionsTest < ApplicationSystemTestCase
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
 
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: 'テストの質問（修正）'
       fill_in 'question[description]', with: 'テストの質問です。（修正）'
@@ -134,11 +133,13 @@ class QuestionsTest < ApplicationSystemTestCase
     question = questions(:question3)
     visit_with_auth "/questions/#{question.id}", 'komagata'
     find('.tag-links__item-edit').click
-    tag_input = first('.ti-new-tag-input')
+    tag_input = first('.tagify__input')
     accept_alert do
       tag_input.set "半角スペースは 使えない\t"
     end
-    tag_input = first('.ti-new-tag-input')
+    click_button '保存する'
+    find('.tag-links__item-edit').click
+    tag_input = first('.tagify__input')
     accept_alert do
       tag_input.set "全角スペースも　使えない\t"
     end
@@ -150,7 +151,7 @@ class QuestionsTest < ApplicationSystemTestCase
     question = questions(:question3)
     visit_with_auth "/questions/#{question.id}", 'komagata'
     find('.tag-links__item-edit').click
-    tag_input = first('.ti-new-tag-input')
+    tag_input = first('.tagify__input')
     accept_alert do
       tag_input.set ".\t"
     end
@@ -261,7 +262,7 @@ class QuestionsTest < ApplicationSystemTestCase
     visit questions_path
     click_link 'WIPタイトル'
     assert_text '削除申請'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
       fill_in 'question[description]', with: '更新された本文'
@@ -307,19 +308,19 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'update a WIP question as WIP' do
     question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたWIPタイトル'
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_selector '.a-title-label.is-wip', text: 'WIP'
+    assert_text '質問をWIPとして保存しました'
   end
 
   test 'update a WIP question as published' do
     question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたタイトル'
       fill_in 'question[description]', with: '更新された本文'
@@ -331,13 +332,13 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'update a published question as WIP' do
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       fill_in 'question[title]', with: '更新されたWIPタイトル'
       fill_in 'question[description]', with: '更新されたWIP本文'
     end
     click_button 'WIP'
-    assert_selector '.a-title-label.is-wip', text: 'WIP'
+    assert_text '質問をWIPとして保存しました'
   end
 
   test 'show a WIP question on the All Q&A list page' do
@@ -405,7 +406,7 @@ class QuestionsTest < ApplicationSystemTestCase
   test 'notify to chat after publish a question from WIP' do
     question = questions(:question_for_wip)
     visit_with_auth question_path(question), 'kimura'
-    click_button '内容修正'
+    click_link '内容修正'
 
     mock_log = []
     stub_info = proc { |i| mock_log << i }
@@ -423,7 +424,7 @@ class QuestionsTest < ApplicationSystemTestCase
     fill_in 'question[title]', with: 'Questionに関連プラクティスを指定'
     fill_in 'question[description]', with: 'Questionに関連プラクティスを指定'
     find('.choices__inner').click
-    find('#choices--js-choices-single-select-item-choice-6', text: 'Linuxのファイル操作の基礎を覚える').click
+    find('#choices--js-choices-single-select-item-choice-7', text: 'Linuxのファイル操作の基礎を覚える').click
     click_button '登録する'
     assert_text 'Questionに関連プラクティスを指定'
 
@@ -448,7 +449,6 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth new_question_path, 'kimura'
 
     within 'form[name=question]' do
-      click_button 'Remove item'
       fill_in 'question[title]', with: 'プラクティス指定のないテストの質問'
       fill_in 'question[description]', with: 'プラクティス指定のないテストの質問です。'
       click_button '登録する'
@@ -462,7 +462,7 @@ class QuestionsTest < ApplicationSystemTestCase
     question = questions(:question8)
     visit_with_auth question_path(question), 'kimura'
 
-    click_button '内容修正'
+    click_link '内容修正'
     within 'form[name=question]' do
       click_button 'Remove item'
       fill_in 'question[title]', with: 'テストの質問（修正）'
@@ -470,7 +470,7 @@ class QuestionsTest < ApplicationSystemTestCase
       click_button '更新する'
     end
     assert_text '質問を更新しました'
-    assert_selector '.a-category-link', text: ''
+    assert_no_selector('.a-category-link')
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
   end
@@ -503,17 +503,5 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_selector 'input.file-input', visible: false
     end
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
-  end
-
-  test 'using file uploading by file selection dialogue in textarea at editing question' do
-    question = questions(:question3)
-    visit_with_auth "/questions/#{question.id}", 'komagata'
-    click_button '内容修正'
-
-    element = first('.a-file-insert')
-    within element do
-      assert_selector 'input.js-question-file-input', visible: false
-    end
-    assert_equal '.js-question-file-input', find('textarea.a-text-input')['data-input']
   end
 end
