@@ -76,7 +76,6 @@ import Footprints from '../components/footprints.vue'
 import QuestionAnswers from '../components/question-answers.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
-import MentorPractices from '../components/mentor-practices.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
 import CourseBooks from '../components/course-books.vue'
 
@@ -100,7 +99,6 @@ mounter.addComponent(Footprints)
 mounter.addComponent(QuestionAnswers)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
-mounter.addComponent(MentorPractices)
 mounter.addComponent(ActionCompletedButton)
 mounter.addComponent(CourseBooks)
 mounter.mount()
