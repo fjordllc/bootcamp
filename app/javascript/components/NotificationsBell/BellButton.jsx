@@ -16,7 +16,7 @@ export default function BellButton({ setShowNotifications }) {
   }
 
   return (
-    <label
+    <div
       onClick={() => setShowNotifications(true)}
       className="header-links__link test-show-notifications">
       <div className="header-links__link test-bell">
@@ -33,6 +33,6 @@ export default function BellButton({ setShowNotifications }) {
           <div className="header-links__link-label">通知</div>
         </div>
       </div>
-    </label>
+    </div>
   )
 }
