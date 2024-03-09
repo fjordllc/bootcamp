@@ -6,12 +6,12 @@ export default function Following({ isFollowing, userId, isWatching }) {
   const [watching, setWatching] = useState(isWatching)
   const followingDetailsRef = useRef(null)
 
-  const url = () => `/api/users/${userId}/followings`
-
   const followOrChangeFollow = (watch) => {
-    const params = { watch: watch }
-    fetch(url(), {
-      method: following ? 'PATCH' : 'POST',
+    const params = { id: userId, watch: watch }
+    const method = following ? 'PATCH' : 'POST'
+    const url = following ? `/api/followings/${userId}` : `/api/followings`
+    fetch(url, {
+      method: method,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-Requested-With': 'XMLHttpRequest',
@@ -26,7 +26,7 @@ export default function Following({ isFollowing, userId, isWatching }) {
           setFollowing(true)
           setWatching(watch)
         } else {
-          alert('エラーが発生しました。')
+          alert('フォロー処理に失敗しました')
         }
       })
       .catch((error) => {
@@ -38,8 +38,8 @@ export default function Following({ isFollowing, userId, isWatching }) {
   }
 
   const unfollow = () => {
-    const params = { watch: watching }
-    fetch(url(), {
+    const params = { id: userId }
+    fetch(`/api/followings/${userId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -55,7 +55,7 @@ export default function Following({ isFollowing, userId, isWatching }) {
           setFollowing(false)
           setWatching(false)
         } else {
-          alert('エラーが発生しました。')
+          alert('フォロー処理に失敗しました')
         }
       })
       .catch((error) => {
