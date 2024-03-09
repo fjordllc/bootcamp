@@ -1265,7 +1265,7 @@ pjord:
   description: "管理者のピヨルドです。バイキングの末裔です。"
   adviser: true
   course: course1
-  organization: 株式会社ロッカ（Lokka Inc.）
+  company: company1
   admin: true
   mentor: false
   unsubscribe_email_token: Xw-T0PjrO2LTkCx1C8KA9w
