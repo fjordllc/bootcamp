@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2024_02_28_105218) do
+=======
+ActiveRecord::Schema.define(version: 2024_02_29_131748) do
+>>>>>>> 2c25b45c8 (ツイート機能成功。（コードの見直しは必要）)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -669,6 +673,13 @@ ActiveRecord::Schema.define(version: 2024_02_28_105218) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "action_completed", default: true, null: false
     t.index ["user_id"], name: "index_talks_on_user_id"
+  end
+
+  create_table "timelines", force: :cascade do |t|
+    t.text "context"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

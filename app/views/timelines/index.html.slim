@@ -1,2 +1,13 @@
-h1 Timelines#index
-p Find me in app/views/timelines/index.html.slim
+h1.page-header__title 分報
+
+- @timelines.each do |timeline|
+  = timeline.created_at.strftime('%Y/%m/%d %H:%M')
+  p
+    = timeline.context
+    hr.a-border
+
+= form_with model: Timeline.new do |f|
+  = f.text_area :context, size: '50%', class: 'a-text-input', placeholder: "つぶやく"
+  p
+  = f.submit "投稿", class: 'a-button is-lg is-primary is-block'
+end

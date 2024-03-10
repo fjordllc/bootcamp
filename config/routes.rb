@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'timelines/index'
-  get 'timelines/new'
-  get 'timelines/create'
   resources :surveys do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
   end
@@ -102,4 +99,6 @@ Rails.application.routes.draw do
   resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
+
+  resources :timelines, only: %i(new create index)
 end
