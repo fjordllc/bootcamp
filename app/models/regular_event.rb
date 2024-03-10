@@ -73,6 +73,31 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   columns_for_keyword_search :title, :description
 
+  class << self
+    def comming_soon_events(user)
+      [today_events, tomorrow_events].map do |regular_events|
+        regular_events.select { |event| event.participated_by?(user) }
+      end
+    end
+
+    def remove_event(events_arr, id)
+      events_arr.each do |events|
+        events.delete_if do |event|
+          event.id == id.to_i
+        end
+      end
+    end
+
+    def new_with_copied_attributes(original_event)
+      new_event = RegularEvent.new
+
+      %i[title description finished hold_national_holiday start_at end_at category user_ids].each do |attribute|
+        new_event.public_send("#{attribute}=", original_event.send(attribute))
+      end
+      new_event
+    end
+  end
+
   def organizers
     users.with_attached_avatar.order('organizers.created_at')
   end
@@ -167,31 +192,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def participated_by?(user)
     regular_event_participations.find_by(user_id: user.id).present?
-  end
-
-  class << self
-    def comming_soon_events(user)
-      [today_events, tomorrow_events].map do |regular_events|
-        regular_events.select { |event| event.participated_by?(user) }
-      end
-    end
-
-    def remove_event(events_arr, id)
-      events_arr.each do |events|
-        events.delete_if do |event|
-          event.id == id.to_i
-        end
-      end
-    end
-
-    def new_with_copied_attributes(original_event)
-      new_event = RegularEvent.new
-
-      %i[title description finished hold_national_holiday start_at end_at category user_ids].each do |attribute|
-        new_event.public_send("#{attribute}=", original_event.send(attribute))
-      end
-      new_event
-    end
   end
 
   def assign_admin_as_organizer_if_none
