@@ -1,7 +1,7 @@
-.card-list-item(:class='page.wip ? "is-wip" : ""')
+.card-list-item(class="#{page.wip ? 'is-wip' : ''}")
   .card-list-item__inner
     .card-list-item__user
-      a.card-list-item__user-link(:href='page.user.url')
+      = link_to page.user, class: 'card-list-item__user-link'
         = render 'users/icon',
           user: page.user,
           image_class: 'card-list-item__user-icon a-user-icon',
