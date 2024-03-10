@@ -86,11 +86,15 @@ export default function GenerationUsers({ generationID }) {
   }
 
   const newUrl = (pageNumber) => {
-    let url = location.pathname
-    url += params.target ? `?target=${params.target}` : ''
-    url += pageNumber === 1 ? '' : `&page=${pageNumber}`
-    return url
+    const url = new URL(location)
+    url.searchParams.set('page', pageNumber)
+    return url.toString()
   }
+
+  useEffect(() => {
+    const page = new URLSearchParams(location.search).get('page')
+    if (page) setCurrentPage(Number(page))
+  }, [])
 
   const pagerProps = {
     initialPageNumber: currentPage,
