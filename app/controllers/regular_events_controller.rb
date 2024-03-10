@@ -25,7 +25,7 @@ class RegularEventsController < ApplicationController
   def create
     @regular_event = RegularEvent.new(regular_event_params)
     @regular_event.user = current_user
-    set_wip
+    set_wip_status
     if @regular_event.save
       update_publised_at
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
@@ -41,7 +41,7 @@ class RegularEventsController < ApplicationController
   def edit; end
 
   def update
-    set_wip
+    set_wip_status
     if @regular_event.update(regular_event_params)
       update_publised_at
       Newspaper.publish(:regular_event_update, { regular_event: @regular_event })
@@ -80,7 +80,7 @@ class RegularEventsController < ApplicationController
     @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
   end
 
-  def set_wip
+  def set_wip_status
     @regular_event.wip = (params[:commit] == 'WIP')
   end
 
