@@ -183,6 +183,15 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
         end
       end
     end
+
+    def new_with_copied_attributes(original_event)
+      new_event = RegularEvent.new
+
+      %i[title description finished hold_national_holiday start_at end_at category user_ids].each do |attribute|
+        new_event.public_send("#{attribute}=", original_event.send(attribute))
+      end
+      new_event
+    end
   end
 
   def assign_admin_as_organizer_if_none

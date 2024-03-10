@@ -156,6 +156,17 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_includes regular_events2, regular_event3
   end
 
+  test '.new_with_copied_attributes' do
+    original_event = regular_events(:regular_event1)
+    new_event = RegularEvent.new_with_copied_attributes(original_event)
+
+    assert_not_equal original_event.id, new_event.id
+
+    %i[title description finished hold_national_holiday start_at end_at category user_ids].each do |attribute|
+      assert_equal original_event.public_send(attribute), new_event.public_send(attribute)
+    end
+  end
+
   test '#assign_admin_as_organizer_if_none' do
     regular_event = RegularEvent.new(
       title: '主催者のいないイベント',
