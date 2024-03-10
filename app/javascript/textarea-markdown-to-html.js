@@ -14,10 +14,8 @@ export default class TextareaMarkdownToHtml extends TextareaMarkdown {
       const bytes = new Uint8Array(reader.result)
       const fileType = await FileType.fromBuffer(bytes)
       const fileSize = filesize(file.size, { base: 10, standard: 'jedec' })
-      const text = `<img src=${this.options.placeholder.replace(
-        /%filename/,
-        file.name
-      )} >`
+      const text =
+        '![' + this.options.placeholder.replace(/%filename/, file.name) + ']()'
 
       const beforeRange = this.textarea.selectionStart
       const beforeText = this.textarea.value.substring(0, beforeRange)
@@ -48,21 +46,23 @@ export default class TextareaMarkdownToHtml extends TextareaMarkdown {
           const responseKey = this.options.responseKey
           const url = json[responseKey]
           if (this.options.imageableExtensions.includes(fileType.ext)) {
-            this.textarea.value = this.textarea.value.replace(
-              text,
-              `<img src=${url} width="100" height="100" loading="lazy" decoding="async" alt="${file.name}">\n`
-            )
+            const uploadTag = this.options.uploadImageTag
+              .replace(/%filename/, file.name)
+              .replace(/%url/, url)
+            this.textarea.value = this.textarea.value.replace(text, uploadTag)
           } else if (this.options.videoExtensions.includes(fileType.ext)) {
-            this.textarea.value = this.textarea.value.replace(
-              text,
-              `<video controls src="${url}"></video>\n`
-            )
+            const uploadTag = this.options.uploadVideoTag
+              .replace(/%filename/, file.name)
+              .replace(/%url/, url)
+            this.textarea.value = this.textarea.value.replace(text, uploadTag)
           } else {
-            this.textarea.value = this.textarea.value.replace(
-              text,
-              `[${file.name} (${fileSize})](${url})\n`
-            )
+            const uploadTag = this.options.uploadOtherTag
+              .replace(/%filename/, file.name)
+              .replace(/%url/, url)
+              .replace(/%fileSize/, fileSize)
+            this.textarea.value = this.textarea.value.replace(text, uploadTag)
           }
+
           this.applyPreview()
         })
         .catch((error) => {
