@@ -12,12 +12,12 @@ class RegularEventsController < ApplicationController
   end
 
   def new
-    @regular_event =
-      if params[:id]
-        RegularEvent.new_with_copied_attributes(RegularEvent.find(params[:id]))
-      else
-        RegularEvent.new
-      end
+    if params[:id]
+      @regular_event = RegularEvent.new_with_copied_attributes(RegularEvent.find(params[:id]))
+      flash.now[:notice] = '定期イベントをコピーしました。'
+    else
+      @regular_event = RegularEvent.new
+    end
 
     @regular_event.regular_event_repeat_rules.build
   end
