@@ -213,7 +213,7 @@ class CurrentUserTest < ApplicationSystemTestCase
 
   test 'register editor with text box' do
     visit_with_auth '/current_user/edit', 'kimura'
-    find('label', text: 'その他').click
+    find('label[for=other_editor]').click
     fill_in 'other_input', with: 'textbringer'
     click_on '更新する'
 

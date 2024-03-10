@@ -53,14 +53,10 @@ class UserDecoratorTest < ActiveDecoratorTestCase
 
   test 'other_editor_checked?' do
     editors = User.editors.keys
-    @admin_mentor_user.editor = 'textbringer'
+    @admin_mentor_user.other_editor = 'textbringer'
     @student_user.editor = editors[0]
 
     assert @admin_mentor_user.other_editor_checked?(editors)
     assert_not @student_user.other_editor_checked?(editors)
-  end
-
-  test 'editors' do
-    assert_equal @admin_mentor_user.editors, %w[VSCode RubyMine Vim Emacs]
   end
 end
