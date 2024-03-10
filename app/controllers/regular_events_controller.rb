@@ -29,7 +29,7 @@ class RegularEventsController < ApplicationController
     if @regular_event.save
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, { event: @regular_event })
-      set_all_user_participants_and_watchers
+      set_all_user_participants_and_watchers if @regular_event.all?
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
       redirect_to path, notice: notice_message(@regular_event)
     else
@@ -43,7 +43,7 @@ class RegularEventsController < ApplicationController
     set_wip_status
     if @regular_event.update(regular_event_params)
       Newspaper.publish(:regular_event_update, { regular_event: @regular_event })
-      set_all_user_participants_and_watchers
+      set_all_user_participants_and_watchers if @regular_event.all?
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
       redirect_to path, notice: notice_message(@regular_event)
     else
