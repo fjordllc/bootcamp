@@ -45,12 +45,13 @@ class User < ApplicationRecord
     rails: 4
   }, _prefix: true
 
-  enum editors: {
+  enum editor: {
     VSCode: 0,
     RubyMine: 1,
     Vim: 2,
-    Emacs: 3
-  }
+    Emacs: 3,
+    other_editor: 99
+  }, _prefix: true
 
   enum satisfaction: {
     excellent: 0,
