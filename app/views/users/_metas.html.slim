@@ -42,7 +42,7 @@
       .user-metas__item-label
         | 使用しているエディタ
       .user-metas__item-value
-        = user.editor
+        = user.editor == 'other_editor' ? user.other_editor : user.editor
     - if user.company.present?
       .user-metas__item
         .user-metas__item-label
