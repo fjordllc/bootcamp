@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const hiddenInput = document.createElement('input')
       Object.assign(hiddenInput, {
         type: 'hidden',
-        name: 'user[editor]',
+        name: 'user[other_editor]',
         value: otherValue
       })
       form.appendChild(hiddenInput)
