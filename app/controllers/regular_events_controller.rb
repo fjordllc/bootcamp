@@ -27,7 +27,6 @@ class RegularEventsController < ApplicationController
     @regular_event.user = current_user
     set_wip_status
     if @regular_event.save
-      update_publised_at
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, { event: @regular_event })
       set_all_user_participants_and_watchers
@@ -43,7 +42,6 @@ class RegularEventsController < ApplicationController
   def update
     set_wip_status
     if @regular_event.update(regular_event_params)
-      update_publised_at
       Newspaper.publish(:regular_event_update, { regular_event: @regular_event })
       set_all_user_participants_and_watchers
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
@@ -82,12 +80,6 @@ class RegularEventsController < ApplicationController
 
   def set_wip_status
     @regular_event.wip = (params[:commit] == 'WIP')
-  end
-
-  def update_publised_at
-    return if @regular_event.wip || @regular_event.published_at?
-
-    @regular_event.update(published_at: Time.current)
   end
 
   def publish_with_announcement?

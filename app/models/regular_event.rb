@@ -73,6 +73,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   columns_for_keyword_search :title, :description
 
+  before_save :update_published_at
+
   class << self
     def comming_soon_events(user)
       [today_events, tomorrow_events].map do |regular_events|
@@ -199,6 +201,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
     admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
+  end
+
+  def update_published_at
+    return if wip || published_at?
+
+    self.published_at = Time.current
   end
 
   private

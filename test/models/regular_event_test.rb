@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class RegularEventTest < ActiveSupport::TestCase
+  include ActiveSupport::Testing::TimeHelpers
+
   test '#organizers' do
     regular_event = regular_events(:regular_event1)
     organizers = users(:komagata)
@@ -182,5 +184,27 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event.save(validate: false)
     regular_event.assign_admin_as_organizer_if_none
     assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
+  end
+
+  test '#update_published_at' do
+    new_event = RegularEvent.new
+    assert_nil new_event.published_at
+
+    freeze_time do
+      new_event.update_published_at
+      assert_equal Time.current, new_event.published_at
+    end
+  end
+
+  test '#update_published_at does not work if already set wip or published_at' do
+    wip_event = Event.new(wip: true)
+    wip_event.update_published_at
+    assert_nil wip_event.published_at
+
+    freeze_time do
+      published_event = Event.new(published_at: 1.year.ago)
+      published_event.update_published_at
+      assert_not_equal Time.current, published_event.published_at
+    end
   end
 end
