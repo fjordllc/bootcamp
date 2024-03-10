@@ -7,6 +7,13 @@
 
 .page-body
   .container.is-md
-    .card-list.a-card
-      .card-list__items
-        = render partial: 'pages/page', collection: @pages
+    - if @pages.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-smile
+        p.o-empty-message__text
+          | Docはまだありません
+    - else
+      .card-list.a-card
+        .card-list__items
+          = render partial: 'page', collection: @pages
