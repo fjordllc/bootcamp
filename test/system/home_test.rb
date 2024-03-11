@@ -553,11 +553,11 @@ class HomeTest < ApplicationSystemTestCase
   test 'toggles_mentor_profile_visibility' do
     visit '/'
     assert_text '駒形 真幸'
-    assert_text "株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
+    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     user = users(:komagata)
     user.update(hide_mentor_profile: true)
     visit '/'
     assert_no_text '駒形 真幸'
-    assert_no_text "株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
+    assert_no_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
   end
 end
