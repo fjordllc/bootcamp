@@ -15,6 +15,8 @@ class Admin::UsersController < AdminController
                    user_scope.where(retired_on: nil)
                  end
     @job = params[:job]
+    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
+    # ALLOWED_JOBS.include?(@job): 存在する職業を過不足なく指定した配列の中に、params[:job]が存在するかどうかチェック。
     if @job.present? && ALLOWED_JOBS.include?(@job)
       scoped_job = @job == 'all' ? @job : "job_#{@job}"
       user_scope = user_scope.public_send(scoped_job)
