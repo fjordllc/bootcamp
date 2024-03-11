@@ -76,20 +76,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   before_save :update_published_at
 
   class << self
-    def comming_soon_events(user)
-      [today_events, tomorrow_events].map do |regular_events|
-        regular_events.select { |event| event.participated_by?(user) }
-      end
-    end
-
-    def remove_event(events_arr, id)
-      events_arr.each do |events|
-        events.delete_if do |event|
-          event.id == id.to_i
-        end
-      end
-    end
-
     def new_with_copied_attributes(original_event)
       new_event = RegularEvent.new
 
