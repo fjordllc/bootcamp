@@ -3,7 +3,7 @@
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
-  ALLOWED_JOBS = User.jobs.keys.prepend('all')
+  ALLOWED_JOBS = User.jobs.keys.prepend('all').freeze
 
   def index
     @direction = params[:direction] || 'desc'
