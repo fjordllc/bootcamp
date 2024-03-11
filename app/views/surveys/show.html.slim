@@ -99,13 +99,15 @@ header.page-header
                               - 10.times do |i|
                                 - if survey_question.linear_scale.reason_for_choice_required
                                   li.linear-scale__points-item
-                                    = f.radio_button survey_question.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}", class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
+                                    = f.radio_button survey_question.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}",
+                                      class: 'a-toggle-checkbox js-questionnaire_choice js-answer_required_choice'
                                     label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
                                       .linear-scale__point-number
                                         = i + 1
                                 - else
                                   li.linear-scale__points-item
-                                    = f.radio_button survey_question.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}", class: 'a-toggle-checkbox js-questionnaire_choice'
+                                    = f.radio_button survey_question.id, i + 1, id: "linear-scale-#{survey_question.id}-#{i}",
+                                      class: 'a-toggle-checkbox js-questionnaire_choice'
                                     label.linear-scale__point for="linear-scale-#{survey_question.id}-#{i}"
                                       .linear-scale__point-number
                                         = i + 1

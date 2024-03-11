@@ -1,1 +1,3 @@
-= render '/notification_mailer/notification_mailer_template', title: "#{@sender.login_name}さんが休会しました。", link_url: @link_url, link_text: "#{@sender.login_name}さんのページへ" do
+= render '/notification_mailer/notification_mailer_template',
+  title: "#{@sender.login_name}さんが休会しました。",
+  link_url: @link_url, link_text: "#{@sender.login_name}さんのページへ" do
