@@ -29,7 +29,7 @@
               :learnings='learnings',
               :currentUser='currentUser')
     .page-body__column.is-sub
-      nav.page-nav
+      nav.page-nav.a-card
         ul.page-nav__items
           li.page-nav__item(
             v-for='category in containsPractices',

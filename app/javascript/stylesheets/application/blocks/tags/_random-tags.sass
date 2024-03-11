@@ -1,8 +1,8 @@
-.random-tags__item
+.random-tags-item
   &:not(:last-child)
     border-bottom: solid 1px var(--border)
 
-.random-tags__item-link
+.random-tags-item__link
   +flex-link
   padding-left: 1rem
   padding-right: .5rem
@@ -11,14 +11,14 @@
   align-items: center
   transition: all .2s ease-out
   &:hover
-    background-color: rgba(black, .05)
+    background-color: var(--primary-tint)
 
-.random-tags__item-link-inner
+.random-tags-item__link-inner
   +position(relative)
   flex: 1
   padding-right: 2em
 
-.random-tags__item-count
+.random-tags-item__count
   +position(absolute, right 0, top 2px)
   +text-block(.625rem, flex center)
   color: var(--default-text)
@@ -29,7 +29,7 @@
   height: 1.5em
   border-radius: 1em
 
-.random-tags__item-name
+.random-tags-item__name
   +text-block(.875rem 1.4)
   color: var(--semi-muted-text)
   .is-first &,

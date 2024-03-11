@@ -15,7 +15,7 @@ export default function Companies({ target }) {
     return (
       <div className="page-body">
         <div className="container is-lg">
-          <div className="card-list a-card is-loading">
+          <div className="card-list is-loading">
             <LoadingUsersPageCompaniesPlaceholder />
           </div>
         </div>
@@ -26,7 +26,7 @@ export default function Companies({ target }) {
   return (
     <div className="page-body">
       <div className="container is-lg">
-        <div className="card-list a-card">
+        <div className="card-list">
           {data.map((company) => (
             <Company key={company.id} company={company} />
           ))}
