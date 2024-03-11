@@ -4,6 +4,7 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::TimeHelpers
+
   test '.new_with_copied_attributes' do
     original_event = events(:event1)
     new_event = Event.new_with_copied_attributes(original_event)
