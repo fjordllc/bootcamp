@@ -100,5 +100,7 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
 
-  resources :timelines, only: %i(new create index)
+  resources :users do
+    resources :timelines, only: %i(new create index)
+  end
 end

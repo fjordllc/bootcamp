@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class TimelinesController < ApplicationController
+  before_action :set_user
+
   def index
-    @timelines = Timeline.all.order(created_at: :desc)
-    @user = current_user
+    @timelines = Timeline.where(user_id: params[:user_id]).all.order(created_at: :desc)
   end
 
   def new
@@ -17,12 +18,16 @@ class TimelinesController < ApplicationController
     else
       flash[:alert] = 'ツイートに失敗しました。'
     end
-    redirect_to timelines_path
+    redirect_to user_timelines_path
   end
 
   private
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
   def timeline_params
-    params.require(:timeline).permit(:context).merge(user_id: current_user.id)
+    params.permit(:context, :user_id)
   end
 end

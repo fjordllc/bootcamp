@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2024_02_28_105218) do
-=======
 ActiveRecord::Schema.define(version: 2024_02_29_131748) do
->>>>>>> 2c25b45c8 (ツイート機能成功。（コードの見直しは必要）)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
