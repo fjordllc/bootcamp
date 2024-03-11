@@ -83,4 +83,8 @@ module UserDecorator
     editors.pop
     editor.present? && editors.exclude?(editor)
   end
+
+  def editor_or_other_editor
+    editor == 'other_editor' ? other_editor : editor
+  end
 end
