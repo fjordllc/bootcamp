@@ -10,6 +10,8 @@ class Admin::UsersController < AdminController
     @target = params[:target]
     @job = params[:job]
     user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
+    # ALLOWED_JOBS.include?(@job): 存在する職業を過不足なく指定した配列の中に、params[:job]が存在するかどうかチェック。
     if @job.present? && ALLOWED_JOBS.include?(@job)
       scoped_job = @job == 'all' ? @job : "job_#{@job}"
       user_scope = user_scope.public_send(scoped_job)
