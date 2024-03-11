@@ -11,7 +11,7 @@ class HomeController < ApplicationController
       set_required_fields
       render aciton: :index
     else
-      @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob })
+      @mentors = User.visible_sorted_mentors
       render template: 'welcome/index', layout: 'welcome'
     end
   end
