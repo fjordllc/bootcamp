@@ -491,6 +491,15 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.index ["user_id"], name: "index_micro_reports_on_user_id"
   end
 
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "tags"
+    t.integer "public_scope"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "kind", default: 0, null: false
     t.bigint "user_id"
