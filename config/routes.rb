@@ -124,4 +124,5 @@ Rails.application.routes.draw do
   resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
+  resources :movies
 end
