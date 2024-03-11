@@ -6,6 +6,7 @@
 = render 'page_tabs', resource: @practice
 
 .page-body
+  = paginate @pages
   .container.is-md
     - if @pages.empty?
       .o-empty-message
@@ -16,4 +17,5 @@
     - else
       .card-list.a-card
         .card-list__items
-          = render partial: 'page', collection: @pages
+          = render partial: 'pages/page', collection: @pages
+  = paginate @pages
