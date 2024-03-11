@@ -1,16 +1,16 @@
-          ul.a-side-nav__items
-            - questions.each do |question|
-              li.a-side-nav__item(class="#{@question == question ? 'is-current' : ''}")
-                = link_to question_path(question), class: 'a-side-nav__item-link has-metas' do
-                  .a-side-nav__item-link-inner
-                    .a-side-nav__item-header
-                      - unless question.correct_answer
-                        .a-badge.is-danger.is-xs
-                          | 未解決
-                      .a-side-nav__item-title
-                        = question.title
-                  .a-side-nav-metas
-                    .a-side-nav-metas__item
-                      = "公開:#{l question.published_at}"
-                    .a-side-nav-metas__item
-                      = "回答・コメント(#{question.answers.count})"
+ul.a-side-nav__items
+  - questions.each do |question|
+    li.a-side-nav__item(class="#{@question == question ? 'is-current' : ''}")
+      = link_to question_path(question), class: 'a-side-nav__item-link has-metas' do
+        .a-side-nav__item-link-inner
+          .a-side-nav__item-header
+            - unless question.correct_answer
+              .a-badge.is-danger.is-xs
+                | 未解決
+            .a-side-nav__item-title
+              = question.title
+        .a-side-nav-metas
+          .a-side-nav-metas__item
+            = "公開:#{l question.published_at}"
+          .a-side-nav-metas__item
+            = "回答・コメント(#{question.answers.count})"

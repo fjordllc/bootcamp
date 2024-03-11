@@ -6,30 +6,22 @@
   +media-breakpoint-down(md)
     position: static
 
-.page-nav__header
-  border: solid 1px var(--border)
-  background-color: var(--base)
-  border-radius: .25rem .25rem 0 0
-
 .page-nav__title
   +text-block(.875rem 1.4, 600)
 
-.page-nav__title-link
-  +block-link
+.page-nav__title-inner
+  display: block
   text-align: center
   padding: .5rem .75rem
   color: var(--default-text)
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+
+a.page-nav__title-inner
+  text-decoration: none
   &:hover
     text-decoration: underline
-
-.page-nav__footer
-  border: solid 1px var(--border)
-  background-color: var(--base)
-  border-radius: 0 0 .25rem .25rem
-  transform: translateY(-2px)
 
 .page-nav__footer-link
   +block-link
@@ -46,8 +38,6 @@
 .page-nav__items
   overflow-y: auto
   +position(relative, 1)
-  &:not(:first-child)
-    transform: translateY(-1px)
   +media-breakpoint-up(lg)
     max-height: calc(100vh - 8.5rem)
   +media-breakpoint-down(md)
@@ -55,7 +45,7 @@
 
 =page-nav-current($background-color, $border-color, $text-color, $pointer-events-none)
   +position(relative, 1)
-  border: solid 1px $border-color
+  box-shadow: 0 0 0 1px $border-color inset
   background-color: $background-color
   .page-nav__item-link
     background-color: transparent
@@ -64,18 +54,8 @@
       pointer-events: none
 
 .page-nav__item
-  background-color: var(--base)
-  border: solid 1px var(--border)
-  &:first-child
-    border-radius: .25rem .25rem 0 0
-  .page-nav__header + .page-nav__items &:first-child
-    border-radius: 0
-  &:last-child
-    border-radius: 0 0 .25rem .25rem
-  .page-nav.has-footer &:last-child
-    border-radius: 0
-  &:not(:first-child)
-    margin-top: -1px
+  &:not(:last-child)
+    border-bottom: solid 1px var(--border-tint)
   &.is-active
     .page-nav__item-link
       color: var(--default-text)
@@ -90,9 +70,10 @@
     +page-nav-current(var(--reply-deadline-background), var(--reply-deadline-border), var(--reversal-text), false)
   &.is-inactive
     position: static
-    border: solid 1px var(--border-shade)
+    &:not(:last-child)
+      border-bottom: solid 1px var(--border)
     .page-nav__item-link
-      background-color: var(--background-semi-shade)
+      background-color: var(--background)
       color: var(--muted-text)
       pointer-events: none
 

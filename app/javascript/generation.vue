@@ -1,7 +1,7 @@
 <template lang="pug">
-.user-group.is-loading(v-if='!loaded')
+.a-card.user-group.is-loading(v-if='!loaded')
   loadingGenerationsPageGenerationPlaceholder
-.user-group(v-else-if='users.length !== 0')
+.a-card.user-group(v-else-if='users.length !== 0')
   header.user-group__header
     h2.user-group__title
       a.user-group__title-link(:href='generation_url')

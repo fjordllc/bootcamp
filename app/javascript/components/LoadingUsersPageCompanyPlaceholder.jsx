@@ -5,7 +5,7 @@ export default function LoadingUsersPageCompanyPlaceholder() {
   const userIconCount = 16
 
   return (
-    <div className="user-group">
+    <div className="a-card user-group">
       <header className="user-group__header">
         <h2 className="group-company-name">
           <span className="group-company-name__link">
