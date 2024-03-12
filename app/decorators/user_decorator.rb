@@ -85,6 +85,6 @@ module UserDecorator
   end
 
   def editor_or_other_editor
-    editor == 'other_editor' ? other_editor : editor
+    editor == 'other_editor' ? other_editor : t("activerecord.enums.user.editor.#{editor}")
   end
 end

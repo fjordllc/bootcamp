@@ -8,7 +8,7 @@
         .a-block-check.is-radio
           = f.radio_button :editor, editor, id: editor, class: 'a-toggle-checkbox'
           = f.label :editor, for: editor, class: 'a-block-check__label has-icon is-ta-left' do
-            = editor == 'other_editor' ? t('activerecord.attributes.editors.others') : editor
+            = t("activerecord.enums.user.editor.#{editor}")
 - other_editor_checked = user.other_editor_checked?(editors)
 .form-item(class="#{'is-hidden' unless other_editor_checked}" id='other_form')
   label.a-form-label
