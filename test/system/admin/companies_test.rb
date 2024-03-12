@@ -61,4 +61,12 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
       assert_no_selector 'nav.pagination'
     end
   end
+
+  test 'companies are ordered by created_at desc' do
+    new_company = companies(:company3)
+    old_company = companies(:company2)
+    visit_with_auth '/admin/companies', 'komagata'
+    assert_selector 'table.admin-table tbody tr:first-child td:first-child a', text: new_company.name
+    assert_selector 'table.admin-table tbody tr:last-child td:first-child a', text: old_company.name
+  end
 end
