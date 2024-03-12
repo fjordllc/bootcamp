@@ -54,6 +54,7 @@ class WorksController < ApplicationController
       :description,
       :url,
       :repository,
+      :release_blog,
       :thumbnail
     )
   end

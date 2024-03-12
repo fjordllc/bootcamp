@@ -18,6 +18,9 @@
           p
             | URLかリポジトリ、どちらかが入力されていることが必須です。
       .form-item
+        = f.label :release_blog, class: 'a-form-label'
+        = f.text_field :release_blog, class: 'a-text-input', placeholder: 'https://bootcamp.fjord.jp/articles/1'
+      .form-item
         = f.label :thumbnail, class: 'a-form-label'
         .form-item-file-input.js-file-input.a-file-input.is-work-thumbnail
           label.js-file-input__preview
