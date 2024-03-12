@@ -6,25 +6,34 @@
           dt.card-counts__item-label
             | メンター
           dd.card-counts__item-value
-            = users.mentor.size
+            = link_to company_users_path(company, target: 'mentor'), class: 'card-counts__item-value-link' do
+              = users.mentor.size
     .card-counts__item
       .card-counts__item-inner
         dt.card-counts__item-label
           | アドバイザー
         dd.card-counts__item-value
-          = users.unretired.advisers.size
-      = link_to_company_users_path(company, 'adviser')
+          - if users.unretired.advisers.present?
+            = link_to company_users_path(company, target: 'adviser'), class: 'card-counts__item-value-link' do
+              = users.unretired.advisers.size
+          - else
+            = users.unretired.advisers.size
     .card-counts__item
       .card-counts__item-inner
         dt.card-counts__item-label
           | 現役生
         dd.card-counts__item-value
-          = users.students_and_trainees.size
-      = link_to_company_users_path(company, 'student_and_trainee')
+          - if users.students_and_trainees.present?
+            = link_to company_users_path(company, target: 'student_and_trainee'), class: 'card-counts__item-value-link' do
+              = users.students_and_trainees.size
+          - else
+            = users.students_and_trainees.size
     - unless users.admins.empty?
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | 管理者
           dd.card-counts__item-value
-            = users.admins.size
+            - if users.admins.present?
+              = link_to company_users_path(company, target: 'admin'), class: 'card-counts__item-value-link' do
+                = users.admins.size
