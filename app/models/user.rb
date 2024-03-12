@@ -46,10 +46,10 @@ class User < ApplicationRecord
   }, _prefix: true
 
   enum editor: {
-    VSCode: 0,
-    RubyMine: 1,
-    Vim: 2,
-    Emacs: 3,
+    vscode: 0,
+    ruby_mine: 1,
+    vim: 2,
+    emacs: 3,
     other_editor: 99
   }, _prefix: true
 
