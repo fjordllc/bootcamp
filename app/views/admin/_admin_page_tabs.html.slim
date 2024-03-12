@@ -21,3 +21,7 @@
         = link_to 'お問い合わせ',
           admin_inquiries_path,
           class: "page-tabs__item-link #{current_link(/^admin-inquiries/)}"
+      li.page-tabs__item
+        = link_to '招待URL',
+          admin_invitation_url_index_path,
+          class: "page-tabs__item-link #{current_link(/^admin-invitation_url/)}"

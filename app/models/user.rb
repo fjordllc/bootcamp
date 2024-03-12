@@ -22,6 +22,12 @@ class User < ApplicationRecord
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 6.months
 
+  INVITATION_ROLES = [
+    ['アドバイザー', :adviser],
+    ['研修生', :trainee],
+    ['メンター', :mentor]
+  ].freeze
+
   enum job: {
     student: 0,
     office_worker: 2,
