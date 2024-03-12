@@ -63,8 +63,8 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'companies are ordered by created_at desc' do
-    new_company = companies(:company3)
-    old_company = companies(:company2)
+    new_company = companies(:company26)
+    old_company = companies(:company24)
     visit_with_auth '/admin/companies', 'komagata'
     assert_selector 'table.admin-table tbody tr:first-child td:first-child a', text: new_company.name
     assert_selector 'table.admin-table tbody tr:last-child td:first-child a', text: old_company.name
