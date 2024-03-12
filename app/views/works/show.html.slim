@@ -63,6 +63,11 @@ hr.a-border
                 = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
                   i.fa-brands.fa-github-alt
                   | Repository
+            - if @work.release_blog.present?
+              li.card-main-actions__item
+                = link_to @work.release_blog, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
+                  i.fa-solid.fa-newspaper
+                  | リリースブログ
         - if @work.user == current_user || admin_or_mentor_login?
           hr.a-border-tint
           .card-footer
