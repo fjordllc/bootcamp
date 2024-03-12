@@ -61,4 +61,8 @@ module UsersHelper
                     .to_h
                     .to_json
   end
+
+  def link_or_text_for_count(count, path)
+    count.zero? ? '0' : link_to(count, path)
+  end
 end
