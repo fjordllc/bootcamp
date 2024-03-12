@@ -265,8 +265,6 @@ ja:
         choices: 選択肢
       buzz:
         body: 本文
-      editors:
-        others: その他
     enums:
       user:
         job:
@@ -289,6 +287,12 @@ ja:
           other_ruby: Ruby以外の言語経験あり
           ruby: Ruby経験あり
           rails: Rails経験あり
+        editor:
+          vscode: VSCode
+          ruby_mine: RubyMine
+          vim: Vim
+          emacs: Emacs
+          other_editor: その他
         satisfaction:
           excellent: とても良い
           good: 良い
