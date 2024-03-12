@@ -1,6 +1,6 @@
 - if user.graduated?
   - percentage = 100
-  - fraction = "卒業#{"(#{user.completed_practices.size})" if is_progress}"
+  - fraction = "卒業#{"(#{user.completed_practices.size})" if is_display_progress_count}"
 - else
   - percentage = user.cached_completed_percentage
   - fraction = user.completed_fraction

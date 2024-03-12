@@ -4,7 +4,7 @@ class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
   before_action :require_login_for_api
   CURRENT_PAGE_COUNT = 1
-  PAGER_COUNT = 24
+  PAGER_NUMBER = 24
 
   def index
     @tag = params[:tag]
@@ -23,12 +23,12 @@ class API::UsersController < API::BaseController
           .preload(:company, :avatar_attachment, :course, :tags)
           .order(updated_at: :desc)
           .page(params[:page])
-          .per(PAGER_COUNT)
+          .per(PAGER_NUMBER)
       end
 
     return unless params[:require_html]
 
-    @users = @users.page(CURRENT_PAGE_COUNT).per(PAGER_COUNT) if params[:search_word]
+    @users = @users.page(CURRENT_PAGE_COUNT).per(PAGER_NUMBER) if params[:search_word]
     render json: { html: render_to_string(partial: 'users/user_list', locals: { users: @users, is_search: true }, formats: :html) }
   end
 
