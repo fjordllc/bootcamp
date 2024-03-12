@@ -30,3 +30,9 @@
           | 回答
         dd.card-counts__item-value
           = link_to user.answers.count, user_answers_path(user)
+    .card-counts__item
+      .card-counts__item-inner
+        dt.card-counts__item-label
+          | ポートフォリオ
+        dd.card-counts__item-value
+          = link_to user.works.count, user_portfolio_url(user)
