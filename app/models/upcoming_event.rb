@@ -16,7 +16,7 @@ class UpcomingEvent
 
     def fetch_events_held_on(day)
       method_name = "#{day}_events".to_sym
-      events = Event.send(method_name) + RegularEvent.send(method_name)
+      events = Event.public_send(method_name) + RegularEvent.public_send(method_name)
       events.sort_by { |e| e.start_at.strftime('%H:%M') }
     end
 
