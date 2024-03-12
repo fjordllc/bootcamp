@@ -1,8 +1,9 @@
 h1.page-header__title 分報
 
 - @timelines.each do |timeline|
-  = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
+  = @user.name + " : "
   = timeline.created_at.strftime('%Y/%m/%d %H:%M')
+  = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
   p
     = safe_join(timeline.context.split("\n"),tag(:br))
     hr.a-border
