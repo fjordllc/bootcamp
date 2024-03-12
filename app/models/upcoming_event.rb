@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
 class UpcomingEvent
+  %i[today tomorrow day_after_tomorrow].each do |day|
+    method_name = "#{day}_events"
+    define_singleton_method(method_name) do
+      (Event.public_send(method_name) + RegularEvent.public_send(method_name)).sort_by { |e| e.start_at.strftime('%H:%M') }
+    end
+  end
+
   class << self
     def fetch(*day_symbols)
       day_symbols.map do |day|
         {
           day_label: day,
-          events: fetch_events_held_on(day),
+          events: public_send("#{day}_events"),
           holding_date: calc_holding_date(day)
         }
       end
     end
 
     private
-
-    def fetch_events_held_on(day)
-      method_name = "#{day}_events".to_sym
-      events = Event.public_send(method_name) + RegularEvent.public_send(method_name)
-      events.sort_by { |e| e.start_at.strftime('%H:%M') }
-    end
 
     def calc_holding_date(day)
       case day
