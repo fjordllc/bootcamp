@@ -7,7 +7,6 @@ import {
 } from './Share'
 import * as Markdown from '../Markdown'
 import * as Card from '../ui/Card'
-import { useTextarea } from '../Markdown/useTextarea'
 import toast from '../../toast'
 
 /**
@@ -45,7 +44,6 @@ const CommentForm = ({
   const isActive = (tab) => tab === activeTab
   const textareaRef = useRef(null)
   const previewRef = useRef(null)
-  useTextarea('#js-new-comment')
   const [isPosting, setIsPosting] = useState(false)
 
   const handleClickCreateComment = async() => {
@@ -55,18 +53,18 @@ const CommentForm = ({
       await onCreateCommentAndWatch(description)
       if (isBecomeResponsibleMentor) {
         await onBecomeResponsibleMentor()
-        toast.methods.toast('コメントを投稿して担当者になりました')
+        // TODO useResponsibleMentorの方のtoastが表示されます 分かりにくいかも
       } else {
-        toast.methods.toast('コメントを投稿しました')
+        toast.methods.toast('コメントを投稿しました!')
       }
     } catch (error) {
-      toast.methods.toast('コメントの投稿に失敗しました', 'error')
+      toast.methods.toast('コメントの投稿に失敗しました!', 'error')
     } finally {
       // クリーンアップ
       setDescription('')
-      previewRef.current.removePreviewLastChild()
       setActiveTab('comment')
       setIsPosting(false)
+      previewRef.current.removePreviewLastChild()
       textareaRef.current.resizeToDefaultHeight()
     }
   }
@@ -78,15 +76,15 @@ const CommentForm = ({
       // コメントの作成とWatchをして、確認OKにする
       await onCreateCommentAndWatch(description)
       await onCreateCheck()
-      toast.methods.toast('コメントを投稿して確認OKにしました')
+      toast.methods.toast('コメントを投稿して確認OKにしました!')
     } catch (error) {
-      toast.methods.toast('コメントの投稿に失敗しました', 'error')
+      toast.methods.toast('コメントの投稿に失敗しました!', 'error')
     } finally {
       // クリーンアップ
       setDescription('')
-      previewRef.current.removePreviewLastChild()
       setActiveTab('comment')
       setIsPosting(false)
+      previewRef.current.removePreviewLastChild()
       textareaRef.current.resizeToDefaultHeight()
     }
   }
