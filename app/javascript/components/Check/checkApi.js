@@ -18,7 +18,8 @@ const createCheck = async (checkableId, checkableType) => {
     body: JSON.stringify(params)
   })
   if (!res.ok) {
-    throw new Error('確認でエラーが起こりました')
+    const check = await res.json()
+    throw new Error(check.message)
   }
   return res
 }
