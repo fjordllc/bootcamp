@@ -761,7 +761,7 @@ ActiveRecord::Schema.define(version: 2024_03_12_150915) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "release_blog"
+    t.string "launch_article"
     t.index ["user_id", "title"], name: "index_works_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_works_on_user_id"
   end
