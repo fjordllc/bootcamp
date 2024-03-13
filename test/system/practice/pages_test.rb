@@ -13,13 +13,13 @@ class Practice::PagesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practices(:practice1).id}/pages", 'hajime'
     within '.card-list-item-meta__icon-link' do
       assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
-      assert_selector 'img[class="card-list-item-meta__icon is-admin a-user-icon"]'
+      assert_selector 'img[class="card-list-item-meta__icon a-user-icon"]'
     end
 
     visit_with_auth "/practices/#{practices(:practice2).id}/pages", 'hajime'
     within '.card-list-item-meta__icon-link' do
       assert_selector 'img[alt="kimura (Kimura Tadasi)"]'
-      assert_selector 'img[class="card-list-item-meta__icon is-student a-user-icon"]'
+      assert_selector 'img[class="card-list-item-meta__icon a-user-icon"]'
     end
   end
 end
