@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
-import { useBeforeunload } from '../../hooks/useBeforeunload'
+import React, { useRef, forwardRef, useImperativeHandle } from 'react'
+import { useTextarea } from './useTextarea'
 import clsx from 'clsx'
 
 const Markdown = ({
@@ -39,38 +39,19 @@ MarkdownForm.displayName = 'MarkdownForm'
 
 const MarkdownTextarea = forwardRef(({
   variant = 'primary',
+  id,
   className,
-  value,
+  value = '',
   onChange,
   ...props
 }, ref) => {
-  const teatareaRef = useRef(null)
-  const [defaultTextareaSize, setDefaultTextareaSize] = useState(158)
-
-  useEffect(() => {
-    setDefaultTextareaSize(teatareaRef.current?.scrollHeight)
-  }, [])
-
-  const { onPageHasUnsavedChanges, onAllChangesSaved } = useBeforeunload()
-
-  useEffect(() => {
-    if (value.length > 0) {
-      onPageHasUnsavedChanges()
-    }
-    return () => onAllChangesSaved()
-  }, [value])
-
-  useImperativeHandle(ref, () => {
-    return {
-      resizeToDefaultHeight() {
-        teatareaRef.current.style.height = `${defaultTextareaSize}px`
-      }
-    }
-  })
+  const { isEditing, teatareaRef } = useTextarea({ selector: `#${id}`, value, ref })
+  if (isEditing) props['data-editing'] = true
 
   return (
     <div className="form-textarea__body">
       <textarea
+        id={id}
         className={clsx('a-text-input a-markdown-input__textarea', variant === 'warning' ? 'js-warning-form' : 'primary', className)}
         value={value}
         onChange={onChange}
