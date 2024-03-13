@@ -1,1 +1,39 @@
-p 新規作成
+- title '動画'
+- set_meta_tags description: '動画一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-main-header__start
+        h1.page-header__title
+          = title
+
+= render 'errors', object: @movie
+= form_with model: @movie, url: movies_path, local: true, class: 'form', html: {multipart: true} do |f|
+  .form__items
+    .form__items-inner
+      .form-item
+        = f.label :title, class: 'a-form-label is-required'
+        = f.text_field :title, class: 'a-text-input js-warning-form'
+      .form-item
+        = f.label :description, class: 'a-form-label'
+        = f.text_area :description, class: 'a-text-input'
+      .form-item
+        = f.label :tags, class: 'a-form-label'
+        = f.text_field :tags, class: 'a-text-input'
+      .form-item
+        = f.label :public_scope, class: 'a-form-label'
+        = f.select :public_scope, options_for_select(['1', '2']), class: 'a-text-input'
+      .form-item
+        = f.label :movie_data, class: 'a-form-label'
+        = f.file_field :movie_data, class: 'a-text-input', accept: 'video/mp4, video/quicktime', direct_upload: true
+      .a-form-help
+        p
+          | 動画データをアップロードしてください。
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit '動画を追加する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+
+
