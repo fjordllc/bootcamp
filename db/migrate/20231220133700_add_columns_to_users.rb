@@ -1,5 +1,6 @@
-class AddEditorToUsers < ActiveRecord::Migration[6.1]
+class AddColumnsToUsers < ActiveRecord::Migration[6.1]
   def change
-    add_column :users, :editor, :string
+    add_column :users, :editor, :integer
+    add_column :users, :other_editor, :string
   end
 end
