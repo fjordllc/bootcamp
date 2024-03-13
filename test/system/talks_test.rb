@@ -48,6 +48,7 @@ class TalksTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
 
     logout
     visit_with_auth '/talks', 'komagata'
@@ -75,6 +76,7 @@ class TalksTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     visit '/talks/action_uncompleted'
     assert_text "#{decorated_user.long_name} さんの相談部屋"
   end

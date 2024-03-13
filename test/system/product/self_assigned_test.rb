@@ -139,6 +139,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentormentaro'
     titles = all('.card-list-item-title__title').map { |t| t.text.gsub('★', '') }
     names = all('.card-list-item-meta .a-user-name').map(&:text)
