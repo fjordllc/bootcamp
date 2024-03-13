@@ -16,9 +16,11 @@ class Product::CheckerTest < ApplicationSystemTestCase
     post_comment('担当者がいない提出物の場合、担当者になる')
     assert_text '担当になりました。'
     assert_text '担当から外れる'
+    assert_no_text '担当になりました。' # toastが消えるのを待つ
 
     post_comment('自分が担当者の場合、担当者のまま')
-    assert_text 'コメントを投稿しました！'
+
+    assert_text 'コメントを投稿しました!', wait: 10
     assert_text '担当から外れる'
 
     visit '/products/unchecked?target=unchecked_no_replied'
@@ -44,7 +46,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
 
     visit show_product_path
     post_comment('担当者がいる提出物の場合、担当者にならない')
-    assert_text '担当者がいる提出物の場合、担当者にならない'
+    assert_text 'コメントを投稿しました!'
 
     visit '/products/unchecked?target=unchecked_no_replied'
     assert_equal before_comment, assigned_product_count
@@ -60,7 +62,8 @@ class Product::CheckerTest < ApplicationSystemTestCase
       click_button 'コメントする'
     end
 
-    assert_text 'コメントを投稿しました'
+    assert_text 'コメントを投稿しました!'
+
     assert_nil Product.find(old_product.id).checker_id
   end
 end
