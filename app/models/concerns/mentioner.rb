@@ -61,7 +61,7 @@ module Mentioner
   end
 
   def extract_login_names_from_mentions(mentions)
-    mentions.map { |s| s.gsub(/@/, '') if mentions_without_code?(s) }
+    mentions.map { |s| s.gsub(/@/, '') if mention_without_code?(s) }
   end
 
   def target_of_comment(commentable_class, commentable)
