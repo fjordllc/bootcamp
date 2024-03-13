@@ -77,8 +77,9 @@ const Comments = ({
   const isCheckable = currentUser.roles.includes("mentor")
     && /^(Report|Product)$/.test(commentableType)
     && !isChecked
-  // 提出物のコメントで、担当者がおらずに確認が済んでいない場合にtrue
+  // 提出物のコメントで、メンターで、担当者がおらずに確認が済んでいない場合にtrue
   const isBecomeResponsibleMentor = commentableType === 'Product'
+    && isCheckable
     && responsibleMentorState === 'absent'
     && isChecked === false
 
