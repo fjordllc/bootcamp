@@ -4,7 +4,7 @@
       = render 'users/icon',
         user: page.user,
         image_class: 'card-list-item__user-icon',
-        link_class: 'card-list-item__user-link"'
+        link_class: 'card-list-item__user-link'
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -45,7 +45,7 @@
                   .card-list-item-meta__user
                     = render 'users/icon',
                       user: page.last_updated_user,
-                      image_class: "card-list-item-meta__icon is-#{page.last_updated_user.primary_role}",
+                      image_class: 'card-list-item-meta__icon',
                       link_class: 'card-list-item-meta__icon-link'
                     = link_to page.last_updated_user, class: 'a-user-name' do
                       | #{page.last_updated_user.login_name}
