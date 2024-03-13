@@ -21,7 +21,7 @@
                 - category.practices.each do |practice|
                   == render 'courses_practice', practice: practice, learnings: learnings
     .page-body__column.is-sub
-      nav.page-nav
+      nav.page-nav.a-card
         ul.page-nav__items
           - categories.each do |category|
             - if category.practices.present?
