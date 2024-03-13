@@ -217,11 +217,13 @@ class CommentsTest < ApplicationSystemTestCase
       fill_in('new_comment[description]', with: 'test')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     assert_text 'test'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'testtest')
     end
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     assert_text 'testtest'
   end
 

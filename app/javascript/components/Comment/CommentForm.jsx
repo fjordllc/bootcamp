@@ -110,13 +110,13 @@ const CommentForm = ({
                   id='js-new-comment'
                   variant='warning'
                   data-preview='#new-comment-preview'
-                  data-input='#new-comment-file-input'
+                  data-input='.new-comment-file-input'
                   name='new_comment[description]'
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   ref={textareaRef}
                 />
-                <Markdown.File id='new-comment-file-input' />
+                <Markdown.File className='new-comment-file-input' />
               </Markdown.Form>
             </Markdown.Item>
             <Markdown.Item isActive={isActive('preview')}>

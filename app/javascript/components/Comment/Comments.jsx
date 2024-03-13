@@ -18,7 +18,7 @@ const CommentsHeader = ({ className, children, ...props }) => {
   )
 }
 
-const CommentsLoadMore = ({ onClick, nextCommentAmount }) => {
+const CommentsLoadMore = ({ onClick, loadMoreText }) => {
   return(
     <div className="thread-comments-more">
       <div className="thread-comments-more__inner">
@@ -27,7 +27,7 @@ const CommentsLoadMore = ({ onClick, nextCommentAmount }) => {
             className="a-button is-lg is-text is-block"
             onClick={onClick}
           >
-            前のコメント（{nextCommentAmount}）
+            {loadMoreText}
           </button>
         </div>
       </div>
@@ -53,11 +53,12 @@ const Comments = ({
   availableEmojis
 }) => {
   const {
-    comments,
+    data,
     error,
     isLoading,
     isValidating,
-    nextCommentAmount,
+    isShowLoadMore,
+    loadMoreText,
     getKey,
     handleLoadMore,
     handleCreateComment,
@@ -93,17 +94,17 @@ const Comments = ({
         現在は８件ごとにコメントを表示しており
         表示していないコメントが無いと消えます
       */}
-      {nextCommentAmount > 0 &&
+      {isShowLoadMore &&
         <CommentsLoadMore
           onClick={() => handleLoadMore()}
-          nextCommentAmount={nextCommentAmount}
+          loadMoreText={loadMoreText}
         />
       }
       {/* コメント欄のタイトル */}
       <CommentsHeader>{title}</CommentsHeader>
       {/* コメント一覧 */}
       <CommentsList>
-        {comments.reverse().map(({ comments, comment_total_count: _commentTotalCount }) => {
+        {data.reverse().map(({ comments, comment_total_count: _commentTotalCount }) => {
           return comments.reverse().map((comment, index) => {
             return (
               <Comment
