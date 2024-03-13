@@ -1,0 +1,15 @@
+.col-xxl-2.col-xl-3.col-lg-4.col-md-6.col-xs-12
+  .movie-item
+    .movie-item__inner.a-card
+      header.movie-item__header
+        = link_to movie, class: 'movie-item__image-link' do
+
+      .movie-item__body
+        h2.movie-item__title
+          = link_to movie.title, movie, class: 'movie-item__title-link'
+        .movie-item__icon
+          = link_to user_path(movie.user), class: 'a-user-icons__item-link' do
+            span class="a-user-role is-#{movie.user.primary_role}"
+              = image_tag movie.user.avatar_url, title: movie.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
+        .movie-item__user
+        = link_to movie.user.name, user_path(movie.user), class: 'a-user-name'
