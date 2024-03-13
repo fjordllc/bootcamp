@@ -21,7 +21,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    assert_text 'test'
+    assert_text 'コメントを投稿しました!'
 
     visit_with_auth '/notifications', 'machida'
 
@@ -41,7 +41,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    assert_text 'test'
+    assert_text 'コメントを投稿しました!'
 
     visit '/notifications'
     assert_selector '.page-header__title', text: '通知'
@@ -66,7 +66,7 @@ class Notification::TalkTest < ApplicationSystemTestCase
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text 'test'
     click_button 'コメントする'
-    assert_text 'test'
+    assert_text 'コメントを投稿しました!'
 
     visit_with_auth '/notifications', 'kimura'
 

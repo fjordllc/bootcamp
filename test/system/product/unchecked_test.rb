@@ -76,6 +76,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     visit_with_auth '/products/unchecked', 'komagata'
     click_link '自分の担当'
     assert_text product.practice.title
@@ -128,6 +129,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'kimura'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     visit_with_auth '/products/unchecked?target=unchecked_all', 'komagata'
     click_link '自分の担当'
     assert_text product.practice.title
@@ -146,6 +148,7 @@ class Product::UncheckedTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{product.id}", 'komagata'
     fill_in('new_comment[description]', with: 'test')
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
     visit_with_auth '/products/unchecked?target=unchecked_no_replied', 'komagata'
     assert_no_text product.practice.title
   end

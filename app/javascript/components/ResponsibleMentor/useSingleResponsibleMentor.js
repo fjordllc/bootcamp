@@ -1,6 +1,6 @@
-import { useReducer } from 'react'
+import { useReducer, useCallback } from 'react'
 import toast from '../../toast'
-import { productCheckerClient } from './productCheckerApi'
+import { createResponsibleMentor, deleteResponsibleMentor } from './responsibleMentorApi'
 
 const reducer = (_state, action) => {
   switch (action) {
@@ -13,30 +13,25 @@ const reducer = (_state, action) => {
   }
 }
 
-const createInitialState = ({ checkerId, currentUserId }) => {
-  if (!checkerId) {
+const createInitialState = ({ responsibleMentorId, currentUserId }) => {
+  if (!responsibleMentorId) {
     return 'absent'
-  } else if (checkerId === currentUserId) {
+  } else if (responsibleMentorId === currentUserId) {
     return 'currentUser'
   } else {
     return 'otherUser'
   }
 }
 
-export const useProductChecker = (checkerId, productId, currentUserId) => {
-  const [productChecker, dispatch] = useReducer(
+export const useResponsibleMentor = ({ responsibleMentorId, productId, currentUserId }) => {
+  const [responsibleMentorState, dispatch] = useReducer(
     reducer,
-    { checkerId, currentUserId },
+    { responsibleMentorId, currentUserId },
     createInitialState
   )
 
-  const { createProductChecker, deleteProductChecker } = productCheckerClient(
-    productId,
-    currentUserId
-  )
-
-  const onCreateProductChecker = () => {
-    createProductChecker()
+  const handleBecomeResponsibleMentor = useCallback(({ currentUserId }) => {
+    createResponsibleMentor({ productId, currentUserId })
       .then(() => {
         dispatch('becomeProductChecker')
         toast.methods.toast('担当になりました。')
@@ -45,10 +40,10 @@ export const useProductChecker = (checkerId, productId, currentUserId) => {
         console.error(error)
         toast.methods.toast('担当になるのに失敗しました。', 'error')
       })
-  }
+  }, [productId])
 
-  const onDeleteProductChecker = () => {
-    deleteProductChecker()
+  const handleDeleteResponsibleMentor = useCallback(() => {
+    deleteResponsibleMentor({ productId })
       .then(() => {
         dispatch('deleteProductChecker')
         toast.methods.toast('担当から外れました。')
@@ -57,11 +52,11 @@ export const useProductChecker = (checkerId, productId, currentUserId) => {
         console.error(error)
         toast.methods.toast('担当から外れるのに失敗しました。', 'error')
       })
-  }
+  }, [])
 
   return {
-    productChecker,
-    onCreateProductChecker,
-    onDeleteProductChecker
+    responsibleMentorState,
+    handleBecomeResponsibleMentor,
+    handleDeleteResponsibleMentor
   }
 }

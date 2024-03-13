@@ -1,10 +1,17 @@
 export default class {
-  async render(selector) {
-    const textareas = document.querySelectorAll(selector)
-    if (textareas.length === 0) {
-      return null
+  constructor(element) {
+    if (typeof element === 'string') {
+      const textareas = document.querySelectorAll(element)
+      if (textareas.length === 0) {
+        return null
+      }
+      this.textareas = textareas
+    } else {
+      this.textareas = element
     }
+  }
 
+  async render() {
     const response = await fetch('/api/user_icon_urls', {
       method: 'GET',
       credentials: 'same-origin',
@@ -12,7 +19,7 @@ export default class {
     })
     this.urls = await response.json()
     this._callbackFunc()
-    Array.from(textareas).forEach((textarea) => {
+    Array.from(this.textareas).forEach((textarea) => {
       textarea.addEventListener('input', () => {
         this._callbackFunc()
       })

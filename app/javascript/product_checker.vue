@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     checkInCharge() {
+      // このファイルを消すときにはcheckable.jsのcheckProductも消してください
       this.checkProduct(
         this.productId,
         this.currentUserId,
