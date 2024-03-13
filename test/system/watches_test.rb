@@ -39,6 +39,7 @@ class WatchesTest < ApplicationSystemTestCase
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
 
     visit '/current_user/watches'
     assert_text '作業週1日目'
@@ -47,9 +48,9 @@ class WatchesTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     find('#watch-button').click
     assert_text 'Watchを外しました'
-    within('.thread-comment:last-child') do
+    within('.thread-comment:last-child.is-latest') do
       accept_alert do
-        click_button('削除')
+        click_button('削除する')
       end
     end
 
@@ -66,6 +67,7 @@ class WatchesTest < ApplicationSystemTestCase
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
 
     visit '/current_user/watches'
     assert_text '作業週1日目'
@@ -74,7 +76,7 @@ class WatchesTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     find('#watch-button').click
     assert_text 'Watchを外しました'
-    within('.thread-comment:last-child') do
+    within('.thread-comment:last-child.is-latest') do
       click_button '編集'
       within('.thread-comment-form__form') do
         fill_in('comment[description]', with: 'ウォッチ確認用のtestコメントを編集')
