@@ -63,10 +63,13 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   end
 
   test 'companies are ordered by created_at desc' do
-    new_company = companies(:company26)
-    old_company = companies(:company24)
     visit_with_auth '/admin/companies', 'komagata'
-    assert_selector 'table.admin-table tbody tr:first-child td:first-child a', text: new_company.name
-    assert_selector 'table.admin-table tbody tr:last-child td:first-child a', text: old_company.name
+    company_names = all('td.admin-table__item-value a').map(&:text)
+    expected_order = [
+      companies(:company28).name,
+      companies(:company27).name,
+      companies(:company26).name
+    ]
+    assert_equal expected_order, company_names
   end
 end
