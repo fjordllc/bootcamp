@@ -7,8 +7,8 @@ import clsx from 'clsx'
 const CommentCompanyLink = ({ user }) => {
   if (!user.company || !user.adviser) return <></>
   return (
-    <a className="thread-comment__company-link" href={user.url}>
-      <img className="thread-comment__company-logo" src={user.logo_url} />
+    <a className="thread-comment__company-link" href={user.company.url}>
+      <img className="thread-comment__company-logo" src={user.company.logo_url} />
     </a>
   )
 }

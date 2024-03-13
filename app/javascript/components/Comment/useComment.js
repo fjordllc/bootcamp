@@ -23,7 +23,7 @@ export const useComment = ({
 
   // useSWRInfiniteの使い方 https://swr.vercel.app/docs/pagination#useswrinfinite
   const {
-    data: comments,
+    data,
     error,
     isLoading,
     isValidating,
@@ -35,9 +35,14 @@ export const useComment = ({
     parallel: true
   })
 
-  const nextCommentAmount = comments
-    ? comments[0]?.comment_total_count - (comments?.length * paginationAmount)
-    : 0
+  const commentTotalAmount = data ? data[0]?.comment_total_count : 0
+  const loadedCommentAmount = commentTotalAmount > size * paginationAmount ? size * paginationAmount : commentTotalAmount
+  const remainingCommentCount = commentTotalAmount - loadedCommentAmount
+  const isShowLoadMore = remainingCommentCount > 0
+  const loadMoreText = remainingCommentCount > 8
+  ? `前のコメント（ ${loadedCommentAmount} / ${remainingCommentCount} ）`
+  : `前のコメント（ ${remainingCommentCount} ）`
+
 
   // コメントのページネーションを１つ進める
   const handleLoadMore = () => setSize(size + 1)
@@ -48,16 +53,17 @@ export const useComment = ({
   // 4. 提出物で担当者がおらず確認が済んでいない場合
   //   5.
   const handleCreateComment = async (description) => {
-    await createComment(description, commentableType, commentableId)
+    const comment = await createComment(description, commentableType, commentableId)
     // https://github.com/vercel/swr/issues/908
-    mutate(comments, false)
+    mutate(data, false)
     mutate()
+    return comment
   }
 
   const handleUpdateComment = (id, description) => {
     updateComment(id, description)
       .then(() => {
-        mutate(comments, false)
+        mutate(data, false)
         mutate()
         toast.methods.toast('コメントを更新しました！')
       })
@@ -70,7 +76,7 @@ export const useComment = ({
   const handleDeleteComment = (commentId) => {
     deleteComment(commentId)
       .then(() => {
-        mutate(comments, false)
+        mutate(data, false)
         mutate()
         toast.methods.toast('コメントを削除しました！')
       })
@@ -80,11 +86,12 @@ export const useComment = ({
   }
 
   return {
-    comments,
+    data,
     error,
     isLoading,
     isValidating,
-    nextCommentAmount,
+    isShowLoadMore,
+    loadMoreText,
     getKey,
     handleLoadMore,
     handleCreateComment,
