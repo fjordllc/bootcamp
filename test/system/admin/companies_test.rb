@@ -64,7 +64,9 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'companies are ordered by created_at desc' do
     visit_with_auth '/admin/companies', 'komagata'
-    company_names = all('td.admin-table__item-value a').map(&:text)
+    # Reactコンポーネント 'AdminCompanies' が表示されるまで待機
+    assert_selector "[data-testid='admin-companies']"
+    company_names = all('.admin-table__items .admin-table__item .company-name').map { |td| td.text.strip }.first(3)
     expected_order = [
       companies(:company28).name,
       companies(:company27).name,
