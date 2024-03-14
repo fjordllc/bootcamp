@@ -21,7 +21,14 @@ class PostAnnouncementJob < ApplicationJob
   end
 
   def send_on_site_notification(announcement, receiver)
-    ActivityNotifier.post_announcement(announcement:, receiver:).notify_now
+    Notification.create!(
+      kind: Notification.kinds[:announced],
+      user: receiver,
+      sender: announcement.sender,
+      link: Rails.application.routes.url_helpers.polymorphic_path(announcement),
+      message: "お知らせ「#{announcement.title}」",
+      read: false
+    )
   rescue StandardError => e
     Rails.logger.warn(e)
   end
