@@ -7,6 +7,7 @@ class WelcomeController < ApplicationController
 
   def index
     @mentors = User.mentors_sorted_by_created_at
+    @articles = list_articles_with_specific_tag
   end
 
   def pricing; end
@@ -26,4 +27,10 @@ class WelcomeController < ApplicationController
   def law; end
 
   def coc; end
+
+  private
+
+  def list_articles_with_specific_tag
+    Article.tagged_with('feature').order(published_at: :desc).where(wip: false).first(6)
+  end
 end
