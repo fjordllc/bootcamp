@@ -6,7 +6,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   test 'show listing companies' do
     visit_with_auth '/admin/companies', 'komagata'
     assert_equal '管理ページ | FBC', title
-    assert has_link?(companies(:company1).name, href: company_path(companies(:company1)))
+    assert has_link?(companies(:company28).name, href: company_path(companies(:company28)))
   end
 
   test 'create company' do
