@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module CompaniesHelper
-  def all_companies_with_empty
-    Company.all.to_a.unshift(Company.new(name: '所属なし'))
+  def desc_ordered_companies_with_empty
+    desc_ordered_companies = Company.order(created_at: :desc).to_a
+    desc_ordered_companies.unshift(Company.new(name: '所属なし'))
   end
 end
