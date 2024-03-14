@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :set_categories, only: %i[new create]
 
   PAGER_NUMBER = 24
 
@@ -25,12 +26,20 @@ class MoviesController < ApplicationController
 
 
   private
+
+  def set_categories
+    @categories =
+      Category
+      .eager_load(:practices, :categories_practices)
+      .where.not(practices: { id: nil })
+      .order('categories_practices.position')
+  end
+
   def movie_params
     params.require(:movie).permit(
       :title,
       :description,
-      :tags,
-      :public_scope,
+      :tag_list,
       :movie_data
     )
   end
