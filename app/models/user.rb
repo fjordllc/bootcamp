@@ -227,6 +227,14 @@ class User < ApplicationRecord
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
   end
+
+  with_options presence: true, if: -> { mentor? } do
+    validates :profile_image
+    validates :profile_name
+    validates :profile_job
+    validates :profile_text
+  end
+
   flag :retire_reasons, %i[
     done
     necessity
