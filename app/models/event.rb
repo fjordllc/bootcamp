@@ -54,7 +54,7 @@ class Event < ApplicationRecord
       new_event = Event.new(open_start_at: Time.current.beginning_of_minute)
 
       %i[title description location capacity job_hunting].each do |attribute|
-        new_event.public_send("#{attribute}=", original_event.send(attribute))
+        new_event.public_send("#{attribute}=", original_event.public_send(attribute))
       end
       new_event
     end

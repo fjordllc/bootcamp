@@ -80,7 +80,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       new_event = RegularEvent.new
 
       %i[title description finished hold_national_holiday start_at end_at category user_ids].each do |attribute|
-        new_event.public_send("#{attribute}=", original_event.send(attribute))
+        new_event.public_send("#{attribute}=", original_event.public_send(attribute))
       end
       new_event
     end
