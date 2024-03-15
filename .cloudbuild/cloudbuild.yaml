@@ -114,6 +114,7 @@ steps:
       - '--set-env-vars=RECAPTCHA_SECRET_KEY=$_RECAPTCHA_SECRET_KEY'
       - '--set-env-vars=ROLLBAR_CLIENT_TOKEN=$_ROLLBAR_CLIENT_TOKEN'
       - '--set-env-vars=OPEN_AI_ACCESS_TOKEN=$_OPEN_AI_ACCESS_TOKEN'
+      - '--set-env-vars=STRIPE_TAX_RATE_ID=$_STRIPE_TAX_RATE_ID'
       - '--set-env-vars=DISCORD_CLIENT_ID=$_DISCORD_CLIENT_ID'
       - '--set-env-vars=DISCORD_CLIENT_SECRET=$_DISCORD_CLIENT_SECRET'
       - '--set-env-vars=DISCORD_AUTHENTICATION_URL=$_DISCORD_AUTHENTICATION_URL'
