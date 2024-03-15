@@ -818,6 +818,8 @@ neverlogin: # 1度もログインしたことがないユーザー
   course: course1
   os: mac
   experience: rails
+  country_code: US
+  subdivision_code: HI
   free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
@@ -840,6 +842,8 @@ kyuukai:
   job: office_worker
   os: mac
   experience: inexperienced
+  country_code: JP
+  subdivision_code: '09'
   github_account: kyuukai
   unsubscribe_email_token: k3a49_NwgTsiJS0oHGU2Fw
   hibernated_at: "2020-01-01 00:00:00"
@@ -860,6 +864,8 @@ sotsugyoukigyoshozoku:
   course: course1
   os: mac
   experience: rails
+  country_code: CA
+  subdivision_code: QC
   graduated_on: "2022-07-04"
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
   sad_streak: true
@@ -875,6 +881,8 @@ advisernocolleguetrainee:
   name: あどばいざ 同僚いない子
   name_kana: アドバイザ ドウリョウイナイコ
   course: course1
+  country_code: JP
+  subdivision_code: '42'
   job: office_worker
   os: mac
   company: company26

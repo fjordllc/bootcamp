@@ -22,7 +22,8 @@ module Mentioner
     when Answer
       "#{receiver.login_name}さんのQ&A「#{question[:title]}」へのコメント"
     when Question
-      "#{user.login_name}さんのQ&A「#{practice[:title]}」"
+      practice_title = practice ? practice[:title] : 'プラクティス選択なし'
+      "#{user.login_name}さんのQ&A「#{practice_title}」"
     end
   end
 

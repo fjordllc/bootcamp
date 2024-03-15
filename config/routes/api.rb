@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
     namespace :users do
+      resources :areas, only: %i(index)
       resources :companies, only: %i(index)
       resources :worried, only: %i(index)
     end
@@ -56,7 +57,6 @@ Rails.application.routes.draw do
     namespace "watches" do
       resources :toggle, only: %i(index create destroy)
     end
-    resources :memos, only: %i(create update destroy)
     resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index update)
     resources :pages, only: %i(index update)

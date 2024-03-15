@@ -12,11 +12,31 @@
   +media-breakpoint-up(lg)
     flex: 1
 
+.page-body__rows
+  display: flex
+  flex-direction: column
+  +media-breakpoint-up(md)
+    gap: 1.25rem
+  +media-breakpoint-down(sm)
+    gap: 1rem
+  > *
+    width: 100%
+
 .page-body__columns
   +media-breakpoint-up(lg)
     display: flex
     gap: 1.5rem
     position: relative
+  &.is-reverse
+    display: flex
+    +media-breakpoint-up(md)
+      flex-direction: row
+      gap: 1.5rem
+    +media-breakpoint-down(sm)
+      flex-direction: column-reverse
+      gap: 1rem
+      .page-body__column
+        width: 100%
 
 .page-body__column
   &.is-main
@@ -35,7 +55,3 @@
     font-size: .8125rem
   &:not(:last-child)
     margin-bottom: 1.5em
-
-.page-body__row
-  &:not(:first-child)
-    margin-top: 1.5rem

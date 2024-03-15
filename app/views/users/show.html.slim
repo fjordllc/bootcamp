@@ -46,7 +46,12 @@
                   - if @user.tag_list.present? || current_user == @user
                     .user-data__row
                       .user-data__tags
-                        - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s, tagsParamName: 'user[tag_list]', tagsInputId: 'user_tag_list', tagsType: 'User', tagsTypeId: @user.id.to_s, tagsEditable: @user.id == current_user.id }
+                        - tags_props = { tagsInitialValue: @user.tag_list.join(',').to_s,
+                                         tagsParamName: 'user[tag_list]',
+                                         tagsInputId: 'user_tag_list',
+                                         tagsType: 'User',
+                                         tagsTypeId: @user.id.to_s,
+                                         tagsEditable: @user.id == current_user.id }
                         = react_component('Tags/Tags', tags_props)
                   - if admin_or_mentor_login? && @user.hibernated?
                     .user-data__row
@@ -65,7 +70,7 @@
               div(data-vue="UserMentorMemo" data-vue-user-id:number="#{@user.id}")
             - unless @user.total_learning_time.zero? || @user.mentor?
               = react_component 'Grass', { userId: @user.id }, { class: 'a-card' }
-            - if @user.student?
+            - if @user.student_or_trainee?
               #js-niconico_calendar(data-user-id="#{@user.id}")
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
@@ -94,4 +99,5 @@
                           class: 'a-button is-sm is-danger is-block'
                   - if @user != current_user
                     .user-statuses__delete
-                      = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link', data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
+                      = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link',
+                        data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
