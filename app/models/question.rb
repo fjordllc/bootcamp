@@ -9,6 +9,8 @@ class Question < ApplicationRecord
   include Mentioner
   include Bookmarkable
 
+  QuestionsProperty = Struct.new(:title, :empty_message)
+
   belongs_to :practice, optional: true
   belongs_to :user, touch: true
   has_one :correct_answer, dependent: :destroy
@@ -29,6 +31,19 @@ class Question < ApplicationRecord
   scope :not_solved, -> { where.not(id: CorrectAnswer.select(:question_id)) }
   scope :wip, -> { where(wip: true) }
   scope :not_wip, -> { where(wip: false) }
+  scope :latest_update_order, -> { order(updated_at: :desc, id: :desc) }
+  scope :by_practice_id, ->(practice_id) { where(practice_id:) if practice_id.present? }
+  scope :by_tag, ->(tag) { tagged_with(tag) if tag }
+  scope :by_target, lambda { |target|
+    case target
+    when 'solved'
+      solved
+    when 'not_solved'
+      not_solved.not_wip
+    else
+      all
+    end
+  }
 
   columns_for_keyword_search :title, :description
 
@@ -50,10 +65,32 @@ class Question < ApplicationRecord
         not_solved_question.last_answer.certain_period_has_passed?
       end
     end
+
+    def generate_questions_property(target)
+      case target
+      when 'solved'
+        QuestionsProperty.new('解決済みのQ&A', '解決済みのQ&Aはありません。')
+      when 'not_solved'
+        QuestionsProperty.new('未解決のQ&A', '未解決のQ&Aはありません。')
+      else
+        QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
+      end
+    end
   end
 
   def last_answer
     answers.max_by(&:created_at)
+  end
+
+  def generate_notice_message(action_name)
+    return '質問をWIPとして保存しました。' if wip?
+
+    case action_name
+    when :create
+      '質問を作成しました。'
+    when :update
+      '質問を更新しました。'
+    end
   end
 
   private

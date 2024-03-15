@@ -6,5 +6,7 @@ class Talk < ApplicationRecord
 
   belongs_to :user
 
+  paginates_per 20
+
   scope :action_uncompleted, -> { where(action_completed: false) }
 end

@@ -6,7 +6,7 @@ export default function Company({ company }) {
   }
 
   return (
-    <div className="user-group">
+    <div className="a-card user-group">
       <UserGroupHeader company={company} />
       <UserIcons users={company.users} />
     </div>

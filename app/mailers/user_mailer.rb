@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
 
   def welcome(user)
     @user = user
-    mail to: user.email, subject: '[FBC] フィヨルドブートキャンプへようこそ'
+    mail to: user.email, bcc: 'info@lokka.jp', subject: '[FBC] フィヨルドブートキャンプへようこそ'
   end
 
   def retire(user)

@@ -126,21 +126,6 @@ class ActivityNotifier < ApplicationNotifier
     )
   end
 
-  def post_announcement(params = {})
-    params.merge!(@params)
-    announce = params[:announcement]
-    receiver = params[:receiver]
-
-    notification(
-      body: "お知らせ「#{announce.title}」",
-      kind: :announced,
-      sender: announce.user,
-      receiver:,
-      link: Rails.application.routes.url_helpers.polymorphic_path(announce),
-      read: false
-    )
-  end
-
   def retired(params = {})
     params.merge!(@params)
     sender = params[:sender]
@@ -282,7 +267,7 @@ class ActivityNotifier < ApplicationNotifier
     receiver = params[:receiver]
 
     notification(
-      body: "#{product.user.login_name}さんの「#{product.practice.title}」の提出物が更新されました",
+      body: "#{product.user.login_name}さんの「#{product.practice.title}」の提出物が更新されました。",
       kind: :product_update,
       receiver:,
       sender: product.sender,

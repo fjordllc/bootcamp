@@ -15,7 +15,8 @@ header.page-header
         .form__items
           .form-item.is-inline-md-up
             = label_tag :checker_id, '担当メンター', class: 'a-form-label'
-            = select_tag :checker_id, options_from_collection_for_select(User.mentor.order(:login_name), :id, :login_name, selected: params[:checker_id]), include_blank: '全ての提出物を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
+            = select_tag :checker_id, options_from_collection_for_select(User.mentor.order(:login_name), :id, :login_name, selected: params[:checker_id]),
+              include_blank: '全ての提出物を表示', onchange: 'this.form.submit()', id: 'js-choices-single-select'
   hr.a-border
 .page-body
   .container.is-md
