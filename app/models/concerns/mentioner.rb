@@ -54,14 +54,15 @@ module Mentioner
   end
 
   def find_users_from_mentions(mentions)
-    names = extract_login_names_from_mentions(mentions)
+    mentionable_without_code = mentionable.gsub(/```.*?```|`.*?`/m, '')
+    names = extract_login_names_from_mentions(mentions, mentionable_without_code)
     names.concat(User.mentor.map(&:login_name)) if names.include?('mentor')
     # find_users_from_login_names 内のwhereで重複は削除する
     find_users_from_login_names(names)
   end
 
-  def extract_login_names_from_mentions(mentions)
-    mentions.map { |s| s.gsub(/@/, '') if mention_without_code?(s) }
+  def extract_login_names_from_mentions(mentions, mentionable_without_code)
+    mentions.map { |s| s.gsub(/@/, '') if mentionable_without_code.include?(s) }
   end
 
   def target_of_comment(commentable_class, commentable)
@@ -72,10 +73,5 @@ module Mentioner
       Page: "Docs「#{commentable.title}」",
       Announcement: "お知らせ「#{commentable.title}」"
     }[:"#{commentable_class}"]
-  end
-
-  def mention_without_code?(mention)
-    body_without_code = mentionable.gsub(/```.*?```|`.*?`/m, '')
-    body_without_code.include?(mention)
   end
 end
