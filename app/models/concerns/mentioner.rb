@@ -54,14 +54,14 @@ module Mentioner
   end
 
   def find_users_from_mentions(mentions)
-    mentionable_without_code = mentionable.gsub(/```.*?```|`.*?`/m, '')
-    names = extract_login_names_from_mentions(mentions, mentionable_without_code)
+    names = extract_login_names_from_mentions(mentions)
     names.concat(User.mentor.map(&:login_name)) if names.include?('mentor')
     # find_users_from_login_names 内のwhereで重複は削除する
     find_users_from_login_names(names)
   end
 
-  def extract_login_names_from_mentions(mentions, mentionable_without_code)
+  def extract_login_names_from_mentions(mentions)
+    mentionable_without_code = mentionable.gsub(/```.*?```|`.*?`/m, '')
     mentions.map { |s| s.gsub(/@/, '') if mentionable_without_code.include?(s) }
   end
 
