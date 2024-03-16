@@ -50,4 +50,15 @@ class UserDecoratorTest < ActiveDecoratorTestCase
       assert_nil @student_user.hibernation_days
     end
   end
+
+  test '#niconico_calendar' do
+    start_date = Date.new(2024, 3, 1)
+    last_date = Date.new(2024, 3, 31)
+    dates_and_reports = (start_date..last_date).map do |date|
+      { report: nil, date:, emotion: nil }
+    end
+    calendar = niconico_calendar(dates_and_reports)
+
+    assert_equal(5, calendar.first.count { |set| set[:date].nil? })
+  end
 end
