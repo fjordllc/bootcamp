@@ -4,7 +4,6 @@ class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
-  attr_accessor :skip_mentor_public_profile_validation
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
@@ -229,7 +228,7 @@ class User < ApplicationRecord
               }
   end
 
-  with_options presence: true, if: -> { !skip_mentor_public_profile_validation && mentor? } do
+  with_options presence: true, if: -> { validation_context != :admin_user_edit && mentor? } do
     validates :profile_image
     validates :profile_name
     validates :profile_job
