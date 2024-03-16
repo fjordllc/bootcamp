@@ -135,6 +135,12 @@ class User < ApplicationRecord
            source: :practice,
            dependent: :destroy
 
+  has_many :practices,
+           through: :skip_practices
+
+  has_many :skip_practices,
+           dependent: :destroy
+
   has_many :active_learnings,
            -> { where(status: 'started') },
            class_name: 'Learning',
