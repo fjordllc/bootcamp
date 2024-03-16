@@ -21,12 +21,11 @@ class Admin::UsersController < AdminController
   def edit; end
 
   def update
-    # Adminが他のユーザーにメンター権限を付与した際、メンター用公開プロフィールのバリデーションをスキップ
-    if current_user.admin? && (current_user != @user)
-      @user.skip_mentor_public_profile_validation = true
-    end
+    is_admin_editing_other_user = current_user.admin? && current_user != @user
 
-    if @user.update(user_params)
+    @user.assign_attributes(user_params)
+
+    if @user.save(context: is_admin_editing_other_user ? :admin_user_edit : nil)
       destroy_subscription(@user)
       Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
