@@ -302,10 +302,14 @@ class Notification::ReportsTest < ApplicationSystemTestCase
                                            ')
     end
 
-    all('.learning-time')[0].all('.learning-time__started-at select')[0].select('07')
-    all('.learning-time')[0].all('.learning-time__started-at select')[1].select('30')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[0].select('08')
-    all('.learning-time')[0].all('.learning-time__finished-at select')[1].select('30')
+    within('.learning-time__started-at') do
+      select '07'
+      select '30'
+    end
+    within('.learning-time__finished-at') do
+      select '08'
+      select '30'
+    end
 
     click_button '提出'
     logout
