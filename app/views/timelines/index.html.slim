@@ -1,16 +1,17 @@
 h1.page-header__title 分報
 
-- @timelines.each do |timeline|
-  = @user.name + " : "
-  = timeline.created_at.strftime('%Y/%m/%d %H:%M')
-  = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
-  p
-  .a-long-text.is-md.js-markdown-view
-    = timeline.context
-    hr.a-border
-  p
-  hr.a-border-tint
-    = render 'reactions/reactions', reactionable: timeline
+.card-list.has-scroll
+  - @timelines.each do |timeline|
+    = @user.name + " : "
+    = timeline.created_at.strftime('%Y/%m/%d %H:%M')
+    = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
+    p
+    .a-long-text.is-md.js-markdown-view
+      = timeline.context
+      hr.a-border
+    p
+    hr.a-border-tint
+      = render 'reactions/reactions', reactionable: timeline
 
 = form_with model: @timeline do |f|
   = f.text_area :context,
