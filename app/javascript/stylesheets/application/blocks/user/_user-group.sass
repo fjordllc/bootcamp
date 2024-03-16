@@ -4,6 +4,7 @@
     border-top: solid 1px var(--border-tint)
 
 .user-group__title
+  position: relative
   +media-breakpoint-up(md)
     font-size: 1.125rem
   +media-breakpoint-down(sm)
@@ -12,9 +13,12 @@
 .user-group__title-link
   text-decoration: none
   color: var(--main-text)
+  display: flex
   +media-breakpoint-up(md)
-    display: flex
     align-items: flex-end
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    gap: .5rem
   .user-group__title.is-inline &
     display: flex
     align-items: flex-end
@@ -41,8 +45,9 @@
   font-weight: 400
   color: var(--muted-text)
 
-.user-group__count
-  font-size: .75rem
-  font-weight: 400
-  color: var(--muted-text)
-  margin-left: .25rem
+.user-group__counts
+  +media-breakpoint-up(md)
+    +position(absolute, right 0, top -.5rem)
+  .card-counts__item
+    width: 4rem
+    color: var(--default-text)

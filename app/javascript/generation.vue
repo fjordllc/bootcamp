@@ -9,8 +9,27 @@
           | {{ generation.number }}期生
         .user-group__date
           | {{ dateFormat(generation.start_date) }} ~ {{ dateFormat(generation.end_date) }}
-        .user-group__status-count.is-admin-and-mentor(v-if="isAdminOrMentor() && target === 'all'") 
-          |  現役生 {{ generation.students_and_trainees_count }}人  卒業生 {{ generation.graduates_count }}人  退会者 {{ generation.retirees_count }}人 
+        .user-group__counts.is-only-mentor(v-if="isAdminOrMentor() && target === 'all'")
+          .card-counts
+            .card-counts__items
+              .card-counts__item
+                .card-counts__item-inner
+                  .card-counts__item-label
+                    | 現役生
+                  .card-counts__item-value
+                    | {{ generation.students_and_trainees_count }}
+              .card-counts__item
+                .card-counts__item-inner
+                  .card-counts__item-label
+                    | 卒業生
+                  .card-counts__item-value
+                    | {{ generation.graduates_count }}
+              .card-counts__item
+                .card-counts__item-inner
+                  .card-counts__item-label
+                    | 退会者
+                  .card-counts__item-value
+                    | {{ generation.retirees_count }}
   .a-user-icons
     .a-user-icons__items
       .a-user-icons__item(v-for='user in users', :key='user.id')
