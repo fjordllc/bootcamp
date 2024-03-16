@@ -143,8 +143,6 @@
               = link_to 'https://github.com/orgs/fjordllc/people', target: '_blank', rel: 'noopener' do
                 | GitHub設定
 
-
-
   - if (admin_login? && user.current_student?) || user.trainee?
     .form__items.js-training-info-block
       h3.form__items-title 研修情報
@@ -155,41 +153,41 @@
         .form-item
           = f.label :training_ends_on, class: 'a-form-label' do
             | スキップするプラクティス
-          // 選択したコースに紐づくカテゴリーを表示させる。
-          - 10.times do |n|
-            .skip-practices
-              input.a-toggle-checkbox(type='checkbox' id="category-#{n}")
-              .skip-practices__inner
-                label.skip-practices__header(for='category-#{n}')
-                  .skip-practices__start
-                    .skip-practices__category-name
-                      | カテゴリー#{n}
-                    .skip-practices__count
-                      | (1)
-                      // ↑チェックしたプラクティスの数を表示
-                  .skip-practices__end
-                    .skip-practices__category-angle-icon
-                      i.fa-regular.fa-angle-down
-                .skip-practices__body
-                  - checkbox_id = SecureRandom.hex(10)
-                  .checkboxes
-                    .checkboxes__items
-                      .checkboxes__item.is-sm
-                        input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_aaa")
-                        label(for="#{checkbox_id}_aaa")
-                          | プラクティスああああああ
-                      .checkboxes__item.is-sm
-                        input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_bbb")
-                        label(for="#{checkbox_id}_bbb")
-                          | プラクティスいいいい
-                      .checkboxes__item.is-sm
-                        input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_ccc")
-                        label(for="#{checkbox_id}_ccc")
-                          | プラクティスううう
-                      .checkboxes__item.is-sm
-                        input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_ddd")
-                        label(for="#{checkbox_id}_ddd")
-                          | プラクティスえええええ
+            // 選択したコースに紐づくカテゴリーを表示させる。
+            - 10.times do |n|
+              .skip-practices
+                input.a-toggle-checkbox(type='checkbox' id="category-#{n}")
+                .skip-practices__inner
+                  label.skip-practices__header(for='category-#{n}')
+                    .skip-practices__start
+                      .skip-practices__category-name
+                        | カテゴリー#{n}
+                      .skip-practices__count
+                        | (1)
+                        // ↑チェックしたプラクティスの数を表示
+                    .skip-practices__end
+                      .skip-practices__category-angle-icon
+                        i.fa-regular.fa-angle-down
+                  .skip-practices__body
+                    - checkbox_id = SecureRandom.hex(10)
+                    .checkboxes
+                      .checkboxes__items
+                        .checkboxes__item.is-sm
+                          input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_aaa")
+                          label(for="#{checkbox_id}_aaa")
+                            | プラクティスああああああ
+                        .checkboxes__item.is-sm
+                          input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_bbb")
+                          label(for="#{checkbox_id}_bbb")
+                            | プラクティスいいいい
+                        .checkboxes__item.is-sm
+                          input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_ccc")
+                          label(for="#{checkbox_id}_ccc")
+                            | プラクティスううう
+                        .checkboxes__item.is-sm
+                          input.a-toggle-checkbox(type='checkbox' id="#{checkbox_id}_ddd")
+                          label(for="#{checkbox_id}_ddd")
+                            | プラクティスえええええ
 
   - if from == :new
     .form__items
