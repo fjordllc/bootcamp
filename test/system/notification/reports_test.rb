@@ -287,7 +287,6 @@ class Notification::ReportsTest < ApplicationSystemTestCase
   end
 
   test 'コードブロック、インラインコードの中でメンションをしても通知が飛ばない' do
-    # 他のテストの通知に影響を受けないよう、テスト実行前に通知を削除する
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
