@@ -1,0 +1,9 @@
+= form_with model: timeline do |f|
+  = f.text_area :context,
+    size: '50%',
+    class: 'a-text-input',
+    placeholder: "つぶやく",
+    data: { 'preview': '.js-preview', 'input': '.file-input' }
+  p
+  = f.submit "投稿", class: 'a-button is-lg is-primary is-block'
+end
