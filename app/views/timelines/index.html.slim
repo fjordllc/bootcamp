@@ -2,9 +2,9 @@ h1.page-header__title 分報
 
 .card-list.has-scroll
   - @timelines.each do |timeline|
+    = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
     = @user.name + " : "
     = timeline.created_at.strftime('%Y/%m/%d %H:%M')
-    = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
     p
     .a-long-text.is-md.js-markdown-view
       = timeline.context
