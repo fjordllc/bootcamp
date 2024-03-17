@@ -161,12 +161,14 @@ const UserIcons = ({ users }) => {
           key={user.url}
           href={user.url}
           className="card-list-item__user-icons-icon">
-          <img
-            title={user.icon_title}
-            alt={user.icon_title}
-            src={user.avatar_url}
-            className={`a-user-icon is-${user.primary_role}`}
-          />
+          <span className={`a-user-role is-${user.primary_role}`}>
+            <img
+              title={user.icon_title}
+              alt={user.icon_title}
+              src={user.avatar_url}
+              className="a-user-icon"
+            />
+          </span>
         </a>
       ))}
     </div>
