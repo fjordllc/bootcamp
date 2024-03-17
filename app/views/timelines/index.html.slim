@@ -13,4 +13,5 @@ h1.page-header__title 分報
     hr.a-border-tint
       = render 'reactions/reactions', reactionable: timeline
 
-= render 'form', timeline: @timeline
+- if current_user == @user
+  = render 'form', timeline: @timeline

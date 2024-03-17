@@ -13,7 +13,7 @@ class TimelinesController < ApplicationController
 
   def create
     @timeline = Timeline.new(timeline_params)
-    if @timeline.save
+    if current_user == @user && @timeline.save
       flash[:notice] = 'ツイートを送信しました。'
     else
       flash[:alert] = 'ツイートに失敗しました。'
