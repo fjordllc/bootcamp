@@ -17,7 +17,11 @@ export default function ListComment({ report }) {
               <div className="card-list-item__user-icons">
                 {report.comments.map((comment) => {
                   return (
-                    <CommentUserIcon comment={comment} key={comment.user_id} />
+                    <CommentUserIcon
+                      comment={comment}
+                      key={comment.user_id}
+                      report={report}
+                    />
                   )
                 })}
               </div>
