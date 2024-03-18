@@ -14,9 +14,10 @@
         = t("activerecord.enums.learning.status.#{learning_status}")
 
   .category-practices-item__learning-time.is-only-mentor
-  - learning_minute_statistic = practice.learning_minute_statistic
-    | 所要時間の目安: #{learning_minute_statistic.median}
-    | （平均: #{learning_minute_statistic.average}）
+    - unless practice.learning_minute_statistic.nil?
+      - time = practice.learning_minute_statistic
+      | 所要時間の目安: #{convert_to_hour_minute(time.median)}
+      |  （平均: #{convert_to_hour_minute(time.average)}）
   - if practice.started_students.present?
     .a-user-icons
       .a-user-icons__items
