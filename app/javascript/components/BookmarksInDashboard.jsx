@@ -35,7 +35,6 @@ export default function BookmarksInDashboard(props) {
               key={bookmark.id}
               bookmark={bookmark}
               editable={editable}
-              setEditable={setEditable}
               bookmarksUrl={bookmarksUrl}
             />
           )
@@ -76,7 +75,7 @@ const EditButton = ({ editable, setEditable }) => {
   )
 }
 
-const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
+const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
   const date = bookmark.reported_on || bookmark.created_at
   const createdAt = Bootcamp.iso8601ToFullTime(date)
   const { mutate } = useSWRConfig()
