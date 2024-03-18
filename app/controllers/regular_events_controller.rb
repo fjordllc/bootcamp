@@ -4,7 +4,7 @@ class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
-    @upcoming_events = UpcomingEvent.fetch(:today, :tomorrow, :day_after_tomorrow)
+    @upcoming_events_groups = UpcomingEvent.fetch(:today, :tomorrow, :day_after_tomorrow)
   end
 
   def show
