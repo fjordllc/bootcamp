@@ -3,6 +3,7 @@ class Movie < ApplicationRecord
 
   belongs_to :user
   belongs_to :practice, optional: true
+  has_one_attached :thumbnail
 
   validates :user, presence: true
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }

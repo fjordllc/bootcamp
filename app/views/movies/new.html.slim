@@ -17,7 +17,7 @@ header.page-header
           .form-item
             = f.label :practice, class: 'a-form-label'
             .select-practices
-              = f.select(:practice_id, practice_options(@categories), { include_blank: '関連プラクティスを指定しない' }, { id: 'choices-single-select' })
+              = f.select(:practice_id, practice_options(@categories), { include_blank: '関連プラクティスを指定しない' }, { id: 'js-choices-single-select' })
     .form-item
       .row
         .col-md-6.col-xs-12
