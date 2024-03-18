@@ -371,6 +371,10 @@ ja:
     unchecked_no_replied: 未返信
     unchecked_all: 全て
     campaign: お試し延長
+  invitation_role:
+    adviser: アドバイザー
+    trainee: 研修生
+    mentor: メンター
   watch:
     all: すべて
     true: コメントあり

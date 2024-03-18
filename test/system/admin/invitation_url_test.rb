@@ -25,7 +25,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     find('.js-invitation-company').click
     select(company.name)
     find('.js-invitation-role').click
-    select('メンター')
+    select(I18n.t('invitation_role.mentor'))
     find('.js-invitation-course')
     select(course.title)
     assert_text "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}/users/new?company_id=#{company.id}&course_id=#{course.id}&role=mentor&token=token"
@@ -35,7 +35,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     find('.js-invitation-company').click
     select(company.name)
     find('.js-invitation-role').click
-    select('研修生')
+    select(I18n.t('invitation_role.trainee'))
     find('.js-invitation-course')
     select(course.title)
     assert_text "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}/users/new?company_id=#{company.id}&course_id=#{course.id}&role=trainee&token=token"
@@ -45,7 +45,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     find('.js-invitation-company').click
     select(company.name)
     find('.js-invitation-role').click
-    select('アドバイザー')
+    select(I18n.t('invitation_role.adviser'))
     find('.js-invitation-course')
     select(course.title)
     assert_text "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}/users/new?company_id=#{company.id}&course_id=#{course.id}&role=adviser&token=token"

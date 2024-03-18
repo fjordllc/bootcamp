@@ -23,9 +23,9 @@ class User < ApplicationRecord
   HIBERNATION_LIMIT = 6.months
 
   INVITATION_ROLES = [
-    ['アドバイザー', :adviser],
-    ['研修生', :trainee],
-    ['メンター', :mentor]
+    [I18n.t('invitation_role.adviser'), :adviser],
+    [I18n.t('invitation_role.trainee'), :trainee],
+    [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
   enum job: {
