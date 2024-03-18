@@ -593,7 +593,7 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
-      avatar.variant(resize_to_limit: AVATAR_SIZE).processed.url
+      avatar.variant(resize_to_limit: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
     else
       image_url default_image_path
     end
@@ -704,14 +704,6 @@ class User < ApplicationRecord
 
   def collegue_trainees
     collegues.students_and_trainees if belongs_company_and_adviser?
-  end
-
-  def rename_avatar_and_strip_exif
-    return unless avatar.attached?
-
-    image = MiniMagick::Image.read(avatar.download)
-    image.strip
-    avatar.attach(io: File.open(image.path), filename: id)
   end
 
   def last_hibernation

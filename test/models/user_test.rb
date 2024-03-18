@@ -558,19 +558,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nil users(:advijirou).collegue_trainees
   end
 
-  test '#rename_avatar_and_strip_exif' do
-    path = Rails.root.join('test/fixtures/files/users/avatars/contain_exif.jpg')
-    user = users(:kimura)
-    user.avatar.attach(io: File.open(path), filename: 'contain_exif.jpg')
-    user.rename_avatar_and_strip_exif
-
-    image = MiniMagick::Image.read(user.avatar.download)
-    assert_empty image.exif
-    assert user.avatar.filename, user.id
-
-    user.avatar.purge
-  end
-
   test '#after_twenty_nine_days_registration?' do
     over29days_registered_student = User.create!(
       login_name: 'thirty',
