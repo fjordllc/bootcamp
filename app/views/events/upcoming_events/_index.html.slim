@@ -5,10 +5,10 @@
         | 近日開催のイベント
     .a-side-nav__body
       - @upcoming_events_groups.each do |events_group|
-        - day_label = I18n.t("days.#{events_group[:day_label]}")
+        - date_label = I18n.t("days.#{events_group[:date_label]}")
         - events = events_group[:events]
-        - holding_date = events_group[:holding_date]
-        = render partial: 'events/upcoming_events/events_group', locals: { day_label: day_label, events: events, holding_date: holding_date }
+        - event_date = events_group[:event_date]
+        = render partial: 'events/upcoming_events/events_group', locals: { date_label: date_label, events: events, event_date: event_date }
 
     hr.a-border
     footer.a-side-nav__footer

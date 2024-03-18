@@ -12,16 +12,16 @@ class UpcomingEvent
     def fetch(*day_symbols)
       day_symbols.map do |day|
         {
-          day_label: day,
+          date_label: day,
           events: public_send("#{day}_events"),
-          holding_date: calc_holding_date(day)
+          event_date: convert_to_date(day)
         }
       end
     end
 
     private
 
-    def calc_holding_date(day)
+    def convert_to_date(day)
       case day
       when :today
         Time.zone.today

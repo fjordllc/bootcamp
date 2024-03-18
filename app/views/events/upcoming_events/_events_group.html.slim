@@ -1,10 +1,10 @@
 .card-list__items
   .card-list__label
-    | #{day_label}開催
+    | #{date_label}開催
   - if events.present?
     - events.each do |event|
-      = render partial: 'events/upcoming_events/event', locals: { event: event, holding_date: holding_date }
+      = render partial: 'events/upcoming_events/event', locals: { event: event, event_date: event_date }
   - else
     .card-list-item
       .card-list-item__empty
-        | #{day_label}開催のイベントはありません。
+        | #{date_label}開催のイベントはありません。
