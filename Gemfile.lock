@@ -528,6 +528,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    streamio-ffmpeg (3.0.2)
+      multi_json (~> 1.8)
     stringio (3.1.0)
     strings (0.2.1)
       strings-ansi (~> 0.2)
@@ -675,6 +677,7 @@ DEPENDENCIES
   sorcery-jwt
   spring
   spring-watcher-listen (~> 2.0.0)
+  streamio-ffmpeg
   stringio (= 3.1.0)
   stripe
   stripe-i18n!
