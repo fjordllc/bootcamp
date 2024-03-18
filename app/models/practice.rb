@@ -184,4 +184,14 @@ class Practice < ApplicationRecord
   def average_minute_per_practice(minute, size)
     minute / size
   end
+
+  def convert_to_hour_minute(time)
+    hour = time / 60
+    minute = (time % 60).round
+    if minute.zero?
+      "#{hour}時間"
+    else
+      "#{hour}時間#{minute}分"
+    end
+  end
 end
