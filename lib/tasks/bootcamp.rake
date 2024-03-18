@@ -2,7 +2,7 @@
 
 require Rails.root.join('config/environment')
 require 'open-uri'
-require "google/cloud/storage"
+require 'google/cloud/storage'
 
 # rubocop:disable Metrics/BlockLength
 namespace :bootcamp do
