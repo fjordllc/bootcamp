@@ -27,6 +27,7 @@ class Practice < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :questions, dependent: :nullify
   has_many :pages, dependent: :nullify
+  has_many :movies
   has_one :learning_minute_statistic, dependent: :destroy
   belongs_to :last_updated_user, class_name: 'User', optional: true
 
