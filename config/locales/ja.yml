@@ -190,7 +190,7 @@ ja:
       movie:
         practice: 関連プラクティス
         title: タイトル
-        description: 本文
+        description: 説明
         tag_list: タグ
         movie_data: 動画データ
       question:
