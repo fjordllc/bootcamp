@@ -168,6 +168,7 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
+  validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
 
   validates :feed_url,
             format: {
