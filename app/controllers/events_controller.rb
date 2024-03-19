@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
-    @upcoming_events_groups = UpcomingEvent.fetch(:today, :tomorrow, :day_after_tomorrow)
+    @upcoming_events_groups = UpcomingEvent.grouping(:today, :tomorrow, :day_after_tomorrow)
   end
 
   def show

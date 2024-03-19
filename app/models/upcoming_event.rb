@@ -10,7 +10,7 @@ class UpcomingEvent
   end
 
   class << self
-    def fetch(*day_symbols)
+    def grouping(*day_symbols)
       day_symbols.map do |day|
         {
           date_label: day,
