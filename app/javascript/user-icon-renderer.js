@@ -20,7 +20,7 @@ export default class {
       const loginName = element.dataset.user
       let imageUrl
       if (process.env.NODE_ENV === 'production') {
-        imageUrl = `https://storage.googleapis.com/rira_test/icon/${loginName}`
+        imageUrl = `https://storage.googleapis.com/${process.env.GCS_BUCKET}/icon/${loginName}`
       } else {
         imageUrl = `/storage/ic/on/icon/${loginName}`
       }
