@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class UpcomingEvent
+  # define class method ".today_events", "tomorrow_events", "day_after_tomorrow_events"
   %i[today tomorrow day_after_tomorrow].each do |day|
-    method_name = "#{day}_events"
-    define_singleton_method(method_name) do
-      (Event.public_send(method_name) + RegularEvent.public_send(method_name)).sort_by { |e| e.start_at.strftime('%H:%M') }
+    method = "#{day}_events"
+    define_singleton_method(method) do
+      (Event.public_send(method) + RegularEvent.public_send(method)).sort_by { |e| e.start_at.strftime('%H:%M') }
     end
   end
 

@@ -9,7 +9,7 @@ class UpcomingEventDecoratorTest < ActiveSupport::TestCase
     @regular_reading = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event4))
   end
 
-  test '#held_on?' do
+  test '#holding?' do
     normal_day = Time.zone.parse('2023-9-17')
     assert @special_event.holding?(normal_day)
     assert @regular_mtg.holding?(normal_day)
