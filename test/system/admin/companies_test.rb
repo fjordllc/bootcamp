@@ -74,7 +74,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
       assert_selector 'td.company-name', text: '【created_at降順確認】二番目に新しい株式会社'
     end
 
-    find('.pagination__item.is-next button.pagination__item-link', match: :first).click
+    all('.pagination__item.is-next button.pagination__item-link')[1].click
 
     within all('.admin-table__item').last do
       assert_selector 'td.company-name', text: '【created_at降順確認】最古株式会社'
