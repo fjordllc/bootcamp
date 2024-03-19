@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module RegularEventDecorator
+  include UpcomingEventDecorator
+
   def holding_cycles
     regular_event_repeat_rules.map do |repeat_rule|
       holding_frequency = RegularEvent::FREQUENCY_LIST.find { |frequency| frequency[1] == repeat_rule.frequency }[0]

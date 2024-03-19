@@ -1,0 +1,46 @@
+- can_hold = event.holding?(event_date)
+- is_job_event = event.is_a?(Event) && event.job_hunting?
+
+.card-list-item
+  .card-list-item__inner
+    - if can_hold
+      .card-list-item__label(class = event.label_style)
+        span(class = event.inner_title_style)
+          == event.inner_title
+    - else
+      .card-list-item__label.is-no-holding.a-icon-label
+        .a-icon-label__icon
+          i.fas.fa-times
+        .a-icon-label__label
+          | 休み
+    .card-list-item__rows
+      .card-list-item__row
+        header.card-list-item-title
+          h2.card-list-item-title__title
+            - text_link_style = can_hold ? 'a-text-link' : 'a-muted-text-link'
+            = link_to event, class: "card-list-item-title__link has-badge #{text_link_style}" do
+              - if event.participants.include?(current_user)
+                span.a-badge.is-xs.is-danger.card-list-item__badge
+                  | 参加
+              span.a-text-link__text
+                = event.title
+      .card-list-item__row
+        .card-list-item-meta
+          .card-list-item-meta__items
+            .card-list-item-meta__item
+              - if can_hold
+                time.a-meta
+                  span.a-meta__label
+                    | 開催日時
+                  span.a-meta__value
+                    = event.translated_holding_date(event_date)
+              - else
+                  .a-meta.is-important
+                    span.a-meta__label
+                      | 注意
+                    span.a-meta__value
+                      = "#{l(event_date, format: :md)}はお休みです。"
+            .card-list-item-meta__item
+              - if is_job_event
+                span.a-badge.is-xs.is-warning
+                  | 就活関連イベント
