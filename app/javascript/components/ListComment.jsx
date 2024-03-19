@@ -2,12 +2,6 @@ import React from 'react'
 import CommentUserIcon from './CommentUserIcon'
 
 export default function ListComment({ report }) {
-  const uniqueComments = Array.from(
-    new Map(
-      report.comments.map((comment) => [comment.user_id, comment])
-    ).values()
-  )
-
   return (
     <>
       <hr className="card-list-item__row-separator"></hr>
@@ -21,7 +15,7 @@ export default function ListComment({ report }) {
             </div>
             <div className="card-list-item-meta__item">
               <div className="card-list-item__user-icons">
-                {uniqueComments.map((comment) => {
+                {report.comments.map((comment) => {
                   return (
                     <CommentUserIcon comment={comment} key={comment.user_id} />
                   )
