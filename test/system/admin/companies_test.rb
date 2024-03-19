@@ -64,14 +64,20 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'companies are ordered by created_at desc' do
     visit_with_auth '/admin/companies', 'komagata'
-    # Reactコンポーネント 'AdminCompanies' が表示されるまで待機
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
     assert_selector "[data-testid='admin-companies']"
-    company_names = all('.admin-table__items .admin-table__item .company-name').map { |td| td.text.strip }.first(3)
-    expected_order = [
-      companies(:company28).name,
-      companies(:company27).name,
-      companies(:company26).name
-    ]
-    assert_equal expected_order, company_names
+    within all('.admin-table__item')[0] do
+      assert_selector 'td.company-name', text: '【created_at降順確認】一番新しい株式会社'
+    end
+
+    within all('.admin-table__item')[1] do
+      assert_selector 'td.company-name', text: '【created_at降順確認】二番目に新しい株式会社'
+    end
+
+    find('.pagination__item.is-next button.pagination__item-link', match: :first).click
+
+    within all('.admin-table__item').last do
+      assert_selector 'td.company-name', text: '【created_at降順確認】最古株式会社'
+    end
   end
 end
