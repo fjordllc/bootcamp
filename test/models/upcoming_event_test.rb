@@ -17,19 +17,11 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
   test '.fetch' do
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
-      today_events, tomorrow_events, day_after_tomorrow_events = UpcomingEvent.fetch(:today, :tomorrow, :day_after_tomorrow)
+      today_events_group = UpcomingEvent.fetch(:today)
 
-      assert_equal :today, today_events[:date_label]
-      assert_equal load_events(:today), today_events[:events]
-      assert_equal Time.zone.today, today_events[:event_date]
-
-      assert_equal :tomorrow, tomorrow_events[:date_label]
-      assert_equal load_events(:tomorrow), tomorrow_events[:events]
-      assert_equal Time.zone.tomorrow, tomorrow_events[:event_date]
-
-      assert_equal :day_after_tomorrow, day_after_tomorrow_events[:date_label]
-      assert_equal load_events(:day_after_tomorrow), day_after_tomorrow_events[:events]
-      assert_equal Time.zone.tomorrow + 1.day, day_after_tomorrow_events[:event_date]
+      assert_equal :today, today_events_group[:date_label]
+      assert_equal load_events(:today), today_events_group[:events]
+      assert_equal Time.zone.today, today_events_group[:event_date]
     end
   end
 
