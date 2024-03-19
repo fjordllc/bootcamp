@@ -163,6 +163,34 @@ class UserTest < ActiveSupport::TestCase
     assert user.save(context: :retire_reason_presence)
   end
 
+  test 'email' do
+    user = users(:kimura)
+    user.email = 'abcdABCD1234@fjord.jp'
+    assert user.valid?
+    user.email = 'abcd.AB-CD_12/34@fjord.jp'
+    assert user.valid?
+    user.email = 'abcdABCD1234@fjord-fjord.jp'
+    assert user.valid?
+    user.email = 'abcdABCD1234.fjord.jp'
+    assert user.invalid?
+    user.email = 'abcd ABCD 1234@fjord.jp'
+    assert user.invalid?
+    user.email = '(abcdABCD1234)@fjord.jp'
+    assert user.invalid?
+    user.email = 'abcd@ABCD@1234@fjord.jp'
+    assert user.invalid?
+    user.email = 'あいうえお@fjord.jp'
+    assert user.invalid?
+    user.email = 'アイウエオ@fjord.jp'
+    assert user.invalid?
+    user.email = '１２３４５@fjord.jp'
+    assert user.invalid?
+    user.email = 'abcdABCD1234@.fjord.jp'
+    assert user.invalid?
+    user.email = 'abcdABCD1234@fjord_fjord.jp'
+    assert user.invalid?
+  end
+
   test 'login_name' do
     user = users(:komagata)
     user.login_name = 'abcdABCD1234'
