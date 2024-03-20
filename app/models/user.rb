@@ -188,7 +188,7 @@ class User < ApplicationRecord
                        message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
-  with_options if: -> { (%i[create update].include? validation_context) || validation_context == :admin_assigning_mentorship } do
+  with_options if: -> { %i[create update admin_assigning_mentorship].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
                              with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
