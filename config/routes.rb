@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
   get "auth/discord/callback", to: "discord_authentications#callback"
-  get 'auth/failure', to: "discord_authentications#failure"
+  get 'auth/failure', to: "user_sessions#failure"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
