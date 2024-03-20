@@ -13,8 +13,4 @@ class DiscordAuthenticationsController < ApplicationController
       redirect_to root_path, alert: 'Discordの連携に失敗しました'
     end
   end
-
-  def failure
-    redirect_to root_path, alert: 'Discord認証をキャンセルしました'
-  end
 end
