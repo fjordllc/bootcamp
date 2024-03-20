@@ -4,7 +4,7 @@ class TimelinesController < ApplicationController
   before_action :set_user
 
   def index
-    @timelines = Timeline.where(user_id: params[:user_id]).all.order(created_at: :desc)
+    @timelines = Timeline.where(user_id: params[:user_id]).order(created_at: :desc)
   end
 
   def new
