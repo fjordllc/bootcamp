@@ -40,5 +40,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     invitationElement.addEventListener('change', updateInvitationURL)
   })
 
-  await updateInvitationURL()
+  window.addEventListener('pageshow', updateInvitationURL)
 })
