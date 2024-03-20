@@ -9,7 +9,7 @@
         p
           | Discord アカウントは登録されています。
     - else
-      = link_to ENV['DISCORD_AUTHENTICATION_URL'], class: 'a-button is-sm is-primary' do
+      = link_to '/auth/discord', class: 'a-button is-sm is-primary', method: :post do
         p
           | Discord アカウントを登録する
       .a-form-help
