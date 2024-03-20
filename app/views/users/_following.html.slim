@@ -1,4 +1,4 @@
-details.following ref='followingDetailsRef'
+details.following id="follow_details#{user.id}"
   - is_following = current_user.following?(user)
   - is_watching = current_user.watching?(user)
   summary.following__summary
