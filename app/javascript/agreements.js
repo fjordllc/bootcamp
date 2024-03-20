@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
       element.addEventListener('click', updateSubmitButtonStateFromCheckbox)
     })
 
-    updateSubmitButtonStateFromCheckbox()
+    window.addEventListener(`pageshow`, updateSubmitButtonStateFromCheckbox)
   }
 })
