@@ -92,7 +92,8 @@ Rails.application.routes.draw do
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
   get "login" => "user_sessions#new", as: :login
   get "auth/github/callback" => "user_sessions#callback"
-  get "discord_authentications/new" => "discord_authentications#new"
+  get "auth/discord/callback", to: "discord_authentications#callback"
+  get 'auth/failure', to: "discord_authentications#failure"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
