@@ -593,11 +593,11 @@ class User < ApplicationRecord
 
     if avatar.attached?
       image_resizer = ImageResizer.new(avatar, resize_side: { width: 120, height: 120 })
-      image_resizer.resize
+      image_resizer.resize.processed.url
     else
       image_url default_image_path
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
     image_url default_image_path
   end
 
