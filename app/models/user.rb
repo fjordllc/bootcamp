@@ -592,18 +592,12 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
-      avatar.blob.analyze unless avatar.blob.analyzed?
-
-      blob = avatar.blob
-      width = blob.metadata['width']
-      height = blob.metadata['height']
-
-      avatar_size = fetch_avatar_size(width, height)
-      avatar.variant(resize_to_fit: avatar_size[:fit], crop: [*avatar_size[:crop], 120, 120]).processed.url
+      image_resizer = ImageResizer.new(avatar, resize_side: { width: 120, height: 120 })
+      image_resizer.resize
     else
       image_url default_image_path
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
     image_url default_image_path
   end
 
@@ -801,35 +795,5 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
-  end
-
-  def fetch_avatar_size(width, height)
-    aspect_ratio = width.to_f / height
-    if aspect_ratio > 1
-      # 横長の画像の場合
-      calculate_avatar_size_fit_and_crop(width, height, :width)
-    else
-      # 縦長の画像の場合
-      calculate_avatar_size_fit_and_crop(width, height, :height)
-    end
-  end
-
-  def calculate_avatar_size_fit_and_crop(width, height, long_side)
-    avatar_size = {}
-    case long_side
-    when :width
-      resized_width = (120 * width.to_f / height).ceil
-      avatar_size[:fit] = [resized_width, 120]
-
-      cut_out_start_point = (resized_width - 120) / 2
-      avatar_size[:crop] = [cut_out_start_point.floor, 0]
-    when :height
-      resized_height = (120 * height.to_f / width).ceil
-      avatar_size[:fit] = [120, resized_height]
-
-      cut_out_start_point = (resized_height - 120) / 2
-      avatar_size[:crop] = [0, cut_out_start_point.floor]
-    end
-    avatar_size
   end
 end
