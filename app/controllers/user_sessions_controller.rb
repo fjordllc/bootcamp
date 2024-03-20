@@ -63,4 +63,8 @@ class UserSessionsController < ApplicationController
     redirect_to root_path
   end
   # rubocop:enable Metrics/MethodLength
+
+  def failure
+    redirect_to root_path, alert: 'キャンセルしました'
+  end
 end
