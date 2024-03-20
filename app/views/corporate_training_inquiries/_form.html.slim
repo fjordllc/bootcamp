@@ -1,5 +1,5 @@
-= form_with model: corporate_training, url: corporate_training_path, method: :post, local: true do |f|
-  = render 'errors', object: corporate_training
+= form_with model: corporate_training_inquiry, url: corporate_training_inquiry_path, method: :post, local: true do |f|
+  = render 'errors', object: corporate_training_inquiry
   .form__items
     .form-item
       = f.label :name, class: 'a-form-label is-required'
@@ -49,4 +49,4 @@
         li.form-actions__item.is-main
           = f.submit '送信', class: 'a-button is-lg is-primary is-block'
 
-  = recaptcha_v3(action: 'corporate_training', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?
+  = recaptcha_v3(action: 'corporate_training_inquiry', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?

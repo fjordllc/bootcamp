@@ -2,9 +2,9 @@
 
 require 'test_helper'
 
-class CorporateTrainingMailerTest < ActionMailer::TestCase
+class CorporateTrainingInquiryMailerTest < ActionMailer::TestCase
   test 'incoming' do
-    corporate_training = CorporateTraining.new(
+    corporate_training_inquiry = CorporateTrainingInquiry.new(
       company_name: '株式会社ロッカ',
       name: '駒形真幸',
       email: 'komagata@example.com',
@@ -16,7 +16,7 @@ class CorporateTrainingMailerTest < ActionMailer::TestCase
       how_did_you_hear: 'インターネットで知った',
       additional_information: 'よろしくお願いします。'
     )
-    mail = CorporateTrainingMailer.incoming(corporate_training)
+    mail = CorporateTrainingInquiryMailer.incoming(corporate_training_inquiry)
     assert_equal '[FBC] 企業研修の申し込み', mail.subject
     assert_equal ['info@lokka.jp'], mail.to
     assert_equal ['noreply@bootcamp.fjord.jp'], mail.from
