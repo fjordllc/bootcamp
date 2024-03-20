@@ -46,6 +46,20 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
     assert_not user.student_or_trainee?
   end
 
+  test '#call creates times_url' do
+    user = users(:hajime)
+    assert_nil user.discord_profile.times_id
+    assert_nil user.discord_profile.times_url
+
+    Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
+      TimesChannelCreator.new.call({ user: })
+    end
+
+    assert_equal '1234567890123456789', user.discord_profile.times_id
+    expected_url = "https://discord.com/channels/#{ENV['DISCORD_GUILD_ID']}/1234567890123456789"
+    assert_equal expected_url, user.discord_profile.times_url
+  end
+
   class ValidTimesChannel
     def save
       true
