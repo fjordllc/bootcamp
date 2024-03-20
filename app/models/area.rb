@@ -66,7 +66,7 @@ class Area
     def country_subdivision_pairs
       User
         .select('country_code, subdivision_code')
-        .where.not(subdivision_code: nil)
+        .where.not(country_code: nil, subdivision_code: nil)
         .pluck(:country_code, :subdivision_code)
     end
 
