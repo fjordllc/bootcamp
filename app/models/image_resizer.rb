@@ -9,9 +9,7 @@ class ImageResizer
   def resize
     @image_side = fetch_image_side
     resize_size = fetch_resize_size_fit_and_crop
-    @attachment.variant(resize_to_fit: resize_size[:fit], crop: [*resize_size[:crop], @resize_side[:width], @resize_side[:height]]).processed.url
-  rescue Vips::Error
-    image_url default_image_path
+    @attachment.variant(resize_to_fit: resize_size[:fit], crop: [*resize_size[:crop], @resize_side[:width], @resize_side[:height]])
   end
 
   private
