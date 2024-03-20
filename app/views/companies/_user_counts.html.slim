@@ -31,5 +31,4 @@
           dt.card-counts__item-label
             | 管理者
           dd.card-counts__item-value
-            - if users.admins.present?
-              = link_to_company_users_path(company, target: 'admins')
+            = link_to_company_users_path(company, target: 'admins')
