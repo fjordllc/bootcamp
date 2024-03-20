@@ -7,17 +7,25 @@ class UpcomingEventDecoratorTest < ActiveSupport::TestCase
     @special_event = ActiveDecorator::Decorator.instance.decorate(events(:event1))
     @regular_mtg = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event1))
     @regular_reading = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event4))
+    @national_holiday = Time.zone.parse('2023-1-1')
+    # 金・土・日のどれか
+    @non_national_holiday = [Time.zone.parse('2023-9-8'), Time.zone.parse('2023-9-9'), Time.zone.parse('2023-9-10')].sample
   end
 
-  test '#holding?' do
-    normal_day = Time.zone.parse('2023-9-17')
-    assert @special_event.holding?(normal_day)
-    assert @regular_mtg.holding?(normal_day)
+  test '#holding? on non national holiday always be true' do
+    assert @special_event.holding?(@non_national_holiday)
+    assert @regular_mtg.holding?(@non_national_holiday)
+    assert @regular_reading.holding?(@non_national_holiday)
+  end
 
-    holiday = Time.zone.parse('2023-9-18')
-    assert @special_event.holding?(holiday)
-    assert_not @regular_mtg.holding?(holiday)
-    assert @regular_reading.holding?(holiday)
+  test 'special event #holding? always be true' do
+    assert @special_event.holding?(@national_holiday)
+    assert @special_event.holding?(@non_national_holiday)
+  end
+
+  test 'regular event #holding? depends on the rule' do
+    assert_not @regular_mtg.holding?(@national_holiday)
+    assert @regular_reading.holding?(@non_national_holiday)
   end
 
   test '#label_style' do

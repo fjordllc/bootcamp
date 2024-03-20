@@ -20,10 +20,4 @@ module RegularEventDecorator
       "次回の開催日は #{l next_event_date} です"
     end
   end
-
-  def holding?(date)
-    return true unless HolidayJp.holiday?(date)
-
-    hold_national_holiday
-  end
 end

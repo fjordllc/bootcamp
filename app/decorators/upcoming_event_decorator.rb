@@ -2,7 +2,14 @@
 
 module UpcomingEventDecorator
   def holding?(date)
-    true unless HolidayJp.holiday?(date)
+    return true unless HolidayJp.holiday?(date)
+
+    case self
+    when Event
+      true
+    when RegularEvent
+      hold_national_holiday
+    end
   end
 
   def label_style
