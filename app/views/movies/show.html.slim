@@ -1,1 +1,67 @@
-h1 動画詳細ページ予定地
+- title '動画'
+- set_meta_tags description: '動画「#{@movie.title}」ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-main-header__start
+        h1.page-header__title
+          = title
+hr.a-border
+
+header.page-content-header
+  .page-content-header__end
+    .page-content-header__row
+      - if @movie.practice_id.present?
+        .page-content-header__before-title
+          = link_to @movie.practice, class: 'a-category-link' do
+            = @movie.practice.title
+      h1.page-content-header__title
+        | #{@movie.title}
+
+.page-body
+  .page-body
+    .container.is-md
+      .doc.page-content
+        .page-content-header__row
+          .page-content-header-metas
+            .page-content-header-metas__start
+              .page-content-header-metas
+                  .page-content-header-metas__meta
+                    .a-meta.is-creator
+                      span.a-meta__label
+                        | 公開
+                      .a-meta__value
+                        time(datetime="#{@movie.created_at.to_datetime}")
+                          | #{l @movie.created_at}
+                        = render 'users/icon',
+                          created_at: @movie.created_at,
+                          user: @movie.user,
+                          link_class: 'thread-header__user-icon-link',
+                          image_class: 'thread-header__user-icon'
+                        = link_to @movie.user, class: 'a-user-name' do
+                          | #{@movie.user.login_name}
+
+  .page-content-header__row
+    .page-content-header__tags
+      = react_component('Tags/Tags', { tagsInitialValue: @movie.tag_list.join(',').to_s,
+                                       tagsParamName: '@movie[tag_list]',
+                                       tagsInputId: 'movie_tag_list',
+                                       tagsType: 'Movie',
+                                       tagsTypeId: @movie.id.to_s })
+
+
+
+      .a-card
+        .card-body
+          .card__description
+            .a-long-text.is-md.js-markdown-view
+              = @movie.description
+      .a-card
+        .card-body
+          = video_tag url_for(@movie.movie_data.blob), controls: true
+
+      .page-content-prev-next
+        .page-content-prev-next__item
+          = link_to :movies, class: 'page-content-prev-next__item-link is-index' do
+            | 一覧に戻る
