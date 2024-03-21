@@ -7,7 +7,7 @@ class API::FollowingsController < API::BaseController
     user = User.find(params[:id])
     watch = params[:watch] == 'true'
     if current_user.follow(user, watch:)
-      render json: {}
+      head :ok
     else
       head :bad_request
     end
@@ -17,7 +17,7 @@ class API::FollowingsController < API::BaseController
     user = User.find(params[:id])
     watch = params[:watch] == 'true'
     if current_user.change_watching(user, watch)
-      render json: {}
+      head :ok
     else
       head :bad_request
     end
@@ -26,7 +26,7 @@ class API::FollowingsController < API::BaseController
   def destroy
     user = User.find(params[:id])
     if current_user.unfollow(user)
-      render json: {}
+      head :ok
     else
       head :bad_request
     end
