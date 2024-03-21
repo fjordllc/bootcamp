@@ -9,7 +9,8 @@
           | {{ generation.number }}期生
         .user-group__date
           | {{ dateFormat(generation.start_date) }} ~ {{ dateFormat(generation.end_date) }}
-        .user-group__counts.is-only-mentor(v-if="isAdminOrMentor() && target === 'all'")
+        .user-group__counts.is-only-mentor(
+          v-if='isAdminOrMentor() && target === "all"')
           .card-counts
             .card-counts__items
               .card-counts__item
@@ -108,8 +109,8 @@ export default {
     },
     isAdminOrMentor() {
       return (
-        this.currentUser.roles.includes("admin") ||
-        this.currentUser.roles.includes("mentor")
+        this.currentUser.roles.includes('admin') ||
+        this.currentUser.roles.includes('mentor')
       )
     }
   }

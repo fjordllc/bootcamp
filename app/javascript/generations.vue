@@ -14,7 +14,7 @@
       :key='generation.number',
       :generation='generation',
       :target='target',
-      :currentUser = 'currentUser')
+      :currentUser='currentUser')
   nav.pagination(v-if='totalPages > 1')
     pager(v-bind='pagerProps')
 </template>

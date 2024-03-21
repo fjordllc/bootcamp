@@ -162,7 +162,12 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_text '期生別（全員）'
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
-      assert_text '現役生 14人 卒業生 2人 退会者 2人'
+      assert_selector '.card-counts__item-label', text: '現役生'
+      assert_selector '.card-counts__item-value', text: 14
+      assert_selector '.card-counts__item-label', text: '卒業生'
+      assert_selector '.card-counts__item-value', text: 2
+      assert_selector '.card-counts__item-label', text: '退会者'
+      assert_selector '.card-counts__item-value', text: 2
     end
   end
 end
