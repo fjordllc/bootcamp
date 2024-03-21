@@ -18,14 +18,9 @@ export default class {
 
     const promises = Array.from(elements).map(async (element) => {
       const loginName = element.dataset.user
-      let imageUrl
-      if (process.env.NODE_ENV === 'production') {
-        imageUrl = `https://storage.googleapis.com/${
-          process.env.GCS_BUCKET
-        }/icon/${encodeURIComponent(loginName)}`
-      } else {
-        imageUrl = `/storage/ic/on/icon/${encodeURIComponent(loginName)}`
-      }
+      const imageUrl = `${process.env.ICON_DIRECTORY}${encodeURIComponent(
+        loginName
+      )}`
 
       try {
         await this._loadImage(imageUrl)
