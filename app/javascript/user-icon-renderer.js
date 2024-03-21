@@ -20,9 +20,11 @@ export default class {
       const loginName = element.dataset.user
       let imageUrl
       if (process.env.NODE_ENV === 'production') {
-        imageUrl = `https://storage.googleapis.com/${process.env.GCS_BUCKET}/icon/${loginName}`
+        imageUrl = `https://storage.googleapis.com/${
+          process.env.GCS_BUCKET
+        }/icon/${encodeURIComponent(loginName)}`
       } else {
-        imageUrl = `/storage/ic/on/icon/${loginName}`
+        imageUrl = `/storage/ic/on/icon/${encodeURIComponent(loginName)}`
       }
 
       try {
