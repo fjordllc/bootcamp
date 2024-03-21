@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const generations = document.querySelector(selector)
   if (generations) {
     const target = generations.getAttribute('data-target')
-    const currentUserId = generations.getAttribute('data-current-user-id:number')
+    const currentUserId = generations.getAttribute(
+      'data-current-user-id:number'
+    )
     new Vue({
       render: (h) =>
         h(Generations, {
