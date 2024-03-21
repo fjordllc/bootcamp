@@ -5,7 +5,7 @@ class AvatarController < ApplicationController
 
   def show
     filename = params[:filename]
-    path = Rails.root.join('storage', 'ic', 'on', 'icon', filename)
+    path = filename.match?(/\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i) ? Rails.root.join('storage', 'ic', 'on', 'icon', filename) : nil
 
     if File.file?(path)
       send_file path, disposition: 'inline'
