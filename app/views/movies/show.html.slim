@@ -7,6 +7,15 @@ header.page-header
       .page-main-header__start
         h1.page-header__title
           = title
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to [:new, :movie], class: 'a-button is-md is-secondary is-block' do
+                i.fa-regular.fa-plus
+                | 動画を追加
+            li.page-header-actions__item
+              = link_to :movies, class: 'a-button is-md is-secondary is-block is-back' do
+                | 動画
 hr.a-border
 
 header.page-content-header
