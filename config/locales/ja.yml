@@ -42,6 +42,7 @@ ja:
       book: 参考書籍
       regular_event: 定期イベント
       request_retirement: 退会申請
+      movie: 動画
     attributes:
       user:
         login_name: アカウント
