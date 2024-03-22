@@ -185,13 +185,13 @@ class Practice < ApplicationRecord
     minute / size
   end
 
-  def convert_to_hour_minute(time)
-    hour = time / 60
-    minute = (time % 60).round
-    if minute.zero?
-      "#{hour}時間"
+  def convert_to_hour_minute(learning_minute_statistic)
+    converted_hour = learning_minute_statistic / 60
+    converted_minute = (learning_minute_statistic % 60).round
+    if converted_minute.zero?
+      "#{converted_hour}時間"
     else
-      "#{hour}時間#{minute}分"
+      "#{converted_hour}時間#{converted_minute}分"
     end
   end
 end
