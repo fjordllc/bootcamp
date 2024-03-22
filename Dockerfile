@@ -20,7 +20,7 @@ RUN apk add --no-cache \
       cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # libvips
-RUN apk add --no-cache vips-dev orc-dev bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
+RUN apk add --no-cache vips-dev vips-heif orc-dev bash pngcrush optipng=0.7.8-r0 ghostscript-fonts
 
 # Install npm packages
 COPY package.json yarn.lock ./
