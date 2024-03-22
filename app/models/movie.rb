@@ -1,5 +1,11 @@
 class Movie < ApplicationRecord
+  include Searchable
+  include WithAvatar
   include Taggable
+  include Reactionable
+  include Commentable
+  include Watchable
+  include Bookmarkable
 
   belongs_to :user
   belongs_to :practice, optional: true
