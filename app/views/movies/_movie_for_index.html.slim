@@ -2,10 +2,7 @@
   .thumbnail-card.a-card
     .thumbnail-card__inner
       .thumbnail-card__row
-        - if movie.thumbnail.attached?
-          = image_tag movie.thumbnail.variant(resize_to_limit: [1200, 630]), class: 'thumbnail-card__image'
-        - else
-          = image_tag('work-blank.svg', class: 'thumbnail-card__image')
+        = image_tag movie.thumbnail.variant(resize_to_limit: [1200, 630]), class: 'thumbnail-card__image'
       .thumbnail-card__row
         h2.thumbnail-card__title
           = link_to movie, class: 'movie-item__image-link' do
@@ -22,5 +19,5 @@
                 = link_to movie.user.name, user_path(movie.user), class: 'a-user-name'
       .thumbnail-card__metas
           .thumbnail-card__meta
-            .thumbnail-card__date
-              = l(movie.created_at)
+            .thumbnail-card__tag
+              = movie.tag_list
