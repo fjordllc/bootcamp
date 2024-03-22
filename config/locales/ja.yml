@@ -50,6 +50,7 @@ ja:
       faq: FAQ
       faq_category: FAQカテゴリ
       coding_test: コーディングテスト
+      movie: 動画
     attributes:
       user:
         login_name: アカウント
