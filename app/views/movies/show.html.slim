@@ -1,57 +1,89 @@
-- title "動画: #{@movie.title}"
-- set_meta_tags description: "動画「#{@movie.title}」ページです。"
+- title '動画'
+- set_meta_tags description: '動画「#{@movie.title}」ページです。'
 
-= render 'pages/doc_movie_header'
-= render 'pages/tabs'
+header.page-header
+  .container
+    .page-header__inner
+      .page-main-header__start
+        h1.page-header__title
+          = title
+hr.a-border
 
-main.page-main
-  header.page-main-header
-    .container
-      .page-main-header__inner
-        .page-main-header__start
-          h1.page-main-header__title
-            | 動画
-        .page-main-header__end
-          .page-header-actions
-            ul.page-header-actions__items
-              li.page-header-actions__item
-                = link_to [:new, :movie], class: 'a-button is-md is-secondary is-block' do
-                  i.fa-regular.fa-plus
-                  | 動画を追加
-              li.page-header-actions__item
-                = link_to movies_path, class: 'a-button is-md is-secondary is-block is-back' do
-                  | 動画一覧
-  hr.a-border
-  .page-body.is-movie
-    .page-body__inner
-      .container.is-md
-        .page-content.is-movie
-          = render 'movie_header', movie: @movie
-          .a-card
-            .card-body
-              .card__main-movie
-                = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.58'
-              .card-body__description
-                .a-long-text.is-md.js-markdown-view
-                  = @movie.description
-            hr.a-border-tint
-              = render 'reactions/reactions', reactionable: @movie
-            hr.a-border-tint
-              footer.card-footer
-                .card-main-actions
-                  ul.card-main-actions__items
-                    li.card-main-actions__item
-                      = link_to [:edit, @movie], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
-                        i.fa-solid.fa-pen
-                        | 内容変更
-                    - if admin_or_mentor_login? || current_user == @movie.user
-                      li.card-main-actions__item.is-sub
-                        = link_to @movie, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                          | 削除する
+header.page-content-header
+  .page-content-header__end
+    .page-content-header__row
+      - if @movie.practice_id.present?
+        .page-content-header__before-title
+          = link_to @movie.practice, class: 'a-category-link' do
+            = @movie.practice.title
+      h1.page-content-header__title
+        | #{@movie.title}
 
-          .page-content-prev-next
-            .page-content-prev-next__item
-              = link_to :movies, class: 'page-content-prev-next__item-link is-index' do
-                | 一覧に戻る
+.page-body
+  .page-body
+    .container.is-md
+      .doc.page-content
+        .page-content-header__row
+          .page-content-header-metas
+            .page-content-header-metas__start
+              .page-content-header-metas
+                  .page-content-header-metas__meta
+                    .a-meta.is-creator
+                      span.a-meta__label
+                        | 公開
+                      .a-meta__value
+                        time(datetime="#{@movie.created_at.to_datetime}")
+                          | #{l @movie.created_at}
+                        = render 'users/icon',
+                          created_at: @movie.created_at,
+                          user: @movie.user,
+                          link_class: 'thread-header__user-icon-link',
+                          image_class: 'thread-header__user-icon'
+                        = link_to @movie.user, class: 'a-user-name' do
+                          | #{@movie.user.login_name}
 
-        #js-comments(data-commentable-id="#{@movie.id}" data-commentable-type='Movie' data-current-user-id="#{current_user.id}")
+        .page-content-header-metas__end
+          .page-content-header-metas
+            .page-content-header-metas__meta
+              - length = @movie.comments.length
+              a.a-meta(href='#comments' class="#{length.zero? ? 'is-disabled' : ''}")
+                | コメント（
+                span#comment_count(class="#{length.zero? ? 'is-muted' : 'is-emphasized'}")
+                  = length
+                | ）
+
+    .page-content-header__row
+      .page-content-header-actions
+        .page-content-header-actions__start
+          .page-content-header-actions__action
+            div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@movie.id}" data-vue-watchable-type='Movie')
+          .page-content-header-actions__action
+            #js-bookmark(data-bookmarkable-id="#{@movie.id}", data-bookmarkable-type='Movie')
+
+  .page-content-header__row
+    .page-content-header__tags
+      = react_component('Tags/Tags', { tagsInitialValue: @movie.tag_list.join(',').to_s,
+                                       tagsParamName: '@movie[tag_list]',
+                                       tagsInputId: 'movie_tag_list',
+                                       tagsType: 'Movie',
+                                       tagsTypeId: @movie.id.to_s })
+
+
+
+      .a-card
+        .card-body
+          .card__description
+            .a-long-text.is-md.js-markdown-view
+              = @movie.description
+      .a-card
+        .card-body
+          = video_tag url_for(@movie.movie_data.blob), controls: true
+        hr.a-border-tint
+          = render 'reactions/reactions', reactionable: @movie
+
+      .page-content-prev-next
+        .page-content-prev-next__item
+          = link_to :movies, class: 'page-content-prev-next__item-link is-index' do
+            | 一覧に戻る
+
+    #js-comments(data-commentable-id="#{@movie.id}" data-commentable-type='Movie' data-current-user-id="#{current_user.id}")
