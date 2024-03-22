@@ -89,5 +89,6 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end
     resources :reading_circles, only: %i(index)
+    resources :movies, only: %i(index update)
   end
 end
