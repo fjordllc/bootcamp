@@ -44,17 +44,12 @@ nav.global-nav
           = link_to '/pages', class: "global-nav-links__link #{(@page&.slug != 'help' && @page&.slug != 'help-adviser') && current_link(/^pages/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-file
-            .global-nav-links__link-label Docs
+            .global-nav-links__link-label Docs・動画
         li.global-nav-links__item
           = link_to portfolios_path, class: "global-nav-links__link #{current_link(/^works/)}" do
             .global-nav-links__link-icon
               i.fa-solid.fa-rocket
             .global-nav-links__link-label.is-sm ポートフォリオ
-        i.global-nav-links__item
-          = link_to movies_path, class: "global-nav-links__link #{current_link(/^movies/)}" do
-            .global-nav-links__link-icon
-              i.fa-solid.fa-rocket
-            .global-nav-links__link-label.is-sm 動画
         li.global-nav-links__item
           = link_to users_path, class: "global-nav-links__link #{current_link(/^users-(index|show)/)}" do
             .global-nav-links__link-icon
