@@ -592,7 +592,8 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
-      image_resizer = ImageResizer.new(avatar, resize_side: { width: 120, height: 120 })
+      options = { autorot: true, saver: { strip: true, quality: 60 } }
+      image_resizer = ImageResizer.new(avatar, resize_side: { width: 120, height: 120 }, options:)
       image_resizer.resize.processed.url
     else
       image_url default_image_path

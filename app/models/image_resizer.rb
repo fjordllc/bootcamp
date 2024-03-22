@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 class ImageResizer
-  def initialize(attachment, resize_side: { width: 600, height: 600 })
+  def initialize(attachment, resize_side: { width: 600, height: 600 }, options: {})
     @attachment = attachment
     @resize_side = resize_side
+    @options = options
   end
 
   def resize
     @image_side = fetch_image_side
     resize_size = fetch_resize_size_fit_and_crop
-    @attachment.variant(resize_to_fit: resize_size[:fit], crop: [*resize_size[:crop], @resize_side[:width], @resize_side[:height]])
+    @attachment.variant(resize_to_fit: resize_size[:fit], crop: [*resize_size[:crop], @resize_side[:width], @resize_side[:height]], **@options)
   end
 
   private
