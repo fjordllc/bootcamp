@@ -1,7 +1,7 @@
 import Tribute from 'tributejs'
 import TextareaAutocomplteEmoji from 'textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'textarea-autocomplte-mention'
-import TextareaMarkdownToHtml from 'textarea-markdown-to-html'
+import TextareaMarkdown from 'textarea-markdown'
 import MarkdownItEmoji from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
@@ -51,7 +51,7 @@ export default class {
     // markdown
     Array.from(textareas).forEach((textarea) => {
       /* eslint-disable no-new */
-      new TextareaMarkdownToHtml(textarea, {
+      new TextareaMarkdown(textarea, {
         endPoint: '/api/image.json',
         paramName: 'file',
         responseKey: 'url',
@@ -59,8 +59,6 @@ export default class {
         placeholder: '%filenameをアップロード中...',
         uploadImageTag:
           '<img src=%url width="100" height="100" loading="lazy" decoding="async" alt="%filename">\n',
-        uploadVideoTag: '<video controls src="%url"></video>\n',
-        uploadOtherTag: '[%filename (%fileSize)](%url)\n',
         afterPreview: () => {
           autosize.update(textarea)
 
