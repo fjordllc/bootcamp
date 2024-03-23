@@ -708,14 +708,6 @@ ActiveRecord::Schema.define(version: 2025_01_29_033027) do
     t.index ["user_id", "practice_id"], name: "index_skip_practices_on_user_id_and_practice_id", unique: true
   end
 
-  create_table "skip_practices", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "practice_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "practice_id"], name: "index_skip_practices_on_user_id_and_practice_id", unique: true
-  end
-
   create_table "survey_question_listings", force: :cascade do |t|
     t.bigint "survey_id", null: false
     t.bigint "survey_question_id", null: false
