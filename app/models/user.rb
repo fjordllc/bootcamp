@@ -601,6 +601,13 @@ class User < ApplicationRecord
     image_url default_image_path
   end
 
+  def avatar_attach_with_filepath
+    return unless avatar.attached?
+
+    icon = URI.parse(avatar_url).open
+    avatar.attach(io: icon, filename: avatar.filename, key: "icon/#{login_name}")
+  end
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
