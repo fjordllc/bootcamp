@@ -133,12 +133,6 @@ class User < ApplicationRecord
            source: :practice,
            dependent: :destroy
 
-  has_many :practices,
-           through: :skip_practices
-
-  has_many :skip_practices,
-           dependent: :destroy
-
   has_many :active_learnings,
            -> { where(status: 'started') },
            class_name: 'Learning',
@@ -155,6 +149,12 @@ class User < ApplicationRecord
            foreign_key: 'follower_id',
            inverse_of: 'follower',
            dependent: :destroy
+
+  has_many :skip_practices,
+           dependent: :destroy
+
+  has_many :practices,
+           through: :skip_practices
 
   has_many :followees,
            through: :active_relationships,
@@ -610,6 +610,10 @@ class User < ApplicationRecord
     Subscription.new.retrieve(subscription_id)
   end
 
+  def skip_practice_ids
+    skip_practices.pluck(:practice_id)
+  end
+
   def student?
     !admin? && !adviser? && !mentor? && !trainee?
   end
@@ -750,6 +754,14 @@ class User < ApplicationRecord
 
   def practices
     course.practices.order('courses_categories.position', 'categories_practices.position')
+  end
+
+  def category_ids
+    course.categories.pluck(:id)
+  end
+
+  def practice_ids_in_category(category)
+    category.practices
   end
 
   def update_mentor_memo(new_memo)
