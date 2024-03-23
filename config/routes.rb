@@ -99,8 +99,7 @@ Rails.application.routes.draw do
   resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
-
-  resources :users do
-    resources :timelines, only: %i(new create index)
-  end
+  # resources :users ,only: %i(new create index)do
+  #   resources :timelines, only: %i(new create index)
+  # end
 end
