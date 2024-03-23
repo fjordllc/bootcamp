@@ -1,0 +1,17 @@
+h1.page-header__title 分報
+
+.card-list.has-scroll
+  - @timelines.each do |timeline|
+    = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
+    = @user.name
+    = timeline.created_at.strftime('%Y/%m/%d %H:%M')
+    p
+    .a-long-text.is-md.js-markdown-view
+      = timeline.context
+      hr.a-border
+    p
+    hr.a-border-tint
+      = render 'reactions/reactions', reactionable: timeline
+
+- if current_user == @user
+  = render 'form', timeline: @timeline
