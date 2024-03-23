@@ -46,13 +46,10 @@ class Notification < ApplicationRecord
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
   scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar : with_avatar }
 
-  scope :by_target, lambda { |target|
-    target ? where(kind: TARGETS_TO_KINDS[target]) : all
-  }
+  scope :by_target, ->(target) { target ? where(kind: TARGETS_TO_KINDS[target]) : all }
 
-  scope :latest_of_each_link, lambda {
-    select('DISTINCT ON (link) *').order(link: :asc, created_at: :desc, id: :desc) # 「作成日時が最新の通知」が複数ある場合に取得する1件の通知を一定にするため、ORDER BY の最後に id の降順を指定した
-  }
+  # 作成日時が被ったら、最新idのレコードを取得したい
+  scope :latest_of_each_link, -> { select('DISTINCT ON (link) *').order(link: :asc, created_at: :desc, id: :desc) }
 
   after_create NotificationCallbacks.new
   after_update NotificationCallbacks.new
