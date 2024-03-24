@@ -14,7 +14,7 @@ class GithubAuthentication
       if user.blank?
         { path: root_url, alert: 'ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。' }
       elsif user.retired_on?
-        { path: retire_path }
+        { path: retirement_path }
       else
         { path: root_url, notice: 'サインインしました。', user_id: user.id }
       end
