@@ -12,11 +12,11 @@ class GithubAuthentication
     if @user.blank?
       user = User.find_by(github_id: @auth[:uid])
       if user.blank?
-        { path: root_url, alert: 'ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。' }
+        { path: root_path, alert: 'ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。' }
       elsif user.retired_on?
         { path: retirement_path }
       else
-        { path: root_url, notice: 'サインインしました。', user_id: user.id }
+        { path: root_path, notice: 'サインインしました。', user_id: user.id, back: true }
       end
     else
       link if @user.github_id.blank?
