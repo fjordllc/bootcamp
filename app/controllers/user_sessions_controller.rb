@@ -38,33 +38,29 @@ class UserSessionsController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def callback
     auth = request.env['omniauth.auth']
-    github_id = auth[:uid]
-    if current_user.blank?
-      user = User.find_by(github_id:)
-      if user.blank?
-        flash[:alert] = 'ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。'
-        redirect_to root_url
-      elsif user.retired_on?
-        logout
-        redirect_to retire_path
-      else
-        session[:user_id] = user.id
-        redirect_back_or_to root_url, notice: 'サインインしました。'
+    authentication =
+      case params[:provider]
+      when 'discord'
+        DiscordAuthentication.new(current_user, auth)
+      when 'github'
+        GithubAuthentication.new(current_user, auth)
       end
-    else
-      github_account = auth[:info][:nickname]
-      current_user.register_github_account(github_id, github_account) if current_user.github_id.blank?
-      flash[:notice] = 'GitHubと連携しました。'
-      redirect_to root_path
-    end
-  rescue StandardError => e
-    logger.warn "[GitHub Login] ログインに失敗しました。：#{e.message}"
-    flash[:alert] = 'GitHubログインに失敗しました。数回試しても続く場合、管理者に連絡してください。'
-    redirect_to root_path
+    result = authentication.authenticate
+
+    set_flash_and_session(result)
+    redirect_to result[:path]
   end
   # rubocop:enable Metrics/MethodLength
 
   def failure
     redirect_to root_path, alert: 'キャンセルしました'
+  end
+
+  private
+
+  def set_flash_and_session(result)
+    flash[:notice] = result[:notice] if result[:notice]
+    flash[:alert] = result[:alert] if result[:alert]
+    session[:user_id] = result[:user_id] if result[:user_id]
   end
 end
