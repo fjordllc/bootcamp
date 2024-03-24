@@ -20,7 +20,7 @@ class DiscordAuthentication
 
   def link
     discord_profile = DiscordProfile.find_or_initialize_by(user: @login_user)
-    discord_profile.account_name = @auth.info.name
+    discord_profile.account_name = @auth[:info][:name]
     discord_profile.save
   end
 end
