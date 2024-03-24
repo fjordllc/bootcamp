@@ -9,7 +9,7 @@ class GithubAuthenticationTest < ActiveSupport::TestCase
     github_authentication = GithubAuthentication.new(nil, { info: { nickname: 'kimura_github' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
 
-    assert_equal result[:path], root_url
+    assert_equal result[:path], root_path
     assert_equal result[:alert], 'ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。'
   end
 
@@ -31,9 +31,10 @@ class GithubAuthenticationTest < ActiveSupport::TestCase
     github_authentication = GithubAuthentication.new(nil, { info: { name: 'komagata_discord' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
 
-    assert_equal result[:path], root_url
+    assert_equal result[:path], root_path
     assert_equal result[:notice], 'サインインしました。'
     assert_equal result[:user_id], user.id
+    assert_equal result[:back], true
   end
 
   test 'ログインしており、Github連携していないユーザーの場合' do

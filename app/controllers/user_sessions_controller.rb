@@ -45,8 +45,9 @@ class UserSessionsController < ApplicationController
         GithubAuthentication.new(current_user, auth)
       end
     result = authentication.authenticate
-
     assign_flash_and_session(result)
+
+    return redirect_back_or_to result[:path] if result[:back]
     redirect_to result[:path]
   end
 
