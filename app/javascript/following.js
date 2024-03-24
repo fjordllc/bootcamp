@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import Following from 'following.vue'
 import 'whatwg-fetch'
 import CSRF from 'csrf'
 
@@ -31,10 +29,10 @@ const usersIndex = {
     })
       .then((response) => {
         if (response.ok) {
-          const button = document.getElementById(`follow_${userId}`)
-          const summary = button.querySelector('.following__summary span')
+          const details = document.getElementById(`follow_details${userId}`)
+          const summary = details.querySelector('.following__summary span')
           const options = Array.from(
-            button.querySelectorAll('.following__dropdown-item button')
+            details.querySelectorAll('.following__dropdown-item button')
           )
 
           if (isWatch) {
@@ -70,7 +68,7 @@ const usersIndex = {
               usersIndex.unfollow(userId, true)
             }
           }
-          this.closeFollowDetails(userId)
+          details.open = false
         } else {
           alert('フォロー処理に失敗しました')
         }
@@ -97,14 +95,14 @@ const usersIndex = {
     })
       .then((response) => {
         if (response.ok) {
-          const button = document.getElementById(`follow_${userId}`)
+          const details = document.getElementById(`follow_details${userId}`)
 
-          const summary = button.querySelector('.following__summary span')
+          const summary = details.querySelector('.following__summary span')
           summary.className = 'a-button is-secondary is-sm is-block'
           summary.innerHTML = 'フォローする'
 
           const options = Array.from(
-            button.querySelectorAll('.following__dropdown-item button')
+            details.querySelectorAll('.following__dropdown-item button')
           )
           options[0].className = 'following-option a-dropdown__item-inner'
           options[0].onclick = function () {
@@ -118,7 +116,7 @@ const usersIndex = {
             'following-option a-dropdown__item-inner is-active'
           options[2].onclick = null
 
-          this.closeFollowDetails(userId)
+          details.open = false
         } else {
           alert('フォロー処理に失敗しました')
         }
@@ -126,34 +124,7 @@ const usersIndex = {
       .catch(function (error) {
         console.warn(error)
       })
-  },
-  closeFollowDetails(userId) {
-    const details = document.getElementById(`follow_details${userId}`)
-    details.open = false
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const followings = document.querySelectorAll('.js-following')
-  if (followings) {
-    for (let i = 0; i < followings.length; i++) {
-      const following = followings[i]
-      const isFollowing = following.getAttribute('data-is-following')
-      const userId = following.getAttribute('data-user-id')
-      const isWatching = following.getAttribute('data-is-watching')
-
-      new Vue({
-        render: (h) =>
-          h(Following, {
-            props: {
-              isFollowing: isFollowing === 'true',
-              userId: Number(userId),
-              isWatching: isWatching === 'true'
-            }
-          })
-      }).$mount('.js-following')
-    }
-  }
-})
 
 window.usersIndex = usersIndex

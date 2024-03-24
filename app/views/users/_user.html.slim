@@ -68,7 +68,7 @@
                   span
                     | 自社研修生
             - elsif current_user.id != user.id
-              li.card-main-actions__item id="follow_#{user.id}"
+              li.card-main-actions__item
                 = render 'users/following', user:
             - if current_user.admin && user.talk
               li.card-main-actions__item.is-only-mentor
