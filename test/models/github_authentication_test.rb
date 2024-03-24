@@ -6,7 +6,7 @@ class GithubAuthenticationTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
   test 'ログインユーザーが存在せず、githubのidが一致しない場合' do
-    github_authentication = GithubAuthentication.new(nil, { info: {nickname: 'kimura_github'},  uid: 'uid_test_data' })
+    github_authentication = GithubAuthentication.new(nil, { info: { nickname: 'kimura_github' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
 
     assert_equal result[:path], root_url
@@ -18,7 +18,7 @@ class GithubAuthenticationTest < ActiveSupport::TestCase
     user.github_id = 'uid_test_data'
     user.save!
 
-    github_authentication = GithubAuthentication.new(nil, { info: {nickname: 'yameo_github'},  uid: 'uid_test_data' })
+    github_authentication = GithubAuthentication.new(nil, { info: { nickname: 'yameo_github' }, uid: 'uid_test_data' })
 
     assert_equal github_authentication.authenticate[:path], retirement_path
   end
@@ -28,7 +28,7 @@ class GithubAuthenticationTest < ActiveSupport::TestCase
     user.github_id = 'uid_test_data'
     user.save!
 
-    github_authentication = GithubAuthentication.new(nil, { info: {name: 'komagata_discord'},  uid: 'uid_test_data' })
+    github_authentication = GithubAuthentication.new(nil, { info: { name: 'komagata_discord' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
 
     assert_equal result[:path], root_url
@@ -38,7 +38,7 @@ class GithubAuthenticationTest < ActiveSupport::TestCase
 
   test 'ログインしており、Github連携していないユーザーの場合' do
     user = users(:kimura)
-    github_authentication = GithubAuthentication.new(user, { info: {nickname: 'kimura_github'},  uid: 'uid_test_data' })
+    github_authentication = GithubAuthentication.new(user, { info: { nickname: 'kimura_github' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
 
     assert_equal result[:path], root_path
