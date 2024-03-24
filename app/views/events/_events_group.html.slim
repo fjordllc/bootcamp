@@ -3,7 +3,7 @@
     | #{date_label}開催
   - if events.present?
     - events.each do |event|
-      = render partial: 'events/upcoming_events/event', locals: { event: event, event_date: event_date }
+      = render 'events/upcoming_event', event: event, event_date: event_date
   - else
     .card-list-item
       .card-list-item__empty

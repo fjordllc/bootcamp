@@ -6,7 +6,7 @@
     .a-side-nav__body
       - @upcoming_events_groups.each do |events_group|
         - date_label = I18n.t("days.#{events_group[:date_label]}")
-        = render partial: 'events/upcoming_events/events_group', locals: { date_label: date_label, events: events_group[:events], event_date: events_group[:event_date] }
+        = render 'events/events_group', date_label: date_label, events: events_group[:events], event_date: events_group[:event_date]
 
     hr.a-border
     footer.a-side-nav__footer
