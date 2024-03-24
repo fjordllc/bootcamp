@@ -12,6 +12,7 @@ class Work < ApplicationRecord
   validates :thumbnail,
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
+  validates :url, :launch_article, format: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/
 
   def thumbnail_url
     if thumbnail.attached?
