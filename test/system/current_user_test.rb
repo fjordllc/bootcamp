@@ -219,4 +219,13 @@ class CurrentUserTest < ApplicationSystemTestCase
 
     assert_text 'textbringer'
   end
+
+  test 'validate presence of other_editor when empty' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    find('label[for=other_editor]').click
+    fill_in 'other_input', with: ''
+    click_on '更新する'
+
+    assert_text 'その他のエディタを入力してください'
+  end
 end
