@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UpcomingEvent
-  # define class method ".today_events", "tomorrow_events", "day_after_tomorrow_events"
   %i[today tomorrow day_after_tomorrow].each do |day|
     method = "#{day}_events"
     define_singleton_method(method) do
