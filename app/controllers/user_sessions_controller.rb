@@ -35,7 +35,6 @@ class UserSessionsController < ApplicationController
     redirect_to root_url, notice: 'ログアウトしました。'
   end
 
-  # rubocop:disable Metrics/MethodLength
   def callback
     auth = request.env['omniauth.auth']
     authentication =
@@ -47,10 +46,9 @@ class UserSessionsController < ApplicationController
       end
     result = authentication.authenticate
 
-    set_flash_and_session(result)
+    assign_flash_and_session(result)
     redirect_to result[:path]
   end
-  # rubocop:enable Metrics/MethodLength
 
   def failure
     redirect_to root_path, alert: 'キャンセルしました'
@@ -58,7 +56,7 @@ class UserSessionsController < ApplicationController
 
   private
 
-  def set_flash_and_session(result)
+  def assign_flash_and_session(result)
     flash[:notice] = result[:notice] if result[:notice]
     flash[:alert] = result[:alert] if result[:alert]
     session[:user_id] = result[:user_id] if result[:user_id]
