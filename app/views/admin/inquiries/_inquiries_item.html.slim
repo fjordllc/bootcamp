@@ -11,11 +11,8 @@
           .card-list-item-meta__items
             .card-list-item-meta__item
               .a-meta
-                span.a-meta__label
-                  | 受信日
-                span.a-meta__value
-                  = l inquiry.created_at
+                span.a-meta__label 受信日
+                span.a-meta__value = l inquiry.created_at
       .card-list-item__row
         .a-meta
-          p
-            = inquiry.body.truncate(100)
+          p = inquiry.body.truncate(100)
