@@ -1,5 +1,6 @@
 - title "#{@company.name}所属ユーザーの提出物"
 - set_meta_tags description: "#{@company.name}所属ユーザーの提出物一覧ページです。"
+- display_user_icon = true
 
 header.page-header
   .container
@@ -17,7 +18,8 @@ header.page-header
 = company_page_tabs(@company, active_tab: '提出物')
 
 .page-body
-  = render 'company-products', products: @products, data_title: title
+  = render 'company-products', data_title: title, display_user_icon: display_user_icon
+
   // #js-company-products(company-id="#{@company.id}" data-title="#{title}" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
   // = render 'company-products',
   //   company_id: @company.id,
