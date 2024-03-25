@@ -118,7 +118,7 @@ export default function Products({
           </nav>
         )}
 
-        <div className="page-content is-products">
+        <div className="page-content is-products loaded">
           <div className="page-body__columns">
             <div className="page-body__column is-main">
               <div className="container is-md">
@@ -160,7 +160,7 @@ export default function Products({
     )
   } else {
     return (
-      <div className="page-content is-products">
+      <div className="page-content is-products loaded">
         <div className="page-body__columns">
           <div className="page-body__column is-main">
             {data.products_grouped_by_elapsed_days.map(
