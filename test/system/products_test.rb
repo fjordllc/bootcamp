@@ -632,6 +632,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/products', 'mentormentaro'
 
     travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
+      find('.is-products.loaded', wait: 10)
       assert_selector '.a-meta__label', text: '研修終了日'
       assert_selector '.a-meta__value', text: '2022年04月01日'
       assert_selector '.a-meta__value', text: '（あと365日）'
@@ -644,6 +645,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/products', 'adminonly'
 
     travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
+      find('.is-products.loaded', wait: 10)
       assert_selector '.a-meta__label', text: '研修終了日'
       assert_selector '.a-meta__value', text: '2022年04月01日'
       assert_selector '.a-meta__value', text: '（あと365日）'
@@ -656,6 +658,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/products', 'advijirou'
 
     travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
+      find('.is-products.loaded', wait: 10)
       assert_no_selector '.a-meta__label', text: '研修終了日'
       assert_no_selector '.a-meta__value', text: '2022年04月01日'
       assert_no_selector '.a-meta__value', text: '（あと365日）'
