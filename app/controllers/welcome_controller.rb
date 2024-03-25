@@ -17,7 +17,8 @@ class WelcomeController < ApplicationController
 
   def faq
     @faqs = if params[:category].present?
-              FAQ.where(category: params[:category])
+              category = FaqsCategory.find_by(name: params[:category])
+              FAQ.where(faqs_categories_id: category.id) if category.present?
             else
               FAQ.all
             end
