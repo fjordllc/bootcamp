@@ -137,9 +137,15 @@ const NoReports = ({ unchecked }) => {
           </>
         ) : (
           <div className="card-list a-card">
-            <div className="card-list__items">
-              <i className="fa-regular fa-sad-tear" />
-              <p className="o-empty-message__text">日報はまだありません。</p>
+            <div className="card-body">
+              <div className="card__description">
+                <div className="o-empty-message">
+                  <div className="o-empty-message__icon">
+                    <i className="fa-regular fa-sad-tear" />
+                  </div>
+                  <p className="o-empty-message__text">日報はまだありません。</p>
+                </div>
+              </div>
             </div>
           </div>
         )}
