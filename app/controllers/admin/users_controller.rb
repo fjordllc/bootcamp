@@ -3,7 +3,6 @@
 class Admin::UsersController < AdminController
   before_action :set_user, only: %i[show edit update]
   ALLOWED_TARGETS = %w[all student_and_trainee inactive hibernated retired graduate adviser mentor trainee year_end_party campaign].freeze
-  ALLOWED_JOBS = User.jobs.keys.prepend('all').freeze
 
   def index
     @direction = params[:direction] || 'desc'
@@ -15,12 +14,7 @@ class Admin::UsersController < AdminController
                    user_scope.where(retired_on: nil)
                  end
     @job = params[:job]
-    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
-    # ALLOWED_JOBS.include?(@job): 存在する職業を過不足なく指定した配列の中に、params[:job]が存在するかどうかチェック。
-    if @job.present? && ALLOWED_JOBS.include?(@job)
-      scoped_job = @job == 'all' ? @job : "job_#{@job}"
-      user_scope = user_scope.public_send(scoped_job)
-    end
+    user_scope = user_scope.users_job(@job) if @job.present?
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)

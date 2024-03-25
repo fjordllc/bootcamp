@@ -724,4 +724,16 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
     assert_nil users(:hatsuno).scheduled_retire_at
   end
+
+  test '.users_job' do
+    assert_equal User.job_student, User.users_job('student')
+    assert_equal User.job_office_worker, User.users_job('office_worker')
+    assert_equal User.job_part_time_worker, User.users_job('part_time_worker')
+    assert_equal User.job_vacation, User.users_job('vacation')
+    assert_equal User.job_unemployed, User.users_job('unemployed')
+  end
+
+  test '.users_job returns all users when invalid job is passed' do
+    assert_equal User.all, User.users_job('destroy_all')
+  end
 end
