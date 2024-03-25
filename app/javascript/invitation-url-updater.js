@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelectorAll('.invitation-elements select')
   )
   const invitationUrl = document.querySelector('.js-invitation-url')
+  const invitationUrlText = document.querySelector('.js-invitation-url-text')
 
   if (!invitationElements || !invitationUrl) {
     return
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const json = await response.json().catch((error) => console.warn(error))
 
     invitationUrl.href = json.url
-    invitationUrl.textContent = json.url
+    invitationUrlText.value = json.url
   }
 
   invitationElements.forEach((invitationElement) => {
