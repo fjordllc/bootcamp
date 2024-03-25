@@ -9,7 +9,7 @@ class API::NotificationsController < API::BaseController
   private
 
   def fetch_notifications
-    target = params[:target].presence&.to_sym
+    target = params[:target]
     status = params[:status]
 
     latest_notifications = current_user.notifications.by_target(target).by_read_status(status).latest_of_each_link

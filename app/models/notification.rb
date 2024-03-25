@@ -45,8 +45,7 @@ class Notification < ApplicationRecord
   scope :unreads, -> { where(read: false) }
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
   scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar : with_avatar }
-
-  scope :by_target, ->(target) { target ? where(kind: TARGETS_TO_KINDS[target]) : all }
+  scope :by_target, ->(target) { target.presence ? where(kind: TARGETS_TO_KINDS[target.to_sym]) : all }
 
   # 作成日時が被ったら、最新idのレコードを取得したい
   scope :latest_of_each_link, -> { select('DISTINCT ON (link) *').order(link: :asc, created_at: :desc, id: :desc) }
