@@ -22,4 +22,4 @@
             span.js-grab.a-grab
               i.fa-solid.fa-align-justify
           td.admin-table__item-value.is-text-align-center
-            = t("faq.#{faq.category}")
+            = t("faq.#{FaqsCategories.find_by(id: faq.faqs_categories_id).name}")

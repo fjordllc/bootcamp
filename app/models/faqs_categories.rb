@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class FaqsCategory < ApplicationRecord
+class FaqsCategories < ApplicationRecord
   has_many :faqs, dependent: :destroy
 end

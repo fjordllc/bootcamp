@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FAQHelper
+module FaqHelper
   def format_question(question)
     "#{question.delete('?？')}？"
   end
