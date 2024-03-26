@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::FAQController < AdminController
+class Admin::FaqController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
   def index
     @faqs = FAQ.all
@@ -40,7 +40,7 @@ class Admin::FAQController < AdminController
   private
 
   def faq_params
-    params.require(:faq).permit(:answer, :question, :category)
+    params.require(:faq).permit(:answer, :question, :faqs_categories_id)
   end
 
   def set_faq
