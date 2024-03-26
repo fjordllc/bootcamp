@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::FaqController < AdminController
+class Admin::FAQController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
   def index
     @faqs = FAQ.all
