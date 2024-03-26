@@ -7,9 +7,12 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'testuser'
+      find('label', text: 'VSCode').click
       click_on '更新する'
     end
+
     assert_text 'ユーザー情報を更新しました。'
+    assert_text 'VSCode'
   end
 
   test 'update user description with blank' do
@@ -201,14 +204,6 @@ class CurrentUserTest < ApplicationSystemTestCase
     within('#subdivision-select') do
       assert_text 'アラスカ州'
     end
-  end
-
-  test 'register editor with radio button' do
-    visit_with_auth '/current_user/edit', 'kimura'
-    find('label', text: 'VSCode').click
-    click_on '更新する'
-
-    assert_text 'VSCode'
   end
 
   test 'register editor with text box' do
