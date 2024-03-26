@@ -9,10 +9,15 @@ class Work < ApplicationRecord
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true
   validates :url_or_repository, presence: true
+  validates :url, :repository, :launch_article,
+            format: {
+              allow_blank: true,
+              with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+              message: 'は「http://example.com」や「https://example.com」のようなURL形式で入力してください'
+            }
   validates :thumbnail,
             content_type: %w[image/png image/jpg image/jpeg],
             size: { less_than: 10.megabytes }
-  validates :url, :launch_article, format: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/
 
   def thumbnail_url
     if thumbnail.attached?
