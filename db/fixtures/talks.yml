@@ -211,3 +211,19 @@ talk_autoretire-over-1-week:
 talk_not-autoretire:
   user: not-autoretire
   action_completed: true
+
+talk_kensyu-end-within-24-hour:
+  user: kensyu-end-within-24-hour
+  action_completed: true
+
+talk_kensyu-end-within-1-week:
+  user: kensyu-end-within-1-week
+  action_completed: true
+
+talk_kensyu-end-over-1-week:
+  user: kensyu-end-over-1-week
+  action_completed: true
+
+talk_kensyu-not-setting-end-date:
+  user: kensyu-not-setting-end-date
+  action_completed: true

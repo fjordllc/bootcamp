@@ -23,7 +23,7 @@ header.page-content-header
                   | （本日研修最終日）
               - elsif @product.user.training_remaining_days.negative?
                 span.a-meta__value
-                  | （研修終了済み）
+                  | （研修終了）
               - elsif @product.user.training_remaining_days < 7
                 span.a-meta__value.is-danger
                   | （あと#{@product.user.training_remaining_days}日）
