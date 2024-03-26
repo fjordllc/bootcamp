@@ -74,7 +74,6 @@ Rails.application.routes.draw do
     resources :products, only: %i(index show)
     resources :announcements, except: %i(new edit)
     resources :searchables, only: %i(index)
-    resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)

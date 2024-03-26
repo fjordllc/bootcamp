@@ -33,3 +33,5 @@ ignore_unreachable_actions:
   - any_login\/.*
   - .*#recaptcha_enabled?
   - .*#valid_recaptcha?
+  - .*#current_calendar_date
+  - .*#calendar_with_reports
