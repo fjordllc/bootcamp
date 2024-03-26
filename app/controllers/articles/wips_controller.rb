@@ -12,7 +12,7 @@ class Articles::WipsController < ApplicationController
   private
 
   def wip_articles
-    articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
-    articles.where(wip: true).order(created_at: :desc).page(params[:page])
+    Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
+           .where(wip: true).order(created_at: :desc).page(params[:page])
   end
 end
