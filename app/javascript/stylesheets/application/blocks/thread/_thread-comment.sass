@@ -22,10 +22,10 @@
 
 
 .thread-comment__title
-  width: 100%
   +text-block(.875rem 1.4, 600)
   +media-breakpoint-up(md)
     margin-right: .5rem
+    flex: 1
   +media-breakpoint-down(sm)
     display: flex
 
@@ -41,12 +41,12 @@
 .thread-comment__title-link
   +media-breakpoint-up(md)
     height: 100%
-    display: flex
+    display: inline-flex
     align-items: center
   +media-breakpoint-down(sm)
     display: inline-block
     white-space: nowrap
-    max-width: 6rem
+    max-width: calc(100vw - 15.5rem)
     overflow: hidden
     text-overflow: ellipsis
     vertical-align: middle
