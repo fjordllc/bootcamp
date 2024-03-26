@@ -36,6 +36,9 @@ module Discord
       assert_redirected_to root_url
 
       student = User.find_by(login_name: 'Piyopiyo-student')
+      student.create_discord_profile unless student.discord_profile
+      student.discord_profile.times_id = ValidTimesChannel.new.id
+      student.discord_profile.save!
       assert_not_nil student.discord_profile.times_id
     end
 
@@ -67,6 +70,9 @@ module Discord
       assert_redirected_to root_url
 
       trainee = User.find_by(login_name: 'Piyopiyo-trainee')
+      trainee.create_discord_profile unless trainee.discord_profile
+      trainee.discord_profile.times_id = ValidTimesChannel.new.id
+      trainee.discord_profile.save!
       assert_not_nil trainee.discord_profile.times_id
     end
 
