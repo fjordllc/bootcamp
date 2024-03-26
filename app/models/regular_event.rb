@@ -169,22 +169,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     regular_event_participations.find_by(user_id: user.id).present?
   end
 
-  class << self
-    def comming_soon_events(user)
-      [today_events, tomorrow_events].map do |regular_events|
-        regular_events.select { |event| event.participated_by?(user) }
-      end
-    end
-
-    def remove_event(events_arr, id)
-      events_arr.each do |events|
-        events.delete_if do |event|
-          event.id == id.to_i
-        end
-      end
-    end
-  end
-
   def assign_admin_as_organizer_if_none
     return if organizers.exists?
 
