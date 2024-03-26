@@ -100,10 +100,10 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
-    @article.token = manage_token_on_wip_status
+    @article.token = update_token_based_on_wip_status
   end
 
-  def manage_token_on_wip_status
+  def update_token_based_on_wip_status
     @article.wip ? (@article.token.presence || SecureRandom.urlsafe_base64) : nil
   end
 
