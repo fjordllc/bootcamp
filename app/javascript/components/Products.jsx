@@ -89,7 +89,7 @@ export default function Products({
           </nav>
         ) : null}
 
-        <div className="o-empty-message">
+        <div className="o-empty-message loaded">
           <div className="o-empty-message__icon">
             <i className="fa-regular fa-smile"></i>
           </div>
@@ -99,7 +99,7 @@ export default function Products({
     )
   } else if (isDashboard() && isNotProduct5daysElapsed()) {
     return (
-      <div className="o-empty-message">
+      <div className="o-empty-message loaded">
         <div className="o-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
