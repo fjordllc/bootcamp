@@ -15,11 +15,15 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text 'VSCode'
   end
 
-  test 'update user description with blank' do
+  test 'update user with blank' do
     visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'user[description]', with: ''
+    find('label[for=other_editor]').click
+    fill_in 'other_input', with: ''
     click_on '更新する'
+
     assert_text '自己紹介を入力してください'
+    assert_text 'その他のエディタを入力してください'
   end
 
   test 'update times url with wrong url' do
@@ -213,14 +217,5 @@ class CurrentUserTest < ApplicationSystemTestCase
     click_on '更新する'
 
     assert_text 'textbringer'
-  end
-
-  test 'validate presence of other_editor when empty' do
-    visit_with_auth '/current_user/edit', 'kimura'
-    find('label[for=other_editor]').click
-    fill_in 'other_input', with: ''
-    click_on '更新する'
-
-    assert_text 'その他のエディタを入力してください'
   end
 end
