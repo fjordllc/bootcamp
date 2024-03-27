@@ -638,6 +638,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 'ニューヨーク州', users(:tom).subdivision_name
   end
 
+  test 'country_code must be valid ISO 3166-1 alpha-2 country code' do
+    user = users(:kimura)
+    user.country_code = 'invalid_country_code'
+    assert user.invalid?
+    user.country_code = 'ZW' # ジンバブエ
+    assert user.valid?
+  end
+
   test '#create_comebacked_comment' do
     hajime = users(:hajime)
     comment =
