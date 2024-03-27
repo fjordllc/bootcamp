@@ -414,4 +414,21 @@ class ActivityMailer < ApplicationMailer
 
     message
   end
+
+  # required params: article, receiver
+  def create_article(args = {})
+    @article = params&.key?(:article) ? params[:article] : args[:article]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/article/#{@article.id}",
+      kind: Notification.kinds[:create_article]
+    )
+    subject = "新しいブログ「#{@article.title}」を#{@article.user.login_name}さんが投稿しました！"
+    message = mail(to: @user.email, subject:)
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
 end

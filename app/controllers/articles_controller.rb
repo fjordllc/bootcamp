@@ -32,6 +32,7 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
+      Newspaper.publish(:create_article, { article: @article })
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -41,6 +42,7 @@ class ArticlesController < ApplicationController
   def update
     set_wip
     if @article.update(article_params)
+      Newspaper.publish(:create_article, { article: @article })
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit
@@ -55,7 +57,10 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = Article.find(params[:id])
+    @article = Article.find_by(id: params[:id])
+    return if @article.present?
+
+    redirect_to articles_path, alert: '該当する記事が見つかりませんでした。'
   end
 
   def list_articles
