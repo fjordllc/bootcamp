@@ -10,18 +10,20 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title
-        = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
-              class: 'a-button is-md is-secondary is-block is-back' do
-              | プラクティス一覧
-          - if current_user.admin?
-            li.page-header-actions__item.is-only-mentor
-              = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block is-back' do
-                | 未完了一覧
+      .page-header__start
+        h1.page-header__title
+          = title
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to course_practices_path(current_user.course, anchor: "category-#{category.id}"),
+                class: 'a-button is-md is-secondary is-block is-back' do
+                | プラクティス一覧
+            - if current_user.admin?
+              li.page-header-actions__item.is-only-mentor
+                = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 未完了一覧
 
 = render 'page_tabs', resource: @product.practice
 
