@@ -1,4 +1,5 @@
 = render '/notification_mailer/notification_mailer_template',
   title: "#{@work.user.login_name}さんがポートフォリオに作品「#{@work.title}」を追加しました。",
   link_url: @link_url, link_text: 'この作品へ' do
+  h5 【作品の説明】
   = md2html(@work.description)
