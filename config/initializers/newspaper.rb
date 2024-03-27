@@ -75,4 +75,5 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:destroy_article, ArticleNotificationDestroyer.new)
   
   Newspaper.subscribe(:work_create, WorkNotifier.new)
+  Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
 end
