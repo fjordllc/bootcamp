@@ -6,7 +6,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   test 'show listing companies' do
     visit_with_auth '/admin/companies', 'komagata'
     assert_equal '管理ページ | FBC', title
-    assert has_link?(companies(:company1).name, href: company_path(companies(:company1)))
+    assert has_link?(companies(:newest_company).name, href: company_path(companies(:newest_company)))
   end
 
   test 'create company' do
@@ -59,6 +59,25 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
     within "[data-testid='admin-companies']" do
       assert_no_selector 'nav.pagination'
+    end
+  end
+
+  test 'companies are ordered by created_at desc' do
+    visit_with_auth '/admin/companies', 'komagata'
+    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
+    assert_selector "[data-testid='admin-companies']"
+    within all('.admin-table__item')[0] do
+      assert_selector 'td.company-name', text: '【created_at降順確認】一番新しい株式会社'
+    end
+
+    within all('.admin-table__item')[1] do
+      assert_selector 'td.company-name', text: '【created_at降順確認】二番目に新しい株式会社'
+    end
+
+    all('.pagination__item.is-next button.pagination__item-link')[1].click
+
+    within all('.admin-table__item').last do
+      assert_selector 'td.company-name', text: '【created_at降順確認】最古株式会社'
     end
   end
 end

@@ -58,6 +58,7 @@ tables = %i[
   surveys
   survey_question_listings
   buzzes
+  inquiries
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables

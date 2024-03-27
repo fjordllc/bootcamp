@@ -4,7 +4,7 @@ class API::Admin::CompaniesController < API::Admin::BaseController
   def index
     per = params[:per] || 25
     @companies = Company.with_attached_logo
-                        .order(:id)
+                        .order(created_at: :desc)
                         .page(params[:page])
                         .per(per)
   end

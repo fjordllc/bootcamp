@@ -35,7 +35,6 @@ import '../survey_question.js'
 import '../survey.js'
 import '../niconico_calendar.js'
 import '../mentor-mode.js'
-import '../bookmark.js'
 import '../agreements.js'
 import '../book-select.js'
 import '../generations.js'
@@ -62,7 +61,6 @@ import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
 import ExternalEntries from '../components/external-entries.vue'
-import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
 import Users from '../components/users.vue'
@@ -85,7 +83,6 @@ const mounter = new VueMounter()
 mounter.addComponent(Announcements)
 mounter.addComponent(Books)
 mounter.addComponent(ExternalEntries)
-mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
 mounter.addComponent(Users)
