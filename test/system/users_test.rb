@@ -466,7 +466,8 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only adviser when target is adviser' do
     visit_with_auth '/users?target=adviser', 'komagata'
-    assert_selector '.users-item', count: 4
+    find('.users .loaded', wait: 60)
+    assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: 'advijirou'
     find('#js-user-search-input').send_keys :return
     assert_text 'アドバイ 次郎', count: 1
@@ -567,7 +568,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました。'
     img = find('img.user-profile__user-icon-image', visible: false)
     user = users(:hajime)
-    assert_match(/#{user.id}\.png$/, img.native['src'])
+    assert_match(/#{user.login_name}\.png$/, img.native['src'])
   end
 
   test 'mentor can see retired and hibernated tabs' do

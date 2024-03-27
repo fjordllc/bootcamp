@@ -65,6 +65,16 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '/images/users/avatars/default.png', user.avatar_url
   end
 
+  test '#avatar_attach_with_filepath' do
+    user = users(:komagata)
+    old_avatar_url = user.avatar.url
+
+    user.stub(:open_avatar_uri, File.open('test/fixtures/files/users/avatars/komagata.jpg')) do
+      user.avatar_attach_with_filepath
+      assert_not_equal old_avatar_url, user.avatar.url
+    end
+  end
+
   test '#generation' do
     assert_equal 1, User.new(created_at: '2013-03-25 00:00:00').generation
     assert_equal 2, User.new(created_at: '2013-05-05 00:00:00').generation
@@ -648,11 +658,11 @@ class UserTest < ActiveSupport::TestCase
       end
     description = "お帰りなさい！！復会ありがとうございます。\n" \
            '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
-           "何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\n" \
+           "何か困ったことや質問があれば、遠慮なくご相談ください。\n\n" \
            "またフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n" \
            '<https://bootcamp.fjord.jp/practices/129#url>'
     assert_equal hajime.id, comment.commentable.user_id
-    assert_equal users(:pjord).id, comment.user_id
+    assert_equal users(:komagata).id, comment.user_id
     assert_equal description, comment.body
   end
 

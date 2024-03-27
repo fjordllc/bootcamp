@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
@@ -471,7 +470,7 @@ class User < ApplicationRecord
     end
 
     def create_followup_comment(student)
-      User.find_by(login_name: 'pjord').comments.create(
+      User.find_by(login_name: 'komagata').comments.create(
         description: I18n.t('talk.followup'),
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
@@ -648,6 +647,18 @@ class User < ApplicationRecord
     image_url default_image_path
   end
 
+  def avatar_attach_with_filepath
+    return unless avatar.attached?
+
+    icon = open_avatar_uri
+    avatar.attach(io: icon, filename: login_name, key: "icon/#{login_name}") unless icon.nil?
+  end
+
+  def open_avatar_uri
+    url = avatar_url
+    url != '/images/users/avatars/default.png' ? URI.parse(url).open : nil
+  end
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
@@ -789,7 +800,7 @@ class User < ApplicationRecord
   end
 
   def create_comebacked_comment
-    User.find_by(login_name: 'pjord').comments.create(
+    User.find_by(login_name: 'komagata').comments.create(
       description: I18n.t('talk.comeback'),
       commentable_id: Talk.find_by(user_id: id).id,
       commentable_type: 'Talk'

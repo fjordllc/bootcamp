@@ -99,6 +99,7 @@ Rails.application.routes.draw do
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
   get "portfolios" => "works#index"
+  get 'storage/ic/on/icon/*filename', to: 'avatar#show'
   resource :buzz, only: %i(show edit update), controller: "buzz"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
