@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
@@ -604,8 +603,13 @@ class User < ApplicationRecord
   def avatar_attach_with_filepath
     return unless avatar.attached?
 
-    icon = URI.parse(avatar_url).open
-    avatar.attach(io: icon, filename: avatar.filename, key: "icon/#{login_name}")
+    icon = open_avatar_uri
+    avatar.attach(io: icon, filename: login_name, key: "icon/#{login_name}") unless icon.nil?
+  end
+
+  def open_avatar_uri
+    url = avatar_url
+    url != '/images/users/avatars/default.png' ? URI.parse(url).open : nil
   end
 
   def generation
