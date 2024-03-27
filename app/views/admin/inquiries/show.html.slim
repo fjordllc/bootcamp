@@ -4,42 +4,43 @@ header.page-header
   .container
     .page-header__inner
       .page-header__start
-        h1.page-header__title
+        h2.page-header__title
           | 管理ページ
 
 = render 'admin/admin_page_tabs'
 
-header.page-main-header
-  .container
-    .page-main-header__inner
-      .page-main-header__start
-        h1.page-main-header__title
-          | #{@inquiry.name}様
-      .page-main-header__end
-        .page-header-actions
-          ul.page-header-actions__items
-            li.page-header-actions__item
-              = link_to admin_inquiries_path, class: 'a-button is-md is-secondary is-block is-back' do
-                | お問い合わせ一覧へ
-hr.a-border
-.page-body
-  .container.is-md
-    .page-content
-      header.page-content-header
-        .page-content-header__end
-          .page-content-header__row
-            h1.page-content-header__title
-              = @inquiry.sender_name_and_email
-          .page-content-header__row
-            .page-content-header-metas
-              .page-content-header-metas__start
-                .page-content-header-metas__meta
-                  .a-meta
-                    span.a-meta__label 受信日
-                    span.a-meta__value = l @inquiry.created_at
-      .page-content__body
-        .a-card
-          .card-body
-            .card__description
-              .a-long-text.is-md
-                = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | #{@inquiry.name}様
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to admin_inquiries_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | お問い合わせ一覧へ
+  hr.a-border
+  .page-body
+    .container.is-md
+      .page-content
+        header.page-content-header
+          .page-content-header__end
+            .page-content-header__row
+              h1.page-content-header__title
+                = @inquiry.sender_name_and_email
+            .page-content-header__row
+              .page-content-header-metas
+                .page-content-header-metas__start
+                  .page-content-header-metas__meta
+                    .a-meta
+                      span.a-meta__label 受信日
+                      span.a-meta__value = l @inquiry.created_at
+        .page-content__body
+          .a-card
+            .card-body
+              .card__description
+                .a-long-text.is-md
+                  = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })

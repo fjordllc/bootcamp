@@ -3,14 +3,14 @@
 
 .page-header__inner
   +position(relative)
+  display: flex
   +media-breakpoint-up(md)
     height: 3.25rem
-    display: flex
     align-items: center
     justify-content: space-between
   +media-breakpoint-down(sm)
-    display: block
     padding-block: .5rem
+    flex-direction: column
 
 .page-header__start
   display: flex
@@ -40,7 +40,6 @@
     +text-block(1rem 1.4)
     color: var(--main)
   .page-header__start &
-    margin-right: .5em
     align-self: center
 
 .page-header__action
