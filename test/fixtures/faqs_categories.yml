@@ -1,20 +1,34 @@
 faqs_categories1:
   name: study_content
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 faqs_categories2:
   name: study_environment
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 faqs_categories3:
   name: fee
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 faqs_categories4:
   name: find_job
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 faqs_categories5:
   name: join
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 faqs_categories6:
   name: withdrawal_hibernation_graduation
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 faqs_categories7:
   name: corporate_use
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
