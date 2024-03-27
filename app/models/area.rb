@@ -37,6 +37,7 @@ class Area
     end
 
     # regionとareaによって分類されたユーザー数をハッシュで取得して返す関数
+    # country_codeかsubdivision_codeのどちらかがnullのユーザーのデータは無視されます
     #
     # 返されるハッシュの例
     # {
@@ -66,6 +67,7 @@ class Area
     def country_subdivision_pairs
       User
         .select('country_code, subdivision_code')
+        .where.not(country_code: nil)
         .where.not(subdivision_code: nil)
         .pluck(:country_code, :subdivision_code)
     end
