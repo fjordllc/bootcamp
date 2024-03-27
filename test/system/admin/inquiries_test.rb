@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Admin::InquiriesTest < ApplicationSystemTestCase
   test 'show listing inquiries' do
     visit_with_auth '/admin/inquiries', 'komagata'
-    assert_equal '管理ページ | FBC', title
+    assert_equal 'お問い合わせ一覧 | FBC', title
     assert_selector 'h1.page-main-header__title', text: 'お問い合わせ一覧'
     assert_text inquiries(:inquiry1).name
     assert_text inquiries(:inquiry2).name
