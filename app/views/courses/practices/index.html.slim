@@ -19,21 +19,22 @@ header.page-header
       .page-header__start
         h2.page-header__title
           = title
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item.is-hidden-sm-down
-            .a-switch
-              label.a-switch__label(for='modal-progress')
-                span.a-switch__label-text
-                  | みんなの進捗
-                .a-help
-                  i.fa-solid.fa-question
-              label.a-on-off-checkbox.is-sm(for='display-progress')
-                input.js-users-visibility__trigger#display-progress(type = 'checkbox' checked = 'checked')
-                span#checkbox-progress
-          li.page-header-actions__item
-            = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | コース一覧
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item.is-hidden-sm-down
+              .a-switch
+                label.a-switch__label(for='modal-progress')
+                  span.a-switch__label-text
+                    | みんなの進捗
+                  .a-help
+                    i.fa-solid.fa-question
+                label.a-on-off-checkbox.is-sm(for='display-progress')
+                  input.js-users-visibility__trigger#display-progress(type = 'checkbox' checked = 'checked')
+                  span#checkbox-progress
+            li.page-header-actions__item
+              = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
+                | コース一覧
 = render 'courses/tabs'
 .page-body.js-users-visibility
   .container.is-xl

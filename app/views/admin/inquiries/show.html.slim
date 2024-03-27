@@ -3,12 +3,24 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title お問い合わせ
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to admin_inquiries_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | お問い合わせ一覧へ
+      .page-header__start
+        h1.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+header.page-main-header
+  .container
+    .page-main-header__inner
+      .page-main-header__start
+        h1.page-main-header__title
+          | #{@inquiry.name}様
+      .page-main-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to admin_inquiries_path, class: 'a-button is-md is-secondary is-block is-back' do
+                | お問い合わせ一覧へ
 hr.a-border
 .page-body
   .container.is-md
