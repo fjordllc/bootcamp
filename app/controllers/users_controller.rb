@@ -73,6 +73,10 @@ class UsersController < ApplicationController
     else
       create_user!
     end
+
+    return unless @user.errors.empty?
+
+    @user.avatar_attach_with_filepath
   end
 
   private
