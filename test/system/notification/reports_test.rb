@@ -285,4 +285,36 @@ class Notification::ReportsTest < ApplicationSystemTestCase
       assert_text "#{student}さんが2回連続でsadアイコンの日報を提出しました。"
     end
   end
+
+  test 'コードブロック、インラインコードの中でメンションをしても通知が飛ばない' do
+    visit_with_auth '/notifications', 'komagata'
+    click_link '全て既読にする'
+
+    visit_with_auth '/reports', 'kimura'
+    click_link '日報作成'
+
+    within('form[name=report]') do
+      fill_in('report[title]', with: 'コードブロック内でメンション')
+      fill_in('report[description]', with: '```
+                                           @mentor
+                                           ```
+                                           ` @mentor `
+                                           ')
+    end
+
+    within('.learning-time__started-at') do
+      select '07'
+      select '30'
+    end
+    within('.learning-time__finished-at') do
+      select '08'
+      select '30'
+    end
+
+    click_button '提出'
+    logout
+
+    visit_with_auth '/notifications?status=unread', 'komagata'
+    assert_text '未読の通知はありません'
+  end
 end
