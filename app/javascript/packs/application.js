@@ -56,6 +56,7 @@ import '../change-subdivisions.js'
 import '../register-address.js'
 import '../upload-image-to-article.js'
 import '../header-dropdown.js'
+import '../sort-faq.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'

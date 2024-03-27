@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_28_105218) do
+ActiveRecord::Schema.define(version: 2024_03_27_123100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -252,6 +252,24 @@ ActiveRecord::Schema.define(version: 2024_02_28_105218) do
     t.bigint "user_id", null: false
     t.string "thumbnail_image_url"
     t.index ["user_id"], name: "index_external_entries_on_user_id"
+  end
+
+  create_table "faqs", force: :cascade do |t|
+    t.text "answer", null: false
+    t.string "question", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
+    t.bigint "faqs_categories_id", null: false
+    t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
+    t.index ["faqs_categories_id"], name: "index_faqs_on_faqs_categories_id"
+    t.index ["question"], name: "index_faqs_on_question", unique: true
+  end
+
+  create_table "faqs_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "followings", force: :cascade do |t|
@@ -774,6 +792,7 @@ ActiveRecord::Schema.define(version: 2024_02_28_105218) do
   add_foreign_key "check_boxes", "survey_questions"
   add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
+  add_foreign_key "faqs", "faqs_categories", column: "faqs_categories_id"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
