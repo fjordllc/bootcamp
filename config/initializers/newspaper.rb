@@ -72,4 +72,5 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
 
   Newspaper.subscribe(:work_create, WorkNotifier.new)
+  Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
 end
