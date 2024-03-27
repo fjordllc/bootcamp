@@ -61,7 +61,8 @@ module Mentioner
   end
 
   def extract_login_names_from_mentions(mentions)
-    mentionable_without_code = mentionable.gsub(/```.*?```|`.*?`/m, '')
+    code_block_regexp = /```.*?```|`.*?`/m
+    mentionable_without_code = mentionable.gsub(code_block_regexp, '')
     mentions.map { |s| s.gsub(/@/, '') if mentionable_without_code.include?(s) }
   end
 
