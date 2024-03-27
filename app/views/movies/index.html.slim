@@ -1,0 +1,15 @@
+- title '動画'
+- set_meta_tags description: '動画一覧ページです。'
+
+= render 'pages/doc_movie_header'
+= render 'pages/tabs'
+
+.page-body
+  .container
+    = paginate @movies
+    .movies
+      .row
+        = render partial: 'movie_for_index', collection: @movies, as: :movie
+    = paginate @movies
+
+
