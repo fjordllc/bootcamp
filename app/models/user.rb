@@ -178,6 +178,8 @@ class User < ApplicationRecord
                        message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
+  validates :country_code, inclusion: { in: ISO3166::Country.codes, message: 'はcountry codeではありません' }, allow_nil: true
+
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
