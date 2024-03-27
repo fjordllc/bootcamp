@@ -32,7 +32,7 @@ module Bootcamp
         User.all.find_each do |user|
           filename = "#{user.login_name}.jpg"
           path = Rails.root.join("#{fixtures_dir}/fixtures/files/users/avatars/#{filename}")
-          user.avatar.attach(io: File.open(path), filename:, key: "icon/#{user.login_name}") if File.exist?(path)
+          user.avatar.attach(io: File.open(path), filename: user.login_name, key: "icon/#{user.login_name}") if File.exist?(path)
         end
       end
 
