@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require Rails.root.join('config/environment')
-require 'open-uri'
 require 'google/cloud/storage'
 
 # rubocop:disable Metrics/BlockLength
@@ -68,7 +67,7 @@ namespace :bootcamp do
         if user.avatar.attached?
           url = user.avatar.url
           icon = URI.parse(url).open
-          user.avatar.attach(io: icon, filename: user.avatar.filename, key: "icon/#{user.login_name}")
+          user.avatar.attach(io: icon, filename: user.login_name, key: "icon/#{user.login_name}")
           filename = url.match(%r{#{bucket_name}/([^/]+)})[1]
           file = bucket.file filename
           file.delete
