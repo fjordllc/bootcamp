@@ -9,6 +9,9 @@ section.welcome-member.a-card(class="is-#{page}")
       - if mentor.profile_image.attached?
         .welcome-member__start
           = image_tag(mentor.profile_image, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+      - else
+        .welcome-member__start
+          = image_tag(image_url('/images/users/avatars/default.png'), class: 'welcome-member__image', alt: 'デフォルトのアイコン画像')
       .welcome-member__end
         - if mentor.profile_name.present?
           h3.welcome-member__name
