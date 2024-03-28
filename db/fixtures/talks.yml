@@ -227,3 +227,7 @@ talk_kensyu-end-over-1-week:
 talk_kensyu-not-setting-end-date:
   user: kensyu-not-setting-end-date
   action_completed: true
+
+talk_nippou199: # ステージング環境で日報200回目のお祝いメッセージの動作確認が終わり次第、削除します
+  user: nippou199
+  action_completed: true

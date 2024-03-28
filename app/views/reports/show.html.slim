@@ -84,7 +84,7 @@
 - if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description
-        = render 'celebrate_report_count_body'
+        = render 'celebrate_report_count_body', report_count: flash[:celebrate_report_count]
       .modal__description.is-md
         = render 'notify_help_body'
 - elsif flash[:notify_help]
@@ -94,4 +94,4 @@
 - elsif flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-report-counts-celebration', modal_title: '🎉 おめでとう！', auto_show: true
       .modal__description
-        = render 'celebrate_report_count_body'
+        = render 'celebrate_report_count_body', report_count: flash[:celebrate_report_count]

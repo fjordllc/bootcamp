@@ -139,7 +139,7 @@ class ReportsController < ApplicationController
       celebrate_report_count: celebrating_count(report) }
   end
 
-  CELEBRATING_COUNTS = [100].freeze
+  CELEBRATING_COUNTS = [100, 200, 222, 300, 333, 400, 500, 555, 600, 700, 777, 800, 900, 1000].freeze
 
   def celebrating_count(report)
     return nil if report.wip
