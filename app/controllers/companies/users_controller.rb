@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Companies::UsersController < ApplicationController
-  ALLOWED_TARGETS = %w[all student_and_trainee graduate adviser mentor].freeze
+  ALLOWED_TARGETS = %w[all student_and_trainee graduate adviser mentor admin].freeze
 
   def index
     @target = params[:target]

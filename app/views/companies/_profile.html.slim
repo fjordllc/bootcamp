@@ -13,7 +13,7 @@
 
     .company-profile__body
       .companies-item__body-row
-        = render 'user_counts', users: company.users
+        = render 'user_counts', users: company.users, company: company
       .companies-item__body-row
         .companies-item__description.a-short-text
           = simple_format(company.description)
