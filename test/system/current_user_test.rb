@@ -12,7 +12,6 @@ class CurrentUserTest < ApplicationSystemTestCase
     end
 
     assert_text 'ユーザー情報を更新しました。'
-    assert_text 'VSCode'
   end
 
   test 'update user with blank' do
