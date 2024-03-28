@@ -381,6 +381,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kimura'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kimura Tadasi', count: 1
   end
 
@@ -388,6 +389,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'kimura'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'Shinji'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Hatsuno Shinji', count: 1
   end
 
@@ -395,6 +397,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'mentormentaro'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'キムラ ミタイ'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kimura Mitai', count: 1
   end
 
@@ -402,6 +405,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hatsuno'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Hatsuno Shinji', count: 1
   end
 
@@ -409,6 +413,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hatsuno.org'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Hatsuno Shinji', count: 1
   end
 
@@ -416,6 +421,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kananashi'
+    find('#js-user-search-input').send_keys :return
     assert_text 'ユーザーです 読み方のカナが無い', count: 1
   end
 
@@ -423,6 +429,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kimurafacebook'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kimura Mitai', count: 1
   end
 
@@ -437,9 +444,11 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=mentor', 'komagata'
     assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'machida'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Machida Teppei', count: 1
 
     fill_in 'js-user-search-input', with: 'kimura'
+    find('#js-user-search-input').send_keys :return
     assert_text '一致するユーザーはいません'
   end
 
@@ -447,9 +456,11 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=graduate', 'komagata'
     assert_selector '.users-item', count: 3
     fill_in 'js-user-search-input', with: '卒業 就職済美'
+    find('#js-user-search-input').send_keys :return
     assert_text '卒業 就職済美', count: 1
 
     fill_in 'js-user-search-input', with: 'kimura'
+    find('#js-user-search-input').send_keys :return
     assert_text '一致するユーザーはいません'
   end
 
@@ -457,9 +468,11 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=adviser', 'komagata'
     assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'advijirou'
+    find('#js-user-search-input').send_keys :return
     assert_text 'アドバイ 次郎', count: 1
 
     fill_in 'js-user-search-input', with: 'kimura'
+    find('#js-user-search-input').send_keys :return
     assert_text '一致するユーザーはいません'
   end
 
@@ -467,9 +480,11 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=retired', 'komagata'
     assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'yameo'
+    find('#js-user-search-input').send_keys :return
     assert_text '辞目 辞目夫', count: 1
 
     fill_in 'js-user-search-input', with: 'kimura'
+    find('#js-user-search-input').send_keys :return
     assert_text '一致するユーザーはいません'
   end
 
@@ -477,9 +492,11 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=trainee', 'komagata'
     assert_selector '.users-item', count: 2
     fill_in 'js-user-search-input', with: 'Kensyu Seiko'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kensyu Seiko', count: 1
 
     fill_in 'js-user-search-input', with: 'kimura'
+    find('#js-user-search-input').send_keys :return
     assert_text '一致するユーザーはいません'
   end
 
@@ -487,9 +504,11 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users?target=all', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'hajime'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Hajime Tayo', count: 1
 
     fill_in 'js-user-search-input', with: 'machida'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Machida Teppei', count: 1
   end
 
@@ -523,14 +542,18 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'ki'
+    find('#js-user-search-input').send_keys :return
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: 'kim'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kimura', count: 2
 
     fill_in 'js-user-search-input', with: 'キ'
+    find('#js-user-search-input').send_keys :return
     assert_selector '.user-list'
     assert_no_selector '.searched-user-list'
     fill_in 'js-user-search-input', with: 'キム'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kimura', count: 2
   end
 

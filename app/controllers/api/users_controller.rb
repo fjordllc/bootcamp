@@ -25,11 +25,6 @@ class API::UsersController < API::BaseController
           .page(params[:page])
           .per(PAGER_NUMBER)
       end
-
-    return unless params[:require_html]
-
-    @users = @users.page(CURRENT_PAGE_COUNT).per(PAGER_NUMBER) if params[:search_word]
-    render json: { html: render_to_string(partial: 'users/user_list', locals: { users: @users, is_search: true }, formats: :html) }
   end
 
   def show; end

@@ -1,5 +1,5 @@
 - tag_or_target_name = @entered_tag || t("target.#{@target}")
-- title = is_search ? '一致する' : "#{tag_or_target_name}の"
+- title = params[:search_word].present? ? '一致する' : "#{tag_or_target_name}の"
 .row
   .o-empty-message
     .o-empty-message__icon

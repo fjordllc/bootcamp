@@ -21,11 +21,8 @@ class UsersController < ApplicationController
              .order(updated_at: :desc)
 
     @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
+    @users = search_for_users(@target, @users, validate_search_word(params[:search_word])) if params[:search_word]
 
-    if params[:search_word]
-      @users = search_for_users(@target, @users, params[:search_word]).page(params[:page]).per(PAGER_NUMBER)
-      @search_word = params[:search_word]
-    end
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
@@ -196,5 +193,13 @@ class UsersController < ApplicationController
     return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
 
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
+  end
+
+  def validate_search_word(search_word)
+    if search_word.match?(/^[\w-]+$/)
+      search_word.strip if search_word.strip.length >= 3
+    elsif search_word.strip.length >= 2
+      search_word.strip
+    end
   end
 end
