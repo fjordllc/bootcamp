@@ -13,7 +13,7 @@ linters:
       - Layout/FirstArrayElementIndentation
       - Layout/FirstParameterIndentation
       - Layout/HashAlignment # 検討の結果、残す。（詳細は issue #7253 参照）
-      - Layout/IndentationWidth
+      - Layout/IndentationWidth # 検討の結果、残す(詳細は#7251)
       - Layout/InitialIndentation
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
