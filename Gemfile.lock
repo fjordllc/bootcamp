@@ -445,7 +445,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.2.6)
-    rollbar (3.4.1)
+    rollbar (3.5.2)
     rss (0.3.0)
       rexml
     rubocop (1.57.2)
