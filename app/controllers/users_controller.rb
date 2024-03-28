@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include SearchUser
+
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
@@ -193,13 +195,5 @@ class UsersController < ApplicationController
     return unless !params[:token] || !ENV['TOKEN'] || params[:token] != ENV['TOKEN']
 
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
-  end
-
-  def validate_search_word(search_word)
-    if search_word.match?(/^[\w-]+$/)
-      search_word.strip if search_word.strip.length >= 3
-    elsif search_word.strip.length >= 2
-      search_word.strip
-    end
   end
 end
