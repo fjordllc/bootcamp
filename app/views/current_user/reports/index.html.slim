@@ -13,9 +13,9 @@
             | 自分の日報（#{@user.reports.length}）
         - if current_user.reports.present?
           .page-main-header__end
-            .page-header-actions
-              .page-header-actions__items
-                .page-header-actions__item
+            .page-main-header-actions
+              .page-main-header-actions__items
+                .page-main-header-actions__item
                   = link_to user_reports_path(@user, format: :md), class: 'a-button is-md is-primary is-block' do
                     | 日報ダウンロード
 

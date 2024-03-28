@@ -4,16 +4,18 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title Docs
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | Doc作成
-          li.page-header-actions__item
-            = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
-              | Docs
+      .page-header__start
+        h2.page-header__title Docs
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
+                i.fa-regular.fa-plus
+                | Doc作成
+            li.page-header-actions__item
+              = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
+                | Docs
 hr.a-border
 .page-body
   .page-body__inner.has-side-nav
