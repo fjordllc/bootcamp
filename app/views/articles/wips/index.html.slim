@@ -1,0 +1,5 @@
+- title 'ブログ'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+description: 'オンラインプログラミングフィヨルドブートキャンプの WIP ブログ記事一覧ページです。')
+= render '/head/fontawsome'
+= render '/articles/welcome_page', { articles: @articles, is_published: false }
