@@ -56,6 +56,7 @@ import '../change-subdivisions.js'
 import '../register-address.js'
 import '../upload-image-to-article.js'
 import '../header-dropdown.js'
+import '../user_mentor_memo.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
@@ -68,7 +69,6 @@ import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
-import UserMentorMemo from '../components/user_mentor_memo.vue'
 import UserRecentReports from '../components/user-recent-reports.vue'
 import Footprints from '../components/footprints.vue'
 import QuestionAnswers from '../components/question-answers.vue'
@@ -90,7 +90,6 @@ mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
-mounter.addComponent(UserMentorMemo)
 mounter.addComponent(UserRecentReports)
 mounter.addComponent(Footprints)
 mounter.addComponent(QuestionAnswers)
