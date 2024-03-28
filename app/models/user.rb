@@ -188,7 +188,7 @@ class User < ApplicationRecord
                        message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
-  with_options if: -> { %i[create update admin_assigning_mentorship].include? validation_context } do
+  with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
                              with: /\A[a-z\d](?:[a-z\d]|-(?=[a-z\d]))*\z/i,
@@ -226,13 +226,6 @@ class User < ApplicationRecord
                 with: /\A\w+\z/,
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
-  end
-
-  with_options presence: true, if: -> { validation_context != :admin_assigning_mentorship && mentor? } do
-    validates :profile_image
-    validates :profile_name
-    validates :profile_job
-    validates :profile_text
   end
 
   flag :retire_reasons, %i[
