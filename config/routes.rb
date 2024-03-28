@@ -91,7 +91,8 @@ Rails.application.routes.draw do
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
   get "login" => "user_sessions#new", as: :login
-  get "auth/github/callback" => "user_sessions#callback"
+  get "auth/:provider/callback" => "user_sessions#callback"
+  get 'auth/failure', to: "user_sessions#failure"
   post "user_sessions" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
   get "thanks", to: "static_pages#thanks"
