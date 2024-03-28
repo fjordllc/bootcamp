@@ -20,6 +20,7 @@ if user.student_or_trainee?
   json.product_count user.products.size
   json.question_count user.questions.size
   json.answer_count user.answers.size
+  json.work_count user.works.size
 end
 
 

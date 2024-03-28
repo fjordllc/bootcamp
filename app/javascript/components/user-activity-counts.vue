@@ -21,6 +21,10 @@
       activity-name='回答',
       :activity-count='user.answer_count',
       :activity-url='`${user.url}/answers`')
+    user-activity-count(
+      activity-name='ポートフォリオ',
+      :activity-count='user.work_count',
+      :activity-url='`${user.url}/portfolio`')
 </template>
 <script>
 import UserActivityCount from './user-activity-count.vue'
