@@ -619,6 +619,18 @@ class User < ApplicationRecord
     image_url default_image_path
   end
 
+  def profile_image_url
+    default_image_path = '/images/users/avatars/default.png'
+
+    if profile_image.attached?
+      profile_image
+    else
+      image_url default_image_path
+    end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url default_image_path
+  end
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
