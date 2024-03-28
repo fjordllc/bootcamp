@@ -21,9 +21,7 @@ class Admin::UsersController < AdminController
   def edit; end
 
   def update
-    @user.assign_attributes(user_params)
-
-    if @user.save(context: admin_assigning_mentorship? ? :admin_assigning_mentorship : nil)
+    if @user.update(user_params)
       destroy_subscription(@user)
       Newspaper.publish(:retirement_create, { user: @user }) if @user.saved_change_to_retired_on?
       redirect_to user_url(@user), notice: 'ユーザー情報を更新しました。'
@@ -73,9 +71,5 @@ class Admin::UsersController < AdminController
     return unless user.saved_change_to_retired_on? || user.saved_change_to_graduated_on?
 
     Subscription.new.destroy(user.subscription_id)
-  end
-
-  def admin_assigning_mentorship?
-    current_user.admin? && current_user != @user && @user.mentor?
   end
 end
