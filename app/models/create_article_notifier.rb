@@ -3,7 +3,7 @@
 class CreateArticleNotifier
   def call(payload)
     article = payload[:article]
-    return if article.wip? || article.published_at?
+    return if article.wip?
 
     receivers = User.students_trainees_mentors_and_admins.reject { |receiver| receiver == article.user }
     send_notification(article:, receivers:)
