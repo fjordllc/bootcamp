@@ -6,6 +6,7 @@ class CurrentUser::TagsTest < ApplicationSystemTestCase
   test 'update user tags' do
     visit_with_auth '/current_user/edit', 'komagata'
     tag_input = find '.tagify__input'
+    tag_input.set ''
     tag_input.set 'タグ1'
     tag_input.native.send_keys :enter
     Timeout.timeout(Capybara.default_max_wait_time, StandardError) do

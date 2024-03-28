@@ -22,6 +22,15 @@ export default {
     })
   },
 
+  post(path) {
+    return fetch(path, {
+      method: 'POST',
+      headers: headers(),
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+  },
+
   delete(path) {
     return fetch(path, {
       method: 'DELETE',

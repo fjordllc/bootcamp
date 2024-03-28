@@ -8,9 +8,11 @@
 header.page-header
   .container
     .page-header__inner
-      .page-header__title
-        | 日報・ブログ
-      = render 'reports/new_report'
+      .page-header__start
+        .page-header__title
+          | 日報・ブログ
+      .page-header__end
+        = render 'reports/new_report'
 
 = render 'reports/tabs'
 
