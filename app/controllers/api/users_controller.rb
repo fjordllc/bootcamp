@@ -3,7 +3,6 @@
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
   before_action :require_login_for_api
-  CURRENT_PAGE_COUNT = 1
   PAGER_NUMBER = 24
 
   def index
