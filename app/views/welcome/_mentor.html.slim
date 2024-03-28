@@ -6,9 +6,8 @@ section.welcome-member.a-card(class="is-#{page}")
     hr.a-border
   .welcome-member__inner
     .welcome-member__header
-      - if mentor.profile_image.attached?
-        .welcome-member__start
-          = image_tag(mentor.profile_image, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+      .welcome-member__start
+        = image_tag(mentor.profile_image_url, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
       .welcome-member__end
         - if mentor.profile_name.present?
           h3.welcome-member__name
