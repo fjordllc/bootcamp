@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const invitationElements = Array.from(
-    document.querySelectorAll('.invitation-elements select')
+    document.querySelectorAll('.invitation__element select')
   )
   const invitationUrl = document.querySelector('.js-invitation-url')
   const invitationUrlText = document.querySelector('.js-invitation-url-text')
