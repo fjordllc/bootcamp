@@ -1,4 +1,4 @@
-- if !users.empty?
+- if users.present?
   .user-list
     = paginate users, params: { controller: 'users', action: 'index' }
     .row
