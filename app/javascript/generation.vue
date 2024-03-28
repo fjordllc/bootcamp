@@ -9,6 +9,28 @@
           | {{ generation.number }}期生
         .user-group__date
           | {{ dateFormat(generation.start_date) }} ~ {{ dateFormat(generation.end_date) }}
+        .user-group__counts.is-only-mentor(
+          v-if='isAdminOrMentor() && target === "all"')
+          .card-counts
+            .card-counts__items
+              .card-counts__item
+                .card-counts__item-inner
+                  .card-counts__item-label
+                    | 現役生
+                  .card-counts__item-value
+                    | {{ generation.students_and_trainees_count }}
+              .card-counts__item
+                .card-counts__item-inner
+                  .card-counts__item-label
+                    | 卒業生
+                  .card-counts__item-value
+                    | {{ generation.graduates_count }}
+              .card-counts__item
+                .card-counts__item-inner
+                  .card-counts__item-label
+                    | 退会者
+                  .card-counts__item-value
+                    | {{ generation.retirees_count }}
   .a-user-icons
     .a-user-icons__items
       .a-user-icons__item(v-for='user in users', :key='user.id')
@@ -38,6 +60,10 @@ export default {
       type: String,
       required: false,
       default: 'all'
+    },
+    currentUser: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -80,6 +106,12 @@ export default {
     },
     dateFormat(date) {
       return date.replace('-', '年').replace('-', '月') + '日'
+    },
+    isAdminOrMentor() {
+      return (
+        this.currentUser.roles.includes('admin') ||
+        this.currentUser.roles.includes('mentor')
+      )
     }
   }
 }
