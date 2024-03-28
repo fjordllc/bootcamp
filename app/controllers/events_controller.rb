@@ -3,26 +3,28 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @upcoming_events_groups = UpcomingEvent.grouping(:today, :tomorrow, :day_after_tomorrow)
+  end
 
   def show
     @event = Event.with_avatar.find(params[:id])
   end
 
   def new
-    @event = Event.new(open_start_at: Time.current.beginning_of_minute)
-
-    return unless params[:id]
-
-    copy_event(@event)
+    if params[:id]
+      @event = Event.new_with_copied_attributes(Event.find(params[:id]))
+      flash.now[:notice] = '特別イベントをコピーしました。'
+    else
+      @event = Event.new(open_start_at: Time.current.beginning_of_minute)
+    end
   end
 
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-    set_wip
+    set_wip_status
     if @event.save
-      update_published_at
       Newspaper.publish(:event_create, { event: @event })
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
@@ -34,9 +36,8 @@ class EventsController < ApplicationController
   def edit; end
 
   def update
-    set_wip
+    set_wip_status
     if @event.update(event_params)
-      update_published_at
       @event.update_participations if !@event.wip? && @event.can_move_up_the_waitlist?
       url = publish_with_announcement? ? new_announcement_path(event_id: @event.id) : Redirection.determin_url(self, @event)
       redirect_to url, notice: notice_message(@event)
@@ -71,14 +72,8 @@ class EventsController < ApplicationController
     @event = current_user.mentor? ? Event.find(params[:id]) : current_user.events.find(params[:id])
   end
 
-  def set_wip
+  def set_wip_status
     @event.wip = (params[:commit] == 'WIP')
-  end
-
-  def redirect_url(event)
-    return new_announcement_path(event_id: event.id) if publish_with_announcement?
-
-    event.wip? ? edit_event_url(event) : event_url(event)
   end
 
   def notice_message(event)
@@ -88,24 +83,6 @@ class EventsController < ApplicationController
     when 'update'
       event.wip? ? '特別イベントをWIPとして保存しました。' : '特別イベントを更新しました。'
     end
-  end
-
-  def copy_event(new_event)
-    event = Event.find(params[:id])
-    new_event.title       = event.title
-    new_event.location    = event.location
-    new_event.capacity    = event.capacity
-    new_event.open_start_at = Time.current.beginning_of_minute
-    new_event.description = event.description
-    new_event.job_hunting = event.job_hunting
-
-    flash.now[:notice] = '特別イベントをコピーしました。'
-  end
-
-  def update_published_at
-    return if @event.wip || @event.published_at?
-
-    @event.update(published_at: Time.current)
   end
 
   def publish_with_announcement?

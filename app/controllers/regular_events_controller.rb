@@ -3,30 +3,33 @@
 class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @upcoming_events_groups = UpcomingEvent.grouping(:today, :tomorrow, :day_after_tomorrow)
+  end
 
   def show
     @regular_event = RegularEvent.find(params[:id])
   end
 
   def new
-    @regular_event = RegularEvent.new
+    if params[:id]
+      @regular_event = RegularEvent.new_with_copied_attributes(RegularEvent.find(params[:id]))
+      flash.now[:notice] = '定期イベントをコピーしました。'
+    else
+      @regular_event = RegularEvent.new
+    end
+
     @regular_event.regular_event_repeat_rules.build
-
-    return unless params[:id]
-
-    copy_regular_event(@regular_event)
   end
 
   def create
     @regular_event = RegularEvent.new(regular_event_params)
     @regular_event.user = current_user
-    set_wip
+    set_wip_status
     if @regular_event.save
-      update_publised_at
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, { event: @regular_event })
-      set_all_user_participants_and_watchers
+      set_all_user_participants_and_watchers if @regular_event.all?
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
       redirect_to path, notice: notice_message(@regular_event)
     else
@@ -37,11 +40,10 @@ class RegularEventsController < ApplicationController
   def edit; end
 
   def update
-    set_wip
+    set_wip_status
     if @regular_event.update(regular_event_params)
-      update_publised_at
       Newspaper.publish(:regular_event_update, { regular_event: @regular_event })
-      set_all_user_participants_and_watchers
+      set_all_user_participants_and_watchers if @regular_event.all?
       path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
       redirect_to path, notice: notice_message(@regular_event)
     else
@@ -76,14 +78,8 @@ class RegularEventsController < ApplicationController
     @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
   end
 
-  def set_wip
+  def set_wip_status
     @regular_event.wip = (params[:commit] == 'WIP')
-  end
-
-  def update_publised_at
-    return if @regular_event.wip || @regular_event.published_at?
-
-    @regular_event.update(published_at: Time.current)
   end
 
   def publish_with_announcement?
@@ -97,20 +93,6 @@ class RegularEventsController < ApplicationController
     when 'update'
       regular_event.wip? ? '定期イベントをWIPとして保存しました。' : '定期イベントを更新しました。'
     end
-  end
-
-  def copy_regular_event(new_event)
-    regular_event = RegularEvent.find(params[:id])
-    new_event.title = regular_event.title
-    new_event.description = regular_event.description
-    new_event.finished = regular_event.finished
-    new_event.hold_national_holiday = regular_event.hold_national_holiday
-    new_event.start_at = regular_event.start_at
-    new_event.end_at = regular_event.end_at
-    new_event.category = regular_event.category
-    new_event.user_ids = regular_event.organizers.map(&:id)
-
-    flash.now[:notice] = '定期イベントをコピーしました。'
   end
 
   def set_all_user_participants_and_watchers

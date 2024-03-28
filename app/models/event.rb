@@ -17,6 +17,8 @@ class Event < ApplicationRecord
   validates :open_start_at, presence: true
   validates :open_end_at, presence: true
 
+  before_save :update_published_at
+
   with_options if: -> { start_at && end_at } do
     validate :end_at_be_greater_than_start_at
   end
@@ -46,6 +48,17 @@ class Event < ApplicationRecord
   scope :today_events, -> { where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight) }
   scope :tomorrow_events, -> { where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight) }
   scope :day_after_tomorrow_events, -> { where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight) }
+
+  class << self
+    def new_with_copied_attributes(original_event)
+      new_event = Event.new(open_start_at: Time.current.beginning_of_minute)
+
+      %i[title description location capacity job_hunting].each do |attribute|
+        new_event.public_send("#{attribute}=", original_event.public_send(attribute))
+      end
+      new_event
+    end
+  end
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -98,6 +111,12 @@ class Event < ApplicationRecord
         participation.update(enable: false)
       end
     end
+  end
+
+  def update_published_at
+    return if wip? || published_at?
+
+    self.published_at = Time.current
   end
 
   def send_notification(receiver)

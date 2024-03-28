@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class RegularEventTest < ActiveSupport::TestCase
+  include ActiveSupport::Testing::TimeHelpers
+
   test '#organizers' do
     regular_event = regular_events(:regular_event1)
     organizers = users(:komagata)
@@ -132,28 +134,18 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not regular_event.participated_by?(user)
   end
 
-  test '.comming_soon_events' do
-    regular_event = regular_events(:regular_event26)
-    user = users(:kimura)
+  test '.new_with_copied_attributes' do
+    original_event = regular_events(:regular_event1)
 
-    travel_to Time.zone.local(2023, 4, 10, 0, 0, 0) do
-      today_regular_events, tomorrow_regular_events = RegularEvent.comming_soon_events(user)
-      assert today_regular_events.size == 1 && today_regular_events.include?(regular_event)
-      assert tomorrow_regular_events.size == 1 && tomorrow_regular_events.include?(regular_event)
+    freeze_time do
+      new_event = RegularEvent.new_with_copied_attributes(original_event)
+
+      assert_not_equal original_event.id, new_event.id
+
+      %i[title description finished hold_national_holiday start_at end_at category user_ids].each do |attribute|
+        assert_equal original_event.public_send(attribute), new_event.public_send(attribute)
+      end
     end
-  end
-
-  test '.remove_event' do
-    regular_event1 = regular_events(:regular_event1)
-    regular_event2 = regular_events(:regular_event2)
-    regular_event3 = regular_events(:regular_event3)
-    regular_events1 = [regular_event1, regular_event2]
-    regular_events2 = [regular_event3]
-
-    RegularEvent.remove_event([regular_events1, regular_events2], regular_event1.id)
-    assert_not regular_events1.include?(regular_event1)
-    assert_includes regular_events1, regular_event2
-    assert_includes regular_events2, regular_event3
   end
 
   test '#assign_admin_as_organizer_if_none' do
@@ -171,5 +163,27 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event.save(validate: false)
     regular_event.assign_admin_as_organizer_if_none
     assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
+  end
+
+  test '#update_published_at' do
+    new_event = RegularEvent.new
+    assert_nil new_event.published_at
+
+    freeze_time do
+      new_event.update_published_at
+      assert_equal Time.current, new_event.published_at
+    end
+  end
+
+  test '#update_published_at does not work if already set wip or published_at' do
+    wip_event = Event.new(wip: true)
+    wip_event.update_published_at
+    assert_nil wip_event.published_at
+
+    freeze_time do
+      published_event = Event.new(published_at: 1.year.ago)
+      published_event.update_published_at
+      assert_not_equal Time.current, published_event.published_at
+    end
   end
 end

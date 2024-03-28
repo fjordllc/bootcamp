@@ -1,0 +1,14 @@
+.a-side-nav.upcoming_events_list
+  .a-side-nav__inner
+    header.a-side-nav__header
+      h2.a-side-nav__title
+        | 近日開催のイベント
+    .a-side-nav__body
+      - @upcoming_events_groups.each do |events_group|
+        - date_label = I18n.t("days.#{events_group[:date_label]}")
+        = render 'events/events_group', date_label: date_label, events: events_group[:events], event_date: events_group[:event_date]
+
+    hr.a-border
+    footer.a-side-nav__footer
+      = link_to events_path, class: 'a-side-nav__footer-link' do
+        | 全てのイベント

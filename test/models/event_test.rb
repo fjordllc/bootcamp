@@ -3,6 +3,23 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
+  include ActiveSupport::Testing::TimeHelpers
+
+  test '.new_with_copied_attributes' do
+    original_event = events(:event1)
+
+    freeze_time do
+      new_event = Event.new_with_copied_attributes(original_event)
+
+      assert_not_equal original_event.id, new_event.id
+      assert_equal Time.current.beginning_of_minute, new_event.open_start_at
+
+      %i[title description location capacity job_hunting].each do |attribute|
+        assert_equal original_event.public_send(attribute), new_event.public_send(attribute)
+      end
+    end
+  end
+
   test '#opening?' do
     event = events(:event2)
     assert event.opening?
@@ -62,6 +79,28 @@ class EventTest < ActiveSupport::TestCase
     event.update_participations
 
     assert_not_includes event.participations.disabled, move_up_participation
+  end
+
+  test '#update_published_at' do
+    new_event = Event.new
+    assert_nil new_event.published_at
+
+    freeze_time do
+      new_event.update_published_at
+      assert_equal Time.current, new_event.published_at
+    end
+  end
+
+  test '#update_published_at does not work if already set wip or published_at' do
+    wip_event = Event.new(wip: true)
+    wip_event.update_published_at
+    assert_nil wip_event.published_at
+
+    freeze_time do
+      published_event = Event.new(published_at: 1.year.ago)
+      published_event.update_published_at
+      assert_not_equal Time.current, published_event.published_at
+    end
   end
 
   test '#send_notification' do
