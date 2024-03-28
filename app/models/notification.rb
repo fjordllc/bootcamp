@@ -39,7 +39,8 @@ class Notification < ApplicationRecord
     signed_up: 20,
     regular_event_updated: 21,
     no_correct_answer: 22,
-    comebacked: 23
+    comebacked: 23,
+    came_inquiry: 24
   }
 
   scope :unreads, -> { where(read: false) }
@@ -57,30 +58,6 @@ class Notification < ApplicationRecord
   after_create NotificationCallbacks.new
   after_update NotificationCallbacks.new
   after_destroy NotificationCallbacks.new
-
-  class << self
-    def checked(check)
-      Notification.create!(
-        kind: kinds[:checked],
-        user: check.receiver,
-        sender: check.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(check.checkable),
-        message: "#{check.sender.login_name}さんが#{check.checkable.title}を確認しました。",
-        read: false
-      )
-    end
-
-    def came_answer(answer)
-      Notification.create!(
-        kind: kinds[:answered],
-        user: answer.receiver,
-        sender: answer.sender,
-        link: Rails.application.routes.url_helpers.polymorphic_path(answer.question),
-        message: "#{answer.user.login_name}さんから回答がありました。",
-        read: false
-      )
-    end
-  end
 
   def unread?
     !read
