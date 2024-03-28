@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TalksController < ApplicationController
+  include SearchUser
+
   before_action :require_admin_login, only: %i[index]
   before_action :set_talk, only: %i[show]
   before_action :set_user, only: %i[show]
@@ -51,13 +53,5 @@ class TalksController < ApplicationController
     @members = User.with_attached_avatar
                    .where(id: User.admins.ids.push(@talk.user_id))
                    .order(:id)
-  end
-
-  def validate_search_word(search_word)
-    if search_word.match?(/^[\w-]+$/)
-      search_word.strip if search_word.strip.length >= 3
-    elsif search_word.strip.length >= 2
-      search_word.strip
-    end
   end
 end
