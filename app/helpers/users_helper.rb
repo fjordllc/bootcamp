@@ -51,6 +51,19 @@ module UsersHelper
     User.pluck(:login_name, :id).sort
   end
 
+  def button_label(user)
+    if current_user.following?(user)
+      current_user.watching?(user) ? 'コメントあり' : 'コメントなし'
+    else
+      'フォローする'
+    end
+  end
+
+  def desc_paragraphs(user)
+    max_description = user.description.length <= 200 ? user.description : "#{user.description[0...200]}..."
+    max_description.split(/\n|\r\n/).map.with_index { |text, i| { id: i, text: } }
+  end
+
   def all_countries_with_subdivisions
     ISO3166::Country.all
                     .map { |country| [country.alpha2, country.subdivision_names_with_codes(I18n.locale.to_s)] }
