@@ -15,7 +15,10 @@
 .page-header__start
   display: flex
   align-items: center
-  flex: 1
+  +media-breakpoint-up(md)
+    flex: 1
+  +media-breakpoint-down(sm)
+    height: 2rem
 
 .page-header__title
   color: var(--main)
