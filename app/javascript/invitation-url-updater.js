@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const invitationUrl = document.querySelector('.js-invitation-url')
   const invitationUrlText = document.querySelector('.js-invitation-url-text')
 
-  if (!invitationElements || !invitationUrl) {
+  if (invitationElements.length === 0 || !invitationUrlText || !invitationUrl) {
     return
   }
 
