@@ -23,6 +23,8 @@
       = render 'users/form/job', f: f
       = render 'users/form/os', f: f
       = render 'users/form/experience', f:
+    - if from == :edit
+      = render 'users/form/editor', f:, user:
     - if user.student?
       = render 'users/form/job_seeker', f:
     = render 'users/form/register_address', f: f, user: user

@@ -45,6 +45,14 @@ class User < ApplicationRecord
     rails: 4
   }, _prefix: true
 
+  enum editor: {
+    vscode: 0,
+    ruby_mine: 1,
+    vim: 2,
+    emacs: 3,
+    other_editor: 99
+  }, _prefix: true
+
   enum satisfaction: {
     excellent: 0,
     good: 1,
@@ -160,6 +168,7 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
+  validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
 
   validates :feed_url,
             format: {
