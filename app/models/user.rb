@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
-  AVATAR_SIZE = [88, 88].freeze
+  AVATAR_SIZE = [120, 120].freeze
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
@@ -593,11 +593,11 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
-      avatar.variant(resize_to_limit: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
+      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
     else
       image_url default_image_path
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
     image_url default_image_path
   end
 
