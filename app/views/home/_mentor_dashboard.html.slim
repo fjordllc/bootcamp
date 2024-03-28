@@ -26,8 +26,7 @@
                     .a-panels__item
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
-                    .a-panels__item
-                      = render 'bookmarks', user: current_user
+                    div id='bookmarks-in-dashboard'
                   - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'

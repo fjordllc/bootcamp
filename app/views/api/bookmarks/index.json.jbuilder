@@ -4,3 +4,4 @@ json.bookmarks do
   end
 end
 json.totalPages @bookmarks.total_pages if @bookmarks.respond_to?(:total_pages)
+json.unpagedBookmarks @unpaged_bookmarks
