@@ -25,7 +25,7 @@ class CurrentUserController < ApplicationController
       :github_account, :twitter_account, :facebook_url,
       :blog_url, :password, :password_confirmation,
       :job, :organization, :os,
-      :experience, :company_id,
+      :experience, :editor, :other_editor, :company_id,
       :nda, :avatar, :trainee,
       :mail_notification, :job_seeker, :tag_list,
       :after_graduation_hope, :training_ends_on, :profile_image,

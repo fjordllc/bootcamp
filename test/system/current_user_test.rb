@@ -7,16 +7,22 @@ class CurrentUserTest < ApplicationSystemTestCase
     visit_with_auth '/current_user/edit', 'komagata'
     within 'form[name=user]' do
       fill_in 'user[login_name]', with: 'testuser'
+      find('label', text: 'VSCode').click
       click_on '更新する'
     end
+
     assert_text 'ユーザー情報を更新しました。'
   end
 
-  test 'update user description with blank' do
+  test 'update user with blank' do
     visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'user[description]', with: ''
+    find('label[for=other_editor]').click
+    fill_in 'other_input', with: ''
     click_on '更新する'
+
     assert_text '自己紹介を入力してください'
+    assert_text 'その他のエディタを入力してください'
   end
 
   test 'update times url with wrong url' do
@@ -201,5 +207,14 @@ class CurrentUserTest < ApplicationSystemTestCase
     within('#subdivision-select') do
       assert_text 'アラスカ州'
     end
+  end
+
+  test 'register editor with text box' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    find('label[for=other_editor]').click
+    fill_in 'other_input', with: 'textbringer'
+    click_on '更新する'
+
+    assert_text 'textbringer'
   end
 end
