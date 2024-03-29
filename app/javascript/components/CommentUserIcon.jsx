@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function CommentUserIcon({ comment, report }) {
-  const roleClass = `is-${report.user.primary_role}`
+export default function CommentUserIcon({ comment }) {
+  const roleClass = `is-${comment.primary_role}`
   return (
     <a
       className="card-list-item__user-icons-icon"
