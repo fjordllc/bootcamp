@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  include SearchUser
-
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show]
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
@@ -23,7 +21,10 @@ class UsersController < ApplicationController
              .order(updated_at: :desc)
 
     @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
-    @users = search_for_users(@target, @users, validate_search_word(params[:search_word])) if params[:search_word]
+    if params[:search_word]
+      search_user = SearchUser.new(users: @users, target: @target, search_word: params[:search_word])
+      @users = search_user.search
+    end
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -72,13 +73,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def search_for_users(target, target_users, search_word)
-    users = target_users.search_by_keywords({ word: search_word })
-    # search_by_keywords内では { unretired } というスコープが設定されている
-    # 退会したユーザーに対しキーワード検索を行う場合は、一旦 unscope(where: :retired_on) で { unretired } スコープを削除し、その後で retired スコープを設定する必要がある
-    target == 'retired' ? users.unscope(where: :retired_on).retired : users
-  end
 
   def fetch_target_users
     if @target == 'followings'

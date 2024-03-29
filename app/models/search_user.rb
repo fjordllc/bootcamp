@@ -1,11 +1,31 @@
 # frozen_string_literal: true
 
-module SearchUser
+class SearchUser
+  def initialize(users: nil, search_word:, target: nil, require_retire_user: false)
+    @users = users
+    @search_word = validate_search_word(search_word)
+    @target = target
+    @require_retire_user = require_retire_user
+  end
+
+  def search
+    searched_user = @users ? @users.search_by_keywords(word: @search_word) : User.search_by_keywords({ word: @search_word })
+
+    if @target == 'retired'
+      searched_user.unscope(where: :retired_on).retired
+    elsif @require_retire_user
+      searched_user.unscope(where: :retired_on)
+    else
+      searched_user
+    end
+  end
+
   def validate_search_word(search_word)
-    if search_word.match?(/^[\w-]+$/)
-      search_word.strip if search_word.strip.length >= 3
-    elsif search_word.strip.length >= 2
-      search_word.strip
+    stripped_word = search_word.strip
+    if stripped_word.match?(/^[\w-]+$/)
+      stripped_word if stripped_word.length >= 3
+    elsif stripped_word.length >= 2
+      stripped_word
     end
   end
 end
