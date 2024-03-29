@@ -1,0 +1,16 @@
+.form-item
+  = f.label :editor, class: 'a-form-label'
+    = t('activerecord.attributes.user.editor')
+  ul.block-checks.is-2-items
+    - editors = User.editors.keys
+    - editors.each do |editor|
+      li.block-checks__item
+        .a-block-check.is-radio
+          = f.radio_button :editor, editor, id: editor, class: 'a-toggle-checkbox'
+          = f.label :editor, for: editor, class: 'a-block-check__label has-icon is-ta-left' do
+            = t("activerecord.enums.user.editor.#{editor}")
+- other_editor_checked = user.other_editor_checked?(editors)
+.form-item(class="#{'is-hidden' unless other_editor_checked}" id='other_form')
+  label.a-form-label
+    | その他のエディタを選択した場合、具体的なエディタ名を入力してください。
+  = f.text_field :other_input, placeholder: 'textbringer', id: 'other_input', class: 'a-text-input', value: (user.other_editor if other_editor_checked)
