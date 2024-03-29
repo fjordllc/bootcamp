@@ -11,7 +11,7 @@ class Talks::ActionUncompletedController < ApplicationController
 
     if params[:search_word]
       search_user = SearchUser.new(search_word: params[:search_word], require_retire_user: true)
-      @search_word = search_user.validate_search_word(params[:search_word])
+      @search_word = search_user.search_word
     end
 
     if @search_word

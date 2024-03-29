@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SearchUser
+  attr_reader :search_word
+
   def initialize(users: nil, search_word:, target: nil, require_retire_user: false)
     @users = users
     @search_word = validate_search_word(search_word)
@@ -19,6 +21,8 @@ class SearchUser
       searched_user
     end
   end
+
+  private
 
   def validate_search_word(search_word)
     stripped_word = search_word.strip
