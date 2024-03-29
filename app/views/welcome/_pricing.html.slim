@@ -1,15 +1,22 @@
 section.welcome-section.is-pricing#pricing
-  .container.is-xl
-    h2.welcome-section__title
-      | 料金
-    h3.welcome-section__price.is-index
-      .welcome-section__price-period
-        | 月額
-      .welcome-section__price-number
-        | 29,800
-      .welcome-section__price-unit
-        | 円
+  .welcome-section__inner
+    header.welcome-section__header
+      .container
+        .welcome-section__header-inner
+          h2.welcome-section__title
+            | 料金
+          hr.welcome-section__title-border
+    .welcome-section__body
+      .container
+        .welcome-section__price.is-index
+          .welcome-section__price-period
+            | 月額
+          .welcome-section__price-number
+            | 29,800
+          .welcome-section__price-unit
+            | 円
     .welcome-section__actions
-      .welcome-section__actions-items
-        .welcome-section__actions-item
-          = link_to '料金について詳しく', pricing_path, class: 'a-button is-md'
+      .container
+        .welcome-section__actions-items
+          .welcome-section__actions-item
+            = link_to '料金について詳しく', pricing_path, class: 'a-button is-lg'

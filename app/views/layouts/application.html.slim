@@ -19,12 +19,8 @@ html.is-application lang='ja'
       = render 'available_emojis'
       = render 'stripe'
       = stylesheet_pack_tag 'application', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'
-    = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp_s-narrow.min.css', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap', media: 'all'
-    = render '/head/fontawsome'
     link(rel='alternate' type='application/atom+xml' title='フィヨルドブートキャンプブログ' href='/articles.atom')
+    = render 'layouts/common/common_web_fonts'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body(class="#{body_class}")
     = render 'google_analytics' if Rails.env.production? && !staging?

@@ -3,7 +3,7 @@ header.welcome-header
     .welcome-header__inner
       .welcome-header__start
         .welcome-header__home
-          = link_to root_path, class: 'welcome-header__home-link' do
+          = link_to current_user ? welcome_path : root_path, class: 'welcome-header__home-link' do
             = image_tag('shared/logo-horizontal.svg', alt: 'プログラミングスクール', class: 'welcome-header__home-link-image')
         label.welcome-header__mobile-nav-trigger(for='welcome-mobile-nav')
           i.fa-solid.fa-bars
