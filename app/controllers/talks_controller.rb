@@ -17,7 +17,7 @@ class TalksController < ApplicationController
     users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
 
     if params[:search_word]
-      search_user = SearchUser.new(users:, target: @target, search_word: params[:search_word], require_retire_user: true)
+      search_user = SearchUser.new(search_word: params[:search_word], users:, target: @target, require_retire_user: true)
       @search_word = search_user.search_word
     end
 

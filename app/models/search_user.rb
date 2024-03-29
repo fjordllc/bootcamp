@@ -3,7 +3,7 @@
 class SearchUser
   attr_reader :search_word
 
-  def initialize(users: nil, search_word:, target: nil, require_retire_user: false)
+  def initialize(search_word:, users: nil, target: nil, require_retire_user: false)
     @users = users
     @search_word = validate_search_word(search_word)
     @target = target
