@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Talks::ActionUncompletedController < ApplicationController
-  include SearchUser
   before_action :require_admin_login
 
   def index
@@ -9,13 +8,15 @@ class Talks::ActionUncompletedController < ApplicationController
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .action_uncompleted
                  .order(updated_at: :desc, id: :asc)
-    params[:search_word] = validate_search_word(params[:search_word]) if params[:search_word]
 
     if params[:search_word]
-      @searched_talks = @talks.merge(
-        User.search_by_keywords({ word: params[:search_word] })
-            .unscope(where: :retired_on)
-      ).page(params[:page])
+      search_user = SearchUser.new(search_word: params[:search_word], require_retire_user: true)
+      @search_word = search_user.validate_search_word(params[:search_word])
+    end
+
+    if @search_word
+      searched_users = search_user.search
+      @searched_talks = @talks.merge(searched_users).page(params[:page])
     else
       @talks = @talks.page(params[:page])
     end

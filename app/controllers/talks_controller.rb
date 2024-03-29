@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class TalksController < ApplicationController
-  include SearchUser
-
   before_action :require_admin_login, only: %i[index]
   before_action :set_talk, only: %i[show]
   before_action :set_user, only: %i[show]
@@ -17,14 +15,14 @@ class TalksController < ApplicationController
                  .includes(user: [{ avatar_attachment: :blob }, :discord_profile])
                  .order(updated_at: :desc, id: :asc)
     users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
-    params[:search_word] = validate_search_word(params[:search_word]) if params[:search_word]
 
     if params[:search_word]
-      # search_by_keywords内では { unretired } というスコープが設定されている
-      # 退会したユーザーも検索対象に含めたいので、unscope(where: :retired_on) で上記のスコープを削除
-      searched_users = users.search_by_keywords(word: params[:search_word]).unscope(where: :retired_on)
-      # もし検索対象が退会したユーザーである場合、searched_usersには退会していないユーザーも含まれているため、retired スコープを設定する
-      searched_users = searched_users.retired if @target == 'retired'
+      search_user = SearchUser.new(users:, target: @target, search_word: params[:search_word], require_retire_user: true)
+      @search_word = search_user.validate_search_word(params[:search_word])
+    end
+
+    if @search_word
+      searched_users = search_user.search
       @searched_talks = @talks.merge(searched_users).page(params[:page])
     else
       @talks = @talks.merge(users).page(params[:page])
