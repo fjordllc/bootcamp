@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
     @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
     if params[:search_word]
-      search_user = SearchUser.new(users: @users, target: @target, search_word: params[:search_word])
+      search_user = SearchUser.new(search_word: params[:search_word], users: @users, target: @target)
       @users = search_user.search
     end
 

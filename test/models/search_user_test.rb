@@ -7,7 +7,7 @@ class SearchUserTest < ActiveSupport::TestCase
     kimura = users(:kimura)
     komagata = users(:komagata)
     search_user = SearchUser.new(search_word: 'kimu')
-    
+
     searched_users = search_user.search
     assert_includes searched_users, kimura
     assert_not_includes searched_users, komagata
@@ -45,10 +45,10 @@ class SearchUserTest < ActiveSupport::TestCase
     allowed_targets = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]
     users = User.users_role('mentor', allowed_targets:)
 
-    search_user = SearchUser.new(users: , search_word: 'kimu')
+    search_user = SearchUser.new(search_word: 'kimu', users:)
     assert_not_includes search_user.search, kimura
 
-    search_user = SearchUser.new(users: , search_word: 'メンター')
+    search_user = SearchUser.new(search_word: 'メンター', users:)
     assert_includes search_user.search, mentor
   end
 end
