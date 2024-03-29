@@ -33,10 +33,6 @@
 
 .card-counts__item-label
   +text-block(.625rem 1.4)
-  overflow: hidden
-  max-width: 100%
-  white-space: nowrap
-  display: block
   text-align: center
   color: var(--semi-muted-text)
   padding: .125rem .125rem
@@ -47,9 +43,10 @@
     transform: scale(.85)
 
 .card-counts__item-value
-  +text-block(.875rem 1.4, center)
   color: var(--muted-text)
+  +text-block(.875rem 1.4)
   padding-bottom: .125rem
+  text-align: center
   &.is-empty
     color: var(--muted-text)
   a
