@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class SearchUserTest < ActiveSupport::TestCase
-  test 'ユーザーを指定しない場合' do
+  test 'no user is specified when searching' do
     kimura = users(:kimura)
     komagata = users(:komagata)
     search_user = SearchUser.new(word: 'kimu')
@@ -13,21 +13,21 @@ class SearchUserTest < ActiveSupport::TestCase
     assert_not_includes searched_users, komagata
   end
 
-  test '退会ユーザーを必要としない場合' do
+  test 'retired user is excluded when not required' do
     yameo = users(:yameo)
     search_user = SearchUser.new(word: 'yame', require_retire_user: false)
 
     assert_not_includes search_user.search, yameo
   end
 
-  test '退会ユーザーを必要とした場合' do
+  test 'retired user is included when required' do
     yameo = users(:yameo)
     search_user = SearchUser.new(word: 'yame', require_retire_user: true)
 
     assert_includes search_user.search, yameo
   end
 
-  test 'targetがretiredの場合' do
+  test 'only retired users are targeted when target is retired' do
     yameo = users(:yameo)
     kimura = users(:kimura)
 
@@ -38,7 +38,7 @@ class SearchUserTest < ActiveSupport::TestCase
     assert_not_includes search_user.search, kimura
   end
 
-  test 'ユーザーを指定した時、そのユーザーの中から検索される' do
+  test 'search is within specified user when a user is specified' do
     kimura = users(:kimura)
     mentor = users(:mentormentaro)
 
@@ -52,22 +52,22 @@ class SearchUserTest < ActiveSupport::TestCase
     assert_includes search_user.search, mentor
   end
 
-  test '検索文字が半角2文字の場合' do
+  test 'search word is invalid when it is 2 half-width characters' do
     search_user = SearchUser.new(word: 'ki')
     assert_nil search_user.validate_search_word
   end
 
-  test '検索文字が全角1文字の場合' do
+  test 'search word is invalid when it is 1 full-width character' do
     search_user = SearchUser.new(word: 'キ')
     assert_nil search_user.validate_search_word
   end
 
-  test '検索文字が半角3文字の場合' do
+  test 'search word is valid when it is 3 half-width characters' do
     search_user = SearchUser.new(word: 'kim')
     assert_equal search_user.validate_search_word, 'kim'
   end
 
-  test '検索文字が全角2文字の場合' do
+  test 'search word is valid when it is 2 full-width characters' do
     search_user = SearchUser.new(word: 'キム')
     assert_equal search_user.validate_search_word, 'キム'
   end
