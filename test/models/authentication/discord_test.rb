@@ -5,7 +5,7 @@ require 'test_helper'
 class Authentication::DiscordTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
-  test '引数が正常な値の時' do
+  test 'authentication succeeds when arguments are valid' do
     user = users(:komagata)
     discord_authentication = Authentication::Discord.new(user, { info: { name: 'komagata_discord' } })
     result = discord_authentication.authenticate
@@ -14,7 +14,7 @@ class Authentication::DiscordTest < ActiveSupport::TestCase
     assert_equal result[:path], root_path
   end
 
-  test '引数が不正な値の時' do
+  test 'authentication fails when arguments are invalid' do
     discord_authentication = Authentication::Discord.new(nil, { info: { name: 'komagata_discord' } })
     result = discord_authentication.authenticate
 

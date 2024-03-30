@@ -5,7 +5,7 @@ require 'test_helper'
 class Authentication::GithubTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
-  test 'ログインユーザーが存在せず、githubのidが一致しない場合' do
+  test 'authentication fails when github id does not match' do
     github_authentication = Authentication::Github.new(nil, { info: { nickname: 'kimura_github' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
 
@@ -13,7 +13,7 @@ class Authentication::GithubTest < ActiveSupport::TestCase
     assert_equal result[:alert], 'ログインに失敗しました。先にアカウントを作成後、GitHub連携を行ってください。'
   end
 
-  test 'ログインユーザーが存在せず、githubのidが退会ユーザーの場合' do
+  test 'retirement path when github id matches a retired user' do
     user = users(:yameo)
     user.github_id = 'uid_test_data'
     user.save!
@@ -23,7 +23,7 @@ class Authentication::GithubTest < ActiveSupport::TestCase
     assert_equal github_authentication.authenticate[:path], retirement_path
   end
 
-  test 'ログインユーザーが存在せず、githubのidが通常ユーザーの場合' do
+  test 'authentication succeeds when github id matches a regular user' do
     user = users(:kimura)
     user.github_id = 'uid_test_data'
     user.save!
@@ -37,7 +37,7 @@ class Authentication::GithubTest < ActiveSupport::TestCase
     assert_equal result[:back], true
   end
 
-  test 'ログインしており、Github連携していないユーザーの場合' do
+  test 'github is linked when user is logged in and not linked with Github' do
     user = users(:kimura)
     github_authentication = Authentication::Github.new(user, { info: { nickname: 'kimura_github' }, uid: 'uid_test_data' })
     result = github_authentication.authenticate
