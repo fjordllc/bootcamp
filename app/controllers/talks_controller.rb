@@ -17,11 +17,11 @@ class TalksController < ApplicationController
     users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'all')
 
     if params[:search_word]
-      search_user = SearchUser.new(search_word: params[:search_word], users:, target: @target, require_retire_user: true)
-      @search_word = search_user.search_word
+      search_user = SearchUser.new(word: params[:search_word], users:, target: @target, require_retire_user: true)
+      @validated_search_word = search_user.validate_search_word
     end
 
-    if @search_word
+    if @validated_search_word
       searched_users = search_user.search
       @searched_talks = @talks.merge(searched_users).page(params[:page])
     else
