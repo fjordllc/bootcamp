@@ -46,7 +46,7 @@ class API::UsersController < API::BaseController
   end
 
   def target_allowlist
-    target_allowlist = %w[student_and_trainee student followings mentor graduate adviser trainee year_end_party]
+    target_allowlist = %w[student_and_trainee student trainee followings mentor graduate adviser year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.push('all') if @company
     target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?

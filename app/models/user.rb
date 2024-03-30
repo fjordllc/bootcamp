@@ -17,9 +17,9 @@ class User < ApplicationRecord
   TARGET_TO_SCOPE = {
     'student_and_trainee' => :students_and_trainees,
     'student' => :students,
+    'trainee' => :trainees,
     'graduate' => :graduated,
-    'adviser' => :advisers,
-    'trainee' => :trainees  
+    'adviser' => :advisers
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 6.months
