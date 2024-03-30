@@ -178,7 +178,9 @@ class User < ApplicationRecord
                        message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
-  validates :country_code, inclusion: { in: ISO3166::Country.codes, message: 'はcountry codeではありません' }, allow_nil: true
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
+
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_blank: true, if: -> { country_code.present? }
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -747,6 +749,11 @@ class User < ApplicationRecord
     country = ISO3166::Country[country_code]
     subdivision = country.subdivisions[subdivision_code]
     subdivision.translations[I18n.locale.to_s]
+  end
+
+  def subdivision_codes
+    country = ISO3166::Country[country_code]
+    country ? country.subdivisions.keys : []
   end
 
   def create_comebacked_comment
