@@ -65,6 +65,7 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     @admin_mentor_user.editor = 99
     @student_user.editor = 0
 
+    assert_equal @japanese_user.editor, nil
     assert_equal @admin_mentor_user.editor_or_other_editor, 'textbringer'
     assert_equal @student_user.editor_or_other_editor, 'VSCode'
   end
