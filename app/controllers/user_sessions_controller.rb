@@ -40,9 +40,9 @@ class UserSessionsController < ApplicationController
     authentication =
       case params[:provider]
       when 'discord'
-        DiscordAuthentication.new(current_user, auth)
+        Authentication::Discord.new(current_user, auth)
       when 'github'
-        GithubAuthentication.new(current_user, auth)
+        Authentication::Github.new(current_user, auth)
       end
     result = authentication.authenticate
     assign_flash_and_session(result)
