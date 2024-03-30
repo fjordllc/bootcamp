@@ -72,10 +72,12 @@ class Area
         .pluck(:country_code, :subdivision_code)
         .filter do |country_code, subdivision_code|
           # country_codeが間違っている場合は配列から削除する
-          return false unless ISO3166::Country.codes.include?(country_code)
-
-          # subdivision_codeが間違っている場合は配列から削除する
-          ISO3166::Country[country_code].subdivisions.keys.include?[subdivision_code]
+          if ISO3166::Country.codes.include?(country_code)
+            # subdivision_codeが間違っている場合は配列から削除する
+            ISO3166::Country[country_code].subdivisions.key?(subdivision_code)
+          else
+            false
+          end
         end
     end
 
