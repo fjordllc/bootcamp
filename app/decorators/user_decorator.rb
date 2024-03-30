@@ -85,6 +85,8 @@ module UserDecorator
   end
 
   def editor_or_other_editor
+    return nil if editor.nil?
+
     editor == 'other_editor' ? other_editor : t("activerecord.enums.user.editor.#{editor}")
   end
 end
