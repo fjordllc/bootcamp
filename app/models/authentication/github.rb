@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GithubAuthentication
+class Authentication::Github
   include Rails.application.routes.url_helpers
 
   def initialize(user, auth)

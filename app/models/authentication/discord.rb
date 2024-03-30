@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiscordAuthentication
+class Authentication::Discord
   include Rails.application.routes.url_helpers
 
   def initialize(login_user, auth)

@@ -216,6 +216,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     click_on '更新する'
 
     assert_text 'textbringer'
+  end
 
   test 'cannot register discord account already setting user' do
     visit_with_auth '/current_user/edit', 'kimura'
