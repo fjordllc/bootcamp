@@ -8,7 +8,7 @@ nav.tab-nav
           li.tab-nav__item
             = link_to t("watch.#{watch}"), users_path(target: @target, watch:), class: (@watch == watch ? ['is-active'] : []) << 'tab-nav__item-link'
       - else
-        - targets = %w[student_and_trainee mentor graduate adviser trainee]
+        - targets = %w[student_and_trainee student mentor graduate adviser trainee]
         - if current_user.mentor?
           - targets += %w[job_seeking hibernated retired all]
         - elsif current_user.adviser?

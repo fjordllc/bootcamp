@@ -11,13 +11,15 @@ class User < ApplicationRecord
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
-  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee trainee year_end_party].freeze
+  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee student trainee
+                           year_end_party].freeze
   # 本来であればtarget = scope名としたいが、歴史的経緯によりtargetとscope名が一致しないものが多数あるため、名前が一致しない場合はこのハッシュを使ってscope名に変換する
   TARGET_TO_SCOPE = {
     'student_and_trainee' => :students_and_trainees,
+    'student' => :students,
     'graduate' => :graduated,
     'adviser' => :advisers,
-    'trainee' => :trainees
+    'trainee' => :trainees  
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 6.months
