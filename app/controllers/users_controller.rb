@@ -164,7 +164,7 @@ class UsersController < ApplicationController
       :github_account, :twitter_account,
       :facebook_url, :blog_url, :password,
       :password_confirmation, :job, :organization,
-      :os, :experience,
+      :os, :experience, :editor, :other_editor,
       :company_id, :nda, :avatar,
       :trainee, :adviser, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,

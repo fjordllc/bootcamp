@@ -4,13 +4,15 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = @company.name
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | 企業一覧
+      .page-header__start
+        h2.page-header__title
+          = @company.name
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
+                | 企業一覧
 
 = render 'companies/tabs', company: @company
 

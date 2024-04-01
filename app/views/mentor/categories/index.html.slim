@@ -3,7 +3,9 @@
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title = title
+      .page-header__start
+        h2.page-header__title
+          = title
 = render 'mentor/mentor_page_tabs'
 
 main.page-main
@@ -14,9 +16,9 @@ main.page-main
           h1.page-main-header__title
             | カテゴリー
         .page-main-header__end
-          .page-header-actions
-            .page-header-actions__items
-              .page-header-actions__item
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
                 = link_to new_mentor_category_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   | カテゴリー作成
