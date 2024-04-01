@@ -6,12 +6,10 @@
       .form-item__mention-input
         = discord_profile_fields.text_field :account_name, class: 'a-text-input', disabled: true
       .a-form-help
-        p
-          | Discord アカウントは登録されています。
+        p Discord アカウントは登録されています。
     - else
       = link_to '/auth/discord', class: 'a-button is-sm is-primary', method: :post do
-        p
-          | Discord アカウントを登録する
+        p Discord アカウントを登録する
       .a-form-help
         p
           | 今後、Discord とフィヨルドブートキャンプアプリとの
