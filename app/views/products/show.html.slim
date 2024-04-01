@@ -46,11 +46,7 @@ header.page-header
           = render 'product_practice_content', product: @product, content_type: :goal
           = render 'product_body', product: @product
 
-        / 文字数制限の回避のために変数に入れてます
-        - user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
-        - emojis = Reaction.available_emojis.to_json
-        = react_component('Comment/Comments', title: 'コメント', commentableId: @product.id, commentableType: 'Product', currentUser: user, availableEmojis: emojis)
-
+        = react_component('Comment/Comments', comments_props(title: 'コメント', commentable_id: @product.id, commentable_type: 'Product'))
         div(data-vue='Footprints' data-vue-footprintable-id="#{@product.id}" data-vue-footprintable-type='Product')
 
       .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")

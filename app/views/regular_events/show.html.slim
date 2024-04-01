@@ -39,9 +39,5 @@
 .page-body
   .container.is-md
     = render 'regular_event', regular_event: @regular_event
-    / 文字数制限の回避のために変数に入れてます
-    - user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
-    - emojis = Reaction.available_emojis.to_json
-    - props = { title: '質問・連絡・コメント', commentableId: @regular_event.id, commentableType: 'RegularEvent', currentUser: user, availableEmojis: emojis }
-    = react_component('Comment/Comments', props)
+    = react_component('Comment/Comments', comments_props(title: '質問・連絡・コメント', commentable_id: @regular_event.id, commentable_type: 'RegularEvent'))
     div(data-vue='Footprints' data-vue-footprintable-id="#{@regular_event.id}" data-vue-footprintable-type='RegularEvent')

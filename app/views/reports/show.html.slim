@@ -39,7 +39,7 @@
         / 文字数制限の回避のために変数に入れてます
         - user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
         - emojis = Reaction.available_emojis.to_json
-        = react_component('Comment/Comments', title: 'コメント', commentableId: @report.id, commentableType: 'Report', currentUser: user, availableEmojis: emojis)
+        = react_component('Comment/Comments', comments_props(title: 'コメント', commentable_id: @report.id, commentable_type: 'Report'))
 
         div(data-vue='Footprints' data-vue-footprintable-id="#{@report.id}" data-vue-footprintable-type='Report')
 

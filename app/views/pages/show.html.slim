@@ -45,11 +45,7 @@ hr.a-border
           .page-content-prev-next__item
             = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
               | 一覧に戻る
-      / 文字数制限の回避のために変数に入れてます
-      - user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
-      - emojis = Reaction.available_emojis.to_json
-      = react_component('Comment/Comments', title: 'コメント', commentableId: @page.id, commentableType: 'Page', currentUser: user, availableEmojis: emojis)
-
+      = react_component('Comment/Comments', comments_props(title: 'コメント', commentable_id: @page.id, commentable_type: 'Page'))
     - if @page.practice
       nav.a-side-nav
         .a-side-nav__inner
