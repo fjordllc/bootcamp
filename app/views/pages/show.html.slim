@@ -45,9 +45,7 @@ hr.a-border
           .page-content-prev-next__item
             = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
               | 一覧に戻る
-
-      #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
-
+      = react_component('Comment/Comments', comments_props(title: 'コメント', commentable_id: @page.id, commentable_type: 'Page'))
     - if @page.practice
       nav.a-side-nav
         .a-side-nav__inner

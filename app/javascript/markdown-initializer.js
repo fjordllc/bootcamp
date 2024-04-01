@@ -25,7 +25,7 @@ export default class {
       element.innerHTML = this.render(element.textContent)
     })
 
-    new UserIconRenderer().render(selector)
+    new UserIconRenderer(selector).render()
     MarkdownItTaskListsInitializer.initialize()
   }
 

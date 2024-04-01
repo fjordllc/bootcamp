@@ -1,10 +1,20 @@
 import MarkdownIt from 'markdown-it'
 
 export default class {
-  linkify(selector) {
-    const textareas = document.querySelectorAll(selector)
+  constructor(element) {
+    if (typeof element === 'string') {
+      const textareas = document.querySelectorAll(element)
+      if (textareas.length === 0) {
+        return null
+      }
+      this.textareas = textareas
+    } else {
+      this.textareas = element
+    }
+  }
 
-    Array.from(textareas).forEach((textarea) => {
+  linkify() {
+    Array.from(this.textareas).forEach((textarea) => {
       textarea.addEventListener('paste', async (event) => {
         event.preventDefault()
         const { selectionStart, selectionEnd } = textarea

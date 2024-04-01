@@ -148,6 +148,7 @@ class PagesTest < ApplicationSystemTestCase
 
     fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
+    assert_text 'コメントを投稿しました!'
 
     visit current_path
     assert_selector '#comment_count', text: 1

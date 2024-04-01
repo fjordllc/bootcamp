@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      watches: null,
+      watches: [],
       totalPages: 0,
       currentPage: this.pageParam(),
       loaded: false,

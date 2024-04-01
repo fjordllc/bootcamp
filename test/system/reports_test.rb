@@ -365,25 +365,11 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
-  # 画面上では更新の完了がわからないため、やむを得ずsleepする
-  # 注意）安易に使用しないこと!! https://bootcamp.fjord.jp/pages/use-assert-text-instead-of-wait-for-vuejs
-  def wait_for_watch_change
-    sleep 1
-  end
-
-  test 'unwatch' do
-    visit_with_auth report_path(reports(:report1)), 'kimura'
-    assert_difference('Watch.count', -1) do
-      find('div.a-watch-button', text: 'Watch中').click
-      wait_for_watch_change
-    end
-  end
-
   test 'click unwatch' do
     visit_with_auth report_path(reports(:report1)), 'kimura'
     assert_difference('Watch.count', -1) do
-      find('div.a-watch-button', text: 'Watch中').click
-      wait_for_watch_change
+      find('button.a-watch-button', text: 'Watch中').click
+      assert_no_text 'Watch中'
     end
   end
 

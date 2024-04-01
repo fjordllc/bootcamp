@@ -56,8 +56,8 @@
   - else
     hr.a-border
 
-  .page-body
-    .container.is-md
-      = render 'event', event: @event
-      #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
-      div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')
+.page-body
+  .container.is-md
+    = render 'event', event: @event
+    = react_component('Comment/Comments', comments_props(title: '質問・連絡・コメント', commentable_id: @event.id, commentable_type: 'Event'))
+    div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')

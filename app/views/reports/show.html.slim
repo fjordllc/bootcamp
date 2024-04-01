@@ -36,7 +36,7 @@
                   | 次の日報
                   i.fa-solid.fa-angle-right
 
-        #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
+        = react_component('Comment/Comments', comments_props(title: 'コメント', commentable_id: @report.id, commentable_type: 'Report'))
 
         div(data-vue='Footprints' data-vue-footprintable-id="#{@report.id}" data-vue-footprintable-type='Report')
 

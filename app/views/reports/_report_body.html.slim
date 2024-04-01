@@ -26,4 +26,4 @@
 
   - if admin_or_mentor_login?
     hr.a-border-tint
-    = react_component('Check/Check', { emotion: report.emotion, checkableId: report.id, checkableType: 'Report', checkableLabel: Report.model_name.human })
+    = react_component('Check/Check', { emotion: report.emotion, checkableId: report.id, checkableType: 'Report', checkableName: Report.model_name.human })
