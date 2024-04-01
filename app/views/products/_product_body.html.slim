@@ -35,8 +35,10 @@
 
     - if admin_or_mentor_login?
       hr.a-border-tint
-      - check = { checkableId: product.id, checkableType: 'Product', checkableName: Product.model_name.human, responsibleUserId: product.checker_id, responsibleUserName: product.checker_name, responsibleUserAvatar: product.checker_avatar, currentUserId: current_user.id }
-      = react_component('Check/Check', check)
+      / 文字数制限の回避のために分けて変数に入れてます
+      - check = { checkableId: product.id, checkableType: 'Product', checkableName: Product.model_name.human, currentUserId: current_user.id }
+      - responsibleUser = { responsibleUserId: product.checker_id, responsibleUserName: product.checker_name, responsibleUserAvatar: product.checker_avatar }
+      = react_component('Check/Check', check.merge(user))
 
 .page-content-prev-next
   .page-content-prev-next__item

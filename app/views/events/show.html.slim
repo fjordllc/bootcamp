@@ -59,6 +59,8 @@
 .page-body
   .container.is-md
     = render 'event', event: @event
-    - narrowed_current_user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
-    = react_component('Comment/Comments', title: '質問・連絡・コメント', commentableId: @event.id, commentableType: 'Event', currentUser: narrowed_current_user, availableEmojis: Reaction.available_emojis.to_json)
+    / 文字数制限の回避のために変数に入れてます
+    - user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
+    - emojis = Reaction.available_emojis.to_json
+    = react_component('Comment/Comments', title: '質問・連絡・コメント', commentableId: @event.id, commentableType: 'Event', currentUser: user, availableEmojis: emojis)
     div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')

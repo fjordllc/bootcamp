@@ -46,9 +46,10 @@ header.page-header
           = render 'product_practice_content', product: @product, content_type: :goal
           = render 'product_body', product: @product
 
-        - narrowed_current_user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
-
-        = react_component('Comment/Comments', title: 'コメント', commentableId: @product.id, commentableType: 'Product', currentUser: narrowed_current_user, availableEmojis: Reaction.available_emojis.to_json)
+        / 文字数制限の回避のために変数に入れてます
+        - user = current_user.as_json(only: %i[id login_name], methods: %i[avatar_url roles primary_role icon_title])
+        - emojis = Reaction.available_emojis.to_json
+        = react_component('Comment/Comments', title: 'コメント', commentableId: @product.id, commentableType: 'Product', currentUser: user, availableEmojis: emojis)
 
         div(data-vue='Footprints' data-vue-footprintable-id="#{@product.id}" data-vue-footprintable-type='Product')
 
