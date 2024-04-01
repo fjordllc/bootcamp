@@ -22,7 +22,7 @@ const createResponsibleMentor = async ({ productId, currentUserId }) => {
 
 const deleteResponsibleMentor = async ({ productId }) => {
   const params = {
-    product_id: productId,
+    product_id: productId
   }
 
   const response = await fetch('/api/products/checker', {

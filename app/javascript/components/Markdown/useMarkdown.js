@@ -8,9 +8,9 @@ const md = new MarkdownInitializer()
  */
 export const useMarkdown = () => {
   // 何も処理していないmarkdown側のテキスト
-  const [markdownText, setMarkDownText] = useState("")
+  const [markdownText, setMarkDownText] = useState('')
   // markdownをhtmlへと変換したテキスト
-  const [renderedHTML, setRenderedHTML] = useState("")
+  const [renderedHTML, setRenderedHTML] = useState('')
 
   // textareなどでの入力に伴いmarkdown・htmlテキストを更新するハンドラー
   const handleTextInput = (e) => {

@@ -22,8 +22,7 @@ export const TimeClipboard = ({
       className={clsx({ 'is-active': isCopied }, className)}
       dateTime={dateTime}
       onClick={execCopy}
-      {...props}
-    >
+      {...props}>
       {formattedDateTime}
     </time>
   )

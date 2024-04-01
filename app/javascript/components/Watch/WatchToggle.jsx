@@ -7,22 +7,20 @@ const WatchToggle = ({ watchableId, watchableType }) => {
     watchableType
   )
 
-  return (
-    isWatched ? (
-      <button
-        id="watch-button"
-        className='a-watch-button a-button is-sm is-block is-active is-main'
-        onClick={handleDeleteWatch}>
-        Watch中
-      </button>
-    ) : (
-      <button
-        id="watch-button"
-        className='a-watch-button a-button is-sm is-block is-inactive is-muted'
-        onClick={handleCreateWatch}>
-        Watch
-      </button>
-    )
+  return isWatched ? (
+    <button
+      id="watch-button"
+      className="a-watch-button a-button is-sm is-block is-active is-main"
+      onClick={handleDeleteWatch}>
+      Watch中
+    </button>
+  ) : (
+    <button
+      id="watch-button"
+      className="a-watch-button a-button is-sm is-block is-inactive is-muted"
+      onClick={handleCreateWatch}>
+      Watch
+    </button>
   )
 }
 

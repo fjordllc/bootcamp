@@ -10,7 +10,7 @@ const CommentEditing = ({
   comment,
   isValidating,
   onStopEditing,
-  onUpdateComment,
+  onUpdateComment
 }) => {
   // 'comment' | 'preview'
   const [activeTab, setActiveTab] = useState('comment')
@@ -19,10 +19,10 @@ const CommentEditing = ({
   const textareaRef = useRef(null)
   useTextarea(`#js-comment-${comment.id}`)
 
-  return(
+  return (
     <Card.Root>
       <div className="thread-comment-form__form">
-        <CommentTab isActive={isActive} setActiveTab={setActiveTab}/>
+        <CommentTab isActive={isActive} setActiveTab={setActiveTab} />
         <Markdown.Root>
           <Markdown.Item isActive={isActive('comment')}>
             <Markdown.Form>
@@ -30,7 +30,7 @@ const CommentEditing = ({
                 id={`js-comment-${comment.id}`}
                 data-preview={`#js-comment-preview-${comment.id}`}
                 data-input={`#js-comment-file-input-${comment.id}`}
-                name='comment[description]'
+                name="comment[description]"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 ref={textareaRef}
@@ -42,26 +42,24 @@ const CommentEditing = ({
             <Markdown.Preview id={`js-comment-preview-${comment.id}`} />
           </Markdown.Item>
         </Markdown.Root>
-        <Border color='tint' />
+        <Border color="tint" />
         <Card.Footer>
           <Card.FooterItem>
             <button
-              className='a-button is-sm is-primary is-block'
+              className="a-button is-sm is-primary is-block"
               onClick={() => {
                 onUpdateComment(comment.id, description)
                 onStopEditing()
               }}
-              disabled={isValidating}
-            >
+              disabled={isValidating}>
               保存する
             </button>
           </Card.FooterItem>
           <Card.FooterItem>
             <button
-              className='a-button is-sm is-secondary is-block'
+              className="a-button is-sm is-secondary is-block"
               onClick={() => onStopEditing()}
-              disabled={isValidating}
-            >
+              disabled={isValidating}>
               キャンセル
             </button>
           </Card.FooterItem>

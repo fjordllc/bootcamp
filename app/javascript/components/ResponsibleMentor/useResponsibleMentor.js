@@ -2,7 +2,10 @@ import { useEffect, useCallback } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useZustandStore } from '../../hooks/useZustandStore'
 import toast from '../../toast'
-import { createResponsibleMentor, deleteResponsibleMentor } from './responsibleMentorApi'
+import {
+  createResponsibleMentor,
+  deleteResponsibleMentor
+} from './responsibleMentorApi'
 
 // 同じページ内の1箇所でのみ呼ぶこと
 export const useInitializeResponsibleMentor = ({
@@ -32,22 +35,23 @@ export const useResponsibleMentor = () => {
     productId,
     responsibleMentorState,
     becomeResponsibleMentor,
-    absentResponsibleMentor,
-  } = useZustandStore(
-    useShallow((state) => state.responsibleMentor)
-  )
+    absentResponsibleMentor
+  } = useZustandStore(useShallow((state) => state.responsibleMentor))
 
-  const handleBecomeResponsibleMentor = useCallback(({ currentUserId }) => {
-    createResponsibleMentor({ productId, currentUserId })
-      .then(() => {
-        becomeResponsibleMentor()
-        toast.methods.toast('担当になりました。')
-      })
-      .catch((error) => {
-        console.error(error)
-        toast.methods.toast('担当になるのに失敗しました。', 'error')
-      })
-  }, [productId])
+  const handleBecomeResponsibleMentor = useCallback(
+    ({ currentUserId }) => {
+      createResponsibleMentor({ productId, currentUserId })
+        .then(() => {
+          becomeResponsibleMentor()
+          toast.methods.toast('担当になりました。')
+        })
+        .catch((error) => {
+          console.error(error)
+          toast.methods.toast('担当になるのに失敗しました。', 'error')
+        })
+    },
+    [productId]
+  )
 
   const handleDeleteResponsibleMentor = useCallback(() => {
     deleteResponsibleMentor({ productId })

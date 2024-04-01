@@ -41,7 +41,7 @@ const deleteComment = async (id) => {
 
 const updateComment = async (id, description) => {
   const params = {
-    comment: { description: description },
+    comment: { description: description }
   }
 
   const response = await fetch(`/api/comments/${id}.json`, {
@@ -58,8 +58,4 @@ const updateComment = async (id, description) => {
   return response
 }
 
-export {
-  createComment,
-  updateComment,
-  deleteComment,
-}
+export { createComment, updateComment, deleteComment }

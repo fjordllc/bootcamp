@@ -3,7 +3,7 @@ import CSRF from '../../csrf'
 const createReaction = async (reactionableId, kind) => {
   const params = {
     reactionable_id: reactionableId,
-    kind: kind,
+    kind: kind
   }
 
   const response = await fetch(`/api/reactions`, {
@@ -18,13 +18,13 @@ const createReaction = async (reactionableId, kind) => {
     body: JSON.stringify(params)
   })
   if (!response.ok) {
-    throw new Error(`${response.status} ${response.statusText}`);
+    throw new Error(`${response.status} ${response.statusText}`)
   }
   const commentId = await response.json()
   return commentId
 }
 
-const deleteReaction = async(id) => {
+const deleteReaction = async (id) => {
   const response = await fetch(`/api/reactions/${id}`, {
     method: 'DELETE',
     headers: {
@@ -36,7 +36,7 @@ const deleteReaction = async(id) => {
     redirect: 'manual'
   })
   if (!response.ok) {
-    throw new Error(`${response.status} ${response.statusText}`);
+    throw new Error(`${response.status} ${response.statusText}`)
   }
 }
 

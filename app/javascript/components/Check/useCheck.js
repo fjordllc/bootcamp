@@ -27,9 +27,7 @@ export const useCheck = () => {
     checkableId,
     checkableType,
     setCheckable
-  } = useZustandStore(
-    useShallow((state) => state.checkable)
-  )
+  } = useZustandStore(useShallow((state) => state.checkable))
 
   const handleCreateCheck = useCallback(() => {
     createCheck(checkableId, checkableType)
@@ -45,7 +43,7 @@ export const useCheck = () => {
         console.error(error)
         toast.methods.toast(error.message, 'error')
       })
-  },  [checkableId, checkableType])
+  }, [checkableId, checkableType])
 
   const handleDeleteCheck = useCallback(() => {
     deleteCheck(checkId, checkableId, checkableType)

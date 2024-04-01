@@ -1,6 +1,9 @@
 import { useReducer, useCallback } from 'react'
 import toast from '../../toast'
-import { createResponsibleMentor, deleteResponsibleMentor } from './responsibleMentorApi'
+import {
+  createResponsibleMentor,
+  deleteResponsibleMentor
+} from './responsibleMentorApi'
 
 const reducer = (_state, action) => {
   switch (action) {
@@ -23,24 +26,31 @@ const createInitialState = ({ responsibleMentorId, currentUserId }) => {
   }
 }
 
-export const useResponsibleMentor = ({ responsibleMentorId, productId, currentUserId }) => {
+export const useResponsibleMentor = ({
+  responsibleMentorId,
+  productId,
+  currentUserId
+}) => {
   const [responsibleMentorState, dispatch] = useReducer(
     reducer,
     { responsibleMentorId, currentUserId },
     createInitialState
   )
 
-  const handleBecomeResponsibleMentor = useCallback(({ currentUserId }) => {
-    createResponsibleMentor({ productId, currentUserId })
-      .then(() => {
-        dispatch('becomeProductChecker')
-        toast.methods.toast('担当になりました。')
-      })
-      .catch((error) => {
-        console.error(error)
-        toast.methods.toast('担当になるのに失敗しました。', 'error')
-      })
-  }, [productId])
+  const handleBecomeResponsibleMentor = useCallback(
+    ({ currentUserId }) => {
+      createResponsibleMentor({ productId, currentUserId })
+        .then(() => {
+          dispatch('becomeProductChecker')
+          toast.methods.toast('担当になりました。')
+        })
+        .catch((error) => {
+          console.error(error)
+          toast.methods.toast('担当になるのに失敗しました。', 'error')
+        })
+    },
+    [productId]
+  )
 
   const handleDeleteResponsibleMentor = useCallback(() => {
     deleteResponsibleMentor({ productId })

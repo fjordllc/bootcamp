@@ -8,18 +8,26 @@ const Reactions = ({
   currentUser,
   reactionableId,
   availableEmojis,
-  getKey,
+  getKey
 }) => {
-  const { handleCreateReaction, handleDeleteReaction } = useReaction(getKey, reactionableId)
-
-  const displayedEmojis = reactionable.reaction_count.filter((el) => el.count !== 0)
-
-  const clickedReaction = (kind) => reactionable.reaction.find(
-    (el) => el.user_id === currentUser.id && el.kind === kind
+  const { handleCreateReaction, handleDeleteReaction } = useReaction(
+    getKey,
+    reactionableId
   )
 
+  const displayedEmojis = reactionable.reaction_count.filter(
+    (el) => el.count !== 0
+  )
+
+  const clickedReaction = (kind) =>
+    reactionable.reaction.find(
+      (el) => el.user_id === currentUser.id && el.kind === kind
+    )
+
   const isReacted = (kind) => {
-    const id = reactionable.reaction_count.findIndex((element) => element.kind === kind)
+    const id = reactionable.reaction_count.findIndex(
+      (element) => element.kind === kind
+    )
     const reaction = reactionable.reaction_count[id].login_names.filter(
       (el) => el === currentUser.login_name
     )

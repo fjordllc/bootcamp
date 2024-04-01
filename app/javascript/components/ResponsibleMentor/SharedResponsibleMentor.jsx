@@ -10,7 +10,7 @@ export default function SharedResponsibleMentor({
   responsibleUserName,
   responsibleUserAvatar,
   currentUserId,
-  productId,
+  productId
 }) {
   useInitializeResponsibleMentor({
     initialResponsibleMentorId: responsibleUserId,
@@ -28,7 +28,9 @@ export default function SharedResponsibleMentor({
       responsibleUserName={responsibleUserName}
       responsibleUserAvatar={responsibleUserAvatar}
       responsibleMentorState={responsibleMentorState}
-      onBecomeResponsibleMentor={() => handleBecomeResponsibleMentor({ currentUserId })}
+      onBecomeResponsibleMentor={() =>
+        handleBecomeResponsibleMentor({ currentUserId })
+      }
       onDeleteResponsibleMentor={handleDeleteResponsibleMentor}
     />
   )

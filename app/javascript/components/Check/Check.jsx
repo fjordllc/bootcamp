@@ -21,9 +21,8 @@ const Check = ({
     const isSadEmotion = emotion === 'sad'
     // TODO querySelectorを辞めてpropsから渡したい
     const commentExists =
-      parseInt(
-        document.querySelector('a[href="#comments"] > span').innerHTML
-      ) > 0
+      parseInt(document.querySelector('a[href="#comments"] > span').innerHTML) >
+      0
     const confirmMessage =
       '今日の気分は「sad」ですが、コメント無しで確認しますか？'
     // 変数定義時に実行させないため関数
@@ -55,7 +54,7 @@ const Check = ({
           <button
             // shortcut.jsでhotkey(ctrl+b)の設定に使うid
             id="js-shortcut-check"
-            className='is-block card-main-actions__muted-action'
+            className="is-block card-main-actions__muted-action"
             onClick={handleDeleteCheck}>
             {`${checkableName}の確認を取り消す`}
           </button>
@@ -63,12 +62,11 @@ const Check = ({
           <button
             // shortcut.jsでhotkey(ctrl+b)の設定に使うid
             id="js-shortcut-check"
-            className='is-block a-button is-sm is-danger'
+            className="is-block a-button is-sm is-danger"
             onClick={handleCreateCheckClick}>
             {`${checkableName}を確認`}
           </button>
-        )
-        }
+        )}
       </Card.FooterItem>
     </Card.Footer>
   )

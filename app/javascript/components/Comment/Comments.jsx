@@ -10,23 +10,18 @@ import { useZustandStore } from '../../hooks/useZustandStore'
 
 const CommentsHeader = ({ className, children, ...props }) => {
   return (
-    <header className={clsx("thread-comments__header", className)} {...props}>
-      <h2 className="thread-comments__title">
-        {children}
-      </h2>
+    <header className={clsx('thread-comments__header', className)} {...props}>
+      <h2 className="thread-comments__title">{children}</h2>
     </header>
   )
 }
 
 const CommentsLoadMore = ({ onClick, loadMoreText }) => {
-  return(
+  return (
     <div className="thread-comments-more">
       <div className="thread-comments-more__inner">
         <div className="thread-comments-more__action">
-          <button
-            className="a-button is-lg is-text is-block"
-            onClick={onClick}
-          >
+          <button className="a-button is-lg is-text is-block" onClick={onClick}>
             {loadMoreText}
           </button>
         </div>
@@ -37,12 +32,10 @@ const CommentsLoadMore = ({ onClick, loadMoreText }) => {
 
 const CommentsList = ({ className, children, ...props }) => {
   return (
-    <div
-      className={clsx("thread-comments__items", className)}
-      {...props}
-    >
-    {children}
-  </div>)
+    <div className={clsx('thread-comments__items', className)} {...props}>
+      {children}
+    </div>
+  )
 }
 
 const Comments = ({
@@ -70,19 +63,19 @@ const Comments = ({
     commentableId
   })
   const { isChecked, handleCreateCheck } = useCheck()
-  const {
-    handleBecomeResponsibleMentor,
-    responsibleMentorState
-  } = useResponsibleMentor()
+  const { handleBecomeResponsibleMentor, responsibleMentorState } =
+    useResponsibleMentor()
   const { setWatchable } = useZustandStore((state) => state.watch)
-  const isCheckable = currentUser.roles.includes("mentor")
-    && /^(Report|Product)$/.test(commentableType)
-    && !isChecked
+  const isCheckable =
+    currentUser.roles.includes('mentor') &&
+    /^(Report|Product)$/.test(commentableType) &&
+    !isChecked
   // 提出物のコメントで、メンターで、担当者がおらずに確認が済んでいない場合にtrue
-  const isBecomeResponsibleMentor = commentableType === 'Product'
-    && isCheckable
-    && responsibleMentorState === 'absent'
-    && isChecked === false
+  const isBecomeResponsibleMentor =
+    commentableType === 'Product' &&
+    isCheckable &&
+    responsibleMentorState === 'absent' &&
+    isChecked === false
 
   if (error) return <>エラーが発生しました。</>
   if (isLoading) return <CommentPlaceholder />
@@ -94,37 +87,44 @@ const Comments = ({
         現在は８件ごとにコメントを表示しており
         表示していないコメントが無いと消えます
       */}
-      {isShowLoadMore &&
+      {isShowLoadMore && (
         <CommentsLoadMore
           onClick={() => handleLoadMore()}
           loadMoreText={loadMoreText}
         />
-      }
+      )}
       {/* コメント欄のタイトル */}
       <CommentsHeader>{title}</CommentsHeader>
       {/* コメント一覧 */}
       <CommentsList>
-        {data.reverse().map(({ comments, comment_total_count: _commentTotalCount }) => {
-          return comments.reverse().map((comment, index) => {
-            return (
-              <Comment
-                id={`comment_${comment.id}`}
-                key={comment.id}
-                comment={comment}
-                currentUser={currentUser}
-                isLatest={index === comments.length - 1}
-                isValidating={isValidating}
-                availableEmojis={Array.isArray(availableEmojis) ? availableEmojis : JSON.parse(availableEmojis)}
-                getKey={getKey}
-                onDeleteComment={() => {
-                  if (window.confirm('削除してよろしいですか？')) {
-                    handleDeleteComment(comment.id)
+        {data
+          .reverse()
+          .map(({ comments, comment_total_count: _commentTotalCount }) => {
+            return comments.reverse().map((comment, index) => {
+              return (
+                <Comment
+                  id={`comment_${comment.id}`}
+                  key={comment.id}
+                  comment={comment}
+                  currentUser={currentUser}
+                  isLatest={index === comments.length - 1}
+                  isValidating={isValidating}
+                  availableEmojis={
+                    Array.isArray(availableEmojis)
+                      ? availableEmojis
+                      : JSON.parse(availableEmojis)
                   }
-                }}
-                onUpdateComment={handleUpdateComment}
-              />)
-          })
-        })}
+                  getKey={getKey}
+                  onDeleteComment={() => {
+                    if (window.confirm('削除してよろしいですか？')) {
+                      handleDeleteComment(comment.id)
+                    }
+                  }}
+                  onUpdateComment={handleUpdateComment}
+                />
+              )
+            })
+          })}
       </CommentsList>
       {/* コメント投稿フォーム */}
       <CommentForm
@@ -133,18 +133,22 @@ const Comments = ({
         isCheckable={isCheckable}
         isBecomeResponsibleMentor={isBecomeResponsibleMentor}
         isPreventCommentAndCheck={() => {
-          const isConfirmed = ()=> window.confirm('提出物を確認済にしてよろしいですか？')
+          const isConfirmed = () =>
+            window.confirm('提出物を確認済にしてよろしいですか？')
           return commentableType === 'Product' && !isConfirmed()
         }}
         onCreateCommentAndWatch={async (description) => {
           await handleCreateComment(description)
           // Commentが作成されるとBackendでは自動でWatchも作成されるので、
           // フロントのZustandでも合わせてWatchする
-          setWatchable({ watchableId: commentableId, watchableType: commentableType })
+          setWatchable({
+            watchableId: commentableId,
+            watchableType: commentableType
+          })
         }}
         onCreateCheck={handleCreateCheck}
         onBecomeResponsibleMentor={() => {
-            handleBecomeResponsibleMentor({ currentUserId: currentUser.id })
+          handleBecomeResponsibleMentor({ currentUserId: currentUser.id })
         }}
       />
     </div>

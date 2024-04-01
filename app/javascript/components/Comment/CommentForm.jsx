@@ -3,7 +3,7 @@ import {
   CommentThreadStart,
   CommentThreadEnd,
   CommentUserIcon,
-  CommentTab,
+  CommentTab
 } from './Share'
 import * as Markdown from '../Markdown'
 import * as Card from '../ui/Card'
@@ -46,7 +46,7 @@ const CommentForm = ({
   const previewRef = useRef(null)
   const [isPosting, setIsPosting] = useState(false)
 
-  const handleClickCreateComment = async() => {
+  const handleClickCreateComment = async () => {
     setIsPosting(true)
     try {
       // コメントの作成とWatchをして、担当者になる
@@ -93,60 +93,56 @@ const CommentForm = ({
     <div className="thread-comment-form">
       {/* ログインユーザーのプロフィール画像 */}
       <CommentThreadStart>
-        <CommentUserIcon
-          user={currentUser}
-        />
+        <CommentUserIcon user={currentUser} />
       </CommentThreadStart>
       {/* コメントフォーム本体 */}
       <CommentThreadEnd>
-        <Card.Root className='thread-comment-form__form'>
+        <Card.Root className="thread-comment-form__form">
           {/* フォームのエディターモードとプレビューモードの切り替え */}
-          <CommentTab isActive={isActive} setActiveTab={setActiveTab}/>
+          <CommentTab isActive={isActive} setActiveTab={setActiveTab} />
           {/* Markdownエディターとプレビュー */}
           <Markdown.Root>
             <Markdown.Item isActive={isActive('comment')}>
               <Markdown.Form>
                 <Markdown.Textarea
-                  id='js-new-comment'
-                  variant='warning'
-                  data-preview='#new-comment-preview'
-                  data-input='.new-comment-file-input'
-                  name='new_comment[description]'
+                  id="js-new-comment"
+                  variant="warning"
+                  data-preview="#new-comment-preview"
+                  data-input=".new-comment-file-input"
+                  name="new_comment[description]"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   ref={textareaRef}
                 />
-                <Markdown.File className='new-comment-file-input' />
+                <Markdown.File className="new-comment-file-input" />
               </Markdown.Form>
             </Markdown.Item>
             <Markdown.Item isActive={isActive('preview')}>
-              <Markdown.Preview id='new-comment-preview' ref={previewRef} />
+              <Markdown.Preview id="new-comment-preview" ref={previewRef} />
             </Markdown.Item>
           </Markdown.Root>
           <Card.Footer>
             {/* コメント送信ボタン */}
             <Card.FooterItem>
               <button
-                id='js-shortcut-post-comment'
-                className='a-button is-sm is-primary is-block'
+                id="js-shortcut-post-comment"
+                className="a-button is-sm is-primary is-block"
                 onClick={handleClickCreateComment}
-                disabled={!isValidDescrption || isPosting || isValidating}
-              >
+                disabled={!isValidDescrption || isPosting || isValidating}>
                 コメントする
               </button>
             </Card.FooterItem>
             {/* コメント・確認OK送信ボタン */}
-            {isCheckable &&
+            {isCheckable && (
               <Card.FooterItem>
                 <button
-                  className='a-button is-sm is-danger is-block'
+                  className="a-button is-sm is-danger is-block"
                   onClick={handleClickCreateCommentAndCheck}
-                  disabled={!isValidDescrption || isPosting || isValidating}
-                >
+                  disabled={!isValidDescrption || isPosting || isValidating}>
                   <i className="fa-solid fa-check" /> 確認OKにする
                 </button>
               </Card.FooterItem>
-            }
+            )}
           </Card.Footer>
         </Card.Root>
       </CommentThreadEnd>

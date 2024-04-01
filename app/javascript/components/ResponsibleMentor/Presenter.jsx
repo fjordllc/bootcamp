@@ -5,7 +5,7 @@ export default function ResponsibleMentorPresenter({
   responsibleUserAvatar,
   responsibleMentorState,
   onBecomeResponsibleMentor,
-  onDeleteResponsibleMentor,
+  onDeleteResponsibleMentor
 }) {
   return (
     <>
@@ -39,7 +39,9 @@ export default function ResponsibleMentorPresenter({
               alt="Checker Avatar"
             />
           </span>
-          <span className="card-list-item__assignee-name">{responsibleUserName}</span>
+          <span className="card-list-item__assignee-name">
+            {responsibleUserName}
+          </span>
         </div>
       )}
     </>

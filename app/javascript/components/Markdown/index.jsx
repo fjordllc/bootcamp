@@ -2,24 +2,18 @@ import React, { useRef, forwardRef, useImperativeHandle } from 'react'
 import { useTextarea } from './useTextarea'
 import clsx from 'clsx'
 
-const Markdown = ({
-  children,
-}) => {
-  return (
-    <div className='a-markdown-input js-markdown-parent'>
-      {children}
-    </div>
-  )
+const Markdown = ({ children }) => {
+  return <div className="a-markdown-input js-markdown-parent">{children}</div>
 }
 
 Markdown.displayName = 'Markdown'
 
-const MarkdownItem = ({
-  isActive,
-  children,
-}) => {
+const MarkdownItem = ({ isActive, children }) => {
   return (
-    <div className={clsx('a-markdown-input__inner js-tabs__content', { 'is-active': isActive })}>
+    <div
+      className={clsx('a-markdown-input__inner js-tabs__content', {
+        'is-active': isActive
+      })}>
       {children}
     </div>
   )
@@ -28,39 +22,41 @@ const MarkdownItem = ({
 MarkdownItem.displayName = 'MarkdownItem'
 
 const MarkdownForm = ({ children }) => {
-  return (
-    <div className="form-textarea">
-      {children}
-    </div>
-  )
+  return <div className="form-textarea">{children}</div>
 }
 
 MarkdownForm.displayName = 'MarkdownForm'
 
-const MarkdownTextarea = forwardRef(({
-  variant = 'primary',
-  id,
-  className,
-  value = '',
-  onChange,
-  ...props
-}, ref) => {
-  const { isEditing, teatareaRef } = useTextarea({ selector: `#${id}`, value, ref })
-  if (isEditing) props['data-editing'] = true
+const MarkdownTextarea = forwardRef(
+  (
+    { variant = 'primary', id, className, value = '', onChange, ...props },
+    ref
+  ) => {
+    const { isEditing, teatareaRef } = useTextarea({
+      selector: `#${id}`,
+      value,
+      ref
+    })
+    if (isEditing) props['data-editing'] = true
 
-  return (
-    <div className="form-textarea__body">
-      <textarea
-        id={id}
-        className={clsx('a-text-input a-markdown-input__textarea', variant === 'warning' ? 'js-warning-form' : 'primary', className)}
-        value={value}
-        onChange={onChange}
-        ref={teatareaRef}
-        {...props}
-      />
-    </div>
-  )
-})
+    return (
+      <div className="form-textarea__body">
+        <textarea
+          id={id}
+          className={clsx(
+            'a-text-input a-markdown-input__textarea',
+            variant === 'warning' ? 'js-warning-form' : 'primary',
+            className
+          )}
+          value={value}
+          onChange={onChange}
+          ref={teatareaRef}
+          {...props}
+        />
+      </div>
+    )
+  }
+)
 
 MarkdownTextarea.displayName = 'MarkdownTextarea'
 
@@ -70,11 +66,7 @@ const MarkdownFile = ({ ...props }) => {
       <div className="form-textarea__insert">
         <label className="a-file-insert a-button is-xs is-text-reversal is-block">
           ファイルを挿入
-          <input
-            type="file"
-            multiple
-            {...props}
-          />
+          <input type="file" multiple {...props} />
         </label>
       </div>
     </div>

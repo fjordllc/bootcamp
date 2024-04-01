@@ -3,10 +3,7 @@ import { createComment, deleteComment, updateComment } from './commentApi'
 import toast from '../../toast'
 import fetcher from '../../fetcher'
 
-export const useComment = ({
-  commentableType,
-  commentableId
-}) => {
+export const useComment = ({ commentableType, commentableId }) => {
   // 1度に読み込むコメント数
   const paginationAmount = 8
   const apiUrl = '/api/comments.json?'
@@ -22,27 +19,23 @@ export const useComment = ({
   }
 
   // useSWRInfiniteの使い方 https://swr.vercel.app/docs/pagination#useswrinfinite
-  const {
-    data,
-    error,
-    isLoading,
-    isValidating,
-    mutate,
-    size,
-    setSize,
-  } = useSWRInfinite(getKey, fetcher, {
-    revalidateAll: true,
-    parallel: true
-  })
+  const { data, error, isLoading, isValidating, mutate, size, setSize } =
+    useSWRInfinite(getKey, fetcher, {
+      revalidateAll: true,
+      parallel: true
+    })
 
   const commentTotalAmount = data ? data[0]?.comment_total_count : 0
-  const loadedCommentAmount = commentTotalAmount > size * paginationAmount ? size * paginationAmount : commentTotalAmount
+  const loadedCommentAmount =
+    commentTotalAmount > size * paginationAmount
+      ? size * paginationAmount
+      : commentTotalAmount
   const remainingCommentCount = commentTotalAmount - loadedCommentAmount
   const isShowLoadMore = remainingCommentCount > 0
-  const loadMoreText = remainingCommentCount > 8
-  ? `前のコメント（ ${loadedCommentAmount} / ${remainingCommentCount} ）`
-  : `前のコメント（ ${remainingCommentCount} ）`
-
+  const loadMoreText =
+    remainingCommentCount > 8
+      ? `前のコメント（ ${loadedCommentAmount} / ${remainingCommentCount} ）`
+      : `前のコメント（ ${remainingCommentCount} ）`
 
   // コメントのページネーションを１つ進める
   const handleLoadMore = () => setSize(size + 1)
@@ -53,7 +46,11 @@ export const useComment = ({
   // 4. 提出物で担当者がおらず確認が済んでいない場合
   //   5.
   const handleCreateComment = async (description) => {
-    const comment = await createComment(description, commentableType, commentableId)
+    const comment = await createComment(
+      description,
+      commentableType,
+      commentableId
+    )
     // https://github.com/vercel/swr/issues/908
     mutate(data, false)
     mutate()
@@ -96,6 +93,6 @@ export const useComment = ({
     handleLoadMore,
     handleCreateComment,
     handleUpdateComment,
-    handleDeleteComment,
+    handleDeleteComment
   }
 }

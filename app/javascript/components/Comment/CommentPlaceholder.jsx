@@ -33,7 +33,7 @@ const Placeholder = () => {
 
 const CommentPlaceholder = () => {
   const placeholderCount = 3
-  return(
+  return (
     <div id="comments" className="thread-comments loading">
       {Array.from({ length: placeholderCount }, (_, index) => (
         <Placeholder key={index} />
