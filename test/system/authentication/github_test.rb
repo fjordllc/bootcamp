@@ -2,9 +2,7 @@
 
 require 'application_system_test_case'
 
-class SignInWithGithubTest < ApplicationSystemTestCase
-  fixtures :users
-
+class Authentication::GithubTest < ApplicationSystemTestCase
   setup do
     OmniAuth.config.test_mode = true
     OmniAuth.config.add_mock(:github, { uid: '12345', info: { name: 'komagata', email: 'komagata@fjord.jp' } })
