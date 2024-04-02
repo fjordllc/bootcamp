@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateArticleNotifier
+class ArticleNotifier
   def call(payload)
     article = payload[:article]
     return if article.wip?
