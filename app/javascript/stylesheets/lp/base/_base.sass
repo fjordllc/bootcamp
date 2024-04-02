@@ -34,6 +34,15 @@ body.is-lp
 .welcome-page-header__end
   height: 100%
 
+.welcome-page-header-nav
+  display: flex
+  height: 100%
+
+.welcome-page-header-nav__items
+  display: flex
+  align-items: center
+  gap: .75rem
+
 .welcome-page-body
   padding-block: 3rem
 
@@ -112,7 +121,9 @@ body.is-lp
   margin-bottom: 3rem
 
 .welcome-page-body__title
-  +text-block(2.5rem 1.4, center 700)
+  +text-block(2.5rem 1.4)
+  text-align: center
+  font-weight: 800
   padding-bottom: 1.75rem
   color: var(--main)
   +letter-spacing-center(.0625em)

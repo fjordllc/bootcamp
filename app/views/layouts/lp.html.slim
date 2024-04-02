@@ -2,22 +2,14 @@ doctype html
 html.is-lp lang='ja'
   - page_classes = content_for(:extra_body_classes).to_s
   head
-    meta content='IE=edge' http-equiv='X-UA-Compatible'
     = display_meta_tags welcome_meta_tags
-    = javascript_include_tag 'application'
-    = javascript_pack_tag 'application'
-    = csrf_meta_tags
-    = render 'pwa'
-    = render 'favicons'
-    = render 'rollbar' if Rails.env.production?
     = render 'current_user'
-    link(rel='manifest' href='/manifest.json')
     - if page_classes.include?('welcome-home')
       link(rel='canonical' href='https://bootcamp.fjord.jp/')
     - if defined?(@article) && @article.wip?
       = meta_robots_tag
     = stylesheet_pack_tag 'lp', media: 'all'
-    = render 'layouts/common/common_web_fonts'
+    = render 'layouts/common/common_head'
     = render 'layouts/lp/welcome_web_fonts'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-lp#body class="#{body_class}"
