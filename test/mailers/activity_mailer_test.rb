@@ -264,6 +264,26 @@ class ActivityMailerTest < ActionMailer::TestCase
     assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
   end
 
+  test 'came_question with no practice' do
+    question = questions(:question14)
+    user = question.user
+    mentor = users(:komagata)
+
+    ActivityMailer.came_question(
+      sender: user,
+      receiver: mentor,
+      question:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 6, link: "/questions/#{question.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんから質問「プラクティスを選択せずに登録したテストの質問」が投稿されました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">質問へ</a>}, email.body.to_s)
+  end
+
   test 'mentioned' do
     mentionable = comments(:comment9)
     mentioned = notifications(:notification_mentioned)
