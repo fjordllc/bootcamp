@@ -124,6 +124,7 @@ class ActivityMailer < ApplicationMailer
     @question ||= args[:question]
 
     @user = @receiver
+    @title = @question.practice.present? ? "「#{@question.practice.title}」についての質問がありました。" : '質問がありました。'
     @link_url = notification_redirector_url(
       link: "/questions/#{@question.id}",
       kind: Notification.kinds[:came_question]
