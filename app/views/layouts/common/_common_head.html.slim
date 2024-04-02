@@ -1,0 +1,20 @@
+// Meta
+meta content='IE=edge' http-equiv='X-UA-Compatible'
+= csrf_meta_tags
+= render 'favicons'
+= render 'pwa'
+
+// JavaScripts
+= javascript_include_tag 'application'
+= javascript_pack_tag 'application'
+
+// WebFonts
+script(src='https://kit.fontawesome.com/8f04dd61ff.js' crossorigin='anonymous')
+= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp_s-narrow.min.css', media: 'all'
+= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'
+
+// Feed
+= auto_discovery_link_tag(:atom, 'https://bootcamp.fjord.jp/articles.atom', { title: 'フィヨルドブートキャンプブログ' })
+
+// Dev
+= render 'rollbar' if Rails.env.production?
