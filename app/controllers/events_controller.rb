@@ -3,7 +3,9 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @upcoming_events_groups = %i[today tomorrow day_after_tomorrow].map { |date| UpcomingEventsGroup.new(date) }
+  end
 
   def show
     @event = Event.with_avatar.find(params[:id])
