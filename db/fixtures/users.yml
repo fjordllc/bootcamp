@@ -1405,7 +1405,7 @@ paginataion-jirou:
 
 pjord:
   login_name: pjord
-  email:
+  email: pjord@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
   name: ピヨルド
@@ -1418,7 +1418,7 @@ pjord:
   course: course1
   company: company1
   admin: true
-  mentor: false
+  mentor: true
   unsubscribe_email_token: Xw-T0PjrO2LTkCx1C8KA9w
   updated_at: "2024-03-09 00:00:30"
   created_at: "2024-03-05 00:00:30"
