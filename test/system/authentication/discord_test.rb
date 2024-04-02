@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Authentication::DiscordTest < ApplicationSystemTestCase
+class Authentication::DiscordSystemTestCase < ApplicationSystemTestCase
   setup do
     OmniAuth.config.test_mode = true
     OmniAuth.config.add_mock(:discord, { info: { name: 'discord_name' } })
