@@ -5,22 +5,15 @@ class UsersController < ApplicationController
   before_action :require_token, only: %i[new] if Rails.env.production?
   before_action :set_user, only: %w[show]
 
-  PAGER_NUMBER = 20
+  PAGER_NUMBER = 24
 
   def index
     @target = params[:target]
     @target = 'student_and_trainee' unless target_allowlist.include?(@target)
+    @entered_tag = params[:tag]
     @watch = params[:watch]
 
-    target_users =
-      if @target == 'followings'
-        current_user.followees_list(watch: @watch)
-      elsif params[:tag]
-        User.tagged_with(params[:tag])
-      else
-        users = User.users_role(@target, allowed_targets: target_allowlist)
-        @target == 'inactive' ? users.order(:last_activity_at) : users
-      end
+    target_users = fetch_target_users
 
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
@@ -28,6 +21,10 @@ class UsersController < ApplicationController
              .order(updated_at: :desc)
 
     @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
+    if params[:search_word]
+      search_user = SearchUser.new(word: params[:search_word], users: @users, target: @target)
+      @users = search_user.search
+    end
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -76,6 +73,17 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def fetch_target_users
+    if @target == 'followings'
+      current_user.followees_list(watch: @watch)
+    elsif @entered_tag
+      User.tagged_with(@entered_tag)
+    else
+      users = User.users_role(@target, allowed_targets: target_allowlist)
+      @target == 'inactive' ? users.order(:last_activity_at) : users
+    end
+  end
 
   def target_allowlist
     target_allowlist = %w[student_and_trainee followings mentor graduate adviser trainee year_end_party]

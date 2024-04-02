@@ -17,7 +17,7 @@ header.page-header
                         | 自社研修生
                 - else
                   li.page-main-header-actions__item
-                    .js-following(data-is-following="#{current_user.following?(user)}" data-user-id="#{user.id}" data-is-watching="#{current_user.watching?(user)}")
+                    = render 'users/following', user:
             li.page-header-actions__item
               = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | ユーザー一覧

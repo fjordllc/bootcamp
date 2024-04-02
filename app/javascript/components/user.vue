@@ -60,7 +60,7 @@
           user-tags(:user='user')
       user-practice-progress(:user='user')
       hr.a-border-tint
-      footer.card-footer
+      footer.card-footer.users-item__footer
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item(
