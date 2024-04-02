@@ -51,6 +51,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
+    Newspaper.publish(:destroy_article, { article: @article })
     redirect_to articles_url, notice: '記事を削除しました'
   end
 
