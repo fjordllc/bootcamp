@@ -422,7 +422,7 @@ class ActivityMailer < ApplicationMailer
 
     @user = @receiver
     @link_url = notification_redirector_url(
-      link: "/article/#{@article.id}",
+      link: "/articles/#{@article.id}",
       kind: Notification.kinds[:create_article]
     )
     subject = "新しいブログ「#{@article.title}」を#{@article.user.login_name}さんが投稿しました！"

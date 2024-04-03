@@ -1130,7 +1130,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
       assert_not ActionMailer::Base.deliveries.empty?
       email = ActionMailer::Base.deliveries.last
-      query = CGI.escapeHTML({ kind: 24, link: "/article/#{article.id}" }.to_param)
+      query = CGI.escapeHTML({ kind: 24, link: "/articles/#{article.id}" }.to_param)
       assert_equal ['noreply@bootcamp.fjord.jp'], email.from
       assert_equal [receiver.email], email.to
       assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
@@ -1156,7 +1156,7 @@ class ActivityMailerTest < ActionMailer::TestCase
 
       assert_not ActionMailer::Base.deliveries.empty?
       email = ActionMailer::Base.deliveries.last
-      query = CGI.escapeHTML({ kind: 24, link: "/article/#{article.id}" }.to_param)
+      query = CGI.escapeHTML({ kind: 24, link: "/articles/#{article.id}" }.to_param)
       assert_equal ['noreply@bootcamp.fjord.jp'], email.from
       assert_equal [receiver.email], email.to
       assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
