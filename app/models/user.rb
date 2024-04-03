@@ -619,12 +619,6 @@ class User < ApplicationRecord
     send(method_name).include?(event)
   end
 
-  def register_github_account(id, account_name)
-    self.github_account = account_name
-    self.github_id = id
-    save!
-  end
-
   def depressed?
     reported_reports = reports.order(reported_on: :desc).limit(DEPRESSED_SIZE)
     reported_reports.size == DEPRESSED_SIZE && reported_reports.all?(&:sad?)

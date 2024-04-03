@@ -2,18 +2,20 @@
   .form-item
     label.a-form-label
       | Discord アカウント
-    .form-item__mention-input
-      = discord_profile_fields.text_field :account_name, class: 'a-text-input', placeholder: 'komagata1111'
-    .a-form-help
-      p
-        | Discord で使用しているアカウント名を入力してください。
-      p
-        | Discord のアカウントの調べ方は
-        label.a-form-help-link.is-danger(for='modal-discord-account')
-          span.a-form-help-link__label
-            | こちら
-          span.a-help
-            i.fa-solid.fa-question
+    - if f.object.discord_profile.account_name?
+      .form-item__mention-input
+        = discord_profile_fields.text_field :account_name, class: 'a-text-input', disabled: true
+      .a-form-help
+        p Discord アカウントは登録されています。
+    - else
+      = link_to '/auth/discord', class: 'a-button is-sm is-primary', method: :post do
+        p Discord アカウントを登録する
+      .a-form-help
+        p
+          | 今後、Discord とフィヨルドブートキャンプアプリとの
+          | 連携に Discord アカウントの登録が必要になります。
+          | フィヨルドブートキャンプの Discord サーバに入室をしたら、
+          | 必ず登録をしてください。
 
   .form-item#times-url
     = discord_profile_fields.label :times_url, class: 'a-form-label'
