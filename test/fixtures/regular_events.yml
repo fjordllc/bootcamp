@@ -164,4 +164,25 @@ regular_event33:
   start_at: <%= Time.zone.local(2020, 1, 1, 8, 0, 0) %>
   end_at: <%= Time.zone.local(2020, 1, 1, 9, 0, 0) %>
   user: komagata
+
+regular_event34:
+  title: 参加反映テスト用定期イベント(祝日非開催)
+  description: 参加反映テスト用定期イベント(祝日非開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 3, 13, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 3, 13, 22, 0, 0) %>
+  user: komagata
+  category: 0
+  published_at: "2023-08-01 00:00:00"
+
+regular_event35:
+  title: 未参加反映テスト用定期イベント(祝日非開催)
+  description: 未参加反映テスト用定期イベント(祝日非開催)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2024, 3, 14, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 3, 13, 22, 0, 0) %>
+  user: komagata
+  category: 0
   published_at: "2023-08-01 00:00:00"
