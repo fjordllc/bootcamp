@@ -75,6 +75,9 @@ Rails.application.routes.draw do
   resources :events do
     resources :participations, only: %i(create destroy), controller: "events/participations"
   end
+  namespace :regular_events do
+    resources :calendars, only: %i(index)
+  end
   resources :regular_events do
     resources :participations, only: %i(create destroy), controller: "regular_events/participations"
   end
