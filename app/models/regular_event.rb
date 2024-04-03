@@ -176,6 +176,15 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
+  def recent_scheduled_date
+    now = Time.zone.now
+    regular_event_repeat_rules.map do |rule|
+      days_count = calc_days_count_untill_next_scheduled_date(now, rule)
+      next_date = now.since(days_count.day).to_date
+      Time.zone.local(next_date.year, next_date.month, next_date.day, start_at.hour, start_at.min, start_at.sec)
+    end.min
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -183,5 +192,11 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def calc_days_count_untill_next_scheduled_date(now, rule)
+    days_count = rule.day_of_the_week - now.wday
+    days_count += 7 if days_count.negative?
+    days_count
   end
 end
