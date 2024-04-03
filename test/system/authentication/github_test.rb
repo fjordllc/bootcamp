@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class Authentication::GithubSystemTestCase < ApplicationSystemTestCase
+class Authentication::GithubSystemTest < ApplicationSystemTestCase
   fixtures :users
 
   setup do
