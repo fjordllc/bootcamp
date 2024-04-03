@@ -5,20 +5,57 @@
     padding: 0;
   }
 
-  #outlook a {
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
     padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
   }
 
-  .ReadMsgBody {
-    width: 100%;
-  }
-
-  .ExternalClass {
-    width: 100%;
-  }
-
-  .ExternalClass * {
-    line-height: 100%;
+  @media only screen and (max-width:480px) {
+    @-ms-viewport {
+      width: 320px;
+    }
+    @viewport {
+      width: 320px;
+    }
   }
 
   body {
@@ -29,11 +66,16 @@
     font-family: sans-serif;
   }
 
+  table {
+    width: 100%;
+  }
+
   table,
   td {
     border-collapse: collapse;
     mso-table-lspace: 0pt;
     mso-table-rspace: 0pt;
+    border-spacing: 0px;
   }
 
   img {
@@ -42,7 +84,6 @@
     line-height: 100%;
     outline: none;
     text-decoration: none;
-    -ms-interpolation-mode: bicubic;
     max-width: 100%;
   }
 
@@ -51,12 +92,11 @@
     margin: 13px 0;
   }
 
-
-
   .a-long-text {
     font-size: 1em;
     color: #444;
     word-wrap: break-word;
+    text-align: left;
   }
 
   .a-long-text>*:first-child {
@@ -440,7 +480,7 @@
     list-style-type: square;
   }
 
-  p+.a-long-text blockquote {
+  p + .a-long-text blockquote {
     margin-top: 3em;
     margin-bottom: 2.5em;
   }
