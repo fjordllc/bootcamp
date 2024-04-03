@@ -58,10 +58,7 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = Article.find_by(id: params[:id])
-    return if @article.present?
-
-    redirect_to articles_path, alert: '該当する記事が見つかりませんでした。'
+    @article = Article.find(params[:id])
   end
 
   def list_articles
