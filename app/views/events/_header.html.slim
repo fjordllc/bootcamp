@@ -1,7 +1,6 @@
 header.page-header
   .container
     .page-header__inner
-<<<<<<< HEAD
       .page-header__start
         .page-header__title
           | イベント
@@ -9,25 +8,12 @@ header.page-header
         .page-header-actions
           .page-header-actions__items
             .page-header-actions__item
-              = link_to events_calendars_url(protocol: :webcal, format: :ics), class: 'a-button is-md is-secondary is-block' do
+              = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
                 | イベント購読
               .page-header-actions__item-help
                 label.a-help(for='modal-web-cal')
                   i.fa-solid.fa-question
-=======
-      .page-header__title
-        | イベント
-      .page-header-actions
-        .page-header-actions__items
-          .page-header-actions__item
-            = link_to events_calendars_url(protocol: :webcal, format: :ics, user_id: current_user.id), class: 'a-button is-md is-secondary is-block' do
-              i.fa-regular.fa-plus
-              | イベント購読
-            .page-header-actions__item-help
-              label.a-help(for='modal-web-cal')
-                i.fa-solid.fa-question
->>>>>>> c31d6f17e (参加済みの特別イベントに「参加登録済」の表示が出るように修正)
 = render '/shared/modal', id: 'modal-web-cal', modal_title: '📆 イベント購読'
   .modal__description.is-md
     .a-long-text
