@@ -158,3 +158,14 @@ event31:
   open_start_at: 2019-12-10 9:00
   open_end_at: 2019-12-16 9:00
   user: kimura
+
+event32:
+  title: "カレンダー上での参加確認用テスト"
+  description: "参加済みの特別イベントです"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.current + 3.day %>
+  end_at: <%= Time.current + 3.day + 1.hours %>
+  open_start_at: <%= Time.current %>
+  open_end_at: <%= Time.current + 3.day + 1.hours %>
+  user: komagata
