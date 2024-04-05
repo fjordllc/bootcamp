@@ -12,9 +12,9 @@ class EventsToIcalExporterTest < ActiveSupport::TestCase
 
       joined_events = Event.where(id: participated_list & upcoming_event_list)
       upcoming_events = Event.where(id: upcoming_event_list).where.not(id: participated_list)
-      events_set= {
-        joined_events: joined_events,
-        upcoming_events: upcoming_events
+      events_set = {
+        joined_events:,
+        upcoming_events:
       }
       calendar = EventsToIcalExporter.export_events(events_set)
 

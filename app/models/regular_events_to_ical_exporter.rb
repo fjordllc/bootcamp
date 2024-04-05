@@ -10,10 +10,12 @@ class RegularEventsToIcalExporter
       event = RegularEvent.find(holding_event[:event_id])
 
       cal.event do |e|
-        e.dtstart     = Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"),'tzid' => tzid)
-        e.dtend       = Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"),'tzid' => tzid)
+        e.dtstart = Icalendar::Values::DateTime.new(
+          DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
+        )
+        e.dtend = Icalendar::Values::DateTime.new(
+          DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
+        )
         e.summary     = event.title
         e.description = event.description
         e.uid         = "event#{event.id}#{event_date}"
