@@ -341,4 +341,25 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text 'Watch中'
     assert_css '.a-user-icon.is-hajime'
   end
+
+  test 'upcoming events list' do
+    today_events_count = 5
+    tomorrow_events_count = 2
+    day_after_tomorrow_events_count = 2
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      visit_with_auth events_path, 'komagata'
+      within('.upcoming_events_list') do
+        assert_text '近日開催のイベント'
+        within('.card-list__items', text: '今日開催') do
+          assert_selector('.card-list-item', count: today_events_count)
+        end
+        within('.card-list__items', text: '明日開催') do
+          assert_selector('.card-list-item', count: tomorrow_events_count)
+        end
+        within('.card-list__items', text: '明後日開催') do
+          assert_selector('.card-list-item', count: day_after_tomorrow_events_count)
+        end
+      end
+    end
+  end
 end
