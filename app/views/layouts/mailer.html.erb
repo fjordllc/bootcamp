@@ -26,7 +26,7 @@
                             <tr>
                               <td style="max-width: 600px;">
                                 <img alt="フィヨルドブートキャンプからのお知らせ"
-                                  src="http://localhost:3000/images/mail/mail-header.png"
+                                  src="<%= Rails.env.development? ? 'http://localhost:3000/images/mail/mail-header.png' : 'http://bootcamp.fjord.jp/images/mail/mail-header.png' %>"
                                   style="display:block; text-decoration:none; width:100%; height:auto;">
                               </td>
                             </tr>
