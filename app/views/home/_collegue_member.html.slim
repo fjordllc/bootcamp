@@ -1,0 +1,10 @@
+.card-list-item
+  .card-list-item__inner
+    .card-list-item__user
+      = render 'users/icon', user: user, image_class: 'card-list-item__user-icon'
+    .card-list-item__rows
+      .card-list-item__row
+        header.card-list-item-title
+          h2.card-list-item-title__title(itemprop='name')
+            = link_to user, itemprop: 'url', class: 'card-list-item-title__link a-text-link' do
+              | #{user.login_name} （#{user.name}）

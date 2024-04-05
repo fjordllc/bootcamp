@@ -1,0 +1,13 @@
+.a-card
+  header.card-header.is-sm
+    h2.card-header__title #{current_user.company.name}のユーザー一覧
+  hr.a-border
+  .card-list.has-scroll
+    = render partial: 'collegue_member', collection: collegue_members, as: :user
+  hr.a-border-tint
+  footer.card-footer
+    .card-main-actions
+      ul.card-main-actions__items
+        li.card-main-actions__item
+          = link_to new_require_retirement_path, class: 'a-button is-sm is-block is-secondary' do
+            | 退会申請
