@@ -7,14 +7,12 @@ class EventsToIcalExporter
     events_set[:joined_events].each do |event|
       add_event_to_calendar(cal, event, true)
     end
-  
+
     events_set[:upcoming_events].each do |event|
       add_event_to_calendar(cal, event, false)
     end
     cal
   end
-
-  private
 
   def self.add_event_to_calendar(cal, event, joined)
     tzid = 'Asia/Tokyo'
