@@ -77,12 +77,6 @@ class EventsController < ApplicationController
     @event.wip = (params[:commit] == 'WIP')
   end
 
-  def redirect_url(event)
-    return new_announcement_path(event_id: event.id) if publish_with_announcement?
-
-    event.wip? ? edit_event_url(event) : event_url(event)
-  end
-
   def notice_message(event)
     case params[:action]
     when 'create'
