@@ -9,9 +9,8 @@ class RegularEvents::CalendarsController < ApplicationController
     user = User.find_by(id: user_id)
     respond_to do |format|
       format.ics do
-        calendar = RegularEventsToIcalExporter.export_events(set_export(user))
-        calendar.publish
-        render plain: calendar.to_ical
+        regular_calendar = RegularEventsToIcalExporter.export_events(set_export(user))
+        render plain:regular_calendar.to_ical
       end
     end
   end
