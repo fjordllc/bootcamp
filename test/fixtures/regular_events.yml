@@ -181,7 +181,7 @@ regular_event35:
   description: 未参加反映テスト用定期イベント(祝日非開催)
   finished: false
   hold_national_holiday: false
-  start_at: <%= Time.zone.local(2024, 3, 14, 21, 0, 0) %>
+  start_at: <%= Time.zone.local(2024, 3, 13, 21, 0, 0) %>
   end_at: <%= Time.zone.local(2024, 3, 13, 22, 0, 0) %>
   user: komagata
   category: 0
