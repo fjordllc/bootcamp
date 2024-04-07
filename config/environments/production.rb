@@ -131,6 +131,8 @@ Rails.application.configure do
   config.hosts << ENV["CLOUD_RUN_HOST_NAME"] if ENV["CLOUD_RUN_HOST_NAME"]
   config.hosts << ENV["APP_HOST_NAME"] if ENV["APP_HOST_NAME"]
 
+  OmniAuth.config.full_host = "https://#{ENV["APP_HOST_NAME"]}"
+
   AnyLogin.setup do |config|
     config.enabled = false
   end
