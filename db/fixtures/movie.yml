@@ -1,0 +1,9 @@
+movie1:
+  title: mp4動画
+  description: mp4の動画です
+  user: kimura
+
+movie2:
+  title: mov動画
+  description: movの動画です
+  user: kimura
