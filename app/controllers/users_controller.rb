@@ -71,7 +71,7 @@ class UsersController < ApplicationController
       create_user!
     end
 
-    return unless @user.errors.empty?
+    return if @user.errors.any?
 
     @user.avatar_attach_with_filepath
   end

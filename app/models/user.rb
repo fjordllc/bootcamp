@@ -652,7 +652,7 @@ class User < ApplicationRecord
     return unless avatar.attached?
 
     icon = open_avatar_uri
-    avatar.attach(io: icon, filename: login_name, key: "icon/#{login_name}") unless icon.nil?
+    avatar.attach(io: icon, filename: login_name, key: "icon/#{login_name}") if icon
   end
 
   def generation
@@ -841,7 +841,6 @@ class User < ApplicationRecord
   end
 
   def open_avatar_uri
-    url = avatar_url
-    url != '/images/users/avatars/default.png' ? URI.parse(url).open : nil
+    avatar_url == '/images/users/avatars/default.png' ? nil : URI.parse(avatar_url).open
   end
 end
