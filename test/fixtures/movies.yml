@@ -1,13 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+movie1:
+  title: mp4動画
+  description: mp4の動画です
+  user: kimura
 
-one:
-  title: MyString
-  description: MyText
-  tags: MyString
-  public_scope: 1
-
-two:
-  title: MyString
-  description: MyText
-  tags: MyString
-  public_scope: 1
+movie2:
+  title: mov動画
+  description: movの動画です
+  user: kimura
