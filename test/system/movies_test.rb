@@ -3,7 +3,6 @@
 require 'application_system_test_case'
 
 class MoviesTest < ApplicationSystemTestCase
-
   test 'GET /movies' do
     visit_with_auth '/movies', 'kimura'
     assert_equal '動画 | FBC', title

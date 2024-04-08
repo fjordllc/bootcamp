@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_14_023555) do
+ActiveRecord::Schema.define(version: 2024_03_21_092012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -402,12 +402,14 @@ ActiveRecord::Schema.define(version: 2024_03_14_023555) do
   end
 
   create_table "movies", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.string "tags"
-    t.integer "public_scope"
+    t.bigint "user_id", null: false
+    t.bigint "practice_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_movies_on_practice_id"
+    t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -792,6 +794,8 @@ ActiveRecord::Schema.define(version: 2024_03_14_023555) do
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
+  add_foreign_key "movies", "practices"
+  add_foreign_key "movies", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
