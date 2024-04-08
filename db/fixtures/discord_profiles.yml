@@ -289,8 +289,3 @@ discord_profire_pjord:
   user: pjord
   account_name:
   times_url:
-
-discord_profile_nippou199:  # ステージング環境で日報200回目のお祝いメッセージの動作確認が終わり次第、削除します
-  user: nippou199
-  account_name:
-  times_url:
