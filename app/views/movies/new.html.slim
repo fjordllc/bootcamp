@@ -9,7 +9,7 @@ header.page-header
           = title
 hr.a-border
 
-= form_with model: @movie, url: movies_path, local: true, class: 'form', html: {multipart: true} do |f|
+= form_with model: @movie, url: movies_path, local: true, class: 'form', html: { multipart: true } do |f|
   = render 'errors', object: @movie
   .form__items
     .form-item
@@ -50,5 +50,3 @@ hr.a-border
     ul.form-actions__items
       li.form-actions__item.is-main
         = f.submit '動画を追加する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
-
-
