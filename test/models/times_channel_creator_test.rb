@@ -13,6 +13,7 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
         TimesChannelCreator.new.call({ user: })
       end
       assert_nil user.discord_profile.times_id
+      assert_nil user.discord_profile.times_url
       assert_equal "[Discord API] #{user.login_name}の分報チャンネルが作成できませんでした。", logs.pop
 
       Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
@@ -46,16 +47,6 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
       TimesChannelCreator.new.call({ user: })
     end
     assert_not user.student_or_trainee?
-  end
-
-  test '#call creates times_url' do
-    user = users(:hajime)
-    assert_nil user.discord_profile.times_id
-    assert_nil user.discord_profile.times_url
-
-    Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
-      TimesChannelCreator.new.call({ user: })
-    end
   end
 
   class ValidTimesChannel
