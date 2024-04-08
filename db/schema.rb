@@ -492,12 +492,14 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
   end
 
   create_table "movies", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.string "tags"
-    t.integer "public_scope"
+    t.bigint "user_id", null: false
+    t.bigint "practice_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_movies_on_practice_id"
+    t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -939,6 +941,8 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
+  add_foreign_key "movies", "practices"
+  add_foreign_key "movies", "users"
   add_foreign_key "micro_reports", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
