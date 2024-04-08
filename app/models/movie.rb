@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Movie < ApplicationRecord
   include Searchable
   include WithAvatar
@@ -13,6 +15,6 @@ class Movie < ApplicationRecord
   has_one_attached :movie_data
 
   validates :user, presence: true
-  validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
+  validates :title, presence: true
   validates :description, presence: true
 end
