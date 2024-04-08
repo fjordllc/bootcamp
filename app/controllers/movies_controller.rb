@@ -9,9 +9,9 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.includes(:user)
-    .order(updated_at: :desc)
-    .page(params[:page])
-    .per(PAGER_NUMBER)
+                   .order(created_at: :desc)
+                   .page(params[:movie])
+                   .per(PAGER_NUMBER)
   end
 
   def show
@@ -29,15 +29,14 @@ class MoviesController < ApplicationController
     ActiveRecord::Base.transaction do
       if @movie.save
         redirect_to @movie, notice: '動画を追加しました。'
-  
+
         movie_path = save_blob_to_tempfile(@movie.movie_data.blob)
         thumbnail_blob = generate_thumbnail_from_blob(movie_path)
 
-        if thumbnail_blob
-          @movie.thumbnail.attach(thumbnail_blob)
-        else
-          raise ActiveRecord::Rollback, "サムネイルの添付に失敗しました。"
-        end
+        raise ActiveRecord::Rollback, 'サムネイルの添付に失敗しました。' unless thumbnail_blob
+
+        @movie.thumbnail.attach(thumbnail_blob)
+
       else
         render :new, notice: '動画の追加に失敗しました。'
       end
@@ -52,7 +51,7 @@ class MoviesController < ApplicationController
     movie = FFMPEG::Movie.new(movie_path)
     movie.screenshot(thumbnail_path, { seek_time: 0, vframes: 1 })
 
-    thumbnail_blob = ActiveStorage::Blob.create_after_upload!(
+    ActiveStorage::Blob.create_after_upload!(
       io: File.open(thumbnail_path),
       filename: 'thumbnail.jpg',
       content_type: 'image/jpeg'
@@ -62,7 +61,7 @@ class MoviesController < ApplicationController
   private
 
   def save_blob_to_tempfile(blob)
-    tempfile = Tempfile.new([blob.filename.to_s, '.' + blob.filename.extension.to_s], 'tmp/', binmode: true)
+    tempfile = Tempfile.new(["#{blob.filename}.#{blob.filename.extension}", ''], 'tmp/', binmode: true)
     tempfile.write(blob.download)
     tempfile.rewind
     tempfile.path
