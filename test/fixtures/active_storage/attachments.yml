@@ -69,3 +69,24 @@ kimuramitai_profile_image:
   name: profile_image
   record: kimuramitai (User)
   blob: kimuramitai_profile_image_blob
+
+mp4_movie:
+  name: movie_data
+  record: movie1 (Movie)
+  blob: mp4_movie_blob
+
+mp4_thumbnail:
+  name: thumbnail
+  record: movie1 (Movie)
+  blob: mp4_thumbnail_blob
+
+mov_movie:
+  name: movie_data
+  record: movie2 (Movie)
+  blob: mov_movie_blob
+
+
+mov_thumbnail:
+  name: thumbnail
+  record: movie2 (Movie)
+  blob: mov_thumbnail_blob
