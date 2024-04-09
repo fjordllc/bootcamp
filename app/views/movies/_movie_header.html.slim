@@ -1,40 +1,64 @@
 header.page-content-header
   .page-content-header__end
     .page-content-header__row
-      - if movie.practices.present?
-        .page-content-header__row
-          .page-content-header__tags
-            .tag-links
-              ul.tag-links__items
-                - category_practices(movie).each do |practice|
-                  li.tag-links__item
-                    = link_to practice, class: 'tag-links__item-link' do
-                      = practice.title
-      h1.page-content-header__title
+      - if movie.practice.present?
+        .page-content-header__before-title
+          = link_to movie.practice, class: 'a-category-link' do
+            = movie.practice.title
+      h1.page-content-header__title(class="#{movie.wip? ? 'is-wip' : ''}")
+        - if movie.wip?
+          span.a-title-label.is-wip WIP
         | #{movie.title}
 
     .page-content-header__row
       .page-content-header-metas
         .page-content-header-metas__start
           .page-content-header-metas
+            - if movie.wip?
+              .page-content-header-metas__meta
+                .a-meta.is-creator
+                  span.a-meta__label
+                    | 動画作成中
+                  span.a-meta__value
+                    = render 'users/icon',
+                      user: movie.user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to movie.user, class: 'a-user-name' do
+                      | #{movie.user.login_name}
+            - elsif movie.published_at.present?
               .page-content-header-metas__meta
                 .a-meta.is-creator
                   span.a-meta__label
                     | 公開
                   .a-meta__value
-                    time(datetime="#{@movie.created_at.to_datetime}")
-                      | #{l @movie.created_at}
+                    time(datetime="#{movie.published_at.to_datetime}")
+                      | #{l movie.published_at}
                     - if movie.user
                       = render 'users/icon',
-                        created_at: @movie.created_at,
-                        user: @movie.user,
+                        user: movie.user,
                         link_class: 'thread-header__user-icon-link',
                         image_class: 'thread-header__user-icon'
-                      = link_to @movie.user, class: 'a-user-name' do
-                        | #{@movie.user.login_name}
+                      = link_to movie.user, class: 'a-user-name' do
+                        | #{movie.user.login_name}
                     - else
                       = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon'
                       | ghost
+
+            - if movie.last_updated_user.present?
+              .page-content-header-metas__meta
+                .a-meta.is-updater
+                  span.a-meta__label
+                    | 更新
+                  span.a-meta__value
+                    time(datetime="#{movie.updated_at.to_datetime}")
+                      | #{l movie.updated_at}
+                    = render 'users/icon',
+                      user: movie.last_updated_user,
+                      link_class: 'thread-header__user-icon-link',
+                      image_class: 'thread-header__user-icon'
+                    = link_to movie.last_updated_user, class: 'a-user-name' do
+                      | #{movie.last_updated_user.login_name}
 
         .page-content-header-metas__end
           .page-content-header-metas
