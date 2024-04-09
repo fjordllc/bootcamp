@@ -166,7 +166,7 @@ class PagesTest < ApplicationSystemTestCase
     element = all('.card-list-item__rows').find { |component| component.has_text?('WIPのテスト') }
     within element do
       assert_selector '.a-list-item-badge.is-wip', text: 'WIP'
-      assert_selector '.a-meta', text: 'Doc作成中'
+      assert_selector '.a-meta', text: 'Docs作成中'
     end
   end
 
