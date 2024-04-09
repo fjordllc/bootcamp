@@ -8,3 +8,9 @@
           h2.card-list-item-title__title(itemprop='name')
             = link_to user, itemprop: 'url', class: 'card-list-item-title__link a-text-link' do
               | #{user.login_name} （#{user.name}）
+      .card-list-item__row
+        .a-meta
+          ul.a-meta__list
+            - user.roles.each do |role|
+              li.a-meta__list-item
+                = t "target.#{role}"

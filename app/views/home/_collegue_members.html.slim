@@ -1,13 +1,24 @@
 .a-card
   header.card-header.is-sm
-    h2.card-header__title #{current_user.company.name}のユーザー一覧
-  hr.a-border
+    h2.card-header__title
+      | ユーザー一覧（#{collegue_members.count}）
+  hr.a-border-tint
   .card-list.has-scroll
+    .card-list__description
+      .a-short-text.is-sm
+        p
+          | アカウントを持っている社員が退職される場合、セキュリティ対策として、その社員のアカウントを退会させる必要があります。アカウントを持つ社員が退職された際には、以下のフォームから退会申請をしてください。
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            = link_to new_require_retirement_path, class: 'a-button is-sm is-block is-secondary' do
+              | 退会・データ削除申請
+    hr.a-border-tint
     = render partial: 'collegue_member', collection: collegue_members, as: :user
   hr.a-border-tint
   footer.card-footer
     .card-main-actions
       ul.card-main-actions__items
         li.card-main-actions__item
-          = link_to new_require_retirement_path, class: 'a-button is-sm is-block is-secondary' do
-            | 退会申請
+          = link_to company_users_path(current_user.company), class: 'a-button is-sm is-block is-secondary' do
+            | ユーザー一覧ページ

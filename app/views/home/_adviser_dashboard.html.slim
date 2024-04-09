@@ -34,16 +34,12 @@
                     = render 'adviser_help'
                   .a-panels__item
                     = render 'adviser_talk'
-                  //
-                    TODO 企業に所属するアドバイザーが企業情報を編集できるようにしたら公開
-                    - if current_user.belongs_company_and_adviser?
-                      .a-panels__item
-                        = render 'adviser_company_edit'
 
           - if current_user.belongs_company_and_adviser?
             .dashboard-category
               header.dashboard-category__header
-                h2.dashboard-category__title #{current_user.company.name} の研修状況
+                h2.dashboard-category__title
+                  | #{current_user.company.name} の研修状況
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
@@ -64,7 +60,7 @@
                       = render 'invite_adviser_link', company: current_user.company
             .dashboard-category
               header.dashboard-category__header
-                h2.dashboard-category__title #{current_user.company.name} のユーザー一覧
+                h2.dashboard-category__title #{current_user.company.name} の企業情報
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
@@ -72,3 +68,41 @@
                       / TODO collegue_membersの取得
                       - collegue_members = [User.find(301971253), User.find(707153293), User.find(1033491174)]
                       = render 'collegue_members', collegue_members: collegue_members
+                    / TODO フォームが実装されたら以下のカードは削除する。この文言をフォームの中で使う。
+                    .a-panels__item
+                      .a-card
+                        header.card-header.is-sm
+                          h2.card-header__title
+                            | ユーザーの退会・データ削除申請
+                        hr.a-border-tint
+                        .card-body
+                          .card__description
+                            .a-short-text.is-sm
+                              p
+                                | フィヨルドブートキャンプのアカウントを持っている社員が退職される場合、
+                                | セキュリティ対策として、その社員のアカウントを退会させる必要があります。
+                                | アカウントを持つ社員が退職された際には、以下のフォームから退会申請をしてください。
+                              p
+                                | 退会しても、そのアカウントが残したデータ（コメント、日報、提出物など）は
+                                | フィヨルドブートキャンプアプリに残ります。
+                                | これらのデータは、過去の研修内容の確認に利用できます。
+                                | アカウントと一緒にこれらのデータも削除したい場合は、
+                                | 退会申請フォームにある「データ削除希望」にチェックを入れてください。
+                              p
+                                | 申請後、管理者が確認し、数営業日以内に処理を行います。
+                              p
+                                | 退会やデータに関する質問や相談がある場合は、「
+                                = link_to action_uncompleted_index_path(current_user.talk) do
+                                  | 相談部屋
+                                | 」からお問い合わせください。
+                        hr.a-border-tint
+                        footer.card-footer
+                          .card-main-actions
+                            ul.card-main-actions__items
+                              li.card-main-actions__item
+                                = link_to '退会・データ削除申請', company_path(current_user.company), class: 'a-button is-sm is-block is-secondary'
+                  //
+                    TODO 企業に所属するアドバイザーが企業情報を編集できるようにしたら公開
+                    - if current_user.belongs_company_and_adviser?
+                      .a-panels__item
+                        = render 'adviser_company_edit'
