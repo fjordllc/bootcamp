@@ -1,72 +1,76 @@
 - title "Docs: #{@page.title}"
 - set_meta_tags description: "ドキュメント「#{@page.title}」のページです"
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title Docs
-      .page-header__end
-        .page-header-actions
-          ul.page-header-actions__items
-            li.page-header-actions__item
-              = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
-                i.fa-regular.fa-plus
-                span
-                  | Doc作成
-            li.page-header-actions__item
-              = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
-                | Docs
-hr.a-border
-.page-body
-  .page-body__inner.has-side-nav
-    .container.is-md
-      .doc.page-content
-        = render 'doc_header', page: @page
-        .a-card
-          .card-body
-            .card-body__description
-              .a-long-text.is-md.js-markdown-view
-                = @page.body
-          hr.a-border-tint
-          = render 'reactions/reactions', reactionable: @page
-          hr.a-border-tint
-          footer.card-footer
-            .card-main-actions
-              ul.card-main-actions__items
-                li.card-main-actions__item
-                  = link_to [:edit, @page], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
-                    i.fa-solid.fa-pen
-                    | 内容変更
-                - if admin_or_mentor_login? || current_user == @page.user
-                  li.card-main-actions__item.is-sub
-                    = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                      | 削除する
-        .page-content-prev-next
-          .page-content-prev-next__item
-            = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
-              | 一覧に戻る
+= render 'doc_movie_header'
+= render 'tabs'
 
-      #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
+main.page-main
+  .page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | Docs
+        .page-main-header__end
+          .page-header-actions
+            ul.page-header-actions__items
+              li.page-header-actions__item
+                = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | Docs作成
+              li.page-header-actions__item
+                = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
+                  | Docs
+  hr.a-border
+  .page-body
+    .page-body__inner.has-side-nav
+      .container.is-md
+        .doc.page-content
+          = render 'doc_header', page: @page
+          .a-card
+            .card-body
+              .card__description
+                .a-long-text.is-md.js-markdown-view
+                  = @page.body
+            hr.a-border-tint
+            = render 'reactions/reactions', reactionable: @page
+            hr.a-border-tint
+            footer.card-footer
+              .card-main-actions
+                ul.card-main-actions__items
+                  li.card-main-actions__item
+                    = link_to [:edit, @page], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                      i.fa-solid.fa-pen
+                      | 内容変更
+                  - if admin_or_mentor_login? || current_user == @page.user
+                    li.card-main-actions__item.is-sub
+                      = link_to @page, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                        | 削除する
+          .page-content-prev-next
+            .page-content-prev-next__item
+              = link_to :pages, class: 'page-content-prev-next__item-link is-index' do
+                | 一覧に戻る
 
-    - if @page.practice
-      nav.a-side-nav
-        .a-side-nav__inner
-          header.a-side-nav__header
-            h2.a-side-nav__title
-              = link_to @page.practice,
-                class: 'a-side-nav__title-link' do
-                = @page.practice.title
-          hr.a-border
-          .a-side-nav__body
-            ul.a-side-nav__items
-              - @pages.each do |page|
-                li.a-side-nav__item(class="#{@page == page ? 'is-current' : ''}")
-                  = link_to page_path(page), class: 'a-side-nav__item-link' do
-                    span.a-side-nav__item-link-inner
-                      = page.title
-          hr.a-border
-          footer.a-side-nav__footer
-            = link_to practice_pages_path(@page.practice),
-              class: 'a-side-nav__footer-link' do
-              | 全て見る
+        #js-comments(data-commentable-id="#{@page.id}" data-commentable-type='Page' data-current-user-id="#{current_user.id}")
+
+      - if @page.practice
+        nav.a-side-nav
+          .a-side-nav__inner
+            header.a-side-nav__header
+              h2.a-side-nav__title
+                = link_to @page.practice,
+                  class: 'a-side-nav__title-link' do
+                  = @page.practice.title
+            hr.a-border
+            .a-side-nav__body
+              ul.a-side-nav__items
+                - @pages.each do |page|
+                  li.a-side-nav__item(class="#{@page == page ? 'is-current' : ''}")
+                    = link_to page_path(page), class: 'a-side-nav__item-link' do
+                      span.a-side-nav__item-link-inner
+                        = page.title
+            hr.a-border
+            footer.a-side-nav__footer
+              = link_to practice_pages_path(@page.practice),
+                class: 'a-side-nav__footer-link' do
+                | 全て見る
