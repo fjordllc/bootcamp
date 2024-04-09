@@ -31,10 +31,10 @@ machida_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/ava
 
 kimuramitai_profile_image_blob: <%= ActiveStorage::Blob.fixture filename: "users/avatars/default.jpg", service_name: "test_fixtures" %>
 
-mp4_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/sample.mp4" %>
+mp4_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie1.mp4" %>
 
-mp4_thumbnail_blob: <%= ActiveStorage::Blob.fixture filename: "movies/thumbnail_mp4.png" %>
+mp4_thumbnail_blob: <%= ActiveStorage::Blob.fixture filename: "movies/thumbnail1.jpg" %>
 
-mov_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/sample.mov" %>
+mov_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie2.mov" %>
 
-mov_thumbnail_blob: <%= ActiveStorage::Blob.fixture filename: "movies/thumbnail_mov.png" %>
+mov_thumbnail_blob: <%= ActiveStorage::Blob.fixture filename: "movies/thumbnail2.jpg" %>
