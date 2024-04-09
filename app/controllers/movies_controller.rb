@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.includes(:user)
                    .order(created_at: :desc)
-                   .page(params[:movie])
+                   .page(params[:page])
                    .per(PAGER_NUMBER)
   end
 
