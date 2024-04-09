@@ -97,3 +97,8 @@ page13_tag_net_framework:
   taggable: page13 (Page)
   context: tags
   tag: _net_framework
+
+movie1_tag_cat:
+  taggable: movie1 (Movie)
+  context: tags
+  tag: cat
