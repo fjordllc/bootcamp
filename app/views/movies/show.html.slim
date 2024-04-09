@@ -37,9 +37,49 @@ main.page-main
             hr.a-border-tint
               = render 'reactions/reactions', reactionable: @movie
 
-          .page-content-prev-next
-            .page-content-prev-next__item
-              = link_to :movies, class: 'page-content-prev-next__item-link is-index' do
-                | 一覧に戻る
+    .page-content-header__row
+      .page-content-header-actions
+        .page-content-header-actions__start
+          .page-content-header-actions__action
+            div(data-vue="WatchToggle" data-vue-watchable-id:number="#{@movie.id}" data-vue-watchable-type='Movie')
+          .page-content-header-actions__action
+            .page-content-header-actions__action
+            = react_component('BookmarkButton', bookmarkableId: @movie.id, bookmarkableType: 'Movie')
 
-        #js-comments(data-commentable-id="#{@movie.id}" data-commentable-type='Movie' data-current-user-id="#{current_user.id}")
+  .page-content-header__row
+    .page-content-header__tags
+      = react_component('Tags/Tags', { tagsInitialValue: @movie.tag_list.join(',').to_s,
+                                       tagsParamName: '@movie[tag_list]',
+                                       tagsInputId: 'movie_tag_list',
+                                       tagsType: 'Movie',
+                                       tagsTypeId: @movie.id.to_s })
+
+      .a-card
+        .card-body
+          .card__description
+            .a-long-text.is-md.js-markdown-view
+              = @movie.description
+      .a-card
+        .card-body
+          = video_tag url_for(@movie.movie_data.blob), controls: true
+        hr.a-border-tint
+          = render 'reactions/reactions', reactionable: @movie
+        hr.a-border-tint
+          footer.card-footer
+            .card-main-actions
+              ul.card-main-actions__items
+                li.card-main-actions__item
+                  = link_to [:edit, @movie], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                    i.fa-solid.fa-pen
+                    | 内容変更
+                - if admin_or_mentor_login? || current_user == @movie.user
+                  li.card-main-actions__item.is-sub
+                    = link_to @movie, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                      | 削除する
+
+      .page-content-prev-next
+        .page-content-prev-next__item
+          = link_to :movies, class: 'page-content-prev-next__item-link is-index' do
+            | 一覧に戻る
+
+    #js-comments(data-commentable-id="#{@movie.id}" data-commentable-type='Movie' data-current-user-id="#{current_user.id}")

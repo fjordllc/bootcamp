@@ -38,4 +38,21 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
+<<<<<<< HEAD
         = f.submit '動画を追加する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+=======
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        = button_tag(class: 'a-button is-lg is-primary is-block') do
+          - case params[:action]
+          - when 'new', 'create'
+            | 動画を追加
+          - when 'edit', 'update'
+            | 内容を更新
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', :pages, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', :pages, class: 'a-button is-sm is-text'
+>>>>>>> c738bbd0a (編集・削除に必要なボタンを追加、共通部分を切り出してformに)
