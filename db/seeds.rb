@@ -66,6 +66,7 @@ tables = %i[
   survey_question_answers
   buzzes
   inquiries
+  movies
   coding_tests
   coding_test_cases
   coding_test_submissions

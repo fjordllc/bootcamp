@@ -23,7 +23,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_equal new_movie_path, current_path
     fill_in 'movie[title]', with: '新規動画を作成する'
     fill_in 'movie[description]', with: '新規動画を作成する本文です'
-    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/sample.mp4'
+    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie1.mp4'
     click_button '動画を追加する'
     assert_text '動画を追加しました'
   end
@@ -33,7 +33,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_equal new_movie_path, current_path
     fill_in 'movie[title]', with: '新規動画を作成する'
     fill_in 'movie[description]', with: '新規動画を作成する本文です'
-    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/sample.mov'
+    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie2.mov'
     click_button '動画を追加する'
     assert_text '動画を追加しました'
   end
@@ -44,7 +44,7 @@ class MoviesTest < ApplicationSystemTestCase
     fill_in 'movie[description]', with: '動画に関連プラクティスを指定'
     first('.choices__inner').click
     find('.choices__item--choice', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
-    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/sample.mp4'
+    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie1.mp4'
     click_button '動画を追加する'
     assert_text 'Linuxのファイル操作の基礎を覚える'
   end
