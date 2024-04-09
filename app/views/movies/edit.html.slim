@@ -1,0 +1,13 @@
+- title '動画編集'
+- set_meta_tags description: '動画編集ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+hr.a-border
+.page-body
+  .container.is-xxl
+    = render 'form', movie: @movie, categories: @categories
