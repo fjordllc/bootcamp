@@ -286,7 +286,7 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'コードブロック、インラインコードの中でメンションをしても通知が飛ばない' do
+  test 'mentioning in code blocks and inline code does not work' do
     visit_with_auth '/notifications', 'komagata'
     click_link '全て既読にする'
 
