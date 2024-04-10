@@ -56,7 +56,7 @@ class MoviesTest < ApplicationSystemTestCase
     fill_in 'new_comment[description]', with: 'コメント数表示のテストです。'
     click_button 'コメントする'
 
-    visit current_path
+    visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
     assert_selector '#comment_count', text: 1
   end
 end
