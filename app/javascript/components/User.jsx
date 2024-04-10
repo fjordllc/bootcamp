@@ -126,7 +126,7 @@ export default function User({ user, currentUser }) {
           </div>
           <UserPracticeProgress user={user} />
           <hr className="a-border-tint" />
-          <footer className="card-footer">
+          <footer className="card-footer users-item__footer">
             <div className="card-main-actions">
               <ul className="card-main-actions__items">
                 {currentUser.id !== user.id &&
