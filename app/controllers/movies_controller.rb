@@ -45,6 +45,8 @@ class MoviesController < ApplicationController
     redirect_to new_movie_path, alert: e.message
   end
 
+  private
+
   def generate_thumbnail_from_blob(movie_path)
     thumbnail_path = Tempfile.new(['thumbnail', '.png']).path
 
@@ -57,8 +59,6 @@ class MoviesController < ApplicationController
       content_type: 'image/jpeg'
     )
   end
-
-  private
 
   def save_blob_to_tempfile(blob)
     tempfile = Tempfile.new(["#{blob.filename}.#{blob.filename.extension}", ''], 'tmp/', binmode: true)
