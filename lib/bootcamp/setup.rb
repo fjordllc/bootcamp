@@ -76,12 +76,12 @@ module Bootcamp
 
       def attach_movie_data_and_thumbnail!
         Movie.order(:created_at).each_with_index do |movie, i|
-          if i == 0
+          if i.zero?
             movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie1.mp4")
-            movie.movie_data.attach(io: File.open(movie_path), filename: "movie1.mp4")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie1.mp4')
           elsif i == 1
             movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie2.mov")
-            movie.movie_data.attach(io: File.open(movie_path), filename: "movie2.mov")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie2.mov')
           end
           thumbnail_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/thumbnail#{i + 1}.jpg")
           movie.thumbnail.attach(io: File.open(thumbnail_path), filename: "thumbnail#{i + 1}.jpg")
