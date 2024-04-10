@@ -282,8 +282,9 @@ discord_profile_advisernocolleguetrainee:
 
 discord_profile_nagai-kyuukai:
   user: nagai-kyuukai
-  account_name:
-  times_url:
+  account_name: nagaikyuukai#1234
+  times_url: https://discord.com/channels/1079802367970656257/1224708078847397908
+  times_id: 1224708078847397908
 
 discord_profire_pjord:
   user: pjord
