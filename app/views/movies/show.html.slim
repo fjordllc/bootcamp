@@ -30,7 +30,7 @@ main.page-main
           .a-card
             .card-body
               .card__main-movie
-                = video_tag url_for(@movie.movie_data.blob), controls: true, width: "717.52", height: "403.59"
+                = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.59'
               .card__description
                 .a-long-text.is-md.js-markdown-view
                   = @movie.description
