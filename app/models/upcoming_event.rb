@@ -19,18 +19,14 @@ class UpcomingEvent
   end
 
   def held_on_national_holiday?
-    return true if event_type == Event
+    return true if @event_type == Event
 
     original_event.hold_national_holiday
   end
 
   def for_job_hunting?
-    return false if event_type == RegularEvent
+    return false if @event_type == RegularEvent
 
     original_event.job_hunting?
   end
-
-  private
-
-  attr_reader :event_type
 end
