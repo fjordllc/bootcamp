@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'active_decorator_test_case'
 
-class RegularEventDecoratorTest < ActiveSupport::TestCase
-  def setup
+class UpcomingEventDecoratorTest < ActiveDecoratorTestCase
+  setup do
     special = events(:event1)
     regular_mtg = regular_events(:regular_event1)
     regular_reading = regular_events(:regular_event4)
+
     upcoming_special = UpcomingEvent.wrap(special)
     upcoming_regular_mtg = UpcomingEvent.wrap(regular_mtg)
     upcoming_regular_reading = UpcomingEvent.wrap(regular_reading)
 
-    @decorated_upcoming_special = ActiveDecorator::Decorator.instance.decorate(upcoming_special)
-    @decorated_upcoming_mtg = ActiveDecorator::Decorator.instance.decorate(upcoming_regular_mtg)
-    @decorated_upcoming_reading = ActiveDecorator::Decorator.instance.decorate(upcoming_regular_reading)
+    @decorated_upcoming_special = decorate(upcoming_special)
+    @decorated_upcoming_mtg = decorate(upcoming_regular_mtg)
+    @decorated_upcoming_reading = decorate(upcoming_regular_reading)
   end
 
   test '#label_style?' do
