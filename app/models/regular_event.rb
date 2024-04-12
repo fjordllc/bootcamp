@@ -80,15 +80,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def holding_today?
     now = Time.current
-    event_day = regular_event_repeat_rules.map do |repeat_rule|
-      if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == now.wday
-      else
-        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == convert_date_into_week(now.day)
-      end
-    end.include?(true)
-    event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
+    return false if custom_holiday?(now)
 
+    event_day = match_event_rules?(now)
+    event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
     event_day && (now < event_start_time)
   end
 
@@ -125,17 +120,25 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def next_specific_day_of_the_week(repeat_rule)
+    custom_holidays = fetch_custom_holidays(Time.current).pluck(:holiday_date)
     day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
     possible_date = 0.days.ago.next_occurring(day_of_the_week_symbol).to_date
-    possible_date = possible_date.next_occurring(day_of_the_week_symbol) while !hold_national_holiday && HolidayJp.holiday?(possible_date)
+
+    while custom_holidays.include?(possible_date) || (!hold_national_holiday && HolidayJp.holiday?(possible_date))
+      possible_date = possible_date.next_occurring(day_of_the_week_symbol)
+    end
     possible_date
   end
 
   def calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
-    # 次の第n X曜日の日付を計算する
-    specific_date = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday + 1
-    specific_date += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
-    Date.new(first_day.year, first_day.mon, specific_date)
+    custom_holidays = fetch_custom_holidays(Time.current).pluck(:holiday_date)
+    possible_date = calculate_possible_date(repeat_rule, first_day, days_of_the_week_count)
+
+    while custom_holidays.include?(possible_date) || (!hold_national_holiday && HolidayJp.holiday?(possible_date))
+      first_day = first_day.next_month
+      possible_date = calculate_possible_date(repeat_rule, first_day, days_of_the_week_count)
+    end
+    possible_date
   end
 
   def holding_tomorrow?
@@ -148,13 +151,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def holding_next_day?(days = 1)
     next_day = Time.current.next_day(days)
-    regular_event_repeat_rules.map do |repeat_rule|
-      if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == next_day.wday
-      else
-        repeat_rule.day_of_the_week == next_day.wday && repeat_rule.frequency == convert_date_into_week(next_day.day)
-      end
-    end.include?(true)
+    return false if custom_holiday?(next_day)
+
+    match_event_rules?(next_day)
   end
 
   def cancel_participation(user)
@@ -177,6 +176,18 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
+  def fetch_custom_holidays(date)
+    regular_event_custom_holidays.where('holiday_date > ?', date).order(:holiday_date)
+  end
+
+  def match_event_rules?(date)
+    regular_event_repeat_rules.any? { |rule| match_wday_and_frequency?(date, rule) }
+  end
+
+  def custom_holiday?(date)
+    regular_event_custom_holidays.exists?(holiday_date: date)
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -184,5 +195,23 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def match_wday_and_frequency?(date, rule)
+    match_wday?(date, rule) && match_frequency?(date, rule)
+  end
+
+  def match_wday?(date, rule)
+    date.wday == rule.day_of_the_week
+  end
+
+  def match_frequency?(date, rule)
+    rule.frequency.zero? || convert_date_into_week(date.day) == rule.frequency
+  end
+
+  def calculate_possible_date(repeat_rule, first_day, days_of_the_week_count)
+    day_offset = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday
+    day_offset += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
+    Date.new(first_day.year, first_day.month, first_day.day + day_offset)
   end
 end

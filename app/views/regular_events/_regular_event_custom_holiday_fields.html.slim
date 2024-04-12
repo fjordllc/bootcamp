@@ -1,0 +1,10 @@
+.form-times
+  .nested-fields
+    .
+      = f.label :holiday_date, '設定日'
+      = f.date_field :holiday_date
+    .
+      = f.label :description, '理由'
+      = f.text_area :description
+    .
+      = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
