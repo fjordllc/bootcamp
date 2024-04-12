@@ -67,9 +67,18 @@ class Area
     def country_subdivision_pairs
       User
         .select('country_code, subdivision_code')
-        .where.not(country_code: nil)
-        .where.not(subdivision_code: nil)
+        .where.not(country_code: [nil, ''])
+        .where.not(subdivision_code: [nil, ''])
         .pluck(:country_code, :subdivision_code)
+        .filter do |country_code, subdivision_code|
+          # country_codeが間違っている場合は配列から削除する
+          if ISO3166::Country.codes.include?(country_code)
+            # subdivision_codeが間違っている場合は配列から削除する
+            ISO3166::Country[country_code].subdivisions.key?(subdivision_code)
+          else
+            false
+          end
+        end
     end
 
     def translate(country_subdivision_pairs)
