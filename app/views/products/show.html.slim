@@ -48,6 +48,7 @@ header.page-header
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         div(data-vue='Footprints' data-vue-footprintable-id="#{@product.id}" data-vue-footprintable-type='Product')
+        = render 'users/footprints', user_id: @product.id
 
       .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")
         - if current_user.mentor? || current_user.admin?

@@ -39,6 +39,7 @@
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
 
         div(data-vue='Footprints' data-vue-footprintable-id="#{@report.id}" data-vue-footprintable-type='Report')
+        = render 'users/footprints', user_id: @report.id
 
       .col-xl-5.col-xs-12
         - if current_user.mentor? || current_user.admin?

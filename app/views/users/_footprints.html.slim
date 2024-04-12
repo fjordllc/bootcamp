@@ -1,0 +1,22 @@
+.user-icons(v-if='!loaded')
+  .fa-solid.fa-spinner.fa-pulse
+  |
+  | ロード中
+.user-icons(v-else)
+  h3.user-icons__title(v-if='footprints.length > 0')
+    | 見たよ
+  ul.user-icons__items(
+    v-if='tenOrLessFootprints || (moreThanTenFoorptints && isDisplay)')
+    footprint(
+      v-for='footprint in limitedDisplayOnPage',
+      :key='footprint.key',
+      :footprint='footprint')
+  .user-icons__more(
+    v-if='moreThanTenFoorptints && isDisplay',
+    @click='showRemainingFootprints')
+    | その他{{ numberOfRemainingFootprints }}人
+  ul.user-icons__items(v-if='moreThanTenFoorptints && !isDisplay')
+    footprint(
+      v-for='footprint in footprints',
+      :key='footprint.key',
+      :footprint='footprint')

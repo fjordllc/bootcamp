@@ -19,3 +19,4 @@ hr.a-border
     = render 'announcement', announcement: @announcement
     #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
     div(data-vue='Footprints' data-vue-footprintable-id="#{@announcement.id}" data-vue-footprintable-type='Announcement')
+     = render 'users/footprints', user_id: @announcement.id
