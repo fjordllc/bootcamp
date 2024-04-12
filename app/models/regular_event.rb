@@ -68,7 +68,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
            source: :user
   has_many :watches, as: :watchable, dependent: :destroy
   attribute :wants_announcement, :boolean
-
+  has_many :regular_event_custom_holidays, dependent: :destroy
+  accepts_nested_attributes_for :regular_event_custom_holidays, allow_destroy: true
   columns_for_keyword_search :title, :description
 
   def scheduled_on?(date)
