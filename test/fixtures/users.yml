@@ -913,6 +913,30 @@ tom: #アメリカ在住のユーザー
   created_at: "2023-05-08 00:00:00"
   last_activity_at: "2023-05-08 00:00:00"
 
+pjord:
+  login_name: pjord
+  email:
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ピヨルド
+  name_kana: ピヨルド
+  twitter_account:
+  github_account:
+  blog_url:
+  description: "管理者のピヨルドです。バイキングの末裔です。"
+  adviser: true
+  course: course1
+  company: company1
+  admin: true
+  mentor: false
+  unsubscribe_email_token: Xw-T0PjrO2LTkCx1C8KA9w
+  updated_at: "2024-03-09 00:00:30"
+  created_at: "2024-03-05 00:00:30"
+  sent_student_followup_message: true
+  last_activity_at: "2021-02-01 00:00:30"
+
+
+
 <% trailing_katakana = "ァ" %>
 <% 1.upto(4) do |i| %>
 marumarushain<%= i %>: # ページネーション確認のためのユーザー

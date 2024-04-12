@@ -459,40 +459,68 @@
 .ContributionCalendar-day[data-level="0"]
   fill: var(--color-calendar-graph-day-bg)
   shape-rendering: geometricPrecision
+  background-color: var(--color-calendar-graph-day-bg)
+  shape-rendering: geometricPrecision
+  border-radius: 2px
   outline: 1px solid var(--color-calendar-graph-day-border)
   outline-offset: -1px
 
 .ContributionCalendar-day[data-level="1"]
-  fill: var(--color-calendar-graph-day-L1-bg)
+  background-color: var(--color-calendar-graph-day-L1-bg)
   outline: 1px solid var(--color-calendar-graph-day-L1-border)
 
 .ContributionCalendar-day[data-level="2"]
-  fill: var(--color-calendar-graph-day-L2-bg)
+  background-color: var(--color-calendar-graph-day-L2-bg)
   outline: 1px solid var(--color-calendar-graph-day-L2-border)
 
 .ContributionCalendar-day[data-level="3"]
-  fill: var(--color-calendar-graph-day-L3-bg)
+  background-color: var(--color-calendar-graph-day-L3-bg)
   outline: 1px solid var(--color-calendar-graph-day-L3-border)
 
 .ContributionCalendar-day[data-level="4"]
-  fill: var(--color-calendar-graph-day-L4-bg)
+  background-color: var(--color-calendar-graph-day-L4-bg)
   outline: 1px solid var(--color-calendar-graph-day-L4-border)
 
 .ContributionCalendar[data-holiday="halloween"]
   &.ContributionCalendar-day[data-level="1"]
-    fill: var(--color-calendar-halloween-graph-day-L1-bg)
+    background-color: var(--color-calendar-halloween-graph-day-L1-bg)
 
 .ContributionCalendar[data-holiday="halloween"]
   &.ContributionCalendar-day[data-level="2"]
-    fill: var(--color-calendar-halloween-graph-day-L2-bg)
+    background-color: var(--color-calendar-halloween-graph-day-L2-bg)
 
 .ContributionCalendar[data-holiday="halloween"]
   &.ContributionCalendar-day[data-level="3"]
-    fill: var(--color-calendar-halloween-graph-day-L3-bg)
+    background-color: var(--color-calendar-halloween-graph-day-L3-bg)
 
 .ContributionCalendar[data-holiday="halloween"]
   &.ContributionCalendar-day[data-level="4"]
-    fill: var(--color-calendar-halloween-graph-day-L4-bg)
+    background-color: var(--color-calendar-halloween-graph-day-L4-bg)
 
 .ContributionCalendar-label
   font-size: .625rem
+
+// FBC
+.github-grass
+  overflow-x: auto
+
+.ContributionCalendar-grid,
+.user-grass__image
+  border-spacing: 3px !important
+  border-collapse: separate
+  overflow: hidden
+  position: relative
+  color: var(--default-text)
+  min-width: 707px
+  transform: scale(.75)
+  margin: -.8rem -5.5rem -.8rem -5.3rem
+  thead
+    tr:first-child
+      td:first-child
+        width: .75rem !important
+
+.ContributionCalendar-label
+  &:first-child
+    span
+      right: 2px
+      bottom: 0 !important

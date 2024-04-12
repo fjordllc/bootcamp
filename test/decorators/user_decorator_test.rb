@@ -50,4 +50,23 @@ class UserDecoratorTest < ActiveDecoratorTestCase
       assert_nil @student_user.hibernation_days
     end
   end
+
+  test '#other_editor_checked?' do
+    editors = User.editors.keys
+    @admin_mentor_user.editor = 99
+    @student_user.editor = 0
+
+    assert @admin_mentor_user.other_editor_checked?(editors)
+    assert_not @student_user.other_editor_checked?(editors)
+  end
+
+  test '#editor_or_other_editor' do
+    @admin_mentor_user.other_editor = 'textbringer'
+    @admin_mentor_user.editor = 99
+    @student_user.editor = 0
+
+    assert_equal @japanese_user.editor, nil
+    assert_equal @admin_mentor_user.editor_or_other_editor, 'textbringer'
+    assert_equal @student_user.editor_or_other_editor, 'VSCode'
+  end
 end

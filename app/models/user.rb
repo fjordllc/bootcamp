@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
-  AVATAR_SIZE = [88, 88].freeze
+  AVATAR_SIZE = [120, 120].freeze
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
@@ -43,6 +43,14 @@ class User < ApplicationRecord
     other_ruby: 2,
     ruby: 3,
     rails: 4
+  }, _prefix: true
+
+  enum editor: {
+    vscode: 0,
+    ruby_mine: 1,
+    vim: 2,
+    emacs: 3,
+    other_editor: 99
   }, _prefix: true
 
   enum satisfaction: {
@@ -153,13 +161,14 @@ class User < ApplicationRecord
 
   after_create UserCallbacks.new
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
   validates :description, presence: true
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
+  validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
 
   validates :feed_url,
             format: {
@@ -441,7 +450,7 @@ class User < ApplicationRecord
     end
 
     def create_followup_comment(student)
-      User.find_by(login_name: 'komagata').comments.create(
+      User.find_by(login_name: 'pjord').comments.create(
         description: I18n.t('talk.followup'),
         commentable_id: Talk.find_by(user_id: student.id).id,
         commentable_type: 'Talk'
@@ -597,11 +606,11 @@ class User < ApplicationRecord
     default_image_path = '/images/users/avatars/default.png'
 
     if avatar.attached?
-      avatar.variant(resize_to_limit: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
+      avatar.variant(resize_to_fill: AVATAR_SIZE, autorot: true, saver: { strip: true, quality: 60 }).processed.url
     else
       image_url default_image_path
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
     image_url default_image_path
   end
 
@@ -612,12 +621,6 @@ class User < ApplicationRecord
   def participating?(event)
     method_name = "participate_#{event.class.name.underscore.pluralize}"
     send(method_name).include?(event)
-  end
-
-  def register_github_account(id, account_name)
-    self.github_account = account_name
-    self.github_id = id
-    save!
   end
 
   def depressed?
@@ -757,7 +760,7 @@ class User < ApplicationRecord
   end
 
   def create_comebacked_comment
-    User.find_by(login_name: 'komagata').comments.create(
+    User.find_by(login_name: 'pjord').comments.create(
       description: I18n.t('talk.comeback'),
       commentable_id: Talk.find_by(user_id: id).id,
       commentable_type: 'Talk'

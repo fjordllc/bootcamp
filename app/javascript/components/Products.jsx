@@ -12,6 +12,7 @@ export default function Products({
   title,
   selectedTab,
   isMentor,
+  isAdmin,
   currentUserId
 }) {
   const { page, setPage } = usePage()
@@ -88,7 +89,7 @@ export default function Products({
           </nav>
         ) : null}
 
-        <div className="o-empty-message">
+        <div className="o-empty-message loaded">
           <div className="o-empty-message__icon">
             <i className="fa-regular fa-smile"></i>
           </div>
@@ -98,7 +99,7 @@ export default function Products({
     )
   } else if (isDashboard() && isNotProduct5daysElapsed()) {
     return (
-      <div className="o-empty-message">
+      <div className="o-empty-message loaded">
         <div className="o-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
@@ -117,7 +118,7 @@ export default function Products({
           </nav>
         )}
 
-        <div className="page-content is-products">
+        <div className="page-content is-products loaded">
           <div className="page-body__columns">
             <div className="page-body__column is-main">
               <div className="container is-md">
@@ -136,6 +137,7 @@ export default function Products({
                         product={product}
                         key={product.id}
                         isMentor={isMentor}
+                        isAdmin={isAdmin}
                         currentUserId={currentUserId}
                       />
                     )
@@ -158,7 +160,7 @@ export default function Products({
     )
   } else {
     return (
-      <div className="page-content is-products">
+      <div className="page-content is-products loaded">
         <div className="page-body__columns">
           <div className="page-body__column is-main">
             {data.products_grouped_by_elapsed_days.map(
@@ -180,6 +182,7 @@ export default function Products({
                               product={product}
                               key={product.id}
                               isMentor={isMentor}
+                              isAdmin={isAdmin}
                               currentUserId={currentUserId}
                               elapsedDays={productsNDaysPassed.elapsed_days}
                             />

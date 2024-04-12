@@ -6,7 +6,10 @@ class TimesChannelDestroyerTest < ActiveSupport::TestCase
   test '#call' do
     logs = []
     user = users(:hajime)
-    user.discord_profile.update!(times_id: '987654321987654321')
+    user.discord_profile.times_id = '987654321987654321'
+    user.discord_profile.account_name = 'hajime#1234'
+    user.save!(validate: false)
+
     Rails.logger.stub(:warn, ->(message) { logs << message }) do
       Discord::Server.stub(:delete_text_channel, true) do
         TimesChannelDestroyer.new.call({ user: })

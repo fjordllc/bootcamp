@@ -322,3 +322,13 @@ report<%= i + 71 %>:
     MaruMaru Inc.で研修をしました。
   reported_on: <%= Time.now - 1.month + i.day %>
 <% end %>
+
+<% (1..199).each do |i| %> # ステージング環境で日報200回目のお祝いメッセージの動作確認が終わり次第、削除します
+report<%= i + 87 %>:
+  user: nippou199
+  title: <%= "お祝いメッセージ確認用の日報#{i}" %>
+  emotion: 2
+  description: |-
+    <%= "#{i}日目の日報です" %>
+  reported_on: <%= Time.now - 1.year + i.day %>
+<% end %>

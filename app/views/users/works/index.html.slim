@@ -4,13 +4,15 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        = @user.login_name
-      .page-header-actions
-        ul.page-header-actions__items
-          li.page-header-actions__item
-            = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
-              | ユーザー一覧
+      .page-header__start
+        h2.page-header__title
+          = @user.login_name
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
+            li.page-header-actions__item
+              = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
+                | ユーザー一覧
 
 = render 'users/page_tabs', user: @user
 
@@ -34,23 +36,22 @@ header.page-header
                     i.fa-regular.fa-plus
                     | 作品を追加
   hr.a-border
-
-.page-body
-  .container
-    - if @user.works.present?
-      .works
-        .row
-          = render partial: 'works/work', collection: @works, as: :work
-    - else
-      .a-empty-message.is-info
-        p
-          | このページは、就職希望先のエンジニアや人事担当者が、#{@user.login_name}さんのスキルを手っ取り早く確認するための作品集ページ（ポートフォリオ）です。
-          br
-          | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
-        .page-body-actions
-          ul.page-body-actions__items
-            - if current_user == @user
-              li.page-body-actions__item
-                = link_to new_work_path, class: 'a-button is-lg is-warning is-block' do
-                  i.fa-regular.fa-plus
-                  | 作品を追加
+  .page-body
+    .container
+      - if @user.works.present?
+        .works
+          .row
+            = render partial: 'works/work', collection: @works, as: :work
+      - else
+        .a-empty-message.is-info
+          p
+            | このページは、就職希望先のエンジニアや人事担当者が、#{@user.login_name}さんのスキルを手っ取り早く確認するための作品集ページ（ポートフォリオ）です。
+            br
+            | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
+          .page-body-actions
+            ul.page-body-actions__items
+              - if current_user == @user
+                li.page-body-actions__item
+                  = link_to new_work_path, class: 'a-button is-lg is-warning is-block' do
+                    i.fa-regular.fa-plus
+                    | 作品を追加

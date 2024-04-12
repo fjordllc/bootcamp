@@ -3,8 +3,9 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        | 提出物
+      .page-header__start
+        h2.page-header__title
+          | 提出物
 
 = render 'products/tabs'
 
@@ -20,4 +21,4 @@ header.page-header
   hr.a-border
 .page-body
   .container.is-md
-    = react_component('Products', title: title, selectedTab: 'unchecked', isMentor: mentor_login?, currentUserId: current_user.id)
+    = react_component('Products', title: title, selectedTab: 'unchecked', isMentor: mentor_login?, isAdmin: admin_login?, currentUserId: current_user.id)

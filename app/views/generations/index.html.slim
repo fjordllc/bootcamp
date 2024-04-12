@@ -4,9 +4,11 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title ユーザー一覧
-      .page-header-actions
-        ul.page-header-actions__items
+      .page-header__start
+        h2.page-header__title ユーザー一覧
+      .page-header__end
+        .page-header-actions
+          ul.page-header-actions__items
 
 = render '/users/lg_page_tabs'
 = render 'users_tabs'
@@ -19,4 +21,35 @@ main.page-main
           = '期生別'
           | （#{t("target.#{@target}")}）
   hr.a-border
-  #js-generations(data-target="#{@target}")
+    .page-body
+      = paginate @generations
+      - if @generations.empty?
+        .container.is-lg
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-smile
+            p.o-empty-message__text
+              | ユーザーはありません
+      - else
+        .container.is-lg
+          .card-list.a-card
+            - @generations.each do |generation|
+              - users = Generation.new(generation.number).target_users(@target)
+              - if !users.empty?
+                .user-group
+                  header.user-group__header
+                    h2.user-group__title
+                      = link_to generation_path(generation.number), class: 'user-group__title-link' do
+                        span.user-group__title-label
+                          = "#{generation.number}期生"
+                        .user-group__date
+                          = "#{l generation.start_date, format: :year_and_date} ~ #{l generation.end_date, format: :year_and_date}"
+                  .a-user-icons
+                    .a-user-icons__items
+                      - users.each do |user|
+                        - ActiveDecorator::Decorator.instance.decorate(user)
+                        .a-user-icons__item
+                          = link_to user_path(user), class: 'a-user-icons__item-link' do
+                            span class=["a-user-role", "is-#{user.primary_role}"]
+                              img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
+      = paginate @generations

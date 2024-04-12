@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     end
     resources :mentor_memos, only: %i(update)
     resources :tags, only: %i(index update)
-    resources :pages, only: %i(index update)
+    resources :pages, only: %i(update)
     resources :questions, only: %i(index show update)
     resources :followings, only: %i(create update destroy)
     namespace :products do
