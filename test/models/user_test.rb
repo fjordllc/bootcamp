@@ -163,6 +163,34 @@ class UserTest < ActiveSupport::TestCase
     assert user.save(context: :retire_reason_presence)
   end
 
+  test 'email' do
+    user = users(:kimura)
+    user.email = 'abcdABCD1234@fjord.jp'
+    assert user.valid?
+    user.email = 'abcd.AB-CD_12/34@fjord.jp'
+    assert user.valid?
+    user.email = 'abcdABCD1234@fjord-fjord.jp'
+    assert user.valid?
+    user.email = 'abcdABCD1234.fjord.jp'
+    assert user.invalid?
+    user.email = 'abcd ABCD 1234@fjord.jp'
+    assert user.invalid?
+    user.email = '(abcdABCD1234)@fjord.jp'
+    assert user.invalid?
+    user.email = 'abcd@ABCD@1234@fjord.jp'
+    assert user.invalid?
+    user.email = 'あいうえお@fjord.jp'
+    assert user.invalid?
+    user.email = 'アイウエオ@fjord.jp'
+    assert user.invalid?
+    user.email = '１２３４５@fjord.jp'
+    assert user.invalid?
+    user.email = 'abcdABCD1234@.fjord.jp'
+    assert user.invalid?
+    user.email = 'abcdABCD1234@fjord_fjord.jp'
+    assert user.invalid?
+  end
+
   test 'login_name' do
     user = users(:komagata)
     user.login_name = 'abcdABCD1234'
@@ -665,11 +693,11 @@ class UserTest < ActiveSupport::TestCase
       end
     description = "お帰りなさい！！復会ありがとうございます。\n" \
            '休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。' \
-           "何か困ったことや質問があれば、遠慮なくご相談ください。\n\n" \
+           "何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\n" \
            "またフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n" \
            '<https://bootcamp.fjord.jp/practices/129#url>'
     assert_equal hajime.id, comment.commentable.user_id
-    assert_equal users(:komagata).id, comment.user_id
+    assert_equal users(:pjord).id, comment.user_id
     assert_equal description, comment.body
   end
 

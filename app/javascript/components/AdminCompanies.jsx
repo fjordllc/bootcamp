@@ -62,7 +62,7 @@ const AdminCompany = ({ company }) => {
 
   return (
     <tr className="admin-table__item">
-      <td className="admin-table__item-value">
+      <td className="admin-table__item-value company-name">
         <a href={url}>{company.name}</a>
       </td>
       <td className="admin-table__item-value">

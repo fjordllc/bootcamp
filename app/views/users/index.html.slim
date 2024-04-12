@@ -8,8 +8,9 @@
 header.page-header
   .container
     .page-header__inner
-      h2.page-header__title
-        | ユーザー
+      .page-header__start
+        h2.page-header__title
+          | ユーザー
 
 = render 'lg_page_tabs'
 
@@ -36,19 +37,35 @@ main.page-main
                     = link_to 'このタグを自分に追加', "/users/tags/#{params[:tag]}", method: 'post', class: 'a-button is-sm is-secondary is-block'
         - else
           h1.page-main-header__title
+            | #{t("target.#{@target}")}
             - if @watch
-              | #{t("target.#{@target}")}：#{t("watch.#{@watch}")}（#{@users.total_count}）
-            - else
-              | #{t("target.#{@target}")}
-              - if admin_or_mentor_login?
-                span.is-only-mentor
-                  |（#{@users.total_count}）
+              |：#{t("watch.#{@watch}")}（#{@users.total_count}）
+            - elsif admin_or_mentor_login?
+              span.is-only-mentor
+                |（#{@users.total_count}）
   hr.a-border
   .page-body.is-users
     // TODO 暫定的な対応
     .page-body__inner.has-side-nav
       .container
-        div(data-vue='Users')
+        .users
+          - if (@users.present? && request.path == '/users' && @target != 'followings') || params[:search_word]
+            .page-filter.form.pt-0
+              .container.is-md.has-no-x-padding
+                .form__items
+                  = form_with url: request.path_info, method: 'get', local: true
+                    .form-item.is-inline-md-up
+                      label.a-form-label
+                        | 絞り込み
+                      = hidden_field_tag :target, params[:target]
+                      = text_field_tag :search_word, params[:search_word], class: 'a-text-input',
+                                        placeholder: 'ユーザーID、ユーザー名、読み方、Discord ID など',
+                                        onchange: 'this.form.submit()',
+                                        id: 'js-user-search-input'
+          .page-content.is-users
+            #user_lists.users__items
+              = render 'users/user_list', users: @users
+
       = render '/users/random_tags'
 - unless params[:tag]
   .sticky-message

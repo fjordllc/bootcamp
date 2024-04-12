@@ -35,10 +35,8 @@ import '../survey_question.js'
 import '../survey.js'
 import '../niconico_calendar.js'
 import '../mentor-mode.js'
-import '../bookmark.js'
 import '../agreements.js'
 import '../book-select.js'
-import '../generations.js'
 import '../subscription-status.js'
 import '../new-event-date-set.js'
 import '../company-users.js'
@@ -57,15 +55,14 @@ import '../change-subdivisions.js'
 import '../register-address.js'
 import '../upload-image-to-article.js'
 import '../header-dropdown.js'
+import '../editor-selection-form.js'
 
 import VueMounter from '../VueMounter.js'
 import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
 import ExternalEntries from '../components/external-entries.vue'
-import Pages from '../components/pages.vue'
 import Questions from '../components/questions.vue'
 import WorriedUsers from '../components/worried-users.vue'
-import Users from '../components/users.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
@@ -85,10 +82,8 @@ const mounter = new VueMounter()
 mounter.addComponent(Announcements)
 mounter.addComponent(Books)
 mounter.addComponent(ExternalEntries)
-mounter.addComponent(Pages)
 mounter.addComponent(Questions)
 mounter.addComponent(WorriedUsers)
-mounter.addComponent(Users)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
 mounter.addComponent(Watches)

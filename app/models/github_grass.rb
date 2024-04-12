@@ -4,8 +4,15 @@ require 'net/http'
 require 'nokogiri'
 
 class GithubGrass
-  SELECTOR = 'svg.js-calendar-graph-svg'
-  WDAYS = %w[日 月 火 水 木 金 土].freeze
+  TABLE_SELECTOR = 'table.ContributionCalendar-grid.js-calendar-graph-table'
+  LABEL_SELECTOR = 'td.ContributionCalendar-label span[aria-hidden="true"]'
+  SELECTORS_TO_REMOVE = ['tool-tip', 'caption', 'span[class="sr-only"]'].freeze
+
+  WDAYS = {
+    Sun: '日', Mon: '月', Tue: '火', Wed: '水',
+    Thu: '木', Fri: '金', Sat: '土'
+  }.freeze
+
   MONTHS = {
     Jan: '1', Feb: '2', Mar: '3', Apr: '4',
     May: '5', Jun: '6', Jul: '7', Aug: '8',
@@ -17,17 +24,18 @@ class GithubGrass
   end
 
   def fetch
-    svg = extract_svg(fetch_page)
-    add_view_box_attribute(svg)
-    localize(svg).to_s
+    table = extract_table(fetch_page)
+    localize_date_label(table).to_s
   rescue StandardError
     ''
   end
 
   private
 
-  def extract_svg(html)
-    Nokogiri::HTML(html).css(SELECTOR)
+  def extract_table(html)
+    table = Nokogiri::HTML(html).css(TABLE_SELECTOR)
+    SELECTORS_TO_REMOVE.each { |selector| table.search(selector).remove }
+    table
   end
 
   def fetch_page
@@ -36,30 +44,27 @@ class GithubGrass
     response.body
   end
 
-  def localize(svg)
-    localize_month(localize_wday(svg)).to_s
-  end
-
-  def localize_wday(svg)
-    svg.css('text.wday').map.with_index do |wday, i|
-      wday[:style] = ''
-      wday[:dy] = 12 + (15 * i)
-      wday.children = WDAYS[i]
+  def localize_date_label(table)
+    table.css(LABEL_SELECTOR).each do |label|
+      english_abbreviation = label.children.text.strip
+      replace_month_with_number(label, english_abbreviation)
+      replace_wday_with_japanese(label, english_abbreviation)
     end
-    svg
+    table
   end
 
-  def localize_month(svg)
-    svg.css('text.month').map do |month|
-      month.children = MONTHS[month.children.text.to_sym]
-    end
-    svg
+  def replace_month_with_number(label, abbreviation)
+    return unless MONTHS.key?(abbreviation.to_sym)
+
+    label.children = MONTHS[abbreviation.to_sym]
+    label[:class] = 'months'
   end
 
-  def add_view_box_attribute(svg)
-    width = svg.attribute('width').value
-    height = svg.attribute('height').value
-    svg.attribute('viewBox', "0 0 #{width} #{height}")
+  def replace_wday_with_japanese(label, abbreviation)
+    return unless WDAYS.key?(abbreviation.to_sym)
+
+    label.children = WDAYS[abbreviation.to_sym]
+    label[:class] = 'wdays'
   end
 
   def github_url(name)

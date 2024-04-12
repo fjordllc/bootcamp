@@ -31,7 +31,7 @@
                   .page-content-header-actions
                     .page-content-header-actions__start
                       .page-content-header-actions__action
-                        #js-bookmark(data-bookmarkable-id="#{@talk.id}", data-bookmarkable-type='Talk')
+                        = react_component('BookmarkButton', bookmarkableId: @talk.id, bookmarkableType: 'Talk')
               .page-content-header__row
                 .page-content-header__description
                   .a-long-text.is-md

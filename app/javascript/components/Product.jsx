@@ -5,6 +5,7 @@ import ProductChecker from './ProductChecker'
 export default function Product({
   product,
   isMentor,
+  isAdmin,
   currentUserId,
   elapsedDays
 }) {
@@ -60,6 +61,9 @@ export default function Product({
             <TimeInfo product={product} elapsedDays={elapsedDays} />
             <CommentInfo product={product} />
           </div>
+          {(isMentor || isAdmin) && product.user.primary_role === 'trainee' && (
+            <TrainingEndDateInfo product={product} />
+          )}
           {isMentor && product.checks.size === 0 && (
             <div className="card-list-item__row is-only-mentor">
               <div className="card-list-item__assignee">
@@ -224,5 +228,44 @@ const CommentInfo = ({ product }) => {
         </div>
       )}
     </>
+  )
+}
+
+const TrainingEndDateInfo = ({ product }) => {
+  return (
+    <div className="card-list-item__row">
+      <div className="card-list-item-meta__items">
+        <div className="card-list-item-meta__item">
+          {product.user.training_ends_on ? (
+            <time className="a-meta" dateTime={product.user.training_ends_on}>
+              <span className="a-meta__label">研修終了日</span>
+              <span className="a-meta__value">
+                {product.user.training_ends_on}
+              </span>
+              {product.user.training_remaining_days === 0 ? (
+                <span className="a-meta__value is-danger">
+                  （本日研修最終日）
+                </span>
+              ) : product.user.training_remaining_days < 0 ? (
+                <span className="a-meta__value">（研修終了）</span>
+              ) : product.user.training_remaining_days < 7 ? (
+                <span className="a-meta__value is-danger">
+                  （あと{product.user.training_remaining_days}日）
+                </span>
+              ) : (
+                <span className="a-meta__value">
+                  （あと{product.user.training_remaining_days}日）
+                </span>
+              )}
+            </time>
+          ) : (
+            <div className="a-meta">
+              <span className="a-meta__label">研修終了日</span>
+              <span className="a-meta__value">未入力</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }

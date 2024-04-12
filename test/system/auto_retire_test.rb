@@ -111,7 +111,9 @@ class AutoRetireTest < ApplicationSystemTestCase
 
   test 'delete times channel when retire' do
     user = users(:kyuukai)
-    user.discord_profile.update!(times_id: '987654321987654321')
+    user.discord_profile.times_id = '987654321987654321'
+    user.discord_profile.account_name = 'kyuukai#1234'
+    user.discord_profile.save!(validate: false)
 
     travel_to Time.zone.local(2020, 7, 2, 0, 0, 0) do
       Discord::Server.stub(:delete_text_channel, true) do

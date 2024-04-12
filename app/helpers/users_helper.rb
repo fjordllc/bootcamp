@@ -26,10 +26,6 @@ module UsersHelper
     end
   end
 
-  def user_github_grass_url(user)
-    "https://grass-graph.moshimo.works/images/#{user.github_account}.png?background=none"
-  end
-
   def users_tags_rank(count, top3_tags_counts)
     if count == top3_tags_counts[0]
       'is-first'
@@ -53,6 +49,19 @@ module UsersHelper
 
   def users_name
     User.pluck(:login_name, :id).sort
+  end
+
+  def button_label(user)
+    if current_user.following?(user)
+      current_user.watching?(user) ? 'コメントあり' : 'コメントなし'
+    else
+      'フォローする'
+    end
+  end
+
+  def desc_paragraphs(user)
+    max_description = user.description.length <= 200 ? user.description : "#{user.description[0...200]}..."
+    max_description.split(/\n|\r\n/).map.with_index { |text, i| { id: i, text: } }
   end
 
   def all_countries_with_subdivisions

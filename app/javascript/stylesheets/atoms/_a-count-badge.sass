@@ -6,12 +6,9 @@
   overflow: hidden
   background-color: var(--base)
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
-    display: flex
-    height: 1.75rem
-  +media-breakpoint-down(sm)
-    display: block
-    min-width: 2.25em
+  display: flex
+  flex-direction: column
+  min-width: 2.75em
 
 a.a-count-badge
   text-decoration: none
@@ -21,32 +18,19 @@ a.a-count-badge
 .a-count-badge__label
   font-size: .625rem
   color: var(--default-text)
-  +media-breakpoint-up(md)
-    border-right: solid 1px var(--border-shade)
-    display: flex
-    align-items: center
-    justify-content: center
-    width: auto
-    padding-inline: .5rem
-  +media-breakpoint-down(sm)
-    border-bottom: solid 1px var(--border-shade)
-    padding-block: .25rem
+  border-bottom: solid 1px var(--border-shade)
+  padding-block: .25rem
 
 .a-count-badge__value
   font-size: 1em
   font-weight: 700
   color: var(--danger)
   transition: all .2s ease-out
-  +media-breakpoint-up(md)
-    min-width: 2rem
-    display: flex
-    align-items: center
-    justify-content: center
-    padding: .125em
-  +media-breakpoint-down(sm)
-    padding: .0625em .125em .1875em
-    line-height: .9375
-    height: 1.125em
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: .0625em .125em .1875em
+  line-height: .9375
   &.is-zero
     color: var(--muted-text)
   &.is-counting

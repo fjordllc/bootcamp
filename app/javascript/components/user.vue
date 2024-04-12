@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
+.col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
   .users-item
     .users-item__inner.a-card
       .users-item__inactive-message-container.is-only-mentor(
@@ -60,7 +60,7 @@
           user-tags(:user='user')
       user-practice-progress(:user='user')
       hr.a-border-tint
-      footer.card-footer
+      footer.card-footer.users-item__footer
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item(

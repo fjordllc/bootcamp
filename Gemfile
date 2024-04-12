@@ -45,6 +45,7 @@ gem 'net-smtp', require: false # TODO: Remove it if you use rails 7.0.1
 gem 'newspaper'
 gem 'oauth2'
 gem 'omniauth', '~> 2.1.1'
+gem 'omniauth-discord'
 gem 'omniauth-github', '~> 2.0.1'
 gem 'omniauth-rails_csrf_protection'
 gem 'parser', '3.2.2.4'

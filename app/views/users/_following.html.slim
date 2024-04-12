@@ -1,0 +1,60 @@
+details.following id="follow_details#{user.id}"
+  - is_following = current_user.following?(user)
+  - is_watching = current_user.watching?(user)
+  summary.following__summary
+    - if is_following && is_watching
+      span.a-button.is-warning.is-sm.is-block
+        i.fa-solid.fa-check
+        span
+          | コメントあり
+    - elsif is_following && !is_watching
+      span.a-button.is-warning.is-sm.is-block
+        i.fa-solid.fa-check
+        span
+          | コメントなし
+    - else
+      span.a-button.is-secondary.is-sm.is-block
+        | #{button_label(user)}
+  .following__dropdown.a-dropdown
+    ul.a-dropdown__items
+      li.following__dropdown-item.a-dropdown__item
+        - if is_following && is_watching
+          button.following-option.a-dropdown__item-inner.is-active
+            .following-option__inner
+              .following-option__label
+                | コメントあり
+              .following-option__desciption
+                | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
+        - else
+          button.following-option.a-dropdown__item-inner onclick='usersIndex.followOrChangeFollow(#{user.id}, #{is_following}, true)'
+            .following-option__inner
+              .following-option__label
+                | コメントあり
+              .following-option__desciption
+                | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
+      li.following__dropdown-item.a-dropdown__item
+        - if is_following && !is_watching
+          button.following-option.a-dropdown__item-inner.is-active
+            .following-option__inner
+              .following-option__label
+                | コメントなし
+              .following-option__desciption
+                | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
+        - else
+          button.following-option.a-dropdown__item-inner onclick='usersIndex.followOrChangeFollow(#{user.id}, #{is_following}, false)'
+            .following-option__inner
+              .following-option__label
+                | コメントなし
+              .following-option__desciption
+                | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
+      li.following__dropdown-item.a-dropdown__item
+        - if !is_following
+          button.following-option.a-dropdown__item-inner.is-active
+            .following-option__inner
+              .following-option__label
+                | フォローしない
+        - else
+          button.following-option.a-dropdown__item-inner onclick='usersIndex.unfollow(#{user.id}, true)'
+            .following-option__inner
+              .following-option__label
+                | フォローしない
