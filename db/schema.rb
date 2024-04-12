@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_02_051341) do
+ActiveRecord::Schema.define(version: 2024_04_12_083834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -558,6 +558,15 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
+  create_table "regular_event_custom_holidays", force: :cascade do |t|
+    t.bigint "regular_event_id", null: false
+    t.date "holiday_date", null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["regular_event_id"], name: "index_regular_event_custom_holidays_on_regular_event_id"
+  end
+
   create_table "regular_event_participations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "regular_event_id", null: false
@@ -810,6 +819,7 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
   add_foreign_key "radio_button_choices", "radio_buttons"
   add_foreign_key "radio_buttons", "survey_questions"
   add_foreign_key "reactions", "users"
+  add_foreign_key "regular_event_custom_holidays", "regular_events"
   add_foreign_key "regular_event_participations", "regular_events"
   add_foreign_key "regular_event_participations", "users"
   add_foreign_key "regular_event_repeat_rules", "regular_events"
