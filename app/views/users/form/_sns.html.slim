@@ -6,7 +6,7 @@
       .form-item__mention-input
         = discord_profile_fields.text_field :account_name, class: 'a-text-input', disabled: true
       .a-form-help
-        p 
+        p
           | Discord アカウントは登録されています。（
           = link_to connection_discord_path, method: :delete, class: 'a-form-help-link is-muted-text' do
             | Discord アカウントの登録を解除する
