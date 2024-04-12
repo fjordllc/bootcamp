@@ -15,7 +15,7 @@
           - if users.unretired.advisers.present?
             = link_to_company_users_path(company, target: 'advisers')
           - else
-            = users.unretired.advisers.size
+            = 0
     .card-counts__item
       .card-counts__item-inner
         dt.card-counts__item-label
@@ -24,7 +24,7 @@
           - if users.students_and_trainees.present?
             = link_to_company_users_path(company, target: 'students_and_trainees')
           - else
-            = users.students_and_trainees.size
+            = 0
     - unless users.admins.empty?
       .card-counts__item
         .card-counts__item-inner
