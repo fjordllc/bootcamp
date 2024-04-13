@@ -30,6 +30,11 @@ class UpcomingEvent
     original_event.job_hunting?
   end
 
+  def ==(other)
+    self.class == other.class &&
+      %i[original_event title scheduled_date].all? { |attr| public_send(attr) == other.public_send(attr) }
+  end
+
   private
 
   def held_on_national_holiday?
