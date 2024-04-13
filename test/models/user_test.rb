@@ -124,6 +124,15 @@ class UserTest < ActiveSupport::TestCase
     assert_equal old_fraction, user.completed_fraction
   end
 
+  test '#completed_fraction_in_metas' do
+    user = users(:harikirio)
+    fraction_in_metas = '2 (必須:1)'
+    user.completed_practices << practices(:practice5)
+    user.completed_practices << practices(:practice61)
+
+    assert_equal user.completed_fraction_in_metas, fraction_in_metas
+  end
+
   test '#depressed?' do
     user = users(:kimura)
 
