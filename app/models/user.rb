@@ -477,6 +477,10 @@ class User < ApplicationRecord
     "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
   end
 
+  def completed_fraction_in_metas
+    "#{completed_practices.size} (必須:#{completed_practices_include_progress.size})"
+  end
+
   def completed_practices_size_by_category
     Practice
       .joins({ categories: :categories_practices }, :learnings)
