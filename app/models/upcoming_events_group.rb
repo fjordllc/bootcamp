@@ -10,6 +10,11 @@ class UpcomingEventsGroup
     @events = upcoming_events.sort_by(&:scheduled_date)
   end
 
+  def ==(other)
+    other.class == self.class &&
+      %i[date events].all? { |attr| public_send(attr) == other.public_send(attr) }
+  end
+
   class << self
     def build(date)
       original_events = fetch_dated_original_events(date, EVENT_MODELS)

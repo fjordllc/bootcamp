@@ -3,13 +3,15 @@
 require 'test_helper'
 
 class UpcomingEventsGroupTest < ActiveSupport::TestCase
+  EVENT_MODELS = [Event, RegularEvent].freeze
+
   setup do
-    @today_events_group = UpcomingEventsGroup.build(:today)
-    @tomorrow_events_group = UpcomingEventsGroup.build(:tomorrow)
+    original_events = [Event.today_events, RegularEvent.today_events].flatten
+    @date = :today
+    @upcoming_events = original_events.map { |e| UpcomingEvent.wrap(e) }
   end
 
-  test '#date' do
-    assert_equal :today, @today_events_group.date
-    assert_equal :tomorrow, @tomorrow_events_group.date
+  test '#build' do
+    assert_equal UpcomingEventsGroup.new(@date, @upcoming_events), UpcomingEventsGroup.build(@date)
   end
 end
