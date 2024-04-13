@@ -18,15 +18,23 @@ class UpcomingEvent
     end
   end
 
-  def held_on_national_holiday?
-    return true if @event_type == Event
+  def held?(date)
+    return true if !HolidayJp.holiday?(date) || held_on_national_holiday?
 
-    original_event.hold_national_holiday
+    false
   end
 
   def for_job_hunting?
     return false if @event_type == RegularEvent
 
     original_event.job_hunting?
+  end
+
+  private
+
+  def held_on_national_holiday?
+    return true if @event_type == Event
+
+    original_event.hold_national_holiday
   end
 end

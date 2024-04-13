@@ -45,10 +45,11 @@ class UpcomingEventTest < ActiveSupport::TestCase
     end
   end
 
-  test '#held_on_national_holiday?' do
-    assert @upcoming_special.held_on_national_holiday?
-    assert @upcoming_regular_held_national_holiday.held_on_national_holiday?
-    assert_not @upcoming_regular_not_held_national_holiday.held_on_national_holiday?
+  test '#held?' do
+    scheduled_date = Time.zone.local(2023, 1, 1)
+    assert @upcoming_special.held?(scheduled_date)
+    assert @upcoming_regular_held_national_holiday.held?(scheduled_date)
+    assert_not @upcoming_regular_not_held_national_holiday.held?(scheduled_date)
   end
 
   test '#for_job_hunting?' do
