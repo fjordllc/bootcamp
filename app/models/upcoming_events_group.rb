@@ -11,7 +11,7 @@ class UpcomingEventsGroup
   end
 
   class << self
-    def create(date)
+    def build(date)
       original_events = fetch_dated_original_events(date, EVENT_MODELS)
       upcoming_events = original_events.map { |e| UpcomingEvent.wrap(e) }
       new(date, upcoming_events)

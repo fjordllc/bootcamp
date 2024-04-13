@@ -4,8 +4,8 @@ require 'test_helper'
 
 class UpcomingEventsGroupTest < ActiveSupport::TestCase
   setup do
-    @today_events_group = UpcomingEventsGroup.create(:today)
-    @tomorrow_events_group = UpcomingEventsGroup.create(:tomorrow)
+    @today_events_group = UpcomingEventsGroup.build(:today)
+    @tomorrow_events_group = UpcomingEventsGroup.build(:tomorrow)
   end
 
   test '#date' do
