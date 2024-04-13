@@ -236,7 +236,8 @@ class HomeTest < ApplicationSystemTestCase
       ]
       day_after_tomorrow_events_texts = [
         { category: '特別', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
-        { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' }
+        { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' },
+        { category: '輪読会', title: '主催者任意の休みが設定されたイベント', start_at: '2017年04月05日(水) 21:00' }
       ]
 
       assert_event_card(today_event_label, today_events_texts)
