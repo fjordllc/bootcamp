@@ -45,4 +45,19 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
     assert regular_event_not_held_on_holidays.holding?(weekday)
     assert_not regular_event_not_held_on_holidays.holding?(holiday)
   end
+
+  test '#holiday_schedule_for_year' do
+    regular_event = ActiveDecorator::Decorator.instance.decorate(regular_events(:regular_event33))
+
+    travel_to Time.zone.local(2024, 1, 1) do
+      expected_holidays = [
+        '2024年03月20日(水・祝)',
+        '2024年05月14日(火) RubyKaigi(沖縄)のため',
+        '2025年01月01日(水・祝)'
+      ]
+
+      actual_holidays = regular_event.holiday_schedule_for_year
+      assert_equal expected_holidays, actual_holidays
+    end
+  end
 end
