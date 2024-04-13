@@ -528,13 +528,13 @@ class EventsTest < ApplicationSystemTestCase
     assert_text 'ActiveRecord::RecordNotFound'
   end
 
-  test 'upcoming events list' do
+  test 'upcoming events groups' do
     today_events_count = 5
     tomorrow_events_count = 2
     day_after_tomorrow_events_count = 2
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth events_path, 'komagata'
-      within('.upcoming_events_list') do
+      within('.upcoming_events_groups') do
         assert_text '近日開催のイベント'
         within('.card-list__items', text: '今日開催') do
           assert_selector('.card-list-item', count: today_events_count)
