@@ -16,7 +16,7 @@ class RegularEventCustomHoliday < ApplicationRecord
   end
 
   def check_custom_holidays_against_national_holidays
-    return if regular_event.hold_national_holiday || !HolidayJp.holiday?(holiday_date)
+    return if holiday_date.blank? || regular_event.hold_national_holiday || !HolidayJp.holiday?(holiday_date)
 
     formatted_date = I18n.l(holiday_date, format: :default)
     errors.add(:holiday_date, "に設定した#{formatted_date} は祝日です。このイベントは祝日に開催されません。")
