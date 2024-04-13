@@ -41,7 +41,7 @@ header.page-header
       - if @user.works.present?
         .works
           .row
-            = render partial: 'works/work', collection: @works, as: :work
+            = render(Work::WorkComponent.with_collection(@works))
       - else
         .a-empty-message.is-info
           p
