@@ -60,7 +60,7 @@
           | お休みのお知らせ
         ul
           - regular_event.holiday_schedule_for_year.each do |holiday_date|
-            li= holiday_date
+            li = holiday_date
     - unless regular_event.wip? || regular_event.all
       = render 'regular_events/participation', regular_event:
     = render 'reactions/reactions', reactionable: regular_event
