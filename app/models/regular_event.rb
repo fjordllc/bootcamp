@@ -45,6 +45,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :description, presence: true
   validates :regular_event_repeat_rules, presence: true
   validates_associated :regular_event_repeat_rules
+  validate :check_custom_holidays_if_national_holiday_setting_changed
 
   scope :not_finished, -> { where(finished: false) }
 
@@ -242,5 +243,18 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     day_offset += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
     Date.new(first_day.year, first_day.month, first_day.day + day_offset)
 >>>>>>> 7f369b330 (祝日と任意のお休みの入力&表示・重複する処理をリファクタリング)
+  end
+
+  def check_custom_holidays_if_national_holiday_setting_changed
+    return unless will_save_change_to_hold_national_holiday? && !hold_national_holiday
+
+    regular_event_custom_holidays.each do |custom_holiday|
+      next if custom_holiday.marked_for_destruction?
+
+      if HolidayJp.holiday?(custom_holiday.holiday_date)
+        formatted_date = I18n.l(custom_holiday.holiday_date, format: :default)
+        errors.add(:hold_national_holiday, "をなしに変更する場合、「休みの追加」に現在設定されている#{formatted_date}は祝日休みになります。削除してください。")
+      end
+    end
   end
 end
