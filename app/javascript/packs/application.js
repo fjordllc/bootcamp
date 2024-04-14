@@ -58,7 +58,6 @@ import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 
 import VueMounter from '../VueMounter.js'
-import Announcements from '../components/announcements.vue'
 import Books from '../components/books.vue'
 import ExternalEntries from '../components/external-entries.vue'
 import Questions from '../components/questions.vue'
@@ -78,7 +77,6 @@ import CourseBooks from '../components/course-books.vue'
 import '../stylesheets/application'
 
 const mounter = new VueMounter()
-mounter.addComponent(Announcements)
 mounter.addComponent(Books)
 mounter.addComponent(ExternalEntries)
 mounter.addComponent(Questions)
