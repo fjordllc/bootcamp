@@ -5,13 +5,6 @@ class API::AnnouncementsController < API::BaseController
   before_action :set_announcement, only: %i[show update destroy]
   protect_from_forgery except: %i[create update]
 
-  def index
-    @announcements = Announcement.with_avatar
-                                 .preload(:comments)
-                                 .order(published_at: :desc, created_at: :desc)
-                                 .page(params[:page])
-  end
-
   def show; end
 
   def update
