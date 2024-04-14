@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_12_083834) do
+ActiveRecord::Schema.define(version: 2024_04_14_051751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -564,6 +564,7 @@ ActiveRecord::Schema.define(version: 2024_04_12_083834) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["regular_event_id", "holiday_date"], name: "index_unique_regular_event_and_holiday_date", unique: true
     t.index ["regular_event_id"], name: "index_regular_event_custom_holidays_on_regular_event_id"
   end
 
