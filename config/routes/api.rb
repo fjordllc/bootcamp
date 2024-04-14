@@ -72,7 +72,7 @@ Rails.application.routes.draw do
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show)
-    resources :announcements, except: %i(new edit)
+    resources :announcements, except: %i(index new edit)
     resources :searchables, only: %i(index)
     resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
