@@ -26,7 +26,7 @@ class AnnouncementsTest < ApplicationSystemTestCase
     user = users(:komagata)
     Announcement.delete_all
     26.times do
-      Announcement.create(title: 'test', description: 'test', user:)
+      Announcement.create(title: 'test', description: 'test', user:, published_at: DateTime.now)
     end
     visit_with_auth '/announcements', 'kimura'
     assert_selector 'nav.pagination', count: 2
