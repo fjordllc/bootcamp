@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class AnnouncementsController < ApplicationController
+  PAGER_NUMBER = 25
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
   def index
-    @announcements = Announcement.with_avatar.preload(:comments).order(published_at: :desc, created_at: :desc).page(params[:page])
+    @announcements = Announcement.with_avatar.preload(:comments).order(published_at: :desc, created_at: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
 
   def show
