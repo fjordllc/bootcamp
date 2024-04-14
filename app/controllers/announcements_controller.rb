@@ -4,7 +4,9 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
-  def index; end
+  def index
+    @announcements = Announcement.with_avatar.preload(:comments).order(published_at: :desc, created_at: :desc).page(params[:page])
+  end
 
   def show
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
