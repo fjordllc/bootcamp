@@ -1,0 +1,18 @@
+- title '退会申請'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
+.auth-form.is-sign-up.is-in-app
+  .a-card
+    header.auth-form__header
+      h1.auth-form__title
+        = title
+    .auth-form__body
+      - if @request_retirement.errors.any?
+        = render 'errors', object: @request_retirement
+    = render 'form', request_retirement: @request_retirement
