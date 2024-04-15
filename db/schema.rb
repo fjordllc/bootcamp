@@ -617,6 +617,21 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
   end
 
+  create_table "request_retirements", force: :cascade do |t|
+    t.string "requester_email", null: false
+    t.string "requester_name", null: false
+    t.string "requester_company_name", null: false
+    t.string "target_user_name", null: false
+    t.text "reason_of_request_retirement"
+    t.boolean "keep_data", default: true, null: false
+    t.bigint "requester_id"
+    t.bigint "target_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["requester_id"], name: "index_request_retirements_on_requester_id"
+    t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id"
+  end
+
   create_table "survey_question_listings", force: :cascade do |t|
     t.bigint "survey_id", null: false
     t.bigint "survey_question_id", null: false
@@ -815,6 +830,8 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "request_retirements", "users", column: "requester_id"
+  add_foreign_key "request_retirements", "users", column: "target_user_id"
   add_foreign_key "survey_question_listings", "survey_questions"
   add_foreign_key "survey_question_listings", "surveys"
   add_foreign_key "survey_questions", "users"
