@@ -745,6 +745,10 @@ class User < ApplicationRecord
     company.users if company_id?
   end
 
+  def collegues_other_than_self
+    collegues.where.not(id:) if company_id?
+  end
+
   def collegue_trainees
     collegues.students_and_trainees if belongs_company_and_adviser?
   end

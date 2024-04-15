@@ -525,6 +525,13 @@ class UserTest < ActiveSupport::TestCase
     assert_nil users(:kimura).collegues
   end
 
+  test '#collegues_other_than_self' do
+    self_user = users(:kensyu)
+    target = self_user.collegues_other_than_self
+    assert_includes(target, users(:kensyuowata))
+    assert_not_includes(target, self_user)
+  end
+
   test '#collegue_trainees' do
     target = users(:senpai).collegue_trainees
     assert_includes(target, users(:kensyu))
