@@ -33,13 +33,13 @@ class GithubGrass
   private
 
   def extract_table(html)
-    table = Nokogiri::HTML(html).css(TABLE_SELECTOR)
+    table = Nokogiri::HTML(html, nil, 'UTF-8').css(TABLE_SELECTOR)
     SELECTORS_TO_REMOVE.each { |selector| table.search(selector).remove }
     table
   end
 
   def fetch_page
-    uri = URI.parse(github_url(@name))
+    uri = URI.parse(github_contributions_url(@name))
     response = Net::HTTP.get_response(uri)
     response.body
   end
@@ -67,7 +67,7 @@ class GithubGrass
     label[:class] = 'wdays'
   end
 
-  def github_url(name)
-    "https://github.com/#{name}"
+  def github_contributions_url(name)
+    "https://github.com/users/#{name}/contributions"
   end
 end
