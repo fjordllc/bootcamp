@@ -15,4 +15,4 @@ jobs:
       uses: bakunyo/git-pr-release-action@v1.4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_PR_RELEASE_BRANCH_PRODUCTION: production
+        GIT_PR_RELEASE_BRANCH_PRODUCTION: main
