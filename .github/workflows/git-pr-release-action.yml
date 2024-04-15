@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - chore/custom-pr-release-action
 jobs:
   release_pull_request:
     runs-on: ubuntu-latest
@@ -11,7 +12,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@main
       - name: create-release-pr
-        uses: grassedge/git-pr-release-action@v1.0
+        uses: komagata/git-pr-release-action@master
         with:
           base: production
           head: main
