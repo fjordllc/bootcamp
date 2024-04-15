@@ -1,0 +1,43 @@
+.auth-form__body
+  = form_with model: request_retirement, url: request_retirement_path, class: 'form' do |f|
+    .form__items
+      .form-item
+        = f.label :requester_name, class: 'a-form-label'
+        = f.text_field :requester_name, required: true
+        small ログインをすると入力が省けます
+    .form__items
+      .form-item
+        = f.label :requester_email, class: 'a-form-label'
+        = f.text_field :requester_email, required: true
+        small ログインをすると入力が省けます
+    .form__items
+      .form-item
+        = f.label :requester_company_name, class: 'a-form-label'
+        = f.text_field :requester_company_name, required: true
+        small ログインをすると入力が省けます
+    .form__items
+      .form-item
+        = f.label :target_user_name, class: 'a-form-label'
+        - if logged_in?
+          = f.collection_select :target_user_name, @target_users, :login_name, :login_name, prompt: '選択してください', required: true
+        - else
+          = f.text_field :target_user_name, required: true
+        small ログインをすると自社のユーザーから選択できるようになります
+    .form__items
+      .form-item
+        = f.label :reason_of_request_retirement, class: 'a-form-label'
+        = f.text_area :reason_of_request_retirement, required: true
+    .form__items
+       .form-item
+          = f.label :keep_data, I18n.t('activerecord.attributes.request_retirement.keep_data.title'), class: 'a-form-label'
+          = f.radio_button :keep_data, true, required: true
+          = f.label :keep_data, I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep'), value: true
+          = f.radio_button :keep_data, false, required: true
+          = f.label :keep_data, I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete'), value: false
+    .form-actions
+      ul.form-actions__items
+        li.form-actions__item.is-main
+          = link_to 'キャンセル', :back, class: 'a-button is-md is-secondary is-block'
+        li.form-actions__item.is-main
+          = f.submit RequestRetirement.model_name.human, class: 'a-button is-md is-danger is-block', data: { confirm: '本当によろしいですか？' }
+
