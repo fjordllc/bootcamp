@@ -17,6 +17,12 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     assert_equal '管理ページ | FBC', title
   end
 
+  def wait_for_invitation_url_with_timeout(expected)
+    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
+      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
+    end
+  end
+
   test 'show invitation-url page' do
     visit_with_auth '/admin/invitation_url', 'komagata'
     company = Company.order(created_at: :desc).first
@@ -24,9 +30,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
     course = Course.order(:created_at).first
     expected = "#{@new_user_url}?company_id=#{company.id}&course_id=#{course.id}&role=#{role}&token=token"
 
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
-    end
+    wait_for_invitation_url_with_timeout(expected)
   end
 
   test 'change selected company' do
@@ -38,9 +42,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
 
     find('.js-invitation-company').click
     select(company.name)
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
-    end
+    wait_for_invitation_url_with_timeout(expected)
   end
 
   test 'change selected role' do
@@ -53,9 +55,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
 
     find('.js-invitation-role').click
     select(role_text)
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
-    end
+    wait_for_invitation_url_with_timeout(expected)
   end
 
   test 'change selected course' do
@@ -67,8 +67,6 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
 
     find('.js-invitation-course')
     select(course.title)
-    Timeout.timeout(Capybara.default_max_wait_time, StandardError) do
-      loop until find('.js-invitation-url-text').value == expected && find('.js-invitation-url')[:href] == expected
-    end
+    wait_for_invitation_url_with_timeout(expected)
   end
 end
