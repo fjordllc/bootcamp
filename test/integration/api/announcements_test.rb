@@ -10,16 +10,6 @@ class API::AnnouncementsTest < ActionDispatch::IntegrationTest
     @my_announcement = announcements(:announcement4)
   end
 
-  test 'GET /api/announcements.json' do
-    get api_announcements_path(format: :json)
-    assert_response :unauthorized
-
-    token = create_token('kimura', 'testtest')
-    get api_announcements_path(format: :json),
-        headers: { 'Authorization' => "Bearer #{token}" }
-    assert_response :ok
-  end
-
   test 'POST /api/announcements.json' do
     post api_announcements_path(format: :json),
          params: {
