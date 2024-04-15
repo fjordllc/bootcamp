@@ -1,0 +1,7 @@
+request_retirement1:
+  requester_email: senpai@fjord.jp
+  requester_name: senpai
+  requester_company_name: company2
+  target_user_name: kensyu
+  reason_of_request_retirement: 退職してしまいました。
+  keep_data: true
