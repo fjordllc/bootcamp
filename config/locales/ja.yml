@@ -145,6 +145,7 @@ ja:
         website: ウェブサイト
         logo: ロゴ
         blog_url: Techブログ
+        memo: 管理者向けメモ
       category:
         name: 名前
         slug: URLスラッグ
