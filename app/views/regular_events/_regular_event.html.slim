@@ -53,14 +53,23 @@
       .card__message.is-notice
         | この定期イベントは全員参加のため参加登録は不要です。
     .card__description
-      .a-long-text.is-md.js-markdown-view
+      section.a-long-text.is-md.js-markdown-view
         = regular_event.description
       - if !regular_event.hold_national_holiday? || regular_event.regular_event_custom_holidays.exists?
-        h2.card-header__title
-          | お休みのお知らせ
-        ul
-          - regular_event.holiday_schedule_for_year.each do |holiday_date|
-            li = holiday_date
+        section.a-card-block
+          header.a-card-block__header
+            h2.a-card-block__title
+              i.fa-regular.fa-calendar-days.mr-1
+              | お休みの予定
+          hr.a-border
+          .a-card-block__body.has-list
+            dl.a-card-block__items
+              - regular_event.holiday_schedule_for_year.each do |holiday_date|
+                .a-card-block__item
+                  .a-card-block__item-key
+                    = holiday_date
+                  .a-card-block__item-value
+                    | ここに理由を表示。祝日の場合は祝日名。
     - unless regular_event.wip? || regular_event.all
       = render 'regular_events/participation', regular_event:
     = render 'reactions/reactions', reactionable: regular_event
