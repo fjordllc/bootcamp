@@ -474,7 +474,7 @@ class User < ApplicationRecord
   end
 
   def completed_fraction
-    "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
+    "(#{completed_practices.size} 必須: #{completed_practices_include_progress.size}/#{practices_include_progress.size})"
   end
 
   def completed_fraction_in_metas
