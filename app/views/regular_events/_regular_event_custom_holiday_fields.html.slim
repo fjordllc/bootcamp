@@ -1,10 +1,11 @@
 .form-times
-  .nested-fields
-    .
-      = f.label :holiday_date, '設定日'
-      = f.date_field :holiday_date
-    .
-      = f.label :description, '理由'
-      = f.text_area :description
-    .
+  .nested-fields.form-times__inner.regular-event-holiday
+    .form-times__items
+      .form-times__time.regular-event-holiday__date.is-sm
+        = f.label :holiday_date, '設定日', class: 'form-times__time-label'
+        = f.date_field :holiday_date, class: 'a-text-input'
+      .form-times__time.regular-event-holiday__description.is-md
+        = f.label :description, '理由', class: 'form-times__time-label'
+        = f.text_area :description, class: 'a-text-input is-xs', placeholder: 'RubyKaigi 開催期間のため'
+    .form-times__action
       = link_to_remove_association '削除', f, class: 'a-button is-sm is-text'
