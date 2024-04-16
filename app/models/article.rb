@@ -53,8 +53,8 @@ class Article < ApplicationRecord
     !wip?
   end
 
-  def generate_token_with_secure_random_base64
-    self.token = wip ? (token.presence || SecureRandom.urlsafe_base64) : nil
+  def generate_token!
+    self.token ||= SecureRandom.urlsafe_base64
   end
 
   private

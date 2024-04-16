@@ -100,7 +100,7 @@ class ArticlesController < ApplicationController
 
   def set_wip
     @article.wip = params[:commit] == 'WIP'
-    @article.generate_token_with_secure_random_base64
+    @article.generate_token! if @article.wip
   end
 
   def notice_message(article)
