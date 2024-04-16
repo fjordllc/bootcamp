@@ -2,3 +2,8 @@ regular_event_holiday1:
   holiday_date: 2024-05-14
   description: 'RubyKaigi(沖縄)のため'
   regular_event: regular_event33
+
+regular_event_holiday2:
+  holiday_date: 2023-05-05
+  description: 'Discord通知確認用、祝日開催イベント(金曜日開催)だが、祝日に任意の休み設定'
+  regular_event: regular_event34
