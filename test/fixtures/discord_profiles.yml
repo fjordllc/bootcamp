@@ -209,3 +209,8 @@ discord_profile_marumarushain<%= i %>:
   account_name:
   times_url:
 <% end %>
+
+discord_profire_harikirio:
+  user: harikirio
+  account_name:
+  times_url:

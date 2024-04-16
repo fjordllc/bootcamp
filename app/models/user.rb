@@ -494,6 +494,11 @@ class User < ApplicationRecord
       .count('DISTINCT practices.id')
   end
 
+  def completed_practices_include_progress
+    practices_include_progress.joins(:learnings)
+                              .merge(Learning.complete.where(user_id: id))
+  end
+
   def active?
     (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
@@ -803,11 +808,6 @@ class User < ApplicationRecord
 
   def practices_include_progress
     course.practices.where(include_progress: true)
-  end
-
-  def completed_practices_include_progress
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id))
   end
 
   def unstarted_practices

@@ -74,54 +74,54 @@ class UserTest < ActiveSupport::TestCase
 
   test '#completed_percentage don\'t calculate practice that include_progress: false' do
     user = users(:komagata)
-    old_percentage = user.completed_percentage
+    old_percentage = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice5)
 
-    assert_not_equal old_percentage, user.completed_percentage
+    assert_not_equal old_percentage, user.completed_practices_include_progress.size
 
-    old_percentage = user.completed_percentage
+    old_percentage = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice53)
 
-    assert_equal old_percentage, user.completed_percentage
+    assert_equal old_percentage, user.completed_practices_include_progress.size
   end
 
   test '#completed_percentage don\'t calculate practice unrelated cource' do
     user = users(:komagata)
-    old_percentage = user.completed_percentage
+    old_percentage = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice5)
 
-    assert_not_equal old_percentage, user.completed_percentage
+    assert_not_equal old_percentage, user.completed_practices_include_progress.size
 
-    old_percentage = user.completed_percentage
+    old_percentage = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice55)
 
-    assert_equal old_percentage, user.completed_percentage
+    assert_equal old_percentage, user.completed_practices_include_progress.size
   end
 
   test '#completed_fraction don\'t calculate practice that include_progress: false' do
     user = users(:komagata)
-    old_fraction = user.completed_fraction
+    old_fraction = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice5)
 
     assert_not_equal old_fraction, user.completed_fraction
 
-    old_fraction = user.completed_fraction
+    old_fraction = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice53)
 
-    assert_equal old_fraction, user.completed_fraction
+    assert_equal old_fraction, user.completed_practices_include_progress.size
   end
 
   test '#completed_fraction don\'t calculate practice unrelated cource' do
     user = users(:komagata)
-    old_fraction = user.completed_fraction
+    old_fraction = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice5)
 
-    assert_not_equal old_fraction, user.completed_fraction
+    assert_not_equal old_fraction, user.completed_practices_include_progress.size
 
-    old_fraction = user.completed_fraction
+    old_fraction = user.completed_practices_include_progress.size
     user.completed_practices << practices(:practice55)
 
-    assert_equal old_fraction, user.completed_fraction
+    assert_equal old_fraction, user.completed_practices_include_progress.size
   end
 
   test '#completed_fraction_in_metas' do
