@@ -3,8 +3,6 @@
 require 'test_helper'
 
 class UpcomingEventsGroupTest < ActiveSupport::TestCase
-  EVENT_MODELS = [Event, RegularEvent].freeze
-
   setup do
     original_events = [Event.today_events, RegularEvent.today_events].flatten
     @date = :today
