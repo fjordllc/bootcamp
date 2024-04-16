@@ -64,7 +64,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
 
   test '.coming_soon_regular_events' do
     params = {
-      today_events: [regular_events(:regular_event26), regular_events(:regular_event30), regular_events(:regular_event31)],
+      today_events: [regular_events(:regular_event26), regular_events(:regular_event30), regular_events(:regular_event31), regular_events(:regular_event34)],
       tomorrow_events: [regular_events(:regular_event28), regular_events(:regular_event29), regular_events(:regular_event31)],
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
@@ -79,6 +79,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
 
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      ⚠️ Discord通知確認用、祝日開催イベント(金曜日開催)/祝日に任意の休み設定
       はお休みです。
 
       ------------------------------
