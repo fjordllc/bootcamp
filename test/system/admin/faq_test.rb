@@ -13,7 +13,7 @@ class Admin::FAQTest < ApplicationSystemTestCase
     within 'form[name=faq]' do
       fill_in 'faq[question]', with: 'test FAQ'
       fill_in 'faq[answer]', with: 'test FAQ'
-      choose 'faq_category_study_content'
+      choose '学習内容について'
       click_button '登録する'
     end
     assert_text 'FAQを作成しました。'
@@ -24,7 +24,7 @@ class Admin::FAQTest < ApplicationSystemTestCase
     within 'form[name=faq]' do
       fill_in 'faq[question]', with: 'updated FAQ'
       fill_in 'faq[answer]', with: 'updated FAQ'
-      choose 'faq_category_study_content'
+      choose '学習内容について'
       click_button '更新する'
     end
     assert_text 'FAQを更新しました。'
