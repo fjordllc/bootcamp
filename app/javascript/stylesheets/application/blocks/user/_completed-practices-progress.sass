@@ -25,3 +25,18 @@ $bar-height: .75rem
   +text-block(.8125rem 1rem, right nowrap)
   height: 1rem
   margin-left: .5rem
+
+.completed-practices-progress__area input
+  display: none
+
+.completed-practices-progress__area input:checked ~ label .completed-practices-progress__number
+  display: block
+
+.completed-practices-progress__area input:checked ~ label .completed-practices-progress__percentage
+  display: none
+
+.completed-practices-progress__area input:not(:checked) ~ label .completed-practices-progress__number
+  display: none
+
+.completed-practices-progress__area input:not(:checked) ~ label .completed-practices-progress__percentage
+  display: block
