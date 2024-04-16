@@ -18,28 +18,19 @@ class ArticleTest < ActiveSupport::TestCase
     assert_not articles(:article3).published?
   end
 
-  test '#generate_token_with_secure_random_base64' do
-    published_article = Article.create(
-      title: '公開記事',
-      body: '記事本文',
-      user: users(:komagata),
-      wip: false
-    )
-    published_article.generate_token_with_secure_random_base64
-    assert_nil published_article.token
-
-    wip_article = Article.create(
-      title: 'WIP記事',
-      body: 'WIP記事本文',
+  test '#generate_token!' do
+    test_article = Article.create(
+      title: 'サンプル記事',
+      body: 'サンプル記事本文',
       user: users(:komagata),
       wip: true
     )
-    wip_article.generate_token_with_secure_random_base64
-    assert_not_nil wip_article.token
+    test_article.generate_token!
+    assert_not_nil test_article.token
 
-    maintained_tokens = wip_article.token
-    wip_article.generate_token_with_secure_random_base64
-    assert_equal maintained_tokens, wip_article.token
+    maintained_tokens = test_article.token
+    test_article.generate_token!
+    assert_equal maintained_tokens, test_article.token
   end
 
   test 'articles directly published without WIP have value of the published_at' do
