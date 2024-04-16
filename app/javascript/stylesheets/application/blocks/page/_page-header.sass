@@ -4,11 +4,11 @@
 .page-header__inner
   +position(relative)
   display: flex
-  +media-breakpoint-up(md)
+  +media-breakpoint-up(lg)
     height: 3.25rem
     align-items: center
     justify-content: space-between
-  +media-breakpoint-down(sm)
+  +media-breakpoint-down(md)
     padding-block: .5rem
     flex-direction: column
 
@@ -16,6 +16,8 @@
   display: flex
   align-items: center
   flex: 1
+  +media-breakpoint-up(lg)
+    max-width: calc(100% - 21rem)
 
 .page-header__title
   color: var(--main)
@@ -26,13 +28,11 @@
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  +media-breakpoint-up(md)
+  +media-breakpoint-up(lg)
     font-size: 1.25rem
-    max-width: calc(100% - 22.5rem)
-  +media-breakpoint-down(sm)
+  +media-breakpoint-down(md)
     font-size: 1.125rem
     flex: 1
-    max-width: 100%
   img
     +size(2.5rem auto)
     margin-right: .5rem
