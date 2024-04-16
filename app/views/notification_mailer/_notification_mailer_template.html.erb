@@ -7,7 +7,7 @@
         </h1>
         <% if @announcement %>
           <p style="font-size: 13px; color:#4638a0; line-height: 1.5; margin-top: 12px; text-align: left">
-            <%= link_to @announcement.user.long_name, @announcement.user, style: "line-height: 140%; text-decoration: underline;" %>
+            <%= link_to @announcement.user.long_name, @announcement.user, style: "line-height: 1.4; text-decoration: underline;" %>
           </p>
         <% end %>
       </div>
@@ -23,11 +23,11 @@
   <tr>
     <td style="padding: 0 20px 16px 20px; text-align: center;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"
-        style="border-collapse:separate;width:auto; text-align: center; border: none;">
+        style="text-align: center; border: none;">
         <tbody>
           <tr>
             <td style="border: none; text-align: center;" valign="middle">
-              <%= link_to link_text, link_url, style: "text-decoration: none; background: #30ABDB; color:#fff; font-size: 14px; font-weight: bold; line-height: 140%; border-radius: 24px; padding: 12px 32px; text-align: center; background-color: #30ABDB; margin: 0px; display: inline-block;" %>
+              <%= link_to link_text, link_url, style: "text-decoration: none; background: #30ABDB; color:#fff; font-size: 14px; font-weight: bold; line-height: 1.4; border-radius: 24px; padding: 12px 32px; text-align: center; background-color: #30ABDB; margin: 0px; display: inline-block;" %>
             </td>
           </tr>
         </tbody>
@@ -40,7 +40,7 @@
         <tbody>
           <tr>
             <td style="border: none; text-align: center;">
-              <%= link_to "メールでの通知オフはこちらから", user_mail_notification_url(@user, token: @user.unsubscribe_email_token), style: "color:#4638a0; font-size:14px; font-weight: bold; line-height:140%; margin: 0px; padding: 12px 32px; display: inline-block;", target: "_blank" %>
+              <%= link_to "メールでの通知オフはこちらから", user_mail_notification_url(@user, token: @user.unsubscribe_email_token), style: "color:#4638a0; font-size:14px; font-weight: bold; line-height:1.4; margin: 0px; padding: 12px 32px; display: inline-block;", target: "_blank" %>
           </tr>
         </tbody>
       </table>
