@@ -19,9 +19,7 @@ class UpcomingEvent
   end
 
   def held?(date)
-    return true if !HolidayJp.holiday?(date) || held_on_national_holiday?
-
-    false
+    !HolidayJp.holiday?(date) || held_on_national_holiday?
   end
 
   def for_job_hunting?
