@@ -23,6 +23,11 @@ class UpcomingEventTest < ActiveSupport::TestCase
     @upcoming_regular_held_national_holiday = UpcomingEvent.wrap(regular_held_national_holiday)
   end
 
+  test '.wrap' do
+    assert_equal UpcomingEvent.new(@special), UpcomingEvent.wrap(@special)
+    assert_equal UpcomingEvent.new(@regular), UpcomingEvent.wrap(@regular)
+  end
+
   test '#original_event' do
     assert_equal @special, @upcoming_special.original_event
     assert_equal @regular, @upcoming_regular.original_event
