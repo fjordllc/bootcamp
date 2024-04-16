@@ -83,7 +83,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def holding_today?
     now = Time.current
-    return false if custom_holiday?(now)
 
     event_day = match_event_rules?(now)
     event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
@@ -151,7 +150,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def holding_next_day?(days = 1)
     next_day = Time.current.next_day(days)
-    return false if custom_holiday?(next_day)
 
     match_event_rules?(next_day)
 >>>>>>> 7f369b330 (祝日と任意のお休みの入力&表示・重複する処理をリファクタリング)
