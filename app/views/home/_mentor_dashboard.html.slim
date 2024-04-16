@@ -8,7 +8,7 @@
             - if unchecked_report_count > 100
               header.dashboard-category__header
                 h2.dashboard-category__title
-                  = link_to "未チェックの日報が#{unchecked_report_count}件あります。", "/reports/unchecked"
+                  = link_to "未チェックの日報が#{unchecked_report_count}件あります。", '/reports/unchecked'
             - if current_user.active_practices.present?
               header.dashboard-category__header
                 h2.dashboard-category__title
