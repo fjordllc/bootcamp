@@ -98,7 +98,7 @@ Rails.application.routes.draw do
   get "thanks", to: "static_pages#thanks"
   get "portfolios" => "works#index"
   resource :buzz, only: %i(show edit update), controller: "buzz"
-  resources :movies, only: [:index, :show, :new, :create]
+  resources :movies
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   mount GoodJob::Engine => 'good_job'
 end
