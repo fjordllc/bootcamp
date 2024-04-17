@@ -2,6 +2,7 @@
 
 class RequestRetirementController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: %i[new show create]
+  before_action :set_request_retirement, only: %i[show]
 
   def new
     if logged_in? && current_user.belongs_company_and_adviser?
@@ -28,6 +29,10 @@ class RequestRetirementController < ApplicationController
 
   private
 
+  def set_request_retirement
+    @request_retirement = RequestRetirement.find(session[:request_retirement_id])
+  end
+
   def request_retirement_params
     params.require(:request_retirement)
           .permit(:requester_email,
@@ -44,5 +49,9 @@ class RequestRetirementController < ApplicationController
       requester_name: current_user.login_name,
       requester_company_name: current_user.company.name
     }
+  end
+
+  def temporarily_store_session(key, info)
+    session[key] = info
   end
 end
