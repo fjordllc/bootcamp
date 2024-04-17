@@ -23,9 +23,12 @@
 
 .card-list-item-title__end
   align-self: flex-start
+  &:first-child
+    flex: 1
+    width: 100%
 
 .card-list-item-title__title
-  +text-block(.875rem 1.5, 600)
+  +text-block(.875rem 1.4, 600)
   width: 100%
   flex-basis: 100%
   word-break: break-all
