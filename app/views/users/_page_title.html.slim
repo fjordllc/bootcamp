@@ -3,7 +3,10 @@ header.page-header
     .page-header__inner
       .page-header__start
         h2.page-header__title
-          = user.login_name
+          - if current_user.admin?
+            = user.login_name
+          - else
+            | 相談部屋
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
@@ -19,5 +22,9 @@ header.page-header
                   li.page-main-header-actions__item
                     = render 'users/following', user:
             li.page-header-actions__item
-              = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
-                | ユーザー一覧
+              - if current_user.admin?
+                = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | ユーザー一覧
+              - else
+                = link_to root_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | ダッシュボード
