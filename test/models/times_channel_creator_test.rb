@@ -13,12 +13,15 @@ class TimesChannelCreatorTest < ActiveSupport::TestCase
         TimesChannelCreator.new.call({ user: })
       end
       assert_nil user.discord_profile.times_id
+      assert_nil user.discord_profile.times_url
       assert_equal "[Discord API] #{user.login_name}の分報チャンネルが作成できませんでした。", logs.pop
 
       Discord::TimesChannel.stub(:new, ->(_) { ValidTimesChannel.new }) do
         TimesChannelCreator.new.call({ user: })
       end
       assert_equal '1234567890123456789', user.discord_profile.times_id
+      expected_url = "https://discord.com/channels/#{ENV['DISCORD_GUILD_ID']}/1234567890123456789"
+      assert_equal expected_url, user.discord_profile.times_url
       assert_nil logs.last
     end
   end
