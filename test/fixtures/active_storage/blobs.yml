@@ -35,3 +35,5 @@ mp4_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie1.mp4" %>
 
 mov_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie2.mov" %>
 
+wip_movie_blob: <%= ActiveStorage::Blob.fixture filename: "movies/movie1.mp4" %>
+
