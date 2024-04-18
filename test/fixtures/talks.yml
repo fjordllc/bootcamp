@@ -133,6 +133,14 @@ talk34:
   user: kyuukai
   action_completed: true
 
+tal35:
+  user: paginataion-taro
+  action_completed: true
+
+talk36:
+  user: paginataion-jirou
+  action_completed: true
+
 talk_advisernocolleguetrainee:
   user: advisernocolleguetrainee
   action_completed: true

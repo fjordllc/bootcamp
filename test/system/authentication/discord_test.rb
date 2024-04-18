@@ -24,4 +24,14 @@ class Authentication::DiscordSystemTest < ApplicationSystemTestCase
     visit '/current_user/edit'
     assert_text 'Discord アカウントは登録されています。'
   end
+
+  test 'can cancel discord registration already setting user' do
+    visit_with_auth '/current_user/edit', 'kimura'
+
+    click_link 'Discord アカウントの登録を解除する'
+    assert_text 'Discordとの連携を解除しました。'
+
+    visit '/current_user/edit'
+    assert_link 'Discord アカウントを登録する'
+  end
 end

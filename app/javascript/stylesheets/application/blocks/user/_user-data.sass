@@ -13,10 +13,12 @@
 
 .user-data__description
   flex: 0 0 100%
+  +media-breakpoint-up(md)
+    font-size: .9375rem
+  +media-breakpoint-down(sm)
+    font-size: .8125rem
   p
-    +text-block(.875rem 1.8 0 .8em)
-    +media-breakpoint-down(sm)
-      font-size: .8125rem
+    +text-block(1em 1.8 0 .8em)
     &:last-child
       margin-bottom: 0
 

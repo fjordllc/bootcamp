@@ -23,7 +23,7 @@ class Admin::CompaniesController < AdminController
 
   def update
     if @company.update(company_params)
-      redirect_to admin_companies_url, notice: '企業を更新しました。'
+      redirect_to @company, notice: '企業を更新しました。'
     else
       render 'edit'
     end
@@ -51,7 +51,8 @@ class Admin::CompaniesController < AdminController
       :description,
       :website,
       :logo,
-      :blog_url
+      :blog_url,
+      :memo
     )
   end
 end

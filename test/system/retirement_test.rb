@@ -55,6 +55,7 @@ class RetirementTest < ApplicationSystemTestCase
     end
     assert_equal Date.current, user.reload.retired_on
     assert_nil user.discord_profile.times_id
+    assert_nil user.discord_profile.times_url
   end
 
   test 'retire user with postmark error' do

@@ -25,13 +25,14 @@
             .card-list-item__rows
               .card-list-item__row
                 .card-list-item-title
-                  a.card-list-item-title__title.is-lg.a-text-link(
-                    :href='user.url')
-                    | {{ loginName }}
-                  a(
-                    v-if='user.company && user.company.logo_url',
-                    :href='user.company.url')
-                    img.user-item__company-logo(:src='user.company.logo_url')
+                  .card-list-item-title__end
+                    a(
+                      v-if='user.company && user.company.logo_url',
+                      :href='user.company.url')
+                      img.user-item__company-logo(:src='user.company.logo_url')
+                    a.card-list-item-title__title.is-lg.a-text-link(
+                      :href='user.url')
+                      | {{ loginName }}
               .card-list-item__row
                 .card-list-item-meta
                   .card-list-item-meta__items
