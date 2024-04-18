@@ -1,5 +1,5 @@
 <template lang="pug">
-.page-body
+div
   nav.page-filter.form
     .container.is-md
       filterDropdown(
