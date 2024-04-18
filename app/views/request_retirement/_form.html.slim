@@ -69,6 +69,6 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit RequestRetirement.model_name.human, class: 'a-button is-lg is-primary is-block', data: { confirm: '本当によろしいですか？' }
+        = f.submit '申請する', class: 'a-button is-lg is-primary is-block', data: { confirm: '本当によろしいですか？' }
       li.form-actions__item
         = link_to 'キャンセル', :back, class: 'a-button is-lg is-secondary is-block'
