@@ -57,7 +57,7 @@ export default class {
         responseKey: 'url',
         csrfToken: CSRF.getToken(),
         placeholder: '%filenameをアップロード中...',
-        //uploadImageTag:
+        //  uploadImageTag:
         //  '<img src=%url width="100" height="100" loading="lazy" decoding="async" alt="%filename">\n',
         afterPreview: () => {
           autosize.update(textarea)
