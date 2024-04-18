@@ -12,7 +12,7 @@ class Events::CalendarsController < ApplicationController
     special_calendar_str = special_calendar_to_ical.gsub(/END:VCALENDAR\r?\n?\z/, '')
     regular_calendar_to_ical = RestClient.get("#{regular_events_calendars_url}.ics", params: { user_id: })
     regular_calendar_str = regular_calendar_to_ical.gsub(/\A(?:BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:icalendar-ruby\r\nCALSCALE:GREGORIAN\r\n)/, '')
-    
+
     calendar_str = "#{special_calendar_str}#{regular_calendar_str}"
     calendar = Icalendar::Calendar.parse(calendar_str).first
     calendar.publish
