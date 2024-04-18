@@ -51,9 +51,9 @@ class RegularEventDecoratorTest < ActiveSupport::TestCase
 
     travel_to Time.zone.local(2024, 1, 1) do
       expected_holidays = [
-        '2024年03月20日(水・祝)',
-        '2024年05月14日(火) RubyKaigi(沖縄)のため',
-        '2025年01月01日(水・祝)'
+        { date: '2024年03月20日(水・祝)', description: '春分の日' },
+        { date: '2024年05月14日(火)', description: 'RubyKaigi(沖縄)のため' },
+        { date: '2025年01月01日(水・祝)', description: '元日' }
       ]
 
       actual_holidays = regular_event.holiday_schedule_for_year

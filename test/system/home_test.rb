@@ -237,7 +237,8 @@ class HomeTest < ApplicationSystemTestCase
       day_after_tomorrow_events_texts = [
         { category: '特別', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
         { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' },
-        { category: '輪読会', title: '主催者任意の休みが設定されたイベント', start_at: '2017年04月05日(水) 21:00' }
+        { category: '輪読会', title: '主催者任意の休みが設定されたイベント', start_at: '2017年04月05日(水) 21:00' },
+        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント(任意の休み設定済み)', start_at: '2017年04月05日(水) 21:00' }
       ]
 
       assert_event_card(today_event_label, today_events_texts)
@@ -509,6 +510,24 @@ class HomeTest < ApplicationSystemTestCase
           category: '休み',
           title: 'ダッシュボード表示確認用テスト定期イベント(祝日非開催)',
           start_at: '09月18日はお休みです。'
+        }
+      ]
+      assert_event_card(today_event_label, today_events_texts)
+    end
+  end
+
+  test 'shows event status even if it is not held on custom holidays' do
+    Event.destroy_all
+    RegularEvent.where.not(title: 'ダッシュボード表示確認用テスト定期イベント(任意の休み設定済み)').destroy_all
+
+    travel_to Time.zone.parse('2024-04-17') do
+      visit_with_auth '/', 'hatsuno'
+      today_event_label = find('.card-list__label', text: '今日開催')
+      today_events_texts = [
+        {
+          category: '休み',
+          title: 'ダッシュボード表示確認用テスト定期イベント(任意の休み設定済み)',
+          start_at: '04月17日はお休みです。'
         }
       ]
       assert_event_card(today_event_label, today_events_texts)
