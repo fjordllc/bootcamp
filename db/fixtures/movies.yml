@@ -14,3 +14,10 @@ movie2:
   user: kimura
   published_at: "2024-04-09 00:00:00"
   last_updated_user: komagata
+
+movie3:
+  title: WIPのテスト
+  description: WIPのテスト用です
+  user: kimura
+  last_updated_user: komagata
+  wip: true
