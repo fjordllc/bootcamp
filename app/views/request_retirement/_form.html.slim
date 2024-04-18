@@ -2,7 +2,7 @@
   .form__items
     .form-item
       = f.label :requester_name, class: 'a-form-label'
-      = f.text_field :requester_name, required: true, disabled: logged_in? ? 'disabled': '', class: 'a-text-input'
+      = f.text_field :requester_name, required: true, readonly: logged_in?, class: 'a-text-input'
       - unless logged_in?
         .a-form-help
           p
@@ -12,7 +12,7 @@
   .form__items
     .form-item
       = f.label :requester_email, class: 'a-form-label'
-      = f.text_field :requester_email, required: true, disabled: logged_in? ? 'disabled': '', class: 'a-text-input'
+      = f.text_field :requester_email, required: true, readonly: logged_in?, class: 'a-text-input'
       - unless logged_in?
         .a-form-help
           p
@@ -22,7 +22,7 @@
   .form__items
     .form-item
       = f.label :requester_company_name, class: 'a-form-label'
-      = f.text_field :requester_company_name, required: true, disabled: logged_in? ? 'disabled': '', class: 'a-text-input'
+      = f.text_field :requester_company_name, required: true, readonly: logged_in?, class: 'a-text-input'
       - unless logged_in?
         .a-form-help
           p
