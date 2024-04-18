@@ -25,4 +25,4 @@ header.page-header
             = link_to '全て', course_books_path, class: "pill-nav__item-link #{params[:status] == 'mustread' ? '' : 'is-active'}"
           li.pill-nav__item
             = link_to '必読', course_books_path(status: 'mustread'), class: "pill-nav__item-link #{params[:status] == 'mustread' ? 'is-active' : ''}"
-div(data-vue="CourseBooks" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}" data-vue-course:json="#{@course.to_json}")
+  div(data-vue="CourseBooks" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}" data-vue-course:json="#{@course.to_json}")
