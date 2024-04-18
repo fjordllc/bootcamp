@@ -6,7 +6,7 @@ class RegularEvents::CalendarsController < ApplicationController
   def index
     user_id = params[:user_id]
     user = User.find_by(id: user_id)
-    
+
     regular_calendar = RegularEventsToIcalExporter.export_events(fetch_events(user))
     render plain: regular_calendar.to_ical
   end
