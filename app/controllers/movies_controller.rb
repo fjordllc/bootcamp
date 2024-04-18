@@ -37,11 +37,9 @@ class MoviesController < ApplicationController
 
         movie_path = save_blob_to_tempfile(@movie.movie_data.blob)
         thumbnail_blob = generate_thumbnail_from_blob(movie_path)
-
         raise ActiveRecord::Rollback, 'サムネイルの添付に失敗しました。' unless thumbnail_blob
 
         @movie.thumbnail.attach(thumbnail_blob)
-
       else
         render :new, notice: '動画の追加に失敗しました。'
       end
@@ -98,13 +96,7 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(
-      :practice_id,
-      :title,
-      :description,
-      :movie_data,
-      :tag_list
-    )
+    params.require(:movie).permit(:practice_id, :title, :description, :movie_data, :tag_list)
   end
 
   def set_wip
