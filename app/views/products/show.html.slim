@@ -12,7 +12,7 @@ header.page-header
     .page-header__inner
       .page-header__start
         h2.page-header__title
-          = title
+          = @product.practice.title
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
@@ -74,7 +74,7 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-1
                 div(data-vue="UserRecentReports" data-vue-user-id:number="#{@product.user.id}")
               .side-tabs-contents__item#side-tabs-content-2
-                #js-practice-memo(data-practice-id="#{@product.practice_id}")
+                = render 'practice_memo', practice_id: @product.practice_id
               .side-tabs-contents__item#side-tabs-content-3
                 .user-info
                   = render 'users/user_secret_attributes', user: @product.user

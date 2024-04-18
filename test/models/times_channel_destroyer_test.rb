@@ -15,6 +15,7 @@ class TimesChannelDestroyerTest < ActiveSupport::TestCase
         TimesChannelDestroyer.new.call({ user: })
       end
       assert_nil user.discord_profile.times_id
+      assert_nil user.discord_profile.times_url
       assert_nil logs.last
     end
   end

@@ -16,9 +16,13 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
       fill_in 'company[description]', with: 'テストの企業です。'
       fill_in 'company[website]', with: 'https://example.com'
       fill_in 'company[blog_url]', with: 'https://example.com'
+      fill_in 'company[memo]', with: '管理者のみが閲覧できるメモです。'
       click_button '登録する'
     end
     assert_text '企業を作成しました。'
+
+    visit_with_auth company_path(Company.last), 'komagata'
+    assert_text '管理者のみが閲覧できるメモです。'
   end
 
   test 'update company' do
@@ -79,5 +83,10 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     within all('.admin-table__item').last do
       assert_selector 'td.company-name', text: '【created_at降順確認】最古株式会社'
     end
+  end
+
+  test 'admin memo is not visible to non-admin users' do
+    visit_with_auth company_path(companies(:company1)), 'mentormentaro'
+    assert_no_text '管理者向け企業メモ'
   end
 end

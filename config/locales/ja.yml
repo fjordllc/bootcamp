@@ -145,6 +145,7 @@ ja:
         website: ウェブサイト
         logo: ロゴ
         blog_url: Techブログ
+        memo: 管理者向けメモ
       category:
         name: 名前
         slug: URLスラッグ
@@ -194,6 +195,7 @@ ja:
         url: URL
         repository: リポジトリURL
         url_or_repository: URLまたはリポジトリ
+        launch_article: リリースブログ記事URL
         thumbnail: サムネイル画像
       event:
         title: タイトル
