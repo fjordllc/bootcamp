@@ -22,7 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
           movieData.src = dataUri;
           p.innerHTML = '動画を変更';
+
+          if (file.name.toLowerCase().endsWith('.mov')) {
+            movieData.src = dataUri.replace('data:video/quicktime', 'data:video/mp4');
+          }
         });
+
         fileReader.readAsDataURL(file);
       }
     });
