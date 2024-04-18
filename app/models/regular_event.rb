@@ -176,7 +176,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def fetch_custom_holidays(date)
-    regular_event_custom_holidays.where('holiday_date > ?', date).order(:holiday_date)
+    regular_event_custom_holidays.where('holiday_date >= ?', date).order(:holiday_date)
   end
 
   def match_event_rules?(date)
