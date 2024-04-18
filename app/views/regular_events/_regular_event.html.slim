@@ -64,12 +64,12 @@
           hr.a-border
           .a-card-block__body.has-list
             dl.a-card-block__items
-              - regular_event.holiday_schedule_for_year.each do |holiday_date|
+              - regular_event.holiday_schedule_for_year.each do |holiday_info|
                 .a-card-block__item
                   .a-card-block__item-key
-                    = holiday_date
+                    = holiday_info[:date]
                   .a-card-block__item-value
-                    | ここに理由を表示。祝日の場合は祝日名。
+                    = holiday_info[:description]
     - unless regular_event.wip? || regular_event.all
       = render 'regular_events/participation', regular_event:
     = render 'reactions/reactions', reactionable: regular_event

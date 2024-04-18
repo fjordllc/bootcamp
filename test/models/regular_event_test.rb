@@ -50,7 +50,7 @@ class RegularEventTest < ActiveSupport::TestCase
     end
 
     holiday_not_held_event = regular_events(:regular_event1)
-    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule36) # 第1週水曜日
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule38) # 第1週水曜日
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       first_day = Time.zone.today
       assert_equal Date.new(2020, 2, 5), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)

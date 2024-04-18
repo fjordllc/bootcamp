@@ -173,7 +173,7 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'show listing not finished regular events' do
     visit_with_auth regular_events_path(target: 'not_finished'), 'kimura'
-    assert_selector '.card-list-item', count: 15
+    assert_selector '.card-list-item', count: 17
   end
 
   test 'show listing all regular events' do
@@ -340,5 +340,32 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text '毎週金曜日'
     assert_text 'Watch中'
     assert_css '.a-user-icon.is-hajime'
+  end
+
+  test 'update regular event when setting a custom holiday' do
+    travel_to Time.zone.local(2024, 4, 5) do
+      regular_event = regular_events(:regular_event7)
+      visit_with_auth regular_event_path(regular_event), 'komagata'
+      assert_text '独習Git輪読会'
+      assert_text '次回の開催日は 2024年04月10日 です'
+      click_link '内容修正'
+      within 'form[name=regular_event]' do
+        click_link '休日を追加'
+        within all('.nested-fields').last do
+          date_field = find('input[type="date"]')
+          date_field_id = date_field[:id]
+          # date_fieldにfill_inで入力すると正しく入力されないため直接日付を挿入(西暦に月数も入ってしまう)
+          page.execute_script("document.getElementById('#{date_field_id}').value = '2024-04-10'")
+          fill_in '理由', with: 'RubyKaigi 開催期間のため'
+        end
+        click_on '内容変更'
+      end
+      assert_text '独習Git輪読会'
+      assert_text '次回の開催日は 2024年04月17日 です'
+      within '.a-card-block__body.has-list' do
+        assert_selector '.a-card-block__item-key', text: '2024年04月10日(水)'
+        assert_selector '.a-card-block__item-value', text: 'RubyKaigi 開催期間のため'
+      end
+    end
   end
 end
