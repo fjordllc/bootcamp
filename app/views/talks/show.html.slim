@@ -1,7 +1,7 @@
 - title "#{@user.login_name}さんの相談部屋"
 - set_meta_tags description: "#{@user.login_name}さんの相談部屋ページです。"
 
-= render 'users/page_title', user: @user
+= render 'talks/page_title', user: @user
 
 - if admin_login?
   = render 'users/page_tabs', user: @user
