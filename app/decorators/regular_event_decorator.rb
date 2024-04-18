@@ -41,7 +41,8 @@ module RegularEventDecorator
   private
 
   def format_holiday(holiday)
-    date = holiday.respond_to?(:date) ? I18n.l(holiday.date, format: :with_weekday_and_holiday) : I18n.l(holiday.holiday_date, format: :long)
+    target_date = holiday.respond_to?(:date) ? holiday.date : holiday.holiday_date
+    date = HolidayJp.holiday?(target_date) ? I18n.l(target_date, format: :with_weekday_and_holiday) : I18n.l(target_date, format: :long)
     description = holiday.respond_to?(:name) ? holiday.name : holiday.description
 
     {
