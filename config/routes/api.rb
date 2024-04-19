@@ -66,7 +66,7 @@ Rails.application.routes.draw do
         get 'counts', on: :collection
       end
       resources :self_assigned, only: %i(index)
-      resource :checker, only: %i(update destroy), controller: 'checker'
+      resource :checker, only: %i(show update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show)
