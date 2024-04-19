@@ -126,7 +126,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '#completed_fraction_in_metas' do
     user = users(:harikirio)
-    fraction_in_metas = '2 (必須:1)'
+    fraction_in_metas = '2 （必須:1）'
     user.completed_practices << practices(:practice5)
     user.completed_practices << practices(:practice61)
 
