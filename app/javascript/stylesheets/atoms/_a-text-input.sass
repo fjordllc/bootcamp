@@ -20,7 +20,8 @@
     background-color: var(--input-focus-background)
     border-color: var(--input-focus-border)
     box-shadow: var(--input-focus-shadow)
-  &:disabled
+  &:disabled,
+  &[readonly]
     color: var(--muted-text)
     background-color: var(--background)
     pointer-events: none
