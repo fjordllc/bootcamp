@@ -9,10 +9,9 @@
       role='progressbar',
       :style='`width: ${roundedPercentage}`')
   .completed-practices-progress__counts
-    input.a-toggle-checkbox(
-      type='checkbox',
-      :id='`userid_${this.user.id}`')
-    label.completed-practices-progress__counts-inner(:for='`userid_${this.user.id}`')
+    input.a-toggle-checkbox(type='checkbox', :id='`userid_${this.user.id}`')
+    label.completed-practices-progress__counts-inner(
+      :for='`userid_${this.user.id}`')
       .completed-practices-progress__percentage
         | {{ roundedPercentage }}
       .completed-practices-progress__number
