@@ -41,7 +41,6 @@ const productChecker = {
         return json.checker_id ? 'DELETE' : 'PATCH'
       })
       .then((method) => {
-        console.log(method)
         fetch(url, {
           method: method,
           headers: {
