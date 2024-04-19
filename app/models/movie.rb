@@ -14,7 +14,7 @@ class Movie < ApplicationRecord
   has_one_attached :thumbnail
   has_one_attached :movie_data
 
-  validates :user, presence: true
+  validates :user, presence: true, length: { maximum: 255 }
   validates :title, presence: true
   validates :description, presence: true
 end
