@@ -5,18 +5,8 @@
         .dashboard-contents__categories
           .dashboard-category
             - unchecked_report_count = Cache.unchecked_report_count
-            .dashboard-category__body
-              .a-card.is-danger
-                .card__description
-                  - if unchecked_report_count > 100
-                    .flex
-                      div
-                        i.far.fa-face-confounded
-                      div
-                        = link_to '/reports/unchecked' do
-                          | 未チェックの日報が
-                          br
-                          | #{unchecked_report_count}件あります。
+            - if unchecked_report_count > 100
+              = render 'unchecked_report_alert', unchecked_report_count: unchecked_report_count
             .dashboard-category__body
               #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
       .dashboard-contents__col.is-main
