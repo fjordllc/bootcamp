@@ -1,9 +1,9 @@
 $bar-height: .75rem
 .completed-practices-progress
-  padding-block: .75rem
-  padding-inline: 1rem
+  padding: .75rem 1rem
   display: flex
   align-items: center
+  gap: .5rem
 
 .completed-practices-progress__bar-container
   flex: 1
@@ -21,22 +21,34 @@ $bar-height: .75rem
   +position(relative, top $bar-height * -1)
   box-shadow: rgba(black, .2) 0 .0625rem .0625rem
 
+.completed-practices-progress__counts
+  position: relative
+  cursor: pointer
+  display: block
+
+.completed-practices-progress__counts-inner
+  cursor: pointer
+  &:hover
+    .completed-practices-progress__percentage
+      text-decoration: underline
+
+.completed-practices-progress__percentage
+  +text-block(.8125rem, right nowrap)
+
 .completed-practices-progress__number
-  +text-block(.8125rem 1rem, right nowrap)
-  height: 1rem
-  margin-left: .5rem
+  position: absolute
+  right: 0
+  bottom: calc(100% + .5rem)
+  background-color: var(--base)
+  border: solid 1px var(--border)
+  padding: .25rem .5rem
+  +text-block(.8125rem 1.4, right nowrap)
+  border-radius: .25rem
 
-.completed-practices-progress__area input
-  display: none
+.completed-practices-progress__counts
+  input:checked ~ label .completed-practices-progress__number
+    display: block
 
-.completed-practices-progress__area input:checked ~ label .completed-practices-progress__number
-  display: block
-
-.completed-practices-progress__area input:checked ~ label .completed-practices-progress__percentage
-  display: none
-
-.completed-practices-progress__area input:not(:checked) ~ label .completed-practices-progress__number
-  display: none
-
-.completed-practices-progress__area input:not(:checked) ~ label .completed-practices-progress__percentage
-  display: block
+.completed-practices-progress__counts
+  input:not(:checked) ~ label .completed-practices-progress__number
+    display: none
