@@ -1,28 +1,44 @@
-- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-error-page is-piyo-background')
-- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-thanks-page is-piyo-background')
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+description: '退会申請を受け付けました。')
 
-.container
-  .error-message.a-card.is-borderd
-    header.retire-message__header
-      h1.retire-message__title
-        | 退会申請
-    .retire-message__body
-      p
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
         | 退会申請を受け付けました。
-      ul
-        - %i[requester_email requester_name requester_company_name target_user_name reason_of_request_retirement].each do |attr|
-          li
-            = RequestRetirement.human_attribute_name(attr)
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | 申請をいただきありがとうございます。
             br
-            = @request_retirement.public_send(attr)
-        li
-          / 退会後のデータは動的なので、別で出力を実装
-          = I18n.t('activerecord.attributes.request_retirement.keep_data.title')
-          br
-          - if @request_retirement.keep_data
-            = I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep')
-          - else
-            = I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete')
-      p
-        | 誤って申請をしてしまった場合はinfo@lokka.jpまでご連絡ください。
-      p = link_to 'Fjord Boot Camp', welcome_path
+            | 数営業日以内に処理を行います。
+          p
+            | 誤って申請をしてしまった場合は、ログインをした上で相談部屋からご連絡ください。
+        .thanks-message__inputed-values.form
+          h2.thanks-message__inputed-values-title
+            | 申請内容
+          .form__items.thanks-message__inputed-values-items
+            - %i[requester_email requester_name requester_company_name target_user_name reason_of_request_retirement].each do |attr|
+              .form-item
+                .a-form-label
+                  = RequestRetirement.human_attribute_name(attr)
+                .a-text-input.is-inputed
+                  = @request_retirement.public_send(attr)
+            .form-item
+              / 退会後のデータは動的なので、別で出力を実装
+              .a-form-label
+                = I18n.t('activerecord.attributes.request_retirement.keep_data.title')
+              .a-text-input.is-inputed
+                - if @request_retirement.keep_data
+                  = I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep')
+                - else
+                  = I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete')
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | トップページに戻る
