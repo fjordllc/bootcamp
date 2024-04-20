@@ -36,6 +36,17 @@
               - else
                 p 動画を選択
               = f.file_field :movie_data, class: 'a-text-input', accept: 'video/mp4, video/quicktime', direct_upload: true
+
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          label.a-form-label
+            | サムネイル画像
+          .form-item-file-input.a-file-input.is-movie
+            .thumbnail-preview
+              img#thumbnail-preview-image[src="" alt="Thumbnail Preview" style="width: 100%; height: auto;"]
+              input#thumbnail-file[name="thumbnail" type="file"]
+
     .form-item
       .row
         .col-md-6.col-xs-12
@@ -58,3 +69,42 @@
           = link_to 'キャンセル', :movies, class: 'a-button is-sm is-text'
         - when 'edit', 'update'
           = link_to 'キャンセル', :movies, class: 'a-button is-sm is-text'
+
+javascript:
+  document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.querySelector('.js-movie-file-input input[type="file"]');
+    const thumbnailInput = document.getElementById('thumbnail-file');
+    const previewImage = document.getElementById('thumbnail-preview-image');
+
+    fileInput.addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const video = document.createElement("video");
+          video.src = e.target.result;
+          video.addEventListener("loadedmetadata", function() {
+            this.currentTime = this.duration / 4; // Or any other logic to choose the thumbnail frame
+          });
+          video.addEventListener("seeked", function() {
+            const canvas = document.createElement("canvas");
+            canvas.width = 640; // Adjust as needed
+            canvas.height = 360; // Adjust as needed
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(function(blob) {
+              const thumbnailFile = new File([blob], "thumbnail.jpg", { type: 'image/jpeg' });
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(thumbnailFile);
+              thumbnailInput.files = dataTransfer.files;
+
+              // Update preview
+              const url = URL.createObjectURL(blob);
+              previewImage.src = url;
+            }, 'image/jpeg');
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
