@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Work::WorkComponent < ViewComponent::Base
+class Works::WorkComponent < ViewComponent::Base
   def initialize(work:)
     @work = work
   end
