@@ -293,13 +293,10 @@ class Notification::ReportsTest < ApplicationSystemTestCase
     visit_with_auth '/reports', 'kimura'
     click_link '日報作成'
 
+    mention_in_code = '```@mentor```, ` @mentor `'
     within('form[name=report]') do
       fill_in('report[title]', with: 'コードブロック内でメンション')
-      fill_in('report[description]', with: '```
-                                           @mentor
-                                           ```
-                                           ` @mentor `
-                                           ')
+      fill_in('report[description]', with: mention_in_code)
     end
 
     within('.learning-time__started-at') do
