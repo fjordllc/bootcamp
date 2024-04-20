@@ -9,7 +9,7 @@ class UsersHelperTest < ActionView::TestCase
     assert_includes countries['US'], %w[アラスカ州 AK]
   end
 
-  test 'roles_for_select returns array for select_tag containing role info' do
+  test '#roles_for_select' do
     user_roles = [
       %w[全員 all],
       %w[現役生 student_and_trainee],
@@ -26,7 +26,7 @@ class UsersHelperTest < ActionView::TestCase
     assert roles_for_select, user_roles
   end
 
-  test 'jobs_for_select returns array for select_tag containing job info' do
+  test '#jobs_for_select' do
     user_jobs = [
       %w[全員 all],
       %w[学生 student],
