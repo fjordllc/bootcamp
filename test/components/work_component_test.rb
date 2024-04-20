@@ -7,7 +7,7 @@ class WorkComponentTest < ViewComponent::TestCase
     @user = users(:kimura).extend(UserDecorator)
     @work = works(:work1)
     @work.user = @user
-    render_inline(Work::WorkComponent.new(work: @work))
+    render_inline(Works::WorkComponent.new(work: @work))
   end
 
   def test_work_thumbnail
