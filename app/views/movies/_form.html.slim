@@ -29,7 +29,7 @@
       .row
         .col-md-6.col-xs-12
           = f.label :movie_data, class: 'a-form-label'
-          .form-item-file-input.js-movie-file-input.a-file-input.is-work-thumbnail
+          .form-item-file-input.js-movie-file-input.a-file-input.is-movie
             label.js-movie-file-input__preview
               - if @movie.movie_data.attached?
                 = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.59'
