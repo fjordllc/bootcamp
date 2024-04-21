@@ -30,6 +30,5 @@
                 span.a-meta__value
                   | #{l announcement_card.published_at}
           .card-list-item-meta__item
-            - length = announcement_card.comments.length
             .a-meta
-              | コメント（#{length}）
+              | コメント（#{announcement_card.comments.length}）
