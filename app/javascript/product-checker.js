@@ -14,7 +14,7 @@ function toast(title, status = 'success') {
 }
 
 const productChecker = {
-  checkProduct(productId, currentUserId) {
+  checkInCharge(productId, currentUserId) {
     const token = CSRF.getToken()
     const url = '/api/products/checker'
 
