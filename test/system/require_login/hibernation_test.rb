@@ -6,7 +6,7 @@ require 'supports/login_assert_helper'
 class HibernationLoginTest < ApplicationSystemTestCase
   include LoginAssertHelper
   test 'can access hibernating complete screen without login' do
-    assert_no_login_required('/hibernation', '休会処理が完了しました')
+    assert_no_login_required('/hibernation', '休会手続きが完了しました')
   end
 
   test 'cannot access hibernate/new without login' do

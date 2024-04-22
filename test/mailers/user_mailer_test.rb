@@ -23,7 +23,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ['kimura@fjord.jp'], email.to
     assert_equal ['info@lokka.jp'], email.bcc
     assert_equal '[FBC] 退会処理が完了しました', email.subject
-    assert_match(/ご利用いただきありがとうございました/, email.body.to_s)
+    assert_match(/ご利用いただき誠にありがとうございました/, email.body.to_s)
     assert_match("#{user.name}様の今後のご活躍を心からお祈り申し上げます。", email.body.to_s)
   end
 end

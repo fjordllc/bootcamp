@@ -26,7 +26,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     accept_confirm do
       click_button '休会する'
     end
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
     visit_with_auth notifications_path, 'komagata'
     find('#notifications.loaded', wait: 10)
@@ -49,7 +49,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     accept_confirm do
       click_button '休会する'
     end
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
     visit_with_auth notifications_path, 'komagata'
     find('#notifications.loaded', wait: 10)
@@ -72,7 +72,7 @@ class Notification::HibernationTest < ApplicationSystemTestCase
     accept_confirm do
       click_button '休会する'
     end
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
     visit_with_auth notifications_path, 'komagata'
     find('#notifications.loaded', wait: 10)
