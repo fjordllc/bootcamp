@@ -13,6 +13,7 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     @japanese_user = decorate(users(:kimura))
     @american_user = decorate(users(:tom))
     @subdivision_not_registered_user = decorate(users(:hatsuno))
+    @non_required_subject_completed_user = decorate(users(:harikirio))
   end
 
   test '#icon_title' do
@@ -68,5 +69,38 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_equal @japanese_user.editor, nil
     assert_equal @admin_mentor_user.editor_or_other_editor, 'textbringer'
     assert_equal @student_user.editor_or_other_editor, 'VSCode'
+  end
+
+  test '#completed_fraction don\'t calculate practice that include_progress: false' do
+    user = @admin_mentor_user
+    old_fraction = user.completed_practices_include_progress.size
+    user.completed_practices << practices(:practice5)
+
+    assert_not_equal old_fraction, user.completed_fraction
+
+    old_fraction = user.completed_practices_include_progress.size
+    user.completed_practices << practices(:practice53)
+
+    assert_equal old_fraction, user.completed_practices_include_progress.size
+  end
+
+  test '#completed_fraction don\'t calculate practice unrelated cource' do
+    old_fraction = @admin_mentor_user.completed_practices_include_progress.size
+    @admin_mentor_user.completed_practices << practices(:practice5)
+
+    assert_not_equal old_fraction, @admin_mentor_user.completed_practices_include_progress.size
+
+    old_fraction = @admin_mentor_user.completed_practices_include_progress.size
+    @admin_mentor_user.completed_practices << practices(:practice55)
+
+    assert_equal old_fraction, @admin_mentor_user.completed_practices_include_progress.size
+  end
+
+  test '#completed_fraction_in_metas' do
+    fraction_in_metas = '2 （必須:1）'
+    @non_required_subject_completed_user.completed_practices << practices(:practice5)
+    @non_required_subject_completed_user.completed_practices << practices(:practice61)
+
+    assert_equal @non_required_subject_completed_user.completed_fraction_in_metas, fraction_in_metas
   end
 end

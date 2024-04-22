@@ -473,14 +473,6 @@ class User < ApplicationRecord
     completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
   end
 
-  def completed_fraction
-    "修了: #{completed_practices.size} （必須: #{completed_practices_include_progress.size}/#{practices_include_progress.size}）"
-  end
-
-  def completed_fraction_in_metas
-    "#{completed_practices.size} （必須:#{completed_practices_include_progress.size}）"
-  end
-
   def completed_practices_size_by_category
     Practice
       .joins({ categories: :categories_practices }, :learnings)
