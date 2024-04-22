@@ -13,7 +13,7 @@
       .card-list.a-card
         .card-list__items
           - @products.each do |product|
-            .card-list-item class="#{ product.wip ? "is-wip" : "has-assigned"}"
+            .card-list-item class="#{ product.wip ? 'is-wip' : 'has-assigned'}"
               .card-list-item__inner
                 .card-list-item__rows
                   .card-list-item__row
@@ -42,17 +42,29 @@
                           .card-list-item-meta__item
                             time.a-meta
                               span.a-meta__label 提出
-                              | #{ product.published_at.year }年#{ product.published_at.mon }月#{ product.published_at.day }日（#{ @weekdays[product.published_at.wday] }）#{ product.published_at.strftime("%R") }
+                              | #{ product.published_at.year }年
+                                #{ product.published_at.mon }月
+                                #{ product.published_at.day }日
+                                （#{ @weekdays[product.published_at.wday] }）
+                                #{ product.published_at.strftime('%R') }
                         - else
                           .card-list-item-meta__item
                             time.a-meta
                               span.a-meta__label 提出
-                              | #{ product.created_at.year }年#{ product.created_at.mon }月#{ product.created_at.day }日（#{ @weekdays[product.created_at.wday] }）#{ product.created_at.strftime("%R") }
+                              | #{ product.created_at.year }年
+                                #{ product.created_at.mon }月
+                                #{ product.created_at.day }日
+                                （#{ @weekdays[product.created_at.wday] }）
+                                #{ product.created_at.strftime('%R') }
                           .card-list-item-meta__item
                             - if product.updated_at
                               time.a-meta
                                 span.a-meta__label 更新
-                                | #{ product.updated_at.year }年#{ product.updated_at.mon }月#{ product.updated_at.day }日（#{ @weekdays[product.updated_at.wday] }）#{ product.updated_at.strftime("%R") }
+                                | #{ product.updated_at.year }年
+                                  #{ product.updated_at.mon }月
+                                  #{ product.updated_at.day }日
+                                  （#{ @weekdays[product.updated_at.wday] }）
+                                  #{ product.updated_at.strftime('%R') }
                   - if !product.comments.empty?
                     hr.card-list-item__row-separator
                     .card-list-item__row
@@ -78,24 +90,40 @@
                             .card-list-item-meta__item
                             - if product.self_last_commented_at > product.mentor_last_commented_at
                               time.a-meta
-                                | 〜 #{ product.self_last_commented_at.year }年#{ product.self_last_commented_at.mon }月#{ product.self_last_commented_at.day }日（#{ @weekdays[product.self_last_commented_at.wday] }）#{ product.self_last_commented_at.strftime("%R") }（
+                                | 〜 #{ product.self_last_commented_at.year }年
+                                  #{ product.self_last_commented_at.mon }月
+                                  #{ product.self_last_commented_at.day }日
+                                  （#{ @weekdays[product.self_last_commented_at.wday] }）
+                                  #{ product.self_last_commented_at.strftime('%R') }（
                                 strong
                                   | 提出者
                                 | ）
                             - else product.self_last_commented_at < product.mentor_last_commented_at
                               time.a-meta
-                                | 〜 #{ product.mentor_last_commented_at.year }年#{ product.mentor_last_commented_at.mon }月#{ product.mentor_last_commented_at.day }日（#{ @weekdays[product.mentor_last_commented_at.wday] }）#{ product.mentor_last_commented_at.strftime("%R") }（メンター）
+                                | 〜 #{ product.mentor_last_commented_at.year }年
+                                  #{ product.mentor_last_commented_at.mon }月
+                                  #{ product.mentor_last_commented_at.day }日
+                                  （#{ @weekdays[product.mentor_last_commented_at.wday] }）
+                                  #{ product.mentor_last_commented_at.strftime('%R') }（メンター）
                           - elsif product.self_last_commented_at || product.mentor_last_commented_at
                             .card-list-item-meta__item
                             - if product.self_last_commented_at
                               time.a-meta
-                                | 〜 #{ product.self_last_commented_at.year }年#{ product.self_last_commented_at.mon }月#{ product.self_last_commented_at.day }日（#{ @weekdays[product.self_last_commented_at.wday] }）#{ product.self_last_commented_at.strftime("%R") }（
+                                | 〜 #{ product.self_last_commented_at.year }年
+                                  #{ product.self_last_commented_at.mon }月
+                                  #{ product.self_last_commented_at.day }日
+                                  （#{ @weekdays[product.self_last_commented_at.wday] }）
+                                  #{ product.self_last_commented_at.strftime('%R') }（
                                 strong
                                   | 提出者
                                 | ）
                             - elsif product.mentor_last_commented_at
                               time.a-meta
-                                | 〜 #{ product.mentor_last_commented_at.year }年#{ product.mentor_last_commented_at.mon }月#{ product.mentor_last_commented_at.day }日（#{ @weekdays[product.mentor_last_commented_at.wday] }）#{ product.mentor_last_commented_at.strftime("%R") }（メンター）
+                                | 〜 #{ product.mentor_last_commented_at.year }年
+                                  #{ product.mentor_last_commented_at.mon }月
+                                  #{ product.mentor_last_commented_at.day }日
+                                  （#{ @weekdays[product.mentor_last_commented_at.wday] }）
+                                  #{ product.mentor_last_commented_at.strftime('%R') }（メンター）
                   - if current_user.mentor?&& product.checks.size == 0
                     .card-list-item__row.is-only-mentor
                       .card-list-item__assignee
