@@ -46,7 +46,7 @@ class Notification < ApplicationRecord
 
   scope :unreads, -> { where(read: false) }
   scope :with_avatar, -> { preload(sender: { avatar_attachment: :blob }) }
-  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar.limit(99) : with_avatar }
+  scope :by_read_status, ->(status) { status == 'unread' ? unreads.with_avatar : with_avatar }
 
   scope :by_target, lambda { |target|
     target ? where(kind: TARGETS_TO_KINDS[target]) : all
