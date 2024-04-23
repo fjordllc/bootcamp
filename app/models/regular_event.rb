@@ -91,8 +91,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event_day && (now < event_start_time)
   end
 
-  def convert_date_into_week(date)
-    (date / 7.0).ceil
+  def holding_tomorrow?
+    holding_next_day?(1)
+  end
+
+  def holding_day_after_tomorrow?
+    holding_next_day?(2)
   end
 
   def next_event_date
@@ -107,6 +111,55 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       ]
     end.flatten
     possible_dates.compact.select { |possible_date| possible_date > Time.zone.today }.min
+  end
+
+
+  def recent_scheduled_date
+    now = Time.zone.now
+    regular_event_repeat_rules.map do |rule|
+      days_count = calc_days_count_untill_next_scheduled_date(now, rule)
+      next_date = now.since(days_count.day).to_date
+      Time.zone.local(next_date.year, next_date.month, next_date.day, start_at.hour, start_at.min, start_at.sec)
+    end.min
+  end
+
+  def cancel_participation(user)
+    regular_event_participation = regular_event_participations.find_by(user_id: user.id)
+    regular_event_participation.destroy
+  end
+
+  def watched_by?(user)
+    watches.exists?(user_id: user.id)
+  end
+
+  def participated_by?(user)
+    regular_event_participations.find_by(user_id: user.id).present?
+  end
+
+  def assign_admin_as_organizer_if_none
+    return if organizers.exists?
+
+    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
+    Organizer.new(user: admin_user, regular_event: self).save if admin_user
+  end
+
+  private
+
+  def end_at_be_greater_than_start_at
+    diff = end_at - start_at
+    return unless diff <= 0
+
+    errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def calc_days_count_untill_next_scheduled_date(now, rule)
+    days_count = rule.day_of_the_week - now.wday
+    days_count += 7 if days_count.negative?
+    days_count
+  end
+
+  def convert_date_into_week(date)
+    (date / 7.0).ceil
   end
 
   def possible_next_event_date(first_day, repeat_rule)
@@ -137,14 +190,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Date.new(first_day.year, first_day.mon, specific_date)
   end
 
-  def holding_tomorrow?
-    holding_next_day?(1)
-  end
-
-  def holding_day_after_tomorrow?
-    holding_next_day?(2)
-  end
-
   def holding_next_day?(days = 1)
     next_day = Time.current.next_day(days)
     regular_event_repeat_rules.map do |repeat_rule|
@@ -154,49 +199,5 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
         repeat_rule.day_of_the_week == next_day.wday && repeat_rule.frequency == convert_date_into_week(next_day.day)
       end
     end.include?(true)
-  end
-
-  def cancel_participation(user)
-    regular_event_participation = regular_event_participations.find_by(user_id: user.id)
-    regular_event_participation.destroy
-  end
-
-  def watched_by?(user)
-    watches.exists?(user_id: user.id)
-  end
-
-  def participated_by?(user)
-    regular_event_participations.find_by(user_id: user.id).present?
-  end
-
-  def assign_admin_as_organizer_if_none
-    return if organizers.exists?
-
-    admin_user = User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER)
-    Organizer.new(user: admin_user, regular_event: self).save if admin_user
-  end
-
-  def recent_scheduled_date
-    now = Time.zone.now
-    regular_event_repeat_rules.map do |rule|
-      days_count = calc_days_count_untill_next_scheduled_date(now, rule)
-      next_date = now.since(days_count.day).to_date
-      Time.zone.local(next_date.year, next_date.month, next_date.day, start_at.hour, start_at.min, start_at.sec)
-    end.min
-  end
-
-  private
-
-  def end_at_be_greater_than_start_at
-    diff = end_at - start_at
-    return unless diff <= 0
-
-    errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
-  end
-
-  def calc_days_count_untill_next_scheduled_date(now, rule)
-    days_count = rule.day_of_the_week - now.wday
-    days_count += 7 if days_count.negative?
-    days_count
   end
 end
