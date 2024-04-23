@@ -156,8 +156,8 @@ notification_regular_event_updated:
   link: "/regular_events/<%= ActiveRecord::FixtureSet.identify(:regular_event1) %>"
   read: false
 
-<% 1.upto(25) do |i| %>
-notification_for_pagination<%= i %>: # 通知ページのページネーション動作確認のための通知
+<% 1.upto(110) do |i| %>
+notification_for_pagination<%= i %>: # 通知ページのページネーション動作と取得数制限確認のための通知
   kind: 5
   user: hatsuno
   sender: komagata
