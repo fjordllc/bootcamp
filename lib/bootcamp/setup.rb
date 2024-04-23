@@ -83,8 +83,6 @@ module Bootcamp
             movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie2.mov")
             movie.movie_data.attach(io: File.open(movie_path), filename: 'movie2.mov')
           end
-          thumbnail_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/thumbnail#{i + 1}.jpg")
-          movie.thumbnail.attach(io: File.open(thumbnail_path), filename: "thumbnail#{i + 1}.jpg")
         end
       end
     end
