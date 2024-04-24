@@ -494,11 +494,14 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
   create_table "movies", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
+<<<<<<< HEAD
     t.bigint "user_id", null: false
     t.bigint "practice_id"
+=======
+    t.bigint "user_id"
+>>>>>>> c5803ff76 (関連プラクティスを複数選択できるように)
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["practice_id"], name: "index_movies_on_practice_id"
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
@@ -578,6 +581,15 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_practices_books_on_book_id"
     t.index ["practice_id"], name: "index_practices_books_on_practice_id"
+  end
+
+  create_table "practices_movies", force: :cascade do |t|
+    t.bigint "practice_id"
+    t.bigint "movie_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_practices_movies_on_movie_id"
+    t.index ["practice_id"], name: "index_practices_movies_on_practice_id"
   end
 
   create_table "practices_reports", id: false, force: :cascade do |t|
@@ -941,7 +953,6 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
   add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
-  add_foreign_key "movies", "practices"
   add_foreign_key "movies", "users"
   add_foreign_key "micro_reports", "users"
   add_foreign_key "notifications", "users"
@@ -954,6 +965,8 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
   add_foreign_key "participations", "users"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
+  add_foreign_key "practices_movies", "movies"
+  add_foreign_key "practices_movies", "practices"
   add_foreign_key "products", "practices"
   add_foreign_key "products", "users"
   add_foreign_key "questions", "practices"
