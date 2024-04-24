@@ -1,3 +1,6 @@
+# setup時のattachファイルの拡張子判別に必要なため、タイトルにはattachする動画の拡張子名を含むようにする
+# attachする動画データのタイトルはmovie#{i}.拡張子名(mp4 or mov)
+
 movie1:
   title: mp4動画
   description: mp4の動画です
