@@ -43,11 +43,11 @@ class MoviesController < ApplicationController
 
   def movie_params
     params.require(:movie).permit(
-      :practice_id,
       :title,
       :description,
       :movie_data,
-      :tag_list
+      :tag_list,
+      practice_ids: []
     )
   end
 end

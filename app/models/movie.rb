@@ -10,7 +10,8 @@ class Movie < ApplicationRecord
   include Bookmarkable
 
   belongs_to :user
-  belongs_to :practice, optional: true
+  has_many :practices_movies, dependent: :nullify
+  has_many :practices, through: :practices_movies
   has_one_attached :movie_data
 
   validates :user, presence: true
