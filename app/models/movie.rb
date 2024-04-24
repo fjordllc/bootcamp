@@ -13,7 +13,7 @@ class Movie < ApplicationRecord
   belongs_to :practice, optional: true
   has_one_attached :movie_data
 
-  validates :user, presence: true, length: { maximum: 255 }
-  validates :title, presence: true
+  validates :user, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
   validates :description, presence: true
 end
