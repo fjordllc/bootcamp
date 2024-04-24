@@ -16,10 +16,10 @@ event2:
   description: "募集期間中のイベントです。参加申込ができます。補欠者はまだいません。"
   location: "FJORDオフィス"
   capacity: 40
-  start_at: <%= Time.current.next_year - 1.day %>
-  end_at: <%= Time.current.next_year %>
-  open_start_at: <%= Time.current %>
-  open_end_at: <%= Time.current.next_year %>
+  start_at: <%= Time.current.change(sec:0).next_year - 1.day %>
+  end_at: <%= Time.current.change(sec:0).next_year %>
+  open_start_at: <%= Time.current.change(sec:0) %>
+  open_end_at: <%= Time.current.change(sec:0).next_year %>
   user: komagata
 
 event3:
@@ -27,10 +27,10 @@ event3:
   description: "募集期間中のイベントです。参加申込ができます。補欠者がいます。"
   location: "FJORDオフィス"
   capacity: 1
-  start_at: <%= Time.current.next_year - 1.day %>
-  end_at: <%= Time.current.next_year %>
-  open_start_at: <%= Time.current %>
-  open_end_at: <%= Time.current.next_year %>
+  start_at: <%= Time.current.change(sec:0).next_year - 1.day %>
+  end_at: <%= Time.current.change(sec:0).next_year %>
+  open_start_at: <%= Time.current.change(sec:0) %>
+  open_end_at: <%= Time.current.change(sec:0).next_year %>
   user: komagata
 
 event4:
@@ -38,10 +38,10 @@ event4:
   description: "募集期間前のイベントです。"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: <%= Time.current.next_year - 1.hour %>
-  end_at: <%= Time.current.next_year %>
-  open_start_at: <%= Time.current.next_year - 1.day %>
-  open_end_at: <%= Time.current.next_year %>
+  start_at: <%= Time.current.change(sec:0).next_year - 1.hour %>
+  end_at: <%= Time.current.change(sec:0).next_year %>
+  open_start_at: <%= Time.current.change(sec:0).next_year - 1.day %>
+  open_end_at: <%= Time.current.change(sec:0).next_year %>
   user: komagata
 
 event5:
@@ -49,10 +49,10 @@ event5:
   description: "募集が終了したイベントです。"
   location: "FJORDオフィス"
   capacity: 10
-  start_at: <%= Time.current.next_year - 1.hour %>
-  end_at: <%= Time.current.next_year %>
-  open_start_at: <%= Time.current.yesterday %>
-  open_end_at: <%= Time.current.yesterday + 1.hour %>
+  start_at: <%= Time.current.change(sec:0).next_year - 1.hour %>
+  end_at: <%= Time.current.change(sec:0).next_year %>
+  open_start_at: <%= Time.current.change(sec:0).yesterday %>
+  open_end_at: <%= Time.current.change(sec:0).yesterday + 1.hour %>
   user: komagata
 
 event6:
