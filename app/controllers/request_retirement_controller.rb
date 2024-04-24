@@ -20,8 +20,8 @@ class RequestRetirementController < ApplicationController
     if @request_retirement.save
       # resourceルーティングだと:idを渡せないので、sessionにidを保存しておく
       temporarily_store_session(:request_retirement_id, @request_retirement.id)
-      redirect_to request_retirement_url
       UserMailer.request_retirement(@request_retirement).deliver_now
+      redirect_to request_retirement_url
     else
       @target_users = current_user.collegues_other_than_self if logged_in? && current_user.belongs_company_and_adviser?
       render :new, status: :unprocessable_entity
