@@ -14,7 +14,7 @@ module Bootcamp
         attach_book_cover!
         attach_authored_book_cover!
         attach_practice_ogp!
-        attach_movie_data_and_thumbnail!
+        attach_movie_data!
       end
 
       private
@@ -74,14 +74,14 @@ module Bootcamp
         end
       end
 
-      def attach_movie_data_and_thumbnail!
+      def attach_movie_data!
         Movie.order(:created_at).each_with_index do |movie, i|
-          if i.zero?
-            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie1.mp4")
-            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie1.mp4')
-          elsif i == 1
-            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie2.mov")
-            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie2.mov')
+          if movie.title.include?("mp4")
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie#{i+1}.mp4")
+            movie.movie_data.attach(io: File.open(movie_path), filename: "movie#{i+1}.mp4")
+          elsif  movie.title.include?("mov")
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie#{i+1}.mov")
+            movie.movie_data.attach(io: File.open(movie_path), filename: "movie#{i+1}.mov")
           end
         end
       end
