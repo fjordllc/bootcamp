@@ -101,6 +101,6 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     @non_required_subject_completed_user.completed_practices << practices(:practice5)
     @non_required_subject_completed_user.completed_practices << practices(:practice61)
 
-    assert_equal @non_required_subject_completed_user.completed_fraction_in_metas, fraction_in_metas
+    assert_equal fraction_in_metas, @non_required_subject_completed_user.completed_fraction_in_metas
   end
 end
