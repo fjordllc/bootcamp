@@ -1,10 +1,15 @@
 header.page-content-header
   .page-content-header__end
     .page-content-header__row
-      - if movie.practice.present?
-        .page-content-header__before-title
-          = link_to movie.practice, class: 'a-category-link' do
-            = movie.practice.title
+      - if movie.practices.present?
+        .page-content-header__row
+          .page-content-header__tags
+            .tag-links
+              ul.tag-links__items
+                - category_practices(movie).each do |practice|
+                  li.tag-links__item
+                    = link_to practice, class: 'tag-links__item-link' do
+                      = practice.title
       h1.page-content-header__title
         | #{movie.title}
 
@@ -17,6 +22,7 @@ header.page-content-header
                   span.a-meta__label
                     | 公開
                   .a-meta__value
+                    - if !movie.user.nil?
                         time(datetime="#{@movie.created_at.to_datetime}")
                           | #{l @movie.created_at}
                         = render 'users/icon',
