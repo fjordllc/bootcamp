@@ -8,6 +8,7 @@
         h2.thumbnail-card__title
           = link_to movie, class: 'thumbnail-card__title-link a-text-link' do
             = movie.title
+    - if !movie.user.nil?
       .thumbnail-card__row
         .thumbnail-card__metas
           .thumbnail-card__meta
