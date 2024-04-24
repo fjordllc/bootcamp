@@ -1,5 +1,5 @@
 = render '/notification_mailer/notification_mailer_template',
-  title: "「#{@question.practice.title}」についての質問がありました。",
+  title: @title,
   link_url: @link_url,
   link_text: '質問へ' do
   p #{@question.user.login_name}さんから質問がありました。アドバイスや回答を投稿しよう！！
