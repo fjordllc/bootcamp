@@ -1135,4 +1135,66 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_empty ActionMailer::Base.deliveries
   end
+
+  test 'create_article notifies students, trainees, mentors, and admins' do
+    target_users = %i[hatsuno kensyu mentormentaro machida]
+
+    target_users.each do |target_user|
+      article = articles(:article1)
+      receiver = users(target_user)
+
+      ActivityMailer.create_article(
+        article:,
+        receiver:
+      ).deliver_now
+
+      assert_not ActionMailer::Base.deliveries.empty?
+      email = ActionMailer::Base.deliveries.last
+      query = CGI.escapeHTML({ kind: 24, link: "/articles/#{article.id}" }.to_param)
+      assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+      assert_equal [receiver.email], email.to
+      assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
+      assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ブログへ</a>}, email.body.to_s)
+    end
+  end
+
+  test 'create_article notifies students, trainees, mentors, and admins with params' do
+    target_users = %i[hatsuno kensyu mentormentaro machida]
+
+    target_users.each do |target_user|
+      article = articles(:article1)
+      receiver = users(target_user)
+
+      mailer = ActivityMailer.with(
+        article:,
+        receiver:
+      ).create_article
+
+      perform_enqueued_jobs do
+        mailer.deliver_later
+      end
+
+      assert_not ActionMailer::Base.deliveries.empty?
+      email = ActionMailer::Base.deliveries.last
+      query = CGI.escapeHTML({ kind: 24, link: "/articles/#{article.id}" }.to_param)
+      assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+      assert_equal [receiver.email], email.to
+      assert_equal "新しいブログ「#{article.title}」を#{article.user.login_name}さんが投稿しました！", email.subject
+      assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">ブログへ</a>}, email.body.to_s)
+    end
+  end
+
+  test 'create_article notifies students, trainees, mentors, and admins with mail_notification off' do
+    article = articles(:article1)
+    receiver = users(:mentormentaro)
+    receiver.update(mail_notification: false)
+
+    ActivityMailer.create_article(
+      sender: article.user,
+      receiver:,
+      article:
+    ).deliver_now
+
+    assert_empty ActionMailer::Base.deliveries
+  end
 end
