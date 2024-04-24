@@ -32,6 +32,7 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
+      Newspaper.publish(:create_article, { article: @article })
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
@@ -41,6 +42,7 @@ class ArticlesController < ApplicationController
   def update
     set_wip
     if @article.update(article_params)
+      Newspaper.publish(:create_article, { article: @article })
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :edit
@@ -49,6 +51,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
+    Newspaper.publish(:destroy_article, { article: @article })
     redirect_to articles_url, notice: '記事を削除しました'
   end
 

@@ -352,4 +352,19 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def create_article(params = {})
+    params.merge!(@params)
+    article = params[:article]
+    receiver = params[:receiver]
+
+    notification(
+      body: "#{article.user.login_name}さんがブログに「#{article.title}」を投稿しました。",
+      kind: :create_article,
+      receiver:,
+      sender: article.user,
+      link: Rails.application.routes.url_helpers.polymorphic_path(article),
+      read: false
+    )
+  end
 end
