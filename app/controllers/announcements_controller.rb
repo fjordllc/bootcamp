@@ -6,7 +6,11 @@ class AnnouncementsController < ApplicationController
   before_action :rewrite_announcement, only: %i[update]
 
   def index
-    @announcements = Announcement.with_avatar.preload(:comments).order(published_at: :desc, created_at: :desc).page(params[:page]).per(PAGER_NUMBER)
+    @announcements = Announcement.with_avatar
+                                 .preload(:comments)
+                                 .order(published_at: :desc, created_at: :desc)
+                                 .page(params[:page])
+                                 .per(PAGER_NUMBER)
   end
 
   def show
@@ -17,23 +21,21 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new(target: 'students')
 
     if params[:id]
-      copy_announcement(params[:id])
+      @announcement = Announcement.copy_announcement(params[:id])
+      flash.now[:notice] = 'お知らせをコピーしました。'
     elsif params[:page_id]
       page = Page.find(params[:page_id])
-      copy_template_by_resource('page_announcements.yml', page:)
+      @announcement = Announcement.copy_template_by_resource('page_announcements.yml', page:)
     elsif params[:event_id]
       event = Event.find(params[:event_id])
-      copy_template_by_resource('event_announcements.yml', event:)
+      @announcement = Announcement.copy_template_by_resource('event_announcements.yml', event:)
     elsif params[:regular_event_id]
       regular_event = RegularEvent.find(params[:regular_event_id])
-      organizers = regular_event.organizers.map { |organizer| "@#{organizer.login_name}" }.join("\n    - ")
-      holding_cycles = ActiveDecorator::Decorator.instance.decorate(regular_event).holding_cycles
-      hold_national_holiday = "(祝日#{regular_event.hold_national_holiday ? 'も開催' : 'は休み'})"
-      copy_template_by_resource('regular_event_announcements.yml',
-                                regular_event:,
-                                organizers:,
-                                holding_cycles:,
-                                hold_national_holiday:)
+      params = { regular_event:,
+                 organizers: regular_event.organizers.map { |organizer| "@#{organizer.login_name}" }.join("\n    - "),
+                 holding_cycles: ActiveDecorator::Decorator.instance.decorate(regular_event).holding_cycles,
+                 hold_national_holiday: "(祝日#{regular_event.hold_national_holiday ? 'も開催' : 'は休み'})" }
+      @announcement = Announcement.copy_template_by_resource('regular_event_announcements.yml', params)
     end
   end
 
@@ -109,19 +111,5 @@ class AnnouncementsController < ApplicationController
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
                                     target: params['announcement']['target'])
-  end
-
-  def copy_announcement(announcement_id)
-    announcement = Announcement.find(announcement_id)
-    @announcement.title       = announcement.title
-    @announcement.description = announcement.description
-    @announcement.target = announcement.target
-    flash.now[:notice] = 'お知らせをコピーしました。'
-  end
-
-  def copy_template_by_resource(template_file, params = {})
-    template = MessageTemplate.load(template_file, params:)
-    @announcement.title       = template['title']
-    @announcement.description = template['description']
   end
 end
