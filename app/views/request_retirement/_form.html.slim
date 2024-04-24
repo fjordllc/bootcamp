@@ -37,11 +37,12 @@
           = f.collection_select :target_user_name, @target_users, :login_name, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
       - else
         = f.text_field :target_user_name, required: true, class: 'a-text-input'
-        .a-form-help
-          p
-            = link_to login_path do
-              | ログインをすると
-            | 自社のユーザーから選択できるようになります
+        - unless logged_in?
+          .a-form-help
+            p
+              = link_to login_path do
+                | ログインをすると
+              | 自社のユーザーから選択できるようになります
   .form__items
     .form-item
       = f.label :reason_of_request_retirement, class: 'a-form-label'
