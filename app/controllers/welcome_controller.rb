@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
   DEFAULT_COURSE = 'Railsプログラマー'
 
   def index
-    @mentors = User.mentors_sorted_by_created_at
+    @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
 
   def pricing; end

@@ -120,4 +120,21 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
   end
+
+  test 'toggles_mentor_profile_visibility' do
+    visit '/welcome'
+    assert_text '駒形 真幸'
+    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    visit_with_auth edit_current_user_path, 'komagata'
+    check 'プロフィール非公開', allow_label_click: true
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
+    logout
+    visit '/welcome'
+    assert_no_text '駒形 真幸'
+    assert_no_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    visit_with_auth '/welcome', 'kimura'
+    assert_text '駒形 真幸'
+    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+  end
 end
