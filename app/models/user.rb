@@ -167,6 +167,7 @@ class User < ApplicationRecord
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
+  validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
 
@@ -226,6 +227,7 @@ class User < ApplicationRecord
                 message: 'は英文字と_（アンダースコア）のみが使用できます'
               }
   end
+
   flag :retire_reasons, %i[
     done
     necessity
@@ -324,6 +326,13 @@ class User < ApplicationRecord
       .mentor
       .includes(authored_books: { cover_attachment: :blob })
       .order(:created_at)
+  }
+  scope :visible_sorted_mentors, lambda {
+    with_attached_profile_image
+      .mentor
+      .includes(authored_books: { cover_attachment: :blob })
+      .order(:created_at)
+      .where(hide_mentor_profile: false)
   }
   scope :working, lambda {
     active.where(
@@ -607,6 +616,18 @@ class User < ApplicationRecord
       image_url default_image_path
     end
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, Vips::Error
+    image_url default_image_path
+  end
+
+  def profile_image_url
+    default_image_path = '/images/users/avatars/default.png'
+
+    if profile_image.attached?
+      profile_image
+    else
+      image_url default_image_path
+    end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
     image_url default_image_path
   end
 

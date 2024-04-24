@@ -549,4 +549,18 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'hajime'
     assert_text '最新のみんなの日報'
   end
+
+  test 'toggles_mentor_profile_visibility' do
+    visit '/'
+    assert_text '駒形 真幸'
+    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    visit_with_auth edit_current_user_path, 'komagata'
+    check 'プロフィール非公開', allow_label_click: true
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
+    logout
+    visit '/'
+    assert_no_text '駒形 真幸'
+    assert_no_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+  end
 end

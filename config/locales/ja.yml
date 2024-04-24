@@ -102,6 +102,7 @@ ja:
         not_auto_retire: 休会六ヶ月後に自動退会しない
         invoice_payment_user: 請求書払いのユーザーである
         other_editor: その他のエディタ
+        hide_mentor_profile: プロフィール非公開
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
