@@ -84,13 +84,13 @@ div(v-else-if='isDashboard')
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
         href='/products/unassigned#4days-elapsed',
-        v-if='countAlmostPassed5days() === 0')
-        | しばらく5日経過に到達する<br>提出物はありません。
+        v-if='countAlmostPassedSelectedDays() === 0')
+        | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
         href='/products/unassigned#4days-elapsed',
         v-else)
-        | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間以内に5日経過に到達します。
+        | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
 </template>
 
 <script>
@@ -188,30 +188,30 @@ export default {
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
     },
-    PassedAlmost5daysProducts(products) {
-      const productsPassedAlmost5days = products.filter((product) => {
-        const thresholdDay = 5
+    PassedAlmostSelectedDaysProducts(products) {
+      const productsPassedAlmostSelectedDays = products.filter((product) => {
+        const thresholdDay = this.selectedDays
         const thresholdHour = 8
         return (
           Math.floor((thresholdDay - this.elapsedTimes(product)) * 24) <=
           thresholdHour
         )
       })
-      return productsPassedAlmost5days
+      return productsPassedAlmostSelectedDays
     },
     elapsedTimes(product) {
       const lastSubmittedTime =
         product.published_at_date_time || product.created_at_date_time
       return (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
     },
-    countAlmostPassed5days() {
-      const elementPassed4days =
+    countAlmostPassedSelectedDays() {
+      const previousDaysElement =
         this.productsGroupedByElapsedDays === null
           ? undefined
-          : this.getElementNdaysPassed(4)
-      return elementPassed4days === undefined
+          : this.getElementNdaysPassed(this.selectedDays - 1)
+      return previousDaysElement === undefined
         ? 0
-        : this.PassedAlmost5daysProducts(elementPassed4days.products).length
+        : this.PassedAlmostSelectedDaysProducts(previousDaysElement.products).length
     },
     onDaysSelectChange(event) {
       this.selectedDays = parseInt(event.target.value)
