@@ -13,7 +13,7 @@
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
-    | 5日経過した提出物はありません
+    | {{ selectedDays }}日経過した提出物はありません
 
 //- ダッシュボード
 div(v-else-if='isDashboard')
