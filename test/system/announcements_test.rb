@@ -268,4 +268,9 @@ class AnnouncementsTest < ApplicationSystemTestCase
     end
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
+
+  test 'show the latest announcements' do
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
+    assert_text '最新のお知らせ'
+  end
 end

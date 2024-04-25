@@ -170,4 +170,12 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(question:, receiver:).no_correct_answer
   end
+
+  def create_article
+    article = Article.find(ActiveRecord::FixtureSet.identify(:article1))
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:kimura))
+    user = User.find(article.user_id)
+
+    ActivityMailer.with(article:, receiver:, sender: user).create_article
+  end
 end

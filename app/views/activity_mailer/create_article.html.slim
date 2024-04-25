@@ -1,0 +1,4 @@
+= render '/notification_mailer/notification_mailer_template',
+  title: "#{@article.user.login_name}さんがブログに「#{@article.title}」を投稿しました。",
+  link_url: @link_url, link_text: 'ブログへ' do
+  = md2html(@article.body)

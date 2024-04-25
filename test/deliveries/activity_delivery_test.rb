@@ -452,4 +452,27 @@ class ActivityDeliveryTest < ActiveSupport::TestCase
       ActivityDelivery.with(**params).notify(:came_comment)
     end
   end
+
+  test '.notify(:create_article)' do
+    params = {
+      article: articles(:article1),
+      receiver: users(:kimura)
+    }
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.notify!(:create_article, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.notify(:create_article, **params)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify!(:create_article)
+    end
+
+    assert_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count }, 1 do
+      ActivityDelivery.with(**params).notify(:create_article)
+    end
+  end
 end

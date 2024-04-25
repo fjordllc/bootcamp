@@ -125,8 +125,8 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth new_page_path, 'kimura'
     fill_in 'page[title]', with: 'Docに関連プラクティスを指定'
     fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
-    first('.select2-container').click
-    find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
+    first('.choices__inner').click
+    find('.choices__item--choice', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
     click_button 'Docを公開'
     assert_text 'Linuxのファイル操作の基礎を覚える'
   end
@@ -182,8 +182,8 @@ class PagesTest < ApplicationSystemTestCase
     visit_with_auth new_page_path, 'kimura'
     fill_in 'page[title]', with: 'Docに関連プラクティスを指定'
     fill_in 'page[body]', with: 'Docに関連プラクティスを指定'
-    first('.select2-container').click
-    find('li.select2-results__option[role="option"]', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
+    first('.choices__inner').click
+    find('.choices__item--choice', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
     click_button 'Docを公開'
     assert_text 'Linuxのファイル操作の基礎を覚える'
 

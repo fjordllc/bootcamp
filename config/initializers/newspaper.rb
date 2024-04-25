@@ -70,4 +70,7 @@ Rails.configuration.to_prepare do
   Newspaper.subscribe(:product_update, ProductUpdateNotifierForChecker.new)
   Newspaper.subscribe(:came_comment, CommentNotifier.new)
   Newspaper.subscribe(:came_comment_in_talk, CommentNotifierForAdmin.new)
+
+  Newspaper.subscribe(:create_article, ArticleNotifier.new)
+  Newspaper.subscribe(:destroy_article, ArticleNotificationDestroyer.new)
 end
