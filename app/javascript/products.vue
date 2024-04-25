@@ -17,9 +17,16 @@
 
 //- ダッシュボード
 div(v-else-if='isDashboard')
+  select(v-on:change='onDaysSelectChange($event)')
+    option(value='') 未アサインの提出物の経過日数を選択してください
+    option(value='1') 1日経過 2日経過 3日以上経過
+    option(value='2') 2日経過 3日経過 4日以上経過
+    option(value='3') 3日経過 4日経過 5日以上経過
+    option(value='4') 4日経過 5日経過 6日以上経過
+    option(value='5') 5日経過 6日経過 7日以上経過
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
-      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
+      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= selectedDays && product_n_days_passed.elapsed_days <= selectedDays + 2)')
       //- TODO 以下を共通化する
       //- prettier-ignore: need space between v-if and id
       header.card-header.a-elapsed-days(
@@ -31,26 +38,26 @@ div(v-else-if='isDashboard')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-warning(
-        v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays', id='5days-elapsed'
       )
         h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
+          | {{ selectedDays }}日経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-alert(
-        v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 1', id='6days-elapsed'
       )
         h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
+          | {{ selectedDays + 1 }}日経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-deadline(
-        v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 2', id='7days-elapsed'
       )
         h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日以上経過
+          | {{ selectedDays + 2 }}日以上経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days(
@@ -106,7 +113,8 @@ export default {
     return {
       products: [],
       loaded: false,
-      productsGroupedByElapsedDays: null
+      productsGroupedByElapsedDays: null,
+      selectedDays: 4
     }
   },
   computed: {
@@ -204,6 +212,9 @@ export default {
       return elementPassed4days === undefined
         ? 0
         : this.PassedAlmost5daysProducts(elementPassed4days.products).length
+    },
+    onDaysSelectChange(event) {
+      this.selectedDays = parseInt(event.target.value)
     }
   }
 }
