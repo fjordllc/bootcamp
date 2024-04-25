@@ -18,6 +18,7 @@ class Article < ApplicationRecord
   }
 
   belongs_to :user
+  alias sender user
   include ActionView::Helpers::AssetUrlHelper
 
   THUMBNAIL_SIZE = [1200, 630].freeze

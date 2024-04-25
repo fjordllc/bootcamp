@@ -124,6 +124,7 @@ class ActivityMailer < ApplicationMailer
     @question ||= args[:question]
 
     @user = @receiver
+    @title = @question.practice.present? ? "「#{@question.practice.title}」についての質問がありました。" : '質問がありました。'
     @link_url = notification_redirector_url(
       link: "/questions/#{@question.id}",
       kind: Notification.kinds[:came_question]
@@ -409,6 +410,23 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:product_update]
     )
     subject = "[FBC] #{@product.user.login_name}さんが#{@product.title}を更新しました。"
+    message = mail(to: @user.email, subject:)
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
+
+    message
+  end
+
+  # required params: article, receiver
+  def create_article(args = {})
+    @article = params&.key?(:article) ? params[:article] : args[:article]
+    @receiver ||= args[:receiver]
+
+    @user = @receiver
+    @link_url = notification_redirector_url(
+      link: "/articles/#{@article.id}",
+      kind: Notification.kinds[:create_article]
+    )
+    subject = "新しいブログ「#{@article.title}」を#{@article.user.login_name}さんが投稿しました！"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
