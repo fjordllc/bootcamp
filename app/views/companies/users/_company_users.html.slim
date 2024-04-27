@@ -165,13 +165,29 @@
                               - else
                                 a.a-text-link(href="#{user.url}/answers")
                                   | #{user.answers.count}
-//                   .users-item__body
-//                     .users-item__description.a-short-text
-//                       p(v-for='paragraph in userDescParagraphs', :key='paragraph.id')
-//                         | {{ paragraph.text }}
-//                     .users-item__tags
-//                       user-tags(:user='user')
-//                   user-practice-progress(:user='user')
+                  .users-item__body
+                    .users-item__description.a-short-text
+                      p
+                        | #{user.description}
+                    .users-item__tags
+                      .tag-links
+                        - if user.tag_list.length != 0
+                          ul.tag-links__items
+                            - user.tag_list.each do |tag|
+                              li.tag-links__item
+                                a.tag-links__item-link(:href='`/users/tags/#{tag}`')
+                                  | #{tag}
+                  .completed-practices-progress
+                    .completed-practices-progress__bar-container
+                      .completed-practices-progress__bar
+                      .completed-practices-progress__percentage-bar(
+                        aria-valuemax='100'
+                        aria-valuemin='0'
+                        aria-valuenow='#{user.graduated? ? 100 : user.completed_percentage}'
+                        role='progressbar'
+                        style='width: #{user.graduated? ? '100%' : user.completed_percentage.round.to_s + '%'}')
+                    .completed-practices-progress__number
+                      | #{user.graduated? ? '卒業' : user.completed_fraction}
 //                   hr.a-border-tint
 //                   footer.card-footer
 //                     .card-main-actions
