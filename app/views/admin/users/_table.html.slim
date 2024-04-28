@@ -5,21 +5,21 @@
         th.admin-table__label ステータス
         th.admin-table__label
           | ユーザー名
-          = render 'sort_column', order_by: 'login_name', direction: direction, target: @target
+          = render 'sort_column', order_by: 'login_name', direction: direction, target: @target, job: @job
         th.admin-table__label
           | メールアドレス
         th.admin-table__label
           | 企業
-          = render 'sort_column', order_by: 'company_id', direction: direction, target: @target
+          = render 'sort_column', order_by: 'company_id', direction: direction, target: @target, job: @job
         th.admin-table__label 職業
         th.admin-table__label Discord
         th.admin-table__label
           |
           = User.human_attribute_name :last_activity_at
-          = render 'sort_column', order_by: 'last_activity_at', direction: direction, target: @target
+          = render 'sort_column', order_by: 'last_activity_at', direction: direction, target: @target, job: @job
         th.admin-table__label
           | 登録日時
-          = render 'sort_column', order_by: 'created_at', direction: direction, target: @target
+          = render 'sort_column', order_by: 'created_at', direction: direction, target: @target, job: @job
         th.admin-table__label 相談部屋
         th.admin-table__label カード登録
         th.admin-table__label サブスク

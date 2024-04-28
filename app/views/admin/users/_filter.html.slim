@@ -1,6 +1,6 @@
 .page-main-filter
   .container
-    = form_with url: admin_users_path(target: @target), local: true, method: 'get', class: 'page-main-filter__inner' do
+    = form_with url: admin_users_path(target: @target, job: @job), local: true, method: 'get', class: 'page-main-filter__inner' do
       .page-main-filter__row
           .page-main-filter__column
             .page-main-filter__row
