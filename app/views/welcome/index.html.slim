@@ -37,6 +37,8 @@
             = link_to article_path(34), class: 'a-welcome-button is-md' do
               | 中身を見てみる
 
+  = render 'welcome/alumni_voices'
+
   = render 'welcome/articles'
   hr.welcome-section__seperator
   = render 'welcome/administrator', mentors: @mentors
