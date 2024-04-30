@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class CorporateTrainingSystemTest < ApplicationSystemTestCase
+class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
   setup do
     @site_key = Recaptcha.configuration.site_key
     @secret_key = Recaptcha.configuration.secret_key
@@ -16,13 +16,13 @@ class CorporateTrainingSystemTest < ApplicationSystemTestCase
     Recaptcha.configuration.secret_key = @secret_key
   end
 
-  test 'GET /corporate_training/new' do
-    visit '/corporate_training/new'
+  test 'GET /corporate_training_inquiry/new' do
+    visit '/corporate_training_inquiry/new'
     assert_equal '企業研修申し込みフォーム | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
     fill_in '名前', with: '研修 する世'
     fill_in '企業名', with: '株式会社カンパニー'
-    fill_in 'メールアドレス', with: 'corporate_training@example.com'
+    fill_in 'メールアドレス', with: 'corporate_training_inquiry@example.com'
     fill_in '第1希望', with: Time.zone.parse('2030-01-01-08:00')
     fill_in '第2希望', with: Time.zone.parse('2030-01-02-10:00')
     fill_in '第3希望', with: Time.zone.parse('2030-01-03-12:00')
