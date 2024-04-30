@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EventSchedule
   def self.load(event)
     type = event.is_a?(Event) ? 'SpecialEvent' : event.class
