@@ -78,49 +78,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def holding_today?
-    now = Time.current
-    event_day = regular_event_repeat_rules.map do |repeat_rule|
-      if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == now.wday
-      else
-        repeat_rule.day_of_the_week == now.wday && repeat_rule.frequency == convert_date_into_week(now.day)
-      end
-    end.include?(true)
-    event_start_time = Time.zone.local(now.year, now.month, now.day, start_at.hour, start_at.min, 0)
-
-    event_day && (now < event_start_time)
+    holding_on?(0)
   end
 
   def holding_tomorrow?
-    holding_next_day?(1)
+    holding_on?(1)
   end
 
   def holding_day_after_tomorrow?
-    holding_next_day?(2)
+    holding_on?(2)
   end
 
   def next_event_date
-    today = Time.zone.today
-    this_month_first_day = Date.new(today.year, today.mon, 1)
-    next_month_first_day = this_month_first_day.next_month
-
-    possible_dates = regular_event_repeat_rules.map do |repeat_rule|
-      [
-        possible_next_event_date(this_month_first_day, repeat_rule),
-        possible_next_event_date(next_month_first_day, repeat_rule)
-      ]
-    end.flatten
-    possible_dates.compact.select { |possible_date| possible_date > Time.zone.today }.min
-  end
-
-
-  def recent_scheduled_date
-    now = Time.zone.now
-    regular_event_repeat_rules.map do |rule|
-      days_count = calc_days_count_untill_next_scheduled_date(now, rule)
-      next_date = now.since(days_count.day).to_date
-      Time.zone.local(next_date.year, next_date.month, next_date.day, start_at.hour, start_at.min, start_at.sec)
-    end.min
+    schedule = EventSchedule.load(self)
+    schedule.held_next_event_date.to_date
   end
 
   def cancel_participation(user)
@@ -152,52 +123,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
   end
 
-  def calc_days_count_untill_next_scheduled_date(now, rule)
-    days_count = rule.day_of_the_week - now.wday
-    days_count += 7 if days_count.negative?
-    days_count
-  end
-
-  def convert_date_into_week(date)
-    (date / 7.0).ceil
-  end
-
-  def possible_next_event_date(first_day, repeat_rule)
-    return next_specific_day_of_the_week(repeat_rule) if repeat_rule.frequency.zero?
-
-    possible_date = calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
-
-    return possible_date if hold_national_holiday
-
-    while possible_date.mon == first_day.mon && HolidayJp.holiday?(possible_date)
-      first_day = first_day.next_month
-      possible_date = calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, DAYS_OF_THE_WEEK_COUNT)
-    end
-    possible_date
-  end
-
-  def next_specific_day_of_the_week(repeat_rule)
-    day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
-    possible_date = 0.days.ago.next_occurring(day_of_the_week_symbol).to_date
-    possible_date = possible_date.next_occurring(day_of_the_week_symbol) while !hold_national_holiday && HolidayJp.holiday?(possible_date)
-    possible_date
-  end
-
-  def calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
-    # 次の第n X曜日の日付を計算する
-    specific_date = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday + 1
-    specific_date += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
-    Date.new(first_day.year, first_day.mon, specific_date)
-  end
-
-  def holding_next_day?(days = 1)
-    next_day = Time.current.next_day(days)
-    regular_event_repeat_rules.map do |repeat_rule|
-      if repeat_rule.frequency.zero?
-        repeat_rule.day_of_the_week == next_day.wday
-      else
-        repeat_rule.day_of_the_week == next_day.wday && repeat_rule.frequency == convert_date_into_week(next_day.day)
-      end
-    end.include?(true)
+  def holding_on?(days_from_today)
+    schedule = EventSchedule.load(self)
+    schedule.held_next_event_date.to_date == Time.zone.today + days_from_today.days
   end
 end

@@ -48,7 +48,6 @@ class RegularEventTest < ActiveSupport::TestCase
     end
   end
 
-
   test '#next_event_date' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
@@ -98,14 +97,5 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event.save(validate: false)
     regular_event.assign_admin_as_organizer_if_none
     assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
-  end
-
-  test '#recent_scheduled_date' do
-    regular_event = regular_events(:regular_event32)
-
-    travel_to Time.zone.local(2023, 1, 1, 0, 0, 0) do
-      next_monday = Time.zone.local(2023, 1, 2, 21, 0)
-      assert_equal next_monday, regular_event.recent_scheduled_date
-    end
   end
 end

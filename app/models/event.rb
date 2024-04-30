@@ -107,11 +107,11 @@ class Event < ApplicationRecord
   end
 
   def holding_today?
-    start_at.to_date.today?
+    holding_on?(0)
   end
 
   def holding_tomorrow?
-    start_at.to_date == Date.tomorrow
+    holding_on?(1)
   end
 
   def watched_by?(user)
@@ -163,5 +163,10 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
+  end
+
+  def holding_on?(days_from_today)
+    schedule = EventSchedule.load(self)
+    schedule.held_next_event_date.to_date == Time.zone.today + days_from_today.days
   end
 end
