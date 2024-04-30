@@ -8,7 +8,7 @@ class UpcomingEvent
   def initialize(event)
     @original_event = event
     @title = event.title
-    @scheduled_date = event.recent_scheduled_date
+    @scheduled_date = EventSchedule.load(event).tentative_next_event_date
     @event_type = event.class
   end
 
