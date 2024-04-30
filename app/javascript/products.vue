@@ -83,12 +83,12 @@ div(v-else-if='isDashboard')
     .under-cards__links.mt-4.text-center.leading-normal.text-sm
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href="`/products/unassigned#${selectedDays}days-elapsed`",
+        v-bind:href='/products/unassigned#${selectedDays}days-elapsed',
         v-if='countAlmostPassedSelectedDays() === 0')
         | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href="`/products/unassigned#${selectedDays}days-elapsed`",
+        v-bind:href='/products/unassigned#${selectedDays}days-elapsed',
         v-else)
         | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
 </template>
