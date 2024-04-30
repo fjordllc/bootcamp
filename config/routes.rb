@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "coc", to: "welcome#coc", as: "coc"
   draw :scheduler
   draw :api
+  draw :paper
   draw :admin
   draw :mentor
   draw :current_user
