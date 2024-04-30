@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       render aciton: :index
     else
       @mentors = User.visible_sorted_mentors
-      render template: 'welcome/index', layout: 'welcome'
+      render template: 'welcome/index', layout: 'lp'
     end
   end
 
