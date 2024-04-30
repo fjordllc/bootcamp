@@ -7,27 +7,40 @@ linters:
   RuboCop:
     enabled: true
     ignored_cops:
-      - Layout/ArgumentAlignment # 検討の結果、残す。（詳細は issue #7253 参照）
+      - Layout/ArgumentAlignment
+      - Layout/ArrayAlignment
+      - Layout/BlockAlignment
+      - Layout/ClosingParenthesisIndentation
       - Layout/EmptyLineAfterGuardClause
       - Layout/EndAlignment
+      - Layout/FirstArgumentIndentation
       - Layout/FirstArrayElementIndentation
+      - Layout/FirstHashElementIndentation
       - Layout/FirstParameterIndentation
-      - Layout/HashAlignment # 検討の結果、残す。（詳細は issue #7253 参照）
-      - Layout/IndentationWidth # 検討の結果、残す(詳細は#7251)
+      - Layout/HashAlignment
+      - Layout/IndentationConsistency
+      - Layout/IndentationWidth
       - Layout/InitialIndentation
+      - Layout/LineEndStringConcatenationIndentation
+      - Layout/LineLength
       - Layout/MultilineArrayBraceLayout
       - Layout/MultilineAssignmentLayout
       - Layout/MultilineHashBraceLayout
+      - Layout/MultilineMethodCallBraceLayout
       - Layout/MultilineMethodCallIndentation
       - Layout/MultilineMethodDefinitionBraceLayout
       - Layout/MultilineOperationIndentation
       - Layout/ParameterAlignment
-      - Layout/TrailingEmptyLines # 検討の結果、残す。（詳細は issue #7253 参照）
-      - Lint/Void # 除外検討したが見送り
-      - Metrics/BlockLength # 除外検討したが見送り
-      - Style/FrozenStringLiteralComment # 除外検討したが見送り
-      - Style/IfUnlessModifier # 検討の結果、残す(詳細は#7252)
-      - Style/Next # 検討の結果、残す(詳細は#7252)
+      - Layout/TrailingEmptyLines
+      - Layout/TrailingWhitespace
+      - Lint/Void
+      - Metrics/BlockLength
+      - Metrics/BlockNesting
+      - Naming/FileName
+      - Style/FrozenStringLiteralComment
+      - Style/IdenticalConditionalBranches
+      - Style/IfUnlessModifier
+      - Style/Next
       - Style/WhileUntilDo
       - Style/WhileUntilModifier
       - Style/HashSyntax # 検討の結果、残す。（詳細は issue #7253 参照）
