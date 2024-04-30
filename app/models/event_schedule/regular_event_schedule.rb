@@ -28,7 +28,7 @@ module EventSchedule
 
     def init_period
       from = Time.current
-      to = from.next_month.end_of_month
+      to = from.next_year.end_of_month
       [from, to]
     end
 
@@ -47,12 +47,20 @@ module EventSchedule
 
     def match_rules?(date, rules)
       rules.any? do |rule|
-        rule.day_of_the_week == date.wday if rule.frequency.zero?
+        if rule.frequency.zero?
+          rule.day_of_the_week == date.wday
+        else
+          rule.frequency == calc_what_weeks(date) && rule.day_of_the_week == date.wday
+        end
       end
     end
 
     def give_start_at_time(date, hour:, min:)
       date.in_time_zone.change(hour:, min:)
+    end
+
+    def calc_what_weeks(date)
+      EventSchedule::DateCalculator.calc_what_weeks_in_month(date)
     end
   end
 end
