@@ -185,7 +185,7 @@ ja:
         email: メールアドレス
         body: 内容
         privacy_policy: 個人情報の取り扱い
-      corporate_training:
+      corporate_training_inquiry:
         name: 名前
         company_name: 企業名
         email: メールアドレス
