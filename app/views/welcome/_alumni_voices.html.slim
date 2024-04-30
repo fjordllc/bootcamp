@@ -186,7 +186,7 @@ section.welcome-section.is-job-hunt-support
                     | オブジェクト指向などの基礎的な部分をじっくり学べたことが今の財産となっています。
 
 script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"
-
+script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.min.js"
 javascript:
   var ctx = document.getElementById("myPieChart");
   var myPieChart = new Chart(ctx, {
@@ -201,7 +201,8 @@ javascript:
               "#b4dbfd",
               "#e6e6ee"
           ],
-          data: [11, 8, 0, 0, 0]
+          //data: [11, 8, 0, 0, 0]
+          data: [57.9, 42.1, 0, 0, 0]
       }]
     },
     options: {
@@ -211,7 +212,14 @@ javascript:
       },
       scales: {
       },
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      plugins: {
+        labels: {
+          render: 'percentage',
+          fontColor: 'white',
+          fontSize: 14
+        }
+      }
     }
   });
 
@@ -228,7 +236,8 @@ javascript:
               "#b4dbfd",
               "#e6e6ee"
           ],
-          data: [11, 7, 1, 0, 0]
+          //data: [11, 7, 1, 0, 0]
+          data: [57.9, 36.8, 5, 0, 0]
       }]
     },
     options: {
@@ -238,6 +247,13 @@ javascript:
       },
       scales: {
       },
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      plugins: {
+        labels: {
+          render: 'percentage',
+          fontColor: 'white',
+          fontSize: 14
+        }
+      }
     }
   });
