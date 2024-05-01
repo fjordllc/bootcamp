@@ -57,12 +57,12 @@ export default function Products({
     return element === undefined ? 0 : element.products.length
   }
 
-  const isNotProduct5daysElapsed = () => {
+  const isNotProduct4daysElapsed = () => {
     const elapsedDays = []
     data.productsGroupedByElapsedDays.forEach((group) => {
       elapsedDays.push(group.elapsed_days)
     })
-    return elapsedDays.every((day) => day < 5)
+    return elapsedDays.every((day) => day < 4)
   }
   const elapsedDaysId = (elapsedDays) => {
     return `${elapsedDays}days-elapsed`
@@ -97,13 +97,13 @@ export default function Products({
         </div>
       </>
     )
-  } else if (isDashboard() && isNotProduct5daysElapsed()) {
+  } else if (isDashboard() && isNotProduct4daysElapsed()) {
     return (
       <div className="o-empty-message loaded">
         <div className="o-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
-        <p className="o-empty-message__text">5日経過した提出物はありません</p>
+        <p className="o-empty-message__text">4日経過した提出物はありません</p>
       </div>
     )
   } else if (selectedTab !== 'unassigned') {
@@ -210,18 +210,18 @@ function ProductHeader({
   countProductsGroupedBy
 }) {
   let headerClass = 'card-header a-elapsed-days'
-  if (productsNDaysPassed.elapsed_days === 5) {
+  if (productsNDaysPassed.elapsed_days === 4) {
     headerClass += ' is-reply-warning'
-  } else if (productsNDaysPassed.elapsed_days === 6) {
+  } else if (productsNDaysPassed.elapsed_days === 5) {
     headerClass += ' is-reply-alert'
-  } else if (productsNDaysPassed.elapsed_days >= 7) {
+  } else if (productsNDaysPassed.elapsed_days >= 6) {
     headerClass += ' is-reply-deadline'
   }
 
   const headerLabel = () => {
     if (productsNDaysPassed.elapsed_days === 0) {
       return '今日提出'
-    } else if (productsNDaysPassed.elapsed_days === 7) {
+    } else if (productsNDaysPassed.elapsed_days === 6) {
       return `${productsNDaysPassed.elapsed_days}日以上経過`
     } else {
       return `${productsNDaysPassed.elapsed_days}日経過`
