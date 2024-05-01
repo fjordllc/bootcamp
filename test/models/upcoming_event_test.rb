@@ -5,22 +5,10 @@ require 'test_helper'
 class UpcomingEventTest < ActiveSupport::TestCase
   setup do
     @special = events(:event1)
-    @special.update!(
-      start_at: Time.zone.local(2023, 1, 1, 9, 0),
-      end_at: Time.zone.local(2023, 1, 1, 11, 0)
-    )
     @upcoming_special = UpcomingEvent.wrap(@special)
-    @upcoming_special_not_for_job_hunting = @upcoming_special
-
-    special_for_job_hunting = events(:event29)
-    @upcoming_special_for_job_junting = UpcomingEvent.wrap(special_for_job_hunting)
 
     @regular = regular_events(:regular_event1)
     @upcoming_regular = UpcomingEvent.wrap(@regular)
-    @upcoming_regular_not_held_national_holiday = @upcoming_regular
-
-    regular_held_national_holiday = regular_events(:regular_event5)
-    @upcoming_regular_held_national_holiday = UpcomingEvent.wrap(regular_held_national_holiday)
   end
 
   test '.wrap' do
@@ -40,26 +28,41 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
   test '#scheduled_date' do
     travel_to Time.zone.local(2023, 1, 1, 0, 0, 0) do
-      assert_equal Time.zone.local(2023, 1, 1, 9, 0, 0), @upcoming_special.scheduled_date
+      @special.update!(
+        start_at: Time.zone.local(2023, 1, 1, 9, 0),
+        end_at: Time.zone.local(2023, 1, 1, 11, 0)
+      )
+      upcoming_special = UpcomingEvent.wrap(@special)
+      assert_equal Time.zone.local(2023, 1, 1, 9, 0, 0), upcoming_special.scheduled_date
 
-      # RegularEventにおけるscheduled_dateは、内部でTime.nowを呼んでいる
-      # 日付関係がおかしくならないよう、travel_to内でインスタンス化
-      regular = regular_events(:regular_event32)
-      upcoming_regular = UpcomingEvent.wrap(regular)
-      assert_equal Time.zone.local(2023, 1, 2, 21, 0, 0), upcoming_regular.scheduled_date
+      # 祝日開催・非開催関係なく、ただ予定されている日を返す
+      upcoming_regular = UpcomingEvent.wrap(@regular)
+      assert_equal Time.zone.local(2023, 1, 1, 15, 0, 0), upcoming_regular.scheduled_date
     end
   end
 
   test '#held?' do
-    scheduled_date = Time.zone.local(2023, 1, 1)
+    scheduled_date = Time.zone.local(2023, 1, 1) # 祝日
+
     assert @upcoming_special.held?(scheduled_date)
-    assert @upcoming_regular_held_national_holiday.held?(scheduled_date)
-    assert_not @upcoming_regular_not_held_national_holiday.held?(scheduled_date)
+
+    @regular.update!(hold_national_holiday: true)
+    upcoming_regular = UpcomingEvent.wrap(@regular)
+    assert upcoming_regular.held?(scheduled_date)
+
+    @regular.update!(hold_national_holiday: false)
+    upcoming_regular = UpcomingEvent.wrap(@regular)
+    assert_not upcoming_regular.held?(scheduled_date)
   end
 
   test '#for_job_hunting?' do
-    assert @upcoming_special_for_job_junting.for_job_hunting?
-    assert_not @upcoming_special_not_for_job_hunting.for_job_hunting?
+    @special.update!(job_hunting: true)
+    upcoming_special = UpcomingEvent.wrap(@special)
+    assert upcoming_special.for_job_hunting?
+
+    @special.update!(job_hunting: false)
+    upcoming_special = UpcomingEvent.wrap(@special)
+    assert_not upcoming_special.for_job_hunting?
   end
 
   test '#participants' do
