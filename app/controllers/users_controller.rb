@@ -70,6 +70,10 @@ class UsersController < ApplicationController
     else
       create_user!
     end
+
+    return unless @user.errors.empty?
+
+    @user.rename_avatar
   end
 
   private

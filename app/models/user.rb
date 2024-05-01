@@ -791,6 +791,13 @@ class User < ApplicationRecord
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
   end
 
+  def rename_avatar
+    return unless avatar.attached?
+
+    icon = open_avatar_uri
+    avatar.attach(io: icon, filename: id) if icon
+  end
+
   private
 
   def password_required?
@@ -819,5 +826,9 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def open_avatar_uri
+    avatar_url == '/images/users/avatars/default.png' ? nil : URI.parse(avatar_url).open
   end
 end

@@ -298,6 +298,33 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_selector 'img[class=article__image]'
   end
 
+  test 'display user icon when not logged in' do
+    visit_with_auth '/current_user/edit', 'hatsuno'
+
+    attach_file 'user[avatar]', Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg'), make_visible: true
+    click_on '更新する'
+
+    find('.test-show-menu').click
+    click_link 'ログアウト'
+
+    visit_with_auth new_article_url, 'machida'
+    fill_in 'article[title]', with: 'test'
+    fill_in 'article[body]', with: ':@hatsuno:'
+
+    click_on '公開する'
+
+    click_link 'プラクティス'
+
+    find('.test-show-menu').click
+    click_link 'ログアウト'
+
+    visit articles_path
+    click_on 'test'
+
+    assert_selector "img[src$='#{users(:hatsuno).id}.png']"
+    users(:hatsuno).avatar.purge
+  end
+
   test 'WIP articles are not included in recent articles' do
     wip_article1 = Article.create(
       title: '未公開の記事',

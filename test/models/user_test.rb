@@ -724,4 +724,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal '2020-07-01 09:00:00 +0900', users(:kyuukai).scheduled_retire_at.to_s
     assert_nil users(:hatsuno).scheduled_retire_at
   end
+
+  test '#rename_avatar' do
+    user = users(:komagata)
+    old_avatar_url = user.avatar.url
+
+    user.stub(:open_avatar_uri, File.open('test/fixtures/files/users/avatars/komagata.jpg')) do
+      user.rename_avatar
+      assert_not_equal old_avatar_url, user.avatar.url
+    end
+  end
 end
