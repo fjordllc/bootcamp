@@ -11,35 +11,35 @@ export default function ElapsedDays({ countProductsGroupedBy }) {
         <ol className="page-nav__items elapsed-days">
           <li
             className={`page-nav__item is-reply-deadline border-b-0 ${activeClass(
-              countProductsGroupedBy(7)
+              countProductsGroupedBy(6)
             )}`}>
             <a className="page-nav__item-link" href="#6days-elapsed">
               <span className="page-nav__item-link-inner">
-                7日以上経過{` (${countProductsGroupedBy(7)})`}
+                6日以上経過{` (${countProductsGroupedBy(6)})`}
               </span>
             </a>
           </li>
           <li
             className={`page-nav__item is-reply-alert border-b-0 ${activeClass(
-              countProductsGroupedBy(6)
-            )}`}>
-            <a className="page-nav__item-link" href="#5days-elapsed">
-              <span className="page-nav__item-link-inner">
-                6日経過{` (${countProductsGroupedBy(6)})`}
-              </span>
-            </a>
-          </li>
-          <li
-            className={`page-nav__item is-reply-warning border-b-0 ${activeClass(
               countProductsGroupedBy(5)
             )}`}>
-            <a className="page-nav__item-link" href="#4days-elapsed">
+            <a className="page-nav__item-link" href="#5days-elapsed">
               <span className="page-nav__item-link-inner">
                 5日経過{` (${countProductsGroupedBy(5)})`}
               </span>
             </a>
           </li>
-          {[4, 3, 2, 1].map((passedDay) => {
+          <li
+            className={`page-nav__item is-reply-warning border-b-0 ${activeClass(
+              countProductsGroupedBy(4)
+            )}`}>
+            <a className="page-nav__item-link" href="#4days-elapsed">
+              <span className="page-nav__item-link-inner">
+                4日経過{` (${countProductsGroupedBy(4)})`}
+              </span>
+            </a>
+          </li>
+          {[3, 2, 1].map((passedDay) => {
             return (
               <li
                 key={passedDay}
