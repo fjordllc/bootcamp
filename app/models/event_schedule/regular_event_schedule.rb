@@ -14,16 +14,7 @@ module EventSchedule
     end
 
     def gather_scheduled_dates(from:, to:)
-      # イテレートするために変換が必要
-      from_date = from.to_date
-      to_date = to.to_date
-      dates_matched_rules = (from_date..to_date).select { |date| match_rules?(date, @rules) }
-
-      hour = @event.start_at.hour
-      min = @event.start_at.min
-      dates_with_start_time = dates_matched_rules.map { |date| give_start_at_time(date, hour:, min:) }
-
-      dates_with_start_time.reject { |date| date < from }
+      gather_scheduled_dates_with_time(from:, to:).reject { |date| date < from }
     end
 
     def held_next_event_date(from:, to:)
@@ -35,6 +26,19 @@ module EventSchedule
     end
 
     private
+
+    def gather_scheduled_dates_with_time(from:, to:)
+      hour = @event.start_at.hour
+      min = @event.start_at.min
+      gather_dates_matched_rules(from:, to:).map { |date| give_start_at_time(date, hour:, min:) }
+    end
+
+    def gather_dates_matched_rules(from:, to:)
+      # イテレートするために変換が必要
+      from_date = from.to_date
+      to_date = to.to_date
+      (from_date..to_date).select { |date| match_rules?(date, @rules) }
+    end
 
     def match_rules?(date, rules)
       rules.any? do |rule|
