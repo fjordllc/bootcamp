@@ -43,9 +43,9 @@
           <%= @corporate_training_inquiry.training_duration %>
         </p>
         <p><b style="font-weight: bold">＜どこでフィヨルドブートキャンプを知りましたか？＞</b></p>
-        <p><%= @corporate_training_inquiry.how_did_you_hear %></p>
+        <%= simple_format @corporate_training_inquiry.how_did_you_hear %>
         <p><b style="font-weight: bold">＜その他伝えておきたいこと＞</b></p>
-        <p><%= @corporate_training_inquiry.additional_information %></p>
+        <%= simple_format @corporate_training_inquiry.additional_information %>
       </div>
     </td>
   </tr>
