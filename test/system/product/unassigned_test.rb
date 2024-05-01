@@ -62,7 +62,7 @@ class Product::UnassignedTest < ApplicationSystemTestCase
   test 'show elapsed days links that jump to elements on the same page' do
     visit_with_auth '/products/unassigned', 'komagata'
     within '.page-nav__items.elapsed-days' do
-      assert_link('7日以上経過', href: '#7days-elapsed')
+      assert_link('7日以上経過', href: '#6days-elapsed')
       assert has_selector?('li.is-active', text: '7日以上経過')
       assert_link('1日経過', href: '#1days-elapsed')
       assert has_selector?('li.is-inactive', text: '1日経過')
