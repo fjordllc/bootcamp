@@ -3,6 +3,14 @@
   &:not(:first-child)
     border-top: solid 1px var(--border-tint)
 
+.user-group__header
+  display: flex
+  gap: .5rem
+  +media-breakpoint-up(md)
+    justify-content: space-between
+  +media-breakpoint-down(sm)
+    flex-direction: column
+
 .user-group__title
   +media-breakpoint-up(md)
     font-size: 1.125rem
@@ -12,23 +20,23 @@
 .user-group__title-link
   text-decoration: none
   color: var(--main-text)
+  display: flex
+  gap: .5rem
   +media-breakpoint-up(md)
-    display: flex
     align-items: flex-end
+  +media-breakpoint-down(sm)
+    flex-direction: column
   .user-group__title.is-inline &
-    display: flex
+    flex-direction: row
     align-items: flex-end
 
 .user-group__title-label
   display: block
   font-weight: 600
-  +media-breakpoint-up(md)
-   margin-right: .25em
   .user-group__title-link:hover &
     text-decoration: underline
 
 .user-group__title-icon
-  margin-right: .375em
   &.is-first
     color: var(--gold)
   &.is-second
@@ -45,4 +53,10 @@
   font-size: .75rem
   font-weight: 400
   color: var(--muted-text)
-  margin-left: .25rem
+
+.user-group__counts
+  +media-breakpoint-up(md)
+    margin-top: -.5rem
+  .card-counts__item
+    width: 3.5rem
+    color: var(--default-text)
