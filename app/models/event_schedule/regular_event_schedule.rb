@@ -7,6 +7,12 @@ module EventSchedule
       @rules = @event.regular_event_repeat_rules
     end
 
+    def tentative_next_event_date
+      from = Time.current
+      to = from.next_month.end_of_month
+      gather_scheduled_dates(from:, to:).min
+    end
+
     def gather_scheduled_dates(from:, to:)
       # イテレートするために変換が必要
       from_date = from.to_date
