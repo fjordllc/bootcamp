@@ -33,11 +33,11 @@ class UpcomingEventTest < ActiveSupport::TestCase
         end_at: Time.zone.local(2023, 1, 1, 11, 0)
       )
       upcoming_special = UpcomingEvent.wrap(@special)
-      assert_equal Time.zone.local(2023, 1, 1, 9, 0, 0), upcoming_special.scheduled_date
+      assert_equal Date.parse('Sun, 01 Jan 2023'), upcoming_special.scheduled_date
 
       # 祝日開催・非開催関係なく、ただ予定されている日を返す
       upcoming_regular = UpcomingEvent.wrap(@regular)
-      assert_equal Time.zone.local(2023, 1, 1, 15, 0, 0), upcoming_regular.scheduled_date
+      assert_equal Date.parse('Sun, 01 Jan 2023'), upcoming_regular.scheduled_date
     end
   end
 

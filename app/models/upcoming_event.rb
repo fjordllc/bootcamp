@@ -19,7 +19,7 @@ class UpcomingEvent
 
   def scheduled_date
     schedule = EventSchedule.load(@original_event)
-    schedule.tentative_next_event_date
+    schedule.tentative_next_event_date.to_date
   end
 
   def held?(date)
