@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  include CalendarMethods
-
   skip_before_action :require_active_user_login, raise: false
 
   def index
@@ -49,11 +47,8 @@ class HomeController < ApplicationController
     @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
     @collegues = current_user.collegues_other_than_self
-    @current_month = calendar
-    @current_calendar = current_user.reports_date(@current_month)
-    @current_date = current_calendar_date(params[:year], params[:month])
-    @current_date = current_calendar_date(params[:niconico_calendar])
-    @current_calendar = calendar_with_reports(current_user, @current_date)
+    @current_date = NicoNicoCalendar.current_date(params[:niconico_calendar])
+    @current_calendar = NicoNicoCalendar.with_reports(current_user, @current_date)
   end
 
   def display_events_on_dashboard
