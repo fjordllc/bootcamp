@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UpcomingEvent
-  attr_reader :original_event, :title, :scheduled_date
+  attr_reader :original_event, :title
 
   delegate :participants, to: :original_event
 
