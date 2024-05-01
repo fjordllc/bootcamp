@@ -7,36 +7,11 @@ module EventSchedule
       @rules = @event.regular_event_repeat_rules
     end
 
-    def tentative_next_event_date
-      from, to = init_period
-
-      scheduled_dates = gather_scheduled_dates(@rules, from:, to:)
-      scheduled_dates.min
-    end
-
-    def held_next_event_date
-      from, to = init_period
-
-      tenantive_dates = gather_scheduled_dates(@rules, from:, to:)
-
-      held_dates =
-        @event.hold_national_holiday ? tenantive_dates : tenantive_dates.reject { |date| HolidayJp.holiday?(date) }
-      held_dates.min
-    end
-
-    private
-
-    def init_period
-      from = Time.current
-      to = from.next_year.end_of_month
-      [from, to]
-    end
-
-    def gather_scheduled_dates(rules, from:, to:)
+    def gather_scheduled_dates(from:, to:)
       # イテレートするために変換が必要
       from_date = from.to_date
       to_date = to.to_date
-      dates_matched_rules = (from_date..to_date).select { |date| match_rules?(date, rules) }
+      dates_matched_rules = (from_date..to_date).select { |date| match_rules?(date, @rules) }
 
       hour = @event.start_at.hour
       min = @event.start_at.min
@@ -44,6 +19,16 @@ module EventSchedule
 
       dates_with_start_time.reject { |date| date < from }
     end
+
+    def held_next_event_date(from:, to:)
+      tenantive_dates = gather_scheduled_dates(from:, to:)
+
+      held_dates =
+        @event.hold_national_holiday ? tenantive_dates : tenantive_dates.reject { |date| HolidayJp.holiday?(date) }
+      held_dates.min
+    end
+
+    private
 
     def match_rules?(date, rules)
       rules.any? do |rule|

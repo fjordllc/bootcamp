@@ -91,7 +91,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def next_event_date
     schedule = EventSchedule.load(self)
-    schedule.held_next_event_date.to_date
+    start = Time.current
+    last = start.next_year.end_of_month
+
+    schedule.held_next_event_date(from: start, to: last).to_date
   end
 
   def cancel_participation(user)
@@ -125,6 +128,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def holding_on?(days_from_today)
     schedule = EventSchedule.load(self)
-    schedule.tentative_next_event_date.to_date == Time.zone.today + days_from_today.days
+    start = Time.current
+    last = start.next_year.end_of_month
+    dates = schedule.gather_scheduled_dates(from: start, to: last)
+
+    dates.select do |d|
+      d.to_date == Time.zone.today + days_from_today.days
+    end.min
   end
 end
