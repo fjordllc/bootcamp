@@ -11,13 +11,32 @@ module EventSchedule
       @specified_week_schedule = EventSchedule::RegularEventSchedule.new(@specified_week_event)
     end
 
+    test 'every week event #tentative_next_event_date' do
+      travel_to Time.zone.local(2023, 12, 31, 0, 0, 0) do
+        assert_equal Time.zone.local(2023, 12, 31, 15, 0, 0), @every_week_schedule.tentative_next_event_date
+      end
+
+      travel_to Time.zone.local(2023, 12, 31, 16, 0, 0) do
+        assert_equal Time.zone.local(2024, 1, 7, 15, 0, 0), @every_week_schedule.tentative_next_event_date
+      end
+    end
+
+    test 'specified week event #tentative_next_event_date' do
+      travel_to Time.zone.local(2023, 12, 31, 0, 0, 0) do
+        assert_equal Time.zone.local(2024, 1, 1, 16, 0, 0), @specified_week_schedule.tentative_next_event_date
+      end
+
+      travel_to Time.zone.local(2024, 1, 2, 0, 0, 0) do
+        assert_equal Time.zone.local(2024, 2, 5, 16, 0, 0), @specified_week_schedule.tentative_next_event_date
+      end
+    end
+
     test 'every week event #gather_scheduled_dates' do
       travel_to Time.zone.local(2023, 12, 31, 0, 0, 0) do
         start = Time.current
         last = start.next_month
         dates = @every_week_schedule.gather_scheduled_dates(from: start, to: last)
 
-        assert_equal Time.zone.local(2023, 12, 31, 15, 0, 0), dates.first
         assert_equal 5, dates.count
       end
 
@@ -26,7 +45,6 @@ module EventSchedule
         last = start.next_month
         dates = @every_week_schedule.gather_scheduled_dates(from: start, to: last)
 
-        assert_equal Time.zone.local(2024, 1, 7, 15, 0, 0), dates.first
         assert_equal 4, dates.count
       end
     end
@@ -34,10 +52,9 @@ module EventSchedule
     test 'specified week event #gather_scheduled_dates' do
       travel_to Time.zone.local(2023, 12, 31, 0, 0, 0) do
         start = Time.current
-        last = start.next_month
+        last = start.next_month.end_of_month
         dates = @specified_week_schedule.gather_scheduled_dates(from: start, to: last)
 
-        assert_equal Time.zone.local(2024, 1, 1, 16, 0, 0), dates.first
         assert_equal 1, dates.count
       end
 
@@ -46,7 +63,6 @@ module EventSchedule
         last = start.next_month.end_of_month
         dates = @specified_week_schedule.gather_scheduled_dates(from: start, to: last)
 
-        assert_equal Time.zone.local(2024, 2, 5, 16, 0, 0), dates.first
         assert_equal 1, dates.count
       end
     end

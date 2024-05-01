@@ -8,7 +8,6 @@ class UpcomingEvent
   def initialize(event)
     @original_event = event
     @title = event.title
-    @scheduled_date = EventSchedule.load(event).tentative_next_event_date
     @event_type = event.class
   end
 
@@ -16,6 +15,11 @@ class UpcomingEvent
     def wrap(event)
       new(event)
     end
+  end
+
+  def scheduled_date
+    schedule = EventSchedule.load(@original_event)
+    schedule.tentative_next_event_date
   end
 
   def held?(date)
