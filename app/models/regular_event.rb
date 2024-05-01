@@ -125,6 +125,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def holding_on?(days_from_today)
     schedule = EventSchedule.load(self)
-    schedule.held_next_event_date.to_date == Time.zone.today + days_from_today.days
+    schedule.tentative_next_event_date.to_date == Time.zone.today + days_from_today.days
   end
 end
