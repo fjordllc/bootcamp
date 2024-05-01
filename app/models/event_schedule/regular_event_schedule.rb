@@ -27,10 +27,10 @@ module EventSchedule
     end
 
     def held_next_event_date(from:, to:)
-      tenantive_dates = gather_scheduled_dates(from:, to:)
+      scheduled_dates = gather_scheduled_dates(from:, to:)
 
       held_dates =
-        @event.hold_national_holiday ? tenantive_dates : tenantive_dates.reject { |date| HolidayJp.holiday?(date) }
+        @event.hold_national_holiday ? scheduled_dates : scheduled_dates.reject { |date| HolidayJp.holiday?(date) }
       held_dates.min
     end
 
