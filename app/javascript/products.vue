@@ -38,7 +38,7 @@ div(v-else-if='isDashboard')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-warning(
-        v-else-if='product_n_days_passed.elapsed_days === selectedDays', id='5days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays', id='4days-elapsed'
       )
         h2.card-header__title
           | {{ selectedDays }}日経過
@@ -46,7 +46,7 @@ div(v-else-if='isDashboard')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-alert(
-        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 1', id='6days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 1', id='5days-elapsed'
       )
         h2.card-header__title
           | {{ selectedDays + 1 }}日経過
@@ -54,7 +54,7 @@ div(v-else-if='isDashboard')
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-deadline(
-        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 2', id='7days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 2', id='6days-elapsed'
       )
         h2.card-header__title
           | {{ selectedDays + 2 }}日以上経過
