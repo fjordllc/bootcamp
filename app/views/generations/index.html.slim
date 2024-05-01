@@ -44,27 +44,50 @@ main.page-main
                           = "#{generation.number}期生"
                         .user-group__date
                           = "#{l generation.start_date, format: :year_and_date} ~ #{l generation.end_date, format: :year_and_date}"
-                        - if current_user.mentor? && @target == 'all'
-                          - classmates = generation.classmates
-                          .user-group__counts.is-only-mentor
-                            .card-counts__items
-                              .card-counts__item
-                                .card-counts__item-inner
-                                  .card-counts__item-label
-                                    | 現役生
-                                  .card-counts__item-value
-                                    | #{classmates.students_and_trainees.count}
+                    - if current_user.mentor? && @target == 'all'
+                      - classmates = generation.classmates
+                      .user-group__counts.is-only-mentor
+                        .card-counts__items
+                          .card-counts__item
+                            .card-counts__item-inner
+                              .card-counts__item-label
+                                | 現役生
+                              .card-counts__item-value
+                                // TODO 休会中の人数を含めなくしたい
+                                | #{classmates.students.count}
+                          .card-counts__item
+                            .card-counts__item-inner
+                              .card-counts__item-label
+                                | 研修生
+                              .card-counts__item-value
+                                | #{classmates.trainees.count}
+                          //
+                            TODO 休会中のユーザー数を表示
+                            .card-counts__item
                               .card-counts__item-inner
-                                  .card-counts__item-label
-                                    | 卒業生
-                                  .card-counts__item-value
-                                    | #{classmates.graduated.count}
-                              .card-counts__item
-                                .card-counts__item-inner
-                                  .card-counts__item-label
-                                    | 退会者
-                                  .card-counts__item-value
-                                    | #{classmates.retired.count}
+                                .card-counts__item-label
+                                  | 休会
+                                .card-counts__item-value
+                                  |
+                          .card-counts__item
+                            .card-counts__item-inner
+                              .card-counts__item-label
+                                | 卒業生
+                              .card-counts__item-value
+                                | #{classmates.graduated.count}
+                          .card-counts__item
+                            .card-counts__item-inner
+                              .card-counts__item-label.is-sm
+                                span
+                                  | アドバイザー
+                              .card-counts__item-value
+                                | #{classmates.advisers.count}
+                          .card-counts__item
+                            .card-counts__item-inner
+                              .card-counts__item-label
+                                | 退会者
+                              .card-counts__item-value
+                                | #{classmates.retired.count}
                   .a-user-icons
                     .a-user-icons__items
                       - users.each do |user|
