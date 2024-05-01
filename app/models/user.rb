@@ -182,11 +182,8 @@ class User < ApplicationRecord
 
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
-  validates :avatar, attached: false,
-                     content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
-                       message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
-                     }
+  attribute :uploaded_avatar, :binary
+  validate :validate_uploaded_avatar_content_type
 
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
@@ -819,5 +816,15 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+  
+  def validate_uploaded_avatar_content_type
+    return unless uploaded_avatar
+
+    fm = FileMagic.new(FileMagic::MAGIC_MIME)
+    mime_type = fm.buffer(uploaded_avatar.read)
+    return if mime_type.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+
+    errors.add(:avatar, 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください')
   end
 end
