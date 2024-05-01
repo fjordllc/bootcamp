@@ -4,10 +4,9 @@
       .dashboard-contents__col.is-sub.is-only-mentor
         .dashboard-contents__categories
           .dashboard-category
-            - if current_user.active_practices.present?
-              header.dashboard-category__header
-                h2.dashboard-category__title
-                  | 提出物状況
+            - unchecked_report_count = Cache.unchecked_report_count
+            - if unchecked_report_count > 100
+              = render 'unchecked_report_alert', unchecked_report_count: unchecked_report_count
             .dashboard-category__body
               #js-products(data-title="#{title}" data-selected-tab="unassigned" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
       .dashboard-contents__col.is-main
