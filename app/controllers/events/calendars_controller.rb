@@ -7,7 +7,7 @@ class Events::CalendarsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by(id: user_id)
 
-    special_calendar = EventsToIcalExporter.export_events(fetch_events(user))
+    special_calendar = EventsToIcalExporter.export_events(user)
     special_calendar_to_ical = special_calendar.to_ical
     special_calendar_str = special_calendar_to_ical.gsub(/END:VCALENDAR\r?\n?\z/, '')
     regular_calendar_to_ical = RestClient.get("#{regular_events_calendars_url}.ics", params: { user_id: })
@@ -19,17 +19,15 @@ class Events::CalendarsController < ApplicationController
     render plain: calendar.to_ical
   end
 
-  private
+  # def fetch_events(user)
+  #   participated_list = user.participations.pluck(:event_id)
+  #   upcoming_event_list = Event.where('start_at > ?', Date.current).pluck(:id)
 
-  def fetch_events(user)
-    participated_list = user.participations.pluck(:event_id)
-    upcoming_event_list = Event.where('start_at > ?', Date.current).pluck(:id)
-
-    joined_events = Event.where(id: participated_list & upcoming_event_list)
-    upcoming_events = Event.where(id: upcoming_event_list).where.not(id: participated_list)
-    {
-      joined_events:,
-      upcoming_events:
-    }
-  end
+  #   joined_events = Event.where(id: participated_list & upcoming_event_list)
+  #   upcoming_events = Event.where(id: upcoming_event_list).where.not(id: participated_list)
+  #   {
+  #     joined_events:,
+  #     upcoming_events:
+  #   }
+  # end
 end
