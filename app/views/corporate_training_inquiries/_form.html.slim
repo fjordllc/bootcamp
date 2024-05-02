@@ -3,37 +3,54 @@
   .form__items
     .form-item
       = f.label :name, class: 'a-form-label is-required'
-      = f.text_field :name, class: 'a-text-input'
+      = f.text_field :name, class: 'a-text-input', placeholder: '人事部 駒形真幸（コマガタマサキ）'
     .form-item
       = f.label :company_name, class: 'a-form-label is-required'
-      = f.text_field :company_name, class: 'a-text-input'
+      = f.text_field :company_name, class: 'a-text-input', placeholder: '株式会社ロッカ'
     .form-item
       = f.label :email, class: 'a-form-label is-required'
-      = f.email_field :email, class: 'a-text-input'
-    .form__items-inner
-      .form-item
-        = f.label :meeting_dates, class: 'a-form-label is-required'
-        .form-item
+      = f.email_field :email, class: 'a-text-input', placeholder: 'info@lokka.jp'
+      .a-form-help
+        p
+          | この後のご連絡はメールにて差し上げます。
+    .form-item
+      = f.label :meeting_dates, class: 'a-form-label is-required'
+      .a-form-help
+        p
+          | 研修カリキュラムをご用意するにあたり、ビデオチャットを通じて、
+          | 研修の目的や受講される方のスキルについて伺わせていただきます。
+          | また、その際に研修内容に関するご質問がございましたら、ぜひお気軽にお尋ねください。
+      .form__items.mt-4
+        .form-item.is-inline
           = f.label :meeting_date1, class: 'a-form-label'
-          = f.datetime_field :meeting_date1
-        .form-item
+          = f.datetime_field :meeting_date1, class: 'a-text-input w-64'
+        .form-item.is-inline
           = f.label :meeting_date2, class: 'a-form-label'
-          = f.datetime_field :meeting_date2
-        .form-item
+          = f.datetime_field :meeting_date2, class: 'a-text-input w-64'
+        .form-item.is-inline
           = f.label :meeting_date3, class: 'a-form-label'
-          = f.datetime_field :meeting_date3
-      .form-item
-        = f.label :participants_count, class: 'a-form-label is-required'
-        = f.number_field :participants_count, min: 1, max: 10_000, placeholder: 1
+          = f.datetime_field :meeting_date3, class: 'a-text-input w-64'
+    .form-item
+      = f.label :participants_count, class: 'a-form-label is-required'
+      .a-button.is-md.is-secondary.is-select.is-block.w-24
+        = f.select :participants_count, options_for_select((1..20).map { |n| [n, n] })
+      .a-form-help
+        p
+          | 人数がまだ確定していない場合は、現時点でのおおよその人数を選択してください。
     .form-item
       = f.label :training_duration, class: 'a-form-label is-required'
-      = f.text_field :training_duration, class: 'a-text-input'
+      = f.text_field :training_duration, class: 'a-text-input', placeholder: '3ヶ月から半年'
+      .a-form-help
+        p
+          | 期間がまだ確定していない場合は、現時点でのおおよその期間を入力してください。
+          br
+          | 例: ３ヶ月から5ヶ月くらい
     .form-item
       = f.label :how_did_you_hear, class: 'a-form-label is-required'
-      = f.text_field :how_did_you_hear, class: 'a-text-input'
+      = f.text_area :how_did_you_hear, class: 'a-text-input is-sm', placeholder: '知り合いの会社である株式会社〇〇の△△さんに薦められて。'
     .form-item
       = f.label :additional_information, class: 'a-form-label'
-      = f.text_area :additional_information, class: 'a-text-input is-md'
+      = f.text_area :additional_information, class: 'a-text-input is-sm'
     .form-item
       .a-form-label
         | 個人情報の取り扱いについて
