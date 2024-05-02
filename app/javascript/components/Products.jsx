@@ -163,8 +163,9 @@ export default function Products({
       <div className="page-content is-products loaded">
         <div className="page-body__columns">
           <div className="page-body__column is-main">
-            {data.products_grouped_by_elapsed_days.map(
-              (productsNDaysPassed) => {
+            {data.products_grouped_by_elapsed_days
+              .filter((group) => group.elapsed_days !== 7)
+              .map((productsNDaysPassed) => {
                 return (
                   <div
                     className="a-card"
