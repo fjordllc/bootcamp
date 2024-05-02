@@ -20,14 +20,14 @@ class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
     visit '/corporate_training_inquiry/new'
     assert_equal '企業研修申し込みフォーム | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
 
-    fill_in '名前', with: '研修 する世'
+    fill_in '担当者様のお名前', with: '研修 する世'
     fill_in '企業名', with: '株式会社カンパニー'
     fill_in 'メールアドレス', with: 'corporate_training_inquiry@example.com'
     fill_in '第1希望', with: Time.zone.parse('2030-01-01-08:00')
     fill_in '第2希望', with: Time.zone.parse('2030-01-02-10:00')
     fill_in '第3希望', with: Time.zone.parse('2030-01-03-12:00')
-    fill_in '参加人数', with: '10'
-    fill_in '研修期間', with: '1ヶ月'
+    select '10', from: '予定している研修を受ける方の人数'
+    fill_in '予定している研修期間', with: '1ヶ月'
     fill_in 'どこでフィヨルドブートキャンプを知りましたか？', with: 'インターネットで知った'
     fill_in 'その他伝えておきたいこと', with: 'よろしくお願いします。'
     check '下記の個人情報の取り扱いに同意する', allow_label_click: true
