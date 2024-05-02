@@ -193,8 +193,7 @@ export default function Products({
                     </div>
                   </div>
                 )
-              }
-            )}
+              })}
             <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
