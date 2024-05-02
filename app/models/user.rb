@@ -631,6 +631,13 @@ class User < ApplicationRecord
     image_url default_image_path
   end
 
+  def avatar_attach_with_filename
+    return unless avatar.attached?
+
+    icon = open_avatar_uri
+    avatar.attach(io: icon, filename: id) if icon
+  end
+
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
@@ -819,5 +826,9 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def open_avatar_uri
+    avatar_url == '/images/users/avatars/default.png' ? nil : URI.parse(avatar_url).open
   end
 end
