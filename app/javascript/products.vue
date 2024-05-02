@@ -18,7 +18,7 @@
 //- ダッシュボード
 div(v-else-if='isDashboard')
   select(v-on:change='onDaysSelectChange($event)')
-    option(value='') 未アサインの提出物の経過日数を選択してください
+    option(value='' disabled selected hidden) 未アサインの提出物の経過日数を選択
     option(value='1') 1日経過 2日経過 3日以上経過
     option(value='2') 2日経過 3日経過 4日以上経過
     option(value='3') 3日経過 4日経過 5日以上経過
