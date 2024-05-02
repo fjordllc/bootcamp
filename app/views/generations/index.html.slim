@@ -53,22 +53,19 @@ main.page-main
                               .card-counts__item-label
                                 | 現役生
                               .card-counts__item-value
-                                // TODO 休会中の人数を含めなくしたい
-                                | #{classmates.students.count}
+                                | #{classmates.students.count - classmates.hibernated.count}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label
                                 | 研修生
                               .card-counts__item-value
                                 | #{classmates.trainees.count}
-                          //
-                            TODO 休会中のユーザー数を表示
-                            .card-counts__item
-                              .card-counts__item-inner
-                                .card-counts__item-label
-                                  | 休会
-                                .card-counts__item-value
-                                  |
+                          .card-counts__item
+                            .card-counts__item-inner
+                              .card-counts__item-label
+                                | 休会
+                              .card-counts__item-value
+                                | #{classmates.hibernated.count}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label
