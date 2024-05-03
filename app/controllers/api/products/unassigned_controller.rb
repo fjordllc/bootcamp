@@ -9,7 +9,7 @@ class API::Products::UnassignedController < API::BaseController
                 .not_wip
                 .list
                 .ascending_by_date_of_publishing_and_id
-    @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
+    @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 6 ? 6 : product.elapsed_days }
   end
 
   def counts
@@ -17,8 +17,8 @@ class API::Products::UnassignedController < API::BaseController
                .unassigned
                .unchecked
                .not_wip
+    @passed4 = products.count { |product| product.elapsed_days == 4 }
     @passed5 = products.count { |product| product.elapsed_days == 5 }
-    @passed6 = products.count { |product| product.elapsed_days == 6 }
-    @over7 = products.count { |product| product.elapsed_days >= 7 }
+    @over6 = products.count { |product| product.elapsed_days >= 6 }
   end
 end
