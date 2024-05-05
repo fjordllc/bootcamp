@@ -5,6 +5,6 @@ class FAQ < ApplicationRecord
   validates :question, presence: true, uniqueness: true
 
   default_scope -> { order(:position) }
-  belongs_to :faqs_categories
+  belongs_to :faqs_category, optional: true
   acts_as_list
 end

@@ -16,7 +16,7 @@ class WelcomeController < ApplicationController
   def pricing; end
 
   def faq
-    category = FaqsCategories.find_by(name: params[:category])
+    category = FaqsCategory.find_by(name: params[:category])
     @faqs = if params[:category].present?
               FAQ.where(faqs_categories_id: category.id) if category.present?
             else
