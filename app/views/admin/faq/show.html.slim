@@ -52,7 +52,7 @@ main.page-main
                     .page-content-header-metas__start
                       .page-content-header-metas__meta
                         .a-meta
-                          = t("faq.#{FaqsCategories.find_by(id: @faq.faqs_categories_id).name}")
+                          = t("faq.#{FaqsCategory.find_by(id: @faq.faqs_categories_id).name}")
 
             .a-card
               .card-body
