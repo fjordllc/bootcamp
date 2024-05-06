@@ -12,6 +12,6 @@ class FAQTest < ApplicationSystemTestCase
     visit '/faq?category=study_environment'
 
     study_environment_id = FaqsCategory.find_by(name: 'study_environment').id
-    assert_selector '.faqs-item', count: FAQ.where(faqs_categories_id: study_environment_id).size
+    assert_selector '.faqs-item', count: FAQ.where(faqs_category_id: study_environment_id).size
   end
 end

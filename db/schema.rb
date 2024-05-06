@@ -228,6 +228,9 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.index ["course_id", "category_id"], name: "index_courses_categories_on_course_id_and_category_id", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "discord_profiles", force: :cascade do |t|
     t.bigint "user_id"
     t.string "account_name"
@@ -274,9 +277,9 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
-    t.bigint "faqs_categories_id", null: false
+    t.bigint "faqs_category_id", null: false
     t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
-    t.index ["faqs_categories_id"], name: "index_faqs_on_faqs_categories_id"
+    t.index ["faqs_category_id"], name: "index_faqs_on_faqs_category_id"
     t.index ["question"], name: "index_faqs_on_question", unique: true
   end
 
@@ -605,9 +608,9 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.boolean "hold_national_holiday", null: false
     t.time "start_at", null: false
     t.time "end_at", null: false
-    t.boolean "wip", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "wip", default: false, null: false
     t.integer "category", default: 0, null: false
     t.boolean "all", default: false, null: false
     t.datetime "published_at"
@@ -829,7 +832,7 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
   add_foreign_key "check_boxes", "survey_questions"
   add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
-  add_foreign_key "faqs", "faqs_categories", column: "faqs_categories_id"
+  add_foreign_key "faqs", "faqs_categories"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
