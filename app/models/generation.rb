@@ -44,4 +44,11 @@ class Generation
     # 退会者は「退会」フィルター時のみ表示させたいため、絞り込みを行う
     target == 'retired' ? users : users.unretired
   end
+
+  def count_classmates_by_target(target)
+    return classmates.students.count - classmates.hibernated.count if target == "students"
+
+    target_to_classmates = { 'trainees' => :trainees, 'hibernated' => :hibernated, 'graduated' => :graduated, 'advisers' => :advisers, 'retired' => :retired }
+    classmates.send(target_to_classmates[target]).count
+  end
 end
