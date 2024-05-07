@@ -7,16 +7,7 @@ class EventsToIcalExporterTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2024, 3, 25, 10, 0, 0) do
       user = users(:kimura)
 
-      participated_list = user.participations.pluck(:event_id)
-      upcoming_event_list = Event.where('start_at > ?', Time.zone.today).pluck(:id)
-
-      joined_events = Event.where(id: participated_list & upcoming_event_list)
-      upcoming_events = Event.where(id: upcoming_event_list).where.not(id: participated_list)
-      events_set = {
-        joined_events:,
-        upcoming_events:
-      }
-      calendar = EventsToIcalExporter.export_events(events_set)
+      calendar = EventsToIcalExporter.export_events(user)
 
       calendar.publish
       assert_match(/【参加登録済】未来のイベント\(参加済\)/, calendar.to_ical)
