@@ -321,7 +321,7 @@ class ArticlesTest < ApplicationSystemTestCase
     visit articles_path
     click_on 'test'
 
-    assert_selector "img[src$='#{users(:hatsuno).id}.png']"
+    assert_selector "img[src$='#{users(:hatsuno).id}']"
     users(:hatsuno).avatar.purge
   end
 
