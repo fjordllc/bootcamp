@@ -3,17 +3,16 @@
 
 # Bootcamp
 
-プログラマー向け E ラーニングシステム。
+プログラマー向けEラーニングシステム。
 
 ## インストールと起動
 
 ### 1. 画像処理ライブラリのインストール
-
-wiki 内の[画像処理ライブラリのインストール](https://github.com/fjordllc/bootcamp/wiki/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)ページを参照してください。
+   wiki 内の[画像処理ライブラリのインストール](https://github.com/fjordllc/bootcamp/wiki/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)ページを参照してください。
 
 ### 2. ファイル形式判別ライブラリのインストール
 
-wiki 内の[ファイル形式判別ライブラリのインストール](https://github.com/fjordllc/bootcamp/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E5%88%A4%E5%88%A5%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)ページを参照してください。
+   wiki 内の[ファイル形式判別ライブラリのインストール](https://github.com/fjordllc/bootcamp/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E5%88%A4%E5%88%A5%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)ページを参照してください。
 
 ### 3. セットアップとサーバーの起動
 
@@ -46,27 +45,27 @@ $ PARALLEL_WORKERS=1 rails test:all
 
 ## Lint
 
-次のコマンドで lint を実行します。
+次のコマンドでlintを実行します。
 
 ```
 $ ./bin/lint
 ```
 
-実行される lint
+実行されるlint
 
-- Ruby
-  - rubocop
-  - slim-lint
-- JavaScript
-  - eslint
-  - prettier
-- eslint の警告は以下のコマンドで修正されますが、修正されない場合は手動で修正してください。
+* Ruby
+  * rubocop
+  * slim-lint
+* JavaScript
+  * eslint
+  * prettier
+* eslintの警告は以下のコマンドで修正されますが、修正されない場合は手動で修正してください。
 
 ```shell
 $ eslint 'app/javascript/**/*.{js,vue,jsx}' --fix
 ```
 
-- prettier の警告が出ている場合には、以下のコマンドで修正できます。
+* prettierの警告が出ている場合には、以下のコマンドで修正できます。
 
 ```shell
 $ prettier app/javascript/**/*.{js,vue,jsx} --write
@@ -74,7 +73,7 @@ $ prettier app/javascript/**/*.{js,vue,jsx} --write
 
 ## Profiler
 
-rack-mini-profiler によりプロファイリングはデフォルトでは OFF になっています。ON にする場合は下記のようにサーバーと立ち上げます。
+rack-mini-profilerによりプロファイリングはデフォルトではOFFになっています。ONにする場合は下記のようにサーバーと立ち上げます。
 
 ```
 $ PROFILE=1 rails server
@@ -82,10 +81,10 @@ $ PROFILE=1 rails server
 
 ## 環境構築
 
-- [Develop 環境でログインする方法](https://github.com/fjordllc/bootcamp/wiki/Develop%E7%92%B0%E5%A2%83%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95)
-- [Develop 環境でのメールの確認方法](https://github.com/fjordllc/bootcamp/wiki/Develop%E7%92%B0%E5%A2%83%E3%81%A7%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95)
-- [node のバージョン切り替え](https://github.com/fjordllc/bootcamp/wiki/node%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88)
-- [Develop 環境を Docker で動かす方法](doc/development_on_docker.md)
+- [Develop環境でログインする方法](https://github.com/fjordllc/bootcamp/wiki/Develop%E7%92%B0%E5%A2%83%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95)
+- [Develop環境でのメールの確認方法](https://github.com/fjordllc/bootcamp/wiki/Develop%E7%92%B0%E5%A2%83%E3%81%A7%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95)
+- [nodeのバージョン切り替え](https://github.com/fjordllc/bootcamp/wiki/node%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88)
+- [Develop環境をDockerで動かす方法](doc/development_on_docker.md)
 
 ## その他
 
