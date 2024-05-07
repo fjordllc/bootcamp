@@ -9,7 +9,7 @@ class EventScheduleTest < ActiveSupport::TestCase
   end
 
   test '.load' do
-    assert_instance_of EventSchedule::SpecialEventSchedule, EventSchedule.load(@special_event)
-    assert_instance_of EventSchedule::RegularEventSchedule, EventSchedule.load(@regular_event)
+    assert_instance_of EventSchedule::Event, EventSchedule.load(@special_event)
+    assert_instance_of EventSchedule::RegularEvent, EventSchedule.load(@regular_event)
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module EventSchedule
-  class RegularEventSchedule
+  class RegularEvent
     def initialize(event)
       @event = event
       @rules = @event.regular_event_repeat_rules

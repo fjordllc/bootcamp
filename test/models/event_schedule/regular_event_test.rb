@@ -7,8 +7,8 @@ module EventSchedule
     setup do
       @every_week_event = regular_events(:regular_event1)
       @specified_week_event = regular_events(:regular_event2)
-      @every_week_schedule = EventSchedule::RegularEventSchedule.new(@every_week_event)
-      @specified_week_schedule = EventSchedule::RegularEventSchedule.new(@specified_week_event)
+      @every_week_schedule = EventSchedule::RegularEvent.new(@every_week_event)
+      @specified_week_schedule = EventSchedule::RegularEvent.new(@specified_week_event)
     end
 
     test 'every week event #tentative_next_event_date' do
@@ -73,11 +73,11 @@ module EventSchedule
         last = start.next_year.end_of_month
 
         @every_week_event.hold_national_holiday = true
-        schedule = EventSchedule::RegularEventSchedule.new(@every_week_event)
+        schedule = EventSchedule::RegularEvent.new(@every_week_event)
         assert_equal Time.zone.local(2024, 2, 11, 15, 0, 0), schedule.held_next_event_date(from: start, to: last)
 
         @every_week_event.hold_national_holiday = false
-        schedule = EventSchedule::RegularEventSchedule.new(@every_week_event)
+        schedule = EventSchedule::RegularEvent.new(@every_week_event)
         # 2024/02/11が祝日のため見送られる
         assert_equal Time.zone.local(2024, 2, 18, 15, 0, 0), schedule.held_next_event_date(from: start, to: last)
       end
