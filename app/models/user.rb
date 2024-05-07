@@ -817,7 +817,7 @@ class User < ApplicationRecord
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
   end
-  
+
   def validate_uploaded_avatar_content_type
     return unless uploaded_avatar
 
