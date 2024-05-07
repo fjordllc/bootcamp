@@ -18,7 +18,7 @@
       = render 'errors', object: faq
       label.a-form-label
         | カテゴリー
-      - %i[study_content study_environment fee find_job join withdrawal_hibernation_graduation corporate_use].each do |category|
+      - @category.each do |category|
         = f.radio_button :faqs_category_id, FaqsCategory.find_by(name: category.to_s).id
         = f.label :faqs_category_id, t("faq.#{category}"), value: FaqsCategory.find_by(name: category.to_s).id
   .form-actions
