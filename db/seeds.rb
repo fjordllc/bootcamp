@@ -26,7 +26,6 @@ tables = %i[
   events
   external_entries
   faqs
-  faqs_categories
   followings
   reports
   learning_times
