@@ -18,7 +18,7 @@
       = render 'errors', object: faq
       label.a-form-label
         | カテゴリー
-      - FAQ.categories.keys.each do |category|
+      - FAQ.categories.each_key do |category|
         = f.radio_button :category, FAQ.categories[:"#{category}"]
         = f.label :category, t("faq.#{category}"), value: FAQ.categories[:"#{category}"]
   .form-actions
