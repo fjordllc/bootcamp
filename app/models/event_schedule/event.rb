@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module EventSchedule
-  class SpecialEventSchedule
+  class Event
     def initialize(event)
       @event = event
     end

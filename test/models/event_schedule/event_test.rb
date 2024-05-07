@@ -9,7 +9,7 @@ class SpecialEventScheduleTest < ActiveSupport::TestCase
       start_at: Time.zone.local(2024, 1, 1, 9, 0),
       end_at: Time.zone.local(2024, 1, 1, 11, 0)
     )
-    @schedule = EventSchedule::SpecialEventSchedule.new(@special_event)
+    @schedule = EventSchedule::Event.new(@special_event)
   end
 
   test '.tentative_next_event_date' do
