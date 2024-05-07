@@ -5,8 +5,8 @@ class API::Products::PassedController < API::BaseController
     products = Product
                .list
                .ascending_by_date_of_publishing_and_id
+    @passed4 = products.count { |product| product.elapsed_days == 4 }
     @passed5 = products.count { |product| product.elapsed_days == 5 }
-    @passed6 = products.count { |product| product.elapsed_days == 6 }
-    @over7 = products.count { |product| product.elapsed_days >= 7 }
+    @over6 = products.count { |product| product.elapsed_days >= 6 }
   end
 end
