@@ -315,9 +315,9 @@ class HomeTest < ApplicationSystemTestCase
 
   test 'mentor can products that are more than 5 days.' do
     visit_with_auth '/', 'mentormentaro'
-    assert_text '7日以上経過（6）'
-    assert_text '6日経過（1）'
+    assert_text '6日以上経過（6）'
     assert_text '5日経過（1）'
+    assert_text '4日経過（1）'
     assert_no_text '今日提出（48）'
   end
 
