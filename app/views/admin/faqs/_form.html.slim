@@ -18,9 +18,12 @@
       = render 'errors', object: faq
       label.a-form-label
         | カテゴリー
-      - FAQ.categories.each_key do |category|
-        = f.radio_button :category, FAQ.categories[:"#{category}"]
-        = f.label :category, t("faq.#{category}"), value: FAQ.categories[:"#{category}"]
+      .checkboxes
+        .checkboxes__items
+          - FAQ.categories.each_key do |category|
+            .checkboxes__item.is-radio
+              = f.radio_button :category, FAQ.categories[:"#{category}"]
+              = f.label :category, t("faq.#{category}"), value: FAQ.categories[:"#{category}"]
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

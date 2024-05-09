@@ -1,0 +1,10 @@
+.faqs__filter.is-hidden-md-up
+  .container.is-xs
+    .form-item.is-inline
+      label.a-form-label
+        | 絞り込む
+      .a-button.is-md.is-secondary.is-select.is-block
+        select
+          - %i[all study_content study_environment fee find_job join withdrawal_hibernation_graduation corporate_use].each do |category|
+            option
+              = category

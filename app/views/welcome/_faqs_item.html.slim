@@ -1,0 +1,12 @@
+section.faqs-item
+  .faqs-item__inner
+    h3.faqs-item__title
+      = format_question(faq.question)
+    hr.a-border-tint
+    .faqs-item__body
+      .a-long-text.is-md.js-markdown-view
+        = faq.answer
+    - if admin_login?
+      p
+        = link_to edit_admin_faq_path(faq) do
+          | 編集
