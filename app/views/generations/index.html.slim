@@ -52,38 +52,38 @@ main.page-main
                               .card-counts__item-label
                                 | 現役生
                               .card-counts__item-value
-                                | #{generation.count_classmates_by_target('students')}
+                                | #{generation.count_classmates_by_target(:students)}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label
                                 | 研修生
                               .card-counts__item-value
-                                | #{generation.count_classmates_by_target('trainees')}
+                                | #{generation.count_classmates_by_target(:trainees)}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label
                                 | 休会
                               .card-counts__item-value
-                                | #{generation.count_classmates_by_target('hibernated')}
+                                | #{generation.count_classmates_by_target(:hibernated)}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label
                                 | 卒業生
                               .card-counts__item-value
-                                | #{generation.count_classmates_by_target('graduated')}
+                                | #{generation.count_classmates_by_target(:graduated)}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label.is-sm
                                 span
                                   | アドバイザー
                               .card-counts__item-value
-                                | #{generation.count_classmates_by_target('advisers')}
+                                | #{generation.count_classmates_by_target(:advisers)}
                           .card-counts__item
                             .card-counts__item-inner
                               .card-counts__item-label
                                 | 退会者
                               .card-counts__item-value
-                                | #{generation.count_classmates_by_target('retired')}
+                                | #{generation.count_classmates_by_target(:retired)}
                   .a-user-icons
                     .a-user-icons__items
                       - users.each do |user|
