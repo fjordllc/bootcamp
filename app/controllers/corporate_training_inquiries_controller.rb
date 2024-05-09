@@ -11,7 +11,7 @@ class CorporateTrainingInquiriesController < ApplicationController
   def create
     @corporate_training_inquiry = CorporateTrainingInquiry.new(corporate_training_inquiry_params)
 
-    result = valid_recaptcha?('corporate_training_inquiry')
+    result = valid_recaptcha?('inquiry')
     if result && @corporate_training_inquiry.save
       CorporateTrainingInquiryMailer.incoming(@corporate_training_inquiry).deliver_later
       redirect_to new_corporate_training_inquiry_url, notice: 'お問い合わせを送信しました。'
