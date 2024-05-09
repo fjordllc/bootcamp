@@ -66,4 +66,4 @@
         li.form-actions__item.is-main
           = f.submit '送信', class: 'a-button is-lg is-primary is-block'
 
-  = recaptcha_v3(action: 'corporate_training_inquiry', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?
+  = recaptcha_v3(action: 'inquiry', callback: 'skipOnLoadReCaptcha') if recaptcha_enabled?
