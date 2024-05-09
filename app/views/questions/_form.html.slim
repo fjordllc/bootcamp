@@ -9,9 +9,11 @@
               = f.label :practice, class: 'a-form-label'
               .select-practices
                 - if question.new_record?
-                  = f.select(:practice_id, practice_options_within_course, { selected: params[:practice_id], include_blank: 'プラクティス選択なし' }, { id: 'js-choices-single-select' })
+                  = f.select(:practice_id, practice_options_within_course, { selected: params[:practice_id], include_blank: 'プラクティス選択なし' },
+                             { class: 'js-choices-singles', id: 'js-choices-practice' })
                 - else
-                  = f.select(:practice_id, practice_options_within_course, { include_blank: 'プラクティス選択なし' }, { id: 'js-choices-single-select' })
+                  = f.select(:practice_id, practice_options_within_course, { include_blank: 'プラクティス選択なし' },
+                             { class: 'js-choices-singles', id: 'js-choices-practice' })
 
       .form-item
         .row.js-markdown-parent
@@ -49,6 +51,21 @@
           .col-md-6.col-xs-12
             = f.label :tag_list, 'タグを入力してください', class: 'a-form-label'
             = render partial: 'tags_input', locals: { taggable: @question }
+
+      - if admin_login? || current_user.mentor?
+        .form-item
+          .row
+            .col-md-6.col-xs-12
+              .form-item
+                = f.label :user_id, 'Question作成者変更', class: 'a-form-label'
+                .select-user
+                  - if question.new_record?
+                    = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, { selected: current_user },
+                                          { class: 'js-choices-singles', id: 'js-choices-user' })
+                  - else
+                    = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, {},
+                                          { class: 'js-choices-singles', id: 'js-choices-user' })
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

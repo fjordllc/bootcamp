@@ -65,13 +65,14 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth question_path(question), 'kimura'
 
     click_link '内容修正'
-    within 'form[name=question]' do
-      fill_in 'question[title]', with: 'テストの質問（修正）'
-      fill_in 'question[description]', with: 'テストの質問です。（修正）'
+    fill_in 'question[title]', with: 'テストの質問（修正）'
+    fill_in 'question[description]', with: 'テストの質問です。（修正）'
+    within '.select-practices' do
       find('.choices__inner').click
-      find('#choices--js-choices-single-select-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
-      click_button '更新する'
+      find('#choices--js-choices-practice-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
     end
+    click_button '更新する'
+
     assert_text 'テストの質問（修正）'
     assert_text 'テストの質問です。（修正）'
     assert_selector 'a.a-category-link', text: 'sshdでパスワード認証を禁止にする'
@@ -423,8 +424,10 @@ class QuestionsTest < ApplicationSystemTestCase
     visit_with_auth new_question_path, 'kimura'
     fill_in 'question[title]', with: 'Questionに関連プラクティスを指定'
     fill_in 'question[description]', with: 'Questionに関連プラクティスを指定'
-    find('.choices__inner').click
-    find('#choices--js-choices-single-select-item-choice-7', text: 'Linuxのファイル操作の基礎を覚える').click
+    within '.select-practices' do
+      find('.choices__inner').click
+      find('#choices--js-choices-practice-item-choice-7', text: 'Linuxのファイル操作の基礎を覚える').click
+    end
     click_button '登録する'
     assert_text 'Questionに関連プラクティスを指定'
 
@@ -503,5 +506,34 @@ class QuestionsTest < ApplicationSystemTestCase
       assert_selector 'input.file-input', visible: false
     end
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
+  end
+
+  test 'The Change Questioner form is not visible to general users' do
+    visit_with_auth new_question_path, 'hatsuno'
+    assert_no_selector('.select-user')
+  end
+
+  test 'admin can change the questioner when creating a new question' do
+    visit_with_auth new_question_path, 'adminonly'
+    fill_in 'question[title]', with: 'テストの質問'
+    fill_in 'question[description]', with: 'テストの質問です。'
+    within '.select-user' do
+      find('.choices__inner').click
+      find('#choices--js-choices-user-item-choice-11', text: 'hatsuno').click
+    end
+    click_button '登録する'
+    assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
+  end
+
+  test 'mentor can change the questioner when editing a question' do
+    question = questions(:question8)
+    visit_with_auth question_path(question), 'mentormentaro'
+    click_link '内容修正'
+    within '.select-user' do
+      find('.choices__inner').click
+      find('#choices--js-choices-user-item-choice-11', text: 'hatsuno').click
+    end
+    click_button '更新する'
+    assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
   end
 end
