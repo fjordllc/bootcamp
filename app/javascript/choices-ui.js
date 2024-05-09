@@ -31,6 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  const elementsOfSingles = document.querySelectorAll('.js-choices-singles')
+  if (elementsOfSingles.length > 0) {
+    for (const element of elementsOfSingles) {
+      // eslint-disable-next-line no-new
+      new Choices(element, {
+        removeItemButton: true,
+        allowHTML: true,
+        searchResultLimit: 20,
+        searchPlaceholderValue: '検索ワード',
+        noResultsText: '一致する情報は見つかりません',
+        itemSelectText: '選択',
+        shouldSort: false
+      })
+    }
+  }
+
   const elements = document.querySelectorAll('.js-choices-added-select')
   const elementsCount = elements.length
   if (!elements) return
