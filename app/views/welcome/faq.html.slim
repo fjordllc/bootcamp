@@ -3,12 +3,36 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプに寄せられたよくあるお問い合わせとその回答の一覧です。')
 
-header.lp-page-header
-  .l-container
-    .lp-page-header__inner
-      .lp-page-header__start
-        h1.lp-page-header__title
-          | FAQ
-      .lp-page-header__end
-hr.a-border-tint
-= render 'faq'
+header.welcome-page-header
+  .container.is-xl
+    .welcome-page-header__inner
+      h1.welcome-page-header__title
+        | FAQ
+.welcome-sections
+  section.welcome-section.is-faq#faq
+    .container.is-lg
+      h2.welcome-section__title
+        | FAQ
+        - if params[:category].present?
+          span.ml-4.is-hidden-sm-down
+            | 「#{I18n.t(params[:category])}」
+    .welcome-section__description
+      .container.is-lg
+        p
+          | わからないこと、気になることがありましたら、
+          = link_to new_inquiry_path, class: 'welcome-section__description-link' do
+            | こちら
+          | から質問してください。
+
+    .faqs#faqs
+      = render 'faqs_mobile_filter'
+      .faqs__main
+        .container.is-lg
+          .faqs__row
+            .faqs__start.is-hidden-sm-down
+              .faqs__nav
+                = render 'faqs_pc_filter'
+            .faqs__end
+              .faqs__items
+                - @faqs.each do |faq|
+                  = render 'faqs_item', faq: faq
