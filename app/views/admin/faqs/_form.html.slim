@@ -22,7 +22,7 @@
         .checkboxes__items
           - FAQ.categories.each_key do |category|
             .checkboxes__item.is-radio
-              = f.radio_button :category, FAQ.categories[:"#{category}"]
+              = f.radio_button :category, FAQ.categories[:"#{category}"], class: 'a-toggle-checkbox'
               = f.label :category, t("faq.#{category}"), value: FAQ.categories[:"#{category}"]
   .form-actions
     ul.form-actions__items
