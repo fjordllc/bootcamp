@@ -5,8 +5,8 @@
         th.admin-table__label 質問
         th.admin-table__label 回答
         th.admin-table__label 編集
-        th.admin-table__label 並び順
         th.admin-table__label カテゴリ
+        th.admin-table__label 並び順
     tbody.admin-table__items#js-faq-sortable
       - faqs.each do |faq|
         tr.admin-table__item(id="faq_#{faq.id}")
@@ -18,8 +18,8 @@
           td.admin-table__item-value.is-text-align-center
             = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
               i.fa-solid.fa-pen
+          td.admin-table__item-value.is-text-align-center
+            = t("faq.#{faq.category}")
           td.admin-table__item-value.is-text-align-center.is-grab
             span.js-grab.a-grab
               i.fa-solid.fa-align-justify
-          td.admin-table__item-value.is-text-align-center
-            = t("faq.#{faq.category}")
