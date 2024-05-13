@@ -26,7 +26,7 @@ div(v-else-if='isDashboard')
     option(value='5') 5日経過 6日経過 7日以上経過
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
-      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= selectedDays && product_n_days_passed.elapsed_days <= selectedDays + 2)')
+      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= selectedDays)')
       //- TODO 以下を共通化する
       //- prettier-ignore: need space between v-if and id
       header.card-header.a-elapsed-days(
@@ -129,7 +129,7 @@ export default {
       this.productsGroupedByElapsedDays.forEach((h) => {
         elapsedDays.push(h.elapsed_days)
       })
-      return elapsedDays.every((day) => day < 5)
+      return elapsedDays.every((day) => day < this.selectedDays)
     }
   },
   created() {
@@ -157,6 +157,23 @@ export default {
           if (location.pathname === '/') {
             this.productsGroupedByElapsedDays =
               json.products_grouped_by_elapsed_days
+
+            const newGroups = [];
+            json.products_grouped_by_elapsed_days.forEach(group => {
+              const elapsedDays = group.elapsed_days >= this.selectedDays + 2 ? this.selectedDays + 2 : group.elapsed_days;
+
+              let existingGroup = newGroups.find(g => g.elapsed_days === elapsedDays);
+              if (!existingGroup) {
+                existingGroup = {
+                  elapsed_days: elapsedDays,
+                  products: []
+                };
+                newGroups.push(existingGroup);
+              }
+              existingGroup.products = existingGroup.products.concat(group.products);
+            });
+
+            this.productsGroupedByElapsedDays = newGroups;
           }
           this.products = []
           json.products.forEach((product) => {
@@ -215,6 +232,48 @@ export default {
     },
     onDaysSelectChange(event) {
       this.selectedDays = parseInt(event.target.value)
+
+      this.regroupProductsByElapsedDays()
+    },
+    regroupProductsByElapsedDays() {
+      fetch(this.url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual'
+      })
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        if (
+          location.pathname === '/products/unassigned' ||
+          location.pathname === '/products/unchecked' ||
+          location.pathname === '/'
+        ) {
+          const newGroups = [];
+
+          json.products_grouped_by_elapsed_days.forEach(group => {
+            const elapsedDays = group.elapsed_days >= this.selectedDays + 2 ? this.selectedDays + 2 : group.elapsed_days;
+
+            let existingGroup = newGroups.find(g => g.elapsed_days === elapsedDays);
+            if (!existingGroup) {
+              existingGroup = {
+                elapsed_days: elapsedDays,
+                products: []
+              };
+              newGroups.push(existingGroup);
+            }
+            existingGroup.products = existingGroup.products.concat(group.products);
+          });
+
+          this.productsGroupedByElapsedDays = newGroups;
+        }
+      });
     }
   }
 }
