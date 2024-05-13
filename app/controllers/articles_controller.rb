@@ -2,6 +2,7 @@
 
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
+  before_action :set_token_to_wip, only: %i[show]
   skip_before_action :require_active_user_login, raise: false, only: %i[index show]
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
@@ -101,6 +102,10 @@ class ArticlesController < ApplicationController
   def set_wip
     @article.wip = params[:commit] == 'WIP'
     @article.generate_token! if @article.wip
+  end
+
+  def set_token_to_wip
+    @article.generate_token! if @article.wip && @article.token.nil? && admin_or_mentor_login?
   end
 
   def notice_message(article)
