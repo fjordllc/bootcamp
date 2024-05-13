@@ -50,12 +50,7 @@ class HomeController < ApplicationController
   end
 
   def display_events_on_dashboard
-    @today_events = (Event.today_events + RegularEvent.today_events)
-                    .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @tomorrow_events = (Event.tomorrow_events + RegularEvent.tomorrow_events)
-                       .sort_by { |e| e.start_at.strftime('%H:%M') }
-    @day_after_tomorrow_events = (Event.day_after_tomorrow_events + RegularEvent.day_after_tomorrow_events)
-                                 .sort_by { |e| e.start_at.strftime('%H:%M') }
+    @upcoming_events_groups = %i[today tomorrow day_after_tomorrow].map { |date| UpcomingEventsGroup.build(date) }
   end
 
   def display_welcome_message_for_adviser
