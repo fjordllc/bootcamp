@@ -3,11 +3,7 @@
     | #{I18n.t("dates.#{date}")}開催
   - if upcoming_events.present?
     - upcoming_events.each do |upcoming_event|
-      = render 'events/upcoming_event',\
-        event: upcoming_event,\
-        title: upcoming_event.title,\
-        scheduled_date: upcoming_event.scheduled_date,\
-        original_event: upcoming_event.original_event
+      = render 'events/upcoming_event', event: upcoming_event
   - else
     .card-list-item
       .card-list-item__empty

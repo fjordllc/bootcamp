@@ -36,7 +36,7 @@
                     span.a-meta__label
                       | 注意
                     span.a-meta__value
-                      = "#{l(scheduled_date, format: :md)}はお休みです。"
+                      = "#{l(event.scheduled_date, format: :md)}はお休みです。"
             .card-list-item-meta__item
               - if event.for_job_hunting?
                 span.a-badge.is-xs.is-warning
