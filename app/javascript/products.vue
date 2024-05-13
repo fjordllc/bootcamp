@@ -9,7 +9,7 @@
   p.o-empty-message__text
     | {{ title }}はありません
 
-.o-empty-message(v-else-if='isDashboard && isNotProduct5daysElapsed')
+.o-empty-message(v-else-if='isDashboard && isNotProductselectedDaysElapsed')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
@@ -233,47 +233,7 @@ export default {
     onDaysSelectChange(event) {
       this.selectedDays = parseInt(event.target.value)
 
-      this.regroupProductsByElapsedDays()
-    },
-    regroupProductsByElapsedDays() {
-      fetch(this.url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        if (
-          location.pathname === '/products/unassigned' ||
-          location.pathname === '/products/unchecked' ||
-          location.pathname === '/'
-        ) {
-          const newGroups = [];
-
-          json.products_grouped_by_elapsed_days.forEach(group => {
-            const elapsedDays = group.elapsed_days >= this.selectedDays + 2 ? this.selectedDays + 2 : group.elapsed_days;
-
-            let existingGroup = newGroups.find(g => g.elapsed_days === elapsedDays);
-            if (!existingGroup) {
-              existingGroup = {
-                elapsed_days: elapsedDays,
-                products: []
-              };
-              newGroups.push(existingGroup);
-            }
-            existingGroup.products = existingGroup.products.concat(group.products);
-          });
-
-          this.productsGroupedByElapsedDays = newGroups;
-        }
-      });
+      this.getProductsPerPage()
     }
   }
 }
