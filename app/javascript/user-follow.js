@@ -134,13 +134,7 @@ const userFollow = {
       .catch((error) => {
         console.warn(error)
       })
-    console.log(isFollowing)
-    console.log(isWatching)
-    console.log(userId)
     changeButtonAppearance(userId)
-    // .finally(() => {
-    //   changeButtonAppearance(event.target.closest('#followingDetailsRef'))
-    // })
   },
   unfollow(userId, isFollowing, isWatching) {
     const url = isFollowing
@@ -168,13 +162,7 @@ const userFollow = {
       .catch((error) => {
         console.warn(error)
       })
-    console.log(isFollowing)
-    console.log(isWatching)
-    console.log(userId)
     changeButtonAppearance(userId)
-    // .finally(() => {
-    //   changeButtonAppearance(event.target.closest('#followingDetailsRef'))
-    // })
   },
   closeDropDown() {
     const details = event.target.closest('#followingDetailsRef')
