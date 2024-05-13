@@ -1,6 +1,6 @@
 .page-body
-  // nav.pagination
-  //   = paginate @users
+  nav.pagination
+    = paginate @users
   .container
     .users
       - if @users.empty?
@@ -263,5 +263,5 @@
                           li.card-main-actions__item.is-only-mentor
                             a.a-button.is-secondary.is-sm.is-block(href='/talks/#{user.talk.id}')
                               | 相談部屋
-  // nav.pagination
-  //   = paginate @users
+  nav.pagination
+    = paginate @users
