@@ -22,9 +22,7 @@ module RegularEventDecorator
   def holding?(date)
     return false if custom_holiday?(date)
 
-    return false if !hold_national_holiday && HolidayJp.holiday?(date)
-
-    true
+    !(!hold_national_holiday && HolidayJp.holiday?(date))
   end
 
   def holiday_schedule_for_year
