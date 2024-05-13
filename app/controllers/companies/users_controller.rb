@@ -10,6 +10,6 @@ class Companies::UsersController < ApplicationController
 
     target_users = User.users_role(@target, allowed_targets: ALLOWED_TARGETS)
 
-    @users = target_users.with_attached_avatar.where(company: @company).order(updated_at: :desc)
+    @users = Kaminari.paginate_array(target_users.with_attached_avatar.where(company: @company).order(updated_at: :desc)).page(params[:page]).per(24)
   end
 end
