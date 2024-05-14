@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RequestRetirementController < ApplicationController
+class RequestRetirementsController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: %i[new show create]
   before_action :set_request_retirement, only: %i[show]
 
@@ -18,10 +18,8 @@ class RequestRetirementController < ApplicationController
   def create
     @request_retirement = RequestRetirement.new(request_retirement_params)
     if @request_retirement.save
-      # resourceルーティングだと:idを渡せないので、sessionにidを保存しておく
-      temporarily_store_session(:request_retirement_id, @request_retirement.id)
       UserMailer.request_retirement(@request_retirement).deliver_now
-      redirect_to request_retirement_url
+      redirect_to request_retirement_url(@request_retirement)
     else
       @target_users = current_user.collegues_other_than_self if logged_in? && current_user.belongs_company_and_adviser?
       render :new, status: :unprocessable_entity
@@ -31,7 +29,7 @@ class RequestRetirementController < ApplicationController
   private
 
   def set_request_retirement
-    @request_retirement = RequestRetirement.find(session[:request_retirement_id])
+    @request_retirement = RequestRetirement.find(params[:id])
   end
 
   def request_retirement_params

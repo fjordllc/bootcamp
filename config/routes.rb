@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   draw :reports
   resources :announcements
   resource :retirement, only: %i(show new create), controller: "retirement"
-  resource :request_retirement, only: %i(show new create), controller: "request_retirement"
+  resources :request_retirements, only: %i(show new create)
   resource :hibernation, only: %i(show new create), controller: "hibernation"
   resource :comeback, only: %i(new create), controller: "comeback"
   resource :current_user, only: %i(edit update), controller: "current_user" do
