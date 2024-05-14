@@ -6,7 +6,7 @@ class API::Products::PassedTest < ActionDispatch::IntegrationTest
   fixtures :products
 
   test 'GET /api/products/passed.json' do
-    products(:product15).update_column(:checker_id, nil)
+    products(:product15).update!(checker_id: nil)
 
     get api_products_passed_path(format: :text)
     assert_response :unauthorized
