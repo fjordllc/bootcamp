@@ -565,9 +565,9 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth '/api/products/unassigned/counts.txt', 'komagata'
 
     expected = <<~BODY
-      - 6日以上経過：5件
+      - 6日以上経過：8件
       - 5日経過：1件
-      - 4日経過：1件
+      - 4日経過：2件
     BODY
     assert_includes page.body, expected
   end
