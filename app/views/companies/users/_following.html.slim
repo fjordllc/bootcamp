@@ -3,15 +3,15 @@ details#followingDetailsRef.following
     - if current_user.following?(user) && current_user.watching?(user)
       span.a-button.is-warning.is-sm.is-block
         i.fa-solid.fa-check
-        span#including-comments
+        span
           | コメントあり
     - elsif current_user.following?(user) && !current_user.watching?(user)
       span.a-button.is-warning.is-sm.is-block
         i.fa-solid.fa-check
-        span#excluding-comments
+        span
           | コメントなし
     - elsif !current_user.following?(user)
-      span#not-following.a-button.is-secondary.is-sm.is-block
+      span.a-button.is-secondary.is-sm.is-block
         | フォローする
   .following__dropdown.a-dropdown
     ul.a-dropdown__items
