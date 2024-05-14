@@ -1,5 +1,21 @@
 import CSRF from 'csrf'
 
+function replaceSummary(details, text) {
+  const followingSummary = details.children[0]
+  while (followingSummary.firstChild) {
+    followingSummary.removeChild(followingSummary.firstChild)
+  }
+  const button = document.createElement('span')
+  button.classList.add('a-button', 'is-warning', 'is-sm', 'is-block')
+  const checkMark = document.createElement('i')
+  checkMark.classList.add('fa-solid', 'fa-check')
+  const summaryContent = document.createElement('span')
+  summaryContent.textContent = text
+  button.appendChild(checkMark)
+  button.appendChild(summaryContent)
+  followingSummary.appendChild(button)
+}
+
 function inactivateButtons(notSelectedButtons) {
   if (notSelectedButtons[0].classList.contains('is-active')) {
     notSelectedButtons[0].classList.remove('is-active')
@@ -10,7 +26,6 @@ function inactivateButtons(notSelectedButtons) {
 
 function changeButtonAppearance(userId) {
   const details = event.target.closest('#followingDetailsRef')
-  const followingSummary = details.children[0]
   const dropdownItems = details.querySelector('.a-dropdown__items')
   const firstDropdownItemButton = dropdownItems.children[0].children[0]
   const secondDropdownItemButton = dropdownItems.children[1].children[0]
@@ -18,30 +33,19 @@ function changeButtonAppearance(userId) {
 
   details.removeAttribute('open')
 
-  if (
-    event.currentTarget.children[0].children[0].textContent === 'コメントあり'
-  ) {
-    while (followingSummary.firstChild) {
-      followingSummary.removeChild(followingSummary.firstChild)
-    }
-    const button = document.createElement('span')
-    button.classList.add('a-button', 'is-warning', 'is-sm', 'is-block')
-    const checkMark = document.createElement('i')
-    checkMark.classList.add('fa-solid', 'fa-check')
-    const text = document.createElement('span')
-    text.textContent = 'コメントあり'
-    button.appendChild(checkMark)
-    button.appendChild(text)
-    followingSummary.appendChild(button)
+  if (event.currentTarget.id === 'with-comments') {
+    replaceSummary(details, 'コメントあり')
     firstDropdownItemButton.classList.add('is-active')
     firstDropdownItemButton.setAttribute(
       'onclick',
       'userFollow.closeDropDown()'
     )
+    secondDropdownItemButton.setAttribute('id', 'without-comments')
     secondDropdownItemButton.setAttribute(
       'onclick',
       `userFollow.followOrChangeFollow(${userId}, ${true}, ${false} )`
     )
+    thirdDropdownItemButton.setAttribute('id', 'unfollow')
     thirdDropdownItemButton.setAttribute(
       'onclick',
       `userFollow.unfollow(${userId},${true}, ${true})`
@@ -51,30 +55,19 @@ function changeButtonAppearance(userId) {
       thirdDropdownItemButton
     ]
     inactivateButtons(notSelectedButtons)
-  } else if (
-    event.currentTarget.children[0].children[0].textContent === 'コメントなし'
-  ) {
-    while (followingSummary.firstChild) {
-      followingSummary.removeChild(followingSummary.firstChild)
-    }
-    const button = document.createElement('span')
-    button.classList.add('a-button', 'is-warning', 'is-sm', 'is-block')
-    const checkMark = document.createElement('i')
-    checkMark.classList.add('fa-solid', 'fa-check')
-    const text = document.createElement('span')
-    text.textContent = 'コメントなし'
-    button.appendChild(checkMark)
-    button.appendChild(text)
-    followingSummary.appendChild(button)
+  } else if (event.currentTarget.id === 'without-comments') {
+    replaceSummary(details, 'コメントなし')
     secondDropdownItemButton.classList.add('is-active')
     secondDropdownItemButton.setAttribute(
       'onclick',
       'userFollow.closeDropDown()'
     )
+    firstDropdownItemButton.setAttribute('id', 'with-comments')
     firstDropdownItemButton.setAttribute(
       'onclick',
       `userFollow.followOrChangeFollow(${userId}, ${true}, ${true} )`
     )
+    thirdDropdownItemButton.setAttribute('id', 'unfollow')
     thirdDropdownItemButton.setAttribute(
       'onclick',
       `userFollow.unfollow(${userId}, ${true}, ${false})`
@@ -84,9 +77,7 @@ function changeButtonAppearance(userId) {
       thirdDropdownItemButton
     ]
     inactivateButtons(notSelectedButtons)
-  } else if (
-    event.currentTarget.children[0].children[0].textContent === 'フォローしない'
-  ) {
+  } else if (event.currentTarget.id === 'unfollow') {
     details.children[0].children[0].textContent = 'フォローする'
     details.children[0].children[0].className =
       'a-button is-secondary is-sm is-block'
@@ -95,10 +86,12 @@ function changeButtonAppearance(userId) {
       'onclick',
       'userFollow.closeDropDown()'
     )
+    firstDropdownItemButton.setAttribute('id', 'with-comments')
     firstDropdownItemButton.setAttribute(
       'onclick',
       `userFollow.followOrChangeFollow(${userId}, ${false}, ${true} )`
     )
+    secondDropdownItemButton.setAttribute('id', 'without-comments')
     secondDropdownItemButton.setAttribute(
       'onclick',
       `userFollow.followOrChangeFollow(${userId}, ${false}, ${false} )`
