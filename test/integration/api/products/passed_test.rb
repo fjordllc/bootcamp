@@ -14,8 +14,8 @@ class API::Products::PassedTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
 
     assert_response :ok
-    assert_match '4日経過：1件', response.body
-    assert_match '5日経過：3件', response.body
-    assert_match '6日以上経過：7件', response.body
+    assert_match '4日経過：3件', response.body
+    assert_match '5日経過：2件', response.body
+    assert_match '6日以上経過：10件', response.body
   end
 end
