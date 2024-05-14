@@ -18,7 +18,7 @@
 //- ダッシュボード
 div(v-else-if='isDashboard')
   select(v-on:change='onDaysSelectChange($event)')
-    option(value='' disabled selected hidden) 未アサインの提出物の経過日数を選択
+    option(value='', disabled, selected, hidden) 未アサインの提出物の経過日数を選択
     option(value='1') 1日経過 2日経過 3日以上経過
     option(value='2') 2日経過 3日経過 4日以上経過
     option(value='3') 3日経過 4日経過 5日以上経過
@@ -83,12 +83,12 @@ div(v-else-if='isDashboard')
     .under-cards__links.mt-4.text-center.leading-normal.text-sm
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href='/products/unassigned#${selectedDays}days-elapsed',
+        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
         v-if='countAlmostPassedSelectedDays() === 0')
         | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href='/products/unassigned#${selectedDays}days-elapsed',
+        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
         v-else)
         | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
 </template>
@@ -158,22 +158,29 @@ export default {
             this.productsGroupedByElapsedDays =
               json.products_grouped_by_elapsed_days
 
-            const newGroups = [];
-            json.products_grouped_by_elapsed_days.forEach(group => {
-              const elapsedDays = group.elapsed_days >= this.selectedDays + 2 ? this.selectedDays + 2 : group.elapsed_days;
+            const newGroups = []
+            json.products_grouped_by_elapsed_days.forEach((group) => {
+              const elapsedDays =
+                group.elapsed_days >= this.selectedDays + 2
+                  ? this.selectedDays + 2
+                  : group.elapsed_days
 
-              let existingGroup = newGroups.find(g => g.elapsed_days === elapsedDays);
+              let existingGroup = newGroups.find(
+                (g) => g.elapsed_days === elapsedDays
+              )
               if (!existingGroup) {
                 existingGroup = {
                   elapsed_days: elapsedDays,
                   products: []
-                };
-                newGroups.push(existingGroup);
+                }
+                newGroups.push(existingGroup)
               }
-              existingGroup.products = existingGroup.products.concat(group.products);
-            });
+              existingGroup.products = existingGroup.products.concat(
+                group.products
+              )
+            })
 
-            this.productsGroupedByElapsedDays = newGroups;
+            this.productsGroupedByElapsedDays = newGroups
           }
           this.products = []
           json.products.forEach((product) => {
@@ -228,7 +235,8 @@ export default {
           : this.getElementNdaysPassed(this.selectedDays - 1)
       return previousDaysElement === undefined
         ? 0
-        : this.PassedAlmostSelectedDaysProducts(previousDaysElement.products).length
+        : this.PassedAlmostSelectedDaysProducts(previousDaysElement.products)
+            .length
     },
     onDaysSelectChange(event) {
       this.selectedDays = parseInt(event.target.value)
