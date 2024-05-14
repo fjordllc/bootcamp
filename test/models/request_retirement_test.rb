@@ -5,6 +5,9 @@ require 'test_helper'
 class RequestRetirementTest < ActiveSupport::TestCase
   test '#validate_user_existence validation' do
     request_retirement = request_retirements(:request_retirement1)
+    request_retirement.requester_email = 'senpai@fjord.jp'
+    request_retirement.requester_name = 'senpai'
+    request_retirement.target_user_name = 'kensyu'
     assert request_retirement.valid?
 
     # invalid e-mail

@@ -20,14 +20,32 @@ description: '退会申請を受け付けました。')
           h2.thanks-message__inputed-values-title
             | 申請内容
           .form__items.thanks-message__inputed-values-items
-            - %i[requester_email requester_name requester_company_name target_user_name reason_of_request_retirement].each do |attr|
-              .form-item
-                .a-form-label
-                  = RequestRetirement.human_attribute_name(attr)
-                .a-text-input.is-inputed
-                  = @request_retirement.public_send(attr)
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:requester_email)
+              .a-text-input.is-inputed
+                = @request_retirement.user.email
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:requester_name)
+              .a-text-input.is-inputed
+                = @request_retirement.user.login_name
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:company_name)
+              .a-text-input.is-inputed
+                = @request_retirement.company_name
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:target_user_name)
+              .a-text-input.is-inputed
+                = @request_retirement.target_user.name
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:reason)
+              .a-text-input.is-inputed
+                = @request_retirement.reason
             .form-item
-              / 退会後のデータは動的なので、別で出力を実装
               .a-form-label
                 = I18n.t('activerecord.attributes.request_retirement.keep_data.title')
               .a-text-input.is-inputed

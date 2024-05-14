@@ -36,9 +36,9 @@ class RequestRetirementsController < ApplicationController
     params.require(:request_retirement)
           .permit(:requester_email,
                   :requester_name,
-                  :requester_company_name,
+                  :company_name,
                   :target_user_name,
-                  :reason_of_request_retirement,
+                  :reason,
                   :keep_data)
   end
 
@@ -46,7 +46,7 @@ class RequestRetirementsController < ApplicationController
     {
       requester_email: current_user.email,
       requester_name: current_user.login_name,
-      requester_company_name: current_user.company.name
+      company_name: current_user.company.name
     }
   end
 

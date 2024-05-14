@@ -1,15 +1,11 @@
 class CreateRequestRetirements < ActiveRecord::Migration[6.1]
   def change
-    create_table :request_retirements do |t|
-      t.string :requester_email, null: false
-      t.string :requester_name, null: false
-      t.string :requester_company_name, null: false
-      t.string :target_user_name, null: false
-      t.text :reason_of_request_retirement
-      t.boolean :keep_data, null: false, default: true
-
-      t.references :requester, foreign_key: { to_table: :users }
+    create_table :request_retirements , id: :uuid, default: 'gen_random_uuid()' do |t|
+      t.references :user
       t.references :target_user, foreign_key: { to_table: :users }
+      t.string :company_name, null: false
+      t.text :reason
+      t.boolean :keep_data, null: false, default: true
 
       t.timestamps
     end
