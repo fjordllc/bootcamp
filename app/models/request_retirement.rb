@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 class RequestRetirement < ApplicationRecord
-  belongs_to :requester, class_name: 'User', optional: true
+  attr_accessor :requester_email, :requester_name, :target_user_name
+
+  belongs_to :user, optional: true
   belongs_to :target_user, class_name: 'User', optional: true
 
   validates :requester_email, presence: true
   validates :requester_name, presence: true
-  validates :requester_company_name, presence: true
+  validates :company_name, presence: true
   validates :target_user_name, presence: true
-  validates :reason_of_request_retirement, presence: true
+  validates :reason, presence: true
   validates :keep_data, inclusion: [true, false]
 
   validate :user_existence
@@ -18,19 +20,19 @@ class RequestRetirement < ApplicationRecord
   def user_existence
     message = 'は登録されていません。'
 
-    if requester_registered? && target_user
-      self.requester = user_by_requester_email
-      self.target_user = target_user
+    if requester_registered? && user_by_target_user_name
+      self.user = user_by_requester_email
+      self.target_user = user_by_target_user_name
     elsif !user_by_requester_email
       errors.add(:requester_email, message)
     elsif !user_by_requester_name
       errors.add(:requester_name, message)
-    elsif !target_user
+    elsif !user_by_target_user_name
       errors.add(:target_user_name, message)
     end
   end
 
-  def target_user
+  def user_by_target_user_name
     User.find_by(login_name: target_user_name)
   end
 

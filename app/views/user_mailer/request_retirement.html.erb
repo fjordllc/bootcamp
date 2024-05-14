@@ -17,12 +17,26 @@
           もしくは <%= mail_to 'info@lokka.jp', 'info@lokka.jp', target: '_blank', rel: 'noopener noreferrer' %> までご連絡ください。
         </p>
         <ul>
-          <% %i[requester_email requester_name requester_company_name target_user_name reason_of_request_retirement].each do |attr| %>
-            <li>
-              <%= RequestRetirement.human_attribute_name(attr) %><br>
-              <%= @request_retirement.public_send(attr) %>
-            </li>
-          <% end %>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:requester_email) %><br>
+            <%= @request_retirement.user.email %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:requester_name) %><br>
+            <%= @request_retirement.user.login_name %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:company_name) %><br>
+            <%= @request_retirement.company_name %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:target_user_name) %><br>
+            <%= @request_retirement.target_user.name %>
+          </li>
+          <li>
+            <%= RequestRetirement.human_attribute_name(:reason) %><br>
+            <%= @request_retirement.reason %>
+          </li>
           <li>
             <%= I18n.t('activerecord.attributes.request_retirement.keep_data.title') %><br>
             <% if @request_retirement.keep_data %>

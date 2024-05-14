@@ -286,9 +286,9 @@ ja:
       request_retirement:
         requester_name: 申請者のアカウント
         requester_email: メールアドレス
-        requester_company_name: 会社名
+        company_name: 会社名
         target_user_name: 退会をさせる方のアカウント
-        reason_of_request_retirement: 退会理由
+        reason: 退会理由
         keep_data:
           title: 退会後のデータ
           options:
