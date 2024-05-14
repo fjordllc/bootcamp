@@ -24,7 +24,7 @@ details#followingDetailsRef.following
               .following-option__desciption
                 | フォローしたユーザーの日報を自動でWatch状態にします。日報投稿時の通知と日報にコメントが来た際に通知を受け取ります。
         - else
-          button.following-option.a-dropdown__item-inner onclick="userFollow.followOrChangeFollow(#{user.id}, #{current_user.following?(user)}, #{true} )"
+          button#with-comments.following-option.a-dropdown__item-inner onclick="userFollow.followOrChangeFollow(#{user.id}, #{current_user.following?(user)}, #{true} )"
             .following-option__inner
               .following-option__label
                 | コメントあり
@@ -39,7 +39,7 @@ details#followingDetailsRef.following
               .following-option__desciption
                 | フォローしたユーザーの日報はWatch状態にしません。日報投稿時の通知だけ通知を受けとります。
         - else
-          button.following-option.a-dropdown__item-inner onclick="userFollow.followOrChangeFollow(#{user.id}, #{current_user.following?(user)}, #{false} )"
+          button#without-comments.following-option.a-dropdown__item-inner onclick="userFollow.followOrChangeFollow(#{user.id}, #{current_user.following?(user)}, #{false} )"
             .following-option__inner
               .following-option__label
                 | コメントなし
@@ -52,7 +52,7 @@ details#followingDetailsRef.following
               .following-option__label
                 | フォローしない
         - else
-          button.following-option.a-dropdown__item-inner onclick="userFollow.unfollow(#{user.id}, #{current_user.following?(user)}, #{current_user.watching?(user)})"
+          button#unfollow.following-option.a-dropdown__item-inner.unfollow onclick="userFollow.unfollow(#{user.id}, #{current_user.following?(user)}, #{current_user.watching?(user)})"
             .following-option__inner
               .following-option__label
                 | フォローしない
