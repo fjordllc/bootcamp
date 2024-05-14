@@ -64,6 +64,24 @@ export default function Products({
     })
     return elapsedDays.every((day) => day < 4)
   }
+
+  const updateElapsedDays = (productsGroupedByElapsedDays) => {
+    const updateElapsedDays = []
+    productsGroupedByElapsedDays.forEach((group) => {
+        const elapsedDays = group.elapsed_days >= 6 ? 6 : group.elapsed_days
+        let existingGroup = updateElapsedDays.find((g) => g.elapsed_days === elapsedDays)
+        if (!existingGroup) {
+            existingGroup = {
+                elapsed_days: elapsedDays,
+                products: []
+            };
+            updateElapsedDays.push(existingGroup)
+        }
+        existingGroup.products = existingGroup.products.concat(group.products)
+    })
+    return updateElapsedDays
+  }
+
   const elapsedDaysId = (elapsedDays) => {
     return `${elapsedDays}days-elapsed`
   }
@@ -159,6 +177,8 @@ export default function Products({
       </>
     )
   } else {
+    data.products_grouped_by_elapsed_days = updateElapsedDays(data.products_grouped_by_elapsed_days)
+
     return (
       <div className="page-content is-products loaded">
         <div className="page-body__columns">
