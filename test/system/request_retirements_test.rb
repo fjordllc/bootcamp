@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class RequestRetirementTest < ApplicationSystemTestCase
+class RequestRetirementsTest < ApplicationSystemTestCase
   test 'not logged in user requests retirement' do
     visit new_request_retirement_path
     assert_text '退会申請'
