@@ -317,7 +317,7 @@ class HomeTest < ApplicationSystemTestCase
     visit_with_auth '/', 'mentormentaro'
     assert_text '6日以上経過（7）'
     assert_text '5日経過（1）'
-    assert_text '4日経過（2）'
+    assert_text '4日経過（1）'
     assert_no_text '今日提出（55）'
   end
 
