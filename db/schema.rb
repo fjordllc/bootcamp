@@ -625,7 +625,7 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
     t.boolean "keep_data", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id"
+    t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id", unique: true
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
   end
 
