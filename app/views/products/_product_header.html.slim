@@ -11,7 +11,7 @@ header.page-content-header
       .page-content-header__before-title
         = link_to product.user, class: 'a-user-name' do
           = product.user.long_name
-        - if current_user&.mentor? && @product.user.trainee?
+        - if current_user&.admin_or_mentor? && @product.user.trainee?
           .a-meta
             span.a-meta__label
               = User.human_attribute_name :training_ends_on
