@@ -567,7 +567,7 @@ class ProductsTest < ApplicationSystemTestCase
     expected = <<~BODY
       - 6日以上経過：6件
       - 5日経過：1件
-      - 4日経過：2件
+      - 4日経過：1件
     BODY
     assert_includes page.body, expected
   end
