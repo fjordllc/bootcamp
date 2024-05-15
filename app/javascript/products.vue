@@ -184,6 +184,7 @@ export default {
           })
           this.productsGroupedByElapsedDays = newGroups
         }
+
         this.totalPages = json.total_pages
         this.products = []
         json.products.forEach((product) => {
