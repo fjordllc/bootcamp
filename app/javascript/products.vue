@@ -139,65 +139,71 @@ export default {
     this.getProductsPerPage()
   },
   methods: {
-    getProductsPerPage() {
-      fetch(this.url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then((response) => {
-          return response.json()
+    async getProductsPerPage() {
+      try {
+        const response = await fetch(this.url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': CSRF.getToken()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
         })
-        .then((json) => {
-          if (location.pathname === '/') {
-            this.productsGroupedByElapsedDays =
-              json.products_grouped_by_elapsed_days
 
-            const newGroups = []
-            json.products_grouped_by_elapsed_days.forEach((group) => {
-              const elapsedDays =
-                group.elapsed_days >= this.selectedDays + 2
-                  ? this.selectedDays + 2
-                  : group.elapsed_days
+        const json = await response.json()
+        if (
+          location.pathname === '/products/unassigned' ||
+          location.pathname === '/products/unchecked' ||
+          location.pathname === '/'
+        ) {
+          this.productsGroupedByElapsedDays =
+            json.products_grouped_by_elapsed_days
 
-              let existingGroup = newGroups.find(
-                (g) => g.elapsed_days === elapsedDays
-              )
-              if (!existingGroup) {
-                existingGroup = {
-                  elapsed_days: elapsedDays,
-                  products: []
-                }
-                newGroups.push(existingGroup)
+          const newGroups = []
+          json.products_grouped_by_elapsed_days.forEach((group) => {
+            const elapsedDays =
+              group.elapsed_days >= this.selectedDays + 2
+                ? this.selectedDays + 2
+                : group.elapsed_days
+
+            let existingGroup = newGroups.find(
+              (g) => g.elapsed_days === elapsedDays
+            )
+            if (!existingGroup) {
+              existingGroup = {
+                elapsed_days: elapsedDays,
+                products: []
               }
-              existingGroup.products = existingGroup.products.concat(
-                group.products
-              )
-            })
-
-            this.productsGroupedByElapsedDays = newGroups
-          }
-          this.products = []
-          json.products.forEach((product) => {
-            this.products.push(product)
+              newGroups.push(existingGroup)
+            }
+            existingGroup.products = existingGroup.products.concat(
+              group.products
+            )
           })
-          this.loaded = true
+
+          this.productsGroupedByElapsedDays = newGroups
+        }
+        this.totalPages = json.total_pages
+        this.products = []
+        json.products.forEach((product) => {
+          this.products.push(product)
         })
-        .then(() => {
-          const hash = location.hash.slice(1)
-          const element = document.getElementById(hash)
-          if (element) {
-            element.scrollIntoView()
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+        this.loaded = true
+
+        const hash = location.hash.slice(1)
+        const element = document.getElementById(hash)
+        if (element) {
+          element.scrollIntoView()
+        }
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    onDaysSelectChange(event) {
+      this.selectedDays = parseInt(event.target.value)
+      this.getProductsPerPage()
     },
     getElementNdaysPassed(elapsedDays) {
       const element = this.productsGroupedByElapsedDays.find(
@@ -237,11 +243,6 @@ export default {
         ? 0
         : this.PassedAlmostSelectedDaysProducts(previousDaysElement.products)
             .length
-    },
-    onDaysSelectChange(event) {
-      this.selectedDays = parseInt(event.target.value)
-
-      this.getProductsPerPage()
     }
   }
 }
