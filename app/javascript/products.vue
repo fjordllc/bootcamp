@@ -26,7 +26,7 @@ div(v-else-if='isDashboard')
     option(value='5') 5日経過 6日経過 7日以上経過
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
-      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= selectedDays)')
+      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 0 && product_n_days_passed.elapsed_days <= selectedDays + 2)')
       //- TODO 以下を共通化する
       //- prettier-ignore: need space between v-if and id
       header.card-header.a-elapsed-days(
