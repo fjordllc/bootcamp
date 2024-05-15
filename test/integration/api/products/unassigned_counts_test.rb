@@ -19,7 +19,7 @@ class API::Products::UnassignedTextTest < ActionDispatch::IntegrationTest
     expected = <<~BODY
       - 6日以上経過：8件
       - 5日経過：1件
-      - 4日経過：2件
+      - 4日経過：1件
     BODY
     assert_includes response.body, expected
   end

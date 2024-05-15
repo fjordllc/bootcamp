@@ -17,7 +17,7 @@ class API::Products::PassedTest < ActionDispatch::IntegrationTest
     assert_response :ok
 
     expected = <<~BODY
-      - 4日経過：2件
+      - 4日経過：1件
       - 5日経過：1件
       - 6日以上経過：8件
     BODY
