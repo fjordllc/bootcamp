@@ -22,16 +22,19 @@ header.page-content-header
                   span.a-meta__label
                     | 公開
                   .a-meta__value
-                    - if !movie.user.nil?
-                        time(datetime="#{@movie.created_at.to_datetime}")
-                          | #{l @movie.created_at}
-                        = render 'users/icon',
-                          created_at: @movie.created_at,
-                          user: @movie.user,
-                          link_class: 'thread-header__user-icon-link',
-                          image_class: 'thread-header__user-icon'
-                        = link_to @movie.user, class: 'a-user-name' do
-                          | #{@movie.user.login_name}
+                    time(datetime="#{@movie.created_at.to_datetime}")
+                      | #{l @movie.created_at}
+                    - if movie.user
+                      = render 'users/icon',
+                        created_at: @movie.created_at,
+                        user: @movie.user,
+                        link_class: 'thread-header__user-icon-link',
+                        image_class: 'thread-header__user-icon'
+                      = link_to @movie.user, class: 'a-user-name' do
+                        | #{@movie.user.login_name}
+                    - else
+                      = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon'
+                      | ghost
 
         .page-content-header-metas__end
           .page-content-header-metas
