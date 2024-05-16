@@ -5,7 +5,7 @@ class Works::WorkComponent < ViewComponent::Base
     @work = work
   end
 
-  def work_thumbnail
+  def thumbnail
     if work.thumbnail.attached?
       image_tag work.thumbnail_url, class: 'thumbnail-card__image'
     else
