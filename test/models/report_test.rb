@@ -44,7 +44,7 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 10, reports(:report32).interval
   end
 
-  test '#date' do
+  test '#selectable_date?' do
     report = Report.new(reported_on: Date.new(2012, 12, 31))
     assert report.invalid?
   end

@@ -119,13 +119,15 @@ class Report < ApplicationRecord
     errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
   end
 
-  VALIDATION_STARTS_YEAR = 2013
-  VALIDATION_STARTS_MONTH = 1
-  VALIDATION_STARTS_DAY = 1
-
   def reported_on_or_after_specific_date
-    errors.add(:reported_on, "は#{VALIDATION_STARTS_YEAR}年#{VALIDATION_STARTS_MONTH}月#{VALIDATION_STARTS_DAY}日以後の日付にしてください") if reported_on < Date.new(
-      VALIDATION_STARTS_YEAR, VALIDATION_STARTS_MONTH, VALIDATION_STARTS_DAY
+    selectable_start_date = {
+      year: 2013,
+      month: 1,
+      day: 1
+    }
+
+    errors.add(:reported_on, "は#{selectable_start_date[:year]}年#{selectable_start_date[:month]}月#{selectable_start_date[:day]}日以後の日付にしてください") if reported_on < Date.new(
+      selectable_start_date[:year], selectable_start_date[:month], selectable_start_date[:day]
     )
   end
 
