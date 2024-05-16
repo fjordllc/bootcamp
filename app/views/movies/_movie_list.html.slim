@@ -8,17 +8,22 @@
         h2.thumbnail-card__title
           = link_to movie, class: 'thumbnail-card__title-link a-text-link' do
             = movie.title
-    - if !movie.user.nil?
       .thumbnail-card__row
         .thumbnail-card__metas
           .thumbnail-card__meta
             .thumbnail-card__author
-              .thumbnail-card__icon
-                = link_to user_path(movie.user), class: 'a-user-icons__item-link' do
-                  span class="a-user-role is-#{movie.user.primary_role}"
-                    = image_tag movie.user.avatar_url, title: movie.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
-              .thumbnail-card__user
-                = link_to movie.user.name, user_path(movie.user), class: 'a-user-name'
+              - if movie.user
+                .thumbnail-card__icon
+                  = link_to user_path(movie.user), class: 'a-user-icons__item-link' do
+                    span class="a-user-role is-#{movie.user.primary_role}"
+                      = image_tag movie.user.avatar_url, title: movie.user.icon_title, class: 'a-user-icons__item-icon a-user-icon'
+                .thumbnail-card__user
+                  = link_to movie.user.name, user_path(movie.user), class: 'a-user-name'
+              - else
+                .thumbnail-card__icon
+                  = image_tag 'users/avatars/ghost.png', class: 'a-user-icons__item-icon a-user-icon'
+                .thumbnail-card__user
+                  | ghost
       .thumbnail-card__row
         .thumbnail-card__metas
           .thumbnail-card__meta
