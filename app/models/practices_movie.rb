@@ -2,5 +2,5 @@
 
 class PracticesMovie < ApplicationRecord
   belongs_to :practice
-  belongs_to :movie 
+  belongs_to :movie
 end
