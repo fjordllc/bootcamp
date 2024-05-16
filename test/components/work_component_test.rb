@@ -10,7 +10,7 @@ class WorkComponentTest < ViewComponent::TestCase
     render_inline(Works::WorkComponent.new(work: @work))
   end
 
-  def test_work_thumbnail
+  def test_thumbnail
     assert_selector 'img.thumbnail-card__image'
   end
 
