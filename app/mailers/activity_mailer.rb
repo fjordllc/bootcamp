@@ -429,7 +429,23 @@ class ActivityMailer < ApplicationMailer
     subject = "新しいブログ「#{@article.title}」を#{@article.user.login_name}さんが投稿しました！"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
+    message
+  end
 
+  # required params: work, receiver
+  def added_work(args = {})
+    @work = params&.key?(:work) ? params[:work] : args[:work]
+    @receiver ||= args[:receiver]
+    @user = @receiver
+
+    @link_url = notification_redirector_url(
+      link: "/works/#{@work.id}",
+      kind: Notification.kinds[:added_work]
+    )
+
+    subject = "[FBC] #{@work.user.login_name}さんがポートフォリオに作品「#{@work.title}」を追加しました。"
+    message = mail(to: @user.email, subject:)
+    message.perform_deliveries = @user.mail_notification? && !@user.retired?
     message
   end
 end

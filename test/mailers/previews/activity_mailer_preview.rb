@@ -178,4 +178,12 @@ class ActivityMailerPreview < ActionMailer::Preview
 
     ActivityMailer.with(article:, receiver:, sender: user).create_article
   end
+
+  def added_work
+    work = Work.find(ActiveRecord::FixtureSet.identify(:work1))
+    user = User.find(work.user_id)
+    receiver = User.find(ActiveRecord::FixtureSet.identify(:komagata))
+
+    ActivityMailer.with(work:, sender: user, receiver:).added_work
+  end
 end
