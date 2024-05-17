@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RegularEventsToIcalExporter
-  def self.export_events(user)
+  def export_events(user)
     holding_events = fetch_events(user)
     cal = Icalendar::Calendar.new
 
@@ -26,7 +26,9 @@ class RegularEventsToIcalExporter
     cal
   end
 
-  def self.fetch_events(user)
+  private
+
+  def fetch_events(user)
     participated_list = user.regular_event_participations.pluck(:regular_event_id)
     holding_events = []
     RegularEvent.where(id: participated_list).where(finished: false).find_each do |event|
