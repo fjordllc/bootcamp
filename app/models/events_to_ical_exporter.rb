@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EventsToIcalExporter
-  def self.export_events(user)
+  def export_events(user)
     events_set = fetch_events(user)
     cal = Icalendar::Calendar.new
 
@@ -15,7 +15,9 @@ class EventsToIcalExporter
     cal
   end
 
-  def self.fetch_events(user)
+  private
+
+  def fetch_events(user)
     participated_list = user.participations.pluck(:event_id)
     upcoming_event_list = Event.where('start_at > ?', Date.current).pluck(:id)
 
@@ -27,7 +29,7 @@ class EventsToIcalExporter
     }
   end
 
-  def self.add_event_to_calendar(cal, event, joined)
+  def add_event_to_calendar(cal, event, joined)
     tzid = 'Asia/Tokyo'
     cal.event do |e|
       e.dtstart     = Icalendar::Values::DateTime.new event.start_at, { 'tzid' => tzid }
