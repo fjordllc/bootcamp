@@ -8,7 +8,7 @@ class Events::CalendarsController < ApplicationController
     user = User.find_by(id: user_id)
 
     calendar = Calendar.new
-    subscription_calendar =  calendar.combined_calendar(user).publish
+    subscription_calendar = calendar.combined_calendar(user).publish
     render plain: subscription_calendar.to_ical
   end
 end
