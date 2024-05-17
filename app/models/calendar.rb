@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class EventSubscription
-  def self.combined_calendar(user)
+class Calendar
+  def combined_calendar(user)
     special_calendar = special_calendar_str(user)
     regular_calendar = regular_calendar_str(user)
 
@@ -9,15 +9,17 @@ class EventSubscription
     Icalendar::Calendar.parse(calendar_str).first
   end
 
-  def self.special_calendar_str(user)
-    special_calendar = EventsToIcalExporter.export_events(user)
-    special_calendar_to_ical = special_calendar.to_ical
+  private
+
+  def special_calendar_str(user)
+    special_calendar = EventsToIcalExporter.new
+    special_calendar_to_ical = special_calendar.export_events(user).to_ical
     special_calendar_to_ical.gsub(/END:VCALENDAR\r?\n?\z/, '')
   end
 
-  def self.regular_calendar_str(user)
-    regular_calendar = RegularEventsToIcalExporter.export_events(user)
-    regular_calendar_to_ical = regular_calendar.to_ical
+  def regular_calendar_str(user)
+    regular_calendar = RegularEventsToIcalExporter.new
+    regular_calendar_to_ical = regular_calendar.export_events(user).to_ical
     regular_calendar_to_ical.gsub(/\A(?:BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:icalendar-ruby\r\nCALSCALE:GREGORIAN\r\n)/, '')
   end
 end
