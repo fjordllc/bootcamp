@@ -126,9 +126,12 @@ class Report < ApplicationRecord
       day: 1
     }
 
-    errors.add(:reported_on, "は#{selectable_start_date[:year]}年#{selectable_start_date[:month]}月#{selectable_start_date[:day]}日以後の日付にしてください") if reported_on < Date.new(
+    if reported_on < Date.new(
       selectable_start_date[:year], selectable_start_date[:month], selectable_start_date[:day]
     )
+      errors.add(:reported_on,
+                 "は#{selectable_start_date[:year]}年#{selectable_start_date[:month]}月#{selectable_start_date[:day]}日以後の日付にしてください")
+    end
   end
 
   def latest_of_user?
