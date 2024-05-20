@@ -3,29 +3,42 @@
 require 'test_helper'
 
 class RequestRetirementTest < ActiveSupport::TestCase
-  test '#validate_user_existence validation' do
-    request_retirement = request_retirements(:request_retirement1)
-    request_retirement.requester_email = 'senpai@fjord.jp'
-    request_retirement.requester_name = 'senpai'
-    request_retirement.target_user_name = 'kensyu'
-    assert request_retirement.valid?
+  setup do
+    # 一意性の検証をしている項目があるので、fixturesによるtestDBへの自動保存を避けるため、コード内で定義
+    @request_retirement = RequestRetirement.new(
+      requester_name: 'senpai',
+      requester_email: 'senpai@fjord.jp',
+      target_user_name: 'kensyu',
+      company_name: 'company',
+      reason: '退職してしまったため。',
+      keep_data: true
+    )
+  end
 
-    # invalid e-mail
-    invalid_email = request_retirement.dup
-    invalid_email.requester_email = 'not_exist@example.com'
-    assert invalid_email.invalid?
-    assert_includes invalid_email.errors.full_messages, 'メールアドレスは登録されていません。'
+  test 'setup data is valid' do
+    assert @request_retirement.valid?
+  end
 
-    # invalid requester name
-    invalid_requester_name = request_retirement.dup
-    invalid_requester_name.requester_name = 'Not ExistMan'
-    assert invalid_requester_name.invalid?
-    assert_includes invalid_requester_name.errors.full_messages, '申請者のアカウントは登録されていません。'
+  test 'requester name and email must match' do
+    request = @request_retirement.dup
+    request.requester_email = 'komagata@fjord.jp'
+    request.requester_name = 'machida'
+    assert request.invalid?
+    assert_equal ['アカウント名とメールアドレスのユーザー情報が一致しません。'], request.errors[:base]
+  end
 
-    # invalid target user name
-    invalid_target_user_name = request_retirement.dup
-    invalid_target_user_name.target_user_name = 'Not TargetMan'
-    assert invalid_target_user_name.invalid?
-    assert_includes invalid_target_user_name.errors.full_messages, '退会をさせる方のアカウントは登録されていません。'
+  test 'target user is unique' do
+    @request_retirement.save
+    request = @request_retirement.dup
+    request.target_user_name = 'kensyu'
+    assert request.invalid?
+    assert_equal ['既に退会申請済みのユーザーです。'], request.errors.full_messages_for(:base)
+  end
+
+  test 'set users by requester name and email and target user name' do
+    request = @request_retirement.dup
+    request.validate
+    assert_equal User.find_by(login_name: request.requester_name), request.user
+    assert_equal User.find_by(login_name: request.target_user_name), request.target_user
   end
 end

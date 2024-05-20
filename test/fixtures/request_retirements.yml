@@ -1,6 +1,0 @@
-request_retirement1:
-  user: senpai
-  target_user: kensyu
-  company_name: company2
-  reason: 退職してしまいました。
-  keep_data: true
