@@ -17,29 +17,7 @@
       h1.auth-form__title
         = title
     .auth-form__body
-      .form-notice
-        p
-          | フィヨルドブートキャンプのアカウントを持つ社員が退職される場合、
-          | セキュリティ対策として、その社員のアカウントを退会させる必要があります。
-          | その際は、以下のフォームから退会申請をしてください。
-          | 申請後、管理者が確認し、数営業日以内に処理を行います。
-        p
-          | 退会やデータに関する質問や相談がある場合は、
-          - if logged_in?
-            = link_to action_uncompleted_index_path(current_user.talk) do
-              | 相談部屋からお問い合わせください
-          - else
-            = link_to login_path do
-              | ログインの上相談部屋から
-            | 、もしくは info@lokka.jp へお問い合わせください
-          | 。
-        p
-          - unless logged_in?
-            | フォームに情報を入力する際は、
-            = link_to login_path do
-              | ログインすることで
-            | 必要最小限の情報だけで済むため、手間が省けます。
-
+      = render 'notice'
       - if @request_retirement.errors.any?
         = render 'errors', object: @request_retirement
       = render 'form', request_retirement: @request_retirement
@@ -47,13 +25,4 @@
     footer.auth-form__footer
       nav.auth-form-nav
         ul.auth-form-nav__items
-          - if logged_in?
-            li.auth-form-nav__item
-              = link_to 'ダッシュボード', root_path, class: 'auth-form-nav__item-link'
-            li.auth-form-nav__item
-              = link_to '相談部屋', action_uncompleted_index_path(current_user.talk), class: 'auth-form-nav__item-link'
-          - else
-            li.auth-form-nav__item
-              = link_to 'トップページ', root_path, class: 'auth-form-nav__item-link'
-            li.auth-form-nav__item
-              = link_to 'ログイン', login_path, class: 'auth-form-nav__item-link'
+          = render 'navigation'
