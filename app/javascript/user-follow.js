@@ -1,118 +1,5 @@
 import CSRF from 'csrf'
 
-function replaceSummary(details, text) {
-  const followingSummary = details.children[0]
-  while (followingSummary.firstChild) {
-    followingSummary.removeChild(followingSummary.firstChild)
-  }
-  const button = document.createElement('span')
-  button.classList.add('a-button', 'is-warning', 'is-sm', 'is-block')
-  const checkMark = document.createElement('i')
-  checkMark.classList.add('fa-solid', 'fa-check')
-  const summaryContent = document.createElement('span')
-  summaryContent.textContent = text
-  button.appendChild(checkMark)
-  button.appendChild(summaryContent)
-  followingSummary.appendChild(button)
-}
-
-function inactivateButtons(notSelectedButtons) {
-  if (notSelectedButtons[0].classList.contains('is-active')) {
-    notSelectedButtons[0].classList.remove('is-active')
-  } else if (notSelectedButtons[1].classList.contains('is-active')) {
-    notSelectedButtons[1].classList.remove('is-active')
-  }
-}
-
-function changeButtonAppearance(userId) {
-  const details = event.target.closest('#followingDetailsRef')
-  const dropdownItems = details.querySelector('.a-dropdown__items')
-  const firstDropdownItemButton = dropdownItems.children[0].children[0]
-  const secondDropdownItemButton = dropdownItems.children[1].children[0]
-  const thirdDropdownItemButton = dropdownItems.children[2].children[0]
-
-  details.removeAttribute('open')
-
-  if (event.currentTarget.id === 'with-comments') {
-    replaceSummary(details, 'コメントあり')
-    firstDropdownItemButton.classList.add('is-active')
-    firstDropdownItemButton.setAttribute(
-      'onclick',
-      'userFollow.closeDropDown()'
-    )
-    secondDropdownItemButton.setAttribute('id', 'without-comments')
-    secondDropdownItemButton.setAttribute(
-      'onclick',
-      `userFollow.followOrChangeFollow(${userId}, ${true}, ${false} )`
-    )
-    thirdDropdownItemButton.setAttribute('id', 'unfollow')
-    thirdDropdownItemButton.setAttribute(
-      'onclick',
-      `userFollow.unfollow(${userId},${true}, ${true})`
-    )
-    const notSelectedButtons = [
-      secondDropdownItemButton,
-      thirdDropdownItemButton
-    ]
-    inactivateButtons(notSelectedButtons)
-  } else if (event.currentTarget.id === 'without-comments') {
-    replaceSummary(details, 'コメントなし')
-    secondDropdownItemButton.classList.add('is-active')
-    secondDropdownItemButton.setAttribute(
-      'onclick',
-      'userFollow.closeDropDown()'
-    )
-    firstDropdownItemButton.setAttribute('id', 'with-comments')
-    firstDropdownItemButton.setAttribute(
-      'onclick',
-      `userFollow.followOrChangeFollow(${userId}, ${true}, ${true} )`
-    )
-    thirdDropdownItemButton.setAttribute('id', 'unfollow')
-    thirdDropdownItemButton.setAttribute(
-      'onclick',
-      `userFollow.unfollow(${userId}, ${true}, ${false})`
-    )
-    const notSelectedButtons = [
-      firstDropdownItemButton,
-      thirdDropdownItemButton
-    ]
-    inactivateButtons(notSelectedButtons)
-  } else if (event.currentTarget.id === 'unfollow') {
-    details.children[0].children[0].textContent = 'フォローする'
-    details.children[0].children[0].className =
-      'a-button is-secondary is-sm is-block'
-    thirdDropdownItemButton.classList.add('is-active')
-    thirdDropdownItemButton.setAttribute(
-      'onclick',
-      'userFollow.closeDropDown()'
-    )
-    firstDropdownItemButton.setAttribute('id', 'with-comments')
-    firstDropdownItemButton.setAttribute(
-      'onclick',
-      `userFollow.followOrChangeFollow(${userId}, ${false}, ${true} )`
-    )
-    secondDropdownItemButton.setAttribute('id', 'without-comments')
-    secondDropdownItemButton.setAttribute(
-      'onclick',
-      `userFollow.followOrChangeFollow(${userId}, ${false}, ${false} )`
-    )
-    const notSelectedButtons = [
-      firstDropdownItemButton,
-      secondDropdownItemButton
-    ]
-    inactivateButtons(notSelectedButtons)
-  }
-}
-
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('#followingDetailsRef')) {
-    const allDetails = document.querySelectorAll('#followingDetailsRef')
-    for (let i = 0; i < allDetails.length; i++) {
-      allDetails[i].removeAttribute('open')
-    }
-  }
-})
-
 const userFollow = {
   followOrChangeFollow(userId, isFollowing, isWatching) {
     const url = isFollowing
@@ -182,3 +69,121 @@ const userFollow = {
 }
 
 window.userFollow = userFollow
+
+function changeButtonAppearance(userId) {
+  const details = event.target.closest('#followingDetailsRef')
+  const dropdownItems = details.querySelector('.a-dropdown__items')
+  const firstDropdownItemButton = dropdownItems.children[0].children[0]
+  const secondDropdownItemButton = dropdownItems.children[1].children[0]
+  const thirdDropdownItemButton = dropdownItems.children[2].children[0]
+
+  details.removeAttribute('open')
+
+  if (event.currentTarget.id === 'with-comments') {
+    replaceSummary(details, 'コメントあり')
+    firstDropdownItemButton.classList.add('is-active')
+    firstDropdownItemButton.setAttribute(
+      'onclick',
+      'userFollow.closeDropDown()'
+    )
+    secondDropdownItemButton.setAttribute('id', 'without-comments')
+    secondDropdownItemButton.setAttribute(
+      'onclick',
+      `userFollow.followOrChangeFollow(${userId}, ${true}, ${false} )`
+    )
+    thirdDropdownItemButton.setAttribute('id', 'unfollow')
+    thirdDropdownItemButton.setAttribute(
+      'onclick',
+      `userFollow.unfollow(${userId},${true}, ${true})`
+    )
+    const notSelectedButtons = [
+      secondDropdownItemButton,
+      thirdDropdownItemButton
+    ]
+    inactivateButtons(notSelectedButtons)
+  } else if (event.currentTarget.id === 'without-comments') {
+    replaceSummary(details, 'コメントなし')
+    secondDropdownItemButton.classList.add('is-active')
+    secondDropdownItemButton.setAttribute(
+      'onclick',
+      'userFollow.closeDropDown()'
+    )
+    firstDropdownItemButton.setAttribute('id', 'with-comments')
+    firstDropdownItemButton.setAttribute(
+      'onclick',
+      `userFollow.followOrChangeFollow(${userId}, ${true}, ${true} )`
+    )
+    thirdDropdownItemButton.setAttribute('id', 'unfollow')
+    thirdDropdownItemButton.setAttribute(
+      'onclick',
+      `userFollow.unfollow(${userId}, ${true}, ${false})`
+    )
+    const notSelectedButtons = [
+      firstDropdownItemButton,
+      thirdDropdownItemButton
+    ]
+    inactivateButtons(notSelectedButtons)
+  } else if (event.currentTarget.id === 'unfollow') {
+    replaceSummary(details, 'フォローする')
+    thirdDropdownItemButton.classList.add('is-active')
+    thirdDropdownItemButton.setAttribute(
+      'onclick',
+      'userFollow.closeDropDown()'
+    )
+    firstDropdownItemButton.setAttribute('id', 'with-comments')
+    firstDropdownItemButton.setAttribute(
+      'onclick',
+      `userFollow.followOrChangeFollow(${userId}, ${false}, ${true} )`
+    )
+    secondDropdownItemButton.setAttribute('id', 'without-comments')
+    secondDropdownItemButton.setAttribute(
+      'onclick',
+      `userFollow.followOrChangeFollow(${userId}, ${false}, ${false} )`
+    )
+    const notSelectedButtons = [
+      firstDropdownItemButton,
+      secondDropdownItemButton
+    ]
+    inactivateButtons(notSelectedButtons)
+  }
+}
+
+function replaceSummary(details, text) {
+  const followingSummary = details.children[0]
+  while (followingSummary.firstChild) {
+    followingSummary.removeChild(followingSummary.firstChild)
+  }
+
+  const button = document.createElement('span')
+
+  if (text === 'フォローする') {
+    button.className = 'a-button is-secondary is-sm is-block'
+  } else {
+    button.className = 'a-button is-warning is-sm is-block'
+    const checkMark = document.createElement('i')
+    checkMark.classList.add('fa-solid', 'fa-check')
+    button.appendChild(checkMark)
+  }
+
+  const summaryContent = document.createElement('span')
+  summaryContent.textContent = text
+  button.appendChild(summaryContent)
+  followingSummary.appendChild(button)
+}
+
+function inactivateButtons(notSelectedButtons) {
+  if (notSelectedButtons[0].classList.contains('is-active')) {
+    notSelectedButtons[0].classList.remove('is-active')
+  } else if (notSelectedButtons[1].classList.contains('is-active')) {
+    notSelectedButtons[1].classList.remove('is-active')
+  }
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#followingDetailsRef')) {
+    const allDetails = document.querySelectorAll('#followingDetailsRef')
+    for (let i = 0; i < allDetails.length; i++) {
+      allDetails[i].removeAttribute('open')
+    }
+  }
+})
