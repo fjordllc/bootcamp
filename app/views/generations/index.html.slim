@@ -46,44 +46,7 @@ main.page-main
                           = "#{l generation.start_date, format: :year_and_date} ~ #{l generation.end_date, format: :year_and_date}"
                     - if current_user.mentor? && @target == 'all'
                       .user-group__counts.is-only-mentor
-                        .card-counts__items
-                          .card-counts__item
-                            .card-counts__item-inner
-                              .card-counts__item-label
-                                | 現役生
-                              .card-counts__item-value
-                                | #{generation.count_classmates_by_target(:students)}
-                          .card-counts__item
-                            .card-counts__item-inner
-                              .card-counts__item-label
-                                | 研修生
-                              .card-counts__item-value
-                                | #{generation.count_classmates_by_target(:trainees)}
-                          .card-counts__item
-                            .card-counts__item-inner
-                              .card-counts__item-label
-                                | 休会
-                              .card-counts__item-value
-                                | #{generation.count_classmates_by_target(:hibernated)}
-                          .card-counts__item
-                            .card-counts__item-inner
-                              .card-counts__item-label
-                                | 卒業生
-                              .card-counts__item-value
-                                | #{generation.count_classmates_by_target(:graduated)}
-                          .card-counts__item
-                            .card-counts__item-inner
-                              .card-counts__item-label.is-sm
-                                span
-                                  | アドバイザー
-                              .card-counts__item-value
-                                | #{generation.count_classmates_by_target(:advisers)}
-                          .card-counts__item
-                            .card-counts__item-inner
-                              .card-counts__item-label
-                                | 退会者
-                              .card-counts__item-value
-                                | #{generation.count_classmates_by_target(:retired)}
+                        = render partial: 'generations/generation_count', locals: { generation: generation }
                   .a-user-icons
                     .a-user-icons__items
                       - users.each do |user|
