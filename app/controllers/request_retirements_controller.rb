@@ -5,7 +5,7 @@ class RequestRetirementsController < ApplicationController
   before_action :set_request_retirement, only: %i[show]
 
   def new
-    if logged_in? && current_user.belongs_company_and_adviser?
+    if company_adviser_login?
       @request_retirement = RequestRetirement.new(requester_profile)
       @target_users = current_user.collegues_other_than_self
     else
@@ -21,7 +21,7 @@ class RequestRetirementsController < ApplicationController
       UserMailer.request_retirement(@request_retirement).deliver_now
       redirect_to request_retirement_url(@request_retirement)
     else
-      @target_users = current_user.collegues_other_than_self if logged_in? && current_user.belongs_company_and_adviser?
+      @target_users = current_user.collegues_other_than_self if company_adviser_login?
       render :new, status: :unprocessable_entity
     end
   end
@@ -50,7 +50,7 @@ class RequestRetirementsController < ApplicationController
     }
   end
 
-  def temporarily_store_session(key, info)
-    session[key] = info
+  def company_adviser_login?
+    logged_in? && current_user.belongs_company_and_adviser?
   end
 end
