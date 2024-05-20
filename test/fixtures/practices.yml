@@ -366,3 +366,11 @@ practice57:
   goal: "goal..."
   include_progress: false
   last_updated_user: komagata
+
+practice61:
+  title: "企業研究"
+  summary: "概要です"
+  description: "就職したい企業について調べます。(進捗の計算には含めません)"
+  goal: "goal..."
+  include_progress: false
+  memo: "memo for mentors..."

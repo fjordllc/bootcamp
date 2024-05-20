@@ -117,3 +117,8 @@ courses_category24:
   course: course3
   category: category15
   position: 3
+
+courses_category25:
+  course: course1
+  category: category22
+  position: 17

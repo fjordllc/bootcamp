@@ -227,3 +227,7 @@ talk_kensyu-end-over-1-week:
 talk_kensyu-not-setting-end-date:
   user: kensyu-not-setting-end-date
   action_completed: true
+
+talk_harikirio:
+  user: harikirio
+  action_completed: true

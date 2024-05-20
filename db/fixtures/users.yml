@@ -1422,3 +1422,23 @@ pjord:
   created_at: "2024-03-05 00:00:30"
   sent_student_followup_message: true
   last_activity_at: "2021-02-01 00:00:30"
+
+harikirio: #必修でないプラクティスも修了しているユーザー
+  login_name: harikirio
+  email: harikiro@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Hari Kirio
+  name_kana: ハリ キリオ
+  github_account: harikirio
+  twitter_account: harikirio
+  description: "必修でないプラクティスも取り組みます！"
+  course: course1
+  job: office_worker
+  experience: rails
+  job_seeker: true
+  unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
+  updated_at: "2020-01-01 00:00:12"
+  created_at: "2020-01-01 00:00:12"
+  sent_student_followup_message: true
+  last_activity_at: "2020-01-01 00:00:12"
