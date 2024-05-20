@@ -116,7 +116,7 @@
           = render 'user_tags', user:
       = render 'user_practice_progress', user:
       hr.a-border-tint
-      footer.card-footer
+      footer.card-footer.users-item__footer
         .card-main-actions
           ul.card-main-actions__items
             - if current_user.id != user.id && current_user.adviser && user.company && current_user.company_id == user.company.id
