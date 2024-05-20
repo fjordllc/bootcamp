@@ -104,6 +104,15 @@ function changeButtonAppearance(userId) {
   }
 }
 
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#followingDetailsRef')) {
+    const allDetails = document.querySelectorAll('#followingDetailsRef')
+    for (let i = 0; i < allDetails.length; i++) {
+      allDetails[i].removeAttribute('open')
+    }
+  }
+})
+
 const userFollow = {
   followOrChangeFollow(userId, isFollowing, isWatching) {
     const url = isFollowing
