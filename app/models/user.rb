@@ -473,10 +473,6 @@ class User < ApplicationRecord
     completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
   end
 
-  def completed_fraction
-    "#{completed_practices_include_progress.size}/#{practices_include_progress.size}"
-  end
-
   def completed_practices_size_by_category
     Practice
       .joins({ categories: :categories_practices }, :learnings)
@@ -488,6 +484,11 @@ class User < ApplicationRecord
       )
       .group('categories_practices.category_id')
       .count('DISTINCT practices.id')
+  end
+
+  def completed_practices_include_progress
+    practices_include_progress.joins(:learnings)
+                              .merge(Learning.complete.where(user_id: id))
   end
 
   def active?
@@ -799,11 +800,6 @@ class User < ApplicationRecord
 
   def practices_include_progress
     course.practices.where(include_progress: true)
-  end
-
-  def completed_practices_include_progress
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id))
   end
 
   def unstarted_practices

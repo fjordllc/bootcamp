@@ -24,8 +24,22 @@ export default function UserPracticeProgress({ user }) {
           role="progressbar"
           style={{ width: roundedPercentage }}></div>
       </div>
-      <div className="completed-practices-progress__number">
-        {completedPracticesProgressNumber}
+      <div className="completed-practices-progress__counts">
+        <input
+          className="a-toggle-checkbox"
+          type="checkbox"
+          id={`userid_${user.id}`}
+        />
+        <label
+          className="completed-practices-progress__counts-inner"
+          htmlFor={`userid_${user.id}`}>
+          <div className="completed-practices-progress__percentage">
+            {roundedPercentage}
+          </div>
+          <div className="completed-practices-progress__number">
+            {completedPracticesProgressNumber}
+          </div>
+        </label>
       </div>
     </div>
   )
