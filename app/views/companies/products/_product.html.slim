@@ -10,7 +10,7 @@
                   | WIP
           h2.card-list-item-title__title
             = link_to product, class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
-              = "#{product.title}"
+              = product.title.to_s
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
@@ -83,7 +83,7 @@
                     strong
                       | 提出者
                     | ）
-                - else product.self_last_commented_at < product.mentor_last_commented_at
+                - elsif product.self_last_commented_at < product.mentor_last_commented_at
                   time.a-meta
                     | 〜 #{ product.mentor_last_commented_at.year }年
                       #{ product.mentor_last_commented_at.mon }月
@@ -109,7 +109,7 @@
                       #{ product.mentor_last_commented_at.day }日
                       （#{ @weekdays[product.mentor_last_commented_at.wday] }）
                       #{ product.mentor_last_commented_at.strftime('%R') }（メンター）
-      - if current_user.mentor?&& product.checks.size == 0
+      - if current_user.mentor? && product.checks.empty?
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
             = render 'product_checker', product:
@@ -118,7 +118,7 @@
         h2.stamp__content.is-title
           | 確認済
         time.stamp__content.is-created-at
-          | #{product.checks.last.created_at.to_date.strftime("%Y/%m/%d")}
+          | #{product.checks.last.created_at.to_date.strftime('%Y/%m/%d')}
         .stamp__content.is-user-name
           .stamp__content-inner
             | #{product.checks.last.user.login_name}
