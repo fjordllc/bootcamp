@@ -101,8 +101,8 @@
               .card-counts__item-inner
                 dt.card-counts__item-label
                   | 回答
-                dd.card-counts__item-value(class="#{user.answers.count == 0 ? "is-empty" : ""}")
-                  - if user.answers.count == 0
+                dd.card-counts__item-value(class="#{user.answers.count.zero? ? 'is-empty' : ''}")
+                  - if user.answers.count.zero?
                     span
                       | #{user.answers.count}
                   - else
@@ -114,7 +114,8 @@
             | #{user.description}
         .users-item__tags
           = render 'user_tags', user:
-      = render 'user_practice_progress', user:
+      .completed-practices-progress
+        = render 'user_practice_progress', user:
       hr.a-border-tint
       footer.card-footer.users-item__footer
         .card-main-actions
