@@ -29,7 +29,7 @@
                   a.card-list-item-title__title.is-lg.a-text-link(
                     href="#{user.url}")
                     | #{user.login_name}
-                  - if user.company && user.company.logo_url
+                  - if user&.company && user.company&.logo_url
                     a(href="#{user.company.website}")
                       img.user-item__company-logo(src="#{user.company.logo_url}")
               .card-list-item__row
@@ -57,8 +57,8 @@
               .card-counts__item-inner
                 dt.card-counts__item-label
                   | 日報
-                dd.card-counts__item-value(class="#{user.reports.count == 0 ? "is-empty" : ""}")
-                  - if user.reports.count == 0
+                dd.card-counts__item-value(class="#{user.reports.count.zero? ? 'is-empty' : ''}")
+                  - if user.reports.count.zero?
                     span
                       | #{user.reports.count}
                   - else
@@ -68,8 +68,8 @@
               .card-counts__item-inner
                 dt.card-counts__item-label
                   | 提出物
-                dd.card-counts__item-value(class="#{user.products.count == 0 ? "is-empty" : ""}")
-                  - if user.products.count == 0
+                dd.card-counts__item-value(class="#{user.products.count.zero? ? 'is-empty' : ''}")
+                  - if user.products.count.zero?
                     span
                       | #{user.products.count}
                   - else
@@ -79,8 +79,8 @@
               .card-counts__item-inner
                 dt.card-counts__item-label
                   | コメント
-                dd.card-counts__item-value(class="#{user.comments.count == 0 ? "is-empty" : ""}")
-                  - if user.products.count == 0
+                dd.card-counts__item-value(class="#{user.comments.count.zero? ? 'is-empty' : ''}")
+                  - if user.products.count.zero?
                     span
                       | #{user.comments.count}
                   - else
@@ -90,8 +90,8 @@
               .card-counts__item-inner
                 dt.card-counts__item-label
                   | 質問
-                dd.card-counts__item-value(class="#{user.questions.count == 0 ? "is-empty" : ""}")
-                  - if user.questions.count == 0
+                dd.card-counts__item-value(class="#{user.questions.count.zero? ? 'is-empty' : ''}")
+                  - if user.questions.count.zero?
                     span
                       | #{user.questions.count}
                   - else
