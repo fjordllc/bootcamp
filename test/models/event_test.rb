@@ -3,6 +3,25 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
+  test '.gather_events_scheduled_on(date)' do
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      today_date = Time.zone.today
+      today_events_count = 2
+      today_events = Event.gather_events_scheduled_on(today_date)
+      assert_equal today_events_count, today_events.count
+
+      tomorrow_date = Time.zone.today + 1.day
+      tomorrow_events_count = 1
+      tomorrow_events = Event.gather_events_scheduled_on(tomorrow_date)
+      assert_equal tomorrow_events_count, tomorrow_events.count
+
+      day_after_tomorrow_date = Time.zone.today + 2.days
+      day_after_tomorrow_events_count = 1
+      day_after_tomorrow_events = Event.gather_events_scheduled_on(day_after_tomorrow_date)
+      assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
+    end
+  end
+
   test '#opening?' do
     event = events(:event2)
     assert event.opening?
@@ -69,28 +88,6 @@ class EventTest < ActiveSupport::TestCase
     user = users(:hatsuno)
     event.send_notification(user)
     assert Notification.where(user:, sender: event.user, link: "/events/#{event.id}").exists?
-  end
-
-  test '#holding_today?' do
-    event = events(:event1)
-    travel_to Time.zone.local(2019, 12, 20, 0, 0, 0) do
-      assert event.holding_today?
-    end
-
-    travel_to Time.zone.local(2019, 12, 21, 0, 0, 0) do
-      assert_not event.holding_today?
-    end
-  end
-
-  test '#holding_tomorrow?' do
-    event = events(:event1)
-    travel_to Time.zone.local(2019, 12, 19, 0, 0, 0) do
-      assert event.holding_tomorrow?
-    end
-
-    travel_to Time.zone.local(2019, 12, 20, 0, 0, 0) do
-      assert_not event.holding_tomorrow?
-    end
   end
 
   test 'should be invalid when start_at >= end_at' do
