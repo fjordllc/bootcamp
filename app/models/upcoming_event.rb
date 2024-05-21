@@ -11,6 +11,11 @@ class UpcomingEvent
     @event_type = event.class
   end
 
+  def ==(other)
+    other.class == self.class &&
+      %i[original_event title].all? { |attr| public_send(attr) == other.public_send(attr) }
+  end
+
   def held?(date)
     return true if @event_type == Event
 
