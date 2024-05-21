@@ -26,7 +26,7 @@ class Admin::FaqsController < AdminController
 
   def update
     if @faq.update(faq_params.merge(category: faq_params[:category].to_i))
-      redirect_to admin_faq_path(@faq), notice: 'FAQを更新しました。'
+      redirect_to admin_faqs_path, notice: 'FAQを更新しました。'
     else
       render 'edit'
     end
