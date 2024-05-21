@@ -3,11 +3,18 @@
 class UpcomingEventsGroup
   EVENT_MODELS = [Event, RegularEvent].freeze
 
-  attr_reader :date, :events
+  DATE_KEY_TO_DATE_CLASS = {
+    today: Time.zone.today,
+    tomorrow: Time.zone.today + 1.day,
+    day_after_tomorrow: Time.zone.today + 2.days
+  }.freeze
 
-  def initialize(date, upcoming_events)
+  attr_reader :date_key, :date, :events
+
+  def initialize(date_key, date, upcoming_events)
+    @date_key = date_key
     @date = date
-    @events = upcoming_events.sort_by(&:scheduled_date)
+    @events = upcoming_events.sort_by { |e| e.date_with_start_time(@date) }
   end
 
   def ==(other)
@@ -16,19 +23,18 @@ class UpcomingEventsGroup
   end
 
   class << self
-    def build(date)
-      original_events = fetch_dated_original_events(date, EVENT_MODELS)
-      upcoming_events = original_events.map { |e| UpcomingEvent.wrap(e) }
-      new(date, upcoming_events)
+    def build(date_key)
+      date = DATE_KEY_TO_DATE_CLASS[date_key]
+      original_events = fetch_scheduled_original_events(date, EVENT_MODELS)
+      upcoming_events = original_events.map { |e| UpcomingEvent.new(e) }
+      new(date_key, date, upcoming_events)
     end
 
     private
 
-    def fetch_dated_original_events(date, event_models)
-      fetch_date_events_method = "#{date}_events"
-
+    def fetch_scheduled_original_events(date, event_models)
       event_models.map do |event_model|
-        event_model.public_send(fetch_date_events_method)
+        event_model.public_send(:gather_events_scheduled_on, date)
       end.flatten
     end
   end
