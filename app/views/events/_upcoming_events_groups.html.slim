@@ -5,7 +5,7 @@
         | 近日開催のイベント
     .a-side-nav__body
       - upcoming_events_groups.each do |events_group|
-        = render 'events/upcoming_events_group', date: events_group.date, upcoming_events: events_group.events
+        = render 'events/upcoming_events_group', events_group: events_group
 
     hr.a-border
     footer.a-side-nav__footer
