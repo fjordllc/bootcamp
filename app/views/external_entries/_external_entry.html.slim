@@ -6,7 +6,7 @@
       .card-list-item__row
         .card-list-item-title
           h2.card-list-item-title__title
-            = link_to(external_entry.title, external_entry.url, rel: 'noopener', target: '_blank', class: 'card-list-item-title__link a-text-link')
+            = link_to external_entry.title, external_entry.url, rel: 'noopener', target: '_blank', class: 'card-list-item-title__link a-text-link'
       .card-list-item__row
         .card-list-item__summary
           p
@@ -18,5 +18,5 @@
               time.a-meta
                 = l(external_entry.published_at)
     .card-list-item__thumbnail
-      = link_to(external_entry.url, class: 'card-list-item__thumbnail-inner', target: '_blank', rel: 'noopener') do
+      = link_to external_entry.url, class: 'card-list-item__thumbnail-inner', target: '_blank', rel: 'noopener' do
         = image_tag(external_entry.thumbnail_url, class: 'card-list-item__thumbnail-image')
