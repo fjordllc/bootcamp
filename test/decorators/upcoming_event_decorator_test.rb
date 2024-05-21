@@ -9,9 +9,9 @@ class UpcomingEventDecoratorTest < ActiveDecoratorTestCase
     regular_mtg = regular_events(:regular_event1)
     regular_reading = regular_events(:regular_event4)
 
-    upcoming_special = UpcomingEvent.wrap(special)
-    upcoming_regular_mtg = UpcomingEvent.wrap(regular_mtg)
-    upcoming_regular_reading = UpcomingEvent.wrap(regular_reading)
+    upcoming_special = UpcomingEvent.new(special)
+    upcoming_regular_mtg = UpcomingEvent.new(regular_mtg)
+    upcoming_regular_reading = UpcomingEvent.new(regular_reading)
 
     @decorated_upcoming_special = decorate(upcoming_special)
     @decorated_upcoming_mtg = decorate(upcoming_regular_mtg)
