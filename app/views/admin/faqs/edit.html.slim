@@ -24,11 +24,7 @@ header.page-header
           .page-header-actions
             .page-header-actions__items
               .page-header-actions__item
-                = link_to new_admin_faq_path, class: 'a-button is-md is-secondary is-block' do
-                  i.fa-regular.fa-plus
-                  | FAQ追加
-              .page-header-actions__item
-                = link_to admin_faq_path, class: 'a-button is-md is-secondary is-block is-back' do
+                = link_to admin_faqs_path, class: 'a-button is-md is-secondary is-block is-back' do
                   | FAQ一覧
   hr.a-border
   = render 'admin/admin_page_tabs'
