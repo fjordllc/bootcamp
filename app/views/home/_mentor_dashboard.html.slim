@@ -19,7 +19,6 @@
             .dashboard-category__body
               .a-panels
                 .a-panels__items
-                  .a-panels__item
                   - if @upcoming_events_groups.present?
                     = render 'upcoming_events_groups', upcoming_events_groups: @upcoming_events_groups
                   - if @announcements.present?
