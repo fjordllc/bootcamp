@@ -19,7 +19,7 @@ class UpcomingEventsGroup
 
   def ==(other)
     other.class == self.class &&
-      %i[date events].all? { |attr| public_send(attr) == other.public_send(attr) }
+      %i[date_key date events].all? { |attr| public_send(attr) == other.public_send(attr) }
   end
 
   class << self
