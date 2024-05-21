@@ -15,36 +15,38 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test '#holding_today?' do
-    regular_event = regular_events(:regular_event1)
-    travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
-      assert regular_event.holding_today?
-    end
+  test '.gather_events_scheduled_on(date)' do
+    travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
+      today_date = Time.zone.today
+      today_events_count = 3
+      today_events = RegularEvent.gather_events_scheduled_on(today_date)
+      assert_equal today_events_count, today_events.count
 
-    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_not regular_event.holding_today?
-    end
-  end
+      tomorrow_date = Time.zone.today + 1.day
+      tomorrow_events_count = 1
+      tomorrow_events = RegularEvent.gather_events_scheduled_on(tomorrow_date)
+      assert_equal tomorrow_events_count, tomorrow_events.count
 
-  test '#holding_tomorrow?' do
-    regular_event = regular_events(:regular_event1)
-    travel_to Time.zone.local(2023, 2, 25, 0, 0, 0) do
-      assert regular_event.holding_tomorrow?
-    end
-
-    travel_to Time.zone.local(2023, 2, 26, 0, 0, 0) do
-      assert_not regular_event.holding_tomorrow?
+      day_after_tomorrow_date = Time.zone.today + 2.days
+      day_after_tomorrow_events_count = 1
+      day_after_tomorrow_events = RegularEvent.gather_events_scheduled_on(day_after_tomorrow_date)
+      assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
     end
   end
 
-  test '#holding_day_after_tomorrow?' do
-    regular_event = regular_events(:regular_event1)
-    travel_to Time.zone.local(2022, 12, 23, 0, 0, 0) do
-      assert regular_event.holding_day_after_tomorrow?
-    end
+  test 'schedulde_on?(date)' do
+    travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do # Monday
+      today_date = Time.zone.today
+      monday_regular_event = regular_events(:regular_event26)
+      assert monday_regular_event.scheduled_on?(today_date)
 
-    travel_to Time.zone.local(2022, 1, 1, 0, 0, 0) do
-      assert_not regular_event.holding_day_after_tomorrow?
+      tomorrow_date = Time.zone.today + 1.day
+      tuesday_regular_event = regular_events(:regular_event27)
+      assert tuesday_regular_event.scheduled_on?(tomorrow_date)
+
+      day_after_tomorrow_date = Time.zone.today + 2.days
+      wednesday_regular_event = regular_events(:regular_event7)
+      assert wednesday_regular_event.scheduled_on?(day_after_tomorrow_date)
     end
   end
 

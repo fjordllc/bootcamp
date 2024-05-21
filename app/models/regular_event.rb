@@ -53,9 +53,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :holding, -> { where(finished: false) }
-  scope :today_events, -> { where(id: holding.select(&:holding_today?).map(&:id)) }
-  scope :tomorrow_events, -> { where(id: holding.select(&:holding_tomorrow?).map(&:id)) }
-  scope :day_after_tomorrow_events, -> { where(id: holding.select(&:holding_day_after_tomorrow?).map(&:id)) }
   scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
 
@@ -73,28 +70,31 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   columns_for_keyword_search :title, :description
 
-  def organizers
-    users.with_attached_avatar.order('organizers.created_at')
+  class << self
+    def gather_events_scheduled_on(date)
+      holding.select { |event| event.scheduled_on?(date) }
+    end
   end
 
-  def holding_today?
-    holding_on?(0)
-  end
-
-  def holding_tomorrow?
-    holding_on?(1)
-  end
-
-  def holding_day_after_tomorrow?
-    holding_on?(2)
+  def scheduled_on?(date)
+    scheduled_dates = EventDateGatherer.all_scheduled_dates(self)
+    scheduled_dates.include?(date)
   end
 
   def next_event_date
-    schedule = EventSchedule.load(self)
-    start = Time.current
-    last = start.next_year.end_of_month
+    scheduled_dates = EventDateGatherer.all_scheduled_dates(self)
+    feature_scheduled_dates = scheduled_dates.reject { |d| d < Time.zone.today }
 
-    schedule.held_next_event_date(from: start, to: last).to_date
+    dates =
+      hold_national_holiday ? feature_scheduled_dates : feature_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
+
+    hour = start_at.hour
+    min = start_at.min
+    dates.map { |d| d.in_time_zone.change(hour:, min:) }.reject { |d| d < Time.zone.now }.min.to_date
+  end
+
+  def organizers
+    users.with_attached_avatar.order('organizers.created_at')
   end
 
   def cancel_participation(user)
@@ -124,16 +124,5 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
-  end
-
-  def holding_on?(days_from_today)
-    schedule = EventSchedule.load(self)
-    start = Time.current
-    last = start.next_year.end_of_month
-    dates = schedule.gather_scheduled_dates(from: start, to: last)
-
-    dates.select do |d|
-      d.to_date == Time.zone.today + days_from_today.days
-    end.min
   end
 end

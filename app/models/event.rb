@@ -45,9 +45,12 @@ class Event < ApplicationRecord
 
   scope :wip, -> { where(wip: true) }
   scope :related_to, ->(user) { user.job_seeker ? all : where.not(job_hunting: true) }
-  scope :today_events, -> { where(start_at: Time.zone.today.midnight...Time.zone.tomorrow.midnight) }
-  scope :tomorrow_events, -> { where(start_at: Time.zone.tomorrow.midnight...(Time.zone.tomorrow + 1.day).midnight) }
-  scope :day_after_tomorrow_events, -> { where(start_at: (Time.zone.tomorrow + 1.day).midnight...(Time.zone.tomorrow + 2.days).midnight) }
+
+  class << self
+    def gather_events_scheduled_on(date)
+      where(start_at: date...date + 1.day)
+    end
+  end
 
   def opening?
     Time.current.between?(open_start_at, open_end_at)
@@ -106,14 +109,6 @@ class Event < ApplicationRecord
     ActivityDelivery.with(receiver:, event: self).notify(:moved_up_event_waiting_user)
   end
 
-  def holding_today?
-    holding_on?(0)
-  end
-
-  def holding_tomorrow?
-    holding_on?(1)
-  end
-
   def watched_by?(user)
     watches.exists?(user_id: user.id)
   end
@@ -163,10 +158,5 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
-  end
-
-  def holding_on?(days_from_today)
-    schedule = EventSchedule.load(self)
-    schedule.held_next_event_date.to_date == Time.zone.today + days_from_today.days
   end
 end
