@@ -825,6 +825,6 @@ class User < ApplicationRecord
     mime_type = fm.buffer(uploaded_avatar.read)
     return if mime_type.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
 
-    errors.add(:avatar, 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください')
+    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
 end

@@ -575,7 +575,7 @@ class UsersTest < ApplicationSystemTestCase
     attach_file 'user[avatar]', 'test/fixtures/files/images/broken_image.jpg', make_visible: true
     click_button '更新する'
 
-    assert_text 'ユーザーアイコンはPNG, JPG, GIF, HEIC, HEIF形式にしてください'
+    assert_text 'ユーザーアイコンは指定された拡張子(PNG, JPG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
   end
 
   test 'mentor can see retired and hibernated tabs' do
