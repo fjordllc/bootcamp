@@ -77,20 +77,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def scheduled_on?(date)
-    scheduled_dates = EventDateGatherer.all_scheduled_dates(self)
-    scheduled_dates.include?(date)
+    all_scheduled_dates.include?(date)
   end
 
   def next_event_date
-    scheduled_dates = EventDateGatherer.all_scheduled_dates(self)
-    feature_scheduled_dates = scheduled_dates.reject { |d| d < Time.zone.today }
-
-    dates =
+    event_dates =
       hold_national_holiday ? feature_scheduled_dates : feature_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
 
-    hour = start_at.hour
-    min = start_at.min
-    dates.map { |d| d.in_time_zone.change(hour:, min:) }.reject { |d| d < Time.zone.now }.min.to_date
+    event_dates.min
   end
 
   def organizers
@@ -124,5 +118,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def all_scheduled_dates
+    EventDateGatherer.all_scheduled_dates(self)
+  end
+
+  def feature_scheduled_dates
+    event_dates = all_scheduled_dates.reject { |d| d < Time.zone.today }
+
+    hour = start_at.hour
+    min = start_at.min
+    # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
+    event_dates_with_start_time = event_dates.map { |d| d.in_time_zone.change(hour:, min:) }
+
+    event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
   end
 end
