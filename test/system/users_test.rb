@@ -570,7 +570,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_match(/#{user.id}\.png$/, img.native['src'])
   end
 
-  test 'can upload broken image as user avatar' do
+  test 'can not upload broken image as user avatar' do
     visit_with_auth '/current_user/edit', 'hajime'
     attach_file 'user[avatar]', 'test/fixtures/files/images/broken_image.jpg', make_visible: true
     click_button '更新する'
