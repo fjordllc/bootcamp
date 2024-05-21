@@ -9,8 +9,8 @@ class Scheduler::Daily::NotifyComingSoonRegularEventsController < SchedulerContr
   private
 
   def notify_coming_soon_regular_events
-    today_events = RegularEvent.today_events
-    tomorrow_events = RegularEvent.tomorrow_events
+    today_events = RegularEvent.gather_events_scheduled_on(Time.zone.today)
+    tomorrow_events = RegularEvent.gather_events_scheduled_on(Time.zone.today + 1.day)
     return if today_events.blank? && tomorrow_events.blank?
 
     NotificationFacade.coming_soon_regular_events(today_events, tomorrow_events)
