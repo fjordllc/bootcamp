@@ -1,5 +1,10 @@
 = form_with model: request_retirement, class: 'form' do |f|
-  = render 'form_items', f: f
+  = render 'request_retirements/form_fields/profile_field', f: f, field: :requester_name
+  = render 'request_retirements/form_fields/profile_field', f: f, field: :requester_email
+  = render 'request_retirements/form_fields/profile_field', f: f, field: :company_name
+  = render 'request_retirements/form_fields/target_user_field', f: f
+  = render 'request_retirements/form_fields/reason_field', f: f
+  = render 'request_retirements/form_fields/keep_data_field', f: f
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
