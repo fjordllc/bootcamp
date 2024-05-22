@@ -1,0 +1,8 @@
+.form-item
+  .a-form-label
+    = I18n.t('activerecord.attributes.request_retirement.keep_data.title')
+  .a-text-input.is-inputed
+    - if @request_retirement.keep_data
+      = I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep')
+    - else
+      = I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete')

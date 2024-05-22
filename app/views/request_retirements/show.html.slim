@@ -20,39 +20,24 @@ description: '退会申請を受け付けました。')
           h2.thanks-message__inputed-values-title
             | 申請内容
           .form__items.thanks-message__inputed-values-items
-            .form__item
-              .a-form-label
-                = RequestRetirement.human_attribute_name(:requester_email)
-              .a-text-input.is-inputed
-                = @request_retirement.user.email
-            .form__item
-              .a-form-label
-                = RequestRetirement.human_attribute_name(:requester_name)
-              .a-text-input.is-inputed
-                = @request_retirement.user.login_name
-            .form__item
-              .a-form-label
-                = RequestRetirement.human_attribute_name(:company_name)
-              .a-text-input.is-inputed
-                = @request_retirement.company_name
-            .form__item
-              .a-form-label
-                = RequestRetirement.human_attribute_name(:target_user_name)
-              .a-text-input.is-inputed
-                = @request_retirement.target_user.name
-            .form__item
-              .a-form-label
-                = RequestRetirement.human_attribute_name(:reason)
-              .a-text-input.is-inputed
-                = @request_retirement.reason
-            .form-item
-              .a-form-label
-                = I18n.t('activerecord.attributes.request_retirement.keep_data.title')
-              .a-text-input.is-inputed
-                - if @request_retirement.keep_data
-                  = I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep')
-                - else
-                  = I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete')
+            = render 'request_retirements/show_fields/profile_field',
+              title: :requester_name,
+              content: @request_retirement.user.login_name
+            = render 'request_retirements/show_fields/profile_field',
+              title: :requester_email,
+              content: @request_retirement.user.email
+            = render 'request_retirements/show_fields/profile_field',
+              title: :company_name,
+              content: @request_retirement.company_name
+            = render 'request_retirements/show_fields/target_user_field',
+              title: :target_user_name,
+              content: @request_retirement.target_user_name
+            = render 'request_retirements/show_fields/reason_field',
+              title: :reason,
+              content: @request_retirement.reason
+            = render 'request_retirements/show_fields/keep_data_field',
+              title: :keep_date,
+              content: @request_retirement.keep_data
       hr.a-border-tint
       footer.card-footer
         .card-main-actions
