@@ -1,0 +1,35 @@
+.form-item
+  = f.label :course_id, 'コースを選択してください', class: 'a-form-label is-required'
+  .form-item__groups
+    .form-item-group
+      .form-item-group__header
+        .form-item-group__title
+          | コース名
+      .form-item-group__body
+        - Course.all.each do |course|
+          ul.block-checks.is-2-items
+            li.block-checks__item
+              .a-block-check.is-radio
+                = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
+                label.a-block-check__label.is-ta-left(for="course_#{course.id}")
+                  span.a-block-check__name
+                    = course.title
+          .a-form-help
+            - if course.title == 'Railsプログラマー'
+              label.a-form-help-link.is-danger(for='modal-rails')
+                span.a-form-help-link__label
+                  | Railsプログラマーコースとは
+                span.a-help
+                  i.fa-solid.fa-question
+
+      .form-item-group__link
+        = link_to 'コース一覧を表示する', list_courses_path
+
+
+= render '/shared/modal',
+  id: 'modal-rails',
+  modal_title: 'Railsプログラマーとは'
+  .modal__description.is-md
+    .a-long-text
+      p
+        | Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。
