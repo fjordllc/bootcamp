@@ -18,15 +18,33 @@ hr.a-border
     header.welcome-page-body__header
       h1.welcome-page-body__title
         = title
+    .row
+      .col-md-6
+        .a-card
+          .card-body
+            .card-body__inner
+              h2.a-price.welcome-section__price
+                span.a-price__period 月額
+                span.a-price__number 29,800
+                span.a-price__unit 円
+      .col-md-6
+        .a-card
+          .card-body
+            .card-body__inner
+              h2.a-price.welcome-section__price
+                span.a-price__period 月額
+                span.a-price__number 29,800
+                span.a-price__unit 円
+
     .a-card
       .card-body
         .card-body__inner
           section.welcome-section
             .card-body__inner-title
-              h2.welcome-section__price
-                .welcome-section__price-period 月額
-                .welcome-section__price-number 29,800
-                .welcome-section__price-unit 円
+              h2.a-price.welcome-section__price
+                span.a-price__period 月額
+                span.a-price__number 29,800
+                span.a-price__unit 円
             .welcome-section__description
               p
                 | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
