@@ -23,7 +23,7 @@ class UserMailer < ApplicationMailer
   end
 
   def request_retirement(request_retirement)
-    email = request_retirement.requester_email
+    email = request_retirement.user.email
     @request_retirement = request_retirement
     mail to: email, bcc: 'info@lokka.jp', subject: '[FBC] 退会申請を受け付けました'
   end

@@ -36,7 +36,7 @@ class UserMailerTest < ActionMailer::TestCase
       reason: '退職してしまったため。',
       keep_data: true
     )
-    assert request_retirement.valid?
+    request_retirement.validate
     email = UserMailer.request_retirement(request_retirement).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
