@@ -3,24 +3,8 @@
     li.side-filter__item
       = link_to faq_path(anchor: 'faqs'), class: "side-filter__item-link #{params[:category] ? '' : 'is-active'}" do
         | 全て
-    li.side-filter__item
-      = link_to faq_path(category: 'study_content', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'study_content' ? 'is-active' : ''}" do
-        | 学習内容について
-    li.side-filter__item
-      = link_to faq_path(category: 'study_environment', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'study_environment' ? 'is-active' : ''}" do
-        | 学習環境について
-    li.side-filter__item
-      = link_to faq_path(category: 'fee', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'fee' ? 'is-active' : ''}" do
-        | 利用料について
-    li.side-filter__item
-      = link_to faq_path(category: 'find_job', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'find_job' ? 'is-active' : ''}" do
-        | 就職について
-    li.side-filter__item
-      = link_to faq_path(category: 'join', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'join' ? 'is-active' : ''}" do
-        | 入会について
-    li.side-filter__item
-      = link_to faq_path(category: 'withdrawal_hibernation_graduation', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'withdrawal_hibernation_graduation' ? 'is-active' : ''}" do
-        | 退会、休会、卒業について
-    li.side-filter__item
-      = link_to faq_path(category: 'corporate_use', anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == 'corporate_use' ? 'is-active' : ''}" do
-        | 法人利用について
+
+    - FAQ.categories.keys.each do |category|
+      li.side-filter__item
+        = link_to faq_path(category: category, anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == category ? 'is-active' : ''}" do
+          = t("faq.#{category}")
