@@ -34,6 +34,10 @@ header.welcome-header
               = link_to buzz_path, class: 'welcome-header-nav__item-link' do
                 span
                   | 紹介・言及記事
+            li.welcome-header-nav__item
+              = link_to alumni_voices_path, class: 'welcome-header-nav__item-link' do
+                span
+                  | 卒業生の声
             - unless current_user
               li.welcome-header-nav__item
                 = link_to new_user_path, class: 'welcome-header-nav__item-link' do

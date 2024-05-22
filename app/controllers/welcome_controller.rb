@@ -12,6 +12,8 @@ class WelcomeController < ApplicationController
 
   def faq; end
 
+  def alumni_voices; end
+
   def training; end
 
   def practices
