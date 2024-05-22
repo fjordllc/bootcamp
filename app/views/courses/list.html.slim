@@ -1,0 +1,20 @@
+= form_with url: new_user_path, method: :get, local: true do |f|
+  .form-item
+    = f.label :course_id, 'コースを選択してください', class: 'a-form-label is-required'
+    .form-item__groups
+      .form-item-group
+        .form-item-group__header
+          .form-item-group__title
+            | コース名
+        .form-item-group__body
+          - @courses.each do |course|
+            ul.block-checks.is-2-items
+              li.block-checks__item
+                .a-block-check.is-radio
+                  = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
+                  label.a-block-check__label.is-ta-left(for="course_#{course.id}")
+                    span.a-block-check__name
+                      = course.title
+
+    .form-actions
+      = f.submit '選択して戻る', class: 'a-button is-primary', onclick: "this.removeAttribute('name')"

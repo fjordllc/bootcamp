@@ -8,6 +8,8 @@
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
   .form__items
+    - if !@user.adviser?
+      = render 'users/form/course_select', f: f
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
     - if from == :edit

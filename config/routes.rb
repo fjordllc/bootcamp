@@ -37,9 +37,12 @@ Rails.application.routes.draw do
   resources :searchables, only: %i(index)
   resources :user_sessions, only: %i(new create destroy)
   resources :password_resets, only: %i(create edit update)
-  resources :courses, only: %i(index) do
+  resources :courses, only: %i(index list) do
     resources :practices, only: %i(index), controller: "courses/practices"
     resources :books, only: %i(index), controller: "courses/books"
+    collection do
+      get 'list', to: 'courses#list'
+    end
   end
   resources :practices, only: %i(show) do
     resources :reports, only: %i(index), controller: "practices/reports"
