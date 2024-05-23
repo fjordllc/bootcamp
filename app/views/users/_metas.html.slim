@@ -30,7 +30,7 @@
       .user-metas__item-label
         | 修了プラクティス
       .user-metas__item-value
-        = user.completed_practices.size
+        = user.completed_fraction_in_metas
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label

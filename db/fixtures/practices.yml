@@ -386,3 +386,11 @@ practice60:
   description: "概要欄(概要文＆OGP画像)を表示します"
   goal: "goal..."
   memo: "memo for mentors..."
+
+practice61:
+  title: "企業研究"
+  summary: "概要です"
+  description: "就職したい企業について調べます。(進捗の計算には含めません)"
+  goal: "goal..."
+  include_progress: false
+  memo: "memo for mentors..."

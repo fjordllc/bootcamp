@@ -150,3 +150,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   user: marumarushain<%= i %>
   action_completed: true
 <% end %>
+
+talk42:
+  user: harikirio
+  action_completed: true

@@ -8,6 +8,11 @@ class Admin::UsersController < AdminController
     @direction = params[:direction] || 'desc'
     @target = params[:target]
     user_scope = User.users_role(@target, allowed_targets: ALLOWED_TARGETS, default_target: 'student_and_trainee')
+    user_scope = if @target == 'retired'
+                   user_scope.where.not(retired_on: nil)
+                 else
+                   user_scope.where(retired_on: nil)
+                 end
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)

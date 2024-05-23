@@ -1197,4 +1197,63 @@ class ActivityMailerTest < ActionMailer::TestCase
 
     assert_empty ActionMailer::Base.deliveries
   end
+
+  test 'added_work' do
+    work = works(:work1)
+    user = work.user
+    receiver = users(:komagata)
+
+    ActivityMailer.added_work(
+      sender: user,
+      receiver:,
+      work:
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 25, link: "/works/#{work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal "[FBC] kimuraさんがポートフォリオに作品「kimura\'s app」を追加しました。", email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この作品へ</a>}, email.body.to_s)
+  end
+
+  test 'added_work with params' do
+    work = works(:work1)
+    user = work.user
+    receiver = users(:komagata)
+
+    mailer = ActivityMailer.with(
+      sender: user,
+      receiver:,
+      work:
+    ).added_work
+
+    perform_enqueued_jobs do
+      mailer.deliver_later
+    end
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    query = CGI.escapeHTML({ kind: 25, link: "/works/#{work.id}" }.to_param)
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] kimuraさんがポートフォリオに作品「kimura\'s app」を追加しました。', email.subject
+    assert_match(%r{<a .+ href="http://localhost:3000/notification/redirector\?#{query}">この作品へ</a>}, email.body.to_s)
+  end
+
+  test 'added_work for admin with mail_notification off' do
+    work = works(:work1)
+    user = work.user
+    receiver = users(:komagata)
+    receiver.update(mail_notification: false)
+
+    ActivityMailer.added_work(
+      sender: user,
+      receiver:,
+      work:
+    ).deliver_now
+
+    assert_empty ActionMailer::Base.deliveries
+  end
 end

@@ -40,11 +40,12 @@
             | ご利用の際の料金
         .welcome-section__description
           p
-            | 料金は月額99,800円（税込み）です。
+            | 料金は<strong>月額99,800円（税込み）</strong>です。
+          p
+            | 毎月、貴社の研修担当者様へメールにて請求書をお送りいたします。
+            | 領収書の宛名の指定なども柔軟に対応いたします。
             br
-            | 毎月、貴社の研修担当者様へメールにて請求書をお送り致します。
-            br
-            | 領収書の宛名の指定なども柔軟に対応致します。
+            | クレジットカードにも対応しています。
     section.welcome-section
       .container.is-md
         h2.welcome-section__title.has-border
@@ -69,7 +70,7 @@
           p
             | 一般の受講生が学んでいるカリキュラムは量が多く、その全てを学習すると半年〜2年以上かかります。
             | 研修でのご利用の場合、ビデオチャットで研修期間や研修で身につけてもらいたいスキルをヒヤリングし、
-            | それに合わせたカリキュラムを作成致します。
+            | それに合わせたカリキュラムを作成いたします。
             | カリキュラムは一般の受講生が行っているもの、一般の受講生の中の希望者がだけが行うものから
             | 抜粋する形になります。
           h3 チョイスの例
@@ -141,25 +142,23 @@
         .welcome-section__description
           p
             | まずは、
-            = link_to new_inquiry_path, target: 'blank', rel: 'noopener' do
-              | お問い合わせフォーム
-            | より研修利用希望の旨のご連絡をお願い致します。
+            = link_to new_corporate_training_inquiry_path, target: 'blank', rel: 'noopener' do
+              | 企業研修申し込みフォーム
+            | より研修利用希望の旨のご連絡をお願いいたします。
             br
-            | 研修についての質問などもお問い合わせフォームよりお願い致します。
-            br
-            | 担当者より返信を致します。
+            | 担当者より返信をいたします。
           p
             | 日時を調整し、ビデオチャットで研修の打ち合わせを行います。
             br
             | 研修のスタート日、研修期間、研修の目的、研修生のスキル、
             | 請求書の送付先などをヒヤリングさせていただきます。
           p
-            | 打ち合わせで決まった内容に合わせ、カリキュラムを作成致します。
+            | 打ち合わせで決まった内容に合わせ、カリキュラムを作成いたします。
           p
-            | 研修スタート日になりましたら、研修生のアカウントを作成し、研修生がログインできるように致します。
+            | 研修スタート日になりましたら、研修生のアカウントを作成し、研修生がログインできるようにいたします。
             br
             | 同時に、研修担当者、社内メンター用のサインアップもURLもお送りし、
-            | 貴社の研修担当者、社内メンターの方もログインができるように致します。
+            | 貴社の研修担当者、社内メンターの方もログインができるようにいたします。
 
     section.welcome-section
       .container.is-md
@@ -208,13 +207,10 @@
       .container.is-md
         h2.welcome-section__title.has-border
           | お申し込み
-          br
-          | お問い合わせ
         .welcome-section__description
           p
-            | 研修利用の申し込み、研修利用についてのお問い合わせは以下のお問い合わせフォームからお願い致します。
-
+            | 研修利用の申し込みは企業研修申し込みフォームからお願いいたします。
         .welcome-actions__items
           .welcome-actions__item
-            = link_to new_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener' do
-              | お申し込み・お問い合わせ
+            = link_to new_corporate_training_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener' do
+              | 企業研修のお申し込み

@@ -1,0 +1,16 @@
+.dashboard-category__body
+  .a-card.is-danger.unchecked-report-alert
+    header.unchecked-report-alert__header
+      h2.unchecked-report-alert__header-title
+        | 日報が100件を超えました。
+    .unchecked-report-alert__inner
+      .unchecked-report-alert__icon
+        i.fa-regular.fa-triangle-exclamation
+      .unchecked-report-alert__message
+        = link_to '/reports/unchecked', class: 'unchecked-report-alert__message-link' do
+          | 未チェックの日報が
+          strong.unchecked-report-alert__count
+            span.unchecked-report-alert__count-number
+              | #{unchecked_report_count}
+            | 件
+          | あります。

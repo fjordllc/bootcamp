@@ -50,6 +50,9 @@ class RequireLoginTest < ApplicationSystemTestCase
     # app/controllers/comeback_controller.rb
     assert_no_login_required('/comeback/new', '休会からの復帰')
 
+    # app/controllers/corporate_training_inquiry_comtroller.rb
+    assert_no_login_required('/corporate_training_inquiry/new', '企業研修申し込みフォーム')
+
     # app/controllers/home_controller.rb
     assert_no_login_required('/', 'フィヨルドブートキャンプとは？')
     assert_no_login_required('/test', 'TEST')

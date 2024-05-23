@@ -1423,20 +1423,22 @@ pjord:
   sent_student_followup_message: true
   last_activity_at: "2021-02-01 00:00:30"
 
-nippou199: # ステージング環境で日報200回目のお祝いメッセージの動作確認が終わり次第、削除します
-  login_name: nippou199
-  email: nippou199@fjord.jp
+harikirio: #必修でないプラクティスも修了しているユーザー
+  login_name: harikirio
+  email: harikiro@fjord.jp
   crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
   salt: zW3kQ9ubsxQQtzzzs4ap
-  name: Nippou Ooi
-  name_kana: ニッポウ オオイ
-  description: "日報を199回提出しました。"
+  name: Hari Kirio
+  name_kana: ハリ キリオ
+  github_account: harikirio
+  twitter_account: harikirio
+  description: "必修でないプラクティスも取り組みます！"
   course: course1
-  job: unemployed
-  os: mac_apple
-  experience: inexperienced
-  country_code: JP
-  updated_at: "2014-01-01 00:00:14"
-  created_at: "2014-01-01 00:00:14"
+  job: office_worker
+  experience: rails
+  job_seeker: true
+  unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
+  updated_at: "2020-01-01 00:00:12"
+  created_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
-  last_activity_at: "2014-01-01 00:00:14"
+  last_activity_at: "2020-01-01 00:00:12"

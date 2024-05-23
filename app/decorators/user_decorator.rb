@@ -28,6 +28,14 @@ module UserDecorator
     end
   end
 
+  def completed_fraction
+    "修了: #{completed_practices.size} （必須: #{completed_practices_include_progress.size}/#{practices_include_progress.size}）"
+  end
+
+  def completed_fraction_in_metas
+    "#{completed_practices.size} （必須:#{completed_practices_include_progress.size}）"
+  end
+
   def customer_url
     "https://dashboard.stripe.com/customers/#{customer_id}"
   end

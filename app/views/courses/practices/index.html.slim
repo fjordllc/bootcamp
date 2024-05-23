@@ -38,4 +38,4 @@ header.page-header
 = render 'courses/tabs'
 .page-body.js-users-visibility
   .container.is-xl
-    #js-courses-practices(course-id="#{@course.id}")
+    = render 'courses_practices', course_id: @course.id, categories: @categories, learnings: @learnings
