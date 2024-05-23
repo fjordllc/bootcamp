@@ -19,15 +19,16 @@ class UpcomingEventsGroup
   class << self
     def build(date_key)
       date = date_key_to_date_class(date_key)
-      original_events = fetch_scheduled_original_events(date, EVENT_MODELS)
-      upcoming_events = original_events.map { |e| UpcomingEvent.new(e) }
+
+      upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e) }
+
       new(date_key, date, upcoming_events)
     end
 
     private
 
-    def fetch_scheduled_original_events(date, event_models)
-      event_models.map do |event_model|
+    def original_events_scheduled_on(date)
+      EVENT_MODELS.map do |event_model|
         event_model.public_send(:gather_events_scheduled_on, date)
       end.flatten
     end
