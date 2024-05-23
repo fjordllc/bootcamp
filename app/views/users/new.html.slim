@@ -17,10 +17,10 @@
       .form-item
         .form-notice
           p
-            | 法人研修でのご利用については、
-            = link_to new_inquiry_path do
-              | こちらのお問い合わせフォーム
-            | からご連絡ください。
+            | 企業研修でのご利用は、
+            = link_to new_corporate_training_inquiry_path do
+              | こちらの企業研修申し込みフォーム
+            | からお申し込みください。
       - if !@user.adviser? && Campaign.today_campaign?
         = render 'checked_campaign'
       = render 'form', from: :new, url: users_path, user: @user

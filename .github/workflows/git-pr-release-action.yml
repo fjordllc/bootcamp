@@ -4,17 +4,16 @@ on:
     branches:
       - main
 jobs:
-  release_pull_request:
+  gitPrRelease:
+    name: git-pr-release
     runs-on: ubuntu-latest
-    name: release_pull_request
     steps:
-      - name: checkout
-        uses: actions/checkout@main
-      - name: create-release-pr
-        uses: grassedge/git-pr-release-action@v1.0
+      - uses: actions/checkout@master
         with:
-          base: production
-          head: main
-          token: ${{ secrets.GITHUB_TOKEN }}
-          labels: release
-          assign: true
+          fetch-depth: 0
+      - name: git-pr-release
+        uses: bakunyo/git-pr-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PR_RELEASE_BRANCH_PRODUCTION: production
+          GIT_PR_RELEASE_BRANCH_STAGING: main

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "coc", to: "welcome#coc", as: "coc"
   draw :scheduler
   draw :api
+  draw :paper
   draw :admin
   draw :mentor
   draw :current_user
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
+  resource :corporate_training_inquiry, only: %i(new create)
   resources :articles
   resources :survey_questions, except: %i(show destroy)
   namespace :events do

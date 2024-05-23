@@ -367,4 +367,20 @@ class ActivityNotifier < ApplicationNotifier
       read: false
     )
   end
+
+  def added_work(params = {})
+    params.merge!(@params)
+    work = params[:work]
+    receiver = params[:receiver]
+    sender = work.user
+
+    notification(
+      body: "#{sender.login_name}さんがポートフォリオに作品「#{work.title}」を追加しました。",
+      kind: :added_work,
+      receiver:,
+      sender:,
+      link: Rails.application.routes.url_helpers.polymorphic_path(work),
+      read: false
+    )
+  end
 end

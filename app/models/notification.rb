@@ -40,7 +40,8 @@ class Notification < ApplicationRecord
     regular_event_updated: 21,
     no_correct_answer: 22,
     comebacked: 23,
-    create_article: 24
+    create_article: 24,
+    added_work: 25
   }
 
   scope :unreads, -> { where(read: false) }
