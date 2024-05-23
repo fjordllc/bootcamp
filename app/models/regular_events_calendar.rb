@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class RegularEventsToIcalExporter
-  def export_events(user)
+class RegularEventsCalendar
+  def convert_to_ical(user)
     holding_events = fetch_events(user)
     cal = Icalendar::Calendar.new
 
