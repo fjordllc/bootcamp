@@ -17,18 +17,18 @@ class UpcomingEvent
       %i[original_event title].all? { |attr| public_send(attr) == other.public_send(attr) }
   end
 
-  def held?(date)
+  def held?
     return true if @event_type == Event
 
-    !HolidayJp.holiday?(date) || held_on_national_holiday?
+    !HolidayJp.holiday?(@scheduled_date) || held_on_national_holiday?
   end
 
-  def date_with_start_time(date)
+  def scheduled_date_with_start_time
     return @original_event.start_at if @event_type == Event
 
     hour = @original_event.start_at.hour
     min = @original_event.start_at.min
-    date.in_time_zone.change(hour:, min:)
+    @scheduled_date.in_time_zone.change(hour:, min:)
   end
 
   def for_job_hunting?

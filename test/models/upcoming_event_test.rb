@@ -9,10 +9,10 @@ class UpcomingEventTest < ActiveSupport::TestCase
     @regular_event = regular_events(:regular_event1)
   end
 
-  test '#held?(date) Event always be true' do
+  test '#held? Event always be true' do
     upcoming_special_event = UpcomingEvent.new(@special_event, @holiday)
 
-    assert upcoming_special_event.held?(@holiday)
+    assert upcoming_special_event.held?
   end
 
   test '#held?(date) RegularEvent is dynamic by rules' do
@@ -21,14 +21,14 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
     upcoming_regular_event = UpcomingEvent.new(held_holiday_event, @holiday)
 
-    assert upcoming_regular_event.held?(@holiday)
+    assert upcoming_regular_event.held?
 
     not_held_holiday_event = @regular_event.dup
     not_held_holiday_event.hold_national_holiday = false
 
     upcoming_regular_event = UpcomingEvent.new(not_held_holiday_event, @holiday)
 
-    assert_not upcoming_regular_event.held?(@holiday)
+    assert_not upcoming_regular_event.held?
   end
 
   test '#date_with_start_time(date) Event' do
@@ -36,7 +36,7 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
     upcoming_event = UpcomingEvent.new(@special_event, scheduled_date)
 
-    assert_equal Time.zone.local(2019, 12, 20, 10), upcoming_event.date_with_start_time(scheduled_date)
+    assert_equal Time.zone.local(2019, 12, 20, 10), upcoming_event.scheduled_date_with_start_time
   end
 
   test '#date_with_start_time(date) RegularEvent' do
@@ -44,7 +44,7 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
     upcoming_event = UpcomingEvent.new(@regular_event, scheduled_date)
 
-    assert_equal Time.zone.local(2024, 5, 5, 15), upcoming_event.date_with_start_time(scheduled_date)
+    assert_equal Time.zone.local(2024, 5, 5, 15), upcoming_event.scheduled_date_with_start_time
   end
 
   test '#for_job_hunting?' do
