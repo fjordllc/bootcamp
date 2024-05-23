@@ -20,7 +20,7 @@ class UpcomingEventsGroup
     def build(date_key)
       date = date_key_to_date_class(date_key)
 
-      upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e) }
+      upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
 
       new(date_key, date, upcoming_events)
     end

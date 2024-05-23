@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class UpcomingEvent
-  attr_reader :original_event, :title
+  attr_reader :original_event, :scheduled_date, :title, :event_type
 
   delegate :participants, to: :original_event
 
-  def initialize(event)
+  def initialize(event, scheduled_date)
     @original_event = event
+    @scheduled_date = scheduled_date
     @title = event.title
     @event_type = event.class
   end
