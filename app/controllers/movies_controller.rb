@@ -27,7 +27,8 @@ class MoviesController < ApplicationController
     if @movie.save
       redirect_to @movie, notice: '動画を追加しました。'
     else
-      render :new, notice: '動画の追加に失敗しました。'
+      flash[:alert] = '動画の追加に失敗しました。'
+      render :new
     end
   end
 
