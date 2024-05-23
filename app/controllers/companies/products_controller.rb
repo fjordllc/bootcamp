@@ -9,7 +9,7 @@ class Companies::ProductsController < ApplicationController
         @products << product
       end
     end
-    @products = Kaminari.paginate_array(@products.sort.reverse).page(params[:page]).per(5)
+    @products = Kaminari.paginate_array(@products.sort).page(params[:page]).per(50)
     @weekdays = { 0 => '日', 1 => '月', 2 => '火', 3 => '水', 4 => '木', 5 => '金', 6 => '土' }
   end
 end
