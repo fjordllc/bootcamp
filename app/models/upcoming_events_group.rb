@@ -8,7 +8,7 @@ class UpcomingEventsGroup
   def initialize(date_key, date, upcoming_events)
     @date_key = date_key
     @date = date
-    @events = upcoming_events.sort_by { |e| e.date_with_start_time(@date) }
+    @events = upcoming_events.sort_by(&:scheduled_date_with_start_time)
   end
 
   def ==(other)
