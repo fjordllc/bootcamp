@@ -2,13 +2,13 @@
 
 require 'test_helper'
 
-class RegularEventsToIcalExporterTest < ActiveSupport::TestCase
-  test 'check to export regular events' do
+class RegularEventsCalendarTest < ActiveSupport::TestCase
+  test 'check to convert regular events' do
     travel_to Time.zone.local(2024, 3, 12, 10, 0, 0) do
       user = users(:kimura)
 
-      calendar = RegularEventsToIcalExporter.new
-      subscription_calendar = calendar.export_events(user)
+      calendar = RegularEventsCalendar.new
+      subscription_calendar = calendar.convert_to_ical(user)
 
       subscription_calendar.publish
       assert_match(/参加反映テスト用定期イベント\(祝日非開催\)/, subscription_calendar.to_ical)
