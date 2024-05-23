@@ -9,9 +9,10 @@ class UpcomingEventDecoratorTest < ActiveDecoratorTestCase
     regular_mtg = regular_events(:regular_event1)
     regular_reading = regular_events(:regular_event4)
 
-    upcoming_special = UpcomingEvent.new(special)
-    upcoming_regular_mtg = UpcomingEvent.new(regular_mtg)
-    upcoming_regular_reading = UpcomingEvent.new(regular_reading)
+    scheduled_date = Time.zone.today # Decoratorなので日付はいつでもOK
+    upcoming_special = UpcomingEvent.new(special, scheduled_date)
+    upcoming_regular_mtg = UpcomingEvent.new(regular_mtg, scheduled_date)
+    upcoming_regular_reading = UpcomingEvent.new(regular_reading, scheduled_date)
 
     @decorated_upcoming_special = decorate(upcoming_special)
     @decorated_upcoming_mtg = decorate(upcoming_regular_mtg)
