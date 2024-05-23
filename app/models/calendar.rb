@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Calendar
-  def combined_calendar(user)
+  def combine_special_regular_calendar(user)
     special_calendar = special_calendar_str(user)
     regular_calendar = regular_calendar_str(user)
 
