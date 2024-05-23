@@ -5,8 +5,15 @@
         | 絞り込む
       .a-button.is-md.is-secondary.is-select.is-block
         select
-          option
-            | 全て
-          - FAQ.categories.each_key do |category|
+          - if params[:category].present?
             option
-              = category
+              | 全て
+            option(selected="selected")
+              = t("faq.#{params[:category]}")
+          - else
+            option(selected="selected")
+              | 全て
+          - FAQ.categories.each_key do |category|
+            - if params[:category] != category
+              option
+                = t("faq.#{category}")
