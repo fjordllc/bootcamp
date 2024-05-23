@@ -8,7 +8,10 @@
   align-items: flex-end
 
 .welcome-member-books__item
-  flex: 0 0 4.75rem
+  +media-breakpoint-up(md)
+    flex: 0 0 4.75rem
+  +media-breakpoint-down(sm)
+    flex: 1
 
 .welcome-member-books__item-link
   box-shadow: 0 0 0 1px var(--background)

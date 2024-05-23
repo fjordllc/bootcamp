@@ -1,15 +1,12 @@
 .welcome-member
   &.is-welcome-index
-    +media-breakpoint-up(md)
-      height: 100%
-    +media-breakpoint-down(sm)
-      height: auto
+    height: 100%
 
 .welcome-member__inner
-  padding: 1.25rem 1.5rem 0
-  height: 100%
-  &:last-child
-    padding-bottom: 1.5rem
+  +media-breakpoint-up(md)
+    padding: 1.25rem 1.5rem 1.5rem
+  +media-breakpoint-down(sm)
+    padding: .75rem 1rem 1rem
   .welcome-member.is-articles-show &
     padding: .75rem 1rem 0
   .welcome-member.is-articles-show &:last-child
@@ -17,40 +14,53 @@
 
 .welcome-member__header
   display: flex
+  gap: .75rem
   align-items: flex-start
+  +media-breakpoint-down(sm)
+    flex-direction: column
 
 .welcome-member__start
   +media-breakpoint-up(md)
     flex: 0 0 4.5rem
   +media-breakpoint-down(sm)
-    flex: 0 0 3.5rem
+    width: 100%
 
 .welcome-member__end
-  flex: 1
-  padding-left: .75rem
+  +media-breakpoint-up(md)
+    flex: 1
+  +media-breakpoint-down(sm)
+    width: 100%
 
 .welcome-member__image
-  width: 100%
   border-radius: .25rem
-  margin-right: 1rem
+  +media-breakpoint-up(md)
+    width: 100%
+  +media-breakpoint-down(sm)
+    width: 4rem
+    display: block
+    margin-inline: auto
 
 .welcome-member__name
+  font-weight: 700
   +media-breakpoint-up(md)
-    +text-block(1.25rem 1.4, 600)
+    +text-block(1.25rem 1.4)
   +media-breakpoint-down(sm)
-    +text-block(1rem 1.4, 600)
+    +text-block(1rem 1.4)
+    text-align: center
 
 .welcome-member__job
+  font-weight: 400
   +media-breakpoint-up(md)
-    +text-block(.75rem 1.4, 400)
+    +text-block(.75rem 1.4)
   +media-breakpoint-down(sm)
-    +text-block(.625rem 1.4, 400)
+    +text-block(.625rem 1.4)
+    text-align: center
 
 .welcome-member__sns
   display: flex
-
-.welcome-member__sns-item
-  padding-right: .75rem
+  gap: .75rem
+  +media-breakpoint-down(sm)
+    justify-content: center
 
 .welcome-member__sns-item-link
   +text-block(1.125rem 1.45)
