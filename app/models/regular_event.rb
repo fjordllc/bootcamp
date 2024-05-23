@@ -120,18 +120,34 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
   end
 
-  def all_scheduled_dates
-    EventDateGatherer.all_scheduled_dates(self)
+  def all_scheduled_dates(
+    from: Date.new(Time.current.year, 1, 1),
+    to: Date.new(Time.current.year, 12, 31)
+  )
+    (from..to).select { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
   def feature_scheduled_dates
-    event_dates = all_scheduled_dates.reject { |d| d < Time.zone.today }
-
     hour = start_at.hour
     min = start_at.min
+
     # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
-    event_dates_with_start_time = event_dates.map { |d| d.in_time_zone.change(hour:, min:) }
+    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour:, min:) }
 
     event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
+  end
+
+  def date_match_the_rules?(date, rules)
+    rules.any? do |rule|
+      if rule.frequency.zero?
+        rule.day_of_the_week == date.wday
+      else
+        rule.frequency == calc_what_weeks(date) && rule.day_of_the_week == date.wday
+      end
+    end
+  end
+
+  def calc_what_weeks(date)
+    (date.day + 6) / 7
   end
 end
