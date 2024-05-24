@@ -1,10 +1,45 @@
 = form_with model: request_retirement, class: 'form' do |f|
-  = render 'request_retirements/form_fields/profile_field', f: f, field: :requester_name
-  = render 'request_retirements/form_fields/profile_field', f: f, field: :requester_email
-  = render 'request_retirements/form_fields/profile_field', f: f, field: :company_name
-  = render 'request_retirements/form_fields/target_user_field', f: f
-  = render 'request_retirements/form_fields/reason_field', f: f
-  = render 'request_retirements/form_fields/keep_data_field', f: f
+  = render 'profile_form_field', f: f, field: :requester_name
+  = render 'profile_form_field', f: f, field: :requester_email
+  = render 'profile_form_field', f: f, field: :company_name
+  .form__items
+    .form-item
+      = f.label :target_user_name, class: 'a-form-label'
+      - if @target_users && logged_in?
+        .a-button.is-md.is-secondary.is-select.is-block
+          = f.collection_select :target_user_name, @target_users, :login_name, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
+      - else
+        = f.text_field :target_user_name, required: true, class: 'a-text-input'
+        - unless logged_in?
+          .a-form-help
+            p
+              = link_to login_path do
+                | ログインをすると
+              | 自社のユーザーから選択できるようになります
+  .form__items
+    .form-item
+      = f.label :reason, class: 'a-form-label'
+      = f.text_area :reason, required: true, class: 'a-text-input', placeholder: '退社したため。'
+  .form__items
+      .form-item
+        = f.label :keep_data, I18n.t('activerecord.attributes.request_retirement.keep_data.title'), class: 'a-form-label'
+        .a-form-help.mb-4
+          p
+            | 退会しても、そのアカウントが残したデータ（コメント、日報、提出物など）は
+            | フィヨルドブートキャンプアプリに残り、
+            | 過去の研修内容の確認に利用できます。
+            | アカウントと一緒にこれらのデータも削除したい場合は、
+            | 「削除する」にチェックを入れてください。
+            | 削除後はデータを復元することはできません。
+        .block-checks.is-2-items
+          .block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :keep_data, true, required: true, class: 'a-toggle-checkbox'
+              = f.label :keep_data, I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep'), value: true, class: 'a-block-check__label'
+          .block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :keep_data, false, required: true, class: 'a-toggle-checkbox'
+              = f.label :keep_data, I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete'), value: false, class: 'a-block-check__label'
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
