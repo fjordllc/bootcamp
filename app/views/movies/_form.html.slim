@@ -1,4 +1,5 @@
 = form_with model: movie, local: true, class: 'form', html: { name: 'movie' } do |f|
+  = render 'errors', object: movie
   .form__items
     .form-item
       .row
