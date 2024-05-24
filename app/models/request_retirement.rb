@@ -3,6 +3,7 @@
 class RequestRetirement < ApplicationRecord
   attr_accessor :requester_email, :requester_name, :target_user_name
 
+  # after_validateで外部キーを紐づけるので、入力時に検証に引っかからないようにモデルではoptionlを付けている
   belongs_to :user, optional: true
   belongs_to :target_user, class_name: 'User', optional: true
 
@@ -25,8 +26,6 @@ class RequestRetirement < ApplicationRecord
 
   validate :requester_name_and_email_must_match
 
-  # フォームからはtarget_user_nameの属性で値を受け取る
-  # 外部キーであるtarget_user_idの検証はこの時点では行えないため、別途target_user_nameを用いて検証。
   validate :target_user_is_unique
 
   after_validation :set_users
@@ -40,6 +39,7 @@ class RequestRetirement < ApplicationRecord
   end
 
   def target_user_is_unique
+    # after_validateでtarget_user_idを紐づけるので、この時点ではtarget_user_nameで検証
     user = User.find_by(login_name: target_user_name)
     errors.add(:base, '既に退会申請済みのユーザーです。') if user && RequestRetirement.where(target_user_id: user.id).exists?
   end
