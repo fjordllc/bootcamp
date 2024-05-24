@@ -827,6 +827,7 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
   add_foreign_key "regular_event_repeat_rules", "regular_events"
   add_foreign_key "regular_events", "users"
   add_foreign_key "report_templates", "users"
+  add_foreign_key "request_retirements", "users"
   add_foreign_key "request_retirements", "users", column: "target_user_id"
   add_foreign_key "survey_question_listings", "survey_questions"
   add_foreign_key "survey_question_listings", "surveys"
