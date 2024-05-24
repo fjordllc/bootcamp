@@ -5,7 +5,7 @@ import Bootcamp from '../bootcamp'
 import UserIcon from './UserIcon'
 import { toast } from '../toast_react'
 
-export default function BookmarksInDashboard(props) {
+export default function BookmarksInDashboard() {
   const [editable, setEditable] = useState(false)
   const per = 5
   const bookmarksUrl = `/api/bookmarks.json?&per=${per}`
@@ -15,7 +15,8 @@ export default function BookmarksInDashboard(props) {
   if (!data) return <>ロード中…</>
 
   if (data.unpagedBookmarks.length === 0) {
-    props.removeComponent()
+    const bookmarksDomNode = document.getElementById('bookmarks-in-dashboard')
+    bookmarksDomNode.classList.add('hidden')
   }
 
   return (
