@@ -46,7 +46,7 @@ class Event < ApplicationRecord
 
   class << self
     def gather_events_scheduled_on(date)
-      where(start_at: date...date + 1.day)
+      where(start_at: date.midnight...(date + 1.day).midnight)
     end
   end
 
