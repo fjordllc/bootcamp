@@ -1,4 +1,4 @@
-.category-practices-item
+div.category-practices-item(class="#{skip_practices.include?(practice.id) ? 'skip_on' : ''}")
   a.category-practices-item__anchor :id="practice_#{practice.id}"
   header.category-practices-item__header
     .category-practices-item__title
@@ -8,10 +8,11 @@
         span.category-practices-item__title-link-label = practice.title
     - learning = learnings.find { |l| l.practice_id == practice.id }
     - learning_status = learning ? learning.status : 'unstarted'
-    a.practice-status.category-practices-item__status(
-      class="is-#{learning_status}",
-      href="#{practice_path(practice.id)}#learning-Status")
-        = t("activerecord.enums.learning.status.#{learning_status}")
+    -unless skip_practices.include?(practice.id)
+      a.practice-status.category-practices-item__status(
+        class="is-#{learning_status}",
+        href="#{practice_path(practice.id)}#learning-Status")
+          = t("activerecord.enums.learning.status.#{learning_status}")
 
   .category-practices-item__learning-time.is-only-mentor
     - unless practice.learning_minute_statistic.nil?
