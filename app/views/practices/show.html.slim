@@ -67,6 +67,10 @@
                           = @practice.last_updated_user.login_name
 
               .page-content-header__row
+              - skip_practices = current_user.skip_practices.pluck(:practice_id)
+              - if skip_practices.include?(@practice.id)
+               | このプラクティスはスキップ可能です。
+              - else
                 .page-content-header-actions
                   .page-content-header-actions__start
                     .practice-first-actions
