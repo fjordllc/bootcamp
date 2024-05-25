@@ -9,7 +9,7 @@ class UpcomingEventsGroupTest < ActiveSupport::TestCase
 
     original_events = [Event, RegularEvent].map { |m| m.public_send(:gather_events_scheduled_on, date) }.flatten
 
-    upcoming_events = original_events.map { |e| UpcomingEvent.new(e, scheduled_date: Time.zone.today) }
+    upcoming_events = original_events.map { |e| UpcomingEvent.new(e, date) }
 
     assert_equal UpcomingEventsGroup.new(date_key, date, upcoming_events), UpcomingEventsGroup.build(date_key)
   end
