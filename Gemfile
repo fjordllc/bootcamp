@@ -69,6 +69,7 @@ gem 'stringio', '3.1.0'
 gem 'stripe'
 gem 'stripe-i18n', git: 'https://github.com/komagata/stripe-i18n', branch: 'update-depencency'
 gem 'tzinfo', '~> 2.0', '>= 2.0.6'
+gem 'view_component'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
