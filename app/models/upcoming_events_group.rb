@@ -7,7 +7,7 @@ class UpcomingEventsGroup
 
   def initialize(date_key, date, upcoming_events)
     @date_key = date_key
-    @date = date
+    @scheduld_date = date
     @events = upcoming_events.sort_by(&:scheduled_date_with_start_time)
   end
 
