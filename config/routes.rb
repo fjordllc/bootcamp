@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get "courses", to: "welcome#courses", as: "courses"
   draw :scheduler
   draw :api
   draw :paper
@@ -40,9 +41,6 @@ Rails.application.routes.draw do
   resources :courses, only: %i(index list) do
     resources :practices, only: %i(index), controller: "courses/practices"
     resources :books, only: %i(index), controller: "courses/books"
-    collection do
-      get 'list', to: 'courses#list'
-    end
   end
   resources :practices, only: %i(show) do
     resources :reports, only: %i(index), controller: "practices/reports"
