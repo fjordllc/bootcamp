@@ -1,15 +1,12 @@
 - title '退会申請'
-- unless logged_in?
-  - content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
 
-- if logged_in?
-  header.page-header
-    .container
-      .page-header__inner
-        .page-header__start
-          .page-header__title
-            = title
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          = title
   hr.a-border
 .auth-form.is-lg
   .a-card

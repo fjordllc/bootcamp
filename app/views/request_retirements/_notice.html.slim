@@ -6,15 +6,5 @@
     | 申請後、管理者が確認し、数営業日以内に処理を行います。
   p
     | 退会やデータに関する質問や相談がある場合は、
-    - if logged_in?
-      = link_to action_uncompleted_index_path(current_user.talk) do
-        | 相談部屋からお問い合わせください
-    - else
-      = link_to login_path do
-        | ログインの上相談部屋から
-      | 、もしくは info@lokka.jp へお問い合わせください。
-      p
-        | フォームに情報を入力する際は、
-        = link_to login_path do
-          | ログインすることで
-        | 必要最小限の情報だけで済むため、手間が省けます。
+    = link_to action_uncompleted_index_path(current_user.talk) do
+      | 相談部屋からお問い合わせください
