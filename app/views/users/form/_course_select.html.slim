@@ -3,7 +3,7 @@
   .form-item__groups
     .form-item-group
       .form-item-group__body
-        - Course.all.each do |course|
+        - Course.all.find_each do |course|
           ul.block-checks.is-2-items
             li.block-checks__item
               .a-block-check.is-radio
@@ -12,7 +12,8 @@
                   span.a-block-check__name
                     = course.title
           .a-form-help
-            - if course.title == 'Railsプログラマー'
+            - case course.title
+            - when 'Railsプログラマー'
               label.a-form-help-link.is-danger(for='modal-rails')
                 span.a-form-help-link__label
                   | Railsプログラマーコースとは
@@ -25,7 +26,7 @@
                   .a-long-text
                     p
                       = course.description
-            - elsif course.title == 'Unityゲームプログラマー'
+            - when 'Unityゲームプログラマー'
               label.a-form-help-link.is-danger(for='modal-unity')
                 span.a-form-help-link__label
                   | Unityゲームプログラマーコースとは
@@ -38,7 +39,7 @@
                   .a-long-text
                     p
                       = course.description
-            - elsif course.title == 'iOSプログラマー'
+            - when 'iOSプログラマー'
               label.a-form-help-link.is-danger(for='modal-ios')
                 span.a-form-help-link__label
                   | iOSプログラマーコースとは
