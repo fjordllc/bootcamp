@@ -88,6 +88,15 @@ header.page-header
                 = render 'users/user_mentor_memo', user_id: @product.user.id
               .side-tabs-contents__item#side-tabs-content-4
                 div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:number="#{current_user.id}" data-vue-display-user-icon:boolean="false")
+              .test-div
+                | このユーザーがスキップしているプラクティス一覧
+                ruby:
+                  skip_practices = @product.user.skip_practices
+                  user_practices = @product.user.practices
+                - skip_practices.each do |skip_practice|
+                  a.category-practices-item__title-link href=practice_path(skip_practice.practice.id)
+                    - display_practice = user_practices.find_by(id: skip_practice.practice.id)
+                    span.category-practices-item__title-link-label = display_practice.title
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
