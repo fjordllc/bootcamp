@@ -617,10 +617,9 @@ ActiveRecord::Schema.define(version: 2024_05_02_051341) do
     t.index ["user_id", "title"], name: "index_reports_on_user_id_and_title", unique: true
   end
 
-  create_table "request_retirements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "request_retirements", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "target_user_id"
-    t.string "company_name", null: false
     t.text "reason"
     t.boolean "keep_data", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
