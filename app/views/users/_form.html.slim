@@ -149,8 +149,10 @@
       = render 'users/form/training_end', f: f
       = render 'users/form/company', f:, user:
 
-      - user_categories = user.course.categories
-      - skip_practices_ids = user.skip_practice_ids
+      ruby:
+        user_categories = user.course.categories
+        skip_practices_ids = user.skip_practice_ids
+        display_practice_ids = []
       - if admin_login?
         .form-item
           = f.label :training_ends_on, class: 'a-form-label' do
@@ -174,14 +176,16 @@
                     .skip-practices__end
                       .skip-practices__category-angle-icon
                         i.fa-regular.fa-angle-down
-
+                  - practices_to_display = category.practices.reject { |practice| display_practice_ids.include?(practice.id) }
                   .skip-practices__body
-                    = f.collection_check_boxes :practice_ids, category.practices, :id, :title, include_hidden: false, class: 'label-checkbox' do |b|
+                    = f.collection_check_boxes :practice_ids, practices_to_display, :id, :title, include_hidden: false, class: 'label-checkbox' do |b|
                       .checkboxes
                         .checkboxes__items
                           .checkboxes__item.is-sm
                             = b.check_box(class: 'a-toggle-checkbox')
                             = b.label { b.text }
+                    - display_practice_ids.concat(practices_to_display.map(&:id))
+            | 複数のカテゴリに所属するプラクティスも一度しか表示されません。（数値には反映されます）
 
   - if from == :new
     .form__items
