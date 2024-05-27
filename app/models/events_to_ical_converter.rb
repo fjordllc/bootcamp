@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-class IcalendarStr
-  def convert_events_to_ical(events_list)
+class EventsToIcalConverter
+  def convert_events_to_ical(events)
     event_cal = Icalendar::Calendar.new
 
-    events_list[:joined_events].each do |event|
+    events[:joined_events].each do |event|
       add_event_to_calendar(event_cal, event, true)
     end
 
-    events_list[:upcoming_events].each do |event|
+    events[:upcoming_events].each do |event|
       add_event_to_calendar(event_cal, event, false)
     end
     event_cal
   end
 
-  def convert_regular_events_to_ical(regular_events_list)
+  def convert_regular_events_to_ical(regular_events)
     regular_event_cal = Icalendar::Calendar.new
 
-    add_regular_event_to_calendar(regular_event_cal, regular_events_list)
+    add_regular_event_to_calendar(regular_event_cal, regular_events)
     regular_event_cal
   end
 
@@ -36,8 +36,8 @@ class IcalendarStr
     end
   end
 
-  def add_regular_event_to_calendar(regular_event_cal, regular_events_list)
-    regular_events_list.each do |regular_event|
+  def add_regular_event_to_calendar(regular_event_cal, regular_events)
+    regular_events.each do |regular_event|
       tzid = 'Asia/Tokyo'
       event_date = Date.parse(regular_event[:event_date].to_s)
       event = RegularEvent.find(regular_event[:event_id])
