@@ -2,9 +2,6 @@
   = f.label :course_id, 'コースを選択してください', class: 'a-form-label is-required'
   .form-item__groups
     .form-item-group
-      .form-item-group__header
-        .form-item-group__title
-          | コース名
       .form-item-group__body
         - Course.all.each do |course|
           ul.block-checks.is-2-items
@@ -21,15 +18,39 @@
                   | Railsプログラマーコースとは
                 span.a-help
                   i.fa-solid.fa-question
+              = render '/shared/modal',
+                id: 'modal-rails',
+                modal_title: 'Railsプログラマーとは'
+                .modal__description.is-md
+                  .a-long-text
+                    p
+                      = course.description
+            - elsif course.title == 'Unityゲームプログラマー'
+              label.a-form-help-link.is-danger(for='modal-unity')
+                span.a-form-help-link__label
+                  | Unityゲームプログラマーコースとは
+                span.a-help
+                  i.fa-solid.fa-question
+              = render '/shared/modal',
+                id: 'modal-unity',
+                modal_title: 'Unityゲームプログラマーとは'
+                .modal__description.is-md
+                  .a-long-text
+                    p
+                      = course.description
+            - elsif course.title == 'iOSプログラマー'
+              label.a-form-help-link.is-danger(for='modal-ios')
+                span.a-form-help-link__label
+                  | iOSプログラマーコースとは
+                span.a-help
+                  i.fa-solid.fa-question
+              = render '/shared/modal',
+                id: 'modal-ios',
+                modal_title: 'iOSプログラマーとは'
+                .modal__description.is-md
+                  .a-long-text
+                    p
+                      = course.description
 
-      .form-item-group__link
+      .form-item-group__link.text-right
         = link_to 'コース一覧を表示する', courses_path
-
-
-= render '/shared/modal',
-  id: 'modal-rails',
-  modal_title: 'Railsプログラマーとは'
-  .modal__description.is-md
-    .a-long-text
-      p
-        | Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。

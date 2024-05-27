@@ -1,20 +1,33 @@
-= form_with url: new_user_path, method: :get, local: true do |f|
-  .form-item
-    = f.label :course_id, 'コースを選択してください', class: 'a-form-label is-required'
-    .form-item__groups
-      .form-item-group
-        .form-item-group__header
-          .form-item-group__title
-            | コース名
-        .form-item-group__body
-          - @courses.each do |course|
-            ul.block-checks.is-2-items
-              li.block-checks__item
-                .a-block-check.is-radio
-                  = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
-                  label.a-block-check__label.is-ta-left(for="course_#{course.id}")
-                    span.a-block-check__name
-                      = course.title
+- title 'コース一覧'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプの学習内容一覧を表示しています。フィヨルドブートキャンプは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役エンジニアが考える理想のプログラミングスクールの実現に励んでいます。')
 
-    .form-actions
-      = f.submit '選択して戻る', class: 'a-button is-primary', onclick: "this.removeAttribute('name')"
+.welcome-page-header
+  .container.is-xl
+    .welcome-page-header__inner
+      h1.welcome-page-header__title
+        = title
+
+section.welcome-section
+  .container.is-xl
+    .welcome-small-sections
+      = form_with url: new_user_path, method: :get, local: true do |f|
+        .form-item
+          .form-item__groups
+            .form-item-group
+              .form-item-group__body
+                - @courses.each do |course|
+                  .row
+                    .col-md-2
+                      | #{course.title}
+                    .col-md-4
+                      | #{course.description}
+                    .col-md-2
+                      .a-block-check.is-radio
+                        = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
+                        label.a-block-check__label.is-ta-left(for="course_#{course.id}")
+                          span.a-block-check__name
+                            | 登録
+
+          .form-actions
+            = f.submit 'サインアップページに戻る', class: 'a-button is-primary', onclick: "this.removeAttribute('name')"
