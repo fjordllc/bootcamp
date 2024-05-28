@@ -114,9 +114,9 @@ class ReportsTest < ApplicationSystemTestCase
     report_practices = page.all('.choices__item--choice').map(&:text)
     current_user = users(:komagata)
     category_ids = current_user.course.category_ids
-    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).count
+    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).distinct.count
     assert_match(/OS X Mountain Lionをクリーンインストールする/, first('.choices__item--choice').text)
-    assert_match(/sslの基礎を理解する/, all('.choices__item--choice').last.text)
+    assert_match(/企業研究/, all('.choices__item--choice').last.text)
   end
 
   test 'equal practices order in practices and edit report' do
@@ -125,9 +125,9 @@ class ReportsTest < ApplicationSystemTestCase
     report_practices = page.all('.choices__item--choice').map(&:text)
     current_user = users(:komagata)
     category_ids = current_user.course.category_ids
-    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).count
+    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).distinct.count
     assert_match(/OS X Mountain Lionをクリーンインストールする/, first('.choices__item--choice').text)
-    assert_match(/sslの基礎を理解する/, all('.choices__item--choice').last.text)
+    assert_match(/企業研究/, all('.choices__item--choice').last.text)
   end
 
   test 'issue #360 duplicate' do

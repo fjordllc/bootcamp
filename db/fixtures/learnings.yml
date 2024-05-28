@@ -120,12 +120,24 @@ learning<%= i + 18 %>:
 
 learning23:
   user: harikirio
-  practice: practice1
+  practice: practice5
   status: "complete"
   completion_message_displayed: false
 
 learning24:
   user: harikirio
   practice: practice61
+  status: "complete"
+  completion_message_displayed: false
+
+learning25:
+  user: harikirio
+  practice: practice62
+  status: "complete"
+  completion_message_displayed: false
+
+learning26:
+  user: harikirio
+  practice: practice63
   status: "complete"
   completion_message_displayed: false
