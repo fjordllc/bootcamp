@@ -41,6 +41,7 @@ ja:
       campaign: お試し延長
       book: 参考書籍
       regular_event: 定期イベント
+      request_retirement: 退会申請
     attributes:
       user:
         login_name: アカウント
@@ -282,6 +283,16 @@ ja:
         choices: 選択肢
       buzz:
         body: 本文
+      request_retirement:
+        requester_name: 申請者のアカウント
+        requester_email: 申請者のメールアドレス
+        company_name: 会社名
+        target_user_id: 退会をさせる方のアカウント
+        reason: 退会申請理由
+        keep_data: 退会後のデータ
+        options:
+          keep: 残す
+          delete: 削除する
     enums:
       user:
         job:
