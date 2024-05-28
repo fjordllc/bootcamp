@@ -16,7 +16,7 @@
       = f.label :target_user_id, '対象ユーザー', class: 'a-form-label'
       - if @target_users
       .a-button.is-md.is-secondary.is-select.is-block
-        = f.collection_select :target_user_id, @target_users, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
+        = f.collection_select :target_user_id, current_user.collegues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
   .form__items
     .form-item
       = f.label :reason, '退会申請理由', class: 'a-form-label'
