@@ -58,6 +58,7 @@ class ReportsController < ApplicationController
   end
 
   def update
+    before_wip_status = @report.wip
     set_wip
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
@@ -66,6 +67,7 @@ class ReportsController < ApplicationController
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
+      @report.wip = before_wip_status
       render :edit
     end
   end
