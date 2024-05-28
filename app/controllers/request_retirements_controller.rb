@@ -15,7 +15,7 @@ class RequestRetirementsController < ApplicationController
     @request_retirement.user = current_user
     @request_retirement.target_user = User.find(request_retirement_params[:target_user_id])
     if @request_retirement.save
-      #UserMailer.request_retirement(@request_retirement).deliver_now
+      UserMailer.request_retirement(@request_retirement).deliver_now
       redirect_to request_retirement_url(@request_retirement)
     else
       @target_users = current_user.collegues_other_than_self
