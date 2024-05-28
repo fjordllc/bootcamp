@@ -18,31 +18,31 @@
         </p>
         <ul>
           <li>
-            <%= RequestRetirement.human_attribute_name(:requester_email) %><br>
-            <%= @request_retirement.user.email %>
-          </li>
-          <li>
-            <%= RequestRetirement.human_attribute_name(:requester_name) %><br>
+            申請者のアカウント <br>
             <%= @request_retirement.user.login_name %>
           </li>
           <li>
-            <%= RequestRetirement.human_attribute_name(:company_name) %><br>
-            <%= @request_retirement.company_name %>
+            申請者のメールアドレス <br>
+            <%= @request_retirement.user.email %>
           </li>
           <li>
-            <%= RequestRetirement.human_attribute_name(:target_user_name) %><br>
+            会社名 <br>
+            <%= @request_retirement.user.company.name %>
+          </li>
+          <li>
+            対象ユーザー <br>
             <%= @request_retirement.target_user.name %>
           </li>
           <li>
-            <%= RequestRetirement.human_attribute_name(:reason) %><br>
+            退会申請理由 <br>
             <%= @request_retirement.reason %>
           </li>
           <li>
-            <%= I18n.t('activerecord.attributes.request_retirement.keep_data.title') %><br>
+            退会後のデータ <br>
             <% if @request_retirement.keep_data %>
-              <%= I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep') %>
+              残す
             <% else %>
-              <%= I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete') %>
+              削除する
             <% end %>
           </li>
         </ul>
