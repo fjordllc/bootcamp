@@ -117,3 +117,28 @@ learning<%= i + 18 %>:
   created_at: <%= (today - (2.weeks - 1.day) - i.day).to_formatted_s(:db) %>
   updated_at: <%= (today - (2.weeks - 1.day) - i.day).to_formatted_s(:db) %>
 <% end %>
+
+
+learning23:
+  user: harikirio
+  practice: practice5
+  status: "complete"
+  completion_message_displayed: false
+
+learning24:
+  user: harikirio
+  practice: practice61
+  status: "complete"
+  completion_message_displayed: false
+
+learning25:
+  user: harikirio
+  practice: practice62
+  status: "complete"
+  completion_message_displayed: false
+
+learning26:
+  user: harikirio
+  practice: practice63
+  status: "complete"
+  completion_message_displayed: false
