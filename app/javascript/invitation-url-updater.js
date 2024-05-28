@@ -14,27 +14,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const invitationRole = document.querySelector('.js-invitation-role')
     const invitationCourse = document.querySelector('.js-invitation-course')
 
-    const params = new URLSearchParams()
-    params.append(
-      'company_id',
+    const selectedCompanyId =
       invitationCompany.options[invitationCompany.selectedIndex].value
-    )
-    params.append(
-      'role',
+    const selectedRole =
       invitationRole.options[invitationRole.selectedIndex].value
-    )
-    params.append(
-      'course_id',
+    const selectedCourseId =
       invitationCourse.options[invitationCourse.selectedIndex].value
-    )
 
-    const response = await fetch(
-      `/api/admin/invitation_url?${params.toString()}`
-    ).catch((error) => console.warn(error))
-    const json = await response.json().catch((error) => console.warn(error))
+    const invitationUrlTemplate =
+      document.querySelector('.invitation__url').dataset.invitationUrlTemplate
+    const targetUrl = invitationUrlTemplate
+      .replace(/company_id=[^&]*/, `company_id=${selectedCompanyId}`)
+      .replace(/role=[^&]*/, `role=${selectedRole}`)
+      .replace(/course_id=[^&]*/, `course_id=${selectedCourseId}`)
 
-    invitationUrl.href = json.url
-    invitationUrlText.value = json.url
+    invitationUrl.href = targetUrl
+    invitationUrlText.value = targetUrl
   }
 
   invitationElements.forEach((invitationElement) => {
