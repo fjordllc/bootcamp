@@ -6,6 +6,16 @@
       </div>
     </td>
   </tr>
+
+<% requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name') %>
+<% requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email') %>
+<% company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name') %>
+<% target_user_text = RequestRetirement.human_attribute_name(:target_user_id) %>
+<% reason_text = RequestRetirement.human_attribute_name(:reason) %>
+<% keep_data_text = RequestRetirement.human_attribute_name(:keep_data) %>
+<% keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep') %>
+<% delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete') %>
+
   <tr>
     <td style="padding: 16px 24px 16px 24px;">
       <div class="a-long-text">
@@ -18,31 +28,31 @@
         </p>
         <ul>
           <li>
-            申請者のアカウント <br>
+            <%= requester_name_text %><br>
             <%= @request_retirement.user.login_name %>
           </li>
           <li>
-            申請者のメールアドレス <br>
+            <%= requester_email_text %><br>
             <%= @request_retirement.user.email %>
           </li>
           <li>
-            会社名 <br>
+            <%= company_name_text %><br>
             <%= @request_retirement.user.company.name %>
           </li>
           <li>
-            対象ユーザー <br>
+            <%= target_user_text %><br>
             <%= @request_retirement.target_user.name %>
           </li>
           <li>
-            退会申請理由 <br>
+            <%= reason_text %><br>
             <%= @request_retirement.reason %>
           </li>
           <li>
-            退会後のデータ <br>
+            <%= keep_data_text %><br>
             <% if @request_retirement.keep_data %>
-              残す
+              <%= keep_data_option_text %>
             <% else %>
-              削除する
+              <%= delete_data_option_text %>
             <% end %>
           </li>
         </ul>

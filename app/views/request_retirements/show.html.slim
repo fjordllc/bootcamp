@@ -2,6 +2,15 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
 description: '退会申請を受け付けました。')
 
+- requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name')
+- requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email')
+- company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name')
+- target_user_text = RequestRetirement.human_attribute_name(:target_user_id)
+- reason_text = RequestRetirement.human_attribute_name(:reason)
+- keep_data_text = RequestRetirement.human_attribute_name(:keep_data)
+- keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep')
+- delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete')
+
 .thanks-message
   .container.is-xs
     .thanks-message__header
@@ -22,37 +31,37 @@ description: '退会申請を受け付けました。')
           .form__items.thanks-message__inputed-values-items
             .form__item
               .a-form-label
-                | 申請者のアカウント
+                = requester_name_text
               .a-text-input.is-inputed
                 = @request_retirement.user.login_name
             .form__item
               .a-form-label
-                | 申請者のメールアドレス
+                = requester_email_text
               .a-text-input.is-inputed
                 = @request_retirement.user.email
             .form__item
               .a-form-label
-                | 会社名
+                = company_name_text
               .a-text-input.is-inputed
                 = @request_retirement.user.company.name
             .form__item
               .a-form-label
-                | 対象ユーザー
+                = target_user_text
               .a-text-input.is-inputed
                 = @request_retirement.target_user.login_name
             .form__item
               .a-form-label
-                | 退会申請理由
+                = reason_text
               .a-text-input.is-inputed
                 = @request_retirement.reason
             .form-item
               .a-form-label
-                | 退会後のデータ
+                = keep_data_text
               .a-text-input.is-inputed
                 - if @request_retirement.keep_data
-                  | 残す
+                  = keep_data_option_text
                 - else
-                  | 削除する
+                  = delete_data_option_text
       hr.a-border-tint
       footer.card-footer
         .card-main-actions
