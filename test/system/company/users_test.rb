@@ -10,14 +10,14 @@ class Company::UsersTest < ApplicationSystemTestCase
 
   test 'show users by user category' do
     visit_with_auth "/companies/#{companies(:company2).id}/users", 'kimura'
-    # デフォルトは現役生のユーザーを表示
+    # デフォルトは現役 + 研修生のユーザーを表示
     # Kensyu Owata は研修を終えている研修生
     assert_no_text 'Kensyu Owata'
 
     click_link '全員'
     assert_text 'Kensyu Owata'
 
-    click_link '現役生'
+    click_link '現役 + 研修生'
     assert_no_text 'Kensyu Owata'
   end
 end
