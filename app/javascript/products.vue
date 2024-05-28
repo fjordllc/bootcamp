@@ -86,7 +86,7 @@ div(v-else-if='isDashboard')
     p.mt-4.text-sm.text-center
       label.a-text-link(for='modal-on-days-select')
         | 提出物チェックの期限を変更する。
-    input.a-toggle-checkbox#modal-on-days-select(type='checkbox')
+    input#modal-on-days-select.a-toggle-checkbox(type='checkbox')
     .modal
       label.modal__overlay(for='modal-on-days-select')
       .modal-content
