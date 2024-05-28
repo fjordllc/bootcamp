@@ -19,7 +19,6 @@ class Mentor::Categories::PracticesTest < ApplicationSystemTestCase
     visit_with_auth course_practices_path(courses(:course1)), 'kimura'
     assert_equal all('span.category-practices-item__title-link-label')[0].text, practices(:practice1).title
     assert_equal all('span.category-practices-item__title-link-label')[1].text, practices(:practice3).title
-
     visit_with_auth mentor_category_practices_path(categories(:category2)), 'komagata'
     source = all('.js-grab')[0] # practice1
     target = all('.js-grab')[2] # practice3
