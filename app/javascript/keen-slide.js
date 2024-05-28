@@ -6,11 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
       loop: true,
       mode: "free-snap",
       breakpoints: {
-        "(min-width: 400px)": {
-          slides: { perView: 2, spacing: 5 },
+        "(max-width: 639px)": {
+          slides: { perView: 2, spacing: 8 },
         },
-        "(min-width: 1000px)": {
-          slides: { perView: 3, spacing: 10 },
+        "(min-width: 640px)": {
+          slides: { perView: 2, spacing: 8 },
+        },
+        "(min-width: 768px)": {
+          slides: { perView: 3, spacing: 12 },
+        },
+        "(min-width: 1024px)": {
+          slides: { perView: 3, spacing: 16 },
+        },
+        "(min-width: 1280px)": {
+          slides: { perView: 4, spacing: 16 },
+        },
+        "(min-width: 1536px)": {
+          slides: { perView: 5, spacing: 20 },
+        },
+        "(min-width: 1920px)": {
+          slides: { perView: 6, spacing: 24 },
         },
       },
       slides: {
