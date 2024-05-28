@@ -1,13 +1,22 @@
 = form_with model: request_retirement, class: 'form' do |f|
-  = render 'profile_form_field', f: f, field: :requester_name
-  = render 'profile_form_field', f: f, field: :requester_email
-  = render 'profile_form_field', f: f, field: :company_name
   .form__items
     .form-item
-      = f.label :target_user_name, class: 'a-form-label'
+      = f.label requester_name, class: 'a-form-label'
+      = f.text_field requester_name, value: current_user.login_name, required: true, readonly: true, class: 'a-text-input'
+  .form__items
+    .form-item
+      = f.label requester_email, class: 'a-form-label'
+      = f.text_field requester_email, value: current_user.email, required: true, readonly: true, class: 'a-text-input'
+  .form__items
+    .form-item
+      = f.label company_name, class: 'a-form-label'
+      = f.text_field company_name, value: current_user.company.name, required: true, readonly: true, class: 'a-text-input'
+  .form__items
+    .form-item
+      = f.label :target_user_id, class: 'a-form-label'
       - if @target_users
       .a-button.is-md.is-secondary.is-select.is-block
-        = f.collection_select :target_user_name, @target_users, :login_name, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
+        = f.collection_select :target_user_id, @target_users, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
   .form__items
     .form-item
       = f.label :reason, class: 'a-form-label'
