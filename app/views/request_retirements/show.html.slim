@@ -22,37 +22,37 @@ description: '退会申請を受け付けました。')
           .form__items.thanks-message__inputed-values-items
             .form__item
               .a-form-label
-                = RequestRetirement.human_attribute_name(requester_name)
+                | 申請者のアカウント
               .a-text-input.is-inputed
                 = @request_retirement.user.login_name
             .form__item
               .a-form-label
-                = RequestRetirement.human_attribute_name(requester_email)
+                | 申請者のメールアドレス
               .a-text-input.is-inputed
                 = @request_retirement.user.email
             .form__item
               .a-form-label
-                = RequestRetirement.human_attribute_name(company_name)
+                | 会社名
               .a-text-input.is-inputed
                 = @request_retirement.user.company.name
             .form__item
               .a-form-label
-                = RequestRetirement.human_attribute_name(:target_user_name)
+                | 対象ユーザー
               .a-text-input.is-inputed
                 = @request_retirement.target_user.login_name
             .form__item
               .a-form-label
-                = RequestRetirement.human_attribute_name(:reason)
+                | 退会申請理由
               .a-text-input.is-inputed
                 = @request_retirement.reason
             .form-item
               .a-form-label
-                = I18n.t('activerecord.attributes.request_retirement.keep_data.title')
+                | 退会後のデータ
               .a-text-input.is-inputed
                 - if @request_retirement.keep_data
-                  = I18n.t('activerecord.attributes.request_retirement.keep_data.options.keep')
+                  | 残す
                 - else
-                  = I18n.t('activerecord.attributes.request_retirement.keep_data.options.delete')
+                  | 削除する
       hr.a-border-tint
       footer.card-footer
         .card-main-actions

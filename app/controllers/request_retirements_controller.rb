@@ -1,27 +1,24 @@
 # frozen_string_literal: true
 
 class RequestRetirementsController < ApplicationController
-  skip_before_action :require_active_user_login, raise: false, only: %i[new show create]
   before_action :set_request_retirement, only: %i[show]
 
   def new
-    if company_adviser_login?
-      @request_retirement = RequestRetirement.new(requester_profile)
-      @target_users = current_user.collegues_other_than_self
-    else
-      @request_retirement = RequestRetirement.new
-    end
+    @request_retirement = RequestRetirement.new
+    @target_users = current_user.collegues_other_than_self
   end
 
   def show; end
 
   def create
     @request_retirement = RequestRetirement.new(request_retirement_params)
+    @request_retirement.user = current_user
+    @request_retirement.target_user = User.find(request_retirement_params[:target_user_id])
     if @request_retirement.save
-      UserMailer.request_retirement(@request_retirement).deliver_now
+      #UserMailer.request_retirement(@request_retirement).deliver_now
       redirect_to request_retirement_url(@request_retirement)
     else
-      @target_users = current_user.collegues_other_than_self if company_adviser_login?
+      @target_users = current_user.collegues_other_than_self
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,23 +31,8 @@ class RequestRetirementsController < ApplicationController
 
   def request_retirement_params
     params.require(:request_retirement)
-          .permit(:requester_email,
-                  :requester_name,
-                  :company_name,
-                  :target_user_name,
+          .permit(:target_user_id,
                   :reason,
                   :keep_data)
-  end
-
-  def requester_profile
-    {
-      requester_email: current_user.email,
-      requester_name: current_user.login_name,
-      company_name: current_user.company.name
-    }
-  end
-
-  def company_adviser_login?
-    logged_in? && current_user.belongs_company_and_adviser?
   end
 end
