@@ -428,6 +428,14 @@ class User < ApplicationRecord
       send(scope_name)
     end
 
+    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
+    # allowed_job.include?(job): 存在する職業を過不足なく指定した配列の中に、jobが存在するかどうかチェック。
+    def users_job(job)
+      allowed_jobs = User.jobs.keys.freeze
+      scope_name = allowed_jobs.include?(job) ? "job_#{job}" : 'all'
+      send(scope_name)
+    end
+
     def tags
       unretired.unhibernated.all_tag_counts(order: 'count desc, name asc')
     end

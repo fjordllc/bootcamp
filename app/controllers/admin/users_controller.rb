@@ -13,6 +13,8 @@ class Admin::UsersController < AdminController
                  else
                    user_scope.where(retired_on: nil)
                  end
+    @job = params[:job]
+    user_scope = user_scope.users_job(@job) if @job.present?
     @users = user_scope.with_attached_avatar
                        .preload(:company, :course)
                        .order_by_counts(params[:order_by] || 'id', @direction)
