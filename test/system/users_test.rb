@@ -650,4 +650,25 @@ class UsersTest < ApplicationSystemTestCase
       assert_selector '.users-item__inactive-message-container.is-only-mentor .users-item__inactive-message', text: '休会中: 2020年01月01日〜(10日経過)'
     end
   end
+
+  test 'students and trainees filter' do
+    visit_with_auth '/users', 'komagata'
+    click_link '現役 + 研修生'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: '現役 + 研修生')
+    filtered_users = all('.users-item__icon .a-user-role')
+    assert(filtered_users.all? do |user|
+      classes = user[:class].split(' ')
+      classes.include?('is-student') || classes.include?('is-trainee')
+    end)
+  end
+
+  test 'students filter' do
+    visit_with_auth '/users', 'komagata'
+    click_link '現役生'
+
+    assert_selector('a.tab-nav__item-link.is-active', text: '現役生')
+    filtered_users = all('.users-item__icon .a-user-role')
+    assert(filtered_users.all? { |user| user[:class].split(' ').include?('is-student') })
+  end
 end
