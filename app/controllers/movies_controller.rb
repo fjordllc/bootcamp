@@ -28,7 +28,8 @@ class MoviesController < ApplicationController
     set_wip
 
     if @movie.save
-      redirect_to @movie, notice: '動画を追加しました。'
+      url = Redirection.determin_url(self, @movie)
+      redirect_to url, notice: notice_message(@movie, :create)
     else
       render :new
     end
@@ -42,7 +43,7 @@ class MoviesController < ApplicationController
       update_published_at
       redirect_to url, notice: notice_message(@movie, :update)
     else
-      render :edit, notice: '動画の更新に失敗しました。'
+      render :edit
     end
   end
 
