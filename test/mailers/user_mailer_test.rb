@@ -28,15 +28,16 @@ class UserMailerTest < ActionMailer::TestCase
   end
 
   test 'request retirement' do
+    requester = users(:senpai)
+    target_user = users(:kensyuowata)
+
     request_retirement = RequestRetirement.new(
-      requester_name: 'senpai',
-      requester_email: 'senpai@fjord.jp',
-      target_user_name: 'kensyu',
-      company_name: 'company',
+      user_id: requester.id,
+      target_user_id: target_user.id,
       reason: '退職してしまったため。',
       keep_data: true
     )
-    request_retirement.validate
+
     email = UserMailer.request_retirement(request_retirement).deliver_now
 
     assert_not ActionMailer::Base.deliveries.empty?
