@@ -2,14 +2,15 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
 description: '退会申請を受け付けました。')
 
-- requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name')
-- requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email')
-- company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name')
-- target_user_text = RequestRetirement.human_attribute_name(:target_user_id)
-- reason_text = RequestRetirement.human_attribute_name(:reason)
-- keep_data_text = RequestRetirement.human_attribute_name(:keep_data)
-- keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep')
-- delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete')
+ruby:
+  requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name')
+  requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email')
+  company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name')
+  target_user_text = RequestRetirement.human_attribute_name(:target_user_id)
+  reason_text = RequestRetirement.human_attribute_name(:reason)
+  keep_data_text = RequestRetirement.human_attribute_name(:keep_data)
+  keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep')
+  delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete')
 
 .thanks-message
   .container.is-xs
