@@ -23,7 +23,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_equal new_movie_path, current_path
     fill_in 'movie[title]', with: '新規動画を作成する'
     fill_in 'movie[description]', with: '新規動画を作成する本文です'
-    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie1.mp4', make_visible: true
+    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mp4', make_visible: true
     assert_selector 'video'
     click_button '動画を追加'
     assert_text '動画を追加しました'
@@ -34,7 +34,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_equal new_movie_path, current_path
     fill_in 'movie[title]', with: '新規動画を作成する'
     fill_in 'movie[description]', with: '新規動画を作成する本文です'
-    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie2.mov', make_visible: true
+    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mov', make_visible: true
     assert_selector 'video'
     click_button '動画を追加'
     assert_text '動画を追加しました'
@@ -46,7 +46,7 @@ class MoviesTest < ApplicationSystemTestCase
     fill_in 'movie[description]', with: '動画に関連プラクティスを指定'
     first('.choices__inner').click
     find('.choices__item--choice', text: '[UNIX] Linuxのファイル操作の基礎を覚える').click
-    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie1.mp4', make_visible: true
+    attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mp4', make_visible: true
     click_button '動画を追加'
     assert_text 'Linuxのファイル操作の基礎を覚える'
   end
@@ -73,7 +73,7 @@ class MoviesTest < ApplicationSystemTestCase
       fill_in('movie[title]', with: 'test')
       fill_in('movie[description]', with: 'test')
     end
-    attach_file 'movie_movie_data', 'test/fixtures/files/movies/movie1.mp4', make_visible: true
+    attach_file 'movie_movie_data', 'test/fixtures/files/movies/movie.mp4', make_visible: true
     click_button 'WIP'
     assert_text '動画をWIPとして保存しました。'
     assert_text '動画編集'
@@ -85,7 +85,7 @@ class MoviesTest < ApplicationSystemTestCase
       fill_in('movie[title]', with: 'test')
       fill_in('movie[description]', with: 'test')
     end
-    attach_file 'movie_movie_data', 'test/fixtures/files/movies/movie2.mov', make_visible: true
+    attach_file 'movie_movie_data', 'test/fixtures/files/movies/movie.mov', make_visible: true
     click_button 'WIP'
     assert_text '動画をWIPとして保存しました。'
     assert_text '動画編集'
