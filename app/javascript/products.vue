@@ -120,26 +120,6 @@ div(v-else-if='isDashboard')
                     option(value='3') 期限5日（3日経過 4日経過 5日以上経過）
                     option(value='4') 期限6日（4日経過 5日経過 6日以上経過）
                     option(value='5') 期限7日（5日経過 6日経過 7日以上経過）
-
-//- 全て, 未完了
-.page-content.is-products(v-else)
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
-  .a-card
-    .card-list
-      .card-list__items
-        product(
-          v-for='product in products',
-          :key='product.id',
-          :product='product',
-          :currentUserId='currentUserId',
-          :isMentor='isMentor',
-          :display-user-icon='displayUserIcon')
-      unconfirmed-links-open-button(
-        v-if='isMentor && selectedTab != "all" && !isDashboard',
-        :label='`${unconfirmedLinksName}の提出物を一括で開く`')
-  nav.pagination(v-if='totalPages > 1')
-    pager(v-bind='pagerProps')
 </template>
 
 <script>
