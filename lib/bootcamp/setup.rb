@@ -75,13 +75,13 @@ module Bootcamp
       end
 
       def attach_movie_data!
-        Movie.order(:created_at).each_with_index do |movie, i|
+        Movie.order(:created_at).each do |movie|
           if movie.title.include?('mp4')
-            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie#{i + 1}.mp4")
-            movie.movie_data.attach(io: File.open(movie_path), filename: "movie#{i + 1}.mp4")
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mp4")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mp4')
           elsif movie.title.include?('mov')
-            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie#{i + 1}.mov")
-            movie.movie_data.attach(io: File.open(movie_path), filename: "movie#{i + 1}.mov")
+            movie_path = Rails.root.join("#{fixtures_dir}/fixtures/files/movies/movie.mov")
+            movie.movie_data.attach(io: File.open(movie_path), filename: 'movie.mov')
           end
         end
       end

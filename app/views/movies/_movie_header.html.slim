@@ -1,10 +1,15 @@
 header.page-content-header
   .page-content-header__end
     .page-content-header__row
-      - if movie.practice.present?
-        .page-content-header__before-title
-          = link_to movie.practice, class: 'a-category-link' do
-            = movie.practice.title
+      - if movie.practices.present?
+        .page-content-header__row
+          .page-content-header__tags
+            .tag-links
+              ul.tag-links__items
+                - category_practices(movie).each do |practice|
+                  li.tag-links__item
+                    = link_to practice, class: 'tag-links__item-link' do
+                      = practice.title
       h1.page-content-header__title(class="#{movie.wip? ? 'is-wip' : ''}")
         - if movie.wip?
           span.a-title-label.is-wip WIP
