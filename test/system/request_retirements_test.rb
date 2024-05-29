@@ -8,7 +8,7 @@ class RequestRetirementsTest < ApplicationSystemTestCase
     visit new_request_retirement_path
     assert_text '退会申請'
 
-    select 'kensyu', from: '対象ユーザー'
+    select 'kensyu', from: '退会をさせる方のアカウント'
     fill_in('退会申請理由', with: '退職してしまったため。')
     choose '削除する', allow_label_click: true
     click_on '申請する'
