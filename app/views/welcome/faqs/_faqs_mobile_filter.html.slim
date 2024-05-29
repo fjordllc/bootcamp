@@ -3,17 +3,14 @@
     .form-item.is-inline
       label.a-form-label
         | 絞り込む
-      .a-button.is-md.is-secondary.is-select.is-block
-        select
-          - if params[:category].present?
-            option
-              | 全て
-            option(selected="selected")
-              = t("faq.#{params[:category]}")
-          - else
-            option(selected="selected")
-              | 全て
+      = form_with url: faq_path, method: :get, local: true, html: { class: 'a-button is-md is-secondary is-select is-block' } do
+        select name="category" onchange="this.form.submit()"
+          option value=""
+            | 全て
           - FAQ.categories.each_key do |category|
-            - if params[:category] != category
-              option
+            - if params[:category] == category
+              option value=category selected=true
+                = t("faq.#{category}")
+            - else
+              option value=category
                 = t("faq.#{category}")
