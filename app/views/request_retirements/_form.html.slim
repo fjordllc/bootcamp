@@ -1,28 +1,29 @@
-- requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name')
-- requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email')
-- company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name')
-- keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep')
-- delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete')
+ruby:
+  requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name')
+  requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email')
+  company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name')
+  keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep')
+  delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete')
 
 = form_with model: request_retirement, class: 'form' do |f|
   .form__items
     .form-item
       = label_tag :requester_name, requester_name_text, class: 'a-form-label'
-      = text_field_tag :requester_name, value=current_user.login_name, required: true, readonly: true, class: 'a-text-input'
+      = text_field_tag :requester_name, current_user.login_name, required: true, readonly: true, class: 'a-text-input'
   .form__items
     .form-item
       = label_tag :requester_email, requester_email_text, class: 'a-form-label'
-      = text_field_tag :requester_email, value=current_user.email, required: true, readonly: true, class: 'a-text-input'
+      = text_field_tag :requester_email, current_user.email, required: true, readonly: true, class: 'a-text-input'
   .form__items
     .form-item
       = label_tag :company_name, company_name_text, class: 'a-form-label'
-      = text_field_tag :company_name, value=current_user.company.name, required: true, readonly: true, class: 'a-text-input'
+      = text_field_tag :company_name, current_user.company.name, required: true, readonly: true, class: 'a-text-input'
   .form__items
     .form-item
       = f.label :target_user_id, class: 'a-form-label'
-      - if @target_users
-      .a-button.is-md.is-secondary.is-select.is-block
-        = f.collection_select :target_user_id, current_user.collegues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
+      - if current_user.collegues_other_than_self
+        .a-button.is-md.is-secondary.is-select.is-block
+          = f.collection_select :target_user_id, current_user.collegues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
   .form__items
     .form-item
       = f.label :reason, class: 'a-form-label'
