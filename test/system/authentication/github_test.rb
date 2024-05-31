@@ -33,4 +33,24 @@ class Authentication::GithubSystemTest < ApplicationSystemTestCase
     visit '/current_user/edit'
     assert_link 'GitHub アカウントを登録する'
   end
+
+  test 'release other user GitHub account' do
+    admin_user = users(:komagata)
+    admin_user.update!(github_id: '12345')
+
+    released_user = users(:hatsuno)
+    released_user.update!(github_id: '67890')
+
+    visit_with_auth "/admin/users/#{released_user.id}/edit", 'komagata'
+    assert_text 'GitHub アカウントは登録されています。'
+
+    click_link 'GitHub アカウントの登録を解除する'
+    assert_text 'GitHubとの連携を解除しました。'
+
+    visit_with_auth "/admin/users/#{released_user.id}/edit", 'komagata'
+    assert_link 'GitHub アカウントを登録する'
+
+    visit '/current_user/edit'
+    assert_text 'GitHub アカウントは登録されています。'
+  end
 end
