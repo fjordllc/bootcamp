@@ -7,8 +7,8 @@ class EventsCalendarTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2024, 3, 25, 10, 0, 0) do
       user = users(:kimura)
 
-      calendar = Calendar.new
-      subscription_calendar = calendar.combine_special_regular_calendar(user).publish
+      calendar = Calendar.new(user)
+      subscription_calendar = calendar.combine_special_regular_calendar.publish
 
       subscription_calendar.publish
       assert_match(/【参加登録済】未来のイベント\(参加済\)/, subscription_calendar.to_ical)
