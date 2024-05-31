@@ -43,7 +43,7 @@
     .a-form-help
       p
         | GitHub アカウントは登録されています。（
-        = link_to connection_git_hub_path, method: :delete, class: 'a-form-help-link is-muted-text' do
+        = link_to connection_git_hub_path(user_id: @user.id), method: :delete, class: 'a-form-help-link is-muted-text' do
           | GitHub アカウントの登録を解除する
         | ）
   - else
