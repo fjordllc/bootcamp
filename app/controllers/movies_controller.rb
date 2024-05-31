@@ -63,7 +63,13 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:practice_id, :title, :description, :movie_data, :tag_list)
+    params.require(:movie).permit(
+      :title,
+      :description,
+      :movie_data,
+      :tag_list,
+      practice_ids: []
+    )
   end
 
   def set_wip
