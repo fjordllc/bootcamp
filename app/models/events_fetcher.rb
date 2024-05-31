@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class EventsFetcher
-  def fetch_events(user)
-    participated_events = user.participations.pluck(:event_id)
+  def initialize(user)
+    @user = user
+  end
+
+  def fetch_events
+    participated_events = @user.participations.pluck(:event_id)
     upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
 
     joined_events = Event.where(id: participated_events & upcoming_events)
@@ -13,8 +17,8 @@ class EventsFetcher
     }
   end
 
-  def fetch_regular_events(user)
-    participated_events = user.regular_event_participations.pluck(:regular_event_id)
+  def fetch_regular_events
+    participated_events = @user.regular_event_participations.pluck(:regular_event_id)
     regular_events = []
     RegularEvent.where(id: participated_events).where(finished: false).find_each do |event|
       event.regular_event_repeat_rules.each do |repeat_rule|
