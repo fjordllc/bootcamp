@@ -29,6 +29,7 @@ class MoviesController < ApplicationController
 
     if @movie.save
       url = Redirection.determin_url(self, @movie)
+      update_published_at
       redirect_to url, notice: notice_message(@movie, :create)
     else
       render :new
