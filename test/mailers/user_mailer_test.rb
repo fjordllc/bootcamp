@@ -27,7 +27,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match("#{user.name}様の今後のご活躍を心からお祈り申し上げます。", email.body.to_s)
   end
 
-  test 'request retirement' do
+  test 'request_retirement' do
     requester = users(:senpai)
     target_user = users(:kensyuowata)
 
