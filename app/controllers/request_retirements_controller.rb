@@ -2,7 +2,7 @@
 
 class RequestRetirementsController < ApplicationController
   before_action :set_request_retirement, only: %i[show]
-  before_action :deny_other_than_requseter, only: %i[show]
+  before_action :deny_other_than_requester, only: %i[show]
 
   def new
     @request_retirement = RequestRetirement.new
@@ -36,7 +36,7 @@ class RequestRetirementsController < ApplicationController
                   :keep_data)
   end
 
-  def deny_other_than_requseter
+  def deny_other_than_requester
     return if @request_retirement.user == current_user
 
     redirect_to root_path, alert: '退会申請をしたユーザーのみが閲覧可能です'
