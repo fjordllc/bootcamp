@@ -50,7 +50,7 @@ class MoviesController < ApplicationController
 
   def destroy
     @movie.destroy
-    redirect_to 'movies_url', notice: '動画を削除しました。'
+    redirect_to movies_path, notice: '動画を削除しました。'
   end
 
   private
