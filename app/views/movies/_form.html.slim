@@ -48,10 +48,9 @@
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
       li.form-actions__item.is-main
         = button_tag(class: 'a-button is-lg is-primary is-block') do
-          - case params[:action]
-          - when 'new', 'create'
+          - if !@movie.published_at.present?
             | 動画を追加
-          - when 'edit', 'update'
+          - else
             | 内容を更新
       li.form-actions__item.is-sub
         - case params[:action]
