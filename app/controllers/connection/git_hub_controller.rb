@@ -5,6 +5,11 @@ class Connection::GitHubController < ApplicationController
 
   def destroy
     user = User.find(params[:user_id])
+    if !admin_login? && user != current_user
+      redirect_to root_path, alert: '管理者としてログインしてください'
+      return
+    end
+
     user.update(github_id: nil)
     redirect_to user_path(user), notice: 'GitHubとの連携を解除しました。'
   end
