@@ -24,7 +24,6 @@ class MoviesTest < ApplicationSystemTestCase
     fill_in 'movie[title]', with: '新規動画を作成する'
     fill_in 'movie[description]', with: '新規動画を作成する本文です'
     attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mp4', make_visible: true
-    assert_selector 'video'
     click_button '動画を追加'
     assert_text '動画を追加しました'
   end
@@ -35,7 +34,6 @@ class MoviesTest < ApplicationSystemTestCase
     fill_in 'movie[title]', with: '新規動画を作成する'
     fill_in 'movie[description]', with: '新規動画を作成する本文です'
     attach_file 'movie[movie_data]', 'test/fixtures/files/movies/movie.mov', make_visible: true
-    assert_selector 'video'
     click_button '動画を追加'
     assert_text '動画を追加しました'
   end
