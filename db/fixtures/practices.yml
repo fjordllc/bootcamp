@@ -394,3 +394,21 @@ practice61:
   goal: "goal..."
   include_progress: false
   memo: "memo for mentors..."
+
+practice62:
+  title: "JavaScript初級"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice63:
+  title: "JavaScript中級"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
+
+practice64:
+  title: "JavaScript上級"
+  description: "description..."
+  goal: "goal..."
+  memo: "memo for mentors..."
