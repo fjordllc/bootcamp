@@ -149,11 +149,11 @@
       = render 'users/form/training_end', f: f
       = render 'users/form/company', f:, user:
 
-      ruby:
-        user_categories = user.course.categories
-        skip_practices_ids = user.skip_practice_ids
-        display_practice_ids = []
-      - if admin_login?
+      - if admin_login? && user.course
+        ruby:
+          user_categories = user.course.categories
+          skip_practices_ids = user.skip_practice_ids
+          display_practice_ids = []
         .form-item
           = f.label :training_ends_on, class: 'a-form-label' do
             | スキップするプラクティス
