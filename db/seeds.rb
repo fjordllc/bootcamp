@@ -65,6 +65,7 @@ tables = %i[
   coding_tests
   coding_test_cases
   coding_test_submissions
+  skip_practices
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
