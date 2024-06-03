@@ -90,6 +90,7 @@ Rails.application.routes.draw do
   resources :generations, only: %i(show index)
   resource :billing_portal, only: :create, controller: "billing_portal"
   resources :external_entries, only: %i(index)
+  resource :product_deadline, only: %i(update)
   get "articles/tags/:tag", to: "articles#index", as: :tag, tag: /.+/
   get "pages/tags/:tag", to: "pages#index", as: :pages_tag, tag: /.+/, format: "html"
   get "questions/tags/:tag", to: "questions#index", as: :questions_tag, tag: /.+/, format: "html"
