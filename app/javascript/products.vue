@@ -136,14 +136,15 @@ export default {
     title: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: Number, required: true },
-    displayUserIcon: { type: Boolean, default: true }
+    displayUserIcon: { type: Boolean, default: true },
+    productDeadlineDays: { type: Number, required: true }
   },
   data() {
     return {
       products: [],
       loaded: false,
       productsGroupedByElapsedDays: null,
-      selectedDays: 4
+      selectedDays: this.productDeadlineDays
     }
   },
   computed: {
@@ -231,8 +232,28 @@ export default {
       }
     },
     onDaysSelectChange(event) {
-      this.selectedDays = parseInt(event.target.value)
-      this.getProductsPerPage()
+      const newDeadlineDays = parseInt(event.target.value);
+      this.updateProductDeadline(newDeadlineDays);
+      this.selectedDays = newDeadlineDays;
+      this.getProductsPerPage();
+    },
+    async updateProductDeadline(newDeadlineDays) {
+      try {
+        const response = await fetch('/product_deadline', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-CSRF-Token': CSRF.getToken()
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify({ alert_day: newDeadlineDays })
+        });
+        if (!response.ok) {
+          throw new Error('Failed to update product deadline');
+        }
+      } catch (error) {
+        console.warn(error);
+      }
     },
     getElementNdaysPassed(elapsedDays) {
       const element = this.productsGroupedByElapsedDays.find(

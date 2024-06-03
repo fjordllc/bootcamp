@@ -46,6 +46,7 @@ class HomeController < ApplicationController
     collegue_trainees_reports = Report.with_avatar.where(wip: false).where(user: current_user.collegue_trainees.with_attached_avatar)
     @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
+    @product_deadline_day = ProductDeadline.first_or_create(alert_day: 4).alert_day
     @collegues = current_user.collegues_other_than_self
   end
 
