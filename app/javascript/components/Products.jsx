@@ -13,7 +13,8 @@ export default function Products({
   selectedTab,
   isMentor,
   isAdmin,
-  currentUserId
+  currentUserId,
+  productDeadlineDay
 }) {
   const { page, setPage } = usePage()
 
@@ -62,13 +63,13 @@ export default function Products({
     data.productsGroupedByElapsedDays.forEach((group) => {
       elapsedDays.push(group.elapsed_days)
     })
-    return elapsedDays.every((day) => day < 4)
+    return elapsedDays.every((day) => day < productDeadlineDay)
   }
 
   const updateElapsedDays = (productsGroupedByElapsedDays) => {
     const updateElapsedDays = []
     productsGroupedByElapsedDays.forEach((group) => {
-      const elapsedDays = group.elapsed_days >= 6 ? 6 : group.elapsed_days
+      const elapsedDays = group.elapsed_days >= productDeadlineDay + 2 ? productDeadlineDay + 2 : group.elapsed_days
       let existingGroup = updateElapsedDays.find(
         (g) => g.elapsed_days === elapsedDays
       )
@@ -123,7 +124,7 @@ export default function Products({
         <div className="o-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
-        <p className="o-empty-message__text">4日経過した提出物はありません</p>
+        <p className="o-empty-message__text">{productDeadlineDay}日経過した提出物はありません</p>
       </div>
     )
   } else if (selectedTab !== 'unassigned') {
@@ -188,7 +189,7 @@ export default function Products({
         <div className="page-body__columns">
           <div className="page-body__column is-main">
             {data.products_grouped_by_elapsed_days
-              .filter((group) => group.elapsed_days !== 7)
+              .filter((group) => group.elapsed_days !== 8)
               .map((productsNDaysPassed) => {
                 return (
                   <div
@@ -198,6 +199,7 @@ export default function Products({
                       productsNDaysPassed={productsNDaysPassed}
                       elapsedDaysId={elapsedDaysId}
                       countProductsGroupedBy={countProductsGroupedBy}
+                      productDeadlineDay={productDeadlineDay}
                     />
                     <div className="card-list">
                       <div className="card-list__items">
@@ -221,7 +223,10 @@ export default function Products({
             <UnconfirmedLink label={unconfirmedLinksName()} />
           </div>
 
-          <ElapsedDays countProductsGroupedBy={countProductsGroupedBy} />
+          <ElapsedDays
+            countProductsGroupedBy={countProductsGroupedBy}
+            productDeadlineDay={productDeadlineDay}
+          />
         </div>
       </div>
     )
@@ -231,21 +236,22 @@ export default function Products({
 function ProductHeader({
   productsNDaysPassed,
   elapsedDaysId,
-  countProductsGroupedBy
+  countProductsGroupedBy,
+  productDeadlineDay
 }) {
   let headerClass = 'card-header a-elapsed-days'
-  if (productsNDaysPassed.elapsed_days === 4) {
+  if (productsNDaysPassed.elapsed_days === productDeadlineDay) {
     headerClass += ' is-reply-warning'
-  } else if (productsNDaysPassed.elapsed_days === 5) {
+  } else if (productsNDaysPassed.elapsed_days === productDeadlineDay + 1) {
     headerClass += ' is-reply-alert'
-  } else if (productsNDaysPassed.elapsed_days >= 6) {
+  } else if (productsNDaysPassed.elapsed_days >= productDeadlineDay + 2) {
     headerClass += ' is-reply-deadline'
   }
 
   const headerLabel = () => {
     if (productsNDaysPassed.elapsed_days === 0) {
       return '今日提出'
-    } else if (productsNDaysPassed.elapsed_days === 6) {
+    } else if (productsNDaysPassed.elapsed_days === productDeadlineDay + 2) {
       return `${productsNDaysPassed.elapsed_days}日以上経過`
     } else {
       return `${productsNDaysPassed.elapsed_days}日経過`

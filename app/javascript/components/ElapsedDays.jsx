@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ElapsedDays({ countProductsGroupedBy }) {
+export default function ElapsedDays({ countProductsGroupedBy, productDeadlineDay }) {
   const activeClass = (quantity) => {
     return quantity ? 'is-active' : 'is-inactive'
   }
@@ -11,35 +11,35 @@ export default function ElapsedDays({ countProductsGroupedBy }) {
         <ol className="page-nav__items elapsed-days">
           <li
             className={`page-nav__item is-reply-deadline border-b-0 ${activeClass(
-              countProductsGroupedBy(6)
+              countProductsGroupedBy(productDeadlineDay + 2)
             )}`}>
             <a className="page-nav__item-link" href="#6days-elapsed">
               <span className="page-nav__item-link-inner">
-                6日以上経過{` (${countProductsGroupedBy(6)})`}
+                {productDeadlineDay + 2}日以上経過{` (${countProductsGroupedBy(productDeadlineDay + 2)})`}
               </span>
             </a>
           </li>
           <li
             className={`page-nav__item is-reply-alert border-b-0 ${activeClass(
-              countProductsGroupedBy(5)
+              countProductsGroupedBy(productDeadlineDay + 1)
             )}`}>
             <a className="page-nav__item-link" href="#5days-elapsed">
               <span className="page-nav__item-link-inner">
-                5日経過{` (${countProductsGroupedBy(5)})`}
+              {productDeadlineDay + 1}日経過{` (${countProductsGroupedBy(productDeadlineDay + 1)})`}
               </span>
             </a>
           </li>
           <li
             className={`page-nav__item is-reply-warning border-b-0 ${activeClass(
-              countProductsGroupedBy(4)
+              countProductsGroupedBy(productDeadlineDay)
             )}`}>
             <a className="page-nav__item-link" href="#4days-elapsed">
               <span className="page-nav__item-link-inner">
-                4日経過{` (${countProductsGroupedBy(4)})`}
+              {productDeadlineDay}日経過{` (${countProductsGroupedBy(productDeadlineDay)})`}
               </span>
             </a>
           </li>
-          {[3, 2, 1].map((passedDay) => {
+          {Array.from({ length: productDeadlineDay - 1 }, (_, index) => index + 1).reverse().map((passedDay) => {
             return (
               <li
                 key={passedDay}
