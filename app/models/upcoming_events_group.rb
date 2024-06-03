@@ -29,7 +29,7 @@ class UpcomingEventsGroup
 
     def original_events_scheduled_on(date)
       EVENT_MODELS.map do |event_model|
-        event_model.public_send(:gather_events_scheduled_on, date)
+        event_model.public_send(:scheduled_on, date)
       end.flatten
     end
 

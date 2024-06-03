@@ -55,6 +55,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :holding, -> { where(finished: false) }
   scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
+  scope :scheduled_on, ->(date) { holding.select { |event| event.scheduled_on?(date) } }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -69,12 +70,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   attribute :wants_announcement, :boolean
 
   columns_for_keyword_search :title, :description
-
-  class << self
-    def gather_events_scheduled_on(date)
-      holding.select { |event| event.scheduled_on?(date) }
-    end
-  end
 
   def scheduled_on?(date)
     all_scheduled_dates.include?(date)

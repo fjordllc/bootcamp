@@ -3,21 +3,21 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  test '.gather_events_scheduled_on(date)' do
+  test '.scheduled_on(date)' do
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       today_date = Time.zone.today
       today_events_count = 2
-      today_events = Event.gather_events_scheduled_on(today_date)
+      today_events = Event.scheduled_on(today_date)
       assert_equal today_events_count, today_events.count
 
       tomorrow_date = Time.zone.today + 1.day
       tomorrow_events_count = 1
-      tomorrow_events = Event.gather_events_scheduled_on(tomorrow_date)
+      tomorrow_events = Event.scheduled_on(tomorrow_date)
       assert_equal tomorrow_events_count, tomorrow_events.count
 
       day_after_tomorrow_date = Time.zone.today + 2.days
       day_after_tomorrow_events_count = 1
-      day_after_tomorrow_events = Event.gather_events_scheduled_on(day_after_tomorrow_date)
+      day_after_tomorrow_events = Event.scheduled_on(day_after_tomorrow_date)
       assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
     end
   end
