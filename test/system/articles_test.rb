@@ -381,4 +381,35 @@ class ArticlesTest < ApplicationSystemTestCase
       assert_selector "a[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}#bbutton']"
     end
   end
+
+  test 'items of article shown in atom feed' do
+    visit_with_auth new_article_url, 'komagata'
+
+    fill_in 'article[title]', with: 'エントリーのタイトル（text）'
+    fill_in 'article[summary]', with: 'サマリー（HTML）'
+    fill_in 'article[body]', with: '本文（HTML）'
+    within '.select-users' do
+      find('.choices__inner').click
+      find('#choices--js-choices-single-select-item-choice-6', text: 'mentormentaro').click
+    end
+    click_on '公開する'
+
+    visit '/articles.atom'
+    assert_text 'エントリーのタイトル（text）'
+    assert_text '&lt;p&gt;サマリー（HTML）&lt;/p&gt;'
+    assert_text '&lt;p&gt;本文（HTML）&lt;/p&gt;'
+    assert_text 'mentormentaro'
+  end
+
+  test 'WIP article is not shown in atom feed' do
+    visit_with_auth new_article_url, 'komagata'
+
+    fill_in 'article[title]', with: 'WIPの記事は atom feed に表示されない'
+    fill_in 'article[body]', with: 'WIPの記事は atom feed に表示されない'
+    click_on 'WIP'
+    assert_text '記事をWIPとして保存しました'
+
+    visit '/articles.atom'
+    assert_no_text 'WIPの記事は atom feed に表示されない'
+  end
 end
