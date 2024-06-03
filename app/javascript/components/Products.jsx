@@ -69,7 +69,10 @@ export default function Products({
   const updateElapsedDays = (productsGroupedByElapsedDays) => {
     const updateElapsedDays = []
     productsGroupedByElapsedDays.forEach((group) => {
-      const elapsedDays = group.elapsed_days >= productDeadlineDay + 2 ? productDeadlineDay + 2 : group.elapsed_days
+      const elapsedDays =
+        group.elapsed_days >= productDeadlineDay + 2
+          ? productDeadlineDay + 2
+          : group.elapsed_days
       let existingGroup = updateElapsedDays.find(
         (g) => g.elapsed_days === elapsedDays
       )
@@ -124,7 +127,9 @@ export default function Products({
         <div className="o-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
-        <p className="o-empty-message__text">{productDeadlineDay}日経過した提出物はありません</p>
+        <p className="o-empty-message__text">
+          {productDeadlineDay}日経過した提出物はありません
+        </p>
       </div>
     )
   } else if (selectedTab !== 'unassigned') {

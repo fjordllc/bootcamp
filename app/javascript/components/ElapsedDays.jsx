@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function ElapsedDays({ countProductsGroupedBy, productDeadlineDay }) {
+export default function ElapsedDays({
+  countProductsGroupedBy,
+  productDeadlineDay
+}) {
   const activeClass = (quantity) => {
     return quantity ? 'is-active' : 'is-inactive'
   }
@@ -15,7 +18,8 @@ export default function ElapsedDays({ countProductsGroupedBy, productDeadlineDay
             )}`}>
             <a className="page-nav__item-link" href="#6days-elapsed">
               <span className="page-nav__item-link-inner">
-                {productDeadlineDay + 2}日以上経過{` (${countProductsGroupedBy(productDeadlineDay + 2)})`}
+                {productDeadlineDay + 2}日以上経過
+                {` (${countProductsGroupedBy(productDeadlineDay + 2)})`}
               </span>
             </a>
           </li>
@@ -25,7 +29,8 @@ export default function ElapsedDays({ countProductsGroupedBy, productDeadlineDay
             )}`}>
             <a className="page-nav__item-link" href="#5days-elapsed">
               <span className="page-nav__item-link-inner">
-              {productDeadlineDay + 1}日経過{` (${countProductsGroupedBy(productDeadlineDay + 1)})`}
+                {productDeadlineDay + 1}日経過
+                {` (${countProductsGroupedBy(productDeadlineDay + 1)})`}
               </span>
             </a>
           </li>
@@ -35,28 +40,34 @@ export default function ElapsedDays({ countProductsGroupedBy, productDeadlineDay
             )}`}>
             <a className="page-nav__item-link" href="#4days-elapsed">
               <span className="page-nav__item-link-inner">
-              {productDeadlineDay}日経過{` (${countProductsGroupedBy(productDeadlineDay)})`}
+                {productDeadlineDay}日経過
+                {` (${countProductsGroupedBy(productDeadlineDay)})`}
               </span>
             </a>
           </li>
-          {Array.from({ length: productDeadlineDay - 1 }, (_, index) => index + 1).reverse().map((passedDay) => {
-            return (
-              <li
-                key={passedDay}
-                className={`page-nav__item ${activeClass(
-                  countProductsGroupedBy(passedDay)
-                )}`}>
-                <a
-                  href={`#${passedDay}days-elapsed`}
-                  className="page-nav__item-link">
-                  <span className="page-nav__item-link-inner">
-                    {passedDay}日経過
-                    {` (${countProductsGroupedBy(passedDay)})`}
-                  </span>
-                </a>
-              </li>
-            )
-          })}
+          {Array.from(
+            { length: productDeadlineDay - 1 },
+            (_, index) => index + 1
+          )
+            .reverse()
+            .map((passedDay) => {
+              return (
+                <li
+                  key={passedDay}
+                  className={`page-nav__item ${activeClass(
+                    countProductsGroupedBy(passedDay)
+                  )}`}>
+                  <a
+                    href={`#${passedDay}days-elapsed`}
+                    className="page-nav__item-link">
+                    <span className="page-nav__item-link-inner">
+                      {passedDay}日経過
+                      {` (${countProductsGroupedBy(passedDay)})`}
+                    </span>
+                  </a>
+                </li>
+              )
+            })}
           <li
             className={`page-nav__item ${activeClass(
               countProductsGroupedBy(0)
