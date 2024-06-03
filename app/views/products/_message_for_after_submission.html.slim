@@ -3,6 +3,6 @@
     .a-page-notice__inner
       .a-short-text
         p
-          | 6日以内にメンターがレビューしますので、次のプラクティスにお進みください。
+          | #{ProductDeadline.first_or_create(alert_day: 4).alert_day}日以内にメンターがレビューしますので、次のプラクティスにお進みください。
           br
-          | もし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。
+          | もし、#{ProductDeadline.first_or_create(alert_day: 4).alert_day}日以上経ってもレビューされない場合は、メンターにお問い合わせください。
