@@ -7,7 +7,7 @@ class UpcomingEventsGroupTest < ActiveSupport::TestCase
     date_key = :today
     date = Time.zone.today
 
-    original_events = [Event, RegularEvent].map { |m| m.public_send(:gather_events_scheduled_on, date) }.flatten
+    original_events = [Event, RegularEvent].map { |m| m.public_send(:scheduled_on, date) }.flatten
 
     upcoming_events = original_events.map { |e| UpcomingEvent.new(e, date) }
 

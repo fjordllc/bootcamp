@@ -15,21 +15,21 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test '.gather_events_scheduled_on(date)' do
+  test '.scheduled_on(date)' do
     travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
       today_date = Time.zone.today
       today_events_count = 3
-      today_events = RegularEvent.gather_events_scheduled_on(today_date)
+      today_events = RegularEvent.scheduled_on(today_date)
       assert_equal today_events_count, today_events.count
 
       tomorrow_date = Time.zone.today + 1.day
       tomorrow_events_count = 1
-      tomorrow_events = RegularEvent.gather_events_scheduled_on(tomorrow_date)
+      tomorrow_events = RegularEvent.scheduled_on(tomorrow_date)
       assert_equal tomorrow_events_count, tomorrow_events.count
 
       day_after_tomorrow_date = Time.zone.today + 2.days
       day_after_tomorrow_events_count = 1
-      day_after_tomorrow_events = RegularEvent.gather_events_scheduled_on(day_after_tomorrow_date)
+      day_after_tomorrow_events = RegularEvent.scheduled_on(day_after_tomorrow_date)
       assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
     end
   end
