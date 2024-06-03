@@ -232,10 +232,10 @@ export default {
       }
     },
     onDaysSelectChange(event) {
-      const newDeadlineDays = parseInt(event.target.value);
-      this.updateProductDeadline(newDeadlineDays);
-      this.selectedDays = newDeadlineDays;
-      this.getProductsPerPage();
+      const newDeadlineDays = parseInt(event.target.value)
+      this.updateProductDeadline(newDeadlineDays)
+      this.selectedDays = newDeadlineDays
+      this.getProductsPerPage()
     },
     async updateProductDeadline(newDeadlineDays) {
       try {
@@ -247,12 +247,12 @@ export default {
           },
           credentials: 'same-origin',
           body: JSON.stringify({ alert_day: newDeadlineDays })
-        });
+        })
         if (!response.ok) {
-          throw new Error('Failed to update product deadline');
+          throw new Error('Failed to update product deadline')
         }
       } catch (error) {
-        console.warn(error);
+        console.warn(error)
       }
     },
     getElementNdaysPassed(elapsedDays) {

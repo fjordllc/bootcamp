@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = products.getAttribute('data-title')
     const isMentor = products.getAttribute('data-mentor-login')
     const currentUserId = Number(products.getAttribute('data-current-user-id'))
-    const productDeadlineDays = Number(products.getAttribute('data-product-deadline-days'))
+    const productDeadlineDays = Number(
+      products.getAttribute('data-product-deadline-days')
+    )
     new Vue({
       store,
       render: (h) =>
