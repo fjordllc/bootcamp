@@ -137,12 +137,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       if rule.frequency.zero?
         rule.day_of_the_week == date.wday
       else
-        rule.frequency == calc_what_weeks(date) && rule.day_of_the_week == date.wday
+        rule.frequency == nth_wday(date) && rule.day_of_the_week == date.wday
       end
     end
   end
 
-  def calc_what_weeks(date)
+  def nth_wday(date)
     (date.day + 6) / 7
   end
 end
