@@ -123,11 +123,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def feature_scheduled_dates
-    hour = start_at.hour
-    min = start_at.min
-
     # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
-    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour:, min:) }
+    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
 
     event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
   end
