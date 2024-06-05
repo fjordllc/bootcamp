@@ -53,9 +53,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   scope :holding, -> { where(finished: false) }
-  scope :participated_by, ->(user) { where(id: all.select { |e| e.participated_by?(user) }.map(&:id)) }
+  scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
-  scope :scheduled_on, ->(date) { holding.select { |event| event.scheduled_on?(date) } }
+  scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
@@ -119,7 +119,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     from: Date.new(Time.current.year, 1, 1),
     to: Date.new(Time.current.year, 12, 31)
   )
-    (from..to).select { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
+    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
   def feature_scheduled_dates
