@@ -466,7 +466,6 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only adviser when target is adviser' do
     visit_with_auth '/users?target=adviser', 'komagata'
-    find('.users .loaded', wait: 60)
     assert_selector '.users-item', count: 4
     fill_in 'js-user-search-input', with: 'advijirou'
     find('#js-user-search-input').send_keys :return
