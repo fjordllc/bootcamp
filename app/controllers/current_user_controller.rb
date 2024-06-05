@@ -9,7 +9,6 @@ class CurrentUserController < ApplicationController
 
   def update
     if @user.update(user_params)
-      @user.avatar_attach_with_filepath
       redirect_to @user, notice: 'ユーザー情報を更新しました。'
     else
       render 'edit'
