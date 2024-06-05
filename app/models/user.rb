@@ -411,7 +411,7 @@ class User < ApplicationRecord
     :discord_profile_account_name,
     :description
   )
-  # before_commit :delete_avatar_key , on: %i[create update]
+
   after_commit :set_avatar_key, on: %i[create update]
 
   class << self
@@ -650,13 +650,6 @@ class User < ApplicationRecord
     image_url default_image_path
   end
 
-  def avatar_attach_with_filepath
-    return unless avatar.attached?
-
-    icon = open_avatar_uri
-    avatar.attach(io: icon, filename: login_name, key: "icon/#{login_name}") if icon
-  end
-
   def generation
     (created_at.year - 2013) * 4 + (created_at.month + 2) / 3
   end
@@ -827,6 +820,7 @@ class User < ApplicationRecord
               else
                 avatar.blob.class.generate_unique_secure_token(length: MINIMUM_TOKEN_LENGTH)
               end
+
     ActiveRecord::Base.transaction do
       existing_blob = ActiveStorage::Blob.find_by(key: new_key)
       if existing_blob
@@ -834,25 +828,8 @@ class User < ApplicationRecord
         existing_blob.destroy
       end
     end
+
     avatar.blob.update!(key: new_key)
-  end
-
-  def delete_avatar_key
-    return unless avatar.attached?
-
-    new_key = if avatar.attachment.name == 'avatar'
-                "icon/#{login_name}"
-              else
-                avatar.blob.class.generate_unique_secure_token(length: MINIMUM_TOKEN_LENGTH)
-              end
-
-    ActiveRecord::Base.transaction do
-      existing_blob = ActiveStorage::Blob.find_by(key: new_key)
-      if existing_blob
-        existing_blob.attachments.each(&:purge)
-        existing_blob.destroy
-      end
-    end
   end
 
   def password_required?
@@ -876,9 +853,5 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
-  end
-
-  def open_avatar_uri
-    avatar_url == '/images/users/avatars/default.png' ? nil : URI.parse(avatar_url).open
   end
 end
