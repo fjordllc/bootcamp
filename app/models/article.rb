@@ -37,9 +37,9 @@ class Article < ApplicationRecord
   paginates_per 24
   acts_as_taggable
 
-  def prepared_thumbnail_url
+  def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
     if thumbnail.attached?
-      thumbnail.variant(resize_to_limit: THUMBNAIL_SIZE).processed.url
+      thumbnail.variant(resize_to_limit: thumbnail_size).processed.url
     else
       image_url('/ogp/blank.svg')
     end

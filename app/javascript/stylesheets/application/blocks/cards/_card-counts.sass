@@ -43,10 +43,18 @@
   border-radius: 3px
 
 .card-counts__item-label
-  +text-block(.625rem 1.4, center)
+  +text-block(.625rem 1.4)
+  white-space: nowrap
+  display: flex
+  justify-content: center
+  align-items: center
+  text-align: center
   color: var(--semi-muted-text)
   padding-block: .125rem
   border-bottom: solid 1px var(--border)
+  height: 1.25rem
+  &.is-sm span
+    transform: scale(.85)
 
 .card-counts__item-value
   +text-block(.875rem 1.4, center)

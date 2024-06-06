@@ -11,16 +11,24 @@ class User < ApplicationRecord
   RESERVED_LOGIN_NAMES = %w[adviser all graduate inactive job_seeking mentor retired student student_and_trainee trainee year_end_party].freeze
   MAX_PERCENTAGE = 100
   DEPRESSED_SIZE = 2
-  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee trainee year_end_party].freeze
+  ALL_ALLOWED_TARGETS = %w[adviser all campaign graduate hibernated inactive job_seeking mentor retired student_and_trainee student trainee
+                           year_end_party].freeze
   # 本来であればtarget = scope名としたいが、歴史的経緯によりtargetとscope名が一致しないものが多数あるため、名前が一致しない場合はこのハッシュを使ってscope名に変換する
   TARGET_TO_SCOPE = {
     'student_and_trainee' => :students_and_trainees,
+    'student' => :students,
+    'trainee' => :trainees,
     'graduate' => :graduated,
-    'adviser' => :advisers,
-    'trainee' => :trainees
+    'adviser' => :advisers
   }.freeze
   DEFAULT_REGULAR_EVENT_ORGANIZER = 'komagata'
   HIBERNATION_LIMIT = 6.months
+
+  INVITATION_ROLES = [
+    [I18n.t('invitation_role.adviser'), :adviser],
+    [I18n.t('invitation_role.trainee'), :trainee],
+    [I18n.t('invitation_role.mentor'), :mentor]
+  ].freeze
 
   enum job: {
     student: 0,
@@ -429,6 +437,14 @@ class User < ApplicationRecord
     def users_role(target, allowed_targets: [], default_target: :none)
       key = (ALL_ALLOWED_TARGETS & allowed_targets).include?(target) ? target : default_target
       scope_name = TARGET_TO_SCOPE.fetch(key, key)
+      send(scope_name)
+    end
+
+    # User::users_roleと同じく安全性確保のため、以下の条件を指定している。
+    # allowed_job.include?(job): 存在する職業を過不足なく指定した配列の中に、jobが存在するかどうかチェック。
+    def users_job(job)
+      allowed_jobs = User.jobs.keys.freeze
+      scope_name = allowed_jobs.include?(job) ? "job_#{job}" : 'all'
       send(scope_name)
     end
 

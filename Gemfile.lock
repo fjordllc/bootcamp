@@ -306,11 +306,11 @@ GEM
     netrc (0.11.0)
     newspaper (0.2.0)
     nio4r (2.7.0)
-    nokogiri (1.16.2-arm64-darwin)
+    nokogiri (1.16.5-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.2-x86_64-darwin)
+    nokogiri (1.16.5-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.2-x86_64-linux)
+    nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     oauth (1.1.0)
       oauth-tty (~> 1.0, >= 1.0.1)
@@ -446,7 +446,8 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retriable (3.1.2)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rollbar (3.5.2)
     rss (0.3.0)
       rexml
@@ -535,6 +536,7 @@ GEM
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
     stripe (10.1.0)
+    strscan (3.1.0)
     syntax_suggest (1.1.0)
     temple (0.10.3)
     thor (1.3.0)
@@ -561,6 +563,10 @@ GEM
     uniform_notifier (1.16.0)
     vcr (6.2.0)
     version_gem (1.1.3)
+    view_component (3.11.0)
+      activesupport (>= 5.2.0, < 8.0)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     view_source_map (0.3.0)
       rails (>= 5)
     web-console (4.2.1)
@@ -682,6 +688,7 @@ DEPENDENCIES
   traceroute
   tzinfo (~> 2.0, >= 2.0.6)
   vcr
+  view_component
   view_source_map
   web-console (>= 4.1.0)
   webmock

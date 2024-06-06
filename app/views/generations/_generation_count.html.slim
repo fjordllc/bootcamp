@@ -1,0 +1,11 @@
+- target_labels = %w[現役生 研修生 休会 卒業生 アドバイザー 退会者]
+- target_to_scope = %i[students trainees hibernated graduated advisers retired]
+
+.card-counts__items
+  - target_labels.each_with_index do |label, index|
+    .card-counts__item
+      .card-counts__item-inner
+        .card-counts__item-label
+          = label
+        .card-counts__item-value
+          = generation.count_classmates_by_target(target_to_scope[index])

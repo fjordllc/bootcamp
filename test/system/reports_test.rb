@@ -735,4 +735,23 @@ class ReportsTest < ApplicationSystemTestCase
     end
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
+
+  test 'submit wip report with error' do
+    report = reports(:report9)
+    visit_with_auth "/reports/#{report.id}", 'sotugyou'
+
+    click_link '内容修正'
+    uncheck '学習時間は無し', allow_label_click: true
+    click_link '学習時間追加'
+
+    first('.learning-time').all('.learning-time__started-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__started-at select')[1].select('30')
+    first('.learning-time').all('.learning-time__finished-at select')[0].select('07')
+    first('.learning-time').all('.learning-time__finished-at select')[1].select('30')
+
+    click_button '提出'
+    assert_text '学習時間は不正な値です'
+    assert_no_text 'この日報はすでに提出済みです。'
+    assert_button '提出'
+  end
 end

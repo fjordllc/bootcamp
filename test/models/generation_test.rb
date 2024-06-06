@@ -29,4 +29,13 @@ class GenerationTest < ActiveSupport::TestCase
     assert_not_includes Generation.new(5).target_users('retired'), users(:komagata)
     assert_not_includes Generation.new(5).target_users('all'), users(:yameo)
   end
+
+  test '#count_classmates_by_target' do
+    assert_equal 13, Generation.new(5).count_classmates_by_target(:students)
+    assert_equal 3, Generation.new(5).count_classmates_by_target(:trainees)
+    assert_equal 1, Generation.new(5).count_classmates_by_target(:hibernated)
+    assert_equal 2, Generation.new(5).count_classmates_by_target(:graduated)
+    assert_equal 2, Generation.new(5).count_classmates_by_target(:advisers)
+    assert_equal 2, Generation.new(5).count_classmates_by_target(:retired)
+  end
 end

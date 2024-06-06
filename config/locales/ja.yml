@@ -351,7 +351,7 @@ ja:
             end_at:
               format: 'は%{shortest_end_at}以降を入力してください。'
   target:
-    student_and_trainee: 現役生
+    student_and_trainee: 現役 + 研修生
     student: 現役生
     job_seeking: 就職活動中
     hibernationed: 休会中
@@ -371,6 +371,10 @@ ja:
     unchecked_no_replied: 未返信
     unchecked_all: 全て
     campaign: お試し延長
+  invitation_role:
+    adviser: アドバイザー
+    trainee: 研修生
+    mentor: メンター
   watch:
     all: すべて
     true: コメントあり
