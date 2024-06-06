@@ -64,8 +64,9 @@
               .dashboard-category__body
                 .a-panels
                   .a-panels__items
-                    .a-panels__item
-                      = render 'collegues', collegues: @collegues
+                    - if @collegues.present?
+                      .a-panels__item
+                        = render 'collegues', collegues: @collegues
                   //
                     TODO 企業に所属するアドバイザーが企業情報を編集できるようにしたら公開
                     - if current_user.belongs_company_and_adviser?
