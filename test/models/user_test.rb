@@ -522,7 +522,7 @@ class UserTest < ActiveSupport::TestCase
   test '#collegues' do
     target = users(:kensyu).collegues
     assert_includes(target, users(:kensyuowata))
-    assert_nil users(:kimura).collegues
+    assert_empty users(:kimura).collegues
   end
 
   test '#collegues_other_than_self' do
@@ -535,8 +535,8 @@ class UserTest < ActiveSupport::TestCase
   test '#collegue_trainees' do
     target = users(:senpai).collegue_trainees
     assert_includes(target, users(:kensyu))
-    assert_nil users(:kimura).collegue_trainees
-    assert_nil users(:advijirou).collegue_trainees
+    assert_empty users(:kimura).collegue_trainees
+    assert_empty users(:advijirou).collegue_trainees
   end
 
   test '#after_twenty_nine_days_registration?' do

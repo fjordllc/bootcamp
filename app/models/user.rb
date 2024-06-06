@@ -742,15 +742,15 @@ class User < ApplicationRecord
   end
 
   def collegues
-    company.users if company_id?
+    company_id ? company.users : User.none
   end
 
   def collegues_other_than_self
-    collegues.where.not(id:) if company_id?
+    collegues.where.not(id:)
   end
 
   def collegue_trainees
-    collegues.students_and_trainees if belongs_company_and_adviser?
+    collegues.students_and_trainees
   end
 
   def last_hibernation

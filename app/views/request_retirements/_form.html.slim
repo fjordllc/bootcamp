@@ -21,7 +21,7 @@ ruby:
   .form__items
     .form-item
       = f.label :target_user_id, class: 'a-form-label'
-      - if current_user.collegues_other_than_self
+      - if current_user.collegues_other_than_self.present?
         .a-button.is-md.is-secondary.is-select.is-block
           = f.collection_select :target_user_id, current_user.collegues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
   .form__items
