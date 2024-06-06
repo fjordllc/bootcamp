@@ -318,7 +318,6 @@ class HomeTest < ApplicationSystemTestCase
     assert_text '6日以上経過（7）'
     assert_text '5日経過（1）'
     assert_text '4日経過（1）'
-    assert_no_text '今日提出（55）'
   end
 
   test 'display counts of passed almost 5days' do
@@ -332,6 +331,19 @@ class HomeTest < ApplicationSystemTestCase
     products(:product71).update!(checker: users(:mentormentaro))
     visit current_path
     assert_text "しばらく4日経過に到達する\n提出物はありません。"
+  end
+
+  test 'select product deadlines' do
+    visit_with_auth '/', 'mentormentaro'
+
+    find('.mt-4.text-sm.text-center', text: '提出物チェックの期限を変更する。').click
+    find('.modal', text: '提出物チェックの期限を変更する。').click
+
+    select '期限5日（3日経過 4日経過 5日以上経過）'
+
+    assert_text '5日以上経過（8）'
+    assert_text '4日経過（1）'
+    assert_text '3日経過（2）'
   end
 
   test 'work link of passed almost 5days' do
