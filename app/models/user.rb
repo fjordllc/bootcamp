@@ -821,9 +821,8 @@ class User < ApplicationRecord
   def validate_uploaded_avatar_content_type
     return unless uploaded_avatar
 
-    fm = FileMagic.new(FileMagic::MAGIC_MIME)
-    mime_type = fm.buffer(uploaded_avatar.read)
-    return if mime_type.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+    mime_type = Marcel::Magic.by_magic(uploaded_avatar.read)&.type
+    return if mime_type&.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
 
     errors.add(:avatar, 'は指定された拡張子(PNG, JPG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
