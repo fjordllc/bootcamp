@@ -5,6 +5,6 @@ require 'application_system_test_case'
 class User::WorksTest < ApplicationSystemTestCase
   test 'show portfolio' do
     visit_with_auth "/users/#{users(:hatsuno).id}/portfolio", 'hatsuno'
-    assert_equal 'hatsunoのポートフォリオ | FBC', title
+    assert_equal 'hatsunoさんのポートフォリオ | FBC', title
   end
 end
