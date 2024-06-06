@@ -11,7 +11,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'show profile' do
     visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
-    assert_equal 'hatsuno | FBC', title
+    assert_equal 'hatsunoさんのプロフィール | FBC', title
   end
 
   test 'autolink profile when url is included' do
