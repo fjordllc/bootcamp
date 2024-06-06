@@ -7,9 +7,25 @@
         class: 'header-dropdown__item-link' do
         | メンターページ
     li.header-dropdown__item
-      = link_to new_article_path,
+      = link_to mentor_practices_path,
         class: 'header-dropdown__item-link' do
-        | ブログ記事作成
+        | プラクティス
+    li.header-dropdown__item
+      = link_to mentor_categories_path,
+        class: 'header-dropdown__item-link' do
+        | カテゴリー
+    li.header-dropdown__item
+      = link_to mentor_courses_path,
+        class: 'header-dropdown__item-link' do
+        | コース
+    li.header-dropdown__item
+      = link_to edit_buzz_path,
+        class: 'header-dropdown__item-link' do
+        | 紹介・言及記事
+    li.header-dropdown__item
+      = link_to articles_path,
+        class: 'header-dropdown__item-link' do
+        | ブログ
     - if Rails.env.development? || Rails.env.test?
       li.header-dropdown__item
         = link_to survey_questions_path,

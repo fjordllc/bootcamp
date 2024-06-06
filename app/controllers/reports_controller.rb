@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
+  PAGER_NUMBER = 25
+
   include Rails.application.routes.url_helpers
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
@@ -11,7 +13,10 @@ class ReportsController < ApplicationController
   before_action :set_categories, only: %i[create update]
   before_action :set_watch, only: %i[show]
 
-  def index; end
+  def index
+    @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
+    @reports = @reports.joins(:practices).where(practices: { id: params[:practice_id] }) if params[:practice_id].present?
+  end
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
@@ -58,6 +63,7 @@ class ReportsController < ApplicationController
   end
 
   def update
+    before_wip_status = @report.wip
     set_wip
     @report.practice_ids = nil if params[:report][:practice_ids].nil?
     @report.assign_attributes(report_params)
@@ -66,6 +72,7 @@ class ReportsController < ApplicationController
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
     else
+      @report.wip = before_wip_status
       render :edit
     end
   end

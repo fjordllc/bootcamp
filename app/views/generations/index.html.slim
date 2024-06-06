@@ -44,6 +44,9 @@ main.page-main
                           = "#{generation.number}期生"
                         .user-group__date
                           = "#{l generation.start_date, format: :year_and_date} ~ #{l generation.end_date, format: :year_and_date}"
+                    - if current_user.mentor? && @target == 'all'
+                      .user-group__counts.is-only-mentor
+                        = render partial: 'generations/generation_count', locals: { generation: generation }
                   .a-user-icons
                     .a-user-icons__items
                       - users.each do |user|
