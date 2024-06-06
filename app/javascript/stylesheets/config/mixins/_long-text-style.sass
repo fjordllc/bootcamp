@@ -107,7 +107,7 @@
     padding: 0
     margin-bottom: 1.5em
     code
-      border: solid 1px mix($font, $background, 20%)
+      border: none
       +text-block(.9375em 1.5)
       overflow: auto
       display: block
@@ -125,11 +125,13 @@
       margin-top: 0
     *:not(ol):not(ul):last-child
       margin-bottom: 0
+    pre:not(ol):not(ul):last-child
+      margin-bottom: 1em
     blockquote
       margin-left: calc(.75em + 1px)
     blockquote + ul
       margin-top: -2em
-    code
+    >code
       +text-block(.875em 1.7, inline-flex)
       color: var(--default-text)
       align-items: center
@@ -139,7 +141,7 @@
       background-color: mix($font, $background, 4%)
       margin-inline: .25rem
       border-radius: .125rem
-    pre code
+    pre[class*=language-]
       margin-block: 1em
   hr
     display: block
@@ -349,6 +351,27 @@
   div
     max-width: 100%
     margin-block: 1.5em
+  div
+    width: 100%
+  textarea
+    background-color: var(--input-background)
+    width: 100%
+    padding: .75em
+    border: solid 1px var(--input-border)
+    border-radius: .25rem
+    min-height: 16rem
+    transition: border-color .2s ease-in, background-color .2s ease-in, box-shadow .2s ease-in
+    &:hover
+      background-color: var(--input-hover-background)
+      border-color: var(--input-hover-border)
+    &:focus
+      background-color: var(--input-focus-background)
+      border-color: var(--input-focus-border)
+      box-shadow: var(--input-focus-shadow)
+    &:disabled
+      color: #999
+      background-color: #dedede
+      pointer-events: none
 
   .a-user-emoji-link
     +size(2em)
