@@ -57,7 +57,7 @@
           .row
             .col-md-3.col-xs-12
               .form-item
-                = f.label :user_id, '質問作成者', class: 'a-form-label'
+                = f.label :user_id, '作成者', class: 'a-form-label'
                 .select-user
                   - if question.new_record?
                     = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, { selected: current_user },
