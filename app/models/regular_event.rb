@@ -176,6 +176,37 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
+  def fetch_participated_regular_events(user)
+    participated_events = user.regular_event_participations.pluck(:regular_event_id)
+    participated_regular_events = []
+    RegularEvent.where(id: participated_events).where(finished: false).find_each do |event|
+      event.regular_event_repeat_rules.each do |repeat_rule|
+        current_date = Time.zone.today
+
+        list_regular_event_for_year(event, repeat_rule, current_date, participated_regular_events)
+      end
+    end
+    participated_regular_events
+  end
+
+  def format_participated_regular_events(participated_regular_events)
+    participated_regular_events.map do |participated_event|
+      event = participated_event[:event].dup
+      event_date = participated_event[:event_date]
+      tzid = 'Asia/Tokyo'
+
+      event.assign_attributes(
+        start_at: Icalendar::Values::DateTime.new(
+          DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
+        ),
+        end_at: Icalendar::Values::DateTime.new(
+          DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
+        )
+      )
+      event
+    end
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -183,5 +214,20 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
+  end
+
+  def list_regular_event_for_year(event,  repeat_rule, current_date, participated_regular_events)
+    while current_date <= Time.zone.today + 1.year
+      if repeat_rule.frequency.zero?
+        day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
+        event_date = current_date.next_occurring(day_of_the_week_symbol).to_date
+        event_date = event_date.next_occurring(day_of_the_week_symbol) while !event.hold_national_holiday && HolidayJp.holiday?(event_date)
+        current_date = event_date + 1
+      else
+        event_date = event.possible_next_event_date(current_date, repeat_rule)
+        current_date = current_date.next_month.beginning_of_month
+      end
+      participated_regular_events << { event:, event_date: }
+    end
   end
 end

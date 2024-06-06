@@ -120,6 +120,17 @@ class Event < ApplicationRecord
     waitlist.count.positive? && can_participate?
   end
 
+  def fetch_special_events(user)
+    participated_events = user.participations.pluck(:event_id)
+    upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+
+    participated_special_events = Event.where(id: participated_events & upcoming_events)
+    upcoming_special_events = Event.where(id: upcoming_events).where.not(id: participated_events)
+
+    formatted_participated_special_events = add_message_joined_participated_special_events(participated_special_events)
+    formatted_participated_special_events + upcoming_special_events
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -161,5 +172,12 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
+  end
+
+  def add_message_joined_participated_special_events(events)
+    events.each do |event|
+      event.title = "【参加登録済】#{event.title}"
+    end
+    events
   end
 end
