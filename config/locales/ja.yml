@@ -287,12 +287,12 @@ ja:
         requester_name: 申請者のアカウント
         requester_email: 申請者のメールアドレス
         company_name: 会社名
-        target_user_id: 退会をさせる方のアカウント
+        target_user: 退会をさせる方のアカウント
         reason: 退会申請理由
         keep_data: 退会後のデータ
-        options:
-          keep: 残す
-          delete: 削除する
+      request_retirement/keep_data/option:
+        keep: 残す
+        delete: 削除する
     enums:
       user:
         job:

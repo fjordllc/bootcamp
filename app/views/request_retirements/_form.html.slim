@@ -1,26 +1,19 @@
-ruby:
-  requester_name_text = I18n.t('activerecord.attributes.request_retirement.requester_name')
-  requester_email_text = I18n.t('activerecord.attributes.request_retirement.requester_email')
-  company_name_text = I18n.t('activerecord.attributes.request_retirement.company_name')
-  keep_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.keep')
-  delete_data_option_text = I18n.t('activerecord.attributes.request_retirement.options.delete')
-
 = form_with model: request_retirement, class: 'form' do |f|
   .form__items
     .form-item
-      = label_tag :requester_name, requester_name_text, class: 'a-form-label'
+      = label_tag :requester_name, RequestRetirement.human_attribute_name(:requester_name), class: 'a-form-label'
       = text_field_tag :requester_name, current_user.login_name, required: true, readonly: true, class: 'a-text-input'
   .form__items
     .form-item
-      = label_tag :requester_email, requester_email_text, class: 'a-form-label'
+      = label_tag :requester_email, RequestRetirement.human_attribute_name(:requester_email), class: 'a-form-label'
       = text_field_tag :requester_email, current_user.email, required: true, readonly: true, class: 'a-text-input'
   .form__items
     .form-item
-      = label_tag :company_name, company_name_text, class: 'a-form-label'
+      = label_tag :company_name, RequestRetirement.human_attribute_name(:company_name), class: 'a-form-label'
       = text_field_tag :company_name, current_user.company.name, required: true, readonly: true, class: 'a-text-input'
   .form__items
     .form-item
-      = f.label :target_user_id, class: 'a-form-label'
+      = f.label :target_user_id, RequestRetirement.human_attribute_name(:target_user), class: 'a-form-label'
       - if current_user.collegues_other_than_self.present?
         .a-button.is-md.is-secondary.is-select.is-block
           = f.collection_select :target_user_id, current_user.collegues_other_than_self, :id, :login_name, prompt: '選択してください', required: true, class: 'a-text-input'
@@ -43,11 +36,11 @@ ruby:
           .block-checks__item
             .a-block-check.is-radio
               = f.radio_button :keep_data, true, required: true, class: 'a-toggle-checkbox'
-              = f.label :keep_data, keep_data_option_text, value: true, class: 'a-block-check__label'
+              = f.label :keep_data, RequestRetirement.human_attribute_name('keep_data.option.keep'), value: true, class: 'a-block-check__label'
           .block-checks__item
             .a-block-check.is-radio
               = f.radio_button :keep_data, false, required: true, class: 'a-toggle-checkbox'
-              = f.label :keep_data, delete_data_option_text, value: false, class: 'a-block-check__label'
+              = f.label :keep_data, RequestRetirement.human_attribute_name('keep_data.option.delete'), value: false, class: 'a-block-check__label'
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
