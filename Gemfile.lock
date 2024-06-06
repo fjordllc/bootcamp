@@ -477,7 +477,6 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    ruby-filemagic (0.7.3)
     ruby-openai (5.2.0)
       event_stream_parser (>= 0.3.0, < 1.0.0)
       faraday (>= 1)
@@ -667,7 +666,6 @@ DEPENDENCIES
   rubocop-minitest
   rubocop-performance
   rubocop-rails
-  ruby-filemagic
   ruby-openai
   rubyzip
   selenium-webdriver (~> 4.17.0)
