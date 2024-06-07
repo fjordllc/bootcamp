@@ -9,13 +9,14 @@ header.page-header
         .page-header__title
           = title
 hr.a-border
-.auth-form.is-sign-up.is-in-app
+.auth-form.is-lg
   .a-card
     header.auth-form__header
       h1.auth-form__title
         = title
     .auth-form__body
       = render 'users/form', from: :edit, url: current_user_path, user: @user
+    hr.a-border-tint
     footer.auth-form__footer
       nav.auth-form-nav
         ul.auth-form-nav__items

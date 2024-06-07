@@ -1,0 +1,62 @@
+- content_for(:extra_body_classes, 'no-header no-footer no-global-nav is-thanks-page is-piyo-background')
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+description: '退会申請を受け付けました。')
+
+.thanks-message
+  .container.is-xs
+    .thanks-message__header
+      h1.thanks-message__title
+        | 退会申請を受け付けました。
+    .a-card
+      .card-body.thanks-message__body
+        .a-long-text
+          p
+            | 申請をいただきありがとうございます。
+            br
+            | 数営業日以内に処理を行います。
+          p
+            | 誤って申請をしてしまった場合は、ログインをした上で相談部屋からご連絡ください。
+        .thanks-message__inputed-values.form
+          h2.thanks-message__inputed-values-title
+            | 申請内容
+          .form__items.thanks-message__inputed-values-items
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:requester_name)
+              .a-text-input.is-inputed
+                = @request_retirement.user.login_name
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:requester_email)
+              .a-text-input.is-inputed
+                = @request_retirement.user.email
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:company_name)
+              .a-text-input.is-inputed
+                = @request_retirement.user.company.name
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:target_user)
+              .a-text-input.is-inputed
+                = @request_retirement.target_user.login_name
+            .form__item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:reason)
+              .a-text-input.is-inputed
+                = @request_retirement.reason
+            .form-item
+              .a-form-label
+                = RequestRetirement.human_attribute_name(:keep_data)
+              .a-text-input.is-inputed
+                - if @request_retirement.keep_data
+                  = RequestRetirement.human_attribute_name('keep_data.option.keep')
+                - else
+                  = RequestRetirement.human_attribute_name('keep_data.option.delete')
+      hr.a-border-tint
+      footer.card-footer
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              = link_to root_path, class: 'a-button is-secondary is-sm is-block' do
+                | トップページに戻る
