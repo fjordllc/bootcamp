@@ -109,32 +109,15 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def fetch_participated_regular_events(user)
     participated_events = user.regular_event_participations.pluck(:regular_event_id)
     participated_regular_events = []
-    RegularEvent.where(id: participated_events).where(finished: false).find_each do |event|
-      event.regular_event_repeat_rules.each do |repeat_rule|
+    RegularEvent.where(id: participated_events).where(finished: false).find_each do |regular_event|
+      participated_regular_event = ParticipatedRegularEvents.new(regular_event)
+      regular_event.regular_event_repeat_rules.each do |repeat_rule|
         current_date = Time.zone.today
 
-        list_regular_event_for_year(event, repeat_rule, current_date, participated_regular_events)
+        participated_regular_event.list_event_for_year(repeat_rule, current_date, participated_regular_events)
       end
     end
     participated_regular_events
-  end
-
-  def format_participated_regular_events(participated_regular_events)
-    participated_regular_events.map do |participated_event|
-      event = participated_event[:event].dup
-      event_date = participated_event[:event_date]
-      tzid = 'Asia/Tokyo'
-
-      event.assign_attributes(
-        start_at: Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
-        ),
-        end_at: Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
-        )
-      )
-      event
-    end
   end
 
   private
