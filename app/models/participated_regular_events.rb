@@ -21,17 +21,17 @@ class ParticipatedRegularEvents
   end
 
   def format_event_date(event_date)
-      event = @regular_event.dup
-      tzid = 'Asia/Tokyo'
+    event = @regular_event.dup
+    tzid = 'Asia/Tokyo'
 
-      event.assign_attributes(
-        start_at: Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
-        ),
-        end_at: Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
-        )
+    event.assign_attributes(
+      start_at: Icalendar::Values::DateTime.new(
+        DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
+      ),
+      end_at: Icalendar::Values::DateTime.new(
+        DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
       )
-      event
+    )
+    event
   end
 end
