@@ -25,8 +25,7 @@
                     .a-panels__item
                       = render partial: 'announcements'
                   - if current_user.bookmarks.present?
-                    .a-panels__item
-                      = render 'bookmarks', user: current_user
+                    = react_component 'BookmarksInDashboard', {}, { class: 'a-card-react', id: 'bookmarks-in-dashboard' }
                   - if current_user.wip_exists?
                     .a-panels__item
                       = render 'wip_items'
