@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
 class EventsCalendar
-  attr_reader :events
-
   def initialize(user)
     @user = user
-    @events = generate_event_calendar
   end
-
-  private
 
   def generate_event_calendar
     special_event = Event.new
