@@ -8,7 +8,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_equal '動画 | FBC', title
   end
 
-  test 'show movie' do
+  test 'show the movie page' do
     visit_with_auth "/movies/#{movies(:movie1).id}", 'kimura'
     assert_equal '動画: mp4動画 | FBC', title
   end
@@ -60,7 +60,7 @@ class MoviesTest < ApplicationSystemTestCase
     assert_selector '#comment_count', text: 1
   end
 
-  test 'show edit movie' do
+  test 'show the edit movie page' do
     visit_with_auth "/movies/#{movies(:movie2).id}/edit", 'kimura'
     assert_equal '動画編集 | FBC', title
   end
