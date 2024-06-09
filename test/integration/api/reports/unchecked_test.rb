@@ -13,6 +13,6 @@ class API::Reports::UncheckedTest < ActionDispatch::IntegrationTest
     get counts_api_reports_unchecked_index_path(format: :text),
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
-    assert_match '65件', response.body
+    assert_match '66件', response.body
   end
 end

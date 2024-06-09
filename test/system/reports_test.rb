@@ -754,4 +754,9 @@ class ReportsTest < ApplicationSystemTestCase
     assert_no_text 'この日報はすでに提出済みです。'
     assert_button '提出'
   end
+
+  test 'display message to admin or mentor in report of retired user' do
+    visit_with_auth report_path(reports(:report75)), 'komagata'
+    assert_selector 'p', text: 'このユーザーは退会しています。'
+  end
 end
