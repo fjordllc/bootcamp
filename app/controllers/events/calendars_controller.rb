@@ -8,7 +8,7 @@ class Events::CalendarsController < ApplicationController
     user = User.find_by(id: user_id)
 
     events_calendar = EventsCalendar.new(user)
-    @events = events_calendar.generate_event_calendar
+    @events = events_calendar.fetch_events
 
     render :index, layout: false, content_type: 'text/calendar'
   end

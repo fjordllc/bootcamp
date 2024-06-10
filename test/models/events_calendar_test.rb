@@ -9,7 +9,7 @@ class EventsCalendarTest < ActiveSupport::TestCase
       user = users(:kimura)
 
       events_calendar = EventsCalendar.new(user)
-      @events = events_calendar.generate_event_calendar
+      @events = events_calendar.fetch_events
 
       cal = Icalendar::Calendar.new
 
