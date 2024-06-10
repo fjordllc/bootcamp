@@ -23,7 +23,7 @@ class UpcomingEvent
     %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
   end
 
-  def held_scheduled_date?
+  def held_on_scheduled_date?
     return true if @event_type == Event
 
     !HolidayJp.holiday?(@scheduled_date) || held_on_national_holiday?
