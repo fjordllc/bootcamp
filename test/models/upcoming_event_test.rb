@@ -27,33 +27,29 @@ class UpcomingEventTest < ActiveSupport::TestCase
     assert_not upcoming_regular_event.held_scheduled_date?
   end
 
-  test '#date_with_start_time(date) Event' do
+  test '#scheduled_date_with_start_time Event' do
     scheduled_date = Date.new(2019, 12, 20)
 
     upcoming_event = UpcomingEvent.new(@special_event, scheduled_date)
-
     assert_equal Time.zone.local(2019, 12, 20, 10), upcoming_event.scheduled_date_with_start_time
   end
 
-  test '#date_with_start_time(date) RegularEvent' do
+  test '#scheduled_date_with_start_time RegularEvent' do
     scheduled_date = Date.new(2024, 5, 5) # Sunday
 
     upcoming_event = UpcomingEvent.new(@regular_event, scheduled_date)
-
     assert_equal Time.zone.local(2024, 5, 5, 15), upcoming_event.scheduled_date_with_start_time
   end
 
   test '#for_job_hunting?' do
+    scheduled_date = Time.zone.today # 日付はいつでもいいけど、initializeに必要なので定義
+
     @special_event.update!(job_hunting: true)
-    scheduled_date = Time.zone.today
-
     upcoming_special_event = UpcomingEvent.new(@special_event, scheduled_date)
-
     assert upcoming_special_event.for_job_hunting?
 
     @special_event.update!(job_hunting: false)
     upcoming_special_event = UpcomingEvent.new(@special_event, scheduled_date)
-
     assert_not upcoming_special_event.for_job_hunting?
   end
 end
