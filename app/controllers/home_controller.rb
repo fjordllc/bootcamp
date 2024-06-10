@@ -50,7 +50,7 @@ class HomeController < ApplicationController
   end
 
   def display_events_on_dashboard
-    @upcoming_events_groups = %i[today tomorrow day_after_tomorrow].map { |date| UpcomingEventsGroup.build(date) }
+    @upcoming_events_groups = UpcomingEvent.build_upcoming_events_groups
   end
 
   def display_welcome_message_for_adviser

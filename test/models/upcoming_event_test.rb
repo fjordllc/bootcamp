@@ -8,6 +8,43 @@ class UpcomingEventTest < ActiveSupport::TestCase
     @regular_event = regular_events(:regular_event1)
   end
 
+  test '.build_upcoming_events_groups' do
+    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+      today_events = [
+        events(:event27),
+        events(:event33),
+        regular_events(:regular_event2),
+        regular_events(:regular_event26),
+        regular_events(:regular_event32)
+      ]
+      tomorrow_events = [
+        events(:event28),
+        regular_events(:regular_event27)
+      ]
+      day_after_tomorrow_events = [
+        events(:event32),
+        regular_events(:regular_event7)
+      ]
+
+      upcoming_events_groups = UpcomingEvent.build_upcoming_events_groups
+
+      assert_equal :today, upcoming_events_groups.first.date_key
+      assert_equal Time.zone.today, upcoming_events_groups.first.scheduled_date
+      expected_today_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
+      assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first.events
+
+      assert_equal :tomorrow, upcoming_events_groups[1].date_key
+      assert_equal Time.zone.tomorrow, upcoming_events_groups[1].scheduled_date
+      expected_tomorrow_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
+      assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1].events
+
+      assert_equal :day_after_tomorrow, upcoming_events_groups[2].date_key
+      assert_equal Time.zone.tomorrow + 1.day, upcoming_events_groups[2].scheduled_date
+      expected_day_after_tomorrow_events = day_after_tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow + 1.day) }
+      assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2].events
+    end
+  end
+
   test '#held_scheduled_date? Event always be true' do
     upcoming_special_event = UpcomingEvent.new(@special_event, @holiday)
     assert upcoming_special_event.held_scheduled_date?
