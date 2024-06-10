@@ -17,7 +17,7 @@ class UpcomingEvent
       %i[original_event title].all? { |attr| public_send(attr) == other.public_send(attr) }
   end
 
-  def held?
+  def held_scheduled_date?
     return true if @event_type == Event
 
     !HolidayJp.holiday?(@scheduled_date) || held_on_national_holiday?

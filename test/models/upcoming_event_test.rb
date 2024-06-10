@@ -4,31 +4,27 @@ require 'test_helper'
 
 class UpcomingEventTest < ActiveSupport::TestCase
   setup do
-    @holiday = Date.new(2024, 1, 1)
     @special_event = events(:event1)
     @regular_event = regular_events(:regular_event1)
   end
 
-  test '#held? Event always be true' do
+  test '#held_scheduled_date? Event always be true' do
     upcoming_special_event = UpcomingEvent.new(@special_event, @holiday)
-
-    assert upcoming_special_event.held?
+    assert upcoming_special_event.held_scheduled_date?
   end
 
-  test '#held?(date) RegularEvent is dynamic by rules' do
-    held_holiday_event = @regular_event.dup
-    held_holiday_event.hold_national_holiday = true
+  test '#held_scheduled_date? RegularEvent is dynamic by rules' do
+    scheduled_date = Date.new(2024, 1, 1)
 
-    upcoming_regular_event = UpcomingEvent.new(held_holiday_event, @holiday)
+    event_held_on_holidays = @regular_event.dup
+    event_held_on_holidays.hold_national_holiday = true
+    upcoming_regular_event = UpcomingEvent.new(event_held_on_holidays, scheduled_date)
+    assert upcoming_regular_event.held_scheduled_date?
 
-    assert upcoming_regular_event.held?
-
-    not_held_holiday_event = @regular_event.dup
-    not_held_holiday_event.hold_national_holiday = false
-
-    upcoming_regular_event = UpcomingEvent.new(not_held_holiday_event, @holiday)
-
-    assert_not upcoming_regular_event.held?
+    event_closed_on_holidays = @regular_event.dup
+    event_closed_on_holidays.hold_national_holiday = false
+    upcoming_regular_event = UpcomingEvent.new(event_closed_on_holidays, scheduled_date)
+    assert_not upcoming_regular_event.held_scheduled_date?
   end
 
   test '#date_with_start_time(date) Event' do
