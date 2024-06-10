@@ -57,7 +57,7 @@ export default function Reports({
   }
 
   return (
-    <div className="page-main">
+    <div className="page-main is-react">
       {data.totalPages === 0 && (
         <div>
           {practices && (
