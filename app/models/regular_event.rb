@@ -184,7 +184,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       regular_event.regular_event_repeat_rules.each do |repeat_rule|
         current_date = Time.zone.today
 
-        participated_regular_event.list_event_for_year(repeat_rule, current_date, participated_regular_events)
+        participated_regular_event.events_for_year(repeat_rule, current_date, participated_regular_events)
       end
     end
     participated_regular_events
