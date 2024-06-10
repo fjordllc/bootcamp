@@ -43,9 +43,10 @@
                       | 人によっては時間のかかり方は様々です。この数字はあくまで一つの目安として捉えてください。
               #js-annotation-modal
           header.page-content-header
+            - skip_practices = current_user.skip_practices.pluck(:practice_id)
             .page-content-header__end
               .page-content-header__row
-                h1.page-content-header__title
+                h1.page-content-header__title(class="#{skip_practices.include?(@practice.id) ? 'is-skip-on' : ''}")
                   - if @practice.include_must_read_books?
                     span.a-title-label.is-danger
                       | 要書籍
@@ -67,9 +68,9 @@
                           = @practice.last_updated_user.login_name
 
               .page-content-header__row
-              - skip_practices = current_user.skip_practices.pluck(:practice_id)
               - if skip_practices.include?(@practice.id)
-               | このプラクティスはスキップ可能です。
+                .page-content-header__alert
+                  | このプラクティスはスキップしてください。
               - else
                 .page-content-header-actions
                   .page-content-header-actions__start
