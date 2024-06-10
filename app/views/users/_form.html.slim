@@ -157,35 +157,37 @@
         .form-item
           = f.label :training_ends_on, class: 'a-form-label' do
             | スキップするプラクティス
-            // 選択したコースに紐づくカテゴリーを表示させる。
-            - user_categories.each do |category|
-              - skip_practices_in_category = category.practice_ids & skip_practices_ids
-              .skip-practices
-                input.a-toggle-checkbox(type='checkbox' id="category-#{category}")
-                .skip-practices__inner
-                  label.skip-practices__header(for='category-#{category}')
-                    .skip-practices__start
-                      .skip-practices__category-name
-                        | #{category.name}
-                      .skip-practices__count
-                        - if category.practices.count.zero?
-                          | (0)
-                        - else
-                          | (#{skip_practices_in_category.count}/#{category.practices.count})
-                        // ↑チェックしたプラクティスの数を表示
-                    .skip-practices__end
-                      .skip-practices__category-angle-icon
-                        i.fa-regular.fa-angle-down
-                  - practices_to_display = category.practices.reject { |practice| display_practice_ids.include?(practice.id) }
-                  .skip-practices__body
-                    = f.collection_check_boxes :practice_ids, practices_to_display, :id, :title, include_hidden: false, class: 'label-checkbox' do |b|
-                      .checkboxes
-                        .checkboxes__items
-                          .checkboxes__item.is-sm
-                            = b.check_box(class: 'a-toggle-checkbox')
-                            = b.label { b.text }
-                    - display_practice_ids.concat(practices_to_display.map(&:id))
-            | 複数のカテゴリに所属するプラクティスも一度しか表示されません。（数値には反映されます）
+          .a-form-help.mb-2
+            p
+              | 複数のカテゴリに所属するプラクティスは、所属するいずれかのカテゴリに一度しか表示されません（数値には反映されます）。
+          // 選択したコースに紐づくカテゴリーを表示させる。
+          - user_categories.each do |category|
+            - skip_practices_in_category = category.practice_ids & skip_practices_ids
+            .skip-practices
+              input.a-toggle-checkbox(type='checkbox' id="category-#{category}")
+              .skip-practices__inner
+                label.skip-practices__header(for='category-#{category}')
+                  .skip-practices__start
+                    .skip-practices__category-name
+                      | #{category.name}
+                    .skip-practices__count
+                      - if category.practices.count.zero?
+                        | (0)
+                      - else
+                        | (#{skip_practices_in_category.count}/#{category.practices.count})
+                      // ↑チェックしたプラクティスの数を表示
+                  .skip-practices__end
+                    .skip-practices__category-angle-icon
+                      i.fa-regular.fa-angle-down
+                - practices_to_display = category.practices.reject { |practice| display_practice_ids.include?(practice.id) }
+                .skip-practices__body
+                  = f.collection_check_boxes :practice_ids, practices_to_display, :id, :title, include_hidden: false, class: 'label-checkbox' do |b|
+                    .checkboxes
+                      .checkboxes__items
+                        .checkboxes__item.is-sm
+                          = b.check_box(class: 'a-toggle-checkbox')
+                          = b.label { b.text }
+                  - display_practice_ids.concat(practices_to_display.map(&:id))
 
   - if from == :new
     .form__items
