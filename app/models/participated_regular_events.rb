@@ -5,7 +5,7 @@ class ParticipatedRegularEvents
     @regular_event = regular_event
   end
 
-  def list_event_for_year(repeat_rule, current_date, participated_regular_events)
+  def events_for_year(repeat_rule, current_date, participated_regular_events)
     while current_date <= Time.zone.today + 1.year
       if repeat_rule.frequency.zero?
         day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
