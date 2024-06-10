@@ -69,10 +69,10 @@ header.page-header
                     | 直近の日報
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-2 for='side-tabs-2'
-                    | プラクティスメモ
+                    | ユーザーメモ
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-3 for='side-tabs-3'
-                    | ユーザーメモ
+                    | ユーザー情報
                 .side-tabs-nav__item
                   label.side-tabs-nav__item-link#side-tabs-nav-4 for='side-tabs-4'
                     | 提出物
@@ -80,23 +80,31 @@ header.page-header
               .side-tabs-contents__item#side-tabs-content-1
                 = render partial: 'reports/recent_reports', locals: { header_display: true }
               .side-tabs-contents__item#side-tabs-content-2
-                = render 'practice_memo', practice_id: @product.practice_id
-              .side-tabs-contents__item#side-tabs-content-3
-                .user-info
-                  = render 'users/user_secret_attributes', user: @product.user
-                  = render 'users/metas', user: @product.user
                 = render 'users/user_mentor_memo', user_id: @product.user.id
+              .side-tabs-contents__item#side-tabs-content-3
+                .a-card
+                  .user-data
+                    .user-data__row
+                      = render 'users/user_secret_attributes', user: @product.user
+                    .user-data__row
+                      = render 'users/metas', user: @product.user
+                    ruby:
+                      skip_practices = @product.user.skip_practices
+                      user_practices = @product.user.practices
+                    - if skip_practices.present?
+                      .user-data__row
+                        .user-metas.is-only-mentor
+                          h2.user-metas__title
+                            | スキップするプラクティス一覧
+                          .user-metas__items
+                            - skip_practices.each do |skip_practice|
+                              .user-metas__item
+                                .user-metas__item-value
+                                  a href=practice_path(skip_practice.practice.id)
+                                    - display_practice = user_practices.find_by(id: skip_practice.practice.id)
+                                    span.category-practices-item__title-link-label = display_practice.title
               .side-tabs-contents__item#side-tabs-content-4
                 div(data-vue="UserProducts" data-vue-user-id:number="#{@product.user.id}" data-vue-is-mentor:boolean="#{false}" data-vue-current-user-id:number="#{current_user.id}" data-vue-display-user-icon:boolean="false")
-              .test-div
-                | このユーザーがスキップしているプラクティス一覧
-                ruby:
-                  skip_practices = @product.user.skip_practices
-                  user_practices = @product.user.practices
-                - skip_practices.each do |skip_practice|
-                  a.category-practices-item__title-link href=practice_path(skip_practice.practice.id)
-                    - display_practice = user_practices.find_by(id: skip_practice.practice.id)
-                    span.category-practices-item__title-link-label = display_practice.title
 
 - if !current_user.adviser? && @product.practice.open_product?
   .sticky-message
