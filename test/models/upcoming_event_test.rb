@@ -45,23 +45,23 @@ class UpcomingEventTest < ActiveSupport::TestCase
     end
   end
 
-  test '#held_scheduled_date? Event always be true' do
+  test '#held_on_scheduled_date? Event always be true' do
     upcoming_special_event = UpcomingEvent.new(@special_event, @holiday)
-    assert upcoming_special_event.held_scheduled_date?
+    assert upcoming_special_event.held_on_scheduled_date?
   end
 
-  test '#held_scheduled_date? RegularEvent is dynamic by rules' do
+  test '#held_on_scheduled_date? RegularEvent is dynamic by rules' do
     scheduled_date = Date.new(2024, 1, 1)
 
     event_held_on_holidays = @regular_event.dup
     event_held_on_holidays.hold_national_holiday = true
     upcoming_regular_event = UpcomingEvent.new(event_held_on_holidays, scheduled_date)
-    assert upcoming_regular_event.held_scheduled_date?
+    assert upcoming_regular_event.held_on_scheduled_date?
 
     event_closed_on_holidays = @regular_event.dup
     event_closed_on_holidays.hold_national_holiday = false
     upcoming_regular_event = UpcomingEvent.new(event_closed_on_holidays, scheduled_date)
-    assert_not upcoming_regular_event.held_scheduled_date?
+    assert_not upcoming_regular_event.held_on_scheduled_date?
   end
 
   test '#scheduled_date_with_start_time Event' do
