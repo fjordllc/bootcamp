@@ -179,7 +179,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def fetch_participated_regular_events(user)
     participated_events = user.regular_event_participations.pluck(:regular_event_id)
     participated_regular_events = []
-    RegularEvent.where(id: participated_events).where(finished: false).find_each do |regular_event|
+    RegularEvent.where(
+      id: participated_events,
+      finished: false
+    ).find_each do |regular_event|
       participated_regular_event = ParticipatedRegularEvents.new(regular_event)
       regular_event.regular_event_repeat_rules.each do |repeat_rule|
         current_date = Time.zone.today
