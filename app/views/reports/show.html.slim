@@ -79,6 +79,28 @@
                     .user-data__row
                       = render 'users/metas', user: @report.user
                     .user-data__row
+
+                      ruby:
+                        skip_practices = @report.user.skip_practices
+                        user_practices = @report.user.practices
+                      - if skip_practices.present?
+                        .user-data__row
+                          .user-metas.is-only-mentor
+                            h2.user-metas__title
+                              | スキップするプラクティス一覧
+                            .user-metas__items
+                              - skip_practices.each do |skip_practice|
+                                .user-metas__item
+                                  .user-metas__item-value
+                                    = link_to practice_path(skip_practice.practice.id) do
+                                      - display_practice = user_practices.find_by(id: skip_practice.practice.id)
+                                      span.category-practices-item__title-link-label
+                                        = display_practice.title
+
+
+
+
+
               .side-tabs-contents__item#side-tabs-content-4.is-only-mentor
                 .card-list.a-card
                   - if @products.present?
