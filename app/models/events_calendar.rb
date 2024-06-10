@@ -5,7 +5,7 @@ class EventsCalendar
     @user = user
   end
 
-  def generate_event_calendar
+  def fetch_events
     special_event = Event.new
     upcoming_speial_events = special_event.fetch_special_events(@user)
 
