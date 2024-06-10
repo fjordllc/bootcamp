@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+UpcomingEventsGroup = Struct.new('UpcomingEventsGroup', :date_key, :scheduled_date, :events)
+
 class UpcomingEvent
   attr_reader :original_event, :scheduled_date, :title, :event_type
 
@@ -15,6 +17,10 @@ class UpcomingEvent
   def ==(other)
     other.class == self.class &&
       %i[original_event title].all? { |attr| public_send(attr) == other.public_send(attr) }
+  end
+
+  def self.build_upcoming_events_groups
+    %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
   end
 
   def held_scheduled_date?
@@ -43,5 +49,32 @@ class UpcomingEvent
     return true if @event_type == Event
 
     original_event.hold_national_holiday
+  end
+
+  class << self
+    private
+
+    def build_group(date_key)
+      date = date_key_to_date_class(date_key)
+      upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
+
+      UpcomingEventsGroup.new(date_key, date, upcoming_events.sort_by(&:scheduled_date_with_start_time))
+    end
+
+    def date_key_to_date_class(date_key)
+      table = {
+        today: Time.zone.today,
+        tomorrow: Time.zone.today + 1.day,
+        day_after_tomorrow: Time.zone.today + 2.days
+      }
+
+      table[date_key.to_sym]
+    end
+
+    def original_events_scheduled_on(date)
+      [Event, RegularEvent].map do |model|
+        model.public_send(:scheduled_on, date)
+      end.flatten
+    end
   end
 end
