@@ -106,6 +106,8 @@
     word-break: break-all
   &.is-wip
     color: var(--muted-text)
+  &.is-skip-on
+    color: var(--muted-text)
   .a-title-label
     display: inline-flex
     vertical-align: top
@@ -168,3 +170,12 @@
   +media-breakpoint-down(sm)
     +size(3.5rem)
     +position(absolute, right 0, top 0)
+
+.page-content-header__alert
+  background-color: var(--danger-tint)
+  color: var(--danger-text)
+  +text-block(.875rem 1.4)
+  text-align: center
+  padding: .5rem 1rem
+  border: solid 1px var(--danger)
+  border-radius: .25rem
