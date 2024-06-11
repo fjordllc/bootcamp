@@ -140,9 +140,7 @@ const NoReports = ({ unchecked }) => {
             <div className="o-empty-message__icon">
               <i className="fa-regular fa-sad-tear" />
             </div>
-            <p className="o-empty-message__text">
-              日報はまだありません。
-            </p>
+            <p className="o-empty-message__text">日報はまだありません。</p>
           </div>
         )}
       </div>
