@@ -18,10 +18,6 @@
             strong #{@report.interval}日
             | ぶりの日報です。
 
-- if admin_or_mentor_login? && @report.user.retired_on?
-  p
-    | このユーザーは退会しています。
-
 .page-body
   .container.is-xxl
     .row.justify-center.is-gutter-width-32
