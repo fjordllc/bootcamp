@@ -11,7 +11,7 @@
         .a-page-notice__inner
           p
             | このユーザーは退会しています。
-  - else !@report.first? && @report.latest_of_user?
+  - elsif !@report.first? && @report.latest_of_user?
     .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
       .container
         .a-page-notice__inner
