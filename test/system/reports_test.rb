@@ -757,6 +757,6 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'display message to admin or mentor in report of retired user' do
     visit_with_auth report_path(reports(:report75)), 'komagata'
-    assert_selector 'p', text: 'このユーザーは退会しています。'
+    assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
   end
 end
