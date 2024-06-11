@@ -9,34 +9,23 @@
   display: flex
   gap: .5rem
   flex-wrap: wrap
+  container-type: inline-size
+  container-name: users-item
 
 =nowrap-items($one-line-items-count)
   flex: 0 0 calc((100% - (.5rem * (#{$one-line-items-count} - 1))) / $one-line-items-count)
+  max-width: calc((100% - (.5rem * (#{$one-line-items-count} - 1))) / $one-line-items-count)
 
 .card-counts__item
   background-color: var(--base)
-  .is-users &
-    +media-breakpoint-up(xxl)
-      +nowrap-items(5)
-    +media-breakpoint-only(xl)
-      +nowrap-items(4)
-    +media-breakpoint-only(lg)
-      +nowrap-items(3)
-    +media-breakpoint-only(md)
-      +nowrap-items(4)
-    +media-breakpoint-down(sm)
-      +nowrap-items(3)
-  .is-user &
-    +media-breakpoint-up(xxl)
-      +nowrap-items(5)
-    +media-breakpoint-only(xl)
-      +nowrap-items(5)
-    +media-breakpoint-only(lg)
-      +nowrap-items(4)
-    +media-breakpoint-only(md)
-      +nowrap-items(5)
-    +media-breakpoint-down(sm)
-      +nowrap-items(4)
+  @container users-item (max-width: 299px)
+    +nowrap-items(3)
+  @container users-item (min-width: 300px)
+    +nowrap-items(4)
+  @container users-item (min-width: 401px)
+    +nowrap-items(5)
+  @container users-item (min-width: 460px)
+    +nowrap-items(6)
 
 .card-counts__item-inner
   border: solid 1px var(--border)
@@ -44,15 +33,16 @@
 
 .card-counts__item-label
   +text-block(.625rem 1.4)
+  overflow: hidden
+  max-width: 100%
   white-space: nowrap
-  display: flex
-  justify-content: center
-  align-items: center
+  display: block
   text-align: center
   color: var(--semi-muted-text)
-  padding-block: .125rem
+  padding: .125rem .125rem
   border-bottom: solid 1px var(--border)
   height: 1.25rem
+  text-overflow: ellipsis
   &.is-sm span
     transform: scale(.85)
 
