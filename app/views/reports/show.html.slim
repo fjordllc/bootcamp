@@ -6,7 +6,7 @@
 
 - if admin_or_mentor_login?
   - if @report.user.retired_on?
-    .a-page-notice.is-muted.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
+    .a-page-notice.is-muted.is-only-mentor
       .container
         .a-page-notice__inner
           p
