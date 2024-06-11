@@ -8,7 +8,7 @@
               | 退会しました
           - elsif user.hibernated?
             .users-item__inactive-message
-              | 休会中: #{user.hibernated_at}〜(#{user.hibernation_elapsed_days}日経過)
+              | 休会中: #{user.hibernated_at.year}年#{user.hibernated_at.strftime('%m')}月#{user.hibernated_at.strftime('%d')}日〜(#{user.hibernation_elapsed_days}日経過)
           - elsif !user.active?
             .users-item__inactive-message
               | 1ヶ月以上ログインがありません
