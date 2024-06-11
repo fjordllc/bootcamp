@@ -1,9 +1,9 @@
 .page-body
   nav.pagination
-    = paginate @users
+    = paginate users
   .container
     .users
-      - if @users.empty?
+      - if users.empty?
         .row
           .o-empty-message
             .o-empty-message__icon
@@ -12,7 +12,7 @@
               | #{data_title}はいません
       - else
         .row
-          - @users.each do |user|
+          - users.each do |user|
             = render 'user', user:
   nav.pagination
-    = paginate @users
+    = paginate users
