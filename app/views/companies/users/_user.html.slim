@@ -3,10 +3,10 @@
     .users-item__inner.a-card
       - if current_user.mentor || current_user.admin && user.student_or_trainee
         .users-item__inactive-message-container.is-only-mentor
-          - if user.roles.include?('retired')
+          - if user.retired?
             .users-item__inactive-message
               | 退会しました
-          - elsif user.roles.include?('hidernationed')
+          - elsif user.hibernated?
             .users-item__inactive-message
               | 休会中: #{user.hibernated_at}〜(#{user.hibernation_elapsed_days}日経過)
           - elsif !user.active?
