@@ -22,15 +22,9 @@
         | 環境
       .user-metas__item-value
         | OS:
-        - if user.os
-          = t("activerecord.enums.user.os.#{user.os}")
-        - else
-          | 回答なし
+        = t("activerecord.enums.user.os.#{user.os}") || "回答なし"
         | 、エディタ:
-        - if user.editor_or_other_editor
-          = user.editor_or_other_editor
-        - else
-          | 回答なし
+        = user.editor_or_other_editor || "回答なし"
     .user-metas__item
       .user-metas__item-label
         | 修了プラクティス
