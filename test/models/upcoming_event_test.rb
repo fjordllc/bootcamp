@@ -28,20 +28,17 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
       upcoming_events_groups = UpcomingEvent.build_upcoming_events_groups
 
-      assert_equal :today, upcoming_events_groups.first.date_key
-      assert_equal Time.zone.today, upcoming_events_groups.first.scheduled_date
+      assert_equal :today, upcoming_events_groups.first[:date_key]
       expected_today_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
-      assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first.events
+      assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first[:events]
 
-      assert_equal :tomorrow, upcoming_events_groups[1].date_key
-      assert_equal Time.zone.tomorrow, upcoming_events_groups[1].scheduled_date
+      assert_equal :tomorrow, upcoming_events_groups[1][:date_key]
       expected_tomorrow_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
-      assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1].events
+      assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1][:events]
 
-      assert_equal :day_after_tomorrow, upcoming_events_groups[2].date_key
-      assert_equal Time.zone.tomorrow + 1.day, upcoming_events_groups[2].scheduled_date
+      assert_equal :day_after_tomorrow, upcoming_events_groups[2][:date_key]
       expected_day_after_tomorrow_events = day_after_tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow + 1.day) }
-      assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2].events
+      assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2][:events]
     end
   end
 

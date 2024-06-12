@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-UpcomingEventsGroup = Struct.new('UpcomingEventsGroup', :date_key, :scheduled_date, :events)
-
 class UpcomingEvent
   attr_reader :original_event, :scheduled_date, :title, :event_type
 
@@ -58,7 +56,7 @@ class UpcomingEvent
       date = date_key_to_date_class(date_key)
       upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
 
-      UpcomingEventsGroup.new(date_key, date, upcoming_events.sort_by(&:scheduled_date_with_start_time))
+      { date_key:, events: upcoming_events.sort_by(&:scheduled_date_with_start_time) }
     end
 
     def date_key_to_date_class(date_key)
