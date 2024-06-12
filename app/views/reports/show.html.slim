@@ -40,11 +40,8 @@
                 = link_to @report.next, class: 'page-content-prev-next__item-link is-next' do
                   | 次の日報
                   i.fa-solid.fa-angle-right
-
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
-
         div(data-vue='Footprints' data-vue-footprintable-id="#{@report.id}" data-vue-footprintable-type='Report')
-
       .col-xl-5.col-xs-12
         - if current_user.mentor? || current_user.admin?
           .side-tabs
@@ -79,7 +76,6 @@
                     .user-data__row
                       = render 'users/metas', user: @report.user
                     .user-data__row
-
                       ruby:
                         skip_practices = @report.user.skip_practices
                         user_practices = @report.user.practices
@@ -96,11 +92,6 @@
                                       - display_practice = user_practices.find_by(id: skip_practice.practice.id)
                                       span.category-practices-item__title-link-label
                                         = display_practice.title
-
-
-
-
-
               .side-tabs-contents__item#side-tabs-content-4.is-only-mentor
                 .card-list.a-card
                   - if @products.present?
