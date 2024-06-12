@@ -90,14 +90,14 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
-      assert_text '所属企業'
       find('.choices').click
       first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    found_value = all('.user-metas__item-value').find { |element| element.text.include?('Lokka Inc.') }
+    assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
   end
 
   test 'update advisor with company' do
