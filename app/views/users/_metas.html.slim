@@ -42,10 +42,10 @@
         | 区分
       .user-metas__item-value
         ul
-          - user.roles.each do |role|
+          - user.roles.each_with_index do |role, i|
             li
               = t "target.#{role}"
-              - if user.company.present?
+              - if i == 0 && user.company.present?
                 | （#{user.company.name}）
               - if admin_or_mentor_login?
                 span.is-only-mentor
