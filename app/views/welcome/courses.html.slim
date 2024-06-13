@@ -11,83 +11,111 @@
 
 .welcome-page-body
   section.course-selection
-    .container.is-md
-      .course-selection__header
+    .container.is-sm
+      header.course-selection__header
         h2.welcome-section__title.has-border
           | コースを選択してください。
-      .course-selection__descritpion
-        .a-short-text
-          p
-            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      .course-selection__body
+        .course-selection__descritpion
+          .a-short-text
+            p
+              | バックエンドコースとフロントエンドコースの2つのコースを提供しています。
+              | 料金はどちらも同じです。
+            p
+              | どちらのコースも、最初は共通のカリキュラムからスタートし、
+              | その後に専門分野に分かれて学んでいきます。最終的には、
+              | 自分で考えたWebサービスを作ってリリースすることを目指します。
+              |また、どちらのコースでもチーム開発を体験できるので、実践的なスキルが身につきます。
+            p
+              | コース選びに迷ったら、まずはバックエンドコースを選んでみてください。
+              | 入会後はメンターに相談ができるので、その時にしっかり考えましょう。
+              | 途中でのコースの変更、卒業後に別コースの必要なカリキュラムだけを受講することも可能です。
 
     .course-selection__items.mt-8
       .container.is-xl
-        .row
+        .row.is-gutter-width-32
           .col-md-6.col-xs-12
-            article.course-selection-item
-              .a-card
+            article.course-selection-item.a-card
+              .course-selection-item__inner
                 header.course-selection-item__header
                   h2.course-selection-item__title
                     | バックエンドコース
                 .course-selection-item__body
-                  .a-long-text
-                    p バックエンドコースでは、ウェブサイトやアプリの「裏側」を作る技術を学びます。例えば、ユーザーが入力した情報を保存したり、検索機能を実装したりする部分です。もし、データの処理やシステムの仕組みを作りたいと思っているなら、このコースがピッタリです！
+                  .course-selection-item__summary
+                    .a-long-text
+                      p バックエンドコースでは、ウェブサイトやアプリの「裏側」を作る技術を学びます。例えば、ユーザーが入力した情報を保存したり、検索機能を実装したりする部分です。もし、データの処理やシステムの仕組みを作りたいと思っているなら、このコースがピッタリです！
+                  .course-selection-item__action
+                    = link_to new_user_path(course_id:829913840), class: 'a-welcome-button is-md' do
+                      | バックエンドコースを選択
+                  section.course-selection-item__section
+                    .a-long-text
+                      h3 詳しい内容
+                      ul
+                        li 準備作業: 学習方法の理解や必要なツールの設定、チャットやSNSの登録、ブログ作成、GitHubアカウントの設定を行います。
+                        li 基礎知識: HTMLとCSSの基本を学び、簡単なウェブページを作成します。これらはウェブページの骨組みと見た目を作るための技術です。
+                        li 開発環境の設定: プログラムを書くための環境を整えます。例えば、Linuxというシステムの基本操作を学び、コマンドラインというツールの使い方を学びます。
+                        li プログラミング入門: Rubyというプログラミング言語を学び、基本的なプログラムの書き方を練習します。具体的には、簡単な計算やデータの操作をするプログラムを作ります。
+                        li データベースの学習: データベースの使い方を学びます。例えば、ユーザーの情報を保存したり、検索したりする方法を学びます。
+                        li ウェブサーバーの学習: ウェブサーバーの設定方法を学びます。これは、ウェブサイトがインターネット上で正しく動くための設定です。
+                        li Railsフレームワークの学習: Ruby on Railsという強力なフレームワークを使って、ウェブアプリケーションを効率的に開発する方法を学びます。Railsを使うことで、複雑な機能を簡単に実装できます。
+                        li Webアプリケーションの作成: 学んだ技術を使って、実際に動くウェブアプリケーションを作成します。例えば、ブログや簡単なSNSを作ります。
+                        li チーム開発: 他の人と協力してプロジェクトを進める方法を学びます。実際の仕事に近い形で、みんなで一つのプロジェクトを作ります。
+                        li 自分のWebアプリケーションを作成: 最終的には、学んだ技術を総動員して、自分で考えたWebアプリケーションを作成します。アイデアを形にするためのサポートも行います。
 
-                    h3 学ぶ内容
-                    ul
-                      li 準備作業: 学習方法の理解や必要なツールの設定、チャットやSNSの登録、ブログ作成、GitHubアカウントの設定を行います。
-                      li 基礎知識: HTMLとCSSの基本を学び、簡単なウェブページを作成します。これらはウェブページの骨組みと見た目を作るための技術です。
-                      li 開発環境の設定: プログラムを書くための環境を整えます。例えば、Linuxというシステムの基本操作を学び、コマンドラインというツールの使い方を学びます。
-                      li プログラミング入門: Rubyというプログラミング言語を学び、基本的なプログラムの書き方を練習します。具体的には、簡単な計算やデータの操作をするプログラムを作ります。
-                      li データベースの学習: データベースの使い方を学びます。例えば、ユーザーの情報を保存したり、検索したりする方法を学びます。
-                      li ウェブサーバーの学習: ウェブサーバーの設定方法を学びます。これは、ウェブサイトがインターネット上で正しく動くための設定です。
-                      li Railsフレームワークの学習: Ruby on Railsという強力なフレームワークを使って、ウェブアプリケーションを効率的に開発する方法を学びます。Railsを使うことで、複雑な機能を簡単に実装できます。
-                      li Webアプリケーションの作成: 学んだ技術を使って、実際に動くウェブアプリケーションを作成します。例えば、ブログや簡単なSNSを作ります。
-                      li チーム開発: 他の人と協力してプロジェクトを進める方法を学びます。実際の仕事に近い形で、みんなで一つのプロジェクトを作ります。
-                      li 自分のWebアプリケーションを作成: 最終的には、学んだ技術を総動員して、自分で考えたWebアプリケーションを作成します。アイデアを形にするためのサポートも行います。
+                      p このコースを修了すると、ウェブサイトやアプリの裏側の仕組みを理解し、自分でデータベースを扱ったり、ウェブサーバーを設定したり、Railsを使って効率的にウェブアプリケーションを作成することができるようになります。
+                  .course-selection-item__action
+                    = link_to new_user_path(course_id:829913840), class: 'a-welcome-button is-md' do
+                      | バックエンドコースを選択
 
-                    p このコースを修了すると、ウェブサイトやアプリの裏側の仕組みを理解し、自分でデータベースを扱ったり、ウェブサーバーを設定したり、Railsを使って効率的にウェブアプリケーションを作成することができるようになります。
           .col-md-6.col-xs-12
-            article.course-selection-item
-              .a-card
+            article.course-selection-item.a-card
+              .course-selection-item__inner
                 header.course-selection-item__header
                   h2.course-selection-item__title
                     | フロントエンドコース
                 .course-selection-item__body
-                  .a-long-text
-                    p フロントエンドコースでは、ウェブサイトやアプリの「見える部分」を作る技術を学びます。例えば、ボタンのデザインやクリックしたときの動きなどです。もし、デザインやユーザーインターフェイスの作成に興味があるなら、このコースがオススメです！
+                  .course-selection-item__summary
+                    .a-long-text
+                      p フロントエンドコースでは、ウェブサイトやアプリの「見える部分」を作る技術を学びます。例えば、ボタンのデザインやクリックしたときの動きなどです。もし、デザインやユーザーインターフェイスの作成に興味があるなら、このコースがオススメです！
+                  .course-selection-item__action
+                    = link_to new_user_path(course_id:829913840), class: 'a-welcome-button is-md' do
+                      | フロントエンドコースを選択
+                  section.course-selection-item__section
+                    .a-long-text
+                      h3 詳しい内容
+                      ul
+                        li 準備作業: 学習方法の理解や必要なツールの設定、チャットやSNSの登録、ブログ作成、GitHubアカウントの設定を行います。
+                        li 基礎知識: HTMLとCSSの基本を学び、ウェブページの骨組みと見た目を作成します。これらはウェブページのデザインを作るための技術です。
+                        li JavaScript入門: JavaScriptというプログラミング言語を学び、ウェブページにインタラクティブな機能を追加します。例えば、ボタンをクリックしたときに動きを付ける方法を学びます。
+                        li フレームワークの学習: Reactというツールを使って、複雑なウェブアプリケーションを簡単に作成する方法を学びます。これにより、効率的に機能豊富なアプリを作れます。
+                        li デザインの学習: ユーザーが使いやすいデザインの基本を学びます。レスポンシブデザインを学び、どんなデバイスでも見やすいウェブページを作ります。
+                        li チーム開発: 他の人と協力してプロジェクトを進める方法を学びます。実際の仕事に近い形で、みんなで一つのプロジェクトを作ります。
+                        li 自分のWebアプリケーションを作成: 最終的には、学んだ技術を総動員して、自分で考えたWebアプリケーションを作成します。アイデアを形にするためのサポートも行います。
 
-                    h3 学ぶ内容
-                    ul
-                      li 準備作業: 学習方法の理解や必要なツールの設定、チャットやSNSの登録、ブログ作成、GitHubアカウントの設定を行います。
-                      li 基礎知識: HTMLとCSSの基本を学び、ウェブページの骨組みと見た目を作成します。これらはウェブページのデザインを作るための技術です。
-                      li JavaScript入門: JavaScriptというプログラミング言語を学び、ウェブページにインタラクティブな機能を追加します。例えば、ボタンをクリックしたときに動きを付ける方法を学びます。
-                      li フレームワークの学習: Reactというツールを使って、複雑なウェブアプリケーションを簡単に作成する方法を学びます。これにより、効率的に機能豊富なアプリを作れます。
-                      li デザインの学習: ユーザーが使いやすいデザインの基本を学びます。レスポンシブデザインを学び、どんなデバイスでも見やすいウェブページを作ります。
-                      li チーム開発: 他の人と協力してプロジェクトを進める方法を学びます。実際の仕事に近い形で、みんなで一つのプロジェクトを作ります。
-                      li 自分のWebアプリケーションを作成: 最終的には、学んだ技術を総動員して、自分で考えたWebアプリケーションを作成します。アイデアを形にするためのサポートも行います。
-
-                    p このコースを修了すると、美しいデザインと使いやすいインターフェイスを持つウェブサイトやアプリを作成できるようになります。フロントエンド開発は、ユーザーが直接触れる部分を作るので、デザインやユーザー体験に興味がある人にとって非常に魅力的です。
+                      p このコースを修了すると、美しいデザインと使いやすいインターフェイスを持つウェブサイトやアプリを作成できるようになります。フロントエンド開発は、ユーザーが直接触れる部分を作るので、デザインやユーザー体験に興味がある人にとって非常に魅力的です。
+                  .course-selection-item__action
+                    = link_to new_user_path(course_id:829913840), class: 'a-welcome-button is-md' do
+                      | フロントエンドコースを選択
 
   //
-    .welcome-small-sections
-      = form_with url: new_user_path, method: :get, local: true do |f|
-        .form-item
-          .form-item__groups
-            .form-item-group
-              .form-item-group__body
-                - @courses.each do |course|
-                  .row
-                    .col-md-2
-                      | #{course.title}
-                    .col-md-4
-                      | #{course.description}
-                    .col-md-2
-                      .a-block-check.is-radio
-                        = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
-                        label.a-block-check__label.is-ta-left(for="course_#{course.id}")
-                          span.a-block-check__name
-                            | 登録
+  .welcome-small-sections
+    = form_with url: new_user_path, method: :get, local: true do |f|
+      .form-item
+        .form-item__groups
+          .form-item-group
+            .form-item-group__body
+              - @courses.each do |course|
+                .row
+                  .col-md-2
+                    | #{course.title}
+                  .col-md-4
+                    | #{course.description}
+                  .col-md-2
+                    .a-block-check.is-radio
+                      = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
+                      label.a-block-check__label.is-ta-left(for="course_#{course.id}")
+                        span.a-block-check__name
+                          | 登録
 
           .form-actions
             = f.submit 'サインアップページに戻る', class: 'a-button is-primary', onclick: "this.removeAttribute('name')"
