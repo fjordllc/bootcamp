@@ -23,7 +23,28 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ['kimura@fjord.jp'], email.to
     assert_equal ['info@lokka.jp'], email.bcc
     assert_equal '[FBC] 退会処理が完了しました', email.subject
-    assert_match(/ご利用いただきありがとうございました/, email.body.to_s)
+    assert_match(/ご利用いただき誠にありがとうございました/, email.body.to_s)
     assert_match("#{user.name}様の今後のご活躍を心からお祈り申し上げます。", email.body.to_s)
+  end
+
+  test 'request_retirement' do
+    requester = users(:senpai)
+    target_user = users(:kensyuowata)
+
+    request_retirement = RequestRetirement.new(
+      user_id: requester.id,
+      target_user_id: target_user.id,
+      reason: '退職してしまったため。',
+      keep_data: true
+    )
+
+    email = UserMailer.request_retirement(request_retirement).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['senpai@fjord.jp'], email.to
+    assert_equal ['info@lokka.jp'], email.bcc
+    assert_equal '[FBC] 退会申請を受け付けました', email.subject
+    assert_match(/以下の内容で退会申請を受け付けました。/, email.body.to_s)
   end
 end

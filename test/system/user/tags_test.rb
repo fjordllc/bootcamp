@@ -176,7 +176,7 @@ class User::TagsTest < ApplicationSystemTestCase
     find('.check-box-to-read').click
     click_on '休会する'
     page.driver.browser.switch_to.alert.accept
-    assert_text '休会処理が完了しました'
+    assert_text '休会手続きが完了しました'
 
     visit_with_auth users_tag_path(tag_name), 'komagata'
     assert_text "タグ「#{tag_name}」のユーザー（1）"

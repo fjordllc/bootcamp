@@ -20,13 +20,18 @@
     background-color: var(--input-focus-background)
     border-color: var(--input-focus-border)
     box-shadow: var(--input-focus-shadow)
-  &:disabled
-    color: #999
-    background-color: #dedede
+  &:disabled,
+  &[readonly]
+    color: var(--muted-text)
+    background-color: var(--background)
     pointer-events: none
   &.is-stripe
     box-shadow: none
     padding-top: .625rem
+  &.is-inputed
+    border: none
+    padding: 0
+    background-color: transparent
 
 input[type=date].a-text-input,
 input[type=month].a-text-input,
