@@ -22,9 +22,9 @@
         | 環境
       .user-metas__item-value
         | OS:
-        = t("activerecord.enums.user.os.#{user.os}") || "回答なし"
+        = t("activerecord.enums.user.os.#{user.os}") || '回答なし'
         | 、エディタ:
-        = user.editor_or_other_editor || "回答なし"
+        = user.editor_or_other_editor || '回答なし'
     .user-metas__item
       .user-metas__item-label
         | 修了プラクティス
@@ -45,7 +45,7 @@
           - user.roles.each_with_index do |role, i|
             li
               = t "target.#{role}"
-              - if i == 0 && user.company.present?
+              - if i.zero? && user.company.present?
                 | （#{user.company.name}）
               - if admin_or_mentor_login?
                 span.is-only-mentor
