@@ -2,18 +2,20 @@
   .a-card
     header.card-header.is-sm
       h2.card-header__title
-        | 研修生の招待
+        | 新規研修をスタートする場合
     hr.a-border-tint
     .card-body
       .card__description
         .a-short-text.is-sm
           p
-            | 貴社の研修生を追加する場合は、
+            | 新規研修をお考えの企業様には、ビデオチャットで個別ヒヤリングを行います。
+            | このヒヤリングで研修生の現在のスキル、希望する研修期間、目標とするスキルセットを確認し、
+            | それに応じたカスタマイズカリキュラムを準備します。
+            | これにより、各参加者が目標に向かって効率的に学習できるよう支援します。
+          p
+            | まずは、
             = link_to '相談部屋', talk_path(current_user.talk, anchor: 'latest-comment')
             | からご連絡をお願い致します。
-          p
-            | 研修を受けさせることを検討中の方の現状のスキル、研修期間、研修で身に付けさせたいスキルを
-            | ビデオチャットでヒヤリングさせていただき、独自のカリキュラムを作成致します。
     hr.a-border-tint
     footer.card-footer
       .card-main-actions

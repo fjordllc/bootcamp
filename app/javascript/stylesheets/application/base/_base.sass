@@ -8,14 +8,20 @@ body.is-application
   background-color: var(--background)
 
 body.is-piyo-background
-  background-color: var(--main)
-  background-image: url(https://bootcamp.fjord.jp/images/background/error-background-main-color.svg)
-  background-repeat: repeat
-  overflow-y: auto
-  +media-breakpoint-up(md)
-    background-size: 5rem
-  +media-breakpoint-down(sm)
-    background-size: 4.5rem
+  &::before
+    content: ''
+    +position(fixed, left 0, top 0, right 0, bottom 0)
+    +size(100%)
+    background-image: url(https://bootcamp.fjord.jp/images/background/background.svg)
+    background-repeat: repeat
+    overflow-y: auto
+    opacity: .04
+    +media-breakpoint-up(md)
+      background-size: 20rem
+    +media-breakpoint-down(sm)
+      background-size: 4.5rem
+  .wrapper
+    +position(relative, 1)
 
 .wrapper
   &.is-application
@@ -29,3 +35,5 @@ body.is-piyo-background
   body.is-error-page &
     padding-top: 4rem
     overflow-y: auto
+  body.is-thanks-page &
+    padding-block: 4rem
