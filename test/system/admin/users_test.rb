@@ -352,4 +352,16 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert has_checked_field?('user_hide_mentor_profile', visible: false)
   end
+
+  test 'administrator can set skip_practice of general users' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'UNIX (1/9)', normalize_ws: true
+    check 'UNIX', allow_label_click: true, visible: false
+    check 'Terminalの基礎を覚える', allow_label_click: true, visible: false
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'UNIX (2/9)', normalize_ws: true
+  end
 end
