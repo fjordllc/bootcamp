@@ -1,77 +1,59 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import useSWR from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
 import toast from '../toast'
 
 export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
-  const [isBookmark, setIsBookmark] = useState('')
-  let bookmarkId = null
   const bookmarkUrl = `/api/bookmarks.json?bookmarkable_type=${bookmarkableType}&bookmarkable_id=${bookmarkableId}`
+  const { data, error, isLoading, isValidating, mutate } = useSWR(
+    bookmarkUrl,
+    fetcher
+  )
+  const isBookmarked = data?.bookmarks?.length > 0
 
-  const { data, error, isLoading } = useSWR(bookmarkUrl, fetcher)
-  if (error) console.log('error')
-  if (isLoading) {
-    return (
-      <div
-        id="bookmark-button"
-        className="a-bookmark-button a-button is-sm is-block is-inactive is-muted">
-        Bookmark
-      </div>
-    )
-  }
-  useEffect(() => {
-    if (data) {
-      setIsBookmark(data.bookmarks.length > 0)
-      if (data.bookmarks.length > 0) {
-        setIsBookmark(true)
-      }
-    }
-  }, [data])
-
-  if (data) {
-    if (data.bookmarks.length > 0) {
-      bookmarkId = data.bookmarks[0].id
-    }
-  }
-
-  const bookmarkLabel = isBookmark ? 'Bookmark中' : 'Bookmark'
-  const push = () => {
-    if (isBookmark) {
-      unbookmark()
-    } else {
-      bookmark()
-    }
-  }
-
+  // もしapiから返されるデータが更新しやすいものなら
+  // mutateではOptimistic Updatesを使った方が良いです
+  // https://swr.vercel.app/ja/docs/mutation#optimistic-updates
   const bookmark = () => {
     Bootcamp.post(bookmarkUrl)
       .then(() => {
-        setIsBookmark(true)
         toast.methods.toast('Bookmarkしました！')
+        mutate()
       })
       .catch((error) => {
         console.warn(error)
       })
   }
+
   const unbookmark = () => {
-    Bootcamp.delete(`/api/bookmarks/${bookmarkId}`)
+    Bootcamp.delete(`/api/bookmarks/${data.bookmarks[0].id}`)
       .then(() => {
-        setIsBookmark(false)
         toast.methods.toast('Bookmarkを削除しました')
+        mutate()
       })
       .catch((error) => {
         console.warn(error)
       })
   }
-  return (
-    <div
+
+  if (error) console.error(error)
+
+  return isBookmarked ? (
+    <button
       id="bookmark-button"
-      className={`a-bookmark-button a-button is-sm is-block ${
-        isBookmark ? 'is-active is-main' : 'is-inactive is-muted'
-      }`}
-      onClick={() => push()}>
-      {bookmarkLabel}
-    </div>
+      disabled={isLoading || isValidating}
+      className="a-bookmark-button a-button is-sm is-block is-active is-main"
+      onClick={() => unbookmark()}>
+      Bookmark中
+    </button>
+  ) : (
+    <button
+      id="bookmark-button"
+      disabled={isLoading || isValidating}
+      className="a-bookmark-button a-button is-sm is-block is-inactive is-muted"
+      onClick={() => bookmark()}>
+      Bookmark
+    </button>
   )
 }

@@ -17,7 +17,7 @@ export default function ReportTemplate({ templateDescription, templateId }) {
       report.value = registeredTemplate
       TextareaInitializer.initialize('.js-report-content')
     }
-  }, [])
+  }, [registeredTemplate])
 
   const replaceReport = (e) => {
     e.preventDefault()

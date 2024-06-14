@@ -96,4 +96,5 @@ mounter.mount()
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true)
 const ReactRailsUJS = require('react_ujs')
+// eslint-disable-next-line react-hooks/rules-of-hooks
 ReactRailsUJS.useContext(componentRequireContext)
