@@ -1,10 +1,10 @@
 .card-list__items
   .card-list__label
-    | #{I18n.t("dates.#{events_group[:date_key]}")}開催
-  - if events_group[:events].present?
-    - events_group[:events].each do |event|
+    | #{I18n.t("dates.#{events_group.date_key}")}開催
+  - if events_group.events.present?
+    - events_group.events.each do |event|
       = render 'events/upcoming_event', event: event
   - else
     .card-list-item
       .card-list-item__empty
-        | #{I18n.t("dates.#{events_group[:date_key]}")}開催のイベントはありません。
+        | #{I18n.t("dates.#{events_group.date_key}")}開催のイベントはありません。

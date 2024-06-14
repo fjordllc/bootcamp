@@ -8,7 +8,7 @@ class UpcomingEventTest < ActiveSupport::TestCase
     @regular_event = regular_events(:regular_event1)
   end
 
-  test '.build_upcoming_events_groups' do
+  test '.upcoming_events_groups' do
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       today_events = [
         events(:event27),
@@ -26,19 +26,19 @@ class UpcomingEventTest < ActiveSupport::TestCase
         regular_events(:regular_event7)
       ]
 
-      upcoming_events_groups = UpcomingEvent.build_upcoming_events_groups
+      upcoming_events_groups = UpcomingEvent.upcoming_events_groups
 
-      assert_equal :today, upcoming_events_groups.first[:date_key]
+      assert_equal :today, upcoming_events_groups.first.date_key
       expected_today_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
-      assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first[:events]
+      assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first.events
 
-      assert_equal :tomorrow, upcoming_events_groups[1][:date_key]
+      assert_equal :tomorrow, upcoming_events_groups[1].date_key
       expected_tomorrow_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
-      assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1][:events]
+      assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1].events
 
-      assert_equal :day_after_tomorrow, upcoming_events_groups[2][:date_key]
+      assert_equal :day_after_tomorrow, upcoming_events_groups[2].date_key
       expected_day_after_tomorrow_events = day_after_tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow + 1.day) }
-      assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2][:events]
+      assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2].events
     end
   end
 

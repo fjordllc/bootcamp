@@ -17,7 +17,7 @@ class UpcomingEvent
       %i[original_event title].all? { |attr| public_send(attr) == other.public_send(attr) }
   end
 
-  def self.build_upcoming_events_groups
+  def self.upcoming_events_groups
     %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
   end
 
@@ -56,7 +56,7 @@ class UpcomingEvent
       date = date_key_to_date_class(date_key)
       upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
 
-      { date_key:, events: upcoming_events.sort_by(&:scheduled_date_with_start_time) }
+      UpcomingEventsGroup.new(date_key, upcoming_events.sort_by(&:scheduled_date_with_start_time))
     end
 
     def date_key_to_date_class(date_key)
