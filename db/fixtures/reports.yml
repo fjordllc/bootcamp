@@ -331,7 +331,6 @@ report87:
     なかなか頑張れていない
   reported_on: <%= Time.now - 1.month - 11.day %>
 
-
 report88:
   user: yameo
   title: "退会済みユーザーの日報2"
