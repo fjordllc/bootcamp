@@ -329,4 +329,12 @@ class PracticesTest < ApplicationSystemTestCase
 
     assert_no_selector '.a-card', text: '概要'
   end
+
+  test 'see skip practices as a trainee' do
+    visit_with_auth course_practices_path(courses(:course1)), 'kensyu'
+    assert_link('スキップ', href: "/practices/#{practices(:practice5).id}")
+    visit_with_auth "/practices/#{practices(:practice5).id}", 'kensyu'
+
+    assert_text 'このプラクティスはスキップしてください。'
+  end
 end
