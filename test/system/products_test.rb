@@ -708,4 +708,12 @@ class ProductsTest < ApplicationSystemTestCase
     assert_selector '.page-tabs__item-link.is-active', text: '提出物'
     assert_link '内容修正'
   end
+
+  test 'display the skip practices after click on user-info tab' do
+    visit_with_auth "/products/#{products(:product13).id}", 'komagata'
+    find('#side-tabs-nav-3').click
+    assert_text 'スキップするプラクティス一覧'
+    assert_text 'Linuxのファイル操作の基礎を覚える'
+    assert_text 'viのチュートリアルをやる'
+  end
 end
