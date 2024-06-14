@@ -50,7 +50,7 @@ class HomeController < ApplicationController
   end
 
   def display_events_on_dashboard
-    @upcoming_events_groups = UpcomingEvent.build_upcoming_events_groups
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
 
   def display_welcome_message_for_adviser

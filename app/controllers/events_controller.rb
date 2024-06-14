@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
   def index
-    @upcoming_events_groups = UpcomingEvent.build_upcoming_events_groups
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
 
   def show
