@@ -64,6 +64,7 @@ import '../micro-reports.js'
 import '../answer.js'
 import '../new-answer.js'
 import '../coding-test.js'
+import '../footprints.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
@@ -72,6 +73,7 @@ import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
 import Footprints from '../components/footprints.vue'
+import QuestionAnswers from '../components/question-answers.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
@@ -85,6 +87,7 @@ mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
 mounter.addComponent(Footprints)
+mounter.addComponent(QuestionAnswers)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(ActionCompletedButton)
