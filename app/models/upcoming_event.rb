@@ -17,10 +17,6 @@ class UpcomingEvent
       %i[original_event title].all? { |attr| public_send(attr) == other.public_send(attr) }
   end
 
-  def self.upcoming_events_groups
-    %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
-  end
-
   def held_on_scheduled_date?
     return true if @event_type == Event
 
@@ -50,6 +46,10 @@ class UpcomingEvent
   end
 
   class << self
+    def upcoming_events_groups
+      %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
+    end
+
     private
 
     def build_group(date_key)
