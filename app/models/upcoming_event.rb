@@ -46,18 +46,18 @@ class UpcomingEvent
   end
 
   class << self
-    def upcoming_events_groups
-      %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
-    end
-
-    private
-
     def build_group(date_key)
       date = date_key_to_date_class(date_key)
       upcoming_events = original_events_scheduled_on(date).map { |e| UpcomingEvent.new(e, date) }
 
       UpcomingEventsGroup.new(date_key, upcoming_events.sort_by(&:scheduled_date_with_start_time))
     end
+
+    def upcoming_events_groups
+      %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
+    end
+
+    private
 
     def date_key_to_date_class(date_key)
       table = {
