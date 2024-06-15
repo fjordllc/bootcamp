@@ -3,5 +3,8 @@
 		dt.card-counts__item-label
 			= t("target.#{target}")
 		dd.card-counts__item-value
-			= link_to target_users.size, company_users_path(target:, company_id:), class: 'card-counts__item-value-link'
+			- if target_users.present?
+				= link_to target_users.size, company_users_path(target:, company_id:), class: 'card-counts__item-value-link'
+			- else
+				= "0"
 
