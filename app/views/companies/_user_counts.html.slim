@@ -1,34 +1,8 @@
+- allowed_targets = %w[admin mentor student_and_trainee adviser]
+
 .card-counts.is-user
   dl.card-counts__items
-    - unless users.mentor.empty?
-      .card-counts__item
-        .card-counts__item-inner
-          dt.card-counts__item-label
-            | メンター
-          dd.card-counts__item-value
-            = link_to_company_users_path(company, target: 'mentor')
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | アドバイザー
-        dd.card-counts__item-value
-          - if users.unretired.advisers.present?
-            = link_to_company_users_path(company, target: 'advisers')
-          - else
-            = 0
-    .card-counts__item
-      .card-counts__item-inner
-        dt.card-counts__item-label
-          | 現役生
-        dd.card-counts__item-value
-          - if users.students_and_trainees.present?
-            = link_to_company_users_path(company, target: 'students_and_trainees')
-          - else
-            = 0
-    - unless users.admins.empty?
-      .card-counts__item
-        .card-counts__item-inner
-          dt.card-counts__item-label
-            | 管理者
-          dd.card-counts__item-value
-            = link_to_company_users_path(company, target: 'admins')
+    - allowed_targets.each do |target|
+      - next if target == "admin" && users.admins.empty?
+      - next if target == "mentor" && users.mentor.empty?
+      = render 'user_target', company_id: company.id, target:, target_users: users.unretired.users_role(target, allowed_targets:)
