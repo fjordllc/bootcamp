@@ -8,6 +8,7 @@ class UpcomingEventTest < ActiveSupport::TestCase
     @regular_event = regular_events(:regular_event1)
   end
 
+  # not testing '.build_group' because this method is used in '.upcoming_events_grpups'.
   test '.upcoming_events_groups' do
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       today_events = [
@@ -28,16 +29,16 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
       upcoming_events_groups = UpcomingEvent.upcoming_events_groups
 
-      assert_equal :today, upcoming_events_groups.first.date_key
       expected_today_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
+      assert_equal :today, upcoming_events_groups.first.date_key
       assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first.events
 
-      assert_equal :tomorrow, upcoming_events_groups[1].date_key
       expected_tomorrow_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
+      assert_equal :tomorrow, upcoming_events_groups[1].date_key
       assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1].events
 
-      assert_equal :day_after_tomorrow, upcoming_events_groups[2].date_key
       expected_day_after_tomorrow_events = day_after_tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow + 1.day) }
+      assert_equal :day_after_tomorrow, upcoming_events_groups[2].date_key
       assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2].events
     end
   end
