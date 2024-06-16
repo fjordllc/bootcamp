@@ -3,6 +3,5 @@
 .card-counts.is-user
   dl.card-counts__items
     - allowed_targets.each do |target|
-      - next if target == "admin" && users.admins.empty?
-      - next if target == "mentor" && users.mentor.empty?
+      - next if (target == "admin" && users.admins.empty?) || (target == "mentor" && users.mentor.empty?)
       = render 'user_target', company_id: company.id, target:, target_users: users.unretired.users_role(target, allowed_targets:)
