@@ -31,7 +31,7 @@
             = f.select(:checker_id, User.where(mentor: true).where(retired_on: nil).pluck(:login_name, :id).sort, { include_blank: true }, { class: 'js-select2' })
 
   .form-actions
-    ul.form-actions__items.is-ais-flex-start
+    ul.form-actions__items
       li.form-actions__item.is-main.has-help
         = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
         .form-actions__item-help
