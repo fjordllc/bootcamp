@@ -60,7 +60,7 @@
                 = f.label :user_id, '作成者', class: 'a-form-label'
                 .select-user
                   - if question.new_record?
-                    = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, { selected: current_user },
+                    = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, { selected: current_user.id },
                                           { class: 'js-choices-singles', id: 'js-choices-user' })
                   - else
                     = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, {},
