@@ -9,3 +9,7 @@ course2:
 course3:
   title: iOSプログラマー
   description: "iOS, Swiftを学んでiOSプログラマーになろう。"
+
+course4:
+  title: フロントエンドエンジニア
+  description: "JavaScriptやTypeScriptなどを学んでフロントエンドエンジニアになろう。"

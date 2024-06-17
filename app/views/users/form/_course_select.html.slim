@@ -1,57 +1,20 @@
 .form-item
-  = f.label :course_id, 'コースを選択してください', class: 'a-form-label is-required'
+  = f.label :course_id, '選択中のコース', class: 'a-form-label is-required'
   .form-item__groups
     .form-item-group
       .form-item-group__body
-        - Course.all.find_each do |course|
-          ul.block-checks.is-2-items
-            li.block-checks__item
-              .a-block-check.is-radio
-                = f.radio_button :course_id, course.id, id: "course_#{course.id}", class: 'a-toggle-checkbox'
-                label.a-block-check__label.is-ta-left(for="course_#{course.id}")
-                  span.a-block-check__name
-                    = course.title
-          .a-form-help
-            - case course.title
-            - when 'Railsプログラマー'
-              label.a-form-help-link.is-danger(for='modal-rails')
-                span.a-form-help-link__label
-                  | Railsプログラマーコースとは
-                span.a-help
-                  i.fa-solid.fa-question
-              = render '/shared/modal',
-                id: 'modal-rails',
-                modal_title: 'Railsプログラマーとは'
-                .modal__description.is-md
-                  .a-long-text
-                    p
-                      = course.description
-            - when 'Unityゲームプログラマー'
-              label.a-form-help-link.is-danger(for='modal-unity')
-                span.a-form-help-link__label
-                  | Unityゲームプログラマーコースとは
-                span.a-help
-                  i.fa-solid.fa-question
-              = render '/shared/modal',
-                id: 'modal-unity',
-                modal_title: 'Unityゲームプログラマーとは'
-                .modal__description.is-md
-                  .a-long-text
-                    p
-                      = course.description
-            - when 'iOSプログラマー'
-              label.a-form-help-link.is-danger(for='modal-ios')
-                span.a-form-help-link__label
-                  | iOSプログラマーコースとは
-                span.a-help
-                  i.fa-solid.fa-question
-              = render '/shared/modal',
-                id: 'modal-ios',
-                modal_title: 'iOSプログラマーとは'
-                .modal__description.is-md
-                  .a-long-text
-                    p
-                      = course.description
+        .selected-item
+          - course = find_course(params[:course_id])
+          = render 'users/form/course_selection', course: course, f: f
+          = render '/shared/modal',
+            id: 'modal-course-description',
+            modal_title: "#{course.title}コース"
+            .modal__description.is-md
+              .a-long-text.is-md.js-markdown-view
+                = course.description
+              .a-long-text.is-md
+                h3
+                  | カリキュラム一覧
+                = render 'users/form/course_practice_list', course: course
 
-      .form-item-group__link.text-right
-        = link_to 'コース一覧を表示する', courses_path
+hr.a-border.mb-8
