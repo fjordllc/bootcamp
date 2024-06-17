@@ -38,3 +38,9 @@
           | まだ作成途中
       li.form-actions__item.is-main.has-help
         = f.submit '提出する', class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub.has-help
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', practice_path(params[:practice_id]), class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', product_path, class: 'a-button is-sm is-text'
