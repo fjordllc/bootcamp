@@ -690,4 +690,18 @@ class ProductsTest < ApplicationSystemTestCase
       assert_no_selector '.a-meta__value', text: '（あと365日）'
     end
   end
+
+  test 'return practice page when click cancel on new product page' do
+    visit_with_auth "/products/new?practice_id=#{practices(:practice1).id}", 'hatsuno'
+    click_link 'キャンセル'
+    assert_selector '.page-tabs__item-link.is-active', text: 'プラクティス'
+    assert_link '提出物を作る'
+  end
+
+  test 'return wip product page when click cancel on edit product page' do
+    visit_with_auth "/products/#{products(:product5).id}/edit", 'kimura'
+    click_link 'キャンセル'
+    assert_selector '.page-tabs__item-link.is-active', text: '提出物'
+    assert_link '内容修正'
+  end
 end
