@@ -1,0 +1,13 @@
+.a-block-check.is-radio
+  = f.radio_button :course_id, course.id, checked: true, id: "course_#{course.id}", class: 'a-toggle-checkbox'
+  label.a-block-check__label.is-ta-left(for="course_#{course.id}")
+    span.a-block-check__name
+      | #{course.title}コース
+.form-actions
+  ul.form-actions__items
+    li.form-actions__item.is-main
+      label.a-button.is-md.is-secondary.is-block(for='modal-course-description')
+        | コースの内容を確認する
+    li.form-actions__item.is-main
+      = link_to courses_path, class: 'a-button is-md is-secondary is-block' do
+        | コースを選択し直す
