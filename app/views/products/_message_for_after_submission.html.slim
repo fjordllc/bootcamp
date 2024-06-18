@@ -1,8 +1,10 @@
+- product_deadline_day = ProductDeadline.first_or_create(alert_day: 4).alert_day + 2
+
 .a-page-notice.is-danger
   .container.is-md
     .a-page-notice__inner
       .a-short-text
         p
-          | #{ProductDeadline.first_or_create(alert_day: 4).alert_day + 2}日以内にメンターがレビューしますので、次のプラクティスにお進みください。
+          | #{product_deadline_day}日以内にメンターがレビューしますので、次のプラクティスにお進みください。
           br
-          | もし、#{ProductDeadline.first_or_create(alert_day: 4).alert_day + 2}日以上経ってもレビューされない場合は、メンターにお問い合わせください。
+          | もし、#{product_deadline_day}日以上経ってもレビューされない場合は、メンターにお問い合わせください。
