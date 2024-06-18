@@ -183,11 +183,7 @@ export default {
         })
 
         const json = await response.json()
-        if (
-          location.pathname === '/products/unassigned' ||
-          location.pathname === '/products/unchecked' ||
-          location.pathname === '/'
-        ) {
+        if(['/products/unassigned', '/products/unchecked', '/'].includes(location.pathname)) {
           this.productsGroupedByElapsedDays =
             json.products_grouped_by_elapsed_days
 
