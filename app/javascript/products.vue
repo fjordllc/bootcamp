@@ -184,9 +184,6 @@ export default {
 
         const json = await response.json()
         if(['/products/unassigned', '/products/unchecked', '/'].includes(location.pathname)) {
-          this.productsGroupedByElapsedDays =
-            json.products_grouped_by_elapsed_days
-
           const newGroups = []
           json.products_grouped_by_elapsed_days.forEach((group) => {
             const elapsedDays =
