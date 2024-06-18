@@ -154,7 +154,7 @@ export default {
     isDashboard() {
       return location.pathname === '/'
     },
-    isNotProductselectedDaysElapsed() {
+    isNotProductSelectedDaysElapsed() {
       const elapsedDays = []
       this.productsGroupedByElapsedDays.forEach((h) => {
         elapsedDays.push(h.elapsed_days)
