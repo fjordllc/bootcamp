@@ -43,3 +43,9 @@ section.welcome-member.a-card(class="is-#{page}")
               li.welcome-member-books__item
                 = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
                   = image_tag(authored_book.cover, alt: authored_book.title, class: 'welcome-member-books__item-image')
+  - if admin_login?
+    .welcome-member__actions
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            = link_to '管理者として情報変更', edit_admin_user_path(mentor), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
