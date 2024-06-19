@@ -268,14 +268,16 @@ export default {
       return (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
     },
     countAlmostPassedSelectedDays() {
-      const previousDaysElement =
-        this.productsGroupedByElapsedDays === null
-          ? undefined
-          : this.getElementNdaysPassed(this.selectedDays - 1)
-      return previousDaysElement === undefined
-        ? 0
-        : this.PassedAlmostSelectedDaysProducts(previousDaysElement.products)
-            .length
+      if (!this.productsGroupedByElapsedDays) {
+        return 0;
+      }
+
+      const previousDaysElement = this.getElementNdaysPassed(this.selectedDays - 1);
+      if (!previousDaysElement) {
+        return 0;
+      }
+
+      return this.PassedAlmostSelectedDaysProducts(previousDaysElement.products).length;
     }
   }
 }
