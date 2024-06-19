@@ -8,4 +8,8 @@ class Course < ApplicationRecord
   has_many :users, dependent: :nullify
   validates :title, presence: true
   validates :description, presence: true
+
+  def find_default_course
+    Course.find_by(title: 'Railsプログラマー')
+  end
 end
