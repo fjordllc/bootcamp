@@ -50,19 +50,12 @@ export default function Products({
     return element
   }
 
-  const countProductsGroupedBy = (elapsedDays) => {
-    const element = getElementNdaysPassed(
-      elapsedDays,
-      data.products_grouped_by_elapsed_days
-    )
-    return element === undefined ? 0 : element.products.length
-  }
-
   const isNotProductDeadlineDaysElapsed = () => {
-    const elapsedDays = []
-    data.productsGroupedByElapsedDays.forEach((group) => {
-      elapsedDays.push(group.elapsed_days)
-    })
+    if (!data || !data.products_grouped_by_elapsed_days) return true
+
+    const elapsedDays = data.products_grouped_by_elapsed_days.map(
+      (group) => group.elapsed_days
+    )
     return elapsedDays.every((day) => day < productDeadlineDay)
   }
 
@@ -86,6 +79,15 @@ export default function Products({
       existingGroup.products = existingGroup.products.concat(group.products)
     })
     return updateElapsedDays
+  }
+
+  const dataElapsedDays = data
+    ? updateElapsedDays(data.products_grouped_by_elapsed_days || [])
+    : []
+
+  const countProductsGroupedBy = (elapsedDays) => {
+    const element = getElementNdaysPassed(elapsedDays, dataElapsedDays)
+    return element ? element.products.length : 0
   }
 
   const elapsedDaysId = (elapsedDays) => {
@@ -185,15 +187,11 @@ export default function Products({
       </>
     )
   } else {
-    data.products_grouped_by_elapsed_days = updateElapsedDays(
-      data.products_grouped_by_elapsed_days
-    )
-
     return (
       <div className="page-content is-products loaded">
         <div className="page-body__columns">
           <div className="page-body__column is-main">
-            {data.products_grouped_by_elapsed_days
+            {dataElapsedDays
               .filter((group) => group.elapsed_days !== 8)
               .map((productsNDaysPassed) => {
                 return (
