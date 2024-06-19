@@ -28,6 +28,6 @@ class WelcomeController < ApplicationController
   def coc; end
 
   def courses
-    @courses = Course.all
+    @courses = Course.order(:created_at)
   end
 end
