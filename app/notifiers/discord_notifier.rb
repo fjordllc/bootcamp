@@ -33,7 +33,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     url = "https://bootcamp.fjord.jp#{path}"
 
     notification(
-      body: "お知らせ：「#{params[:announce].title}」\r#{url}",
+      body: "お知らせ：「#{params[:announce].title}」\r<#{url}>",
       name: 'ピヨルド',
       webhook_url:
     )
@@ -74,7 +74,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     held_events.each do |event|
       event_info += "#{event.title}\n"
       event_info += "時間: #{event.start_at.strftime('%H:%M')}〜#{event.end_at.strftime('%H:%M')}\n"
-      event_info += "詳細: #{Rails.application.routes.url_helpers.regular_event_url(event)}\n\n"
+      event_info += "詳細: <#{Rails.application.routes.url_helpers.regular_event_url(event)}>\n\n"
     end
     not_held_events.each do |event|
       event_info += "⚠️ #{event.title}\n"
@@ -119,7 +119,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     body = <<~TEXT.chomp
       ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
       担当：#{product_checker_discord_name}さん
-      URL： #{Rails.application.routes.url_helpers.product_url(product)}
+      URL： <#{Rails.application.routes.url_helpers.product_url(product)}>
     TEXT
 
     notification(
@@ -136,7 +136,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     body = <<~TEXT.chomp
       🎉 #{report.user.login_name}さんがはじめての日報を書きました！
       タイトル：「#{report.title}」
-      URL： #{Rails.application.routes.url_helpers.report_url(report)}
+      URL： <#{Rails.application.routes.url_helpers.report_url(report)}>
     TEXT
 
     notification(
