@@ -9,7 +9,7 @@ class Course < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
 
-  def find_default_course
+  def self.find_default_course
     Course.find_by(title: 'Railsプログラマー')
   end
 end
