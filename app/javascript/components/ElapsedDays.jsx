@@ -16,7 +16,7 @@ export default function ElapsedDays({
             className={`page-nav__item is-reply-deadline border-b-0 ${activeClass(
               countProductsGroupedBy(productDeadlineDay + 2)
             )}`}>
-            <a className="page-nav__item-link" href="#6days-elapsed">
+            <a className="page-nav__item-link" href="#deadline-alert">
               <span className="page-nav__item-link-inner">
                 {productDeadlineDay + 2}日以上経過
                 {` (${countProductsGroupedBy(productDeadlineDay + 2)})`}
@@ -27,7 +27,7 @@ export default function ElapsedDays({
             className={`page-nav__item is-reply-alert border-b-0 ${activeClass(
               countProductsGroupedBy(productDeadlineDay + 1)
             )}`}>
-            <a className="page-nav__item-link" href="#5days-elapsed">
+            <a className="page-nav__item-link" href="#second-alert">
               <span className="page-nav__item-link-inner">
                 {productDeadlineDay + 1}日経過
                 {` (${countProductsGroupedBy(productDeadlineDay + 1)})`}
@@ -38,7 +38,7 @@ export default function ElapsedDays({
             className={`page-nav__item is-reply-warning border-b-0 ${activeClass(
               countProductsGroupedBy(productDeadlineDay)
             )}`}>
-            <a className="page-nav__item-link" href="#4days-elapsed">
+            <a className="page-nav__item-link" href="#first-alert">
               <span className="page-nav__item-link-inner">
                 {productDeadlineDay}日経過
                 {` (${countProductsGroupedBy(productDeadlineDay)})`}
