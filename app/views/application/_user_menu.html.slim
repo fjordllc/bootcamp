@@ -5,6 +5,10 @@
         class: 'header-dropdown__item-link' do
         | ダッシュボード
     li.header-dropdown__item
+      = link_to user_path(id: current_user.id),
+        class: 'header-dropdown__item-link' do
+        | マイプロフィール
+    li.header-dropdown__item
       = link_to edit_current_user_path,
         class: 'header-dropdown__item-link' do
         | 登録情報変更
