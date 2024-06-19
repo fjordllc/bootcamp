@@ -58,7 +58,7 @@ export default function Products({
     return element === undefined ? 0 : element.products.length
   }
 
-  const isNotProduct4daysElapsed = () => {
+  const isNotProductDeadlineDaysElapsed = () => {
     const elapsedDays = []
     data.productsGroupedByElapsedDays.forEach((group) => {
       elapsedDays.push(group.elapsed_days)
@@ -121,7 +121,7 @@ export default function Products({
         </div>
       </>
     )
-  } else if (isDashboard() && isNotProduct4daysElapsed()) {
+  } else if (isDashboard() && isNotProductDeadlineDaysElapsed()) {
     return (
       <div className="o-empty-message loaded">
         <div className="o-empty-message__icon">
