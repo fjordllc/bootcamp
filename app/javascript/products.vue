@@ -183,36 +183,26 @@ export default {
         })
 
         const json = await response.json()
-        if(['/products/unassigned', '/products/unchecked', '/'].includes(location.pathname)) {
-          const newGroups = []
-          json.products_grouped_by_elapsed_days.forEach((group) => {
-            const elapsedDays =
-              group.elapsed_days >= this.selectedDays + 2
-                ? this.selectedDays + 2
-                : group.elapsed_days
+        if (['/products/unassigned', '/products/unchecked', '/'].includes(location.pathname)) {
+          const newGroups = json.products_grouped_by_elapsed_days.reduce((newGroups, group) => {
+            const elapsedDays = group.elapsed_days >= this.selectedDays + 2
+              ? this.selectedDays + 2
+              : group.elapsed_days
 
-            let existingGroup = newGroups.find(
-              (g) => g.elapsed_days === elapsedDays
-            )
+            let existingGroup = newGroups.find(g => g.elapsed_days === elapsedDays)
             if (!existingGroup) {
-              existingGroup = {
-                elapsed_days: elapsedDays,
-                products: []
-              }
+              existingGroup = { elapsed_days: elapsedDays, products: [] }
               newGroups.push(existingGroup)
             }
-            existingGroup.products = existingGroup.products.concat(
-              group.products
-            )
-          })
+            existingGroup.products = existingGroup.products.concat(group.products)
+            return newGroups
+          }, [])
+
           this.productsGroupedByElapsedDays = newGroups
         }
 
         this.totalPages = json.total_pages
-        this.products = []
-        json.products.forEach((product) => {
-          this.products.push(product)
-        })
+        this.products = json.products
         this.loaded = true
 
         const hash = location.hash.slice(1)
