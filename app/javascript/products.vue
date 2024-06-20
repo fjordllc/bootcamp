@@ -9,7 +9,7 @@
   p.o-empty-message__text
     | {{ title }}はありません
 
-.o-empty-message(v-else-if='isDashboard && isNotProductselectedDaysElapsed')
+.o-empty-message(v-else-if='isDashboard && isNotProductSelectedDaysElapsed')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
