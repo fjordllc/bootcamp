@@ -183,20 +183,32 @@ export default {
         })
 
         const json = await response.json()
-        if (['/products/unassigned', '/products/unchecked', '/'].includes(location.pathname)) {
-          const newGroups = json.products_grouped_by_elapsed_days.reduce((newGroups, group) => {
-            const elapsedDays = group.elapsed_days >= this.selectedDays + 2
-              ? this.selectedDays + 2
-              : group.elapsed_days
+        if (
+          ['/products/unassigned', '/products/unchecked', '/'].includes(
+            location.pathname
+          )
+        ) {
+          const newGroups = json.products_grouped_by_elapsed_days.reduce(
+            (newGroups, group) => {
+              const elapsedDays =
+                group.elapsed_days >= this.selectedDays + 2
+                  ? this.selectedDays + 2
+                  : group.elapsed_days
 
-            let existingGroup = newGroups.find(g => g.elapsed_days === elapsedDays)
-            if (!existingGroup) {
-              existingGroup = { elapsed_days: elapsedDays, products: [] }
-              newGroups.push(existingGroup)
-            }
-            existingGroup.products = existingGroup.products.concat(group.products)
-            return newGroups
-          }, [])
+              let existingGroup = newGroups.find(
+                (g) => g.elapsed_days === elapsedDays
+              )
+              if (!existingGroup) {
+                existingGroup = { elapsed_days: elapsedDays, products: [] }
+                newGroups.push(existingGroup)
+              }
+              existingGroup.products = existingGroup.products.concat(
+                group.products
+              )
+              return newGroups
+            },
+            []
+          )
 
           this.productsGroupedByElapsedDays = newGroups
         }
@@ -269,15 +281,18 @@ export default {
     },
     countAlmostPassedSelectedDays() {
       if (!this.productsGroupedByElapsedDays) {
-        return 0;
+        return 0
       }
 
-      const previousDaysElement = this.getElementNdaysPassed(this.selectedDays - 1);
+      const previousDaysElement = this.getElementNdaysPassed(
+        this.selectedDays - 1
+      )
       if (!previousDaysElement) {
-        return 0;
+        return 0
       }
 
-      return this.PassedAlmostSelectedDaysProducts(previousDaysElement.products).length;
+      return this.PassedAlmostSelectedDaysProducts(previousDaysElement.products)
+        .length
     }
   }
 }
