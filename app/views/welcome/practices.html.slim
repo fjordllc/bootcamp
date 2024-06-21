@@ -18,7 +18,7 @@
         .course-selection__descritpion
           .a-short-text
             p
-              | Railsプログラマーコースとフロントエンドプログラマーコースの2つのコースがあります。料金はどちらも同じです。
+              | Railsエンジニアコースとフロントエンドエンジニアコースの2つのコースがあります。料金はどちらも同じです。
             p
               | どちらのコースも、最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。また、どちらのコースでもチーム開発を体験できるので、実践的なスキルが身につきます。
 
@@ -28,24 +28,24 @@
           ul.course-selection-nav__items
             li.course-selection-nav__item
               = link_to '#rails-programmer-course', class: 'course-selection-nav__item-link' do
-                | Railsプログラマーコース
+                | Railsエンジニア
             li.course-selection-nav__item
               = link_to '#front-engineer-course', class: 'course-selection-nav__item-link' do
-                | フロントエンドプログラマーコース
+                | フロントエンドエンジニア
 
     .course-selection__items
       .container.is-xl
         .row.is-gutter-width-32
           .col-md-6.col-xs-12
             .course-selection-item-anchor#rails-programmer-course
-            - course = Course.find_by(title: 'Railsプログラマー')
+            - course = Course.find_by(title: 'Railsエンジニア')
             - if course
               = render('course_practices', course: course)
             - else
               p コースが見つかりませんでした。
           .col-md-6.col-xs-12
             .course-selection-item-anchor#front-engineer-course
-            - course = Course.find_by(title: 'フロントエンドプログラマー')
+            - course = Course.find_by(title: 'フロントエンドエンジニア')
             - if course
               = render('course_practices', course: course)
             - else
