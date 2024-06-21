@@ -1,15 +1,19 @@
 course1:
   title: Railsエンジニア
+<<<<<<< HEAD
   description: "Linux, Web, Ruby, Railsなどを学んでRailsエンジニアになろう。"
+=======
+  description: "Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。"
+>>>>>>> 7978661f3 (プログラマーをエンジニアに変更した)
 
 course2:
   title: Unityゲームエンジニア
   description: "Unity, C#を学んでゲームエンジニアになろう。"
 
 course3:
-  title: iOSプログラマー
-  description: "iOS, Swiftを学んでiOSプログラマーになろう。"
+  title: iOSエンジニア
+  description: "iOS, Swiftを学んでiOSエンジニアになろう。"
 
 course4:
-  title: フロントエンドプログラマー
-  description: "JavaScriptやTypeScriptなどを学んでフロントエンドプログラマーになろう。"
+  title: フロントエンドエンジニア
+  description: "JavaScriptやTypeScriptなどを学んでフロントエンドエンジニアになろう。"
