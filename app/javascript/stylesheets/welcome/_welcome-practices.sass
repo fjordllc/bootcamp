@@ -1,0 +1,21 @@
+.welcome-practices__title
+  font-weight: 700
+  text-align: center
+  +media-breakpoint-up(md)
+    +text-block(1.5rem 1.4)
+  +media-breakpoint-down(sm)
+    +text-block(1.25rem 1.4)
+
+.welcome-practices__body
+  +media-breakpoint-up(md)
+    margin-top: 1rem
+  +media-breakpoint-down(sm)
+    margin-top: .75rem
+
+.welcome-practices__item
+  display: block
+  +text-block(.875rem 1.4)
+  &:not(:last-child)
+    border-bottom: solid 1px var(--border-tint)
+    padding-bottom: .25rem
+    margin-bottom: .25rem
