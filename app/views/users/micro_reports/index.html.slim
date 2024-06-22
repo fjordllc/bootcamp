@@ -5,13 +5,12 @@
 
 = render 'users/page_tabs', user: @user
 
-
 .page-body
   .container.is-md
     - @micro_reports.each do |micro_report|
       .micro-report
-        p= micro_report.created_at.strftime('%Y/%m/%d %H:%M')
-        p= micro_report.content
+        p = micro_report.created_at.strftime('%Y/%m/%d %H:%M')
+        p = micro_report.content
         hr
 
     = render 'form', user: @user
