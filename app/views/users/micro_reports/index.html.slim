@@ -1,0 +1,17 @@
+- title "#{@user.login_name}の分報一覧"
+- set_meta_tags description: "#{@user.login_name}さんの分報一覧ページです。"
+
+= render 'users/page_title', user: @user
+
+= render 'users/page_tabs', user: @user
+
+
+.page-body
+  .container.is-md
+    - @micro_reports.each do |micro_report|
+      .micro-report
+        p= micro_report.created_at.strftime('%Y/%m/%d %H:%M')
+        p= micro_report.content
+        hr
+
+    = render 'form', user: @user

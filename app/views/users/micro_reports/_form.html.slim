@@ -1,0 +1,5 @@
+    h2 新しい分報を投稿
+    = form_with model: [user, user.micro_reports.build], local: true do |f|
+      = f.label :content, "内容"
+      = f.text_area :content, class: 'form-control'
+      = f.submit "投稿", class: 'btn btn-primary'
