@@ -10,7 +10,7 @@ class Users::MicroReportsController < ApplicationController
   def create
     @micro_report = @user.micro_reports.build(micro_report_params)
 
-    if @micro_report.save
+    if current_user == @user && @micro_report.save
       flash[:notice] = '分報を投稿しました。'
     else
       flash[:alert] = '分報の投稿に失敗しました。'
