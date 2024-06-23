@@ -41,10 +41,13 @@ class Practice < ApplicationRecord
   has_many :practices_books, dependent: :destroy
   accepts_nested_attributes_for :practices_books, reject_if: :all_blank, allow_destroy: true
 
+  has_one :model_answer, dependent: :destroy
+
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true
   validates :categories, presence: true
+  validates :need_model_answer, inclusion: [true, false]
 
   columns_for_keyword_search :title, :description, :goal
 
