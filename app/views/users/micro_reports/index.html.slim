@@ -8,14 +8,15 @@
 .page-body
   .container.is-md
     - @micro_reports.each do |micro_report|
-      .micro-report
-        p = micro_report.created_at.strftime('%Y/%m/%d %H:%M')
+        p
+          = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
+          = @user.name
+        p
+          = micro_report.created_at.strftime('%Y/%m/%d %H:%M')
         p
         .a-long-text.is-md.js-markdown-view
           = micro_report.content
-        p
-        a-border-tint
-          = render 'reactions/reactions', reactionable: micro_report
+        = render 'reactions/reactions', reactionable: micro_report
 
     - if current_user == @user
       = render 'form', user: @user
