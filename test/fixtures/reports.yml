@@ -350,11 +350,3 @@ report74:
   description: 休会します
   wip: true
   reported_on: "2019-12-31"
-
-report75:
-  user: yameo
-  title: "退会済みユーザーの日報"
-  emotion: 1
-  description: |-
-    お世話になりました
-  reported_on: <%= Time.now - 1.month - 1.day %>
