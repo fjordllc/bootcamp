@@ -37,6 +37,7 @@ ja:
       page: Docs
       question: Q&A
       product: 提出物
+      model_answer: 模範解答
       announcement: お知らせ
       article: ブログ記事
       work: 作品
@@ -145,6 +146,8 @@ ja:
         user: ユーザー
         practice: プラクティス
         body: 本文
+      model_answer:
+        description: 内容
       company:
         name: 名前
         description: 詳細
