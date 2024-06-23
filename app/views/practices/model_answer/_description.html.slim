@@ -1,0 +1,17 @@
+- if model_answer.nil?
+  .container.is-md
+    .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-smile
+      p.o-empty-message__text
+        | 模範解答はまだありません
+- else
+  .a-card
+    header.card-header
+      h2.card-header__title
+        = ModelAnswer.human_attribute_name :description
+    hr.a-border
+      .card-body.is-practice
+        .card__description
+          .a-long-text.is-md.js-markdown-view
+            = model_answer.description

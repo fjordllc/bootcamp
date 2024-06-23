@@ -1,0 +1,18 @@
+.practice.page-content
+  .a-card.is-only-mentor
+    header.card-header
+      h2.card-header__title 管理者・メンター用メニュー
+    hr.a-border
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            - if model_answer.nil?
+              = link_to new_mentor_practice_model_answer_path(practice), class: 'a-button is-sm is-secondary is-block' do
+                i.fa-solid.fa-pen
+                | 新規作成
+            - else
+              = link_to edit_mentor_practice_model_answer_path(practice, model_answer), class: 'a-button is-sm is-secondary is-block' do
+                i.fa-solid.fa-pen
+                | 編集
+
