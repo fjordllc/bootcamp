@@ -9,15 +9,13 @@
     .a-page-notice.is-muted.is-only-mentor
       .container
         .a-page-notice__inner
-          p
-            | このユーザーは退会しています。
+          p このユーザーは退会しています。
   - elsif !@report.first? && @report.latest_of_user?
     .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
       .container
         .a-page-notice__inner
           p
-            strong
-              | #{@report.interval}日
+            strong #{@report.interval}日
             | ぶりの日報です。
 
 .page-body
