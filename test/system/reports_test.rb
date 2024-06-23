@@ -756,7 +756,17 @@ class ReportsTest < ApplicationSystemTestCase
   end
 
   test 'display message to admin or mentor in report of retired user' do
-    visit_with_auth report_path(reports(:report75)), 'komagata'
+    report = Report.create!(
+      user: users(:yameo),
+      title: '退会済みユーザーの日報',
+      reported_on: '2022-01-03',
+      emotion: 'happy',
+      no_learn: true,
+      wip: false,
+      description: 'お世話になりました'
+    )
+
+    visit_with_auth report_path(report), 'komagata'
     assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
   end
 end
