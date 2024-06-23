@@ -5,6 +5,7 @@ practice1:
   memo: "「OS X Mountain Lionをクリーンインストールする」のメンターメモ"
   submission: true
   open_product: false
+  need_model_answer: true
 
 practice2:
   title: "Terminalの基礎を覚える"
