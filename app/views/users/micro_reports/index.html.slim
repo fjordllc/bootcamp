@@ -14,7 +14,8 @@
         .a-long-text.is-md.js-markdown-view
           = micro_report.content
         p
-        hr.a-border-tint
+        a-border-tint
           = render 'reactions/reactions', reactionable: micro_report
 
-    = render 'form', user: @user
+    - if current_user == @user
+      = render 'form', user: @user
