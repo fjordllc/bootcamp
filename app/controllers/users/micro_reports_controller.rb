@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Users::MicroReportsController < ApplicationController
+  PAGER_NUMBER = 25
+
   before_action :set_user
 
   def index
-    @micro_reports = @user.micro_reports.order(created_at: :desc)
+    @micro_reports = @user.micro_reports.order(created_at: :desc).page(params[:page]).per(PAGER_NUMBER)
   end
 
   def create
