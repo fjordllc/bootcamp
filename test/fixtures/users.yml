@@ -32,8 +32,8 @@ komagata:
   last_activity_at: "2014-01-01 00:00:01"
   hide_mentor_profile: false
   profile_name: "駒形 真幸"
-  profile_job: "プログラマー"
-  profile_text: "株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
+  profile_job: "エンジニア"
+  profile_text: "株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
 
 machida:
   login_name: machida
@@ -720,7 +720,7 @@ kimuramitai:
   created_at: "2022-03-28 00:00:01"
   last_activity_at: "2022-03-28 00:00:01"
   profile_name: "キムラ ミタイ"
-  profile_job: "プログラマー"
+  profile_job: "エンジニア"
   profile_text: "木村さんに似ているとよく言われます。"
   sent_student_followup_message: true
 
