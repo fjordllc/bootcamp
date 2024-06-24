@@ -316,4 +316,23 @@ categories_practice63:
 categories_practice64:
   practice: practice64
   category: category10
+
+categories_practice111_1:
+  practice: practice111
+  category: category6
+  position: 14
+
+categories_practice111_2:
+  practice: practice111
+  category: category23
+  position: 2
+
+categories_practice112_1:
+  practice: practice112
+  category: category6
+  position: 15
+
+categories_practice112_2:
+  practice: practice112
+  category: category23
   position: 3

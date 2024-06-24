@@ -488,7 +488,7 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
+    completed_practices_include_progress_size.to_f / practices_include_progress.pluck(:id).uniq.size * MAX_PERCENTAGE
   end
 
   def completed_practices_size_by_category
@@ -504,9 +504,9 @@ class User < ApplicationRecord
       .count('DISTINCT practices.id')
   end
 
-  def completed_practices_include_progress
+  def completed_practices_include_progress_size
     practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id))
+                              .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
   end
 
   def active?
