@@ -5,8 +5,7 @@
       a.category-practices-item__title-link href=practice_path(practice.id)
         - if practice.include_must_read_books?
           span.a-badge.is-danger.is-xs 要書籍
-        span.category-practices-item__title-link-label
-          = practice.title
+        span.category-practices-item__title-link-label = practice.title
     - learning = learnings.find { |l| l.practice_id == practice.id }
     - learning_status = learning ? learning.status : 'unstarted'
     a.practice-status.category-practices-item__status(
