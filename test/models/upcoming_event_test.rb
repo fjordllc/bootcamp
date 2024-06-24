@@ -26,54 +26,57 @@ class UpcomingEventTest < ActiveSupport::TestCase
         events(:event32),
         regular_events(:regular_event7)
       ]
+      today_upcoming_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
+      tomorrow_upcoming_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
+      day_after_tomorrow_upcoming_events = day_after_tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow + 1.day) }
 
       upcoming_events_groups = UpcomingEvent.upcoming_events_groups
 
-      expected_today_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
-      assert_equal :today, upcoming_events_groups.first.date_key
-      assert_equal expected_today_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups.first.events
+      assert_equal :today, upcoming_events_groups[0].date_key
+      assert_equal today_upcoming_events.sort_by(&:scheduled_date_with_start_time),
+                   upcoming_events_groups[0].events
 
-      expected_tomorrow_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
       assert_equal :tomorrow, upcoming_events_groups[1].date_key
-      assert_equal expected_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[1].events
+      assert_equal tomorrow_upcoming_events.sort_by(&:scheduled_date_with_start_time),
+                   upcoming_events_groups[1].events
 
-      expected_day_after_tomorrow_events = day_after_tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow + 1.day) }
       assert_equal :day_after_tomorrow, upcoming_events_groups[2].date_key
-      assert_equal expected_day_after_tomorrow_events.sort_by(&:scheduled_date_with_start_time), upcoming_events_groups[2].events
+      assert_equal day_after_tomorrow_upcoming_events.sort_by(&:scheduled_date_with_start_time),
+                   upcoming_events_groups[2].events
     end
   end
 
-  test '#held_on_scheduled_date? Event always be true' do
-    upcoming_special_event = UpcomingEvent.new(@special_event, @holiday)
-    assert upcoming_special_event.held_on_scheduled_date?
+  test 'if original event is Event class, upcominge event always be held on scheduled date' do
+    scheduled_date = Date.new(2024, 1, 1) # holiday
+    original = @special_event
+
+    upcoming_event = UpcomingEvent.new(original, scheduled_date)
+    assert upcoming_event.held_on_scheduled_date?
   end
 
-  test '#held_on_scheduled_date? RegularEvent is dynamic by rules' do
-    scheduled_date = Date.new(2024, 1, 1)
+  test 'if original event is RegularEvent class, whether upcoming event is held on scheduled date depends on rules' do
+    scheduled_date = Date.new(2024, 1, 1) # holiday
+    original = @regular_event
 
-    event_held_on_holidays = @regular_event.dup
-    event_held_on_holidays.hold_national_holiday = true
-    upcoming_regular_event = UpcomingEvent.new(event_held_on_holidays, scheduled_date)
-    assert upcoming_regular_event.held_on_scheduled_date?
+    original.hold_national_holiday = true
+    upcoming_event = UpcomingEvent.new(original, scheduled_date)
+    assert upcoming_event.held_on_scheduled_date?
 
-    event_closed_on_holidays = @regular_event.dup
-    event_closed_on_holidays.hold_national_holiday = false
-    upcoming_regular_event = UpcomingEvent.new(event_closed_on_holidays, scheduled_date)
-    assert_not upcoming_regular_event.held_on_scheduled_date?
+    original.hold_national_holiday = false
+    upcoming_event = UpcomingEvent.new(original, scheduled_date)
+    assert_not upcoming_event.held_on_scheduled_date?
   end
 
-  test '#scheduled_date_with_start_time Event' do
-    scheduled_date = Date.new(2019, 12, 20)
+  test '#scheduled_date_with_start_time' do
+    event_scheduled_date = Date.new(2019, 12, 20)
 
-    upcoming_event = UpcomingEvent.new(@special_event, scheduled_date)
+    upcoming_event = UpcomingEvent.new(@special_event, event_scheduled_date)
     assert_equal Time.zone.local(2019, 12, 20, 10), upcoming_event.scheduled_date_with_start_time
-  end
 
-  test '#scheduled_date_with_start_time RegularEvent' do
-    scheduled_date = Date.new(2024, 5, 5) # Sunday
+    regular_event_scheduled_date = Date.new(2024, 5, 5)
 
-    upcoming_event = UpcomingEvent.new(@regular_event, scheduled_date)
-    assert_equal Time.zone.local(2024, 5, 5, 15), upcoming_event.scheduled_date_with_start_time
+    upcoming_regular_event = UpcomingEvent.new(@regular_event, regular_event_scheduled_date)
+    assert_equal Time.zone.local(2024, 5, 5, 15), upcoming_regular_event.scheduled_date_with_start_time
   end
 
   test '#for_job_hunting?' do
