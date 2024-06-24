@@ -4,14 +4,19 @@
 = render 'users/page_title', user: @report.user
 = render 'users/page_tabs', user: @report.user
 
-- if mentor_login? && !@report.first? && @report.latest_of_user?
-  .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
-    .container
-      .a-page-notice__inner
-        p
-          strong
-            | #{@report.interval}日
-          | ぶりの日報です
+- if admin_or_mentor_login?
+  - if @report.user.retired_on?
+    .a-page-notice.is-muted.is-only-mentor
+      .container
+        .a-page-notice__inner
+          p このユーザーは退会しています。
+  - elsif !@report.first? && @report.latest_of_user?
+    .a-page-notice.is-only-mentor(class="#{@report.interval >= 10 ? 'is-danger' : ''}")
+      .container
+        .a-page-notice__inner
+          p
+            strong #{@report.interval}日
+            | ぶりの日報です。
 
 .page-body
   .container.is-xxl
