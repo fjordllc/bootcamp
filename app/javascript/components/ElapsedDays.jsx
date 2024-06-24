@@ -28,9 +28,9 @@ export default function ElapsedDays({
     <nav className="page-body__column is-sub">
       <div className="page-nav a-card">
         <ol className="page-nav__items elapsed-days">
-          {renderElapsedDay(+2, 'deadline-alert', 'deadline', '以上')}
-          {renderElapsedDay(+1, 'second-alert', 'alert')}
-          {renderElapsedDay(0, 'first-alert', 'warning')}
+          {renderElapsedDay(2, `${productDeadlineDay + 2}days-elapsed`, 'deadline', '以上')}
+          {renderElapsedDay(1, `${productDeadlineDay + 1}days-elapsed`, 'alert')}
+          {renderElapsedDay(0, `${productDeadlineDay}days-elapsed`, 'warning')}
           {Array.from(
             { length: productDeadlineDay - 1 },
             (_, index) => index + 1
