@@ -80,7 +80,9 @@ export default function Products({
     return updateElapsedDays
   }
 
-  const dataElapsedDays = updateElapsedDays(data?.products_grouped_by_elapsed_days || [])
+  const dataElapsedDays = updateElapsedDays(
+    data?.products_grouped_by_elapsed_days || []
+  )
 
   const countProductsGroupedBy = (elapsedDays) => {
     const element = getElementNdaysPassed(elapsedDays, dataElapsedDays)
