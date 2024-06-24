@@ -1,0 +1,9 @@
+p
+  = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
+  = @user.name
+p
+  = micro_report.created_at.strftime('%Y/%m/%d %H:%M')
+p
+.a-long-text.is-md.js-markdown-view
+  = micro_report.content
+= render 'reactions/reactions', reactionable: micro_report
