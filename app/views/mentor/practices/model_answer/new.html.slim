@@ -1,0 +1,17 @@
+ruby:
+  practice_title = @practice.title
+  category = @practice.category(current_user.course)
+
+- title "「#{practice_title}」の模範解答"
+- set_meta_tags description: "プラクティス「#{practice_title}」の模範解答です。"
+
+= render '/practices/page_header', title: practice_title, category:
+= render 'page_tabs', resource: @practice
+
+h1.page-content-header__title
+  = title
+
+  hr.a-border
+  .page-body
+    .container.is-xxl
+      = render 'form', practice: @practice, model_answer: @model_answer
