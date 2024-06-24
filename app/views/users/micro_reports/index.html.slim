@@ -10,15 +10,7 @@
     .card-list.a-card
       - @micro_reports.each do |micro_report|
         .card-list-item
-          p
-            = image_tag @user.avatar_url, class: 'admin-table__user-icon a-user-icon'
-            = @user.name
-          p
-            = micro_report.created_at.strftime('%Y/%m/%d %H:%M')
-          p
-          .a-long-text.is-md.js-markdown-view
-            = micro_report.content
-          = render 'reactions/reactions', reactionable: micro_report
+          = render 'micro_report', micro_report: micro_report
 
     - if current_user == @user
       = render 'form', user: @user
