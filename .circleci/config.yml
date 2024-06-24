@@ -13,7 +13,7 @@ jobs:
       - ruby/install-deps
       - node/install:
           install-yarn: true
-          node-version: '20.9.0'
+          node-version: '20.15.0'
       - node/install-packages:
           pkg-manager: yarn
   check:
@@ -39,7 +39,7 @@ jobs:
           command: FAIL_ON_ERROR=1 bundle exec rake traceroute
       - node/install:
           install-yarn: true
-          node-version: '20.9.0'
+          node-version: '20.15.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -75,7 +75,7 @@ jobs:
           clean-bundle: true
       - node/install:
           install-yarn: true
-          node-version: '20.9.0'
+          node-version: '20.15.0'
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -93,7 +93,7 @@ jobs:
       - run:
           name: Assets precompile
           command: 'bundle exec rails assets:clean assets:precompile NODE_OPTIONS=--openssl-legacy-provider'
-      - run:  
+      - run:
           command: 'gem install stringio -v 3.1.0'
       - run:
           name: Test
