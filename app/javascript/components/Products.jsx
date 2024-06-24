@@ -53,10 +53,9 @@ export default function Products({
   const isNotProductDeadlineDaysElapsed = () => {
     if (!data || !data.products_grouped_by_elapsed_days) return true
 
-    const elapsedDays = data.products_grouped_by_elapsed_days.map(
-      (group) => group.elapsed_days
+    return !data.products_grouped_by_elapsed_days.some(
+      (group) => group.elapsed_days >= productDeadlineDay
     )
-    return elapsedDays.every((day) => day < productDeadlineDay)
   }
 
   const updateElapsedDays = (productsGroupedByElapsedDays) => {
