@@ -25,6 +25,7 @@ class Practice::ModelAnswerTest < ApplicationSystemTestCase
 
   test 'mentor can create model answer' do
     practice = practices(:practice2)
+    practice.model_answer = nil
 
     visit_with_auth new_mentor_practice_model_answer_path(practice), 'komagata'
     fill_in '内容', with: '模範解答内容です。'
@@ -41,5 +42,16 @@ class Practice::ModelAnswerTest < ApplicationSystemTestCase
     assert_current_path practice_model_answer_path(@practice)
     assert_text '「OS X Mountain Lionをクリーンインストールする」の模範解答'
     assert_text '新しい模範解答内容です。'
+  end
+
+  test 'student cannnot accsess new and edit page' do
+    login_user('kimura', 'testtest')
+    visit edit_mentor_practice_model_answer_path(@practice)
+    assert_text '管理者・メンターとしてログインしてください'
+
+    practice = practices(:practice2)
+    practice.model_answer = nil
+    visit new_mentor_practice_model_answer_path(practice)
+    assert_text '管理者・メンターとしてログインしてください'
   end
 end
