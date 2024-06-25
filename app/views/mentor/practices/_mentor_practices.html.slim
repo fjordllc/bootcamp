@@ -9,6 +9,8 @@
         th.admin-table__label
           | 提出物
         th.admin-table__label
+          | 模範解答
+        th.admin-table__label
           | 日報
         th.admin-table__label
           | Q&A
@@ -32,6 +34,14 @@
             td.admin-table__item-value.is-text-align-center
               span.admin-table__item-blank
                 | 不要
+          - if practice.need_model_answer
+            td.admin-table__item-value.is-text-align-right
+              = link_to practice_model_answer_path(practice) do
+                | あり
+          - else
+            td.admin-table__item-value.is-text-align-center
+              span.admin-table__item-blank
+                | なし
           td.admin-table__item-value.is-text-align-right
             = link_to practice_reports_path(practice) do
               = practice.reports.size
