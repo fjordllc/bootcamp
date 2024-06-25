@@ -2,8 +2,6 @@
 
 module SignupHelper
   def find_course(course_id)
-    Course.find(course_id)
-  rescue ActiveRecord::RecordNotFound
-    Course.find_default_course
+    Course.find_by(id: course_id) || Course.default_course
   end
 end
