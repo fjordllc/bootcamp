@@ -52,7 +52,7 @@
             = f.label :tag_list, 'タグを入力してください', class: 'a-form-label'
             = render partial: 'tags_input', locals: { taggable: @question }
 
-      - if admin_login? || current_user.mentor?
+      - if admin_or_mentor_login?
         .form-item.is-only-mentor
           .row
             .col-md-3.col-xs-12
