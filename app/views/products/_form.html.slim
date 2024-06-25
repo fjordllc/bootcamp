@@ -41,6 +41,7 @@
       li.form-actions__item.is-sub.has-help
         - case params[:action]
         - when 'new', 'create'
-          = link_to 'キャンセル', practice_path(params[:practice_id]), class: 'a-button is-sm is-text'
+          - cancel_link_path = practice_path(params[:practice_id])
         - when 'edit', 'update'
-          = link_to 'キャンセル', product_path, class: 'a-button is-sm is-text'
+          - cancel_link_path = product_path
+        = link_to 'キャンセル', cancel_link_path, class: 'a-button is-sm is-text'
