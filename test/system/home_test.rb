@@ -64,7 +64,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
 
-    users(:hatsuno).update!(after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。')
+    users(:hatsuno).update!(after_graduation_hope: 'ITジェンダーギャップ問題を解決するアプリケーションを作る事業に、ITとして携わる。')
     refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
@@ -553,7 +553,7 @@ class HomeTest < ApplicationSystemTestCase
   test 'toggles_mentor_profile_visibility' do
     visit '/'
     assert_text '駒形 真幸'
-    assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    assert_text '株式会社ロッカの代表兼ITエンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth edit_current_user_path, 'komagata'
     check 'プロフィール非公開', allow_label_click: true
     click_on '更新する'
@@ -561,6 +561,6 @@ class HomeTest < ApplicationSystemTestCase
     logout
     visit '/'
     assert_no_text '駒形 真幸'
-    assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    assert_no_text '株式会社ロッカの代表兼ITエンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
   end
 end
