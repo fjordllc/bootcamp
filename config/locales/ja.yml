@@ -127,6 +127,7 @@ ja:
         goal: 終了条件
         target: ターゲット
         submission: 提出物
+        model_answer: 模範解答
         progress: 進捗の計算
         completion_image: 修了おめでとう画像
         categories: カテゴリー
