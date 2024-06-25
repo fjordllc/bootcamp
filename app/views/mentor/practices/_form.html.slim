@@ -94,6 +94,18 @@
           = f.label :open_product
             | OKをもらっていない人も提出物を見られるようにする場合はチェック
   .form-item
+    = f.label :model_answer, class: 'a-form-label'
+    .checkboxes
+      ul.checkboxes__items
+        li.checkboxes__item
+          = f.check_box :need_model_answer, class: 'a-toggle-checkbox'
+          = f.label :need_model_answer
+            | 模範解答がある場合はチェック
+    .a-form-help
+      p
+        | チェックを入れると、新しく「模範解答」タブが追加されます。
+        | 模範解答の作成はそちらから行ってください。
+  .form-item
     = f.label :progress, class: 'a-form-label'
     .checkboxes
       ul.checkboxes__items
