@@ -15,7 +15,7 @@ class WelcomeController < ApplicationController
   def training; end
 
   def practices
-    @categories = Course.find_by(title: Course::DEFAULT_COURSE).categories.preload(:practices).order(:position)
+    @categories = Course.default_course.categories.preload(:practices).order(:position)
   end
 
   def tos; end
