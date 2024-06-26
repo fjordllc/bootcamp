@@ -3,4 +3,4 @@
 require "stripe"
 
 Stripe.api_key = Rails.application.secrets[:stripe][:secret_key]
-Stripe.api_version = "2018-11-08"
+Stripe.api_version = "2023-10-16"
