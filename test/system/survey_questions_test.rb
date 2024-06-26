@@ -44,7 +44,7 @@ class SurveyQuestionsTest < ApplicationSystemTestCase
     fill_in 'survey_question[title]', with: '就職についてどんな不安を抱えていますか？'
     choose 'チェックボックス', allow_label_click: true
     click_link '追加'
-    find("input[name*='[choices]']").set('ITエンジニアとしてやっていけるか不安')
+    find("input[name*='[choices]']").set('プログラマーとしてやっていけるか不安')
     fill_in 'survey_question[check_box_attributes][title_of_reason]', with: 'その他の内容を教えてください。'
     click_button '保存'
     assert_text 'チェックボックス'
