@@ -12,6 +12,6 @@ class Course < ApplicationRecord
   validates :description, presence: true
 
   def self.default_course
-    Course.find_by(title: DEFAULT_COURSE)
+    find_by(title: DEFAULT_COURSE)
   end
 end
