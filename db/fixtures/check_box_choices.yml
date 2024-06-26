@@ -7,7 +7,7 @@ check_box_choice1:
 
 check_box_choice2:
   check_box: check_box1
-  choices: "ITエンジニアとしてやっていけるか不安"
+  choices: "プログラマーとしてやっていけるか不安"
   reason_for_choice_required: false
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
