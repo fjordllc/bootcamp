@@ -3,6 +3,21 @@
 require 'application_system_test_case'
 
 class Mentor::Practices::ModelAnswerTest < ApplicationSystemTestCase
+  test 'model answer page tab is added if mentor sets practice to need model answer' do
+    practice = practices(:practice2)
+    practice.model_answer = nil
+
+    visit_with_auth practice_path(practice), 'komagata'
+    assert_no_text '模範解答'
+    click_on '編集'
+    check '模範解答がある場合はチェック', allow_label_click: true
+    click_on '更新する'
+    assert_text '模範解答'
+
+    click_on '模範解答'
+    assert_current_path practice_model_answer_path(practice)
+  end
+
   test 'mentor can create model answer' do
     practice = practices(:practice2)
     practice.model_answer = nil
