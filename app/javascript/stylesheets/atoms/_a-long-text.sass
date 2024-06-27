@@ -10,6 +10,16 @@
       font-size: .8125rem
     +media-breakpoint-down(sm)
       font-size: .75rem
+  &.has-no-headding
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+      +text-block(1em 1.6 0 .625em, 600)
+      border: none
+      padding: 0
   .a-long-text + &
     margin-top: 2em
     padding-top: 2em

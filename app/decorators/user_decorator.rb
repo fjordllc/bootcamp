@@ -29,11 +29,11 @@ module UserDecorator
   end
 
   def completed_fraction
-    "修了: #{completed_practices.size} （必須: #{completed_practices_include_progress.size}/#{practices_include_progress.size}）"
+    "修了: #{completed_practices.size} （必須: #{completed_practices_include_progress_size}/#{practices_include_progress.pluck(:id).uniq.size}）"
   end
 
   def completed_fraction_in_metas
-    "#{completed_practices.size} （必須:#{completed_practices_include_progress.size}）"
+    "#{completed_practices.size} （必須:#{completed_practices_include_progress_size}）"
   end
 
   def customer_url
