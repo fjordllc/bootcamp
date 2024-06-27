@@ -7,8 +7,8 @@ course2:
   description: "Unity, C#を学んでゲームエンジニアになろう。"
 
 course3:
-  title: iOSプログラマー
-  description: "iOS, Swiftを学んでiOSプログラマーになろう。"
+  title: iOSエンジニア
+  description: "iOS, Swiftを学んでiOSエンジニアになろう。"
 
 course4:
   title: フロントエンドエンジニア
