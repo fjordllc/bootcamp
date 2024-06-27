@@ -104,6 +104,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal old_percentage, user.completed_percentage
   end
 
+  test '#required_practices_size' do
+    user = users(:kensyu)
+    assert_equal 50, user.required_practices_size
+  end
+
   test '#depressed?' do
     user = users(:kimura)
 
