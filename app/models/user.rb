@@ -529,7 +529,11 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    completed_practices_include_progress_size.to_f / practices_include_progress.pluck(:id).uniq.size * MAX_PERCENTAGE
+    completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
+  end
+
+  def required_practices_size
+    practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
   end
 
   def completed_practices_size_by_category
@@ -545,7 +549,7 @@ class User < ApplicationRecord
       .count('DISTINCT practices.id')
   end
 
-  def completed_practices_include_progress_size
+  def completed_required_practices_size
     practices_include_progress.joins(:learnings)
                               .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
   end
@@ -925,5 +929,9 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def required_practices_size_with_skip
+    course.practices.where(id: skip_practice_ids, include_progress: true).size
   end
 end
