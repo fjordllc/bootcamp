@@ -7,9 +7,12 @@
   = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
+  - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
+    = render 'checked_campaign'
   .form__items
     - if !@user.adviser?
       = render 'users/form/course_select', f: f
+  .form__items
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
     - if from == :edit
