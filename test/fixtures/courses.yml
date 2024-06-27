@@ -1,10 +1,6 @@
 course1:
   title: Railsエンジニア
-<<<<<<< HEAD
   description: "Linux, Web, Ruby, Railsなどを学んでRailsエンジニアになろう。"
-=======
-  description: "Linux, Web, Ruby, Railsなどを学んでWebエンジニアになろう。"
->>>>>>> 7978661f3 (プログラマーをエンジニアに変更した)
 
 course2:
   title: Unityゲームエンジニア
