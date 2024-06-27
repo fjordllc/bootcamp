@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class User::ProductsTest < ApplicationSystemTestCase
   test 'show listing products' do
     visit_with_auth "/users/#{users(:hatsuno).id}/products", 'komagata'
-    assert_equal 'hatsunoの提出物一覧 | FBC', title
+    assert_equal 'hatsunoさんの提出物一覧 | FBC', title
   end
 
   test 'show self assigned products to mentor' do

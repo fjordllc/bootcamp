@@ -114,9 +114,9 @@ class ReportsTest < ApplicationSystemTestCase
     report_practices = page.all('.choices__item--choice').map(&:text)
     current_user = users(:komagata)
     category_ids = current_user.course.category_ids
-    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).count
+    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).distinct.count
     assert_match(/OS X Mountain Lionをクリーンインストールする/, first('.choices__item--choice').text)
-    assert_match(/sslの基礎を理解する/, all('.choices__item--choice').last.text)
+    assert_match(/企業研究/, all('.choices__item--choice').last.text)
   end
 
   test 'equal practices order in practices and edit report' do
@@ -125,9 +125,9 @@ class ReportsTest < ApplicationSystemTestCase
     report_practices = page.all('.choices__item--choice').map(&:text)
     current_user = users(:komagata)
     category_ids = current_user.course.category_ids
-    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).count
+    assert_equal report_practices.count, Practice.joins(:categories).merge(Category.where(id: category_ids)).distinct.count
     assert_match(/OS X Mountain Lionをクリーンインストールする/, first('.choices__item--choice').text)
-    assert_match(/sslの基礎を理解する/, all('.choices__item--choice').last.text)
+    assert_match(/企業研究/, all('.choices__item--choice').last.text)
   end
 
   test 'issue #360 duplicate' do
@@ -546,14 +546,14 @@ class ReportsTest < ApplicationSystemTestCase
 
   test 'display report interval for mentor while undoing wip' do
     visit_with_auth report_path(reports(:report32)), 'komagata'
-    assert_selector '.a-page-notice.is-only-mentor.is-danger', text: '10日ぶりの日報です'
+    assert_selector '.a-page-notice.is-only-mentor.is-danger', text: '10日ぶりの日報です。'
 
     visit_with_auth report_path(reports(:report33)), 'kananashi'
     click_link '内容修正'
     click_button '提出'
 
     visit_with_auth report_path(reports(:report32)), 'komagata'
-    assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です'
+    assert_no_selector '.a-page-notice.is-only-mentor.is-danger', text: '9日ぶりの日報です。'
   end
 
   test 'notify to chat after create a report' do
@@ -753,5 +753,20 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '学習時間は不正な値です'
     assert_no_text 'この日報はすでに提出済みです。'
     assert_button '提出'
+  end
+
+  test 'display message to admin or mentor in report of retired user' do
+    report = Report.create!(
+      user: users(:yameo),
+      title: '退会済みユーザーの日報',
+      reported_on: '2022-01-03',
+      emotion: 'happy',
+      no_learn: true,
+      wip: false,
+      description: 'お世話になりました'
+    )
+
+    visit_with_auth report_path(report), 'komagata'
+    assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
   end
 end

@@ -2,7 +2,12 @@
   font-size: .75rem
   color: var(--semi-muted-text)
   &:not(:first-child)
-    margin-top: .5em
+    margin-top: .5rem
+  label + &:not(:first-child)
+    margin-top: 0
+  & + input,
+  & + textarea
+    margin-top: .5rem
   em
     font-style: normal
     font-weight: 600
