@@ -44,7 +44,6 @@ class Mentor::PracticesController < ApplicationController
       :goal,
       :submission,
       :open_product,
-      :need_model_answer,
       :include_progress,
       :completion_image,
       :memo,

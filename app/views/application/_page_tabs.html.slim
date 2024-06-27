@@ -10,7 +10,7 @@
             - if @practice.submission
               = render 'page_tab', tab:
         - elsif tab[:is_model_answer_tab]
-          - if @practice.need_model_answer
+          - if @practice.model_answer
             = render 'page_tab', tab:
         - else
           = render 'page_tab', tab:
