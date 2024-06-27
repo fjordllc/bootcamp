@@ -21,8 +21,6 @@
             = link_to new_corporate_training_inquiry_path do
               | こちらの企業研修申し込みフォーム
             | からお申し込みください。
-      - if !@user.adviser? && Campaign.today_campaign?
-        = render 'checked_campaign'
       = render 'form', from: :new, url: users_path, user: @user
     hr.a-border-tint
     footer.auth-form__footer
