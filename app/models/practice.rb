@@ -47,7 +47,6 @@ class Practice < ApplicationRecord
   validates :description, presence: true
   validates :goal, presence: true
   validates :categories, presence: true
-  validates :need_model_answer, inclusion: [true, false]
 
   columns_for_keyword_search :title, :description, :goal
 
