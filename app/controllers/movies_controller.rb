@@ -24,7 +24,6 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.new(movie_params)
-    @movie.last_updated_user = current_user
     @movie.user = current_user
     set_wip
 
@@ -38,7 +37,6 @@ class MoviesController < ApplicationController
   end
 
   def update
-    @movie.last_updated_user = current_user
     if @movie.update(movie_params)
       url = Redirection.determin_url(self, @movie)
       update_published_at
