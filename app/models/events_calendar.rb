@@ -12,6 +12,6 @@ class EventsCalendar
     regular_event = RegularEvent.new
     participated_regular_events = regular_event.fetch_participated_regular_events(@user)
 
-    upcoming_speial_events + participated_regular_events
+    upcoming_special_events + participated_regular_events
   end
 end
