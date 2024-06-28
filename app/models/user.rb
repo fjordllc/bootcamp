@@ -198,6 +198,10 @@ class User < ApplicationRecord
                        message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
 
+  validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
+
+  validates :subdivision_code, inclusion: { in: ->(user) { user.subdivision_codes } }, allow_blank: true, if: -> { country_code.present? }
+
   with_options if: -> { %i[create update].include? validation_context } do
     validates :login_name, presence: true, uniqueness: true,
                            format: {
@@ -488,7 +492,7 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    completed_practices_include_progress.size.to_f / practices_include_progress.size * MAX_PERCENTAGE
+    completed_practices_include_progress_size.to_f / practices_include_progress.pluck(:id).uniq.size * MAX_PERCENTAGE
   end
 
   def completed_practices_size_by_category
@@ -504,9 +508,9 @@ class User < ApplicationRecord
       .count('DISTINCT practices.id')
   end
 
-  def completed_practices_include_progress
+  def completed_practices_include_progress_size
     practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id))
+                              .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
   end
 
   def active?
@@ -792,6 +796,11 @@ class User < ApplicationRecord
     country = ISO3166::Country[country_code]
     subdivision = country.subdivisions[subdivision_code]
     subdivision.translations[I18n.locale.to_s]
+  end
+
+  def subdivision_codes
+    country = ISO3166::Country[country_code]
+    country ? country.subdivisions.keys : []
   end
 
   def create_comebacked_comment

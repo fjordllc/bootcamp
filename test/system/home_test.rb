@@ -64,7 +64,7 @@ class HomeTest < ApplicationSystemTestCase
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
 
-    users(:hatsuno).update!(after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。')
+    users(:hatsuno).update!(after_graduation_hope: 'ITジェンダーギャップ問題を解決するアプリケーションを作る事業に、プログラマーとして携わる。')
     refresh
     assert_selector 'h2.page-header__title', text: 'ダッシュボード'
     assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
@@ -95,7 +95,7 @@ class HomeTest < ApplicationSystemTestCase
     user.discord_profile.account_name = 'hatsuno1234'
     user.update!(
       tag_list: ['猫'],
-      after_graduation_hope: 'IT ジェンダーギャップ問題を解決するアプリケーションを作る事業に、エンジニアとして携わる。'
+      after_graduation_hope: 'ITジェンダーギャップ問題を解決するアプリケーションを作る事業に、プログラマーとして携わる。'
     )
     path = Rails.root.join('test/fixtures/files/users/avatars/hatsuno.jpg')
     user.avatar.attach(io: File.open(path), filename: 'hatsuno.jpg')

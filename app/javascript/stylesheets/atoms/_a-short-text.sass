@@ -1,8 +1,8 @@
 .a-short-text
   p
-    +text-block(1em 1.7 .75em)
+    +text-block(1em 1.6 .75em)
   li
-    +text-block(1em 1.7)
+    +text-block(1em 1.6)
   ol,
   ul
     margin-left: 1.25em
@@ -26,6 +26,9 @@
       >li
         >ul
           list-style-type: square
+  a
+    +hover-link-reversal
+    +default-link
   hr
     display: block
     +size(100% 0)
@@ -37,5 +40,17 @@
     text-align: center
   &.is-sm
     font-size: .8125rem
+  &.has-no-headding
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+      +text-block(1em 1.6 0 .625em, 700)
+      border: none
+      padding: 0
   *:first-child
     margin-top: 0
+  *:last-child
+    margin-bottom: 0

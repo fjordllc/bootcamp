@@ -74,28 +74,28 @@ class UserTest < ActiveSupport::TestCase
 
   test '#completed_percentage don\'t calculate practice that include_progress: false' do
     user = users(:komagata)
-    old_percentage = user.completed_practices_include_progress.size
+    old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice5)
 
-    assert_not_equal old_percentage, user.completed_practices_include_progress.size
+    assert_not_equal old_percentage, user.completed_percentage
 
-    old_percentage = user.completed_practices_include_progress.size
+    old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice53)
 
-    assert_equal old_percentage, user.completed_practices_include_progress.size
+    assert_equal old_percentage, user.completed_percentage
   end
 
   test '#completed_percentage don\'t calculate practice unrelated cource' do
     user = users(:komagata)
-    old_percentage = user.completed_practices_include_progress.size
+    old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice5)
 
-    assert_not_equal old_percentage, user.completed_practices_include_progress.size
+    assert_not_equal old_percentage, user.completed_percentage
 
-    old_percentage = user.completed_practices_include_progress.size
+    old_percentage = user.completed_percentage
     user.completed_practices << practices(:practice55)
 
-    assert_equal old_percentage, user.completed_practices_include_progress.size
+    assert_equal old_percentage, user.completed_percentage
   end
 
   test '#depressed?' do
@@ -645,6 +645,25 @@ class UserTest < ActiveSupport::TestCase
   test '#subdivision_name' do
     assert_equal '東京都', users(:kimura).subdivision_name
     assert_equal 'ニューヨーク州', users(:tom).subdivision_name
+  end
+
+  test '#subdivision_codes' do
+    assert_equal ISO3166::Country['JP'].subdivisions.keys, users(:kimura).subdivision_codes
+    assert_equal ISO3166::Country['US'].subdivisions.keys, users(:tom).subdivision_codes
+    assert_empty users(:yameo).subdivision_codes
+  end
+
+  test 'country_code and subdivision_code must be valid ISO 3166-1 and 3166-2 code' do
+    user = users(:hatsuno)
+    user.country_code = 'invalid_country_code'
+    user.subdivision_code = nil
+    assert user.invalid?
+    user.country_code = 'ZW' # ジンバブエ
+    assert user.valid?
+    user.subdivision_code = 'invalid_subdivision_code'
+    assert user.invalid?
+    user.subdivision_code = 'BU'
+    assert user.valid?
   end
 
   test '#create_comebacked_comment' do

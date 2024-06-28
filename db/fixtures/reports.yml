@@ -322,3 +322,19 @@ report<%= i + 71 %>:
     MaruMaru Inc.で研修をしました。
   reported_on: <%= Time.now - 1.month + i.day %>
 <% end %>
+
+report87:
+  user: yameo
+  title: "退会済みユーザーの日報1"
+  emotion: 1
+  description: |-
+    なかなか頑張れていない
+  reported_on: <%= Time.now - 1.month - 11.day %>
+
+report88:
+  user: yameo
+  title: "退会済みユーザーの日報2"
+  emotion: 1
+  description: |-
+    お世話になりました
+  reported_on: <%= Time.now - 1.month - 1.day %>
