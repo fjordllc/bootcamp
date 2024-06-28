@@ -22,7 +22,7 @@ export default function MentorCourses() {
   const courses = data.courses
 
   return (
-    <div className="admin-table">
+    <div className="admin-table is-react">
       <table className="admin-table__table">
         <Header />
         <tbody className="admin-table__items">
@@ -43,7 +43,7 @@ function MentorCourse(props) {
 
   return (
     <tr className="admin-table__item">
-      <td className="admin-table__item-value">
+      <td className="admin-table__item-value w-32">
         <a href={url}>{course.title}</a>
       </td>
       <td className="admin-table__item-value">{course.description}</td>

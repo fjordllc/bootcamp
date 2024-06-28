@@ -1,5 +1,5 @@
 .col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .users-item
+  .users-item.is-rails
     .users-item__inner.a-card
       .users-item__inactive-message-container.is-only-mentor
         - if (current_user.mentor || current_user.admin) && user.student_or_trainee?
@@ -24,9 +24,6 @@
               .card-list-item__row
                 .card-list-item-title
                   .card-list-item-title__end
-                    - if user.company&.logo_url
-                      = link_to company_path(user.company) do
-                        img.user-item__company-logo src=user.company.logo_url
                     = link_to user.url, class: 'card-list-item-title__title is-lg a-text-link' do
                       | #{user.login_name}
               .card-list-item__row
@@ -35,17 +32,23 @@
                     .card-list-item-meta__item
                       .a-meta
                       | #{user.name}
+              .card-list-item__row
+                .card-list-item-meta
+                  .card-list-item-meta__items
                     .card-list-item-meta__item
                       - if user.discord_profile.times_url
                         = link_to user.discord_profile.times_url, class: 'a-meta' do
                           .a-meta__icon
                             i.fa-brands.fa-discord
                             | #{user.discord_profile.account_name}
-                      - else
+                      - elsif user.discord_profile.account_name
                         .a-meta
                           .a-meta__icon
                             i.fa-brands.fa-discord
                             | #{user.discord_profile.account_name}
+          - if user.company&.logo_url
+            = link_to company_path(user.company) do
+              img.user-item__company-logo src=user.company.logo_url
         = render 'users/sns', user: user
         - if user.student_or_trainee?
           .card-counts.is-users.mt-3
