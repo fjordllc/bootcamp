@@ -50,21 +50,6 @@ header.page-content-header
                       = image_tag 'users/avatars/ghost.png', class: 'thread-header__user-icon'
                       | ghost
 
-            - if movie.last_updated_user.present?
-              .page-content-header-metas__meta
-                .a-meta.is-updater
-                  span.a-meta__label
-                    | 更新
-                  span.a-meta__value
-                    time(datetime="#{movie.updated_at.to_datetime}")
-                      | #{l movie.updated_at}
-                    = render 'users/icon',
-                      user: movie.last_updated_user,
-                      link_class: 'thread-header__user-icon-link',
-                      image_class: 'thread-header__user-icon'
-                    = link_to movie.last_updated_user, class: 'a-user-name' do
-                      | #{movie.last_updated_user.login_name}
-
         .page-content-header-metas__end
           .page-content-header-metas
             .page-content-header-metas__meta
