@@ -503,7 +503,6 @@ ActiveRecord::Schema.define(version: 2025_03_04_062341) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "wip", default: false, null: false
     t.datetime "published_at"
-    t.integer "last_updated_user_id"
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
