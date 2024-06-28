@@ -6,18 +6,15 @@ movie1:
   description: mp4の動画です
   user: kimura
   published_at: "2024-04-09 00:00:00"
-  last_updated_user: komagata
 
 movie2:
   title: mov動画
   description: movの動画です
   user: kimura
   published_at: "2024-04-09 00:00:00"
-  last_updated_user: komagata
 
 movie3:
   title: WIPのテスト mp4
   description: WIPのテスト用です
   user: kimura
-  last_updated_user: komagata
   wip: true
