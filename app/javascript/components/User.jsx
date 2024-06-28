@@ -25,7 +25,7 @@ export default function User({ user, currentUser }) {
 
   return (
     <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
-      <div className="users-item">
+      <div className="users-item is-react">
         <div className={`users-item__inner a-card ${roleClass()}`}>
           {currentUser &&
             (currentUser.mentor || currentUser.admin) &&
