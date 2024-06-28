@@ -3,6 +3,7 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show edit update destroy]
   before_action :set_categories, only: %i[new create edit update]
+  before_action :set_wip, only: %i[update]
 
   PAGER_NUMBER = 24
 
@@ -37,7 +38,6 @@ class MoviesController < ApplicationController
   end
 
   def update
-    set_wip
     @movie.last_updated_user = current_user
     if @movie.update(movie_params)
       url = Redirection.determin_url(self, @movie)
