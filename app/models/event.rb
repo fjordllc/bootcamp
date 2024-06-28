@@ -111,14 +111,13 @@ class Event < ApplicationRecord
   end
 
   def fetch_events(user)
-    participated_events = user.participations.pluck(:event_id)
-    upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+    event_ids = fetch_event_ids(user)
 
-    participated_events = Event.where(id: participated_events & upcoming_events)
-    upcoming_events = Event.where(id: upcoming_events).where.not(id: participated_events)
+    upcoming_participated_events = Event.where(id: event_ids[:participated] & event_ids[:upcoming])
+    upcoming_non_participated_events = Event.where(id: event_ids[:upcoming]).where.not(id: event_ids[:participated])
 
-    formatted_participated_events = add_message_joined_participated_events(participated_events)
-    formatted_participated_events + upcoming_events
+    formatted_upcoming_participated_events = add_message_joined_participated_events(upcoming_participated_events)
+    formatted_upcoming_participated_events + upcoming_non_participated_events
   end
 
   private
@@ -162,6 +161,13 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
+  end
+
+  def fetch_event_ids(user)
+    participated_events = user.participations.pluck(:event_id)
+    upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+
+    { participated: participated_events, upcoming: upcoming_events }
   end
 
   def add_message_joined_participated_events(events)
