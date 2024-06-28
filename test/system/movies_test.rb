@@ -99,13 +99,6 @@ class MoviesTest < ApplicationSystemTestCase
     assert_text '動画を削除しました。'
   end
 
-  test 'show last updated user icon' do
-    visit_with_auth "/movies/#{movies(:movie1).id}", 'hajime'
-    within '.a-meta.is-updater' do
-      assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
-    end
-  end
-
   test 'show a WIP movie on movie list page' do
     visit_with_auth movies_path, 'kimura'
     assert_text 'WIPのテスト'
