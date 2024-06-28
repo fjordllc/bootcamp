@@ -149,7 +149,6 @@ const NoReports = ({ unchecked }) => {
                 </div>
               </div>
             </div>
-            <p className="o-empty-message__text">日報はまだありません。</p>
           </div>
         )}
       </div>
