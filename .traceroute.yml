@@ -34,5 +34,3 @@ ignore_unreachable_actions:
   - .*#recaptcha_enabled?
   - .*#valid_recaptcha?
   - .*#system_test_entrypoint
-  - .*#current_calendar_date
-  - .*#calendar_with_reports
