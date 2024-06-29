@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
-module CalendarHelper
-  def prev_month?(month, user)
+class Calendar::NicoNicoCalendarComponent < ViewComponent::Base
+  def initialize(user:, path:, current_date:, current_calendar:)
+    @user = user
+    @path = path
+    @current_date = current_date
+    @current_calendar = current_calendar
+  end
+
+  def prev_month?(month)
     month.beginning_of_month > user.created_at.to_date.beginning_of_month
   end
 
@@ -14,4 +21,8 @@ module CalendarHelper
   def next_month?(month)
     month.beginning_of_month < Time.zone.today.to_date.beginning_of_month
   end
+
+  private
+
+  attr_reader :user, :path, :current_date, :current_calendar
 end

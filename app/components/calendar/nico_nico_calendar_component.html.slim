@@ -6,7 +6,7 @@
   .card-body
     .card__description
       .niconico-calendar-nav
-        - if prev_month?(@current_date, user)
+        - if prev_month?(@current_date)
           = link_to send(path, niconico_calendar: @current_date.prev_month.strftime('%Y-%m')) do
             .niconico-calendar-nav__previous
               i.fa-solid.fa-angle-left
