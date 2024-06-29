@@ -7,6 +7,8 @@
 
 .page-body
   .container.is-md
+    - if current_user == @user
+      = render 'form', user: @user
     .page-content
       = paginate @micro_reports
       .card-list.a-card
@@ -14,6 +16,3 @@
           .card-list-item
             = render 'micro_report', micro_report: micro_report
       = paginate @micro_reports
-
-    - if current_user == @user
-      = render 'form', user: @user
