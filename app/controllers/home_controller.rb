@@ -47,8 +47,9 @@ class HomeController < ApplicationController
     @collegue_trainees_recent_reports = collegue_trainees_reports.order(reported_on: :desc).limit(10)
     @recent_reports = Report.with_avatar.where(wip: false).order(reported_on: :desc, created_at: :desc).limit(10)
     @collegues = current_user.collegues_other_than_self
-    @current_date = NicoNicoCalendar.current_date(params[:niconico_calendar])
-    @current_calendar = NicoNicoCalendar.with_reports(current_user, @current_date)
+    calendar = NicoNicoCalendar.new(current_user, params[:niconico_calendar])
+    @current_date = calendar.current_date
+    @current_calendar = calendar.with_reports
   end
 
   def display_events_on_dashboard
