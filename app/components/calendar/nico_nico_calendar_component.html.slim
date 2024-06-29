@@ -7,7 +7,7 @@
     .card__description
       .niconico-calendar-nav
         - if prev_month?(@current_date)
-          = link_to send(path, niconico_calendar: @current_date.prev_month.strftime('%Y-%m')) do
+          = link_to prev_month_path do
             .niconico-calendar-nav__previous
               i.fa-solid.fa-angle-left
         - else
@@ -15,7 +15,7 @@
         .niconico-calendar-nav__year--month
           = "#{@current_date.year}年#{@current_date.month}月"
         - if next_month?(@current_date)
-          = link_to send(path, niconico_calendar: @current_date.next_month.strftime('%Y-%m')) do
+          = link_to next_month_path do
             .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
         - else
