@@ -12,6 +12,10 @@ class Calendar::NicoNicoCalendarComponent < ViewComponent::Base
     month.beginning_of_month > user.created_at.to_date.beginning_of_month
   end
 
+  def prev_month_path
+    send(path, niconico_calendar: current_date.prev_month.strftime('%Y-%m'))
+  end
+
   def frame_and_background(date, emotion)
     day_class = emotion ? "is-#{emotion}" : 'is-blank'
     day_class += ' is-today' if date&.today?
@@ -20,6 +24,10 @@ class Calendar::NicoNicoCalendarComponent < ViewComponent::Base
 
   def next_month?(month)
     month.beginning_of_month < Time.zone.today.to_date.beginning_of_month
+  end
+
+  def next_month_path
+    send(path, niconico_calendar: current_date.next_month.strftime('%Y-%m'))
   end
 
   private
