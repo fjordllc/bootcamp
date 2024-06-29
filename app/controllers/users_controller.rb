@@ -38,8 +38,9 @@ class UsersController < ApplicationController
                            .where(status: 3)
                            .order(updated_at: :desc)
 
-    @current_date = NicoNicoCalendar.current_date(params[:niconico_calendar])
-    @current_calendar = NicoNicoCalendar.with_reports(@user, @current_date)
+    calendar = NicoNicoCalendar.new(@user, params[:niconico_calendar])
+    @current_date = calendar.current_date
+    @current_calendar = calendar.with_reports
 
     if logged_in?
       render :show
