@@ -1,0 +1,22 @@
+.a-block-check.is-radio
+  = f.radio_button :course_id, course.id, checked: true, id: "course_#{course.id}", class: 'a-toggle-checkbox'
+  label.a-block-check__label.is-ta-left(for="course_#{course.id}")
+    span.a-block-check__name
+      | #{course.title}コース
+- if current_user
+  .form-actions
+    .a-short-text.is-sm
+      p
+        | コースの移行を希望される場合やご相談がある場合は、
+        = link_to talk_path(current_user.talk, anchor: 'latest-comment') do
+          | 相談部屋にてお知らせください
+        | 。
+- else
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        label.a-button.is-md.is-secondary.is-block(for='modal-course-description')
+          | コースの内容を確認する
+      li.form-actions__item.is-main
+        = link_to courses_path, class: 'a-button is-md is-secondary is-block' do
+          | コースを選択し直す

@@ -36,7 +36,7 @@ header.welcome-header
                 | 紹介・言及記事
           - unless current_user
             li.welcome-header-nav__item
-              = link_to new_user_path, class: 'welcome-header-nav__item-link' do
+              = link_to courses_path, class: 'welcome-header-nav__item-link' do
                 | 参加登録
           li.welcome-header-nav__item.is-hidden-md-up
             - if current_user

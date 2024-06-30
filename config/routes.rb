@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get "courses", to: "welcome#courses", as: "courses"
   draw :scheduler
   draw :api
   draw :paper
