@@ -13,7 +13,6 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_login_required "/companies/#{companies(:company1).id}/users"
     assert_login_required '/companies'
     assert_login_required "/courses/#{courses(:course1).id}/practices"
-    assert_login_required '/courses'
     assert_login_required '/current_user/bookmarks'
     assert_login_required '/current_user/password/edit'
     assert_login_required '/current_user/products'

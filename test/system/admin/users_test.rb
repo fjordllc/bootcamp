@@ -311,10 +311,10 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'machida'
     within 'form[name=user]' do
-      select 'iOSプログラマー', from: 'user[course_id]'
+      select 'iOSエンジニア', from: 'user[course_id]'
     end
     click_on '更新する'
-    assert_equal 'iOSプログラマー', user.reload.course.title
+    assert_equal 'iOSエンジニア', user.reload.course.title
   end
 
   test 'general user cannot change user course' do
