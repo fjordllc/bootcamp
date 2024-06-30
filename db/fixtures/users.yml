@@ -11,6 +11,7 @@ komagata:
   twitter_account: komagata
   facebook_url: https://www.facebook.com/fjordllc/komagata1111
   github_account: komagata
+  github_id: github-komagata
   blog_url: http://komagata.org
   company: company1
   description: "平日１０〜１９時勤務です。"
@@ -210,6 +211,7 @@ hatsuno:
   name_kana: ハツノ シンジ
   twitter_account: hatsuno
   facebook_url: https://www.facebook.com/fjordllc/hatsuno
+  github_id: github-hatsuno
   blog_url: http://hatsuno.org
   description: "初野です。課金しています。"
   customer_id: "cus_12345678"
@@ -1442,44 +1444,3 @@ harikirio: #必修でないプラクティスも修了しているユーザー
   created_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
   last_activity_at: "2020-01-01 00:00:12"
-
-github-admintaro: # github_idを持つ管理者ユーザー
-  login_name: github-admintaro
-  email: github-admintaro@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
-  salt: zW3kQ9ubsxQQtzzzs4ap
-  name: ギットハブ アドミンタロウ
-  name_kana: ギットハブ アドミンタロウ
-  twitter_account:
-  github_account: github-admintaro
-  github_id: github-admintaro
-  blog_url:
-  description: "GitHubを登録している管理者です。"
-  course: course1
-  admin: true
-  job: office_worker
-  os: mac
-  experience: rails
-  updated_at: "2024-05-28 00:00:30"
-  created_at: "2024-05-28 00:00:30"
-  last_activity_at: "2024-05-28 00:00:30"
-
-github-ippanko: # github_idを持つ一般ユーザー
-  login_name: github-ippanko
-  email: github-ippanko@fjord.jp
-  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
-  salt: zW3kQ9ubsxQQtzzzs4ap
-  name: ギットハブ イッパンコ
-  name_kana: ギットハブ イッパンコ
-  twitter_account:
-  github_account: github-ippanko
-  github_id: github-ippanko
-  blog_url:
-  description: "GitHubを登録している一般ユーザーです。"
-  course: course1
-  job: office_worker
-  os: mac
-  experience: inexperienced
-  updated_at: "2024-05-28 00:00:30"
-  created_at: "2024-05-28 00:00:30"
-  last_activity_at: "2024-05-28 00:00:30"

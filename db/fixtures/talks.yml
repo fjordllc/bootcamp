@@ -231,11 +231,3 @@ talk_kensyu-not-setting-end-date:
 talk_harikirio:
   user: harikirio
   action_completed: true
-
-talk_github-admintaro:
-  user: github-admintaro
-  action_completed: true
-
-talk_github-ippanko:
-  user: github-ippanko
-  action_completed: true
