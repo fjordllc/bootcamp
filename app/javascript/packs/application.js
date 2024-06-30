@@ -59,6 +59,7 @@ import '../product_checker_button.js'
 import '../user-follow.js'
 import '../sort-faq.js'
 import '../sort-faq-category.js'
+import '../micro-report-form-tabs.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
