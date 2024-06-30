@@ -163,6 +163,7 @@ class CampaignsTest < ApplicationSystemTestCase
       assert_text "#{example_start_at} #{example_end_at} #{example_pay_at}"
     end
 
+    logout
     visit new_user_path
     assert_text 'キャンペーン適用'
     assert_text 'お試し期間が倍以上の延長キャンペーン！！！ のお試し期間延長が適用され、'
