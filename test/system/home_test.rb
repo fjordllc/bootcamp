@@ -466,7 +466,7 @@ class HomeTest < ApplicationSystemTestCase
     visit '/'
     first('.spec-bookmark-edit').click
     first('.js-bookmark-delete-button').click
-    assert_text 'Bookmarkを削除しました。'
+    assert_text 'ブックマークを削除しました。'
     assert_no_text '名前の長いメンター用'
   end
 
