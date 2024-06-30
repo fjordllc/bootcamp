@@ -61,6 +61,7 @@ class UsersController < ApplicationController
     logger.info "[Signup] 1. start create. #{user_params[:email]}"
 
     @user = User.new(user_params)
+    @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
     @user.course_id ||= Course.first.id
     @user.free = true if @user.trainee?
     @user.build_discord_profile

@@ -8,16 +8,45 @@
       h1.welcome-page-header__title
         = title
 
-section.welcome-section
-  .container.is-xl
-    .welcome-small-sections
-      .row.is-gutter-widtd-32
-        - @categories.each do |category|
-          - if category.practices.present?
-            .col-xs-12.col-md-4
-              .welcome-small-section
-                h3.welcome-small-section__title = category.name
-                table.welcome-table.a-card
-                  - category.practices.each do |practice|
-                    tr
-                      td = practice.title
+.welcome-page-body
+  section.course-selection
+    .container.is-sm
+      .course-selection__header
+        h2.welcome-section__title.has-border
+          | 選べる2つのコース
+      .course-selection__body
+        .course-selection__descritpion
+          .a-short-text
+            p
+              | Railsエンジニアコースとフロントエンドエンジニアコースの2つのコースがあります。料金はどちらも同じです。
+            p
+              | どちらのコースも、最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。また、どちらのコースでもチーム開発を体験できるので、実践的なスキルが身につきます。
+
+    .course-selection-nav.is-hidden-md-up
+      .container
+        .course-selection-nav__inner
+          ul.course-selection-nav__items
+            li.course-selection-nav__item
+              = link_to '#rails-programmer-course', class: 'course-selection-nav__item-link' do
+                | Railsエンジニア
+            li.course-selection-nav__item
+              = link_to '#front-engineer-course', class: 'course-selection-nav__item-link' do
+                | フロントエンドエンジニア
+
+    .course-selection__items
+      .container.is-xl
+        .row.is-gutter-width-32
+          .col-md-6.col-xs-12
+            .course-selection-item-anchor#rails-programmer-course
+            - course = Course.find_by(title: 'Railsエンジニア')
+            - if course
+              = render('course_practices', course: course)
+            - else
+              p コースが見つかりませんでした。
+          .col-md-6.col-xs-12
+            .course-selection-item-anchor#front-engineer-course
+            - course = Course.find_by(title: 'フロントエンドエンジニア')
+            - if course
+              = render('course_practices', course: course)
+            - else
+              p コースが見つかりませんでした。
