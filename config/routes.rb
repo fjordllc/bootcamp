@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "practices/products"
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
-    resource :model_answer, only: %i(show), controller: "practices/model_answer"
+    resource :model_submission, only: %i(show), controller: "practices/model_submission"
   end
   resources :pages, param: :slug_or_id
   namespace :notification do

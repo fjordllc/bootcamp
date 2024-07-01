@@ -29,7 +29,7 @@ tables = %i[
   reports
   learning_times
   learnings
-  model_answer
+  model_submission
   notifications
   participations
   practices
