@@ -9,8 +9,8 @@
           - when Practice
             - if @practice.submission
               = render 'page_tab', tab:
-        - elsif tab[:is_model_answer_tab]
-          - if @practice.model_answer
+        - elsif tab[:is_model_submission_tab]
+          - if @practice.model_submission
             = render 'page_tab', tab:
         - else
           = render 'page_tab', tab:

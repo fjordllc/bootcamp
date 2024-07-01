@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-class Practices::ModelAnswerController < ApplicationController
+class Practices::ModelSubmissionController < ApplicationController
   before_action :check_permission!, only: %i[show]
 
   def show
     @practice = find_practice
-    @model_answer = @practice.model_answer
+    @model_submission = @practice.model_submission
   end
 
   private
 
   def check_permission!
     practice = find_practice
-    model_answer = practice.model_answer || ModelAnswer.new(practice:)
-    return if policy(model_answer).show?
+    model_submission = practice.model_submission || ModelSubmission.new(practice:)
+    return if policy(model_submission).show?
 
     redirect_to practice_path(practice), alert: 'プラクティスを修了するまで模範解答は見れません。'
   end

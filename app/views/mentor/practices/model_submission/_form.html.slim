@@ -1,10 +1,10 @@
-= form_with model: [practice, model_answer],
-  url: mentor_practice_model_answer_path(practice),
+= form_with model: [practice, model_submission],
+  url: mentor_practice_model_submission_path(practice),
   local: true,
   class: 'form',
-  html: { name: 'model_answer' } do |f|
+  html: { name: 'model_submission' } do |f|
 
-  = render 'errors', object: model_answer
+  = render 'errors', object: model_submission
 
   .form-item
     .row.js-markdown-parent

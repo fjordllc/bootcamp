@@ -27,7 +27,7 @@ module PageTabHelper
       questions_tab(resource),
       pages_tab(resource),
       products_tab(resource),
-      model_answer_tab(resource)
+      model_submission_tab(resource)
     ]
   end
 
@@ -35,13 +35,13 @@ module PageTabHelper
     page_tab_member(resource, resource.class.name.tableize.to_sym)
   end
 
-  def page_tab_member(path, tab_name, is_products_tab: false, is_model_answer_tab: false)
+  def page_tab_member(path, tab_name, is_products_tab: false, is_model_submission_tab: false)
     {
       path:,
       target_name: tab_name.to_s,
       display_name: display_tab_name(tab_name),
       is_products_tab:,
-      is_model_answer_tab:
+      is_model_submission_tab:
     }
   end
 
@@ -56,7 +56,7 @@ module PageTabHelper
       questions: '質問',
       pages: 'Docs',
       products: '提出物',
-      model_answer: '模範解答'
+      model_submission: '模範解答'
     }
   end
 
@@ -79,9 +79,9 @@ module PageTabHelper
     page_tab_member(tab_path(resource, tab_name), tab_name, is_products_tab: true)
   end
 
-  def model_answer_tab(resource)
-    tab_name = :model_answer
-    page_tab_member(tab_path(resource, tab_name), tab_name, is_model_answer_tab: true)
+  def model_submission_tab(resource)
+    tab_name = :model_submission
+    page_tab_member(tab_path(resource, tab_name), tab_name, is_model_submission_tab: true)
   end
 
   def comments_tab(resource)

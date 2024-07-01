@@ -34,13 +34,13 @@
             td.admin-table__item-value.is-text-align-center
               span.admin-table__item-blank
                 | 不要
-          - if practice.model_answer
+          - if practice.model_submission
             td.admin-table__item-value.is-text-align-right
-              = link_to practice_model_answer_path(practice) do
+              = link_to practice_model_submission_path(practice) do
                 | あり
           - else
             td.admin-table__item-value.is-text-align-center
-              = link_to new_mentor_practice_model_answer_path(practice) do
+              = link_to new_mentor_practice_model_submission_path(practice) do
                 | ＋
           td.admin-table__item-value.is-text-align-right
             = link_to practice_reports_path(practice) do
