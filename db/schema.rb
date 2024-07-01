@@ -412,12 +412,12 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
   end
 
-  create_table "model_answers", force: :cascade do |t|
+  create_table "model_submissions", force: :cascade do |t|
     t.bigint "practice_id", null: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["practice_id"], name: "index_model_answers_on_practice_id"
+    t.index ["practice_id"], name: "index_model_submissions_on_practice_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -484,9 +484,9 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
     t.text "memo"
     t.integer "last_updated_user_id"
     t.text "summary"
-    t.bigint "model_answer_id"
+    t.bigint "model_submission_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
-    t.index ["model_answer_id"], name: "index_practices_on_model_answer_id"
+    t.index ["model_submission_id"], name: "index_practices_on_model_submission_id"
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -815,7 +815,7 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
-  add_foreign_key "model_answers", "practices"
+  add_foreign_key "model_submissions", "practices"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
@@ -824,7 +824,7 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
-  add_foreign_key "practices", "model_answers"
+  add_foreign_key "practices", "model_submissions"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
   add_foreign_key "products", "practices"
