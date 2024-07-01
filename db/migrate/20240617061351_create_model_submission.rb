@@ -1,6 +1,6 @@
-class CreateModelAnswer < ActiveRecord::Migration[6.1]
+class CreateModelSubmission < ActiveRecord::Migration[6.1]
   def change
-    create_table :model_answers do |t|
+    create_table :model_submissions do |t|
       t.references :practice, null: false, foreign_key: true
       t.text :description, null: true
 

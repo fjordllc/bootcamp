@@ -8,11 +8,10 @@ ruby:
 = render '/practices/page_header', title: practice_title, category: category
 = render 'page_tabs', resource: @practice
 
-.page-body
-  .page-body__inner
-    .container.is-md
-      .model-answer.page-content
-        = render 'page_header', title: title, model_answer: @model_answer
-        = render 'description', model_answer: @model_answer
-        - if current_user.admin_or_mentor?
-          = render 'admin_or_mentor_menu', practice: @practice, model_answer: @model_answer
+h1.page-content-header__title
+  = title
+
+  hr.a-border
+  .page-body
+    .container.is-xxl
+      = render 'form', practice: @practice, model_submission: @model_submission
