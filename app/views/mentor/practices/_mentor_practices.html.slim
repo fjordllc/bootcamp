@@ -40,8 +40,8 @@
                 | あり
           - else
             td.admin-table__item-value.is-text-align-center
-              span.admin-table__item-blank
-                | なし
+              = link_to new_mentor_practice_model_answer_path(practice) do
+                | ＋
           td.admin-table__item-value.is-text-align-right
             = link_to practice_reports_path(practice) do
               = practice.reports.size
