@@ -42,9 +42,15 @@ header.page-header
     .row.is-gutter-width-32.justify-center
       .col-xl-7.col-lg-9.col-md-11.col-xs-12
         .page-content.is-product
-          = render 'product_header', product: @product
-          = render 'product_practice_content', product: @product, content_type: :goal
-          = render 'product_body', product: @product
+          .page-body__rows
+            .page-body__row
+              = render 'product_header', product: @product
+            .page-body__row
+              = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
+            .page-body__row
+              = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+            .page-body__row
+              = render 'product_body', product: @product
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         div(data-vue='Footprints' data-vue-footprintable-id="#{@product.id}" data-vue-footprintable-type='Product')
