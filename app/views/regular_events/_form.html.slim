@@ -44,6 +44,15 @@
               = f.check_box :hold_national_holiday, class: 'a-toggle-checkbox js-warning-form'
               = f.label :hold_national_holiday do
                 | 祝日も開催する場合はチェック
+      .form-item
+        label.a-form-label
+          | 休みの追加
+        = f.fields_for :regular_event_custom_holidays do |regular_event_custom_holiday|
+          = render 'regular_event_custom_holiday_fields', f: regular_event_custom_holiday
+        .form-item__add-times
+            = link_to_add_association f, :regular_event_custom_holidays, class: 'a-button is-md is-primary' do
+              i.fa-regular.fa-plus
+              | 休日を追加
 
   .form__items
     .form-item

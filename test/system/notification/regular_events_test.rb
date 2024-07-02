@@ -35,6 +35,7 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      ⚠️ Discord通知確認用、祝日開催イベント(金曜日開催)/祝日に任意の休み設定
       はお休みです。
 
       ------------------------------

@@ -10,11 +10,12 @@
   +media-breakpoint-up(md)
     display: flex
     align-items: flex-end
+    gap: 1rem
 
 .form-times__items
   display: flex
-  +media-breakpoint-down(sm)
-    gap: 1rem
+  gap: 1rem
+  flex: 1
 
 .form-times__action
   +media-breakpoint-down(sm)
@@ -27,11 +28,19 @@
 .form-times__time
   display: flex
   flex-direction: column
-  +media-breakpoint-up(md)
-    margin-right: 1rem
   +media-breakpoint-down(sm)
-    margin-right: 0
     flex-basis: 50%
+  .form-selects__item
+    flex-basis: 100%
+  .form-selects__item:last-child,
+  .form-selects__item:first-child
+    padding: 0
+  &.is-sm
+    +media-breakpoint-up(md)
+      width: 12.5rem
+  &.is-md
+    +media-breakpoint-up(md)
+      width: 24rem
 
 .form-times__time-label
   +text-block(.75rem 1.4 0 .5rem, block)

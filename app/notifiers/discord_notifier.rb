@@ -69,7 +69,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     day_of_the_week = %w[日 月 火 水 木 金 土]
     event_info = events.present? ? "< #{date_message} (#{date.strftime('%m/%d')} #{day_of_the_week[date.wday]}) 開催 >\n\n" : ''
     not_held_events, held_events = events.partition do |event|
-      !event.hold_national_holiday && HolidayJp.holiday?(date)
+      (!event.hold_national_holiday && HolidayJp.holiday?(date)) || event.custom_holiday?(date)
     end
     held_events.each do |event|
       event_info += "#{event.title}\n"

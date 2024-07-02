@@ -155,3 +155,35 @@ regular_event32:
   user: komagata
   category: 0
   published_at: "2023-08-01 00:00:00"
+
+regular_event33:
+  title: 主催者任意の休みが設定されたイベント
+  description: 休みの理由 2024年05月14日 RubyKaigi(沖縄)のため
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: kimura
+  category: 0
+  published_at: "2020-08-01 00:00:00"
+
+regular_event34:
+  title: Discord通知確認用、祝日開催イベント(金曜日開催)/祝日に任意の休み設定
+  description: Discord通知確認用、祝日開催イベント(金曜日開催)だが、祝日に任意の休み設定
+  finished: false
+  hold_national_holiday: true
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
+
+regular_event35:
+  title: ダッシュボード表示確認用テスト定期イベント(任意の休み設定済み)
+  description: ダッシュボード表示確認用テスト定期イベント(任意の休み設定済み)
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  user: komagata
+  category: 0
+  published_at: "2023-08-01 00:00:00"

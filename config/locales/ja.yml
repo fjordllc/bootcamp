@@ -10,6 +10,7 @@ ja:
       md: '%m月%d日'
       sm: '%m/%d'
       long: '%Y年%m月%d日(%a)'
+      with_weekday_and_holiday: '%Y年%m月%d日(%a・祝)'
   time:
     formats:
       default: '%Y年%m月%d日(%a) %H:%M'
@@ -242,9 +243,12 @@ ja:
         open_end_at: 募集終了日時
         organizer: 主催者
         regular_event_repeat_rules: 定期開催日
+        hold_national_holiday: 祝日の開催
       regular_event_repeat_rule:
         frequency: 開催頻度
         day_of_the_week: 曜日
+      regular_event_custom_holidays:
+        holiday_date: 休みの追加
       authored_book:
         title: タイトル
         url: URL

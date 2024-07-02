@@ -50,7 +50,7 @@ class RegularEventTest < ActiveSupport::TestCase
     end
 
     holiday_not_held_event = regular_events(:regular_event1)
-    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule36) # 第1週水曜日
+    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule38) # 第1週水曜日
     travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
       first_day = Time.zone.today
       assert_equal Date.new(2020, 2, 5), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
@@ -147,5 +147,45 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event.save(validate: false)
     regular_event.assign_admin_as_organizer_if_none
     assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
+  end
+
+  test '#fetch_custom_holidays' do
+    regular_event = regular_events(:regular_event33)
+    date = Time.zone.local(2023, 4, 1, 0, 0, 0)
+    expected_date = Date.new(2024, 5, 14)
+    expected_description = 'RubyKaigi(沖縄)のため'
+
+    custom_holidays = regular_event.fetch_custom_holidays(date).first
+
+    assert_equal expected_date, custom_holidays.holiday_date
+    assert_equal expected_description, custom_holidays.description
+  end
+
+  test '#match_event_rules?' do
+    every_sunday_event = regular_events(:regular_event1)
+    the_first_monday_event = regular_events(:regular_event2)
+
+    sunday1 = Date.new(2024, 4, 7)
+    sunday2 = Date.new(2024, 4, 14)
+    sunday3 = Date.new(2024, 4, 21)
+    sunday4 = Date.new(2024, 4, 28)
+    the_first_monday = Date.new(2024, 4, 1)
+    the_second_monday = Date.new(2024, 4, 8)
+
+    assert every_sunday_event.match_event_rules?(sunday1)
+    assert every_sunday_event.match_event_rules?(sunday2)
+    assert every_sunday_event.match_event_rules?(sunday3)
+    assert every_sunday_event.match_event_rules?(sunday4)
+    assert the_first_monday_event.match_event_rules?(the_first_monday)
+    assert_not the_first_monday_event.match_event_rules?(the_second_monday)
+  end
+
+  test '#custom_holiday?' do
+    regular_event = regular_events(:regular_event33)
+    holiday_date = Date.new(2024, 5, 14)
+    non_holiday_date = Date.new(2024, 7, 1)
+
+    assert regular_event.custom_holiday?(holiday_date)
+    assert_not regular_event.custom_holiday?(non_holiday_date)
   end
 end
