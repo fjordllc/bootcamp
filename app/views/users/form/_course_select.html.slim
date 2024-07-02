@@ -4,7 +4,7 @@
     .form-item-group
       .form-item-group__body
         .selected-item
-          - course = find_course(params[:course_id])
+          - course = user.course || find_course(params[:course_id])
           = render 'users/form/course_selection', course: course, f: f
           = render '/shared/modal',
             id: 'modal-course-description',

@@ -11,7 +11,7 @@
     = render 'checked_campaign'
   .form__items
     - if !@user.adviser?
-      = render 'users/form/course_select', f: f
+      = render 'users/form/course_select', f: f, user: @user
   .form__items
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
