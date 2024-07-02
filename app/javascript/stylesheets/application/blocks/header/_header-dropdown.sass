@@ -18,6 +18,7 @@
       display: block
 
 .header-dropdown__inner
+  overflow-y: auto
   +media-breakpoint-up(md)
     +position(absolute, right 0, top 100%, 2)
     background-color: var(--base)
@@ -25,6 +26,7 @@
     width: 14rem
     box-shadow: rgba(black, .2) 0 0 .375rem
     border-radius: .25rem
+    max-height: calc(100vh - 6rem)
     &.is-notification
       width: 15rem
   +media-breakpoint-down(sm)
@@ -32,7 +34,6 @@
     +position(fixed, top 0, bottom 0, right auto, 1)
     transition: left .2s ease-out
     width: var(--global-nav-width-sm)
-    overflow-y: auto
     left: calc(var(--global-nav-width-sm) * -1)
     input:checked + .header-dropdown &,
     .is-opened-dropdown &

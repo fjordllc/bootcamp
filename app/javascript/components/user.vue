@@ -1,6 +1,6 @@
 <template lang="pug">
 .col-xxxl-2.col-xxl-3.col-xl-4.col-lg-4.col-md-6.col-xs-12
-  .users-item
+  .users-item.is-vue
     .users-item__inner.a-card
       .users-item__inactive-message-container.is-only-mentor(
         v-if='(currentUser.mentor || currentUser.admin) && user.student_or_trainee')
@@ -26,10 +26,6 @@
               .card-list-item__row
                 .card-list-item-title
                   .card-list-item-title__end
-                    a(
-                      v-if='user.company && user.company.logo_url',
-                      :href='user.company.url')
-                      img.user-item__company-logo(:src='user.company.logo_url')
                     a.card-list-item-title__title.is-lg.a-text-link(
                       :href='user.url')
                       | {{ loginName }}
@@ -39,6 +35,9 @@
                     .card-list-item-meta__item
                       .a-meta
                         | {{ user.name }}
+              .card-list-item__row
+                .card-list-item-meta
+                  .card-list-item-meta__items
                     .card-list-item-meta__item
                       a.a-meta(
                         v-if='user.discord_profile.times_url',
@@ -50,7 +49,10 @@
                         .a-meta__icon
                           i.fa-brands.fa-discord
                         | {{ user.discord_profile.account_name }}
-
+          a(
+            v-if='user.company && user.company.logo_url',
+            :href='user.company.url')
+            img.user-item__company-logo(:src='user.company.logo_url')
         user-sns(:user='user')
         user-activity-counts(:user='user')
       .users-item__body
