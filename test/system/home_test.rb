@@ -231,7 +231,7 @@ class HomeTest < ApplicationSystemTestCase
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
       ]
       tomorrow_events_texts = [
-        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
+        { category: '輪読会', title: '定期イベントの検索結果テスト用', start_at: '2017年04月04日(火) 21:00' },
         { category: '特別', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
       ]
       day_after_tomorrow_events_texts = [
