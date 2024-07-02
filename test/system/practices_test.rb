@@ -39,7 +39,7 @@ class PracticesTest < ApplicationSystemTestCase
     assert_text '修了 投稿する'
 
     find(:label, '修了 投稿する').click
-    assert_text '喜びを 投稿する！'
+    assert_text '喜びをXにポストする！'
   end
 
   test "only show when user isn't admin " do
