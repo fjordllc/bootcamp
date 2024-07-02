@@ -10,9 +10,21 @@ ruby:
 
 .page-body
   .page-body__inner
-    .container.is-md
-      .model-answer.page-content
-        = render 'page_header', title: title, model_submission: @model_submission
-        = render 'description', model_submission: @model_submission
-        - if current_user.admin_or_mentor?
-          = render 'admin_or_mentor_menu', practice: @practice, model_submission: @model_submission
+    .page-body__rows
+      .page-body__row
+        .model-answer.page-content
+          .container.is-lg
+            = render 'page_header', title: title, model_submission: @model_submission
+      .page-body__row
+        .container.is-lg
+          = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @practice)
+      .page-body__row
+        .container.is-lg
+          = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @practice)
+      .page-body__row
+        .container.is-lg
+          = render 'description', model_submission: @model_submission
+      - if current_user.admin_or_mentor?
+        .page-body__row
+          .container.is-lg
+            = render 'admin_or_mentor_menu', practice: @practice, model_submission: @model_submission
