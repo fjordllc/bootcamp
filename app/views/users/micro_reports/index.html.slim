@@ -10,9 +10,13 @@
     - if current_user == @user
       = render 'form', user: @user
     .page-content
-      = paginate @micro_reports
-      .card-list.a-card
-        - @micro_reports.each do |micro_report|
-          .card-list-item
-            = render 'micro_report', micro_report: micro_report
-      = paginate @micro_reports
+      - if @micro_reports.empty?
+        p
+          | 分報の投稿はまだありません。
+      -else
+        = paginate @micro_reports
+        .card-list.a-card
+          - @micro_reports.each do |micro_report|
+            .card-list-item
+              = render 'micro_report', micro_report: micro_report
+        = paginate @micro_reports
