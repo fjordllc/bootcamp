@@ -125,15 +125,6 @@
                       = link_to edit_mentor_practice_path(@practice), class: 'a-button is-sm is-secondary is-block' do
                         i.fa-solid.fa-pen
                         | 編集
-                    li.card-main-actions__item
-                      - if @practice.model_submission
-                        = link_to edit_mentor_practice_model_submission_path(@practice), class: 'a-button is-sm is-secondary is-block' do
-                          i.fa-solid.fa-pen
-                          | 模範解答の編集
-                      - else
-                        = link_to new_mentor_practice_model_submission_path(@practice), class: 'a-button is-sm is-secondary is-block' do
-                          i.fa-solid.fa-plus
-                          | 模範解答の新規作成
       .col-lg-4.col-xs-12
         nav.page-nav.a-card
           header.page-nav__header

@@ -5,17 +5,17 @@
   html: { name: 'model_submission' } do |f|
 
   = render 'errors', object: model_submission
-
-  .form-item
-    .row.js-markdown-parent
-      .col-md-6.col-xs-12
-        = f.label :description, class: 'a-form-label is-required'
-        = f.text_area :description,
-          class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
-          data: { 'preview': '.js-description-preview' }
-      .col-md-6.col-xs-12
-        .a-form-label プレビュー
-        .js-description-preview.a-long-text.is-md.markdown-form__preview
+  .form__items
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'a-form-label is-required'
+          = f.text_area :description,
+            class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+            data: { 'preview': '.js-description-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label プレビュー
+          .js-description-preview.a-long-text.is-md.markdown-form__preview
 
   .form-actions
     ul.form-actions__items
