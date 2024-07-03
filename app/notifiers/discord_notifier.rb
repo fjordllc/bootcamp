@@ -49,11 +49,11 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     event_info = <<~TEXT.gsub(/^\n+/, "\n").chomp
       ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
 
-      #{add_event_info(today_events, '今日', today)}
+      #{add_event_info(today_events.sort_by(&:start_at), '今日', today)}
 
       #{'------------------------------' if today_events.present?}
 
-      #{add_event_info(tomorrow_events, '明日', tomorrow)}
+      #{add_event_info(tomorrow_events.sort_by(&:start_at), '明日', tomorrow)}
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
