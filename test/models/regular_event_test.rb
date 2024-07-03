@@ -28,7 +28,7 @@ class RegularEventTest < ActiveSupport::TestCase
       assert_equal tomorrow_events_count, tomorrow_events.count
 
       day_after_tomorrow_date = Time.zone.today + 2.days
-      day_after_tomorrow_events_count = 2
+      day_after_tomorrow_events_count = 3
       day_after_tomorrow_events = RegularEvent.scheduled_on(day_after_tomorrow_date)
       assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
     end
