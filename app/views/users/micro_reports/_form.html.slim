@@ -14,7 +14,7 @@
             .form-textarea
               .form-textarea__body
                 = f.text_area :content,
-                  class: "a-text-input js-warning-form js-report-content markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
+                  class: "a-text-input markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
                   placeholder: '今やっていることを投稿してみましょう！',
                   data: { 'preview': '.js-preview' }
     .tab-pane#preview-container.hidden
