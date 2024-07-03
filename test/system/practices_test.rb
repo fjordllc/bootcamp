@@ -336,5 +336,7 @@ class PracticesTest < ApplicationSystemTestCase
     visit_with_auth "/practices/#{practices(:practice5).id}", 'kensyu'
 
     assert_text 'このプラクティスはスキップしてください。'
+
+    assert_no_selector 'label#js-complete'
   end
 end
