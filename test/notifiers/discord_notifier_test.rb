@@ -77,25 +77,25 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       時間: 21:00〜22:00
       詳細: <http://localhost:3000/regular_events/927610372>
 
-      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
       はお休みです。
 
       ------------------------------
 
       < 明日 (05/06 土) 開催 >
 
-      Discord通知確認用イベント(土曜日開催)
-      時間: 21:00〜22:00
-      詳細: <http://localhost:3000/regular_events/284302086>
-
       Discord通知確認用イベント(土曜日 + 日曜日開催)
-      時間: 21:00〜22:00
-      詳細: <http://localhost:3000/regular_events/670378901>
+      時間: 09:00〜10:00
+      詳細: http://localhost:3000/regular_events/670378901
+
+      Discord通知確認用イベント(土曜日開催)
+      時間: 10:00〜11:00
+      詳細: http://localhost:3000/regular_events/284302086
 
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
-      時間: 21:00〜22:00
-      詳細: <http://localhost:3000/regular_events/808817380>
+      時間: 11:00〜12:00
+      詳細: http://localhost:3000/regular_events/808817380
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
