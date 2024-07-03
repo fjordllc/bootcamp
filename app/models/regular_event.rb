@@ -159,7 +159,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def nth_wday(date)
     (date.day + 6) / 7
   end
-  
+
   def list_regular_event_for_year(event,  repeat_rule, current_date, participated_regular_events)
     while current_date <= Time.zone.today + 1.year
       if repeat_rule.frequency.zero?
