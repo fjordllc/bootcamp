@@ -6,9 +6,14 @@
       height: auto
 
 .welcome-member__inner
-  padding: 1.25rem 1.5rem 1.5rem
+  padding: 1.25rem 1.5rem 0
+  height: 100%
+  &:last-child
+    padding-bottom: 1.5rem
   .welcome-member.is-articles-show &
-    padding: .75rem 1rem
+    padding: .75rem 1rem 0
+  .welcome-member.is-articles-show &:last-child
+    padding-bottom: 1rem
 
 .welcome-member__header
   display: flex
@@ -74,3 +79,6 @@
       cursor: pointer
     a:hover
       text-decoration: none
+
+.welcome-member__actions
+  padding: 1rem

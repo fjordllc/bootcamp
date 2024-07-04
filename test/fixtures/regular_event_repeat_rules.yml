@@ -48,7 +48,7 @@ regular_event_repeat_rule26:
 regular_event_repeat_rule27:
   frequency: 0
   day_of_the_week: 2
-  regular_event: regular_event26
+  regular_event: regular_event27
 
 regular_event_repeat_rule28:
   frequency: 0
