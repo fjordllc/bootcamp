@@ -55,7 +55,6 @@ class Article < ApplicationRecord
 
   def generate_token!
     self.token ||= SecureRandom.urlsafe_base64
-    save
   end
 
   private
