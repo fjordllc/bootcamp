@@ -100,10 +100,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event_dates.min
   end
 
-<<<<<<< HEAD
   def organizers
     users.with_attached_avatar.order('organizers.created_at')
-=======
+  end
+
   def possible_next_event_date(first_day, repeat_rule)
     return next_specific_day_of_the_week(repeat_rule) if repeat_rule.frequency.zero?
 
@@ -152,7 +152,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     next_day = Time.current.next_day(days)
 
     match_event_rules?(next_day)
->>>>>>> 7f369b330 (祝日と任意のお休みの入力&表示・重複する処理をリファクタリング)
   end
 
   def cancel_participation(user)
@@ -196,7 +195,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
   end
 
-<<<<<<< HEAD
   def all_scheduled_dates(
     from: Date.new(Time.current.year, 1, 1),
     to: Date.new(Time.current.year, 12, 31)
@@ -223,7 +221,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def nth_wday(date)
     (date.day + 6) / 7
-=======
+  end
+
   def match_wday_and_frequency?(date, rule)
     match_wday?(date, rule) && match_frequency?(date, rule)
   end
@@ -240,7 +239,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     day_offset = (repeat_rule.frequency - 1) * days_of_the_week_count + repeat_rule.day_of_the_week - first_day.wday
     day_offset += days_of_the_week_count if repeat_rule.day_of_the_week < first_day.wday
     Date.new(first_day.year, first_day.month, first_day.day + day_offset)
->>>>>>> 7f369b330 (祝日と任意のお休みの入力&表示・重複する処理をリファクタリング)
   end
 
   def check_custom_holidays_if_national_holiday_setting_changed
