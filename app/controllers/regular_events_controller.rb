@@ -3,7 +3,9 @@
 class RegularEventsController < ApplicationController
   before_action :set_regular_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
+  end
 
   def show
     @regular_event = RegularEvent.find(params[:id])

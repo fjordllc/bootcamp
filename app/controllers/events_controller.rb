@@ -3,7 +3,9 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
+  end
 
   def show
     @event = Event.with_avatar.find(params[:id])
@@ -73,12 +75,6 @@ class EventsController < ApplicationController
 
   def set_wip
     @event.wip = (params[:commit] == 'WIP')
-  end
-
-  def redirect_url(event)
-    return new_announcement_path(event_id: event.id) if publish_with_announcement?
-
-    event.wip? ? edit_event_url(event) : event_url(event)
   end
 
   def notice_message(event)
