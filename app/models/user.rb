@@ -823,6 +823,14 @@ class User < ApplicationRecord
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
   end
 
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
+
   private
 
   def password_required?

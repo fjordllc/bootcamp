@@ -23,6 +23,7 @@ class RetirementController < ApplicationController
       destroy_subscription
       notify_to_admins
       notify_to_mentors
+      current_user.clear_github_data
       logout
       redirect_to retirement_url
     else
