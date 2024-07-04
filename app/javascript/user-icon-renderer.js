@@ -4,14 +4,7 @@ export default class {
     if (textareas.length === 0) {
       return null
     }
-
-    const response = await fetch('/api/user_icon_urls', {
-      method: 'GET',
-      credentials: 'same-origin',
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    this.urls = await response.json()
-    this._callbackFunc()
+    await this._callbackFunc()
     Array.from(textareas).forEach((textarea) => {
       textarea.addEventListener('input', () => {
         this._callbackFunc()
@@ -19,14 +12,33 @@ export default class {
     })
   }
 
-  _callbackFunc() {
+  async _callbackFunc() {
     const DEFAULT_PROFILE_IMAGE_PATH = '/images/users/avatars/default.png'
     const elements = document.getElementsByClassName('js-user-icon')
-    Array.from(elements).forEach((element) => {
+
+    const promises = Array.from(elements).map(async (element) => {
       const loginName = element.dataset.user
-      if (element.src === '') element.src = this.urls[loginName]
-      if (this.urls[loginName] === undefined)
+      const imageUrl = `${process.env.ICON_DIRECTORY}${encodeURIComponent(
+        loginName
+      )}`
+
+      try {
+        await this._loadImage(imageUrl)
+        element.src = imageUrl
+      } catch (error) {
         element.src = DEFAULT_PROFILE_IMAGE_PATH
+      }
+    })
+
+    await Promise.all(promises)
+  }
+
+  _loadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.src = url
+      img.onload = () => resolve(img)
+      img.onerror = reject
     })
   }
 }

@@ -418,6 +418,8 @@ class User < ApplicationRecord
     :description
   )
 
+  after_commit :set_avatar_key, on: %i[create update]
+
   class << self
     def announcement_receiver(target)
       case target
@@ -824,6 +826,26 @@ class User < ApplicationRecord
   end
 
   private
+
+  def set_avatar_key
+    return unless avatar.attached? && avatar.blob
+
+    new_key = if avatar.attachment.name == 'avatar'
+                "icon/#{login_name}"
+              else
+                avatar.blob.class.generate_unique_secure_token(length: MINIMUM_TOKEN_LENGTH)
+              end
+
+    ActiveRecord::Base.transaction do
+      existing_blob = ActiveStorage::Blob.find_by(key: new_key)
+      if existing_blob
+        existing_blob.attachments.each(&:purge)
+        existing_blob.destroy
+      end
+    end
+
+    avatar.blob.update!(key: new_key)
+  end
 
   def password_required?
     new_record? || password.present?

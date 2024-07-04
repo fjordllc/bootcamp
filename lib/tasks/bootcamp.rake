@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require Rails.root.join('config/environment')
+require 'google/cloud/storage'
 
 # rubocop:disable Metrics/BlockLength
 namespace :bootcamp do
@@ -52,22 +53,29 @@ namespace :bootcamp do
   end
 
   namespace :oneshot do
-    desc 'Cloud Build Task'
-    task cloudbuild: :environment do
-      puts '== START Cloud Build Task =='
+    desc 'change icons filepath'
+    task change_icons_filepath: :environment do
+      puts '== START change icons filepath Task =='
+      storage = Google::Cloud::Storage.new(
+        project_id: 'bootcamp-224405',
+        credentials: Base64.decode64(ENV['GOOGLE_CREDENTIALS'].to_s)
+      )
+      bucket_name = ENV['GCS_BUCKET']
+      bucket = storage.bucket bucket_name, skip_lookup: true
 
-      watches = []
-      Watch.find_each do |watch|
-        w = "#{watch.watchable_type}-#{watch.watchable_id}-#{watch.user_id}"
-        if watches.include?(w)
-          puts w
-          watch.destroy
-        else
-          watches << w
+      User.find_each do |user|
+        if user.avatar.attached?
+          url = user.avatar.url
+          icon = URI.parse(url).open
+          user.avatar.attach(io: icon, filename: user.login_name, key: "icon/#{user.login_name}")
+          filename = url.match(%r{#{bucket_name}/([^/]+)})[1]
+          file = bucket.file filename
+          file.delete
+          puts "#{filename} has been renamed to icon/#{user.login_name}"
         end
       end
 
-      puts '== END   Cloud Build Task =='
+      puts '== END change icons filepath Task =='
     end
   end
 
