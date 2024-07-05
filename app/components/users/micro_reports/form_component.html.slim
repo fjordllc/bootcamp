@@ -1,4 +1,4 @@
-= form_with model: [user, user.micro_reports.build], local: true do |f|
+= form_with model: [@user, @micro_report], local: true do |f|
   .tabs
     ul
       li
@@ -14,7 +14,7 @@
             .form-textarea
               .form-textarea__body
                 = f.text_area :content,
-                  class: "a-text-input markdown-form__text-area #{params[:action] == 'new' && params[:id].blank? ? '' : 'js-markdown'}",
+                  class: "a-text-input markdown-form__text-area js-markdown",
                   placeholder: '今やっていることを投稿してみましょう！',
                   data: { 'preview': '.js-preview' }
     .tab-pane#preview-container.hidden
