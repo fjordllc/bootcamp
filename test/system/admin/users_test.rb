@@ -311,10 +311,10 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'machida'
     within 'form[name=user]' do
-      select 'iOSプログラマー', from: 'user[course_id]'
+      select 'iOSエンジニア', from: 'user[course_id]'
     end
     click_on '更新する'
-    assert_equal 'iOSプログラマー', user.reload.course.title
+    assert_equal 'iOSエンジニア', user.reload.course.title
   end
 
   test 'general user cannot change user course' do
@@ -352,5 +352,18 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました'
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'メンター紹介用公開プロフィール'
+  end
+
+  test 'administrator can update hide profile of mentor' do
+    user = users(:mentormentaro)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'メンター紹介用公開プロフィール'
+    assert_no_checked_field('user_hide_mentor_profile', visible: false)
+    check 'user_hide_mentor_profile', allow_label_click: true, visible: false
+    assert has_checked_field?('user_hide_mentor_profile', visible: false)
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert has_checked_field?('user_hide_mentor_profile', visible: false)
   end
 end

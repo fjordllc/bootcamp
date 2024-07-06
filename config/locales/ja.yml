@@ -21,6 +21,10 @@ ja:
       year_only: '%Y'
       mdw_unique: '%-m/%-d(%a)'
       long: '%Y年%m月%d日(%a)'
+  dates:
+    today: '今日'
+    tomorrow: '明日'
+    day_after_tomorrow: '明後日'
   activerecord:
     models:
       user: ユーザー

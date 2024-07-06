@@ -5,10 +5,10 @@ event1:
   description: "ミートアップを開催します。"
   location: "FJORDオフィス"
   capacity: 40
-  start_at: 2019-12-20 10:00
-  end_at: 2019-12-20 12:30
-  open_start_at: 2019-12-10 09:00
-  open_end_at: 2019-12-19 9:00
+  start_at: <%= Time.zone.local(2019, 12, 20, 10) %>
+  end_at: <%= Time.zone.local(2019, 12, 20, 12, 30) %>
+  open_start_at: <%= Time.zone.local(2019, 12, 10, 9) %>
+  open_end_at: <%= Time.zone.local(2019, 12, 19, 9) %>
   user: kimura
 
 event2:

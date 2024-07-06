@@ -15,93 +15,45 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test '#holding_today?' do
-    regular_event = regular_events(:regular_event1)
-    travel_to Time.zone.local(2022, 6, 5, 0, 0, 0) do
-      assert regular_event.holding_today?
-    end
+  test '.scheduled_on(date)' do
+    travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
+      today_date = Time.zone.today
+      today_events_count = 3
+      today_events = RegularEvent.scheduled_on(today_date)
+      assert_equal today_events_count, today_events.count
 
-    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_not regular_event.holding_today?
+      tomorrow_date = Time.zone.today + 1.day
+      tomorrow_events_count = 1
+      tomorrow_events = RegularEvent.scheduled_on(tomorrow_date)
+      assert_equal tomorrow_events_count, tomorrow_events.count
+
+      day_after_tomorrow_date = Time.zone.today + 2.days
+      day_after_tomorrow_events_count = 1
+      day_after_tomorrow_events = RegularEvent.scheduled_on(day_after_tomorrow_date)
+      assert_equal day_after_tomorrow_events_count, day_after_tomorrow_events.count
     end
   end
 
-  test '#convert_date_into_week' do
-    regular_event = regular_events(:regular_event1)
-    assert_equal 1, regular_event.convert_date_into_week(1)
-    assert_equal 2, regular_event.convert_date_into_week(8)
-    assert_equal 3, regular_event.convert_date_into_week(15)
-    assert_equal 4, regular_event.convert_date_into_week(22)
+  test 'schedulde_on?(date)' do
+    travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do # Monday
+      today_date = Time.zone.today
+      monday_regular_event = regular_events(:regular_event26)
+      assert monday_regular_event.scheduled_on?(today_date)
+
+      tomorrow_date = Time.zone.today + 1.day
+      tuesday_regular_event = regular_events(:regular_event27)
+      assert tuesday_regular_event.scheduled_on?(tomorrow_date)
+
+      day_after_tomorrow_date = Time.zone.today + 2.days
+      wednesday_regular_event = regular_events(:regular_event7)
+      assert wednesday_regular_event.scheduled_on?(day_after_tomorrow_date)
+    end
   end
 
   test '#next_event_date' do
     regular_event = regular_events(:regular_event1)
     travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
       assert_equal Date.new(2022, 6, 5), regular_event.next_event_date
-    end
-  end
-
-  test '#possible_next_event_date' do
-    regular_event = regular_events(:regular_event1)
-    regular_event_repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule1)
-    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      first_day = Time.zone.today
-      assert_equal Date.new(2022, 6, 5), regular_event.possible_next_event_date(first_day, regular_event_repeat_rule)
-    end
-
-    holiday_not_held_event = regular_events(:regular_event1)
-    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule36) # 第1週水曜日
-    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
-      first_day = Time.zone.today
-      assert_equal Date.new(2020, 2, 5), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
-    end
-  end
-
-  test '#next_specific_day_of_the_week' do
-    regular_event = regular_events(:regular_event1)
-    regular_event_repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule1)
-    travel_to Time.zone.local(2022, 6, 1, 0, 0, 0) do
-      assert_equal Date.new(2022, 6, 5), regular_event.next_specific_day_of_the_week(regular_event_repeat_rule)
-    end
-
-    holiday_not_held_event = regular_events(:regular_event1)
-    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule35) # 毎週水曜日
-    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
-      first_day = Time.zone.today
-      assert_equal Date.new(2020, 1, 8), holiday_not_held_event.possible_next_event_date(first_day, repeat_rule)
-    end
-  end
-
-  test '#calculate_date_of_specific_nth_day_of_the_week' do
-    regular_event = regular_events(:regular_event1)
-    repeat_rule = regular_event_repeat_rules(:regular_event_repeat_rule2)
-    days_of_the_week_count = 7
-
-    travel_to Time.zone.local(2020, 1, 1, 0, 0, 0) do
-      first_day = Time.zone.today
-      assert_equal Date.new(2020, 1, 6), regular_event.calculate_date_of_specific_nth_day_of_the_week(repeat_rule, first_day, days_of_the_week_count)
-    end
-  end
-
-  test '#holding_tomorrow?' do
-    regular_event = regular_events(:regular_event1)
-    travel_to Time.zone.local(2023, 2, 25, 0, 0, 0) do
-      assert regular_event.holding_tomorrow?
-    end
-
-    travel_to Time.zone.local(2023, 2, 26, 0, 0, 0) do
-      assert_not regular_event.holding_tomorrow?
-    end
-  end
-
-  test '#holding_day_after_tomorrow?' do
-    regular_event = regular_events(:regular_event1)
-    travel_to Time.zone.local(2022, 12, 30, 0, 0, 0) do
-      assert regular_event.holding_day_after_tomorrow?
-    end
-
-    travel_to Time.zone.local(2022, 1, 1, 0, 0, 0) do
-      assert_not regular_event.holding_day_after_tomorrow?
     end
   end
 

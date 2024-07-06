@@ -1,0 +1,32 @@
+article.course-selection-item.a-card
+  .course-selection-item__inner
+    header.course-selection-item__header
+      h2.course-selection-item__title.text-center
+        | #{course.title}
+        br
+        | コース
+    .course-selection-item__action.mb-4
+      = link_to new_user_path(course_id: course.id), class: "a-welcome-button is-md #{current_user ? 'is-disabled' : ''}" do
+        | このコースを選択
+    .course-selection-item__body
+      .course-selection-item__description
+        .a-long-text.is-md.js-markdown-view
+          = course.description
+      section.course-selection-item__section
+        .a-long-text
+          details
+            summary
+              | カリキュラム一覧
+            - course.categories.each do |category|
+              - if category.practices.present?
+                h4
+                  = category.name
+                table.welcome-table.a-card
+                  - category.practices.each do |practice|
+                    tr
+                      td
+                        = practice.title
+
+    .course-selection-item__action
+      = link_to new_user_path(course_id: course.id), class: "a-welcome-button is-md #{current_user ? 'is-disabled' : ''}" do
+          | このコースを選択

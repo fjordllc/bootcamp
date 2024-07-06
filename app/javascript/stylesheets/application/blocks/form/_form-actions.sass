@@ -15,6 +15,7 @@
       padding-top: 1rem
 
 .form-actions__items
+  gap: .75rem
   +media-breakpoint-up(md)
     display: flex
     align-items: flex-end
@@ -23,13 +24,10 @@
     position: relative
     max-width: 45em
     margin-inline: auto
-    &.is-ais-flex-start
-      align-items: flex-start
   +media-breakpoint-down(sm)
     flex-direction: column
 
 .form-actions__item
-  padding-inline: .375rem
   +position(relative)
   &.is-sub
     +media-breakpoint-up(md)

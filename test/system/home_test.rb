@@ -231,7 +231,7 @@ class HomeTest < ApplicationSystemTestCase
         { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月03日(月) 21:00' }
       ]
       tomorrow_events_texts = [
-        { category: '輪読会', title: 'ダッシュボード表示確認用テスト定期イベント', start_at: '2017年04月04日(火) 21:00' },
+        { category: '輪読会', title: '定期イベントの検索結果テスト用', start_at: '2017年04月04日(火) 21:00' },
         { category: '特別', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
       ]
       day_after_tomorrow_events_texts = [
@@ -553,7 +553,7 @@ class HomeTest < ApplicationSystemTestCase
   test 'toggles_mentor_profile_visibility' do
     visit '/'
     assert_text '駒形 真幸'
-    assert_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth edit_current_user_path, 'komagata'
     check 'プロフィール非公開', allow_label_click: true
     click_on '更新する'
@@ -561,6 +561,6 @@ class HomeTest < ApplicationSystemTestCase
     logout
     visit '/'
     assert_no_text '駒形 真幸'
-    assert_no_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
+    assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
   end
 end

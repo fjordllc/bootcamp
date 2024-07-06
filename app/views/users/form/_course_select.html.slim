@@ -1,0 +1,19 @@
+.form-item
+  = f.label :course_id, '選択中のコース', class: 'a-form-label is-required'
+  .form-item__groups
+    .form-item-group
+      .form-item-group__body
+        .selected-item
+          - course = user.course || find_course(params[:course_id])
+          = render 'users/form/course_selection', course: course, f: f
+          = render '/shared/modal',
+            id: 'modal-course-description',
+            modal_title: "#{course.title}コース"
+            .modal__description.is-md
+              .a-long-text.is-md.js-markdown-view
+                = course.description
+              .a-long-text.is-md
+                h3 カリキュラム一覧
+                = render 'users/form/course_practice_list', course: course
+
+hr.a-border.mb-8

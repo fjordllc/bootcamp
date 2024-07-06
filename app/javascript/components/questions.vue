@@ -6,7 +6,7 @@ div
     loadingListPlaceholder
   .o-empty-message(v-else-if='questions.length === 0')
     .o-empty-message__icon
-      i.fa-regular.fa-smile
+      i.fa-regular.fa-sad-tear
     p.o-empty-message__text
       | {{ emptyMessage }}
   .card-list.a-card(v-else)
