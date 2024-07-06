@@ -28,4 +28,12 @@ class MentorModeTest < ApplicationSystemTestCase
     visit_with_auth user_path(users(:hatsuno)), 'kimura'
     assert_no_text 'ユーザーメモ'
   end
+
+  test 'not display user billing status is free' do
+    user = users(:muryou)
+    visit_with_auth "/users/#{user.id}/", 'mentormentaro'
+    within('.user-metas.is-only-mentor') do
+      assert_no_text '無料'
+    end
+  end
 end
