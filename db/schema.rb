@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_17_061351) do
+ActiveRecord::Schema.define(version: 2024_07_06_025709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -733,7 +733,6 @@ ActiveRecord::Schema.define(version: 2024_06_17_061351) do
     t.integer "experience"
     t.text "retire_reason"
     t.boolean "trainee", default: false, null: false
-    t.boolean "free", default: false, null: false
     t.string "customer_id"
     t.boolean "job_seeking", default: false, null: false
     t.string "subscription_id"
