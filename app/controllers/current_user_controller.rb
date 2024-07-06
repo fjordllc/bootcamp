@@ -34,7 +34,7 @@ class CurrentUserController < ApplicationController
       :feed_url, :country_code, :subdivision_code, { discord_profile_attributes: %i[id account_name times_url] }
     ]
     if current_user.admin?
-      user_attribute.push(:retired_on, :graduated_on, :free, :github_collaborator, :auto_retire, :invoice_payment, :mentor, :subscription_id)
+      user_attribute.push(:retired_on, :graduated_on, :github_collaborator, :auto_retire, :invoice_payment, :mentor, :subscription_id)
     end
     params.require(:user).permit(user_attribute)
   end
