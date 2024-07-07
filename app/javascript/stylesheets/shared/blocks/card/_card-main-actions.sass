@@ -27,9 +27,9 @@
 .card-main-actions__item
   @container card-main-actions (min-width: 20em)
     flex: 1
-    max-width: 15rem
+    max-width: 13rem
     &.is-sub
-      +position(absolute, right 0, bottom 0)
+      flex: 0 0 auto
   @container card-main-actions (max-width: 19.9375em)
     flex-basis: 100%
     max-width: 100%
@@ -42,7 +42,7 @@
     flex-basis: 2.5rem
   .card-main-actions.is-3-items &
     @container card-main-actions (min-width: 20em)
-      flex: 1 0 0
+      flex: 1
 
 .card-main-actions__muted-action
   +hover-link-reversal
