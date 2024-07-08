@@ -58,6 +58,7 @@ import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
 import '../micro-report-form-tabs.js'
+import '../micro-reports.js'
 
 import VueMounter from '../VueMounter.js'
 import Books from '../components/books.vue'
