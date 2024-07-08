@@ -512,6 +512,25 @@ class UsersTest < ApplicationSystemTestCase
     assert_text 'Machida Teppei', count: 1
   end
 
+
+  test 'find retired users from all users when target is all' do
+    visit_with_auth '/users?target=all', 'komagata'
+    fill_in 'js-user-search-input', with: 'yameo'
+    find('#js-user-search-input').send_keys :return
+    within('.users-item__header-end') do
+      assert_text 'yameo'
+    end
+  end
+
+  test 'find hibernated users from all users when target is all' do
+    visit_with_auth '/users?target=all', 'komagata'
+    fill_in 'js-user-search-input', with: 'kyuukai'
+    find('#js-user-search-input').send_keys :return
+    within('.users-item__header-end') do
+      assert_text 'kyuukai'
+    end
+  end
+
   test "don't show incremental search when target's users aren't exist" do
     visit_with_auth '/users?target=job_seeking', 'komagata'
     assert_no_selector '.users-item'
