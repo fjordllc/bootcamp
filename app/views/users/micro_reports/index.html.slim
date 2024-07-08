@@ -1,22 +1,27 @@
 - title "#{@user.login_name}の分報一覧"
 - set_meta_tags description: "#{@user.login_name}さんの分報一覧ページです。"
+- content_for(:extra_body_classes, 'no-footer no-scroll')
 
 = render 'users/page_title', user: @user
 
 = render 'users/page_tabs', user: @user
 
 .page-body
-  .container.is-md
-    .page-content
-      - if @micro_reports.empty?
-        p
-          | 分報の投稿はまだありません。
-      -else
-        = paginate @micro_reports
-        .card-list.a-card
-          - @micro_reports.each do |micro_report|
-            .card-list-item
-              = render(Users::MicroReports::MicroReportComponent.new(user: @user, micro_report: micro_report))
-        = paginate @micro_reports
-    - if current_user == @user
-      = render(Users::MicroReports::FormComponent.new(user: @user))
+  .page-content
+    .micro-reports#js-micro-reports(style='padding-bottom: 0;')
+      .micro-reports__start#js-scroll
+        .container.is-md
+          .micro-reports-posts
+            - if @micro_reports.empty?
+              p
+                | 分報の投稿はまだありません。
+            -else
+              = paginate @micro_reports
+              .card-list.a-card
+                - @micro_reports.each do |micro_report|
+                  .card-list-item
+                    = render(Users::MicroReports::MicroReportComponent.new(user: @user, micro_report: micro_report))
+              = paginate @micro_reports
+      - if current_user == @user
+        .micro-reports__end
+          = render(Users::MicroReports::FormComponent.new(user: @user))
