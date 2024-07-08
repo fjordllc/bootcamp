@@ -512,7 +512,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_text 'Machida Teppei', count: 1
   end
 
-
   test 'find retired users from all users when target is all' do
     visit_with_auth '/users?target=all', 'komagata'
     fill_in 'js-user-search-input', with: 'yameo'
