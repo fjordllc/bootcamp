@@ -7,6 +7,13 @@ html.is-application
 body.is-application
   background-color: var(--background)
 
+body.is-no-scroll
+  overflow-y: hidden
+  .header
+    position: static
+  .wrapper
+    padding-top: 0
+
 body.is-piyo-background
   &::before
     content: ''
