@@ -1,0 +1,6 @@
+- title 'メール通知解除の確認'
+- set_meta_tags description: 'メール通知解除の確認ページです。'
+
+= 'メール通知をオフにしますか？'
+
+= link_to 'オフにする', user_mail_notification_path(@user), method: :patch
