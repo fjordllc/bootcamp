@@ -13,18 +13,18 @@ header.page-content-header
                   span.a-meta__label
                     | 公開
                   .a-meta__value
-                    time(datetime="#{model_submission.published_at.to_datetime}")
-                      | #{l model_submission.published_at}
+                    time(datetime="#{submission_answer.published_at.to_datetime}")
+                      | #{l submission_answer.published_at}
               .page-content-header-metas__meta
                 .a-meta.is-updater
                   span.a-meta__label
                     | 更新
                   span.a-meta__value
-                    time(datetime="#{model_submission.updated_at.to_datetime}")
-                      | #{l model_submission.updated_at}
+                    time(datetime="#{submission_answer.updated_at.to_datetime}")
+                      | #{l submission_answer.updated_at}
                     = render 'users/icon',
-                      user: model_submission.last_updated_user,
+                      user: submission_answer.last_updated_user,
                       link_class: 'thread-header__user-icon-link',
                       image_class: 'thread-header__user-icon'
-                    = link_to model_submission.last_updated_user, class: 'a-user-name' do
-                      | #{model_submission.last_updated_user.login_name}
+                    = link_to submission_answer.last_updated_user, class: 'a-user-name' do
+                      | #{submission_answer.last_updated_user.login_name}

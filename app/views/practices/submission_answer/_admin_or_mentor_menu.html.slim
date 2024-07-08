@@ -8,7 +8,7 @@
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item
-            - if model_submission.present?
-              = link_to edit_mentor_practice_model_submission_path(practice, model_submission), class: 'a-button is-sm is-secondary is-block' do
+            - if submission_answer.present?
+              = link_to edit_mentor_practice_submission_answer_path(practice, submission_answer), class: 'a-button is-sm is-secondary is-block' do
                 i.fa-solid.fa-pen
                 | 編集

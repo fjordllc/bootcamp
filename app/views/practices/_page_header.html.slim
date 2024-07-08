@@ -7,9 +7,9 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
-            - if current_user.mentor? && @practice.submission && !@practice.model_submission
+            - if current_user.mentor? && @practice.submission && !@practice.submission_answer
               li.page-header-actions__item.is-hidden-sm-down.is-only-mentor
-                = link_to new_mentor_practice_model_submission_path(@practice), class: 'a-button is-md is-secondary is-block' do
+                = link_to new_mentor_practice_submission_answer_path(@practice), class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
                   | 模範解答作成
             li.page-header-actions__item
