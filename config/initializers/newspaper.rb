@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.configuration.to_prepare do
+Rails.configuration.after_initialize do
   Newspaper.subscribe(:event_create, EventOrganizerWatcher.new)
   Newspaper.subscribe(:answer_create, AnswerNotifier.new)
   Newspaper.subscribe(:answer_create, NotifierToWatchingUser.new)
@@ -73,7 +73,7 @@ Rails.configuration.to_prepare do
 
   Newspaper.subscribe(:create_article, ArticleNotifier.new)
   Newspaper.subscribe(:destroy_article, ArticleNotificationDestroyer.new)
-  
+
   Newspaper.subscribe(:work_create, WorkNotifier.new)
   Newspaper.subscribe(:work_destroy, WorkNotificationDestroyer.new)
 end
