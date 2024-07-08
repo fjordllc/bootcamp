@@ -7,17 +7,16 @@ header.page-header
       .page-header__end
         .page-header-actions
           ul.page-header-actions__items
-            li.page-header-actions__item
-              - if current_user != user
-                - if current_user.adviser? && current_user.company_id == user.company_id && user.trainee
-                  li.page-main-header-actions__item
-                    .a-button.is-disabled.is-sm.is-block
-                      i.fa-solid.fa-check
-                      span
-                        | 自社研修生
-                - else
-                  li.page-main-header-actions__item
-                    = render 'users/following', user:
+            - if current_user != user
+              - if current_user.adviser? && current_user.company_id == user.company_id && user.trainee
+                li.page-main-header-actions__item
+                  .a-button.is-disabled.is-sm.is-block
+                    i.fa-solid.fa-check
+                    span
+                      | 自社研修生
+              - else
+                li.page-main-header-actions__item
+                  = render 'users/following', user:
             li.page-header-actions__item
               = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | ユーザー一覧
