@@ -359,6 +359,7 @@ class ProductsTest < ApplicationSystemTestCase
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     fill_in 'new_comment[description]', with: 'コメントしたら担当になるテスト'
     click_button 'コメントする'
+    accept_alert '提出物の担当になりました。'
     assert_text 'コメントしたら担当になるテスト'
     visit current_path
     assert_text '担当から外れる'
