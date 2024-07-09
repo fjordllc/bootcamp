@@ -6,15 +6,15 @@
   .card-body
     .card__description
       .niconico-calendar-nav
-        - if prev_month?(@current_date)
+        - if prev_month?(current_date)
           = link_to prev_month_path do
             .niconico-calendar-nav__previous
               i.fa-solid.fa-angle-left
         - else
           .niconico-calendar-nav__next.is-blank
         .niconico-calendar-nav__year--month
-          = "#{@current_date.year}年#{@current_date.month}月"
-        - if next_month?(@current_date)
+          = "#{current_date.year}年#{current_date.month}月"
+        - if next_month?(current_date)
           = link_to next_month_path do
             .niconico-calendar-nav__next
               i.fa-solid.fa-angle-right
@@ -31,7 +31,7 @@
             th.niconico-calendar__header-day 金
             th.niconico-calendar__header-day.is-saturday 土
         tbody.niconico-calendar__body
-          - user.niconico_calendar(@current_calendar).each do |week|
+          - user.niconico_calendar(current_calendar).each do |week|
             tr.niconico-calendar__week
               - week.each do |set|
                 - day_css_class = frame_and_background(set[:date], set[:emotion])
