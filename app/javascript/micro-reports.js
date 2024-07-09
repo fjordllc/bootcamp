@@ -21,34 +21,20 @@ document.addEventListener('DOMContentLoaded', function() {
   adjustPadding();
 
   // Event listener for textarea input
-  textarea.addEventListener('input', () => {
-    adjustPadding();
-    scrollToBottom(scrollTarget);  // Ensure view is scrolled to bottom after adjusting padding
-  });
+  textarea.addEventListener('input', debounce(adjustPadding, 100)); // Update padding on input with debounce
+
+  // Function to handle the smooth scroll to the bottom
+  function scrollToBottom(element) {
+    setTimeout(() => {
+      element.scrollTo({
+        top: element.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 200);  // Delaying the scroll for 100 milliseconds
+  }
 
   // Scroll to the bottom of the scrollTarget div as soon as the page loads
   scrollToBottom(scrollTarget);
-
-  // MutationObserver to watch for style changes and adjust scroll
-  const styleObserver = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'style') {
-        scrollToBottom(scrollTarget);
-      }
-    });
-  });
-
-  styleObserver.observe(microReports, {
-    attributes: true,
-    attributeFilter: ['style']
-  });
-
-  function scrollToBottom(element) {
-    element.scrollTo({
-      top: element.scrollHeight,
-      behavior: 'smooth'
-    });
-  }
 
   // Debounce function to limit the rate of execution of a function
   function debounce(func, wait) {
