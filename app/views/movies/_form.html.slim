@@ -29,7 +29,14 @@
       .row
         .col-md-6.col-xs-12
           = f.label :movie_data, class: 'a-form-label'
-          = f.file_field :movie_data, class: 'a-text-input', accept: 'video/mp4, video/quicktime', direct_upload: true
+          .form-item-file-input.js-movie-file-input.a-file-input.is-movie
+            label.js-movie-file-input__preview
+              - if @movie.movie_data.attached?
+                = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.59'
+                p 動画を変更
+              - else
+                p 動画を選択
+              = f.file_field :movie_data, class: 'a-text-input', accept: 'video/mp4, video/quicktime', direct_upload: true
     .form-item
       .row
         .col-md-6.col-xs-12
@@ -38,4 +45,20 @@
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
-        = f.submit '動画を追加する', class: 'a-button is-lg is-primary is-block', id: 'js-shortcut-submit'
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        = button_tag(class: 'a-button is-lg is-primary is-block') do
+          - case params[:action]
+          - when 'new', 'create'
+            | 動画を追加
+          - when 'edit', 'update'
+            - if @movie.published_at.blank?
+              | 動画を追加
+            - else
+              | 内容を更新
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', :movies, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', :movies, class: 'a-button is-sm is-text'

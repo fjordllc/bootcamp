@@ -36,6 +36,18 @@ main.page-main
                   = @movie.description
             hr.a-border-tint
               = render 'reactions/reactions', reactionable: @movie
+            hr.a-border-tint
+              footer.card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to [:edit, @movie], class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                        i.fa-solid.fa-pen
+                        | 内容変更
+                    - if admin_or_mentor_login? || current_user == @movie.user
+                      li.card-main-actions__item.is-sub
+                        = link_to @movie, data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                          | 削除する
 
           .page-content-prev-next
             .page-content-prev-next__item
