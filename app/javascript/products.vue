@@ -16,7 +16,7 @@
     | 5日経過した提出物はありません
 
 //- ダッシュボード
-div(v-else-if='isDashboard')
+.is-vue(v-else-if='isDashboard')
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
       v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
