@@ -64,7 +64,8 @@ export default {
         this.currentUserId,
         '/api/products/checker',
         this.productCheckerId ? 'DELETE' : 'PATCH',
-        CSRF.getToken()
+        CSRF.getToken(),
+        false
       )
     }
   }
