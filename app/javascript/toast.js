@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const type = element.dataset.type;
     const message = element.dataset.message;
 
-    // Toastを発火
     Toast.fire({
       title: message,
       customClass: {
