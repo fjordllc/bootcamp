@@ -4,7 +4,8 @@
   bottom: 0
   left: 0
   right: 0
-  margin-left: 5rem
+  +media-breakpoint-up(md)
+    margin-left: 5rem
 
 .micro-report-form__inner
   display: flex
@@ -15,4 +16,5 @@
   flex: 1
 
 .micro-report-form__text-area.a-text-input
-  min-height: 2.75rem
+  height: 3.75rem
+  min-height: 0
