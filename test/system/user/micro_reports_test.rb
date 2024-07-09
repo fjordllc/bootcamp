@@ -29,7 +29,7 @@ class MicroReportsTest < ApplicationSystemTestCase
 
   test 'form has micro report tab and preview tab' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
-    within('.tabs') do
+    within('.micro-report-form-tabs') do
       assert_text '分報'
       assert_text 'プレビュー'
     end
@@ -56,7 +56,7 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'content is interpreted as markdown in preview tab' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     fill_in('micro_report[content]', with: "Markdown入力するとプレビューにHTMLで表示されている。\n # h1")
-    within('.tabs') do
+    within('.micro-report-form-tabs') do
       click_on 'プレビュー'
     end
     assert_selector '.js-preview.a-long-text.markdown-form__preview', text: 'Markdown入力するとプレビューにHTMLで表示されている。' do
