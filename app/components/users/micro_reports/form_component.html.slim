@@ -4,21 +4,23 @@
       .micro-report-form__start
         .micro-report-form-text
           .micro-report-form-tabs
-            ul.micro-report-form-tabs__items
+            ul.micro-report-form-tabs__items.form-tabs.js-tabs
               li.micro-report-form-tabs__item
-                a.tab-link href="#form" data-target="form-container" 分報
-              li.micro-report-form-tabs__item
-                a.tab-link href="#preview" data-target="preview-container" プレビュー
+                a.micro-report-form-tabs__item-link.form-tabs__tab.js-tab-link.is-active(href="#form" data-target="form-container")
+                  | 分報
+              li.micro-report-form-tabs__itemm
+                a.micro-report-form-tabs__item-link.form-tabs__tab.js-tab-link(href="#preview" data-target="preview-container")
+                  | プレビュー
 
           .tab-content
-            .tab-pane#form-container
+            .js-tab-pane#form-container
               .form__items
                 .js-markdown-parent
                   = f.text_area :content,
                     class: "a-text-input micro-report-form__text-area js-markdown",
                     placeholder: '今やっていることを投稿してみましょう！',
                     data: { 'preview': '.js-preview' }, id: 'js-micro-report-textarea'
-            .tab-pane#preview-container.hidden
+            .js-tab-pane#preview-container.hidden
               .js-preview.a-long-text.is-md.micro-report-form__preview
 
       .micro-report-form__end
