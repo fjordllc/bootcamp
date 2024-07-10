@@ -7,7 +7,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
     @practice = practices(:practice1)
   end
 
-  test 'student passed practice can show model answer' do
+  test 'student passed practice can show submission answer' do
     visit_with_auth practice_path(@practice), 'kimura'
     assert find_button('修了')[:disabled]
     visit practice_submission_answer_path(@practice)
@@ -15,7 +15,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
     assert_text 'description...'
   end
 
-  test 'student not passed practice can not show model answer' do
+  test 'student not passed practice can not show submission answer' do
     visit_with_auth practice_path(@practice), 'kimura'
     click_on '未着手'
     assert find_button('未着手')[:disabled]

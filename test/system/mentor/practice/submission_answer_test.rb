@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class Mentor::Practices::SubmissionAnswerTest < ApplicationSystemTestCase
-  test 'mentor can create model answer' do
+  test 'mentor can create submission answer' do
     practice = practices(:practice2)
     practice.submission_answer = nil
 
@@ -15,7 +15,7 @@ class Mentor::Practices::SubmissionAnswerTest < ApplicationSystemTestCase
     assert_text '模範解答内容です。'
   end
 
-  test 'mentor can update model answer' do
+  test 'mentor can update submission answer' do
     practice = practices(:practice1)
 
     visit_with_auth edit_mentor_practice_submission_answer_path(practice), 'komagata'
