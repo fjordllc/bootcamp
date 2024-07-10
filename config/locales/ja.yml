@@ -106,7 +106,8 @@ ja:
         country_code: 国
         subdivision_code: 都道府県・州
         not_auto_retire: 休会六ヶ月後に自動退会しない
-        invoice_payment_user: 請求書払いのユーザーである
+        invoice_payment_user: 請求書払い
+        credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
         hide_mentor_profile: プロフィール非公開
       discord_profile:
@@ -392,7 +393,9 @@ ja:
     campaign: お試し延長
   invitation_role:
     adviser: アドバイザー
-    trainee: 研修生
+    trainee(invoice_payment): 研修生(請求書払い)
+    trainee(credit_card_payment): 研修生(クレジットカード払い)
+    trainee(select_a_payment_method): 研修生(支払い方法を選択)
     mentor: メンター
   watch:
     all: すべて
