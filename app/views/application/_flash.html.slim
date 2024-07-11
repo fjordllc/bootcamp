@@ -1,6 +1,7 @@
 - # rubocop:disable Rails/OutputSafety
 - if notice
   - flash.each do |type, message|
+    - next if type != 'notice'
     .flash-message.js-toast(data-type=type data-message=message)
 - if alert
   input.a-toggle-checkbox#hide-flash(type='checkbox')
