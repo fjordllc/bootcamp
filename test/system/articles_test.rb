@@ -5,6 +5,7 @@ require 'application_system_test_case'
 class ArticlesTest < ApplicationSystemTestCase
   setup do
     @article = articles(:article1)
+    @article2 = articles(:article2)
     @article3 = articles(:article3)
   end
 
@@ -411,5 +412,16 @@ class ArticlesTest < ApplicationSystemTestCase
 
     visit '/articles.atom'
     assert_no_text 'WIPの記事は atom feed に表示されない'
+  end
+
+  test 'WIP articles are listed first in desc order' do
+    visit_with_auth articles_path, 'komagata'
+    titles = all('h2.thumbnail-card__title').map(&:text)
+
+    within '.articles__items' do
+      assert_includes titles[0], @article3.title
+      assert_includes titles[1], @article2.title
+      assert_includes titles[2], @article.title
+    end
   end
 end
