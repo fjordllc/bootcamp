@@ -418,10 +418,8 @@ class ArticlesTest < ApplicationSystemTestCase
     visit_with_auth articles_path, 'komagata'
     titles = all('h2.thumbnail-card__title').map(&:text)
 
-    within '.articles__items' do
-      assert_includes titles[0], @article3.title
-      assert_includes titles[1], @article2.title
-      assert_includes titles[2], @article.title
-    end
+    assert_includes titles[0], @article3.title
+    assert_includes titles[1], @article2.title
+    assert_includes titles[2], @article.title
   end
 end
