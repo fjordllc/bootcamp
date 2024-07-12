@@ -49,4 +49,9 @@ class CoursesTest < ApplicationSystemTestCase
     visit_with_auth '/courses', 'mentormentaro'
     assert_text courses(:course1).title
   end
+
+  test 'nonmember can show welcome page' do
+    visit '/courses'
+    assert_text 'コースを選択してください'
+  end
 end

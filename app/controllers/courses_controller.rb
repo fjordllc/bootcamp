@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 class CoursesController < ApplicationController
-  before_action :require_mentor_login, except: %i[index]
+  skip_before_action :require_active_user_login, raise: false
 
   def index
-    @courses = Course.order(created_at: :desc)
+    if logged_in?
+      @courses = Course.order(created_at: :desc)
+    else
+      @rails_course = Course.preload(categories: :practices).find_by(title: 'Railsエンジニア')
+      @frontend_course = Course.preload(categories: :practices).find_by(title: 'フロントエンドエンジニア')
+      render 'welcome/courses', layout: 'welcome'
+    end
   end
 
   private
