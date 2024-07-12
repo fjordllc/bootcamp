@@ -51,10 +51,18 @@ class UsersController < ApplicationController
     case params[:role]
     when 'adviser'
       @user.adviser = true
-    when 'trainee'
+    when 'trainee_select_a_payment_method'
       @user.trainee = true
-    when 'mentor'
-      @user.mentor = true
+      @pay_by_invoice = false
+      @pay_by_credit_card = false
+    when 'trainee_invoice_payment'
+      @user.trainee = true
+      @pay_by_invoice = true
+      @pay_by_credit_card = false
+    when 'trainee_credit_card_payment'
+      @user.trainee = true
+      @pay_by_invoice = false
+      @pay_by_credit_card = true
     end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
