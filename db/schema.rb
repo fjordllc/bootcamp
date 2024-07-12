@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_17_061351) do
+ActiveRecord::Schema.define(version: 2024_07_12_074411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -766,6 +766,7 @@ ActiveRecord::Schema.define(version: 2024_06_17_061351) do
     t.string "other_editor"
     t.boolean "invoice_payment", default: false, null: false
     t.boolean "hide_mentor_profile", default: false, null: false
+    t.integer "experiences", default: 0, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_id"], name: "index_users_on_github_id", unique: true
