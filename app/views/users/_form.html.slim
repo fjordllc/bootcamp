@@ -32,7 +32,7 @@
       = render 'users/form/experiences', f:
 
     - if user.trainee? && from == :new
-        .form-items
+        .form-item#payment-methods
           .form-item-block
             .form-item-block__inner
               header.form-item-block__header
@@ -40,7 +40,6 @@
                   | 支払い方法
               .form-item-block__item
                   = render 'users/form/invoice_payment', f:, user:, pay_by_invoice:, pay_by_credit_card:
-          = params[:role]
 
     - if from == :edit
       = render 'users/form/editor', f:, user:
