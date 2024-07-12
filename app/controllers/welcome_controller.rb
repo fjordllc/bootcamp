@@ -20,6 +20,8 @@ class WelcomeController < ApplicationController
     render layout: 'lp'
   end
 
+  def job_support; end
+
   def tos; end
 
   def pp; end

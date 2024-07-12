@@ -19,13 +19,13 @@ header.welcome-header
                 span
                   | 料金
             li.welcome-header-nav__item
+              = link_to job_support_path, class: 'welcome-header-nav__item-link' do
+                span
+                  | 就職支援
+            li.welcome-header-nav__item
               = link_to training_path, class: 'welcome-header-nav__item-link' do
                 span
                   | 法人利用
-            li.welcome-header-nav__item
-              = link_to articles_path, class: 'welcome-header-nav__item-link' do
-                span
-                  | ブログ
             li.welcome-header-nav__item
               = link_to faq_path, class: 'welcome-header-nav__item-link' do
                 span
@@ -38,6 +38,10 @@ header.welcome-header
               = link_to alumni_voices_path, class: 'welcome-header-nav__item-link' do
                 span
                   | 卒業生の声
+            li.welcome-header-nav__item
+              = link_to articles_path, class: 'welcome-header-nav__item-link' do
+                span
+                  | ブログ
             - unless current_user
               li.welcome-header-nav__item
                 = link_to new_user_path, class: 'welcome-header-nav__item-link' do
@@ -60,4 +64,4 @@ header.welcome-header
           - else
             = link_to login_path, class: 'a-button is-sm is-secondary is-block' do
               | ログイン
-  hr.a-border
+  hr.a-border-tint
