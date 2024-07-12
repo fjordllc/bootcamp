@@ -1,12 +1,12 @@
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox
-      = pay_by_invoice ? ( f.check_box :invoice_payment, checked: true, class: 'a-toggle-checkbox' ) : ( f.check_box :invoice_payment, checked: false, class: 'a-toggle-checkbox not-checked' )
+      = pay_by_invoice ? ( f.check_box :invoice_payment, checked: true, class: 'a-toggle-checkbox' ) : ( f.check_box :invoice_payment, checked: false, disabled: true, class: 'a-toggle-checkbox not-checked' )
       = f.label :invoice_payment, class: 'a-block-check__label is-ta-left' do
         = User.human_attribute_name :invoice_payment_user
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox
-      = pay_by_credit_card ? ( check_box_tag :credit_card_payment, '1', true, class: 'a-toggle-checkbox' ) : ( check_box_tag :credit_card_payment, '1', false, class: 'a-toggle-checkbox not-checked' )
+      = pay_by_credit_card ? ( check_box_tag :credit_card_payment, '1', true, class: 'a-toggle-checkbox' ) : ( check_box_tag :credit_card_payment, '1', false, disabled: true, class: 'a-toggle-checkbox not-checked' )
       = label_tag :credit_card_payment, class: 'a-block-check__label is-ta-left' do
         = User.human_attribute_name :credit_card_payment_user
