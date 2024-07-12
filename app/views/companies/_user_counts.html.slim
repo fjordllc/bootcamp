@@ -1,12 +1,12 @@
 .card-counts.is-user
   dl.card-counts__items
-    - unless users.mentor.empty?
+    - unless company.users.mentor.empty?
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | メンター
           dd.card-counts__item-value
-            = link_to users.mentor.size,
+            = link_to company.users.mentor.size,
                 company_users_path(company, target: 'mentor'),
                 class: 'card-counts__item-value-link'
     .card-counts__item
@@ -14,8 +14,8 @@
         dt.card-counts__item-label
           | アドバイザー
         dd.card-counts__item-value
-          = link_to_if users.unretired.advisers.present?,
-              users.advisers.size,
+          = link_to_if company.users.unretired.advisers.present?,
+              company.users.advisers.size,
               company_users_path(company, target: 'adviser'),
               class: 'card-counts__item-value-link'
     .card-counts__item
@@ -23,16 +23,16 @@
         dt.card-counts__item-label
           | 現役生
         dd.card-counts__item-value
-          = link_to_if users.unretired.students_and_trainees.present?,
-              users.students_and_trainees.size,
+          = link_to_if company.users.unretired.students_and_trainees.present?,
+              company.users.students_and_trainees.size,
               company_users_path(company, target: 'student_and_trainee'),
               class: 'card-counts__item-value-link'
-    - unless users.admins.empty?
+    - unless company.users.admins.empty?
       .card-counts__item
         .card-counts__item-inner
           dt.card-counts__item-label
             | 管理者
           dd.card-counts__item-value
-            = link_to users.admins.size,
+            = link_to company.users.admins.size,
                 company_users_path(company, target: 'admin'),
                 class: 'card-counts__item-value-link'
