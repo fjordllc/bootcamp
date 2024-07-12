@@ -1,0 +1,23 @@
+.corporate-training-feature__inner
+  display: flex
+
+.corporate-training-feature__start,
+.corporate-training-feature__end
+  flex: 1
+
+.corporate-training-feature__content
+  display: flex
+  flex-direction: column
+  gap: 2rem
+
+.corporate-training-feature__title
+  +text-block(2.125rem 1.4, 800)
+
+.corporate-training-feature__body
+  +text-block(1rem 1.6)
+
+.corporate-training-feature__border
+  height: 1px
+  width: 100%
+  display: block
+  border-top: dashed 1px var(--border-more-shade)

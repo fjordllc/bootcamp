@@ -1,0 +1,26 @@
+.corporate-training-key-reason
+  display: flex
+  &:first-child
+    justify-content: flex-start
+  &:nth-child(2)
+    justify-content: center
+  &:last-child
+    justify-content: flex-end
+
+.corporate-training-key-reason__inner
+  flex: 0 0 626px
+  padding: 1.5rem
+  &.a-card
+    margin-inline: 0
+
+.corporate-training-key-reason__end
+  display: flex
+  flex-direction: column
+  justify-content: center
+  gap: 1rem
+
+.corporate-training-key-reason__title
+  +text-block(1.5rem 1.4, 700)
+
+.corporate-training-key-reason__body
+  +text-block(1rem 1.6)
