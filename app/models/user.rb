@@ -257,6 +257,15 @@ class User < ApplicationRecord
     training_end
   ]
 
+  flag :experiences, %i[
+    html_css
+    ruby
+    rails
+    javascript
+    react
+    other_ruby_and_javascript
+  ]
+
   scope :in_school, -> { where(graduated_on: nil) }
   scope :graduated, -> { where.not(graduated_on: nil) }
   scope :hibernated, -> { where.not(hibernated_at: nil) }
