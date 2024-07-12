@@ -1,7 +1,10 @@
 .form-item
-  = f.label :experience, class: 'a-form-label is-required'
-  .a-button.is-md.is-secondary.is-select.is-block
-    - options = options_for_select(User.experiences.map { |k, _| [t("activerecord.enums.user.experience.#{k}"), k] }, selected: f.object.experience)
-    = f.select :experience, options, include_blank: '- 選択してください -'
+  = f.label :experiences, 'プログラミング経験（複数選択可）', class: 'a-form-label is-required'
+  .checkboxes
+    ul.checkboxes__items
+      = f.collection_check_boxes :experiences, User.experiences.pairs, :second, :first, class: 'label-checkbox' do |b|
+        li.checkboxes__item
+          = b.check_box(class: 'a-toggle-checkbox')
+          = b.label { b.text }
   .a-form-help
     p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
