@@ -61,7 +61,7 @@ class Admin::UsersController < AdminController
       :twitter_account, :facebook_url, :blog_url,
       :password, :password_confirmation, :job,
       :organization, :os, :study_place,
-      :experience, :company_id,
+      :experience, { experiences: [] }, :company_id,
       :trainee, :job_seeking, :nda,
       :graduated_on, :retired_on, :free,
       :job_seeker, :github_collaborator,
