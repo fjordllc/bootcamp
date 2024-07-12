@@ -25,7 +25,7 @@
             = link_to new_corporate_training_inquiry_path do
               | こちらの企業研修申し込みフォーム
             | からお申し込みください。
-      = render 'form', from: :new, url: users_path, user: @user
+      = render 'form', from: :new, url: users_path, user: @user, pay_by_invoice: @pay_by_invoice, pay_by_credit_card: @pay_by_credit_card
     hr.a-border-tint
     footer.auth-form__footer
       nav.auth-form-nav
