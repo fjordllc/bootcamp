@@ -10,9 +10,10 @@ class InquiriesController < ApplicationController
 
   def create
     @inquiry = Inquiry.new(inquiry_params)
-
     result = valid_recaptcha?('inquiry')
+
     if result && @inquiry.save
+      Newspaper.publish(:came_inquiry, { inquiry: @inquiry })
       InquiryMailer.incoming(@inquiry).deliver_later
       redirect_to new_inquiry_url, notice: 'お問い合わせを送信しました。'
     else
