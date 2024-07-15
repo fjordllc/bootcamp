@@ -32,14 +32,20 @@
       = render 'users/form/experiences', f:
 
     - if user.trainee? && from == :new
-        .form-item#payment-methods
-          .form-item-block
-            .form-item-block__inner
-              header.form-item-block__header
-                .form-item-block__title
-                  | 支払い方法
-              .form-item-block__item
-                  = render 'users/form/invoice_payment', f:, user:, pay_by_invoice:, pay_by_credit_card:
+      .form-item#payment-methods
+        .form-item-block
+          .form-item-block__inner
+            header.form-item-block__header
+              .form-item-block__title
+                | 支払い方法
+            .form-item-block__item
+              = render 'users/form/payment_methods_check_boxes', f:
+      - if params[:role] == 'trainee_credit_card_payment'
+        #card
+          = render 'users/form/card'
+      - elsif params[:role] == 'trainee_select_a_payment_method'
+        #card.hidden
+          = render 'users/form/card'
 
     - if from == :edit
       = render 'users/form/editor', f:, user:
