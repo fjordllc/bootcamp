@@ -113,14 +113,19 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
       id: participated_events,
       finished: false
     ).find_each do |regular_event|
-      participated_regular_event = ParticipatedRegularEvents.new(regular_event)
-      regular_event.regular_event_repeat_rules.each do |repeat_rule|
-        current_date = Time.zone.today
-
-        participated_regular_event.events_for_year(repeat_rule, current_date, participated_regular_events)
+      regular_event.all_scheduled_dates.each do |event_date|
+        participated_regular_events << format_event_date(regular_event, event_date)
       end
     end
     participated_regular_events
+  end
+
+  def all_scheduled_dates(
+    from: Date.new(Time.zone.today.year, Time.zone.today.month, Time.zone.today.day),
+    to: Date.new(Time.zone.today.year + 1, Time.zone.today.month, Time.zone.today.day)
+  )
+
+    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
   private
@@ -130,13 +135,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
-  end
-
-  def all_scheduled_dates(
-    from: Date.new(Time.current.year, 1, 1),
-    to: Date.new(Time.current.year, 12, 31)
-  )
-    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
   def feature_scheduled_dates
@@ -160,18 +158,18 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     (date.day + 6) / 7
   end
 
-  def list_regular_event_for_year(event,  repeat_rule, current_date, participated_regular_events)
-    while current_date <= Time.zone.today + 1.year
-      if repeat_rule.frequency.zero?
-        day_of_the_week_symbol = DateAndTime::Calculations::DAYS_INTO_WEEK.key(repeat_rule.day_of_the_week)
-        event_date = current_date.next_occurring(day_of_the_week_symbol).to_date
-        event_date = event_date.next_occurring(day_of_the_week_symbol) while !event.hold_national_holiday && HolidayJp.holiday?(event_date)
-        current_date = event_date + 1
-      else
-        event_date = event.possible_next_event_date(current_date, repeat_rule)
-        current_date = current_date.next_month.beginning_of_month
-      end
-      participated_regular_events << { event:, event_date: }
-    end
+  def format_event_date(regular_event, event_date)
+    event = regular_event.dup
+    tzid = 'Asia/Tokyo'
+
+    event.assign_attributes(
+      start_at: Icalendar::Values::DateTime.new(
+        DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
+      ),
+      end_at: Icalendar::Values::DateTime.new(
+        DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
+      )
+    )
+    event
   end
 end
