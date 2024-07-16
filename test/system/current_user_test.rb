@@ -219,42 +219,34 @@ class CurrentUserTest < ApplicationSystemTestCase
   end
 
   test 'update admin user\'s auto_retire' do
-    user = users(:komagata)
-
     visit_with_auth '/current_user/edit', 'komagata'
     check '休会六ヶ月後に自動退会しない', allow_label_click: true
     click_on '更新する'
 
-    assert_not user.reload.auto_retire
+    assert_not users(:komagata).reload.auto_retire
   end
 
   test 'update admin user\'s invoice_payment' do
-    user = users(:komagata)
-
     visit_with_auth '/current_user/edit', 'komagata'
     check '請求書払いのユーザーである', allow_label_click: true
     click_on '更新する'
 
-    assert user.reload.invoice_payment
+    assert users(:komagata).reload.invoice_payment
   end
 
   test 'update admin user\'s mentor' do
-    user = users(:komagata)
-
     visit_with_auth '/current_user/edit', 'komagata'
     uncheck 'メンター', allow_label_click: true
     click_on '更新する'
 
-    assert_not user.reload.mentor
+    assert_not users(:komagata).reload.mentor
   end
 
   test 'update admin user\'s subscription_id' do
-    user = users(:komagata)
-
     visit_with_auth '/current_user/edit', 'komagata'
     fill_in 'サブスクリプションID', with: 'sub_987654321'
     click_on '更新する'
 
-    assert_match user.reload.subscription_id, 'sub_987654321'
+    assert_match users(:komagata).reload.subscription_id, 'sub_987654321'
   end
 end
