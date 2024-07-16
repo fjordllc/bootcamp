@@ -54,7 +54,14 @@ export default {
           console.warn(error)
         })
     },
-    checkProduct(productId, currentUserId, url, method, token, commented) {
+    checkProduct(
+      productId,
+      currentUserId,
+      url,
+      method,
+      token,
+      isChargeFromComment
+    ) {
       const params = {
         product_id: productId,
         current_user_id: currentUserId
@@ -81,7 +88,7 @@ export default {
             this.id = json.checker_id
             this.name = json.checker_name
             if (this.id !== null) {
-              if (commented) {
+              if (isChargeFromComment) {
                 alert('提出物の担当になりました。') // 担当が決まっていない提出物にメンターがコメントをした場合にアラートを出す
               }
               this.toast('担当になりました。')
