@@ -221,8 +221,6 @@ class CurrentUserTest < ApplicationSystemTestCase
   test 'update admin user\'s auto_retire' do
     user = users(:komagata)
 
-    # auto_retireはデフォルトでtrue
-    # チェックボックスにチェックを入れると、auto_retireはfalseになる
     visit_with_auth '/current_user/edit', 'komagata'
     check '休会六ヶ月後に自動退会しない', allow_label_click: true
     click_on '更新する'
