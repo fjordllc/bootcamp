@@ -412,6 +412,7 @@ class ArticlesTest < ApplicationSystemTestCase
     visit '/articles.atom'
     assert_no_text 'WIPの記事は atom feed に表示されない'
   end
+
   test 'not logged-in users cannot view WIP articles without correct token' do
     visit article_path(@article3)
     assert_text '管理者・メンターとしてログインしてください'
