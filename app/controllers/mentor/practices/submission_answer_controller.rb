@@ -5,7 +5,7 @@ class Mentor::Practices::SubmissionAnswerController < ApplicationController
   before_action :set_submission_answer, only: %i[edit update]
 
   def new
-    @practice = find_practice
+    @practice = Practice.find(params[:practice_id])
     @submission_answer = @practice.build_submission_answer
   end
 
@@ -14,7 +14,7 @@ class Mentor::Practices::SubmissionAnswerController < ApplicationController
   end
 
   def create
-    @practice = find_practice
+    @practice = Practice.find(params[:practice_id])
     @submission_answer = @practice.build_submission_answer(submission_answer_params)
     if @submission_answer.save
       redirect_to practice_submission_answer_url, notice: '模範解答を作成しました。'
@@ -36,10 +36,6 @@ class Mentor::Practices::SubmissionAnswerController < ApplicationController
 
   def set_submission_answer
     @submission_answer = SubmissionAnswer.find_by(practice_id: params[:practice_id])
-  end
-
-  def find_practice
-    Practice.find(params[:practice_id])
   end
 
   def submission_answer_params
