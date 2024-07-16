@@ -632,7 +632,7 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
 
   create_table "submission_answers", force: :cascade do |t|
     t.bigint "practice_id", null: false
-    t.text "description"
+    t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["practice_id"], name: "index_submission_answers_on_practice_id"
