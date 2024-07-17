@@ -38,6 +38,8 @@ class UsersController < ApplicationController
                            .where(status: 3)
                            .order(updated_at: :desc)
 
+    @calendar = NicoNicoCalendar.new(@user, params[:niconico_calendar])
+
     if logged_in?
       render :show
     else
