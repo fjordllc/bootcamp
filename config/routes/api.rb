@@ -73,7 +73,6 @@ Rails.application.routes.draw do
     end
     resources :products, only: %i(index show)
     resources :searchables, only: %i(index)
-    resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)
