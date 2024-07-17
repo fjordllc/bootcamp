@@ -42,18 +42,18 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
   def coming_soon_regular_events(params = {})
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
-    today_events = params[:today_events]
-    tomorrow_events = params[:tomorrow_events]
+    today_events = params[:today_events].sort_by(&:start_at)
+    tomorrow_events = params[:tomorrow_events].sort_by(&:start_at)
     today = Time.current
     tomorrow = Time.current.next_day
     event_info = <<~TEXT.gsub(/^\n+/, "\n").chomp
       ⚡️⚡️⚡️イベントのお知らせ⚡️⚡️⚡️
 
-      #{add_event_info(today_events.sort_by(&:start_at), '今日', today)}
+      #{add_event_info(today_events, '今日', today)}
 
       #{'------------------------------' if today_events.present?}
 
-      #{add_event_info(tomorrow_events.sort_by(&:start_at), '明日', tomorrow)}
+      #{add_event_info(tomorrow_events, '明日', tomorrow)}
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
