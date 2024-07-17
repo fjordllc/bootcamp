@@ -78,6 +78,10 @@ header.page-header
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
+                = render(partial: 'reports/recent_reports', locals: { header_display: true })
+                / #TODO - にしたつ；↓は後で消す
+                p
+                  | 🚨↑は今回作ったhtmlパーシャル、↓は元のVueコンポーネント
                 div(data-vue="UserRecentReports" data-vue-user-id:number="#{@product.user.id}")
               .side-tabs-contents__item#side-tabs-content-2
                 = render 'practice_memo', practice_id: @product.practice_id
