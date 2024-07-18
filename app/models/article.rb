@@ -39,7 +39,7 @@ class Article < ApplicationRecord
 
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
     if thumbnail.attached?
-      thumbnail.variant(resize_to_limit: thumbnail_size).processed.url
+      thumbnail.variant(resize_to_fill: thumbnail_size).processed.url
     else
       image_url('/ogp/blank.svg')
     end
