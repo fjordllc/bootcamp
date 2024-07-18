@@ -1,28 +1,26 @@
 .page-content-header-actions
   padding-top: .25rem
   display: flex
-  justify-content: space-between
   flex-wrap: wrap
   gap: .5rem
+  +media-breakpoint-up(sm)
+    justify-content: space-between
+  +media-breakpoint-down(xs)
+    justify-content: center
 
 .page-content-header-actions__start,
 .page-content-header-actions__end
   display: flex
   gap: .5rem
-  +media-breakpoint-up(md)
+  +media-breakpoint-up(sm)
     flex: 1
-  +media-breakpoint-down(sm)
-    flex: 0 0 100%
-
-.page-content-header-actions__start
-  +media-breakpoint-down(sm)
-    flex: 2
 
 .page-content-header-actions__start
   justify-content: flex-start
 
 .page-content-header-actions__end
-  justify-content: flex-end
+  +media-breakpoint-up(sm)
+    justify-content: flex-end
 
 .page-content-header-actions__action
   min-width: 5.5rem
