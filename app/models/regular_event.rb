@@ -107,10 +107,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def all_scheduled_dates(
-    from: Date.new(Time.zone.today.year, Time.zone.today.month, Time.zone.today.day),
-    to: Date.new(Time.zone.today.year + 1, Time.zone.today.month, Time.zone.today.day)
+    from: Date.new(Time.current.year, 1, 1),
+    to: Date.new(Time.current.year, 12, 31)
   )
-
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
@@ -144,22 +143,21 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     (date.day + 6) / 7
   end
 
-  class << self 
+  class << self
     def fetch_participated_regular_events(user)
-      participated_events = user.regular_event_participations.pluck(:regular_event_id)
       participated_regular_events = []
-      RegularEvent.where(
-        id: participated_events,
-        finished: false
-      ).find_each do |regular_event|
-        regular_event.all_scheduled_dates.each do |event_date|
+      user.participated_regular_event_ids.find_each do |regular_event|
+        regular_event.all_scheduled_dates(
+          from: Time.current.to_date,
+          to: Time.current.to_date.next_year
+        ).each do |event_date|
           participated_regular_events << format_event_date(regular_event, event_date)
         end
       end
       participated_regular_events
     end
 
-  private
+    private
 
     def format_event_date(regular_event, event_date)
       event = regular_event.dup
