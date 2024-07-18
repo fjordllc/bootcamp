@@ -19,12 +19,13 @@ header.page-header
 hr.a-border
 .page-body
   .container.is-md
-    .page-content.work
+    .page-content.is-work
       header.page-content-header
         .page-content-header__start
-          = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'page-content-header__user-link' do
-            span class="a-user-role is-#{@work.user.primary_role}"
-              = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: 'page-content-header__user-icon a-user-icon'
+          .page-content-header__user
+            = link_to user_portfolio_path(@work.user), itemprop: 'url', class: 'page-content-header__user-link' do
+              span class="a-user-role is-#{@work.user.primary_role}"
+                = image_tag @work.user.avatar_url, title: @work.user.icon_title, class: 'page-content-header__user-icon a-user-icon'
         .page-content-header__end
           .page-content-header__row
             .page-content-header__before-title
@@ -52,22 +53,23 @@ hr.a-border
               = @work.description
         hr.a-border-tint
         .card-footer
-          ul.card-main-actions__items
-            - if @work.url.present?
-              li.card-main-actions__item
-                = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
-                  i.fa-solid.fa-globe
-                  | URL
-            - if @work.repository.present?
-              li.card-main-actions__item
-                = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
-                  i.fa-brands.fa-github-alt
-                  | Repository
-            - if @work.launch_article.present?
-              li.card-main-actions__item
-                = link_to @work.launch_article, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
-                  i.fa-solid.fa-newspaper
-                  | リリースブログ
+          .card-main-actions
+            ul.card-main-actions__items
+              - if @work.url.present?
+                li.card-main-actions__item
+                  = link_to @work.url, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
+                    i.fa-solid.fa-globe
+                    | URL
+              - if @work.repository.present?
+                li.card-main-actions__item
+                  = link_to @work.repository, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
+                    i.fa-brands.fa-github-alt
+                    | Repository
+              - if @work.launch_article.present?
+                li.card-main-actions__item
+                  = link_to @work.launch_article, target: '_blank', rel: 'noopener', class: 'a-button is-sm is-secondary is-block' do
+                    i.fa-solid.fa-newspaper
+                    | リリースブログ
         - if @work.user == current_user || admin_or_mentor_login?
           hr.a-border-tint
           .card-footer

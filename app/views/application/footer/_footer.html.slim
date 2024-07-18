@@ -52,7 +52,9 @@ footer.footer
           li.footer-nav__item
             = link_to 'https://fbc-stack.vercel.app/', class: 'footer-nav__item-link', target: '_blank', rel: 'noopener' do
               | FBC Stack
-
+          li.footer-nav__item
+            = link_to '/articles.atom', class: 'a-button is-sm is-secondary is-icon', target: '_blank', rel: 'noopener', title: 'フィヨルドブートキャンプブログフィード' do
+              i.fa-solid.fa-rss
       small.footer__copyright
         i.fa-regular.fa-copyright
         = link_to 'Lokka Inc.', 'https://lokka.jp', class: 'footer__copyright-link'

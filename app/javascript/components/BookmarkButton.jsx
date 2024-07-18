@@ -58,7 +58,7 @@ export default function BookmarkButton({ bookmarkableId, bookmarkableType }) {
     Bootcamp.delete(`/api/bookmarks/${bookmarkId}`)
       .then(() => {
         setIsBookmark(false)
-        toast.methods.toast('Bookmarkを削除しました')
+        toast.methods.toast('ブックマークを削除しました')
       })
       .catch((error) => {
         console.warn(error)

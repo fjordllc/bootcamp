@@ -13,6 +13,7 @@
   +media-breakpoint-up(lg)
     gap: 1rem
     justify-content: center
+    align-items: center
   +media-breakpoint-up(md)
     display: flex
     flex-wrap: wrap
@@ -44,6 +45,12 @@
     align-items: center
     padding-inline: 1rem
     +size(100% 2.75rem)
+  i
+    font-size: .75em
+    position: relative
+    top: -.0625em
+  i:first-child
+    margin-right: .375em
   body.is-welcome &
     color: var(--default-text)
 

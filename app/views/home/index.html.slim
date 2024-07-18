@@ -43,5 +43,5 @@
               - if current_user.github_account.present?
                 = render 'users/github_grass', user: current_user
               - if current_user.student_or_trainee?
-                #js-niconico_calendar(data-user-id="#{current_user.id}")
-    = render partial: 'recent_reports'
+                = render(Calendar::NicoNicoCalendarComponent.new(user: current_user, path: :niconico_calendar_date_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
+      = render partial: 'recent_reports'

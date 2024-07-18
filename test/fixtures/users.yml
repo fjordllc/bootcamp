@@ -1018,3 +1018,21 @@ harikirio: #必修でないプラクティスも修了しているユーザー
   created_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
   last_activity_at: "2020-01-01 00:00:12"
+
+pjord:
+  login_name: pjord
+  email: pjord@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: ピヨルド
+  name_kana: ピヨルド
+  company: company1
+  description: "管理者のピヨルドです。バイキングの末裔です。"
+  course: course1
+  job: office_worker
+  os: 回答なし
+  admin: true
+  adviser: true
+  updated_at: "2014-01-01 00:00:01"
+  created_at: "2014-01-01 00:00:01"
+  last_activity_at: "2014-01-01 00:00:01"
