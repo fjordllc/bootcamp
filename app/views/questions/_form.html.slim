@@ -8,12 +8,9 @@
             .form-item
               = f.label :practice, class: 'a-form-label'
               .select-practices
-                - if question.new_record?
-                  = f.select(:practice_id, practice_options_within_course, { selected: params[:practice_id], include_blank: 'プラクティス選択なし' },
-                             { class: 'js-choices-singles', id: 'js-choices-practice' })
-                - else
-                  = f.select(:practice_id, practice_options_within_course, { include_blank: 'プラクティス選択なし' },
-                             { class: 'js-choices-singles', id: 'js-choices-practice' })
+                = f.select(:practice_id, practice_options_within_course,
+                           question.new_record? ? { selected: params[:practice_id], include_blank: 'プラクティス選択なし' } : { include_blank: 'プラクティス選択なし' },
+                           { class: 'js-choices-singles', id: 'js-choices-practice' })
 
       .form-item
         .row.js-markdown-parent
@@ -59,12 +56,9 @@
               .form-item
                 = f.label :user_id, '作成者', class: 'a-form-label'
                 .select-user
-                  - if question.new_record?
-                    = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, { selected: current_user.id },
-                                          { class: 'js-choices-singles', id: 'js-choices-user' })
-                  - else
-                    = f.collection_select(:user_id, User.order(:login_name), :id, :login_name, {},
-                                          { class: 'js-choices-singles', id: 'js-choices-user' })
+                  = f.collection_select(:user_id, User.order(:login_name), :id, :login_name,
+                                        question.new_record? ? { selected: current_user.id } : {},
+                                        { class: 'js-choices-singles', id: 'js-choices-user' })
 
   .form-actions
     ul.form-actions__items
