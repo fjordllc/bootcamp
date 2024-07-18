@@ -110,16 +110,6 @@ class Event < ApplicationRecord
     waitlist.count.positive? && can_participate?
   end
 
-  def fetch_events(user)
-    event_ids = fetch_event_ids(user)
-
-    upcoming_participated_events = Event.where(id: event_ids[:participated] & event_ids[:upcoming])
-    upcoming_non_participated_events = Event.where(id: event_ids[:upcoming]).where.not(id: event_ids[:participated])
-
-    formatted_upcoming_participated_events = add_message_joined_participated_events(upcoming_participated_events)
-    formatted_upcoming_participated_events + upcoming_non_participated_events
-  end
-
   private
 
   def end_at_be_greater_than_start_at
@@ -163,17 +153,31 @@ class Event < ApplicationRecord
                   .order(created_at: :asc)
   end
 
-  def fetch_event_ids(user)
-    participated_events = user.participations.pluck(:event_id)
-    upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+  class << self
+    def fetch_events(user)
+      event_ids = fetch_event_ids(user)
 
-    { participated: participated_events, upcoming: upcoming_events }
-  end
+      upcoming_participated_events = Event.where(id: event_ids[:participated] & event_ids[:upcoming])
+      upcoming_non_participated_events = Event.where(id: event_ids[:upcoming]).where.not(id: event_ids[:participated])
 
-  def add_message_joined_participated_events(events)
-    events.each do |event|
-      event.title = "【参加登録済】#{event.title}"
+      formatted_upcoming_participated_events = add_message_joined_participated_events(upcoming_participated_events)
+      formatted_upcoming_participated_events + upcoming_non_participated_events
     end
-    events
+
+    private
+
+    def fetch_event_ids(user)
+      participated_events = user.participations.pluck(:event_id)
+      upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+
+      { participated: participated_events, upcoming: upcoming_events }
+    end
+
+    def add_message_joined_participated_events(events)
+      events.each do |event|
+        event.title = "【参加登録済】#{event.title}"
+      end
+      events
+    end
   end
 end
