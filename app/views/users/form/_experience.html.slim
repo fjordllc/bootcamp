@@ -1,5 +1,5 @@
 .form-item
-  = f.label :experiences, 'プログラミング経験（複数選択可）', class: 'a-form-label is-required'
+  = f.label :experiences, 'プログラミング経験（複数選択可）', class: 'a-form-label'
   .checkboxes
     ul.checkboxes__items
       = f.collection_check_boxes :experiences, User.experiences.pairs, :second, :first, class: 'label-checkbox' do |b|
@@ -7,4 +7,5 @@
           = b.check_box(class: 'a-toggle-checkbox')
           = b.label { b.text }
   .a-form-help
+    p 何もチェックしない場合は 「未経験」 になります。
     p この情報は他のフィヨルドブートキャンプ参加者には公開されません。
