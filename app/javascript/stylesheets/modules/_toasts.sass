@@ -245,9 +245,13 @@ $swal2-toast-footer-font-size: 0.8em !default
 
     &.swal2-show
       animation: $swal2-toast-show-animation
+      body.is-text &
+        animation: none
 
     &.swal2-hide
       animation: $swal2-toast-hide-animation
+      body.is-text &
+        animation: none
 
     &.is-success
       background: rgba($success, .9)
