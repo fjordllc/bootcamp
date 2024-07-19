@@ -222,7 +222,6 @@ class User < ApplicationRecord
   with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
     validates :job, presence: true
     validates :os, presence: true
-    validates :experience, presence: true
   end
 
   with_options if: -> { validation_context == :retirement } do
