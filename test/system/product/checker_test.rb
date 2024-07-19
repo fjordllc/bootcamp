@@ -14,6 +14,7 @@ class Product::CheckerTest < ApplicationSystemTestCase
     visit "/products/#{products(:product1).id}"
 
     post_comment('担当者がいない提出物の場合、担当者になる')
+    accept_alert '提出物の担当になりました。'
     assert_text '担当になりました。'
     assert_text '担当から外れる'
 

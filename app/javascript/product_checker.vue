@@ -1,7 +1,7 @@
 <template lang="pug">
 button(
   v-if='!checkerId || checkerId === currentUserId',
-  :class='["a-button", "is-block", id ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
+  :class='["a-button", "is-block", productCheckerId ? "is-warning" : "is-secondary", checkableType ? "is-sm" : "is-sm"]',
   @click='checkInCharge')
   i(
     v-if='!checkerId || checkerId === currentUserId',
@@ -64,7 +64,8 @@ export default {
         this.currentUserId,
         '/api/products/checker',
         this.productCheckerId ? 'DELETE' : 'PATCH',
-        CSRF.getToken()
+        CSRF.getToken(),
+        false
       )
     }
   }
