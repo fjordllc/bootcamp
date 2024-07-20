@@ -20,10 +20,9 @@
         | カテゴリー
       .checkboxes
         .checkboxes__items
-          - FAQ.categories.each_key do |category|
-            .checkboxes__item.is-radio
-              = f.radio_button :category, FAQ.categories[:"#{category}"], class: 'a-toggle-checkbox'
-              = f.label :category, t("faq.#{category}"), value: FAQ.categories[:"#{category}"]
+          - @category.each do |category|
+            = f.radio_button :faqs_category_id, FaqsCategory.find_by(name: category.to_s).id
+            = f.label :faqs_category_id, t("faq.#{category}"), value: FaqsCategory.find_by(name: category.to_s).id
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
