@@ -2,6 +2,8 @@
 
 class Admin::FaqsController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[edit new]
+
   def index
     @faqs = FAQ.all
   end
@@ -11,7 +13,7 @@ class Admin::FaqsController < AdminController
   end
 
   def create
-    @faq = FAQ.new(faq_params.merge(category: faq_params[:category].to_i))
+    @faq = FAQ.new(faq_params)
 
     if @faq.save
       redirect_to admin_faqs_path, notice: 'FAQを作成しました。'
@@ -21,12 +23,11 @@ class Admin::FaqsController < AdminController
   end
 
   def show; end
-
   def edit; end
 
   def update
-    if @faq.update(faq_params.merge(category: faq_params[:category].to_i))
-      redirect_to admin_faqs_path, notice: 'FAQを更新しました。'
+    if @faq.update(faq_params)
+      redirect_to admin_faq_path(@faq), notice: 'FAQを更新しました。'
     else
       render 'edit'
     end
@@ -40,10 +41,14 @@ class Admin::FaqsController < AdminController
   private
 
   def faq_params
-    params.require(:faq).permit(:answer, :question, :category)
+    params.require(:faq).permit(:answer, :question, :faqs_category_id)
   end
 
   def set_faq
     @faq = FAQ.find(params[:id])
+  end
+
+  def set_category
+    @category = %i[study_content study_environment fee find_job join withdrawal_hibernation_graduation corporate_use]
   end
 end
