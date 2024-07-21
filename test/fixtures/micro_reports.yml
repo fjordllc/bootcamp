@@ -1,6 +1,7 @@
 hajime_first_micro_report:
   user: hajime
-  content: 最新の分報
+  content: 最初の分報
+  created_at: <%= 2.day.ago %>
 
 hajime_second_micro_report:
   user: hajime
@@ -9,5 +10,4 @@ hajime_second_micro_report:
 
 hajime_third_micro_report:
   user: hajime
-  content: 最初の分報
-  created_at: <%= 2.day.ago %>
+  content: 最新の分報
