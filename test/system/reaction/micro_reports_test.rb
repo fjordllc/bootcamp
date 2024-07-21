@@ -23,7 +23,7 @@ class Reaction::MicroReportsTest < ApplicationSystemTestCase
     first(".js-reaction-dropdown li[data-reaction-kind='heart']").click
 
     assert_text '👍1'
-    assert_no_text '❤️0'
+    assert_no_text '❤️'
   end
 
   test 'delete reaction of micro report on fotter' do
@@ -31,6 +31,6 @@ class Reaction::MicroReportsTest < ApplicationSystemTestCase
     first(".js-reaction li[data-reaction-kind='heart']").click
 
     assert_text '👍1'
-    assert_no_text '❤️0'
+    assert_no_text '❤️'
   end
 end
