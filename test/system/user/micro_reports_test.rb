@@ -73,4 +73,20 @@ class MicroReportsTest < ApplicationSystemTestCase
       assert_selector 'h1', text: 'h1'
     end
   end
+
+  test 'show pagination when over 26 micro reports exist' do
+    users(:hatsuno).micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
+    visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
+    assert_no_selector '.pagination__items'
+    assert_selector '.thread-comment', count: 25
+
+    users(:hatsuno).micro_reports.create!(content: '分報26')
+    visit current_path # 作成した分報を反映させるためにページをリロード
+    assert_selector '.pagination__items', count: 2
+    assert_selector '.thread-comment', count: 25
+    within first('.pagination__items') do
+      click_link '2'
+    end
+    assert_selector '.thread-comment', count: 1
+  end
 end
