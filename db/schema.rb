@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_18_121159) do
+ActiveRecord::Schema.define(version: 2024_06_17_061351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -476,9 +476,7 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
     t.text "memo"
     t.integer "last_updated_user_id"
     t.text "summary"
-    t.bigint "submission_answer_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
-    t.index ["submission_answer_id"], name: "index_practices_on_submission_answer_id"
   end
 
   create_table "practices_books", force: :cascade do |t|
@@ -823,7 +821,6 @@ ActiveRecord::Schema.define(version: 2024_06_18_121159) do
   add_foreign_key "pages", "users"
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
-  add_foreign_key "practices", "submission_answers"
   add_foreign_key "practices_books", "books"
   add_foreign_key "practices_books", "practices"
   add_foreign_key "products", "practices"
