@@ -4,11 +4,6 @@ require 'application_system_test_case'
 
 class MicroReportsTest < ApplicationSystemTestCase
   test 'show all micro reports of the target user' do
-    users(:hajime).micro_reports.create!([
-                                           { content: '今日も頑張るぞ！' },
-                                           { content: '今日も頑張った。' }
-                                         ])
-
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
     assert_text '分報（2）'
     assert_text '今日も頑張るぞ！'
