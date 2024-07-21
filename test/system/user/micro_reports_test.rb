@@ -5,9 +5,24 @@ require 'application_system_test_case'
 class MicroReportsTest < ApplicationSystemTestCase
   test 'show all micro reports of the target user' do
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    assert_text '分報（2）'
-    assert_text '今日も頑張るぞ！'
-    assert_text '今日も頑張った。'
+    assert_text '分報（3）'
+    assert_text '最初の分報'
+    assert_text '2つ目の分報'
+    assert_text '最初の分報'
+  end
+
+  test 'micro reports are ordered by created_at asc' do
+    visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
+    within('.micro-reports-posts') do
+      assert_selector '.thread-comment', count: 3
+      within first('.thread-comment') do
+        assert_text '最初の分報'
+      end
+
+      within all('.thread-comment').last do
+        assert_text '最新の分報'
+      end
+    end
   end
 
   test 'form not found in other user microo reports page' do
