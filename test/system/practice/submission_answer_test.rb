@@ -26,7 +26,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
     assert_text 'プラクティスを修了するまで模範解答は見れません。'
   end
 
-  test 'student cannnot accsess new and edit page' do
+  test 'student cannnot access new and edit page' do
     login_user('kimura', 'testtest')
     visit edit_mentor_practice_submission_answer_path(@practice)
     assert_text '管理者・メンターとしてログインしてください'
