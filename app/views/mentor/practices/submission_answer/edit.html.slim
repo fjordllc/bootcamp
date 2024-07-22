@@ -21,10 +21,10 @@ ruby:
       .page-body__rows
         .page-body__row
           .container.is-lg
-            = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @submission_answer.practice)
+            = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @practice)
         .page-body__row
           .container.is-lg
-            = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @submission_answer.practice)
+            = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @practice)
         .page-body__row
           .container.is-xxl
             = render 'form', practice: @practice, submission_answer: @submission_answer
