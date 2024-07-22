@@ -47,12 +47,12 @@
           .col-md-6.col-xs-12
             .course-selection-item-anchor#rails-programmer-course
             - if @rails_course
-              = render('welcome/course', course: @rails_course)
+              = render 'welcome/course', course: @rails_course
             - else
               p コースが見つかりませんでした。
           .col-md-6.col-xs-12
             .course-selection-item-anchor#front-engineer-course
             - if @frontend_course
-              = render('welcome/course', course: @frontend_course)
+              = render 'welcome/course', course: @frontend_course
             - else
               p コースが見つかりませんでした。
