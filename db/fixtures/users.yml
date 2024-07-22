@@ -18,7 +18,7 @@ komagata:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 38
   organization: 株式会社ロッカ
   admin: true
   mentor: true
@@ -47,7 +47,7 @@ machida:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 31
   organization: 株式会社ロッカ
   admin: true
   mentor: true
@@ -75,7 +75,7 @@ sotugyou_with_job:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   job_seeker: false
   organization: 株式会社卒業
   graduated_on: "2015-01-01"
@@ -98,7 +98,7 @@ sotugyou:
   description: "卒業です。卒業しちゃいました。"
   course: course1
   os: mac
-  experience: rails
+  experiences: 4
   job_seeker: true
   graduated_on: "2015-01-01"
   unsubscribe_email_token: YnhyqxqalslEkTCM2jyVwg
@@ -140,7 +140,7 @@ yameo:
   course: course1
   job: office_worker
   os: mac
-  experience: ruby
+  experiences: 2
   organization: 株式会社ヤメオ
   job_seeker: true
   unsubscribe_email_token: mzx5kXfsGmR1u0gOaXMseg
@@ -165,7 +165,7 @@ mentormentaro:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
+  experiences: 4
   organization: メンター大学
   mentor: true
   unsubscribe_email_token: -PmtH0Rmh36FIPhbxzkMGA
@@ -191,7 +191,6 @@ kimura:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '13'
   organization: 木村大学
@@ -219,7 +218,6 @@ hatsuno:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   organization: 明治大学
@@ -244,7 +242,6 @@ hajime:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   organization: 始大学
   mail_notification: false
   unsubscribe_email_token: iHzoJxKvrBeGGT6DjAJgJQ
@@ -267,7 +264,6 @@ muryou:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   organization: 無料大学
   free: true
   unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
@@ -292,7 +288,7 @@ kensyu:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 研修大学
   trainee: true
   free: true
@@ -319,7 +315,7 @@ kensyu-end-within-24-hour:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 研修大学
   trainee: true
   free: true
@@ -346,7 +342,7 @@ kensyu-end-within-1-week:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 研修大学
   trainee: true
   free: true
@@ -373,7 +369,7 @@ kensyu-end-over-1-week:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 研修大学
   trainee: true
   free: true
@@ -400,7 +396,7 @@ kensyu-not-setting-end-date:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 研修大学
   trainee: true
   free: true
@@ -426,7 +422,7 @@ senpai:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   adviser: true
   unsubscribe_email_token: E8ycg7ahXNYj5bPA9Ic7aw
   updated_at: "2014-01-01 00:00:12"
@@ -448,7 +444,7 @@ kananashi: #name_kanaを持たないユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 8
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
@@ -469,7 +465,7 @@ osnashi: #osを持たないユーザー
   description: "OSが無いユーザーです"
   course: course1
   job: office_worker
-  experience: rails
+  experiences: 1
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
@@ -490,7 +486,7 @@ jobseeker: #就活希望するユーザー
   description: "フィヨルドからの就職希望してます！"
   course: course1
   job: office_worker
-  experience: rails
+  experiences: 6
   job_seeker: true
   unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
   updated_at: "2020-01-01 00:00:12"
@@ -512,7 +508,6 @@ nippounashi: # 日報を投稿していないユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   organization: 日報なし大学
   unsubscribe_email_token: QV8qOjwxrYxqh6P_Q9C82M
   updated_at: "2014-01-01 00:00:10"
@@ -535,7 +530,7 @@ with_hyphen:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:17"
   created_at: "2021-01-01 00:00:17"
@@ -557,7 +552,7 @@ sumi:
   course: course1
   job: office_worker
   os: mac_apple
-  experience: html_css
+  experiences: 1
   job_seeker: true
   job_seeking: true
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
@@ -581,7 +576,7 @@ nobu:
   course: course1
   job: office_worker
   os: linux
-  experience: rails
+  experiences: 6
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:19"
   created_at: "2021-01-01 00:00:19"
@@ -603,7 +598,6 @@ rie:
   course: course1
   job: unemployed
   os: mac
-  experience: inexperienced
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:20"
   created_at: "2021-01-01 00:00:20"
@@ -625,7 +619,7 @@ take:
   course: course1
   job: vacation
   os: mac_apple
-  experience: rails
+  experiences: 4
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:21"
   created_at: "2021-01-01 00:00:21"
@@ -647,7 +641,7 @@ kunimi:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:22"
   created_at: "2021-01-01 00:00:22"
@@ -669,7 +663,7 @@ tomo:
   course: course1
   job: part_time_worker
   os: mac
-  experience: rails
+  experiences: 6
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:23"
   created_at: "2021-01-01 00:00:23"
@@ -691,7 +685,7 @@ akiyosi:
   course: course1
   job: student
   os: mac
-  experience: ruby
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:24"
   created_at: "2021-01-01 00:00:24"
@@ -713,7 +707,7 @@ tomomi:
   course: course1
   job: student
   os: mac
-  experience: ruby
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:25"
   created_at: "2021-01-01 00:00:25"
@@ -735,7 +729,6 @@ ogaoga:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:26"
   created_at: "2021-01-01 00:00:26"
@@ -757,7 +750,6 @@ take8:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   job_seeker: true
   job_seeking: true
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
@@ -781,7 +773,6 @@ fujiyasu:
   course: course1
   job: unemployed
   os: mac_apple
-  experience: inexperienced
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: "2021-01-01 00:00:28"
   created_at: "2021-01-01 00:00:28"
@@ -803,7 +794,7 @@ adminonly: # adminのroleだけを持ったユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: アドミン株式会社
   admin: true
   mentor: false
@@ -829,7 +820,7 @@ kensyuowata:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 研修大学
   trainee: true
   free: true
@@ -855,7 +846,7 @@ unadmentor:
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 31
   organization: 株式会社ロッカ
   admin: false
   mentor: true
@@ -883,7 +874,6 @@ tatenoicon: # アイコンが長方形のユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   organization: 長方形大学
   unsubscribe_email_token: QV8qOjwxrYxqh6P_Q9B76M
   updated_at: "2021-01-01 00:00:18"
@@ -906,7 +896,7 @@ thuynga: # アイコンが小さい画像のユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: ハノイ工科大学
   unsubscribe_email_token: KVcUc3Ew3L6yt1Pwjdp-iQ
   updated_at: "2021-12-01 00:00:11"
@@ -928,7 +918,7 @@ sotugyou-adviser: # 区分が卒業生ではない卒業したユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   job_seeker: true
   organization: 株式会社卒業
   graduated_on: "2015-01-01"
@@ -956,7 +946,7 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   organization: 株式会社ロッカ
   github_collaborator: true
   unsubscribe_email_token: MnC-Dv3HrNLs7WmfE975qA
@@ -981,7 +971,7 @@ otameshi:
   course: course1
   job: student
   os: mac
-  experience: ruby
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current %>
   created_at: <%= Time.current %>
@@ -1001,7 +991,7 @@ registration30days:
   course: course1
   job: student
   os: mac
-  experience: ruby
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current - 20.days %>
   created_at: <%= Time.current - 30.days %>
@@ -1021,7 +1011,7 @@ registration40days:
   course: course1
   job: student
   os: mac
-  experience: ruby
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   updated_at: <%= Time.current - 31.days %>
   created_at: <%= Time.current - 40.days %>
@@ -1041,7 +1031,7 @@ unhibernated:
   course: course1
   job: student
   os: mac
-  experience: ruby
+  experiences: 2
   unsubscribe_email_token: iIT7nlauOm7TOhQFoLs3UA
   sent_student_followup_message: true
   hibernated_at: <%= Time.current - 13.days %>
@@ -1064,7 +1054,7 @@ discordinvalid: #Discord IDが不正なユーザー
   description: "Discord IDが不正なユーザーです"
   course: course1
   job: office_worker
-  experience: rails
+  experiences: 6
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2014-01-01 00:00:12"
   created_at: "2014-01-01 00:00:12"
@@ -1085,7 +1075,7 @@ twitterinvalid: #X（Twitter） IDが不正なユーザー
   description: "X（Twitter） IDが不正なユーザーです"
   course: course1
   job: office_worker
-  experience: rails
+  experiences: 6
   unsubscribe_email_token: JgunX7Zejd-r1Vhqev401w
   updated_at: "2020-01-01 00:00:12"
   created_at: "2020-01-01 00:00:12"
@@ -1107,7 +1097,7 @@ nocompanykensyu: # 所属企業のない研修生
   course: course1
   job: office_worker
   os: mac
-  experience: rails
+  experiences: 6
   trainee: true
   free: true
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
@@ -1126,7 +1116,7 @@ neverlogin: # 1度もログインしたことがないユーザー
   description: "ユーザー登録後、1度もログインしていないユーザーです。"
   course: course1
   os: mac
-  experience: rails
+  experiences: 6
   country_code: US
   subdivision_code: HI
   free: true
@@ -1152,7 +1142,6 @@ kyuukai:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   github_account: kyuukai
@@ -1180,7 +1169,6 @@ autoretire-within-1-hour:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   github_account: autoretire-within-1-hour
@@ -1208,7 +1196,6 @@ autoretire-within-24-hour:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   github_account: autoretire-within-24-hour
@@ -1236,7 +1223,6 @@ autoretire-within-1-week:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   github_account: autoretire-within-1-week
@@ -1264,7 +1250,6 @@ autoretire-over-1-week:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   github_account: autoretire-over-1-week
@@ -1292,7 +1277,6 @@ not-autoretire:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '04'
   github_account: not-autoretire
@@ -1316,7 +1300,7 @@ sotsugyoukigyoshozoku:
   description: "卒業した後に、企業に所属しました。"
   course: course1
   os: mac
-  experience: rails
+  experiences: 6
   country_code: CA
   subdivision_code: QC
   graduated_on: "2022-07-04"
@@ -1360,7 +1344,6 @@ nagai-kyuukai:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   country_code: JP
   subdivision_code: '09'
   hibernated_at: <%= Time.current - 6.months %>
@@ -1380,7 +1363,6 @@ paginataion-taro:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
   sent_student_followup_message: true
@@ -1397,7 +1379,6 @@ paginataion-jirou:
   course: course1
   job: office_worker
   os: mac
-  experience: inexperienced
   updated_at: "2014-01-01 00:00:07"
   created_at: "2014-01-01 00:00:07"
   sent_student_followup_message: true
@@ -1437,7 +1418,7 @@ harikirio: #必修でないプラクティスも修了しているユーザー
   description: "必修でないプラクティスも取り組みます！"
   course: course1
   job: office_worker
-  experience: rails
+  experiences: 6
   job_seeker: true
   unsubscribe_email_token: Z2tKHxSjj7FreyqQ95Yd9g
   updated_at: "2020-01-01 00:00:12"
