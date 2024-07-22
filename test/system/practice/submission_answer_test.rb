@@ -8,7 +8,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
   end
 
   test 'student passed practice and product can show submission answer' do
-    user = User.find_by(login_name: 'kimura')
+    user = users(:kimura)
     visit_with_auth practice_path(@practice), user.login_name
     assert @practice.product(user).checked?
     assert find_button('修了', disabled: true)
@@ -18,7 +18,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
   end
 
   test 'student not passed practice and product can not show submission answer' do
-    user = User.find_by(login_name: 'kensyu')
+    user = users(:kensyu)
     visit_with_auth practice_path(@practice), user.login_name
     assert_not @practice.product(user).checked?
     assert find_button('未着手', disabled: true)
@@ -27,8 +27,7 @@ class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
   end
 
   test 'student cannnot access new and edit page' do
-    login_user('kimura', 'testtest')
-    visit edit_mentor_practice_submission_answer_path(@practice)
+    visit_with_auth edit_mentor_practice_submission_answer_path(@practice), 'kimura'
     assert_text '管理者・メンターとしてログインしてください'
 
     practice = practices(:practice2)
