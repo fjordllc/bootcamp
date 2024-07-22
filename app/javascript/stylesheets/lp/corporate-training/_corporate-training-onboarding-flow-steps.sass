@@ -1,0 +1,24 @@
+.corporate-training-onboarding-flow-steps
+  background-color: #dedef2
+  .corporate-training__divider .shape-fill
+    fill: var(--primary-background)
+
+.corporate-training-onboarding-flow-steps__inner
+  display: flex
+  flex-direction: row-reverse
+  justify-content: space-between
+  gap: 3rem
+
+.corporate-training-onboarding-flow-steps__end
+  flex: 1
+  max-width: 50rem
+
+.corporate-training-onboarding-flow-steps__title
+  writing-mode: vertical-rl
+  +text-block(3rem 1.4, 800)
+
+.corporate-training-onboarding-flow-steps__items
+  display: flex
+  flex-direction: column
+  gap: 3rem
+  counter-reset: number 0

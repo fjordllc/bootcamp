@@ -1,13 +1,40 @@
 .corporate-training-price
-  .corporate-training__divider .shape-fill
-    fill: var(--primary-background)
-
-.corporate-training-price__title
-  +text-block(3rem 1.4, 800)
-  text-align: center
-
-.corporate-training-price__inner
+  color: var(--main)
   display: flex
-  flex-direction: column
-  gap: 4rem
+  font-size: 1rem
+  gap: .75em
+
+.corporate-training-price__label
+  +text-block(1.25em 1, 700)
+  align-self: center
+  +size(4em)
+  border: solid 1px
+  display: flex
   align-items: center
+  justify-content: center
+  border-radius: 50%
+  letter-spacing: -.0625em
+  text-indent: -.0625em
+
+.corporate-training-price__value
+  display: flex
+  align-self: baseline
+  gap: .5em
+
+.corporate-training-price__amount
+  +text-block(6.25em 1, 900)
+  align-self: baseline
+  font-family: 'Lato', sans-serif
+
+.corporate-training-price__currency
+  +text-block(3.25em 1, 800)
+  align-self: baseline
+
+.corporate-training-price__details
+  +text-block(1.25em 1, 800)
+  display: flex
+  align-self: baseline
+  gap: .125em
+
+.corporate-training-price__separator
+  font-weight: 100

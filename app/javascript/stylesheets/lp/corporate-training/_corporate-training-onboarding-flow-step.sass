@@ -1,0 +1,42 @@
+.corporate-training-onboarding-flow-step
+  display: flex
+  &:nth-child(odd)
+    justify-content: flex-start
+  &:nth-child(even)
+    justify-content: flex-end
+
+.corporate-training-onboarding-flow-step__inner
+  flex: 0 0 626px
+  padding: 1.5rem
+  flex-direction: row
+  gap: 2rem
+  &.a-card
+    margin-inline: 0
+
+.corporate-training-onboarding-flow-step__header
+  flex: 0 0 12rem
+
+.corporate-training-onboarding-flow-step__body
+  p
+    +text-block(1rem 1.6)
+
+.corporate-training-onboarding-flow-step__header
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+.corporate-training-onboarding-flow-step__title
+  +text-block(1.5rem 1.4, 800)
+  text-align: center
+  &::before
+    counter-increment: number 1
+    content: '0'counter(number)
+    display: block
+    +text-block(2.5rem 1.4, 900)
+    font-family: "Lato", sans-serif
+    font-style: italic
+    -webkit-text-stroke-width: 1px
+    -webkit-text-stroke-color: var(--main)
+    color: #dedef2
+    margin-bottom: -.125rem

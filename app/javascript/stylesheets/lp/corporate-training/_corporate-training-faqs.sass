@@ -1,3 +1,21 @@
 .corporate-training-faqs
   .corporate-training__divider .shape-fill
     fill: var(--primary-background)
+
+.corporate-training-faqs__inner
+  display: flex
+  gap: 3rem
+  justify-content: space-between
+
+.corporate-training-faqs__title
+  writing-mode: vertical-rl
+  +text-block(3rem 1.4, 800)
+
+.corporate-training-faqs__end
+  flex: 1
+  max-width: 42.5rem
+
+.corporate-training-faqs__items
+  display: flex
+  flex-direction: column
+  gap: 2rem
