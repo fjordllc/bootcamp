@@ -1,0 +1,29 @@
+.corporate-training-faq__inner
+  display: flex
+  flex-direction: column
+  gap: 1.5rem
+
+.corporate-training-faq__header,
+.corporate-training-faq__body
+  padding-left: 2.5rem
+  position: relative
+  &::before
+    +position(absolute, left 0, top 0)
+    +text-block(1.25rem 1, 900)
+    color: var(--main)
+    font-family: "Lato", sans-serif
+
+.corporate-training-faq__header
+  &::before
+    content: 'Q.'
+
+.corporate-training-faq__body
+  &::before
+    content: 'A.'
+
+.corporate-training-faq__title
+  +text-block(1.125rem 1.4, 800)
+
+.corporate-training-faq__body
+  p
+    +text-block(1rem 1.6)

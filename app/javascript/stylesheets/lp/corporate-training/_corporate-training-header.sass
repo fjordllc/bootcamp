@@ -15,7 +15,7 @@
   display: flex
   flex-direction: column
   justify-content: center
-  gap: 1rem
+  gap: 1.5rem
 
 .corporate-training-header__titles
   display: flex
@@ -30,9 +30,13 @@
   +text-block(4.25rem 1.2, 800)
 
 .corporate-training-header__description
-  +text-block(1rem 1.4, 600)
+  p
+    +text-block(1rem 1.4, 600)
 
 .corporate-training-header__actions
   display: flex
   gap: 1rem
   margin-top: 1rem
+
+.corporate-training-header__action
+  flex: 1
