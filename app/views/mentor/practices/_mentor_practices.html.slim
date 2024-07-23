@@ -9,6 +9,8 @@
         th.admin-table__label
           | 提出物
         th.admin-table__label
+          | 模範解答
+        th.admin-table__label
           | 日報
         th.admin-table__label
           | Q&A
@@ -32,6 +34,14 @@
             td.admin-table__item-value.is-text-align-center
               span.admin-table__item-blank
                 | 不要
+          - if practice.submission_answer
+            td.admin-table__item-value.is-text-align-center
+              = link_to edit_mentor_practice_submission_answer_path(practice), class: 'a-button is-sm is-secondary is-icon' do
+                i.fa-solid.fa-pen
+          - else
+            td.admin-table__item-value.is-text-align-center
+              = link_to new_mentor_practice_submission_answer_path(practice), class: 'a-button is-sm is-secondary is-icon' do
+                i.fa-solid.fa-plus
           td.admin-table__item-value.is-text-align-right
             = link_to practice_reports_path(practice) do
               = practice.reports.size

@@ -3,7 +3,9 @@
   +media-breakpoint-up(md)
     display: flex
     gap: 1rem
-    margin-bottom: 1.5rem
+  &:not(:last-child)
+    +media-breakpoint-up(md)
+      margin-bottom: 1.5rem
   +media-breakpoint-down(sm)
     margin-bottom: 1.25rem
   .a-watch-button.is-inactive,
