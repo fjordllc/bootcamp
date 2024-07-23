@@ -1,0 +1,10 @@
+- if submission_answer.present?
+  .a-card
+    header.card-header
+      h2.card-header__title
+        = SubmissionAnswer.human_attribute_name :description
+    hr.a-border
+      .card-body.is-practice
+        .card__description
+          .a-long-text.is-md.js-markdown-view
+            = submission_answer.description
