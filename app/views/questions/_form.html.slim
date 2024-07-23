@@ -8,8 +8,9 @@
             .form-item
               = f.label :practice, class: 'a-form-label'
               .select-practices
+                - include_blank = 'プラクティス選択なし'
                 = f.select(:practice_id, practice_options_within_course,
-                           question.new_record? ? { selected: params[:practice_id], include_blank: 'プラクティス選択なし' } : { include_blank: 'プラクティス選択なし' },
+                           question.new_record? ? { selected: params[:practice_id], include_blank: } : { include_blank: },
                            { class: 'js-choices-singles', id: 'js-choices-practice' })
 
       .form-item
