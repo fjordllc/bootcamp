@@ -233,7 +233,7 @@ class RetirementTest < ApplicationSystemTestCase
   test 'should clear github data on account deletion' do
     user = users(:kimura)
     user.github_id = '12345'
-    user.github_account = 'kimura'
+    user.github_account = 'github_kimura'
     user.github_collaborator = true
     user.save!(validate: false)
     visit_with_auth new_retirement_path, 'kimura'
