@@ -9,8 +9,10 @@ class Events::CalendarsController < ApplicationController
 
     events_calendar = EventsCalendar.new(user)
     events_calendar.fetch_events
-    @events = events_calendar.events
 
-    render :index, layout: false, content_type: 'text/calendar'
+    ical = events_calendar.to_ical
+
+    response.headers['Content-Type'] = 'text/calendar'
+    render plain: ical
   end
 end
