@@ -9,22 +9,9 @@ class EventsCalendarTest < ActiveSupport::TestCase
       user = users(:kimura)
 
       events_calendar = EventsCalendar.new(user)
-      @events = events_calendar.fetch_events
+      events_calendar.fetch_events
 
-      cal = Icalendar::Calendar.new
-
-      @events.each do |event|
-        cal.event do |e|
-          e.dtstart     = Icalendar::Values::DateTime.new(event.start_at)
-          e.dtend       = Icalendar::Values::DateTime.new(event.end_at)
-          e.summary     = event.title
-          e.description = event.description
-          e.location    = event.respond_to?(:location) && event.location.present? ? event.location : nil
-          e.uid         = event.id.to_s
-        end
-      end
-
-      ical = cal.to_ical
+      ical = events_calendar.to_ical
 
       assert_match(/【参加登録済】未来のイベント\(参加済\)/, ical)
       assert_match(/未来のイベント\(未参加\)/, ical)
