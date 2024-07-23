@@ -754,4 +754,18 @@ class UserTest < ActiveSupport::TestCase
     america_users = [users(:neverlogin), users(:tom)]
     assert_equal User.by_area('米国').to_a.sort, america_users.sort
   end
+
+  test 'clear_github_data should clear GitHub related fields' do
+    user = users(:kimura)
+    user.github_id = '12345'
+    user.github_account = 'github_kimura'
+    user.github_collaborator = true
+    user.save!(validate: false)
+
+    user.clear_github_data
+
+    assert_nil user.github_id
+    assert_nil user.github_account
+    assert_not user.github_collaborator
+  end
 end
