@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class EventsCalendar
+  attr_reader :events
+
   def initialize(user)
     @user = user
+    @events = []
   end
 
   def fetch_events
@@ -10,6 +13,6 @@ class EventsCalendar
 
     participated_regular_events = RegularEvent.fetch_participated_regular_events(@user)
 
-    upcoming_special_events + participated_regular_events
+    @events = upcoming_special_events + participated_regular_events
   end
 end
