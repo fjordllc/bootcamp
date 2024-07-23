@@ -238,8 +238,9 @@ class RetirementTest < ApplicationSystemTestCase
     user.save!(validate: false)
     visit_with_auth new_retirement_path, 'kimura'
     find('label', text: 'とても良い').click
-    click_on '退会する'
-    page.driver.browser.switch_to.alert.accept
+    page.accept_confirm '本当によろしいですか？' do
+      click_on '退会する'
+    end
     assert_text '退会処理が完了しました'
     user.reload
     assert_nil user.github_id
