@@ -154,14 +154,17 @@ class Event < ApplicationRecord
   end
 
   class << self
-    def fetch_events(user)
+    def fetch_upcoming_events(user)
       event_ids = fetch_event_ids(user)
 
-      upcoming_participated_events = Event.where(id: event_ids[:participated] & event_ids[:upcoming])
-      upcoming_non_participated_events = Event.where(id: event_ids[:upcoming]).where.not(id: event_ids[:participated])
+      participated_ids = event_ids[:participated]
+      upcoming_ids = event_ids[:upcoming]
 
-      formatted_upcoming_participated_events = add_message_joined_participated_events(upcoming_participated_events)
-      formatted_upcoming_participated_events + upcoming_non_participated_events
+      participated_events = Event.where(id: participated_ids & upcoming_ids)
+      non_participated_events = Event.where(id: upcoming_ids).where.not(id: participated_ids)
+
+      formatted_participated_events = format_participated_events_title(participated_events)
+      formatted_participated_events + non_participated_events
     end
 
     private
@@ -173,7 +176,7 @@ class Event < ApplicationRecord
       { participated: participated_events, upcoming: upcoming_events }
     end
 
-    def add_message_joined_participated_events(events)
+    def format_participated_events_title(events)
       events.each do |event|
         event.title = "【参加登録済】#{event.title}"
       end
