@@ -5,10 +5,15 @@ module Searchable
 
   COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
 
+  included do
+    # 拡張する場合はこのスコープを上書きする
+    scope :search_by_keywords_scope, -> { all }
+  end
+
   # rubocop:disable Metrics/BlockLength
   class_methods do
     def search_by_keywords(searched_values = {})
-      ransack(**params_for_keyword_search(searched_values)).result
+      ransack(**params_for_keyword_search(searched_values)).result.search_by_keywords_scope
     end
 
     def columns_for_keyword_search(*column_names)
