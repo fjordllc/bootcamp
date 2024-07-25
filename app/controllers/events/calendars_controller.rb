@@ -12,7 +12,6 @@ class Events::CalendarsController < ApplicationController
 
     ical = events_calendar.to_ical
 
-    response.headers['Content-Type'] = 'text/calendar'
-    render plain: ical
+    render plain: events_calendar.to_ical, content_type: 'text/calendar'
   end
 end
