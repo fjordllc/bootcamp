@@ -86,12 +86,12 @@ function checkInCharge(event, productId, currentUserId) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.product-checker')
   buttons.forEach((button) => {
-    button.addEventListener('click', function (event) {
-      const productId = this.dataset.productId
-      const currentUserId = this.dataset.currentUserId
+    button.addEventListener('click', (event) => {
+      const productId = event.currentTarget.dataset.productId
+      const currentUserId = event.currentTarget.dataset.currentUserId
       checkInCharge(event, productId, currentUserId)
     })
   })
