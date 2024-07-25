@@ -78,61 +78,77 @@ function changeButtonAppearance(userId) {
   details.removeAttribute('open')
 
   if (event.currentTarget.id === 'with-comments') {
-    replaceSummary(details, 'コメントあり')
-    firstDropdownItemButton.classList.add('is-active')
-    firstDropdownItemButton.setAttribute('data-action', 'closeDropDown')
-    secondDropdownItemButton.setAttribute('id', 'without-comments')
-    secondDropdownItemButton.setAttribute('data-action', 'followOrChangeFollow')
-    secondDropdownItemButton.setAttribute('data-user-id', userId)
-    secondDropdownItemButton.setAttribute('data-is-following', true)
-    secondDropdownItemButton.setAttribute('data-is-watching', false)
-    thirdDropdownItemButton.setAttribute('id', 'unfollow')
-    thirdDropdownItemButton.setAttribute('data-action', `unfollow`)
-    thirdDropdownItemButton.setAttribute('data-user-id', userId)
-    thirdDropdownItemButton.setAttribute('data-is-following', true)
-    thirdDropdownItemButton.setAttribute('data-is-watching', true)
     const notSelectedButtons = [
       secondDropdownItemButton,
       thirdDropdownItemButton
     ]
+    replaceSummary(details, 'コメントあり')
+    activateButton(firstDropdownItemButton)
+    updateButtonAttributes(notSelectedButtons, [
+      {
+        id: 'without-comments',
+        'data-action': 'followOrChangeFollow',
+        'data-user-id': userId,
+        'data-is-following': true,
+        'data-is-watching': false
+      },
+      {
+        id: 'unfollow',
+        'data-action': `unfollow`,
+        'data-user-id': userId,
+        'data-is-following': true,
+        'data-is-watching': true
+      }
+    ])
     inactivateButtons(notSelectedButtons)
   } else if (event.currentTarget.id === 'without-comments') {
-    replaceSummary(details, 'コメントなし')
-    secondDropdownItemButton.classList.add('is-active')
-    secondDropdownItemButton.setAttribute('data-action', 'closeDropDown')
-    firstDropdownItemButton.setAttribute('id', 'with-comments')
-    firstDropdownItemButton.setAttribute('data-action', 'followOrChangeFollow')
-    firstDropdownItemButton.setAttribute('data-user-id', userId)
-    firstDropdownItemButton.setAttribute('data-is-following', true)
-    firstDropdownItemButton.setAttribute('data-is-watching', true)
-    thirdDropdownItemButton.setAttribute('id', 'unfollow')
-    thirdDropdownItemButton.setAttribute('data-action', `unfollow`)
-    thirdDropdownItemButton.setAttribute('data-user-id', userId)
-    thirdDropdownItemButton.setAttribute('data-is-following', true)
-    thirdDropdownItemButton.setAttribute('data-is-watching', false)
     const notSelectedButtons = [
       firstDropdownItemButton,
       thirdDropdownItemButton
     ]
+    replaceSummary(details, 'コメントなし')
+    activateButton(secondDropdownItemButton)
+    updateButtonAttributes(notSelectedButtons, [
+      {
+        id: 'with-comments',
+        'data-action': 'followOrChangeFollow',
+        'data-user-id': userId,
+        'data-is-following': true,
+        'data-is-watching': true
+      },
+      {
+        id: 'unfollow',
+        'data-action': `unfollow`,
+        'data-user-id': userId,
+        'data-is-following': true,
+        'data-is-watching': false
+      }
+    ])
+
     inactivateButtons(notSelectedButtons)
   } else if (event.currentTarget.id === 'unfollow') {
-    replaceSummary(details, 'フォローする')
-    thirdDropdownItemButton.classList.add('is-active')
-    thirdDropdownItemButton.setAttribute('data-action', 'closeDropDown')
-    firstDropdownItemButton.setAttribute('id', 'with-comments')
-    firstDropdownItemButton.setAttribute('data-action', 'followOrChangeFollow')
-    firstDropdownItemButton.setAttribute('data-user-id', userId)
-    firstDropdownItemButton.setAttribute('data-is-following', false)
-    firstDropdownItemButton.setAttribute('data-is-watching', true)
-    secondDropdownItemButton.setAttribute('id', 'without-comments')
-    secondDropdownItemButton.setAttribute('data-action', 'followOrChangeFollow')
-    secondDropdownItemButton.setAttribute('data-user-id', userId)
-    secondDropdownItemButton.setAttribute('data-is-following', false)
-    secondDropdownItemButton.setAttribute('data-is-watching', false)
     const notSelectedButtons = [
       firstDropdownItemButton,
       secondDropdownItemButton
     ]
+    replaceSummary(details, 'フォローする')
+    activateButton(thirdDropdownItemButton)
+    updateButtonAttributes(notSelectedButtons, [
+      {
+        id: 'with-comments',
+        'data-action': 'followOrChangeFollow',
+        'data-user-id': userId,
+        'data-is-following': false,
+        'data-is-watching': true
+      },
+      {
+        id: 'without-comments',
+        'data-action': 'followOrChangeFollow',
+        'data-user-id': userId,
+        'data-is-following': false,
+        'data-is-watching': false
+      }
+    ])
     inactivateButtons(notSelectedButtons)
   }
 }
@@ -160,11 +176,31 @@ function replaceSummary(details, text) {
   followingSummary.appendChild(button)
 }
 
+function activateButton(selectedButton) {
+  selectedButton.classList.add('is-active')
+  selectedButton.setAttribute('data-action', 'closeDropDown')
+}
+
 function inactivateButtons(notSelectedButtons) {
   if (notSelectedButtons[0].classList.contains('is-active')) {
     notSelectedButtons[0].classList.remove('is-active')
   } else if (notSelectedButtons[1].classList.contains('is-active')) {
     notSelectedButtons[1].classList.remove('is-active')
+  }
+}
+
+function updateButtonAttributes(notSelectedButtons, attributesSet) {
+  const keys = [
+    'id',
+    'data-action',
+    'data-user-id',
+    'data-is-following',
+    'data-is-watching'
+  ]
+  for (let i = 0; i < notSelectedButtons.length; i++) {
+    keys.forEach((key) => {
+      notSelectedButtons[i].setAttribute(key, attributesSet[i][key])
+    })
   }
 }
 
