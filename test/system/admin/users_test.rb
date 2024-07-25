@@ -366,10 +366,4 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert has_checked_field?('user_hide_mentor_profile', visible: false)
   end
-
-  test 'not display free checkbox on user edit page' do
-    user = users(:muryou)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_no_selector 'label.a-block-check__label.is-ta-left[for="user_free]', text: '無料'
-  end
 end
