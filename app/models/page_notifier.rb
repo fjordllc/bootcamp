@@ -28,7 +28,7 @@ class PageNotifier
 
     ChatNotifier.message(<<~TEXT)
       Docs：「#{page.title}」が作成されました。
-      #{page_url}
+      <#{page_url}>
     TEXT
   end
 end
