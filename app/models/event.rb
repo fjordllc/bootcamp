@@ -161,7 +161,7 @@ class Event < ApplicationRecord
       upcoming_ids = event_ids[:upcoming]
 
       participated_events = Event.where(id: participated_ids & upcoming_ids)
-      non_participated_events = Event.where(id: upcoming_ids).where.not(id: participated_ids)
+      non_participated_events = Event.where(id: upcoming_ids - participated_ids)
 
       formatted_participated_events = format_participated_events_title(participated_events)
       formatted_participated_events + non_participated_events
