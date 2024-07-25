@@ -78,13 +78,12 @@ function changeButtonAppearance(userId) {
   details.removeAttribute('open')
 
   if (event.currentTarget.id === 'with-comments') {
+    replaceSummary(details, 'コメントあり')
     const notSelectedButtons = [
       secondDropdownItemButton,
       thirdDropdownItemButton
     ]
-    replaceSummary(details, 'コメントあり')
-    activateButton(firstDropdownItemButton)
-    updateButtonAttributes(notSelectedButtons, [
+    updateButtonAttributes(firstDropdownItemButton, notSelectedButtons, [
       {
         id: 'without-comments',
         'data-action': 'followOrChangeFollow',
@@ -101,13 +100,12 @@ function changeButtonAppearance(userId) {
       }
     ])
   } else if (event.currentTarget.id === 'without-comments') {
+    replaceSummary(details, 'コメントなし')
     const notSelectedButtons = [
       firstDropdownItemButton,
       thirdDropdownItemButton
     ]
-    replaceSummary(details, 'コメントなし')
-    activateButton(secondDropdownItemButton)
-    updateButtonAttributes(notSelectedButtons, [
+    updateButtonAttributes(secondDropdownItemButton, notSelectedButtons, [
       {
         id: 'with-comments',
         'data-action': 'followOrChangeFollow',
@@ -124,13 +122,12 @@ function changeButtonAppearance(userId) {
       }
     ])
   } else if (event.currentTarget.id === 'unfollow') {
+    replaceSummary(details, 'フォローする')
     const notSelectedButtons = [
       firstDropdownItemButton,
       secondDropdownItemButton
     ]
-    replaceSummary(details, 'フォローする')
-    activateButton(thirdDropdownItemButton)
-    updateButtonAttributes(notSelectedButtons, [
+    updateButtonAttributes(thirdDropdownItemButton, notSelectedButtons, [
       {
         id: 'with-comments',
         'data-action': 'followOrChangeFollow',
@@ -172,12 +169,11 @@ function replaceSummary(details, text) {
   followingSummary.appendChild(button)
 }
 
-function activateButton(selectedButton) {
-  selectedButton.classList.add('is-active')
-  selectedButton.setAttribute('data-action', 'closeDropDown')
-}
-
-function updateButtonAttributes(notSelectedButtons, attributesSet) {
+function updateButtonAttributes(
+  selectedButton,
+  notSelectedButtons,
+  attributesSet
+) {
   const keys = [
     'id',
     'data-action',
@@ -190,6 +186,8 @@ function updateButtonAttributes(notSelectedButtons, attributesSet) {
       notSelectedButtons[i].setAttribute(key, attributesSet[i][key])
     })
   }
+  selectedButton.classList.add('is-active')
+  selectedButton.setAttribute('data-action', 'closeDropDown')
   if (notSelectedButtons[0].classList.contains('is-active')) {
     notSelectedButtons[0].classList.remove('is-active')
   } else if (notSelectedButtons[1].classList.contains('is-active')) {
