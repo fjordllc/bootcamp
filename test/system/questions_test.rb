@@ -508,7 +508,7 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal '.file-input', find('textarea.a-text-input')['data-input']
   end
 
-  test 'The Change Questioner form is not visible to general users' do
+  test 'users except for admin or mentor cannot change the questioner' do
     visit_with_auth new_question_path, 'hatsuno'
     assert_no_selector('.select-user')
   end

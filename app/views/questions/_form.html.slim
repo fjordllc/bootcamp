@@ -9,9 +9,11 @@
               = f.label :practice, class: 'a-form-label'
               .select-practices
                 - include_blank = 'プラクティス選択なし'
-                = f.select(:practice_id, practice_options_within_course,
-                           question.new_record? ? { selected: params[:practice_id], include_blank: } : { include_blank: },
-                           { class: 'js-choices-singles', id: 'js-choices-practice' })
+                - options = question.new_record? ? { selected: params[:practice_id], include_blank: } : { include_blank: }
+                = f.select :practice_id,
+                  practice_options_within_course,
+                  options,
+                  { class: 'js-choices-singles', id: 'js-choices-practice' }
 
       .form-item
         .row.js-markdown-parent
@@ -57,9 +59,13 @@
               .form-item
                 = f.label :user_id, '作成者', class: 'a-form-label'
                 .select-user
-                  = f.collection_select(:user_id, User.order(:login_name), :id, :login_name,
-                                        question.new_record? ? { selected: current_user.id } : {},
-                                        { class: 'js-choices-singles', id: 'js-choices-user' })
+                  - options = question.new_record? ? { selected: current_user.id } : {}
+                  = f.collection_select :user_id,
+                    User.order(:login_name),
+                    :id,
+                    :login_name,
+                    options,
+                    { class: 'js-choices-singles', id: 'js-choices-user' }
 
   .form-actions
     ul.form-actions__items
