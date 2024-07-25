@@ -1,4 +1,4 @@
-- user_categories.each do |category|
+- user_categories_with_uniq_practices.each do |category|
   - skip_practices_in_category = category.practice_ids & @user.skip_practice_ids
   .skip-practices
     input.a-toggle-checkbox(type='checkbox' id="category-#{category}")
@@ -8,10 +8,10 @@
           .skip-practices__category-name
             | #{category.name}
           .skip-practices__count
-            - if category.practices.count.zero?
+            - if category.practices.size.zero?
               | (0)
             - else
-              | (#{skip_practices_in_category.count}/#{category.practices.count})
+              | (#{skip_practices_in_category.size}/#{category.practices.size})
             // ↑チェックしたプラクティスの数を表示
         .skip-practices__end
           .skip-practices__category-angle-icon
