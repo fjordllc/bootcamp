@@ -10,8 +10,6 @@ class Events::CalendarsController < ApplicationController
     events_calendar = EventsCalendar.new
     events_calendar.fetch_events(user)
 
-    ical = events_calendar.to_ical
-
     render plain: events_calendar.to_ical, content_type: 'text/calendar'
   end
 end
