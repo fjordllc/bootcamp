@@ -100,7 +100,6 @@ function changeButtonAppearance(userId) {
         'data-is-watching': true
       }
     ])
-    inactivateButtons(notSelectedButtons)
   } else if (event.currentTarget.id === 'without-comments') {
     const notSelectedButtons = [
       firstDropdownItemButton,
@@ -124,8 +123,6 @@ function changeButtonAppearance(userId) {
         'data-is-watching': false
       }
     ])
-
-    inactivateButtons(notSelectedButtons)
   } else if (event.currentTarget.id === 'unfollow') {
     const notSelectedButtons = [
       firstDropdownItemButton,
@@ -149,7 +146,6 @@ function changeButtonAppearance(userId) {
         'data-is-watching': false
       }
     ])
-    inactivateButtons(notSelectedButtons)
   }
 }
 
@@ -181,14 +177,6 @@ function activateButton(selectedButton) {
   selectedButton.setAttribute('data-action', 'closeDropDown')
 }
 
-function inactivateButtons(notSelectedButtons) {
-  if (notSelectedButtons[0].classList.contains('is-active')) {
-    notSelectedButtons[0].classList.remove('is-active')
-  } else if (notSelectedButtons[1].classList.contains('is-active')) {
-    notSelectedButtons[1].classList.remove('is-active')
-  }
-}
-
 function updateButtonAttributes(notSelectedButtons, attributesSet) {
   const keys = [
     'id',
@@ -201,6 +189,11 @@ function updateButtonAttributes(notSelectedButtons, attributesSet) {
     keys.forEach((key) => {
       notSelectedButtons[i].setAttribute(key, attributesSet[i][key])
     })
+  }
+  if (notSelectedButtons[0].classList.contains('is-active')) {
+    notSelectedButtons[0].classList.remove('is-active')
+  } else if (notSelectedButtons[1].classList.contains('is-active')) {
+    notSelectedButtons[1].classList.remove('is-active')
   }
 }
 
