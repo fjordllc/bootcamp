@@ -8,8 +8,8 @@ class EventsCalendarTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2024, 3, 25, 10, 0, 0) do
       user = users(:kimura)
 
-      events_calendar = EventsCalendar.new(user)
-      events_calendar.fetch_events
+      events_calendar = EventsCalendar.new
+      events_calendar.fetch_events(user)
 
       ical = events_calendar.to_ical
 

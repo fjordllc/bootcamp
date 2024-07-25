@@ -7,8 +7,8 @@ class Events::CalendarsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by(id: user_id)
 
-    events_calendar = EventsCalendar.new(user)
-    events_calendar.fetch_events
+    events_calendar = EventsCalendar.new
+    events_calendar.fetch_events(user)
 
     ical = events_calendar.to_ical
 
