@@ -206,11 +206,11 @@ document.addEventListener('click', (event) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('button[data-action]').forEach((button) => {
-    button.addEventListener('click', function (event) {
-      const action = this.dataset.action
-      const userId = this.dataset.userId
-      const isFollowing = this.dataset.isFollowing === 'true'
-      const isWatching = this.dataset.isWatching === 'true'
+    button.addEventListener('click', (event) => {
+      const action = event.currentTarget.dataset.action
+      const userId = event.currentTarget.dataset.userId
+      const isFollowing = event.currentTarget.dataset.isFollowing === 'true'
+      const isWatching = event.currentTarget.dataset.isWatching === 'true'
       if (action === 'followOrChangeFollow') {
         followOrChangeFollow(userId, isFollowing, isWatching)
       } else if (action === 'unfollow') {
