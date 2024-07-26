@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Call adjustPadding on page load to set initial padding
-  adjustPadding()
+  if (form) {
+    // Call adjustPadding on page load to set initial padding
+    adjustPadding()
 
-  // Event listener for textarea input
-  textarea.addEventListener('input', debounce(adjustPadding, 100)) // Update padding on input with debounce
+    // Event listener for textarea input
+    textarea.addEventListener('input', debounce(adjustPadding, 100)) // Update padding on input with debounce
+  }
 
   // Function to handle the smooth scroll to the bottom
   function scrollToBottom(element) {
