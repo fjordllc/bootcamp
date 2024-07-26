@@ -65,10 +65,6 @@
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
                 = render(partial: 'reports/recent_reports', locals: { header_display: true })
-                / #TODO - にしたつ；↓は後で消す
-                p
-                  | 🚨↑は今回作ったhtmlパーシャル、↓は元のReactコンポーネント
-                = react_component('Reports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
                 .user-info
                   = render 'users/user_secret_attributes', user: @report.user
@@ -89,10 +85,6 @@
                             | 提出物はまだありません。
         - else
           = render(partial: 'reports/recent_reports', locals: { header_display: false })
-          / #TODO - にしたつ；↓は後で消す
-          p
-            | 🚨↑は今回作ったhtmlパーシャル、↓は元のReactコンポーネント
-          = react_component('Reports', userId: @report.user.id, displayUserIcon: false, displayPagination: false)
 
 - if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true

@@ -20,7 +20,6 @@ class ReportsController < ApplicationController
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
-    # NOTE: - にしたつ；↓表示数はKaminariのデフォルト値
     default_per_page = User.page(1).limit_value
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(default_per_page)
     respond_to do |format|

@@ -16,7 +16,6 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
-    # NOTE: - にしたつ；↓表示数はuser-recent-reports.vueで指定されていたlimitの値（10件）
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
     respond_to do |format|
       format.html
