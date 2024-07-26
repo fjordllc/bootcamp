@@ -1,17 +1,5 @@
 import CSRF from 'csrf'
-import Swal from 'sweetalert2'
-
-function toast(title, status = 'success') {
-  Swal.fire({
-    title: title,
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    customClass: { popup: `is-${status}` }
-  })
-}
+import { toast } from 'vanillaToast'
 
 function checkInCharge(event, productId, currentUserId) {
   event.preventDefault()
