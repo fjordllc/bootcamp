@@ -10,4 +10,7 @@ header.page-header
 
 = render 'mentor/mentor_page_tabs'
 
-div(data-vue="WorriedUsers")
+main.page_main
+  .page-body
+    .container.is-md
+      = render 'worried-users-table', worried_users: @worried_users
