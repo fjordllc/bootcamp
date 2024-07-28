@@ -29,7 +29,6 @@ tables = %i[
   reports
   learning_times
   learnings
-  submission_answer
   notifications
   participations
   practices
@@ -39,6 +38,7 @@ tables = %i[
   practices_books
   products
   questions
+  submission_answers
   reactions
   watches
   works
