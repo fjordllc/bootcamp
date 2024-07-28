@@ -178,7 +178,7 @@ class UsersController < ApplicationController
       :company_id, :nda, :avatar,
       :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
-      :country_code, :subdivision_code
+      :country_code, :subdivision_code, :invoice_payment
     )
   end
 
