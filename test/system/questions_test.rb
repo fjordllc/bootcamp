@@ -33,6 +33,12 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal 'Q＆A: テストの質問 | FBC', title
   end
 
+  test 'show a question with a long title' do
+    question = questions(:question16)
+    visit_with_auth question_path(question), 'kimura'
+    assert_equal 'Q＆A: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイト... | FBC', title
+  end
+
   test 'create a question' do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do
