@@ -1,0 +1,13 @@
+.a-card
+  header.card-header
+    h2.card-header__title コーディング問題
+  hr.a-border
+  .card-body
+    .card__description
+      table
+        - coding_tests.order(:position).each do |coding_test|
+          tr
+            td = link_to coding_test.title, coding_test
+            td(style="padding-left:60px") = coding_test.passed_by?(current_user) ? '〇' : '×'
+  hr.a-border-tint
+  footer.card-footer

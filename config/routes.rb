@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     resource :completion, only: %i(show), controller: "practices/completion"
     resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
   end
+  resources :coding_tests, only: %i(show)
   resources :pages, param: :slug_or_id
   namespace :notification do
     resource :redirector, only: %i(show), controller: "redirector"

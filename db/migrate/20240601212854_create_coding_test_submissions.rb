@@ -1,0 +1,11 @@
+class CreateCodingTestSubmissions < ActiveRecord::Migration[6.1]
+  def change
+    create_table :coding_test_submissions do |t|
+      t.text :code, null: false
+      t.references :coding_test, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end

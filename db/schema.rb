@@ -172,6 +172,39 @@ ActiveRecord::Schema.define(version: 2024_06_17_061351) do
     t.index ["user_id"], name: "index_checks_on_user_id"
   end
 
+  create_table "coding_test_cases", force: :cascade do |t|
+    t.text "input"
+    t.text "output"
+    t.bigint "coding_test_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coding_test_id"], name: "index_coding_test_cases_on_coding_test_id"
+  end
+
+  create_table "coding_test_submissions", force: :cascade do |t|
+    t.text "code", null: false
+    t.bigint "coding_test_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coding_test_id"], name: "index_coding_test_submissions_on_coding_test_id"
+    t.index ["user_id"], name: "index_coding_test_submissions_on_user_id"
+  end
+
+  create_table "coding_tests", force: :cascade do |t|
+    t.integer "language", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.text "hint"
+    t.integer "position"
+    t.bigint "practice_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["practice_id"], name: "index_coding_tests_on_practice_id"
+    t.index ["user_id"], name: "index_coding_tests_on_user_id"
+  end
+
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "description"
     t.integer "user_id"
@@ -806,6 +839,11 @@ ActiveRecord::Schema.define(version: 2024_06_17_061351) do
   add_foreign_key "categories_practices", "practices"
   add_foreign_key "check_box_choices", "check_boxes"
   add_foreign_key "check_boxes", "survey_questions"
+  add_foreign_key "coding_test_cases", "coding_tests"
+  add_foreign_key "coding_test_submissions", "coding_tests"
+  add_foreign_key "coding_test_submissions", "users"
+  add_foreign_key "coding_tests", "practices"
+  add_foreign_key "coding_tests", "users"
   add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
   add_foreign_key "hibernations", "users"

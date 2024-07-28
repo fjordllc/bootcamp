@@ -1,0 +1,21 @@
+.coding_test
+  .coding_test-title(style="font-size:20px;font-weight:bold;margin:10px;")
+    = @coding_test.title
+  .coding_test-description(style="margin:10px;")
+    = @coding_test.description
+.coding_test_cases
+  - @coding_test.coding_test_cases.each_with_index do |coding_test_case, i|
+    .coding_test_case
+      .coding_test_case-label(style="font-weight:bold;margin:10px;") 入力例#{i + 1}
+      pre.sample.coding_test_case-input(id="coding_test_case_#{coding_test_case.id}_input")
+        = coding_test_case.input
+      .coding_test_case-label(style="font-weight:bold;margin:10px;") 出力例#{i + 1}
+      pre.sample.coding_test_case-output(id="coding_test_case_#{coding_test_case.id}_output")
+        = coding_test_case.output
+
+#code_editor(data-language="#{@coding_test.language}" style="width:90%;height:400px")
+
+button#run(style="width:170px;margin:10px;padding:10px;border:1px solid;") RUN
+
+table#result(style="width:50%;margin: 0 10px;")
+
