@@ -7,8 +7,7 @@
           .card-list-item-title__start
             - if product.wip
               .a-list-item-badge.is-wip
-                span
-                  | WIP
+                span WIP
           h2.card-list-item-title__title
             = link_to product, class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
               | #{product.practice.title}の提出物
@@ -78,8 +77,7 @@
                       #{product.self_last_commented_at.day}日
                       （#{day_of_the_week[product.self_last_commented_at.wday]}）
                       #{product.self_last_commented_at.strftime('%R')}（
-                    strong
-                      | 提出者
+                    strong 提出者
                     | ）
                 - elsif product.self_last_commented_at < product.mentor_last_commented_at
                   time.a-meta
@@ -97,8 +95,7 @@
                       #{product.self_last_commented_at.day}日
                       （#{day_of_the_week[product.self_last_commented_at.wday]}）
                       #{product.self_last_commented_at.strftime('%R')}（
-                    strong
-                      | 提出者
+                    strong 提出者
                     | ）
                 - elsif product.mentor_last_commented_at
                   time.a-meta
