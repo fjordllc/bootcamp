@@ -2,7 +2,7 @@
 
 class Admin::FaqsController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
-  before_action :set_category, only: %i[edit new]
+  before_action :set_category, only: %i[edit new update create]
 
   def index
     @faqs = FAQ.all
@@ -27,7 +27,7 @@ class Admin::FaqsController < AdminController
 
   def update
     if @faq.update(faq_params)
-      redirect_to admin_faq_path(@faq), notice: 'FAQを更新しました。'
+      redirect_to admin_faqs_path, notice: 'FAQを更新しました。'
     else
       render 'edit'
     end
