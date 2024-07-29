@@ -59,8 +59,7 @@
                   | 日報
                 dd.card-counts__item-value(class="#{user.reports.count.zero? ? 'is-empty' : ''}")
                   - if user.reports.count.zero?
-                    span
-                      | #{user.reports.count}
+                    span #{user.reports.count}
                   - else
                     a.a-text-link(href="#{user.url}/reports")
                       | #{user.reports.count}
@@ -70,8 +69,7 @@
                   | 提出物
                 dd.card-counts__item-value(class="#{user.products.count.zero? ? 'is-empty' : ''}")
                   - if user.products.count.zero?
-                    span
-                      | #{user.products.count}
+                    span #{user.products.count}
                   - else
                     a.a-text-link(href="#{user.url}/products")
                       | #{user.products.count}
@@ -81,8 +79,7 @@
                   | コメント
                 dd.card-counts__item-value(class="#{user.comments.count.zero? ? 'is-empty' : ''}")
                   - if user.products.count.zero?
-                    span
-                      | #{user.comments.count}
+                    span #{user.comments.count}
                   - else
                     a.a-text-link(href="#{user.url}/comments")
                       | #{user.comments.count}
@@ -92,8 +89,7 @@
                   | 質問
                 dd.card-counts__item-value(class="#{user.questions.count.zero? ? 'is-empty' : ''}")
                   - if user.questions.count.zero?
-                    span
-                      | #{user.questions.count}
+                    span #{user.questions.count}
                   - else
                     a.a-text-link(href="#{user.url}/questions")
                       | #{user.questions.count}
@@ -103,8 +99,7 @@
                   | 回答
                 dd.card-counts__item-value(class="#{user.answers.count.zero? ? 'is-empty' : ''}")
                   - if user.answers.count.zero?
-                    span
-                      | #{user.answers.count}
+                    span #{user.answers.count}
                   - else
                     a.a-text-link(href="#{user.url}/answers")
                       | #{user.answers.count}
