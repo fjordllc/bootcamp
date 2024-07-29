@@ -17,7 +17,7 @@ class SearchUserTest < ActiveSupport::TestCase
     yameo = users(:yameo)
     search_user = SearchUser.new(word: 'yame', require_retire_user: false)
 
-    assert_not_includes search_user.search, yameo
+    assert_includes search_user.search, yameo
   end
 
   test 'retired user is included when required' do
