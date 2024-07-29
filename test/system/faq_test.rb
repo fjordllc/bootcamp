@@ -11,6 +11,7 @@ class FAQTest < ApplicationSystemTestCase
   test 'show listing FAQs by category' do
     visit '/faq?category=study_environment'
 
-    assert_selector '.faqs-item', count: FAQ.category_study_environment.size
+    study_environment_id = FaqsCategory.find_by(name: 'study_environment').id
+    assert_selector '.faqs-item', count: FAQ.where(faqs_category_id: study_environment_id).size
   end
 end
