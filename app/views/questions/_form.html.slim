@@ -8,11 +8,9 @@
             .form-item
               = f.label :practice, class: 'a-form-label'
               .select-practices
-                - include_blank = 'プラクティス選択なし'
-                - options = question.new_record? ? { selected: params[:practice_id], include_blank: } : { include_blank: }
                 = f.select :practice_id,
                   practice_options_within_course,
-                  options,
+                  options_of_selections[:practice],
                   { class: 'js-choices-singles', id: 'js-choices-practice' }
 
       .form-item
@@ -59,12 +57,11 @@
               .form-item
                 = f.label :user_id, '作成者', class: 'a-form-label'
                 .select-user
-                  - options = question.new_record? ? { selected: current_user.id } : {}
                   = f.collection_select :user_id,
                     User.order(:login_name),
                     :id,
                     :login_name,
-                    options,
+                    options_of_selections[:user],
                     { class: 'js-choices-singles', id: 'js-choices-user' }
 
   .form-actions

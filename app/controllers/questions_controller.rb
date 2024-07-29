@@ -47,9 +47,14 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    @options_of_selections = { practice: { selected: params[:practice_id], include_blank: 'プラクティス選択なし' },
+                               user: { selected: current_user.id } }
   end
 
-  def edit; end
+  def edit
+    @options_of_selections = { practice: { include_blank: 'プラクティス選択なし' },
+                               user: {} }
+  end
 
   def create
     @question = Question.new(question_params)
@@ -59,6 +64,8 @@ class QuestionsController < ApplicationController
       Newspaper.publish(:question_create, { question: @question })
       redirect_to Redirection.determin_url(self, @question), notice: @question.generate_notice_message(:create)
     else
+      @options_of_selections = { practice: { selected: @question.practice_id, include_blank: 'プラクティス選択なし' },
+                                 user: { selected: @question.user.id } }
       render :new
     end
   end
