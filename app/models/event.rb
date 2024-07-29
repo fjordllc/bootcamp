@@ -154,21 +154,6 @@ class Event < ApplicationRecord
   end
 
   class << self
-    def fetch_upcoming_events(user)
-      event_ids = fetch_event_ids(user)
-
-      participated_ids = event_ids[:participated]
-      upcoming_ids = event_ids[:upcoming]
-
-      participated_events = Event.where(id: participated_ids & upcoming_ids)
-      non_participated_events = Event.where(id: upcoming_ids - participated_ids)
-
-      formatted_participated_events = format_participated_events_title(participated_events)
-      formatted_participated_events + non_participated_events
-    end
-
-    private
-
     def fetch_event_ids(user)
       participated_events = user.participations.pluck(:event_id)
       upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
