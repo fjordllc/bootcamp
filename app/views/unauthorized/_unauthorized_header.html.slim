@@ -11,3 +11,4 @@ header.unauthorized-header
         | 」
       title
         = title "Q&A: #{truncate(@question.title, length: 35, omission: '...')}"
+        - set_meta_tags og: { title: "Q&A: #{@question.title}" }
