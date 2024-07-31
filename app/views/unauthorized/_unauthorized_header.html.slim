@@ -3,11 +3,12 @@
 header.unauthorized-header
   .container
     = image_tag('shared/piyo.svg', alt: 'フィヨルドブートキャンプのキャラクター画像', class: 'unauthorized-header__image')
-    h1.unauthorized-header__title
+    hgroup.unauthorized-header__titles
       span.unauthorized-header__title-label
         = label
-      span.font-thin
-        | 「
-      = title
-      span.font-thin
-        | 」
+      h1.unauthorized-header__title
+        span.font-thin
+          | 「
+        = title
+        span.font-thin
+          | 」

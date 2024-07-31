@@ -31,3 +31,18 @@
     +text-block(1rem 1.8, center)
   +media-breakpoint-down(sm)
     +text-block(1rem 1.8)
+
+.unauthorized-actions__items
+  display: flex
+  justify-content: center
+  gap: 1.5rem
+  .unauthorized-actions.is-vertical &
+    flex-direction: column
+    align-items: center
+
+.unauthorized-actions__item
+  flex: 1
+  max-width: 50%
+  text-align: center
+  .unauthorized-actions.is-vertical &
+    width: 100%
