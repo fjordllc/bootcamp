@@ -11,10 +11,9 @@ class ArticlesController < ApplicationController
     number_per_page = @articles.page(1).limit_value
     @atom_articles = Article.with_attachments_and_user.order(published_at: :desc).limit(number_per_page)
     respond_to do |format|
-      format.html { render layout: 'welcome' }
+      format.html { render layout: 'lp' }
       format.atom
     end
-    render layout: 'lp'
   end
 
   def show

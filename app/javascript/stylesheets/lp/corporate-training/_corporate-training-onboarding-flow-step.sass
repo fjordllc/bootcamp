@@ -1,17 +1,11 @@
-.corporate-training-onboarding-flow-step
-  display: flex
-  &:nth-child(odd)
-    justify-content: flex-start
-  &:nth-child(even)
-    justify-content: flex-end
+.corporate-training-onboarding-flow-steps__items
+  counter-reset: number 0
 
-.corporate-training-onboarding-flow-step__inner
-  flex: 0 0 626px
-  padding: 1.5rem
+.corporate-training-onboarding-flow-step
   flex-direction: row
   gap: 2rem
-  &.a-card
-    margin-inline: 0
+  padding: 1.5rem
+  display: flex
 
 .corporate-training-onboarding-flow-step__header
   flex: 0 0 12rem
