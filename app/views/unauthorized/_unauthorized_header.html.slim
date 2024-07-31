@@ -9,3 +9,5 @@ header.unauthorized-header
       = title
       span.font-thin
         | 」
+      title
+        = title "Q&A: #{truncate(@question.title, length: 35, omission: '...')}"
