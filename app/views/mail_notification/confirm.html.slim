@@ -1,6 +1,17 @@
 - title 'メール通知解除の確認'
 - set_meta_tags description: 'メール通知解除の確認ページです。'
 
-= 'メール通知をオフにしますか？'
+.page-body
+  article.unauthorized
+    = render '/unauthorized/unauthorized_header', label: '通知設定の変更', title: 'メール通知をオフにしますか？'
 
-= link_to 'オフにする', user_mail_notification_path(@user), method: :patch
+    .unauthorized__body
+      .container.is-xs
+        .unauthorized-actions.is-vertical
+          .unauthorized-actions__items
+            .unauthorized-actions__item
+              = link_to user_mail_notification_path(@user), method: :patch, class: 'a-button is-lg  is-warning is-block' do
+                | オフにする
+            .unauthorized-actions__item
+              = link_to root_path, class: 'a-button is-lg is-muted-text' do
+                | キャンセル
