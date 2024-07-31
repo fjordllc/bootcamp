@@ -3,30 +3,31 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。料金は月額99,800円です。')
 
-article.corporate-training
-  header.corporate-training-header
+article.lp
+  header.lp-header.lp-header.is-lp-bg-2
     .container.is-xl
-      .corporate-training-header__inner
-        .corporate-training-header__start
-          .corporate-training-header__start-inner
-            hgrounp.corporate-training-header__titles
-              h1.corporate-training-header__title
+      .lp-header__inner
+        .lp-header__start
+          .lp-header__start-inner
+            hgrounp.lp-header__titles
+              h1.lp-header__title
                 | 現役のプログラマーによる法人向けプログラミング研修
-              h2.corporate-training-header__catchcopy
+              h2.lp-header__catchcopy
                 | 現場のプラス戦力を
                 br
                 | 育てる実践的研修
-            .corporate-training-header__description
+            .lp-header__description
               p
                 | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
-            .corporate-training-header__actions
-              .corporate-training-header__action
-                = link_to '/', class: 'a-button is-xl is-secondary is-block' do
-                  | お問い合わせ
-              .corporate-training-header__action
-                = link_to '/', class: 'a-button is-xl is-warning is-block' do
-                  | 研修を申し込む
-        .corporate-training-header__end
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-secondary is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                    | 研修を申し込む
+        .lp-header__end
           .corporate-training-images
             .corporate-training-images__item
             .corporate-training-images__item
@@ -34,56 +35,61 @@ article.corporate-training
             .corporate-training-images__item
             .corporate-training-images__item
 
-  section.corporate-training__content.corporate-training-clients
-    .corporate-training-header__divider.corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
-    .container.is-lg
-      .corporate-training-clients__inner
-        header.corporate-training-clients__header
-          h2.corporate-training-clients__title
-            | 多くの企業様にご利用いただいています
-        .corporate-training-clients__items
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
-          .corporate-training-clients__item
-            = link_to '', class: 'corporate-training-clients__item-link' do
-              | バナー
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-  section.corporate-training__content.corporate-training-overview
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+  section.lp-content.is-lp-bg-1.is-top-title.corporate-training-clients
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-sm.is-align-center
+              | 多くの企業様にご利用いただいています
+        .lp-content__start
+          .lp-company-logos
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link' do
+                | バナー
+
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-2.is-left-title.corporate-training-overview
     .container.is-xl
-      .corporate-training-overview__inner
-        .corporate-training-overview__start
-          header.corporate-training-overview__header
-            h2.corporate-training-overview__title.corporate-training__content-title
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-border-left
               | フィヨルド
               br
               | ブートキャンプの
               br
-              | 法人向けサービスとは？
-        .corporate-training-overview__end
+              strong
+                | 法人向けサービスとは？
+        .lp-content__end
           .corporate-training-overview__body
             p
               | e-ラーニング式を活用し、
@@ -91,437 +97,482 @@ article.corporate-training
               | 意欲的に知識を吸収し実践に移せる即戦力となる
               | プログラマーを育成することを
               | 目指した研修サービスです。
+    .lp-content-divider.is-lp-bg-3
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-  section.corporate-training__content.corporate-training-key-reasons
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+  section.lp-content.is-lp-bg-3.is-right-title.corporate-training-key-reasons
     .container.is-xl
-      .corporate-training-key-reasons__inner
-        .corporate-training-key-reasons__start
-          header.corporate-training-key-reasons__header
-            h2.corporate-training-key-reasons__title.corporate-training__content-title.is-vertical
-              | なぜ即戦力を
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-vertical.is-border-left
+              | なぜ
+              strong
+                | プラス戦力を
               br
-              | 生み出すことが
+              strong
+                | 育てる
+              | ことが
               br
               | できるのか？
-        .corporate-training-key-reasons__end
-          .corporate-training-key-reasons__items
-            section.corporate-training-key-reason
-              .corporate-training-key-reason__inner.a-card
-                .corporate-training-key-reason__start
-                .corporate-training-key-reason__end
-                  header.corporate-training-key-reason__header
-                    h3.corporate-training-key-reason__title
-                      | 現役プログラマーのメンター
-                  .corporate-training-key-reason__body
-                    p
-                      | 実際の現場を想定したカリキュラムで、個人での開発、
-                      | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
-            section.corporate-training-key-reason
-              .corporate-training-key-reason__inner.a-card
-                .corporate-training-key-reason__start
-                .corporate-training-key-reason__end
-                  header.corporate-training-key-reason__header
-                    h3.corporate-training-key-reason__title
-                      | 仕事を想定したチーム開発など
-                      br
-                      | 現場目線のカリキュラム
-                  .corporate-training-key-reason__body
-                    p
-                      | 実際の現場を想定したカリキュラムで、個人での開発、
-                      | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
-            section.corporate-training-key-reason
-              .corporate-training-key-reason__inner.a-card
-                .corporate-training-key-reason__start
-                .corporate-training-key-reason__end
-                  header.corporate-training-key-reason__header
-                    h3.corporate-training-key-reason__title
-                      | 成長度合いがわかる成果物
-                  .corporate-training-key-reason__body
-                    p
-                      | 実際の現場を想定したカリキュラムで、個人での開発、
-                      | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+        .lp-content__end
+          .l-cards.is-step-by-step
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.corporate-training-key-reason
+                    .corporate-training-key-reason__inner
+                      .corporate-training-key-reason__start
+                        = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-key-reason__image')
+                      .corporate-training-key-reason__end
+                        header.corporate-training-key-reason__header
+                          h3.corporate-training-key-reason__title
+                            | 現役プログラマーのメンター
+                        .corporate-training-key-reason__body
+                          p
+                            | 実際の現場を想定したカリキュラムで、個人での開発、
+                            | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.corporate-training-key-reason
+                    .corporate-training-key-reason__inner
+                      .corporate-training-key-reason__start
+                        = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-key-reason__image')
+                      .corporate-training-key-reason__end
+                        header.corporate-training-key-reason__header
+                          h3.corporate-training-key-reason__title
+                            | 仕事を想定したチーム開発など
+                            br
+                            | 現場目線のカリキュラム
+                        .corporate-training-key-reason__body
+                          p
+                            | 実際の現場を想定したカリキュラムで、個人での開発、
+                            | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.corporate-training-key-reason
+                    .corporate-training-key-reason__inner
+                      .corporate-training-key-reason__start
+                        = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-key-reason__image')
+                      .corporate-training-key-reason__end
+                        header.corporate-training-key-reason__header
+                          h3.corporate-training-key-reason__title
+                            | 成長度合いがわかる成果物
+                        .corporate-training-key-reason__body
+                          p
+                            | 実際の現場を想定したカリキュラムで、個人での開発、
+                            | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-  section.corporate-training__content.corporate-training-features
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+  section.lp-content.is-lp-bg-2.is-top-title.corporate-training-features
     .container.is-xl
-      .corporate-training-features__inner
-        header.corporate-training-features-header
-          .corporate-training-features-header__start
-            h2.corporate-training-features__title
-              | フィヨルド
-              br
-              | ブートキャンプの
-              br
-              | 企業研修の特徴
-          .corporate-training-features-header__end
-        .corporate-training-features__items
-          section.corporate-training-feature
-            .corporate-training-feature__inner
-              .corporate-training-feature__start
-              .corporate-training-feature__end
-                .corporate-training-feature__content
-                  header.corporate-training-feature__header
-                    h3.corporate-training-feature__title
-                      | 目的・期間に応じて
-                      br
-                      | 研修メニューを
-                      br
-                      | カスタマイズできる!
-                  hr.corporate-training-feature__border
-                  .corporate-training-feature__body
-                    p
-                      | 一般受講生とは異なり、企業研修では、目的や期間に応じて、
-                      | 研修メニューのカスタマイズが可能です。事前のヒアリングをもとに、
-                      | 即戦力になるための研修メニューを作成します。
-          section.corporate-training-feature
-            .corporate-training-feature__inner
-              .corporate-training-feature__start
-                .corporate-training-feature__content
-                  header.corporate-training-feature__header
-                    h3.corporate-training-feature__title
-                      | 日報・提出課題も
-                      br
-                      | 毎日チェックできる!
-                  hr.corporate-training-feature__border
-                  .corporate-training-feature__body
-                    p
-                      | 学習を行う度に「今の気持ち」、「行っだ学習」、「理解したこと」、
-                      | 「緊問点」などを書いた日報を提出してもらい、
-                      | それをメンターがチェックしています。
-                      | カリキュラムにはそれぞれ提出課顕があり、
-                      | メンターがレビューをして合格がもらえたら修了という形を取っています。
-                      | それら日報や提出物のやりとり、学習の進拗は貫社の社員の方々も確認ができます。
-              .corporate-training-feature__end
-          section.corporate-training-feature
-            .corporate-training-feature__inner
-              .corporate-training-feature__start
-              .corporate-training-feature__end
-                .corporate-training-feature__content
-                  header.corporate-training-feature__header
-                    h3.corporate-training-feature__title
-                      | メンバー限定イベントへの
-                      br
-                      | 参加もできる！
-                  hr.corporate-training-feature__border
-                  .corporate-training-feature__body
-                    p
-                      | 月イチで開催しているミートアップや、質問・雑談タイム、
-                      | 卒業生による自作サービスのプレゼンテーションなど、
-                      | 研修生も一般の受講生と同じように開催さているイベントに参加することができます。
-                      | もちろん研修生が企画.開催するのもOK！
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            .corporate-training-features-header__start
+              h2.lp-content-title.is-border-left
+                | フィヨルド
+                br
+                | ブートキャンプの
+                br
+                strong
+                  | 企業研修の特徴
+            .corporate-training-features-header__end
+        .lp-content__end
+          .corporate-training-features__items
+            section.corporate-training-feature
+              .corporate-training-feature__inner
+                .corporate-training-feature__start
+                  = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-feature__image')
+                .corporate-training-feature__end
+                  .corporate-training-feature__content
+                    header.corporate-training-feature__header
+                      h3.corporate-training-feature__title
+                        | 目的・期間に応じて
+                        br
+                        | 研修メニューを
+                        br
+                        | カスタマイズできる!
+                    hr.corporate-training-feature__border
+                    .corporate-training-feature__body
+                      p
+                        | 一般受講生とは異なり、企業研修では、目的や期間に応じて、
+                        | 研修メニューのカスタマイズが可能です。事前のヒアリングをもとに、
+                        | 即戦力になるための研修メニューを作成します。
+            section.corporate-training-feature
+              .corporate-training-feature__inner
+                .corporate-training-feature__start
+                  .corporate-training-feature__content
+                    header.corporate-training-feature__header
+                      h3.corporate-training-feature__title
+                        | 日報・提出課題も
+                        br
+                        | 毎日チェックできる!
+                    hr.corporate-training-feature__border
+                    .corporate-training-feature__body
+                      p
+                        | 学習を行う度に「今の気持ち」、「行っだ学習」、「理解したこと」、
+                        | 「緊問点」などを書いた日報を提出してもらい、
+                        | それをメンターがチェックしています。
+                        | カリキュラムにはそれぞれ提出課顕があり、
+                        | メンターがレビューをして合格がもらえたら修了という形を取っています。
+                        | それら日報や提出物のやりとり、学習の進拗は貫社の社員の方々も確認ができます。
+                .corporate-training-feature__end
+                  = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-feature__image')
+            section.corporate-training-feature
+              .corporate-training-feature__inner
+                .corporate-training-feature__start
+                  = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-feature__image')
+                .corporate-training-feature__end
+                  .corporate-training-feature__content
+                    header.corporate-training-feature__header
+                      h3.corporate-training-feature__title
+                        | メンバー限定イベントへの
+                        br
+                        | 参加もできる！
+                    hr.corporate-training-feature__border
+                    .corporate-training-feature__body
+                      p
+                        | 月イチで開催しているミートアップや、質問・雑談タイム、
+                        | 卒業生による自作サービスのプレゼンテーションなど、
+                        | 研修生も一般の受講生と同じように開催さているイベントに参加することができます。
+                        | もちろん研修生が企画.開催するのもOK！
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-  section.corporate-training__content.corporate-training-fee
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+  section.lp-content.is-lp-bg-1.is-top-title.corporate-training-fee
     .container.is-md
-      .corporate-training-fee__inner
-        header.corporate-training-fee__header
-          h2.corporate-training-fee__title
-            | 法人利用料
-        .corporate-training-fee__body
-          p.corporate-training-price
-            span.corporate-training-price__label
-              | 月額
-            span.corporate-training-price__value
-              span.corporate-training-price__amount
-                | 99,800
-              span.corporate-training-price__currency
-                | 円
-            span.corporate-training-price__details
-              span.corporate-training-price__tax
-                | （税込）
-              span.corporate-training-price__separator
-                | /
-              span.corporate-training-price__per-person
-                | 人
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-align-center.is-border-bottom
+              | 法人利用料
+        .lp-content__end
+          .corporate-training-fee__body
+            p.lp-price
+              span.lp-price__label
+                | 月額
+              span.lp-price__value
+                span.lp-price__amount
+                  | 99,800
+                span.lp-price__currency
+                  | 円
+              span.lp-price__details
+                span.lp-price__tax
+                  | （税込）
+                span.lp-price__separator
+                  | /
+                span.lp-price__per-person
+                  | 人
+        .lp-content__end
+          .lp-actions
+            ul.lp-actions__items
+              li.lp-actions__item
+                = link_to '/', class: 'a-button is-xl is-secondary is-block' do
+                  | お問い合わせ
+              li.lp-actions__item
+                = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                  | 研修を申し込む
 
-        .corporate-training-actions
-          ul.corporate-training-actions__items
-            li.corporate-training-actions__item
-              = link_to '/', class: 'a-button is-xl is-secondary is-block' do
-                | お問い合わせ
-            li.corporate-training-actions__item
-              = link_to '/', class: 'a-button is-xl is-warning is-block' do
-                | 研修を申し込む
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-  section.corporate-training__content.corporate-training-examples
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+  section.lp-content.is-lp-bg-2.is-top-title.corporate-training-examples
     .container.is-lg
-      .corporate-training-examples__inner
-        header.corporate-training-examples__header
-          h2.corporate-training-examples__title.corporate-training__content-title.align-center
-            | 研修活用例
-        .corporate-training-examples__body
-          .corporate-training-examples__items
-            .row.is-gutter-width-32
-              .col-md-4
-                section.corporate-training-example
-                  header.corporate-training-example__header.a-card
-                    h3.corporate-training-example__title
-                      | 新卒で入社した
-                      br
-                      | 社員の場合
-                  .corporate-training-example__divider
-                    span
-                  .corporate-training-example__contents.a-card
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4.corporate-training-example-content__title
-                          | お客様のご要望
-                      .corporate-training-example-content__body
-                        ul
-                          li
-                            | 文系でほとんどプログラミング経験が無いので基礎からキッチリやってほしい。
-                          li
-                            | 特にLinuxはしっかりやりたい。
-                          li
-                            | JavaScriptは自社の研修でやったのでやらなくて大丈夫。
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4.corporate-training-example-content__title
-                          | 研修期間
-                      .corporate-training-example-content__body
-                        p.corporate-training-example-content__period
-                          | 6ヶ月
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4.corporate-training-example-content__title
-                          | カリキュラム
-                      .corporate-training-example-content__body
-                        ul
-                          li
-                            | 学習の準備
-                          li
-                            | 開発環境
-                          li
-                            | HTML & CSS
-                          li
-                            | Vi
-                          li
-                            | Linux
-                          li
-                            | Git & GitHub
-                          li
-                            | Ruby
-                          li
-                            | HTTP
-                          li
-                            | Nginx
-                          li
-                            | データベース
-                          li
-                            | Webアプリケーション
-                          li
-                            | Ruby on Rails
-                          li
-                            | 自動テスト
-                          li
-                            | オブジェクト指向プログラミング（Ruby）
-                          li
-                            | システム開発
-                          li
-                            | Webサービスを作って公開する
-              .col-md-4
-                section.corporate-training-example
-                  header.corporate-training-example__header.a-card
-                    h3.corporate-training-example__title
-                      | SIerからの転職の場合
-                  .corporate-training-example__divider
-                    span
-                  .corporate-training-example__contents.a-card
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4
-                          | お客様のご要望
-                      .corporate-training-example-content__body
-                        ul
-                          li
-                            | 組込みでのLinuxの経験はあるが、Webアプリケーション開発の経験が無いので学んで欲しい。
-                          li
-                            | GitHubでのPull Requestベースの開発やアジャイル開発の経験が無いので 身につけてほしい。
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4
-                          | 研修期間
-                      .corporate-training-example-content__body
-                        p.corporate-training-example-content__period
-                          | 3ヶ月
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4
-                          | カリキュラム
-                      .corporate-training-example-content__body
-                        ul
-                          li
-                            | 学習の準備
-                          li
-                            | 開発環境
-                          li
-                            | Git & GitHub
-                          li
-                            | Webアプリケーション
-                          li
-                            | Ruby on Rails
-                          li
-                            | Webセキュリティ
-                          li
-                            | システム開発
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-align-center.is-border-bottom
+              | 研修活用例
+        .lp-content__end
+          .corporate-training-examples__body
+            .corporate-training-examples__items
+              .row.is-gutter-width-32
+                .col-md-4
+                  section.corporate-training-example
+                    header.corporate-training-example__header.a-card
+                      h3.corporate-training-example__title
+                        | 新卒で入社した
+                        br
+                        | 社員の場合
+                    .corporate-training-example__divider
+                      span
+                    .corporate-training-example__contents.a-card
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4.corporate-training-example-content__title
+                            | お客様のご要望
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 文系でほとんどプログラミング経験が無いので基礎からキッチリやってほしい。
+                            li
+                              | 特にLinuxはしっかりやりたい。
+                            li
+                              | JavaScriptは自社の研修でやったのでやらなくて大丈夫。
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4.corporate-training-example-content__title
+                            | 研修期間
+                        .corporate-training-example-content__body
+                          p.corporate-training-example-content__period
+                            | 6ヶ月
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4.corporate-training-example-content__title
+                            | カリキュラム
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 学習の準備
+                            li
+                              | 開発環境
+                            li
+                              | HTML & CSS
+                            li
+                              | Vi
+                            li
+                              | Linux
+                            li
+                              | Git & GitHub
+                            li
+                              | Ruby
+                            li
+                              | HTTP
+                            li
+                              | Nginx
+                            li
+                              | データベース
+                            li
+                              | Webアプリケーション
+                            li
+                              | Ruby on Rails
+                            li
+                              | 自動テスト
+                            li
+                              | オブジェクト指向プログラミング（Ruby）
+                            li
+                              | システム開発
+                            li
+                              | Webサービスを作って公開する
+                .col-md-4
+                  section.corporate-training-example
+                    header.corporate-training-example__header.a-card
+                      h3.corporate-training-example__title
+                        | SIerからの転職の場合
+                    .corporate-training-example__divider
+                      span
+                    .corporate-training-example__contents.a-card
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | お客様のご要望
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 組込みでのLinuxの経験はあるが、Webアプリケーション開発の経験が無いので学んで欲しい。
+                            li
+                              | GitHubでのPull Requestベースの開発やアジャイル開発の経験が無いので身につけてほしい。
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | 研修期間
+                        .corporate-training-example-content__body
+                          p.corporate-training-example-content__period
+                            | 3ヶ月
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | カリキュラム
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 学習の準備
+                            li
+                              | 開発環境
+                            li
+                              | Git & GitHub
+                            li
+                              | Webアプリケーション
+                            li
+                              | Ruby on Rails
+                            li
+                              | Webセキュリティ
+                            li
+                              | システム開発
 
-              .col-md-4
-                section.corporate-training-example
-                  header.corporate-training-example__header.a-card
-                    h3.corporate-training-example__title
-                      | 他言語の経験のある
-                      br
-                      | エンジニアが
-                      br
-                      | 転職で入社した場合
-                  .corporate-training-example__divider
-                    span
-                  .corporate-training-example__contents.a-card
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4
-                          | お客様のご要望
-                      .corporate-training-example-content__body
-                        ul
-                          li
-                            | Webの開発経験はあるので、RubyとRailsの作法を学んで欲しい。
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4
-                          | 研修期間
-                      .corporate-training-example-content__body
-                        p.corporate-training-example-content__period
-                          | 1ヶ月
-                    section.corporate-training-example-content
-                      header.corporate-training-example-content__header
-                        h4
-                          | カリキュラム
-                      .corporate-training-example-content__body
-                        ul
-                          li
-                            | 学習の準備
-                          li
-                            | 開発環境
-                          li
-                            | Ruby
-                          li
-                            | Ruby on Rails
+                .col-md-4
+                  section.corporate-training-example
+                    header.corporate-training-example__header.a-card
+                      h3.corporate-training-example__title
+                        | 他言語の経験のある
+                        br
+                        | エンジニアが
+                        br
+                        | 転職で入社した場合
+                    .corporate-training-example__divider
+                      span
+                    .corporate-training-example__contents.a-card
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | お客様のご要望
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | Webの開発経験はあるので、RubyとRailsの作法を学んで欲しい。
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | 研修期間
+                        .corporate-training-example-content__body
+                          p.corporate-training-example-content__period
+                            | 1ヶ月
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | カリキュラム
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 学習の準備
+                            li
+                              | 開発環境
+                            li
+                              | Ruby
+                            li
+                              | Ruby on Rails
 
-  section.corporate-training__content.corporate-training-onboarding-flow-steps
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+    .lp-content-divider.is-lp-bg-3
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-3.is-right-title.corporate-training-onboarding-flow-steps
     .container.is-lg
-      .corporate-training-onboarding-flow-steps__inner
-        .corporate-training-onboarding-flow-steps__start
-          header.corporate-training-onboarding-flow-steps__header
-            h3.corporate-training-onboarding-flow-steps__title
-              | スタートまでの流れ
-        .corporate-training-onboarding-flow-steps__end
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-vertical.is-border-left
+              | 研修スタート
+              br
+              | までの
+              strong
+                | 流れ
+        .lp-content__end
           .corporate-training-onboarding-flow-steps__items
-            section.corporate-training-onboarding-flow-step
-              .corporate-training-onboarding-flow-step__inner.a-card
-                header.corporate-training-onboarding-flow-step__header
-                  h4.corporate-training-onboarding-flow-step__title
-                    | お申し込み
-                .corporate-training-onboarding-flow-step__body
-                  p
-                    | 研修申し込みフォームより、お申し込みをお願いいたします。貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、研修の目的なども書いていただけるとヒヤリングがスムーズになります。
-                  p
-                    | 学習内容一覧はこちら
+            .l-cards.is-zigzag
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | お申し込み
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 研修申し込みフォームより、お申し込みをお願いいたします。貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、研修の目的なども書いていただけるとヒヤリングがスムーズになります。
+                        p
+                          | 学習内容一覧はこちら
 
-            section.corporate-training-onboarding-flow-step
-              .corporate-training-onboarding-flow-step__inner.a-card
-                header.corporate-training-onboarding-flow-step__header
-                  h4.corporate-training-onboarding-flow-step__title
-                    | ヒアリング
-                .corporate-training-onboarding-flow-step__body
-                  p
-                    | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、研修の目的、研修後になっていてほしい姿をお聞かせいただきます。また、貴社の研修の進捗を確認する社内のメンターも研修状況を確認できるようにするため、社内メンターを担当する方、人数についてもお伺いさせていただきます。
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | ヒアリング
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、研修の目的、研修後になっていてほしい姿をお聞かせいただきます。また、貴社の研修の進捗を確認する社内のメンターも研修状況を確認できるようにするため、社内メンターを担当する方、人数についてもお伺いさせていただきます。
 
-            section.corporate-training-onboarding-flow-step
-              .corporate-training-onboarding-flow-step__inner.a-card
-                header.corporate-training-onboarding-flow-step__header
-                  h4.corporate-training-onboarding-flow-step__title
-                    | 研修メニュー
-                    br
-                    | 作成
-                .corporate-training-onboarding-flow-step__body
-                  p
-                    | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。研修メニュー作成までは2日程度お時間をいただいております。
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | 研修メニュー
+                          br
+                          | 作成
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。研修メニュー作成までは2日程度お時間をいただいております。
 
-            section.corporate-training-onboarding-flow-step
-              .corporate-training-onboarding-flow-step__inner.a-card
-                header.corporate-training-onboarding-flow-step__header
-                  h4.corporate-training-onboarding-flow-step__title
-                    | サインアップ
-                    br
-                    | 研修開始
-                .corporate-training-onboarding-flow-step__body
-                  p
-                    | 研修メニューが完成しましたら、研修はスタートできる状態なので、フィヨルドブートキャンプのオンライン学習アプリにサインアップ次第研修がスタートになります。研修メニュー完成のご連絡と合わせて、研修生用のサインアップ URL と社内メンター用のサインアップ URL をお知らせいたします。その URL からそれぞれサインアップをしてください。サインアップ後、研修を進めていく上で何か不明点がありましたら、チャット、もしくは学習アプリ内の相談部屋から質問をすることができます。
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | サインアップ
+                          br
+                          | 研修開始
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 研修メニューが完成しましたら、研修はスタートできる状態なので、フィヨルドブートキャンプのオンライン学習アプリにサインアップ次第研修がスタートになります。研修メニュー完成のご連絡と合わせて、研修生用のサインアップ URL と社内メンター用のサインアップ URL をお知らせいたします。その URL からそれぞれサインアップをしてください。サインアップ後、研修を進めていく上で何か不明点がありましたら、チャット、もしくは学習アプリ内の相談部屋から質問をすることができます。
 
-  section.corporate-training__content.corporate-training-testimonials
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-2.is-top-title.corporate-training-testimonials
     .container.is-lg
-      .corporate-training-testimonials__inner
-        header.corporate-training-testimonials__header
-          h3.corporate-training-testimonials__title.corporate-training__content-title.align-center
-            | 導入企業様の声
-        .corporate-training-testimonials__items
-          section.corporate-training-testimonial
-            .corporate-training-testimonial__inner.a-card
-              header.corporate-training-testimonial__header
-                h4.corporate-training-testimonial__title
-                  | 導入企業の声のサマリや効果導入企業の声のサマリや効果
-              hr.a-border-tint
-              .corporate-training-testimonial__body
-                dl
-                  div
-                    dt
-                      | 会社名
-                    dd
-                      | aaaaaa
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-align-center.is-border-bottom
+              | 導入企業様の声
+        .lp-content__end
+          .corporate-training-testimonials__items
+            section.corporate-training-testimonial
+              .corporate-training-testimonial__inner.a-card
+                header.corporate-training-testimonial__header
+                  h4.corporate-training-testimonial__title
+                    | 導入企業の声のサマリや効果導入企業の声のサマリや効果
+                hr.a-border-tint
+                .corporate-training-testimonial__body
+                  dl
+                    div
+                      dt
+                        | 会社名
+                      dd
+                        | aaaaaa
 
-          section.corporate-training-testimonial
-            .corporate-training-testimonial__inner.a-card
-              header.corporate-training-testimonial__header
-                h4.corporate-training-testimonial__title
-                  | 導入企業の声のサマリや効果導入企業の声のサマリや効果
-              hr.a-border-tint
-              .corporate-training-testimonial__body
-                dl
-                  div
-                    dt
-                      | 会社名
-                    dd
-                      | aaaaaa
+            section.corporate-training-testimonial
+              .corporate-training-testimonial__inner.a-card
+                header.corporate-training-testimonial__header
+                  h4.corporate-training-testimonial__title
+                    | 導入企業の声のサマリや効果導入企業の声のサマリや効果
+                hr.a-border-tint
+                .corporate-training-testimonial__body
+                  dl
+                    div
+                      dt
+                        | 会社名
+                      dd
+                        | aaaaaa
 
-  section.corporate-training__content.corporate-training-faqs
-    .corporate-training__divider
-      svg[data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-        path[d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"]
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-1.is-left-title.corporate-training-faqs
     .container.is-lg
-      .corporate-training-faqs__inner
-        .corporate-training-faqs__start
-          header.corporate-training-faqs__header
-            h3.corporate-training-faqs__title.corporate-training__content-title.is-vertical
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-vertical.is-border-left
               | 法人利用について
               br
               | よくある質問
-        .corporate-training-faqs__end
+        .lp-content__end
           .corporate-training-faqs__items
             section.corporate-training-faq
               .corporate-training-faq__inner

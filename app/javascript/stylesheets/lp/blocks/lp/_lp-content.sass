@@ -1,0 +1,35 @@
+.lp-content
+  position: relative
+  padding-top: 4rem
+  padding-bottom: 8rem
+  &.is-lp-bg-1
+    background-color: var(--lp-bg-1)
+  &.is-lp-bg-2
+    background-color: var(--lp-bg-2)
+  &.is-lp-bg-3
+    background-color: var(--lp-bg-3)
+
+  &.is-right-title
+    .lp-content__inner
+      display: flex
+      flex-direction: row-reverse
+      justify-content: space-between
+      gap: 3rem
+    .lp-content__end
+      flex: 1
+      max-width: 50rem
+
+  &.is-left-title
+    .lp-content__inner
+      display: flex
+      gap: 3rem
+      justify-content: space-between
+    .lp-content__end
+      flex: 1
+      max-width: 42.5rem
+
+  &.is-top-title
+    .lp-content__inner
+      display: flex
+      gap: 4rem
+      flex-direction: column
