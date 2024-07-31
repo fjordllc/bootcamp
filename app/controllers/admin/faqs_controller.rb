@@ -5,7 +5,7 @@ class Admin::FaqsController < AdminController
   before_action :set_category, only: %i[edit new update create]
 
   def index
-    @faqs = FAQ.all
+    @faqs = FAQ.all.order(:created_at)
   end
 
   def new
