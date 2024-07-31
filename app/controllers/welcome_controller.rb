@@ -18,9 +18,9 @@ class WelcomeController < ApplicationController
   def faq
     category = FaqsCategory.find_by(name: params[:category])
     @faqs = if params[:category].present?
-              FAQ.where(faqs_category_id: category.id) if category.present?
+              FAQ.where(faqs_category_id: category.id).order(:created_at) if category.present?
             else
-              FAQ.all
+              FAQ.all.order(:created_at)
             end
   end
 
