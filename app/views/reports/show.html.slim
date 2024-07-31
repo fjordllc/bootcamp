@@ -20,7 +20,7 @@
 
 .page-body
   .container.is-xxl
-    .row.justify-center
+    .row.justify-center.is-gutter-width-32
       .col-xl-7.col-xs-12
         .report.page-content
           = render 'report_header', report: @report
@@ -64,7 +64,7 @@
                     | 提出物
             .side-tabs-contents
               .side-tabs-contents__item#side-tabs-content-1
-                = render(partial: 'reports/recent_reports', locals: { header_display: true })
+                = render(partial: 'reports/recent_reports', locals: { header_display: false })
               .side-tabs-contents__item#side-tabs-content-2.is-only-mentor
                 .user-info
                   = render 'users/user_secret_attributes', user: @report.user
@@ -84,7 +84,7 @@
                           .o-empty-message__text
                             | 提出物はまだありません。
         - else
-          = render(partial: 'reports/recent_reports', locals: { header_display: false })
+          = render(partial: 'reports/recent_reports', locals: { header_display: true })
 
 - if flash[:notify_help] && flash[:celebrate_report_count]
     = render '/shared/modal', id: 'modal-notify-help', modal_title: '🎉 おめでとう！', auto_show: true
