@@ -5,8 +5,8 @@ question1:
     どのエディターを使うのが一番良いでしょうか？
   user: machida
   practice: practice1
-  created_at: '2022-01-01'
-  published_at: '2022-01-01'
+  created_at: "2022-01-01"
+  published_at: "2022-01-01"
 
 question2:
   title: injectとreduce
@@ -14,132 +14,132 @@ question2:
     injectとreduceはどちらを使うのが一般的でしょうか？
   user: sotugyou
   practice: practice26
-  created_at: '2022-01-02'
-  published_at: '2022-01-02'
+  created_at: "2022-01-02"
+  published_at: "2022-01-02"
 
 question3:
   title: テストの質問1
   description: テスト1の内容です。
   user: komagata
   practice: practice1
-  created_at: '2022-01-03'
-  published_at: '2022-01-03'
+  created_at: "2022-01-03"
+  published_at: "2022-01-03"
 
 question4:
   title: テストの質問2
   description: テスト2の内容です。
   user: komagata
   practice: practice1
-  created_at: '2022-01-04'
-  published_at: '2022-01-04'
+  created_at: "2022-01-04"
+  published_at: "2022-01-04"
 
 question5:
   title: テストの質問3
   description: テスト3の内容です。
   user: komagata
   practice: practice1
-  created_at: '2022-01-05'
-  published_at: '2022-01-05'
+  created_at: "2022-01-05"
+  published_at: "2022-01-05"
 
 question6:
   title: テストの質問4
   description: テスト1の内容です。
   user: komagata
   practice: practice1
-  created_at: '2022-01-06'
-  published_at: '2022-01-06'
+  created_at: "2022-01-06"
+  published_at: "2022-01-06"
 
 question7:
   title: テストの質問5
   description: テスト1の内容です。
   user: komagata
   practice: practice1
-  created_at: '2022-01-07'
-  published_at: '2022-01-07'
+  created_at: "2022-01-07"
+  published_at: "2022-01-07"
 
 question8:
   title: テストの質問
   description: テストの内容です。
   user: kimura
   practice: practice1
-  created_at: '2022-01-08'
-  published_at: '2022-01-08'
+  created_at: "2022-01-08"
+  published_at: "2022-01-08"
 
 question9:
   title: 質問のタブの作り方
   description: タブをテストする1
   user: hatsuno
   practice: practice5
-  created_at: '2022-01-09'
-  published_at: '2022-01-09'
+  created_at: "2022-01-09"
+  published_at: "2022-01-09"
 
 question10:
   title: 質問のタブに関して。。。追加質問
   description: タブをテストする2
   user: hatsuno
   practice: practice5
-  created_at: '2022-01-10'
-  published_at: '2022-01-10'
+  created_at: "2022-01-10"
+  published_at: "2022-01-10"
 
 question11:
   title: Q&Aの検索結果テスト用
   description: Q&Aの検索結果テスト用
   user: komagata
   practice: practice46
-  created_at: '2022-01-11'
-  published_at: '2022-01-11'
+  created_at: "2022-01-11"
+  published_at: "2022-01-11"
 
 question12:
   title: 解決済みの質問
   description: 解決済みの内容です。
   user: hajime
   practice: practice1
-  created_at: '2022-01-12'
-  published_at: '2022-01-12'
+  created_at: "2022-01-12"
+  published_at: "2022-01-12"
 
 question13:
   title: 検索ワードが太字で表示されるかのテスト用の質問
   description: こちらの質問は検索ワードの表示に関するテスト用の質問です。検索ワードが太字で表示されるかのテスト。こちらの質問は検索ワードの表示に関するテスト用の質問です。
   user: hajime
   practice: practice1
-  created_at: '2022-01-13'
-  published_at: '2022-01-13'
+  created_at: "2022-01-13"
+  published_at: "2022-01-13"
 
 question_for_comment_count:
   title: コメント数表示テスト用の質問
   description: こちらの質問はQ&A一覧ページでコメント(回答)がついているものにのみ「回答・コメント（コメント数）」という表示がついているかどうかのテスト用の質問です。
   user: komagata
   practice: practice1
-  created_at: '2022-01-14'
-  published_at: '2022-01-14'
+  created_at: "2022-01-14"
+  published_at: "2022-01-14"
 
 question_for_wip:
   title: wipテスト用の質問(wip中)
   description: こちらの質問はwipテスト用の「wip中」の質問です。
   user: kimura
   practice: practice1
-  created_at: '2022-01-15'
+  created_at: "2022-01-15"
   wip: true
 
 question14:
   title: プラクティスを選択せずに登録したテストの質問
   description: プラクティスを選択せずに登録したテストの質問。
   user: kimura
-  created_at: '2022-01-16'
-  published_at: '2022-01-16'
+  created_at: "2022-01-16"
+  published_at: "2022-01-16"
 
 question15:
   title: プラクティス「sshdでパスワード認証を禁止にする」に関する質問
   description: 他の質問で、プラクティスを変更した後、この質問が含まれているか確認するための質問。
   user: hajime
   practice: practice12
-  created_at: '2022-01-17'
-  published_at: '2022-01-17'
+  created_at: "2022-01-17"
+  published_at: "2022-01-17"
 
 question16:
   title: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問
   description: タイトルが長い質問のtitleタグの文字数が制限されるかテストするための質問
   user: kimura
   practice: practice1
-  created_at: '2022-01-18'
-  published_at: '2022-01-18'
+  created_at: "2022-01-18"
+  published_at: "2022-01-18"
