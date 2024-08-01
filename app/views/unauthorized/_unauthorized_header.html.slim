@@ -1,3 +1,5 @@
+- title "Q&A: #{truncate(title, length: 35, omission: '...')}"
+- set_meta_tags og: { title: "Q&A: #{title}" }
 header.unauthorized-header
   .container
     = image_tag('shared/piyo.svg', alt: 'フィヨルドブートキャンプのキャラクター画像', class: 'unauthorized-header__image')
@@ -9,6 +11,3 @@ header.unauthorized-header
       = title
       span.font-thin
         | 」
-      title
-        = title "Q&A: #{truncate(@question.title, length: 35, omission: '...')}"
-        - set_meta_tags og: { title: "Q&A: #{@question.title}" }
