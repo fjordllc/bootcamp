@@ -24,7 +24,7 @@ class Question::NotLoggedInTest < ApplicationSystemTestCase
                     visible: false
     assert_selector "meta[property='og:description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問」のページです。']",
                     visible: false
-    assert_selector "meta[name='twitter:description'][content='オンラインプログラミングスクール「長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問」のページです。']",
+    assert_selector "meta[name='twitter:description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問」のページです。']",
                     visible: false
   end
 end
