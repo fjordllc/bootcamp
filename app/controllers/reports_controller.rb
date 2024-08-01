@@ -20,8 +20,7 @@ class ReportsController < ApplicationController
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
-    default_per_page = User.page(1).limit_value
-    @recent_reports = Report.list.where(user_id: @report.user.id).limit(default_per_page)
+    @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
     respond_to do |format|
       format.html
       format.md
