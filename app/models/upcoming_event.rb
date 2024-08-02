@@ -58,7 +58,7 @@ class UpcomingEvent
     end
 
     def fetch(user)
-      event_ids = Event.fetch_event_ids(user)
+      event_ids = Event.fetch_ids(user)
 
       participated_ids = event_ids[:participated]
       upcoming_ids = event_ids[:upcoming]
