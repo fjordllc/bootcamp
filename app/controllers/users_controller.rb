@@ -48,11 +48,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    if params[:role] == 'adviser'
+    @role = params[:role]
+    case @role
+    when 'adviser'
       @user.adviser = true
-    elsif params[:role] == 'trainee_invoice_payment' ||
-          params[:role] == 'trainee_credit_card_payment' ||
-          params[:role] == 'trainee_select_a_payment_method'
+    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
       @user.trainee = true
     end
     @user.course_id = params[:course_id]
@@ -66,6 +66,7 @@ class UsersController < ApplicationController
     @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
+    @user.payment_method_of_trainee = params[:user][:payment_method_of_trainee]
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!

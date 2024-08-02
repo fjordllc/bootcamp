@@ -1,7 +1,7 @@
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox
-      - case params[:role]
+      - case role
       - when 'trainee_invoice_payment'
         = f.check_box :invoice_payment, checked: true, class: 'a-toggle-checkbox'
       - when 'trainee_credit_card_payment'
@@ -10,10 +10,11 @@
         = f.check_box :invoice_payment, checked: false, class: 'a-toggle-checkbox'
       = f.label :invoice_payment, class: 'a-block-check__label is-ta-left' do
         = User.human_attribute_name :invoice_payment_user
+      = f.hidden_field :payment_method_of_trainee, value: role
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox
-      - case params[:role]
+      - case role
       - when 'trainee_invoice_payment'
         = check_box_tag :credit_card_payment, '1', false, disabled: true, class: 'a-toggle-checkbox not-checked'
       - when 'trainee_credit_card_payment'

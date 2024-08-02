@@ -110,6 +110,7 @@ ja:
         credit_card_payment_user: クレジットカード払い
         other_editor: その他のエディタ
         hide_mentor_profile: プロフィール非公開
+        invoice_payment: 「請求書払い」
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
