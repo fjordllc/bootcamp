@@ -39,11 +39,11 @@
               .form-item-block__title
                 | 支払い方法
             .form-item-block__item
-              = render 'users/form/payment_methods_check_boxes', f:
-      - if params[:role] == 'trainee_credit_card_payment'
+              = render 'users/form/payment_methods_check_boxes', f:, role:
+      - if role == 'trainee_credit_card_payment'
         #card
           = render 'users/form/card'
-      - elsif params[:role] == 'trainee_select_a_payment_method'
+      - elsif role == 'trainee_select_a_payment_method'
         #card.hidden
           = render 'users/form/card'
 

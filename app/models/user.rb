@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
+  attr_accessor :payment_method_of_trainee
+
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
@@ -183,6 +185,7 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください'}, if: -> { payment_method_of_trainee == 'trainee_invoice_payment' }
 
   validates :feed_url,
             format: {
