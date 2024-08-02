@@ -57,7 +57,7 @@ class UpcomingEvent
       %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
     end
 
-    def fetch_upcoming_events(user)
+    def fetch(user)
       event_ids = Event.fetch_event_ids(user)
 
       participated_ids = event_ids[:participated]
