@@ -161,9 +161,9 @@ class Event < ApplicationRecord
       { participated: participated_events, upcoming: upcoming_events }
     end
 
-    def format_participated_events_title(events)
+    def format_events_title(events, text)
       events.each do |event|
-        event.title = "【参加登録済】#{event.title}"
+        event.title = text + event.title
       end
       events
     end
