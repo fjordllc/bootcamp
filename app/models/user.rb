@@ -395,7 +395,6 @@ class User < ApplicationRecord
       .order(last_activity_at: :desc)
       .tagged_with(tag_name)
   }
-  scope :search_by_keywords_scope, -> { unretired }
   scope :delayed, lambda {
     sql = Learning.select(:user_id, 'MAX(updated_at) AS completed_at')
                   .where(status: :complete)

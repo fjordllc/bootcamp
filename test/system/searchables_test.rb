@@ -190,4 +190,52 @@ class SearchablesTest < ApplicationSystemTestCase
     find('#test-search').click
     assert_no_css 'img.card-list-item-meta__icon.a-user-icon'
   end
+
+  test 'search with all scope includes retired user' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: 'yameo'
+    end
+    find('#test-search').click
+    within('.card-list-item.is-user') do
+      assert_text 'yameo'
+    end
+  end
+
+  test 'search with all scope includes hibernated user' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'すべて'
+      fill_in 'word', with: 'kyuukai'
+    end
+    find('#test-search').click
+    within('.card-list-item.is-user') do
+      assert_text 'kyuukai'
+    end
+  end
+
+  test 'search with user scope includes retired user' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'yameo'
+    end
+    find('#test-search').click
+    within('.card-list-item.is-user') do
+      assert_text 'yameo'
+    end
+  end
+
+  test 'search with user scope includes hibernated user' do
+    visit_with_auth '/', 'hatsuno'
+    within('form[name=search]') do
+      select 'ユーザー'
+      fill_in 'word', with: 'kyuukai'
+    end
+    find('#test-search').click
+    within('.card-list-item.is-user') do
+      assert_text 'kyuukai'
+    end
+  end
 end

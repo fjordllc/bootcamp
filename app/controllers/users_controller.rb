@@ -20,7 +20,6 @@ class UsersController < ApplicationController
              .preload(:avatar_attachment, :course, :taggings)
              .order(updated_at: :desc)
 
-    @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
     if params[:search_word]
       search_user = SearchUser.new(word: params[:search_word], users: @users, target: @target)
       @users = search_user.search
