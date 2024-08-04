@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @role = params[:role]
+    @role = params[:role] || user_params[:payment_method_of_trainee]
     case @role
     when 'adviser'
       @user.adviser = true
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
-      render 'new'
+      render 'new', locals: { user: @user, role: @user.payment_method_of_trainee }
     end
   end
 
