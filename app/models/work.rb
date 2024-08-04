@@ -20,13 +20,14 @@ class Work < ApplicationRecord
             size: { less_than: 10.megabytes }
 
   def thumbnail_url
+    default_thumbnail_path = '/images/works/thumbnails/default.png'
     if thumbnail.attached?
       thumbnail.variant(resize_to_fill: THUMBNAIL_SIZE).processed.url
     else
-      image_url('/images/works/thumbnails/default.png')
+      image_url(default_thumbnail_path)
     end
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url('/images/works/thumbnails/default.png')
+    image_url(default_thumbnail_path)
   end
 
   private
