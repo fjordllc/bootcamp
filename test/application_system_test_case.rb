@@ -39,8 +39,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   parallelize_setup do |i|
     ActiveStorage::Blob.service.instance_variable_set(:@root, "#{ActiveStorage::Blob.service.root}-#{i}")
   end
-
-  parallelize_teardown do |_|
-    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
-  end
 end
