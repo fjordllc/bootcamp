@@ -56,7 +56,6 @@ import '../header-dropdown.js'
 import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
-import '../card-form-display-switcher.js'
 import '../payment-methods-check-boxes.js'
 
 import VueMounter from '../VueMounter.js'
