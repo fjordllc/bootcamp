@@ -32,6 +32,14 @@ class ActiveSupport::TestCase
   teardown do
     ActiveStorage::Current.host = nil
   end
+
+  parallelize_setup do |i|
+    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}-#{i}")
+  end
+
+  parallelize_teardown do |_|
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
+  end
 end
 
 class ActionDispatch::IntegrationTest
