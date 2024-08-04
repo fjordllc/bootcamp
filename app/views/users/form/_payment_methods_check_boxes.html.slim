@@ -3,9 +3,9 @@
     .a-block-check.is-checkbox
       - case role
       - when 'trainee_invoice_payment'
-        = f.check_box :invoice_payment, checked: true, class: 'a-toggle-checkbox'
+        = f.check_box :invoice_payment, checked: true, class: 'a-toggle-checkbox checked-invoice-box'
       - when 'trainee_credit_card_payment'
-        = f.check_box :invoice_payment, checked: false, disabled: true, class: 'a-toggle-checkbox not-checked'
+        = f.check_box :invoice_payment, checked: false, disabled: true, class: 'a-toggle-checkbox'
       - when 'trainee_select_a_payment_method'
         = f.check_box :invoice_payment, checked: false, class: 'a-toggle-checkbox'
       = f.label :invoice_payment, class: 'a-block-check__label is-ta-left' do
@@ -16,10 +16,10 @@
     .a-block-check.is-checkbox
       - case role
       - when 'trainee_invoice_payment'
-        = check_box_tag :credit_card_payment, '1', false, disabled: true, class: 'a-toggle-checkbox not-checked'
+        = check_box_tag :credit_card_payment, '1', false, disabled: true, class: 'a-toggle-checkbox'
       - when 'trainee_credit_card_payment'
-        = check_box_tag :credit_card_payment, '1', true, class: 'a-toggle-checkbox'
+        = check_box_tag :credit_card_payment, '1', true, class: 'a-toggle-checkbox checked-credit-card-box'
       - when 'trainee_select_a_payment_method'
-        = check_box_tag :credit_card_payment, '1', false, class: 'a-toggle-checkbox'
+        = check_box_tag :credit_card_payment, '1', false, class: 'a-toggle-checkbox selectable-credit-card-box'
       = label_tag :credit_card_payment, class: 'a-block-check__label is-ta-left' do
         = User.human_attribute_name :credit_card_payment_user
