@@ -43,6 +43,8 @@ class Article < ApplicationRecord
     else
       image_url('/ogp/blank.svg')
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url('/ogp/blank.svg')
   end
 
   def selected_thumbnail_url

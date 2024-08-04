@@ -25,6 +25,8 @@ class Work < ApplicationRecord
     else
       image_url('/images/works/thumbnails/default.png')
     end
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
+    image_url('/images/works/thumbnails/default.png')
   end
 
   private
