@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const checkBox = document.getElementsByName('credit_card_payment')
+document.addEventListener('DOMContentLoaded', () => {
+  const checkBox = document.querySelector('.selectable-credit-card-box')
   const cardForm = document.getElementById('card')
-  if (cardForm) {
-    checkBox[0].addEventListener('click', function () {
-      if (checkBox[0].checked) {
+  if (cardForm && checkBox) {
+    checkBox.addEventListener('click', () => {
+      if (checkBox.checked) {
         cardForm.classList.remove('hidden')
       } else {
         cardForm.classList.add('hidden')
