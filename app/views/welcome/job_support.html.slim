@@ -27,13 +27,8 @@ article.lp
                   = link_to '/', class: 'a-button is-xl is-warning is-block' do
                     | 研修を申し込む
         .lp-header__end
-          .corporate-training-images
-            .corporate-training-images__item
-            .corporate-training-images__item
-            .corporate-training-images__item
-            .corporate-training-images__item
-            .corporate-training-images__item
-
+          .lp-header-main-visual
+            = image_tag('job_supports/job_supports_main.svg', class: 'lp-header-main-visual__image', alt: 'フィヨルドブートキャンプの就職支援')
     .lp-content-divider.is-lp-bg-1
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
@@ -140,29 +135,47 @@ article.lp
         .lp-content__end
           .lp-company-logos
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/pixiv.svg', alt: 'ピクシブ株式会社')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/gmo-pepabo.svg', alt: '株式会社GMOペパボ')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/persol.svg', alt: '株式会社パーソルキャリア')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/esm.svg', alt: '株式会社永和システムマネジメント')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/luxiar.svg', alt: '株式会社ラグザイア')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to 'https://everyleaf.com/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/everyleaf.svg', alt: '株式会社万葉')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/sikmi.svg', alt: '株式会社しくみ製作所')
             .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link' do
-                | バナー
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/enishi.svg', alt: '株式会社えにしテック')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/tebiki.svg', alt: '株式会社Tebiki')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/catal.svg', alt: '株式会社キャタル')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/wyrd.svg', alt: '株式会社ウィルド')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/ruby-dev.svg', alt: '株式会社Ruby開発')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/nacl.svg', alt: '株式会社ネットワーク応用通信研究所発')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/actindi.svg', alt: 'アクトインディ株式会社')
 
     .lp-content-divider.is-lp-bg-3
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
@@ -232,10 +245,3 @@ article.lp
     .lp-content-divider.is-lp-bg-3
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-
-
-
-
-
-  .welcome-page-body
-    = render 'welcome/job_hunt_support'
