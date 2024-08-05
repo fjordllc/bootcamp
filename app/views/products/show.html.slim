@@ -49,6 +49,8 @@ header.page-header
               = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :practice, practice: @product.practice)
             .page-body__row
               = render PracticeContentToggle::PracticeContentToggleComponent.new(content_type: :goal, practice: @product.practice)
+            .page-body__row.is-only-mentor
+              = render 'practice_memo', practice_id: @practice.id
             .page-body__row
               = render 'product_body', product: @product
 
