@@ -31,19 +31,18 @@
     &.is-sub
       flex: 0 0 auto
   @container card-main-actions (max-width: 19.9375em)
-  @container card-footer (max-width: 19.9375em)
     flex-basis: 100%
     max-width: 100%
     &.is-sub
       text-align: right
     &:last-child
       margin-bottom: 0
-  @container card-footer (min-width: 20em)
+  @container card-main-actions (min-width: 20em)
     flex: 1
     max-width: 50%
     &.is-sub
       +position(absolute, right 0, bottom 0)
-  @container card-footer (min-width: 30em)
+  @container card-main-actions (min-width: 30em)
     flex: 1
     max-width: 15rem
     &.is-sub
