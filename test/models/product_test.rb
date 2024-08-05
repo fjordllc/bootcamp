@@ -53,9 +53,9 @@ class ProductTest < ActiveSupport::TestCase
       practice:
     )
 
-    status = :complete
+    status = :started
     product.change_learning_status(status)
-    assert Learning.find_by(user:, practice:, status: :complete)
+    assert Learning.find_by(user:, practice:, status: :started)
   end
 
   test '#category' do
