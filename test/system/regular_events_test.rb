@@ -67,6 +67,15 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text regular_event.description
   end
 
+  test 'show regular event as WIP' do
+    regular_event = regular_events(:regular_event33)
+    visit_with_auth regular_event_path(regular_event), 'komagata'
+    assert_equal 'WIPの定期イベント表示確認用 | FBC', title
+    assert_text '毎週水曜日21:00 〜 22:00（祝日は休み）'
+    assert_text 'イベント編集中のため次回開催日は未定です'
+    assert_text '定期イベントがWIPのときの次回開催日時の表示確認を行うための定期イベント'
+  end
+
   test 'update regular event' do
     visit_with_auth edit_regular_event_path(regular_events(:regular_event1)), 'komagata'
     assert_no_selector 'label', text: '定期イベント公開のお知らせを書く'
@@ -173,7 +182,7 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'show listing not finished regular events' do
     visit_with_auth regular_events_path(target: 'not_finished'), 'kimura'
-    assert_selector '.card-list.a-card .card-list-item', count: 14
+    assert_selector '.card-list.a-card .card-list-item', count: 15
   end
 
   test 'show listing all regular events' do
@@ -345,7 +354,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'upcoming events groups' do
     today_events_count = 5
     tomorrow_events_count = 2
-    day_after_tomorrow_events_count = 2
+    day_after_tomorrow_events_count = 3
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth events_path, 'komagata'
       within('.upcoming_events_groups') do
