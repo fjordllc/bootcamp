@@ -121,6 +121,25 @@ article.lp
                       | 学習中のアウトプットは選考を申し込んだ企業が見れる状態にします。
                       | また、メンターから企業へ推薦文を提出します。
 
+    .lp-content-divider.is-lp-bg-3
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-3.is-right-title
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-border-left.is-vertical
+              | 就職支援の
+              br
+              | 説明動画
+        .lp-content__end
+          .lp-movie
+            .a-card
+              .lp-movie__inner
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/jmGz1-veGtg?si=l0A2YPGDn00PRCIS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
     .lp-content-divider.is-lp-bg-2
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
@@ -173,9 +192,10 @@ article.lp
             .lp-company-logos__item
               = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
                 = image_tag('company_logos/nacl.svg', alt: '株式会社ネットワーク応用通信研究所発')
-            .lp-company-logos__item
-              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
-                = image_tag('company_logos/actindi.svg', alt: 'アクトインディ株式会社')
+            //
+              .lp-company-logos__item
+                = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                  = image_tag('company_logos/actindi.svg', alt: 'アクトインディ株式会社')
 
     .lp-content-divider.is-lp-bg-3
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
@@ -200,7 +220,7 @@ article.lp
                       .corporate-training-key-reason__end
                         header.corporate-training-key-reason__header
                           h3.corporate-training-key-reason__title
-                            | 卒業後も<br>ログイン可能
+                            | 卒業後も<br>ログインが出来ます
                         .corporate-training-key-reason__body
                           p
                             | 卒業すると、課題の提出などはできなくなりますが、
