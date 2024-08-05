@@ -35,8 +35,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   teardown do
     ActionMailer::Base.deliveries.clear
   end
-
-  parallelize_setup do |i|
-    ActiveStorage::Blob.service.instance_variable_set(:@root, "#{ActiveStorage::Blob.service.root}-#{i}")
-  end
 end
