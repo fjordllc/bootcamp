@@ -24,7 +24,8 @@ class UpcomingEventTest < ActiveSupport::TestCase
       ]
       day_after_tomorrow_events = [
         events(:event32),
-        regular_events(:regular_event7)
+        regular_events(:regular_event7),
+        regular_events(:regular_event33)
       ]
       today_upcoming_events = today_events.map { |e| UpcomingEvent.new(e, Time.zone.today) }
       tomorrow_upcoming_events = tomorrow_events.map { |e| UpcomingEvent.new(e, Time.zone.tomorrow) }
