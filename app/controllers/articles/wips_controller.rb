@@ -3,10 +3,11 @@
 class Articles::WipsController < ApplicationController
   before_action :require_admin_or_mentor_login, only: %i[index]
 
+  layout 'welcome'
+
   def index
     @articles = wip_articles
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
-    render layout: 'welcome'
   end
 
   private
