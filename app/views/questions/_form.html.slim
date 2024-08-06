@@ -10,7 +10,7 @@
               .select-practices
                 = f.select :practice_id,
                   practice_options_within_course,
-                  options_of_selections[:practice],
+                  { include_blank: 'プラクティス選択なし' },
                   { class: 'js-choices-singles', id: 'js-choices-practice' }
 
       .form-item
@@ -61,7 +61,7 @@
                     User.order(:login_name),
                     :id,
                     :login_name,
-                    options_of_selections[:user],
+                    {},
                     { class: 'js-choices-singles', id: 'js-choices-user' }
 
   .form-actions
