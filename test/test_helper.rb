@@ -34,11 +34,7 @@ class ActiveSupport::TestCase
   end
 
   parallelize_setup do |i|
-    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}-#{i}")
-  end
-
-  parallelize_teardown do |_|
-    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
+    ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}")
   end
 end
 
