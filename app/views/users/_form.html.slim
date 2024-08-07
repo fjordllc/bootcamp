@@ -165,7 +165,7 @@
             p
               | 複数のカテゴリに所属するプラクティスは、所属するいずれかのカテゴリに一度しか表示されません（数値には反映されます）。
           // 選択したコースに紐づくカテゴリーを表示させる。
-          = render SkipPracticeComponent.new(form: f, user: user)
+          = render SkippedPracticeComponent.new(form: f, user: user)
 
   - if from == :new
     .form__items
