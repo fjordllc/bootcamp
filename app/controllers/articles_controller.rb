@@ -6,10 +6,10 @@ class ArticlesController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
-    @articles = list_articles
+    @articles = Article.with_attachments_and_user_ordered_by_created_at.page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     number_per_page = @articles.page(1).limit_value
-    @atom_articles = list_recent_articles(number_per_page)
+    @atom_articles = Article.with_attachments_and_user_ordered_by_published_at(number_per_page)
     respond_to do |format|
       format.html { render layout: 'welcome' }
       format.atom
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @mentor = @article.user
-    @recent_articles = list_recent_articles(10)
+    @recent_articles = Article.with_attachments_and_user_ordered_by_published_at(10)
     if @article.published? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'welcome'
     else
@@ -65,16 +65,6 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
-  end
-
-  def list_articles
-    articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).order(created_at: :desc).page(params[:page])
-    articles.where(wip: false)
-  end
-
-  def list_recent_articles(number)
-    Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
-           .where(wip: false).order(published_at: :desc).limit(number)
   end
 
   def article_params
