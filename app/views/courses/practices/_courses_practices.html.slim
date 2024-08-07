@@ -1,7 +1,7 @@
 .page-body__inner
   .page-body__columns
     .page-body__column.is-main
-      - skip_practices = current_user.skip_practices.pluck(:practice_id)
+      - skipped_practices = current_user.skipped_practices.pluck(:practice_id)
       - categories.each do |category|
         - if category.practices.present?
           .categories-item.practices(id="category-#{category.id}")
@@ -20,7 +20,7 @@
             .categories-item__body.a-card
               .category-practices
                 - category.practices.each do |practice|
-                  == render 'courses_practice', practice: practice, learnings: learnings, skip_practices: skip_practices
+                  == render 'courses_practice', practice: practice, learnings: learnings, skipped_practices: skipped_practices
     .page-body__column.is-sub
       nav.page-nav.a-card
         ul.page-nav__items
