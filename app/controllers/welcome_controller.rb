@@ -24,8 +24,4 @@ class WelcomeController < ApplicationController
   def law; end
 
   def coc; end
-
-  def courses
-    @courses = Course.order(:created_at)
-  end
 end
