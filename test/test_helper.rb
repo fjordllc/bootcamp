@@ -37,6 +37,11 @@ class ActiveSupport::TestCase
     ActiveStorage::Blob.service.instance_variable_set(:@root, "#{ActiveStorage::Blob.service.root}/storage-#{i}")
     ActiveStorage::Blob.services.fetch(:test_fixtures).instance_variable_set(:@root, "#{ActiveStorage::Blob.services.fetch(:test_fixtures).root}/fixtures-#{i}")
   end
+
+  Minitest.after_run do
+    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
+  end
 end
 
 class ActionDispatch::IntegrationTest
