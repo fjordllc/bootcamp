@@ -185,7 +185,7 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
-  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください'}, if: -> { payment_method_of_trainee == 'trainee_invoice_payment' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください' }, if: -> { payment_method_of_trainee == 'trainee_invoice_payment' }
 
   validates :feed_url,
             format: {
