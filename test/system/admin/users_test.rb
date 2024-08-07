@@ -353,7 +353,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_checked_field?('user_hide_mentor_profile', visible: false)
   end
 
-  test 'administrator can set skip_practice of general users' do
+  test 'administrator can set skipped_practice of general users' do
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'UNIX (1/9)', normalize_ws: true

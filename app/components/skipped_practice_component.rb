@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SkipPracticeComponent < ViewComponent::Base
+class SkippedPracticeComponent < ViewComponent::Base
   def initialize(form:, user:)
     @f = form
     @user = user
