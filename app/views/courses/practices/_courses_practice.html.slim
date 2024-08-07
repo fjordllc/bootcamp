@@ -1,8 +1,8 @@
-.category-practices-item(class="#{skip_practices.include?(practice.id) ? 'is-skip-on' : ''}")
+.category-practices-item(class="#{skipped_practices.include?(practice.id) ? 'is-skip-on' : ''}")
   a.category-practices-item__anchor :id="practice_#{practice.id}"
   header.category-practices-item__header
     .category-practices-item__title
-      = link_to practice_path(practice.id), class: "category-practices-item__title-link #{skip_practices.include?(practice.id) ? 'is-skip-on' : ''}" do
+      = link_to practice_path(practice.id), class: "category-practices-item__title-link #{skipped_practices.include?(practice.id) ? 'is-skip-on' : ''}" do
         - if practice.include_must_read_books?
           span.a-badge.is-danger.is-xs
             | 要書籍
@@ -10,7 +10,7 @@
           = practice.title
     - learning = learnings.find { |l| l.practice_id == practice.id }
     - learning_status = learning ? learning.status : 'unstarted'
-    - if skip_practices.include?(practice.id)
+    - if skipped_practices.include?(practice.id)
       = link_to practice_path(practice.id), anchor: 'learning-Status', class: 'practice-status category-practices-item__status is-skip-on' do
         | スキップ
     - else
