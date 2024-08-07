@@ -9,13 +9,12 @@ class Company < ApplicationRecord
   delegate :advisers, to: :users
 
   def logo_url
-    default_logo_path = '/images/companies/logos/default.png'
     if logo.attached?
       logo.variant(resize_to_limit: LOGO_SIZE).processed.url
     else
-      image_url(default_logo_path)
+      image_url('/images/companies/logos/default.png')
     end
   rescue ActiveStorage::FileNotFoundError
-    image_url(default_logo_path)
+    image_url('/images/companies/logos/default.png')
   end
 end

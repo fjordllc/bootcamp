@@ -38,14 +38,11 @@ class Article < ApplicationRecord
   acts_as_taggable
 
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
-    default_article_thumbnail_path = '/ogp/blank.svg'
     if thumbnail.attached?
       thumbnail.variant(resize_to_fill: thumbnail_size).processed.url
     else
-      image_url(default_article_thumbnail_path)
+      image_url('/ogp/blank.svg')
     end
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
-    image_url default_article_thumbnail_path
   end
 
   def selected_thumbnail_url
