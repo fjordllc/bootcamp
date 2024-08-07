@@ -67,6 +67,7 @@ class UsersController < ApplicationController
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
     @user.payment_method_of_trainee = params[:user][:payment_method_of_trainee]
+    @user.credit_card_payment = params[:credit_card_payment] == '1'
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -179,7 +180,8 @@ class UsersController < ApplicationController
       :company_id, :nda, :avatar,
       :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
-      :country_code, :subdivision_code, :invoice_payment
+      :country_code, :subdivision_code, :invoice_payment,
+      :credit_card_payment
     )
   end
 
