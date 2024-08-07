@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return null
   }
 
+  const selectableCreditCardCheckBox = document.querySelector(
+    '.selectable-credit-card-box'
+  )
+
   // Create a Stripe client.
   const stripe = window.Stripe(window.stripePublicKey)
 
@@ -35,8 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create an instance of the card Element.
   const card = elements.create('card', { style: style, hidePostalCode: true })
 
-  // Add an instance of the card Element into the `card-element` <div>.
-  card.mount('#card-element')
+  if (selectableCreditCardCheckBox) {
+    selectableCreditCardCheckBox.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element')
+      }
+    })
+  }
 
   const submitButton = document.getElementById('user_submit')
 
@@ -56,16 +66,23 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    stripe.createToken(card).then(function (result) {
-      if (result.error) {
-        // Inform the user if there was an error.
-        const errorElement = document.getElementById('card-errors')
-        errorElement.textContent = result.error.message
-      } else {
-        // Send the token to your server.
-        stripeTokenHandler(result.token)
-      }
-    })
+    const selectableCreditCardCheckBox = document.querySelector(
+      '.selectable-credit-card-box'
+    )
+    if (selectableCreditCardCheckBox.checked) {
+      stripe.createToken(card).then(function (result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          const errorElement = document.getElementById('card-errors')
+          errorElement.textContent = result.error.message
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token)
+        }
+      })
+    } else {
+      form.submit()
+    }
   })
 
   // Submit the form with the token ID.
