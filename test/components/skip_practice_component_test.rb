@@ -2,14 +2,14 @@
 
 require 'test_helper'
 
-class SkipPracticeComponentTest < ViewComponent::TestCase
+class SkippedPracticeComponentTest < ViewComponent::TestCase
   include ActionView::Helpers::FormHelper
   include ActionView::Context
 
   setup do
     @user = users(:kensyu).extend(UserDecorator)
     @form_builder = ActionView::Helpers::FormBuilder.new(:user, @user, ActionView::Base.empty, {})
-    @component = SkipPracticeComponent.new(form: @form_builder, user: @user)
+    @component = SkippedPracticeComponent.new(form: @form_builder, user: @user)
     render_inline(@component)
   end
 
