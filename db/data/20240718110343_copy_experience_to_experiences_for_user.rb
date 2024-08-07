@@ -9,7 +9,7 @@ class CopyExperienceToExperiencesForUser < ActiveRecord::Migration[6.1]
       when 'ruby'
         user.experiences.set(:ruby)
       when 'other_ruby'
-        user.experiences.set(:other_ruby_and_javascript)
+        user.experiences.set(:other_languages)
       when 'html_css'
         user.experiences.set(:html_css)
       end

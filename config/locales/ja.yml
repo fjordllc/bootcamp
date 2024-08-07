@@ -430,7 +430,7 @@ ja:
         rails: Railsの経験あり
         javascript: JavaScriptの経験あり
         react: Reactの経験あり
-        other_ruby_and_javascript: Ruby、JS以外の言語経験あり
+        other_languages: Ruby、JS以外の言語経験あり
   notification:
     announcement: お知らせ
     mention: メンション
