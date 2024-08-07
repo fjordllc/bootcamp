@@ -152,11 +152,11 @@ class User < ApplicationRecord
            inverse_of: 'follower',
            dependent: :destroy
 
-  has_many :skip_practices,
+  has_many :skipped_practices,
            dependent: :destroy
 
   has_many :practices,
-           through: :skip_practices
+           through: :skipped_practices
 
   has_many :followees,
            through: :active_relationships,
@@ -618,8 +618,8 @@ class User < ApplicationRecord
     Subscription.new.retrieve(subscription_id)
   end
 
-  def skip_practice_ids
-    skip_practices.pluck(:practice_id)
+  def skipped_practice_ids
+    skipped_practices.pluck(:practice_id)
   end
 
   def student?
@@ -945,6 +945,6 @@ class User < ApplicationRecord
   end
 
   def required_practices_size_with_skip
-    course.practices.where(id: skip_practice_ids, include_progress: true).size
+    course.practices.where(id: skipped_practice_ids, include_progress: true).size
   end
 end
