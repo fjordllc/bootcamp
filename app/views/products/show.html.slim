@@ -91,19 +91,19 @@ header.page-header
                     .user-data__row
                       = render 'users/metas', user: @product.user
                     ruby:
-                      skip_practices = @product.user.skip_practices
+                      skipped_practices = @product.user.skipped_practices
                       user_practices = @product.user.practices
-                    - if skip_practices.present?
+                    - if skipped_practices.present?
                       .user-data__row
                         .user-metas.is-only-mentor
                           h2.user-metas__title
                             | スキップするプラクティス一覧
                           .user-metas__items
-                            - skip_practices.each do |skip_practice|
+                            - skipped_practices.each do |skipped_practice|
                               .user-metas__item
                                 .user-metas__item-value
-                                  = link_to practice_path(skip_practice.practice.id) do
-                                    - display_practice = user_practices.find_by(id: skip_practice.practice.id)
+                                  = link_to practice_path(skipped_practice.practice.id) do
+                                    - display_practice = user_practices.find_by(id: skipped_practice.practice.id)
                                     span.category-practices-item__title-link-label
                                       = display_practice.title
               .side-tabs-contents__item#side-tabs-content-4

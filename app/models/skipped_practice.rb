@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SkipPractice < ApplicationRecord
+class SkippedPractice < ApplicationRecord
   belongs_to :user
   belongs_to :practice
 
