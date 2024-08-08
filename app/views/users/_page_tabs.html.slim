@@ -23,6 +23,9 @@
       li.page-tabs__item
         = link_to user_answers_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('answers')}" do
           | 回答（#{user.answers.length}）
+      li.page-tabs__item
+        = link_to user_micro_reports_path(user), class: "page-tabs__item-link #{current_page_tab_or_not('micro_reports')}" do
+          | 分報（#{user.micro_reports.length}）
       - if current_user.admin && !user.admin
         li.page-tabs__item
           = link_to talk_path(user.talk), class: "page-tabs__item-link #{current_page_tab_or_not('talks')} " do
