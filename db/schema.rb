@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_17_061351) do
+ActiveRecord::Schema.define(version: 2024_08_07_200348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -626,6 +626,14 @@ ActiveRecord::Schema.define(version: 2024_06_17_061351) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["target_user_id"], name: "index_request_retirements_on_target_user_id", unique: true
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
+  end
+
+  create_table "skipped_practices", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "practice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "practice_id"], name: "index_skipped_practices_on_user_id_and_practice_id", unique: true
   end
 
   create_table "submission_answers", force: :cascade do |t|

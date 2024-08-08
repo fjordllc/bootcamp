@@ -145,6 +145,12 @@ class User < ApplicationRecord
            inverse_of: 'follower',
            dependent: :destroy
 
+  has_many :skipped_practices,
+           dependent: :destroy
+
+  has_many :practices,
+           through: :skipped_practices
+
   has_many :followees,
            through: :active_relationships,
            source: :followed
@@ -492,7 +498,11 @@ class User < ApplicationRecord
   end
 
   def completed_percentage
-    completed_practices_include_progress_size.to_f / practices_include_progress.pluck(:id).uniq.size * MAX_PERCENTAGE
+    completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
+  end
+
+  def required_practices_size
+    practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
   end
 
   def completed_practices_size_by_category
@@ -508,7 +518,7 @@ class User < ApplicationRecord
       .count('DISTINCT practices.id')
   end
 
-  def completed_practices_include_progress_size
+  def completed_required_practices_size
     practices_include_progress.joins(:learnings)
                               .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
   end
@@ -571,6 +581,10 @@ class User < ApplicationRecord
     return unless subscription?
 
     Subscription.new.retrieve(subscription_id)
+  end
+
+  def skipped_practice_ids
+    skipped_practices.pluck(:practice_id)
   end
 
   def student?
@@ -715,6 +729,14 @@ class User < ApplicationRecord
     course.practices.order('courses_categories.position', 'categories_practices.position')
   end
 
+  def category_ids
+    course.categories.pluck(:id)
+  end
+
+  def practice_ids_in_category(category)
+    category.practices
+  end
+
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
@@ -846,5 +868,9 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def required_practices_size_with_skip
+    course.practices.where(id: skipped_practice_ids, include_progress: true).size
   end
 end

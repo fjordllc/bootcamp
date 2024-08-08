@@ -94,7 +94,7 @@ class PracticesTest < ApplicationSystemTestCase
     end
     assert_text 'プラクティスを更新しました'
     visit "/products/#{product.id}"
-    find('#side-tabs-nav-2').click
+    check 'toggle-mentor-memo-body', allow_label_click: true, visible: false
     assert_text 'メンター向けのメモの内容です'
   end
 
@@ -328,5 +328,15 @@ class PracticesTest < ApplicationSystemTestCase
     click_button '更新する'
 
     assert_no_selector '.a-card', text: '概要'
+  end
+
+  test 'see skip practices as a trainee' do
+    visit_with_auth course_practices_path(courses(:course1)), 'kensyu'
+    assert_link('スキップ', href: "/practices/#{practices(:practice5).id}")
+    visit_with_auth "/practices/#{practices(:practice5).id}", 'kensyu'
+
+    assert_text 'このプラクティスはスキップしてください。'
+
+    assert_no_selector 'label#js-complete'
   end
 end
