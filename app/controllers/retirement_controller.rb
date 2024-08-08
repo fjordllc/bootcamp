@@ -19,12 +19,7 @@ class RetirementController < ApplicationController
       rescue Postmark::InactiveRecipientError => e
         logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
       end
-
-      destroy_subscription
-      notify_to_admins
-      notify_to_mentors
-      logout
-      redirect_to retirement_url
+      finalize_retirement_process
     else
       current_user.retired_on = nil
       render :new
@@ -32,6 +27,15 @@ class RetirementController < ApplicationController
   end
 
   private
+
+  def finalize_retirement_process
+    destroy_subscription
+    notify_to_admins
+    notify_to_mentors
+    current_user.clear_github_data
+    logout
+    redirect_to retirement_url
+  end
 
   def retire_reason_params
     params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
