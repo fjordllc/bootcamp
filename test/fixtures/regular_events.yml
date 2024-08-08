@@ -155,3 +155,14 @@ regular_event32:
   user: komagata
   category: 0
   published_at: "2023-08-01 00:00:00"
+
+regular_event33:
+  title: WIPの定期イベント表示確認用
+  description: 定期イベントがWIPのときの次回開催日時の表示確認を行うための定期イベント
+  finished: false
+  hold_national_holiday: false
+  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  wip: true
+  user: komagata
+  published_at: "2023-08-01 00:00:00"
