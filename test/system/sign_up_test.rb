@@ -25,7 +25,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[after_graduation_hope]', with: '起業したいです'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
@@ -50,7 +50,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
@@ -75,7 +75,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
@@ -100,7 +100,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
@@ -150,7 +150,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       first('.choices__inner').click
       find('.choices__list--dropdown').click
       find('.choices__list').click
@@ -185,7 +185,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
@@ -236,7 +236,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       first('.choices__inner').click
       find('.choices__list--dropdown').click
       find('.choices__list').click
@@ -260,7 +260,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
@@ -288,7 +288,7 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[password_confirmation]', with: 'testtest'
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
-      select '未経験', from: 'user[experience]'
+      check 'Rubyの経験あり', allow_label_click: true
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
       tag_input = find('.tagify__input')
