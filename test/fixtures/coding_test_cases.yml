@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  input: MyText
+  output: MyText
+  coding_test: one
+
+two:
+  input: MyText
+  output: MyText
+  coding_test: two

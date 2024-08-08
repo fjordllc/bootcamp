@@ -42,6 +42,7 @@ class Practice < ApplicationRecord
   accepts_nested_attributes_for :practices_books, reject_if: :all_blank, allow_destroy: true
 
   has_one :submission_answer, dependent: :destroy
+  has_many :coding_tests, dependent: :nullify
 
   validates :title, presence: true
   validates :description, presence: true

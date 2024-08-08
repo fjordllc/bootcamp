@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- ↓ 書き換え不可 -->
+    <script src="onbrowserjudge.js"></script>
+    <script> OnBrowserJudge.workerFile = "javascript.js" </script>
+    <!-- ↑ 書き換え不可 -->
+    <script>
+      // ↓ 必ず定義
+      OnBrowserJudge.getProgram = () => editor.getValue()
+      // ↑ 必ず定義
+
+      OnBrowserJudge.dict.ready = "▶実行(Ctrl+Enter)"
+      OnBrowserJudge.dict.running = "■停止"
+      OnBrowserJudge.dict.preparation = "準備中"
+      OnBrowserJudge.dict.case_name = "ケース名"
+      OnBrowserJudge.dict.status = "結果"
+      OnBrowserJudge.dict.exec_time = "実行時間"
+      OnBrowserJudge.dict.copy = "コピー"
+      OnBrowserJudge.dict.copied = "コピーしました"
+      OnBrowserJudge.dict.AC = "正解"
+      OnBrowserJudge.dict.WA = "不正解"
+      OnBrowserJudge.dict.RE = "エラー"
+      OnBrowserJudge.dict.TLE = "時間超過"
+      OnBrowserJudge.dict.WJ = "ジャッジ待ち"
+
+      // OnBrowserJudge.timeLimit = 2000
+
+      // OnBrowserJudge.process = (program, casename, input) => program
+      // OnBrowserJudge.assertEqual = (expected, actual) => expected == actual.trimEnd()
+
+      // ↓ 正解時に実行する関数
+      // OnBrowserJudge.congratulations = () => { alert("大正解！") }
+    </script>
+    <title>コラッツ予想 - OnBrowser Judge サンプル (JavaScript)</title>
+  </head>
+
+  <body>
+    <h1>コラッツ予想 - OnBrowser Judge サンプル (JavaScript)</h1>
+    <hr />
+
+    <h2>問題文</h2>
+    <p>「コラッツ予想」という数学の未解決問題があります。これは、どんな自然数であっても「奇数なら \(3\) 倍し、\(1\) を足す。偶数なら \(2\) で割る。」という『操作』を何度も繰り返すと、いつかは必ず \(1\) になるという予想です。</p>
+    <p>自然数 \(n\) が与えられるので、それが \(1\) になるまでに必要な『操作』の回数を求めてください。</p>
+
+    <h2>制約</h2>
+    <ul>
+      <li>\(1 ≤ n ≤ 10000\)</li>
+      <li>\(n\) は整数</li>
+    </ul>
+    <hr />
+
+    <h2>入力</h2>
+    入力は以下の形式で標準入力から与えられる。
+    <div class="io_format">\(n\)</div>
+
+    <h2>出力</h2>
+    <p>\(n\) が \(1\) になるまでに必要な『操作』の最低回数を整数で出力せよ。</p>
+    <hr />
+
+    <h2>入力例1</h2>
+    <pre id="sample1_input" class="sample">5</pre>
+
+    <h2>出力例1</h2>
+    <pre id="sample1_output" class="sample">5</pre>
+    <p>\(5 → 16 → 8 → 4 → 2 → 1\) と、\(5\) 回の『操作』で \(1\) になります。</p>
+    <hr />
+    <!-- id が "*_input" and "*_output" の pre 要素が１組以上必要。 -->
+    <!-- pre.sample には自動的にコピーボタンが付く。 -->
+
+    <h2>入力例2</h2>
+    <pre id="sample2_input" class="sample">7</pre>
+
+    <h2>出力例2</h2>
+    <pre id="sample2_output" class="sample">16</pre>
+    <hr />
+
+    <h2>入力例3</h2>
+    <pre id="sample3_input" class="sample">1</pre>
+
+    <h2>出力例3</h2>
+    <pre id="sample3_output" class="sample">0</pre>
+    <p>最初から \(1\) であれば『操作』は一回も必要ないので、つまり『操作』は \(0\) 回ということになります。</p>
+    <hr />
+
+    <pre id="testcase1_input"  class="testcase">27</pre>
+    <pre id="testcase1_output" class="testcase">111</pre>
+
+    <pre id="testcase2_input"  class="testcase">55</pre>
+    <pre id="testcase2_output" class="testcase">112</pre>
+
+    <textarea id="txt-editor">
+function main(input) {
+  
+}
+
+main(require("fs").readFileSync("/dev/stdin", "utf8"));
+</textarea>
+    <p>
+      <!-- ↓ button#run は必ず用意 -->
+      <button id="run"></button> 
+      <input type="checkbox" id="autocopy" checked /><label for="autocopy">実行時にプログラムを自動的にコピーしておく</label>
+    </p>
+    <p>実行結果:</p>
+    <!-- ↓ table#result は必ず用意 -->
+    <table id="result"></table>
+
+    <script>
+const editor = CodeMirror.fromTextArea(document.getElementById("txt-editor"), {
+    lineNumbers: true,
+    mode: "javascript",
+    indentUnit: 2
+})
+editor.setOption("extraKeys", {
+    "Tab": function(cm) {
+        if (cm.somethingSelected()) cm.indentSelection("add")
+        else cm.replaceSelection(Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input")
+    },
+    "Shift-Tab": function(cm) {
+        cm.execCommand("indentLess")
+    },
+    "Ctrl-Enter": function(cm) {
+        OnBrowserJudge.runButtonPressed()
+    }
+})
+    </script>
+  </body>
+</html>
