@@ -225,11 +225,11 @@ class PracticesTest < ApplicationSystemTestCase
   test 'add all questions to questions tab on practices page and display all questions default' do
     practice = practices(:practice1)
     visit_with_auth "/practices/#{practice.id}/questions", 'komagata'
-    assert_text '質問 （11）'
+    assert_text '質問 （12）'
     assert_text '全ての質問'
     assert_text '解決済み'
     assert_text '未解決'
-    assert_equal practice.questions.length, 11
+    assert_equal practice.questions.length, 12
   end
 
   test 'show common description on each page' do
