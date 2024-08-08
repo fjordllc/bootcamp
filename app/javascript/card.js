@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     '.selectable-credit-card-box'
   )
 
+  const checkedCreditCardCheckBox = document.querySelector(
+    '.checked-credit-card-box'
+  )
+
   // Create a Stripe client.
   const stripe = window.Stripe(window.stripePublicKey)
 
@@ -38,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Create an instance of the card Element.
   const card = elements.create('card', { style: style, hidePostalCode: true })
+
+  if (checkedCreditCardCheckBox) {
+    card.mount('#card-element')
+  }
 
   if (selectableCreditCardCheckBox) {
     selectableCreditCardCheckBox.addEventListener('change', (event) => {
