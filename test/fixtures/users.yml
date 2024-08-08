@@ -289,7 +289,6 @@ muryou:
   os: mac
   experience: inexperienced
   organization: 無料大学
-  free: true
   unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
@@ -315,7 +314,6 @@ kensyu:
   organization: 研修大学
   trainee: true
   training_ends_on: "2022-04-01"
-  free: true
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
@@ -514,7 +512,6 @@ kensyuowata: # 研修が終わったユーザー
   experience: rails
   organization: 研修大学
   trainee: true
-  free: true
   retired_on: "2015-01-01"
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2014-01-01 00:00:11"
@@ -763,7 +760,6 @@ nocompanykensyu: # 所属企業のない研修生
   os: mac
   experience: rails
   trainee: true
-  free: true
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 01:00:11"
   created_at: "2014-01-01 01:00:11"
@@ -781,7 +777,6 @@ neverlogin: # 1度もログインしたことがないユーザー
   course: course1
   os: mac
   experience: rails
-  free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
   sent_student_followup_message: true
@@ -822,7 +817,6 @@ neverlogin: # 1度もログインしたことがないユーザー
   experience: rails
   country_code: US
   subdivision_code: HI
-  free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
   sent_student_followup_message: true

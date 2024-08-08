@@ -64,7 +64,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
     @user.course_id ||= Course.first.id
-    @user.free = true if @user.trainee?
     @user.build_discord_profile
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
