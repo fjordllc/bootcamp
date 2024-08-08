@@ -33,6 +33,7 @@ class Report < ApplicationRecord
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
   validate :reported_on_or_before_today
+  validate :reported_on_or_after_specific_date
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -116,6 +117,21 @@ class Report < ApplicationRecord
 
   def reported_on_or_before_today
     errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
+  end
+
+  def reported_on_or_after_specific_date
+    selectable_start_date = {
+      year: 2013,
+      month: 1,
+      day: 1
+    }
+
+    if reported_on < Date.new(
+      selectable_start_date[:year], selectable_start_date[:month], selectable_start_date[:day]
+    )
+      errors.add(:reported_on,
+                 "は#{selectable_start_date[:year]}年#{selectable_start_date[:month]}月#{selectable_start_date[:day]}日以後の日付にしてください")
+    end
   end
 
   def latest_of_user?
