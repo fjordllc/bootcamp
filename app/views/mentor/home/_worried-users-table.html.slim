@@ -1,0 +1,19 @@
+.admin-table
+  table.admin-table__table
+    thead.admin-table__header
+      tr.admin-table__labels
+        th.admin-table__label
+          | ユーザー
+        th.admin-table__label
+          | ID
+        th.admin-table__label
+          | 進捗
+    tbody.admin-table__items
+      - worried_users.each do |worried_user|
+        tr.admin-table__item
+          td.admin-table__item-value.is-text-align-center
+            = link_to image_tag(worried_user.avatar_url, class: 'admin-table__user-icon a-user-icon'), worried_user
+          td.admin-table__item-value.is-text-align-center
+            = link_to worried_user.long_name, worried_user, class: 'a-user-name'
+          td.admin-table__item-value.is-text-align-center
+            = image_tag '/images/emotion/sad.svg', class: 'admin-table__user-icon a-user-icon'
