@@ -1,21 +1,26 @@
 - title 'ブログ'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
 description: 'オンラインプログラミングフィヨルドブートキャンプのブログ記事一覧ページです。')
-= auto_discovery_link_tag(:atom, 'https://bootcamp.fjord.jp/articles.atom', { title: 'Atom Feed' })
-= render '/head/fontawsome'
 
 .welcome-page-header
-  .container.is-xl
+  .container
     .welcome-page-header__inner
       .welcome-page-header__start
         h1.welcome-page-header__title
           = title
-      - if current_user&.mentor?
-        .welcome-page-header__end
-          = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
-            i.fas.fa-plus
-            | ブログ記事作成
-
+      .welcome-page-header__end
+        .welcome-page-header-nav
+          ul.welcome-page-header-nav__items
+            - if current_user&.mentor?
+              li.welcome-page-header-nav__item
+                = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fas.fa-plus
+                  | ブログ記事作成
+            li.welcome-page-header-nav__item
+              = link_to root_path, class: 'a-button is-md is-secondary is-block' do
+                i.fas.fa-plus
+                | トップページ
+hr.a-border-tint
 .welcome-page-body
   .articles
     .articles__body

@@ -1,216 +1,814 @@
 - content_for :extra_body_classes, 'welcome no-forms'
-- title '研修利用'
+- title '法人利用'
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。料金は月額99,800円です。')
 
-.welcome-page-header
-  .container.is-xl
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
+article.lp
+  header.lp-header.lp-header.is-lp-bg-2
+    .container.is-xl
+      .lp-header__inner
+        .lp-header__start
+          .lp-header__start-inner
+            hgrounp.lp-header__titles
+              h1.lp-header__title
+                | 現役のプログラマーによる法人向けプログラミング研修
+              h2.lp-header__catchcopy
+                | 現場のプラス戦力を
+                br
+                | 育てる実践的研修
+            .lp-header__description
+              p
+                | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                    | 研修を申し込む
+        .lp-header__end
+          .corporate-training-images
+            .corporate-training-images__item
+            .corporate-training-images__item
+            .corporate-training-images__item
+            .corporate-training-images__item
+            .corporate-training-images__item
 
-.welcome-page-body.pt-0
-  .welcome-sections
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | フィヨルドブートキャンプが
-          br
-          | 研修にオススメの理由
-        .welcome-section__description
-          p
-            | フィヨルドブートキャンプは企業の研修代行も行っております。
-          p
-            | 私たちのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではありません。
-            | その先の「現場のプラスの戦力になるためのカリキュラム」です。
-            | 新人がチームに加わった際、ほとんどの場合は教育にリソースが取られ、
-            | 戦力としてはマイナスになってしまいます。
-          p
-            | フィヨルドブートキャンプは、チームに加入した時点で少しでも開発に貢献ができる人材であること、
-            | 決してマイナスの戦力ではなく、
-            | 戦力としてプラスになっていることを目指して作られています。
-          p
-            | 一番コストのかかる、マイナスの戦力からプラスの戦力にする教育を、
-            | 貴社のリソースを使わずにフィヨルドブートキャンプに任せることができます。
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-            | 研修での
-            br
-            | ご利用の際の料金
-        .welcome-section__description
-          p
-            | 料金は<strong>月額99,800円（税込み）</strong>です。
-          p
-            | 毎月、貴社の研修担当者様へメールにて請求書をお送りいたします。
-            | 領収書の宛名の指定なども柔軟に対応いたします。
-            br
-            | クレジットカードにも対応しています。
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-            | 研修担当者、社内メンターも<br>メンターとして参加
-        .welcome-section__description
-          p
-            | フィヨルドブートキャンプのメンターが、貴社の研修生に対して
-            | メンタリング・コードレビューを行いますが、
-            | それにプラスして貴社の文化や独自のルールなども伝えることができるように、
-            | 研修担当者、社内メンターにもフィヨルドブートキャンプに
-            | ログインできる無料のアカウントを発行します。
-          p
-            | 研修生の学習の進捗の確認、日報へのコメントやアドバイス、課題の提出物へのコードに対する指摘、
-            | アドバイスなどが行なえます。是非ご活用ください。
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | 期間・要望に合わせた
-          br
-          | カリキュラムを作成
-        .welcome-section__description
-          p
-            | 一般の受講生が学んでいるカリキュラムは量が多く、その全てを学習すると半年〜2年以上かかります。
-            | 研修でのご利用の場合、ビデオチャットで研修期間や研修で身につけてもらいたいスキルをヒヤリングし、
-            | それに合わせたカリキュラムを作成いたします。
-            | カリキュラムは一般の受講生が行っているもの、一般の受講生の中の希望者がだけが行うものから
-            | 抜粋する形になります。
-          h3 チョイスの例
-          ul
-            li
-              | Railsを使った開発の経験はあるが、基礎的な部分を学ぶ機会がなかったので、Linux、インフラ関連だけを重点的に学習する。
-            li
-              | 独学でアプリを作っていたので、チーム開発に慣れるためにRailsとスクラム形式でのチーム開発のカリキュラムを学習する。
-            li
-              | 多言語の開発の経験があるので、RubyとRailsのカリキュラムだけ学習する。
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | 一般受講生と研修利用の
-          br
-          | サービス内容の違い
-        .welcome-section__description
-          table
-            thead
-              tr
-                th
-                th 一般利用
-                th 研修利用
-            tbody
-              tr
-                td 利用料
-                td 月額￥29,800（税込み）
-                td 月額￥99,800（税込み）
-              tr
-                td 請求方法
-                td クレジットカード
-                td 請求書
-              tr
-                td
-                  | 社内メンター招待
-                  br
-                  | （詳細は以下を参照）
-                td ☓
-                td
-                  | ◯
-                  br
-                  | （人数は今のところ無制限）
-              tr
-                td
-                  | カリキュラム作成
-                  br
-                  | （詳細は以下を参照）
-                td ☓
-                td ◯
-              tr
-                td 就職サポート
-                td ◯
-                td ☓
-              tr
-                td イベント参加
-                td ◯
-                td
-                  | ◯
-                  br
-                  | （就活関連イベントを除く）
+  section.lp-content.is-lp-bg-1.is-top-title.corporate-training-clients
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-sm.is-align-center
+              | 多くの企業様にご利用いただいています
+        .lp-content__start
+          .lp-company-logos
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/gmo-pepabo.svg', alt: '株式会社GMOペパボ')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/esm.svg', alt: '株式会社永和システムマネジメント')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/luxiar.svg', alt: '株式会社ラグザイア')
+            .lp-company-logos__item
+              = link_to 'https://everyleaf.com/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/everyleaf.svg', alt: '株式会社万葉')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/enishi.svg', alt: '株式会社えにしテック')
+            .lp-company-logos__item
+              = link_to '', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener'  do
+                = image_tag('company_logos/ruby-dev.svg', alt: '株式会社Ruby開発')
 
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | 研修スタートまでの
-          br
-          | 流れ
-        .welcome-section__description
-          p
-            | まずは、
-            = link_to new_corporate_training_inquiry_path, target: 'blank', rel: 'noopener' do
-              | 企業研修申し込みフォーム
-            | より研修利用希望の旨のご連絡をお願いいたします。
-            br
-            | 担当者より返信をいたします。
-          p
-            | 日時を調整し、ビデオチャットで研修の打ち合わせを行います。
-            br
-            | 研修のスタート日、研修期間、研修の目的、研修生のスキル、
-            | 請求書の送付先などをヒヤリングさせていただきます。
-          p
-            | 打ち合わせで決まった内容に合わせ、カリキュラムを作成いたします。
-          p
-            | 研修スタート日になりましたら、研修生のアカウントを作成し、研修生がログインできるようにいたします。
-            br
-            | 同時に、研修担当者、社内メンター用のサインアップもURLもお送りし、
-            | 貴社の研修担当者、社内メンターの方もログインができるようにいたします。
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | FAQ
-        .welcome-section__description
-          h3
-            | 研修をより効果的にするための何かアドバイスはありますか？
-          p
-            | まずは、複数人で研修を始めることをおすすめします。
-          p
-            | これまでの経験上、貴社にとっても研修を受ける本人にとっても、一人より二人以上で研修を始める方がメリットが多いです。
-            | 例えば、進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりなど、
-            | お互いにモチベーションが高め合いながらスムーズに研修を進められます。
-          p
-            | また、同じ企業の研修生同士だけでなく、フィヨルドブートキャンプ内のイベントに参加するなどして、
-            | 一般の受講生やメンターや卒業生と積極的に関わりを持ち、コミュニティとしてのフィヨルドブートキャンプを
-            | 活用することも、モチベーションの維持に大きく役立ちますので、おすすめします。
-        .welcome-section__description
-          h3
-            | 研修ではなく福利厚生としての利用の場合、一般受講生として利用ができますか？
-          p
-            | 企業での利用の場合でも、一般受講生としての利用は可能です。
+  section.lp-content.is-lp-bg-2.is-left-title.corporate-training-overview
+    .container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-border-left
+              | フィヨルド
+              br
+              | ブートキャンプの
+              br
+              strong
+                | 法人向けサービスとは？
+        .lp-content__end
+          .corporate-training-overview__body
+            p
+              | e-ラーニング式を活用し、
+              | 主体的な学びを推進することで、
+              | 意欲的に知識を吸収し実践に移せる即戦力となる
+              | プログラマーを育成することを
+              | 目指した研修サービスです。
+    .lp-content-divider.is-lp-bg-3
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-3.is-right-title.corporate-training-key-reasons
+    .container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-vertical.is-border-left
+              | なぜ
+              strong
+                | プラス戦力を
+              br
+              strong
+                | 育てる
+              | ことが
+              br
+              | できるのか？
+        .lp-content__end
+          .l-cards.is-step-by-step
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.corporate-training-key-reason
+                    .corporate-training-key-reason__inner
+                      .corporate-training-key-reason__start
+                        = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-key-reason__image')
+                      .corporate-training-key-reason__end
+                        header.corporate-training-key-reason__header
+                          h3.corporate-training-key-reason__title
+                            | 現役プログラマーのメンター
+                        .corporate-training-key-reason__body
+                          p
+                            | 実際の現場を想定したカリキュラムで、個人での開発、
+                            | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.corporate-training-key-reason
+                    .corporate-training-key-reason__inner
+                      .corporate-training-key-reason__start
+                        = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-key-reason__image')
+                      .corporate-training-key-reason__end
+                        header.corporate-training-key-reason__header
+                          h3.corporate-training-key-reason__title
+                            | 仕事を想定したチーム開発など
+                            br
+                            | 現場目線のカリキュラム
+                        .corporate-training-key-reason__body
+                          p
+                            | 実際の現場を想定したカリキュラムで、個人での開発、
+                            | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+            .l-cards__item
+              .l-cards__item-inner
+                .a-card
+                  section.corporate-training-key-reason
+                    .corporate-training-key-reason__inner
+                      .corporate-training-key-reason__start
+                        = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-key-reason__image')
+                      .corporate-training-key-reason__end
+                        header.corporate-training-key-reason__header
+                          h3.corporate-training-key-reason__title
+                            | 成長度合いがわかる成果物
+                        .corporate-training-key-reason__body
+                          p
+                            | 実際の現場を想定したカリキュラムで、個人での開発、
+                            | チームでの開発を経験しながら実際の仕事に近い状況で学習することができます。
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-2.is-top-title.corporate-training-features
+    .container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            .corporate-training-features-header__start
+              h2.lp-content-title.is-border-left
+                | フィヨルド
+                br
+                | ブートキャンプの
+                br
+                strong
+                  | 企業研修の特徴
+            .corporate-training-features-header__end
+        .lp-content__end
+          .corporate-training-features__items
+            section.corporate-training-feature
+              .corporate-training-feature__inner
+                .corporate-training-feature__start
+                  = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-feature__image')
+                .corporate-training-feature__end
+                  .corporate-training-feature__content
+                    header.corporate-training-feature__header
+                      h3.corporate-training-feature__title
+                        | 目的・期間に応じて
+                        br
+                        | 研修メニューを
+                        br
+                        | カスタマイズできる!
+                    hr.corporate-training-feature__border
+                    .corporate-training-feature__body
+                      p
+                        | 一般受講生とは異なり、企業研修では、目的や期間に応じて、
+                        | 研修メニューのカスタマイズが可能です。事前のヒアリングをもとに、
+                        | 即戦力になるための研修メニューを作成します。
+            section.corporate-training-feature
+              .corporate-training-feature__inner
+                .corporate-training-feature__start
+                  .corporate-training-feature__content
+                    header.corporate-training-feature__header
+                      h3.corporate-training-feature__title
+                        | 日報・提出課題も
+                        br
+                        | 毎日チェックできる!
+                    hr.corporate-training-feature__border
+                    .corporate-training-feature__body
+                      p
+                        | 学習を行う度に「今の気持ち」、「行っだ学習」、「理解したこと」、
+                        | 「緊問点」などを書いた日報を提出してもらい、
+                        | それをメンターがチェックしています。
+                        | カリキュラムにはそれぞれ提出課顕があり、
+                        | メンターがレビューをして合格がもらえたら修了という形を取っています。
+                        | それら日報や提出物のやりとり、学習の進拗は貫社の社員の方々も確認ができます。
+                .corporate-training-feature__end
+                  = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-feature__image')
+            section.corporate-training-feature
+              .corporate-training-feature__inner
+                .corporate-training-feature__start
+                  = image_tag('https://placehold.jp/320x240.png', class: 'corporate-training-feature__image')
+                .corporate-training-feature__end
+                  .corporate-training-feature__content
+                    header.corporate-training-feature__header
+                      h3.corporate-training-feature__title
+                        | メンバー限定イベントへの
+                        br
+                        | 参加もできる！
+                    hr.corporate-training-feature__border
+                    .corporate-training-feature__body
+                      p
+                        | 月イチで開催しているミートアップや、質問・雑談タイム、
+                        | 卒業生による自作サービスのプレゼンテーションなど、
+                        | 研修生も一般の受講生と同じように開催さているイベントに参加することができます。
+                        | もちろん研修生が企画.開催するのもOK！
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-1.is-top-title.corporate-training-fee
+    .container.is-md
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-align-center.is-border-bottom
+              | 法人利用料
+        .lp-content__end
+          .corporate-training-fee__body
+            p.lp-price
+              span.lp-price__label
+                | 月額
+              span.lp-price__value
+                span.lp-price__amount
+                  | 99,800
+                span.lp-price__currency
+                  | 円
+              span.lp-price__details
+                span.lp-price__tax
+                  | （税込）
+                span.lp-price__separator
+                  | /
+                span.lp-price__per-person
+                  | 人
+        .lp-content__end
+          .lp-actions
+            ul.lp-actions__items
+              li.lp-actions__item
+                = link_to '/', class: 'a-button is-xl is-secondary is-block' do
+                  | お問い合わせ
+              li.lp-actions__item
+                = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                  | 研修を申し込む
+
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-2.is-top-title.corporate-training-examples
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.is-align-center.is-border-bottom
+              | 研修活用例
+        .lp-content__end
+          .corporate-training-examples__body
+            .corporate-training-examples__items
+              .row.is-gutter-width-32
+                .col-md-4
+                  section.corporate-training-example
+                    header.corporate-training-example__header.a-card
+                      h3.corporate-training-example__title
+                        | 新卒で入社した
+                        br
+                        | 社員の場合
+                    .corporate-training-example__divider
+                      span
+                    .corporate-training-example__contents.a-card
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4.corporate-training-example-content__title
+                            | お客様のご要望
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 文系でほとんどプログラミング経験が無いので基礎からキッチリやってほしい。
+                            li
+                              | 特にLinuxはしっかりやりたい。
+                            li
+                              | JavaScriptは自社の研修でやったのでやらなくて大丈夫。
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4.corporate-training-example-content__title
+                            | 研修期間
+                        .corporate-training-example-content__body
+                          p.corporate-training-example-content__period
+                            | 6ヶ月
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4.corporate-training-example-content__title
+                            | カリキュラム
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 学習の準備
+                            li
+                              | 開発環境
+                            li
+                              | HTML & CSS
+                            li
+                              | Vi
+                            li
+                              | Linux
+                            li
+                              | Git & GitHub
+                            li
+                              | Ruby
+                            li
+                              | HTTP
+                            li
+                              | Nginx
+                            li
+                              | データベース
+                            li
+                              | Webアプリケーション
+                            li
+                              | Ruby on Rails
+                            li
+                              | 自動テスト
+                            li
+                              | オブジェクト指向プログラミング（Ruby）
+                            li
+                              | システム開発
+                            li
+                              | Webサービスを作って公開する
+                .col-md-4
+                  section.corporate-training-example
+                    header.corporate-training-example__header.a-card
+                      h3.corporate-training-example__title
+                        | SIerからの転職の場合
+                    .corporate-training-example__divider
+                      span
+                    .corporate-training-example__contents.a-card
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | お客様のご要望
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 組込みでのLinuxの経験はあるが、Webアプリケーション開発の経験が無いので学んで欲しい。
+                            li
+                              | GitHubでのPull Requestベースの開発やアジャイル開発の経験が無いので身につけてほしい。
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | 研修期間
+                        .corporate-training-example-content__body
+                          p.corporate-training-example-content__period
+                            | 3ヶ月
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | カリキュラム
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 学習の準備
+                            li
+                              | 開発環境
+                            li
+                              | Git & GitHub
+                            li
+                              | Webアプリケーション
+                            li
+                              | Ruby on Rails
+                            li
+                              | Webセキュリティ
+                            li
+                              | システム開発
+
+                .col-md-4
+                  section.corporate-training-example
+                    header.corporate-training-example__header.a-card
+                      h3.corporate-training-example__title
+                        | 他言語の経験のある
+                        br
+                        | エンジニアが
+                        br
+                        | 転職で入社した場合
+                    .corporate-training-example__divider
+                      span
+                    .corporate-training-example__contents.a-card
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | お客様のご要望
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | Webの開発経験はあるので、RubyとRailsの作法を学んで欲しい。
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | 研修期間
+                        .corporate-training-example-content__body
+                          p.corporate-training-example-content__period
+                            | 1ヶ月
+                      section.corporate-training-example-content
+                        header.corporate-training-example-content__header
+                          h4
+                            | カリキュラム
+                        .corporate-training-example-content__body
+                          ul
+                            li
+                              | 学習の準備
+                            li
+                              | 開発環境
+                            li
+                              | Ruby
+                            li
+                              | Ruby on Rails
+
+    .lp-content-divider.is-lp-bg-3
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-3.is-right-title.corporate-training-onboarding-flow-steps
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-vertical.is-border-left
+              | 研修スタート
+              br
+              | までの
+              strong
+                | 流れ
+        .lp-content__end
+          .corporate-training-onboarding-flow-steps__items
+            .l-cards.is-zigzag
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | お申し込み
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 研修申し込みフォームより、お申し込みをお願いいたします。貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、研修の目的なども書いていただけるとヒヤリングがスムーズになります。
+                        p
+                          | 学習内容一覧はこちら
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | ヒアリング
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、研修の目的、研修後になっていてほしい姿をお聞かせいただきます。また、貴社の研修の進捗を確認する社内のメンターも研修状況を確認できるようにするため、社内メンターを担当する方、人数についてもお伺いさせていただきます。
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | 研修メニュー
+                          br
+                          | 作成
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。研修メニュー作成までは2日程度お時間をいただいております。
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | サインアップ
+                          br
+                          | 研修開始
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 研修メニューが完成しましたら、研修はスタートできる状態なので、フィヨルドブートキャンプのオンライン学習アプリにサインアップ次第研修がスタートになります。研修メニュー完成のご連絡と合わせて、研修生用のサインアップ URL と社内メンター用のサインアップ URL をお知らせいたします。その URL からそれぞれサインアップをしてください。サインアップ後、研修を進めていく上で何か不明点がありましたら、チャット、もしくは学習アプリ内の相談部屋から質問をすることができます。
+
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-2.is-top-title.corporate-training-testimonials
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-align-center.is-border-bottom
+              | 導入企業様の声
+        .lp-content__end
+          .corporate-training-testimonials__items
+            section.corporate-training-testimonial
+              .corporate-training-testimonial__inner.a-card
+                header.corporate-training-testimonial__header
+                  h4.corporate-training-testimonial__title
+                    | 導入企業の声のサマリや効果導入企業の声のサマリや効果
+                hr.a-border-tint
+                .corporate-training-testimonial__body
+                  dl
+                    div
+                      dt
+                        | 会社名
+                      dd
+                        | aaaaaa
+
+            section.corporate-training-testimonial
+              .corporate-training-testimonial__inner.a-card
+                header.corporate-training-testimonial__header
+                  h4.corporate-training-testimonial__title
+                    | 導入企業の声のサマリや効果導入企業の声のサマリや効果
+                hr.a-border-tint
+                .corporate-training-testimonial__body
+                  dl
+                    div
+                      dt
+                        | 会社名
+                      dd
+                        | aaaaaa
+
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-1.is-left-title.corporate-training-faqs
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-vertical.is-border-left
+              | 法人利用について
+              br
+              | よくある質問
+        .lp-content__end
+          .corporate-training-faqs__items
+            section.corporate-training-faq
+              .corporate-training-faq__inner
+                header.corporate-training-faq__header
+                  h4.corporate-training-faq__title
+                    | 質問がはいります質問がはいります質問がはいります質問がはいります質問がはいります質問がはいります。
+                .corporate-training-faq__body
+                  p
+                    | 回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります。
+            hr.a-border
+            section.corporate-training-faq
+              .corporate-training-faq__inner
+                header.corporate-training-faq__header
+                  h4.corporate-training-faq__title
+                    | 質問がはいります質問がはいります質問がはいります質問がはいります質問がはいります質問がはいります。
+                .corporate-training-faq__body
+                  p
+                    | 回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります。
+            hr.a-border
+            section.corporate-training-faq
+              .corporate-training-faq__inner
+                header.corporate-training-faq__header
+                  h4.corporate-training-faq__title
+                    | 質問がはいります質問がはいります質問がはいります質問がはいります質問がはいります質問がはいります。
+                .corporate-training-faq__body
+                  p
+                    | 回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります回答が入ります。
+            hr.a-border
+
+//
+  header.welcome-page-header
+    .container
+      .welcome-page-header__inner
+        .welcome-page-header__start
+          h1.welcome-page-header__title
+            = title
+        .welcome-page-header__end
+  hr.a-border-tint
+  .welcome-page-body
+    .container.is-lg
+      .welcome-page-body__header
+        h1.welcome-page-body__title
+          = title
+      .a-card
+        .card__inner
+          h2.welcome-section__title.has-border
+            | フィヨルドブートキャンプが
             br
-            | ただし、一般受講生として利用した場合、研修期間と要望に合わせた独自カリキュラム作成、研修担当者、社内メンターの招待、
-            | 利用料金の請求書対応ができません。
+            | 研修にオススメの理由
+          .welcome-section__description
+            p
+              | フィヨルドブートキャンプは企業の研修代行も行っております。
+            p
+              | 私たちのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではありません。
+              | その先の「現場のプラスの戦力になるためのカリキュラム」です。
+              | 新人がチームに加わった際、ほとんどの場合は教育にリソースが取られ、
+              | 戦力としてはマイナスになってしまいます。
+            p
+              | フィヨルドブートキャンプは、チームに加入した時点で少しでも開発に貢献ができる人材であること、
+              | 決してマイナスの戦力ではなく、
+              | 戦力としてプラスになっていることを目指して作られています。
+            p
+              | 一番コストのかかる、マイナスの戦力からプラスの戦力にする教育を、
+              | 貴社のリソースを使わずにフィヨルドブートキャンプに任せることができます。
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+              | 研修での
+              br
+              | ご利用の際の料金
+          .welcome-section__description
+            p
+              | 料金は<strong>月額99,800円（税込み）</strong>です。
+            p
+              | 毎月、貴社の研修担当者様へメールにて請求書をお送りいたします。
+              | 領収書の宛名の指定なども柔軟に対応いたします。
+              br
+              | クレジットカードにも対応しています。
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+              | 研修担当者、社内メンターも<br>メンターとして参加
+          .welcome-section__description
+            p
+              | フィヨルドブートキャンプのメンターが、貴社の研修生に対して
+              | メンタリング・コードレビューを行いますが、
+              | それにプラスして貴社の文化や独自のルールなども伝えることができるように、
+              | 研修担当者、社内メンターにもフィヨルドブートキャンプに
+              | ログインできる無料のアカウントを発行します。
+            p
+              | 研修生の学習の進捗の確認、日報へのコメントやアドバイス、課題の提出物へのコードに対する指摘、
+              | アドバイスなどが行なえます。是非ご活用ください。
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+            | 期間・要望に合わせた
+            br
+            | カリキュラムを作成
+          .welcome-section__description
+            p
+              | 一般の受講生が学んでいるカリキュラムは量が多く、その全てを学習すると半年〜2年以上かかります。
+              | 研修でのご利用の場合、ビデオチャットで研修期間や研修で身につけてもらいたいスキルをヒヤリングし、
+              | それに合わせたカリキュラムを作成いたします。
+              | カリキュラムは一般の受講生が行っているもの、一般の受講生の中の希望者がだけが行うものから
+              | 抜粋する形になります。
+            h3 チョイスの例
+            ul
+              li
+                | Railsを使った開発の経験はあるが、基礎的な部分を学ぶ機会がなかったので、Linux、インフラ関連だけを重点的に学習する。
+              li
+                | 独学でアプリを作っていたので、チーム開発に慣れるためにRailsとスクラム形式でのチーム開発のカリキュラムを学習する。
+              li
+                | 多言語の開発の経験があるので、RubyとRailsのカリキュラムだけ学習する。
 
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | 実績
-        .welcome-section__description
-          p
-            | フィヨルドブートキャンプの研修は、これまでRubyKaigiのスポンサー常連企業などを含む、20社を超える様々な企業様で使われております。以下は一部の企業になります。
-          ul
-            li
-              = link_to 'GMOペパボ様', 'https://pepabo.com/', target: 'blank', rel: 'noopener'
-            li
-              = link_to 'Classi株式会社様', 'https://corp.classi.jp/company/', target: 'blank', rel: 'noopener'
-            li
-              = link_to '永和システムマネジメント様', 'https://esm.co.jp/', target: 'blank', rel: 'noopener'
-            li
-              = link_to '株式会社ラグザイア様', 'https://www.luxiar.com/', target: 'blank', rel: 'noopener'
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+            | 一般受講生と法人利用の
+            br
+            | サービス内容の違い
+          .welcome-section__description
+            table
+              thead
+                tr
+                  th
+                  th 一般利用
+                  th 法人利用
+              tbody
+                tr
+                  td 利用料
+                  td 月額￥29,800（税込み）
+                  td 月額￥99,800（税込み）
+                tr
+                  td 請求方法
+                  td クレジットカード
+                  td 請求書
+                tr
+                  td
+                    | 社内メンター招待
+                    br
+                    | （詳細は以下を参照）
+                  td ☓
+                  td
+                    | ◯
+                    br
+                    | （人数は今のところ無制限）
+                tr
+                  td
+                    | カリキュラム作成
+                    br
+                    | （詳細は以下を参照）
+                  td ☓
+                  td ◯
+                tr
+                  td 就職サポート
+                  td ◯
+                  td ☓
+                tr
+                  td イベント参加
+                  td ◯
+                  td
+                    | ◯
+                    br
+                    | （就活関連イベントを除く）
 
-    section.welcome-section
-      .container.is-md
-        h2.welcome-section__title.has-border
-          | お申し込み
-        .welcome-section__description
-          p
-            | 研修利用の申し込みは企業研修申し込みフォームからお願いいたします。
-        .welcome-actions__items
-          .welcome-actions__item
-            = link_to new_corporate_training_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener' do
-              | 企業研修のお申し込み
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+            | 研修スタートまでの
+            br
+            | 流れ
+          .welcome-section__description
+            p
+              | まずは、
+              = link_to new_corporate_training_inquiry_path, target: 'blank', rel: 'noopener' do
+                | 企業研修申し込みフォーム
+              | より法人利用希望の旨のご連絡をお願いいたします。
+              br
+              | 担当者より返信をいたします。
+            p
+              | 日時を調整し、ビデオチャットで研修の打ち合わせを行います。
+              br
+              | 研修のスタート日、研修期間、研修の目的、研修生のスキル、
+              | 請求書の送付先などをヒヤリングさせていただきます。
+            p
+              | 打ち合わせで決まった内容に合わせ、カリキュラムを作成いたします。
+            p
+              | 研修スタート日になりましたら、研修生のアカウントを作成し、研修生がログインできるようにいたします。
+              br
+              | 同時に、研修担当者、社内メンター用のサインアップもURLもお送りし、
+              | 貴社の研修担当者、社内メンターの方もログインができるようにいたします。
+
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+            | FAQ
+          .welcome-section__description
+            h3
+              | 研修をより効果的にするための何かアドバイスはありますか？
+            p
+              | まずは、複数人で研修を始めることをおすすめします。
+            p
+              | これまでの経験上、貴社にとっても研修を受ける本人にとっても、一人より二人以上で研修を始める方がメリットが多いです。
+              | 例えば、進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりなど、
+              | お互いにモチベーションが高め合いながらスムーズに研修を進められます。
+            p
+              | また、同じ企業の研修生同士だけでなく、フィヨルドブートキャンプ内のイベントに参加するなどして、
+              | 一般の受講生やメンターや卒業生と積極的に関わりを持ち、コミュニティとしてのフィヨルドブートキャンプを
+              | 活用することも、モチベーションの維持に大きく役立ちますので、おすすめします。
+          .welcome-section__description
+            h3
+              | 研修ではなく福利厚生としての利用の場合、一般受講生として利用ができますか？
+            p
+              | 企業での利用の場合でも、一般受講生としての利用は可能です。
+              br
+              | ただし、一般受講生として利用した場合、研修期間と要望に合わせた独自カリキュラム作成、研修担当者、社内メンターの招待、
+              | 利用料金の請求書対応ができません。
+      .a-card
+        .card__inner
+          h2.welcome-section__title.has-border
+            | 実績
+          .welcome-section__description
+            p
+              | フィヨルドブートキャンプの研修は、これまでRubyKaigiのスポンサー常連企業などを含む、20社を超える様々な企業様で使われております。以下は一部の企業になります。
+            ul
+              li
+                = link_to 'GMOペパボ様', 'https://pepabo.com/', target: 'blank', rel: 'noopener'
+              li
+                = link_to 'Classi株式会社様', 'https://corp.classi.jp/company/', target: 'blank', rel: 'noopener'
+              li
+                = link_to '永和システムマネジメント様', 'https://esm.co.jp/', target: 'blank', rel: 'noopener'
+              li
+                = link_to '株式会社ラグザイア様', 'https://www.luxiar.com/', target: 'blank', rel: 'noopener'
+
+      section.welcome-section
+        .container.is-md
+          h2.welcome-section__title.has-border
+            | お申し込み
+          .welcome-section__description
+            p
+              | 法人利用の申し込みは企業研修申し込みフォームからお願いいたします。
+          .welcome-actions__items
+            .welcome-actions__item
+              = link_to new_corporate_training_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener' do
+                | 企業研修のお申し込み

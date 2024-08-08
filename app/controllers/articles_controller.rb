@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
     number_per_page = @articles.page(1).limit_value
     @atom_articles = list_recent_articles(number_per_page)
     respond_to do |format|
-      format.html { render layout: 'welcome' }
+      format.html { render layout: 'lp' }
       format.atom
     end
   end
@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
     @mentor = @article.user
     @recent_articles = list_recent_articles(10)
     if @article.published? || admin_or_mentor_login?
-      render layout: 'welcome'
+      render layout: 'lp'
     else
       redirect_to root_path, alert: '管理者・メンターとしてログインしてください'
     end

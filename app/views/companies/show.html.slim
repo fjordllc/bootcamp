@@ -30,7 +30,7 @@ header.page-header
                   | 管理者向け企業メモ
               hr.a-border-tint
               .card-body
-                .card__description
+                .card-body__description
                   - if @company.memo.present?
                     .a-long-text.is-md
                       = simple_format(@company.memo)

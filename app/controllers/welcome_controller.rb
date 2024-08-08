@@ -2,8 +2,7 @@
 
 class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
-  layout 'welcome'
-  DEFAULT_COURSE = 'Railsエンジニア'
+  layout 'lp'
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
@@ -13,9 +12,15 @@ class WelcomeController < ApplicationController
 
   def faq; end
 
+  def alumni_voices; end
+
   def training; end
 
-  def practices; end
+  def practices
+    render layout: 'lp'
+  end
+
+  def job_support; end
 
   def tos; end
 
@@ -24,4 +29,8 @@ class WelcomeController < ApplicationController
   def law; end
 
   def coc; end
+
+  def courses
+    @courses = Course.order(:created_at)
+  end
 end

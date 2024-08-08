@@ -5,95 +5,254 @@ ruby:
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプの利用料は月額29,800円です。クレジットカードでのお支払いになります。初期費用、入会金は一切ありません。')
 
-.welcome-page-header
-  .container.is-xl
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
+article.lp
+  header.lp-header.lp-header.is-lp-bg-2
+    .container.is-xl
+      .lp-header__inner
+        .lp-header__start
+          .lp-header__start-inner
+            hgrounp.lp-header__titles
+              h1.lp-header__title
+                | フィヨルドブートキャンプの就職支援
+              h2.lp-header__catchcopy
+                | リスクは最小限で
+                br
+                | サブスク
+            .lp-header__description
+              p
+                | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                    | 研修を申し込む
+        .lp-header__end
+          .lp-header-main-visual
+            = image_tag('job_supports/job_supports_main.svg', class: 'lp-header-main-visual__image', alt: 'フィヨルドブートキャンプの就職支援')
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-1.is-top-title
+    .container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-price
+              span.lp-price__label
+                | 月額
+              span.lp-price__value
+                span.lp-price__amount
+                  | 29,800
+                span.lp-price__currency
+                  | 円
+              span.lp-price__details
+                span.lp-price__tax
+                  | （税込）
+                span.lp-price__separator
+                  | /
+
+        .lp-content__end
+          .row.is-gutter-width-32
+            .col-xs-12.col-md-4
+              section.welcome-small-section
+                .welcome-small-section__inner.a-card
+                  .welcome-small-section__icon
+                    | 🍻
+                  h3.welcome-small-section__title
+                    | 入会金、初期費用は
+                    br
+                    | 0円
+                  .welcome-small-section__description
+                    p
+                      | 複数社合同での企業説明会をオンラインで行っています。
+                      | 実際に企業で働いているプログラマーがどのように仕事しているのかなどを
+                      | 知ることの出来る貴重な機会にもなります。
+                      | また、動画の録画をいつでも観れます。
+
+            .col-xs-12.col-md-4
+              section.welcome-small-section
+                .welcome-small-section__inner.a-card
+                  .welcome-small-section__icon
+                    | 👩‍💼
+                  h3.welcome-small-section__title
+                    | 機能制限無しの
+                    br
+                    | お試し期間
+                  .welcome-small-section__description
+                    p
+                      | 自分はフィヨルドブートキャンプを利用すべきかを判断するために、
+                      | 機能制限無しの3日間のお試し期間を用意しています。
+                      | お試し期間でがっつり使って判断してください。
+            .col-xs-12.col-md-4
+              section.welcome-small-section
+                .welcome-small-section__inner.a-card
+                  .welcome-small-section__icon
+                    | 📄
+                  h3.welcome-small-section__title
+                    | いつでも退会できる
+                    br
+                    | サブスク
+                  .welcome-small-section__description
+                    p
+                      | カジュアル面談や面接でのポイント、
+                      | 必要書類作成の注意点、技術面接の技術的質問への対策について、
+                      | アプトプットについてなど、就職活動に役立つドキュメントを用意しています。
+                      | また、先輩受講生の就活の様子の日報を見ることもできます。
+
+    .lp-content-divider.is-lp-bg-3
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+  section.lp-content.is-lp-bg-3.is-right-title.corporate-training-onboarding-flow-steps
+    .container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h3.lp-content-title.is-vertical.is-border-left
+              | お試し期間と
+              br
+              | 引き落としのタイミング
+        .lp-content__end
+          .corporate-training-onboarding-flow-steps__items
+            .l-cards.is-zigzag
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | お申し込み
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 研修申し込みフォームより、お申し込みをお願いいたします。貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、研修の目的なども書いていただけるとヒヤリングがスムーズになります。
+                        p
+                          | 学習内容一覧はこちら
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | ヒアリング
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、研修の目的、研修後になっていてほしい姿をお聞かせいただきます。また、貴社の研修の進捗を確認する社内のメンターも研修状況を確認できるようにするため、社内メンターを担当する方、人数についてもお伺いさせていただきます。
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | 研修メニュー
+                          br
+                          | 作成
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。研修メニュー作成までは2日程度お時間をいただいております。
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.corporate-training-onboarding-flow-step
+                      header.corporate-training-onboarding-flow-step__header
+                        h4.corporate-training-onboarding-flow-step__title
+                          | サインアップ
+                          br
+                          | 研修開始
+                      .corporate-training-onboarding-flow-step__body
+                        p
+                          | 研修メニューが完成しましたら、研修はスタートできる状態なので、フィヨルドブートキャンプのオンライン学習アプリにサインアップ次第研修がスタートになります。研修メニュー完成のご連絡と合わせて、研修生用のサインアップ URL と社内メンター用のサインアップ URL をお知らせいたします。その URL からそれぞれサインアップをしてください。サインアップ後、研修を進めていく上で何か不明点がありましたら、チャット、もしくは学習アプリ内の相談部屋から質問をすることができます。
+
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+
+
+
 
 .welcome-page-body
-  .container.is-md
-    .welcome-small-section
-      .welcome-small-sections__title
-        h2.welcome-section__price
-          .welcome-section__price-period 月額
-          .welcome-section__price-number 29,800
-          .welcome-section__price-unit 円
-      .welcome-section__description
-        p
-          | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
-          | お試しだけの場合もクレジットカードの登録が必要になります。
-          | クレジットカードの登録が完了した時点でフィヨルドブートキャンプが利用できるようになります。
-        p
-          | お試し期間終了後に最初の1ヶ月分の料金の引き落としが発生します。
-          | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
-    .welcome-small-section
-      h2.welcome-small-sections__title
-        - if Campaign.today_campaign?
-          | キャンペーン中につき、
-        - else
-          = image_tag 'pjord-face.svg',
-            class: 'welcome-small-sections__title-icon'
-        = trial_period
-        | 日間のお試し期間
-      .welcome-section__description
-        p
-          | 月額29,800円は決して安い金額ではありません。
-          | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
-          = trial_period
-          | 日間のお試し期間を用意しています
-          - if Campaign.today_campaign?
-            | （現在、キャンペーン中のためお試し期間を延長しています）
-          | 。その
-          = trial_period
-          | 日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
-          | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
-    .welcome-small-section
-      h2.welcome-small-sections__title
-        = image_tag 'warning.svg',
-          alt: '注意！', class: 'welcome-small-sections__title-icon'
-        | 料金引き落としのタイミング
-      .welcome-section__description
-        p
-          | 厳密にはお試し期間は
-          = trial_period * 24
-          | 時間（
-          = trial_period
-          | 日間）になります。
-          | 例えば
-          = Campaign.example_start_at
-          | にフィヨルドブートキャンプを利用開始したとすると、
-          | そこから
-          = trial_period
-          | 日後の
-          = Campaign.example_end_at
-          | がお試し期間終了のタイミングになります。
-          | その後
-          = Campaign.example_pay_at
-          | に最初の1ヶ月分の料金が引き落とされます。
-        table.welcome-trial-period-table.is-hidden-sm-down
-          tr
-            th = Campaign.example_start_at
-            th.trial_end = Campaign.example_end_at
-            th = Campaign.example_pay_at
-          tr
-            td お試し期間
-            td.trial_end
-              | お試し期間終了時刻
-              br
-              | 無料退会期限
-            td 初回引き落とし
+  .container.is-lg
+    .a-card
+      .card-body
+        .card-body__inner
+          section.welcome-section
+            .welcome-section__description
+              p
+                | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
+                | お試しだけの場合もクレジットカードの登録が必要になります。
+                | クレジットカードの登録が完了した時点でフィヨルドブートキャンプが利用できるようになります。
+              p
+                | お試し期間終了後に最初の1ヶ月分の料金の引き落としが発生します。
+                | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
+          section.welcome-section
+            h2.card-body__inner-title
+              - if Campaign.today_campaign?
+                | キャンペーン中につき、
+              = trial_period
+              | 日間のお試し期間
+            .welcome-section__description
+              p
+                | 月額29,800円は決して安い金額ではありません。
+                | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
+                = trial_period
+                | 日間のお試し期間を用意しています
+                - if Campaign.today_campaign?
+                  | （現在、キャンペーン中のためお試し期間を延長しています）
+                | 。その
+                = trial_period
+                | 日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
+                | お試し期間の間に退会をしないと料金が請求されてしまうのでご注意ください。
+          section.welcome-section
+            h2.card-body__inner-title
+              | 料金引き落としのタイミング
+            .welcome-section__description
+              p
+                | 厳密にはお試し期間は
+                = trial_period * 24
+                | 時間（
+                = trial_period
+                | 日間）になります。
+                | 例えば
+                = Campaign.example_start_at
+                | にフィヨルドブートキャンプを利用開始したとすると、
+                | そこから
+                = trial_period
+                | 日後の
+                = Campaign.example_end_at
+                | がお試し期間終了のタイミングになります。
+                | その後
+                = Campaign.example_pay_at
+                | に最初の1ヶ月分の料金が引き落とされます。
+              table.welcome-trial-period-table.is-hidden-sm-down
+                tr
+                  th = Campaign.example_start_at
+                  th.trial_end = Campaign.example_end_at
+                  th = Campaign.example_pay_at
+                tr
+                  td お試し期間
+                  td.trial_end
+                    | お試し期間終了時刻
+                    br
+                    | 無料退会期限
+                  td 初回引き落とし
 
-        table.welcome-trial-period-table.is-hidden-md-up
-          tr
-            th = Campaign.example_start_at
-            td お試し期間
-          tr
-            th.trial_end = Campaign.example_end_at
-            td.trial_end
-              | お試し期間終了時刻
-              br
-              | 無料退会期限
-          tr
-            th = Campaign.example_pay_at
-            td 初回引き落とし
+              table.welcome-trial-period-table.is-hidden-md-up
+                tr
+                  th = Campaign.example_start_at
+                  td お試し期間
+                tr
+                  th.trial_end = Campaign.example_end_at
+                  td.trial_end
+                    | お試し期間終了時刻
+                    br
+                    | 無料退会期限
+                tr
+                  th = Campaign.example_pay_at
+                  td 初回引き落とし

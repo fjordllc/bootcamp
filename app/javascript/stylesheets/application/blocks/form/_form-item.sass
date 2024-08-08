@@ -65,15 +65,19 @@
 
 .form-item__pp
   p
-    +text-block(.8125rem 1.8 0 1em)
+    +text-block(.8125rem 1.8)
+    margin-bottom: 1em
   h2
-    +text-block(.8125rem 1.8 0 .4em 600)
+    +text-block(.8125rem 1.8)
+    margin-bottom: .4em
+    font-weight: 700
   ul
     margin-bottom: 1em
     list-style: disc outside
     margin-left: 1.5rem
   li
-    +text-block(.8125rem 1.8 0 .4em)
+    +text-block(.8125rem 1.8)
+    margin-bottom: .4em
   *:last-child
     margin-bottom: 0
 
@@ -82,7 +86,8 @@
   &::before
     content: '@'
     +fa(far '\f1fa')
-    +text-block(1rem 1, flex)
+    +text-block(1rem 1)
+    display: flex
     align-items: center
     justify-content: center
     +size(2rem 100%)

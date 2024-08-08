@@ -14,14 +14,18 @@ ruby:
     set_meta_tags(twitter: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
   end
 
-.welcome-page-header
-  .container.is-xl
-    .welcome-page-header__inner
-      .welcome-page-header__title
-        | ブログ
+.welcome-page
 
-.welcome-section
-  .article
+  .welcome-page-header
+    .container
+      .welcome-page-header__inner
+        .welcome-page-header__start
+          .welcome-page-header__title
+            | ブログ
+        .welcome-page-header__end
+
+  hr.a-border
+  .welcome-page-body
     .container.is-xl
       .row.is-gutter-width-32
         .col-xl-8.col-lg-8.col-xs-12

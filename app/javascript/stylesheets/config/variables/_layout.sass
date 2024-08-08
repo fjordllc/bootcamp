@@ -15,6 +15,30 @@ $container-class-name: container !default
     $prev-num: $num
 
 $grid-breakpoints: (xs: 0, sm: 40em, md: 48em, lg: 64em, xl: 80em, xxl: 96em, xxxl: 120em)
+
+// breakpoints
+//
+// xs: 0 〜 639
+// @media screen and (max-width:639px)
+//
+// sm: 640 〜 767
+// @media screen and (min-width:640px) and (max-width:767px)
+//
+// md: 768 〜 1023
+// @media screen and (min-width:768px) and (max-width:1023px)
+//
+// lg: 1024 〜 1279
+// @media screen and (min-width:1024px) and (max-width:1279px)
+//
+// xl: 1280 〜 1535
+// @media screen and (min-width:1280px) and (max-width:1535px)
+//
+// xxl: 1536 〜 1919
+// @media screen and (min-width:1536px) and (max-width:1919px)
+//
+// xxxl: 1920 〜 ∞
+// @media screen and (min-width:1920px)
+
 +_assert-ascending($grid-breakpoints, "$grid-breakpoints")
 $container-max-width: 72.25rem !default
 

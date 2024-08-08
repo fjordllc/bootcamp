@@ -8,7 +8,8 @@ $checkbox-size: .875rem
 
 .checkboxes__item
   label
-    +text-block(.875rem 1.4, block)
+    +text-block(.875rem 1.4)
+    display: block
     color: var(--semi-muted-text)
     +position(relative)
     +hover-link
@@ -26,7 +27,8 @@ $checkbox-size: .875rem
       transform: translate(0, -50%)
       background-color: var(--base)
       border-radius: .1875rem
-      +text-block(.75rem 1, flex)
+      +text-block(.75rem 1)
+      display: flex
       color: var(--reversal-text)
       align-items: center
       justify-content: center
