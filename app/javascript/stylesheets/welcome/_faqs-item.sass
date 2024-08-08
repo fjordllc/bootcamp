@@ -1,35 +1,38 @@
-.faqs-item
-  padding-top: .25rem
-  padding-bottom: .25rem
-  height: 100%
+.faqs__filter
+  margin-bottom: .5rem
+  position: sticky
+  top: 0
+  background-color: var(--background)
+  padding-block: .5rem
+
+.faqs__row
+  display: flex
+  gap: 2rem
+  +media-breakpoint-down(sm)
+    flex-direction: column-reverse
+
+.faqs__start
+  flex: 0 0 14rem
+
+.faqs__end
+  flex: 1
+
+.faqs__items
+  display: flex
+  flex-direction: column
+  gap: 1rem
 
 .faqs-item__inner
   border: solid 1px var(--border)
   background-color: var(--base)
-  padding: 1rem 1.25rem 1rem 2rem
+  padding: 1rem 1.25rem 1rem
   border-radius: .25rem
-  +position(relative)
-  height: 100%
 
 .faqs-item__title
-  +text-block(1rem 1.5 0 .5rem, 600 flex)
+  +text-block(1.125rem 1.5 0 .5rem, 700 flex)
   align-items: baseline
   +media-breakpoint-down(sm)
     font-size: .875rem
 
-.faqs-item__title-icon
-  position: absolute
-  +media-breakpoint-up(md)
-    +size(2.5rem)
-    left: -1rem
-    top: -1rem
-  +media-breakpoint-down(sm)
-    +size(2.125rem)
-    left: -.75rem
-    top: -.75rem
-
 .faqs-item__body
-  p
-    +text-block(.875rem 1.6 .5em)
-    &:last-child
-      margin-bottom: 0
+  margin-top: .75rem
