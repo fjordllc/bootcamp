@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
-  get "courses", to: "welcome#courses", as: "courses"
   draw :scheduler
   draw :api
   draw :paper
@@ -48,6 +47,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index), controller: "practices/products"
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
+    resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
   end
   resources :pages, param: :slug_or_id
   namespace :notification do

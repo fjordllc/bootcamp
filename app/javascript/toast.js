@@ -47,3 +47,26 @@ export default {
     }
   }
 }
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const messages = document.querySelectorAll('.js-toast')
+  messages.forEach((element) => {
+    const type = element.dataset.type
+    const message = element.dataset.message
+
+    Toast.fire({
+      title: message,
+      customClass: {
+        popup: `is-${type}`
+      }
+    })
+  })
+})

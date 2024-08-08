@@ -217,4 +217,36 @@ class CurrentUserTest < ApplicationSystemTestCase
 
     assert_text 'textbringer'
   end
+
+  test 'update admin user\'s auto_retire' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    check '休会六ヶ月後に自動退会しない', allow_label_click: true
+    click_on '更新する'
+
+    assert_not users(:komagata).reload.auto_retire
+  end
+
+  test 'update admin user\'s invoice_payment' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    check '請求書払いのユーザーである', allow_label_click: true
+    click_on '更新する'
+
+    assert users(:komagata).reload.invoice_payment
+  end
+
+  test 'update admin user\'s mentor' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    uncheck 'メンター', allow_label_click: true
+    click_on '更新する'
+
+    assert_not users(:komagata).reload.mentor
+  end
+
+  test 'update admin user\'s subscription_id' do
+    visit_with_auth '/current_user/edit', 'komagata'
+    fill_in 'サブスクリプションID', with: 'sub_987654321'
+    click_on '更新する'
+
+    assert_match users(:komagata).reload.subscription_id, 'sub_987654321'
+  end
 end

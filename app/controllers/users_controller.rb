@@ -20,7 +20,6 @@ class UsersController < ApplicationController
              .preload(:avatar_attachment, :course, :taggings)
              .order(updated_at: :desc)
 
-    @users = @users.unhibernated.unretired unless @target.in? %w[hibernated retired]
     if params[:search_word]
       search_user = SearchUser.new(word: params[:search_word], users: @users, target: @target)
       @users = search_user.search
@@ -165,7 +164,7 @@ class UsersController < ApplicationController
   end
 
   def notify_to_chat(user)
-    ChatNotifier.message "#{user.login_name}さんが新たなメンバーとしてJOINしました🎉\r#{url_for(user)}"
+    ChatNotifier.message "#{user.login_name}さんが新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
   end
 
   def user_params

@@ -33,7 +33,9 @@ class CurrentUserController < ApplicationController
       :profile_name, :profile_job, :profile_text, { authored_books_attributes: %i[id title url cover _destroy] },
       :feed_url, :country_code, :subdivision_code, { discord_profile_attributes: %i[id account_name times_url] }
     ]
-    user_attribute.push(:retired_on, :graduated_on, :free, :github_collaborator) if current_user.admin?
+    if current_user.admin?
+      user_attribute.push(:retired_on, :graduated_on, :free, :github_collaborator, :auto_retire, :invoice_payment, :mentor, :subscription_id)
+    end
     params.require(:user).permit(user_attribute)
   end
 

@@ -1,0 +1,27 @@
+= form_with model: [practice, submission_answer],
+  url: mentor_practice_submission_answer_path(practice),
+  local: true,
+  class: 'form',
+  html: { name: 'submission_answer' } do |f|
+
+  = render 'errors', object: submission_answer
+  .form__items
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'a-form-label is-required'
+          = f.text_area :description,
+            class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+            data: { 'preview': '.js-description-preview' }
+        .col-md-6.col-xs-12
+          .a-form-label プレビュー
+          .js-description-preview.a-long-text.is-md.markdown-form__preview
+
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit nil, class: 'a-button is-lg is-primary is-block'
+      li.form-actions__item.is-sub
+        = link_to 'キャンセル', :back, class: 'a-button is-sm is-text'
+
+  = f.hidden_field :practice_id, value: practice.id

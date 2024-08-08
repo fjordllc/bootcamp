@@ -490,7 +490,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only trainee when target is trainee' do
     visit_with_auth '/users?target=trainee', 'komagata'
-    assert_selector '.users-item', count: 2
+    assert_selector '.users-item', count: 3 # 元々2だったが、退会ユーザーがカウントされるようになった影響で+1増えた
     fill_in 'js-user-search-input', with: 'Kensyu Seiko'
     find('#js-user-search-input').send_keys :return
     assert_text 'Kensyu Seiko', count: 1
@@ -510,6 +510,24 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'js-user-search-input', with: 'machida'
     find('#js-user-search-input').send_keys :return
     assert_text 'Machida Teppei', count: 1
+  end
+
+  test 'find retired users from all users when target is all' do
+    visit_with_auth '/users?target=all', 'komagata'
+    fill_in 'js-user-search-input', with: 'yameo'
+    find('#js-user-search-input').send_keys :return
+    within('.users-item__header-end') do
+      assert_text 'yameo'
+    end
+  end
+
+  test 'find hibernated users from all users when target is all' do
+    visit_with_auth '/users?target=all', 'komagata'
+    fill_in 'js-user-search-input', with: 'kyuukai'
+    find('#js-user-search-input').send_keys :return
+    within('.users-item__header-end') do
+      assert_text 'kyuukai'
+    end
   end
 
   test "don't show incremental search when target's users aren't exist" do

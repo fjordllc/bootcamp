@@ -37,6 +37,7 @@ ja:
       page: Docs
       question: Q&A
       product: 提出物
+      submission_answer: 模範解答
       announcement: お知らせ
       article: ブログ記事
       work: 作品
@@ -126,6 +127,7 @@ ja:
         goal: 終了条件
         target: ターゲット
         submission: 提出物
+        submission_answer: 模範解答
         progress: 進捗の計算
         completion_image: 修了おめでとう画像
         categories: カテゴリー
@@ -145,6 +147,8 @@ ja:
         user: ユーザー
         practice: プラクティス
         body: 本文
+      submission_answer:
+        description: 内容
       company:
         name: 名前
         description: 詳細
