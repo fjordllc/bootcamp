@@ -60,7 +60,6 @@ import '../invitation-url-updater.js'
 import VueMounter from '../VueMounter.js'
 import Books from '../components/books.vue'
 import Questions from '../components/questions.vue'
-import WorriedUsers from '../components/worried-users.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
@@ -78,7 +77,6 @@ import '../stylesheets/application'
 const mounter = new VueMounter()
 mounter.addComponent(Books)
 mounter.addComponent(Questions)
-mounter.addComponent(WorriedUsers)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
 mounter.addComponent(Watches)

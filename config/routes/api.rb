@@ -35,7 +35,6 @@ Rails.application.routes.draw do
     namespace :users do
       resources :areas, only: %i(index)
       resources :companies, only: %i(index)
-      resources :worried, only: %i(index)
     end
     resources :users, only: %i(index show update)
     resources :user_icon_urls, only: %i(index)

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
 class Mentor::HomeController < MentorController
-  def index; end
+  def index
+    @worried_users = User.delayed.order(completed_at: :asc)
+  end
 end

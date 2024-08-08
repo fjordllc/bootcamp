@@ -10,4 +10,15 @@ header.page-header
 
 = render 'mentor/mentor_page_tabs'
 
-div(data-vue="WorriedUsers")
+main.page_main
+  .page-body
+    - if @worried_users.blank?
+      .container
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-smile
+          p.o-empty-message__text
+            | 進捗が遅れている受講生はいません
+    - else
+      .container.is-md
+        = render 'worried-users-table', worried_users: @worried_users
