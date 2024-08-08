@@ -46,7 +46,7 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    @question = Question.new(practice_id: params[:practice_id], user_id: current_user.id)
   end
 
   def edit; end
