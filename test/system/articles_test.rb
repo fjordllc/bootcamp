@@ -418,8 +418,6 @@ class ArticlesTest < ApplicationSystemTestCase
     visit_with_auth articles_path, 'komagata'
     titles = all('h2.thumbnail-card__title').map(&:text)
 
-    assert_includes titles[0], @article3.title
-    assert_includes titles[1], @article2.title
-    assert_includes titles[2], @article.title
+    assert_equal titles, ["WIP#{@article3.title}", @article2.title, @article.title]
   end
 end
