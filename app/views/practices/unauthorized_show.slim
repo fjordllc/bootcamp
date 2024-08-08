@@ -4,8 +4,8 @@
 
 ruby:
   if @practice.ogp_image.attached?
-    set_meta_tags(og: { image: polymorphic_url(@practice.ogp_image), url: request.url })
-    set_meta_tags(twitter: { image: polymorphic_url(@practice.ogp_image), url: request.url })
+    set_meta_tags(og: { image: @practice.ogp_image_url, url: request.url })
+    set_meta_tags(twitter: { image: @practice.ogp_image_url, url: request.url })
   end
 
 .page-body
@@ -18,7 +18,7 @@ ruby:
           - if @practice.summary?
             - if @practice.ogp_image.attached?
               .unauthorized__content
-                = image_tag(polymorphic_url(@practice.ogp_image), alt: "プラクティス「#{@practice.title}」のイメージ画像")
+                = image_tag(@practice.ogp_image_url, alt: "プラクティス「#{@practice.title}」のイメージ画像")
             .unauthorized__content
               .a-long-text.is-md
                 = simple_format h(@practice.summary)
