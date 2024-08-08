@@ -113,6 +113,34 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
+  def format_event_date(event_date)
+    event = dup
+    tzid = 'Asia/Tokyo'
+
+    event.assign_attributes(
+      start_at: Icalendar::Values::DateTime.new(
+        DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
+      ),
+      end_at: Icalendar::Values::DateTime.new(
+        DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
+      )
+    )
+    event
+  end
+
+  def self.fetch_participated_regular_events(user)
+    participated_regular_events = []
+    user.participated_regular_event_ids.find_each do |regular_event|
+      regular_event.all_scheduled_dates(
+        from: Time.current.to_date,
+        to: Time.current.to_date.next_year
+      ).each do |event_date|
+        participated_regular_events << regular_event.format_event_date(event_date)
+      end
+    end
+    participated_regular_events
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -141,37 +169,5 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def nth_wday(date)
     (date.day + 6) / 7
-  end
-
-  class << self
-    def fetch_participated_regular_events(user)
-      participated_regular_events = []
-      user.participated_regular_event_ids.find_each do |regular_event|
-        regular_event.all_scheduled_dates(
-          from: Time.current.to_date,
-          to: Time.current.to_date.next_year
-        ).each do |event_date|
-          participated_regular_events << format_event_date(regular_event, event_date)
-        end
-      end
-      participated_regular_events
-    end
-
-    private
-
-    def format_event_date(regular_event, event_date)
-      event = regular_event.dup
-      tzid = 'Asia/Tokyo'
-
-      event.assign_attributes(
-        start_at: Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
-        ),
-        end_at: Icalendar::Values::DateTime.new(
-          DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
-        )
-      )
-      event
-    end
   end
 end
