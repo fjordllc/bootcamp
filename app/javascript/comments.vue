@@ -301,7 +301,8 @@ export default {
           this.currentUserId,
           '/api/products/checker',
           'PATCH',
-          CSRF.getToken()
+          CSRF.getToken(),
+          true
         )
       }
     },

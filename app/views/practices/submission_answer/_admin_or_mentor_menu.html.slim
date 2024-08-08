@@ -1,0 +1,14 @@
+.practice.page-content
+  .a-card.is-only-mentor
+    header.card-header
+      h2.card-header__title
+        | 管理者・メンター用メニュー
+    hr.a-border
+    footer.card-footer
+      .card-main-actions
+        ul.card-main-actions__items
+          li.card-main-actions__item
+            - if submission_answer.present?
+              = link_to edit_mentor_practice_submission_answer_path(practice, submission_answer), class: 'a-button is-sm is-secondary is-block' do
+                i.fa-solid.fa-pen
+                | 編集

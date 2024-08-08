@@ -38,6 +38,7 @@ tables = %i[
   practices_books
   products
   questions
+  submission_answers
   reactions
   watches
   works

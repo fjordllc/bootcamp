@@ -26,7 +26,7 @@ class ReportNotifier
     ChatNotifier.message(<<~TEXT, webhook_url: ENV['DISCORD_REPORT_WEBHOOK_URL'])
       #{report.user.login_name}さんが#{I18n.l report.reported_on}の日報を公開しました。
       タイトル：「#{report.title}」
-      URL： https://bootcamp.fjord.jp/reports/#{report.id}
+      URL： <https://bootcamp.fjord.jp/reports/#{report.id}>
     TEXT
   end
 
