@@ -3,6 +3,16 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
+  test '.with_attachments_and_user' do
+    articles = Article.with_attachments_and_user
+
+    articles.each do |article|
+      assert_not_nil article.user
+      assert_not_nil article.user.avatar_attachment
+      assert_not article.wip
+    end
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
