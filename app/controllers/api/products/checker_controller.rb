@@ -2,7 +2,14 @@
 
 class API::Products::CheckerController < API::BaseController
   before_action :require_mentor_login_for_api
-  before_action :set_product, only: %i[update destroy]
+  before_action :set_product, only: %i[show update destroy]
+
+  def show
+    render json: {
+      checker_id: @product.checker_id,
+      checker_name: @product.checker_name
+    }
+  end
 
   def update
     if @product.save_checker(params[:current_user_id])
