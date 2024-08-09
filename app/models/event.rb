@@ -110,6 +110,17 @@ class Event < ApplicationRecord
     waitlist.count.positive? && can_participate?
   end
 
+  def format_events_title(text)
+    self.title = text + title
+  end
+
+  def self.fetch_ids(user)
+    participated_events = user.participations.pluck(:event_id)
+    upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+
+    { participated: participated_events, upcoming: upcoming_events }
+  end
+
   private
 
   def end_at_be_greater_than_start_at

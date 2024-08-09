@@ -4,18 +4,12 @@ class Events::CalendarsController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: :index
 
   def index
-    respond_to do |format|
-      format.ics do
-        calendar = EventsToIcalExporter.export_events(set_export)
-        calendar.publish
-        render plain: calendar.to_ical
-      end
-    end
-  end
+    user_id = params[:user_id]
+    user = User.find_by(id: user_id)
 
-  private
+    events_calendar = EventsCalendar.new
+    events_calendar.fetch_events(user)
 
-  def set_export
-    Event.where('start_at > ?', Date.current)
+    render plain: events_calendar.to_ical, content_type: 'text/calendar'
   end
 end

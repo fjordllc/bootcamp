@@ -57,6 +57,23 @@ class UpcomingEvent
       %i[today tomorrow day_after_tomorrow].map { |key| build_group(key) }
     end
 
+    def fetch(user)
+      event_ids = Event.fetch_ids(user)
+
+      participated_ids = event_ids[:participated]
+      upcoming_ids = event_ids[:upcoming]
+
+      participated_events = Event.where(id: participated_ids & upcoming_ids)
+      non_participated_events = Event.where(id: upcoming_ids - participated_ids)
+
+      formatted_participated_events =
+        participated_events.each do |participated_event|
+          participated_event.format_events_title('【参加登録済】')
+        end
+
+      formatted_participated_events + non_participated_events
+    end
+
     private
 
     def date_key_to_date_class(date_key)

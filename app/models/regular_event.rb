@@ -106,6 +106,37 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
+  def all_scheduled_dates(
+    from: Date.new(Time.current.year, 1, 1),
+    to: Date.new(Time.current.year, 12, 31)
+  )
+    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
+  end
+
+  def format_event_date(event_date)
+    event = dup
+
+    event.assign_attributes(
+      start_at: parse_event_time(event_date, event.start_at),
+      end_at: parse_event_time(event_date, event.end_at)
+    )
+
+    event
+  end
+
+  def self.fetch_participated_regular_events(user)
+    participated_regular_events = []
+    user.participated_regular_event_ids.find_each do |regular_event|
+      regular_event.all_scheduled_dates(
+        from: Time.current.to_date,
+        to: Time.current.to_date.next_year
+      ).each do |event_date|
+        participated_regular_events << regular_event.format_event_date(event_date)
+      end
+    end
+    participated_regular_events
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -113,13 +144,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
-  end
-
-  def all_scheduled_dates(
-    from: Date.new(Time.current.year, 1, 1),
-    to: Date.new(Time.current.year, 12, 31)
-  )
-    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
   def feature_scheduled_dates
@@ -141,5 +165,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def nth_wday(date)
     (date.day + 6) / 7
+  end
+
+  def parse_event_time(event_date, event_time)
+    tz = ActiveSupport::TimeZone['Asia/Tokyo']
+
+    time = event_time ? event_time.strftime('%H:%M') : '00:00'
+    date_time = DateTime.parse("#{event_date} #{time}")
+
+    tz.local_to_utc(date_time)
   end
 end
