@@ -100,4 +100,34 @@ class RegularEventTest < ActiveSupport::TestCase
     regular_event.assign_admin_as_organizer_if_none
     assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
   end
+
+  test '#all_scheduled_dates' do
+    start_date = Date.new(Time.current.year, 1, 1)
+    end_date = Date.new(Time.current.year, 12, 31)
+    wednesday_for_year = (start_date..end_date).select(&:wednesday?)
+
+    regular_event = regular_events(:regular_event33)
+    scheduled_dates = regular_event.all_scheduled_dates
+
+    assert_equal wednesday_for_year, scheduled_dates
+  end
+
+  test '#format_event_date' do
+    travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
+      regular_event = regular_events(:regular_event33)
+      event_date = Date.new(2024, 8, 7)
+      format_regular_event = regular_event.format_event_date(event_date)
+      assert_equal DateTime.new(2024, 8, 8, 6, 0, 0, '+09:00'), format_regular_event.start_at
+      assert_equal DateTime.new(2024, 8, 8, 7, 0, 0, '+09:00'), format_regular_event.end_at
+    end
+  end
+
+  test '.fetch_participated_regular_events' do
+    travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
+      user = users(:kimura)
+
+      participated_regular_events = RegularEvent.fetch_participated_regular_events(user)
+      assert_equal 157, participated_regular_events.count
+    end
+  end
 end
