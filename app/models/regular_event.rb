@@ -115,16 +115,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def format_event_date(event_date)
     event = dup
-    tzid = 'Asia/Tokyo'
 
     event.assign_attributes(
-      start_at: Icalendar::Values::DateTime.new(
-        DateTime.parse("#{event_date} #{event.start_at.strftime('%H:%M')}"), 'tzid' => tzid
-      ),
-      end_at: Icalendar::Values::DateTime.new(
-        DateTime.parse("#{event_date} #{event.end_at.strftime('%H:%M')}"), 'tzid' => tzid
-      )
+      start_at: parse_event_time(event_date, event.start_at),
+      end_at: parse_event_time(event_date, event.end_at)
     )
+
     event
   end
 
@@ -169,5 +165,10 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def nth_wday(date)
     (date.day + 6) / 7
+  end
+
+  def parse_event_time(event_date, event_time)
+    time = event_time ? event_time.strftime('%H:%M') : '00:00'
+    DateTime.parse("#{event_date} #{time}")
   end
 end
