@@ -331,6 +331,16 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
+  test '#categories_with_uniq_practices' do
+    user = users(:kensyu)
+    categories_with_uniq_practices = user.categories_with_uniq_practices
+    category_with_uniq_practices = categories_with_uniq_practices.select { |category| category.name == 'Ruby on Rails(Rails 6.1版)' }.first
+    assert_equal 0, category_with_uniq_practices.practices.size
+
+    category = user.course.categories.where(name: 'Ruby on Rails(Rails 6.1版)').first
+    assert_not_equal 0, category.practices.size
+  end
+
   test '#completed_practices_size_by_category' do
     kimura = users(:kimura)
     category2 = categories(:category2)
