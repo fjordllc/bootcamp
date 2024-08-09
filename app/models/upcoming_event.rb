@@ -66,7 +66,11 @@ class UpcomingEvent
       participated_events = Event.where(id: participated_ids & upcoming_ids)
       non_participated_events = Event.where(id: upcoming_ids - participated_ids)
 
-      formatted_participated_events = Event.format_events_title(participated_events, '【参加登録済】')
+      formatted_participated_events =
+        participated_events.each do |participated_event|
+          participated_event.format_events_title('【参加登録済】')
+        end
+
       formatted_participated_events + non_participated_events
     end
 
