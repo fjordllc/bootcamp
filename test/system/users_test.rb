@@ -437,6 +437,7 @@ class UsersTest < ApplicationSystemTestCase
     visit_with_auth '/users', 'komagata'
     assert_selector '.users-item', count: 24
     fill_in 'js-user-search-input', with: '木村です'
+    find('#js-user-search-input').send_keys :return
     assert_text 'Kimura Tadasi', count: 1
   end
 
