@@ -119,4 +119,22 @@ class EventTest < ActiveSupport::TestCase
     event.update(capacity: 10)
     assert event.can_move_up_the_waitlist?
   end
+
+  test '.fetch_ids' do
+    user = users(:kimura)
+
+    ids = Event.fetch_ids(user)
+    assert 200_404_551, ids[:participated]
+    assert 318_291_967, ids[:participated]
+    assert 308_029_005, ids[:upcoming]
+    assert 626_726_618, ids[:upcoming]
+    assert 994_018_171, ids[:upcoming]
+    assert 205_042_674, ids[:upcoming]
+  end
+
+  test '#format_events_title' do
+    event = events(:event30)
+
+    assert_equal '【参加登録済】未来のイベント(参加済)', event.format_events_title('【参加登録済】')
+  end
 end

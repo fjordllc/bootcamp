@@ -92,4 +92,11 @@ class UpcomingEventTest < ActiveSupport::TestCase
     upcoming_special_event = UpcomingEvent.new(@special_event, scheduled_date)
     assert_not upcoming_special_event.for_job_hunting?
   end
+
+  test '.fetch' do
+    user = users(:kimura)
+    upcoming_events = UpcomingEvent.fetch(user)
+
+    assert Event.where('start_at > ?', Date.current), upcoming_events
+  end
 end

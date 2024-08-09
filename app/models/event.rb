@@ -110,6 +110,17 @@ class Event < ApplicationRecord
     waitlist.count.positive? && can_participate?
   end
 
+  def format_events_title(text)
+    self.title = text + title
+  end
+
+  def self.fetch_ids(user)
+    participated_events = user.participations.pluck(:event_id)
+    upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
+
+    { participated: participated_events, upcoming: upcoming_events }
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -151,21 +162,5 @@ class Event < ApplicationRecord
   def waiting_particpations
     participations.disabled
                   .order(created_at: :asc)
-  end
-
-  class << self
-    def fetch_ids(user)
-      participated_events = user.participations.pluck(:event_id)
-      upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
-
-      { participated: participated_events, upcoming: upcoming_events }
-    end
-
-    def format_events_title(events, text)
-      events.each do |event|
-        event.title = text + event.title
-      end
-      events
-    end
   end
 end
