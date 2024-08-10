@@ -20,7 +20,6 @@ class ReportsController < ApplicationController
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
-    @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
     respond_to do |format|
       format.html
       format.md
@@ -55,6 +54,7 @@ class ReportsController < ApplicationController
     @report.user = current_user
     set_wip
     canonicalize_learning_times(@report)
+
     if @report.save
       Newspaper.publish(:report_save, { report: @report })
       redirect_to redirect_url(@report), notice: notice_message(@report), flash: flash_contents(@report)
@@ -152,7 +152,7 @@ class ReportsController < ApplicationController
   def celebrating_count(report)
     return nil if report.wip
 
-    report_count = current_user.reports.not_wip.count
+    report_count = current_user.reports.count
     CELEBRATING_COUNTS.find { |count| count == report_count }
   end
 
