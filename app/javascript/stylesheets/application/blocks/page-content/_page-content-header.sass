@@ -3,7 +3,9 @@
   +media-breakpoint-up(md)
     display: flex
     gap: 1rem
-    margin-bottom: 1.5rem
+  &:not(:last-child)
+    +media-breakpoint-up(md)
+      margin-bottom: 1.5rem
   +media-breakpoint-down(sm)
     margin-bottom: 1.25rem
   .a-watch-button.is-inactive,
@@ -71,7 +73,7 @@
     margin-top: .5rem
   +media-breakpoint-down(sm)
     +size(2.75rem)
-    +position(absolute, left 0, top 0)
+    +position(absolute, right 0, top 0)
 
 .page-content-header__before-title
   gap: .25rem 1rem

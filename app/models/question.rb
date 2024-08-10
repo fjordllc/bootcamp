@@ -24,7 +24,6 @@ class Question < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 256 }
   validates :description, presence: true
-  validates :user, presence: true
   validates :published_at, presence: true, if: :will_be_published?
 
   scope :solved, -> { where(id: CorrectAnswer.select(:question_id)) }

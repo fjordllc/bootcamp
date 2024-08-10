@@ -35,7 +35,6 @@ Rails.application.routes.draw do
     namespace :users do
       resources :areas, only: %i(index)
       resources :companies, only: %i(index)
-      resources :worried, only: %i(index)
     end
     resources :users, only: %i(index show update)
     resources :user_icon_urls, only: %i(index)
@@ -73,7 +72,6 @@ Rails.application.routes.draw do
     end
     resources :products, only: %i(index show)
     resources :searchables, only: %i(index)
-    resources :niconico_calendars, only: %i(show)
     resources :bookmarks, only: %i(index create destroy)
     resources :events, only: %i(index)
     resources :report_templates, only: %i(create update)

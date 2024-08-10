@@ -5,10 +5,14 @@
     margin-bottom: 1.25rem
 
 .a-completion-message__inner
+  display: flex
   +media-breakpoint-up(md)
-    display: flex
     justify-content: center
     align-items: center
+    gap: 1rem
+  +media-breakpoint-down(sm)
+    flex-direction: column
+    gap: .75rem
 
 .a-completion-message__title
   +text-block(1em 1.4, center 600)
@@ -18,12 +22,12 @@
   +media-breakpoint-down(sm)
     font-size: .8125rem
 
+.a-completion-message__actions-items
+  display: flex
+  gap: .75rem
+
 .a-completion-message__actions-item
   +media-breakpoint-up(md)
-    width: 8rem
-
-.a-completion-message__inner-end
-  +media-breakpoint-up(md)
-    margin-left: 1rem
+    width: 9rem
   +media-breakpoint-down(sm)
-    margin-top: .75rem
+    flex: 1

@@ -5,7 +5,9 @@ require 'application_system_test_case'
 class WorksTest < ApplicationSystemTestCase
   test 'user can see portfolio list page' do
     visit_with_auth portfolios_path, 'kimura'
-    assert_equal 'ポートフォリオ | FBC', title
+    assert_equal 'みんなのポートフォリオ | FBC', title
+    assert_selector "meta[property='og:title'][content='みんなのポートフォリオ']", visible: false
+    assert_selector 'h2.page-header__title', text: 'みんなのポートフォリオ'
     assert_text works(:work1).title
   end
 

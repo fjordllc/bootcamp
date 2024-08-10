@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class CoursesTest < ApplicationSystemTestCase
   test 'show listing courses' do
     visit_with_auth '/courses', 'mentormentaro'
-    assert_equal 'コース選択 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'コース一覧 | FBC', title
   end
 
   test 'create course' do
@@ -31,7 +31,7 @@ class CoursesTest < ApplicationSystemTestCase
 
   test 'show published courses' do
     visit_with_auth '/courses', 'hajime'
-    assert_text courses(:course1).title
+    assert_text '公開コースはありません。'
     visit_with_auth "/mentor/courses/#{courses(:course1).id}/edit", 'komagata'
     within 'form[name=course]' do
       find(:css, '#checkbox-published-course').set(true)
@@ -48,5 +48,10 @@ class CoursesTest < ApplicationSystemTestCase
     end
     visit_with_auth '/courses', 'mentormentaro'
     assert_text courses(:course1).title
+  end
+
+  test 'show welcome page when user isnt logged in' do
+    visit '/courses'
+    assert_text 'コースを選択してください'
   end
 end

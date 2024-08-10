@@ -52,7 +52,8 @@ class QuestionsController < ApplicationController
   def edit; end
 
   def create
-    @question = current_user.questions.new(question_params)
+    @question = Question.new(question_params)
+    @question.user = current_user if !admin_or_mentor_login?
     set_wip
     if @question.save
       Newspaper.publish(:question_create, { question: @question })

@@ -46,7 +46,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     }
 
     expected = {
-      body: "お知らせ：「お知らせ1」\rhttps://bootcamp.fjord.jp/announcements/395315747",
+      body: "お知らせ：「お知らせ1」\r<https://bootcamp.fjord.jp/announcements/395315747>",
       name: 'ピヨルド',
       webhook_url: 'https://discord.com/api/webhooks/0123456789/all'
     }
@@ -75,27 +75,27 @@ class DiscordNotifierTest < ActiveSupport::TestCase
 
       ダッシュボード表示確認用テスト定期イベント
       時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/927610372
+      詳細: <http://localhost:3000/regular_events/927610372>
 
-      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
       ⚠️ Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
+      ⚠️ Discord通知確認用、祝日非開催イベント(金曜日開催)
       はお休みです。
 
       ------------------------------
 
       < 明日 (05/06 土) 開催 >
 
-      Discord通知確認用イベント(土曜日開催)
-      時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/284302086
-
       Discord通知確認用イベント(土曜日 + 日曜日開催)
-      時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/670378901
+      時間: 09:00〜10:00
+      詳細: <http://localhost:3000/regular_events/670378901>
+
+      Discord通知確認用イベント(土曜日開催)
+      時間: 10:00〜11:00
+      詳細: <http://localhost:3000/regular_events/284302086>
 
       Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
-      時間: 21:00〜22:00
-      詳細: http://localhost:3000/regular_events/808817380
+      時間: 11:00〜12:00
+      詳細: <http://localhost:3000/regular_events/808817380>
 
       ⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️⚡️
     TEXT
@@ -160,7 +160,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     body = <<~TEXT.chomp
       ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。
       担当：<@12345>さん
-      URL： http://localhost:3000/products/313836099
+      URL： <http://localhost:3000/products/313836099>
     TEXT
 
     params = {
@@ -222,7 +222,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     body = <<~TEXT.chomp
       🎉 hajimeさんがはじめての日報を書きました！
       タイトル：「初日報です」
-      URL： http://localhost:3000/reports/819157022
+      URL： <http://localhost:3000/reports/819157022>
     TEXT
     expected = {
       body:,

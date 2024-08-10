@@ -84,7 +84,7 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl }) => {
     Bootcamp.delete(`/api/bookmarks/${id}.json`)
       .then((_response) => {
         mutate(bookmarksUrl)
-        toast('Bookmarkを削除しました。')
+        toast('ブックマークを削除しました。')
       })
       .catch((error) => {
         console.warn(error)

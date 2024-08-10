@@ -7,7 +7,9 @@
   display: flex
   gap: .5rem
   justify-content: center
-  +media-breakpoint-down(md)
+  +media-breakpoint-only(md)
+    padding-block: .5rem
+  +media-breakpoint-down(sm)
     padding-inline: 1rem
     padding-top: .5rem
 
