@@ -12,7 +12,6 @@
         = paginate products
       .card-list.a-card
         .card-list__items
-          - products.each do |product|
-            = render 'product', product:, users:
+          = render products, users:
       nav.pagination
         = paginate products
