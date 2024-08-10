@@ -12,7 +12,6 @@
               | #{data_title}はいません
       - else
         .row
-          - users.each do |user|
-            = render 'user', user:
+          = render users
   nav.pagination
     = paginate users
