@@ -16,7 +16,7 @@
         .users-item__header-inner
           .users-item__header-start
             .users-item__icon
-              a(href="#{user.url}")
+              = link_to user.url
                 span(:class='["a-user-role", roleClass]')
                   img.users-item__user-icon-image.a-user-icon(
                     title="#{user.login_name}(#{user.name})"
@@ -26,11 +26,10 @@
             .card-list-item__rows
               .card-list-item__row
                 .card-list-item-title
-                  a.card-list-item-title__title.is-lg.a-text-link(
-                    href="#{user.url}")
+                  = link_to user.url, class: 'card-list-item-title__title is-lg a-text-link'
                     | #{user.login_name}
                   - if user&.company && user.company&.logo_url
-                    a(href="#{user.company.website}")
+                    = link_to user.company.website
                       img.user-item__company-logo(src="#{user.company.logo_url}")
               .card-list-item__row
                 .card-list-item-meta
@@ -40,8 +39,7 @@
                         | #{user.name}
                     .card-list-item-meta__item
                       - if user.discord_profile.times_url
-                        a.a-meta(
-                          href="#{user.discord_profile.times_url}")
+                        = link_to user.discord_profile.times_url, class: 'a-meta'
                           .a-meta__icon
                             i.fa-brands.fa-discord
                           | #{user.discord_profile.account_name}
@@ -61,7 +59,7 @@
                   - if user.reports.count.zero?
                     span #{user.reports.count}
                   - else
-                    a.a-text-link(href="#{user.url}/reports")
+                    = link_to "#{user.url}/reports", class: 'a-text-link'
                       | #{user.reports.count}
             .card-counts__item
               .card-counts__item-inner
@@ -71,7 +69,7 @@
                   - if user.products.count.zero?
                     span #{user.products.count}
                   - else
-                    a.a-text-link(href="#{user.url}/products")
+                    = link_to "#{user.url}/products", class: 'a-text-link'
                       | #{user.products.count}
             .card-counts__item
               .card-counts__item-inner
@@ -81,7 +79,7 @@
                   - if user.products.count.zero?
                     span #{user.comments.count}
                   - else
-                    a.a-text-link(href="#{user.url}/comments")
+                    = link_to "#{user.url}/comments", class: 'a-text-link'
                       | #{user.comments.count}
             .card-counts__item
               .card-counts__item-inner
@@ -91,7 +89,7 @@
                   - if user.questions.count.zero?
                     span #{user.questions.count}
                   - else
-                    a.a-text-link(href="#{user.url}/questions")
+                    = link_to "#{user.url}/questions", class: 'a-text-link'
                       | #{user.questions.count}
             .card-counts__item
               .card-counts__item-inner
@@ -101,7 +99,7 @@
                   - if user.answers.count.zero?
                     span #{user.answers.count}
                   - else
-                    a.a-text-link(href="#{user.url}/answers")
+                    = link_to "#{user.url}/answers", class: 'a-text-link'
                       | #{user.answers.count}
       .users-item__body
         .users-item__description.a-short-text
@@ -126,5 +124,5 @@
                 = render 'following', user:
             - if current_user.admin && user.talk
               li.card-main-actions__item.is-only-mentor
-                a.a-button.is-secondary.is-sm.is-block(href='/talks/#{user.talk.id}')
+                = link_to "/talks/#{user.talk.id}", class: 'a-button is-secondary is-sm is-block'
                   | 相談部屋
