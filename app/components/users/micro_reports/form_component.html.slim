@@ -6,11 +6,9 @@
           .micro-report-form-tabs
             ul.micro-report-form-tabs__items.form-tabs.js-tabs
               li.micro-report-form-tabs__item
-                a.micro-report-form-tabs__item-link.form-tabs__tab.js-tab-link.is-active(href="#form" data-target="form-container")
-                  | 分報
+                = link_to '分報', '#form', class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link is-active', data: { target: 'form-container' }
               li.micro-report-form-tabs__itemm
-                a.micro-report-form-tabs__item-link.form-tabs__tab.js-tab-link(href="#preview" data-target="preview-container")
-                  | プレビュー
+                = link_to 'プレビュー', '#preview', class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link', data: { target: 'preview-container' }
 
           .tab-content
             .js-tab-pane#form-container
