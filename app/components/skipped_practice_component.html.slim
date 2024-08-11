@@ -1,5 +1,5 @@
 - @user.categories_with_uniq_practices.each do |category|
-  - skipped_practices_in_category = category.practice_ids & @user.skipped_practice_ids
+  - skipped_practices_in_category = category.practice_ids & @user.practice_ids_skipped
   .skip-practices
     input.a-toggle-checkbox(type='checkbox' id="category-#{category}")
     .skip-practices__inner
