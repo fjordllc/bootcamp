@@ -731,7 +731,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.all, User.users_job('destroy_all')
   end
 
-  test 'clear_github_data should clear GitHub related fields' do
+  test '#clear_github_data' do
     user = users(:kimura)
     user.github_id = '12345'
     user.github_account = 'github_kimura'
