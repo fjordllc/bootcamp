@@ -618,7 +618,7 @@ class User < ApplicationRecord
     Subscription.new.retrieve(subscription_id)
   end
 
-  def skipped_practice_ids
+  def practice_ids_skipped
     skipped_practices.pluck(:practice_id)
   end
 
@@ -959,6 +959,6 @@ class User < ApplicationRecord
   end
 
   def required_practices_size_with_skip
-    course.practices.where(id: skipped_practice_ids, include_progress: true).size
+    course.practices.where(id: practice_ids_skipped, include_progress: true).size
   end
 end
