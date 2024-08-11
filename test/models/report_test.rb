@@ -44,21 +44,24 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 10, reports(:report32).interval
   end
 
-  test 'save_uniquely does not save duplicate report and adds validation errors' do
-    Report.create!(
-      user: users(:komagata),
-      reported_on: Time.zone.today,
-      title: 'report1',
-      description: 'report1本文'
-    )
+  test '#reported_on_uniqueness_check' do
+    user = users(:muryou)
+    report1 = Report.new
+    report1.user = user
+    report1.reported_on = '2024-08-05'
+    report1.title = 'test1'
+    report1.description = 'test1'
+    report1.emotion = 'happy'
+    report1.save_with_uniqueness_check
 
-    duplicate_report = Report.new(
-      user: users(:komagata),
-      reported_on: Time.zone.today,
-      title: 'report2',
-      description: 'report2本文'
-    )
-    assert_not duplicate_report.save_uniquely
-    assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
+    report2 = Report.new
+    report2.user = user
+    report2.reported_on = '2024-08-05'
+    report2.title = 'test2'
+    report2.description = 'test2'
+    report2.emotion = 'happy'
+    report2.save_with_uniqueness_check
+
+    assert_includes report2.errors.full_messages, '学習日はすでに存在します'
   end
 end
