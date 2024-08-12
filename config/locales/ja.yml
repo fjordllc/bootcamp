@@ -49,7 +49,7 @@ ja:
       request_retirement: 退会申請
       faq: FAQ
       faq_category: FAQカテゴリ
-      coding_test: コーディング問題
+      coding_test: コーディングテスト
     attributes:
       user:
         login_name: アカウント
