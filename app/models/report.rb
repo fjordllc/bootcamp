@@ -139,7 +139,7 @@ class Report < ApplicationRecord
     ActiveRecord::Base.transaction do
       if new_record? && Report.where(user_id:, reported_on:).exists?
         errors.add(:reported_on, 'はすでに存在します')
-        return false
+        raise ActiveRecord::Rollback
       end
       save
     end
