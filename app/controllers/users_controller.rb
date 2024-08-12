@@ -54,6 +54,8 @@ class UsersController < ApplicationController
       @user.adviser = true
     when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
       @user.trainee = true
+    when 'mentor'
+      @user.mentor = true
     end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
