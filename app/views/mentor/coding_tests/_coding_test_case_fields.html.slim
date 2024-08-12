@@ -1,0 +1,13 @@
+.nested-fields
+  .field
+    = f.label :input
+    br
+    = f.text_area :input,
+      style: 'border:solid 1px black;background:white;margin:12px 0'
+  .field
+    = f.label :output
+    br
+    = f.text_area :output,
+      style: 'border:solid 1px black;background:white;margin:12px 0'
+  = link_to_remove_association '削除',
+    f, style: 'border:solid 1px black;background:white;padding:3px;margin:6px 0'

@@ -1,0 +1,117 @@
+- title @coding_test.title
+- description "#{@coding_test.title}のコーディングテストです。"
+- practice = @coding_test.practice
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title = title
+
+hr.a-border
+
+- if current_user.submitted?(@coding_test)
+  .a-completion-message()
+    .container
+      .a-completion-message__inner
+        .a-completion-message__inner-start
+          h2.a-completion-message__title
+            | このコーディングテストは修了しました🎉
+
+.page-body
+  .container.is-xl
+    .row.is-gutter-width-32
+      .col-lg-8.col-xs-12
+
+        .practice.page-content
+          header.page-content-header
+            .page-content-header__end
+              .page-content-header__row
+                h1.page-content-header__title
+                  = "#{@coding_test.title}(#{@coding_test.language})"
+
+          .a-card
+            header.card-header
+              h2.card-header__title
+                = CodingTest.human_attribute_name :description
+            hr.a-border
+            .card-body
+              .card__description
+                .a-long-text.is-md.js-markdown-view
+                  = @coding_test.description
+            hr.a-border
+
+            - @coding_test.coding_test_cases.each_with_index do |coding_test_case, i|
+              .coding_test_case
+                header.card-header
+                  h2.card-header__title = "入力例#{i + 1}"
+
+              .card-body
+                .card__description
+                  pre.sample.coding_test_case-input(id="coding_test_case_#{coding_test_case.id}_input")
+                    = coding_test_case.input
+
+                header.card-header
+                  h2.card-header__title = "出力例#{i + 1}"
+
+              .card-body
+                .card__description
+                  pre.sample.coding_test_case-output(id="coding_test_case_#{coding_test_case.id}_output")
+                    = coding_test_case.output
+
+            hr.a-border-tint
+            footer.card-footer
+              .card-main-actions
+
+          - unless current_user.submitted?(@coding_test)
+            .a-card
+              #code_editor(
+                data-language="#{@coding_test.language}" style="width:90%;height:400px"
+                data-coding-test-id="#{@coding_test.id}"
+                data-practice-id="#{@coding_test.practice_id}"
+              )
+
+              hr.a-border-tint
+              footer.card-footer
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      button#run.a-button.is-lg.is-primary.is-block 提出
+
+            .a-card
+              header.card-header
+                h2.card-header__title 結果
+
+              table.result-table#result
+
+      .col-lg-4.col-xs-12
+        nav.page-nav.a-card
+          header.page-nav__header
+            h2.page-nav__title
+              = link_to practice,
+                class: 'page-nav__title-inner' do
+                = practice.title
+          hr.a-border-tint
+
+          ul.page-nav__items
+            - practice.coding_tests.each do |coding_test|
+              li.page-nav__item(class="#{@coding_test == coding_test ? 'is-current' : ''}")
+                = link_to coding_test, class: 'page-nav__item-link' do
+                  span.page-nav__item-link-inner
+                    = coding_test.title
+
+css:
+  .result-table {
+    border-top: solid 1px hsl(242, 7%, 89%);
+    margin-top: 0.5em;
+    color: rgb(79, 79, 100);
+  }
+
+  .result-table th {
+    background-color: rgb(241, 241, 243);
+  }
+
+  .result-table th, td {
+    padding: 0.5em;
+    border: solid 1px solid 1px hsl(242, 7%, 89%);
+  }

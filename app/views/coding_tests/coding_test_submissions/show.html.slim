@@ -1,0 +1,45 @@
+- ctd = @coding_test_submission
+- title "#{@coding_test.title}の提出コード"
+- description "#{ctd.user.login_name}さんの提出コードです。"
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title 提出コード
+
+hr.a-border
+
+.page-body
+  .container.is-md
+    .page-content.is-work
+      header.page-content-header
+        .page-content-header__start
+          .page-content-header__user
+            = link_to ctd.user,
+              itemprop: 'url',
+              class: 'page-content-header__user-link' do
+              span class="a-user-role is-#{ctd.user.primary_role}"
+                = image_tag ctd.user.avatar_url,
+                  title: ctd.user.icon_title,
+                  class: 'page-content-header__user-icon a-user-icon'
+        .page-content-header__end
+          .page-content-header__row
+            .page-content-header__before-title
+              = link_to ctd.user, class: 'a-user-name' do
+                = ctd.user.login_name
+            h1.page-content-header__title = title
+          .page-content-header__row
+            .page-content-header-metas
+              .page-content-header-metas__start
+                .page-content-header-metas__meta
+                  .a-meta
+                    .a-meta__label 提出日
+                    time.a-meta__value(datetime="#{ctd.created_at}" pubdate='pubdate')
+                      = l ctd.created_at
+
+      .a-card
+        .card-body
+          .card__description
+            pre(class="language-#{@coding_test.language}")
+              code(style="display:block;padding: 1em") = ctd.code
