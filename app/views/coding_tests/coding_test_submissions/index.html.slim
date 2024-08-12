@@ -1,0 +1,32 @@
+- title '提出コード'
+- description '提出コードの一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title = title
+      .page-header__end
+
+hr.a-border
+
+.page-main
+  - if @coding_test_submissions.present?
+    .page-body
+      .container.is-md
+        .page-content.reports
+          = paginate @coding_test_submissions
+          .card-list.a-card
+            .card-list__items
+              = render @coding_test_submissions
+          = paginate @coding_test_submissions
+  - else
+    .o-empty-message
+      .o-empty-message__icon
+        .card-list.a-card
+          .card__description
+            .o-empty-message
+              .o-empty-message__icon
+                i.fa-regular.fa-sad-tear
+              .o-empty-message__text
+                | 提出コードはまだありません。
