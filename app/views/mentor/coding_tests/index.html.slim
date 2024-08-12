@@ -1,0 +1,61 @@
+- title 'コーディング問題'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title メンターページ
+
+= render 'mentor/mentor_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title = title
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to new_mentor_coding_test_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  | コーディング問題作成
+
+  hr.a-border
+  .page-body
+    .container.is-lg
+      .admin-table.is-grab id='mentor-practices'
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label = CodingTest.human_attribute_name :title
+              th.admin-table__label = CodingTest.human_attribute_name :language
+              th.admin-table__label 入力例・出力例
+              th.admin-table__label = CodingTest.human_attribute_name :practice
+              th.admin-table__label = CodingTest.human_attribute_name :coding_test_submissions
+              th.admin-table__label.actions 編集
+          tbody.admin-table__items
+            - @coding_tests.each do |coding_test|
+              tr.admin-table__item
+                td.admin-table__item-value
+                  = link_to coding_test.title, coding_test
+                td.admin-table__item-value
+                  = coding_test.language
+                td.admin-table__item-value
+                  ul
+                    - coding_test.coding_test_cases.each do |coding_test_case|
+                      li
+                        = coding_test_case.input
+                        = ' / '
+                        = coding_test_case.output
+                td.admin-table__item-value
+                  = link_to coding_test.practice.title, coding_test.practice
+                td.admin-table__item-value.is-text-align-center
+                  = link_to '一覧', [coding_test, :coding_test_submissions]
+                td.admin-table__item-value.is-text-align-center
+                  ul.is-inline-buttons
+                    li
+                      = link_to edit_mentor_coding_test_path(coding_test),
+                        class: 'a-button is-sm is-secondary is-icon'
+                        i.fa-solid.fa-pen

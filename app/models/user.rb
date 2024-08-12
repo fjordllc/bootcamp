@@ -104,6 +104,8 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :coding_tests, dependent: :destroy
+  has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
   has_one :discord_profile, dependent: :destroy
@@ -171,6 +173,8 @@ class User < ApplicationRecord
   has_many :participate_regular_events,
            through: :regular_event_participations,
            source: :regular_event
+
+  has_many :coding_test_submissions, dependent: :destroy
 
   has_one_attached :avatar
   has_one_attached :profile_image
@@ -516,6 +520,10 @@ class User < ApplicationRecord
 
       User.none
     end
+  end
+
+  def submitted?(coding_test)
+    coding_test_submissions.exists?(coding_test_id: coding_test.id)
   end
 
   def away?
