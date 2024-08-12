@@ -1,17 +1,12 @@
 - title @coding_test.title
 - description "#{@coding_test.title}のコーディングテストです。"
-- practice = @coding_test.practice
+- category = @practice.category(current_user.course)
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title = title
-
-hr.a-border
+= render '/practices/page_header', title: @practice.title, category: category
+= render 'page_tabs', resource: @practice
 
 - if current_user.submitted?(@coding_test)
-  .a-completion-message()
+  .a-completion-message
     .container
       .a-completion-message__inner
         .a-completion-message__inner-start
@@ -88,13 +83,13 @@ hr.a-border
         nav.page-nav.a-card
           header.page-nav__header
             h2.page-nav__title
-              = link_to practice,
+              = link_to @practice,
                 class: 'page-nav__title-inner' do
-                = practice.title
+                = @practice.title
           hr.a-border-tint
 
           ul.page-nav__items
-            - practice.coding_tests.each do |coding_test|
+            - @practice.coding_tests.each do |coding_test|
               li.page-nav__item(class="#{@coding_test == coding_test ? 'is-current' : ''}")
                 = link_to coding_test, class: 'page-nav__item-link' do
                   span.page-nav__item-link-inner

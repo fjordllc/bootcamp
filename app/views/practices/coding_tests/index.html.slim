@@ -1,0 +1,21 @@
+- title "#{@practice.title}に関するコーディングテスト"
+- description 'コーディングテストの一覧ページです。'
+- category = @practice.category(current_user.course)
+
+= render '/practices/page_header', title: @practice.title, category: category
+= render 'page_tabs', resource: @practice
+
+.page-body
+  = paginate @coding_tests
+  .container.is-md
+    - if @coding_tests.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | コーディングテストはまだありません
+    - else
+      .card-list.a-card
+        .card-list__items
+          = render @coding_tests
+  = paginate @coding_tests
