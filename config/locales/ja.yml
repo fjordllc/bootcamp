@@ -47,7 +47,7 @@ ja:
       book: 参考書籍
       regular_event: 定期イベント
       request_retirement: 退会申請
-      coding_test: コーディング問題
+      coding_test: コーディングテスト
     attributes:
       user:
         login_name: アカウント

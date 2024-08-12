@@ -36,7 +36,9 @@
       .row.js-markdown-parent
         .col-md-6.col-xs-12
           = f.label :description, class: 'a-form-label'
-          = f.text_area :description, class: 'a-text-input js-warning-form js-markdown markdown-form__text-area practices-edit__input', data: { 'preview': '.js-preview' }
+          = f.text_area :description,
+            class: 'a-text-input js-warning-form js-markdown markdown-form__text-area practices-edit__input',
+            data: { 'preview': '.js-preview' }
         .col-md-6.col-xs-12
           .a-form-label プレビュー
           .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
@@ -47,7 +49,7 @@
       = f.fields_for :coding_test_cases do |coding_test_case|
         = render 'coding_test_case_fields', f: coding_test_case
       .links
-        = link_to_add_association '追加', f, :coding_test_cases, style: 'border:solid 1px black;background:white;padding:3px;margin:6px 0'
+        = link_to_add_association '追加', f, :coding_test_cases, class: 'a-button is-md is-primary'
 
   .form-actions
     ul.form-actions__items
