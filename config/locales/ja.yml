@@ -47,6 +47,7 @@ ja:
       book: 参考書籍
       regular_event: 定期イベント
       request_retirement: 退会申請
+      coding_test: コーディング問題
     attributes:
       user:
         login_name: アカウント
@@ -303,6 +304,16 @@ ja:
       request_retirement/keep_data/option:
         keep: 残す
         delete: 削除する
+      coding_test:
+        title: タイトル
+        description: 問題文
+        user: 作成者
+        practice: 所属プラクティス
+        language: 言語
+        coding_test_submissions: 提出コード
+      coding_test_case:
+        input: 入力
+        output: 出力
     enums:
       user:
         job:

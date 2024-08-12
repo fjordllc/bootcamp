@@ -1,0 +1,31 @@
+.a-card.coding_tests
+  header.card-header
+    h2.card-header__title コーディング問題
+
+  table
+    - coding_tests.order(:position).each do |coding_test|
+      tr
+        td = link_to coding_test.title, coding_test
+        td = coding_test.passed_by?(current_user) ? 'O' : 'X'
+  hr.a-border-tint
+  footer.card-footer
+
+css:
+  .coding_tests {
+    margin-bottom: 1.5em;
+  }
+
+  .coding_tests table {
+    border-top: solid 1px hsl(242, 7%, 89%);
+    margin-top: 0.5em;
+    color: rgb(79, 79, 100);
+  }
+
+  .coding_tests th {
+    background-color: rgb(241, 241, 243);
+  }
+
+  .coding_tests th, td {
+    padding: 0.5em;
+    border: solid 1px solid 1px hsl(242, 7%, 89%);
+  }

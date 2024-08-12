@@ -1,0 +1,30 @@
+coding_test_submission1:
+  coding_test: coding_test1
+  user: hajime
+  code: |-
+    console.log(\"hello\")
+
+coding_test_submission6:
+  coding_test: coding_test6
+  user: hajime
+  code: |-
+    puts 'hello'
+
+coding_test_submission7:
+  coding_test: coding_test7
+  user: hajime
+  code: |-
+    input = gets.to_i
+
+    output = 
+      if input % 15 == 0
+        'FizzBuzz'
+      elsif input % 3 == 0
+        'Fizz'
+      elsif input % 5 == 0
+        'Buzz'
+      else
+        input.to_s
+      end
+
+    puts output
