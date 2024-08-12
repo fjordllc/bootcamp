@@ -27,7 +27,8 @@ module PageTabHelper
       questions_tab(resource),
       pages_tab(resource),
       products_tab(resource),
-      submission_answer_tab(resource)
+      submission_answer_tab(resource),
+      coding_tests_tab(resource)
     ]
   end
 
@@ -56,7 +57,8 @@ module PageTabHelper
       questions: '質問',
       pages: 'Docs',
       products: '提出物',
-      submission_answer: '模範解答'
+      submission_answer: '模範解答',
+      coding_tests: 'コーディングテスト'
     }
   end
 
@@ -82,6 +84,11 @@ module PageTabHelper
   def submission_answer_tab(resource)
     tab_name = :submission_answer
     page_tab_member(tab_path(resource, tab_name), tab_name, is_submission_answer_tab: true)
+  end
+
+  def coding_tests_tab(resource)
+    tab_name = :coding_tests
+    page_tab_member(tab_path(resource, tab_name), tab_name)
   end
 
   def comments_tab(resource)
