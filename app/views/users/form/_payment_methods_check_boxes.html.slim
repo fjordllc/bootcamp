@@ -10,7 +10,7 @@
         = f.check_box :invoice_payment, checked: false, class: 'a-toggle-checkbox selectable-invoice-box'
       = f.label :invoice_payment, class: 'a-block-check__label is-ta-left' do
         = User.human_attribute_name :invoice_payment_user
-      = f.hidden_field :role, value: user.role
+      = f.hidden_field :role, value: user.role, class: 'user-role'
 .block-checks.is-1-item
   .block-checks__item
     .a-block-check.is-checkbox

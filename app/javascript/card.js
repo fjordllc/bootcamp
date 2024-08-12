@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '.checked-credit-card-box'
   )
 
+  const userRole = document.querySelector('.user-role')
+
   // Create a Stripe client.
   const stripe = window.Stripe(window.stripePublicKey)
 
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create an instance of the card Element.
   const card = elements.create('card', { style: style, hidePostalCode: true })
 
-  if (checkedCreditCardCheckBox) {
+  if (!userRole || checkedCreditCardCheckBox) {
     card.mount('#card-element')
   }
 
