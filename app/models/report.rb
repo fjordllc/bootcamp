@@ -137,7 +137,7 @@ class Report < ApplicationRecord
 
   def save_with_uniqueness_check
     ActiveRecord::Base.transaction do
-      if new_record? && Report.where(user_id:, reported_on:).exists?
+      if Report.where(user_id:, reported_on:).exists?
         errors.add(:reported_on, 'はすでに存在します')
         raise ActiveRecord::Rollback
       end
