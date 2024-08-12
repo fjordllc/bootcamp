@@ -78,7 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
       '.selectable-credit-card-box'
     )
 
-    if (selectableCreditCardCheckBox?.checked) {
+    const checkedCreditCardCheckBox = document.querySelector(
+      '.checked-credit-card-box'
+    )
+
+    if (selectableCreditCardCheckBox?.checked || checkedCreditCardCheckBox) {
       stripe.createToken(card).then(function (result) {
         if (result.error) {
           // Inform the user if there was an error.
