@@ -44,7 +44,7 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 10, reports(:report32).interval
   end
 
-  test '#reported_on_uniqueness_check' do
+  test '#save_with_uniqueness_check' do
     user = users(:muryou)
     report1 = Report.new
     report1.user = user
