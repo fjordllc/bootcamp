@@ -19,7 +19,7 @@ class Mentor::CodingTestsController < ApplicationController
   def create
     @coding_test = CodingTest.new(coding_test_params)
     if @coding_test.save
-      redirect_to @coding_test, notice: 'コーディング問題を作成しました。'
+      redirect_to @coding_test, notice: 'コーディングテストを作成しました。'
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Mentor::CodingTestsController < ApplicationController
 
   def update
     if @coding_test.update(coding_test_params)
-      redirect_to @coding_test, notice: 'コーディング問題を更新しました。'
+      redirect_to @coding_test, notice: 'コーディングテストを更新しました。'
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class Mentor::CodingTestsController < ApplicationController
 
   def destroy
     @coding_test.destroy!
-    redirect_to mentor_coding_tests_path, notice: 'コーディング問題を削除しました。'
+    redirect_to mentor_coding_tests_path, notice: 'コーディングテストを削除しました。'
   end
 
   private

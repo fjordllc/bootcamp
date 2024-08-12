@@ -1,13 +1,10 @@
 .nested-fields
   .field
-    = f.label :input
+    = f.label :input, class: 'a-form-label'
     br
-    = f.text_area :input,
-      style: 'border:solid 1px black;background:white;margin:12px 0'
+    = f.text_area :input, class: 'a-text-input'
   .field
-    = f.label :output
+    = f.label :output, class: 'a-form-label'
     br
-    = f.text_area :output,
-      style: 'border:solid 1px black;background:white;margin:12px 0'
-  = link_to_remove_association '削除',
-    f, style: 'border:solid 1px black;background:white;padding:3px;margin:6px 0'
+    = f.text_area :output, class: 'a-text-input'
+  = link_to_remove_association '削除', f, class: 'a-button is-md'
