@@ -1,0 +1,64 @@
+= form_with model: movie, local: true, class: 'form', html: { name: 'movie' } do |f|
+  = render 'errors', object: movie
+  .form__items
+    .form-item
+      .row
+        .col-lg-6.col-xs-12
+          .form-item
+            = f.label :practice, class: 'a-form-label'
+            .select-practices
+              = f.select(:practice_ids, practice_options(@categories), { include_hidden: false }, { multiple: true, id: 'js-choices-single-select' })
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :title, class: 'a-form-label'
+          = f.text_field :title, class: 'a-text-input js-warning-form'
+    .form-item
+      .row.js-markdown-parent
+        .col-md-6.col-xs-12
+          = f.label :description, class: 'a-form-label'
+          .form-textarea
+            .form-textarea__body
+              = f.text_area :description, class: 'a-text-input js-warning-form markdown-form__text-area js-markdown',
+              data: { 'preview': '.js-preview', 'input': '.file-input' }
+        .col-md-6.col-xs-12
+          .a-form-label
+            | プレビュー
+          .js-preview.a-long-text.markdown-form__preview
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :movie_data, class: 'a-form-label'
+          .form-item-file-input.js-movie-file-input.a-file-input.is-movie
+            label.js-movie-file-input__preview
+              - if @movie.movie_data.attached?
+                = video_tag url_for(@movie.movie_data.blob), controls: true, width: '717.52', height: '403.59'
+                p 動画を変更
+              - else
+                p 動画を選択
+              = f.file_field :movie_data, class: 'a-text-input', accept: 'video/mp4, video/quicktime', direct_upload: true
+    .form-item
+      .row
+        .col-md-6.col-xs-12
+          = f.label :tag_list, 'タグを入力してください', class: 'a-form-label'
+          = render partial: 'tags_input', locals: { taggable: movie }
+  .form-actions
+    ul.form-actions__items
+      li.form-actions__item.is-main
+        = f.submit 'WIP', class: 'a-button is-lg is-secondary is-block', id: 'js-shortcut-wip'
+      li.form-actions__item.is-main
+        = button_tag(class: 'a-button is-lg is-primary is-block') do
+          - case params[:action]
+          - when 'new', 'create'
+            | 動画を追加
+          - when 'edit', 'update'
+            - if @movie.published_at.blank?
+              | 動画を追加
+            - else
+              | 内容を更新
+      li.form-actions__item.is-sub
+        - case params[:action]
+        - when 'new', 'create'
+          = link_to 'キャンセル', :movies, class: 'a-button is-sm is-text'
+        - when 'edit', 'update'
+          = link_to 'キャンセル', :movies, class: 'a-button is-sm is-text'
