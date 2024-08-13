@@ -100,8 +100,8 @@ regular_event27:
   description: Discord通知確認用イベント(土曜日開催)
   finished: false
   hold_national_holiday: true
-  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
-  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  start_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
   user: komagata
   published_at: "2023-08-01 00:00:00"
 
@@ -110,8 +110,8 @@ regular_event28:
   description: Discord通知確認用イベント(土曜日 + 日曜日開催)
   finished: false
   hold_national_holiday: true
-  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
-  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  start_at: <%= Time.zone.local(2020, 1, 1, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 10, 0, 0) %>
   user: komagata
   published_at: "2023-08-01 00:00:00"
 
@@ -130,7 +130,7 @@ regular_event30:
   description: Discord通知確認用、祝日非開催イベント(金曜日 + 土曜日開催)
   finished: false
   hold_national_holiday: false
-  start_at: <%= Time.zone.local(2020, 1, 1, 21, 0, 0) %>
-  end_at: <%= Time.zone.local(2020, 1, 1, 22, 0, 0) %>
+  start_at: <%= Time.zone.local(2020, 1, 1, 11, 0, 0) %>
+  end_at: <%= Time.zone.local(2020, 1, 1, 12, 0, 0) %>
   user: komagata
   published_at: "2023-08-01 00:00:00"
