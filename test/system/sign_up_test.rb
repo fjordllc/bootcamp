@@ -212,8 +212,10 @@ class SignUpTest < ApplicationSystemTestCase
 
     fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
 
-    click_button '参加する'
-    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    VCR.use_cassette 'sign_up/valid-card', record: :once, match_requests_on: %i[method uri] do
+      click_button '参加する'
+      assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    end
     assert User.find_by(email:).trainee?
   end
 
