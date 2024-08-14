@@ -161,8 +161,8 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).mentor?
   end
 
-  test 'sign up as trainee' do
-    visit '/users/new?role=trainee'
+  test 'sign up as a trainee who pays by invoice' do
+    visit '/users/new?role=trainee_invoice_payment'
 
     email = 'natsumi@example.com'
 
@@ -190,12 +190,105 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
+  test 'sign up as a trainee who pay by credit card' do
+    visit '/users/new?role=trainee_credit_card_payment'
+
+    email = 'natsumi@example.com'
+
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'foo'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト 夏美'
+      fill_in 'user[name_kana]', with: 'テスト ナツミ'
+      fill_in 'user[description]', with: 'テスト夏美です。'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      find('label', text: 'Mac（Intel チップ）').click
+      check 'Rubyの経験あり', allow_label_click: true
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
+    end
+
+    fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
+
+    click_button '参加する'
+    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert User.find_by(email:).trainee?
+  end
+
+  test 'sign up as a trainee who select invoice to pay' do
+    visit '/users/new?role=trainee_select_a_payment_method'
+
+    email = 'natsumi@example.com'
+
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'foo'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト 夏美'
+      fill_in 'user[name_kana]', with: 'テスト ナツミ'
+      fill_in 'user[description]', with: 'テスト夏美です。'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      find('label', text: 'Mac（Intel チップ）').click
+      check 'Rubyの経験あり', allow_label_click: true
+      find('label', text: '請求書払い').click
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-choices-single-select-item-choice-2').click
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
+    end
+
+    click_button '参加する'
+    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert User.find_by(email:).trainee?
+  end
+
+  test 'sign up as a trainee who select credit card to pay' do
+    visit '/users/new?role=trainee_select_a_payment_method'
+
+    email = 'natsumi@example.com'
+
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'foo'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト 夏美'
+      fill_in 'user[name_kana]', with: 'テスト ナツミ'
+      fill_in 'user[description]', with: 'テスト夏美です。'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '学生', from: 'user[job]'
+      find('label', text: 'Mac（Intel チップ）').click
+      check 'Rubyの経験あり', allow_label_click: true
+      find('label', text: 'クレジットカード払い').click
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-choices-single-select-item-choice-2').click
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
+    end
+
+    fill_stripe_element('4242 4242 4242 4242', '12 / 50', '111')
+
+    click_button '参加する'
+    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert User.find_by(email:).trainee?
+  end
+
   test 'form item about job seek is only displayed to students' do
     visit '/users/new'
     assert has_field? 'user[job_seeker]', visible: :all
     visit '/users/new?role=adviser'
     assert has_no_field? 'user[job_seeker]', visible: :all
-    visit '/users/new?role=trainee'
+    visit '/users/new?role=trainee_invoice_payment'
+    assert has_no_field? 'user[job_seeker]', visible: :all
+    visit '/users/new?role=trainee_credit_card_payment'
+    assert has_no_field? 'user[job_seeker]', visible: :all
+    visit '/users/new?role=trainee_select_a_payment_method'
     assert has_no_field? 'user[job_seeker]', visible: :all
   end
 
@@ -246,9 +339,10 @@ class SignUpTest < ApplicationSystemTestCase
     assert_equal User.find_by(email:).company_id, companies(:company2).id
   end
 
-  test 'sign up as trainee with course_id' do
-    course = courses(:course2)
-    visit "/users/new?role=trainee&course_id=#{course.id}"
+  test 'sign up as a trainee with company_id and course_id' do
+    course = courses(:course1)
+    company = companies(:company4)
+    visit "/users/new?company_id=#{company.id}&role=trainee_invoice_payment&course_id=#{course.id}"
 
     email = 'fuyuko@example.com'
 
@@ -263,16 +357,13 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
       check 'Rubyの経験あり', allow_label_click: true
-      first('.choices__inner').click
-      find('.choices__list--dropdown').click
-      find('.choices__list').click
-      find('#choices--js-choices-single-select-item-choice-2').click
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
 
     click_button '参加する'
     assert_equal User.find_by(email:).course_id, course.id
+    assert_equal User.find_by(email:).company_id, company.id
   end
 
   test 'sign up with empty description ' do
