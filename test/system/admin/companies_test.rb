@@ -89,4 +89,22 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     visit_with_auth company_path(companies(:company1)), 'mentormentaro'
     assert_no_text '管理者向け企業メモ'
   end
+
+  test 'adviser edits own company and cannot edit others' do
+    visit_with_auth '/current_user/edit', 'advijirou'
+    find('.choices__inner').click
+    find('div.choices__item[data-value="636488896"]').click
+    click_button '更新する'
+    find('.user-profile__company-logo').click
+    find('a.card-main-actions__action', text: '管理者として編集').click
+    within 'form[name=company]' do
+      fill_in 'company[description]', with: '更新しました。'
+    end
+    click_button '更新する'
+    assert_text '更新しました。'
+
+    find('a.a-button.is-md.is-secondary.is-block.is-back').click
+    find('a.companies-item__name-link[href="/companies/998823850"]').click
+    assert_no_text '管理者として編集'
+  end
 end
