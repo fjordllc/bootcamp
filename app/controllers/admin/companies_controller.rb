@@ -2,6 +2,8 @@
 
 class Admin::CompaniesController < AdminController
   before_action :set_company, only: %i[edit update]
+  skip_before_action :require_admin_login, only: %i[edit update]
+  before_action :require_admin_or_adviser_login, only: %i[edit update]
 
   def index; end
 
@@ -54,5 +56,10 @@ class Admin::CompaniesController < AdminController
       :blog_url,
       :memo
     )
+  end
+  def require_admin_or_adviser_login
+    return if admin_login? || (adviser_login? && current_user.company == @company)
+
+    redirect_to root_path, alert: 'アクセス権限がありません'
   end
 end
