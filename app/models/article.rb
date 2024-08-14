@@ -41,14 +41,6 @@ class Article < ApplicationRecord
     with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).where(wip: false)
   }
 
-  scope :with_attachments_and_user_ordered_by_created_at, lambda {
-    with_attachments_and_user.order(created_at: :desc)
-  }
-
-  scope :with_attachments_and_user_ordered_by_published_at, lambda { |number|
-    with_attachments_and_user.order(published_at: :desc).limit(number)
-  }
-
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
     if thumbnail.attached?
       thumbnail.variant(resize_to_fill: thumbnail_size).processed.url
