@@ -39,7 +39,7 @@
               .form-item-block__title
                 | 支払い方法
             .form-item-block__item
-              = render 'users/form/payment_methods_check_boxes', f:,user:
+              = render 'users/form/payment_methods_check_boxes', f:, user:
       - if user.role == 'trainee_credit_card_payment'
         #card
           = render 'users/form/card'
