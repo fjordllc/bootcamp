@@ -262,7 +262,7 @@ class User < ApplicationRecord
     rails
     javascript
     react
-    other_languages
+    languages_other_than_ruby_and_javascript
   ]
 
   scope :in_school, -> { where(graduated_on: nil) }
