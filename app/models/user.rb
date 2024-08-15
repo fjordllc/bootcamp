@@ -186,7 +186,9 @@ class User < ApplicationRecord
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
   validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
-  validates :invoice_payment, inclusion: { in: [true], message: 'か「クレジットカード払い」のいずれかを選択してください。' }, if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
+  validates :invoice_payment, inclusion: { in: [true],
+                                           message: 'か「クレジットカード払い」のいずれかを選択してください。' },
+                              if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
 
   validates :feed_url,
             format: {
