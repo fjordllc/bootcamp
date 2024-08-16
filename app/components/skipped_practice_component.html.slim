@@ -8,11 +8,7 @@
           .skip-practices__category-name
             | #{category.name}
           .skip-practices__count
-            - if category.practices.size.zero?
-              | (0)
-            - else
-              | (#{skipped_practices_in_category.size}/#{category.practices.size})
-            // ↑チェックしたプラクティスの数を表示
+            | #{skipped_practices_count(category)}
         .skip-practices__end
           .skip-practices__category-angle-icon
             i.fa-regular.fa-angle-down
