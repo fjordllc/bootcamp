@@ -107,4 +107,13 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     find('a.companies-item__name-link[href="/companies/998823850"]').click
     assert_no_text '管理者として編集'
   end
+
+  test 'no edit for mentor' do
+    visit_with_auth '/current_user/edit', 'mentormentaro'
+    find('.choices__inner').click
+    find('div.choices__item[data-value="636488896"]').click
+    click_button '更新する'
+    find('.user-profile__company-logo').click
+    assert_no_text '管理者として編集'
+  end
 end
