@@ -13,9 +13,8 @@ class SkippedPracticeComponentTest < ViewComponent::TestCase
     render_inline(@component)
   end
 
-  # user categories に所属するプラクティスが重複がなくなっていること
-  def test_user_categories
-    assert_selector 'label', text: '複数カテゴリに所属するプラクティス1', count: 1
-    assert_selector 'label', text: '複数カテゴリに所属するプラクティス2', count: 1
+  def test_skipped_practices_count
+    assert_text('学習の準備(0)')
+    assert_text('UNIX(1/9)')
   end
 end
