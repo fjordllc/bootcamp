@@ -13,8 +13,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       description: 'test',
       course: courses(:course1),
       job: 'office_worker',
-      os: 'mac',
-      experience: 'inexperienced'
+      os: 'mac'
     )
     visit_with_auth '/current_user/bookmarks', user_without_bookmark.login_name
     assert_text 'ブックマークはまだありません。'
@@ -65,8 +64,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       description: 'test',
       course: courses(:course1),
       job: 'office_worker',
-      os: 'mac',
-      experience: 'inexperienced'
+      os: 'mac'
     )
     user_with_one_bookmark.bookmarks.create!(bookmarkable_id: reports(:report1).id, bookmarkable_type: 'Report')
     visit_with_auth '/current_user/bookmarks', user_with_one_bookmark.login_name
@@ -90,8 +88,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       description: 'test',
       course: courses(:course1),
       job: 'office_worker',
-      os: 'mac',
-      experience: 'inexperienced'
+      os: 'mac'
     )
     (1..20).each do |n|
       user_with_some_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
@@ -113,8 +110,7 @@ class CurrentUser::BookmarksTest < ApplicationSystemTestCase
       description: 'test',
       course: courses(:course1),
       job: 'office_worker',
-      os: 'mac',
-      experience: 'inexperienced'
+      os: 'mac'
     )
     (1..21).each do |n|
       user_with_many_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
