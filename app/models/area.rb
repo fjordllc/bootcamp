@@ -62,6 +62,19 @@ class Area
       end
     end
 
+    def sorted_users_group_by_areas
+      users_group_by_areas = User.with_attached_avatar.all.group_by do |user|
+        users_group_by_area(user)
+      end
+
+      sorted_users_group_by_areas =
+        users_group_by_areas.map do |area, users|
+          { users: users.sort_by(&:created_at).reverse, area: } unless area.nil?
+        end.compact
+
+      sorted_users_group_by_areas.sort_by { |hash| -hash[:users].size }
+    end
+
     private
 
     def country_subdivision_pairs
@@ -96,6 +109,17 @@ class Area
         end
       end
       result
+    end
+
+    def users_group_by_area(user)
+      if user.country_code == 'JP'
+        subdivision = ISO3166::Country['JP'].subdivisions[user.subdivision_code]
+        # subdivision&.name
+        subdivision.translations['ja']
+      else
+        country = ISO3166::Country[user.country_code]
+        country ? country.translations['ja'] : nil
+      end
     end
   end
 end

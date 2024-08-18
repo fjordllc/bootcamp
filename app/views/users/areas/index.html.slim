@@ -19,3 +19,34 @@ main.page-main
         h1.page-main-header__title 都道府県別
   hr.a-border
   = react_component('Users/FilterByArea', numberOfUsersByRegion: @number_of_users_by_region)
+
+  .page-body
+    .container.is-lg
+      .page-body__columns.is-reverse
+        .page-body__column.is-sub.is-sm
+          - @number_of_users_by_region.each do |region, _|
+            nav.page-nav.a-card
+              header.page-nav__header
+                h2.page-nav__title
+                  span.page-nav__title-inner = region
+              hr.a-border-tint
+                ul.page-nav__items
+                  - @number_of_users_by_region[region].each do |area, number_of_users|
+                    li.page-nav__item
+                      a.page-nav__item-link.a-text-link href="#dummy-link"
+                        | #{area}（#{number_of_users}）
+        .page-body__column.is-main
+          - if @users_group_by_areas.any?
+            - @users_group_by_areas.each do |users_group_by_area|
+              section.a-card
+                .user-group
+                  header.user-group__header
+                    h2.user-group__title = users_group_by_area[:area]
+                  .a-user-icons
+                    .a-user-icons__items
+                      - users_group_by_area[:users].each do |user|
+                        a.a-user-icons__item-link href=user.url
+                          span.a-user-role class="is-#{user.primary_role}"
+                            img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
+          - else
+            .empty-message 都道府県別ユーザー一覧はありません
