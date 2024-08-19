@@ -764,10 +764,6 @@ class User < ApplicationRecord
     course.practices.order('courses_categories.position', 'categories_practices.position')
   end
 
-  def category_ids
-    course.categories.pluck(:id)
-  end
-
   def categories_with_uniq_practices
     user_categories = course.categories
     display_practice_ids = []
