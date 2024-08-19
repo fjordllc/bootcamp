@@ -46,12 +46,8 @@ class ReportTest < ActiveSupport::TestCase
 
   test '#save_with_uniqueness_check' do
     report1 = reports(:report1)
-    report1.save_with_uniqueness_check
-
     report2 = report1.dup
-    report2.title = 'test2'
     report2.save_with_uniqueness_check
-
     assert_includes report2.errors.full_messages, '学習日はすでに存在します'
   end
 end
