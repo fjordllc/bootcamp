@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
+  attr_accessor :start_on, :end_on
+
   DAYS_OF_THE_WEEK_COUNT = 7
 
   FREQUENCY_LIST = [
@@ -117,8 +119,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     event = dup
 
     event.assign_attributes(
-      start_at: parse_event_time(event_date, event.start_at),
-      end_at: parse_event_time(event_date, event.end_at)
+      start_on: parse_event_time(event_date, event.start_at),
+      end_on: parse_event_time(event_date, event.end_at)
     )
 
     event
