@@ -117,8 +117,8 @@ class RegularEventTest < ActiveSupport::TestCase
       regular_event = regular_events(:regular_event33)
       event_date = Date.new(2024, 8, 7)
       format_regular_event = regular_event.format_event_date(event_date)
-      assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), format_regular_event.start_at
-      assert_equal DateTime.new(2024, 8, 7, 22, 0, 0, '+09:00'), format_regular_event.end_at
+      assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), format_regular_event.start_on
+      assert_equal DateTime.new(2024, 8, 7, 22, 0, 0, '+09:00'), format_regular_event.end_on
     end
   end
 
