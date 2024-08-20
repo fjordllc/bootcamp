@@ -16,4 +16,15 @@ class Question::NotLoggedInTest < ApplicationSystemTestCase
     visit question_path(question)
     assert_selector 'title', text: 'Q&A: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイト... | FBC', visible: false
   end
+
+  test 'titles in og:title, og:description, twitter:description tags is not truncated' do
+    question = questions(:question16)
+    visit question_path(question)
+    assert_selector "meta[property='og:title'][content='Q&A: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問']",
+                    visible: false
+    assert_selector "meta[property='og:description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問」のページです。']",
+                    visible: false
+    assert_selector "meta[name='twitter:description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問」のページです。']",
+                    visible: false
+  end
 end
