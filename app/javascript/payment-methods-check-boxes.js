@@ -23,25 +23,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkBoxes = [selectableInvoiceCheckBox, selectableCreditCardCheckBox]
   if (checkBoxes.includes(null)) return
 
-  const cardForm = document.getElementById('card')
+  const creditCardForm = document.getElementById('card')
   checkBoxes.forEach((checkBox) => {
     checkBox.addEventListener('click', (event) => {
       if (
         event.currentTarget === selectableCreditCardCheckBox &&
         event.currentTarget.checked
       ) {
-        cardForm.classList.remove('hidden')
+        creditCardForm.classList.remove('hidden')
         selectableInvoiceCheckBox.checked = false
       } else if (
         event.currentTarget === selectableCreditCardCheckBox &&
         !event.currentTarget.checked
       ) {
-        cardForm.classList.add('hidden')
+        creditCardForm.classList.add('hidden')
       } else if (
         event.currentTarget === selectableInvoiceCheckBox &&
         event.currentTarget.checked
       ) {
-        cardForm.classList.add('hidden')
+        creditCardForm.classList.add('hidden')
         selectableCreditCardCheckBox.checked = false
       }
     })
