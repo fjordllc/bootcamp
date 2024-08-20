@@ -39,6 +39,16 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_selector 'title', text: 'Q&A: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイト... | FBC', visible: false
   end
 
+  test 'titles in og:title, og:description, twitter:description tags is not truncated' do
+    question = questions(:question16)
+    visit_with_auth question_path(question), 'kimura'
+    meta_title = '長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイトルの質問'
+    meta_description = "kimura (キムラ タダシ)さんが投稿した、プラクティス「OS X Mountain Lionをクリーンインストールする」に関する質問「#{meta_title}」のページです。"
+    assert_selector "meta[property='og:title'][content='Q&A: #{meta_title}']", visible: false
+    assert_selector "meta[property='og:description'][content='#{meta_description}']", visible: false
+    assert_selector "meta[name='twitter:description'][content='#{meta_description}']", visible: false
+  end
+
   test 'create a question' do
     visit_with_auth new_question_path, 'kimura'
     within 'form[name=question]' do
