@@ -394,9 +394,7 @@ ja:
     campaign: お試し延長
   invitation_role:
     adviser: アドバイザー
-    trainee(invoice_payment): 研修生(請求書払い)
-    trainee(credit_card_payment): 研修生(クレジットカード払い)
-    trainee(select_a_payment_method): 研修生(支払い方法を選択)
+    trainee: 研修生(%{payment_method})
     mentor: メンター
   watch:
     all: すべて
