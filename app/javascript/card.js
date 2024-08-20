@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitButton = document.getElementById('user_submit')
 
   // Handle real-time validation errors from the card Element.
-  card.addEventListener('change', function (event) {
+  card.addEventListener('change', (event) => {
     const displayError = document.getElementById('card-errors')
     submitButton.disabled = false
     if (event.error) {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle form submission.
   const form = document.getElementById('payment-form')
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', (event) => {
     event.preventDefault()
 
     const selectableCreditCardCheckBox = document.querySelector(
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       checkedCreditCardCheckBox ||
       !userRole
     ) {
-      stripe.createToken(card).then(function (result) {
+      stripe.createToken(card).then((result) => {
         if (result.error) {
           // Inform the user if there was an error.
           const errorElement = document.getElementById('card-errors')
