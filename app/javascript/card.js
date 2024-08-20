@@ -49,14 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     card.mount('#card-element')
   }
 
-  if (selectableCreditCardCheckBox) {
-    selectableCreditCardCheckBox.addEventListener('change', (event) => {
-      if (event.currentTarget.checked) {
-        // Add an instance of the card Element into the `card-element` <div>.
-        card.mount('#card-element')
-      }
-    })
-  }
+  selectableCreditCardCheckBox?.addEventListener('change', (event) => {
+    if (event.currentTarget.checked) {
+      // Add an instance of the card Element into the `card-element` <div>.
+      card.mount('#card-element')
+    }
+  })
 
   const submitButton = document.getElementById('user_submit')
 
