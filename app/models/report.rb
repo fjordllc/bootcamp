@@ -141,7 +141,9 @@ class Report < ApplicationRecord
         errors.add(:reported_on, 'はすでに存在します')
         raise ActiveRecord::Rollback
       end
-      save!
+      raise ActiveRecord::Rollback unless save
+
+      true
     end
   end
 end
