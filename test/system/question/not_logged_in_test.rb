@@ -10,4 +10,10 @@ class Question::NotLoggedInTest < ApplicationSystemTestCase
     assert_text 'このページの閲覧にはフィヨルドブートキャンプの入会が必要です'
     assert_selector "meta[name='description'][content='オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「#{question.title}」のページです。']", visible: false
   end
+
+  test 'title of the title tag is truncated' do
+    question = questions(:question16)
+    visit question_path(question)
+    assert_selector 'title', text: 'Q&A: 長いタイトルの質問長いタイトルの質問長いタイトルの質問長いタイト... | FBC', visible: false
+  end
 end
