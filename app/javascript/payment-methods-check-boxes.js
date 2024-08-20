@@ -21,9 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '.selectable-credit-card-box'
   )
   const checkBoxes = [selectableInvoiceCheckBox, selectableCreditCardCheckBox]
-  if (checkBoxes.includes(null)) {
-    return
-  }
+  if (checkBoxes.includes(null)) return
+
   const cardForm = document.getElementById('card')
   checkBoxes.forEach((checkBox) => {
     checkBox.addEventListener('click', (event) => {
