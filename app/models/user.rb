@@ -29,9 +29,9 @@ class User < ApplicationRecord
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
-    [I18n.t('invitation_role.trainee(invoice_payment)'), :trainee_invoice_payment],
-    [I18n.t('invitation_role.trainee(credit_card_payment)'), :trainee_credit_card_payment],
-    [I18n.t('invitation_role.trainee(select_a_payment_method)'), :trainee_select_a_payment_method],
+    [I18n.t('invitation_role.trainee', payment_method: '請求書払い'), :trainee_invoice_payment],
+    [I18n.t('invitation_role.trainee', payment_method: 'クレジットカード払い'), :trainee_credit_card_payment],
+    [I18n.t('invitation_role.trainee', payment_method: '支払い方法を選択'), :trainee_select_a_payment_method],
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
