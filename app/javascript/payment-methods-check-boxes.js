@@ -1,12 +1,8 @@
 function keepCheckBoxChecked(checkBoxes) {
   checkBoxes.forEach((checkBox) => {
-    if (checkBox) {
-      checkBox.addEventListener('click', () => {
-        if (!checkBox.checked) {
-          checkBox.checked = true
-        }
-      })
-    }
+    checkBox?.addEventListener('click', () => {
+      if (!checkBox.checked) checkBox.checked = true
+    })
   })
 }
 
