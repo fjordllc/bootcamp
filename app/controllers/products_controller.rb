@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
     @practice = find_practice
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
+    @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
     respond_to do |format|
       format.html
       format.md
