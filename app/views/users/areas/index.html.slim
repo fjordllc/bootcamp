@@ -48,5 +48,6 @@ main.page-main
                         a.a-user-icons__item-link href=user.url
                           span.a-user-role class="is-#{user.primary_role}"
                             img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
+            = paginate @users_group_by_areas
           - else
             .empty-message 都道府県別ユーザー一覧はありません
