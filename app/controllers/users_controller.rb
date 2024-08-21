@@ -68,8 +68,7 @@ class UsersController < ApplicationController
     @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
-    @user.payment_method_of_trainee = params[:user][:payment_method_of_trainee]
-    @user.credit_card_payment = params[:credit_card_payment] == '1'
+    @user.credit_card_payment = params[:credit_card_payment]
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!
