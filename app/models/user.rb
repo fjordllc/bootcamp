@@ -5,7 +5,7 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
-  attr_accessor :payment_method_of_trainee, :credit_card_payment, :role
+  attr_accessor :credit_card_payment, :role
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
