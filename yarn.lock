@@ -8961,10 +8961,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
 
-textarea-markdown@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.5.1.tgz#90530d6292ba17972538ba20139006fbd0ac76fa"
-  integrity sha512-WAwxa1n7CG0ySfGSVll/G0cIFKP47fqwr64PiDiHhlXTrknOEyTnz+OKR3OWvEi9125SC+QbuZiJ20nE22F7vw==
+textarea-markdown@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/textarea-markdown/-/textarea-markdown-1.6.0.tgz#1689a8beaf17b0b11a440dfbebd4649ba3158018"
+  integrity sha512-cF4Xh54cu30fb+8a/SaN+r2ol0N8O9m5TKkxiGf7Cvv87FT4WfcQLWGanuwhKCdrZFjf7Vgv5X3XwpefVl8/gw==
   dependencies:
     file-type "^16.5.4"
     filesize "^10.0.5"
