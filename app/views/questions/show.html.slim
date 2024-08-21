@@ -29,8 +29,9 @@ hr.a-border
       .question.page-content
         = render 'question_header', question: @question
         = render 'question_body', question: @question
-      div(data-vue="QuestionAnswers" data-vue-current-user-id:number="#{current_user.id}" data-vue-question-id="#{@question.id}")
-
+      - if @question.ai_answer
+        = render 'ai_answer', question: @question
+      = render 'new_answer', question: @question, user: current_user
     nav.a-side-nav
       .a-side-nav__inner
         header.a-side-nav__header
