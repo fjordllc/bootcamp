@@ -206,6 +206,10 @@ class SignUpTest < ApplicationSystemTestCase
       select '学生', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
       check 'Rubyの経験あり', allow_label_click: true
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('#choices--js-choices-single-select-item-choice-2').click
       find('label', text: 'アンチハラスメントポリシーに同意').click
       find('label', text: '利用規約に同意').click
     end
