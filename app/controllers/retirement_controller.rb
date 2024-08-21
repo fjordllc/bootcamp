@@ -14,15 +14,12 @@ class RetirementController < ApplicationController
       user = current_user
       current_user.delete_and_assign_new_organizer
       Newspaper.publish(:retirement_create, { user: })
-      begin
-        UserMailer.retire(user).deliver_now
-      rescue Postmark::InactiveRecipientError => e
-        logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
-      end
 
-      destroy_subscription
-      notify_to_admins
-      notify_to_mentors
+      destroy_subscription(user)
+      destroy_card(user)
+      notify_to_user(user)
+      notify_to_admins(user)
+      notify_to_mentors(user)
       logout
       redirect_to retirement_url
     else
@@ -37,19 +34,29 @@ class RetirementController < ApplicationController
     params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
   end
 
-  def destroy_subscription
-    Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
+  def destroy_subscription(user)
+    Subscription.new.destroy(user.subscription_id) if user.subscription_id?
   end
 
-  def notify_to_admins
+  def destroy_card(user)
+    Card.destroy_all(user.customer_id) if user.customer_id?
+  end
+
+  def notify_to_user(user)
+    UserMailer.retire(user).deliver_now
+  rescue Postmark::InactiveRecipientError => e
+    logger.warn "[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：#{e.message}"
+  end
+
+  def notify_to_admins(user)
     User.admins.each do |admin_user|
-      ActivityDelivery.with(sender: current_user, receiver: admin_user).notify(:retired)
+      ActivityDelivery.with(sender: user, receiver: admin_user).notify(:retired)
     end
   end
 
-  def notify_to_mentors
+  def notify_to_mentors(user)
     User.mentor.each do |mentor_user|
-      ActivityDelivery.with(sender: current_user, receiver: mentor_user).notify(:retired)
+      ActivityDelivery.with(sender: user, receiver: mentor_user).notify(:retired)
     end
   end
 end

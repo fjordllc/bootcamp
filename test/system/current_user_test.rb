@@ -249,4 +249,21 @@ class CurrentUserTest < ApplicationSystemTestCase
 
     assert_match users(:komagata).reload.subscription_id, 'sub_987654321'
   end
+
+  test 'change experiences' do
+    kensyu = users(:kensyu)
+
+    visit_with_auth "/users/#{kensyu.id}", 'komagata'
+    assert_text 'Rubyの経験あり'
+
+    visit_with_auth '/current_user/edit', 'kensyu'
+    uncheck 'Rubyの経験あり', allow_label_click: true
+    check 'JavaScriptの経験あり', allow_label_click: true
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
+
+    visit_with_auth "/users/#{kensyu.id}", 'komagata'
+    assert_no_text 'Rubyの経験あり'
+    assert_text 'JavaScriptの経験あり'
+  end
 end

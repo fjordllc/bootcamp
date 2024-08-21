@@ -67,6 +67,29 @@ class RegularEventsTest < ApplicationSystemTestCase
     assert_text regular_event.description
   end
 
+  test 'show regular event as WIP' do
+    visit_with_auth new_regular_event_path, 'komagata'
+    within 'form[name=regular_event]' do
+      fill_in 'regular_event[title]', with: 'WIPの定期イベント表示確認用'
+      first('.choices__inner').click
+      find('#choices--js-choices-multiple-select-item-choice-1').click
+      find('label', text: '主催者').click
+      find('label', text: '質問').click
+      fill_in 'regular_event[start_at]', with: Time.zone.parse('21:00')
+      fill_in 'regular_event[end_at]', with: Time.zone.parse('22:00')
+      fill_in 'regular_event[description]', with: '定期イベントがWIPのときの次回開催日時の表示確認を行うための定期イベント'
+      assert_difference 'RegularEvent.count', 1 do
+        click_button 'WIP'
+      end
+    end
+
+    visit_with_auth regular_event_path(RegularEvent.last), 'komagata'
+    assert_equal 'WIPの定期イベント表示確認用 | FBC', title
+    assert_text '毎週日曜日21:00 〜 22:00（祝日は休み）'
+    assert_text 'イベント編集中のため次回開催日は未定です'
+    assert_text '定期イベントがWIPのときの次回開催日時の表示確認を行うための定期イベント'
+  end
+
   test 'update regular event' do
     visit_with_auth edit_regular_event_path(regular_events(:regular_event1)), 'komagata'
     assert_no_selector 'label', text: '定期イベント公開のお知らせを書く'

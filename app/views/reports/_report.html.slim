@@ -1,7 +1,8 @@
 .card-list-item(class="#{report.wip? ? 'is-wip' : ''}")
   .card-list-item__inner
-    .card-list-item__user
-      = render 'users/icon', user: report.user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'
+    - if user_icon_display
+      .card-list-item__user
+        = render 'users/icon', user: report.user, link_class: 'card-list-item__user-link', image_class: 'card-list-item__user-icon'
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -14,7 +15,7 @@
               = link_to report, itemprop: 'url', class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
                 = image_tag("emotion/#{report.emotion}.svg", alt: report.emotion, class: 'card-list-item-title__emotion-image')
                 = report.title
-          - if current_user == report.user
+          - if current_user == report.user && actions_display
             .card-list-item-title__end
               label.card-list-item-actions__trigger(for="#{report.id}")
                 i.fa-solid.fa-ellipsis-h

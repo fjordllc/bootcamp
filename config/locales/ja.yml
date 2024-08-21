@@ -72,6 +72,7 @@ ja:
         os: 利用OS
         study_place: 主な学習場所
         experience: プログラミング経験
+        experiences: プログラミング経験
         editor: 使用しているエディタ
         organization: 現在の所属組織
         company: 企業
@@ -93,7 +94,7 @@ ja:
         satisfaction: 満足度
         opinion: ご意見
         mail_notification: メール通知
-        job_seeker: 就職を希望する
+        job_seeker: 就職サポート
         github_collaborator: GitHubチーム
         tag_list: タグ
         training_ends_on: 研修終了日
@@ -422,6 +423,14 @@ ja:
         cost: 受講料が高いから
         job_change: 転職や引っ越しなど環境の変化によって学びが継続できなくなったから
         training_end: 企業研修で利用をしていて研修期間が終了したため
+      experiences:
+        inexperienced: 未経験
+        html_css: HTML/CSSの経験あり
+        ruby: Rubyの経験あり
+        rails: Railsの経験あり
+        javascript: JavaScriptの経験あり
+        react: Reactの経験あり
+        languages_other_than_ruby_and_javascript: Ruby、JS以外の言語経験あり
   notification:
     announcement: お知らせ
     mention: メンション

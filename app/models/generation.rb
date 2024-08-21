@@ -46,8 +46,6 @@ class Generation
   end
 
   def count_classmates_by_target(target)
-    return classmates.students.count - classmates.hibernated.count if target == :students
-
     classmates.send(target).count
   end
 end

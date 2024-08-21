@@ -1,7 +1,13 @@
 .form-item
   = f.label :editor, class: 'a-form-label'
-    = t('activerecord.attributes.user.editor')
-  ul.block-checks.is-2-items
+    | #{t('activerecord.attributes.user.editor')}（任意）
+
+  .a-form-help
+    p
+      | もしプログラミング経験がある場合、その際に使用しているエディターをお知らせください。
+      | この情報はサポートを提供する際の参考にさせていただきます。
+
+  ul.block-checks.is-2-items.mt-4
     - editors = User.editors.keys
     - editors.each do |editor|
       li.block-checks__item
