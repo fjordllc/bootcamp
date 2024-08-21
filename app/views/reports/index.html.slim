@@ -37,5 +37,5 @@ header.page-header
           = paginate @reports
           .card-list.a-card
             .card-list__items
-              = render partial: 'reports/report', collection: @reports, as: :report
+              = render partial: 'reports/report', collection: @reports, as: :report, locals: { user_icon_display: true, actions_display: true }
           = paginate @reports
