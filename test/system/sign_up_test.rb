@@ -433,4 +433,9 @@ class SignUpTest < ApplicationSystemTestCase
       assert_text 'タグ夫'
     end
   end
+
+  test 'hidden input learning time framestable' do
+    visit '/users/new'
+    assert_no_selector ".form-item.a-form-label[for='user_learning_time_frames']", text: '活動時間'
+  end
 end

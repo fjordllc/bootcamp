@@ -437,6 +437,22 @@ ActiveRecord::Schema.define(version: 2025_01_29_033027) do
     t.index ["practice_id"], name: "index_learning_minute_statistics_on_practice_id"
   end
 
+  create_table "learning_time_frames", force: :cascade do |t|
+    t.string "week_day"
+    t.integer "activity_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "learning_time_frames_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "learning_time_frame_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_time_frame_id"], name: "index_learning_time_frames_users_on_learning_time_frame_id"
+    t.index ["user_id"], name: "index_learning_time_frames_users_on_user_id"
+  end
+
   create_table "learning_times", force: :cascade do |t|
     t.bigint "report_id"
     t.datetime "started_at", null: false
@@ -889,6 +905,8 @@ ActiveRecord::Schema.define(version: 2025_01_29_033027) do
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
+  add_foreign_key "learning_time_frames_users", "learning_time_frames"
+  add_foreign_key "learning_time_frames_users", "users"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
   add_foreign_key "micro_reports", "users"

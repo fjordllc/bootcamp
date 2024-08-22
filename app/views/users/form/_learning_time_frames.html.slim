@@ -1,0 +1,16 @@
+.form-item
+  = f.label :learning_time_frames, '活動時間', class: 'a-form-label'
+  table
+    thead
+      tr
+        th
+        - %w[日 月 火 水 木 金 土].each do |day|
+          th = day
+    tbody
+      - 24.times do |hour|
+        tr
+          td = hour.to_s
+          - 7.times do |day_index|
+            - value = day_index * 24 + hour + 1
+            td
+              = f.check_box :learning_time_frame_ids, { multiple: true, checked: user.learning_time_frame_ids.include?(value) }, value, false

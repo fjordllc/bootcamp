@@ -78,6 +78,8 @@
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
                 = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
+            - if !@user.graduated? && @user.learning_time_frames.present?
+              = render 'users/learning_time_frames', user: @user
             - if admin_login?
               .a-card.is-only-mentor
                 .card-header.is-sm

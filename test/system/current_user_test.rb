@@ -247,4 +247,52 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_no_text 'Rubyの経験あり'
     assert_text 'JavaScriptの経験あり'
   end
+
+  test 'visible learning time framestable for non advisors and grad users' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_selector 'label.a-form-label', text: '活動時間'
+
+    visit_with_auth '/current_user/edit', 'mentormentaro'
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_selector 'label.a-form-label', text: '活動時間'
+
+    visit_with_auth '/current_user/edit', 'kensyu'
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_selector 'label.a-form-label', text: '活動時間'
+
+    visit_with_auth '/current_user/edit', 'advijirou'
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_no_selector 'label.a-form-label', text: '活動時間'
+
+    visit_with_auth '/current_user/edit', 'sotugyou'
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_no_selector 'label.a-form-label', text: '活動時間'
+  end
+
+  test 'profile updates after setting activity time' do
+    visit_with_auth '/current_user/edit', 'kimura'
+    assert_selector 'h1.auth-form__title', text: '登録情報変更'
+    assert_selector 'label.a-form-label', text: '活動時間'
+
+    check 'user_learning_time_frame_ids_1'
+    check 'user_learning_time_frame_ids_25'
+    check 'user_learning_time_frame_ids_49'
+
+    assert page.has_checked_field?('user_learning_time_frame_ids_1')
+    assert page.has_checked_field?('user_learning_time_frame_ids_25')
+    assert page.has_checked_field?('user_learning_time_frame_ids_49')
+
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました。'
+
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '活動時間'
+
+    within all('tbody').last do
+      assert_selector 'tr:nth-child(1) td:nth-child(2)', text: '⭕️'
+      assert_selector 'tr:nth-child(1) td:nth-child(3)', text: '⭕️'
+      assert_selector 'tr:nth-child(1) td:nth-child(4)', text: '⭕️'
+    end
+  end
 end

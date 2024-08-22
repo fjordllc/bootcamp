@@ -10,6 +10,7 @@ class CurrentUserController < ApplicationController
   def update
     @user.uploaded_avatar = user_params[:avatar]
     if @user.update(user_params)
+      update_learning_time_frames
       redirect_to @user, notice: 'ユーザー情報を更新しました。'
     else
       render 'edit'
@@ -47,5 +48,17 @@ class CurrentUserController < ApplicationController
       retired_on graduated_on github_collaborator
       auto_retire invoice_payment mentor subscription_id
     ]
+  end
+
+  def update_learning_time_frames
+    learning_time_frame_ids = params[:user][:learning_time_frame_ids]
+    learning_time_frames_users = @user.learning_time_frames_users
+    learning_time_frames_users.delete_all
+
+    return if learning_time_frame_ids.blank?
+
+    learning_time_frame_ids.each do |learning_time_frame_id|
+      learning_time_frames_users.create!(user_id: @user.id, learning_time_frame_id:)
+    end
   end
 end
