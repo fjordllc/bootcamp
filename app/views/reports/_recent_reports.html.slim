@@ -1,0 +1,18 @@
+.page-content.reports
+  .card-list.a-card
+    - if header_display
+      .card-header.is-sm
+        h2.card-header__title
+          | 直近の日報
+      hr.a-border
+    - if @recent_reports.any?
+      .card-list__items
+        = render partial: 'reports/report', collection: @recent_reports, locals: { user_icon_display: false, actions_display: false }
+    - else
+      .card-body
+        .card__description
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            .o-empty-message__text
+              | 日報はまだありません。
