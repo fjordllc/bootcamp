@@ -1,0 +1,20 @@
+.a-card
+  .card-header.is-sm
+    h2.card-header__title 活動時間
+  hr.a-border-tint
+    table
+      thead
+        tr
+          th
+          - %w[日 月 火 水 木 金 土].each do |day|
+            th = day
+      tbody
+        - 24.times do |hour|
+          tr
+            td = hour.to_s
+            - 7.times do |day_index|
+              - value = day_index * 24 + hour + 1
+              - if user.learning_time_frames.ids.include?(value)
+                td ⭕️
+              - else
+                td -
