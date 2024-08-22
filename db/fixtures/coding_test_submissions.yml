@@ -28,3 +28,11 @@ coding_test_submission7:
       end
 
     puts output
+
+<% 8.upto(29) do |i| %>
+coding_test_submission<%= i %>:
+  coding_test: coding_test1
+  user: marumarushain<%= i - 7 %>
+  code: |-
+    console.log(\"hello\")
+<% end %>

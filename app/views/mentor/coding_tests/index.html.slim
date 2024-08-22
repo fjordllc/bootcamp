@@ -27,6 +27,9 @@ main.page-main
   .page-body
     .container.is-lg
       .admin-table.is-grab id='mentor-practices'
+
+        = paginate @coding_tests
+
         table.admin-table__table
           thead.admin-table__header
             tr.admin-table__labels
@@ -65,3 +68,5 @@ main.page-main
                       = link_to edit_mentor_coding_test_path(coding_test),
                         class: 'a-button is-sm is-secondary is-icon'
                         i.fa-solid.fa-pen
+
+        = paginate @coding_tests
