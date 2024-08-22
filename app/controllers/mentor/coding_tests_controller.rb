@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 class Mentor::CodingTestsController < ApplicationController
+  PER_PAGE = 20
+
   before_action :require_admin_or_mentor_login, only: %i[index new create edit update]
   before_action :set_coding_test, only: %i[show edit update destroy]
 
   def index
-    @coding_tests = CodingTest.joins(:practice).order('practices.id, coding_tests.position')
+    @coding_tests = CodingTest.joins(:practice)
+                              .order('practices.id, coding_tests.position')
+                              .page(params[:page])
+                              .per(PER_PAGE)
   end
 
   def show; end

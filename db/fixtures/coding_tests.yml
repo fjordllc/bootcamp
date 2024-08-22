@@ -78,3 +78,15 @@ coding_test7:
     どれでもないならaを出力してください。
   hint: 条件分岐にはifが使えます。
   position: 2
+
+<% 8.upto(21) do |i| %>
+coding_test<%= i %>:
+  practice: practice62
+  user: komagata
+  language: javascript
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: <%= i - 6 %>
+<% end %>
