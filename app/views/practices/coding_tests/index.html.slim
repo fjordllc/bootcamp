@@ -6,7 +6,6 @@
 = render 'page_tabs', resource: @practice
 
 .page-body
-  = paginate @coding_tests
   .container.is-md
     - if @coding_tests.empty?
       .o-empty-message
@@ -18,4 +17,3 @@
       .card-list.a-card
         .card-list__items
           = render @coding_tests
-  = paginate @coding_tests
