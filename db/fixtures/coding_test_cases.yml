@@ -72,3 +72,10 @@ coding_test_case15:
   coding_test: coding_test7
   input: 15
   output: FizzBuzz
+
+<% 16.upto(29) do |i| %>
+coding_test_case<%= i %>:
+  coding_test: coding_test<%= i - 8 %>
+  input: ""
+  output: hello
+<% end %>
