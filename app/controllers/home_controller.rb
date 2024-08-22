@@ -33,7 +33,8 @@ class HomeController < ApplicationController
       discord_account_name: current_user.discord_profile.account_name,
       github_account: current_user.github_account,
       blog_url: current_user.blog_url,
-      graduated: current_user.graduated?
+      graduated: current_user.graduated?,
+      learning_time_frames: current_user.graduated? || current_user.learning_time_frames.present?
     )
   end
 
