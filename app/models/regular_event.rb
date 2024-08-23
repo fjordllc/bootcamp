@@ -116,14 +116,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def format_event_date(event_date)
-    event = dup
+    regular_event = dup
 
-    event.assign_attributes(
-      start_on: parse_event_time(event_date, event.start_at),
-      end_on: parse_event_time(event_date, event.end_at)
+    regular_event.assign_attributes(
+      start_on: parse_event_time(event_date, regular_event.start_at),
+      end_on: parse_event_time(event_date, regular_event.end_at)
     )
 
-    event
+    regular_event
   end
 
   def self.fetch_participated_regular_events(user)
