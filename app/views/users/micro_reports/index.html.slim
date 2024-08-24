@@ -23,7 +23,7 @@
             -else
               = paginate @micro_reports
               - @micro_reports.each do |micro_report|
-                = render(Users::MicroReports::MicroReportComponent.new(user: @user, micro_report: micro_report))
+                = render(Users::MicroReports::MicroReportComponent.new(user: @user, current_user: current_user, micro_report: micro_report))
               = paginate @micro_reports
       - if current_user == @user
         .micro-reports__end
