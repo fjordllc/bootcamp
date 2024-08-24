@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Users::MicroReports::MicroReportComponent < ViewComponent::Base
-  def initialize(user:, micro_report:)
+  def initialize(user:, current_user:, micro_report:)
     @user = user
+    @current_user = current_user
     @micro_report = micro_report
   end
 
