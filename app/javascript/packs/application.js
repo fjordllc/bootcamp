@@ -56,6 +56,7 @@ import '../header-dropdown.js'
 import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
+import '../answer.js'
 import '../new-answer.js'
 
 import VueMounter from '../VueMounter.js'

@@ -2,9 +2,10 @@ import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'toast_react'
+import { initializeAnswer } from './answer.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const answer = document.querySelector('.answer')
+  const answer = document.querySelector('.new-answer')
   if(answer) {
     TextareaInitializer.initialize('.a-markdown-input__textarea')
     const markdownInitializer = new MarkdownInitializer()
@@ -30,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     saveButton.addEventListener('click', () => {
       savedAnswer = editorTextarea.value
       createAnswer(savedAnswer, questionId)
+      editorTextarea.value = ''
+      answerEditorPreview.innerHTML = markdownInitializer.render(
+        editorTextarea.value
+      );
+      saveButton.disabled = true
     })
 
     const editTab = answerEditor.querySelector('.edit-answer-tab')
@@ -55,14 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function createAnswer(description, questionId) {
   if (description.length < 1) {
-    return null
+    return null;
   }
   const params = {
     question_id: questionId,
     answer: {
       description: description
     }
-  }
+  };
   fetch('/api/answers', {
     method: 'POST',
     headers: {
@@ -74,17 +80,45 @@ function createAnswer(description, questionId) {
     redirect: 'manual',
     body: JSON.stringify(params)
   })
-    .then(() => {
-      toast('回答を投稿しました！')
-      location.reload()
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+    .then(response => {
+      if (response.ok) {
+        return response.text();
+      } else {
+        return response.json().then(data => {
+          throw new Error(data.errors.join(', '));
+        });
+      }
+    })
+    .then(html => {
+      const answersList = document.querySelector('.answers-list');
+      const answerDiv = document.createElement('div');
+      answerDiv.innerHTML = html;
+      const newAnswerElement = answerDiv.firstElementChild
+      answersList.appendChild(newAnswerElement);
+      initializeAnswer(newAnswerElement)
+      updateAnswerCount();
+      toast('回答を投稿しました！');
+    })
+    .catch(error => {
+      console.warn(error);
+    });
 }
+
+
 
 function toggleVisibility(elements, className){
   elements.forEach((element) => {
     element.classList.toggle(className)
   })
+}
+
+function updateAnswerCount(){
+  const answerCountElement = document.querySelector('.js-answer-count')
+  const currentCount = parseInt(answerCountElement.textContent, 10);
+  if(currentCount === 0){
+    answerCountElement.classList.remove('is-zero')
+  }
+  const newCount = currentCount + 1
+
+  answerCountElement.textContent = newCount
 }
