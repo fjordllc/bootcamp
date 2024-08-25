@@ -152,21 +152,22 @@ export function initializeAnswer(answer) {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const createdAtElement = answer.querySelector('.thread-comment__created-at');
+  const createdAtElement = answer.querySelector('.thread-comment__created-at')
   if (createdAtElement && navigator.clipboard) {
     createdAtElement.addEventListener('click', () => {
-      const answerURL = `${location.href}#answer_${answerId}`;
-      navigator.clipboard.writeText(answerURL)
+      const answerURL = `${location.href}#answer_${answerId}`
+      navigator.clipboard
+        .writeText(answerURL)
         .then(() => {
-          createdAtElement.classList.add('is-active');
+          createdAtElement.classList.add('is-active')
           setTimeout(() => {
-            createdAtElement.classList.remove('is-active');
-          }, 4000);
+            createdAtElement.classList.remove('is-active')
+          }, 4000)
         })
         .catch((error) => {
-          console.error(error);
-        });
-    });
+          console.error(error)
+        })
+    })
   }
 
   function toggleVisibility(elements, className) {
@@ -285,7 +286,7 @@ export function updateAnswerCount(isCreated) {
   answerCountElement.textContent = newCount
   if (currentCount === 0) {
     answerCountElement.classList.remove('is-zero')
-  } else if(newCount === 0) {
+  } else if (newCount === 0) {
     answerCountElement.classList.add('is-zero')
   }
 }

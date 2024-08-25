@@ -6,7 +6,7 @@ import { initializeAnswer, updateAnswerCount } from './answer.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')
-  if(newAnswer) {
+  if (newAnswer) {
     TextareaInitializer.initialize('.a-markdown-input__textarea')
     const markdownInitializer = new MarkdownInitializer()
     const questionId = newAnswer.dataset.question_id
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     editorTextarea.addEventListener('input', () => {
       answerEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
-      );
+      )
       saveButton.disabled = editorTextarea.value.length === 0
-    });
+    })
 
     saveButton.addEventListener('click', () => {
       savedAnswer = editorTextarea.value
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       editorTextarea.value = ''
       answerEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
-      );
+      )
       saveButton.disabled = true
     })
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editorTabContent = answerEditor.querySelector('.is-editor')
     const previewTab = answerEditor.querySelector('.answer-preview-tab')
     const previewTabContent = answerEditor.querySelector('.is-preview')
-  
+
     const tabElements = [
       editTab,
       editorTabContent,
@@ -52,23 +52,23 @@ document.addEventListener('DOMContentLoaded', () => {
     editTab.addEventListener('click', () =>
       toggleVisibility(tabElements, 'is-active')
     )
-  
+
     previewTab.addEventListener('click', () =>
-    toggleVisibility(tabElements, 'is-active')
+      toggleVisibility(tabElements, 'is-active')
     )
   }
 })
 
 function createAnswer(description, questionId) {
   if (description.length < 1) {
-    return null;
+    return null
   }
   const params = {
     question_id: questionId,
     answer: {
       description: description
     }
-  };
+  }
   fetch('/api/answers', {
     method: 'POST',
     headers: {
@@ -80,33 +80,31 @@ function createAnswer(description, questionId) {
     redirect: 'manual',
     body: JSON.stringify(params)
   })
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
-        return response.text();
+        return response.text()
       } else {
-        return response.json().then(data => {
-          throw new Error(data.errors.join(', '));
-        });
+        return response.json().then((data) => {
+          throw new Error(data.errors.join(', '))
+        })
       }
     })
-    .then(html => {
-      const answersList = document.querySelector('.answers-list');
-      const answerDiv = document.createElement('div');
-      answerDiv.innerHTML = html;
+    .then((html) => {
+      const answersList = document.querySelector('.answers-list')
+      const answerDiv = document.createElement('div')
+      answerDiv.innerHTML = html
       const newAnswerElement = answerDiv.firstElementChild
-      answersList.appendChild(newAnswerElement);
+      answersList.appendChild(newAnswerElement)
       initializeAnswer(newAnswerElement)
-      updateAnswerCount(true);
-      toast('回答を投稿しました！');
+      updateAnswerCount(true)
+      toast('回答を投稿しました！')
     })
-    .catch(error => {
-      console.warn(error);
-    });
+    .catch((error) => {
+      console.warn(error)
+    })
 }
 
-
-
-function toggleVisibility(elements, className){
+function toggleVisibility(elements, className) {
   elements.forEach((element) => {
     element.classList.toggle(className)
   })
