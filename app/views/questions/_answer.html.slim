@@ -8,7 +8,7 @@
           img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
     .a-card.is-answer.answer-display
-      .answer-badge class=(answer.type == "CorrectAnswer" ? 'correct-answer' : 'is-hidden')
+      .answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
         .answer-badge__icon
           i.fa-solid.fa-star
         .answer-badge__label
@@ -40,9 +40,9 @@
                 button.card-main-actions__action.a-button.is-sm.is-secondary.is-block
                   i.fa-solid.fa-pen
                   | 内容修正
-            - if (user.id == question.user.id || user.mentor?)
-              - make_button_hidden = (question.correct_answer && answer.type != "CorrectAnswer") || (answer.type == "CorrectAnswer")
-              - cancel_button_hidden = (question.correct_answer && answer.type != "CorrectAnswer") || !question.correct_answer
+            - if user.mentor? || user.id == question.user.id
+              - make_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || (answer.type == 'CorrectAnswer')
+              - cancel_button_hidden = (question.correct_answer && answer.type != 'CorrectAnswer') || !question.correct_answer
               li.card-main-actions__item.make-best-answer-button class=(make_button_hidden ? 'is-hidden' : '')
                 button.card-main-actions__action.a-button.is-sm.is-warning.is-block
                   | ベストアンサーにする
