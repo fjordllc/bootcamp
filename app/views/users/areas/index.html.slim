@@ -33,15 +33,15 @@ main.page-main
                 ul.page-nav__items
                   - @number_of_users_by_region[region].each do |area, number_of_users|
                     li.page-nav__item
-                      a.page-nav__item-link.a-text-link href="#dummy-link"
-                        | #{area}（#{number_of_users}）
+                      = link_to "#{area}（#{number_of_users}）", users_area_path(area_name: area), class: 'page-nav__item-link a-text-link'
         .page-body__column.is-main
           - if @users_group_by_areas.any?
             - @users_group_by_areas.each do |users_group_by_area|
               section.a-card
                 .user-group
                   header.user-group__header
-                    h2.user-group__title = users_group_by_area[:area]
+                    h2.user-group__title
+                      = link_to users_group_by_area[:area], users_area_path(area_name: users_group_by_area[:area]), class: 'user-group__title-link'
                   .a-user-icons
                     .a-user-icons__items
                       - users_group_by_area[:users].each do |user|
