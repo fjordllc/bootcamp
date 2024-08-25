@@ -20,11 +20,11 @@ class Area
 
   class << self
     def users_by_area(area)
-      if subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      if (subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area))
         User
           .with_attached_avatar
           .where(subdivision_code: subdivision.code.to_s)
-      elsif country = ISO3166::Country.find_country_by_any_name(area)
+      elsif (country = ISO3166::Country.find_country_by_any_name(area))
         User
           .with_attached_avatar
           .where(country_code: country.alpha2)
