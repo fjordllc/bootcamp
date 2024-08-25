@@ -6,9 +6,6 @@ header.page-header
     .page-header__inner
       .page-header__start
         h2.page-header__title ユーザー一覧
-      .page-header__end
-        .page-header-actions
-          ul.page-header-actions__items
 
 = render '/users/lg_page_tabs'
 
@@ -16,8 +13,15 @@ main.page-main
   header.page-main-header
     .container
       .page-main-header__inner
-        h1.page-main-header__title
-          = @area
+        .page-main-header__start
+          h1.page-main-header__title
+            = @area
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to users_areas_path, class: 'a-button is-sm is-block is-secondary is-back' do
+                  | 都道府県一覧
   hr.a-border
   .page-body
     .container.is-lg
