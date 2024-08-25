@@ -36,6 +36,20 @@ class Area
       end
     end
 
+    def users_by_area(area)
+      if subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+        User
+          .with_attached_avatar
+          .where(subdivision_code: subdivision.code.to_s)
+      elsif country = ISO3166::Country.find_country_by_any_name(area)
+        User
+          .with_attached_avatar
+          .where(country_code: country.alpha2)
+      else
+        User.none
+      end
+    end
+
     # regionとareaによって分類されたユーザー数をハッシュで取得して返す関数
     # country_codeかsubdivision_codeのどちらかがnullのユーザーのデータは無視されます
     #
@@ -111,10 +125,10 @@ class Area
       result
     end
 
+    # TODO: メソッド名を修正する
     def users_group_by_area(user)
       if user.country_code == 'JP'
         subdivision = ISO3166::Country['JP'].subdivisions[user.subdivision_code]
-        # subdivision&.name
         subdivision.translations['ja']
       else
         country = ISO3166::Country[user.country_code]
