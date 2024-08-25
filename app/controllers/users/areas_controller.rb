@@ -9,5 +9,6 @@ class Users::AreasController < ApplicationController
   def show
     @area = params[:area_name]
     @users = Area.users_by_area(@area).page(params[:page]).per(15)
+    @number_of_users_by_region = Area.number_of_users_by_region
   end
 end
