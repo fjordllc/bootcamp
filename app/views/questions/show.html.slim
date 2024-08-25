@@ -29,9 +29,16 @@ hr.a-border
       .question.page-content
         = render 'question_header', question: @question
         = render 'question_body', question: @question
-      - if @question.ai_answer
-        = render 'ai_answer', question: @question
-      = render 'new_answer', question: @question, user: current_user
+      .loading-content
+        = render 'questions/comment_placeholder'
+      .answer-content style='display: none;'
+        - if @question.ai_answer
+          = render 'ai_answer', question: @question
+        .answers-list
+          - @answers.each do |answer|
+            = render 'answer', question: @question, user: current_user, answer: answer
+        = render 'new_answer', question: @question, user: current_user
+        = paginate @answers
     nav.a-side-nav
       .a-side-nav__inner
         header.a-side-nav__header
