@@ -19,23 +19,6 @@ class Area
   }.freeze
 
   class << self
-    # 指定したregionとareaのユーザーを全て取得して返す関数
-    # regionはareaをカテゴリーに分類します 日本の地域区分名か海外になります
-    # areaは場所を表す最小単位です 都道府県名か国名になります
-    def users(region, area)
-      if region == '海外'
-        country = ISO3166::Country.find_country_by_any_name(area)
-        User
-          .with_attached_avatar
-          .where(country_code: country.alpha2)
-      else
-        subdivision_code = ISO3166::Country[:JP].find_subdivision_by_name(area).code
-        User
-          .with_attached_avatar
-          .where(subdivision_code: subdivision_code.to_s)
-      end
-    end
-
     def users_by_area(area)
       if subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
         User
