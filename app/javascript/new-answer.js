@@ -3,11 +3,12 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'toast_react'
 import { initializeAnswer, updateAnswerCount } from './answer.js'
+import store from './check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')
   if (newAnswer) {
-    TextareaInitializer.initialize('.a-markdown-input__textarea')
+    TextareaInitializer.initialize('#new-comment')
     const markdownInitializer = new MarkdownInitializer()
     const questionId = newAnswer.dataset.question_id
     let savedAnswer = ''
@@ -97,6 +98,7 @@ function createAnswer(description, questionId) {
       answersList.appendChild(newAnswerElement)
       initializeAnswer(newAnswerElement)
       updateAnswerCount(true)
+      updateWatchable(questionId)
       toast('回答を投稿しました！')
     })
     .catch((error) => {
@@ -107,5 +109,12 @@ function createAnswer(description, questionId) {
 function toggleVisibility(elements, className) {
   elements.forEach((element) => {
     element.classList.toggle(className)
+  })
+}
+
+function updateWatchable(questionId) {
+  store.dispatch('setWatchable', {
+    watchableId: questionId,
+    watchableType: 'Question'
   })
 }

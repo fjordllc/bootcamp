@@ -26,6 +26,11 @@ export function initializeAnswer(answer) {
   const answerDisplay = answer.querySelector('.answer-display')
   const answerEditor = answer.querySelector('.answer-editor')
   const answerDisplayContent = answerDisplay.querySelector('.a-long-text')
+  const answerDescription = answerDisplayContent.innerHTML
+  if (answerDescription) {
+    answerDisplayContent.innerHTML =
+      markdownInitializer.render(answerDescription)
+  }
 
   const editButton = answerDisplay.querySelector('.card-main-actions__action')
   const modalElements = [answerDisplay, answerEditor]

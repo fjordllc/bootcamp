@@ -2,9 +2,9 @@
   .thread-comment__start
     a.thread-comment__user-link href="#{answer.user.url}"
       span class="a-user-role is-#{answer.user.primary_role}"
-        img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}" alt="#{answer.user.icon_title}"
-      - if answer.user.company && answer.user.adviser
-        a.thread-comment__company-link href="#{answer.user.company.url}"
+        img.thread-comment__user-icon.a-user-icon src="#{answer.user.avatar_url}"
+      - if answer.user.company && answer.user.adviser?
+        a.thread-comment__company-link href="#{company_path(answer.user.company)}"
           img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
     .a-card.is-answer.answer-display
@@ -16,7 +16,7 @@
       header.card-header
         h2.thread-comment__title
           a.thread-comment__title-user-link.is-hidden-md-up href="#{answer.user.url}"
-            img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}" alt="#{answer.user.icon_title}"
+            img.thread-comment__title-user-icon.a-user-icon src="#{answer.user.avatar_url}"
           a.thread-comment__title-link.a-text-link href="#{answer.user.url}"
             = answer.user.login_name
         time.thread-comment__created-at
@@ -24,7 +24,7 @@
       hr.a-border-tint
       .thread-comment__description
         - if answer.user.company && answer.user.adviser
-          a.thread-comment__company-link.is-hidden-md-up href="#{answer.user.company.url}"
+          a.thread-comment__company-link.is-hidden-md-up href="#{company_path(answer.user.company)}"
             img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
         .a-long-text.is-md
           = answer.description
@@ -64,7 +64,7 @@
           .a-markdown-input__inner.is-editor.js-tabs__content.is-active
             .form-textarea
               .form-textarea__body
-                textarea.a-text-input.a-markdown-input__textarea data-id="#js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input="js-comment-file-input-#{answer.id}" name='answer[description]'
+                textarea.a-text-input.a-markdown-input__textarea data-id="#.js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
                   = answer.description
               .form-textarea__footer
                 .form-textarea__insert
