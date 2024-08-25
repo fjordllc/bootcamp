@@ -48,6 +48,26 @@ export function initializeAnswer(answer) {
     })
   }
 
+  const answerEditorPreview = answerEditor.querySelector(
+    '.a-markdown-input__preview'
+  )
+  const editorTextarea = answerEditor.querySelector(
+    '.a-markdown-input__textarea'
+  )
+
+  const cancelButton = answerEditor.querySelector('.is-secondary')
+  cancelButton.addEventListener('click', () => {
+    toggleVisibility(modalElements, 'is-hidden')
+    editorTextarea.value = savedAnswer
+    answerEditorPreview.innerHTML = markdownInitializer.render(savedAnswer)
+  })
+
+  editorTextarea.addEventListener('input', () => {
+    answerEditorPreview.innerHTML = markdownInitializer.render(
+      editorTextarea.value
+    )
+  })
+
   const makeBestAnswerButton = answerDisplay.querySelector('.is-warning')
   const cancelBestAnswerButton = answerDisplay.querySelector('.is-muted')
   const answerBadgeElement = answerDisplay.querySelector('.answer-badge')
@@ -96,26 +116,6 @@ export function initializeAnswer(answer) {
     })
   }
 
-  const answerEditorPreview = answerEditor.querySelector(
-    '.a-markdown-input__preview'
-  )
-  const editorTextarea = answerEditor.querySelector(
-    '.a-markdown-input__textarea'
-  )
-
-  const cancelButton = answerEditor.querySelector('.is-secondary')
-  cancelButton.addEventListener('click', () => {
-    toggleVisibility(modalElements, 'is-hidden')
-    editorTextarea.value = savedAnswer
-    answerEditorPreview.innerHTML = markdownInitializer.render(savedAnswer)
-  })
-
-  editorTextarea.addEventListener('input', () => {
-    answerEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
-    )
-  })
-
   const deleteButton = answerDisplay.querySelector(
     '.card-main-actions__muted-action'
   )
@@ -123,7 +123,6 @@ export function initializeAnswer(answer) {
     deleteButton.addEventListener('click', () => {
       if (window.confirm('本当に宜しいですか？')) {
         deleteAnswer(answerId)
-        console.log(answerBadgeElement)
         if (answerBadgeElement.classList.contains('correct-answer')) {
           cancelBestAnswer(answerId, questionId)
           const otherCancelBestAnswerButtons = document.querySelectorAll(
@@ -153,25 +152,21 @@ export function initializeAnswer(answer) {
     toggleVisibility(tabElements, 'is-active')
   )
 
-  const createdAtElement = answer.querySelector('.thread-comment__created-at')
-  if(createdAtElement){
+  const createdAtElement = answer.querySelector('.thread-comment__created-at');
+  if (createdAtElement && navigator.clipboard) {
     createdAtElement.addEventListener('click', () => {
-      const answerURL = location.href + '#answer_' + answerId
-      if(navigator.clipboard){
-        navigator.clipboard.writeText(answerURL)
-          .then(() => {
-            createdAtElement.classList.add('is-active')
-            setTimeout(() => {
-              createdAtElement.classList.remove('is-active')
-            }, 4000)
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-      }else{
-        console.warn('cannot copy')
-      }
-    })
+      const answerURL = `${location.href}#answer_${answerId}`;
+      navigator.clipboard.writeText(answerURL)
+        .then(() => {
+          createdAtElement.classList.add('is-active');
+          setTimeout(() => {
+            createdAtElement.classList.remove('is-active');
+          }, 4000);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
   }
 
   function toggleVisibility(elements, className) {
@@ -203,7 +198,7 @@ export function initializeAnswer(answer) {
     })
   }
 
-  function deleteAnswer(answerId, count) {
+  function deleteAnswer(answerId) {
     fetch(`/api/answers/${answerId}.json`, {
       method: 'DELETE',
       headers: {
@@ -222,24 +217,11 @@ export function initializeAnswer(answer) {
           deletedAnswer.parentNode.removeChild(deletedAnswer)
         }
 
-        updateAnswerCount(count)
-
-        return true
+        updateAnswerCount(false)
       })
       .catch((error) => {
         console.warn(error)
       })
-  }
-
-  function updateAnswerCount() {
-    const answerCountElement = document.querySelector('.js-answer-count')
-    const currentCount = parseInt(answerCountElement.textContent, 10)
-    const newCount = currentCount - 1
-
-    answerCountElement.textContent = newCount
-    if (newCount === 0) {
-      answerCountElement.classList.add('is-zero')
-    }
   }
 
   function makeToBestAnswer(answerId, questionId) {
@@ -292,5 +274,18 @@ export function initializeAnswer(answer) {
     statusLabel.classList.remove('is-success')
     statusLabel.classList.add('is-danger')
     statusLabel.textContent = '未解決'
+  }
+}
+
+export function updateAnswerCount(isCreated) {
+  const answerCountElement = document.querySelector('.js-answer-count')
+  const currentCount = parseInt(answerCountElement.textContent, 10)
+  const newCount = currentCount + (isCreated ? 1 : -1)
+
+  answerCountElement.textContent = newCount
+  if (currentCount === 0) {
+    answerCountElement.classList.remove('is-zero')
+  } else if(newCount === 0) {
+    answerCountElement.classList.add('is-zero')
   }
 }

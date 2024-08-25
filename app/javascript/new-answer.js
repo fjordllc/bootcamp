@@ -2,17 +2,17 @@ import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'toast_react'
-import { initializeAnswer } from './answer.js'
+import { initializeAnswer, updateAnswerCount } from './answer.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const answer = document.querySelector('.new-answer')
-  if(answer) {
+  const newAnswer = document.querySelector('.new-answer')
+  if(newAnswer) {
     TextareaInitializer.initialize('.a-markdown-input__textarea')
     const markdownInitializer = new MarkdownInitializer()
-    const questionId = answer.dataset.question_id
+    const questionId = newAnswer.dataset.question_id
     let savedAnswer = ''
 
-    const answerEditor = answer.querySelector('.answer-editor')
+    const answerEditor = newAnswer.querySelector('.answer-editor')
     const answerEditorPreview = answerEditor.querySelector(
       '.a-markdown-input__preview'
     )
@@ -96,7 +96,7 @@ function createAnswer(description, questionId) {
       const newAnswerElement = answerDiv.firstElementChild
       answersList.appendChild(newAnswerElement);
       initializeAnswer(newAnswerElement)
-      updateAnswerCount();
+      updateAnswerCount(true);
       toast('回答を投稿しました！');
     })
     .catch(error => {
@@ -110,15 +110,4 @@ function toggleVisibility(elements, className){
   elements.forEach((element) => {
     element.classList.toggle(className)
   })
-}
-
-function updateAnswerCount(){
-  const answerCountElement = document.querySelector('.js-answer-count')
-  const currentCount = parseInt(answerCountElement.textContent, 10);
-  if(currentCount === 0){
-    answerCountElement.classList.remove('is-zero')
-  }
-  const newCount = currentCount + 1
-
-  answerCountElement.textContent = newCount
 }
