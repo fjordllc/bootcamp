@@ -7,7 +7,10 @@ section.welcome-member.a-card(class="is-#{page}")
   .welcome-member__inner
     .welcome-member__header
       .welcome-member__start
-        = image_tag(mentor.profile_image_url, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+        - if mentor.profile_image_url.present?
+          = image_tag(mentor.profile_image_url, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+        - else
+          = image_tag(default_image_path, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
       .welcome-member__end
         - if mentor.profile_name.present?
           h3.welcome-member__name
