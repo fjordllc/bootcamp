@@ -27,7 +27,7 @@ header.page-header
   .page-body
     .container
       .users
-        - if !@users.empty?
+        - if @users.present?
           .page-content.is-users
             #user_lists.users__items
               = render 'user_list', users: @users
