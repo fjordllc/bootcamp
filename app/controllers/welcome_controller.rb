@@ -22,6 +22,8 @@ class WelcomeController < ApplicationController
 
   def job_support; end
 
+  def certified_reskill_courses; end
+
   def tos; end
 
   def pp; end
