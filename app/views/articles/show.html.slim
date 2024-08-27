@@ -68,7 +68,7 @@ ruby:
                       = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
                         | 削除
         .col-xl-4.col-lg-4.col-xs-12
-          - if @mentor.mentor? && !@mentor.hide_mentor_profile
+          - if @mentor.mentor?
             = render 'welcome/mentor', mentor: @mentor, page: 'articles-show'
           = render 'recent_articles'
           = render 'ad'
