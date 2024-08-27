@@ -30,7 +30,8 @@ hr.a-border
         = render 'question_header', question: @question
         = render 'question_body', question: @question
       .loading-content
-        = render 'questions/comment_placeholder'
+        - 3.times do
+          = render 'questions/comment_placeholder'
       .answer-content style='display: none;'
         - if @question.ai_answer
           = render 'ai_answer', question: @question
