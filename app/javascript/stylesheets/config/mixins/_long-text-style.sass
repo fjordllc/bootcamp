@@ -78,10 +78,13 @@
     +text-block(1.125em 1.6, 600)
     margin-bottom: .625em
   h6
-    +text-block(1em 1.6 0 .625em, 600)
+    +text-block(1em 1.6, 600)
+    margin-bottom: .625em
+  >img
+    margin-block: 1.5em
   p
     +text-block(1em 1.86)
-    margin-bottom: 1.5em
+    margin-block: 1.5em
   a
     +hover-link-reversal
     +default-link
@@ -89,7 +92,7 @@
       img
         border-color: mix($font, $background, 16%)
   dl
-    margin-bottom: 1.5em
+    margin-block: 1.5em
     border: 1px solid mix($font, $background, 20%)
     padding: 1em
     border-radius: .25rem
@@ -99,14 +102,14 @@
   dd
     +text-block(1em 1.6)
     &:not(:last-child)
-      margin-bottom: 1em
+      margin-block: 1em
   code
     font-family: var(--monospace)
     tab-size: 2
     hyphens: none
   pre
     padding: 0
-    margin-bottom: 1.5em
+    margin-block: 1.5em
     code
       border: none
       +text-block(.9375em 1.5)
@@ -127,7 +130,7 @@
     *:not(ol):not(ul):last-child
       margin-bottom: 0
     pre:not(ol):not(ul):last-child
-      margin-bottom: 1em
+      margin-block: 1em
     blockquote
       margin-left: calc(.75em + 1px)
     blockquote + ul
@@ -156,11 +159,8 @@
     display: block
     margin-inline: auto
     border: 1px solid mix($font, $background, 10%)
-    +media-breakpoint-up(md)
-      max-height: 32rem
     +media-breakpoint-down(sm)
       max-width: 100% !important
-      max-height: 24rem
     &.is-xs
       max-width: 10em
     &.is-sm
@@ -174,7 +174,7 @@
   ol
     list-style-position: outside
     margin-left: 1.75em
-    margin-bottom: 1.5em
+    margin-block: 1.5em
   li
     +text-block(1em 1.86)
     margin-block: .375em
@@ -195,7 +195,7 @@
 
   table
     width: 100%
-    margin-bottom: 2em
+    margin-block: 2em
 
   th,
   td
