@@ -835,6 +835,16 @@ class User < ApplicationRecord
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
 
+  def area
+    if country_code == 'JP'
+      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
+      subdivision ? subdivision.translations['ja'] : nil
+    else
+      country = ISO3166::Country[country_code]
+      country ? country.translations['ja'] : nil
+    end
+  end
+
   private
 
   def password_required?
