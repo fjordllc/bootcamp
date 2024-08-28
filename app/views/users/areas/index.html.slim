@@ -26,6 +26,7 @@ main.page-main
           = render 'areas_menu', number_of_users_by_region: @number_of_users_by_region
         .page-body__column.is-main
           - if @users_group_by_areas.any?
+            = paginate @users_group_by_areas
             - @users_group_by_areas.each do |users_group_by_area|
               section.a-card
                 .user-group
