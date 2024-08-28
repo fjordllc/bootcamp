@@ -1,0 +1,14 @@
+- if users.present?
+  .user-list
+    = paginate users
+    .row
+      - users.each do |user|
+        = render 'users/user', user:
+    = paginate users
+- else
+  .row
+    .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      p.o-empty-message__text
+        | まだユーザーはいません
