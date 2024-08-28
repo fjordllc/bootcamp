@@ -4,7 +4,7 @@ require 'test_helper'
 
 class AreaTest < ActiveSupport::TestCase
   test '#users_by_area' do
-    tokyo_users = [users(:komagata), users(:machida), users(:kimura)]
+    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
     assert_equal Area.users_by_area('東京都').to_a.sort, tokyo_users.sort
     america_users = [users(:neverlogin), users(:tom)]
     assert_equal Area.users_by_area('米国').to_a.sort, america_users.sort
@@ -20,7 +20,7 @@ class AreaTest < ActiveSupport::TestCase
 
   test '#sorted_users_group_by_areas' do
     sorted_users_group_by_areas = Area.sorted_users_group_by_areas
-    tokyo_users = [users(:komagata), users(:machida), users(:kimura)].sort_by(&:created_at).reverse
+    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)].sort_by(&:created_at).reverse
     tochigi_users = [users(:kyuukai)]
     nagasaki_users = [users(:advisernocolleguetrainee)]
     america_users = [users(:neverlogin), users(:tom)].sort_by(&:created_at).reverse
