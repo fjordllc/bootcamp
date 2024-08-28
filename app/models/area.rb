@@ -112,7 +112,7 @@ class Area
     def users_group_by_area(user)
       if user.country_code == 'JP'
         subdivision = ISO3166::Country['JP'].subdivisions[user.subdivision_code]
-        subdivision.translations['ja']
+        subdivision ? subdivision.translations['ja'] : nil
       else
         country = ISO3166::Country[user.country_code]
         country ? country.translations['ja'] : nil
