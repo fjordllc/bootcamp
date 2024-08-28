@@ -34,8 +34,6 @@ komagata:
   profile_name: "駒形 真幸"
   profile_job: "エンジニア"
   profile_text: "株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
-  country_code: JP
-  subdivision_code: '13'
 
 machida:
   login_name: machida
@@ -91,6 +89,9 @@ adminonly: # adminのroleだけを持ったユーザー
   created_at: "2021-02-01 00:00:30"
   last_activity_at: "2021-02-01 00:00:30"
   sent_student_followup_message: true
+  country_code: JP
+  subdivision_code: '13'
+
 
 sotugyou_with_job:
   login_name: sotugyou-with-job

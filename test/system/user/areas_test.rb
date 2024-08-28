@@ -47,7 +47,7 @@ class User::AreasTest < ApplicationSystemTestCase
     within '.user-group', match: :first do
       assert_selector 'img.a-user-icon', count: 3
       assert_selector 'img.a-user-icon[data-login-name="kimura"]'
-      assert_selector 'img.a-user-icon[data-login-name="komagata"]'
+      assert_selector 'img.a-user-icon[data-login-name="adminonly"]'
       assert_selector 'img.a-user-icon[data-login-name="machida"]'
     end
   end
@@ -58,7 +58,7 @@ class User::AreasTest < ApplicationSystemTestCase
     within '.page-body__column.is-main' do
       assert_selector '.users-item', count: 3
       assert_selector 'a.card-list-item-title__title', text: 'kimura'
-      assert_selector 'a.card-list-item-title__title', text: 'komagata'
+      assert_selector 'a.card-list-item-title__title', text: 'adminonly'
       assert_selector 'a.card-list-item-title__title', text: 'machida'
     end
   end
