@@ -60,9 +60,7 @@ class Area
     end
 
     def sorted_users_group_by_areas
-      users_group_by_areas = User.with_attached_avatar.all.group_by do |user|
-        users_group_by_area(user)
-      end
+      users_group_by_areas = User.with_attached_avatar.all.group_by(&:area)
 
       sorted_users_group_by_areas =
         users_group_by_areas.map do |area, users|
@@ -106,17 +104,6 @@ class Area
         end
       end
       result
-    end
-
-    # TODO: メソッド名を修正する
-    def users_group_by_area(user)
-      if user.country_code == 'JP'
-        subdivision = ISO3166::Country['JP'].subdivisions[user.subdivision_code]
-        subdivision ? subdivision.translations['ja'] : nil
-      else
-        country = ISO3166::Country[user.country_code]
-        country ? country.translations['ja'] : nil
-      end
     end
   end
 end
