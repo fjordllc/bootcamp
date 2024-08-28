@@ -34,6 +34,8 @@ komagata:
   profile_name: "駒形 真幸"
   profile_job: "エンジニア"
   profile_text: "株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。"
+  country_code: JP
+  subdivision_code: '13'
 
 machida:
   login_name: machida
@@ -62,6 +64,8 @@ machida:
   profile_name: "町田 哲平"
   profile_job: "デザイナー"
   profile_text: "株式会社ロッカのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
+  country_code: JP
+  subdivision_code: '13'
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
