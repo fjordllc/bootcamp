@@ -3,6 +3,7 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import { toast } from 'toast_react'
 import { initializeAnswer, updateAnswerCount } from './answer.js'
+import { initializeReaction } from './reaction.js'
 import store from './check-store.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,6 +98,8 @@ function createAnswer(description, questionId) {
       const newAnswerElement = answerDiv.firstElementChild
       answersList.appendChild(newAnswerElement)
       initializeAnswer(newAnswerElement)
+      const reactionElement = newAnswerElement.querySelector('.js-reactions')
+      initializeReaction(reactionElement)
       updateAnswerCount(true)
       updateWatchable(questionId)
       toast('回答を投稿しました！')
