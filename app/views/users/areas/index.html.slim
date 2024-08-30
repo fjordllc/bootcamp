@@ -32,7 +32,9 @@ main.page-main
                 .user-group
                   header.user-group__header
                     h2.user-group__title
-                      = link_to users_group_by_area[:area], users_area_path(area: users_group_by_area[:area]), class: 'user-group__title-link'
+                      = link_to users_area_path(area_name: users_group_by_area[:area]), class: 'user-group__title-link' do
+                        span.user-group__title-label
+                          = users_group_by_area[:area]
                   .a-user-icons
                     .a-user-icons__items
                       - users_group_by_area[:users].each do |user|

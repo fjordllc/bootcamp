@@ -32,10 +32,10 @@ main.page-main
               | ユーザーはありません
       - else
         .container.is-lg
-          .card-list.a-card
-            - @generations.each do |generation|
-              - users = Generation.new(generation.number).target_users(@target)
-              - if !users.empty?
+          - @generations.each do |generation|
+            - users = Generation.new(generation.number).target_users(@target)
+            - if !users.empty?
+              .a-card
                 .user-group
                   header.user-group__header
                     h2.user-group__title
