@@ -109,6 +109,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 50, user.required_practices_size
   end
 
+  test '#practice_ids_skipped' do
+    user = users(:kensyu)
+    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
+  end
+
   test '#depressed?' do
     user = users(:kimura)
 
