@@ -23,12 +23,12 @@ module PageTabHelper
   def practices_tab_members(resource)
     [
       root_tab(resource),
+      coding_tests_tab(resource),
       reports_tab(resource),
       questions_tab(resource),
       pages_tab(resource),
       products_tab(resource),
-      submission_answer_tab(resource),
-      coding_tests_tab(resource)
+      submission_answer_tab(resource)
     ]
   end
 
