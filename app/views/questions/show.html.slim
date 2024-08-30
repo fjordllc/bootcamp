@@ -39,10 +39,9 @@ hr.a-border
           h2.thread-comments__title
             | 回答・コメント
         .answers-list
-          - @answers.each do |answer|
+          - @question.answers.each do |answer|
             = render 'answer', question: @question, user: current_user, answer: answer
         = render 'new_answer', question: @question, user: current_user
-        = paginate @answers
     nav.a-side-nav
       .a-side-nav__inner
         header.a-side-nav__header
