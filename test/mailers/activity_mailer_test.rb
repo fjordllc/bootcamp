@@ -905,7 +905,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに新しく入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
@@ -933,7 +933,35 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんが新しく入会しました！', email.subject
+    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに新しく入会しました！', email.subject
+    assert_match(/入会/, email.body.to_s)
+  end
+
+  test 'mentor receives email when user joins frontend engineer course' do
+    user = User.create!(
+      login_name: 'frontend',
+      email: 'frontend@fjord.jp',
+      password: 'testtest',
+      name: 'フロント 極め太郎',
+      name_kana: 'フロント キワメタロウ',
+      description: 'フロントエンドエンジニアコースに入会したユーザーです',
+      course: courses(:course4),
+      job: 'unemployed',
+      os: 'mac',
+      experience: 'ruby'
+    )
+    mentor = users(:komagata)
+
+    ActivityMailer.signed_up(
+      sender: user,
+      receiver: mentor
+    ).deliver_now
+
+    assert_not ActionMailer::Base.deliveries.empty?
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['noreply@bootcamp.fjord.jp'], email.from
+    assert_equal ['komagata@fjord.jp'], email.to
+    assert_equal '[FBC] frontendさんがフロントエンドエンジニアコースに新しく入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
