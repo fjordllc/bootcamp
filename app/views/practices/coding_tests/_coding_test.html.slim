@@ -16,3 +16,6 @@
                   | 更新
                 span.a-meta__value
                   | #{l coding_test.updated_at}
+      - if coding_test.passed_by?(current_user)
+        .stamp.is-circle.is-cleared
+          .stamp__content.is-icon クリア

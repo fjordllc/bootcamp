@@ -146,8 +146,9 @@ const OnBrowserJudge = {
 <td id="${testCase}">${testCase}</td>
 <td id="${testCase}_std_output"><pre><code></code></pre></td></td>
 <td id="${testCase}_std_error"><pre><code></code></pre></td>
-<td id="${testCase}_status"><span class="status wj">${this.dict.WJ}</span></td>`
+<td id="${testCase}_status" class="text-center"><span class="status wj">${this.dict.WJ}</span></td>`
       document.getElementById("result").appendChild(tr)
+      tr.id = `${testCase}__items`
     }
     document.getElementById("result").scrollIntoView({ behavior: "smooth" })
   },
@@ -158,6 +159,7 @@ const OnBrowserJudge = {
     const span = `<span class="status ${result.toLowerCase()}` +
                  `" title="${result}">${this.dict[result]}</span>`
     document.getElementById(`${testCase}_status`).innerHTML = span
+    document.getElementById(`${testCase}__items`).className = `is-${result.toLowerCase()}`
   },
 
   stop: function() {
@@ -185,7 +187,7 @@ window.addEventListener("DOMContentLoaded", () => {
       elm.id
     ).filter(id =>
       id.match(/_input$/) && document.getElementById(id.replace(/_input$/, "_output"))
-    ).map(id => 
+    ).map(id =>
       id.replace(/_input$/, "")
     )
   }
