@@ -1,31 +1,15 @@
-.a-card.coding_tests
+.a-card.coding-tests
   header.card-header
-    h2.card-header__title コーディングテスト
-
-  table
-    - coding_tests.order(:position).each do |coding_test|
-      tr
-        td = link_to coding_test.title, coding_test
-        td = coding_test.passed_by?(current_user) ? 'O' : 'X'
+    h2.card-header__title
+      | コーディングテスト
   hr.a-border-tint
-  footer.card-footer
-
-css:
-  .coding_tests {
-    margin-bottom: 1.5em;
-  }
-
-  .coding_tests table {
-    border-top: solid 1px hsl(242, 7%, 89%);
-    margin-top: 0.5em;
-    color: rgb(79, 79, 100);
-  }
-
-  .coding_tests th {
-    background-color: rgb(241, 241, 243);
-  }
-
-  .coding_tests th, td {
-    padding: 0.5em;
-    border: solid 1px solid 1px hsl(242, 7%, 89%);
-  }
+  .card-list
+    - coding_tests.order(:position).each do |coding_test|
+      .card-list-item
+        .coding-tests-item
+          - if coding_test.passed_by?(current_user)
+            .coding-tests-item__passed
+              .a-badge.is-success.is-sm
+                | クリア
+          = link_to coding_test, class: 'coding-tests-item__test-link' do
+            = coding_test.title

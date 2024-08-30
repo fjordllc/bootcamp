@@ -10,14 +10,6 @@
         image_class: 'card-list-item__user-icon'
     .card-list-item__rows
       .card-list-item__row
-        .card-list-item-title
-          .card-list-item-title__start
-            h2.card-list-item-title__title(itemprop='name')
-              = link_to [coding_test, cts],
-                itemprop: 'url',
-                class: 'card-list-item-title__link a-text-link js-unconfirmed-link' do
-                = coding_test.title
-      .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
@@ -26,3 +18,10 @@
             .card-list-item-meta__item
               time.a-meta(datetime="#{cts.updated_at}")
                 = l cts.updated_at
+      .card-list-item__row
+        .a-long-text
+          = link_to [coding_test, cts],
+            class: 'no-underline' do
+            pre(class="language-#{@coding_test.language}")
+              code
+                = cts.code

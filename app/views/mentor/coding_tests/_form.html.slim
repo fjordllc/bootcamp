@@ -43,13 +43,15 @@
           .a-form-label プレビュー
           .js-preview.a-long-text.is-md.practices-edit__input.markdown-form__preview
 
-    h2(style='font-weight:bold;margin:12px 0;') テストケース
-
-    .form-item
+  .form__items
+    .test-cases
       = f.fields_for :coding_test_cases do |coding_test_case|
         = render 'coding_test_case_fields', f: coding_test_case
-      .links
-        = link_to_add_association '追加', f, :coding_test_cases, class: 'a-button is-md is-primary'
+      .test-cases__add.mt-6
+        = link_to_add_association f, :coding_test_cases, class: 'a-button is-md is-primary' do
+          i.fa-regular.fa-plus
+          span
+            | テストケースを追加
 
   .form-actions
     ul.form-actions__items

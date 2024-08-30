@@ -320,7 +320,7 @@ ja:
         user: 作成者
         practice: 所属プラクティス
         language: 言語
-        coding_test_submissions: 提出コード
+        coding_test_submissions: 回答コード
       coding_test_case:
         input: 入力
         output: 出力
