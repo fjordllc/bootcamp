@@ -1,32 +1,52 @@
-- title '提出コード'
-- description '提出コードの一覧ページです。'
+- title "「#{@coding_test.title}」の回答"
+- description "コーディングテスト「#{@coding_test.title}」の回答の一覧ページです。"
+- @practice = @coding_test.practice
 
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        .page-header__title = title
-      .page-header__end
+= render '/practices/page_header',
+  title: @practice.title,
+  category: @practice.category(current_user.course)
 
-hr.a-border
+= render 'page_tabs', resource: @coding_test.practice
 
 .page-main
-  - if @coding_test_submissions.present?
-    .page-body
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h2.page-main-header__title
+            | #{@coding_test.title}（#{@coding_test.language}）
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                // TODO#7935 このプラクティスに紐づくコーディングテスト一覧ページへリンク
+                a.a-button.is-md.is-secondary.is-block.is-back[href=""]
+                  | テスト一覧
+  hr.a-border
+
+  .page-body
+    nav.pill-nav
+      ul.pill-nav__items
+        li.pill-nav__item
+          // TODO#7935 このプラクティスに紐づくコーディングテスト個別ページへリンク（例: /coding_tests/901896358）
+          = link_to '', class: 'pill-nav__item-link' do
+            | 自分の回答
+        li.pill-nav__item
+          = link_to [@coding_test, :coding_test_submissions], class: 'pill-nav__item-link is-active' do
+            | みんなの回答
+
+    .page-content
       .container.is-md
-        .page-content.reports
-          = paginate @coding_test_submissions
-          .card-list.a-card
-            .card-list__items
-              = render @coding_test_submissions
-          = paginate @coding_test_submissions
-  - else
-    .o-empty-message
-      .o-empty-message__icon
-        .card-list.a-card
-          .card__description
-            .o-empty-message
-              .o-empty-message__icon
-                i.fa-regular.fa-sad-tear
-              .o-empty-message__text
-                | 提出コードはまだありません。
+        - if @coding_test_submissions.present?
+          .page-content.coding-test-submissions
+            = paginate @coding_test_submissions
+            .card-list.a-card
+              .card-list__items
+                = render @coding_test_submissions
+            = paginate @coding_test_submissions
+        - else
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            .o-empty-message__text
+              | 回答コードはまだありません。
