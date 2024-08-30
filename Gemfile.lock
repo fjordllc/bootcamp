@@ -686,7 +686,6 @@ DEPENDENCIES
   traceroute
   tzinfo (~> 2.0, >= 2.0.6)
   vcr
-  view_component
   view_source_map
   web-console (>= 4.1.0)
   webmock

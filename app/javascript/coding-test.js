@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   OnBrowserJudge.workerFile = `../${language}.js`
   OnBrowserJudge.getProgram = () => editor.getValue()
-  OnBrowserJudge.dict.ready = "提出"
+  OnBrowserJudge.dict.ready = "実行"
   OnBrowserJudge.dict.running = "停止"
   OnBrowserJudge.dict.preparation = "準備中"
   OnBrowserJudge.dict.case_name = "テストケース名"
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         location.href = `/practices/${practiceId}`
       } else {
-        console.warn('提出に失敗しました。')
+        console.warn('実行に失敗しました。')
       }
     } catch (error) {
       console.error(error)
