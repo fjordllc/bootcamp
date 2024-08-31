@@ -415,10 +415,25 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'WIP articles are listed first in desc order' do
-    visit_with_auth articles_path, 'komagata'
+    # テストがわかりやすいように test/fixtures/article.yml の article3(WIP記事) からの連番で作成
+    wip_article4 = Article.create(
+      title: 'タイトル4',
+      body: 'テスト用のWIP記事4',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article5 = Article.create(
+      title: 'タイトル5',
+      body: 'テスト用のWIP記事5',
+      user: users(:komagata),
+      wip: true,
+      published_at: '2022-01-03 00:00:00'
+    )
+
+    visit_with_auth articles_wips_path, 'komagata'
     titles = all('h2.thumbnail-card__title').map(&:text)
 
-    assert_equal titles, ["WIP#{@article3.title}", @article2.title, @article.title]
+    assert_equal ["WIP#{wip_article5.title}", "WIP#{wip_article4.title}", "WIP#{@article3.title}"], titles
   end
 
   test 'not logged-in users cannot view WIP articles without correct token' do
