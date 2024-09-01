@@ -8,6 +8,6 @@ class Companies::ProductsController < ApplicationController
                        .order('id ASC')
                        .page(params[:page])
                        .per(50)
-    @users = @products.flat_map { |p| p.comments.map(&:user) }
+    @users = @products.map { |product| [product.id, product.comments.map(&:user)] }.to_h
   end
 end
