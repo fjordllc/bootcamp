@@ -60,7 +60,7 @@
                   | コメント（#{product.comments.size}）
               .card-list-item-meta__item
                 .card-list-item__user-icons
-                  - users[product.id].uniq.each do |user|
+                  - commented_users[product.id].uniq.each do |user|
                     = link_to user, class: 'card-list-item__user-icons-icon' do
                       img.a-user-icon(
                       title="#{user.icon_title}"
