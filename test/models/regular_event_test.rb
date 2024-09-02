@@ -116,9 +116,9 @@ class RegularEventTest < ActiveSupport::TestCase
     travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
       regular_event = regular_events(:regular_event33)
       event_date = Date.new(2024, 8, 7)
-      format_regular_event = regular_event.format_event_date(event_date)
-      assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), format_regular_event.start_on
-      assert_equal DateTime.new(2024, 8, 7, 22, 0, 0, '+09:00'), format_regular_event.end_on
+      transformed_regular_event = regular_event.transform_for_subscription(event_date)
+      assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), transformed_regular_event.start_on
+      assert_equal DateTime.new(2024, 8, 7, 22, 0, 0, '+09:00'), transformed_regular_event.end_on
     end
   end
 
