@@ -17,4 +17,17 @@ header.page-header
                   span
                     | 参考書籍登録
 hr.a-border
-div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}")
+div
+.page-content.is-books
+  .container
+    .books
+    - if @books.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | 登録されている本はありません
+    - else
+      .books__items
+        .row
+          = render @books
