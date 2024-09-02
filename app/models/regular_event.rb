@@ -115,7 +115,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
-  def format_event_date(event_date)
+  def transform_for_subscription(event_date)
     regular_event = dup
 
     regular_event.assign_attributes(
@@ -133,7 +133,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
         from: Time.current.to_date,
         to: Time.current.to_date.next_year
       ).each do |event_date|
-        participated_regular_events << regular_event.format_event_date(event_date)
+        participated_regular_events << regular_event.transform_for_subscription(event_date)
       end
     end
     participated_regular_events
