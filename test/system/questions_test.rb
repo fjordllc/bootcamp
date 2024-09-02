@@ -552,4 +552,21 @@ class QuestionsTest < ApplicationSystemTestCase
     click_button '更新する'
     assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
   end
+
+  test 'retain selected values when validation errors occur' do
+    visit_with_auth new_question_path, 'komagata'
+    within '.select-practices' do
+      find('.choices__inner').click
+      find('#choices--js-choices-practice-item-choice-12', text: 'sshdでパスワード認証を禁止にする').click
+    end
+    within '.select-user' do
+      find('.choices__inner').click
+      find('#choices--js-choices-user-item-choice-12', text: 'hatsuno').click
+    end
+    click_button 'WIP'
+
+    assert_text '入力内容にエラーがありました'
+    assert_text 'sshdでパスワード認証を禁止にする'
+    assert_text 'hatsuno'
+  end
 end
