@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get "portfolio" => "users/works#index", as: :portfolio
     patch "graduation", to: "graduation#update", as: :graduation
     patch "job_seek", to: "job_seek#update"
-    resource :mail_notification, only: %i(edit update), controller: "users/mail_notification", path_names: { edit: "confirm" }
+    resource :mail_notification, only: %i(edit update), controller: "users/mail_notification"
   end
 
   get "users/tags/:tag", to: "users#index", as: :users_tag, tag: /.+/, format: "html"
