@@ -1,6 +1,7 @@
-- title 'ブログ'
-- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
-- description 'オンラインプログラミングフィヨルドブートキャンプのブログ記事一覧ページです。'
+ruby:
+  title 'ブログ'
+  set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）')
+  description 'オンラインプログラミングフィヨルドブートキャンプのブログ記事一覧ページです。'
 = auto_discovery_link_tag(:atom, 'https://bootcamp.fjord.jp/articles.atom', { title: 'Atom Feed' })
 = render '/head/fontawsome'
 = render 'welcome_page', { articles: @articles, is_published: true }
