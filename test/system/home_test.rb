@@ -235,6 +235,7 @@ class HomeTest < ApplicationSystemTestCase
         { category: '特別', title: '直近イベントの表示テスト用(翌日)', start_at: '2017年04月04日(火) 22:00' }
       ]
       day_after_tomorrow_events_texts = [
+        { category: '輪読会', title: 'Discord通知確認用イベント(土曜日午前8時から開催)', start_at: '2017年04月05日(水) 08:00' },
         { category: '特別', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
         { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' }
       ]

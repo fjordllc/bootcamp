@@ -65,7 +65,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
   test '.coming_soon_regular_events' do
     params = {
       today_events: [regular_events(:regular_event26), regular_events(:regular_event30), regular_events(:regular_event31)],
-      tomorrow_events: [regular_events(:regular_event28), regular_events(:regular_event29), regular_events(:regular_event31)],
+      tomorrow_events: [regular_events(:regular_event28), regular_events(:regular_event29), regular_events(:regular_event31), regular_events(:regular_event33)],
       webhook_url: 'https://discord.com/api/webhooks/0123456789/xxxxxxxx'
     }
     event_info = <<~TEXT.chomp
@@ -84,6 +84,10 @@ class DiscordNotifierTest < ActiveSupport::TestCase
       ------------------------------
 
       < 明日 (05/06 土) 開催 >
+
+      Discord通知確認用イベント(土曜日午前8時から開催)
+      時間: 08:00〜09:00
+      詳細: <http://localhost:3000/regular_events/507245517>
 
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 09:00〜10:00
