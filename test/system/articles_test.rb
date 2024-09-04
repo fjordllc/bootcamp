@@ -440,10 +440,10 @@ class ArticlesTest < ApplicationSystemTestCase
     visit article_path(@article3)
     assert_text '管理者・メンターとしてログインしてください'
 
-    visit "#{article_path(@article3)}?token=failed_token"
+    visit article_path(@article3, token: 'failed_token')
     assert_text 'token が一致しませんでした'
 
-    visit "#{article_path(@article3)}?token=#{@article3.token}"
+    visit article_path(@article3, token: @article3.token)
     assert_text @article3.title
     assert_selector 'head', visible: false do
       assert_selector "meta[name='robots'][content='noindex, nofollow']", visible: false
