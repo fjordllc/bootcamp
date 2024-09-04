@@ -3,6 +3,16 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
+  test '.with_attachments_and_user' do
+    articles = Article.with_attachments_and_user
+
+    articles.each do |article|
+      assert_not_nil article.user
+      assert_not_nil article.user.avatar_attachment
+      assert_not article.wip
+    end
+  end
+
   test '#prepared_thumbnail_url' do
     article = articles(:article3)
     assert_equal '/ogp/blank.svg', article.prepared_thumbnail_url
@@ -16,6 +26,21 @@ class ArticleTest < ActiveSupport::TestCase
   test '#published?' do
     assert articles(:article1).published?
     assert_not articles(:article3).published?
+  end
+
+  test '#generate_token!' do
+    test_article = Article.create(
+      title: 'サンプル記事',
+      body: 'サンプル記事本文',
+      user: users(:komagata),
+      wip: true
+    )
+    test_article.generate_token!
+    assert_not_nil test_article.token
+
+    maintained_tokens = test_article.token
+    test_article.generate_token!
+    assert_equal maintained_tokens, test_article.token
   end
 
   test 'articles directly published without WIP have value of the published_at' do
