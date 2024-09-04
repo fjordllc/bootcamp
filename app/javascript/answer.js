@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 export function initializeAnswer(answer) {
-  TextareaInitializer.initialize('.a-markdown-input__textarea')
-  const markdownInitializer = new MarkdownInitializer()
   const questionId = answer.dataset.question_id
   const answerId = answer.dataset.answer_id
   let savedAnswer = ''
+  TextareaInitializer.initialize(`#js-comment-${answerId}`)
+  const markdownInitializer = new MarkdownInitializer()
 
   const answerDisplay = answer.querySelector('.answer-display')
   const answerEditor = answer.querySelector('.answer-editor')
