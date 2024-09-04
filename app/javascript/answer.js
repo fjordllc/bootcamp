@@ -3,6 +3,16 @@ import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 document.addEventListener('DOMContentLoaded', () => {
+  const answerAnchor = location.hash
+  if (answerAnchor) {
+    setTimeout(() => {
+      const anchorElement = document.querySelector(answerAnchor)
+      if (anchorElement) {
+        anchorElement.scrollIntoView({ behavior: 'instant' })
+      }
+    }, 300)
+  }
+
   const answers = document.querySelectorAll('.answer')
   const loadingContent = document.querySelector('.loading-content')
   const answerContent = document.querySelector('.answer-content')
