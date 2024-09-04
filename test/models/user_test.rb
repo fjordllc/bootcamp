@@ -352,6 +352,13 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.completed_practices_size_by_category[category2.id]
   end
 
+  test '#completed_required_practices_size' do
+    user = users(:kensyu)
+    user.completed_practices << practices(:practice5)
+    user.completed_practices << practices(:practice61)
+    assert_equal 1, user.completed_required_practices_size
+  end
+
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
