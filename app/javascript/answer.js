@@ -160,7 +160,7 @@ export function initializeAnswer(answer) {
   const createdAtElement = answer.querySelector('.thread-comment__created-at')
   if (createdAtElement && navigator.clipboard) {
     createdAtElement.addEventListener('click', () => {
-      const answerURL = `${location.href}#answer_${answerId}`
+      const answerURL = location.href.split('#')[0] + '#answer_' + answerId
       navigator.clipboard
         .writeText(answerURL)
         .then(() => {
