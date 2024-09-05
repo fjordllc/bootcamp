@@ -55,6 +55,7 @@ article3:
     物理マシンでしたらインストールCD（やUSB）をマシンに入れてインストールしますが、仮想マシンの場合は、仮想のCDドライブにCDイメージをセットしてインストールします。
   user: komagata
   wip: true
+  token: <%= SecureRandom.urlsafe_base64 %>
 
 article4:
   title: Debianでzshを使う
@@ -78,6 +79,7 @@ article4:
   user: komagata
   wip: true
   published_at: "2022-04-04 00:00:00"
+  token: <%= SecureRandom.urlsafe_base64 %>
 
 <% (5..20).each do |id| %>
 article<%= id %>:
