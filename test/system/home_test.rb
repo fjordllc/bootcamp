@@ -238,7 +238,7 @@ class HomeTest < ApplicationSystemTestCase
         { category: '輪読会', title: 'Discord通知確認用イベント(土曜日午前8時から開催)', start_at: '2017年04月05日(水) 08:00' },
         { category: '特別', title: '直近イベントの表示テスト用(明後日)', start_at: '2017年04月05日(水) 09:00' },
         { category: '輪読会', title: '独習Git輪読会', start_at: '2017年04月05日(水) 21:00' },
-        { category: '輪読会', title: '参加反映テスト用定期イベント(祝日非開催)', start_at: '2017年04月05日(水) 21:00' },
+        { category: '輪読会', title: '参加反映テスト用定期イベント(祝日非開催)', start_at: '2017年04月05日(水) 21:00' }
       ]
 
       assert_event_card(today_event_label, today_events_texts)
