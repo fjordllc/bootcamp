@@ -106,7 +106,7 @@ class RegularEventTest < ActiveSupport::TestCase
     end_date = Date.new(Time.current.year, 12, 31)
     wednesday_for_year = (start_date..end_date).select(&:wednesday?)
 
-    regular_event = regular_events(:regular_event33)
+    regular_event = regular_events(:regular_event34)
     scheduled_dates = regular_event.all_scheduled_dates
 
     assert_equal wednesday_for_year, scheduled_dates
@@ -114,7 +114,7 @@ class RegularEventTest < ActiveSupport::TestCase
 
   test '#format_event_date' do
     travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
-      regular_event = regular_events(:regular_event33)
+      regular_event = regular_events(:regular_event34)
       event_date = Date.new(2024, 8, 7)
       transformed_regular_event = regular_event.transform_for_subscription(event_date)
       assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), transformed_regular_event.start_on
