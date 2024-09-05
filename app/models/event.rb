@@ -114,7 +114,7 @@ class Event < ApplicationRecord
     self.title = text + title
   end
 
-  def self.fetch_ids(user)
+  def self.fetch_participated_and_upcoming_ids(user)
     participated_events = user.participations.pluck(:event_id)
     upcoming_events = Event.where('start_at > ?', Date.current).pluck(:id)
 
