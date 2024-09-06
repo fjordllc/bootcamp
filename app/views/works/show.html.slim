@@ -52,6 +52,8 @@ hr.a-border
             .a-long-text.is-md.js-markdown-view
               = @work.description
         hr.a-border-tint
+          = render 'reactions/reactions', reactionable: @work
+        hr.a-border-tint
         .card-footer
           .card-main-actions
             ul.card-main-actions__items
