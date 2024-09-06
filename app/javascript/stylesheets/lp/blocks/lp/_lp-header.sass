@@ -8,8 +8,11 @@
     background-color: var(--lp-bg-3)
 
 .lp-header__inner
-  height: 34rem
   display: flex
+  +media-breakpoint-up(lg)
+    height: 34rem
+  +media-breakpoint-down(md)
+    flex-direction: column
 
 .lp-header__start,
 .lp-header__end
@@ -33,7 +36,10 @@
   color: var(--main)
 
 .lp-header__catchcopy
-  +text-block(4.25rem 1.2, 800)
+  +media-breakpoint-up(lg)
+    +text-block(4.25rem 1.2, 800)
+  +media-breakpoint-down(sm)
+    +text-block(3rem 1.2, 800)
 
 .lp-header__description
   p
@@ -48,3 +54,4 @@
 
 .lp-header-main-visual__image
   width: 80%
+  max-height: 80%

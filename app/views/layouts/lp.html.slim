@@ -18,9 +18,8 @@ html.is-lp lang='ja'
       .wrapper__main
         = render 'layouts/lp/welcome_header'
         = render 'flash'
-        .wrapper__main
-          main.welcome-page
-            = yield
+        main.welcome-page
+          = yield
       hr.a-border
       = render 'shared/not_logged_in_footer'
     = any_login_here if defined?(AnyLogin)

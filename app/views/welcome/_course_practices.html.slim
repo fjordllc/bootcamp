@@ -1,7 +1,7 @@
 article.course-selection-item
   .course-selection-item__inner
-    header.course-selection-item__header
-      h2.corporate-training-onboarding-flow-step__title.text-center
+    header.course-selection-item__header.mb-2
+      h2.lp-content-sub-title.text-center
         | #{course.title}
         br
         | コース
@@ -10,9 +10,9 @@ article.course-selection-item
         .a-long-text
           - course.categories.each do |category|
             - if category.practices.present?
-              h4
+              h3.mb-0
                 = category.name
-              table.welcome-table.a-card
+              table.welcome-table.a-card.mt-2
                 - category.practices.each do |practice|
                   tr
                     td

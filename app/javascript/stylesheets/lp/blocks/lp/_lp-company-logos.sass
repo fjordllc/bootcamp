@@ -2,8 +2,14 @@
   display: flex
   flex-wrap: wrap
   justify-content: center
-  gap: 3rem 2rem
   align-items: center
+  +media-breakpoint-up(lg)
+    gap: 3rem 2rem
+  +media-breakpoint-down(md)
+    gap: 2rem 1rem
 
 .lp-company-logos__item img
-  height: 5rem
+  +media-breakpoint-up(lg)
+    height: 5rem
+  +media-breakpoint-down(md)
+    height: 3.5rem

@@ -2,68 +2,85 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプの学習内容一覧を表示しています。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。')
 
-header.welcome-page-header
-  .container
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
-  hr.a-border-tint
+article.lp
+  header.lp-header.lp-header.is-lp-bg-2
+    .l-container.is-xl
+      .lp-header__inner
+        .lp-header__start
+          .lp-header__start-inner
+            hgrounp.lp-header__titles
+              h1.lp-header__title
+                | フィヨルドブートキャンプの学習内容
+              h2.lp-header__catchcopy
+                | RailsとJS
+                br
+                | 選べる2つのコース
+            .lp-header__description
+              p
+                | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                    | 研修を申し込む
+        .lp-header__end
+          .lp-header-main-visual
+            = image_tag('practices/practices.svg', class: 'lp-header-main-visual__image', alt: 'フィヨルドブートキャンプの学習内容')
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-.welcome-page-body
-  section.course-selection
-    .container.is-md
-      .course-selection__header
-        h2.welcome-section__title.has-border
-          | 選べる2つのコース
-      .course-selection__body
-        .course-selection__descritpion
-          .a-short-text
-            p
-              | Railsエンジニアコースとフロントエンドエンジニアコースの2つのコースがあります。料金はどちらも同じです。
-            p
-              | どちらのコースも、最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。また、どちらのコースでもチーム開発を体験できるので、実践的なスキルが身につきます。
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 初めてのプログラミングから
+            br
+            | 自作サービスをリリースまで
 
-    .course-selection-nav.is-hidden-md-up
-      .container
-        .course-selection-nav__inner
-          ul.course-selection-nav__items
-            li.course-selection-nav__item
-              = link_to '#rails-programmer-course', class: 'course-selection-nav__item-link' do
-                | Railsエンジニア
-            li.course-selection-nav__item
-              = link_to '#front-engineer-course', class: 'course-selection-nav__item-link' do
-                | フロントエンドエンジニア
+      .lp-content__end
+        .lp-content__body
+          .lp-content__descritpion
+            .l-inner-container.is-sm
+              .a-short-text
+                p
+                  | Railsエンジニアコースとフロントエンドエンジニアコースの2つのコースがあります。料金はどちらも同じです。
+                  | どちらのコースも、最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。また、どちらのコースでもチーム開発を体験できるので、実践的なスキルが身につきます。
 
-    .course-selection__items
-      .container.is-xl
-        .row.is-gutter-width-32
-          .col-md-6.col-xs-12
-            .course-selection-item-anchor#rails-programmer-course
-            - course = Course.find_by(title: 'Railsエンジニア')
-            - if course
-              = render('course_practices', course: course)
-            - else
-              p コースが見つかりませんでした。
-          .col-md-6.col-xs-12
-            .course-selection-item-anchor#front-engineer-course
-            - course = Course.find_by(title: 'フロントエンドエンジニア')
-            - if course
-              = render('course_practices', course: course)
-            - else
-              p コースが見つかりませんでした。
+          .course-selection-nav.is-hidden-md-up
+            .l-container
+              .course-selection-nav__inner
+                ul.course-selection-nav__items
+                  li.course-selection-nav__item
+                    = link_to '#rails-programmer-course', class: 'course-selection-nav__item-link' do
+                      | Railsエンジニア
+                  li.course-selection-nav__item
+                    = link_to '#front-engineer-course', class: 'course-selection-nav__item-link' do
+                      | フロントエンドエンジニア
 
-//
-  .container.is-lg
-    header.welcome-page-body__header
-      h1.welcome-page-body__title
-        | 学習内容
-    - @categories.each do |category|
-      - if category.practices.present?
-        .a-card
-          .card-body__inner
-            h3.card-body__inner-title
-              = category.name
-            ul.welcome-practices
-              - category.practices.each do |practice|
-                li.welcome-practices__item
-                  = practice.title
+          .course-selection__items
+            .l-container.is-xl
+              .row.is-gutter-width-32
+                .col-md-6.col-xs-12
+                  .course-selection-item-anchor#rails-programmer-course
+                  - course = Course.find_by(title: 'Railsエンジニア')
+                  - if course
+                    = render('course_practices', course: course)
+                  - else
+                    p コースが見つかりませんでした。
+                .col-md-6.col-xs-12
+                  .course-selection-item-anchor#front-engineer-course
+                  - course = Course.find_by(title: 'フロントエンドエンジニア')
+                  - if course
+                    = render('course_practices', course: course)
+                  - else
+                    p コースが見つかりませんでした。
+
+  .lp-content-divider.is-lp-bg-3
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

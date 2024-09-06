@@ -9,27 +9,39 @@
   &.is-lp-bg-3
     background-color: var(--lp-bg-3)
 
-  &.is-right-title
-    .lp-content__inner
-      display: flex
-      flex-direction: row-reverse
-      justify-content: space-between
-      gap: 3rem
-    .lp-content__end
-      flex: 1
-      max-width: 50rem
+  +media-breakpoint-up(lg)
+    &.is-top-title
+      .lp-content__inner
+        display: flex
+        gap: 3.5rem
+        flex-direction: column
 
-  &.is-left-title
-    .lp-content__inner
-      display: flex
-      gap: 3rem
-      justify-content: space-between
-    .lp-content__end
-      flex: 1
-      max-width: 42.5rem
+    &.is-right-title
+      .lp-content__inner
+        display: flex
+        flex-direction: row-reverse
+        justify-content: space-between
+        gap: 3rem
+      .lp-content__end
+        flex: 1
+        max-width: 50rem
 
-  &.is-top-title
+    &.is-left-title
+      .lp-content__inner
+        display: flex
+        gap: 3rem
+        justify-content: space-between
+      .lp-content__end
+        flex: 1
+        max-width: 42.5rem
+
+  +media-breakpoint-down(md)
     .lp-content__inner
       display: flex
-      gap: 4rem
+      gap: 3.5rem
       flex-direction: column
+
+.lp-content__body
+  display: flex
+  flex-direction: column
+  gap: 2.5rem

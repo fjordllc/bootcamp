@@ -1,0 +1,52 @@
+section.lp-content.is-lp-bg-3.is-top-title#tutorials
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 選べる2つのコース
+
+      .lp-content__end
+        .lp-content__description.mb-12
+          .l-container.is-md
+            .a-short-text
+              p
+                | 「Railsエンジニアコース」と「フロントエンドエンジニアコース」の2つのコースがあります。
+                | 最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。
+                | どちらのコースも最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。
+                | また、どちらもチーム開発を体験できるので、実践的なスキルが身につきます。
+                br
+                | コース選びに迷ったら、まずはRailsエンジニアコースを選んでみてください。
+                | 入会後はメンターに相談ができるので、その時にしっかり考えましょう。
+                | 途中でのコースの変更、卒業後に別コースの必要なカリキュラムだけを受講することもできます。
+
+        section.welcome-child-section.is-tutorials
+          .welcome-small-sections
+            .row.is-gutter-width-24.welcome-small-sections__row
+              .col-xs-12.col-md-6
+                section.welcome-small-section
+                  .welcome-small-section__inner.a-card
+                    h3.welcome-small-section__title
+                      | Railsエンジニアコース
+                    .welcome-small-section__description
+                      = image_tag('courses/rails.svg', class: 'welcome-small-section__float-image', alt: 'Ruby on Railsのロゴ')
+                      p
+                        | プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークであるRails(Ruby on Rails)を使ってWebエンジニアになるためのバックエンド・フロントエンドも含めた一通りの技術を学びます。
+              .col-xs-12.col-md-6
+                section.welcome-small-section
+                  .welcome-small-section__inner.a-card
+                    h3.welcome-small-section__title
+                      | フロントエンドエンジニアコース
+                    .welcome-small-section__description
+                      = image_tag('courses/nextjs.svg', class: 'welcome-small-section__float-image', alt: 'Ruby on Railsのロゴ')
+                      p
+                        | HTML、CSS やJavaScript/TypeScriptをつかってWebアプリケーションにおいてユーザーが直接触る部分（ユーザーインターフェース）を作るための技術を習得できます。
+
+        .lp-actions.mt-12
+          .lp-actions__items
+            .lp-actions__item
+              = link_to 'コース内容を確認する', practices_path, class: 'a-button is-xl is-primary-border is-block'
+
+  .lp-content-divider.is-lp-bg-3
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"

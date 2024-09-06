@@ -1,14 +1,14 @@
 section.welcome-section.is-mentors#mentors
   .welcome-section__inner
     .welcome-section__header
-      .container
+      .l-container
         .welcome-section__header-inner
           h2.welcome-section__title
             | メンター ・ 顧問
           hr.welcome-section__title-border
     .welcome-section__body
       .welcome-members
-        .container
+        .l-container
           //
             .row.is-gutter-width-32
               - mentors.each do |mentor|
@@ -16,10 +16,10 @@ section.welcome-section.is-mentors#mentors
                   .col-xs-12.col-md-6.col-lg-4
                     = render 'welcome/mentor', mentor:, page: 'welcome-index'
 
-          #my-keen-slider.keen-slider
+          .js-masonry
             - mentors.each do |mentor|
-              .keen-slider__slide
+              .js-masonry__item
                 = render 'welcome/mentor', mentor:, page: 'welcome-index'
             - mentors.each do |mentor|
-              .keen-slider__slide
+              .js-masonry__item
                 = render 'welcome/mentor', mentor:, page: 'welcome-index'
