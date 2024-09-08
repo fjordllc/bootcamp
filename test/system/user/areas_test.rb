@@ -53,7 +53,7 @@ class User::AreasTest < ApplicationSystemTestCase
   end
 
   test 'show users by area' do
-    visit_with_auth users_area_path(area_name: '東京都'), 'kimura'
+    visit_with_auth users_area_path(area: '東京都'), 'kimura'
     assert_selector 'h1.page-main-header__title', text: '東京都'
     within '.page-body__column.is-main' do
       assert_selector '.users-item', count: 3
@@ -64,7 +64,7 @@ class User::AreasTest < ApplicationSystemTestCase
   end
 
   test 'show message when visit area with no one' do
-    visit_with_auth users_area_path(area_name: '茨城県'), 'kimura'
+    visit_with_auth users_area_path(area: '茨城県'), 'kimura'
     assert_selector 'h1.page-main-header__title', text: '茨城県'
     assert_text 'まだユーザーはいません'
   end
