@@ -493,6 +493,16 @@ class User < ApplicationRecord
       student.sent_student_followup_message = true
       student.save(validate: false)
     end
+
+    def users_by_area(area)
+      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
+
+      country = ISO3166::Country.find_country_by_any_name(area)
+      return User.with_attached_avatar.where(country_code: country.alpha2) if country
+
+      User.none
+    end
   end
 
   def away?

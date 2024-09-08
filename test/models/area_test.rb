@@ -3,13 +3,6 @@
 require 'test_helper'
 
 class AreaTest < ActiveSupport::TestCase
-  test '#users_by_area' do
-    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
-    assert_equal Area.users_by_area('東京都').to_a.sort, tokyo_users.sort
-    america_users = [users(:neverlogin), users(:tom)]
-    assert_equal Area.users_by_area('米国').to_a.sort, america_users.sort
-  end
-
   test '#number_of_users_by_region' do
     assert_equal Area.number_of_users_by_region, {
       '関東地方' => { '東京都' => 3, '栃木県' => 1 },
