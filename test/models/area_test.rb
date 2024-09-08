@@ -18,8 +18,8 @@ class AreaTest < ActiveSupport::TestCase
     }
   end
 
-  test '#sorted_users_group_by_areas' do
-    sorted_users_group_by_areas = Area.sorted_users_group_by_areas
+  test '#sorted_user_groups_by_area_user_num' do
+    sorted_users_group_by_areas = Area.sorted_user_groups_by_area_user_num
     tokyo_users = [users(:adminonly), users(:machida), users(:kimura)].sort_by(&:created_at).reverse
     tochigi_users = [users(:kyuukai)]
     nagasaki_users = [users(:advisernocolleguetrainee)]
