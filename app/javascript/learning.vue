@@ -11,8 +11,7 @@
         | 修了しています
     li.card-main-actions__item(v-else)
       label#js-complete.a-button.is-sm.is-warning.is-block(
-        @click='pushComplete',
-        for='modal-learning_completion')
+        @click='pushComplete')
         i.fa-solid.fa-check
         | 修了
 </template>
@@ -75,13 +74,16 @@ export default {
         credentials: 'same-origin',
         redirect: 'manual',
         body: params
-      })
-        .then(() => {
+      }).then((response) => {
+        if (response.ok) {
           this.complete = true
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+          document.getElementById('modal-learning_completion').checked = true
+        } else {
+          response.json().then((data) => {
+            alert(data.error)
+          })
+        }
+      })
     }
   }
 }
