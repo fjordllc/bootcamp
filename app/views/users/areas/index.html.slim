@@ -25,9 +25,9 @@ main.page-main
         .page-body__column.is-sub.is-sm
           = render 'areas_menu', number_of_users_by_region: @number_of_users_by_region
         .page-body__column.is-main
-          - if @users_group_by_areas.any?
-            = paginate @users_group_by_areas
-            - @users_group_by_areas.each do |users_group_by_area|
+          - if @sorted_user_groups_by_area_user_num.any?
+            = paginate @sorted_user_groups_by_area_user_num
+            - @sorted_user_groups_by_area_user_num.each do |users_group_by_area|
               section.a-card
                 .user-group
                   header.user-group__header
@@ -39,6 +39,6 @@ main.page-main
                         a.a-user-icons__item-link href=user.url
                           span.a-user-role class="is-#{user.primary_role}"
                             img.a-user-icons__item-icon.a-user-icon src=user.avatar_url title=user.icon_title data-login-name=user.login_name
-            = paginate @users_group_by_areas
+            = paginate @sorted_user_groups_by_area_user_num
           - else
             .empty-message 都道府県別ユーザー一覧はありません
