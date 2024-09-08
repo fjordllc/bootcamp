@@ -1,4 +1,4 @@
-= form_with model: [@user, @micro_report], local: true, class: 'micro-report-form', id: 'js-micro-report-form' do |f|
+= form_with model: [@user, @micro_report], local: true, class: 'micro-report-form', id: 'js-micro-report-form', url: user_micro_reports_path(@user, anchor: 'latest-micro-report') do |f|
   .container.is-md
     .micro-report-form__inner
       .micro-report-form__start
