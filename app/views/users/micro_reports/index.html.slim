@@ -8,8 +8,14 @@
 
 .page-body.pb-0
   .page-content
-    .micro-reports#js-micro-reports(style='padding-bottom: 0;')
-      .micro-reports__start#js-scroll
+    - if current_user == @user
+      .micro-reports__end
+        = render(Users::MicroReports::FormComponent.new(user: @user))
+      - micro_reports_class = 'micro-reports-with-form'
+    - else
+      - micro_reports_class = 'micro-reports-without-form'
+    .micro-reports#js-micro-reports class=micro_reports_class
+      .micro-reports__start
         .container.is-md
           .micro-reports-posts
             - if @micro_reports.empty?
@@ -22,9 +28,9 @@
                       | 分報の投稿はまだありません。
             -else
               = paginate @micro_reports
-              - @micro_reports.each do |micro_report|
+              - @micro_reports.each_with_index do |micro_report, index|
+                - if index == @micro_reports.size - 1
+                  #latest-micro-report
                 = render(Users::MicroReports::MicroReportComponent.new(user: @user, current_user: current_user, micro_report: micro_report))
               = paginate @micro_reports
-      - if current_user == @user
-        .micro-reports__end
-          = render(Users::MicroReports::FormComponent.new(user: @user))
+
