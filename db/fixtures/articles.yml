@@ -81,7 +81,7 @@ article4:
   published_at: "2022-04-04 00:00:00"
   token: <%= SecureRandom.urlsafe_base64 %>
 
-<% (5..20).each do |id| %>
+<% (5..40).each do |id| %>
 article<%= id %>:
   title: test title<%= id %>
   body: |-
