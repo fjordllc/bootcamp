@@ -7,4 +7,4 @@
       ul.page-nav__items
         - number_of_users_by_region[region].each do |area, number_of_users|
           li.page-nav__item
-            = link_to "#{area}（#{number_of_users}）", users_area_path(area: area), class: 'page-nav__item-link a-text-link'
+            = link_to "#{area}（#{number_of_users}）", users_area_path(area:), class: 'page-nav__item-link a-text-link'
