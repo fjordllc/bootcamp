@@ -5,5 +5,9 @@ class Users::CoursesController < ApplicationController
 
   def index
     @target = ALLOWED_TARGETS.include?(params[:target]) ? params[:target] : ALLOWED_TARGETS.first
+    course_names = { rails_course: 'Railsエンジニア',
+                     front_end_course: 'フロントエンドエンジニア',
+                     other_courses: %w[Unityゲームエンジニア iOSエンジニア] }
+    @users = User.by_course(course_names[@target.to_sym]).students_and_trainees
   end
 end
