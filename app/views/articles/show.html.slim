@@ -14,17 +14,17 @@ ruby:
     set_meta_tags(twitter: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
   end
 
-header.welcome-page-header
+header.lp-page-header
   .container
-    .welcome-page-header__inner
-      .welcome-page-header__start
-        .welcome-page-header__title
+    .lp-page-header__inner
+      .lp-page-header__start
+        .lp-page-header__title
           | ブログ
-      .welcome-page-header__end
-        nav.welcome-page-header-nav
-          ul.welcome-page-header-nav__items
+      .lp-page-header__end
+        nav.lp-page-header-nav
+          ul.lp-page-header-nav__items
             - if current_user&.mentor?
-              .welcome-page-header-nav__item
+              .lp-page-header-nav__item
                 = link_to articles_path, class: 'a-button is-md is-secondary is-block is-back' do
                   | ブログ記事一覧
 

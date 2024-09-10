@@ -1,14 +1,14 @@
-header.welcome-page-header
+header.lp-page-header
   .l-container
-    .welcome-page-header__inner
-      .welcome-page-header__start
-        h1.welcome-page-header__title
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
           = title
-      .welcome-page-header__end
-        nav.welcome-page-header-nav
-          ul.welcome-page-header-nav__items
+      .lp-page-header__end
+        nav.lp-page-header-nav
+          ul.lp-page-header-nav__items
             - if current_user&.mentor?
-              .welcome-page-header-nav__item
+              .lp-page-header-nav__item
                 = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
                   i.fas.fa-plus
                   | ブログ記事作成
