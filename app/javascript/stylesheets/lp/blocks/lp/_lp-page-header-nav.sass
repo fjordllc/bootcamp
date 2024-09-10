@@ -1,0 +1,20 @@
+.welcome-page-header-nav
+  display: flex
+  height: 100%
+
+.welcome-page-header-nav__items
+  display: flex
+  align-items: center
+  gap: .75rem
+
+.welcome-page-header-nav__item
+  position: relative
+  +media-breakpoint-up(md)
+    min-width: 10rem
+    display: flex
+    justify-content: center
+  +media-breakpoint-down(sm)
+    flex: 1
+    max-width: 50%
+    &:first-child:last-child
+      max-width: 100%

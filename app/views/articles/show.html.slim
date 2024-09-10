@@ -14,78 +14,82 @@ ruby:
     set_meta_tags(twitter: { image: ogp_image_url(@article.selected_thumbnail_url), url: request.url })
   end
 
-.welcome-page
+header.welcome-page-header
+  .container
+    .welcome-page-header__inner
+      .welcome-page-header__start
+        .welcome-page-header__title
+          | ブログ
+      .welcome-page-header__end
+        nav.welcome-page-header-nav
+          ul.welcome-page-header-nav__items
+            - if current_user&.mentor?
+              .welcome-page-header-nav__item
+                = link_to articles_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | ブログ記事一覧
 
-  .welcome-page-header
-    .container
-      .welcome-page-header__inner
-        .welcome-page-header__start
-          .welcome-page-header__title
-            | ブログ
-        .welcome-page-header__end
-
-  hr.a-border
-  .welcome-page-body
-    .container.is-xl
-      .row.is-gutter-width-32
-        .col-xl-8.col-lg-8.col-xs-12
-          .a-card
-            .article__inner
-              header.article__header
-                h1.article__title
-                  - if @article.wip?
-                    span.article__title-label
-                      | WIP
-                  = @article.title
-                .article__metas
-                  .article__meta
-                    .article__author
-                      = image_tag @article.user.avatar_url
-                      = @article.user.login_name
-                  .article__meta
-                    .article__published-at
-                      - if @article.wip?
-                        = '執筆中'
-                      - elsif @article.published_at.nil?
-                        = l(@article.created_at)
-                      - else
-                        = l(@article.published_at)
-                = render 'share_buttons', article: @article
-                - if @article.display_thumbnail_in_body?
-                  - if @article.prepared_thumbnail?
-                    = image_tag @article.prepared_thumbnail_url, class: 'article__image'
-                  - else
-                    = image_tag @article.selected_thumbnail_url, class: 'article__image'
-              .article__body
-                - if @article.wip? && @article.token == params[:token]
-                  .article__message.a-notice-block.mb-8
-                    p
-                      | この記事はまだ公開前です。このページのURLはSNSなどで公開しないようにしてください。
-                .js-markdown-view.a-long-text.is-md
-                  = @article.body
-                = render 'share_buttons', article: @article
-                - if @article.wip? && params[:token].nil?
-                  .article__message.a-notice-block
-                    p
-                      | この記事はまだ未公開です。書き途中の記事のプレビューを見るには、以下のURLにアクセスしてください。
-                    p
-                      input.a-text-input(type='text' value="#{request.host_with_port}#{article_path(@article)}?token=#{@article.token}")
-                    p
-                      = link_to "#{article_path(@article)}?token=#{@article.token}", target: '_blank', rel: 'noopener' do
-                        | プレビューをブラウザで開く
-            - if admin_or_mentor_login?
-              hr.a-border
-              .card-footer
-                .card-main-actions
-                  ul.card-main-actions__items
-                    li.card-main-actions__item
-                      = link_to edit_article_path(@article), class: 'a-button is-secondary is-md is-block' do
-                        | 内容修正
-                    li.card-main-actions__item.is-sub
-                      = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
-                        | 削除
-        .col-xl-4.col-lg-4.col-xs-12
-          - if @mentor.mentor?
-            = render 'welcome/mentor', mentor: @mentor, page: 'articles-show'
-          = render 'recent_articles'
-          = render 'ad'
+hr.a-border-tint
+.welcome-page-body
+  .container.is-xl
+    .row.is-gutter-width-32
+      .col-xl-8.col-lg-8.col-xs-12
+        .a-card
+          .article__inner
+            header.article__header
+              h1.article__title
+                - if @article.wip?
+                  span.article__title-label
+                    | WIP
+                = @article.title
+              .article__metas
+                .article__meta
+                  .article__author
+                    = image_tag @article.user.avatar_url
+                    = @article.user.login_name
+                .article__meta
+                  .article__published-at
+                    - if @article.wip?
+                      = '執筆中'
+                    - elsif @article.published_at.nil?
+                      = l(@article.created_at)
+                    - else
+                      = l(@article.published_at)
+              = render 'share_buttons', article: @article
+              - if @article.display_thumbnail_in_body?
+                - if @article.prepared_thumbnail?
+                  = image_tag @article.prepared_thumbnail_url, class: 'article__image'
+                - else
+                  = image_tag @article.selected_thumbnail_url, class: 'article__image'
+            .article__body
+              - if @article.wip? && @article.token == params[:token]
+                .article__message.a-notice-block.mb-8
+                  p
+                    | この記事はまだ公開前です。このページのURLはSNSなどで公開しないようにしてください。
+              .js-markdown-view.a-long-text.is-md
+                = @article.body
+              = render 'share_buttons', article: @article
+              - if @article.wip? && params[:token].nil?
+                .article__message.a-notice-block
+                  p
+                    | この記事はまだ未公開です。書き途中の記事のプレビューを見るには、以下のURLにアクセスしてください。
+                  p
+                    input.a-text-input(type='text' value="#{request.host_with_port}#{article_path(@article)}?token=#{@article.token}")
+                  p
+                    = link_to "#{article_path(@article)}?token=#{@article.token}", target: '_blank', rel: 'noopener' do
+                      | プレビューをブラウザで開く
+          - if admin_or_mentor_login?
+            hr.a-border
+            .card-footer
+              .card-main-actions
+                ul.card-main-actions__items
+                  li.card-main-actions__item
+                    = link_to edit_article_path(@article), class: 'a-button is-secondary is-md is-block' do
+                      | 内容修正
+                  li.card-main-actions__item.is-sub
+                    = link_to article_path(@article), data: { confirm: '本当によろしいですか？' }, method: :delete, class: 'card-main-actions__muted-action' do
+                      | 削除
+      .col-xl-4.col-lg-4.col-xs-12
+        - if @mentor.mentor?
+          = render 'welcome/mentor', mentor: @mentor, page: 'articles-show'
+        = render 'recent_articles'
+        = render 'ad'
