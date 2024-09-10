@@ -1,259 +1,199 @@
-section.welcome-section.is-job-hunt-support
-  .l-container.is-md
-    h2.welcome-section__title
-      | 卒業生の声
-    .welcome-section__description
-      p
-        | フィヨルドブートキャンプでは、今後の改善のために卒業生にアンケートを実施しています。
-        | そのアンケート結果や卒業後の様子のインタビューを紹介。
-  section.welcome-child-section
-    h3.welcome-section__sub-title.mb-8
-      | 卒業生インタビュー・プレゼンテーション
-    .l-container.is-xl
-      .welcome-section__articles
+section.lp-content.is-lp-bg-1.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 卒業生インタビュー
+            br
+            | &プレゼンテーション
+      .lp-content__end
+        .l-container.is-xl
+          .welcome-section__articles
+            .row.is-gutter-width-32
+              .col-xs-12.col-md-4
+                .welcome-article.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/119', class: 'welcome-article__inner' do
+                    = image_tag 'articles/article-119.png', class: 'welcome-article__image', alt: 'Slerからフィヨルドブートキャンプへ。Web開発に必要な知識が学べて自信がついた【卒業生インタビューしくみ製作所様】の記事のサムネイル'
+                    .welcome-article__body
+                      h3.welcome-article__title
+                        | Slerからフィヨルドブートキャンプへ。Web開発に必要な知識が学べて自信がついた【卒業生インタビューしくみ製作所様】
+                      .welcome-article__description
+                        p
+                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
+                          | どんな基準で会社を選び、今どんな思いでエンジニアとして
+                          | 働いているのでしょうか。
+                          | 今回はしくみ製作所で働くseijiさん、makiichikawaさんと、
+                          | お二人の上長のhozumiさんtottyさんにお話を聞きました。
+              .col-xs-12.col-md-4
+                .welcome-article.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/114', class: 'welcome-article__inner' do
+                    = image_tag 'articles/article-114.png', class: 'welcome-article__image', alt: 'コマンドって何……？Macも初めて。本当に未経験だった私が、エンジニアになった話【卒業生インタビューラグザイア様】の記事のサムネイル'
+                    .welcome-article__body
+                      h3.welcome-article__title
+                        | コマンドって何……？Macも初めて。本当に未経験だった私が、エンジニアになった話【卒業生インタビューラグザイア様】
+                      .welcome-article__description
+                        p
+                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
+                          | どんな基準で会社を選び、今どんな思いでエンジニアとして
+                          | 働いているのでしょうか。
+                          | 今回は株式会社ラグザイアで働く
+                          | takapi61 さんにお話を聞きました。
+              .col-xs-12.col-md-4
+                .welcome-article.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/103', class: 'welcome-article__inner' do
+                    = image_tag 'articles/article-103.png', class: 'welcome-article__image', alt: '[フィヨブーフェス 2023 文字起こし] 4. フィヨブーは最高だぞ （maimu）の記事のサムネイル'
+                    .welcome-article__body
+                      h3.welcome-article__title
+                        | [フィヨブーフェス 2023 文字起こし] 4. フィヨブーは最高だぞ （maimu）
+                      .welcome-article__description
+                        p
+                          | 先輩受講生や卒業生からフィヨルドブートキャンプの楽しみ方や
+                          | 学習継続のコツ、アドバイスをショートプレゼンテーション形式で伝える
+                          | イベント「フィヨブーフェス2023」での
+                          | 卒業生のmaimuさんのプレゼンテーションです。
+              .col-xs-12.col-md-4
+                .welcome-article.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/98', class: 'welcome-article__inner' do
+                    = image_tag 'articles/article-98.jpeg', class: 'welcome-article__image', alt: '実践的な学びと入社後の研修で、自信を持って業務に取り組めた。【卒業生インタビューラグザイア様】の記事のサムネイル'
+                    .welcome-article__body
+                      h3.welcome-article__title
+                        | 実践的な学びと入社後の研修で、自信を持って業務に取り組めた。【卒業生インタビューラグザイア様】
+                      .welcome-article__description
+                        p
+                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
+                          | どんな基準で会社を選び、今どんな思いでエンジニアとして
+                          | 働いているのでしょうか。
+                          | 今回は株式会社ラグザイアで働く naomichi-h さんにお話を聞きました。
+              .col-xs-12.col-md-4
+                .welcome-article.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/83', class: 'welcome-article__inner' do
+                    = image_tag 'articles/article-83.jpeg', class: 'welcome-article__image', alt: 'プログラミングの楽しさや難しさを話せる仲間ができた【卒業生インタビューGMOペパボ様】の記事のサムネイル'
+                    .welcome-article__body
+                      h3.welcome-article__title
+                        | プログラミングの楽しさや難しさを話せる仲間ができた【卒業生インタビューGMOペパボ様】
+                      .welcome-article__description
+                        p
+                          | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
+                          | どんな基準で会社を選び、今どんな思いでエンジニアとして働いているのでしょうか。
+                          | 今回はGMOペパボ株式会社で働くyana-giさん、Sakiさんと、
+                          | お二人の上長のebihara99999さんにお話を聞きました。
+              .col-xs-12.col-md-4
+                .welcome-article.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/46', class: 'welcome-article__inner' do
+                    = image_tag 'articles/article-46.png', class: 'welcome-article__image', alt: '卒業生の kasumi さん、ima1zumi さんにインタビューをしましたの記事のサムネイル'
+                    .welcome-article__body
+                      h3.welcome-article__title
+                        | 卒業生の kasumi さん、ima1zumi さんにインタビューをしました
+                      .welcome-article__description
+                        p
+                          | 株式会社永和システムマネジメントさんに就職したフィヨルドブートキャンプの卒業生、
+                          | kasumi さんと ima1zumi さんにインタビューをさせていただきました。
+                          | フィヨルドブートキャンプで大変だったこと、今プログラマーになって役立っていることなどを
+                          | 聞かせていただきました。
+
+    .lp-content-divider.is-lp-bg-2
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+section.lp-content.is-lp-bg-2.is-top-title
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 卒業生アンケート
+      .lp-content__end
         .row.is-gutter-width-32
-          .col-xs-12.col-md-4
-            .welcome-article.a-card
-              = link_to 'https://bootcamp.fjord.jp/articles/119', class: 'welcome-article__inner' do
-                = image_tag 'articles/article-119.png', class: 'welcome-article__image', alt: 'Slerからフィヨルドブートキャンプへ。Web開発に必要な知識が学べて自信がついた【卒業生インタビューしくみ製作所様】の記事のサムネイル'
-                .welcome-article__body
-                  h3.welcome-article__title
-                    | Slerからフィヨルドブートキャンプへ。Web開発に必要な知識が学べて自信がついた【卒業生インタビューしくみ製作所様】
-                  .welcome-article__description
-                    p
-                      | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                      | どんな基準で会社を選び、今どんな思いでエンジニアとして
-                      | 働いているのでしょうか。
-                      | 今回はしくみ製作所で働くseijiさん、makiichikawaさんと、
-                      | お二人の上長のhozumiさんtottyさんにお話を聞きました。
-          .col-xs-12.col-md-4
-            .welcome-article.a-card
-              = link_to 'https://bootcamp.fjord.jp/articles/114', class: 'welcome-article__inner' do
-                = image_tag 'articles/article-114.png', class: 'welcome-article__image', alt: 'コマンドって何……？Macも初めて。本当に未経験だった私が、エンジニアになった話【卒業生インタビューラグザイア様】の記事のサムネイル'
-                .welcome-article__body
-                  h3.welcome-article__title
-                    | コマンドって何……？Macも初めて。本当に未経験だった私が、エンジニアになった話【卒業生インタビューラグザイア様】
-                  .welcome-article__description
-                    p
-                      | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                      | どんな基準で会社を選び、今どんな思いでエンジニアとして
-                      | 働いているのでしょうか。
-                      | 今回は株式会社ラグザイアで働く
-                      | takapi61 さんにお話を聞きました。
-          .col-xs-12.col-md-4
-            .welcome-article.a-card
-              = link_to 'https://bootcamp.fjord.jp/articles/103', class: 'welcome-article__inner' do
-                = image_tag 'articles/article-103.png', class: 'welcome-article__image', alt: '[フィヨブーフェス 2023 文字起こし] 4. フィヨブーは最高だぞ （maimu）の記事のサムネイル'
-                .welcome-article__body
-                  h3.welcome-article__title
-                    | [フィヨブーフェス 2023 文字起こし] 4. フィヨブーは最高だぞ （maimu）
-                  .welcome-article__description
-                    p
-                      | 先輩受講生や卒業生からフィヨルドブートキャンプの楽しみ方や
-                      | 学習継続のコツ、アドバイスをショートプレゼンテーション形式で伝える
-                      | イベント「フィヨブーフェス2023」での
-                      | 卒業生のmaimuさんのプレゼンテーションです。
-          .col-xs-12.col-md-4
-            .welcome-article.a-card
-              = link_to 'https://bootcamp.fjord.jp/articles/98', class: 'welcome-article__inner' do
-                = image_tag 'articles/article-98.jpeg', class: 'welcome-article__image', alt: '実践的な学びと入社後の研修で、自信を持って業務に取り組めた。【卒業生インタビューラグザイア様】の記事のサムネイル'
-                .welcome-article__body
-                  h3.welcome-article__title
-                    | 実践的な学びと入社後の研修で、自信を持って業務に取り組めた。【卒業生インタビューラグザイア様】
-                  .welcome-article__description
-                    p
-                      | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                      | どんな基準で会社を選び、今どんな思いでエンジニアとして
-                      | 働いているのでしょうか。
-                      | 今回は株式会社ラグザイアで働く naomichi-h さんにお話を聞きました。
-          .col-xs-12.col-md-4
-            .welcome-article.a-card
-              = link_to 'https://bootcamp.fjord.jp/articles/83', class: 'welcome-article__inner' do
-                = image_tag 'articles/article-83.jpeg', class: 'welcome-article__image', alt: 'プログラミングの楽しさや難しさを話せる仲間ができた【卒業生インタビューGMOペパボ様】の記事のサムネイル'
-                .welcome-article__body
-                  h3.welcome-article__title
-                    | プログラミングの楽しさや難しさを話せる仲間ができた【卒業生インタビューGMOペパボ様】
-                  .welcome-article__description
-                    p
-                      | フィヨルドブートキャンプを卒業した方々は、どんな経験をして、
-                      | どんな基準で会社を選び、今どんな思いでエンジニアとして働いているのでしょうか。
-                      | 今回はGMOペパボ株式会社で働くyana-giさん、Sakiさんと、
-                      | お二人の上長のebihara99999さんにお話を聞きました。
-          .col-xs-12.col-md-4
-            .welcome-article.a-card
-              = link_to 'https://bootcamp.fjord.jp/articles/46', class: 'welcome-article__inner' do
-                = image_tag 'articles/article-46.png', class: 'welcome-article__image', alt: '卒業生の kasumi さん、ima1zumi さんにインタビューをしましたの記事のサムネイル'
-                .welcome-article__body
-                  h3.welcome-article__title
-                    | 卒業生の kasumi さん、ima1zumi さんにインタビューをしました
-                  .welcome-article__description
-                    p
-                      | 株式会社永和システムマネジメントさんに就職したフィヨルドブートキャンプの卒業生、
-                      | kasumi さんと ima1zumi さんにインタビューをさせていただきました。
-                      | フィヨルドブートキャンプで大変だったこと、今プログラマーになって役立っていることなどを
-                      | 聞かせていただきました。
-  section.welcome-child-section
-    .l-container.is-xl
-      h3.welcome-section__sub-title.mb-8
-        | 卒業生アンケート
-      .row.is-gutter-width-32
-        .col-xs-12.col-md-6
-          .welcome-small-section
-            .welcome-small-section__inner.a-card
-              h3.welcome-small-section__title
-                | 教材、カリキュラム、指導内容等は、
-                br
-                | 期待した能力の習得に役立つものとして満足できましたか？
-              .welcome-small-section__chart-container
-                canvas#myPieChart
-        .col-xs-12.col-md-6
-          .welcome-small-section
-            .welcome-small-section__inner.a-card
-              h3.welcome-small-section__title
-                | フィヨルドブートキャンプを
-                br
-                | 友人や知人に勧めたいと思いますか？
-              .welcome-small-section__chart-container
-                canvas#myPieChart2
-
-  //
-    以下はアンケートページを別ページを用意したら公開
-    section.welcome-child-section
-      h3.welcome-section__sub-title.mb-8
-        | 受講した講座の教材、カリキュラム、
-        br
-        | 指導内容等が満足（不満足）であった理由を教えてください。
-      .l-container.is-xl
-        .row.is-gutter-width-32
-          .col-xs-12.col-md-4
+          .col-xs-12.col-md-6
             .welcome-small-section
               .welcome-small-section__inner.a-card
-                .welcome-small-section__description
-                  p
-                    | カリキュラムがスモールステップで、飽きずに継続することができたのが非常に有り難かったです。
-                    | css上級やボーリングやlsコマンド等、コードを考えて書く課題、またJsメモ課題など、
-                    | 簡単なアプリケーションを作る課題が、非常に有益で力がついたと終わってみて、感じています。
-                    | 強制ではなく、このような作る系の課題がもっとあって、いつでもチャレンジできるようになっていると、
-                    | 復習、また自分の成長を感じることもできるので、より良くなる気がします。
-          .col-xs-12.col-md-4
+                h3.welcome-small-section__title
+                  | 教材、カリキュラム、指導内容等は、
+                  br
+                  | 期待した能力の習得に役立つものとして満足できましたか？
+                .welcome-small-section__chart-container
+                  canvas#myPieChart
+          .col-xs-12.col-md-6
             .welcome-small-section
               .welcome-small-section__inner.a-card
-                .welcome-small-section__description
-                  p
-                    | 入会時はただコードが書けるだけ、という状態でした。
-                    | エンジニアとしては圧倒的に足りないものだらけだけど、
-                    | それが何かがわからなかった自分にとってFBCの存在はとてもありがたかったです。
-                    | 特に、プロのレビューを受けることで良いコードの書き方を理解できたのは大きな収穫だったと思います。
+                h3.welcome-small-section__title
+                  | フィヨルドブートキャンプを
+                  br
+                  | 友人や知人に勧めたいと思いますか？
+                .welcome-small-section__chart-container
+                  canvas#myPieChart2
 
-          .col-xs-12.col-md-4
-            .welcome-small-section
-              .welcome-small-section__inner.a-card
-                .welcome-small-section__description
-                  p
-                    | いずれもとても満足しています。
-                    | 技術の学習だけでなく、角谷トークなどのイベントやFBC内での交流を通じてRubyコミュニティの雰囲気を
-                    | 感じられたところがとても良かったです。
 
-          .col-xs-12.col-md-4
-            .welcome-small-section
-              .welcome-small-section__inner.a-card
-                .welcome-small-section__description
-                  p
-                    | カリキュラムが難しく辛い部分はありましたが、その分スキルが身につきましたし、
-                    | メンターの方のサポート体制がしっかりしていたので、乗り越えることができました。
-                    | 卒業後の就職サポートも手厚くありがたいです。
-
-          .col-xs-12.col-md-4
-            .welcome-small-section
-              .welcome-small-section__inner.a-card
-                .welcome-small-section__description
-                  p
-                    | 一つ一つのカリキュラムは、プログラミングを仕事とするうえではどれも身につけておくべきものであり
-                    | （仕事をして再認識しました）、難易度は高いかもしれませんが、受講して大変満足のあるものでした。
-                    | 他のスクール出身の方とも話をする機会がありますが、課題があって、自分で調べてクリアするというのは、
-                    | フィヨルドブートキャンプぐらいなのかなと思いました。この受講方法のおかげで、
-                    | 仕事を始めてからもある程度スムーズにオンボーディングできたと思います。
-                    | 実際に動いているものを生徒同士で開発できることも利点で、
-                    | 自分が作った機能がユーザーに使われることも意識できることや、
-                    | 不具合が発生したときの対処などを学べるので、とても良いカリキュラムだと思います。
-
-          .col-xs-12.col-md-4
-            .welcome-small-section
-              .welcome-small-section__inner.a-card
-                .welcome-small-section__description
-                  p
-                    | RailsやVueなどアプリを作る上での表面的な知識だけではなく、LinuxコマンドやDB設計、
-                    | オブジェクト指向などの基礎的な部分をじっくり学べたことが今の財産となっています。
-
-script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"
-script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.min.js"
-javascript:
-  var ctx = document.getElementById("myPieChart");
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ["大変満足", "おおむね満足", "どちらとも言えない", "やや不満", "大いに不満"],
-      datasets: [{
-          backgroundColor: [
-              "#f5a1b8",
-              "#fdb930",
-              "#faed00",
-              "#b4dbfd",
-              "#e6e6ee"
-          ],
-          //data: [11, 8, 0, 0, 0]
-          data: [57.9, 42.1, 0, 0, 0]
-      }]
-    },
-    options: {
-      title: {
-      },
-      legend: {
-      },
-      scales: {
-      },
-      maintainAspectRatio: false,
-      plugins: {
-        labels: {
-          render: 'percentage',
-          fontColor: 'white',
-          fontSize: 14
+    script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"
+    script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/src/chartjs-plugin-labels.min.js"
+    javascript:
+      var ctx = document.getElementById("myPieChart");
+      var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["大変満足", "おおむね満足", "どちらとも言えない", "やや不満", "大いに不満"],
+          datasets: [{
+              backgroundColor: [
+                  "#f5a1b8",
+                  "#fdb930",
+                  "#faed00",
+                  "#b4dbfd",
+                  "#e6e6ee"
+              ],
+              //data: [11, 8, 0, 0, 0]
+              data: [57.9, 42.1, 0, 0, 0]
+          }]
+        },
+        options: {
+          title: {
+          },
+          legend: {
+          },
+          scales: {
+          },
+          maintainAspectRatio: false,
+          plugins: {
+            labels: {
+              render: 'percentage',
+              fontColor: 'white',
+              fontSize: 14
+            }
+          }
         }
-      }
-    }
-  });
+      });
 
-  var ctx = document.getElementById("myPieChart2");
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ["非常に勧めたい", "やや勧めたい", "どちらともいえない", "あまり勧めたくない", "全く勧めたくない"],
-      datasets: [{
-          backgroundColor: [
-              "#f5a1b8",
-              "#fdb930",
-              "#faed00",
-              "#b4dbfd",
-              "#e6e6ee"
-          ],
-          //data: [11, 7, 1, 0, 0]
-          data: [57.9, 36.8, 5, 0, 0]
-      }]
-    },
-    options: {
-      title: {
-      },
-      legend: {
-      },
-      scales: {
-      },
-      maintainAspectRatio: false,
-      plugins: {
-        labels: {
-          render: 'percentage',
-          fontColor: 'white',
-          fontSize: 14
+      var ctx = document.getElementById("myPieChart2");
+      var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["非常に勧めたい", "やや勧めたい", "どちらともいえない", "あまり勧めたくない", "全く勧めたくない"],
+          datasets: [{
+              backgroundColor: [
+                  "#f5a1b8",
+                  "#fdb930",
+                  "#faed00",
+                  "#b4dbfd",
+                  "#e6e6ee"
+              ],
+              //data: [11, 7, 1, 0, 0]
+              data: [57.9, 36.8, 5, 0, 0]
+          }]
+        },
+        options: {
+          title: {
+          },
+          legend: {
+          },
+          scales: {
+          },
+          maintainAspectRatio: false,
+          plugins: {
+            labels: {
+              render: 'percentage',
+              fontColor: 'white',
+              fontSize: 14
+            }
+          }
         }
-      }
-    }
-  });
+      });

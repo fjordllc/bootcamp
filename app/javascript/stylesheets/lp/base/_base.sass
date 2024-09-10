@@ -7,66 +7,6 @@ html.is-lp
 body.is-lp
   background-color: var(--background)
 
-.welcome-main-visual
-  height: 40rem
-  background-color: var(--base)
-
-.welcome-page-body
-  padding-block: 3rem
-
-.welcome-header
-  background-color: var(--base)
-  +position(sticky, top 0, 10)
-
-.welcome-header__inner
-  height: 3.5rem
-  display: flex
-
-.welcome-header__start
-  height: 100%
-  flex: 1
-  display: flex
-  gap: 2.5rem
-
-.welcome-header__end
-  height: 100%
-  display: flex
-  gap: 2.5rem
-
-.welcome-header-nav
-  height: 100%
-  +media-breakpoint-down(sm)
-    display: none
-
-.welcome-header-nav__items
-  display: flex
-  height: 100%
-  align-items: center
-  gap: 2.5rem
-  font-size: .875rem
-
-.welcome-header-nav__item-link
-  font-weight: 700
-  color: var(--main)
-  +block-link
-
-.welcome-header__home-link-image
-  width: 9.75rem
-
-.welcome-header__login
-  display: flex
-  height: 100%
-  width: 7.5rem
-  align-items: center
-
-.welcome-header__mobile-nav-trigger
-  +media-breakpoint-up(md)
-    display: none
-
-.welcome-header__home
-  height: 100%
-  display: flex
-  align-items: center
 
 .not-logged-in-footer
   color: var(--default-text)
@@ -82,28 +22,6 @@ body.is-lp
   padding-bottom: .25rem
   color: var(--main)
   border-bottom: solid 1px var(--border)
-
-.welcome-page-body__header
-  display: flex
-  justify-content: center
-  margin-bottom: 3rem
-
-.welcome-page-body__title
-  +text-block(2.5rem 1.4)
-  text-align: center
-  font-weight: 800
-  padding-bottom: 1.75rem
-  color: var(--main)
-  +letter-spacing-center(.0625em)
-  position: relative
-  &::before
-    content: ''
-    display: block
-    +size(4.5rem .375rem)
-    background-color: var(--main)
-    +position(absolute, left 50%, bottom 0)
-    transform: translate(-50%, 0)
-    border-radius: 1rem
 
 .welcome-practices
   margin-top: 1.25rem

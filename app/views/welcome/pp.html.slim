@@ -2,20 +2,24 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: '株式会社ロッカ（以下「当社」といいます）の提供する「フィヨルドブートキャンプ」（以下「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、このページにあるとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。')
 
-.welcome-page
-  header.lp-page-header
-    .l-container
-      .lp-page-header__inner
-        .lp-page-header__start
-          h1.lp-page-header__title
-            | プライバシーポリシー
-  hr.a-border
-  .welcome-page-body
-    .welcome-page-body__header
-      h1.welcome-page-body__title
-        = title
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border
+.lp
+  .lp-content.is-lp-bg-1.is-top-title
     .l-container.is-lg
-      .a-card.is-pp
-        .card-body__inner
-          .a-long-text.is-md
-            = render 'welcome/pp'
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              = title
+        .lp-content__end
+          .a-card
+            .card-body__inner
+              .tos.a-long-text.is-md
+                = render 'welcome/pp'

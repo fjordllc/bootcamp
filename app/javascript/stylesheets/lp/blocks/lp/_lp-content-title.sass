@@ -6,27 +6,28 @@
     +text-block(3rem 1.4, 800)
     &.is-vertical
       writing-mode: vertical-rl
+    &[class*=is-border-]
+      &::before
+        content: ''
+        display: block
+        border-radius: 10rem
+        //background-color: var(--main)
+        background-color: #9b9ace
     &.is-border-bottom
       padding-bottom: 2.5rem
       position: relative
       &::before
-        content: ''
-        display: block
         +position(absolute, left 50%, bottom 0)
         width: 4.5em
-        height: .125rem
-        background-color: var(--main)
+        height: .5rem
         transform: translate(-50%)
     &.is-border-left
       padding-left: 3.5rem
       position: relative
       &::before
-        content: ''
-        display: block
         +position(absolute, left 0)
-        width: .125rem
+        width: .5rem
         height: 3.5em
-        background-color: var(--main)
         top: .25em
     &.is-vertical.is-border-left
       &::before
@@ -39,10 +40,7 @@
     padding-bottom: 2.5rem
     position: relative
     &::before
-      content: ''
-      display: block
       +position(absolute, left 50%, bottom 0)
       width: 4.5em
-      height: .125rem
-      background-color: var(--main)
+      height: .5rem
       transform: translate(-50%)

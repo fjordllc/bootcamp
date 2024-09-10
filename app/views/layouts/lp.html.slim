@@ -10,13 +10,13 @@ html.is-lp lang='ja'
       = meta_robots_tag
     = stylesheet_pack_tag 'lp', media: 'all'
     = render 'layouts/common/common_head'
-    = render 'layouts/lp/welcome_web_fonts'
+    = render 'layouts/lp/lp_web_fonts'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-lp#body class="#{body_class}"
     = render 'google_analytics' if Rails.env.production? && !staging?
     .wrapper
       .wrapper__main
-        = render 'layouts/lp/welcome_header'
+        = render 'layouts/lp/lp_header'
         = render 'flash'
         main.lp-body
           = yield

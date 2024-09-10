@@ -4,19 +4,19 @@
   description: 'フィヨルドブートキャンプのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではなく「現場のプラスの戦力になるためのカリキュラム」なので、法人の研修にも最適です。料金は月額99,800円です。')
 
 article.lp
-  header.lp-main-visual.is-lp-bg-2
+  header.lp-content.is-lp-bg-2.is-hero
     .l-container.is-xl
-      .lp-main-visual__inner
-        .lp-main-visual__start
-          .lp-main-visual__start-inner
-            hgrounp.lp-main-visual__titles
-              h1.lp-main-visual__title
+      .lp-content__inner
+        .lp-content__start
+          .lp-hero-info
+            hgrounp.lp-hero-info__titles
+              h1.lp-hero-info__title
                 | フィヨルドブートキャンプの法人向けプログラミング研修
-              h2.lp-main-visual__catchcopy
+              h2.lp-hero-info__catchcopy
                 | 現場のプラス戦力を
                 br
                 | 育てる実践的研修
-            .lp-main-visual__description
+            .lp-hero-info__description
               p
                 | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
             .lp-actions
@@ -27,7 +27,7 @@ article.lp
                 li.lp-actions__item
                   = link_to '/', class: 'a-button is-xl is-warning is-block' do
                     | 研修を申し込む
-        .lp-main-visual__end
+        .lp-content__end
           .corporate-training-images
             .corporate-training-images__item
             .corporate-training-images__item
@@ -605,10 +605,10 @@ article.lp
             = title
         .lp-page-header__end
   hr.a-border-tint
-  .welcome-page-body
+  .lp-page-body
     .l-container.is-lg
-      .welcome-page-body__header
-        h1.welcome-page-body__title
+      .lp-page-body__header
+        h1.lp-page-body__title
           = title
       .a-card
         .card__inner

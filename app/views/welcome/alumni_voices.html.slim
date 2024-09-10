@@ -3,14 +3,36 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプに寄せられたよくあるお問い合わせとその回答の一覧です。')
 
-header.lp-page-header
-  .l-container
-    .lp-page-header__inner
-      .lp-page-header__start
-        h1.lp-page-header__title
-          | 卒業生の声
-      .lp-page-header__end
-hr.a-border-tint
+article.lp
+  header.lp-content.is-lp-bg-2.is-hero
+    .l-container.is-xl
+      .lp-content__inner
+        .lp-content__start
+          .lp-hero-info
+            hgrounp.lp-hero-info__titles
+              h1.lp-hero-info__title
+                | フィヨルドブートキャンプ卒業生の声
+              h2.lp-hero-info__catchcopy
+                | 卒業生の声
+                br
+                | 卒業生の声
+            .lp-hero-info__description
+              p
+                | フィヨルドブートキャンプでは、今後の改善のために卒業生にアンケートを実施しています。
+                | そのアンケート結果や卒業後の様子のインタビューを紹介。
+            .lp-actions
+              ul.lp-actions__items
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                    | お問い合わせ
+                li.lp-actions__item
+                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                    | 研修を申し込む
+        .lp-content__end
+          .lp-hero-visual
+            //= image_tag('practices/practices.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの学習内容')
+    .lp-content-divider.is-lp-bg-1
+      svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+        path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-.welcome-page-body
   = render 'welcome/alumni_voices'

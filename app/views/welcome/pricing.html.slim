@@ -6,19 +6,19 @@ ruby:
   description: 'フィヨルドブートキャンプの利用料は月額29,800円です。クレジットカードでのお支払いになります。初期費用、入会金は一切ありません。')
 
 article.lp
-  header.lp-main-visual.is-lp-bg-2
+  header.lp-content.is-lp-bg-2.is-hero
     .l-container.is-xl
-      .lp-main-visual__inner
-        .lp-main-visual__start
-          .lp-main-visual__start-inner
-            hgrounp.lp-main-visual__titles
-              h1.lp-main-visual__title
+      .lp-content__inner
+        .lp-content__start
+          .lp-hero-info
+            hgrounp.lp-hero-info__titles
+              h1.lp-hero-info__title
                 | フィヨルドブートキャンプの就職支援
-              h2.lp-main-visual__catchcopy
+              h2.lp-hero-info__catchcopy
                 | サブスクだから
                 br
                 | リスクは最小限
-            .lp-main-visual__description
+            .lp-hero-info__description
               p
                 | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
             .lp-actions
@@ -29,9 +29,9 @@ article.lp
                 li.lp-actions__item
                   = link_to '/', class: 'a-button is-xl is-warning is-block' do
                     | 研修を申し込む
-        .lp-main-visual__end
-          .lp-main-visual-main-visual
-            = image_tag('job_supports/job_supports_main.svg', class: 'lp-main-visual-main-visual__image', alt: 'フィヨルドブートキャンプの就職支援')
+        .lp-content__end
+          .lp-hero-visual
+            = image_tag('job_supports/job_supports_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの就職支援')
     .lp-content-divider.is-lp-bg-1
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
@@ -185,7 +185,7 @@ article.lp
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
 
-.welcome-page-body
+.lp-page-body
   .l-container.is-lg
     .a-card
       .card-body

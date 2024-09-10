@@ -1,10 +1,18 @@
-.lp-main-visual-main-visual
-  width: 100%
+.lp-header
+  background-color: var(--base)
+  +position(sticky, top 0, 10)
+
+.lp-header__inner
+  height: 3.5rem
+  display: flex
+
+.lp-header__start
+  height: 100%
+  flex: 1
+  display: flex
+  gap: 2.5rem
+
+.lp-header__end
   height: 100%
   display: flex
-  justify-content: center
-  align-items: center
-
-.lp-main-visual-main-visual__image
-  width: 80%
-  max-height: 80%
+  gap: 2.5rem

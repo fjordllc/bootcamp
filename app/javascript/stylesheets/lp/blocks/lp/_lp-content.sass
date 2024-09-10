@@ -1,24 +1,46 @@
 .lp-content
   position: relative
-  padding-top: 4rem
-  padding-bottom: 8rem
+  &:first-child
+    padding-top: 2.5rem
+    padding-bottom: 3rem
+  &:not(:first-child)
+    padding-top: 4rem
+    padding-bottom: 8rem
   &.is-lp-bg-1
     background-color: var(--lp-bg-1)
   &.is-lp-bg-2
     background-color: var(--lp-bg-2)
   &.is-lp-bg-3
     background-color: var(--lp-bg-3)
+  .lp-content__inner
+    display: flex
 
   +media-breakpoint-up(lg)
+    &.is-hero
+      position: relative
+      padding-top: 3rem
+      padding-bottom: 4rem
+      .lp-content__inner
+        +media-breakpoint-down(md)
+          flex-direction: column
+      .lp-content__start,
+      .lp-content__end
+        flex: 1
+      .lp-hero-info
+        height: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        gap: 2rem
+        padding-bottom: 3rem
+
     &.is-top-title
       .lp-content__inner
-        display: flex
         gap: 3.5rem
         flex-direction: column
 
     &.is-right-title
       .lp-content__inner
-        display: flex
         flex-direction: row-reverse
         justify-content: space-between
         gap: 3rem
@@ -28,7 +50,6 @@
 
     &.is-left-title
       .lp-content__inner
-        display: flex
         gap: 3rem
         justify-content: space-between
       .lp-content__end
@@ -37,7 +58,6 @@
 
   +media-breakpoint-down(md)
     .lp-content__inner
-      display: flex
       gap: 3.5rem
       flex-direction: column
 

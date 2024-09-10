@@ -8,13 +8,18 @@ header.lp-page-header
       .lp-page-header__start
         h1.lp-page-header__title
           = title
+      .lp-page-header__end
 hr.a-border
-.welcome-page-body
-  .l-container.is-lg
-    .welcome-page-body__header
-      h1.welcome-page-body__title
-        = title
-    .a-card
-      .card-body__inner
-        .coc.a-long-text.is-md
-          = render 'welcome/coc_text'
+.lp
+  .lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              = title
+        .lp-content__end
+          .a-card
+            .card-body__inner
+              .coc.a-long-text.is-md
+                = render 'welcome/coc_text'
