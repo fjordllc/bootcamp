@@ -18,5 +18,13 @@ main.page-main
     .container
       .page-main-header__inner
         h1.page-main-header__title
-          = 'コース別'
-          | （#{t("target.#{@target}")}）
+          - if @target == 'rails_course' || @target == 'front_end_course'
+            = "#{t("target.#{@target}")}エンジニアコース"
+            | （#{@users.total_count}）
+          - else
+            = "#{t("target.#{@target}")}のコース"
+            | （#{@users.total_count}）
+  hr.a-border
+    .page-content.is-users
+      #user_lists.users__items
+        = render 'users/user_list', users: @users
