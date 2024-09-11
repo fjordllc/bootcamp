@@ -9,6 +9,7 @@ class HomeController < ApplicationController
       display_events_on_dashboard
       display_welcome_message_for_adviser
       set_required_fields
+      display_products_for_mentor
       render aciton: :index
     else
       @mentors = User.visible_sorted_mentors
@@ -57,5 +58,15 @@ class HomeController < ApplicationController
 
   def display_welcome_message_for_adviser
     @welcome_message_first_time = cookies[:confirmed_welcome_message]
+  end
+
+  def display_products_for_mentor
+    @products = Product
+                .unassigned
+                .unchecked
+                .not_wip
+                .list
+                .ascending_by_date_of_publishing_and_id
+    @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
   end
 end
