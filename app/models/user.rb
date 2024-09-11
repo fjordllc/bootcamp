@@ -46,14 +46,6 @@ class User < ApplicationRecord
     windows_wsl2: 3
   }, _prefix: true
 
-  enum experience: {
-    inexperienced: 0,
-    html_css: 1,
-    other_ruby: 2,
-    ruby: 3,
-    rails: 4
-  }, _prefix: true
-
   enum editor: {
     vscode: 0,
     ruby_mine: 1,
