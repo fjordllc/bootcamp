@@ -17,6 +17,23 @@
 
 //- ダッシュボード
 .is-vue(v-else-if='isDashboard')
+  template(v-if='traineeProductsEndDateWithin7Days.length > 0')
+    .a-card.h-auto
+      header.card-header
+        h2.card-header__title
+          | 研修終了日が7日以内
+          span.card-header__count ({{ traineeProductsEndDateWithin7Days.length }})
+
+      .card-list
+        .card-list__items
+          product(
+            v-for='product in traineeProductsEndDateWithin7Days',
+            :key='product.id',
+            :product='product',
+            :currentUserId='currentUserId',
+            :isMentor='isMentor',
+            :display-user-icon='displayUserIcon')
+
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
       v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
@@ -106,7 +123,8 @@ export default {
     return {
       products: [],
       loaded: false,
-      productsGroupedByElapsedDays: null
+      productsGroupedByElapsedDays: null,
+      traineeProductsEndDateWithin7Days: []
     }
   },
   computed: {
@@ -153,6 +171,12 @@ export default {
           this.products = []
           json.products.forEach((product) => {
             this.products.push(product)
+            if (
+              product.user.training_remaining_days >= 0 &&
+              product.user.training_remaining_days <= 7
+            ) {
+              this.traineeProductsEndDateWithin7Days.push(product)
+            }
           })
           this.loaded = true
         })
