@@ -15,5 +15,10 @@ class Users::CoursesController < ApplicationController
              .page(params[:page]).per(PAGER_NUMBER)
              .preload(:avatar_attachment, :course, :taggings)
              .order(updated_at: :desc)
+
+    return unless params[:search_word]
+
+    search_user = SearchUser.new(word: params[:search_word], users: @users, target: @target)
+    @users = search_user.search
   end
 end
