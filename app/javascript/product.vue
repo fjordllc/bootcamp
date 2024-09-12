@@ -45,7 +45,7 @@
                 span.a-meta__label 更新
                 | {{ product.updated_at }}
             .card-list-item-meta__item(
-              v-if='isUnassignedProductsPage || isDashboardPage')
+              v-if='isGroupedByDaysElapsed && (isUnassignedProductsPage || isDashboardPage)')
               time.a-meta(v-if='untilNextElapsedDays(product) < 1')
                 span.a-meta__label 次の経過日数まで
                 | 1時間未満
@@ -123,7 +123,8 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: Number, required: true },
-    displayUserIcon: { type: Boolean }
+    displayUserIcon: { type: Boolean },
+    isGroupedByDaysElapsed: { type: Boolean }
   },
   computed: {
     roleClass() {

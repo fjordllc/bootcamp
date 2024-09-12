@@ -32,7 +32,8 @@
             :product='product',
             :currentUserId='currentUserId',
             :isMentor='isMentor',
-            :display-user-icon='displayUserIcon')
+            :display-user-icon='displayUserIcon',
+            :isGroupedByDaysElapsed='false')
 
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
@@ -87,7 +88,8 @@
             :product='product',
             :currentUserId='currentUserId',
             :isMentor='isMentor',
-            :display-user-icon='displayUserIcon')
+            :display-user-icon='displayUserIcon',
+            :isGroupedByDaysElapsed='true')
 
   .under-cards
     .under-cards__links.mt-4.text-center.leading-normal.text-sm
