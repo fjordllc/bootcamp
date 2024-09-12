@@ -322,6 +322,68 @@ class HomeTest < ApplicationSystemTestCase
     assert_no_text '今日提出（48）'
   end
 
+  test 'show products of trainees whose training end date is within 7 days' do
+    user_kensyu_end_within_1_week = User.create!(
+      login_name: 'kensyu-end-within-1-week',
+      email: 'kensyu-end-within-1-week@fjord.jp',
+      password: 'testtest',
+      name: 'kensyu-end-within-1-week',
+      name_kana: 'ケンシュウ モウスコシデシュウリョウ',
+      company: companies(:company2),
+      description: 'test',
+      course: courses(:course1),
+      job: 'office_worker',
+      os: 'mac',
+      experience: 'inexperienced',
+      trainee: true,
+      training_ends_on: Time.current + 7.days
+    )
+    user_kensyu_end_within_24_hour = User.create!(
+      login_name: 'kensyu-end-within-24-hour',
+      email: 'kensyu-end-within-24-hour@fjord.jp',
+      password: 'testtest',
+      name: 'kensyu-end-within-24-hour',
+      name_kana: 'ケンシュウ キョウシュウリョウ',
+      company: companies(:company2),
+      description: 'test',
+      course: courses(:course1),
+      job: 'office_worker',
+      os: 'mac',
+      experience: 'inexperienced',
+      trainee: true,
+      training_ends_on: Time.current
+    )
+    practice1 = practices(:practice1)
+    practice2 = practices(:practice2)
+    product1 = Product.create!(
+      practice_id: practice1.id,
+      user_id: user_kensyu_end_within_1_week.id,
+      body: '研修終了日が1週間以内の研修生の提出物'
+    )
+    product2 = Product.create!(
+      practice_id: practice2.id,
+      user_id: user_kensyu_end_within_24_hour.id,
+      body: '今日研修が終了する研修生の提出物'
+    )
+
+    visit_with_auth '/', 'mentormentaro'
+    assert_text '研修終了日が7日以内(2)'
+    within all('.card-list-item')[0] do
+      assert_text 'OS X Mountain Lionをクリーンインストールするの提出物'
+      assert_text 'kensyu-end-within-1-week (ケンシュウ モウスコシデシュウリョウ)'
+      assert_text I18n.l product1.created_at, format: :default
+      assert_text I18n.l product1.updated_at, format: :default
+      assert_selector 'button', text: '担当する'
+    end
+    within all('.card-list-item')[1] do
+      assert_text 'Terminalの基礎を覚えるの提出物'
+      assert_text 'kensyu-end-within-24-hour (ケンシュウ キョウシュウリョウ)'
+      assert_text I18n.l product2.created_at, format: :default
+      assert_text I18n.l product2.updated_at, format: :default
+      assert_selector 'button', text: '担当する'
+    end
+  end
+
   test 'display counts of passed almost 5days' do
     visit_with_auth '/', 'mentormentaro'
     assert_text "2件の提出物が、\n8時間以内に5日経過に到達します。"
