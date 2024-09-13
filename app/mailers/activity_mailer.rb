@@ -377,7 +377,7 @@ class ActivityMailer < ApplicationMailer
       kind: Notification.kinds[:signed_up]
     )
 
-    subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が#{@course_name}コースに新しく入会しました！"
+    subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が#{@course_name}コースに入会しました！"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 
