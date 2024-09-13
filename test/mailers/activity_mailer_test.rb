@@ -905,7 +905,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに新しく入会しました！', email.subject
+    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
@@ -933,7 +933,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに新しく入会しました！', email.subject
+    assert_equal '[FBC] hajimeさんがRailsエンジニアコースに入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
@@ -961,7 +961,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] frontendさんがフロントエンドエンジニアコースに新しく入会しました！', email.subject
+    assert_equal '[FBC] frontendさんがフロントエンドエンジニアコースに入会しました！', email.subject
     assert_match(/入会/, email.body.to_s)
   end
 
