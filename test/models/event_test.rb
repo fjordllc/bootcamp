@@ -120,16 +120,20 @@ class EventTest < ActiveSupport::TestCase
     assert event.can_move_up_the_waitlist?
   end
 
-  test '.fetch_participated_and_upcoming_ids' do
+  test '.fetch_participated_ids' do
     user = users(:kimura)
 
-    ids = Event.fetch_participated_and_upcoming_ids(user)
-    assert 200_404_551, ids[:participated]
-    assert 318_291_967, ids[:participated]
-    assert 308_029_005, ids[:upcoming]
-    assert 626_726_618, ids[:upcoming]
-    assert 994_018_171, ids[:upcoming]
-    assert 205_042_674, ids[:upcoming]
+    ids = Event.fetch_participated_ids(user)
+    assert 200_404_551, ids
+    assert 318_291_967, ids
+  end
+
+  test '.fetch_upcoming_ids' do
+    ids = Event.fetch_upcoming_ids
+    assert 308_029_005, ids
+    assert 626_726_618, ids
+    assert 994_018_171, ids
+    assert 205_042_674, ids
   end
 
   test '#format_events_title' do
