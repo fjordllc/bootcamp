@@ -28,7 +28,8 @@
         .form-item__add-times
             = link_to_add_association f, :regular_event_repeat_rules, class: 'a-button is-md is-primary' do
               i.fa-regular.fa-plus
-              | 定期開催日追加
+              span
+                | 定期開催日追加
       .form-item
         = f.label :start_at, class: 'a-form-label'
         = f.time_field :start_at, class: 'a-text-input js-warning-form'

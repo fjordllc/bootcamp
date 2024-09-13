@@ -9,7 +9,8 @@ header.page-header
           li.page-header-actions__item
             = link_to new_announcement_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
-              | お知らせ作成
+              span
+                | お知らせ作成
           li.page-header-actions__item
             = link_to announcements_path, class: 'a-button is-md is-secondary is-block is-back' do
               | お知らせ一覧へ

@@ -1,24 +1,103 @@
-section.welcome-section.is-about#about
-  .welcome-section__inner
-    header.welcome-section__header
-      .l-container
-        .welcome-section__header-inner
-          h2.welcome-section__title
-            | 現場のプラス戦力になれる
-          hr.welcome-section__title-border
-    .welcome-section__body
-      .l-container.is-md
-        .welcome-section__description
-          p
-            | ソフトウェアエンジニアとして就職ができるスキルを身につけるのは当然、
-            | 卒業をした時点ですでに、「現場にとって、プラスの戦力として数えられる」の実力を
-            | 身につけていることを目標としたオンラインプログラミングスクールです。
-            br
-            | プログラミング未経験からスタートして、
-            | HTML、CSS、Linux、Ruby、Rails、JavaScript、実際の仕事と同じ形式でのチーム開発を経て、
-            | 最終的に自作サービスを公開するまでのカリキュラムを用意しています。
-    .lp-actions
-      .l-container
-        .lp-actions__items
-          .lp-actions__item
-            = link_to '私たちの考える戦力', 'https://docs.komagata.org/5494', class: 'a-button is-xl is-primary-border is-block', target: '_blank', rel: 'noopener'
+section.lp-content.is-lp-bg-1.is-top-title#about
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | フィヨルドブートキャンプ
+
+      .lp-content__end
+        .lp-content__description.mb-12
+          .l-container.is-md
+            .a-short-text
+              p
+                | ソフトウェアエンジニアとして就職ができるスキルを身につけるのは当然、
+                | 卒業をした時点ですでに、「現場にとって、プラスの戦力として数えられる」の
+                | 実力を身につけていることを目標としたオンラインプログラミングスクールです。
+
+
+        .row.is-gutter-width-32.mb-12
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.a-card
+                .welcome-small-section__icon
+                  | 🍻
+                h3.welcome-small-section__title
+                  | 入会金、初期費用は
+                  br
+                  | 0円
+                .welcome-small-section__description
+                  p
+                    | 複数社合同での企業説明会をオンラインで行っています。
+                    | 実際に企業で働いているプログラマーがどのように仕事しているのかなどを
+                    | 知ることの出来る貴重な機会にもなります。
+                    | また、動画の録画をいつでも観れます。
+
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.a-card
+                .welcome-small-section__icon
+                  | 👩‍💼
+                h3.welcome-small-section__title
+                  | 学習システムは
+                  br
+                  | OSSで公開
+                .welcome-small-section__description
+                  p
+                    | 自分はフィヨルドブートキャンプを利用すべきかを判断するために、
+                    | 機能制限無しの3日間のお試し期間を用意しています。
+                    | お試し期間でがっつり使って判断してください。
+          .col-xs-12.col-md-4
+            section.welcome-small-section
+              .welcome-small-section__inner.a-card
+                .welcome-small-section__icon
+                  | 📄
+                h3.welcome-small-section__title
+                  | いつでも退会できる
+                  br
+                  | サブスク
+                .welcome-small-section__description
+                  p
+                    | カジュアル面談や面接でのポイント、
+                    | 必要書類作成の注意点、技術面接の技術的質問への対策について、
+                    | アプトプットについてなど、就職活動に役立つドキュメントを用意しています。
+                    | また、先輩受講生の就活の様子の日報を見ることもできます。
+
+        .lp-actions
+          ul.lp-actions__items
+            li.lp-actions__item
+              = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                | お問い合わせ
+            li.lp-actions__item
+              = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                | 研修を申し込む
+
+  .lp-content-divider.is-lp-bg-2
+    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
+      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+
+//
+  section.welcome-section.is-about
+    .welcome-section__inner
+      header.welcome-section__header
+        .l-container
+          .welcome-section__header-inner
+            h2.welcome-section__title
+              | 現場のプラス戦力になれる
+            hr.welcome-section__title-border
+      .welcome-section__body
+        .l-container.is-md
+          .welcome-section__description
+            p
+              | ソフトウェアエンジニアとして就職ができるスキルを身につけるのは当然、
+              | 卒業をした時点ですでに、「現場にとって、プラスの戦力として数えられる」の実力を
+              | 身につけていることを目標としたオンラインプログラミングスクールです。
+              br
+              | プログラミング未経験からスタートして、
+              | HTML、CSS、Linux、Ruby、Rails、JavaScript、実際の仕事と同じ形式でのチーム開発を経て、
+              | 最終的に自作サービスを公開するまでのカリキュラムを用意しています。
+      .lp-actions
+        .l-container
+          .lp-actions__items
+            .lp-actions__item
+              = link_to '私たちの考える戦力', 'https://docs.komagata.org/5494', class: 'a-button is-xl is-primary-border is-block', target: '_blank', rel: 'noopener'

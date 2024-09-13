@@ -3,7 +3,7 @@
   description: '「特定商取引に関する法律」第11条（通信販売についての広告）に基づきこのページに明示いたします。オンラインプログラミングスクールのフィヨルドブートキャンプは月額29,800円、全機能が使えるお試し期間付き。')
 
 article.lp
-  header.lp-content.is-lp-bg-2.is-hero
+  header.lp-content.is-lp-bg-main.is-hero
     .l-container.is-xl
       .lp-content__inner
         .lp-content__start
@@ -21,7 +21,7 @@ article.lp
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                  = link_to '/', class: 'a-button is-xl is-secondary-border is-block' do
                     | お問い合わせ
                 li.lp-actions__item
                   = link_to '/', class: 'a-button is-xl is-warning is-block' do
@@ -42,7 +42,7 @@ article.lp
               | 企業選びをサポート
         .lp-content__end
           .row.is-gutter-width-32
-            .col-xs-12.col-md-4
+            .col-xs-12.col-md-6
               section.welcome-small-section
                 .welcome-small-section__inner.a-card
                   .welcome-small-section__icon
@@ -56,7 +56,7 @@ article.lp
                       | 知ることの出来る貴重な機会にもなります。
                       | また、動画の録画をいつでも観れます。
 
-            .col-xs-12.col-md-4
+            .col-xs-12.col-md-6
               section.welcome-small-section
                 .welcome-small-section__inner.a-card
                   .welcome-small-section__icon
@@ -81,7 +81,7 @@ article.lp
               | 選考対策もバッチリ
         .lp-content__end
           .row.is-gutter-width-32
-            .col-xs-12.col-md-4
+            .col-xs-12.col-md-6
               section.welcome-small-section
                 .welcome-small-section__inner.a-card
                   .welcome-small-section__icon
@@ -94,7 +94,7 @@ article.lp
                       | 必要書類作成の注意点、技術面接の技術的質問への対策について、
                       | アプトプットについてなど、就職活動に役立つドキュメントを用意しています。
                       | また、先輩受講生の就活の様子の日報を見ることもできます。
-            .col-xs-12.col-md-4
+            .col-xs-12.col-md-6
               section.welcome-small-section
                 .welcome-small-section__inner.a-card
                   .welcome-small-section__icon
@@ -107,7 +107,7 @@ article.lp
                       | プログラミングスキルやプロジェクト経験を効果的にアピールする方法の
                       | アドバイスを行います。
 
-            .col-xs-12.col-md-4
+            .col-xs-12.col-md-6
               section.welcome-small-section
                 .welcome-small-section__inner.a-card
                   .welcome-small-section__icon
@@ -121,7 +121,7 @@ article.lp
                       | 模擬面接を通じての自己紹介や経験の説明の練習、
                       | 一般的な面接質問への答え方のコーチングを行います。
 
-            .col-xs-12.col-md-4
+            .col-xs-12.col-md-6
               section.welcome-small-section
                 .welcome-small-section__inner.a-card
                   .welcome-small-section__icon
@@ -221,7 +221,10 @@ article.lp
         .lp-content__start
           header.lp-content__header
             h2.lp-content-title.is-vertical.is-border-left
-              | 入社後も継続的に<br>サポート
+              | 入社後も継続的に
+              br
+              strong
+                | サポート
         .lp-content__end
           .l-cards.is-step-by-step
             .l-cards__item

@@ -1,65 +1,66 @@
-section.welcome-section.is-articles#articles
-  .welcome-section__inner
-    header.welcome-section__header
-      .l-container
-        .welcome-section__header-inner
-          h2.welcome-section__title
+section.lp-content.is-lp-bg-3.is-top-title.is-articles#articles
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
             | 注目のブログ記事
-          hr.welcome-section__title-border
-    .welcome-section__body
-      .l-container.is-md
-        .welcome-section__description
-          p
-            | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
-            | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
-            | ぜひ、検討材料にご活用ください。
-    .welcome-section__body
-      .l-container.is-xl
-        .welcome-section__articles
-          .row.is-gutter-width-32
-            .col-xs-12.col-md-4
-              .welcome-article.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/38', class: 'welcome-article__inner' do
-                  = image_tag 'articles/article-38.png', class: 'welcome-article__image', alt: '「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しましたの記事のサムネイル'
-                  .welcome-article__body
-                    h3.welcome-article__title
-                      | 「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しました
-                    .welcome-article__description
-                      p
-                        | 「ゼロからわかるRuby超入門」著者五十嵐さん本人による講義動画を製作しました。
-                        | フィヨルドブートキャンプに入会した方は全員見ることができます。
-                        | 1章あたりおよそ1時間の講義で、環境構築以外の2章〜11章の講義動画があります。
 
-            .col-xs-12.col-md-4
-              .welcome-article.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/97', class: 'welcome-article__inner' do
-                  = image_tag 'articles/article-97.png', class: 'welcome-article__image', alt: 'フィヨブーフェス2023 の発表の動画（字幕付✨）と文字起こしを公開！！の記事のサムネイル'
-                  .welcome-article__body
-                    h3.welcome-article__title
-                      | フィヨブーフェス2023 の発表の動画（字幕付✨）と文字起こしを公開！！
-                    .welcome-article__description
-                      p
-                        | 現役生やフィヨルドブートキャンプの受講を考えている方に対して、
-                        | 先輩受講生や卒業生からフィヨルドブートキャンプの楽しみ方や学習継続のコツ、
-                        | アドバイスなどをショートプレゼンテーション形式で伝える、
-                        | というイベント「フィヨブーフェス2023」を開催しました。
+      .lp-content__end
+        .lp-content__description.mb-12
+          .l-inner-container.is-md
+            .a-short-text
+              p
+                | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
+                | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
+                | ぜひ、検討材料にご活用ください。
 
-            .col-xs-12.col-md-4
-              .welcome-article.a-card
-                = link_to 'https://bootcamp.fjord.jp/articles/44', class: 'welcome-article__inner' do
-                  = image_tag 'articles/article-44.png', class: 'welcome-article__image', alt: 'フィヨルドブートキャンプアドベントカレンダーの記事のサムネイル'
-                  .welcome-article__body
-                    h3.welcome-article__title
-                      | フィヨルドブートキャンプアドベントカレンダー
-                    .welcome-article__description
-                      p
-                        | 毎年12月は受講生、メンター、アドバイザー...フィヨルドブートキャンプコミュニティに関わっているみんなで
-                        | クリスマスに向けてブログ記事を書く、というのが毎年恒例です。
-                        | フィヨルドブートキャンプコミュニティに関わるみんなの記事が一気に見れるので、
-                        | フィヨルドブートキャンプの中のことがよくわかります。
+        .lp-content__articles
+          .l-container.is-xl
+            .row.is-gutter-width-32
+              .col-xs-12.col-md-4
+                .thumbnail-card.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/38', class: 'thumbnail-card__inner' do
+                    = image_tag 'articles/article-38.png', class: 'thumbnail-card__image', alt: '「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しましたの記事のサムネイル'
+                    .thumbnail-card__body
+                      h3.thumbnail-card__title
+                        | 「ゼロからわかるRuby超入門」の講義動画をフィヨルドブートキャンプで製作しました
+                      .thumbnail-card__description
+                        p
+                          | 「ゼロからわかるRuby超入門」著者五十嵐さん本人による講義動画を製作しました。
+                          | フィヨルドブートキャンプに入会した方は全員見ることができます。
+                          | 1章あたりおよそ1時間の講義で、環境構築以外の2章〜11章の講義動画があります。
 
-        .lp-actions
-          .lp-actions__items
-            .lp-actions__item
-              = link_to articles_path, class: 'a-button is-xl is-primary-border is-block' do
-                | ブログ記事一覧
+              .col-xs-12.col-md-4
+                .thumbnail-card.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/97', class: 'thumbnail-card__inner' do
+                    = image_tag 'articles/article-97.png', class: 'thumbnail-card__image', alt: 'フィヨブーフェス2023 の発表の動画（字幕付✨）と文字起こしを公開！！の記事のサムネイル'
+                    .thumbnail-card__body
+                      h3.thumbnail-card__title
+                        | フィヨブーフェス2023 の発表の動画（字幕付✨）と文字起こしを公開！！
+                      .thumbnail-card__description
+                        p
+                          | 現役生やフィヨルドブートキャンプの受講を考えている方に対して、
+                          | 先輩受講生や卒業生からフィヨルドブートキャンプの楽しみ方や学習継続のコツ、
+                          | アドバイスなどをショートプレゼンテーション形式で伝える、
+                          | というイベント「フィヨブーフェス2023」を開催しました。
+
+              .col-xs-12.col-md-4
+                .thumbnail-card.a-card
+                  = link_to 'https://bootcamp.fjord.jp/articles/44', class: 'thumbnail-card__inner' do
+                    = image_tag 'articles/article-44.png', class: 'thumbnail-card__image', alt: 'フィヨルドブートキャンプアドベントカレンダーの記事のサムネイル'
+                    .thumbnail-card__body
+                      h3.thumbnail-card__title
+                        | フィヨルドブートキャンプアドベントカレンダー
+                      .thumbnail-card__description
+                        p
+                          | 毎年12月は受講生、メンター、アドバイザー...フィヨルドブートキャンプコミュニティに関わっているみんなで
+                          | クリスマスに向けてブログ記事を書く、というのが毎年恒例です。
+                          | フィヨルドブートキャンプコミュニティに関わるみんなの記事が一気に見れるので、
+                          | フィヨルドブートキャンプの中のことがよくわかります。
+
+            .lp-actions
+              .lp-actions__items
+                .lp-actions__item
+                  = link_to articles_path, class: 'a-button is-xl is-primary-border is-block' do
+                    | ブログ記事一覧

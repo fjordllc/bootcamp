@@ -1,17 +1,25 @@
 .lp-content
   position: relative
   &:first-child
-    padding-top: 2.5rem
-    padding-bottom: 3rem
+    padding-top: 2rem
+    padding-bottom: 5.5rem
   &:not(:first-child)
     padding-top: 4rem
     padding-bottom: 8rem
+  &.is-campaign
+    background-color: var(--main)
+    padding-top: 2.5rem
+    padding-bottom: 5rem
+    color: var(--reversal-text)
   &.is-lp-bg-1
     background-color: var(--lp-bg-1)
   &.is-lp-bg-2
     background-color: var(--lp-bg-2)
   &.is-lp-bg-3
     background-color: var(--lp-bg-3)
+  &.is-lp-bg-main
+    background-color: var(--main)
+    color: var(--reversal-text)
   .lp-content__inner
     display: flex
 
@@ -23,9 +31,10 @@
       .lp-content__inner
         +media-breakpoint-down(md)
           flex-direction: column
-      .lp-content__start,
+      .lp-content__start
+        flex: 12
       .lp-content__end
-        flex: 1
+        flex: 10
       .lp-hero-info
         height: 100%
         display: flex

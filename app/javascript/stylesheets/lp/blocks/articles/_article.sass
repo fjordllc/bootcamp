@@ -68,14 +68,13 @@
 
 
 .article__body
-  margin-top: 1.5rem
+  &:not(:first-child)
+    margin-top: 1.5rem
   &.a-long-text
     +media-breakpoint-up(md)
       font-size: 1rem
     +media-breakpoint-down(sm)
       font-size: .875rem
-  br + a img
-    margin-top: 1.5em !important
 
 .article__actions
   margin-top: 2rem

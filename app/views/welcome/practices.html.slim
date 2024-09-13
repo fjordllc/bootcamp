@@ -3,7 +3,7 @@
   description: 'フィヨルドブートキャンプの学習内容一覧を表示しています。FBCは現場の即戦力になるためのスキルとプログラミングの楽しさを伝える、現役ソフトウェアエンジニアが考える理想のプログラミングスクールの実現に励んでいます。')
 
 article.lp
-  header.lp-content.is-lp-bg-2.is-hero
+  header.lp-content.is-lp-bg-main.is-hero
     .l-container.is-xl
       .lp-content__inner
         .lp-content__start
@@ -12,7 +12,7 @@ article.lp
               h1.lp-hero-info__title
                 | フィヨルドブートキャンプの学習内容
               h2.lp-hero-info__catchcopy
-                | RailsとJS
+                | Railsとフロントエンド
                 br
                 | 選べる2つのコース
             .lp-hero-info__description
@@ -21,7 +21,7 @@ article.lp
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                  = link_to '/', class: 'a-button is-xl is-secondary-border is-block' do
                     | お問い合わせ
                 li.lp-actions__item
                   = link_to '/', class: 'a-button is-xl is-warning is-block' do
@@ -52,29 +52,29 @@ article.lp
                     | Railsエンジニアコースとフロントエンドエンジニアコースの2つのコースがあります。料金はどちらも同じです。
                     | どちらのコースも、最初は共通のカリキュラムからスタートし、その後に専門分野に分かれて学んでいきます。最終的には、自分で考えたWebサービスを作ってリリースすることを目指します。また、どちらのコースでもチーム開発を体験できるので、実践的なスキルが身につきます。
 
-            .course-selection-nav.is-hidden-md-up
-              .l-container
-                .course-selection-nav__inner
-                  ul.course-selection-nav__items
-                    li.course-selection-nav__item
-                      = link_to '#rails-programmer-course', class: 'course-selection-nav__item-link' do
+            .lp-course-selection-nav.is-hidden-md-up
+              .l-inner-container
+                .lp-course-selection-nav__inner
+                  ul.lp-course-selection-nav__items
+                    li.lp-course-selection-nav__item
+                      = link_to '#rails-programmer-course', class: 'lp-course-selection-nav__item-link' do
                         | Railsエンジニア
-                    li.course-selection-nav__item
-                      = link_to '#front-engineer-course', class: 'course-selection-nav__item-link' do
+                    li.lp-course-selection-nav__item
+                      = link_to '#front-engineer-course', class: 'lp-course-selection-nav__item-link' do
                         | フロントエンドエンジニア
 
-            .course-selection__items
-              .l-container.is-xl
+            .lp-course-selection__items
+              .l-inner-container.is-xl
                 .row.is-gutter-width-32
                   .col-md-6.col-xs-12
-                    .course-selection-item-anchor#rails-programmer-course
+                    .lp-course-selection-item__anchor#rails-programmer-course
                     - course = Course.find_by(title: 'Railsエンジニア')
                     - if course
                       = render('course_practices', course: course)
                     - else
                       p コースが見つかりませんでした。
                   .col-md-6.col-xs-12
-                    .course-selection-item-anchor#front-engineer-course
+                    .lp-course-selection-item__anchor#front-engineer-course
                     - course = Course.find_by(title: 'フロントエンドエンジニア')
                     - if course
                       = render('course_practices', course: course)

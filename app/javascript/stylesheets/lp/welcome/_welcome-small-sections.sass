@@ -18,31 +18,6 @@
     margin-top: 1.5rem
     margin-inline: auto
 
-.welcome-small-sections__title
-  $height: 3.25rem
-  $width: 20rem
-  +text-block(1.5rem 1.4 0 1.25em, 700 center flex)
-  color: var(--default-text)
-  align-items: center
-  justify-content: center
-  font-feature-settings: "palt"
-  +media-breakpoint-down(sm)
-    font-size: 1rem
-  .welcome-child-section.is-unlimited &
-    font-size: 1.25rem
-    background-size: 1.75rem
-    margin-bottom: 0
-    +size($width $height)
-    margin-left: calc(#{$width} / -2)
-    +position(absolute, left 50%, top math.div($height, -2))
-    +media-breakpoint-down(sm)
-      $height: 2.75rem
-      $width: 14rem
-      font-size: 1.125rem
-      +size($width $height)
-      margin-left: calc(#{$width} / -2)
-      +position(absolute, left 50%, top math.div($height, -2))
-
 .welcome-small-sections__title-icon
   +size(3rem)
   margin-right: .75rem

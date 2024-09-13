@@ -10,13 +10,13 @@
         = title
 
 .lp-page-body
-  section.course-selection
+  section.lp-course-selection
     .l-container.is-sm
-      header.course-selection__header
+      header.lp-course-selection__header
         h2.welcome-section__title.has-border
           | コースを選択してください。
-      .course-selection__body
-        .course-selection__descritpion
+      .lp-course-selection__body
+        .lp-course-selection__descritpion
           .a-short-text
             p
               | Railsエンジニアコースとフロントエンドエンジニアコースの2つのコースがあります。
@@ -30,28 +30,28 @@
               | コース選びに迷ったら、まずはRailsエンジニアコースを選んでみてください。
               | 入会後はメンターに相談ができるので、その時にしっかり考えましょう。
               | 途中でのコースの変更、卒業後に別コースの必要なカリキュラムだけを受講することも可能です。
-    .course-selection-nav.is-hidden-md-up
-      .l-container
-        .course-selection-nav__inner
-          ul.course-selection-nav__items
-            li.course-selection-nav__item
-              = link_to '#rails-programmer-course', class: 'course-selection-nav__item-link' do
+    .lp-course-selection-nav.is-hidden-md-up
+      .l-inner-container
+        .lp-course-selection-nav__inner
+          ul.lp-course-selection-nav__items
+            li.lp-course-selection-nav__item
+              = link_to '#rails-programmer-course', class: 'lp-course-selection-nav__item-link' do
                 | Railsエンジニア
-            li.course-selection-nav__item
-              = link_to '#front-engineer-course', class: 'course-selection-nav__item-link' do
+            li.lp-course-selection-nav__item
+              = link_to '#front-engineer-course', class: 'lp-course-selection-nav__item-link' do
                 | フロントエンドエンジニア
 
-    .course-selection__items
-      .l-container.is-xl
+    .lp-course-selection__items
+      .l-inner-container.is-xl
         .row.is-gutter-width-32
           .col-md-6.col-xs-12
-            .course-selection-item-anchor#rails-programmer-course
+            .lp-course-selection-item__anchor#rails-programmer-course
             - if @rails_course
               = render 'welcome/course', course: @rails_course
             - else
               p コースが見つかりませんでした。
           .col-md-6.col-xs-12
-            .course-selection-item-anchor#front-engineer-course
+            .lp-course-selection-item__anchor#front-engineer-course
             - if @frontend_course
               = render 'welcome/course', course: @frontend_course
             - else

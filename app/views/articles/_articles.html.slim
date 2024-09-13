@@ -9,9 +9,10 @@ header.lp-page-header
           ul.lp-page-header-nav__items
             - if current_user&.mentor?
               .lp-page-header-nav__item
-                = link_to new_article_path, class: 'a-button is-md is-secondary is-block' do
+                = link_to new_article_path, class: 'a-button is-md is-secondary-border is-block' do
                   i.fas.fa-plus
-                  | ブログ記事作成
+                  span
+                    | ブログ記事作成
 hr.a-border-tint
 
 .lp-page-body

@@ -1,19 +1,18 @@
-article.course-selection-item
-  .course-selection-item__inner
-    header.course-selection-item__header.mb-2
+article.lp-course-selection-item
+  .lp-course-selection-item__inner
+    header.lp-course-selection-item__header.mb-2
       h2.lp-content-sub-title.text-center
         | #{course.title}
         br
         | コース
-    .course-selection-item__body
-      section.course-selection-item__section
-        .a-long-text
-          - course.categories.each do |category|
-            - if category.practices.present?
-              h3.mb-0
+    .lp-course-selection-item__body
+      .lp-course-selection-item__categories
+        - course.categories.each do |category|
+          - if category.practices.present?
+            dl.lp-category-practices
+              dt.lp-category-practices__category
                 = category.name
-              table.lp-table.a-card.mt-2
+              .lp-category-practices__practices
                 - category.practices.each do |practice|
-                  tr
-                    td
-                      = practice.title
+                  dd.lp-category-practices__practice
+                    = practice.title
