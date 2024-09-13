@@ -731,7 +731,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.all, User.users_job('destroy_all')
   end
 
-  test 'area' do
+  test '#area' do
     tokyo_user = users(:machida)
     america_user = users(:tom)
     no_area_user = users(:komagata)
