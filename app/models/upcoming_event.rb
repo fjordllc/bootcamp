@@ -58,10 +58,8 @@ class UpcomingEvent
     end
 
     def fetch(user)
-      event_ids = Event.fetch_participated_and_upcoming_ids(user)
-
-      participated_ids = event_ids[:participated]
-      upcoming_ids = event_ids[:upcoming]
+      participated_ids = Event.fetch_participated_ids(user)
+      upcoming_ids = Event.fetch_upcoming_ids
 
       participated_events = Event.where(id: participated_ids & upcoming_ids)
       non_participated_events = Event.where(id: upcoming_ids - participated_ids)
