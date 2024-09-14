@@ -12,4 +12,7 @@ hr.a-border
   - if @error
     div
       | failed to load
+  - elsif @data.nil?
+    .container.is-md
+      = react_component('LoadingListPlaceholder')
   = react_component('Searchables', word: @word.to_s)

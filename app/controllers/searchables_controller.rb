@@ -5,6 +5,7 @@ class SearchablesController < ApplicationController
     @per = 50
     @word = params[:word]
     @error = nil
+    @data = true
     # @data = fetch_searchables(params[:word], @page, @per)
     # @error = @data.nil?
   end
