@@ -108,7 +108,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     assert_no_text '管理者として編集'
   end
 
-  test 'no edit for mentor' do
+  test 'mentor cannot edit as admin' do
     visit_with_auth '/current_user/edit', 'mentormentaro'
     find('.choices__inner').click
     find('div.choices__item[data-value="636488896"]').click
