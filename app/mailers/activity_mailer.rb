@@ -370,7 +370,7 @@ class ActivityMailer < ApplicationMailer
     @sender_roles ||= args[:sender_roles]
 
     @user = @receiver
-    @course_name = Course.find(@sender.course_id).title
+    @course_name = @sender.course[:title]
 
     @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
