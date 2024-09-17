@@ -367,7 +367,7 @@ class HomeTest < ApplicationSystemTestCase
     )
 
     visit_with_auth '/', 'mentormentaro'
-    assert_text '研修終了日が7日以内(2)'
+    assert_text '研修終了まで7日以内(2)'
     within all('.card-list-item')[0] do
       assert_text 'OS X Mountain Lionをクリーンインストールするの提出物'
       assert_text 'kensyu-end-within-1-week (ケンシュウ モウスコシデシュウリョウ)'

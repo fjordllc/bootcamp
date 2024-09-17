@@ -10,7 +10,7 @@ export default function ElapsedDays({ countProductsGroupedBy }) {
       <div className="page-nav a-card">
         <ol className="page-nav__items elapsed-days">
           <li
-            className={`page-nav__item is-reply-deadline border-b-0 ${activeClass(
+            className={`page-nav__item is-danger border-b-0 ${activeClass(
               countProductsGroupedBy(7)
             )}`}>
             <a className="page-nav__item-link" href="#7days-elapsed">
@@ -20,7 +20,7 @@ export default function ElapsedDays({ countProductsGroupedBy }) {
             </a>
           </li>
           <li
-            className={`page-nav__item is-reply-alert border-b-0 ${activeClass(
+            className={`page-nav__item is-alert border-b-0 ${activeClass(
               countProductsGroupedBy(6)
             )}`}>
             <a className="page-nav__item-link" href="#6days-elapsed">
@@ -30,7 +30,7 @@ export default function ElapsedDays({ countProductsGroupedBy }) {
             </a>
           </li>
           <li
-            className={`page-nav__item is-reply-warning border-b-0 ${activeClass(
+            className={`page-nav__item is-warning border-b-0 ${activeClass(
               countProductsGroupedBy(5)
             )}`}>
             <a className="page-nav__item-link" href="#5days-elapsed">

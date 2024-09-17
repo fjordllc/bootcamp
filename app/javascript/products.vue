@@ -19,9 +19,9 @@
 .is-vue(v-else-if='isDashboard')
   template(v-if='traineeProductsEndDateWithin7Days.length > 0')
     .a-card.h-auto
-      header.card-header
+      header.card-header.a-highlight.is-danger
         h2.card-header__title
-          | 研修終了日が7日以内
+          | 研修終了まで7日以内
           span.card-header__count ({{ traineeProductsEndDateWithin7Days.length }})
 
       .card-list
@@ -40,7 +40,7 @@
       v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
       //- TODO 以下を共通化する
       //- prettier-ignore: need space between v-if and id
-      header.card-header.a-elapsed-days(
+      header.card-header.a-highlight(
         v-if='product_n_days_passed.elapsed_days === 0', id='0days-elapsed'
       )
         h2.card-header__title
@@ -48,7 +48,7 @@
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
-      header.card-header.a-elapsed-days.is-reply-warning(
+      header.card-header.a-highlight.is-warning(
         v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
       )
         h2.card-header__title
@@ -56,7 +56,7 @@
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
-      header.card-header.a-elapsed-days.is-reply-alert(
+      header.card-header.a-highlight.is-alert(
         v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
       )
         h2.card-header__title
@@ -64,14 +64,14 @@
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
-      header.card-header.a-elapsed-days.is-reply-deadline(
+      header.card-header.a-highlight.is-danger(
         v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
       )
         h2.card-header__title
           | {{ product_n_days_passed.elapsed_days }}日以上経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      header.card-header.a-elapsed-days(
+      header.card-header.a-highlight(
         v-else,
         :id='elapsedDaysId(product_n_days_passed.elapsed_days)')
         h2.card-header__title
