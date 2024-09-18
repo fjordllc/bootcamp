@@ -66,7 +66,7 @@ class UpcomingEvent
 
       formatted_participated_events =
         participated_events.each do |participated_event|
-          participated_event.format_events_title('【参加登録済】')
+          participated_event.title = '【参加登録済】' + participated_event.title
         end
 
       formatted_participated_events + non_participated_events

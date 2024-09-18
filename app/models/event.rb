@@ -110,10 +110,6 @@ class Event < ApplicationRecord
     waitlist.count.positive? && can_participate?
   end
 
-  def format_events_title(text)
-    self.title = text + title
-  end
-
   def self.fetch_participated_ids(user)
     user.participations.pluck(:event_id)
   end
