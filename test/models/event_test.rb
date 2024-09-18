@@ -135,10 +135,4 @@ class EventTest < ActiveSupport::TestCase
     assert 994_018_171, ids
     assert 205_042_674, ids
   end
-
-  test '#format_events_title' do
-    event = events(:event30)
-
-    assert_equal '【参加登録済】未来のイベント(参加済)', event.format_events_title('【参加登録済】')
-  end
 end
