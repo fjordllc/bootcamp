@@ -7,9 +7,7 @@ class EventsCalendar
 
   def fetch_events(user)
     upcoming_special_events = UpcomingEvent.fetch(user)
-
     participated_regular_events = RegularEvent.fetch_participated_regular_events(user)
-
     @events = upcoming_special_events + participated_regular_events
   end
 
