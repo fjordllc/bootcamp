@@ -43,6 +43,38 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
     end
   end
 
+  test 'notify mentors when signed up as mentor' do
+    visit '/users/new?role=mentor'
+
+    email = 'shunka@example.com'
+
+    within 'form[name=user]' do
+      fill_in 'user[login_name]', with: 'shunka'
+      fill_in 'user[email]', with: email
+      fill_in 'user[name]', with: 'テスト 春夏'
+      fill_in 'user[name_kana]', with: 'テスト シュンカ'
+      fill_in 'user[description]', with: 'テスト春夏です。'
+      fill_in 'user[password]', with: 'testtest'
+      fill_in 'user[password_confirmation]', with: 'testtest'
+      select '会社員', from: 'user[job]'
+      find('label', text: 'Mac（Intel チップ）').click
+      first('.choices__inner').click
+      find('.choices__list--dropdown').click
+      find('.choices__list').click
+      find('label', text: 'アンチハラスメントポリシーに同意').click
+      find('label', text: '利用規約に同意').click
+    end
+
+    click_button 'メンター登録'
+    assert_text 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
+    assert User.find_by(email:).mentor?
+
+    visit_with_auth notifications_path, 'komagata'
+    within first('.card-list-item.is-unread') do
+      assert_selector '.card-list-item-title__link-label', text: '🎉 shunkaさん(メンター)が新しく入会しました！'
+    end
+  end
+
   test 'notify mentors when signed up as trainee' do
     visit '/users/new?role=trainee'
 
