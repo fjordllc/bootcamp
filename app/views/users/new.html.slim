@@ -3,6 +3,10 @@
   - title 'アドバイザー登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプアドバイザー登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにアドバイザーとして登録する際はこちらのページからお申し込みください。')
+- elsif @user.mentor?
+  - title 'メンター登録'
+  - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプメンター登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにアドバイザーとして登録する際はこちらのページからお申し込みください。')
 - else
   - title 'フィヨルドブートキャンプ参加登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
