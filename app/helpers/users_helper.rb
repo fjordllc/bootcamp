@@ -18,6 +18,8 @@ module UsersHelper
     if from == :new
       if user.adviser?
         'アドバイザー登録'
+      elsif user.mentor?
+        'メンター登録'
       else
         '参加する'
       end

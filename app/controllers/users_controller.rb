@@ -53,6 +53,8 @@ class UsersController < ApplicationController
       @user.adviser = true
     when 'trainee'
       @user.trainee = true
+    when 'mentor'
+      @user.mentor = true
     end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
