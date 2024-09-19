@@ -3,6 +3,7 @@
 = form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
+  = f.hidden_field :mentor
   = f.hidden_field :company_id
   = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
