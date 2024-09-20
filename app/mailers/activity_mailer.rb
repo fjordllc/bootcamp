@@ -370,12 +370,14 @@ class ActivityMailer < ApplicationMailer
     @sender_roles ||= args[:sender_roles]
 
     @user = @receiver
+    @course_name = @sender.course[:title]
+
     @link_url = notification_redirector_url(
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:signed_up]
     )
 
-    subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が新しく入会しました！"
+    subject = "[FBC] #{@sender.login_name}さん#{@sender_roles}が#{@course_name}コースに入会しました！"
     message = mail(to: @user.email, subject:)
     message.perform_deliveries = @user.mail_notification? && !@user.retired?
 

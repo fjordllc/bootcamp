@@ -128,17 +128,6 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_match user.reload.graduated_on.to_s, '2022-05-01'
   end
 
-  test 'update admin user\'s free' do
-    user = users(:komagata)
-
-    visit_with_auth '/current_user/edit', 'komagata'
-    check '無料', allow_label_click: true
-
-    click_on '更新する'
-
-    assert user.reload.free
-  end
-
   test 'update admin user\'s github_collaborator' do
     user = users(:komagata)
 

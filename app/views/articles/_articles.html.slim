@@ -13,18 +13,18 @@
 .welcome-page-body
   .articles
     .articles__body
-      .container.is-xl
-        - if current_user&.admin_or_mentor_login?
-          nav.pill-nav.mb-8
-            .pill-nav__items
-              .pill-nav__item
-                = link_to articles_path, class: "pill-nav__item-link#{is_published ? ' is-active' : ''}" do
-                  | 公開済
-              .pill-nav__item
-                = link_to articles_wips_path, class: "pill-nav__item-link#{is_published ? '' : ' is-active'}" do
-                  | WIP
+      - if current_user&.admin_or_mentor_login?
+        nav.pill-nav.mb-8
+          .pill-nav__items
+            .pill-nav__item
+              = link_to articles_path, class: "pill-nav__item-link#{is_published ? ' is-active' : ''}" do
+                | 公開済
+            .pill-nav__item
+              = link_to articles_wips_path, class: "pill-nav__item-link#{is_published ? '' : ' is-active'}" do
+                | WIP
+      .articles__items
         = paginate articles
-        .articles__items
+        .container.is-xl
           .row
             - articles.each do |article|
               .col-lg-4.col-md-6.col-xs-12
