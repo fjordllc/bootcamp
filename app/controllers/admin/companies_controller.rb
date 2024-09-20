@@ -57,10 +57,4 @@ class Admin::CompaniesController < AdminController
       :memo
     )
   end
-
-  def require_admin_or_adviser_login
-    return if admin_login? || (adviser_login? && current_user.company == @company)
-
-    redirect_to root_path, alert: 'アクセス権限がありません'
-  end
 end

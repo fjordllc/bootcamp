@@ -93,6 +93,12 @@ module Authentication
     redirect_to root_path, alert: '管理者・アドバイザー・メンターとしてログインしてください'
   end
 
+  def require_admin_or_adviser_login
+    return if admin_login? || (adviser_login? && current_user.company == @company)
+
+    redirect_to root_path, alert: '管理者・アドバイザーとしてログインしてください'
+  end
+
   protected
 
   def not_authenticated
