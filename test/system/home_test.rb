@@ -371,14 +371,18 @@ class HomeTest < ApplicationSystemTestCase
     within all('.card-list-item')[0] do
       assert_text 'OS X Mountain Lionをクリーンインストールするの提出物'
       assert_text 'kensyu-end-within-1-week (ケンシュウ モウスコシデシュウリョウ)'
+      assert_selector '.a-meta__label', text: '提出'
       assert_text I18n.l product1.created_at, format: :default
+      assert_selector '.a-meta__label', text: '更新'
       assert_text I18n.l product1.updated_at, format: :default
       assert_selector 'button', text: '担当する'
     end
     within all('.card-list-item')[1] do
       assert_text 'Terminalの基礎を覚えるの提出物'
       assert_text 'kensyu-end-within-24-hour (ケンシュウ キョウシュウリョウ)'
+      assert_selector '.a-meta__label', text: '提出'
       assert_text I18n.l product2.created_at, format: :default
+      assert_selector '.a-meta__label', text: '更新'
       assert_text I18n.l product2.updated_at, format: :default
       assert_selector 'button', text: '担当する'
     end
