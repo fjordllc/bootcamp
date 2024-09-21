@@ -16,70 +16,6 @@
 = render 'welcome/requirements'
 = render 'welcome/process'
 
-
-section.lp-content.is-lp-bg-2.is-right-title
-  .l-container.is-xl
-    .lp-content__inner
-      .lp-content__start
-        header.lp-content__header
-          h2.lp-content-title.is-vertical.is-border-left
-            | 現場の
-            br
-            | プラス戦力に
-
-      .lp-content__end
-        .l-cards.is-step-by-step
-          section.l-cards__item
-            .l-cards__item-inner
-              .a-card
-                .welcome-small-section__icon
-                  | 🍻
-                h3.welcome-small-section__title
-                  | 入会金、初期費用は
-                  br
-                  | 0円
-                .welcome-small-section__description
-                  p
-                    | 複数社合同での企業説明会をオンラインで行っています。
-                    | 実際に企業で働いているプログラマーがどのように仕事しているのかなどを
-                    | 知ることの出来る貴重な機会にもなります。
-                    | また、動画の録画をいつでも観れます。
-
-          section.l-cards__item
-            .l-cards__item-inner
-              .a-card
-                .welcome-small-section__icon
-                  | 👩‍💼
-                h3.welcome-small-section__title
-                  | 学習システムは
-                  br
-                  | OSSで公開
-                .welcome-small-section__description
-                  p
-                    | 自分はフィヨルドブートキャンプを利用すべきかを判断するために、
-                    | 機能制限無しの3日間のお試し期間を用意しています。
-                    | お試し期間でがっつり使って判断してください。
-
-          section.l-cards__item
-            .l-cards__item-inner
-              .a-card
-                .welcome-small-section__icon
-                  | 📄
-                h3.welcome-small-section__title
-                  | いつでも退会できる
-                  br
-                  | サブスク
-                .welcome-small-section__description
-                  p
-                    | カジュアル面談や面接でのポイント、
-                    | 必要書類作成の注意点、技術面接の技術的質問への対策について、
-                    | アプトプットについてなど、就職活動に役立つドキュメントを用意しています。
-                    | また、先輩受講生の就活の様子の日報を見ることもできます。
-
-  .lp-content-divider.is-lp-bg-3
-    svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
-      path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-
 section.lp-content.is-lp-bg-3.is-right-title
   .l-container.is-xl
     .lp-content__inner
@@ -88,7 +24,7 @@ section.lp-content.is-lp-bg-3.is-right-title
           h2.lp-content-title.is-vertical.is-border-left
             | 質問の方法を各種用意
             br
-            | だから自走力が身につく
+            | 安心して学習ができる
 
       .lp-content__end
         .l-cards.is-step-by-step
@@ -153,25 +89,4 @@ section.lp-content.is-lp-bg-3.is-right-title
 
 = render 'welcome/articles'
 = render 'welcome/mentors', mentors: @mentors
-= render 'welcome/administrator', mentors: @mentors
-
-
-section.lp-content.is-lp-bg-3.is-right-title
-  .l-container.is-xl
-    h2.welcome-section__title
-      | フィヨルドブートキャンプの<br>中身を見てみよう！
-    .welcome-section__description
-      p
-        | 実際にどうやって学習を進めるの？
-        | 学習アプリってどんな画面？
-        | わからないときはどうやって質問するの？
-        | どんなイベントが開催されてる？
-        | 学習アプリを受講者が開発してるって本当？
-        | ...などについて書いています。
-        | これを読めば、フィヨルドブートキャンプに入会するとどんなことが
-        | 待っているかわかりますので、ぜひ見てみてください。
-    .lp-actions
-      .lp-actions__items
-        .lp-actions__item
-          = link_to article_path(34), class: 'a-button is-xl is-primary-border is-block' do
-            | 中身を見てみる
+= render 'welcome/campus_insight'

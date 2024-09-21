@@ -7,21 +7,73 @@ section.lp-content.is-lp-bg-3.is-top-title#pricing
             | 利用料
 
       .lp-content__end
-        p.lp-price
-          span.lp-price__label
-            | 月額
-          span.lp-price__value
-            span.lp-price__amount
-              | 29,800
-            span.lp-price__currency
-              | 円
-          span.lp-price__details
-            span.lp-price__tax
-              | （税込）
-      .lp-actions
-        .lp-actions__items
-          .lp-actions__item
-            = link_to '料金について詳しく', pricing_path, class: 'a-button is-xl is-primary-border is-block'
+        .lp-content-stack
+          .lp-content-stack__item
+            p.lp-price
+              span.lp-price__label
+                | 月額
+              span.lp-price__value
+                span.lp-price__amount
+                  | 29,800
+                span.lp-price__currency
+                  | 円
+              span.lp-price__details
+                span.lp-price__tax
+                  | （税込）
+
+          .lp-content-stack__item
+            .row.is-gutter-width-32
+              .col-xs-12.col-md-4
+                section.welcome-small-section
+                  .welcome-small-section__inner.a-card
+                    .welcome-small-section__icon
+                      | 🍻
+                    h3.welcome-small-section__title
+                      | 入会金、初期費用は
+                      br
+                      | 0円
+                    .welcome-small-section__description
+                      p
+                        | 複数社合同での企業説明会をオンラインで行っています。
+                        | 実際に企業で働いているプログラマーがどのように仕事しているのかなどを
+                        | 知ることの出来る貴重な機会にもなります。
+                        | また、動画の録画をいつでも観れます。
+
+              .col-xs-12.col-md-4
+                section.welcome-small-section
+                  .welcome-small-section__inner.a-card
+                    .welcome-small-section__icon
+                      | 👩‍💼
+                    h3.welcome-small-section__title
+                      | 学習システムは
+                      br
+                      | OSSで公開
+                    .welcome-small-section__description
+                      p
+                        | 自分はフィヨルドブートキャンプを利用すべきかを判断するために、
+                        | 機能制限無しの3日間のお試し期間を用意しています。
+                        | お試し期間でがっつり使って判断してください。
+              .col-xs-12.col-md-4
+                section.welcome-small-section
+                  .welcome-small-section__inner.a-card
+                    .welcome-small-section__icon
+                      | 📄
+                    h3.welcome-small-section__title
+                      | いつでも退会できる
+                      br
+                      | サブスク
+                    .welcome-small-section__description
+                      p
+                        | カジュアル面談や面接でのポイント、
+                        | 必要書類作成の注意点、技術面接の技術的質問への対策について、
+                        | アプトプットについてなど、就職活動に役立つドキュメントを用意しています。
+                        | また、先輩受講生の就活の様子の日報を見ることもできます。
+
+          .lp-content-stack__item
+            .lp-actions
+              .lp-actions__items
+                .lp-actions__item
+                  = link_to '料金について詳しく', pricing_path, class: 'a-button is-xl is-primary-border is-block'
 
   .lp-content-divider.is-lp-bg-2
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
