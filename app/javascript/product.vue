@@ -56,10 +56,10 @@
               time.a-meta
                 span.a-meta__label 研修終了日
                 span.a-meta__value {{ product.user.training_ends_on }}
-                span.a-meta__value.is-danger(
+                span.a-meta__value(
                   v-if='product.user.training_remaining_days === 0')
                   | （本日研修最終日）
-                span.a-meta__value.is-danger(v-else)
+                span.a-meta__value(v-else)
                   | （あと{{ product.user.training_remaining_days }}日）
 
       hr.card-list-item__row-separator(v-if='product.comments.size > 0')
