@@ -15,4 +15,22 @@ hr.a-border
   - elsif @data.nil?
     .container.is-md
       = react_component('LoadingListPlaceholder')
+  - elsif @data.empty?
+    .container
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | #{@word}に一致する情報は見つかりませんでした。
+  - elsif @data.present?
+    .container.is-md
+      - if @data['total_pages'] > 1
+        nav.pagination
+          = react_component('Pagination', { sum: @data['total_pages'] * 50, per: 50, neighbours: 2, page: @page_number, setPage: 'setPage' })
+      .card-list.a-card
+        - @data['searchables'].each do |searchable|
+          = render partial: 'searchable', locals: { searchable: searchable, word: @word }
+      - if @data['total_pages'] > 1
+        nav.pagination
+          = react_component('Pagination', { sum: @data['total_pages'] * 50, per: 50, neighbours: 2, page: @page_number, setPage: 'setPage' })
   = react_component('Searchables', word: @word.to_s)
