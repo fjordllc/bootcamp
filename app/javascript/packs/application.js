@@ -57,6 +57,8 @@ import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
 import '../payment-methods-check-boxes.js'
+import '../product_checker.js'
+import '../product_checker_button.js'
 
 import VueMounter from '../VueMounter.js'
 import Books from '../components/books.vue'
