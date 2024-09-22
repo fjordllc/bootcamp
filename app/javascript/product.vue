@@ -44,14 +44,14 @@
               time.a-meta(v-if='product.updated_at')
                 span.a-meta__label 更新
                 | {{ product.updated_at }}
-            .card-list-item-meta__item(v-if='isGroupedByDaysElapsed')
-              time.a-meta(v-if='isUnassignedProductsPage || isDashboardPage')
-                time(v-if='untilNextElapsedDays(product) < 1')
-                  span.a-meta__label 次の経過日数まで
-                  | 1時間未満
-                time(v-else-if='calcElapsedTimes(product) < 7')
-                  span.a-meta__label 次の経過日数まで
-                  | 約{{ untilNextElapsedDays(product) }}時間
+            .card-list-item-meta__item(
+              v-if='isGroupedByDaysElapsed && (isUnassignedProductsPage || isDashboardPage)')
+              time.a-meta(v-if='untilNextElapsedDays(product) < 1')
+                span.a-meta__label 次の経過日数まで
+                | 1時間未満
+              time.a-meta(v-else-if='calcElapsedTimes(product) < 7')
+                span.a-meta__label 次の経過日数まで
+                | 約{{ untilNextElapsedDays(product) }}時間
             .card-list-item-meta__item(v-else)
               time.a-meta
                 span.a-meta__label 研修終了日
