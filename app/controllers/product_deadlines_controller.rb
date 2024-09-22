@@ -2,7 +2,7 @@
 
 class ProductDeadlinesController < ApplicationController
   def update
-    product_deadline = ProductDeadline.first_or_initialize
+    product_deadline = Product::PRODUCT_DEADLINE
     product_deadline.update(product_deadline_params)
   end
 
