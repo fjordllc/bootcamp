@@ -83,43 +83,6 @@ div(v-else-if='isDashboard')
         v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
         v-else)
         | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
-    p.mt-4.text-sm.text-center
-      label.a-text-link(for='modal-on-days-select')
-        | 提出物チェックの期限を変更する。
-    input#modal-on-days-select.a-toggle-checkbox(type='checkbox')
-    .modal
-      label.modal__overlay(for='modal-on-days-select')
-      .modal-content
-        .modal-header
-          h2.modal-title
-            | 提出物チェックの期限を変更する。
-          label.modal-header__close(for='modal-on-days-select')
-        .modal-body
-          .modal__description.is-md
-            .a-short-text
-              p
-                | 現在の提出物チェックの期限は{{ selectedDays + 2 }}日（
-                span.a-inline-block.is-reply-warning
-                  | {{ selectedDays }}日経過
-                | 、
-                span.a-inline-block.is-reply-alert
-                  | {{ selectedDays + 1 }}日経過
-                | 、
-                span.a-inline-block.is-reply-deadline
-                  | {{ selectedDays + 2 }}日以上経過
-                | ）に設定されています。
-                | この変更はメンター全員の画面、Discordでの通知に影響します。
-          .form.mt-6.mx-auto.max-w-xs
-            .form__items
-              .form-item
-                .a-button.is-md.is-secondary.is-select.is-block
-                  select(v-on:change='onDaysSelectChange($event)')
-                    option(value='', disabled, selected, hidden) 提出物チェックの期限日数を変更する。
-                    option(value='1') 期限3日（1日経過 2日経過 3日以上経過）
-                    option(value='2') 期限4日（2日経過 3日経過 4日以上経過）
-                    option(value='3') 期限5日（3日経過 4日経過 5日以上経過）
-                    option(value='4') 期限6日（4日経過 5日経過 6日以上経過）
-                    option(value='5') 期限7日（5日経過 6日経過 7日以上経過）
 </template>
 
 <script>
