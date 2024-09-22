@@ -496,12 +496,6 @@ ActiveRecord::Schema.define(version: 2024_05_30_042450) do
     t.index ["report_id", "practice_id"], name: "index_practices_reports_on_report_id_and_practice_id"
   end
 
-  create_table "product_deadlines", force: :cascade do |t|
-    t.integer "alert_day", default: 4
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.bigint "practice_id"
     t.bigint "user_id"
