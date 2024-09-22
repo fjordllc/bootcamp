@@ -1,0 +1,20 @@
+
+- if !@checker_id || @checker_id == @current_user_id
+  button.a-button.is-block.is-sm.check-product-button[
+    id='check-product-button'
+    class=(@checker_id ? 'is-warning' : 'is-secondary')
+    data-product-id=@product_id
+    data-current-user-id=@current_user_id
+    data-url=url
+    data-method=(@checker_id ? 'DELETE' : 'PATCH')
+    data-token=form_authenticity_token
+  ]
+    i.fas class=(@checker_id ? 'fa-times' : 'fa-hand-paper')
+    | #{button_label}
+- else
+  .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor
+    span.card-list-item__assignee-image
+      img.a-user-icon src=@checker_avatar width='20' length='20'
+    span.card-list-item__assignee-name
+      | #{@checker_name}
+
