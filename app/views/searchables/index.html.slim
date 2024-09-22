@@ -33,4 +33,4 @@ hr.a-border
       - if @data['total_pages'] > 1
         nav.pagination
           = react_component('Pagination', { sum: @data['total_pages'] * 50, per: 50, neighbours: 2, page: @page_number, setPage: 'setPage' })
-  = react_component('Searchables', word: @word.to_s)
+/  = react_component('Searchables', word: @word.to_s)
