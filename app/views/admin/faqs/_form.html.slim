@@ -21,8 +21,8 @@
       .checkboxes
         .checkboxes__items
           - @category.each do |category|
-            = f.radio_button :faqs_category_id, FaqsCategory.find_by(name: category.to_s).id
-            = f.label :faqs_category_id, t("faq.#{category}"), value: FaqsCategory.find_by(name: category.to_s).id
+            = f.radio_button :faqs_category_id, FaqCategory.find_by(name: category.to_s).id
+            = f.label :faqs_category_id, t("faq.#{category}"), value: FaqCategory.find_by(name: category.to_s).id
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
