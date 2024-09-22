@@ -377,7 +377,7 @@ class HomeTest < ApplicationSystemTestCase
       assert_text I18n.l product1.updated_at, format: :default
       assert_selector '.a-meta__label', text: '研修終了日'
       assert_text I18n.l user_kensyu_end_within_1_week.training_ends_on, format: :default
-      assert_selector '.a-meta__value', text: '（あと7日）'
+      assert_selector '.a-meta__value.is-danger', text: '（あと7日）'
       assert_selector 'button', text: '担当する'
     end
     within all('.card-list-item')[1] do
@@ -389,7 +389,7 @@ class HomeTest < ApplicationSystemTestCase
       assert_text I18n.l product2.updated_at, format: :default
       assert_selector '.a-meta__label', text: '研修終了日'
       assert_text I18n.l user_kensyu_end_within_24_hour.training_ends_on, format: :default
-      assert_selector '.a-meta__value', text: '（本日研修最終日）'
+      assert_selector '.a-meta__value.is-danger', text: '（本日研修最終日）'
       assert_selector 'button', text: '担当する'
     end
   end
