@@ -35,6 +35,10 @@ class User < ApplicationRecord
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
+  COURSE_NAMES = { rails_course: 'Railsエンジニア',
+                   front_end_course: 'フロントエンドエンジニア',
+                   other_courses: %w[Unityゲームエンジニア iOSエンジニア] }.freeze
+
   enum job: {
     student: 0,
     office_worker: 2,
