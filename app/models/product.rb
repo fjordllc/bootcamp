@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  PRODUCT_DEADLINE = 2
+  PRODUCT_DEADLINE = 4
 
   include Commentable
   include Checkable
