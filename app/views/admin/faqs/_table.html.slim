@@ -19,7 +19,7 @@
             = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
               i.fa-solid.fa-pen
           td.admin-table__item-value.is-text-align-center
-            = t("faq.#{FaqsCategory.find_by(id: faq.faqs_category_id).name}")
+            = t("faq.#{FaqCategory.find_by(id: faq.faqs_category_id).name}")
           td.admin-table__item-value.is-text-align-center.is-grab
             span.js-grab.a-grab
               i.fa-solid.fa-align-justify
