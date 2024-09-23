@@ -1,0 +1,9 @@
+li.page-tabs__item
+  = link_to link,
+    class: ['page-tabs__item-link', active ? 'is-active' : '', enable ? '' : 'is-inactive'] do
+    = name
+    - if count.present?
+      = " （#{count}）"
+    - if badge&.positive?
+      .page-tabs__item-count.a-notification-count
+        .not-solved-count = badge

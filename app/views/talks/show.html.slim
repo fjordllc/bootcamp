@@ -4,7 +4,7 @@
 = render 'talks/page_title', user: @user
 
 - if admin_login?
-  = render 'users/page_tabs', user: @user
+  = user_page_tabs(@user, active_tab: '相談部屋')
 
 .page-body
   .container.is-xxl

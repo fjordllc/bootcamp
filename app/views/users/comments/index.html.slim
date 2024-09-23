@@ -2,8 +2,7 @@
 - set_meta_tags description: "#{@user.login_name}さんのコメントページです。"
 
 = render 'users/page_title', user: @user
-
-= render 'users/page_tabs', user: @user
+= user_page_tabs(@user, active_tab: 'コメント')
 
 .page-body
   .container.is-md

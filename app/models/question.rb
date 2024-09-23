@@ -75,6 +75,16 @@ class Question < ApplicationRecord
         QuestionsProperty.new('全てのQ&A', 'Q&Aはありません。')
       end
     end
+
+    def unsolved_badge(current_user:, practice_id: nil)
+      return nil if !current_user.admin_or_mentor?
+
+      if practice_id.present?
+        Question.not_solved.not_wip.where(practice_id:).size
+      else
+        Question.not_solved.not_wip.size
+      end
+    end
   end
 
   def last_answer

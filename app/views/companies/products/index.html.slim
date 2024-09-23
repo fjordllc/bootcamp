@@ -14,7 +14,7 @@ header.page-header
               = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | 企業一覧
 
-= render 'companies/tabs', company: @company
+= company_page_tabs(@company, active_tab: '提出物')
 
 .page-body
   #js-company-products(company-id="#{@company.id}" data-title="#{title}" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
