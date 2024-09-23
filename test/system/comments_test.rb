@@ -359,5 +359,4 @@ class CommentsTest < ApplicationSystemTestCase
     end
     assert_text 'comment test'
   end
-  
 end
