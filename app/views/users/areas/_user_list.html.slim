@@ -2,8 +2,7 @@
   .user-list
     = paginate users
     .row
-      - users.each do |user|
-        = render 'users/user', user:
+      = render partial: 'users/user', collection: users
     = paginate users
 - else
   .row
