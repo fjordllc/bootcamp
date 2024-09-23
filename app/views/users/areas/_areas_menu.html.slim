@@ -1,10 +1,10 @@
-- number_of_users_by_region.each do |region, _|
+- number_of_users_by_region.each do |region, number_of_users_by_area|
   nav.page-nav.a-card
     header.page-nav__header
       h2.page-nav__title
         span.page-nav__title-inner = region
     hr.a-border-tint
       ul.page-nav__items
-        - number_of_users_by_region[region].each do |area, number_of_users|
+        - number_of_users_by_area.each do |area, number_of_users|
           li.page-nav__item
             = link_to "#{area}（#{number_of_users}）", users_area_path(area:), class: 'page-nav__item-link a-text-link'
