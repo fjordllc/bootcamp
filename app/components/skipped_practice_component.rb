@@ -4,6 +4,7 @@ class SkippedPracticeComponent < ViewComponent::Base
   def initialize(form:, user:)
     @f = form
     @user = user
+    @user_practice = UserPractice.new(user)
   end
 
   def skipped_practices_count(category)
