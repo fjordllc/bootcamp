@@ -12,7 +12,8 @@ header.page-header
         h2.page-header__title
           | ユーザー
 
-= render 'lg_page_tabs'
+- active_tab = params[:target] == 'followings' ? 'フォロー中' : '全て'
+= users_page_tabs(active_tab:)
 
 - unless params[:tag]
   = render 'nav'

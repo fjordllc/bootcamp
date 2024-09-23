@@ -10,7 +10,7 @@ header.page-header
       .page-header__end
         = render 'reports/new_report'
 
-= render 'reports/tabs'
+= report_page_tabs(active_tab: '日報')
 
 .page-main
   nav.page-filter.form

@@ -431,6 +431,7 @@ ja:
         react: Reactの経験あり
         languages_other_than_ruby_and_javascript: Ruby、JS以外の言語経験あり
   notification:
+    all: 全て
     announcement: お知らせ
     mention: メンション
     comment: コメント
