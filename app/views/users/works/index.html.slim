@@ -14,7 +14,7 @@ header.page-header
               = link_to users_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | ユーザー一覧
 
-= render 'users/page_tabs', user: @user
+= user_page_tabs(@user, active_tab: 'ポートフォリオ')
 
 .page-main
   header.page-main-header

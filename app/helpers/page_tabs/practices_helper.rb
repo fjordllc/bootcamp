@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+module PageTabs
+  module PracticesHelper
+    def practice_page_tabs(practice, active_tab:)
+      tabs = []
+      tabs << { name: 'プラクティス', link: practice_path(practice) }
+      tabs << { name: '日報', link: practice_reports_path(practice), count: practice.reports.length }
+      tabs << { name: '質問', link: practice_questions_path(practice), count: practice.questions.length }
+      tabs << { name: 'Docs', link: practice_pages_path(practice), count: practice.pages.length }
+      tabs << { name: '提出物', link: practice_products_path(practice) }
+      tabs << { name: '模範解答', link: practice_submission_answer_path(practice) }
+      render PageTabsComponent.new(tabs:, active_tab:)
+    end
+  end
+end
