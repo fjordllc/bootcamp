@@ -35,6 +35,16 @@ class Products::ProductsComponent < ViewComponent::Base
     end
   end
 
+  def elapsed_days_text(elapsed_days)
+    if elapsed_days.zero?
+      '今日提出'
+    elsif elapsed_days >= 7
+      "#{elapsed_days}日以上経過"
+    else
+      "#{elapsed_days}日経過"
+    end
+  end
+
   def elapsed_days_id(elapsed_days)
     "#{elapsed_days}days-elapsed"
   end
