@@ -65,6 +65,7 @@ class UsersController < ApplicationController
     @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
+    @user.uploaded_avatar = user_params[:avatar]
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!

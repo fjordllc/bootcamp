@@ -588,6 +588,14 @@ class UsersTest < ApplicationSystemTestCase
     assert_match(/heic-sample-file\.png$/, img.native['src'])
   end
 
+  test 'can not upload broken image as user avatar' do
+    visit_with_auth '/current_user/edit', 'hajime'
+    attach_file 'user[avatar]', 'test/fixtures/files/images/broken_image.jpg', make_visible: true
+    click_button '更新する'
+
+    assert_text 'ユーザーアイコンは指定された拡張子(PNG, JPG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
+  end
+
   test 'mentor can see retired and hibernated tabs' do
     visit_with_auth '/users', 'mentormentaro'
     assert_link '休会', href: '/users?target=hibernated'
