@@ -15,7 +15,8 @@ header.page-header
                 = link_to new_book_path, class: 'a-button is-md is-secondary is-block' do
                   i.fas.fa-plus
                   | 参考書籍登録
-= render 'courses/tabs'
+
+= courses_page_tabs(@course, active_tab: '書籍')
 .page-body
   .container.is-md
     nav.pill-nav

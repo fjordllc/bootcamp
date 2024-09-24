@@ -4,7 +4,7 @@
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
 = render '/practices/page_header', title: @practice.title, category: category
-= render 'page_tabs', resource: @practice
+= practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
   - if @practice.learning(current_user)&.complete?
