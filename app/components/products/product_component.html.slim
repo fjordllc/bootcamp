@@ -50,14 +50,13 @@
                   span.a-meta__label 更新
                   = l(@product.updated_at)
 
-            - if dashboard?
-              time.a-meta
-                - if until_next_elapsed_days < 1
-                  span.a-meta__label 次の経過日数まで
-                  | 1時間未満
-                - elsif calc_elapsed_times < 7
-                  span.a-meta__label 次の経過日数まで
-                  | 約#{until_next_elapsed_days}時間
+            time.a-meta
+              - if until_next_elapsed_days < 1
+                span.a-meta__label 次の経過日数まで
+                | 1時間未満
+              - elsif calc_elapsed_times < 7
+                span.a-meta__label 次の経過日数まで
+                | 約#{until_next_elapsed_days}時間
 
       - if @product.comments.size > 0
         hr.card-list-item__row-separator
