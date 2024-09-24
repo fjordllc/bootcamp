@@ -69,7 +69,7 @@
               .card-list-item-meta__item
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
-                    a.card-list-item__user-icons-icon href=users_path(user)
+                    a.card-list-item__user-icons-icon href=user_path(user)
                       img.a-user-icon title=user.icon_title alt=user.icon_title src=user.avatar_url class=role_class
 
               - if @product.self_last_commented_at && @product.mentor_last_commented_at
