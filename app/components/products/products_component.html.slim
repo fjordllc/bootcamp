@@ -5,29 +5,28 @@
         i.fa-regular.fa-smile
       p.o-empty-message__text
         | 提出物はありません
-  - elsif dashboard? && any_products_5days_elapsed?
+  - elsif any_products_5days_elapsed?
     .o-empty-message
       .o-empty-message__icon
         i.fa-regular.fa-smile
       p.o-empty-message__text
         | 5日経過した提出物はありません
   - else
-    - if dashboard?
-      - @products_grouped_by_elapsed_days.each do |elapsed_days, products|
-        - if elapsed_days >= 5
-          .a-card.h-auto
-            header.card-header.a-elapsed-days class=elapsed_days_class(elapsed_days) id=elapsed_days_id(elapsed_days)
-              h2.card-header__title
-                = elapsed_days_text(elapsed_days)
-                span.card-header__count
-                  | （#{count_products_grouped_by(products)}）
-            .card-list
-              .card-list__items
-                - products.each do |product|
-                  = render(Products::ProductComponent.new(product:,
-                                                          is_mentor: @is_mentor,
-                                                          current_user_id: @current_user_id,
-                                                          display_user_icon: @display_user_icon))
+    - @products_grouped_by_elapsed_days.each do |elapsed_days, products|
+      - if elapsed_days >= 5
+        .a-card.h-auto
+          header.card-header.a-elapsed-days class=elapsed_days_class(elapsed_days) id=elapsed_days_id(elapsed_days)
+            h2.card-header__title
+              = elapsed_days_text(elapsed_days)
+              span.card-header__count
+                | （#{count_products_grouped_by(products)}）
+          .card-list
+            .card-list__items
+              - products.each do |product|
+                = render(Products::ProductComponent.new(product:,
+                                                        is_mentor: @is_mentor,
+                                                        current_user_id: @current_user_id,
+                                                        display_user_icon: @display_user_icon))
     .under-cards
       .under-cards__links.mt-4.text-center.leading-normal.text-sm
         - if count_almost_passed_5days == 0
