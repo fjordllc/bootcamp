@@ -9,10 +9,6 @@ class Products::ProductsComponent < ViewComponent::Base
     @display_user_icon = display_user_icon
   end
 
-  def dashboard?
-    request.path == root_path
-  end
-
   def any_products_5days_elapsed?
     elapsed_days = @products_grouped_by_elapsed_days.keys
     elapsed_days.all? { |day| day < 5 }
