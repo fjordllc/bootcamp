@@ -12,8 +12,4 @@ class Products::ProductCheckerComponent < ViewComponent::Base
   def button_label
     @checker_id ? '担当から外れる' : '担当する'
   end
-
-  def url
-    '/api/products/checker'
-  end
 end

@@ -5,7 +5,7 @@
     class=(@checker_id ? 'is-warning' : 'is-secondary')
     data-product-id=@product_id
     data-current-user-id=@current_user_id
-    data-url=url
+    data-url='/api/products/checker'
     data-method=(@checker_id ? 'DELETE' : 'PATCH')
     data-token=form_authenticity_token
   ]
