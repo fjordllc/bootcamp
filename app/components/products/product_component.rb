@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class Products::ProductComponent < ViewComponent::Base
-  def initialize(product:, is_mentor:, current_user_id:, display_user_icon: false)
+  def initialize(product:, is_mentor:, current_user_id:)
     @product = product
     @is_mentor = is_mentor
     @current_user_id = current_user_id
-    @display_user_icon = display_user_icon
   end
 
   def role_class

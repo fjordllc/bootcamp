@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class Products::ProductsComponent < ViewComponent::Base
-  def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, current_user_id:, display_user_icon: true)
+  def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, current_user_id:)
     @products = products
     @products_grouped_by_elapsed_days = products_grouped_by_elapsed_days
     @is_mentor = is_mentor
     @current_user_id = current_user_id
-    @display_user_icon = display_user_icon
   end
 
   def any_products_5days_elapsed?
