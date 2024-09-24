@@ -25,8 +25,7 @@
               - products.each do |product|
                 = render(Products::ProductComponent.new(product:,
                                                         is_mentor: @is_mentor,
-                                                        current_user_id: @current_user_id,
-                                                        display_user_icon: @display_user_icon))
+                                                        current_user_id: @current_user_id))
     .under-cards
       .under-cards__links.mt-4.text-center.leading-normal.text-sm
         - if count_almost_passed_5days == 0
