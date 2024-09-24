@@ -18,7 +18,7 @@
           .a-card.h-auto
             header.card-header.a-elapsed-days class=elapsed_days_class(elapsed_days) id=elapsed_days_id(elapsed_days)
               h2.card-header__title
-                = elapsed_days == 0 ? '今日提出' : "#{elapsed_days}日経過"
+                = elapsed_days_text(elapsed_days)
                 span.card-header__count
                   | （#{count_products_grouped_by(products)}）
             .card-list
