@@ -1,0 +1,59 @@
+@use "sass:math"
+
+.lp-top-image-sections__title-icon
+  +size(3rem)
+  margin-right: .75rem
+
+.lp-top-image-section
+  height: 100%
+
+.lp-top-image-section__inner
+  padding: 1.25rem 1.5rem 1.5rem
+  height: 100%
+  padding-bottom: 1rem
+  display: flex
+  flex-direction: column
+  gap: .75rem
+
+.lp-top-image-section__icon
+  display: block
+  margin-inline: auto
+  display: flex
+  justify-content: center
+  align-items: center
+  +media-breakpoint-up(md)
+    +size(7rem)
+    font-size: 5rem
+  +media-breakpoint-down(sm)
+    +size(4rem)
+    font-size: 3rem
+
+.lp-top-image-section__actions-items
+  +media-breakpoint-up(md)
+    display: flex
+    justify-content: center
+    gap: 1.5rem
+  +media-breakpoint-down(sm)
+    display: block
+
+.lp-top-image-section__actions-item
+  +media-breakpoint-up(md)
+    width: 20rem
+  +media-breakpoint-down(sm)
+    &:not(:first-child)
+      margin-top: .75rem
+
+.lp-top-image-section__chart-container
+  +media-breakpoint-up(md)
+    aspect-ratio: 5 / 3
+  +media-breakpoint-down(sm)
+    aspect-ratio: 3 / 4
+
+.lp-top-image-section__float-image
+  float: left
+  border-radius: .25rem
+  margin-right: 1rem
+  +media-breakpoint-up(md)
+    width: 6.75rem
+  +media-breakpoint-down(sm)
+    width: 4rem

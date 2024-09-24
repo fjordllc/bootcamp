@@ -9,9 +9,10 @@ section.lp-content.is-lp-bg-1.is-top-title#feature
       .lp-content__end
         .lp-content-stack
           .lp-content-stack__item
-            .lp-content__description
-              h3.lp-content-sub-title.text-center
-                | 基本的に誰でもOK
+            section.lp-content-section
+              .lp-content__description
+                h3.lp-content-sub-title.text-center
+                  | 基本的に誰でもOK
               = render 'welcome/unlimited'
           .lp-content-stack__item
             = render 'welcome/conditions'

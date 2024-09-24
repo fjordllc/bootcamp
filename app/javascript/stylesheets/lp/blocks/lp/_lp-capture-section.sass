@@ -1,0 +1,26 @@
+.lp-capture-section__inner
+  display: flex
+  gap: 3rem
+  .lp-content-stack__item:nth-child(even) &
+    flex-direction: row-reverse
+
+.lp-capture-section__start,
+.lp-capture-section__end
+  flex: 1
+
+.lp-capture-section__content
+  display: flex
+  flex-direction: column
+  gap: 2rem
+
+.lp-capture-section__body
+  +text-block(1rem 1.6)
+
+.lp-capture-section__border
+  height: 1px
+  width: 100%
+  display: block
+  border-top: dashed 1px var(--border-more-shade)
+
+.lp-capture-section__image
+  width: 100%

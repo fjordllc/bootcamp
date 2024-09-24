@@ -23,27 +23,26 @@ section.lp-content.is-lp-bg-2.is-top-title#course-select
                     | 途中でのコースの変更、卒業後に別コースの必要なカリキュラムだけを受講することもできます。
 
           .lp-content-stack__item
-            .welcome-child-section
-              .welcome-small-sections
-                .row.is-gutter-width-24.welcome-small-sections__row
-                  .col-xs-12.col-md-6
-                    section.welcome-small-section
-                      .welcome-small-section__inner.a-card
-                        h3.welcome-small-section__title
-                          | Railsエンジニアコース
-                        .welcome-small-section__description
-                          = image_tag('courses/rails.svg', class: 'welcome-small-section__float-image', alt: 'Ruby on Railsのロゴ')
-                          p
-                            | プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークであるRails(Ruby on Rails)を使ってWebエンジニアになるためのバックエンド・フロントエンドも含めた一通りの技術を学びます。
-                  .col-xs-12.col-md-6
-                    section.welcome-small-section
-                      .welcome-small-section__inner.a-card
-                        h3.welcome-small-section__title
-                          | フロントエンドエンジニアコース
-                        .welcome-small-section__description
-                          = image_tag('courses/nextjs.svg', class: 'welcome-small-section__float-image', alt: 'Ruby on Railsのロゴ')
-                          p
-                            | HTML、CSS やJavaScript/TypeScriptをつかってWebアプリケーションにおいてユーザーが直接触る部分（ユーザーインターフェース）を作るための技術を習得できます。
+            .lp-content-section
+              .row.is-gutter-width-24
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center
+                        | Railsエンジニアコース
+                      .lp-card-description
+                        = image_tag('courses/rails.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
+                        p
+                          | プログラミング言語「Ruby」を用いたWebアプリケーションフレームワークであるRails(Ruby on Rails)を使ってWebエンジニアになるためのバックエンド・フロントエンドも含めた一通りの技術を学びます。
+                .col-xs-12.col-md-6
+                  section.lp-top-image-section
+                    .lp-top-image-section__inner.a-card
+                      h3.lp-card-title.text-center
+                        | フロントエンドエンジニアコース
+                      .lp-card-description
+                        = image_tag('courses/nextjs.svg', class: 'lp-top-image-section__float-image', alt: 'Ruby on Railsのロゴ')
+                        p
+                          | HTML、CSS やJavaScript/TypeScriptをつかってWebアプリケーションにおいてユーザーが直接触る部分（ユーザーインターフェース）を作るための技術を習得できます。
 
           .lp-content-stack__item
             .lp-actions
