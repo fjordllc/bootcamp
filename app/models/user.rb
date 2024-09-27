@@ -831,6 +831,10 @@ class User < ApplicationRecord
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
   end
 
+  def participated_regular_event_ids
+    RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
   private
 
   def password_required?
