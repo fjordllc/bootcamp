@@ -69,6 +69,7 @@ class UsersController < ApplicationController
     @user.course_id ||= Course.first.id
     @user.build_discord_profile
     @user.credit_card_payment = params[:credit_card_payment]
+    @user.uploaded_avatar = user_params[:avatar]
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!

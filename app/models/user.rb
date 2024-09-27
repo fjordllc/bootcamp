@@ -202,11 +202,9 @@ class User < ApplicationRecord
 
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
 
-  validates :avatar, attached: false,
-                     content_type: {
-                       in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
-                       message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
-                     }
+  attr_accessor :uploaded_avatar
+
+  validate :validate_uploaded_avatar_content_type
 
   validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
 
@@ -907,5 +905,14 @@ class User < ApplicationRecord
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def validate_uploaded_avatar_content_type
+    return unless uploaded_avatar
+
+    mime_type = Marcel::Magic.by_magic(uploaded_avatar)&.type
+    return if mime_type&.start_with?('image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/heic', 'image/heif')
+
+    errors.add(:avatar, 'は指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります')
   end
 end
