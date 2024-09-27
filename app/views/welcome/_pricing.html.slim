@@ -25,54 +25,7 @@ section.lp-content.is-lp-bg-2.is-top-title#pricing
 
           .lp-content-stack__item
             section.lp-content-section
-              h3.lp-content-sub-title.text-center
-                | サブスクだからリスクは最小限
-              .row.is-gutter-width-32
-                .col-xs-12.col-md-4
-                  section.lp-top-image-section
-                    .lp-top-image-section__inner.a-card
-                      .lp-top-image-section__icon
-                        = image_tag('money.svg', class: 'lp-top-image-section__icon')
-                      h3.lp-card-title.text-center
-                        | 入会金、初期費用は
-                        br
-                        | 0円
-                      .lp-card-description
-                        p
-                          | 複数社合同での企業説明会をオンラインで行っています。
-                          | 実際に企業で働いているプログラマーがどのように仕事しているのかなどを
-                          | 知ることの出来る貴重な機会にもなります。
-                          | また、動画の録画をいつでも観れます。
-
-                .col-xs-12.col-md-4
-                  section.lp-top-image-section
-                    .lp-top-image-section__inner.a-card
-                      .lp-top-image-section__icon
-                        = image_tag('try.svg', class: 'lp-top-image-section__icon')
-                      h3.lp-card-title.text-center
-                        | 機能制限無しの
-                        br
-                        | お試し期間
-                      .lp-card-description
-                        p
-                          | 自分はフィヨルドブートキャンプを利用すべきかを判断するために、
-                          | 機能制限無しの3日間のお試し期間を用意しています。
-                          | お試し期間でがっつり使って判断してください。
-                .col-xs-12.col-md-4
-                  section.lp-top-image-section
-                    .lp-top-image-section__inner.a-card
-                      .lp-top-image-section__icon
-                        = image_tag('subscription.svg', class: 'lp-top-image-section__icon')
-                      h3.lp-card-title.text-center
-                        | いつでも退会できる
-                        br
-                        | サブスク
-                      .lp-card-description
-                        p
-                          | カジュアル面談や面接でのポイント、
-                          | 必要書類作成の注意点、技術面接の技術的質問への対策について、
-                          | アプトプットについてなど、就職活動に役立つドキュメントを用意しています。
-                          | また、先輩受講生の就活の様子の日報を見ることもできます。
+              = render 'welcome/pricing_features'
 
           .lp-content-stack__item
             .lp-actions
