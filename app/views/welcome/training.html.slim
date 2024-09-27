@@ -22,18 +22,14 @@ article.lp
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-secondary-border is-block' do
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-secondary-border is-block' do
                     | お問い合わせ
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                  = link_to new_corporate_training_inquiry_path, class: 'a-button is-xl is-warning is-block' do
                     | 研修を申し込む
         .lp-content__end
-          .corporate-training-images
-            .corporate-training-images__item
-            .corporate-training-images__item
-            .corporate-training-images__item
-            .corporate-training-images__item
-            .corporate-training-images__item
+          .lp-hero-visual
+            = image_tag('training/training_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの学習内容')
 
     .lp-content-divider.is-lp-bg-1
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
@@ -271,10 +267,10 @@ article.lp
           .lp-actions
             ul.lp-actions__items
               li.lp-actions__item
-                = link_to '/', class: 'a-button is-xl is-secondary is-block' do
+                = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
                   | お問い合わせ
               li.lp-actions__item
-                = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                = link_to new_corporate_training_inquiry_path, class: 'a-button is-xl is-warning is-block' do
                   | 研修を申し込む
 
     .lp-content-divider.is-lp-bg-2

@@ -18,14 +18,16 @@ article.lp
             .lp-hero-info__description
               p
                 | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
+
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-secondary-border is-block' do
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-secondary-border is-block' do
                     | お問い合わせ
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
-                    | 利用登録
+                  = link_to courses_path, class: 'a-button is-xl is-warning is-block' do
+                    | 参加登録
+
         .lp-content__end
           .lp-hero-visual
             = image_tag('job_supports/job_supports_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの就職支援')

@@ -7,18 +7,19 @@
             h2.lp-content-title.text-center.is-border-bottom
               | よくある質問
         .lp-content__end
-          .row.is-gutter-width-32
-            .col-xl-4.col-lg-4.col-xs-12
-              .a-card
-                | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
+          .row.is-gutter-width-32.justify-center
+            //
+              .col-xl-4.col-lg-4.col-xs-12
+                .a-card
+                  | それは黄金の昼下がり気ままにただようぼくらオールは二本ともあぶなげに小さな腕で漕がれ小さな手がぼくらのただよいを導こうとかっこうだけ申し訳につけてああ残酷な三人！こんな時間にこんな夢見る天気のもとで
 
-              .a-card
-                .welcome-section__description
-                  p
-                    | わからないこと、気になることがありましたら、
-                    = link_to new_inquiry_path, class: 'welcome-section__description-link' do
-                      | こちら
-                    | から質問してください。
+                .a-card
+                  .welcome-section__description
+                    p
+                      | わからないこと、気になることがありましたら、
+                      = link_to new_inquiry_path, class: 'welcome-section__description-link' do
+                        | こちら
+                      | から質問してください。
 
             .col-xl-8.col-lg-8.col-xs-12
               section.welcome-sections.is-faq#faq

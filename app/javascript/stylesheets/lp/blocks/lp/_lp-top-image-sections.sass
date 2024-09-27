@@ -21,27 +21,24 @@
   display: flex
   justify-content: center
   align-items: center
-  +media-breakpoint-up(md)
-    +size(7rem)
+  +media-breakpoint-up(lg)
+    width: 8rem
     font-size: 5rem
+  +media-breakpoint-only(md)
+    width: 6rem
+    font-size: 4rem
   +media-breakpoint-down(sm)
-    +size(4rem)
+    width: 4rem
     font-size: 3rem
 
 .lp-top-image-section__actions-items
+  display: flex
   +media-breakpoint-up(md)
-    display: flex
+    width: 100%
     justify-content: center
     gap: 1.5rem
   +media-breakpoint-down(sm)
-    display: block
-
-.lp-top-image-section__actions-item
-  +media-breakpoint-up(md)
-    width: 20rem
-  +media-breakpoint-down(sm)
-    &:not(:first-child)
-      margin-top: .75rem
+    flex-direction: column
 
 .lp-top-image-section__chart-container
   +media-breakpoint-up(md)

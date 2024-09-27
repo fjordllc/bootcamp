@@ -1,14 +1,14 @@
 section.lp-content-section
   h3.lp-content-sub-title.text-center
-    = image_tag('warning.svg', alt: '注意！', class: 'lp-top-image-sections__title-icon')
+    i.fa-solid.fa-triangle-exclamation
     | ただし、以下の条件があります！！
   .row.is-gutter-width-32
     .col-xs-12.col-md-4
       section.lp-top-image-section
         .lp-top-image-section__inner.a-card
-          = image_tag('card.svg', class: 'lp-top-image-section__icon')
+          = image_tag('credit-card.svg', class: 'lp-top-image-section__icon')
           h3.lp-card-title.text-center
-            | クレジットカードで<br>料金の支払いができる
+            | クレジットカードで<br>支払いができる
           .lp-card-description
             p
               | 料金の支払いにはクレジットカードが必要です。なので、料金の支払いができるクレジットカードを持っていることが必須条件になります。クレジットカードは、Visa、Mastercard、American Express、Discover、Diners Club、JCB が使えます。
@@ -16,7 +16,7 @@ section.lp-content-section
     .col-xs-12.col-md-4
       section.lp-top-image-section
         .lp-top-image-section__inner.a-card
-          = image_tag('my-mac.svg', class: 'lp-top-image-section__icon')
+          = image_tag('own-machine.svg', class: 'lp-top-image-section__icon')
           h3.lp-card-title.text-center
             | 自分のパソコンを<br>用意できる
           .lp-card-description
@@ -27,12 +27,12 @@ section.lp-content-section
               .lp-top-image-section__actions-item
                 = link_to '受講できるパソコンの要件',
                   'https://bootcamp.fjord.jp/articles/32',
-                  class: 'a-button is-sm',
+                  class: 'a-button is-md is-primary-border',
                   target: '_blank', rel: 'noopener'
     .col-xs-12.col-md-4
       section.lp-top-image-section
         .lp-top-image-section__inner.a-card
-          = image_tag('book.svg', class: 'lp-top-image-section__icon')
+          = image_tag('books.svg', class: 'lp-top-image-section__icon')
           h3.lp-card-title.text-center
             | 必要な教材・機材を<br>購入できる
           .lp-card-description

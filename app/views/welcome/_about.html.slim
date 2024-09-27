@@ -23,7 +23,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
               section.lp-capture-section
                 .lp-capture-section__inner
                   .lp-capture-section__start
-                    = image_tag('https://placehold.jp/320x240.png', class: 'lp-capture-section__image')
+                    = image_tag('community-driven.svg', class: 'lp-capture-section__image')
                   .lp-capture-section__end
                     .lp-capture-section__content
                       header.lp-capture-section__header
@@ -43,7 +43,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
               section.lp-capture-section
                 .lp-capture-section__inner
                   .lp-capture-section__start
-                    = image_tag('https://placehold.jp/320x240.png', class: 'lp-capture-section__image')
+                    = image_tag('self-learning-skills.svg', class: 'lp-capture-section__image')
                   .lp-capture-section__end
                     .lp-capture-section__content
                       header.lp-capture-section__header
@@ -66,7 +66,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
               section.lp-capture-section
                 .lp-capture-section__inner
                   .lp-capture-section__start
-                    = image_tag('https://placehold.jp/320x240.png', class: 'lp-capture-section__image')
+                    = image_tag('oss-engagement.svg', class: 'lp-capture-section__image')
                   .lp-capture-section__end
                     .lp-capture-section__content
                       header.lp-capture-section__header
@@ -84,16 +84,12 @@ section.lp-content.is-lp-bg-1.is-top-title#about
                           | 研修生も一般の受講生と同じように開催さているイベントに参加することができます。
                           | もちろん研修生が企画.開催するのもOK！
 
-
-
-
-
           .lp-content-stack__item
           .row.is-gutter-width-32
             .col-xs-12.col-md-4
               section.lp-top-image-section
                 .lp-top-image-section__inner.a-card
-                  = image_tag('programmer.svg', class: 'lp-top-image-section__icon')
+                  = image_tag('mentors.svg', class: 'lp-top-image-section__icon')
                   h3.lp-card-title.text-center
                     | 現役プログラマーの<br>メンター
                   .lp-card-description
@@ -103,7 +99,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
             .col-xs-12.col-md-4
               section.lp-top-image-section
                 .lp-top-image-section__inner.a-card
-                  = image_tag('github.svg', class: 'lp-top-image-section__icon')
+                  = image_tag('team-dev.svg', class: 'lp-top-image-section__icon')
                   h3.lp-card-title.text-center
                     | 仕事を想定した
                     br
@@ -114,7 +110,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
             .col-xs-12.col-md-4
               section.lp-top-image-section
                 .lp-top-image-section__inner.a-card
-                  = image_tag('resume.svg', class: 'lp-top-image-section__icon')
+                  = image_tag('launch-self-made-service.svg', class: 'lp-top-image-section__icon')
                   h3.lp-card-title.text-center
                     | 自作サービスの
                     br
@@ -127,10 +123,10 @@ section.lp-content.is-lp-bg-1.is-top-title#about
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-primary-border is-block' do
+                  = link_to new_inquiry_path, class: 'a-button is-xl is-primary-border is-block' do
                     | お問い合わせ
                 li.lp-actions__item
-                  = link_to '/', class: 'a-button is-xl is-warning is-block' do
+                  = link_to courses_path, class: 'a-button is-xl is-warning is-block' do
                     | 参加登録
 
   .lp-content-divider.is-lp-bg-2

@@ -6,12 +6,35 @@
 
 .lp-capture-section__start,
 .lp-capture-section__end
-  flex: 1
+  display: flex
+  align-items: center
+
+.lp-capture-section__start
+  +media-breakpoint-up(lg)
+    flex: 1
+  +media-breakpoint-only(md)
+    flex: 1
+  +media-breakpoint-down(sm)
+    flex: 1
+
+.lp-capture-section__end
+  +media-breakpoint-up(lg)
+    flex: 1
+  +media-breakpoint-only(md)
+    flex: 1.5
+  +media-breakpoint-down(sm)
+    flex: 3
+
 
 .lp-capture-section__content
   display: flex
   flex-direction: column
-  gap: 2rem
+  +media-breakpoint-up(lg)
+    gap: 2rem
+  +media-breakpoint-only(md)
+    gap: 1.5rem
+  +media-breakpoint-down(sm)
+    gap: 1rem
 
 .lp-capture-section__body
   +text-block(1rem 1.6)

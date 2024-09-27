@@ -2,11 +2,12 @@
   background-image: url(http://localhost:3000/images/background/people.svg)
   background-repeat: repeat
   position: relative
-  background-size: 36rem
-  +media-breakpoint-down(xxl)
+  +media-breakpoint-up(lg)
     height: 38rem
-  +media-breakpoint-down(md)
-    height: 36rem
+    background-size: 36rem
+  +media-breakpoint-only(md)
+    height: 28rem
+    background-size: 26rem
   +media-breakpoint-down(sm)
     height: auto
 
@@ -47,11 +48,16 @@
     font-size: .875rem
 
 .lp-top-cover__title
-  +text-block(2.5rem 1.4, center 800)
   color: var(--reversal-text)
   font-feature-settings: "palt"
   background-color: var(--accent)
   color: var(--main)
   padding: .5rem 1rem
+  font-weight: 800
+  text-align: center
+  +media-breakpoint-up(lg)
+    +text-block(2.5rem 1.4)
+  +media-breakpoint-only(md)
+    +text-block(2rem 1.4)
   +media-breakpoint-down(sm)
-    font-size: .8125rem
+    +text-block(1.5rem 1.4)
