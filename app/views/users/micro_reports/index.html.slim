@@ -4,7 +4,7 @@
 
 = render 'users/page_title', user: @user
 
-= render 'users/page_tabs', user: @user
+= user_page_tabs(@user, active_tab: '分報')
 
 .page-body.pb-0
   .page-content
