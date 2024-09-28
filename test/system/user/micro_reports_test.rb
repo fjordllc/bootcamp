@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class MicroReportsTest < ApplicationSystemTestCase
   test 'show all micro reports of the target user' do
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    assert_text '分報（3）'
+    assert_text '分報 （3）'
     assert_text '最初の分報'
     assert_text '2つ目の分報'
     assert_text '最初の分報'
@@ -47,19 +47,19 @@ class MicroReportsTest < ApplicationSystemTestCase
 
   test 'create micro report' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
-    assert_text '分報（0）'
+    assert_text '分報 （0）'
     assert_text '分報の投稿はまだありません。'
     fill_in('micro_report[content]', with: '初めての分報です。')
     click_button '投稿'
-    assert_text '分報（1）'
+    assert_text '分報 （1）'
     assert_text '初めての分報です。'
-    assert_text '分報（1）'
+    assert_text '分報 （1）'
   end
 
   test 'can not create micro report with empty content' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     click_button '投稿'
-    assert_text '分報（0）'
+    assert_text '分報 （0）'
     assert_text '分報の投稿に失敗しました。'
   end
 
