@@ -148,7 +148,6 @@ class SignUpTest < ApplicationSystemTestCase
       fill_in 'user[description]', with: 'テスト春夏です。'
       fill_in 'user[password]', with: 'testtest'
       fill_in 'user[password_confirmation]', with: 'testtest'
-      select '会社員', from: 'user[job]'
       find('label', text: 'Mac（Intel チップ）').click
       first('.choices__inner').click
       find('.choices__list--dropdown').click
