@@ -26,7 +26,7 @@
     - unless user.adviser?
       - unless user.mentor?
         = render 'users/form/after_graduation_hope', f:, user:
-        = render 'users/form/job', f: f
+        = render('users/form/job', f:)
       = render 'users/form/os', f: f, user:
     - unless user.adviser? || user.mentor?
       = render 'users/form/experiences', f:
