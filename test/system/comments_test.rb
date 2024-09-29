@@ -353,9 +353,9 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text '確認OKにする'
     within('.thread-comment-form__form') do
       fill_in('new_comment[description]', with: 'comment test')
+      click_button 'コメントする'
     end
     accept_confirm '日報を確認済みにしていませんがよろしいですか？' do
-      click_button 'コメントする'
     end
     assert_text 'comment test'
   end
