@@ -1,10 +1,13 @@
 .form-item
-  = f.label :os, '学習に使うマシン・OS を選択してください', class: 'a-form-label is-required'
-  .a-form-help.mb-4
-    p
-      | この情報はサポートを提供する際の参考にさせていただきます。
-      | 学習に使うマシン・OS が変わりましたら、この情報を更新してください。
-      | この情報は他のフィヨルドブートキャンプ参加者に公開されます。
+  - unless user.mentor?
+    = f.label :os, '学習に使うマシン・OS を選択してください', class: 'a-form-label is-required'
+    .a-form-help.mb-4
+      p
+        | この情報はサポートを提供する際の参考にさせていただきます。
+        | 学習に使うマシン・OS が変わりましたら、この情報を更新してください。
+        | この情報は他のフィヨルドブートキャンプ参加者に公開されます。
+  - else
+    = f.label :os, 'マシン・OS を選択してください', class: 'a-form-label is-required'
   .form-item__groups
     .form-item-group
       .form-item-group__header
@@ -26,13 +29,14 @@
                 = image_tag('signup/os/apple.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.mac_apple')
-        .form-item-group__help
-          .a-form-help
-            label.a-form-help-link.is-danger(for='modal-mac')
-              span.a-form-help-link__label
-                | Intel チップ or Apple チップ の調べ方
-              span.a-help
-                i.fa-solid.fa-question
+        - unless user.mentor?
+          .form-item-group__help
+            .a-form-help
+              label.a-form-help-link.is-danger(for='modal-mac')
+                span.a-form-help-link__label
+                  | Intel チップ or Apple チップ の調べ方
+                span.a-help
+                  i.fa-solid.fa-question
 
     .form-item-group
       .form-item-group__header
@@ -47,13 +51,14 @@
                 = image_tag('signup/os/windows.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.windows_wsl2')
-        .form-item-group__help
-          .a-form-help
-            label.a-form-help-link.is-danger(for='modal-win')
-              span.a-form-help-link__label
-                | WSL2とは？
-              span.a-help
-                i.fa-solid.fa-question
+        - unless user.mentor?
+          .form-item-group__help
+            .a-form-help
+              label.a-form-help-link.is-danger(for='modal-win')
+                span.a-form-help-link__label
+                  | WSL2とは？
+                span.a-help
+                  i.fa-solid.fa-question
 
     .form-item-group
       .form-item-group__header
@@ -68,13 +73,14 @@
                 = image_tag('signup/os/linux.svg', class: 'a-block-check__image')
                 span.a-block-check__name
                   = t('activerecord.enums.user.os.linux')
-        .form-item-group__help
-          .a-form-help
-            label.a-form-help-link.is-danger(for='modal-linux')
-              span.a-form-help-link__label
-                | Linuxで学習をする際の注意
-              span.a-help
-                i.fa-solid.fa-question
+        - unless user.mentor?
+          .form-item-group__help
+            .a-form-help
+              label.a-form-help-link.is-danger(for='modal-linux')
+                span.a-form-help-link__label
+                  | Linuxで学習をする際の注意
+                span.a-help
+                  i.fa-solid.fa-question
 
 = render '/shared/modal',
   id: 'modal-mac',
