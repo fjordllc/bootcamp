@@ -30,4 +30,43 @@ class UserPractice
     end
     user_categories_with_uniq_practices
   end
+
+  # def practices
+  #   course.practices.order('courses_categories.position', 'categories_practices.position')
+  # end
+
+  # def practice_ids_skipped
+  #   skipped_practices.pluck(:practice_id)
+  # end
+
+  # def completed_percentage
+  #   completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
+  # end
+
+  # def required_practices_size
+  #   practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
+  # end
+
+  # def completed_practices_size_by_category
+  #   Practice
+  #     .joins({ categories: :categories_practices }, :learnings)
+  #     .where(
+  #       learnings: {
+  #         user_id: id,
+  #         status: 'complete'
+  #       }
+  #     )
+  #     .group('categories_practices.category_id')
+  #     .count('DISTINCT practices.id')
+  # end
+
+  # def completed_required_practices_size
+  #   practices_include_progress.joins(:learnings)
+  #                             .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
+  # end
+
+  # private
+  # def required_practices_size_with_skip
+  #   course.practices.where(id: practice_ids_skipped, include_progress: true).size
+  # end
 end
