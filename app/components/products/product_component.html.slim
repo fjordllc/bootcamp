@@ -1,7 +1,7 @@
 .card-list-item.has-assigned class=(@product.wip ? 'is-wip' : '')
   .card-list-item__inner
     .card-list-item__user
-      a.card-list-item__user-link href=@product.user.url
+      a.card-list-item__user-link href=user_url(@product.user)
         span class=["a-user-role", role_class]
           img.card-list-item__user-icon.a-user-icon title=@product.user.icon_title alt=@product.user.icon_title src=@product.user.avatar_url
 
@@ -23,7 +23,7 @@
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              a.a-user-name href=@product.user.url
+              a.a-user-name href=user_url(@product.user)
                 = @product.user.long_name
 
       .card-list-item__row
@@ -102,6 +102,6 @@
     - if @product.checks.size > 0
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
-        time.stamp__content.is-created-at #{@product.checks.last_created_at}
+        time.stamp__content.is-created-at #{@product.comments.last.created_at}
         .stamp__content.is-user-name
-          .stamp__content-inner #{@product.checks.last_user_login_name}
+          .stamp__content-inner #{@product.comments.last.created_at.to_datetime}
