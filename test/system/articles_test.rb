@@ -4,9 +4,14 @@ require 'application_system_test_case'
 
 class ArticlesTest < ApplicationSystemTestCase
   setup do
+    puts '*****************set up start*****************'
     @article = articles(:article1)
+    puts '*****************@article*****************'
     @article2 = articles(:article2)
+    puts '*****************@article2*****************'
     @article3 = articles(:article3)
+    puts '*****************@article3*****************'
+    puts '*****************set up end*****************'
   end
 
   test 'show listing articles' do
@@ -138,10 +143,15 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector 'nav.pagination', count: 2
   end
 
+  # Flaky test
   test "general user can't see edit and delete buttons" do
+    puts "*************general user can't see edit and delete buttons***************"
     visit_with_auth article_path(@article), 'kimura'
+    puts "*************visit_with_auth article_path(@article), 'kimura'*************"
     assert_no_text '内容修正'
+    puts "*************assert_no_text '内容修正'*************"
     assert_no_text '削除'
+    puts "*************assert_no_text '削除'*************"
   end
 
   test 'admin can see edit and delete buttons' do
@@ -192,13 +202,19 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text @article.title
   end
 
+  # Flaky test
   test 'mentor can delete an article' do
+    puts "*************general user can't see edit and delete buttons***************"
     visit_with_auth articles_path, 'mentormentaro'
+    puts "*************visit_with_auth articles_path, 'mentormentaro'***************"
     assert_text @article.title
 
+    puts '*************assert_text @article.title***************'
     visit article_path(@article)
+    puts '*************visit article_path(@article)***************'
     accept_confirm do
       click_on '削除'
+      puts "*************click_on '削除'***************"
     end
 
     assert_no_text @article.title
