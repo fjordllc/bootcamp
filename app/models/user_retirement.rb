@@ -12,7 +12,7 @@ class UserRetirement
     notify_to_user
     notify_to_admins
     notify_to_mentors
- end
+  end
 
   private
 
