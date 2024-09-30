@@ -24,8 +24,9 @@ section.lp-content.is-lp-bg-3.is-left-title#campus-insight
                     | これを読めば、フィヨルドブートキャンプに入会するとどんなことが
                     | 待っているかわかりますので、ぜひ見てみてください。
           .lp-content-stack__item
-            = link_to article_path(34), rel: 'noopener noreferrer' do
-              = image_tag('sample.png')
+            .l-inner-container.is-xs
+              = link_to article_path(34), rel: 'noopener noreferrer' do
+                = image_tag('sample.png')
           .lp-content-stack__item
             .lp-actions
               .lp-actions__items

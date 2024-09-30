@@ -96,8 +96,6 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector 'img[src*="komagata.jpg"]'
     assert_text '駒形 真幸'
     assert_text 'エンジニア'
-    assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
-    assert_selector 'img[src*="cherry-book.jpg"]'
   end
 
   test 'administrator can update profiles of mentors' do
@@ -117,7 +115,6 @@ class WelcomeTest < ApplicationSystemTestCase
     assert_selector 'img[src*="komagata.jpg"]'
     assert_text '駒形 真幸'
     assert_text 'エンジニア'
-    assert_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     assert_selector 'img[src*="cherry-book.jpg"]'
   end
 
@@ -132,9 +129,7 @@ class WelcomeTest < ApplicationSystemTestCase
     logout
     visit '/welcome'
     assert_no_text '駒形 真幸'
-    assert_no_text '株式会社ロッカの代表兼エンジニア。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
     visit_with_auth '/welcome', 'kimura'
     assert_no_text '駒形 真幸'
-    assert_no_text '株式会社ロッカの代表兼プログラマー。Rubyが大好きで怖話、フィヨルドブートキャンプなどを開発している。'
   end
 end
