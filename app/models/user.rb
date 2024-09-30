@@ -860,7 +860,7 @@ class User < ApplicationRecord
   def participated_regular_event_ids
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
-  
+
   def clear_github_data
     update(
       github_id: nil,
