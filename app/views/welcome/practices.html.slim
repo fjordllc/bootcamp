@@ -14,7 +14,9 @@ article.lp
               h2.lp-hero-info__catchcopy
                 | Railsとフロントエンド
                 br
-                | 選べる2つのコース
+                | 選べる
+                strong
+                  | 2つのコース
             .lp-hero-info__description
               p
                 | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
@@ -46,7 +48,7 @@ article.lp
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
-              .lp-content__descritpion
+              .lp-content__description
                 .l-inner-container.is-sm
                   .a-short-text
                     p
@@ -69,14 +71,14 @@ article.lp
               .lp-course-selection__items
                 .l-inner-container.is-xl
                   .row.is-gutter-width-32
-                    .col-md-6.col-xs-12
+                    .col-xs-6
                       .lp-course-selection-item__anchor#rails-programmer-course
                       - course = Course.find_by(title: 'Railsエンジニア')
                       - if course
                         = render('course_practices', course: course)
                       - else
                         p コースが見つかりませんでした。
-                    .col-md-6.col-xs-12
+                    .col-xs-6
                       .lp-course-selection-item__anchor#front-engineer-course
                       - course = Course.find_by(title: 'フロントエンドエンジニア')
                       - if course

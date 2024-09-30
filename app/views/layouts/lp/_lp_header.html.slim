@@ -1,12 +1,10 @@
 header.lp-header
-  .container
+  .l-container
     .lp-header__inner
       .lp-header__start
         .lp-header__home
           = link_to current_user ? welcome_path : root_path, class: 'lp-header__home-link' do
             = image_tag('shared/logo-horizontal.svg', alt: 'プログラミングスクール', class: 'lp-header__home-link-image')
-        label.lp-header__mobile-nav-trigger(for='welcome-mobile-nav')
-          i.fa-solid.fa-bars
         input.a-toggle-checkbox#welcome-mobile-nav(type='checkbox')
         nav.lp-header-nav
           ul.lp-header-nav__items
@@ -57,15 +55,16 @@ header.lp-header
               - else
                 = link_to login_path, class: 'lp-header-nav__item-link' do
                   | ログイン
-
           label.lp-header-nav__overlay(for='welcome-mobile-nav')
 
       .lp-header__end
-        .lp-header__login
+        .lp-header__login.is-hidden-md-down
           - if current_user
             = link_to course_practices_path(current_user.course), class: 'a-button is-sm is-secondary is-block' do
               | プラクティス
           - else
             = link_to login_path, class: 'a-button is-sm is-secondary is-block' do
               | ログイン
+        label.lp-header__mobile-nav-trigger(for='welcome-mobile-nav')
+          i.fa-solid.fa-bars
   hr.a-border-tint

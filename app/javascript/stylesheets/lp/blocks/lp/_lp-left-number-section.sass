@@ -3,12 +3,18 @@
 
 .lp-left-number-section
   flex-direction: row
-  gap: 2rem
   padding: 1.5rem
   display: flex
+  +media-breakpoint-up(md)
+    gap: 2rem
+  +media-breakpoint-down(sm)
+    gap: 1rem
 
 .lp-left-number-section__header
-  flex: 0 0 12rem
+  +media-breakpoint-up(md)
+    flex: 0 0 12rem
+  +media-breakpoint-down(sm)
+    flex: 0 0 6rem
 
 .lp-left-number-section__header
   display: flex
@@ -17,16 +23,24 @@
   align-items: center
 
 .lp-left-number-section__title
-  +text-block(1.5rem 1.4, 800)
   text-align: center
+  +media-breakpoint-up(md)
+    +text-block(1.5rem 1.4, 800)
+  +media-breakpoint-down(sm)
+    +text-block(1.25rem 1.4, 800)
+    br
+      display: none
   &::before
     counter-increment: number 1
     content: '0'counter(number)
     display: block
-    +text-block(2.5rem 1.4, 900)
     font-family: "Lato", sans-serif
     font-style: italic
     -webkit-text-stroke-width: 1px
     -webkit-text-stroke-color: var(--main)
     color: #dedef2
     margin-bottom: -.125rem
+    +media-breakpoint-up(md)
+      +text-block(2.5rem 1.4, 900)
+    +media-breakpoint-down(sm)
+      +text-block(2rem 1.4, 900)

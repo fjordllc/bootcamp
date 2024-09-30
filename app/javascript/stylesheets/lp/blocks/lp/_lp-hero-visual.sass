@@ -6,4 +6,7 @@
   align-items: center
 
 .lp-hero-visual__image
-  max-height: 26.25rem
+  +media-breakpoint-up(md)
+    max-height: 26.25rem
+  +media-breakpoint-down(sm)
+    max-height: 12rem

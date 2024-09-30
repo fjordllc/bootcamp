@@ -1,8 +1,14 @@
 .lp-capture-section__inner
   display: flex
-  gap: 3rem
   .lp-content-stack__item:nth-child(even) &
     flex-direction: row-reverse
+  +media-breakpoint-up(md)
+    gap: 3rem
+  +media-breakpoint-down(sm)
+    gap: 1rem
+    .lp-content-sub-title
+      br
+        display: none
 
 .lp-capture-section__start,
 .lp-capture-section__end
@@ -15,7 +21,7 @@
   +media-breakpoint-only(md)
     flex: 1
   +media-breakpoint-down(sm)
-    flex: 1
+    flex: 0 0 40%
 
 .lp-capture-section__end
   +media-breakpoint-up(lg)
@@ -23,7 +29,7 @@
   +media-breakpoint-only(md)
     flex: 1.5
   +media-breakpoint-down(sm)
-    flex: 3
+    flex: 1
 
 
 .lp-capture-section__content
@@ -37,7 +43,10 @@
     gap: 1rem
 
 .lp-capture-section__body
-  +text-block(1rem 1.6)
+  +media-breakpoint-up(md)
+    +text-block(1rem 1.6)
+  +media-breakpoint-down(sm)
+    +text-block(.875rem 1.6)
 
 .lp-capture-section__border
   height: 1px

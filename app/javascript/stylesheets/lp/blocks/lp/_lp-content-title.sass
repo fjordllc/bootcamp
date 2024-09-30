@@ -1,5 +1,4 @@
 .lp-content-title
-  white-space: nowrap
   strong
     color: var(--main)
   &[class*=is-border-]
@@ -9,7 +8,8 @@
       border-radius: 10rem
       //background-color: var(--main)
       background-color: #9b9ace
-  +media-breakpoint-up(lg)
+  +media-breakpoint-up(xl)
+    white-space: nowrap
     +text-block(3rem 1.4, 800)
     &.is-vertical
       writing-mode: vertical-rl
@@ -32,11 +32,9 @@
     &.is-vertical.is-border-left
       &::before
         top: .125em
-    &.is-sm
-      +text-block(2.25rem 1.3, 700)
     &.is-xs
       +text-block(1.75rem 1.3, 700)
-  +media-breakpoint-down(md)
+  +media-breakpoint-down(lg)
     text-align: center
     padding-bottom: 2.25rem
     position: relative
@@ -46,7 +44,18 @@
         width: 4.5em
         height: .5rem
         transform: translate(-50%)
+  +media-breakpoint-only(lg)
+    +text-block(2.75rem 1.4, 800)
   +media-breakpoint-only(md)
-    +text-block(2.5rem 1.4, 800)
+    +text-block(2.25rem 1.4, 800)
   +media-breakpoint-down(sm)
-    +text-block(2rem 1.4, 800)
+    +text-block(1.75rem 1.4, 800)
+
+  &.is-sm
+    padding-bottom: 0
+    +media-breakpoint-up(lg)
+      +text-block(2.25rem 1.3, 700)
+    +media-breakpoint-only(md)
+      +text-block(1.5rem 1.3, 700)
+    +media-breakpoint-down(sm)
+      +text-block(1.25rem 1.3, 700)

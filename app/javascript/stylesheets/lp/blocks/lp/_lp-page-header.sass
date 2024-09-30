@@ -2,8 +2,11 @@
   background-color: var(--main)
 
 .lp-page-header__title
-  +text-block(1.5rem 1.4, 700)
   color: var(--reversal-text)
+  +media-breakpoint-up(md)
+    +text-block(1.5rem 1.4, 700)
+  +media-breakpoint-down(sm)
+    +text-block(1.25rem 1.4, 700)
 
 .lp-page-header__inner
   height: 4rem
