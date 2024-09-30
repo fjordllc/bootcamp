@@ -9,6 +9,12 @@ class WelcomeController < ApplicationController
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
 
+  def alumni_voices; end
+
+  def job_support; end
+
+  def certified_reskill_courses; end
+
   def pricing; end
 
   def faq; end
