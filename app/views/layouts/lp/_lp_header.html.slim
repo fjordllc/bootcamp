@@ -46,7 +46,7 @@ header.lp-header
                   | ブログ
             - unless current_user
               li.lp-header-nav__item
-                = link_to new_user_path, class: 'lp-header-nav__item-link' do
+                = link_to courses_path, class: 'lp-header-nav__item-link' do
                   | 参加登録
             li.lp-header-nav__item.is-hidden-md-up
               - if current_user
