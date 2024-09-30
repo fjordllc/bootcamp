@@ -1,53 +1,53 @@
-section.welcome-member.a-card(class="is-#{page}")
+section.lp-member.a-card(class="is-#{page}")
   - if page == 'articles-show'
     header.card-header.is-sm
       h2.card-header__title
         | 著者
     hr.a-border-tint
-  .welcome-member__inner
-    .welcome-member__header
-      .welcome-member__start
+  .lp-member__inner
+    .lp-member__header
+      .lp-member__start
         - if mentor.profile_image_url.present?
-          = image_tag(mentor.profile_image_url, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+          = image_tag(mentor.profile_image_url, class: 'lp-member__image', alt: "#{mentor.profile_name}のアイコン画像")
         - else
-          = image_tag(default_image_path, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
-      .welcome-member__end
+          = image_tag(default_image_path, class: 'lp-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+      .lp-member__end
         - if mentor.profile_name.present?
-          h3.welcome-member__name
+          h3.lp-member__name
             = mentor.profile_name
         - if mentor.profile_job.present?
-          p.welcome-member__job
+          p.lp-member__job
             = mentor.profile_job
-        ul.welcome-member__sns
+        ul.lp-member__sns
           - if mentor.github_account.present?
-            li.welcome-member__sns-item
-              = link_to "https://github.com/#{mentor.github_account}", class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to "https://github.com/#{mentor.github_account}", class: 'lp-member__sns-item-link' do
                 i.fa-brands.fa-github-alt
           - if mentor.blog_url.present?
-            li.welcome-member__sns-item
-              = link_to mentor.blog_url, class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to mentor.blog_url, class: 'lp-member__sns-item-link' do
                 i.fa-solid.fa-home
           - if mentor.twitter_account.present?
-            li.welcome-member__sns-item
-              = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'lp-member__sns-item-link' do
                 i.fa-brands.fa-x-twitter
           - if mentor.facebook_url.present?
-            li.welcome-member__sns-item
-              = link_to mentor.facebook_url, class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to mentor.facebook_url, class: 'lp-member__sns-item-link' do
                 i.fa-brands.fa-facebook-square
-    .welcome-member__body
+    .lp-member__body
       .a-long-text.js-markdown-view(class="#{page == 'articles-show' ? 'is-sm' : 'is-md'}")
         = mentor.profile_text
     - if mentor.authored_books.present?
-      .welcome-member-books
-        ul.welcome-member-books__items
+      .lp-member-books
+        ul.lp-member-books__items
           - mentor.authored_books.sorted.each do |authored_book|
             - if authored_book.cover.attached?
-              li.welcome-member-books__item
-                = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
-                  = image_tag(authored_book.cover, alt: authored_book.title, class: 'welcome-member-books__item-image')
+              li.lp-member-books__item
+                = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'lp-member-books__item-link' do
+                  = image_tag(authored_book.cover, alt: authored_book.title, class: 'lp-member-books__item-image')
   - if admin_login?
-    .welcome-member__actions
+    .lp-member__actions
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item

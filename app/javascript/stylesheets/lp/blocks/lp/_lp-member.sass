@@ -1,37 +1,37 @@
-.welcome-member
+.lp-member
   &.is-welcome-index
     height: 100%
 
-.welcome-member__inner
+.lp-member__inner
   +media-breakpoint-up(md)
     padding: 1.25rem 1.5rem 1.5rem
   +media-breakpoint-down(sm)
     padding: .75rem 1rem 1rem
-  .welcome-member.is-articles-show &
+  .lp-member.is-articles-show &
     padding: .75rem 1rem 0
-  .welcome-member.is-articles-show &:last-child
+  .lp-member.is-articles-show &:last-child
     padding-bottom: 1rem
 
-.welcome-member__header
+.lp-member__header
   display: flex
   gap: .75rem
   align-items: flex-start
   +media-breakpoint-down(sm)
     flex-direction: column
 
-.welcome-member__start
+.lp-member__start
   +media-breakpoint-up(md)
     flex: 0 0 4.5rem
   +media-breakpoint-down(sm)
     width: 100%
 
-.welcome-member__end
+.lp-member__end
   +media-breakpoint-up(md)
     flex: 1
   +media-breakpoint-down(sm)
     width: 100%
 
-.welcome-member__image
+.lp-member__image
   border-radius: .25rem
   +media-breakpoint-up(md)
     width: 100%
@@ -40,7 +40,7 @@
     display: block
     margin-inline: auto
 
-.welcome-member__name
+.lp-member__name
   font-weight: 700
   +media-breakpoint-up(md)
     +text-block(1.25rem 1.4)
@@ -48,7 +48,7 @@
     +text-block(1rem 1.4)
     text-align: center
 
-.welcome-member__job
+.lp-member__job
   font-weight: 400
   +media-breakpoint-up(md)
     +text-block(.75rem 1.4)
@@ -56,20 +56,20 @@
     +text-block(.625rem 1.4)
     text-align: center
 
-.welcome-member__sns
+.lp-member__sns
   display: flex
   gap: .75rem
   +media-breakpoint-down(sm)
     justify-content: center
 
-.welcome-member__sns-item-link
+.lp-member__sns-item-link
   +text-block(1.125rem 1.45)
   color: var(--default-text)
   transition: all .2s ease-out
   &:hover
     color: var(--welcome-pink)
 
-.welcome-member__body
+.lp-member__body
   margin-top: .5rem
   font-size: .875rem
   &.is-temp
@@ -90,5 +90,5 @@
     a:hover
       text-decoration: none
 
-.welcome-member__actions
+.lp-member__actions
   padding: 1rem

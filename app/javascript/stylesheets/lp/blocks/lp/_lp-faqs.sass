@@ -4,33 +4,3 @@
   gap: 2rem
   max-width: 40rem
   float: right
-
-.lp-faq__inner
-  display: flex
-  flex-direction: column
-  gap: 1.5rem
-
-.lp-faq__header,
-.lp-faq__body
-  padding-left: 2.5rem
-  position: relative
-  &::before
-    +position(absolute, left 0, top 0)
-    +text-block(1.25rem 1, 900)
-    color: var(--main)
-    font-family: "Lato", sans-serif
-
-.lp-faq__header
-  &::before
-    content: 'Q.'
-
-.lp-faq__body
-  &::before
-    content: 'A.'
-
-.lp-faq__title
-  +text-block(1.125rem 1.4, 800)
-
-.lp-faq__body
-  p
-    +text-block(1rem 1.6)
