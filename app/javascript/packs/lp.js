@@ -8,4 +8,3 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import '../stylesheets/lp'
-import 'keen-slider/keen-slider.scss'
