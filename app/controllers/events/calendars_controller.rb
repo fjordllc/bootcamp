@@ -2,6 +2,8 @@
 
 class Events::CalendarsController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: :index
+  # ステージング環境での動作確認のため追加、確認後削除予定
+  skip_before_action :basic_auth, if: :staging?
 
   def index
     user_id = params[:user_id]
