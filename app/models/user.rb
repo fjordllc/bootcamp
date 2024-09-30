@@ -860,6 +860,14 @@ class User < ApplicationRecord
   def participated_regular_event_ids
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
+  
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
 
   def area
     if country_code == 'JP'
