@@ -1,7 +1,10 @@
 .lp-content-section
   display: flex
   flex-direction: column
-  gap: 2.25rem
+  +media-breakpoint-up(md)
+    gap: 1.5rem
+  +media-breakpoint-down(sm)
+    gap: 1rem
 
 .lp-content__description
   +media-breakpoint-up(md)

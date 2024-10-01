@@ -11,10 +11,11 @@ section.lp-content.is-lp-bg-1.is-top-title#about
           .lp-content-stack
             .lp-content-stack__item
               .lp-content__description
-                .l-container.is-md
+                .l-inner-container.is-md
                   .a-short-text
                     p
-                      | FBC（フィヨルドブートキャンプ）は、現役ソフトウェアエンジニアが理想とするプログラミングスクールを
+                      | FBC（フィヨルドブートキャンプ）は、
+                      | 現役ソフトウェアエンジニアが理想とするプログラミングスクールを
                       | 実現することを目指すオンラインプログラミングスクールです。
                     p
                       | ソフトウェアエンジニアとして必要なスキルを身につけることは当然のこと、
@@ -24,7 +25,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
             .lp-content-stack__item
               section.lp-capture-section
                 .lp-capture-section__inner
-                  .lp-capture-section__start
+                  .lp-capture-section__start.is-hidden-sm-down
                     = image_tag('community-driven.svg', class: 'lp-capture-section__image')
                   .lp-capture-section__end
                     .lp-capture-section__content
@@ -37,9 +38,10 @@ section.lp-content.is-lp-bg-1.is-top-title#about
                             | コミュニティ
                       hr.lp-capture-section__border
                       .lp-capture-section__body
+                        = image_tag('community-driven.svg', class: 'lp-capture-section__image is-hidden-md-up')
                         .a-short-text
                           p
-                            | FBC（フィヨルドブートキャンプ）は、専門技術を学ぶ場であり、
+                            | FBCは、専門技術を学ぶ場であり、
                             | 学びを継続するモチベーションを支えるコミュニティでもあります。
                           p
                             | 卒業までには長い時間がかかり、モチベーションの維持が難しいです。
@@ -56,7 +58,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
             .lp-content-stack__item
               section.lp-capture-section
                 .lp-capture-section__inner
-                  .lp-capture-section__start
+                  .lp-capture-section__start.is-hidden-sm-down
                     = image_tag('self-learning-skills.svg', class: 'lp-capture-section__image')
                   .lp-capture-section__end
                     .lp-capture-section__content
@@ -70,6 +72,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
                             | 自走力を身につける
                       hr.lp-capture-section__border
                       .lp-capture-section__body
+                        = image_tag('self-learning-skills.svg', class: 'lp-capture-section__image is-hidden-md-up')
                         .a-short-text
                           p
                             | FBCでは、受講生が解答にたどり着くプロセスを理解し、
@@ -89,7 +92,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
             .lp-content-stack__item
               section.lp-capture-section
                 .lp-capture-section__inner
-                  .lp-capture-section__start
+                  .lp-capture-section__start.is-hidden-sm-down
                     = image_tag('oss-engagement.svg', class: 'lp-capture-section__image')
                   .lp-capture-section__end
                     .lp-capture-section__content
@@ -101,6 +104,7 @@ section.lp-content.is-lp-bg-1.is-top-title#about
                             | あってはならない
                       hr.lp-capture-section__border
                       .lp-capture-section__body
+                        = image_tag('oss-engagement.svg', class: 'lp-capture-section__image is-hidden-md-up')
                         .a-short-text
                           p
                             | FBCでは受講生に対し、FBCコミュニティだけでなく、
@@ -153,12 +157,13 @@ section.lp-content.is-lp-bg-1.is-top-title#about
                             | これにより、仕事でのチーム開発と同様の形式を体験しながら、
                             | コミュニケーションの取り方や開発プロセスの進め方も学べます。
                             | このソースコードはオープンソースソフトウェア（OSS）として公開されており、
-                            | 自分が書いたコードが嘘のないスキルの証明となります。
+                            | 自分が書いたコードが嘘のないスキルの証明となり、
+                            | これは就職活動時のポートフォリオの一つとしても非常に価値があります。
                       .lp-top-image-section__actions
                         .lp-top-image-section__actions-items
                           .lp-top-image-section__actions-item
                             = link_to 'ソースコードを見る',
-                              'https://bootcamp.fjord.jp/articles/32',
+                              'https://github.com/fjordllc/bootcamp',
                               class: 'a-button is-md is-primary-border',
                               target: '_blank', rel: 'noopener'
                 .col-xs-12.col-md-4
@@ -178,6 +183,14 @@ section.lp-content.is-lp-bg-1.is-top-title#about
                             | 学習の復習にもなり、足りなかった知識を補い、
                             | カリキュラムにない内容を探求することで、自走力を確認する機会となります。
                             | さらに、ここで作成した自作サービスは、就職活動時のポートフォリオの一つとしても機能します。
+                      .lp-top-image-section__actions
+                        .lp-top-image-section__actions-items
+                          .lp-top-image-section__actions-item
+                            = link_to 'みんなの自作サービス',
+                              'https://fbc-stack.vercel.app/',
+                              class: 'a-button is-md is-primary-border',
+                              target: '_blank', rel: 'noopener'
+
             .lp-content-stack__item
               .lp-actions
                 ul.lp-actions__items

@@ -11,13 +11,32 @@ section.lp-content.is-lp-bg-1.is-top-title#feature
           .lp-content-stack__item
             section.lp-content-section
               .lp-content__description
-                .l-container.is-md
+                .l-inner-container.is-md
                   .a-long-text
                     p
-                      | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
-                      | お試し期間が終了になったタイミングで、最初の1ヶ月分の料金の引き落としが発生します。
-                      | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
+                      | FBCに入会資格はありません。住所、年齢、プログラミング経験に関わらず、誰でも入会が可能です。
+                      | ただし、FBCは誰にとっても居心地のいい場所であり続けるため、
+                      = link_to tos_path, target: '_blank', rel: 'noopener' do
+                        | 利用規約
+                      | の他に
+                      = link_to coc_path, target: '_blank', rel: 'noopener' do
+                        | アンチハラスメントポリシー
+                      | にも同意する必要があります。
+          .lp-content-stack__item
               = render 'welcome/unlimited'
+          .lp-content-stack__item
+            section.lp-content-section
+              h3.lp-content-sub-title.text-center
+                i.fa-solid.fa-triangle-exclamation
+                | ただし、以下の条件があります
+              .lp-content__description
+                .l-inner-container.is-md
+                  .a-long-text
+                    p
+                      | FBCでの学習には書籍や機材などが必要ですが、
+                      | これらは利用料とは別に購入する必要があります。
+                      | ただし、入会直後にすべてを揃える必要はありません。
+                      | 必要に応じて、都度購入していただけます。
           .lp-content-stack__item
             = render 'welcome/conditions'
 

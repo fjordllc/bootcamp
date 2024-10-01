@@ -55,4 +55,10 @@
   border-top: dashed 1px var(--border-more-shade)
 
 .lp-capture-section__image
-  width: 100%
+  +media-breakpoint-up(md)
+    width: 100%
+  +media-breakpoint-down(sm)
+    max-width: 14rem
+    margin-inline: auto
+    display: block
+    margin-bottom: .75rem
