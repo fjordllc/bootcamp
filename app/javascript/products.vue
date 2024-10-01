@@ -9,17 +9,17 @@
   p.o-empty-message__text
     | {{ title }}はありません
 
-.o-empty-message(v-else-if='isDashboard && isNotProduct5daysElapsed')
+.o-empty-message(v-else-if='isDashboard && isNotProductSelectedDaysElapsed')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
-    | 5日経過した提出物はありません
+    | {{ selectedDays }}日経過した提出物はありません
 
 //- ダッシュボード
 .is-vue(v-else-if='isDashboard')
   template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
-      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 5)')
+      v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 0 && product_n_days_passed.elapsed_days <= selectedDays + 2)')
       //- TODO 以下を共通化する
       //- prettier-ignore: need space between v-if and id
       header.card-header.a-elapsed-days(
@@ -31,26 +31,26 @@
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-warning(
-        v-else-if='product_n_days_passed.elapsed_days === 5', id='5days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays', id='first-alert'
       )
         h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
+          | {{ selectedDays }}日経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-alert(
-        v-else-if='product_n_days_passed.elapsed_days === 6', id='6days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 1', id='second-alert'
       )
         h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日経過
+          | {{ selectedDays + 1 }}日経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- prettier-ignore: need space between v-else-if and id
       header.card-header.a-elapsed-days.is-reply-deadline(
-        v-else-if='product_n_days_passed.elapsed_days === 7', id='7days-elapsed'
+        v-else-if='product_n_days_passed.elapsed_days === selectedDays + 2', id='deadline-alert'
       )
         h2.card-header__title
-          | {{ product_n_days_passed.elapsed_days }}日以上経過
+          | {{ selectedDays + 2 }}日以上経過
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       header.card-header.a-elapsed-days(
@@ -61,7 +61,6 @@
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
       //- 共通化ここまで
-
       .card-list
         .card-list__items
           product(
@@ -76,14 +75,14 @@
     .under-cards__links.mt-4.text-center.leading-normal.text-sm
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        href='/products/unassigned#4days-elapsed',
-        v-if='countAlmostPassed5days() === 0')
-        | しばらく5日経過に到達する<br>提出物はありません。
+        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
+        v-if='countAlmostPassedSelectedDays() === 0')
+        | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        href='/products/unassigned#4days-elapsed',
+        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
         v-else)
-        | <strong>{{ countAlmostPassed5days() }}件</strong>の提出物が、<br>8時間以内に5日経過に到達します。
+        | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
 </template>
 
 <script>
@@ -100,13 +99,15 @@ export default {
     title: { type: String, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: Number, required: true },
-    displayUserIcon: { type: Boolean, default: true }
+    displayUserIcon: { type: Boolean, default: true },
+    productDeadlineDays: { type: Number, required: true }
   },
   data() {
     return {
       products: [],
       loaded: false,
-      productsGroupedByElapsedDays: null
+      productsGroupedByElapsedDays: null,
+      selectedDays: this.productDeadlineDays
     }
   },
   computed: {
@@ -116,12 +117,12 @@ export default {
     isDashboard() {
       return location.pathname === '/'
     },
-    isNotProduct5daysElapsed() {
+    isNotProductSelectedDaysElapsed() {
       const elapsedDays = []
       this.productsGroupedByElapsedDays.forEach((h) => {
         elapsedDays.push(h.elapsed_days)
       })
-      return elapsedDays.every((day) => day < 5)
+      return elapsedDays.every((day) => day < this.selectedDays)
     }
   },
   created() {
@@ -131,41 +132,86 @@ export default {
     this.getProductsPerPage()
   },
   methods: {
-    getProductsPerPage() {
-      fetch(this.url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': CSRF.getToken()
-        },
-        credentials: 'same-origin',
-        redirect: 'manual'
-      })
-        .then((response) => {
-          return response.json()
+    async getProductsPerPage() {
+      try {
+        const response = await fetch(this.url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-Token': CSRF.getToken()
+          },
+          credentials: 'same-origin',
+          redirect: 'manual'
         })
-        .then((json) => {
-          if (location.pathname === '/') {
-            this.productsGroupedByElapsedDays =
-              json.products_grouped_by_elapsed_days
-          }
-          this.products = []
-          json.products.forEach((product) => {
-            this.products.push(product)
-          })
-          this.loaded = true
+
+        const json = await response.json()
+        if (
+          ['/products/unassigned', '/products/unchecked', '/'].includes(
+            location.pathname
+          )
+        ) {
+          const newGroups = json.products_grouped_by_elapsed_days.reduce(
+            (newGroups, group) => {
+              const elapsedDays =
+                group.elapsed_days >= this.selectedDays + 2
+                  ? this.selectedDays + 2
+                  : group.elapsed_days
+
+              let existingGroup = newGroups.find(
+                (g) => g.elapsed_days === elapsedDays
+              )
+              if (!existingGroup) {
+                existingGroup = { elapsed_days: elapsedDays, products: [] }
+                newGroups.push(existingGroup)
+              }
+              existingGroup.products = existingGroup.products.concat(
+                group.products
+              )
+              return newGroups
+            },
+            []
+          )
+
+          this.productsGroupedByElapsedDays = newGroups
+        }
+
+        this.totalPages = json.total_pages
+        this.products = json.products
+        this.loaded = true
+
+        const hash = location.hash.slice(1)
+        const element = document.getElementById(hash)
+        if (element) {
+          element.scrollIntoView()
+        }
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    onDaysSelectChange(event) {
+      const newDeadlineDays = parseInt(event.target.value)
+      this.updateProductDeadline(newDeadlineDays)
+      this.selectedDays = newDeadlineDays
+      this.getProductsPerPage()
+    },
+    async updateProductDeadline(newDeadlineDays) {
+      try {
+        const response = await fetch('/product_deadline', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-CSRF-Token': CSRF.getToken()
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify({ alert_day: newDeadlineDays })
         })
-        .then(() => {
-          const hash = location.hash.slice(1)
-          const element = document.getElementById(hash)
-          if (element) {
-            element.scrollIntoView()
-          }
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
+        if (!response.ok) {
+          throw new Error('Failed to update product deadline')
+        }
+      } catch (error) {
+        console.warn(error)
+      }
     },
     getElementNdaysPassed(elapsedDays) {
       const element = this.productsGroupedByElapsedDays.find(
@@ -180,30 +226,36 @@ export default {
     elapsedDaysId(elapsedDays) {
       return `${elapsedDays}days-elapsed`
     },
-    PassedAlmost5daysProducts(products) {
-      const productsPassedAlmost5days = products.filter((product) => {
-        const thresholdDay = 5
+    PassedAlmostSelectedDaysProducts(products) {
+      const productsPassedAlmostSelectedDays = products.filter((product) => {
+        const thresholdDay = this.selectedDays
         const thresholdHour = 8
         return (
           Math.floor((thresholdDay - this.elapsedTimes(product)) * 24) <=
           thresholdHour
         )
       })
-      return productsPassedAlmost5days
+      return productsPassedAlmostSelectedDays
     },
     elapsedTimes(product) {
       const lastSubmittedTime =
         product.published_at_date_time || product.created_at_date_time
       return (new Date() - new Date(lastSubmittedTime)) / 1000 / 60 / 60 / 24
     },
-    countAlmostPassed5days() {
-      const elementPassed4days =
-        this.productsGroupedByElapsedDays === null
-          ? undefined
-          : this.getElementNdaysPassed(4)
-      return elementPassed4days === undefined
-        ? 0
-        : this.PassedAlmost5daysProducts(elementPassed4days.products).length
+    countAlmostPassedSelectedDays() {
+      if (!this.productsGroupedByElapsedDays) {
+        return 0
+      }
+
+      const previousDaysElement = this.getElementNdaysPassed(
+        this.selectedDays - 1
+      )
+      if (!previousDaysElement) {
+        return 0
+      }
+
+      return this.PassedAlmostSelectedDaysProducts(previousDaysElement.products)
+        .length
     }
   }
 }
