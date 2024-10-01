@@ -209,13 +209,13 @@ function ProductHeader({
   elapsedDaysId,
   countProductsGroupedBy
 }) {
-  let headerClass = 'card-header a-elapsed-days'
+  let headerClass = 'card-header a-highlight'
   if (productsNDaysPassed.elapsed_days === 5) {
-    headerClass += ' is-reply-warning'
+    headerClass += ' is-warning'
   } else if (productsNDaysPassed.elapsed_days === 6) {
-    headerClass += ' is-reply-alert'
+    headerClass += ' is-alert'
   } else if (productsNDaysPassed.elapsed_days >= 7) {
-    headerClass += ' is-reply-deadline'
+    headerClass += ' is-danger'
   }
 
   const headerLabel = () => {

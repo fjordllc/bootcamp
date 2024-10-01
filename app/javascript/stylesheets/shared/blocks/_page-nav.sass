@@ -64,11 +64,11 @@ a.page-nav__title-inner
       font-weight: 700
   &.is-current
     +page-nav-current(var(--primary-tint), var(--primary), var(--primary-text), true)
-  &.is-reply-warning
+  &.is-warning
     +page-nav-current(var(--reply-warning-background), var(--reply-warning-border), var(--default-text), false)
-  &.is-reply-alert
+  &.is-alert
     +page-nav-current(var(--reply-alert-background), var(--reply-alert-border), var(--reversal-text), false)
-  &.is-reply-deadline
+  &.is-danger
     +page-nav-current(var(--reply-deadline-background), var(--reply-deadline-border), var(--reversal-text), false)
   &.is-inactive
     position: static

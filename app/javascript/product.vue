@@ -45,13 +45,22 @@
                 span.a-meta__label 更新
                 | {{ product.updated_at }}
             .card-list-item-meta__item(
-              v-if='isUnassignedProductsPage || isDashboardPage')
+              v-if='isGroupedByDaysElapsed && (isUnassignedProductsPage || isDashboardPage)')
               time.a-meta(v-if='untilNextElapsedDays(product) < 1')
                 span.a-meta__label 次の経過日数まで
                 | 1時間未満
               time.a-meta(v-else-if='calcElapsedTimes(product) < 7')
                 span.a-meta__label 次の経過日数まで
                 | 約{{ untilNextElapsedDays(product) }}時間
+            .card-list-item-meta__item(v-else)
+              time.a-meta
+                span.a-meta__label 研修終了日
+                span.a-meta__value {{ product.user.training_ends_on }}
+                span.a-meta__value.is-danger(
+                  v-if='product.user.training_remaining_days === 0')
+                  | （本日研修最終日）
+                span.a-meta__value.is-danger(v-else)
+                  | （あと{{ product.user.training_remaining_days }}日）
 
       hr.card-list-item__row-separator(v-if='product.comments.size > 0')
       .card-list-item__row(v-if='product.comments.size > 0')
@@ -123,7 +132,8 @@ export default {
     product: { type: Object, required: true },
     isMentor: { type: Boolean, required: true },
     currentUserId: { type: Number, required: true },
-    displayUserIcon: { type: Boolean }
+    displayUserIcon: { type: Boolean },
+    isGroupedByDaysElapsed: { type: Boolean }
   },
   computed: {
     roleClass() {
