@@ -272,7 +272,7 @@ class NotificationsTest < ApplicationSystemTestCase
 
   test 'notify user class name role contains' do
     visit_with_auth '/', 'komagata'
-    assert_text '7日以上経過'
+    assert_text '6日以上経過'
     find('.header-links__link.test-show-notifications').click
     assert_selector 'span.a-user-role.is-admin'
     assert_selector 'span.a-user-role.is-student'
