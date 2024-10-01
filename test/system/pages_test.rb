@@ -224,7 +224,7 @@ class PagesTest < ApplicationSystemTestCase
     stub_info = proc { |i| mock_log << i }
 
     Rails.logger.stub(:info, stub_info) do
-      click_button '内容を更新'
+      click_button 'Docを公開'
     end
 
     assert_text 'ドキュメントを更新しました。'
@@ -312,7 +312,7 @@ class PagesTest < ApplicationSystemTestCase
     click_button 'WIP'
 
     check 'ドキュメント公開のお知らせを書く', allow_label_click: true
-    click_button '内容を更新'
+    click_button 'Docを公開'
 
     assert_text 'ドキュメントを更新しました。'
     assert has_field?('announcement[title]', with: 'ドキュメント「お知らせにチェックを入れてWIP状態から新規Docを作成」を公開しました。')
