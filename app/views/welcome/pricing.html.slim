@@ -20,7 +20,9 @@ article.lp
                 | リスクは最小限
             .lp-hero-info__description
               p
-                | 目的に応じて研修内容をカスタマイズ。自ら学び実践に移せる現場の即戦力プログラマーの育成を目指したe-ラーニング式プログラミング研修サービス
+                | FBCはサブスク課金の方式を採用し、入会金も不要です。
+                | そのため、入会時に大金を支払う必要がなく、
+                | 退会をしたらそれ以降の料金は発生しません。
             .lp-actions
               ul.lp-actions__items
                 li.lp-actions__item
@@ -56,12 +58,14 @@ article.lp
               | 法人利用の場合は、月額 99,800円（税込）
         .lp-content__end
           .lp-content__description.mb-12
-            .l-container.is-sm
+            .l-inner-container.is-md
               .a-long-text
                 p
-                  | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
-                  | お試し期間が終了になったタイミングで、最初の1ヶ月分の料金の引き落としが発生します。
-                  | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
+                  | FBCはサブスク課金の方式を採用しています。
+                  | また、新規入会があった際の運営側の手続きが自動化されているため、入会金はかかりません。
+                  | そのため、最初に大金を支払う必要がなく、退会すればそれ以降の料金は発生しません。
+                  | これにより、他の興味が見つかった場合、または事情が変わって学習を続けられなくなった場合でも、
+                  | リスクを最小限に抑えることができます。
 
           = render 'welcome/pricing_features'
 
@@ -79,124 +83,102 @@ article.lp
               br
               | 引き落としのタイミング
         .lp-content__end
-          .lp-content__description.mb-12
-            .l-container.is-sm
-              .a-long-text
-                p
-                  | 料金は月額29,800円（税込み）、クレジットカードでのお支払いになります。
-                  | お試し期間が終了になったタイミングで、最初の1ヶ月分の料金の引き落としが発生します。
-                  | 退会した月も日割りでの請求ではなく、その月のご利用料金1ヶ月分をお支払い頂きますことをご了承ください。
-          .lp-left-number-sections__items
-            .l-cards.is-zigzag
-              .l-cards__item
-                .l-cards__item-inner
-                  .a-card
-                    section.lp-left-number-section
-                      header.lp-left-number-section__header
-                        h4.lp-left-number-section__title
-                          | お申し込み
-                      .lp-card-description
-                        p
-                          | 研修申し込みフォームより、お申し込みをお願いいたします。貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、研修の目的なども書いていただけるとヒヤリングがスムーズになります。
-                        p
-                          | 学習内容一覧はこちら
+          .lp-content-stack
+            - if Campaign.today_campaign?
+              .lp-content-stack__item
+                | ただいまキャンペーン中につき、通常3日間のお試し期間が
+                | #{trial_period}日間に延長！
 
-              .l-cards__item
-                .l-cards__item-inner
-                  .a-card
-                    section.lp-left-number-section
-                      header.lp-left-number-section__header
-                        h4.lp-left-number-section__title
-                          | お試し期間
-                          br
-                          | スタート
-                      .lp-card-description
-                        p
-                          | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、研修の目的、研修後になっていてほしい姿をお聞かせいただきます。また、貴社の研修の進捗を確認する社内のメンターも研修状況を確認できるようにするため、社内メンターを担当する方、人数についてもお伺いさせていただきます。
+            .lp-content-stack__item
+              .lp-left-number-sections__items
+                .l-cards.is-zigzag
+                  .l-cards__item
+                    .l-cards__item-inner
+                      .a-card
+                        section.lp-left-number-section
+                          .lp-left-number-section__start
+                            header.lp-left-number-section__header
+                              h4.lp-left-number-section__title
+                                | 参加登録
+                          .lp-left-number-section__end
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | まずはコースを選択し、参加登録に進みます。
+                                  | 参加登録が完了したら、その時点でFBCの学習アプリにログインができます。
+                                  | コースは参加登録後でも変更可能です。
+                            .lp-card-actions
+                              .lp-card-actions__items
+                                .lp-card-actions__item
+                                  = link_to 'コース選択はこちら',
+                                    'https://fbc-stack.vercel.app/',
+                                    class: 'a-button is-md is-primary-border is-block',
+                                    target: '_blank', rel: 'noopener'
 
-              .l-cards__item
-                .l-cards__item-inner
-                  .a-card
-                    section.lp-left-number-section
-                      header.lp-left-number-section__header
-                        h4.lp-left-number-section__title
-                          | 引き落とし
-                          br
-                          | 開始
-                      .lp-card-description
-                        p
-                          | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。研修メニュー作成までは2日程度お時間をいただいております。
+                  .l-cards__item
+                    .l-cards__item-inner
+                      .a-card
+                        section.lp-left-number-section
+                          .lp-left-number-section__start
+                            header.lp-left-number-section__header
+                              h4.lp-left-number-section__title
+                                | お試し期間
+                                br
+                                | スタート
+                          .lp-left-number-section__end
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | 参加登録が完了したら、その時点でお試し期間がスタートします。
+                                  | お試し期間が3日間あります。
+                                  | 厳密には参加登録完了後「
+                                  strong
+                                    | 72時間
+                                  | 」がお試し期間で、
+                                  | 利用料が引き落とされずに FBC を利用することができます。
+                                .message.primary
+                                  p
+                                    strong
+                                      | #{Campaign.example_start_at}
+                                    | に
+                                    br
+                                    | 利用登録が完了した場合、
+                                  p
+                                    | お試し期間終了は3日後（72時間後）の
+                                    br
+                                    strong
+                                      | #{Campaign.example_end_at} になります。
+
+                  .l-cards__item
+                    .l-cards__item-inner
+                      .a-card
+                        section.lp-left-number-section
+                          .lp-left-number-section__start
+                            header.lp-left-number-section__header
+                              h4.lp-left-number-section__title
+                                | 引き落とし
+                                br
+                                | 開始
+                          .lp-left-number-section__end
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | 参加登録が完了から72時間（3日間）が経過したら、最初の利用料の引き落としがあります。
+                                  | それが経過する前に退会をしましたら、引き落としはありません。
+                                .message.primary
+                                  p
+                                    strong
+                                      | #{Campaign.example_start_at}
+                                    | に
+                                    br
+                                    | 利用登録が完了した場合、
+                                  p
+                                    | 利用料金が引き落としは3日後（72時間後）の
+                                    br
+                                    strong
+                                      | #{Campaign.example_pay_at}
+                                    | になります。
 
     .lp-content-divider.is-lp-bg-2
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-
-.lp-page-body
-  .l-container.is-lg
-    .a-card
-      .card-body
-        .card-body__inner
-          section.welcome-section
-            h2.card-body__inner-title
-              - if Campaign.today_campaign?
-                | キャンペーン中につき、
-              = trial_period
-              | 日間のお試し期間
-            .welcome-section__description
-              p
-                | 月額29,800円は決して安い金額ではありません。
-                | 自分は本当にフィヨルドブートキャンプを使うべきかを判断するために
-                = trial_period
-                | 日間のお試し期間を用意しています
-                - if Campaign.today_campaign?
-                  | （現在、キャンペーン中のためお試し期間を延長しています）
-                | 。その
-                = trial_period
-                | 日間、がっつりフィヨルドブートキャンプを見たり使ったりして判断してください。
-          section.welcome-section
-            h2.card-body__inner-title
-              | 料金引き落としのタイミング
-            .welcome-section__description
-              p
-                | 厳密にはお試し期間は
-                = trial_period * 24
-                | 時間（
-                = trial_period
-                | 日間）になります。
-                | 例えば
-                = Campaign.example_start_at
-                | にフィヨルドブートキャンプを利用開始したとすると、
-                | そこから
-                = trial_period
-                | 日後の
-                = Campaign.example_end_at
-                | がお試し期間終了のタイミングになります。
-                | その後
-                = Campaign.example_pay_at
-                | に最初の1ヶ月分の料金が引き落とされます。
-              table.welcome-trial-period-table.is-hidden-sm-down
-                tr
-                  th = Campaign.example_start_at
-                  th.trial_end = Campaign.example_end_at
-                  th = Campaign.example_pay_at
-                tr
-                  td お試し期間
-                  td.trial_end
-                    | お試し期間終了時刻
-                    br
-                    | 無料退会期限
-                  td 初回引き落とし
-
-              table.welcome-trial-period-table.is-hidden-md-up
-                tr
-                  th = Campaign.example_start_at
-                  td お試し期間
-                tr
-                  th.trial_end = Campaign.example_end_at
-                  td.trial_end
-                    | お試し期間終了時刻
-                    br
-                    | 無料退会期限
-                tr
-                  th = Campaign.example_pay_at
-                  td 初回引き落とし

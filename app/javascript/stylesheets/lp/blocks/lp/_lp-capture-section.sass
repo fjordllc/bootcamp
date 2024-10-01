@@ -23,6 +23,14 @@
   +media-breakpoint-down(sm)
     flex: 0 0 40%
 
+  &.is-sm
+    +media-breakpoint-up(lg)
+      flex: 0 0 24rem
+    +media-breakpoint-only(md)
+      flex: 1
+    +media-breakpoint-down(sm)
+      flex: 0 0 40%
+
 .lp-capture-section__end
   +media-breakpoint-up(lg)
     flex: 1

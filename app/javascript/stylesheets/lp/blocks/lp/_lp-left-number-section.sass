@@ -10,13 +10,14 @@
   +media-breakpoint-down(sm)
     gap: 1rem
 
-.lp-left-number-section__header
+.lp-left-number-section__start
   +media-breakpoint-up(md)
     flex: 0 0 12rem
   +media-breakpoint-down(sm)
     flex: 0 0 6rem
 
 .lp-left-number-section__header
+  height: 100%
   display: flex
   flex-direction: column
   justify-content: center
@@ -24,6 +25,7 @@
 
 .lp-left-number-section__title
   text-align: center
+  color: var(--main)
   +media-breakpoint-up(md)
     +text-block(1.5rem 1.4, 800)
   +media-breakpoint-down(sm)
@@ -44,3 +46,8 @@
       +text-block(2.5rem 1.4, 900)
     +media-breakpoint-down(sm)
       +text-block(2rem 1.4, 900)
+
+.lp-left-number-section__end
+  display: flex
+  flex-direction: column
+  gap: 1.25rem

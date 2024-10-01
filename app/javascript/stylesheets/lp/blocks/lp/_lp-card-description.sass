@@ -1,11 +1,8 @@
 .lp-card-description
-  p
-    +media-breakpoint-up(md)
-      +text-block(1rem 1.6 0 1.2em)
-    +media-breakpoint-down(sm)
-      +text-block(.875rem 1.6 0 1.2em)
+  +media-breakpoint-up(md)
+    font-size: 1rem
+  +media-breakpoint-down(sm)
+    font-size: .875rem
   a
     color: #0098f9
     +hover-link-reversal
-  p:last-child
-    margin-bottom: 0
