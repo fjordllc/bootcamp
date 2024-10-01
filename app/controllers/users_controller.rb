@@ -53,6 +53,8 @@ class UsersController < ApplicationController
       @user.adviser = true
     when 'trainee'
       @user.trainee = true
+    when 'mentor'
+      @user.mentor = true
     end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
@@ -175,7 +177,7 @@ class UsersController < ApplicationController
       :password_confirmation, :job, :organization,
       :os, { experiences: [] }, :editor, :other_editor,
       :company_id, :nda, :avatar,
-      :trainee, :adviser, :job_seeker,
+      :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
       :country_code, :subdivision_code
     )

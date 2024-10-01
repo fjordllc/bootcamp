@@ -3,6 +3,7 @@
 = form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
+  = f.hidden_field :mentor
   = f.hidden_field :company_id
   = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
@@ -10,7 +11,7 @@
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
   .form__items
-    - if !@user.adviser?
+    - unless @user.adviser? || @user.mentor?
       = render 'users/form/course_select', f: f, user: @user
   .form__items
     = render 'users/form/login_name', f: f
@@ -25,8 +26,9 @@
     - unless user.adviser?
       - unless user.mentor?
         = render 'users/form/after_graduation_hope', f:, user:
-      = render 'users/form/job', f: f
-      = render 'users/form/os', f: f
+        = render('users/form/job', f:)
+      = render 'users/form/os', f: f, user:
+    - unless user.adviser? || user.mentor?
       = render 'users/form/experiences', f:
     - if from == :edit
       = render 'users/form/editor', f:, user:
