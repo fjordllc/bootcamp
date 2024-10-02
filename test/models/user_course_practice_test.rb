@@ -2,9 +2,9 @@
 
 require 'test_helper'
 
-class UserPracticeTest < ActiveSupport::TestCase
+class UserCoursePracticeTest < ActiveSupport::TestCase
   setup do
-    @user_practice = UserPractice.new(users(:kensyu))
+    @user_practice = UserCoursePractice.new(users(:kensyu))
   end
 
   test '#categories_with_uniq_practices' do
