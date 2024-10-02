@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-class UserPractice
+class UserCoursePractice
   attr_reader :user
 
   delegate :courses, to: :user
+  MAX_PERCENTAGE = 100
 
   def initialize(user)
     @user = user
@@ -32,6 +33,7 @@ class UserPractice
   end
 
   # def practices
+  # -> def practices_sorted_by_position
   #   course.practices.order('courses_categories.position', 'categories_practices.position')
   # end
 
@@ -47,6 +49,11 @@ class UserPractice
   #   practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
   # end
 
+  # def completed_required_practices_size
+  #   practices_include_progress.joins(:learnings)
+  #                             .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
+  # end
+
   # def completed_practices_size_by_category
   #   Practice
   #     .joins({ categories: :categories_practices }, :learnings)
@@ -60,12 +67,12 @@ class UserPractice
   #     .count('DISTINCT practices.id')
   # end
 
-  # def completed_required_practices_size
-  #   practices_include_progress.joins(:learnings)
-  #                             .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
+  # private
+
+  # def practices_include_progress
+  #   course.practices.where(include_progress: true)
   # end
 
-  # private
   # def required_practices_size_with_skip
   #   course.practices.where(id: practice_ids_skipped, include_progress: true).size
   # end
