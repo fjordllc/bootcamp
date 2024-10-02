@@ -740,7 +740,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal no_area_user.area, nil
   end
 
-  test '#by_area' do
+  test '.by_area' do
     tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
     assert_equal User.by_area('東京都').to_a.sort, tokyo_users.sort
     america_users = [users(:neverlogin), users(:tom)]
