@@ -26,7 +26,7 @@
                       i.fa-regular.fa-sad-tear
                     .o-empty-message__text
                       | 分報の投稿はまだありません。
-            -else
+            - else
               = paginate @micro_reports
               - @micro_reports.each_with_index do |micro_report, index|
                 - if index == @micro_reports.size - 1
