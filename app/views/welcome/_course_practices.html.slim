@@ -5,14 +5,13 @@ article.lp-course-selection-item
         | #{course.title}
         br
         | コース
-    .lp-course-selection-item__body
-      .lp-course-selection-item__categories
-        - course.categories.each do |category|
-          - if category.practices.present?
-            dl.lp-category-practices
-              dt.lp-category-practices__category
-                = category.name
-              .lp-category-practices__practices
-                - category.practices.each do |practice|
-                  dd.lp-category-practices__practice
-                    = practice.title
+    .lp-course-selection-item__categories
+      - course.categories.each do |category|
+        - if category.practices.present?
+          dl.lp-category-practices
+            dt.lp-category-practices__category
+              = category.name
+            .lp-category-practices__practices
+              - category.practices.each do |practice|
+                dd.lp-category-practices__practice
+                  = practice.title
