@@ -76,7 +76,7 @@ article.lp
           header.lp-content__header
             h2.lp-content-title.is-border-left
               | 研修に
-              br
+              br.is-hidden-sm-down
               | FBCを利用して
               br
               strong
@@ -223,80 +223,85 @@ article.lp
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
-              section.lp-capture-section
-                .lp-capture-section__inner
-                  .lp-capture-section__start.is-sm
-                    = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
-                  .lp-capture-section__end
-                    .lp-capture-section__content
-                      header.lp-capture-section__header
-                        h3.lp-content-sub-title
-                          | 目的・期間に応じて
-                          br
-                          | 研修メニューを
-                          br
-                          | カスタマイズできる!
-                      hr.lp-capture-section__border
-                      .lp-capture-section__body
-                        .a-short-text
-                          p
-                            | 一般の受講生と同じように卒業までのカリキュラムを学習すると、
-                            | 早くても半年はかかってしまいます。
-                            | 研修でのご利用の際は、ビデオチャットで現在のスキルや、研修期間、
-                            | 研修の目的をヒヤリングし、それらに合わせた学習内容を選択した
-                            | それぞれの研修生のための独自のカリキュラムを作成します。
-                            | コースをまたいだ学習項目の選択も可能です。
+              .l-inner-container.is-lg
+                section.lp-capture-section
+                  .lp-capture-section__inner
+                    .lp-capture-section__start.is-sm
+                      = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
+                    .lp-capture-section__end
+                      .lp-capture-section__content
+                        header.lp-capture-section__header
+                          h3.lp-content-sub-title
+                            | 目的・期間に応じて
+                            br
+                            | 研修メニューを
+                            br
+                            | カスタマイズできる!
+                        hr.lp-capture-section__border
+                        .lp-capture-section__body
+                          .a-short-text
+                            p
+                              | 一般の受講生と同じように卒業までのカリキュラムを学習すると、
+                              | 早くても半年はかかってしまいます。
+                              | 研修でのご利用の際は、ビデオチャットで現在のスキルや、研修期間、
+                              | 研修の目的をヒヤリングし、それらに合わせた学習内容を選択した
+                              | それぞれの研修生のための独自のカリキュラムを作成します。
+                              | コースをまたいだ学習項目の選択も可能です。
 
             .lp-content-stack__item
-              section.lp-capture-section
-                .lp-capture-section__inner
-                  .lp-capture-section__start.is-sm
-                    = image_tag('daily-check-ins.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
-                  .lp-capture-section__end
-                    .lp-capture-section__content
-                      header.lp-capture-section__header
-                        h3.lp-content-sub-title
-                          | 日報・提出課題も
-                          br
-                          | 毎日チェックできる!
-                      hr.lp-capture-section__border
-                      .lp-capture-section__body
-                        .a-short-text
-                          p
-                            | 法人利用の場合は、社内メンターのアカウントを無料で発行します。
-                            | 社内メンターは研修生のように日報を提出したり、課題を提出することはできませんが、
-                            | メンターと同じように研修生の日報や提出物にコメントをすることができます。
-                            | FBCのメンターだけでなく、社内のメンターもたまにコメントをすることが、
-                            | 研修生のモチベーションアップにとても効果があります。
-                          p
-                            | 研修生の活動でメールでも受け取ることができ、ちゃんと学習を進めているかの確認も取れます。
-                            | また、学習システムに相談部屋機能があり、社内メンターはそこで運営とのやりとりができます。
-                            | 気になること、質問、要望などがありましたら、そこからすぐに運営に伝えることができます。
+              .l-inner-container.is-lg
+                section.lp-capture-section
+                  .lp-capture-section__inner
+                    .lp-capture-section__start.is-sm
+                      = image_tag('daily-check-ins.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
+                    .lp-capture-section__end
+                      .lp-capture-section__content
+                        header.lp-capture-section__header
+                          h3.lp-content-sub-title
+                            | 日報・提出課題も
+                            br
+                            | 毎日チェックできる!
+                        hr.lp-capture-section__border
+                        .lp-capture-section__body
+                          .a-short-text
+                            p
+                              | 法人利用の場合は、社内メンターのアカウントを無料で発行します。
+                              | 社内メンターは研修生のように日報を提出したり、課題を提出することはできませんが、
+                              | メンターと同じように研修生の日報や提出物にコメントをすることができます。
+                              | FBCのメンターだけでなく、社内のメンターもたまにコメントをすることが、
+                              | 研修生のモチベーションアップにとても効果があります。
+                            p
+                              | 研修生の活動でメールでも受け取ることができ、ちゃんと学習を進めているかの確認も取れます。
+                              | また、学習システムに相談部屋機能があり、社内メンターはそこで運営とのやりとりができます。
+                              | 気になること、質問、要望などがありましたら、そこからすぐに運営に伝えることができます。
+
             .lp-content-stack__item
-              section.lp-capture-section
-                .lp-capture-section__inner
-                  .lp-capture-section__start.is-sm
-                    = image_tag('events.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
-                  .lp-capture-section__end
-                    .lp-capture-section__content
-                      header.lp-capture-section__header
-                        h3.lp-content-sub-title
-                          | メンバー限定イベントへの
-                          br
-                          | 参加もできる！
-                      hr.lp-capture-section__border
-                      .lp-capture-section__body
-                        .a-short-text
-                          p
-                            | オンラインミートアップや、質問・雑談タイム、
-                            | 卒業生による自作サービスのプレゼンテーション、
-                            | 顧問や外部のエンジニアによる講演、
-                            | 受講生・卒業生の有志によって開催されている輪読会、もくもく会、勉強会など、
-                            | FBCの中では様々なイベントが開催されています。
-                            | 研修生も一般の受講生と同じようにイベントに参加することができます。
-                            | もちろん研修生が企画・開催するのもOKです！
-                            | このようなイベントに積極的に参加することで、研修生のモチベーションも上がり、
-                            | 研修の成果も向上します。
+              .l-inner-container.is-lg
+                section.lp-capture-section
+                  .lp-capture-section__inner
+                    .lp-capture-section__start.is-sm
+                      = image_tag('events.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
+                    .lp-capture-section__end
+                      .lp-capture-section__content
+                        header.lp-capture-section__header
+                          h3.lp-content-sub-title
+                            | メンバー限定イベントへの
+                            br
+                            | 参加もできる！
+                        hr.lp-capture-section__border
+                        .lp-capture-section__body
+                          .a-short-text
+                            p
+                              | オンラインミートアップや、質問・雑談タイム、
+                              | 卒業生による自作サービスのプレゼンテーション、
+                              | 顧問や外部のエンジニアによる講演、
+                              | 受講生・卒業生の有志によって開催されている輪読会、もくもく会、勉強会など、
+                              | FBCの中では様々なイベントが開催されています。
+                              | 研修生も一般の受講生と同じようにイベントに参加することができます。
+                              | もちろん研修生が企画・開催するのもOKです！
+                              | このようなイベントに積極的に参加することで、研修生のモチベーションも上がり、
+                              | 研修の成果も向上します。
+
     .lp-content-divider.is-lp-bg-1
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
         path.shape-fill d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
