@@ -41,7 +41,7 @@
               a.tag-links__item-link(href="#{practice.path}")
                 | #{practice.title}
       hr.a-border-tint
-    - if current_user.admin || current_user.mentor
+    - if admin_or_mentor_login?
       footer.card-footer.is-only-mento
         .card-main-actions
           ul.card-main-actions__items
