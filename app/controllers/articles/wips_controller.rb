@@ -3,7 +3,7 @@
 class Articles::WipsController < ApplicationController
   before_action :require_admin_or_mentor_login, only: %i[index]
 
-  layout 'welcome'
+  layout 'lp'
 
   def index
     @articles = wip_articles

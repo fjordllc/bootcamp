@@ -1,0 +1,24 @@
+.lp-page-header
+  background-color: var(--main)
+
+.lp-page-header__title
+  color: var(--reversal-text)
+  +media-breakpoint-up(md)
+    +text-block(1.5rem 1.4, 700)
+  +media-breakpoint-down(sm)
+    +text-block(1.25rem 1.4, 700)
+
+.lp-page-header__inner
+  height: 4rem
+  display: flex
+  align-items: center
+
+.lp-page-header__start
+  flex: 1
+  height: 100%
+  display: flex
+  align-items: center
+  height: 100%
+
+.lp-page-header__end
+  height: 100%

@@ -22,12 +22,12 @@
           td.admin-table__item-value
             = link_to practice_path(practice)
               = practice.title
-          td.admin-table__item-value.is-text-align-right
+          td.admin-table__item-value.text-right
             - practice.categories.each do |category|
               p
                 = category.name
           - if practice.submission
-            td.admin-table__item-value.is-text-align-right
+            td.admin-table__item-value.text-right
               = link_to practice_products_path(practice) do
                 = practice.products.size
           - else
@@ -42,10 +42,10 @@
             td.admin-table__item-value.is-text-align-center
               = link_to new_mentor_practice_submission_answer_path(practice), class: 'a-button is-sm is-secondary is-icon' do
                 i.fa-solid.fa-plus
-          td.admin-table__item-value.is-text-align-right
+          td.admin-table__item-value.text-right
             = link_to practice_reports_path(practice) do
               = practice.reports.size
-          td.admin-table__item-value.is-text-align-right
+          td.admin-table__item-value.text-right
             = link_to practice_questions_path(practice) do
               = practice.questions.size
           td.admin-table__item-value.is-text-align-center

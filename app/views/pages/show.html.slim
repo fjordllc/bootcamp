@@ -12,7 +12,8 @@ header.page-header
             li.page-header-actions__item
               = link_to [:new, :page], class: 'a-button is-md is-secondary is-block' do
                 i.fa-regular.fa-plus
-                | Doc作成
+                span
+                  | Doc作成
             li.page-header-actions__item
               = link_to :pages, class: 'a-button is-md is-secondary is-block is-back' do
                 | Docs
@@ -24,7 +25,7 @@ hr.a-border
         = render 'doc_header', page: @page
         .a-card
           .card-body
-            .card__description
+            .card-body__description
               .a-long-text.is-md.js-markdown-view
                 = @page.body
           hr.a-border-tint

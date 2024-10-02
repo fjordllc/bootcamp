@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   if (
     !document.querySelector(
-      'body.users-new,body.users-create,body.card-new,body.card-edit'
+      'body.is-users-new,body.is-users-create,body.is-card-new,body.is-card-edit'
     )
   ) {
     return null
