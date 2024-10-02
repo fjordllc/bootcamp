@@ -96,6 +96,28 @@
     border-color: shade($color, 6%)
     pointer-events: none
 
+=border-button-color($color)
+  $text-color: $color
+  $border-color: $color
+  background-color: rgba(255, 255, 255, .1)
+  color: $text-color
+  border-color: $border-color
+  &:focus,
+  &:active
+    box-shadow: 0 0 0 .1875rem rgba($color, .25)
+  &:hover,
+  &:focus,
+  &:active
+    $button-color: rgba($color, .25)
+    background-color: $button-color
+    border-color: $border-color
+  &.is-disabled,
+  &:disabled
+    color: rgba($text-color, .4)
+    border-color: shade($color, 6%)
+    pointer-events: none
+
+
 =button-size($font-size: 1rem, $horizontal: .75, $vertical: .625)
   font-size: $font-size
   padding-inline: #{strip_unit($horizontal * $font-size)}em

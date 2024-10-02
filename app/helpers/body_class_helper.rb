@@ -39,7 +39,7 @@ module BodyClassHelper
   end
 
   def controller_class
-    "#{qualified_controller_name} #{qualified_page_name}"
+    "is-#{qualified_controller_name} is-#{qualified_page_name}"
   end
 
   def body_class(options = {})

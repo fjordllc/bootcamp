@@ -1,0 +1,47 @@
+.lp-price
+  color: var(--main)
+  display: flex
+  justify-content: center
+  gap: .75em
+  +media-breakpoint-up(lg)
+    font-size: 1rem
+  +media-breakpoint-up(md)
+    font-size: .875rem
+  +media-breakpoint-down(sm)
+    font-size: .5625rem
+
+
+.lp-price__label
+  +text-block(1.25em 1, 700)
+  align-self: center
+  +size(4em)
+  border: solid 1px
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  letter-spacing: -.0625em
+  text-indent: -.0625em
+
+.lp-price__value
+  display: flex
+  align-self: baseline
+  gap: .5em
+
+.lp-price__amount
+  +text-block(6.25em 1, 900)
+  align-self: baseline
+  font-family: 'Lato', sans-serif
+
+.lp-price__currency
+  +text-block(3.25em 1, 800)
+  align-self: baseline
+
+.lp-price__details
+  +text-block(1.25em 1, 800)
+  display: flex
+  align-self: baseline
+  gap: .125em
+
+.lp-price__separator
+  font-weight: 100

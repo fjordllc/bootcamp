@@ -55,6 +55,30 @@
       +text-block(1em 1.6 0 .625em, 700)
       border: none
       padding: 0
+
+  .message
+    padding: .875rem 1em
+    border-radius: .25rem
+    margin-block: 1em 1em
+    background-color: var(--warning-tint)
+    color: var(--warning-text)
+    &.alert,
+    &.danger
+      background-color: var(--danger-tint)
+      color: var(--danger-text)
+    &.warning
+      background-color: var(--warning-tint)
+      color: var(--warning-text)
+    &.info
+      background-color: var(--info-tint)
+      color: var(--info-text)
+    &.primary
+      background-color: var(--primary-tint)
+      color: var(--primary-text)
+    &.success
+      background-color: var(--success-tint)
+      color: var(--success-text)
+
   *:first-child
     margin-top: 0
   *:last-child
