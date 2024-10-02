@@ -30,7 +30,7 @@ article.lp
                     | 研修を申し込む
         .lp-content__end
           .lp-hero-visual
-            = image_tag('training/training_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの法人利用')
+            = image_tag('training/training_main.svg', class: 'lp-hero-visual__image', alt: 'フィヨルドブートキャンプの法人利用イメージイラスト')
 
     .lp-content-divider.is-lp-bg-1
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
@@ -124,7 +124,7 @@ article.lp
                   section.lp-left-image-section
                     .lp-left-image-section__inner
                       .lp-left-image-section__start
-                        = image_tag('mentors.svg', class: 'lp-left-image-section__image')
+                        = image_tag('mentors.svg', class: 'lp-left-image-section__image', alt: 'FBCメンターのイメージイラスト')
                       .lp-left-image-section__end
                         header.lp-left-image-section__header
                           h3.lp-card-title
@@ -152,7 +152,7 @@ article.lp
                   section.lp-left-image-section
                     .lp-left-image-section__inner
                       .lp-left-image-section__start
-                        = image_tag('team-dev.svg', class: 'lp-left-image-section__image')
+                        = image_tag('team-dev.svg', class: 'lp-left-image-section__image', alt: 'チーム開発のイメージイラスト')
                       .lp-left-image-section__end
                         header.lp-left-image-section__header
                           h3.lp-card-title
@@ -183,7 +183,7 @@ article.lp
                   section.lp-left-image-section
                     .lp-left-image-section__inner
                       .lp-left-image-section__start
-                        = image_tag('pair-work.svg', class: 'p-left-image-section__image')
+                        = image_tag('pair-work.svg', class: 'p-left-image-section__image', alt: 'ビデオチャットで質問をするイメージイラスト')
                       .lp-left-image-section__end
                         header.lp-left-image-section__header
                           h3.lp-card-title
@@ -227,7 +227,7 @@ article.lp
                 section.lp-capture-section
                   .lp-capture-section__inner
                     .lp-capture-section__start.is-sm
-                      = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
+                      = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム作成のイメージイラスト')
                     .lp-capture-section__end
                       .lp-capture-section__content
                         header.lp-capture-section__header
@@ -253,7 +253,7 @@ article.lp
                 section.lp-capture-section
                   .lp-capture-section__inner
                     .lp-capture-section__start.is-sm
-                      = image_tag('daily-check-ins.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
+                      = image_tag('daily-check-ins.svg', class: 'lp-capture-section__image', alt: '日報をみんなで見ているイメージイラスト')
                     .lp-capture-section__end
                       .lp-capture-section__content
                         header.lp-capture-section__header
@@ -280,7 +280,7 @@ article.lp
                 section.lp-capture-section
                   .lp-capture-section__inner
                     .lp-capture-section__start.is-sm
-                      = image_tag('events.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム説明')
+                      = image_tag('events.svg', class: 'lp-capture-section__image', alt: 'オンラインイベントの参加者のイメージイラスト')
                     .lp-capture-section__end
                       .lp-capture-section__content
                         header.lp-capture-section__header
@@ -342,44 +342,54 @@ article.lp
                   table
                     thead
                       tr
-                        th
-                        th 一般利用
-                        th 研修利用
+                        th.text-center
+                        th.text-center 一般利用
+                        th.text-center 研修利用
                     tbody
                       tr
-                        td 利用料
-                        td 月額￥29,800（税込み）
-                        td 月額￥99,800（税込み）
+                        td.text-right
+                          | 利用料
+                        td.text-center
+                          | 月額￥29,800（税込み）
+                        td.text-center
+                          | 月額￥99,800（税込み）
                       tr
-                        td 請求方法
-                        td クレジットカード
-                        td 請求書
+                        td.text-right
+                          | 請求方法
+                        td.text-center
+                          | クレジットカード
+                        td.text-center
+                          | 請求書 or クレジットカード
                       tr
-                        td
+                        td.text-right
                           | 社内メンター招待
-                          br
-                          | （詳細は以下を参照）
-                        td ☓
-                        td
-                          | ◯
+                        td.text-center
+                          i.fa-solid.fa-xmark
+                        td.text-center
+                          i.fa-solid.fa-o
                           br
                           | （人数は今のところ無制限）
                       tr
-                        td
+                        td.text-right
                           | カリキュラム作成
-                          br
-                          | （詳細は以下を参照）
-                        td ☓
-                        td ◯
+                        td.text-center
+                          i.fa-solid.fa-xmark
+                        td.text-center
+                          i.fa-solid.fa-o
                       tr
-                        td 就職サポート
-                        td ◯
-                        td ☓
+                        td.text-right
+                          | 就職サポート
+                        td.text-center
+                          i.fa-solid.fa-o
+                        td.text-center
+                          i.fa-solid.fa-xmark
                       tr
-                        td イベント参加
-                        td ◯
-                        td
-                          | ◯
+                        td.text-right
+                          | イベント参加
+                        td.text-center
+                          i.fa-solid.fa-o
+                        td.text-center
+                          i.fa-solid.fa-o
                           br
                           | （就活関連イベントを除く）
             .lp-content-stack__item
@@ -767,223 +777,15 @@ article.lp
                       | 二つ目の理由は、FBCが月額の利用料と提携企業への卒業生紹介の際に発生する紹介料によって
                       | 成り立っている点です。
                       | 法人利用の場合、後者の収益が立たないため、一般利用よりも高額が設定されています。
-
             hr.a-border
-
-//
-  header.lp-page-header
-    .l-container
-      .lp-page-header__inner
-        .lp-page-header__start
-          h1.lp-page-header__title
-            = title
-        .lp-page-header__end
-  hr.a-border-tint
-  .lp-page-body
-    .l-container.is-lg
-      .lp-page-body__header
-        h1.lp-page-body__title
-          = title
-      .a-card
-        .card__inner
-          h2.welcome-section__title.has-border
-            | フィヨルドブートキャンプが
-            br
-            | 研修にオススメの理由
-          .welcome-section__description
-            p
-              | フィヨルドブートキャンプは企業の研修代行も行っております。
-            p
-              | 私たちのカリキュラムは「ソフトウェアエンジニアとして就職するためのカリキュラム」ではありません。
-              | その先の「現場のプラスの戦力になるためのカリキュラム」です。
-              | 新人がチームに加わった際、ほとんどの場合は教育にリソースが取られ、
-              | 戦力としてはマイナスになってしまいます。
-            p
-              | フィヨルドブートキャンプは、チームに加入した時点で少しでも開発に貢献ができる人材であること、
-              | 決してマイナスの戦力ではなく、
-              | 戦力としてプラスになっていることを目指して作られています。
-            p
-              | 一番コストのかかる、マイナスの戦力からプラスの戦力にする教育を、
-              | 貴社のリソースを使わずにフィヨルドブートキャンプに任せることができます。
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-              | 研修での
-              br
-              | ご利用の際の料金
-          .welcome-section__description
-            p
-              | 料金は<strong>月額99,800円（税込み）</strong>です。
-            p
-              | 毎月、貴社の研修担当者様へメールにて請求書をお送りいたします。
-              | 領収書の宛名の指定なども柔軟に対応いたします。
-              br
-              | クレジットカードにも対応しています。
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-              | 研修担当者、社内メンターも<br>メンターとして参加
-          .welcome-section__description
-            p
-              | フィヨルドブートキャンプのメンターが、貴社の研修生に対して
-              | メンタリング・コードレビューを行いますが、
-              | それにプラスして貴社の文化や独自のルールなども伝えることができるように、
-              | 研修担当者、社内メンターにもフィヨルドブートキャンプに
-              | ログインできる無料のアカウントを発行します。
-            p
-              | 研修生の学習の進捗の確認、日報へのコメントやアドバイス、課題の提出物へのコードに対する指摘、
-              | アドバイスなどが行なえます。是非ご活用ください。
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-            | 期間・要望に合わせた
-            br
-            | カリキュラムを作成
-          .welcome-section__description
-            p
-              | 一般の受講生が学んでいるカリキュラムは量が多く、その全てを学習すると半年〜2年以上かかります。
-              | 研修でのご利用の場合、ビデオチャットで研修期間や研修で身につけてもらいたいスキルをヒヤリングし、
-              | それに合わせたカリキュラムを作成いたします。
-              | カリキュラムは一般の受講生が行っているもの、一般の受講生の中の希望者がだけが行うものから
-              | 抜粋する形になります。
-            h3 チョイスの例
-            ul
-              li
-                | Railsを使った開発の経験はあるが、基礎的な部分を学ぶ機会がなかったので、Linux、インフラ関連だけを重点的に学習する。
-              li
-                | 独学でアプリを作っていたので、チーム開発に慣れるためにRailsとスクラム形式でのチーム開発のカリキュラムを学習する。
-              li
-                | 多言語の開発の経験があるので、RubyとRailsのカリキュラムだけ学習する。
-
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-            | 一般受講生と法人利用の
-            br
-            | サービス内容の違い
-          .welcome-section__description
-            table
-              thead
-                tr
-                  th
-                  th 一般利用
-                  th 法人利用
-              tbody
-                tr
-                  td 利用料
-                  td 月額￥29,800（税込み）
-                  td 月額￥99,800（税込み）
-                tr
-                  td 請求方法
-                  td クレジットカード
-                  td 請求書
-                tr
-                  td
-                    | 社内メンター招待
-                    br
-                    | （詳細は以下を参照）
-                  td ☓
-                  td
-                    | ◯
-                    br
-                    | （人数は今のところ無制限）
-                tr
-                  td
-                    | カリキュラム作成
-                    br
-                    | （詳細は以下を参照）
-                  td ☓
-                  td ◯
-                tr
-                  td 就職サポート
-                  td ◯
-                  td ☓
-                tr
-                  td イベント参加
-                  td ◯
-                  td
-                    | ◯
-                    br
-                    | （就活関連イベントを除く）
-
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-            | 研修スタートまでの
-            br
-            | 流れ
-          .welcome-section__description
-            p
-              | まずは、
-              = link_to new_corporate_training_inquiry_path, target: 'blank', rel: 'noopener' do
-                | 企業研修申し込みフォーム
-              | より法人利用希望の旨のご連絡をお願いいたします。
-              br
-              | 担当者より返信をいたします。
-            p
-              | 日時を調整し、ビデオチャットで研修の打ち合わせを行います。
-              br
-              | 研修のスタート日、研修期間、研修の目的、研修生のスキル、
-              | 請求書の送付先などをヒヤリングさせていただきます。
-            p
-              | 打ち合わせで決まった内容に合わせ、カリキュラムを作成いたします。
-            p
-              | 研修スタート日になりましたら、研修生のアカウントを作成し、研修生がログインできるようにいたします。
-              br
-              | 同時に、研修担当者、社内メンター用のサインアップもURLもお送りし、
-              | 貴社の研修担当者、社内メンターの方もログインができるようにいたします。
-
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-            | FAQ
-          .welcome-section__description
-            h3
-              | 研修をより効果的にするための何かアドバイスはありますか？
-            p
-              | まずは、複数人で研修を始めることをおすすめします。
-            p
-              | これまでの経験上、貴社にとっても研修を受ける本人にとっても、一人より二人以上で研修を始める方がメリットが多いです。
-              | 例えば、進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりなど、
-              | お互いにモチベーションが高め合いながらスムーズに研修を進められます。
-            p
-              | また、同じ企業の研修生同士だけでなく、フィヨルドブートキャンプ内のイベントに参加するなどして、
-              | 一般の受講生やメンターや卒業生と積極的に関わりを持ち、コミュニティとしてのフィヨルドブートキャンプを
-              | 活用することも、モチベーションの維持に大きく役立ちますので、おすすめします。
-          .welcome-section__description
-            h3
-              | 研修ではなく福利厚生としての利用の場合、一般受講生として利用ができますか？
-            p
-              | 企業での利用の場合でも、一般受講生としての利用は可能です。
-              br
-              | ただし、一般受講生として利用した場合、研修期間と要望に合わせた独自カリキュラム作成、研修担当者、社内メンターの招待、
-              | 利用料金の請求書対応ができません。
-      .a-card
-        .card__inner
-          h2.welcome-section__title.has-border
-            | 実績
-          .welcome-section__description
-            p
-              | フィヨルドブートキャンプの研修は、これまでRubyKaigiのスポンサー常連企業などを含む、20社を超える様々な企業様で使われております。以下は一部の企業になります。
-            ul
-              li
-                = link_to 'GMOペパボ様', 'https://pepabo.com/', target: 'blank', rel: 'noopener'
-              li
-                = link_to 'Classi株式会社様', 'https://corp.classi.jp/company/', target: 'blank', rel: 'noopener'
-              li
-                = link_to '永和システムマネジメント様', 'https://esm.co.jp/', target: 'blank', rel: 'noopener'
-              li
-                = link_to '株式会社ラグザイア様', 'https://www.luxiar.com/', target: 'blank', rel: 'noopener'
-
-      section.welcome-section
-        .l-container.is-md
-          h2.welcome-section__title.has-border
-            | お申し込み
-          .welcome-section__description
-            p
-              | 法人利用の申し込みは企業研修申し込みフォームからお願いいたします。
-          .lp-actions
-            .lp-actions__items
-              .lp-actions__item
-                = link_to new_corporate_training_inquiry_path, class: 'a-welcome-button', target: 'blank', rel: 'noopener' do
-                  | 企業研修のお申し込み
+            section.lp-faq
+              .lp-faq__inner
+                header.lp-faq__header
+                  h4.lp-faq__title
+                    | 研修はオンラインのみでしょうか？
+                .lp-faq__body
+                  .a-short-text
+                    p
+                      | オンラインのみになります。
+                      | 現在、FBCには教室や学習会場のなどの用意はございません。
+            hr.a-border
