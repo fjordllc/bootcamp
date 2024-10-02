@@ -48,9 +48,9 @@ header.page-header
             | このページは、就職希望先のプログラマーや人事担当者が、#{@user.login_name}さんのスキルを手っ取り早く確認するための作品集ページ（ポートフォリオ）です。
             br
             | 自分の作ったGemや登壇した際の発表資料、自分で作ったWebサービス、自分が書いた書籍など、作品を登録していきましょう。
-          .page-body-actions
-            ul.page-body-actions__items
-              - if current_user == @user
+          - if current_user == @user
+            .page-body-actions
+              ul.page-body-actions__items
                 li.page-body-actions__item
                   = link_to new_work_path, class: 'a-button is-lg is-warning is-block' do
                     i.fa-regular.fa-plus
