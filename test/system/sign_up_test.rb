@@ -190,7 +190,7 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
-  test 'sign up as a trainee who pay by credit card' do
+  test 'sign up as a trainee who pays by credit card' do
     visit '/users/new?role=trainee_credit_card_payment'
 
     email = 'natsumi@example.com'
