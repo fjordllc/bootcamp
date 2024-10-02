@@ -25,11 +25,11 @@
 
   &.is-sm
     +media-breakpoint-up(lg)
-      flex: 0 0 24rem
+      max-width: 20rem
     +media-breakpoint-only(md)
-      flex: 1
+      max-width: 16rem
     +media-breakpoint-down(sm)
-      flex: 0 0 40%
+      max-width: 10rem
 
 .lp-capture-section__end
   +media-breakpoint-up(lg)
@@ -69,4 +69,3 @@
     max-width: 14rem
     margin-inline: auto
     display: block
-    margin-bottom: .75rem
