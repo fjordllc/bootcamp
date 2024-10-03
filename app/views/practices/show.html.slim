@@ -4,7 +4,7 @@
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
 = render '/practices/page_header', title: @practice.title, category: category
-= render 'page_tabs', resource: @practice
+= practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
   - if @practice.learning(current_user)&.complete?
@@ -87,7 +87,7 @@
                 = Practice.human_attribute_name :goal
             hr.a-border
             .card-body.is-goal
-              .card__description
+              .card-body__description
                 .a-long-text.is-md.js-markdown-view
                   = @practice.goal
                 - if !current_user.adviser? && @practice.open_product?

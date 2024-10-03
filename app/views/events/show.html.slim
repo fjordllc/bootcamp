@@ -2,7 +2,7 @@
 - set_meta_tags description: "特別イベント「#{@event.title}」のページです。#{@event.period}に開催。"
 
 = render 'events/header'
-= render 'events/tabs'
+= events_page_tabs(active_tab: '特別イベント')
 
 .page-main
   header.page-main-header
@@ -17,7 +17,8 @@
               li.page-main-header-actions__item
                 = link_to new_event_path, class: 'a-button is-md is-secondary is-block' do
                   i.fa-regular.fa-plus
-                  | 特別イベント作成
+                  span
+                    | 特別イベント作成
               li.page-main-header-actions__item
                 = link_to events_path, class: 'a-button is-md is-secondary is-block is-back' do
                   | 特別イベント一覧

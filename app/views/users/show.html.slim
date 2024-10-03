@@ -2,7 +2,7 @@
 - set_meta_tags description: "#{@user.login_name}さんのプロフィールページ"
 
 = render 'users/page_title', user: @user
-= render 'users/page_tabs', user: @user
+= user_page_tabs(@user, active_tab: 'プロフィール')
 
 .page-main
   header.page-main-header

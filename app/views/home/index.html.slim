@@ -2,7 +2,7 @@
 - set_meta_tags description: 'ダッシュボードページです。'
 
 = render 'page_header'
-= render 'page_tabs', user: current_user
+= dashboard_page_tabs(active_tab: 'ダッシュボード')
 
 - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
   = render 'welcome_message'

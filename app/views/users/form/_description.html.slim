@@ -1,6 +1,6 @@
 .form-item
   ruby:
-    if user.adviser?
+    if user.adviser? || user.mentor?
       placeholder = '株式会社XXXXの開発チームマネージャーのXXXXXです。'
       help_text = 'この情報は他のフィヨルドブートキャンプ参加者に公開されます。'
     else

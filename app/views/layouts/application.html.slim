@@ -2,14 +2,8 @@ doctype html
 html.is-application lang='ja'
   - page_classes = content_for(:extra_body_classes).to_s
   head
-    meta content='IE=edge' http-equiv='X-UA-Compatible'
     = display_meta_tags default_meta_tags
-    = javascript_include_tag 'application'
-    = javascript_pack_tag 'application'
-    = csrf_meta_tags
-    = render 'pwa'
-    = render 'favicons'
-    = render 'rollbar' if Rails.env.production?
+    = render 'layouts/common/common_head'
     - if page_classes.include?('welcome')
       = stylesheet_pack_tag 'welcome', media: 'all'
       - if page_classes.include?('welcome-home')
@@ -19,12 +13,6 @@ html.is-application lang='ja'
       = render 'available_emojis'
       = render 'stripe'
       = stylesheet_pack_tag 'application', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:900', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Code+Pro', media: 'all'
-    = stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.2.0/dist/css/yakuhanjp_s-narrow.min.css', media: 'all'
-    = stylesheet_link_tag 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap', media: 'all'
-    = render '/head/fontawsome'
-    link(rel='alternate' type='application/atom+xml' title='フィヨルドブートキャンプブログ' href='/articles.atom')
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body(class="#{body_class}")
     = render 'google_analytics' if Rails.env.production? && !staging?

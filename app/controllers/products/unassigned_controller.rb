@@ -2,5 +2,7 @@
 
 class Products::UnassignedController < ApplicationController
   before_action :require_staff_login
-  def index; end
+  def index
+    @product_deadline_day = Product::PRODUCT_DEADLINE
+  end
 end

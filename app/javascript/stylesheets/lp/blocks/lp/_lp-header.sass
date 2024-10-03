@@ -1,0 +1,21 @@
+.lp-header
+  background-color: var(--base)
+  +position(sticky, top 0, 10)
+
+.lp-header__inner
+  height: 3.5rem
+  display: flex
+
+.lp-header__start
+  height: 100%
+  flex: 1
+  display: flex
+  gap: 2.5rem
+
+.lp-header__end
+  height: 100%
+  display: flex
+  gap: 1rem
+  align-items: center
+  +media-breakpoint-down(lg)
+    margin-right: -1rem

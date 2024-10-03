@@ -1,0 +1,30 @@
+.l-cards
+  display: flex
+  flex-direction: column
+  +media-breakpoint-up(md)
+    gap: 3rem
+  +media-breakpoint-down(sm)
+    gap: 2rem
+  &.is-zigzag
+    .l-cards__item
+      &:nth-child(odd)
+        justify-content: flex-start
+      &:nth-child(even)
+        justify-content: flex-end
+  &.is-step-by-step
+    .l-cards__item
+      &:first-child
+        justify-content: flex-start
+      &:nth-child(2)
+        justify-content: center
+      &:last-child
+        justify-content: flex-end
+
+.l-cards__item
+  display: flex
+
+.l-cards__item-inner
+  flex: 0 0 40rem
+  max-width: 100%
+  .a-card
+    margin-inline: 0

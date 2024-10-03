@@ -219,8 +219,11 @@ class User < ApplicationRecord
                           }
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !staff? && validation_context != :reset_password && validation_context != :retirement } do
     validates :job, presence: true
+  end
+
+  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
     validates :os, presence: true
   end
 
@@ -829,6 +832,10 @@ class User < ApplicationRecord
 
   def scheduled_retire_at
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
+  end
+
+  def participated_regular_event_ids
+    RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
 
   private

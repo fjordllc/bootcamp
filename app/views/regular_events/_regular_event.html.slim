@@ -50,9 +50,9 @@
         | イベント内容
     hr.a-border
     - if regular_event.all
-      .card__message.is-notice
+      .card-message.is-notice
         | この定期イベントは全員参加のため参加登録は不要です。
-    .card__description
+    .card-body__description
       .a-long-text.is-md.js-markdown-view
         = regular_event.description
 
@@ -79,7 +79,7 @@
           | 参加者（#{regular_event.participants.count}名）
       hr.a-border-tint
       .card-body
-        .card__description
+        .card-body__description
           - if regular_event.participants.present?
             ul.user-icons__items
               - regular_event.participants.each do |participant|
