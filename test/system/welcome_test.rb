@@ -6,8 +6,8 @@ class WelcomeTest < ApplicationSystemTestCase
   test 'GET /welcome' do
     visit '/welcome'
     assert_equal 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
-    assert_selector "meta[property='og:title'][content='プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）']", visible: false
-    assert_selector "meta[name='twitter:title'][content='プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）']", visible: false
+    assert_selector "meta[property='og:title'][content='FJORD BOOT CAMP（フィヨルドブートキャンプ）']", visible: false
+    assert_selector "meta[name='twitter:title'][content='FJORD BOOT CAMP（フィヨルドブートキャンプ）']", visible: false
   end
 
   test 'GET /practices' do
