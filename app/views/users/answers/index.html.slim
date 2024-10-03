@@ -2,8 +2,7 @@
 - set_meta_tags description: "#{@user.login_name}さんの回答一覧ページです。"
 
 = render 'users/page_title', user: @user
-
-= render 'users/page_tabs', user: @user
+= user_page_tabs(@user, active_tab: '回答')
 
 .page-body
   .container.is-md

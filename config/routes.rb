@@ -5,12 +5,16 @@ Rails.application.routes.draw do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
   end
   root to: "home#index"
+
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
+  get "alumni_voices", to: "welcome#alumni_voices", as: "alumni_voices"
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
+  get "job_support", to: "welcome#job_support", as: "job_support"
+  get "certified_reskill_courses", to: "welcome#certified_reskill_courses", as: "certified_reskill_courses"
   get "tos", to: "welcome#tos", as: "tos"
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"

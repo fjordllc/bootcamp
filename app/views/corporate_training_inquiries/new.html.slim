@@ -5,7 +5,7 @@ ruby:
 - if recaptcha_enabled?
   - content_for :head_last do
     = javascript_include_tag 'recaptcha'
-.auth-form.is-sign-up.a-card
+.auth-form.is-sign-up.a-card.is-lg
   header.auth-form__header
     h1.auth-form__title = title
   .auth-form__body

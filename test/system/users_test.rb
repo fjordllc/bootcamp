@@ -585,8 +585,7 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text 'ユーザー情報を更新しました。'
     img = find('img.user-profile__user-icon-image', visible: false)
-    user = users(:hajime)
-    assert_match(/#{user.id}\.png$/, img.native['src'])
+    assert_match(/heic-sample-file\.png$/, img.native['src'])
   end
 
   test 'mentor can see retired and hibernated tabs' do

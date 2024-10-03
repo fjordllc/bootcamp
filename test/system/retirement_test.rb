@@ -113,7 +113,7 @@ class RetirementTest < ApplicationSystemTestCase
       fill_in('product[body]', with: 'test')
     end
     click_button '提出する'
-    assert_text "7日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、7日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
+    assert_text "6日以内にメンターがレビューしますので、次のプラクティスにお進みください。\nもし、6日以上経ってもレビューされない場合は、メンターにお問い合わせください。"
     visit edit_current_user_path
     click_on '退会手続き'
     check '受講したいカリキュラムを全て受講したから', allow_label_click: true

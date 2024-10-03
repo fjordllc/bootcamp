@@ -1,54 +1,116 @@
-section.welcome-member.a-card(class="is-#{page}")
+section.lp-member.a-card(class="is-#{page}")
   - if page == 'articles-show'
     header.card-header.is-sm
       h2.card-header__title
         | 著者
-    hr.a-border
-  .welcome-member__inner
-    .welcome-member__header
-      .welcome-member__start
+    hr.a-border-tint
+  .lp-member__inner
+    .lp-member__header
+      .lp-member__header-start
         - if mentor.profile_image_url.present?
-          = image_tag(mentor.profile_image_url, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+          = image_tag(mentor.profile_image_url, class: 'lp-member__image', alt: "#{mentor.profile_name}のアイコン画像")
         - else
-          = image_tag(default_image_path, class: 'welcome-member__image', alt: "#{mentor.profile_name}のアイコン画像")
-      .welcome-member__end
+          = image_tag(default_image_path, class: 'lp-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+      .lp-member__header-end
         - if mentor.profile_name.present?
-          h3.welcome-member__name
+          h3.lp-member__name
             = mentor.profile_name
         - if mentor.profile_job.present?
-          p.welcome-member__job
+          p.lp-member__job
             = mentor.profile_job
-        ul.welcome-member__sns
+        ul.lp-member__sns
           - if mentor.github_account.present?
-            li.welcome-member__sns-item
-              = link_to "https://github.com/#{mentor.github_account}", class: 'welcome-member__sns-item-link' do
-                i.fa-brands.fa-github-alt
+            li.lp-member__sns-item
+              = link_to "https://github.com/#{mentor.github_account}", class: 'lp-member__sns-item-link' do
+                i.fa-brands.fa-github
           - if mentor.blog_url.present?
-            li.welcome-member__sns-item
-              = link_to mentor.blog_url, class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to mentor.blog_url, class: 'lp-member__sns-item-link' do
                 i.fa-solid.fa-home
           - if mentor.twitter_account.present?
-            li.welcome-member__sns-item
-              = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'lp-member__sns-item-link' do
                 i.fa-brands.fa-x-twitter
           - if mentor.facebook_url.present?
-            li.welcome-member__sns-item
-              = link_to mentor.facebook_url, class: 'welcome-member__sns-item-link' do
+            li.lp-member__sns-item
+              = link_to mentor.facebook_url, class: 'lp-member__sns-item-link' do
                 i.fa-brands.fa-facebook-square
-    .welcome-member__body
-      .a-long-text.js-markdown-view(class="#{page == 'articles-show' ? 'is-sm' : 'is-md'}")
+    .lp-member__body(class="#{page == 'welcome-index' ? 'is-trancate' : ''}")
+      .a-short-text.js-markdown-view
         = mentor.profile_text
-    - if mentor.authored_books.present?
-      .welcome-member-books
-        ul.welcome-member-books__items
-          - mentor.authored_books.sorted.each do |authored_book|
-            - if authored_book.cover.attached?
-              li.welcome-member-books__item
-                = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'welcome-member-books__item-link' do
-                  = image_tag(authored_book.cover, alt: authored_book.title, class: 'welcome-member-books__item-image')
-  - if admin_login?
-    .welcome-member__actions
-      .card-main-actions
-        ul.card-main-actions__items
-          li.card-main-actions__item
-            = link_to '管理者として情報変更', edit_admin_user_path(mentor), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+    - if page == 'welcome-index'
+      .lp-member__actions
+        .card-main-actions
+          ul.card-main-actions__items
+            li.card-main-actions__item
+              label.card-main-actions__action.a-button.is-sm.is-primary-border.is-block(for="mentor-#{mentor.id}")
+                | 詳しく
+      = render '/shared/modal', id: "mentor-#{mentor.id}", modal_title: 'メンター ・ 顧問'
+        .lp-member
+          .lp-member__inner
+            .lp-member__header
+              .lp-member__header-start
+                - if mentor.profile_image_url.present?
+                  = image_tag(mentor.profile_image_url, class: 'lp-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+                - else
+                  = image_tag(default_image_path, class: 'lp-member__image', alt: "#{mentor.profile_name}のアイコン画像")
+              .lp-member__header-end
+                - if mentor.profile_name.present?
+                  h3.lp-member__name
+                    = mentor.profile_name
+                - if mentor.profile_job.present?
+                  p.lp-member__job
+                    = mentor.profile_job
+                ul.lp-member__sns
+                  - if mentor.github_account.present?
+                    li.lp-member__sns-item
+                      = link_to "https://github.com/#{mentor.github_account}", class: 'lp-member__sns-item-link' do
+                        i.fa-brands.fa-github
+                  - if mentor.blog_url.present?
+                    li.lp-member__sns-item
+                      = link_to mentor.blog_url, class: 'lp-member__sns-item-link' do
+                        i.fa-solid.fa-home
+                  - if mentor.twitter_account.present?
+                    li.lp-member__sns-item
+                      = link_to "https://twitter.com/#{mentor.twitter_account}", class: 'lp-member__sns-item-link' do
+                        i.fa-brands.fa-x-twitter
+                  - if mentor.facebook_url.present?
+                    li.lp-member__sns-item
+                      = link_to mentor.facebook_url, class: 'lp-member__sns-item-link' do
+                        i.fa-brands.fa-facebook-square
+
+            .lp-member__body
+              .a-short-text.js-markdown-view
+                = mentor.profile_text
+
+            - if mentor.authored_books.present?
+              .lp-member-books
+                ul.lp-member-books__items
+                  - mentor.authored_books.sorted.each do |authored_book|
+                    - if authored_book.cover.attached?
+                      li.lp-member-books__item
+                        = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'lp-member-books__item-link' do
+                          = image_tag(authored_book.cover, alt: authored_book.title, class: 'lp-member-books__item-image')
+
+            - if admin_login?
+              .lp-member__actions
+                .card-main-actions
+                  ul.card-main-actions__items
+                    li.card-main-actions__item
+                      = link_to '管理者として情報変更', edit_admin_user_path(mentor), class: 'card-main-actions__action a-button is-sm is-secondary is-block'
+
+    - if page == 'articles-show'
+      - if mentor.authored_books.present?
+        .lp-member-books
+          ul.lp-member-books__items
+            - mentor.authored_books.sorted.each do |authored_book|
+              - if authored_book.cover.attached?
+                li.lp-member-books__item
+                  = link_to authored_book.url, target: :_blank, rel: 'noopener noreferrer', class: 'lp-member-books__item-link' do
+                    = image_tag(authored_book.cover, alt: authored_book.title, class: 'lp-member-books__item-image')
+      - if admin_login?
+        .lp-member__actions
+          .card-main-actions
+            ul.card-main-actions__items
+              li.card-main-actions__item
+                = link_to '管理者として情報変更', edit_admin_user_path(mentor), class: 'card-main-actions__action a-button is-sm is-secondary is-block'

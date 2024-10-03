@@ -35,3 +35,8 @@ participation7:
   user: kimura
   event: event33
   enable: true
+
+participation8:
+  user: kimura
+  event: event30
+  enable: true

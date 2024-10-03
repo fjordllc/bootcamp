@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
+  attr_accessor :start_on, :end_on
+
   DAYS_OF_THE_WEEK_COUNT = 7
 
   FREQUENCY_LIST = [
@@ -106,6 +108,37 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
+  def all_scheduled_dates(
+    from: Date.new(Time.current.year, 1, 1),
+    to: Date.new(Time.current.year, 12, 31)
+  )
+    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
+  end
+
+  def transform_for_subscription(event_date)
+    regular_event = dup
+
+    regular_event.assign_attributes(
+      start_on: parse_event_time(event_date, regular_event.start_at),
+      end_on: parse_event_time(event_date, regular_event.end_at)
+    )
+
+    regular_event
+  end
+
+  def self.fetch_participated_regular_events(user)
+    participated_regular_events = []
+    user.participated_regular_event_ids.find_each do |regular_event|
+      regular_event.all_scheduled_dates(
+        from: Time.current.to_date,
+        to: Time.current.to_date.next_year
+      ).each do |event_date|
+        participated_regular_events << regular_event.transform_for_subscription(event_date)
+      end
+    end
+    participated_regular_events
+  end
+
   private
 
   def end_at_be_greater_than_start_at
@@ -113,13 +146,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless diff <= 0
 
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
-  end
-
-  def all_scheduled_dates(
-    from: Date.new(Time.current.year, 1, 1),
-    to: Date.new(Time.current.year, 12, 31)
-  )
-    (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
 
   def feature_scheduled_dates
@@ -141,5 +167,14 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def nth_wday(date)
     (date.day + 6) / 7
+  end
+
+  def parse_event_time(event_date, event_time)
+    tz = ActiveSupport::TimeZone['Asia/Tokyo']
+
+    time = event_time ? event_time.strftime('%H:%M') : '00:00'
+    date_time = DateTime.parse("#{event_date} #{time}")
+
+    tz.local_to_utc(date_time)
   end
 end

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.querySelector('.current_user-edit')) {
+  if (!document.querySelector('.is-current_user-edit')) {
     return null
   }
 

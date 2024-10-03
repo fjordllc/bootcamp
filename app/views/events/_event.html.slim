@@ -52,7 +52,7 @@
         | イベント内容
     hr.a-border-tint
     .card-body
-      .card__description
+      .card-body__description
         .a-long-text.is-md.js-markdown-view
           = event.description
       - unless event.wip?
@@ -79,7 +79,7 @@
           | 参加者（#{event.participants.count}名/#{event.capacity}名）
       hr.a-border-tint
       .card-body
-        .card__description
+        .card-body__description
           - if event.participants.present?
             ul.user-icons__items
               - event.participants.each do |participant|
@@ -101,7 +101,7 @@
           | 補欠者（#{event.waitlist.count}名）
       hr.a-border
       .card-body
-        .card__description
+        .card-body__description
           ul.user-icons__items
             - event.waitlist.each do |wait_user|
               li.user-icons-item

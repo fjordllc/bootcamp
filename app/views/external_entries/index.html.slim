@@ -9,7 +9,8 @@ header.page-header
           | 日報・ブログ
       .page-header__end
         = render 'reports/new_report'
-= render 'reports/tabs'
+
+= report_page_tabs(active_tab: 'みんなのブログ')
 
 - if current_user.feed_url.blank?
   .a-page-notice.is-danger
