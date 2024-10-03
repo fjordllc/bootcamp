@@ -39,6 +39,18 @@ class Products::ProductComponentTest < ViewComponent::TestCase
     assert_text '提出物作成中'
   end
 
+  def test_render_comments_count_and_user_icon_when_there_are_comments
+    commented_product = products(:product10)
+    render_inline(Products::ProductComponent.new(
+                    product: commented_product,
+                    is_mentor: @is_mentor,
+                    current_user_id: @current_user_id
+                  ))
+
+    assert_selector '.a-meta', text: 'コメント（1）'
+    assert_selector "img.a-user-icon[title='komagata (Komagata Masaki): 管理者、メンター']"
+  end
+
   def test_render_published_at_when_product_is_published
     unassigned_product = products(:product6)
     render_inline(Products::ProductComponent.new(
@@ -61,5 +73,28 @@ class Products::ProductComponentTest < ViewComponent::TestCase
 
     assert_selector '.a-meta', text: '提出'
     assert_text I18n.l(unpublished_product.created_at)
+  end
+
+  def test_render_product_checker_component_when_user_is_mentor_and_no_checks
+    unassigned_product = products(:product6)
+    render_inline(Products::ProductComponent.new(
+                    product: unassigned_product,
+                    is_mentor: @is_mentor,
+                    current_user_id: @current_user_id
+                  ))
+
+    assert_selector '.card-list-item__assignee'
+  end
+
+  def test_render_approval_stamp_when_there_are_checks
+    checked_product = products(:product3)
+    render_inline(Products::ProductComponent.new(
+                    product: checked_product,
+                    is_mentor: @is_mentor,
+                    current_user_id: @current_user_id
+                  ))
+
+    assert_selector '.stamp.stamp-approve'
+    assert_text '確認済'
   end
 end
