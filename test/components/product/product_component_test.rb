@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/decorator_helper'
 
 class Products::ProductComponentTest < ViewComponent::TestCase
   def setup
-    @current_user = users(:komagata).extend(UserDecorator)
+    DecoratorHelper.auto_decorate(User)
+    @current_user = users(:komagata)
     @is_mentor = true
   end
 
   def test_default
-    unassigned_product = decorate_product_user(products(:product6))
+    unassigned_product = products(:product6)
     render_inline(Products::ProductComponent.new(
                     product: unassigned_product,
                     is_mentor: @is_mentor,
@@ -25,7 +27,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_render_wip_badge_when_product_is_wip
-    wip_product = decorate_product_user(products(:product5))
+    wip_product = products(:product5)
     render_inline(Products::ProductComponent.new(
                     product: wip_product,
                     is_mentor: @is_mentor,
@@ -38,7 +40,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_render_published_at_when_product_is_published
-    unassigned_product = decorate_product_user(products(:product6))
+    unassigned_product = products(:product6)
     render_inline(Products::ProductComponent.new(
                     product: unassigned_product,
                     is_mentor: @is_mentor,
@@ -50,7 +52,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_render_created_at_when_product_is_not_published
-    unpublished_product = decorate_product_user(products(:product66))
+    unpublished_product = products(:product66)
     render_inline(Products::ProductComponent.new(
                     product: unpublished_product,
                     is_mentor: @is_mentor,
@@ -59,12 +61,5 @@ class Products::ProductComponentTest < ViewComponent::TestCase
 
     assert_selector '.a-meta', text: '提出'
     assert_text I18n.l(unpublished_product.created_at)
-  end
-
-  private
-
-  def decorate_product_user(product)
-    product.user = product.user.extend(UserDecorator)
-    product
   end
 end

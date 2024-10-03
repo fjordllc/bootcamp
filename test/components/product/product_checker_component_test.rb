@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/decorator_helper'
 
 class Products::ProductCheckerComponentTest < ViewComponent::TestCase
   def setup
-    @current_user = users(:komagata).extend(UserDecorator)
+    DecoratorHelper.auto_decorate(User)
+    @current_user = users(:komagata)
   end
 
   def test_render_assign_button_when_product_is_unassigned
