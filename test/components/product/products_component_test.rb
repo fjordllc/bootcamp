@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/decorator_helper'
 
 class Products::ProductsComponentTest < ViewComponent::TestCase
   def setup
-    @current_user = users(:komagata).extend(UserDecorator)
+    DecoratorHelper.auto_decorate(User)
+    @current_user = users(:komagata)
     @is_mentor = true
   end
 
