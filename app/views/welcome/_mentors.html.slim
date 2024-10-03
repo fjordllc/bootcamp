@@ -25,11 +25,10 @@ section.lp-content.is-lp-bg-2.is-top-title#mentors
                       | 受講生と同じように他業種からスクールを経て現在は一人前として活躍している人...
                       | 豪華でかつ個性豊かなメンバーです。
           .lp-content-stack__item
-            .lp-members
               .row.is-gutter-width-32
                 - mentors.each do |mentor|
                   - unless mentor.hide_mentor_profile
-                    .col-xs-12.col-md-6.col-lg-4
+                    .col-xs-6.col-md-6.col-lg-4
                       = render 'welcome/mentor', mentor:, page: 'welcome-index'
 
   .lp-content-divider.is-lp-bg-3

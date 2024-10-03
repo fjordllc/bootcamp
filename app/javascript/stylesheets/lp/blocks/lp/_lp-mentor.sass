@@ -1,8 +1,8 @@
-.lp-member
+.lp-mentor
   &.is-welcome-index
     height: 100%
 
-.lp-member__inner
+.lp-mentor__inner
   display: flex
   flex-direction: column
   gap: 1rem
@@ -10,60 +10,78 @@
     padding: 1.25rem 1.5rem 1.5rem
   +media-breakpoint-down(sm)
     padding: .75rem 1rem 1rem
-  .lp-member.is-articles-show &
+  .lp-mentor.is-articles-show &
     padding: .75rem 1rem 0
-  .lp-member.is-articles-show &:last-child
+  .lp-mentor.is-articles-show &:last-child
     padding-bottom: 1rem
 
-.lp-member__header
+.lp-mentor__header
   display: flex
   gap: 1rem
   align-items: flex-start
+  +media-breakpoint-up(md)
+  +media-breakpoint-down(sm)
+    flex-direction: column
 
-.lp-member__header-start
-  flex: 0 0 4.5rem
+.lp-mentor__header-start
+  +media-breakpoint-up(md)
+    flex: 0 0 4.5rem
+  +media-breakpoint-down(sm)
+    width: 100%
+    display: flex
+    align-items: center
 
-.lp-member__header-end
+.lp-mentor__header-end
   flex: 1
   display: flex
   flex-direction: column
   gap: .5rem
+  +media-breakpoint-up(md)
+  +media-breakpoint-down(sm)
+    width: 100%
 
-.lp-member__image
+
+.lp-mentor__image
   border-radius: .25rem
   +media-breakpoint-up(md)
     width: 100%
   +media-breakpoint-down(sm)
-    width: 4rem
+    width: 3rem
     display: block
     margin-inline: auto
 
-.lp-member__name
+.lp-mentor__name
   font-weight: 800
   color: var(--main)
   +media-breakpoint-up(md)
     +text-block(1.5rem 1.2)
   +media-breakpoint-down(sm)
-    +text-block(1.5rem 1.2)
+    +text-block(1.125rem 1.2)
+    text-align: center
 
-.lp-member__job
+.lp-mentor__job
   font-weight: 400
-  +text-block(.875rem 1)
-  margin-bottom: .125rem
   color: var(--main)
-
-.lp-member__sns
   +media-breakpoint-up(md)
-    display: flex
+    +text-block(.875rem 1)
+    margin-bottom: .125rem
+  +media-breakpoint-down(sm)
+    +text-block(.625rem 1)
+    text-align: center
+    margin-bottom: .125rem
+
+.lp-mentor__sns
+  display: flex
+  +media-breakpoint-up(md)
     gap: .75rem
   +media-breakpoint-down(sm)
-    display: none
+    gap: .5rem
+    flex-wrap: wrap
+    justify-content: center
 
-.lp-member__sns-item-link
-  +text-block(1.25rem 1.45)
+.lp-mentor__sns-item-link
   color: var(--main)
   display: flex
-  +size(2.5rem)
   justify-content: center
   align-items: center
   text-decoration: none
@@ -72,8 +90,15 @@
   transition: all .2s ease-out
   &:hover
     color: var(--welcome-pink)
+  +media-breakpoint-up(md)
+    +size(2.25rem)
+    +text-block(1.25rem 1.45)
+  +media-breakpoint-down(sm)
+    +size(1.75rem)
+    +text-block(1rem 1.45)
 
-.lp-member__body
+
+.lp-mentor__body
   font-size: .875rem
   &.is-trancate
     overflow: hidden
