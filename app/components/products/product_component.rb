@@ -30,4 +30,8 @@ class Products::ProductComponent < ViewComponent::Base
     time = @product.published_at || @product.created_at
     ((Time.zone.now - time) / 1.day).to_f
   end
+
+  def last_commented_at
+    @product.comments&.last&.created_at
+  end
 end
