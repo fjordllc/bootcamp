@@ -838,6 +838,14 @@ class User < ApplicationRecord
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
   end
 
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
+
   private
 
   def password_required?
