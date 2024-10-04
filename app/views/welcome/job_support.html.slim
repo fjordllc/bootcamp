@@ -48,7 +48,7 @@ article.lp
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
-              .lp-content-section
+              section.lp-content-section
                 h3.lp-content-sub-title.text-center
                   | FBCを卒業したことは、
                   br
@@ -59,7 +59,7 @@ article.lp
                       p
                         | 大抵のソフトウェアエンジニアの求人には業務経験が求められ、
                         | ホワイトな企業でなおかつ技術力の高い会社に業務未経験で入社するのはとても難しいです。
-                        | しかし、FBCの場合は提携企業からFBCを卒業していることは、業務経験と同等の経験をとスキルを
+                        | しかし、FBCの場合は提携企業からFBCを卒業していることは、業務経験と同等の経験とスキルを
                         | 持っていることと見なしてくれ、広い選択肢を提供することができています。
                         | ダメ元で何十社も手当たり次第に履歴書を送りつけるというようなことはしていません。
 
@@ -77,8 +77,8 @@ article.lp
                       .lp-card-description
                         .a-short-text
                           p
-                            | 受託開発、自社サービス、スタートアップ、上場企業など
-                            | 様々な提携企業があります。
+                            | 受託開発、自社サービス、スタートアップ、上場企業など、
+                            | 現在、40社近くの様々な企業と提携を結んでいます。
                             | 有名なOSSの開発者や、カンファレンスの常連登壇者が所属していたり、
                             | カンファレンスのスポンサーをよくやっている、
                             | ソフトウェアエンジニア業界で有名な企業が多いのが
@@ -222,6 +222,23 @@ article.lp
         .lp-content__end
           .lp-content-stack
             .lp-content-stack__item
+              section.lp-content-section
+                h3.lp-content-sub-title.text-center
+                  | カンファレンスでよく見る
+                  br
+                  | あの企業に多くの卒業生が就職しています
+                .lp-content__description
+                  .l-inner-container.is-md
+                    .a-short-text
+                      p
+                        | これはほんの一部だけですが、
+                        | 受託開発、自社サービス、スタートアップ、上場企業など
+                        | 様々な企業に卒業生が就職しています。
+                        | 有名なOSSの開発者や、カンファレンスの常連登壇者が所属していたり、
+                        | カンファレンスのスポンサーをよくやっている、
+                        | ソフトウェアエンジニア業界で有名な企業に就職している人が多いのが
+                        | FBCの特徴です。
+            .lp-content-stack__item
               .lp-company-logos
                 .lp-company-logos__item
                   = link_to 'https://www.pixiv.co.jp/', class: 'lp-company-logos__item-link', target: '_blank', rel: 'noopener' do
@@ -289,7 +306,7 @@ article.lp
                 .a-card
                   section.lp-left-image-section
                     .lp-left-image-section__inner
-                      .lp-left-image-section__start
+                      .lp-left-image-section__start.is-hidden-sm-down
                         .lp-left-image-section__icon
                           | 🚪
                       .lp-left-image-section__end
@@ -297,6 +314,8 @@ article.lp
                           h3.lp-card-title
                             | 卒業後も<br>ログインが出来ます
                         .lp-card-description
+                          .lp-left-image-section__icon.is-hidden-md-up
+                            | 🚪
                           .a-short-text
                             p
                               | 卒業すると、課題の提出などはできなくなりますが、
@@ -307,7 +326,7 @@ article.lp
                 .a-card
                   section.lp-left-image-section
                     .lp-left-image-section__inner
-                      .lp-left-image-section__start
+                      .lp-left-image-section__start.is-hidden-sm-down
                         .lp-left-image-section__icon
                           | 💬
                       .lp-left-image-section__end
@@ -315,19 +334,21 @@ article.lp
                           h3.lp-card-title
                             | 卒業後も<br>相談ができます
                         .lp-card-description
+                          .lp-left-image-section__icon.is-hidden-md-up
+                            | 💬
                           .a-short-text
                             p
                               | 卒業前と変わらず、学習アプリの個別の相談機能を
                               | 利用することができます。
-                              | 新しい職場で困ったことがあったり、
-                              | キャリアに関する迷いなどが起きた場合は、
+                              | 新しい職場に関すること、キャリアに関すること、
+                              | その他にも何かFBCで力になれそうなことに関して、
                               | いつでも相談ができます。
             .l-cards__item
               .l-cards__item-inner
                 .a-card
                   section.lp-left-image-section
                     .lp-left-image-section__inner
-                      .lp-left-image-section__start
+                      .lp-left-image-section__start.is-hidden-sm-down
                         .lp-left-image-section__icon
                           | 💌
                       .lp-left-image-section__end
@@ -335,6 +356,8 @@ article.lp
                           h3.lp-card-title
                             | 定期的な<br>フォローアップ
                         .lp-card-description
+                          .lp-left-image-section__icon.is-hidden-md-up
+                            | 💌
                           .a-short-text
                             p
                               | 就職後の1週間、1ヶ月、半年、1年後に連絡を取り、
