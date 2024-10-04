@@ -493,7 +493,8 @@ class HomeTest < ApplicationSystemTestCase
     Product.create(practice_id: practice.id, user_id: user.id, body: 'test body', published_at: Time.current.ago(1.day))
     travel_to Time.current do
       visit_with_auth '/', 'komagata'
-      assert_text '4日経過した提出物はありません'
+      assert_text 'しばらく4日経過に到達する'
+      assert_text '提出物はありません。'
     end
   end
 
