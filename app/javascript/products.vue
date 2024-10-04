@@ -75,7 +75,7 @@
         class='hover\:bg-black',
         v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
         v-else)
-        | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。        
+        | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
 </template>
 
 <script>
@@ -108,10 +108,12 @@ export default {
       if (!this.productsGroupedByElapsedDays) {
         return []
       }
-      return this.productsGroupedByElapsedDays.filter(group => {
-        return group.elapsed_days === this.selectedDays ||
-               group.elapsed_days === this.selectedDays + 1 ||
-               group.elapsed_days === this.selectedDays + 2
+      return this.productsGroupedByElapsedDays.filter((group) => {
+        return (
+          group.elapsed_days === this.selectedDays ||
+          group.elapsed_days === this.selectedDays + 1 ||
+          group.elapsed_days === this.selectedDays + 2
+        )
       })
     },
     url() {
