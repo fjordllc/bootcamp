@@ -3,7 +3,7 @@
   div
     loadingListPlaceholder
 
-.o-empty-message(v-else-if='products.length === 0')
+.o-empty-message(v-else-if='filteredProducts.length === 0')
   .o-empty-message__icon
     i.fa-regular.fa-smile
   p.o-empty-message__text
@@ -17,7 +17,7 @@
 
 //- ダッシュボード
 .is-vue(v-else-if='isDashboard')
-  template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
+  template(v-for='product_n_days_passed in filteredProducts') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
       v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 0 && product_n_days_passed.elapsed_days <= selectedDays + 2)')
       //- TODO 以下を共通化する
@@ -29,7 +29,7 @@
           | 今日提出
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      //- prettier-ignore: need space between v-else-if and id
+      //- prettier-ignore: need space between v-else-if and id            
       header.card-header.a-elapsed-days.is-reply-warning(
         v-else-if='product_n_days_passed.elapsed_days === selectedDays', id='first-alert'
       )
@@ -111,6 +111,16 @@ export default {
     }
   },
   computed: {
+    filteredProducts() {
+      if (!this.productsGroupedByElapsedDays) {
+        return []
+      }
+      return this.productsGroupedByElapsedDays.filter(group => {
+        return group.elapsed_days === this.selectedDays ||
+               group.elapsed_days === this.selectedDays + 1 ||
+               group.elapsed_days === this.selectedDays + 2
+      })
+    },
     url() {
       return '/api/products/unassigned'
     },
