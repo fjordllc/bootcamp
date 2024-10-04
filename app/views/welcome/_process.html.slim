@@ -15,7 +15,7 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                   .a-card
                     section.lp-left-image-section
                       .lp-left-image-section__inner
-                        .lp-left-image-section__start
+                        .lp-left-image-section__start.is-hidden-sm-down
                           .lp-left-image-section__image
                             = image_tag('practice.svg', class: 'lp-left-image-section__icon', alt: 'プラクティスのイメージイラスト')
                         .lp-left-image-section__end
@@ -24,6 +24,8 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                               | 1
                             | プラクティスに着手
                           .lp-card-description
+                            .lp-left-image-section__image.is-hidden-md-up
+                              = image_tag('practice.svg', class: 'lp-left-image-section__icon', alt: 'プラクティスのイメージイラスト')
                             .a-short-text
                               p
                                 | FBCオリジナルの学習アプリにプラクティスと呼んでいる学習項目があります。
@@ -35,7 +37,7 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                   .a-card
                     section.lp-left-image-section
                       .lp-left-image-section__inner
-                        .lp-left-image-section__start
+                        .lp-left-image-section__start.is-hidden-sm-down
                           .lp-left-image-section__image
                             = image_tag('report.svg', class: 'lp-left-image-section__icon', alt: '日報のイメージイラスト')
                         .lp-left-image-section__end
@@ -44,6 +46,8 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                               | 2
                             | 日報を書く
                           .lp-card-description
+                            .lp-left-image-section__image.is-hidden-md-up
+                              = image_tag('report.svg', class: 'lp-left-image-section__icon', alt: '日報のイメージイラスト')
                             .a-short-text
                               p
                                 | 学習をした日は必ずオンライン学習アプリの日報機能を使って日報を提出します。
@@ -64,7 +68,7 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                   .a-card
                     section.lp-left-image-section
                       .lp-left-image-section__inner
-                        .lp-left-image-section__start
+                        .lp-left-image-section__start.is-hidden-sm-down
                           .lp-left-image-section__image
                             = image_tag('question_1.svg', class: 'lp-left-image-section__icon', alt: '質問のイメージイラスト')
                         .lp-left-image-section__end
@@ -73,6 +77,8 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                               | 3
                             | 質問をする
                           .lp-card-description
+                            .lp-left-image-section__image.is-hidden-md-up
+                              = image_tag('question_1.svg', class: 'lp-left-image-section__icon', alt: '質問のイメージイラスト')
                             .a-short-text
                               p
                                 | わからないことは質問をして解決をします。
@@ -85,7 +91,7 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                   .a-card
                     section.lp-left-image-section
                       .lp-left-image-section__inner
-                        .lp-left-image-section__start
+                        .lp-left-image-section__start.is-hidden-sm-down
                           .lp-left-image-section__image
                             = image_tag('chat.svg', class: 'lp-left-image-section__icon', alt: 'オンラインコミュニケーションのイメージイラスト')
                         .lp-left-image-section__end
@@ -94,6 +100,8 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                               | 4
                             | コミュニケーション
                           .lp-card-description
+                            .lp-left-image-section__image.is-hidden-md-up
+                              = image_tag('chat.svg', class: 'lp-left-image-section__icon', alt: 'オンラインコミュニケーションのイメージイラスト')
                             .a-short-text
                               p
                                 | 学習の息抜きに他のブートキャンプ生の日報にコメントをしたり、
@@ -106,7 +114,7 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                   .a-card
                     section.lp-left-image-section
                       .lp-left-image-section__inner
-                        .lp-left-image-section__start
+                        .lp-left-image-section__start.is-hidden-sm-down
                           .lp-left-image-section__image
                             = image_tag('product.svg', class: 'lp-left-image-section__icon', alt: '課題提出のイメージイラスト')
                         .lp-left-image-section__end
@@ -115,6 +123,8 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                               | 5
                             | 課題提出
                           .lp-card-description
+                            .lp-left-image-section__image.is-hidden-md-up
+                              = image_tag('product.svg', class: 'lp-left-image-section__icon', alt: '課題提出のイメージイラスト')
                             .a-short-text
                               p
                                 | プラクティスのほとんどは、最後に成果物を提出します。それをメンターに確認してもらい、
@@ -125,13 +135,15 @@ section.lp-content.is-lp-bg-2.is-top-title#feature
                   .a-card
                     section.lp-left-image-section
                       .lp-left-image-section__inner
-                        .lp-left-image-section__start
+                        .lp-left-image-section__start.is-hidden-sm-down
                           .lp-left-image-section__image
                             = image_tag('graduate.svg', class: 'lp-left-image-section__icon', alt: '卒業帽子のイラスト')
                         .lp-left-image-section__end
                           h3.lp-card-title
                             | 卒業
                           .lp-card-description
+                            .lp-left-image-section__image.is-hidden-md-up
+                              = image_tag('graduate.svg', class: 'lp-left-image-section__icon', alt: '卒業帽子のイラスト')
                             .a-short-text
                               p
                                 | 1 〜 5 を繰り返し、最後のプラクティスを終えたらFBC卒業です。
