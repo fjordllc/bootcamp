@@ -64,3 +64,33 @@ tables = %i[
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
 Bootcamp::Setup.attachment if Rails.env.development?
+
+# ステージング環境で日報100回目のお祝いメッセージの動作確認が終わり次第、削除します
+
+komagata = User.find_by(login_name: 'komagata')
+
+95.times do |i|
+  Report.create!(
+    user_id: komagata.id,
+    title: "テスト日報 #{i + 4}",
+    description: "動作確認が終わり次第、削除します",
+    reported_on: Date.today - (97 - i),
+    wip: false,
+    emotion: 2,
+    created_at: Time.now - (96 - i).days,
+    updated_at: Time.now - (96 - i).days,
+    published_at: Time.now - (96 - i).days
+  )
+end
+
+Report.create!(
+  user_id: komagata.id,
+  title: "wip日報 99",
+  description: "動作確認が終わり次第、削除します",
+  reported_on: Date.today - 2,
+  wip: true,
+  emotion: 2,
+  created_at: Time.now - 1,
+  updated_at: Time.now - 1,
+  published_at: Time.now - 1
+)
