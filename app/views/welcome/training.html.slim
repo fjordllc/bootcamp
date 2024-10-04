@@ -612,15 +612,18 @@ article.lp
                             | お申し込み
                       .lp-left-number-section__end
                         .lp-card-description
-                          .lp-left-image-section__start.is-hidden-md-up
-                            .lp-left-image-section__image
-                            .a-short-text
+                          .a-short-text
                             p
                               | 研修申し込みフォームより、お申し込みをお願いいたします。
                               | 貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、
                               | 研修の目的なども書いていただけるとヒヤリングがスムーズになります。
-                            p
-                              | 学習内容一覧はこちら
+                        .lp-card-actions
+                          .lp-card-actions__items
+                            .lp-card-actions__item
+                              = link_to '学習内容一覧はこちら',
+                                practices_path,
+                                class: 'a-button is-md is-primary-border is-block',
+                                target: '_blank', rel: 'noopener'
 
               .l-cards__item
                 .l-cards__item-inner
@@ -632,9 +635,7 @@ article.lp
                             | ヒアリング
                       .lp-left-number-section__end
                         .lp-card-description
-                          .lp-left-image-section__start.is-hidden-md-up
-                            .lp-left-image-section__image
-                            .a-short-text
+                          .a-short-text
                             p
                               | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。
                               | 研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、
@@ -654,9 +655,7 @@ article.lp
                             | 作成
                       .lp-left-number-section__end
                         .lp-card-description
-                          .lp-left-image-section__start.is-hidden-md-up
-                            .lp-left-image-section__image
-                            .a-short-text
+                          .a-short-text
                             p
                               | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。
                               | 基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。
@@ -674,9 +673,7 @@ article.lp
                             | 研修開始
                       .lp-left-number-section__end
                         .lp-card-description
-                          .lp-left-image-section__start.is-hidden-md-up
-                            .lp-left-image-section__image
-                            .a-short-text
+                          .a-short-text
                             p
                               | 研修メニューが完成しましたら、研修はスタートできる状態なので、
                               | フィヨルドブートキャンプのオンライン学習アプリにサインアップ次第研修がスタートになります。
