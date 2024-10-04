@@ -3,18 +3,6 @@
   div
     loadingListPlaceholder
 
-.o-empty-message(v-else-if='filteredProducts.length === 0')
-  .o-empty-message__icon
-    i.fa-regular.fa-smile
-  p.o-empty-message__text
-    | {{ title }}はありません
-
-.o-empty-message(v-else-if='isDashboard && isNotProductSelectedDaysElapsed')
-  .o-empty-message__icon
-    i.fa-regular.fa-smile
-  p.o-empty-message__text
-    | {{ selectedDays }}日経過した提出物はありません
-
 //- ダッシュボード
 .is-vue(v-else-if='isDashboard')
   template(v-for='product_n_days_passed in filteredProducts') <!-- product_n_days_passedはn日経過の提出物 -->
@@ -75,14 +63,19 @@
     .under-cards__links.mt-4.text-center.leading-normal.text-sm
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
-        v-if='countAlmostPassedSelectedDays() === 0')
+        v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
+        v-if='filteredProducts.length === 0 && countAlmostPassedSelectedDays() === 0')
         | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
-        v-else)
+        v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
+        v-else-if='countAlmostPassedSelectedDays() > 0')
         | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
+      a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
+        class='hover\:bg-black',
+        v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
+        v-else)
+        | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。        
 </template>
 
 <script>
