@@ -123,8 +123,8 @@ article.lp
                 .a-card
                   section.lp-left-image-section
                     .lp-left-image-section__inner
-                      .lp-left-image-section__start
-                        = image_tag('mentors.svg', class: 'lp-left-image-section__image', alt: 'FBCメンターのイメージイラスト')
+                      .lp-left-image-section__start.is-hidden-sm-down
+                        = image_tag('mentors.svg', class: 'lp-left-image-section__icon', alt: 'FBCメンターのイメージイラスト')
                       .lp-left-image-section__end
                         header.lp-left-image-section__header
                           h3.lp-card-title
@@ -132,6 +132,9 @@ article.lp
                             br
                             | 現役のソフトウェアエンジニア
                         .lp-card-description
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                                = image_tag('mentors.svg', class: 'lp-left-image-section__icon', alt: 'FBCメンターのイメージイラスト')
                           .a-short-text
                             p
                               | FBCのメンターは、アルバイトとして雇われた卒業生や、
@@ -151,8 +154,8 @@ article.lp
                 .a-card
                   section.lp-left-image-section
                     .lp-left-image-section__inner
-                      .lp-left-image-section__start
-                        = image_tag('team-dev.svg', class: 'lp-left-image-section__image', alt: 'チーム開発のイメージイラスト')
+                      .lp-left-image-section__start.is-hidden-sm-down
+                        = image_tag('team-dev.svg', class: 'lp-left-image-section__icon', alt: 'チーム開発のイメージイラスト')
                       .lp-left-image-section__end
                         header.lp-left-image-section__header
                           h3.lp-card-title
@@ -160,6 +163,9 @@ article.lp
                             br
                             | 現場目線のカリキュラム
                         .lp-card-description
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                              = image_tag('team-dev.svg', class: 'lp-left-image-section__icon', alt: 'チーム開発のイメージイラスト')
                           .a-short-text
                             p
                               | FBCのカリキュラムは、Linuxやデータベース、
@@ -182,8 +188,8 @@ article.lp
                 .a-card
                   section.lp-left-image-section
                     .lp-left-image-section__inner
-                      .lp-left-image-section__start
-                        = image_tag('pair-work.svg', class: 'p-left-image-section__image', alt: 'ビデオチャットで質問をするイメージイラスト')
+                      .lp-left-image-section__start.is-hidden-sm-down
+                        = image_tag('pair-work.svg', class: 'p-left-image-section__icon', alt: 'ビデオチャットで質問をするイメージイラスト')
                       .lp-left-image-section__end
                         header.lp-left-image-section__header
                           h3.lp-card-title
@@ -191,6 +197,9 @@ article.lp
                             br
                             | 質問をするスキルを伸ばす
                         .lp-card-description
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                              = image_tag('pair-work.svg', class: 'lp-left-image-section__icon', alt: 'ビデオチャットで質問をするイメージイラスト')
                           .a-short-text
                             p
                               | FBCでは、長年にわたるプログラミング教育を通じて、
@@ -227,7 +236,8 @@ article.lp
                 section.lp-capture-section
                   .lp-capture-section__inner
                     .lp-capture-section__start.is-sm
-                      = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム作成のイメージイラスト')
+                      .lp-left-image-section__image
+                        = image_tag('practices/practices_main.svg', class: 'lp-capture-section__image', alt: 'フィヨルドブートキャンプのカリキュラム作成のイメージイラスト')
                     .lp-capture-section__end
                       .lp-capture-section__content
                         header.lp-capture-section__header
@@ -253,7 +263,8 @@ article.lp
                 section.lp-capture-section
                   .lp-capture-section__inner
                     .lp-capture-section__start.is-sm
-                      = image_tag('daily-check-ins.svg', class: 'lp-capture-section__image', alt: '日報をみんなで見ているイメージイラスト')
+                      .lp-left-image-section__image
+                        = image_tag('daily-check-ins.svg', class: 'lp-capture-section__image', alt: '日報をみんなで見ているイメージイラスト')
                     .lp-capture-section__end
                       .lp-capture-section__content
                         header.lp-capture-section__header
@@ -280,7 +291,8 @@ article.lp
                 section.lp-capture-section
                   .lp-capture-section__inner
                     .lp-capture-section__start.is-sm
-                      = image_tag('events.svg', class: 'lp-capture-section__image', alt: 'オンラインイベントの参加者のイメージイラスト')
+                      .lp-left-image-section__image
+                        = image_tag('events.svg', class: 'lp-capture-section__image', alt: 'オンラインイベントの参加者のイメージイラスト')
                     .lp-capture-section__end
                       .lp-capture-section__content
                         header.lp-capture-section__header
@@ -600,7 +612,9 @@ article.lp
                             | お申し込み
                       .lp-left-number-section__end
                         .lp-card-description
-                          .a-short-text
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                            .a-short-text
                             p
                               | 研修申し込みフォームより、お申し込みをお願いいたします。
                               | 貴社名、研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、
@@ -618,7 +632,9 @@ article.lp
                             | ヒアリング
                       .lp-left-number-section__end
                         .lp-card-description
-                          .a-short-text
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                            .a-short-text
                             p
                               | 日時を調整し、研修担当の方にビデオチャットにてヒアリングを行います。
                               | 研修予定期間、研修を受ける方の人数、研修を受ける方それぞれのプログラミング経験、スキル、
@@ -638,7 +654,9 @@ article.lp
                             | 作成
                       .lp-left-number-section__end
                         .lp-card-description
-                          .a-short-text
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                            .a-short-text
                             p
                               | ヒアリング結果を基に、フィヨルドブートキャンプ側で研修メニューを作成いたします。
                               | 基本的には、一般の受講生が行うカリキュラムの中からの抜粋になります。
@@ -656,7 +674,9 @@ article.lp
                             | 研修開始
                       .lp-left-number-section__end
                         .lp-card-description
-                          .a-short-text
+                          .lp-left-image-section__start.is-hidden-md-up
+                            .lp-left-image-section__image
+                            .a-short-text
                             p
                               | 研修メニューが完成しましたら、研修はスタートできる状態なので、
                               | フィヨルドブートキャンプのオンライン学習アプリにサインアップ次第研修がスタートになります。
