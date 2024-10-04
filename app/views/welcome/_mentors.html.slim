@@ -11,25 +11,27 @@ section.lp-content.is-lp-bg-2.is-top-title#mentors
           .lp-content-stack__item
             section.lp-content-section
               h3.lp-content-sub-title.text-center
-                | メンター現役プログラマー！！
+                | メンターは現役プログラマー！！
                 br
                 | 自慢のメンバーです
               .lp-content__description
                 .l-inner-container.is-md
                   .a-short-text
                     p
-                      | FBCのメンターは、アルバイトとして雇われた卒業生や、教えることを専門にしている人ではなく、
-                      | 実際のプロジェクトでコードを書くことを仕事にしている、現役のソフトウェアエンジニアです。
-                      | わからないことを検索すると必ず出てくるあの有名なあの人！
-                      | FBCの教材としても使っている有名な技術本の著者や訳者、
-                      | 受講生と同じように他業種からスクールを経て現在は一人前として活躍している人...
-                      | 豪華でかつ個性豊かなメンバーです。
+                      | FBCのメンターは、アルバイトとして雇われた卒業生や、
+                      | 教えることを専門にしている人ではなく、実際のプロジェクトで
+                      | コードを書くことを仕事にしている、現役のソフトウェアエンジニアです。
+                      | わからないことを検索すると必ず出てくる、あの有名なエンジニアや、
+                      | FBCの教材として使っている有名な技術本の著者や訳者もいます。
+                      | さらには、受講生と同じように他業種からスクールを経て、
+                      | 現在は一人前のエンジニアとして活躍しているメンターも。
+                      | 豪華で個性豊かなメンター陣です。
+
           .lp-content-stack__item
-            .lp-members
               .row.is-gutter-width-32
                 - mentors.each do |mentor|
                   - unless mentor.hide_mentor_profile
-                    .col-xs-12.col-md-6.col-lg-4
+                    .col-xs-6.col-md-6.col-lg-4
                       = render 'welcome/mentor', mentor:, page: 'welcome-index'
 
   .lp-content-divider.is-lp-bg-3
