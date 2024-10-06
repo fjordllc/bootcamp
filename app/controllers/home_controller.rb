@@ -67,6 +67,9 @@ class HomeController < ApplicationController
                 .not_wip
                 .list
                 .ascending_by_date_of_publishing_and_id
-    @products_grouped_by_elapsed_days = @products.group_by { |product| product.elapsed_days >= 7 ? 7 : product.elapsed_days }
+    reply_deadline_days = @product_deadline_day + 2
+    @products_grouped_by_elapsed_days = @products.group_by do |product|
+      product.elapsed_days >= reply_deadline_days ? reply_deadline_days : product.elapsed_days
+    end
   end
 end

@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
 class Products::ProductsComponent < ViewComponent::Base
-  def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, current_user_id:)
+  def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, current_user_id:, reply_warning_days:)
     @products = products
     @products_grouped_by_elapsed_days = products_grouped_by_elapsed_days
     @is_mentor = is_mentor
     @current_user_id = current_user_id
+    @reply_warning_days = reply_warning_days
+    @reply_alert_days = @reply_warning_days + 1
+    @reply_deadline_days = @reply_warning_days + 2
   end
 
-  def any_products_5days_elapsed?
+  def any_products_elapsed_reply_warning_days?
     elapsed_days = @products_grouped_by_elapsed_days.keys
-    elapsed_days.all? { |day| day < 5 }
+    elapsed_days.all? { |day| day < @reply_warning_days }
   end
 
   def count_products_grouped_by(products_n_days_passed)
@@ -19,11 +22,11 @@ class Products::ProductsComponent < ViewComponent::Base
 
   def elapsed_days_class(elapsed_days)
     case elapsed_days
-    when 5
+    when @reply_warning_days
       'is-reply-warning'
-    when 6
+    when @reply_alert_days
       'is-reply-alert'
-    when 7
+    when @reply_deadline_days
       'is-reply-deadline'
     else
       ''
@@ -33,7 +36,7 @@ class Products::ProductsComponent < ViewComponent::Base
   def elapsed_days_text(elapsed_days)
     if elapsed_days.zero?
       '今日提出'
-    elsif elapsed_days >= 7
+    elsif elapsed_days >= @reply_deadline_days
       "#{elapsed_days}日以上経過"
     else
       "#{elapsed_days}日経過"
@@ -44,18 +47,19 @@ class Products::ProductsComponent < ViewComponent::Base
     "#{elapsed_days}days-elapsed"
   end
 
-  def count_almost_passed_5days
-    products_passed_4days = @products_grouped_by_elapsed_days[4]
-    return 0 unless products_passed_4days
+  def count_almost_passed_reply_warning_days
+    one_day_before_reply_warning_days = @reply_warning_days - 1
+    products_passed_one_day_before_reply_warning_days = @products_grouped_by_elapsed_days[one_day_before_reply_warning_days]
+    return 0 unless products_passed_one_day_before_reply_warning_days
 
-    passed_almost_5days_products(products_passed_4days).length
+    passed_almost_reply_warning_days_products(products_passed_one_day_before_reply_warning_days).length
   end
 
   private
 
-  def passed_almost_5days_products(products)
+  def passed_almost_reply_warning_days_products(products)
     products.select do |product|
-      threshold_day = 5
+      threshold_day = @reply_warning_days
       threshold_hour = 8
       (threshold_day - elapsed_times(product)) * 24 <= threshold_hour
     end
