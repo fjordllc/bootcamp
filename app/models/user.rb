@@ -496,6 +496,16 @@ class User < ApplicationRecord
       student.sent_student_followup_message = true
       student.save(validate: false)
     end
+
+    def by_area(area)
+      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
+
+      country = ISO3166::Country.find_country_by_any_name(area)
+      return User.with_attached_avatar.where(country_code: country.alpha2) if country
+
+      User.none
+    end
   end
 
   def away?
@@ -836,6 +846,16 @@ class User < ApplicationRecord
 
   def participated_regular_event_ids
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
+  def area
+    if country_code == 'JP'
+      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
+      subdivision ? subdivision.translations['ja'] : nil
+    else
+      country = ISO3166::Country[country_code]
+      country ? country.translations['ja'] : nil
+    end
   end
 
   private
