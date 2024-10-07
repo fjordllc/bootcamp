@@ -223,7 +223,7 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
-  test 'sign up as a trainee who select invoice to pay' do
+  test 'sign up as a trainee who selects invoice for payment' do
     visit '/users/new?role=trainee_select_a_payment_method'
 
     email = 'natsumi@example.com'
@@ -253,7 +253,7 @@ class SignUpTest < ApplicationSystemTestCase
     assert User.find_by(email:).trainee?
   end
 
-  test 'sign up as a trainee who select credit card to pay' do
+  test 'sign up as a trainee who selects a credit card for payment' do
     visit '/users/new?role=trainee_select_a_payment_method'
 
     email = 'natsumi@example.com'
