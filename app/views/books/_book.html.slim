@@ -3,14 +3,14 @@
     .card-books-item__body
       .card-books-item__inner
         .card-books-item__start
-          a.card-books-item__cover-container(
-            href="#{book.page_url}"
-            target="_blank"
-            rel="noopener")
-            img.card-books-item__image(
-              title="#{book.page_url}"
-              alt="#{book.title}"
-              src="#{book.cover_url}")
+          = link_to book.page_url,
+                    target: '_blank',
+                    rel: 'noopener',
+                    class: 'card-books-item__cover-container' do
+                      = image_tag book.cover_url,
+                        title: book.page_url,
+                        alt: book.title,
+                        class: 'card-books-item__image'
         .card-books-item__end
           .card-books-item__rows
             .card-books-item__row
@@ -18,10 +18,10 @@
                 - if book.must_read_for_any_practices?
                   span.a-badge.is-danger.is-sm
                     | 必読
-                a.card-books-item__title-link(
-                  href="#{book.page_url}"
-                  target="_blank"
-                  rel="noopener")
+                = link_to book.page_url,
+                          target: '_blank',
+                          rel: 'noopener',
+                          class: 'card-books-item__title-link' do
                   span.card-books-item__title-label
                     | #{book.title}
             .card-books-item__row
@@ -38,7 +38,7 @@
         ul.tag-links__items
           - book.practices.each do |practice|
             li.tag-links__item
-              a.tag-links__item-link(href="#{practice.path}")
+              = link_to practice.path, class: 'tag-links__item-link' do
                 | #{practice.title}
       hr.a-border-tint
     - if admin_or_mentor_login?
@@ -46,6 +46,5 @@
         .card-main-actions
           ul.card-main-actions__items
             li.card-main-actions__item
-              a.card-main-actions__action.a-button.is-sm.is-secondary.is-block(
-                href="#{edit_book_path(book)}")
+              = link_to edit_book_path(book), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
                 | 編集
