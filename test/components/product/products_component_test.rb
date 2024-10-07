@@ -4,8 +4,10 @@ require 'test_helper'
 require 'supports/decorator_helper'
 
 class Products::ProductsComponentTest < ViewComponent::TestCase
+  include DecoratorHelper
+
   def setup
-    DecoratorHelper.auto_decorate(User)
+    auto_decorate(User)
     @current_user = users(:komagata)
     @is_mentor = true
     @reply_warning_days = 4

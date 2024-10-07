@@ -4,8 +4,10 @@ require 'test_helper'
 require 'supports/decorator_helper'
 
 class Products::ProductCheckerComponentTest < ViewComponent::TestCase
+  include DecoratorHelper
+
   def setup
-    DecoratorHelper.auto_decorate(User)
+    auto_decorate(User)
     @current_user = users(:komagata)
   end
 
