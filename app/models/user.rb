@@ -880,6 +880,10 @@ class User < ApplicationRecord
     end
   end
 
+  def latest_micro_report_page
+    [micro_reports.page.total_pages, 1].max
+  end
+
   private
 
   def password_required?
