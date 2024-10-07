@@ -73,24 +73,24 @@ komagata = User.find_by(login_name: 'komagata')
   Report.create!(
     user_id: komagata.id,
     title: "テスト日報 #{i + 4}",
-    description: "動作確認が終わり次第、削除します",
-    reported_on: Date.today - (97 - i),
+    description: '動作確認が終わり次第、削除します',
+    reported_on: Time.zone.today - (97 - i),
     wip: false,
     emotion: 2,
-    created_at: Time.now - (96 - i).days,
-    updated_at: Time.now - (96 - i).days,
-    published_at: Time.now - (96 - i).days
+    created_at: Time.zone.today - (96 - i).days,
+    updated_at: Time.zone.today - (96 - i).days,
+    published_at: Time.zone.today - (96 - i).days
   )
 end
 
 Report.create!(
   user_id: komagata.id,
-  title: "wip日報 99",
-  description: "動作確認が終わり次第、削除します",
-  reported_on: Date.today - 2,
+  title: 'wip日報 99',
+  description: '動作確認が終わり次第、削除します',
+  reported_on: Time.zone.today - 2,
   wip: true,
   emotion: 2,
-  created_at: Time.now - 1,
-  updated_at: Time.now - 1,
-  published_at: Time.now - 1
+  created_at: Time.zone.today - 1,
+  updated_at: Time.zone.today - 1,
+  published_at: Time.zone.today - 1
 )
