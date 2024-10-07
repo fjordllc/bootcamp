@@ -1,6 +1,20 @@
 - title "'#{@word}'の検索結果"
 - set_meta_tags description: "'#{@word}'の検索結果一覧ページです。"
 
+javascript:
+  document.addEventListener('DOMContentLoaded', () => {
+    const url = "#{@url}";
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
+
 header.page-header
   .container
     .page-header__inner
@@ -26,11 +40,11 @@ hr.a-border
     .container.is-md
       - if @data['total_pages'] > 1
         nav.pagination
-          = react_component('Pagination', { sum: @data['total_pages'] * 50, per: 50, neighbours: 2, page: @page_number, setPage: 'setPage' })
+          = react_component('Pagination', { sum: @data['total_pages'] * @per, per: @per, neighbours: 2, page: @page_number, setPage: setPage })
       .card-list.a-card
         - @data['searchables'].each do |searchable|
           = render partial: 'searchable', locals: { searchable: searchable, word: @word }
       - if @data['total_pages'] > 1
         nav.pagination
-          = react_component('Pagination', { sum: @data['total_pages'] * 50, per: 50, neighbours: 2, page: @page_number, setPage: 'setPage' })
-/  = react_component('Searchables', word: @word.to_s)
+          = react_component('Pagination', { sum: @data['total_pages'] * @per, per: @per, neighbours: 2, page: @page_number, setPage: setPage })
+  = react_component('Searchables', word: @word.to_s)
