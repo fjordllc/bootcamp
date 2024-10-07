@@ -12,7 +12,8 @@ module PageTabs
       tabs << { name: '提出物', link: user_products_path(user), count: user.products.length }
       tabs << { name: '質問', link: user_questions_path(user), count: user.questions.length }
       tabs << { name: '回答', link: user_answers_path(user), count: user.answers.length }
-      tabs << { name: '分報', link: "#{user_micro_reports_path(user)}#latest-micro-report", count: user.micro_reports.length }
+      tabs << { name: '分報', link: "#{user_micro_reports_path(user, page: user.latest_micro_report_page)}#latest-micro-report",
+                count: user.micro_reports.length }
       tabs << { name: '相談部屋', link: talk_path(user.talk) } if current_user.admin? && !user.admin?
       render PageTabsComponent.new(tabs:, active_tab:)
     end
