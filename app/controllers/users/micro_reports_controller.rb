@@ -17,7 +17,8 @@ class Users::MicroReportsController < ApplicationController
     else
       flash[:alert] = '分報の投稿に失敗しました。'
     end
-    redirect_to user_micro_reports_path(@user)
+
+    redirect_to user_micro_reports_path(@user, page: @user.latest_micro_report_page)
   end
 
   private
