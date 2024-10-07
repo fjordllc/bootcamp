@@ -89,4 +89,20 @@ class MicroReportsTest < ApplicationSystemTestCase
     end
     assert_selector '.thread-comment', count: 1
   end
+
+  test 'redirect to latest micro report page when over 26 micro reports exist' do
+    users(:hatsuno).micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
+    visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
+    assert_no_selector '.pagination__items'
+    assert_selector '.thread-comment', count: 25
+
+    # 26件目投稿時に2ページ目に遷移するか
+    fill_in('micro_report[content]', with: '分報26')
+    click_button '投稿'
+    assert_selector '.pagination__item.is-active', text: '2'
+
+    # タブから分報一覧に遷移するときに2ページ目に遷移するか
+    click_on '分報 （26）'
+    assert_selector '.pagination__item.is-active', text: '2'
+  end
 end
