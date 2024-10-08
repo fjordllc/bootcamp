@@ -66,7 +66,7 @@ class Notification::PagesTest < ApplicationSystemTestCase
 
     click_link '内容変更'
     click_button 'Docを公開'
-    assert_text 'ドキュメントを更新しました。'
+    assert_text 'ドキュメントを作成しました。'
 
     visit_with_auth '/notifications', 'machida'
 
