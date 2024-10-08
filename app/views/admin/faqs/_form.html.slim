@@ -2,7 +2,7 @@
   .form__items
     .form-item
       = f.label :question, class: 'a-form-label'
-      = f.text_area :question, class: 'a-text-input'
+      = f.text_area :question, class: 'a-text-input is-xs'
     .form-item
       .row.js-markdown-parent
         .col-md-6.col-xs-12
@@ -21,8 +21,9 @@
       .checkboxes
         .checkboxes__items
           - @category.each do |category|
-            = f.radio_button :faqs_category_id, FaqCategory.find_by(name: category.to_s).id
-            = f.label :faqs_category_id, t("faq.#{category}"), value: FaqCategory.find_by(name: category.to_s).id
+            .checkboxes__item.is-radio
+              = f.radio_button :faq_category_id, FAQCategory.find_by(name: category.to_s).id, class: 'a-toggle-checkbox'
+              = f.label :faq_category_id, t("faq.#{category}"), value: FAQCategory.find_by(name: category.to_s).id
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main

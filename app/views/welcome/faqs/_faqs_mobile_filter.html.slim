@@ -1,4 +1,4 @@
-.faqs__filter.is-hidden-md-up
+.faqs__filter.is-hidden-lg-up
   .container.is-xs
     .form-item.is-inline
       label.a-form-label
@@ -7,7 +7,7 @@
         select name="category" onchange="this.form.submit()"
           option value=""
             | 全て
-          - FaqCategory.all.find_each do |category|
+          - FAQCategory.all.find_each do |category|
             - if params[:category] == category.name
               option value=category selected=true
                 = t("faq.#{category.name}")
