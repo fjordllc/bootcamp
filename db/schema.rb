@@ -423,14 +423,6 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.index ["survey_question_id"], name: "index_linear_scales_on_survey_question_id"
   end
 
-  create_table "micro_reports", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.text "content", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_micro_reports_on_user_id"
-  end
-
   create_table "notifications", force: :cascade do |t|
     t.integer "kind", default: 0, null: false
     t.bigint "user_id"
@@ -776,7 +768,6 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.string "profile_job"
     t.text "profile_text"
     t.string "feed_url"
-    t.string "times_id", comment: "Snowflake ID"
     t.boolean "sent_student_followup_message", default: false
     t.string "country_code"
     t.string "subdivision_code"
@@ -833,7 +824,6 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
   add_foreign_key "learning_minute_statistics", "practices"
   add_foreign_key "learning_times", "reports"
   add_foreign_key "linear_scales", "survey_questions"
-  add_foreign_key "micro_reports", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "organizers", "regular_events"
