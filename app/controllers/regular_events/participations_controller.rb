@@ -11,8 +11,8 @@ class RegularEvents::ParticipationsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id]) if current_user.mentor? || correct_user?
-    @regular_event.cancel_participation(@user)
+    user = User.find(params[:user_id]) if current_user.mentor? || correct_user?
+    @regular_event.cancel_participation(user)
     redirect_to regular_event_path(@regular_event), notice: '参加を取り消しました。'
   end
 
