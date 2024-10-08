@@ -768,7 +768,6 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.string "profile_job"
     t.text "profile_text"
     t.string "feed_url"
-    t.string "times_id", comment: "Snowflake ID"
     t.boolean "sent_student_followup_message", default: false
     t.string "country_code"
     t.string "subdivision_code"
