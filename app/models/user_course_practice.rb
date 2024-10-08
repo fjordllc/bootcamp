@@ -32,10 +32,9 @@ class UserCoursePractice
     user_categories_with_uniq_practices
   end
 
-  # def practices
-  # -> def practices_sorted_by_position
-  #   course.practices.order('courses_categories.position', 'categories_practices.position')
-  # end
+  def sorted_practices
+    @user.course.practices.order('courses_categories.position', 'categories_practices.position')
+  end
 
   # def practice_ids_skipped
   #   skipped_practices.pluck(:practice_id)
