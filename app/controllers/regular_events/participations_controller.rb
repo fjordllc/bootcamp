@@ -11,7 +11,7 @@ class RegularEvents::ParticipationsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:user_id]) if current_user.mentor? || correct_user?
     @regular_event.cancel_participation(@user)
     redirect_to regular_event_path(@regular_event), notice: '参加を取り消しました。'
   end
@@ -30,5 +30,9 @@ class RegularEvents::ParticipationsController < ApplicationController
       watchable: @regular_event
     )
     watch.save!
+  end
+
+  def correct_user?
+    current_user.id == params[:user_id].to_i
   end
 end
