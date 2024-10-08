@@ -4,4 +4,4 @@
 = render 'users/page_title', user: @user
 = user_page_tabs(@user, active_tab: '日報')
 
-= react_component('Reports', userId: @user.id, practices: @user.practices)
+= react_component('Reports', userId: @user.id, practices: @user_course_practice.sorted_practices)
