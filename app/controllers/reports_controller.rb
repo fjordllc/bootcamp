@@ -12,6 +12,7 @@ class ReportsController < ApplicationController
   before_action :set_user, only: %i[show]
   before_action :set_categories, only: %i[create update]
   before_action :set_watch, only: %i[show]
+  before_action :set_user_course_practice, only: %i[index]
 
   def index
     @reports = Report.list.page(params[:page]).per(PAGER_NUMBER)
@@ -112,6 +113,10 @@ class ReportsController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:user_id])
+  end
+
+  def set_user_course_practice
+    @user_course_practice = UserCoursePractice.new(current_user)
   end
 
   def set_check
