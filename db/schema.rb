@@ -280,9 +280,9 @@ ActiveRecord::Schema.define(version: 2024_09_22_193630) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
-    t.bigint "faqs_category_id", null: false
+    t.bigint "faq_category_id", null: false
     t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
-    t.index ["faqs_category_id"], name: "index_faqs_on_faqs_category_id"
+    t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id"
     t.index ["question"], name: "index_faqs_on_question", unique: true
   end
 
@@ -828,7 +828,7 @@ ActiveRecord::Schema.define(version: 2024_09_22_193630) do
   add_foreign_key "check_boxes", "survey_questions"
   add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
-  add_foreign_key "faqs", "faq_categories", column: "faqs_category_id"
+  add_foreign_key "faqs", "faq_categories"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"

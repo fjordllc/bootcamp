@@ -22,7 +22,7 @@ class FaqTest < ActiveSupport::TestCase
   end
 
   test 'faq1 is invalid if category is null' do
-    @faq1.faqs_category_id = nil
+    @faq1.faq_category_id = nil
     assert @faq1.invalid?
   end
 
