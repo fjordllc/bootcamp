@@ -1,12 +1,13 @@
-section.faqs-item
-  .faqs-item__inner
-    h3.faqs-item__title
-      = format_question(faq.question)
-    hr.a-border-tint
-    .faqs-item__body
-      .a-long-text.is-md.js-markdown-view
+section.lp-faq
+  .lp-faq__inner
+    header.lp-faq__header
+      h3.lp-faq__title
+        = faq.question
+    .lp-faq__body
+      .a-short-text.js-markdown-view
         = faq.answer
-    - if admin_login?
-      p
-        = link_to edit_admin_faq_path(faq) do
-          | 編集
+      - if admin_login?
+        .lp-faq__edit
+          = link_to edit_admin_faq_path(faq), class: 'lp-faq__edit-link' do
+            | 編集
+hr.a-border

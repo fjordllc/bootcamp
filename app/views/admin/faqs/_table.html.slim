@@ -9,17 +9,16 @@
         th.admin-table__label 並び順
     tbody.admin-table__items#js-faq-sortable
       - faqs.each do |faq|
-        tr.admin-table__item(id="faq_#{faq.id}")
-          td.admin-table__item-value.is-text-align-center
-            = link_to admin_faq_path(faq) do
-              = format_question(faq.question)
-          td.admin-table__item-value.is-text-align-center
+        tr.admin-table__item(data-faq_id="#{faq.id}" id="#{faq.id}" data-faq_category_id="#{faq.faq_category_id}")
+          td.admin-table__item-value
+            = format_question(faq.question)
+          td.admin-table__item-value
             = faq.answer
           td.admin-table__item-value.is-text-align-center
             = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
               i.fa-solid.fa-pen
           td.admin-table__item-value.is-text-align-center
-            = t("faq.#{FaqCategory.find_by(id: faq.faqs_category_id).name}")
+            = t("faq.#{FAQCategory.find_by(id: faq.faq_category_id)&.name}")
           td.admin-table__item-value.is-text-align-center.is-grab
             span.js-grab.a-grab
               i.fa-solid.fa-align-justify

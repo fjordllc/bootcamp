@@ -3,43 +3,60 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプに寄せられたよくあるお問い合わせとその回答の一覧です。')
 
-header.welcome-page-header
-  .container.is-xl
-    .welcome-page-header__inner
-      .welcome-page-header__start
-        h1.welcome-page-header__title
-          | FAQ
-      - if current_user&.mentor?
-        .welcome-page-header__end
-          = link_to new_admin_faq_path, class: 'a-button is-md is-secondary is-block' do
-            i.fas.fa-plus
-            | FAQ追加
-
-.welcome-sections#faqs
-  section.welcome-section.is-faq
-    .container.is-lg
-      h2.welcome-section__title
-        | FAQ
-        - if params[:category].present?
-          span.ml-4.is-hidden-sm-down
-            | 「#{t("faq.#{params[:category]}")}」
-    .welcome-section__description
-      .container.is-lg
-        p
-          | わからないこと、気になることがありましたら、
-          = link_to new_inquiry_path, class: 'welcome-section__description-link' do
-            | こちら
-          | から質問してください。
-
-    .faqs
-      = render '/welcome/faqs/faqs_mobile_filter'
-      .faqs__main
-        .container.is-lg
-          .faqs__row
-            .faqs__start.is-hidden-sm-down
-              .faqs__nav
-                = render '/welcome/faqs/faqs_pc_filter'
-            .faqs__end
-              .faqs__items
-                - @faqs.each do |faq|
-                  = render '/welcome/faqs/faqs_item', faq: faq
+.lp
+  header.lp-page-header
+    .l-container
+      .lp-page-header__inner
+        .lp-page-header__start
+          h1.lp-page-header__title
+            = title
+        .lp-page-header__end
+          - if current_user&.admin?
+            nav.lp-page-header-nav
+              ul.lp-page-header-nav__items
+                li.lp-page-header-nav__item
+                  = link_to new_admin_faq_path, class: 'a-button is-md is-secondary-border is-block' do
+                    i.fas.fa-plus
+                    | FAQ追加
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | よくある質問
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .lp-content__description
+                #faqs
+                .l-inner-container.is-md
+                  .a-short-text
+                    p.text-center
+                      | わからないこと、気になることがありましたら、
+                      br.is-hidden-md-up
+                      = link_to new_inquiry_path, class: 'welcome-section__description-link' do
+                        | こちらからお問い合わせください
+                      | 。
+            .lp-content-stack__item
+              .lp-faqs
+                .row.is-gutter-width-32
+                  .col-lg-4.col-xs-12
+                    = render '/welcome/faqs/faqs_mobile_filter'
+                    .mb-4
+                      = render '/welcome/faqs/faqs_pc_filter'
+                  .col-xl-8.col-lg-8.col-xs-12
+                    .lp-content-stack
+                      .lp-content-stack__item.is-hidden-md-down
+                        - if params[:category].present?
+                          h2.lp-content-sub-title.text-center
+                            | FAQ
+                            span.ml-4
+                              | 「#{t("faq.#{params[:category]}")}」
+                        - else
+                          h2.lp-content-sub-title.text-center
+                            | 全てのFAQ
+                      .lp-content-stack__item
+                        .lp-faqs__items
+                          - @faqs.each do |faq|
+                            = render '/welcome/faqs/faqs_item', faq: faq
