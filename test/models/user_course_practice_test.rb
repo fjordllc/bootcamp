@@ -26,9 +26,16 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#filter_category_by_practice_ids' do
     category = categories(:category4)
     practice_ids = category.practice_ids[0..3] << 0
-    filterd_category, left_ids  =  @user_course_practice.filter_category_by_practice_ids(category, practice_ids)
+    filterd_category, left_ids = @user_course_practice.filter_category_by_practice_ids(category, practice_ids)
 
-    assert_equal filterd_category.practices.size , 4
-    assert_equal left_ids , [0]
+    assert_equal filterd_category.practices.size, 4
+    assert_equal left_ids, [0]
+  end
+
+  test '#sorted_practices' do
+    user = users(:kensyu)
+    practices = user.course.practices.reverse
+    orderd_practices = @user_course_practice.sorted_practices
+    assert_equal orderd_practices.last.id, practices.first.id
   end
 end
