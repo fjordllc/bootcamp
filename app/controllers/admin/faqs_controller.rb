@@ -41,7 +41,7 @@ class Admin::FaqsController < AdminController
   private
 
   def faq_params
-    params.require(:faq).permit(:answer, :question, :faqs_category_id)
+    params.require(:faq).permit(:answer, :question, :faq_category_id)
   end
 
   def set_faq

@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     handle: '.js-grab',
     onEnd(event) {
       const id = event.item.dataset.faq_id
-      const params = { insert_at: event.newIndex + 1 }
+      const category_id = event.item.dataset.faq_category_id
+      const params = { insert_at: event.newIndex + 1, faq_category_id: category_id }
       const url = `/api/admin/faqs/${id}`
 
       Bootcamp.patch(url, params).catch((error) => {
