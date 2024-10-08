@@ -1,0 +1,22 @@
+.side-filter
+  position: sticky
+  top: 4rem
+  +media-breakpoint-down(md)
+    display: none
+
+.side-filter__item-link
+  display: flex
+  padding: .75rem
+  +text-block(.875rem 1.4)
+  overflow: hidden
+  text-decoration: none
+  transition: all .2s ease-out
+  .side-filter__item:not(:last-child) &
+    border-bottom: solid 1px var(--border-tint)
+  &:hover
+    background-color: var(--primary-tint)
+  &.is-active
+    background-color: var(--primary-semi-tint)
+    pointer-events: none
+    text-decoration: none
+    color: var(--primary-text)
