@@ -115,7 +115,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     find 'h2', text: 'コメント'
     find 'div.container > div.user-icons > ul.user-icons__items', visible: :all
     accept_confirm do
-      click_link '削除'
+      find('.card-main-actions__muted-action', text: '削除').click
     end
     assert_text '定期イベントを削除しました。'
   end
