@@ -43,20 +43,19 @@
                 .row.is-gutter-width-32
                   .col-lg-4.col-xs-12
                     = render '/welcome/faqs/faqs_mobile_filter'
-                    .mb-4
-                      = render '/welcome/faqs/faqs_pc_filter'
+                    = render '/welcome/faqs/faqs_pc_filter'
                   .col-xl-8.col-lg-8.col-xs-12
                     .lp-content-stack
                       .lp-content-stack__item.is-hidden-md-down
                         - if params[:category].present?
-                          h2.lp-content-sub-title.text-center
+                          h2.lp-content-sub-title.text-center.is-sm
                             | FAQ
                             span.ml-4
                               | 「#{t("faq.#{params[:category]}")}」
                         - else
-                          h2.lp-content-sub-title.text-center
+                          h2.lp-content-sub-title.text-center.is-sm
                             | 全てのFAQ
                       .lp-content-stack__item
-                        .lp-faqs__items
+                        .lp-faqs__items.mx-auto
                           - @faqs.each do |faq|
                             = render '/welcome/faqs/faqs_item', faq: faq
