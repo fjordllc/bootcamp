@@ -38,4 +38,8 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     orderd_practices = @user_course_practice.sorted_practices
     assert_equal orderd_practices.last.id, practices.first.id
   end
+
+  test '#skipped_practice_ids' do
+    assert_includes(@user_course_practice.skipped_practice_ids, practices(:practice8).id)
+  end
 end
