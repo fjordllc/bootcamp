@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "tags", to: "tags#index"
     resources :companies, only: %i(index)
     resources :areas, only: %i(index)
+    get "areas/:area", to: "areas#show", as: :area
   end
 
   resources :users, only: %i(index show new create) do

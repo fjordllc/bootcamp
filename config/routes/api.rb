@@ -33,7 +33,6 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
     namespace :users do
-      resources :areas, only: %i(index)
       resources :companies, only: %i(index)
     end
     resources :users, only: %i(index show update)

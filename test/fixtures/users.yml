@@ -62,6 +62,8 @@ machida:
   profile_name: "町田 哲平"
   profile_job: "デザイナー"
   profile_text: "株式会社ロッカのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
+  country_code: JP
+  subdivision_code: '13'
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -87,6 +89,9 @@ adminonly: # adminのroleだけを持ったユーザー
   created_at: "2021-02-01 00:00:30"
   last_activity_at: "2021-02-01 00:00:30"
   sent_student_followup_message: true
+  country_code: JP
+  subdivision_code: '13'
+
 
 sotugyou_with_job:
   login_name: sotugyou-with-job

@@ -730,4 +730,20 @@ class UserTest < ActiveSupport::TestCase
   test '.users_job returns all users when invalid job is passed' do
     assert_equal User.all, User.users_job('destroy_all')
   end
+
+  test '#area' do
+    tokyo_user = users(:machida)
+    america_user = users(:tom)
+    no_area_user = users(:komagata)
+    assert_equal tokyo_user.area, '東京都'
+    assert_equal america_user.area, '米国'
+    assert_equal no_area_user.area, nil
+  end
+
+  test '.by_area' do
+    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
+    assert_equal User.by_area('東京都').to_a.sort, tokyo_users.sort
+    america_users = [users(:neverlogin), users(:tom)]
+    assert_equal User.by_area('米国').to_a.sort, america_users.sort
+  end
 end

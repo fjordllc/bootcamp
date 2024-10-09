@@ -22,8 +22,7 @@ main.page-main
     .container.is-lg
       - if @tags.present?
         = paginate @tags
-        .a-card
-          = render partial: 'tags/tag', collection: @tags, as: :tag
+        = render partial: 'tags/tag', collection: @tags, as: :tag
         = paginate @tags
       - else
         .o-empty-message
