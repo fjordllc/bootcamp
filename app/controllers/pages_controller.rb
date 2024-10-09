@@ -41,6 +41,7 @@ class PagesController < ApplicationController
     @page.last_updated_user = current_user
     @page.user ||= current_user
     set_wip
+    is_published = @page.published_at?
     if @page.save
       url = Redirection.determin_url(self, @page)
       if !@page.wip?
@@ -50,7 +51,7 @@ class PagesController < ApplicationController
 
       become_watcher!(@page, [current_user, @page.user])
 
-      redirect_to url, notice: notice_message(@page, :create)
+      redirect_to url, notice: notice_message(@page, is_published)
     else
       render :new
     end
@@ -59,6 +60,7 @@ class PagesController < ApplicationController
   def update
     set_wip
     @page.last_updated_user = current_user
+    is_published = @page.published_at?
     if @page.update(page_params)
       url = Redirection.determin_url(self, @page)
       if @page.saved_change_to_attribute?(:wip, from: true, to: false) && @page.published_at.nil?
@@ -68,7 +70,7 @@ class PagesController < ApplicationController
 
       become_watcher!(@page, [current_user, @page.user])
 
-      redirect_to url, notice: notice_message(@page, :update)
+      redirect_to url, notice: notice_message(@page, is_published)
     else
       render :edit
     end
@@ -95,14 +97,13 @@ class PagesController < ApplicationController
     @page.wip = params[:commit] == 'WIP'
   end
 
-  def notice_message(page, action_name)
+  def notice_message(page, is_published)
     return 'ドキュメントをWIPとして保存しました。' if page.wip?
 
-    case action_name
-    when :create
-      'ドキュメントを作成しました。'
-    when :update
+    if is_published
       'ドキュメントを更新しました。'
+    else
+      'ドキュメントを作成しました。'
     end
   end
 

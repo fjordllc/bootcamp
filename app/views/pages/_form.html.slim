@@ -75,10 +75,9 @@
                 i.fa-solid.fa-question
 
         = button_tag(class: 'a-button is-lg is-primary is-block') do
-          - case params[:action]
-          - when 'new', 'create'
+          - if page.published_at.blank?
             | Docを公開
-          - when 'edit', 'update'
+          - else
             | 内容を更新
       li.form-actions__item.is-sub
         - case params[:action]
