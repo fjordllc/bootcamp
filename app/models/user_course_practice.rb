@@ -36,9 +36,9 @@ class UserCoursePractice
     @user.course.practices.order('courses_categories.position', 'categories_practices.position')
   end
 
-  # def practice_ids_skipped
-  #   skipped_practices.pluck(:practice_id)
-  # end
+  def skipped_practice_ids
+    @user.skipped_practices.pluck(:practice_id)
+  end
 
   # def completed_percentage
   #   completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
