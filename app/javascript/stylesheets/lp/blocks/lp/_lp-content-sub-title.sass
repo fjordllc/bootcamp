@@ -12,3 +12,11 @@
     +text-block(1.375rem 1.4, 800)
     &.is-course-name
       font-size: .875rem
+  &.is-sm
+    color: var(--main)
+    +media-breakpoint-up(lg)
+      +text-block(1.5rem 1.4, 800)
+    +media-breakpoint-only(md)
+      +text-block(1.25rem 1.4, 800)
+    +media-breakpoint-down(sm)
+      +text-block(1.125rem 1.4, 800)
