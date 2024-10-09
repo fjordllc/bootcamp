@@ -1,6 +1,10 @@
 .side-filter
   position: sticky
   top: 4rem
+  max-width: 14rem
+  margin: 0
+  .a-card
+    overflow: hidden
   +media-breakpoint-down(md)
     display: none
 
@@ -16,7 +20,7 @@
   &:hover
     background-color: var(--primary-tint)
   &.is-active
-    background-color: var(--primary-semi-tint)
+    background-color: var(--main)
     pointer-events: none
     text-decoration: none
-    color: var(--primary-text)
+    color: var(--reversal-text)
