@@ -770,9 +770,9 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
+    t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
-    t.boolean "invoice_payment", default: false, null: false
     t.boolean "hide_mentor_profile", default: false, null: false
     t.integer "experiences", default: 0, null: false
     t.index ["course_id"], name: "index_users_on_course_id"

@@ -17,4 +17,4 @@ header.page-header
 = company_page_tabs(@company, active_tab: '提出物')
 
 .page-body
-  #js-company-products(company-id="#{@company.id}" data-title="#{title}" data-mentor-login="#{mentor_login?}" data-current-user-id="#{current_user.id}")
+  = render 'company-products', data_title: title, products: @products, commented_users: @commented_users
