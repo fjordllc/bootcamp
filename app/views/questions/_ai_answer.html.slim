@@ -1,4 +1,3 @@
-<template lang="pug">
 .thread-comments.is-only-mentor
   header.thread-comments__header
     h2.thread-comments__title
@@ -19,21 +18,5 @@
       .thread-comment__end
         .a-card.is-answer
           .thread-comment__description
-            .a-long-text.is-md(v-html='markdownDescription')
-</template>
-<script>
-import MarkdownInitializer from 'markdown-initializer'
-
-export default {
-  name: 'AIAnswer',
-  props: {
-    text: { type: String, required: true }
-  },
-  computed: {
-    markdownDescription() {
-      const markdownInitializer = new MarkdownInitializer()
-      return markdownInitializer.render(this.text)
-    }
-  }
-}
-</script>
+            .a-long-text.is-md.js-markdown-view
+              = question.ai_answer
