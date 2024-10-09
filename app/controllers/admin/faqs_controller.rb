@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-class Admin::FAQController < AdminController
+class Admin::FaqsController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[edit new update create]
+
   def index
-    @faqs = FAQ.all
+    @faqs = FAQ.all.order(:created_at)
   end
 
   def new
@@ -21,12 +23,11 @@ class Admin::FAQController < AdminController
   end
 
   def show; end
-
   def edit; end
 
   def update
     if @faq.update(faq_params)
-      redirect_to admin_faq_path(@faq), notice: 'FAQを更新しました。'
+      redirect_to admin_faqs_path, notice: 'FAQを更新しました。'
     else
       render 'edit'
     end
@@ -40,10 +41,14 @@ class Admin::FAQController < AdminController
   private
 
   def faq_params
-    params.require(:faq).permit(:answer, :question)
+    params.require(:faq).permit(:answer, :question, :faq_category_id)
   end
 
   def set_faq
     @faq = FAQ.find(params[:id])
+  end
+
+  def set_category
+    @category = %i[study_content study_environment fee find_job join withdrawal_hibernation_graduation corporate_use]
   end
 end
