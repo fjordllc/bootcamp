@@ -98,6 +98,16 @@ class UserTest < ActiveSupport::TestCase
     assert_equal old_percentage, user.completed_percentage
   end
 
+  test '#required_practices_size' do
+    user = users(:kensyu)
+    assert_equal 50, user.required_practices_size
+  end
+
+  test '#practice_ids_skipped' do
+    user = users(:kensyu)
+    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
+  end
+
   test '#depressed?' do
     user = users(:kimura)
 
@@ -324,6 +334,13 @@ class UserTest < ActiveSupport::TestCase
     kimura = users(:kimura)
     category2 = categories(:category2)
     assert_equal 1, kimura.completed_practices_size_by_category[category2.id]
+  end
+
+  test '#completed_required_practices_size' do
+    user = users(:kensyu)
+    user.completed_practices << practices(:practice5)
+    user.completed_practices << practices(:practice61)
+    assert_equal 1, user.completed_required_practices_size
   end
 
   test "don't unfollow user when other user unfollow user" do
