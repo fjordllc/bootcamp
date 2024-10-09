@@ -9,7 +9,7 @@
         th.admin-table__label 並び順
     tbody.admin-table__items#js-faq-sortable
       - faqs.each do |faq|
-        tr.admin-table__item(data-faq_id="#{faq.id}" id="#{faq.id}" data-faq_category_id="#{faq.faq_category_id}")
+        tr.admin-table__item(data-faq-id="#{faq.id}" id="#{faq.id}" data-faq-category-id="#{faq.faq_category_id}")
           td.admin-table__item-value
             = format_question(faq.question)
           td.admin-table__item-value

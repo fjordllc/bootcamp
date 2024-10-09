@@ -307,7 +307,7 @@ ja:
       faq:
         question: 質問
         answer: 回答
-        faqs_category: カテゴリー
+        faq_category: カテゴリー
     enums:
       user:
         job:
