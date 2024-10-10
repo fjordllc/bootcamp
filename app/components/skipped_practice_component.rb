@@ -5,6 +5,7 @@ class SkippedPracticeComponent < ViewComponent::Base
     @f = form
     @user = user
     @user_course_practice = UserCoursePractice.new(user)
+    @uniq_practice_ids = @user_course_practice.uniq_practice_ids
   end
 
   def skipped_practices_count(category)
