@@ -19,6 +19,7 @@ module PageTabs
     def users_page_tabs(active_tab:)
       tabs = []
       tabs << { name: '全て', link: users_path }
+      tabs << { name: 'コース別', link: users_courses_path }
       tabs << { name: '期生別', link: generations_path }
       tabs << { name: 'タグ別', link: users_tags_path }
       tabs << { name: 'フォロー中', link: users_path(target: 'followings') }

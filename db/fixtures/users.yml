@@ -1420,3 +1420,83 @@ harikirio: #必修でないプラクティスも修了しているユーザー
   created_at: "2020-01-01 00:00:12"
   sent_student_followup_message: true
   last_activity_at: "2020-01-01 00:00:12"
+
+rails-course:
+  login_name: rails-course
+  email: rails-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Railsエンジニアコースのユーザー
+  name_kana: Railsエンジニアコースノユーザー
+  twitter_account: rails-course
+  facebook_url: https://www.facebook.com/fjordllc/rails-course
+  blog_url: http://rails-course.org
+  feed_url: https://example4.com/feed
+  description: "Railsエンジニアコースを受講中のユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  organization: Rails大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
+
+front-end-course:
+  login_name: front-end-course
+  email: front-end@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: フロントエンドエンジニアコースのユーザー
+  name_kana: フロントエンドエンジニアコースノユーザー
+  twitter_account: front-end
+  facebook_url: https://www.facebook.com/fjordllc/front-end
+  blog_url: http://front-end.org
+  feed_url: https://example4.com/feed
+  description: "フロントエンドエンジニアコースを受講中のユーザーです。"
+  course: course4
+  job: office_worker
+  os: mac
+  organization: フロントエンド大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
+
+unity-course:
+  login_name: unity-course
+  email: unity-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Unityゲームエンジニアコースのユーザー
+  name_kana: Unityゲームエンジニアコースノユーザー
+  twitter_account: unity
+  facebook_url: https://www.facebook.com/fjordllc/unity
+  blog_url: http://unity.org
+  feed_url: https://example4.com/feed
+  description: "Unityゲームエンジニアコースを受講中のユーザーです。"
+  course: course2
+  job: office_worker
+  os: mac
+  organization: Unity大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
+
+ios-course:
+  login_name: ios-course
+  email: ios-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: iOSエンジニアコースのユーザー
+  name_kana: iOSエンジニアコースノユーザー
+  twitter_account: ios
+  facebook_url: https://www.facebook.com/fjordllc/ios
+  blog_url: http://ios.org
+  feed_url: https://example4.com/feed
+  description: "iOSエンジニアコースを受講中のユーザーです。"
+  course: course3
+  job: office_worker
+  os: mac
+  organization: iOS大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
