@@ -22,14 +22,14 @@ class UserCoursePractice
     [copy_category, practice_ids]
   end
 
-  def categories_with_uniq_practices
-    user_categories_with_uniq_practices = []
+  def categories_for_skip_practice
+    filterd_categories = []
     practice_ids = uniq_practice_ids
     @user.course.categories.each do |category|
       copy_category, practice_ids = filter_category_by_practice_ids(category, practice_ids)
-      user_categories_with_uniq_practices << copy_category
+      filterd_categories << copy_category
     end
-    user_categories_with_uniq_practices
+    filterd_categories
   end
 
   def sorted_practices
