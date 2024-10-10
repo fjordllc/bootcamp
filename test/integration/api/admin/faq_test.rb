@@ -5,7 +5,7 @@ require 'test_helper'
 class API::Admin::FAQTest < ActionDispatch::IntegrationTest
   test 'PATCH /api/admin/faqs/:id' do
     target = faqs(:faq1)
-    faq_category = faq_categories(:category2)
+    faq_category = faq_categories(:faq_categories2)
 
     invalid_token = create_token('hatsuno', 'testtest')
     patch api_admin_faq_path(target),
