@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   Sortable.create(element, {
     handle: '.js-grab',
     onEnd(event) {
-      const id = event.item.dataset.faq_id
-      const category_id = event.item.dataset.faq_category_id
+      const id = event.item.dataset.faqId
+      const categoryId = event.item.dataset.faqCategoryId
       const params = {
         insert_at: event.newIndex + 1,
-        faq_category_id: category_id
+        faq_category_id: categoryId
       }
       const url = `/api/admin/faqs/${id}`
 
