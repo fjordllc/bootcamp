@@ -3,18 +3,17 @@ import Bootcamp from 'bootcamp'
 
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.querySelector('#js-faq-sortable')
-  if (!element) return;  // 不要な return null を削除
+  if (!element) return
 
   Sortable.create(element, {
     handle: '.js-grab',
     onEnd(event) {
-      const id = event.item.dataset.faqId;
-      const categoryId = event.item.dataset.faqCategoryId;
+      const id = event.item.dataset.faqId
+      const categoryId = event.item.dataset.faqCategoryId
 
-      // id や categoryId が存在することを確認
       if (!id || !categoryId) {
-        console.warn("Missing required data attributes: faqId or faqCategoryId");
-        return;
+        console.warn('Missing required data attributes: faqId or faqCategoryId')
+        return
       }
 
       const params = {
@@ -22,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
         faq_category_id: categoryId
       }
 
-      const url = `/api/admin/faqs/${id}`;
+      const url = `/api/admin/faqs/${id}`
 
       Bootcamp.patch(url, params).catch((error) => {
-        console.error("Error while updating FAQ order:", error);
-      });
+        console.error('Error while updating FAQ order:', error)
+      })
     }
-  });
-});
+  })
+})
