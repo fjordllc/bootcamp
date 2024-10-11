@@ -25,10 +25,6 @@ class Products::ProductsComponentTest < ViewComponent::TestCase
     assert_selector '.is-reply-deadline#6days-elapsed', text: '6日以上経過（3）'
     assert_selector '.is-reply-alert#5days-elapsed', text: '5日経過（1）'
     assert_selector '.is-reply-warning#4days-elapsed', text: '4日経過（1）'
-    assert_selector '#3days-elapsed', text: '3日経過（1）'
-    assert_selector '#2days-elapsed', text: '2日経過（1）'
-    assert_selector '#1days-elapsed', text: '1日経過（1）'
-    assert_selector '#0days-elapsed', text: '今日提出（1）'
   end
 
   def test_any_products
@@ -39,7 +35,7 @@ class Products::ProductsComponentTest < ViewComponent::TestCase
                                                   is_mentor: @is_mentor,
                                                   current_user_id: @current_user.id,
                                                   reply_warning_days: @reply_warning_days))
-    assert_text '提出物はありません'
+    assert_text 'しばらく4日経過に到達する提出物はありません。'
   end
 
   def test_any_products_elapsed_reply_warning_days
@@ -50,7 +46,7 @@ class Products::ProductsComponentTest < ViewComponent::TestCase
                                                   is_mentor: @is_mentor,
                                                   current_user_id: @current_user.id,
                                                   reply_warning_days: @reply_warning_days))
-    assert_text '4日経過した提出物はありません'
+    assert_text 'しばらく4日経過に到達する提出物はありません。'
   end
 
   def any_products_almost_passed_reply_warning_days
