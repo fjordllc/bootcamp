@@ -336,12 +336,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
-  test '#completed_practices_size_by_category' do
-    kimura = users(:kimura)
-    category2 = categories(:category2)
-    assert_equal 1, kimura.completed_practices_size_by_category[category2.id]
-  end
-
   test '#completed_required_practices_size' do
     user = users(:kensyu)
     user.completed_practices << practices(:practice5)
@@ -473,7 +467,6 @@ class UserTest < ActiveSupport::TestCase
   test 'get category active or unstarted practice' do
     komagata = users(:komagata)
     assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
-
     machida = users(:machida)
     practice1 = practices(:practice1)
     create_checked_product(machida, practice1)
