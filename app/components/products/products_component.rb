@@ -12,8 +12,7 @@ class Products::ProductsComponent < ViewComponent::Base
   end
 
   def any_products_elapsed_reply_warning_days?
-    elapsed_days = @products_grouped_by_elapsed_days.keys
-    elapsed_days.all? { |day| day < @reply_warning_days }
+    @filtered_products_grouped_by_elapsed_days.any?
   end
 
   def count_products_grouped_by(products_n_days_passed)
@@ -53,6 +52,14 @@ class Products::ProductsComponent < ViewComponent::Base
     return 0 unless products_passed_one_day_before_reply_warning_days
 
     passed_almost_reply_warning_days_products(products_passed_one_day_before_reply_warning_days).length
+  end
+
+  def filtered_products_grouped_by_elapsed_days
+    return [] unless @products_grouped_by_elapsed_days
+
+    @products_grouped_by_elapsed_days.select do |elapsed_days|
+      [@reply_warning_days, @reply_alert_days, @reply_deadline_days].include?(elapsed_days)
+    end
   end
 
   private
