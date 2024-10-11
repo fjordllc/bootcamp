@@ -53,18 +53,18 @@ class UserCoursePractice
   #                             .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
   # end
 
-  # def completed_practices_size_by_category
-  #   Practice
-  #     .joins({ categories: :categories_practices }, :learnings)
-  #     .where(
-  #       learnings: {
-  #         user_id: id,
-  #         status: 'complete'
-  #       }
-  #     )
-  #     .group('categories_practices.category_id')
-  #     .count('DISTINCT practices.id')
-  # end
+  def completed_practices_size_by_category
+    Practice
+      .joins({ categories: :categories_practices }, :learnings)
+      .where(
+        learnings: {
+          user_id: user.id,
+          status: 'complete'
+        }
+      )
+      .group('categories_practices.category_id')
+      .count('DISTINCT practices.id')
+  end
 
   # private
 
