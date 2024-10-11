@@ -39,4 +39,4 @@ header.page-header
 = courses_page_tabs(@course, active_tab: 'プラクティス')
 .page-body.js-users-visibility
   .container.is-xl
-    = render 'courses_practices', course_id: @course.id, categories: @categories, learnings: @learnings
+    = render 'courses_practices', course_id: @course.id, categories: @categories, learnings: @learnings, completed_practices_size: @completed_practices_size_by_category
