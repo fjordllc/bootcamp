@@ -8,7 +8,7 @@
             header.categories-item__header
               h2.categories-item__title
                 = category.name
-                - if category.practices.size == current_user.completed_practices_size_by_category[category.id]
+                - if category.practices.size == completed_practices_size[category.id]
                   span.stamp.is-circle.is-solved 修了
             .categories-item__description
               - if current_user.mentor
