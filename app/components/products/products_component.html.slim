@@ -1,41 +1,26 @@
 .products
-  - if @products.empty?
-    .o-empty-message
-      .o-empty-message__icon
-        i.fa-regular.fa-smile
-      p.o-empty-message__text
-        | 提出物はありません
-  - elsif any_products_elapsed_reply_warning_days?
-    .o-empty-message
-      .o-empty-message__icon
-        i.fa-regular.fa-smile
-      p.o-empty-message__text
-        | #{@reply_warning_days}日経過した提出物はありません
-  - else
-    - @products_grouped_by_elapsed_days.each do |elapsed_days, products|
-      .a-card.h-auto
-        header.card-header.a-elapsed-days class=elapsed_days_class(elapsed_days) id=elapsed_days_id(elapsed_days)
-          h2.card-header__title
-            = elapsed_days_text(elapsed_days)
-            span.card-header__count
-              | （#{count_products_grouped_by(products)}）
-        .card-list
-          .card-list__items
-            - products.each do |product|
-              = render(Products::ProductComponent.new(product:,
-                                                      is_mentor: @is_mentor,
-                                                      current_user_id: @current_user_id))
-    .under-cards
-      .under-cards__links.mt-4.text-center.leading-normal.text-sm
-        - if count_almost_passed_reply_warning_days == 0
-          a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link.hover:bg-black href="/products/unassigned##{@reply_warning_days}days-elapsed"
-            | しばらく#{@reply_warning_days}日経過に到達する
-            br
-            | 提出物はありません。
-        - else
-          a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link.hover:bg-black href="/products/unassigned##{@reply_warning_days}days-elapsed"
-            strong = count_almost_passed_reply_warning_days
-            | 件の提出物が、
-            br
-            | 8時間以内に#{@reply_warning_days}日経過に到達します。
-
+  - filtered_products_grouped_by_elapsed_days.each do |elapsed_days, products|
+    .a-card.h-auto
+      header.card-header.a-elapsed-days class=elapsed_days_class(elapsed_days) id=elapsed_days_id(elapsed_days)
+        h2.card-header__title
+          = elapsed_days_text(elapsed_days)
+          span.card-header__count
+            | （#{count_products_grouped_by(products)}）
+      .card-list
+        .card-list__items
+          - products.each do |product|
+            = render(Products::ProductComponent.new(product:,
+                                                    is_mentor: @is_mentor,
+                                                    current_user_id: @current_user_id))
+.under-cards
+  .under-cards__links.mt-4.text-center.leading-normal.text-sm
+    a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link.hover:bg-black href="/products/unassigned##{@reply_warning_days - 1}days-elapsed"
+      - if count_almost_passed_reply_warning_days > 0
+        strong = count_almost_passed_reply_warning_days
+        | 件の提出物が、
+        br
+        | 8時間以内に#{@reply_warning_days}日経過に到達します。
+      - else
+        | しばらく#{@reply_warning_days}日経過に到達する
+        br
+        | 提出物はありません。
