@@ -540,19 +540,6 @@ class User < ApplicationRecord
     practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
   end
 
-  def completed_practices_size_by_category
-    Practice
-      .joins({ categories: :categories_practices }, :learnings)
-      .where(
-        learnings: {
-          user_id: id,
-          status: 'complete'
-        }
-      )
-      .group('categories_practices.category_id')
-      .count('DISTINCT practices.id')
-  end
-
   def completed_required_practices_size
     practices_include_progress.joins(:learnings)
                               .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
