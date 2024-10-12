@@ -747,10 +747,6 @@ class User < ApplicationRecord
     end
   end
 
-  def practices
-    course.practices.order('courses_categories.position', 'categories_practices.position')
-  end
-
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
@@ -900,10 +896,10 @@ class User < ApplicationRecord
   end
 
   def unstarted_practices
-    @unstarted_practices ||= practices -
-                             practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
+    @unstarted_practices ||= course.practices -
+                             course.practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
+                                   .or(course.practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
+                                   .or(course.practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
   end
 
   def category_having_active_practice
