@@ -6,6 +6,8 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   setup do
     @user_course_practice_kensyu = UserCoursePractice.new(users(:kensyu))
     @user_course_practice_kimura = UserCoursePractice.new(users(:kimura))
+    @user_course_practice_komagata = UserCoursePractice.new(users(:komagata))
+    @user_course_practice_machida = UserCoursePractice.new(users(:machida))
   end
 
   test '#categories_for_skip_practices' do
@@ -47,5 +49,18 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#completed_practices_size_by_category' do
     category2 = categories(:category2)
     assert_equal 1, @user_course_practice_kimura.completed_practices_size_by_category[category2.id]
+  end
+
+  test 'get category active or unstarted practice' do
+    komagata = @user_course_practice_komagata
+    assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
+    machida = @user_course_practice_machida
+    practice1 = practices(:practice1)
+    Learning.create!(
+      user: users(:machida),
+      practice: practice1,
+      status: :complete
+    )
+    assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
   end
 end
