@@ -65,8 +65,8 @@ class Notification::PagesTest < ApplicationSystemTestCase
     visit_with_auth page_path(page), 'komagata'
 
     click_link '内容変更'
-    click_button '内容を更新'
-    assert_text 'ドキュメントを更新しました。'
+    click_button 'Docを公開'
+    assert_text 'ドキュメントを作成しました。'
 
     visit_with_auth '/notifications', 'machida'
 
