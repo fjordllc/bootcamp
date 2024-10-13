@@ -40,6 +40,14 @@ class UserCoursePractice
     @user.skipped_practices.pluck(:practice_id)
   end
 
+  def category_active_or_unstarted_practice
+    if @user.active_practices.present?
+      category_having_active_practice
+    elsif unstarted_practices.present?
+      category_having_unstarted_practice
+    end
+  end
+
   # def completed_percentage
   #   completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
   # end
@@ -66,7 +74,7 @@ class UserCoursePractice
       .count('DISTINCT practices.id')
   end
 
-  # private
+  private
 
   # def practices_include_progress
   #   course.practices.where(include_progress: true)
@@ -75,4 +83,20 @@ class UserCoursePractice
   # def required_practices_size_with_skip
   #   course.practices.where(id: practice_ids_skipped, include_progress: true).size
   # end
+
+  def unstarted_practices
+    practices = @user.course.practices
+    @unstarted_practices ||= practices -
+                             practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :started })
+                                      .or(practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :submitted }))
+                                      .or(practices.joins(:learnings).where(learnings: { user_id: @user.id, status: :complete }))
+  end
+
+  def category_having_active_practice
+    @user.active_practices&.first&.categories&.first
+  end
+
+  def category_having_unstarted_practice
+    unstarted_practices&.first&.categories&.first
+  end
 end
