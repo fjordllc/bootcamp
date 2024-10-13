@@ -740,14 +740,6 @@ class User < ApplicationRecord
     update!(mentor_memo: new_memo)
   end
 
-  def category_active_or_unstarted_practice
-    if active_practices.present?
-      category_having_active_practice
-    elsif unstarted_practices.present?
-      category_having_unstarted_practice
-    end
-  end
-
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
     target_notifications ||= notifications
     target_notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
@@ -863,21 +855,6 @@ class User < ApplicationRecord
 
   def practices_include_progress
     course.practices.where(include_progress: true)
-  end
-
-  def unstarted_practices
-    @unstarted_practices ||= course.practices -
-                             course.practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-                                   .or(course.practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-                                   .or(course.practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
-  end
-
-  def category_having_active_practice
-    active_practices&.first&.categories&.first
-  end
-
-  def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
   end
 
   def required_practices_size_with_skip
