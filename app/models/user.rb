@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
+  attr_accessor :credit_card_payment, :role
+
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
@@ -27,7 +29,9 @@ class User < ApplicationRecord
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
-    [I18n.t('invitation_role.trainee'), :trainee],
+    [I18n.t('invitation_role.trainee', payment_method: '請求書払い'), :trainee_invoice_payment],
+    [I18n.t('invitation_role.trainee', payment_method: 'クレジットカード払い'), :trainee_credit_card_payment],
+    [I18n.t('invitation_role.trainee', payment_method: '支払い方法を選択'), :trainee_select_a_payment_method],
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
@@ -181,6 +185,10 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
+  validates :invoice_payment, inclusion: { in: [true],
+                                           message: 'か「クレジットカード払い」のいずれかを選択してください。' },
+                              if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
 
   validates :feed_url,
             format: {

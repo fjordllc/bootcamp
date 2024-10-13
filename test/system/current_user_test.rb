@@ -215,14 +215,6 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_not users(:komagata).reload.auto_retire
   end
 
-  test 'update admin user\'s invoice_payment' do
-    visit_with_auth '/current_user/edit', 'komagata'
-    check '請求書払いのユーザーである', allow_label_click: true
-    click_on '更新する'
-
-    assert users(:komagata).reload.invoice_payment
-  end
-
   test 'update admin user\'s mentor' do
     visit_with_auth '/current_user/edit', 'komagata'
     uncheck 'メンター', allow_label_click: true
