@@ -754,14 +754,6 @@ class User < ApplicationRecord
     update!(mentor_memo: new_memo)
   end
 
-  def category_active_or_unstarted_practice
-    if active_practices.present?
-      category_having_active_practice
-    elsif unstarted_practices.present?
-      category_having_unstarted_practice
-    end
-  end
-
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
     target_notifications ||= notifications
     target_notifications.update_all(read: true, updated_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
