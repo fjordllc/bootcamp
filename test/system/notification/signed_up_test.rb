@@ -75,7 +75,7 @@ class Notification::SignedUpTest < ApplicationSystemTestCase
   end
 
   test 'notify mentors when signed up as trainee' do
-    visit '/users/new?role=trainee'
+    visit '/users/new?role=trainee_invoice_payment'
 
     email = 'natsumi@example.com'
 

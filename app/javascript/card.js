@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return null
   }
 
+  const selectableCreditCardCheckBox = document.querySelector(
+    '.selectable-credit-card-box'
+  )
+
+  const checkedCreditCardCheckBox = document.querySelector(
+    '.checked-credit-card-box'
+  )
+
+  const userRole = document.querySelector('.user-role')
+
   // Create a Stripe client.
   const stripe = window.Stripe(window.stripePublicKey)
 
@@ -35,13 +45,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create an instance of the card Element.
   const card = elements.create('card', { style: style, hidePostalCode: true })
 
-  // Add an instance of the card Element into the `card-element` <div>.
-  card.mount('#card-element')
+  if (!userRole || checkedCreditCardCheckBox) {
+    card.mount('#card-element')
+  }
+
+  selectableCreditCardCheckBox?.addEventListener('change', (event) => {
+    if (event.currentTarget.checked) {
+      // Add an instance of the card Element into the `card-element` <div>.
+      card.mount('#card-element')
+    }
+  })
 
   const submitButton = document.getElementById('user_submit')
 
   // Handle real-time validation errors from the card Element.
-  card.addEventListener('change', function (event) {
+  card.addEventListener('change', (event) => {
     const displayError = document.getElementById('card-errors')
     submitButton.disabled = false
     if (event.error) {
@@ -53,19 +71,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle form submission.
   const form = document.getElementById('payment-form')
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    stripe.createToken(card).then(function (result) {
-      if (result.error) {
-        // Inform the user if there was an error.
-        const errorElement = document.getElementById('card-errors')
-        errorElement.textContent = result.error.message
-      } else {
-        // Send the token to your server.
-        stripeTokenHandler(result.token)
-      }
-    })
+    const selectableCreditCardCheckBox = document.querySelector(
+      '.selectable-credit-card-box'
+    )
+
+    const checkedCreditCardCheckBox = document.querySelector(
+      '.checked-credit-card-box'
+    )
+
+    if (
+      selectableCreditCardCheckBox?.checked ||
+      checkedCreditCardCheckBox ||
+      !userRole
+    ) {
+      stripe.createToken(card).then((result) => {
+        if (result.error) {
+          // Inform the user if there was an error.
+          const errorElement = document.getElementById('card-errors')
+          errorElement.textContent = result.error.message
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token)
+        }
+      })
+    } else {
+      form.submit()
+    }
   })
 
   // Submit the form with the token ID.
