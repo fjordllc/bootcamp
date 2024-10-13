@@ -2,6 +2,8 @@
 
 class Admin::CompaniesController < AdminController
   before_action :set_company, only: %i[edit update]
+  skip_before_action :require_admin_login, only: %i[edit update]
+  before_action :require_admin_or_adviser_login, only: %i[edit update]
 
   def index; end
 
