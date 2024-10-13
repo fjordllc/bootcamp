@@ -12,6 +12,6 @@
           | 修了しています
     - else
       li.card-main-actions__item
-        = button_tag type: 'button', class: 'a-button is-sm is-warning is-block', id: 'js-complete', data: { practice_id: @practice.id }, onclick: "document.getElementById('modal-learning_completion').checked = true;" do
+        = button_tag type: 'button', class: 'a-button is-sm is-warning is-block', id: 'js-complete', data: { practice_id: @practice.id } do
           i.fa-solid.fa-check
           | 修了
