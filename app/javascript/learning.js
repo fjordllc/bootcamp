@@ -1,16 +1,6 @@
-import Vue from 'vue'
-import Learning from 'learning.vue'
 import CSRF from 'csrf'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const learning = document.getElementById('js-learning')
-  if (learning) {
-    const practiceId = learning.getAttribute('data-practice-id')
-    new Vue({
-      render: (h) => h(Learning, { props: { practiceId: practiceId } })
-    }).$mount('#js-learning')
-  }
-
   const completeButton = document.getElementById('js-complete')
   if (completeButton) {
     completeButton.addEventListener('click', function () {
