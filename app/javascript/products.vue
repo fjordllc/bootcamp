@@ -3,21 +3,9 @@
   div
     loadingListPlaceholder
 
-.o-empty-message(v-else-if='products.length === 0')
-  .o-empty-message__icon
-    i.fa-regular.fa-smile
-  p.o-empty-message__text
-    | {{ title }}はありません
-
-.o-empty-message(v-else-if='isDashboard && isNotProductSelectedDaysElapsed')
-  .o-empty-message__icon
-    i.fa-regular.fa-smile
-  p.o-empty-message__text
-    | {{ selectedDays }}日経過した提出物はありません
-
 //- ダッシュボード
 .is-vue(v-else-if='isDashboard')
-  template(v-for='product_n_days_passed in productsGroupedByElapsedDays') <!-- product_n_days_passedはn日経過の提出物 -->
+  template(v-for='product_n_days_passed in filteredProducts') <!-- product_n_days_passedはn日経過の提出物 -->
     .a-card.h-auto(
       v-if='!isDashboard || (isDashboard && product_n_days_passed.elapsed_days >= 0 && product_n_days_passed.elapsed_days <= selectedDays + 2)')
       //- TODO 以下を共通化する
@@ -29,7 +17,7 @@
           | 今日提出
           span.card-header__count
             | （{{ countProductsGroupedBy(product_n_days_passed) }}）
-      //- prettier-ignore: need space between v-else-if and id
+      //- prettier-ignore: need space between v-else-if and id            
       header.card-header.a-elapsed-days.is-reply-warning(
         v-else-if='product_n_days_passed.elapsed_days === selectedDays', id='first-alert'
       )
@@ -75,14 +63,19 @@
     .under-cards__links.mt-4.text-center.leading-normal.text-sm
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
-        v-if='countAlmostPassedSelectedDays() === 0')
+        v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
+        v-if='filteredProducts.length === 0 && countAlmostPassedSelectedDays() === 0')
         | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
       a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
         class='hover\:bg-black',
-        v-bind:href='`/products/unassigned#${selectedDays}days-elapsed`',
-        v-else)
+        v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
+        v-else-if='countAlmostPassedSelectedDays() > 0')
         | <strong>{{ countAlmostPassedSelectedDays() }}件</strong>の提出物が、<br>8時間以内に{{ selectedDays }}日経過に到達します。
+      a.divide-indigo-800.block.p-3.border.rounded.border-solid.text-indigo-800.a-hover-link(
+        class='hover\:bg-black',
+        v-bind:href='`/products/unassigned#${selectedDays - 1}days-elapsed`',
+        v-else)
+        | しばらく{{ selectedDays }}日経過に到達する<br>提出物はありません。
 </template>
 
 <script>
@@ -111,6 +104,18 @@ export default {
     }
   },
   computed: {
+    filteredProducts() {
+      if (!this.productsGroupedByElapsedDays) {
+        return []
+      }
+      return this.productsGroupedByElapsedDays.filter((group) => {
+        return (
+          group.elapsed_days === this.selectedDays ||
+          group.elapsed_days === this.selectedDays + 1 ||
+          group.elapsed_days === this.selectedDays + 2
+        )
+      })
+    },
     url() {
       return '/api/products/unassigned'
     },
