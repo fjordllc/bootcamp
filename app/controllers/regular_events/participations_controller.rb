@@ -11,7 +11,7 @@ class RegularEvents::ParticipationsController < ApplicationController
   end
 
   def destroy
-    if params[:participant_id] && current_user.mentor?
+    if params[:participant_id] && current_user.admin?
       user = User.find(params[:participant_id])
       @regular_event.cancel_participation(user)
     else
