@@ -386,7 +386,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'mentor can remove others from participation' do
+  test 'admin can remove others from participation' do
     regular_event = regular_events(:regular_event1)
     visit_with_auth regular_event_path(regular_event), 'komagata'
     assert_difference 'regular_event.participants.count', -1 do
