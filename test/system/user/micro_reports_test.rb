@@ -34,7 +34,7 @@ class MicroReportsTest < ApplicationSystemTestCase
   test 'form found in current user micro reports page' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
     assert has_field?(id: 'js-micro-report-textarea')
-    assert_button '投稿'
+    assert_button '投稿', disabled: true
   end
 
   test 'form has micro report tab and preview tab' do
@@ -56,11 +56,16 @@ class MicroReportsTest < ApplicationSystemTestCase
     assert_text '分報 （1）'
   end
 
-  test 'can not create micro report with empty content' do
+  test 'submit button is disabled and enabled based on textarea content' do
     visit_with_auth user_micro_reports_path(users(:hatsuno)), 'hatsuno'
-    click_button '投稿'
-    assert_text '分報 （0）'
-    assert_text '分報の投稿に失敗しました。'
+
+    assert_button '投稿', disabled: true
+
+    fill_in('micro_report[content]', with: '投稿ボタンを有効化')
+    assert_button '投稿', disabled: false
+
+    fill_in('micro_report[content]', with: '')
+    assert_button '投稿', disabled: true
   end
 
   test 'content is interpreted as markdown in preview tab' do
