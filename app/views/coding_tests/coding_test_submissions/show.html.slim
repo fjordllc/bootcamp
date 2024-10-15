@@ -47,21 +47,15 @@ header.page-header
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
                 // TODO#7935 このプラクティスに紐づくコーディングテスト一覧ページへリンク
-                a.a-button.is-md.is-secondary.is-block.is-back[href=""]
+                = link_to [@coding_test.practice, :coding_tests], class: 'a-button is-md is-secondary is-block is-back' do
                   | テスト一覧
+              li.page-main-header-actions__item
+                // TODO#7935 このプラクティスに紐づく回答一覧ページへリンク
+                = link_to [@coding_test, :coding_test_submissions], class: 'a-button is-md is-secondary is-block is-back' do
+                  | みんなの回答一覧
   hr.a-border
 
   .page-body
-    nav.pill-nav
-      ul.pill-nav__items
-        li.pill-nav__item
-          // TODO#7935 このプラクティスに紐づくコーディングテスト個別ページへリンク（例: /coding_tests/901896358）
-          = link_to '', class: 'pill-nav__item-link' do
-            | 自分の回答
-        li.pill-nav__item
-          = link_to [@coding_test, :coding_test_submissions], class: 'pill-nav__item-link is-active' do
-            | みんなの回答
-
     .page-content
       .container.is-md
         header.page-content-header
@@ -92,7 +86,7 @@ header.page-header
 
         .a-card
           .card-body
-            .card__description
+            .card-body__description
               .a-long-text
                 pre(class="language-#{@coding_test.language}")
                   code
