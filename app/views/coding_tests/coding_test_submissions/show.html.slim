@@ -1,38 +1,14 @@
 - cts = @coding_test_submission
 - title "「#{@coding_test.title}」の回答コード"
 - description "#{cts.user.login_name}さんの回答コードです。"
+- category = @coding_test.practice.category(current_user.course)
 
-// TODO#7935 以下はベタ書き。partialに置き換える。
-// = render '/practices/page_header', title: '', category: ''
-header.page-header
-  .container
-    .page-header__inner
-      .page-header__start
-        h2.page-header__title JavaScript初級
-      .page-header__end
-        .page-header-actions
-          ul.page-header-actions__items
-            li.page-header-actions__item
-              a.a-button.is-md.is-secondary.is-block.is-back[href="/courses/829913840/practices#category-399994210"]
-                | プラクティス一覧
-///////////////////////// ベタ書ここまで。
+= render '/practices/page_header',
+  title: @coding_test.practice.title,
+  category: category,
+  practice: @coding_test.practice
 
-// TODO#7935 以下はベタ書き。partialに置き換える。
-// = render 'page_tabs', resource: @coding_test.practice
-.page-tabs
-  .container
-    ul.page-tabs__items
-      li.page-tabs__item
-        a.page-tabs__item-link[href="/practices/257702873"] プラクティス
-      li.page-tabs__item
-        a.page-tabs__item-link.is-active[href="/practices/257702873/coding_tests"] コーディングテスト
-      li.page-tabs__item
-        a.page-tabs__item-link[href="/practices/257702873/reports"] 日報 （0）
-      li.page-tabs__item
-        a.page-tabs__item-link[href="/practices/257702873/questions"] 質問 （0）
-      li.page-tabs__item
-        a.page-tabs__item-link[href="/practices/257702873/pages"] Docs （0）
-///////////////////////// ベタ書ここまで。
+// TODO#7935 ここにタブを設置
 
 .page-main
 
@@ -46,11 +22,9 @@ header.page-header
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                // TODO#7935 このプラクティスに紐づくコーディングテスト一覧ページへリンク
                 = link_to [@coding_test.practice, :coding_tests], class: 'a-button is-md is-secondary is-block is-back' do
                   | テスト一覧
               li.page-main-header-actions__item
-                // TODO#7935 このプラクティスに紐づく回答一覧ページへリンク
                 = link_to [@coding_test, :coding_test_submissions], class: 'a-button is-md is-secondary is-block is-back' do
                   | みんなの回答一覧
   hr.a-border

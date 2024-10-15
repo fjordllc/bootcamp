@@ -2,7 +2,10 @@
 - description "#{@coding_test.title}のコーディングテストです。"
 - category = @practice.category(current_user.course)
 
-= render '/practices/page_header', title: @practice.title, category: category
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
 
 // TODO#7935 タブを設置
 //= render 'page_tabs', resource: @practice
