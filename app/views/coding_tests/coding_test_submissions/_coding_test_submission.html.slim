@@ -20,8 +20,13 @@
                 = l cts.updated_at
       .card-list-item__row
         .a-long-text
-          = link_to [coding_test, cts],
-            class: 'no-underline' do
+          details
+            summary
+              | #{cts.user.long_name}さんの回答
             pre(class="language-#{@coding_test.language}")
               code
                 = cts.code
+      .card-list-item__row
+        .card-list-item__small-link
+          = link_to [coding_test, cts], class: 'a-text-link' do
+            | 回答ページ
