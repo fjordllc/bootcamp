@@ -27,9 +27,9 @@
                     .o-empty-message__text
                       | 分報の投稿はまだありません。
             - else
-              = paginate @micro_reports
+              = paginate @micro_reports, params: { anchor: 'latest-micro-report' }
               - @micro_reports.each_with_index do |micro_report, index|
                 - if index == @micro_reports.size - 1
                   #latest-micro-report
                 = render(Users::MicroReports::MicroReportComponent.new(user: @user, current_user: current_user, micro_report: micro_report))
-              = paginate @micro_reports
+              = paginate @micro_reports, params: { anchor: 'latest-micro-report' }
