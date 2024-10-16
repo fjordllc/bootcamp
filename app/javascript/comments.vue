@@ -295,12 +295,11 @@ export default {
     },
     postComment() {
       if (this.commentableType === 'Report' && this.isRole('mentor')) {
-        const noConfirmed = !this.checkId
-        if (noConfirmed) {
-          const confirmResult = window.confirm(
-            '日報を確認済みにしていませんがよろしいですか？'
-          )
-          if (!confirmResult) {
+        const notChecked = !this.checkId
+        if (notChecked) {
+          if (
+            !window.confirm('日報を確認済みにしていませんがよろしいですか？')
+          ) {
             return
           }
         }
