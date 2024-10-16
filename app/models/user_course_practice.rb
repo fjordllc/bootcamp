@@ -48,18 +48,43 @@ class UserCoursePractice
     end
   end
 
-  # def completed_percentage
-  #   completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
-  # end
+  def required_practices
+    Practice
+      .joins(categories: { courses: :users })
+      .where(users: { id: user.id }, include_progress: true)
+      .where.not(id: skipped_practice_ids).distinct
+  end
 
-  # def required_practices_size
-  #   practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
-  # end
+  def completed_practices
+    Practice
+      .joins({ categories: { courses: :users } }, :learnings)
+      .where(
+        users: { id: user.id },
+        learnings: {
+          user_id: user.id,
+          status: 'complete'
+        }
+      )
+      .distinct
+  end
 
-  # def completed_required_practices_size
-  #   practices_include_progress.joins(:learnings)
-  #                             .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
-  # end
+  def completed_required_practices
+    Practice
+      .joins({ categories: { courses: :users } }, :learnings)
+      .where(
+        users: { id: user.id },
+        learnings: {
+          user_id: user.id,
+          status: 'complete'
+        },
+        include_progress: true
+      )
+      .where.not(id: skipped_practice_ids).distinct
+  end
+
+  def completed_percentage
+    completed_required_practices.size.to_f / required_practices.size * MAX_PERCENTAGE
+  end
 
   def completed_practices_size_by_category
     Practice
@@ -75,14 +100,6 @@ class UserCoursePractice
   end
 
   private
-
-  # def practices_include_progress
-  #   course.practices.where(include_progress: true)
-  # end
-
-  # def required_practices_size_with_skip
-  #   course.practices.where(id: practice_ids_skipped, include_progress: true).size
-  # end
 
   def unstarted_practices
     practices = @user.course.practices
