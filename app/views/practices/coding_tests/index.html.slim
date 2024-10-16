@@ -1,14 +1,9 @@
 - title "#{@practice.title}のコーディングテスト"
 - description 'コーディングテストの一覧ページです。'
-- category = @practice.category(current_user.course)
 
-= render '/practices/page_header',
-  title: @practice.title,
-  category: category,
-  practice: @practice
+= render '/practices/page_header', title: @practice.title, practice: @practice
 
-// TODO#7935 タブを設置
-//= render 'page_tabs', resource: @practice
+= practice_page_tabs(@practice, active_tab: 'コーディングテスト')
 
 .page-main
   header.page-main-header

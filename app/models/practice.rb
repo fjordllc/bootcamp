@@ -44,6 +44,10 @@ class Practice < ApplicationRecord
   has_one :submission_answer, dependent: :destroy
   has_many :coding_tests, dependent: :nullify
 
+  has_many :coding_test_submissions,
+           through: :coding_tests,
+           source: :coding_test_submissions
+
   validates :title, presence: true
   validates :description, presence: true
   validates :goal, presence: true

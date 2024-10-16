@@ -1,14 +1,10 @@
 - title "「#{@coding_test.title}」の回答"
 - description "コーディングテスト「#{@coding_test.title}」の回答の一覧ページです。"
-- @practice = @coding_test.practice
+- practice = @coding_test.practice
 
-= render '/practices/page_header',
-  title: @practice.title,
-  category: @practice.category(current_user.course),
-  practice: @practice
+= render '/practices/page_header', title: practice.title, practice: practice
 
-// TODO#7935 タブを設置
-//= render 'page_tabs', resource: @coding_test.practice
+= practice_page_tabs(practice, active_tab: 'コーディングテスト')
 
 .page-main
   header.page-main-header
@@ -21,7 +17,8 @@
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to [@practice, :coding_tests], class: 'a-button is-md is-secondary is-block is-back' do
+                = link_to coding_test_coding_test_submissions_path(@coding_test),
+                  class: 'a-button is-md is-secondary is-block is-back' do
                   | テスト一覧
               - if current_user.submitted?(@coding_test)
                 li.page-main-header-actions__item
