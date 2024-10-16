@@ -1,15 +1,19 @@
 course1:
   title: Railsエンジニア
   description: "Linux, Web, Ruby, Railsなどを学んでRailsエンジニアになろう。"
+  published: true
 
 course2:
   title: Unityゲームエンジニア
   description: "Unity, C#を学んでゲームエンジニアになろう。"
+  published: false
 
 course3:
   title: iOSエンジニア
   description: "iOS, Swiftを学んでiOSエンジニアになろう。"
+  published: false
 
 course4:
   title: フロントエンドエンジニア
   description: "JavaScriptやTypeScriptなどを学んでフロントエンドエンジニアになろう。"
+  published: true
