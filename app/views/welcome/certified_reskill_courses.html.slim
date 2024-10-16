@@ -71,23 +71,24 @@ hr.a-border
                       .lp-left-image-section
                         .lp-left-image-section__inner
                           .lp-left-image-section__start.is-hidden-sm-down
+                            = image_tag('invoice.svg', class: 'lp-top-image-section__icon', alt: '請求書のイラスト')
                           .lp-left-image-section__end
                             header.lp-left-image-section__header
                               h3.lp-card-title
                                 | 受講料
-                            .lp-card-description
-                              h2.lp-price.is-sm
+                              h4.lp-price.is-sm
                                 span.lp-price__value
                                   span.lp-price__amount 715,200
                                   span.lp-price__currency 円
                                 span.lp-price__details
                                   span.lp-price__tax （税込）
-                            .a-short-text
-                              p
-                                | FBCオリジナルの学習アプリにプラクティスと呼んでいる学習項目があります。
-                                | 卒業を目指してそれを順に進めていきます。
-                                | 基本的に途中のプラクティスを飛ばしたり、
-                                | 複数のプラクティスをつまみ食いしながら進めるのは禁止しています。
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | FBCオリジナルの学習アプリにプラクティスと呼んでいる学習項目があります。
+                                  | 卒業を目指してそれを順に進めていきます。
+                                  | 基本的に途中のプラクティスを飛ばしたり、
+                                  | 複数のプラクティスをつまみ食いしながら進めるのは禁止しています。
 
                 .l-cards__item
                   .l-cards__item-inner
@@ -95,32 +96,46 @@ hr.a-border
                       .lp-left-image-section
                         .lp-left-image-section__inner
                           .lp-left-image-section__start.is-hidden-sm-down
+                            = image_tag('books.svg', class: 'lp-top-image-section__icon', alt: '技術本のイラスト')
                           .lp-left-image-section__end
                             header.lp-left-image-section__header
                               h3.lp-card-title
                                 | 必須教材費
-                            .lp-card-description
-                              h2.lp-price.is-sm
+                              h4.lp-price.is-sm
                                 span.lp-price__value
                                   span.lp-price__amount 31,018
                                   span.lp-price__currency 円
                                 span.lp-price__details
                                   span.lp-price__tax （税込）
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | FBCオリジナルの学習アプリにプラクティスと呼んでいる学習項目があります。
+                                  | 卒業を目指してそれを順に進めていきます。
+                                  | 基本的に途中のプラクティスを飛ばしたり、
+                                  | 複数のプラクティスをつまみ食いしながら進めるのは禁止しています。
                 .l-cards__item
                   .l-cards__item-inner
                     .a-card
                       .lp-left-image-section
                         .lp-left-image-section__inner
                           .lp-left-image-section__start.is-hidden-sm-down
+                            = image_tag('subscription.svg', class: 'lp-left-image-section__icon', alt: '課金日を書き込んだカレンダーのイラスト')
                           .lp-left-image-section__end
                             header.lp-left-image-section__header
                               h3.lp-card-title
                                 | 期間
-                            .lp-card-description
-                              h2.lp-price.is-sm
+                              h4.lp-price.is-sm
                                 span.lp-price__value
                                   span.lp-price__amount 24
                                   span.lp-price__currency ヶ月
+                            .lp-card-description
+                              .a-short-text
+                                p
+                                  | FBCオリジナルの学習アプリにプラクティスと呼んでいる学習項目があります。
+                                  | 卒業を目指してそれを順に進めていきます。
+                                  | 基本的に途中のプラクティスを飛ばしたり、
+                                  | 複数のプラクティスをつまみ食いしながら進めるのは禁止しています。
 
   section.lp-content.is-lp-bg-3.is-top-title
     .l-container.is-lg
@@ -136,7 +151,6 @@ hr.a-border
                 = render 'welcome/certified_reskill_courses/practices'
 
   = render 'welcome/process'
-
 
   section.lp-content.is-lp-bg-1.is-top-title
     .l-container.is-lg
