@@ -1,0 +1,13 @@
+section.lp-faq
+  .lp-faq__inner
+    header.lp-faq__header
+      h3.lp-faq__title
+        = faq.question
+    .lp-faq__body
+      .a-short-text.js-markdown-view
+        = faq.answer
+      - if admin_login?
+        .lp-faq__edit
+          = link_to edit_admin_faq_path(faq), class: 'lp-faq__edit-link' do
+            | 編集
+hr.a-border

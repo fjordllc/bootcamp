@@ -51,3 +51,10 @@ $checkbox-size: .875rem
   input:checked + label::after,
   .is-dammy label::after
     opacity: 1
+
+  &.is-radio label::before
+    border-radius: 50%
+  &.is-radio input:checked + label::before,
+  &.is-radio .is-dammy label::before
+    content: ''
+    box-shadow: 0 0 0 2px inset var(--base)

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency 'faq_category'
 class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   layout 'lp'
@@ -17,7 +18,14 @@ class WelcomeController < ApplicationController
 
   def pricing; end
 
-  def faq; end
+  def faq
+    if params[:category].present?
+      category = FAQCategory.find_by(name: params[:category])
+      @faqs = category.present? ? FAQ.where(faq_category_id: category.id).order(:created_at) : FAQ.none
+    else
+      @faqs = FAQ.all.order(:created_at)
+    end
+  end
 
   def training; end
 
