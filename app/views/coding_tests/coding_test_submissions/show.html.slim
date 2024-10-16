@@ -1,14 +1,12 @@
-- cts = @coding_test_submission
-- title "「#{@coding_test.title}」の回答コード"
-- description "#{cts.user.login_name}さんの回答コードです。"
-- category = @coding_test.practice.category(current_user.course)
+ruby:
+  cts = @coding_test_submission
+  practice = cts.practice
+  title "「#{@coding_test.title}」の回答コード"
+  description "#{cts.user.login_name}さんの回答コードです。"
 
-= render '/practices/page_header',
-  title: @coding_test.practice.title,
-  category: category,
-  practice: @coding_test.practice
+= render '/practices/page_header', title: practice.title, practice: practice
 
-// TODO#7935 ここにタブを設置
+= practice_page_tabs(practice, active_tab: 'コーディングテスト')
 
 .page-main
 
@@ -22,7 +20,7 @@
           .page-main-header-actions
             ul.page-main-header-actions__items
               li.page-main-header-actions__item
-                = link_to [@coding_test.practice, :coding_tests], class: 'a-button is-md is-secondary is-block is-back' do
+                = link_to practice_coding_tests_path(@coding_test_submission.practice), class: 'a-button is-md is-secondary is-block is-back' do
                   | テスト一覧
               li.page-main-header-actions__item
                 = link_to [@coding_test, :coding_test_submissions], class: 'a-button is-md is-secondary is-block is-back' do
