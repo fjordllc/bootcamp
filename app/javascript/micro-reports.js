@@ -5,8 +5,6 @@ window.addEventListener('DOMContentLoaded', function () {
   const submitButton = document.getElementById('js-shortcut-submit')
   let prevHeight = 0
 
-  submitButton.disabled = true
-
   const adjustPadding = () => {
     const height = form.scrollHeight
     if (height !== prevHeight) {
@@ -17,6 +15,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   if (form) {
     // Event listener for textarea input
+    submitButton.disabled = true
     textarea.addEventListener('input', function () {
       debounce(adjustPadding, 100)()
       submitButton.disabled = textarea.value.trim() === ''
