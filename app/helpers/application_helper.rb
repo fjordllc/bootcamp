@@ -10,8 +10,16 @@ module ApplicationHelper
   end
 
   def md2html(text)
-    html = CommonMarker.render_html(text, :HARDBREAKS) unless text.nil?
-    raw(html) # rubocop:disable Rails/OutputSafety
+    return '' if text.nil?
+
+    html = CommonMarker.render_html(text, %i[HARDBREAKS UNSAFE])
+    doc = Nokogiri::HTML::DocumentFragment.parse(html)
+    doc.css('img').each do |img|
+      img.remove_attribute('width')
+      img.remove_attribute('height')
+      img['style'] = [img['style'], 'max-width: 100%;'].compact.join(' ')
+    end
+    raw(doc.to_html) # rubocop:disable Rails/OutputSafety
   end
 
   def md_summary(comment, word_count)
