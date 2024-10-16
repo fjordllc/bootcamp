@@ -12,6 +12,7 @@ json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
 json.isWatching current_user.watching?(user)
+json.user_course_practice UserCoursePractice.new(user)
 
 if user.student_or_trainee?
   json.report_count user.reports.size
