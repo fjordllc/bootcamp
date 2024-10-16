@@ -606,7 +606,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_button '提出'
     assert_text 'おめでとう！'
-    assert_text '100日目の日報を提出しました。'
+    assert_text '100回目の日報を提出しました。'
   end
 
   test 'should ignore invalid class name to prevent XSS attack' do
