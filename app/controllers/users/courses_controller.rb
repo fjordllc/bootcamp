@@ -7,7 +7,8 @@ class Users::CoursesController < ApplicationController
 
   def index
     @target = ALLOWED_TARGETS.include?(params[:target]) ? params[:target] : ALLOWED_TARGETS.first
-    target_users = User.by_course(Course.course_names[@target.to_sym]).students_and_trainees
+    course_names = Course.where(published: true).where(title: I18n.t("course_names.#{@target}")).pluck(:title)
+    target_users = User.by_course(course_names).students_and_trainees
     @users = target_users
              .page(params[:page]).per(PAGER_NUMBER)
              .preload(:avatar_attachment, :course, :taggings)
