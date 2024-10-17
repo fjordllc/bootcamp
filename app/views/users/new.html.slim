@@ -1,14 +1,18 @@
 - content_for :extra_body_classes, 'no-header no-footer no-global-nav is-auth-page is-piyo-background'
 - if @user.adviser?
-  - title 'アドバイザー登録'
+  - title 'FBCアドバイザー参加登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプアドバイザー登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにアドバイザーとして登録する際はこちらのページからお申し込みください。')
+- elsif @user.trainee?
+  - title 'FBC研修生参加登録'
+  - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: 'フィヨルドブートキャンプ研修生登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプに研修生として登録する際はこちらのページからお申し込みください。')
 - elsif @user.mentor?
-  - title 'メンター登録'
+  - title 'FBCメンター参加登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプメンター登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプにメンターとして登録する際はこちらのページからお申し込みください。')
 - else
-  - title 'フィヨルドブートキャンプ参加登録'
+  - title 'FBC参加登録'
   - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: 'フィヨルドブートキャンプ参加登録フォームです。オンラインプログラミングスクールのフィヨルドブートキャンプに参加登録する際はこちらのページからお申し込みください。')
 
@@ -25,7 +29,7 @@
             = link_to new_corporate_training_inquiry_path do
               | こちらの企業研修申し込みフォーム
             | からお申し込みください。
-      = render 'form', from: :new, url: users_path, user: @user
+      = render 'form', from: :new, url: users_path, user: @user || user
     hr.a-border-tint
     footer.auth-form__footer
       nav.auth-form-nav
