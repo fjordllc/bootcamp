@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
+  attr_accessor :credit_card_payment, :role
+
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
@@ -27,7 +29,9 @@ class User < ApplicationRecord
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
-    [I18n.t('invitation_role.trainee'), :trainee],
+    [I18n.t('invitation_role.trainee', payment_method: '請求書払い'), :trainee_invoice_payment],
+    [I18n.t('invitation_role.trainee', payment_method: 'クレジットカード払い'), :trainee_credit_card_payment],
+    [I18n.t('invitation_role.trainee', payment_method: '支払い方法を選択'), :trainee_select_a_payment_method],
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
@@ -181,6 +185,10 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
+  validates :invoice_payment, inclusion: { in: [true],
+                                           message: 'か「クレジットカード払い」のいずれかを選択してください。' },
+                              if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
 
   validates :feed_url,
             format: {
@@ -495,6 +503,16 @@ class User < ApplicationRecord
       )
       student.sent_student_followup_message = true
       student.save(validate: false)
+    end
+
+    def by_area(area)
+      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
+
+      country = ISO3166::Country.find_country_by_any_name(area)
+      return User.with_attached_avatar.where(country_code: country.alpha2) if country
+
+      User.none
     end
   end
 
@@ -836,6 +854,16 @@ class User < ApplicationRecord
 
   def participated_regular_event_ids
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
+  def area
+    if country_code == 'JP'
+      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
+      subdivision ? subdivision.translations['ja'] : nil
+    else
+      country = ISO3166::Country[country_code]
+      country ? country.translations['ja'] : nil
+    end
   end
 
   private

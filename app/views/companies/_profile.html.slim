@@ -18,9 +18,9 @@ header.page-content-header
     .company-profile__body
       .company-profile__description.a-long-text
         = simple_format(company.description)
-  - if current_user.admin?
+  - if current_user.admin? || current_user.company == company && current_user.adviser?
     hr.a-border-tint
-    footer.card-footer.is-only-mentor
+    footer.card-footer.is-only-mentor.is-only-adviser
       .card-main-actions
         .card-main-actions__items
           .card-main-actions__item
