@@ -28,14 +28,17 @@ course1:
     主な仕事はサーバーサイドのビジネスロジックの実装、APIの開発です。
     ユーザーが見えない部分で動作する仕組みを設計・実装し、システム全体が円滑に機能するようにします。
     :::
+  published: true
 
 course2:
   title: Unityゲームエンジニア
   description: "Unity, C#を学んでゲームエンジニアになろう。"
+  published: false
 
 course3:
   title: iOSエンジニア
   description: "iOS, Swiftを学んでiOSエンジニアになろう。"
+  published: false
 
 course4:
   title: フロントエンドエンジニア
@@ -64,3 +67,4 @@ course4:
     #### フロントエンドエンジニアとは
     フロントエンドエンジニアとはユーザーが直接触れる部分を設計・開発するエンジニアです。主な仕事はユーザーインターフェース（UI）の設計と実装です。デザイナーが作成したビジュアルデザインを、HTML、CSS、JavaScriptを駆使して再現し、ユーザーが直感的に操作できるインターフェースを構築します。これにより、優れたユーザーエクスペリエンス（UX）を提供することを目指しています。
     :::
+  published: true

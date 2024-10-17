@@ -127,3 +127,18 @@ courses_category26:
   course: course1
   category: category23
   position: 18
+
+courses_category27:
+  course: course4
+  category: category1
+  position: 1
+
+courses_category28:
+  course: course4
+  category: category2
+  position: 2
+
+courses_category29:
+  course: course4
+  category: category3
+  position: 3

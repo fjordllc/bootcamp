@@ -305,3 +305,23 @@ discord_profire_harikirio:
   user: harikirio
   account_name:
   times_url:
+
+discord_profire_rails-course:
+  user: rails-course
+  account_name:
+  times_url:
+
+discord_profire_front-end-course:
+  user: front-end-course
+  account_name:
+  times_url:
+
+discord_profire_unity-course:
+  user: unity-course
+  account_name:
+  times_url:
+
+discord_profire_ios-course:
+  user: ios-course
+  account_name:
+  times_url:
