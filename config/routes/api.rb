@@ -90,5 +90,6 @@ Rails.application.routes.draw do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end
     resources :reading_circles, only: %i(index)
+    resources :metadata, only: %i(index)
   end
 end
