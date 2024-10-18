@@ -90,5 +90,6 @@ Rails.application.routes.draw do
     end
     resources :reading_circles, only: %i(index)
     resources :movies, only: %i(index update)
+    resources :metadata, only: %i(index)
   end
 end
