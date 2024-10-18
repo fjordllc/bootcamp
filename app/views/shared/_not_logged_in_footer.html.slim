@@ -12,17 +12,20 @@ footer.not-logged-in-footer
           = link_to pp_path, class: 'not-logged-in-footer__nav-item-link' do
             | プライバシーポリシー
         li.not-logged-in-footer__nav-item
+          = link_to coc_path, class: 'not-logged-in-footer__nav-item-link' do
+            | アンチハラスメントポリシー
+        li.not-logged-in-footer__nav-item
           = link_to law_path, class: 'not-logged-in-footer__nav-item-link' do
             | 特定商取引法に基づく表記
         li.not-logged-in-footer__nav-item
           = link_to 'https://lokka.jp', class: 'not-logged-in-footer__nav-item-link', target: '_blank', rel: 'noopener' do
             | 運営会社概要
         li.not-logged-in-footer__nav-item
-          = link_to coc_path, class: 'not-logged-in-footer__nav-item-link' do
-            | アンチハラスメントポリシー
-        li.not-logged-in-footer__nav-item
           = link_to new_comeback_path, class: 'not-logged-in-footer__nav-item-link' do
             | 休会からの復帰
+        li.not-logged-in-footer__nav-item
+          = link_to certified_reskill_courses_rails_developer_course_root_path, class: 'not-logged-in-footer__nav-item-link' do
+            | Reスキル認定講座対応コース
         li.not-logged-in-footer__nav-item
           = link_to '/articles.atom', class: 'a-button is-sm is-secondary is-icon', target: '_blank', rel: 'noopener', title: 'フィヨルドブートキャンプブログフィード' do
             i.fa-solid.fa-rss
