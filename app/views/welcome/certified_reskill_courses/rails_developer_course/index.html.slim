@@ -228,7 +228,7 @@ hr.a-border
           .lp-content-stack
             .lp-content-stack__item
               .l-inner-container.is-sm
-                = render 'welcome/certified_reskill_courses/practices'
+                = render 'welcome/certified_reskill_courses/rails_developer_course/practices'
 
   = render 'welcome/process'
 
@@ -335,7 +335,7 @@ hr.a-border
                         | 学則
                       td
                         p
-                          |
+                          = link_to 'Railsエンジニア（Reスキル認定講座対応）コース学則', certified_reskill_courses_rails_developer_course_regulations_path, class: 'a-text-link', target: '_blank', rel: 'noopener'
                     tr
                       th
                         | 受講者の本人確認書類
