@@ -2,6 +2,7 @@
 
 class API::MetadataController < ApplicationController
   def index
-    render json: {}
+    card = LinkCard::Card.new(params)
+    render json: card.metadata
   end
 end
