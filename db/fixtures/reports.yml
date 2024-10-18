@@ -338,3 +338,21 @@ report88:
   description: |-
     お世話になりました
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+report89:
+  user: komagata
+  title: "リンクカードの動作確認"
+  emotion: 2
+  description: |-
+    # ツイート
+    @[card](https://x.com/mousuFBC/status/1846019335242109274)
+
+    # 通常のリンク
+    @[card](https://github.com/fjordllc/bootcamp/wiki/%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%89)
+
+    # 存在しないリンク
+    @[card](https://www.utube.cm/)
+
+    # リンクカードが生成されないリンク
+    [card](https://github.com/fjordllc/bootcamp/wiki/%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%89)
+  reported_on: <%= Time.now %>
