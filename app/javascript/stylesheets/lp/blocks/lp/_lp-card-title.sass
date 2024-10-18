@@ -11,6 +11,11 @@
     +text-block(1.125rem 1.4)
     br
       display: none
+  &.is-sm
+    +media-breakpoint-up(md)
+      +text-block(1.125rem 1.4)
+    +media-breakpoint-down(sm)
+      +text-block(1rem 1.4)
 
 .lp-card-title-number
   +text-block(.9375rem 1, inline-flex 800)
