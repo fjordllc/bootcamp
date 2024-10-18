@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
 
-  # TODO:リスキル講座 公開までは管理者のみ見れるようにする
+  # TODO: リスキル講座 公開までは管理者のみ見れるようにする
   before_action :require_admin, only: %i[
     rails_developer_course
     rails_developer_course_regulations
@@ -47,10 +47,10 @@ class WelcomeController < ApplicationController
 
   private
 
-  # TODO:リスキル講座 公開までは管理者のみ見れるようにするので、そのメソッド。
+  # TODO: リスキル講座 公開までは管理者のみ見れるようにするので、そのメソッド。
   def require_admin
-    unless current_user&.admin?
-      redirect_to root_path, alert: 'このページのアクセス権限がありません。'
-    end
+    return if current_user&.admin?
+
+    redirect_to root_path, alert: 'このページのアクセス権限がありません。'
   end
 end
