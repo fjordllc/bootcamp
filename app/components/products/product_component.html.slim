@@ -1,10 +1,9 @@
 .card-list-item.has-assigned class=(@product.wip ? 'is-wip' : '')
   .card-list-item__inner
     .card-list-item__user
-      a.card-list-item__user-link href=user_url(@product.user)
+      = link_to user_url(@product.user), class: "card-list-item__user-link" do
         span class=["a-user-role", role_class]
-          img.card-list-item__user-icon.a-user-icon title=@product.user.icon_title alt=@product.user.icon_title src=@product.user.avatar_url
-
+          = image_tag @product.user.avatar_url, class: "card-list-item__user-icon a-user-icon", title: @product.user.icon_title, alt: @product.user.icon_title
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -16,15 +15,13 @@
                 span WIP
           h2.card-list-item-title__title itemprop='name'
             - @product.title
-            a.card-list-item-title__link.a-text-link.js-unconfirmed-link href=product_path(@product) itemprop='url'
-              = practice_title
+            = link_to practice_title, practice_url(@product.practice), class: "card-list-item-title__link a-text-link js-unconfirmed-link", itemprop: "url"
 
       .card-list-item__row
         .card-list-item-meta
           .card-list-item-meta__items
             .card-list-item-meta__item
-              a.a-user-name href=user_url(@product.user)
-                = @product.user.long_name
+              = link_to @product.user.long_name, user_url(@product.user), class: "a-user-name"
 
       .card-list-item__row
         .card-list-item-meta
@@ -68,7 +65,7 @@
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
                     a.card-list-item__user-icons-icon href=user_path(user)
-                      img.a-user-icon title=user.icon_title alt=user.icon_title src=user.avatar_url class=role_class
+                      = image_tag user.avatar_url, class: "a-user-icon #{role_class}", title: user.icon_title, alt: user.icon_title
 
               - if @product.self_last_commented_at && @product.mentor_last_commented_at
                 .card-list-item-meta__item

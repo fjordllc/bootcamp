@@ -14,7 +14,6 @@
 - else
   .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor
     span.card-list-item__assignee-image
-      img.a-user-icon src=@checker_avatar width='20' length='20'
+      = image_tag @checker_avatar, class: "a-user-icon", width: 20, height: 20
     span.card-list-item__assignee-name
       | #{@checker_name}
-
