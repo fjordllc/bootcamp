@@ -64,7 +64,7 @@
                     .user-data__row
                       = render 'users/user_secret_attributes', user: @user
                   .user-data__row
-                    = render 'users/metas', user: @user
+                    = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
 
           .col-xs-12.col-lg-6.col-xxl-6
             - if admin_or_mentor_login?
@@ -77,8 +77,7 @@
                 = render 'users/github_grass', user: @user
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
-                - user_course_practice = UserCoursePractice.new(@user)
-                = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings, user_course_practice:
+                = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
             - if admin_login?
               .a-card.is-only-mentor
                 .card-header.is-sm

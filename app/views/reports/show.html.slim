@@ -74,7 +74,7 @@
                     .user-data__row
                       = render 'users/user_secret_attributes', user: @report.user
                     .user-data__row
-                      = render 'users/metas', user: @report.user
+                      = render 'users/metas', user: @report.user, user_course_practice: UserCoursePractice.new(@report.user)
                     .user-data__row
                       ruby:
                         skipped_practices = @report.user.skipped_practices
