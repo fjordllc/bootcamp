@@ -89,7 +89,7 @@ header.page-header
                     .user-data__row
                       = render 'users/user_secret_attributes', user: @product.user
                     .user-data__row
-                      = render 'users/metas', user: @product.user
+                      = render 'users/metas', user: @product.user, user_course_practice: UserCoursePractice.new(@product.user)
                     ruby:
                       skipped_practices = @product.user.skipped_practices
                       user_practices = @product.user.practices
