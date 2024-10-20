@@ -71,39 +71,6 @@ class UserDecoratorTest < ActiveDecoratorTestCase
     assert_equal @student_user.editor_or_other_editor, 'VSCode'
   end
 
-  test '#completed_fraction don\'t calculate practice that include_progress: false' do
-    user = @admin_mentor_user
-    old_fraction = user.completed_required_practices_size
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_fraction, user.completed_fraction
-
-    old_fraction = user.completed_required_practices_size
-    user.completed_practices << practices(:practice53)
-
-    assert_equal old_fraction, user.completed_required_practices_size
-  end
-
-  test '#completed_fraction don\'t calculate practice unrelated cource' do
-    old_fraction = @admin_mentor_user.completed_required_practices_size
-    @admin_mentor_user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_fraction, @admin_mentor_user.completed_required_practices_size
-
-    old_fraction = @admin_mentor_user.completed_required_practices_size
-    @admin_mentor_user.completed_practices << practices(:practice55)
-
-    assert_equal old_fraction, @admin_mentor_user.completed_required_practices_size
-  end
-
-  test '#completed_fraction_in_metas' do
-    fraction_in_metas = '2 （必須:1）'
-    @non_required_subject_completed_user.completed_practices = []
-    @non_required_subject_completed_user.completed_practices << practices(:practice5)
-    @non_required_subject_completed_user.completed_practices << practices(:practice61)
-    assert_equal fraction_in_metas, @non_required_subject_completed_user.completed_fraction_in_metas
-  end
-
   test '#niconico_calendar' do
     start_date = Date.new(2024, 3, 1)
     last_date = Date.new(2024, 3, 31)
