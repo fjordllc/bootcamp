@@ -57,7 +57,7 @@
               = desc_paragraph[:text]
         .users-item__tags
           = render 'users/tags', user: user
-      = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: false, user_course_practice:
+      = render 'users/practices/completed_practices_progress', user: user, is_display_progress_count: false, user_course_practice: UserCoursePractice.new(user)
       hr.a-border-tint
       footer.card-footer.users-item__footer
         .card-main-actions
