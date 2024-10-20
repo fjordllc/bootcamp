@@ -112,14 +112,6 @@
           .form-item-block__item
             = render 'users/form/auto_retire', f: f, user: user
 
-      .form-item-block
-        .form-item-block__inner
-          header.form-item-block__header
-            .form-item-block__title
-              | 請求書払いの設定
-          .form-item-block__item
-            = render 'users/form/invoice_payment', f: f
-
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
         = f.text_field :subscription_id, class: 'a-text-input', placeholder: 'sub_123456789'
