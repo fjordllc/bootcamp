@@ -1,4 +1,6 @@
-json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :cached_completed_percentage, :completed_fraction, :graduated_on)
+user_course_practice = ActiveDecorator::Decorator.instance.decorate(UserCoursePractice.new(user))
+
+json.(user, :id, :login_name, :name, :description, :github_account, :twitter_account, :facebook_url, :blog_url, :job_seeker, :job, :os, :experience, :email, :roles, :primary_role, :icon_title, :graduated_on)
 json.tag_list user.tags.pluck(:name)
 json.url user_url(user)
 json.updated_at l(user.updated_at)
@@ -12,7 +14,9 @@ json.student_or_trainee user.student_or_trainee?
 json.edit_admin_user_path edit_admin_user_path(user)
 json.isFollowing current_user.following?(user)
 json.isWatching current_user.watching?(user)
-json.user_course_practice UserCoursePractice.new(user)
+json.cached_completed_percentage user_course_practice.cached_completed_percentage
+json.cached_completed_fraction user_course_practice.cached_completed_fraction
+
 
 if user.student_or_trainee?
   json.report_count user.reports.size

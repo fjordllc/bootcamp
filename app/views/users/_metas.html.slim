@@ -29,7 +29,7 @@
       .user-metas__item-label
         | 修了プラクティス
       .user-metas__item-value
-        = user.completed_fraction_in_metas
+        = user_course_practice.cached_completed_fraction_in_metas
     - unless user.admin? || user.adviser?
       .user-metas__item
         .user-metas__item-label
