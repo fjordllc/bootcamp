@@ -1,0 +1,15 @@
+.result-table
+  tr
+    &.is-wa td,
+    &.is-re td
+      background-color: var(--danger-tint)
+    &.is-ac td
+      background-color: var(--success-tint)
+  .status.wa,
+  .status.re
+    color: var(--danger-text)
+  .status.ac
+    color: var(--success-text)
+  pre,
+  code
+    font-family: var(--monospace)
