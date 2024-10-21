@@ -1,15 +1,28 @@
 .lp-table
   width: 100%
-  tr
-    &:not(:last-child)
-      border-bottom: solid 1px var(--border)
+  background-color: var(--base)
   th,
   td
     +text-block(.8125rem 1.5)
     padding: .5rem 1rem
+    border: solid 1px var(--border)
+    text-align: left
   th
-    text-align: right
-    white-space: nowrap
     font-weight: 400
+    width: 30%
+    background-color: var(--lp-bg-2)
   td
     text-align: left
+    *:first-child
+      margin-top: 0
+    *:last-child
+      margin-bottom: 0
+  p,
+  ul,
+  ol
+    margin-block: .75em
+  ul
+    list-style-type: disc
+    margin-left: 1.5em
+  li
+    margin-block: .25em
