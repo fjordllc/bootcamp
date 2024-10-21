@@ -68,24 +68,29 @@ const embedToLinkCard = (targetLink, url) => {
       targetLink.insertAdjacentHTML(
         'afterend',
         `
-        <div class="link-card">
-          <div class="link-card__title">
-            <a href="${url}" target="_blank">${metaData.title || url}</a>
+        <div class="a-link-card">
+          <div class="a-link-card__title">
+            <a href="${url}" target="_blank" class="a-link-card__title-link">
+              <div class="a-link-card__title-text">${metaData.title || url}</div>
+            </a>
           </div>
-          <div class="link-card__description">${
-            metaData.description || ''
-          }</div>
-          <div class="link-card__favicon"><img src="${
-            metaData.favicon || ''
-          }" /></div>
-          <div class="link-card__site-title">
-            <a href="${metaData.site_url || ''}" target="_blank">${
-          metaData.site_name || ''
-        }</a>
+          <div class="a-link-card__description">
+            <div class="a-link-card__image">
+              <a href="${metaData.site_url || ''}" target="_blank" class="a-link-card__image-link">
+                <img src="${metaData.image || ''}" />
+              </a>
+            </div>
+            <p>${metaData.description || ''}</p>
           </div>
-          <div class="link-card__image"><img src="${
-            metaData.image || ''
-          }" /></div>
+          <div class="a-link-card__site-title">
+            <a href="${metaData.site_url || ''}" target="_blank" class="a-link-card__site-title-link">
+              <img src="${metaData.favicon || ''}"
+                alt="${metaData.title || url}ファビコン"
+                class="a-link-card__favicon-image"
+              />
+              <div class="a-link-card__site-title-text">${metaData.site_name || ''}</div>
+            </a>
+          </div>
         </div>
       `
       )
