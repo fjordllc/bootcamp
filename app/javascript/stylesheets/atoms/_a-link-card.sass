@@ -1,5 +1,6 @@
 .a-long-text
-  .a-link-card
+  .a-link-card,
+  .twitter-tweet
     background-color: var(base)
     border: solid 1px var(--border)
     padding: 1em
@@ -62,3 +63,25 @@
     .a-link-card__site-title-text
       +text-block(.875em 1.4)
       flex: 1
+
+  .twitter-tweet
+    position: relative
+    +media-breakpoint-up(md)
+      padding: 2em 2em 1em 2em
+    +media-breakpoint-down(sm)
+      padding: 2em 2em 1em 1em
+    &::before
+      font-family: "Font Awesome 6 Brands"
+      font-weight: 400
+      font-size: 1.5em
+      content: "\e61b"
+      +position(absolute, right .5em, top .5em)
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 1em
+      height: 1em
+      color: #0f1419
+    p
+      border-left: solid .25em var(--border-tint)
+      padding-left: 1.5em
