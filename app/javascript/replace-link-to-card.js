@@ -1,7 +1,7 @@
 import CSRF from 'csrf'
 
 export default (textareas) => {
-  replaceLinkToCard() // 初回実行
+  replaceLinkToCard()
   const debouncedReplace = debounce(replaceLinkToCard, 300)
 
   Array.from(textareas).forEach((textarea) => {
@@ -30,7 +30,7 @@ const replaceLinkToCard = () => {
       )
     }
 
-    targetLink.classList.add('processed') // 再処理を防ぐためにフラグを追加
+    targetLink.classList.add('processed')
   })
 }
 
