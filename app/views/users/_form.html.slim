@@ -68,7 +68,7 @@
     .form__items
       = render 'users/form/password', f:, from:
 
-  - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
+  - if user.mentor? || user.adviser? || user.graduated_on? || user.admin? || user.retired?
     .form__items
       = render 'users/form/company', f:, user:
 
