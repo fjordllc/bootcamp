@@ -19,8 +19,6 @@ class WelcomeController < ApplicationController
 
   def job_support; end
 
-  def certified_reskill_courses; end
-
   def pricing; end
 
   def faq; end
