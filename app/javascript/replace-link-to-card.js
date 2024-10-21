@@ -13,6 +13,7 @@ const replaceLinkToCard = () => {
   const targetLinkList = document.querySelectorAll(
     '.before-replacement-link-card'
   )
+
   targetLinkList.forEach((targetLink) => {
     const url = targetLink.getAttribute('href')
 
@@ -20,6 +21,12 @@ const replaceLinkToCard = () => {
       embedToTweet(targetLink, url)
     } else {
       embedToLinkCard(targetLink, url)
+    }
+
+    const parent = targetLink.parentElement
+    if (parent.tagName === 'P') {
+      parent.insertAdjacentElement('afterend', targetLink)
+      parent.remove()
     }
   })
 }
