@@ -1,0 +1,64 @@
+.a-long-text
+  .a-link-card
+    background-color: var(base)
+    border: solid 1px var(--border)
+    padding: 1em
+    border-radius: 4px
+    width: 36rem
+    max-width: 100%
+    margin-inline: auto
+    img
+      border: none
+    div
+      margin: 0
+
+    .a-link-card__title-link
+      display: inline-block
+      max-width: 100%
+
+    .a-link-card__title-text
+      font-weight: 700
+      max-width: 100%
+      overflow: hidden
+      display: -webkit-box
+      text-overflow: ellipsis
+      -webkit-box-orient: vertical
+      -webkit-line-clamp: 2
+      +text-block(1em 1.4)
+
+    .a-link-card__favicon-image
+      width: 1em
+      min-width: 1em
+      max-width: 1em
+      height: 1em
+      min-height: 1em
+      max-height: 1em
+      display: block
+
+    .a-link-card__description
+      +text-block(.875em 1.4)
+      margin-top: .5em
+      color: var(--muted-text)
+      p
+        margin-top: 0
+
+    .a-link-card__image
+      float: right
+      margin-left: 1em
+      margin-bottom: 1em
+      +media-breakpoint-up(md)
+        max-width: 12rem
+      +media-breakpoint-down(sm)
+        max-width: 7.5rem
+
+    .a-link-card__site-title
+      margin-top: .5em
+
+    .a-link-card__site-title-link
+      display: inline-flex
+      gap: .25em
+      align-items: center
+
+    .a-link-card__site-title-text
+      +text-block(.875em 1.4)
+      flex: 1
