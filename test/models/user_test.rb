@@ -746,4 +746,11 @@ class UserTest < ActiveSupport::TestCase
     america_users = [users(:neverlogin), users(:tom)]
     assert_equal User.by_area('米国').to_a.sort, america_users.sort
   end
+
+  test '#latest_micro_report_page' do
+    user = users(:hajime)
+    assert_equal 1, user.latest_micro_report_page
+    user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
+    assert_equal 2, user.latest_micro_report_page
+  end
 end
