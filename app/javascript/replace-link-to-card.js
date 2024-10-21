@@ -30,6 +30,14 @@ const isTweet = (url) => {
   )
 }
 
+const loadTwitterScript = () => {
+  if (!document.querySelector('script[src="https://platform.twitter.com/widgets.js"]')) {
+    const twitterScript = document.createElement('script')
+    twitterScript.src = 'https://platform.twitter.com/widgets.js'
+    document.body.appendChild(twitterScript)
+  }
+}
+
 const embedToTweet = (targetLink, url) => {
   fetch(`/api/metadata?url=${encodeURIComponent(url)}&tweet=true`, {
     headers: {
@@ -45,11 +53,7 @@ const embedToTweet = (targetLink, url) => {
       targetLink.insertAdjacentHTML('afterend', embedTweet.html)
       targetLink.remove()
 
-      // 埋め込みTweetのデザインを適用する
-      const twitterScript = document.createElement('script')
-      twitterScript.src = 'https://platform.twitter.com/widgets.js'
-      document.body.appendChild(twitterScript)
-      document.body.removeChild(twitterScript)
+      loadTwitterScript()
     })
 }
 
