@@ -22,6 +22,18 @@ header.page-header
     .container
       .page-main-header__inner
         h1.page-main-header__title
-          = "#{t("target.#{@target}")}（#{@users.size}）"
+          = "#{t("target.#{@target}")}（#{@users.total_count}）"
   hr.a-border
-  #js-company-users(company-id="#{@company.id}")
+  .page-body
+    .container
+      .users
+        - if @users.present?
+          .page-content.is-users
+            #user_lists.users__items
+              = render 'user_list', users: @users
+        - else
+          .o-empty-message
+            .o-empty-message__icon
+              i.fa-regular.fa-sad-tear
+            p.o-empty-message__text
+              | "#{t("target.#{@target}")}のユーザーはいません"
