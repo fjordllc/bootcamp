@@ -62,7 +62,7 @@ class GenerationsTest < ApplicationSystemTestCase
       assert_link '5期生'
       assert_text '2014年01月01日 ~ 2014年03月31日'
       assert_text '現役生'
-      assert_selector '.card-counts__item-value', text: '14'
+      assert_selector '.card-counts__item-value', text: '18'
       assert_text '研修生'
       assert_selector '.card-counts__item-value', text: '3'
       assert_text '休会'

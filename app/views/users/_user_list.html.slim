@@ -1,9 +1,9 @@
 - if users.present?
   .user-list
-    = paginate users, params: { controller: 'users', action: 'index' }
+    = paginate users
     .row
       - users.each do |user|
         = render 'users/user', user:
-    = paginate users, params: { controller: 'users', action: 'index' }
+    = paginate users
 - else
   = render 'users/no_match_user'
