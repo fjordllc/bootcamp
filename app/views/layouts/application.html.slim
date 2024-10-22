@@ -9,13 +9,11 @@ html.is-application lang='ja'
       - if page_classes.include?('welcome-home')
         link(rel='canonical' href='https://bootcamp.fjord.jp/')
     - else
-      = render 'current_user'
       = render 'available_emojis'
       = render 'stripe'
       = stylesheet_pack_tag 'application', media: 'all'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-application#body(class="#{body_class}")
-    = render 'google_analytics' if Rails.env.production? && !staging?
     - if display_global_nav?
       .is-hidden-sm-down
         = render 'global_nav'
