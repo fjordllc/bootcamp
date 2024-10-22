@@ -1,5 +1,5 @@
 <script>
-  var currentUser = <%= raw (current_user ? current_user : nil).to_json(only: [:id, :login_name, :name], methods: [:avatar_url, :roles, :primary_role]) %>;
-  var currentUserID = <%= raw current_user ? current_user.id : 0 %>;
-  var signedIn = <%= current_user ? true : false %>;
+  const currentUser = JSON.parse('<%= raw(current_user&.to_json(only: [:id, :login_name, :name], methods: [:avatar_url, :roles, :primary_role])) || "null" %>');
+  const currentUserID = <%= current_user&.id || 0 %>;
+  const signedIn = <%= current_user.present? ? 'true' : 'false' %>;
 </script>
