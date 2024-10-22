@@ -9,7 +9,7 @@ header.lp-header
         nav.lp-header-nav
           ul.lp-header-nav__items
             li.lp-header-nav__item
-              = link_to welcome_path, class: 'lp-header-nav__item-link' do
+              = link_to (current_user ? welcome_path : root_path), class: 'lp-header-nav__item-link' do
                 span
                   | トップページ
             li.lp-header-nav__item
