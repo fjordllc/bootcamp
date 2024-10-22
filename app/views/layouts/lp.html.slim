@@ -7,8 +7,8 @@ html.is-lp lang='ja'
       link(rel='canonical' href='https://bootcamp.fjord.jp/')
     - if defined?(@article) && @article.wip?
       = meta_robots_tag
-    = stylesheet_pack_tag 'lp', media: 'all'
     = render 'layouts/common/common_head'
+    = stylesheet_pack_tag 'lp', media: 'all'
     = render 'layouts/lp/lp_web_fonts'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-lp#body class="#{body_class}"
