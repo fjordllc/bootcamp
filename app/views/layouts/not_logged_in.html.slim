@@ -6,7 +6,6 @@ html lang='ja'
     = stylesheet_pack_tag 'not-logged-in', media: 'all'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-not-logged-in(class="#{body_class}")
-    = render 'google_analytics' if Rails.env.production? && !staging?
     .not-logged-in-wrapper
       .not-logged-in-wrapper__start
         = yield
