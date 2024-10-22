@@ -721,13 +721,13 @@ class ActivityMailerTest < ActionMailer::TestCase
   end
 
   test 'hibernated using synchronous mailer' do
-    user = users(:kimura)
+    user = users(:kyuukai)
     mentor = users(:komagata)
     Notification.create!(
       kind: 19,
       sender: user,
       user: mentor,
-      message: 'kimuraさんが休会しました。',
+      message: 'kyuukaiさんが休会しました。',
       link: "/users/#{user.id}",
       read: false
     )
@@ -740,18 +740,18 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんが休会しました。', email.subject
+    assert_equal '[FBC] kyuukaiさんが休会しました。', email.subject
     assert_match(/休会/, email.body.to_s)
   end
 
   test 'hibernated with params using asynchronous mailer' do
-    user = users(:kimura)
+    user = users(:kyuukai)
     mentor = users(:komagata)
     Notification.create!(
       kind: 19,
       sender: user,
       user: mentor,
-      message: 'kimuraさんが休会しました。',
+      message: 'kyuukaiさんが休会しました。',
       link: "/users/#{user.id}",
       read: false
     )
@@ -768,7 +768,7 @@ class ActivityMailerTest < ActionMailer::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['noreply@bootcamp.fjord.jp'], email.from
     assert_equal ['komagata@fjord.jp'], email.to
-    assert_equal '[FBC] kimuraさんが休会しました。', email.subject
+    assert_equal '[FBC] kyuukaiさんが休会しました。', email.subject
     assert_match(/休会/, email.body.to_s)
   end
 
