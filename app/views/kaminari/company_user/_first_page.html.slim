@@ -1,0 +1,8 @@
+- # rubocop:disable Rails/OutputSafety
+li.pagination__item.is-first
+  - if current_page.first?
+    span.pagination__item-link.is-first.is-disabled
+      i.fas.fa-angle-double-left
+  - else
+    = link_to raw('<i class="fas fa-angle-double-left"></i>'), url, remote:, class: 'pagination__item-link is-first'
+- # rubocop:enable Rails/OutputSafety
