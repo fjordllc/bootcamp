@@ -10,9 +10,17 @@ class Users::MailNotificationController < ApplicationController
   end
 
   def update
-    user = User.find(params[:user_id])
-    user.mail_notification = false
-    user.save!
-    redirect_to root_path, notice: 'メール配信を停止しました。'
+    user_id = params[:user_id].to_i
+
+    if current_user && current_user.id == user_id
+      user = User.find(user_id)
+      user.mail_notification = false
+      user.save!
+      redirect_to root_path, notice: 'メール配信を停止しました。'
+    elsif !current_user
+      redirect_to login_path, alert: '未ログインのため、この操作は許可されていません。'
+    else
+      redirect_to root_path, alert: '無効な操作です。'
+    end
   end
 end
