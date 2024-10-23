@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :practices, only: %i(index new edit create update) do
       resource :submission_answer, only: %i(new edit create update), controller: "practices/submission_answer"
     end
+    resources :coding_tests, only: %i(index new edit create update destroy)
     resources :courses, only: %i(index new edit create update) do
       resources :categories, only: %i(index), controller: "courses/categories"
     end
