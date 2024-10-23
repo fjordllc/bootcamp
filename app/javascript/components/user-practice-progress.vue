@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       percentage: this.user.cached_completed_percentage,
-      fraction: this.user.completed_fraction
+      fraction: this.user.cached_completed_fraction
     }
   },
   computed: {

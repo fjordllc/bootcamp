@@ -26,6 +26,10 @@ class Practice < ApplicationRecord
            -> { students_and_trainees },
            through: :started_learnings,
            source: :user
+  has_many :skipped_users,
+           through: :skipped_practices,
+           source: :user
+  has_many :skipped_practices, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :questions, dependent: :nullify
   has_many :pages, dependent: :nullify

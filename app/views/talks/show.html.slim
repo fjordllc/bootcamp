@@ -76,7 +76,7 @@
               .side-tabs-contents__item#side-tabs-content-1
                 .user-info
                   = render 'users/user_secret_attributes', user: @user
-                  = render 'users/metas', user: @user
+                  = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
                 .user-statuses
                   .user-statuses__items
                     .user-statuses__item

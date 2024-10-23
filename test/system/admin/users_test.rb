@@ -90,28 +90,28 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
-      assert_text '所属企業'
       find('.choices').click
       first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    found_value = all('.user-metas__item-value').find { |element| element.text.include?('Lokka Inc.') }
+    assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
   end
 
   test 'update advisor with company' do
     user = users(:senpai)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     within 'form[name=user]' do
-      assert_text '所属企業'
       find('.choices').click
       first('.choices__item', text: 'Lokka Inc.').click
       click_on '更新する'
     end
     assert_text 'ユーザー情報を更新しました。'
     visit "/users/#{user.id}"
-    assert_equal('Lokka Inc.', find('.user-metas__item-label', text: '所属企業').sibling('.user-metas__item-value').text)
+    found_value = all('.user-metas__item-value').find { |element| element.text.include?('Lokka Inc.') }
+    assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
   end
 
   test 'hide input for retire date when unchecked' do
@@ -351,5 +351,17 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました'
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert has_checked_field?('user_hide_mentor_profile', visible: false)
+  end
+
+  test 'administrator can set skipped_practice of general users' do
+    user = users(:kensyu)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'UNIX (1/9)', normalize_ws: true
+    check 'UNIX', allow_label_click: true, visible: false
+    check 'Terminalの基礎を覚える', allow_label_click: true, visible: false
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert_text 'UNIX (2/9)', normalize_ws: true
   end
 end

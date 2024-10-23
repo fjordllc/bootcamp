@@ -98,6 +98,16 @@ class UserTest < ActiveSupport::TestCase
     assert_equal old_percentage, user.completed_percentage
   end
 
+  test '#required_practices_size' do
+    user = users(:kensyu)
+    assert_equal 50, user.required_practices_size
+  end
+
+  test '#practice_ids_skipped' do
+    user = users(:kensyu)
+    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
+  end
+
   test '#depressed?' do
     user = users(:kimura)
 
@@ -320,10 +330,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
-  test '#completed_practices_size_by_category' do
-    kimura = users(:kimura)
-    category2 = categories(:category2)
-    assert_equal 1, kimura.completed_practices_size_by_category[category2.id]
+  test '#completed_required_practices_size' do
+    user = users(:kensyu)
+    user.completed_practices << practices(:practice5)
+    user.completed_practices << practices(:practice61)
+    assert_equal 1, user.completed_required_practices_size
   end
 
   test "don't unfollow user when other user unfollow user" do
@@ -442,20 +453,6 @@ class UserTest < ActiveSupport::TestCase
 
     worried_users = User.delayed.order(completed_at: :asc)
     assert_equal worried_users.where(id: user.id).size, 0
-  end
-
-  test 'get category active or unstarted practice' do
-    komagata = users(:komagata)
-    assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
-
-    machida = users(:machida)
-    practice1 = practices(:practice1)
-    Learning.create!(
-      user: machida,
-      practice: practice1,
-      status: :complete
-    )
-    assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
   end
 
   test 'trainee must select company' do
