@@ -20,4 +20,6 @@ link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true
 = auto_discovery_link_tag(:atom, 'https://bootcamp.fjord.jp/articles.atom', { title: 'フィヨルドブートキャンプブログ' })
 
 // Dev
+= render 'current_user'
+= render 'google_analytics' if Rails.env.production? && !staging?
 = render 'rollbar' if Rails.env.production?

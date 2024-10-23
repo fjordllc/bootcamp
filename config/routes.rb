@@ -14,11 +14,16 @@ Rails.application.routes.draw do
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
   get "job_support", to: "welcome#job_support", as: "job_support"
-  get "certified_reskill_courses", to: "welcome#certified_reskill_courses", as: "certified_reskill_courses"
   get "tos", to: "welcome#tos", as: "tos"
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get 'certified_reskill_courses/rails_developer_course',
+    to: 'welcome#rails_developer_course',
+    as: :certified_reskill_courses_rails_developer_course_root
+  get 'certified_reskill_courses/rails_developer_course/regulations',
+    to: 'welcome#rails_developer_course_regulations',
+    as: :certified_reskill_courses_rails_developer_course_regulations
   draw :scheduler
   draw :api
   draw :paper
