@@ -338,29 +338,3 @@ report88:
   description: |-
     お世話になりました
   reported_on: <%= Time.now - 1.month - 1.day %>
-
-# ステージング環境で日報100回目のお祝いメッセージの動作確認が終わり次第、削除します
-
-<% 95.times do |i| %>
-report<%= i + 88 %>:
-  user: komagata
-  title: <%= "テスト日報 #{i + 4}" %>
-  description: 動作確認が終わり次第、削除します
-  reported_on: <%= Time.zone.today - (97 - i) %>
-  wip: false
-  emotion: 2
-  created_at: <%= Time.zone.today - (96 - i).days %>
-  updated_at: <%= Time.zone.today - (96 - i).days %>
-  published_at: <%= Time.zone.today - (96 - i).days %>
-<% end %>
-
-report184:
-  user: komagata
-  title: "テスト日報（下書き） 99"
-  description: 動作確認が終わり次第、削除します
-  reported_on: <%= Time.zone.today - 2 %>
-  wip: true
-  emotion: 2
-  created_at: <%= Time.zone.today - 1 %>
-  updated_at: <%= Time.zone.today - 1 %>
-  published_at: <%= Time.zone.today - 1 %>
