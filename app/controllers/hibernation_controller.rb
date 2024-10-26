@@ -15,10 +15,10 @@ class HibernationController < ApplicationController
 
     if @hibernation.save
       update_hibernated_at!
-      cancel_participation_from_regular_events
       destroy_subscription!
       notify_to_chat
       notify_to_mentors_and_admins
+      current_user.cancel_participation_from_regular_events
       current_user.delete_and_assign_new_organizer
       logout
       redirect_to hibernation_path
@@ -36,10 +36,6 @@ class HibernationController < ApplicationController
   def update_hibernated_at!
     current_user.hibernated_at = @hibernation.created_at
     current_user.save!(validate: false)
-  end
-
-  def cancel_participation_from_regular_events
-    current_user.regular_event_participations.destroy_all
   end
 
   def destroy_subscription!
