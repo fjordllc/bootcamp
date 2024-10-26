@@ -845,6 +845,10 @@ class User < ApplicationRecord
     watches.find_or_create_by!(watchable:)
   end
 
+  def cancel_participation_from_regular_events
+    regular_event_participations.destroy_all
+  end
+
   def delete_and_assign_new_organizer
     organizers.each(&:delete_and_assign_new)
   end

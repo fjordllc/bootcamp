@@ -12,10 +12,10 @@ class RetirementController < ApplicationController
     current_user.retired_on = Date.current
     if current_user.save(context: :retirement)
       user = current_user
+      current_user.cancel_participation_from_regular_events
       current_user.delete_and_assign_new_organizer
       Newspaper.publish(:retirement_create, { user: })
 
-      cancel_participation_from_regular_events
       destroy_subscription(user)
       destroy_card(user)
       notify_to_user(user)
@@ -33,10 +33,6 @@ class RetirementController < ApplicationController
 
   def retire_reason_params
     params.require(:user).permit(:retire_reason, :satisfaction, :opinion, retire_reasons: [])
-  end
-
-  def cancel_participation_from_regular_events
-    current_user.regular_event_participations.destroy_all
   end
 
   def destroy_subscription(user)
