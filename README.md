@@ -30,7 +30,7 @@ $ rails test:all
 ### 普通のブラウザーでテスト
 
 ```
-$ HEADFULL=1 rails test:all
+$ HEADFUL=1 rails test:all
 ```
 
 ### 並列実行せずにテスト
