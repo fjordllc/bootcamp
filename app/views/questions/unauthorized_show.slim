@@ -1,6 +1,8 @@
-- title "Q&A: #{truncate(@question.title, length: 35, omission: '...')}"
-- description "オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「#{@question.title}」のページです。"
-- content_for :extra_body_classes
+ruby:
+ title "Q&A: #{truncate(@question.title, length: 35, omission: '...')}"
+ set_meta_tags og: { title: "Q&A: #{@question.title}" }
+ description "オンラインプログラミングスクール「フィヨルドブートキャンプ」のQ&A「#{@question.title}」のページです。"
+ content_for :extra_body_classes
 
 .page-body
   article.unauthorized
