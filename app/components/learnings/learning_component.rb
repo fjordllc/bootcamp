@@ -20,10 +20,6 @@ class Learnings::LearningComponent < ViewComponent::Base
     @product ? '提出物へ' : '提出物を作る'
   end
 
-  def complete?
-    @practice.status(@current_user) == 'complete'
-  end
-
   def submission?
     @practice.submission
   end
