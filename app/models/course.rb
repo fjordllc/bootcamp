@@ -14,4 +14,14 @@ class Course < ApplicationRecord
   def self.default_course
     find_by(title: DEFAULT_COURSE)
   end
+
+  def extract_practices
+    categories = Category
+                 .joins(:courses_categories)
+                 .where(courses_categories: { course_id: id })
+                 .includes(:practices)
+                 .order('courses_categories.position')
+
+    categories.map(&:practices).flatten
+  end
 end
