@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Products::ProductsComponent < ViewComponent::Base
+class Products::UnassignedProductsComponent < ViewComponent::Base
   def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, current_user_id:, reply_warning_days:)
     @products = products
     @products_grouped_by_elapsed_days = products_grouped_by_elapsed_days
