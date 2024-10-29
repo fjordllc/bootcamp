@@ -13,8 +13,6 @@ class MailNotificationsTest < ApplicationSystemTestCase
 
   test "update user's mail_notification settings without being logged in" do
     visit "/users/#{users(:kimura).id}/mail_notification/edit?token=#{users(:kimura).unsubscribe_email_token}"
-    assert_text 'メール通知をオフにしますか？'
-    click_on 'オフにする'
-    assert_text '未ログインのため、この操作は許可されていません。'
+    assert_text 'ログインしてください'
   end
 end

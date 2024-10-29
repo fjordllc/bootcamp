@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::MailNotificationController < ApplicationController
-  skip_before_action :require_active_user_login, raise: false
   layout 'not_logged_in'
 
   def edit
@@ -12,13 +11,11 @@ class Users::MailNotificationController < ApplicationController
   def update
     user_id = params[:user_id].to_i
 
-    if current_user && current_user.id == user_id
+    if current_user.id == user_id
       user = User.find(user_id)
       user.mail_notification = false
       user.save!
       redirect_to root_path, notice: 'メール配信を停止しました。'
-    elsif !current_user
-      redirect_to login_path, alert: '未ログインのため、この操作は許可されていません。'
     else
       redirect_to root_path, alert: '無効な操作です。'
     end
