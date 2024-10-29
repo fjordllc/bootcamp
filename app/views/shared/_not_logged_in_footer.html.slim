@@ -23,6 +23,9 @@ footer.not-logged-in-footer
         li.not-logged-in-footer__nav-item
           = link_to new_comeback_path, class: 'not-logged-in-footer__nav-item-link' do
             | 休会からの復帰
+        li.not-logged-in-footer__nav-item
+          = link_to press_kit_path, class: 'not-logged-in-footer__nav-item-link' do
+            | プレスキット
         - if admin_login?
           // TODO リスキル講座 公開したら if を外す
           li.not-logged-in-footer__nav-item
