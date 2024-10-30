@@ -1,9 +1,16 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EYY9JK69GX"></script>
 <script>
+  const userStatus = signedIn ? 'logged_in' : 'guest';
+
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-EYY9JK69GX');
+
+  document.addEventListener('DOMContentLoaded', function () {
+    gtag('event', 'login_status_check', {
+      user_status: userStatus
+    });
+  });
 </script>

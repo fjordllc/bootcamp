@@ -3,17 +3,15 @@ html.is-lp lang='ja'
   - page_classes = content_for(:extra_body_classes).to_s
   head
     = display_meta_tags welcome_meta_tags
-    = render 'current_user'
     - if page_classes.include?('welcome-home')
       link(rel='canonical' href='https://bootcamp.fjord.jp/')
     - if defined?(@article) && @article.wip?
       = meta_robots_tag
-    = stylesheet_pack_tag 'lp', media: 'all'
     = render 'layouts/common/common_head'
+    = stylesheet_pack_tag 'lp', media: 'all'
     = render 'layouts/lp/lp_web_fonts'
     = content_for(:head_last) if content_for?(:head_last)
   body.is-lp#body class="#{body_class}"
-    = render 'google_analytics' if Rails.env.production? && !staging?
     .wrapper
       .wrapper__main
         = render 'layouts/lp/lp_header'

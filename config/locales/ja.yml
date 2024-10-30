@@ -392,10 +392,17 @@ ja:
     unchecked_no_replied: 未返信
     unchecked_all: 全て
     campaign: お試し延長
+    rails_course: Rails
+    front_end_course: フロントエンド
+    other_courses: その他
   invitation_role:
     adviser: アドバイザー
     trainee: 研修生(%{payment_method})
     mentor: メンター
+  course_names:
+    rails_course: Railsエンジニア
+    front_end_course: フロントエンドエンジニア
+    other_courses: [Unityゲームエンジニア, iOSエンジニア]
   watch:
     all: すべて
     true: コメントあり
