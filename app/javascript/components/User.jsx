@@ -24,7 +24,7 @@ export default function User({ user, currentUser }) {
   const roleClass = () => `is-${user.primary_role}`
 
   return (
-    <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
+    <div className="col-xxxl-2 col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
       <div className="users-item is-react">
         <div className={`users-item__inner a-card ${roleClass()}`}>
           {currentUser &&
