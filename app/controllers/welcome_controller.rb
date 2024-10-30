@@ -13,8 +13,6 @@ class WelcomeController < ApplicationController
 
   def job_support; end
 
-  def certified_reskill_courses; end
-
   def pricing; end
 
   def faq; end
@@ -30,4 +28,17 @@ class WelcomeController < ApplicationController
   def law; end
 
   def coc; end
+
+  def rails_developer_course
+    render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
+  end
+
+  private
+
+  # TODO: リスキル講座 公開までは管理者のみ見れるようにするので、そのメソッド。
+  def require_admin
+    return if current_user&.admin?
+
+    redirect_to root_path, alert: 'ページのアクセス権限がありませんでした。'
+  end
 end
