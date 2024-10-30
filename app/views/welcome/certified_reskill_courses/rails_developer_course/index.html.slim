@@ -161,7 +161,22 @@ hr.a-border
                                     | 通常のRailsエンジニアコース
                                   | と同様の月額課金のサブスクリプション方式で課金がされます。
 
-  section.lp-content.is-lp-bg-3.is-top-title
+  section.lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              | 講座内容
+        .lp-content__end
+          .lp-content-stack
+            .lp-content-stack__item
+              .l-inner-container.is-sm
+                = render 'welcome/certified_reskill_courses/rails_developer_course/practices'
+
+  = render 'welcome/process'
+
+  section.lp-content.is-lp-bg-1.is-top-title
     .l-container.is-xl
       .lp-content__inner
         .lp-content__start
@@ -214,20 +229,97 @@ hr.a-border
                             | Mac、Windows、Linux それぞれのOSで受講することができますが、最新の OS が動く必要があります。
                             | カメラ・マイクはパソコンに外付けでも構いません。
 
-  section.lp-content.is-lp-bg-1.is-top-title
+  section.lp-content.is-lp-bg-3.is-right-title.lp-left-number-sections
     .l-container.is-lg
       .lp-content__inner
         .lp-content__start
           header.lp-content__header
-            h2.lp-content-title.text-center.is-border-bottom
-              | 講座内容
+            h3.lp-content-title.is-vertical.is-border-left
+              | 履修スタート
+              br
+              | までの
+              strong
+                | 流れ
         .lp-content__end
-          .lp-content-stack
-            .lp-content-stack__item
-              .l-inner-container.is-sm
-                = render 'welcome/certified_reskill_courses/rails_developer_course/practices'
+          .lp-left-number-sections__items
+            .l-cards.is-zigzag
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | お申し込み
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | お問い合わせフォームより、Railsエンジニア（Reスキル認定講座対応）コース
+                              | お申し込みのご連絡をお願いいたします。
+                              | 担当者よりメールにて本人確認の手順を説明させていただきます。
+                        .lp-card-actions
+                          .lp-card-actions__items
+                            .lp-card-actions__item
+                              = link_to 'お問い合わせフォーム',
+                                new_inquiry_path,
+                                class: 'a-button is-md is-primary-border is-block',
+                                target: '_blank', rel: 'noopener'
 
-  = render 'welcome/process'
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | 本人確認
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 担当者宛にメールで身分証明書のスキャンをお送りいただきます。
+                              | その後日時を調整し、ビデオチャットにて身分証明書と合わせて
+                              | 本人確認を行います。
+                              | 運転免許証、パスポート、マイナンバーカード、在留カード、
+                              | または特別永住者証明書を身分証明書としてご利用いただけます。
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | お試し期間
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | 本人確認後、お試し利用用のアカウントを発行いたします。
+                              | 3日間のお試し期間中は、制限なくRailsエンジニア（Reスキル認定講座対応）コースを
+                              | 履修できます。お試し期間中に履修をキャンセルすることも可能です。
+                              | 期間内に、継続するかどうかご判断ください。
+
+              .l-cards__item
+                .l-cards__item-inner
+                  .a-card
+                    section.lp-left-number-section
+                      .lp-left-number-section__start
+                        header.lp-left-number-section__header
+                          h4.lp-left-number-section__title
+                            | ご入金、
+                            br
+                            | 履修開始
+                      .lp-left-number-section__end
+                        .lp-card-description
+                          .a-short-text
+                            p
+                              | お試し期間終了後に受講料をお支払いいただきます。
+                              | 支払い方法は銀行振込のみで、一括払いとなります。
+                              | 入金が確認でき次第、お試し期間でご利用いただいていたアカウントを
+                              | 正式なアカウントに移行いたします。
+                              | 移行後そのアカウントでログインしていただき、履修開始となります。
 
   section.lp-content.is-lp-bg-1.is-top-title
     .l-container.is-lg
@@ -329,16 +421,19 @@ hr.a-border
                           | ITSSレベル３
                     tr
                       th
-                        | 学則
+                        | 規約
                       td
-                        p
-                          = link_to 'Railsエンジニア（Reスキル認定講座対応）コース学則', certified_reskill_courses_rails_developer_course_regulations_path, class: 'a-text-link', target: '_blank', rel: 'noopener'
+                        ul
+                          li
+                            = link_to '利用規約', tos_path, class: 'a-text-link', target: '_blank', rel: 'noopener'
+                          li
+                            = link_to 'アンチハラスメントポリシー', coc_path, class: 'a-text-link', target: '_blank', rel: 'noopener'
                     tr
                       th
                         | 受講者の本人確認書類
                       td
                         p
-                          | メールにて下記の中から1点をお送りいただき、本人確認を行います。
+                          | メールにて下記の中から1点のスキャンをお送りいただき、本人確認を行います。
                         ul
                           li
                             | 運転免許証
