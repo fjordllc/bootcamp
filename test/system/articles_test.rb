@@ -414,6 +414,40 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text 'WIPの記事は atom feed に表示されない'
   end
 
+  test 'articles are displayed from the most recent publication date' do
+    article4 = Article.create(
+      title: 'タイトル4',
+      body: 'テスト用のWIP記事4',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 4.days,
+      updated_at: Date.current - 4.days,
+      published_at: Date.current - 3.days
+    )
+    article5 = Article.create(
+      title: 'タイトル5',
+      body: 'テスト用のWIP記事5',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 5.days,
+      updated_at: Date.current - 5.days,
+      published_at: Date.current - 2.days
+    )
+    article6 = Article.create(
+      title: 'タイトル6',
+      body: 'テスト用のWIP記事6',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 6.days,
+      updated_at: Date.current - 6.days,
+      published_at: Date.current - 1.day
+    )
+
+    visit articles_url
+    titles = all('h2.thumbnail-card__title').map(&:text)
+    assert_equal [article6.title, article5.title, article4.title, @article2.title, @article.title], titles
+  end
+
   test 'WIP articles are listed first in desc order' do
     # テストがわかりやすいように test/fixtures/article.yml の article3(WIP記事) からの連番で作成
     wip_article4 = Article.create(
