@@ -33,10 +33,6 @@ class WelcomeController < ApplicationController
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
   end
 
-  def rails_developer_course_regulations
-    render template: 'welcome/certified_reskill_courses/rails_developer_course/regulations'
-  end
-
   private
 
   # TODO: リスキル講座 公開までは管理者のみ見れるようにするので、そのメソッド。
