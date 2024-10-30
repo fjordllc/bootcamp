@@ -75,17 +75,6 @@ class ArticlesController < ApplicationController
     Article.with_attachments_and_user.order(published_at: :desc)
   end
 
-  def list_articles
-    articles = Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
-                      .order(published_at: :desc, created_at: :desc).page(params[:page])
-    admin_or_mentor_login? ? articles : articles.where(wip: false)
-  end
-
-  def list_recent_articles(number)
-    Article.with_attached_thumbnail.includes(user: { avatar_attachment: :blob })
-           .where(wip: false).order(published_at: :desc).limit(number)
-  end
-
   def article_params
     article_attributes = %i[
       title
