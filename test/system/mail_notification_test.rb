@@ -15,4 +15,12 @@ class MailNotificationsTest < ApplicationSystemTestCase
     visit "/users/#{users(:kimura).id}/mail_notification/edit?token=#{users(:kimura).unsubscribe_email_token}"
     assert_text 'ログインしてください'
   end
+
+  test "update another user's mail_notification" do
+    url = "/users/#{users(:kimura).id}/mail_notification/edit?token=#{users(:kimura).unsubscribe_email_token}"
+    visit_with_auth url, 'komagata'
+    assert_text 'メール通知をオフにしますか？'
+    click_on 'オフにする'
+    assert_text '無効な操作です。'
+  end
 end
