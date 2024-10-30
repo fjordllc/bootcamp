@@ -5,12 +5,6 @@ class WelcomeController < ApplicationController
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
 
-  # TODO: リスキル講座 公開までは管理者のみ見れるようにする
-  before_action :require_admin, only: %i[
-    rails_developer_course
-    rails_developer_course_regulations
-  ]
-
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
   end
