@@ -154,3 +154,19 @@ marumarushain<%= i %>: # ページネーション確認のためのユーザー
 talk42:
   user: harikirio
   action_completed: true
+
+talk43:
+  user: rails-course
+  action_completed: true
+
+talk44:
+  user: front-end-course
+  action_completed: true
+
+talk45:
+  user: unity-course
+  action_completed: true
+
+talk46:
+  user: ios-course
+  action_completed: true
