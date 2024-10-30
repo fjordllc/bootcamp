@@ -6,10 +6,10 @@ class ArticlesController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
-    @articles = Article.with_attachments_and_user.order(created_at: :desc).page(params[:page])
+    @articles = sorted_articles.page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     number_per_page = @articles.page(1).limit_value
-    @atom_articles = Article.with_attachments_and_user.order(published_at: :desc).limit(number_per_page)
+    @atom_articles = sorted_articles.limit(number_per_page)
     respond_to do |format|
       format.html { render layout: 'lp' }
       format.atom
@@ -65,6 +65,14 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def skip_before_action
+    Article.with_attachments_and_user.order(published_at: :desc)
+  end
+
+  def sorted_articles
+    Article.with_attachments_and_user.order(published_at: :desc)
   end
 
   def list_articles
