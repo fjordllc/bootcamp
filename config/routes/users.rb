@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # この順番が崩れると壊れるので注意
   namespace :users do
     get "tags", to: "tags#index"
+    resources :courses, only: %i(index)
     resources :companies, only: %i(index)
     resources :areas, only: %i(index)
     get "areas/:area", to: "areas#show", as: :area

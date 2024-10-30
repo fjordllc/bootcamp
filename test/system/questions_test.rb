@@ -535,7 +535,7 @@ class QuestionsTest < ApplicationSystemTestCase
     fill_in 'question[description]', with: 'テストの質問です。'
     within '.select-user' do
       find('.choices__inner').click
-      find('#choices--js-choices-user-item-choice-12', text: 'hatsuno').click
+      find('#choices--js-choices-user-item-choice-13', text: 'hatsuno').click
     end
     click_button '登録する'
     assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
@@ -547,7 +547,7 @@ class QuestionsTest < ApplicationSystemTestCase
     click_link '内容修正'
     within '.select-user' do
       find('.choices__inner').click
-      find('#choices--js-choices-user-item-choice-12', text: 'hatsuno').click
+      find('#choices--js-choices-user-item-choice-13', text: 'hatsuno').click
     end
     click_button '更新する'
     assert_selector '.a-user-name', text: 'hatsuno (ハツノ シンジ)'
@@ -561,7 +561,7 @@ class QuestionsTest < ApplicationSystemTestCase
     end
     within '.select-user' do
       find('.choices__inner').click
-      find('#choices--js-choices-user-item-choice-12', text: 'hatsuno').click
+      find('#choices--js-choices-user-item-choice-13', text: 'hatsuno').click
     end
     click_button 'WIP'
 

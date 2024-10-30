@@ -286,6 +286,7 @@ class User < ApplicationRecord
   scope :auto_retire, -> { where(auto_retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
+  scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
   scope :students_and_trainees, lambda {
     where(
       admin: false,
