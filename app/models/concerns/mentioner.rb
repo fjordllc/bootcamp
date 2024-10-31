@@ -71,6 +71,7 @@ module Mentioner
       Report: "#{commentable.user.login_name}さんの日報「#{commentable.title}」",
       Product: "#{commentable.user.login_name}さんの#{commentable.title}",
       Event: "特別イベント「#{commentable.title}」",
+      RegularEvent: "定期イベント「#{commentable.title}」",
       Page: "Docs「#{commentable.title}」",
       Announcement: "お知らせ「#{commentable.title}」"
     }[:"#{commentable_class}"]
