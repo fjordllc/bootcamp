@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @mentor = @article.user
-    @recent_articles = Article.with_attachments_and_user.order(published_at: :desc).limit(10)
+    @recent_articles = sorted_articles.limit(10)
     if @article.published? || @article.token == params[:token] || admin_or_mentor_login?
       render layout: 'lp'
     else
