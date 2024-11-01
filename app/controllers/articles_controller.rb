@@ -67,10 +67,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def skip_before_action
-    Article.with_attachments_and_user.order(published_at: :desc)
-  end
-
   def sorted_articles
     Article.with_attachments_and_user.order(published_at: :desc)
   end
