@@ -14,4 +14,4 @@
         .a-long-text.is-md.js-markdown-view
           = @micro_report.content
       hr.a-border-tint
-      = render 'reactions/reactions', reactionable: @micro_report, current_user: @current_user
+      = render(Reactions::ReactionsComponent.new(reactionable: @micro_report, current_user: @current_user))
