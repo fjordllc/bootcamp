@@ -7,7 +7,7 @@ class Users::MicroReports::FormComponentTest < ViewComponent::TestCase
     @user = users(:hatsuno)
   end
 
-  def test_render_component
+  def test_default
     render_inline(Users::MicroReports::FormComponent.new(user: @user))
 
     assert_selector '.micro-report-form-tabs__item-link.is-active', text: '分報'

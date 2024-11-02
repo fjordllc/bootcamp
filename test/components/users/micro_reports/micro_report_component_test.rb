@@ -7,7 +7,7 @@ class Users::MicroReports::MicroReportComponentTest < ViewComponent::TestCase
     @user = users(:hatsuno)
   end
 
-  def test_render_component
+  def test_default
     micro_report = micro_reports(:hajime_first_micro_report)
     render_component(micro_report)
 
