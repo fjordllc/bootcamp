@@ -1,4 +1,5 @@
-= form_with model: [@user, @micro_report], local: true, class: 'micro-report-form', id: 'js-micro-report-form', url: user_micro_reports_path(@user, anchor: 'latest-micro-report') do |f|
+= form_with model: [@user, @micro_report], local: true, class: 'micro-report-form', id: 'js-micro-report-form',
+                    url: user_micro_reports_path(@user, anchor: 'latest-micro-report') do |f|
   .container.is-md
     .micro-report-form__inner
       .micro-report-form__start
@@ -6,9 +7,13 @@
           .micro-report-form-tabs
             ul.micro-report-form-tabs__items.form-tabs.js-tabs
               li.micro-report-form-tabs__item
-                = link_to '分報', '#form', class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link is-active', data: { target: 'form-container' }
+                = link_to '分報', '#form',
+                  class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link is-active',
+                  data: { target: 'form-container' }
               li.micro-report-form-tabs__itemm
-                = link_to 'プレビュー', '#preview', class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link', data: { target: 'preview-container' }
+                = link_to 'プレビュー', '#preview',
+                  class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link',
+                  data: { target: 'preview-container' }
 
           .tab-content
             .js-tab-pane#form-container
