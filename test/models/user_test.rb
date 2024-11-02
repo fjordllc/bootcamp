@@ -706,6 +706,14 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
+  test '#cancel_participation_from_regular_events' do
+    user = users(:hatsuno)
+
+    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
+      user.cancel_participation_from_regular_events
+    end
+  end
+
   test '#delete_and_assign_new_organizer' do
     user = users(:hajime)
 
