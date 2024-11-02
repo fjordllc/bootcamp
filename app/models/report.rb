@@ -32,7 +32,8 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
-  validate :reported_on_or_before_today
+  validate :limit_date_within_range
+  # validate :reported_on_or_before_today
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -114,8 +115,15 @@ class Report < ApplicationRecord
     (learning_times.sum(&:diff) / 60).to_i
   end
 
-  def reported_on_or_before_today
-    errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
+  # def reported_on_or_before_today
+  #   errors.add(:reported_on, 'は今日以前の日付にしてください') if reported_on > Date.current
+  # end
+
+  def limit_date_within_range
+    min_date = Date.new(2013, 1, 1)
+    return if min_date < reported_on && reported_on < Date.current
+
+    errors.add(:reported_on, "は#{I18n.l min_date, format: :default}から今日以前の間の日付にしてください")
   end
 
   def latest_of_user?
