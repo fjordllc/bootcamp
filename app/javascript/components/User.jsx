@@ -70,14 +70,6 @@ export default function User({ user, currentUser }) {
                   <div className="card-list-item__row">
                     <div className="card-list-item-title">
                       <div className="card-list-item-title__end">
-                        {user.company && user.company.logo_url && (
-                          <a href={user.company.url}>
-                            <img
-                              className="user-item__company-logo"
-                              src={user.company.logo_url}
-                            />
-                          </a>
-                        )}
                         <a
                           className="card-list-item-title__title is-lg a-text-link"
                           href={user.url}>

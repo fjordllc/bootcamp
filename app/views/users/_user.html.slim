@@ -46,9 +46,6 @@
                           .a-meta__icon
                             i.fa-brands.fa-discord
                             | #{user.discord_profile.account_name}
-          - if user.company&.logo_url
-            = link_to company_path(user.company) do
-              img.user-item__company-logo src=user.company.logo_url
         = render 'users/sns', user: user
         - if user.student_or_trainee?
           .card-counts.is-users.mt-3

@@ -49,10 +49,6 @@
                         .a-meta__icon
                           i.fa-brands.fa-discord
                         | {{ user.discord_profile.account_name }}
-          a(
-            v-if='user.company && user.company.logo_url',
-            :href='user.company.url')
-            img.user-item__company-logo(:src='user.company.logo_url')
         user-sns(:user='user')
         user-activity-counts(:user='user')
       .users-item__body
