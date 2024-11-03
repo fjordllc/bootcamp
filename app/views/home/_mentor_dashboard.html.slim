@@ -8,11 +8,12 @@
             - if unchecked_report_count > 100
               = render 'unchecked_report_alert', unchecked_report_count: unchecked_report_count
             .dashboard-category__body
-              = render(Products::UnassignedProductsComponent.new(products:,
-                                                                 products_grouped_by_elapsed_days:,
-                                                                 is_mentor: mentor_login?,
-                                                                 current_user_id: current_user.id,
-                                                                 reply_warning_days: @product_deadline_day))
+              = render(Products::UnassignedProductsComponent.new( \
+                products:,
+                products_grouped_by_elapsed_days:,
+                is_mentor: mentor_login?,
+                current_user_id: current_user.id,
+                reply_warning_days: @product_deadline_day))
       .dashboard-contents__col.is-main
         .dashboard-contents__categories
           .dashboard-category

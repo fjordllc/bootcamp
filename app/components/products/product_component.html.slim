@@ -3,7 +3,10 @@
     .card-list-item__user
       = link_to user_url(@product.user), class: "card-list-item__user-link" do
         span class=["a-user-role", role_class]
-          = image_tag @product.user.avatar_url, class: "card-list-item__user-icon a-user-icon", title: @product.user.icon_title, alt: @product.user.icon_title
+          = image_tag @product.user.avatar_url,
+            class: "card-list-item__user-icon a-user-icon",
+            title: @product.user.icon_title,
+            alt: @product.user.icon_title
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -15,7 +18,10 @@
                 span WIP
           h2.card-list-item-title__title itemprop='name'
             - @product.title
-            = link_to practice_title, practice_url(@product.practice), class: "card-list-item-title__link a-text-link js-unconfirmed-link", itemprop: "url"
+            = link_to practice_title,
+              practice_url(@product.practice),
+              class: "card-list-item-title__link a-text-link js-unconfirmed-link",
+              itemprop: "url"
 
       .card-list-item__row
         .card-list-item-meta
@@ -65,7 +71,10 @@
                 .card-list-item__user-icons
                   - @product.commented_users.distinct.each do |user|
                     a.card-list-item__user-icons-icon href=user_path(user)
-                      = image_tag user.avatar_url, class: "a-user-icon #{role_class}", title: user.icon_title, alt: user.icon_title
+                      = image_tag user.avatar_url,
+                        class: "a-user-icon #{role_class}",
+                        title: user.icon_title,
+                        alt: user.icon_title
 
               - if @product.self_last_commented_at && @product.mentor_last_commented_at
                 .card-list-item-meta__item
@@ -91,11 +100,12 @@
       - if @is_mentor && @product.checks.size == 0
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
-            = render(Products::ProductCheckerComponent.new(checker_id: @product.checker_id,
-                                                           checker_name: @product.checker_name,
-                                                           checker_avatar: @product.checker_avatar,
-                                                           current_user_id: @current_user_id,
-                                                           product_id: @product.id))
+            = render(Products::ProductCheckerComponent.new( \
+              checker_id: @product.checker_id,
+              checker_name: @product.checker_name,
+              checker_avatar: @product.checker_avatar,
+              current_user_id: @current_user_id,
+              product_id: @product.id))
     - if @product.checks.size > 0
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
