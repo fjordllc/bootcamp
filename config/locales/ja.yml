@@ -48,6 +48,7 @@ ja:
       regular_event: 定期イベント
       request_retirement: 退会申請
       faq: FAQ
+      faq_category: FAQカテゴリ
     attributes:
       user:
         login_name: アカウント
@@ -308,6 +309,8 @@ ja:
         question: 質問
         answer: 回答
         faq_category: カテゴリー
+      faq_category:
+        name: 名前
     enums:
       user:
         job:
@@ -455,12 +458,3 @@ ja:
     followup: "こんにちは。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあれば、メンターの皆さんにお気軽にご相談ください。"
     comeback: "お帰りなさい！！復会ありがとうございます。\n休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\nまたフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n<https://bootcamp.fjord.jp/practices/129#url>"
   unregistered: 未登録
-  faq:
-    all: 全て
-    study_content: 学習内容について
-    study_environment: 学習環境について
-    fee: 利用料について
-    find_job: 就職について
-    join: 入会について
-    withdrawal_hibernation_graduation: 退会、休会、卒業について
-    corporate_use: 法人利用について
