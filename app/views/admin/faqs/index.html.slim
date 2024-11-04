@@ -24,4 +24,21 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-xl
-      = render 'table', faqs: @faqs
+      - @faq_categories.each do |faq_category|
+        h2 = faq_category.name
+
+        - if faq_category.faqs.size.positive?
+          .admin-table
+            table.admin-table__table
+              thead.admin-table__header
+                tr.admin-table__labels
+                  th.admin-table__label 質問
+                  th.admin-table__label 編集
+              tbody.admin-table__items
+                - faq_category.faqs.each do |faq|
+                  tr.admin-table__item
+                    td.admin-table__item-value
+                      = link_to format_question(faq.question), admin_faq_path(faq)
+                    td.admin-table__item-value.is-text-align-center
+                      = link_to edit_admin_faq_path(faq), class: 'a-button is-sm is-secondary is-icon' do
+                        i.fa-solid.fa-pen

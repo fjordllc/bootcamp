@@ -58,6 +58,7 @@ import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
 import '../payment-methods-check-boxes.js'
 import '../sort-faq.js'
+import '../sort-faq-category.js'
 
 import VueMounter from '../VueMounter.js'
 import Books from '../components/books.vue'

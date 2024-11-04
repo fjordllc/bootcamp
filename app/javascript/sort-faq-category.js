@@ -2,17 +2,16 @@ import Sortable from 'sortablejs'
 import Bootcamp from 'bootcamp'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const element = document.querySelector('#js-faq-sortable')
+  const element = document.querySelector('#js-faq-category-sortable')
   if (!element) return
 
   Sortable.create(element, {
     handle: '.js-grab',
     onEnd(event) {
       const id = event.item.id
-      const categoryId = event.item.dataset.faqCategoryId
-      const url = `/admin/faq_categories/${categoryId}/faqs/${id}`
+      const url = `/admin/faq_categories/${id}`
       const params = {
-        faq: {
+        faq_category: {
           insert_at: event.newIndex + 1
         }
       }
