@@ -2,11 +2,9 @@
 
 class Admin::FaqsController < AdminController
   before_action :set_faq, only: %i[show edit update destroy]
-  before_action :set_category, only: %i[edit new update create]
+  before_action :set_faq_category, only: %i[index edit new update create]
 
-  def index
-    @faqs = FAQ.all.order(:created_at)
-  end
+  def index; end
 
   def new
     @faq = FAQ.new
@@ -48,7 +46,7 @@ class Admin::FaqsController < AdminController
     @faq = FAQ.find(params[:id])
   end
 
-  def set_category
-    @category = %i[study_content study_environment fee find_job join withdrawal_hibernation_graduation corporate_use]
+  def set_faq_category
+    @faq_categories = FAQCategory.all
   end
 end

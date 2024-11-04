@@ -14,6 +14,6 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "API"
   inflect.acronym "AI"
-  inflect.irregular "buzz", "buzzes"
   inflect.acronym "FAQ"
+  inflect.irregular "buzz", "buzzes"
 end
