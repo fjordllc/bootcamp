@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/product_helper'
+
 
 class UserCoursePracticeTest < ActiveSupport::TestCase
+  include ProductHelper
   setup do
     @user_course_practice_kensyu = UserCoursePractice.new(users(:kensyu))
     @user_course_practice_kimura = UserCoursePractice.new(users(:kimura))
@@ -51,6 +54,8 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
     machida = @user_course_practice_machida
     practice1 = practices(:practice1)
+    user = users(:machida)
+    create_checked_product(user, practices(:practice1))
     Learning.create!(
       user: users(:machida),
       practice: practice1,
@@ -72,6 +77,9 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#completed_practices' do
     practice62 = practices(:practice62)
     practice63 = practices(:practice63)
+    user = users(:komagata)
+    create_checked_product(user, practices(:practice62))
+    create_checked_product(user, practices(:practice63))
     Learning.create!(
       [{ user: users(:kensyu),
          practice: practice62,
@@ -90,6 +98,9 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#completed_required_practices' do
     practice62 = practices(:practice62)
     practice63 = practices(:practice63)
+    user = users(:komagata)
+    create_checked_product(user, practices(:practice62))
+    create_checked_product(user, practices(:practice63))
     Learning.create!(
       [{ user: users(:kensyu),
          practice: practice62,
@@ -108,6 +119,9 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
   test '#completed_percentage' do
     practice62 = practices(:practice62)
     practice63 = practices(:practice63)
+    user = users(:komagata)
+    create_checked_product(user, practices(:practice62))
+    create_checked_product(user, practices(:practice63))
     Learning.create!(
       [{ user: users(:kensyu),
          practice: practice62,

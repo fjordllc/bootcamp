@@ -536,19 +536,6 @@ class User < ApplicationRecord
     last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
-  def completed_percentage
-    completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
-  end
-
-  def required_practices_size
-    practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
-  end
-
-  def completed_required_practices_size
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
-  end
-
   def active?
     (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
@@ -885,13 +872,5 @@ class User < ApplicationRecord
 
   def password_required?
     new_record? || password.present?
-  end
-
-  def practices_include_progress
-    course.practices.where(include_progress: true)
-  end
-
-  def required_practices_size_with_skip
-    course.practices.where(id: practice_ids_skipped, include_progress: true).size
   end
 end
