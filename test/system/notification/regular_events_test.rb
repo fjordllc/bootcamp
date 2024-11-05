@@ -78,4 +78,13 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
     assert_requested(stub_message)
   end
+
+  test 'notify correct message when mentioned' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'komagata'
+    fill_in 'new_comment[description]', with: '@machida test'
+    click_button 'コメントする'
+    visit_with_auth '/notifications', 'machida'
+    assert_text '定期イベント「開発MTG」へのコメントでkomagataさんからメンションがきました。'
+  end
 end
