@@ -532,19 +532,6 @@ class User < ApplicationRecord
     last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
-  def completed_percentage
-    completed_required_practices_size.to_f / required_practices_size * MAX_PERCENTAGE
-  end
-
-  def required_practices_size
-    practices_include_progress.pluck(:id).uniq.size - required_practices_size_with_skip
-  end
-
-  def completed_required_practices_size
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
-  end
-
   def active?
     (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
@@ -885,21 +872,6 @@ class User < ApplicationRecord
 
   def practices_include_progress
     course.practices.where(include_progress: true)
-  end
-
-  def unstarted_practices
-    @unstarted_practices ||= course.practices -
-                             course.practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-                                   .or(course.practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-                                   .or(course.practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
-  end
-
-  def category_having_active_practice
-    active_practices&.first&.categories&.first
-  end
-
-  def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
   end
 
   def validate_uploaded_avatar_content_type
