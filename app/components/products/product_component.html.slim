@@ -1,12 +1,13 @@
 .card-list-item.has-assigned class=(@product.wip ? 'is-wip' : '')
   .card-list-item__inner
-    .card-list-item__user
-      = link_to user_url(@product.user), class: "card-list-item__user-link" do
-        span class=["a-user-role", role_class]
-          = image_tag @product.user.avatar_url,
-            class: "card-list-item__user-icon a-user-icon",
-            title: @product.user.icon_title,
-            alt: @product.user.icon_title
+    - if @display_user_icon
+      .card-list-item__user
+        = link_to user_url(@product.user), class: "card-list-item__user-link" do
+          span class=["a-user-role", role_class]
+            = image_tag @product.user.avatar_url,
+              class: "card-list-item__user-icon a-user-icon",
+              title: @product.user.icon_title,
+              alt: @product.user.icon_title
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
