@@ -7,7 +7,7 @@ export default (md, _options) => {
         .slice(state.bMarks[startLine], state.eMarks[startLine])
         .trim()
 
-      const match = content.match(/@\[card\]\((.+?)\)/)
+      const match = content.match(/^@\[card\]\((.+?)\)/)
       if (!match) return false
 
       if (silent) return true
@@ -16,10 +16,17 @@ export default (md, _options) => {
 
       const token = state.push('html_block', '', 0)
       token.content = `
-      <div class="a-link-card before-replacement-link-card" data-url="${linkCardUrl}">
-        <p>リンクカード適用中... <i class="fa-regular fa-loader fa-spin"></i></p>
-      </div>
-    `
+        <div class="a-link-card before-replacement-link-card" data-url="${linkCardUrl}">
+          <p>リンクカード適用中... <i class="fa-regular fa-loader fa-spin"></i></p>
+        </div>
+      `
+
+      const remainingText = content.slice(match[0].length).trim()
+
+      if (remainingText) {
+        const textToken = state.push('inline', '', 0)
+        textToken.content = remainingText
+      }
 
       state.line = startLine + 1
       return true
