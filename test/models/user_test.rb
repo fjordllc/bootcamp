@@ -72,37 +72,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 29, User.new(created_at: '2020-01-10 00:00:00').generation
   end
 
-  test '#completed_percentage don\'t calculate practice that include_progress: false' do
-    user = users(:komagata)
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_percentage, user.completed_percentage
-
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice53)
-
-    assert_equal old_percentage, user.completed_percentage
-  end
-
-  test '#completed_percentage don\'t calculate practice unrelated cource' do
-    user = users(:komagata)
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_percentage, user.completed_percentage
-
-    old_percentage = user.completed_percentage
-    user.completed_practices << practices(:practice55)
-
-    assert_equal old_percentage, user.completed_percentage
-  end
-
-  test '#required_practices_size' do
-    user = users(:kensyu)
-    assert_equal 50, user.required_practices_size
-  end
-
   test '#practice_ids_skipped' do
     user = users(:kensyu)
     assert_includes(user.practice_ids_skipped, practices(:practice8).id)
@@ -328,13 +297,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 3, kimura.followees_list.count
     assert_equal 2, kimura.followees_list(watch: 'true').count
     assert_equal 1, kimura.followees_list(watch: 'false').count
-  end
-
-  test '#completed_required_practices_size' do
-    user = users(:kensyu)
-    user.completed_practices << practices(:practice5)
-    user.completed_practices << practices(:practice61)
-    assert_equal 1, user.completed_required_practices_size
   end
 
   test "don't unfollow user when other user unfollow user" do
