@@ -16,6 +16,14 @@ class Products::ProductComponent < ViewComponent::Base
     "#{@product.practice.title}の提出物"
   end
 
+  def dashboard?
+    request.path == root_path
+  end
+
+  def unassigned_products_page?
+    request.path == '/products/unassigned'
+  end
+
   def not_responded_sign?
     @product.comments.empty? ||
       (@product.self_last_commented_at &&
