@@ -20,7 +20,7 @@
           h2.card-list-item-title__title itemprop='name'
             - @product.title
             = link_to practice_title,
-              practice_url(@product.practice),
+              product_url(@product),
               class: "card-list-item-title__link a-text-link js-unconfirmed-link",
               itemprop: "url"
 
