@@ -104,6 +104,15 @@
             .form-item-block__item
               = render 'users/form/graduate', f: f
 
+      .form-item
+        = f.hidden_field :remove_diploma, value: '0', id: 'remove-diploma-flag'
+        = f.label :diploma_file, class: 'a-form-label'
+        - if @user.diploma_file.attached?
+          = link_to @user.diploma_file.filename, url_for(@user.diploma_file), class: 'a-text-input', id: 'diploma-file-link'
+        - display = @user.diploma_file.attached? ? 'display: none' : 'display: block'
+        = f.file_field :diploma_file, class: 'a-text-input', id: 'diploma-upload-field', style: display
+        button type='button' id='remove-diploma-button' class='a-button is-md is-secondary' 削除
+
       .form-item-block
         .form-item-block__inner
           header.form-item-block__header
