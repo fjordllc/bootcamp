@@ -85,3 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initializeFileInput(document)
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+  const removeDiplomaButton = document.getElementById('remove-diploma-button')
+  const diplomaUploadField = document.getElementById('diploma-upload-field')
+  const diplomaFileLink = document.getElementById('diploma-file-link')
+  const removeDiplomaFlag = document.getElementById('remove-diploma-flag')
+
+  removeDiplomaButton.addEventListener('click', () => {
+    diplomaFileLink && (diplomaFileLink.style.display = 'none')
+    diplomaUploadField.style.display = 'block'
+    diplomaUploadField.value = ''
+    removeDiplomaFlag.value = '1'
+  })
+})

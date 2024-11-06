@@ -173,6 +173,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_one_attached :profile_image
+  has_one_attached :diploma_file
 
   after_create UserCallbacks.new
 
@@ -206,6 +207,8 @@ class User < ApplicationRecord
                        in: %w[image/png image/jpg image/jpeg image/gif image/heic image/heif],
                        message: 'はPNG, JPG, GIF, HEIC, HEIF形式にしてください'
                      }
+
+  validates :diploma_file, content_type: { in: ['application/pdf'], message: 'はPDF形式にしてください' }
 
   validates :country_code, inclusion: { in: ISO3166::Country.codes }, allow_blank: true
 
