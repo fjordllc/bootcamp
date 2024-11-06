@@ -43,4 +43,11 @@ class ReportTest < ActiveSupport::TestCase
   test '#interval' do
     assert_equal 10, reports(:report32).interval
   end
+
+  test '#limit_date_within_range' do
+    past_report = Report.new(reported_on: '2012-12-31')
+    assert_not past_report.valid?
+    future_report = Report.new(reported_on: Date.tomorrow)
+    assert_not future_report.valid?
+  end
 end
