@@ -402,7 +402,6 @@ ja:
   course_names:
     rails_course: Railsエンジニア
     front_end_course: フロントエンドエンジニア
-    other_courses: [Unityゲームエンジニア, iOSエンジニア]
   watch:
     all: すべて
     true: コメントあり
