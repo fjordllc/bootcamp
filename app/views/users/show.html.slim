@@ -73,6 +73,8 @@
               = react_component 'Grass', { userId: @user.id }, { class: 'a-card' }
             - if @user.student_or_trainee?
               = render(Calendar::NicoNicoCalendarComponent.new(user: @user, path: :niconico_calendar_date_in_profile_path, current_date: @calendar.current_date, current_calendar: @calendar.with_reports))
+            - if @user.github_account.present?
+                = render 'users/github_grass', user: @user
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
                 = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
