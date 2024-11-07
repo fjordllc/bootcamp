@@ -347,4 +347,16 @@ class CommentsTest < ApplicationSystemTestCase
     end
     assert_equal '.new-comment-file-input', find('textarea.a-text-input')['data-input']
   end
+
+  test 'show confirm dialog if report is not confirmed' do
+    visit_with_auth "/reports/#{reports(:report2).id}", 'machida'
+    assert_text '確認OKにする'
+    within('.thread-comment-form__form') do
+      fill_in('new_comment[description]', with: 'comment test')
+    end
+    accept_confirm '日報を確認済みにしていませんがよろしいですか？' do
+      click_button 'コメントする'
+    end
+    assert_text 'comment test'
+  end
 end
