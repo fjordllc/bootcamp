@@ -21,6 +21,8 @@ class ReportsController < ApplicationController
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
+    @footprints = Footprint.create_or_find(@report.class.name, @report.id, current_user)
+    @footprint_total_count = @footprints.count
     respond_to do |format|
       format.html
       format.md
