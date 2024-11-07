@@ -20,8 +20,7 @@
 
       .form-item
         = f.label :reported_on, class: 'a-form-label'
-        = f.date_field :reported_on, class: 'a-text-input'
-        / = f.date_field :reported_on, min: '2013-01-01', class: 'a-text-input'
+        = f.date_field :reported_on, min: '2013-01-01', class: 'a-text-input'
       .form-item.is-sm
         = f.label :emotion, class: 'a-form-label'
         ul.block-checks.is-3-items.is-inline
