@@ -135,7 +135,7 @@ class Report < ApplicationRecord
 
   def limit_date_within_range
     min_date = Date.new(2013, 1, 1)
-    return if min_date < reported_on && reported_on < Date.current
+    return if min_date < reported_on && reported_on <= Date.current
 
     errors.add(:reported_on, "は#{I18n.l min_date, format: :default}から今日以前の間の日付にしてください")
   end
