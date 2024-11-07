@@ -37,10 +37,8 @@
       .sns-links__item-link.a-button.is-sm.is-disabled.is-icon(v-else)
         i.fa-solid.fa-clock
 
-  a(
-      v-if='user.company && user.company.logo_url',
-      :href='user.company.url')
-      img.user-item__company-logo(:src='user.company.logo_url')
+  a(v-if='user.company && user.company.logo_url', :href='user.company.url')
+    img.user-item__company-logo(:src='user.company.logo_url')
 </template>
 <script>
 export default {
