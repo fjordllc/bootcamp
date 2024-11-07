@@ -22,7 +22,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include MockEnvHelper
   include ArticleHelper
 
-  if ENV['HEADFULL']
+  if ENV['HEADFUL']
     driven_by :selenium, using: :chrome
   else
     driven_by(:selenium, using: :headless_chrome) do |driver_option|

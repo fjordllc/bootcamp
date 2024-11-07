@@ -1,10 +1,10 @@
-- title @page.title
+- title "Docs: #{@page.title}"
 - description "オンラインプログラミングスクール「フィヨルドブートキャンプ」のドキュメント「#{@page.title}」のページです。"
 - content_for :extra_body_classes
 
 .page-body
   article.unauthorized
-    = render '/unauthorized/unauthorized_header', label: 'ドキュメント', title: title
+    = render '/unauthorized/unauthorized_header', label: 'ドキュメント', title: @page.title
     .unauthorized__body
       .container.is-md
         .unauthorized__contents
