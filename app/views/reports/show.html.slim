@@ -41,7 +41,9 @@
                   | 次の日報
                   i.fa-solid.fa-angle-right
         #js-comments(data-commentable-id="#{@report.id}" data-commentable-type='Report' data-current-user-id="#{current_user.id}")
-        div(data-vue='Footprints' data-vue-footprintable-id="#{@report.id}" data-vue-footprintable-type='Report')
+        ul.user-icons__items data-footprintable-id=@report.id data-footprintable-type='Report'
+          = render '/footprints/footprints', footprints: @footprints
+
       .col-xl-5.col-xs-12
         - if current_user.mentor? || current_user.admin?
           .side-tabs
