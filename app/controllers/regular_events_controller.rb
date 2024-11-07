@@ -9,6 +9,8 @@ class RegularEventsController < ApplicationController
 
   def show
     @regular_event = RegularEvent.find(params[:id])
+    @footprints = Footprint.create_or_find(@regular_event.class.name, @regular_event.id, current_user)
+    @footprint_total_count = @footprints.count
   end
 
   def new
