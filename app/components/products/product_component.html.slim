@@ -99,6 +99,29 @@
                     time.a-meta
                       | 〜 #{l(@product.mentor_last_commented_at)}（メンター）
 
+
+      - if (@is_mentor || @is_admin) && @product.user.primary_role == 'trainee'
+        .card-list-item__row
+          .card-list-item-meta__items
+            .card-list-item-meta__item
+              - if @product.user.training_ends_on
+                time.a-meta dateTime=@product.user.training_ends_on
+                  span.a-meta__label 研修終了日
+                  span.a-meta__value= @product.user.training_ends_on
+                  - case @product.user.training_remaining_days
+                  - when 0
+                    span.a-meta__value.is-danger （本日研修最終日）
+                  - when ..-1
+                    span.a-meta__value （研修終了）
+                  - when 1..6
+                    span.a-meta__value.is-danger （あと#{@product.user.training_remaining_days}日）
+                  - else
+                    span.a-meta__value （あと#{@product.user.training_remaining_days}日）
+              - else
+                .a-meta
+                  span.a-meta__label 研修終了日
+                  span.a-meta__value 未入力
+
       - if @is_mentor && @product.checks.size == 0
         .card-list-item__row.is-only-mentor
           .card-list-item__assignee
