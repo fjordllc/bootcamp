@@ -9,6 +9,8 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.with_avatar.find(params[:id])
+    @footprints = Footprint.create_or_find(@event.class.name, @event.id, current_user)
+    @footprint_total_count = @footprints.count
   end
 
   def new

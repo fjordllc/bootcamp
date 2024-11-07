@@ -61,4 +61,5 @@
     .container.is-md
       = render 'event', event: @event
       #js-comments(data-commentable-id="#{@event.id}" data-commentable-type='Event' data-current-user-id="#{current_user.id}")
-      div(data-vue='Footprints' data-vue-footprintable-id="#{@event.id}" data-vue-footprintable-type='Event')
+      ul.user-icons__items data-footprintable-id=@event.id data-footprintable-type='Event'
+        = render '/footprints/footprints', footprints: @footprints
