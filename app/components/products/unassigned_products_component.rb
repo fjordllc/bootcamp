@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Products::UnassignedProductsComponent < ViewComponent::Base
-  def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, current_user_id:, reply_warning_days:)
+  def initialize(products:, products_grouped_by_elapsed_days:, is_mentor:, is_admin:, current_user_id:, reply_warning_days:) # rubocop:disable Metrics/ParameterLists
     @products = products
     @products_grouped_by_elapsed_days = products_grouped_by_elapsed_days
     @is_mentor = is_mentor
+    @is_admin = is_admin
     @current_user_id = current_user_id
     @reply_warning_days = reply_warning_days
     @reply_alert_days = @reply_warning_days + 1
