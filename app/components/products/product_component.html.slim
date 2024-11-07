@@ -8,6 +8,7 @@
               class: "card-list-item__user-icon a-user-icon",
               title: @product.user.icon_title,
               alt: @product.user.icon_title
+
     .card-list-item__rows
       .card-list-item__row
         .card-list-item-title
@@ -131,6 +132,7 @@
               checker_avatar: @product.checker_avatar,
               current_user_id: @current_user_id,
               product_id: @product.id))
+
     - if @product.checks.size > 0
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
