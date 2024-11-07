@@ -1,11 +1,12 @@
 - if footprints.any?
   .user-icons
     h3.user-icons__title 見たよ
-    ul.user-icons__items#footprints-container data-footprintable-id=@footprintable_id data-footprintable-type=@footprintable_type
-      - footprints.last(10).reverse.each do |footprint|
+    ul.user-icons__items#initial-footprints data-footprintable-id=@footprintable_id data-footprintable-type=@footprintable_type
+      - footprints.first(10).each do |footprint|
         = render 'footprints/footprint', footprint: footprint
       - if footprints.size > 10
         li.user-icons__more data-remaining-count=(footprints.size - 10) その他#{footprints.size - 10}人
     ul.user-icons__items#remaining-footprints(style="display: none;")
-      - footprints[0...-10].reverse.each do |footprint|
-        = render 'footprints/footprint', footprint: footprint
+      - if footprints.size > 10
+        - footprints[10..-1].each do |footprint|
+          = render 'footprints/footprint', footprint: footprint
