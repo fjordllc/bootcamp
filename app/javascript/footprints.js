@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     moreLink.addEventListener('click', () => {
       const remainingFootprints = document.getElementById('remaining-footprints');
       const initialFootprintsContainer = document.getElementById('initial-footprints');
-
+      
       while (remainingFootprints.firstChild) {
         initialFootprintsContainer.appendChild(remainingFootprints.firstChild);
       }
 
-      moreLink.style.display = 'none';
+      moreLink.remove();
     });
   }
 });
