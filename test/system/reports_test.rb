@@ -473,7 +473,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'cannot post a new report with min date' do
     visit_with_auth '/reports/new', 'komagata'
     within('form[name=report]') do
-      fill_in('report[title]', with: '学習日が2013年1月1日以前では日報を作成できない')
+      fill_in('report[title]', with: '学習日が2013年1月1日より前では日報を作成できない')
       fill_in('report[description]', with: 'エラーになる')
       fill_in('report[reported_on]', with: Date.new(2013, 1, 1))
     end
