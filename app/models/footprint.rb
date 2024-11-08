@@ -8,13 +8,14 @@ class Footprint < ApplicationRecord
   validates :user_id, presence: true
 
   def self.create_or_find(footprintable_type, footprintable_id, user)
-    return [] if footprintable_type.constantize.find(footprintable_id).user_id == user.id
+    if footprintable_type.constantize.find(footprintable_id).user_id != user.id
+      find_or_create_by(
+        footprintable_type: footprintable_type,
+        footprintable_id: footprintable_id,
+        user: user
+      )
+    end
 
-    find_or_create_by(
-      footprintable_type:,
-      footprintable_id:,
-      user:
-    )
-    where(footprintable_type:, footprintable_id:).order(created_at: :desc)
+    where(footprintable_type: footprintable_type, footprintable_id: footprintable_id).order(created_at: :desc)
   end
 end
