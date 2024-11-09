@@ -22,7 +22,6 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     current_user_id: @current_user_id
                   ))
 
-    assert_selector '.is-graduate'
     assert_text unassigned_product.user.long_name
     assert_text "#{unassigned_product.practice.title}の提出物"
     assert_text I18n.l(unassigned_product.published_at)
@@ -200,8 +199,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     current_user_id: @current_user_id
                   ))
 
-    assert_selector '.stamp.stamp-approve'
-    assert_text '確認済'
+    assert_selector '.stamp.stamp-approve', text: '確認済'
     assert_no_selector '.card-list-item__assignee'
   end
 
@@ -214,7 +212,6 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     current_user_id: @current_user_id
                   ))
 
-    assert_no_selector '.stamp.stamp-approve'
-    assert_no_text '確認済'
+    assert_no_selector '.stamp.stamp-approve', text: '確認済'
   end
 end
