@@ -707,7 +707,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#cancel_participation_from_regular_events' do
-    user = users(:hatsuno)
+    user = users(:kimura)
 
     assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
       user.cancel_participation_from_regular_events
