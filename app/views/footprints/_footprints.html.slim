@@ -1,5 +1,9 @@
-- if footprints.any?
-  .user-icons
+.user-icons
+  .user-icons__loading
+    .fa-solid.fa-spinner.fa-pulse aria-hidden="true"
+    | ロード中
+
+  - if footprints.any?
     h3.user-icons__title 見たよ
     ul.user-icons__items#initial-footprints data-footprintable-id=@footprintable_id data-footprintable-type=@footprintable_type
       - footprints.first(10).each do |footprint|
