@@ -111,12 +111,11 @@ class EventsController < ApplicationController
   end
 
   def find_footprints(event)
-    if event.user != current_user
-      Footprint.create_or_find(event.class.name, event.id, current_user)
-    else
-      Footprint.where(footprintable_type: event.class.name, footprintable_id: event.id)
-               .where.not(user_id: current_user.id)
-               .order(created_at: :desc)
-    end
+    footprints = Footprint.where(footprintable_type: event.class.name, footprintable_id: event.id)
+                          .where.not(user_id: event.user.id)
+                          .order(created_at: :desc)
+    Footprint.create_or_find(event.class.name, event.id, current_user) if event.user != current_user
+
+    footprints
   end
 end
