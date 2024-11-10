@@ -9,8 +9,13 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
 
   def show
     @regular_event = RegularEvent.find(params[:id])
-    @footprints = Footprint.create_or_find(@regular_event.class.name, @regular_event.id, current_user)
-                           .where.not(user_id: current_user.id)
+    @footprints = if @regular_event.user != current_user
+                    Footprint.create_or_find(@regular_event.class.name, @regular_event.id, current_user)
+                  else
+                    Footprint.where(footprintable_type: @regular_event.class.name, footprintable_id: @regular_event.id)
+                                           .where.not(user_id: current_user.id)
+                                           .order(created_at: :desc)
+                  end
     @footprint_total_count = @footprints.count
   end
 
