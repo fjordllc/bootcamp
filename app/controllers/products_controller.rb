@@ -102,13 +102,12 @@ class ProductsController < ApplicationController
   end
 
   def find_footprints(product)
-    if product.user != current_user
-      Footprint.create_or_find(product.class.name, product.id, current_user)
-    else
-      Footprint.where(footprintable_type: product.class.name, footprintable_id: product.id)
-               .where.not(user_id: current_user.id)
-               .order(created_at: :desc)
-    end
+    footprints = Footprint.where(footprintable_type: product.class.name, footprintable_id: product.id)
+                          .where.not(user_id: product.user.id)
+                          .order(created_at: :desc)
+    Footprint.create_or_find(product.class.name, product.id, current_user) if product.user != current_user
+
+    footprints
   end
 
   def check_permission!

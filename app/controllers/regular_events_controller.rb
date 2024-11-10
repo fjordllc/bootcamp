@@ -126,12 +126,11 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
   end
 
   def find_footprints(regular_event)
-    if regular_event.user != current_user
-      Footprint.create_or_find(regular_event.class.name, regular_event.id, current_user)
-    else
-      Footprint.where(footprintable_type: regular_event.class.name, footprintable_id: regular_event.id)
-               .where.not(user_id: current_user.id)
-               .order(created_at: :desc)
-    end
+    footprints = Footprint.where(footprintable_type: regular_event.class.name, footprintable_id: regular_event.id)
+                          .where.not(user_id: regular_event.user.id)
+                          .order(created_at: :desc)
+    Footprint.create_or_find(regular_event.class.name, regular_event.id, current_user) if regular_event.user != current_user
+
+    footprints
   end
 end
