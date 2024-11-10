@@ -8,6 +8,8 @@ class Footprint < ApplicationRecord
   validates :user_id, presence: true
 
   def self.create_or_find(footprintable_type, footprintable_id, user)
+    return if user.nil? || user.id == footprintable_id
+
     footprint = find_or_initialize_by(
       footprintable_type:,
       footprintable_id:,
