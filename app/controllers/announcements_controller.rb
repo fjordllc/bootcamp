@@ -15,7 +15,7 @@ class AnnouncementsController < ApplicationController # rubocop:disable Metrics/
 
   def show
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
-    @footprints = find_footprints(@announcements)
+    @footprints = find_footprints(@announcement)
     @footprint_total_count = @footprints.count
   end
 
