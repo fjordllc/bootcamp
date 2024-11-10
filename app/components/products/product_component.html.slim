@@ -54,7 +54,7 @@
                   span.a-meta__label 更新
                   = l(@product.updated_at)
 
-            - if dashboard? || unassigned_products_page?
+            - if @is_unassigned_products_page
               time.a-meta
                 - if until_next_elapsed_days < 1
                   span.a-meta__label 次の経過日数まで

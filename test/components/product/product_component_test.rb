@@ -214,4 +214,32 @@ class Products::ProductComponentTest < ViewComponent::TestCase
 
     assert_no_selector '.stamp.stamp-approve', text: '確認済'
   end
+
+  def test_render_until_next_elapsed_days_when_is_unassigned_products_page
+    product = products(:product70)
+    render_inline(Products::ProductComponent.new(
+                    product:,
+                    is_mentor: @is_mentor,
+                    is_admin: @is_admin,
+                    current_user_id: @current_user_id,
+                    is_unassigned_products_page: true
+                  ))
+
+    assert_selector '.a-meta__label' do
+      assert_text '次の経過日数まで'
+      assert_text '約7時間'
+    end
+  end
+
+  def test_does_not_render_until_next_elapsed_days_when_is_not_unassigned_products_page
+    product = products(:product70)
+    render_inline(Products::ProductComponent.new(
+                    product:,
+                    is_mentor: @is_mentor,
+                    is_admin: @is_admin,
+                    current_user_id: @current_user_id
+                  ))
+
+    assert_no_selector '.a-meta__label', text: '次の経過日数まで'
+  end
 end
