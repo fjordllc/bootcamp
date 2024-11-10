@@ -108,7 +108,7 @@
               - if @product.user.training_ends_on
                 time.a-meta dateTime=@product.user.training_ends_on
                   span.a-meta__label 研修終了日
-                  span.a-meta__value= @product.user.training_ends_on
+                  span.a-meta__value= l(@product.user.training_ends_on)
                   - case @product.user.training_remaining_days
                   - when 0
                     span.a-meta__value.is-danger （本日研修最終日）
