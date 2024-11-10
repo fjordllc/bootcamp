@@ -116,12 +116,11 @@ class AnnouncementsController < ApplicationController # rubocop:disable Metrics/
   end
 
   def find_footprints(announcement)
-    if announcement.user != current_user
-      Footprint.create_or_find(announcement.class.name, announcement.id, current_user)
-    else
-      Footprint.where(footprintable_type: announcement.class.name, footprintable_id: announcement.id)
-               .where.not(user_id: current_user.id)
-               .order(created_at: :desc)
-    end
+    footprints = Footprint.where(footprintable_type: announcement.class.name, footprintable_id: announcement.id)
+                          .where.not(user_id: announcement.user.id)
+                          .order(created_at: :desc)
+    Footprint.create_or_find(announcement.class.name, announcement.id, current_user) if announcement.user != current_user
+
+    footprints
   end
 end
