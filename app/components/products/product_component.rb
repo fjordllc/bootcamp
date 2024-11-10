@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Products::ProductComponent < ViewComponent::Base
-  def initialize(product:, is_mentor:, is_admin:, current_user_id:, display_user_icon: true)
+  def initialize(product:, is_mentor:, is_admin:, current_user_id:, is_unassigned_products_page: false, display_user_icon: true) # rubocop:disable Metrics/ParameterLists
     @product = product
     @is_mentor = is_mentor
     @is_admin = is_admin
     @current_user_id = current_user_id
+    @is_unassigned_products_page = is_unassigned_products_page
     @display_user_icon = display_user_icon
   end
 
@@ -15,14 +16,6 @@ class Products::ProductComponent < ViewComponent::Base
 
   def practice_title
     "#{@product.practice.title}の提出物"
-  end
-
-  def dashboard?
-    request.path == root_path
-  end
-
-  def unassigned_products_page?
-    request.path == '/products/unassigned'
   end
 
   def not_responded_sign?
