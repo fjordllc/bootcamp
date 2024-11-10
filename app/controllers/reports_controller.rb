@@ -180,12 +180,11 @@ class ReportsController < ApplicationController
   end
 
   def find_footprints(report)
-    if report.user != current_user
-      Footprint.create_or_find(report.class.name, report.id, current_user)
-    else
-      Footprint.where(footprintable_type: report.class.name, footprintable_id: report.id)
-               .where.not(user_id: current_user.id)
-               .order(created_at: :desc)
-    end
+    footprints = Footprint.where(footprintable_type: report.class.name, footprintable_id: report.id)
+                          .where.not(user_id: report.user.id)
+                          .order(created_at: :desc)
+    Footprint.create_or_find(report.class.name, report.id, current_user) if report.user != current_user
+
+    footprints
   end
 end
