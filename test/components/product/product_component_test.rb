@@ -14,44 +14,44 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_default
-    unassigned_product = products(:product6)
+    product = products(:product6)
     render_inline(Products::ProductComponent.new(
-                    product: unassigned_product,
+                    product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id
                   ))
 
-    assert_text unassigned_product.user.long_name
-    assert_text "#{unassigned_product.practice.title}の提出物"
-    assert_text I18n.l(unassigned_product.published_at)
-    assert_text I18n.l(unassigned_product.updated_at)
+    assert_text product.user.long_name
+    assert_text "#{product.practice.title}の提出物"
+    assert_text I18n.l(product.published_at)
+    assert_text I18n.l(product.updated_at)
   end
 
   def test_render_user_icon_when_display_user_icon_is_true
-    unassigned_product = products(:product6)
+    product = products(:product6)
     render_inline(Products::ProductComponent.new(
-                    product: unassigned_product,
+                    product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id,
                     display_user_icon: true
                   ))
 
-    assert_selector "img.card-list-item__user-icon[src*='#{unassigned_product.user.avatar_url}']"
+    assert_selector "img.card-list-item__user-icon[src*='#{product.user.avatar_url}']"
   end
 
   def test_does_not_render_user_icon_when_display_user_icon_is_false
-    unassigned_product = products(:product6)
+    product = products(:product6)
     render_inline(Products::ProductComponent.new(
-                    product: unassigned_product,
+                    product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id,
                     display_user_icon: false
                   ))
 
-    assert_no_selector "img.card-list-item__user-icon[src*='#{unassigned_product.user.avatar_url}']"
+    assert_no_selector "img.card-list-item__user-icon[src*='#{product.user.avatar_url}']"
   end
 
   def test_render_wip_badge_when_product_is_wip
@@ -96,16 +96,16 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_render_published_at_when_product_is_published
-    unassigned_product = products(:product6)
+    published_product = products(:product6)
     render_inline(Products::ProductComponent.new(
-                    product: unassigned_product,
+                    product: published_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id
                   ))
 
     assert_selector '.a-meta', text: '提出'
-    assert_text I18n.l(unassigned_product.published_at)
+    assert_text I18n.l(published_product.published_at)
   end
 
   def test_render_created_at_when_product_is_not_published
@@ -167,9 +167,9 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_render_product_checker_when_user_is_mentor_and_no_checks
-    unassigned_product = products(:product6)
+    product = products(:product6)
     render_inline(Products::ProductComponent.new(
-                    product: unassigned_product,
+                    product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id
@@ -179,9 +179,9 @@ class Products::ProductComponentTest < ViewComponent::TestCase
   end
 
   def test_does_not_render_product_checker_when_user_is_not_mentor
-    unassigned_product = products(:product6)
+    product = products(:product6)
     render_inline(Products::ProductComponent.new(
-                    product: unassigned_product,
+                    product:,
                     is_mentor: false,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id
