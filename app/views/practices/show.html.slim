@@ -94,7 +94,7 @@
                   = render 'content_notice'
             hr.a-border-tint
             footer.card-footer
-              #js-learning(data-practice-id="#{@practice.id}")
+              = render(Learnings::LearningComponent.new(practice: @practice, current_user:))
               - if @practice.submission
                 .card-footer__alert
                   = link_to '提出の前に、提出時の注意点を確認しよう',
