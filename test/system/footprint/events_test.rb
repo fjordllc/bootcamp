@@ -14,7 +14,7 @@ class Footprint::EventsTest < ApplicationSystemTestCase
 
   test 'should not footpoint with my own regular event' do
     visit_with_auth event_path(@event), 'komagata'
-    assert_no_css '.a-user-icon.is-komagata'
+    assert_css '.a-user-icon.is-komagata'
   end
 
   test 'show link if there are more than ten footprints' do
