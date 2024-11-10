@@ -21,8 +21,7 @@ class ReportsController < ApplicationController
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
-    @footprints = Footprint.create_or_find(@report.class.name, @report.id, current_user)
-                           .where.not(user_id: current_user.id)
+    @footprints = find_footprints(@report)
     @footprint_total_count = @footprints.count
     respond_to do |format|
       format.html
@@ -177,6 +176,16 @@ class ReportsController < ApplicationController
       )
       new_finished_at += 1.day if new_started_at > new_finished_at
       learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
+    end
+  end
+
+  def find_footprints(report)
+    if report.user != current_user
+      Footprint.create_or_find(report.class.name, report.id, current_user)
+    else
+      Footprint.where(footprintable_type: report.class.name, footprintable_id: report.id)
+               .where.not(user_id: current_user.id)
+               .order(created_at: :desc)
     end
   end
 end

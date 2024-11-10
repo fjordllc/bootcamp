@@ -9,8 +9,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.with_avatar.find(params[:id])
-    @footprints = Footprint.create_or_find(@event.class.name, @event.id, current_user)
-                           .where.not(user_id: current_user.id)
+    @footprints = find_footprints(@event)
     @footprint_total_count = @footprints.count
   end
 
@@ -109,5 +108,15 @@ class EventsController < ApplicationController
 
   def publish_with_announcement?
     !@event.wip? && @event.announcement_of_publication?
+  end
+
+  def find_footprints(event)
+    if event.user != current_user
+      Footprint.create_or_find(event.class.name, event.id, current_user)
+    else
+      Footprint.where(footprintable_type: event.class.name, footprintable_id: event.id)
+               .where.not(user_id: current_user.id)
+               .order(created_at: :desc)
+    end
   end
 end
