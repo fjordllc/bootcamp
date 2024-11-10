@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AnnouncementsController < ApplicationController
+class AnnouncementsController < ApplicationController # rubocop:disable Metrics/ClassLength
   PAGER_NUMBER = 25
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
@@ -15,8 +15,7 @@ class AnnouncementsController < ApplicationController
 
   def show
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
-    @footprints = Footprint.create_or_find(@announcement.class.name, @announcement.id, current_user)
-                           .where.not(user_id: current_user.id)
+    @footprints = find_footprints(@announcements)
     @footprint_total_count = @footprints.count
   end
 
@@ -114,5 +113,15 @@ class AnnouncementsController < ApplicationController
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
                                     target: params['announcement']['target'])
+  end
+
+  def find_footprints(announcement)
+    if announcement.user != current_user
+      Footprint.create_or_find(announcement.class.name, announcement.id, current_user)
+    else
+      Footprint.where(footprintable_type: announcement.class.name, footprintable_id: announcement.id)
+               .where.not(user_id: current_user.id)
+               .order(created_at: :desc)
+    end
   end
 end
