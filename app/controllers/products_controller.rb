@@ -18,6 +18,7 @@ class ProductsController < ApplicationController
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
     @footprints = Footprint.create_or_find(@product.class.name, @product.id, current_user)
+                           .where.not(user_id: current_user.id)
     @footprint_total_count = @footprints.count
     respond_to do |format|
       format.html
