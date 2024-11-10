@@ -1,12 +1,31 @@
-import Vue from 'vue'
-import Learning from 'learning.vue'
+import CSRF from 'csrf'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const learning = document.getElementById('js-learning')
-  if (learning) {
-    const practiceId = learning.getAttribute('data-practice-id')
-    new Vue({
-      render: (h) => h(Learning, { props: { practiceId: practiceId } })
-    }).$mount('#js-learning')
+  const completeButton = document.getElementById('js-complete')
+  if (completeButton) {
+    completeButton.addEventListener('click', function () {
+      const practiceId = completeButton.getAttribute('data-practice-id')
+      const params = new FormData()
+      params.append('status', 'complete')
+
+      fetch(`/api/practices/${practiceId}/learning.json`, {
+        method: 'PATCH',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': CSRF.getToken()
+        },
+        credentials: 'same-origin',
+        redirect: 'manual',
+        body: params
+      })
+        .then(() => {
+          completeButton.classList.add('is-disabled')
+          completeButton.textContent = '修了しています'
+          document.getElementById('modal-learning_completion').checked = true // 修了モーダル表示のためのフラグを立てる
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    })
   }
 })
