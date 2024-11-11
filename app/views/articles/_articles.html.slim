@@ -60,4 +60,10 @@ hr.a-border-tint
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
+                        / クラスは適当なので修正
+                        / N+1を修正
+                        .thumbnail-card__meta
+                          .thumbnail-card__tag
+                            - if article.tag_list.include?('feature')
+                              = 'feature'
         = paginate articles
