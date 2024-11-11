@@ -61,9 +61,8 @@ hr.a-border-tint
                             - else
                               = l(article.published_at)
                         / クラスは適当なので修正
-                        / N+1を修正
                         .thumbnail-card__meta
                           .thumbnail-card__tag
-                            - if article.tag_list.include?('feature')
+                            - if article.tags.pluck(:name).include?('feature')
                               = 'feature'
         = paginate articles
