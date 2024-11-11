@@ -42,8 +42,10 @@
               .lp-faqs
                 .row.is-gutter-width-32
                   .col-lg-4.col-xs-12
-                    = render '/welcome/faqs/faqs_mobile_filter'
-                    = render '/welcome/faqs/faqs_pc_filter'
+                    = render partial: '/welcome/faqs/faqs_mobile_filter',
+                      locals: { faq_categories: @faq_categories, faqs: @faqs }
+                    = render partial: '/welcome/faqs/faqs_pc_filter',
+                      locals: { faq_categories: @faq_categories, faqs: @faqs }
                   .col-xl-8.col-lg-8.col-xs-12
                     .lp-content-stack
                       .lp-content-stack__item.is-hidden-md-down

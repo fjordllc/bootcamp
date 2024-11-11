@@ -740,69 +740,13 @@ article.lp
                 | よくある質問
         .lp-content__end
           .lp-faqs__items
-            section.lp-faq
-              .lp-faq__inner
-                header.lp-faq__header
-                  h4.lp-faq__title
-                    | 研修をより効果的にするための何かアドバイスはありますか？
-                .lp-faq__body
-                  .a-short-text
-                    p
-                      | まずは、複数人で研修を始めることをおすすめします。
-                    p
-                      | これまでの経験上、貴社にとっても研修を受ける本人にとっても、
-                      | 一人より二人以上で研修を始める方がメリットが多いです。
-                      | 例えば、進み具合を競ったり、お互いつまずいたところを教え合ったり、お互い励まし合ったりなど、
-                      | お互いにモチベーションが高め合いながらスムーズに研修を進められます。
-                    p
-                      | また、同じ企業の研修生同士だけでなく、フィヨルドブートキャンプ内のイベントに参加するなどして、
-                      | 一般の受講生やメンターや卒業生と積極的に関わりを持ち、
-                      | コミュニティとしてのフィヨルドブートキャンプを活用することも、
-                      | モチベーションの維持に大きく役立ちますので、
-                      | おすすめします。
-            hr.a-border
-            section.lp-faq
-              .lp-faq__inner
-                header.lp-faq__header
-                  h4.lp-faq__title
-                    | 研修ではなく福利厚生としての利用の場合、一般受講生として利用ができますか？
-                .lp-faq__body
-                  .a-short-text
-                    p
-                      | 以前はできたのですが、2024年7月24日に規約の変更を行い、現在は研修目的でなくても
-                      | 企業での利用の場合は法人利用としてご利用いただくことになりました。
-                    p
-                      | 理由は、FBCが月額の利用料と提携企業への卒業生紹介の際に発生する紹介料によって成り立っているため、
-                      | 法人利用の場合、後者の収益が立たないためです。
-                    p
-                      | 研修目的ではなくても、法人利用限定の機能（社内メンターの招待、請求書払いなど）は
-                      | ご利用いただけます。
-            hr.a-border
-            section.lp-faq
-              .lp-faq__inner
-                header.lp-faq__header
-                  h4.lp-faq__title
-                    | 法人利用の料金が高いのはなぜですか？
-                .lp-faq__body
-                  .a-short-text
-                    p
-                      | 法人利用の料金が高い理由は2つあります。
-                    p
-                      | まず、法人利用では業務時間内にFBCでの学習を行うため、一般利用者よりも多くのアウトプットが求められます。
-                      | これにより、メンターのリソースがより多く必要とされるためです。
-                    p
-                      | 二つ目の理由は、FBCが月額の利用料と提携企業への卒業生紹介の際に発生する紹介料によって
-                      | 成り立っている点です。
-                      | 法人利用の場合、後者の収益が立たないため、一般利用よりも高額が設定されています。
-            hr.a-border
-            section.lp-faq
-              .lp-faq__inner
-                header.lp-faq__header
-                  h4.lp-faq__title
-                    | 研修はオンラインのみでしょうか？
-                .lp-faq__body
-                  .a-short-text
-                    p
-                      | オンラインのみになります。
-                      | 現在、FBCには教室や学習会場のなどの用意はございません。
-            hr.a-border
+            - @faqs.each do |faq|
+              section.lp-faq
+                .lp-faq__inner
+                  header.lp-faq__header
+                    h4.lp-faq__title
+                      = faq.question
+                  .lp-faq__body
+                    .a-short-text
+                      = faq.answer
+              hr.a-border

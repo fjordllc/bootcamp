@@ -3,14 +3,17 @@
     .form-item.is-inline
       label.a-form-label
         | 絞り込む
-      = form_with url: faq_path, method: :get, local: true, html: { class: 'a-button is-md is-secondary is-select is-block' } do
-        select name="category" onchange="this.form.submit()"
-          option value=""
+      = form_with url: faq_path,
+        method: :get,
+        local: true,
+        html: { class: 'a-button is-md is-secondary is-select is-block' } do
+        select(name="category" onchange="this.form.submit()")
+          option(value="")
             | 全て
-          - FAQCategory.all.find_each do |category|
-            - if params[:category] == category.name
-              option value=category selected=true
-                = t("faq.#{category.name}")
+          - faq_categories.each do |faq_category|
+            - if params[:category] == faq_category.name
+              option(value="#{faq_category.name}" selected=true)
+                = faq_category.name
             - else
-              option value=category.name
-                = t("faq.#{category.name}")
+              option(value="#{faq_category.name}")
+                = faq_category.name
