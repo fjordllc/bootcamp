@@ -4,13 +4,13 @@
       .card-books-item__inner
         .card-books-item__start
           = link_to book.page_url,
-                    target: '_blank',
-                    rel: 'noopener',
-                    class: 'card-books-item__cover-container' do
-                      = image_tag book.cover_url,
-                        title: book.page_url,
-                        alt: book.title,
-                        class: 'card-books-item__image'
+            target: '_blank',
+            rel: 'noopener',
+            class: 'card-books-item__cover-container' do
+              = image_tag book.cover_url,
+                title: book.page_url,
+                alt: book.title,
+                class: 'card-books-item__image'
         .card-books-item__end
           .card-books-item__rows
             .card-books-item__row
@@ -31,8 +31,7 @@
             .card-books-item__row
               .card-books-item__description
                 .a-short-text
-                  p
-                    |#{book.description}
+                  p #{book.description}
     .card-books-item__practices
       .tag-links
         ul.tag-links__items
