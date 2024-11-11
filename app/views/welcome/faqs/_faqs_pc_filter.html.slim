@@ -4,7 +4,8 @@
       li.side-filter__item
         = link_to faq_path(anchor: 'faqs'), class: "side-filter__item-link #{params[:category] ? '' : 'is-active'}" do
           | 全て
-      - FAQCategory.order(:position).each do |category|
+      - faq_categories.each do |faq_category|
         li.side-filter__item
-          = link_to faq_path(category: category.name, anchor: 'faqs'), class: "side-filter__item-link #{params[:category] == category.name ? 'is-active' : ''}" do
-            = t("faq.#{category.name}")
+          = link_to faq_path(category: faq_category.name, anchor: 'faqs'),
+            class: "side-filter__item-link #{params[:category] == faq_category.name ? 'is-active' : ''}" do
+            = faq_category.name

@@ -5,6 +5,7 @@ class WelcomeController < ApplicationController
   skip_before_action :require_active_user_login, raise: false
   layout 'lp'
   DEFAULT_COURSE = 'Railsエンジニア'
+  FAQ_CATEGORY_NAME = '法人利用について'
 
   def index
     @mentors = current_user ? User.mentors_sorted_by_created_at : User.visible_sorted_mentors
@@ -17,15 +18,21 @@ class WelcomeController < ApplicationController
   def pricing; end
 
   def faq
+    @faq_categories = FAQCategory.order(:position).select do |faq_category|
+      faq_category.faqs.present?
+    end
+
     if params[:category].present?
-      category = FAQCategory.find_by(name: params[:category])
-      @faqs = category.faqs
+      faq_category = FAQCategory.find_by(name: params[:category])
+      @faqs = faq_category.faqs
     else
       @faqs = FAQ.order(:position)
     end
   end
 
-  def training; end
+  def training
+    @faqs = FAQCategory.find_by(name: FAQ_CATEGORY_NAME).faqs
+  end
 
   def practices; end
 
