@@ -1,41 +1,41 @@
-faq_categories1:
-  id: 1
-  name: study_content
+faq_category1:
+  name: 学習内容について
+  position: 1
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
-faq_categories2:
-  id: 2
-  name: study_environment
+faq_category2:
+  name: 学習環境について
+  position: 2
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
-faq_categories3:
-  id: 3
-  name: fee
+faq_category3:
+  name: 利用料について
+  position: 3
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
-faq_categories4:
-  id: 4
-  name: find_job
+faq_category4:
+  name: 就職について
+  position: 4
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
-faq_categories5:
-  id: 5
-  name: join
+faq_category5:
+  name: 入会について
+  position: 5
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
-faq_categories6:
-  id: 6
-  name: withdrawal_hibernation_graduation
+faq_category6:
+  name: 退会、休会、卒業について
+  position: 6
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
-faq_categories7:
-  id: 7
-  name: corporate_use
+faq_category7:
+  name: 法人利用について
+  position: 7
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
