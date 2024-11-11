@@ -9,9 +9,8 @@ class FAQTest < ApplicationSystemTestCase
   end
 
   test 'show listing FAQs by category' do
-    visit '/faq?category=study_environment'
-
-    study_environment_id = FAQCategory.find_by(name: 'study_environment').id
-    assert_selector '.lp-faq', count: FAQ.where(faq_category_id: study_environment_id).size
+    visit '/faq?category=学習環境について'
+    category = FAQCategory.find_by(name: '学習環境について').id
+    assert_selector '.lp-faq', count: FAQ.where(faq_category: category).size
   end
 end
