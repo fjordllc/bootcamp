@@ -344,15 +344,78 @@ report89:
   title: "リンクカードの動作確認"
   emotion: 2
   description: |-
-    # ツイート
-    @[card](https://x.com/mousuFBC/status/1846019335242109274)
+    ## A
+    あいうえお@[card](https://bootcamp.fjord.jp)かきくけこ
 
-    # 通常のリンク
-    @[card](https://github.com/fjordllc/bootcamp/wiki/%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%89)
+    ---
 
-    # 存在しないリンク
-    @[card](https://www.utube.cm/)
+    ## B
+    あいうえお @[card](https://bootcamp.fjord.jp)かきくけこ
 
-    # リンクカードが生成されないリンク
-    [card](https://github.com/fjordllc/bootcamp/wiki/%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%89)
+    ---
+
+    ## C
+    あいうえお@[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    ## D
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    ## E
+    あいうえお@[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    ## F
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    ## G
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    ## H
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## I
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## マークダウンがネストした状態ではリンクカードを生成しない
+    :::message
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    ---
+
+    * @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    ## detailsの中ではリンクカードを生成することができる
+    :::details リンクカードが展開される
+    @[card](https://bootcamp.fjord.jp)
+    :::
   reported_on: <%= Time.now %>
