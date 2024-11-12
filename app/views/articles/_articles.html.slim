@@ -61,7 +61,6 @@ hr.a-border-tint
                             - else
                               = l(article.published_at)
                         .thumbnail-card__meta
-                          - if current_user&.admin_or_mentor_login?
-                            - if article.tags.pluck(:name).include?('feature')
-                              | feature
+                          - if current_user&.admin_or_mentor_login? && article.tags.pluck(:name).include?('feature')
+                            | feature
         = paginate articles
