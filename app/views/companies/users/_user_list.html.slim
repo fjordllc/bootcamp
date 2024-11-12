@@ -1,8 +1,8 @@
 - if users.present?
   .user-list
-    = paginate users, theme: 'company_user', params: { controller: 'companies/users', action: 'index' }
+    = paginate users, params: { controller: 'companies/users', action: 'index' }
     .row
       = render partial: 'users/user', collection: users
-    = paginate users, theme: 'company_user', params: { controller: 'companies/users', action: 'index' }
+    = paginate users, params: { controller: 'companies/users', action: 'index' }
 - else
   = render 'users/no_match_user'
