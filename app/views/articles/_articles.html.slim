@@ -63,6 +63,7 @@ hr.a-border-tint
                         / クラスは適当なので修正
                         .thumbnail-card__meta
                           .thumbnail-card__tag
-                            - if article.tags.pluck(:name).include?('feature')
-                              = 'feature'
+                            - if current_user&.admin_or_mentor_login?
+                              - if article.tags.pluck(:name).include?('feature')
+                                = 'feature'
         = paginate articles
