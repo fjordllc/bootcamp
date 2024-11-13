@@ -12,11 +12,11 @@ export default (md, _options) => {
         return
       }
       // 親のp要素がマークダウンでネストしていない場合のみリンクカードを生成する(details以外)
-      const parentToken = tokens[i - 1]
+      const sourceToken = tokens[i - 1]
       const isParentRootParagraph =
-        parentToken &&
-        parentToken.type === 'paragraph_open' &&
-        parentToken.level === allowLevel
+        sourceToken &&
+        sourceToken.type === 'paragraph_open' &&
+        sourceToken.level === allowLevel
       if (!isParentRootParagraph) return
 
       // 対象となるlinkはinlineTokenのchildrenにのみ存在する
@@ -37,13 +37,17 @@ export default (md, _options) => {
       if (!match) return
 
       const linkCardUrl = md.utils.escapeHtml(match[1])
-      const linkCardToken = new state.Token('html_inline', '', 0)
+      const linkCardToken = new state.Token('html_block', '', 0)
       linkCardToken.content = `
-            <div class="a-link-card before-replacement-link-card" data-url="${linkCardUrl}">
-              <p>リンクカード適用中... <i class="fa-regular fa-loader fa-spin"></i></p>
-            </div>
-          `
-      tokens[i] = linkCardToken
+      <div class="a-link-card before-replacement-link-card" data-url="${linkCardUrl}">
+        <p>リンクカード適用中... <i class="fa-regular fa-loader fa-spin"></i></p>
+      </div>
+        `
+      // tokens[i]の位置にpushしてしまうと、Tokenの配列として正しい形でなくなり、正しくないHTMLが出力されてしまう。
+      // 正しいTokenの配列を保つために、一連のtoken(pOpen inline pClose)の後にpushしている
+      tokens.splice(i + 2, 0, linkCardToken)
+
+      sourceToken.attrJoin('style', 'display: none')
     })
     return true
   })
