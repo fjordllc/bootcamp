@@ -352,4 +352,37 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert has_checked_field?('user_hide_mentor_profile', visible: false)
   end
+
+  test 'shows diploma link on edit page after upload' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', Rails.root.join('test/fixtures/files/users/diplomas/diploma.pdf')
+    click_on '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    assert_selector 'a', text: 'diploma.pdf'
+  end
+
+  test 'admin can delete diploma file' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', Rails.root.join('test/fixtures/files/users/diplomas/diploma.pdf')
+    click_button '更新する'
+    assert_text 'ユーザー情報を更新しました'
+    assert user.reload.diploma_file.attached?
+    visit edit_admin_user_path(user)
+    click_on '削除'
+    click_button '更新する'
+    visit edit_admin_user_path(user)
+    assert_no_selector 'a', text: 'diploma.pdf'
+  end
+
+  test 'rejects diploma upload if not PDF format' do
+    user = users(:kimura)
+    visit_with_auth edit_admin_user_path(user), 'komagata'
+    attach_file 'user[diploma_file]', Rails.root.join('test/fixtures/files/users/diplomas/diploma.html')
+    click_on '更新する'
+    assert_text '卒業証書のアップロードはPDF形式にしてください'
+  end
 end
