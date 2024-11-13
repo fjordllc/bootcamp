@@ -31,6 +31,12 @@ const replaceLinkToCard = () => {
       )
     }
 
+    const sibling = targetLink.previousElementSibling
+    if (sibling.tagName === 'P') {
+      sibling.insertAdjacentElement('afterend', targetLink)
+      sibling.remove()
+    }
+
     targetLink.classList.add('processed')
   })
 }
