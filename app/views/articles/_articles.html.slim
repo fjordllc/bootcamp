@@ -35,6 +35,12 @@ hr.a-border-tint
               .col-lg-4.col-md-6.col-xs-12
                 .thumbnail-card.a-card class=(article.wip? ? ' is-wip' : '')
                   = link_to article, class: 'thumbnail-card__inner' do
+                    - if current_user&.admin_or_mentor_login? && article.tags.pluck(:name).include?('feature')
+                      .tags-highlight
+                        .tags-highlight__item
+                          .a-badge.is-sm.is-primary.is-block
+                            .a-badge__inner
+                              | 注目の記事
                     .thumbnail-card__row
                       - if article.prepared_thumbnail?
                         = image_tag article.prepared_thumbnail_url, class: 'thumbnail-card__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
@@ -60,7 +66,4 @@ hr.a-border-tint
                               = l(article.created_at)
                             - else
                               = l(article.published_at)
-                        .thumbnail-card__meta
-                          - if current_user&.admin_or_mentor_login? && article.tags.pluck(:name).include?('feature')
-                            | feature
         = paginate articles
