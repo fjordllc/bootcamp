@@ -1,11 +1,13 @@
-- title '管理ページ'
+- title 'FAQ詳細'
 
 header.page-header
   .container
     .page-header__inner
-      h1.page-header__title = title
+      h1.page-header__title
+        | 管理ページ
 
 = render 'admin/admin_page_tabs'
+= render 'admin/faqs/faq_tabs'
 
 main.page-main
   header.page-main-header
@@ -13,7 +15,7 @@ main.page-main
       .page-main-header__inner
         .page-main-header__start
           h1.page-main-header__title
-            | FAQ 詳細
+            | FAQ詳細
         .page-main-header__end
           .page-main-header-actions
             ul.page-main-header-actions__items
@@ -22,47 +24,54 @@ main.page-main
                   | FAQ一覧
   hr.a-border
   .page-body
-    .container.is-xxl
-      .row.justify-center
-        .col-xl-7.col-xs-12
-          .page-content
-            header.page-content-header
-              //
-                .page-content-header__start
-                  .page-content-header__user
-                    = render 'users/icon', user: @faq.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
-              .page-content-header__end
-                .page-content-header__row
-                  //
-                    .page-content-header__before-title
-                      = link_to @faq.user, class: 'a-user-name' do
-                        = @faq.user.long_name
-                  h1.page-content-header__title
-                    = format_question(@faq.question)
+    .page-body__inner.has-side-nav
+      .container.is-md
+        .page-content
+          header.page-content-header
+            .page-content-header__end
+              .page-content-header__row
+                h1.page-content-header__title
+                  = format_question(@faq.question)
 
-                .page-content-header__row
-                  .page-content-header-metas
-                    .page-content-header-metas__start
-                      .page-content-header-metas__meta
-                        .a-meta
-                          | #{l @faq.created_at} 公開
+              .page-content-header__row
+                .page-content-header-metas
+                  .page-content-header-metas__start
+                    .page-content-header-metas__meta
+                      .a-meta
+                        | #{l @faq.created_at} 公開
 
-                .page-content-header__row
-                  .page-content-header-metas
-                    .page-content-header-metas__start
-                      .page-content-header-metas__meta
-                        .a-meta
+              .page-content-header__row
+                .page-content-header-metas
+                  .page-content-header-metas__start
+                    .page-content-header-metas__meta
+                      .a-meta
+                        = link_to admin_faq_category_faqs_path(@faq.faq_category) do
                           = t("faq.#{FAQCategory.find_by(id: @faq.faq_category_id).name}")
 
-            .a-card
-              .card-body
-                .card__description
-                  .js-markdown-view.a-long-text.is-md
-                    = @faq.answer
-              .card-footer
-                .card-main-actions
-                  .card-main-actions__items
-                    .card-main-actions__item
-                      = link_to edit_admin_faq_path(@faq), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
-                        i.fa-solid.fa-pen
-                        | 内容修正
+          .a-card
+            .card-body
+              .card-body__description
+                .js-markdown-view.a-long-text.is-md
+                  = @faq.answer
+            hr.a-border-tint
+            .card-footer
+              .card-main-actions
+                .card-main-actions__items
+                  .card-main-actions__item
+                    = link_to edit_admin_faq_path(@faq), class: 'card-main-actions__action a-button is-sm is-secondary is-block' do
+                      i.fa-solid.fa-pen
+                      | 内容修正
+
+      nav.a-side-nav
+        .a-side-nav__inner
+          header.a-side-nav__header
+            h2.a-side-nav__title
+              = link_to admin_faq_category_faqs_path(@faq.faq_category), class: 'a-hover-link' do
+                = t("faq.#{FAQCategory.find_by(id: @faq.faq_category_id).name}")
+          hr.a-border
+          .a-side-nav__body
+            ul.a-side-nav__items
+              - @faq.faq_category.faqs.each do |faq|
+                li.a-side-nav__item
+                  = link_to admin_faq_path(faq), class: 'a-side-nav__item-link' do
+                    = format_question(faq.question)

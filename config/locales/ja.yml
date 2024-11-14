@@ -310,7 +310,7 @@ ja:
         answer: 回答
         faq_category: カテゴリー
       faq_category:
-        name: 名前
+        name: カテゴリー名
     enums:
       user:
         job:
