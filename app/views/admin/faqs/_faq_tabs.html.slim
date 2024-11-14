@@ -1,0 +1,11 @@
+nav.tab-nav
+  .container
+    ul.tab-nav__items
+      li.tab-nav__item
+        = link_to 'カテゴリー',
+          admin_faq_categories_path,
+          class: "tab-nav__item-link #{current_link(/^admin-faq_categories/)}"
+      li.tab-nav__item
+        = link_to 'FAQ',
+          admin_faqs_path,
+          class: "tab-nav__item-link #{current_link(/^admin-faqs/)}"

@@ -1,1 +1,12 @@
+- title 'ユーザー登録情報変更'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        | 管理ページ
+
+= render 'admin/admin_page_tabs'
+= render 'admin/users/user_tabs'
+
 = render 'users/password_change', url: admin_user_password_path, user: @user
