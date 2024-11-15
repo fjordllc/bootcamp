@@ -1,13 +1,16 @@
 .a-long-text
   .a-link-card,
   .twitter-tweet
-    background-color: var(base)
+    background-color: var(--base)
     border: solid 1px var(--border)
     padding: 1em
     border-radius: 4px
     width: 36rem
     max-width: 100%
     margin-inline: auto
+    display: flex
+    flex-direction: column
+    gap: .5em
     img
       border: none
     div
@@ -38,14 +41,22 @@
       &.is-blank
         display: none
 
-    .a-link-card__description
+    .a-link-card__body
       +text-block(.875em 1.4)
-      margin-top: .5em
       color: var(--muted-text)
+      display: flex
+      gap: 1em
       p
-        margin-top: 0
+        line-height: 1.4
+        margin: 0
 
-    .a-link-card__description-url-link
+    .a-link-card__body-start
+      flex: 2
+
+    .a-link-card__body-end
+      flex: 1
+
+    .a-link-card__body-url-link
       overflow: hidden
       display: -webkit-box
       text-overflow: ellipsis
@@ -53,15 +64,18 @@
       -webkit-line-clamp: 2
 
     .a-link-card__image
-      float: right
-      margin-left: 1em
-      margin-bottom: 1em
       +media-breakpoint-up(md)
         max-width: 12rem
       +media-breakpoint-down(sm)
         max-width: 7.5rem
       &.is-blank
         display: none
+
+    .a-link-card__image-ogp
+      object-fit: cover
+      width: 100%
+      aspect-ratio: 1.91 / 1
+      border-radius: .25rem
 
     .a-link-card__site-title
       margin-top: .5em
@@ -77,11 +91,13 @@
 
   .twitter-tweet
     position: relative
-    line-height: 1.8
+    line-height: 1.4
+    font-size: .875em
+    color: var(--muted-text)
     +media-breakpoint-up(md)
-      padding: 2em 2em 1em 2em
+      padding: 2em 3em 1em 2em
     +media-breakpoint-down(sm)
-      padding: 2em 2em 1em 1em
+      padding: 2em 3em 1em 1em
     &::before
       font-family: "Font Awesome 6 Brands"
       font-weight: 400
@@ -95,5 +111,13 @@
       height: 1em
       color: #0f1419
     p
-      border-left: solid .25em var(--border-tint)
-      padding-left: 1.5em
+      font-size: 1.125em
+      line-height: 1.6
+      margin-bottom: 1em
+      color: var(--default-text)
+    >a:last-child
+      color: var(--muted-text)
+      text-decoration: none
+    >a:last-child:hover
+      color: var(--hover-text)
+      text-decoration: underline
