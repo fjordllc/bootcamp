@@ -17,4 +17,26 @@ header.page-header
                   span
                     | 参考書籍登録
 hr.a-border
-div(data-vue="Books" data-vue-is-admin:boolean="#{current_user.admin?}" data-vue-is-mentor:boolean="#{current_user.mentor?}")
+nav.page-filter.form
+  .container.is-md
+    = form_with url: books_path, local: true, method: 'get' do
+      .form-item.is-inline-md-up
+        = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
+        = select_tag :practice_id,
+                     options_from_collection_for_select(current_user.practices, :id, :title, selected: params[:practice_id]),
+                   include_blank: 'すべての参考書籍を表示',
+                   onchange: 'this.form.submit()',
+                   id: 'js-choices-single-select'
+.page-content.is-books
+  .container
+    .books
+    - if @books.empty?
+      .o-empty-message
+        .o-empty-message__icon
+          i.fa-regular.fa-sad-tear
+        p.o-empty-message__text
+          | 登録されている本はありません
+    - else
+      .books__items
+        .row
+          = render @books

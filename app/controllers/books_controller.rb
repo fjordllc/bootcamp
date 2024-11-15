@@ -4,7 +4,13 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[edit update destroy]
   before_action :require_admin_or_mentor_login, except: %i[index]
 
-  def index; end
+  def index
+    books = Book.all
+    books = params[:practice_id].present? ? books.joins(:practices).where(practices: { id: params[:practice_id] }) : books
+    @books = books.with_attached_cover
+                  .includes(:practices)
+                  .order(updated_at: :desc, id: :desc)
+  end
 
   def new
     @book = Book.new
