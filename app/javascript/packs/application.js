@@ -59,7 +59,6 @@ import '../product-checker.js'
 import '../user-follow.js'
 
 import VueMounter from '../VueMounter.js'
-import Books from '../components/books.vue'
 import Questions from '../components/questions.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
@@ -75,7 +74,6 @@ import CourseBooks from '../components/course-books.vue'
 import '../stylesheets/application'
 
 const mounter = new VueMounter()
-mounter.addComponent(Books)
 mounter.addComponent(Questions)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)
