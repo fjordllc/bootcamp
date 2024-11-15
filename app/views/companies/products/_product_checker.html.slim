@@ -1,0 +1,8 @@
+- if current_user.id == product.checker_id
+  button.product-checker.a-button.is-block.is-warning.is-sm data-product-id="#{product.id}" data-current-user-id="#{current_user.id}"
+    i.fas.fa-times
+      | 担当から外れる
+- else
+  button.product-checker.a-button.is-block.is-sm data-product-id="#{product.id}" data-current-user-id="#{current_user.id}"
+    i.fas.fa-hand-paper
+      | 担当する
