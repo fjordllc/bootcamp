@@ -110,14 +110,14 @@ const embedToLinkCard = async (targetLink, url) => {
     <div class="a-link-card__image"><a href="${
       metaData.site_url || ''
     }" target="_blank"  rel="noopener" class="a-link-card__image-link">
-      <img src="${metaData.image}" alt="${metaData.title || 'Site Image'}" />
+      <img src="${metaData.image}" alt="${metaData.title || 'Site Image'}" class="a-link-card__image-ogp" />
     </a></div>
     `
       : ''
 
     const descriptionSection = metaData.description
       ? `<p>${metaData.description}</p>`
-      : `<p><a href="${url}" target="_blank" rel="noopener" class="a-link-card__description-url-link">${url}</a></p>`
+      : `<p><a href="${url}" target="_blank" rel="noopener" class="a-link-card__body-url-link">${url}</a></p>`
 
     const faviconSection = metaData.favicon
       ? `
@@ -136,19 +136,25 @@ const embedToLinkCard = async (targetLink, url) => {
             }</div>
           </a>
         </div>
-        <div class="a-link-card__description">
-          ${imageSection}
-          ${descriptionSection}
-        </div>
-        <div class="a-link-card__site-title">
-          <a href="${
-            metaData.site_url || ''
-          }" target="_blank" rel="noopener" class="a-link-card__site-title-link">
-            ${faviconSection}
-            <div class="a-link-card__site-title-text">${
-              metaData.site_name || 'No Site Name'
-            }</div>
-          </a>
+        <div class="a-link-card__body">
+          <div class="a-link-card__body-start">
+            <div class="a-link-card__description">
+              ${descriptionSection}
+            </div>
+            <div class="a-link-card__site-title">
+              <a href="${
+                metaData.site_url || ''
+              }" target="_blank" rel="noopener" class="a-link-card__site-title-link">
+                ${faviconSection}
+                <div class="a-link-card__site-title-text">${
+                  metaData.site_name || 'No Site Name'
+                }</div>
+              </a>
+            </div>
+          </div>
+          <div class="a-link-card__body-end">
+            ${imageSection}
+          </div>
         </div>
       </div>
       `
