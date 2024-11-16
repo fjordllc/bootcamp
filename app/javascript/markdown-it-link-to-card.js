@@ -2,14 +2,15 @@ export default (md, _options) => {
   md.core.ruler.after('replacements', 'link-to-card', function (state) {
     const tokens = state.tokens
     let allowLevel = 0
-    tokens.forEach((token, i) => {
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i]
       if (token.type === 'container_details_open') {
         allowLevel++
-        return
+        continue
       }
       if (token.type === 'container_details_close' && allowLevel > 0) {
         allowLevel--
-        return
+        continue
       }
       // 親のp要素がマークダウンでネストしていない場合のみリンクカードを生成する(details以外)
       const sourceToken = tokens[i - 1]
@@ -17,24 +18,24 @@ export default (md, _options) => {
         sourceToken &&
         sourceToken.type === 'paragraph_open' &&
         sourceToken.level === allowLevel
-      if (!isParentRootParagraph) return
+      if (!isParentRootParagraph) continue
 
       // 対象となるlinkはinlineTokenのchildrenにのみ存在する
-      if (token.type !== 'inline') return
+      if (token.type !== 'inline') continue
 
       const children = token.children
-      if (!children) return
+      if (!children) continue
 
       // childrenにlinkが存在する場合のみリンクカードを生成する
       const hasLink = children?.some((child) => child.type === 'link_open')
-      if (!hasLink) return
+      if (!hasLink) continue
 
       // childrenにbrが存在しない場合のみリンクカードを生成する
       const hasBr = children?.some((child) => child.type === 'softbreak')
-      if (hasBr) return
+      if (hasBr) continue
 
       const match = token.content.match(/^@\[card\]\((.+?)\)/)
-      if (!match) return
+      if (!match) continue
 
       const linkCardUrl = md.utils.escapeHtml(match[1])
       const linkCardToken = new state.Token('html_block', '', 0)
@@ -48,7 +49,7 @@ export default (md, _options) => {
       tokens.splice(i + 2, 0, linkCardToken)
 
       sourceToken.attrJoin('style', 'display: none')
-    })
+    }
     return true
   })
 }
