@@ -24,16 +24,4 @@ header.page-header
         h1.page-main-header__title
           = "#{t("target.#{@target}")}（#{@users.total_count}）"
   hr.a-border
-  .page-body
-    .container
-      .users
-        - if @users.present?
-          .page-content.is-users
-            #user_lists.users__items
-              = render 'users/user_list', users: @users
-        - else
-          .o-empty-message
-            .o-empty-message__icon
-              i.fa-regular.fa-sad-tear
-            p.o-empty-message__text
-              | "#{t("target.#{@target}")}のユーザーはいません"
+  = render 'company_users', users: @users, data_title: title
