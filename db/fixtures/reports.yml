@@ -418,4 +418,15 @@ report89:
     :::details リンクカードが展開される
     @[card](https://bootcamp.fjord.jp)
     :::
+
+    ---
+
+    ## 3つ以上リンクカードを生成する場合でも問題なくリンクカードを生成することができる
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
   reported_on: <%= Time.now %>
