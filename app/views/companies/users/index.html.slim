@@ -30,7 +30,7 @@ header.page-header
         - if @users.present?
           .page-content.is-users
             #user_lists.users__items
-              = render 'user_list', users: @users
+              = render 'users/user_list', users: @users
         - else
           .o-empty-message
             .o-empty-message__icon
