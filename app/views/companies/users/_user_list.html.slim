@@ -1,8 +1,0 @@
-- if users.present?
-  .user-list
-    = paginate users
-    .row
-      = render partial: 'users/user', collection: users
-    = paginate users
-- else
-  = render 'users/no_match_user'
