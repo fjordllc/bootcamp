@@ -415,27 +415,27 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'articles are displayed from the most recent publication date' do
-    article4 = Article.create(
-      title: 'タイトル4',
-      body: 'テスト用のWIP記事4',
+    three_days_ago_article = Article.create(
+      title: '3日前に公開された記事',
+      body: 'test',
       user: users(:komagata),
       wip: false,
       created_at: Date.current - 4.days,
       updated_at: Date.current - 4.days,
       published_at: Date.current - 3.days
     )
-    article5 = Article.create(
-      title: 'タイトル5',
-      body: 'テスト用のWIP記事5',
+    two_days_ago_article = Article.create(
+      title: '2日前に公開された記事',
+      body: 'test',
       user: users(:komagata),
       wip: false,
       created_at: Date.current - 5.days,
       updated_at: Date.current - 5.days,
       published_at: Date.current - 2.days
     )
-    article6 = Article.create(
-      title: 'タイトル6',
-      body: 'テスト用のWIP記事6',
+    one_day_ago_article = Article.create(
+      title: '1日前に公開された記事',
+      body: 'test',
       user: users(:komagata),
       wip: false,
       created_at: Date.current - 6.days,
@@ -445,7 +445,7 @@ class ArticlesTest < ApplicationSystemTestCase
 
     visit articles_url
     titles = all('h2.thumbnail-card__title').map(&:text)
-    assert_equal [article6.title, article5.title, article4.title, @article2.title, @article.title], titles
+    assert_equal [one_day_ago_article.title, two_days_ago_article.title, three_days_ago_article.title, @article2.title, @article.title], titles
   end
 
   test 'WIP articles are listed first in desc order' do
