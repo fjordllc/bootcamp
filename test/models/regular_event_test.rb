@@ -15,6 +15,16 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
+  test 'title is invalid when it starts with markdown symbols' do
+    regular_event = regular_events(:regular_event1)
+    regular_event.title = '# 無効なタイトル'
+    assert regular_event.invalid?
+    regular_event.title = ' # 先頭に半角スペースを含む無効なタイトル'
+    assert regular_event.invalid?
+    regular_event.title = '　# 先頭に全角スペースを含む無効なタイトル'
+    assert regular_event.invalid?
+  end
+
   test '.scheduled_on(date)' do
     travel_to Time.zone.local(2017, 4, 3, 23, 0, 0) do
       today_date = Time.zone.today
