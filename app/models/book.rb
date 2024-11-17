@@ -24,22 +24,4 @@ class Book < ApplicationRecord
   rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
     image_url default_image_path
   end
-
-  def coursebook?(course_practices)
-    practices.any? do |practice|
-      course_practices.any? { |course_practice| practice.id == course_practice.id }
-    end
-  end
-
-  def self.filtered_books(status, course)
-    books = Book
-            .with_attached_cover
-            .includes(:practices)
-            .order(updated_at: :desc, id: :desc)
-
-    course_practices = course.extract_practices
-    mustread_or_all =
-      status == 'mustread' ? books.select { |book| book.practices_books.any?(&:must_read) } : books
-    mustread_or_all.select { |book| book.coursebook?(course_practices) }
-  end
 end
