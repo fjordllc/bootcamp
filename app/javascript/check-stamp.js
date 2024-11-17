@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import CheckStamp from 'check-stamp.vue'
 import store from 'check-store.js'
 import CSRF from 'csrf'
 import 'whatwg-fetch'
