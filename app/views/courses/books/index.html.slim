@@ -55,7 +55,7 @@ header.page-header
                                       = book.title
                               .card-books-item__row
                                 p.card-books-item__price
-                                  = "#{book.price.to_s(:delimited)}円（税込）"
+                                  | #{book.price.to_s(:delimited)}円（税込）
                               - if book.description.present?
                                 .card-books-item__row
                                   .card-books-item__description
@@ -69,7 +69,7 @@ header.page-header
                               li.tag-links__item
                                 = link_to practice.title, practice_path(practice), class: 'tag-links__item-link'
                       hr.a-border-tint
-                      - if current_user.admin? || current_user.mentor?
+                      - if current_user.admin_or_mentor?
                         footer.card-footer.is-only-mentor
                           .card-main-actions
                             ul.card-main-actions__items
