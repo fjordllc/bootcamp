@@ -56,6 +56,20 @@ class Comment < ApplicationRecord
     (created_at.since(certain_period).to_date == Date.current) && latest? && (user == commentable.user)
   end
 
+  def url
+    commentable.url + "#comment-#{id}"
+  end
+
+  def title
+    commentable.title if commentable.respond_to?(:title)
+  end
+
+  def formatted_summary(word)
+    return description unless word.present?
+
+    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
+
   private
 
   def later_exists?
