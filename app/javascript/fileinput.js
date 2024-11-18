@@ -87,15 +87,40 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  const removeDiplomaButton = document.getElementById('remove-diploma-button')
-  const diplomaUploadField = document.getElementById('diploma-upload-field')
-  const diplomaFileLink = document.getElementById('diploma-file-link')
-  const removeDiplomaFlag = document.getElementById('remove-diploma-flag')
+  const removePdfButton = document.getElementById('js-remove-pdf-button')
+  const pdfUploadField = document.getElementById('js-pdf-upload-field')
+  const pdfFileLink = document.getElementById('js-pdf-file-link')
+  const removePdfFlag = document.getElementById('js-remove-pdf-flag')
+  const pdfFileNameDisplay = document.getElementById('js-pdf-name')
 
-  removeDiplomaButton.addEventListener('click', () => {
-    diplomaFileLink && (diplomaFileLink.style.display = 'none')
-    diplomaUploadField.style.display = 'block'
-    diplomaUploadField.value = ''
-    removeDiplomaFlag.value = '1'
+  removePdfButton.addEventListener('click', () => {
+    if (pdfFileLink) pdfFileLink.style.display = 'none'
+    pdfUploadField.style.display = 'flex'
+    pdfUploadField.querySelector('input[type="file"]').value = ''
+    removePdfFlag.value = '1'
+
+    if (pdfFileNameDisplay) {
+      pdfFileNameDisplay.textContent = ''
+      pdfFileNameDisplay.style.display = 'none'
+    }
+  })
+
+  const fileInput = pdfUploadField.querySelector('input[type="file"]')
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files[0]) {
+      const fileName = fileInput.files[0].name
+
+      if (pdfFileNameDisplay) {
+        pdfFileNameDisplay.textContent = fileName
+        pdfFileNameDisplay.style.display = 'block'
+      }
+
+      removePdfFlag.value = '0'
+    } else {
+      if (pdfFileNameDisplay) {
+        pdfFileNameDisplay.textContent = ''
+        pdfFileNameDisplay.style.display = 'none'
+      }
+    }
   })
 })
