@@ -149,4 +149,14 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
     errors.add(:reported_on, "は#{I18n.l min_date}から今日以前の間の日付にしてください")
   end
+
+  def url
+    Rails.application.routes.url_helpers.report_path(self)
+  end
+
+  def formatted_summary(word)
+    return description unless word.present?
+
+    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
 end

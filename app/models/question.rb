@@ -102,6 +102,16 @@ class Question < ApplicationRecord
     end
   end
 
+  def url
+    Rails.application.routes.url_helpers.question_path(self)
+  end
+
+  def formatted_summary(word)
+    return description unless word.present?
+
+    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
+
   private
 
   def will_be_published?
