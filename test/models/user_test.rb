@@ -745,7 +745,7 @@ class UserTest < ActiveSupport::TestCase
     no_area_user = users(:komagata)
     assert_equal tokyo_user.area, '東京都'
     assert_equal america_user.area, '米国'
-    assert_equal no_area_user.area, nil
+    assert_nil no_area_user.area
   end
 
   test '.by_area' do
