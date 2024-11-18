@@ -27,4 +27,19 @@ module Commentable
       self[:body]
     end
   end
+
+  def url
+    case self
+    when Product
+      Rails.application.routes.url_helpers.product_path(self)
+    when Announcement
+      Rails.application.routes.url_helpers.announcement_path(self)
+    when Event
+      Rails.application.routes.url_helpers.event_path(self)
+    when Report
+      Rails.application.routes.url_helpers.report_path(self)
+    else
+      raise NotImplementedError, "#{self.class} does not have a defined URL path"
+    end
+  end
 end
