@@ -141,6 +141,16 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     wants_announcement? && !wip?
   end
 
+  def url
+    Rails.application.routes.url_helpers.regular_event_path(self)
+  end
+
+  def formatted_summary(word)
+    return description unless word.present?
+
+    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
+
   private
 
   def end_at_be_greater_than_start_at

@@ -119,6 +119,16 @@ class Event < ApplicationRecord
     Event.where('start_at > ?', Date.current).pluck(:id)
   end
 
+  def url
+    Rails.application.routes.url_helpers.event_path(self)
+  end
+
+  def formatted_summary(word)
+    return description unless word.present?
+
+    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
+
   private
 
   def end_at_be_greater_than_start_at
