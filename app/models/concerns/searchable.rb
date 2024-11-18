@@ -6,11 +6,13 @@ module Searchable
   COLUMN_NAMES_FOR_SEARCH_USER_ID = %i[user_id last_updated_user_id].freeze
 
   included do
-    # 拡張する場合はこのスコープを上書きする
     scope :search_by_keywords_scope, -> { all }
+
+    def url
+      raise NotImplementedError, "#{self.class} must implement #url method"
+    end
   end
 
-  # rubocop:disable Metrics/BlockLength
   class_methods do
     def search_by_keywords(searched_values = {})
       ransack(**params_for_keyword_search(searched_values)).result.search_by_keywords_scope
@@ -51,14 +53,40 @@ module Searchable
       { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
   end
-  # rubocop:enable Metrics/BlockLength
 
-  def description
-    case self
-    when Page, Product
-      self[:body]
+  def css_class
+    if wip
+      "is-wip is-#{model_name}"
     else
-      self[:description]
+      "is-#{model_name}"
     end
+  end
+
+  def role_class
+    "is-#{primary_role}" if respond_to?(:primary_role)
+  end
+
+  def formatted_updated_at
+    weekdays = { 'Sunday' => '日', 'Monday' => '月', 'Tuesday' => '火', 'Wednesday' => '水',
+                 'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
+    day_name = updated_at.strftime('%A')
+    updated_at.strftime("%Y年%m月%d日(#{weekdays[day_name]}) %H:%M")
+  end
+
+  def label
+    case model_name.name.downcase
+    when 'regularevent'
+      "定期\nイベント"
+    when 'event'
+      "特別\nイベント"
+    when 'practice'
+      "プラク\nティス"
+    else
+      I18n.t("activerecord.models.#{model_name.name.underscore}")
+    end
+  end
+
+  def talk_url_for_admin
+    "/talks/#{talk_id}" if talk_id.present?
   end
 end
