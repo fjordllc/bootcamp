@@ -9,9 +9,9 @@ header.page-header
           | "#{@word} の検索結果"
 hr.a-border
 
-.section
-  .container
-    - if @searchables.any?
+.page-body
+  - if @searchables.any?
+    .container.is-md
       .card-list.a-card
         - @searchables.each do |searchable|
           .card-list-item{ class: searchable.css_class }
@@ -59,11 +59,11 @@ hr.a-border
                           .card-list-item-meta__item
                             = link_to '相談部屋', searchable.talk_url_for_admin, class: 'a-text-link'
 
-    - else
-      .o-empty-message
-        .o-empty-message__icon
-          i.fa-regular.fa-sad-tear
-        p.o-empty-message__text
-          | #{@word} に一致する情報は見つかりませんでした。
+  - else
+    .o-empty-message
+      .o-empty-message__icon
+        i.fa-regular.fa-sad-tear
+      p.o-empty-message__text
+        | #{@word} に一致する情報は見つかりませんでした。
 
-    = paginate @searchables
+  = paginate @searchables
