@@ -53,7 +53,8 @@ hr.a-border
                                   = image_tag user.avatar_url, class: 'user-profile__user-icon-image a-user-icon'
                               = link_to user.login_name, "/users/#{user.id}", class: 'a-user-name'
                         .card-list-item-meta__item
-                          time.datetime= searchable.formatted_updated_at
+                          time.a-meta(datetime="#{searchable.updated_at}" pubdate='pubdate')
+                            = searchable.formatted_updated_at
                         - if searchable.talk_url_for_admin.present?
                           .card-list-item-meta__item
                             = link_to '相談部屋', searchable.talk_url_for_admin, class: 'a-text-link'
