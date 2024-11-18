@@ -111,7 +111,7 @@ ja:
         other_editor: その他のエディタ
         hide_mentor_profile: プロフィール非公開
         invoice_payment: 「請求書払い」
-        diploma_file: 卒業証書のアップロード
+        diploma_file: 卒業証書PDF
       discord_profile:
         account_name: Discord アカウント
         times_url: 分報URL
