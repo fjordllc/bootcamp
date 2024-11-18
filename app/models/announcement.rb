@@ -36,4 +36,14 @@ class Announcement < ApplicationRecord
     template = MessageTemplate.load(template_file, params:)
     new(title: template['title'], description: template['description'])
   end
+
+  def url
+    Rails.application.routes.url_helpers.announcement_path(self)
+  end
+
+  def formatted_summary(word)
+    return description unless word.present?
+
+    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
 end
