@@ -224,4 +224,14 @@ class Product < ApplicationRecord
 
     created_at != updated_at
   end
+
+  def url
+    Rails.application.routes.url_helpers.product_path(self)
+  end
+
+  def formatted_summary(word)
+    return body unless word.present?
+
+    body.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+  end
 end
