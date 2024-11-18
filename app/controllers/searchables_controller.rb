@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
 class SearchablesController < ApplicationController
-  def index; end
+  PER_PAGE = 50
+
+  def index
+    @word = params[:word].to_s
+    @document_type = params[:document_type]&.to_sym || :all
+
+    result = Searcher.search(params[:word], document_type: @document_type)
+    @searchables = Kaminari.paginate_array(result).page(params[:page]).per(PER_PAGE)
+  end
 end
