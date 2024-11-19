@@ -64,6 +64,9 @@ hr.a-border
                         .card-list-item-meta__item
                           time.a-meta(datetime="#{searchable.updated_at}" pubdate='pubdate')
                             = searchable.formatted_updated_at
+                            .a-meta
+                              - if searchable.model_name == 'comment'
+                                = "(#{searchable.commentable_user&.login_name} #{searchable.commentable_type})"
                         - if searchable.talk_url_for_admin.present?
                           .card-list-item-meta__item
                             = link_to '相談部屋', searchable.talk_url_for_admin, class: 'a-text-link'

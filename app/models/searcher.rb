@@ -43,7 +43,9 @@ class Searcher
         formatted_updated_at: searchable.formatted_updated_at,
         model_name: searchable.class.name.underscore,
         label: searchable.label,
-        wip: searchable.try(:wip)
+        wip: searchable.try(:wip),
+        commentable_user: searchable.try(:commentable)&.try(:user),
+        commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: '')
       )
     end
   end
