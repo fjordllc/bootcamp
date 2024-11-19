@@ -32,7 +32,7 @@ class Report < ApplicationRecord
   validates :user, presence: true
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :emotion, presence: true
-  validate :limit_date_within_range
+  validate :limited_date_within_range
 
   after_create ReportCallbacks.new
   after_destroy ReportCallbacks.new
@@ -133,10 +133,10 @@ class Report < ApplicationRecord
 
   private
 
-  def limit_date_within_range
+  def limited_date_within_range
     min_date = Date.new(2013, 1, 1)
     return if min_date <= reported_on && reported_on <= Date.current
 
-    errors.add(:reported_on, "は#{I18n.l min_date, format: :default}から今日以前の間の日付にしてください")
+    errors.add(:reported_on, "は#{I18n.l min_date}から今日以前の間の日付にしてください")
   end
 end
