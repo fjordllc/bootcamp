@@ -58,7 +58,12 @@ class Searcher
   def self.result_for(type, word, commentable_type: nil)
     raise ArgumentError "#{type} is not available type" unless type.in?(AVAILABLE_TYPES)
 
-    model(type).search_by_keywords(word:, commentable_type:)
+    if commentable?(type)
+      model(type).search_by_keywords(word:, commentable_type:) +
+        Comment.search_by_keywords(word:, commentable_type: model_name(type))
+    else
+      model(type).search_by_keywords(word:, commentable_type:)
+    end
   end
 
   def self.result_for_comments(document_type, word)
