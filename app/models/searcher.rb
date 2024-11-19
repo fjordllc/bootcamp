@@ -42,7 +42,8 @@ class Searcher
         login_name: searchable.try(:login_name),
         formatted_updated_at: searchable.formatted_updated_at,
         model_name: searchable.class.name.underscore,
-        label: searchable.label
+        label: searchable.label,
+        wip: searchable.try(:wip)
       )
     end
   end
