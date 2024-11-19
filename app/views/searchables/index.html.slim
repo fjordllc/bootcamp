@@ -6,7 +6,7 @@ header.page-header
     .page-header__inner
       .page-header__start
         h2.page-header__title
-          | "#{@word} の検索結果"
+          | "#{@word}" の検索結果
 hr.a-border
 
 .page-body
@@ -34,7 +34,10 @@ hr.a-border
                       .a-list-item-badge.is-wip
                         span WIP
                     .card-list-item-title__title
-                      = link_to searchable.title, searchable.url, class: 'card-list-item-title__link a-text-link'
+                      - if searchable.model_name == "user"
+                        = link_to searchable.login_name, searchable.url, class: 'card-list-item-title__link a-text-link'
+                      - else
+                        = link_to searchable.title, searchable.url, class: 'card-list-item-title__link a-text-link'
 
                 .card-list-item__row
                   .card-list-item__summary
