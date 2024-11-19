@@ -59,6 +59,7 @@ import '../product-checker.js'
 import '../user-follow.js'
 import '../sort-faq.js'
 import '../sort-faq-category.js'
+import '../copy-url.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
