@@ -33,6 +33,12 @@ hr.a-border
                     - if searchable.wip
                       .a-list-item-badge.is-wip
                         span WIP
+                    - elsif searchable.model_name == "user"
+                      .a-list-item-badge.is-searchable
+                        span ユーザー
+                    - elsif searchable.model_name == "comment"
+                      .a-list-item-badge.is-searchable
+                        span コメント
                     .card-list-item-title__title
                       - if searchable.model_name == "user"
                         = link_to searchable.login_name, searchable.url, class: 'card-list-item-title__link a-text-link'
