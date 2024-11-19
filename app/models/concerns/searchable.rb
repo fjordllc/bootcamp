@@ -81,6 +81,31 @@ module Searchable
       "特別\nイベント"
     when 'practice'
       "プラク\nティス"
+    when 'comment'
+      if respond_to?(:commentable) && commentable.present?
+        case commentable_type
+        when 'Announcement'
+          'お知らせ'
+        when 'Practice'
+          'プラクティス'
+        when 'Report'
+          '日報'
+        when 'Product'
+          '提出物'
+        when 'Question'
+          'Q&A'
+        when 'Page'
+          'Docs'
+        when 'Event'
+          'イベント'
+        when 'Regularevent'
+          '定期イベント'
+        else
+          'コメント'
+        end
+      else
+        'コメント'
+      end
     else
       I18n.t("activerecord.models.#{model_name.name.underscore}")
     end
