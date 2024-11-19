@@ -87,7 +87,7 @@ module Searchable
         when 'Announcement'
           'お知らせ'
         when 'Practice'
-          'プラクティス'
+          "プラク\nティス"
         when 'Report'
           '日報'
         when 'Product'
@@ -97,9 +97,9 @@ module Searchable
         when 'Page'
           'Docs'
         when 'Event'
-          'イベント'
+          "特別\nイベント"
         when 'Regularevent'
-          '定期イベント'
+          "定期\nイベント"
         else
           'コメント'
         end
