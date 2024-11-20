@@ -136,6 +136,8 @@
     - if @product.checks.size > 0
       .stamp.stamp-approve
         h2.stamp__content.is-title 確認済
-        time.stamp__content.is-created-at #{last_commented_at}
+        time.stamp__content.is-created-at
+          = last_checked_at
         .stamp__content.is-user-name
-          .stamp__content-inner #{last_commented_at&.to_datetime}
+          .stamp__content-inner
+            = last_checked_user_login_name

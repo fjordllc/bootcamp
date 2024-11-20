@@ -34,7 +34,11 @@ class Products::ProductComponent < ViewComponent::Base
     ((Time.zone.now - time) / 1.day).to_f
   end
 
-  def last_commented_at
-    @product.comments&.last&.created_at
+  def last_checked_at
+    l(@product.checks.last.created_at.to_date, format: :short)
+  end
+
+  def last_checked_user_login_name
+    @product.checks.last.user.login_name
   end
 end
