@@ -199,7 +199,12 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     current_user_id: @current_user_id
                   ))
 
-    assert_selector '.stamp.stamp-approve', text: '確認済'
+    assert_selector '.stamp.stamp-approve' do
+      assert_text '確認済'
+      assert_text I18n.l(Time.zone.today, format: :short)
+      assert_text 'komagata'
+    end
+
     assert_no_selector '.card-list-item__assignee'
   end
 
@@ -212,7 +217,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     current_user_id: @current_user_id
                   ))
 
-    assert_no_selector '.stamp.stamp-approve', text: '確認済'
+    assert_no_selector '.stamp.stamp-approve'
   end
 
   def test_render_until_next_elapsed_days_when_is_unassigned_products_page
