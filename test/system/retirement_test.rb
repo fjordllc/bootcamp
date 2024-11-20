@@ -229,4 +229,22 @@ class RetirementTest < ApplicationSystemTestCase
     assert_no_selector '.is-kimura'
     assert_selector '.is-komagata'
   end
+
+  test 'should clear github data on account deletion' do
+    user = users(:kimura)
+    user.github_id = '12345'
+    user.github_account = 'github_kimura'
+    user.github_collaborator = true
+    user.save!(validate: false)
+    visit_with_auth new_retirement_path, 'kimura'
+    find('label', text: 'とても良い').click
+    page.accept_confirm '本当によろしいですか？' do
+      click_on '退会する'
+    end
+    assert_text '退会処理が完了しました'
+    user.reload
+    assert_nil user.github_id
+    assert_nil user.github_account
+    assert_not user.github_collaborator
+  end
 end
