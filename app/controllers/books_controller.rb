@@ -10,6 +10,7 @@ class BooksController < ApplicationController
     @books = books.with_attached_cover
                   .includes(:practices)
                   .order(updated_at: :desc, id: :desc)
+    @user_course_practice = UserCoursePractice.new(current_user)
   end
 
   def new
