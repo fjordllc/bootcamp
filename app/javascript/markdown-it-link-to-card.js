@@ -37,10 +37,14 @@ export default (md, _options) => {
       const match = token.content.match(/^@\[card\]\((.+)\)$/)
       if (!match) continue
 
-      const linkCardUrl = md.utils.escapeHtml(match[1])
+      const linkCardUrl = match[1]
+      if (!isValidHttpUrl(linkCardUrl)) continue
+
       const linkCardToken = new state.Token('html_block', '', 0)
       linkCardToken.content = `
-      <div class="a-link-card before-replacement-link-card" data-url="${linkCardUrl}">
+      <div class="a-link-card before-replacement-link-card" data-url="${md.utils.escapeHtml(
+        linkCardUrl
+      )}">
         <p>リンクカード適用中... <i class="fa-regular fa-loader fa-spin"></i></p>
       </div>
         `
@@ -52,4 +56,13 @@ export default (md, _options) => {
     }
     return true
   })
+}
+
+const isValidHttpUrl = (str) => {
+  try {
+    const url = new URL(str)
+    return url.protocol === 'http:' || url.protocol === 'https:'
+  } catch (_) {
+    return false
+  }
 }
