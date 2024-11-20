@@ -29,9 +29,8 @@ const setChecks = () => {
     .then((json) => {
       const checkStampElement = document.querySelector('.stamp-approve')
 
-      if (!json[0]) return checkStampElement.classList.add('is-hidden')
-
-      checkStampElement.classList.remove('is-hidden')
+      checkStampElement.classList.toggle('is-hidden', !json[0])
+      if (!json[0]) return
 
       const checkedUserName = document.querySelector('.is-user-name')
       const checkedCreatedAt = document.querySelector('.is-created-at')
