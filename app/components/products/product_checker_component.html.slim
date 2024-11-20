@@ -9,10 +9,10 @@
     data-token=form_authenticity_token
   ]
     i.fas class=(@checker_id ? 'fa-times' : 'fa-hand-paper')
-    | #{button_label}
+    = button_label
 - else
   .a-button.is-sm.is-block.card-list-item__assignee-button.is-only-mentor
     span.card-list-item__assignee-image
       = image_tag @checker_avatar, class: "a-user-icon", width: 20, height: 20
     span.card-list-item__assignee-name
-      | #{@checker_name}
+      = @checker_name
