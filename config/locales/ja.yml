@@ -306,14 +306,12 @@ ja:
       request_retirement/keep_data/option:
         keep: 残す
         delete: 削除する
-<<<<<<< HEAD
       faq:
         question: 質問
         answer: 回答
         faq_category: カテゴリー
       faq_category:
         name: カテゴリー名
-=======
       coding_test:
         title: タイトル
         description: 問題文
@@ -324,7 +322,6 @@ ja:
       coding_test_case:
         input: 入力
         output: 出力
->>>>>>> c9e33f1fc (コーディングテスト機能を追加)
     enums:
       user:
         job:
