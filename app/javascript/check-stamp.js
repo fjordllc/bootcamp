@@ -33,7 +33,7 @@ const setChecks = () => {
       checkStampElement.classList.toggle('is-hidden', notChecked)
       if (notChecked) return
 
-      const checkedUserName = document.querySelector('.is-user-name')
+      const checkedUserName = document.querySelector('.stamp__content-inner')
       const checkedCreatedAt = document.querySelector('.is-created-at')
       checkedUserName.textContent = json[0].user.login_name
       checkedCreatedAt.textContent = json[0].created_at
