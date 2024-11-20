@@ -34,7 +34,7 @@ export default (md, _options) => {
       const hasBr = children?.some((child) => child.type === 'softbreak')
       if (hasBr) continue
 
-      const match = token.content.match(/^@\[card\]\((.+?)\)/)
+      const match = token.content.match(/^@\[card\]\((.+)\)$/)
       if (!match) continue
 
       const linkCardUrl = md.utils.escapeHtml(match[1])
