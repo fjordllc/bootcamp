@@ -36,31 +36,37 @@
           .card-list-item-meta__items
             - if @product.wip
               .card-list-item-meta__item
-                .a-meta 提出物作成中
+                .a-meta
+                  | 提出物作成中
             - elsif @product.published_at
               .card-list-item-meta__item
                 time.a-meta
-                  span.a-meta__label 提出
+                  span.a-meta__label
+                    | 提出
                   = l(@product.published_at)
             - else
               .card-list-item-meta__item
                 time.a-meta
-                  span.a-meta__label 提出
+                  span.a-meta__label
+                    | 提出
                   = l(@product.created_at)
 
             .card-list-item-meta__item
               - if @product.updated_at
                 time.a-meta
-                  span.a-meta__label 更新
+                  span.a-meta__label
+                    | 更新
                   = l(@product.updated_at)
 
             - if @is_unassigned_products_page
               time.a-meta
                 - if until_next_elapsed_days < 1
-                  span.a-meta__label 次の経過日数まで
+                  span.a-meta__label
+                    | 次の経過日数まで
                   | 1時間未満
-                - elsif calc_elapsed_times < 7
-                  span.a-meta__label 次の経過日数まで
+                - elsif calc_elapsed_days < 7
+                  span.a-meta__label
+                    | 次の経過日数まで
                   | 約#{until_next_elapsed_days}時間
 
       - if @product.comments.size > 0
@@ -107,21 +113,29 @@
             .card-list-item-meta__item
               - if @product.user.training_ends_on
                 time.a-meta dateTime=@product.user.training_ends_on
-                  span.a-meta__label 研修終了日
-                  span.a-meta__value= l(@product.user.training_ends_on)
+                  span.a-meta__label
+                    | 研修終了日
+                  span.a-meta__value
+                    = l(@product.user.training_ends_on)
                   - case @product.user.training_remaining_days
                   - when 0
-                    span.a-meta__value.is-danger （本日研修最終日）
+                    span.a-meta__value.is-danger
+                      | （本日研修最終日）
                   - when ..-1
-                    span.a-meta__value （研修終了）
+                    span.a-meta__value
+                      | （研修終了）
                   - when 1..6
-                    span.a-meta__value.is-danger （あと#{@product.user.training_remaining_days}日）
+                    span.a-meta__value.is-danger
+                      | （あと#{@product.user.training_remaining_days}日）
                   - else
-                    span.a-meta__value （あと#{@product.user.training_remaining_days}日）
+                    span.a-meta__value
+                      | （あと#{@product.user.training_remaining_days}日）
               - else
                 .a-meta
-                  span.a-meta__label 研修終了日
-                  span.a-meta__value 未入力
+                  span.a-meta__label
+                    | 研修終了日
+                  span.a-meta__value
+                    | 未入力
 
       - if @is_mentor && @product.checks.size == 0
         .card-list-item__row.is-only-mentor
@@ -135,7 +149,8 @@
 
     - if @product.checks.size > 0
       .stamp.stamp-approve
-        h2.stamp__content.is-title 確認済
+        h2.stamp__content.is-title
+          | 確認済
         time.stamp__content.is-created-at
           = last_checked_at
         .stamp__content.is-user-name
