@@ -4,7 +4,6 @@ class Companies::UsersController < ApplicationController
   PAGER_NUMBER = 24
 
   ALLOWED_TARGETS = %w[all student_and_trainee graduate adviser mentor admin].freeze
-  PAGER_NUMBER = 24
 
   def index
     @target = params[:target]
