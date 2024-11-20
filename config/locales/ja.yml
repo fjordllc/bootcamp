@@ -128,7 +128,7 @@ ja:
       practice:
         title: タイトル
         description: 内容
-        goal: 終了条件
+        goal: 修了条件
         target: ターゲット
         submission: 提出物
         submission_answer: 模範解答
