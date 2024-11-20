@@ -4,5 +4,6 @@ li.pagination__item.is-first
     span.pagination__item-link.is-first.is-disabled
       i.fas.fa-angle-double-left
   - else
-    = link_to raw('<i class="fas fa-angle-double-left"></i>'), url, remote:, class: 'pagination__item-link is-first'
+    = link_to url, remote:, class: 'pagination__item-link is-first' do
+      i.fas.fa-angle-double-left
 - # rubocop:enable Rails/OutputSafety
