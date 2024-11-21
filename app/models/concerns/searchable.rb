@@ -66,6 +66,22 @@ module Searchable
     "is-#{primary_role}" if respond_to?(:primary_role)
   end
 
+  def primary_role
+    return unless respond_to?(:user) && user.present?
+
+    if user.admin?
+      'admin'
+    elsif user.mentor?
+      'mentor'
+    elsif user.adviser?
+      'adviser'
+    elsif user.trainee?
+      'trainee'
+    elsif user.student?
+      'student'
+    end
+  end
+
   def formatted_updated_at
     weekdays = { 'Sunday' => '日', 'Monday' => '月', 'Tuesday' => '火', 'Wednesday' => '水',
                  'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
