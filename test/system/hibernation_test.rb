@@ -38,6 +38,25 @@ class HibernationTest < ApplicationSystemTestCase
     assert_text '復帰予定日を入力してください'
   end
 
+  test 'cancel participation in regular event upon hibernation' do
+    visit_with_auth new_hibernation_path, 'hatsuno'
+    within('form[name=hibernation]') do
+      fill_in(
+        'hibernation[scheduled_return_on]',
+        with: (Date.current + 30)
+      )
+      fill_in('hibernation[reason]', with: 'test')
+    end
+    find('.check-box-to-read').click
+    click_on '休会する'
+    page.driver.browser.switch_to.alert.accept
+    assert_text '休会手続きが完了しました'
+
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth "regular_events/#{regular_event.id}", 'komagata'
+    assert_no_selector '.is-hatsuno'
+  end
+
   test 'hibernate with event organizer' do
     visit_with_auth new_hibernation_path, 'hajime'
     within('form[name=hibernation]') do

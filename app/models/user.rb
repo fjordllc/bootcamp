@@ -845,6 +845,10 @@ class User < ApplicationRecord
     watches.find_or_create_by!(watchable:)
   end
 
+  def cancel_participation_from_regular_events
+    regular_event_participations.destroy_all
+  end
+
   def delete_and_assign_new_organizer
     organizers.each(&:delete_and_assign_new)
   end
@@ -855,6 +859,14 @@ class User < ApplicationRecord
 
   def participated_regular_event_ids
     RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
   end
 
   def area

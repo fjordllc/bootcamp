@@ -47,6 +47,8 @@ ja:
       book: 参考書籍
       regular_event: 定期イベント
       request_retirement: 退会申請
+      faq: FAQ
+      faq_category: FAQカテゴリ
     attributes:
       user:
         login_name: アカウント
@@ -126,7 +128,7 @@ ja:
       practice:
         title: タイトル
         description: 内容
-        goal: 終了条件
+        goal: 修了条件
         target: ターゲット
         submission: 提出物
         submission_answer: 模範解答
@@ -303,6 +305,12 @@ ja:
       request_retirement/keep_data/option:
         keep: 残す
         delete: 削除する
+      faq:
+        question: 質問
+        answer: 回答
+        faq_category: カテゴリー
+      faq_category:
+        name: カテゴリー名
     enums:
       user:
         job:
@@ -402,7 +410,6 @@ ja:
   course_names:
     rails_course: Railsエンジニア
     front_end_course: フロントエンドエンジニア
-    other_courses: [Unityゲームエンジニア, iOSエンジニア]
   watch:
     all: すべて
     true: コメントあり

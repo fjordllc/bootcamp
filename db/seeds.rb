@@ -25,6 +25,8 @@ tables = %i[
   discord_profiles
   events
   external_entries
+  faq_categories
+  faqs
   followings
   reports
   learning_times

@@ -34,12 +34,11 @@ class User::CoursesTest < ApplicationSystemTestCase
   test 'show users sorted by other courses' do
     visit_with_auth '/users/courses?target=other_courses', 'kimura'
     assert_selector('a.tab-nav__item-link.is-active', text: 'その他')
-    assert_text 'その他のコース（0）'
-    assert_selector '.users-item', count: 0
-    assert_text 'その他のユーザーはいません'
-    assert_no_link 'unity-course'
-    assert_no_text 'Unityゲームエンジニアコースのユーザー'
-    assert_no_link 'ios-course'
-    assert_no_text 'iOSエンジニアコースのユーザー'
+    assert_text 'その他のコース（2）'
+    assert_selector '.users-item', count: 2
+    assert_link 'unity-course'
+    assert_text 'Unityゲームエンジニアコースのユーザー'
+    assert_link 'ios-course'
+    assert_text 'iOSエンジニアコースのユーザー'
   end
 end

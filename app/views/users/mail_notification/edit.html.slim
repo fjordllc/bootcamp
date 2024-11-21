@@ -10,7 +10,7 @@
         .unauthorized-actions.is-vertical
           .unauthorized-actions__items
             .unauthorized-actions__item
-              = link_to user_mail_notification_path(@user), method: :patch, class: 'a-button is-lg  is-warning is-block' do
+              = link_to user_mail_notification_path(@user, token: @user.unsubscribe_email_token), method: :patch, class: 'a-button is-lg  is-warning is-block' do
                 | オフにする
             .unauthorized-actions__item
               = link_to root_path, class: 'a-button is-lg is-muted-text' do

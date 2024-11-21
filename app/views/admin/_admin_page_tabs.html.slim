@@ -8,7 +8,7 @@
       li.page-tabs__item
         = link_to 'ユーザー',
           admin_users_path,
-          class: "page-tabs__item-link #{current_link(/^admin-users/)}"
+          class: "page-tabs__item-link #{current_link(/^admin-users|^admin-invitation_url/)}"
       li.page-tabs__item
         = link_to '企業',
           admin_companies_path,
@@ -22,6 +22,6 @@
           admin_inquiries_path,
           class: "page-tabs__item-link #{current_link(/^admin-inquiries/)}"
       li.page-tabs__item
-        = link_to '招待URL',
-          admin_invitation_url_index_path,
-          class: "page-tabs__item-link #{current_link(/^admin-invitation_url/)}"
+        = link_to 'FAQ',
+          admin_faq_categories_path,
+          class: "page-tabs__item-link #{current_link(/^admin-faq_categories|^admin-faqs/)}"

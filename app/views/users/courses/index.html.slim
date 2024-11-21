@@ -37,10 +37,11 @@ main.page-main
                         label.a-form-label
                           | 絞り込み
                         = hidden_field_tag :target, params[:target]
-                        = text_field_tag :search_word, params[:search_word], class: 'a-text-input',
-                                          placeholder: 'ユーザーID、ユーザー名、読み方、Discord ID など',
-                                          onchange: 'this.form.submit()',
-                                          id: 'js-user-search-input'
+                        = text_field_tag :search_word, params[:search_word],
+                          class: 'a-text-input',
+                          placeholder: 'ユーザーID、ユーザー名、読み方、Discord ID など',
+                          onchange: 'this.form.submit()',
+                          id: 'js-user-search-input'
               .page-content.is-users
                 #user_lists.users__items
                   = render 'users/user_list', users: @users
