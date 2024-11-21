@@ -4,11 +4,17 @@ export default (md, _options) => {
     let allowLevel = 0
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i]
-      if (token.type === 'container_details_open') {
+      if (
+        token.type === 'container_details_open' ||
+        token.type === 'container_message_open'
+      ) {
         allowLevel++
         continue
       }
-      if (token.type === 'container_details_close' && allowLevel > 0) {
+      if (
+        (token.type === 'container_details_close' && allowLevel > 0) ||
+        (token.type === 'container_message_close' && allowLevel > 0)
+      ) {
         allowLevel--
         continue
       }
