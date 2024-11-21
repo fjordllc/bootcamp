@@ -45,7 +45,8 @@ class Searcher
         label: searchable.label,
         wip: searchable.try(:wip),
         commentable_user: searchable.try(:commentable)&.try(:user),
-        commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: '')
+        commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: ''),
+        primary_role: searchable.primary_role
       )
     end
   end
