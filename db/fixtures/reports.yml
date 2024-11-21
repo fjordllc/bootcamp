@@ -403,18 +403,67 @@ report89:
 
     ---
 
-    ## マークダウンがネストした状態ではリンクカードを生成しない
+    ## 生成されるハズ
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+    ## 生成されないハズ
+
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    ### リンクがただの文字列な場合
+    @[card](URL)
+
+    ---
+
+    ### リンクのスキームがhttp / https以外な場合
+    @[card](ftp://target.example.com/target/directory/)
+
+    ---
+
+    ## マークダウンがネストした状態はdetailsとmessageだけ許容する
+    * @[card](https://bootcamp.fjord.jp)
+
+    ---
+
     :::message
     @[card](https://bootcamp.fjord.jp)
     :::
 
     ---
 
-    * @[card](https://bootcamp.fjord.jp)
-
-    ---
-
-    ## detailsの中ではリンクカードを生成することができる
     :::details リンクカードが展開される
     @[card](https://bootcamp.fjord.jp)
     :::
