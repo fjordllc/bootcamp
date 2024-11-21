@@ -706,6 +706,14 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
+  test '#cancel_participation_from_regular_events' do
+    user = users(:kimura)
+
+    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
+      user.cancel_participation_from_regular_events
+    end
+  end
+
   test '#delete_and_assign_new_organizer' do
     user = users(:hajime)
 
@@ -737,7 +745,7 @@ class UserTest < ActiveSupport::TestCase
     no_area_user = users(:komagata)
     assert_equal tokyo_user.area, '東京都'
     assert_equal america_user.area, '米国'
-    assert_equal no_area_user.area, nil
+    assert_nil no_area_user.area
   end
 
   test '.by_area' do
@@ -745,5 +753,19 @@ class UserTest < ActiveSupport::TestCase
     assert_equal User.by_area('東京都').to_a.sort, tokyo_users.sort
     america_users = [users(:neverlogin), users(:tom)]
     assert_equal User.by_area('米国').to_a.sort, america_users.sort
+  end
+
+  test 'clear_github_data should clear GitHub related fields' do
+    user = users(:kimura)
+    user.github_id = '12345'
+    user.github_account = 'github_kimura'
+    user.github_collaborator = true
+    user.save!(validate: false)
+
+    user.clear_github_data
+
+    assert_nil user.github_id
+    assert_nil user.github_account
+    assert_not user.github_collaborator
   end
 end

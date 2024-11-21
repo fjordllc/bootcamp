@@ -294,6 +294,15 @@ export default {
       }
     },
     postComment() {
+      if (this.commentableType === 'Report' && this.isRole('mentor')) {
+        const notChecked = !this.checkId
+        if (
+          notChecked &&
+          !window.confirm('日報を確認済みにしていませんがよろしいですか？')
+        ) {
+          return
+        }
+      }
       this.createComment()
       if (this.isUnassignedAndUnchekedProduct) {
         this.checkProduct(

@@ -38,11 +38,9 @@ import '../agreements.js'
 import '../book-select.js'
 import '../subscription-status.js'
 import '../new-event-date-set.js'
-import '../company-users.js'
 import '../learning-completion-message.js'
 import '../choices-ui.js'
 import '../training-info-toggler.js'
-import '../company-products.js'
 import '../welcome_message_for_adviser.js'
 import '../bookmarks-edit-button.js'
 import '../hibernation_agreements.js'
@@ -57,9 +55,12 @@ import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
 import '../payment-methods-check-boxes.js'
+import '../product-checker.js'
+import '../user-follow.js'
+import '../sort-faq.js'
+import '../sort-faq-category.js'
 
 import VueMounter from '../VueMounter.js'
-import Books from '../components/books.vue'
 import Questions from '../components/questions.vue'
 import UsersAnswers from '../components/users-answers.vue'
 import User from '../components/user.vue'
@@ -75,7 +76,6 @@ import CourseBooks from '../components/course-books.vue'
 import '../stylesheets/application'
 
 const mounter = new VueMounter()
-mounter.addComponent(Books)
 mounter.addComponent(Questions)
 mounter.addComponent(UsersAnswers)
 mounter.addComponent(User)

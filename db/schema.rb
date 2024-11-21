@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_21_190009) do
+ActiveRecord::Schema.define(version: 2024_11_03_082456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.datetime "published_at"
     t.text "summary"
     t.integer "thumbnail_type", default: 0, null: false
-    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.string "token"
+    t.boolean "display_thumbnail_in_body", default: true, null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -265,6 +265,26 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.bigint "user_id", null: false
     t.string "thumbnail_image_url"
     t.index ["user_id"], name: "index_external_entries_on_user_id"
+  end
+
+  create_table "faq_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
+    t.index ["name"], name: "index_faq_categories_on_name", unique: true
+  end
+
+  create_table "faqs", force: :cascade do |t|
+    t.text "answer", null: false
+    t.string "question", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
+    t.bigint "faq_category_id", null: false
+    t.index ["answer", "question"], name: "index_faqs_on_answer_and_question", unique: true
+    t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id"
+    t.index ["question"], name: "index_faqs_on_question", unique: true
   end
 
   create_table "followings", force: :cascade do |t|
@@ -762,9 +782,9 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
     t.string "country_code"
     t.string "subdivision_code"
     t.boolean "auto_retire", default: true
-    t.boolean "invoice_payment", default: false, null: false
     t.integer "editor"
     t.string "other_editor"
+    t.boolean "invoice_payment", default: false, null: false
     t.boolean "hide_mentor_profile", default: false, null: false
     t.integer "experiences", default: 0, null: false
     t.index ["course_id"], name: "index_users_on_course_id"
@@ -809,6 +829,7 @@ ActiveRecord::Schema.define(version: 2024_08_21_190009) do
   add_foreign_key "check_boxes", "survey_questions"
   add_foreign_key "discord_profiles", "users"
   add_foreign_key "external_entries", "users"
+  add_foreign_key "faqs", "faq_categories"
   add_foreign_key "hibernations", "users"
   add_foreign_key "images", "users"
   add_foreign_key "learning_minute_statistics", "practices"
