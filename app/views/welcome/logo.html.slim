@@ -1,0 +1,198 @@
+- title 'ロゴ・ガイドライン'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: '株式会社ロッカ（以下「当社」といいます）の提供する「フィヨルドブートキャンプ」（以下「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、このページにあるとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。')
+
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border
+.lp
+  .lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              = title
+        .lp-content__end
+          .a-card
+            .card-body
+              .card-body__inner
+                .a-long-text.is-md
+                  h2
+                    | ロゴデータ
+                  ul
+                    li
+                      = link_to '/images/logo/rgb.ai', class: 'a-text-link' do
+                        | RGB
+                    li
+                      = link_to '/images/logo/cmyk.ai', class: 'a-text-link' do
+                        | CMYK
+
+              .card-body__inner
+                .a-long-text.is-md
+                  h2 ロゴ使用ガイドライン
+
+                  h3 概要
+                  p
+                    | 株式会社ロッカが提供するプログラミングスクール「フィヨルドブートキャンプ」のロゴは、
+                    | そのアイデンティティとして重要な役割を果たしています。本ガイドラインは、
+                    | 当社サービスに関する商標やロゴの使用方法を明確にし、
+                    | 皆様に安心してご活用いただくために設定されています。
+
+                  h3 権利帰属
+                  p
+                    | 当社ロゴに関するすべての権利（著作権、商標権など）は株式会社ロッカに帰属します。
+
+                  h3 使用許可の条件
+                  p
+                    | ロゴは、フィヨルドブートキャンプの紹介目的、
+                    | 当社と提携関係にある使用者が提携プロジェクトや企画において当社の許可を得て使用する場合、
+                    | および当社サービスの受講生、卒業生、メンター、アドバイザーが自身の所属を示す場合に限り、使用可能です。
+
+                  h3 使用者の責任と免責事項
+                  p ロゴの不適切な使用により当社に損害が発生した場合、使用者は当社の請求に応じて補償を行うものとします。当社はロゴ使用に関連する直接的または間接的な損害に対して責任を負いません。
+
+                  h3 ロゴ使用ルール及びガイドラインの変更
+                  p 当社は、ロゴ使用ルールやガイドラインを必要に応じて更新することがあります。変更は当社ウェブサイトに掲載された時点で効力を発揮します。
+
+                  h2 具体的使用ルール
+
+                  h3 バリエーション
+                  p
+                    | 縦組と横組みのバリエーションがあります。
+                    | 表示領域に合わせてより視認性が高い方を使用してください。
+                  .inline-grid.gap-8.w-auto.mt-0(class='grid-cols-[auto,auto]')
+                    .m-0
+                      h5
+                        | 縦組み
+                      p
+                        = image_tag('press-kit/blue-vertical.png', alt: 'logo', class: 'block w-80')
+                    .m-0
+                      h5
+                        | 横組み
+                      p
+                        = image_tag('press-kit/blue-horizontal.png', alt: 'logo', class: 'block w-100')
+
+                  h3 色
+                  p ロゴはブルー、背景色が指定できる場合はホワイトを使用してください。
+
+                  .inline-grid.gap-8.w-auto.mt-0(class='grid-cols-[auto,auto]')
+                    .m-0
+                      h5 ブルー
+                      .grid.gap-4.m-0(class='grid-cols-[auto,1fr]')
+                        .m-0
+                          .h-10.w-10(class='bg-[#4843c2] md:h-16 md:w-16')
+                        .m-0
+                          ul
+                            li
+                              | HEX #4843c2
+                            li
+                              | RGB(72, 67, 194)
+                            li
+                              | CMYK(82, 74, 0, 0)
+                            li
+                              | DIC 185
+                    .m-0
+                      h5 ホワイト
+                      .grid.gap-4.m-0(class='grid-cols-[auto,1fr]')
+                        .m-0
+                          .border.border-gray-200.bg-white.border-solid.h-10.w-10(class='md:h-16 md:w-16')
+                        .m-0
+                          ul
+                            li
+                              | HEX #fff
+                            li
+                              | RGB(255, 255, 255)
+                            li
+                              | CMYK(0, 0, 0, 0)
+                            li
+                              | DIC 583
+
+                  h3 サイズ
+                  p 読み取り可能な最小サイズを守ってください。
+                  ul
+                    li
+                      h5
+                        | 横組み
+                      p 最小幅を100ピクセル、または25ミリメートル。
+                    li
+                      h5
+                        | 縦組み
+                      p 最小幅を80ピクセル、または20ミリメートル。
+
+                  h3 余白
+                  p ロゴの周囲には、「FBC」の高さの1/3以上の余白を確保してください。
+
+                  .inline-grid.gap-8.w-auto.mt-0(class='grid-cols-[auto,auto]')
+                    .m-0
+                      p
+                        = image_tag('press-kit/isolation-vertical.png', alt: 'logo', class: 'block w-80')
+                    .m-0
+                      p
+                        = image_tag('press-kit/isolation-horizontal.png', alt: 'logo', class: 'block w-100')
+
+                  h3 背景
+                  p
+                    | 背景によってロゴの視認性が悪くなる場合、ホワイトにするか、
+                    | ホワイトで縁取りを施してください。
+                  .inline-grid.gap-8.w-auto.mt-0(class='grid-cols-[auto,auto]')
+                    .m-0
+                      p
+                        = image_tag('press-kit/background-blue.png', alt: 'logo', class: 'block w-80')
+                    .m-0
+                      p
+                        = image_tag('press-kit/background-people.png', alt: 'logo', class: 'block w-80')
+
+                  h3 使用禁止例
+                  p 下記のような色や割合、配列など、ロゴの要素変更をしないようにしてください。
+                  .grid.gap-8.grid-cols-3(class='md:grid-cols-4')
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-1.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 縦横比を変える。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-2.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 色を変える。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-3.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 回転する。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-4.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 半透明にする。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-5.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 影を付ける。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-6.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | トリミングする。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-7.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | ぼかす。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-8.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 文章の一部に使う。
+                    .m-0
+                      p.m-0
+                        = image_tag('press-kit/ng-9.png', alt: 'logo', class: 'block w-80')
+                      p.mt-2.leading-snug
+                        | 視認性が悪い。
