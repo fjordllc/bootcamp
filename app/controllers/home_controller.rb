@@ -61,15 +61,7 @@ class HomeController < ApplicationController
   end
 
   def display_products_for_mentor
-    @products = Product
-                .unassigned
-                .unchecked
-                .not_wip
-                .list
-                .ascending_by_date_of_publishing_and_id
-    reply_deadline_days = @product_deadline_day + 2
-    @products_grouped_by_elapsed_days = @products.group_by do |product|
-      product.elapsed_days >= reply_deadline_days ? reply_deadline_days : product.elapsed_days
-    end
+    @products = Product.require_assignment_products
+    @products_grouped_by_elapsed_days = Product.group_by_elapsed_days(@products)
   end
 end
