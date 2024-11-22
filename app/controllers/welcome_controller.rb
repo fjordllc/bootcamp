@@ -46,6 +46,8 @@ class WelcomeController < ApplicationController
 
   def press_kit; end
 
+  def logo; end
+
   def rails_developer_course
     render template: 'welcome/certified_reskill_courses/rails_developer_course/index'
   end
