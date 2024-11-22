@@ -77,6 +77,8 @@ module Searchable
       'adviser'
     elsif user.trainee?
       'trainee'
+    elsif user.graduated?
+      'graduate'
     elsif user.student?
       'student'
     end
