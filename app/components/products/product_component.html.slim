@@ -58,15 +58,13 @@
                     | 更新
                   = l(@product.updated_at)
 
-            - if @is_unassigned_products_page
+            - if @display_until_next_elapsed_days && elapsed_days < @reply_deadline_days
               time.a-meta
+                span.a-meta__label
+                  | 次の経過日数まで
                 - if until_next_elapsed_days < 1
-                  span.a-meta__label
-                    | 次の経過日数まで
                   | 1時間未満
-                - elsif calc_elapsed_days < 7
-                  span.a-meta__label
-                    | 次の経過日数まで
+                - else
                   | 約#{until_next_elapsed_days}時間
 
       - if @product.comments.size > 0
