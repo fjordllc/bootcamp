@@ -15,14 +15,28 @@ class RegularEventTest < ActiveSupport::TestCase
     assert regular_event.invalid?
   end
 
-  test 'title is invalid when it starts with markdown symbols' do
+  test 'titles formatted as markdown are invalid' do
+    invalid_title = [
+      '# 見出し1',
+      '## 見出し2',
+      '+ 順序なしリスト',
+      '- 順序なしリスト',
+      '* 順序なしリスト',
+      '1. 順序付きリスト',
+      '> 引用',
+      '``` コードブロック',
+      '~~取り消し線~~',
+      '**強調**,',
+      '__下線__',
+      '||伏せ字||'
+    ]
+
     regular_event = regular_events(:regular_event1)
-    regular_event.title = '# 無効なタイトル'
-    assert regular_event.invalid?
-    regular_event.title = ' # 先頭に半角スペースを含む無効なタイトル'
-    assert regular_event.invalid?
-    regular_event.title = '　# 先頭に全角スペースを含む無効なタイトル'
-    assert regular_event.invalid?
+    errors = invalid_title.filter_map do |title|
+      regular_event.title = title
+      title if regular_event.valid?
+    end
+    assert_empty errors
   end
 
   test '.scheduled_on(date)' do
