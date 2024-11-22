@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Products::ProductComponent < ViewComponent::Base
-  def initialize(product:, is_mentor:, is_admin:, current_user_id:, is_unassigned_products_page: false, display_user_icon: true) # rubocop:disable Metrics/ParameterLists
+  def initialize(product:, is_mentor:, is_admin:, current_user_id:, reply_deadline_days:, display_until_next_elapsed_days: false, display_user_icon: true) # rubocop:disable Metrics/ParameterLists
     @product = product
     @is_mentor = is_mentor
     @is_admin = is_admin
     @current_user_id = current_user_id
-    @is_unassigned_products_page = is_unassigned_products_page
+    @reply_deadline_days = reply_deadline_days
+    @display_until_next_elapsed_days = display_until_next_elapsed_days
     @display_user_icon = display_user_icon
   end
 
@@ -25,11 +26,10 @@ class Products::ProductComponent < ViewComponent::Base
   end
 
   def until_next_elapsed_days
-    elapsed_times = calc_elapsed_times
-    ((elapsed_times.ceil - elapsed_times) * 24).floor
+    ((elapsed_days.ceil - elapsed_days) * 24).floor
   end
 
-  def calc_elapsed_times
+  def elapsed_days
     time = @product.published_at || @product.created_at
     ((Time.zone.now - time) / 1.day).to_f
   end

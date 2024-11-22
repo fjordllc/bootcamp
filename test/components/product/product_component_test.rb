@@ -11,6 +11,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
     @current_user_id = users(:komagata).id
     @is_mentor = true
     @is_admin = true
+    @reply_deadline_days = 6
   end
 
   def test_default
@@ -19,7 +20,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_text product.user.long_name
@@ -35,6 +37,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days,
                     display_user_icon: true
                   ))
 
@@ -48,6 +51,7 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days,
                     display_user_icon: false
                   ))
 
@@ -60,7 +64,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: wip_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.a-list-item-badge.is-wip'
@@ -74,7 +79,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: non_wip_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_no_selector '.a-list-item-badge.is-wip'
@@ -88,7 +94,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: commented_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.a-meta', text: 'コメント（1）'
@@ -101,7 +108,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: published_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.a-meta', text: '提出'
@@ -114,7 +122,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: unpublished_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.a-meta', text: '提出'
@@ -127,7 +136,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: trainee_product,
                     is_mentor: @is_mentor,
                     is_admin: false,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.a-meta', text: '研修終了日'
@@ -136,7 +146,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: trainee_product,
                     is_mentor: false,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.a-meta', text: '研修終了日'
@@ -148,7 +159,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: trainee_product,
                     is_mentor: false,
                     is_admin: false,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_no_selector '.a-meta', text: '研修終了日'
@@ -160,7 +172,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: non_trainee_product,
                     is_mentor: false,
                     is_admin: false,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_no_selector '.a-meta', text: '研修終了日'
@@ -172,7 +185,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.card-list-item__assignee'
@@ -184,7 +198,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product:,
                     is_mentor: false,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_no_selector '.card-list-item__assignee'
@@ -196,7 +211,8 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: checked_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_selector '.stamp.stamp-approve' do
@@ -214,20 +230,22 @@ class Products::ProductComponentTest < ViewComponent::TestCase
                     product: non_checked_product,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days
                   ))
 
     assert_no_selector '.stamp.stamp-approve'
   end
 
-  def test_render_until_next_elapsed_days_when_is_unassigned_products_page
+  def test_render_until_next_elapsed_days_when_display_until_next_elapsed_days_is_true
     product = products(:product70)
     render_inline(Products::ProductComponent.new(
                     product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
                     current_user_id: @current_user_id,
-                    is_unassigned_products_page: true
+                    reply_deadline_days: @reply_deadline_days,
+                    display_until_next_elapsed_days: true
                   ))
 
     assert_selector '.a-meta__label' do
@@ -236,13 +254,15 @@ class Products::ProductComponentTest < ViewComponent::TestCase
     end
   end
 
-  def test_does_not_render_until_next_elapsed_days_when_is_not_unassigned_products_page
+  def test_does_not_render_until_next_elapsed_days_when_display_until_next_elapsed_days_is_false
     product = products(:product70)
     render_inline(Products::ProductComponent.new(
                     product:,
                     is_mentor: @is_mentor,
                     is_admin: @is_admin,
-                    current_user_id: @current_user_id
+                    current_user_id: @current_user_id,
+                    reply_deadline_days: @reply_deadline_days,
+                    display_until_next_elapsed_days: false
                   ))
 
     assert_no_selector '.a-meta__label', text: '次の経過日数まで'
