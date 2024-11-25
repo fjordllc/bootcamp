@@ -68,7 +68,9 @@ hr.a-border
                         .card-list-item-meta__item
                           .a-meta
                             - if searchable[:model_name] == 'comment'
-                              = "(#{searchable[:commentable_user]&.login_name} #{searchable[:commentable_type]})"
+                              = raw "(#{link_to(searchable[:commentable_user]&.login_name, "/users/#{searchable[:commentable_user]&.id}", class: 'a-user-name')} #{searchable[:commentable_type]})"
+                            - elsif searchable[:model_name].in?(%w[answer correct_answer])
+                              = raw "(#{link_to(searchable[:commentable_user]&.login_name, "/users/#{searchable[:commentable_user]&.id}", class: 'a-user-name')} Q&A)"
                         - if searchable[:talk_url_for_admin].present?
                           .card-list-item-meta__item
                             = link_to '相談部屋', searchable[:talk_url_for_admin], class: 'a-text-link'
