@@ -229,7 +229,7 @@ class Product < ApplicationRecord
   end
 
   def formatted_summary(word)
-    return body unless word.present?
+    return body if word.blank?
 
     body.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
