@@ -12,6 +12,10 @@ export const setCheckStamp = () => {
 
   const checkableType = checkStamp.getAttribute('data-checkable-type')
   const checkableId = checkStamp.getAttribute('data-checkable-id')
+  store.dispatch('setCheckable', {
+    checkableId: checkableId,
+    checkableType: checkableType
+  })
   fetch(
     `/api/checks.json/?checkable_type=${checkableType}&checkable_id=${checkableId}`,
     {
@@ -37,11 +41,6 @@ export const setCheckStamp = () => {
       const checkedCreatedAt = document.querySelector('.is-created-at')
       checkedUserName.textContent = json[0].user.login_name
       checkedCreatedAt.textContent = json[0].created_at
-
-      store.dispatch('setCheckable', {
-        checkableId: checkableId,
-        checkableType: checkableType
-      })
     })
     .catch((error) => {
       console.warn(error)
