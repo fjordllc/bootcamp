@@ -155,7 +155,7 @@ class Report < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def formatted_summary(word)
-    return description unless word.present?
+    return description if word.blank?
 
     description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end

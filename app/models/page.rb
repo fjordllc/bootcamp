@@ -34,7 +34,7 @@ class Page < ApplicationRecord
   end
 
   def formatted_summary(word)
-    return body unless word.present?
+    return body if word.blank?
 
     description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end

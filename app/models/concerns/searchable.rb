@@ -77,7 +77,7 @@ module Searchable
   end
 
   def label
-    if model_name.name.downcase == 'user'
+    if model_name.name.casecmp('user').zero?
       avatar_url
     else
       case model_name.name.downcase
