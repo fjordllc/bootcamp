@@ -33,21 +33,29 @@ class Searcher
     searchables.map do |searchable|
       searchable.instance_variable_set(:@highlight_word, word)
 
-      OpenStruct.new(
+      {
         url: searchable.try(:url),
         title: searchable.try(:title),
         summary: searchable.try(:summary),
         formatted_summary: searchable.formatted_summary(word),
-        user_id: searchable.try(:user_id),
+        user_id: searchable.is_a?(User) ? searchable.id : searchable.try(:user_id),
         login_name: searchable.try(:login_name),
         formatted_updated_at: searchable.formatted_updated_at,
         model_name: searchable.class.name.underscore,
-        label: searchable.label,
+        label: fetch_label(searchable),
         wip: searchable.try(:wip),
         commentable_user: searchable.try(:commentable)&.try(:user),
         commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: ''),
         primary_role: searchable.primary_role
-      )
+      }
+    end
+  end
+
+  def self.fetch_label(searchable)
+    if searchable.is_a?(User)
+      searchable.avatar_url
+    else
+      searchable.label
     end
   end
 
