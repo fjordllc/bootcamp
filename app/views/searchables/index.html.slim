@@ -55,10 +55,9 @@ hr.a-border
                 .card-list-item__row
                   .card-list-item-meta
                     .card-list-item-meta__items
-                      - unless ['practice', 'page', 'user'].include?(searchable[:model_name])
-                        .card-list-item-meta__item
-                          .card-list-item-meta__user
-                            - if searchable_user
+                        - if searchable_user && searchable[:model_name] != "user"
+                          .card-list-item-meta__item
+                            .card-list-item-meta__user
                               = link_to "/users/#{searchable_user.id}", class: 'card-list-item-meta__icon-link' do
                                 span.a-user-role class="is-#{searchable[:primary_role]}"
                                   = image_tag searchable_user.avatar_url, class: 'user-profile__user-icon-image a-user-icon'
