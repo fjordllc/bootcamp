@@ -4,7 +4,7 @@ class CorrectAnswer < Answer
   belongs_to :question
 
   def url
-    Rails.application.routes.url_helpers.api_answer_correct_answer_path(answer_id: question_id, id: id)
+    Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
   end
 
   def formatted_summary(word)
