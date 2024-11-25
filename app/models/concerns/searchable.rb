@@ -119,8 +119,4 @@ module Searchable
       end
     end
   end
-
-  def talk_url_for_admin
-    "/talks/#{talk_id}" if talk_id.present?
-  end
 end
