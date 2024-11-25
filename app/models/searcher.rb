@@ -35,7 +35,7 @@ class Searcher
 
       {
         url: searchable.try(:url),
-        title: searchable.try(:title),
+        title: fetch_title(searchable),
         summary: searchable.try(:summary),
         formatted_summary: searchable.formatted_summary(word),
         user_id: searchable.is_a?(User) ? searchable.id : searchable.try(:user_id),
@@ -48,6 +48,14 @@ class Searcher
         commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: ''),
         primary_role: searchable.primary_role
       }
+    end
+  end
+
+  def self.fetch_title(searchable)
+    if searchable.is_a?(Answer)
+      searchable.question&.title
+    else
+      searchable.try(:title)
     end
   end
 
