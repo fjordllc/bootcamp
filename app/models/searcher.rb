@@ -32,7 +32,7 @@ class Searcher
 
     searchables.map do |searchable|
       searchable.instance_variable_set(:@highlight_word, word)
-  
+
       {
         url: searchable.try(:url),
         title: fetch_title(searchable),
@@ -50,7 +50,7 @@ class Searcher
       }
     end
   end
-  
+
   def self.fetch_commentable_user(searchable)
     if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
       searchable.question&.user
