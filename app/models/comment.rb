@@ -57,7 +57,7 @@ class Comment < ApplicationRecord
   end
 
   def url
-    commentable.url + "#comment-#{id}"
+    commentable.url + "#comment_#{id}"
   end
 
   def title
