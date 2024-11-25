@@ -17,7 +17,7 @@ module PageTabs
                   link: "#{user_micro_reports_path(user, page: user.latest_micro_report_page)}#latest-micro-report",
                   count: user.micro_reports.length }
       end
-      tabs << { name: '相談部屋', link: talk_path(user.talk) } if current_user.admin? && !user.admin?
+      tabs << { name: '相談部屋', link: talk_path(user.talk) } if current_user.admin? && !user.admin? && user.talk.present?
       render PageTabsComponent.new(tabs:, active_tab:)
     end
 
