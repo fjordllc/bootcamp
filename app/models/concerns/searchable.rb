@@ -54,34 +54,23 @@ module Searchable
     end
   end
 
-  def css_class
-    if wip
-      "is-wip is-#{model_name}"
-    else
-      "is-#{model_name}"
-    end
-  end
-
-  def role_class
-    "is-#{primary_role}" if respond_to?(:primary_role)
-  end
-
   def primary_role
-    return unless respond_to?(:user) && user.present?
-
-    if user.admin?
-      'admin'
-    elsif user.mentor?
-      'mentor'
-    elsif user.adviser?
-      'adviser'
-    elsif user.trainee?
-      'trainee'
-    elsif user.graduated?
-      'graduate'
-    elsif user.student?
-      'student'
+    if is_a?(User)
+      return 'admin' if admin?
+      return 'mentor' if mentor?
+      return 'adviser' if adviser?
+      return 'trainee' if trainee?
+      return 'graduate' if graduated?
+      return 'student' if student?
+    elsif respond_to?(:user) && user.present?
+      return 'admin' if user.admin?
+      return 'mentor' if user.mentor?
+      return 'adviser' if user.adviser?
+      return 'trainee' if user.trainee?
+      return 'graduate' if user.graduated?
+      return 'student' if user.student?
     end
+    nil
   end
 
   def formatted_updated_at
@@ -92,40 +81,46 @@ module Searchable
   end
 
   def label
-    case model_name.name.downcase
-    when 'regularevent'
-      "定期\nイベント"
-    when 'event'
-      "特別\nイベント"
-    when 'practice'
-      "プラク\nティス"
-    when 'comment'
-      if respond_to?(:commentable) && commentable.present?
-        case commentable_type
-        when 'Announcement'
-          'お知らせ'
-        when 'Practice'
-          "プラク\nティス"
-        when 'Report'
-          '日報'
-        when 'Product'
-          '提出物'
-        when 'Question'
-          'Q&A'
-        when 'Page'
-          'Docs'
-        when 'Event'
-          "特別\nイベント"
-        when 'Regularevent'
-          "定期\nイベント"
+    if model_name.name.downcase == 'user'
+      avatar_url
+    else
+      case model_name.name.downcase
+      when 'regularevent'
+        "定期\nイベント"
+      when 'event'
+        "特別\nイベント"
+      when 'practice'
+        "プラク\nティス"
+      when 'correctanswer'
+        'Q&A'
+      when 'comment'
+        if respond_to?(:commentable) && commentable.present?
+          case commentable_type
+          when 'Announcement'
+            'お知らせ'
+          when 'Practice'
+            "プラク\nティス"
+          when 'Report'
+            '日報'
+          when 'Product'
+            '提出物'
+          when 'Question'
+            'Q&A'
+          when 'Page'
+            'Docs'
+          when 'Event'
+            "特別\nイベント"
+          when 'Regularevent'
+            "定期\nイベント"
+          else
+            'コメント'
+          end
         else
           'コメント'
         end
       else
-        'コメント'
+        I18n.t("activerecord.models.#{model_name.name.underscore}")
       end
-    else
-      I18n.t("activerecord.models.#{model_name.name.underscore}")
     end
   end
 
