@@ -71,9 +71,11 @@ hr.a-border
                               = raw "(#{link_to(searchable[:commentable_user]&.login_name, "/users/#{searchable[:commentable_user]&.id}", class: 'a-user-name')} #{searchable[:commentable_type]})"
                             - elsif searchable[:model_name].in?(%w[answer correct_answer])
                               = raw "(#{link_to(searchable[:commentable_user]&.login_name, "/users/#{searchable[:commentable_user]&.id}", class: 'a-user-name')} Q&A)"
-                        - if searchable[:talk_url_for_admin].present?
-                          .card-list-item-meta__item
-                            = link_to '相談部屋', searchable[:talk_url_for_admin], class: 'a-text-link'
+                        - if current_user.admin? && searchable[:model_name] == 'user'
+                          - talk = Talk.find_by(user_id: searchable_user.id)
+                          - if talk.present?
+                            .card-list-item-meta__item
+                              = link_to '相談部屋', talk_path(talk), class: 'a-text-link'
 
   - else
     .o-empty-message
