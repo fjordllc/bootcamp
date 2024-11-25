@@ -32,7 +32,7 @@ class Searcher
 
     searchables.map do |searchable|
       searchable.instance_variable_set(:@highlight_word, word)
-
+  
       {
         url: searchable.try(:url),
         title: fetch_title(searchable),
@@ -44,10 +44,18 @@ class Searcher
         model_name: searchable.class.name.underscore,
         label: fetch_label(searchable),
         wip: searchable.try(:wip),
-        commentable_user: searchable.try(:commentable)&.try(:user),
+        commentable_user: fetch_commentable_user(searchable),
         commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: ''),
         primary_role: searchable.primary_role
       }
+    end
+  end
+  
+  def self.fetch_commentable_user(searchable)
+    if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
+      searchable.question&.user
+    else
+      searchable.try(:commentable)&.try(:user)
     end
   end
 
