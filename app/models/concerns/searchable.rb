@@ -115,7 +115,7 @@ module Searchable
           'コメント'
         end
       else
-        I18n.t("activerecord.models.#{model_name.name.underscore}")
+        model_name.name == 'Answer' ? 'Q&A' : I18n.t("activerecord.models.#{model_name.name.underscore}")
       end
     end
   end
