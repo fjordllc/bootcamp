@@ -7,10 +7,6 @@ module Searchable
 
   included do
     scope :search_by_keywords_scope, -> { all }
-
-    def url
-      raise NotImplementedError, "#{self.class} must implement #url method"
-    end
   end
 
   class_methods do
