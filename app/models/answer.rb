@@ -29,7 +29,7 @@ class Answer < ApplicationRecord
   end
 
   def url
-    Rails.application.routes.url_helpers.api_answer_path(self)
+    Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
   end
 
   def formatted_summary(word)
