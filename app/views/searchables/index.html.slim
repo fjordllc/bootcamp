@@ -39,6 +39,12 @@ hr.a-border
                     - elsif searchable[:model_name] == "comment"
                       .a-list-item-badge.is-searchable
                         span コメント
+                    - elsif searchable[:model_name] == "answer" 
+                      .a-list-item-badge.is-searchable
+                        span コメント
+                    - elsif searchable[:model_name] == "correct_answer" 
+                      .a-list-item-badge.is-searchable
+                        span コメント
                     .card-list-item-title__title
                       = link_to searchable[:title] || searchable[:login_name], searchable[:url], class: 'card-list-item-title__link a-text-link'
 
