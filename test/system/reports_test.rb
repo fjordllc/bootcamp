@@ -782,4 +782,24 @@ class ReportsTest < ApplicationSystemTestCase
     visit_with_auth report_path(report), 'komagata'
     assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
   end
+
+  test 'URL copy button copies the current URL to the clipboard' do
+    report = reports(:report10)
+    visit_with_auth "/reports/#{report.id}", 'hajime'
+    cdp_permission_write = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-write' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission_write)
+    cdp_permission_read = {
+      origin: page.server_url,
+      permission: { name: 'clipboard-read' },
+      setting: 'granted'
+    }
+    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission_read)
+    click_button 'URLコピー'
+    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+    assert_equal current_url, clip_text
+  end
 end
