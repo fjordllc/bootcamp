@@ -24,25 +24,7 @@ class Searcher
 
     delete_comment_of_talk!(searchables)
 
-    searchables.map do |searchable|
-      searchable.instance_variable_set(:@highlight_word, word)
-  
-      {
-        url: searchable.try(:url),
-        title: fetch_title(searchable),
-        summary: searchable.try(:summary),
-        formatted_summary: searchable.formatted_summary(word),
-        user_id: searchable.is_a?(User) ? searchable.id : searchable.try(:user_id),
-        login_name: searchable.try(:login_name),
-        formatted_updated_at: searchable.formatted_updated_at,
-        model_name: searchable.class.name.underscore,
-        label: fetch_label(searchable),
-        wip: searchable.try(:wip),
-        commentable_user: fetch_commentable_user(searchable),
-        commentable_type: I18n.t("activerecord.models.#{searchable.try(:commentable)&.try(:model_name)&.name&.underscore}", default: ''),
-        primary_role: searchable.primary_role
-      }
-    end
+    searchables.map { |searchable| SearchResult.new(searchable, word) }
   end
   
   def self.fetch_commentable_user(searchable)
