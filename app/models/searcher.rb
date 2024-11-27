@@ -61,6 +61,7 @@ class Searcher
   def self.result_for_all(words)
     AVAILABLE_TYPES
       .flat_map { |type| result_for(type, words) }
+      .uniq
       .sort_by(&:updated_at)
       .reverse
   end
@@ -79,7 +80,7 @@ class Searcher
   def self.result_for_comments(document_type, word)
     [document_type, :comments].flat_map do |type|
       result_for(type, word, commentable_type: model_name(document_type))
-    end.sort_by(&:updated_at).reverse
+    end.uniq.sort_by(&:updated_at).reverse
   end
 
   def self.result_for_questions(document_type, word)
