@@ -3,6 +3,7 @@
 class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Watchable
   include Searchable
+  include SearchHelper
 
   has_many :learnings, dependent: :destroy
   has_and_belongs_to_many :reports # rubocop:disable Rails/HasAndBelongsToMany
@@ -192,16 +193,6 @@ class Practice < ApplicationRecord # rubocop:todo Metrics/ClassLength
     return false if practices_books.empty?
 
     practices_books.any?(&:must_read)
-  end
-
-  def url
-    Rails.application.routes.url_helpers.practice_path(self)
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private

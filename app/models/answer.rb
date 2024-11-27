@@ -4,6 +4,7 @@ class Answer < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
+  include SearchHelper
 
   belongs_to :user, touch: true
   belongs_to :question, touch: false
@@ -26,15 +27,5 @@ class Answer < ApplicationRecord
 
   def certain_period_has_passed?
     created_at.since(1.week).to_date == Date.current
-  end
-
-  def url
-    Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 end
