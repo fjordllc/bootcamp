@@ -13,6 +13,7 @@ class Product < ApplicationRecord
   include Searchable
   include Bookmarkable
   include Taskable
+  include SearchHelper
 
   belongs_to :practice
   belongs_to :user, touch: true
@@ -223,15 +224,5 @@ class Product < ApplicationRecord
     return false if saved_change_to_attribute?('published_at', from: nil)
 
     created_at != updated_at
-  end
-
-  def url
-    Rails.application.routes.url_helpers.product_path(self)
-  end
-
-  def formatted_summary(word)
-    return body if word.blank?
-
-    body.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 end
