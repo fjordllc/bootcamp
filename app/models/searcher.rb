@@ -69,12 +69,23 @@ class Searcher
   def self.result_for(type, words, commentable_type: nil)
     raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
 
-    if commentable?(type)
-      model(type).search_by_keywords(words:, commentable_type:) +
-        Comment.search_by_keywords(words:, commentable_type: model_name(type))
-    else
-      model(type).search_by_keywords(words:, commentable_type:)
-    end
+    return model(type).all if words.blank?
+
+    results = if commentable?(type)
+                model(type).search_by_keywords(words:, commentable_type:) +
+                Comment.search_by_keywords(words:, commentable_type: model_name(type))
+              else
+                model(type).search_by_keywords(words:, commentable_type:)
+              end
+
+    results.select { |result| words.any? { |word| result_matches_keyword?(result, word) } }
+  end
+
+  def self.result_matches_keyword?(result, word)
+    return false unless result
+
+    searchable_fields = [result.try(:title), result.try(:body), result.try(:description)]
+    searchable_fields.any? { |field| field.to_s.include?(word) }
   end
 
   def self.result_for_comments(document_type, word)
