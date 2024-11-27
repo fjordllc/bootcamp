@@ -8,6 +8,7 @@ class Page < ApplicationRecord
   include Commentable
   include Watchable
   include Bookmarkable
+  include SearchHelper
 
   belongs_to :user
   belongs_to :practice, optional: true
@@ -27,16 +28,6 @@ class Page < ApplicationRecord
   def self.search_by_slug_or_id!(params)
     attr_name = params.start_with?(/[a-z]/) ? :slug : :id
     Page.find_by!(attr_name => params)
-  end
-
-  def url
-    Rails.application.routes.url_helpers.page_path(self)
-  end
-
-  def formatted_summary(word)
-    return body if word.blank?
-
-    body.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private

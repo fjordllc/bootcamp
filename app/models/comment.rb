@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
   include Reactionable
   include Searchable
   include Mentioner
+  include SearchHelper
 
   belongs_to :user, touch: true
   belongs_to :commentable, polymorphic: true
@@ -56,18 +57,8 @@ class Comment < ApplicationRecord
     (created_at.since(certain_period).to_date == Date.current) && latest? && (user == commentable.user)
   end
 
-  def url
-    commentable.url + "#comment_#{id}"
-  end
-
   def title
     commentable.title if commentable.respond_to?(:title)
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private

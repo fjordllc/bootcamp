@@ -29,6 +29,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include Reactionable
   include Watchable
   include Searchable
+  include SearchHelper
 
   enum category: {
     reading_circle: 0,
@@ -139,16 +140,6 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def publish_with_announcement?
     wants_announcement? && !wip?
-  end
-
-  def url
-    Rails.application.routes.url_helpers.regular_event_path(self)
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private
