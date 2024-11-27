@@ -7,6 +7,7 @@ class Event < ApplicationRecord
   include Reactionable
   include Watchable
   include Searchable
+  include SearchHelper
 
   validates :title, presence: true
   validates :description, presence: true
@@ -117,16 +118,6 @@ class Event < ApplicationRecord
 
   def self.fetch_upcoming_ids
     Event.where('start_at > ?', Date.current).pluck(:id)
-  end
-
-  def url
-    Rails.application.routes.url_helpers.event_path(self)
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private
