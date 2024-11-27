@@ -17,54 +17,30 @@ module SearchHelper
     find_match_in_text(summary, word)
   end
 
-  def matched_document(searchable)
-    if searchable.instance_of?(Comment)
-      searchable.commentable_type.constantize.find(searchable.commentable_id)
-    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
-      searchable.question
-    else
-      searchable
-    end
-  end
+  extend ActiveSupport::Concern
 
-  def searchable_url(searchable)
-    if searchable.instance_of?(Comment)
-      document = searchable.commentable_type.constantize.find(searchable.commentable_id)
-      "#{polymorphic_url(document)}#comment_#{searchable.id}"
-    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
-      document = Question.find(searchable.question.id)
-      "#{polymorphic_url(document)}#answer_#{searchable.id}"
-    else
-      polymorphic_url(searchable)
-    end
-  end
-
-  def filtered_message(searchable)
-    if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
-      commentable = Product.find(searchable.commentable_id)
-      if policy(commentable).show? || commentable.practice.open_product?
-        searchable.description
+  included do
+    def url
+      case self
+      when Comment
+        "#{commentable.url}#comment_#{id}"
+      when CorrectAnswer
+        Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
+      when Answer
+        Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
       else
-        '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
+        helper_method = "#{self.class.name.underscore}_path"
+        Rails.application.routes.url_helpers.send(helper_method, self)
       end
-    else
-      searchable.description
+    rescue NoMethodError
+      raise NoMethodError, "Route for #{self.class.name} is not defined. Please check your routes."
     end
-  end
 
-  def comment_or_answer?(searchable)
-    searchable.is_a?(Comment) || searchable.is_a?(Answer)
-  end
+    def formatted_summary(word)
+      target_text = respond_to?(:body) ? body : description
+      return target_text if word.blank?
 
-  def talk?(searchable)
-    searchable.instance_of?(User) && searchable.talk.present?
-  end
-
-  def user?(searchable)
-    searchable.instance_of?(User)
-  end
-
-  def created_user(searchable)
-    searchable.respond_to?(:user) ? searchable.user : nil
+      target_text.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+    end
   end
 end

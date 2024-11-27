@@ -8,6 +8,7 @@ class Question < ApplicationRecord
   include Taggable
   include Mentioner
   include Bookmarkable
+  include SearchHelper
 
   QuestionsProperty = Struct.new(:title, :empty_message)
 
@@ -100,16 +101,6 @@ class Question < ApplicationRecord
     when :update
       '質問を更新しました。'
     end
-  end
-
-  def url
-    Rails.application.routes.url_helpers.question_path(self)
-  end
-
-  def formatted_summary(word)
-    return description unless word.present?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private
