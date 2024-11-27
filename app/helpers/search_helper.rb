@@ -40,7 +40,10 @@ module SearchHelper
       target_text = respond_to?(:body) ? body : description
       return target_text if word.blank?
 
-      target_text.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+      words = word.split(/[[:blank:]]+/)
+      words.reduce(target_text) do |text, single_word|
+        Searcher.highlight_word(text, single_word)
+      end
     end
   end
 end
