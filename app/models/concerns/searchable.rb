@@ -15,7 +15,7 @@ module Searchable
     end
 
     def columns_for_keyword_search(*column_names)
-      define_singleton_method(:_join_column_names) { "#{column_names.join('_or_')}_cont_all" }
+      define_singleton_method(:_join_column_names) { "#{column_names.join('_or_')}_cont_any" }
     end
 
     private
@@ -26,7 +26,8 @@ module Searchable
       groupings = split_keyword_by_blank(searched_values[:word])
                   .map { |word| word_to_groupings(word) }
 
-      { groupings: }
+      groupings = searched_values[:words].map { |word| word_to_groupings(word) }
+      { combinator: 'or', groupings: groupings }
     end
 
     def word_to_groupings(word)
