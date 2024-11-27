@@ -4,6 +4,7 @@ class User < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Taggable
   include Searchable
+  include SearchHelper
 
   attr_accessor :credit_card_payment, :role
 
@@ -877,16 +878,6 @@ class User < ApplicationRecord
       country = ISO3166::Country[country_code]
       country ? country.translations['ja'] : nil
     end
-  end
-
-  def url
-    Rails.application.routes.url_helpers.user_path(self)
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private

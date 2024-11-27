@@ -11,6 +11,7 @@ class Report < ApplicationRecord
   include Mentioner
   include Bookmarkable
   include Taskable
+  include SearchHelper
 
   enum emotion: {
     sad: 1,
@@ -133,15 +134,5 @@ class Report < ApplicationRecord
     Report.where(user:, wip: false)
           .order(reported_on: :desc)
           .second
-  end
-
-  def url
-    Rails.application.routes.url_helpers.report_path(self)
-  end
-
-  def formatted_summary(word)
-    return description if word.blank?
-
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 end
