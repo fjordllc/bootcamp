@@ -17,22 +17,22 @@ class Searcher
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   def self.search(word, document_type: :all)
+    words = word.split(/[[:blank:]]+/)
     searchables = case document_type
                   when :all
-                    result_for_all(word)
+                    result_for_all(words)
                   when commentable?(document_type)
-                    result_for_comments(document_type, word)
+                    result_for_comments(document_type, words)
                   when :questions
-                    result_for_questions(document_type, word)
+                    result_for_questions(document_type, words)
                   else
-                    result_for(document_type, word).sort_by(&:updated_at).reverse
+                    result_for(document_type, words).sort_by(&:updated_at).reverse
                   end
 
     delete_comment_of_talk!(searchables)
 
     searchables.map do |searchable|
       searchable.instance_variable_set(:@highlight_word, word)
-
       {
         url: searchable.try(:url),
         title: fetch_title(searchable),
@@ -75,21 +75,21 @@ class Searcher
     end
   end
 
-  def self.result_for_all(word)
+  def self.result_for_all(words)
     AVAILABLE_TYPES
-      .flat_map { |type| result_for(type, word) }
+      .flat_map { |type| result_for(type, words) }
       .sort_by(&:updated_at)
       .reverse
   end
 
-  def self.result_for(type, word, commentable_type: nil)
-    raise ArgumentError "#{type} is not available type" unless type.in?(AVAILABLE_TYPES)
+  def self.result_for(type, words, commentable_type: nil)
+    raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
 
     if commentable?(type)
-      model(type).search_by_keywords(word:, commentable_type:) +
-        Comment.search_by_keywords(word:, commentable_type: model_name(type))
+      model(type).search_by_keywords(words:, commentable_type:) +
+        Comment.search_by_keywords(words:, commentable_type: model_name(type))
     else
-      model(type).search_by_keywords(word:, commentable_type:)
+      model(type).search_by_keywords(words:, commentable_type:)
     end
   end
 
