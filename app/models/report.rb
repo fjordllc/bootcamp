@@ -134,4 +134,16 @@ class Report < ApplicationRecord
           .order(reported_on: :desc)
           .second
   end
+
+  def save_with_uniqueness_check
+    ActiveRecord::Base.transaction do
+      if Report.where(user_id:, reported_on:).exists?
+        errors.add(:reported_on, 'はすでに存在します')
+        raise ActiveRecord::Rollback
+      end
+      raise ActiveRecord::Rollback unless save
+
+      true
+    end
+  end
 end
