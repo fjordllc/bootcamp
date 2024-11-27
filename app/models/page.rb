@@ -36,7 +36,7 @@ class Page < ApplicationRecord
   def formatted_summary(word)
     return body if word.blank?
 
-    description.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
+    body.gsub(/(#{Regexp.escape(word)})/i, '<strong class="matched_word">\1</strong>')
   end
 
   private
