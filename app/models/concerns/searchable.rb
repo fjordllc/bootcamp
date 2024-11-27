@@ -70,10 +70,14 @@ module Searchable
   end
 
   def formatted_updated_at
-    weekdays = { 'Sunday' => '日', 'Monday' => '月', 'Tuesday' => '火', 'Wednesday' => '水',
-                 'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
-    day_name = updated_at.strftime('%A')
-    updated_at.strftime("%Y年%m月%d日(#{weekdays[day_name]}) %H:%M")
+    if self.is_a?(SearchResult)
+      self.formatted_updated_at
+    else
+      weekdays = { 'Sunday' => '日', 'Monday' => '月', 'Tuesday' => '火', 'Wednesday' => '水',
+                  'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
+      day_name = updated_at.strftime('%A')
+      updated_at.strftime("%Y年%m月%d日(#{weekdays[day_name]}) %H:%M")
+    end
   end
 
   def label
