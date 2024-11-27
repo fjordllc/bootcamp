@@ -21,12 +21,10 @@ module Searchable
     private
 
     def params_for_keyword_search(searched_values = {})
-      return {} if searched_values[:word].blank?
+      return {} if searched_values[:words].blank?
 
-      groupings = split_keyword_by_blank(searched_values[:word])
-                  .map { |word| word_to_groupings(word) }
-
-      { groupings: }
+      groupings = searched_values[:words].map { |word| word_to_groupings(word) }
+      { combinator: 'and', groupings: groupings }
     end
 
     def word_to_groupings(word)
