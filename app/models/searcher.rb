@@ -76,8 +76,12 @@ class Searcher
         .reject { |type| type == :users }
         .flat_map do |type|
           model = model(type)
-          next [] unless model.column_names.include?('user_id')
-          model.where(user_id: user.id)
+          next [] unless model.column_names.include?('user_id') || model.column_names.include?('last_updated_user_id')
+          if type == :practices
+            model.where("last_updated_user_id = ?", user.id)
+          else
+            model.where(user_id: user.id)
+          end
         end
         .uniq
         .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
@@ -104,7 +108,11 @@ class Searcher
       user = User.find_by(login_name: username)
       return [] unless user
 
-      results = model(type).where(user_id: user.id)
+      results = if type == :practices
+                  model(type).where("user_id = ? OR last_updated_user_id = ?", user.id, user.id)
+                else
+                  model(type).where(user_id: user.id)
+                end
     else
       results = if commentable?(type)
                   model(type).search_by_keywords(words:, commentable_type:) +
@@ -121,9 +129,13 @@ class Searcher
 
     if word.match(/^user:(\w+)$/)
       username = Regexp.last_match(1)
-      return result.user&.login_name == username
+      if result.is_a?(Practice)
+        user = User.find_by(id: result.last_updated_user_id)
+        return user&.login_name == username
+      else
+        return result.user&.login_name == username
+      end
     end
-
     searchable_fields = [result.try(:title), result.try(:body), result.try(:description)]
     searchable_fields.any? { |field| field.to_s.include?(word) }
   end
