@@ -24,7 +24,7 @@ module Searchable
       return {} if searched_values[:words].blank?
 
       groupings = searched_values[:words].map { |word| word_to_groupings(word) }
-      { combinator: 'or', groupings: groupings }
+      { combinator: 'and', groupings: groupings }
     end
 
     def word_to_groupings(word)
