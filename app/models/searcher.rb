@@ -17,7 +17,7 @@ class Searcher
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
   def self.search(word, document_type: :all, current_user:)
-    words = word.split(/[[:blank:]]+/)
+    words = word.split(/[[:blank:]]+/).reject(&:blank?)
     searchables = case document_type
                   when :all
                     result_for_all(words)
@@ -73,11 +73,30 @@ class Searcher
   end
 
   def self.result_for_all(words)
-    AVAILABLE_TYPES
-      .flat_map { |type| result_for(type, words) }
-      .uniq
-      .sort_by(&:updated_at)
-      .reverse
+    user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
+    if user_filter
+      username = user_filter.delete_prefix('user:')
+      user = User.find_by(login_name: username)
+      return [] unless user
+      AVAILABLE_TYPES
+        .reject { |type| type == :users }
+        .flat_map do |type|
+          model = model(type)
+          next [] unless model.column_names.include?('user_id')
+          model.where(user_id: user.id)
+        end
+        .uniq
+        .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
+        .sort_by(&:updated_at)
+        .reverse
+    else
+      AVAILABLE_TYPES
+        .flat_map { |type| result_for(type, words) }
+        .uniq
+        .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
+        .sort_by(&:updated_at)
+        .reverse
+    end
   end
 
   def self.result_for(type, words, commentable_type: nil)
@@ -85,18 +104,31 @@ class Searcher
 
     return model(type).all if words.blank?
 
-    results = if commentable?(type)
-                model(type).search_by_keywords(words:, commentable_type:) +
-                Comment.search_by_keywords(words:, commentable_type: model_name(type))
-              else
-                model(type).search_by_keywords(words:, commentable_type:)
-              end
+    user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
+    if user_filter
+      username = user_filter.delete_prefix('user:')
+      user = User.find_by(login_name: username)
+      return [] unless user
 
+      results = model(type).where(user_id: user.id)
+    else
+      results = if commentable?(type)
+                  model(type).search_by_keywords(words:, commentable_type:) +
+                  Comment.search_by_keywords(words:, commentable_type: model_name(type))
+                else
+                  model(type).search_by_keywords(words:, commentable_type:)
+                end
+    end
     results.select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
   end
 
   def self.result_matches_keyword?(result, word)
     return false unless result
+
+    if word.match(/^user:(\w+)$/)
+      username = Regexp.last_match(1)
+      return result.user&.login_name == username
+    end
 
     searchable_fields = [result.try(:title), result.try(:body), result.try(:description)]
     searchable_fields.any? { |field| field.to_s.include?(word) }
