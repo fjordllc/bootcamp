@@ -26,7 +26,13 @@ module Searchable
       groupings = split_keyword_by_blank(searched_values[:word])
                   .map { |word| word_to_groupings(word) }
 
-      groupings = searched_values[:words].map { |word| word_to_groupings(word) }
+      groupings = searched_values[:words].map do |word|
+        if word.start_with?('user:')
+          create_parameter_for_search_user_id(word.delete_prefix('user:'))
+        else
+          { _join_column_names => word }
+        end
+      end
       { combinator: 'and', groupings: groupings }
     end
 
@@ -45,8 +51,8 @@ module Searchable
       word.split(/[[:blank:]]/)
     end
 
-    def create_parameter_for_search_user_id(name)
-      user = User.find_by(login_name: name)
+    def create_parameter_for_search_user_id(username)
+      user = User.find_by(login_name: username)
       { "#{COLUMN_NAMES_FOR_SEARCH_USER_ID.join('_or_')}_eq" => user&.id || 0 }
     end
   end
