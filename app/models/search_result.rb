@@ -11,7 +11,7 @@ class SearchResult
     @summary = searchable.try(:summary)
     @formatted_summary = searchable.formatted_summary(word)
     @user_id = searchable.is_a?(User) ? searchable.id : searchable.try(:user_id)
-    @login_name = searchable.try(:login_name)
+    @login_name = Searcher.fetch_login_name(searchable)
     @formatted_updated_at = searchable.formatted_updated_at
     @model_name = searchable.class.name.underscore
     @label = Searcher.fetch_label(searchable)
