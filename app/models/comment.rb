@@ -18,6 +18,8 @@ class Comment < ApplicationRecord
 
   mentionable_as :description, hook_name: :after_commit
 
+  scope :without_talk, -> { where.not(commentable_type: 'Talk') }
+
   class << self
     def commented_users
       User.with_attached_avatar
