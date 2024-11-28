@@ -46,7 +46,7 @@ hr.a-border
                       .a-list-item-badge.is-searchable
                         span コメント
                     .card-list-item-title__title
-                      = link_to searchable.title || searchable.login_name, searchable.url, class: 'card-list-item-title__link a-text-link'
+                      = link_to (searchable.title.presence || searchable.login_name), searchable.url, class: 'card-list-item-title__link a-text-link'
 
                 .card-list-item__row
                   .card-list-item__summary
