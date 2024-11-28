@@ -16,7 +16,7 @@ class Searcher
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
-  def self.search(word, document_type: :all)
+  def self.search(word, document_type: :all, current_user:)
     words = word.split(/[[:blank:]]+/)
     searchables = case document_type
                   when :all
@@ -29,7 +29,15 @@ class Searcher
                     result_for(document_type, words).sort_by(&:updated_at).reverse
                   end
 
-    delete_comment_of_talk!(searchables)
+    if current_user.admin?
+      searchables = searchables.reject { |searchable| searchable.instance_of?(Talk) }
+    else
+      searchables = searchables.reject do |searchable|
+        searchable.instance_of?(Talk) && searchable.user_id != current_user.id
+      end
+    end
+
+    delete_comment_of_talk!(searchables, current_user)
 
     searchables.map { |searchable| SearchResult.new(searchable, word) }
   end
@@ -116,9 +124,11 @@ class Searcher
     model(document_type).include?(Commentable)
   end
 
-  def self.delete_comment_of_talk!(searchables)
-    searchables.reject do |searchable|
-      searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
+  def self.delete_comment_of_talk!(searchables, current_user)
+    searchables.reject! do |searchable|
+      if searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
+        searchable.commentable.user_id != current_user.id && !current_user.admin?
+      end
     end
   end
 
