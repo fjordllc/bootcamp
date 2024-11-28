@@ -77,7 +77,7 @@ class Searcher
                 model(type).search_by_keywords(words:, commentable_type:)
               end
 
-    results.select { |result| words.any? { |word| result_matches_keyword?(result, word) } }
+    results.select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
   end
 
   def self.result_matches_keyword?(result, word)
