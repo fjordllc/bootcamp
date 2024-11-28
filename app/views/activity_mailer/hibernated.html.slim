@@ -1,3 +1,10 @@
 = render '/notification_mailer/notification_mailer_template',
   title: "#{@sender.login_name}さんが休会しました。",
   link_url: @link_url, link_text: "#{@sender.login_name}さんのページへ" do
+  .a-long-text
+    h2
+      = Hibernation.human_attribute_name('scheduled_return_on')
+    = @hibernation.scheduled_return_on
+    h2
+      = Hibernation.human_attribute_name('reason')
+    = md2html(@hibernation.reason)
