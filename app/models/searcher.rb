@@ -34,6 +34,10 @@ class Searcher
     searchables.map { |searchable| SearchResult.new(searchable, word) }
   end
 
+  def self.fetch_login_name(searchable)
+    User.find_by(id: searchable.try(:user_id))&.login_name
+  end
+
   def self.fetch_commentable_user(searchable)
     if searchable.is_a?(Answer) || searchable.is_a?(CorrectAnswer)
       searchable.question&.user
@@ -45,6 +49,8 @@ class Searcher
   def self.fetch_title(searchable)
     if searchable.is_a?(Answer)
       searchable.question&.title
+    elsif searchable.is_a?(User)
+      searchable.login_name
     else
       searchable.try(:title)
     end
