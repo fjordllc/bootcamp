@@ -89,16 +89,16 @@ class CommentTest < ActiveSupport::TestCase
       user: users(:komagata),
       commentable: products(:product8),
       description: '提出物への最初のコメント',
-      created_at: Time.current.ago(6.days)
+      created_at: Time.current.ago(4.days)
     )
 
     last_comment = Comment.create!(
       user: users(:kimura),
       commentable: products(:product8),
-      description: '提出物への提出者による最後のコメントかつ、投稿から5日経過',
-      created_at: Time.current.ago(5.days)
+      description: '提出物への提出者による最後のコメントかつ、投稿から3日経過',
+      created_at: Time.current.ago(3.days)
     )
 
-    assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(5.days)
+    assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(3.days)
   end
 end
