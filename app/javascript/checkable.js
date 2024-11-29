@@ -1,4 +1,4 @@
-import { setCheckStamp } from 'check-stamp.js'
+import checkStamp from 'check-stamp.js'
 
 export default {
   computed: {
@@ -43,7 +43,7 @@ export default {
           if (json.message) {
             this.toast(json.message, 'error')
           } else {
-            setCheckStamp()
+            checkStamp()
             if (!this.checkId) {
               if (checkableType === 'Product') {
                 this.toast('提出物を確認済みにしました。')
