@@ -3,7 +3,7 @@
 module PageTabs
   module UsersHelper
     def user_page_tabs(user, active_tab:)
-      comment_count = user.comments.where.not(commentable_type: 'Talk').length
+      comment_count = user.comments.without_talk.length
       tabs = []
       tabs << { name: 'プロフィール', link: user_path(user) }
       tabs << { name: 'ポートフォリオ', link: user_portfolio_path(user) }
