@@ -3,10 +3,10 @@ import CSRF from 'csrf'
 import 'whatwg-fetch'
 
 document.addEventListener('DOMContentLoaded', () => {
-  setCheckStamp()
+  DisplayCheckStamp()
 })
 
-export const setCheckStamp = () => {
+const DisplayCheckStamp = () => {
   const checkStamp = document.getElementById('js-check-stamp')
   if (!checkStamp) return
 
@@ -46,3 +46,5 @@ export const setCheckStamp = () => {
       console.warn(error)
     })
 }
+
+export default DisplayCheckStamp
