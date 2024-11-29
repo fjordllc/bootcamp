@@ -27,4 +27,29 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-lg
-      = react_component 'AdminCompanies'
+      div[data-testid="admin-companies"]
+        = paginate @companies if @companies.total_pages > 1
+        .admin-table
+          table.admin-table__table
+            thead.admin-table__header
+              tr.admin-table__labels
+              - %w[名前 ロゴ ウェブサイト アドバイザー招待リンク 研修生招待リンク 編集].each do |label|
+                th.admin-table__label = label
+            tbody.admin-table__items
+              - @companies.each do |company|
+                tr.admin-table__item
+                  td.admin-table__item-value.company-name
+                    a href="/companies/#{company.id}" = company.name
+                  td.admin-table__item-value
+                    img.admin-table__item-logo-image src=company.logo_url
+                  td.admin-table__item-value = company.website
+                  td.admin-table__item-value.is-text-align-center
+                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザーサインアップURL" href=company.adviser_sign_up_url
+                      i.fa-solid.fa-user-plus
+                  td.admin-table__item-value.is-text-align-center
+                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザーサインアップURL" href=company.trainee_sign_up_url
+                      i.fa-solid.fa-user-plus
+                  td.admin-table__item-value.is-text-align-center
+                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザーサインアップURL" href="/admin/companies/#{company.id}/edit"
+                      i.fa-solid.fa-pen
+        = paginate @companies if @companies.total_pages > 1
