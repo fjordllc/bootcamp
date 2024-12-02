@@ -110,6 +110,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :discord_profile, allow_destroy: true
   has_many :request_retirements, dependent: :destroy
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
+  has_many :micro_reports, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -877,6 +878,10 @@ class User < ApplicationRecord
       country = ISO3166::Country[country_code]
       country ? country.translations['ja'] : nil
     end
+  end
+
+  def latest_micro_report_page
+    [micro_reports.page.total_pages, 1].max
   end
 
   private

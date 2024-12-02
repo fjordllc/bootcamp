@@ -768,4 +768,11 @@ class UserTest < ActiveSupport::TestCase
     assert_nil user.github_account
     assert_not user.github_collaborator
   end
+
+  test '#latest_micro_report_page' do
+    user = users(:hajime)
+    assert_equal 1, user.latest_micro_report_page
+    user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
+    assert_equal 2, user.latest_micro_report_page
+  end
 end
