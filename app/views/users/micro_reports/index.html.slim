@@ -1,0 +1,35 @@
+- title "#{@user.login_name}の分報一覧"
+- set_meta_tags description: "#{@user.login_name}さんの分報一覧ページです。"
+- content_for(:extra_body_classes, 'no-footer no-scroll')
+
+= render 'users/page_title', user: @user
+
+= user_page_tabs(@user, active_tab: '分報')
+
+.page-body.pb-0
+  .page-content
+    - if current_user == @user
+      .micro-reports__end
+        = render(Users::MicroReports::FormComponent.new(user: @user))
+      - micro_reports_class = 'micro-reports-with-form'
+    - else
+      - micro_reports_class = 'micro-reports-without-form'
+    .micro-reports#js-micro-reports class=micro_reports_class
+      .micro-reports__start
+        .container.is-md
+          .micro-reports-posts
+            - if @micro_reports.empty?
+              .o-empty-message
+                .o-empty-message__icon
+                  .o-empty-message
+                    .o-empty-message__icon
+                      i.fa-regular.fa-sad-tear
+                    .o-empty-message__text
+                      | 分報の投稿はまだありません。
+            - else
+              = paginate @micro_reports
+              - @micro_reports.each_with_index do |micro_report, index|
+                - if index == @micro_reports.size - 1
+                  #latest-micro-report
+                = render(Users::MicroReports::MicroReportComponent.new(user: @user, current_user: current_user, micro_report: micro_report))
+              = paginate @micro_reports, params: { anchor: 'latest-micro-report' }
