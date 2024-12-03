@@ -338,3 +338,144 @@ report88:
   description: |-
     お世話になりました
   reported_on: <%= Time.now - 1.month - 1.day %>
+
+report89:
+  user: komagata
+  title: "リンクカードの動作確認"
+  emotion: 2
+  description: |-
+    ## A
+    あいうえお@[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    ## B
+    あいうえお @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    ## C
+    あいうえお@[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    ## D
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    ## E
+    あいうえお@[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    ## F
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    ## G
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    ## H
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## I
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## 生成されるハズ
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    あいうえお
+
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+    ## 生成されないハズ
+
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    ### リンクがただの文字列な場合
+    @[card](URL)
+
+    ---
+
+    ### リンクのスキームがhttp / https以外な場合
+    @[card](ftp://target.example.com/target/directory/)
+
+    ---
+
+    ## マークダウンがネストした状態はdetailsとmessageだけ許容する
+    * @[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    :::message
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    ---
+
+    :::details リンクカードが展開される
+    @[card](https://bootcamp.fjord.jp)
+    :::
+
+    ---
+
+    ## 3つ以上リンクカードを生成する場合でも問題なくリンクカードを生成することができる
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+
+    @[card](https://bootcamp.fjord.jp)
+  reported_on: <%= Time.now %>
