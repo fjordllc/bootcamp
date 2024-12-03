@@ -105,7 +105,6 @@
               = render 'users/form/graduate', f: f
 
       .form-item
-        // 卒業証書
         = f.hidden_field :remove_diploma, value: '0', id: 'js-remove-pdf-flag'
         = f.label :diploma_file, class: 'a-form-label'
         .a-pdf-input
@@ -116,8 +115,8 @@
                   = @user.diploma_file.filename
               .a-pdf-input__upload.a-button.is-md.is-secondary
                 | PDFを確認
-          - display = @user.diploma_file.attached? ? 'display: none' : 'display: flex'
-          label.a-pdf-input__inner#js-pdf-upload-field(style="#{display}")
+          - display_style = @user.diploma_file.attached? ? 'display: none;' : 'display: flex;'
+          label.a-pdf-input__inner#js-pdf-upload-field(style="#{display_style}")
             = f.file_field :diploma_file
             .a-pdf-input__file
               span.a-pdf-input__file-name#js-pdf-name
