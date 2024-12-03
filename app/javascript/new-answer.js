@@ -1,7 +1,7 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import { toast } from 'toast_react'
+import { toast } from './vanillaToast.js'
 import { initializeAnswer, updateAnswerCount } from './answer.js'
 import { initializeReaction } from './reaction.js'
 import store from './check-store.js'
