@@ -122,8 +122,7 @@
               span.a-pdf-input__file-name#js-pdf-name
             .a-pdf-input__upload.a-button.is-md.is-secondary
               | PDFを選択
-          button.a-button.is-md.is-secondary(type='button' id='js-remove-pdf-button')
-            | 削除
+          = button_tag '削除', type: 'button', class: 'a-button is-md is-secondary', id: 'js-remove-pdf-button'
 
       .form-item-block
         .form-item-block__inner
