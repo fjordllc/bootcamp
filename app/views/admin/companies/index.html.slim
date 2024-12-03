@@ -41,7 +41,7 @@ main.page-main
                   td.admin-table__item-value.company-name
                     = link_to company.name, company_path(company)
                   td.admin-table__item-value
-                    img.admin-table__item-logo-image src=company.logo_url
+                    = image_tag company.logo_url, class: 'admin-table__item-logo-image'
                   td.admin-table__item-value = company.website
                   td.admin-table__item-value.is-text-align-center
                     = link_to company.adviser_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: 'アドバイザー参加登録'
