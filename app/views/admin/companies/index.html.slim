@@ -27,29 +27,28 @@ main.page-main
   hr.a-border
   .page-body
     .container.is-lg
-      div[data-testid="admin-companies"]
-        = paginate @companies if @companies.total_pages > 1
-        .admin-table
-          table.admin-table__table
-            thead.admin-table__header
-              tr.admin-table__labels
-              - %w[名前 ロゴ ウェブサイト アドバイザー招待リンク 研修生招待リンク 編集].each do |label|
-                th.admin-table__label = label
-            tbody.admin-table__items
-              - @companies.each do |company|
-                tr.admin-table__item
-                  td.admin-table__item-value.company-name
-                    = link_to company.name, company_path(company)
-                  td.admin-table__item-value
-                    = image_tag company.logo_url, class: 'admin-table__item-logo-image'
-                  td.admin-table__item-value = company.website
-                  td.admin-table__item-value.is-text-align-center
-                    = link_to company.adviser_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: 'アドバイザー参加登録'
-                      i.fa-solid.fa-user-plus
-                  td.admin-table__item-value.is-text-align-center
-                    = link_to company.trainee_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: '研修生参加登録' do
-                      i.fa-solid.fa-user-plus
-                  td.admin-table__item-value.is-text-align-center
-                    = link_to edit_admin_company_path(company), class: 'a-button is-sm is-secondary is-icon', title: '企業編集' do
-                      i.fa-solid.fa-pen
-        = paginate @companies if @companies.total_pages > 1
+      = paginate @companies if @companies.total_pages > 1
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+            - %w[名前 ロゴ ウェブサイト アドバイザー招待リンク 研修生招待リンク 編集].each do |label|
+              th.admin-table__label = label
+          tbody.admin-table__items
+            - @companies.each do |company|
+              tr.admin-table__item
+                td.admin-table__item-value.company-name
+                  = link_to company.name, company_path(company)
+                td.admin-table__item-value
+                  = image_tag company.logo_url, class: 'admin-table__item-logo-image'
+                td.admin-table__item-value = company.website
+                td.admin-table__item-value.is-text-align-center
+                  = link_to company.adviser_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: 'アドバイザー参加登録'
+                    i.fa-solid.fa-user-plus
+                td.admin-table__item-value.is-text-align-center
+                  = link_to company.trainee_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: '研修生参加登録' do
+                    i.fa-solid.fa-user-plus
+                td.admin-table__item-value.is-text-align-center
+                  = link_to edit_admin_company_path(company), class: 'a-button is-sm is-secondary is-icon', title: '企業編集' do
+                    i.fa-solid.fa-pen
+      = paginate @companies if @companies.total_pages > 1
