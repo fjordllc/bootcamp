@@ -46,11 +46,7 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
 
   test 'show pagination' do
     visit_with_auth '/admin/companies', 'komagata'
-    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
-    within "[data-testid='admin-companies']" do
-      assert_selector 'nav.pagination', count: 2
-    end
-
+    assert_selector 'nav.pagination', count: 2
     first('.pagination__item-link', text: '2').click
     assert_equal 2, page.all('.pagination__item-link.is-active', text: '2').count
     first('.pagination__item-link', text: '1').click
@@ -60,16 +56,11 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
   test 'no pagination when 20 companies or less exist' do
     Company.where.not(description: 'このデータはページャーの確認用').destroy_all
     visit_with_auth '/admin/companies', 'komagata'
-    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
-    within "[data-testid='admin-companies']" do
-      assert_no_selector 'nav.pagination'
-    end
+    assert_no_selector 'nav.pagination'
   end
 
   test 'companies are ordered by created_at desc' do
     visit_with_auth '/admin/companies', 'komagata'
-    # ページ遷移直後なのでreactコンポーネントが表示されるまで待つ
-    assert_selector "[data-testid='admin-companies']"
     within all('.admin-table__item')[0] do
       assert_selector 'td.company-name', text: '【created_at降順確認】一番新しい株式会社'
     end
