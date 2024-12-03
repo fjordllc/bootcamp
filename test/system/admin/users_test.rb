@@ -385,6 +385,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth edit_admin_user_path(user), 'komagata'
     attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.html'), visible: false
     click_on '更新する'
-    assert_text '卒業証書PDFはPDF形式にしてください'
+    assert_text '卒業証書(PDF)はPDF形式にしてください'
   end
 end
