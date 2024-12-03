@@ -39,17 +39,17 @@ main.page-main
               - @companies.each do |company|
                 tr.admin-table__item
                   td.admin-table__item-value.company-name
-                    a href="/companies/#{company.id}" = company.name
+                    = link_to company.name, company_path(company)
                   td.admin-table__item-value
                     img.admin-table__item-logo-image src=company.logo_url
                   td.admin-table__item-value = company.website
                   td.admin-table__item-value.is-text-align-center
-                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザー参加登録" href=company.adviser_sign_up_url
+                    = link_to company.adviser_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: 'アドバイザー参加登録'
                       i.fa-solid.fa-user-plus
                   td.admin-table__item-value.is-text-align-center
-                    a.a-button.is-sm.is-secondary.is-icon title="研修生参加登録" href=company.trainee_sign_up_url
+                    = link_to company.trainee_sign_up_url, class: 'a-button is-sm is-secondary is-icon', title: '研修生参加登録' do
                       i.fa-solid.fa-user-plus
                   td.admin-table__item-value.is-text-align-center
-                    a.a-button.is-sm.is-secondary.is-icon title="企業編集" href="/admin/companies/#{company.id}/edit"
+                    = link_to edit_admin_company_path(company), class: 'a-button is-sm is-secondary is-icon', title: '企業編集' do
                       i.fa-solid.fa-pen
         = paginate @companies if @companies.total_pages > 1
