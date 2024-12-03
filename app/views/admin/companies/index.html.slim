@@ -44,12 +44,12 @@ main.page-main
                     img.admin-table__item-logo-image src=company.logo_url
                   td.admin-table__item-value = company.website
                   td.admin-table__item-value.is-text-align-center
-                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザーサインアップURL" href=company.adviser_sign_up_url
+                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザー参加登録" href=company.adviser_sign_up_url
                       i.fa-solid.fa-user-plus
                   td.admin-table__item-value.is-text-align-center
-                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザーサインアップURL" href=company.trainee_sign_up_url
+                    a.a-button.is-sm.is-secondary.is-icon title="研修生参加登録" href=company.trainee_sign_up_url
                       i.fa-solid.fa-user-plus
                   td.admin-table__item-value.is-text-align-center
-                    a.a-button.is-sm.is-secondary.is-icon title="アドバイザーサインアップURL" href="/admin/companies/#{company.id}/edit"
+                    a.a-button.is-sm.is-secondary.is-icon title="企業編集" href="/admin/companies/#{company.id}/edit"
                       i.fa-solid.fa-pen
         = paginate @companies if @companies.total_pages > 1
