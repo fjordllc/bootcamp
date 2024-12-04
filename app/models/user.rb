@@ -5,7 +5,7 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
-  attr_accessor :credit_card_payment, :role
+  attr_accessor :credit_card_payment, :role, :uploaded_avatar
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
@@ -201,8 +201,6 @@ class User < ApplicationRecord
   validates :login_name, exclusion: { in: RESERVED_LOGIN_NAMES, message: 'に使用できない文字列が含まれています' }
 
   validates :login_name, length: { minimum: 3, message: 'は3文字以上にしてください。' }
-
-  attr_accessor :uploaded_avatar
 
   validate :validate_uploaded_avatar_content_type
 
