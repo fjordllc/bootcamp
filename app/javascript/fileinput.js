@@ -75,6 +75,45 @@ function extractField(elements) {
   }
 }
 
+function initializePdfUploadField() {
+  const uploadField = document.getElementById('js-pdf-upload-field')
+  if (!uploadField) return
+
+  const removeButton = document.getElementById('js-remove-pdf-button')
+  const fileLink = document.getElementById('js-pdf-file-link')
+  const removeFlag = document.getElementById('js-remove-pdf-flag')
+  const fileNameDisplay = document.getElementById('js-pdf-name')
+  const fileInput = uploadField.querySelector('input[type="file"]')
+
+  const updateFileNameDisplay = (name = '') => {
+    if (name) {
+      fileNameDisplay.textContent = name
+      fileNameDisplay.style.display = 'block'
+    } else {
+      fileNameDisplay.textContent = ''
+      fileNameDisplay.style.display = 'none'
+    }
+  }
+
+  removeButton.addEventListener('click', () => {
+    if (fileLink) fileLink.style.display = 'none'
+    uploadField.style.display = 'flex'
+    fileInput.value = ''
+    removeFlag.value = '1'
+    updateFileNameDisplay()
+  })
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files[0]) {
+      const fileName = fileInput.files[0].name
+      updateFileNameDisplay(fileName)
+      removeFlag.value = '0'
+    } else {
+      updateFileNameDisplay()
+    }
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const ref = document.querySelector('#reference_books')
   if (ref) {
@@ -84,43 +123,5 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
   initializeFileInput(document)
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  const removePdfButton = document.getElementById('js-remove-pdf-button')
-  const pdfUploadField = document.getElementById('js-pdf-upload-field')
-  const pdfFileLink = document.getElementById('js-pdf-file-link')
-  const removePdfFlag = document.getElementById('js-remove-pdf-flag')
-  const pdfFileNameDisplay = document.getElementById('js-pdf-name')
-
-  removePdfButton.addEventListener('click', () => {
-    if (pdfFileLink) pdfFileLink.style.display = 'none'
-    pdfUploadField.style.display = 'flex'
-    pdfUploadField.querySelector('input[type="file"]').value = ''
-    removePdfFlag.value = '1'
-
-    if (pdfFileNameDisplay) {
-      pdfFileNameDisplay.textContent = ''
-      pdfFileNameDisplay.style.display = 'none'
-    }
-  })
-
-  const fileInput = pdfUploadField.querySelector('input[type="file"]')
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files && fileInput.files[0]) {
-      const fileName = fileInput.files[0].name
-
-      if (pdfFileNameDisplay) {
-        pdfFileNameDisplay.textContent = fileName
-        pdfFileNameDisplay.style.display = 'block'
-      }
-
-      removePdfFlag.value = '0'
-    } else {
-      if (pdfFileNameDisplay) {
-        pdfFileNameDisplay.textContent = ''
-        pdfFileNameDisplay.style.display = 'none'
-      }
-    }
-  })
+  initializePdfUploadField()
 })
