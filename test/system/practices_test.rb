@@ -19,7 +19,7 @@ class PracticesTest < ApplicationSystemTestCase
   end
 
   test 'finish a practice' do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'komagata'
+    visit_with_auth "/practices/#{practices(:practice3).id}", 'komagata'
     find('#js-complete').click
     assert_not has_link? '修了'
   end
