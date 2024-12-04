@@ -21,8 +21,7 @@ class Learning < ApplicationRecord
   end
 
   def submission_checked_for_completion
-    product = practice.product(user)
-    return if product&.checked?
+    return if practice.product(user)&.checked?
 
     errors.add :error, '提出物がチェックされていないため、修了にできません'
   end
