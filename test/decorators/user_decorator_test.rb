@@ -6,6 +6,7 @@ require 'active_decorator_test_case'
 
 class UserDecoratorTest < ActiveDecoratorTestCase
   include ProductHelper
+
   setup do
     @admin_mentor_user = decorate(users(:komagata))
     @student_user = decorate(users(:hajime))
