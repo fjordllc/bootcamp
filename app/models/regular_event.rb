@@ -58,6 +58,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   scope :participated_by, ->(user) { where(id: all.filter { |e| e.participated_by?(user) }.map(&:id)) }
   scope :organizer_event, ->(user) { where(id: user.organizers.map(&:regular_event_id)) }
   scope :scheduled_on, ->(date) { holding.filter { |event| event.scheduled_on?(date) } }
+  scope :not_ended, -> { where('end_at > ?', Time.current) }
+  scope :scheduled_on_without_ended, ->(date) { holding.not_ended.filter { |event| event.scheduled_on?(date) } }
 
   belongs_to :user
   has_many :organizers, dependent: :destroy
