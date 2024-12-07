@@ -5,7 +5,7 @@
 
   - if footprints.any?
     h3.user-icons__title 見たよ
-    ul.user-icons__items#initial-footprints data-footprintable-id=@footprintable_id data-footprintable-type=@footprintable_type
+    ul.user-icons__items#initial-footprints
       - footprints.first(10).each do |footprint|
         = render 'footprints/footprint', footprint: footprint
       - if footprints.size > 10
