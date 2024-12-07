@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  include TrackableFootprints
+
   before_action :set_event, only: %i[edit update destroy]
 
   def index
@@ -108,14 +110,5 @@ class EventsController < ApplicationController
 
   def publish_with_announcement?
     !@event.wip? && @event.announcement_of_publication?
-  end
-
-  def find_footprints(event)
-    footprints = Footprint.where(footprintable_type: event.class.name, footprintable_id: event.id)
-                          .where.not(user_id: event.user.id)
-                          .order(created_at: :desc)
-    Footprint.create_or_find(event.class.name, event.id, current_user) if event.user != current_user
-
-    footprints
   end
 end
