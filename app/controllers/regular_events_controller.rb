@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
+  include TrackableFootprints
+
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
@@ -123,14 +125,5 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
     students_trainees_mentors_and_admins = User.students_trainees_mentors_and_admins.ids
     RegularEvent::ParticipantsCreator.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
     RegularEvent::ParticipantsWatcher.call(regular_event: @regular_event, target: students_trainees_mentors_and_admins)
-  end
-
-  def find_footprints(regular_event)
-    footprints = Footprint.where(footprintable_type: regular_event.class.name, footprintable_id: regular_event.id)
-                          .where.not(user_id: regular_event.user.id)
-                          .order(created_at: :desc)
-    Footprint.create_or_find(regular_event.class.name, regular_event.id, current_user) if regular_event.user != current_user
-
-    footprints
   end
 end

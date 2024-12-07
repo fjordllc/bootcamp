@@ -16,6 +16,7 @@ class Product < ApplicationRecord
 
   belongs_to :practice
   belongs_to :user, touch: true
+  has_many :footprints, as: :footprintable, dependent: :destroy
   belongs_to :checker, class_name: 'User', optional: true
   alias sender user
 

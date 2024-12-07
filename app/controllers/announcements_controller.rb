@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-class AnnouncementsController < ApplicationController # rubocop:disable Metrics/ClassLength
+class AnnouncementsController < ApplicationController
   PAGER_NUMBER = 25
+
+  include TrackableFootprints
+
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
@@ -113,14 +116,5 @@ class AnnouncementsController < ApplicationController # rubocop:disable Metrics/
                                     title: params['announcement']['title'], \
                                     description: params['announcement']['description'], \
                                     target: params['announcement']['target'])
-  end
-
-  def find_footprints(announcement)
-    footprints = Footprint.where(footprintable_type: announcement.class.name, footprintable_id: announcement.id)
-                          .where.not(user_id: announcement.user.id)
-                          .order(created_at: :desc)
-    Footprint.create_or_find(announcement.class.name, announcement.id, current_user) if announcement.user != current_user
-
-    footprints
   end
 end
