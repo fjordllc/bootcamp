@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
   PAGER_NUMBER = 25
 
   include Rails.application.routes.url_helpers
+  include TrackableFootprints
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
   before_action :set_editable_report, only: %i[edit update]
@@ -177,14 +178,5 @@ class ReportsController < ApplicationController
       new_finished_at += 1.day if new_started_at > new_finished_at
       learning_time.assign_attributes(started_at: new_started_at, finished_at: new_finished_at)
     end
-  end
-
-  def find_footprints(report)
-    footprints = Footprint.where(footprintable_type: report.class.name, footprintable_id: report.id)
-                          .where.not(user_id: report.user.id)
-                          .order(created_at: :desc)
-    Footprint.create_or_find(report.class.name, report.id, current_user) if report.user != current_user
-
-    footprints
   end
 end
