@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
+  include TrackableFootprints
+
   before_action :check_permission!, only: %i[show]
   before_action :require_staff_login, only: :index
   before_action :set_watch, only: %i[show]
@@ -99,15 +101,6 @@ class ProductsController < ApplicationController
     else
       current_user.products.find(params[:id])
     end
-  end
-
-  def find_footprints(product)
-    footprints = Footprint.where(footprintable_type: product.class.name, footprintable_id: product.id)
-                          .where.not(user_id: product.user.id)
-                          .order(created_at: :desc)
-    Footprint.create_or_find(product.class.name, product.id, current_user) if product.user != current_user
-
-    footprints
   end
 
   def check_permission!
