@@ -75,27 +75,27 @@ function extractField(elements) {
   }
 }
 
-function initializePdfUploadField() {
+function initializeDiplomaUploadField() {
   const uploadField = document.getElementById('js-pdf-upload-field')
   if (!uploadField) return
 
   const removeButton = document.getElementById('js-remove-pdf-button')
   const fileLink = document.getElementById('js-pdf-file-link')
   const removeFlag = document.getElementById('js-remove-pdf-flag')
-  const fileNameDisplay = document.getElementById('js-pdf-name')
+  const fileName = document.getElementById('js-pdf-name')
   const fileInput = uploadField.querySelector('input[type="file"]')
 
   uploadField.style.display = fileLink ? 'none' : 'flex'
   removeButton.style.display = fileLink ? 'block' : 'none'
 
-  const updateFileNameDisplay = (name = '') => {
+  const updateDisplayedFileName = (name = '') => {
     if (name) {
-      fileNameDisplay.textContent = name
-      fileNameDisplay.style.display = 'block'
+      fileName.textContent = name
+      fileName.style.display = 'block'
       removeButton.style.display = 'block'
     } else {
-      fileNameDisplay.textContent = ''
-      fileNameDisplay.style.display = 'none'
+      fileName.textContent = ''
+      fileName.style.display = 'none'
       removeButton.style.display = 'none'
     }
   }
@@ -105,16 +105,15 @@ function initializePdfUploadField() {
     uploadField.style.display = 'flex'
     fileInput.value = ''
     removeFlag.value = '1'
-    updateFileNameDisplay()
+    updateDisplayedFileName()
   })
 
   fileInput.addEventListener('change', () => {
     if (fileInput.files && fileInput.files[0]) {
-      const fileName = fileInput.files[0].name
-      updateFileNameDisplay(fileName)
+      updateDisplayedFileName(fileInput.files[0].name)
       removeFlag.value = '0'
     } else {
-      updateFileNameDisplay()
+      updateDisplayedFileName()
     }
   })
 }
@@ -128,5 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
   initializeFileInput(document)
-  initializePdfUploadField()
+  initializeDiplomaUploadField()
 })
