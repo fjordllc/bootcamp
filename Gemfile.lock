@@ -164,6 +164,8 @@ GEM
     discordrb-webhooks (3.5.0)
       rest-client (>= 2.0.0)
     domain_name (0.6.20240107)
+    doorkeeper (5.8.1)
+      railties (>= 5)
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
@@ -645,6 +647,7 @@ DEPENDENCIES
   diffy
   discord-notifier
   discordrb (~> 3.5)
+  doorkeeper
   ffi (= 1.17.1)
   foreman
   good_job (~> 3.14)!
