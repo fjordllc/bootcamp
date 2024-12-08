@@ -89,15 +89,10 @@ function initializeDiplomaUploadField() {
   removeButton.style.display = fileLink ? 'block' : 'none'
 
   const updateDisplayedFileName = (name = '') => {
-    if (name) {
-      fileName.textContent = name
-      fileName.style.display = 'block'
-      removeButton.style.display = 'block'
-    } else {
-      fileName.textContent = ''
-      fileName.style.display = 'none'
-      removeButton.style.display = 'none'
-    }
+    fileName.textContent = name
+    const displayedStatus = name ? 'block' : 'none'
+    fileName.style.display = displayedStatus
+    removeButton.style.display = displayedStatus
   }
 
   removeButton.addEventListener('click', () => {
@@ -109,12 +104,9 @@ function initializeDiplomaUploadField() {
   })
 
   fileInput.addEventListener('change', () => {
-    if (fileInput.files && fileInput.files[0]) {
-      updateDisplayedFileName(fileInput.files[0].name)
-      removeFlag.value = '0'
-    } else {
-      updateDisplayedFileName()
-    }
+    const selectedFile = fileInput.files[0]
+    updateDisplayedFileName(selectedFile.name)
+    if (selectedFile) removeFlag.value = '0'
   })
 }
 
