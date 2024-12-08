@@ -85,13 +85,18 @@ function initializePdfUploadField() {
   const fileNameDisplay = document.getElementById('js-pdf-name')
   const fileInput = uploadField.querySelector('input[type="file"]')
 
+  uploadField.style.display = fileLink ? 'none' : 'flex'
+  removeButton.style.display = fileLink ? 'block' : 'none'
+
   const updateFileNameDisplay = (name = '') => {
     if (name) {
       fileNameDisplay.textContent = name
       fileNameDisplay.style.display = 'block'
+      removeButton.style.display = 'block'
     } else {
       fileNameDisplay.textContent = ''
       fileNameDisplay.style.display = 'none'
+      removeButton.style.display = 'none'
     }
   }
 
