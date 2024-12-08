@@ -115,8 +115,7 @@
                   = @user.diploma_file.filename
               .a-pdf-input__upload.a-button.is-md.is-secondary
                 | PDFを確認
-          - display_style = @user.diploma_file.attached? ? 'display: none;' : 'display: flex;'
-          label.a-pdf-input__inner#js-pdf-upload-field(style="#{display_style}")
+          label.a-pdf-input__inner#js-pdf-upload-field
             = f.file_field :diploma_file
             .a-pdf-input__file
               span.a-pdf-input__file-name#js-pdf-name
