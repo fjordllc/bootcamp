@@ -182,6 +182,14 @@ class User < ApplicationRecord
 
   has_many :coding_test_submissions, dependent: :destroy
 
+  has_many :oauth_access_grants, # rubocop:disable Rails/InverseOf
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all
+
+  has_many :oauth_access_tokens, # rubocop:disable Rails/InverseOf
+           foreign_key: 'resource_owner_id',
+           dependent: :delete_all
+
   has_one_attached :avatar
   has_one_attached :profile_image
 
