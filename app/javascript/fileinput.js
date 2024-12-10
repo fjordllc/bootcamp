@@ -84,11 +84,12 @@ function initializeDiplomaUploadField() {
   const removeFlag = document.getElementById('js-remove-pdf-flag')
   const fileName = document.getElementById('js-pdf-name')
   const fileInput = uploadField.querySelector('input[type="file"]')
+  const isFileUploaded = !!fileLink
 
-  uploadField.style.display = fileLink ? 'none' : 'flex'
-  removeButton.style.display = fileLink ? 'block' : 'none'
+  uploadField.style.display = isFileUploaded ? 'none' : 'flex'
+  removeButton.style.display = isFileUploaded ? 'block' : 'none'
 
-  const updateDisplayedFileName = (name = '') => {
+  const updateDisplayState = (name = '') => {
     fileName.textContent = name
     const displayedStatus = name ? 'block' : 'none'
     fileName.style.display = displayedStatus
@@ -96,16 +97,16 @@ function initializeDiplomaUploadField() {
   }
 
   removeButton.addEventListener('click', () => {
-    if (fileLink) fileLink.style.display = 'none'
+    if (isFileUploaded) fileLink.style.display = 'none'
     uploadField.style.display = 'flex'
     fileInput.value = ''
     removeFlag.value = '1'
-    updateDisplayedFileName()
+    updateDisplayState()
   })
 
   fileInput.addEventListener('change', () => {
     const selectedFile = fileInput.files[0]
-    updateDisplayedFileName(selectedFile.name)
+    updateDisplayState(selectedFile.name)
     if (selectedFile) removeFlag.value = '0'
   })
 }
