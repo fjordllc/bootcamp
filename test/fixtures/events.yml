@@ -191,3 +191,25 @@ event34:
   open_start_at: 2024-02-26 10:00
   open_end_at: 2024-03-26 09:00
   user: kimura
+
+event35:
+  title: "2024/12/1(日)9:00〜12:00開催の特別イベント"
+  description: "本日開催でまだ終了時刻を迎えていない特別イベントの表示テスト用"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 12, 0, 0) %>
+  open_start_at: <%= Time.zone.local(2024, 11, 1, 9, 0, 0) %>
+  open_end_at: <%= Time.zone.local(2024, 12, 1, 9, 0, 0) %>
+  user: kimura
+
+event36:
+  title: "2024/12/1(日)6:00〜7:00開催の特別イベント"
+  description: "本日開催で終了時刻を過ぎた特別イベントの表示テスト用"
+  location: "FJORDオフィス"
+  capacity: 40
+  start_at: <%= Time.zone.local(2024, 12, 1, 6, 0, 0) %>
+  end_at: <%= Time.zone.local(2024, 12, 1, 7, 0, 0) %>
+  open_start_at: <%= Time.zone.local(2024, 11, 1, 6, 0, 0) %>
+  open_end_at: <%= Time.zone.local(2024, 12, 1, 6, 0, 0) %>
+  user: kimura
