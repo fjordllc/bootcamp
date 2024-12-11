@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
     resources :campaigns, only: %i(new create index edit update)
     resources :inquiries, only: %i(index show)
+    resources :corporate_training_inquiries, only: %i(index show)
     resources :invitation_url, only: %i(index)
     resources :faqs, only: %i(index new create show edit update destroy)
     resources :faq_categories, only: %i(index new create edit update destroy) do
