@@ -1,0 +1,16 @@
+.loading-content
+  - 3.times do
+    = render 'comments/comment_placeholder'
+#comments.thread-comments.loaded
+  .thread-comments-more
+    .thread-comments-more__inner
+      .thread-comments-more__action
+        button.a-button.is-lg.is-text.is-block
+          |前のコメント（  ）
+  header.thread-comments__header
+    h2.thread-comments__title
+      | コメント
+  .thread-comments__items
+    - commentable.comments.each do |comment|
+      = render 'comments/comment', commentable: commentable, user: current_user, comment: comment
+  = render 'comments/new_comment', commentable: commentable, user: current_user
