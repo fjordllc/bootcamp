@@ -23,7 +23,6 @@ class QuestionsController < ApplicationController
                  .latest_update_order
                  .page(params[:page])
     @questions_property = Question.generate_questions_property(params[:target])
-    @user_course_practice = UserCoursePractice.new(current_user)
   end
 
   def show
