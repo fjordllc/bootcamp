@@ -24,7 +24,6 @@ class API::UsersController < API::BaseController
           .page(params[:page])
           .per(PAGER_NUMBER)
       end
-    @user_course_practice = UserCoursePractice.new(current_user)
   end
 
   def show; end

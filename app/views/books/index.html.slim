@@ -23,7 +23,7 @@ nav.page-filter.form
       .form-item.is-inline-md-up
         = label_tag :practice_id, 'プラクティスで絞り込む', class: 'a-form-label'
         = select_tag :practice_id,
-                     options_from_collection_for_select(@user_course_practice.sorted_practices, :id, :title, selected: params[:practice_id]),
+                     options_from_collection_for_select(@current_user_practice.sorted_practices, :id, :title, selected: params[:practice_id]),
                    include_blank: 'すべての参考書籍を表示',
                    onchange: 'this.form.submit()',
                    id: 'js-choices-single-select'
