@@ -5,7 +5,6 @@ class Users::ReportsController < ApplicationController
   before_action :set_reports
   before_action :set_report
   before_action :set_export
-  before_action :set_user_course_practice
 
   def index
     respond_to do |format|
@@ -28,10 +27,6 @@ class Users::ReportsController < ApplicationController
 
   def set_user
     @user = User.find(params[:user_id])
-  end
-
-  def set_user_course_practice
-    @user_course_practice = UserCoursePractice.new(user)
   end
 
   def set_reports
