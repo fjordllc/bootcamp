@@ -44,3 +44,5 @@ main.page-main
               .card-body__description
                 .a-long-text.is-md
                   = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
+
+      = render 'comments/comments', commentable: @inquiry, user: current_user
