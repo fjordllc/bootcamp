@@ -12,5 +12,5 @@
       | コメント
   .thread-comments__items
     - commentable.comments.each do |comment|
-      = render 'comments/comment', commentable: commentable, user: current_user, comment: comment
-  = render 'comments/new_comment', commentable: commentable, user: current_user
+      = render 'comments/comment', commentable: commentable, commentable_type: commentable_type, user: current_user, comment: comment
+  = render 'comments/new_comment', commentable: commentable, commentable_type: commentable_type, user: current_user
