@@ -1,0 +1,14 @@
+<% (1..40).each do |i| %>
+corporate_training_inquiry<%= i %>:
+  company_name: "株式会社テスト<%= i %>"
+  name: "テストユーザー<%= i %>"
+  email: "test<%= i %>@example.com"
+  meeting_date1: <%= Time.zone.parse('2030-12-01 10:00') + i.days %>
+  meeting_date2: <%= Time.zone.parse('2030-12-02 10:00') + i.days %>
+  meeting_date3: <%= Time.zone.parse('2030-12-03 10:00') + i.days %>
+  participants_count: 10
+  training_duration: "1ヶ月"
+  how_did_you_hear: "WEB検索"
+  additional_information: 'よろしくお願いします。'
+  created_at: <%= Time.zone.parse('2029-11-01 10:00') - i.days %>
+<% end %>
