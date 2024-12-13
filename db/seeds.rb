@@ -19,6 +19,7 @@ tables = %i[
   checks
   comments
   companies
+  corporate_training_inquiries
   correct_answers
   courses
   courses_categories
