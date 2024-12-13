@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ローディング処理を関数にするか？
   const comments = document.querySelectorAll('.comment')
   const loadingContent = document.querySelector('.loading-content')
   const commentContent = document.querySelector(
