@@ -380,7 +380,12 @@ class User < ApplicationRecord
   }
   scope :admins, -> { where(admin: true) }
   scope :admins_and_mentors, -> { admins.or(mentor) }
-  scope :trainees, -> { where(trainee: true) }
+  scope :trainees, lambda {
+    where(
+      trainee: true,
+      retired_on: nil
+    )
+  }
   scope :job_seeking, -> { where(job_seeking: true) }
   scope :job_seekers, lambda {
     where(

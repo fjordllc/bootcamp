@@ -464,6 +464,13 @@ class UserTest < ActiveSupport::TestCase
     assert user.invalid?
   end
 
+  test 'trainees_method_does_not_include_retired_trainee' do
+    target = User.trainees
+    assert_includes(target, users(:kensyu))
+    users(:kensyu).update!(retired_on: '2022-07-01')
+    assert_not_includes(target, users(:kensyu))
+  end
+
   test '.depressed_reports' do
     assert_equal 1, User.depressed_reports.size
   end
