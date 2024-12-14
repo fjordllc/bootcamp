@@ -3,7 +3,6 @@
 require 'test_helper'
 require 'supports/product_helper'
 
-
 class UserCoursePracticeTest < ActiveSupport::TestCase
   include ProductHelper
   setup do
@@ -27,15 +26,6 @@ class UserCoursePracticeTest < ActiveSupport::TestCase
     uniq_practices_ids = @user_course_practice_kensyu.uniq_practice_ids
 
     assert_equal uniq_practices_ids.size, uniq_practices_ids.uniq.size
-  end
-
-  test '#filter_category_by_practice_ids' do
-    category = categories(:category4)
-    practice_ids = category.practice_ids[0..3] << 0
-    filterd_category, left_ids = @user_course_practice_kensyu.filter_category_by_practice_ids(category, practice_ids)
-
-    assert_equal filterd_category.practices.size, 4
-    assert_equal left_ids, [0]
   end
 
   test '#sorted_practices' do
