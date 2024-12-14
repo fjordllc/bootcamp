@@ -56,7 +56,7 @@ header.page-header
 
         #js-comments(data-commentable-id="#{@product.id}" data-commentable-type='Product' data-current-user-id="#{current_user.id}")
         .user-icons
-          ul.user-icons__items data-footprintable-id=@product.id data-footprintable-type='Product'
+          ul.user-icons__items
             = render '/footprints/footprints', footprints: @footprints
 
       .is-only-mentor(class="#{current_user.mentor? || current_user.admin? ? 'col-xl-5 col-xs-12 is-hidden-sm-down' : ''}")

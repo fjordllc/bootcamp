@@ -88,6 +88,6 @@ hr.a-border
                       | 削除する
       #js-comments(data-commentable-id="#{@announcement.id}" data-commentable-type='Announcement' data-current-user-id="#{current_user.id}")
       .user-icons
-        ul.user-icons__items data-footprintable-id=@announcement.id data-footprintable-type='Announcement'
+        ul.user-icons__items
           = render '/footprints/footprints', footprints: @footprints
     = render partial: 'recent_announcements'
