@@ -14,22 +14,14 @@ class UserCoursePractice
     @user.course.practices.uniq.pluck(:id)
   end
 
-  def filter_category_by_practice_ids(category, practice_ids)
-    copy_category = category.dup
-    category.practices.each do |practice|
-      copy_category.practices << practice if practice_ids.delete(practice.id)
-    end
-    [copy_category, practice_ids]
-  end
-
   def categories_for_skip_practice
-    filterd_categories = []
+    filtered_categories = []
     practice_ids = uniq_practice_ids
     @user.course.categories.each do |category|
-      copy_category, practice_ids = filter_category_by_practice_ids(category, practice_ids)
-      filterd_categories << copy_category
+      copied_category, practice_ids = filter_category_by_practice_ids(category, practice_ids)
+      filtered_categories << copied_category
     end
-    filterd_categories
+    filtered_categories
   end
 
   def sorted_practices
@@ -115,5 +107,13 @@ class UserCoursePractice
 
   def category_having_unstarted_practice
     unstarted_practices&.first&.categories&.first
+  end
+
+  def filter_category_by_practice_ids(category, practice_ids)
+    copied_category = category.dup
+    category.practices.each do |practice|
+      copied_category.practices << practice if practice_ids.delete(practice.id)
+    end
+    [copied_category, practice_ids]
   end
 end
