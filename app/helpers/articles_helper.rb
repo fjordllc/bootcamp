@@ -18,4 +18,8 @@ module ArticlesHelper
     content = logged_in? ? 'none' : 'noindex, nofollow'
     tag.meta(name: 'robots', content:)
   end
+
+  def feature_tag?(article)
+    article.tags.pluck(:name).include?('feature')
+  end
 end
