@@ -39,7 +39,7 @@ class HibernationController < ApplicationController
   end
 
   def destroy_subscription!
-    return nil unless Rails.env.production?
+    return nil if !Rails.env.production? || staging?
 
     Subscription.new.destroy(current_user.subscription_id) if current_user.subscription_id
   end
