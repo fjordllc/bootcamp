@@ -2,6 +2,9 @@
 
 Doorkeeper.configure do
 orm :active_record
+  resource_owner_authenticator do
+    current_user || redirect_to(login_path)
+  end
 
   admin_authenticator do
     if current_user
