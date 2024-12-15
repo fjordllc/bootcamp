@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       savedMemo = editorTextarea.value
       updateMemo(savedMemo, userId)
       memoDisplayContent.innerHTML = markdownInitializer.render(savedMemo)
+      TextareaInitializer.initialize('#js-user-mentor-memo')
       switchMemoDisplay(memoDisplay, savedMemo)
     })
 
