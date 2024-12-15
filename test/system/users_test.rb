@@ -506,7 +506,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'search only trainee when target is trainee' do
     visit_with_auth '/users?target=trainee', 'komagata'
-    assert_selector '.users-item', count: 3 # 元々2だったが、退会ユーザーがカウントされるようになった影響で+1増えた
+    assert_selector '.users-item', count: 2
     fill_in 'js-user-search-input', with: 'Kensyu Seiko'
     find('#js-user-search-input').send_keys :return
     assert_text 'Kensyu Seiko', count: 1
