@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       memoEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
+      TextareaInitializer.initialize('#js-practice-memo')
     })
 
     const editorTab = memoEditor.querySelector('.editor-tab')
