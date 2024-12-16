@@ -1,0 +1,62 @@
+- title '企業研修申し込み'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | 管理ページ
+
+= render 'admin/admin_page_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | #{@corporate_training_inquiry.name}様
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to admin_corporate_training_inquiries_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | 申し込み一覧へ
+  hr.a-border
+  .page-body
+    .container.is-md
+      .page-content
+        header.page-content-header
+          .page-content-header__end
+            .page-content-header__row
+              h1.page-content-header__title
+                = "#{@corporate_training_inquiry.company_name} 様 （#{@corporate_training_inquiry.email}）"
+            .page-content-header__row
+              .page-content-header-metas
+                .page-content-header-metas__start
+                  .page-content-header-metas__meta
+                    .a-meta
+                      span.a-meta__label 受信日
+                      span.a-meta__value = l @corporate_training_inquiry.created_at
+        .page-content__body
+          p = CorporateTrainingInquiry.human_attribute_name(:name)
+          p = @corporate_training_inquiry.name
+          p = CorporateTrainingInquiry.human_attribute_name(:company_name)
+          p = @corporate_training_inquiry.company_name
+          p = CorporateTrainingInquiry.human_attribute_name(:email)
+          p = @corporate_training_inquiry.email
+          p = CorporateTrainingInquiry.human_attribute_name(:meeting_dates)
+          p = CorporateTrainingInquiry.human_attribute_name(:meeting_date1)
+          p = l @corporate_training_inquiry.meeting_date1
+          p = CorporateTrainingInquiry.human_attribute_name(:meeting_date2)
+          p = l @corporate_training_inquiry.meeting_date2
+          p = CorporateTrainingInquiry.human_attribute_name(:meeting_date3)
+          p = l @corporate_training_inquiry.meeting_date3
+          p = CorporateTrainingInquiry.human_attribute_name(:participants_count)
+          p = @corporate_training_inquiry.participants_count
+          p = CorporateTrainingInquiry.human_attribute_name(:training_duration)
+          p = @corporate_training_inquiry.training_duration
+          p = CorporateTrainingInquiry.human_attribute_name(:how_did_you_hear)
+          p = @corporate_training_inquiry.how_did_you_hear
+          p = CorporateTrainingInquiry.human_attribute_name(:additional_information)
+          p = @corporate_training_inquiry.additional_information
