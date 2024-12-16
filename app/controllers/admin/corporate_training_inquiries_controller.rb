@@ -6,4 +6,8 @@ class Admin::CorporateTrainingInquiriesController < AdminController
     per = params[:per] || PAGER_NUMBER
     @corporate_training_inquiries = CorporateTrainingInquiry.order(created_at: :desc).page(params[:page]).per(per)
   end
+
+  def show
+    @corporate_training_inquiry = CorporateTrainingInquiry.find(params[:id])
+  end
 end
