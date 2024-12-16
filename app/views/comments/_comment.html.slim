@@ -1,4 +1,4 @@
-.thread-comment.comment id="comment_#{comment.id}" data-commentable_id="#{commentable.id}" data-comment_id="#{comment.id}"
+.thread-comment.comment id="comment_#{comment.id}" data-comment_id="#{comment.id}"
   #latest-comment
   .thread-comment__start
     a.thread-comment__user-link href="#{comment.user.url}"
@@ -40,7 +40,7 @@
               li.card-main-actions__item.is-sub
                 button.card-main-actions__muted-action
                   | 削除する
-    .a-card
+    .a-card.is-comment.comment-editor.is-hidden
       .thread-comment-form__form
         .a-form-tabs.js-tabs
           .a-form-tabs__tab.js-tabs__tab.edit-comment-tab.is-active
