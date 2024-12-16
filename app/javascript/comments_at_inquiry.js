@@ -1,3 +1,5 @@
+import setComment from 'set_comment.js'
+
 document.addEventListener('DOMContentLoaded', () => {
   // ローディング処理を関数にするか？
   const comments = document.querySelectorAll('.comment')
@@ -11,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   displayMoreComments(comments)
+
+  comments.forEach((comment) => {
+    setComment(comment)
+  })
 })
 
 function displayMoreComments(comments) {
