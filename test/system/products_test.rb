@@ -50,6 +50,9 @@ class ProductsTest < ApplicationSystemTestCase
   end
 
   test 'not display learning completion message when a user of the completed product visits after the second time' do
+    visit_with_auth "/products/#{products(:product65).id}", 'komagata'
+    click_button '提出物を確認'
+    assert_text '提出物の確認を取り消す'
     visit_with_auth "/products/#{products(:product65).id}", 'kimura'
     first('label.card-main-actions__muted-action.is-closer').click
     assert_no_text '喜びをXにポストする！'
