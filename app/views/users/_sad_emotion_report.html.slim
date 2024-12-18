@@ -7,4 +7,4 @@
         | のユーザー
     hr.a-border
     .card-list
-          div(data-vue="SadReports")
+      = render partial: 'reports/report', collection: reports, as: :report, locals: { user_icon_display: true, actions_display: false }
