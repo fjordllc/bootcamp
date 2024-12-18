@@ -1,5 +1,6 @@
 header.page-content-header
-  #js-check-stamp(data-checkable-id="#{report.id}" data-checkable-type='Report')
+  #js-check-stamp(data-checkable-type='Report' data-checkable-id="#{report.id}")
+  = render 'checks/check-stamp'
   .page-content-header__start
     .page-content-header__user
       = render 'users/icon', user: report.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
