@@ -1,5 +1,5 @@
-import React from 'react'
-import UserIcon from './UserIcon'
+import React, { useEffect, useRef } from 'react'
+import userIcon from '../user-icon.js'
 import ProductChecker from './ProductChecker'
 
 export default function Product({
@@ -9,6 +9,24 @@ export default function Product({
   currentUserId,
   elapsedDays
 }) {
+  // userIconの非React化により、useRef,useEffectを導入している。
+  const userIconRef = useRef(null)
+  useEffect(() => {
+    const linkClass = 'card-list-item__user-link'
+    const imgClasses = ['card-list-item__user-icon', 'a-user-icon']
+
+    const userIconElement = userIcon({
+      user: product.user,
+      linkClass,
+      imgClasses
+    })
+
+    if (userIconRef.current) {
+      userIconRef.current.innerHTML = ''
+      userIconRef.current.appendChild(userIconElement)
+    }
+  }, [product.user])
+
   const notRespondedSign = () => {
     return (
       product.self_last_commented_at_date_time >
@@ -20,9 +38,7 @@ export default function Product({
   return (
     <div className="card-list-item has-assigned">
       <div className="card-list-item__inner">
-        <div className="card-list-item__user">
-          <UserIcon user={product.user} blockClassSuffix="card-list-item" />
-        </div>
+        <div className="card-list-item__user" ref={userIconRef}></div>
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
@@ -158,25 +174,29 @@ const TimeInfo = ({ product, elapsedDays }) => {
 }
 
 const UserIcons = ({ users }) => {
-  return (
-    <div className="card-list-item__user-icons">
-      {users.map((user) => (
-        <a
-          key={user.url}
-          href={user.url}
-          className="card-list-item__user-icons-icon">
-          <span className={`a-user-role is-${user.primary_role}`}>
-            <img
-              title={user.icon_title}
-              alt={user.icon_title}
-              src={user.avatar_url}
-              className="a-user-icon"
-            />
-          </span>
-        </a>
-      ))}
-    </div>
-  )
+  // userIconの非React化により、useRef,useEffectを導入している。
+  const userIconRef = useRef(null)
+  useEffect(() => {
+    const linkClass = 'card-list-item__user-icons-icon'
+    const imgClasses = ['a-user-icon']
+
+    const userIconElements = users.map((user) => {
+      return userIcon({
+        user,
+        linkClass,
+        imgClasses
+      })
+    })
+
+    if (userIconRef.current) {
+      userIconRef.current.innerHTML = ''
+      userIconElements.forEach((element) => {
+        userIconRef.current.appendChild(element)
+      })
+    }
+  }, [users])
+
+  return <div className="card-list-item__user-icons" ref={userIconRef}></div>
 }
 
 const LastCommentedTime = ({ product }) => {
