@@ -125,13 +125,13 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_equal User.find_by(login_name: User::DEFAULT_REGULAR_EVENT_ORGANIZER), regular_event.organizers.first
   end
 
-  test '#all_scheduled_dates' do
-    start_date = Date.new(Time.current.year, 1, 1)
-    end_date = Date.new(Time.current.year, 12, 31)
+  test '#scheduled_dates_within_period' do
+    start_date = Time.current.to_date
+    end_date = Time.current.to_date.next_year
     wednesday_for_year = (start_date..end_date).select(&:wednesday?)
 
     regular_event = regular_events(:regular_event34)
-    scheduled_dates = regular_event.all_scheduled_dates
+    scheduled_dates = regular_event.scheduled_dates_within_period
 
     assert_equal wednesday_for_year, scheduled_dates
   end
