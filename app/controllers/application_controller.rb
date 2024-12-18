@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :allow_cross_domain_access
   before_action :set_host_for_disk_storage
   before_action :require_active_user_login
+  before_action :set_current_user_practice
 
   protected
 
@@ -53,6 +54,10 @@ class ApplicationController < ActionController::Base
 
   def require_scheduler_inheritation
     head :internal_server_error unless is_a?(SchedulerController)
+  end
+
+  def set_current_user_practice
+    @current_user_practice = UserCoursePractice.new(current_user)
   end
 
   protected

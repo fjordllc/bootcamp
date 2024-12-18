@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function UserPracticeProgress({ user }) {
   const percentage = user.cached_completed_percentage
-  const fraction = user.completed_fraction
+  const fraction = user.cached_completed_fraction
 
   const roundedPercentage = user.graduated_on
     ? '100%'

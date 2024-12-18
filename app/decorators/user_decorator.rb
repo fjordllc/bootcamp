@@ -22,20 +22,6 @@ module UserDecorator
     classes.join(' ')
   end
 
-  def cached_completed_percentage
-    Rails.cache.fetch "/model/user/#{id}/completed_percentage" do
-      completed_percentage
-    end
-  end
-
-  def completed_fraction
-    "修了: #{completed_practices.size} （必須: #{completed_practices_include_progress_size}/#{practices_include_progress.pluck(:id).uniq.size}）"
-  end
-
-  def completed_fraction_in_metas
-    "#{completed_practices.size} （必須:#{completed_practices_include_progress_size}）"
-  end
-
   def customer_url
     "https://dashboard.stripe.com/customers/#{customer_id}"
   end
