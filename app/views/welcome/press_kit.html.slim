@@ -1,0 +1,78 @@
+- title 'プレスキット'
+- set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
+  description: '株式会社ロッカ（以下「当社」といいます）の提供する「フィヨルドブートキャンプ」（以下「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、このページにあるとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。')
+
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border
+.lp
+  .lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              = title
+        .lp-content__end
+          .a-card
+            .card-body
+              .card-body__inner
+                .a-long-text.is-md
+                  h2
+                    | ロゴ
+                  ul
+                    li
+                      = link_to logo_path, class: 'a-text-link' do
+                        | ロゴ・ガイドライン
+                  h2
+                    | 運営会社
+                  p
+                    strong
+                      | 社名 :&nbsp;
+                    span
+                      | 株式会社ロッカ（Lokka, Inc）
+                    br
+                    strong
+                      | 所在地 :&nbsp;
+                    span
+                      | 〒150-0041 東京都 渋谷区 神南1-12-14 渋谷宮田ビル710号
+                    br
+                    strong
+                      | 設立 :&nbsp;
+                    span
+                      | 2021年7月27日
+                    br
+                    strong
+                      | 資本金 :&nbsp;
+                    span
+                      | 900万円
+                    br
+                    strong
+                      | 従業員 :&nbsp;
+                    span
+                      | 3人
+                    br
+                    strong
+                      | 代表取締役 :&nbsp;
+                    span
+                      | 駒形真幸（コマガタマサキ）、町田哲平（マチダテッペイ）
+                    br
+                    strong
+                      | 取材に関するお問い合わせ :&nbsp;
+                    span
+                      = link_to new_inquiry_path, class: 'a-text-link' do
+                        | お問い合わせフォーム
+                  h2
+                    | SNS
+                  ul
+                    li
+                      = link_to 'https://github.com/fjordllc', class: 'a-text-link' do
+                        | GitHub
+                    li
+                      = link_to 'https://x.com/fjordbootcamp', class: 'a-text-link' do
+                        | X

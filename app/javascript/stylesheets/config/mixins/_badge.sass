@@ -12,6 +12,12 @@
     margin-left: .1875em
   &:not(:last-child)
     margin-right: .1875em
+  &.is-block
+    width: 100%
+    display: flex
+    .a-badge__inner
+      overflow: hidden
+      text-overflow: ellipsis
 
 =badge-color($color)
   background-color: $color

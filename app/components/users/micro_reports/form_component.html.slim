@@ -1,0 +1,33 @@
+= form_with model: [@user, @micro_report], local: true, class: 'micro-report-form', id: 'js-micro-report-form',
+                    url: user_micro_reports_path(@user, anchor: 'latest-micro-report') do |f|
+  .container.is-md
+    .micro-report-form__inner
+      .micro-report-form__start
+        .micro-report-form-text
+          .micro-report-form-tabs
+            ul.micro-report-form-tabs__items.form-tabs.js-tabs
+              li.micro-report-form-tabs__item
+                = link_to '分報', '#form',
+                  class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link is-active',
+                  data: { target: 'form-container' }
+              li.micro-report-form-tabs__itemm
+                = link_to 'プレビュー', '#preview',
+                  class: 'micro-report-form-tabs__item-link form-tabs__tab js-tab-link',
+                  data: { target: 'preview-container' }
+
+          .tab-content
+            .js-tab-pane#form-container
+              .form__items
+                .js-markdown-parent
+                  = f.text_area :content,
+                    class: "a-text-input micro-report-form__text-area js-markdown",
+                    placeholder: '今やっていることを投稿してみましょう！',
+                    data: { 'preview': '.js-preview' }, id: 'js-micro-report-textarea'
+            .js-tab-pane#preview-container.hidden
+              .js-preview.a-long-text.is-md.micro-report-form__preview
+
+      .micro-report-form__end
+        .micro-report-form-actions
+          .micro-report-form-actions__items
+            .micro-report-form-actions__item
+              = f.submit '投稿', class: 'a-button is-lg is-primary', id: 'js-shortcut-submit'

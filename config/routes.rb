@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get "press_kit", to: "welcome#press_kit", as: "press_kit"
+  get "logo", to: "welcome#logo", as: "logo"
   get 'certified_reskill_courses/rails_developer_course',
     to: 'welcome#rails_developer_course',
     as: :certified_reskill_courses_rails_developer_course_root

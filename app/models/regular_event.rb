@@ -38,7 +38,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     others: 4
   }, _prefix: true
 
-  validates :title, presence: true
+  validates :title, presence: true, markdown_prohibited: true
   validates :user_ids, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
