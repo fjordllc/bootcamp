@@ -2,6 +2,9 @@
 
 class AnnouncementsController < ApplicationController
   PAGER_NUMBER = 25
+
+  include TrackableFootprints
+
   before_action :set_announcement, only: %i[show edit update destroy]
   before_action :rewrite_announcement, only: %i[update]
 
@@ -15,6 +18,8 @@ class AnnouncementsController < ApplicationController
 
   def show
     @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
+    @footprints = find_footprints(@announcement)
+    @footprint_total_count = @footprints.count
   end
 
   def new

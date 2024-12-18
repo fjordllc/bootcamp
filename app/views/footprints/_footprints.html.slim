@@ -1,5 +1,16 @@
-- if footprints.any?
-  .user-icons
+.user-icons__wrapper
+  .user-icons__loading
+    .fa-solid.fa-spinner.fa-pulse aria-hidden="true"
+    | ロード中
+
+  - if footprints.any?
     h3.user-icons__title 見たよ
-    ul.user-icons__items
-      = render footprints
+    ul.user-icons__items#initial-footprints
+      - footprints.first(10).each do |footprint|
+        = render 'footprints/footprint', footprint: footprint
+      - if footprints.size > 10
+        li.user-icons__more data-remaining-count=(footprints.size - 10) その他#{footprints.size - 10}人
+    ul.user-icons__items#remaining-footprints(style="display: none;")
+      - if footprints.size > 10
+        - footprints[10..].each do |footprint|
+          = render 'footprints/footprint', footprint: footprint

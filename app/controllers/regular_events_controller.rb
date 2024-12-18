@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class RegularEventsController < ApplicationController
+class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
+  include TrackableFootprints
+
   before_action :set_regular_event, only: %i[edit update destroy]
 
   def index
@@ -9,6 +11,8 @@ class RegularEventsController < ApplicationController
 
   def show
     @regular_event = RegularEvent.find(params[:id])
+    @footprints = find_footprints(@regular_event)
+    @footprint_total_count = @footprints.count
   end
 
   def new
