@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import useSWR from 'swr'
 import Pagination from './Pagination'
 import LoadingListPlaceholder from './LoadingListPlaceholder'
-import UserIcon from './UserIcon'
+import userIcon from '../user-icon.js'
 import fetcher from '../fetcher'
 import usePage from './hooks/usePage'
 
@@ -45,12 +45,28 @@ export default function Events() {
 }
 
 function Event({ event }) {
+  // userIconの非React化により、useRef,useEffectを導入している。
+  const userIconRef = useRef(null)
+  useEffect(() => {
+    const linkClass = 'card-list-item__user-link'
+    const imgClasses = ['card-list-item__user-icon', 'a-user-icon']
+
+    const userIconElement = userIcon({
+      user: event.user,
+      linkClass,
+      imgClasses
+    })
+
+    if (userIconRef.current) {
+      userIconRef.current.innerHTML = ''
+      userIconRef.current.appendChild(userIconElement)
+    }
+  }, [event.user])
+
   return (
     <li className="card-list-item">
       <div className="card-list-item__inner">
-        <div className="card-list-item__user">
-          <UserIcon user={event.user} blockClassSuffix="card-list-item" />
-        </div>
+        <div className="card-list-item__user" ref={userIconRef}></div>
         <div className="card-list-item__rows">
           <div className="card-list-item__row">
             <div className="card-list-item-title">
