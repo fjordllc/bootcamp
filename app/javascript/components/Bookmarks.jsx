@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 import fetcher from '../fetcher'
 import Bootcamp from '../bootcamp'
-import UserIcon from './UserIcon'
+import userIcon from '../user-icon.js'
 import Pagination from './Pagination'
 import usePage from './hooks/usePage'
 
@@ -140,6 +140,24 @@ const EditButton = ({ editable, setEditable }) => {
 }
 
 const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
+  // userIconの非React化により、useRef,useEffectを導入している。
+  const userIconRef = useRef(null)
+  useEffect(() => {
+    const linkClass = 'card-list-item__user-link'
+    const imgClasses = ['card-list-item__user-icon', 'a-user-icon']
+
+    const userIconElement = userIcon({
+      user: bookmark.user,
+      linkClass,
+      imgClasses
+    })
+
+    if (userIconRef.current) {
+      userIconRef.current.innerHTML = ''
+      userIconRef.current.appendChild(userIconElement)
+    }
+  }, [bookmark.user])
+
   const date = bookmark.reported_on || bookmark.created_at
   const createdAt = Bootcamp.iso8601ToFullTime(date)
   const { mutate } = useSWRConfig()
@@ -157,9 +175,7 @@ const Bookmark = ({ bookmark, editable, bookmarksUrl, _setEditable }) => {
     <div className={'card-list-item is-' + bookmark.bookmark_class_name}>
       <div className="card-list-item__inner">
         {bookmark.modelName === 'Talk' ? (
-          <div className="card-list-item__user">
-            <UserIcon user={bookmark.user} blockClassSuffix="card-list-item" />
-          </div>
+          <div className="card-list-item__user" ref={userIconRef}></div>
         ) : (
           <div className="card-list-item__label">{bookmark.modelNameI18n}</div>
         )}
