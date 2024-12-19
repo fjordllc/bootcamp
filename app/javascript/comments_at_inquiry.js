@@ -7,40 +7,79 @@ document.addEventListener('DOMContentLoaded', () => {
   const commentContent = document.querySelector(
     '#comments.thread-comments.loaded'
   )
+
   if (comments) {
     loadingContent.style.display = 'none'
     commentContent.style.display = 'block'
   }
 
-  displayMoreComments(comments)
-
-  comments.forEach((comment) => {
-    setComment(comment)
-  })
-})
-
-function displayMoreComments(comments) {
-  const commentLimit = 8
-  let commentOffset = 0
-  const incrementCommentSize = 8
+  const initialComments = []
   const commentTotalCount = comments.length
+  let commentRemaining = 0
+  let nextCommentAmount = 0
+  if (commentTotalCount <= 8) {
+    comments.forEach((comment) => {
+      initialComments.push(comment)
+    })
+  } else {
+    for (let i = 1; i <= 8; i++) {
+      initialComments.push(comments[commentTotalCount - i])
+    }
+    commentRemaining = commentTotalCount - 8
+
+    if (commentRemaining <= 8) {
+      nextCommentAmount = commentRemaining
+    } else {
+      nextCommentAmount = `8 / ${commentRemaining}`
+    }
+  }
+
+  setForloadedComment(initialComments)
+
   const moreCommentButton = document.querySelector(
     '.a-button.is-lg.is-text.is-block'
   )
-  const allCommentsIsLoaded = commentLimit + commentOffset >= commentTotalCount
-  if (!allCommentsIsLoaded) {
-    commentOffset += commentLimit
-  }
-  const commentRemaining = commentTotalCount - commentOffset
-
-  const nextCommentAmount =
-    commentRemaining > incrementCommentSize
-      ? `${incrementCommentSize} / ${commentRemaining}`
-      : commentRemaining
-  const commentText = `前のコメント（ ${nextCommentAmount} ）`
   const moreComments = document.querySelector('.thread-comments-more')
-  if (!allCommentsIsLoaded) {
+  moreCommentButton.addEventListener('click', () => {
+    const nextComments = []
+    if (commentRemaining <= 8) {
+      for (let i = 1; i <= commentRemaining; i++) {
+        nextComments.push(comments[commentRemaining - i])
+      }
+      setForloadedComment(nextComments)
+      commentRemaining = 0
+      moreComments.style.display = 'none'
+    } else {
+      for (let i = 1; i <= 8; i++) {
+        nextComments.push(comments[commentRemaining - i])
+      }
+      commentRemaining = commentRemaining - 8
+      setForloadedComment(nextComments)
+      if (commentRemaining <= 8) {
+        nextCommentAmount = commentRemaining
+        const commentText = `前のコメント（ ${nextCommentAmount} ）`
+        moreCommentButton.textContent = commentText
+      } else {
+        nextCommentAmount = `8 / ${commentRemaining}`
+        const commentText = `前のコメント（ ${nextCommentAmount} ）`
+        moreCommentButton.textContent = commentText
+      }
+    }
+  })
+
+  // // moreCommentsの内容を書き換える処理として、この辺りを関数化したらいいかも
+  const commentText = `前のコメント（ ${nextCommentAmount} ）`
+  if (commentRemaining > 0) {
     moreComments.style.display = 'block'
     moreCommentButton.textContent = commentText
   }
-}
+
+  // function displayMoreComments() {}
+
+  function setForloadedComment(comments) {
+    comments.forEach((comment) => {
+      comment.style.display = ''
+      setComment(comment)
+    })
+  }
+})
