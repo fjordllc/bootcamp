@@ -1,4 +1,4 @@
-import setComment from 'set_comment.js'
+import initializeComment from 'initialize_comment.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   // ローディング処理を関数にするか？
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  setForloadedComment(initialComments)
+  setComments(initialComments)
 
   const moreCommentButton = document.querySelector(
     '.a-button.is-lg.is-text.is-block'
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let i = 1; i <= commentRemaining; i++) {
         nextComments.push(comments[commentRemaining - i])
       }
-      setForloadedComment(nextComments)
+      setComments(nextComments)
       commentRemaining = 0
       moreComments.style.display = 'none'
     } else {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nextComments.push(comments[commentRemaining - i])
       }
       commentRemaining = commentRemaining - 8
-      setForloadedComment(nextComments)
+      setComments(nextComments)
       if (commentRemaining <= 8) {
         nextCommentAmount = commentRemaining
         const commentText = `前のコメント（ ${nextCommentAmount} ）`
@@ -76,10 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // function displayMoreComments() {}
 
-  function setForloadedComment(comments) {
+  function setComments(comments) {
     comments.forEach((comment) => {
       comment.style.display = ''
-      setComment(comment)
+      initializeComment(comment)
     })
   }
 })
