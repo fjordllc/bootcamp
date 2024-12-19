@@ -2,7 +2,7 @@ import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
-export default function setComment(comment) {
+export default function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
   let savedComment = ''
   TextareaInitializer.initialize(`#js-comment-${commentId}`)
