@@ -9,7 +9,7 @@ module RegularEventDecorator
     end.join('、')
   end
 
-  def next_holding_date
+  def holding_status
     if finished
       '開催終了'
     elsif next_event_date == Time.zone.today

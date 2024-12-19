@@ -74,12 +74,12 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   columns_for_keyword_search :title, :description
 
   def scheduled_on?(date)
-    all_scheduled_dates.include?(date)
+    scheduled_dates_within_period.include?(date)
   end
 
   def next_event_date
     event_dates =
-      hold_national_holiday ? feature_scheduled_dates : feature_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
+      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
 
     event_dates.min
   end
@@ -108,9 +108,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Organizer.new(user: admin_user, regular_event: self).save if admin_user
   end
 
-  def all_scheduled_dates(
-    from: Date.new(Time.current.year, 1, 1),
-    to: Date.new(Time.current.year, 12, 31)
+  def scheduled_dates_within_period(
+    from: Time.current.to_date,
+    to: Time.current.to_date.next_year
   )
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
@@ -129,10 +129,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def self.fetch_participated_regular_events(user)
     participated_regular_events = []
     user.participated_regular_event_ids.find_each do |regular_event|
-      regular_event.all_scheduled_dates(
-        from: Time.current.to_date,
-        to: Time.current.to_date.next_year
-      ).each do |event_date|
+      regular_event.scheduled_dates_within_period.each do |event_date|
         participated_regular_events << regular_event.transform_for_subscription(event_date)
       end
     end
@@ -148,9 +145,9 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
   end
 
-  def feature_scheduled_dates
+  def upcoming_scheduled_dates
     # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
-    event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
+    event_dates_with_start_time = scheduled_dates_within_period.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
 
     event_dates_with_start_time.reject { |d| d < Time.zone.now }.map(&:to_date)
   end
