@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+import userIcon from '../user-icon.js'
 
 export default function Company({ company }) {
   if (company.users.length === 0) {
@@ -39,28 +40,32 @@ function UserGroupHeader({ company }) {
 }
 
 function UserIcons({ users }) {
+  // userIconの非React化により、useRef,useEffectを導入している。
+  const userIconRef = useRef(null)
+  useEffect(() => {
+    const linkClass = 'a-user-icons__item-link'
+    const imgClasses = ['a-user-icons__item-icon', 'a-user-icon']
+
+    const userIconElements = users.map((user) => {
+      return userIcon({
+        user,
+        linkClass,
+        imgClasses,
+        loginName: user.login_name
+      })
+    })
+
+    if (userIconRef.current) {
+      userIconRef.current.innerHTML = ''
+      userIconElements.forEach((element) => {
+        userIconRef.current.appendChild(element)
+      })
+    }
+  }, [users])
+
   return (
     <div className="a-user-icons">
-      <div className="a-user-icons__items">
-        {users.map((user) => (
-          <UserIcon user={user} key={user.id} />
-        ))}
-      </div>
+      <div className="a-user-icons__items" ref={userIconRef}></div>
     </div>
-  )
-}
-
-function UserIcon({ user }) {
-  return (
-    <a className="a-user-icons__item-link" href={user.url}>
-      <span className={`a-user-role is-${user.primary_role}`}>
-        <img
-          src={user.avatar_url}
-          title={user.icon_title}
-          data-login-name={user.login_name}
-          className="a-user-icons__item-icon a-user-icon"
-        />
-      </span>
-    </a>
   )
 }
