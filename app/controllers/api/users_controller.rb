@@ -2,8 +2,9 @@
 
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
+  before_action :require_login_for_api
   before_action :require_login_for_api, except: :show
-  before_action :doorkeeper_authorize!, only: :show
+  before_action :doorkeeper_authorize!, if: -> { doorkeeper_token.present? }, only: :show
   PAGER_NUMBER = 24
 
   def index
