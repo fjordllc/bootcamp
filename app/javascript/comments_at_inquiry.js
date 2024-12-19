@@ -1,13 +1,14 @@
 import initializeComment from 'initialize_comment.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ローディング処理を関数にするか？
   const comments = document.querySelectorAll('.comment')
   const loadingContent = document.querySelector('.loading-content')
+  if (!loadingContent) {
+    return
+  }
   const commentContent = document.querySelector(
     '#comments.thread-comments.loaded'
   )
-
   if (comments) {
     loadingContent.style.display = 'none'
     commentContent.style.display = 'block'
@@ -15,26 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const initialComments = []
   const commentTotalCount = comments.length
+  const initialLimit = 8
+  const incrementSize = 8
   let commentRemaining = 0
-  let nextCommentAmount = 0
-  if (commentTotalCount <= 8) {
+  const nextCommentAmount = 0
+
+  if (commentTotalCount <= initialLimit) {
     comments.forEach((comment) => {
       initialComments.push(comment)
     })
   } else {
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= initialLimit; i++) {
       initialComments.push(comments[commentTotalCount - i])
     }
-    commentRemaining = commentTotalCount - 8
+    setComments(initialComments)
+    commentRemaining = commentTotalCount - initialLimit
 
-    if (commentRemaining <= 8) {
-      nextCommentAmount = commentRemaining
-    } else {
-      nextCommentAmount = `8 / ${commentRemaining}`
+    const moreCommentButton = document.querySelector(
+      '.a-button.is-lg.is-text.is-block'
+    )
+    const moreComments = document.querySelector('.thread-comments-more')
+    if (commentRemaining > 0) {
+      moreComments.style.display = 'block'
     }
+    displayMoreComments(commentRemaining, nextCommentAmount, moreCommentButton)
   }
-
-  setComments(initialComments)
 
   const moreCommentButton = document.querySelector(
     '.a-button.is-lg.is-text.is-block'
@@ -42,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const moreComments = document.querySelector('.thread-comments-more')
   moreCommentButton.addEventListener('click', () => {
     const nextComments = []
-    if (commentRemaining <= 8) {
+    if (commentRemaining <= incrementSize) {
       for (let i = 1; i <= commentRemaining; i++) {
         nextComments.push(comments[commentRemaining - i])
       }
@@ -50,31 +56,34 @@ document.addEventListener('DOMContentLoaded', () => {
       commentRemaining = 0
       moreComments.style.display = 'none'
     } else {
-      for (let i = 1; i <= 8; i++) {
+      for (let i = 1; i <= incrementSize; i++) {
         nextComments.push(comments[commentRemaining - i])
       }
-      commentRemaining = commentRemaining - 8
+      commentRemaining = commentRemaining - incrementSize
       setComments(nextComments)
-      if (commentRemaining <= 8) {
-        nextCommentAmount = commentRemaining
-        const commentText = `前のコメント（ ${nextCommentAmount} ）`
-        moreCommentButton.textContent = commentText
-      } else {
-        nextCommentAmount = `8 / ${commentRemaining}`
-        const commentText = `前のコメント（ ${nextCommentAmount} ）`
-        moreCommentButton.textContent = commentText
-      }
+      displayMoreComments(
+        commentRemaining,
+        nextCommentAmount,
+        moreCommentButton
+      )
     }
   })
 
-  // // moreCommentsの内容を書き換える処理として、この辺りを関数化したらいいかも
-  const commentText = `前のコメント（ ${nextCommentAmount} ）`
-  if (commentRemaining > 0) {
-    moreComments.style.display = 'block'
-    moreCommentButton.textContent = commentText
+  function displayMoreComments(
+    commentRemaining,
+    nextCommentAmount,
+    moreCommentButton
+  ) {
+    if (commentRemaining <= incrementSize) {
+      nextCommentAmount = commentRemaining
+      const commentText = `前のコメント（ ${nextCommentAmount} ）`
+      moreCommentButton.textContent = commentText
+    } else {
+      nextCommentAmount = `${incrementSize} / ${commentRemaining}`
+      const commentText = `前のコメント（ ${nextCommentAmount} ）`
+      moreCommentButton.textContent = commentText
+    }
   }
-
-  // function displayMoreComments() {}
 
   function setComments(comments) {
     comments.forEach((comment) => {
