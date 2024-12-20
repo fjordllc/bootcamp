@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= initialLimit; i++) {
       initialComments.push(comments[commentTotalCount - i])
     }
-    setComments(initialComments)
+    // setComments(initialComments)
     commentRemaining = commentTotalCount - initialLimit
 
     const moreCommentButton = document.querySelector(
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     displayMoreComments(commentRemaining, nextCommentAmount, moreCommentButton)
   }
+  setComments(initialComments)
 
   const moreCommentButton = document.querySelector(
     '.a-button.is-lg.is-text.is-block'
