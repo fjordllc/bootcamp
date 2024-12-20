@@ -3,8 +3,8 @@
   .completed-practices-progress__percentage-bar(
     aria-valuemax='100'
     aria-valuemin='0'
-    aria-valuenow='#{user.graduated? ? 100 : user.completed_percentage}'
+    aria-valuenow='#{user.graduated? ? 100 : user_course_practice.cached_completed_percentage}'
     role='progressbar'
-    style="width: #{user.graduated? ? '100%' : "#{user.completed_percentage.round}%"}")
+    style="width: #{user.graduated? ? '100%' : "#{user_course_practice.cached_completed_percentage.round}%"}")
 .completed-practices-progress__number
-  | #{user.graduated? ? '卒業' : user.completed_fraction}
+  | #{user.graduated? ? '卒業' : user_course_practice.cached_completed_fraction}
