@@ -37,7 +37,7 @@ class Comment < ApplicationRecord
   end
 
   def receiver
-    commentable&.user
+    commentable.respond_to?(:user) ? commentable.user : nil
   end
 
   def path
