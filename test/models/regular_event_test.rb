@@ -126,8 +126,8 @@ class RegularEventTest < ActiveSupport::TestCase
   end
 
   test '#all_scheduled_dates' do
-    start_date = Time.current.to_date
-    end_date = Time.current.to_date.next_year
+    start_date = Date.current
+    end_date = Date.current.next_year
     wednesday_for_year = (start_date..end_date).select(&:wednesday?)
 
     regular_event = regular_events(:regular_event34)

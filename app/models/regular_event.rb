@@ -109,8 +109,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def all_scheduled_dates(
-    from: Time.current.to_date,
-    to: Time.current.to_date.next_year
+    from: Date.current,
+    to: Date.current.next_year
   )
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
