@@ -2,7 +2,8 @@
 
 class API::UsersController < API::BaseController
   before_action :set_user, only: %i[show update]
-  before_action :require_login_for_api
+  before_action :require_login_for_api, except: :show
+  before_action :doorkeeper_authorize!, only: :show
   PAGER_NUMBER = 24
 
   def index
@@ -72,7 +73,11 @@ class API::UsersController < API::BaseController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = if params[:id] == 'show'
+              User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+            else
+              User.find(params[:id])
+            end
   end
 
   def user_params
