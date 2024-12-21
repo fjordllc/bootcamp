@@ -162,7 +162,7 @@ class DiscordNotifierTest < ActiveSupport::TestCase
     products(:product8).update!(checker_id: users(:komagata).id)
     comment = Comment.create!(user: users(:kimura), commentable: products(:product8), description: '提出者による返信')
     body = <<~TEXT.chomp
-      ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから5日経過しました。
+      ⚠️ kimuraさんの「PC性能の見方を知る」の提出物が、最後のコメントから3日経過しました。
       担当：<@12345>さん
       URL： <http://localhost:3000/products/313836099>
     TEXT
