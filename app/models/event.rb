@@ -37,6 +37,7 @@ class Event < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :users, through: :participations
   has_many :watches, as: :watchable, dependent: :destroy
+  has_many :footprints, as: :footprintable, dependent: :destroy
   attribute :announcement_of_publication, :boolean
 
   columns_for_keyword_search :title, :description

@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
   PAGER_NUMBER = 25
 
   include Rails.application.routes.url_helpers
+  include TrackableFootprints
   before_action :set_report, only: %i[show]
   before_action :set_my_report, only: %i[destroy]
   before_action :set_editable_report, only: %i[edit update]
@@ -21,6 +22,8 @@ class ReportsController < ApplicationController
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
+    @footprints = find_footprints(@report)
+    @footprint_total_count = @footprints.count
     respond_to do |format|
       format.html
       format.md
