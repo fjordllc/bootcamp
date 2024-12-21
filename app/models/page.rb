@@ -8,6 +8,7 @@ class Page < ApplicationRecord
   include Commentable
   include Watchable
   include Bookmarkable
+  include SearchHelper
 
   belongs_to :user
   belongs_to :practice, optional: true
