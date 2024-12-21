@@ -704,4 +704,12 @@ class UsersTest < ApplicationSystemTestCase
     filtered_users = all('.users-item__icon .a-user-role')
     assert(filtered_users.all? { |user| user[:class].split(' ').include?('is-student') })
   end
+
+  test 'can not upload broken image as user avatar' do
+    visit_with_auth '/current_user/edit', 'hajime'
+    attach_file 'user[avatar]', 'test/fixtures/files/images/broken_image.jpg', make_visible: true
+    click_button '更新する'
+
+    assert_text 'ユーザーアイコンは指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
+  end
 end
