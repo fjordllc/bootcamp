@@ -22,7 +22,11 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      render :create, status: :created
+      if params[:commentable_type] == 'Inquiry'
+        render partial: 'comments/comment', locals: { commentable:, comment: @comment, user: current_user }, status: :created
+      else
+        render :create, status: :created
+      end
     else
       head :bad_request
     end
