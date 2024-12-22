@@ -1,6 +1,7 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
+import initializeComment from 'initialize_comment.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     saveButton.addEventListener('click', () => {
       savedComment = editorTextarea.value
       createComment(savedComment, commentableId, commentableType)
+      editorTextarea.value = ''
+      commentEditorPreview.innerHTML = markdownInitializer.render(
+        editorTextarea.value
+      )
+      saveButton.disabled = true
     })
 
     const editTab = commentEditor.querySelector('.edit-comment-tab')
@@ -77,10 +83,24 @@ function createComment(description, commentableId, commentableType) {
     redirect: 'manual',
     body: JSON.stringify(params)
   })
-    .then(() => {
-      // コメント送信後にtextareaにdescriptionが残る現象を修正すること
-      // 読み込み前にトーストが出現してしまう、リロードが遅い原因を調べること
-      location.reload()
+    .then((response) => {
+      if (response.ok) {
+        return response.text()
+      } else {
+        return response.json().then((data) => {
+          throw new Error(data.errors.join(', '))
+        })
+      }
+    })
+    .then((html) => {
+      const comments = document.querySelector('.thread-comments__items')
+      const commentDiv = document.createElement('div')
+      commentDiv.innerHTML = html.replace('style="display: none;', '')
+      const newCommentElement = commentDiv.firstElementChild
+      comments.appendChild(newCommentElement)
+      initializeComment(newCommentElement)
+      // 新規作成したコメントにリアクション機能が動いていないので追加すること
+
       toast('コメントを投稿しました！')
     })
     .catch((error) => {
