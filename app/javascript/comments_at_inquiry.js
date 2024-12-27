@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= initialLimit; i++) {
       initialComments.push(comments[commentTotalCount - i])
     }
-    // setComments(initialComments)
     commentRemaining = commentTotalCount - initialLimit
 
     const moreCommentButton = document.querySelector(

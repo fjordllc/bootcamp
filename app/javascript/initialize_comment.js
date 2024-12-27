@@ -67,29 +67,6 @@ export default function initializeComment(comment) {
     })
   }
 
-  function deleteComment(commentId) {
-    fetch(`/api/comments/${commentId}.json`, {
-      method: 'DELETE',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then(() => {
-        const deletedComment = document.querySelector(
-          `.thread-comment.comment[data-comment_id='${commentId}']`
-        )
-        if (deletedComment) {
-          deletedComment.remove()
-        }
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
-  }
-
   const editTab = commentEditor.querySelector('.edit-comment-tab')
   const editorTabContent = commentEditor.querySelector('.is-editor')
   const previewTab = commentEditor.querySelector('.comment-preview-tab')
@@ -149,5 +126,28 @@ export default function initializeComment(comment) {
     }).catch((error) => {
       console.warn(error)
     })
+  }
+
+  function deleteComment(commentId) {
+    fetch(`/api/comments/${commentId}.json`, {
+      method: 'DELETE',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual'
+    })
+      .then(() => {
+        const deletedComment = document.querySelector(
+          `.thread-comment.comment[data-comment_id='${commentId}']`
+        )
+        if (deletedComment) {
+          deletedComment.remove()
+        }
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
   }
 }

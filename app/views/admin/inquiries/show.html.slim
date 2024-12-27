@@ -45,4 +45,4 @@ main.page-main
                 .a-long-text.is-md
                   = auto_link(simple_format(@inquiry.body), html: { target: '_blank' })
 
-      = render 'comments/comments', commentable: @inquiry, user: current_user, commentable_type: 'Inquiry'
+      = render 'comments/comments', commentable: @inquiry, commentable_type: 'Inquiry'
