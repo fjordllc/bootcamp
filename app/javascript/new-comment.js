@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-// commentableIdとCommentableTypeの取得タイミングは後ほど整理すること
 function createComment(description, commentableId, commentableType) {
   if (description.length < 1) {
     return null
