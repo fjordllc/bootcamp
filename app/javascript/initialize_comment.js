@@ -104,6 +104,24 @@ export default function initializeComment(comment) {
     toggleVisibility(tabElements, 'is-active')
   )
 
+  const createdAtElement = comment.querySelector('.thread-comment__created-at')
+  if (createdAtElement && navigator.clipboard) {
+    createdAtElement.addEventListener('click', () => {
+      const commentURL = location.href.split('#')[0] + '#comment_' + commentId
+      navigator.clipboard
+        .writeText(commentURL)
+        .then(() => {
+          createdAtElement.classList.add('is-active')
+          setTimeout(() => {
+            createdAtElement.classList.remove('is-active')
+          }, 4000)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    })
+  }
+
   function toggleVisibility(elements, className) {
     elements.forEach((element) => {
       element.classList.toggle(className)
