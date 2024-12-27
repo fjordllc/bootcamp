@@ -2,6 +2,7 @@ import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 import initializeComment from 'initialize_comment.js'
+import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -99,8 +100,8 @@ function createComment(description, commentableId, commentableType) {
       const newCommentElement = commentDiv.firstElementChild
       comments.appendChild(newCommentElement)
       initializeComment(newCommentElement)
-      // 新規作成したコメントにリアクション機能が動いていないので追加すること
-
+      const reactionElement = newCommentElement.querySelector('.js-reactions')
+      initializeReaction(reactionElement)
       toast('コメントを投稿しました！')
     })
     .catch((error) => {
