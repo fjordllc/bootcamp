@@ -1,0 +1,54 @@
+# frozen_string_literal: true
+
+require 'test_helper'
+
+module Url
+  class ClientTest < ActiveSupport::TestCase
+    test '.request' do
+      VCR.use_cassette 'url/client/request/example.com' do
+        response = Client.request('http://example.com/')
+        assert_equal '200', response.code
+        assert_match '<h1>Example Domain</h1>', response.body
+      end
+      VCR.use_cassette 'url/client/request/not-found.fjord.jp' do
+        assert_equal '404', Client.request('https://lokka.jp/foo').code
+      end
+      VCR.use_cassette 'url/client/request/foobarbuzzzzzzzzzzzzz.com' do
+        assert_not Client.request('http://foobarbuzzzzzzzzzzzzz.com/')
+      end
+      VCR.use_cassette 'url/client/request/bootcamp.fjord.jp' do
+        response = Client.request('https://bootcamp.fjord.jp/job_support')
+        assert_equal '200', response.code
+        assert_match '<title>就職支援 | FJORD BOOT CAMP（フィヨルドブートキャンプ）</title>', response.body
+      end
+      VCR.use_cassette 'url/client/request/developer.mozilla.org' do
+        response = Client.request('https://developer.mozilla.org/ja/docs/Web/JavaScript#Tutorials')
+        assert_equal '200', response.code
+        assert_match '<h1>JavaScript</h1>', response.body
+      end
+    end
+    test '#request' do
+      VCR.use_cassette 'url/client/request/example.com' do
+        response = Client.new('http://example.com/').request
+        assert_equal '200', response.code
+        assert_match '<h1>Example Domain</h1>', response.body
+      end
+      VCR.use_cassette 'url/client/request/not-found.fjord.jp' do
+        assert_equal '404', Client.new('https://lokka.jp/foo').request.code
+      end
+      VCR.use_cassette 'url/client/request/foobarbuzzzzzzzzzzzzz.com' do
+        assert_not Client.new('http://foobarbuzzzzzzzzzzzzz.com/').request
+      end
+      VCR.use_cassette 'url/client/request/bootcamp.fjord.jp' do
+        response = Client.new('https://bootcamp.fjord.jp/job_support').request
+        assert_equal '200', response.code
+        assert_match '<title>就職支援 | FJORD BOOT CAMP（フィヨルドブートキャンプ）</title>', response.body
+      end
+      VCR.use_cassette 'url/client/request/developer.mozilla.org' do
+        response = Client.new('https://developer.mozilla.org/ja/docs/Web/JavaScript#Tutorials').request
+        assert_equal '200', response.code
+        assert_match '<h1>JavaScript</h1>', response.body
+      end
+    end
+  end
+end
