@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
-  include TrackableFootprints
-
   before_action :set_event, only: %i[edit update destroy]
 
   def index
@@ -11,7 +9,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.with_avatar.find(params[:id])
-    @footprints = find_footprints(@event)
+    @footprints = Footprint.find_footprints(@event, current_user)
     @footprint_total_count = @footprints.count
   end
 
