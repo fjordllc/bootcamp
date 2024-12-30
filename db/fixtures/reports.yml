@@ -344,67 +344,16 @@ report89:
   title: "リンクカードの動作確認"
   emotion: 2
   description: |-
-    ## A
-    あいうえお@[card](https://bootcamp.fjord.jp)かきくけこ
-
-    ---
-
-    ## B
-    あいうえお @[card](https://bootcamp.fjord.jp)かきくけこ
-
-    ---
-
-    ## C
-    あいうえお@[card](https://bootcamp.fjord.jp) かきくけこ
-
-    ---
-
-    ## D
-    あいうえお
-    @[card](https://bootcamp.fjord.jp)かきくけこ
-
-    ---
-
-    ## E
-    あいうえお@[card](https://bootcamp.fjord.jp)
-    かきくけこ
-
-    ---
-
-    ## F
-    あいうえお
-    @[card](https://bootcamp.fjord.jp)
-    かきくけこ
-
-    ---
-
-    ## G
-    あいうえお
-
-    @[card](https://bootcamp.fjord.jp)
-    かきくけこ
-
-    ---
-
-    ## H
-    あいうえお
+    # リンクカードが生成されるパターン
     @[card](https://bootcamp.fjord.jp)
 
-    かきくけこ
-
     ---
 
-    ## I
     あいうえお
 
     @[card](https://bootcamp.fjord.jp)
 
     かきくけこ
-
-    ---
-
-    ## 生成されるハズ
-    @[card](https://bootcamp.fjord.jp)
 
     ---
 
@@ -419,50 +368,22 @@ report89:
     かきくけこ
 
     ---
-    ## 生成されないハズ
 
-    @[card](https://bootcamp.fjord.jp)かきくけこ
+    ## 複数のリンクカードがあるパターン
+    @[card](https://bootcamp.fjord.jp)
 
-    ---
+    @[card](https://bootcamp.fjord.jp)
 
-    あいうえお@[card](https://bootcamp.fjord.jp)
+    @[card](https://bootcamp.fjord.jp)
 
-    ---
-
-    あいうえお
     @[card](https://bootcamp.fjord.jp)
 
     ---
 
-    @[card](https://bootcamp.fjord.jp)
-    かきくけこ
-
-    ---
-
-    あいうえお @[card](https://bootcamp.fjord.jp) かきくけこ
-
-    ---
-
-    ### リンクがただの文字列な場合
-    @[card](URL)
-
-    ---
-
-    ### リンクのスキームがhttp / https以外な場合
-    @[card](ftp://target.example.com/target/directory/)
-
-    ---
-
-    ## マークダウンがネストした状態はdetailsとmessageだけ許容する
-    * @[card](https://bootcamp.fjord.jp)
-
-    ---
-
+    ## ネストが許容されるマークダウン
     :::message
     @[card](https://bootcamp.fjord.jp)
     :::
-
-    ---
 
     :::details リンクカードが展開される
     @[card](https://bootcamp.fjord.jp)
@@ -470,12 +391,95 @@ report89:
 
     ---
 
-    ## 3つ以上リンクカードを生成する場合でも問題なくリンクカードを生成することができる
+    ## Tweet
+    @[card](https://x.com/fjordbootcamp/status/1866097842483503117)
+
+    ---
+
+    # リンクカードが生成されるが、失敗するパターン
+    ## サイトが存在しない
+    @[card](https://examplehogehoge.com/hoge/)
+
+    ---
+
+    ## 存在しないTweet
+    @[card](https://x.com/fjordbootcamp/status/186609784248350311774832921aaa)
+
+    ---
+
+    # リンクカードが生成されないパターン
+    あいうえお@[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    あいうえお @[card](https://bootcamp.fjord.jp) かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+
+    ---
+
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお
     @[card](https://bootcamp.fjord.jp)
 
-    @[card](https://bootcamp.fjord.jp)
+    ---
 
     @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)かきくけこ
+
+    ---
+
+    あいうえお@[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
 
     @[card](https://bootcamp.fjord.jp)
+    かきくけこ
+
+    ---
+
+    あいうえお
+    @[card](https://bootcamp.fjord.jp)
+
+    かきくけこ
+
+    ---
+
+    ## リンクカードが生成されない特殊パターン
+    ### リンクがただの文字列な場合
+    @[card](URL)
+
+    ### リンクのスキームがhttp / https以外な場合
+    @[card](ftp://target.example.com/target/directory/)
+
+    ### detailsとmessage以外のマークダウンにネストしている場合
+    * @[card](https://bootcamp.fjord.jp)
+
   reported_on: <%= Time.now %>
