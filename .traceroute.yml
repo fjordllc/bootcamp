@@ -5,6 +5,7 @@ ignore_unused_routes:
   - any_login\/.*
   - active_storage\/.*
   - jobs/mass_update
+  - doorkeeper/authorizations#show
 ignore_unreachable_actions:
   - rails\/.*
   - active_storage\/.*
