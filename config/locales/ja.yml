@@ -520,3 +520,50 @@ ja:
     followup: "こんにちは。\nご登録から30日ほど経ちますが、学習について困っていることや詰まっている部分などありますでしょうか？\nもしあれば、メンターの皆さんにお気軽にご相談ください。"
     comeback: "お帰りなさい！！復会ありがとうございます。\n休会中に何か変わったことがあれば、再びスムーズに学び始めることができるように全力でサポートします。何か困ったことや質問があれば、メンターの皆さんに遠慮なくご相談ください。\n\nまたフィヨルドブートキャンプの Discord のサーバーに入室できるように、再度、Doc にある Discord の招待 URL にアクセスをお願いします。\n<https://bootcamp.fjord.jp/practices/129#url>"
   unregistered: 未登録
+  doorkeeper:
+    applications:
+      buttons:
+        authorize: 承認
+        cancel: キャンセル
+        destroy: 削除
+        edit: 編集
+        submit: 登録する
+      confirmations:
+        destroy: アプリケーションを削除しますか？
+      index:
+        actions: ''
+        new: アプリケーション追加
+        title: アプリケーション一覧
+      new:
+        title: アプリケーション追加
+      show:
+        actions: ''
+        application_id: Application ID
+        secret: Secret ID
+        title: アプリケーション詳細
+    authorizations:
+      buttons:
+        authorize: 承認
+        deny: キャンセル
+      new:
+        able_to: 次の許可をリクエストしています
+        title: ''
+        prompt: ''
+    flash:
+      applications:
+        create:
+          notice: アプリケーションを追加しました
+        destroy:
+          notice: アプリケーションを削除しました
+        update:
+          notice: アプリケーションを更新しました
+    layouts:
+      admin:
+        nav:
+          applications: ''
+          home: BootCamp
+        title: Oauth2 Provider
+      application:
+        title: Oauth2 Provider
+    scopes:
+      read: メールアドレスを含む基本的なプロフィール情報の表示
