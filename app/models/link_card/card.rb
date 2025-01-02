@@ -17,7 +17,7 @@ module LinkCard
 
     def fetch_tweet
       embed_tweet_url = "https://publish.twitter.com/oembed?url=#{@url}"
-      Url::Client.request(embed_tweet_url).body
+      Link::Client.request(embed_tweet_url).body
     end
   end
 end

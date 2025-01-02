@@ -6,7 +6,7 @@ class Metadata
   end
 
   def fetch_metadata
-    response = Url::Client.request(@url)
+    response = Link::Client.request(@url)
     case response
     when Net::HTTPSuccess
       parse_metadata(response.body)
