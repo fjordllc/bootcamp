@@ -18,7 +18,7 @@ export default (md, _options) => {
         allowLevel--
         continue
       }
-      // 親のp要素がマークダウンでネストしていない場合のみリンクカードを生成する(details以外)
+      // リンクの親のp要素が他のマークダウンにネストしていない場合のみリンクカードを生成する(details, message以外)
       const sourceToken = tokens[i - 1]
       const isParentRootParagraph =
         sourceToken &&
@@ -26,7 +26,7 @@ export default (md, _options) => {
         sourceToken.level === allowLevel
       if (!isParentRootParagraph) continue
 
-      // 対象となるlinkはinlineTokenのchildrenにのみ存在する
+      // 記法の対象となるlinkはinlineTokenのchildrenにのみ存在する
       if (token.type !== 'inline') continue
 
       const children = token.children
@@ -54,8 +54,8 @@ export default (md, _options) => {
         <p>リンクカード適用中... <i class="fa-regular fa-loader fa-spin"></i></p>
       </div>
         `
-      // tokens[i]の位置にpushしてしまうと、Tokenの配列として正しい形でなくなり、正しくないHTMLが出力されてしまう。
-      // 正しいTokenの配列を保つために、一連のtoken(pOpen inline pClose)の後にpushしている
+      // tokens[i]の位置にpushしてしまうと、Tokenの配列として正しい形でなくなり、想定していないHTMLが出力されてしまう。
+      // 正しいTokenの配列を保つために、linkCardの一連のtoken(pOpen inline pClose)の後にpushしている
       tokens.splice(i + 2, 0, linkCardToken)
 
       sourceToken.attrJoin('style', 'display: none')
