@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Url
+module Link
   class Client
     def self.request(url)
       new(url).request
