@@ -29,8 +29,19 @@ hr.a-border
       .question.page-content
         = render 'question_header', question: @question
         = render 'question_body', question: @question
-      div(data-vue="QuestionAnswers" data-vue-current-user-id:number="#{current_user.id}" data-vue-question-id="#{@question.id}")
-
+      .loading-content
+        - 3.times do
+          = render 'questions/comment_placeholder'
+      .answer-content style='display: none;'
+        - if @question.ai_answer
+          = render 'ai_answer', question: @question
+        header.thread-comments__header.answer-content
+          h2.thread-comments__title
+            | 回答・コメント
+        .answers-list
+          - @question.answers.each do |answer|
+            = render 'answer', question: @question, user: current_user, answer: answer
+        = render 'new_answer', question: @question, user: current_user
     nav.a-side-nav
       .a-side-nav__inner
         header.a-side-nav__header
