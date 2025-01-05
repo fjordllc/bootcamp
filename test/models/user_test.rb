@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/product_helper'
 
 class UserTest < ActiveSupport::TestCase
+  include ProductHelper
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
@@ -75,11 +77,13 @@ class UserTest < ActiveSupport::TestCase
   test '#completed_percentage don\'t calculate practice that include_progress: false' do
     user = users(:komagata)
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice5))
     user.completed_practices << practices(:practice5)
 
     assert_not_equal old_percentage, user.completed_percentage
 
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice53))
     user.completed_practices << practices(:practice53)
 
     assert_equal old_percentage, user.completed_percentage
@@ -88,11 +92,13 @@ class UserTest < ActiveSupport::TestCase
   test '#completed_percentage don\'t calculate practice unrelated cource' do
     user = users(:komagata)
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice5))
     user.completed_practices << practices(:practice5)
 
     assert_not_equal old_percentage, user.completed_percentage
 
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice55))
     user.completed_practices << practices(:practice55)
 
     assert_equal old_percentage, user.completed_percentage
@@ -381,6 +387,7 @@ class UserTest < ActiveSupport::TestCase
     practice2 = practices(:practice2)
     today = Time.zone.today
 
+    create_checked_product(user, practice1)
     Learning.create!(
       user:,
       practice: practice1,
@@ -389,6 +396,7 @@ class UserTest < ActiveSupport::TestCase
       updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
+    create_checked_product(user, practice2)
     Learning.create!(
       user:,
       practice: practice2,
@@ -425,6 +433,7 @@ class UserTest < ActiveSupport::TestCase
     practice1 = practices(:practice1)
     today = Time.zone.today
 
+    create_checked_product(user, practice1)
     Learning.create!(
       user:,
       practice: practice1,
@@ -450,6 +459,7 @@ class UserTest < ActiveSupport::TestCase
 
     machida = users(:machida)
     practice1 = practices(:practice1)
+    create_checked_product(machida, practice1)
     Learning.create!(
       user: machida,
       practice: practice1,
