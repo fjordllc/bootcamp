@@ -1,16 +1,26 @@
 .form-item
-  = f.label :learning_time_frames, '活動時間', class: 'a-form-label'
-  table
-    thead
-      tr
-        th
-        - %w[日 月 火 水 木 金 土].each do |day|
-          th = day
-    tbody
-      - 24.times do |hour|
+  = f.label :learning_time_frames, '主な活動予定時間', class: 'a-form-label'
+  .a-form-help
+    p
+      | フィヨルドブートキャンプの活動を行う予定の大体の日時にチェックを入れてください。
+      br
+      | この情報は他のフィヨルドブートキャンプ参加者に公開され、
+      | ペアワークや就職相談、勉強会、輪読会などのイベント開催を行う際の参考に使われます。
+  .form-table.is-sm.max-h-96.is-sticky.mt-4
+    table.min-w-full
+      thead
         tr
-          td = hour.to_s
-          - 7.times do |day_index|
-            - value = day_index * 24 + hour + 1
-            td
-              = f.check_box :learning_time_frame_ids, { multiple: true, checked: user.learning_time_frame_ids.include?(value) }, value, false
+          th
+          - %w[日 月 火 水 木 金 土].each do |day|
+            th = day
+      tbody
+        - 24.times do |hour|
+          tr(class='hover:bg-[var(--background-more-tint)]')
+            th
+              | #{hour.to_s}:00
+            - 7.times do |day_index|
+              - value = day_index * 24 + hour + 1
+              td.form-table__check
+                label
+                  span
+                    = f.check_box :learning_time_frame_ids, { multiple: true, checked: user.learning_time_frame_ids.include?(value) }, value, false
