@@ -1,8 +1,9 @@
 .a-card
   .card-header.is-sm
-    h2.card-header__title 活動時間
-  hr.a-border-tint
-    table
+    h2.card-header__title
+      | 主な活動予定時間
+  .a-table.is-sm.text-center
+    table.w-full
       thead
         tr
           th
@@ -10,11 +11,15 @@
             th = day
       tbody
         - 24.times do |hour|
-          tr
-            td = hour.to_s
+          tr(class='hover:bg-[var(--background-more-tint)]')
+            th.text-center
+              | #{hour.to_s}:00
             - 7.times do |day_index|
               - value = day_index * 24 + hour + 1
               - if user.learning_time_frames.ids.include?(value)
-                td ⭕️
+                td.p-0.h-6
+                  span.flex.h-full.text-center.justify-center.items-center.p-1.border.border-solid.rounded(class='text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]')
+                    i.fa-duotone.fa-solid.fa-check
               - else
-                td -
+                td.p-0.h-6
+                  span.flex.h-full.text-center.justify-center.items-center.p-1.rounded

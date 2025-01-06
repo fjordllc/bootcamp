@@ -31,10 +31,10 @@
             p
               | このページは他のユーザーから見た、あなたのプロフィールページです。
               | （ #{link_to '登録情報変更', edit_current_user_path} ）
-    .container.is-xl
+    .container.is-xxl
       .columns
         .row
-          .col-xs-12.col-lg-6.col-xxl-6
+          .col-xs-12.col-lg-4.col-xxl-5
             .page-content.is-user
               = render 'users/profile', user: @user
               .card-counts.is-user
@@ -66,7 +66,7 @@
                   .user-data__row
                     = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
 
-          .col-xs-12.col-lg-6.col-xxl-6
+          .col-xs-12.col-lg-4.col-xxl-4
             - if admin_or_mentor_login?
               = render 'users/user_mentor_memo', user_id: @user.id
             - unless @user.total_learning_time.zero? || @user.mentor?
@@ -78,8 +78,6 @@
             - if @user.completed_practices.present?
               - cache [@user, @completed_learnings] do
                 = render '/users/practices/completed_practices', user: @user, completed_learnings: @completed_learnings
-            - if !@user.graduated? && @user.learning_time_frames.present?
-              = render 'users/learning_time_frames', user: @user
             - if admin_login?
               .a-card.is-only-mentor
                 .card-header.is-sm
@@ -106,3 +104,7 @@
                     .user-statuses__delete
                       = link_to 'このユーザーを削除する', admin_user_path(@user), method: :delete, id: "delete-#{@user.id}", class: 'a-muted-text-link',
                         data: { confirm: '本当によろしいですか？この操作はデータを削除するため元に戻すことができません。' }
+
+          .col-xs-12.col-lg-4.col-xxl-3
+            - if !@user.graduated? && @user.learning_time_frames.present?
+              = render 'users/learning_time_frames', user: @user
