@@ -34,7 +34,3 @@ header.page-content-header
                 = user.discord_profile.account_name.presence || 'Discord 未設定'
     .page-content-header__row
       = render 'users/sns', user: user
-
-  - if user.company.present?
-    = link_to company_path(user.company) do
-      = image_tag user.company.logo_url, class: 'user-profile__company-logo'
