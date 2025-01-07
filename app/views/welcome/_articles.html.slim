@@ -1,14 +1,21 @@
-section.welcome-section.is-articles#articles
-  .container.is-xl
-    h2.welcome-section__title
-      | 注目のブログ記事
-    .welcome-section__description
-      p
-        | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
-        | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
-        | ぜひ、検討材料にご活用ください。
-        .welcome-page-body
-  .articles__body
+section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
+  .l-container.is-xl
+    .lp-content__inner
+      .lp-content__start
+        header.lp-content__header
+          h2.lp-content-title.text-center.is-border-bottom
+            | 注目のブログ記事
+
+      .lp-content__end
+        .lp-content-stack
+          .lp-content-stack__item
+            .lp-content__description
+              .l-inner-container.is-md
+                .a-short-text
+                  p
+                    | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
+                    | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
+                    | ぜひ、検討材料にご活用ください。
     .container.is-xl
       .articles__items
         .row
@@ -41,6 +48,13 @@ section.welcome-section.is-articles#articles
                             = l(article.created_at)
                           - else
                             = l(article.published_at)
+
+    .lp-content-stack__item
+      .lp-actions
+        .lp-actions__items
+          .lp-actions__item
+            = link_to articles_path, class: 'a-button is-xl is-primary-border is-block' do
+              | ブログ記事一覧
 
   .lp-content-divider.is-lp-bg-2
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
