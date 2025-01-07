@@ -9,11 +9,12 @@ class HomeController < ApplicationController
       display_events_on_dashboard
       display_welcome_message_for_adviser
       set_required_fields
+      display_products_for_mentor
       render action: :index
     else
       @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob })
       @articles = list_articles_with_specific_tag
-      render template: 'welcome/index', layout: 'welcome'
+      render template: 'welcome/index', layout: 'lp'
     end
   end
 
