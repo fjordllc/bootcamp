@@ -62,7 +62,7 @@ const loadTwitterScript = () => {
 const embedToTweet = async (targetLink, url) => {
   try {
     const response = await fetch(
-      `/api/metadata?url=${encodeURIComponent(url)}&tweet=true`,
+      `/api/metadata?url=${encodeURIComponent(url)}&tweet=1`,
       {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
