@@ -2,8 +2,10 @@
 
 require 'test_helper'
 require 'active_decorator_test_case'
+require 'supports/product_helper'
 
 class UserCoursePracticeDecoratorTest < ActiveDecoratorTestCase
+  include ProductHelper
   def setup
     komagata = UserCoursePractice.new(users(:komagata))
     kensyu = UserCoursePractice.new(users(:kensyu))
@@ -52,6 +54,9 @@ class UserCoursePracticeDecoratorTest < ActiveDecoratorTestCase
     practice61 = practices(:practice61)
 
     users(:harikirio).completed_practices = []
+    user = users(:harikirio)
+    create_checked_product(user, practices(:practice5))
+    create_checked_product(user, practices(:practice61))
     Learning.create!(
       [{ user: users(:harikirio),
          practice: practice5,
