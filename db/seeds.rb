@@ -63,14 +63,10 @@ tables = %i[
   survey_question_listings
   buzzes
   inquiries
-<<<<<<< HEAD
   coding_tests
   coding_test_cases
   coding_test_submissions
-  skip_practices
-=======
   skipped_practices
->>>>>>> ef3c30b51 (SkipPracticeのクラス名変更)
 ]
 
 ActiveRecord::FixtureSet.create_fixtures 'db/fixtures', tables
