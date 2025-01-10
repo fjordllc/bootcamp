@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-class RegularEventsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  before_action :set_regular_event, only: %i[edit update destroy]
+class RegularEventsController < ApplicationController
+  include RegularEventHelpers
+
+  before_action :set_regular_event, only: %i[edit update destroy show]
 
   def index
     @upcoming_events_groups = UpcomingEvent.upcoming_events_groups
   end
 
   def show
-    @regular_event = RegularEvent.find(params[:id])
     @footprints = Footprint.find_footprints(@regular_event, current_user)
     @footprint_total_count = @footprints.count
   end
@@ -27,12 +28,11 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
     @regular_event.user = current_user
     set_wip
     if @regular_event.save
-      update_publised_at
+      update_published_at
       Organizer.create(user_id: current_user.id, regular_event_id: @regular_event.id)
       Newspaper.publish(:event_create, { event: @regular_event })
       set_all_user_participants_and_watchers
-      path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
-      redirect_to path, notice: notice_message(@regular_event)
+      handle_redirect_after_create_or_update
     else
       render :new
     end
@@ -43,11 +43,10 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
   def update
     set_wip
     if @regular_event.update(regular_event_params)
-      update_publised_at
+      update_published_at
       Newspaper.publish(:regular_event_update, { regular_event: @regular_event, sender: current_user })
       set_all_user_participants_and_watchers
-      path = publish_with_announcement? ? new_announcement_path(regular_event_id: @regular_event.id) : Redirection.determin_url(self, @regular_event)
-      redirect_to path, notice: notice_message(@regular_event)
+      handle_redirect_after_create_or_update
     else
       render :edit
     end
@@ -76,42 +75,19 @@ class RegularEventsController < ApplicationController # rubocop:disable Metrics/
     )
   end
 
-  def set_regular_event
-    @regular_event = current_user.mentor? ? RegularEvent.find(params[:id]) : RegularEvent.organizer_event(current_user).find(params[:id])
-  end
-
   def set_wip
     @regular_event.wip = (params[:commit] == 'WIP')
   end
 
-  def update_publised_at
+  def update_published_at
     return if @regular_event.wip || @regular_event.published_at?
 
     @regular_event.update(published_at: Time.current)
   end
 
-  def publish_with_announcement?
-    @regular_event.wants_announcement? && !@regular_event.wip?
-  end
-
-  def notice_message(regular_event)
-    case params[:action]
-    when 'create'
-      regular_event.wip? ? '定期イベントをWIPとして保存しました。' : '定期イベントを作成しました。'
-    when 'update'
-      regular_event.wip? ? '定期イベントをWIPとして保存しました。' : '定期イベントを更新しました。'
-    end
-  end
-
   def copy_regular_event(new_event)
     regular_event = RegularEvent.find(params[:id])
-    new_event.title = regular_event.title
-    new_event.description = regular_event.description
-    new_event.finished = regular_event.finished
-    new_event.hold_national_holiday = regular_event.hold_national_holiday
-    new_event.start_at = regular_event.start_at
-    new_event.end_at = regular_event.end_at
-    new_event.category = regular_event.category
+    new_event.attributes = regular_event.attributes.slice('title', 'description', 'finished', 'hold_national_holiday', 'start_at', 'end_at', 'category')
     new_event.user_ids = regular_event.organizers.map(&:id)
 
     flash.now[:notice] = '定期イベントをコピーしました。'
