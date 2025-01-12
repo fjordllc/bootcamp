@@ -20,11 +20,11 @@ export default (md, _options) => {
       }
       // リンクの親のp要素が他のマークダウンにネストしていない場合のみリンクカードを生成する(details, message以外)
       const sourceToken = tokens[i - 1]
-      const isParentRootParagraph =
+      const isAllowedParagraph =
         sourceToken &&
         sourceToken.type === 'paragraph_open' &&
         sourceToken.level === allowLevel
-      if (!isParentRootParagraph) continue
+      if (!isAllowedParagraph) continue
 
       // 記法の対象となるlinkはinlineTokenのchildrenにのみ存在する
       if (token.type !== 'inline') continue
