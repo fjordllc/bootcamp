@@ -9,15 +9,16 @@
           th
           - %w[日 月 火 水 木 金 土].each do |day|
             th = day
-      tbody
+      tbody#learning_time_frame
         - 24.times do |hour|
           tr(class='hover:bg-[var(--background-more-tint)]')
             th.text-center
               | #{hour.to_s}:00
             - 7.times do |day_index|
               - value = day_index * 24 + hour + 1
+              - name = "checked_#{value}"
               - if user.learning_time_frames.ids.include?(value)
-                td.p-0.h-6
+                td.p-0.h-6 name=name
                   span.flex.h-full.text-center.justify-center.items-center.p-1.border.border-solid.rounded(class='text-[var(--main)] bg-[var(--input-selected-background)] border-[var(--main)]')
                     i.fa-duotone.fa-solid.fa-check
               - else
