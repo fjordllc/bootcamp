@@ -13,7 +13,7 @@
           th
           - %w[日 月 火 水 木 金 土].each do |day|
             th = day
-      tbody
+      tbody#learning_time_frame
         - 24.times do |hour|
           tr(class='hover:bg-[var(--background-more-tint)]')
             th
@@ -21,6 +21,6 @@
             - 7.times do |day_index|
               - value = day_index * 24 + hour + 1
               td.form-table__check
-                label
+                = f.label :learning_time_frame_ids, for: "user_learning_time_frame_ids_#{value}" do
                   span
                     = f.check_box :learning_time_frame_ids, { multiple: true, checked: user.learning_time_frame_ids.include?(value) }, value, false
