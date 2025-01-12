@@ -17,8 +17,9 @@ class ProductsController < ApplicationController
     @learning = @product.learning # decoratorメソッド用にcontrollerでインスタンス変数化
     @tweet_url = @practice.tweet_url(practice_completion_url(@practice.id))
     @recent_reports = Report.list.where(user_id: @product.user.id).limit(10)
-    @footprints = Footprint.find_footprints(@product, current_user)
-    @footprint_total_count = @footprints.count
+    Footprint.find_or_create_footprint(@product, current_user) unless @product.user == current_user
+    @footprints = Footprint.fetch_footprints(@product)
+    @footprint_total_count = Footprint.footprint_count(@product)
     respond_to do |format|
       format.html
       format.md

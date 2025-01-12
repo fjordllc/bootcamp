@@ -15,9 +15,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def show
-    @announcements = Announcement.with_avatar.where(wip: false).order(published_at: :desc).limit(10)
-    @footprints = Footprint.find_footprints(@announcement, current_user)
-    @footprint_total_count = @footprints.count
+    Footprint.find_or_create_footprint(@announcement, current_user) unless @announcement.user == current_user
+    @footprints = Footprint.fetch_footprints(@announcement)
+    @footprint_total_count = Footprint.footprint_count(@announcement)
   end
 
   def new
