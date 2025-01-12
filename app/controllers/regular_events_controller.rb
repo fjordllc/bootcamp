@@ -10,8 +10,9 @@ class RegularEventsController < ApplicationController
   end
 
   def show
-    @footprints = Footprint.find_footprints(@regular_event, current_user)
-    @footprint_total_count = @footprints.count
+    Footprint.find_or_create_footprint(@regular_event, current_user) unless @regular_event.user == current_user
+    @footprints = Footprint.fetch_footprints(@regular_event)
+    @footprint_total_count = Footprint.footprint_count(@regular_event)
   end
 
   def new
