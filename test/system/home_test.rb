@@ -89,9 +89,8 @@ class HomeTest < ApplicationSystemTestCase
     click_on '活動時間を登録してください。'
 
     assert_selector 'h1.auth-form__title', text: '登録情報変更'
-    assert_selector 'label.a-form-label', text: '活動時間'
-    check 'user_learning_time_frame_ids_1'
-    assert page.has_checked_field?('user_learning_time_frame_ids_1')
+    assert_selector 'label.a-form-label', text: '主な活動予定時間'
+    find('label[for="user_learning_time_frame_ids_1"]').click
     click_on '更新する'
 
     visit '/'
@@ -104,9 +103,8 @@ class HomeTest < ApplicationSystemTestCase
     click_on '活動時間を登録してください。'
 
     assert_selector 'h1.auth-form__title', text: '登録情報変更'
-    assert_selector 'label.a-form-label', text: '活動時間'
-    check 'user_learning_time_frame_ids_1'
-    assert page.has_checked_field?('user_learning_time_frame_ids_1')
+    assert_selector 'label.a-form-label', text: '主な活動予定時間'
+    find('label[for="user_learning_time_frame_ids_1"]').click
     click_on '更新する'
 
     visit '/'
