@@ -4,7 +4,7 @@ class Mentor::CodingTestsController < ApplicationController
   PER_PAGE = 20
 
   before_action :require_admin_or_mentor_login, only: %i[index new create edit update]
-  before_action :set_coding_test, only: %i[show edit update destroy]
+  before_action :set_coding_test, only: %i[edit update destroy]
 
   def index
     @coding_tests = CodingTest.joins(:practice)
@@ -12,8 +12,6 @@ class Mentor::CodingTestsController < ApplicationController
                               .page(params[:page])
                               .per(PER_PAGE)
   end
-
-  def show; end
 
   def new
     @coding_test = CodingTest.new(user: current_user)
