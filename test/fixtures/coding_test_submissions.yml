@@ -1,0 +1,5 @@
+coding_test_submission1:
+  coding_test: coding_test1
+  user: hatsuno
+  code: |-
+    console.log(\"hello\")
