@@ -90,3 +90,33 @@ article<%= id %>:
   wip: false
   published_at: "2022-03-14 00:00:00"
 <% end %>
+
+article41:
+  title: 卒業生の声のタグを持つ最新の記事です
+  summary: |-
+    summaryですsummaryですsummaryです
+  body: |-
+    bodyですbodyですbodyです
+  user: komagata
+  wip: false
+  published_at: "2024-03-14 00:00:00"
+
+article42:
+  title: 卒業生の声のタグを持つ2番目に新しい記事です
+  summary: |-
+    summaryですsummaryですsummaryです
+  body: |-
+    summaryを含むbody
+  user: komagata
+  wip: false
+  published_at: "2024-03-13 00:00:00"
+
+article43:
+  title: 卒業生の声のタグを持つ3番目に新しい記事です
+  summary: |-
+    summaryですsummaryですsummaryです
+  body: |-
+    summaryを含むbody
+  user: komagata
+  wip: false
+  published_at: "2024-03-12 00:00:00"

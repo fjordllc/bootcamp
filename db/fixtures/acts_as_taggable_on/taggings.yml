@@ -97,3 +97,18 @@ page13_tag_net_framework:
   taggable: page13 (Page)
   context: tags
   tag: _net_framework
+
+article41_tag_alumni_voice:
+  taggable: article41 (Article)
+  context: tags
+  tag: alumni_voice
+
+article42_tag_alumni_voice:
+  taggable: article42 (Article)
+  context: tags
+  tag: alumni_voice
+
+article43_tag_alumni_voice:
+  taggable: article43 (Article)
+  context: tags
+  tag: alumni_voice
