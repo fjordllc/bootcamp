@@ -365,6 +365,18 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '卒業済'
   end
 
+  test 'learning time frames hidden after user graduation' do
+    user = users(:kimura)
+    LearningTimeFramesUser.create!(user:, learning_time_frame_id: 1)
+
+    visit_with_auth "/users/#{user.id}", 'komagata'
+    accept_confirm do
+      click_link '卒業にする'
+    end
+    assert_text '卒業済'
+    assert_no_selector 'label.a-form-label', text: '活動時間'
+  end
+
   test 'change job seeking flag when click toggle button' do
     user = users(:hajime)
     visit_with_auth user_path(user.id), 'komagata'
@@ -703,5 +715,27 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector('a.tab-nav__item-link.is-active', text: '現役生')
     filtered_users = all('.users-item__icon .a-user-role')
     assert(filtered_users.all? { |user| user[:class].split(' ').include?('is-student') })
+  end
+
+  test 'visible learning time framestable on profile pages non advisors and grad users' do
+    hatsuno = users(:hatsuno)
+    mentormentaro = users(:mentormentaro)
+    kensyu = users(:kensyu)
+
+    LearningTimeFramesUser.create!(user: hatsuno, learning_time_frame_id: 1)
+    LearningTimeFramesUser.create!(user: mentormentaro, learning_time_frame_id: 2)
+    LearningTimeFramesUser.create!(user: kensyu, learning_time_frame_id: 3)
+
+    visit_with_auth "/users/#{hatsuno.id}", 'kimura'
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+
+    visit_with_auth "/users/#{mentormentaro.id}", 'kimura'
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+
+    visit_with_auth "/users/#{kensyu.id}", 'kimura'
+    assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+    assert_selector 'h2.card-header__title', text: '主な活動予定時間'
   end
 end
