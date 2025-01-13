@@ -19,7 +19,17 @@ class CodingTest < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
 
+  validate :no_test_cases
+
   def passed_by?(user)
     coding_test_submissions.exists?(user:)
+  end
+
+  private
+
+  def no_test_cases
+    return if coding_test_cases.any?
+
+    errors.add(:base, 'テストケースがありません')
   end
 end
