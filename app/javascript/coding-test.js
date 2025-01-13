@@ -23,16 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   OnBrowserJudge.workerFile = `../${language}.js`
   OnBrowserJudge.getProgram = () => editor.getValue()
-  OnBrowserJudge.dict.ready = "実行"
-  OnBrowserJudge.dict.running = "停止"
-  OnBrowserJudge.dict.preparation = "準備中"
-  OnBrowserJudge.dict.case_name = "テストケース名"
-  OnBrowserJudge.dict.status = "結果"
-  OnBrowserJudge.dict.AC = "正解"
-  OnBrowserJudge.dict.WA = "不正解"
-  OnBrowserJudge.dict.RE = "エラー"
-  OnBrowserJudge.dict.TLE = "時間超過"
-  OnBrowserJudge.dict.WJ = "ジャッジ待ち"
+  OnBrowserJudge.dict.ready = '実行'
+  OnBrowserJudge.dict.running = '停止'
+  OnBrowserJudge.dict.preparation = '準備中'
+  OnBrowserJudge.dict.case_name = 'テストケース名'
+  OnBrowserJudge.dict.status = '結果'
+  OnBrowserJudge.dict.AC = '正解'
+  OnBrowserJudge.dict.WA = '不正解'
+  OnBrowserJudge.dict.RE = 'エラー'
+  OnBrowserJudge.dict.TLE = '時間超過'
+  OnBrowserJudge.dict.WJ = 'ジャッジ待ち'
   OnBrowserJudge.timeLimit = 2001
   OnBrowserJudge.process = (program, _casename, _input) => program
   OnBrowserJudge.assertEqual = (expected, actual) => {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return expected === actual.trimEnd()
   }
   OnBrowserJudge.congratulations = async () => {
-    alert("正解！")
+    alert('正解！')
 
     const params = {
       coding_test_submission: {
@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await Bootcamp.post('/api/coding_test_submissions', params)
+      const response = await Bootcamp.post(
+        '/api/coding_test_submissions',
+        params
+      )
       if (response.ok) {
         location.href = `/practices/${practiceId}`
       } else {
@@ -61,4 +64,4 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(error)
     }
   }
- })
+})
