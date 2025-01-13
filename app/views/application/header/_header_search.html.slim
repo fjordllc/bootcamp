@@ -2,6 +2,11 @@
   .header-search__select.a-button.is-sm.is-secondary.is-select.is-block
     = select_tag 'document_type', options_for_select(Searcher::DOCUMENT_TYPES, params[:document_type]), id: select_id
   = text_field_tag 'word', params[:word], class: 'a-xs-text-input header-search__text-input', id: text_field_id, placeholder: '検索ワード'
+
+  .header-search__checkbox
+    = check_box_tag 'only_logged_in_user', '1', params[:only_logged_in_user].present?, id: 'only_logged_in_user'
+    = label_tag 'only_logged_in_user', '自分のみ'
+
   button.a-button.is-sm.is-secondary.is-icon.header-search__submit(id="#{submit_id}" type='submit')
     i.fa-solid.fa-search
     span
