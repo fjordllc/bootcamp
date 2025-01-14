@@ -16,6 +16,11 @@ class Practice < ApplicationRecord
            class_name: 'Learning',
            inverse_of: 'practice',
            dependent: nil
+  has_many :started_or_submitted_learnings,
+           -> { where(status: 'started').or(where(status: 'submitted')) },
+           class_name: 'Learning',
+           inverse_of: 'practice',
+           dependent: nil
   has_many :started_users,
            through: :started_learnings,
            source: :user
@@ -25,6 +30,10 @@ class Practice < ApplicationRecord
   has_many :started_students,
            -> { students_and_trainees },
            through: :started_learnings,
+           source: :user
+  has_many :started_or_submitted_students,
+           -> { students_and_trainees },
+           through: :started_or_submitted_learnings,
            source: :user
   has_many :products, dependent: :destroy
   has_many :questions, dependent: :nullify
