@@ -1,4 +1,4 @@
-.thread-comment.answer id="answer_#{answer.id}" data-question_id="#{question.id}" data-answer_id="#{answer.id}"
+.thread-comment.answer id="answer_#{answer.id}" data-question_id="#{question.id}" data-answer_id="#{answer.id}" data-answer_description="#{answer.description}"
   .thread-comment__start
     a.thread-comment__user-link href="#{answer.user.url}"
       span class="a-user-role is-#{answer.user.primary_role}"
@@ -64,7 +64,7 @@
           .a-markdown-input__inner.is-editor.js-tabs__content.is-active
             .form-textarea
               .form-textarea__body
-                textarea.a-text-input.a-markdown-input__textarea data-id="#js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
+                textarea.a-text-input.a-markdown-input__textarea id="js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
                   = answer.description
               .form-textarea__footer
                 .form-textarea__insert
