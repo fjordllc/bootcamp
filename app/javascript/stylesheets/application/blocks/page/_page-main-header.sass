@@ -1,11 +1,12 @@
 .page-main-header__inner
   padding-block: .5rem
+  display: flex
   +media-breakpoint-up(md)
     min-height: calc(3.5rem - 1px)
-    display: flex
     align-items: center
   +media-breakpoint-down(sm)
-    display: block
+    flex-direction: column
+    gap: .5rem
 
   .a-page-notice + .page-main &
     padding-top: .5em

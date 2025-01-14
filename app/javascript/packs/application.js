@@ -63,6 +63,7 @@ import '../micro-report-form-tabs.js'
 import '../micro-reports.js'
 import '../answer.js'
 import '../new-answer.js'
+import '../coding-test.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
