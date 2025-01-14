@@ -453,7 +453,7 @@ class CommentsTest < ApplicationSystemTestCase
     find('#js-new-comment').set('[![Image](https://example.com/test.png)](https://example.com)')
     click_button 'コメントする'
     assert_text 'コメントを投稿しました！'
-    assert_match '<a href="https://example.com"><img src="https://example.com/test.png" alt="Image"></a>', page.body # 落ちるので修正すること
+    assert_match '<a href="https://example.com" target="_blank" rel="noopener"><img src="https://example.com/test.png" alt="Image"></a>', page.body
   end
 
   test 'edit the comment for inquiry' do
@@ -501,45 +501,22 @@ class CommentsTest < ApplicationSystemTestCase
   end
 
   test 'comment url is copied when click its updated_time at inquiry' do
-    visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
-    secure_context = page.evaluate_script('window.isSecureContext')
-    puts secure_context
-    find('#comments.loaded', wait: 10)
-    first(:css, '.thread-comment__created-at').click
-    # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
-    cdp_permission = {
-      origin: page.server_url,
-      permission: { name: 'clipboard-read' },
-      setting: 'granted'
-    }
-    page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
-    clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
-    puts clip_text
-    assert_equal current_url + "#comment_#{comments(:comment43).id}", clip_text # 落ちるので修正すること
-  end
-
-  test 'comment url is copied when click its updated_time at inquiry2 by mock' do
-    visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
-
-    page.execute_script <<~JS
-      window.navigator.clipboard = {
-        writeText: (text) => {
-          console.log('Mock writeText called with:', text);
-          window.mockClipboardContent = text;
-        },
-        readText: () => {
-          console.log('Mock readText called');
-          return window.mockClipboardContent || '';
-        }
-      };
-    JS
-
-    find('#comments.loaded', wait: 10)
-    first(:css, '.thread-comment__created-at').click
-    page.execute_script('navigator.clipboard.writeText("Hi");')
-    clip_text = page.execute_script('navigator.clipboard.readText()')
-    puts "Clipboard content: #{clip_text}"
-    assert_equal current_url + "#comment_#{comments(:comment43).id}", clip_text # 落ちるので修正すること
+    Capybara.using_driver(:selenium_chrome_headless_with_clipboard) do
+      visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
+      secure_context = page.evaluate_script('window.isSecureContext')
+      puts secure_context
+      find('#comments.loaded', wait: 10)
+      first(:css, '.thread-comment__created-at').click
+      # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
+      cdp_permission = {
+        origin: page.server_url,
+        permission: { name: 'clipboard-read' },
+        setting: 'granted'
+      }
+      page.driver.browser.execute_cdp('Browser.setPermission', **cdp_permission)
+      clip_text = page.evaluate_async_script('navigator.clipboard.readText().then(arguments[0])')
+      assert_equal current_url + "#comment_#{comments(:comment43).id}", clip_text
+    end
   end
 
   test 'text change "see more comments" button by remaining comment amount at inquiry' do
