@@ -22,24 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
       '.a-markdown-input__textarea'
     )
 
-    const saveButton = commentEditor.querySelector('.is-primary')
-    editorTextarea.addEventListener('input', () => {
-      commentEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-      saveButton.disabled = editorTextarea.value.length === 0
-    })
-
-    saveButton.addEventListener('click', () => {
-      savedComment = editorTextarea.value
-      createComment(savedComment, commentableId, commentableType)
-      editorTextarea.value = ''
-      commentEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-      saveButton.disabled = true
-    })
-
     const editTab = commentEditor.querySelector('.edit-comment-tab')
     const editorTabContent = commentEditor.querySelector('.is-editor')
     const previewTab = commentEditor.querySelector('.comment-preview-tab')
@@ -51,6 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
       previewTab,
       previewTabContent
     ]
+
+    const saveButton = commentEditor.querySelector('.is-primary')
+    editorTextarea.addEventListener('input', () => {
+      commentEditorPreview.innerHTML = markdownInitializer.render(
+        editorTextarea.value
+      )
+      saveButton.disabled = editorTextarea.value.length === 0
+    })
+
+    saveButton.addEventListener('click', () => {
+      savedComment = editorTextarea.value
+      createComment(savedComment, commentableId, commentableType)
+      if (previewTab.classList.contains('is-active')) {
+        toggleVisibility(tabElements, 'is-active')
+      }
+      editorTextarea.value = ''
+      commentEditorPreview.innerHTML = markdownInitializer.render(
+        editorTextarea.value
+      )
+      saveButton.disabled = true
+    })
+
     editTab.addEventListener('click', () =>
       toggleVisibility(tabElements, 'is-active')
     )
