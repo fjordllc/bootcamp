@@ -6,6 +6,7 @@ import MarkdownInitializer from 'markdown-initializer'
 export default function initializeAnswer(answer) {
   const questionId = answer.dataset.question_id
   const answerId = answer.dataset.answer_id
+  const answerDescription = answer.dataset.answer_description
   let savedAnswer = ''
   TextareaInitializer.initialize(`#js-comment-${answerId}`)
   const markdownInitializer = new MarkdownInitializer()
@@ -13,7 +14,6 @@ export default function initializeAnswer(answer) {
   const answerDisplay = answer.querySelector('.answer-display')
   const answerEditor = answer.querySelector('.answer-editor')
   const answerDisplayContent = answerDisplay.querySelector('.a-long-text')
-  const answerDescription = answerDisplayContent.innerHTML
 
   const answerEditorPreview = answerEditor.querySelector(
     '.a-markdown-input__preview'

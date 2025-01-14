@@ -10,7 +10,7 @@ import store from './check-store.js'
 document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')
   if (newAnswer) {
-    TextareaInitializer.initialize('#new-comment')
+    TextareaInitializer.initialize('#js-new-comment')
     const markdownInitializer = new MarkdownInitializer()
     const questionId = newAnswer.dataset.question_id
     let savedAnswer = ''
