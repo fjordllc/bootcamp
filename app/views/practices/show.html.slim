@@ -3,7 +3,12 @@
 - category = @practice.category(current_user.course)
 
 = render '/shared/modal_learning_completion', practice: @practice, tweet_url: @tweet_url, should_display_message_automatically: false
-= render '/practices/page_header', title: @practice.title, category: category
+
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
+
 = practice_page_tabs(@practice, active_tab: 'プラクティス')
 
 .page-body
@@ -85,7 +90,7 @@
             header.card-header
               h2.card-header__title
                 = Practice.human_attribute_name :goal
-            hr.a-border
+            hr.a-border-tint
             .card-body.is-goal
               .card-body__description
                 .a-long-text.is-md.js-markdown-view
@@ -111,13 +116,16 @@
                   br
                   | 終了条件をクリアしたら修了にしてください。
 
+          - if @practice.coding_tests.present?
+            = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
+
           - if current_user.admin_or_mentor?
             = render 'memo', practice: @practice
 
             .a-card.is-only-mentor
               header.card-header
                 h2.card-header__title 管理者・メンター用メニュー
-              hr.a-border
+              hr.a-border-tint
               footer.card-footer
                 .card-main-actions
                   ul.card-main-actions__items

@@ -5,7 +5,11 @@ ruby:
 - title "「#{practice_title}」の模範解答編集"
 - set_meta_tags description: "プラクティス「#{practice_title}」の模範解答編集ページです。"
 
-= render '/practices/page_header', title: practice_title, category: category
+= render '/practices/page_header',
+  title: practice_title,
+  category: category,
+  practice: @practice
+
 = practice_page_tabs(@practice, active_tab: '模範解答')
 
 .page-main
