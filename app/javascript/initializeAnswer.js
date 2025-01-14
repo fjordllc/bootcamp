@@ -14,8 +14,18 @@ export default function initializeAnswer(answer) {
   const answerEditor = answer.querySelector('.answer-editor')
   const answerDisplayContent = answerDisplay.querySelector('.a-long-text')
   const answerDescription = answerDisplayContent.innerHTML
+
+  const answerEditorPreview = answerEditor.querySelector(
+    '.a-markdown-input__preview'
+  )
+  const editorTextarea = answerEditor.querySelector(
+    '.a-markdown-input__textarea'
+  )
+
   if (answerDescription) {
     answerDisplayContent.innerHTML =
+      markdownInitializer.render(answerDescription)
+    answerEditorPreview.innerHTML =
       markdownInitializer.render(answerDescription)
   }
 
@@ -39,13 +49,6 @@ export default function initializeAnswer(answer) {
       answerDisplayContent.innerHTML = markdownInitializer.render(savedAnswer)
     })
   }
-
-  const answerEditorPreview = answerEditor.querySelector(
-    '.a-markdown-input__preview'
-  )
-  const editorTextarea = answerEditor.querySelector(
-    '.a-markdown-input__textarea'
-  )
 
   const cancelButton = answerEditor.querySelector('.is-secondary')
   cancelButton.addEventListener('click', () => {
