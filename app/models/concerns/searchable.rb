@@ -30,7 +30,7 @@ module Searchable
           { _join_column_names => word }
         end
       end
-      { combinator: 'and', groupings: groupings }
+      { combinator: 'and', groupings: }
     end
 
     def word_to_groupings(word)
@@ -74,11 +74,11 @@ module Searchable
   end
 
   def formatted_updated_at
-    if self.is_a?(SearchResult)
-      self.formatted_updated_at
+    if is_a?(SearchResult)
+      formatted_updated_at
     else
       weekdays = { 'Sunday' => '日', 'Monday' => '月', 'Tuesday' => '火', 'Wednesday' => '水',
-                  'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
+                   'Thursday' => '木', 'Friday' => '金', 'Saturday' => '土' }
       day_name = updated_at.strftime('%A')
       updated_at.strftime("%Y年%m月%d日(#{weekdays[day_name]}) %H:%M")
     end
