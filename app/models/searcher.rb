@@ -30,7 +30,7 @@ class Searcher
           result_for(document_type, word).sort_by(&:updated_at).reverse
         end
 
-        delete_private_comment!(searchables) # 相談部屋とお問い合わせのコメント内容は検索できないようにする
+      delete_private_comment!(searchables) # 相談部屋とお問い合わせのコメント内容は検索できないようにする
     end
 
     private
