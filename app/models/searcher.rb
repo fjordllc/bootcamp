@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Searcher
+  include SearchHelper
+
   DOCUMENT_TYPES = [
     ['すべて', :all],
     ['お知らせ', :announcements],
@@ -16,7 +18,13 @@ class Searcher
 
   AVAILABLE_TYPES = DOCUMENT_TYPES.map(&:second) - %i[all] + %i[comments answers]
 
-  def self.search(word, document_type: :all, current_user:)
+  def self.fetch_url(searchable)
+      searchable_url(searchable)
+  rescue NoMethodError
+      nil
+  end
+
+  def self.search(word, current_user:, document_type: :all)
     words = word.split(/[[:blank:]]+/).reject(&:blank?)
     searchables = case document_type
                   when :all
@@ -29,17 +37,22 @@ class Searcher
                     result_for(document_type, words).sort_by(&:updated_at).reverse
                   end
 
-    if current_user.admin?
-      searchables = searchables.reject { |searchable| searchable.instance_of?(Talk) }
-    else
-      searchables = searchables.reject do |searchable|
-        searchable.instance_of?(Talk) && searchable.user_id != current_user.id
-      end
-    end
+    searchables = if current_user.admin?
+                    searchables.reject { |searchable| searchable.instance_of?(Talk) }
+                  else
+                    searchables.reject do |searchable|
+                      searchable.instance_of?(Talk) && searchable.user_id != current_user.id
+                    end
+                  end
 
     delete_comment_of_talk!(searchables, current_user)
 
-    searchables.map { |searchable| SearchResult.new(searchable, word) }
+    searchables.map do |searchable|
+      SearchResult.new(
+        SearchHelper.matched_document(searchable),
+        word
+      )
+    end
   end
 
   def self.fetch_login_name(searchable)
@@ -67,6 +80,8 @@ class Searcher
   def self.fetch_label(searchable)
     if searchable.is_a?(User)
       searchable.avatar_url
+    elsif searchable.is_a?(Talk)
+      nil
     else
       searchable.label
     end
@@ -78,13 +93,15 @@ class Searcher
       username = user_filter.delete_prefix('user:')
       user = User.find_by(login_name: username)
       return [] unless user
+
       AVAILABLE_TYPES
         .reject { |type| type == :users }
         .flat_map do |type|
           model = model(type)
           next [] unless model.column_names.include?('user_id') || model.column_names.include?('last_updated_user_id')
+
           if type == :practices
-            model.where("last_updated_user_id = ?", user.id)
+            model.where('last_updated_user_id = ?', user.id)
           else
             model.where(user_id: user.id)
           end
@@ -115,14 +132,14 @@ class Searcher
       return [] unless user
 
       results = if type == :practices
-                  model(type).where("user_id = ? OR last_updated_user_id = ?", user.id, user.id)
+                  model(type).where('user_id = ? OR last_updated_user_id = ?', user.id, user.id)
                 else
                   model(type).where(user_id: user.id)
                 end
     else
       results = if commentable?(type)
                   model(type).search_by_keywords(words:, commentable_type:) +
-                  Comment.search_by_keywords(words:, commentable_type: model_name(type))
+                    Comment.search_by_keywords(words:, commentable_type: model_name(type))
                 else
                   model(type).search_by_keywords(words:, commentable_type:)
                 end
@@ -133,14 +150,13 @@ class Searcher
   def self.result_matches_keyword?(result, word)
     return false unless result
 
-    if word.match(/^user:(\w+)$/)
+    if word =~ /^user:(\w+)$/
       username = Regexp.last_match(1)
-      if result.is_a?(Practice)
+      return result.user&.login_name == username unless result.is_a?(Practice)
+
         user = User.find_by(id: result.last_updated_user_id)
         return user&.login_name == username
-      else
-        return result.user&.login_name == username
-      end
+
     end
     searchable_fields = [result.try(:title), result.try(:body), result.try(:description)]
     searchable_fields.any? { |field| field.to_s.include?(word) }
@@ -170,14 +186,12 @@ class Searcher
 
   def self.delete_comment_of_talk!(searchables, current_user)
     searchables.reject! do |searchable|
-      if searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
-        searchable.commentable.user_id != current_user.id && !current_user.admin?
-      end
+      searchable.commentable.user_id != current_user.id && !current_user.admin? if searchable.instance_of?(Comment) && searchable.commentable.instance_of?(Talk)
     end
   end
 
   def self.highlight_word(text, word)
-    return '' unless text.present? && word.present?
+    return text unless text.present? && word.present?
 
     sanitized_word = Regexp.escape(word)
     text.gsub(/(#{sanitized_word})/i, '<strong class="matched_word">\1</strong>')
