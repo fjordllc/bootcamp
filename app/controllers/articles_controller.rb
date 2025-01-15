@@ -38,7 +38,10 @@ class ArticlesController < ApplicationController
     @article.user = current_user if @article.user.nil?
     set_wip
     if @article.save
-      Newspaper.publish(:create_article, { article: @article })
+      # Newspaper.publish(:create_article, { article: @article })
+      # 上のコードのコメントアウトは、以下のissueのための一時的なものなので、mergeされ次第コメントアウトを外すこと。
+      # https://github.com/fjordllc/bootcamp/issues/8244
+
       redirect_to redirect_url(@article), notice: notice_message(@article)
     else
       render :new
