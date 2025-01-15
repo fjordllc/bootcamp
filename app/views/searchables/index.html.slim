@@ -14,6 +14,7 @@ hr.a-border
     .container.is-md
       .card-list.a-card
         - @searchables.each do |searchable|
+          - next if searchable.model_name == 'talk'
           span class="card-list-item is-#{searchable.model_name}"
             .card-list-item__inner
               - searchable_user = User.find_by(id: searchable.user_id)

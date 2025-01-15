@@ -17,33 +17,79 @@ module SearchHelper
     find_match_in_text(summary, word)
   end
 
-  extend ActiveSupport::Concern
-
-  included do
-    def url
-      case self
-      when Comment
-        "#{commentable.url}#comment_#{id}"
-      when CorrectAnswer
-        Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
-      when Answer
-        Rails.application.routes.url_helpers.question_path(question, anchor: "answer_#{id}")
-      else
-        helper_method = "#{self.class.name.underscore}_path"
-        Rails.application.routes.url_helpers.send(helper_method, self)
-      end
-    rescue NoMethodError
-      raise NoMethodError, "Route for #{self.class.name} is not defined. Please check your routes."
+  def self.matched_document(searchable)
+    if searchable.instance_of?(Comment)
+      searchable.commentable_type.constantize.find(searchable.commentable_id)
+    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
+      searchable.question
+    else
+      searchable
     end
+  end
 
-    def formatted_summary(word)
-      target_text = respond_to?(:body) ? body : description
-      return target_text if word.blank?
+  def searchable_url(searchable)
+    case searchable
+    when SearchResult
+      searchable.url
+    when Comment
+      "#{searchable.commentable.url}#comment_#{searchable.id}"
+    when CorrectAnswer, Answer
+      Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
+    else
+      helper_method = "#{searchable.class.name.underscore}_path"
+      Rails.application.routes.url_helpers.send(helper_method, searchable)
+    end
+  rescue NoMethodError
+    raise NoMethodError, "Route for #{searchable.class.name} is not defined. Please check your routes."
+  end
 
-      words = word.split(/[[:blank:]]+/)
-      words.reduce(target_text) do |text, single_word|
-        Searcher.highlight_word(text, single_word)
+  def filtered_message(searchable)
+    case searchable
+    when SearchResult
+      searchable.summary
+    when Comment
+      commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
+      if policy(commentable).show? || (commentable.is_a?(Practice) && commentable.open_product?)
+        searchable.body
+      else
+        '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
       end
+    when Product
+      searchable.body.presence || '本文がありません。'
+    else
+      searchable.try(:description) || '本文がありません。'
+    end
+  end
+
+  def comment_or_answer?(searchable)
+    if searchable.is_a?(SearchResult)
+      %w[comment answer correct_answer].include?(searchable.model_name)
+    else
+      searchable.is_a?(Comment) || searchable.is_a?(Answer)
+    end
+  end
+
+  def talk?(searchable)
+    if searchable.is_a?(SearchResult)
+      searchable.model_name == 'user' && searchable.talk.present?
+    else
+      searchable.instance_of?(User) && searchable.talk.present?
+    end
+  end
+
+  def user?(searchable)
+    if searchable.is_a?(SearchResult)
+      searchable.model_name == 'user'
+    else
+      searchable.instance_of?(User)
+    end
+  end
+
+  def created_user(searchable)
+    if searchable.is_a?(SearchResult)
+      User.find_by(id: searchable.user_id)
+    else
+      searchable.respond_to?(:user) ? searchable.user : nil
     end
   end
 end
