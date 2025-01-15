@@ -69,6 +69,7 @@ jobs:
       - checkout
       - run: sudo apt-get update # TODO: remove it https://github.com/CircleCI-Public/browser-tools-orb/issues/75#issuecomment-1641031119
       - browser-tools/install-chrome:
+          chrome-version: 130.0.6778.70
           replace-existing: true
       - browser-tools/install-chromedriver
       - ruby/install-deps:
