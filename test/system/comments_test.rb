@@ -503,8 +503,6 @@ class CommentsTest < ApplicationSystemTestCase
   test 'comment url is copied when click its updated_time at inquiry' do
     Capybara.using_driver(:selenium_chrome_headless_with_clipboard) do
       visit_with_auth "/admin/inquiries/#{inquiries(:inquiry1).id}", 'komagata'
-      secure_context = page.evaluate_script('window.isSecureContext')
-      puts secure_context
       find('#comments.loaded', wait: 10)
       first(:css, '.thread-comment__created-at').click
       # 参考：https://gist.github.com/KonnorRogers/5fe937ee60695ff1d227f18fe4b1d5c4
