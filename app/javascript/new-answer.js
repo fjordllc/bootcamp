@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     saveButton.addEventListener('click', () => {
       savedAnswer = editorTextarea.value
-      createAnswer(savedAnswer, questionId)
+      createAnswer(savedAnswer, questionId, tabElements)
       editorTextarea.value = ''
       answerEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-function createAnswer(description, questionId) {
+function createAnswer(description, questionId, tabElements) {
   if (description.length < 1) {
     return null
   }
@@ -103,6 +103,11 @@ function createAnswer(description, questionId) {
       initializeReaction(reactionElement)
       updateAnswerCount(true)
       updateWatchable(questionId)
+      const [, , previewTab] = tabElements
+      if (previewTab.classList.contains('is-active')) {
+        toggleVisibility(tabElements, 'is-active')
+      }
+
       toast('回答を投稿しました！')
     })
     .catch((error) => {
