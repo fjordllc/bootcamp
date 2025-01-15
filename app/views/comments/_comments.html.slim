@@ -11,6 +11,5 @@
     h2.thread-comments__title
       | コメント
   .thread-comments__items
-    - commentable.comments.order(created_at: :asc).each do |comment|
-      = render 'comments/comment', user: current_user, comment: comment
+    = render partial: 'comments/comment', collection: @comments, as: :comment, locals: { user: current_user }
   = render 'comments/new_comment', commentable: commentable, commentable_type: commentable_type, user: current_user
