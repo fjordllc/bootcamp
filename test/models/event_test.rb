@@ -4,7 +4,7 @@ require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
   test '.scheduled_on(date)' do
-    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
       today_date = Time.zone.today
       today_events_count = 2
       today_events = Event.scheduled_on(today_date)
