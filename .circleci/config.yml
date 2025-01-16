@@ -63,13 +63,14 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:postgres@localhost/ci_test"
       TZ: Asia/Tokyo
-      PARALLEL_WORKERS: 1
+      PARALLEL_WORKERS: 2
     parallelism: 3
     steps:
       - checkout
       - run: sudo apt-get update # TODO: remove it https://github.com/CircleCI-Public/browser-tools-orb/issues/75#issuecomment-1641031119
       - browser-tools/install-chrome:
           replace-existing: true
+          chrome-version: 130.0.6723.116
       - browser-tools/install-chromedriver
       - run:
           command: |
