@@ -75,7 +75,6 @@ import Footprints from '../components/footprints.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
-import CourseBooks from '../components/course-books.vue'
 
 import '../stylesheets/application'
 
@@ -89,7 +88,6 @@ mounter.addComponent(Footprints)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(ActionCompletedButton)
-mounter.addComponent(CourseBooks)
 mounter.mount()
 
 // Support component names relative to this directory:
