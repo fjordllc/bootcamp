@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const newAnswer = document.querySelector('.new-answer')
   if (newAnswer) {
     TextareaInitializer.initialize('#js-new-comment')
+    const defaultTextareaSize =
+      document.getElementById('js-new-comment').scrollHeight
     const markdownInitializer = new MarkdownInitializer()
     const questionId = newAnswer.dataset.question_id
     let savedAnswer = ''
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editorTextarea.value
       )
       saveButton.disabled = true
+      resizeTextarea(editorTextarea, defaultTextareaSize)
     })
 
     const editTab = answerEditor.querySelector('.edit-answer-tab')
@@ -126,4 +129,8 @@ function updateWatchable(questionId) {
     watchableId: questionId,
     watchableType: 'Question'
   })
+}
+
+function resizeTextarea(textarea, defaultTextareaSize) {
+  textarea.style.height = `${defaultTextareaSize}px`
 }
