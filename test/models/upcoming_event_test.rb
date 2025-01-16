@@ -10,7 +10,7 @@ class UpcomingEventTest < ActiveSupport::TestCase
 
   # not testing '.build_group' because this method is used in '.upcoming_events_grpups'.
   test '.upcoming_events_groups' do
-    travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
+    travel_to Time.zone.local(2017, 4, 3, 8, 0, 0) do
       today_events = [
         events(:event27),
         events(:event33),
