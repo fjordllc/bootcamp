@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.stripe.com/v1/subscriptions/sub_1QSLW2BpeWcLFd8f075qVUFt
+    uri: https://api.stripe.com/v1/subscriptions/sub_12345678
     body:
       encoding: US-ASCII
       string: ''
@@ -79,131 +79,212 @@ http_interactions:
       - max-age=63072000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      base64_string: |
-        ewogICJpZCI6ICJzdWJfMVFTTFcyQnBlV2NMRmQ4ZjA3NXFWVUZ0IiwKICAi
-        b2JqZWN0IjogInN1YnNjcmlwdGlvbiIsCiAgImFwcGxpY2F0aW9uIjogbnVs
-        bCwKICAiYXBwbGljYXRpb25fZmVlX3BlcmNlbnQiOiBudWxsLAogICJhdXRv
-        bWF0aWNfdGF4IjogewogICAgImRpc2FibGVkX3JlYXNvbiI6IG51bGwsCiAg
-        ICAiZW5hYmxlZCI6IGZhbHNlLAogICAgImxpYWJpbGl0eSI6IG51bGwKICB9
-        LAogICJiaWxsaW5nIjogImNoYXJnZV9hdXRvbWF0aWNhbGx5IiwKICAiYmls
-        bGluZ19jeWNsZV9hbmNob3IiOiAxNzMzNTg5MjEwLAogICJiaWxsaW5nX2N5
-        Y2xlX2FuY2hvcl9jb25maWciOiBudWxsLAogICJiaWxsaW5nX3RocmVzaG9s
-        ZHMiOiBudWxsLAogICJjYW5jZWxfYXQiOiAxNzM4OTQ2MDEwLAogICJjYW5j
-        ZWxfYXRfcGVyaW9kX2VuZCI6IHRydWUsCiAgImNhbmNlbGVkX2F0IjogMTcz
-        NzA4MDA0NCwKICAiY2FuY2VsbGF0aW9uX2RldGFpbHMiOiB7CiAgICAiY29t
-        bWVudCI6IG51bGwsCiAgICAiZmVlZGJhY2siOiBudWxsLAogICAgInJlYXNv
-        biI6ICJjYW5jZWxsYXRpb25fcmVxdWVzdGVkIgogIH0sCiAgImNvbGxlY3Rp
-        b25fbWV0aG9kIjogImNoYXJnZV9hdXRvbWF0aWNhbGx5IiwKICAiY3JlYXRl
-        ZCI6IDE3MzMzMzAwMTAsCiAgImN1cnJlbmN5IjogImpweSIsCiAgImN1cnJl
-        bnRfcGVyaW9kX2VuZCI6IDE3Mzg5NDYwMTAsCiAgImN1cnJlbnRfcGVyaW9k
-        X3N0YXJ0IjogMTczNjI2NzYxMCwKICAiY3VzdG9tZXIiOiAiY3VzX1JMMVpq
-        NlNYVHo0WENyIiwKICAiZGF5c191bnRpbF9kdWUiOiBudWxsLAogICJkZWZh
-        dWx0X3BheW1lbnRfbWV0aG9kIjogbnVsbCwKICAiZGVmYXVsdF9zb3VyY2Ui
-        OiBudWxsLAogICJkZWZhdWx0X3RheF9yYXRlcyI6IFsKCiAgXSwKICAiZGVz
-        Y3JpcHRpb24iOiBudWxsLAogICJkaXNjb3VudCI6IG51bGwsCiAgImRpc2Nv
-        dW50cyI6IFsKCiAgXSwKICAiZW5kZWRfYXQiOiBudWxsLAogICJpbnZvaWNl
-        X2N1c3RvbWVyX2JhbGFuY2Vfc2V0dGluZ3MiOiB7CiAgICAiY29uc3VtZV9h
-        cHBsaWVkX2JhbGFuY2Vfb25fdm9pZCI6IHRydWUKICB9LAogICJpbnZvaWNl
-        X3NldHRpbmdzIjogewogICAgImFjY291bnRfdGF4X2lkcyI6IG51bGwsCiAg
-        ICAiaXNzdWVyIjogewogICAgICAidHlwZSI6ICJzZWxmIgogICAgfQogIH0s
-        CiAgIml0ZW1zIjogewogICAgIm9iamVjdCI6ICJsaXN0IiwKICAgICJkYXRh
-        IjogWwogICAgICB7CiAgICAgICAgImlkIjogInNpX1JMMVpMTWVjaVEzSHNn
-        IiwKICAgICAgICAib2JqZWN0IjogInN1YnNjcmlwdGlvbl9pdGVtIiwKICAg
-        ICAgICAiYmlsbGluZ190aHJlc2hvbGRzIjogbnVsbCwKICAgICAgICAiY3Jl
-        YXRlZCI6IDE3MzMzMzAwMTEsCiAgICAgICAgImRpc2NvdW50cyI6IFsKCiAg
-        ICAgICAgXSwKICAgICAgICAibWV0YWRhdGEiOiB7CiAgICAgICAgfSwKICAg
-        ICAgICAicGxhbiI6IHsKICAgICAgICAgICJpZCI6ICJwcmljZV8xSnJsT3hC
-        cGVXY0xGZDhmZDVyZ3gwOGMiLAogICAgICAgICAgIm9iamVjdCI6ICJwbGFu
-        IiwKICAgICAgICAgICJhY3RpdmUiOiB0cnVlLAogICAgICAgICAgImFnZ3Jl
-        Z2F0ZV91c2FnZSI6IG51bGwsCiAgICAgICAgICAiYW1vdW50IjogMjk4MDAs
-        CiAgICAgICAgICAiYW1vdW50X2RlY2ltYWwiOiAiMjk4MDAiLAogICAgICAg
-        ICAgImJpbGxpbmdfc2NoZW1lIjogInBlcl91bml0IiwKICAgICAgICAgICJj
-        cmVhdGVkIjogMTYzNTk1MzM2MywKICAgICAgICAgICJjdXJyZW5jeSI6ICJq
-        cHkiLAogICAgICAgICAgImludGVydmFsIjogIm1vbnRoIiwKICAgICAgICAg
-        ICJpbnRlcnZhbF9jb3VudCI6IDEsCiAgICAgICAgICAibGl2ZW1vZGUiOiBm
-        YWxzZSwKICAgICAgICAgICJtZXRhZGF0YSI6IHsKICAgICAgICAgIH0sCiAg
-        ICAgICAgICAibWV0ZXIiOiBudWxsLAogICAgICAgICAgIm5pY2tuYW1lIjog
-        IuOCueOCv+ODs+ODgOODvOODieODl+ODqeODsyIsCiAgICAgICAgICAicHJv
-        ZHVjdCI6ICJwcm9kX0tXcDN2RWI1aGxaQk5DIiwKICAgICAgICAgICJ0aWVy
-        cyI6IG51bGwsCiAgICAgICAgICAidGllcnNfbW9kZSI6IG51bGwsCiAgICAg
-        ICAgICAidHJhbnNmb3JtX3VzYWdlIjogbnVsbCwKICAgICAgICAgICJ0cmlh
-        bF9wZXJpb2RfZGF5cyI6IDMsCiAgICAgICAgICAidXNhZ2VfdHlwZSI6ICJs
-        aWNlbnNlZCIKICAgICAgICB9LAogICAgICAgICJwcmljZSI6IHsKICAgICAg
-        ICAgICJpZCI6ICJwcmljZV8xSnJsT3hCcGVXY0xGZDhmZDVyZ3gwOGMiLAog
-        ICAgICAgICAgIm9iamVjdCI6ICJwcmljZSIsCiAgICAgICAgICAiYWN0aXZl
-        IjogdHJ1ZSwKICAgICAgICAgICJiaWxsaW5nX3NjaGVtZSI6ICJwZXJfdW5p
-        dCIsCiAgICAgICAgICAiY3JlYXRlZCI6IDE2MzU5NTMzNjMsCiAgICAgICAg
-        ICAiY3VycmVuY3kiOiAianB5IiwKICAgICAgICAgICJjdXN0b21fdW5pdF9h
-        bW91bnQiOiBudWxsLAogICAgICAgICAgImxpdmVtb2RlIjogZmFsc2UsCiAg
-        ICAgICAgICAibG9va3VwX2tleSI6IG51bGwsCiAgICAgICAgICAibWV0YWRh
-        dGEiOiB7CiAgICAgICAgICB9LAogICAgICAgICAgIm5pY2tuYW1lIjogIuOC
-        ueOCv+ODs+ODgOODvOODieODl+ODqeODsyIsCiAgICAgICAgICAicHJvZHVj
-        dCI6ICJwcm9kX0tXcDN2RWI1aGxaQk5DIiwKICAgICAgICAgICJyZWN1cnJp
-        bmciOiB7CiAgICAgICAgICAgICJhZ2dyZWdhdGVfdXNhZ2UiOiBudWxsLAog
-        ICAgICAgICAgICAiaW50ZXJ2YWwiOiAibW9udGgiLAogICAgICAgICAgICAi
-        aW50ZXJ2YWxfY291bnQiOiAxLAogICAgICAgICAgICAibWV0ZXIiOiBudWxs
-        LAogICAgICAgICAgICAidHJpYWxfcGVyaW9kX2RheXMiOiAzLAogICAgICAg
-        ICAgICAidXNhZ2VfdHlwZSI6ICJsaWNlbnNlZCIKICAgICAgICAgIH0sCiAg
-        ICAgICAgICAidGF4X2JlaGF2aW9yIjogInVuc3BlY2lmaWVkIiwKICAgICAg
-        ICAgICJ0aWVyc19tb2RlIjogbnVsbCwKICAgICAgICAgICJ0cmFuc2Zvcm1f
-        cXVhbnRpdHkiOiBudWxsLAogICAgICAgICAgInR5cGUiOiAicmVjdXJyaW5n
-        IiwKICAgICAgICAgICJ1bml0X2Ftb3VudCI6IDI5ODAwLAogICAgICAgICAg
-        InVuaXRfYW1vdW50X2RlY2ltYWwiOiAiMjk4MDAiCiAgICAgICAgfSwKICAg
-        ICAgICAicXVhbnRpdHkiOiAxLAogICAgICAgICJzdWJzY3JpcHRpb24iOiAi
-        c3ViXzFRU0xXMkJwZVdjTEZkOGYwNzVxVlVGdCIsCiAgICAgICAgInRheF9y
-        YXRlcyI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgImlkIjogInR4cl8x
-        T20wWXlCcGVXY0xGZDhmb3ZTTEZnWFgiLAogICAgICAgICAgICAib2JqZWN0
-        IjogInRheF9yYXRlIiwKICAgICAgICAgICAgImFjdGl2ZSI6IHRydWUsCiAg
-        ICAgICAgICAgICJjb3VudHJ5IjogIkpQIiwKICAgICAgICAgICAgImNyZWF0
-        ZWQiOiAxNzA4NDYzMzU2LAogICAgICAgICAgICAiZGVzY3JpcHRpb24iOiBu
-        dWxsLAogICAgICAgICAgICAiZGlzcGxheV9uYW1lIjogIua2iOiyu+eojiIs
-        CiAgICAgICAgICAgICJlZmZlY3RpdmVfcGVyY2VudGFnZSI6IDEwLjAsCiAg
-        ICAgICAgICAgICJmbGF0X2Ftb3VudCI6IG51bGwsCiAgICAgICAgICAgICJp
-        bmNsdXNpdmUiOiB0cnVlLAogICAgICAgICAgICAianVyaXNkaWN0aW9uIjog
-        bnVsbCwKICAgICAgICAgICAgImp1cmlzZGljdGlvbl9sZXZlbCI6IG51bGws
-        CiAgICAgICAgICAgICJsaXZlbW9kZSI6IGZhbHNlLAogICAgICAgICAgICAi
-        bWV0YWRhdGEiOiB7CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJwZXJj
-        ZW50YWdlIjogMTAuMCwKICAgICAgICAgICAgInJhdGVfdHlwZSI6ICJwZXJj
-        ZW50YWdlIiwKICAgICAgICAgICAgInN0YXRlIjogbnVsbCwKICAgICAgICAg
-        ICAgInRheF90eXBlIjogbnVsbAogICAgICAgICAgfQogICAgICAgIF0KICAg
-        ICAgfQogICAgXSwKICAgICJoYXNfbW9yZSI6IGZhbHNlLAogICAgInRvdGFs
-        X2NvdW50IjogMSwKICAgICJ1cmwiOiAiL3YxL3N1YnNjcmlwdGlvbl9pdGVt
-        cz9zdWJzY3JpcHRpb249c3ViXzFRU0xXMkJwZVdjTEZkOGYwNzVxVlVGdCIK
-        ICB9LAogICJsYXRlc3RfaW52b2ljZSI6ICJpbl8xUWVmalpCcGVXY0xGZDhm
-        MUF6TVQxQzMiLAogICJsaXZlbW9kZSI6IGZhbHNlLAogICJtZXRhZGF0YSI6
-        IHsKICB9LAogICJuZXh0X3BlbmRpbmdfaW52b2ljZV9pdGVtX2ludm9pY2Ui
-        OiBudWxsLAogICJvbl9iZWhhbGZfb2YiOiBudWxsLAogICJwYXVzZV9jb2xs
-        ZWN0aW9uIjogbnVsbCwKICAicGF5bWVudF9zZXR0aW5ncyI6IHsKICAgICJw
-        YXltZW50X21ldGhvZF9vcHRpb25zIjogbnVsbCwKICAgICJwYXltZW50X21l
-        dGhvZF90eXBlcyI6IG51bGwsCiAgICAic2F2ZV9kZWZhdWx0X3BheW1lbnRf
-        bWV0aG9kIjogIm9mZiIKICB9LAogICJwZW5kaW5nX2ludm9pY2VfaXRlbV9p
-        bnRlcnZhbCI6IG51bGwsCiAgInBlbmRpbmdfc2V0dXBfaW50ZW50IjogbnVs
-        bCwKICAicGVuZGluZ191cGRhdGUiOiBudWxsLAogICJwbGFuIjogewogICAg
-        ImlkIjogInByaWNlXzFKcmxPeEJwZVdjTEZkOGZkNXJneDA4YyIsCiAgICAi
-        b2JqZWN0IjogInBsYW4iLAogICAgImFjdGl2ZSI6IHRydWUsCiAgICAiYWdn
-        cmVnYXRlX3VzYWdlIjogbnVsbCwKICAgICJhbW91bnQiOiAyOTgwMCwKICAg
-        ICJhbW91bnRfZGVjaW1hbCI6ICIyOTgwMCIsCiAgICAiYmlsbGluZ19zY2hl
-        bWUiOiAicGVyX3VuaXQiLAogICAgImNyZWF0ZWQiOiAxNjM1OTUzMzYzLAog
-        ICAgImN1cnJlbmN5IjogImpweSIsCiAgICAiaW50ZXJ2YWwiOiAibW9udGgi
-        LAogICAgImludGVydmFsX2NvdW50IjogMSwKICAgICJsaXZlbW9kZSI6IGZh
-        bHNlLAogICAgIm1ldGFkYXRhIjogewogICAgfSwKICAgICJtZXRlciI6IG51
-        bGwsCiAgICAibmlja25hbWUiOiAi44K544K/44Oz44OA44O844OJ44OX44Op
-        44OzIiwKICAgICJwcm9kdWN0IjogInByb2RfS1dwM3ZFYjVobFpCTkMiLAog
-        ICAgInRpZXJzIjogbnVsbCwKICAgICJ0aWVyc19tb2RlIjogbnVsbCwKICAg
-        ICJ0cmFuc2Zvcm1fdXNhZ2UiOiBudWxsLAogICAgInRyaWFsX3BlcmlvZF9k
-        YXlzIjogMywKICAgICJ1c2FnZV90eXBlIjogImxpY2Vuc2VkIgogIH0sCiAg
-        InF1YW50aXR5IjogMSwKICAic2NoZWR1bGUiOiBudWxsLAogICJzdGFydCI6
-        IDE3MzcwODAwNDQsCiAgInN0YXJ0X2RhdGUiOiAxNzMzMzMwMDEwLAogICJz
-        dGF0dXMiOiAiYWN0aXZlIiwKICAidGF4X3BlcmNlbnQiOiBudWxsLAogICJ0
-        ZXN0X2Nsb2NrIjogbnVsbCwKICAidHJhbnNmZXJfZGF0YSI6IG51bGwsCiAg
-        InRyaWFsX2VuZCI6IDE3MzM1ODkyMTAsCiAgInRyaWFsX3NldHRpbmdzIjog
-        ewogICAgImVuZF9iZWhhdmlvciI6IHsKICAgICAgIm1pc3NpbmdfcGF5bWVu
-        dF9tZXRob2QiOiAiY3JlYXRlX2ludm9pY2UiCiAgICB9CiAgfSwKICAidHJp
-        YWxfc3RhcnQiOiAxNzMzMzMwMDEwCn0=
+      string: |
+        {
+          "id": "sub_12345678",
+          "object": "subscription",
+          "application": null,
+          "application_fee_percent": null,
+          "automatic_tax": {
+            "disabled_reason": null,
+            "enabled": false,
+            "liability": null
+          },
+          "billing": "charge_automatically",
+          "billing_cycle_anchor": 1733589210,
+          "billing_cycle_anchor_config": null,
+          "billing_thresholds": null,
+          "cancel_at": 1738946010,
+          "cancel_at_period_end": true,
+          "canceled_at": 1737080044,
+          "cancellation_details": {
+            "comment": null,
+            "feedback": null,
+            "reason": "cancellation_requested"
+          },
+          "collection_method": "charge_automatically",
+          "created": 1733330010,
+          "currency": "jpy",
+          "current_period_end": 1738946010,
+          "current_period_start": 1736267610,
+          "customer": "cus_RL1Zj6SXTz4XCr",
+          "days_until_due": null,
+          "default_payment_method": null,
+          "default_source": null,
+          "default_tax_rates": [
+
+          ],
+          "description": null,
+          "discount": null,
+          "discounts": [
+
+          ],
+          "ended_at": null,
+          "invoice_customer_balance_settings": {
+            "consume_applied_balance_on_void": true
+          },
+          "invoice_settings": {
+            "account_tax_ids": null,
+            "issuer": {
+              "type": "self"
+            }
+          },
+          "items": {
+            "object": "list",
+            "data": [
+              {
+                "id": "si_RL1ZLMeciQ3Hsg",
+                "object": "subscription_item",
+                "billing_thresholds": null,
+                "created": 1733330011,
+                "discounts": [
+
+                ],
+                "metadata": {
+                },
+                "plan": {
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+                  "object": "plan",
+                  "active": true,
+                  "aggregate_usage": null,
+                  "amount": 29800,
+                  "amount_decimal": "29800",
+                  "billing_scheme": "per_unit",
+                  "created": 1635953363,
+                  "currency": "jpy",
+                  "interval": "month",
+                  "interval_count": 1,
+                  "livemode": false,
+                  "metadata": {
+                  },
+                  "meter": null,
+                  "nickname": "スタンダードプラン",
+                  "product": "prod_KWp3vEb5hlZBNC",
+                  "tiers": null,
+                  "tiers_mode": null,
+                  "transform_usage": null,
+                  "trial_period_days": 3,
+                  "usage_type": "licensed"
+                },
+                "price": {
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+                  "object": "price",
+                  "active": true,
+                  "billing_scheme": "per_unit",
+                  "created": 1635953363,
+                  "currency": "jpy",
+                  "custom_unit_amount": null,
+                  "livemode": false,
+                  "lookup_key": null,
+                  "metadata": {
+                  },
+                  "nickname": "スタンダードプラン",
+                  "product": "prod_KWp3vEb5hlZBNC",
+                  "recurring": {
+                    "aggregate_usage": null,
+                    "interval": "month",
+                    "interval_count": 1,
+                    "meter": null,
+                    "trial_period_days": 3,
+                    "usage_type": "licensed"
+                  },
+                  "tax_behavior": "unspecified",
+                  "tiers_mode": null,
+                  "transform_quantity": null,
+                  "type": "recurring",
+                  "unit_amount": 29800,
+                  "unit_amount_decimal": "29800"
+                },
+                "quantity": 1,
+                "subscription": "sub_12345678",
+                "tax_rates": [
+                  {
+                    "id": "txr_1Om0YyBpeWcLFd8fovSLFgXX",
+                    "object": "tax_rate",
+                    "active": true,
+                    "country": "JP",
+                    "created": 1708463356,
+                    "description": null,
+                    "display_name": "消費税",
+                    "effective_percentage": 10.0,
+                    "flat_amount": null,
+                    "inclusive": true,
+                    "jurisdiction": null,
+                    "jurisdiction_level": null,
+                    "livemode": false,
+                    "metadata": {
+                    },
+                    "percentage": 10.0,
+                    "rate_type": "percentage",
+                    "state": null,
+                    "tax_type": null
+                  }
+                ]
+              }
+            ],
+            "has_more": false,
+            "total_count": 1,
+            "url": "/v1/subscription_items?subscription=sub_1QSLW2BpeWcLFd8f075qVUFt"
+          },
+          "latest_invoice": "in_1QefjZBpeWcLFd8f1AzMT1C3",
+          "livemode": false,
+          "metadata": {
+          },
+          "next_pending_invoice_item_invoice": null,
+          "on_behalf_of": null,
+          "pause_collection": null,
+          "payment_settings": {
+            "payment_method_options": null,
+            "payment_method_types": null,
+            "save_default_payment_method": "off"
+          },
+          "pending_invoice_item_interval": null,
+          "pending_setup_intent": null,
+          "pending_update": null,
+          "plan": {
+            "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+            "object": "plan",
+            "active": true,
+            "aggregate_usage": null,
+            "amount": 29800,
+            "amount_decimal": "29800",
+            "billing_scheme": "per_unit",
+            "created": 1635953363,
+            "currency": "jpy",
+            "interval": "month",
+            "interval_count": 1,
+            "livemode": false,
+            "metadata": {
+            },
+            "meter": null,
+            "nickname": "スタンダードプラン",
+            "product": "prod_KWp3vEb5hlZBNC",
+            "tiers": null,
+            "tiers_mode": null,
+            "transform_usage": null,
+            "trial_period_days": 3,
+            "usage_type": "licensed"
+          },
+          "quantity": 1,
+          "schedule": null,
+          "start": 1737080044,
+          "start_date": 1733330010,
+          "status": "active",
+          "tax_percent": null,
+          "test_clock": null,
+          "transfer_data": null,
+          "trial_end": 1733589210,
+          "trial_settings": {
+            "end_behavior": {
+              "missing_payment_method": "create_invoice"
+            }
+          },
+          "trial_start": 1733330010
+        }
   recorded_at: Fri, 17 Jan 2025 02:15:40 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/subscriptions/sub_1QSLW2BpeWcLFd8f075qVUFt
+    uri: https://api.stripe.com/v1/subscriptions/sub_12345678
     body:
       encoding: UTF-8
       base64_string: 'Y2FuY2VsX2F0X3BlcmlvZF9lbmQ9dHJ1ZQ==
@@ -290,126 +371,207 @@ http_interactions:
       - max-age=63072000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      base64_string: |
-        ewogICJpZCI6ICJzdWJfMVFTTFcyQnBlV2NMRmQ4ZjA3NXFWVUZ0IiwKICAi
-        b2JqZWN0IjogInN1YnNjcmlwdGlvbiIsCiAgImFwcGxpY2F0aW9uIjogbnVs
-        bCwKICAiYXBwbGljYXRpb25fZmVlX3BlcmNlbnQiOiBudWxsLAogICJhdXRv
-        bWF0aWNfdGF4IjogewogICAgImRpc2FibGVkX3JlYXNvbiI6IG51bGwsCiAg
-        ICAiZW5hYmxlZCI6IGZhbHNlLAogICAgImxpYWJpbGl0eSI6IG51bGwKICB9
-        LAogICJiaWxsaW5nIjogImNoYXJnZV9hdXRvbWF0aWNhbGx5IiwKICAiYmls
-        bGluZ19jeWNsZV9hbmNob3IiOiAxNzMzNTg5MjEwLAogICJiaWxsaW5nX2N5
-        Y2xlX2FuY2hvcl9jb25maWciOiBudWxsLAogICJiaWxsaW5nX3RocmVzaG9s
-        ZHMiOiBudWxsLAogICJjYW5jZWxfYXQiOiAxNzM4OTQ2MDEwLAogICJjYW5j
-        ZWxfYXRfcGVyaW9kX2VuZCI6IHRydWUsCiAgImNhbmNlbGVkX2F0IjogMTcz
-        NzA4MDE0MCwKICAiY2FuY2VsbGF0aW9uX2RldGFpbHMiOiB7CiAgICAiY29t
-        bWVudCI6IG51bGwsCiAgICAiZmVlZGJhY2siOiBudWxsLAogICAgInJlYXNv
-        biI6ICJjYW5jZWxsYXRpb25fcmVxdWVzdGVkIgogIH0sCiAgImNvbGxlY3Rp
-        b25fbWV0aG9kIjogImNoYXJnZV9hdXRvbWF0aWNhbGx5IiwKICAiY3JlYXRl
-        ZCI6IDE3MzMzMzAwMTAsCiAgImN1cnJlbmN5IjogImpweSIsCiAgImN1cnJl
-        bnRfcGVyaW9kX2VuZCI6IDE3Mzg5NDYwMTAsCiAgImN1cnJlbnRfcGVyaW9k
-        X3N0YXJ0IjogMTczNjI2NzYxMCwKICAiY3VzdG9tZXIiOiAiY3VzX1JMMVpq
-        NlNYVHo0WENyIiwKICAiZGF5c191bnRpbF9kdWUiOiBudWxsLAogICJkZWZh
-        dWx0X3BheW1lbnRfbWV0aG9kIjogbnVsbCwKICAiZGVmYXVsdF9zb3VyY2Ui
-        OiBudWxsLAogICJkZWZhdWx0X3RheF9yYXRlcyI6IFsKCiAgXSwKICAiZGVz
-        Y3JpcHRpb24iOiBudWxsLAogICJkaXNjb3VudCI6IG51bGwsCiAgImRpc2Nv
-        dW50cyI6IFsKCiAgXSwKICAiZW5kZWRfYXQiOiBudWxsLAogICJpbnZvaWNl
-        X2N1c3RvbWVyX2JhbGFuY2Vfc2V0dGluZ3MiOiB7CiAgICAiY29uc3VtZV9h
-        cHBsaWVkX2JhbGFuY2Vfb25fdm9pZCI6IHRydWUKICB9LAogICJpbnZvaWNl
-        X3NldHRpbmdzIjogewogICAgImFjY291bnRfdGF4X2lkcyI6IG51bGwsCiAg
-        ICAiaXNzdWVyIjogewogICAgICAidHlwZSI6ICJzZWxmIgogICAgfQogIH0s
-        CiAgIml0ZW1zIjogewogICAgIm9iamVjdCI6ICJsaXN0IiwKICAgICJkYXRh
-        IjogWwogICAgICB7CiAgICAgICAgImlkIjogInNpX1JMMVpMTWVjaVEzSHNn
-        IiwKICAgICAgICAib2JqZWN0IjogInN1YnNjcmlwdGlvbl9pdGVtIiwKICAg
-        ICAgICAiYmlsbGluZ190aHJlc2hvbGRzIjogbnVsbCwKICAgICAgICAiY3Jl
-        YXRlZCI6IDE3MzMzMzAwMTEsCiAgICAgICAgImRpc2NvdW50cyI6IFsKCiAg
-        ICAgICAgXSwKICAgICAgICAibWV0YWRhdGEiOiB7CiAgICAgICAgfSwKICAg
-        ICAgICAicGxhbiI6IHsKICAgICAgICAgICJpZCI6ICJwcmljZV8xSnJsT3hC
-        cGVXY0xGZDhmZDVyZ3gwOGMiLAogICAgICAgICAgIm9iamVjdCI6ICJwbGFu
-        IiwKICAgICAgICAgICJhY3RpdmUiOiB0cnVlLAogICAgICAgICAgImFnZ3Jl
-        Z2F0ZV91c2FnZSI6IG51bGwsCiAgICAgICAgICAiYW1vdW50IjogMjk4MDAs
-        CiAgICAgICAgICAiYW1vdW50X2RlY2ltYWwiOiAiMjk4MDAiLAogICAgICAg
-        ICAgImJpbGxpbmdfc2NoZW1lIjogInBlcl91bml0IiwKICAgICAgICAgICJj
-        cmVhdGVkIjogMTYzNTk1MzM2MywKICAgICAgICAgICJjdXJyZW5jeSI6ICJq
-        cHkiLAogICAgICAgICAgImludGVydmFsIjogIm1vbnRoIiwKICAgICAgICAg
-        ICJpbnRlcnZhbF9jb3VudCI6IDEsCiAgICAgICAgICAibGl2ZW1vZGUiOiBm
-        YWxzZSwKICAgICAgICAgICJtZXRhZGF0YSI6IHsKICAgICAgICAgIH0sCiAg
-        ICAgICAgICAibWV0ZXIiOiBudWxsLAogICAgICAgICAgIm5pY2tuYW1lIjog
-        IuOCueOCv+ODs+ODgOODvOODieODl+ODqeODsyIsCiAgICAgICAgICAicHJv
-        ZHVjdCI6ICJwcm9kX0tXcDN2RWI1aGxaQk5DIiwKICAgICAgICAgICJ0aWVy
-        cyI6IG51bGwsCiAgICAgICAgICAidGllcnNfbW9kZSI6IG51bGwsCiAgICAg
-        ICAgICAidHJhbnNmb3JtX3VzYWdlIjogbnVsbCwKICAgICAgICAgICJ0cmlh
-        bF9wZXJpb2RfZGF5cyI6IDMsCiAgICAgICAgICAidXNhZ2VfdHlwZSI6ICJs
-        aWNlbnNlZCIKICAgICAgICB9LAogICAgICAgICJwcmljZSI6IHsKICAgICAg
-        ICAgICJpZCI6ICJwcmljZV8xSnJsT3hCcGVXY0xGZDhmZDVyZ3gwOGMiLAog
-        ICAgICAgICAgIm9iamVjdCI6ICJwcmljZSIsCiAgICAgICAgICAiYWN0aXZl
-        IjogdHJ1ZSwKICAgICAgICAgICJiaWxsaW5nX3NjaGVtZSI6ICJwZXJfdW5p
-        dCIsCiAgICAgICAgICAiY3JlYXRlZCI6IDE2MzU5NTMzNjMsCiAgICAgICAg
-        ICAiY3VycmVuY3kiOiAianB5IiwKICAgICAgICAgICJjdXN0b21fdW5pdF9h
-        bW91bnQiOiBudWxsLAogICAgICAgICAgImxpdmVtb2RlIjogZmFsc2UsCiAg
-        ICAgICAgICAibG9va3VwX2tleSI6IG51bGwsCiAgICAgICAgICAibWV0YWRh
-        dGEiOiB7CiAgICAgICAgICB9LAogICAgICAgICAgIm5pY2tuYW1lIjogIuOC
-        ueOCv+ODs+ODgOODvOODieODl+ODqeODsyIsCiAgICAgICAgICAicHJvZHVj
-        dCI6ICJwcm9kX0tXcDN2RWI1aGxaQk5DIiwKICAgICAgICAgICJyZWN1cnJp
-        bmciOiB7CiAgICAgICAgICAgICJhZ2dyZWdhdGVfdXNhZ2UiOiBudWxsLAog
-        ICAgICAgICAgICAiaW50ZXJ2YWwiOiAibW9udGgiLAogICAgICAgICAgICAi
-        aW50ZXJ2YWxfY291bnQiOiAxLAogICAgICAgICAgICAibWV0ZXIiOiBudWxs
-        LAogICAgICAgICAgICAidHJpYWxfcGVyaW9kX2RheXMiOiAzLAogICAgICAg
-        ICAgICAidXNhZ2VfdHlwZSI6ICJsaWNlbnNlZCIKICAgICAgICAgIH0sCiAg
-        ICAgICAgICAidGF4X2JlaGF2aW9yIjogInVuc3BlY2lmaWVkIiwKICAgICAg
-        ICAgICJ0aWVyc19tb2RlIjogbnVsbCwKICAgICAgICAgICJ0cmFuc2Zvcm1f
-        cXVhbnRpdHkiOiBudWxsLAogICAgICAgICAgInR5cGUiOiAicmVjdXJyaW5n
-        IiwKICAgICAgICAgICJ1bml0X2Ftb3VudCI6IDI5ODAwLAogICAgICAgICAg
-        InVuaXRfYW1vdW50X2RlY2ltYWwiOiAiMjk4MDAiCiAgICAgICAgfSwKICAg
-        ICAgICAicXVhbnRpdHkiOiAxLAogICAgICAgICJzdWJzY3JpcHRpb24iOiAi
-        c3ViXzFRU0xXMkJwZVdjTEZkOGYwNzVxVlVGdCIsCiAgICAgICAgInRheF9y
-        YXRlcyI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgImlkIjogInR4cl8x
-        T20wWXlCcGVXY0xGZDhmb3ZTTEZnWFgiLAogICAgICAgICAgICAib2JqZWN0
-        IjogInRheF9yYXRlIiwKICAgICAgICAgICAgImFjdGl2ZSI6IHRydWUsCiAg
-        ICAgICAgICAgICJjb3VudHJ5IjogIkpQIiwKICAgICAgICAgICAgImNyZWF0
-        ZWQiOiAxNzA4NDYzMzU2LAogICAgICAgICAgICAiZGVzY3JpcHRpb24iOiBu
-        dWxsLAogICAgICAgICAgICAiZGlzcGxheV9uYW1lIjogIua2iOiyu+eojiIs
-        CiAgICAgICAgICAgICJlZmZlY3RpdmVfcGVyY2VudGFnZSI6IDEwLjAsCiAg
-        ICAgICAgICAgICJmbGF0X2Ftb3VudCI6IG51bGwsCiAgICAgICAgICAgICJp
-        bmNsdXNpdmUiOiB0cnVlLAogICAgICAgICAgICAianVyaXNkaWN0aW9uIjog
-        bnVsbCwKICAgICAgICAgICAgImp1cmlzZGljdGlvbl9sZXZlbCI6IG51bGws
-        CiAgICAgICAgICAgICJsaXZlbW9kZSI6IGZhbHNlLAogICAgICAgICAgICAi
-        bWV0YWRhdGEiOiB7CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJwZXJj
-        ZW50YWdlIjogMTAuMCwKICAgICAgICAgICAgInJhdGVfdHlwZSI6ICJwZXJj
-        ZW50YWdlIiwKICAgICAgICAgICAgInN0YXRlIjogbnVsbCwKICAgICAgICAg
-        ICAgInRheF90eXBlIjogbnVsbAogICAgICAgICAgfQogICAgICAgIF0KICAg
-        ICAgfQogICAgXSwKICAgICJoYXNfbW9yZSI6IGZhbHNlLAogICAgInRvdGFs
-        X2NvdW50IjogMSwKICAgICJ1cmwiOiAiL3YxL3N1YnNjcmlwdGlvbl9pdGVt
-        cz9zdWJzY3JpcHRpb249c3ViXzFRU0xXMkJwZVdjTEZkOGYwNzVxVlVGdCIK
-        ICB9LAogICJsYXRlc3RfaW52b2ljZSI6ICJpbl8xUWVmalpCcGVXY0xGZDhm
-        MUF6TVQxQzMiLAogICJsaXZlbW9kZSI6IGZhbHNlLAogICJtZXRhZGF0YSI6
-        IHsKICB9LAogICJuZXh0X3BlbmRpbmdfaW52b2ljZV9pdGVtX2ludm9pY2Ui
-        OiBudWxsLAogICJvbl9iZWhhbGZfb2YiOiBudWxsLAogICJwYXVzZV9jb2xs
-        ZWN0aW9uIjogbnVsbCwKICAicGF5bWVudF9zZXR0aW5ncyI6IHsKICAgICJw
-        YXltZW50X21ldGhvZF9vcHRpb25zIjogbnVsbCwKICAgICJwYXltZW50X21l
-        dGhvZF90eXBlcyI6IG51bGwsCiAgICAic2F2ZV9kZWZhdWx0X3BheW1lbnRf
-        bWV0aG9kIjogIm9mZiIKICB9LAogICJwZW5kaW5nX2ludm9pY2VfaXRlbV9p
-        bnRlcnZhbCI6IG51bGwsCiAgInBlbmRpbmdfc2V0dXBfaW50ZW50IjogbnVs
-        bCwKICAicGVuZGluZ191cGRhdGUiOiBudWxsLAogICJwbGFuIjogewogICAg
-        ImlkIjogInByaWNlXzFKcmxPeEJwZVdjTEZkOGZkNXJneDA4YyIsCiAgICAi
-        b2JqZWN0IjogInBsYW4iLAogICAgImFjdGl2ZSI6IHRydWUsCiAgICAiYWdn
-        cmVnYXRlX3VzYWdlIjogbnVsbCwKICAgICJhbW91bnQiOiAyOTgwMCwKICAg
-        ICJhbW91bnRfZGVjaW1hbCI6ICIyOTgwMCIsCiAgICAiYmlsbGluZ19zY2hl
-        bWUiOiAicGVyX3VuaXQiLAogICAgImNyZWF0ZWQiOiAxNjM1OTUzMzYzLAog
-        ICAgImN1cnJlbmN5IjogImpweSIsCiAgICAiaW50ZXJ2YWwiOiAibW9udGgi
-        LAogICAgImludGVydmFsX2NvdW50IjogMSwKICAgICJsaXZlbW9kZSI6IGZh
-        bHNlLAogICAgIm1ldGFkYXRhIjogewogICAgfSwKICAgICJtZXRlciI6IG51
-        bGwsCiAgICAibmlja25hbWUiOiAi44K544K/44Oz44OA44O844OJ44OX44Op
-        44OzIiwKICAgICJwcm9kdWN0IjogInByb2RfS1dwM3ZFYjVobFpCTkMiLAog
-        ICAgInRpZXJzIjogbnVsbCwKICAgICJ0aWVyc19tb2RlIjogbnVsbCwKICAg
-        ICJ0cmFuc2Zvcm1fdXNhZ2UiOiBudWxsLAogICAgInRyaWFsX3BlcmlvZF9k
-        YXlzIjogMywKICAgICJ1c2FnZV90eXBlIjogImxpY2Vuc2VkIgogIH0sCiAg
-        InF1YW50aXR5IjogMSwKICAic2NoZWR1bGUiOiBudWxsLAogICJzdGFydCI6
-        IDE3MzcwODAxNDAsCiAgInN0YXJ0X2RhdGUiOiAxNzMzMzMwMDEwLAogICJz
-        dGF0dXMiOiAiYWN0aXZlIiwKICAidGF4X3BlcmNlbnQiOiBudWxsLAogICJ0
-        ZXN0X2Nsb2NrIjogbnVsbCwKICAidHJhbnNmZXJfZGF0YSI6IG51bGwsCiAg
-        InRyaWFsX2VuZCI6IDE3MzM1ODkyMTAsCiAgInRyaWFsX3NldHRpbmdzIjog
-        ewogICAgImVuZF9iZWhhdmlvciI6IHsKICAgICAgIm1pc3NpbmdfcGF5bWVu
-        dF9tZXRob2QiOiAiY3JlYXRlX2ludm9pY2UiCiAgICB9CiAgfSwKICAidHJp
-        YWxfc3RhcnQiOiAxNzMzMzMwMDEwCn0=
+      string: |
+        {
+          "id": "sub_12345678",
+          "object": "subscription",
+          "application": null,
+          "application_fee_percent": null,
+          "automatic_tax": {
+            "disabled_reason": null,
+            "enabled": false,
+            "liability": null
+          },
+          "billing": "charge_automatically",
+          "billing_cycle_anchor": 1733589210,
+          "billing_cycle_anchor_config": null,
+          "billing_thresholds": null,
+          "cancel_at": 1738946010,
+          "cancel_at_period_end": true,
+          "canceled_at": 1737080140,
+          "cancellation_details": {
+            "comment": null,
+            "feedback": null,
+            "reason": "cancellation_requested"
+          },
+          "collection_method": "charge_automatically",
+          "created": 1733330010,
+          "currency": "jpy",
+          "current_period_end": 1738946010,
+          "current_period_start": 1736267610,
+          "customer": "cus_RL1Zj6SXTz4XCr",
+          "days_until_due": null,
+          "default_payment_method": null,
+          "default_source": null,
+          "default_tax_rates": [
+
+          ],
+          "description": null,
+          "discount": null,
+          "discounts": [
+
+          ],
+          "ended_at": null,
+          "invoice_customer_balance_settings": {
+            "consume_applied_balance_on_void": true
+          },
+          "invoice_settings": {
+            "account_tax_ids": null,
+            "issuer": {
+              "type": "self"
+            }
+          },
+          "items": {
+            "object": "list",
+            "data": [
+              {
+                "id": "si_RL1ZLMeciQ3Hsg",
+                "object": "subscription_item",
+                "billing_thresholds": null,
+                "created": 1733330011,
+                "discounts": [
+
+                ],
+                "metadata": {
+                },
+                "plan": {
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+                  "object": "plan",
+                  "active": true,
+                  "aggregate_usage": null,
+                  "amount": 29800,
+                  "amount_decimal": "29800",
+                  "billing_scheme": "per_unit",
+                  "created": 1635953363,
+                  "currency": "jpy",
+                  "interval": "month",
+                  "interval_count": 1,
+                  "livemode": false,
+                  "metadata": {
+                  },
+                  "meter": null,
+                  "nickname": "スタンダードプラン",
+                  "product": "prod_KWp3vEb5hlZBNC",
+                  "tiers": null,
+                  "tiers_mode": null,
+                  "transform_usage": null,
+                  "trial_period_days": 3,
+                  "usage_type": "licensed"
+                },
+                "price": {
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+                  "object": "price",
+                  "active": true,
+                  "billing_scheme": "per_unit",
+                  "created": 1635953363,
+                  "currency": "jpy",
+                  "custom_unit_amount": null,
+                  "livemode": false,
+                  "lookup_key": null,
+                  "metadata": {
+                  },
+                  "nickname": "スタンダードプラン",
+                  "product": "prod_KWp3vEb5hlZBNC",
+                  "recurring": {
+                    "aggregate_usage": null,
+                    "interval": "month",
+                    "interval_count": 1,
+                    "meter": null,
+                    "trial_period_days": 3,
+                    "usage_type": "licensed"
+                  },
+                  "tax_behavior": "unspecified",
+                  "tiers_mode": null,
+                  "transform_quantity": null,
+                  "type": "recurring",
+                  "unit_amount": 29800,
+                  "unit_amount_decimal": "29800"
+                },
+                "quantity": 1,
+                "subscription": "sub_12345678",
+                "tax_rates": [
+                  {
+                    "id": "txr_1Om0YyBpeWcLFd8fovSLFgXX",
+                    "object": "tax_rate",
+                    "active": true,
+                    "country": "JP",
+                    "created": 1708463356,
+                    "description": null,
+                    "display_name": "消費税",
+                    "effective_percentage": 10.0,
+                    "flat_amount": null,
+                    "inclusive": true,
+                    "jurisdiction": null,
+                    "jurisdiction_level": null,
+                    "livemode": false,
+                    "metadata": {
+                    },
+                    "percentage": 10.0,
+                    "rate_type": "percentage",
+                    "state": null,
+                    "tax_type": null
+                  }
+                ]
+              }
+            ],
+            "has_more": false,
+            "total_count": 1,
+            "url": "/v1/subscription_items?subscription=sub_12345678"
+          },
+          "latest_invoice": "in_1QefjZBpeWcLFd8f1AzMT1C3",
+          "livemode": false,
+          "metadata": {
+          },
+          "next_pending_invoice_item_invoice": null,
+          "on_behalf_of": null,
+          "pause_collection": null,
+          "payment_settings": {
+            "payment_method_options": null,
+            "payment_method_types": null,
+            "save_default_payment_method": "off"
+          },
+          "pending_invoice_item_interval": null,
+          "pending_setup_intent": null,
+          "pending_update": null,
+          "plan": {
+            "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+            "object": "plan",
+            "active": true,
+            "aggregate_usage": null,
+            "amount": 29800,
+            "amount_decimal": "29800",
+            "billing_scheme": "per_unit",
+            "created": 1635953363,
+            "currency": "jpy",
+            "interval": "month",
+            "interval_count": 1,
+            "livemode": false,
+            "metadata": {
+            },
+            "meter": null,
+            "nickname": "スタンダードプラン",
+            "product": "prod_KWp3vEb5hlZBNC",
+            "tiers": null,
+            "tiers_mode": null,
+            "transform_usage": null,
+            "trial_period_days": 3,
+            "usage_type": "licensed"
+          },
+          "quantity": 1,
+          "schedule": null,
+          "start": 1737080140,
+          "start_date": 1733330010,
+          "status": "active",
+          "tax_percent": null,
+          "test_clock": null,
+          "transfer_data": null,
+          "trial_end": 1733589210,
+          "trial_settings": {
+            "end_behavior": {
+              "missing_payment_method": "create_invoice"
+            }
+          },
+          "trial_start": 1733330010
+        }
   recorded_at: Fri, 17 Jan 2025 02:15:41 GMT
 recorded_with: VCR 6.2.0

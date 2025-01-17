@@ -21,8 +21,8 @@ class SubscriptionTest < ActiveSupport::TestCase
 
   test '#destroy' do
     VCR.use_cassette 'subscription/update' do
-      subscription = Subscription.new.destroy('sub_1QSLW2BpeWcLFd8f075qVUFt')
-      assert_equal 'sub_1QSLW2BpeWcLFd8f075qVUFt', subscription['id']
+      subscription = Subscription.new.destroy('sub_12345678')
+      assert_equal 'sub_12345678', subscription['id']
     end
   end
 
