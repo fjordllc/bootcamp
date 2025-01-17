@@ -35,12 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     saveButton.addEventListener('click', () => {
       savedAnswer = editorTextarea.value
-      createAnswer(savedAnswer, questionId, tabElements)
+      createAnswer(savedAnswer, questionId)
       editorTextarea.value = ''
       answerEditorPreview.innerHTML = markdownInitializer.render(
         editorTextarea.value
       )
       saveButton.disabled = true
+      updateAnswerCount(true)
+      updateWatchable(questionId)
+      if (previewTab.classList.contains('is-active')) {
+        toggleVisibility(tabElements, 'is-active')
+      }
       resizeTextarea(editorTextarea, defaultTextareaSize)
     })
 
@@ -65,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-function createAnswer(description, questionId, tabElements) {
+function createAnswer(description, questionId) {
   if (description.length < 1) {
     return null
   }
@@ -96,21 +101,7 @@ function createAnswer(description, questionId, tabElements) {
       }
     })
     .then((html) => {
-      const answersList = document.querySelector('.answers-list')
-      const answerDiv = document.createElement('div')
-      answerDiv.innerHTML = html
-      const newAnswerElement = answerDiv.firstElementChild
-      answersList.appendChild(newAnswerElement)
-      initializeAnswer(newAnswerElement)
-      const reactionElement = newAnswerElement.querySelector('.js-reactions')
-      initializeReaction(reactionElement)
-      updateAnswerCount(true)
-      updateWatchable(questionId)
-      const [, , previewTab] = tabElements
-      if (previewTab.classList.contains('is-active')) {
-        toggleVisibility(tabElements, 'is-active')
-      }
-
+      initializeNewAnswer(html)
       toast('回答を投稿しました！')
     })
     .catch((error) => {
@@ -133,4 +124,15 @@ function updateWatchable(questionId) {
 
 function resizeTextarea(textarea, defaultTextareaSize) {
   textarea.style.height = `${defaultTextareaSize}px`
+}
+
+function initializeNewAnswer(html) {
+  const answersList = document.querySelector('.answers-list')
+  const answerDiv = document.createElement('div')
+  answerDiv.innerHTML = html
+  const newAnswerElement = answerDiv.firstElementChild
+  answersList.appendChild(newAnswerElement)
+  initializeAnswer(newAnswerElement)
+  const reactionElement = newAnswerElement.querySelector('.js-reactions')
+  initializeReaction(reactionElement)
 }
