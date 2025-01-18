@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class Admin::CompaniesController < AdminController
+  PAGER_NUMBER = 20
   before_action :set_company, only: %i[edit update]
   skip_before_action :require_admin_login, only: %i[edit update]
   before_action :require_admin_or_adviser_login, only: %i[edit update]
 
-  def index; end
+  def index
+    @companies = Company.with_attached_logo.order(created_at: :desc).page(params[:page]).per(PAGER_NUMBER)
+  end
 
   def new
     @company = Company.new

@@ -53,9 +53,9 @@ class ProductTest < ActiveSupport::TestCase
       practice:
     )
 
-    status = :complete
+    status = :started
     product.change_learning_status(status)
-    assert Learning.find_by(user:, practice:, status: :complete)
+    assert Learning.find_by(user:, practice:, status: :started)
   end
 
   test '#category' do
@@ -212,5 +212,42 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_includes Product.all, hibernated_user_product
     assert_not_includes Product.unhibernated_user_products, hibernated_user_product
+  end
+
+  test '.require_assignment_products' do
+    require_assignment_product = products(:product6)
+    assigned_product = products(:product68)
+    checked_product = products(:product2)
+    wip_product = products(:product5)
+    require_assignment_product_id_list = Product.require_assignment_products.pluck(:id)
+
+    assert_includes require_assignment_product_id_list, require_assignment_product.id
+    assert_not_includes require_assignment_product_id_list, assigned_product.id
+    assert_not_includes require_assignment_product_id_list, checked_product.id
+    assert_not_includes require_assignment_product_id_list, wip_product.id
+  end
+
+  test '.group_by_elapsed_days' do
+    zero_day_elapsed_products = [products(:product1)]
+    one_day_elapsed_products = [products(:product2)]
+    two_days_elapsed_products = [products(:product3)]
+    three_days_elapsed_products = [products(:product4)]
+    four_days_elapsed_products = [products(:product5)]
+    five_days_elapsed_products = [products(:product6)]
+    over_six_days_elapsed_products = [products(:product7), products(:product8), products(:product9)]
+    products = zero_day_elapsed_products + one_day_elapsed_products +
+               two_days_elapsed_products + three_days_elapsed_products +
+               four_days_elapsed_products + five_days_elapsed_products +
+               over_six_days_elapsed_products
+    products_grouped_by_elapsed_days = Product.group_by_elapsed_days(products)
+
+    assert_equal 7, products_grouped_by_elapsed_days.size
+    assert_equal zero_day_elapsed_products, products_grouped_by_elapsed_days[0]
+    assert_equal one_day_elapsed_products, products_grouped_by_elapsed_days[1]
+    assert_equal two_days_elapsed_products, products_grouped_by_elapsed_days[2]
+    assert_equal three_days_elapsed_products, products_grouped_by_elapsed_days[3]
+    assert_equal four_days_elapsed_products, products_grouped_by_elapsed_days[4]
+    assert_equal five_days_elapsed_products, products_grouped_by_elapsed_days[5]
+    assert_equal over_six_days_elapsed_products, products_grouped_by_elapsed_days[6]
   end
 end

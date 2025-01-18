@@ -18,10 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
         redirect: 'manual',
         body: params
       })
-        .then(() => {
-          completeButton.classList.add('is-disabled')
-          completeButton.textContent = '修了しています'
-          document.getElementById('modal-learning_completion').checked = true // 修了モーダル表示のためのフラグを立てる
+        .then((response) => {
+          if (response.ok) {
+            completeButton.classList.add('is-disabled')
+            completeButton.textContent = '修了しています'
+            document.getElementById('modal-learning_completion').checked = true // 修了モーダル表示のためのフラグを立てる
+          } else {
+            response.json().then((data) => {
+              alert(data.error)
+            })
+          }
         })
         .catch((error) => {
           console.warn(error)

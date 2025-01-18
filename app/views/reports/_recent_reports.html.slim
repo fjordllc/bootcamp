@@ -4,7 +4,7 @@
       .card-header.is-sm
         h2.card-header__title
           | 直近の日報
-      hr.a-border
+      hr.a-border-tint
     - if @recent_reports.any?
       .card-list__items
         = render partial: 'reports/report', collection: @recent_reports, locals: { user_icon_display: false, actions_display: false }

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
-      resources :companies, only: %i(index destroy)
     end
     namespace 'mentor' do
       resources :practices, only: %i(index)
@@ -43,6 +42,7 @@ Rails.application.routes.draw do
         resource :completion_message, only: %i(update), controller: "practices/learning/completion_message"
       end
     end
+    resources :coding_test_submissions, only: %i(create)
     resources :reports, only: %i(index)
     namespace "reports" do
       resources :unchecked, only: %i(index) do

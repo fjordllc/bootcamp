@@ -1,0 +1,4 @@
+coding_test_case1:
+  coding_test: coding_test1
+  input: ""
+  output: hello

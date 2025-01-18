@@ -1,6 +1,5 @@
 .page-body
-  nav.pagination
-    = paginate users
+  = paginate users
   .container
     .users
       - if users.empty?
@@ -13,5 +12,4 @@
       - else
         .row
           = render users
-  nav.pagination
-    = paginate users
+  = paginate users

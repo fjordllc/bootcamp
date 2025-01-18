@@ -49,6 +49,7 @@ ja:
       request_retirement: 退会申請
       faq: FAQ
       faq_category: FAQカテゴリ
+      coding_test: コーディングテスト
     attributes:
       user:
         login_name: アカウント
@@ -311,6 +312,16 @@ ja:
         faq_category: カテゴリー
       faq_category:
         name: カテゴリー名
+      coding_test:
+        title: タイトル
+        description: 問題文
+        user: 作成者
+        practice: 所属プラクティス
+        language: 言語
+        coding_test_submissions: 回答コード
+      coding_test_case:
+        input: 入力
+        output: 出力
     enums:
       user:
         job:
