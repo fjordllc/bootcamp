@@ -138,4 +138,10 @@ class WelcomeTest < ApplicationSystemTestCase
     visit_with_auth '/welcome', 'kimura'
     assert_no_text '駒形 真幸'
   end
+
+  test '6 articles with a specific tag are displayed in order of published_at' do
+    visit '/welcome'
+    articles = Article.tagged_with('feature')
+    assert_equal articles.map(&:published_at), articles.map(&:published_at).sort.reverse.first(6)
+  end
 end
