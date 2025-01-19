@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SearchHelper
-  def matched_document(searchable)
+  def self.matched_document(searchable)
     if searchable.instance_of?(Comment)
       searchable.commentable_type.constantize.find(searchable.commentable_id)
     elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
@@ -12,43 +12,68 @@ module SearchHelper
   end
 
   def searchable_url(searchable)
-    if searchable.instance_of?(Comment)
-      document = searchable.commentable_type.constantize.find(searchable.commentable_id)
-      "#{polymorphic_url(document)}#comment_#{searchable.id}"
-    elsif searchable.instance_of?(Answer) || searchable.instance_of?(CorrectAnswer)
-      document = Question.find(searchable.question.id)
-      "#{polymorphic_url(document)}#answer_#{searchable.id}"
+    case searchable
+    when SearchResult
+      searchable.url
+    when Comment
+      "#{searchable.commentable.url}#comment_#{searchable.id}"
+    when CorrectAnswer, Answer
+      Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
     else
-      polymorphic_url(searchable)
+      helper_method = "#{searchable.class.name.underscore}_path"
+      Rails.application.routes.url_helpers.send(helper_method, searchable)
     end
+  rescue NoMethodError
+    raise NoMethodError, "Route for #{searchable.class.name} is not defined. Please check your routes."
   end
 
   def filtered_message(searchable)
-    if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
-      commentable = Product.find(searchable.commentable_id)
-      if policy(commentable).show? || commentable.practice.open_product?
-        searchable.description
+    case searchable
+    when SearchResult
+      searchable.summary
+    when Comment
+      commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
+      if policy(commentable).show? || (commentable.is_a?(Practice) && commentable.open_product?)
+        searchable.body
       else
         '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
       end
+    when Product
+      searchable.body.presence || '本文がありません。'
     else
-      searchable.description
+      searchable.try(:description) || '本文がありません。'
     end
   end
 
   def comment_or_answer?(searchable)
-    searchable.is_a?(Comment) || searchable.is_a?(Answer)
+    if searchable.is_a?(SearchResult)
+      %w[comment answer correct_answer].include?(searchable.model_name)
+    else
+      searchable.is_a?(Comment) || searchable.is_a?(Answer)
+    end
   end
 
   def talk?(searchable)
-    searchable.instance_of?(User) && searchable.talk.present?
+    if searchable.is_a?(SearchResult)
+      searchable.model_name == 'user' && searchable.talk.present?
+    else
+      searchable.instance_of?(User) && searchable.talk.present?
+    end
   end
 
   def user?(searchable)
-    searchable.instance_of?(User)
+    if searchable.is_a?(SearchResult)
+      searchable.model_name == 'user'
+    else
+      searchable.instance_of?(User)
+    end
   end
 
   def created_user(searchable)
-    searchable.respond_to?(:user) ? searchable.user : nil
+    if searchable.is_a?(SearchResult)
+      User.find_by(id: searchable.user_id)
+    else
+      searchable.respond_to?(:user) ? searchable.user : nil
+    end
   end
 end
