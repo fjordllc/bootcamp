@@ -4,6 +4,8 @@ import MarkdownInitializer from 'markdown-initializer'
 
 export default function initializeComment(comment) {
   const commentId = comment.dataset.comment_id
+  const commentDescription = comment.dataset.comment_description
+
   let savedComment = ''
   TextareaInitializer.initialize(`#js-comment-${commentId}`)
   const markdownInitializer = new MarkdownInitializer()
@@ -11,9 +13,20 @@ export default function initializeComment(comment) {
   const commentDisplay = comment.querySelector('.comment-display')
   const commentEditor = comment.querySelector('.comment-editor')
   const commentDisplayContent = commentDisplay.querySelector('.a-long-text')
-  const commentDescription = commentDisplayContent.innerHTML
+  commentDisplayContent.innerHTML =
+    markdownInitializer.render(commentDescription)
+
+  const commentEditorPreview = commentEditor.querySelector(
+    '.a-markdown-input__preview'
+  )
+  const editorTextarea = commentEditor.querySelector(
+    '.a-markdown-input__textarea'
+  )
+
   if (commentDescription) {
     commentDisplayContent.innerHTML =
+      markdownInitializer.render(commentDescription)
+    commentEditorPreview.innerHTML =
       markdownInitializer.render(commentDescription)
   }
 
@@ -37,13 +50,6 @@ export default function initializeComment(comment) {
       commentDisplayContent.innerHTML = markdownInitializer.render(savedComment)
     })
   }
-
-  const commentEditorPreview = commentEditor.querySelector(
-    '.a-markdown-input__preview'
-  )
-  const editorTextarea = commentEditor.querySelector(
-    '.a-markdown-input__textarea'
-  )
 
   const cancelButton = commentEditor.querySelector('.is-secondary')
   cancelButton.addEventListener('click', () => {
