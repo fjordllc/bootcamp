@@ -465,8 +465,9 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    recaptcha (5.19.0)
-    regexp_parser (2.10.0)
+    recaptcha (5.16.0)
+    redcarpet (3.6.0)
+    regexp_parser (2.8.2)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -692,6 +693,7 @@ DEPENDENCIES
   ransack (= 3.1.0)
   react-rails
   recaptcha (~> 5.12)
+  redcarpet
   rollbar
   rss
   rubocop
