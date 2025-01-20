@@ -8,7 +8,7 @@ import { toast } from './vanillaToast.js'
 document.addEventListener('DOMContentLoaded', () => {
   const comment = document.querySelector('.new-comment')
   if (comment) {
-    TextareaInitializer.initialize('.a-markdown-input__textarea')
+    TextareaInitializer.initialize('#js-new-comment')
     const markdownInitializer = new MarkdownInitializer()
     const commentableId = comment.dataset.commentable_id
     const commentableType = comment.dataset.commentable_type
