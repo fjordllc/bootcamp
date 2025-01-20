@@ -74,34 +74,9 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 29, User.new(created_at: '2020-01-10 00:00:00').generation
   end
 
-  test '#completed_percentage don\'t calculate practice that include_progress: false' do
-    user = users(:komagata)
-    old_percentage = user.completed_percentage
-    create_checked_product(user, practices(:practice5))
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_percentage, user.completed_percentage
-
-    old_percentage = user.completed_percentage
-    create_checked_product(user, practices(:practice53))
-    user.completed_practices << practices(:practice53)
-
-    assert_equal old_percentage, user.completed_percentage
-  end
-
-  test '#completed_percentage don\'t calculate practice unrelated cource' do
-    user = users(:komagata)
-    old_percentage = user.completed_percentage
-    create_checked_product(user, practices(:practice5))
-    user.completed_practices << practices(:practice5)
-
-    assert_not_equal old_percentage, user.completed_percentage
-
-    old_percentage = user.completed_percentage
-    create_checked_product(user, practices(:practice55))
-    user.completed_practices << practices(:practice55)
-
-    assert_equal old_percentage, user.completed_percentage
+  test '#practice_ids_skipped' do
+    user = users(:kensyu)
+    assert_includes(user.practice_ids_skipped, practices(:practice8).id)
   end
 
   test '#depressed?' do
@@ -326,12 +301,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, kimura.followees_list(watch: 'false').count
   end
 
-  test '#completed_practices_size_by_category' do
-    kimura = users(:kimura)
-    category2 = categories(:category2)
-    assert_equal 1, kimura.completed_practices_size_by_category[category2.id]
-  end
-
   test "don't unfollow user when other user unfollow user" do
     kimura = users(:kimura)
     hatsuno = users(:hatsuno)
@@ -451,21 +420,6 @@ class UserTest < ActiveSupport::TestCase
 
     worried_users = User.delayed.order(completed_at: :asc)
     assert_equal worried_users.where(id: user.id).size, 0
-  end
-
-  test 'get category active or unstarted practice' do
-    komagata = users(:komagata)
-    assert_equal 917_504_053, komagata.category_active_or_unstarted_practice.id
-
-    machida = users(:machida)
-    practice1 = practices(:practice1)
-    create_checked_product(machida, practice1)
-    Learning.create!(
-      user: machida,
-      practice: practice1,
-      status: :complete
-    )
-    assert_equal 685_020_562, machida.category_active_or_unstarted_practice.id
   end
 
   test 'trainee must select company' do

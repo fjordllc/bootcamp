@@ -492,7 +492,7 @@ class ReportsTest < ApplicationSystemTestCase
   test 'display list of submission when mentor is access' do
     visit_with_auth report_path(reports(:report5)), 'komagata'
     assert_text '提出物'
-    find('#side-tabs-nav-3').click
+    find('#side-tabs-nav-4').click
     assert_text 'Terminalの基礎を覚える'
     assert_text 'PC性能の見方を知る'
   end
