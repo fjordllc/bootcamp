@@ -24,7 +24,7 @@ section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
                   .row.is-gutter-width-32
                     - @articles.first(6).each do |article|
                       .col-lg-4.col-md-6.col-xs-12
-                        .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
+                        .articles-item.a-card
                           = link_to article, class: 'articles-item__link' do
                             .articles-item__row
                               - if article.prepared_thumbnail?
@@ -33,9 +33,6 @@ section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
                                 = image_tag(article.selected_thumbnail_url, class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
                             .articles-item__row
                               h2.articles-item__title
-                                - if article.wip?
-                                  span.article__title-label.is-wip
-                                    | WIP
                                 = article.title
                             .articles-item__row
                               .articles-item__description
@@ -51,12 +48,7 @@ section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
                                     = article.user.login_name
                                 .articles-item__meta
                                   .articles-item__published-at
-                                    - if article.wip?
-                                      = '執筆中'
-                                    - elsif article.published_at.nil?
-                                      = l(article.created_at)
-                                    - else
-                                      = l(article.published_at)
+                                    = l(article.published_at)
 
           .lp-content-stack__item
             .lp-actions
