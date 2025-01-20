@@ -16,45 +16,54 @@ section.lp-content.is-lp-bg-1.is-top-title.is-articles#articles
                     | フィヨルドブートキャンプの中のことがよくわかる記事をピックアップ。
                     | プログラミングスクールを探している方、フィヨルドブートキャンプに入会を考えている方は
                     | ぜひ、検討材料にご活用ください。
-    .container.is-xl
-      .articles__items
-        .row
-          - @articles.first(6).each do |article|
-            .col-lg-4.col-md-6.col-xs-12
-              .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
-                = link_to article, class: 'articles-item__link' do
-                  .articles-item__row
-                    - if article.prepared_thumbnail?
-                      = image_tag article.prepared_thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
-                    - else
-                      = image_tag(article.selected_thumbnail_url, class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
-                  .articles-item__row
-                    h2.articles-item__title
-                      - if article.wip?
-                        span.article__title-label.is-wip
-                          | WIP
-                      = article.title
-                  .articles-item__row
-                    .articles-item__metas
-                      .articles-item__meta
-                        .articles-item__author
-                          = image_tag article.user.avatar_url
-                          = article.user.login_name
-                      .articles-item__meta
-                        .articles-item__published-at
-                          - if article.wip?
-                            = '執筆中'
-                          - elsif article.published_at.nil?
-                            = l(article.created_at)
-                          - else
-                            = l(article.published_at)
 
-    .lp-content-stack__item
-      .lp-actions
-        .lp-actions__items
-          .lp-actions__item
-            = link_to articles_path, class: 'a-button is-xl is-primary-border is-block' do
-              | ブログ記事一覧
+          - if @articles.present?
+            .lp-content-stack__item
+              .articles__items
+                .lp-content__articles
+                  .row.is-gutter-width-32
+                    - @articles.first(6).each do |article|
+                      .col-lg-4.col-md-6.col-xs-12
+                        .articles-item.a-card class=(article.wip? ? ' is-wip' : '')
+                          = link_to article, class: 'articles-item__link' do
+                            .articles-item__row
+                              - if article.prepared_thumbnail?
+                                = image_tag article.prepared_thumbnail_url, class: 'articles-item__image', alt: "ブログ記事「#{article.title}」のアイキャッチ画像"
+                              - else
+                                = image_tag(article.selected_thumbnail_url, class: 'articles-item__image', alt: 'ブログ記事のブランクアイキャッチ画像')
+                            .articles-item__row
+                              h2.articles-item__title
+                                - if article.wip?
+                                  span.article__title-label.is-wip
+                                    | WIP
+                                = article.title
+                            .articles-item__row
+                              .articles-item__description
+                                - if article.summary.present?
+                                  = simple_format(article.summary)
+                                - else
+                                  = simple_format(markdown_to_plain_text(article.body).truncate(100))
+                            .articles-item__row
+                              .articles-item__metas
+                                .articles-item__meta
+                                  .articles-item__author
+                                    = image_tag article.user.avatar_url
+                                    = article.user.login_name
+                                .articles-item__meta
+                                  .articles-item__published-at
+                                    - if article.wip?
+                                      = '執筆中'
+                                    - elsif article.published_at.nil?
+                                      = l(article.created_at)
+                                    - else
+                                      = l(article.published_at)
+
+          .lp-content-stack__item
+            .lp-actions
+              .lp-actions__items
+                .lp-actions__item
+                  = link_to articles_path, class: 'a-button is-xl is-primary-border is-block' do
+                    | ブログ記事一覧
 
   .lp-content-divider.is-lp-bg-2
     svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
