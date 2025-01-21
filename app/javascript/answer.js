@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const answers = document.querySelectorAll('.answer')
   const loadingContent = document.querySelector('.loading-content')
   const answerContent = document.querySelector('.answer-content')
-  if (answers) {
+  if (answers.length > 0) {
     loadingContent.style.display = 'none'
     answerContent.style.display = 'block'
 
