@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article = Article.new(target: 'all')
   end
 
   def edit; end
@@ -95,6 +95,7 @@ class ArticlesController < ApplicationController
       thumbnail_type
       summary
       display_thumbnail_in_body
+      target
     ]
     article_attributes.push(:published_at) unless params[:commit] == 'WIP'
     article_attributes.push(:token) if params[:commit] == 'WIP'
