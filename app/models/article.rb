@@ -17,6 +17,12 @@ class Article < ApplicationRecord
     blue: 12
   }
 
+  enum target: {
+    all: 0,
+    students: 1,
+    job_seekers: 2
+  }, _prefix: true
+
   belongs_to :user
   alias sender user
   include ActionView::Helpers::AssetUrlHelper
