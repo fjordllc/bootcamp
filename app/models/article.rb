@@ -20,7 +20,8 @@ class Article < ApplicationRecord
   enum target: {
     all: 0,
     students: 1,
-    job_seekers: 2
+    job_seekers: 2,
+    no_recipient: 3
   }, _prefix: true
 
   belongs_to :user
