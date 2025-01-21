@@ -139,6 +139,31 @@
                     p
                       | WIPで保存した場合は、記事公開日時は保存されません。
 
+    .form-item.is-md
+      label.a-form-label
+        | 通知ターゲット
+      ul.block-checks.is-3-items
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='all')
+              | 全員（退会者を除く）
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='students')
+              | 現役生のみ
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='job_seekers')
+              | 就職希望者のみ
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'no_recipient', id: 'no_recipient', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='no_recipient')
+              | 通知しない
+
   .form-actions
     ul.form-actions__items
       li.form-actions__item.is-main
