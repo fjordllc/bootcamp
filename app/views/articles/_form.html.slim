@@ -146,38 +146,30 @@
                     p
                       | WIPで保存した場合は、記事公開日時は保存されません。
 
-    - if article.before_initial_publish?
-      .form-item
-        label.a-form-label.is-margin-bottom-0
-          | 通知ターゲット
-        .a-form-help
-          p
-            | 通知は初回公開時のみ行われます。
-        ul.block-checks.is-4-items.sm-down:is-2-items.is-margin-top-12
-          li.block-checks__item
-            .a-block-check.is-radio
-              = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
-              label.a-block-check__label(for='all')
-                = t('activerecord.enums.article.target.all')
-          li.block-checks__item
-            .a-block-check.is-radio
-              = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
-              label.a-block-check__label(for='students')
-                = t('activerecord.enums.article.target.students')
-          li.block-checks__item
-            .a-block-check.is-radio
-              = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
-              label.a-block-check__label(for='job_seekers')
-                = t('activerecord.enums.article.target.job_seekers')
-          li.block-checks__item
-            .a-block-check.is-radio
-              = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
-              label.a-block-check__label(for='none')
-                =t('activerecord.enums.article.target.none')
-    - elsif article.target == 'none'
-      p この記事は通知を行わずに公開しました。
-    - else
-      p この記事は初回公開時にすでに通知を行っています。
+    .form-item.is-md
+      label.a-form-label
+        | 通知ターゲット
+      ul.block-checks.is-3-items
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='all')
+              | 全員（退会者を除く）
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='students')
+              | 現役生のみ
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='job_seekers')
+              | 就職希望者のみ
+        li.block-checks__item
+          .a-block-check.is-radio
+            = f.radio_button :target, 'no_recipient', id: 'no_recipient', class: 'a-toggle-checkbox'
+            label.a-block-check__label(for='no_recipient')
+              | 通知しない
 
   .form-actions
     ul.form-actions__items
