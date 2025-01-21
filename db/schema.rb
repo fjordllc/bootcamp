@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2025_03_23_175738) do
     t.integer "thumbnail_type", default: 0, null: false
     t.string "token"
     t.boolean "display_thumbnail_in_body", default: true, null: false
-    t.integer "target", default: 0
+    t.integer "target"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
