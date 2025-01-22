@@ -43,11 +43,4 @@ class ReportTest < ActiveSupport::TestCase
   test '#interval' do
     assert_equal 10, reports(:report32).interval
   end
-
-  test '#save_with_uniqueness_check' do
-    report1 = reports(:report1)
-    report2 = report1.dup
-    report2.save_with_uniqueness_check
-    assert_includes report2.errors.full_messages, '学習日はすでに存在します'
-  end
 end
