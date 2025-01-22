@@ -460,7 +460,7 @@ class User < ApplicationRecord
         User.admins_and_mentors.or(User.students)
       when 'job_seekers'
         User.admins_and_mentors.or(User.job_seekers)
-      when 'none'
+      when 'no_recipient'
         User.none
       else
         User.none
