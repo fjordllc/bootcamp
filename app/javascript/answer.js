@@ -14,10 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const answers = document.querySelectorAll('.answer')
   const loadingContent = document.querySelector('.loading-content')
   const answerContent = document.querySelector('.answer-content')
-  if (answers.length > 0) {
+
+  if (loadingContent && answerContent) {
     loadingContent.style.display = 'none'
     answerContent.style.display = 'block'
+  }
 
+  if (answers.length > 0) {
     answers.forEach((answer) => {
       initializeAnswer(answer)
     })
