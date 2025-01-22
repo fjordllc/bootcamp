@@ -24,7 +24,7 @@ export default function User({ user, currentUser }) {
   const roleClass = () => `is-${user.primary_role}`
 
   return (
-    <div className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
+    <div className="col-xxxl-2 col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-xs-12">
       <div className="users-item is-react">
         <div className={`users-item__inner a-card ${roleClass()}`}>
           {currentUser &&
@@ -70,14 +70,6 @@ export default function User({ user, currentUser }) {
                   <div className="card-list-item__row">
                     <div className="card-list-item-title">
                       <div className="card-list-item-title__end">
-                        {user.company && user.company.logo_url && (
-                          <a href={user.company.url}>
-                            <img
-                              className="user-item__company-logo"
-                              src={user.company.logo_url}
-                            />
-                          </a>
-                        )}
                         <a
                           className="card-list-item-title__title is-lg a-text-link"
                           href={user.url}>

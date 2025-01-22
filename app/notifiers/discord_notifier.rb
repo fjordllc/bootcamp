@@ -42,8 +42,8 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
   def coming_soon_regular_events(params = {})
     params.merge!(@params)
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:all]
-    today_events = params[:today_events].sort_by(&:start_at)
-    tomorrow_events = params[:tomorrow_events].sort_by(&:start_at)
+    today_events = params[:today_events].sort_by { |event| event.start_at.strftime('%H%M') }
+    tomorrow_events = params[:tomorrow_events].sort_by { |event| event.start_at.strftime('%H%M') }
     today = Time.current
     tomorrow = Time.current.next_day
     event_info = <<~TEXT.gsub(/^\n+/, "\n").chomp
@@ -117,7 +117,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     product = comment.commentable
 
     body = <<~TEXT.chomp
-      ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから5日経過しました。
+      ⚠️ #{comment.user.login_name}さんの「#{comment.commentable.practice.title}」の提出物が、最後のコメントから3日経過しました。
       担当：#{product_checker_discord_name}さん
       URL： <#{Rails.application.routes.url_helpers.product_url(product)}>
     TEXT

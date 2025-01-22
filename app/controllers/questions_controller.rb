@@ -33,6 +33,7 @@ class QuestionsController < ApplicationController
                           .includes(:correct_answer)
                           .latest_update_order
                           .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
+    @answers = @question.answers.order(created_at: :asc)
     respond_to do |format|
       format.html
       format.md
@@ -46,7 +47,7 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    @question = Question.new(practice_id: params[:practice_id], user_id: current_user.id)
   end
 
   def edit; end

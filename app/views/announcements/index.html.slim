@@ -10,7 +10,8 @@ header.page-header
           .page-header-actions__item
             = link_to new_announcement_path, class: 'a-button is-md is-secondary is-block' do
               i.fa-regular.fa-plus
-              | お知らせ作成
+              span
+                | お知らせ作成
 hr.a-border
 .page-body
   - if @announcements.empty?

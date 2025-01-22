@@ -32,3 +32,13 @@ reaction7:
   user: komagata
   reactionable: product12 (Product)
   kind: eyes
+
+micro_report_reaction1:
+  user: hatsuno
+  reactionable: hajime_first_micro_report (MicroReport)
+  kind: thumbsup
+
+micro_report_reaction2:
+  user: hatsuno
+  reactionable: hajime_first_micro_report (MicroReport)
+  kind: heart

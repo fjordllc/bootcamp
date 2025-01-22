@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     './app/views/**/*.html.slim',
-    './app/javascript/**/*.{js,vue}',
+    './app/javascript/**/*.{js,vue,jsx}',
   ],
   theme: {
     extend: {},

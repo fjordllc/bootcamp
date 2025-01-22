@@ -1,0 +1,51 @@
+- title 'FAQカテゴリー一覧'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        | 管理ページ
+
+= render 'admin/admin_page_tabs'
+= render 'admin/faqs/faq_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | FAQカテゴリー一覧（#{@faq_categories.size}）
+        .page-main-header__end
+          .page-header-actions
+            .page-header-actions__items
+              .page-header-actions__item
+                = link_to new_admin_faq_category_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | カテゴリー追加
+  hr.a-border
+  .page-body
+    .container.is-md
+      .admin-table
+        table.admin-table__table
+          thead.admin-table__header
+            tr.admin-table__labels
+              th.admin-table__label 名前 (FAQ数)
+              th.admin-table__label 操作
+              th.admin-table__label 並び順
+          tbody.admin-table__items#js-faq-category-sortable
+            - @faq_categories.each do |faq_category|
+              tr.admin-table__item(id="#{faq_category.id}")
+                td.admin-table__item-value
+                  = link_to admin_faq_category_faqs_path(faq_category), class: 'a-hover-link' do
+                   | #{faq_category.name} (#{faq_category.faqs.size})
+                td.admin-table__item-value.is-text-align-center
+                  ul.is-inline-buttons
+                    li
+                      = link_to edit_admin_faq_category_path(faq_category),
+                        class: 'a-button is-sm is-secondary is-icon' do
+                        i.fa-solid.fa-pen
+                td.admin-table__item-value.is-text-align-center.is-grab
+                  span.js-grab.a-grab
+                    i.fa-solid.fa-align-justify

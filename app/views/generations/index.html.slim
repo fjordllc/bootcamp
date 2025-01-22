@@ -10,7 +10,7 @@ header.page-header
         .page-header-actions
           ul.page-header-actions__items
 
-= render '/users/lg_page_tabs'
+= users_page_tabs(active_tab: '期生別')
 = render 'users_tabs'
 
 main.page-main
@@ -32,10 +32,10 @@ main.page-main
               | ユーザーはありません
       - else
         .container.is-lg
-          .card-list.a-card
-            - @generations.each do |generation|
-              - users = Generation.new(generation.number).target_users(@target)
-              - if !users.empty?
+          - @generations.each do |generation|
+            - users = Generation.new(generation.number).target_users(@target)
+            - if !users.empty?
+              .a-card
                 .user-group
                   header.user-group__header
                     h2.user-group__title

@@ -1,0 +1,6 @@
+.page-tabs
+  .container
+    ul.page-tabs__items
+      - tabs.each do |tab|
+        - tab[:active] = active_tab == tab[:name]
+        = render PageTabComponent.new(**tab)

@@ -115,7 +115,7 @@ class RegularEventsTest < ApplicationSystemTestCase
     find 'h2', text: 'コメント'
     find 'div.container > div.user-icons > ul.user-icons__items', visible: :all
     accept_confirm do
-      click_link '削除'
+      find('.card-main-actions__muted-action', text: '削除').click
     end
     assert_text '定期イベントを削除しました。'
   end
@@ -196,7 +196,7 @@ class RegularEventsTest < ApplicationSystemTestCase
 
   test 'show listing not finished regular events' do
     visit_with_auth regular_events_path(target: 'not_finished'), 'kimura'
-    assert_selector '.card-list.a-card .card-list-item', count: 14
+    assert_selector '.card-list.a-card .card-list-item', count: 17
   end
 
   test 'show listing all regular events' do
@@ -368,7 +368,7 @@ class RegularEventsTest < ApplicationSystemTestCase
   test 'upcoming events groups' do
     today_events_count = 5
     tomorrow_events_count = 2
-    day_after_tomorrow_events_count = 2
+    day_after_tomorrow_events_count = 4
     travel_to Time.zone.local(2017, 4, 3, 10, 0, 0) do
       visit_with_auth events_path, 'komagata'
       within('.upcoming_events_groups') do
@@ -383,6 +383,19 @@ class RegularEventsTest < ApplicationSystemTestCase
           assert_selector('.card-list-item', count: day_after_tomorrow_events_count)
         end
       end
+    end
+  end
+
+  test 'admin can remove others from participation' do
+    regular_event = regular_events(:regular_event1)
+    visit_with_auth regular_event_path(regular_event), 'komagata'
+    assert_difference 'regular_event.participants.count', -1 do
+      accept_confirm do
+        within('.a-card.participants') do
+          first('a', text: '削除する').click
+        end
+      end
+      assert_text '参加を取り消しました。'
     end
   end
 end

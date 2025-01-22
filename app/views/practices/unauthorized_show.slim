@@ -1,4 +1,4 @@
-- title @practice.title
+- title "プラクティス #{@practice.title}"
 - description "オンラインプログラミングスクール「フィヨルドブートキャンプ」のプラクティス「#{@practice.title}」のページです。"
 - content_for :extra_body_classes
 
@@ -10,7 +10,7 @@ ruby:
 
 .page-body
   article.unauthorized
-    = render '/unauthorized/unauthorized_header', label: 'プラクティス', title: title
+    = render '/unauthorized/unauthorized_header', label: 'プラクティス', title: @practice.title
 
     .unauthorized__body
       .container.is-md

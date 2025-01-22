@@ -9,7 +9,7 @@ header.page-header
           | 日報・ブログ
       = render 'reports/new_report'
 
-= render 'reports/tabs'
+= report_page_tabs(active_tab: '未チェックの日報')
 
 .page-main
   - if @reports.empty?

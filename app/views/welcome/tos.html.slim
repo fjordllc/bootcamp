@@ -2,13 +2,24 @@
 - set_meta_tags(site: 'FJORD BOOT CAMP（フィヨルドブートキャンプ）',
   description: '株式会社ロッカ（以下、「当社」といいます。）が提供するサービス「フィヨルドブートキャンプ（以下、「本サービス」といいます。）をご利用いただきありがとうございます。ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。')
 
-header.welcome-page-header
-  .container.is-xl
-    .welcome-page-header__inner
-      h1.welcome-page-header__title
-        = title
-
-.welcome-page-body
-  .container.is-md
-    .tos.a-long-text.is-md
-      = render 'welcome/tos_text'
+header.lp-page-header
+  .l-container
+    .lp-page-header__inner
+      .lp-page-header__start
+        h1.lp-page-header__title
+          = title
+      .lp-page-header__end
+hr.a-border
+.lp
+  .lp-content.is-lp-bg-1.is-top-title
+    .l-container.is-lg
+      .lp-content__inner
+        .lp-content__start
+          header.lp-content__header
+            h2.lp-content-title.text-center.is-border-bottom
+              = title
+        .lp-content__end
+          .a-card
+            .card-body__inner
+              .tos.a-long-text.is-md
+                = render 'welcome/tos_text'

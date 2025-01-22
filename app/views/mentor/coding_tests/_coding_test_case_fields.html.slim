@@ -1,0 +1,20 @@
+.nested-fields.test-case.mt-8
+  .a-card
+    header.card-header.is-sm.relative
+      h2.card-header__title
+        | テストケース
+      .books-form__delete
+        = link_to_remove_association f, class: 'books-form__delete-link' do
+          i.fas.fa-times
+    .a-border-tint
+    .card-body
+      .card-body__description
+        .row
+          .col-lg-6.col-xs-12
+            .form-item
+              = f.label :input, class: 'a-form-label'
+              = f.text_area :input, class: 'a-text-input test_case_input'
+          .col-lg-6.col-xs-12
+            .form-item
+              = f.label :output, class: 'a-form-label'
+              = f.text_area :output, class: 'a-text-input test_case_output'

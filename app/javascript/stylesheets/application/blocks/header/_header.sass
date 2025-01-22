@@ -1,6 +1,6 @@
 .header
   background-color: var(--base)
-  z-index: 3
+  z-index: 5
   +media-breakpoint-up(md)
     +position(fixed, top 0, right 0)
     left: var(--global-nav-width)
@@ -10,8 +10,6 @@
     height: var(--header-height__sm-down)
   .a-switch
     margin-left: .5rem
-  .container
-    height: calc(100% - 1px)
 
 .header__inner
   display: flex

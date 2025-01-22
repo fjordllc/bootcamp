@@ -48,11 +48,14 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    case params[:role]
+    @user.role = params[:role]
+    case @user.role
     when 'adviser'
       @user.adviser = true
-    when 'trainee'
+    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
       @user.trainee = true
+    when 'mentor'
+      @user.mentor = true
     end
     @user.course_id = params[:course_id]
     @user.company_id = params[:company_id]
@@ -64,8 +67,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.course_id = params[:user][:course_id] if params[:user][:course_id].present?
     @user.course_id ||= Course.first.id
-    @user.free = true if @user.trainee?
     @user.build_discord_profile
+    @user.credit_card_payment = params[:credit_card_payment]
     Newspaper.publish(:user_create, { user: @user })
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -105,7 +108,7 @@ class UsersController < ApplicationController
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       redirect_to root_url, notice: 'サインアップメールをお送りしました。メールからサインアップを完了させてください。'
     else
-      render 'new'
+      render 'new', locals: { user: @user }
     end
   end
 
@@ -176,9 +179,10 @@ class UsersController < ApplicationController
       :password_confirmation, :job, :organization,
       :os, { experiences: [] }, :editor, :other_editor,
       :company_id, :nda, :avatar,
-      :trainee, :adviser, :job_seeker,
+      :trainee, :adviser, :mentor, :job_seeker,
       :tag_list, :after_graduation_hope, :feed_url,
-      :country_code, :subdivision_code
+      :country_code, :subdivision_code, :invoice_payment,
+      :credit_card_payment, :role
     )
   end
 

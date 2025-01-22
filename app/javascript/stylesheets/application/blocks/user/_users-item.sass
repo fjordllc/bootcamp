@@ -26,6 +26,12 @@
 .users-item__header-end
   flex: 1
 
+.users-item__icon
+  +media-breakpoint-up(md)
+    min-width: 3.5rem
+  +media-breakpoint-down(sm)
+    min-width: 2.5rem
+
 .users-item__user-icon-image
   background-color: var(--base)
   +media-breakpoint-up(md)
@@ -65,12 +71,11 @@
 
 .user-item__company-logo
   +size(3rem)
+  min-width: 3rem
   object-fit: cover
   background-color: var(--base)
   border-radius: .25rem
   border: solid 1px var(--border-tint)
-  float: right
-  margin-left: .5rem
 
 .users-item__footer
   position: relative

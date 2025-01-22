@@ -13,4 +13,13 @@ module ArticlesHelper
     base_url = "#{request.protocol}#{request.host_with_port}"
     base_url + image_url
   end
+
+  def meta_robots_tag
+    content = logged_in? ? 'none' : 'noindex, nofollow'
+    tag.meta(name: 'robots', content:)
+  end
+
+  def feature_tag?(article)
+    article.tags.pluck(:name).include?('feature')
+  end
 end

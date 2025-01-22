@@ -54,11 +54,11 @@
     +text-block(1.875em 1.466 0 .75em, 600)
     color: var(--main-text)
     padding-bottom: .25em
-    border-bottom: 3px solid mix($font, $background, 20%)
+    border-bottom: 3px solid var(--border)
   h2
     +text-block(1.625em 1.4615 0 .75em, 600)
     padding-bottom: .25em
-    border-bottom: 1px solid mix($font, $background, 20%)
+    border-bottom: 1px solid var(--border)
   * + h2
     margin-top: 1.4em
   h2 + h3
@@ -71,25 +71,43 @@
   h3
     +text-block(1.375em 1.6, 600)
     margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
   h4
     +text-block(1.25em 1.6, 600)
     margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
   h5
     +text-block(1.125em 1.6, 600)
     margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
   h6
-    +text-block(1em 1.6 0 .625em, 600)
+    +text-block(1em 1.6, 600)
+    margin-bottom: .625em
+    & + *
+      margin-top: 0 !important
+  >img
+    margin-block: 1.5em
   p
     +text-block(1em 1.86)
-    margin-bottom: 1.5em
+    margin-block: 1.5em
   a
     +hover-link-reversal
     +default-link
     &:hover
       img
         border-color: mix($font, $background, 16%)
+  a,
+  a:link,
+  a:visited,
+  a:hover
+    pre,
+    code
+      text-decoration: none !important
   dl
-    margin-bottom: 1.5em
+    margin-block: 1.5em
     border: 1px solid mix($font, $background, 20%)
     padding: 1em
     border-radius: .25rem
@@ -99,14 +117,14 @@
   dd
     +text-block(1em 1.6)
     &:not(:last-child)
-      margin-bottom: 1em
+      margin-block: 1em
   code
     font-family: var(--monospace)
     tab-size: 2
     hyphens: none
   pre
     padding: 0
-    margin-bottom: 1.5em
+    margin-block: 1.5em
     code
       border: none
       +text-block(.9375em 1.5)
@@ -127,7 +145,7 @@
     *:not(ol):not(ul):last-child
       margin-bottom: 0
     pre:not(ol):not(ul):last-child
-      margin-bottom: 1em
+      margin-block: 1em
     blockquote
       margin-left: calc(.75em + 1px)
     blockquote + ul
@@ -138,7 +156,7 @@
       align-items: center
       letter-spacing: 0
       padding-inline: .25rem
-      border: solid 1px mix($font, $background, 20%)
+      border: solid 1px var(--border)
       background-color: mix($font, $background, 4%)
       margin-inline: .25rem
       border-radius: .125rem
@@ -156,11 +174,8 @@
     display: block
     margin-inline: auto
     border: 1px solid mix($font, $background, 10%)
-    +media-breakpoint-up(md)
-      max-height: 32rem
     +media-breakpoint-down(sm)
       max-width: 100% !important
-      max-height: 24rem
     &.is-xs
       max-width: 10em
     &.is-sm
@@ -174,10 +189,10 @@
   ol
     list-style-position: outside
     margin-left: 1.75em
-    margin-bottom: 1.5em
+    margin-block: 1.5em
   li
     +text-block(1em 1.86)
-    margin-block: .375em
+    margin-block: .5em
     &:first-child
       margin-top: 0
     &:last-child
@@ -195,16 +210,17 @@
 
   table
     width: 100%
-    margin-bottom: 2em
+    background-color: var(--base)
+    margin-block: 2em
 
   th,
   td
-    border: solid 1px mix($font, $background, 40%)
+    border: solid 1px var(--border-shade)
     padding: .5em .625em
     +text-block(.875em 1.6, left)
 
   th
-    background-color: mix($font, $background, 8%)
+    background-color: var(--background)
 
   tbody tr
     &:nth-child(even)
@@ -214,7 +230,7 @@
     padding-left: 1.5em
     margin-block: 1.5em 2em
     +position(relative)
-    border-left: solid .25em mix($font, $background, 10%)
+    border-left: solid .25em var(--border-tint)
     +list
     p + &
       margin-block: 3em 2.5em
@@ -225,7 +241,7 @@
 
   details
     +text-block(.875rem 1.8 0 1.5em)
-    border: solid 1px mix($font, $background, 20%)
+    border: solid 1px var(--border)
     padding: .5em 1em
     border-radius: .25rem
     +list
@@ -235,7 +251,7 @@
       outline: none
       +hover-link
     &[open] summary
-      border-bottom: solid 1px mix($font, $background, 20%)
+      border-bottom: solid 1px var(--border)
       padding-bottom: .5em
       margin-bottom: .5em
 

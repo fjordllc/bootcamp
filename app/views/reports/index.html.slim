@@ -10,7 +10,7 @@ header.page-header
       .page-header__end
         = render 'reports/new_report'
 
-= render 'reports/tabs'
+= report_page_tabs(active_tab: '日報')
 
 .page-main
   nav.page-filter.form
@@ -24,7 +24,7 @@ header.page-header
     .o-empty-message
       .o-empty-message__icon
         .card-list.a-card
-          .card__description
+          .card-body__description
             .o-empty-message
               .o-empty-message__icon
                 i.fa-regular.fa-sad-tear

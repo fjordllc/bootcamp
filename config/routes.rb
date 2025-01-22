@@ -5,16 +5,24 @@ Rails.application.routes.draw do
     resources :survey_questions, only: %i(index), controller: "surveys/survey_question_listings"
   end
   root to: "home#index"
+
   get "test", to: "home#test", as: "test"
   get "welcome", to: "welcome#index", as: "welcome"
   get "practices", to: "welcome#practices", as: "practices"
   get "pricing", to: "welcome#pricing", as: "pricing"
+  get "alumni_voices", to: "welcome#alumni_voices", as: "alumni_voices"
   get "training", to: "welcome#training", as: "training"
   get "faq", to: "welcome#faq", as: "faq"
+  get "job_support", to: "welcome#job_support", as: "job_support"
   get "tos", to: "welcome#tos", as: "tos"
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get "press_kit", to: "welcome#press_kit", as: "press_kit"
+  get "logo", to: "welcome#logo", as: "logo"
+  get 'certified_reskill_courses/rails_developer_course',
+    to: 'welcome#rails_developer_course',
+    as: :certified_reskill_courses_rails_developer_course_root
   draw :scheduler
   draw :api
   draw :paper
@@ -48,6 +56,12 @@ Rails.application.routes.draw do
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
     resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
+    resources :coding_tests, only: %i(index), controller: "practices/coding_tests"
+  end
+  resources :coding_tests, only: %i(show) do
+    resources :coding_test_submissions,
+      only: %i(index show show),
+      controller: "coding_tests/coding_test_submissions"
   end
   resources :pages, param: :slug_or_id
   namespace :notification do
@@ -68,6 +82,9 @@ Rails.application.routes.draw do
   resources :courses, only: :index
   resource :inquiry, only: %i(new create)
   resource :corporate_training_inquiry, only: %i(new create)
+  namespace :articles do
+    resources :wips, only: %i(index), controller: "wips"
+  end
   resources :articles
   resources :survey_questions, except: %i(show destroy)
   namespace :events do

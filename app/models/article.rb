@@ -37,6 +37,10 @@ class Article < ApplicationRecord
   paginates_per 24
   acts_as_taggable
 
+  scope :with_attachments_and_user, lambda {
+    with_attached_thumbnail.includes(user: { avatar_attachment: :blob }).where(wip: false)
+  }
+
   def prepared_thumbnail_url(thumbnail_size = THUMBNAIL_SIZE)
     if thumbnail.attached?
       thumbnail.variant(resize_to_fill: thumbnail_size).processed.url
@@ -51,6 +55,10 @@ class Article < ApplicationRecord
 
   def published?
     !wip?
+  end
+
+  def generate_token!
+    self.token ||= SecureRandom.urlsafe_base64
   end
 
   private

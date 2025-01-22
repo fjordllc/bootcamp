@@ -1,0 +1,27 @@
+- title 'FAQカテゴリー追加'
+
+header.page-header
+  .container
+    .page-header__inner
+      h1.page-header__title
+        | 管理ページ
+
+= render 'admin/admin_page_tabs'
+= render 'admin/faqs/faq_tabs'
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | FAQカテゴリー追加
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to 'カテゴリー一覧', admin_faq_categories_path, class: 'a-button is-sm is-block is-secondary is-back'
+  hr.a-border
+  .page-body
+    .container.is-md
+      = render 'form', faq_category: @faq_category

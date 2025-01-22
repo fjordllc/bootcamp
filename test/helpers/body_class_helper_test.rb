@@ -126,19 +126,19 @@ class BodyClassHelperTest < ActionView::TestCase
       'index'
     end
 
-    assert_equal 'practices-products practices-products-index', controller_class
+    assert_equal 'is-practices-products is-practices-products-index', controller_class
 
     def controller_path
       'practices'
     end
 
-    assert_equal 'practices practices-index', controller_class
+    assert_equal 'is-practices is-practices-index', controller_class
 
     def controller_path
       'admin/users/password'
     end
 
-    assert_equal 'admin-users-password admin-users-password-index', controller_class
+    assert_equal 'is-admin-users-password is-admin-users-password-index', controller_class
   end
 
   test 'body_class' do
@@ -156,15 +156,15 @@ class BodyClassHelperTest < ActionView::TestCase
 
     params[:action] = 'new'
 
-    assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode', body_class
+    assert_equal 'is-admin-users is-admin-users-index is-edit-page is-admin-page is-test is-adviser-mode', body_class
 
     content_for(:extra_body_classes, 'no-recent-reports')
 
-    assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode no-recent-reports', body_class
+    assert_equal 'is-admin-users is-admin-users-index is-edit-page is-admin-page is-test is-adviser-mode no-recent-reports', body_class
 
     options = { extra_body_classes_symbol: :test }
     content_for(:test, 'test')
 
-    assert_equal 'admin-users admin-users-index is-edit-page is-admin-page is-test is-adviser-mode test', body_class(options)
+    assert_equal 'is-admin-users is-admin-users-index is-edit-page is-admin-page is-test is-adviser-mode test', body_class(options)
   end
 end

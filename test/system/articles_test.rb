@@ -62,7 +62,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'WIP label visible on index and show' do
-    visit_with_auth articles_path, 'komagata'
+    visit_with_auth articles_wips_path, 'komagata'
     assert_text 'WIP'
     assert_text '執筆中'
 
@@ -114,7 +114,7 @@ class ArticlesTest < ApplicationSystemTestCase
   end
 
   test 'mentor can see WIP label on index and show' do
-    visit_with_auth articles_path, 'mentormentaro'
+    visit_with_auth articles_wips_path, 'mentormentaro'
     assert_text 'WIP'
     assert_text '執筆中'
 
@@ -414,10 +414,73 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_no_text 'WIPの記事は atom feed に表示されない'
   end
 
+  test 'articles are displayed from the most recent publication date' do
+    three_days_ago_article = Article.create(
+      title: '3日前に公開された記事',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 4.days,
+      updated_at: Date.current - 4.days,
+      published_at: Date.current - 3.days
+    )
+    two_days_ago_article = Article.create(
+      title: '2日前に公開された記事',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 5.days,
+      updated_at: Date.current - 5.days,
+      published_at: Date.current - 2.days
+    )
+    one_day_ago_article = Article.create(
+      title: '1日前に公開された記事',
+      body: 'test',
+      user: users(:komagata),
+      wip: false,
+      created_at: Date.current - 6.days,
+      updated_at: Date.current - 6.days,
+      published_at: Date.current - 1.day
+    )
+
+    visit articles_url
+    top_three_titles = all('h2.thumbnail-card__title').take(3).map(&:text)
+    assert_equal [one_day_ago_article.title, two_days_ago_article.title, three_days_ago_article.title], top_three_titles
+  end
+
   test 'WIP articles are listed first in desc order' do
-    visit_with_auth articles_path, 'komagata'
+    # テストがわかりやすいように test/fixtures/article.yml の article3(WIP記事) からの連番で作成
+    wip_article4 = Article.create(
+      title: 'タイトル4',
+      body: 'テスト用のWIP記事4',
+      user: users(:komagata),
+      wip: true
+    )
+    wip_article5 = Article.create(
+      title: 'タイトル5',
+      body: 'テスト用のWIP記事5',
+      user: users(:komagata),
+      wip: true,
+      published_at: '2022-01-03 00:00:00'
+    )
+
+    visit_with_auth articles_wips_path, 'komagata'
     titles = all('h2.thumbnail-card__title').map(&:text)
 
-    assert_equal titles, ["WIP#{@article3.title}", @article2.title, @article.title]
+    assert_equal ["WIP#{wip_article5.title}", "WIP#{wip_article4.title}", "WIP#{@article3.title}"], titles
+  end
+
+  test 'not logged-in users cannot view WIP articles without correct token' do
+    visit article_path(@article3)
+    assert_text '管理者・メンターとしてログインしてください'
+
+    visit article_path(@article3, token: 'failed_token')
+    assert_text 'token が一致しませんでした'
+
+    visit article_path(@article3, token: @article3.token)
+    assert_text @article3.title
+    assert_selector 'head', visible: false do
+      assert_selector "meta[name='robots'][content='noindex, nofollow']", visible: false
+    end
   end
 end

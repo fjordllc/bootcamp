@@ -41,6 +41,10 @@ class Notification::RegularEventsTest < ApplicationSystemTestCase
 
       < 明日 (05/06 土) 開催 >
 
+      Discord通知確認用イベント(土曜日午前8時から開催)
+      時間: 08:00〜09:00
+      詳細: <http://localhost:3000/regular_events/507245517>
+
       Discord通知確認用イベント(土曜日 + 日曜日開催)
       時間: 09:00〜10:00
       詳細: <http://localhost:3000/regular_events/670378901>

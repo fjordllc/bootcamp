@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'supports/product_helper'
 
 class UserTest < ActiveSupport::TestCase
+  include ProductHelper
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
@@ -75,11 +77,13 @@ class UserTest < ActiveSupport::TestCase
   test '#completed_percentage don\'t calculate practice that include_progress: false' do
     user = users(:komagata)
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice5))
     user.completed_practices << practices(:practice5)
 
     assert_not_equal old_percentage, user.completed_percentage
 
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice53))
     user.completed_practices << practices(:practice53)
 
     assert_equal old_percentage, user.completed_percentage
@@ -88,11 +92,13 @@ class UserTest < ActiveSupport::TestCase
   test '#completed_percentage don\'t calculate practice unrelated cource' do
     user = users(:komagata)
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice5))
     user.completed_practices << practices(:practice5)
 
     assert_not_equal old_percentage, user.completed_percentage
 
     old_percentage = user.completed_percentage
+    create_checked_product(user, practices(:practice55))
     user.completed_practices << practices(:practice55)
 
     assert_equal old_percentage, user.completed_percentage
@@ -381,6 +387,7 @@ class UserTest < ActiveSupport::TestCase
     practice2 = practices(:practice2)
     today = Time.zone.today
 
+    create_checked_product(user, practice1)
     Learning.create!(
       user:,
       practice: practice1,
@@ -389,6 +396,7 @@ class UserTest < ActiveSupport::TestCase
       updated_at: (today - 2.weeks).to_formatted_s(:db)
     )
 
+    create_checked_product(user, practice2)
     Learning.create!(
       user:,
       practice: practice2,
@@ -425,6 +433,7 @@ class UserTest < ActiveSupport::TestCase
     practice1 = practices(:practice1)
     today = Time.zone.today
 
+    create_checked_product(user, practice1)
     Learning.create!(
       user:,
       practice: practice1,
@@ -450,6 +459,7 @@ class UserTest < ActiveSupport::TestCase
 
     machida = users(:machida)
     practice1 = practices(:practice1)
+    create_checked_product(machida, practice1)
     Learning.create!(
       user: machida,
       practice: practice1,
@@ -706,6 +716,14 @@ class UserTest < ActiveSupport::TestCase
     assert_empty User.users_role(not_scope_name, allowed_targets:)
   end
 
+  test '#cancel_participation_from_regular_events' do
+    user = users(:kimura)
+
+    assert_changes -> { RegularEventParticipation.where(user:).exists? }, from: true, to: false do
+      user.cancel_participation_from_regular_events
+    end
+  end
+
   test '#delete_and_assign_new_organizer' do
     user = users(:hajime)
 
@@ -729,5 +747,42 @@ class UserTest < ActiveSupport::TestCase
 
   test '.users_job returns all users when invalid job is passed' do
     assert_equal User.all, User.users_job('destroy_all')
+  end
+
+  test '#area' do
+    tokyo_user = users(:machida)
+    america_user = users(:tom)
+    no_area_user = users(:komagata)
+    assert_equal tokyo_user.area, '東京都'
+    assert_equal america_user.area, '米国'
+    assert_nil no_area_user.area
+  end
+
+  test '.by_area' do
+    tokyo_users = [users(:adminonly), users(:machida), users(:kimura)]
+    assert_equal User.by_area('東京都').to_a.sort, tokyo_users.sort
+    america_users = [users(:neverlogin), users(:tom)]
+    assert_equal User.by_area('米国').to_a.sort, america_users.sort
+  end
+
+  test 'clear_github_data should clear GitHub related fields' do
+    user = users(:kimura)
+    user.github_id = '12345'
+    user.github_account = 'github_kimura'
+    user.github_collaborator = true
+    user.save!(validate: false)
+
+    user.clear_github_data
+
+    assert_nil user.github_id
+    assert_nil user.github_account
+    assert_not user.github_collaborator
+  end
+
+  test '#latest_micro_report_page' do
+    user = users(:hajime)
+    assert_equal 1, user.latest_micro_report_page
+    user.micro_reports.create!(Array.new(25) { |i| { content: "分報#{i + 1}" } })
+    assert_equal 2, user.latest_micro_report_page
   end
 end

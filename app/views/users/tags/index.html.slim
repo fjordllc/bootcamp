@@ -10,7 +10,7 @@ header.page-header
         .page-header-actions
           ul.page-header-actions__items
 
-= render '/users/lg_page_tabs'
+= users_page_tabs(active_tab: 'タグ別')
 
 main.page-main
   header.page-main-header
@@ -22,8 +22,7 @@ main.page-main
     .container.is-lg
       - if @tags.present?
         = paginate @tags
-        .a-card
-          = render partial: 'tags/tag', collection: @tags, as: :tag
+        = render partial: 'tags/tag', collection: @tags, as: :tag
         = paginate @tags
       - else
         .o-empty-message

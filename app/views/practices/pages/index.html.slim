@@ -2,8 +2,12 @@
 - set_meta_tags description: "プラクティス「#{@practice.title}」に関するドキュメント一覧です。"
 - category = @practice.category(current_user.course)
 
-= render '/practices/page_header', title: @practice.title, category: category
-= render 'page_tabs', resource: @practice
+= render '/practices/page_header',
+  title: @practice.title,
+  category: category,
+  practice: @practice
+
+= practice_page_tabs(@practice, active_tab: 'Docs')
 
 .page-body
   = paginate @pages

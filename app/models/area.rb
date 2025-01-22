@@ -19,23 +19,6 @@ class Area
   }.freeze
 
   class << self
-    # 指定したregionとareaのユーザーを全て取得して返す関数
-    # regionはareaをカテゴリーに分類します 日本の地域区分名か海外になります
-    # areaは場所を表す最小単位です 都道府県名か国名になります
-    def users(region, area)
-      if region == '海外'
-        country = ISO3166::Country.find_country_by_any_name(area)
-        User
-          .with_attached_avatar
-          .where(country_code: country.alpha2)
-      else
-        subdivision_code = ISO3166::Country[:JP].find_subdivision_by_name(area).code
-        User
-          .with_attached_avatar
-          .where(subdivision_code: subdivision_code.to_s)
-      end
-    end
-
     # regionとareaによって分類されたユーザー数をハッシュで取得して返す関数
     # country_codeかsubdivision_codeのどちらかがnullのユーザーのデータは無視されます
     #
@@ -60,6 +43,17 @@ class Area
           result['海外'][pair_array.map(&:first)[0]] = pair_array.map(&:second).length
         end
       end
+    end
+
+    def sorted_user_groups_by_area_user_num
+      users_group_by_areas = User.with_attached_avatar.order(created_at: :desc).group_by(&:area)
+
+      sorted_users_group_by_non_nil_areas =
+        users_group_by_areas.map do |area, users|
+          { users:, area: } unless area.nil?
+        end.compact
+
+      sorted_users_group_by_non_nil_areas.sort_by { |hash| -hash[:users].size }
     end
 
     private

@@ -2,7 +2,7 @@
 - set_meta_tags description: "#{@report.user.login_name}さんの#{l @report.reported_on}の日報です。"
 
 = render 'users/page_title', user: @report.user
-= render 'users/page_tabs', user: @report.user
+= user_page_tabs(@report.user, active_tab: '日報')
 
 - if admin_or_mentor_login?
   - if @report.user.retired_on?

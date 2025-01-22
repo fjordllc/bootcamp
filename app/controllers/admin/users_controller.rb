@@ -63,7 +63,7 @@ class Admin::UsersController < AdminController
       :organization, :os, :study_place,
       { experiences: [] }, :company_id,
       :trainee, :job_seeking, :nda,
-      :graduated_on, :retired_on, :free,
+      :graduated_on, :retired_on,
       :job_seeker, :github_collaborator,
       :officekey_permission, :tag_list, :training_ends_on,
       :auto_retire, :invoice_payment, :hide_mentor_profile,

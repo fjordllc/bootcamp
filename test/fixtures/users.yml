@@ -62,6 +62,8 @@ machida:
   profile_name: "町田 哲平"
   profile_job: "デザイナー"
   profile_text: "株式会社ロッカのデザイナー。Ruby on Railsを使ったWebアプリを中心に多くのプロジェクトに参加。仙台で行われたRubyKaigi 2018のデザイン担当。フィヨルドブートキャンプでは主に HTML と CSS のレビュー担当。"
+  country_code: JP
+  subdivision_code: '13'
 
 adminonly: # adminのroleだけを持ったユーザー
   login_name: adminonly
@@ -87,6 +89,9 @@ adminonly: # adminのroleだけを持ったユーザー
   created_at: "2021-02-01 00:00:30"
   last_activity_at: "2021-02-01 00:00:30"
   sent_student_followup_message: true
+  country_code: JP
+  subdivision_code: '13'
+
 
 sotugyou_with_job:
   login_name: sotugyou-with-job
@@ -284,7 +289,6 @@ muryou:
   job: office_worker
   os: mac
   organization: 無料大学
-  free: true
   unsubscribe_email_token: V8qOxq82MrYh6P_jwx9CQQ
   updated_at: "2014-01-01 00:00:10"
   created_at: "2014-01-01 00:00:10"
@@ -310,7 +314,6 @@ kensyu:
   organization: 研修大学
   trainee: true
   training_ends_on: "2022-04-01"
-  free: true
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 00:00:11"
   created_at: "2014-01-01 00:00:11"
@@ -508,7 +511,6 @@ kensyuowata: # 研修が終わったユーザー
   experiences: 6
   organization: 研修大学
   trainee: true
-  free: true
   retired_on: "2015-01-01"
   unsubscribe_email_token: Vb3zzFj5oO4zcwOURn14qW
   updated_at: "2014-01-01 00:00:11"
@@ -755,7 +757,6 @@ nocompanykensyu: # 所属企業のない研修生
   os: mac
   experiences: 6
   trainee: true
-  free: true
   unsubscribe_email_token: VbTzzFj5oO4zHqOURnO4qA
   updated_at: "2014-01-01 01:00:11"
   created_at: "2014-01-01 01:00:11"
@@ -773,7 +774,6 @@ neverlogin: # 1度もログインしたことがないユーザー
   course: course1
   os: mac
   experiences: 6
-  free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
   sent_student_followup_message: true
@@ -813,7 +813,6 @@ neverlogin: # 1度もログインしたことがないユーザー
   experiences: 6
   country_code: US
   subdivision_code: HI
-  free: true
   updated_at: "2022-07-11 00:00:00"
   created_at: "2022-07-11 00:00:00"
   sent_student_followup_message: true
@@ -1023,3 +1022,83 @@ pjord:
   updated_at: "2014-01-01 00:00:01"
   created_at: "2014-01-01 00:00:01"
   last_activity_at: "2014-01-01 00:00:01"
+
+rails-course:
+  login_name: rails-course
+  email: rails-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Railsエンジニアコースのユーザー
+  name_kana: Railsエンジニアコースノユーザー
+  twitter_account: rails-course
+  facebook_url: https://www.facebook.com/fjordllc/rails-course
+  blog_url: http://rails-course.org
+  feed_url: https://example4.com/feed
+  description: "Railsエンジニアコースを受講中のユーザーです。"
+  course: course1
+  job: office_worker
+  os: mac
+  organization: Rails大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
+
+front-end-course:
+  login_name: front-end-course
+  email: front-end@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: フロントエンドエンジニアコースのユーザー
+  name_kana: フロントエンドエンジニアコースノユーザー
+  twitter_account: front-end
+  facebook_url: https://www.facebook.com/fjordllc/front-end
+  blog_url: http://front-end.org
+  feed_url: https://example4.com/feed
+  description: "フロントエンドエンジニアコースを受講中のユーザーです。"
+  course: course4
+  job: office_worker
+  os: mac
+  organization: フロントエンド大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
+
+unity-course:
+  login_name: unity-course
+  email: unity-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: Unityゲームエンジニアコースのユーザー
+  name_kana: Unityゲームエンジニアコースノユーザー
+  twitter_account: unity
+  facebook_url: https://www.facebook.com/fjordllc/unity
+  blog_url: http://unity.org
+  feed_url: https://example4.com/feed
+  description: "Unityゲームエンジニアコースを受講中のユーザーです。"
+  course: course2
+  job: office_worker
+  os: mac
+  organization: Unity大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"
+
+ios-course:
+  login_name: ios-course
+  email: ios-course@fjord.jp
+  crypted_password: $2a$10$n/xv4/1luueN6plzm2OyDezWlZFyGHjQEf4hwAW1r3k.lCm0frPK. # testtest
+  salt: zW3kQ9ubsxQQtzzzs4ap
+  name: iOSエンジニアコースのユーザー
+  name_kana: iOSエンジニアコースノユーザー
+  twitter_account: ios
+  facebook_url: https://www.facebook.com/fjordllc/ios
+  blog_url: http://ios.org
+  feed_url: https://example4.com/feed
+  description: "iOSエンジニアコースを受講中のユーザーです。"
+  course: course3
+  job: office_worker
+  os: mac
+  organization: iOS大学
+  updated_at: "2014-01-01 00:00:07"
+  created_at: "2014-01-01 00:00:07"
+  last_activity_at: "2014-01-01 00:00:07"

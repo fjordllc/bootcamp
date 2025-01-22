@@ -25,7 +25,7 @@ header.page-header
                 = link_to products_unchecked_index_path, class: 'a-button is-md is-secondary is-block is-back' do
                   | 未完了一覧
 
-= render 'page_tabs', resource: @product.practice
+= practice_page_tabs(@product.practice, active_tab: '提出物')
 
 .page-body
 

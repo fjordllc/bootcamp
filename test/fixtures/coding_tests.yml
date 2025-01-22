@@ -1,0 +1,9 @@
+coding_test1:
+  practice: practice1
+  user: komagata
+  language: javascript
+  title: 最初の出力
+  description: |-
+    `hello`という文字列を出力しなさい。
+  hint: ""
+  position: 1

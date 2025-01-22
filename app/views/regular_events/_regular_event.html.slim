@@ -48,11 +48,11 @@
     .card-header.is-sm
       h2.card-header__title
         | イベント内容
-    hr.a-border
+    hr.a-border-tint
     - if regular_event.all
-      .card__message.is-notice
+      .card-message.is-notice
         | この定期イベントは全員参加のため参加登録は不要です。
-    .card__description
+    .card-body__description
       .a-long-text.is-md.js-markdown-view
         = regular_event.description
 
@@ -79,7 +79,7 @@
           | 参加者（#{regular_event.participants.count}名）
       hr.a-border-tint
       .card-body
-        .card__description
+        .card-body__description
           - if regular_event.participants.present?
             ul.user-icons__items
               - regular_event.participants.each do |participant|
@@ -87,6 +87,12 @@
                   = link_to participant do
                     span class="a-user-role is-#{participant.primary_role}"
                       = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name}", alt: participant.login_name
+                  - if admin_login?
+                    = link_to regular_event_participation_path(regular_event_id: regular_event, participant_id: participant),
+                      class: 'user-icons-item__delete a-text-link is-only-mentor',
+                      method: :delete,
+                      data: { confirm: 'イベントの参加をキャンセルします。よろしいですか?' } do
+                      | 削除する
           - else
             .o-empty-message
               .o-empty-message__icon

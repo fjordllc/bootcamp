@@ -9,7 +9,7 @@ class CoursesController < ApplicationController
     else
       @rails_course = Course.preload(categories: :practices).find_by(title: 'Railsエンジニア')
       @frontend_course = Course.preload(categories: :practices).find_by(title: 'フロントエンドエンジニア')
-      render 'welcome/courses', layout: 'welcome'
+      render 'welcome/courses', layout: 'lp'
     end
   end
 

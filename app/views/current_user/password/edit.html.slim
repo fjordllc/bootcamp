@@ -1,4 +1,11 @@
 - title 'パスワード変更'
 - set_meta_tags description: 'パスワード変更ページです。'
 
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        .page-header__title
+          = title
+hr.a-border
 = render 'users/password_change', url: current_user_password_path, user: @user

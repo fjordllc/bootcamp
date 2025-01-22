@@ -2,7 +2,7 @@
 - set_meta_tags description: 'ダッシュボードページです。'
 
 = render 'page_header'
-= render 'page_tabs', user: current_user
+= dashboard_page_tabs(active_tab: 'ダッシュボード')
 
 - if !Learning.find_by(user_id: current_user) && current_user.student_or_trainee?
   = render 'welcome_message'
@@ -15,7 +15,7 @@
     - if current_user.adviser?
       = render 'adviser_dashboard'
     - elsif current_user.mentor?
-      = render 'mentor_dashboard'
+      = render 'mentor_dashboard', products: @products, products_grouped_by_elapsed_days: @products_grouped_by_elapsed_days
     - else
       .columns
         .container.is-xl

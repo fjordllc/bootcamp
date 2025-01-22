@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'admin' do
       resource :count, controller: 'count', only: %i(show)
-      resources :companies, only: %i(index destroy)
     end
     namespace 'mentor' do
       resources :practices, only: %i(index)
@@ -33,7 +32,6 @@ Rails.application.routes.draw do
     resources :checks, only: %i(index create destroy)
     resources :mention_users, only: %i(index)
     namespace :users do
-      resources :areas, only: %i(index)
       resources :companies, only: %i(index)
     end
     resources :users, only: %i(index show update)
@@ -44,6 +42,7 @@ Rails.application.routes.draw do
         resource :completion_message, only: %i(update), controller: "practices/learning/completion_message"
       end
     end
+    resources :coding_test_submissions, only: %i(create)
     resources :reports, only: %i(index)
     namespace "reports" do
       resources :unchecked, only: %i(index) do
@@ -67,7 +66,7 @@ Rails.application.routes.draw do
         get 'counts', on: :collection
       end
       resources :self_assigned, only: %i(index)
-      resource :checker, only: %i(update destroy), controller: 'checker'
+      resource :checker, only: %i(show update destroy), controller: 'checker'
       resource :passed, only: %i(show), controller: 'passed'
     end
     resources :products, only: %i(index show)
@@ -90,5 +89,6 @@ Rails.application.routes.draw do
     resources :survey_question_listings, only: %i() do
       resource :position, only: %i(update), controller: "survey_question_listings/position"
     end
+    resources :reading_circles, only: %i(index)
   end
 end

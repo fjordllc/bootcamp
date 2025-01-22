@@ -1,14 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: post
+    method: get
     uri: https://api.stripe.com/v1/subscriptions/sub_12345678
     body:
-      encoding: UTF-8
-      string: cancel_at_period_end=true
+      encoding: US-ASCII
+      string: ''
     headers:
       User-Agent:
-      - Stripe/v1 RubyBindings/4.5.0
+      - Stripe/v1 RubyBindings/10.1.0
       Authorization:
       - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
       Content-Type:
@@ -16,17 +16,13 @@ http_interactions:
       Stripe-Version:
       - '2018-11-08'
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"4.5.0","lang":"ruby","lang_version":"2.6.6 p146 (2020-03-31)","platform":"x86_64-darwin20","engine":"ruby","publisher":"stripe","uname":"Darwin
-        komagata-macbookpro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8
-        05:10:33 PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"komagata-macbookpro.local"}'
+      - '{"bindings_version":"10.1.0","lang":"ruby","lang_version":"3.1.4 p223 (2023-03-30)","platform":"arm64-darwin23","engine":"ruby","publisher":"stripe","uname":"Darwin
+        Masakis-MacBook-Pro.local 23.6.0 Darwin Kernel Version 23.6.0: Mon Jul 29
+        21:14:30 PDT 2024; root:xnu-10063.141.2~1/RELEASE_ARM64_T6000 arm64","hostname":"Masakis-MacBook-Pro.local"}'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      Connection:
-      - keep-alive
-      Keep-Alive:
-      - '30'
   response:
     status:
       code: 200
@@ -35,118 +31,164 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 19 Jun 2021 12:13:05 GMT
+      - Fri, 17 Jan 2025 02:15:40 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '3836'
+      - '5308'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Methods:
-      - GET, POST, HEAD, OPTIONS, DELETE
+      - GET, HEAD, PUT, PATCH, POST, DELETE
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Expose-Headers:
-      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      - Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required,
+        X-Stripe-Privileged-Session-Required
       Access-Control-Max-Age:
       - '300'
       Cache-Control:
       - no-cache, no-store
+      Content-Security-Policy:
+      - base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none';
+        img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; upgrade-insecure-requests;
+        report-uri https://q.stripe.com/csp-violation?q=uTDk1iJu9ea3KfFt1w7NJnXBNPBT5EWhgOOXYWcaNNub7hOi20vUeithb4GPjp7yMndcSunnopyLDAsg
+      Cross-Origin-Opener-Policy-Report-Only:
+      - same-origin; report-to="coop"
+      Report-To:
+      - '{"group":"coop","max_age":8640,"endpoints":[{"url":"https://q.stripe.com/coop-report"}],"include_subdomains":true}'
+      Reporting-Endpoints:
+      - coop="https://q.stripe.com/coop-report"
       Request-Id:
-      - req_f9yC3appEConOh
+      - req_eToudRYZssKdUt
       Stripe-Version:
       - '2018-11-08'
-      X-Stripe-C-Cost:
-      - '0'
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Stripe-Priority-Routing-Enabled:
+      - 'true'
+      X-Stripe-Routing-Context-Priority-Tier:
+      - api-testmode
+      X-Wc:
+      - ABC
       Strict-Transport-Security:
-      - max-age=31556926; includeSubDomains; preload
+      - max-age=63072000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: |-
+      string: |
         {
           "id": "sub_12345678",
           "object": "subscription",
+          "application": null,
           "application_fee_percent": null,
           "automatic_tax": {
-            "enabled": false
+            "disabled_reason": null,
+            "enabled": false,
+            "liability": null
           },
           "billing": "charge_automatically",
-          "billing_cycle_anchor": 1672758000,
+          "billing_cycle_anchor": 1733589210,
+          "billing_cycle_anchor_config": null,
           "billing_thresholds": null,
-          "cancel_at": 1672758000,
+          "cancel_at": 1738946010,
           "cancel_at_period_end": true,
-          "canceled_at": 1624104785,
+          "canceled_at": 1737080044,
+          "cancellation_details": {
+            "comment": null,
+            "feedback": null,
+            "reason": "cancellation_requested"
+          },
           "collection_method": "charge_automatically",
-          "created": 1624104122,
-          "current_period_end": 1672758000,
-          "current_period_start": 1624104122,
-          "customer": "cus_JhRfQ7G68L2k8R",
+          "created": 1733330010,
+          "currency": "jpy",
+          "current_period_end": 1738946010,
+          "current_period_start": 1736267610,
+          "customer": "cus_RL1Zj6SXTz4XCr",
           "days_until_due": null,
           "default_payment_method": null,
           "default_source": null,
           "default_tax_rates": [
 
           ],
+          "description": null,
           "discount": null,
+          "discounts": [
+
+          ],
           "ended_at": null,
           "invoice_customer_balance_settings": {
             "consume_applied_balance_on_void": true
+          },
+          "invoice_settings": {
+            "account_tax_ids": null,
+            "issuer": {
+              "type": "self"
+            }
           },
           "items": {
             "object": "list",
             "data": [
               {
-                "id": "si_JhRldL41spXH8n",
+                "id": "si_RL1ZLMeciQ3Hsg",
                 "object": "subscription_item",
                 "billing_thresholds": null,
-                "created": 1624104122,
+                "created": 1733330011,
+                "discounts": [
+
+                ],
                 "metadata": {
                 },
                 "plan": {
-                  "id": "price_1J0hhTBpeWcLFd8ffLjm4nKO",
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
                   "object": "plan",
                   "active": true,
                   "aggregate_usage": null,
                   "amount": 29800,
                   "amount_decimal": "29800",
                   "billing_scheme": "per_unit",
-                  "created": 1623307751,
+                  "created": 1635953363,
                   "currency": "jpy",
                   "interval": "month",
                   "interval_count": 1,
                   "livemode": false,
                   "metadata": {
                   },
+                  "meter": null,
                   "nickname": "スタンダードプラン",
-                  "product": "prod_JdzgjajHO6tZGI",
+                  "product": "prod_KWp3vEb5hlZBNC",
                   "tiers": null,
                   "tiers_mode": null,
                   "transform_usage": null,
-                  "trial_period_days": null,
+                  "trial_period_days": 3,
                   "usage_type": "licensed"
                 },
                 "price": {
-                  "id": "price_1J0hhTBpeWcLFd8ffLjm4nKO",
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
                   "object": "price",
                   "active": true,
                   "billing_scheme": "per_unit",
-                  "created": 1623307751,
+                  "created": 1635953363,
                   "currency": "jpy",
+                  "custom_unit_amount": null,
                   "livemode": false,
                   "lookup_key": null,
                   "metadata": {
                   },
                   "nickname": "スタンダードプラン",
-                  "product": "prod_JdzgjajHO6tZGI",
+                  "product": "prod_KWp3vEb5hlZBNC",
                   "recurring": {
                     "aggregate_usage": null,
                     "interval": "month",
                     "interval_count": 1,
-                    "trial_period_days": null,
+                    "meter": null,
+                    "trial_period_days": 3,
                     "usage_type": "licensed"
                   },
+                  "tax_behavior": "unspecified",
                   "tiers_mode": null,
                   "transform_quantity": null,
                   "type": "recurring",
@@ -156,7 +198,319 @@ http_interactions:
                 "quantity": 1,
                 "subscription": "sub_12345678",
                 "tax_rates": [
+                  {
+                    "id": "txr_1Om0YyBpeWcLFd8fovSLFgXX",
+                    "object": "tax_rate",
+                    "active": true,
+                    "country": "JP",
+                    "created": 1708463356,
+                    "description": null,
+                    "display_name": "消費税",
+                    "effective_percentage": 10.0,
+                    "flat_amount": null,
+                    "inclusive": true,
+                    "jurisdiction": null,
+                    "jurisdiction_level": null,
+                    "livemode": false,
+                    "metadata": {
+                    },
+                    "percentage": 10.0,
+                    "rate_type": "percentage",
+                    "state": null,
+                    "tax_type": null
+                  }
+                ]
+              }
+            ],
+            "has_more": false,
+            "total_count": 1,
+            "url": "/v1/subscription_items?subscription=sub_1QSLW2BpeWcLFd8f075qVUFt"
+          },
+          "latest_invoice": "in_1QefjZBpeWcLFd8f1AzMT1C3",
+          "livemode": false,
+          "metadata": {
+          },
+          "next_pending_invoice_item_invoice": null,
+          "on_behalf_of": null,
+          "pause_collection": null,
+          "payment_settings": {
+            "payment_method_options": null,
+            "payment_method_types": null,
+            "save_default_payment_method": "off"
+          },
+          "pending_invoice_item_interval": null,
+          "pending_setup_intent": null,
+          "pending_update": null,
+          "plan": {
+            "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+            "object": "plan",
+            "active": true,
+            "aggregate_usage": null,
+            "amount": 29800,
+            "amount_decimal": "29800",
+            "billing_scheme": "per_unit",
+            "created": 1635953363,
+            "currency": "jpy",
+            "interval": "month",
+            "interval_count": 1,
+            "livemode": false,
+            "metadata": {
+            },
+            "meter": null,
+            "nickname": "スタンダードプラン",
+            "product": "prod_KWp3vEb5hlZBNC",
+            "tiers": null,
+            "tiers_mode": null,
+            "transform_usage": null,
+            "trial_period_days": 3,
+            "usage_type": "licensed"
+          },
+          "quantity": 1,
+          "schedule": null,
+          "start": 1737080044,
+          "start_date": 1733330010,
+          "status": "active",
+          "tax_percent": null,
+          "test_clock": null,
+          "transfer_data": null,
+          "trial_end": 1733589210,
+          "trial_settings": {
+            "end_behavior": {
+              "missing_payment_method": "create_invoice"
+            }
+          },
+          "trial_start": 1733330010
+        }
+  recorded_at: Fri, 17 Jan 2025 02:15:40 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/subscriptions/sub_12345678
+    body:
+      encoding: UTF-8
+      base64_string: 'Y2FuY2VsX2F0X3BlcmlvZF9lbmQ9dHJ1ZQ==
 
+        '
+    headers:
+      User-Agent:
+      - Stripe/v1 RubyBindings/10.1.0
+      Authorization:
+      - Bearer sk_test_XLP1Ajz1JvT9jUt5uKGvL0Wd
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-Telemetry:
+      - '{"last_request_metrics":{"request_id":"req_eToudRYZssKdUt","request_duration_ms":262}}'
+      Stripe-Version:
+      - '2018-11-08'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"10.1.0","lang":"ruby","lang_version":"3.1.4 p223 (2023-03-30)","platform":"arm64-darwin23","engine":"ruby","publisher":"stripe","uname":"Darwin
+        Masakis-MacBook-Pro.local 23.6.0 Darwin Kernel Version 23.6.0: Mon Jul 29
+        21:14:30 PDT 2024; root:xnu-10063.141.2~1/RELEASE_ARM64_T6000 arm64","hostname":"Masakis-MacBook-Pro.local"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 17 Jan 2025 02:15:40 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '5308'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, PATCH, POST, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required,
+        X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Content-Security-Policy:
+      - base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none';
+        img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; upgrade-insecure-requests;
+        report-uri https://q.stripe.com/csp-violation?q=hXoudeIaVpCV7SsDmX2UCia_24GzHw_ZD6nfjfQa0XuZy5sYvf_KKSAOqMbdJj-uVierLixGM-m-h8h-
+      Cross-Origin-Opener-Policy-Report-Only:
+      - same-origin; report-to="coop"
+      Idempotency-Key:
+      - a81b400a-fad3-4314-ab2b-e3ca3c5fe84b
+      Original-Request:
+      - req_K1UKBtI4urVyJS
+      Report-To:
+      - '{"group":"coop","max_age":8640,"endpoints":[{"url":"https://q.stripe.com/coop-report"}],"include_subdomains":true}'
+      Reporting-Endpoints:
+      - coop="https://q.stripe.com/coop-report"
+      Request-Id:
+      - req_K1UKBtI4urVyJS
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - '2018-11-08'
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Stripe-Priority-Routing-Enabled:
+      - 'true'
+      X-Stripe-Routing-Context-Priority-Tier:
+      - api-testmode
+      X-Wc:
+      - ABC
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "sub_12345678",
+          "object": "subscription",
+          "application": null,
+          "application_fee_percent": null,
+          "automatic_tax": {
+            "disabled_reason": null,
+            "enabled": false,
+            "liability": null
+          },
+          "billing": "charge_automatically",
+          "billing_cycle_anchor": 1733589210,
+          "billing_cycle_anchor_config": null,
+          "billing_thresholds": null,
+          "cancel_at": 1738946010,
+          "cancel_at_period_end": true,
+          "canceled_at": 1737080140,
+          "cancellation_details": {
+            "comment": null,
+            "feedback": null,
+            "reason": "cancellation_requested"
+          },
+          "collection_method": "charge_automatically",
+          "created": 1733330010,
+          "currency": "jpy",
+          "current_period_end": 1738946010,
+          "current_period_start": 1736267610,
+          "customer": "cus_RL1Zj6SXTz4XCr",
+          "days_until_due": null,
+          "default_payment_method": null,
+          "default_source": null,
+          "default_tax_rates": [
+
+          ],
+          "description": null,
+          "discount": null,
+          "discounts": [
+
+          ],
+          "ended_at": null,
+          "invoice_customer_balance_settings": {
+            "consume_applied_balance_on_void": true
+          },
+          "invoice_settings": {
+            "account_tax_ids": null,
+            "issuer": {
+              "type": "self"
+            }
+          },
+          "items": {
+            "object": "list",
+            "data": [
+              {
+                "id": "si_RL1ZLMeciQ3Hsg",
+                "object": "subscription_item",
+                "billing_thresholds": null,
+                "created": 1733330011,
+                "discounts": [
+
+                ],
+                "metadata": {
+                },
+                "plan": {
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+                  "object": "plan",
+                  "active": true,
+                  "aggregate_usage": null,
+                  "amount": 29800,
+                  "amount_decimal": "29800",
+                  "billing_scheme": "per_unit",
+                  "created": 1635953363,
+                  "currency": "jpy",
+                  "interval": "month",
+                  "interval_count": 1,
+                  "livemode": false,
+                  "metadata": {
+                  },
+                  "meter": null,
+                  "nickname": "スタンダードプラン",
+                  "product": "prod_KWp3vEb5hlZBNC",
+                  "tiers": null,
+                  "tiers_mode": null,
+                  "transform_usage": null,
+                  "trial_period_days": 3,
+                  "usage_type": "licensed"
+                },
+                "price": {
+                  "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
+                  "object": "price",
+                  "active": true,
+                  "billing_scheme": "per_unit",
+                  "created": 1635953363,
+                  "currency": "jpy",
+                  "custom_unit_amount": null,
+                  "livemode": false,
+                  "lookup_key": null,
+                  "metadata": {
+                  },
+                  "nickname": "スタンダードプラン",
+                  "product": "prod_KWp3vEb5hlZBNC",
+                  "recurring": {
+                    "aggregate_usage": null,
+                    "interval": "month",
+                    "interval_count": 1,
+                    "meter": null,
+                    "trial_period_days": 3,
+                    "usage_type": "licensed"
+                  },
+                  "tax_behavior": "unspecified",
+                  "tiers_mode": null,
+                  "transform_quantity": null,
+                  "type": "recurring",
+                  "unit_amount": 29800,
+                  "unit_amount_decimal": "29800"
+                },
+                "quantity": 1,
+                "subscription": "sub_12345678",
+                "tax_rates": [
+                  {
+                    "id": "txr_1Om0YyBpeWcLFd8fovSLFgXX",
+                    "object": "tax_rate",
+                    "active": true,
+                    "country": "JP",
+                    "created": 1708463356,
+                    "description": null,
+                    "display_name": "消費税",
+                    "effective_percentage": 10.0,
+                    "flat_amount": null,
+                    "inclusive": true,
+                    "jurisdiction": null,
+                    "jurisdiction_level": null,
+                    "livemode": false,
+                    "metadata": {
+                    },
+                    "percentage": 10.0,
+                    "rate_type": "percentage",
+                    "state": null,
+                    "tax_type": null
+                  }
                 ]
               }
             ],
@@ -164,47 +518,60 @@ http_interactions:
             "total_count": 1,
             "url": "/v1/subscription_items?subscription=sub_12345678"
           },
-          "latest_invoice": "in_1J42sABpeWcLFd8fMJ1mRFIt",
+          "latest_invoice": "in_1QefjZBpeWcLFd8f1AzMT1C3",
           "livemode": false,
           "metadata": {
           },
           "next_pending_invoice_item_invoice": null,
+          "on_behalf_of": null,
           "pause_collection": null,
+          "payment_settings": {
+            "payment_method_options": null,
+            "payment_method_types": null,
+            "save_default_payment_method": "off"
+          },
           "pending_invoice_item_interval": null,
           "pending_setup_intent": null,
           "pending_update": null,
           "plan": {
-            "id": "price_1J0hhTBpeWcLFd8ffLjm4nKO",
+            "id": "price_1JrlOxBpeWcLFd8fd5rgx08c",
             "object": "plan",
             "active": true,
             "aggregate_usage": null,
             "amount": 29800,
             "amount_decimal": "29800",
             "billing_scheme": "per_unit",
-            "created": 1623307751,
+            "created": 1635953363,
             "currency": "jpy",
             "interval": "month",
             "interval_count": 1,
             "livemode": false,
             "metadata": {
             },
+            "meter": null,
             "nickname": "スタンダードプラン",
-            "product": "prod_JdzgjajHO6tZGI",
+            "product": "prod_KWp3vEb5hlZBNC",
             "tiers": null,
             "tiers_mode": null,
             "transform_usage": null,
-            "trial_period_days": null,
+            "trial_period_days": 3,
             "usage_type": "licensed"
           },
           "quantity": 1,
           "schedule": null,
-          "start": 1624104785,
-          "start_date": 1624104122,
-          "status": "trialing",
+          "start": 1737080140,
+          "start_date": 1733330010,
+          "status": "active",
           "tax_percent": null,
+          "test_clock": null,
           "transfer_data": null,
-          "trial_end": 1672758000,
-          "trial_start": 1624104122
+          "trial_end": 1733589210,
+          "trial_settings": {
+            "end_behavior": {
+              "missing_payment_method": "create_invoice"
+            }
+          },
+          "trial_start": 1733330010
         }
-  recorded_at: Sat, 19 Jun 2021 12:13:05 GMT
-recorded_with: VCR 6.0.0
+  recorded_at: Fri, 17 Jan 2025 02:15:41 GMT
+recorded_with: VCR 6.2.0

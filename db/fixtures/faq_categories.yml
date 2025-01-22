@@ -1,0 +1,27 @@
+faq_categories1:
+  name: 学習内容について
+  position: 1
+
+faq_categories2:
+  name: 学習環境について
+  position: 2
+
+faq_categories3:
+  name: 利用料について
+  position: 3
+
+faq_categories4:
+  name: 就職について
+  position: 4
+
+faq_categories5:
+  name: 入会について
+  position: 5
+
+faq_categories6:
+  name: 退会、休会、卒業について
+  position: 6
+
+faq_categories7:
+  name: 法人利用について
+  position: 7

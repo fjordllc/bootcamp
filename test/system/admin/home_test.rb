@@ -7,15 +7,9 @@ class Admin::HomeTest < ApplicationSystemTestCase
     visit_with_auth '/admin', 'komagata'
     assert_equal '管理ページ | FBC', title
 
-    assert_selector 'a.page-tabs__item-link', count: 6
-    assert_selector '.page-tabs__item-link', text: '管理ページ'
-    assert_selector '.page-tabs__item-link', text: 'ユーザー'
-    assert_selector '.page-tabs__item-link', text: '企業'
-    assert_selector '.page-tabs__item-link', text: 'お試し延長'
-    assert_selector '.page-tabs__item-link', text: 'お問い合わせ'
-    assert_selector '.page-tabs__item-link', text: '招待URL'
+    tabs = %w[FAQ お問い合わせ お試し延長 ユーザー 企業 管理ページ].sort
+    assert_equal tabs, all('a.page-tabs__item-link').map(&:text).sort
     assert_no_selector '.page-tabs__item-link', text: 'プラクティス'
-    assert_no_selector '.page-tabs__item-link', text: 'カテゴリー'
     assert_no_selector '.page-tabs__item-link', text: 'コース'
   end
 end

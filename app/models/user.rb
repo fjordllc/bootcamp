@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include Taggable
   include Searchable
 
+  attr_accessor :credit_card_payment, :role
+
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
   AVATAR_SIZE = [120, 120].freeze
@@ -27,7 +29,9 @@ class User < ApplicationRecord
 
   INVITATION_ROLES = [
     [I18n.t('invitation_role.adviser'), :adviser],
-    [I18n.t('invitation_role.trainee'), :trainee],
+    [I18n.t('invitation_role.trainee', payment_method: '請求書払い'), :trainee_invoice_payment],
+    [I18n.t('invitation_role.trainee', payment_method: 'クレジットカード払い'), :trainee_credit_card_payment],
+    [I18n.t('invitation_role.trainee', payment_method: '支払い方法を選択'), :trainee_select_a_payment_method],
     [I18n.t('invitation_role.mentor'), :mentor]
   ].freeze
 
@@ -100,12 +104,15 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :coding_tests, dependent: :destroy
+  has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
   has_one :discord_profile, dependent: :destroy
   accepts_nested_attributes_for :discord_profile, allow_destroy: true
   has_many :request_retirements, dependent: :destroy
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
+  has_many :micro_reports, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -167,6 +174,8 @@ class User < ApplicationRecord
            through: :regular_event_participations,
            source: :regular_event
 
+  has_many :coding_test_submissions, dependent: :destroy
+
   has_one_attached :avatar
   has_one_attached :profile_image
 
@@ -181,6 +190,10 @@ class User < ApplicationRecord
   validates :hide_mentor_profile, inclusion: { in: [true, false] }
   validates :github_id, uniqueness: true, allow_nil: true
   validates :other_editor, presence: true, if: -> { editor == 'other_editor' }
+  validates :invoice_payment, inclusion: { in: [true], message: 'にチェックを入れてください。' }, if: -> { role == 'trainee_invoice_payment' }
+  validates :invoice_payment, inclusion: { in: [true],
+                                           message: 'か「クレジットカード払い」のいずれかを選択してください。' },
+                              if: -> { role == 'trainee_select_a_payment_method' && !credit_card_payment }
 
   validates :feed_url,
             format: {
@@ -219,8 +232,11 @@ class User < ApplicationRecord
                           }
   end
 
-  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
+  with_options if: -> { !staff? && validation_context != :reset_password && validation_context != :retirement } do
     validates :job, presence: true
+  end
+
+  with_options if: -> { !adviser? && validation_context != :reset_password && validation_context != :retirement } do
     validates :os, presence: true
   end
 
@@ -275,6 +291,7 @@ class User < ApplicationRecord
   scope :auto_retire, -> { where(auto_retire: true) }
   scope :advisers, -> { where(adviser: true) }
   scope :not_advisers, -> { where(adviser: false) }
+  scope :by_course, ->(target) { joins(:course).where(courses: { title: target }) }
   scope :students_and_trainees, lambda {
     where(
       admin: false,
@@ -493,6 +510,20 @@ class User < ApplicationRecord
       student.sent_student_followup_message = true
       student.save(validate: false)
     end
+
+    def by_area(area)
+      subdivision = ISO3166::Country[:JP].find_subdivision_by_name(area)
+      return User.with_attached_avatar.where(subdivision_code: subdivision.code.to_s) if subdivision
+
+      country = ISO3166::Country.find_country_by_any_name(area)
+      return User.with_attached_avatar.where(country_code: country.alpha2) if country
+
+      User.none
+    end
+  end
+
+  def submitted?(coding_test)
+    coding_test_submissions.exists?(coding_test_id: coding_test.id)
   end
 
   def away?
@@ -823,12 +854,42 @@ class User < ApplicationRecord
     watches.find_or_create_by!(watchable:)
   end
 
+  def cancel_participation_from_regular_events
+    regular_event_participations.destroy_all
+  end
+
   def delete_and_assign_new_organizer
     organizers.each(&:delete_and_assign_new)
   end
 
   def scheduled_retire_at
     hibernated_at + User::HIBERNATION_LIMIT if hibernated_at?
+  end
+
+  def participated_regular_event_ids
+    RegularEvent.where(id: regular_event_participations.pluck(:regular_event_id), finished: false)
+  end
+
+  def clear_github_data
+    update(
+      github_id: nil,
+      github_account: nil,
+      github_collaborator: false
+    )
+  end
+
+  def area
+    if country_code == 'JP'
+      subdivision = ISO3166::Country['JP'].subdivisions[subdivision_code]
+      subdivision ? subdivision.translations['ja'] : nil
+    else
+      country = ISO3166::Country[country_code]
+      country ? country.translations['ja'] : nil
+    end
+  end
+
+  def latest_micro_report_page
+    [micro_reports.page.total_pages, 1].max
   end
 
   private

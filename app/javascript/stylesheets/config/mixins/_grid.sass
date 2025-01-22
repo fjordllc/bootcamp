@@ -1,23 +1,12 @@
 @use "sass:math"
-
-// Row
-//
-// Rows contain and clear the floats of your columns.
-
 .row
   +make-row
-
-// Columns
-//
-// Common styles for small and large grid columns
-
-+make-grid-columns
+  +make-grid-columns
 
 =grid($gutter-size)
   &.row
     gap: px_to_rem($gutter-size)
 
-// helper
 .row
   @for $i from 0 through 16
     $gutter-size: $i * 4

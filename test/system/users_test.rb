@@ -374,7 +374,22 @@ class UsersTest < ApplicationSystemTestCase
 
   test 'GET /users/new' do
     visit '/users/new'
-    assert_equal 'フィヨルドブートキャンプ参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+    assert_equal 'FBC参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
+
+  test 'GET /users/new as an adviser' do
+    visit '/users/new?role=adviser'
+    assert_equal 'FBCアドバイザー参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
+
+  test 'GET /users/new as a trainee' do
+    visit '/users/new?role=trainee_invoice_payment'
+    assert_equal 'FBC研修生参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
+  end
+
+  test 'GET /users/new as a mentor' do
+    visit '/users/new?role=mentor'
+    assert_equal 'FBCメンター参加登録 | FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
   test 'incremental search by login_name' do
@@ -585,8 +600,7 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text 'ユーザー情報を更新しました。'
     img = find('img.user-profile__user-icon-image', visible: false)
-    user = users(:hajime)
-    assert_match(/#{user.id}\.png$/, img.native['src'])
+    assert_match(/heic-sample-file\.png$/, img.native['src'])
   end
 
   test 'mentor can see retired and hibernated tabs' do

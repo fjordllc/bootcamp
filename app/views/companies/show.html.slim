@@ -14,7 +14,7 @@ header.page-header
               = link_to companies_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | 企業一覧
 
-= render 'companies/tabs', company: @company
+= company_page_tabs(@company, active_tab: '企業情報')
 
 .page-body
   .container.is-xl
@@ -30,7 +30,7 @@ header.page-header
                   | 管理者向け企業メモ
               hr.a-border-tint
               .card-body
-                .card__description
+                .card-body__description
                   - if @company.memo.present?
                     .a-long-text.is-md
                       = simple_format(@company.memo)

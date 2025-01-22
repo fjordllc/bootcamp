@@ -1,7 +1,7 @@
 .form-item
   = f.label :email, class: 'a-form-label is-required'
   = f.text_field :email, class: 'a-text-input', placeholder: 'komagata@fjord.jp'
-  - unless user.adviser?
+  - unless user.adviser? || user.mentor?
     .a-form-help
       p
         | このメールアドレスは卒業後の連絡にも使うので、

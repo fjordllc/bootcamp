@@ -53,7 +53,7 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_no_login_required('/corporate_training_inquiry/new', '企業研修申し込みフォーム')
 
     # app/controllers/home_controller.rb
-    assert_no_login_required('/', 'フィヨルドブートキャンプとは？')
+    assert_no_login_required('/', 'プラス戦力のスキルを身につける')
     assert_no_login_required('/test', 'TEST')
 
     # app/controllers/inquiries_controller.rb
@@ -67,7 +67,7 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_no_login_required('/logout', 'ログアウトしました。')
 
     # app/controllers/welcome_controller.rb
-    assert_no_login_required('/welcome', 'フィヨルドブートキャンプとは？')
+    assert_no_login_required('/welcome', 'プラス戦力のスキルを身につける')
     assert_no_login_required('/pricing', '料金')
     assert_no_login_required('/faq', 'FAQ')
     assert_no_login_required('/training', '研修利用')

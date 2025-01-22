@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Work < ApplicationRecord
+  include Reactionable
+
   THUMBNAIL_SIZE = [1200, 630].freeze
   belongs_to :user
   has_one_attached :thumbnail

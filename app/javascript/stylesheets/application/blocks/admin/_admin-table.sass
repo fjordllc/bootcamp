@@ -26,7 +26,9 @@
   color: var(--default-text)
 
 .admin-table__label
-  +text-block(.75rem 1.4, center 600)
+  +text-block(.75rem 1.4)
+  text-align: center
+  font-weight: 700
   color: var(--main)
   border: solid 1px var(--border-shade)
   white-space: nowrap
@@ -66,16 +68,12 @@
   +text-block(.8125rem 1.45)
   &.is-text-align-center
     text-align: center
-  &.is-text-align-right
-    text-align: right
   .a-button
     margin-inline: .1875rem
   .is-button-group .a-button
     margin-inline: 0
   &.is-grab
     padding: 0
-  &.w-32
-    width: 128px
 
 .admin-table__item-blank
   +text-block(.75rem 1.45)

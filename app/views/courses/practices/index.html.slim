@@ -35,7 +35,8 @@ header.page-header
             li.page-header-actions__item
               = link_to courses_path, class: 'a-button is-md is-secondary is-block is-back' do
                 | コース一覧
-= render 'courses/tabs'
+
+= courses_page_tabs(@course, active_tab: 'プラクティス')
 .page-body.js-users-visibility
   .container.is-xl
     = render 'courses_practices', course_id: @course.id, categories: @categories, learnings: @learnings

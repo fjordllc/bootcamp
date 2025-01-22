@@ -1,11 +1,12 @@
 .auth-form-logo-image
-  max-width: 24rem
   display: block
-  margin: 4rem auto 2rem
+  +media-breakpoint-up(md)
+    max-width: 10rem
+    margin: 4rem auto 2rem
   +media-breakpoint-down(sm)
-    margin-top: 2rem
-    max-width: 100%
-    padding-inline: 2rem
+    max-width: 10rem
+    margin: 2rem auto
+
 
 .auth-form
   width: 28rem
@@ -38,7 +39,9 @@
   padding: 1rem 1.75rem
 
 .auth-form__title
-  +text-block(1.25rem 1.4, center 600)
+  +text-block(1.25rem 1.4)
+  text-align: center
+  font-weight: 700
 
 .auth-form-items
   margin-bottom: 1.25rem

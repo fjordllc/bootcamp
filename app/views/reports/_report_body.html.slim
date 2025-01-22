@@ -3,15 +3,15 @@
     = render 'reports/learning_times', report: report
   hr.a-border-tint
   .card-body
-    .card__description
+    .card-body__description
       .a-long-text.is-md.js-markdown-view(data-taskable-id="#{report.id}" data-taskable-type='Report' data-taskable="#{report.taskable?(current_user).to_s}")
         = report.description
   hr.a-border-tint
   = render 'reactions/reactions', reactionable: report
 
   - if report.user_id == current_user.id || mentor_login?
-    hr.a-border-tint
-    .card-footer(class="#{mentor_login? ? 'is-only-mentor' : ''}")
+    hr.a-border-tint(class="#{mentor_login? ? 'is-only-mentor' : ''}")
+    footer.card-footer(class="#{mentor_login? ? 'is-only-mentor' : ''}")
       .card-main-actions
         ul.card-main-actions__items
           li.card-main-actions__item

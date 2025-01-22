@@ -3,6 +3,7 @@
 = form_with model: user, url: url, local: true, class: 'form', id: 'payment-form', html: { name: 'user', autocomplete: 'address-line3' } do |f|
   = f.hidden_field :adviser
   = f.hidden_field :trainee
+  = f.hidden_field :mentor
   = f.hidden_field :company_id
   = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
@@ -10,7 +11,7 @@
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
   .form__items
-    - if !@user.adviser?
+    - unless @user.adviser? || @user.mentor?
       = render 'users/form/course_select', f: f, user: @user
   .form__items
     = render 'users/form/login_name', f: f
@@ -25,9 +26,27 @@
     - unless user.adviser?
       - unless user.mentor?
         = render 'users/form/after_graduation_hope', f:, user:
-      = render 'users/form/job', f: f
-      = render 'users/form/os', f: f
+        = render('users/form/job', f:)
+      = render 'users/form/os', f: f, user:
+    - unless user.adviser? || user.mentor?
       = render 'users/form/experiences', f:
+
+    - if user.trainee? && from == :new
+      .form-item
+        .form-item-block
+          .form-item-block__inner
+            header.form-item-block__header
+              .form-item-block__title
+                | 支払い方法
+            .form-item-block__item
+              = render 'users/form/payment_methods_check_boxes', f:, user:
+      - if user.role == 'trainee_credit_card_payment'
+        #card
+          = render 'users/form/card'
+      - elsif user.role == 'trainee_select_a_payment_method'
+        #card.hidden
+          = render 'users/form/card'
+
     - if from == :edit
       = render 'users/form/editor', f:, user:
     - if user.student?
@@ -93,14 +112,6 @@
           .form-item-block__item
               = render 'users/form/auto_retire', f: f, user: user
 
-      .form-item-block
-        .form-item-block__inner
-          header.form-item-block__header
-            .form-item-block__title
-              | 請求書払いの設定
-          .form-item-block__item
-              = render 'users/form/invoice_payment', f: f
-
       .form-item
         = f.label :subscription_id, class: 'a-form-label'
         = f.text_field :subscription_id, class: 'a-text-input', placeholder: 'sub_123456789'
@@ -115,8 +126,6 @@
               = render 'users/form/adviser', f: f
             .form-item-block__item
               = render 'users/form/trainee', f: f
-            .form-item-block__item
-              = render 'users/form/free', f: f
             .form-item-block__item
               = render 'users/form/mentor', f: f
 

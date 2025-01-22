@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
+  PRODUCT_DEADLINE = 4
+
   include Commentable
   include Checkable
   include Footprintable
@@ -104,6 +106,22 @@ class Product < ApplicationRecord
     no_replied_product_ids = self_assigned_no_replied_product_ids(user_id)
     Product.where(id: no_replied_product_ids)
            .order(published_at: :asc, id: :asc)
+  end
+
+  def self.require_assignment_products
+    Product.all
+           .unassigned
+           .unchecked
+           .not_wip
+           .list
+           .ascending_by_date_of_publishing_and_id
+  end
+
+  def self.group_by_elapsed_days(products)
+    reply_deadline_days = PRODUCT_DEADLINE + 2
+    products.group_by do |product|
+      product.elapsed_days >= reply_deadline_days ? reply_deadline_days : product.elapsed_days
+    end
   end
 
   def completed?(user)

@@ -1,0 +1,167 @@
+ruby:
+  title @coding_test.title
+  practice = @coding_test.practice
+  description "#{@coding_test.title}のコーディングテストです。"
+
+= render '/practices/page_header', title: practice.title, practice: practice
+
+= practice_page_tabs(@practice, active_tab: 'コーディングテスト')
+
+.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h2.page-main-header__title
+            | #{@coding_test.title}（#{@coding_test.language}）
+        .page-main-header__end
+          .page-main-header-actions
+            ul.page-main-header-actions__items
+              li.page-main-header-actions__item
+                = link_to [@practice, :coding_tests], class: 'a-button is-md is-secondary is-block is-back' do
+                  | テスト一覧
+              - if current_user.submitted?(@coding_test)
+                li.page-main-header-actions__item
+                  = link_to [@coding_test, :coding_test_submissions], class: 'a-button is-md is-secondary is-block is-back' do
+                    | みんなの回答一覧
+  hr.a-border
+
+  .page-body
+    .page-content
+
+      - if current_user.submitted?(@coding_test)
+        .a-page-notice
+          .container
+            .a-page-notice__inner
+              p
+                | このコーディングテストはクリアしました🎉
+                | みんなの回答が確認できます。
+
+      .container.is-xl
+        .row.is-gutter-width-32
+          .col-lg-9.col-xs-12
+
+            .coding-test.page-content
+              header.page-content-header
+                .page-content-header__end
+                  .page-content-header__row
+                    .page-content-header__before-title
+                      p.coding-test__language
+                        = @coding_test.language
+                    h1.page-content-header__title
+                      = @coding_test.title
+
+              .a-card
+                header.card-header
+                  h2.card-header__title
+                    = CodingTest.human_attribute_name :description
+                hr.a-border-tint
+                .card-body
+                  .card-body__description
+                    .a-long-text.is-md.js-markdown-view
+                      = @coding_test.description
+
+              - @coding_test.coding_test_cases.each_with_index do |coding_test_case, i|
+                .a-card.overflow-y-hidden
+                  header.card-header.is-sm
+                    h2.card-header__title
+                      = "入力・出力例#{i + 1}"
+                  hr.a-border-tint
+                  .card-body
+                    .row.is-gutter-width-0
+                      .col-lg-6.col-xs-12
+                        .card-body__description(class="#{coding_test_case.input.present? ? '' : 'hidden'}")
+                          section.io-sample
+                            header.io-sample__header
+                              h3.io-sample__title
+                                = "入力例#{i + 1}"
+                            .io-sample__body
+                              pre.io-sample__code.sample.coding_test_case-input(id="coding_test_case_#{coding_test_case.id}_input" class="language-#{@coding_test.language}")
+                                = coding_test_case.input
+                      .col-lg-6.col-xs-12
+                        .card-body__description(class="#{coding_test_case.output.present? ? '' : 'hidden'}")
+                          .io-sample
+                            header.io-sample__header
+                              h3.io-sample__title
+                                = "出力例#{i + 1}"
+                            .io-sample__body
+                              pre.io-sample__code.sample.coding_test_case-output(id="coding_test_case_#{coding_test_case.id}_output" class="language-#{@coding_test.language}")
+                                = coding_test_case.output
+
+              - if current_user.submitted?(@coding_test)
+                .a-card
+                  header.card-header
+                    h2.card-header__title
+                      | 自分の回答
+                  hr.a-border-tint
+                  .card-body
+                    .card-body__description
+                      .a-long-text
+                        pre(class="language-#{@coding_test.language}")
+                          code
+                            = current_user.coding_test_submissions.find_by(coding_test: @coding_test).code
+              - else
+                .a-card
+                  header.card-header.is-sm
+                    h2.card-header__title
+                      | 回答を入力
+                  hr.a-border-tint
+                  .card-body
+                    #code_editor.code-editor(
+                      data-language="#{@coding_test.language}"
+                      data-coding-test-id="#{@coding_test.id}"
+                      data-practice-id="#{@coding_test.practice_id}"
+                    )
+
+                  hr.a-border-tint
+                  footer.card-footer
+                    .card-main-actions
+                      ul.card-main-actions__items
+                        li.card-main-actions__item
+                          button#run.a-button.is-md.is-primary.is-block
+                            | 実行
+
+                .a-card
+                  header.card-header
+                    h2.card-header__title
+                      | 結果
+                  .card-body
+                    .a-table
+                      table.result-table#result
+
+              - if current_user.admin_or_mentor?
+                .a-card.is-only-mentor
+                  header.card-header.is-sm
+                    h2.card-header__title 管理者・メンター用メニュー
+                  hr.a-border-tint
+                  footer.card-footer
+                    .card-main-actions
+                      ul.card-main-actions__items
+                        li.card-main-actions__item
+                          = link_to edit_mentor_coding_test_path(@coding_test), class: 'a-button is-md is-secondary is-block' do
+                            i.fa-solid.fa-pen
+                            span
+                              | 問題を編集
+                        li.card-main-actions__item
+                          = link_to [@coding_test, :coding_test_submissions], class: 'a-button is-md is-secondary is-block' do
+                            | みんなのコード
+
+          .col-lg-3.col-xs-12
+            nav.page-nav.a-card
+              header.page-nav__header
+                h2.page-nav__title
+                  = link_to @practice,
+                    class: 'page-nav__title-inner' do
+                    = @practice.title
+              hr.a-border-tint
+
+              ul.page-nav__items
+                - @practice.coding_tests.each do |coding_test|
+                  li.page-nav__item(class="#{@coding_test == coding_test ? 'is-current' : ''}")
+                    = link_to coding_test, class: 'page-nav__item-link' do
+                      .page-nav__item-link-inner
+                        - if coding_test.passed_by?(current_user)
+                          .coding-tests-item__passed
+                            .a-badge.is-success.is-xs
+                              | クリア
+                        = coding_test.title

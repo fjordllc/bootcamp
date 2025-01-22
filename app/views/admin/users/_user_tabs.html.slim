@@ -1,0 +1,11 @@
+nav.tab-nav
+  .container
+    ul.tab-nav__items
+      li.tab-nav__item
+        = link_to 'ユーザー',
+          admin_users_path,
+          class: "tab-nav__item-link #{current_link(/^admin-users/)}"
+      li.tab-nav__item
+        = link_to '招待URL',
+          admin_invitation_url_index_path,
+          class: "tab-nav__item-link #{current_link(/^admin-invitation_url/)}"

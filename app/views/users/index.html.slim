@@ -12,7 +12,8 @@ header.page-header
         h2.page-header__title
           | ユーザー
 
-= render 'lg_page_tabs'
+- active_tab = params[:target] == 'followings' ? 'フォロー中' : '全て'
+= users_page_tabs(active_tab:)
 
 - unless params[:tag]
   = render 'nav'
@@ -51,7 +52,7 @@ main.page-main
         .users
           - if (@users.present? && request.path == '/users' && @target != 'followings') || params[:search_word]
             .page-filter.form.pt-0
-              .container.is-md.has-no-x-padding
+              .container.is-md.px-0
                 .form__items
                   = form_with url: request.path_info, method: 'get', local: true
                     .form-item.is-inline-md-up

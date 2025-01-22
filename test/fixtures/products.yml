@@ -415,18 +415,18 @@ product69:
 product70:
   practice: practice11
   user: kimura
-  body: 8時間以内に5日経過に到達する提出物です。
-  created_at: <%= 5.day.ago + 8.hours %>
-  updated_at: <%= 5.day.ago + 8.hours %>
-  published_at: <%= 5.day.ago + 8.hours %>
+  body: 8時間以内に4日経過に到達する提出物です。
+  created_at: <%= 4.day.ago + 8.hours %>
+  updated_at: <%= 4.day.ago + 8.hours %>
+  published_at: <%= 4.day.ago + 8.hours %>
 
 product71:
   practice: practice12
   user: kimura
-  body: 8時間以内に5日経過に到達する提出物です。
-  created_at: <%= 5.day.ago + 8.hours %>
-  updated_at: <%= 5.day.ago + 8.hours %>
-  published_at: <%= 5.day.ago + 8.hours %>
+  body: 8時間以内に4日経過に到達する提出物です。
+  created_at: <%= 4.day.ago + 8.hours %>
+  updated_at: <%= 4.day.ago + 8.hours %>
+  published_at: <%= 4.day.ago + 8.hours %>
 
 product72:
   practice: practice1
@@ -438,3 +438,11 @@ product73:
   user: hajime
   body: 担当者がいなくてwatchされていない提出物です
   checker_id: nil
+
+product74:
+  practice: practice13
+  user: kimura
+  body: 8時間以内に5日経過に到達する提出物です。
+  created_at: <%= 5.day.ago + 8.hours %>
+  updated_at: <%= 5.day.ago + 8.hours %>
+  published_at: <%= 5.day.ago + 8.hours %>
