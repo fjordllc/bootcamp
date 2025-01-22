@@ -9,7 +9,7 @@ class AnnouncementNotifier
     DiscordNotifier.with(announce: announcement).announced.notify_now
     Watch.create!(user: announcement.user, watchable: announcement)
 
-    receivers = User.announcement_receiver(announcement.target).reject { |receiver| receiver == announcement.sender }
+    receivers = User.notification_receiver(announcement.target).reject { |receiver| receiver == announcement.sender }
     PostAnnouncementJob.perform_later(announcement, receivers)
   end
 end

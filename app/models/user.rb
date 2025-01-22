@@ -446,7 +446,7 @@ class User < ApplicationRecord
   )
 
   class << self
-    def announcement_receiver(target)
+    def notification_receiver(target)
       case target
       when 'all'
         User.unretired
@@ -454,6 +454,8 @@ class User < ApplicationRecord
         User.admins_and_mentors.or(User.students)
       when 'job_seekers'
         User.admins_and_mentors.or(User.job_seekers)
+      when 'no_recipient'
+        User.none
       else
         User.none
       end
