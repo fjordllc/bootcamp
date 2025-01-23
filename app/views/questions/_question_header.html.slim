@@ -59,6 +59,7 @@ header.page-content-header
           .page-content-header-actions__action
             = react_component('BookmarkButton', bookmarkableId: question.id, bookmarkableType: 'Question')
           = render 'application/url_copy_button'
+
         .page-content-header-actions__end
           .page-content-header-actions__action
             = link_to question_path(question, format: :md), class: 'a-button is-sm is-secondary is-block', target: '_blank', rel: 'noopener' do
