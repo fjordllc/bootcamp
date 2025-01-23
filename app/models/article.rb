@@ -21,7 +21,7 @@ class Article < ApplicationRecord
     all: 0,
     students: 1,
     job_seekers: 2,
-    no_recipient: 3
+    none: 3
   }, _prefix: true
 
   belongs_to :user
