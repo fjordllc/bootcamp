@@ -566,4 +566,4 @@ ja:
       application:
         title: Oauth2 Provider
     scopes:
-      read: メールアドレスを含む基本的なプロフィール情報の表示
+      read: メールアドレスを含む基本的なプロフィール情報の読み取り
