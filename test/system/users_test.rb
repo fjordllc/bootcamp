@@ -725,7 +725,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザーアイコンは指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
   end
 
-  test 'visible learning time framestable on profile pages non advisors and grad users' do
+  test 'visible learning time frames table on profile pages non advisors and grad users' do
     hatsuno = users(:hatsuno)
     mentormentaro = users(:mentormentaro)
     kensyu = users(:kensyu)
