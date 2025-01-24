@@ -14,6 +14,7 @@
           - %w[日 月 火 水 木 金 土].each do |day|
             th = day
       tbody#learning_time_frame
+        = hidden_field_tag "user[learning_time_frame_ids][]", "", id: nil
         - 24.times do |hour|
           tr(class='hover:bg-[var(--background-more-tint)]')
             th
