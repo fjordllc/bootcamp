@@ -84,6 +84,6 @@ module UsersHelper
   end
 
   def visible_learning_time_frames?(user)
-    !user.graduated? && user.learning_time_frames.present?
+    !user.graduated? && user.learning_time_frames.exists?
   end
 end
