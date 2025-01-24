@@ -248,7 +248,7 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_text 'JavaScriptの経験あり'
   end
 
-  test 'visible learning time framestable for non advisors and grad users' do
+  test 'visible learning time frames table for non advisors and grad users' do
     visit_with_auth '/current_user/edit', 'kimura'
     assert_selector 'h1.auth-form__title', text: '登録情報変更'
     assert_selector 'label.a-form-label', text: '主な活動予定時間'

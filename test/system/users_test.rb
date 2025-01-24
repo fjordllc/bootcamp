@@ -717,7 +717,7 @@ class UsersTest < ApplicationSystemTestCase
     assert(filtered_users.all? { |user| user[:class].split(' ').include?('is-student') })
   end
 
-  test 'visible learning time framestable on profile pages non advisors and grad users' do
+  test 'visible learning time frames table on profile pages non advisors and grad users' do
     hatsuno = users(:hatsuno)
     mentormentaro = users(:mentormentaro)
     kensyu = users(:kensyu)
