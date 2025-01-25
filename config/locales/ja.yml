@@ -539,7 +539,7 @@ ja:
       show:
         actions: ''
         application_id: Application ID
-        secret: Secret ID
+        secret: Secret
         title: アプリケーション詳細
     authorizations:
       buttons:
