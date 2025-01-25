@@ -549,6 +549,9 @@ ja:
         able_to: 次の許可をリクエストしています
         title: ''
         prompt: ''
+    errors:
+      messages:
+        invalid_client: アプリの認証に失敗しました
     flash:
       applications:
         create:
