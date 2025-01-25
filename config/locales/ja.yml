@@ -540,7 +540,7 @@ ja:
         actions: ''
         application_id: Application ID
         secret: Secret
-        title: アプリケーション詳細
+        title: '%{name}'
     authorizations:
       buttons:
         authorize: 承認
