@@ -552,11 +552,11 @@ ja:
     flash:
       applications:
         create:
-          notice: アプリケーションを追加しました
+          notice: アプリケーションを追加しました。
         destroy:
-          notice: アプリケーションを削除しました
+          notice: アプリケーションを削除しました。
         update:
-          notice: アプリケーションを更新しました
+          notice: アプリケーションを更新しました。
     layouts:
       admin:
         nav:
