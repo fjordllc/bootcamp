@@ -443,6 +443,10 @@ ja:
           attributes:
             end_at:
               format: 'は%{shortest_end_at}以降を入力してください。'
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              relative_uri: Redirect URLの値が無効です
   target:
     student_and_trainee: 現役 + 研修生
     student: 現役生
