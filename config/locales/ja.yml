@@ -351,6 +351,8 @@ ja:
       coding_test_case:
         input: 入力
         output: 出力
+      doorkeeper/application:
+        redirect_uri: 'Redirect URI'
     enums:
       user:
         job:
