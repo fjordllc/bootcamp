@@ -136,13 +136,15 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_equal wednesday_for_year, scheduled_dates
   end
 
-  test '#format_event_date' do
+  test '#transform_for_subscription' do
     travel_to Time.zone.local(2024, 8, 5, 23, 0, 0) do
-      regular_event = regular_events(:regular_event34)
+      regular_event = RegularEvent.new(start_at: '21:00', end_at: '22:00')
       event_date = Date.new(2024, 8, 7)
       transformed_regular_event = regular_event.transform_for_subscription(event_date)
-      assert_equal DateTime.new(2024, 8, 7, 21, 0, 0, '+09:00'), transformed_regular_event.start_on
-      assert_equal DateTime.new(2024, 8, 7, 22, 0, 0, '+09:00'), transformed_regular_event.end_on
+
+      assert_equal Time.zone.parse('2024-08-07 21:00'), transformed_regular_event.start_on
+      assert_equal Time.zone.parse('2024-08-07 22:00'), transformed_regular_event.end_on
+      assert_equal 'JST', transformed_regular_event.start_on.zone, 'タイムゾーンが日本標準時(Japan Standard Time)と異なります'
     end
   end
 
