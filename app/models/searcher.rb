@@ -48,10 +48,7 @@ class Searcher
     delete_comment_of_talk!(searchables, current_user)
 
     searchables.map do |searchable|
-      SearchResult.new(
-        SearchHelper.matched_document(searchable),
-        word
-      )
+      SearchResult.new(searchable, word)
     end
   end
 
