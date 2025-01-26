@@ -29,18 +29,14 @@ module SearchHelper
 
   def searchable_url(searchable)
     case searchable
-    when SearchResult
-      searchable.url
     when Comment
-      "#{searchable.commentable.url}#comment_#{searchable.id}"
+       "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
     when CorrectAnswer, Answer
       Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
     else
       helper_method = "#{searchable.class.name.underscore}_path"
       Rails.application.routes.url_helpers.send(helper_method, searchable)
     end
-  rescue NoMethodError
-    raise NoMethodError, "Route for #{searchable.class.name} is not defined. Please check your routes."
   end
 
   def filtered_message(searchable)
