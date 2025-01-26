@@ -117,7 +117,7 @@ module Searchable
             'Docs'
           when 'Event'
             "特別\nイベント"
-          when 'Regularevent'
+          when 'RegularEvent'
             "定期\nイベント"
           else
             'コメント'
