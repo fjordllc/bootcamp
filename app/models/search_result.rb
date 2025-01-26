@@ -7,10 +7,10 @@ class SearchResult
                 :login_name, :formatted_updated_at, :model_name, :label,
                 :wip, :commentable_user, :commentable_type, :primary_role
 
-  def initialize(searchable, word)
+  def initialize(searchable, word, current_user)
     @url = searchable_url(searchable)
     @title = Searcher.fetch_title(searchable)
-    @summary = filtered_message(searchable)
+    @summary = filtered_message(searchable, current_user)
     @formatted_summary = Searcher.highlight_word(@summary, word)
     @user_id = searchable.is_a?(User) ? searchable.id : searchable.try(:user_id)
     @login_name = Searcher.fetch_login_name(searchable)
