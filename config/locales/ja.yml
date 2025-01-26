@@ -352,7 +352,7 @@ ja:
         input: 入力
         output: 出力
       doorkeeper/application:
-        redirect_uri: 'Redirect URI'
+        redirect_uri: Redirect URL
     enums:
       user:
         job:
