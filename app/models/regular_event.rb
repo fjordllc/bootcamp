@@ -167,11 +167,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def parse_event_time(event_date, event_time)
-    tz = ActiveSupport::TimeZone['Asia/Tokyo']
-
-    time = event_time ? event_time.strftime('%H:%M') : '00:00'
-    date_time = DateTime.parse("#{event_date} #{time}")
-
-    tz.local_to_utc(date_time)
+    str_date = event_date.strftime('%F')
+    str_time = event_time.strftime('%R')
+    Time.zone.parse([str_date, str_time].join(' '))
   end
 end
