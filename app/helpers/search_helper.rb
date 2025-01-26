@@ -39,21 +39,21 @@ module SearchHelper
     end
   end
 
-  def filtered_message(searchable)
+  def filtered_message(searchable, current_user)
     case searchable
     when SearchResult
       searchable.summary
     when Comment
       commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
-      if policy(commentable).show? || (commentable.is_a?(Practice) && commentable.open_product?)
+      if commentable.try(:visible_to_user?, current_user) || (commentable.is_a?(Practice) && commentable.open_product?)
         searchable.body
       else
         '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
       end
     when Product
-      searchable.body.presence || '本文がありません。'
+      searchable.body
     else
-      searchable.try(:description) || '本文がありません。'
+      searchable.try(:description)
     end
   end
 
