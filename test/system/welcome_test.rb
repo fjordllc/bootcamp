@@ -141,7 +141,7 @@ class WelcomeTest < ApplicationSystemTestCase
 
   test '6 articles with a specific tag are displayed in order of published_at' do
     visit '/welcome'
-    articles = Article.tagged_with('feature')
+    articles = Article.tagged_with('注目の記事')
     assert_equal articles.map(&:published_at), articles.map(&:published_at).sort.reverse.first(6)
   end
 end

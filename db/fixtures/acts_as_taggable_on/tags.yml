@@ -27,3 +27,6 @@ may_j_:
 
 feature:
   name: feature
+
+注目の記事:
+  name: '注目の記事'
