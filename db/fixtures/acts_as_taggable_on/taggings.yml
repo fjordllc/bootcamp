@@ -103,37 +103,37 @@ movie1_tag_cat:
   context: tags
   tag: cat
 
-article21_tag_feature:
+article21_tag_注目の記事:
   taggable: article21 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 
-article22_tag_feature:
+article22_tag_注目の記事:
   taggable: article22 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 
-article23_tag_feature:
+article23_tag_注目の記事:
   taggable: article23 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 
-article24_tag_feature:
+article24_tag_注目の記事:
   taggable: article24 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 
-article25_tag_feature:
+article25_tag_注目の記事:
   taggable: article25 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 
-article26_tag_feature:
+article26_tag_注目の記事:
   taggable: article26 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事
 
-article27_tag_feature:
+article27_tag_注目の記事:
   taggable: article27 (Article)
   context: tags
-  tag: feature
+  tag: 注目の記事

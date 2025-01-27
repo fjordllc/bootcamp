@@ -93,7 +93,7 @@ article<%= id %>:
 
 <% (21..27).each do |id| %>
 article<%= id %>:
-  title: test with feature tag <%= id %>
+  title: test with 注目の記事 tag <%= id %>
   body: |-
     test body<%= id %>
   user: komagata
