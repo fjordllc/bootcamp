@@ -63,6 +63,6 @@ class WelcomeController < ApplicationController
   end
 
   def list_articles_with_specific_tag
-    Article.tagged_with('feature').order(published_at: :desc).where(wip: false).first(6)
+    Article.tagged_with('注目の記事').order(published_at: :desc).where(wip: false).first(6)
   end
 end
