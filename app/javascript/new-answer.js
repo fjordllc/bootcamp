@@ -33,20 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
       saveButton.disabled = editorTextarea.value.length === 0
     })
 
-    saveButton.addEventListener('click', () => {
+    saveButton.addEventListener('click', async () => {
       savedAnswer = editorTextarea.value
-      createAnswer(savedAnswer, questionId)
-      editorTextarea.value = ''
-      answerEditorPreview.innerHTML = markdownInitializer.render(
-        editorTextarea.value
-      )
-      saveButton.disabled = true
-      updateAnswerCount(true)
-      updateWatchable(questionId)
-      if (previewTab.classList.contains('is-active')) {
-        toggleVisibility(tabElements, 'is-active')
+      const answerCreated = await createAnswer(savedAnswer, questionId)
+      if (answerCreated) {
+        editorTextarea.value = ''
+        answerEditorPreview.innerHTML = markdownInitializer.render(
+          editorTextarea.value
+        )
+        saveButton.disabled = true
+        updateAnswerCount(true)
+        updateWatchable(questionId)
+        if (previewTab.classList.contains('is-active')) {
+          toggleVisibility(tabElements, 'is-active')
+        }
+        resizeTextarea(editorTextarea, defaultTextareaSize)
       }
-      resizeTextarea(editorTextarea, defaultTextareaSize)
     })
 
     const editTab = answerEditor.querySelector('.edit-answer-tab')
@@ -70,9 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-function createAnswer(description, questionId) {
+async function createAnswer(description, questionId) {
   if (description.length < 1) {
-    return null
+    return false
   }
   const params = {
     question_id: questionId,
@@ -80,33 +82,32 @@ function createAnswer(description, questionId) {
       description: description
     }
   }
-  fetch('/api/answers', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': CSRF.getToken()
-    },
-    credentials: 'same-origin',
-    redirect: 'manual',
-    body: JSON.stringify(params)
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.text()
-      } else {
-        return response.json().then((data) => {
-          throw new Error(data.errors.join(', '))
-        })
-      }
+  try {
+    const response = await fetch('/api/answers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': CSRF.getToken()
+      },
+      credentials: 'same-origin',
+      redirect: 'manual',
+      body: JSON.stringify(params)
     })
-    .then((html) => {
+
+    if (response.ok) {
+      const html = await response.text()
       initializeNewAnswer(html)
       toast('回答を投稿しました！')
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
+      return true
+    } else {
+      const data = await response.json()
+      throw new Error(data.errors.join(', '))
+    }
+  } catch (error) {
+    console.warn(error)
+    return false
+  }
 }
 
 function toggleVisibility(elements, className) {
