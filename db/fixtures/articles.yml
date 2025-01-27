@@ -93,18 +93,13 @@ article<%= id %>:
 
 <% (41..55).each do |id| %>
 article<%= id %>:
-  title: test title<%= id %>
+  title: test with 注目の記事 tag <%= id %>
   body: |-
     test body<%= id %>
   user: komagata
   wip: false
-<<<<<<< HEAD
-  published_at: "2022-03-14 00:00:00"
-  thumbnail_type: :sponsorship
-=======
   published_at: "<%= (Date.parse('2024-02-01') + id - 21) %>"
   created_at: "<%= (Date.parse('2024-02-01') + id - 21) %>"
->>>>>>> e93db3acf (注目のブログ記事のレイアウトを整えた)
 <% end %>
 
 article56:
