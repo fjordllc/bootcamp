@@ -26,7 +26,11 @@ section.lp-content.is-lp-bg-1.is-top-title
                             p
                               = article.summary
             - else
-              p まだ記事はありません
+              .o-empty-message
+                .o-empty-message__icon
+                  i.fa-regular.fa-sad-tear
+                .o-empty-message__text
+                  | まだ記事はありません
 
     .lp-content-divider.is-lp-bg-2
       svg[data-name="lp-content-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"]
