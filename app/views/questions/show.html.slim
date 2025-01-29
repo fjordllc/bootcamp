@@ -35,7 +35,7 @@ hr.a-border
       .answer-content style='display: none;'
         - if @question.ai_answer
           = render 'ai_answer', question: @question
-        header.thread-comments__header.answer-content
+        header.thread-comments__header
           h2.thread-comments__title
             | 回答・コメント
         .answers-list
