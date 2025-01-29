@@ -120,7 +120,15 @@ class Searcher
   def self.result_for(type, words, commentable_type: nil)
     raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
 
-    return model(type).all if words.blank?
+    if words.blank?
+      if commentable?(type)
+        return model(type).all + Comment.where(commentable_type: model_name(type)).all
+      elsif type == :questions
+        return model(type).all + Answer.all + CorrectAnswer.all
+      else
+        return model(type).all
+      end
+    end
 
     user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
     if user_filter
