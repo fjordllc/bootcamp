@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_03_082456) do
+ActiveRecord::Schema.define(version: 2025_01_29_033027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -539,6 +539,7 @@ ActiveRecord::Schema.define(version: 2024_11_03_082456) do
     t.text "memo"
     t.integer "last_updated_user_id"
     t.text "summary"
+    t.integer "source_id"
     t.index ["category_id"], name: "index_practices_on_category_id"
   end
 
