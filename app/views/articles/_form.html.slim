@@ -145,31 +145,31 @@
                   .a-form-help
                     p
                       | WIPで保存した場合は、記事公開日時は保存されません。
-
-    .form-item
-      label.a-form-label
-        | 通知ターゲット
-      ul.block-checks.is-3-items
-        li.block-checks__item
-          .a-block-check.is-radio
-            = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
-            label.a-block-check__label(for='all')
-              | 全員（退会者を除く）
-        li.block-checks__item
-          .a-block-check.is-radio
-            = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
-            label.a-block-check__label(for='students')
-              | 現役生のみ
-        li.block-checks__item
-          .a-block-check.is-radio
-            = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
-            label.a-block-check__label(for='job_seekers')
-              | 就職希望者のみ
-        li.block-checks__item
-          .a-block-check.is-radio
-            = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
-            label.a-block-check__label(for='none')
-              | 通知しない
+    - if article.published_at.nil?
+      .form-item
+        label.a-form-label
+          | 通知ターゲット
+        ul.block-checks.is-3-items
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='all')
+                | 全員（退会者を除く）
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='students')
+                | 現役生のみ
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='job_seekers')
+                | 就職希望者のみ
+          li.block-checks__item
+            .a-block-check.is-radio
+              = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
+              label.a-block-check__label(for='none')
+                | 通知しない
 
   .form-actions
     ul.form-actions__items
