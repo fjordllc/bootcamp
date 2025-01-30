@@ -7,8 +7,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     checkId: null,
-    userName: null,
-    createdAt: null,
     checkableId: null,
     checkableType: null,
     productId: null,
@@ -17,8 +15,6 @@ export default new Vuex.Store({
   },
   getters: {
     checkId: (state) => state.checkId,
-    userName: (state) => state.userName,
-    createdAt: (state) => state.createdAt,
     checkableId: (state) => state.checkableId,
     checkableType: (state) => state.checkableType,
     productId: (state) => state.productId,
@@ -26,13 +22,8 @@ export default new Vuex.Store({
     watchId: (state) => state.watchId
   },
   mutations: {
-    setCheckable(
-      state,
-      { checkId, userName, createdAt, checkableId, checkableType }
-    ) {
+    setCheckable(state, { checkId, checkableId, checkableType }) {
       state.checkId = checkId
-      state.userName = userName
-      state.createdAt = createdAt
       state.checkableId = checkableId
       state.checkableType = checkableType
     },
@@ -64,16 +55,12 @@ export default new Vuex.Store({
           if (json[0]) {
             commit('setCheckable', {
               checkId: json[0].id,
-              createdAt: json[0].created_at,
-              userName: json[0].user.login_name,
               checkableId: checkableId,
               checkableType: checkableType
             })
           } else {
             commit('setCheckable', {
               checkId: null,
-              createdAt: null,
-              userName: null,
               checkableId: checkableId,
               checkableType: checkableType
             })
