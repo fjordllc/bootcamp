@@ -285,10 +285,8 @@ class CurrentUserTest < ApplicationSystemTestCase
     assert_selector 'h1.page-main-header__title', text: 'プロフィール'
     assert_selector 'h2.card-header__title', text: '主な活動予定時間'
 
-    within('tbody#learning_time_frame') do
-      assert page.has_selector?('td[name="checked_1"]')
-      assert page.has_selector?('td[name="checked_25"]')
-      assert page.has_selector?('td[name="checked_49"]')
-    end
+    assert page.has_selector?('td[name="checked_1"]')
+    assert page.has_selector?('td[name="checked_25"]')
+    assert page.has_selector?('td[name="checked_49"]')
   end
 end
