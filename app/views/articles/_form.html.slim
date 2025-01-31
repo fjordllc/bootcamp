@@ -138,10 +138,13 @@
                   .a-form-help
                     p
                       | WIPで保存した場合は、記事公開日時は保存されません。
+
     - if article.published_at.nil?
       .form-item
         label.a-form-label
           | 通知ターゲット
+          p
+            | 通知は初回公開時のみ行われます。
         ul.block-checks.is-3-items
           li.block-checks__item
             .a-block-check.is-radio
@@ -163,6 +166,9 @@
               = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='none')
                 | 通知しない
+    - else
+      p
+        = 'この記事は初回公開時にすでに通知を行っています。'
 
   .form-actions
     ul.form-actions__items
