@@ -150,25 +150,28 @@
             .a-block-check.is-radio
               = f.radio_button :target, 'all', id: 'all', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='all')
-                | 全員（退会者を除く）
+                = t("activerecord.enums.article.target.all")
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'students', id: 'students', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='students')
-                | 現役生のみ
+                = t("activerecord.enums.article.target.students")
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'job_seekers', id: 'job_seekers', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='job_seekers')
-                | 就職希望者のみ
+                = t("activerecord.enums.article.target.job_seekers")
           li.block-checks__item
             .a-block-check.is-radio
               = f.radio_button :target, 'none', id: 'none', class: 'a-toggle-checkbox'
               label.a-block-check__label(for='none')
-                | 通知しない
+                =t("activerecord.enums.article.target.none")
     - else
-      p
-        = 'この記事は初回公開時にすでに通知を行っています。'
+      - if article.target == 'none'
+        | この記事は通知を行わずに公開しました。
+      - else
+        p
+          = "この記事は初回公開時に#{t("activerecord.enums.article.target.#{article.target}")}に対してすでに通知を行っています。"
 
   .form-actions
     ul.form-actions__items
