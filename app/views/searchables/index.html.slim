@@ -61,7 +61,7 @@ hr.a-border
                             .card-list-item-meta__user
                               = link_to "/users/#{searchable_user.id}", class: 'card-list-item-meta__icon-link' do
                                 span.a-user-role class="is-#{searchable.primary_role}"
-                                  = image_tag searchable_user.avatar_url, class: 'user-profile__user-icon-image a-user-icon'
+                                  = image_tag searchable_user.avatar_url, class: 'card-list-item-meta__icon a-user-icon'
                               = link_to searchable_user.login_name, "/users/#{searchable_user.id}", class: 'a-user-name'
                         .card-list-item-meta__item
                           time.a-meta datetime=searchable.formatted_updated_at pubdate='pubdate'
