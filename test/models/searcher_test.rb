@@ -20,6 +20,11 @@ class SearchableTest < ActiveSupport::TestCase
     users(:kimura)
   end
 
+  # キーワード検索結果の強調されているHTMLタグを除去するヘルパーメソッド
+  def strip_html(text)
+    ActionController::Base.helpers.strip_tags(text)
+  end
+
   test "returns all types when document_type argument isn't specified" do
     results = Searcher.search('テスト', current_user: current_user)
     actual_classes = results.map(&:model_name).uniq
@@ -179,16 +184,15 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'returns only answers of questions having all keywords' do
     result = Searcher.search('です', document_type: :questions, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [answers(:answer1).formatted_summary('です'), answers(:answer1).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [answers(:answer5).formatted_summary('です'), answers(:answer5).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer1).description, answers(:answer1).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer5).description, answers(:answer5).user.login_name])
 
     result = Searcher.search('です atom', document_type: :questions, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [answers(:answer1).formatted_summary('です atom'), answers(:answer1).user.login_name])
-    assert_not_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [answers(:answer5).formatted_summary('です atom'), answers(:answer5).user.login_name])
-
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer1).description, answers(:answer1).user.login_name])
+    assert_not_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer5).description, answers(:answer5).user.login_name])
     result = Searcher.search('です　atom', document_type: :questions, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [answers(:answer1).formatted_summary('です　atom'), answers(:answer1).user.login_name])
-    assert_not_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [answers(:answer5).formatted_summary('です　atom'), answers(:answer5).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer1).description, answers(:answer1).user.login_name])
+    assert_not_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [answers(:answer5).description, answers(:answer5).user.login_name])
   end
 
   test 'returns only announcements having all keywords' do
@@ -207,32 +211,33 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'returns only comments having all keywords' do
     result = Searcher.search('report_id', document_type: :reports, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment6).formatted_summary('report_id'), comments(:comment6).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment5).formatted_summary('report_id'), comments(:comment5).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment6).description, comments(:comment6).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment5).description, comments(:comment5).user.login_name])
 
     result = Searcher.search('report_id typo', document_type: :reports, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment6).formatted_summary('report_id typo'), comments(:comment6).user.login_name])
-    assert_not_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment5).formatted_summary('report_id typo'), comments(:comment5).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment6).description, comments(:comment6).user.login_name])
+    assert_not_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment5).description, comments(:comment5).user.login_name])
 
     result = Searcher.search('report_id　typo', document_type: :reports, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment6).formatted_summary('report_id　typo'), comments(:comment6).user.login_name])
-    assert_not_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment5).formatted_summary('report_id　typo'), comments(:comment5).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment6).description, comments(:comment6).user.login_name])
+    assert_not_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment5).description, comments(:comment5).user.login_name])
   end
 
   test 'returns only comments associated to specified document_type' do
     result = Searcher.search('コメント', document_type: :reports, current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment11).formatted_summary('コメント'), comments(:comment11).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment11).description, comments(:comment11).user.login_name])
   end
 
   test 'returns all comments when document_type is not specified' do
+    current_user = users(:komagata)
     result = Searcher.search('コメント', current_user: current_user)
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment8).formatted_summary('コメント'), comments(:comment8).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment10).formatted_summary('コメント'), comments(:comment10).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment11).formatted_summary('コメント'), comments(:comment11).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment12).formatted_summary('コメント'), comments(:comment12).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment13).formatted_summary('コメント'), comments(:comment13).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment14).formatted_summary('コメント'), comments(:comment14).user.login_name])
-    assert_includes(result.map { |r| [r.formatted_summary, r.login_name] }, [comments(:comment16).formatted_summary('コメント'), comments(:comment16).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment8).description, comments(:comment8).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment10).description, comments(:comment10).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment11).description, comments(:comment11).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment12).description, comments(:comment12).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment13).description, comments(:comment13).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment14).description, comments(:comment14).user.login_name])
+    assert_includes(result.map { |r| [strip_html(r.formatted_summary), r.login_name] }, [comments(:comment16).description, comments(:comment16).user.login_name])
     assert_equal(30, result.size)
   end
 
