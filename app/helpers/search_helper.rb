@@ -17,6 +17,8 @@ module SearchHelper
     find_match_in_text(summary, word)
   end
 
+  include PolicyHelper
+
   def self.matched_document(searchable)
     if searchable.instance_of?(Comment)
       searchable.commentable_type.constantize.find(searchable.commentable_id)
@@ -30,7 +32,7 @@ module SearchHelper
   def searchable_url(searchable)
     case searchable
     when Comment
-       "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
+      "#{Rails.application.routes.url_helpers.polymorphic_path(searchable.commentable)}#comment_#{searchable.id}"
     when CorrectAnswer, Answer
       Rails.application.routes.url_helpers.question_path(searchable.question, anchor: "answer_#{searchable.id}")
     else
@@ -39,16 +41,20 @@ module SearchHelper
     end
   end
 
-  def filtered_message(searchable, current_user)
+  def filtered_message(searchable)
     case searchable
     when SearchResult
       searchable.summary
     when Comment
-      commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
-      if commentable.try(:visible_to_user?, current_user) || (commentable.is_a?(Practice) && commentable.open_product?)
-        searchable.body
+      if searchable.instance_of?(Comment) && searchable.commentable_type == 'Product'
+        commentable = searchable.commentable_type.constantize.find(searchable.commentable_id)
+        if policy(commentable).show? || (commentable.is_a?(Practice) && commentable.open_product?)
+          searchable.body
+        else
+          '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
+        end
       else
-        '該当プラクティスを修了するまで他の人の提出物へのコメントは見れません。'
+        searchable.description
       end
     when Product
       searchable.body
