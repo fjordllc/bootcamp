@@ -5,12 +5,13 @@ class SearchResult
 
   attr_accessor :url, :title, :summary, :formatted_summary, :user_id,
                 :login_name, :formatted_updated_at, :model_name, :label,
-                :wip, :commentable_user, :commentable_type, :primary_role
+                :wip, :commentable_user, :commentable_type, :primary_role, :current_user
 
   def initialize(searchable, word, current_user)
+    @current_user = current_user
     @url = searchable_url(searchable)
     @title = Searcher.fetch_title(searchable)
-    @summary = filtered_message(searchable, current_user)
+    @summary = filtered_message(searchable)
     @formatted_summary = Searcher.highlight_word(@summary, word)
     @user_id = searchable.is_a?(User) ? searchable.id : searchable.try(:user_id)
     @login_name = Searcher.fetch_login_name(searchable)
