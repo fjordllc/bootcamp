@@ -111,7 +111,7 @@ class DiscordNotifier < ApplicationNotifier # rubocop:disable Metrics/ClassLengt
     webhook_url = params[:webhook_url] || Rails.application.secrets[:webhook][:mentor]
 
     comment = params[:comment]
-    product_checker_name = User.find_by(id: comment.commentable.checker_id).login_name
+    product_checker_name = comment.commentable.checker.discord_profile&.account_name
     product_checker_discord_id = Discord::Server.find_member_id(member_name: product_checker_name)
     product_checker_discord_name = "<@#{product_checker_discord_id}>"
     product = comment.commentable
