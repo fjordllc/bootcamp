@@ -150,8 +150,9 @@
       .form-item
         label.a-form-label
           | 通知ターゲット
-          p
-            | 通知は初回公開時のみ行われます。
+          .a-form-help
+            p
+              | 通知は初回公開時のみ行われます。
         ul.block-checks.is-3-items
           li.block-checks__item
             .a-block-check.is-radio
@@ -175,7 +176,8 @@
                 =t("activerecord.enums.article.target.none")
     - else
       - if article.target == 'none'
-        | この記事は通知を行わずに公開しました。
+        p
+          | この記事は通知を行わずに公開しました。
       - else
         p
           = "この記事は初回公開時に#{t("activerecord.enums.article.target.#{article.target}")}に対してすでに通知を行っています。"
