@@ -45,6 +45,11 @@
       display: none
     > input:checked + * .is-hidden-then-checked
       display: none
+  &:has(.a-table)
+    border: none
+    .card-header
+      border: solid 1px var(--border)
+      border-bottom: none
 
 table.a-card
   display: table
