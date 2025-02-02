@@ -114,7 +114,7 @@
                 .card-footer__description
                   | このプラクティスに提出物はありません。
                   br
-                  | 終了条件をクリアしたら修了にしてください。
+                  | 修了条件をクリアしたら修了にしてください。
 
           - if @practice.coding_tests.present?
             = render partial: 'coding_tests', locals: { coding_tests: @practice.coding_tests }
