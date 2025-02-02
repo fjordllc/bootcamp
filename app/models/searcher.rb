@@ -91,31 +91,31 @@ class Searcher
       user = User.find_by(login_name: username)
       return [] unless user
 
-      AVAILABLE_TYPES
-        .reject { |type| type == :users }
-        .flat_map do |type|
-          model = model(type)
-          next [] unless model.column_names.include?('user_id') || model.column_names.include?('last_updated_user_id')
-
-          if type == :practices
-            model.where('last_updated_user_id = ?', user.id)
-          else
-            model.where(user_id: user.id)
-          end
-        end
-        .uniq
-        .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-        .sort_by(&:updated_at)
-        .reverse
+      return AVAILABLE_TYPES.reject { |type| type == :users }
+                            .flat_map do |type|
+                              model = model(type)
+                              next [] unless model.column_names.include?('user_id') || model.column_names.include?('last_updated_user_id')
+  
+                              if type == :practices
+                                model.where('last_updated_user_id = ?', user.id)
+                              else
+                                model.where(user_id: user.id)
+                              end
+                            end
+                            .uniq
+                            .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
+                            .sort_by(&:updated_at)
+                            .reverse
     else
-      AVAILABLE_TYPES
-        .flat_map { |type| result_for(type, words) }
-        .uniq
-        .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
-        .sort_by(&:updated_at)
-        .reverse
+      results = AVAILABLE_TYPES.flat_map { |type| result_for(type, words) }
+                               .uniq
+                               .select { |result| words.all? { |word| result_matches_keyword?(result, word) } }
+                               .sort_by(&:updated_at)
+                               .reverse
+      results += result_for(:users, words)
+      results
     end
-  end
+  end  
 
   def self.result_for(type, words, commentable_type: nil)
     raise ArgumentError, "#{type} is not an available type" unless type.in?(AVAILABLE_TYPES)
@@ -128,6 +128,14 @@ class Searcher
       else
         return model(type).all
       end
+    end
+
+    if type == :users
+      return User.where(
+        words.map { |word| "login_name ILIKE ? OR name ILIKE ?" }
+             .join(" AND "),
+        *words.flat_map { |word| ["%#{word}%", "%#{word}%"] }
+      )
     end
 
     user_filter = words.find { |word| word.match(/^user:(\w+)$/) }
