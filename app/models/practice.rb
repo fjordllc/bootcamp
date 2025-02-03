@@ -37,11 +37,16 @@ class Practice < ApplicationRecord
   has_one_attached :ogp_image
   has_one_attached :completion_image
 
-  has_many :books, through: :practices_books
   has_many :practices_books, dependent: :destroy
+  has_many :books, through: :practices_books
   accepts_nested_attributes_for :practices_books, reject_if: :all_blank, allow_destroy: true
 
   has_one :submission_answer, dependent: :destroy
+  has_many :coding_tests, dependent: :nullify
+
+  has_many :coding_test_submissions,
+           through: :coding_tests,
+           source: :coding_test_submissions
 
   validates :title, presence: true
   validates :description, presence: true

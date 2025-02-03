@@ -104,12 +104,15 @@ class User < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :survey_questions, dependent: :destroy
   has_many :external_entries, dependent: :destroy
+  has_many :coding_tests, dependent: :destroy
+  has_many :coding_test_submissions, dependent: :destroy
   has_one :report_template, dependent: :destroy
   has_one :talk, dependent: :destroy
   has_one :discord_profile, dependent: :destroy
   accepts_nested_attributes_for :discord_profile, allow_destroy: true
   has_many :request_retirements, dependent: :destroy
   has_one :targeted_request_retirement, class_name: 'RequestRetirement', foreign_key: 'target_user_id', dependent: :destroy, inverse_of: :target_user
+  has_many :micro_reports, dependent: :destroy
 
   has_many :participate_events,
            through: :participations,
@@ -170,6 +173,8 @@ class User < ApplicationRecord
   has_many :participate_regular_events,
            through: :regular_event_participations,
            source: :regular_event
+
+  has_many :coding_test_submissions, dependent: :destroy
 
   has_one_attached :avatar
   has_one_attached :profile_image
@@ -515,6 +520,10 @@ class User < ApplicationRecord
 
       User.none
     end
+  end
+
+  def submitted?(coding_test)
+    coding_test_submissions.exists?(coding_test_id: coding_test.id)
   end
 
   def away?
@@ -877,6 +886,10 @@ class User < ApplicationRecord
       country = ISO3166::Country[country_code]
       country ? country.translations['ja'] : nil
     end
+  end
+
+  def latest_micro_report_page
+    [micro_reports.page.total_pages, 1].max
   end
 
   private

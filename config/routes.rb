@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "pp", to: "welcome#pp", as: "pp"
   get "law", to: "welcome#law", as: "law"
   get "coc", to: "welcome#coc", as: "coc"
+  get "press_kit", to: "welcome#press_kit", as: "press_kit"
+  get "logo", to: "welcome#logo", as: "logo"
   get 'certified_reskill_courses/rails_developer_course',
     to: 'welcome#rails_developer_course',
     as: :certified_reskill_courses_rails_developer_course_root
@@ -54,6 +56,12 @@ Rails.application.routes.draw do
     resources :pages, only: %i(index), controller: "practices/pages"
     resource :completion, only: %i(show), controller: "practices/completion"
     resource :submission_answer, only: %i(show), controller: "practices/submission_answer"
+    resources :coding_tests, only: %i(index), controller: "practices/coding_tests"
+  end
+  resources :coding_tests, only: %i(show) do
+    resources :coding_test_submissions,
+      only: %i(index show show),
+      controller: "coding_tests/coding_test_submissions"
   end
   resources :pages, param: :slug_or_id
   namespace :notification do

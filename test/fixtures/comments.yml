@@ -140,11 +140,13 @@ comment42:
 commentOfTalk:
   user: komagata
   commentable: talk1 (Talk)
+  commentable_type: Talk
   description: "これは相談部屋の会話です。"
   updated_at: "2019-01-02 00:00:00 JST"
 
 commentOfTalk2:
   user: hajime
   commentable: talk9 (Talk)
+  commentable_type: Talk
   description: "これは相談部屋の会話です。"
   updated_at: "2019-01-02 00:00:00 JST"
