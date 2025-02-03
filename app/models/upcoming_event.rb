@@ -86,7 +86,7 @@ class UpcomingEvent
 
     def original_events_scheduled_on(date)
       [Event, RegularEvent].map do |model|
-        model.public_send(:scheduled_on, date)
+        model.public_send(:scheduled_on_without_ended, date)
       end.flatten
     end
   end
