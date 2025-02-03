@@ -1,11 +1,11 @@
 .header-links.is-user-links
   ul.header-links__items
-    li.header-links__search.is-hidden-md-down
+    li.header-links__search.is-hidden
       = render 'application/header/header_search',
         select_id: 'header-search-select',
         text_field_id: 'header-search-word',
         submit_id: 'test-search'
-    li.header-links__item.is-hidden-lg-up
+    li.header-links__item
       button.header-links__link.test-show-menu.js-modal-search-shown-trigger
         .header-links__link-icon
           i.fa-solid.fa-search
@@ -42,15 +42,15 @@
       li.header-links__item
         = react_component('NotificationsBell/NotificationsBell')
 
-.modal#js-modal-search.is-hidden-lg-up
+.modal#js-modal-search
   .modal__overlay.js-modal-search-hidden-trigger
-  .modal-content
+  .modal-content.is-sm
     .modal-header
       h2.modal-title
         | 検索
       .modal-header__close.js-modal-search-hidden-trigger
     .modal-body
-      .modal__description.is-md
+      .modal__description
         = render 'application/header/header_search',
           select_id: 'header-search-select-modal',
           text_field_id: 'header-search-word-modal',
