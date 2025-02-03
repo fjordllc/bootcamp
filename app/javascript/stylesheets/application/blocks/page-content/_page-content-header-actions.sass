@@ -2,18 +2,21 @@
   padding-top: .25rem
   display: flex
   flex-wrap: wrap
-  gap: .5rem
   +media-breakpoint-up(sm)
     justify-content: space-between
+    gap: .5rem
   +media-breakpoint-down(xs)
     justify-content: center
+    gap: .25rem
 
 .page-content-header-actions__start,
 .page-content-header-actions__end
   display: flex
-  gap: .5rem
   +media-breakpoint-up(sm)
     flex: 1
+    gap: .5rem
+  +media-breakpoint-down(xs)
+    gap: .25rem
 
 .page-content-header-actions__start
   justify-content: flex-start
@@ -23,7 +26,7 @@
     justify-content: flex-end
 
 .page-content-header-actions__action
-  min-width: 5.5rem
+  min-width: 5.4rem
   +media-breakpoint-up(md)
     min-width: 7rem
   +media-breakpoint-down(sm)
