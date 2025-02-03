@@ -15,10 +15,10 @@
               :book='book',
               :isAdmin='isAdmin',
               :isMentor='isMentor')
-        .o-empty-message(v-else)
-          .o-empty-message__icon
+        .a-empty-message(v-else)
+          .a-empty-message__icon
             i.fa-regular.fa-sad-tear
-          p.o-empty-message__text
+          p.a-empty-message__text
             | 登録されている本はありません
 </template>
 <script>

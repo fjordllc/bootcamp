@@ -15,10 +15,10 @@
   .page-body
     .container.is-md
         - if @talks.empty?
-          .o-empty-message
-            .o-empty-message__icon
+          .a-empty-message
+            .a-empty-message__icon
               i.fa-regular.fa-smile
-            p.o-empty-message__text
+            p.a-empty-message__text
               | 未対応の相談部屋はありません
         - elsif @validated_search_word.blank?
           .talk-list
@@ -28,10 +28,10 @@
                   = render 'talks/talk', talk: talk
             = paginate @talks
         - elsif @searched_talks.empty?
-          .o-empty-message
-            .o-empty-message__icon
+          .a-empty-message
+            .a-empty-message__icon
               i.far.fa-sad-tear
-            p.o-empty-message__text
+            p.a-empty-message__text
               | 一致する相談部屋はありません
         - else
           .searched-talk-list

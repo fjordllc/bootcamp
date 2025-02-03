@@ -16,11 +16,11 @@ export default function Notifications({ notifications, targetStatus }) {
     )
   } else if (notifications.length === 0) {
     return (
-      <div className="o-empty-message mb-8">
-        <div className="o-empty-message__icon">
+      <div className="a-empty-message mb-8">
+        <div className="a-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
-        <p className="o-empty-message__text">
+        <p className="a-empty-message__text">
           {isUnreadTab ? '未読の通知はありません' : '通知はありません'}
         </p>
         <div className="header-dropdown__page-link-container mt-8">

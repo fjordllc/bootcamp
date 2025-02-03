@@ -24,10 +24,10 @@
     .container.is-md(v-if='!loaded')
       loadingListPlaceholder
     .container.is-md(v-else)
-      .o-empty-message(v-if='watches.length === 0')
-        .o-empty-message__icon
+      .a-empty-message(v-if='watches.length === 0')
+        .a-empty-message__icon
           i.fa-regular.fa-sad-tear
-        p.o-empty-message__text
+        p.a-empty-message__text
           | Watchしているものはまだありません。
       div(v-else)
         nav.pagination(v-if='totalPages > 1')

@@ -1,18 +1,15 @@
 .a-empty-message
-  +text-block(1rem 1.6, center)
+  max-width: 50rem
   margin-inline: auto
-  max-width: 100%
-  +media-breakpoint-up(md)
-    width: 42.5rem
-  +media-breakpoint-down(sm)
-    font-size: .8125rem
-  &.is-info
-    border: solid 1px var(--info)
-    padding: .75rem 1.25rem
-    border-radius: .25rem
-    background-color: var(--info-tint)
-    color: var(--info-text)
-    +media-breakpoint-down(sm)
-      padding: .75rem 1rem
-  p
-    +text-block(.875em 1.6, left)
+  text-align: center
+  color: var(--semi-muted-text)
+  &:not(:first-child)
+    margin-top: 1.5rem
+
+.a-empty-message__icon
+  +text-block(5rem 1)
+
+.a-empty-message__text
+  +text-block(1rem 1.4)
+  margin-top: 1em
+  text-align: center

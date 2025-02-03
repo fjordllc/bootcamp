@@ -4,10 +4,10 @@ div
     pager(v-bind='pagerProps')
   div(v-if='questions === null')
     loadingListPlaceholder
-  .o-empty-message(v-else-if='questions.length === 0')
-    .o-empty-message__icon
+  .a-empty-message(v-else-if='questions.length === 0')
+    .a-empty-message__icon
       i.fa-regular.fa-sad-tear
-    p.o-empty-message__text
+    p.a-empty-message__text
       | {{ emptyMessage }}
   .card-list.a-card(v-else)
     .card-list__items

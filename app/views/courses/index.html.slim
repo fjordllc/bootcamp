@@ -26,8 +26,8 @@ hr.a-border
         - elsif !current_user&.mentor? && @courses.where(published: true).present?
           = render @courses.where(published: true).order(:created_at)
         - else
-          .o-empty-message
-              .o-empty-message__icon
+          .a-empty-message
+              .a-empty-message__icon
                 i.fa-regular.fa-sad-tear
-              p.o-empty-message__text
+              p.a-empty-message__text
                 | 公開コースはありません。

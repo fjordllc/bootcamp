@@ -5,10 +5,10 @@ div
   div(v-if='answers === null')
     loadingListPlaceholder
     .card-list.a-card
-  .o-empty-message(v-else-if='answers.length === 0')
-    .o-empty-message__icon
+  .a-empty-message(v-else-if='answers.length === 0')
+    .a-empty-message__icon
       i.fa-regular.fa-sad-tear
-    p.o-empty-message__text
+    p.a-empty-message__text
       | 回答はまだありません。
   .card-list.a-card(v-else)
     usersAnswer(v-for='answer in answers', :key='answer.id', :answer='answer')

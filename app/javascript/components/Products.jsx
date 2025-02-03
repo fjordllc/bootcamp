@@ -114,21 +114,21 @@ export default function Products({
           </nav>
         ) : null}
 
-        <div className="o-empty-message loaded">
-          <div className="o-empty-message__icon">
+        <div className="a-empty-message loaded">
+          <div className="a-empty-message__icon">
             <i className="fa-regular fa-smile"></i>
           </div>
-          <p className="o-empty-message__text">{title}はありません</p>
+          <p className="a-empty-message__text">{title}はありません</p>
         </div>
       </>
     )
   } else if (isDashboard() && isNotProductDeadlineDaysElapsed()) {
     return (
-      <div className="o-empty-message loaded">
-        <div className="o-empty-message__icon">
+      <div className="a-empty-message loaded">
+        <div className="a-empty-message__icon">
           <i className="fa-regular fa-smile" />
         </div>
-        <p className="o-empty-message__text">
+        <p className="a-empty-message__text">
           {productDeadlineDay}日経過した提出物はありません
         </p>
       </div>

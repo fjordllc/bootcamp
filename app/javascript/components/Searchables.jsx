@@ -28,11 +28,11 @@ export default function Searchables({ word }) {
 
       {data?.searchables.length === 0 && (
         <div className="container">
-          <div className="o-empty-message">
-            <div className="o-empty-message__icon">
+          <div className="a-empty-message">
+            <div className="a-empty-message__icon">
               <i className="fa-regular fa-sad-tear" />
             </div>
-            <p className="o-empty-message__text">
+            <p className="a-empty-message__text">
               {word}に一致する情報は見つかりませんでした。
             </p>
           </div>

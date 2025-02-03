@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const memoEditor = mentorMemo.querySelector('.memo-editor')
 
     const placeholder = memoDisplay.querySelector('.a-placeholder')
-    const emptyMessage = memoDisplay.querySelector('.o-empty-message')
+    const emptyMessage = memoDisplay.querySelector('.a-empty-message')
     const memoDisplayContent = memoDisplay.querySelector(
       '.user-mentor-memo-content'
     )
@@ -132,7 +132,7 @@ function switchMemoDisplay(memoDisplay, memo) {
   const memoDisplayContent = memoDisplay.querySelector(
     '.user-mentor-memo-content'
   )
-  const emptyMessage = memoDisplay.querySelector('.o-empty-message')
+  const emptyMessage = memoDisplay.querySelector('.a-empty-message')
   memoDisplayContent.classList.toggle('is-hidden', memo.length === 0)
   emptyMessage.classList.toggle('is-hidden', memo.length !== 0)
 }

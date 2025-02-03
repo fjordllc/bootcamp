@@ -39,11 +39,11 @@ export default function GenerationUsers({ generationID }) {
             ))
           ) : (
             <div className="row">
-              <div className="o-empty-message">
-                <div className="o-empty-message__icon">
+              <div className="a-empty-message">
+                <div className="a-empty-message__icon">
                   <i className="fa-regular fa-smile"></i>
                 </div>
-                <p className="o-empty-message_text">
+                <p className="a-empty-message_text">
                   {generationID}期のユーザー一覧はありません
                 </p>
               </div>

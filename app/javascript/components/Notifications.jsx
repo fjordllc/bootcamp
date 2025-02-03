@@ -51,11 +51,11 @@ export default function Notifications({ isMentor }) {
     return (
       <>
         <FilterButton />
-        <div className="o-empty-message">
-          <div className="o-empty-message__icon">
+        <div className="a-empty-message">
+          <div className="a-empty-message__icon">
             <i className="fa-regular fa-smile" />
           </div>
-          <p className="o-empty-message__text">
+          <p className="a-empty-message__text">
             {isUnreadPage() ? '未読の通知はありません' : '通知はありません'}
           </p>
         </div>

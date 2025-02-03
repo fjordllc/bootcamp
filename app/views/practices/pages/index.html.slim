@@ -13,10 +13,10 @@
   = paginate @pages
   .container.is-md
     - if @pages.empty?
-      .o-empty-message
-        .o-empty-message__icon
+      .a-empty-message
+        .a-empty-message__icon
           i.fa-regular.fa-sad-tear
-        p.o-empty-message__text
+        p.a-empty-message__text
           | Docはまだありません
     - else
       .card-list.a-card

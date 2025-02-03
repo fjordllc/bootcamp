@@ -106,10 +106,10 @@ const NoBookmarks = () => {
       {/* .page-main-header */}
       <hr className="a-border"></hr>
       <div className="page-body">
-        <div className="o-empty-message">
-          <div className="o-empty-message__icon">
+        <div className="a-empty-message">
+          <div className="a-empty-message__icon">
             <i className="fa-regular fa-face-sad-tear" />
-            <p className="o-empty-message__text">
+            <p className="a-empty-message__text">
               ブックマークはまだありません。
             </p>
           </div>

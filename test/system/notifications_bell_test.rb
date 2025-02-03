@@ -43,10 +43,10 @@ class NotificationsBellTest < ApplicationSystemTestCase
     visit_with_auth '/', 'kimura'
 
     find('.header-links__link.test-show-notifications').click
-    assert_selector('.o-empty-message.mb-8 .o-empty-message__text', text: '未読の通知はありません')
+    assert_selector('.a-empty-message.mb-8 .a-empty-message__text', text: '未読の通知はありません')
     assert has_link?('通知一覧へ', href: '/notifications')
     find('.pill-nav__item-link.w-full', text: '全て').click
-    assert_selector('.o-empty-message.mb-8 .o-empty-message__text', text: '通知はありません')
+    assert_selector('.a-empty-message.mb-8 .a-empty-message__text', text: '通知はありません')
   end
 
   test 'Up to 10 notifications are displayed in an All tab' do

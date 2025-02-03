@@ -88,10 +88,10 @@
                     span class="a-user-role is-#{participant.primary_role}"
                       = image_tag participant.avatar_url, title: participant.icon_title, class: "a-user-icon is-sm is-#{participant.login_name}", alt: participant.login_name
           - else
-            .o-empty-message
-              .o-empty-message__icon
+            .a-empty-message
+              .a-empty-message__icon
                 i.fa-regular.fa-sad-tear
-              p.o-empty-message__text
+              p.a-empty-message__text
                 | 参加者はまだいません。
 
   - if event.waitlist.count.positive?

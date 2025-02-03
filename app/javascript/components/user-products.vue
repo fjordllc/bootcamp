@@ -13,10 +13,10 @@
       :is-mentor='isMentor')
   .card-body(v-else)
     .card-body__description
-      .o-empty-message
-        .o-empty-message__icon
+      .a-empty-message
+        .a-empty-message__icon
           i.fa-regular.fa-sad-tear
-        .o-empty-message__text
+        .a-empty-message__text
           | 提出物はまだありません。
 </template>
 <script>

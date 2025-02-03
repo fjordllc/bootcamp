@@ -126,12 +126,12 @@ export default function Reports({
 
 const NoReports = ({ unchecked }) => {
   return (
-    <div className="o-empty-message">
-      <div className="o-empty-message__icon">
+    <div className="a-empty-message">
+      <div className="a-empty-message__icon">
         {unchecked ? (
           <>
             <i className="fa-regular fa-smile" />
-            <p className="o-empty-message__text">
+            <p className="a-empty-message__text">
               未チェックの日報はありません
             </p>
           </>
@@ -139,11 +139,11 @@ const NoReports = ({ unchecked }) => {
           <div className="card-list">
             <div className="card-body">
               <div className="card-body__description">
-                <div className="o-empty-message">
-                  <div className="o-empty-message__icon">
+                <div className="a-empty-message">
+                  <div className="a-empty-message__icon">
                     <i className="fa-regular fa-sad-tear" />
                   </div>
-                  <p className="o-empty-message__text">
+                  <p className="a-empty-message__text">
                     日報はまだありません。
                   </p>
                 </div>
