@@ -24,3 +24,9 @@ _net_framework:
 
 may_j_:
   name: May_J.
+
+feature:
+  name: feature
+
+注目の記事:
+  name: '注目の記事'

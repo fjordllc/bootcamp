@@ -10,9 +10,10 @@ class HomeController < ApplicationController
       display_welcome_message_for_adviser
       set_required_fields
       display_products_for_mentor
-      render aciton: :index
+      render action: :index
     else
-      @mentors = User.visible_sorted_mentors
+      @mentors = User.with_attached_profile_image.mentor.includes(authored_books: { cover_attachment: :blob })
+      @articles = list_articles_with_specific_tag
       render template: 'welcome/index', layout: 'lp'
     end
   end
@@ -63,5 +64,9 @@ class HomeController < ApplicationController
   def display_products_for_mentor
     @products = Product.require_assignment_products
     @products_grouped_by_elapsed_days = Product.group_by_elapsed_days(@products)
+  end
+
+  def list_articles_with_specific_tag
+    Article.tagged_with('注目の記事').order(published_at: :desc).where(wip: false).first(6)
   end
 end
