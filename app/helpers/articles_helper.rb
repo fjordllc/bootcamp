@@ -20,6 +20,6 @@ module ArticlesHelper
   end
 
   def feature_tag?(article)
-    article.tags.pluck(:name).include?('feature')
+    article.tags.pluck(:name).include?('注目の記事')
   end
 end
