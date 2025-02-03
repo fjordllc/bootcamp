@@ -152,6 +152,12 @@ class User < ApplicationRecord
            inverse_of: 'follower',
            dependent: :destroy
 
+  has_many :skipped_practices,
+           dependent: :destroy
+
+  has_many :practices,
+           through: :skipped_practices
+
   has_many :followees,
            through: :active_relationships,
            source: :followed
@@ -530,28 +536,6 @@ class User < ApplicationRecord
     last_activity_at && (last_activity_at <= 10.minutes.ago)
   end
 
-  def completed_percentage
-    completed_practices_include_progress_size.to_f / practices_include_progress.pluck(:id).uniq.size * MAX_PERCENTAGE
-  end
-
-  def completed_practices_size_by_category
-    Practice
-      .joins({ categories: :categories_practices }, :learnings)
-      .where(
-        learnings: {
-          user_id: id,
-          status: 'complete'
-        }
-      )
-      .group('categories_practices.category_id')
-      .count('DISTINCT practices.id')
-  end
-
-  def completed_practices_include_progress_size
-    practices_include_progress.joins(:learnings)
-                              .merge(Learning.complete.where(user_id: id)).pluck(:id).uniq.size
-  end
-
   def active?
     (last_activity_at && (last_activity_at > 1.month.ago)) || created_at > 1.month.ago
   end
@@ -610,6 +594,10 @@ class User < ApplicationRecord
     return unless subscription?
 
     Subscription.new.retrieve(subscription_id)
+  end
+
+  def practice_ids_skipped
+    skipped_practices.pluck(:practice_id)
   end
 
   def student?
@@ -750,23 +738,11 @@ class User < ApplicationRecord
     end
   end
 
-  def practices
-    course.practices.order('courses_categories.position', 'categories_practices.position')
-  end
-
   def update_mentor_memo(new_memo)
     # ユーザーの「最終ログイン」にupdated_at値が利用されるため
     # メンターor管理者によるmemoカラムのupdateの際は、updated_at値の変更を防ぐ
     self.record_timestamps = false
     update!(mentor_memo: new_memo)
-  end
-
-  def category_active_or_unstarted_practice
-    if active_practices.present?
-      category_having_active_practice
-    elsif unstarted_practices.present?
-      category_having_unstarted_practice
-    end
   end
 
   def mark_all_as_read_and_delete_cache_of_unreads(target_notifications: nil)
@@ -896,24 +872,5 @@ class User < ApplicationRecord
 
   def password_required?
     new_record? || password.present?
-  end
-
-  def practices_include_progress
-    course.practices.where(include_progress: true)
-  end
-
-  def unstarted_practices
-    @unstarted_practices ||= practices -
-                             practices.joins(:learnings).where(learnings: { user_id: id, status: :started })
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :submitted }))
-                                      .or(practices.joins(:learnings).where(learnings: { user_id: id, status: :complete }))
-  end
-
-  def category_having_active_practice
-    active_practices&.first&.categories&.first
-  end
-
-  def category_having_unstarted_practice
-    unstarted_practices&.first&.categories&.first
   end
 end

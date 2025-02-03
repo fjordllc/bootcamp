@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class Practice::MemoTest < ApplicationSystemTestCase
   test 'update mentor memo without page transitions' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
-    find('#side-tabs-nav-2').click
+    check 'toggle-mentor-memo-body', allow_label_click: true, visible: false
     click_button '編集'
     assert_field('practice[memo]', with: '「OS X Mountain Lionをクリーンインストールする」のメンターメモ')
     practice = products(:product2).practice

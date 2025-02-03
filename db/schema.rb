@@ -692,6 +692,14 @@ ActiveRecord::Schema.define(version: 2025_01_29_033027) do
     t.index ["user_id"], name: "index_request_retirements_on_user_id"
   end
 
+  create_table "skipped_practices", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "practice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "practice_id"], name: "index_skipped_practices_on_user_id_and_practice_id", unique: true
+  end
+
   create_table "submission_answers", force: :cascade do |t|
     t.bigint "practice_id", null: false
     t.text "description", null: false

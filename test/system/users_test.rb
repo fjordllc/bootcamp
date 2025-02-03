@@ -664,10 +664,10 @@ class UsersTest < ApplicationSystemTestCase
 
     travel_to hibernated_user.hibernated_at + 30.days do
       visit_with_auth user_path(hibernated_user), 'komagata'
-      assert_text '休会中 / 休会から30日目'
+      assert_text '休会中（休会から30日目）'
     end
     visit_with_auth user_path(user), 'komagata'
-    assert_no_text '休会中 / 休会から'
+    assert_no_text '休会中（休会から'
   end
 
   test 'show retirement message on users page' do
