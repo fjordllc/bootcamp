@@ -14,6 +14,13 @@ class CommentTest < ActiveSupport::TestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
+  test '.without_talk' do
+    non_talk_comment_count = Comment.without_talk.count
+    all_comment_count = Comment.count
+    only_talk_comment_count = Comment.where(commentable_type: 'Talk').count
+    assert_equal non_talk_comment_count, all_comment_count - only_talk_comment_count
+  end
+
   test '.commented_users' do
     report = reports(:report4)
     users = report.comments.commented_users
@@ -89,16 +96,16 @@ class CommentTest < ActiveSupport::TestCase
       user: users(:komagata),
       commentable: products(:product8),
       description: '提出物への最初のコメント',
-      created_at: Time.current.ago(6.days)
+      created_at: Time.current.ago(4.days)
     )
 
     last_comment = Comment.create!(
       user: users(:kimura),
       commentable: products(:product8),
-      description: '提出物への提出者による最後のコメントかつ、投稿から5日経過',
-      created_at: Time.current.ago(5.days)
+      description: '提出物への提出者による最後のコメントかつ、投稿から3日経過',
+      created_at: Time.current.ago(3.days)
     )
 
-    assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(5.days)
+    assert last_comment.certain_period_passed_since_the_last_comment_by_submitter?(3.days)
   end
 end

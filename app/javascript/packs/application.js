@@ -27,7 +27,6 @@ import '../github_grass'
 import '../following.js'
 import '../hide-user.js'
 import '../categories-practice.js'
-import '../products.js'
 import '../courses-categories.js'
 import '../courses-practices.js'
 import '../no_learn.js'
@@ -55,10 +54,16 @@ import '../editor-selection-form.js'
 import '../user_mentor_memo.js'
 import '../invitation-url-updater.js'
 import '../payment-methods-check-boxes.js'
-import '../product-checker.js'
+import '../product_checker.js'
+import '../product_checker_button.js'
 import '../user-follow.js'
 import '../sort-faq.js'
 import '../sort-faq-category.js'
+import '../micro-report-form-tabs.js'
+import '../micro-reports.js'
+import '../answer.js'
+import '../new-answer.js'
+import '../coding-test.js'
 
 import VueMounter from '../VueMounter.js'
 import Questions from '../components/questions.vue'
@@ -67,7 +72,6 @@ import User from '../components/user.vue'
 import Watches from '../components/watches.vue'
 import WatchToggle from '../components/watch-toggle.vue'
 import Footprints from '../components/footprints.vue'
-import QuestionAnswers from '../components/question-answers.vue'
 import SadReports from '../components/sad_reports.vue'
 import UserProducts from '../components/user-products.vue'
 import ActionCompletedButton from '../components/action-completed-button.vue'
@@ -82,7 +86,6 @@ mounter.addComponent(User)
 mounter.addComponent(Watches)
 mounter.addComponent(WatchToggle)
 mounter.addComponent(Footprints)
-mounter.addComponent(QuestionAnswers)
 mounter.addComponent(SadReports)
 mounter.addComponent(UserProducts)
 mounter.addComponent(ActionCompletedButton)

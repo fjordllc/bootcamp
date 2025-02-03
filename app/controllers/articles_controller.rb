@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   before_action :require_admin_or_mentor_login, except: %i[index show]
 
   def index
-    @articles = sorted_articles.page(params[:page])
+    @articles = sorted_articles.preload([:tags]).page(params[:page])
     @articles = @articles.tagged_with(params[:tag]) if params[:tag]
     number_per_page = @articles.page(1).limit_value
     @atom_articles = sorted_articles.limit(number_per_page)

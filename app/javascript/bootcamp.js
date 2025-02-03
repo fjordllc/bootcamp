@@ -22,12 +22,13 @@ export default {
     })
   },
 
-  post(path) {
+  post(path, params = {}) {
     return fetch(path, {
       method: 'POST',
       headers: headers(),
       credentials: 'same-origin',
-      redirect: 'manual'
+      redirect: 'manual',
+      body: JSON.stringify(params)
     })
   },
 

@@ -7,6 +7,10 @@
         class: 'header-dropdown__item-link' do
         | メンターページ
     li.header-dropdown__item
+      = link_to [:mentor, :coding_tests],
+        class: 'header-dropdown__item-link' do
+        | コーディングテスト
+    li.header-dropdown__item
       = link_to mentor_practices_path,
         class: 'header-dropdown__item-link' do
         | プラクティス

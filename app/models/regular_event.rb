@@ -38,7 +38,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     others: 4
   }, _prefix: true
 
-  validates :title, presence: true
+  validates :title, presence: true, markdown_prohibited: true
   validates :user_ids, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
@@ -79,7 +79,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def next_event_date
     event_dates =
-      hold_national_holiday ? feature_scheduled_dates : feature_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
+      hold_national_holiday ? upcoming_scheduled_dates : upcoming_scheduled_dates.reject { |d| HolidayJp.holiday?(d) }
 
     event_dates.min
   end
@@ -109,8 +109,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def all_scheduled_dates(
-    from: Date.new(Time.current.year, 1, 1),
-    to: Date.new(Time.current.year, 12, 31)
+    from: Date.current,
+    to: Date.current.next_year
   )
     (from..to).filter { |d| date_match_the_rules?(d, regular_event_repeat_rules) }
   end
@@ -129,10 +129,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def self.fetch_participated_regular_events(user)
     participated_regular_events = []
     user.participated_regular_event_ids.find_each do |regular_event|
-      regular_event.all_scheduled_dates(
-        from: Time.current.to_date,
-        to: Time.current.to_date.next_year
-      ).each do |event_date|
+      regular_event.all_scheduled_dates.each do |event_date|
         participated_regular_events << regular_event.transform_for_subscription(event_date)
       end
     end
@@ -148,7 +145,7 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
     errors.add(:end_at, ': イベント終了時刻はイベント開始時刻よりも後の時刻にしてください。')
   end
 
-  def feature_scheduled_dates
+  def upcoming_scheduled_dates
     # 時刻が過ぎたイベントを排除するためだけに、一時的にstart_timeを与える。後でDate型に戻す。
     event_dates_with_start_time = all_scheduled_dates.map { |d| d.in_time_zone.change(hour: start_at.hour, min: start_at.min) }
 
@@ -170,11 +167,8 @@ class RegularEvent < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def parse_event_time(event_date, event_time)
-    tz = ActiveSupport::TimeZone['Asia/Tokyo']
-
-    time = event_time ? event_time.strftime('%H:%M') : '00:00'
-    date_time = DateTime.parse("#{event_date} #{time}")
-
-    tz.local_to_utc(date_time)
+    str_date = event_date.strftime('%F')
+    str_time = event_time.strftime('%R')
+    Time.zone.parse([str_date, str_time].join(' '))
   end
 end
