@@ -16,7 +16,7 @@ main.page-main
         .page-main-header__start
           h1.page-main-header__title
             = @corporate_training_inquiry.company_name
-            | （#{ @corporate_training_inquiry.name}様）
+            | （#{@corporate_training_inquiry.name}様）
         .page-main-header__end
           .page-main-header-actions
             ul.page-main-header-actions__items
@@ -55,7 +55,7 @@ main.page-main
                       .a-short-text
                         p
                           = @corporate_training_inquiry.company_name
-                          | （担当者: #{ @corporate_training_inquiry.name}様）
+                          | （担当者: #{@corporate_training_inquiry.name}様）
                           br
                           = @corporate_training_inquiry.email
           .a-card
