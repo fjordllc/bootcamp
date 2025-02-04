@@ -21,5 +21,4 @@
   - if practice.started_or_submitted_students.present?
     .a-user-icons
       .a-user-icons__items
-        - practice.started_or_submitted_students.each do |started_or_submitted_student|
-          == render 'practice_user_icon', started_or_submitted_student: started_or_submitted_student
+        = render partial: 'practice_user_icon', collection: practice.started_or_submitted_students, as: :started_or_submitted_student
