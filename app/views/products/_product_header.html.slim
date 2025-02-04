@@ -1,5 +1,6 @@
 header.page-content-header
-  #js-check-stamp(data-checkable-id="#{product.id}" data-checkable-type='Product')
+  #js-check-stamp(data-checkable-type='Product' data-checkable-id="#{product.id}")
+  = render 'checks/check-stamp'
   .page-content-header__start
     .page-content-header__user
       = render 'users/icon', user: product.user, link_class: 'page-content-header__user-link', image_class: 'page-content-header__user-icon'
