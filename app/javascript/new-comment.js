@@ -1,20 +1,20 @@
 import CSRF from 'csrf'
 import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
-import initializeComment from 'initialize_comment.js'
+import initializeComment from './initializeComment.js'
 import { initializeReaction } from './reaction.js'
 import { toast } from './vanillaToast.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const comment = document.querySelector('.new-comment')
-  if (comment) {
+  const newComment = document.querySelector('.new-comment')
+  if (newComment) {
     TextareaInitializer.initialize('#js-new-comment')
     const markdownInitializer = new MarkdownInitializer()
-    const commentableId = comment.dataset.commentable_id
-    const commentableType = comment.dataset.commentable_type
+    const commentableId = newComment.dataset.commentable_id
+    const commentableType = newComment.dataset.commentable_type
     let savedComment = ''
 
-    const commentEditor = comment.querySelector('.comment-editor')
+    const commentEditor = newComment.querySelector('.comment-editor')
     const commentEditorPreview = commentEditor.querySelector(
       '.a-markdown-input__preview'
     )
