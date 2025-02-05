@@ -132,9 +132,9 @@ class Searcher
 
     if type == :users
       return User.where(
-        words.map { |word| "login_name ILIKE ? OR name ILIKE ?" }
+        words.map { |word| "login_name ILIKE ? OR name ILIKE ? OR description ILIKE ?" }
              .join(" AND "),
-        *words.flat_map { |word| ["%#{word}%", "%#{word}%"] }
+        *words.flat_map { |word| ["%#{word}%", "%#{word}%", "%#{word}%"] }
       )
     end
 
