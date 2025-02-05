@@ -5,6 +5,7 @@ require 'supports/product_helper'
 
 class UserTest < ActiveSupport::TestCase
   include ProductHelper
+
   test '#admin?' do
     assert users(:komagata).admin?
     assert users(:machida).admin?
