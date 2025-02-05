@@ -64,7 +64,7 @@
                     .user-data__row
                       = render 'users/user_secret_attributes', user: @user
                   .user-data__row
-                    = render 'users/metas', user: @user
+                    = render 'users/metas', user: @user, user_course_practice: UserCoursePractice.new(@user)
 
           .col-xs-12.col-lg-6.col-xxl-6
             - if admin_or_mentor_login?

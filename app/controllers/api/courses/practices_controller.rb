@@ -11,6 +11,6 @@ class API::Courses::PracticesController < API::BaseController
                   .includes(practices: [{ started_students: { avatar_attachment: :blob } }, :learning_minute_statistic, :practices_books])
                   .order('courses_categories.position')
     @learnings = current_user.learnings
-    @completed_practices_size_by_category = current_user.completed_practices_size_by_category
+    @completed_practices_size_by_category = @current_user_practice.completed_practices_size_by_category
   end
 end
